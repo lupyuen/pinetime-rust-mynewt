@@ -1581,11 +1581,16 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   96:	55a2                	lw	a1,40(sp)
   98:	00a59763          	bne	a1,a0,a6 <app::app_sensor::start_sensor_listener+0xa6>
   9c:	a009                	j	9e <app::app_sensor::start_sensor_listener+0x9e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
-/*
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:69
+    //  Register the Listener Function to be called with the polled sensor data.
+    sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
+
+    //  Return `Ok()` to indicate success.  This line should not end with a semicolon (;).
+    Ok(())
   9e:	00000097          	auipc	ra,0x0
   a2:	000080e7          	jalr	ra # 9e <app::app_sensor::start_sensor_listener+0x9e>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:55
+    sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
   a6:	4546                	lw	a0,80(sp)
   a8:	caaa                	sw	a0,84(sp)
   aa:	00000097          	auipc	ra,0x0
@@ -1598,16 +1603,15 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   c0:	dc2a                	sw	a0,56(sp)
   c2:	a009                	j	c4 <app::app_sensor::start_sensor_listener+0xc4>
   c4:	a031                	j	d0 <app::app_sensor::start_sensor_listener+0xd0>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:69
   c6:	5562                	lw	a0,56(sp)
   c8:	10c12083          	lw	ra,268(sp)
   cc:	6151                	addi	sp,sp,272
   ce:	8082                	ret
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:55
+    sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
   d0:	bfdd                	j	c6 <app::app_sensor::start_sensor_listener+0xc6>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:58
-
-    // Create a sensor listener that will call function `aggregate_sensor_data` after polling the sensor data
     let listener = sensor::new_sensor_listener(
   d2:	00000537          	lui	a0,0x0
   d6:	00050593          	mv	a1,a0
@@ -1629,9 +1633,6 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
  104:	000080e7          	jalr	ra # 100 <app::app_sensor::start_sensor_listener+0x100>
  108:	a009                	j	10a <app::app_sensor::start_sensor_listener+0x10a>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:62
-        &TEMP_SENSOR_KEY,   //  Transmit as field: `t`
-        TEMP_SENSOR_TYPE,   //  Type of sensor data: Raw temperature (integer from 0 to 4095)
-        app_network::aggregate_sensor_data  //  Call this function with the polled data: `aggregate_sensor_data`
     ) ? ;
  10a:	5566                	lw	a0,120(sp)
  10c:	4581                	li	a1,0
@@ -1676,8 +1677,6 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
  162:	cbaa                	sw	a0,212(sp)
  164:	daaa                	sw	a0,116(sp)
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:65
-
-    //  Register the Listener Function to be called with the polled sensor data.
     sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
  166:	5556                	lw	a0,116(sp)
  168:	dbaa                	sw	a0,244(sp)
@@ -1727,11 +1726,9 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
  1d8:	b7a5                	j	140 <app::app_sensor::start_sensor_listener+0x140>
  1da:	4505                	li	a0,1
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:68
-
-    //  Return `Ok()` to indicate success.  This line should not end with a semicolon (;).
     Ok(())
  1dc:	dc2a                	sw	a0,56(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_sensor.rs:69
  1de:	b5e5                	j	c6 <app::app_sensor::start_sensor_listener+0xc6>
 
 app-f4cb6f209913395b.4t5g0ab2q1psib7f.rcgu.o:     file format elf32-littleriscv
@@ -2603,15 +2600,12 @@ fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an er
  20c:	00000537          	lui	a0,0x0
  210:	00050513          	mv	a0,a0
  214:	14a12c23          	sw	a0,344(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
-/*
  218:	00000537          	lui	a0,0x0
  21c:	00050513          	mv	a0,a0
  220:	00000097          	auipc	ra,0x0
  224:	000080e7          	jalr	ra # 220 <app::app_network::send_sensor_data+0x220>
  228:	cd2a                	sw	a0,152(sp)
  22a:	a009                	j	22c <app::app_network::send_sensor_data+0x22c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:98
  22c:	15c12503          	lw	a0,348(sp)
  230:	24a12623          	sw	a0,588(sp)
 _ZN4core3str21_$LT$impl$u20$str$GT$8as_bytes17hbca31947ef6ad219E():
@@ -2629,7 +2623,6 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  244:	cb2a                	sw	a0,148(sp)
  246:	c92e                	sw	a1,144(sp)
  248:	a009                	j	24a <app::app_network::send_sensor_data+0x24a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  24a:	00000537          	lui	a0,0x0
  24e:	00050513          	mv	a0,a0
  252:	45ca                	lw	a1,144(sp)
@@ -2638,7 +2631,6 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  25a:	000080e7          	jalr	ra # 256 <app::app_network::send_sensor_data+0x256>
  25e:	c72a                	sw	a0,140(sp)
  260:	a009                	j	262 <app::app_network::send_sensor_data+0x262>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:98
  262:	456a                	lw	a0,152(sp)
  264:	45ba                	lw	a1,140(sp)
  266:	00000097          	auipc	ra,0x0
@@ -2676,7 +2668,6 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  2b2:	c52a                	sw	a0,136(sp)
  2b4:	c32e                	sw	a1,132(sp)
  2b6:	a009                	j	2b8 <app::app_network::send_sensor_data+0x2b8>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  2b8:	00000537          	lui	a0,0x0
  2bc:	00050513          	mv	a0,a0
  2c0:	459a                	lw	a1,132(sp)
@@ -2685,7 +2676,6 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  2c8:	000080e7          	jalr	ra # 2c4 <app::app_network::send_sensor_data+0x2c4>
  2cc:	c12a                	sw	a0,128(sp)
  2ce:	a009                	j	2d0 <app::app_network::send_sensor_data+0x2d0>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:98
  2d0:	450a                	lw	a0,128(sp)
  2d2:	00000097          	auipc	ra,0x0
  2d6:	000080e7          	jalr	ra # 2d2 <app::app_network::send_sensor_data+0x2d2>
@@ -2713,34 +2703,28 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  314:	18a12223          	sw	a0,388(sp)
  318:	55c6                	lw	a1,112(sp)
  31a:	18b12023          	sw	a1,384(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  31e:	00000637          	lui	a2,0x0
  322:	00060513          	mv	a0,a2
  326:	00000097          	auipc	ra,0x0
  32a:	000080e7          	jalr	ra # 326 <app::app_network::send_sensor_data+0x326>
  32e:	d6aa                	sw	a0,108(sp)
  330:	a009                	j	332 <app::app_network::send_sensor_data+0x332>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:98
  332:	17c12603          	lw	a2,380(sp)
  336:	17812583          	lw	a1,376(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  33a:	00000537          	lui	a0,0x0
  33e:	00050513          	mv	a0,a0
  342:	00000097          	auipc	ra,0x0
  346:	000080e7          	jalr	ra # 342 <app::app_network::send_sensor_data+0x342>
  34a:	d4aa                	sw	a0,104(sp)
  34c:	a009                	j	34e <app::app_network::send_sensor_data+0x34e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:98
  34e:	18412603          	lw	a2,388(sp)
  352:	18012583          	lw	a1,384(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  356:	00000537          	lui	a0,0x0
  35a:	00050513          	mv	a0,a0
  35e:	00000097          	auipc	ra,0x0
  362:	000080e7          	jalr	ra # 35e <app::app_network::send_sensor_data+0x35e>
  366:	d2aa                	sw	a0,100(sp)
  368:	a009                	j	36a <app::app_network::send_sensor_data+0x36a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:98
  36a:	5536                	lw	a0,108(sp)
  36c:	55a6                	lw	a1,104(sp)
  36e:	5616                	lw	a2,100(sp)
@@ -2763,24 +2747,20 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  3a2:	18a12623          	sw	a0,396(sp)
  3a6:	45f6                	lw	a1,92(sp)
  3a8:	18b12423          	sw	a1,392(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  3ac:	00000637          	lui	a2,0x0
  3b0:	00060513          	mv	a0,a2
  3b4:	00000097          	auipc	ra,0x0
  3b8:	000080e7          	jalr	ra # 3b4 <app::app_network::send_sensor_data+0x3b4>
  3bc:	ccaa                	sw	a0,88(sp)
  3be:	a009                	j	3c0 <app::app_network::send_sensor_data+0x3c0>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:98
  3c0:	18c12603          	lw	a2,396(sp)
  3c4:	18812583          	lw	a1,392(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  3c8:	00000537          	lui	a0,0x0
  3cc:	00050513          	mv	a0,a0
  3d0:	00000097          	auipc	ra,0x0
  3d4:	000080e7          	jalr	ra # 3d0 <app::app_network::send_sensor_data+0x3d0>
  3d8:	caaa                	sw	a0,84(sp)
  3da:	a009                	j	3dc <app::app_network::send_sensor_data+0x3dc>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:98
  3dc:	19412683          	lw	a3,404(sp)
  3e0:	19012603          	lw	a2,400(sp)
  3e4:	4566                	lw	a0,88(sp)
@@ -2811,7 +2791,6 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  432:	a009                	j	434 <app::app_network::send_sensor_data+0x434>
  434:	16412783          	lw	a5,356(sp)
  438:	16012703          	lw	a4,352(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  43c:	00000537          	lui	a0,0x0
  440:	00050513          	mv	a0,a0
  444:	0b2c                	addi	a1,sp,408
@@ -2821,7 +2800,6 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  44e:	000080e7          	jalr	ra # 44a <app::app_network::send_sensor_data+0x44a>
  452:	a009                	j	454 <app::app_network::send_sensor_data+0x454>
  454:	4535                	li	a0,13
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:98
  456:	1ca12623          	sw	a0,460(sp)
  45a:	28a12623          	sw	a0,652(sp)
 _ZN4core3str21_$LT$impl$u20$str$GT$8as_bytes17hbca31947ef6ad219E():
@@ -2841,7 +2819,6 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  476:	c8aa                	sw	a0,80(sp)
  478:	c6ae                	sw	a1,76(sp)
  47a:	a009                	j	47c <app::app_network::send_sensor_data+0x47c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  47c:	00000537          	lui	a0,0x0
  480:	00050513          	mv	a0,a0
  484:	45b6                	lw	a1,76(sp)
@@ -2850,7 +2827,6 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  48c:	000080e7          	jalr	ra # 488 <app::app_network::send_sensor_data+0x488>
  490:	c4aa                	sw	a0,72(sp)
  492:	a009                	j	494 <app::app_network::send_sensor_data+0x494>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:98
  494:	4526                	lw	a0,72(sp)
  496:	00000097          	auipc	ra,0x0
  49a:	000080e7          	jalr	ra # 496 <app::app_network::send_sensor_data+0x496>
@@ -2887,7 +2863,6 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  4e4:	c0aa                	sw	a0,64(sp)
  4e6:	de2e                	sw	a1,60(sp)
  4e8:	a009                	j	4ea <app::app_network::send_sensor_data+0x4ea>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  4ea:	00000537          	lui	a0,0x0
  4ee:	00050513          	mv	a0,a0
  4f2:	55f2                	lw	a1,60(sp)
@@ -2896,7 +2871,6 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  4fa:	000080e7          	jalr	ra # 4f6 <app::app_network::send_sensor_data+0x4f6>
  4fe:	dc2a                	sw	a0,56(sp)
  500:	a009                	j	502 <app::app_network::send_sensor_data+0x502>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:98
  502:	5562                	lw	a0,56(sp)
  504:	00000097          	auipc	ra,0x0
  508:	000080e7          	jalr	ra # 504 <app::app_network::send_sensor_data+0x504>
@@ -2920,7 +2894,6 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  540:	1ba8                	addi	a0,sp,504
  542:	1ea12a23          	sw	a0,500(sp)
  546:	1e412583          	lw	a1,484(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  54a:	00000637          	lui	a2,0x0
  54e:	00060613          	mv	a2,a2
  552:	da2a                	sw	a0,52(sp)
@@ -2929,7 +2902,6 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  558:	00000097          	auipc	ra,0x0
  55c:	000080e7          	jalr	ra # 558 <app::app_network::send_sensor_data+0x558>
  560:	a009                	j	562 <app::app_network::send_sensor_data+0x562>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:98
  562:	00000537          	lui	a0,0x0
  566:	00050593          	mv	a1,a0
  56a:	0428                	addi	a0,sp,520
@@ -2945,7 +2917,6 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:98
     let _payload = coap!( @json {        
  580:	20b12223          	sw	a1,516(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  584:	00000637          	lui	a2,0x0
  588:	00060613          	mv	a2,a2
  58c:	d82a                	sw	a0,48(sp)
@@ -2955,7 +2926,6 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  596:	000080e7          	jalr	ra # 592 <app::app_network::send_sensor_data+0x592>
  59a:	a009                	j	59c <app::app_network::send_sensor_data+0x59c>
  59c:	4535                	li	a0,13
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:98
  59e:	20a12e23          	sw	a0,540(sp)
  5a2:	26a12623          	sw	a0,620(sp)
 _ZN4core3str21_$LT$impl$u20$str$GT$8as_bytes17hbca31947ef6ad219E():
@@ -2975,7 +2945,6 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  5be:	d62a                	sw	a0,44(sp)
  5c0:	d42e                	sw	a1,40(sp)
  5c2:	a009                	j	5c4 <app::app_network::send_sensor_data+0x5c4>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  5c4:	00000537          	lui	a0,0x0
  5c8:	00050513          	mv	a0,a0
  5cc:	55a2                	lw	a1,40(sp)
@@ -2984,7 +2953,6 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  5d4:	000080e7          	jalr	ra # 5d0 <app::app_network::send_sensor_data+0x5d0>
  5d8:	d22a                	sw	a0,36(sp)
  5da:	a009                	j	5dc <app::app_network::send_sensor_data+0x5dc>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:98
  5dc:	5512                	lw	a0,36(sp)
  5de:	00000097          	auipc	ra,0x0
  5e2:	000080e7          	jalr	ra # 5de <app::app_network::send_sensor_data+0x5de>
@@ -2994,14 +2962,12 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  5ee:	00000537          	lui	a0,0x0
  5f2:	00050513          	mv	a0,a0
  5f6:	22a12023          	sw	a0,544(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  5fa:	00000537          	lui	a0,0x0
  5fe:	00050513          	mv	a0,a0
  602:	00000097          	auipc	ra,0x0
  606:	000080e7          	jalr	ra # 602 <app::app_network::send_sensor_data+0x602>
  60a:	d02a                	sw	a0,32(sp)
  60c:	a009                	j	60e <app::app_network::send_sensor_data+0x60e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:98
  60e:	22412503          	lw	a0,548(sp)
  612:	24a12e23          	sw	a0,604(sp)
 _ZN4core3str21_$LT$impl$u20$str$GT$8as_bytes17hbca31947ef6ad219E():
@@ -3019,7 +2985,6 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  626:	ce2a                	sw	a0,28(sp)
  628:	cc2e                	sw	a1,24(sp)
  62a:	a009                	j	62c <app::app_network::send_sensor_data+0x62c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  62c:	00000537          	lui	a0,0x0
  630:	00050513          	mv	a0,a0
  634:	45e2                	lw	a1,24(sp)
@@ -3028,7 +2993,6 @@ _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E():
  63c:	000080e7          	jalr	ra # 638 <app::app_network::send_sensor_data+0x638>
  640:	ca2a                	sw	a0,20(sp)
  642:	a009                	j	644 <app::app_network::send_sensor_data+0x644>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/app_network.rs:98
  644:	5502                	lw	a0,32(sp)
  646:	45d2                	lw	a1,20(sp)
  648:	00000097          	auipc	ra,0x0
@@ -33994,13 +33958,13 @@ mynewt-4d3f6e498683360f.1z1zbxhwpkl8qw1z.rcgu.o:     file format elf32-littleris
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 1z1zbxhwpkl8qw1z
 00000128 l       .debug_ranges	00000000 
-00000000 l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h887a41325afe000dE	00000000 
-00000036 l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h887a41325afe000dE	00000000 
-00000038 l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h887a41325afe000dE	00000000 
-0000003a l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h887a41325afe000dE	00000000 
-0000003c l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h887a41325afe000dE	00000000 
-0000003e l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h887a41325afe000dE	00000000 
-00000046 l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h887a41325afe000dE	00000000 
+00000000 l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hb8421b66c39bc3f4E	00000000 
+00000036 l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hb8421b66c39bc3f4E	00000000 
+00000038 l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hb8421b66c39bc3f4E	00000000 
+0000003a l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hb8421b66c39bc3f4E	00000000 
+0000003c l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hb8421b66c39bc3f4E	00000000 
+0000003e l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hb8421b66c39bc3f4E	00000000 
+00000046 l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hb8421b66c39bc3f4E	00000000 
 00000699 l       .debug_str	00000000 
 000006bd l       .debug_str	00000000 
 000006d9 l       .debug_str	00000000 
@@ -34030,9 +33994,9 @@ SYMBOL TABLE:
 00000038 l       .debug_ranges	00000000 
 000000f8 l       .debug_ranges	00000000 
 00000110 l       .debug_ranges	00000000 
-00000000 l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h887a41325afe000dE	00000000 
-00000070 l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h887a41325afe000dE	00000000 
-0000007c l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h887a41325afe000dE	00000000 
+00000000 l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hb8421b66c39bc3f4E	00000000 
+00000070 l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hb8421b66c39bc3f4E	00000000 
+0000007c l       .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hb8421b66c39bc3f4E	00000000 
 00000000 l       .text._ZN6mynewt7sysinit17hdc01bd3ba3f59beaE	00000000 
 00000000 l       .text._ZN6mynewt7sysinit17hdc01bd3ba3f59beaE	00000000 
 0000001e l       .text._ZN6mynewt7sysinit17hdc01bd3ba3f59beaE	00000000 
@@ -34238,31 +34202,31 @@ SYMBOL TABLE:
 00000676 l       .debug_str	00000000 
 0000067a l       .debug_str	00000000 
 00000682 l       .debug_str	00000000 
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.0	0000000a .Lanon.b4312b762f810e79110ccdf33668b78f.0
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.1	00000028 .Lanon.b4312b762f810e79110ccdf33668b78f.1
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.10	00000007 .Lanon.b4312b762f810e79110ccdf33668b78f.10
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.11	00000008 .Lanon.b4312b762f810e79110ccdf33668b78f.11
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.12	00000016 .Lanon.b4312b762f810e79110ccdf33668b78f.12
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.13	00000010 .Lanon.b4312b762f810e79110ccdf33668b78f.13
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.14	00000018 .Lanon.b4312b762f810e79110ccdf33668b78f.14
-00000000 l     O .rodata.cst8	00000008 .Lanon.b4312b762f810e79110ccdf33668b78f.15
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.16	00000018 .Lanon.b4312b762f810e79110ccdf33668b78f.16
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.17	00000010 .Lanon.b4312b762f810e79110ccdf33668b78f.17
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.18	00000018 .Lanon.b4312b762f810e79110ccdf33668b78f.18
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.19	00000010 .Lanon.b4312b762f810e79110ccdf33668b78f.19
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.2	00000018 .Lanon.b4312b762f810e79110ccdf33668b78f.2
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.20	00000009 .Lanon.b4312b762f810e79110ccdf33668b78f.20
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.21	00000018 .Lanon.b4312b762f810e79110ccdf33668b78f.21
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.22	00000010 .Lanon.b4312b762f810e79110ccdf33668b78f.22
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.23	00000010 .Lanon.b4312b762f810e79110ccdf33668b78f.23
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.24	00000010 .Lanon.b4312b762f810e79110ccdf33668b78f.24
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.3	00000000 .Lanon.b4312b762f810e79110ccdf33668b78f.3
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.4	00000001 .Lanon.b4312b762f810e79110ccdf33668b78f.4
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.5	00000004 .Lanon.b4312b762f810e79110ccdf33668b78f.5
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.6	0000002d .Lanon.b4312b762f810e79110ccdf33668b78f.6
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.7	0000000c .Lanon.b4312b762f810e79110ccdf33668b78f.7
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.8	00000003 .Lanon.b4312b762f810e79110ccdf33668b78f.8
-00000000 l     O .rodata..Lanon.b4312b762f810e79110ccdf33668b78f.9	00000018 .Lanon.b4312b762f810e79110ccdf33668b78f.9
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.0	0000000a .Lanon.510d9067f75e307691f929da716b10d9.0
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.1	00000028 .Lanon.510d9067f75e307691f929da716b10d9.1
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.10	00000007 .Lanon.510d9067f75e307691f929da716b10d9.10
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.11	00000008 .Lanon.510d9067f75e307691f929da716b10d9.11
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.12	00000016 .Lanon.510d9067f75e307691f929da716b10d9.12
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.13	00000010 .Lanon.510d9067f75e307691f929da716b10d9.13
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.14	00000018 .Lanon.510d9067f75e307691f929da716b10d9.14
+00000000 l     O .rodata.cst8	00000008 .Lanon.510d9067f75e307691f929da716b10d9.15
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.16	00000018 .Lanon.510d9067f75e307691f929da716b10d9.16
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.17	00000010 .Lanon.510d9067f75e307691f929da716b10d9.17
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.18	00000018 .Lanon.510d9067f75e307691f929da716b10d9.18
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.19	00000010 .Lanon.510d9067f75e307691f929da716b10d9.19
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.2	00000018 .Lanon.510d9067f75e307691f929da716b10d9.2
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.20	00000009 .Lanon.510d9067f75e307691f929da716b10d9.20
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.21	00000018 .Lanon.510d9067f75e307691f929da716b10d9.21
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.22	00000010 .Lanon.510d9067f75e307691f929da716b10d9.22
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.23	00000010 .Lanon.510d9067f75e307691f929da716b10d9.23
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.24	00000010 .Lanon.510d9067f75e307691f929da716b10d9.24
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.3	00000000 .Lanon.510d9067f75e307691f929da716b10d9.3
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.4	00000001 .Lanon.510d9067f75e307691f929da716b10d9.4
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.5	00000004 .Lanon.510d9067f75e307691f929da716b10d9.5
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.6	0000002d .Lanon.510d9067f75e307691f929da716b10d9.6
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.7	0000000c .Lanon.510d9067f75e307691f929da716b10d9.7
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.8	00000003 .Lanon.510d9067f75e307691f929da716b10d9.8
+00000000 l     O .rodata..Lanon.510d9067f75e307691f929da716b10d9.9	00000018 .Lanon.510d9067f75e307691f929da716b10d9.9
 00000000 l       .debug_line	00000000 .Lline_table_start0
 00000000 l     O .rodata.str.0	00000016 str.0
 00000000 l     O .rodata.str.1	0000001c str.1
@@ -34293,17 +34257,17 @@ SYMBOL TABLE:
 00000000 g     F .text._ZN6mynewt4Strn9from_cstr17hf8bad6c75b8c07d2E	0000001e mynewt::Strn::from_cstr
 00000000 g     F .text._ZN6mynewt7sysinit17hdc01bd3ba3f59beaE	0000001e mynewt::sysinit
 00000000         *UND*	00000000 <core::option::Option<T> as core::cmp::PartialEq>::eq
-00000000 g     F .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h887a41325afe000dE	0000007c <mynewt::Strn as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul
+00000000 g     F .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hb8421b66c39bc3f4E	0000007c <mynewt::Strn as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul
 00000000         *UND*	00000000 abort
 00000000         *UND*	00000000 rust_sysinit
 
 
 
-Disassembly of section .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h887a41325afe000dE:
+Disassembly of section .text._ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hb8421b66c39bc3f4E:
 
 00000000 <<mynewt::Strn as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul>:
-_ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h887a41325afe000dE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:240
+_ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hb8421b66c39bc3f4E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:248
 }
 
 /// Convert the type to array of bytes that may or may not end with null. Strn always ends with null.
@@ -34314,7 +34278,7 @@ impl ToBytesOptionalNull for crate::Strn {
    2:	d606                	sw	ra,44(sp)
    4:	ca2a                	sw	a0,20(sp)
    6:	85aa                	mv	a1,a0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:242
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:250
         match self.rep {
             StrnRep::ByteStr(bs) => { bs }
    8:	00054503          	lbu	a0,0(a0)
@@ -34328,14 +34292,14 @@ impl ToBytesOptionalNull for crate::Strn {
   1e:	45b2                	lw	a1,12(sp)
   20:	00a58f63          	beq	a1,a0,3e <<mynewt::Strn as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul+0x3e>
   24:	a009                	j	26 <<mynewt::Strn as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul+0x26>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:246
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:254
             StrnRep::CStr(_cstr)  => { assert!(false, "strn bytes"); &[] }
             //  TODO: unsafe { ::core::mem::transmute::<*const u8, &[u8]>(cstr) }
         }
     }
   26:	00000097          	auipc	ra,0x0
   2a:	000080e7          	jalr	ra # 26 <<mynewt::Strn as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul+0x26>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:242
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:250
             StrnRep::ByteStr(bs) => { bs }
   2e:	4552                	lw	a0,20(sp)
   30:	414c                	lw	a1,4(a0)
@@ -34344,10 +34308,10 @@ impl ToBytesOptionalNull for crate::Strn {
   36:	ce2a                	sw	a0,28(sp)
   38:	d02e                	sw	a1,32(sp)
   3a:	cc2e                	sw	a1,24(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:241
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:249
         match self.rep {
   3c:	a81d                	j	72 <<mynewt::Strn as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul+0x72>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:243
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:251
             StrnRep::CStr(_cstr)  => { assert!(false, "strn bytes"); &[] }
   3e:	4552                	lw	a0,20(sp)
   40:	4148                	lw	a0,4(a0)
@@ -34366,10 +34330,10 @@ impl ToBytesOptionalNull for crate::Strn {
   66:	00000537          	lui	a0,0x0
   6a:	00050513          	mv	a0,a0
   6e:	cc2a                	sw	a0,24(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:241
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:249
         match self.rep {
   70:	a009                	j	72 <<mynewt::Strn as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul+0x72>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:246
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:254
     }
   72:	4562                	lw	a0,24(sp)
   74:	45f2                	lw	a1,28(sp)
@@ -34410,7 +34374,7 @@ Disassembly of section .text._ZN6mynewt4Strn3new17hf117d15af74953e7E:
 
 00000000 <mynewt::Strn::new>:
 _ZN6mynewt4Strn3new17hf117d15af74953e7E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:121
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:129
     /// Create a new `Strn` with a byte string. Fail if the last byte is not zero.
     /// ```
     /// Strn::new(b"network\0")
@@ -34421,7 +34385,7 @@ _ZN6mynewt4Strn3new17hf117d15af74953e7E():
    2:	cf86                	sw	ra,220(sp)
    4:	c2b2                	sw	a2,68(sp)
    6:	c0ae                	sw	a1,64(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:122
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:130
         assert_eq!(bs.last(), Some(&0u8), "no null");  //  Last byte must be 0.
    8:	de2a                	sw	a0,60(sp)
    a:	852e                	mv	a0,a1
@@ -34532,7 +34496,7 @@ _ZN6mynewt4Strn3new17hf117d15af74953e7E():
  11c:	00000097          	auipc	ra,0x0
  120:	000080e7          	jalr	ra # 11c <mynewt::Strn::new+0x11c>
  124:	4501                	li	a0,0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:124
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:132
         Strn { 
             rep: StrnRep::ByteStr(bs)
  126:	0ca10823          	sb	a0,208(sp)
@@ -34540,14 +34504,14 @@ _ZN6mynewt4Strn3new17hf117d15af74953e7E():
  12c:	cdaa                	sw	a0,216(sp)
  12e:	4586                	lw	a1,64(sp)
  130:	cbae                	sw	a1,212(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:123
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:131
         Strn { 
  132:	5622                	lw	a2,40(sp)
  134:	c608                	sw	a0,8(a2)
  136:	c24c                	sw	a1,4(a2)
  138:	454e                	lw	a0,208(sp)
  13a:	c208                	sw	a0,0(a2)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:126
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:134
         }
     }
  13c:	40fe                	lw	ra,220(sp)
@@ -34558,26 +34522,26 @@ Disassembly of section .text._ZN6mynewt4Strn9from_cstr17hf8bad6c75b8c07d2E:
 
 00000000 <mynewt::Strn::from_cstr>:
 _ZN6mynewt4Strn9from_cstr17hf8bad6c75b8c07d2E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:129
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:137
 
     /// Create a new `Strn` with a null-terminated string pointer returned by C.
     pub fn from_cstr(cstr: *const u8) -> Strn {
    0:	1101                	addi	sp,sp,-32
    2:	4605                	li	a2,1
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:131
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:139
         Strn { 
             rep: StrnRep::CStr(cstr)
    4:	00c10823          	sb	a2,16(sp)
    8:	ca2e                	sw	a1,20(sp)
    a:	c62e                	sw	a1,12(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:130
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:138
         Strn { 
    c:	4662                	lw	a2,24(sp)
    e:	c510                	sw	a2,8(a0)
   10:	4642                	lw	a2,16(sp)
   12:	c110                	sw	a2,0(a0)
   14:	c14c                	sw	a1,4(a0)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:133
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:141
         }
     }
   16:	c42e                	sw	a1,8(sp)
@@ -34589,7 +34553,7 @@ Disassembly of section .text._ZN6mynewt4Strn6as_ptr17h3f6389f94daf848bE:
 
 00000000 <mynewt::Strn::as_ptr>:
 _ZN6mynewt4Strn6as_ptr17h3f6389f94daf848bE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:136
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:144
 
     /// Return a pointer to the string
     pub fn as_ptr(&self) -> *const u8 {
@@ -34597,7 +34561,7 @@ _ZN6mynewt4Strn6as_ptr17h3f6389f94daf848bE():
    2:	d606                	sw	ra,44(sp)
    4:	cc2a                	sw	a0,24(sp)
    6:	85aa                	mv	a1,a0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:138
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:146
         match self.rep {
             StrnRep::ByteStr(bs) => { bs.as_ptr() }
    8:	00054503          	lbu	a0,0(a0) # 0 <mynewt::Strn::as_ptr>
@@ -34611,13 +34575,13 @@ _ZN6mynewt4Strn6as_ptr17h3f6389f94daf848bE():
   1e:	45c2                	lw	a1,16(sp)
   20:	02a58663          	beq	a1,a0,4c <mynewt::Strn::as_ptr+0x4c>
   24:	a009                	j	26 <mynewt::Strn::as_ptr+0x26>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:141
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:149
             StrnRep::CStr(cstr)  => { cstr }
         }
     }
   26:	00000097          	auipc	ra,0x0
   2a:	000080e7          	jalr	ra # 26 <mynewt::Strn::as_ptr+0x26>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:138
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:146
             StrnRep::ByteStr(bs) => { bs.as_ptr() }
   2e:	4562                	lw	a0,24(sp)
   30:	414c                	lw	a1,4(a0)
@@ -34631,19 +34595,19 @@ _ZN6mynewt4Strn6as_ptr17h3f6389f94daf848bE():
   42:	000080e7          	jalr	ra # 3e <mynewt::Strn::as_ptr+0x3e>
   46:	ce2a                	sw	a0,28(sp)
   48:	a009                	j	4a <mynewt::Strn::as_ptr+0x4a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:137
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:145
         match self.rep {
   4a:	a031                	j	56 <mynewt::Strn::as_ptr+0x56>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:139
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:147
             StrnRep::CStr(cstr)  => { cstr }
   4c:	4562                	lw	a0,24(sp)
   4e:	4148                	lw	a0,4(a0)
   50:	d42a                	sw	a0,40(sp)
   52:	ce2a                	sw	a0,28(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:137
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:145
         match self.rep {
   54:	a009                	j	56 <mynewt::Strn::as_ptr+0x56>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:141
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:149
     }
   56:	4572                	lw	a0,28(sp)
   58:	50b2                	lw	ra,44(sp)
@@ -34654,7 +34618,7 @@ Disassembly of section .text._ZN6mynewt4Strn3len17h1c5f3009121b913bE:
 
 00000000 <mynewt::Strn::len>:
 _ZN6mynewt4Strn3len17h1c5f3009121b913bE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:144
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:152
 
     /// Return the length of the string, excluding the terminating null. For safety, we limit to 128.
     pub fn len(&self) -> usize {
@@ -34662,7 +34626,7 @@ _ZN6mynewt4Strn3len17h1c5f3009121b913bE():
    2:	10112e23          	sw	ra,284(sp)
    6:	ccaa                	sw	a0,88(sp)
    8:	85aa                	mv	a1,a0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:146
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:154
         match self.rep {
             StrnRep::ByteStr(bs) => { 
    a:	00054503          	lbu	a0,0(a0)
@@ -34676,7 +34640,7 @@ _ZN6mynewt4Strn3len17h1c5f3009121b913bE():
   20:	45c6                	lw	a1,80(sp)
   22:	14a58463          	beq	a1,a0,16a <mynewt::Strn::len+0x16a>
   26:	a009                	j	28 <mynewt::Strn::len+0x28>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:161
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:169
                 }
                 assert!(false, "big strn");  //  String too long
                 return 128 as usize;
@@ -34685,14 +34649,14 @@ _ZN6mynewt4Strn3len17h1c5f3009121b913bE():
     }
   28:	00000097          	auipc	ra,0x0
   2c:	000080e7          	jalr	ra # 28 <mynewt::Strn::len+0x28>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:146
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:154
             StrnRep::ByteStr(bs) => { 
   30:	4566                	lw	a0,88(sp)
   32:	414c                	lw	a1,4(a0)
   34:	4508                	lw	a0,8(a0)
   36:	d2aa                	sw	a0,100(sp)
   38:	d0ae                	sw	a1,96(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:147
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:155
                 assert_eq!(bs.last(), Some(&0u8), "no null");  //  Last byte must be 0.
   3a:	c6aa                	sw	a0,76(sp)
   3c:	852e                	mv	a0,a1
@@ -34794,7 +34758,7 @@ _ZN6mynewt4Strn3len17h1c5f3009121b913bE():
  13a:	000080e7          	jalr	ra # 136 <mynewt::Strn::len+0x136>
  13e:	00000097          	auipc	ra,0x0
  142:	000080e7          	jalr	ra # 13e <mynewt::Strn::len+0x13e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:148
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:156
                 bs.len() - 1  //  Don't count the terminating null.
  146:	5596                	lw	a1,100(sp)
  148:	5506                	lw	a0,96(sp)
@@ -34809,15 +34773,15 @@ _ZN6mynewt4Strn3len17h1c5f3009121b913bE():
  162:	a009                	j	164 <mynewt::Strn::len+0x164>
  164:	5512                	lw	a0,36(sp)
  166:	ceaa                	sw	a0,92(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:161
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:169
     }
  168:	a015                	j	18c <mynewt::Strn::len+0x18c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:150
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:158
             StrnRep::CStr(cstr)  => { 
  16a:	4566                	lw	a0,88(sp)
  16c:	4148                	lw	a0,4(a0)
  16e:	d7aa                	sw	a0,236(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:152
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:160
                 if cstr.is_null() { return 0; }
  170:	00000097          	auipc	ra,0x0
  174:	000080e7          	jalr	ra # 170 <mynewt::Strn::len+0x170>
@@ -34830,17 +34794,17 @@ _ZN6mynewt4Strn3len17h1c5f3009121b913bE():
  186:	4501                	li	a0,0
  188:	ceaa                	sw	a0,92(sp)
  18a:	a031                	j	196 <mynewt::Strn::len+0x196>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:161
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:169
     }
  18c:	4576                	lw	a0,92(sp)
  18e:	11c12083          	lw	ra,284(sp)
  192:	6115                	addi	sp,sp,288
  194:	8082                	ret
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:152
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:160
                 if cstr.is_null() { return 0; }
  196:	bfdd                	j	18c <mynewt::Strn::len+0x18c>
  198:	07f00513          	li	a0,127
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:153
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:161
                 for len in 0..127 {
  19c:	dbaa                	sw	a0,244(sp)
  19e:	4581                	li	a1,0
@@ -34877,7 +34841,7 @@ _ZN6mynewt4Strn3len17h1c5f3009121b913bE():
  1f0:	10a12823          	sw	a0,272(sp)
  1f4:	10a12223          	sw	a0,260(sp)
  1f8:	10a12a23          	sw	a0,276(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:154
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:162
                     let ptr: *const u8 =  ((cstr as u32) + len) as *const u8;
  1fc:	55be                	lw	a1,236(sp)
  1fe:	952e                	add	a0,a0,a1
@@ -34885,15 +34849,15 @@ _ZN6mynewt4Strn3len17h1c5f3009121b913bE():
  202:	04b56463          	bltu	a0,a1,24a <mynewt::Strn::len+0x24a>
  206:	a021                	j	20e <mynewt::Strn::len+0x20e>
  208:	4505                	li	a0,1
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:157
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:165
                 assert!(false, "big strn");  //  String too long
  20a:	e105                	bnez	a0,22a <mynewt::Strn::len+0x22a>
  20c:	a81d                	j	242 <mynewt::Strn::len+0x242>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:154
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:162
                     let ptr: *const u8 =  ((cstr as u32) + len) as *const u8;
  20e:	4532                	lw	a0,12(sp)
  210:	10a12c23          	sw	a0,280(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:155
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:163
                     if unsafe { *ptr } == 0 { return len as usize; }                    
  214:	00054583          	lbu	a1,0(a0)
  218:	4601                	li	a2,0
@@ -34902,10 +34866,10 @@ _ZN6mynewt4Strn3len17h1c5f3009121b913bE():
  220:	11412503          	lw	a0,276(sp)
  224:	ceaa                	sw	a0,92(sp)
  226:	bf85                	j	196 <mynewt::Strn::len+0x196>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:153
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:161
                 for len in 0..127 {
  228:	bf61                	j	1c0 <mynewt::Strn::len+0x1c0>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:157
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:165
                 assert!(false, "big strn");  //  String too long
  22a:	00000537          	lui	a0,0x0
  22e:	00050513          	mv	a0,a0
@@ -34914,11 +34878,11 @@ _ZN6mynewt4Strn3len17h1c5f3009121b913bE():
  23a:	00000097          	auipc	ra,0x0
  23e:	000080e7          	jalr	ra # 23a <mynewt::Strn::len+0x23a>
  242:	08000513          	li	a0,128
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:158
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:166
                 return 128 as usize;
  246:	ceaa                	sw	a0,92(sp)
  248:	b7b9                	j	196 <mynewt::Strn::len+0x196>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:154
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:162
                     let ptr: *const u8 =  ((cstr as u32) + len) as *const u8;
  24a:	00000537          	lui	a0,0x0
  24e:	00050513          	mv	a0,a0
@@ -34926,7 +34890,7 @@ _ZN6mynewt4Strn3len17h1c5f3009121b913bE():
  256:	000080e7          	jalr	ra # 252 <mynewt::Strn::len+0x252>
  25a:	00000097          	auipc	ra,0x0
  25e:	000080e7          	jalr	ra # 25a <mynewt::Strn::len+0x25a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:148
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:156
                 bs.len() - 1  //  Don't count the terminating null.
  262:	00000537          	lui	a0,0x0
  266:	00050513          	mv	a0,a0
@@ -34939,14 +34903,14 @@ Disassembly of section .text._ZN6mynewt4Strn8is_empty17he457cf642863f60eE:
 
 00000000 <mynewt::Strn::is_empty>:
 _ZN6mynewt4Strn8is_empty17he457cf642863f60eE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:164
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:172
 
     /// Return true if the string is empty
     pub fn is_empty(&self) -> bool {
    0:	1101                	addi	sp,sp,-32
    2:	ce06                	sw	ra,28(sp)
    4:	cc2a                	sw	a0,24(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:165
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:173
         self.len() == 0
    6:	ca2a                	sw	a0,20(sp)
    8:	00000097          	auipc	ra,0x0
@@ -34957,7 +34921,7 @@ _ZN6mynewt4Strn8is_empty17he457cf642863f60eE():
   16:	a009                	j	18 <mynewt::Strn::is_empty+0x18>
   18:	4532                	lw	a0,12(sp)
   1a:	00153513          	seqz	a0,a0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:166
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:174
     }
   1e:	40f2                	lw	ra,28(sp)
   20:	6105                	addi	sp,sp,32
@@ -34967,7 +34931,7 @@ Disassembly of section .text._ZN6mynewt4Strn7as_cstr17h75ab8f13f49124a5E:
 
 00000000 <mynewt::Strn::as_cstr>:
 _ZN6mynewt4Strn7as_cstr17h75ab8f13f49124a5E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:170
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:178
 
     /// Return the byte string as a null-terminated `* const char` C-style string.
     /// Fail if the last byte is not zero.
@@ -34976,7 +34940,7 @@ _ZN6mynewt4Strn7as_cstr17h75ab8f13f49124a5E():
    2:	c786                	sw	ra,204(sp)
    4:	d82a                	sw	a0,48(sp)
    6:	85aa                	mv	a1,a0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:172
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:180
         match self.rep {
             StrnRep::ByteStr(bs) => { 
    8:	00054503          	lbu	a0,0(a0) # 0 <mynewt::Strn::as_cstr>
@@ -34990,7 +34954,7 @@ _ZN6mynewt4Strn7as_cstr17h75ab8f13f49124a5E():
   1e:	55a2                	lw	a1,40(sp)
   20:	12a58b63          	beq	a1,a0,156 <mynewt::Strn::as_cstr+0x156>
   24:	a009                	j	26 <mynewt::Strn::as_cstr+0x26>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:178
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:186
                 assert_eq!(bs.last(), Some(&0u8), "no null");  //  Last byte must be 0.
                 bs.as_ptr() as *const u8
             }
@@ -34999,14 +34963,14 @@ _ZN6mynewt4Strn7as_cstr17h75ab8f13f49124a5E():
     }
   26:	00000097          	auipc	ra,0x0
   2a:	000080e7          	jalr	ra # 26 <mynewt::Strn::as_cstr+0x26>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:172
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:180
             StrnRep::ByteStr(bs) => { 
   2e:	5542                	lw	a0,48(sp)
   30:	414c                	lw	a1,4(a0)
   32:	4508                	lw	a0,8(a0)
   34:	de2a                	sw	a0,60(sp)
   36:	dc2e                	sw	a1,56(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:173
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:181
                 assert_eq!(bs.last(), Some(&0u8), "no null");  //  Last byte must be 0.
   38:	d22a                	sw	a0,36(sp)
   3a:	852e                	mv	a0,a1
@@ -35108,7 +35072,7 @@ _ZN6mynewt4Strn7as_cstr17h75ab8f13f49124a5E():
  138:	000080e7          	jalr	ra # 134 <mynewt::Strn::as_cstr+0x134>
  13c:	00000097          	auipc	ra,0x0
  140:	000080e7          	jalr	ra # 13c <mynewt::Strn::as_cstr+0x13c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:174
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:182
                 bs.as_ptr() as *const u8
  144:	55f2                	lw	a1,60(sp)
  146:	5562                	lw	a0,56(sp)
@@ -35116,19 +35080,19 @@ _ZN6mynewt4Strn7as_cstr17h75ab8f13f49124a5E():
  14c:	000080e7          	jalr	ra # 148 <mynewt::Strn::as_cstr+0x148>
  150:	da2a                	sw	a0,52(sp)
  152:	a009                	j	154 <mynewt::Strn::as_cstr+0x154>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:171
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:179
         match self.rep {
  154:	a031                	j	160 <mynewt::Strn::as_cstr+0x160>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:176
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:184
             StrnRep::CStr(cstr)  => { cstr }
  156:	5542                	lw	a0,48(sp)
  158:	4148                	lw	a0,4(a0)
  15a:	c5aa                	sw	a0,200(sp)
  15c:	da2a                	sw	a0,52(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:171
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:179
         match self.rep {
  15e:	a009                	j	160 <mynewt::Strn::as_cstr+0x160>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:178
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:186
     }
  160:	5552                	lw	a0,52(sp)
  162:	40be                	lw	ra,204(sp)
@@ -35139,7 +35103,7 @@ Disassembly of section .text._ZN6mynewt4Strn10as_bytestr17h8fb485de34888662E:
 
 00000000 <mynewt::Strn::as_bytestr>:
 _ZN6mynewt4Strn10as_bytestr17h8fb485de34888662E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:182
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:190
 
     /// Return the byte string.
     /// Fail if the last byte is not zero.
@@ -35148,7 +35112,7 @@ _ZN6mynewt4Strn10as_bytestr17h8fb485de34888662E():
    2:	c786                	sw	ra,204(sp)
    4:	d62a                	sw	a0,44(sp)
    6:	85aa                	mv	a1,a0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:184
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:192
         match self.rep {
             StrnRep::ByteStr(bs) => {                
    8:	00054503          	lbu	a0,0(a0) # 0 <mynewt::Strn::as_bytestr>
@@ -35162,7 +35126,7 @@ _ZN6mynewt4Strn10as_bytestr17h8fb485de34888662E():
   1e:	5592                	lw	a1,36(sp)
   20:	12a58763          	beq	a1,a0,14e <mynewt::Strn::as_bytestr+0x14e>
   24:	a009                	j	26 <mynewt::Strn::as_bytestr+0x26>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:193
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:201
             StrnRep::CStr(_cstr)  => { 
                 assert!(false, "strn cstr");  //  Not implemented
                 b"\0"
@@ -35171,14 +35135,14 @@ _ZN6mynewt4Strn10as_bytestr17h8fb485de34888662E():
     }
   26:	00000097          	auipc	ra,0x0
   2a:	000080e7          	jalr	ra # 26 <mynewt::Strn::as_bytestr+0x26>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:184
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:192
             StrnRep::ByteStr(bs) => {                
   2e:	5532                	lw	a0,44(sp)
   30:	414c                	lw	a1,4(a0)
   32:	4508                	lw	a0,8(a0)
   34:	de2a                	sw	a0,60(sp)
   36:	dc2e                	sw	a1,56(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:185
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:193
                 assert_eq!(bs.last(), Some(&0u8), "no null");  //  Last byte must be 0.
   38:	d02a                	sw	a0,32(sp)
   3a:	852e                	mv	a0,a1
@@ -35280,22 +35244,22 @@ _ZN6mynewt4Strn10as_bytestr17h8fb485de34888662E():
  138:	000080e7          	jalr	ra # 134 <mynewt::Strn::as_bytestr+0x134>
  13c:	00000097          	auipc	ra,0x0
  140:	000080e7          	jalr	ra # 13c <mynewt::Strn::as_bytestr+0x13c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:186
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:194
                 &bs
  144:	5572                	lw	a0,60(sp)
  146:	da2a                	sw	a0,52(sp)
  148:	5562                	lw	a0,56(sp)
  14a:	d82a                	sw	a0,48(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:183
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:191
         match self.rep {
  14c:	a81d                	j	182 <mynewt::Strn::as_bytestr+0x182>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:188
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:196
             StrnRep::CStr(_cstr)  => { 
  14e:	5532                	lw	a0,44(sp)
  150:	4148                	lw	a0,4(a0)
  152:	c5aa                	sw	a0,200(sp)
  154:	4501                	li	a0,0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:189
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:197
                 assert!(false, "strn cstr");  //  Not implemented
  156:	ed11                	bnez	a0,172 <mynewt::Strn::as_bytestr+0x172>
  158:	a009                	j	15a <mynewt::Strn::as_bytestr+0x15a>
@@ -35306,16 +35270,16 @@ _ZN6mynewt4Strn10as_bytestr17h8fb485de34888662E():
  16a:	00000097          	auipc	ra,0x0
  16e:	000080e7          	jalr	ra # 16a <mynewt::Strn::as_bytestr+0x16a>
  172:	4505                	li	a0,1
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:190
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:198
                 b"\0"
  174:	da2a                	sw	a0,52(sp)
  176:	00000537          	lui	a0,0x0
  17a:	00050513          	mv	a0,a0
  17e:	d82a                	sw	a0,48(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:183
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:191
         match self.rep {
  180:	a009                	j	182 <mynewt::Strn::as_bytestr+0x182>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:193
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:201
     }
  182:	5542                	lw	a0,48(sp)
  184:	55d2                	lw	a1,52(sp)
@@ -35327,7 +35291,7 @@ Disassembly of section .text._ZN6mynewt4Strn8validate17ha21ab12898f18118E:
 
 00000000 <mynewt::Strn::validate>:
 _ZN6mynewt4Strn8validate17ha21ab12898f18118E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:196
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:204
 
     /// Fail if the last byte is not zero.
     pub fn validate(&self) {
@@ -35335,7 +35299,7 @@ _ZN6mynewt4Strn8validate17ha21ab12898f18118E():
    2:	c786                	sw	ra,204(sp)
    4:	da2a                	sw	a0,52(sp)
    6:	85aa                	mv	a1,a0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:198
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:206
         match self.rep {
             StrnRep::ByteStr(bs) => {         
    8:	00054503          	lbu	a0,0(a0) # 0 <mynewt::Strn::validate>
@@ -35349,7 +35313,7 @@ _ZN6mynewt4Strn8validate17ha21ab12898f18118E():
   1e:	55b2                	lw	a1,44(sp)
   20:	12a58363          	beq	a1,a0,146 <mynewt::Strn::validate+0x146>
   24:	a009                	j	26 <mynewt::Strn::validate+0x26>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:203
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:211
                 assert_eq!(bs.last(), Some(&0u8), "no null");  //  Last byte must be 0.
             }
             StrnRep::CStr(_cstr)  => {}
@@ -35357,14 +35321,14 @@ _ZN6mynewt4Strn8validate17ha21ab12898f18118E():
     }
   26:	00000097          	auipc	ra,0x0
   2a:	000080e7          	jalr	ra # 26 <mynewt::Strn::validate+0x26>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:198
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:206
             StrnRep::ByteStr(bs) => {         
   2e:	5552                	lw	a0,52(sp)
   30:	414c                	lw	a1,4(a0)
   32:	4508                	lw	a0,8(a0)
   34:	de2a                	sw	a0,60(sp)
   36:	dc2e                	sw	a1,56(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:199
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:207
                 assert_eq!(bs.last(), Some(&0u8), "no null");  //  Last byte must be 0.
   38:	d42a                	sw	a0,40(sp)
   3a:	852e                	mv	a0,a1
@@ -35466,18 +35430,18 @@ _ZN6mynewt4Strn8validate17ha21ab12898f18118E():
  138:	000080e7          	jalr	ra # 134 <mynewt::Strn::validate+0x134>
  13c:	00000097          	auipc	ra,0x0
  140:	000080e7          	jalr	ra # 13c <mynewt::Strn::validate+0x13c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:197
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:205
         match self.rep {
  144:	a029                	j	14e <mynewt::Strn::validate+0x14e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:201
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:209
             StrnRep::CStr(_cstr)  => {}
  146:	5552                	lw	a0,52(sp)
  148:	4148                	lw	a0,4(a0)
  14a:	c5aa                	sw	a0,200(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:197
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:205
         match self.rep {
  14c:	a009                	j	14e <mynewt::Strn::validate+0x14e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:203
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:211
     }
  14e:	40be                	lw	ra,204(sp)
  150:	6169                	addi	sp,sp,208
@@ -35487,7 +35451,7 @@ Disassembly of section .text._ZN6mynewt4Strn16validate_bytestr17h579eb14eee59a02
 
 00000000 <mynewt::Strn::validate_bytestr>:
 _ZN6mynewt4Strn16validate_bytestr17h579eb14eee59a025E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:206
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:214
 
     /// Fail if the last byte is not zero.
     pub fn validate_bytestr(bs: &'static [u8]) {
@@ -35495,7 +35459,7 @@ _ZN6mynewt4Strn16validate_bytestr17h579eb14eee59a025E():
    2:	df06                	sw	ra,188(sp)
    4:	da2e                	sw	a1,52(sp)
    6:	d82a                	sw	a0,48(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:207
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:215
         assert_eq!(bs.last(), Some(&0u8), "no null");  //  Last byte must be 0.
    8:	d62a                	sw	a0,44(sp)
    a:	d42e                	sw	a1,40(sp)
@@ -35600,7 +35564,7 @@ _ZN6mynewt4Strn16validate_bytestr17h579eb14eee59a025E():
  10e:	000080e7          	jalr	ra # 10a <mynewt::Strn::validate_bytestr+0x10a>
  112:	00000097          	auipc	ra,0x0
  116:	000080e7          	jalr	ra # 112 <mynewt::Strn::validate_bytestr+0x112>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:208
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:216
     }
  11a:	50fa                	lw	ra,188(sp)
  11c:	6129                	addi	sp,sp,192
@@ -35616,6 +35580,11 @@ SYMBOL TABLE:
 00000000 l       .text._ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17hbfd69c2cf5870110E	00000000 
 00000000 l       .text._ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17hbfd69c2cf5870110E	00000000 
 00000028 l       .text._ZN6mynewt8encoding12coap_context11CoapContext20json_set_text_string17hbfd69c2cf5870110E	00000000 
+00000e35 l       .debug_str	00000000 
+00000e39 l       .debug_str	00000000 
+00000e42 l       .debug_str	00000000 
+00000e4a l       .debug_str	00000000 
+00000e52 l       .debug_str	00000000 
 00000e59 l       .debug_str	00000000 
 00000e65 l       .debug_str	00000000 
 00000e71 l       .debug_str	00000000 
@@ -35649,12 +35618,6 @@ SYMBOL TABLE:
 00001085 l       .debug_str	00000000 
 0000108f l       .debug_str	00000000 
 00001095 l       .debug_str	00000000 
-000010a0 l       .debug_str	00000000 
-000010a2 l       .debug_str	00000000 
-000010b6 l       .debug_str	00000000 
-000010bf l       .debug_str	00000000 
-000010c6 l       .debug_str	00000000 
-000010d1 l       .debug_str	00000000 
 00000000 l       .debug_info	00000000 
 00000060 l       .debug_ranges	00000000 
 00000000 l       .debug_ranges	00000000 
@@ -35714,30 +35677,28 @@ SYMBOL TABLE:
 00000000 l       .text._ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17hb712bfb8bf4bd276E	00000000 
 00000000 l       .text._ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17hb712bfb8bf4bd276E	00000000 
 0000000e l       .text._ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17hb712bfb8bf4bd276E	00000000 
-00000000 l       .text._ZN84_$LT$$u5b$u8$u5d$$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hc9c88d7181bfe093E	00000000 
-00000000 l       .text._ZN84_$LT$$u5b$u8$u5d$$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hc9c88d7181bfe093E	00000000 
-00000012 l       .text._ZN84_$LT$$u5b$u8$u5d$$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hc9c88d7181bfe093E	00000000 
-00000000 l       .text._ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hadd85da15e95ce49E	00000000 
-00000000 l       .text._ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hadd85da15e95ce49E	00000000 
-00000006 l       .text._ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hadd85da15e95ce49E	00000000 
-00000008 l       .text._ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hadd85da15e95ce49E	00000000 
-0000000e l       .text._ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hadd85da15e95ce49E	00000000 
-00000010 l       .text._ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hadd85da15e95ce49E	00000000 
-00000024 l       .text._ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hadd85da15e95ce49E	00000000 
-00000000 l       .text._ZN79_$LT$$RF$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h31f1d44f4746523bE	00000000 
-00000000 l       .text._ZN79_$LT$$RF$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h31f1d44f4746523bE	00000000 
-0000000c l       .text._ZN79_$LT$$RF$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h31f1d44f4746523bE	00000000 
-00000022 l       .text._ZN79_$LT$$RF$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h31f1d44f4746523bE	00000000 
-00000000 l       .text._ZN82_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..cmp..PartialEq$GT$2eq17h099469a2ae5ba6c2E	00000000 
-00000000 l       .text._ZN82_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..cmp..PartialEq$GT$2eq17h099469a2ae5ba6c2E	00000000 
-0000001e l       .text._ZN82_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..cmp..PartialEq$GT$2eq17h099469a2ae5ba6c2E	00000000 
-00000034 l       .text._ZN82_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..cmp..PartialEq$GT$2eq17h099469a2ae5ba6c2E	00000000 
-0000005c l       .text._ZN82_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..cmp..PartialEq$GT$2eq17h099469a2ae5ba6c2E	00000000 
-00000000 l       .text._ZN78_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17h46a3a933ce5bf7a6E	00000000 
-00000000 l       .text._ZN78_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17h46a3a933ce5bf7a6E	00000000 
-0000004e l       .text._ZN78_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17h46a3a933ce5bf7a6E	00000000 
-00000078 l       .text._ZN78_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17h46a3a933ce5bf7a6E	00000000 
-00000092 l       .text._ZN78_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17h46a3a933ce5bf7a6E	00000000 
+00000000 l       .text._ZN78_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17ha33f0eac16382f49E	00000000 
+00000000 l       .text._ZN78_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17ha33f0eac16382f49E	00000000 
+00000038 l       .text._ZN78_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17ha33f0eac16382f49E	00000000 
+00000000 l       .text._ZN84_$LT$$u5b$u8$u5d$$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h384fa9a98bb87268E	00000000 
+00000000 l       .text._ZN84_$LT$$u5b$u8$u5d$$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h384fa9a98bb87268E	00000000 
+00000012 l       .text._ZN84_$LT$$u5b$u8$u5d$$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h384fa9a98bb87268E	00000000 
+00000000 l       .text._ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h138373221aa985f3E	00000000 
+00000000 l       .text._ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h138373221aa985f3E	00000000 
+00000006 l       .text._ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h138373221aa985f3E	00000000 
+00000008 l       .text._ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h138373221aa985f3E	00000000 
+0000000e l       .text._ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h138373221aa985f3E	00000000 
+00000010 l       .text._ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h138373221aa985f3E	00000000 
+00000024 l       .text._ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h138373221aa985f3E	00000000 
+00000000 l       .text._ZN79_$LT$$RF$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17ha081955dd366dd81E	00000000 
+00000000 l       .text._ZN79_$LT$$RF$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17ha081955dd366dd81E	00000000 
+0000000c l       .text._ZN79_$LT$$RF$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17ha081955dd366dd81E	00000000 
+00000022 l       .text._ZN79_$LT$$RF$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17ha081955dd366dd81E	00000000 
+00000000 l       .text._ZN82_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..cmp..PartialEq$GT$2eq17hff22fff7e25ec351E	00000000 
+00000000 l       .text._ZN82_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..cmp..PartialEq$GT$2eq17hff22fff7e25ec351E	00000000 
+0000001e l       .text._ZN82_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..cmp..PartialEq$GT$2eq17hff22fff7e25ec351E	00000000 
+00000034 l       .text._ZN82_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..cmp..PartialEq$GT$2eq17hff22fff7e25ec351E	00000000 
+0000005c l       .text._ZN82_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..cmp..PartialEq$GT$2eq17hff22fff7e25ec351E	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000058 l       .debug_str	00000000 
@@ -35834,13 +35795,13 @@ SYMBOL TABLE:
 0000091b l       .debug_str	00000000 
 0000096b l       .debug_str	00000000 
 00000977 l       .debug_str	00000000 
-000009fc l       .debug_str	00000000 
-00000a12 l       .debug_str	00000000 
-00000a8e l       .debug_str	00000000 
-00000b0e l       .debug_str	00000000 
-00000b7d l       .debug_str	00000000 
-00000b80 l       .debug_str	00000000 
-00000b85 l       .debug_str	00000000 
+000009e3 l       .debug_str	00000000 
+00000a68 l       .debug_str	00000000 
+00000a7e l       .debug_str	00000000 
+00000afa l       .debug_str	00000000 
+00000b7a l       .debug_str	00000000 
+00000be9 l       .debug_str	00000000 
+00000bec l       .debug_str	00000000 
 00000bf1 l       .debug_str	00000000 
 00000c22 l       .debug_str	00000000 
 00000c26 l       .debug_str	00000000 
@@ -35901,53 +35862,47 @@ SYMBOL TABLE:
 00000e1c l       .debug_str	00000000 
 00000e1f l       .debug_str	00000000 
 00000e2e l       .debug_str	00000000 
-00000e35 l       .debug_str	00000000 
-00000e39 l       .debug_str	00000000 
-00000e42 l       .debug_str	00000000 
-00000e4a l       .debug_str	00000000 
-00000e52 l       .debug_str	00000000 
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.0	00000001 .Lanon.155fba500bd08506a68e768311b7abaf.0
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.1	00000004 .Lanon.155fba500bd08506a68e768311b7abaf.1
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.10	0000000d .Lanon.155fba500bd08506a68e768311b7abaf.10
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.11	00000001 .Lanon.155fba500bd08506a68e768311b7abaf.11
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.12	00000006 .Lanon.155fba500bd08506a68e768311b7abaf.12
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.13	00000006 .Lanon.155fba500bd08506a68e768311b7abaf.13
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.14	00000010 .Lanon.155fba500bd08506a68e768311b7abaf.14
-00000000 l     O .rodata.cst4	00000004 .Lanon.155fba500bd08506a68e768311b7abaf.15
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.16	00000010 .Lanon.155fba500bd08506a68e768311b7abaf.16
-00000000 l     O .rodata.cst16	00000010 .Lanon.155fba500bd08506a68e768311b7abaf.17
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.18	00000018 .Lanon.155fba500bd08506a68e768311b7abaf.18
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.19	00000009 .Lanon.155fba500bd08506a68e768311b7abaf.19
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.2	00000007 .Lanon.155fba500bd08506a68e768311b7abaf.2
-00000004 l     O .rodata.cst4	00000004 .Lanon.155fba500bd08506a68e768311b7abaf.20
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.21	00000010 .Lanon.155fba500bd08506a68e768311b7abaf.21
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.22	0000000c .Lanon.155fba500bd08506a68e768311b7abaf.22
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.23	00000018 .Lanon.155fba500bd08506a68e768311b7abaf.23
-00000008 l     O .rodata.cst4	00000004 .Lanon.155fba500bd08506a68e768311b7abaf.24
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.25	0000002d .Lanon.155fba500bd08506a68e768311b7abaf.25
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.26	0000000c .Lanon.155fba500bd08506a68e768311b7abaf.26
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.27	00000003 .Lanon.155fba500bd08506a68e768311b7abaf.27
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.28	00000018 .Lanon.155fba500bd08506a68e768311b7abaf.28
-00000000 l     O .rodata.cst8	00000008 .Lanon.155fba500bd08506a68e768311b7abaf.29
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.3	00000028 .Lanon.155fba500bd08506a68e768311b7abaf.3
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.30	00000008 .Lanon.155fba500bd08506a68e768311b7abaf.30
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.31	00000000 .Lanon.155fba500bd08506a68e768311b7abaf.31
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.32	00000010 .Lanon.155fba500bd08506a68e768311b7abaf.32
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.33	00000010 .Lanon.155fba500bd08506a68e768311b7abaf.33
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.34	0000000e .Lanon.155fba500bd08506a68e768311b7abaf.34
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.35	00000002 .Lanon.155fba500bd08506a68e768311b7abaf.35
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.4	00000018 .Lanon.155fba500bd08506a68e768311b7abaf.4
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.5	00000010 .Lanon.155fba500bd08506a68e768311b7abaf.5
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.6	00000009 .Lanon.155fba500bd08506a68e768311b7abaf.6
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.7	00000018 .Lanon.155fba500bd08506a68e768311b7abaf.7
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.8	00000010 .Lanon.155fba500bd08506a68e768311b7abaf.8
-00000000 l     O .rodata..Lanon.155fba500bd08506a68e768311b7abaf.9	00000018 .Lanon.155fba500bd08506a68e768311b7abaf.9
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.0	00000001 .Lanon.823244be24f58b0a25c04d79e150b3c5.0
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.1	00000004 .Lanon.823244be24f58b0a25c04d79e150b3c5.1
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.10	0000000d .Lanon.823244be24f58b0a25c04d79e150b3c5.10
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.11	00000001 .Lanon.823244be24f58b0a25c04d79e150b3c5.11
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.12	00000006 .Lanon.823244be24f58b0a25c04d79e150b3c5.12
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.13	00000006 .Lanon.823244be24f58b0a25c04d79e150b3c5.13
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.14	00000010 .Lanon.823244be24f58b0a25c04d79e150b3c5.14
+00000000 l     O .rodata.cst4	00000004 .Lanon.823244be24f58b0a25c04d79e150b3c5.15
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.16	00000010 .Lanon.823244be24f58b0a25c04d79e150b3c5.16
+00000000 l     O .rodata.cst16	00000010 .Lanon.823244be24f58b0a25c04d79e150b3c5.17
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.18	00000018 .Lanon.823244be24f58b0a25c04d79e150b3c5.18
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.19	00000009 .Lanon.823244be24f58b0a25c04d79e150b3c5.19
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.2	00000007 .Lanon.823244be24f58b0a25c04d79e150b3c5.2
+00000004 l     O .rodata.cst4	00000004 .Lanon.823244be24f58b0a25c04d79e150b3c5.20
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.21	00000010 .Lanon.823244be24f58b0a25c04d79e150b3c5.21
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.22	0000000c .Lanon.823244be24f58b0a25c04d79e150b3c5.22
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.23	00000018 .Lanon.823244be24f58b0a25c04d79e150b3c5.23
+00000008 l     O .rodata.cst4	00000004 .Lanon.823244be24f58b0a25c04d79e150b3c5.24
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.25	0000002d .Lanon.823244be24f58b0a25c04d79e150b3c5.25
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.26	0000000c .Lanon.823244be24f58b0a25c04d79e150b3c5.26
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.27	00000003 .Lanon.823244be24f58b0a25c04d79e150b3c5.27
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.28	00000018 .Lanon.823244be24f58b0a25c04d79e150b3c5.28
+00000000 l     O .rodata.cst8	00000008 .Lanon.823244be24f58b0a25c04d79e150b3c5.29
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.3	00000028 .Lanon.823244be24f58b0a25c04d79e150b3c5.3
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.30	00000008 .Lanon.823244be24f58b0a25c04d79e150b3c5.30
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.31	00000000 .Lanon.823244be24f58b0a25c04d79e150b3c5.31
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.32	00000010 .Lanon.823244be24f58b0a25c04d79e150b3c5.32
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.33	00000010 .Lanon.823244be24f58b0a25c04d79e150b3c5.33
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.34	00000009 .Lanon.823244be24f58b0a25c04d79e150b3c5.34
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.4	00000018 .Lanon.823244be24f58b0a25c04d79e150b3c5.4
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.5	00000010 .Lanon.823244be24f58b0a25c04d79e150b3c5.5
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.6	00000009 .Lanon.823244be24f58b0a25c04d79e150b3c5.6
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.7	00000018 .Lanon.823244be24f58b0a25c04d79e150b3c5.7
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.8	00000010 .Lanon.823244be24f58b0a25c04d79e150b3c5.8
+00000000 l     O .rodata..Lanon.823244be24f58b0a25c04d79e150b3c5.9	00000018 .Lanon.823244be24f58b0a25c04d79e150b3c5.9
 00000000 l       .debug_line	00000000 .Lline_table_start0
 00000000 l     F .text._ZN6mynewt8encoding12coap_context11CoapContext16key_strn_to_cstr17h4c7b6deb174bad55E	00000064 mynewt::encoding::coap_context::CoapContext::key_strn_to_cstr
 00000000 l     F .text._ZN6mynewt8encoding12coap_context11CoapContext18value_strn_to_cstr17hce0f9f83becfa621E	00000064 mynewt::encoding::coap_context::CoapContext::value_strn_to_cstr
 00000000 l     O .bss._ZN6mynewt8encoding12coap_context13cbor_encoder017h19ab3694d51f251dE	00000010 mynewt::encoding::coap_context::cbor_encoder0
 00000000 l     O .bss._ZN6mynewt8encoding12coap_context13cbor_encoder117h2f6a36a97b44dad4E	00000010 mynewt::encoding::coap_context::cbor_encoder1
-00000000 l     F .text._ZN82_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..cmp..PartialEq$GT$2eq17h099469a2ae5ba6c2E	0000005c <mynewt::encoding::coap_context::CoapError as core::cmp::PartialEq>::eq
+00000000 l     F .text._ZN82_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..cmp..PartialEq$GT$2eq17hff22fff7e25ec351E	0000005c <mynewt::encoding::coap_context::CoapError as core::cmp::PartialEq>::eq
 00000000 l     O .rodata.str.0	00000028 str.0
 00000000 l     O .rodata.str.1	00000021 str.1
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
@@ -35956,9 +35911,8 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 core::fmt::ArgumentV1::new
 00000000         *UND*	00000000 core::fmt::ArgumentV1::new
 00000000         *UND*	00000000 core::fmt::ArgumentV1::new
-00000000         *UND*	00000000 core::fmt::builders::DebugTuple::finish
 00000000         *UND*	00000000 .hidden core::fmt::Arguments::new_v1
-00000000         *UND*	00000000 core::fmt::Formatter::debug_tuple
+00000000         *UND*	00000000 core::fmt::Formatter::write_str
 00000000         *UND*	00000000 core::slice::<impl [T]>::copy_from_slice
 00000000         *UND*	00000000 core::slice::<impl [T]>::len
 00000000         *UND*	00000000 core::slice::<impl [T]>::last
@@ -35983,10 +35937,10 @@ SYMBOL TABLE:
 00000000 g     F .text._ZN6mynewt8encoding12coap_context11CoapContext8cstr_len17h4a9ad8b09f65b235E	000000a2 mynewt::encoding::coap_context::CoapContext::cstr_len
 00000000 g     O .bss._ZN6mynewt8encoding12coap_context12COAP_CONTEXT17h9038c8449452b5aaE	00000040 mynewt::encoding::coap_context::COAP_CONTEXT
 00000000         *UND*	00000000 <core::option::Option<T> as core::cmp::PartialEq>::eq
-00000000 g     F .text._ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hadd85da15e95ce49E	00000024 <str as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul
-00000000 g     F .text._ZN78_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17h46a3a933ce5bf7a6E	00000092 <mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt
-00000000 g     F .text._ZN79_$LT$$RF$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h31f1d44f4746523bE	00000022 <&str as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul
-00000000 g     F .text._ZN84_$LT$$u5b$u8$u5d$$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hc9c88d7181bfe093E	00000012 <[u8] as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul
+00000000 g     F .text._ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h138373221aa985f3E	00000024 <str as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul
+00000000 g     F .text._ZN78_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17ha33f0eac16382f49E	00000038 <mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt
+00000000 g     F .text._ZN79_$LT$$RF$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17ha081955dd366dd81E	00000022 <&str as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul
+00000000 g     F .text._ZN84_$LT$$u5b$u8$u5d$$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h384fa9a98bb87268E	00000012 <[u8] as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul
 00000000         *UND*	00000000 abort
 00000000         *UND*	00000000 g_encoder
 00000000         *UND*	00000000 json_helper_set_text_string
@@ -37196,11 +37150,52 @@ _ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17hb712bfb8bf4bd276E(
    a:	0141                	addi	sp,sp,16
    c:	8082                	ret
 
-Disassembly of section .text._ZN84_$LT$$u5b$u8$u5d$$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hc9c88d7181bfe093E:
+Disassembly of section .text._ZN78_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17ha33f0eac16382f49E:
+
+00000000 <<mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt>:
+_ZN78_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17ha33f0eac16382f49E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:201
+    VALUE_NOT_UINT = 1,
+}
+
+/// Implement formatted output for CoapError
+impl ::core::fmt::Debug for CoapError {
+    fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+   0:	1101                	addi	sp,sp,-32
+   2:	ce06                	sw	ra,28(sp)
+   4:	cc2e                	sw	a1,24(sp)
+   6:	ca2a                	sw	a0,20(sp)
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:203
+        //  TODO
+        fmt.write_str("CoapError")
+   8:	00000637          	lui	a2,0x0
+   c:	00060613          	mv	a2,a2
+  10:	46a5                	li	a3,9
+  12:	c82a                	sw	a0,16(sp)
+  14:	852e                	mv	a0,a1
+  16:	c62e                	sw	a1,12(sp)
+  18:	85b2                	mv	a1,a2
+  1a:	8636                	mv	a2,a3
+  1c:	00000097          	auipc	ra,0x0
+  20:	000080e7          	jalr	ra # 1c <<mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt+0x1c>
+  24:	45b2                	lw	a1,12(sp)
+  26:	4642                	lw	a2,16(sp)
+  28:	c42e                	sw	a1,8(sp)
+  2a:	c232                	sw	a2,4(sp)
+  2c:	c02a                	sw	a0,0(sp)
+  2e:	a009                	j	30 <<mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt+0x30>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:204
+    }
+  30:	4502                	lw	a0,0(sp)
+  32:	40f2                	lw	ra,28(sp)
+  34:	6105                	addi	sp,sp,32
+  36:	8082                	ret
+
+Disassembly of section .text._ZN84_$LT$$u5b$u8$u5d$$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h384fa9a98bb87268E:
 
 00000000 <<[u8] as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul>:
-_ZN84_$LT$$u5b$u8$u5d$$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hc9c88d7181bfe093E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:208
+_ZN84_$LT$$u5b$u8$u5d$$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h384fa9a98bb87268E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:216
 }
 
 /// Convert the type to array of bytes that may or may not end with null
@@ -37212,7 +37207,7 @@ impl ToBytesOptionalNull for [u8] {
    4:	c42a                	sw	a0,8(sp)
    6:	862e                	mv	a2,a1
    8:	86aa                	mv	a3,a0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:210
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:218
         self
     }
    a:	c232                	sw	a2,4(sp)
@@ -37220,11 +37215,11 @@ impl ToBytesOptionalNull for [u8] {
    e:	0141                	addi	sp,sp,16
   10:	8082                	ret
 
-Disassembly of section .text._ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hadd85da15e95ce49E:
+Disassembly of section .text._ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h138373221aa985f3E:
 
 00000000 <<str as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul>:
-_ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hadd85da15e95ce49E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:216
+_ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h138373221aa985f3E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:224
 }
 
 /// Convert the type to array of bytes that may or may not end with null
@@ -37237,8 +37232,8 @@ impl ToBytesOptionalNull for str {
 _ZN4core3str21_$LT$impl$u20$str$GT$8as_bytes17hbca31947ef6ad219E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/str/mod.rs:2153
    6:	d62e                	sw	a1,44(sp)
-_ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hadd85da15e95ce49E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:217
+_ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h138373221aa985f3E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:225
         self.as_bytes()
    8:	862e                	mv	a2,a1
    a:	cc2a                	sw	a0,24(sp)
@@ -37246,26 +37241,26 @@ _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$
 _ZN4core3str21_$LT$impl$u20$str$GT$8as_bytes17hbca31947ef6ad219E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/str/mod.rs:2153
    e:	d42a                	sw	a0,40(sp)
-_ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hadd85da15e95ce49E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:217
+_ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h138373221aa985f3E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:225
   10:	86aa                	mv	a3,a0
   12:	ca32                	sw	a2,20(sp)
   14:	c82e                	sw	a1,16(sp)
   16:	c636                	sw	a3,12(sp)
   18:	c42a                	sw	a0,8(sp)
   1a:	a009                	j	1c <<str as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul+0x1c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:218
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:226
     }
   1c:	4532                	lw	a0,12(sp)
   1e:	45d2                	lw	a1,20(sp)
   20:	6145                	addi	sp,sp,48
   22:	8082                	ret
 
-Disassembly of section .text._ZN79_$LT$$RF$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h31f1d44f4746523bE:
+Disassembly of section .text._ZN79_$LT$$RF$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17ha081955dd366dd81E:
 
 00000000 <<&str as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul>:
-_ZN79_$LT$$RF$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h31f1d44f4746523bE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:224
+_ZN79_$LT$$RF$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17ha081955dd366dd81E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:232
 }
 
 /// Convert the type to array of bytes that may or may not end with null
@@ -37275,7 +37270,7 @@ impl ToBytesOptionalNull for &str {
    0:	1101                	addi	sp,sp,-32
    2:	c62a                	sw	a0,12(sp)
    4:	85aa                	mv	a1,a0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:225
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:233
         self.as_bytes()
    6:	4110                	lw	a2,0(a0)
    8:	4148                	lw	a0,4(a0)
@@ -37285,25 +37280,25 @@ _ZN4core3str21_$LT$impl$u20$str$GT$8as_bytes17hbca31947ef6ad219E():
    c:	ce2a                	sw	a0,28(sp)
    e:	c832                	sw	a2,16(sp)
   10:	cc32                	sw	a2,24(sp)
-_ZN79_$LT$$RF$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h31f1d44f4746523bE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:225
+_ZN79_$LT$$RF$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17ha081955dd366dd81E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:233
   12:	c42e                	sw	a1,8(sp)
   14:	c232                	sw	a2,4(sp)
   16:	c02a                	sw	a0,0(sp)
   18:	a009                	j	1a <<&str as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul+0x1a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:226
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:234
     }
   1a:	4512                	lw	a0,4(sp)
   1c:	4582                	lw	a1,0(sp)
   1e:	6105                	addi	sp,sp,32
   20:	8082                	ret
 
-Disassembly of section .text._ZN82_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..cmp..PartialEq$GT$2eq17h099469a2ae5ba6c2E:
+Disassembly of section .text._ZN82_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..cmp..PartialEq$GT$2eq17hff22fff7e25ec351E:
 
 00000000 <<mynewt::encoding::coap_context::CoapError as core::cmp::PartialEq>::eq>:
-_ZN82_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..cmp..PartialEq$GT$2eq17h099469a2ae5ba6c2E():
+_ZN82_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..cmp..PartialEq$GT$2eq17hff22fff7e25ec351E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:191
-#[derive(Debug, PartialEq)]
+#[derive(PartialEq)]
    0:	715d                	addi	sp,sp,-80
    2:	d42e                	sw	a1,40(sp)
    4:	d22a                	sw	a0,36(sp)
@@ -37344,64 +37339,6 @@ _ZN82_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..cmp..Partia
   54:	02f14503          	lbu	a0,47(sp)
   58:	6161                	addi	sp,sp,80
   5a:	8082                	ret
-
-Disassembly of section .text._ZN78_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17h46a3a933ce5bf7a6E:
-
-00000000 <<mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt>:
-_ZN78_$LT$mynewt..encoding..coap_context..CoapError$u20$as$u20$core..fmt..Debug$GT$3fmt17h46a3a933ce5bf7a6E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:191
-   0:	7139                	addi	sp,sp,-64
-   2:	de06                	sw	ra,60(sp)
-   4:	ca2e                	sw	a1,20(sp)
-   6:	c82a                	sw	a0,16(sp)
-   8:	ce2a                	sw	a0,28(sp)
-   a:	862a                	mv	a2,a0
-   c:	00054503          	lbu	a0,0(a0)
-  10:	00157693          	andi	a3,a0,1
-  14:	4701                	li	a4,0
-  16:	c62e                	sw	a1,12(sp)
-  18:	c432                	sw	a2,8(sp)
-  1a:	c22a                	sw	a0,4(sp)
-  1c:	00e68c63          	beq	a3,a4,34 <<mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt+0x34>
-  20:	a009                	j	22 <<mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt+0x22>
-  22:	4505                	li	a0,1
-  24:	4592                	lw	a1,4(sp)
-  26:	02a58c63          	beq	a1,a0,5e <<mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt+0x5e>
-  2a:	a009                	j	2c <<mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt+0x2c>
-  2c:	00000097          	auipc	ra,0x0
-  30:	000080e7          	jalr	ra # 2c <<mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt+0x2c>
-  34:	45d2                	lw	a1,20(sp)
-  36:	00000537          	lui	a0,0x0
-  3a:	00050613          	mv	a2,a0
-  3e:	1008                	addi	a0,sp,32
-  40:	4689                	li	a3,2
-  42:	00000097          	auipc	ra,0x0
-  46:	000080e7          	jalr	ra # 42 <<mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt+0x42>
-  4a:	a009                	j	4c <<mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt+0x4c>
-  4c:	1008                	addi	a0,sp,32
-  4e:	00000097          	auipc	ra,0x0
-  52:	000080e7          	jalr	ra # 4e <<mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt+0x4e>
-  56:	00a10da3          	sb	a0,27(sp)
-  5a:	a009                	j	5c <<mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt+0x5c>
-  5c:	a035                	j	88 <<mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt+0x88>
-  5e:	45d2                	lw	a1,20(sp)
-  60:	00000537          	lui	a0,0x0
-  64:	00050613          	mv	a2,a0
-  68:	1808                	addi	a0,sp,48
-  6a:	46b9                	li	a3,14
-  6c:	00000097          	auipc	ra,0x0
-  70:	000080e7          	jalr	ra # 6c <<mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt+0x6c>
-  74:	a009                	j	76 <<mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt+0x76>
-  76:	1808                	addi	a0,sp,48
-  78:	00000097          	auipc	ra,0x0
-  7c:	000080e7          	jalr	ra # 78 <<mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt+0x78>
-  80:	00a10da3          	sb	a0,27(sp)
-  84:	a009                	j	86 <<mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt+0x86>
-  86:	a009                	j	88 <<mynewt::encoding::coap_context::CoapError as core::fmt::Debug>::fmt+0x88>
-  88:	01b14503          	lbu	a0,27(sp)
-  8c:	50f2                	lw	ra,60(sp)
-  8e:	6121                	addi	sp,sp,64
-  90:	8082                	ret
 
 mynewt-4d3f6e498683360f.2254plecshkhzhsc.rcgu.o:     file format elf32-littleriscv
 
@@ -45330,45 +45267,12 @@ SYMBOL TABLE:
 00000000 l       .text._ZN78_$LT$mynewt..result..MynewtError$u20$as$u20$core..convert..From$LT$i32$GT$$GT$4from17hc9e1d4268cf99996E	00000000 
 00000000 l       .text._ZN78_$LT$mynewt..result..MynewtError$u20$as$u20$core..convert..From$LT$i32$GT$$GT$4from17hc9e1d4268cf99996E	00000000 
 00000014 l       .text._ZN78_$LT$mynewt..result..MynewtError$u20$as$u20$core..convert..From$LT$i32$GT$$GT$4from17hc9e1d4268cf99996E	00000000 
-00000000 l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
-00000000 l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
-000004dc l       .debug_str	00000000 
-000004e0 l       .debug_str	00000000 
-000004e8 l       .debug_str	00000000 
-000004ff l       .debug_str	00000000 
-00000523 l       .debug_str	00000000 
-0000053f l       .debug_str	00000000 
-00000544 l       .debug_str	00000000 
-0000054d l       .debug_str	00000000 
-00000554 l       .debug_str	00000000 
-0000056d l       .debug_str	00000000 
-00000577 l       .debug_str	00000000 
-00000591 l       .debug_str	00000000 
-000005a5 l       .debug_str	00000000 
-000005ae l       .debug_str	00000000 
-000005b5 l       .debug_str	00000000 
-000005c0 l       .debug_str	00000000 
-000005c5 l       .debug_str	00000000 
+00000000 l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17hbce763e4af4148eeE	00000000 
+00000000 l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17hbce763e4af4148eeE	00000000 
+00000575 l       .debug_str	00000000 
 00000000 l       .debug_info	00000000 
 00000000 l       .text._ZN6mynewt6result88_$LT$impl$u20$core..convert..From$LT$mynewt..result..MynewtError$GT$$u20$for$u20$i32$GT$4from17h4c52ca5040ef4557E	00000000 
-000000e2 l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
-0000010c l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
-00000136 l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
-00000160 l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
-0000018a l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
-000001b4 l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
-000001de l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
-00000208 l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
-00000232 l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
-0000025c l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
-00000286 l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
-000002b0 l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
-000002da l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
-00000304 l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
-0000032e l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
-00000358 l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
-00000382 l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
-0000039e l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	00000000 
+00000038 l       .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17hbce763e4af4148eeE	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000058 l       .debug_str	00000000 
@@ -45416,70 +45320,61 @@ SYMBOL TABLE:
 0000030f l       .debug_str	00000000 
 00000314 l       .debug_str	00000000 
 00000331 l       .debug_str	00000000 
-00000333 l       .debug_str	00000000 
-00000339 l       .debug_str	00000000 
-0000033d l       .debug_str	00000000 
-00000342 l       .debug_str	00000000 
-00000347 l       .debug_str	00000000 
-0000034d l       .debug_str	00000000 
-00000353 l       .debug_str	00000000 
-0000035a l       .debug_str	00000000 
-0000035f l       .debug_str	00000000 
+00000337 l       .debug_str	00000000 
+0000033b l       .debug_str	00000000 
+00000340 l       .debug_str	00000000 
+00000345 l       .debug_str	00000000 
+0000034b l       .debug_str	00000000 
+00000351 l       .debug_str	00000000 
+00000358 l       .debug_str	00000000 
+0000035d l       .debug_str	00000000 
+00000363 l       .debug_str	00000000 
 00000365 l       .debug_str	00000000 
-00000367 l       .debug_str	00000000 
-0000036c l       .debug_str	00000000 
-00000370 l       .debug_str	00000000 
-0000037e l       .debug_str	00000000 
-00000388 l       .debug_str	00000000 
-0000038c l       .debug_str	00000000 
-00000394 l       .debug_str	00000000 
-0000039c l       .debug_str	00000000 
-000003a3 l       .debug_str	00000000 
-000003b7 l       .debug_str	00000000 
-000003c3 l       .debug_str	00000000 
-000003ce l       .debug_str	00000000 
-000003d5 l       .debug_str	00000000 
-000003db l       .debug_str	00000000 
-000003df l       .debug_str	00000000 
-000003e5 l       .debug_str	00000000 
-000003eb l       .debug_str	00000000 
-000003ee l       .debug_str	00000000 
-000003fd l       .debug_str	00000000 
-00000404 l       .debug_str	00000000 
-00000408 l       .debug_str	00000000 
-00000411 l       .debug_str	00000000 
-0000041d l       .debug_str	00000000 
-00000436 l       .debug_str	00000000 
-0000043b l       .debug_str	00000000 
-0000044c l       .debug_str	00000000 
-00000456 l       .debug_str	00000000 
-000004b4 l       .debug_str	00000000 
-000004bf l       .debug_str	00000000 
-00000000 l     O .rodata..Lanon.46ab8520f99bc24489eda34285826976.0	0000000c .Lanon.46ab8520f99bc24489eda34285826976.0
-00000000 l     O .rodata..Lanon.46ab8520f99bc24489eda34285826976.1	00000009 .Lanon.46ab8520f99bc24489eda34285826976.1
-00000000 l     O .rodata..Lanon.46ab8520f99bc24489eda34285826976.10	0000000a .Lanon.46ab8520f99bc24489eda34285826976.10
-00000000 l     O .rodata..Lanon.46ab8520f99bc24489eda34285826976.11	00000007 .Lanon.46ab8520f99bc24489eda34285826976.11
-00000000 l     O .rodata..Lanon.46ab8520f99bc24489eda34285826976.12	0000000a .Lanon.46ab8520f99bc24489eda34285826976.12
-00000000 l     O .rodata..Lanon.46ab8520f99bc24489eda34285826976.13	0000000c .Lanon.46ab8520f99bc24489eda34285826976.13
-00000000 l     O .rodata..Lanon.46ab8520f99bc24489eda34285826976.14	0000000a .Lanon.46ab8520f99bc24489eda34285826976.14
-00000000 l     O .rodata..Lanon.46ab8520f99bc24489eda34285826976.15	0000000a .Lanon.46ab8520f99bc24489eda34285826976.15
-00000000 l     O .rodata..Lanon.46ab8520f99bc24489eda34285826976.16	00000007 .Lanon.46ab8520f99bc24489eda34285826976.16
-00000000 l     O .rodata..Lanon.46ab8520f99bc24489eda34285826976.2	0000000d .Lanon.46ab8520f99bc24489eda34285826976.2
-00000000 l     O .rodata..Lanon.46ab8520f99bc24489eda34285826976.3	0000000c .Lanon.46ab8520f99bc24489eda34285826976.3
-00000000 l     O .rodata..Lanon.46ab8520f99bc24489eda34285826976.4	0000000b .Lanon.46ab8520f99bc24489eda34285826976.4
-00000000 l     O .rodata..Lanon.46ab8520f99bc24489eda34285826976.5	0000000c .Lanon.46ab8520f99bc24489eda34285826976.5
-00000000 l     O .rodata..Lanon.46ab8520f99bc24489eda34285826976.6	0000000a .Lanon.46ab8520f99bc24489eda34285826976.6
-00000000 l     O .rodata..Lanon.46ab8520f99bc24489eda34285826976.7	0000000a .Lanon.46ab8520f99bc24489eda34285826976.7
-00000000 l     O .rodata..Lanon.46ab8520f99bc24489eda34285826976.8	00000009 .Lanon.46ab8520f99bc24489eda34285826976.8
-00000000 l     O .rodata..Lanon.46ab8520f99bc24489eda34285826976.9	0000000a .Lanon.46ab8520f99bc24489eda34285826976.9
+0000036a l       .debug_str	00000000 
+0000036e l       .debug_str	00000000 
+0000037c l       .debug_str	00000000 
+00000386 l       .debug_str	00000000 
+0000038a l       .debug_str	00000000 
+00000392 l       .debug_str	00000000 
+0000039a l       .debug_str	00000000 
+000003a1 l       .debug_str	00000000 
+000003b5 l       .debug_str	00000000 
+000003c1 l       .debug_str	00000000 
+000003cc l       .debug_str	00000000 
+000003d3 l       .debug_str	00000000 
+000003d9 l       .debug_str	00000000 
+000003dd l       .debug_str	00000000 
+000003e3 l       .debug_str	00000000 
+000003e9 l       .debug_str	00000000 
+000003ec l       .debug_str	00000000 
+000003fb l       .debug_str	00000000 
+00000402 l       .debug_str	00000000 
+00000406 l       .debug_str	00000000 
+0000040f l       .debug_str	00000000 
+0000041b l       .debug_str	00000000 
+00000434 l       .debug_str	00000000 
+00000439 l       .debug_str	00000000 
+0000044a l       .debug_str	00000000 
+00000454 l       .debug_str	00000000 
+000004b2 l       .debug_str	00000000 
+000004bd l       .debug_str	00000000 
+000004da l       .debug_str	00000000 
+000004de l       .debug_str	00000000 
+000004e6 l       .debug_str	00000000 
+000004fd l       .debug_str	00000000 
+00000521 l       .debug_str	00000000 
+0000053d l       .debug_str	00000000 
+00000542 l       .debug_str	00000000 
+0000054b l       .debug_str	00000000 
+00000552 l       .debug_str	00000000 
+0000056b l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.1d4c671d9c15f11ca28f239b9d1a09df.0	0000000b .Lanon.1d4c671d9c15f11ca28f239b9d1a09df.0
 00000000 l       .debug_line	00000000 .Lline_table_start0
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
-00000000         *UND*	00000000 core::fmt::builders::DebugTuple::finish
-00000000         *UND*	00000000 core::fmt::Formatter::debug_tuple
-00000000 g     F .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E	0000039e <mynewt::result::MynewtError as core::fmt::Debug>::fmt
+00000000         *UND*	00000000 core::fmt::Formatter::write_str
+00000000 g     F .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17hbce763e4af4148eeE	00000038 <mynewt::result::MynewtError as core::fmt::Debug>::fmt
 00000000 g     F .text._ZN6mynewt6result88_$LT$impl$u20$core..convert..From$LT$mynewt..result..MynewtError$GT$$u20$for$u20$i32$GT$4from17h4c52ca5040ef4557E	0000000c mynewt::result::<impl core::convert::From<mynewt::result::MynewtError> for i32>::from
 00000000 g     F .text._ZN78_$LT$mynewt..result..MynewtError$u20$as$u20$core..convert..From$LT$i32$GT$$GT$4from17hc9e1d4268cf99996E	00000014 <mynewt::result::MynewtError as core::convert::From<i32>>::from
-00000000         *UND*	00000000 abort
 
 
 
@@ -45534,334 +45429,45 @@ _ZN78_$LT$mynewt..result..MynewtError$u20$as$u20$core..convert..From$LT$i32$GT$$
   10:	0141                	addi	sp,sp,16
   12:	8082                	ret
 
-Disassembly of section .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E:
+Disassembly of section .text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17hbce763e4af4148eeE:
 
 00000000 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt>:
-_ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h2046fd94e3f9a541E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:52
-    #[derive(Debug, PartialEq)]
-   0:	7169                	addi	sp,sp,-304
-   2:	12112623          	sw	ra,300(sp)
-   6:	ca2e                	sw	a1,20(sp)
-   8:	c82a                	sw	a0,16(sp)
-   a:	ce2a                	sw	a0,28(sp)
-   c:	862a                	mv	a2,a0
-   e:	4108                	lw	a0,0(a0)
-  10:	76c1                	lui	a3,0xffff0
-  12:	0685                	addi	a3,a3,1
-  14:	c62e                	sw	a1,12(sp)
-  16:	c432                	sw	a2,8(sp)
-  18:	c22a                	sw	a0,4(sp)
-  1a:	34d50763          	beq	a0,a3,368 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x368>
-  1e:	a009                	j	20 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x20>
-  20:	5545                	li	a0,-15
-  22:	4592                	lw	a1,4(sp)
-  24:	30a58d63          	beq	a1,a0,33e <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x33e>
-  28:	a009                	j	2a <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x2a>
-  2a:	5549                	li	a0,-14
-  2c:	4592                	lw	a1,4(sp)
-  2e:	2ea58363          	beq	a1,a0,314 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x314>
-  32:	a009                	j	34 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x34>
-  34:	554d                	li	a0,-13
-  36:	4592                	lw	a1,4(sp)
-  38:	2aa58963          	beq	a1,a0,2ea <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x2ea>
-  3c:	a009                	j	3e <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x3e>
-  3e:	5551                	li	a0,-12
-  40:	4592                	lw	a1,4(sp)
-  42:	26a58f63          	beq	a1,a0,2c0 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x2c0>
-  46:	a009                	j	48 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x48>
-  48:	5555                	li	a0,-11
-  4a:	4592                	lw	a1,4(sp)
-  4c:	24a58563          	beq	a1,a0,296 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x296>
-  50:	a009                	j	52 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x52>
-  52:	5559                	li	a0,-10
-  54:	4592                	lw	a1,4(sp)
-  56:	20a58b63          	beq	a1,a0,26c <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x26c>
-  5a:	a009                	j	5c <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x5c>
-  5c:	555d                	li	a0,-9
-  5e:	4592                	lw	a1,4(sp)
-  60:	1ea58163          	beq	a1,a0,242 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x242>
-  64:	a009                	j	66 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x66>
-  66:	5561                	li	a0,-8
-  68:	4592                	lw	a1,4(sp)
-  6a:	1aa58763          	beq	a1,a0,218 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x218>
-  6e:	a009                	j	70 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x70>
-  70:	5565                	li	a0,-7
-  72:	4592                	lw	a1,4(sp)
-  74:	16a58d63          	beq	a1,a0,1ee <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x1ee>
-  78:	a009                	j	7a <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x7a>
-  7a:	5569                	li	a0,-6
-  7c:	4592                	lw	a1,4(sp)
-  7e:	14a58363          	beq	a1,a0,1c4 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x1c4>
-  82:	a009                	j	84 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x84>
-  84:	556d                	li	a0,-5
-  86:	4592                	lw	a1,4(sp)
-  88:	10a58963          	beq	a1,a0,19a <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x19a>
-  8c:	a009                	j	8e <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x8e>
-  8e:	5571                	li	a0,-4
-  90:	4592                	lw	a1,4(sp)
-  92:	0ca58f63          	beq	a1,a0,170 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x170>
-  96:	a009                	j	98 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x98>
-  98:	5575                	li	a0,-3
-  9a:	4592                	lw	a1,4(sp)
-  9c:	0aa58563          	beq	a1,a0,146 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x146>
-  a0:	a009                	j	a2 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0xa2>
-  a2:	5579                	li	a0,-2
-  a4:	4592                	lw	a1,4(sp)
-  a6:	06a58b63          	beq	a1,a0,11c <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x11c>
-  aa:	a009                	j	ac <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0xac>
-  ac:	557d                	li	a0,-1
-  ae:	4592                	lw	a1,4(sp)
-  b0:	04a58163          	beq	a1,a0,f2 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0xf2>
-  b4:	a009                	j	b6 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0xb6>
-  b6:	4501                	li	a0,0
-  b8:	4592                	lw	a1,4(sp)
-  ba:	00a58763          	beq	a1,a0,c8 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0xc8>
-  be:	a009                	j	c0 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0xc0>
-  c0:	00000097          	auipc	ra,0x0
-  c4:	000080e7          	jalr	ra # c0 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0xc0>
-  c8:	45d2                	lw	a1,20(sp)
-  ca:	00000537          	lui	a0,0x0
-  ce:	00050613          	mv	a2,a0
-  d2:	1008                	addi	a0,sp,32
-  d4:	469d                	li	a3,7
-  d6:	00000097          	auipc	ra,0x0
-  da:	000080e7          	jalr	ra # d6 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0xd6>
-  de:	a009                	j	e0 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0xe0>
-  e0:	1008                	addi	a0,sp,32
-  e2:	00000097          	auipc	ra,0x0
-  e6:	000080e7          	jalr	ra # e2 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0xe2>
-  ea:	00a10da3          	sb	a0,27(sp)
-  ee:	a009                	j	f0 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0xf0>
-  f0:	a44d                	j	392 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x392>
-  f2:	45d2                	lw	a1,20(sp)
-  f4:	00000537          	lui	a0,0x0
-  f8:	00050613          	mv	a2,a0
-  fc:	1808                	addi	a0,sp,48
-  fe:	46a9                	li	a3,10
- 100:	00000097          	auipc	ra,0x0
- 104:	000080e7          	jalr	ra # 100 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x100>
- 108:	a009                	j	10a <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x10a>
- 10a:	1808                	addi	a0,sp,48
- 10c:	00000097          	auipc	ra,0x0
- 110:	000080e7          	jalr	ra # 10c <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x10c>
- 114:	00a10da3          	sb	a0,27(sp)
- 118:	a009                	j	11a <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x11a>
- 11a:	aca5                	j	392 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x392>
- 11c:	45d2                	lw	a1,20(sp)
- 11e:	00000537          	lui	a0,0x0
- 122:	00050613          	mv	a2,a0
- 126:	0088                	addi	a0,sp,64
- 128:	46a9                	li	a3,10
- 12a:	00000097          	auipc	ra,0x0
- 12e:	000080e7          	jalr	ra # 12a <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x12a>
- 132:	a009                	j	134 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x134>
- 134:	0088                	addi	a0,sp,64
- 136:	00000097          	auipc	ra,0x0
- 13a:	000080e7          	jalr	ra # 136 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x136>
- 13e:	00a10da3          	sb	a0,27(sp)
- 142:	a009                	j	144 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x144>
- 144:	a4b9                	j	392 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x392>
- 146:	45d2                	lw	a1,20(sp)
- 148:	00000537          	lui	a0,0x0
- 14c:	00050613          	mv	a2,a0
- 150:	0888                	addi	a0,sp,80
- 152:	46b1                	li	a3,12
- 154:	00000097          	auipc	ra,0x0
- 158:	000080e7          	jalr	ra # 154 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x154>
- 15c:	a009                	j	15e <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x15e>
- 15e:	0888                	addi	a0,sp,80
- 160:	00000097          	auipc	ra,0x0
- 164:	000080e7          	jalr	ra # 160 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x160>
- 168:	00a10da3          	sb	a0,27(sp)
- 16c:	a009                	j	16e <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x16e>
- 16e:	a415                	j	392 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x392>
- 170:	45d2                	lw	a1,20(sp)
- 172:	00000537          	lui	a0,0x0
- 176:	00050613          	mv	a2,a0
- 17a:	1088                	addi	a0,sp,96
- 17c:	46a9                	li	a3,10
- 17e:	00000097          	auipc	ra,0x0
- 182:	000080e7          	jalr	ra # 17e <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x17e>
- 186:	a009                	j	188 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x188>
- 188:	1088                	addi	a0,sp,96
- 18a:	00000097          	auipc	ra,0x0
- 18e:	000080e7          	jalr	ra # 18a <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x18a>
- 192:	00a10da3          	sb	a0,27(sp)
- 196:	a009                	j	198 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x198>
- 198:	aaed                	j	392 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x392>
- 19a:	45d2                	lw	a1,20(sp)
- 19c:	00000537          	lui	a0,0x0
- 1a0:	00050613          	mv	a2,a0
- 1a4:	1888                	addi	a0,sp,112
- 1a6:	469d                	li	a3,7
- 1a8:	00000097          	auipc	ra,0x0
- 1ac:	000080e7          	jalr	ra # 1a8 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x1a8>
- 1b0:	a009                	j	1b2 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x1b2>
- 1b2:	1888                	addi	a0,sp,112
- 1b4:	00000097          	auipc	ra,0x0
- 1b8:	000080e7          	jalr	ra # 1b4 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x1b4>
- 1bc:	00a10da3          	sb	a0,27(sp)
- 1c0:	a009                	j	1c2 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x1c2>
- 1c2:	aac1                	j	392 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x392>
- 1c4:	45d2                	lw	a1,20(sp)
- 1c6:	00000537          	lui	a0,0x0
- 1ca:	00050613          	mv	a2,a0
- 1ce:	0108                	addi	a0,sp,128
- 1d0:	46a9                	li	a3,10
- 1d2:	00000097          	auipc	ra,0x0
- 1d6:	000080e7          	jalr	ra # 1d2 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x1d2>
- 1da:	a009                	j	1dc <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x1dc>
- 1dc:	0108                	addi	a0,sp,128
- 1de:	00000097          	auipc	ra,0x0
- 1e2:	000080e7          	jalr	ra # 1de <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x1de>
- 1e6:	00a10da3          	sb	a0,27(sp)
- 1ea:	a009                	j	1ec <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x1ec>
- 1ec:	a25d                	j	392 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x392>
- 1ee:	45d2                	lw	a1,20(sp)
- 1f0:	00000537          	lui	a0,0x0
- 1f4:	00050613          	mv	a2,a0
- 1f8:	0908                	addi	a0,sp,144
- 1fa:	46a9                	li	a3,10
- 1fc:	00000097          	auipc	ra,0x0
- 200:	000080e7          	jalr	ra # 1fc <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x1fc>
- 204:	a009                	j	206 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x206>
- 206:	0908                	addi	a0,sp,144
- 208:	00000097          	auipc	ra,0x0
- 20c:	000080e7          	jalr	ra # 208 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x208>
- 210:	00a10da3          	sb	a0,27(sp)
- 214:	a009                	j	216 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x216>
- 216:	aab5                	j	392 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x392>
- 218:	45d2                	lw	a1,20(sp)
- 21a:	00000537          	lui	a0,0x0
- 21e:	00050613          	mv	a2,a0
- 222:	1108                	addi	a0,sp,160
- 224:	46a5                	li	a3,9
- 226:	00000097          	auipc	ra,0x0
- 22a:	000080e7          	jalr	ra # 226 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x226>
- 22e:	a009                	j	230 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x230>
- 230:	1108                	addi	a0,sp,160
- 232:	00000097          	auipc	ra,0x0
- 236:	000080e7          	jalr	ra # 232 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x232>
- 23a:	00a10da3          	sb	a0,27(sp)
- 23e:	a009                	j	240 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x240>
- 240:	aa89                	j	392 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x392>
- 242:	45d2                	lw	a1,20(sp)
- 244:	00000537          	lui	a0,0x0
- 248:	00050613          	mv	a2,a0
- 24c:	1908                	addi	a0,sp,176
- 24e:	46a9                	li	a3,10
- 250:	00000097          	auipc	ra,0x0
- 254:	000080e7          	jalr	ra # 250 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x250>
- 258:	a009                	j	25a <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x25a>
- 25a:	1908                	addi	a0,sp,176
- 25c:	00000097          	auipc	ra,0x0
- 260:	000080e7          	jalr	ra # 25c <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x25c>
- 264:	00a10da3          	sb	a0,27(sp)
- 268:	a009                	j	26a <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x26a>
- 26a:	a225                	j	392 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x392>
- 26c:	45d2                	lw	a1,20(sp)
- 26e:	00000537          	lui	a0,0x0
- 272:	00050613          	mv	a2,a0
- 276:	0188                	addi	a0,sp,192
- 278:	46a9                	li	a3,10
- 27a:	00000097          	auipc	ra,0x0
- 27e:	000080e7          	jalr	ra # 27a <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x27a>
- 282:	a009                	j	284 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x284>
- 284:	0188                	addi	a0,sp,192
- 286:	00000097          	auipc	ra,0x0
- 28a:	000080e7          	jalr	ra # 286 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x286>
- 28e:	00a10da3          	sb	a0,27(sp)
- 292:	a009                	j	294 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x294>
- 294:	a8fd                	j	392 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x392>
- 296:	45d2                	lw	a1,20(sp)
- 298:	00000537          	lui	a0,0x0
- 29c:	00050613          	mv	a2,a0
- 2a0:	0988                	addi	a0,sp,208
- 2a2:	46b1                	li	a3,12
- 2a4:	00000097          	auipc	ra,0x0
- 2a8:	000080e7          	jalr	ra # 2a4 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x2a4>
- 2ac:	a009                	j	2ae <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x2ae>
- 2ae:	0988                	addi	a0,sp,208
- 2b0:	00000097          	auipc	ra,0x0
- 2b4:	000080e7          	jalr	ra # 2b0 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x2b0>
- 2b8:	00a10da3          	sb	a0,27(sp)
- 2bc:	a009                	j	2be <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x2be>
- 2be:	a8d1                	j	392 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x392>
- 2c0:	45d2                	lw	a1,20(sp)
- 2c2:	00000537          	lui	a0,0x0
- 2c6:	00050613          	mv	a2,a0
- 2ca:	1188                	addi	a0,sp,224
- 2cc:	46ad                	li	a3,11
- 2ce:	00000097          	auipc	ra,0x0
- 2d2:	000080e7          	jalr	ra # 2ce <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x2ce>
- 2d6:	a009                	j	2d8 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x2d8>
- 2d8:	1188                	addi	a0,sp,224
- 2da:	00000097          	auipc	ra,0x0
- 2de:	000080e7          	jalr	ra # 2da <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x2da>
- 2e2:	00a10da3          	sb	a0,27(sp)
- 2e6:	a009                	j	2e8 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x2e8>
- 2e8:	a06d                	j	392 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x392>
- 2ea:	45d2                	lw	a1,20(sp)
- 2ec:	00000537          	lui	a0,0x0
- 2f0:	00050613          	mv	a2,a0
- 2f4:	1988                	addi	a0,sp,240
- 2f6:	46b1                	li	a3,12
- 2f8:	00000097          	auipc	ra,0x0
- 2fc:	000080e7          	jalr	ra # 2f8 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x2f8>
- 300:	a009                	j	302 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x302>
- 302:	1988                	addi	a0,sp,240
- 304:	00000097          	auipc	ra,0x0
- 308:	000080e7          	jalr	ra # 304 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x304>
- 30c:	00a10da3          	sb	a0,27(sp)
- 310:	a009                	j	312 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x312>
- 312:	a041                	j	392 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x392>
- 314:	45d2                	lw	a1,20(sp)
- 316:	00000537          	lui	a0,0x0
- 31a:	00050613          	mv	a2,a0
- 31e:	0208                	addi	a0,sp,256
- 320:	46b5                	li	a3,13
- 322:	00000097          	auipc	ra,0x0
- 326:	000080e7          	jalr	ra # 322 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x322>
- 32a:	a009                	j	32c <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x32c>
- 32c:	0208                	addi	a0,sp,256
- 32e:	00000097          	auipc	ra,0x0
- 332:	000080e7          	jalr	ra # 32e <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x32e>
- 336:	00a10da3          	sb	a0,27(sp)
- 33a:	a009                	j	33c <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x33c>
- 33c:	a899                	j	392 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x392>
- 33e:	45d2                	lw	a1,20(sp)
- 340:	00000537          	lui	a0,0x0
- 344:	00050613          	mv	a2,a0
- 348:	0a08                	addi	a0,sp,272
- 34a:	46a5                	li	a3,9
- 34c:	00000097          	auipc	ra,0x0
- 350:	000080e7          	jalr	ra # 34c <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x34c>
- 354:	a009                	j	356 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x356>
- 356:	0a08                	addi	a0,sp,272
- 358:	00000097          	auipc	ra,0x0
- 35c:	000080e7          	jalr	ra # 358 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x358>
- 360:	00a10da3          	sb	a0,27(sp)
- 364:	a009                	j	366 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x366>
- 366:	a035                	j	392 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x392>
- 368:	45d2                	lw	a1,20(sp)
- 36a:	00000537          	lui	a0,0x0
- 36e:	00050613          	mv	a2,a0
- 372:	1208                	addi	a0,sp,288
- 374:	46b1                	li	a3,12
- 376:	00000097          	auipc	ra,0x0
- 37a:	000080e7          	jalr	ra # 376 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x376>
- 37e:	a009                	j	380 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x380>
- 380:	1208                	addi	a0,sp,288
- 382:	00000097          	auipc	ra,0x0
- 386:	000080e7          	jalr	ra # 382 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x382>
- 38a:	00a10da3          	sb	a0,27(sp)
- 38e:	a009                	j	390 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x390>
- 390:	a009                	j	392 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x392>
- 392:	01b14503          	lbu	a0,27(sp)
- 396:	12c12083          	lw	ra,300(sp)
- 39a:	6155                	addi	sp,sp,304
- 39c:	8082                	ret
+_ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17hbce763e4af4148eeE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:97
+    }
+
+    /// Implement formatted output for MynewtError
+    impl ::core::fmt::Debug for MynewtError {
+        fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+   0:	1101                	addi	sp,sp,-32
+   2:	ce06                	sw	ra,28(sp)
+   4:	cc2e                	sw	a1,24(sp)
+   6:	ca2a                	sw	a0,20(sp)
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:99
+            //  TODO
+            fmt.write_str("MynewtError")
+   8:	00000637          	lui	a2,0x0
+   c:	00060613          	mv	a2,a2
+  10:	46ad                	li	a3,11
+  12:	c82a                	sw	a0,16(sp)
+  14:	852e                	mv	a0,a1
+  16:	c62e                	sw	a1,12(sp)
+  18:	85b2                	mv	a1,a2
+  1a:	8636                	mv	a2,a3
+  1c:	00000097          	auipc	ra,0x0
+  20:	000080e7          	jalr	ra # 1c <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x1c>
+  24:	45b2                	lw	a1,12(sp)
+  26:	4642                	lw	a2,16(sp)
+  28:	c42e                	sw	a1,8(sp)
+  2a:	c232                	sw	a2,4(sp)
+  2c:	c02a                	sw	a0,0(sp)
+  2e:	a009                	j	30 <<mynewt::result::MynewtError as core::fmt::Debug>::fmt+0x30>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/lib.rs:100
+        }
+  30:	4502                	lw	a0,0(sp)
+  32:	40f2                	lw	ra,28(sp)
+  34:	6105                	addi	sp,sp,32
+  36:	8082                	ret
 
 mynewt-4d3f6e498683360f.4jemuj5rsh82q5zu.rcgu.o:     file format elf32-littleriscv
 
@@ -50034,9 +49640,9 @@ SYMBOL TABLE:
 00000000 l       .text._ZN9cstr_core4CStr17to_bytes_with_nul17he9774289647751ffE	00000000 
 00000000 l       .text._ZN9cstr_core4CStr17to_bytes_with_nul17he9774289647751ffE	00000000 
 00000012 l       .text._ZN9cstr_core4CStr17to_bytes_with_nul17he9774289647751ffE	00000000 
-00000000 l       .text._ZN87_$LT$cstr_core..CStr$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h2fa80eb09d89b860E	00000000 
-00000000 l       .text._ZN87_$LT$cstr_core..CStr$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h2fa80eb09d89b860E	00000000 
-0000002c l       .text._ZN87_$LT$cstr_core..CStr$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h2fa80eb09d89b860E	00000000 
+00000000 l       .text._ZN87_$LT$cstr_core..CStr$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h115371422bab05a4E	00000000 
+00000000 l       .text._ZN87_$LT$cstr_core..CStr$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h115371422bab05a4E	00000000 
+0000002c l       .text._ZN87_$LT$cstr_core..CStr$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h115371422bab05a4E	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000058 l       .debug_str	00000000 
@@ -50064,7 +49670,7 @@ SYMBOL TABLE:
 00000000 l       .debug_line	00000000 .Lline_table_start0
 00000000 l     F .text._ZN9cstr_core4CStr17to_bytes_with_nul17he9774289647751ffE	00000012 cstr_core::CStr::to_bytes_with_nul
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
-00000000 g     F .text._ZN87_$LT$cstr_core..CStr$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h2fa80eb09d89b860E	0000002c <cstr_core::CStr as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul
+00000000 g     F .text._ZN87_$LT$cstr_core..CStr$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h115371422bab05a4E	0000002c <cstr_core::CStr as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul
 
 
 
@@ -50092,11 +49698,11 @@ _ZN9cstr_core4CStr17to_bytes_with_nul17he9774289647751ffE():
    e:	0141                	addi	sp,sp,16
   10:	8082                	ret
 
-Disassembly of section .text._ZN87_$LT$cstr_core..CStr$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h2fa80eb09d89b860E:
+Disassembly of section .text._ZN87_$LT$cstr_core..CStr$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h115371422bab05a4E:
 
 00000000 <<cstr_core::CStr as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul>:
-_ZN87_$LT$cstr_core..CStr$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h2fa80eb09d89b860E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:232
+_ZN87_$LT$cstr_core..CStr$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h115371422bab05a4E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:240
 }
 
 /// Convert the type to array of bytes that may or may not end with null. CStr always ends with null.
@@ -50107,7 +49713,7 @@ impl ToBytesOptionalNull for CStr {
    2:	d606                	sw	ra,44(sp)
    4:	d22e                	sw	a1,36(sp)
    6:	d02a                	sw	a0,32(sp)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:233
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:241
         self.to_bytes_with_nul()
    8:	ce2a                	sw	a0,28(sp)
    a:	cc2e                	sw	a1,24(sp)
@@ -50120,7 +49726,7 @@ impl ToBytesOptionalNull for CStr {
   1c:	c62e                	sw	a1,12(sp)
   1e:	c42a                	sw	a0,8(sp)
   20:	a009                	j	22 <<cstr_core::CStr as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul+0x22>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:234
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/coap_context.rs:242
     }
   22:	4522                	lw	a0,8(sp)
   24:	45b2                	lw	a1,12(sp)

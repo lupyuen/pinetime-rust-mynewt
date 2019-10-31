@@ -57,6 +57,8 @@ pub mod kernel {
 
 
 
+    //  TODO
+
     //  Strn may be copied
 
     //  StrnRep may be copied
@@ -8826,24 +8828,6 @@ pub mod encoding {
         }
         #[automatically_derived]
         #[allow(unused_qualifications)]
-        impl ::core::fmt::Debug for CoapError {
-            fn fmt(&self, f: &mut ::core::fmt::Formatter)
-             -> ::core::fmt::Result {
-                match (&*self,) {
-                    (&CoapError::OK,) => {
-                        let mut debug_trait_builder = f.debug_tuple("OK");
-                        debug_trait_builder.finish()
-                    }
-                    (&CoapError::VALUE_NOT_UINT,) => {
-                        let mut debug_trait_builder =
-                            f.debug_tuple("VALUE_NOT_UINT");
-                        debug_trait_builder.finish()
-                    }
-                }
-            }
-        }
-        #[automatically_derived]
-        #[allow(unused_qualifications)]
         impl ::core::cmp::PartialEq for CoapError {
             #[inline]
             fn eq(&self, other: &CoapError) -> bool {
@@ -8860,6 +8844,13 @@ pub mod encoding {
                         match (&*self, &*other) { _ => true, }
                     } else { false }
                 }
+            }
+        }
+        /// Implement formatted output for CoapError
+        impl ::core::fmt::Debug for CoapError {
+            fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>)
+             -> ::core::fmt::Result {
+                fmt.write_str("CoapError")
             }
         }
         /// Convert the type to array of bytes that may or may not end with null
@@ -8901,7 +8892,7 @@ pub mod encoding {
                             {
                                 ::core::panicking::panic(&("strn bytes",
                                                            "rust/mynewt/src/encoding/coap_context.rs",
-                                                           243u32, 40u32))
+                                                           251u32, 40u32))
                             }
                         };
                         &[]
@@ -11058,89 +11049,6 @@ pub mod result {
     #[automatically_derived]
     #[allow(unused_qualifications)]
     #[allow(non_camel_case_types)]
-    impl ::core::fmt::Debug for MynewtError {
-        fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
-            match (&*self,) {
-                (&MynewtError::SYS_EOK,) => {
-                    let mut debug_trait_builder = f.debug_tuple("SYS_EOK");
-                    debug_trait_builder.finish()
-                }
-                (&MynewtError::SYS_ENOMEM,) => {
-                    let mut debug_trait_builder = f.debug_tuple("SYS_ENOMEM");
-                    debug_trait_builder.finish()
-                }
-                (&MynewtError::SYS_EINVAL,) => {
-                    let mut debug_trait_builder = f.debug_tuple("SYS_EINVAL");
-                    debug_trait_builder.finish()
-                }
-                (&MynewtError::SYS_ETIMEOUT,) => {
-                    let mut debug_trait_builder =
-                        f.debug_tuple("SYS_ETIMEOUT");
-                    debug_trait_builder.finish()
-                }
-                (&MynewtError::SYS_ENOENT,) => {
-                    let mut debug_trait_builder = f.debug_tuple("SYS_ENOENT");
-                    debug_trait_builder.finish()
-                }
-                (&MynewtError::SYS_EIO,) => {
-                    let mut debug_trait_builder = f.debug_tuple("SYS_EIO");
-                    debug_trait_builder.finish()
-                }
-                (&MynewtError::SYS_EAGAIN,) => {
-                    let mut debug_trait_builder = f.debug_tuple("SYS_EAGAIN");
-                    debug_trait_builder.finish()
-                }
-                (&MynewtError::SYS_EACCES,) => {
-                    let mut debug_trait_builder = f.debug_tuple("SYS_EACCES");
-                    debug_trait_builder.finish()
-                }
-                (&MynewtError::SYS_EBUSY,) => {
-                    let mut debug_trait_builder = f.debug_tuple("SYS_EBUSY");
-                    debug_trait_builder.finish()
-                }
-                (&MynewtError::SYS_ENODEV,) => {
-                    let mut debug_trait_builder = f.debug_tuple("SYS_ENODEV");
-                    debug_trait_builder.finish()
-                }
-                (&MynewtError::SYS_ERANGE,) => {
-                    let mut debug_trait_builder = f.debug_tuple("SYS_ERANGE");
-                    debug_trait_builder.finish()
-                }
-                (&MynewtError::SYS_EALREADY,) => {
-                    let mut debug_trait_builder =
-                        f.debug_tuple("SYS_EALREADY");
-                    debug_trait_builder.finish()
-                }
-                (&MynewtError::SYS_ENOTSUP,) => {
-                    let mut debug_trait_builder =
-                        f.debug_tuple("SYS_ENOTSUP");
-                    debug_trait_builder.finish()
-                }
-                (&MynewtError::SYS_EUNKNOWN,) => {
-                    let mut debug_trait_builder =
-                        f.debug_tuple("SYS_EUNKNOWN");
-                    debug_trait_builder.finish()
-                }
-                (&MynewtError::SYS_EREMOTEIO,) => {
-                    let mut debug_trait_builder =
-                        f.debug_tuple("SYS_EREMOTEIO");
-                    debug_trait_builder.finish()
-                }
-                (&MynewtError::SYS_EDONE,) => {
-                    let mut debug_trait_builder = f.debug_tuple("SYS_EDONE");
-                    debug_trait_builder.finish()
-                }
-                (&MynewtError::SYS_EPERUSER,) => {
-                    let mut debug_trait_builder =
-                        f.debug_tuple("SYS_EPERUSER");
-                    debug_trait_builder.finish()
-                }
-            }
-        }
-    }
-    #[automatically_derived]
-    #[allow(unused_qualifications)]
-    #[allow(non_camel_case_types)]
     impl ::core::cmp::PartialEq for MynewtError {
         #[inline]
         fn eq(&self, other: &MynewtError) -> bool {
@@ -11167,6 +11075,13 @@ pub mod result {
         /// Cast `i32` to `MynewtError`
         fn from(num: i32) -> Self {
             unsafe { ::core::mem::transmute::<i32, MynewtError>(num) }
+        }
+    }
+    /// Implement formatted output for MynewtError
+    impl ::core::fmt::Debug for MynewtError {
+        fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>)
+         -> ::core::fmt::Result {
+            fmt.write_str("MynewtError")
         }
     }
 }
@@ -11252,7 +11167,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           122u32, 9u32))
+                                                           130u32, 9u32))
                         }
                     }
                 }
@@ -11305,7 +11220,7 @@ impl Strn {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/lib.rs",
-                                                                   147u32,
+                                                                   155u32,
                                                                    17u32))
                                 }
                             }
@@ -11324,7 +11239,7 @@ impl Strn {
                     {
                         ::core::panicking::panic(&("big strn",
                                                    "rust/mynewt/src/lib.rs",
-                                                   157u32, 17u32))
+                                                   165u32, 17u32))
                     }
                 };
                 return 128 as usize;
@@ -11368,7 +11283,7 @@ impl Strn {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/lib.rs",
-                                                                   173u32,
+                                                                   181u32,
                                                                    17u32))
                                 }
                             }
@@ -11415,7 +11330,7 @@ impl Strn {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/lib.rs",
-                                                                   185u32,
+                                                                   193u32,
                                                                    17u32))
                                 }
                             }
@@ -11429,7 +11344,7 @@ impl Strn {
                     {
                         ::core::panicking::panic(&("strn cstr",
                                                    "rust/mynewt/src/lib.rs",
-                                                   189u32, 17u32))
+                                                   197u32, 17u32))
                     }
                 };
                 b"\0"
@@ -11470,7 +11385,7 @@ impl Strn {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/lib.rs",
-                                                                   199u32,
+                                                                   207u32,
                                                                    17u32))
                                 }
                             }
@@ -11513,7 +11428,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           207u32, 9u32))
+                                                           215u32, 9u32))
                         }
                     }
                 }

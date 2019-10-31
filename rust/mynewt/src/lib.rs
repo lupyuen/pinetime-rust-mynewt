@@ -49,7 +49,7 @@ pub mod result {
 
     /// Error codes for Mynewt API
     #[repr(i32)]
-    #[derive(Debug, PartialEq)]
+    #[derive(PartialEq)]
     #[allow(non_camel_case_types)]    //  Allow type names to have non-camel case
     pub enum MynewtError {
         /// Error code 0 means no error.
@@ -89,6 +89,14 @@ pub mod result {
                     <i32, MynewtError>
                     (num)
             }  
+        }
+    }
+
+    /// Implement formatted output for MynewtError
+    impl ::core::fmt::Debug for MynewtError {
+        fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+            //  TODO
+            fmt.write_str("MynewtError")
         }
     }
 }

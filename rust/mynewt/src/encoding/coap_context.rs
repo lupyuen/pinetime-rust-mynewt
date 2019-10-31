@@ -188,12 +188,20 @@ impl CoapContext {
 }
 
 /// Error codes for COAP encoding failure
-#[derive(Debug, PartialEq)]
+#[derive(PartialEq)]
 pub enum CoapError {
     /// No error
     OK = 0,
     /// Encoded value is not unsigned integer
     VALUE_NOT_UINT = 1,
+}
+
+/// Implement formatted output for CoapError
+impl ::core::fmt::Debug for CoapError {
+    fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
+        //  TODO
+        fmt.write_str("CoapError")
+    }
 }
 
 /// Convert the type to array of bytes that may or may not end with null

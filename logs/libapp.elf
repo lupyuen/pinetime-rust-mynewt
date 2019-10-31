@@ -2323,7 +2323,7 @@ ELF Header:
   Version:                           0x1
   Entry point address:               0x0
   Start of program headers:          0 (bytes into file)
-  Start of section headers:          40044 (bytes into file)
+  Start of section headers:          40020 (bytes into file)
   Flags:                             0x1, RVC, soft-float ABI
   Size of this header:               52 (bytes)
   Size of program headers:           0 (bytes)
@@ -2335,32 +2335,32 @@ ELF Header:
 Section Headers:
   [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
   [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .strtab           STRTAB          00000000 009640 00062c 00      0   0  1
+  [ 1] .strtab           STRTAB          00000000 009628 00062c 00      0   0  1
   [ 2] .text             PROGBITS        00000000 000034 000000 00  AX  0   0  4
   [ 3] .text._ZN3app10app_sensor21start_sensor_listener17h66ee32aaa9de7671E PROGBITS        00000000 000034 0001e0 00  AX  0   0  2
-  [ 4] .rela.text._ZN3app10app_sensor21start_sensor_listener17h66ee32aaa9de7671E RELA            00000000 007a20 00015c 0c     26   3  4
+  [ 4] .rela.text._ZN3app10app_sensor21start_sensor_listener17h66ee32aaa9de7671E RELA            00000000 007a08 00015c 0c     26   3  4
   [ 5] .rodata..Lanon.8cebc08783836756eb94252c490d3f87.0 PROGBITS        00000000 000214 00000c 00   A  0   0  1
   [ 6] .rodata._ZN3app10app_sensor13SENSOR_DEVICE17he00f4f2a0cb68b6eE PROGBITS        00000000 000220 00000c 00   A  0   0  4
-  [ 7] .rela.rodata._ZN3app10app_sensor13SENSOR_DEVICE17he00f4f2a0cb68b6eE RELA            00000000 007b7c 00000c 0c     26   6  4
+  [ 7] .rela.rodata._ZN3app10app_sensor13SENSOR_DEVICE17he00f4f2a0cb68b6eE RELA            00000000 007b64 00000c 0c     26   6  4
   [ 8] .rodata..Lanon.8cebc08783836756eb94252c490d3f87.1 PROGBITS        00000000 00022c 00000e 00   A  0   0  1
   [ 9] .rodata..Lanon.8cebc08783836756eb94252c490d3f87.2 PROGBITS        00000000 00023a 000006 00   A  0   0  1
   [10] .rodata..Lanon.8cebc08783836756eb94252c490d3f87.3 PROGBITS        00000000 000240 000002 00   A  0   0  1
   [11] .rodata..Lanon.8cebc08783836756eb94252c490d3f87.4 PROGBITS        00000000 000244 00000c 00   A  0   0  4
-  [12] .rela.rodata..Lanon.8cebc08783836756eb94252c490d3f87.4 RELA            00000000 007b88 00000c 0c     26  11  4
+  [12] .rela.rodata..Lanon.8cebc08783836756eb94252c490d3f87.4 RELA            00000000 007b70 00000c 0c     26  11  4
   [13] .debug_str        PROGBITS        00000000 000250 002502 01  MS  0   0  1
   [14] .debug_abbrev     PROGBITS        00000000 002752 00011f 00      0   0  1
   [15] .debug_info       PROGBITS        00000000 002871 001831 00      0   0  1
-  [16] .rela.debug_info  RELA            00000000 007b94 001a88 0c     26  15  4
+  [16] .rela.debug_info  RELA            00000000 007b7c 001a88 0c     26  15  4
   [17] .debug_ranges     PROGBITS        00000000 0040a2 000090 00      0   0  1
   [18] .debug_macinfo    PROGBITS        00000000 004132 000001 00      0   0  1
   [19] .debug_pubnames   PROGBITS        00000000 004133 0000c3 00      0   0  1
-  [20] .rela.debug_pubnames RELA            00000000 00961c 00000c 0c     26  19  4
+  [20] .rela.debug_pubnames RELA            00000000 009604 00000c 0c     26  19  4
   [21] .debug_pubtypes   PROGBITS        00000000 0041f6 001e58 00      0   0  1
-  [22] .rela.debug_pubtypes RELA            00000000 009628 00000c 0c     26  21  4
+  [22] .rela.debug_pubtypes RELA            00000000 009610 00000c 0c     26  21  4
   [23] .note.GNU-stack   PROGBITS        00000000 00604e 000000 00      0   0  1
-  [24] .debug_line       PROGBITS        00000000 00604e 000100 00      0   0  1
-  [25] .rela.debug_line  RELA            00000000 009634 00000c 0c     26  24  4
-  [26] .symtab           SYMTAB          00000000 006150 0018d0 10      1 383  4
+  [24] .debug_line       PROGBITS        00000000 00604e 0000e9 00      0   0  1
+  [25] .rela.debug_line  RELA            00000000 00961c 00000c 0c     26  24  4
+  [26] .symtab           SYMTAB          00000000 006138 0018d0 10      1 383  4
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -2373,7 +2373,7 @@ There are no program headers in this file.
 
 There is no dynamic section in this file.
 
-Relocation section '.rela.text._ZN3app10app_sensor21start_sensor_listener17h66ee32aaa9de7671E' at offset 0x7a20 contains 29 entries:
+Relocation section '.rela.text._ZN3app10app_sensor21start_sensor_listener17h66ee32aaa9de7671E' at offset 0x7a08 contains 29 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000006  0001781a R_RISCV_HI20           00000000   .Lanon.8cebc08783836756eb94252c490d3f87.1 + 0
 0000000a  0001781b R_RISCV_LO12_I         00000000   .Lanon.8cebc08783836756eb94252c490d3f87.1 + 0
@@ -2405,15 +2405,15 @@ Relocation section '.rela.text._ZN3app10app_sensor21start_sensor_listener17h66ee
 000001be  00018212 R_RISCV_CALL           00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h174be8bb28bd8cccE + 0
 000001cc  00018812 R_RISCV_CALL           00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h0505a393ece61477E + 0
 
-Relocation section '.rela.rodata._ZN3app10app_sensor13SENSOR_DEVICE17he00f4f2a0cb68b6eE' at offset 0x7b7c contains 1 entry:
+Relocation section '.rela.rodata._ZN3app10app_sensor13SENSOR_DEVICE17he00f4f2a0cb68b6eE' at offset 0x7b64 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000004  00017701 R_RISCV_32             00000000   .Lanon.8cebc08783836756eb94252c490d3f87.0 + 0
 
-Relocation section '.rela.rodata..Lanon.8cebc08783836756eb94252c490d3f87.4' at offset 0x7b88 contains 1 entry:
+Relocation section '.rela.rodata..Lanon.8cebc08783836756eb94252c490d3f87.4' at offset 0x7b70 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000004  00017a01 R_RISCV_32             00000000   .Lanon.8cebc08783836756eb94252c490d3f87.3 + 0
 
-Relocation section '.rela.debug_info' at offset 0x7b94 contains 566 entries:
+Relocation section '.rela.debug_info' at offset 0x7b7c contains 566 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000006  00017e01 R_RISCV_32             00000000   .debug_abbrev + 0
 0000000c  00000e01 R_RISCV_32             00000000    + 0
@@ -2982,17 +2982,17 @@ Relocation section '.rela.debug_info' at offset 0x7b94 contains 566 entries:
 0000180e  00017001 R_RISCV_32             0000243b    + 0
 00001817  00016a01 R_RISCV_32             0000232e    + 0
 
-Relocation section '.rela.debug_pubnames' at offset 0x961c contains 1 entry:
+Relocation section '.rela.debug_pubnames' at offset 0x9604 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000006  00000701 R_RISCV_32             00000000    + 0
 
-Relocation section '.rela.debug_pubtypes' at offset 0x9628 contains 1 entry:
+Relocation section '.rela.debug_pubtypes' at offset 0x9610 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000006  00000701 R_RISCV_32             00000000    + 0
 
-Relocation section '.rela.debug_line' at offset 0x9634 contains 1 entry:
+Relocation section '.rela.debug_line' at offset 0x961c contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
-00000049  00000301 R_RISCV_32             00000000    + 0
+0000003f  00000301 R_RISCV_32             00000000    + 0
 
 The decoding of unwind sections for machine type RISC-V is not currently supported.
 
@@ -3894,7 +3894,7 @@ ELF Header:
   Version:                           0x1
   Entry point address:               0x0
   Start of program headers:          0 (bytes into file)
-  Start of section headers:          20632 (bytes into file)
+  Start of section headers:          20388 (bytes into file)
   Flags:                             0x1, RVC, soft-float ABI
   Size of this header:               52 (bytes)
   Size of program headers:           0 (bytes)
@@ -3906,12 +3906,12 @@ ELF Header:
 Section Headers:
   [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
   [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .strtab           STRTAB          00000000 003f9c 0010fa 00      0   0  1
+  [ 1] .strtab           STRTAB          00000000 003ea8 0010fa 00      0   0  1
   [ 2] .text             PROGBITS        00000000 000034 000000 00  AX  0   0  4
   [ 3] .text._ZN3app11app_network21aggregate_sensor_data17h8a439717b157d856E PROGBITS        00000000 000034 000020 00  AX  0   0  2
-  [ 4] .rela.text._ZN3app11app_network21aggregate_sensor_data17h8a439717b157d856E RELA            00000000 002da8 00000c 0c     59   3  4
+  [ 4] .rela.text._ZN3app11app_network21aggregate_sensor_data17h8a439717b157d856E RELA            00000000 002cb4 00000c 0c     59   3  4
   [ 5] .text._ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E PROGBITS        00000000 000054 0006fa 00  AX  0   0  2
-  [ 6] .rela.text._ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E RELA            00000000 002db4 00066c 0c     59   5  4
+  [ 6] .rela.text._ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E RELA            00000000 002cc0 00066c 0c     59   5  4
   [ 7] .rodata..Lanon.b8725711d5c489dcc5bdbf01ffc6355c.0 PROGBITS        00000000 00074e 000017 00   A  0   0  1
   [ 8] .rodata..Lanon.b8725711d5c489dcc5bdbf01ffc6355c.1 PROGBITS        00000000 000765 000001 00   A  0   0  1
   [ 9] .rodata..Lanon.b8725711d5c489dcc5bdbf01ffc6355c.2 PROGBITS        00000000 000766 000001 00   A  0   0  1
@@ -3953,18 +3953,18 @@ Section Headers:
   [45] .debug_str        PROGBITS        00000000 000b9e 0003ea 01  MS  0   0  1
   [46] .debug_abbrev     PROGBITS        00000000 000f88 000124 00      0   0  1
   [47] .debug_info       PROGBITS        00000000 0010ac 000630 00      0   0  1
-  [48] .rela.debug_info  RELA            00000000 003420 0006fc 0c     59  47  4
+  [48] .rela.debug_info  RELA            00000000 00332c 0006fc 0c     59  47  4
   [49] .debug_ranges     PROGBITS        00000000 0016dc 000220 00      0   0  1
-  [50] .rela.debug_ranges RELA            00000000 003b1c 000450 0c     59  49  4
+  [50] .rela.debug_ranges RELA            00000000 003a28 000450 0c     59  49  4
   [51] .debug_macinfo    PROGBITS        00000000 0018fc 000001 00      0   0  1
   [52] .debug_pubnames   PROGBITS        00000000 0018fd 0000ac 00      0   0  1
-  [53] .rela.debug_pubnames RELA            00000000 003f6c 00000c 0c     59  52  4
+  [53] .rela.debug_pubnames RELA            00000000 003e78 00000c 0c     59  52  4
   [54] .debug_pubtypes   PROGBITS        00000000 0019a9 000118 00      0   0  1
-  [55] .rela.debug_pubtypes RELA            00000000 003f78 00000c 0c     59  54  4
+  [55] .rela.debug_pubtypes RELA            00000000 003e84 00000c 0c     59  54  4
   [56] .note.GNU-stack   PROGBITS        00000000 001ac1 000000 00      0   0  1
-  [57] .debug_line       PROGBITS        00000000 001ac1 000414 00      0   0  1
-  [58] .rela.debug_line  RELA            00000000 003f84 000018 0c     59  57  4
-  [59] .symtab           SYMTAB          00000000 001ed8 000ed0 10      1 205  4
+  [57] .debug_line       PROGBITS        00000000 001ac1 000323 00      0   0  1
+  [58] .rela.debug_line  RELA            00000000 003e90 000018 0c     59  57  4
+  [59] .symtab           SYMTAB          00000000 001de4 000ed0 10      1 205  4
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -3977,11 +3977,11 @@ There are no program headers in this file.
 
 There is no dynamic section in this file.
 
-Relocation section '.rela.text._ZN3app11app_network21aggregate_sensor_data17h8a439717b157d856E' at offset 0x2da8 contains 1 entry:
+Relocation section '.rela.text._ZN3app11app_network21aggregate_sensor_data17h8a439717b157d856E' at offset 0x2cb4 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000008  0000cb12 R_RISCV_CALL           00000000   _ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E + 0
 
-Relocation section '.rela.text._ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E' at offset 0x2db4 contains 137 entries:
+Relocation section '.rela.text._ZN3app11app_network16send_sensor_data17h3b26205c89dc3513E' at offset 0x2cc0 contains 137 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 0000000a  0000bb1a R_RISCV_HI20           00000000   .Lanon.b8725711d5c489dcc5bdbf01ffc6355c.0 + 0
 0000000e  0000bb1b R_RISCV_LO12_I         00000000   .Lanon.b8725711d5c489dcc5bdbf01ffc6355c.0 + 0
@@ -4029,8 +4029,8 @@ Relocation section '.rela.text._ZN3app11app_network16send_sensor_data17h3b26205c
 000002d2  0000e712 R_RISCV_CALL           00000000   json_helper_object_array_start_item + 0
 000002dc  0000be1a R_RISCV_HI20           00000000   .Lanon.b8725711d5c489dcc5bdbf01ffc6355c.17 + 0
 000002e0  0000be1b R_RISCV_LO12_I         00000000   .Lanon.b8725711d5c489dcc5bdbf01ffc6355c.17 + 0
-000002e6  0000e212 R_RISCV_CALL           00000000   _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hadd85da15e95ce49E + 0
-00000304  0000e312 R_RISCV_CALL           00000000   _ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h887a41325afe000dE + 0
+000002e6  0000e212 R_RISCV_CALL           00000000   _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h138373221aa985f3E + 0
+00000304  0000e312 R_RISCV_CALL           00000000   _ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hb8421b66c39bc3f4E + 0
 0000031e  0000de1a R_RISCV_HI20           00000000   _ZN6mynewt8encoding12coap_context12COAP_CONTEXT17h9038c8449452b5aaE + 0
 00000322  0000de1b R_RISCV_LO12_I         00000000   _ZN6mynewt8encoding12coap_context12COAP_CONTEXT17h9038c8449452b5aaE + 0
 00000326  0000d912 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17hb712bfb8bf4bd276E + 0
@@ -4043,7 +4043,7 @@ Relocation section '.rela.text._ZN3app11app_network16send_sensor_data17h3b26205c
 00000370  0000ea12 R_RISCV_CALL           00000000   json_helper_set_text_string + 0
 0000037a  0000bf1a R_RISCV_HI20           00000000   .Lanon.b8725711d5c489dcc5bdbf01ffc6355c.19 + 0
 0000037e  0000bf1b R_RISCV_LO12_I         00000000   .Lanon.b8725711d5c489dcc5bdbf01ffc6355c.19 + 0
-00000384  0000e212 R_RISCV_CALL           00000000   _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hadd85da15e95ce49E + 0
+00000384  0000e212 R_RISCV_CALL           00000000   _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h138373221aa985f3E + 0
 000003ac  0000de1a R_RISCV_HI20           00000000   _ZN6mynewt8encoding12coap_context12COAP_CONTEXT17h9038c8449452b5aaE + 0
 000003b0  0000de1b R_RISCV_LO12_I         00000000   _ZN6mynewt8encoding12coap_context12COAP_CONTEXT17h9038c8449452b5aaE + 0
 000003b4  0000d912 R_RISCV_CALL           00000000   _ZN6mynewt8encoding12coap_context11CoapContext11to_void_ptr17hb712bfb8bf4bd276E + 0
@@ -4121,7 +4121,7 @@ Relocation section '.rela.text._ZN3app11app_network16send_sensor_data17h3b26205c
 000006e4  0000c01b R_RISCV_LO12_I         00000000   .Lanon.b8725711d5c489dcc5bdbf01ffc6355c.2 + 0
 000006ea  0000d112 R_RISCV_CALL           00000000   _ZN6mynewt3sys7console5print17h35e0472dd8871821E + 0
 
-Relocation section '.rela.debug_info' at offset 0x3420 contains 149 entries:
+Relocation section '.rela.debug_info' at offset 0x332c contains 149 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000006  0000cc01 R_RISCV_32             00000000   .debug_abbrev + 0
 0000000c  00006501 R_RISCV_32             00000000    + 0
@@ -4273,7 +4273,7 @@ Relocation section '.rela.debug_info' at offset 0x3420 contains 149 entries:
 00000622  0000ae01 R_RISCV_32             00000390    + 0
 00000629  0000b301 R_RISCV_32             000003d2    + 0
 
-Relocation section '.rela.debug_ranges' at offset 0x3b1c contains 92 entries:
+Relocation section '.rela.debug_ranges' at offset 0x3a28 contains 92 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000000  00001d01 R_RISCV_32             000000ee    + 0
 00000004  00001e01 R_RISCV_32             000000f0    + 0
@@ -4368,15 +4368,15 @@ Relocation section '.rela.debug_ranges' at offset 0x3b1c contains 92 entries:
 00000210  00001701 R_RISCV_32             00000000    + 0
 00000214  00006401 R_RISCV_32             000006fa    + 0
 
-Relocation section '.rela.debug_pubnames' at offset 0x3f6c contains 1 entry:
+Relocation section '.rela.debug_pubnames' at offset 0x3e78 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000006  0000b601 R_RISCV_32             00000000    + 0
 
-Relocation section '.rela.debug_pubtypes' at offset 0x3f78 contains 1 entry:
+Relocation section '.rela.debug_pubtypes' at offset 0x3e84 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000006  0000b601 R_RISCV_32             00000000    + 0
 
-Relocation section '.rela.debug_line' at offset 0x3f84 contains 2 entries:
+Relocation section '.rela.debug_line' at offset 0x3e90 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name + Addend
 00000094  00000301 R_RISCV_32             00000000    + 0
 000000ab  00001801 R_RISCV_32             00000000    + 0
@@ -4611,8 +4611,8 @@ Symbol table '.symtab' contains 237 entries:
    223: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h0505a393ece61477E
    224: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb50db8256346097dE
    225: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hf02def34f4ed4228E
-   226: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hadd85da15e95ce49E
-   227: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h887a41325afe000dE
+   226: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN75_$LT$str$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17h138373221aa985f3E
+   227: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN84_$LT$mynewt..Strn$u20$as$u20$mynewt..encoding..coap_context..ToBytesOptionalNull$GT$21to_bytes_optional_nul17hb8421b66c39bc3f4E
    228: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND abort
    229: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND json_helper_close_array
    230: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND json_helper_object_array_end_item
