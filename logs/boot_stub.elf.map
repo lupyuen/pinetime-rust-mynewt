@@ -7,9 +7,7 @@ Archive member included to satisfy reference by file (symbol)
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(fini.o)
                               /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(start.o) (_fini)
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(entry.o)
-                              /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(start.o) (trap_entry)
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
-                              /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(entry.o) (handle_trap)
+                              /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(start.o) (irq_entry)
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
                               /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(start.o) (exit)
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(lrand48.o)
@@ -29,11 +27,11 @@ Archive member included to satisfy reference by file (symbol)
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o)
                               /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o) (hal_bsp_init)
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o)
-                              /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o) (_exit)
+                              /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o) (_exit)
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
                               /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o) (gd32vf103_periph_create)
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system.o)
-                              /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o) (hal_system_reset)
+                              /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o) (hal_system_reset)
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system_start.o)
                               /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o) (hal_system_start)
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
@@ -46,6 +44,8 @@ Archive member included to satisfy reference by file (symbol)
                               /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o) (timer_deinit)
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
                               /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o) (eclic_enable_interrupt)
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
+                              /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o) (__assert_func)
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)
                               /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o) (os_cputime_init)
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime_1mhz.o)
@@ -75,11 +75,6 @@ Discarded input sections
  .text          0x0000000000000000        0x0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(entry.o)
  .data          0x0000000000000000        0x0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(entry.o)
  .bss           0x0000000000000000        0x0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(entry.o)
- .text          0x0000000000000000        0x0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
- .data          0x0000000000000000        0x0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
- .bss           0x0000000000000000        0x0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
- .text.plic_default_isr
-                0x0000000000000000        0x2 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
  .text          0x0000000000000000        0x0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
  .data          0x0000000000000000        0x0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
  .bss           0x0000000000000000        0x0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
@@ -532,6 +527,13 @@ Discarded input sections
                 0x0000000000000000       0x26 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
  .text.eclic_set_negedge_trig
                 0x0000000000000000       0x2a /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+ .text          0x0000000000000000        0x0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
+ .data          0x0000000000000000        0x0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
+ .bss           0x0000000000000000        0x0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
+ .text.handle_trap
+                0x0000000000000000        0xc /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
+ .text.plic_default_isr
+                0x0000000000000000        0x2 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
  .text          0x0000000000000000        0x0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)
  .data          0x0000000000000000        0x0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)
  .bss           0x0000000000000000        0x0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)
@@ -617,146 +619,140 @@ END GROUP
                 0x0000000008000000                . = (. + _imghdr_size)
                 0x0000000000000000                __text = .
 
-.init           0x0000000008000000      0x228
+.init           0x0000000008000000      0x21c
  *(SORT_NONE(.init))
- .init          0x0000000008000000      0x228 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(start.o)
+ .init          0x0000000008000000      0x21c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(start.o)
                 0x000000000800015c                _reset_handler
-                0x000000000800021a                disable_mcycle_minstret
-                0x0000000008000220                enable_mcycle_minstret
+                0x000000000800020e                disable_mcycle_minstret
+                0x0000000008000214                enable_mcycle_minstret
 
-.text           0x0000000008000240      0xa68
+.text           0x000000000800021c      0x9ba
  *(.text.unlikely .text.unlikely.*)
  *(.text.startup .text.startup.*)
  *(.text .text.*)
  .text.system_clock_108m_hxtal
-                0x0000000008000240       0xe2 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(system_gd32vf103.o)
+                0x000000000800021c       0xe2 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(system_gd32vf103.o)
  .text.system_clock_config
-                0x0000000008000322        0xc /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(system_gd32vf103.o)
+                0x00000000080002fe        0xc /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(system_gd32vf103.o)
  .text.SystemInit
-                0x000000000800032e       0x5e /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(system_gd32vf103.o)
-                0x000000000800032e                SystemInit
- .text._fini    0x000000000800038c        0x2 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(fini.o)
-                0x000000000800038c                _fini
- *fill*         0x000000000800038e       0x32 
- .text.trap     0x00000000080003c0       0x7c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(entry.o)
-                0x00000000080003c0                trap_entry
- *fill*         0x000000000800043c        0x0 
- .text.irq      0x000000000800043c       0x72 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(entry.o)
-                0x000000000800043c                irq_entry
- .text.__assert_func
-                0x00000000080004ae        0x8 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
-                0x00000000080004ae                __assert_func
- .text.handle_trap
-                0x00000000080004b6        0x6 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
-                0x00000000080004b6                handle_trap
- .text.exit     0x00000000080004bc        0x6 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
-                0x00000000080004bc                exit
- .text._start   0x00000000080004c2        0xc /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
-                0x00000000080004c2                _start
- .text._init    0x00000000080004ce        0x2 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
-                0x00000000080004ce                _init
- .text.main     0x00000000080004d0       0x16 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o)
-                0x00000000080004d0                main
+                0x000000000800030a       0x5e /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(system_gd32vf103.o)
+                0x000000000800030a                SystemInit
+ .text._fini    0x0000000008000368        0x2 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(fini.o)
+                0x0000000008000368                _fini
+ *fill*         0x000000000800036a        0x2 
+ .text.irq      0x000000000800036c       0x72 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(entry.o)
+                0x000000000800036c                irq_entry
+ .text.exit     0x00000000080003de        0x6 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
+                0x00000000080003de                exit
+ .text._start   0x00000000080003e4        0xc /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
+                0x00000000080003e4                _start
+ .text._init    0x00000000080003f0        0x2 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
+                0x00000000080003f0                _init
+ .text.main     0x00000000080003f2       0x16 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o)
+                0x00000000080003f2                main
  .text.hal_bsp_init
-                0x00000000080004e6        0xc /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o)
-                0x00000000080004e6                hal_bsp_init
- .text._exit    0x00000000080004f2        0x6 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o)
-                0x00000000080004f2                _exit
+                0x0000000008000408        0xc /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o)
+                0x0000000008000408                hal_bsp_init
+ .text._exit    0x0000000008000414        0x6 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o)
+                0x0000000008000414                _exit
  .text.gd32vf103_periph_create_timers
-                0x00000000080004f8       0x34 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
+                0x000000000800041a       0x36 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
  .text.gd32vf103_periph_create
-                0x000000000800052c        0xc /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
-                0x000000000800052c                gd32vf103_periph_create
+                0x0000000008000450        0xc /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
+                0x0000000008000450                gd32vf103_periph_create
  .text.hal_debugger_connected
-                0x0000000008000538        0x4 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system.o)
-                0x0000000008000538                hal_debugger_connected
+                0x000000000800045c        0x4 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system.o)
+                0x000000000800045c                hal_debugger_connected
  .text.hal_system_reset
-                0x000000000800053c        0xc /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system.o)
-                0x000000000800053c                hal_system_reset
+                0x0000000008000460        0xc /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system.o)
+                0x0000000008000460                hal_system_reset
  .text.hal_system_start
-                0x0000000008000548        0x6 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system_start.o)
-                0x0000000008000548                hal_system_start
+                0x000000000800046c        0x6 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system_start.o)
+                0x000000000800046c                hal_system_start
  .text.hal_timer_init
-                0x000000000800054e       0x24 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
-                0x000000000800054e                hal_timer_init
+                0x0000000008000472       0x24 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
+                0x0000000008000472                hal_timer_init
  .text.hal_timer_config
-                0x0000000008000572       0xc8 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
-                0x0000000008000572                hal_timer_config
+                0x0000000008000496       0xc8 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
+                0x0000000008000496                hal_timer_config
  .text.eclic_global_interrupt_enable
-                0x000000000800063a        0x6 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
-                0x000000000800063a                eclic_global_interrupt_enable
+                0x000000000800055e        0x6 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
+                0x000000000800055e                eclic_global_interrupt_enable
  .text.eclic_irq_enable
-                0x0000000008000640       0x2a /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
-                0x0000000008000640                eclic_irq_enable
+                0x0000000008000564       0x2a /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
+                0x0000000008000564                eclic_irq_enable
  .text.rcu_periph_clock_enable
-                0x000000000800066a       0x18 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
-                0x000000000800066a                rcu_periph_clock_enable
+                0x000000000800058e       0x18 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
+                0x000000000800058e                rcu_periph_clock_enable
  .text.rcu_periph_reset_enable
-                0x0000000008000682       0x18 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
-                0x0000000008000682                rcu_periph_reset_enable
+                0x00000000080005a6       0x18 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
+                0x00000000080005a6                rcu_periph_reset_enable
  .text.rcu_periph_reset_disable
-                0x000000000800069a       0x1c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
-                0x000000000800069a                rcu_periph_reset_disable
+                0x00000000080005be       0x1c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
+                0x00000000080005be                rcu_periph_reset_disable
  .text.timer_deinit
-                0x00000000080006b6       0xc4 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
-                0x00000000080006b6                timer_deinit
+                0x00000000080005da       0xc4 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
+                0x00000000080005da                timer_deinit
  .text.timer_struct_para_init
-                0x000000000800077a       0x1c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
-                0x000000000800077a                timer_struct_para_init
+                0x000000000800069e       0x1c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
+                0x000000000800069e                timer_struct_para_init
  .text.timer_init
-                0x0000000008000796       0xb8 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
-                0x0000000008000796                timer_init
+                0x00000000080006ba       0xb8 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
+                0x00000000080006ba                timer_init
  .text.timer_enable
-                0x000000000800084e        0xa /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
-                0x000000000800084e                timer_enable
+                0x0000000008000772        0xa /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
+                0x0000000008000772                timer_enable
  .text.timer_channel_output_struct_para_init
-                0x0000000008000858       0x1a /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
-                0x0000000008000858                timer_channel_output_struct_para_init
+                0x000000000800077c       0x1a /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
+                0x000000000800077c                timer_channel_output_struct_para_init
  .text.timer_channel_output_config
-                0x0000000008000872      0x216 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
-                0x0000000008000872                timer_channel_output_config
+                0x0000000008000796      0x216 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
+                0x0000000008000796                timer_channel_output_config
  .text.timer_channel_output_mode_config
-                0x0000000008000a88       0x64 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
-                0x0000000008000a88                timer_channel_output_mode_config
+                0x00000000080009ac       0x64 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
+                0x00000000080009ac                timer_channel_output_mode_config
  .text.timer_channel_output_pulse_value_config
-                0x0000000008000aec       0x2c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
-                0x0000000008000aec                timer_channel_output_pulse_value_config
+                0x0000000008000a10       0x2c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
+                0x0000000008000a10                timer_channel_output_pulse_value_config
  .text.timer_channel_output_shadow_config
-                0x0000000008000b18       0x64 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
-                0x0000000008000b18                timer_channel_output_shadow_config
+                0x0000000008000a3c       0x64 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
+                0x0000000008000a3c                timer_channel_output_shadow_config
  .text.timer_interrupt_enable
-                0x0000000008000b7c        0x8 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
-                0x0000000008000b7c                timer_interrupt_enable
+                0x0000000008000aa0        0x8 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
+                0x0000000008000aa0                timer_interrupt_enable
  .text.eclic_enable_interrupt
-                0x0000000008000b84       0x12 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
-                0x0000000008000b84                eclic_enable_interrupt
+                0x0000000008000aa8       0x12 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+                0x0000000008000aa8                eclic_enable_interrupt
  .text.eclic_set_intctrl
-                0x0000000008000b96       0x10 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
-                0x0000000008000b96                eclic_set_intctrl
+                0x0000000008000aba       0x10 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+                0x0000000008000aba                eclic_set_intctrl
  .text.eclic_get_intctrl
-                0x0000000008000ba6       0x10 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
-                0x0000000008000ba6                eclic_get_intctrl
+                0x0000000008000aca       0x10 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+                0x0000000008000aca                eclic_get_intctrl
  .text.eclic_set_cliccfg
-                0x0000000008000bb6        0xa /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
-                0x0000000008000bb6                eclic_set_cliccfg
+                0x0000000008000ada        0xa /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+                0x0000000008000ada                eclic_set_cliccfg
  .text.eclic_get_cliccfg
-                0x0000000008000bc0        0xa /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
-                0x0000000008000bc0                eclic_get_cliccfg
+                0x0000000008000ae4        0xa /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+                0x0000000008000ae4                eclic_get_cliccfg
  .text.eclic_set_nlbits
-                0x0000000008000bca       0x20 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
-                0x0000000008000bca                eclic_set_nlbits
+                0x0000000008000aee       0x20 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+                0x0000000008000aee                eclic_set_nlbits
  .text.eclic_get_nlbits
-                0x0000000008000bea       0x10 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
-                0x0000000008000bea                eclic_get_nlbits
+                0x0000000008000b0e       0x10 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+                0x0000000008000b0e                eclic_get_nlbits
  .text.eclic_set_irq_lvl_abs
-                0x0000000008000bfa       0x4c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
-                0x0000000008000bfa                eclic_set_irq_lvl_abs
+                0x0000000008000b1e       0x4c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+                0x0000000008000b1e                eclic_set_irq_lvl_abs
  .text.eclic_set_irq_priority
-                0x0000000008000c46       0x50 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
-                0x0000000008000c46                eclic_set_irq_priority
+                0x0000000008000b6a       0x50 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+                0x0000000008000b6a                eclic_set_irq_priority
+ .text.__assert_func
+                0x0000000008000bba        0xa /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
+                0x0000000008000bba                __assert_func
  .text.os_cputime_init
-                0x0000000008000c96       0x12 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)
-                0x0000000008000c96                os_cputime_init
+                0x0000000008000bc4       0x12 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)
+                0x0000000008000bc4                os_cputime_init
  *(.gnu.linkonce.t.*)
 
 .fini
@@ -765,32 +761,32 @@ END GROUP
                 [!provide]                        PROVIDE (_etext = .)
                 [!provide]                        PROVIDE (etext = .)
 
-.rodata         0x0000000008000ca8       0x54
+.rodata         0x0000000008000bd8       0x54
  *(.rdata)
  *(.rodata .rodata.*)
  .rodata.gd32vf103_tmr_devs
-                0x0000000008000ca8        0xc /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
+                0x0000000008000bd8        0xc /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
  .rodata.sysflash_map_dflt
-                0x0000000008000cb4       0x48 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/generated/bin/gd32vf103c-start_boot-sysinit-app.a(gd32vf103c-start_boot-sysflash.o)
-                0x0000000008000cb4                sysflash_map_dflt
+                0x0000000008000be4       0x48 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/generated/bin/gd32vf103c-start_boot-sysinit-app.a(gd32vf103c-start_boot-sysflash.o)
+                0x0000000008000be4                sysflash_map_dflt
  *(.gnu.linkonce.r.*)
 
-.rela.dyn       0x0000000008000cfc        0x0
- .rela.init     0x0000000008000cfc        0x0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(start.o)
-                0x0000000008000cfc                . = ALIGN (0x4)
+.rela.dyn       0x0000000008000c2c        0x0
+ .rela.init     0x0000000008000c2c        0x0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(start.o)
+                0x0000000008000c2c                . = ALIGN (0x4)
 
-.preinit_array  0x0000000008000cfc        0x0
+.preinit_array  0x0000000008000c2c        0x0
                 [!provide]                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array)
                 [!provide]                        PROVIDE (__preinit_array_end = .)
 
-.init_array     0x0000000008000cfc        0x0
+.init_array     0x0000000008000c2c        0x0
                 [!provide]                        PROVIDE (__init_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.init_array.*) SORT_BY_INIT_PRIORITY(.ctors.*))
  *(.init_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .ctors)
                 [!provide]                        PROVIDE (__init_array_end = .)
 
-.fini_array     0x0000000008000cfc        0x0
+.fini_array     0x0000000008000c2c        0x0
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.fini_array.*) SORT_BY_INIT_PRIORITY(.dtors.*))
  *(.fini_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .dtors)
@@ -810,15 +806,15 @@ END GROUP
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
 
-.lalign         0x0000000008000cfc        0x0
-                0x0000000008000cfc                . = ALIGN (0x4)
-                0x0000000008000cfc                PROVIDE (_data_lma = .)
+.lalign         0x0000000008000c2c        0x0
+                0x0000000008000c2c                . = ALIGN (0x4)
+                0x0000000008000c2c                PROVIDE (_data_lma = .)
 
-.dalign         0x0000000020000000        0x0 load address 0x0000000008000cfc
+.dalign         0x0000000020000000        0x0 load address 0x0000000008000c2c
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                PROVIDE (_data = .)
 
-.data           0x0000000020000000       0x3c load address 0x0000000008000cfc
+.data           0x0000000020000000       0x3c load address 0x0000000008000c2c
  *(.data .data.*)
  .data.gd32vf103_tmr0
                 0x0000000020000000       0x14 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
@@ -831,7 +827,7 @@ END GROUP
                 0x0000000020000028                gd32vf103_tmr2
  *(.gnu.linkonce.d.*)
 
-.srodata        0x000000002000003c        0x0 load address 0x0000000008000d38
+.srodata        0x000000002000003c        0x0 load address 0x0000000008000c68
                 0x000000002000083c                PROVIDE (_gp = (. + 0x800))
                 0x000000002000083c                PROVIDE (__global_pointer$ = _gp)
  *(.srodata.cst16)
@@ -840,7 +836,7 @@ END GROUP
  *(.srodata.cst2)
  *(.srodata .srodata.*)
 
-.sdata          0x000000002000003c        0x4 load address 0x0000000008000d38
+.sdata          0x000000002000003c        0x4 load address 0x0000000008000c68
  *(.sdata .sdata.*)
  .sdata.SystemCoreClock
                 0x000000002000003c        0x4 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(system_gd32vf103.o)
@@ -852,7 +848,7 @@ END GROUP
                 [!provide]                        PROVIDE (_fbss = .)
                 0x0000000020000040                PROVIDE (__bss_start = .)
 
-.bss            0x0000000020000040        0x0 load address 0x0000000008000d3c
+.bss            0x0000000020000040        0x0 load address 0x0000000008000c6c
  *(.sbss*)
  *(.gnu.linkonce.sb.*)
  *(.bss .bss.*)
@@ -871,73 +867,73 @@ END GROUP
                 0x0000000020000000                _ram_start = ORIGIN (ram)
 OUTPUT(/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/boot_stub.elf elf32-littleriscv)
 
-.debug_line     0x0000000000000000     0x9fde
- .debug_line    0x0000000000000000      0x17c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(start.o)
- .debug_line    0x000000000000017c      0x758 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(system_gd32vf103.o)
- .debug_line    0x00000000000008d4       0x5f /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(fini.o)
- .debug_line    0x0000000000000933       0xf0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(entry.o)
- .debug_line    0x0000000000000a23      0x538 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
- .debug_line    0x0000000000000f5b      0x878 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
- .debug_line    0x00000000000017d3      0x451 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
- .debug_line    0x0000000000001c24      0x480 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o)
- .debug_line    0x00000000000020a4      0x535 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o)
- .debug_line    0x00000000000025d9      0x358 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o)
- .debug_line    0x0000000000002931      0x524 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
- .debug_line    0x0000000000002e55      0x44a /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system.o)
- .debug_line    0x000000000000329f       0x73 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system_start.o)
- .debug_line    0x0000000000003312      0xfa6 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
- .debug_line    0x00000000000042b8      0x3a2 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
- .debug_line    0x000000000000465a     0x15a7 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
- .debug_line    0x0000000000005c01     0x2b5d /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
- .debug_line    0x000000000000875e      0xfc7 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
- .debug_line    0x0000000000009725      0x6aa /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)
- .debug_line    0x0000000000009dcf      0x20f /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/generated/bin/gd32vf103c-start_boot-sysinit-app.a(gd32vf103c-start_boot-sysflash.o)
+.debug_line     0x0000000000000000     0x9f97
+ .debug_line    0x0000000000000000      0x170 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(start.o)
+ .debug_line    0x0000000000000170      0x758 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(system_gd32vf103.o)
+ .debug_line    0x00000000000008c8       0x5f /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(fini.o)
+ .debug_line    0x0000000000000927       0xb5 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(entry.o)
+ .debug_line    0x00000000000009dc      0x878 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
+ .debug_line    0x0000000000001254      0x451 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
+ .debug_line    0x00000000000016a5      0x480 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o)
+ .debug_line    0x0000000000001b25      0x535 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o)
+ .debug_line    0x000000000000205a      0x358 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o)
+ .debug_line    0x00000000000023b2      0x524 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
+ .debug_line    0x00000000000028d6      0x44a /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system.o)
+ .debug_line    0x0000000000002d20       0x73 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system_start.o)
+ .debug_line    0x0000000000002d93      0xfa6 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
+ .debug_line    0x0000000000003d39      0x3a2 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
+ .debug_line    0x00000000000040db     0x15a7 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
+ .debug_line    0x0000000000005682     0x2b5d /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
+ .debug_line    0x00000000000081df      0xfc7 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+ .debug_line    0x00000000000091a6      0x538 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
+ .debug_line    0x00000000000096de      0x6aa /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)
+ .debug_line    0x0000000000009d88      0x20f /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/generated/bin/gd32vf103c-start_boot-sysinit-app.a(gd32vf103c-start_boot-sysflash.o)
 
-.debug_info     0x0000000000000000     0x9406
+.debug_info     0x0000000000000000     0x940a
  .debug_info    0x0000000000000000       0x26 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(start.o)
  .debug_info    0x0000000000000026      0x1e2 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(system_gd32vf103.o)
  .debug_info    0x0000000000000208       0x38 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(fini.o)
- .debug_info    0x0000000000000240       0x22 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(entry.o)
- .debug_info    0x0000000000000262      0x8d9 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
- .debug_info    0x0000000000000b3b      0x8ee /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
- .debug_info    0x0000000000001429      0x671 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
- .debug_info    0x0000000000001a9a      0x63f /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o)
- .debug_info    0x00000000000020d9      0x703 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o)
- .debug_info    0x00000000000027dc      0x1a3 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o)
- .debug_info    0x000000000000297f      0x8aa /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
- .debug_info    0x0000000000003229      0x5fe /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system.o)
- .debug_info    0x0000000000003827       0xb9 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system_start.o)
- .debug_info    0x00000000000038e0     0x1b74 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
- .debug_info    0x0000000000005454      0x27f /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
- .debug_info    0x00000000000056d3      0xeec /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
- .debug_info    0x00000000000065bf     0x1562 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
- .debug_info    0x0000000000007b21      0xd91 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
- .debug_info    0x00000000000088b2      0xa00 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)
- .debug_info    0x00000000000092b2      0x154 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/generated/bin/gd32vf103c-start_boot-sysinit-app.a(gd32vf103c-start_boot-sysflash.o)
+ .debug_info    0x0000000000000240       0x26 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(entry.o)
+ .debug_info    0x0000000000000266      0x8ee /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
+ .debug_info    0x0000000000000b54      0x671 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
+ .debug_info    0x00000000000011c5      0x63f /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o)
+ .debug_info    0x0000000000001804      0x703 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o)
+ .debug_info    0x0000000000001f07      0x1a3 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o)
+ .debug_info    0x00000000000020aa      0x8aa /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
+ .debug_info    0x0000000000002954      0x5fe /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system.o)
+ .debug_info    0x0000000000002f52       0xb9 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system_start.o)
+ .debug_info    0x000000000000300b     0x1b74 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
+ .debug_info    0x0000000000004b7f      0x27f /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
+ .debug_info    0x0000000000004dfe      0xeec /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
+ .debug_info    0x0000000000005cea     0x1562 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
+ .debug_info    0x000000000000724c      0xd91 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+ .debug_info    0x0000000000007fdd      0x8d9 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
+ .debug_info    0x00000000000088b6      0xa00 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)
+ .debug_info    0x00000000000092b6      0x154 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/generated/bin/gd32vf103c-start_boot-sysinit-app.a(gd32vf103c-start_boot-sysflash.o)
 
-.debug_abbrev   0x0000000000000000     0x1b58
+.debug_abbrev   0x0000000000000000     0x1b5a
  .debug_abbrev  0x0000000000000000       0x14 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(start.o)
  .debug_abbrev  0x0000000000000014       0xd6 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(system_gd32vf103.o)
  .debug_abbrev  0x00000000000000ea       0x2c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(fini.o)
- .debug_abbrev  0x0000000000000116       0x12 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(entry.o)
- .debug_abbrev  0x0000000000000128      0x1c1 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
- .debug_abbrev  0x00000000000002e9      0x1a2 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
- .debug_abbrev  0x000000000000048b      0x196 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
- .debug_abbrev  0x0000000000000621      0x137 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o)
- .debug_abbrev  0x0000000000000758      0x192 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o)
- .debug_abbrev  0x00000000000008ea       0xf5 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o)
- .debug_abbrev  0x00000000000009df      0x1c6 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
- .debug_abbrev  0x0000000000000ba5      0x11b /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system.o)
- .debug_abbrev  0x0000000000000cc0       0x92 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system_start.o)
- .debug_abbrev  0x0000000000000d52      0x3b6 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
- .debug_abbrev  0x0000000000001108       0xe2 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
- .debug_abbrev  0x00000000000011ea      0x234 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
- .debug_abbrev  0x000000000000141e      0x1fd /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
- .debug_abbrev  0x000000000000161b      0x2e9 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
- .debug_abbrev  0x0000000000001904      0x1b9 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)
- .debug_abbrev  0x0000000000001abd       0x9b /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/generated/bin/gd32vf103c-start_boot-sysinit-app.a(gd32vf103c-start_boot-sysflash.o)
+ .debug_abbrev  0x0000000000000116       0x14 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(entry.o)
+ .debug_abbrev  0x000000000000012a      0x1a2 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
+ .debug_abbrev  0x00000000000002cc      0x196 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
+ .debug_abbrev  0x0000000000000462      0x137 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o)
+ .debug_abbrev  0x0000000000000599      0x192 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o)
+ .debug_abbrev  0x000000000000072b       0xf5 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o)
+ .debug_abbrev  0x0000000000000820      0x1c6 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
+ .debug_abbrev  0x00000000000009e6      0x11b /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system.o)
+ .debug_abbrev  0x0000000000000b01       0x92 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system_start.o)
+ .debug_abbrev  0x0000000000000b93      0x3b6 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
+ .debug_abbrev  0x0000000000000f49       0xe2 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
+ .debug_abbrev  0x000000000000102b      0x234 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
+ .debug_abbrev  0x000000000000125f      0x1fd /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
+ .debug_abbrev  0x000000000000145c      0x2e9 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+ .debug_abbrev  0x0000000000001745      0x1c1 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
+ .debug_abbrev  0x0000000000001906      0x1b9 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)
+ .debug_abbrev  0x0000000000001abf       0x9b /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/generated/bin/gd32vf103c-start_boot-sysinit-app.a(gd32vf103c-start_boot-sysflash.o)
 
-.debug_aranges  0x0000000000000000      0x918
+.debug_aranges  0x0000000000000000      0x910
  .debug_aranges
                 0x0000000000000000       0x20 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(start.o)
  .debug_aranges
@@ -945,39 +941,39 @@ OUTPUT(/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-st
  .debug_aranges
                 0x0000000000000058       0x20 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(fini.o)
  .debug_aranges
-                0x0000000000000078       0x28 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(entry.o)
+                0x0000000000000078       0x20 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(entry.o)
  .debug_aranges
-                0x00000000000000a0       0x30 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
+                0x0000000000000098      0x118 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
  .debug_aranges
-                0x00000000000000d0      0x118 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
+                0x00000000000001b0       0x28 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
  .debug_aranges
-                0x00000000000001e8       0x28 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
+                0x00000000000001d8       0x20 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o)
  .debug_aranges
-                0x0000000000000210       0x20 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o)
+                0x00000000000001f8       0x30 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o)
  .debug_aranges
-                0x0000000000000230       0x30 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o)
+                0x0000000000000228       0x30 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o)
  .debug_aranges
-                0x0000000000000260       0x30 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o)
+                0x0000000000000258       0x28 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
  .debug_aranges
-                0x0000000000000290       0x28 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
+                0x0000000000000280       0x28 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system.o)
  .debug_aranges
-                0x00000000000002b8       0x28 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system.o)
+                0x00000000000002a8       0x20 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system_start.o)
  .debug_aranges
-                0x00000000000002e0       0x20 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system_start.o)
+                0x00000000000002c8       0x70 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
  .debug_aranges
-                0x0000000000000300       0x70 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
+                0x0000000000000338       0x50 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
  .debug_aranges
-                0x0000000000000370       0x50 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
+                0x0000000000000388      0x160 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
  .debug_aranges
-                0x00000000000003c0      0x160 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
+                0x00000000000004e8      0x240 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
  .debug_aranges
-                0x0000000000000520      0x240 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
+                0x0000000000000728      0x140 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
  .debug_aranges
-                0x0000000000000760      0x140 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+                0x0000000000000868       0x30 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
  .debug_aranges
-                0x00000000000008a0       0x60 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)
+                0x0000000000000898       0x60 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)
  .debug_aranges
-                0x0000000000000900       0x18 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/generated/bin/gd32vf103c-start_boot-sysinit-app.a(gd32vf103c-start_boot-sysflash.o)
+                0x00000000000008f8       0x18 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/generated/bin/gd32vf103c-start_boot-sysinit-app.a(gd32vf103c-start_boot-sysflash.o)
 
 .debug_str      0x0000000000000000     0x344e
  .debug_str     0x0000000000000000       0x72 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(start.o)
@@ -987,34 +983,34 @@ OUTPUT(/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-st
                                          0xd4 (size before relaxing)
  .debug_str     0x0000000000000297       0x36 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(entry.o)
                                          0x72 (size before relaxing)
- .debug_str     0x00000000000002cd      0x453 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
-                                        0x64b (size before relaxing)
- .debug_str     0x0000000000000720      0x122 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
+ .debug_str     0x00000000000002cd      0x140 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
                                         0x297 (size before relaxing)
- .debug_str     0x0000000000000842       0x38 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
+ .debug_str     0x000000000000040d      0x2e3 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
                                         0x4ea (size before relaxing)
- .debug_str     0x000000000000087a       0x55 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o)
+ .debug_str     0x00000000000006f0       0x55 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o)
                                         0x4f4 (size before relaxing)
- .debug_str     0x00000000000008cf       0xcd /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o)
+ .debug_str     0x0000000000000745       0xcd /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o)
                                         0x57f (size before relaxing)
- .debug_str     0x000000000000099c      0x11f /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o)
+ .debug_str     0x0000000000000812      0x130 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o)
                                         0x28a (size before relaxing)
- .debug_str     0x0000000000000abb      0x25b /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
+ .debug_str     0x0000000000000942      0x269 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
                                         0x739 (size before relaxing)
- .debug_str     0x0000000000000d16       0x44 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system.o)
+ .debug_str     0x0000000000000bab       0x44 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system.o)
                                         0x4ef (size before relaxing)
- .debug_str     0x0000000000000d5a       0x33 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system_start.o)
+ .debug_str     0x0000000000000bef       0x33 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system_start.o)
                                         0x179 (size before relaxing)
- .debug_str     0x0000000000000d8d      0xcf3 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
+ .debug_str     0x0000000000000c22      0xcf3 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
                                        0x128b (size before relaxing)
- .debug_str     0x0000000000001a80      0x13d /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
+ .debug_str     0x0000000000001915      0x13d /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
                                         0x300 (size before relaxing)
- .debug_str     0x0000000000001bbd      0xab7 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
+ .debug_str     0x0000000000001a52      0xab7 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
                                         0xe0b (size before relaxing)
- .debug_str     0x0000000000002674      0x949 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
+ .debug_str     0x0000000000002509      0x949 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
                                         0xee8 (size before relaxing)
- .debug_str     0x0000000000002fbd      0x323 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+ .debug_str     0x0000000000002e52      0x350 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
                                         0x5d2 (size before relaxing)
+ .debug_str     0x00000000000031a2      0x13e /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
+                                        0x64b (size before relaxing)
  .debug_str     0x00000000000032e0      0x11d /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)
                                         0x694 (size before relaxing)
  .debug_str     0x00000000000033fd       0x51 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/generated/bin/gd32vf103c-start_boot-sysinit-app.a(gd32vf103c-start_boot-sysflash.o)
@@ -1022,46 +1018,44 @@ OUTPUT(/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-st
 
 .debug_loc      0x0000000000000000     0x33e5
  .debug_loc     0x0000000000000000      0x177 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(system_gd32vf103.o)
- .debug_loc     0x0000000000000177       0xe7 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
- .debug_loc     0x000000000000025e      0x7af /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
- .debug_loc     0x0000000000000a0d       0x13 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
- .debug_loc     0x0000000000000a20       0x20 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o)
- .debug_loc     0x0000000000000a40       0x42 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o)
- .debug_loc     0x0000000000000a82       0xb9 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o)
- .debug_loc     0x0000000000000b3b       0x13 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
- .debug_loc     0x0000000000000b4e       0x42 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system_start.o)
- .debug_loc     0x0000000000000b90      0x624 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
- .debug_loc     0x00000000000011b4       0xb0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
- .debug_loc     0x0000000000001264      0x970 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
- .debug_loc     0x0000000000001bd4      0xc8c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
- .debug_loc     0x0000000000002860      0x867 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+ .debug_loc     0x0000000000000177      0x7af /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
+ .debug_loc     0x0000000000000926       0x13 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
+ .debug_loc     0x0000000000000939       0x20 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o)
+ .debug_loc     0x0000000000000959       0x42 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o)
+ .debug_loc     0x000000000000099b       0xb9 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o)
+ .debug_loc     0x0000000000000a54       0x13 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
+ .debug_loc     0x0000000000000a67       0x42 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system_start.o)
+ .debug_loc     0x0000000000000aa9      0x624 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
+ .debug_loc     0x00000000000010cd       0xb0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
+ .debug_loc     0x000000000000117d      0x970 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
+ .debug_loc     0x0000000000001aed      0xc8c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
+ .debug_loc     0x0000000000002779      0x867 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+ .debug_loc     0x0000000000002fe0       0xe7 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
  .debug_loc     0x00000000000030c7      0x31e /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)
 
-.debug_ranges   0x0000000000000000      0x7c8
+.debug_ranges   0x0000000000000000      0x7a8
  .debug_ranges  0x0000000000000000       0x28 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(system_gd32vf103.o)
  .debug_ranges  0x0000000000000028       0x10 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(fini.o)
- .debug_ranges  0x0000000000000038       0x20 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(entry.o)
- .debug_ranges  0x0000000000000058       0x20 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
- .debug_ranges  0x0000000000000078      0x108 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
- .debug_ranges  0x0000000000000180       0x18 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
- .debug_ranges  0x0000000000000198       0x10 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o)
- .debug_ranges  0x00000000000001a8       0x20 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o)
- .debug_ranges  0x00000000000001c8       0x20 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o)
- .debug_ranges  0x00000000000001e8       0x18 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
- .debug_ranges  0x0000000000000200       0x18 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system.o)
- .debug_ranges  0x0000000000000218       0x10 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system_start.o)
- .debug_ranges  0x0000000000000228       0x60 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
- .debug_ranges  0x0000000000000288       0x40 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
- .debug_ranges  0x00000000000002c8      0x150 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
- .debug_ranges  0x0000000000000418      0x230 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
- .debug_ranges  0x0000000000000648      0x130 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
- .debug_ranges  0x0000000000000778       0x50 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)
+ .debug_ranges  0x0000000000000038      0x108 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
+ .debug_ranges  0x0000000000000140       0x18 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
+ .debug_ranges  0x0000000000000158       0x10 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o)
+ .debug_ranges  0x0000000000000168       0x20 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o)
+ .debug_ranges  0x0000000000000188       0x20 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o)
+ .debug_ranges  0x00000000000001a8       0x18 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
+ .debug_ranges  0x00000000000001c0       0x18 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system.o)
+ .debug_ranges  0x00000000000001d8       0x10 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system_start.o)
+ .debug_ranges  0x00000000000001e8       0x60 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
+ .debug_ranges  0x0000000000000248       0x40 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
+ .debug_ranges  0x0000000000000288      0x150 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
+ .debug_ranges  0x00000000000003d8      0x230 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
+ .debug_ranges  0x0000000000000608      0x130 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+ .debug_ranges  0x0000000000000738       0x20 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
+ .debug_ranges  0x0000000000000758       0x50 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)
 
 .comment        0x0000000000000000       0x33
  .comment       0x0000000000000000       0x33 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(system_gd32vf103.o)
                                          0x34 (size before relaxing)
  .comment       0x0000000000000033       0x34 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(fini.o)
- .comment       0x0000000000000033       0x34 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
  .comment       0x0000000000000033       0x34 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
  .comment       0x0000000000000033       0x34 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
  .comment       0x0000000000000033       0x34 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o)
@@ -1075,24 +1069,25 @@ OUTPUT(/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-st
  .comment       0x0000000000000033       0x34 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
  .comment       0x0000000000000033       0x34 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
  .comment       0x0000000000000033       0x34 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+ .comment       0x0000000000000033       0x34 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
  .comment       0x0000000000000033       0x34 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)
  .comment       0x0000000000000033       0x34 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/generated/bin/gd32vf103c-start_boot-sysinit-app.a(gd32vf103c-start_boot-sysflash.o)
 
 .debug_frame    0x0000000000000000     0x13f4
  .debug_frame   0x0000000000000000       0x68 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(system_gd32vf103.o)
  .debug_frame   0x0000000000000068       0x20 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(fini.o)
- .debug_frame   0x0000000000000088       0x50 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
- .debug_frame   0x00000000000000d8      0x2f0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
- .debug_frame   0x00000000000003c8       0x38 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
- .debug_frame   0x0000000000000400       0x28 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o)
- .debug_frame   0x0000000000000428       0x4c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o)
- .debug_frame   0x0000000000000474       0x54 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o)
- .debug_frame   0x00000000000004c8       0x4c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
- .debug_frame   0x0000000000000514       0x38 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system.o)
- .debug_frame   0x000000000000054c       0x28 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system_start.o)
- .debug_frame   0x0000000000000574      0x168 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
- .debug_frame   0x00000000000006dc       0xb0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
- .debug_frame   0x000000000000078c      0x2d0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
- .debug_frame   0x0000000000000a5c      0x4e4 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
- .debug_frame   0x0000000000000f40      0x394 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+ .debug_frame   0x0000000000000088      0x2f0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
+ .debug_frame   0x0000000000000378       0x38 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/libc/baselibc/libc_baselibc.a(start.o)
+ .debug_frame   0x00000000000003b0       0x28 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/apps_boot_stub.a(boot.o)
+ .debug_frame   0x00000000000003d8       0x4c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/bsp/gd32vf103c-start/hw_bsp_gd32vf103c-start.a(hal_bsp.o)
+ .debug_frame   0x0000000000000424       0x54 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/hal/hw_hal.a(hal_common.o)
+ .debug_frame   0x0000000000000478       0x4c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_periph.o)
+ .debug_frame   0x00000000000004c4       0x38 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system.o)
+ .debug_frame   0x00000000000004fc       0x28 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_system_start.o)
+ .debug_frame   0x0000000000000524      0x168 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(hal_timer.o)
+ .debug_frame   0x000000000000068c       0xb0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_eclic.o)
+ .debug_frame   0x000000000000073c      0x2d0 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_rcu.o)
+ .debug_frame   0x0000000000000a0c      0x4e4 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(gd32vf103_timer.o)
+ .debug_frame   0x0000000000000ef0      0x394 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/hw/mcu/gigadevice/gd32vf103/hw_mcu_gigadevice_gd32vf103.a(n200_func.o)
+ .debug_frame   0x0000000000001284       0x50 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_fault.o)
  .debug_frame   0x00000000000012d4      0x120 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/kernel/os/kernel_os.a(os_cputime.o)

@@ -7,37 +7,37 @@ start address 0x0800015c
 
 Program Header:
     LOAD off    0x00001000 vaddr 0x08000000 paddr 0x08000000 align 2**12
-         filesz 0x00000cfc memsz 0x00000cfc flags r-x
-    LOAD off    0x00002000 vaddr 0x20000000 paddr 0x08000cfc align 2**12
+         filesz 0x00000c2c memsz 0x00000c2c flags r-x
+    LOAD off    0x00002000 vaddr 0x20000000 paddr 0x08000c2c align 2**12
          filesz 0x00000040 memsz 0x00000040 flags rw-
     LOAD off    0x00002800 vaddr 0x20004800 paddr 0x20004800 align 2**12
          filesz 0x00000000 memsz 0x00000800 flags rw-
 
 Sections:
 Idx Name           Size      VMA       LMA       File off  Algn  Flags
-  0 .init          00000228  08000000  08000000  00001000  2**2  CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .text          00000a68  08000240  08000240  00001240  2**6  CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata        00000054  08000ca8  08000ca8  00001ca8  2**2  CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .lalign        00000000  08000cfc  08000cfc  00002040  2**0  CONTENTS
+  0 .init          0000021c  08000000  08000000  00001000  2**2  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .text          000009ba  0800021c  0800021c  0000121c  2**2  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .rodata        00000054  08000bd8  08000bd8  00001bd8  2**2  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  3 .lalign        00000000  08000c2c  08000c2c  00002040  2**0  CONTENTS
   4 .dalign        00000000  20000000  20000000  00002040  2**0  CONTENTS
-  5 .data          0000003c  20000000  08000cfc  00002000  2**2  CONTENTS, ALLOC, LOAD, DATA
-  6 .sdata         00000004  2000003c  08000d38  0000203c  2**2  CONTENTS, ALLOC, LOAD, DATA
-  7 .bss           00000000  20000040  08000d3c  00000000  2**0  ALLOC
+  5 .data          0000003c  20000000  08000c2c  00002000  2**2  CONTENTS, ALLOC, LOAD, DATA
+  6 .sdata         00000004  2000003c  08000c68  0000203c  2**2  CONTENTS, ALLOC, LOAD, DATA
+  7 .bss           00000000  20000040  08000c6c  00000000  2**0  ALLOC
   8 .stack         00000800  20004800  20004800  00002800  2**0  ALLOC
-  9 .debug_line    00009fde  00000000  00000000  00002040  2**0  CONTENTS, READONLY, DEBUGGING
- 10 .debug_info    00009406  00000000  00000000  0000c01e  2**0  CONTENTS, READONLY, DEBUGGING
- 11 .debug_abbrev  00001b58  00000000  00000000  00015424  2**0  CONTENTS, READONLY, DEBUGGING
- 12 .debug_aranges 00000918  00000000  00000000  00016f80  2**3  CONTENTS, READONLY, DEBUGGING
- 13 .debug_str     0000344e  00000000  00000000  00017898  2**0  CONTENTS, READONLY, DEBUGGING
- 14 .debug_loc     000033e5  00000000  00000000  0001ace6  2**0  CONTENTS, READONLY, DEBUGGING
- 15 .debug_ranges  000007c8  00000000  00000000  0001e0d0  2**3  CONTENTS, READONLY, DEBUGGING
- 16 .comment       00000033  00000000  00000000  0001e898  2**0  CONTENTS, READONLY
- 17 .debug_frame   000013f4  00000000  00000000  0001e8cc  2**2  CONTENTS, READONLY, DEBUGGING
+  9 .debug_line    00009f97  00000000  00000000  00002040  2**0  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_info    0000940a  00000000  00000000  0000bfd7  2**0  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_abbrev  00001b5a  00000000  00000000  000153e1  2**0  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_aranges 00000910  00000000  00000000  00016f40  2**3  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_str     0000344e  00000000  00000000  00017850  2**0  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_loc     000033e5  00000000  00000000  0001ac9e  2**0  CONTENTS, READONLY, DEBUGGING
+ 15 .debug_ranges  000007a8  00000000  00000000  0001e083  2**0  CONTENTS, READONLY, DEBUGGING
+ 16 .comment       00000033  00000000  00000000  0001e82b  2**0  CONTENTS, READONLY
+ 17 .debug_frame   000013f4  00000000  00000000  0001e860  2**2  CONTENTS, READONLY, DEBUGGING
 SYMBOL TABLE:
 08000000 l    d  .init	00000000 .init
-08000240 l    d  .text	00000000 .text
-08000ca8 l    d  .rodata	00000000 .rodata
-08000cfc l    d  .lalign	00000000 .lalign
+0800021c l    d  .text	00000000 .text
+08000bd8 l    d  .rodata	00000000 .rodata
+08000c2c l    d  .lalign	00000000 .lalign
 20000000 l    d  .dalign	00000000 .dalign
 20000000 l    d  .data	00000000 .data
 2000003c l    d  .sdata	00000000 .sdata
@@ -56,92 +56,90 @@ SYMBOL TABLE:
 08000000 l       .init	00000000 vector_base
 08000182 l       .init	00000000 _reset_handler_0800
 00000000 l    df *ABS*	00000000 system_gd32vf103.c
-08000240 l     F .text	000000e2 system_clock_108m_hxtal
-08000322 l     F .text	0000000c system_clock_config
+0800021c l     F .text	000000e2 system_clock_108m_hxtal
+080002fe l     F .text	0000000c system_clock_config
 00000000 l    df *ABS*	00000000 fini.c
 00000000 l    df *ABS*	00000000 entry.o
-0800046c l       .text	00000000 service_loop
-00000000 l    df *ABS*	00000000 os_fault.c
+0800039c l       .text	00000000 service_loop
 00000000 l    df *ABS*	00000000 inline.c
 00000000 l    df *ABS*	00000000 start.c
 00000000 l    df *ABS*	00000000 boot.c
 00000000 l    df *ABS*	00000000 hal_bsp.c
 00000000 l    df *ABS*	00000000 hal_common.c
 00000000 l    df *ABS*	00000000 gd32vf103_periph.c
-080004f8 l     F .text	00000034 gd32vf103_periph_create_timers
+0800041a l     F .text	00000036 gd32vf103_periph_create_timers
 00000000 l    df *ABS*	00000000 hal_system.c
 00000000 l    df *ABS*	00000000 hal_system_start.c
 00000000 l    df *ABS*	00000000 hal_timer.c
-08000ca8 l     O .rodata	0000000c gd32vf103_tmr_devs
+08000bd8 l     O .rodata	0000000c gd32vf103_tmr_devs
 00000000 l    df *ABS*	00000000 gd32vf103_eclic.c
 00000000 l    df *ABS*	00000000 gd32vf103_rcu.c
 00000000 l    df *ABS*	00000000 gd32vf103_timer.c
 00000000 l    df *ABS*	00000000 n200_func.c
+00000000 l    df *ABS*	00000000 os_fault.c
 00000000 l    df *ABS*	00000000 os_cputime.c
 00000000 l    df *ABS*	00000000 gd32vf103c-start_boot-sysflash.c
 2000083c g       .sdata	00000000 __global_pointer$
-0800054e g     F .text	00000024 hal_timer_init
-08000548 g     F .text	00000006 hal_system_start
-08000bc0 g     F .text	0000000a eclic_get_cliccfg
-0800053c g     F .text	0000000c hal_system_reset
-08000bea g     F .text	00000010 eclic_get_nlbits
-08000ba6 g     F .text	00000010 eclic_get_intctrl
+08000472 g     F .text	00000024 hal_timer_init
+0800046c g     F .text	00000006 hal_system_start
+08000ae4 g     F .text	0000000a eclic_get_cliccfg
+08000460 g     F .text	0000000c hal_system_reset
+08000b0e g     F .text	00000010 eclic_get_nlbits
+08000aca g     F .text	00000010 eclic_get_intctrl
 00000800 g       *ABS*	00000000 __stack_size
-08000872 g     F .text	00000216 timer_channel_output_config
+08000796 g     F .text	00000216 timer_channel_output_config
 2000083c g       .sdata	00000000 _gp
-08000b18 g     F .text	00000064 timer_channel_output_shadow_config
+08000a3c g     F .text	00000064 timer_channel_output_shadow_config
 20000014 g     O .data	00000014 gd32vf103_tmr1
-08000c96 g     F .text	00000012 os_cputime_init
+08000bc4 g     F .text	00000012 os_cputime_init
 00000000 g       *ABS*	00000000 _imghdr_size
-0800084e g     F .text	0000000a timer_enable
+08000772 g     F .text	0000000a timer_enable
 2000003c g     O .sdata	00000004 SystemCoreClock
-0800069a g     F .text	0000001c rcu_periph_reset_disable
-080004ae g     F .text	00000008 __assert_func
-080004b6 g     F .text	00000006 handle_trap
-0800043c  w      .text	00000000 irq_entry
-08000538 g     F .text	00000004 hal_debugger_connected
-08000b96 g     F .text	00000010 eclic_set_intctrl
+080005be g     F .text	0000001c rcu_periph_reset_disable
+08000bba g     F .text	0000000a __assert_func
+0800036c  w      .text	00000000 irq_entry
+0800045c g     F .text	00000004 hal_debugger_connected
+08000aba g     F .text	00000010 eclic_set_intctrl
 20000000 g     O .data	00000014 gd32vf103_tmr0
-08000bb6 g     F .text	0000000a eclic_set_cliccfg
-080004ce g     F .text	00000002 _init
-0800077a g     F .text	0000001c timer_struct_para_init
-08000796 g     F .text	000000b8 timer_init
-08000a88 g     F .text	00000064 timer_channel_output_mode_config
-08000bfa g     F .text	0000004c eclic_set_irq_lvl_abs
-08000b84 g     F .text	00000012 eclic_enable_interrupt
+08000ada g     F .text	0000000a eclic_set_cliccfg
+080003f0 g     F .text	00000002 _init
+0800069e g     F .text	0000001c timer_struct_para_init
+080006ba g     F .text	000000b8 timer_init
+080009ac g     F .text	00000064 timer_channel_output_mode_config
+08000b1e g     F .text	0000004c eclic_set_irq_lvl_abs
+08000aa8 g     F .text	00000012 eclic_enable_interrupt
 20000000 g       .stack	00000000 _ram_start
 0800015c g     F .init	00000000 _reset_handler
 20005000 g       .stack	00000000 _sp
-080004c2 g     F .text	0000000c _start
-0800066a g     F .text	00000018 rcu_periph_clock_enable
-08000220 g       .init	00000000 enable_mcycle_minstret
-080006b6 g     F .text	000000c4 timer_deinit
-08000b7c g     F .text	00000008 timer_interrupt_enable
-08000572 g     F .text	000000c8 hal_timer_config
-0800052c g     F .text	0000000c gd32vf103_periph_create
-08000c46 g     F .text	00000050 eclic_set_irq_priority
+080003e4 g     F .text	0000000c _start
+0800058e g     F .text	00000018 rcu_periph_clock_enable
+08000214 g       .init	00000000 enable_mcycle_minstret
+080005da g     F .text	000000c4 timer_deinit
+08000aa0 g     F .text	00000008 timer_interrupt_enable
+08000496 g     F .text	000000c8 hal_timer_config
+08000450 g     F .text	0000000c gd32vf103_periph_create
+08000b6a g     F .text	00000050 eclic_set_irq_priority
 20000040 g       .sdata	00000000 __bss_start
-080004d0 g     F .text	00000016 main
-080003c0  w      .text	00000000 trap_entry
-0800021a g       .init	00000000 disable_mcycle_minstret
+080003f2 g     F .text	00000016 main
+0800020e g       .init	00000000 disable_mcycle_minstret
 00000000 g       .init	00000000 __text
-08000bca g     F .text	00000020 eclic_set_nlbits
-0800032e g     F .text	0000005e SystemInit
-0800038c g     F .text	00000002 _fini
-08000682 g     F .text	00000018 rcu_periph_reset_enable
+08000aee g     F .text	00000020 eclic_set_nlbits
+0800030a g     F .text	0000005e SystemInit
+08000368 g     F .text	00000002 _fini
+080005a6 g     F .text	00000018 rcu_periph_reset_enable
 20000000 g       .dalign	00000000 _data
-08000cb4 g     O .rodata	00000048 sysflash_map_dflt
-08000640 g     F .text	0000002a eclic_irq_enable
+08000be4 g     O .rodata	00000048 sysflash_map_dflt
+08000564 g     F .text	0000002a eclic_irq_enable
 20000040 g       .sdata	00000000 _edata
 20000040 g       .sdata	00000000 _end
 20000028 g     O .data	00000014 gd32vf103_tmr2
-0800063a g     F .text	00000006 eclic_global_interrupt_enable
-08000cfc g       .lalign	00000000 _data_lma
-080004bc g     F .text	00000006 exit
-08000858 g     F .text	0000001a timer_channel_output_struct_para_init
-08000aec g     F .text	0000002c timer_channel_output_pulse_value_config
-080004f2 g     F .text	00000006 _exit
-080004e6 g     F .text	0000000c hal_bsp_init
+0800055e g     F .text	00000006 eclic_global_interrupt_enable
+08000c2c g       .lalign	00000000 _data_lma
+080003de g     F .text	00000006 exit
+0800077c g     F .text	0000001a timer_channel_output_struct_para_init
+08000a10 g     F .text	0000002c timer_channel_output_pulse_value_config
+08000414 g     F .text	00000006 _exit
+08000408 g     F .text	0000000c hal_bsp_init
 
 
 
@@ -211,2073 +209,1975 @@ _reset_handler_0800:
 	/* Intialise the mtvt2 and enable it */
     la t0, irq_entry
  8000196:	00000297          	auipc	t0,0x0
- 800019a:	2a628293          	addi	t0,t0,678 # 800043c <irq_entry>
+ 800019a:	1d628293          	addi	t0,t0,470 # 800036c <irq_entry>
     csrw CSR_MTVT2, t0
  800019e:	7ec29073          	csrw	0x7ec,t0
     csrs CSR_MTVT2, 0x1
  80001a2:	7ec0e073          	csrsi	0x7ec,1
-
-    /* Intialise the CSR MTVEC for the Trap and NMI base address */
-    la t0, trap_entry
- 80001a6:	00000297          	auipc	t0,0x0
- 80001aa:	21a28293          	addi	t0,t0,538 # 80003c0 <trap_entry>
-    csrw CSR_MTVEC, t0
- 80001ae:	30529073          	csrw	mtvec,t0
 	csrw fcsr, x0
 #endif
 
 .option push
 .option norelax
 	la gp, __global_pointer$
- 80001b2:	18000197          	auipc	gp,0x18000
- 80001b6:	68a18193          	addi	gp,gp,1674 # 2000083c <__global_pointer$>
+ 80001a6:	18000197          	auipc	gp,0x18000
+ 80001aa:	69618193          	addi	gp,gp,1686 # 2000083c <__global_pointer$>
 .option pop
 	la sp, _sp
- 80001ba:	18005117          	auipc	sp,0x18005
- 80001be:	e4610113          	addi	sp,sp,-442 # 20005000 <_sp>
+ 80001ae:	18005117          	auipc	sp,0x18005
+ 80001b2:	e5210113          	addi	sp,sp,-430 # 20005000 <_sp>
 
 	/* Load data section */
 	la a0, _data_lma
- 80001c2:	00001517          	auipc	a0,0x1
- 80001c6:	b3a50513          	addi	a0,a0,-1222 # 8000cfc <_data_lma>
+ 80001b6:	00001517          	auipc	a0,0x1
+ 80001ba:	a7650513          	addi	a0,a0,-1418 # 8000c2c <_data_lma>
 	la a1, _data
- 80001ca:	18000597          	auipc	a1,0x18000
- 80001ce:	e3658593          	addi	a1,a1,-458 # 20000000 <_data>
+ 80001be:	18000597          	auipc	a1,0x18000
+ 80001c2:	e4258593          	addi	a1,a1,-446 # 20000000 <_data>
 	la a2, _edata
- 80001d2:	18000617          	auipc	a2,0x18000
- 80001d6:	e6e60613          	addi	a2,a2,-402 # 20000040 <__bss_start>
+ 80001c6:	18000617          	auipc	a2,0x18000
+ 80001ca:	e7a60613          	addi	a2,a2,-390 # 20000040 <__bss_start>
 	bgeu a1, a2, 2f
- 80001da:	00c5fa63          	bgeu	a1,a2,80001ee <_reset_handler_0800+0x6c>
+ 80001ce:	00c5fa63          	bgeu	a1,a2,80001e2 <_reset_handler_0800+0x60>
 1:
 	lw t0, (a0)
- 80001de:	00052283          	lw	t0,0(a0)
+ 80001d2:	00052283          	lw	t0,0(a0)
 	sw t0, (a1)
- 80001e2:	0055a023          	sw	t0,0(a1)
+ 80001d6:	0055a023          	sw	t0,0(a1)
 	addi a0, a0, 4
- 80001e6:	0511                	addi	a0,a0,4
+ 80001da:	0511                	addi	a0,a0,4
 	addi a1, a1, 4
- 80001e8:	0591                	addi	a1,a1,4
+ 80001dc:	0591                	addi	a1,a1,4
 	bltu a1, a2, 1b
- 80001ea:	fec5eae3          	bltu	a1,a2,80001de <_reset_handler_0800+0x5c>
+ 80001de:	fec5eae3          	bltu	a1,a2,80001d2 <_reset_handler_0800+0x50>
 2:
 	/* Clear bss section */
 	la a0, __bss_start
- 80001ee:	18000517          	auipc	a0,0x18000
- 80001f2:	e5250513          	addi	a0,a0,-430 # 20000040 <__bss_start>
+ 80001e2:	18000517          	auipc	a0,0x18000
+ 80001e6:	e5e50513          	addi	a0,a0,-418 # 20000040 <__bss_start>
 	la a1, _end
- 80001f6:	18000597          	auipc	a1,0x18000
- 80001fa:	e4a58593          	addi	a1,a1,-438 # 20000040 <__bss_start>
+ 80001ea:	18000597          	auipc	a1,0x18000
+ 80001ee:	e5658593          	addi	a1,a1,-426 # 20000040 <__bss_start>
 	bgeu a0, a1, 2f
- 80001fe:	00b57763          	bgeu	a0,a1,800020c <_reset_handler_0800+0x8a>
+ 80001f2:	00b57763          	bgeu	a0,a1,8000200 <_reset_handler_0800+0x7e>
 1:
 	sw zero, (a0)
- 8000202:	00052023          	sw	zero,0(a0)
+ 80001f6:	00052023          	sw	zero,0(a0)
 	addi a0, a0, 4
- 8000206:	0511                	addi	a0,a0,4
+ 80001fa:	0511                	addi	a0,a0,4
 	bltu a0, a1, 1b
- 8000208:	feb56de3          	bltu	a0,a1,8000202 <_reset_handler_0800+0x80>
+ 80001fc:	feb56de3          	bltu	a0,a1,80001f6 <_reset_handler_0800+0x74>
 2:
 	/*enable mcycle_minstret*/
     csrci CSR_MCOUNTINHIBIT, 0x5
- 800020c:	3202f073          	csrci	mucounteren,5
+ 8000200:	3202f073          	csrci	mucounteren,5
 	/* NOTUSED: Call global constructors
 	la a0, __libc_fini_array
 	call atexit
 	call __libc_init_array */
 
     call SystemInit
- 8000210:	2a39                	jal	800032e <SystemInit>
+ 8000204:	2219                	jal	800030a <SystemInit>
     call _start
- 8000212:	2c45                	jal	80004c2 <_start>
+ 8000206:	2af9                	jal	80003e4 <_start>
     call _fini
- 8000214:	2aa5                	jal	800038c <_fini>
+ 8000208:	2285                	jal	8000368 <_fini>
     tail exit
- 8000216:	a45d                	j	80004bc <exit>
+ 800020a:	aad1                	j	80003de <exit>
 1:
 	j 1b
- 8000218:	a001                	j	8000218 <_reset_handler_0800+0x96>
+ 800020c:	a001                	j	800020c <_reset_handler_0800+0x8a>
 
-0800021a <disable_mcycle_minstret>:
+0800020e <disable_mcycle_minstret>:
 	
 	.global disable_mcycle_minstret
 disable_mcycle_minstret:
     csrsi CSR_MCOUNTINHIBIT, 0x5
- 800021a:	3202e073          	csrsi	mucounteren,5
+ 800020e:	3202e073          	csrsi	mucounteren,5
 	ret
- 800021e:	8082                	ret
+ 8000212:	8082                	ret
 
-08000220 <enable_mcycle_minstret>:
+08000214 <enable_mcycle_minstret>:
 
 	.global enable_mcycle_minstret
 enable_mcycle_minstret:
     csrci CSR_MCOUNTINHIBIT, 0x5
- 8000220:	3202f073          	csrci	mucounteren,5
+ 8000214:	3202f073          	csrci	mucounteren,5
 	ret
- 8000224:	8082                	ret
+ 8000218:	8082                	ret
 	...
 
 Disassembly of section .text:
 
-08000240 <system_clock_108m_hxtal>:
+0800021c <system_clock_108m_hxtal>:
 {
     uint32_t timeout   = 0U;
     uint32_t stab_flag = 0U;
 
     /* enable HXTAL */
     RCU_CTL |= RCU_CTL_HXTALEN;
- 8000240:	40021737          	lui	a4,0x40021
- 8000244:	431c                	lw	a5,0(a4)
- 8000246:	66c1                	lui	a3,0x10
- 8000248:	8fd5                	or	a5,a5,a3
- 800024a:	c31c                	sw	a5,0(a4)
+ 800021c:	40021737          	lui	a4,0x40021
+ 8000220:	431c                	lw	a5,0(a4)
+ 8000222:	66c1                	lui	a3,0x10
+ 8000224:	8fd5                	or	a5,a5,a3
+ 8000226:	c31c                	sw	a5,0(a4)
     uint32_t timeout   = 0U;
- 800024c:	4781                	li	a5,0
+ 8000228:	4781                	li	a5,0
 
     /* wait until HXTAL is stable or the startup time is longer than HXTAL_STARTUP_TIMEOUT */
     do{
         timeout++;
- 800024e:	0785                	addi	a5,a5,1
+ 800022a:	0785                	addi	a5,a5,1
         stab_flag = (RCU_CTL & RCU_CTL_HXTALSTB);
- 8000250:	40021737          	lui	a4,0x40021
- 8000254:	4318                	lw	a4,0(a4)
+ 800022c:	40021737          	lui	a4,0x40021
+ 8000230:	4318                	lw	a4,0(a4)
     }while((0U == stab_flag) && (HXTAL_STARTUP_TIMEOUT != timeout));
- 8000256:	00e71693          	slli	a3,a4,0xe
- 800025a:	0006c663          	bltz	a3,8000266 <system_clock_108m_hxtal+0x26>
- 800025e:	6741                	lui	a4,0x10
- 8000260:	177d                	addi	a4,a4,-1
- 8000262:	fee796e3          	bne	a5,a4,800024e <system_clock_108m_hxtal+0xe>
+ 8000232:	00e71693          	slli	a3,a4,0xe
+ 8000236:	0006c663          	bltz	a3,8000242 <system_clock_108m_hxtal+0x26>
+ 800023a:	6741                	lui	a4,0x10
+ 800023c:	177d                	addi	a4,a4,-1
+ 800023e:	fee796e3          	bne	a5,a4,800022a <system_clock_108m_hxtal+0xe>
 
     /* if fail */
     if(0U == (RCU_CTL & RCU_CTL_HXTALSTB)){
- 8000266:	400217b7          	lui	a5,0x40021
- 800026a:	439c                	lw	a5,0(a5)
- 800026c:	00e79713          	slli	a4,a5,0xe
- 8000270:	00074363          	bltz	a4,8000276 <system_clock_108m_hxtal+0x36>
+ 8000242:	400217b7          	lui	a5,0x40021
+ 8000246:	439c                	lw	a5,0(a5)
+ 8000248:	00e79713          	slli	a4,a5,0xe
+ 800024c:	00074363          	bltz	a4,8000252 <system_clock_108m_hxtal+0x36>
         while(1){
         }
- 8000274:	a001                	j	8000274 <system_clock_108m_hxtal+0x34>
+ 8000250:	a001                	j	8000250 <system_clock_108m_hxtal+0x34>
     }
 
     /* HXTAL is stable */
     /* AHB = SYSCLK */
     RCU_CFG0 |= RCU_AHB_CKSYS_DIV1;
- 8000276:	400217b7          	lui	a5,0x40021
- 800027a:	43d8                	lw	a4,4(a5)
- 800027c:	c3d8                	sw	a4,4(a5)
+ 8000252:	400217b7          	lui	a5,0x40021
+ 8000256:	43d8                	lw	a4,4(a5)
+ 8000258:	c3d8                	sw	a4,4(a5)
     /* APB2 = AHB/1 */
     RCU_CFG0 |= RCU_APB2_CKAHB_DIV1;
- 800027e:	43d8                	lw	a4,4(a5)
- 8000280:	c3d8                	sw	a4,4(a5)
+ 800025a:	43d8                	lw	a4,4(a5)
+ 800025c:	c3d8                	sw	a4,4(a5)
     /* APB1 = AHB/2 */
     RCU_CFG0 |= RCU_APB1_CKAHB_DIV2;
- 8000282:	43d8                	lw	a4,4(a5)
- 8000284:	40076713          	ori	a4,a4,1024
- 8000288:	c3d8                	sw	a4,4(a5)
+ 800025e:	43d8                	lw	a4,4(a5)
+ 8000260:	40076713          	ori	a4,a4,1024
+ 8000264:	c3d8                	sw	a4,4(a5)
 
     /* CK_PLL = (CK_PREDIV0) * 27 = 108 MHz */ 
     RCU_CFG0 &= ~(RCU_CFG0_PLLMF | RCU_CFG0_PLLMF_4);
- 800028a:	43d8                	lw	a4,4(a5)
- 800028c:	dfc406b7          	lui	a3,0xdfc40
- 8000290:	16fd                	addi	a3,a3,-1
- 8000292:	8f75                	and	a4,a4,a3
- 8000294:	c3d8                	sw	a4,4(a5)
+ 8000266:	43d8                	lw	a4,4(a5)
+ 8000268:	dfc406b7          	lui	a3,0xdfc40
+ 800026c:	16fd                	addi	a3,a3,-1
+ 800026e:	8f75                	and	a4,a4,a3
+ 8000270:	c3d8                	sw	a4,4(a5)
     RCU_CFG0 |= (RCU_PLLSRC_HXTAL | RCU_PLL_MUL27);
- 8000296:	43d8                	lw	a4,4(a5)
- 8000298:	202906b7          	lui	a3,0x20290
- 800029c:	8f55                	or	a4,a4,a3
- 800029e:	c3d8                	sw	a4,4(a5)
+ 8000272:	43d8                	lw	a4,4(a5)
+ 8000274:	202906b7          	lui	a3,0x20290
+ 8000278:	8f55                	or	a4,a4,a3
+ 800027a:	c3d8                	sw	a4,4(a5)
 		RCU_CTL |= RCU_CTL_PLL2EN;
 		/* wait till PLL1 is ready */
 		while(0U == (RCU_CTL & RCU_CTL_PLL2STB)){
 		}
     }else if(HXTAL_VALUE==8000000){
 		RCU_CFG1 &= ~(RCU_CFG1_PREDV0SEL | RCU_CFG1_PREDV1 | RCU_CFG1_PLL1MF | RCU_CFG1_PREDV0);
- 80002a0:	57d8                	lw	a4,44(a5)
- 80002a2:	76bd                	lui	a3,0xfffef
- 80002a4:	8f75                	and	a4,a4,a3
- 80002a6:	d7d8                	sw	a4,44(a5)
+ 800027c:	57d8                	lw	a4,44(a5)
+ 800027e:	76bd                	lui	a3,0xfffef
+ 8000280:	8f75                	and	a4,a4,a3
+ 8000282:	d7d8                	sw	a4,44(a5)
 		RCU_CFG1 |= (RCU_PREDV0SRC_HXTAL | RCU_PREDV0_DIV2 | RCU_PREDV1_DIV2 | RCU_PLL1_MUL20 | RCU_PLL2_MUL20);
- 80002a8:	57d8                	lw	a4,44(a5)
- 80002aa:	66c1                	lui	a3,0x10
- 80002ac:	f1168693          	addi	a3,a3,-239 # ff11 <__stack_size+0xf711>
- 80002b0:	8f55                	or	a4,a4,a3
- 80002b2:	d7d8                	sw	a4,44(a5)
+ 8000284:	57d8                	lw	a4,44(a5)
+ 8000286:	66c1                	lui	a3,0x10
+ 8000288:	f1168693          	addi	a3,a3,-239 # ff11 <__stack_size+0xf711>
+ 800028c:	8f55                	or	a4,a4,a3
+ 800028e:	d7d8                	sw	a4,44(a5)
 
 		/* enable PLL1 */
 		RCU_CTL |= RCU_CTL_PLL1EN;
- 80002b4:	4398                	lw	a4,0(a5)
- 80002b6:	040006b7          	lui	a3,0x4000
- 80002ba:	8f55                	or	a4,a4,a3
- 80002bc:	c398                	sw	a4,0(a5)
+ 8000290:	4398                	lw	a4,0(a5)
+ 8000292:	040006b7          	lui	a3,0x4000
+ 8000296:	8f55                	or	a4,a4,a3
+ 8000298:	c398                	sw	a4,0(a5)
 		/* wait till PLL1 is ready */
 		while(0U == (RCU_CTL & RCU_CTL_PLL1STB)){
- 80002be:	400217b7          	lui	a5,0x40021
- 80002c2:	439c                	lw	a5,0(a5)
- 80002c4:	00479713          	slli	a4,a5,0x4
- 80002c8:	fe075be3          	bgez	a4,80002be <system_clock_108m_hxtal+0x7e>
+ 800029a:	400217b7          	lui	a5,0x40021
+ 800029e:	439c                	lw	a5,0(a5)
+ 80002a0:	00479713          	slli	a4,a5,0x4
+ 80002a4:	fe075be3          	bgez	a4,800029a <system_clock_108m_hxtal+0x7e>
 		}
 
 		/* enable PLL2 */
 		RCU_CTL |= RCU_CTL_PLL2EN;
- 80002cc:	40021737          	lui	a4,0x40021
- 80002d0:	431c                	lw	a5,0(a4)
- 80002d2:	100006b7          	lui	a3,0x10000
- 80002d6:	8fd5                	or	a5,a5,a3
- 80002d8:	c31c                	sw	a5,0(a4)
+ 80002a8:	40021737          	lui	a4,0x40021
+ 80002ac:	431c                	lw	a5,0(a4)
+ 80002ae:	100006b7          	lui	a3,0x10000
+ 80002b2:	8fd5                	or	a5,a5,a3
+ 80002b4:	c31c                	sw	a5,0(a4)
 		/* wait till PLL1 is ready */
 		while(0U == (RCU_CTL & RCU_CTL_PLL2STB)){
- 80002da:	400217b7          	lui	a5,0x40021
- 80002de:	439c                	lw	a5,0(a5)
- 80002e0:	00279713          	slli	a4,a5,0x2
- 80002e4:	fe075be3          	bgez	a4,80002da <system_clock_108m_hxtal+0x9a>
+ 80002b6:	400217b7          	lui	a5,0x40021
+ 80002ba:	439c                	lw	a5,0(a5)
+ 80002bc:	00279713          	slli	a4,a5,0x2
+ 80002c0:	fe075be3          	bgez	a4,80002b6 <system_clock_108m_hxtal+0x9a>
 		}
 
     }
     /* enable PLL */
     RCU_CTL |= RCU_CTL_PLLEN;
- 80002e8:	40021737          	lui	a4,0x40021
- 80002ec:	431c                	lw	a5,0(a4)
- 80002ee:	010006b7          	lui	a3,0x1000
- 80002f2:	8fd5                	or	a5,a5,a3
- 80002f4:	c31c                	sw	a5,0(a4)
+ 80002c4:	40021737          	lui	a4,0x40021
+ 80002c8:	431c                	lw	a5,0(a4)
+ 80002ca:	010006b7          	lui	a3,0x1000
+ 80002ce:	8fd5                	or	a5,a5,a3
+ 80002d0:	c31c                	sw	a5,0(a4)
 
     /* wait until PLL is stable */
     while(0U == (RCU_CTL & RCU_CTL_PLLSTB)){
- 80002f6:	400217b7          	lui	a5,0x40021
- 80002fa:	439c                	lw	a5,0(a5)
- 80002fc:	00679713          	slli	a4,a5,0x6
- 8000300:	fe075be3          	bgez	a4,80002f6 <system_clock_108m_hxtal+0xb6>
+ 80002d2:	400217b7          	lui	a5,0x40021
+ 80002d6:	439c                	lw	a5,0(a5)
+ 80002d8:	00679713          	slli	a4,a5,0x6
+ 80002dc:	fe075be3          	bgez	a4,80002d2 <system_clock_108m_hxtal+0xb6>
     }
 
     /* select PLL as system clock */
     RCU_CFG0 &= ~RCU_CFG0_SCS;
- 8000304:	400217b7          	lui	a5,0x40021
- 8000308:	43d8                	lw	a4,4(a5)
- 800030a:	9b71                	andi	a4,a4,-4
- 800030c:	c3d8                	sw	a4,4(a5)
+ 80002e0:	400217b7          	lui	a5,0x40021
+ 80002e4:	43d8                	lw	a4,4(a5)
+ 80002e6:	9b71                	andi	a4,a4,-4
+ 80002e8:	c3d8                	sw	a4,4(a5)
     RCU_CFG0 |= RCU_CKSYSSRC_PLL;
- 800030e:	43d8                	lw	a4,4(a5)
- 8000310:	00276713          	ori	a4,a4,2
- 8000314:	c3d8                	sw	a4,4(a5)
+ 80002ea:	43d8                	lw	a4,4(a5)
+ 80002ec:	00276713          	ori	a4,a4,2
+ 80002f0:	c3d8                	sw	a4,4(a5)
 
     /* wait until PLL is selected as system clock */
     while(0U == (RCU_CFG0 & RCU_SCSS_PLL)){
- 8000316:	400217b7          	lui	a5,0x40021
- 800031a:	43dc                	lw	a5,4(a5)
- 800031c:	8ba1                	andi	a5,a5,8
- 800031e:	dfe5                	beqz	a5,8000316 <system_clock_108m_hxtal+0xd6>
+ 80002f2:	400217b7          	lui	a5,0x40021
+ 80002f6:	43dc                	lw	a5,4(a5)
+ 80002f8:	8ba1                	andi	a5,a5,8
+ 80002fa:	dfe5                	beqz	a5,80002f2 <system_clock_108m_hxtal+0xd6>
     }
 }
- 8000320:	8082                	ret
+ 80002fc:	8082                	ret
 
-08000322 <system_clock_config>:
+080002fe <system_clock_config>:
 {
- 8000322:	1141                	addi	sp,sp,-16
- 8000324:	c606                	sw	ra,12(sp)
+ 80002fe:	1141                	addi	sp,sp,-16
+ 8000300:	c606                	sw	ra,12(sp)
     system_clock_108m_hxtal();
- 8000326:	3f29                	jal	8000240 <system_clock_108m_hxtal>
+ 8000302:	3f29                	jal	800021c <system_clock_108m_hxtal>
 }
- 8000328:	40b2                	lw	ra,12(sp)
- 800032a:	0141                	addi	sp,sp,16
- 800032c:	8082                	ret
+ 8000304:	40b2                	lw	ra,12(sp)
+ 8000306:	0141                	addi	sp,sp,16
+ 8000308:	8082                	ret
 
-0800032e <SystemInit>:
+0800030a <SystemInit>:
 {
- 800032e:	1141                	addi	sp,sp,-16
- 8000330:	c606                	sw	ra,12(sp)
+ 800030a:	1141                	addi	sp,sp,-16
+ 800030c:	c606                	sw	ra,12(sp)
     RCU_CTL |= RCU_CTL_IRC8MEN;
- 8000332:	400217b7          	lui	a5,0x40021
- 8000336:	4398                	lw	a4,0(a5)
- 8000338:	00176713          	ori	a4,a4,1
- 800033c:	c398                	sw	a4,0(a5)
+ 800030e:	400217b7          	lui	a5,0x40021
+ 8000312:	4398                	lw	a4,0(a5)
+ 8000314:	00176713          	ori	a4,a4,1
+ 8000318:	c398                	sw	a4,0(a5)
     RCU_CFG0 &= ~(RCU_CFG0_SCS | RCU_CFG0_AHBPSC | RCU_CFG0_APB1PSC | RCU_CFG0_APB2PSC |
+ 800031a:	43d8                	lw	a4,4(a5)
+ 800031c:	e0ff06b7          	lui	a3,0xe0ff0
+ 8000320:	06b1                	addi	a3,a3,12
+ 8000322:	8f75                	and	a4,a4,a3
+ 8000324:	c3d8                	sw	a4,4(a5)
+    RCU_CTL &= ~(RCU_CTL_HXTALEN | RCU_CTL_CKMEN | RCU_CTL_PLLEN);
+ 8000326:	4398                	lw	a4,0(a5)
+ 8000328:	fef706b7          	lui	a3,0xfef70
+ 800032c:	16fd                	addi	a3,a3,-1
+ 800032e:	8f75                	and	a4,a4,a3
+ 8000330:	c398                	sw	a4,0(a5)
+    RCU_CTL &= ~(RCU_CTL_HXTALBPS);
+ 8000332:	4398                	lw	a4,0(a5)
+ 8000334:	fffc06b7          	lui	a3,0xfffc0
+ 8000338:	16fd                	addi	a3,a3,-1
+ 800033a:	8f75                	and	a4,a4,a3
+ 800033c:	c398                	sw	a4,0(a5)
+    RCU_CFG0 &= ~(RCU_CFG0_PLLSEL | RCU_CFG0_PREDV0_LSB | RCU_CFG0_PLLMF |
  800033e:	43d8                	lw	a4,4(a5)
- 8000340:	e0ff06b7          	lui	a3,0xe0ff0
- 8000344:	06b1                	addi	a3,a3,12
+ 8000340:	df0106b7          	lui	a3,0xdf010
+ 8000344:	16fd                	addi	a3,a3,-1
  8000346:	8f75                	and	a4,a4,a3
  8000348:	c3d8                	sw	a4,4(a5)
-    RCU_CTL &= ~(RCU_CTL_HXTALEN | RCU_CTL_CKMEN | RCU_CTL_PLLEN);
- 800034a:	4398                	lw	a4,0(a5)
- 800034c:	fef706b7          	lui	a3,0xfef70
- 8000350:	16fd                	addi	a3,a3,-1
- 8000352:	8f75                	and	a4,a4,a3
- 8000354:	c398                	sw	a4,0(a5)
-    RCU_CTL &= ~(RCU_CTL_HXTALBPS);
- 8000356:	4398                	lw	a4,0(a5)
- 8000358:	fffc06b7          	lui	a3,0xfffc0
- 800035c:	16fd                	addi	a3,a3,-1
- 800035e:	8f75                	and	a4,a4,a3
- 8000360:	c398                	sw	a4,0(a5)
-    RCU_CFG0 &= ~(RCU_CFG0_PLLSEL | RCU_CFG0_PREDV0_LSB | RCU_CFG0_PLLMF |
- 8000362:	43d8                	lw	a4,4(a5)
- 8000364:	df0106b7          	lui	a3,0xdf010
- 8000368:	16fd                	addi	a3,a3,-1
- 800036a:	8f75                	and	a4,a4,a3
- 800036c:	c3d8                	sw	a4,4(a5)
     RCU_CFG1 = 0x00000000U;
- 800036e:	0207a623          	sw	zero,44(a5) # 4002102c <_sp+0x2001c02c>
+ 800034a:	0207a623          	sw	zero,44(a5) # 4002102c <_sp+0x2001c02c>
     RCU_CTL &= ~(RCU_CTL_PLLEN | RCU_CTL_PLL1EN | RCU_CTL_PLL2EN | RCU_CTL_CKMEN | RCU_CTL_HXTALEN);
- 8000372:	4398                	lw	a4,0(a5)
- 8000374:	eaf706b7          	lui	a3,0xeaf70
- 8000378:	16fd                	addi	a3,a3,-1
- 800037a:	8f75                	and	a4,a4,a3
- 800037c:	c398                	sw	a4,0(a5)
+ 800034e:	4398                	lw	a4,0(a5)
+ 8000350:	eaf706b7          	lui	a3,0xeaf70
+ 8000354:	16fd                	addi	a3,a3,-1
+ 8000356:	8f75                	and	a4,a4,a3
+ 8000358:	c398                	sw	a4,0(a5)
     RCU_INT = 0x00FF0000U;
- 800037e:	00ff0737          	lui	a4,0xff0
- 8000382:	c798                	sw	a4,8(a5)
+ 800035a:	00ff0737          	lui	a4,0xff0
+ 800035e:	c798                	sw	a4,8(a5)
     system_clock_config();
- 8000384:	3f79                	jal	8000322 <system_clock_config>
+ 8000360:	3f79                	jal	80002fe <system_clock_config>
 }
- 8000386:	40b2                	lw	ra,12(sp)
- 8000388:	0141                	addi	sp,sp,16
- 800038a:	8082                	ret
+ 8000362:	40b2                	lw	ra,12(sp)
+ 8000364:	0141                	addi	sp,sp,16
+ 8000366:	8082                	ret
 
-0800038c <_fini>:
+08000368 <_fini>:
 //  Function called after main() finishes */
 void _fini() {
     //  Do nothing
- 800038c:	8082                	ret
+ 8000368:	8082                	ret
 	...
 
-080003c0 <trap_entry>:
-trap_entry:
-  // Allocate the stack space
- // addi sp, sp, -19*REGBYTES
-
-  // Save the caller saving registers (context)
-  SAVE_CONTEXT
- 80003c0:	715d                	addi	sp,sp,-80
- 80003c2:	c006                	sw	ra,0(sp)
- 80003c4:	c212                	sw	tp,4(sp)
- 80003c6:	c416                	sw	t0,8(sp)
- 80003c8:	c61a                	sw	t1,12(sp)
- 80003ca:	c81e                	sw	t2,16(sp)
- 80003cc:	ca2a                	sw	a0,20(sp)
- 80003ce:	cc2e                	sw	a1,24(sp)
- 80003d0:	ce32                	sw	a2,28(sp)
- 80003d2:	d036                	sw	a3,32(sp)
- 80003d4:	d23a                	sw	a4,36(sp)
- 80003d6:	d43e                	sw	a5,40(sp)
- 80003d8:	d642                	sw	a6,44(sp)
- 80003da:	d846                	sw	a7,48(sp)
- 80003dc:	da72                	sw	t3,52(sp)
- 80003de:	dc76                	sw	t4,56(sp)
- 80003e0:	de7a                	sw	t5,60(sp)
- 80003e2:	c0fe                	sw	t6,64(sp)
-  // Save the MEPC/Mstatus/Msubm reg
-  SAVE_EPC_STATUS
- 80003e4:	341022f3          	csrr	t0,mepc
- 80003e8:	c096                	sw	t0,64(sp)
- 80003ea:	300022f3          	csrr	t0,mstatus
- 80003ee:	c296                	sw	t0,68(sp)
- 80003f0:	7c4022f3          	csrr	t0,0x7c4
- 80003f4:	c496                	sw	t0,72(sp)
-
-     // Set the function argument
-  csrr a0, mcause
- 80003f6:	34202573          	csrr	a0,mcause
-  mv a1, sp
- 80003fa:	858a                	mv	a1,sp
-     // Call the function
-  call handle_trap
- 80003fc:	286d                	jal	80004b6 <handle_trap>
-
-  // Restore the MEPC/Mstatus/Msubm reg
-  RESTORE_EPC_STATUS
- 80003fe:	4286                	lw	t0,64(sp)
- 8000400:	34129073          	csrw	mepc,t0
- 8000404:	4296                	lw	t0,68(sp)
- 8000406:	30029073          	csrw	mstatus,t0
- 800040a:	42a6                	lw	t0,72(sp)
- 800040c:	7c429073          	csrw	0x7c4,t0
-  // Restore the caller saving registers (context)
-  RESTORE_CONTEXT
- 8000410:	4082                	lw	ra,0(sp)
- 8000412:	4212                	lw	tp,4(sp)
- 8000414:	42a2                	lw	t0,8(sp)
- 8000416:	4332                	lw	t1,12(sp)
- 8000418:	43c2                	lw	t2,16(sp)
- 800041a:	4552                	lw	a0,20(sp)
- 800041c:	45e2                	lw	a1,24(sp)
- 800041e:	4672                	lw	a2,28(sp)
- 8000420:	5682                	lw	a3,32(sp)
- 8000422:	5712                	lw	a4,36(sp)
- 8000424:	57a2                	lw	a5,40(sp)
- 8000426:	5832                	lw	a6,44(sp)
- 8000428:	58c2                	lw	a7,48(sp)
- 800042a:	5e52                	lw	t3,52(sp)
- 800042c:	5ee2                	lw	t4,56(sp)
- 800042e:	5f72                	lw	t5,60(sp)
- 8000430:	4f86                	lw	t6,64(sp)
- 8000432:	6161                	addi	sp,sp,80
-
-  // De-allocate the stack space
- // addi sp, sp, 19*REGBYTES
-  // Return to regular code
-  mret
- 8000434:	30200073          	mret
- 8000438:	0000                	unimp
-	...
-
-0800043c <irq_entry>:
+0800036c <irq_entry>:
 .weak irq_entry
 irq_entry: // -------------> This label will be set to MTVT2 register
   // Allocate the stack space
   
 
   SAVE_CONTEXT// Save 16 regs
- 800043c:	715d                	addi	sp,sp,-80
- 800043e:	c006                	sw	ra,0(sp)
- 8000440:	c212                	sw	tp,4(sp)
- 8000442:	c416                	sw	t0,8(sp)
- 8000444:	c61a                	sw	t1,12(sp)
- 8000446:	c81e                	sw	t2,16(sp)
- 8000448:	ca2a                	sw	a0,20(sp)
- 800044a:	cc2e                	sw	a1,24(sp)
- 800044c:	ce32                	sw	a2,28(sp)
- 800044e:	d036                	sw	a3,32(sp)
- 8000450:	d23a                	sw	a4,36(sp)
- 8000452:	d43e                	sw	a5,40(sp)
- 8000454:	d642                	sw	a6,44(sp)
- 8000456:	d846                	sw	a7,48(sp)
- 8000458:	da72                	sw	t3,52(sp)
- 800045a:	dc76                	sw	t4,56(sp)
- 800045c:	de7a                	sw	t5,60(sp)
- 800045e:	c0fe                	sw	t6,64(sp)
+ 800036c:	715d                	addi	sp,sp,-80
+ 800036e:	c006                	sw	ra,0(sp)
+ 8000370:	c212                	sw	tp,4(sp)
+ 8000372:	c416                	sw	t0,8(sp)
+ 8000374:	c61a                	sw	t1,12(sp)
+ 8000376:	c81e                	sw	t2,16(sp)
+ 8000378:	ca2a                	sw	a0,20(sp)
+ 800037a:	cc2e                	sw	a1,24(sp)
+ 800037c:	ce32                	sw	a2,28(sp)
+ 800037e:	d036                	sw	a3,32(sp)
+ 8000380:	d23a                	sw	a4,36(sp)
+ 8000382:	d43e                	sw	a5,40(sp)
+ 8000384:	d642                	sw	a6,44(sp)
+ 8000386:	d846                	sw	a7,48(sp)
+ 8000388:	da72                	sw	t3,52(sp)
+ 800038a:	dc76                	sw	t4,56(sp)
+ 800038c:	de7a                	sw	t5,60(sp)
+ 800038e:	c0fe                	sw	t6,64(sp)
 
   //------This special CSR read operation, which is actually use mcause as operand to directly store it to memory
   csrrwi  x0, CSR_PUSHMCAUSE, 17
- 8000460:	7ee8d073          	csrwi	0x7ee,17
+ 8000390:	7ee8d073          	csrwi	0x7ee,17
   //------This special CSR read operation, which is actually use mepc as operand to directly store it to memory
   csrrwi  x0, CSR_PUSHMEPC, 18
- 8000464:	7ef95073          	csrwi	0x7ef,18
+ 8000394:	7ef95073          	csrwi	0x7ef,18
   //------This special CSR read operation, which is actually use Msubm as operand to directly store it to memory
   csrrwi  x0, CSR_PUSHMSUBM, 19
- 8000468:	7eb9d073          	csrwi	0x7eb,19
+ 8000398:	7eb9d073          	csrwi	0x7eb,19
 
-0800046c <service_loop>:
+0800039c <service_loop>:
  
 service_loop:
   //------This special CSR read/write operation, which is actually Claim the CLIC to find its pending highest
   // ID, if the ID is not 0, then automatically enable the mstatus.MIE, and jump to its vector-entry-label, and
   // update the link register 
   csrrw ra, CSR_JALMNXTI, ra 
- 800046c:	7ed090f3          	csrrw	ra,0x7ed,ra
+ 800039c:	7ed090f3          	csrrw	ra,0x7ed,ra
   
   //RESTORE_CONTEXT_EXCPT_X5
 
   #---- Critical section with interrupts disabled -----------------------
   DISABLE_MIE # Disable interrupts 
- 8000470:	30047073          	csrci	mstatus,8
+ 80003a0:	30047073          	csrci	mstatus,8
 
   LOAD x5,  19*REGBYTES(sp)
- 8000474:	42b6                	lw	t0,76(sp)
+ 80003a4:	42b6                	lw	t0,76(sp)
   csrw CSR_MSUBM, x5  
- 8000476:	7c429073          	csrw	0x7c4,t0
+ 80003a6:	7c429073          	csrw	0x7c4,t0
   LOAD x5,  18*REGBYTES(sp)
- 800047a:	42a6                	lw	t0,72(sp)
+ 80003aa:	42a6                	lw	t0,72(sp)
   csrw CSR_MEPC, x5  
- 800047c:	34129073          	csrw	mepc,t0
+ 80003ac:	34129073          	csrw	mepc,t0
   LOAD x5,  17*REGBYTES(sp)
- 8000480:	4296                	lw	t0,68(sp)
+ 80003b0:	4296                	lw	t0,68(sp)
   csrw CSR_MCAUSE, x5  
- 8000482:	34229073          	csrw	mcause,t0
+ 80003b2:	34229073          	csrw	mcause,t0
 
 
   RESTORE_CONTEXT
- 8000486:	4082                	lw	ra,0(sp)
- 8000488:	4212                	lw	tp,4(sp)
- 800048a:	42a2                	lw	t0,8(sp)
- 800048c:	4332                	lw	t1,12(sp)
- 800048e:	43c2                	lw	t2,16(sp)
- 8000490:	4552                	lw	a0,20(sp)
- 8000492:	45e2                	lw	a1,24(sp)
- 8000494:	4672                	lw	a2,28(sp)
- 8000496:	5682                	lw	a3,32(sp)
- 8000498:	5712                	lw	a4,36(sp)
- 800049a:	57a2                	lw	a5,40(sp)
- 800049c:	5832                	lw	a6,44(sp)
- 800049e:	58c2                	lw	a7,48(sp)
- 80004a0:	5e52                	lw	t3,52(sp)
- 80004a2:	5ee2                	lw	t4,56(sp)
- 80004a4:	5f72                	lw	t5,60(sp)
- 80004a6:	4f86                	lw	t6,64(sp)
- 80004a8:	6161                	addi	sp,sp,80
+ 80003b6:	4082                	lw	ra,0(sp)
+ 80003b8:	4212                	lw	tp,4(sp)
+ 80003ba:	42a2                	lw	t0,8(sp)
+ 80003bc:	4332                	lw	t1,12(sp)
+ 80003be:	43c2                	lw	t2,16(sp)
+ 80003c0:	4552                	lw	a0,20(sp)
+ 80003c2:	45e2                	lw	a1,24(sp)
+ 80003c4:	4672                	lw	a2,28(sp)
+ 80003c6:	5682                	lw	a3,32(sp)
+ 80003c8:	5712                	lw	a4,36(sp)
+ 80003ca:	57a2                	lw	a5,40(sp)
+ 80003cc:	5832                	lw	a6,44(sp)
+ 80003ce:	58c2                	lw	a7,48(sp)
+ 80003d0:	5e52                	lw	t3,52(sp)
+ 80003d2:	5ee2                	lw	t4,56(sp)
+ 80003d4:	5f72                	lw	t5,60(sp)
+ 80003d6:	4f86                	lw	t6,64(sp)
+ 80003d8:	6161                	addi	sp,sp,80
 
   
   // Return to regular code
   mret
- 80004aa:	30200073          	mret
+ 80003da:	30200073          	mret
 
-080004ae <__assert_func>:
-#include "os_priv.h"
-#include "hal/hal_system.h"
-
-void
-__assert_func(const char *file, int line, const char *func, const char *e)
-{
- 80004ae:	1141                	addi	sp,sp,-16
- 80004b0:	c606                	sw	ra,12(sp)
-
-    OS_PRINT_ASSERT(file, line, func, e);
-#if MYNEWT_VAL(OS_ASSERT_CB)
-    os_assert_cb();
-#endif
-    _exit(1);
- 80004b2:	4505                	li	a0,1
- 80004b4:	283d                	jal	80004f2 <_exit>
-
-080004b6 <handle_trap>:
-}
-
-uintptr_t
-handle_trap(uint32_t cause, void *fault_address, void *exception_frame)
-{
- 80004b6:	1141                	addi	sp,sp,-16
- 80004b8:	c606                	sw	ra,12(sp)
-    hal_system_reset();
- 80004ba:	2049                	jal	800053c <hal_system_reset>
-
-080004bc <exit>:
+080003de <exit>:
 
 #define EXIT_SUCCESS	0
 #define EXIT_FAILURE	1
 __extern void _exit(int s);
 __extern_inline void exit(int err)
 {
- 80004bc:	1141                	addi	sp,sp,-16
- 80004be:	c606                	sw	ra,12(sp)
+ 80003de:	1141                	addi	sp,sp,-16
+ 80003e0:	c606                	sw	ra,12(sp)
 	_exit(err);
- 80004c0:	280d                	jal	80004f2 <_exit>
+ 80003e2:	280d                	jal	8000414 <_exit>
 
-080004c2 <_start>:
+080003e4 <_start>:
 
 /*
  * Rudimentary startup function.
  */
 void _start(void)
 {
- 80004c2:	1141                	addi	sp,sp,-16
- 80004c4:	c606                	sw	ra,12(sp)
+ 80003e4:	1141                	addi	sp,sp,-16
+ 80003e6:	c606                	sw	ra,12(sp)
 #if !MYNEWT_VAL(OS_SCHEDULING)
     int rc;
 
     rc = main(0, NULL);
- 80004c6:	4581                	li	a1,0
- 80004c8:	4501                	li	a0,0
- 80004ca:	2019                	jal	80004d0 <main>
- 80004cc:	201d                	jal	80004f2 <_exit>
+ 80003e8:	4581                	li	a1,0
+ 80003ea:	4501                	li	a0,0
+ 80003ec:	2019                	jal	80003f2 <main>
+ 80003ee:	201d                	jal	8000414 <_exit>
 
-080004ce <_init>:
+080003f0 <_init>:
 }
 
 void
 _init(void)
 {
 }
- 80004ce:	8082                	ret
+ 80003f0:	8082                	ret
 
-080004d0 <main>:
+080003f2 <main>:
 void *_estack;  //  End of stack, defined in Linker Script.
 extern const struct flash_area sysflash_map_dflt[];  //  Contains addresses of flash sections. Defined in bin/targets/bluepill_boot/generated/src/bluepill_boot-sysflash.c
 
 int
 main(void)
 {
- 80004d0:	1141                	addi	sp,sp,-16
- 80004d2:	c606                	sw	ra,12(sp)
+ 80003f2:	1141                	addi	sp,sp,-16
+ 80003f4:	c606                	sw	ra,12(sp)
     //  This is a stub bootloader for Blue Pill.  We jump straight into the application.
     //  This simple bootloader allows the application to take up more ROM space.
     hal_bsp_init();
- 80004d4:	2809                	jal	80004e6 <hal_bsp_init>
+ 80003f6:	2809                	jal	8000408 <hal_bsp_init>
 
     //  img_start points to the STM32 Vector Table for the app...
     //  First word contains initial MSP value (estack = end of RAM)
     //  Second word contains address of entry point (Reset_Handler = 0x0800112d)
     void *img_start = (void *) (
         sysflash_map_dflt[1].fa_off  //  Offset of FLASH_AREA_IMAGE_0 (application image): 0x08001000
- 80004d6:	080017b7          	lui	a5,0x8001
- 80004da:	cb478793          	addi	a5,a5,-844 # 8000cb4 <sysflash_map_dflt>
- 80004de:	4b88                	lw	a0,16(a5)
+ 80003f8:	080017b7          	lui	a5,0x8001
+ 80003fc:	be478793          	addi	a5,a5,-1052 # 8000be4 <sysflash_map_dflt>
+ 8000400:	4b88                	lw	a0,16(a5)
         + 0x20                       //  Size of Mynewt image header
     );  //  Equals 0x08001020 (__isr_vector)
 
     //  Jump to Reset_Handler of the application. Uses first word and second word of img_start.
     hal_system_start(img_start);
- 80004e0:	02050513          	addi	a0,a0,32
- 80004e4:	2095                	jal	8000548 <hal_system_start>
+ 8000402:	02050513          	addi	a0,a0,32
+ 8000406:	209d                	jal	800046c <hal_system_start>
 
-080004e6 <hal_bsp_init>:
+08000408 <hal_bsp_init>:
     return dump_cfg;
 }
 
 void
 hal_bsp_init(void)
 {
- 80004e6:	1141                	addi	sp,sp,-16
- 80004e8:	c606                	sw	ra,12(sp)
+ 8000408:	1141                	addi	sp,sp,-16
+ 800040a:	c606                	sw	ra,12(sp)
     int rc;
 
     (void)rc;
     gd32vf103_periph_create();
- 80004ea:	2089                	jal	800052c <gd32vf103_periph_create>
+ 800040c:	2091                	jal	8000450 <gd32vf103_periph_create>
         MYNEWT_VAL(BSP_FLASH_SPI_NAME), &flash_spi_cfg);
 
     assert(rc == 0);
 #endif
 #endif
 }
- 80004ec:	40b2                	lw	ra,12(sp)
- 80004ee:	0141                	addi	sp,sp,16
- 80004f0:	8082                	ret
+ 800040e:	40b2                	lw	ra,12(sp)
+ 8000410:	0141                	addi	sp,sp,16
+ 8000412:	8082                	ret
 
-080004f2 <_exit>:
+08000414 <_exit>:
 
 void _exit(int status);
 
 void
 _exit(int status)
 {
- 80004f2:	1141                	addi	sp,sp,-16
- 80004f4:	c606                	sw	ra,12(sp)
+ 8000414:	1141                	addi	sp,sp,-16
+ 8000416:	c606                	sw	ra,12(sp)
     hal_system_reset();
- 80004f6:	2099                	jal	800053c <hal_system_reset>
+ 8000418:	20a1                	jal	8000460 <hal_system_reset>
 
-080004f8 <gd32vf103_periph_create_timers>:
+0800041a <gd32vf103_periph_create_timers>:
 #endif
 #endif
 
 static void
 gd32vf103_periph_create_timers(void)
 {
- 80004f8:	1141                	addi	sp,sp,-16
- 80004fa:	c606                	sw	ra,12(sp)
+ 800041a:	1141                	addi	sp,sp,-16
+ 800041c:	c606                	sw	ra,12(sp)
     int rc;
 
     (void)rc;
 
 #if MYNEWT_VAL(TIMER_0)
     hal_timer_init(0, NULL);
- 80004fc:	4581                	li	a1,0
- 80004fe:	4501                	li	a0,0
- 8000500:	20b9                	jal	800054e <hal_timer_init>
+ 800041e:	4581                	li	a1,0
+ 8000420:	4501                	li	a0,0
+ 8000422:	2881                	jal	8000472 <hal_timer_init>
 #endif
 
 #if MYNEWT_VAL(TIMER_1)
     hal_timer_init(1, NULL);
- 8000502:	4581                	li	a1,0
- 8000504:	4505                	li	a0,1
- 8000506:	20a1                	jal	800054e <hal_timer_init>
+ 8000424:	4581                	li	a1,0
+ 8000426:	4505                	li	a0,1
+ 8000428:	20a9                	jal	8000472 <hal_timer_init>
 #endif
 
 #if MYNEWT_VAL(TIMER_2)
     hal_timer_init(2, NULL);
- 8000508:	4581                	li	a1,0
- 800050a:	4509                	li	a0,2
- 800050c:	2089                	jal	800054e <hal_timer_init>
+ 800042a:	4581                	li	a1,0
+ 800042c:	4509                	li	a0,2
+ 800042e:	2091                	jal	8000472 <hal_timer_init>
 #endif
 
 #if MYNEWT_VAL(OS_CPUTIME_TIMER_NUM) >= 0
     rc = os_cputime_init(MYNEWT_VAL(OS_CPUTIME_FREQ));
- 800050e:	000f4537          	lui	a0,0xf4
- 8000512:	24050513          	addi	a0,a0,576 # f4240 <__stack_size+0xf3a40>
- 8000516:	780000ef          	jal	ra,8000c96 <os_cputime_init>
+ 8000430:	000f4537          	lui	a0,0xf4
+ 8000434:	24050513          	addi	a0,a0,576 # f4240 <__stack_size+0xf3a40>
+ 8000438:	78c000ef          	jal	ra,8000bc4 <os_cputime_init>
     assert(rc == 0);
- 800051a:	e501                	bnez	a0,8000522 <gd32vf103_periph_create_timers+0x2a>
+ 800043c:	e501                	bnez	a0,8000444 <gd32vf103_periph_create_timers+0x2a>
 #endif
 }
- 800051c:	40b2                	lw	ra,12(sp)
- 800051e:	0141                	addi	sp,sp,16
- 8000520:	8082                	ret
+ 800043e:	40b2                	lw	ra,12(sp)
+ 8000440:	0141                	addi	sp,sp,16
+ 8000442:	8082                	ret
     assert(rc == 0);
- 8000522:	4681                	li	a3,0
- 8000524:	4601                	li	a2,0
- 8000526:	4581                	li	a1,0
- 8000528:	4501                	li	a0,0
- 800052a:	3751                	jal	80004ae <__assert_func>
+ 8000444:	4681                	li	a3,0
+ 8000446:	4601                	li	a2,0
+ 8000448:	4581                	li	a1,0
+ 800044a:	4501                	li	a0,0
+ 800044c:	76e000ef          	jal	ra,8000bba <__assert_func>
 
-0800052c <gd32vf103_periph_create>:
+08000450 <gd32vf103_periph_create>:
 #endif
 }
 
 void
 gd32vf103_periph_create(void)
 {
- 800052c:	1141                	addi	sp,sp,-16
- 800052e:	c606                	sw	ra,12(sp)
+ 8000450:	1141                	addi	sp,sp,-16
+ 8000452:	c606                	sw	ra,12(sp)
     gd32vf103_periph_create_timers();
- 8000530:	37e1                	jal	80004f8 <gd32vf103_periph_create_timers>
+ 8000454:	37d9                	jal	800041a <gd32vf103_periph_create_timers>
     gd32vf103_periph_create_uart();
     gd32vf103_periph_create_spi();
 }
- 8000532:	40b2                	lw	ra,12(sp)
- 8000534:	0141                	addi	sp,sp,16
- 8000536:	8082                	ret
+ 8000456:	40b2                	lw	ra,12(sp)
+ 8000458:	0141                	addi	sp,sp,16
+ 800045a:	8082                	ret
 
-08000538 <hal_debugger_connected>:
+0800045c <hal_debugger_connected>:
 
 int
 hal_debugger_connected(void)
 {
     return 0;
 }
- 8000538:	4501                	li	a0,0
- 800053a:	8082                	ret
+ 800045c:	4501                	li	a0,0
+ 800045e:	8082                	ret
 
-0800053c <hal_system_reset>:
+08000460 <hal_system_reset>:
 {
- 800053c:	1141                	addi	sp,sp,-16
- 800053e:	c606                	sw	ra,12(sp)
+ 8000460:	1141                	addi	sp,sp,-16
+ 8000462:	c606                	sw	ra,12(sp)
         if (hal_debugger_connected()) {
- 8000540:	3fe5                	jal	8000538 <hal_debugger_connected>
- 8000542:	dd7d                	beqz	a0,8000540 <hal_system_reset+0x4>
+ 8000464:	3fe5                	jal	800045c <hal_debugger_connected>
+ 8000466:	dd7d                	beqz	a0,8000464 <hal_system_reset+0x4>
             asm ("ebreak");
- 8000544:	9002                	ebreak
- 8000546:	bfed                	j	8000540 <hal_system_reset+0x4>
+ 8000468:	9002                	ebreak
+ 800046a:	bfed                	j	8000464 <hal_system_reset+0x4>
 
-08000548 <hal_system_start>:
+0800046c <hal_system_start>:
  *
  * @param hdr                   The header for the image to boot.
  */
 void
 hal_system_start(void *img_start)
 {
- 8000548:	1141                	addi	sp,sp,-16
- 800054a:	c606                	sw	ra,12(sp)
+ 800046c:	1141                	addi	sp,sp,-16
+ 800046e:	c606                	sw	ra,12(sp)
     __attribute__((noreturn)) void (*fn)(void) = img_start;
 
     /* Jump to image. */
     fn();
- 800054c:	9502                	jalr	a0
+ 8000470:	9502                	jalr	a0
 
-0800054e <hal_timer_init>:
+08000472 <hal_timer_init>:
 int
 hal_timer_init(int timer_num, void *cfg)
 {
     struct gd32vf103_hal_tmr *tmr;
 
     if (timer_num >= GD32VF103_HAL_TIMER_MAX 
- 800054e:	4789                	li	a5,2
- 8000550:	00a7cd63          	blt	a5,a0,800056a <hal_timer_init+0x1c>
+ 8000472:	4789                	li	a5,2
+ 8000474:	00a7cd63          	blt	a5,a0,800048e <hal_timer_init+0x1c>
         || !(tmr = gd32vf103_tmr_devs[timer_num])) {
- 8000554:	00251793          	slli	a5,a0,0x2
- 8000558:	08001537          	lui	a0,0x8001
- 800055c:	ca850513          	addi	a0,a0,-856 # 8000ca8 <gd32vf103_tmr_devs>
- 8000560:	953e                	add	a0,a0,a5
- 8000562:	411c                	lw	a5,0(a0)
- 8000564:	c789                	beqz	a5,800056e <hal_timer_init+0x20>
+ 8000478:	00251793          	slli	a5,a0,0x2
+ 800047c:	08001537          	lui	a0,0x8001
+ 8000480:	bd850513          	addi	a0,a0,-1064 # 8000bd8 <gd32vf103_tmr_devs>
+ 8000484:	953e                	add	a0,a0,a5
+ 8000486:	411c                	lw	a5,0(a0)
+ 8000488:	c789                	beqz	a5,8000492 <hal_timer_init+0x20>
         return -1;
     }
 
     return 0;
- 8000566:	4501                	li	a0,0
- 8000568:	8082                	ret
+ 800048a:	4501                	li	a0,0
+ 800048c:	8082                	ret
         return -1;
- 800056a:	557d                	li	a0,-1
- 800056c:	8082                	ret
- 800056e:	557d                	li	a0,-1
+ 800048e:	557d                	li	a0,-1
+ 8000490:	8082                	ret
+ 8000492:	557d                	li	a0,-1
 }
- 8000570:	8082                	ret
+ 8000494:	8082                	ret
 
-08000572 <hal_timer_config>:
+08000496 <hal_timer_config>:
  */
 int
 hal_timer_config(int timer_num, uint32_t freq_hz)
 {
     struct gd32vf103_hal_tmr *tmr;
     if (timer_num >= GD32VF103_HAL_TIMER_MAX || !(tmr = gd32vf103_tmr_devs[timer_num])) {
- 8000572:	4789                	li	a5,2
- 8000574:	0aa7cf63          	blt	a5,a0,8000632 <hal_timer_config+0xc0>
+ 8000496:	4789                	li	a5,2
+ 8000498:	0aa7cf63          	blt	a5,a0,8000556 <hal_timer_config+0xc0>
 {
- 8000578:	7179                	addi	sp,sp,-48
- 800057a:	d606                	sw	ra,44(sp)
- 800057c:	d422                	sw	s0,40(sp)
- 800057e:	d226                	sw	s1,36(sp)
- 8000580:	d04a                	sw	s2,32(sp)
+ 800049c:	7179                	addi	sp,sp,-48
+ 800049e:	d606                	sw	ra,44(sp)
+ 80004a0:	d422                	sw	s0,40(sp)
+ 80004a2:	d226                	sw	s1,36(sp)
+ 80004a4:	d04a                	sw	s2,32(sp)
     if (timer_num >= GD32VF103_HAL_TIMER_MAX || !(tmr = gd32vf103_tmr_devs[timer_num])) {
- 8000582:	00251793          	slli	a5,a0,0x2
- 8000586:	08001537          	lui	a0,0x8001
- 800058a:	ca850513          	addi	a0,a0,-856 # 8000ca8 <gd32vf103_tmr_devs>
- 800058e:	953e                	add	a0,a0,a5
- 8000590:	4100                	lw	s0,0(a0)
- 8000592:	c055                	beqz	s0,8000636 <hal_timer_config+0xc4>
- 8000594:	892e                	mv	s2,a1
+ 80004a6:	00251793          	slli	a5,a0,0x2
+ 80004aa:	08001537          	lui	a0,0x8001
+ 80004ae:	bd850513          	addi	a0,a0,-1064 # 8000bd8 <gd32vf103_tmr_devs>
+ 80004b2:	953e                	add	a0,a0,a5
+ 80004b4:	4100                	lw	s0,0(a0)
+ 80004b6:	c055                	beqz	s0,800055a <hal_timer_config+0xc4>
+ 80004b8:	892e                	mv	s2,a1
         return -1;
     }
 
     //  Based on Examples/TIMER/TIMER1_timebase/main.c
     eclic_global_interrupt_enable();
- 8000596:	2055                	jal	800063a <eclic_global_interrupt_enable>
+ 80004ba:	2055                	jal	800055e <eclic_global_interrupt_enable>
     eclic_set_nlbits(ECLIC_GROUP_LEVEL3_PRIO1);
- 8000598:	450d                	li	a0,3
- 800059a:	2d05                	jal	8000bca <eclic_set_nlbits>
+ 80004bc:	450d                	li	a0,3
+ 80004be:	2d05                	jal	8000aee <eclic_set_nlbits>
     eclic_irq_enable(tmr->irq, 1, 0);
- 800059c:	4601                	li	a2,0
- 800059e:	4585                	li	a1,1
- 80005a0:	4408                	lw	a0,8(s0)
- 80005a2:	2879                	jal	8000640 <eclic_irq_enable>
+ 80004c0:	4601                	li	a2,0
+ 80004c2:	4585                	li	a1,1
+ 80004c4:	4408                	lw	a0,8(s0)
+ 80004c6:	2879                	jal	8000564 <eclic_irq_enable>
     TIMER1 Configuration: 
     TIMER1CLK = SystemCoreClock/5400 = 20KHz.
     TIMER1 configuration is timing mode, and the timing is 0.2s(4000/20000 = 0.2s).
     CH0 update rate = TIMER1 counter clock/CH0CV = 20000/4000 = 5Hz.
     ---------------------------------------------------------------------------- */
     uint32_t prescaler = SystemCoreClock / freq_hz;
- 80005a4:	200007b7          	lui	a5,0x20000
- 80005a8:	03c7a483          	lw	s1,60(a5) # 2000003c <SystemCoreClock>
- 80005ac:	0324d4b3          	divu	s1,s1,s2
+ 80004c8:	200007b7          	lui	a5,0x20000
+ 80004cc:	03c7a483          	lw	s1,60(a5) # 2000003c <SystemCoreClock>
+ 80004d0:	0324d4b3          	divu	s1,s1,s2
     if (prescaler > 0xffff) {
- 80005b0:	67c1                	lui	a5,0x10
- 80005b2:	06f4fb63          	bgeu	s1,a5,8000628 <hal_timer_config+0xb6>
+ 80004d4:	67c1                	lui	a5,0x10
+ 80004d6:	06f4fb63          	bgeu	s1,a5,800054c <hal_timer_config+0xb6>
         assert(0);
         return -1;  //  Only 16 bits supported for prescaler
     }
 
     timer_parameter_struct timer_initpara;
     rcu_periph_clock_enable(tmr->rcu);
- 80005b6:	4048                	lw	a0,4(s0)
- 80005b8:	284d                	jal	800066a <rcu_periph_clock_enable>
+ 80004da:	4048                	lw	a0,4(s0)
+ 80004dc:	284d                	jal	800058e <rcu_periph_clock_enable>
     timer_deinit(tmr->periph);
- 80005ba:	4008                	lw	a0,0(s0)
- 80005bc:	28ed                	jal	80006b6 <timer_deinit>
+ 80004de:	4008                	lw	a0,0(s0)
+ 80004e0:	28ed                	jal	80005da <timer_deinit>
     //  Initialize TIMER init parameter struct
     timer_struct_para_init(&timer_initpara);
- 80005be:	0808                	addi	a0,sp,16
- 80005c0:	2a6d                	jal	800077a <timer_struct_para_init>
+ 80004e2:	0808                	addi	a0,sp,16
+ 80004e4:	2a6d                	jal	800069e <timer_struct_para_init>
     //  TIMER configuration
     timer_initpara.prescaler         = prescaler;         //  Previously 5399
- 80005c2:	00911823          	sh	s1,16(sp)
+ 80004e6:	00911823          	sh	s1,16(sp)
     timer_initpara.alignedmode       = TIMER_COUNTER_EDGE;
- 80005c6:	00011923          	sh	zero,18(sp)
+ 80004ea:	00011923          	sh	zero,18(sp)
     timer_initpara.counterdirection  = TIMER_COUNTER_UP;  //  Count starts from 0
- 80005ca:	00011a23          	sh	zero,20(sp)
+ 80004ee:	00011a23          	sh	zero,20(sp)
     timer_initpara.period            = 1;                 //  Count ends at 1, previously 4000
- 80005ce:	4485                	li	s1,1
- 80005d0:	cc26                	sw	s1,24(sp)
+ 80004f2:	4485                	li	s1,1
+ 80004f4:	cc26                	sw	s1,24(sp)
     timer_initpara.clockdivision     = TIMER_CKDIV_DIV1;
- 80005d2:	00011e23          	sh	zero,28(sp)
+ 80004f6:	00011e23          	sh	zero,28(sp)
     timer_init(tmr->periph, &timer_initpara);
- 80005d6:	080c                	addi	a1,sp,16
- 80005d8:	4008                	lw	a0,0(s0)
- 80005da:	2a75                	jal	8000796 <timer_init>
+ 80004fa:	080c                	addi	a1,sp,16
+ 80004fc:	4008                	lw	a0,0(s0)
+ 80004fe:	2a75                	jal	80006ba <timer_init>
 
     timer_oc_parameter_struct timer_ocinitpara;
     //  Initialize TIMER channel output parameter struct
     timer_channel_output_struct_para_init(&timer_ocinitpara);
- 80005dc:	0048                	addi	a0,sp,4
- 80005de:	2cad                	jal	8000858 <timer_channel_output_struct_para_init>
+ 8000500:	0048                	addi	a0,sp,4
+ 8000502:	2cad                	jal	800077c <timer_channel_output_struct_para_init>
     //  CH0, CH1 and CH2 configuration in OC timing mode
     timer_ocinitpara.outputstate  = TIMER_CCX_ENABLE;
- 80005e0:	00911223          	sh	s1,4(sp)
+ 8000504:	00911223          	sh	s1,4(sp)
     timer_ocinitpara.ocpolarity   = TIMER_OC_POLARITY_HIGH;
- 80005e4:	00011423          	sh	zero,8(sp)
+ 8000508:	00011423          	sh	zero,8(sp)
     timer_ocinitpara.ocidlestate  = TIMER_OC_IDLE_STATE_LOW;
- 80005e8:	00011623          	sh	zero,12(sp)
+ 800050c:	00011623          	sh	zero,12(sp)
     timer_channel_output_config(            tmr->periph, TIMER_CH_0, &timer_ocinitpara);
- 80005ec:	0050                	addi	a2,sp,4
- 80005ee:	4581                	li	a1,0
- 80005f0:	4008                	lw	a0,0(s0)
- 80005f2:	2441                	jal	8000872 <timer_channel_output_config>
+ 8000510:	0050                	addi	a2,sp,4
+ 8000512:	4581                	li	a1,0
+ 8000514:	4008                	lw	a0,0(s0)
+ 8000516:	2441                	jal	8000796 <timer_channel_output_config>
 
     //  CH0 configuration in OC timing mode
     timer_channel_output_pulse_value_config(tmr->periph, TIMER_CH_0, 2000);  //  TODO: Why 2000
- 80005f4:	7d000613          	li	a2,2000
- 80005f8:	4581                	li	a1,0
- 80005fa:	4008                	lw	a0,0(s0)
- 80005fc:	29c5                	jal	8000aec <timer_channel_output_pulse_value_config>
+ 8000518:	7d000613          	li	a2,2000
+ 800051c:	4581                	li	a1,0
+ 800051e:	4008                	lw	a0,0(s0)
+ 8000520:	29c5                	jal	8000a10 <timer_channel_output_pulse_value_config>
     timer_channel_output_mode_config(       tmr->periph, TIMER_CH_0, TIMER_OC_MODE_TIMING);
- 80005fe:	4601                	li	a2,0
- 8000600:	4581                	li	a1,0
- 8000602:	4008                	lw	a0,0(s0)
- 8000604:	2151                	jal	8000a88 <timer_channel_output_mode_config>
+ 8000522:	4601                	li	a2,0
+ 8000524:	4581                	li	a1,0
+ 8000526:	4008                	lw	a0,0(s0)
+ 8000528:	2151                	jal	80009ac <timer_channel_output_mode_config>
     timer_channel_output_shadow_config(     TIMER1, TIMER_CH_0, TIMER_OC_SHADOW_DISABLE);
- 8000606:	4601                	li	a2,0
- 8000608:	4581                	li	a1,0
- 800060a:	40000537          	lui	a0,0x40000
- 800060e:	2329                	jal	8000b18 <timer_channel_output_shadow_config>
+ 800052a:	4601                	li	a2,0
+ 800052c:	4581                	li	a1,0
+ 800052e:	40000537          	lui	a0,0x40000
+ 8000532:	2329                	jal	8000a3c <timer_channel_output_shadow_config>
 
     timer_interrupt_enable(                 tmr->periph, TIMER_INT_CH0);
- 8000610:	4589                	li	a1,2
- 8000612:	4008                	lw	a0,0(s0)
- 8000614:	23a5                	jal	8000b7c <timer_interrupt_enable>
+ 8000534:	4589                	li	a1,2
+ 8000536:	4008                	lw	a0,0(s0)
+ 8000538:	23a5                	jal	8000aa0 <timer_interrupt_enable>
     timer_enable(                           tmr->periph);
- 8000616:	4008                	lw	a0,0(s0)
- 8000618:	2c1d                	jal	800084e <timer_enable>
+ 800053a:	4008                	lw	a0,0(s0)
+ 800053c:	2c1d                	jal	8000772 <timer_enable>
     _REG32(tmr->pwm_regs, PWM_CFG) = PWM_CFG_ZEROCMP |
                                      PWM_CFG_ENALWAYS | scale;
     plic_enable_interrupt(tmr->pwmxcmp0_int);
 #endif  //  OLD
 
     return 0;
- 800061a:	4501                	li	a0,0
+ 800053e:	4501                	li	a0,0
 }
- 800061c:	50b2                	lw	ra,44(sp)
- 800061e:	5422                	lw	s0,40(sp)
- 8000620:	5492                	lw	s1,36(sp)
- 8000622:	5902                	lw	s2,32(sp)
- 8000624:	6145                	addi	sp,sp,48
- 8000626:	8082                	ret
+ 8000540:	50b2                	lw	ra,44(sp)
+ 8000542:	5422                	lw	s0,40(sp)
+ 8000544:	5492                	lw	s1,36(sp)
+ 8000546:	5902                	lw	s2,32(sp)
+ 8000548:	6145                	addi	sp,sp,48
+ 800054a:	8082                	ret
         assert(0);
- 8000628:	4681                	li	a3,0
- 800062a:	4601                	li	a2,0
- 800062c:	4581                	li	a1,0
- 800062e:	4501                	li	a0,0
- 8000630:	3dbd                	jal	80004ae <__assert_func>
+ 800054c:	4681                	li	a3,0
+ 800054e:	4601                	li	a2,0
+ 8000550:	4581                	li	a1,0
+ 8000552:	4501                	li	a0,0
+ 8000554:	259d                	jal	8000bba <__assert_func>
         return -1;
- 8000632:	557d                	li	a0,-1
+ 8000556:	557d                	li	a0,-1
 }
- 8000634:	8082                	ret
+ 8000558:	8082                	ret
         return -1;
- 8000636:	557d                	li	a0,-1
- 8000638:	b7d5                	j	800061c <hal_timer_config+0xaa>
+ 800055a:	557d                	li	a0,-1
+ 800055c:	b7d5                	j	8000540 <hal_timer_config+0xaa>
 
-0800063a <eclic_global_interrupt_enable>:
+0800055e <eclic_global_interrupt_enable>:
     \retval     none
 */
 void eclic_global_interrupt_enable(void)
 {
     /* set machine interrupt enable bit */
     set_csr(mstatus, MSTATUS_MIE);
- 800063a:	300467f3          	csrrsi	a5,mstatus,8
+ 800055e:	300467f3          	csrrsi	a5,mstatus,8
 }
- 800063e:	8082                	ret
+ 8000562:	8082                	ret
 
-08000640 <eclic_irq_enable>:
+08000564 <eclic_irq_enable>:
     \param[in]  priority: the priority needed to set (maximum is 15, refer to the priority group)
     \param[out] none
     \retval     none
 */
 void eclic_irq_enable(uint32_t source, uint8_t level, uint8_t priority)
 {
- 8000640:	1141                	addi	sp,sp,-16
- 8000642:	c606                	sw	ra,12(sp)
- 8000644:	c422                	sw	s0,8(sp)
- 8000646:	c226                	sw	s1,4(sp)
- 8000648:	c04a                	sw	s2,0(sp)
- 800064a:	842a                	mv	s0,a0
- 800064c:	892e                	mv	s2,a1
- 800064e:	84b2                	mv	s1,a2
+ 8000564:	1141                	addi	sp,sp,-16
+ 8000566:	c606                	sw	ra,12(sp)
+ 8000568:	c422                	sw	s0,8(sp)
+ 800056a:	c226                	sw	s1,4(sp)
+ 800056c:	c04a                	sw	s2,0(sp)
+ 800056e:	842a                	mv	s0,a0
+ 8000570:	892e                	mv	s2,a1
+ 8000572:	84b2                	mv	s1,a2
     eclic_enable_interrupt(source);
- 8000650:	2b15                	jal	8000b84 <eclic_enable_interrupt>
+ 8000574:	2b15                	jal	8000aa8 <eclic_enable_interrupt>
     eclic_set_irq_lvl_abs(source, level);
- 8000652:	85ca                	mv	a1,s2
- 8000654:	8522                	mv	a0,s0
- 8000656:	2355                	jal	8000bfa <eclic_set_irq_lvl_abs>
+ 8000576:	85ca                	mv	a1,s2
+ 8000578:	8522                	mv	a0,s0
+ 800057a:	2355                	jal	8000b1e <eclic_set_irq_lvl_abs>
     eclic_set_irq_priority(source, priority);
- 8000658:	85a6                	mv	a1,s1
- 800065a:	8522                	mv	a0,s0
- 800065c:	23ed                	jal	8000c46 <eclic_set_irq_priority>
+ 800057c:	85a6                	mv	a1,s1
+ 800057e:	8522                	mv	a0,s0
+ 8000580:	23ed                	jal	8000b6a <eclic_set_irq_priority>
 }
- 800065e:	40b2                	lw	ra,12(sp)
- 8000660:	4422                	lw	s0,8(sp)
- 8000662:	4492                	lw	s1,4(sp)
- 8000664:	4902                	lw	s2,0(sp)
- 8000666:	0141                	addi	sp,sp,16
- 8000668:	8082                	ret
+ 8000582:	40b2                	lw	ra,12(sp)
+ 8000584:	4422                	lw	s0,8(sp)
+ 8000586:	4492                	lw	s1,4(sp)
+ 8000588:	4902                	lw	s2,0(sp)
+ 800058a:	0141                	addi	sp,sp,16
+ 800058c:	8082                	ret
 
-0800066a <rcu_periph_clock_enable>:
+0800058e <rcu_periph_clock_enable>:
     \param[out] none
     \retval     none
 */
 void rcu_periph_clock_enable(rcu_periph_enum periph)
 {
     RCU_REG_VAL(periph) |= BIT(RCU_BIT_POS(periph));
- 800066a:	00655793          	srli	a5,a0,0x6
- 800066e:	40021737          	lui	a4,0x40021
- 8000672:	97ba                	add	a5,a5,a4
- 8000674:	4398                	lw	a4,0(a5)
- 8000676:	4685                	li	a3,1
- 8000678:	00a696b3          	sll	a3,a3,a0
- 800067c:	8f55                	or	a4,a4,a3
- 800067e:	c398                	sw	a4,0(a5)
+ 800058e:	00655793          	srli	a5,a0,0x6
+ 8000592:	40021737          	lui	a4,0x40021
+ 8000596:	97ba                	add	a5,a5,a4
+ 8000598:	4398                	lw	a4,0(a5)
+ 800059a:	4685                	li	a3,1
+ 800059c:	00a696b3          	sll	a3,a3,a0
+ 80005a0:	8f55                	or	a4,a4,a3
+ 80005a2:	c398                	sw	a4,0(a5)
 }
- 8000680:	8082                	ret
+ 80005a4:	8082                	ret
 
-08000682 <rcu_periph_reset_enable>:
+080005a6 <rcu_periph_reset_enable>:
     \param[out] none
     \retval     none
 */
 void rcu_periph_reset_enable(rcu_periph_reset_enum periph_reset)
 {
     RCU_REG_VAL(periph_reset) |= BIT(RCU_BIT_POS(periph_reset));
- 8000682:	00655793          	srli	a5,a0,0x6
- 8000686:	40021737          	lui	a4,0x40021
- 800068a:	97ba                	add	a5,a5,a4
- 800068c:	4398                	lw	a4,0(a5)
- 800068e:	4685                	li	a3,1
- 8000690:	00a696b3          	sll	a3,a3,a0
- 8000694:	8f55                	or	a4,a4,a3
- 8000696:	c398                	sw	a4,0(a5)
+ 80005a6:	00655793          	srli	a5,a0,0x6
+ 80005aa:	40021737          	lui	a4,0x40021
+ 80005ae:	97ba                	add	a5,a5,a4
+ 80005b0:	4398                	lw	a4,0(a5)
+ 80005b2:	4685                	li	a3,1
+ 80005b4:	00a696b3          	sll	a3,a3,a0
+ 80005b8:	8f55                	or	a4,a4,a3
+ 80005ba:	c398                	sw	a4,0(a5)
 }
- 8000698:	8082                	ret
+ 80005bc:	8082                	ret
 
-0800069a <rcu_periph_reset_disable>:
+080005be <rcu_periph_reset_disable>:
     \param[out] none
     \retval     none
 */
 void rcu_periph_reset_disable(rcu_periph_reset_enum periph_reset)
 {
     RCU_REG_VAL(periph_reset) &= ~BIT(RCU_BIT_POS(periph_reset));
- 800069a:	00655713          	srli	a4,a0,0x6
- 800069e:	400217b7          	lui	a5,0x40021
- 80006a2:	973e                	add	a4,a4,a5
- 80006a4:	4314                	lw	a3,0(a4)
- 80006a6:	4785                	li	a5,1
- 80006a8:	00a797b3          	sll	a5,a5,a0
- 80006ac:	fff7c793          	not	a5,a5
- 80006b0:	8ff5                	and	a5,a5,a3
- 80006b2:	c31c                	sw	a5,0(a4)
+ 80005be:	00655713          	srli	a4,a0,0x6
+ 80005c2:	400217b7          	lui	a5,0x40021
+ 80005c6:	973e                	add	a4,a4,a5
+ 80005c8:	4314                	lw	a3,0(a4)
+ 80005ca:	4785                	li	a5,1
+ 80005cc:	00a797b3          	sll	a5,a5,a0
+ 80005d0:	fff7c793          	not	a5,a5
+ 80005d4:	8ff5                	and	a5,a5,a3
+ 80005d6:	c31c                	sw	a5,0(a4)
 }
- 80006b4:	8082                	ret
+ 80005d8:	8082                	ret
 
-080006b6 <timer_deinit>:
+080005da <timer_deinit>:
     \param[in]  timer_periph: TIMERx(x=0..6)
     \param[out] none
     \retval     none
 */
 void timer_deinit(uint32_t timer_periph)
 {
- 80006b6:	1141                	addi	sp,sp,-16
- 80006b8:	c606                	sw	ra,12(sp)
+ 80005da:	1141                	addi	sp,sp,-16
+ 80005dc:	c606                	sw	ra,12(sp)
     switch(timer_periph){
- 80006ba:	400017b7          	lui	a5,0x40001
- 80006be:	c0078793          	addi	a5,a5,-1024 # 40000c00 <_sp+0x1fffbc00>
- 80006c2:	08f50e63          	beq	a0,a5,800075e <timer_deinit+0xa8>
- 80006c6:	400017b7          	lui	a5,0x40001
- 80006ca:	c0078793          	addi	a5,a5,-1024 # 40000c00 <_sp+0x1fffbc00>
- 80006ce:	02a7e563          	bltu	a5,a0,80006f8 <timer_deinit+0x42>
- 80006d2:	400007b7          	lui	a5,0x40000
- 80006d6:	40078793          	addi	a5,a5,1024 # 40000400 <_sp+0x1fffb400>
- 80006da:	06f50463          	beq	a0,a5,8000742 <timer_deinit+0x8c>
- 80006de:	400017b7          	lui	a5,0x40001
- 80006e2:	80078793          	addi	a5,a5,-2048 # 40000800 <_sp+0x1fffb800>
- 80006e6:	06f50563          	beq	a0,a5,8000750 <timer_deinit+0x9a>
- 80006ea:	400007b7          	lui	a5,0x40000
- 80006ee:	04f50363          	beq	a0,a5,8000734 <timer_deinit+0x7e>
+ 80005de:	400017b7          	lui	a5,0x40001
+ 80005e2:	c0078793          	addi	a5,a5,-1024 # 40000c00 <_sp+0x1fffbc00>
+ 80005e6:	08f50e63          	beq	a0,a5,8000682 <timer_deinit+0xa8>
+ 80005ea:	400017b7          	lui	a5,0x40001
+ 80005ee:	c0078793          	addi	a5,a5,-1024 # 40000c00 <_sp+0x1fffbc00>
+ 80005f2:	02a7e563          	bltu	a5,a0,800061c <timer_deinit+0x42>
+ 80005f6:	400007b7          	lui	a5,0x40000
+ 80005fa:	40078793          	addi	a5,a5,1024 # 40000400 <_sp+0x1fffb400>
+ 80005fe:	06f50463          	beq	a0,a5,8000666 <timer_deinit+0x8c>
+ 8000602:	400017b7          	lui	a5,0x40001
+ 8000606:	80078793          	addi	a5,a5,-2048 # 40000800 <_sp+0x1fffb800>
+ 800060a:	06f50563          	beq	a0,a5,8000674 <timer_deinit+0x9a>
+ 800060e:	400007b7          	lui	a5,0x40000
+ 8000612:	04f50363          	beq	a0,a5,8000658 <timer_deinit+0x7e>
         break;
 
     default:
         break;
     }
 }
- 80006f2:	40b2                	lw	ra,12(sp)
- 80006f4:	0141                	addi	sp,sp,16
- 80006f6:	8082                	ret
- 80006f8:	400017b7          	lui	a5,0x40001
- 80006fc:	40078793          	addi	a5,a5,1024 # 40001400 <_sp+0x1fffc400>
- 8000700:	06f50663          	beq	a0,a5,800076c <timer_deinit+0xb6>
- 8000704:	400137b7          	lui	a5,0x40013
- 8000708:	c0078793          	addi	a5,a5,-1024 # 40012c00 <_sp+0x2000dc00>
- 800070c:	00f50d63          	beq	a0,a5,8000726 <timer_deinit+0x70>
- 8000710:	400017b7          	lui	a5,0x40001
- 8000714:	fcf51fe3          	bne	a0,a5,80006f2 <timer_deinit+0x3c>
+ 8000616:	40b2                	lw	ra,12(sp)
+ 8000618:	0141                	addi	sp,sp,16
+ 800061a:	8082                	ret
+ 800061c:	400017b7          	lui	a5,0x40001
+ 8000620:	40078793          	addi	a5,a5,1024 # 40001400 <_sp+0x1fffc400>
+ 8000624:	06f50663          	beq	a0,a5,8000690 <timer_deinit+0xb6>
+ 8000628:	400137b7          	lui	a5,0x40013
+ 800062c:	c0078793          	addi	a5,a5,-1024 # 40012c00 <_sp+0x2000dc00>
+ 8000630:	00f50d63          	beq	a0,a5,800064a <timer_deinit+0x70>
+ 8000634:	400017b7          	lui	a5,0x40001
+ 8000638:	fcf51fe3          	bne	a0,a5,8000616 <timer_deinit+0x3c>
         rcu_periph_reset_enable(RCU_TIMER5RST);
- 8000718:	40400513          	li	a0,1028
- 800071c:	379d                	jal	8000682 <rcu_periph_reset_enable>
+ 800063c:	40400513          	li	a0,1028
+ 8000640:	379d                	jal	80005a6 <rcu_periph_reset_enable>
         rcu_periph_reset_disable(RCU_TIMER5RST);
- 800071e:	40400513          	li	a0,1028
- 8000722:	3fa5                	jal	800069a <rcu_periph_reset_disable>
+ 8000642:	40400513          	li	a0,1028
+ 8000646:	3fa5                	jal	80005be <rcu_periph_reset_disable>
         break;
- 8000724:	b7f9                	j	80006f2 <timer_deinit+0x3c>
+ 8000648:	b7f9                	j	8000616 <timer_deinit+0x3c>
         rcu_periph_reset_enable(RCU_TIMER0RST);
- 8000726:	30b00513          	li	a0,779
- 800072a:	3fa1                	jal	8000682 <rcu_periph_reset_enable>
+ 800064a:	30b00513          	li	a0,779
+ 800064e:	3fa1                	jal	80005a6 <rcu_periph_reset_enable>
         rcu_periph_reset_disable(RCU_TIMER0RST);
- 800072c:	30b00513          	li	a0,779
- 8000730:	37ad                	jal	800069a <rcu_periph_reset_disable>
+ 8000650:	30b00513          	li	a0,779
+ 8000654:	37ad                	jal	80005be <rcu_periph_reset_disable>
         break;
- 8000732:	b7c1                	j	80006f2 <timer_deinit+0x3c>
+ 8000656:	b7c1                	j	8000616 <timer_deinit+0x3c>
         rcu_periph_reset_enable(RCU_TIMER1RST);
- 8000734:	40000513          	li	a0,1024
- 8000738:	37a9                	jal	8000682 <rcu_periph_reset_enable>
+ 8000658:	40000513          	li	a0,1024
+ 800065c:	37a9                	jal	80005a6 <rcu_periph_reset_enable>
         rcu_periph_reset_disable(RCU_TIMER1RST);
- 800073a:	40000513          	li	a0,1024
- 800073e:	3fb1                	jal	800069a <rcu_periph_reset_disable>
+ 800065e:	40000513          	li	a0,1024
+ 8000662:	3fb1                	jal	80005be <rcu_periph_reset_disable>
         break;
- 8000740:	bf4d                	j	80006f2 <timer_deinit+0x3c>
+ 8000664:	bf4d                	j	8000616 <timer_deinit+0x3c>
         rcu_periph_reset_enable(RCU_TIMER2RST);
- 8000742:	40100513          	li	a0,1025
- 8000746:	3f35                	jal	8000682 <rcu_periph_reset_enable>
+ 8000666:	40100513          	li	a0,1025
+ 800066a:	3f35                	jal	80005a6 <rcu_periph_reset_enable>
         rcu_periph_reset_disable(RCU_TIMER2RST);
- 8000748:	40100513          	li	a0,1025
- 800074c:	37b9                	jal	800069a <rcu_periph_reset_disable>
+ 800066c:	40100513          	li	a0,1025
+ 8000670:	37b9                	jal	80005be <rcu_periph_reset_disable>
         break;
- 800074e:	b755                	j	80006f2 <timer_deinit+0x3c>
+ 8000672:	b755                	j	8000616 <timer_deinit+0x3c>
         rcu_periph_reset_enable(RCU_TIMER3RST);
- 8000750:	40200513          	li	a0,1026
- 8000754:	373d                	jal	8000682 <rcu_periph_reset_enable>
+ 8000674:	40200513          	li	a0,1026
+ 8000678:	373d                	jal	80005a6 <rcu_periph_reset_enable>
         rcu_periph_reset_disable(RCU_TIMER3RST);
- 8000756:	40200513          	li	a0,1026
- 800075a:	3781                	jal	800069a <rcu_periph_reset_disable>
+ 800067a:	40200513          	li	a0,1026
+ 800067e:	3781                	jal	80005be <rcu_periph_reset_disable>
         break;
- 800075c:	bf59                	j	80006f2 <timer_deinit+0x3c>
+ 8000680:	bf59                	j	8000616 <timer_deinit+0x3c>
         rcu_periph_reset_enable(RCU_TIMER4RST);
- 800075e:	40300513          	li	a0,1027
- 8000762:	3705                	jal	8000682 <rcu_periph_reset_enable>
+ 8000682:	40300513          	li	a0,1027
+ 8000686:	3705                	jal	80005a6 <rcu_periph_reset_enable>
         rcu_periph_reset_disable(RCU_TIMER4RST);
- 8000764:	40300513          	li	a0,1027
- 8000768:	3f0d                	jal	800069a <rcu_periph_reset_disable>
+ 8000688:	40300513          	li	a0,1027
+ 800068c:	3f0d                	jal	80005be <rcu_periph_reset_disable>
         break;
- 800076a:	b761                	j	80006f2 <timer_deinit+0x3c>
+ 800068e:	b761                	j	8000616 <timer_deinit+0x3c>
         rcu_periph_reset_enable(RCU_TIMER6RST);
- 800076c:	40500513          	li	a0,1029
- 8000770:	3f09                	jal	8000682 <rcu_periph_reset_enable>
+ 8000690:	40500513          	li	a0,1029
+ 8000694:	3f09                	jal	80005a6 <rcu_periph_reset_enable>
         rcu_periph_reset_disable(RCU_TIMER6RST);
- 8000772:	40500513          	li	a0,1029
- 8000776:	3715                	jal	800069a <rcu_periph_reset_disable>
+ 8000696:	40500513          	li	a0,1029
+ 800069a:	3715                	jal	80005be <rcu_periph_reset_disable>
 }
- 8000778:	bfad                	j	80006f2 <timer_deinit+0x3c>
+ 800069c:	bfad                	j	8000616 <timer_deinit+0x3c>
 
-0800077a <timer_struct_para_init>:
+0800069e <timer_struct_para_init>:
     \retval     none
 */
 void timer_struct_para_init(timer_parameter_struct* initpara)
 {
     /* initialize the init parameter struct member with the default value */
     initpara->prescaler         = 0U;
- 800077a:	00051023          	sh	zero,0(a0) # 40000000 <_sp+0x1fffb000>
+ 800069e:	00051023          	sh	zero,0(a0) # 40000000 <_sp+0x1fffb000>
     initpara->alignedmode       = TIMER_COUNTER_EDGE;
- 800077e:	00051123          	sh	zero,2(a0)
+ 80006a2:	00051123          	sh	zero,2(a0)
     initpara->counterdirection  = TIMER_COUNTER_UP;
- 8000782:	00051223          	sh	zero,4(a0)
+ 80006a6:	00051223          	sh	zero,4(a0)
     initpara->period            = 65535U;
- 8000786:	67c1                	lui	a5,0x10
- 8000788:	17fd                	addi	a5,a5,-1
- 800078a:	c51c                	sw	a5,8(a0)
+ 80006aa:	67c1                	lui	a5,0x10
+ 80006ac:	17fd                	addi	a5,a5,-1
+ 80006ae:	c51c                	sw	a5,8(a0)
     initpara->clockdivision     = TIMER_CKDIV_DIV1;
- 800078c:	00051623          	sh	zero,12(a0)
+ 80006b0:	00051623          	sh	zero,12(a0)
     initpara->repetitioncounter = 0U;
- 8000790:	00050723          	sb	zero,14(a0)
+ 80006b4:	00050723          	sb	zero,14(a0)
 }
- 8000794:	8082                	ret
+ 80006b8:	8082                	ret
 
-08000796 <timer_init>:
+080006ba <timer_init>:
     \retval     none
 */
 void timer_init(uint32_t timer_periph, timer_parameter_struct* initpara)
 {
     /* configure the counter prescaler value */
     TIMER_PSC(timer_periph) = (uint16_t)initpara->prescaler;
- 8000796:	0005d783          	lhu	a5,0(a1)
- 800079a:	d51c                	sw	a5,40(a0)
+ 80006ba:	0005d783          	lhu	a5,0(a1)
+ 80006be:	d51c                	sw	a5,40(a0)
 
     /* configure the counter direction and aligned mode */
     if((TIMER0 == timer_periph) || (TIMER1 == timer_periph) || (TIMER2 == timer_periph)
- 800079c:	400137b7          	lui	a5,0x40013
- 80007a0:	c0078793          	addi	a5,a5,-1024 # 40012c00 <_sp+0x2000dc00>
- 80007a4:	04f50063          	beq	a0,a5,80007e4 <timer_init+0x4e>
- 80007a8:	400007b7          	lui	a5,0x40000
- 80007ac:	02f50c63          	beq	a0,a5,80007e4 <timer_init+0x4e>
- 80007b0:	40078793          	addi	a5,a5,1024 # 40000400 <_sp+0x1fffb400>
- 80007b4:	02f50863          	beq	a0,a5,80007e4 <timer_init+0x4e>
+ 80006c0:	400137b7          	lui	a5,0x40013
+ 80006c4:	c0078793          	addi	a5,a5,-1024 # 40012c00 <_sp+0x2000dc00>
+ 80006c8:	04f50063          	beq	a0,a5,8000708 <timer_init+0x4e>
+ 80006cc:	400007b7          	lui	a5,0x40000
+ 80006d0:	02f50c63          	beq	a0,a5,8000708 <timer_init+0x4e>
+ 80006d4:	40078793          	addi	a5,a5,1024 # 40000400 <_sp+0x1fffb400>
+ 80006d8:	02f50863          	beq	a0,a5,8000708 <timer_init+0x4e>
         || (TIMER3 == timer_periph) || (TIMER4 == timer_periph) ){
- 80007b8:	400017b7          	lui	a5,0x40001
- 80007bc:	80078793          	addi	a5,a5,-2048 # 40000800 <_sp+0x1fffb800>
- 80007c0:	02f50263          	beq	a0,a5,80007e4 <timer_init+0x4e>
- 80007c4:	400017b7          	lui	a5,0x40001
- 80007c8:	c0078793          	addi	a5,a5,-1024 # 40000c00 <_sp+0x1fffbc00>
- 80007cc:	00f50c63          	beq	a0,a5,80007e4 <timer_init+0x4e>
+ 80006dc:	400017b7          	lui	a5,0x40001
+ 80006e0:	80078793          	addi	a5,a5,-2048 # 40000800 <_sp+0x1fffb800>
+ 80006e4:	02f50263          	beq	a0,a5,8000708 <timer_init+0x4e>
+ 80006e8:	400017b7          	lui	a5,0x40001
+ 80006ec:	c0078793          	addi	a5,a5,-1024 # 40000c00 <_sp+0x1fffbc00>
+ 80006f0:	00f50c63          	beq	a0,a5,8000708 <timer_init+0x4e>
         TIMER_CTL0(timer_periph) &= (~(uint32_t)(TIMER_CTL0_DIR | TIMER_CTL0_CAM));
         TIMER_CTL0(timer_periph) |= (uint32_t)(initpara->alignedmode & ALIGNEDMODE_MASK);
         TIMER_CTL0(timer_periph) |= (uint32_t)(initpara->counterdirection & COUNTERDIRECTION_MASK);            
     }else{
         TIMER_CTL0(timer_periph) &= (uint32_t)(~ TIMER_CTL0_DIR);
- 80007d0:	411c                	lw	a5,0(a0)
- 80007d2:	9bbd                	andi	a5,a5,-17
- 80007d4:	c11c                	sw	a5,0(a0)
+ 80006f4:	411c                	lw	a5,0(a0)
+ 80006f6:	9bbd                	andi	a5,a5,-17
+ 80006f8:	c11c                	sw	a5,0(a0)
         TIMER_CTL0(timer_periph) |= (uint32_t)(initpara->counterdirection & COUNTERDIRECTION_MASK); 
- 80007d6:	411c                	lw	a5,0(a0)
- 80007d8:	0045d703          	lhu	a4,4(a1)
- 80007dc:	8b41                	andi	a4,a4,16
- 80007de:	8fd9                	or	a5,a5,a4
- 80007e0:	c11c                	sw	a5,0(a0)
- 80007e2:	a015                	j	8000806 <timer_init+0x70>
+ 80006fa:	411c                	lw	a5,0(a0)
+ 80006fc:	0045d703          	lhu	a4,4(a1)
+ 8000700:	8b41                	andi	a4,a4,16
+ 8000702:	8fd9                	or	a5,a5,a4
+ 8000704:	c11c                	sw	a5,0(a0)
+ 8000706:	a015                	j	800072a <timer_init+0x70>
         TIMER_CTL0(timer_periph) &= (~(uint32_t)(TIMER_CTL0_DIR | TIMER_CTL0_CAM));
- 80007e4:	411c                	lw	a5,0(a0)
- 80007e6:	f8f7f793          	andi	a5,a5,-113
- 80007ea:	c11c                	sw	a5,0(a0)
+ 8000708:	411c                	lw	a5,0(a0)
+ 800070a:	f8f7f793          	andi	a5,a5,-113
+ 800070e:	c11c                	sw	a5,0(a0)
         TIMER_CTL0(timer_periph) |= (uint32_t)(initpara->alignedmode & ALIGNEDMODE_MASK);
- 80007ec:	411c                	lw	a5,0(a0)
- 80007ee:	0025d703          	lhu	a4,2(a1)
- 80007f2:	06077713          	andi	a4,a4,96
- 80007f6:	8fd9                	or	a5,a5,a4
- 80007f8:	c11c                	sw	a5,0(a0)
+ 8000710:	411c                	lw	a5,0(a0)
+ 8000712:	0025d703          	lhu	a4,2(a1)
+ 8000716:	06077713          	andi	a4,a4,96
+ 800071a:	8fd9                	or	a5,a5,a4
+ 800071c:	c11c                	sw	a5,0(a0)
         TIMER_CTL0(timer_periph) |= (uint32_t)(initpara->counterdirection & COUNTERDIRECTION_MASK);            
- 80007fa:	411c                	lw	a5,0(a0)
- 80007fc:	0045d703          	lhu	a4,4(a1)
- 8000800:	8b41                	andi	a4,a4,16
- 8000802:	8fd9                	or	a5,a5,a4
- 8000804:	c11c                	sw	a5,0(a0)
+ 800071e:	411c                	lw	a5,0(a0)
+ 8000720:	0045d703          	lhu	a4,4(a1)
+ 8000724:	8b41                	andi	a4,a4,16
+ 8000726:	8fd9                	or	a5,a5,a4
+ 8000728:	c11c                	sw	a5,0(a0)
     }
     
     /* configure the autoreload value */
     TIMER_CAR(timer_periph) = (uint32_t)initpara->period;
- 8000806:	459c                	lw	a5,8(a1)
- 8000808:	d55c                	sw	a5,44(a0)
+ 800072a:	459c                	lw	a5,8(a1)
+ 800072c:	d55c                	sw	a5,44(a0)
 
     if((TIMER5 != timer_periph) && (TIMER6 != timer_periph)){
- 800080a:	400017b7          	lui	a5,0x40001
- 800080e:	02f50163          	beq	a0,a5,8000830 <timer_init+0x9a>
- 8000812:	40078793          	addi	a5,a5,1024 # 40001400 <_sp+0x1fffc400>
- 8000816:	00f50d63          	beq	a0,a5,8000830 <timer_init+0x9a>
+ 800072e:	400017b7          	lui	a5,0x40001
+ 8000732:	02f50163          	beq	a0,a5,8000754 <timer_init+0x9a>
+ 8000736:	40078793          	addi	a5,a5,1024 # 40001400 <_sp+0x1fffc400>
+ 800073a:	00f50d63          	beq	a0,a5,8000754 <timer_init+0x9a>
         /* reset the CKDIV bit */
         TIMER_CTL0(timer_periph) &= (~(uint32_t)TIMER_CTL0_CKDIV);
- 800081a:	411c                	lw	a5,0(a0)
- 800081c:	cff7f793          	andi	a5,a5,-769
- 8000820:	c11c                	sw	a5,0(a0)
+ 800073e:	411c                	lw	a5,0(a0)
+ 8000740:	cff7f793          	andi	a5,a5,-769
+ 8000744:	c11c                	sw	a5,0(a0)
         TIMER_CTL0(timer_periph) |= (uint32_t)(initpara->clockdivision & CLOCKDIVISION_MASK);
- 8000822:	411c                	lw	a5,0(a0)
- 8000824:	00c5d703          	lhu	a4,12(a1)
- 8000828:	30077713          	andi	a4,a4,768
- 800082c:	8fd9                	or	a5,a5,a4
- 800082e:	c11c                	sw	a5,0(a0)
+ 8000746:	411c                	lw	a5,0(a0)
+ 8000748:	00c5d703          	lhu	a4,12(a1)
+ 800074c:	30077713          	andi	a4,a4,768
+ 8000750:	8fd9                	or	a5,a5,a4
+ 8000752:	c11c                	sw	a5,0(a0)
     }
 
     if (TIMER0 == timer_periph) {
- 8000830:	400137b7          	lui	a5,0x40013
- 8000834:	c0078793          	addi	a5,a5,-1024 # 40012c00 <_sp+0x2000dc00>
- 8000838:	00f50763          	beq	a0,a5,8000846 <timer_init+0xb0>
+ 8000754:	400137b7          	lui	a5,0x40013
+ 8000758:	c0078793          	addi	a5,a5,-1024 # 40012c00 <_sp+0x2000dc00>
+ 800075c:	00f50763          	beq	a0,a5,800076a <timer_init+0xb0>
         /* configure the repetition counter value */
         TIMER_CREP(timer_periph) = (uint32_t)initpara->repetitioncounter;
     }
 
     /* generate an update event */
     TIMER_SWEVG(timer_periph) |= (uint32_t)TIMER_SWEVG_UPG;
- 800083c:	495c                	lw	a5,20(a0)
- 800083e:	0017e793          	ori	a5,a5,1
- 8000842:	c95c                	sw	a5,20(a0)
+ 8000760:	495c                	lw	a5,20(a0)
+ 8000762:	0017e793          	ori	a5,a5,1
+ 8000766:	c95c                	sw	a5,20(a0)
 }
- 8000844:	8082                	ret
+ 8000768:	8082                	ret
         TIMER_CREP(timer_periph) = (uint32_t)initpara->repetitioncounter;
- 8000846:	00e5c783          	lbu	a5,14(a1)
- 800084a:	d91c                	sw	a5,48(a0)
- 800084c:	bfc5                	j	800083c <timer_init+0xa6>
+ 800076a:	00e5c783          	lbu	a5,14(a1)
+ 800076e:	d91c                	sw	a5,48(a0)
+ 8000770:	bfc5                	j	8000760 <timer_init+0xa6>
 
-0800084e <timer_enable>:
+08000772 <timer_enable>:
     \param[out] none
     \retval     none
 */
 void timer_enable(uint32_t timer_periph)
 {
     TIMER_CTL0(timer_periph) |= (uint32_t)TIMER_CTL0_CEN;
- 800084e:	411c                	lw	a5,0(a0)
- 8000850:	0017e793          	ori	a5,a5,1
- 8000854:	c11c                	sw	a5,0(a0)
+ 8000772:	411c                	lw	a5,0(a0)
+ 8000774:	0017e793          	ori	a5,a5,1
+ 8000778:	c11c                	sw	a5,0(a0)
 }
- 8000856:	8082                	ret
+ 800077a:	8082                	ret
 
-08000858 <timer_channel_output_struct_para_init>:
+0800077c <timer_channel_output_struct_para_init>:
     \retval     none
 */
 void timer_channel_output_struct_para_init(timer_oc_parameter_struct* ocpara)
 {
     /* initialize the channel output parameter struct member with the default value */
     ocpara->outputstate  = TIMER_CCX_DISABLE;
- 8000858:	00051023          	sh	zero,0(a0)
+ 800077c:	00051023          	sh	zero,0(a0)
     ocpara->outputnstate = TIMER_CCXN_DISABLE;
- 800085c:	00051123          	sh	zero,2(a0)
+ 8000780:	00051123          	sh	zero,2(a0)
     ocpara->ocpolarity   = TIMER_OC_POLARITY_HIGH;
- 8000860:	00051223          	sh	zero,4(a0)
+ 8000784:	00051223          	sh	zero,4(a0)
     ocpara->ocnpolarity  = TIMER_OCN_POLARITY_HIGH;
- 8000864:	00051323          	sh	zero,6(a0)
+ 8000788:	00051323          	sh	zero,6(a0)
     ocpara->ocidlestate  = TIMER_OC_IDLE_STATE_LOW;
- 8000868:	00051423          	sh	zero,8(a0)
+ 800078c:	00051423          	sh	zero,8(a0)
     ocpara->ocnidlestate = TIMER_OCN_IDLE_STATE_LOW;
- 800086c:	00051523          	sh	zero,10(a0)
+ 8000790:	00051523          	sh	zero,10(a0)
 }
- 8000870:	8082                	ret
+ 8000794:	8082                	ret
 
-08000872 <timer_channel_output_config>:
+08000796 <timer_channel_output_config>:
     \param[out] none
     \retval     none
 */
 void timer_channel_output_config(uint32_t timer_periph, uint16_t channel, timer_oc_parameter_struct* ocpara)
 {
     switch(channel){
- 8000872:	4785                	li	a5,1
- 8000874:	08f58a63          	beq	a1,a5,8000908 <timer_channel_output_config+0x96>
- 8000878:	01059793          	slli	a5,a1,0x10
- 800087c:	87c1                	srai	a5,a5,0x10
- 800087e:	cb81                	beqz	a5,800088e <timer_channel_output_config+0x1c>
- 8000880:	4789                	li	a5,2
- 8000882:	10f58c63          	beq	a1,a5,800099a <timer_channel_output_config+0x128>
- 8000886:	478d                	li	a5,3
- 8000888:	1af58363          	beq	a1,a5,8000a2e <timer_channel_output_config+0x1bc>
- 800088c:	8082                	ret
+ 8000796:	4785                	li	a5,1
+ 8000798:	08f58a63          	beq	a1,a5,800082c <timer_channel_output_config+0x96>
+ 800079c:	01059793          	slli	a5,a1,0x10
+ 80007a0:	87c1                	srai	a5,a5,0x10
+ 80007a2:	cb81                	beqz	a5,80007b2 <timer_channel_output_config+0x1c>
+ 80007a4:	4789                	li	a5,2
+ 80007a6:	10f58c63          	beq	a1,a5,80008be <timer_channel_output_config+0x128>
+ 80007aa:	478d                	li	a5,3
+ 80007ac:	1af58363          	beq	a1,a5,8000952 <timer_channel_output_config+0x1bc>
+ 80007b0:	8082                	ret
     /* configure TIMER_CH_0 */
     case TIMER_CH_0:
         /* reset the CH0EN bit */
         TIMER_CHCTL2(timer_periph) &= (~(uint32_t)TIMER_CHCTL2_CH0EN);
- 800088e:	511c                	lw	a5,32(a0)
- 8000890:	9bf9                	andi	a5,a5,-2
- 8000892:	d11c                	sw	a5,32(a0)
+ 80007b2:	511c                	lw	a5,32(a0)
+ 80007b4:	9bf9                	andi	a5,a5,-2
+ 80007b6:	d11c                	sw	a5,32(a0)
         /* set the CH0EN bit */
         TIMER_CHCTL2(timer_periph) |= (uint32_t)ocpara->outputstate;
- 8000894:	511c                	lw	a5,32(a0)
- 8000896:	00065703          	lhu	a4,0(a2)
- 800089a:	8fd9                	or	a5,a5,a4
- 800089c:	d11c                	sw	a5,32(a0)
+ 80007b8:	511c                	lw	a5,32(a0)
+ 80007ba:	00065703          	lhu	a4,0(a2)
+ 80007be:	8fd9                	or	a5,a5,a4
+ 80007c0:	d11c                	sw	a5,32(a0)
         /* reset the CH0P bit */
         TIMER_CHCTL2(timer_periph) &= (~(uint32_t)TIMER_CHCTL2_CH0P);
- 800089e:	511c                	lw	a5,32(a0)
- 80008a0:	9bf5                	andi	a5,a5,-3
- 80008a2:	d11c                	sw	a5,32(a0)
+ 80007c2:	511c                	lw	a5,32(a0)
+ 80007c4:	9bf5                	andi	a5,a5,-3
+ 80007c6:	d11c                	sw	a5,32(a0)
         /* set the CH0P bit */
         TIMER_CHCTL2(timer_periph) |= (uint32_t)ocpara->ocpolarity;
- 80008a4:	511c                	lw	a5,32(a0)
- 80008a6:	00465703          	lhu	a4,4(a2)
- 80008aa:	8fd9                	or	a5,a5,a4
- 80008ac:	d11c                	sw	a5,32(a0)
+ 80007c8:	511c                	lw	a5,32(a0)
+ 80007ca:	00465703          	lhu	a4,4(a2)
+ 80007ce:	8fd9                	or	a5,a5,a4
+ 80007d0:	d11c                	sw	a5,32(a0)
 
         if (TIMER0 == timer_periph) {
- 80008ae:	400137b7          	lui	a5,0x40013
- 80008b2:	c0078793          	addi	a5,a5,-1024 # 40012c00 <_sp+0x2000dc00>
- 80008b6:	00f50663          	beq	a0,a5,80008c2 <timer_channel_output_config+0x50>
+ 80007d2:	400137b7          	lui	a5,0x40013
+ 80007d6:	c0078793          	addi	a5,a5,-1024 # 40012c00 <_sp+0x2000dc00>
+ 80007da:	00f50663          	beq	a0,a5,80007e6 <timer_channel_output_config+0x50>
             /* reset the ISO0N bit */
             TIMER_CTL1(timer_periph) &= (~(uint32_t)TIMER_CTL1_ISO0N);
             /* set the ISO0N bit */
             TIMER_CTL1(timer_periph) |= (uint32_t)ocpara->ocnidlestate;
         }
         TIMER_CHCTL0(timer_periph) &= ~(uint32_t)TIMER_CHCTL0_CH0MS;
- 80008ba:	4d1c                	lw	a5,24(a0)
- 80008bc:	9bf1                	andi	a5,a5,-4
- 80008be:	cd1c                	sw	a5,24(a0)
+ 80007de:	4d1c                	lw	a5,24(a0)
+ 80007e0:	9bf1                	andi	a5,a5,-4
+ 80007e2:	cd1c                	sw	a5,24(a0)
         break;
- 80008c0:	8082                	ret
+ 80007e4:	8082                	ret
             TIMER_CHCTL2(timer_periph) &= (~(uint32_t)TIMER_CHCTL2_CH0NEN);
- 80008c2:	511c                	lw	a5,32(a0)
- 80008c4:	9bed                	andi	a5,a5,-5
- 80008c6:	d11c                	sw	a5,32(a0)
+ 80007e6:	511c                	lw	a5,32(a0)
+ 80007e8:	9bed                	andi	a5,a5,-5
+ 80007ea:	d11c                	sw	a5,32(a0)
             TIMER_CHCTL2(timer_periph) |= (uint32_t)ocpara->outputnstate;
- 80008c8:	511c                	lw	a5,32(a0)
- 80008ca:	00265703          	lhu	a4,2(a2)
- 80008ce:	8fd9                	or	a5,a5,a4
- 80008d0:	d11c                	sw	a5,32(a0)
+ 80007ec:	511c                	lw	a5,32(a0)
+ 80007ee:	00265703          	lhu	a4,2(a2)
+ 80007f2:	8fd9                	or	a5,a5,a4
+ 80007f4:	d11c                	sw	a5,32(a0)
             TIMER_CHCTL2(timer_periph) &= (~(uint32_t)TIMER_CHCTL2_CH0NP);
- 80008d2:	511c                	lw	a5,32(a0)
- 80008d4:	9bdd                	andi	a5,a5,-9
- 80008d6:	d11c                	sw	a5,32(a0)
+ 80007f6:	511c                	lw	a5,32(a0)
+ 80007f8:	9bdd                	andi	a5,a5,-9
+ 80007fa:	d11c                	sw	a5,32(a0)
             TIMER_CHCTL2(timer_periph) |= (uint32_t)ocpara->ocnpolarity;
- 80008d8:	511c                	lw	a5,32(a0)
- 80008da:	00665703          	lhu	a4,6(a2)
- 80008de:	8fd9                	or	a5,a5,a4
- 80008e0:	d11c                	sw	a5,32(a0)
+ 80007fc:	511c                	lw	a5,32(a0)
+ 80007fe:	00665703          	lhu	a4,6(a2)
+ 8000802:	8fd9                	or	a5,a5,a4
+ 8000804:	d11c                	sw	a5,32(a0)
             TIMER_CTL1(timer_periph) &= (~(uint32_t)TIMER_CTL1_ISO0);
- 80008e2:	415c                	lw	a5,4(a0)
- 80008e4:	eff7f793          	andi	a5,a5,-257
- 80008e8:	c15c                	sw	a5,4(a0)
+ 8000806:	415c                	lw	a5,4(a0)
+ 8000808:	eff7f793          	andi	a5,a5,-257
+ 800080c:	c15c                	sw	a5,4(a0)
             TIMER_CTL1(timer_periph) |= (uint32_t)ocpara->ocidlestate;
- 80008ea:	415c                	lw	a5,4(a0)
- 80008ec:	00865703          	lhu	a4,8(a2)
- 80008f0:	8fd9                	or	a5,a5,a4
- 80008f2:	c15c                	sw	a5,4(a0)
+ 800080e:	415c                	lw	a5,4(a0)
+ 8000810:	00865703          	lhu	a4,8(a2)
+ 8000814:	8fd9                	or	a5,a5,a4
+ 8000816:	c15c                	sw	a5,4(a0)
             TIMER_CTL1(timer_periph) &= (~(uint32_t)TIMER_CTL1_ISO0N);
- 80008f4:	415c                	lw	a5,4(a0)
- 80008f6:	dff7f793          	andi	a5,a5,-513
- 80008fa:	c15c                	sw	a5,4(a0)
+ 8000818:	415c                	lw	a5,4(a0)
+ 800081a:	dff7f793          	andi	a5,a5,-513
+ 800081e:	c15c                	sw	a5,4(a0)
             TIMER_CTL1(timer_periph) |= (uint32_t)ocpara->ocnidlestate;
- 80008fc:	415c                	lw	a5,4(a0)
- 80008fe:	00a65703          	lhu	a4,10(a2)
- 8000902:	8fd9                	or	a5,a5,a4
- 8000904:	c15c                	sw	a5,4(a0)
- 8000906:	bf55                	j	80008ba <timer_channel_output_config+0x48>
+ 8000820:	415c                	lw	a5,4(a0)
+ 8000822:	00a65703          	lhu	a4,10(a2)
+ 8000826:	8fd9                	or	a5,a5,a4
+ 8000828:	c15c                	sw	a5,4(a0)
+ 800082a:	bf55                	j	80007de <timer_channel_output_config+0x48>
     /* configure TIMER_CH_1 */
     case TIMER_CH_1:
         /* reset the CH1EN bit */
         TIMER_CHCTL2(timer_periph) &= (~(uint32_t)TIMER_CHCTL2_CH1EN);
- 8000908:	511c                	lw	a5,32(a0)
- 800090a:	9bbd                	andi	a5,a5,-17
- 800090c:	d11c                	sw	a5,32(a0)
+ 800082c:	511c                	lw	a5,32(a0)
+ 800082e:	9bbd                	andi	a5,a5,-17
+ 8000830:	d11c                	sw	a5,32(a0)
         /* set the CH1EN bit */
         TIMER_CHCTL2(timer_periph) |= (uint32_t)((uint32_t)(ocpara->outputstate) << 4U);
- 800090e:	511c                	lw	a5,32(a0)
- 8000910:	00065703          	lhu	a4,0(a2)
- 8000914:	0712                	slli	a4,a4,0x4
- 8000916:	8fd9                	or	a5,a5,a4
- 8000918:	d11c                	sw	a5,32(a0)
+ 8000832:	511c                	lw	a5,32(a0)
+ 8000834:	00065703          	lhu	a4,0(a2)
+ 8000838:	0712                	slli	a4,a4,0x4
+ 800083a:	8fd9                	or	a5,a5,a4
+ 800083c:	d11c                	sw	a5,32(a0)
         /* reset the CH1P bit */
         TIMER_CHCTL2(timer_periph) &= (~(uint32_t)TIMER_CHCTL2_CH1P);
- 800091a:	511c                	lw	a5,32(a0)
- 800091c:	fdf7f793          	andi	a5,a5,-33
- 8000920:	d11c                	sw	a5,32(a0)
+ 800083e:	511c                	lw	a5,32(a0)
+ 8000840:	fdf7f793          	andi	a5,a5,-33
+ 8000844:	d11c                	sw	a5,32(a0)
         /* set the CH1P bit */
         TIMER_CHCTL2(timer_periph) |= (uint32_t)((uint32_t)(ocpara->ocpolarity) << 4U);
- 8000922:	511c                	lw	a5,32(a0)
- 8000924:	00465703          	lhu	a4,4(a2)
- 8000928:	0712                	slli	a4,a4,0x4
- 800092a:	8fd9                	or	a5,a5,a4
- 800092c:	d11c                	sw	a5,32(a0)
+ 8000846:	511c                	lw	a5,32(a0)
+ 8000848:	00465703          	lhu	a4,4(a2)
+ 800084c:	0712                	slli	a4,a4,0x4
+ 800084e:	8fd9                	or	a5,a5,a4
+ 8000850:	d11c                	sw	a5,32(a0)
 
         if (TIMER0 == timer_periph) {
- 800092e:	400137b7          	lui	a5,0x40013
- 8000932:	c0078793          	addi	a5,a5,-1024 # 40012c00 <_sp+0x2000dc00>
- 8000936:	00f50763          	beq	a0,a5,8000944 <timer_channel_output_config+0xd2>
+ 8000852:	400137b7          	lui	a5,0x40013
+ 8000856:	c0078793          	addi	a5,a5,-1024 # 40012c00 <_sp+0x2000dc00>
+ 800085a:	00f50763          	beq	a0,a5,8000868 <timer_channel_output_config+0xd2>
             /* reset the ISO1N bit */
             TIMER_CTL1(timer_periph) &= (~(uint32_t)TIMER_CTL1_ISO1N);
             /* set the ISO1N bit */
             TIMER_CTL1(timer_periph) |= (uint32_t)((uint32_t)(ocpara->ocnidlestate) << 2U);
         }
         TIMER_CHCTL0(timer_periph) &= ~(uint32_t)TIMER_CHCTL0_CH1MS;
- 800093a:	4d1c                	lw	a5,24(a0)
- 800093c:	cff7f793          	andi	a5,a5,-769
- 8000940:	cd1c                	sw	a5,24(a0)
+ 800085e:	4d1c                	lw	a5,24(a0)
+ 8000860:	cff7f793          	andi	a5,a5,-769
+ 8000864:	cd1c                	sw	a5,24(a0)
         break;
- 8000942:	8082                	ret
+ 8000866:	8082                	ret
             TIMER_CHCTL2(timer_periph) &= (~(uint32_t)TIMER_CHCTL2_CH1NEN);
- 8000944:	511c                	lw	a5,32(a0)
- 8000946:	fbf7f793          	andi	a5,a5,-65
- 800094a:	d11c                	sw	a5,32(a0)
+ 8000868:	511c                	lw	a5,32(a0)
+ 800086a:	fbf7f793          	andi	a5,a5,-65
+ 800086e:	d11c                	sw	a5,32(a0)
             TIMER_CHCTL2(timer_periph) |= (uint32_t)((uint32_t)(ocpara->outputnstate) << 4U);
- 800094c:	511c                	lw	a5,32(a0)
- 800094e:	00265703          	lhu	a4,2(a2)
- 8000952:	0712                	slli	a4,a4,0x4
- 8000954:	8fd9                	or	a5,a5,a4
- 8000956:	d11c                	sw	a5,32(a0)
+ 8000870:	511c                	lw	a5,32(a0)
+ 8000872:	00265703          	lhu	a4,2(a2)
+ 8000876:	0712                	slli	a4,a4,0x4
+ 8000878:	8fd9                	or	a5,a5,a4
+ 800087a:	d11c                	sw	a5,32(a0)
             TIMER_CHCTL2(timer_periph) &= (~(uint32_t)TIMER_CHCTL2_CH1NP);
- 8000958:	511c                	lw	a5,32(a0)
- 800095a:	f7f7f793          	andi	a5,a5,-129
- 800095e:	d11c                	sw	a5,32(a0)
+ 800087c:	511c                	lw	a5,32(a0)
+ 800087e:	f7f7f793          	andi	a5,a5,-129
+ 8000882:	d11c                	sw	a5,32(a0)
             TIMER_CHCTL2(timer_periph) |= (uint32_t)((uint32_t)(ocpara->ocnpolarity) << 4U);
- 8000960:	511c                	lw	a5,32(a0)
- 8000962:	00665703          	lhu	a4,6(a2)
- 8000966:	0712                	slli	a4,a4,0x4
- 8000968:	8fd9                	or	a5,a5,a4
- 800096a:	d11c                	sw	a5,32(a0)
+ 8000884:	511c                	lw	a5,32(a0)
+ 8000886:	00665703          	lhu	a4,6(a2)
+ 800088a:	0712                	slli	a4,a4,0x4
+ 800088c:	8fd9                	or	a5,a5,a4
+ 800088e:	d11c                	sw	a5,32(a0)
             TIMER_CTL1(timer_periph) &= (~(uint32_t)TIMER_CTL1_ISO1);
- 800096c:	415c                	lw	a5,4(a0)
- 800096e:	bff7f793          	andi	a5,a5,-1025
- 8000972:	c15c                	sw	a5,4(a0)
+ 8000890:	415c                	lw	a5,4(a0)
+ 8000892:	bff7f793          	andi	a5,a5,-1025
+ 8000896:	c15c                	sw	a5,4(a0)
             TIMER_CTL1(timer_periph) |= (uint32_t)((uint32_t)(ocpara->ocidlestate) << 2U);
- 8000974:	415c                	lw	a5,4(a0)
- 8000976:	00865703          	lhu	a4,8(a2)
- 800097a:	070a                	slli	a4,a4,0x2
- 800097c:	8fd9                	or	a5,a5,a4
- 800097e:	c15c                	sw	a5,4(a0)
+ 8000898:	415c                	lw	a5,4(a0)
+ 800089a:	00865703          	lhu	a4,8(a2)
+ 800089e:	070a                	slli	a4,a4,0x2
+ 80008a0:	8fd9                	or	a5,a5,a4
+ 80008a2:	c15c                	sw	a5,4(a0)
             TIMER_CTL1(timer_periph) &= (~(uint32_t)TIMER_CTL1_ISO1N);
- 8000980:	415c                	lw	a5,4(a0)
- 8000982:	777d                	lui	a4,0xfffff
- 8000984:	7ff70713          	addi	a4,a4,2047 # fffff7ff <_sp+0xdfffa7ff>
- 8000988:	8ff9                	and	a5,a5,a4
- 800098a:	c15c                	sw	a5,4(a0)
+ 80008a4:	415c                	lw	a5,4(a0)
+ 80008a6:	777d                	lui	a4,0xfffff
+ 80008a8:	7ff70713          	addi	a4,a4,2047 # fffff7ff <_sp+0xdfffa7ff>
+ 80008ac:	8ff9                	and	a5,a5,a4
+ 80008ae:	c15c                	sw	a5,4(a0)
             TIMER_CTL1(timer_periph) |= (uint32_t)((uint32_t)(ocpara->ocnidlestate) << 2U);
- 800098c:	415c                	lw	a5,4(a0)
- 800098e:	00a65703          	lhu	a4,10(a2)
- 8000992:	070a                	slli	a4,a4,0x2
- 8000994:	8fd9                	or	a5,a5,a4
- 8000996:	c15c                	sw	a5,4(a0)
- 8000998:	b74d                	j	800093a <timer_channel_output_config+0xc8>
+ 80008b0:	415c                	lw	a5,4(a0)
+ 80008b2:	00a65703          	lhu	a4,10(a2)
+ 80008b6:	070a                	slli	a4,a4,0x2
+ 80008b8:	8fd9                	or	a5,a5,a4
+ 80008ba:	c15c                	sw	a5,4(a0)
+ 80008bc:	b74d                	j	800085e <timer_channel_output_config+0xc8>
     /* configure TIMER_CH_2 */
     case TIMER_CH_2:
         /* reset the CH2EN bit */
         TIMER_CHCTL2(timer_periph) &= (~(uint32_t)TIMER_CHCTL2_CH2EN);
- 800099a:	511c                	lw	a5,32(a0)
- 800099c:	eff7f793          	andi	a5,a5,-257
- 80009a0:	d11c                	sw	a5,32(a0)
+ 80008be:	511c                	lw	a5,32(a0)
+ 80008c0:	eff7f793          	andi	a5,a5,-257
+ 80008c4:	d11c                	sw	a5,32(a0)
         /* set the CH2EN bit */
         TIMER_CHCTL2(timer_periph) |= (uint32_t)((uint32_t)(ocpara->outputstate) << 8U);
- 80009a2:	511c                	lw	a5,32(a0)
- 80009a4:	00065703          	lhu	a4,0(a2)
- 80009a8:	0722                	slli	a4,a4,0x8
- 80009aa:	8fd9                	or	a5,a5,a4
- 80009ac:	d11c                	sw	a5,32(a0)
+ 80008c6:	511c                	lw	a5,32(a0)
+ 80008c8:	00065703          	lhu	a4,0(a2)
+ 80008cc:	0722                	slli	a4,a4,0x8
+ 80008ce:	8fd9                	or	a5,a5,a4
+ 80008d0:	d11c                	sw	a5,32(a0)
         /* reset the CH2P bit */
         TIMER_CHCTL2(timer_periph) &= (~(uint32_t)TIMER_CHCTL2_CH2P);
- 80009ae:	511c                	lw	a5,32(a0)
- 80009b0:	dff7f793          	andi	a5,a5,-513
- 80009b4:	d11c                	sw	a5,32(a0)
+ 80008d2:	511c                	lw	a5,32(a0)
+ 80008d4:	dff7f793          	andi	a5,a5,-513
+ 80008d8:	d11c                	sw	a5,32(a0)
         /* set the CH2P bit */
         TIMER_CHCTL2(timer_periph) |= (uint32_t)((uint32_t)(ocpara->ocpolarity) << 8U);
- 80009b6:	511c                	lw	a5,32(a0)
- 80009b8:	00465703          	lhu	a4,4(a2)
- 80009bc:	0722                	slli	a4,a4,0x8
- 80009be:	8fd9                	or	a5,a5,a4
- 80009c0:	d11c                	sw	a5,32(a0)
+ 80008da:	511c                	lw	a5,32(a0)
+ 80008dc:	00465703          	lhu	a4,4(a2)
+ 80008e0:	0722                	slli	a4,a4,0x8
+ 80008e2:	8fd9                	or	a5,a5,a4
+ 80008e4:	d11c                	sw	a5,32(a0)
 
         if (TIMER0 == timer_periph) {
- 80009c2:	400137b7          	lui	a5,0x40013
- 80009c6:	c0078793          	addi	a5,a5,-1024 # 40012c00 <_sp+0x2000dc00>
- 80009ca:	00f50663          	beq	a0,a5,80009d6 <timer_channel_output_config+0x164>
+ 80008e6:	400137b7          	lui	a5,0x40013
+ 80008ea:	c0078793          	addi	a5,a5,-1024 # 40012c00 <_sp+0x2000dc00>
+ 80008ee:	00f50663          	beq	a0,a5,80008fa <timer_channel_output_config+0x164>
             /* reset the ISO2N bit */
             TIMER_CTL1(timer_periph) &= (~(uint32_t)TIMER_CTL1_ISO2N);
             /* set the ISO2N bit */
             TIMER_CTL1(timer_periph) |= (uint32_t)((uint32_t)(ocpara->ocnidlestate) << 4U);
         }
         TIMER_CHCTL1(timer_periph) &= ~(uint32_t)TIMER_CHCTL1_CH2MS;
- 80009ce:	4d5c                	lw	a5,28(a0)
- 80009d0:	9bf1                	andi	a5,a5,-4
- 80009d2:	cd5c                	sw	a5,28(a0)
+ 80008f2:	4d5c                	lw	a5,28(a0)
+ 80008f4:	9bf1                	andi	a5,a5,-4
+ 80008f6:	cd5c                	sw	a5,28(a0)
         break;
- 80009d4:	8082                	ret
+ 80008f8:	8082                	ret
             TIMER_CHCTL2(timer_periph) &= (~(uint32_t)TIMER_CHCTL2_CH2NEN);
- 80009d6:	511c                	lw	a5,32(a0)
- 80009d8:	bff7f793          	andi	a5,a5,-1025
- 80009dc:	d11c                	sw	a5,32(a0)
+ 80008fa:	511c                	lw	a5,32(a0)
+ 80008fc:	bff7f793          	andi	a5,a5,-1025
+ 8000900:	d11c                	sw	a5,32(a0)
             TIMER_CHCTL2(timer_periph) |= (uint32_t)((uint32_t)(ocpara->outputnstate) << 8U);
- 80009de:	511c                	lw	a5,32(a0)
- 80009e0:	00265703          	lhu	a4,2(a2)
- 80009e4:	0722                	slli	a4,a4,0x8
- 80009e6:	8fd9                	or	a5,a5,a4
- 80009e8:	d11c                	sw	a5,32(a0)
+ 8000902:	511c                	lw	a5,32(a0)
+ 8000904:	00265703          	lhu	a4,2(a2)
+ 8000908:	0722                	slli	a4,a4,0x8
+ 800090a:	8fd9                	or	a5,a5,a4
+ 800090c:	d11c                	sw	a5,32(a0)
             TIMER_CHCTL2(timer_periph) &= (~(uint32_t)TIMER_CHCTL2_CH2NP);
- 80009ea:	5118                	lw	a4,32(a0)
- 80009ec:	77fd                	lui	a5,0xfffff
- 80009ee:	7ff78693          	addi	a3,a5,2047 # fffff7ff <_sp+0xdfffa7ff>
- 80009f2:	8f75                	and	a4,a4,a3
- 80009f4:	d118                	sw	a4,32(a0)
+ 800090e:	5118                	lw	a4,32(a0)
+ 8000910:	77fd                	lui	a5,0xfffff
+ 8000912:	7ff78693          	addi	a3,a5,2047 # fffff7ff <_sp+0xdfffa7ff>
+ 8000916:	8f75                	and	a4,a4,a3
+ 8000918:	d118                	sw	a4,32(a0)
             TIMER_CHCTL2(timer_periph) |= (uint32_t)((uint32_t)(ocpara->ocnpolarity) << 8U);
- 80009f6:	5118                	lw	a4,32(a0)
- 80009f8:	00665683          	lhu	a3,6(a2)
- 80009fc:	06a2                	slli	a3,a3,0x8
- 80009fe:	8f55                	or	a4,a4,a3
- 8000a00:	d118                	sw	a4,32(a0)
+ 800091a:	5118                	lw	a4,32(a0)
+ 800091c:	00665683          	lhu	a3,6(a2)
+ 8000920:	06a2                	slli	a3,a3,0x8
+ 8000922:	8f55                	or	a4,a4,a3
+ 8000924:	d118                	sw	a4,32(a0)
             TIMER_CTL1(timer_periph) &= (~(uint32_t)TIMER_CTL1_ISO2);
- 8000a02:	4158                	lw	a4,4(a0)
- 8000a04:	17fd                	addi	a5,a5,-1
- 8000a06:	8ff9                	and	a5,a5,a4
- 8000a08:	c15c                	sw	a5,4(a0)
+ 8000926:	4158                	lw	a4,4(a0)
+ 8000928:	17fd                	addi	a5,a5,-1
+ 800092a:	8ff9                	and	a5,a5,a4
+ 800092c:	c15c                	sw	a5,4(a0)
             TIMER_CTL1(timer_periph) |= (uint32_t)((uint32_t)(ocpara->ocidlestate) << 4U);
- 8000a0a:	415c                	lw	a5,4(a0)
- 8000a0c:	00865703          	lhu	a4,8(a2)
- 8000a10:	0712                	slli	a4,a4,0x4
- 8000a12:	8fd9                	or	a5,a5,a4
- 8000a14:	c15c                	sw	a5,4(a0)
+ 800092e:	415c                	lw	a5,4(a0)
+ 8000930:	00865703          	lhu	a4,8(a2)
+ 8000934:	0712                	slli	a4,a4,0x4
+ 8000936:	8fd9                	or	a5,a5,a4
+ 8000938:	c15c                	sw	a5,4(a0)
             TIMER_CTL1(timer_periph) &= (~(uint32_t)TIMER_CTL1_ISO2N);
- 8000a16:	415c                	lw	a5,4(a0)
- 8000a18:	7779                	lui	a4,0xffffe
- 8000a1a:	177d                	addi	a4,a4,-1
- 8000a1c:	8ff9                	and	a5,a5,a4
- 8000a1e:	c15c                	sw	a5,4(a0)
+ 800093a:	415c                	lw	a5,4(a0)
+ 800093c:	7779                	lui	a4,0xffffe
+ 800093e:	177d                	addi	a4,a4,-1
+ 8000940:	8ff9                	and	a5,a5,a4
+ 8000942:	c15c                	sw	a5,4(a0)
             TIMER_CTL1(timer_periph) |= (uint32_t)((uint32_t)(ocpara->ocnidlestate) << 4U);
- 8000a20:	415c                	lw	a5,4(a0)
- 8000a22:	00a65703          	lhu	a4,10(a2)
- 8000a26:	0712                	slli	a4,a4,0x4
- 8000a28:	8fd9                	or	a5,a5,a4
- 8000a2a:	c15c                	sw	a5,4(a0)
- 8000a2c:	b74d                	j	80009ce <timer_channel_output_config+0x15c>
+ 8000944:	415c                	lw	a5,4(a0)
+ 8000946:	00a65703          	lhu	a4,10(a2)
+ 800094a:	0712                	slli	a4,a4,0x4
+ 800094c:	8fd9                	or	a5,a5,a4
+ 800094e:	c15c                	sw	a5,4(a0)
+ 8000950:	b74d                	j	80008f2 <timer_channel_output_config+0x15c>
     /* configure TIMER_CH_3 */
     case TIMER_CH_3:
         /* reset the CH3EN bit */
         TIMER_CHCTL2(timer_periph) &=(~(uint32_t)TIMER_CHCTL2_CH3EN);
- 8000a2e:	511c                	lw	a5,32(a0)
- 8000a30:	777d                	lui	a4,0xfffff
- 8000a32:	177d                	addi	a4,a4,-1
- 8000a34:	8ff9                	and	a5,a5,a4
- 8000a36:	d11c                	sw	a5,32(a0)
+ 8000952:	511c                	lw	a5,32(a0)
+ 8000954:	777d                	lui	a4,0xfffff
+ 8000956:	177d                	addi	a4,a4,-1
+ 8000958:	8ff9                	and	a5,a5,a4
+ 800095a:	d11c                	sw	a5,32(a0)
         /* set the CH3EN bit */
         TIMER_CHCTL2(timer_periph) |= (uint32_t)((uint32_t)(ocpara->outputstate) << 12U);
- 8000a38:	511c                	lw	a5,32(a0)
- 8000a3a:	00065703          	lhu	a4,0(a2)
- 8000a3e:	0732                	slli	a4,a4,0xc
- 8000a40:	8fd9                	or	a5,a5,a4
- 8000a42:	d11c                	sw	a5,32(a0)
+ 800095c:	511c                	lw	a5,32(a0)
+ 800095e:	00065703          	lhu	a4,0(a2)
+ 8000962:	0732                	slli	a4,a4,0xc
+ 8000964:	8fd9                	or	a5,a5,a4
+ 8000966:	d11c                	sw	a5,32(a0)
         /* reset the CH3P bit */
         TIMER_CHCTL2(timer_periph) &= (~(uint32_t)TIMER_CHCTL2_CH3P);
- 8000a44:	511c                	lw	a5,32(a0)
- 8000a46:	7779                	lui	a4,0xffffe
- 8000a48:	177d                	addi	a4,a4,-1
- 8000a4a:	8ff9                	and	a5,a5,a4
- 8000a4c:	d11c                	sw	a5,32(a0)
+ 8000968:	511c                	lw	a5,32(a0)
+ 800096a:	7779                	lui	a4,0xffffe
+ 800096c:	177d                	addi	a4,a4,-1
+ 800096e:	8ff9                	and	a5,a5,a4
+ 8000970:	d11c                	sw	a5,32(a0)
         /* set the CH3P bit */
         TIMER_CHCTL2(timer_periph) |= (uint32_t)((uint32_t)(ocpara->ocpolarity) << 12U);
- 8000a4e:	511c                	lw	a5,32(a0)
- 8000a50:	00465703          	lhu	a4,4(a2)
- 8000a54:	0732                	slli	a4,a4,0xc
- 8000a56:	8fd9                	or	a5,a5,a4
- 8000a58:	d11c                	sw	a5,32(a0)
+ 8000972:	511c                	lw	a5,32(a0)
+ 8000974:	00465703          	lhu	a4,4(a2)
+ 8000978:	0732                	slli	a4,a4,0xc
+ 800097a:	8fd9                	or	a5,a5,a4
+ 800097c:	d11c                	sw	a5,32(a0)
 
         if (TIMER0 == timer_periph) {
- 8000a5a:	400137b7          	lui	a5,0x40013
- 8000a5e:	c0078793          	addi	a5,a5,-1024 # 40012c00 <_sp+0x2000dc00>
- 8000a62:	00f50763          	beq	a0,a5,8000a70 <timer_channel_output_config+0x1fe>
+ 800097e:	400137b7          	lui	a5,0x40013
+ 8000982:	c0078793          	addi	a5,a5,-1024 # 40012c00 <_sp+0x2000dc00>
+ 8000986:	00f50763          	beq	a0,a5,8000994 <timer_channel_output_config+0x1fe>
             /* reset the ISO3 bit */
             TIMER_CTL1(timer_periph) &= (~(uint32_t)TIMER_CTL1_ISO3);
             /* set the ISO3 bit */
             TIMER_CTL1(timer_periph) |= (uint32_t)((uint32_t)(ocpara->ocidlestate) << 6U);
         }
         TIMER_CHCTL1(timer_periph) &= ~(uint32_t)TIMER_CHCTL1_CH3MS;
- 8000a66:	4d5c                	lw	a5,28(a0)
- 8000a68:	cff7f793          	andi	a5,a5,-769
- 8000a6c:	cd5c                	sw	a5,28(a0)
+ 800098a:	4d5c                	lw	a5,28(a0)
+ 800098c:	cff7f793          	andi	a5,a5,-769
+ 8000990:	cd5c                	sw	a5,28(a0)
         break;
     default:
         break;
     }
 }
- 8000a6e:	8082                	ret
+ 8000992:	8082                	ret
             TIMER_CTL1(timer_periph) &= (~(uint32_t)TIMER_CTL1_ISO3);
- 8000a70:	415c                	lw	a5,4(a0)
- 8000a72:	7771                	lui	a4,0xffffc
- 8000a74:	177d                	addi	a4,a4,-1
- 8000a76:	8ff9                	and	a5,a5,a4
- 8000a78:	c15c                	sw	a5,4(a0)
+ 8000994:	415c                	lw	a5,4(a0)
+ 8000996:	7771                	lui	a4,0xffffc
+ 8000998:	177d                	addi	a4,a4,-1
+ 800099a:	8ff9                	and	a5,a5,a4
+ 800099c:	c15c                	sw	a5,4(a0)
             TIMER_CTL1(timer_periph) |= (uint32_t)((uint32_t)(ocpara->ocidlestate) << 6U);
- 8000a7a:	415c                	lw	a5,4(a0)
- 8000a7c:	00865703          	lhu	a4,8(a2)
- 8000a80:	071a                	slli	a4,a4,0x6
- 8000a82:	8fd9                	or	a5,a5,a4
- 8000a84:	c15c                	sw	a5,4(a0)
- 8000a86:	b7c5                	j	8000a66 <timer_channel_output_config+0x1f4>
+ 800099e:	415c                	lw	a5,4(a0)
+ 80009a0:	00865703          	lhu	a4,8(a2)
+ 80009a4:	071a                	slli	a4,a4,0x6
+ 80009a6:	8fd9                	or	a5,a5,a4
+ 80009a8:	c15c                	sw	a5,4(a0)
+ 80009aa:	b7c5                	j	800098a <timer_channel_output_config+0x1f4>
 
-08000a88 <timer_channel_output_mode_config>:
+080009ac <timer_channel_output_mode_config>:
     \param[out] none
     \retval     none
 */
 void timer_channel_output_mode_config(uint32_t timer_periph, uint16_t channel, uint16_t ocmode)
 {
     switch(channel){
- 8000a88:	4785                	li	a5,1
- 8000a8a:	02f58563          	beq	a1,a5,8000ab4 <timer_channel_output_mode_config+0x2c>
- 8000a8e:	01059793          	slli	a5,a1,0x10
- 8000a92:	87c1                	srai	a5,a5,0x10
- 8000a94:	cb81                	beqz	a5,8000aa4 <timer_channel_output_mode_config+0x1c>
- 8000a96:	4789                	li	a5,2
- 8000a98:	02f58863          	beq	a1,a5,8000ac8 <timer_channel_output_mode_config+0x40>
- 8000a9c:	478d                	li	a5,3
- 8000a9e:	02f58d63          	beq	a1,a5,8000ad8 <timer_channel_output_mode_config+0x50>
- 8000aa2:	8082                	ret
+ 80009ac:	4785                	li	a5,1
+ 80009ae:	02f58563          	beq	a1,a5,80009d8 <timer_channel_output_mode_config+0x2c>
+ 80009b2:	01059793          	slli	a5,a1,0x10
+ 80009b6:	87c1                	srai	a5,a5,0x10
+ 80009b8:	cb81                	beqz	a5,80009c8 <timer_channel_output_mode_config+0x1c>
+ 80009ba:	4789                	li	a5,2
+ 80009bc:	02f58863          	beq	a1,a5,80009ec <timer_channel_output_mode_config+0x40>
+ 80009c0:	478d                	li	a5,3
+ 80009c2:	02f58d63          	beq	a1,a5,80009fc <timer_channel_output_mode_config+0x50>
+ 80009c6:	8082                	ret
     /* configure TIMER_CH_0 */
     case TIMER_CH_0:
         TIMER_CHCTL0(timer_periph) &= (~(uint32_t)TIMER_CHCTL0_CH0COMCTL);
- 8000aa4:	4d1c                	lw	a5,24(a0)
- 8000aa6:	f8f7f793          	andi	a5,a5,-113
- 8000aaa:	cd1c                	sw	a5,24(a0)
+ 80009c8:	4d1c                	lw	a5,24(a0)
+ 80009ca:	f8f7f793          	andi	a5,a5,-113
+ 80009ce:	cd1c                	sw	a5,24(a0)
         TIMER_CHCTL0(timer_periph) |= (uint32_t)ocmode;
- 8000aac:	4d1c                	lw	a5,24(a0)
- 8000aae:	8e5d                	or	a2,a2,a5
- 8000ab0:	cd10                	sw	a2,24(a0)
+ 80009d0:	4d1c                	lw	a5,24(a0)
+ 80009d2:	8e5d                	or	a2,a2,a5
+ 80009d4:	cd10                	sw	a2,24(a0)
         break;
- 8000ab2:	8082                	ret
+ 80009d6:	8082                	ret
     /* configure TIMER_CH_1 */
     case TIMER_CH_1:
         TIMER_CHCTL0(timer_periph) &= (~(uint32_t)TIMER_CHCTL0_CH1COMCTL);
- 8000ab4:	4d1c                	lw	a5,24(a0)
- 8000ab6:	7765                	lui	a4,0xffff9
- 8000ab8:	177d                	addi	a4,a4,-1
- 8000aba:	8ff9                	and	a5,a5,a4
- 8000abc:	cd1c                	sw	a5,24(a0)
+ 80009d8:	4d1c                	lw	a5,24(a0)
+ 80009da:	7765                	lui	a4,0xffff9
+ 80009dc:	177d                	addi	a4,a4,-1
+ 80009de:	8ff9                	and	a5,a5,a4
+ 80009e0:	cd1c                	sw	a5,24(a0)
         TIMER_CHCTL0(timer_periph) |= (uint32_t)((uint32_t)(ocmode) << 8U);
- 8000abe:	4d1c                	lw	a5,24(a0)
- 8000ac0:	0622                	slli	a2,a2,0x8
- 8000ac2:	8e5d                	or	a2,a2,a5
- 8000ac4:	cd10                	sw	a2,24(a0)
+ 80009e2:	4d1c                	lw	a5,24(a0)
+ 80009e4:	0622                	slli	a2,a2,0x8
+ 80009e6:	8e5d                	or	a2,a2,a5
+ 80009e8:	cd10                	sw	a2,24(a0)
         break;
- 8000ac6:	8082                	ret
+ 80009ea:	8082                	ret
     /* configure TIMER_CH_2 */
     case TIMER_CH_2:
         TIMER_CHCTL1(timer_periph) &= (~(uint32_t)TIMER_CHCTL1_CH2COMCTL);
- 8000ac8:	4d5c                	lw	a5,28(a0)
- 8000aca:	f8f7f793          	andi	a5,a5,-113
- 8000ace:	cd5c                	sw	a5,28(a0)
+ 80009ec:	4d5c                	lw	a5,28(a0)
+ 80009ee:	f8f7f793          	andi	a5,a5,-113
+ 80009f2:	cd5c                	sw	a5,28(a0)
         TIMER_CHCTL1(timer_periph) |= (uint32_t)ocmode;
- 8000ad0:	4d5c                	lw	a5,28(a0)
- 8000ad2:	8e5d                	or	a2,a2,a5
- 8000ad4:	cd50                	sw	a2,28(a0)
+ 80009f4:	4d5c                	lw	a5,28(a0)
+ 80009f6:	8e5d                	or	a2,a2,a5
+ 80009f8:	cd50                	sw	a2,28(a0)
         break;
- 8000ad6:	8082                	ret
+ 80009fa:	8082                	ret
     /* configure TIMER_CH_3 */
     case TIMER_CH_3:
         TIMER_CHCTL1(timer_periph) &= (~(uint32_t)TIMER_CHCTL1_CH3COMCTL);
- 8000ad8:	4d5c                	lw	a5,28(a0)
- 8000ada:	7765                	lui	a4,0xffff9
- 8000adc:	177d                	addi	a4,a4,-1
- 8000ade:	8ff9                	and	a5,a5,a4
- 8000ae0:	cd5c                	sw	a5,28(a0)
+ 80009fc:	4d5c                	lw	a5,28(a0)
+ 80009fe:	7765                	lui	a4,0xffff9
+ 8000a00:	177d                	addi	a4,a4,-1
+ 8000a02:	8ff9                	and	a5,a5,a4
+ 8000a04:	cd5c                	sw	a5,28(a0)
         TIMER_CHCTL1(timer_periph) |= (uint32_t)((uint32_t)(ocmode) << 8U);
- 8000ae2:	4d5c                	lw	a5,28(a0)
- 8000ae4:	0622                	slli	a2,a2,0x8
- 8000ae6:	8e5d                	or	a2,a2,a5
- 8000ae8:	cd50                	sw	a2,28(a0)
+ 8000a06:	4d5c                	lw	a5,28(a0)
+ 8000a08:	0622                	slli	a2,a2,0x8
+ 8000a0a:	8e5d                	or	a2,a2,a5
+ 8000a0c:	cd50                	sw	a2,28(a0)
         break;
     default:
         break;
     }
 }
- 8000aea:	8082                	ret
+ 8000a0e:	8082                	ret
 
-08000aec <timer_channel_output_pulse_value_config>:
+08000a10 <timer_channel_output_pulse_value_config>:
     \param[out] none
     \retval     none
 */
 void timer_channel_output_pulse_value_config(uint32_t timer_periph, uint16_t channel, uint32_t pulse)
 {
     switch(channel){
- 8000aec:	4785                	li	a5,1
- 8000aee:	00f58f63          	beq	a1,a5,8000b0c <timer_channel_output_pulse_value_config+0x20>
- 8000af2:	01059793          	slli	a5,a1,0x10
- 8000af6:	87c1                	srai	a5,a5,0x10
- 8000af8:	cb81                	beqz	a5,8000b08 <timer_channel_output_pulse_value_config+0x1c>
- 8000afa:	4789                	li	a5,2
- 8000afc:	00f58a63          	beq	a1,a5,8000b10 <timer_channel_output_pulse_value_config+0x24>
- 8000b00:	478d                	li	a5,3
- 8000b02:	00f58963          	beq	a1,a5,8000b14 <timer_channel_output_pulse_value_config+0x28>
- 8000b06:	8082                	ret
+ 8000a10:	4785                	li	a5,1
+ 8000a12:	00f58f63          	beq	a1,a5,8000a30 <timer_channel_output_pulse_value_config+0x20>
+ 8000a16:	01059793          	slli	a5,a1,0x10
+ 8000a1a:	87c1                	srai	a5,a5,0x10
+ 8000a1c:	cb81                	beqz	a5,8000a2c <timer_channel_output_pulse_value_config+0x1c>
+ 8000a1e:	4789                	li	a5,2
+ 8000a20:	00f58a63          	beq	a1,a5,8000a34 <timer_channel_output_pulse_value_config+0x24>
+ 8000a24:	478d                	li	a5,3
+ 8000a26:	00f58963          	beq	a1,a5,8000a38 <timer_channel_output_pulse_value_config+0x28>
+ 8000a2a:	8082                	ret
     /* configure TIMER_CH_0 */
     case TIMER_CH_0:
         TIMER_CH0CV(timer_periph) = (uint32_t)pulse;
- 8000b08:	d950                	sw	a2,52(a0)
+ 8000a2c:	d950                	sw	a2,52(a0)
         break;
- 8000b0a:	8082                	ret
+ 8000a2e:	8082                	ret
     /* configure TIMER_CH_1 */
     case TIMER_CH_1:
         TIMER_CH1CV(timer_periph) = (uint32_t)pulse;
- 8000b0c:	dd10                	sw	a2,56(a0)
+ 8000a30:	dd10                	sw	a2,56(a0)
         break;
- 8000b0e:	8082                	ret
+ 8000a32:	8082                	ret
     /* configure TIMER_CH_2 */
     case TIMER_CH_2:
         TIMER_CH2CV(timer_periph) = (uint32_t)pulse;
- 8000b10:	dd50                	sw	a2,60(a0)
+ 8000a34:	dd50                	sw	a2,60(a0)
         break;
- 8000b12:	8082                	ret
+ 8000a36:	8082                	ret
     /* configure TIMER_CH_3 */
     case TIMER_CH_3:
          TIMER_CH3CV(timer_periph) = (uint32_t)pulse;
- 8000b14:	c130                	sw	a2,64(a0)
+ 8000a38:	c130                	sw	a2,64(a0)
         break;
     default:
         break;
     }
 }
- 8000b16:	8082                	ret
+ 8000a3a:	8082                	ret
 
-08000b18 <timer_channel_output_shadow_config>:
+08000a3c <timer_channel_output_shadow_config>:
     \param[out] none
     \retval     none
 */
 void timer_channel_output_shadow_config(uint32_t timer_periph, uint16_t channel, uint16_t ocshadow)
 {
     switch(channel){
- 8000b18:	4785                	li	a5,1
- 8000b1a:	02f58463          	beq	a1,a5,8000b42 <timer_channel_output_shadow_config+0x2a>
- 8000b1e:	01059793          	slli	a5,a1,0x10
- 8000b22:	87c1                	srai	a5,a5,0x10
- 8000b24:	cb81                	beqz	a5,8000b34 <timer_channel_output_shadow_config+0x1c>
- 8000b26:	4789                	li	a5,2
- 8000b28:	02f58863          	beq	a1,a5,8000b58 <timer_channel_output_shadow_config+0x40>
- 8000b2c:	478d                	li	a5,3
- 8000b2e:	02f58c63          	beq	a1,a5,8000b66 <timer_channel_output_shadow_config+0x4e>
- 8000b32:	8082                	ret
+ 8000a3c:	4785                	li	a5,1
+ 8000a3e:	02f58463          	beq	a1,a5,8000a66 <timer_channel_output_shadow_config+0x2a>
+ 8000a42:	01059793          	slli	a5,a1,0x10
+ 8000a46:	87c1                	srai	a5,a5,0x10
+ 8000a48:	cb81                	beqz	a5,8000a58 <timer_channel_output_shadow_config+0x1c>
+ 8000a4a:	4789                	li	a5,2
+ 8000a4c:	02f58863          	beq	a1,a5,8000a7c <timer_channel_output_shadow_config+0x40>
+ 8000a50:	478d                	li	a5,3
+ 8000a52:	02f58c63          	beq	a1,a5,8000a8a <timer_channel_output_shadow_config+0x4e>
+ 8000a56:	8082                	ret
     /* configure TIMER_CH_0 */
     case TIMER_CH_0:
         TIMER_CHCTL0(timer_periph) &= (~(uint32_t)TIMER_CHCTL0_CH0COMSEN);
- 8000b34:	4d1c                	lw	a5,24(a0)
- 8000b36:	9bdd                	andi	a5,a5,-9
- 8000b38:	cd1c                	sw	a5,24(a0)
+ 8000a58:	4d1c                	lw	a5,24(a0)
+ 8000a5a:	9bdd                	andi	a5,a5,-9
+ 8000a5c:	cd1c                	sw	a5,24(a0)
         TIMER_CHCTL0(timer_periph) |= (uint32_t)ocshadow;
- 8000b3a:	4d1c                	lw	a5,24(a0)
- 8000b3c:	8e5d                	or	a2,a2,a5
- 8000b3e:	cd10                	sw	a2,24(a0)
+ 8000a5e:	4d1c                	lw	a5,24(a0)
+ 8000a60:	8e5d                	or	a2,a2,a5
+ 8000a62:	cd10                	sw	a2,24(a0)
         break;
- 8000b40:	8082                	ret
+ 8000a64:	8082                	ret
     /* configure TIMER_CH_1 */
     case TIMER_CH_1:
         TIMER_CHCTL0(timer_periph) &= (~(uint32_t)TIMER_CHCTL0_CH1COMSEN);
- 8000b42:	4d1c                	lw	a5,24(a0)
- 8000b44:	777d                	lui	a4,0xfffff
- 8000b46:	7ff70713          	addi	a4,a4,2047 # fffff7ff <_sp+0xdfffa7ff>
- 8000b4a:	8ff9                	and	a5,a5,a4
- 8000b4c:	cd1c                	sw	a5,24(a0)
+ 8000a66:	4d1c                	lw	a5,24(a0)
+ 8000a68:	777d                	lui	a4,0xfffff
+ 8000a6a:	7ff70713          	addi	a4,a4,2047 # fffff7ff <_sp+0xdfffa7ff>
+ 8000a6e:	8ff9                	and	a5,a5,a4
+ 8000a70:	cd1c                	sw	a5,24(a0)
         TIMER_CHCTL0(timer_periph) |= (uint32_t)((uint32_t)(ocshadow) << 8U);
- 8000b4e:	4d1c                	lw	a5,24(a0)
- 8000b50:	0622                	slli	a2,a2,0x8
- 8000b52:	8e5d                	or	a2,a2,a5
- 8000b54:	cd10                	sw	a2,24(a0)
+ 8000a72:	4d1c                	lw	a5,24(a0)
+ 8000a74:	0622                	slli	a2,a2,0x8
+ 8000a76:	8e5d                	or	a2,a2,a5
+ 8000a78:	cd10                	sw	a2,24(a0)
         break;
- 8000b56:	8082                	ret
+ 8000a7a:	8082                	ret
     /* configure TIMER_CH_2 */
     case TIMER_CH_2:
         TIMER_CHCTL1(timer_periph) &= (~(uint32_t)TIMER_CHCTL1_CH2COMSEN);
- 8000b58:	4d5c                	lw	a5,28(a0)
- 8000b5a:	9bdd                	andi	a5,a5,-9
- 8000b5c:	cd5c                	sw	a5,28(a0)
+ 8000a7c:	4d5c                	lw	a5,28(a0)
+ 8000a7e:	9bdd                	andi	a5,a5,-9
+ 8000a80:	cd5c                	sw	a5,28(a0)
         TIMER_CHCTL1(timer_periph) |= (uint32_t)ocshadow;
- 8000b5e:	4d5c                	lw	a5,28(a0)
- 8000b60:	8e5d                	or	a2,a2,a5
- 8000b62:	cd50                	sw	a2,28(a0)
+ 8000a82:	4d5c                	lw	a5,28(a0)
+ 8000a84:	8e5d                	or	a2,a2,a5
+ 8000a86:	cd50                	sw	a2,28(a0)
         break;
- 8000b64:	8082                	ret
+ 8000a88:	8082                	ret
     /* configure TIMER_CH_3 */
     case TIMER_CH_3:
         TIMER_CHCTL1(timer_periph) &= (~(uint32_t)TIMER_CHCTL1_CH3COMSEN);
- 8000b66:	4d5c                	lw	a5,28(a0)
- 8000b68:	777d                	lui	a4,0xfffff
- 8000b6a:	7ff70713          	addi	a4,a4,2047 # fffff7ff <_sp+0xdfffa7ff>
- 8000b6e:	8ff9                	and	a5,a5,a4
- 8000b70:	cd5c                	sw	a5,28(a0)
+ 8000a8a:	4d5c                	lw	a5,28(a0)
+ 8000a8c:	777d                	lui	a4,0xfffff
+ 8000a8e:	7ff70713          	addi	a4,a4,2047 # fffff7ff <_sp+0xdfffa7ff>
+ 8000a92:	8ff9                	and	a5,a5,a4
+ 8000a94:	cd5c                	sw	a5,28(a0)
         TIMER_CHCTL1(timer_periph) |= (uint32_t)((uint32_t)(ocshadow) << 8U);
- 8000b72:	4d5c                	lw	a5,28(a0)
- 8000b74:	0622                	slli	a2,a2,0x8
- 8000b76:	8e5d                	or	a2,a2,a5
- 8000b78:	cd50                	sw	a2,28(a0)
+ 8000a96:	4d5c                	lw	a5,28(a0)
+ 8000a98:	0622                	slli	a2,a2,0x8
+ 8000a9a:	8e5d                	or	a2,a2,a5
+ 8000a9c:	cd50                	sw	a2,28(a0)
         break;
     default:
         break;
     }
 }
- 8000b7a:	8082                	ret
+ 8000a9e:	8082                	ret
 
-08000b7c <timer_interrupt_enable>:
+08000aa0 <timer_interrupt_enable>:
     \param[out] none
     \retval     none
 */
 void timer_interrupt_enable(uint32_t timer_periph, uint32_t interrupt)
 {
     TIMER_DMAINTEN(timer_periph) |= (uint32_t) interrupt; 
- 8000b7c:	455c                	lw	a5,12(a0)
- 8000b7e:	8ddd                	or	a1,a1,a5
- 8000b80:	c54c                	sw	a1,12(a0)
+ 8000aa0:	455c                	lw	a5,12(a0)
+ 8000aa2:	8ddd                	or	a1,a1,a5
+ 8000aa4:	c54c                	sw	a1,12(a0)
 }
- 8000b82:	8082                	ret
+ 8000aa6:	8082                	ret
 
-08000b84 <eclic_enable_interrupt>:
+08000aa8 <eclic_enable_interrupt>:
 }
 
 
 
 void eclic_enable_interrupt (uint32_t source) {
     *(volatile uint8_t*)(ECLIC_ADDR_BASE+ECLIC_INT_IE_OFFSET+source*4) = 1;
- 8000b84:	050a                	slli	a0,a0,0x2
- 8000b86:	d20017b7          	lui	a5,0xd2001
- 8000b8a:	0785                	addi	a5,a5,1
- 8000b8c:	953e                	add	a0,a0,a5
- 8000b8e:	4785                	li	a5,1
- 8000b90:	00f50023          	sb	a5,0(a0)
+ 8000aa8:	050a                	slli	a0,a0,0x2
+ 8000aaa:	d20017b7          	lui	a5,0xd2001
+ 8000aae:	0785                	addi	a5,a5,1
+ 8000ab0:	953e                	add	a0,a0,a5
+ 8000ab2:	4785                	li	a5,1
+ 8000ab4:	00f50023          	sb	a5,0(a0)
 }
- 8000b94:	8082                	ret
+ 8000ab8:	8082                	ret
 
-08000b96 <eclic_set_intctrl>:
+08000aba <eclic_set_intctrl>:
 void eclic_clear_pending(uint32_t source){
     *(volatile uint8_t*)(ECLIC_ADDR_BASE+ECLIC_INT_IP_OFFSET+source*4) = 0;
 }
 
 void eclic_set_intctrl (uint32_t source, uint8_t intctrl){
   *(volatile uint8_t*)(ECLIC_ADDR_BASE+ECLIC_INT_CTRL_OFFSET+source*4) = intctrl;
- 8000b96:	050a                	slli	a0,a0,0x2
- 8000b98:	d20017b7          	lui	a5,0xd2001
- 8000b9c:	078d                	addi	a5,a5,3
- 8000b9e:	953e                	add	a0,a0,a5
- 8000ba0:	00b50023          	sb	a1,0(a0)
+ 8000aba:	050a                	slli	a0,a0,0x2
+ 8000abc:	d20017b7          	lui	a5,0xd2001
+ 8000ac0:	078d                	addi	a5,a5,3
+ 8000ac2:	953e                	add	a0,a0,a5
+ 8000ac4:	00b50023          	sb	a1,0(a0)
 }
- 8000ba4:	8082                	ret
+ 8000ac8:	8082                	ret
 
-08000ba6 <eclic_get_intctrl>:
+08000aca <eclic_get_intctrl>:
 
 uint8_t eclic_get_intctrl  (uint32_t source){
   return *(volatile uint8_t*)(ECLIC_ADDR_BASE+ECLIC_INT_CTRL_OFFSET+source*4);
- 8000ba6:	050a                	slli	a0,a0,0x2
- 8000ba8:	d20017b7          	lui	a5,0xd2001
- 8000bac:	078d                	addi	a5,a5,3
- 8000bae:	953e                	add	a0,a0,a5
- 8000bb0:	00054503          	lbu	a0,0(a0)
+ 8000aca:	050a                	slli	a0,a0,0x2
+ 8000acc:	d20017b7          	lui	a5,0xd2001
+ 8000ad0:	078d                	addi	a5,a5,3
+ 8000ad2:	953e                	add	a0,a0,a5
+ 8000ad4:	00054503          	lbu	a0,0(a0)
 }
- 8000bb4:	8082                	ret
+ 8000ad8:	8082                	ret
 
-08000bb6 <eclic_set_cliccfg>:
+08000ada <eclic_set_cliccfg>:
 uint8_t eclic_get_intattr  (uint32_t source){
   return *(volatile uint8_t*)(ECLIC_ADDR_BASE+ECLIC_INT_ATTR_OFFSET+source*4);
 }
 
 void eclic_set_cliccfg (uint8_t cliccfg){
   *(volatile uint8_t*)(ECLIC_ADDR_BASE+ECLIC_CFG_OFFSET) = cliccfg;
- 8000bb6:	d20007b7          	lui	a5,0xd2000
- 8000bba:	00a78023          	sb	a0,0(a5) # d2000000 <_sp+0xb1ffb000>
+ 8000ada:	d20007b7          	lui	a5,0xd2000
+ 8000ade:	00a78023          	sb	a0,0(a5) # d2000000 <_sp+0xb1ffb000>
 }
- 8000bbe:	8082                	ret
+ 8000ae2:	8082                	ret
 
-08000bc0 <eclic_get_cliccfg>:
+08000ae4 <eclic_get_cliccfg>:
 
 uint8_t eclic_get_cliccfg  (){
   return *(volatile uint8_t*)(ECLIC_ADDR_BASE+ECLIC_CFG_OFFSET);
- 8000bc0:	d20007b7          	lui	a5,0xd2000
- 8000bc4:	0007c503          	lbu	a0,0(a5) # d2000000 <_sp+0xb1ffb000>
+ 8000ae4:	d20007b7          	lui	a5,0xd2000
+ 8000ae8:	0007c503          	lbu	a0,0(a5) # d2000000 <_sp+0xb1ffb000>
 }
- 8000bc8:	8082                	ret
+ 8000aec:	8082                	ret
 
-08000bca <eclic_set_nlbits>:
+08000aee <eclic_set_nlbits>:
 uint8_t eclic_get_mth  (){
   return *(volatile uint8_t*)(ECLIC_ADDR_BASE+ECLIC_MTH_OFFSET);
 }
 
 //sets nlbits 
 void eclic_set_nlbits(uint8_t nlbits) {
- 8000bca:	1141                	addi	sp,sp,-16
- 8000bcc:	c606                	sw	ra,12(sp)
- 8000bce:	c422                	sw	s0,8(sp)
+ 8000aee:	1141                	addi	sp,sp,-16
+ 8000af0:	c606                	sw	ra,12(sp)
+ 8000af2:	c422                	sw	s0,8(sp)
   //shift nlbits to correct position
   uint8_t nlbits_shifted = nlbits << ECLIC_CFG_NLBITS_LSB;
- 8000bd0:	0506                	slli	a0,a0,0x1
- 8000bd2:	0ff57413          	andi	s0,a0,255
+ 8000af4:	0506                	slli	a0,a0,0x1
+ 8000af6:	0ff57413          	andi	s0,a0,255
 
   //read the current cliccfg 
   uint8_t old_cliccfg = eclic_get_cliccfg();
- 8000bd6:	37ed                	jal	8000bc0 <eclic_get_cliccfg>
+ 8000afa:	37ed                	jal	8000ae4 <eclic_get_cliccfg>
   uint8_t new_cliccfg = (old_cliccfg & (~ECLIC_CFG_NLBITS_MASK)) | (ECLIC_CFG_NLBITS_MASK & nlbits_shifted); 
- 8000bd8:	0e157513          	andi	a0,a0,225
- 8000bdc:	8879                	andi	s0,s0,30
+ 8000afc:	0e157513          	andi	a0,a0,225
+ 8000b00:	8879                	andi	s0,s0,30
 
   eclic_set_cliccfg(new_cliccfg);
- 8000bde:	8d41                	or	a0,a0,s0
- 8000be0:	3fd9                	jal	8000bb6 <eclic_set_cliccfg>
+ 8000b02:	8d41                	or	a0,a0,s0
+ 8000b04:	3fd9                	jal	8000ada <eclic_set_cliccfg>
 }
- 8000be2:	40b2                	lw	ra,12(sp)
- 8000be4:	4422                	lw	s0,8(sp)
- 8000be6:	0141                	addi	sp,sp,16
- 8000be8:	8082                	ret
+ 8000b06:	40b2                	lw	ra,12(sp)
+ 8000b08:	4422                	lw	s0,8(sp)
+ 8000b0a:	0141                	addi	sp,sp,16
+ 8000b0c:	8082                	ret
 
-08000bea <eclic_get_nlbits>:
+08000b0e <eclic_get_nlbits>:
 
 //get nlbits 
 uint8_t eclic_get_nlbits(void) {
- 8000bea:	1141                	addi	sp,sp,-16
- 8000bec:	c606                	sw	ra,12(sp)
+ 8000b0e:	1141                	addi	sp,sp,-16
+ 8000b10:	c606                	sw	ra,12(sp)
   //extract nlbits
   uint8_t nlbits = eclic_get_cliccfg();
- 8000bee:	3fc9                	jal	8000bc0 <eclic_get_cliccfg>
+ 8000b12:	3fc9                	jal	8000ae4 <eclic_get_cliccfg>
   nlbits = (nlbits & ECLIC_CFG_NLBITS_MASK) >> ECLIC_CFG_NLBITS_LSB;
- 8000bf0:	8105                	srli	a0,a0,0x1
+ 8000b14:	8105                	srli	a0,a0,0x1
   return nlbits;
 }
- 8000bf2:	893d                	andi	a0,a0,15
- 8000bf4:	40b2                	lw	ra,12(sp)
- 8000bf6:	0141                	addi	sp,sp,16
- 8000bf8:	8082                	ret
+ 8000b16:	893d                	andi	a0,a0,15
+ 8000b18:	40b2                	lw	ra,12(sp)
+ 8000b1a:	0141                	addi	sp,sp,16
+ 8000b1c:	8082                	ret
 
-08000bfa <eclic_set_irq_lvl_abs>:
+08000b1e <eclic_set_irq_lvl_abs>:
   uint8_t lvl = intctrl << (8-nlbits);
 
   return lvl;
 }
 
 void eclic_set_irq_lvl_abs(uint32_t source, uint8_t lvl_abs) {
- 8000bfa:	1141                	addi	sp,sp,-16
- 8000bfc:	c606                	sw	ra,12(sp)
- 8000bfe:	c422                	sw	s0,8(sp)
- 8000c00:	c226                	sw	s1,4(sp)
- 8000c02:	c04a                	sw	s2,0(sp)
- 8000c04:	892a                	mv	s2,a0
- 8000c06:	842e                	mv	s0,a1
+ 8000b1e:	1141                	addi	sp,sp,-16
+ 8000b20:	c606                	sw	ra,12(sp)
+ 8000b22:	c422                	sw	s0,8(sp)
+ 8000b24:	c226                	sw	s1,4(sp)
+ 8000b26:	c04a                	sw	s2,0(sp)
+ 8000b28:	892a                	mv	s2,a0
+ 8000b2a:	842e                	mv	s0,a1
   //extract nlbits
   uint8_t nlbits = eclic_get_nlbits();
- 8000c08:	37cd                	jal	8000bea <eclic_get_nlbits>
- 8000c0a:	84aa                	mv	s1,a0
+ 8000b2c:	37cd                	jal	8000b0e <eclic_get_nlbits>
+ 8000b2e:	84aa                	mv	s1,a0
   if (nlbits > ECLICINTCTLBITS) {
- 8000c0c:	4791                	li	a5,4
- 8000c0e:	00a7f363          	bgeu	a5,a0,8000c14 <eclic_set_irq_lvl_abs+0x1a>
+ 8000b30:	4791                	li	a5,4
+ 8000b32:	00a7f363          	bgeu	a5,a0,8000b38 <eclic_set_irq_lvl_abs+0x1a>
     nlbits = ECLICINTCTLBITS;
- 8000c12:	4491                	li	s1,4
+ 8000b36:	4491                	li	s1,4
   }
 
   //shift lvl_abs into correct bit position
   uint8_t lvl = lvl_abs << (8-nlbits);
- 8000c14:	47a1                	li	a5,8
- 8000c16:	8f85                	sub	a5,a5,s1
- 8000c18:	00f41433          	sll	s0,s0,a5
- 8000c1c:	0ff47413          	andi	s0,s0,255
+ 8000b38:	47a1                	li	a5,8
+ 8000b3a:	8f85                	sub	a5,a5,s1
+ 8000b3c:	00f41433          	sll	s0,s0,a5
+ 8000b40:	0ff47413          	andi	s0,s0,255
  
   //write to clicintctrl
   uint8_t current_intctrl = eclic_get_intctrl(source);
- 8000c20:	854a                	mv	a0,s2
- 8000c22:	3751                	jal	8000ba6 <eclic_get_intctrl>
+ 8000b44:	854a                	mv	a0,s2
+ 8000b46:	3751                	jal	8000aca <eclic_get_intctrl>
   //shift intctrl left to mask off unused bits
   current_intctrl = current_intctrl << nlbits;
- 8000c24:	009515b3          	sll	a1,a0,s1
+ 8000b48:	009515b3          	sll	a1,a0,s1
   //shift intctrl into correct bit position
   current_intctrl = current_intctrl >> nlbits;
- 8000c28:	0ff5f593          	andi	a1,a1,255
- 8000c2c:	4095d5b3          	sra	a1,a1,s1
- 8000c30:	0ff5f593          	andi	a1,a1,255
+ 8000b4c:	0ff5f593          	andi	a1,a1,255
+ 8000b50:	4095d5b3          	sra	a1,a1,s1
+ 8000b54:	0ff5f593          	andi	a1,a1,255
 
   eclic_set_intctrl(source, (current_intctrl | lvl));
- 8000c34:	8dc1                	or	a1,a1,s0
- 8000c36:	854a                	mv	a0,s2
- 8000c38:	3fb9                	jal	8000b96 <eclic_set_intctrl>
+ 8000b58:	8dc1                	or	a1,a1,s0
+ 8000b5a:	854a                	mv	a0,s2
+ 8000b5c:	3fb9                	jal	8000aba <eclic_set_intctrl>
 }
- 8000c3a:	40b2                	lw	ra,12(sp)
- 8000c3c:	4422                	lw	s0,8(sp)
- 8000c3e:	4492                	lw	s1,4(sp)
- 8000c40:	4902                	lw	s2,0(sp)
- 8000c42:	0141                	addi	sp,sp,16
- 8000c44:	8082                	ret
+ 8000b5e:	40b2                	lw	ra,12(sp)
+ 8000b60:	4422                	lw	s0,8(sp)
+ 8000b62:	4492                	lw	s1,4(sp)
+ 8000b64:	4902                	lw	s2,0(sp)
+ 8000b66:	0141                	addi	sp,sp,16
+ 8000b68:	8082                	ret
 
-08000c46 <eclic_set_irq_priority>:
+08000b6a <eclic_set_irq_priority>:
 
   return lvl_abs;
 }
 
 //sets an interrupt priority based encoding of nlbits and ECLICINTCTLBITS
 uint8_t eclic_set_irq_priority(uint32_t source, uint8_t priority) {
- 8000c46:	1141                	addi	sp,sp,-16
- 8000c48:	c606                	sw	ra,12(sp)
- 8000c4a:	c422                	sw	s0,8(sp)
- 8000c4c:	c226                	sw	s1,4(sp)
- 8000c4e:	c04a                	sw	s2,0(sp)
- 8000c50:	892a                	mv	s2,a0
- 8000c52:	842e                	mv	s0,a1
+ 8000b6a:	1141                	addi	sp,sp,-16
+ 8000b6c:	c606                	sw	ra,12(sp)
+ 8000b6e:	c422                	sw	s0,8(sp)
+ 8000b70:	c226                	sw	s1,4(sp)
+ 8000b72:	c04a                	sw	s2,0(sp)
+ 8000b74:	892a                	mv	s2,a0
+ 8000b76:	842e                	mv	s0,a1
 	//extract nlbits
 	uint8_t nlbits = eclic_get_nlbits();
- 8000c54:	3f59                	jal	8000bea <eclic_get_nlbits>
+ 8000b78:	3f59                	jal	8000b0e <eclic_get_nlbits>
 	if (nlbits >= ECLICINTCTLBITS) {
- 8000c56:	478d                	li	a5,3
- 8000c58:	00a7fa63          	bgeu	a5,a0,8000c6c <eclic_set_irq_priority+0x26>
+ 8000b7a:	478d                	li	a5,3
+ 8000b7c:	00a7fa63          	bgeu	a5,a0,8000b90 <eclic_set_irq_priority+0x26>
 		nlbits = ECLICINTCTLBITS;
 		return 0;
- 8000c5c:	4401                	li	s0,0
+ 8000b80:	4401                	li	s0,0
 	current_intctrl = current_intctrl << (8-nlbits);
 
 	eclic_set_intctrl(source, (current_intctrl | priority));
 
 	return priority;
 }
- 8000c5e:	8522                	mv	a0,s0
- 8000c60:	40b2                	lw	ra,12(sp)
- 8000c62:	4422                	lw	s0,8(sp)
- 8000c64:	4492                	lw	s1,4(sp)
- 8000c66:	4902                	lw	s2,0(sp)
- 8000c68:	0141                	addi	sp,sp,16
- 8000c6a:	8082                	ret
- 8000c6c:	84aa                	mv	s1,a0
+ 8000b82:	8522                	mv	a0,s0
+ 8000b84:	40b2                	lw	ra,12(sp)
+ 8000b86:	4422                	lw	s0,8(sp)
+ 8000b88:	4492                	lw	s1,4(sp)
+ 8000b8a:	4902                	lw	s2,0(sp)
+ 8000b8c:	0141                	addi	sp,sp,16
+ 8000b8e:	8082                	ret
+ 8000b90:	84aa                	mv	s1,a0
 	priority = priority << (8 - ECLICINTCTLBITS);
- 8000c6e:	0412                	slli	s0,s0,0x4
- 8000c70:	0ff47413          	andi	s0,s0,255
+ 8000b92:	0412                	slli	s0,s0,0x4
+ 8000b94:	0ff47413          	andi	s0,s0,255
 	uint8_t current_intctrl = eclic_get_intctrl(source);
- 8000c74:	854a                	mv	a0,s2
- 8000c76:	3f05                	jal	8000ba6 <eclic_get_intctrl>
+ 8000b98:	854a                	mv	a0,s2
+ 8000b9a:	3f05                	jal	8000aca <eclic_get_intctrl>
 	current_intctrl = current_intctrl >> (8-nlbits);
- 8000c78:	45a1                	li	a1,8
- 8000c7a:	409584b3          	sub	s1,a1,s1
- 8000c7e:	409555b3          	sra	a1,a0,s1
+ 8000b9c:	45a1                	li	a1,8
+ 8000b9e:	409584b3          	sub	s1,a1,s1
+ 8000ba2:	409555b3          	sra	a1,a0,s1
 	current_intctrl = current_intctrl << (8-nlbits);
- 8000c82:	0ff5f593          	andi	a1,a1,255
- 8000c86:	009595b3          	sll	a1,a1,s1
- 8000c8a:	0ff5f593          	andi	a1,a1,255
+ 8000ba6:	0ff5f593          	andi	a1,a1,255
+ 8000baa:	009595b3          	sll	a1,a1,s1
+ 8000bae:	0ff5f593          	andi	a1,a1,255
 	eclic_set_intctrl(source, (current_intctrl | priority));
- 8000c8e:	8dc1                	or	a1,a1,s0
- 8000c90:	854a                	mv	a0,s2
- 8000c92:	3711                	jal	8000b96 <eclic_set_intctrl>
+ 8000bb2:	8dc1                	or	a1,a1,s0
+ 8000bb4:	854a                	mv	a0,s2
+ 8000bb6:	3711                	jal	8000aba <eclic_set_intctrl>
 	return priority;
- 8000c94:	b7e9                	j	8000c5e <eclic_set_irq_priority+0x18>
+ 8000bb8:	b7e9                	j	8000b82 <eclic_set_irq_priority+0x18>
 
-08000c96 <os_cputime_init>:
+08000bba <__assert_func>:
+#include "os_priv.h"
+#include "hal/hal_system.h"
+
+void
+__assert_func(const char *file, int line, const char *func, const char *e)
+{
+ 8000bba:	1141                	addi	sp,sp,-16
+ 8000bbc:	c606                	sw	ra,12(sp)
+
+    OS_PRINT_ASSERT(file, line, func, e);
+#if MYNEWT_VAL(OS_ASSERT_CB)
+    os_assert_cb();
+#endif
+    _exit(1);
+ 8000bbe:	4505                	li	a0,1
+ 8000bc0:	855ff0ef          	jal	ra,8000414 <_exit>
+
+08000bc4 <os_cputime_init>:
 struct os_cputime_data g_os_cputime;
 #endif
 
 int
 os_cputime_init(uint32_t clock_freq)
 {
- 8000c96:	1141                	addi	sp,sp,-16
- 8000c98:	c606                	sw	ra,12(sp)
+ 8000bc4:	1141                	addi	sp,sp,-16
+ 8000bc6:	c606                	sw	ra,12(sp)
 
     /* Set the ticks per microsecond. */
 #if defined(OS_CPUTIME_FREQ_HIGH)
     g_os_cputime.ticks_per_usec = clock_freq / 1000000U;
 #endif
     rc = hal_timer_config(MYNEWT_VAL(OS_CPUTIME_TIMER_NUM), clock_freq);
- 8000c9a:	85aa                	mv	a1,a0
- 8000c9c:	4501                	li	a0,0
- 8000c9e:	8d5ff0ef          	jal	ra,8000572 <hal_timer_config>
+ 8000bc8:	85aa                	mv	a1,a0
+ 8000bca:	4501                	li	a0,0
+ 8000bcc:	8cbff0ef          	jal	ra,8000496 <hal_timer_config>
     return rc;
 }
- 8000ca2:	40b2                	lw	ra,12(sp)
- 8000ca4:	0141                	addi	sp,sp,16
- 8000ca6:	8082                	ret
+ 8000bd0:	40b2                	lw	ra,12(sp)
+ 8000bd2:	0141                	addi	sp,sp,16
+ 8000bd4:	8082                	ret
    text	   data	    bss	    dec	    hex	filename
-   3300	     64	   2048	   5412	   1524	/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/boot_stub.elf
+   3114	     64	   2048	   5226	   146a	/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/boot_stub.elf

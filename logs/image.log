@@ -72,7 +72,7 @@ Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor
 Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
 Compiling src in base directory: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/repos/apache-mynewt-core/util/rwlock/src
 Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
-Computed Hash for image as 1b8444154e8a4e77976678708d943f7eebed28fc14d63b7eee1090f4aeb0bca8
+Computed Hash for image as 99787a4de17d45f30fbb22927a0982fe162b4afc8520da1078e676ca0a26d3cd
 App image successfully generated: /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_my_sensor/app/apps/my_sensor_app/my_sensor_app.img
 Mem flash: 0x8001000-0x8010000
 Mem ram: 0x20000000-0x20005000
@@ -81,32 +81,38 @@ Size of Application Image: app
 Mem flash: 0x8001000-0x8010000
 Mem ram: 0x20000000-0x20005000
   flash     ram 
-    110    2069 *fill*
-    100       0 apps_my_sensor_app.a
-     16       0 hw_bsp_gd32vf103c-start.a
+    159    2095 *fill*
+     54       0 apps_my_sensor_app.a
+   1180       0 encoding_json.a
+     92      12 hw_bsp_gd32vf103c-start.a
     176       0 hw_hal.a
-   3688     424 hw_mcu_gigadevice_gd32vf103.a
+   3594     424 hw_mcu_gigadevice_gd32vf103.a
       2       0 hw_sensor_creator.a
-   1518     260 hw_sensor.a
-   5506    8213 kernel_os.a
-   2072      12 libc_baselibc.a
-    401      40 libs_semihosting_console.a
-     40       9 libs_sensor_coap.a
-   1223     203 libs_sensor_network.a
-    701     212 libs_temp_stub.a
-    461     396 net_oic.a
-    378     128 sys_flash_map.a
+   1790     260 hw_sensor.a
+   7274    8213 kernel_os.a
+   2678      50 libc_baselibc.a
+    506       0 libs_mynewt_rust.a
+   8067     224 libs_rust_app.a
+  13811       0 libs_rust_libcore.a
+    414      40 libs_semihosting_console.a
+   1496     233 libs_sensor_coap.a
+   1305     209 libs_sensor_network.a
+    703     212 libs_temp_stub.a
+   2939     402 net_oic.a
+    374     128 sys_flash_map.a
       2       0 sys_log_modlog.a
     774      29 sys_mfg.a
-     28       5 sys_sysinit.a
+     30       5 sys_sysinit.a
      74       0 util_mem.a
-    144       0 gd32vf103c-start_my_sensor-sysinit-app.a
-   2086       0 libgcc.a
+    146       0 gd32vf103c-start_my_sensor-sysinit-app.a
+    210    1072 libg.a
+     32       0 libnosys.a
+   3568       0 libgcc.a
 Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
 
 objsize
    text    data     bss     dec     hex filename
-  19468     128   11904   31500    7b0c /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
+  51410    1372   12268   65050    fe1a /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
 ✅ ◾ ️Done!
 
 Terminal will be reused by tasks, press any key to close it.

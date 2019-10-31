@@ -10892,7 +10892,7 @@ _ZN6memchr8fallback7memrchr17h9902a7f0e5d9fb9fE():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/memchr-2.2.0/src/fallback.rs:193
             let eqa = contains_zero_byte(a ^ vn1);
   ae:	0066c6b3          	xor	a3,a3,t1
-_ZN4core3num23_$LT$impl$u20$usize$GT$12wrapping_sub17h21c9a3837c4f2b48E():
+_ZN6memchr8fallback18contains_zero_byte17h577422715fea04cdE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3071
   b2:	00768633          	add	a2,a3,t2
 _ZN6memchr8fallback7memrchr17h9902a7f0e5d9fb9fE():

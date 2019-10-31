@@ -8,13 +8,13 @@ Building target targets/gd32vf103c-start_boot
 Compiling bin/targets/gd32vf103c-start_boot/generated/src/gd32vf103c-start_boot-sysdown-app.c
 Compiling bin/targets/gd32vf103c-start_boot/generated/src/gd32vf103c-start_boot-sysinit-app.c
 Compiling bin/targets/gd32vf103c-start_boot/generated/src/gd32vf103c-start_boot-sysflash.c
-Compiling hw/bsp/gd32vf103c-start/src/sbrk.c
 Compiling repos/apache-mynewt-core/hw/hal/src/hal_common.c
-Compiling repos/apache-mynewt-core/hw/hal/src/hal_flash.c
+Compiling hw/bsp/gd32vf103c-start/src/sbrk.c
 Compiling apps/boot_stub/src/boot.c
+Compiling repos/apache-mynewt-core/hw/hal/src/hal_flash.c
 Compiling hw/bsp/gd32vf103c-start/src/hal_bsp.c
-Compiling hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_adc.c
 Compiling hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_bkp.c
+Compiling hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_adc.c
 Compiling hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_can.c
 Compiling hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_crc.c
 Compiling hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_dac.c
@@ -36,28 +36,28 @@ Compiling hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/GD32VF103_standard_periph
 Compiling hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/GD32VF103_standard_peripheral/Source/gd32vf103_wwdgt.c
 Compiling hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/GD32VF103_standard_peripheral/system_gd32vf103.c
 Compiling hw/mcu/gigadevice/gd32vf103/src/ext/Firmware/RISCV/drivers/n200_func.c
-Compiling hw/mcu/gigadevice/gd32vf103/src/fini.c
 Compiling hw/mcu/gigadevice/gd32vf103/src/ext/Template/systick.c
+Compiling hw/mcu/gigadevice/gd32vf103/src/fini.c
 Compiling hw/mcu/gigadevice/gd32vf103/src/gd32vf103_periph.c
 Compiling hw/mcu/gigadevice/gd32vf103/src/hal_hw_id.c
 Compiling hw/mcu/gigadevice/gd32vf103/src/hal_os_tick.c
-Compiling hw/mcu/gigadevice/gd32vf103/src/hal_system.c
 Compiling hw/mcu/gigadevice/gd32vf103/src/hal_system_start.c
+Compiling hw/mcu/gigadevice/gd32vf103/src/hal_system.c
 Compiling hw/mcu/gigadevice/gd32vf103/src/hal_watchdog.c
 Compiling hw/mcu/gigadevice/gd32vf103/src/hal_timer.c
 Assembling hw/mcu/gigadevice/gd32vf103/src/arch/rv32imac/entry.s
-Assembling hw/mcu/gigadevice/gd32vf103/src/arch/rv32imac/start.s
-Compiling hw/mcu/gigadevice/gd32vf103/src/plic.c
 Compiling hw/mcu/gigadevice/gd32vf103/src/os_arch_rv32imac_patch.c
+Compiling hw/mcu/gigadevice/gd32vf103/src/plic.c
+Assembling hw/mcu/gigadevice/gd32vf103/src/arch/rv32imac/start.s
 Compiling repos/apache-mynewt-core/kernel/os/src/endian.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_callout.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_cputime.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_cputime_1mhz.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_cputime_high.c
-Compiling repos/apache-mynewt-core/kernel/os/src/os_error.c
-Compiling repos/apache-mynewt-core/kernel/os/src/os_dev.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_cputime_pwr2.c
+Compiling repos/apache-mynewt-core/kernel/os/src/os_dev.c
+Compiling repos/apache-mynewt-core/kernel/os/src/os_error.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_eventq.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_heap.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_mbuf.c
@@ -66,13 +66,13 @@ Compiling repos/apache-mynewt-core/kernel/os/src/os_msys.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_mutex.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_sanity.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_sched.c
-Compiling repos/apache-mynewt-core/kernel/os/src/os_sem.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_stacktrace.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_task.c
+Compiling repos/apache-mynewt-core/kernel/os/src/os_sem.c
 Compiling repos/apache-mynewt-core/kernel/os/src/os_time.c
-Assembling repos/apache-mynewt-core/kernel/os/src/arch/rv32imac/ctx.s
 Compiling repos/apache-mynewt-core/kernel/os/src/arch/rv32imac/os_arch_rv32imac.c
 Compiling repos/apache-mynewt-core/kernel/os/src/arch/rv32imac/os_fault.c
+Assembling repos/apache-mynewt-core/kernel/os/src/arch/rv32imac/ctx.s
 Compiling repos/apache-mynewt-core/libc/baselibc/src/asprintf.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/atoi.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/atol.c
@@ -84,9 +84,9 @@ Compiling repos/apache-mynewt-core/libc/baselibc/src/fgets.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/inline.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/jrand48.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/lrand48.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/malloc.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memccpy.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memchr.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/malloc.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memcmp.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memcpy.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/memfile.c
@@ -100,13 +100,13 @@ Compiling repos/apache-mynewt-core/libc/baselibc/src/mynewt.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/nrand48.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/qsort.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/realloc.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/srand48.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/sprintf.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/srand48.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/sscanf.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strcasecmp.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strcat.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/start.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strchr.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strcat.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strcmp.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strcpy.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strcspn.c
@@ -124,25 +124,25 @@ Compiling repos/apache-mynewt-core/libc/baselibc/src/strntoimax.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strntoumax.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strpbrk.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strrchr.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strsep.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strspn.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strsep.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strstr.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strtok.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoimax.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strtok.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtok_r.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoll.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtol.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoll.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoul.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoull.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/strtoumax.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/vasprintf.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/vprintf.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/tinyprintf.c
-Compiling repos/apache-mynewt-core/libc/baselibc/src/vsscanf.c
 Compiling repos/apache-mynewt-core/libc/baselibc/src/vsprintf.c
+Compiling repos/apache-mynewt-core/libc/baselibc/src/vsscanf.c
 Compiling repos/apache-mynewt-core/sys/flash_map/src/flash_map.c
-Compiling repos/apache-mynewt-core/sys/log/modlog/src/modlog.c
 Compiling repos/apache-mynewt-core/sys/log/stub/src/log.c
+Compiling repos/apache-mynewt-core/sys/log/modlog/src/modlog.c
 Compiling repos/apache-mynewt-core/sys/mfg/src/mfg.c
 Compiling repos/apache-mynewt-core/sys/sysdown/src/sysdown.c
 Compiling repos/apache-mynewt-core/sys/sysinit/src/sysinit.c
@@ -170,19 +170,19 @@ Size of Application Image: app
 Mem flash: 0x8000000-0x8001000
 Mem ram: 0x20000000-0x20005000
   flash     ram 
-     50    2048 *fill*
+      2    2048 *fill*
      22       0 apps_boot_stub.a
      12       0 hw_bsp_gd32vf103c-start.a
       6       0 hw_hal.a
-   3086      64 hw_mcu_gigadevice_gd32vf103.a
-     32       0 kernel_os.a
+   2952      64 hw_mcu_gigadevice_gd32vf103.a
+     28       0 kernel_os.a
      20       0 libc_baselibc.a
      72       0 gd32vf103c-start_boot-sysinit-app.a
 Loading compiler /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/compiler/riscv-none-embed, buildProfile debug
 
 objsize
    text    data     bss     dec     hex filename
-   3300      64    2048    5412    1524 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/boot_stub.elf
+   3114      64    2048    5226    146a /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/boot_stub.elf
 ✅ ◾ ️Done!
 
 Terminal will be reused by tasks, press any key to close it.
