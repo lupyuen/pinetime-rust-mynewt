@@ -3,6 +3,7 @@
 
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
+set +x ; echo ; echo "----- Building Rust app and Mynewt OS for $rust_build_target / $mynewt_build_app..." ; set -x
 
 #  TODO: GD32VF103
 mynewt_build_app=gd32vf103c-start_my_sensor
@@ -24,11 +25,9 @@ cp .vscode/launch-gd32vf103.json .vscode/launch.json
 #  rust_build_target=thumbv7m-none-eabi
 #  cp .vscode/launch-bluepill.json .vscode/launch.json
 
-set +x ; echo ; echo "----- Building Rust app and Mynewt OS for $rust_build_target / $mynewt_build_app..." ; set -x
-
 #  Rust build profile: debug or release
-#  rust_build_profile=debug
-rust_build_profile=release
+rust_build_profile=debug
+#  rust_build_profile=release
 
 #  Add toolchain to PATH.
 export PATH="$PWD/xPacks/riscv-none-embed-gcc/8.2.0-3.1/bin:$PATH"

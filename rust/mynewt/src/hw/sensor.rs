@@ -39,7 +39,8 @@ fn convert_sensor_data(sensor_data: sensor_data_ptr, sensor_key: &'static Strn, 
                 //  Raw temperature data is valid.  Return it.
                 SensorValueType::Uint(rawtempdata.strd_temp_raw)  //  Raw Temperature in integer (0 to 4095)
             }
-            SENSOR_TYPE_GEOLOCATION => {  //  If sensor data is GPS geolocation...
+            #[cfg(feature = "use_float")]  //  If floating-point is enabled...
+            SENSOR_TYPE_GEOLOCATION => {   //  If sensor data is GPS geolocation...
                 //  Interpret the sensor data as a `sensor_geolocation_data` struct that contains GPS geolocation.
                 let mut geolocation = fill_zero!(sensor_geolocation_data);
                 let rc = unsafe { get_geolocation_data(sensor_data, &mut geolocation) };
@@ -285,14 +286,16 @@ impl Default for SensorValue {
 ///  Represents the type and value of a sensor data value.
 #[derive(Clone, Copy)]  //  Sensor values may be copied
 pub enum SensorValueType {
-  ///  No value.
-  None,
-  ///  32-bit unsigned integer. For raw temp, contains the raw temp integer value
-  Uint(u32),
-  ///  32-bit float. For computed temp, contains the computed temp float value
-  Float(f32),
-  ///  Geolocation
-  Geolocation { latitude: f64, longitude: f64, altitude: f64 },
+    ///  No value.
+    None,
+    ///  32-bit unsigned integer. For raw temp, contains the raw temp integer value
+    Uint(u32),
+    ///  32-bit float. For computed temp, contains the computed temp float value
+    #[cfg(feature = "use_float")]  //  If floating-point is enabled...
+    Float(f32),
+    ///  Geolocation
+    #[cfg(feature = "use_float")]  //  If floating-point is enabled...
+    Geolocation { latitude: f64, longitude: f64, altitude: f64 },
 }
 
 ///  Represents a single temperature sensor raw value.

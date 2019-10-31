@@ -52,6 +52,8 @@ extern crate macros as mynewt_macros;
 mod app_network {
     //  Declare `app_network.rs` as Rust module `app_network` for Application Network functions
     //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
+
+    //  If floating-point is enabled...
     //  Declare `gps_sensor.rs` as Rust module `gps_sensor` for GPS Sensor functions
 
     //  Import `PanicInfo` type which is used by `panic()` below
@@ -101,21 +103,10 @@ mod app_network {
                  sys::console, encoding::coap_context::*,
                  libs::{sensor_network}, coap, d, Strn};
     use mynewt_macros::strn;
-    ///  Aggregate the sensor value with other sensor data before transmitting to server.
-    ///  If the sensor value is a GPS geolocation, we remember it and attach it to other sensor data for transmission.
+    #[cfg(not(feature = "use_float"))]
     pub fn aggregate_sensor_data(sensor_value: &SensorValue)
      -> MynewtResult<()> {
-        if let SensorValueType::Geolocation { .. } = sensor_value.value {
-            unsafe { CURRENT_GEOLOCATION = sensor_value.value };
-            Ok(())
-        } else {
-            let transmit_value =
-                SensorValue{geo:
-                                unsafe {
-                                    CURRENT_GEOLOCATION
-                                }, ..*sensor_value};
-            send_sensor_data(&transmit_value)
-        }
+        send_sensor_data(sensor_value)
     }
     /// Compose a CoAP JSON message with the Sensor Key (field name), Value and Geolocation (optional) in `val`
     /// and send to the CoAP server.  The message will be enqueued for transmission by the CoAP / OIC 
@@ -314,8 +305,6 @@ mod app_network {
         console::print("\n");
         Ok(())
     }
-    ///  Current geolocation recorded from GPS
-    static mut CURRENT_GEOLOCATION: SensorValueType = SensorValueType::None;
 }
 mod app_sensor {
     //!  Poll the temperature sensor every 10 seconds. Transmit the sensor data to the CoAP server after polling.
@@ -347,46 +336,6 @@ mod app_sensor {
                                         app_network::aggregate_sensor_data)?;
         sensor::register_listener(sensor, listener)?;
         Ok(())
-    }
-}
-mod gps_sensor {
-    //!  Poll the GPS sensor every 10 seconds. Transmit the sensor data to the CoAP server after polling.
-    //!  This is the Rust version of https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/gps_sensor.c
-    use mynewt::{result::*, hw::sensor_mgr, hw::sensor::{self, sensor_type_t},
-                 sys::console, Strn};
-    use mynewt_macros::{init_strn};
-    use crate::app_network;
-    ///  Sensor to be polled: `gps_l70r_0` is the Quectel L70-R GPS module
-    static GPS_DEVICE: Strn =
-        Strn{rep: mynewt::StrnRep::ByteStr(b"gps_l70r_0\x00"),};
-    ///  Poll GPS every 11,000 milliseconds (11 seconds)  
-    const GPS_POLL_TIME: u32 = (11 * 1000);
-    ///  Use key (field name) `geo` to transmit GPS geolocation to CoAP Server
-    const GPS_SENSOR_KEY: Strn =
-        Strn{rep: mynewt::StrnRep::ByteStr(b"geo\x00"),};
-    ///  Type of sensor: Geolocation (latitude, longitude, altitude)
-    const GPS_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_GEOLOCATION;
-    ///  Ask Mynewt to poll the GPS sensor and call `aggregate_sensor_data()`
-    ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
-    pub fn start_gps_listener() -> MynewtResult<()> {
-        console::print("Rust GPS poll\n");
-        start_gps_l70r()?;
-        let sensor =
-            sensor_mgr::find_bydevname(&GPS_DEVICE).next().expect("no GPS");
-        sensor::set_poll_rate_ms(&GPS_DEVICE, GPS_POLL_TIME)?;
-        let listener =
-            sensor::new_sensor_listener(&GPS_SENSOR_KEY, GPS_SENSOR_TYPE,
-                                        app_network::aggregate_sensor_data)?;
-        sensor::register_listener(sensor, listener)?;
-        Ok(())
-    }
-    /// Start the GPS driver for Quectel L70R
-    fn start_gps_l70r() -> MynewtResult<()> {
-        extern "C" {
-            fn gps_l70r_start() -> i32;
-        }
-        let res = unsafe { gps_l70r_start() };
-        if res == 0 { Ok(()) } else { Err(MynewtError::from(res)) }
     }
 }
 use core::panic::PanicInfo;

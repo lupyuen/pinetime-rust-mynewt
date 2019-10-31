@@ -39,6 +39,7 @@ impl CoapContext {
 
     ///  Encode a geolocation into the current JSON document with the specified keys:
     ///  ` key: { lat_key : 41.4121132, long_key : 2.2199454 } `
+    #[cfg(feature = "use_float")]  //  If floating-point is enabled...
     pub fn json_set_geolocation(&mut self, key: &Strn, lat_key: &Strn, long_key: &Strn, geo: SensorValueType) {
         if let SensorValueType::Geolocation { latitude, longitude, .. } = geo {
             let notused = self.to_void_ptr();
@@ -64,6 +65,9 @@ impl CoapContext {
             assert!(rc == 0);
         };
     }
+
+    #[cfg(not(feature = "use_float"))]  //  If floating-point is disabled, do nothing
+    pub fn json_set_geolocation(&mut self, key: &Strn, lat_key: &Strn, long_key: &Strn, geo: SensorValueType) {}
 
     ///  Encode a text value into the current JSON document with the specified key
     pub fn json_set_text_string(&mut self, key: &Strn, value: &Strn) {

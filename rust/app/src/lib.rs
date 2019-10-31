@@ -34,6 +34,8 @@ extern crate macros as mynewt_macros;   //  Declare the Mynewt Procedural Macros
 
 mod app_network;    //  Declare `app_network.rs` as Rust module `app_network` for Application Network functions
 mod app_sensor;     //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
+
+#[cfg(feature = "use_float")]  //  If floating-point is enabled...
 mod gps_sensor;     //  Declare `gps_sensor.rs` as Rust module `gps_sensor` for GPS Sensor functions
 
 use core::panic::PanicInfo; //  Import `PanicInfo` type which is used by `panic()` below

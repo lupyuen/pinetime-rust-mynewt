@@ -19,3 +19,10 @@ macros = { path = "../macros" } # Import path `../macros` as macros library
 name       = "mynewt"  # Output will be named `libmynewt.rlib`
 test       = false
 bench      = false
+
+# Optional features
+[features]
+default =  [      # Select the conditional compiled features
+    # "use_float" # Uncomment to support floating-point e.g. GPS geolocation
+]
+use_float = []    # Define the feature

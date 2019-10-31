@@ -38,6 +38,7 @@ use mynewt_macros::strn;        //  Import Mynewt procedural macros
 
 ///  Aggregate the sensor value with other sensor data before transmitting to server.
 ///  If the sensor value is a GPS geolocation, we remember it and attach it to other sensor data for transmission.
+#[cfg(feature = "use_float")]  //  If floating-point is enabled...
 pub fn aggregate_sensor_data(sensor_value: &SensorValue) -> MynewtResult<()>  {  //  Returns an error code upon error.
     if let SensorValueType::Geolocation {..} = sensor_value.value {
         //  If this is a geolocation, save the geolocation for later transmission.
@@ -52,6 +53,12 @@ pub fn aggregate_sensor_data(sensor_value: &SensorValue) -> MynewtResult<()>  { 
         //  Transmit sensor value with geolocation and return the result
         send_sensor_data(&transmit_value)
     }
+}
+
+#[cfg(not(feature = "use_float"))]  //  If floating-point and geolocation are disabled, send sensor data without geolocation
+pub fn aggregate_sensor_data(sensor_value: &SensorValue) -> MynewtResult<()>  {  //  Returns an error code upon error.
+    //  Transmit sensor value without geolocation and return the result
+    send_sensor_data(sensor_value)
 }
 
 /// Compose a CoAP JSON message with the Sensor Key (field name), Value and Geolocation (optional) in `val`
@@ -114,4 +121,5 @@ fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an er
 }
 
 ///  Current geolocation recorded from GPS
+#[cfg(feature = "use_float")]  //  If floating-point is enabled...
 static mut CURRENT_GEOLOCATION: SensorValueType = SensorValueType::None;

@@ -3047,7 +3047,7 @@ pub mod hw {
                 }
                 #[inline]
                 pub fn get_bit(&self, index: usize) -> bool {
-                    if false {
+                    if true {
                         if !(index / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -3065,7 +3065,7 @@ pub mod hw {
                 }
                 #[inline]
                 pub fn set_bit(&mut self, index: usize, val: bool) {
-                    if false {
+                    if true {
                         if !(index / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -3083,7 +3083,7 @@ pub mod hw {
                 }
                 #[inline]
                 pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
-                    if false {
+                    if true {
                         if !(bit_width <= 64) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -3092,7 +3092,7 @@ pub mod hw {
                             }
                         };
                     };
-                    if false {
+                    if true {
                         if !(bit_offset / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -3101,7 +3101,7 @@ pub mod hw {
                             }
                         };
                     };
-                    if false {
+                    if true {
                         if !((bit_offset + (bit_width as usize)) / 8 <=
                                  self.storage.as_ref().len()) {
                             {
@@ -3126,7 +3126,7 @@ pub mod hw {
                 #[inline]
                 pub fn set(&mut self, bit_offset: usize, bit_width: u8,
                            val: u64) {
-                    if false {
+                    if true {
                         if !(bit_width <= 64) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -3135,7 +3135,7 @@ pub mod hw {
                             }
                         };
                     };
-                    if false {
+                    if true {
                         if !(bit_offset / 8 < self.storage.as_ref().len()) {
                             {
                                 ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -3144,7 +3144,7 @@ pub mod hw {
                             }
                         };
                     };
-                    if false {
+                    if true {
                         if !((bit_offset + (bit_width as usize)) / 8 <=
                                  self.storage.as_ref().len()) {
                             {
@@ -5733,76 +5733,12 @@ pub mod hw {
                                     };
                                     SensorValueType::Uint(rawtempdata.strd_temp_raw)
                                 }
-                                SENSOR_TYPE_GEOLOCATION => {
-                                    let mut geolocation =
-                                        unsafe {
-                                            ::core::mem::transmute::<[u8; ::core::mem::size_of::<sensor_geolocation_data>()],
-                                                                     sensor_geolocation_data>([0;
-                                                                                                  ::core::mem::size_of::<sensor_geolocation_data>()])
-                                        };
-                                    let rc =
-                                        unsafe {
-                                            get_geolocation_data(sensor_data,
-                                                                 &mut geolocation)
-                                        };
-                                    {
-                                        match (&(rc), &(0)) {
-                                            (left_val, right_val) => {
-                                                if !(*left_val == *right_val)
-                                                   {
-                                                    {
-                                                        ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                                                      "`,\n right: `",
-                                                                                                                      "`: "],
-                                                                                                                    &match (&&*left_val,
-                                                                                                                            &&*right_val,
-                                                                                                                            &::core::fmt::Arguments::new_v1(&["geodata fail"],
-                                                                                                                                                            &match ()
-                                                                                                                                                                 {
-                                                                                                                                                                 ()
-                                                                                                                                                                 =>
-                                                                                                                                                                 [],
-                                                                                                                                                             }))
-                                                                                                                         {
-                                                                                                                         (arg0,
-                                                                                                                          arg1,
-                                                                                                                          arg2)
-                                                                                                                         =>
-                                                                                                                         [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                                                       ::core::fmt::Debug::fmt),
-                                                                                                                          ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                                                       ::core::fmt::Debug::fmt),
-                                                                                                                          ::core::fmt::ArgumentV1::new(arg2,
-                                                                                                                                                       ::core::fmt::Display::fmt)],
-                                                                                                                     }),
-                                                                                     &("rust/mynewt/src/hw/sensor.rs",
-                                                                                       46u32,
-                                                                                       17u32))
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    };
-                                    if geolocation.sgd_latitude_is_valid != 0
-                                           &&
-                                           geolocation.sgd_longitude_is_valid
-                                               != 0 &&
-                                           geolocation.sgd_altitude_is_valid
-                                               != 0 {
-                                        SensorValueType::Geolocation{latitude:
-                                                                         geolocation.sgd_latitude,
-                                                                     longitude:
-                                                                         geolocation.sgd_longitude,
-                                                                     altitude:
-                                                                         geolocation.sgd_altitude,}
-                                    } else { SensorValueType::None }
-                                }
                                 _ => {
                                     if !false {
                                         {
                                             ::core::panicking::panic(&("sensor type",
                                                                        "rust/mynewt/src/hw/sensor.rs",
-                                                                       60u32,
+                                                                       61u32,
                                                                        20u32))
                                         }
                                     };
@@ -5868,7 +5804,7 @@ pub mod hw {
                                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                                      }),
                                                                      &("rust/mynewt/src/hw/sensor.rs",
-                                                                       93u32,
+                                                                       94u32,
                                                                        18u32))
                                     }
                                 }
@@ -5896,7 +5832,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("missing sensor key",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               111u32, 5u32))
+                                               112u32, 5u32))
                 }
             };
             let mut arg = MAX_SENSOR_LISTENERS + 1;
@@ -5908,7 +5844,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("increase MAX_SENSOR_LISTENERS",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               121u32, 5u32))
+                                               122u32, 5u32))
                 }
             };
             let listener =
@@ -5942,7 +5878,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("bad sensor arg",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               149u32, 5u32))
+                                               150u32, 5u32))
                 }
             };
             let info = unsafe { SENSOR_LISTENERS[arg] };
@@ -5950,7 +5886,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("missing sensor key",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               151u32, 5u32))
+                                               152u32, 5u32))
                 }
             };
             if sensor_data.is_null() { return SYS_EINVAL }
@@ -5958,7 +5894,7 @@ pub mod hw {
                 {
                     ::core::panicking::panic(&("null sensor",
                                                "rust/mynewt/src/hw/sensor.rs",
-                                               155u32, 5u32))
+                                               156u32, 5u32))
                 }
             };
             let sensor_value =
@@ -6123,30 +6059,13 @@ pub mod hw {
 
             ///  32-bit unsigned integer. For raw temp, contains the raw temp integer value
             Uint(u32),
-
-            ///  32-bit float. For computed temp, contains the computed temp float value
-            Float(f32),
-
-            ///  Geolocation
-            Geolocation {
-                latitude: f64,
-                longitude: f64,
-                altitude: f64,
-            },
         }
         #[automatically_derived]
         #[allow(unused_qualifications)]
         impl ::core::clone::Clone for SensorValueType {
             #[inline]
             fn clone(&self) -> SensorValueType {
-                {
-                    let _: ::core::clone::AssertParamIsClone<u32>;
-                    let _: ::core::clone::AssertParamIsClone<f32>;
-                    let _: ::core::clone::AssertParamIsClone<f64>;
-                    let _: ::core::clone::AssertParamIsClone<f64>;
-                    let _: ::core::clone::AssertParamIsClone<f64>;
-                    *self
-                }
+                { let _: ::core::clone::AssertParamIsClone<u32>; *self }
             }
         }
         #[automatically_derived]
@@ -7606,7 +7525,7 @@ pub mod encoding {
             pub fn new(storage: Storage) -> Self { Self{storage, align: [],} }
             #[inline]
             pub fn get_bit(&self, index: usize) -> bool {
-                if false {
+                if true {
                     if !(index / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -7624,7 +7543,7 @@ pub mod encoding {
             }
             #[inline]
             pub fn set_bit(&mut self, index: usize, val: bool) {
-                if false {
+                if true {
                     if !(index / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -7642,7 +7561,7 @@ pub mod encoding {
             }
             #[inline]
             pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
-                if false {
+                if true {
                     if !(bit_width <= 64) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -7651,7 +7570,7 @@ pub mod encoding {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -7660,7 +7579,7 @@ pub mod encoding {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !((bit_offset + (bit_width as usize)) / 8 <=
                              self.storage.as_ref().len()) {
                         {
@@ -7685,7 +7604,7 @@ pub mod encoding {
             #[inline]
             pub fn set(&mut self, bit_offset: usize, bit_width: u8,
                        val: u64) {
-                if false {
+                if true {
                     if !(bit_width <= 64) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -7694,7 +7613,7 @@ pub mod encoding {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -7703,7 +7622,7 @@ pub mod encoding {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !((bit_offset + (bit_width as usize)) / 8 <=
                              self.storage.as_ref().len()) {
                         {
@@ -8685,58 +8604,10 @@ pub mod encoding {
                                                           ::core::mem::size_of::<CborEncoder>()])
             };
         impl CoapContext {
-            ///  Encode a geolocation into the current JSON document with the specified keys:
-            ///  ` key: { lat_key : 41.4121132, long_key : 2.2199454 } `
+            #[cfg(not(feature = "use_float"))]
             pub fn json_set_geolocation(&mut self, key: &Strn, lat_key: &Strn,
                                         long_key: &Strn,
                                         geo: SensorValueType) {
-                if let SensorValueType::Geolocation { latitude, longitude, ..
-                       } = geo {
-                    let notused = self.to_void_ptr();
-                    let encoder =
-                        unsafe { &mut sensor_coap::coap_json_encoder };
-                    let key_cstr = self.key_strn_to_cstr(key);
-                    let rc =
-                        unsafe {
-                            json::json_encode_object_key(encoder,
-                                                         key_cstr as *mut u8)
-                        };
-                    if !(rc == 0) {
-                        {
-                            ::core::panicking::panic(&("assertion failed: rc == 0",
-                                                       "rust/mynewt/src/encoding/coap_context.rs",
-                                                       50u32, 13u32))
-                        }
-                    };
-                    let rc =
-                        unsafe { json::json_encode_object_start(encoder) };
-                    if !(rc == 0) {
-                        {
-                            ::core::panicking::panic(&("assertion failed: rc == 0",
-                                                       "rust/mynewt/src/encoding/coap_context.rs",
-                                                       54u32, 13u32))
-                        }
-                    };
-                    let key_cstr = self.key_strn_to_cstr(lat_key);
-                    unsafe {
-                        mynewt_rust::json_helper_set_float(notused, key_cstr,
-                                                           latitude as f32)
-                    };
-                    let key_cstr = self.key_strn_to_cstr(long_key);
-                    unsafe {
-                        mynewt_rust::json_helper_set_float(notused, key_cstr,
-                                                           longitude as f32)
-                    };
-                    let rc =
-                        unsafe { json::json_encode_object_finish(encoder) };
-                    if !(rc == 0) {
-                        {
-                            ::core::panicking::panic(&("assertion failed: rc == 0",
-                                                       "rust/mynewt/src/encoding/coap_context.rs",
-                                                       64u32, 13u32))
-                        }
-                    };
-                };
             }
             ///  Encode a text value into the current JSON document with the specified key
             pub fn json_set_text_string(&mut self, key: &Strn, value: &Strn) {
@@ -8778,7 +8649,7 @@ pub mod encoding {
                     {
                         ::core::panicking::panic(&("big key",
                                                    "rust/mynewt/src/encoding/coap_context.rs",
-                                                   112u32, 9u32))
+                                                   116u32, 9u32))
                     }
                 };
                 self.key_buffer[..s.len()].copy_from_slice(s);
@@ -8794,7 +8665,7 @@ pub mod encoding {
                     {
                         ::core::panicking::panic(&("big value",
                                                    "rust/mynewt/src/encoding/coap_context.rs",
-                                                   125u32, 9u32))
+                                                   129u32, 9u32))
                     }
                 };
                 self.value_buffer[..s.len()].copy_from_slice(s);
@@ -8828,7 +8699,7 @@ pub mod encoding {
                         {
                             ::core::panicking::panic(&("new_encoder fail",
                                                        "rust/mynewt/src/encoding/coap_context.rs",
-                                                       151u32, 13u32))
+                                                       155u32, 13u32))
                         }
                     };
                     unsafe { &mut super::root_map }
@@ -8852,7 +8723,7 @@ pub mod encoding {
                         {
                             ::core::panicking::panic(&("encoder fail",
                                                        "rust/mynewt/src/encoding/coap_context.rs",
-                                                       164u32, 13u32))
+                                                       168u32, 13u32))
                         }
                     };
                     unsafe { &mut super::root_map }
@@ -8890,7 +8761,7 @@ pub mod encoding {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/encoding/coap_context.rs",
-                                                                   171u32,
+                                                                   175u32,
                                                                    9u32))
                                 }
                             }
@@ -8930,7 +8801,7 @@ pub mod encoding {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/encoding/coap_context.rs",
-                                                                   176u32,
+                                                                   180u32,
                                                                    9u32))
                                 }
                             }
@@ -9030,7 +8901,7 @@ pub mod encoding {
                             {
                                 ::core::panicking::panic(&("strn bytes",
                                                            "rust/mynewt/src/encoding/coap_context.rs",
-                                                           239u32, 40u32))
+                                                           243u32, 40u32))
                             }
                         };
                         &[]
@@ -9411,7 +9282,7 @@ pub mod libs {
             pub fn new(storage: Storage) -> Self { Self{storage, align: [],} }
             #[inline]
             pub fn get_bit(&self, index: usize) -> bool {
-                if false {
+                if true {
                     if !(index / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -9429,7 +9300,7 @@ pub mod libs {
             }
             #[inline]
             pub fn set_bit(&mut self, index: usize, val: bool) {
-                if false {
+                if true {
                     if !(index / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -9447,7 +9318,7 @@ pub mod libs {
             }
             #[inline]
             pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
-                if false {
+                if true {
                     if !(bit_width <= 64) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -9456,7 +9327,7 @@ pub mod libs {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -9465,7 +9336,7 @@ pub mod libs {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !((bit_offset + (bit_width as usize)) / 8 <=
                              self.storage.as_ref().len()) {
                         {
@@ -9490,7 +9361,7 @@ pub mod libs {
             #[inline]
             pub fn set(&mut self, bit_offset: usize, bit_width: u8,
                        val: u64) {
-                if false {
+                if true {
                     if !(bit_width <= 64) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -9499,7 +9370,7 @@ pub mod libs {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -9508,7 +9379,7 @@ pub mod libs {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !((bit_offset + (bit_width as usize)) / 8 <=
                              self.storage.as_ref().len()) {
                         {
@@ -10434,7 +10305,7 @@ pub mod libs {
             pub fn new(storage: Storage) -> Self { Self{storage, align: [],} }
             #[inline]
             pub fn get_bit(&self, index: usize) -> bool {
-                if false {
+                if true {
                     if !(index / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -10452,7 +10323,7 @@ pub mod libs {
             }
             #[inline]
             pub fn set_bit(&mut self, index: usize, val: bool) {
-                if false {
+                if true {
                     if !(index / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: index / 8 < self.storage.as_ref().len()",
@@ -10470,7 +10341,7 @@ pub mod libs {
             }
             #[inline]
             pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
-                if false {
+                if true {
                     if !(bit_width <= 64) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -10479,7 +10350,7 @@ pub mod libs {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -10488,7 +10359,7 @@ pub mod libs {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !((bit_offset + (bit_width as usize)) / 8 <=
                              self.storage.as_ref().len()) {
                         {
@@ -10513,7 +10384,7 @@ pub mod libs {
             #[inline]
             pub fn set(&mut self, bit_offset: usize, bit_width: u8,
                        val: u64) {
-                if false {
+                if true {
                     if !(bit_width <= 64) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_width <= 64",
@@ -10522,7 +10393,7 @@ pub mod libs {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
                         {
                             ::core::panicking::panic(&("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
@@ -10531,7 +10402,7 @@ pub mod libs {
                         }
                     };
                 };
-                if false {
+                if true {
                     if !((bit_offset + (bit_width as usize)) / 8 <=
                              self.storage.as_ref().len()) {
                         {
