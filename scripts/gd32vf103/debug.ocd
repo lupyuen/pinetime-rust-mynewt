@@ -3,3 +3,14 @@
 
 # Debug Level must be 2 or greater or gdb will fail.
 debug_level 2
+
+$_TARGETNAME configure -event reset-init {
+    # Arm Semihosting is used to show debug console output and may only be enabled after init event.  We wait for the event and enable Arm Semihosting.
+    echo "Stopping..."
+    #halt
+    # flushregs
+}
+
+init
+halt
+#reset halt

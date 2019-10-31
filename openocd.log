@@ -1,9 +1,5 @@
 adapter_nsrst_assert_width: 100
 
-debug_level: 2
-
-Info : Listening on port 6666 for tcl connections
-Info : Listening on port 4444 for telnet connections
 Info : CMSIS-DAP: SWD  Supported
 Info : CMSIS-DAP: JTAG Supported
 Info : CMSIS-DAP: FW Version = 2.0.0
@@ -51,9 +47,10 @@ Info : Exposing additional CSR 3070
 Info : Exposing additional CSR 3071
 Info : Examined RISC-V core; found 1 harts
 Info :  hart 0: XLEN=32, misa=0x40901105
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
 Info : accepting 'gdb' connection from pipe
 Info : device id = 0x19060410
 Info : flash_size_in_kb = 0x00000080
 Info : flash size = 128kbytes
-Info : [0] Found 4 triggers
 Info : dropped 'gdb' connection
