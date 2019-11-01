@@ -1,61 +1,45 @@
 {
-    //  VSCode Debugger Config for Cortex Debug Extension.  We use Cortex Debug because it shows more details, e.g. the STM32 Peripherals.
+    //  VSCode Debugger Config
     "version": "0.2.0",
     "configurations": [
         {
-            //  Cortex Debug Configuration: https://marcelball.ca/projects/cortex-debug/cortex-debug-launch-configurations/
-            "name": "STM32L476RCT6",
-            "type": "cortex-debug",
+            "name": "GD32VF103",
+            "type": "gdb",
             "request": "launch",
-            //  OpenOCD path is defined in workspace.code-workspace.
-            "servertype": "openocd",
-            "cwd": "${workspaceRoot}",
             //  Application Executable to be flashed to Blue Pill before debugging.  Note that the Application ELF image does not contain a valid Image Header.  So we must bypass the Bootloader, shown below.
-            "executable": "bin/targets/stm32l4_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf",
-            //  For Bootloader: "executable": "bin/targets/stm32l4_boot/app/apps/boot/boot.elf",
-            "device": "STM32L476RCT6",
-            //  Arm System View Description, downloaded from https://www.st.com/en/microcontrollers-microprocessors/stm32l476rc.html#
-            "svdFile": "scripts/stm32l4/STM32L4x6.svd",
-            "configFiles": [ 
-                //  Tell OpenOCD to open the ST Link connection to STM32 MCU.
-                "interface/stlink-v2.cfg",
-                //  Previously: "target/stm32f1x.cfg",
-                "target/stm32l4x.cfg",
-                //  Tell OpenOCD to run our custom debug commands.
-                //  Previously: "scripts/debug.ocd" 
-                "scripts/stm32l4/debug.ocd"
-            ],
-            "preLaunchCommands": [
+            "target": "${workspaceRoot}/bin/targets/gd32vf103c-start_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf",
+            //  For Bootloader: "target": "${workspaceRoot}/bin/targets/gd32vf103c-start_boot/app/apps/boot_stub/boot_stub.elf",
+            "cwd": "${workspaceRoot}",
+            "gdbpath": "${workspaceRoot}/xPacks/riscv-none-embed-gcc/8.2.0-3.1/bin/riscv-none-embed-gdb",
+            "valuesFormatting": "parseText",
+            "autorun": [
                 //  Before loading the Application, run these gdb commands.
+                //  Set the architecture to 32-bit RISC-V.
+                "set arch riscv:rv32",
+
                 //  Set timeout for executing openocd commands.
-                "set remotetimeout 60",
+                "set remotetimeout 600",
 
                 //  This indicates that an unrecognized breakpoint location should automatically result in a pending breakpoint being created.
-                "set breakpoint pending on"
-            
-                //  Display the Arm instruction when hitting breakpoint.
-                //  "display/i $pc",
+                "set breakpoint pending on",
 
-                //  Load Bootloader symbols in case we jump to the Bootloader.
-                //  "symbol-file bin/targets/bluepill_boot/app/apps/boot/boot.elf",
+                //  Set breakpoints
+                "break main",                   //  Break at main()
+                "break __assert_func",          //  Break for any assert failures
+                "break os_default_irq",         //  Break for any unhandled interrupts
 
-                //  Restore Application symbols.
-                //  "symbol-file bin/targets/bluepill_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf",
-            ],
-            "postLaunchCommands": [
+                //  Launch OpenOCD. Based on https://www.justinmklam.com/posts/2017/10/vscode-debugger-setup/
+                "target remote | riscv-openocd/src/openocd -s riscv-openocd/tcl -c \"gdb_port pipe; log_output openocd.log\" -f scripts/gd32vf103/flash-init.ocd -f interface/cmsis-dap.cfg -f scripts/gd32vf103/gd32vf103.ocd -f scripts/gd32vf103/debug.ocd ",
+
                 //  After loading the Application, run these gdb commands.  The Application ELF image does not contain a valid Image Header.
+                ////"monitor reset halt",           //  Restart and halt
+                ////"flushregs",                    //  Flush the register cache
+
                 //  If not using the Stub Bootloader boot_stub, we need to bypass the Bootloader and jump to the Application directly:
                 //  "stepi",                    //  Must step before setting PC
                 //  "set $pc = Reset_Handler",  //  Prepare to jump to the Application's Reset Handler
                 //  "stepi",                    //  Execute the Reset Handler
-                "break main",                   //  Break at main()
-                "break __assert_func",          //  Break for any assert failures
-                "break os_default_irq"          //  Break for any unhandled interrupts
-            ],
-            "preRestartCommands": [
-            ],
-            "postRestartCommands": [
-            ]        
+            ]
         }
     ]
 }
