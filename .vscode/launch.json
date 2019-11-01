@@ -14,9 +14,6 @@
             "valuesFormatting": "parseText",
             "autorun": [
                 //  Before loading the Application, run these gdb commands.
-                //  Set the architecture to 32-bit RISC-V.
-                "set arch riscv:rv32",
-
                 //  Set timeout for executing openocd commands.
                 "set remotetimeout 600",
 
