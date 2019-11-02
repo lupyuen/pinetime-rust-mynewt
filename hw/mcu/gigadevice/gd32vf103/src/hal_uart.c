@@ -22,6 +22,8 @@
 #include "mcu/gd32vf103_hal.h"
 #include <assert.h>
 
+#define UART_CNT 2
+
 struct hal_uart {
     uint8_t u_open:1;
     uint8_t u_rx_stall:1;
@@ -31,9 +33,32 @@ struct hal_uart {
     hal_uart_tx_char u_tx_func;
     hal_uart_tx_done u_tx_done;
     void *u_func_arg;
-    uint32_t u_baudrate;
+    const struct gd32vf103_uart_cfg *u_cfg;
 };
 static struct hal_uart uarts[UART_CNT];
+
+// static struct uart_dev hal_uart0;
+
+static const struct gd32vf103_uart_cfg uart_cfg[UART_CNT] = {
+    [0] = {
+        .uart     = USART0,
+        .rcc_dev  = RCU_USART0,
+        .rcc_gpio = RCU_GPIOA,
+        .pin_tx   = MCU_GPIO_PORTA(9),
+        .pin_rx   = MCU_GPIO_PORTA(10),
+        .pin_rts  = -1,
+        .pin_cts  = -1,
+    },
+    [1] = {
+        .uart     = USART1,
+        .rcc_dev  = RCU_USART1,
+        .rcc_gpio = RCU_GPIOA,
+        .pin_tx   = MCU_GPIO_PORTA(2),
+        .pin_rx   = MCU_GPIO_PORTA(3),
+        .pin_rts  = -1,
+        .pin_cts  = -1,
+    },
+};
 
 int
 hal_uart_init_cbs(int port, hal_uart_tx_char tx_func, hal_uart_tx_done tx_done,
@@ -181,7 +206,7 @@ hal_uart_init(int port, void *arg)
         return -1;
     }
     u = &uarts[port];
-    u->u_cfg = (const struct stm32_uart_cfg *)arg;
+    u->u_cfg = (const struct gd32vf103_uart_cfg *)arg;
 
     /* TODO: Install interrupt handler */
     plic_set_handler(INT_UART0_BASE, gd32vf103_uart_irq_handler, 3);
