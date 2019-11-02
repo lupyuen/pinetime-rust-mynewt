@@ -16,18 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
+//  Based on repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_uart.c
 #include "hal/hal_uart.h"
 #include "bsp/bsp.h"
 #include "mcu/gd32vf103_hal.h"
-////#include "env/freedom-e300-hifive1/platform.h"
-#include <mcu/plic.h>
-
 #include <assert.h>
 
-/*
- * Only one UART on FE310.
- */
 struct hal_uart {
     uint8_t u_open:1;
     uint8_t u_rx_stall:1;
@@ -39,7 +33,7 @@ struct hal_uart {
     void *u_func_arg;
     uint32_t u_baudrate;
 };
-static struct hal_uart uart;
+static struct hal_uart uarts[UART_CNT];
 
 int
 hal_uart_init_cbs(int port, hal_uart_tx_char tx_func, hal_uart_tx_done tx_done,
@@ -181,19 +175,15 @@ gd32vf103_uart_irq_handler(int num)
 int
 hal_uart_init(int port, void *arg)
 {
-    uint32_t mask;
-    (void)arg;
+    struct hal_uart *u;
 
-    if (port != 0) {
+    if (port < 0 || port >= UART_CNT) {
         return -1;
     }
+    u = &uarts[port];
+    u->u_cfg = (const struct stm32_uart_cfg *)arg;
 
-    /* Configure RX/TX pins */
-    mask = (1U << IOF_UART0_RX) | (1U << IOF_UART0_TX);
-    GPIO_REG(GPIO_IOF_EN) |= mask;
-    GPIO_REG(GPIO_IOF_SEL) &= ~mask;
-
-    /* Install interrupt handler */
+    /* TODO: Install interrupt handler */
     plic_set_handler(INT_UART0_BASE, gd32vf103_uart_irq_handler, 3);
 
     return 0;
@@ -204,50 +194,28 @@ hal_uart_config(int port, int32_t baudrate, uint8_t databits, uint8_t stopbits,
   enum hal_uart_parity parity, enum hal_uart_flow_ctl flow_ctl)
 {
     struct hal_uart *u;
-
-    if (port != 0) {
+    if (port < 0 || port >= UART_CNT) {
         return -1;
     }
 
-    u = &uart;
+    u = &uarts[port];
     if (u->u_open) {
         return -1;
     }
+    cfg = u->u_cfg;
+    assert(cfg);
 
-    /*
-     * pin config
-     * UART config
-     * nvic config
-     * enable uart
-     */
-    if (databits != 8) {
-        return -1;
-    }
-    if (stopbits > 2) {
-        return -1;
-    }
+    //  From Examples/USART/Transmitter&receiver_interrupt/main.c
+    /* USART interrupt configuration */
+    eclic_global_interrupt_enable();
+    eclic_priority_group_set(ECLIC_PRIGROUP_LEVEL3_PRIO1);
+    eclic_irq_enable(USART0_IRQn, 1, 0);
+    /* configure UART */
+    gd32vf103_uart_config(port, baudrate, databits, stopbits, parity, flow_ctl);
+    /* enable USART TBE interrupt */  
+    usart_interrupt_enable(USART0, USART_INT_TBE);
 
-    switch (parity) {
-    case HAL_UART_PARITY_NONE:
-        break;
-    case HAL_UART_PARITY_ODD:
-    case HAL_UART_PARITY_EVEN:
-        return -1;
-    }
-
-    switch (flow_ctl) {
-    case HAL_UART_FLOW_CTL_NONE:
-        break;
-    case HAL_UART_FLOW_CTL_RTS_CTS:
-        return -1;
-    }
-    UART0_REG(UART_REG_DIV) = (get_cpu_freq() + (baudrate / 2)) / baudrate - 1;
-    /* Set threashold and stop bits, not enable yet */
-    UART0_REG(UART_REG_TXCTRL) = UART_TXWM(4) | ((stopbits - 1) << 1);
-    /* RX anebled with interrupt when any bytes is there */
-    UART0_REG(UART_REG_RXCTRL) = UART_RXWM(0) | UART_RXEN;
-    UART0_REG(UART_REG_IE) = UART_IP_RXWM;
-
+    //  Enable the interrupt
     plic_enable_interrupt(INT_UART0_BASE);
 
     u->u_rx_stall = 0;
@@ -285,4 +253,35 @@ hal_uart_sys_clock_changed(void)
     if (u->u_open) {
         UART0_REG(UART_REG_DIV) = (get_cpu_freq() + (u->u_baudrate / 2)) / u->u_baudrate - 1;
     }
+}
+
+//  From Utilities/gd32vf103v_eval.c
+void gd32vf103_uart_config(int port, int32_t baudrate, uint8_t databits, uint8_t stopbits,
+  enum hal_uart_parity parity, enum hal_uart_flow_ctl flow_ctl)
+{
+    assert(port >= 0 && port < UART_CNT);
+
+    /* enable GPIO clock */
+    rcu_periph_clock_enable(COM_GPIO_CLK[port]);
+
+    /* enable USART clock */
+    rcu_periph_clock_enable(COM_CLK[port]);
+
+    /* connect port to USARTx_Tx */
+    gpio_init(COM_GPIO_PORT[port], GPIO_MODE_AF_PP, GPIO_OSPEED_50MHZ, COM_TX_PIN[port]);
+
+    /* connect port to USARTx_Rx */
+    gpio_init(COM_GPIO_PORT[port], GPIO_MODE_IN_FLOATING, GPIO_OSPEED_50MHZ, COM_RX_PIN[port]);
+
+    /* USART configure */
+    usart_deinit(com);
+    usart_baudrate_set(com, 115200U);
+    usart_word_length_set(com, USART_WL_8BIT);
+    usart_stop_bit_set(com, USART_STB_1BIT);
+    usart_parity_config(com, USART_PM_NONE);
+    usart_hardware_flow_rts_config(com, USART_RTS_DISABLE);
+    usart_hardware_flow_cts_config(com, USART_CTS_DISABLE);
+    usart_receive_config(com, USART_RECEIVE_ENABLE);
+    usart_transmit_config(com, USART_TRANSMIT_ENABLE);
+    usart_enable(com);
 }
