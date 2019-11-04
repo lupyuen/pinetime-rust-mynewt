@@ -307,21 +307,32 @@ void gd32vf103_uart_config(int port, int32_t baudrate, uint8_t databits, uint8_t
 
     /* connect port to USARTx_Tx */
     //  Previously: gpio_init(COM_GPIO_PORT[port], GPIO_MODE_AF_PP, GPIO_OSPEED_50MHZ, COM_TX_PIN[port]);
-    hal_gpio_init_out();
+    hal_gpio_init_out(cfg->pin_tx, 0);
 
     /* connect port to USARTx_Rx */
     //  Previously: gpio_init(COM_GPIO_PORT[port], GPIO_MODE_IN_FLOATING, GPIO_OSPEED_50MHZ, COM_RX_PIN[port]);
-    hal_gpio_init_in();
+    hal_gpio_init_in(cfg->pin_rx, HAL_GPIO_PULL_NONE);
 
     /* USART configure */
     usart_deinit(port);
     usart_baudrate_set(port, baudrate);
-    usart_word_length_set(port, USART_WL_8BIT);
-    usart_stop_bit_set(port, USART_STB_1BIT);
-    usart_parity_config(port, USART_PM_NONE);
+    usart_word_length_set(port, 
+        (databits == 8) : USART_WL_8BIT ?
+        (databits == 9) : USART_WL_9BIT ?
+        assert(0));  //  Invalid databits
+    usart_stop_bit_set(port, 
+        (stopbits == 1) : USART_STB_1BIT ?
+        (stopbits == 2) : USART_STB_2BIT ?
+        assert(0));  //  Invalid stopbits
+    usart_parity_config(port, 
+        (parity == HAL_UART_PARITY_NONE) : USART_PM_NONE ?
+        (parity == HAL_UART_PARITY_ODD)  : USART_PM_ODD ?
+        (parity == HAL_UART_PARITY_EVEN) : USART_PM_EVEN ?
+        assert(0));  //  Invalid parity    
+    
     usart_hardware_flow_rts_config(port, USART_RTS_DISABLE);
     usart_hardware_flow_cts_config(port, USART_CTS_DISABLE);
-    usart_receive_config(port, USART_RECEIVE_ENABLE);
+    usart_receive_config( port, USART_RECEIVE_ENABLE);
     usart_transmit_config(port, USART_TRANSMIT_ENABLE);
     usart_enable(port);
 }

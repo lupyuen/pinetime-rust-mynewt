@@ -70,7 +70,7 @@ extern "C" {
 /*
  * Mapping of a GPIO pin to an alternate function.
  */
-#define MCU_AFIO_GPIO(pin,af)  (((0x0F & af) << 12) | (0x00FF & pin))
+//  TODO #define MCU_AFIO_GPIO(pin,af)  (((0x0F & af) << 12) | (0x00FF & pin))
 
 /*
  * Mapping of alternate function pin descriptors.
@@ -80,12 +80,6 @@ extern "C" {
 #define MCU_AFIO_PORTC(pin, af)   MCU_AFIO_GPIO(MCU_GPIO_PORTC(pin), af)
 #define MCU_AFIO_PORTD(pin, af)   MCU_AFIO_GPIO(MCU_GPIO_PORTD(pin), af)
 #define MCU_AFIO_PORTE(pin, af)   MCU_AFIO_GPIO(MCU_GPIO_PORTE(pin), af)
-#define MCU_AFIO_PORTF(pin, af)   MCU_AFIO_GPIO(MCU_GPIO_PORTF(pin), af)
-#define MCU_AFIO_PORTG(pin, af)   MCU_AFIO_GPIO(MCU_GPIO_PORTG(pin), af)
-#define MCU_AFIO_PORTH(pin, af)   MCU_AFIO_GPIO(MCU_GPIO_PORTH(pin), af)
-#define MCU_AFIO_PORTI(pin, af)   MCU_AFIO_GPIO(MCU_GPIO_PORTI(pin), af)
-#define MCU_AFIO_PORTJ(pin, af)   MCU_AFIO_GPIO(MCU_GPIO_PORTJ(pin), af)
-#define MCU_AFIO_PORTK(pin, af)   MCU_AFIO_GPIO(MCU_GPIO_PORTK(pin), af)
 
 /*
  * Helper macros to extract components from a pin descriptor.
@@ -93,7 +87,7 @@ extern "C" {
 #define MCU_AFIO_PIN_NUM(pin)   MCU_GPIO_PIN_NUM(pin)
 #define MCU_AFIO_PIN_PORT(pin)  MCU_GPIO_PIN_PORT(pin)
 #define MCU_AFIO_PIN_PAD(pin)   MCU_GPIO_PIN_PAD(pin)
-#define MCU_AFIO_PIN_AF(pin)    (0x000F & (pin >> 12))
+//  TODO #define MCU_AFIO_PIN_AF(pin)    (0x000F & (pin >> 12))
 
 /*
  * Use this value for pins that should not be used.
