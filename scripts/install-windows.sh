@@ -28,7 +28,7 @@ git --version  #  Should show "git version 2.21.0" or later.
 
 echo "***** Installing openocd..."
 
-#  Install OpenOCD into the ./openocd folder.
+#  Install Arm version of OpenOCD into the ./openocd folder.
 if [ ! -e openocd/bin/openocd.exe ]; then
     sudo apt install wget unzip -y
     wget https://github.com/gnu-mcu-eclipse/openocd/releases/download/v0.10.0-11-20190118/gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-win64.zip
@@ -36,6 +36,18 @@ if [ ! -e openocd/bin/openocd.exe ]; then
     rm gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-win64.zip
     mv "openocd/GNU MCU Eclipse/OpenOCD/"*/* openocd
     rm -rf "openocd/GNU MCU Eclipse"
+fi
+
+#  Install RISC-V version of OpenOCD into the ./riscv-openocd folder.
+if [ ! -d riscv-openocd ]; then
+    #  For cross-compiling on macOS.
+    sudo port install mingw-w64
+    git clone https://github.com/riscv-mcu/riscv-openocd
+    cd riscv-openocd
+    ./bootstrap
+    ./configure --enable-cmsis-dap --enable-ftdi --build=i686-pc-linux-gnu --host=i686-w64-mingw32
+    make
+    cd ..
 fi
 
 echo "***** Installing npm..."

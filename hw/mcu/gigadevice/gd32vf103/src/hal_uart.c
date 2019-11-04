@@ -42,6 +42,7 @@ static struct hal_uart uarts[UART_CNT];
 //  UART Settings
 struct gd32vf103_uart_cfg {
     enum rcu_periph_enum dev;      //  UART device e.g. USART0, USART1
+    uint32_t irq;                  //  IRQ for the device e.g. USART0_IRQn
     enum rcu_periph_enum rcu_dev;  //  RCU for the device e.g. RCU_USART0
     enum rcu_periph_enum rcu_gpio; //  RCU for the GPIO e.g. RCU_GPIOA
     int8_t pin_tx;                 //  Pins for I/O, e.g. MCU_GPIO_PORTA(9)
@@ -52,8 +53,9 @@ struct gd32vf103_uart_cfg {
 
 static const struct gd32vf103_uart_cfg uart_cfg[UART_CNT] = {
     [0] = {
-        .uart     = USART0,
-        .rcu_dev  = RCU_USART0,
+        .dev      = USART0,
+        .irq      = USART0_IRQn,
+        .rcu_dev  = RCU_USART0
         .rcu_gpio = RCU_GPIOA,
         .pin_tx   = MCU_GPIO_PORTA(9),
         .pin_rx   = MCU_GPIO_PORTA(10),
@@ -61,7 +63,8 @@ static const struct gd32vf103_uart_cfg uart_cfg[UART_CNT] = {
         .pin_cts  = -1,
     },
     [1] = {
-        .uart     = USART1,
+        .dev      = USART1,
+        .irq      = USART1_IRQn,
         .rcu_dev  = RCU_USART1,
         .rcu_gpio = RCU_GPIOA,
         .pin_tx   = MCU_GPIO_PORTA(2),
