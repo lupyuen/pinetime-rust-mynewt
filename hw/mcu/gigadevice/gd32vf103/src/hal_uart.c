@@ -39,11 +39,22 @@ static struct hal_uart uarts[UART_CNT];
 
 // static struct uart_dev hal_uart0;
 
+//  UART Settings
+struct gd32vf103_uart_cfg {
+    enum rcu_periph_enum dev;      //  UART device e.g. USART0, USART1
+    enum rcu_periph_enum rcu_dev;  //  RCU for the device e.g. RCU_USART0
+    enum rcu_periph_enum rcu_gpio; //  RCU for the GPIO e.g. RCU_GPIOA
+    int8_t pin_tx;                 //  Pins for I/O, e.g. MCU_GPIO_PORTA(9)
+    int8_t pin_rx;
+    int8_t pin_rts;
+    int8_t pin_cts;
+};
+
 static const struct gd32vf103_uart_cfg uart_cfg[UART_CNT] = {
     [0] = {
         .uart     = USART0,
-        .rcc_dev  = RCU_USART0,
-        .rcc_gpio = RCU_GPIOA,
+        .rcu_dev  = RCU_USART0,
+        .rcu_gpio = RCU_GPIOA,
         .pin_tx   = MCU_GPIO_PORTA(9),
         .pin_rx   = MCU_GPIO_PORTA(10),
         .pin_rts  = -1,
@@ -51,8 +62,8 @@ static const struct gd32vf103_uart_cfg uart_cfg[UART_CNT] = {
     },
     [1] = {
         .uart     = USART1,
-        .rcc_dev  = RCU_USART1,
-        .rcc_gpio = RCU_GPIOA,
+        .rcu_dev  = RCU_USART1,
+        .rcu_gpio = RCU_GPIOA,
         .pin_tx   = MCU_GPIO_PORTA(2),
         .pin_rx   = MCU_GPIO_PORTA(3),
         .pin_rts  = -1,
@@ -200,8 +211,8 @@ gd32vf103_uart_irq_handler(int num)
 int
 hal_uart_init(int port, void *arg)
 {
+    // port=0 for USART0, 1 for USART1, ...
     struct hal_uart *u;
-
     if (port < 0 || port >= UART_CNT) {
         return -1;
     }
@@ -218,6 +229,7 @@ int
 hal_uart_config(int port, int32_t baudrate, uint8_t databits, uint8_t stopbits,
   enum hal_uart_parity parity, enum hal_uart_flow_ctl flow_ctl)
 {
+    // port=0 for USART0, 1 for USART1, ...
     struct hal_uart *u;
     if (port < 0 || port >= UART_CNT) {
         return -1;
@@ -282,31 +294,34 @@ hal_uart_sys_clock_changed(void)
 
 //  From Utilities/gd32vf103v_eval.c
 void gd32vf103_uart_config(int port, int32_t baudrate, uint8_t databits, uint8_t stopbits,
-  enum hal_uart_parity parity, enum hal_uart_flow_ctl flow_ctl)
-{
+  enum hal_uart_parity parity, enum hal_uart_flow_ctl flow_ctl) {
+    // port=0 for USART0, 1 for USART1, ...
     assert(port >= 0 && port < UART_CNT);
+    struct gd32vf103_uart_cfg *cfg = uart_cfg[port]; 
 
     /* enable GPIO clock */
-    rcu_periph_clock_enable(COM_GPIO_CLK[port]);
+    rcu_periph_clock_enable(cfg->rcu_gpio);
 
     /* enable USART clock */
-    rcu_periph_clock_enable(COM_CLK[port]);
+    rcu_periph_clock_enable(cfg->rcu_dev);
 
     /* connect port to USARTx_Tx */
-    gpio_init(COM_GPIO_PORT[port], GPIO_MODE_AF_PP, GPIO_OSPEED_50MHZ, COM_TX_PIN[port]);
+    //  Previously: gpio_init(COM_GPIO_PORT[port], GPIO_MODE_AF_PP, GPIO_OSPEED_50MHZ, COM_TX_PIN[port]);
+    hal_gpio_init_out();
 
     /* connect port to USARTx_Rx */
-    gpio_init(COM_GPIO_PORT[port], GPIO_MODE_IN_FLOATING, GPIO_OSPEED_50MHZ, COM_RX_PIN[port]);
+    //  Previously: gpio_init(COM_GPIO_PORT[port], GPIO_MODE_IN_FLOATING, GPIO_OSPEED_50MHZ, COM_RX_PIN[port]);
+    hal_gpio_init_in();
 
     /* USART configure */
-    usart_deinit(com);
-    usart_baudrate_set(com, 115200U);
-    usart_word_length_set(com, USART_WL_8BIT);
-    usart_stop_bit_set(com, USART_STB_1BIT);
-    usart_parity_config(com, USART_PM_NONE);
-    usart_hardware_flow_rts_config(com, USART_RTS_DISABLE);
-    usart_hardware_flow_cts_config(com, USART_CTS_DISABLE);
-    usart_receive_config(com, USART_RECEIVE_ENABLE);
-    usart_transmit_config(com, USART_TRANSMIT_ENABLE);
-    usart_enable(com);
+    usart_deinit(port);
+    usart_baudrate_set(port, baudrate);
+    usart_word_length_set(port, USART_WL_8BIT);
+    usart_stop_bit_set(port, USART_STB_1BIT);
+    usart_parity_config(port, USART_PM_NONE);
+    usart_hardware_flow_rts_config(port, USART_RTS_DISABLE);
+    usart_hardware_flow_cts_config(port, USART_CTS_DISABLE);
+    usart_receive_config(port, USART_RECEIVE_ENABLE);
+    usart_transmit_config(port, USART_TRANSMIT_ENABLE);
+    usart_enable(port);
 }
