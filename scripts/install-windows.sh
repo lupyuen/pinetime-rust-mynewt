@@ -26,7 +26,7 @@ sudo apt update -y
 sudo apt install git -y
 git --version  #  Should show "git version 2.21.0" or later.
 
-echo "***** Installing openocd..."
+echo "***** Installing openocd for Arm..."
 
 #  Install Arm version of OpenOCD into the ./openocd folder.
 if [ ! -e openocd/bin/openocd.exe ]; then
@@ -38,13 +38,24 @@ if [ ! -e openocd/bin/openocd.exe ]; then
     rm -rf "openocd/GNU MCU Eclipse"
 fi
 
+echo "***** Installing openocd for RISC-V..."
+
 #  Install RISC-V version of OpenOCD into the ./riscv-openocd folder.
 if [ ! -d riscv-openocd ]; then
-    #  For cross-compiling on macOS.
+    #  Install mingw toolchain for cross-compiling Windows programs on macOS.
     sudo port install mingw-w64
+
+    #  Uninstall libusb-compat-0.1 if already installed.
+    #  brew uninstall libusb-compat
+    #  Download and build libusb-compat-0.1, the compatibility layer that allows applications written for libusb-0.1 to work with libusb-1.0.
+    #  git clone https://github.com/libusb/libusb-compat-0.1
+
+    #  Download RISC-V version of OpenOCDS
     git clone https://github.com/riscv-mcu/riscv-openocd
     cd riscv-openocd
+    #  Download embedded source files.
     ./bootstrap
+    #  Cross-compile OpenOCD for Windows.
     ./configure --enable-cmsis-dap --enable-ftdi --build=i686-pc-linux-gnu --host=i686-w64-mingw32
     make
     cd ..
