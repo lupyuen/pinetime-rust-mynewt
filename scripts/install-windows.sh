@@ -42,14 +42,13 @@ echo "***** Installing openocd for RISC-V..."
 
 #  Install RISC-V version of OpenOCD into the ./riscv-openocd folder, cross-compiled for Windows.
 #  Based on http://dangerousprototypes.com/docs/Compile_OpenOCD_for_Windows
+#  https://github.com/artynet/openocd-mingw-w64-build-scripts/blob/master/build-openocd-win-cross-linux-new.sh
 #  http://developer.intra2net.com/git/?p=libftdi;a=blob;f=README.mingw;h=771204cd495ea725a1b8e74a975b11ae5690268a;hb=HEAD
 if [ ! -d riscv-openocd ]; then
     #  Install mingw toolchain for cross-compiling Windows programs on macOS http://mingw-w64.org/doku.php
     sudo port install mingw-w64 mingw-w64-tools
     #  Uninstall libusb-compat-0.1 if already installed.
     set +e; brew uninstall libusb-compat; set -e
-    #  Download and build libusb-compat-0.1, the compatibility layer that allows applications written for libusb-0.1 to work with libusb-1.0.
-    #  git clone https://github.com/libusb/libusb-compat-0.1
 
     #  Download libusb binaries for Windows.
     brew install p7zip
@@ -65,12 +64,25 @@ if [ ! -d riscv-openocd ]; then
     make ftdi1-static
     cd ..
 
+    #  Download and cross-compile libhidapi for Windows.
+	git clone git://github.com/signal11/hidapi.git
+    cd hidapi/windows
+    make -f Makefile.mingw \
+        CC=i686-w64-mingw32-gcc \
+        hid.o
+    ar -r libhid.a hid.o
+    i686-w64-mingw32-ranlib libhid.a
+    cd ../..
+
     #  Download RISC-V version of OpenOCD.
     git clone https://github.com/riscv-mcu/riscv-openocd
     cd riscv-openocd
     #  Download embedded source files.
     ./bootstrap
     #  Cross-compile OpenOCD for Windows.
+    export LIBUSB1_LIBS=../libusb-1.0.22/MinGW64/static/libusb-1.0.a
+    export LIBFTDI_LIBS=../libftdi1-1.4/src/libftdi1.a
+    export HIDAPI_LIBS=../hidapi/windows/libhid.a
     ./configure --enable-cmsis-dap --enable-ftdi --build=i686-pc-linux-gnu --host=i686-w64-mingw32
     make
     cd ..
