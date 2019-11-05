@@ -22,11 +22,10 @@ find_program(CMAKE_CXX_COMPILER NAMES ${COMPILER_PREFIX}-g++)
 #SET(CMAKE_CXX_COMPILER ${COMPILER_PREFIX}-g++)
 
 # here is the target environment located
-SET(USER_ROOT_PATH       /home/erk/erk-win32-dev) # TODO
-SET(CMAKE_FIND_ROOT_PATH /usr/${COMPILER_PREFIX} ${USER_ROOT_PATH})
+SET(CMAKE_FIND_ROOT_PATH /opt/local/bin/${COMPILER_PREFIX})
 
 # Location of libusb binaries for Windows
-SET(LIBUSB_LIBRARIES     ../libusb-1.0.22/MinGW64/static)
+SET(LIBUSB_LIBRARIES     ../libusb-1.0.22/MinGW64/static/libusb-1.0.a)
 SET(LIBUSB_INCLUDE_DIR   ../libusb-1.0.22/include/libusb-1.0)
 
 # adjust the default behaviour of the FIND_XXX() commands:

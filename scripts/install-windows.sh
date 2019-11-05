@@ -61,7 +61,8 @@ if [ ! -d riscv-openocd ]; then
     tar -xf libftdi1-1.4.tar.bz2
     cd libftdi1-1.4    
     #  For Linux add: -DPKG_CONFIG_EXECUTABLE=`which i686-w64-mingw32-pkg-config`
-    cmake -DCMAKE_TOOLCHAIN_FILE=../scripts/Toolchain-cross-mingw32-linux.cmake
+    cmake -DCMAKE_TOOLCHAIN_FILE=../scripts/Toolchain-cross-mingw32-linux.cmake    
+    make ftdi1-static
     cd ..
 
     #  Download RISC-V version of OpenOCD.
