@@ -41,6 +41,8 @@ target/
 OLDrust
 tmprustlib
 *.7z
-xPack*
-libftdi1*
-libusb*
+xPack*/
+libftdi1*/
+libftdi1*.bz2
+libusb*/
+hidapi*/

@@ -47,8 +47,15 @@ echo "***** Installing openocd for RISC-V..."
 if [ ! -d riscv-openocd ]; then
     #  Install mingw toolchain for cross-compiling Windows programs on macOS http://mingw-w64.org/doku.php
     sudo port install mingw-w64 mingw-w64-tools
-    #  Uninstall libusb-compat-0.1 if already installed.
-    set +e; brew uninstall libusb-compat; set -e
+    #  Uninstall libusb and libusb-compat-0.1 if already installed.
+    set +e
+    brew uninstall libusb-compat
+    brew uninstall libftdi
+    brew uninstall hidapi
+    brew uninstall libimobiledevice
+    brew uninstall usbmuxd
+    brew uninstall libusb
+    set -e
 
     #  Download libusb binaries for Windows.
     brew install p7zip
@@ -79,10 +86,12 @@ if [ ! -d riscv-openocd ]; then
     cd riscv-openocd
     #  Download embedded source files.
     ./bootstrap
-    #  Cross-compile OpenOCD for Windows.
+    #  Specify locations of libraries built for Windows.
+    export PKG_CONFIG_PATH=../scripts/pkg-config
     export LIBUSB1_LIBS=../libusb-1.0.22/MinGW64/static/libusb-1.0.a
     export LIBFTDI_LIBS=../libftdi1-1.4/src/libftdi1.a
     export HIDAPI_LIBS=../hidapi/windows/libhid.a
+    #  Cross-compile OpenOCD for Windows.
     ./configure --enable-cmsis-dap --enable-ftdi --build=i686-pc-linux-gnu --host=i686-w64-mingw32
     make
     cd ..
