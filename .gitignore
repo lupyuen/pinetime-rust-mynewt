@@ -42,3 +42,5 @@ OLDrust
 tmprustlib
 *.7z
 xPack*
+libftdi1*
+libusb*

@@ -40,17 +40,31 @@ fi
 
 echo "***** Installing openocd for RISC-V..."
 
-#  Install RISC-V version of OpenOCD into the ./riscv-openocd folder.
+#  Install RISC-V version of OpenOCD into the ./riscv-openocd folder, cross-compiled for Windows.
+#  Based on http://dangerousprototypes.com/docs/Compile_OpenOCD_for_Windows
+#  http://developer.intra2net.com/git/?p=libftdi;a=blob;f=README.mingw;h=771204cd495ea725a1b8e74a975b11ae5690268a;hb=HEAD
 if [ ! -d riscv-openocd ]; then
-    #  Install mingw toolchain for cross-compiling Windows programs on macOS.
-    sudo port install mingw-w64
-
+    #  Install mingw toolchain for cross-compiling Windows programs on macOS http://mingw-w64.org/doku.php
+    sudo port install mingw-w64 mingw-w64-tools
     #  Uninstall libusb-compat-0.1 if already installed.
-    #  brew uninstall libusb-compat
+    set +e; brew uninstall libusb-compat; set -e
     #  Download and build libusb-compat-0.1, the compatibility layer that allows applications written for libusb-0.1 to work with libusb-1.0.
     #  git clone https://github.com/libusb/libusb-compat-0.1
 
-    #  Download RISC-V version of OpenOCDS
+    #  Download libusb binaries for Windows.
+    brew install p7zip
+    wget https://github.com/libusb/libusb/releases/download/v1.0.22/libusb-1.0.22.7z
+    7z x libusb-1.0.22.7z -olibusb-1.0.22
+
+    #  Download and cross-compile libftdi for Windows.
+    wget https://www.intra2net.com/en/developer/libftdi/download/libftdi1-1.4.tar.bz2
+    tar -xf libftdi1-1.4.tar.bz2
+    cd libftdi1-1.4    
+    #  For Linux add: -DPKG_CONFIG_EXECUTABLE=`which i686-w64-mingw32-pkg-config`
+    cmake -DCMAKE_TOOLCHAIN_FILE=../scripts/Toolchain-cross-mingw32-linux.cmake
+    cd ..
+
+    #  Download RISC-V version of OpenOCD.
     git clone https://github.com/riscv-mcu/riscv-openocd
     cd riscv-openocd
     #  Download embedded source files.
