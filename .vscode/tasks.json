@@ -41,21 +41,21 @@
                 "command": "cmd",
                 "args": [
                     "/c",
-                    " scripts\\gd32vf103\\build-boot.cmd && echo ✅ ◾ ️Done! "
+                    " scripts\\nrf52\\build-boot.cmd && echo ✅ ◾ ️Done! "
                 ]
             },
             "osx": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/gd32vf103/build-boot.sh && echo ✅ ◾ ️Done! "
+                    " scripts/nrf52/build-boot.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "linux": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/gd32vf103/build-boot.sh && echo ✅ ◾ ️Done! "
+                    " scripts/nrf52/build-boot.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "problemMatcher": [ "$gcc" ],
@@ -119,21 +119,21 @@
                 "command": "cmd",
                 "args": [
                     "/c",
-                    " scripts\\gd32vf103\\image-app.cmd && echo ✅ ◾ ️Done! "
+                    " scripts\\nrf52\\image-app.cmd && echo ✅ ◾ ️Done! "
                 ]
             },
             "osx": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/gd32vf103/image-app.sh && echo ✅ ◾ ️Done! "
+                    " scripts/nrf52/image-app.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "linux": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/gd32vf103/image-app.sh && echo ✅ ◾ ️Done! "
+                    " scripts/nrf52/image-app.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "problemMatcher": [],
@@ -149,7 +149,7 @@
                 "command": "cmd",
                 "args": [
                     "/c",
-                    " scripts\\gd32vf103\\flash-boot.cmd && echo ✅ ◾ ️Done! "
+                    " scripts\\nrf52\\flash-boot.cmd && echo ✅ ◾ ️Done! "
                 ]
             },
             "osx": {
@@ -157,7 +157,7 @@
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/gd32vf103/flash-boot.sh && echo ✅ ◾ ️Done! "
+                    " scripts/nrf52/flash-boot.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "linux": {
@@ -165,7 +165,7 @@
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/gd32vf103/flash-boot.sh && echo ✅ ◾ ️Done! "
+                    " scripts/nrf52/flash-boot.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "problemMatcher": [],
@@ -181,7 +181,7 @@
                 "command": "cmd",
                 "args": [
                     "/c",
-                    " scripts\\gd32vf103\\flash-app.cmd && echo ✅ ◾ ️Done! "
+                    " scripts\\nrf52\\flash-app.cmd && echo ✅ ◾ ️Done! "
                 ]
             },
             "osx": {
@@ -189,7 +189,7 @@
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/gd32vf103/flash-app.sh && echo ✅ ◾ ️Done! "
+                    " scripts/nrf52/flash-app.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "linux": {
@@ -197,7 +197,7 @@
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/gd32vf103/flash-app.sh && echo ✅ ◾ ️Done! "
+                    " scripts/nrf52/flash-app.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "problemMatcher": [],
@@ -213,21 +213,21 @@
                 "command": "cmd",
                 "args": [
                     "/c",
-                    " scripts\\gd32vf103\\flash-erase.cmd && echo ✅ ◾ ️Done! "
+                    " scripts\\nrf52\\flash-erase.cmd && echo ✅ ◾ ️Done! "
                 ]
             },
             "osx": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/gd32vf103/flash-erase.sh && echo ✅ ◾ ️Done! "
+                    " scripts/nrf52/flash-erase.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "linux": {
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/gd32vf103/flash-erase.sh && echo ✅ ◾ ️Done! "
+                    " scripts/nrf52/flash-erase.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "problemMatcher": [],

@@ -6,14 +6,14 @@ set -x  #  Echo all commands.
 set +x ; echo ; echo "----- Building Rust app and Mynewt OS for $rust_build_target / $mynewt_build_app..." ; set -x
 
 #  TODO: GD32VF103
-mynewt_build_app=gd32vf103c-start_my_sensor
-rust_build_target=riscv32imac-unknown-none-elf
-cp .vscode/launch-gd32vf103.json .vscode/launch.json
+#  mynewt_build_app=gd32vf103c-start_my_sensor
+#  rust_build_target=riscv32imac-unknown-none-elf
+#  cp .vscode/launch-gd32vf103.json .vscode/launch.json
 
 #  TODO: nRF52
-#  mynewt_build_app=nrf52_my_sensor
-#  rust_build_target=thumbv7em-none-eabihf
-#  cp .vscode/launch-nrf52.json .vscode/launch.json
+mynewt_build_app=nrf52_my_sensor
+rust_build_target=thumbv7em-none-eabihf
+cp .vscode/launch-nrf52.json .vscode/launch.json
 
 #  TODO: STM32L4
 #  mynewt_build_app=stm32l4_my_sensor

@@ -38,6 +38,12 @@ syscfg.defs:
     SENSOR_POLL_TIME:
         description: 'Poll the sensor every N milliseconds e.g. 10 * 1000'
         value:       UNDEFINED_SENSOR_POLL_TIME
+    BLUETOOTH_LE:
+        description: 'Enable Bluetooth LE functions'
+        value:        0        
+    BLUETOOTH_MESH:
+        description: 'Enable Bluetooth Mesh functions'
+        value:        0        
     LOW_POWER:
         description: 'Enable low power support for STM32 Blue Pill'
         value:        0        
@@ -103,6 +109,11 @@ syscfg.vals:
 
     # CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8 (for thethings.io, the last part is the Thing Token)
     COAP_URI:       '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"'
+
+    ###########################################################################
+    # Bluetooth LE Settings
+
+    BLUETOOTH_LE:   1  # Enable Bluetooth LE
 
     ###########################################################################
     # Bluetooth Mesh Settings

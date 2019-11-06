@@ -69,10 +69,10 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //gps_sensor::start_gps_listener()
         //.expect("GPS fail");
 
-    //  Start Bluetooth Mesh.  TODO: Create a safe wrapper for starting Bluetooth Mesh.
-    //  extern { fn start_mesh() -> i32; }
-    //  let rc = unsafe { start_mesh() };
-    //  assert!(rc == 0, "BLE fail");
+    //  Start Bluetooth LE.  TODO: Create a safe wrapper for starting Bluetooth LE.
+    extern { fn start_ble() -> i32; }
+    let rc = unsafe { start_ble() };
+    assert!(rc == 0, "BLE fail");
 
     //  Main event loop
     loop {                            //  Loop forever...
