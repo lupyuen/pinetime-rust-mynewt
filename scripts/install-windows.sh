@@ -87,10 +87,14 @@ if [ ! -d riscv-openocd ]; then
     #  Download embedded source files.
     ./bootstrap
     #  Specify locations of libraries built for Windows.
+    #  TODO: Fix LIBUSB error during build
     export PKG_CONFIG_PATH=../scripts/pkg-config
-    export LIBUSB1_LIBS=../libusb-1.0.22/MinGW64/static/libusb-1.0.a
-    export LIBFTDI_LIBS=../libftdi1-1.4/src/libftdi1.a
-    export HIDAPI_LIBS=../hidapi/windows/libhid.a
+    export LIBUSB1_LIBS=
+    export LIBFTDI_LIBS=
+    export HIDAPI_LIBS=
+    #export LIBUSB1_LIBS=../libusb-1.0.22/MinGW64/static/libusb-1.0.a
+    #export LIBFTDI_LIBS=../libftdi1-1.4/src/libftdi1.a
+    #export HIDAPI_LIBS=../hidapi/windows/libhid.a
     #  Cross-compile OpenOCD for Windows.
     ./configure --enable-cmsis-dap --enable-ftdi --build=i686-pc-linux-gnu --host=i686-w64-mingw32
     make

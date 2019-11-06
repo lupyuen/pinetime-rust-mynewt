@@ -3,8 +3,8 @@ exec_prefix=${prefix}
 includedir=${prefix}/include
 libdir=${exec_prefix}/MinGW64/static
 
-Name: libusb
-Description: libusb
+Name: libusb-1.0
+Description: libusb-1.0
 Version: 1.0.22
 Cflags: -I${includedir}
 Libs: -L${libdir} -llibusb-1.0
