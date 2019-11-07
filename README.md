@@ -21,9 +21,9 @@
 
 # PineTime Smart Watch Firmware with Apache Mynewt and Embedded Rust
 
-This `pinetime` branch contains the source code for PineTime Smart Watch Firmware with Apache Mynewt. Refer to the article...
+This `pinetime` branch contains the source code for PineTime Smart Watch Firmware with Apache Mynewt. The code here is similar to the article...
 
-[_Coming Soon_](???)
+[_Coding nRF52 with Rust and Apache Mynewt on Visual Studio Code_](https://medium.com/@ly.lee/coding-nrf52-with-rust-and-apache-mynewt-on-visual-studio-code-9521bcba6004?source=friends_link&sk=bb4e2523b922d0870259ab3fa696c7da)
 
 # Fixes for Mynewt type conversion build warnings
 
