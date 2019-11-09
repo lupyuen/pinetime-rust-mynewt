@@ -349,9 +349,10 @@ mod display {
     use st7735_lcd;
     use st7735_lcd::Orientation;
     pub fn show() {
-        let mut display =
-            st7735_lcd::ST7735::new(DisplaySPI{}, DisplayDC{}, DisplayRST{},
-                                    false, true);
+        let spi = MynewtSPI::new(0);
+        let dc = MynewtGPIO::new(0);
+        let rst = MynewtGPIO::new(0);
+        let mut display = st7735_lcd::ST7735::new(spi, dc, rst, false, true);
         let mut delay = MynewtDelay{};
         display.init(&mut delay).unwrap();
         display.set_orientation(&Orientation::Landscape).unwrap();
@@ -365,17 +366,41 @@ mod display {
         display.draw(c);
         display.draw(t);
     }
-    impl embedded_hal::blocking::spi::write::Default<u8> for DisplaySPI { }
-    impl embedded_hal::spi::FullDuplex<u8> for DisplaySPI { }
-    impl embedded_hal::digital::v1::OutputPin for DisplayDC { }
-    impl embedded_hal::digital::v1::OutputPin for DisplayRST { }
-    impl embedded_hal::blocking::delay::DelayMs<u8> for MynewtDelay { }
-    struct DisplaySPI {
+    impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
+        fn write(&mut self, words: &[u8]) -> Result<(), Self::Error> {
+            Ok(())
+        }
+        type
+        Error
+        =
+        mynewt::result::MynewtError;
     }
-    struct DisplayDC {
+    impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
+        fn set_low(&mut self) -> Result<(), Self::Error> { Ok(()) }
+        fn set_high(&mut self) -> Result<(), Self::Error> { Ok(()) }
+        type
+        Error
+        =
+        mynewt::result::MynewtError;
     }
-    struct DisplayRST {
+    impl MynewtGPIO {
+        pub fn new(pin: i32) -> Self { MynewtGPIO{pin,} }
     }
+    impl MynewtSPI {
+        pub fn new(spi_num: i32) -> Self { MynewtSPI{spi_num,} }
+    }
+    impl embedded_hal::blocking::delay::DelayMs<u8> for MynewtDelay {
+        fn delay_ms(&mut self, ms: u8) { }
+    }
+    /// Wrapper for Mynewt SPI API
+    struct MynewtSPI {
+        spi_num: i32,
+    }
+    /// Wrapper for Mynewt GPIO API
+    struct MynewtGPIO {
+        pin: i32,
+    }
+    /// Wrapper for Mynewt Delay API
     struct MynewtDelay {
     }
 }
