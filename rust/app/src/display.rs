@@ -33,7 +33,7 @@ pub fn show() {
     );
 
     //  Switch on the backlight.
-    let backlight = MynewtGPIO::new(23);  //  LCD_BACKLIGHT_{LOW,MID,HIGH} (P0.14, 22, 23)	Backlight (active low)
+    let mut backlight = MynewtGPIO::new(23);  //  LCD_BACKLIGHT_{LOW,MID,HIGH} (P0.14, 22, 23)	Backlight (active low)
     backlight.set_low()
         .expect("backlight fail");
 
@@ -57,13 +57,20 @@ pub fn show() {
     display.draw(t);
 }
 
+static mut spi_settings: hal::hal_spi_settings = hal::hal_spi_settings {
+    data_order: hal::HAL_SPI_MSB_FIRST as u8,
+    data_mode:  hal::HAL_SPI_MODE3 as u8,  //  SPI must be used in mode 3. Mode 0 (the default) won't work.
+    baudrate:   8000,  //  In kHZ. Use SPI at 8MHz (the fastest clock available on the nRF52832) because otherwise refreshing will be super slow.
+    word_size:  hal::HAL_SPI_WORD_SIZE_8BIT as u8,
+};
+
 impl MynewtSPI {
     pub fn new(spi_num: i32, cs_pin: i32) -> Self {
-        let rc = hal::hal_spi_config(spi_num, &spi_settings);
+        let rc = unsafe { hal::hal_spi_config(spi_num, &mut spi_settings) };
         assert_eq!(rc, 0, "spi config fail");
-        let rc = hal::hal_spi_enable(spi_num);
+        let rc = unsafe { hal::hal_spi_enable(spi_num) };
         assert_eq!(rc, 0, "spi enable fail");
-        let rc = hal::hal_gpio_init_out(cs_pin, 1);
+        let rc = unsafe { hal_gpio_init_out(cs_pin, 1) };
         assert_eq!(rc, 0, "spi init fail");
         MynewtSPI {
             spi_num,
@@ -75,30 +82,22 @@ impl MynewtSPI {
 impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
     fn write(&mut self, words: &[u8]) -> Result<(), Self::Error> {
         //  Select the device
-        let rc = hal::hal_gpio_write(self.cs_pin, 0);
-        assert_eq!(rc, 0, "spi config fail");
-
+        unsafe { hal_gpio_write(self.cs_pin, 0) };
         //  Send the data
-        let retval = hal::hal_spi_tx_val(self.spi_num, words);
-
+        let retval = unsafe { hal::hal_spi_txrx(self.spi_num, 
+            core::mem::transmute(words.as_ptr()),  //  TX Buffer
+            core::ptr::null_mut(),                 //  RX Buffer
+            words.len() as i32) };                 //  Length
         //  De-select the device
-        let rc = hal::hal_gpio_write(self.cs_pin, 1);
-        assert_eq!(rc, 0, "spi config fail");
+        unsafe { hal_gpio_write(self.cs_pin, 1) };
         Ok(())
     }
     type Error = mynewt::result::MynewtError;
 }
 
-static spi_settings: hal::hal_spi_settings = hal::hal_spi_settings {
-    data_order: hal::HAL_SPI_MSB_FIRST as u8,
-    data_mode:  hal::HAL_SPI_MODE3 as u8,  //  SPI must be used in mode 3. Mode 0 (the default) won't work.
-    baudrate:   8000,  //  In kHZ. Use SPI at 8MHz (the fastest clock available on the nRF52832) because otherwise refreshing will be super slow.
-    word_size:  hal::HAL_SPI_WORD_SIZE_8BIT as u8,
-};
-
 impl MynewtGPIO {
     pub fn new(pin: i32) -> Self {
-        let rc = hal::hal_gpio_init_out(pin, 0);
+        let rc = unsafe { hal_gpio_init_out(pin, 0) };
         assert_eq!(rc, 0, "spi config fail");
         MynewtGPIO {
             pin
@@ -108,12 +107,12 @@ impl MynewtGPIO {
 
 impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
     fn set_low(&mut self) -> Result<(), Self::Error> {
-        hal::hal_gpio_write(self.pin, 0);
+        unsafe { hal_gpio_write(self.pin, 0) };
         Ok(())
     }
 
     fn set_high(&mut self) -> Result<(), Self::Error> {
-        hal::hal_gpio_write(self.pin, 1);
+        unsafe { hal_gpio_write(self.pin, 1) };
         Ok(())
     }
 
@@ -139,3 +138,9 @@ struct MynewtGPIO {
 
 /// Wrapper for Mynewt Delay API
 struct MynewtDelay {}
+
+//  TODO: Fix gen-bindings.sh to generate GPIO bindings
+extern "C" {
+    fn hal_gpio_init_out(pin: i32, val: i32) -> i32;
+    fn hal_gpio_write(pin: i32, val: i32);
+}
