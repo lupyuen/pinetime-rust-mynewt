@@ -268,6 +268,19 @@ impl Default for CborEncoder {
     ) -> CborError;
 }
 #[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[doc = " Creates a indefinite-length text string in the CBOR stream provided by"]
+    #[doc = " \\a encoder and initializes \\a stringEncoder so that chunks of original string"]
+    #[doc = " can be added using the CborEncoder functions. The string must be terminated by"]
+    #[doc = " calling cbor_encoder_close_container() with the same \\a encoder and"]
+    #[doc = " \\a stringEncoder parameters."]
+    #[doc = ""]
+    #[doc = " \\sa cbor_encoder_create_array"]
+    pub fn cbor_encoder_create_indef_text_string(
+        encoder: *mut CborEncoder,
+        stringEncoder: *mut CborEncoder,
+    ) -> CborError;
+}
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = " Creates a indefinite-length byte string in the CBOR stream provided by"]
     #[doc = " \\a encoder and initializes \\a stringEncoder so that chunks of original string"]
     #[doc = " can be added using the CborEncoder functions. The string must be terminated by"]

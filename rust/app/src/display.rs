@@ -35,12 +35,28 @@ pub fn show() {
     display.draw(t);
 }
 
+impl MynewtSPI {
+    pub fn new(spi_num: i32) -> Self {
+        MynewtSPI {
+            spi_num
+        }
+    }
+}
+
 impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
     fn write(&mut self, words: &[u8]) -> Result<(), Self::Error> {
         //  TODO
         Ok(())
     }
     type Error = mynewt::result::MynewtError;
+}
+
+impl MynewtGPIO {
+    pub fn new(pin: i32) -> Self {
+        MynewtGPIO {
+            pin
+        }
+    }
 }
 
 impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
@@ -55,22 +71,6 @@ impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
     }
 
     type Error = mynewt::result::MynewtError;
-}
-
-impl MynewtGPIO {
-    pub fn new(pin: i32) -> Self {
-        MynewtGPIO {
-            pin
-        }
-    }
-}
-
-impl MynewtSPI {
-    pub fn new(spi_num: i32) -> Self {
-        MynewtSPI {
-            spi_num
-        }
-    }
 }
 
 impl embedded_hal::blocking::delay::DelayMs<u8> for MynewtDelay {

@@ -4966,17 +4966,17 @@ Relocation section '.rel.ARM.exidx.text._ZN10num_traits4cast11ToPrimitive5to_u81
 
 Relocation section '.rel.text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h4c8b3da4515d915dE' at offset 0x69bc contains 12 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-0000000e  0001500a R_ARM_THM_CALL         00000000   _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E
+0000000e  0001500a R_ARM_THM_CALL         00000000   _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE
 00000018  0001440a R_ARM_THM_CALL         00000000   _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h0636837c84538327E
 00000026  00014e0a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE
 00000048  00014c0a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E
 0000004e  00014d0a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E
-00000066  00014f0a R_ARM_THM_CALL         00000000   _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E
+00000066  00014f0a R_ARM_THM_CALL         00000000   _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E
 00000070  0001480a R_ARM_THM_CALL         00000000   _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h8a455cb6cacbd142E
 0000007e  00014e0a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE
 0000009e  00014c0a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E
 000000a4  00014d0a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E
-000000b4  0001500a R_ARM_THM_CALL         00000000   _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E
+000000b4  0001500a R_ARM_THM_CALL         00000000   _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE
 000000be  0001470a R_ARM_THM_CALL         00000000   _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h6e35cc8eb351b30dE
 
 Relocation section '.rel.ARM.exidx.text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h4c8b3da4515d915dE' at offset 0x6a1c contains 1 entry:
@@ -5001,12 +5001,12 @@ Relocation section '.rel.ARM.exidx.text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RS
 
 Relocation section '.rel.text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hea88fea94cf61461E' at offset 0x6a44 contains 7 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-0000001e  0001500a R_ARM_THM_CALL         00000000   _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E
+0000001e  0001500a R_ARM_THM_CALL         00000000   _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE
 00000028  0001460a R_ARM_THM_CALL         00000000   _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h63140da16e396194E
 00000036  00014e0a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE
 00000058  00014c0a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E
 0000005e  00014d0a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E
-00000078  0001510a R_ARM_THM_CALL         00000000   _ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E
+00000078  0001510a R_ARM_THM_CALL         00000000   _ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E
 00000082  0001490a R_ARM_THM_CALL         00000000   _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h992977dfd1591b97E
 
 Relocation section '.rel.ARM.exidx.text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hea88fea94cf61461E' at offset 0x6a7c contains 1 entry:
@@ -5032,14 +5032,14 @@ Relocation section '.rel.ARM.exidx.text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RS
 
 Relocation section '.rel.text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17hb345dd533f74732bE' at offset 0x6aac contains 18 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000026  00014f0a R_ARM_THM_CALL         00000000   _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E
+00000026  00014f0a R_ARM_THM_CALL         00000000   _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E
 00000030  0001450a R_ARM_THM_CALL         00000000   _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h482a2df6ddcfca9fE
 0000003e  00014e0a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE
 00000060  00014c0a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E
 00000066  00014d0a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E
 00000084  0001230a R_ARM_THM_CALL         00000000   _ZN10num_traits4cast11ToPrimitive5to_u817h24769e5d734e2a3eE
 00000096  00013f0a R_ARM_THM_CALL         00000000   _ZN4core6option15Option$LT$T$GT$6unwrap17h84aea0c976a43651E
-000000ac  0001510a R_ARM_THM_CALL         00000000   _ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E
+000000ac  0001510a R_ARM_THM_CALL         00000000   _ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E
 000000b6  00014a0a R_ARM_THM_CALL         00000000   _ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc2b4266c604fedeaE
 000000c4  00014e0a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE
 000000e4  00014c0a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E
@@ -6368,9 +6368,9 @@ Symbol table '.symtab' contains 339 entries:
    332: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E
    333: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E
    334: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE
-   335: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E
-   336: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E
-   337: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E
+   335: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E
+   336: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE
+   337: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E
    338: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E
 
 No version information found in this file.
@@ -9990,26 +9990,26 @@ Section Headers:
   [ 4] .rel.text._ZN3app7display4show17h3d99e0b5dbb54032E REL             00000000 0022c4 0000c0 08     44   3  4
   [ 5] .ARM.exidx.text._ZN3app7display4show17h3d99e0b5dbb54032E ARM_EXIDX       00000000 00018c 000008 00  AL  3   0  4
   [ 6] .rel.ARM.exidx.text._ZN3app7display4show17h3d99e0b5dbb54032E REL             00000000 002384 000008 08     44   5  4
-  [ 7] .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E PROGBITS        00000000 000194 000028 00  AX  0   0  2
-  [ 8] .ARM.exidx.text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E ARM_EXIDX       00000000 0001bc 000008 00  AL  7   0  4
-  [ 9] .rel.ARM.exidx.text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E REL             00000000 00238c 000008 08     44   8  4
-  [10] .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E PROGBITS        00000000 0001c4 000016 00  AX  0   0  2
-  [11] .ARM.exidx.text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E ARM_EXIDX       00000000 0001dc 000008 00  AL 10   0  4
-  [12] .rel.ARM.exidx.text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E REL             00000000 002394 000008 08     44  11  4
-  [13] .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E PROGBITS        00000000 0001e4 000016 00  AX  0   0  2
-  [14] .ARM.exidx.text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E ARM_EXIDX       00000000 0001fc 000008 00  AL 13   0  4
-  [15] .rel.ARM.exidx.text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E REL             00000000 00239c 000008 08     44  14  4
-  [16] .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E PROGBITS        00000000 000204 000012 00  AX  0   0  2
-  [17] .ARM.exidx.text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E ARM_EXIDX       00000000 000218 000008 00  AL 16   0  4
-  [18] .rel.ARM.exidx.text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E REL             00000000 0023a4 000008 08     44  17  4
-  [19] .text._ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E PROGBITS        00000000 000220 000012 00  AX  0   0  2
-  [20] .ARM.exidx.text._ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E ARM_EXIDX       00000000 000234 000008 00  AL 19   0  4
-  [21] .rel.ARM.exidx.text._ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E REL             00000000 0023ac 000008 08     44  20  4
+  [ 7] .text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E PROGBITS        00000000 000194 000012 00  AX  0   0  2
+  [ 8] .ARM.exidx.text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E ARM_EXIDX       00000000 0001a8 000008 00  AL  7   0  4
+  [ 9] .rel.ARM.exidx.text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E REL             00000000 00238c 000008 08     44   8  4
+  [10] .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E PROGBITS        00000000 0001b0 000028 00  AX  0   0  2
+  [11] .ARM.exidx.text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E ARM_EXIDX       00000000 0001d8 000008 00  AL 10   0  4
+  [12] .rel.ARM.exidx.text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E REL             00000000 002394 000008 08     44  11  4
+  [13] .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E PROGBITS        00000000 0001e0 000012 00  AX  0   0  2
+  [14] .ARM.exidx.text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E ARM_EXIDX       00000000 0001f4 000008 00  AL 13   0  4
+  [15] .rel.ARM.exidx.text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E REL             00000000 00239c 000008 08     44  14  4
+  [16] .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E PROGBITS        00000000 0001fc 000016 00  AX  0   0  2
+  [17] .ARM.exidx.text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E ARM_EXIDX       00000000 000214 000008 00  AL 16   0  4
+  [18] .rel.ARM.exidx.text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E REL             00000000 0023a4 000008 08     44  17  4
+  [19] .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE PROGBITS        00000000 00021c 000016 00  AX  0   0  2
+  [20] .ARM.exidx.text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE ARM_EXIDX       00000000 000234 000008 00  AL 19   0  4
+  [21] .rel.ARM.exidx.text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE REL             00000000 0023ac 000008 08     44  20  4
   [22] .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E PROGBITS        00000000 00023c 000014 00  AX  0   0  2
   [23] .ARM.exidx.text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E ARM_EXIDX       00000000 000250 000008 00  AL 22   0  4
   [24] .rel.ARM.exidx.text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E REL             00000000 0023b4 000008 08     44  23  4
-  [25] .rodata..Lanon.aac81e347ee9cd387b89453a2dd7ab7d.0 PROGBITS        00000000 000258 000001 00   A  0   0  1
-  [26] .rodata..Lanon.aac81e347ee9cd387b89453a2dd7ab7d.1 PROGBITS        00000000 000259 00000b 00   A  0   0  1
+  [25] .rodata..Lanon.22b8c9f15394de93f6d6cb0c17e56908.0 PROGBITS        00000000 000258 000001 00   A  0   0  1
+  [26] .rodata..Lanon.22b8c9f15394de93f6d6cb0c17e56908.1 PROGBITS        00000000 000259 00000b 00   A  0   0  1
   [27] .debug_str        PROGBITS        00000000 000264 0007e4 01  MS  0   0  1
   [28] .debug_abbrev     PROGBITS        00000000 000a48 00011b 00      0   0  1
   [29] .debug_info       PROGBITS        00000000 000b63 00061b 00      0   0  1
@@ -10042,14 +10042,14 @@ There is no dynamic section in this file.
 
 Relocation section '.rel.text._ZN3app7display4show17h3d99e0b5dbb54032E' at offset 0x22c4 contains 24 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000006  0000830a R_ARM_THM_CALL         00000001   _ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E
+00000006  0000830a R_ARM_THM_CALL         00000001   _ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E
 00000010  0000820a R_ARM_THM_CALL         00000001   _ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
 0000001a  0000820a R_ARM_THM_CALL         00000001   _ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
 0000003c  0000920a R_ARM_THM_CALL         00000000   _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h0c9703f6d02fdf2fE
 00000046  0000930a R_ARM_THM_CALL         00000000   _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h352014b417f1fa2aE
 00000054  00009d0a R_ARM_THM_CALL         00000000   _ZN4core6result19Result$LT$T$C$E$GT$6unwrap17ha67f6a649316de7bE
-0000005a  0000802f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.aac81e347ee9cd387b89453a2dd7ab7d.0
-0000005e  00008030 R_ARM_THM_MOVT_ABS     00000000   .Lanon.aac81e347ee9cd387b89453a2dd7ab7d.0
+0000005a  0000802f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.22b8c9f15394de93f6d6cb0c17e56908.0
+0000005e  00008030 R_ARM_THM_MOVT_ABS     00000000   .Lanon.22b8c9f15394de93f6d6cb0c17e56908.0
 00000064  0000910a R_ARM_THM_CALL         00000000   _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h3b311a74151534b9E
 00000072  00009d0a R_ARM_THM_CALL         00000000   _ZN4core6result19Result$LT$T$C$E$GT$6unwrap17ha67f6a649316de7bE
 0000007e  0000900a R_ARM_THM_CALL         00000000   _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h3a7e2264458ec7a3E
@@ -10057,8 +10057,8 @@ Relocation section '.rel.text._ZN3app7display4show17h3d99e0b5dbb54032E' at offse
 0000009c  00009a0a R_ARM_THM_CALL         00000000   _ZN17embedded_graphics10primitives6circle15Circle$LT$C$GT$3new17hfb7a50a81d553696E
 000000a4  0000a20a R_ARM_THM_CALL         00000000   _ZN95_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$u8$GT$$GT$4from17h6ee2795358adec6eE
 000000c4  0000940a R_ARM_THM_CALL         00000000   _ZN119_$LT$embedded_graphics..primitives..circle..Circle$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17hb6efe8c06b10f3f1E
-000000ca  0000812f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.aac81e347ee9cd387b89453a2dd7ab7d.1
-000000ce  00008130 R_ARM_THM_MOVT_ABS     00000000   .Lanon.aac81e347ee9cd387b89453a2dd7ab7d.1
+000000ca  0000812f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.22b8c9f15394de93f6d6cb0c17e56908.1
+000000ce  00008130 R_ARM_THM_MOVT_ABS     00000000   .Lanon.22b8c9f15394de93f6d6cb0c17e56908.1
 000000d6  0000950a R_ARM_THM_CALL         00000000   _ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17hd4b3d799eb761a14E
 000000de  0000a20a R_ARM_THM_CALL         00000000   _ZN95_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$u8$GT$$GT$4from17h6ee2795358adec6eE
 000000fe  0000970a R_ARM_THM_CALL         00000000   _ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17hc79c1eb2598aec7fE
@@ -10071,25 +10071,25 @@ Relocation section '.rel.ARM.exidx.text._ZN3app7display4show17h3d99e0b5dbb54032E
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0000842a R_ARM_PREL31           00000000   .text._ZN3app7display4show17h3d99e0b5dbb54032E
 
-Relocation section '.rel.ARM.exidx.text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f6' at offset 0x238c contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E' at offset 0x238c contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  0000852a R_ARM_PREL31           00000000   .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E
+00000000  0000852a R_ARM_PREL31           00000000   .text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E
 
-Relocation section '.rel.ARM.exidx.text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd2' at offset 0x2394 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a3' at offset 0x2394 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  0000862a R_ARM_PREL31           00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E
+00000000  0000862a R_ARM_PREL31           00000000   .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E
 
-Relocation section '.rel.ARM.exidx.text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b' at offset 0x239c contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E' at offset 0x239c contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  0000872a R_ARM_PREL31           00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E
+00000000  0000872a R_ARM_PREL31           00000000   .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
 
-Relocation section '.rel.ARM.exidx.text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E' at offset 0x23a4 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e' at offset 0x23a4 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  0000882a R_ARM_PREL31           00000000   .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
+00000000  0000882a R_ARM_PREL31           00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E
 
-Relocation section '.rel.ARM.exidx.text._ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E' at offset 0x23ac contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450' at offset 0x23ac contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  0000892a R_ARM_PREL31           00000000   .text._ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E
+00000000  0000892a R_ARM_PREL31           00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE
 
 Relocation section '.rel.ARM.exidx.text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms' at offset 0x23b4 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
@@ -10143,65 +10143,65 @@ Relocation section '.rel.debug_info' at offset 0x23bc contains 165 entries:
 0000018c  00005f02 R_ARM_ABS32            00000516   
 00000197  00008402 R_ARM_ABS32            00000000   .text._ZN3app7display4show17h3d99e0b5dbb54032E
 000001a4  00007802 R_ARM_ABS32            00000666   
-000001b7  00003402 R_ARM_ABS32            0000016e   
-000001bc  00008502 R_ARM_ABS32            00000000   .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E
-000001c6  00003b02 R_ARM_ABS32            000001c6   
-000001ca  00003c02 R_ARM_ABS32            0000023e   
-000001d8  00001302 R_ARM_ABS32            00000776   
-000001e6  00001502 R_ARM_ABS32            00000798   
-000001f2  00008602 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E
-000001fc  00004602 R_ARM_ABS32            00000287   
-00000200  00004702 R_ARM_ABS32            000002fa   
-0000020e  00001302 R_ARM_ABS32            00000776   
-0000021a  00008702 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E
-00000224  00004802 R_ARM_ABS32            00000302   
-00000228  00004902 R_ARM_ABS32            00000376   
-00000236  00001302 R_ARM_ABS32            00000776   
-00000242  00008a02 R_ARM_ABS32            00000000   .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E
-0000024c  00004d02 R_ARM_ABS32            000003e9   
-00000250  00004e02 R_ARM_ABS32            0000046a   
-0000025a  00001302 R_ARM_ABS32            00000776   
-00000268  00001902 R_ARM_ABS32            000007e1   
-00000275  00003602 R_ARM_ABS32            0000017b   
-0000027c  00003502 R_ARM_ABS32            00000177   
-00000287  00008802 R_ARM_ABS32            00000000   .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
-00000291  00004a02 R_ARM_ABS32            0000037f   
-00000295  00004b02 R_ARM_ABS32            000003b3   
-000002a3  00003502 R_ARM_ABS32            00000177   
-000002b0  00003802 R_ARM_ABS32            0000018e   
-000002b7  00003702 R_ARM_ABS32            00000186   
-000002c2  00008902 R_ARM_ABS32            00000000   .text._ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E
-000002cc  00004c02 R_ARM_ABS32            000003b7   
-000002d0  00004b02 R_ARM_ABS32            000003b3   
-000002de  00003702 R_ARM_ABS32            00000186   
+000001b7  00003502 R_ARM_ABS32            00000176   
+000001be  00003402 R_ARM_ABS32            0000016e   
+000001c9  00008502 R_ARM_ABS32            00000000   .text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E
+000001d3  00003b02 R_ARM_ABS32            000001c6   
+000001d7  00003c02 R_ARM_ABS32            000001f8   
+000001e5  00003402 R_ARM_ABS32            0000016e   
+000001f2  00003602 R_ARM_ABS32            00000180   
+000001f7  00008602 R_ARM_ABS32            00000000   .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E
+00000201  00003d02 R_ARM_ABS32            000001fc   
+00000205  00003e02 R_ARM_ABS32            00000274   
+00000213  00001302 R_ARM_ABS32            00000776   
+00000221  00001502 R_ARM_ABS32            00000798   
+0000022d  00008802 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E
+00000237  00004902 R_ARM_ABS32            000002f1   
+0000023b  00004a02 R_ARM_ABS32            00000364   
+00000249  00001302 R_ARM_ABS32            00000776   
+00000255  00008902 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE
+0000025f  00004b02 R_ARM_ABS32            0000036c   
+00000263  00004c02 R_ARM_ABS32            000003e0   
+00000271  00001302 R_ARM_ABS32            00000776   
+0000027d  00008a02 R_ARM_ABS32            00000000   .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E
+00000287  00004d02 R_ARM_ABS32            000003e9   
+0000028b  00004e02 R_ARM_ABS32            0000046a   
+00000295  00001302 R_ARM_ABS32            00000776   
+000002a3  00001902 R_ARM_ABS32            000007e1   
+000002b0  00003802 R_ARM_ABS32            0000018d   
+000002b7  00003702 R_ARM_ABS32            00000189   
+000002c2  00008702 R_ARM_ABS32            00000000   .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
+000002cc  00004802 R_ARM_ABS32            000002bd   
+000002d0  00003c02 R_ARM_ABS32            000001f8   
+000002de  00003702 R_ARM_ABS32            00000189   
 000002eb  00005e02 R_ARM_ABS32            0000050a   
-000002f4  00003d02 R_ARM_ABS32            00000244   
+000002f4  00003f02 R_ARM_ABS32            0000027a   
 000002f9  00001e02 R_ARM_ABS32            0000008c   
-000002fe  00004502 R_ARM_ABS32            0000025f   
-00000313  00003f02 R_ARM_ABS32            0000024d   
-00000320  00004402 R_ARM_ABS32            0000025b   
-0000032d  00003f02 R_ARM_ABS32            0000024d   
-00000334  00004002 R_ARM_ABS32            00000250   
-00000343  00004202 R_ARM_ABS32            00000257   
-0000034c  00004302 R_ARM_ABS32            00000259   
-00000352  00004402 R_ARM_ABS32            0000025b   
-00000359  00004002 R_ARM_ABS32            00000250   
-00000368  00004202 R_ARM_ABS32            00000257   
-00000371  00004302 R_ARM_ABS32            00000259   
+000002fe  00004702 R_ARM_ABS32            00000295   
+00000313  00004102 R_ARM_ABS32            00000283   
+00000320  00004602 R_ARM_ABS32            00000291   
+0000032d  00004102 R_ARM_ABS32            00000283   
+00000334  00004202 R_ARM_ABS32            00000286   
+00000343  00004402 R_ARM_ABS32            0000028d   
+0000034c  00004502 R_ARM_ABS32            0000028f   
+00000352  00004602 R_ARM_ABS32            00000291   
+00000359  00004202 R_ARM_ABS32            00000286   
+00000368  00004402 R_ARM_ABS32            0000028d   
+00000371  00004502 R_ARM_ABS32            0000028f   
 00000379  00006b02 R_ARM_ABS32            0000057a   
 0000037e  00007102 R_ARM_ABS32            000005a4   
 00000393  00006c02 R_ARM_ABS32            00000581   
 000003a1  00007002 R_ARM_ABS32            0000059f   
 000003ae  00006c02 R_ARM_ABS32            00000581   
-000003b9  00004202 R_ARM_ABS32            00000257   
+000003b9  00004402 R_ARM_ABS32            0000028d   
 000003bf  00007002 R_ARM_ABS32            0000059f   
-000003c6  00004002 R_ARM_ABS32            00000250   
-000003d5  00004202 R_ARM_ABS32            00000257   
+000003c6  00004202 R_ARM_ABS32            00000286   
+000003d5  00004402 R_ARM_ABS32            0000028d   
 000003dd  00000d02 R_ARM_ABS32            000006af   
 000003e2  00001002 R_ARM_ABS32            000006ca   
-000003ed  00004202 R_ARM_ABS32            00000257   
-000003f5  00003e02 R_ARM_ABS32            00000249   
-000003fc  00004102 R_ARM_ABS32            00000254   
+000003ed  00004402 R_ARM_ABS32            0000028d   
+000003f5  00004002 R_ARM_ABS32            0000027f   
+000003fc  00004302 R_ARM_ABS32            0000028a   
 00000403  00005202 R_ARM_ABS32            0000047e   
 00000408  00005c02 R_ARM_ABS32            000004b0   
 0000040f  00004f02 R_ARM_ABS32            00000473   
@@ -10227,7 +10227,7 @@ Relocation section '.rel.debug_info' at offset 0x23bc contains 165 entries:
 000004ca  00006402 R_ARM_ABS32            00000543   
 000004cf  00006502 R_ARM_ABS32            00000549   
 000004d4  00006702 R_ARM_ABS32            0000055c   
-000004db  00004002 R_ARM_ABS32            00000250   
+000004db  00004202 R_ARM_ABS32            00000286   
 000004e6  00006602 R_ARM_ABS32            00000558   
 000004f4  00006902 R_ARM_ABS32            00000569   
 000004f9  00007502 R_ARM_ABS32            000005f9   
@@ -10238,7 +10238,7 @@ Relocation section '.rel.debug_info' at offset 0x23bc contains 165 entries:
 0000052c  00006d02 R_ARM_ABS32            00000586   
 00000531  00006e02 R_ARM_ABS32            00000591   
 00000536  00006f02 R_ARM_ABS32            00000598   
-0000053d  00004002 R_ARM_ABS32            00000250   
+0000053d  00004202 R_ARM_ABS32            00000286   
 0000054b  00000302 R_ARM_ABS32            00000668   
 00000550  00000402 R_ARM_ABS32            0000066e   
 00000555  00001202 R_ARM_ABS32            0000070b   
@@ -10267,16 +10267,16 @@ Relocation section '.rel.debug_ranges' at offset 0x28e4 contains 14 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00008402 R_ARM_ABS32            00000000   .text._ZN3app7display4show17h3d99e0b5dbb54032E
 00000004  00008402 R_ARM_ABS32            00000000   .text._ZN3app7display4show17h3d99e0b5dbb54032E
-00000008  00008502 R_ARM_ABS32            00000000   .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E
-0000000c  00008502 R_ARM_ABS32            00000000   .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E
-00000010  00008602 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E
-00000014  00008602 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E
-00000018  00008702 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E
-0000001c  00008702 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E
-00000020  00008802 R_ARM_ABS32            00000000   .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
-00000024  00008802 R_ARM_ABS32            00000000   .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
-00000028  00008902 R_ARM_ABS32            00000000   .text._ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E
-0000002c  00008902 R_ARM_ABS32            00000000   .text._ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E
+00000008  00008502 R_ARM_ABS32            00000000   .text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E
+0000000c  00008502 R_ARM_ABS32            00000000   .text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E
+00000010  00008602 R_ARM_ABS32            00000000   .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E
+00000014  00008602 R_ARM_ABS32            00000000   .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E
+00000018  00008702 R_ARM_ABS32            00000000   .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
+0000001c  00008702 R_ARM_ABS32            00000000   .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
+00000020  00008802 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E
+00000024  00008802 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E
+00000028  00008902 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE
+0000002c  00008902 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE
 00000030  00008a02 R_ARM_ABS32            00000000   .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E
 00000034  00008a02 R_ARM_ABS32            00000000   .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E
 
@@ -10293,26 +10293,26 @@ Relocation section '.rel.debug_frame' at offset 0x2964 contains 14 entries:
 00000018  00008e02 R_ARM_ABS32            00000000   .debug_frame
 0000001c  00008402 R_ARM_ABS32            00000000   .text._ZN3app7display4show17h3d99e0b5dbb54032E
 00000038  00008e02 R_ARM_ABS32            00000000   .debug_frame
-0000003c  00008502 R_ARM_ABS32            00000000   .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E
-00000054  00008e02 R_ARM_ABS32            00000000   .debug_frame
-00000058  00008602 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E
+0000003c  00008502 R_ARM_ABS32            00000000   .text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E
+0000004c  00008e02 R_ARM_ABS32            00000000   .debug_frame
+00000050  00008602 R_ARM_ABS32            00000000   .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E
 00000068  00008e02 R_ARM_ABS32            00000000   .debug_frame
-0000006c  00008702 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E
+0000006c  00008702 R_ARM_ABS32            00000000   .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
 0000007c  00008e02 R_ARM_ABS32            00000000   .debug_frame
-00000080  00008802 R_ARM_ABS32            00000000   .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
+00000080  00008802 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E
 00000090  00008e02 R_ARM_ABS32            00000000   .debug_frame
-00000094  00008902 R_ARM_ABS32            00000000   .text._ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E
+00000094  00008902 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE
 000000a4  00008e02 R_ARM_ABS32            00000000   .debug_frame
 000000a8  00008a02 R_ARM_ABS32            00000000   .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E
 
 Relocation section '.rel.debug_line' at offset 0x29d4 contains 7 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000046  00008402 R_ARM_ABS32            00000000   .text._ZN3app7display4show17h3d99e0b5dbb54032E
-000000f9  00008502 R_ARM_ABS32            00000000   .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E
-00000110  00008602 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E
-00000126  00008702 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E
-0000013c  00008802 R_ARM_ABS32            00000000   .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
-00000155  00008902 R_ARM_ABS32            00000000   .text._ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E
+000000f9  00008502 R_ARM_ABS32            00000000   .text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E
+00000112  00008602 R_ARM_ABS32            00000000   .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E
+00000129  00008702 R_ARM_ABS32            00000000   .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
+00000142  00008802 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E
+00000158  00008902 R_ARM_ABS32            00000000   .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE
 0000016f  00008a02 R_ARM_ABS32            00000000   .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E
 
 Unwind section '.ARM.exidx.text._ZN3app7display4show17h3d99e0b5dbb54032E' at offset 0x18c contains 1 entry:
@@ -10320,27 +10320,27 @@ Unwind section '.ARM.exidx.text._ZN3app7display4show17h3d99e0b5dbb54032E' at off
 0x0: 0x1 [cantunwind]
 
 
-Unwind section '.ARM.exidx.text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408' at offset 0x1bc contains 1 entry:
-
-0x0 <_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E>: 0x1 [cantunwind]
-
-
-Unwind section '.ARM.exidx.text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c3' at offset 0x1dc contains 1 entry:
-
-0x0 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E>: 0x1 [cantunwind]
-
-
-Unwind section '.ARM.exidx.text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef' at offset 0x1fc contains 1 entry:
+Unwind section '.ARM.exidx.text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E' at offset 0x1a8 contains 1 entry:
 
 0x0: 0x1 [cantunwind]
 
 
-Unwind section '.ARM.exidx.text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E' at offset 0x218 contains 1 entry:
+Unwind section '.ARM.exidx.text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6' at offset 0x1d8 contains 1 entry:
+
+0x0 <_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E>: 0x1 [cantunwind]
+
+
+Unwind section '.ARM.exidx.text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E' at offset 0x1f4 contains 1 entry:
 
 0x0: 0x1 [cantunwind]
 
 
-Unwind section '.ARM.exidx.text._ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E' at offset 0x234 contains 1 entry:
+Unwind section '.ARM.exidx.text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b1' at offset 0x214 contains 1 entry:
+
+0x0 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E>: 0x1 [cantunwind]
+
+
+Unwind section '.ARM.exidx.text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258' at offset 0x234 contains 1 entry:
 
 0x0: 0x1 [cantunwind]
 
@@ -10405,30 +10405,30 @@ Symbol table '.symtab' contains 163 entries:
     50: 00000162     0 NOTYPE  LOCAL  DEFAULT   27 
     51: 00000166     0 NOTYPE  LOCAL  DEFAULT   27 
     52: 0000016e     0 NOTYPE  LOCAL  DEFAULT   27 
-    53: 00000177     0 NOTYPE  LOCAL  DEFAULT   27 
-    54: 0000017b     0 NOTYPE  LOCAL  DEFAULT   27 
-    55: 00000186     0 NOTYPE  LOCAL  DEFAULT   27 
-    56: 0000018e     0 NOTYPE  LOCAL  DEFAULT   27 
+    53: 00000176     0 NOTYPE  LOCAL  DEFAULT   27 
+    54: 00000180     0 NOTYPE  LOCAL  DEFAULT   27 
+    55: 00000189     0 NOTYPE  LOCAL  DEFAULT   27 
+    56: 0000018d     0 NOTYPE  LOCAL  DEFAULT   27 
     57: 00000198     0 NOTYPE  LOCAL  DEFAULT   27 
     58: 000001c1     0 NOTYPE  LOCAL  DEFAULT   27 
     59: 000001c6     0 NOTYPE  LOCAL  DEFAULT   27 
-    60: 0000023e     0 NOTYPE  LOCAL  DEFAULT   27 
-    61: 00000244     0 NOTYPE  LOCAL  DEFAULT   27 
-    62: 00000249     0 NOTYPE  LOCAL  DEFAULT   27 
-    63: 0000024d     0 NOTYPE  LOCAL  DEFAULT   27 
-    64: 00000250     0 NOTYPE  LOCAL  DEFAULT   27 
-    65: 00000254     0 NOTYPE  LOCAL  DEFAULT   27 
-    66: 00000257     0 NOTYPE  LOCAL  DEFAULT   27 
-    67: 00000259     0 NOTYPE  LOCAL  DEFAULT   27 
-    68: 0000025b     0 NOTYPE  LOCAL  DEFAULT   27 
-    69: 0000025f     0 NOTYPE  LOCAL  DEFAULT   27 
-    70: 00000287     0 NOTYPE  LOCAL  DEFAULT   27 
-    71: 000002fa     0 NOTYPE  LOCAL  DEFAULT   27 
-    72: 00000302     0 NOTYPE  LOCAL  DEFAULT   27 
-    73: 00000376     0 NOTYPE  LOCAL  DEFAULT   27 
-    74: 0000037f     0 NOTYPE  LOCAL  DEFAULT   27 
-    75: 000003b3     0 NOTYPE  LOCAL  DEFAULT   27 
-    76: 000003b7     0 NOTYPE  LOCAL  DEFAULT   27 
+    60: 000001f8     0 NOTYPE  LOCAL  DEFAULT   27 
+    61: 000001fc     0 NOTYPE  LOCAL  DEFAULT   27 
+    62: 00000274     0 NOTYPE  LOCAL  DEFAULT   27 
+    63: 0000027a     0 NOTYPE  LOCAL  DEFAULT   27 
+    64: 0000027f     0 NOTYPE  LOCAL  DEFAULT   27 
+    65: 00000283     0 NOTYPE  LOCAL  DEFAULT   27 
+    66: 00000286     0 NOTYPE  LOCAL  DEFAULT   27 
+    67: 0000028a     0 NOTYPE  LOCAL  DEFAULT   27 
+    68: 0000028d     0 NOTYPE  LOCAL  DEFAULT   27 
+    69: 0000028f     0 NOTYPE  LOCAL  DEFAULT   27 
+    70: 00000291     0 NOTYPE  LOCAL  DEFAULT   27 
+    71: 00000295     0 NOTYPE  LOCAL  DEFAULT   27 
+    72: 000002bd     0 NOTYPE  LOCAL  DEFAULT   27 
+    73: 000002f1     0 NOTYPE  LOCAL  DEFAULT   27 
+    74: 00000364     0 NOTYPE  LOCAL  DEFAULT   27 
+    75: 0000036c     0 NOTYPE  LOCAL  DEFAULT   27 
+    76: 000003e0     0 NOTYPE  LOCAL  DEFAULT   27 
     77: 000003e9     0 NOTYPE  LOCAL  DEFAULT   27 
     78: 0000046a     0 NOTYPE  LOCAL  DEFAULT   27 
     79: 00000473     0 NOTYPE  LOCAL  DEFAULT   27 
@@ -10480,10 +10480,10 @@ Symbol table '.symtab' contains 163 entries:
    125: 00000000     0 NOTYPE  LOCAL  DEFAULT   16 $t.4
    126: 00000000     0 NOTYPE  LOCAL  DEFAULT   19 $t.5
    127: 00000000     0 NOTYPE  LOCAL  DEFAULT   22 $t.6
-   128: 00000000     1 OBJECT  LOCAL  DEFAULT   25 .Lanon.aac81e347ee9cd387b89453a2dd7ab7d.0
-   129: 00000000    11 OBJECT  LOCAL  DEFAULT   26 .Lanon.aac81e347ee9cd387b89453a2dd7ab7d.1
-   130: 00000001    18 FUNC    LOCAL  DEFAULT   16 _ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
-   131: 00000001    18 FUNC    LOCAL  DEFAULT   19 _ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E
+   128: 00000000     1 OBJECT  LOCAL  DEFAULT   25 .Lanon.22b8c9f15394de93f6d6cb0c17e56908.0
+   129: 00000000    11 OBJECT  LOCAL  DEFAULT   26 .Lanon.22b8c9f15394de93f6d6cb0c17e56908.1
+   130: 00000001    18 FUNC    LOCAL  DEFAULT   13 _ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
+   131: 00000001    18 FUNC    LOCAL  DEFAULT    7 _ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E
    132: 00000000     0 SECTION LOCAL  DEFAULT    3 
    133: 00000000     0 SECTION LOCAL  DEFAULT    7 
    134: 00000000     0 SECTION LOCAL  DEFAULT   10 
@@ -10510,9 +10510,9 @@ Symbol table '.symtab' contains 163 entries:
    155: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN17embedded_graphics5coord14internal_coord5Coord3new17h5cc04c89c71e58a5E
    156: 00000001   344 FUNC    GLOBAL HIDDEN     3 _ZN3app7display4show17h3d99e0b5dbb54032E
    157: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core6result19Result$LT$T$C$E$GT$6unwrap17ha67f6a649316de7bE
-   158: 00000001    22 FUNC    GLOBAL DEFAULT   10 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E
-   159: 00000001    22 FUNC    GLOBAL DEFAULT   13 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E
-   160: 00000001    40 FUNC    GLOBAL DEFAULT    7 _ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E
+   158: 00000001    22 FUNC    GLOBAL DEFAULT   16 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E
+   159: 00000001    22 FUNC    GLOBAL DEFAULT   19 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE
+   160: 00000001    40 FUNC    GLOBAL DEFAULT   10 _ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E
    161: 00000001    20 FUNC    GLOBAL DEFAULT   22 _ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E
    162: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN95_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$u8$GT$$GT$4from17h6ee2795358adec6eE
 

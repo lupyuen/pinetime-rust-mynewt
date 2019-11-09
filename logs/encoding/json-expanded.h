@@ -16,7 +16,6 @@
 #define __ATOMIC_RELEASE 3
 #define __ATOMIC_ACQ_REL 4
 #define __ATOMIC_CONSUME 1
-#define __OPTIMIZE_SIZE__ 1
 #define __OPTIMIZE__ 1
 #define __FINITE_MATH_ONLY__ 0
 #define __SIZEOF_INT__ 4
@@ -164,6 +163,7 @@
 #define __FLT_HAS_DENORM__ 1
 #define __FLT_HAS_INFINITY__ 1
 #define __FLT_HAS_QUIET_NAN__ 1
+#define __FP_FAST_FMAF 1
 #define __DBL_MANT_DIG__ 53
 #define __DBL_DIG__ 15
 #define __DBL_MIN_EXP__ (-1021)
@@ -395,8 +395,7 @@
 #define __SIZEOF_WCHAR_T__ 4
 #define __SIZEOF_WINT_T__ 4
 #define __SIZEOF_PTRDIFF_T__ 4
-#undef __ARM_FEATURE_DSP
-# 1 "<built-in>"
+#define __ARM_FEATURE_DSP 1
 #define __ARM_FEATURE_QBIT 1
 #define __ARM_FEATURE_SAT 1
 #undef __ARM_FEATURE_CRYPTO
@@ -409,8 +408,7 @@
 #define __ARM_FEATURE_CLZ 1
 #undef __ARM_FEATURE_NUMERIC_MAXMIN
 # 1 "<built-in>"
-#undef __ARM_FEATURE_SIMD32
-# 1 "<built-in>"
+#define __ARM_FEATURE_SIMD32 1
 #define __ARM_SIZEOF_MINIMAL_ENUM 1
 #define __ARM_SIZEOF_WCHAR_T 4
 #define __ARM_ARCH_PROFILE 77
@@ -422,10 +420,8 @@
 #define __THUMBEL__ 1
 #define __ARM_ARCH_ISA_THUMB 2
 #define __ARMEL__ 1
-#define __SOFTFP__ 1
 #define __VFP_FP__ 1
-#undef __ARM_FP
-# 1 "<built-in>"
+#define __ARM_FP 4
 #undef __ARM_FP16_FORMAT_IEEE
 # 1 "<built-in>"
 #undef __ARM_FP16_FORMAT_ALTERNATIVE
@@ -436,8 +432,7 @@
 # 1 "<built-in>"
 #undef __ARM_FEATURE_FP16_VECTOR_ARITHMETIC
 # 1 "<built-in>"
-#undef __ARM_FEATURE_FMA
-# 1 "<built-in>"
+#define __ARM_FEATURE_FMA 1
 #undef __ARM_NEON__
 # 1 "<built-in>"
 #undef __ARM_NEON
@@ -445,8 +440,8 @@
 #undef __ARM_NEON_FP
 # 1 "<built-in>"
 #define __THUMB_INTERWORK__ 1
-#define __ARM_ARCH_7M__ 1
-#define __ARM_PCS 1
+#define __ARM_ARCH_7EM__ 1
+#define __ARM_PCS_VFP 1
 #define __ARM_EABI__ 1
 #define __ARM_ARCH_EXT_IDIV__ 1
 #define __ARM_FEATURE_IDIV 1
@@ -458,13 +453,14 @@
 #define __USES_INITFINI__ 1
 #define APP_NAME my_sensor_app
 #define APP_my_sensor_app 1
-#define ARCH_NAME cortex_m3
-#define ARCH_cortex_m3 1
-#define BSP_NAME bluepill-64kb
-#define BSP_bluepill_64kb 1
+#define ARCH_NAME cortex_m4
+#define ARCH_cortex_m4 1
+#define BSP_NAME nrf52
+#define BSP_nrf52 1
 #define FLOAT_SUPPORT 1
+#define HAL_ADC_MODULE_ENABLED 1
 #define MYNEWT 1
-#define STM32F103xB 1
+#define NRF52 1
 # 1 "repos/apache-mynewt-core/encoding/json/src/json_encode.c"
 /*
  * Licensed to the Apache Software Foundation (ASF) under one

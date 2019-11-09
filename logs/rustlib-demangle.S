@@ -8430,30 +8430,30 @@ SYMBOL TABLE:
 00000162 l       .debug_str	00000000 
 00000166 l       .debug_str	00000000 
 0000016e l       .debug_str	00000000 
-00000177 l       .debug_str	00000000 
-0000017b l       .debug_str	00000000 
-00000186 l       .debug_str	00000000 
-0000018e l       .debug_str	00000000 
+00000176 l       .debug_str	00000000 
+00000180 l       .debug_str	00000000 
+00000189 l       .debug_str	00000000 
+0000018d l       .debug_str	00000000 
 00000198 l       .debug_str	00000000 
 000001c1 l       .debug_str	00000000 
 000001c6 l       .debug_str	00000000 
-0000023e l       .debug_str	00000000 
-00000244 l       .debug_str	00000000 
-00000249 l       .debug_str	00000000 
-0000024d l       .debug_str	00000000 
-00000250 l       .debug_str	00000000 
-00000254 l       .debug_str	00000000 
-00000257 l       .debug_str	00000000 
-00000259 l       .debug_str	00000000 
-0000025b l       .debug_str	00000000 
-0000025f l       .debug_str	00000000 
-00000287 l       .debug_str	00000000 
-000002fa l       .debug_str	00000000 
-00000302 l       .debug_str	00000000 
-00000376 l       .debug_str	00000000 
-0000037f l       .debug_str	00000000 
-000003b3 l       .debug_str	00000000 
-000003b7 l       .debug_str	00000000 
+000001f8 l       .debug_str	00000000 
+000001fc l       .debug_str	00000000 
+00000274 l       .debug_str	00000000 
+0000027a l       .debug_str	00000000 
+0000027f l       .debug_str	00000000 
+00000283 l       .debug_str	00000000 
+00000286 l       .debug_str	00000000 
+0000028a l       .debug_str	00000000 
+0000028d l       .debug_str	00000000 
+0000028f l       .debug_str	00000000 
+00000291 l       .debug_str	00000000 
+00000295 l       .debug_str	00000000 
+000002bd l       .debug_str	00000000 
+000002f1 l       .debug_str	00000000 
+00000364 l       .debug_str	00000000 
+0000036c l       .debug_str	00000000 
+000003e0 l       .debug_str	00000000 
 000003e9 l       .debug_str	00000000 
 0000046a l       .debug_str	00000000 
 00000473 l       .debug_str	00000000 
@@ -8498,16 +8498,16 @@ SYMBOL TABLE:
 0000062e l       .debug_str	00000000 
 00000630 l       .debug_str	00000000 
 00000666 l       .debug_str	00000000 
-00000000 l     O .rodata..Lanon.aac81e347ee9cd387b89453a2dd7ab7d.0	00000001 .Lanon.aac81e347ee9cd387b89453a2dd7ab7d.0
-00000000 l     O .rodata..Lanon.aac81e347ee9cd387b89453a2dd7ab7d.1	0000000b .Lanon.aac81e347ee9cd387b89453a2dd7ab7d.1
+00000000 l     O .rodata..Lanon.22b8c9f15394de93f6d6cb0c17e56908.0	00000001 .Lanon.22b8c9f15394de93f6d6cb0c17e56908.0
+00000000 l     O .rodata..Lanon.22b8c9f15394de93f6d6cb0c17e56908.1	0000000b .Lanon.22b8c9f15394de93f6d6cb0c17e56908.1
 00000000 l     F .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E	00000012 app::display::MynewtGPIO::new
-00000000 l     F .text._ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E	00000012 app::display::MynewtSPI::new
+00000000 l     F .text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E	00000012 app::display::MynewtSPI::new
 00000000 l    d  .text._ZN3app7display4show17h3d99e0b5dbb54032E	00000000 .text._ZN3app7display4show17h3d99e0b5dbb54032E
-00000000 l    d  .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E	00000000 .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E
-00000000 l    d  .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E	00000000 .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E
-00000000 l    d  .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E	00000000 .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E
+00000000 l    d  .text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E	00000000 .text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E
+00000000 l    d  .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E	00000000 .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E
 00000000 l    d  .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E	00000000 .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
-00000000 l    d  .text._ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E	00000000 .text._ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E
+00000000 l    d  .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E	00000000 .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E
+00000000 l    d  .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE	00000000 .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE
 00000000 l    d  .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E	00000000 .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
@@ -8528,9 +8528,9 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 embedded_graphics::coord::internal_coord::Coord::new
 00000000 g     F .text._ZN3app7display4show17h3d99e0b5dbb54032E	00000158 .hidden app::display::show
 00000000         *UND*	00000000 core::result::Result<T,E>::unwrap
-00000000 g     F .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E	00000016 <app::display::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_low
-00000000 g     F .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E	00000016 <app::display::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_high
-00000000 g     F .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E	00000028 <app::display::MynewtSPI as embedded_hal::blocking::spi::Write<u8>>::write
+00000000 g     F .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E	00000016 <app::display::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_low
+00000000 g     F .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE	00000016 <app::display::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_high
+00000000 g     F .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E	00000028 <app::display::MynewtSPI as embedded_hal::blocking::spi::Write<u8>>::write
 00000000 g     F .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E	00000014 <app::display::MynewtDelay as embedded_hal::blocking::delay::DelayMs<u8>>::delay_ms
 00000000         *UND*	00000000 <embedded_graphics::pixelcolor::rgb565::Rgb565 as core::convert::From<u8>>::from
 
@@ -8726,11 +8726,38 @@ pub fn show() {
  154:	b044      	add	sp, #272	; 0x110
  156:	bd70      	pop	{r4, r5, r6, pc}
 
-Disassembly of section .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E:
+Disassembly of section .text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E:
+
+00000000 <app::display::MynewtSPI::new>:
+_ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:39
+
+impl MynewtSPI {
+    pub fn new(spi_num: i32) -> Self {
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9001      	str	r0, [sp, #4]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:41
+        MynewtSPI {
+            spi_num
+   6:	9801      	ldr	r0, [sp, #4]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:40
+        MynewtSPI {
+   8:	9002      	str	r0, [sp, #8]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:43
+        }
+    }
+   a:	9802      	ldr	r0, [sp, #8]
+   c:	9100      	str	r1, [sp, #0]
+   e:	b003      	add	sp, #12
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E:
 
 00000000 <<app::display::MynewtSPI as embedded_hal::blocking::spi::Write<u8>>::write>:
-_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:39
+_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:47
+}
 
 impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
     fn write(&mut self, words: &[u8]) -> Result<(), Self::Error> {
@@ -8743,13 +8770,13 @@ impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
    c:	9104      	str	r1, [sp, #16]
    e:	9205      	str	r2, [sp, #20]
   10:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:41
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:49
         //  TODO
         Ok(())
   12:	9006      	str	r0, [sp, #24]
   14:	2001      	movs	r0, #1
   16:	9006      	str	r0, [sp, #24]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:42
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:50
     }
   18:	9806      	ldr	r0, [sp, #24]
   1a:	9302      	str	r3, [sp, #8]
@@ -8758,63 +8785,11 @@ impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
   24:	b008      	add	sp, #32
   26:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E:
-
-00000000 <<app::display::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_low>:
-_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:47
-    type Error = mynewt::result::MynewtError;
-}
-
-impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
-    fn set_low(&mut self) -> Result<(), Self::Error> {
-   0:	b084      	sub	sp, #16
-   2:	4601      	mov	r1, r0
-   4:	9001      	str	r0, [sp, #4]
-   6:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:49
-        //  TODO
-        Ok(())
-   8:	9002      	str	r0, [sp, #8]
-   a:	2001      	movs	r0, #1
-   c:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:50
-    }
-   e:	9802      	ldr	r0, [sp, #8]
-  10:	9100      	str	r1, [sp, #0]
-  12:	b004      	add	sp, #16
-  14:	4770      	bx	lr
-
-Disassembly of section .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E:
-
-00000000 <<app::display::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_high>:
-_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:52
-
-    fn set_high(&mut self) -> Result<(), Self::Error> {
-   0:	b084      	sub	sp, #16
-   2:	4601      	mov	r1, r0
-   4:	9001      	str	r0, [sp, #4]
-   6:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:54
-        //  TODO
-        Ok(())
-   8:	9002      	str	r0, [sp, #8]
-   a:	2001      	movs	r0, #1
-   c:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:55
-    }
-   e:	9802      	ldr	r0, [sp, #8]
-  10:	9100      	str	r1, [sp, #0]
-  12:	b004      	add	sp, #16
-  14:	4770      	bx	lr
-
 Disassembly of section .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E:
 
 00000000 <app::display::MynewtGPIO::new>:
 _ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:61
-
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:55
     type Error = mynewt::result::MynewtError;
 }
 
@@ -8823,14 +8798,14 @@ impl MynewtGPIO {
    0:	b083      	sub	sp, #12
    2:	4601      	mov	r1, r0
    4:	9001      	str	r0, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:63
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:57
         MynewtGPIO {
             pin
    6:	9801      	ldr	r0, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:62
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:56
         MynewtGPIO {
    8:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:65
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:59
         }
     }
    a:	9802      	ldr	r0, [sp, #8]
@@ -8838,38 +8813,63 @@ impl MynewtGPIO {
    e:	b003      	add	sp, #12
   10:	4770      	bx	lr
 
-Disassembly of section .text._ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E:
+Disassembly of section .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E:
 
-00000000 <app::display::MynewtSPI::new>:
-_ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:69
+00000000 <<app::display::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_low>:
+_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:63
 }
 
-impl MynewtSPI {
-    pub fn new(spi_num: i32) -> Self {
-   0:	b083      	sub	sp, #12
+impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
+    fn set_low(&mut self) -> Result<(), Self::Error> {
+   0:	b084      	sub	sp, #16
    2:	4601      	mov	r1, r0
    4:	9001      	str	r0, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:71
-        MynewtSPI {
-            spi_num
-   6:	9801      	ldr	r0, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:70
-        MynewtSPI {
+   6:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:65
+        //  TODO
+        Ok(())
    8:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:73
-        }
+   a:	2001      	movs	r0, #1
+   c:	9002      	str	r0, [sp, #8]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:66
     }
-   a:	9802      	ldr	r0, [sp, #8]
-   c:	9100      	str	r1, [sp, #0]
-   e:	b003      	add	sp, #12
-  10:	4770      	bx	lr
+   e:	9802      	ldr	r0, [sp, #8]
+  10:	9100      	str	r1, [sp, #0]
+  12:	b004      	add	sp, #16
+  14:	4770      	bx	lr
+
+Disassembly of section .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE:
+
+00000000 <<app::display::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_high>:
+_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:68
+
+    fn set_high(&mut self) -> Result<(), Self::Error> {
+   0:	b084      	sub	sp, #16
+   2:	4601      	mov	r1, r0
+   4:	9001      	str	r0, [sp, #4]
+   6:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:70
+        //  TODO
+        Ok(())
+   8:	9002      	str	r0, [sp, #8]
+   a:	2001      	movs	r0, #1
+   c:	9002      	str	r0, [sp, #8]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:71
+    }
+   e:	9802      	ldr	r0, [sp, #8]
+  10:	9100      	str	r1, [sp, #0]
+  12:	b004      	add	sp, #16
+  14:	4770      	bx	lr
 
 Disassembly of section .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E:
 
 00000000 <<app::display::MynewtDelay as embedded_hal::blocking::delay::DelayMs<u8>>::delay_ms>:
 _ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:77
+
+    type Error = mynewt::result::MynewtError;
 }
 
 impl embedded_hal::blocking::delay::DelayMs<u8> for MynewtDelay {
@@ -50217,34 +50217,34 @@ SYMBOL TABLE:
 00000dd3 l       .debug_str	00000000 
 00000ddc l       .debug_str	00000000 
 00000de3 l       .debug_str	00000000 
-00000000 l    d  .text._ZN105_$LT$mynewt..encoding..json..json_value__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hd2aa9e3ef4847c5fE	00000000 .text._ZN105_$LT$mynewt..encoding..json..json_value__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hd2aa9e3ef4847c5fE
-00000000 l    d  .text._ZN91_$LT$mynewt..encoding..json..json_value__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h7d597bfb46ff11d9E	00000000 .text._ZN91_$LT$mynewt..encoding..json..json_value__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h7d597bfb46ff11d9E
-00000000 l    d  .text._ZN77_$LT$mynewt..encoding..json..json_value$u20$as$u20$core..default..Default$GT$7default17h3738c3b9bed0f9b9E	00000000 .text._ZN77_$LT$mynewt..encoding..json..json_value$u20$as$u20$core..default..Default$GT$7default17h3738c3b9bed0f9b9E
-00000000 l    d  .text._ZN79_$LT$mynewt..encoding..json..json_encoder$u20$as$u20$core..default..Default$GT$7default17h37380d8d3d68f41fE	00000000 .text._ZN79_$LT$mynewt..encoding..json..json_encoder$u20$as$u20$core..default..Default$GT$7default17h37380d8d3d68f41fE
-00000000 l    d  .text._ZN78_$LT$mynewt..encoding..json..json_enum_t$u20$as$u20$core..default..Default$GT$7default17hb3dd62ae360c46fdE	00000000 .text._ZN78_$LT$mynewt..encoding..json..json_enum_t$u20$as$u20$core..default..Default$GT$7default17hb3dd62ae360c46fdE
-00000000 l    d  .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hd97a381dab91769eE	00000000 .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hd97a381dab91769eE
-00000000 l    d  .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17hf48c178d300680daE	00000000 .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17hf48c178d300680daE
-00000000 l    d  .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_3$u20$as$u20$core..default..Default$GT$7default17hd5912b526048d6e5E	00000000 .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_3$u20$as$u20$core..default..Default$GT$7default17hd5912b526048d6e5E
-00000000 l    d  .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_4$u20$as$u20$core..default..Default$GT$7default17h351aa6e7e0ebaf24E	00000000 .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_4$u20$as$u20$core..default..Default$GT$7default17h351aa6e7e0ebaf24E
-00000000 l    d  .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_5$u20$as$u20$core..default..Default$GT$7default17h9c316a4582415502E	00000000 .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_5$u20$as$u20$core..default..Default$GT$7default17h9c316a4582415502E
-00000000 l    d  .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_6$u20$as$u20$core..default..Default$GT$7default17h5f62428cbed9ae15E	00000000 .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_6$u20$as$u20$core..default..Default$GT$7default17h5f62428cbed9ae15E
-00000000 l    d  .text._ZN93_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hf5efadb5b404ae4cE	00000000 .text._ZN93_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hf5efadb5b404ae4cE
-00000000 l    d  .text._ZN79_$LT$mynewt..encoding..json..json_array_t$u20$as$u20$core..default..Default$GT$7default17h90e22a4f1c9d8e7dE	00000000 .text._ZN79_$LT$mynewt..encoding..json..json_array_t$u20$as$u20$core..default..Default$GT$7default17h90e22a4f1c9d8e7dE
-00000000 l    d  .text._ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h28d251a6b8838ad6E	00000000 .text._ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h28d251a6b8838ad6E
-00000000 l    d  .text._ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17hf946fb9d0b4a62c8E	00000000 .text._ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17hf946fb9d0b4a62c8E
-00000000 l    d  .text._ZN78_$LT$mynewt..encoding..json..json_attr_t$u20$as$u20$core..default..Default$GT$7default17h5597702259c4d608E	00000000 .text._ZN78_$LT$mynewt..encoding..json..json_attr_t$u20$as$u20$core..default..Default$GT$7default17h5597702259c4d608E
+00000000 l    d  .text._ZN105_$LT$mynewt..encoding..json..json_value__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h778f9d0913a78766E	00000000 .text._ZN105_$LT$mynewt..encoding..json..json_value__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h778f9d0913a78766E
+00000000 l    d  .text._ZN91_$LT$mynewt..encoding..json..json_value__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h5b50b0c1a19d2d82E	00000000 .text._ZN91_$LT$mynewt..encoding..json..json_value__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h5b50b0c1a19d2d82E
+00000000 l    d  .text._ZN77_$LT$mynewt..encoding..json..json_value$u20$as$u20$core..default..Default$GT$7default17h422f09d38679145cE	00000000 .text._ZN77_$LT$mynewt..encoding..json..json_value$u20$as$u20$core..default..Default$GT$7default17h422f09d38679145cE
+00000000 l    d  .text._ZN79_$LT$mynewt..encoding..json..json_encoder$u20$as$u20$core..default..Default$GT$7default17h24f84d66fe5ee293E	00000000 .text._ZN79_$LT$mynewt..encoding..json..json_encoder$u20$as$u20$core..default..Default$GT$7default17h24f84d66fe5ee293E
+00000000 l    d  .text._ZN78_$LT$mynewt..encoding..json..json_enum_t$u20$as$u20$core..default..Default$GT$7default17hf8dafbc2cfa10d8bE	00000000 .text._ZN78_$LT$mynewt..encoding..json..json_enum_t$u20$as$u20$core..default..Default$GT$7default17hf8dafbc2cfa10d8bE
+00000000 l    d  .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h3df7adeabf9033a2E	00000000 .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h3df7adeabf9033a2E
+00000000 l    d  .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17hf903d411c7fe8cb9E	00000000 .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17hf903d411c7fe8cb9E
+00000000 l    d  .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_3$u20$as$u20$core..default..Default$GT$7default17h1710c663010f9de8E	00000000 .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_3$u20$as$u20$core..default..Default$GT$7default17h1710c663010f9de8E
+00000000 l    d  .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_4$u20$as$u20$core..default..Default$GT$7default17h3294aa31334738f8E	00000000 .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_4$u20$as$u20$core..default..Default$GT$7default17h3294aa31334738f8E
+00000000 l    d  .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_5$u20$as$u20$core..default..Default$GT$7default17hb7ecf2d9fb4d9cceE	00000000 .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_5$u20$as$u20$core..default..Default$GT$7default17hb7ecf2d9fb4d9cceE
+00000000 l    d  .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_6$u20$as$u20$core..default..Default$GT$7default17h7d6f14003ebcaff2E	00000000 .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_6$u20$as$u20$core..default..Default$GT$7default17h7d6f14003ebcaff2E
+00000000 l    d  .text._ZN93_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hc7e7915c2610898eE	00000000 .text._ZN93_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hc7e7915c2610898eE
+00000000 l    d  .text._ZN79_$LT$mynewt..encoding..json..json_array_t$u20$as$u20$core..default..Default$GT$7default17h28639aee0ca65b6fE	00000000 .text._ZN79_$LT$mynewt..encoding..json..json_array_t$u20$as$u20$core..default..Default$GT$7default17h28639aee0ca65b6fE
+00000000 l    d  .text._ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h6b09de0e6bdc1724E	00000000 .text._ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h6b09de0e6bdc1724E
+00000000 l    d  .text._ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17h340b3d05d9b3d699E	00000000 .text._ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17h340b3d05d9b3d699E
+00000000 l    d  .text._ZN78_$LT$mynewt..encoding..json..json_attr_t$u20$as$u20$core..default..Default$GT$7default17h1cb5a03620ffe761E	00000000 .text._ZN78_$LT$mynewt..encoding..json..json_attr_t$u20$as$u20$core..default..Default$GT$7default17h1cb5a03620ffe761E
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
 00000000 l    d  .debug_ranges	00000000 .debug_ranges
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
-00000000 g     F .text._ZN105_$LT$mynewt..encoding..json..json_value__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hd2aa9e3ef4847c5fE	00000016 <mynewt::encoding::json::json_value__bindgen_ty_1__bindgen_ty_1 as core::default::Default>::default
-00000000 g     F .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hd97a381dab91769eE	00000012 <mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_1 as core::default::Default>::default
-00000000 g     F .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17hf48c178d300680daE	00000012 <mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_2 as core::default::Default>::default
-00000000 g     F .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_3$u20$as$u20$core..default..Default$GT$7default17hd5912b526048d6e5E	00000016 <mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_3 as core::default::Default>::default
-00000000 g     F .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_4$u20$as$u20$core..default..Default$GT$7default17h351aa6e7e0ebaf24E	00000016 <mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_4 as core::default::Default>::default
-00000000 g     F .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_5$u20$as$u20$core..default..Default$GT$7default17h9c316a4582415502E	00000016 <mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_5 as core::default::Default>::default
-00000000 g     F .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_6$u20$as$u20$core..default..Default$GT$7default17h5f62428cbed9ae15E	00000016 <mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_6 as core::default::Default>::default
+00000000 g     F .text._ZN105_$LT$mynewt..encoding..json..json_value__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h778f9d0913a78766E	00000016 <mynewt::encoding::json::json_value__bindgen_ty_1__bindgen_ty_1 as core::default::Default>::default
+00000000 g     F .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h3df7adeabf9033a2E	00000012 <mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_1 as core::default::Default>::default
+00000000 g     F .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17hf903d411c7fe8cb9E	00000012 <mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_2 as core::default::Default>::default
+00000000 g     F .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_3$u20$as$u20$core..default..Default$GT$7default17h1710c663010f9de8E	00000016 <mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_3 as core::default::Default>::default
+00000000 g     F .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_4$u20$as$u20$core..default..Default$GT$7default17h3294aa31334738f8E	00000016 <mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_4 as core::default::Default>::default
+00000000 g     F .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_5$u20$as$u20$core..default..Default$GT$7default17hb7ecf2d9fb4d9cceE	00000016 <mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_5 as core::default::Default>::default
+00000000 g     F .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_6$u20$as$u20$core..default..Default$GT$7default17h7d6f14003ebcaff2E	00000016 <mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_6 as core::default::Default>::default
 00000000         *UND*	00000000 core::mem::zeroed
 00000000         *UND*	00000000 core::mem::zeroed
 00000000         *UND*	00000000 core::mem::zeroed
@@ -50261,23 +50261,23 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 core::mem::zeroed
 00000000         *UND*	00000000 core::mem::zeroed
 00000000         *UND*	00000000 core::mem::zeroed
-00000000 g     F .text._ZN77_$LT$mynewt..encoding..json..json_value$u20$as$u20$core..default..Default$GT$7default17h3738c3b9bed0f9b9E	00000012 <mynewt::encoding::json::json_value as core::default::Default>::default
-00000000 g     F .text._ZN78_$LT$mynewt..encoding..json..json_attr_t$u20$as$u20$core..default..Default$GT$7default17h5597702259c4d608E	00000012 <mynewt::encoding::json::json_attr_t as core::default::Default>::default
-00000000 g     F .text._ZN78_$LT$mynewt..encoding..json..json_enum_t$u20$as$u20$core..default..Default$GT$7default17hb3dd62ae360c46fdE	0000001a <mynewt::encoding::json::json_enum_t as core::default::Default>::default
-00000000 g     F .text._ZN79_$LT$mynewt..encoding..json..json_array_t$u20$as$u20$core..default..Default$GT$7default17h90e22a4f1c9d8e7dE	00000012 <mynewt::encoding::json::json_array_t as core::default::Default>::default
-00000000 g     F .text._ZN79_$LT$mynewt..encoding..json..json_encoder$u20$as$u20$core..default..Default$GT$7default17h37380d8d3d68f41fE	00000012 <mynewt::encoding::json::json_encoder as core::default::Default>::default
-00000000 g     F .text._ZN91_$LT$mynewt..encoding..json..json_value__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h7d597bfb46ff11d9E	00000012 <mynewt::encoding::json::json_value__bindgen_ty_1 as core::default::Default>::default
-00000000 g     F .text._ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h28d251a6b8838ad6E	00000012 <mynewt::encoding::json::json_attr_t__bindgen_ty_1 as core::default::Default>::default
-00000000 g     F .text._ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17hf946fb9d0b4a62c8E	00000012 <mynewt::encoding::json::json_attr_t__bindgen_ty_2 as core::default::Default>::default
-00000000 g     F .text._ZN93_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hf5efadb5b404ae4cE	00000012 <mynewt::encoding::json::json_array_t__bindgen_ty_1 as core::default::Default>::default
+00000000 g     F .text._ZN77_$LT$mynewt..encoding..json..json_value$u20$as$u20$core..default..Default$GT$7default17h422f09d38679145cE	00000012 <mynewt::encoding::json::json_value as core::default::Default>::default
+00000000 g     F .text._ZN78_$LT$mynewt..encoding..json..json_attr_t$u20$as$u20$core..default..Default$GT$7default17h1cb5a03620ffe761E	00000012 <mynewt::encoding::json::json_attr_t as core::default::Default>::default
+00000000 g     F .text._ZN78_$LT$mynewt..encoding..json..json_enum_t$u20$as$u20$core..default..Default$GT$7default17hf8dafbc2cfa10d8bE	0000001a <mynewt::encoding::json::json_enum_t as core::default::Default>::default
+00000000 g     F .text._ZN79_$LT$mynewt..encoding..json..json_array_t$u20$as$u20$core..default..Default$GT$7default17h28639aee0ca65b6fE	00000012 <mynewt::encoding::json::json_array_t as core::default::Default>::default
+00000000 g     F .text._ZN79_$LT$mynewt..encoding..json..json_encoder$u20$as$u20$core..default..Default$GT$7default17h24f84d66fe5ee293E	00000012 <mynewt::encoding::json::json_encoder as core::default::Default>::default
+00000000 g     F .text._ZN91_$LT$mynewt..encoding..json..json_value__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h5b50b0c1a19d2d82E	00000012 <mynewt::encoding::json::json_value__bindgen_ty_1 as core::default::Default>::default
+00000000 g     F .text._ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h6b09de0e6bdc1724E	00000012 <mynewt::encoding::json::json_attr_t__bindgen_ty_1 as core::default::Default>::default
+00000000 g     F .text._ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17h340b3d05d9b3d699E	00000012 <mynewt::encoding::json::json_attr_t__bindgen_ty_2 as core::default::Default>::default
+00000000 g     F .text._ZN93_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hc7e7915c2610898eE	00000012 <mynewt::encoding::json::json_array_t__bindgen_ty_1 as core::default::Default>::default
 
 
 
-Disassembly of section .text._ZN105_$LT$mynewt..encoding..json..json_value__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hd2aa9e3ef4847c5fE:
+Disassembly of section .text._ZN105_$LT$mynewt..encoding..json..json_value__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h778f9d0913a78766E:
 
 00000000 <<mynewt::encoding::json::json_value__bindgen_ty_1__bindgen_ty_1 as core::default::Default>::default>:
-_ZN105_$LT$mynewt..encoding..json..json_value__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hd2aa9e3ef4847c5fE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:187
+_ZN105_$LT$mynewt..encoding..json..json_value__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h778f9d0913a78766E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:186
 pub struct json_value__bindgen_ty_1__bindgen_ty_1 {
     pub keys: *mut *mut ::cty::c_char,
     pub values: *mut *mut json_value,
@@ -50286,66 +50286,66 @@ impl Default for json_value__bindgen_ty_1__bindgen_ty_1 {
     fn default() -> Self {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:188
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:187
         unsafe { ::core::mem::zeroed() }
    4:	f7ff fffe 	bl	0 <core::mem::zeroed>
    8:	9001      	str	r0, [sp, #4]
    a:	9100      	str	r1, [sp, #0]
    c:	e7ff      	b.n	e <<mynewt::encoding::json::json_value__bindgen_ty_1__bindgen_ty_1 as core::default::Default>::default+0xe>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:189
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:188
     }
    e:	9801      	ldr	r0, [sp, #4]
   10:	9900      	ldr	r1, [sp, #0]
   12:	b002      	add	sp, #8
   14:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN91_$LT$mynewt..encoding..json..json_value__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h7d597bfb46ff11d9E:
+Disassembly of section .text._ZN91_$LT$mynewt..encoding..json..json_value__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h5b50b0c1a19d2d82E:
 
 00000000 <<mynewt::encoding::json::json_value__bindgen_ty_1 as core::default::Default>::default>:
-_ZN91_$LT$mynewt..encoding..json..json_value__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h7d597bfb46ff11d9E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:192
+_ZN91_$LT$mynewt..encoding..json..json_value__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h5b50b0c1a19d2d82E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:191
 }
 impl Default for json_value__bindgen_ty_1 {
     fn default() -> Self {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
    4:	4601      	mov	r1, r0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:193
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:192
         unsafe { ::core::mem::zeroed() }
    6:	9101      	str	r1, [sp, #4]
    8:	f7ff fffe 	bl	0 <core::mem::zeroed>
    c:	e7ff      	b.n	e <<mynewt::encoding::json::json_value__bindgen_ty_1 as core::default::Default>::default+0xe>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:194
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:193
     }
    e:	b002      	add	sp, #8
   10:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN77_$LT$mynewt..encoding..json..json_value$u20$as$u20$core..default..Default$GT$7default17h3738c3b9bed0f9b9E:
+Disassembly of section .text._ZN77_$LT$mynewt..encoding..json..json_value$u20$as$u20$core..default..Default$GT$7default17h422f09d38679145cE:
 
 00000000 <<mynewt::encoding::json::json_value as core::default::Default>::default>:
-_ZN77_$LT$mynewt..encoding..json..json_value$u20$as$u20$core..default..Default$GT$7default17h3738c3b9bed0f9b9E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:197
+_ZN77_$LT$mynewt..encoding..json..json_value$u20$as$u20$core..default..Default$GT$7default17h422f09d38679145cE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:196
 }
 impl Default for json_value {
     fn default() -> Self {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
    4:	4601      	mov	r1, r0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:198
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:197
         unsafe { ::core::mem::zeroed() }
    6:	9101      	str	r1, [sp, #4]
    8:	f7ff fffe 	bl	0 <core::mem::zeroed>
    c:	e7ff      	b.n	e <<mynewt::encoding::json::json_value as core::default::Default>::default+0xe>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:199
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:198
     }
    e:	b002      	add	sp, #8
   10:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN79_$LT$mynewt..encoding..json..json_encoder$u20$as$u20$core..default..Default$GT$7default17h37380d8d3d68f41fE:
+Disassembly of section .text._ZN79_$LT$mynewt..encoding..json..json_encoder$u20$as$u20$core..default..Default$GT$7default17h24f84d66fe5ee293E:
 
 00000000 <<mynewt::encoding::json::json_encoder as core::default::Default>::default>:
-_ZN79_$LT$mynewt..encoding..json..json_encoder$u20$as$u20$core..default..Default$GT$7default17h37380d8d3d68f41fE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:216
+_ZN79_$LT$mynewt..encoding..json..json_encoder$u20$as$u20$core..default..Default$GT$7default17h24f84d66fe5ee293E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:215
     pub je_arg: *mut ::cty::c_void,
     pub _bitfield_1: __BindgenBitfieldUnit<[u8; 1usize], u8>,
     pub je_encode_buf: [::cty::c_char; 64usize],
@@ -50355,21 +50355,21 @@ impl Default for json_encoder {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
    4:	4601      	mov	r1, r0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:217
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:216
         unsafe { ::core::mem::zeroed() }
    6:	9101      	str	r1, [sp, #4]
    8:	f7ff fffe 	bl	0 <core::mem::zeroed>
    c:	e7ff      	b.n	e <<mynewt::encoding::json::json_encoder as core::default::Default>::default+0xe>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:218
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:217
     }
    e:	b002      	add	sp, #8
   10:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN78_$LT$mynewt..encoding..json..json_enum_t$u20$as$u20$core..default..Default$GT$7default17hb3dd62ae360c46fdE:
+Disassembly of section .text._ZN78_$LT$mynewt..encoding..json..json_enum_t$u20$as$u20$core..default..Default$GT$7default17hf8dafbc2cfa10d8bE:
 
 00000000 <<mynewt::encoding::json::json_enum_t as core::default::Default>::default>:
-_ZN78_$LT$mynewt..encoding..json..json_enum_t$u20$as$u20$core..default..Default$GT$7default17hb3dd62ae360c46fdE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:298
+_ZN78_$LT$mynewt..encoding..json..json_enum_t$u20$as$u20$core..default..Default$GT$7default17hf8dafbc2cfa10d8bE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:297
 pub struct json_enum_t {
     pub name: *mut ::cty::c_char,
     pub value: ::cty::c_longlong,
@@ -50378,14 +50378,14 @@ impl Default for json_enum_t {
     fn default() -> Self {
    0:	b580      	push	{r7, lr}
    2:	b084      	sub	sp, #16
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:299
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:298
         unsafe { ::core::mem::zeroed() }
    4:	f7ff fffe 	bl	0 <core::mem::zeroed>
    8:	9003      	str	r0, [sp, #12]
    a:	9202      	str	r2, [sp, #8]
    c:	9101      	str	r1, [sp, #4]
    e:	e7ff      	b.n	10 <<mynewt::encoding::json::json_enum_t as core::default::Default>::default+0x10>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:300
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:299
     }
   10:	9803      	ldr	r0, [sp, #12]
   12:	9901      	ldr	r1, [sp, #4]
@@ -50393,11 +50393,11 @@ impl Default for json_enum_t {
   16:	b004      	add	sp, #16
   18:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hd97a381dab91769eE:
+Disassembly of section .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h3df7adeabf9033a2E:
 
 00000000 <<mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_1 as core::default::Default>::default>:
-_ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hd97a381dab91769eE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:326
+_ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h3df7adeabf9033a2E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:325
     pub subtype: *const json_attr_t,
     pub base: *mut ::cty::c_char,
     pub stride: usize,
@@ -50407,21 +50407,21 @@ impl Default for json_array_t__bindgen_ty_1__bindgen_ty_1 {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
    4:	4601      	mov	r1, r0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:327
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:326
         unsafe { ::core::mem::zeroed() }
    6:	9101      	str	r1, [sp, #4]
    8:	f7ff fffe 	bl	0 <core::mem::zeroed>
    c:	e7ff      	b.n	e <<mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_1 as core::default::Default>::default+0xe>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:328
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:327
     }
    e:	b002      	add	sp, #8
   10:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17hf48c178d300680daE:
+Disassembly of section .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17hf903d411c7fe8cb9E:
 
 00000000 <<mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_2 as core::default::Default>::default>:
-_ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17hf48c178d300680daE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:337
+_ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17hf903d411c7fe8cb9E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:336
     pub ptrs: *mut *mut ::cty::c_char,
     pub store: *mut ::cty::c_char,
     pub storelen: ::cty::c_int,
@@ -50431,21 +50431,21 @@ impl Default for json_array_t__bindgen_ty_1__bindgen_ty_2 {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
    4:	4601      	mov	r1, r0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:338
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:337
         unsafe { ::core::mem::zeroed() }
    6:	9101      	str	r1, [sp, #4]
    8:	f7ff fffe 	bl	0 <core::mem::zeroed>
    c:	e7ff      	b.n	e <<mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_2 as core::default::Default>::default+0xe>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:339
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:338
     }
    e:	b002      	add	sp, #8
   10:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_3$u20$as$u20$core..default..Default$GT$7default17hd5912b526048d6e5E:
+Disassembly of section .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_3$u20$as$u20$core..default..Default$GT$7default17h1710c663010f9de8E:
 
 00000000 <<mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_3 as core::default::Default>::default>:
-_ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_3$u20$as$u20$core..default..Default$GT$7default17hd5912b526048d6e5E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:346
+_ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_3$u20$as$u20$core..default..Default$GT$7default17h1710c663010f9de8E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:345
 #[repr(C)]
 pub struct json_array_t__bindgen_ty_1__bindgen_ty_3 {
     pub store: *mut ::cty::c_longlong,
@@ -50454,24 +50454,24 @@ impl Default for json_array_t__bindgen_ty_1__bindgen_ty_3 {
     fn default() -> Self {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:347
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:346
         unsafe { ::core::mem::zeroed() }
    4:	f7ff fffe 	bl	0 <core::mem::zeroed>
    8:	9001      	str	r0, [sp, #4]
    a:	9801      	ldr	r0, [sp, #4]
    c:	9000      	str	r0, [sp, #0]
    e:	e7ff      	b.n	10 <<mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_3 as core::default::Default>::default+0x10>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:348
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:347
     }
   10:	9800      	ldr	r0, [sp, #0]
   12:	b002      	add	sp, #8
   14:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_4$u20$as$u20$core..default..Default$GT$7default17h351aa6e7e0ebaf24E:
+Disassembly of section .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_4$u20$as$u20$core..default..Default$GT$7default17h3294aa31334738f8E:
 
 00000000 <<mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_4 as core::default::Default>::default>:
-_ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_4$u20$as$u20$core..default..Default$GT$7default17h351aa6e7e0ebaf24E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:355
+_ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_4$u20$as$u20$core..default..Default$GT$7default17h3294aa31334738f8E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:354
 #[repr(C)]
 pub struct json_array_t__bindgen_ty_1__bindgen_ty_4 {
     pub store: *mut ::cty::c_ulonglong,
@@ -50480,24 +50480,24 @@ impl Default for json_array_t__bindgen_ty_1__bindgen_ty_4 {
     fn default() -> Self {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:356
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:355
         unsafe { ::core::mem::zeroed() }
    4:	f7ff fffe 	bl	0 <core::mem::zeroed>
    8:	9001      	str	r0, [sp, #4]
    a:	9801      	ldr	r0, [sp, #4]
    c:	9000      	str	r0, [sp, #0]
    e:	e7ff      	b.n	10 <<mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_4 as core::default::Default>::default+0x10>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:357
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:356
     }
   10:	9800      	ldr	r0, [sp, #0]
   12:	b002      	add	sp, #8
   14:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_5$u20$as$u20$core..default..Default$GT$7default17h9c316a4582415502E:
+Disassembly of section .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_5$u20$as$u20$core..default..Default$GT$7default17hb7ecf2d9fb4d9cceE:
 
 00000000 <<mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_5 as core::default::Default>::default>:
-_ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_5$u20$as$u20$core..default..Default$GT$7default17h9c316a4582415502E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:364
+_ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_5$u20$as$u20$core..default..Default$GT$7default17hb7ecf2d9fb4d9cceE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:363
 #[repr(C)]
 pub struct json_array_t__bindgen_ty_1__bindgen_ty_5 {
     pub store: *mut f64,
@@ -50506,24 +50506,24 @@ impl Default for json_array_t__bindgen_ty_1__bindgen_ty_5 {
     fn default() -> Self {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:365
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:364
         unsafe { ::core::mem::zeroed() }
    4:	f7ff fffe 	bl	0 <core::mem::zeroed>
    8:	9001      	str	r0, [sp, #4]
    a:	9801      	ldr	r0, [sp, #4]
    c:	9000      	str	r0, [sp, #0]
    e:	e7ff      	b.n	10 <<mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_5 as core::default::Default>::default+0x10>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:366
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:365
     }
   10:	9800      	ldr	r0, [sp, #0]
   12:	b002      	add	sp, #8
   14:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_6$u20$as$u20$core..default..Default$GT$7default17h5f62428cbed9ae15E:
+Disassembly of section .text._ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_6$u20$as$u20$core..default..Default$GT$7default17h7d6f14003ebcaff2E:
 
 00000000 <<mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_6 as core::default::Default>::default>:
-_ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_6$u20$as$u20$core..default..Default$GT$7default17h5f62428cbed9ae15E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:373
+_ZN107_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1__bindgen_ty_6$u20$as$u20$core..default..Default$GT$7default17h7d6f14003ebcaff2E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:372
 #[repr(C)]
 pub struct json_array_t__bindgen_ty_1__bindgen_ty_6 {
     pub store: *mut bool,
@@ -50532,66 +50532,66 @@ impl Default for json_array_t__bindgen_ty_1__bindgen_ty_6 {
     fn default() -> Self {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:374
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:373
         unsafe { ::core::mem::zeroed() }
    4:	f7ff fffe 	bl	0 <core::mem::zeroed>
    8:	9001      	str	r0, [sp, #4]
    a:	9801      	ldr	r0, [sp, #4]
    c:	9000      	str	r0, [sp, #0]
    e:	e7ff      	b.n	10 <<mynewt::encoding::json::json_array_t__bindgen_ty_1__bindgen_ty_6 as core::default::Default>::default+0x10>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:375
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:374
     }
   10:	9800      	ldr	r0, [sp, #0]
   12:	b002      	add	sp, #8
   14:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN93_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hf5efadb5b404ae4cE:
+Disassembly of section .text._ZN93_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hc7e7915c2610898eE:
 
 00000000 <<mynewt::encoding::json::json_array_t__bindgen_ty_1 as core::default::Default>::default>:
-_ZN93_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hf5efadb5b404ae4cE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:378
+_ZN93_$LT$mynewt..encoding..json..json_array_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17hc7e7915c2610898eE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:377
 }
 impl Default for json_array_t__bindgen_ty_1 {
     fn default() -> Self {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
    4:	4601      	mov	r1, r0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:379
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:378
         unsafe { ::core::mem::zeroed() }
    6:	9101      	str	r1, [sp, #4]
    8:	f7ff fffe 	bl	0 <core::mem::zeroed>
    c:	e7ff      	b.n	e <<mynewt::encoding::json::json_array_t__bindgen_ty_1 as core::default::Default>::default+0xe>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:380
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:379
     }
    e:	b002      	add	sp, #8
   10:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN79_$LT$mynewt..encoding..json..json_array_t$u20$as$u20$core..default..Default$GT$7default17h90e22a4f1c9d8e7dE:
+Disassembly of section .text._ZN79_$LT$mynewt..encoding..json..json_array_t$u20$as$u20$core..default..Default$GT$7default17h28639aee0ca65b6fE:
 
 00000000 <<mynewt::encoding::json::json_array_t as core::default::Default>::default>:
-_ZN79_$LT$mynewt..encoding..json..json_array_t$u20$as$u20$core..default..Default$GT$7default17h90e22a4f1c9d8e7dE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:383
+_ZN79_$LT$mynewt..encoding..json..json_array_t$u20$as$u20$core..default..Default$GT$7default17h28639aee0ca65b6fE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:382
 }
 impl Default for json_array_t {
     fn default() -> Self {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
    4:	4601      	mov	r1, r0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:384
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:383
         unsafe { ::core::mem::zeroed() }
    6:	9101      	str	r1, [sp, #4]
    8:	f7ff fffe 	bl	0 <core::mem::zeroed>
    c:	e7ff      	b.n	e <<mynewt::encoding::json::json_array_t as core::default::Default>::default+0xe>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:385
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:384
     }
    e:	b002      	add	sp, #8
   10:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h28d251a6b8838ad6E:
+Disassembly of section .text._ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h6b09de0e6bdc1724E:
 
 00000000 <<mynewt::encoding::json::json_attr_t__bindgen_ty_1 as core::default::Default>::default>:
-_ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h28d251a6b8838ad6E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:410
+_ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_1$u20$as$u20$core..default..Default$GT$7default17h6b09de0e6bdc1724E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:409
     pub array: __BindgenUnionField<json_array_t>,
     pub offset: __BindgenUnionField<usize>,
     pub bindgen_union_field: [u64; 6usize],
@@ -50601,21 +50601,21 @@ impl Default for json_attr_t__bindgen_ty_1 {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
    4:	4601      	mov	r1, r0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:411
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:410
         unsafe { ::core::mem::zeroed() }
    6:	9101      	str	r1, [sp, #4]
    8:	f7ff fffe 	bl	0 <core::mem::zeroed>
    c:	e7ff      	b.n	e <<mynewt::encoding::json::json_attr_t__bindgen_ty_1 as core::default::Default>::default+0xe>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:412
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:411
     }
    e:	b002      	add	sp, #8
   10:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17hf946fb9d0b4a62c8E:
+Disassembly of section .text._ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17h340b3d05d9b3d699E:
 
 00000000 <<mynewt::encoding::json::json_attr_t__bindgen_ty_2 as core::default::Default>::default>:
-_ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17hf946fb9d0b4a62c8E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:425
+_ZN92_$LT$mynewt..encoding..json..json_attr_t__bindgen_ty_2$u20$as$u20$core..default..Default$GT$7default17h340b3d05d9b3d699E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:424
     pub character: __BindgenUnionField<::cty::c_char>,
     pub check: __BindgenUnionField<*mut ::cty::c_char>,
     pub bindgen_union_field: u64,
@@ -50625,33 +50625,33 @@ impl Default for json_attr_t__bindgen_ty_2 {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
    4:	4601      	mov	r1, r0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:426
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:425
         unsafe { ::core::mem::zeroed() }
    6:	9101      	str	r1, [sp, #4]
    8:	f7ff fffe 	bl	0 <core::mem::zeroed>
    c:	e7ff      	b.n	e <<mynewt::encoding::json::json_attr_t__bindgen_ty_2 as core::default::Default>::default+0xe>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:427
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:426
     }
    e:	b002      	add	sp, #8
   10:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN78_$LT$mynewt..encoding..json..json_attr_t$u20$as$u20$core..default..Default$GT$7default17h5597702259c4d608E:
+Disassembly of section .text._ZN78_$LT$mynewt..encoding..json..json_attr_t$u20$as$u20$core..default..Default$GT$7default17h1cb5a03620ffe761E:
 
 00000000 <<mynewt::encoding::json::json_attr_t as core::default::Default>::default>:
-_ZN78_$LT$mynewt..encoding..json..json_attr_t$u20$as$u20$core..default..Default$GT$7default17h5597702259c4d608E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:430
+_ZN78_$LT$mynewt..encoding..json..json_attr_t$u20$as$u20$core..default..Default$GT$7default17h1cb5a03620ffe761E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:429
 }
 impl Default for json_attr_t {
     fn default() -> Self {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
    4:	4601      	mov	r1, r0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:431
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:430
         unsafe { ::core::mem::zeroed() }
    6:	9101      	str	r1, [sp, #4]
    8:	f7ff fffe 	bl	0 <core::mem::zeroed>
    c:	e7ff      	b.n	e <<mynewt::encoding::json::json_attr_t as core::default::Default>::default+0xe>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:432
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/json.rs:431
     }
    e:	b002      	add	sp, #8
   10:	bd80      	pop	{r7, pc}
@@ -54266,7 +54266,7 @@ Disassembly of section .text._ZN81_$LT$mynewt..encoding..tinycbor..CborParser$u2
 
 00000000 <<mynewt::encoding::tinycbor::CborParser as core::default::Default>::default>:
 _ZN81_$LT$mynewt..encoding..tinycbor..CborParser$u20$as$u20$core..default..Default$GT$7default17h805c4fbb2032473fE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/tinycbor.rs:357
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/tinycbor.rs:370
     pub d: *mut cbor_decoder_reader,
     pub end: ::cty::c_int,
     pub flags: ::cty::c_int,
@@ -54276,12 +54276,12 @@ impl Default for CborParser {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
    4:	4601      	mov	r1, r0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/tinycbor.rs:358
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/tinycbor.rs:371
         unsafe { ::core::mem::zeroed() }
    6:	9101      	str	r1, [sp, #4]
    8:	f7ff fffe 	bl	0 <core::mem::zeroed>
    c:	e7ff      	b.n	e <<mynewt::encoding::tinycbor::CborParser as core::default::Default>::default+0xe>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/tinycbor.rs:359
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/tinycbor.rs:372
     }
    e:	b002      	add	sp, #8
   10:	bd80      	pop	{r7, pc}
@@ -54290,7 +54290,7 @@ Disassembly of section .text._ZN80_$LT$mynewt..encoding..tinycbor..CborValue$u20
 
 00000000 <<mynewt::encoding::tinycbor::CborValue as core::default::Default>::default>:
 _ZN80_$LT$mynewt..encoding..tinycbor..CborValue$u20$as$u20$core..default..Default$GT$7default17h9f908aa9c31ecfaaE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/tinycbor.rs:371
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/tinycbor.rs:384
     pub extra: u16,
     pub type_: u8,
     pub flags: u8,
@@ -54300,12 +54300,12 @@ impl Default for CborValue {
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
    4:	4601      	mov	r1, r0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/tinycbor.rs:372
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/tinycbor.rs:385
         unsafe { ::core::mem::zeroed() }
    6:	9101      	str	r1, [sp, #4]
    8:	f7ff fffe 	bl	0 <core::mem::zeroed>
    c:	e7ff      	b.n	e <<mynewt::encoding::tinycbor::CborValue as core::default::Default>::default+0xe>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/tinycbor.rs:373
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/mynewt/src/encoding/tinycbor.rs:386
     }
    e:	b002      	add	sp, #8
   10:	bd80      	pop	{r7, pc}

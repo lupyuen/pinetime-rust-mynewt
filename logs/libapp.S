@@ -3588,9 +3588,9 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E
 00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E
 00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE
-00000000         *UND*	00000000 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E
-00000000         *UND*	00000000 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E
-00000000         *UND*	00000000 _ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E
+00000000         *UND*	00000000 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E
+00000000         *UND*	00000000 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE
+00000000         *UND*	00000000 _ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E
 00000000         *UND*	00000000 _ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E
 
 
@@ -3658,7 +3658,7 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h4c8b3da4515d915dE():
    8:	9809      	ldr	r0, [sp, #36]	; 0x24
    a:	3008      	adds	r0, #8
    c:	9108      	str	r1, [sp, #32]
-   e:	f7ff fffe 	bl	0 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E>
+   e:	f7ff fffe 	bl	0 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE>
   12:	9007      	str	r0, [sp, #28]
   14:	e7ff      	b.n	16 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h4c8b3da4515d915dE+0x16>
   16:	9807      	ldr	r0, [sp, #28]
@@ -3702,7 +3702,7 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h4c8b3da4515d915dE():
         self.rst.set_low().map_err(|_| ())?;
   62:	9809      	ldr	r0, [sp, #36]	; 0x24
   64:	3008      	adds	r0, #8
-  66:	f7ff fffe 	bl	0 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E>
+  66:	f7ff fffe 	bl	0 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E>
   6a:	9004      	str	r0, [sp, #16]
   6c:	e7ff      	b.n	6e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h4c8b3da4515d915dE+0x6e>
   6e:	9804      	ldr	r0, [sp, #16]
@@ -3734,7 +3734,7 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h4c8b3da4515d915dE():
         self.rst.set_high().map_err(|_| ())
   b0:	9809      	ldr	r0, [sp, #36]	; 0x24
   b2:	3008      	adds	r0, #8
-  b4:	f7ff fffe 	bl	0 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E>
+  b4:	f7ff fffe 	bl	0 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE>
   b8:	9001      	str	r0, [sp, #4]
   ba:	e7ff      	b.n	bc <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h4c8b3da4515d915dE+0xbc>
   bc:	9801      	ldr	r0, [sp, #4]
@@ -3845,7 +3845,7 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hea88fea94cf61461E():
   14:	9307      	str	r3, [sp, #28]
   16:	f8cd c018 	str.w	ip, [sp, #24]
   1a:	f8cd e014 	str.w	lr, [sp, #20]
-  1e:	f7ff fffe 	bl	0 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E>
+  1e:	f7ff fffe 	bl	0 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE>
   22:	9004      	str	r0, [sp, #16]
   24:	e7ff      	b.n	26 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hea88fea94cf61461E+0x26>
   26:	9804      	ldr	r0, [sp, #16]
@@ -3888,7 +3888,7 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hea88fea94cf61461E():
   72:	9808      	ldr	r0, [sp, #32]
   74:	9909      	ldr	r1, [sp, #36]	; 0x24
   76:	9a0a      	ldr	r2, [sp, #40]	; 0x28
-  78:	f7ff fffe 	bl	0 <_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E>
+  78:	f7ff fffe 	bl	0 <_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E>
   7c:	9001      	str	r0, [sp, #4]
   7e:	e7ff      	b.n	80 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hea88fea94cf61461E+0x80>
   80:	9801      	ldr	r0, [sp, #4]
@@ -3989,7 +3989,7 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17hb345dd533f74732bE
   1e:	f8cd e048 	str.w	lr, [sp, #72]	; 0x48
   22:	9411      	str	r4, [sp, #68]	; 0x44
   24:	9510      	str	r5, [sp, #64]	; 0x40
-  26:	f7ff fffe 	bl	0 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E>
+  26:	f7ff fffe 	bl	0 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E>
   2a:	900f      	str	r0, [sp, #60]	; 0x3c
   2c:	e7ff      	b.n	2e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17hb345dd533f74732bE+0x2e>
   2e:	980f      	ldr	r0, [sp, #60]	; 0x3c
@@ -4048,7 +4048,7 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17hb345dd533f74732bE
   a4:	f10d 016f 	add.w	r1, sp, #111	; 0x6f
   a8:	2201      	movs	r2, #1
   aa:	980c      	ldr	r0, [sp, #48]	; 0x30
-  ac:	f7ff fffe 	bl	0 <_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E>
+  ac:	f7ff fffe 	bl	0 <_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E>
   b0:	9008      	str	r0, [sp, #32]
   b2:	e7ff      	b.n	b4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17hb345dd533f74732bE+0xb4>
   b4:	9808      	ldr	r0, [sp, #32]
@@ -8423,30 +8423,30 @@ SYMBOL TABLE:
 00000162 l       .debug_str	00000000 
 00000166 l       .debug_str	00000000 
 0000016e l       .debug_str	00000000 
-00000177 l       .debug_str	00000000 
-0000017b l       .debug_str	00000000 
-00000186 l       .debug_str	00000000 
-0000018e l       .debug_str	00000000 
+00000176 l       .debug_str	00000000 
+00000180 l       .debug_str	00000000 
+00000189 l       .debug_str	00000000 
+0000018d l       .debug_str	00000000 
 00000198 l       .debug_str	00000000 
 000001c1 l       .debug_str	00000000 
 000001c6 l       .debug_str	00000000 
-0000023e l       .debug_str	00000000 
-00000244 l       .debug_str	00000000 
-00000249 l       .debug_str	00000000 
-0000024d l       .debug_str	00000000 
-00000250 l       .debug_str	00000000 
-00000254 l       .debug_str	00000000 
-00000257 l       .debug_str	00000000 
-00000259 l       .debug_str	00000000 
-0000025b l       .debug_str	00000000 
-0000025f l       .debug_str	00000000 
-00000287 l       .debug_str	00000000 
-000002fa l       .debug_str	00000000 
-00000302 l       .debug_str	00000000 
-00000376 l       .debug_str	00000000 
-0000037f l       .debug_str	00000000 
-000003b3 l       .debug_str	00000000 
-000003b7 l       .debug_str	00000000 
+000001f8 l       .debug_str	00000000 
+000001fc l       .debug_str	00000000 
+00000274 l       .debug_str	00000000 
+0000027a l       .debug_str	00000000 
+0000027f l       .debug_str	00000000 
+00000283 l       .debug_str	00000000 
+00000286 l       .debug_str	00000000 
+0000028a l       .debug_str	00000000 
+0000028d l       .debug_str	00000000 
+0000028f l       .debug_str	00000000 
+00000291 l       .debug_str	00000000 
+00000295 l       .debug_str	00000000 
+000002bd l       .debug_str	00000000 
+000002f1 l       .debug_str	00000000 
+00000364 l       .debug_str	00000000 
+0000036c l       .debug_str	00000000 
+000003e0 l       .debug_str	00000000 
 000003e9 l       .debug_str	00000000 
 0000046a l       .debug_str	00000000 
 00000473 l       .debug_str	00000000 
@@ -8491,16 +8491,16 @@ SYMBOL TABLE:
 0000062e l       .debug_str	00000000 
 00000630 l       .debug_str	00000000 
 00000666 l       .debug_str	00000000 
-00000000 l     O .rodata..Lanon.aac81e347ee9cd387b89453a2dd7ab7d.0	00000001 .Lanon.aac81e347ee9cd387b89453a2dd7ab7d.0
-00000000 l     O .rodata..Lanon.aac81e347ee9cd387b89453a2dd7ab7d.1	0000000b .Lanon.aac81e347ee9cd387b89453a2dd7ab7d.1
+00000000 l     O .rodata..Lanon.22b8c9f15394de93f6d6cb0c17e56908.0	00000001 .Lanon.22b8c9f15394de93f6d6cb0c17e56908.0
+00000000 l     O .rodata..Lanon.22b8c9f15394de93f6d6cb0c17e56908.1	0000000b .Lanon.22b8c9f15394de93f6d6cb0c17e56908.1
 00000000 l     F .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E	00000012 _ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
-00000000 l     F .text._ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E	00000012 _ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E
+00000000 l     F .text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E	00000012 _ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E
 00000000 l    d  .text._ZN3app7display4show17h3d99e0b5dbb54032E	00000000 .text._ZN3app7display4show17h3d99e0b5dbb54032E
-00000000 l    d  .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E	00000000 .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E
-00000000 l    d  .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E	00000000 .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E
-00000000 l    d  .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E	00000000 .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E
+00000000 l    d  .text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E	00000000 .text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E
+00000000 l    d  .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E	00000000 .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E
 00000000 l    d  .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E	00000000 .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
-00000000 l    d  .text._ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E	00000000 .text._ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E
+00000000 l    d  .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E	00000000 .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E
+00000000 l    d  .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE	00000000 .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE
 00000000 l    d  .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E	00000000 .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
@@ -8521,9 +8521,9 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 _ZN17embedded_graphics5coord14internal_coord5Coord3new17h5cc04c89c71e58a5E
 00000000 g     F .text._ZN3app7display4show17h3d99e0b5dbb54032E	00000158 .hidden _ZN3app7display4show17h3d99e0b5dbb54032E
 00000000         *UND*	00000000 _ZN4core6result19Result$LT$T$C$E$GT$6unwrap17ha67f6a649316de7bE
-00000000 g     F .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E	00000016 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E
-00000000 g     F .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E	00000016 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E
-00000000 g     F .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E	00000028 _ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E
+00000000 g     F .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E	00000016 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E
+00000000 g     F .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE	00000016 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE
+00000000 g     F .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E	00000028 _ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E
 00000000 g     F .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E	00000014 _ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E
 00000000         *UND*	00000000 _ZN95_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$u8$GT$$GT$4from17h6ee2795358adec6eE
 
@@ -8719,11 +8719,38 @@ pub fn show() {
  154:	b044      	add	sp, #272	; 0x110
  156:	bd70      	pop	{r4, r5, r6, pc}
 
-Disassembly of section .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E:
+Disassembly of section .text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E:
 
-00000000 <_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E>:
-_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h7375f65408cabdd3E():
+00000000 <_ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E>:
+_ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:39
+
+impl MynewtSPI {
+    pub fn new(spi_num: i32) -> Self {
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9001      	str	r0, [sp, #4]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:41
+        MynewtSPI {
+            spi_num
+   6:	9801      	ldr	r0, [sp, #4]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:40
+        MynewtSPI {
+   8:	9002      	str	r0, [sp, #8]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:43
+        }
+    }
+   a:	9802      	ldr	r0, [sp, #8]
+   c:	9100      	str	r1, [sp, #0]
+   e:	b003      	add	sp, #12
+  10:	4770      	bx	lr
+
+Disassembly of section .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E:
+
+00000000 <_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E>:
+_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:47
+}
 
 impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
     fn write(&mut self, words: &[u8]) -> Result<(), Self::Error> {
@@ -8736,13 +8763,13 @@ impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
    c:	9104      	str	r1, [sp, #16]
    e:	9205      	str	r2, [sp, #20]
   10:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:41
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:49
         //  TODO
         Ok(())
   12:	9006      	str	r0, [sp, #24]
   14:	2001      	movs	r0, #1
   16:	9006      	str	r0, [sp, #24]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:42
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:50
     }
   18:	9806      	ldr	r0, [sp, #24]
   1a:	9302      	str	r3, [sp, #8]
@@ -8751,63 +8778,11 @@ impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
   24:	b008      	add	sp, #32
   26:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E:
-
-00000000 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E>:
-_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h3cc64901fd296c38E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:47
-    type Error = mynewt::result::MynewtError;
-}
-
-impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
-    fn set_low(&mut self) -> Result<(), Self::Error> {
-   0:	b084      	sub	sp, #16
-   2:	4601      	mov	r1, r0
-   4:	9001      	str	r0, [sp, #4]
-   6:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:49
-        //  TODO
-        Ok(())
-   8:	9002      	str	r0, [sp, #8]
-   a:	2001      	movs	r0, #1
-   c:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:50
-    }
-   e:	9802      	ldr	r0, [sp, #8]
-  10:	9100      	str	r1, [sp, #0]
-  12:	b004      	add	sp, #16
-  14:	4770      	bx	lr
-
-Disassembly of section .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E:
-
-00000000 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E>:
-_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h89de959b9b0fef40E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:52
-
-    fn set_high(&mut self) -> Result<(), Self::Error> {
-   0:	b084      	sub	sp, #16
-   2:	4601      	mov	r1, r0
-   4:	9001      	str	r0, [sp, #4]
-   6:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:54
-        //  TODO
-        Ok(())
-   8:	9002      	str	r0, [sp, #8]
-   a:	2001      	movs	r0, #1
-   c:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:55
-    }
-   e:	9802      	ldr	r0, [sp, #8]
-  10:	9100      	str	r1, [sp, #0]
-  12:	b004      	add	sp, #16
-  14:	4770      	bx	lr
-
 Disassembly of section .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E:
 
 00000000 <_ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E>:
 _ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:61
-
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:55
     type Error = mynewt::result::MynewtError;
 }
 
@@ -8816,14 +8791,14 @@ impl MynewtGPIO {
    0:	b083      	sub	sp, #12
    2:	4601      	mov	r1, r0
    4:	9001      	str	r0, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:63
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:57
         MynewtGPIO {
             pin
    6:	9801      	ldr	r0, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:62
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:56
         MynewtGPIO {
    8:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:65
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:59
         }
     }
    a:	9802      	ldr	r0, [sp, #8]
@@ -8831,38 +8806,63 @@ impl MynewtGPIO {
    e:	b003      	add	sp, #12
   10:	4770      	bx	lr
 
-Disassembly of section .text._ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E:
+Disassembly of section .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E:
 
-00000000 <_ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E>:
-_ZN3app7display9MynewtSPI3new17h9f8106fdc2f7f6c5E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:69
+00000000 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E>:
+_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:63
 }
 
-impl MynewtSPI {
-    pub fn new(spi_num: i32) -> Self {
-   0:	b083      	sub	sp, #12
+impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
+    fn set_low(&mut self) -> Result<(), Self::Error> {
+   0:	b084      	sub	sp, #16
    2:	4601      	mov	r1, r0
    4:	9001      	str	r0, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:71
-        MynewtSPI {
-            spi_num
-   6:	9801      	ldr	r0, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:70
-        MynewtSPI {
+   6:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:65
+        //  TODO
+        Ok(())
    8:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:73
-        }
+   a:	2001      	movs	r0, #1
+   c:	9002      	str	r0, [sp, #8]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:66
     }
-   a:	9802      	ldr	r0, [sp, #8]
-   c:	9100      	str	r1, [sp, #0]
-   e:	b003      	add	sp, #12
-  10:	4770      	bx	lr
+   e:	9802      	ldr	r0, [sp, #8]
+  10:	9100      	str	r1, [sp, #0]
+  12:	b004      	add	sp, #16
+  14:	4770      	bx	lr
+
+Disassembly of section .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE:
+
+00000000 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE>:
+_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:68
+
+    fn set_high(&mut self) -> Result<(), Self::Error> {
+   0:	b084      	sub	sp, #16
+   2:	4601      	mov	r1, r0
+   4:	9001      	str	r0, [sp, #4]
+   6:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:70
+        //  TODO
+        Ok(())
+   8:	9002      	str	r0, [sp, #8]
+   a:	2001      	movs	r0, #1
+   c:	9002      	str	r0, [sp, #8]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:71
+    }
+   e:	9802      	ldr	r0, [sp, #8]
+  10:	9100      	str	r1, [sp, #0]
+  12:	b004      	add	sp, #16
+  14:	4770      	bx	lr
 
 Disassembly of section .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E:
 
 00000000 <_ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E>:
 _ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:77
+
+    type Error = mynewt::result::MynewtError;
 }
 
 impl embedded_hal::blocking::delay::DelayMs<u8> for MynewtDelay {

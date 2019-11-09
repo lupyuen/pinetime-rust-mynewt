@@ -6,6 +6,7 @@
 
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
+export RUST_BACKTRACE=1  #  Show Rust errors.
 
 function generate_bindings() {
     #  Generate bindings for the module.
@@ -50,9 +51,11 @@ EOF
         >> $expandcmd
 
     #  Run gcc to expand macros.
+    #  TODO: Ensure that output folder has been created.
     arm-none-eabi-gcc @$expandcmd
 
     #  Generate Rust bindings for the expanded macros.
+    #  TODO: Ensure that output folder has been created.
     bindgen \
         --use-core \
         --ctypes-prefix "::cty" \
@@ -98,7 +101,7 @@ function generate_bindings_kernel() {
     local libdir=kernel/$libname
     #  libcmd looks like
     #  bin/targets/bluepill_my_sensor/app/kernel/os/repos/apache-mynewt-core/kernel/os/src/os.o.cmd
-    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$srcname.o.cmd
+    local libcmd=bin/targets/*_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$srcname.o.cmd
     local whitelist=`cat << EOF
         --raw-line use \
         --raw-line super::*; \
@@ -116,7 +119,7 @@ function generate_bindings_apps() {
     local libname=$1
     local modname=$2
     local libdir=apps/$libname
-    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$modname.o.cmd
+    local libcmd=bin/targets/*_my_sensor/app/$libdir/$libdir/src/$modname.o.cmd
     local whitelist=
     generate_bindings $libname $modname $libdir $libcmd $whitelist
 }
@@ -135,7 +138,7 @@ function generate_bindings_encoding() {
     #  libcmd looks like
     #  bin/targets/bluepill_my_sensor/app/encoding/tinycbor/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.o.cmd
     #  bin/targets/bluepill_my_sensor/app/encoding/json/repos/apache-mynewt-core/encoding/json/src/json_encode.o.cmd
-    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$srcname.o.cmd
+    local libcmd=bin/targets/*_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$srcname.o.cmd
     if [ "$libname" == 'tinycbor' ]; then
         #  Skip incorrect binding "pub static CborIndefiniteLength: usize", replace by const:
         #  static const size_t CborIndefiniteLength = (0xffffffffU)
@@ -173,13 +176,20 @@ function generate_bindings_hw() {
     local srcname=$2
     #  prefixname: sensor
     local prefixname=$3
-    #  modname looks like hw/sensor/bindings.rs
-    local modname=hw/$libname/bindings
-    #  libdir looks like hw/sensor
-    local libdir=hw/$libname
+    if [ "$libname" == 'sensor' ]; then
+        #  modname looks like hw/sensor/bindings.rs
+        local modname=hw/$libname/bindings
+        #  libdir looks like hw/sensor
+        local libdir=hw/$libname
+    else
+        #  modname looks like hw/hal.rs
+        local modname=hw/$libname
+        #  libdir looks like hw/hal
+        local libdir=hw/$libname
+    fi
     #  libcmd looks like
     #  bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd
-    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$srcname.o.cmd
+    local libcmd=bin/targets/*_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$srcname.o.cmd
     #  Add whitelist and blacklist.
     local whitelist=`cat << EOF
         --raw-line use \
@@ -219,7 +229,7 @@ function generate_bindings_libs() {
     #  bin/targets/bluepill_my_sensor/app/libs/sensor_network/libs/sensor_network/src/sensor_network.o.cmd
     #  bin/targets/bluepill_my_sensor/app/libs/sensor_coap/libs/sensor_coap/src/sensor_coap.o.cmd
     #  bin/targets/bluepill_my_sensor/app/libs/mynewt_rust/libs/mynewt_rust/src/json_helper.o.cmd
-    local libcmd=bin/targets/bluepill_my_sensor/app/$libdir/$libdir/src/$srcname.o.cmd
+    local libcmd=bin/targets/*_my_sensor/app/$libdir/$libdir/src/$srcname.o.cmd
     if [ "$libname" == 'sensor_network' ]; then
         #  Add sensor network + whitelist + blacklist.
         #  sensor_value is defined in libs/sensor_coap.
@@ -320,8 +330,9 @@ EOF
 # Generate the bindings.
 generate_bindings_encoding json           json_encode    json  #  Generate bindings for encoding/json
 generate_bindings_encoding tinycbor       cborencoder    cbor  #  Generate bindings for encoding/tinycbor
-generate_bindings_kernel   os             os             os    #  Generate bindings for kernel/os
-generate_bindings_hw       sensor         sensor         sensor         #  Generate bindings for hw/sensor
+# TODO: generate_bindings_kernel   os             os             os    #  Generate bindings for kernel/os
+# TODO: generate_bindings_hw       sensor         sensor         sensor         #  Generate bindings for hw/sensor
+generate_bindings_hw       hal            hal_common     hal            #  Generate bindings for hw/hal
 generate_bindings_libs     mynewt_rust    mynewt_rust    mynewt_rust    #  Generate bindings for libs/mynewt_rust
 generate_bindings_libs     sensor_network sensor_network sensor_network #  Generate bindings for libs/sensor_network
 generate_bindings_libs     sensor_coap    sensor_coap    sensor_coap    #  Generate bindings for libs/sensor_coap

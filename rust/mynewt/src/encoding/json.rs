@@ -4,7 +4,7 @@ use
 super::*;
 
 #[repr(C)]
-#[derive(Copy, Clone, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[derive(Copy, Clone, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub struct __BindgenBitfieldUnit<Storage, Align>
 where
     Storage: AsRef<[u8]> + AsMut<[u8]>,
@@ -114,7 +114,6 @@ impl<T> ::core::clone::Clone for __BindgenUnionField<T> {
     }
 }
 impl<T> ::core::marker::Copy for __BindgenUnionField<T> {}
-#[cfg(feature = "NOTUSED")]  ////  TODO
 impl<T> ::core::fmt::Debug for __BindgenUnionField<T> {
     fn fmt(&self, fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
         fmt.write_str("__BindgenUnionField")
