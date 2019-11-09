@@ -57,6 +57,7 @@ pub mod kernel {
 
 
 
+
     //  TODO
 
     //  Strn may be copied
@@ -11393,8 +11394,13 @@ pub mod result {
             unsafe { ::core::mem::transmute::<i32, MynewtError>(num) }
         }
     }
+    /// Cast `()` to `MynewtError`
+    impl From<()> for MynewtError {
+        /// Cast `()` to `MynewtError`
+        fn from(_: ()) -> Self { MynewtError::SYS_EUNKNOWN }
+    }
     /// Implement formatted output for MynewtError
-    impl ::core::fmt::Debug for MynewtError {
+    impl core::fmt::Debug for MynewtError {
         fn fmt(&self, _fmt: &mut ::core::fmt::Formatter<'_>)
          -> ::core::fmt::Result {
             Ok(())
@@ -11483,7 +11489,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           130u32, 9u32))
+                                                           138u32, 9u32))
                         }
                     }
                 }
@@ -11536,7 +11542,7 @@ impl Strn {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/lib.rs",
-                                                                   155u32,
+                                                                   163u32,
                                                                    17u32))
                                 }
                             }
@@ -11555,7 +11561,7 @@ impl Strn {
                     {
                         ::core::panicking::panic(&("big strn",
                                                    "rust/mynewt/src/lib.rs",
-                                                   165u32, 17u32))
+                                                   173u32, 17u32))
                     }
                 };
                 return 128 as usize;
@@ -11599,7 +11605,7 @@ impl Strn {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/lib.rs",
-                                                                   181u32,
+                                                                   189u32,
                                                                    17u32))
                                 }
                             }
@@ -11646,7 +11652,7 @@ impl Strn {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/lib.rs",
-                                                                   193u32,
+                                                                   201u32,
                                                                    17u32))
                                 }
                             }
@@ -11660,7 +11666,7 @@ impl Strn {
                     {
                         ::core::panicking::panic(&("strn cstr",
                                                    "rust/mynewt/src/lib.rs",
-                                                   197u32, 17u32))
+                                                   205u32, 17u32))
                     }
                 };
                 b"\0"
@@ -11701,7 +11707,7 @@ impl Strn {
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
                                                                  &("rust/mynewt/src/lib.rs",
-                                                                   207u32,
+                                                                   215u32,
                                                                    17u32))
                                 }
                             }
@@ -11744,7 +11750,7 @@ impl Strn {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/lib.rs",
-                                                           215u32, 9u32))
+                                                           223u32, 9u32))
                         }
                     }
                 }

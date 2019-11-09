@@ -44,7 +44,7 @@ use cortex_m::asm::bkpt;    //  Import cortex_m assembly function to inject brea
 use mynewt::{
     kernel::os,             //  Import Mynewt OS API
     sys::console,           //  Import Mynewt Console API
-    libs::sensor_network,   //  Import Mynewt Sensor Network Library
+    //libs::sensor_network,   //  Import Mynewt Sensor Network Library
 };
 
 ///  Main program that initialises the sensor, network driver and starts reading and sending sensor data in the background.
@@ -75,7 +75,8 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     assert!(rc == 0, "BLE fail");
 
     //  Show the display.
-    display::show();
+    display::show()
+        .expect("DSP fail");
 
     //  Main event loop
     loop {                            //  Loop forever...

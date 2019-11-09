@@ -61,7 +61,8 @@ mod app_network {
     //  Import cortex_m assembly function to inject breakpoint
     //  Import Mynewt OS API
     //  Import Mynewt Console API
-    //  Import Mynewt Sensor Network Library
+    //libs::sensor_network,   //  Import Mynewt Sensor Network Library
+
 
     //  Don't mangle the name "main"
     //  Declare extern "C" because it will be called by Mynewt
@@ -339,44 +340,45 @@ mod app_sensor {
     }
 }
 mod display {
-    use embedded_graphics::prelude::*;
-    use embedded_graphics::primitives::Circle;
-    use embedded_graphics::fonts::Font6x8;
-    use embedded_graphics::pixelcolor::Rgb565;
-    use embedded_hal;
-    use embedded_hal::digital::v2::OutputPin;
-    use st7735_lcd;
-    use st7735_lcd::Orientation;
-    use mynewt::hw::hal;
-    pub fn show() {
+    use embedded_graphics::{prelude::*, primitives::Circle, fonts::Font6x8,
+                            pixelcolor::Rgb565};
+    use embedded_hal::{self, digital::v2::OutputPin};
+    use st7735_lcd::{self, Orientation};
+    use mynewt::{result::*, hw::hal, kernel::os};
+    /// SPI settings for ST7789 display controller
+    static mut SPI_SETTINGS: hal::hal_spi_settings =
+        hal::hal_spi_settings{data_order: hal::HAL_SPI_MSB_FIRST as u8,
+                              data_mode: hal::HAL_SPI_MODE3 as u8,
+                              baudrate: 8000,
+                              word_size: hal::HAL_SPI_WORD_SIZE_8BIT as u8,};
+    /// Render the ST7789 display connected to SPI port 0
+    pub fn show() -> MynewtResult<()> {
         let spi = MynewtSPI::new(0, 25);
         let dc = MynewtGPIO::new(18);
         let rst = MynewtGPIO::new(26);
         let mut display = st7735_lcd::ST7735::new(spi, dc, rst, false, true);
         let mut backlight = MynewtGPIO::new(23);
-        backlight.set_low().expect("backlight fail");
-        let mut delay = MynewtDelay{};
-        display.init(&mut delay).unwrap();
-        display.set_orientation(&Orientation::Landscape).unwrap();
-        display.set_offset(1, 25);
+        backlight.set_low()?;
         let c =
             Circle::<Rgb565>::new(Coord::new(20, 20),
                                   8).fill(Some(Rgb565::from(1u8)));
         let t =
             Font6x8::<Rgb565>::render_str("Hello Rust!").fill(Some(Rgb565::from(20u8))).translate(Coord::new(20,
                                                                                                              16));
+        let mut delay = MynewtDelay{};
+        display.init(&mut delay)?;
+        display.set_orientation(&Orientation::Landscape)?;
+        display.set_offset(1, 25);
         display.draw(c);
         display.draw(t);
+        Ok(())
     }
-    static mut spi_settings: hal::hal_spi_settings =
-        hal::hal_spi_settings{data_order: hal::HAL_SPI_MSB_FIRST as u8,
-                              data_mode: hal::HAL_SPI_MODE3 as u8,
-                              baudrate: 8000,
-                              word_size: hal::HAL_SPI_WORD_SIZE_8BIT as u8,};
+    /// Rust Embedded HAL interface for Mynewt SPI
     impl MynewtSPI {
+        /// Create a new SPI port
         pub fn new(spi_num: i32, cs_pin: i32) -> Self {
             let rc =
-                unsafe { hal::hal_spi_config(spi_num, &mut spi_settings) };
+                unsafe { hal::hal_spi_config(spi_num, &mut SPI_SETTINGS) };
             {
                 match (&(rc), &(0)) {
                     (left_val, right_val) => {
@@ -407,7 +409,7 @@ mod display {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/app/src/display.rs",
-                                                               70u32, 9u32))
+                                                               84u32, 9u32))
                             }
                         }
                     }
@@ -444,7 +446,7 @@ mod display {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/app/src/display.rs",
-                                                               72u32, 9u32))
+                                                               87u32, 9u32))
                             }
                         }
                     }
@@ -481,7 +483,7 @@ mod display {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/app/src/display.rs",
-                                                               74u32, 9u32))
+                                                               90u32, 9u32))
                             }
                         }
                     }
@@ -490,25 +492,28 @@ mod display {
             MynewtSPI{spi_num, cs_pin,}
         }
     }
+    /// Rust Embedded HAL interface for Mynewt SPI
     impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
+        /// Write to the SPI port
         fn write(&mut self, words: &[u8]) -> Result<(), Self::Error> {
             unsafe { hal_gpio_write(self.cs_pin, 0) };
-            let retval =
-                unsafe {
-                    hal::hal_spi_txrx(self.spi_num,
-                                      core::mem::transmute(words.as_ptr()),
-                                      core::ptr::null_mut(),
-                                      words.len() as i32)
-                };
+            unsafe {
+                hal::hal_spi_txrx(self.spi_num,
+                                  core::mem::transmute(words.as_ptr()),
+                                  core::ptr::null_mut(), words.len() as i32)
+            };
             unsafe { hal_gpio_write(self.cs_pin, 1) };
             Ok(())
         }
+        /// Reuse Mynewt error codes
         type
         Error
         =
         mynewt::result::MynewtError;
     }
+    /// Rust Embedded HAL interface for Mynewt GPIO
     impl MynewtGPIO {
+        /// Create a new output GPIO pin
         pub fn new(pin: i32) -> Self {
             let rc = unsafe { hal_gpio_init_out(pin, 0) };
             {
@@ -541,7 +546,7 @@ mod display {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/app/src/display.rs",
-                                                               101u32, 9u32))
+                                                               123u32, 9u32))
                             }
                         }
                     }
@@ -550,35 +555,49 @@ mod display {
             MynewtGPIO{pin,}
         }
     }
+    /// Rust Embedded HAL interface for Mynewt GPIO
     impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
+        /// Set the GPIO pin to low
         fn set_low(&mut self) -> Result<(), Self::Error> {
             unsafe { hal_gpio_write(self.pin, 0) };
             Ok(())
         }
+        /// Set the GPIO pin to high
         fn set_high(&mut self) -> Result<(), Self::Error> {
             unsafe { hal_gpio_write(self.pin, 1) };
             Ok(())
         }
+        /// Reuse Mynewt error codes
         type
         Error
         =
         mynewt::result::MynewtError;
     }
+    /// Rust Embedded HAL interface for Mynewt Delay
     impl embedded_hal::blocking::delay::DelayMs<u8> for MynewtDelay {
-        fn delay_ms(&mut self, ms: u8) { }
+        /// Sleep for the specified number of milliseconds
+        fn delay_ms(&mut self, ms: u8) {
+            const OS_TICKS_PER_SEC: u32 = 1000;
+            let delay_ticks = (ms as u32) * OS_TICKS_PER_SEC / 1000;
+            unsafe { os::os_time_delay(delay_ticks) };
+        }
     }
-    /// Wrapper for Mynewt SPI API
+    /// Rust Embedded HAL interface for Mynewt SPI
     struct MynewtSPI {
+        /// Mynewt SPI port number
         spi_num: i32,
+        /// Mynewt GPIO pin number for Chip Select
         cs_pin: i32,
     }
-    /// Wrapper for Mynewt GPIO API
+    /// Rust Embedded HAL interface for Mynewt GPIO
     struct MynewtGPIO {
+        /// Mynewt GPIO pin number
         pin: i32,
     }
-    /// Wrapper for Mynewt Delay API
+    /// Rust Embedded HAL interface for Mynewt Delay
     struct MynewtDelay {
     }
+    /// TODO: Fix gen-bindings.sh to generate GPIO bindings. https://mynewt.apache.org/latest/os/modules/hal/hal_gpio/hal_gpio.html
     extern "C" {
         fn hal_gpio_init_out(pin: i32, val: i32) -> i32;
         fn hal_gpio_write(pin: i32, val: i32);
@@ -586,7 +605,7 @@ mod display {
 }
 use core::panic::PanicInfo;
 use cortex_m::asm::bkpt;
-use mynewt::{kernel::os, sys::console, libs::sensor_network};
+use mynewt::{kernel::os, sys::console};
 ///  Main program that initialises the sensor, network driver and starts reading and sending sensor data in the background.
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
 #[no_mangle]
@@ -603,7 +622,7 @@ extern "C" fn main() -> ! {
                                        75u32, 5u32))
         }
     };
-    display::show();
+    display::show().expect("DSP fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }

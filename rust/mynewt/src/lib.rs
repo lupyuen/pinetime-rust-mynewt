@@ -92,8 +92,16 @@ pub mod result {
         }
     }
 
+    /// Cast `()` to `MynewtError`
+    impl From<()> for MynewtError {
+        /// Cast `()` to `MynewtError`
+        fn from(_: ()) -> Self {
+            MynewtError::SYS_EUNKNOWN
+        }
+    }
+
     /// Implement formatted output for MynewtError
-    impl ::core::fmt::Debug for MynewtError {
+    impl core::fmt::Debug for MynewtError {
         fn fmt(&self, _fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
             //  TODO
             Ok(())
