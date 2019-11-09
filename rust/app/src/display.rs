@@ -1,8 +1,8 @@
 use embedded_graphics::{
     prelude::*,
-    primitives::Circle,
-    fonts::Font6x8,
+    fonts,
     pixelcolor::Rgb565,
+    primitives::Circle,
 };
 use embedded_hal::{
     self,
@@ -48,8 +48,6 @@ pub fn show() -> MynewtResult<()> {
     );
     let dc =  MynewtGPIO::new(18);  //  LCD_RS (P0.18): Clock/data pin (CD)
     let rst = MynewtGPIO::new(26);  //  LCD_RESET (P0.26): Display reset
-    //  TODO: let dc = pins.d0.into_push_pull_output(&mut pins.port);
-    //  TODO: let rst = pins.d1.into_push_pull_output(&mut pins.port);
 
     //  Create display driver for SPI port 0
     let mut display = st7735_lcd::ST7735::new(
@@ -61,11 +59,11 @@ pub fn show() -> MynewtResult<()> {
     backlight.set_low() ? ;
 
     //  Create circle
-    let c = Circle::<Rgb565>::new(Coord::new(20, 20), 8)
+    let c = Circle::<Rgb565>::new(Coord::new(40, 40), 40)
         .fill(Some(Rgb565::from(1u8)));
 
     //  Create text
-    let t = Font6x8::<Rgb565>::render_str("Hello Rust!")
+    let t = fonts::Font12x16::<Rgb565>::render_str("Hello Rust!")
         .fill(Some(Rgb565::from(20u8)))
         .translate(Coord::new(20, 16));
 
@@ -124,6 +122,8 @@ impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
 impl MynewtGPIO {
     /// Create a new output GPIO pin
     pub fn new(pin: i32) -> Self {
+        //  TODO: let dc = pins.d0.into_push_pull_output(&mut pins.port);
+        //  TODO: let rst = pins.d1.into_push_pull_output(&mut pins.port);
         let rc = unsafe { hal_gpio_init_out(pin, 0) };
         assert_eq!(rc, 0, "spi config fail");
         MynewtGPIO {

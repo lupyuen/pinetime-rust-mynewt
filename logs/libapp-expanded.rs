@@ -340,8 +340,8 @@ mod app_sensor {
     }
 }
 mod display {
-    use embedded_graphics::{prelude::*, primitives::Circle, fonts::Font6x8,
-                            pixelcolor::Rgb565};
+    use embedded_graphics::{prelude::*, fonts, pixelcolor::Rgb565,
+                            primitives::Circle};
     use embedded_hal::{self, digital::v2::OutputPin};
     use st7735_lcd::{self, Orientation};
     use mynewt::{result::*, hw::hal, kernel::os};
@@ -360,11 +360,11 @@ mod display {
         let mut backlight = MynewtGPIO::new(23);
         backlight.set_low()?;
         let c =
-            Circle::<Rgb565>::new(Coord::new(20, 20),
-                                  8).fill(Some(Rgb565::from(1u8)));
+            Circle::<Rgb565>::new(Coord::new(40, 40),
+                                  40).fill(Some(Rgb565::from(1u8)));
         let t =
-            Font6x8::<Rgb565>::render_str("Hello Rust!").fill(Some(Rgb565::from(20u8))).translate(Coord::new(20,
-                                                                                                             16));
+            fonts::Font12x16::<Rgb565>::render_str("Hello Rust!").fill(Some(Rgb565::from(20u8))).translate(Coord::new(20,
+                                                                                                                      16));
         let mut delay = MynewtDelay{};
         display.init(&mut delay)?;
         display.set_orientation(&Orientation::Landscape)?;
@@ -409,7 +409,7 @@ mod display {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/app/src/display.rs",
-                                                               90u32, 9u32))
+                                                               87u32, 9u32))
                             }
                         }
                     }
@@ -446,7 +446,7 @@ mod display {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/app/src/display.rs",
-                                                               93u32, 9u32))
+                                                               90u32, 9u32))
                             }
                         }
                     }
@@ -483,7 +483,7 @@ mod display {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/app/src/display.rs",
-                                                               96u32, 9u32))
+                                                               93u32, 9u32))
                             }
                         }
                     }
@@ -546,7 +546,7 @@ mod display {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/app/src/display.rs",
-                                                               129u32, 9u32))
+                                                               128u32, 9u32))
                             }
                         }
                     }

@@ -3242,74 +3242,74 @@ app-b8434b356de0ea5d.1sgpzgj4qo12dzez.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 1sgpzgj4qo12dzez
-00000ef4 l       .debug_str	00000000 
-00000ebe l       .debug_str	00000000 
-00000f01 l       .debug_str	00000000 
-00000f0e l       .debug_str	00000000 
-00000f10 l       .debug_str	00000000 
-00000f45 l       .debug_str	00000000 
-00000f47 l       .debug_str	00000000 
-00000f7d l       .debug_str	00000000 
-00001029 l       .debug_str	00000000 
-000010d6 l       .debug_str	00000000 
-000010dc l       .debug_str	00000000 
+00000ec2 l       .debug_str	00000000 
+00000eb7 l       .debug_str	00000000 
+00000ecd l       .debug_str	00000000 
+00000ed4 l       .debug_str	00000000 
+00000edb l       .debug_str	00000000 
+00000f11 l       .debug_str	00000000 
+00000f1e l       .debug_str	00000000 
+00000f2b l       .debug_str	00000000 
+00000f2d l       .debug_str	00000000 
+00000f62 l       .debug_str	00000000 
+00000f68 l       .debug_str	00000000 
+00000f6f l       .debug_str	00000000 
+00000f79 l       .debug_str	00000000 
+00000f87 l       .debug_str	00000000 
+00000fc7 l       .debug_str	00000000 
+00000fc9 l       .debug_str	00000000 
+00000fce l       .debug_str	00000000 
+0000103d l       .debug_str	00000000 
 000010e9 l       .debug_str	00000000 
-000010ed l       .debug_str	00000000 
-000010f2 l       .debug_str	00000000 
-000010fb l       .debug_str	00000000 
-00001105 l       .debug_str	00000000 
-0000110c l       .debug_str	00000000 
-00001112 l       .debug_str	00000000 
-00001117 l       .debug_str	00000000 
-0000111d l       .debug_str	00000000 
-00001124 l       .debug_str	00000000 
-0000112c l       .debug_str	00000000 
-00001138 l       .debug_str	00000000 
-00001174 l       .debug_str	00000000 
-00001179 l       .debug_str	00000000 
-000011e4 l       .debug_str	00000000 
-00001290 l       .debug_str	00000000 
-00001373 l       .debug_str	00000000 
-00001378 l       .debug_str	00000000 
-00001391 l       .debug_str	00000000 
-000013f6 l       .debug_str	00000000 
-000013fa l       .debug_str	00000000 
-000013fd l       .debug_str	00000000 
-00001405 l       .debug_str	00000000 
+000011d0 l       .debug_str	00000000 
+000011db l       .debug_str	00000000 
+000011e2 l       .debug_str	00000000 
+000011e9 l       .debug_str	00000000 
+000011f0 l       .debug_str	00000000 
+000011f4 l       .debug_str	00000000 
+0000122a l       .debug_str	00000000 
+000012d6 l       .debug_str	00000000 
+00001383 l       .debug_str	00000000 
+00001388 l       .debug_str	00000000 
+000013a1 l       .debug_str	00000000 
+00001406 l       .debug_str	00000000 
 0000140a l       .debug_str	00000000 
-00001410 l       .debug_str	00000000 
-00001416 l       .debug_str	00000000 
-0000141c l       .debug_str	00000000 
-00001430 l       .debug_str	00000000 
-00001438 l       .debug_str	00000000 
-0000143f l       .debug_str	00000000 
-0000144d l       .debug_str	00000000 
-00001459 l       .debug_str	00000000 
-0000145c l       .debug_str	00000000 
-0000145f l       .debug_str	00000000 
-00001462 l       .debug_str	00000000 
-00001465 l       .debug_str	00000000 
-0000146b l       .debug_str	00000000 
-0000148a l       .debug_str	00000000 
-0000148c l       .debug_str	00000000 
-0000148e l       .debug_str	00000000 
-00001494 l       .debug_str	00000000 
-00001499 l       .debug_str	00000000 
-000014d7 l       .debug_str	00000000 
-000014de l       .debug_str	00000000 
-000014e7 l       .debug_str	00000000 
-000014f5 l       .debug_str	00000000 
-0000150d l       .debug_str	00000000 
-0000151b l       .debug_str	00000000 
-00001550 l       .debug_str	00000000 
-00001554 l       .debug_str	00000000 
-00001560 l       .debug_str	00000000 
-0000156c l       .debug_str	00000000 
-00001578 l       .debug_str	00000000 
-00001585 l       .debug_str	00000000 
-0000158a l       .debug_str	00000000 
-00001597 l       .debug_str	00000000 
-0000159b l       .debug_str	00000000 
+0000140d l       .debug_str	00000000 
+00001415 l       .debug_str	00000000 
+0000141a l       .debug_str	00000000 
+00001420 l       .debug_str	00000000 
+00001426 l       .debug_str	00000000 
+0000142c l       .debug_str	00000000 
+00001440 l       .debug_str	00000000 
+00001448 l       .debug_str	00000000 
+0000144f l       .debug_str	00000000 
+0000145d l       .debug_str	00000000 
+00001469 l       .debug_str	00000000 
+0000146c l       .debug_str	00000000 
+0000146f l       .debug_str	00000000 
+00001472 l       .debug_str	00000000 
+00001475 l       .debug_str	00000000 
+0000147b l       .debug_str	00000000 
+0000149a l       .debug_str	00000000 
+0000149c l       .debug_str	00000000 
+0000149e l       .debug_str	00000000 
+000014a4 l       .debug_str	00000000 
+000014a9 l       .debug_str	00000000 
+000014b5 l       .debug_str	00000000 
+000014c1 l       .debug_str	00000000 
+000014ce l       .debug_str	00000000 
+000014d3 l       .debug_str	00000000 
+000014e0 l       .debug_str	00000000 
+000014e4 l       .debug_str	00000000 
+0000155b l       .debug_str	00000000 
+00001562 l       .debug_str	00000000 
+0000156b l       .debug_str	00000000 
+00001579 l       .debug_str	00000000 
+00001591 l       .debug_str	00000000 
+0000159f l       .debug_str	00000000 
+000015d4 l       .debug_str	00000000 
+000015d8 l       .debug_str	00000000 
+000015e4 l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000055 l       .debug_str	00000000 
@@ -3452,36 +3452,36 @@ SYMBOL TABLE:
 00000dea l       .debug_str	00000000 
 00000e3f l       .debug_str	00000000 
 00000e51 l       .debug_str	00000000 
-00000e5c l       .debug_str	00000000 
-00000e63 l       .debug_str	00000000 
-00000e6a l       .debug_str	00000000 
-00000e70 l       .debug_str	00000000 
-00000e7f l       .debug_str	00000000 
-00000e83 l       .debug_str	00000000 
-00000e89 l       .debug_str	00000000 
-00000e90 l       .debug_str	00000000 
-00000e94 l       .debug_str	00000000 
-00000e9a l       .debug_str	00000000 
-00000ea5 l       .debug_str	00000000 
-00000eb0 l       .debug_str	00000000 
-00000eb7 l       .debug_str	00000000 
-00000000 l     O .rodata..Lanon.b33ccbf5895f1ec573f46d554f6718aa.0	00000018 .Lanon.b33ccbf5895f1ec573f46d554f6718aa.0
-00000000 l     O .rodata..Lanon.b33ccbf5895f1ec573f46d554f6718aa.1	00000018 .Lanon.b33ccbf5895f1ec573f46d554f6718aa.1
-00000000 l     O .rodata..Lanon.b33ccbf5895f1ec573f46d554f6718aa.10	00000002 .Lanon.b33ccbf5895f1ec573f46d554f6718aa.10
-00000000 l     O .rodata..Lanon.b33ccbf5895f1ec573f46d554f6718aa.11	00000002 .Lanon.b33ccbf5895f1ec573f46d554f6718aa.11
-00000000 l     O .rodata..Lanon.b33ccbf5895f1ec573f46d554f6718aa.12	00000001 .Lanon.b33ccbf5895f1ec573f46d554f6718aa.12
-00000000 l     O .rodata..Lanon.b33ccbf5895f1ec573f46d554f6718aa.13	00000001 .Lanon.b33ccbf5895f1ec573f46d554f6718aa.13
-00000000 l     O .rodata..Lanon.b33ccbf5895f1ec573f46d554f6718aa.14	00000001 .Lanon.b33ccbf5895f1ec573f46d554f6718aa.14
-00000000 l     O .rodata..Lanon.b33ccbf5895f1ec573f46d554f6718aa.15	00000001 .Lanon.b33ccbf5895f1ec573f46d554f6718aa.15
-00000000 l     O .rodata..Lanon.b33ccbf5895f1ec573f46d554f6718aa.16	00000012 .Lanon.b33ccbf5895f1ec573f46d554f6718aa.16
-00000000 l     O .rodata..Lanon.b33ccbf5895f1ec573f46d554f6718aa.2	00000018 .Lanon.b33ccbf5895f1ec573f46d554f6718aa.2
-00000000 l     O .rodata..Lanon.b33ccbf5895f1ec573f46d554f6718aa.3	00000018 .Lanon.b33ccbf5895f1ec573f46d554f6718aa.3
-00000000 l     O .rodata..Lanon.b33ccbf5895f1ec573f46d554f6718aa.4	00000003 .Lanon.b33ccbf5895f1ec573f46d554f6718aa.4
-00000000 l     O .rodata..Lanon.b33ccbf5895f1ec573f46d554f6718aa.5	00000006 .Lanon.b33ccbf5895f1ec573f46d554f6718aa.5
-00000000 l     O .rodata..Lanon.b33ccbf5895f1ec573f46d554f6718aa.6	00000001 .Lanon.b33ccbf5895f1ec573f46d554f6718aa.6
-00000000 l     O .rodata..Lanon.b33ccbf5895f1ec573f46d554f6718aa.7	00000003 .Lanon.b33ccbf5895f1ec573f46d554f6718aa.7
-00000000 l     O .rodata..Lanon.b33ccbf5895f1ec573f46d554f6718aa.8	00000001 .Lanon.b33ccbf5895f1ec573f46d554f6718aa.8
-00000000 l     O .rodata..Lanon.b33ccbf5895f1ec573f46d554f6718aa.9	00000002 .Lanon.b33ccbf5895f1ec573f46d554f6718aa.9
+00000e57 l       .debug_str	00000000 
+00000e64 l       .debug_str	00000000 
+00000e68 l       .debug_str	00000000 
+00000e6e l       .debug_str	00000000 
+00000e7d l       .debug_str	00000000 
+00000e81 l       .debug_str	00000000 
+00000e87 l       .debug_str	00000000 
+00000e8c l       .debug_str	00000000 
+00000e95 l       .debug_str	00000000 
+00000e9f l       .debug_str	00000000 
+00000ea6 l       .debug_str	00000000 
+00000eac l       .debug_str	00000000 
+00000eb1 l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.0	00000018 .Lanon.c0dfff91c1e4598ba8eb62511090c099.0
+00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.1	00000018 .Lanon.c0dfff91c1e4598ba8eb62511090c099.1
+00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.10	00000002 .Lanon.c0dfff91c1e4598ba8eb62511090c099.10
+00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.11	00000002 .Lanon.c0dfff91c1e4598ba8eb62511090c099.11
+00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.12	00000001 .Lanon.c0dfff91c1e4598ba8eb62511090c099.12
+00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.13	00000001 .Lanon.c0dfff91c1e4598ba8eb62511090c099.13
+00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.14	00000001 .Lanon.c0dfff91c1e4598ba8eb62511090c099.14
+00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.15	00000001 .Lanon.c0dfff91c1e4598ba8eb62511090c099.15
+00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.16	00000012 .Lanon.c0dfff91c1e4598ba8eb62511090c099.16
+00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.2	00000018 .Lanon.c0dfff91c1e4598ba8eb62511090c099.2
+00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.3	00000018 .Lanon.c0dfff91c1e4598ba8eb62511090c099.3
+00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.4	00000003 .Lanon.c0dfff91c1e4598ba8eb62511090c099.4
+00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.5	00000006 .Lanon.c0dfff91c1e4598ba8eb62511090c099.5
+00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.6	00000001 .Lanon.c0dfff91c1e4598ba8eb62511090c099.6
+00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.7	00000003 .Lanon.c0dfff91c1e4598ba8eb62511090c099.7
+00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.8	00000001 .Lanon.c0dfff91c1e4598ba8eb62511090c099.8
+00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.9	00000002 .Lanon.c0dfff91c1e4598ba8eb62511090c099.9
 00000000 l     O .rodata.str.0	00000058 str.0
 00000000 l     O .rodata.str.1	0000001c str.1
 00000000 l    d  .text._ZN10num_traits4cast11ToPrimitive5to_u817h9a5b951c73eab503E	00000000 .text._ZN10num_traits4cast11ToPrimitive5to_u817h9a5b951c73eab503E
@@ -3502,8 +3502,8 @@ SYMBOL TABLE:
 00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h2b7d8be26955941fE	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h2b7d8be26955941fE
 00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E
 00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE
+00000000 l    d  .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E	00000000 .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E
 00000000 l    d  .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E	00000000 .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E
-00000000 l    d  .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hc096c9d6ef06300aE	00000000 .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hc096c9d6ef06300aE
 00000000 l    d  .rodata.str.0	00000000 .rodata.str.0
 00000000 l    d  .rodata.str.1	00000000 .rodata.str.1
 00000000 l    d  .debug_loc	00000000 .debug_loc
@@ -3536,8 +3536,8 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 <embedded_graphics::primitives::circle::CircleIterator<C> as core::iter::traits::iterator::Iterator>::next
 00000000         *UND*	00000000 <embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as core::iter::traits::collect::IntoIterator>::into_iter
 00000000         *UND*	00000000 <embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next
+00000000 g     F .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E	000000c8 <st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw
 00000000 g     F .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E	000000c4 <st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw
-00000000 g     F .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hc096c9d6ef06300aE	000000c8 <st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw
 00000000         *UND*	00000000 .hidden core::num::<impl u16>::to_be
 00000000         *UND*	00000000 core::option::Option<T>::as_ref
 00000000         *UND*	00000000 core::option::Option<T>::unwrap
@@ -5523,124 +5523,16 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE():
     }
   ea:	e7c6      	b.n	7a <st7735_lcd::ST7735<SPI,DC,RST>::set_pixel+0x7a>
 
-Disassembly of section .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E:
+Disassembly of section .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E:
 
 00000000 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw>:
-_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E():
+_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:209
 where
     SPI: spi::Write<u8>,
     DC: OutputPin,
     RST: OutputPin,
 {
-    fn draw<T>(&mut self, item_pixels: T)
-   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
-   4:	b0ac      	sub	sp, #176	; 0xb0
-   6:	460a      	mov	r2, r1
-   8:	4603      	mov	r3, r0
-   a:	9005      	str	r0, [sp, #20]
-   c:	a80e      	add	r0, sp, #56	; 0x38
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
-    where
-        T: IntoIterator<Item = Pixel<Rgb565>>,
-    {
-        for Pixel(coord, color) in item_pixels {
-   e:	4684      	mov	ip, r0
-  10:	e891 41f0 	ldmia.w	r1, {r4, r5, r6, r7, r8, lr}
-  14:	e88c 41f0 	stmia.w	ip, {r4, r5, r6, r7, r8, lr}
-  18:	a906      	add	r1, sp, #24
-  1a:	9004      	str	r0, [sp, #16]
-  1c:	4608      	mov	r0, r1
-  1e:	9904      	ldr	r1, [sp, #16]
-  20:	9203      	str	r2, [sp, #12]
-  22:	9302      	str	r3, [sp, #8]
-  24:	f7ff fffe 	bl	0 <<embedded_graphics::primitives::circle::Circle<C> as core::iter::traits::collect::IntoIterator>::into_iter>
-  28:	e7ff      	b.n	2a <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0x2a>
-  2a:	a806      	add	r0, sp, #24
-  2c:	a914      	add	r1, sp, #80	; 0x50
-  2e:	e8b0 500c 	ldmia.w	r0!, {r2, r3, ip, lr}
-  32:	e8a1 500c 	stmia.w	r1!, {r2, r3, ip, lr}
-  36:	e890 500c 	ldmia.w	r0, {r2, r3, ip, lr}
-  3a:	e881 500c 	stmia.w	r1, {r2, r3, ip, lr}
-  3e:	e7ff      	b.n	40 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0x40>
-  40:	a81f      	add	r0, sp, #124	; 0x7c
-  42:	a914      	add	r1, sp, #80	; 0x50
-  44:	f7ff fffe 	bl	0 <<embedded_graphics::primitives::circle::CircleIterator<C> as core::iter::traits::iterator::Iterator>::next>
-  48:	e7ff      	b.n	4a <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0x4a>
-  4a:	981f      	ldr	r0, [sp, #124]	; 0x7c
-  4c:	2800      	cmp	r0, #0
-  4e:	9001      	str	r0, [sp, #4]
-  50:	d028      	beq.n	a4 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0xa4>
-  52:	e7ff      	b.n	54 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0x54>
-  54:	9801      	ldr	r0, [sp, #4]
-  56:	2801      	cmp	r0, #1
-  58:	d001      	beq.n	5e <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0x5e>
-  5a:	e7ff      	b.n	5c <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0x5c>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:216
-            self.set_pixel(coord.0 as u16, coord.1 as u16, color.0).expect("pixel write failed");
-        }
-    }
-  5c:	defe      	udf	#254	; 0xfe
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
-        for Pixel(coord, color) in item_pixels {
-  5e:	9820      	ldr	r0, [sp, #128]	; 0x80
-  60:	9921      	ldr	r1, [sp, #132]	; 0x84
-  62:	9a22      	ldr	r2, [sp, #136]	; 0x88
-  64:	9225      	str	r2, [sp, #148]	; 0x94
-  66:	9124      	str	r1, [sp, #144]	; 0x90
-  68:	9023      	str	r0, [sp, #140]	; 0x8c
-  6a:	9823      	ldr	r0, [sp, #140]	; 0x8c
-  6c:	9924      	ldr	r1, [sp, #144]	; 0x90
-  6e:	9a25      	ldr	r2, [sp, #148]	; 0x94
-  70:	9228      	str	r2, [sp, #160]	; 0xa0
-  72:	9127      	str	r1, [sp, #156]	; 0x9c
-  74:	9026      	str	r0, [sp, #152]	; 0x98
-  76:	9826      	ldr	r0, [sp, #152]	; 0x98
-  78:	9927      	ldr	r1, [sp, #156]	; 0x9c
-  7a:	9a28      	ldr	r2, [sp, #160]	; 0xa0
-  7c:	921e      	str	r2, [sp, #120]	; 0x78
-  7e:	911d      	str	r1, [sp, #116]	; 0x74
-  80:	901c      	str	r0, [sp, #112]	; 0x70
-  82:	981c      	ldr	r0, [sp, #112]	; 0x70
-  84:	991d      	ldr	r1, [sp, #116]	; 0x74
-  86:	9029      	str	r0, [sp, #164]	; 0xa4
-  88:	912a      	str	r1, [sp, #168]	; 0xa8
-  8a:	f8bd 0078 	ldrh.w	r0, [sp, #120]	; 0x78
-  8e:	f8ad 00ae 	strh.w	r0, [sp, #174]	; 0xae
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:214
-            self.set_pixel(coord.0 as u16, coord.1 as u16, color.0).expect("pixel write failed");
-  92:	9805      	ldr	r0, [sp, #20]
-  94:	9929      	ldr	r1, [sp, #164]	; 0xa4
-  96:	9a2a      	ldr	r2, [sp, #168]	; 0xa8
-  98:	f8bd 30ae 	ldrh.w	r3, [sp, #174]	; 0xae
-  9c:	f7ff fffe 	bl	0 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw>
-  a0:	9000      	str	r0, [sp, #0]
-  a2:	e000      	b.n	a6 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0xa6>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
-        for Pixel(coord, color) in item_pixels {
-  a4:	e00b      	b.n	be <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0xbe>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:214
-            self.set_pixel(coord.0 as u16, coord.1 as u16, color.0).expect("pixel write failed");
-  a6:	9800      	ldr	r0, [sp, #0]
-  a8:	f000 0001 	and.w	r0, r0, #1
-  ac:	f240 0100 	movw	r1, #0
-  b0:	f2c0 0100 	movt	r1, #0
-  b4:	2212      	movs	r2, #18
-  b6:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
-  ba:	e7ff      	b.n	bc <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0xbc>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
-        for Pixel(coord, color) in item_pixels {
-  bc:	e7c0      	b.n	40 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0x40>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:216
-    }
-  be:	b02c      	add	sp, #176	; 0xb0
-  c0:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
-
-Disassembly of section .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hc096c9d6ef06300aE:
-
-00000000 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw>:
-_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hc096c9d6ef06300aE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:209
     fn draw<T>(&mut self, item_pixels: T)
    0:	b570      	push	{r4, r5, r6, lr}
    2:	b0b4      	sub	sp, #208	; 0xd0
@@ -5649,6 +5541,9 @@ _ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics
    8:	9006      	str	r0, [sp, #24]
    a:	a812      	add	r0, sp, #72	; 0x48
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
+    where
+        T: IntoIterator<Item = Pixel<Rgb565>>,
+    {
         for Pixel(coord, color) in item_pixels {
    c:	4684      	mov	ip, r0
    e:	e8b1 4030 	ldmia.w	r1!, {r4, r5, lr}
@@ -5684,6 +5579,8 @@ _ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics
   5e:	d001      	beq.n	64 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0x64>
   60:	e7ff      	b.n	62 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0x62>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:216
+            self.set_pixel(coord.0 as u16, coord.1 as u16, color.0).expect("pixel write failed");
+        }
     }
   62:	defe      	udf	#254	; 0xfe
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
@@ -5740,6 +5637,109 @@ _ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics
     }
   c4:	b034      	add	sp, #208	; 0xd0
   c6:	bd70      	pop	{r4, r5, r6, pc}
+
+Disassembly of section .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E:
+
+00000000 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw>:
+_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:209
+    fn draw<T>(&mut self, item_pixels: T)
+   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
+   4:	b0ac      	sub	sp, #176	; 0xb0
+   6:	460a      	mov	r2, r1
+   8:	4603      	mov	r3, r0
+   a:	9005      	str	r0, [sp, #20]
+   c:	a80e      	add	r0, sp, #56	; 0x38
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
+        for Pixel(coord, color) in item_pixels {
+   e:	4684      	mov	ip, r0
+  10:	e891 41f0 	ldmia.w	r1, {r4, r5, r6, r7, r8, lr}
+  14:	e88c 41f0 	stmia.w	ip, {r4, r5, r6, r7, r8, lr}
+  18:	a906      	add	r1, sp, #24
+  1a:	9004      	str	r0, [sp, #16]
+  1c:	4608      	mov	r0, r1
+  1e:	9904      	ldr	r1, [sp, #16]
+  20:	9203      	str	r2, [sp, #12]
+  22:	9302      	str	r3, [sp, #8]
+  24:	f7ff fffe 	bl	0 <<embedded_graphics::primitives::circle::Circle<C> as core::iter::traits::collect::IntoIterator>::into_iter>
+  28:	e7ff      	b.n	2a <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0x2a>
+  2a:	a806      	add	r0, sp, #24
+  2c:	a914      	add	r1, sp, #80	; 0x50
+  2e:	e8b0 500c 	ldmia.w	r0!, {r2, r3, ip, lr}
+  32:	e8a1 500c 	stmia.w	r1!, {r2, r3, ip, lr}
+  36:	e890 500c 	ldmia.w	r0, {r2, r3, ip, lr}
+  3a:	e881 500c 	stmia.w	r1, {r2, r3, ip, lr}
+  3e:	e7ff      	b.n	40 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0x40>
+  40:	a81f      	add	r0, sp, #124	; 0x7c
+  42:	a914      	add	r1, sp, #80	; 0x50
+  44:	f7ff fffe 	bl	0 <<embedded_graphics::primitives::circle::CircleIterator<C> as core::iter::traits::iterator::Iterator>::next>
+  48:	e7ff      	b.n	4a <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0x4a>
+  4a:	981f      	ldr	r0, [sp, #124]	; 0x7c
+  4c:	2800      	cmp	r0, #0
+  4e:	9001      	str	r0, [sp, #4]
+  50:	d028      	beq.n	a4 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0xa4>
+  52:	e7ff      	b.n	54 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0x54>
+  54:	9801      	ldr	r0, [sp, #4]
+  56:	2801      	cmp	r0, #1
+  58:	d001      	beq.n	5e <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0x5e>
+  5a:	e7ff      	b.n	5c <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0x5c>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:216
+    }
+  5c:	defe      	udf	#254	; 0xfe
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
+        for Pixel(coord, color) in item_pixels {
+  5e:	9820      	ldr	r0, [sp, #128]	; 0x80
+  60:	9921      	ldr	r1, [sp, #132]	; 0x84
+  62:	9a22      	ldr	r2, [sp, #136]	; 0x88
+  64:	9225      	str	r2, [sp, #148]	; 0x94
+  66:	9124      	str	r1, [sp, #144]	; 0x90
+  68:	9023      	str	r0, [sp, #140]	; 0x8c
+  6a:	9823      	ldr	r0, [sp, #140]	; 0x8c
+  6c:	9924      	ldr	r1, [sp, #144]	; 0x90
+  6e:	9a25      	ldr	r2, [sp, #148]	; 0x94
+  70:	9228      	str	r2, [sp, #160]	; 0xa0
+  72:	9127      	str	r1, [sp, #156]	; 0x9c
+  74:	9026      	str	r0, [sp, #152]	; 0x98
+  76:	9826      	ldr	r0, [sp, #152]	; 0x98
+  78:	9927      	ldr	r1, [sp, #156]	; 0x9c
+  7a:	9a28      	ldr	r2, [sp, #160]	; 0xa0
+  7c:	921e      	str	r2, [sp, #120]	; 0x78
+  7e:	911d      	str	r1, [sp, #116]	; 0x74
+  80:	901c      	str	r0, [sp, #112]	; 0x70
+  82:	981c      	ldr	r0, [sp, #112]	; 0x70
+  84:	991d      	ldr	r1, [sp, #116]	; 0x74
+  86:	9029      	str	r0, [sp, #164]	; 0xa4
+  88:	912a      	str	r1, [sp, #168]	; 0xa8
+  8a:	f8bd 0078 	ldrh.w	r0, [sp, #120]	; 0x78
+  8e:	f8ad 00ae 	strh.w	r0, [sp, #174]	; 0xae
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:214
+            self.set_pixel(coord.0 as u16, coord.1 as u16, color.0).expect("pixel write failed");
+  92:	9805      	ldr	r0, [sp, #20]
+  94:	9929      	ldr	r1, [sp, #164]	; 0xa4
+  96:	9a2a      	ldr	r2, [sp, #168]	; 0xa8
+  98:	f8bd 30ae 	ldrh.w	r3, [sp, #174]	; 0xae
+  9c:	f7ff fffe 	bl	0 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw>
+  a0:	9000      	str	r0, [sp, #0]
+  a2:	e000      	b.n	a6 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0xa6>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
+        for Pixel(coord, color) in item_pixels {
+  a4:	e00b      	b.n	be <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0xbe>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:214
+            self.set_pixel(coord.0 as u16, coord.1 as u16, color.0).expect("pixel write failed");
+  a6:	9800      	ldr	r0, [sp, #0]
+  a8:	f000 0001 	and.w	r0, r0, #1
+  ac:	f240 0100 	movw	r1, #0
+  b0:	f2c0 0100 	movt	r1, #0
+  b4:	2212      	movs	r2, #18
+  b6:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
+  ba:	e7ff      	b.n	bc <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0xbc>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
+        for Pixel(coord, color) in item_pixels {
+  bc:	e7c0      	b.n	40 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0x40>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:216
+    }
+  be:	b02c      	add	sp, #176	; 0xb0
+  c0:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
 
 app-b8434b356de0ea5d.1t53zl09lntcc3fr.rcgu.o:     file format elf32-littlearm
 
@@ -6047,58 +6047,58 @@ app-b8434b356de0ea5d.1wm8s7vqxsndtzsw.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 1wm8s7vqxsndtzsw
-000006ed l       .debug_str	00000000 
-0000024f l       .debug_str	00000000 
-00000254 l       .debug_str	00000000 
-00000256 l       .debug_str	00000000 
-0000025b l       .debug_str	00000000 
-00000291 l       .debug_str	00000000 
-0000029e l       .debug_str	00000000 
-000002ab l       .debug_str	00000000 
-000002ad l       .debug_str	00000000 
-000002e2 l       .debug_str	00000000 
-000002e8 l       .debug_str	00000000 
-000002ef l       .debug_str	00000000 
-0000032b l       .debug_str	00000000 
-00000396 l       .debug_str	00000000 
-0000043c l       .debug_str	00000000 
-000004a5 l       .debug_str	00000000 
-00000549 l       .debug_str	00000000 
-000005b1 l       .debug_str	00000000 
-00000657 l       .debug_str	00000000 
-000006bf l       .debug_str	00000000 
-000006cb l       .debug_str	00000000 
-000006cf l       .debug_str	00000000 
+00000709 l       .debug_str	00000000 
+00000257 l       .debug_str	00000000 
+0000025c l       .debug_str	00000000 
+0000025e l       .debug_str	00000000 
+00000263 l       .debug_str	00000000 
+00000299 l       .debug_str	00000000 
+000002a6 l       .debug_str	00000000 
+000002b3 l       .debug_str	00000000 
+000002b5 l       .debug_str	00000000 
+000002ea l       .debug_str	00000000 
+000002f0 l       .debug_str	00000000 
+000002f7 l       .debug_str	00000000 
+00000337 l       .debug_str	00000000 
+000003a6 l       .debug_str	00000000 
+0000044c l       .debug_str	00000000 
+000004b9 l       .debug_str	00000000 
+0000055d l       .debug_str	00000000 
+000005c9 l       .debug_str	00000000 
+0000066f l       .debug_str	00000000 
 000006db l       .debug_str	00000000 
-000006e8 l       .debug_str	00000000 
-000006fa l       .debug_str	00000000 
-000006fe l       .debug_str	00000000 
-00000771 l       .debug_str	00000000 
-00000815 l       .debug_str	00000000 
-00000878 l       .debug_str	00000000 
-0000091e l       .debug_str	00000000 
-00000981 l       .debug_str	00000000 
-0000098a l       .debug_str	00000000 
-00000998 l       .debug_str	00000000 
-000009b0 l       .debug_str	00000000 
-000009be l       .debug_str	00000000 
-000009f3 l       .debug_str	00000000 
-00000a4d l       .debug_str	00000000 
-00000a52 l       .debug_str	00000000 
-00000ae6 l       .debug_str	00000000 
-00000ae9 l       .debug_str	00000000 
-00000aef l       .debug_str	00000000 
-00000b8f l       .debug_str	00000000 
-00000b9c l       .debug_str	00000000 
-00000ba2 l       .debug_str	00000000 
-00000bae l       .debug_str	00000000 
-00000bb2 l       .debug_str	00000000 
-00000bb9 l       .debug_str	00000000 
-00000bc0 l       .debug_str	00000000 
-00000bd1 l       .debug_str	00000000 
-00000bdd l       .debug_str	00000000 
-00000be8 l       .debug_str	00000000 
-00000bea l       .debug_str	00000000 
+000006e7 l       .debug_str	00000000 
+000006eb l       .debug_str	00000000 
+000006f7 l       .debug_str	00000000 
+00000704 l       .debug_str	00000000 
+00000716 l       .debug_str	00000000 
+0000071a l       .debug_str	00000000 
+00000791 l       .debug_str	00000000 
+00000835 l       .debug_str	00000000 
+0000089c l       .debug_str	00000000 
+00000942 l       .debug_str	00000000 
+000009a9 l       .debug_str	00000000 
+000009b2 l       .debug_str	00000000 
+000009c0 l       .debug_str	00000000 
+000009d8 l       .debug_str	00000000 
+000009e6 l       .debug_str	00000000 
+00000a1b l       .debug_str	00000000 
+00000a75 l       .debug_str	00000000 
+00000a7a l       .debug_str	00000000 
+00000b12 l       .debug_str	00000000 
+00000b15 l       .debug_str	00000000 
+00000b1b l       .debug_str	00000000 
+00000bbf l       .debug_str	00000000 
+00000bcc l       .debug_str	00000000 
+00000bd2 l       .debug_str	00000000 
+00000bde l       .debug_str	00000000 
+00000be2 l       .debug_str	00000000 
+00000be9 l       .debug_str	00000000 
+00000bf0 l       .debug_str	00000000 
+00000c01 l       .debug_str	00000000 
+00000c0d l       .debug_str	00000000 
+00000c18 l       .debug_str	00000000 
+00000c1a l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000055 l       .debug_str	00000000 
@@ -6113,60 +6113,60 @@ SYMBOL TABLE:
 000000cd l       .debug_str	00000000 
 000000d4 l       .debug_str	00000000 
 000000d6 l       .debug_str	00000000 
-000000de l       .debug_str	00000000 
-000000ea l       .debug_str	00000000 
-000000ef l       .debug_str	00000000 
-0000017a l       .debug_str	00000000 
-000001de l       .debug_str	00000000 
-000001e2 l       .debug_str	00000000 
-000001e8 l       .debug_str	00000000 
-000001f7 l       .debug_str	00000000 
-000001fb l       .debug_str	00000000 
+000000e0 l       .debug_str	00000000 
+000000ee l       .debug_str	00000000 
+000000f3 l       .debug_str	00000000 
+0000017e l       .debug_str	00000000 
+000001e6 l       .debug_str	00000000 
+000001ea l       .debug_str	00000000 
+000001f0 l       .debug_str	00000000 
 000001ff l       .debug_str	00000000 
-00000205 l       .debug_str	00000000 
-0000020a l       .debug_str	00000000 
-00000213 l       .debug_str	00000000 
-00000216 l       .debug_str	00000000 
-00000220 l       .debug_str	00000000 
-00000227 l       .debug_str	00000000 
-0000022d l       .debug_str	00000000 
-00000232 l       .debug_str	00000000 
-00000238 l       .debug_str	00000000 
-00000243 l       .debug_str	00000000 
-00000248 l       .debug_str	00000000 
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.0	00000018 .Lanon.327f9d1c7117a107479bdd48309c6702.0
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.1	00000018 .Lanon.327f9d1c7117a107479bdd48309c6702.1
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.10	00000018 .Lanon.327f9d1c7117a107479bdd48309c6702.10
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.11	00000018 .Lanon.327f9d1c7117a107479bdd48309c6702.11
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.12	000004b0 .Lanon.327f9d1c7117a107479bdd48309c6702.12
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.13	00000010 .Lanon.327f9d1c7117a107479bdd48309c6702.13
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.14	00000018 .Lanon.327f9d1c7117a107479bdd48309c6702.14
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.15	00000018 .Lanon.327f9d1c7117a107479bdd48309c6702.15
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.16	00000018 .Lanon.327f9d1c7117a107479bdd48309c6702.16
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.17	00000018 .Lanon.327f9d1c7117a107479bdd48309c6702.17
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.18	00000018 .Lanon.327f9d1c7117a107479bdd48309c6702.18
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.19	00000018 .Lanon.327f9d1c7117a107479bdd48309c6702.19
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.2	00000018 .Lanon.327f9d1c7117a107479bdd48309c6702.2
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.20	00000018 .Lanon.327f9d1c7117a107479bdd48309c6702.20
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.3	00000018 .Lanon.327f9d1c7117a107479bdd48309c6702.3
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.4	00000018 .Lanon.327f9d1c7117a107479bdd48309c6702.4
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.5	00000018 .Lanon.327f9d1c7117a107479bdd48309c6702.5
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.6	00000018 .Lanon.327f9d1c7117a107479bdd48309c6702.6
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.7	00000018 .Lanon.327f9d1c7117a107479bdd48309c6702.7
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.8	00000018 .Lanon.327f9d1c7117a107479bdd48309c6702.8
-00000000 l     O .rodata..Lanon.327f9d1c7117a107479bdd48309c6702.9	00000018 .Lanon.327f9d1c7117a107479bdd48309c6702.9
+00000203 l       .debug_str	00000000 
+00000207 l       .debug_str	00000000 
+0000020d l       .debug_str	00000000 
+00000212 l       .debug_str	00000000 
+0000021b l       .debug_str	00000000 
+0000021e l       .debug_str	00000000 
+00000228 l       .debug_str	00000000 
+0000022f l       .debug_str	00000000 
+00000235 l       .debug_str	00000000 
+0000023a l       .debug_str	00000000 
+00000240 l       .debug_str	00000000 
+0000024b l       .debug_str	00000000 
+00000250 l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.0	00000018 .Lanon.2889c15a2994ff14429cc0eaa1633c88.0
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.1	00000018 .Lanon.2889c15a2994ff14429cc0eaa1633c88.1
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.10	00000018 .Lanon.2889c15a2994ff14429cc0eaa1633c88.10
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.11	00000018 .Lanon.2889c15a2994ff14429cc0eaa1633c88.11
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.12	000012c0 .Lanon.2889c15a2994ff14429cc0eaa1633c88.12
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.13	00000010 .Lanon.2889c15a2994ff14429cc0eaa1633c88.13
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.14	00000018 .Lanon.2889c15a2994ff14429cc0eaa1633c88.14
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.15	00000018 .Lanon.2889c15a2994ff14429cc0eaa1633c88.15
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.16	00000018 .Lanon.2889c15a2994ff14429cc0eaa1633c88.16
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.17	00000018 .Lanon.2889c15a2994ff14429cc0eaa1633c88.17
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.18	00000018 .Lanon.2889c15a2994ff14429cc0eaa1633c88.18
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.19	00000018 .Lanon.2889c15a2994ff14429cc0eaa1633c88.19
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.2	00000018 .Lanon.2889c15a2994ff14429cc0eaa1633c88.2
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.20	00000018 .Lanon.2889c15a2994ff14429cc0eaa1633c88.20
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.3	00000018 .Lanon.2889c15a2994ff14429cc0eaa1633c88.3
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.4	00000018 .Lanon.2889c15a2994ff14429cc0eaa1633c88.4
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.5	00000018 .Lanon.2889c15a2994ff14429cc0eaa1633c88.5
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.6	00000018 .Lanon.2889c15a2994ff14429cc0eaa1633c88.6
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.7	00000018 .Lanon.2889c15a2994ff14429cc0eaa1633c88.7
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.8	00000018 .Lanon.2889c15a2994ff14429cc0eaa1633c88.8
+00000000 l     O .rodata..Lanon.2889c15a2994ff14429cc0eaa1633c88.9	00000018 .Lanon.2889c15a2994ff14429cc0eaa1633c88.9
 00000000 l     O .rodata.str.0	0000006e str.0
 00000000 l     O .rodata.str.1	00000021 str.1
 00000000 l     O .rodata.str.2	0000001c str.2
 00000000 l     O .rodata.str.3	00000019 str.3
 00000000 l     O .rodata.str.4	00000021 str.4
 00000000 l     O .rodata.str.5	00000023 str.5
-00000000 l    d  .text._ZN106_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h8d7391ae556a9c3bE	00000000 .text._ZN106_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h8d7391ae556a9c3bE
-00000000 l    d  .text._ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17hd4b3d799eb761a14E	00000000 .text._ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17hd4b3d799eb761a14E
-00000000 l    d  .text._ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h8b77c1e95d3a796bE	00000000 .text._ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h8b77c1e95d3a796bE
-00000000 l    d  .text._ZN129_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17ha80b430b35b3c8feE	00000000 .text._ZN129_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17ha80b430b35b3c8feE
-00000000 l    d  .text._ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17hc79c1eb2598aec7fE	00000000 .text._ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17hc79c1eb2598aec7fE
-00000000 l    d  .text._ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h781800cb27400c28E	00000000 .text._ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h781800cb27400c28E
+00000000 l    d  .text._ZN106_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h27e7a6d286cef229E	00000000 .text._ZN106_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h27e7a6d286cef229E
+00000000 l    d  .text._ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17hacb41e46f9562ddeE	00000000 .text._ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17hacb41e46f9562ddeE
+00000000 l    d  .text._ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h6a77966259d87ac7E	00000000 .text._ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h6a77966259d87ac7E
+00000000 l    d  .text._ZN129_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h1676ae25d4fe1e7bE	00000000 .text._ZN129_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h1676ae25d4fe1e7bE
+00000000 l    d  .text._ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h0a04a2fcc8b3c085E	00000000 .text._ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h0a04a2fcc8b3c085E
+00000000 l    d  .text._ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h84927a60c181f9e6E	00000000 .text._ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h84927a60c181f9e6E
 00000000 l    d  .rodata.str.0	00000000 .rodata.str.0
 00000000 l    d  .rodata.str.1	00000000 .rodata.str.1
 00000000 l    d  .rodata.str.2	00000000 .rodata.str.2
@@ -6181,13 +6181,13 @@ SYMBOL TABLE:
 00000000 l    d  .debug_line	00000000 .debug_line
 00000000         *UND*	00000000 <embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index
 00000000         *UND*	00000000 <embedded_graphics::coord::internal_coord::Coord as embedded_graphics::coord::ToUnsigned>::to_unsigned
-00000000 g     F .text._ZN106_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h8d7391ae556a9c3bE	00000066 <embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as core::clone::Clone>::clone
-00000000         *UND*	00000000 <embedded_graphics::fonts::font6x8::Font6x8Conf as embedded_graphics::fonts::font_builder::FontBuilderConf>::char_offset
-00000000 g     F .text._ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17hd4b3d799eb761a14E	00000068 <embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::fonts::Font<C>>::render_str
-00000000 g     F .text._ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h8b77c1e95d3a796bE	0000006c <embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::transform::Transform>::translate
-00000000 g     F .text._ZN129_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17ha80b430b35b3c8feE	0000008c <embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as core::iter::traits::collect::IntoIterator>::into_iter
-00000000 g     F .text._ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17hc79c1eb2598aec7fE	0000003c <embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::style::WithStyle<C>>::fill
-00000000 g     F .text._ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h781800cb27400c28E	00000578 <embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next
+00000000 g     F .text._ZN106_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h27e7a6d286cef229E	00000066 <embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as core::clone::Clone>::clone
+00000000         *UND*	00000000 <embedded_graphics::fonts::font12x16::Font12x16Conf as embedded_graphics::fonts::font_builder::FontBuilderConf>::char_offset
+00000000 g     F .text._ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17hacb41e46f9562ddeE	00000068 <embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::fonts::Font<C>>::render_str
+00000000 g     F .text._ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h6a77966259d87ac7E	0000006c <embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::transform::Transform>::translate
+00000000 g     F .text._ZN129_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h1676ae25d4fe1e7bE	0000008c <embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as core::iter::traits::collect::IntoIterator>::into_iter
+00000000 g     F .text._ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h0a04a2fcc8b3c085E	0000003c <embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::style::WithStyle<C>>::fill
+00000000 g     F .text._ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h84927a60c181f9e6E	0000057c <embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next
 00000000         *UND*	00000000 embedded_graphics::coord::internal_coord::Coord::new
 00000000         *UND*	00000000 .hidden core::str::<impl str>::len
 00000000         *UND*	00000000 .hidden core::str::<impl str>::chars
@@ -6205,10 +6205,10 @@ SYMBOL TABLE:
 
 
 
-Disassembly of section .text._ZN106_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h8d7391ae556a9c3bE:
+Disassembly of section .text._ZN106_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h27e7a6d286cef229E:
 
 00000000 <<embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as core::clone::Clone>::clone>:
-_ZN106_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h8d7391ae556a9c3bE():
+_ZN106_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h27e7a6d286cef229E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:53
     _conf: PhantomData<Conf>,
 }
@@ -6270,10 +6270,10 @@ impl<'a, C: PixelColor + Clone, Conf> Clone for FontBuilder<'a, C, Conf> {
   62:	b00a      	add	sp, #40	; 0x28
   64:	bdb0      	pop	{r4, r5, r7, pc}
 
-Disassembly of section .text._ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17hd4b3d799eb761a14E:
+Disassembly of section .text._ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17hacb41e46f9562ddeE:
 
 00000000 <<embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::fonts::Font<C>>::render_str>:
-_ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17hd4b3d799eb761a14E():
+_ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17hacb41e46f9562ddeE():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:94
 impl<'a, C, Conf> Font<'a, C> for FontBuilder<'a, C, Conf>
 where
@@ -6338,10 +6338,10 @@ where
   64:	b00c      	add	sp, #48	; 0x30
   66:	bd10      	pop	{r4, pc}
 
-Disassembly of section .text._ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h8b77c1e95d3a796bE:
+Disassembly of section .text._ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h6a77966259d87ac7E:
 
 00000000 <<embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::transform::Transform>::translate>:
-_ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h8b77c1e95d3a796bE():
+_ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h6a77966259d87ac7E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:301
     /// let moved = text.translate(Coord::new(25, 30));
     ///
@@ -6405,10 +6405,10 @@ _ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u
   68:	b010      	add	sp, #64	; 0x40
   6a:	bdb0      	pop	{r4, r5, r7, pc}
 
-Disassembly of section .text._ZN129_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17ha80b430b35b3c8feE:
+Disassembly of section .text._ZN129_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h1676ae25d4fe1e7bE:
 
 00000000 <<embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as core::iter::traits::collect::IntoIterator>::into_iter>:
-_ZN129_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17ha80b430b35b3c8feE():
+_ZN129_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h1676ae25d4fe1e7bE():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:157
     fn into_iter(self) -> Self::IntoIter {
    0:	b5b0      	push	{r4, r5, r7, lr}
@@ -6482,10 +6482,10 @@ _ZN129_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u
   88:	b00c      	add	sp, #48	; 0x30
   8a:	bdb0      	pop	{r4, r5, r7, pc}
 
-Disassembly of section .text._ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17hc79c1eb2598aec7fE:
+Disassembly of section .text._ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h0a04a2fcc8b3c085E:
 
 00000000 <<embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::style::WithStyle<C>>::fill>:
-_ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17hc79c1eb2598aec7fE():
+_ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h0a04a2fcc8b3c085E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:126
     fn fill(mut self, color: Option<C>) -> Self {
    0:	b5f0      	push	{r4, r5, r6, r7, lr}
@@ -6517,10 +6517,10 @@ _ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u
   38:	b005      	add	sp, #20
   3a:	bdf0      	pop	{r4, r5, r6, r7, pc}
 
-Disassembly of section .text._ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h781800cb27400c28E:
+Disassembly of section .text._ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h84927a60c181f9e6E:
 
 00000000 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next>:
-_ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h781800cb27400c28E():
+_ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h84927a60c181f9e6E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:200
     fn next(&mut self) -> Option<Self::Item> {
    0:	b580      	push	{r7, lr}
@@ -6567,14 +6567,14 @@ _ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Co
   4e:	f7ff fffe 	bl	0 <core::str::<impl str>::len>
   52:	902b      	str	r0, [sp, #172]	; 0xac
   54:	e7ff      	b.n	56 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x56>
-  56:	2006      	movs	r0, #6
+  56:	200c      	movs	r0, #12
   58:	992b      	ldr	r1, [sp, #172]	; 0xac
   5a:	fb81 0200 	smull	r0, r2, r1, r0
   5e:	eb01 0341 	add.w	r3, r1, r1, lsl #1
-  62:	005b      	lsls	r3, r3, #1
+  62:	009b      	lsls	r3, r3, #2
   64:	ebb2 7fe0 	cmp.w	r2, r0, asr #31
   68:	932a      	str	r3, [sp, #168]	; 0xa8
-  6a:	f040 81e1 	bne.w	430 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x430>
+  6a:	f040 81e3 	bne.w	434 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x434>
   6e:	e7ff      	b.n	70 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x70>
   70:	982c      	ldr	r0, [sp, #176]	; 0xb0
   72:	992a      	ldr	r1, [sp, #168]	; 0xa8
@@ -6582,7 +6582,7 @@ _ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Co
   76:	4613      	mov	r3, r2
   78:	4282      	cmp	r2, r0
   7a:	9329      	str	r3, [sp, #164]	; 0xa4
-  7c:	f180 81df 	bvs.w	43e <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x43e>
+  7c:	f180 81e1 	bvs.w	442 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x442>
   80:	e7ff      	b.n	82 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x82>
   82:	9829      	ldr	r0, [sp, #164]	; 0xa4
   84:	2801      	cmp	r0, #1
@@ -6592,11 +6592,11 @@ _ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Co
             || self.pos[1] + (Conf::CHAR_HEIGHT as i32) <= 0
   8a:	982d      	ldr	r0, [sp, #180]	; 0xb4
   8c:	6801      	ldr	r1, [r0, #0]
-  8e:	f101 0208 	add.w	r2, r1, #8
+  8e:	f101 0210 	add.w	r2, r1, #16
   92:	4613      	mov	r3, r2
   94:	428a      	cmp	r2, r1
   96:	9328      	str	r3, [sp, #160]	; 0xa0
-  98:	f180 81d8 	bvs.w	44c <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x44c>
+  98:	f180 81da 	bvs.w	450 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x450>
   9c:	e7ff      	b.n	9e <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x9e>
   9e:	2000      	movs	r0, #0
   a0:	9928      	ldr	r1, [sp, #160]	; 0xa0
@@ -6630,7 +6630,7 @@ _ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Co
   c2:	9831      	ldr	r0, [sp, #196]	; 0xc4
   c4:	6880      	ldr	r0, [r0, #8]
   c6:	f5b0 1f88 	cmp.w	r0, #1114112	; 0x110000
-  ca:	f000 81ae 	beq.w	42a <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x42a>
+  ca:	f000 81b0 	beq.w	42e <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x42e>
   ce:	e7ff      	b.n	d0 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0xd0>
   d0:	9831      	ldr	r0, [sp, #196]	; 0xc4
   d2:	6880      	ldr	r0, [r0, #8]
@@ -6638,7 +6638,7 @@ _ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Co
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:213
                 let char_offset = Conf::char_offset(current_char);
   d6:	9838      	ldr	r0, [sp, #224]	; 0xe0
-  d8:	f7ff fffe 	bl	0 <<embedded_graphics::fonts::font6x8::Font6x8Conf as embedded_graphics::fonts::font_builder::FontBuilderConf>::char_offset>
+  d8:	f7ff fffe 	bl	0 <<embedded_graphics::fonts::font12x16::Font12x16Conf as embedded_graphics::fonts::font_builder::FontBuilderConf>::char_offset>
   dc:	9039      	str	r0, [sp, #228]	; 0xe4
   de:	e7ff      	b.n	e0 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0xe0>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:214
@@ -6648,7 +6648,7 @@ _ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Co
   e4:	2900      	cmp	r1, #0
   e6:	9027      	str	r0, [sp, #156]	; 0x9c
   e8:	9126      	str	r1, [sp, #152]	; 0x98
-  ea:	f000 81b6 	beq.w	45a <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x45a>
+  ea:	f000 81b8 	beq.w	45e <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x45e>
   ee:	e7ff      	b.n	f0 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0xf0>
   f0:	9827      	ldr	r0, [sp, #156]	; 0x9c
   f2:	9926      	ldr	r1, [sp, #152]	; 0x98
@@ -6663,32 +6663,32 @@ _ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Co
  106:	f1bc 0f00 	cmp.w	ip, #0
  10a:	9225      	str	r2, [sp, #148]	; 0x94
  10c:	9324      	str	r3, [sp, #144]	; 0x90
- 10e:	f040 81ab 	bne.w	468 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x468>
+ 10e:	f040 81ad 	bne.w	46c <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x46c>
  112:	e7ff      	b.n	114 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x114>
  114:	9825      	ldr	r0, [sp, #148]	; 0x94
  116:	9924      	ldr	r1, [sp, #144]	; 0x90
  118:	1a42      	subs	r2, r0, r1
  11a:	4288      	cmp	r0, r1
  11c:	9223      	str	r2, [sp, #140]	; 0x8c
- 11e:	f0c0 81aa 	bcc.w	476 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x476>
+ 11e:	f0c0 81ac 	bcc.w	47a <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x47a>
  122:	e7ff      	b.n	124 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x124>
- 124:	2006      	movs	r0, #6
+ 124:	200c      	movs	r0, #12
  126:	9923      	ldr	r1, [sp, #140]	; 0x8c
  128:	fba1 0200 	umull	r0, r2, r1, r0
  12c:	2a00      	cmp	r2, #0
  12e:	9022      	str	r0, [sp, #136]	; 0x88
- 130:	f040 81a8 	bne.w	484 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x484>
+ 130:	f040 81aa 	bne.w	488 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x488>
  134:	e7ff      	b.n	136 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x136>
  136:	9822      	ldr	r0, [sp, #136]	; 0x88
  138:	903b      	str	r0, [sp, #236]	; 0xec
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:218
                 let char_y = row * Conf::CHAR_HEIGHT;
  13a:	993a      	ldr	r1, [sp, #232]	; 0xe8
- 13c:	2208      	movs	r2, #8
+ 13c:	2210      	movs	r2, #16
  13e:	fba1 1202 	umull	r1, r2, r1, r2
  142:	2a00      	cmp	r2, #0
  144:	9121      	str	r1, [sp, #132]	; 0x84
- 146:	f040 81a4 	bne.w	492 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x492>
+ 146:	f040 81a6 	bne.w	496 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x496>
  14a:	e7ff      	b.n	14c <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x14c>
  14c:	9821      	ldr	r0, [sp, #132]	; 0x84
  14e:	903c      	str	r0, [sp, #240]	; 0xf0
@@ -6698,515 +6698,515 @@ _ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Co
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:226
                     + (Conf::FONT_IMAGE_WIDTH * char_y)
  152:	9a3c      	ldr	r2, [sp, #240]	; 0xf0
- 154:	23f0      	movs	r3, #240	; 0xf0
- 156:	fba3 2302 	umull	r2, r3, r3, r2
- 15a:	2b00      	cmp	r3, #0
- 15c:	9120      	str	r1, [sp, #128]	; 0x80
- 15e:	921f      	str	r2, [sp, #124]	; 0x7c
- 160:	f040 819e 	bne.w	4a0 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x4a0>
- 164:	e7ff      	b.n	166 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x166>
+ 154:	f44f 73f0 	mov.w	r3, #480	; 0x1e0
+ 158:	fba3 2302 	umull	r2, r3, r3, r2
+ 15c:	2b00      	cmp	r3, #0
+ 15e:	9120      	str	r1, [sp, #128]	; 0x80
+ 160:	921f      	str	r2, [sp, #124]	; 0x7c
+ 162:	f040 819f 	bne.w	4a4 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x4a4>
+ 166:	e7ff      	b.n	168 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x168>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:225
                 let bitmap_bit_index = char_x
- 166:	9820      	ldr	r0, [sp, #128]	; 0x80
- 168:	991f      	ldr	r1, [sp, #124]	; 0x7c
- 16a:	1842      	adds	r2, r0, r1
- 16c:	4613      	mov	r3, r2
- 16e:	4282      	cmp	r2, r0
- 170:	931e      	str	r3, [sp, #120]	; 0x78
- 172:	f0c0 819c 	bcc.w	4ae <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x4ae>
- 176:	e7ff      	b.n	178 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x178>
+ 168:	9820      	ldr	r0, [sp, #128]	; 0x80
+ 16a:	991f      	ldr	r1, [sp, #124]	; 0x7c
+ 16c:	1842      	adds	r2, r0, r1
+ 16e:	4613      	mov	r3, r2
+ 170:	4282      	cmp	r2, r0
+ 172:	931e      	str	r3, [sp, #120]	; 0x78
+ 174:	f0c0 819d 	bcc.w	4b2 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x4b2>
+ 178:	e7ff      	b.n	17a <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x17a>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:227
                     + self.char_walk_x
- 178:	9831      	ldr	r0, [sp, #196]	; 0xc4
- 17a:	6800      	ldr	r0, [r0, #0]
+ 17a:	9831      	ldr	r0, [sp, #196]	; 0xc4
+ 17c:	6800      	ldr	r0, [r0, #0]
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:225
                 let bitmap_bit_index = char_x
- 17c:	991e      	ldr	r1, [sp, #120]	; 0x78
- 17e:	4408      	add	r0, r1
- 180:	4602      	mov	r2, r0
- 182:	4288      	cmp	r0, r1
- 184:	921d      	str	r2, [sp, #116]	; 0x74
- 186:	f0c0 8199 	bcc.w	4bc <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x4bc>
- 18a:	e7ff      	b.n	18c <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x18c>
+ 17e:	991e      	ldr	r1, [sp, #120]	; 0x78
+ 180:	4408      	add	r0, r1
+ 182:	4602      	mov	r2, r0
+ 184:	4288      	cmp	r0, r1
+ 186:	921d      	str	r2, [sp, #116]	; 0x74
+ 188:	f0c0 819a 	bcc.w	4c0 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x4c0>
+ 18c:	e7ff      	b.n	18e <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x18e>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:228
                     + (self.char_walk_y * Conf::FONT_IMAGE_WIDTH);
- 18c:	9831      	ldr	r0, [sp, #196]	; 0xc4
- 18e:	6840      	ldr	r0, [r0, #4]
- 190:	21f0      	movs	r1, #240	; 0xf0
- 192:	fba0 0101 	umull	r0, r1, r0, r1
- 196:	2900      	cmp	r1, #0
- 198:	901c      	str	r0, [sp, #112]	; 0x70
- 19a:	f040 8196 	bne.w	4ca <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x4ca>
- 19e:	e7ff      	b.n	1a0 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x1a0>
+ 18e:	9831      	ldr	r0, [sp, #196]	; 0xc4
+ 190:	6840      	ldr	r0, [r0, #4]
+ 192:	f44f 71f0 	mov.w	r1, #480	; 0x1e0
+ 196:	fba0 0101 	umull	r0, r1, r0, r1
+ 19a:	2900      	cmp	r1, #0
+ 19c:	901c      	str	r0, [sp, #112]	; 0x70
+ 19e:	f040 8196 	bne.w	4ce <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x4ce>
+ 1a2:	e7ff      	b.n	1a4 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x1a4>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:225
                 let bitmap_bit_index = char_x
- 1a0:	981d      	ldr	r0, [sp, #116]	; 0x74
- 1a2:	991c      	ldr	r1, [sp, #112]	; 0x70
- 1a4:	1842      	adds	r2, r0, r1
- 1a6:	4613      	mov	r3, r2
- 1a8:	4282      	cmp	r2, r0
- 1aa:	931b      	str	r3, [sp, #108]	; 0x6c
- 1ac:	f0c0 8194 	bcc.w	4d8 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x4d8>
- 1b0:	e7ff      	b.n	1b2 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x1b2>
- 1b2:	981b      	ldr	r0, [sp, #108]	; 0x6c
- 1b4:	903d      	str	r0, [sp, #244]	; 0xf4
+ 1a4:	981d      	ldr	r0, [sp, #116]	; 0x74
+ 1a6:	991c      	ldr	r1, [sp, #112]	; 0x70
+ 1a8:	1842      	adds	r2, r0, r1
+ 1aa:	4613      	mov	r3, r2
+ 1ac:	4282      	cmp	r2, r0
+ 1ae:	931b      	str	r3, [sp, #108]	; 0x6c
+ 1b0:	f0c0 8194 	bcc.w	4dc <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x4dc>
+ 1b4:	e7ff      	b.n	1b6 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x1b6>
+ 1b6:	981b      	ldr	r0, [sp, #108]	; 0x6c
+ 1b8:	903d      	str	r0, [sp, #244]	; 0xf4
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:230
                 let bitmap_byte = bitmap_bit_index / 8;
- 1b6:	993d      	ldr	r1, [sp, #244]	; 0xf4
- 1b8:	911a      	str	r1, [sp, #104]	; 0x68
- 1ba:	e7ff      	b.n	1bc <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x1bc>
- 1bc:	981a      	ldr	r0, [sp, #104]	; 0x68
- 1be:	08c1      	lsrs	r1, r0, #3
- 1c0:	913e      	str	r1, [sp, #248]	; 0xf8
+ 1ba:	993d      	ldr	r1, [sp, #244]	; 0xf4
+ 1bc:	911a      	str	r1, [sp, #104]	; 0x68
+ 1be:	e7ff      	b.n	1c0 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x1c0>
+ 1c0:	981a      	ldr	r0, [sp, #104]	; 0x68
+ 1c2:	08c1      	lsrs	r1, r0, #3
+ 1c4:	913e      	str	r1, [sp, #248]	; 0xf8
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:231
                 let bitmap_bit = 7 - (bitmap_bit_index % 8);
- 1c2:	993d      	ldr	r1, [sp, #244]	; 0xf4
- 1c4:	9119      	str	r1, [sp, #100]	; 0x64
- 1c6:	e7ff      	b.n	1c8 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x1c8>
- 1c8:	9819      	ldr	r0, [sp, #100]	; 0x64
- 1ca:	f000 0107 	and.w	r1, r0, #7
- 1ce:	f1c1 0207 	rsb	r2, r1, #7
- 1d2:	2307      	movs	r3, #7
- 1d4:	428b      	cmp	r3, r1
- 1d6:	9218      	str	r2, [sp, #96]	; 0x60
- 1d8:	f0c0 8185 	bcc.w	4e6 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x4e6>
- 1dc:	e7ff      	b.n	1de <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x1de>
- 1de:	9818      	ldr	r0, [sp, #96]	; 0x60
- 1e0:	903f      	str	r0, [sp, #252]	; 0xfc
+ 1c6:	993d      	ldr	r1, [sp, #244]	; 0xf4
+ 1c8:	9119      	str	r1, [sp, #100]	; 0x64
+ 1ca:	e7ff      	b.n	1cc <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x1cc>
+ 1cc:	9819      	ldr	r0, [sp, #100]	; 0x64
+ 1ce:	f000 0107 	and.w	r1, r0, #7
+ 1d2:	f1c1 0207 	rsb	r2, r1, #7
+ 1d6:	2307      	movs	r3, #7
+ 1d8:	428b      	cmp	r3, r1
+ 1da:	9218      	str	r2, [sp, #96]	; 0x60
+ 1dc:	f0c0 8185 	bcc.w	4ea <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x4ea>
+ 1e0:	e7ff      	b.n	1e2 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x1e2>
+ 1e2:	9818      	ldr	r0, [sp, #96]	; 0x60
+ 1e4:	903f      	str	r0, [sp, #252]	; 0xfc
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:233
                 let color = if Conf::FONT_IMAGE[bitmap_byte as usize] & (1 << bitmap_bit) != 0 {
- 1e2:	993e      	ldr	r1, [sp, #248]	; 0xf8
- 1e4:	090a      	lsrs	r2, r1, #4
- 1e6:	2a4a      	cmp	r2, #74	; 0x4a
- 1e8:	9117      	str	r1, [sp, #92]	; 0x5c
- 1ea:	f200 8183 	bhi.w	4f4 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x4f4>
- 1ee:	e7ff      	b.n	2 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x2>
- 1f0:	f240 0000 	movw	r0, #0
- 1f4:	f2c0 0000 	movt	r0, #0
- 1f8:	9917      	ldr	r1, [sp, #92]	; 0x5c
- 1fa:	5c40      	ldrb	r0, [r0, r1]
- 1fc:	9a3f      	ldr	r2, [sp, #252]	; 0xfc
- 1fe:	f002 0307 	and.w	r3, r2, #7
- 202:	f04f 0c01 	mov.w	ip, #1
- 206:	fa0c f303 	lsl.w	r3, ip, r3
- 20a:	08d2      	lsrs	r2, r2, #3
- 20c:	2a00      	cmp	r2, #0
- 20e:	9016      	str	r0, [sp, #88]	; 0x58
- 210:	9315      	str	r3, [sp, #84]	; 0x54
- 212:	f040 8179 	bne.w	508 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x508>
- 216:	e7ff      	b.n	218 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x218>
- 218:	9816      	ldr	r0, [sp, #88]	; 0x58
- 21a:	9915      	ldr	r1, [sp, #84]	; 0x54
- 21c:	ea00 0201 	and.w	r2, r0, r1
- 220:	0612      	lsls	r2, r2, #24
- 222:	2a00      	cmp	r2, #0
- 224:	d019      	beq.n	25a <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x25a>
- 226:	e7ff      	b.n	228 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x228>
+ 1e6:	993e      	ldr	r1, [sp, #248]	; 0xf8
+ 1e8:	098a      	lsrs	r2, r1, #6
+ 1ea:	2a4a      	cmp	r2, #74	; 0x4a
+ 1ec:	9117      	str	r1, [sp, #92]	; 0x5c
+ 1ee:	f200 8183 	bhi.w	4f8 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x4f8>
+ 1f2:	e7ff      	b.n	2 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x2>
+ 1f4:	f240 0000 	movw	r0, #0
+ 1f8:	f2c0 0000 	movt	r0, #0
+ 1fc:	9917      	ldr	r1, [sp, #92]	; 0x5c
+ 1fe:	5c40      	ldrb	r0, [r0, r1]
+ 200:	9a3f      	ldr	r2, [sp, #252]	; 0xfc
+ 202:	f002 0307 	and.w	r3, r2, #7
+ 206:	f04f 0c01 	mov.w	ip, #1
+ 20a:	fa0c f303 	lsl.w	r3, ip, r3
+ 20e:	08d2      	lsrs	r2, r2, #3
+ 210:	2a00      	cmp	r2, #0
+ 212:	9016      	str	r0, [sp, #88]	; 0x58
+ 214:	9315      	str	r3, [sp, #84]	; 0x54
+ 216:	f040 8179 	bne.w	50c <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x50c>
+ 21a:	e7ff      	b.n	21c <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x21c>
+ 21c:	9816      	ldr	r0, [sp, #88]	; 0x58
+ 21e:	9915      	ldr	r1, [sp, #84]	; 0x54
+ 220:	ea00 0201 	and.w	r2, r0, r1
+ 224:	0612      	lsls	r2, r2, #24
+ 226:	2a00      	cmp	r2, #0
+ 228:	d019      	beq.n	25e <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x25e>
+ 22a:	e7ff      	b.n	22c <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x22c>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:234
                     Some(self.style.stroke_color.unwrap_or(1.into())) // white
- 228:	9831      	ldr	r0, [sp, #196]	; 0xc4
- 22a:	8c81      	ldrh	r1, [r0, #36]	; 0x24
- 22c:	8cc0      	ldrh	r0, [r0, #38]	; 0x26
- 22e:	2201      	movs	r2, #1
- 230:	9014      	str	r0, [sp, #80]	; 0x50
- 232:	4610      	mov	r0, r2
- 234:	9113      	str	r1, [sp, #76]	; 0x4c
- 236:	f7ff fffe 	bl	0 <<T as core::convert::Into<U>>::into>
- 23a:	9012      	str	r0, [sp, #72]	; 0x48
- 23c:	e7ff      	b.n	23e <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x23e>
- 23e:	9813      	ldr	r0, [sp, #76]	; 0x4c
- 240:	9914      	ldr	r1, [sp, #80]	; 0x50
- 242:	9a12      	ldr	r2, [sp, #72]	; 0x48
- 244:	f7ff fffe 	bl	0 <core::option::Option<T>::unwrap_or>
- 248:	9011      	str	r0, [sp, #68]	; 0x44
- 24a:	e7ff      	b.n	24c <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x24c>
- 24c:	9811      	ldr	r0, [sp, #68]	; 0x44
- 24e:	f8ad 0102 	strh.w	r0, [sp, #258]	; 0x102
- 252:	2101      	movs	r1, #1
- 254:	f8ad 1100 	strh.w	r1, [sp, #256]	; 0x100
+ 22c:	9831      	ldr	r0, [sp, #196]	; 0xc4
+ 22e:	8c81      	ldrh	r1, [r0, #36]	; 0x24
+ 230:	8cc0      	ldrh	r0, [r0, #38]	; 0x26
+ 232:	2201      	movs	r2, #1
+ 234:	9014      	str	r0, [sp, #80]	; 0x50
+ 236:	4610      	mov	r0, r2
+ 238:	9113      	str	r1, [sp, #76]	; 0x4c
+ 23a:	f7ff fffe 	bl	0 <<T as core::convert::Into<U>>::into>
+ 23e:	9012      	str	r0, [sp, #72]	; 0x48
+ 240:	e7ff      	b.n	242 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x242>
+ 242:	9813      	ldr	r0, [sp, #76]	; 0x4c
+ 244:	9914      	ldr	r1, [sp, #80]	; 0x50
+ 246:	9a12      	ldr	r2, [sp, #72]	; 0x48
+ 248:	f7ff fffe 	bl	0 <core::option::Option<T>::unwrap_or>
+ 24c:	9011      	str	r0, [sp, #68]	; 0x44
+ 24e:	e7ff      	b.n	250 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x250>
+ 250:	9811      	ldr	r0, [sp, #68]	; 0x44
+ 252:	f8ad 0102 	strh.w	r0, [sp, #258]	; 0x102
+ 256:	2101      	movs	r1, #1
+ 258:	f8ad 1100 	strh.w	r1, [sp, #256]	; 0x100
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:233
                 let color = if Conf::FONT_IMAGE[bitmap_byte as usize] & (1 << bitmap_bit) != 0 {
- 258:	e007      	b.n	26a <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x26a>
+ 25c:	e007      	b.n	26e <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x26e>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:236
                     self.style.fill_color
- 25a:	9831      	ldr	r0, [sp, #196]	; 0xc4
- 25c:	8c01      	ldrh	r1, [r0, #32]
- 25e:	8c40      	ldrh	r0, [r0, #34]	; 0x22
- 260:	f8ad 1100 	strh.w	r1, [sp, #256]	; 0x100
- 264:	f8ad 0102 	strh.w	r0, [sp, #258]	; 0x102
+ 25e:	9831      	ldr	r0, [sp, #196]	; 0xc4
+ 260:	8c01      	ldrh	r1, [r0, #32]
+ 262:	8c40      	ldrh	r0, [r0, #34]	; 0x22
+ 264:	f8ad 1100 	strh.w	r1, [sp, #256]	; 0x100
+ 268:	f8ad 0102 	strh.w	r0, [sp, #258]	; 0x102
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:233
                 let color = if Conf::FONT_IMAGE[bitmap_byte as usize] & (1 << bitmap_bit) != 0 {
- 268:	e7ff      	b.n	26a <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x26a>
+ 26c:	e7ff      	b.n	26e <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x26e>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:239
                 let x = self.pos[0]
- 26a:	9831      	ldr	r0, [sp, #196]	; 0xc4
- 26c:	3010      	adds	r0, #16
- 26e:	2100      	movs	r1, #0
- 270:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
- 274:	9010      	str	r0, [sp, #64]	; 0x40
- 276:	e7ff      	b.n	278 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x278>
- 278:	9810      	ldr	r0, [sp, #64]	; 0x40
- 27a:	6801      	ldr	r1, [r0, #0]
+ 26e:	9831      	ldr	r0, [sp, #196]	; 0xc4
+ 270:	3010      	adds	r0, #16
+ 272:	2100      	movs	r1, #0
+ 274:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
+ 278:	9010      	str	r0, [sp, #64]	; 0x40
+ 27a:	e7ff      	b.n	27c <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x27c>
+ 27c:	9810      	ldr	r0, [sp, #64]	; 0x40
+ 27e:	6801      	ldr	r1, [r0, #0]
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:240
                     + (Conf::CHAR_WIDTH * self.idx as u32) as i32
- 27c:	9a31      	ldr	r2, [sp, #196]	; 0xc4
- 27e:	68d2      	ldr	r2, [r2, #12]
- 280:	2306      	movs	r3, #6
- 282:	fba3 2302 	umull	r2, r3, r3, r2
- 286:	2b00      	cmp	r3, #0
- 288:	910f      	str	r1, [sp, #60]	; 0x3c
- 28a:	920e      	str	r2, [sp, #56]	; 0x38
- 28c:	f040 8143 	bne.w	516 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x516>
- 290:	e7ff      	b.n	292 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x292>
+ 280:	9a31      	ldr	r2, [sp, #196]	; 0xc4
+ 282:	68d2      	ldr	r2, [r2, #12]
+ 284:	230c      	movs	r3, #12
+ 286:	fba3 2302 	umull	r2, r3, r3, r2
+ 28a:	2b00      	cmp	r3, #0
+ 28c:	910f      	str	r1, [sp, #60]	; 0x3c
+ 28e:	920e      	str	r2, [sp, #56]	; 0x38
+ 290:	f040 8143 	bne.w	51a <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x51a>
+ 294:	e7ff      	b.n	296 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x296>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:239
                 let x = self.pos[0]
- 292:	980f      	ldr	r0, [sp, #60]	; 0x3c
- 294:	990e      	ldr	r1, [sp, #56]	; 0x38
- 296:	1842      	adds	r2, r0, r1
- 298:	4613      	mov	r3, r2
- 29a:	4282      	cmp	r2, r0
- 29c:	930d      	str	r3, [sp, #52]	; 0x34
- 29e:	f180 8141 	bvs.w	524 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x524>
- 2a2:	e7ff      	b.n	2a4 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x2a4>
+ 296:	980f      	ldr	r0, [sp, #60]	; 0x3c
+ 298:	990e      	ldr	r1, [sp, #56]	; 0x38
+ 29a:	1842      	adds	r2, r0, r1
+ 29c:	4613      	mov	r3, r2
+ 29e:	4282      	cmp	r2, r0
+ 2a0:	930d      	str	r3, [sp, #52]	; 0x34
+ 2a2:	f180 8141 	bvs.w	528 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x528>
+ 2a6:	e7ff      	b.n	2a8 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x2a8>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:241
                     + self.char_walk_x as i32;
- 2a4:	9831      	ldr	r0, [sp, #196]	; 0xc4
- 2a6:	6800      	ldr	r0, [r0, #0]
+ 2a8:	9831      	ldr	r0, [sp, #196]	; 0xc4
+ 2aa:	6800      	ldr	r0, [r0, #0]
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:239
                 let x = self.pos[0]
- 2a8:	990d      	ldr	r1, [sp, #52]	; 0x34
- 2aa:	4408      	add	r0, r1
- 2ac:	4602      	mov	r2, r0
- 2ae:	4288      	cmp	r0, r1
- 2b0:	920c      	str	r2, [sp, #48]	; 0x30
- 2b2:	f180 813e 	bvs.w	532 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x532>
- 2b6:	e7ff      	b.n	2b8 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x2b8>
- 2b8:	980c      	ldr	r0, [sp, #48]	; 0x30
- 2ba:	9041      	str	r0, [sp, #260]	; 0x104
+ 2ac:	990d      	ldr	r1, [sp, #52]	; 0x34
+ 2ae:	4408      	add	r0, r1
+ 2b0:	4602      	mov	r2, r0
+ 2b2:	4288      	cmp	r0, r1
+ 2b4:	920c      	str	r2, [sp, #48]	; 0x30
+ 2b6:	f180 813e 	bvs.w	536 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x536>
+ 2ba:	e7ff      	b.n	2bc <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x2bc>
+ 2bc:	980c      	ldr	r0, [sp, #48]	; 0x30
+ 2be:	9041      	str	r0, [sp, #260]	; 0x104
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:242
                 let y = self.pos[1] + self.char_walk_y as i32;
- 2bc:	9931      	ldr	r1, [sp, #196]	; 0xc4
- 2be:	f101 0010 	add.w	r0, r1, #16
- 2c2:	2101      	movs	r1, #1
- 2c4:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
- 2c8:	900b      	str	r0, [sp, #44]	; 0x2c
- 2ca:	e7ff      	b.n	2cc <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x2cc>
- 2cc:	980b      	ldr	r0, [sp, #44]	; 0x2c
- 2ce:	6801      	ldr	r1, [r0, #0]
- 2d0:	9a31      	ldr	r2, [sp, #196]	; 0xc4
- 2d2:	6852      	ldr	r2, [r2, #4]
- 2d4:	440a      	add	r2, r1
- 2d6:	4613      	mov	r3, r2
- 2d8:	428a      	cmp	r2, r1
- 2da:	930a      	str	r3, [sp, #40]	; 0x28
- 2dc:	f180 8130 	bvs.w	540 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x540>
- 2e0:	e7ff      	b.n	2e2 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x2e2>
- 2e2:	980a      	ldr	r0, [sp, #40]	; 0x28
- 2e4:	9042      	str	r0, [sp, #264]	; 0x108
+ 2c0:	9931      	ldr	r1, [sp, #196]	; 0xc4
+ 2c2:	f101 0010 	add.w	r0, r1, #16
+ 2c6:	2101      	movs	r1, #1
+ 2c8:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
+ 2cc:	900b      	str	r0, [sp, #44]	; 0x2c
+ 2ce:	e7ff      	b.n	2d0 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x2d0>
+ 2d0:	980b      	ldr	r0, [sp, #44]	; 0x2c
+ 2d2:	6801      	ldr	r1, [r0, #0]
+ 2d4:	9a31      	ldr	r2, [sp, #196]	; 0xc4
+ 2d6:	6852      	ldr	r2, [r2, #4]
+ 2d8:	440a      	add	r2, r1
+ 2da:	4613      	mov	r3, r2
+ 2dc:	428a      	cmp	r2, r1
+ 2de:	930a      	str	r3, [sp, #40]	; 0x28
+ 2e0:	f180 8130 	bvs.w	544 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x544>
+ 2e4:	e7ff      	b.n	2e6 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x2e6>
+ 2e6:	980a      	ldr	r0, [sp, #40]	; 0x28
+ 2e8:	9042      	str	r0, [sp, #264]	; 0x108
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:244
                 self.char_walk_x += 1;
- 2e6:	9931      	ldr	r1, [sp, #196]	; 0xc4
- 2e8:	6809      	ldr	r1, [r1, #0]
- 2ea:	1c4a      	adds	r2, r1, #1
- 2ec:	4613      	mov	r3, r2
- 2ee:	428a      	cmp	r2, r1
- 2f0:	9309      	str	r3, [sp, #36]	; 0x24
- 2f2:	f0c0 812c 	bcc.w	54e <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x54e>
- 2f6:	e7ff      	b.n	2f8 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x2f8>
- 2f8:	9831      	ldr	r0, [sp, #196]	; 0xc4
- 2fa:	9909      	ldr	r1, [sp, #36]	; 0x24
- 2fc:	6001      	str	r1, [r0, #0]
+ 2ea:	9931      	ldr	r1, [sp, #196]	; 0xc4
+ 2ec:	6809      	ldr	r1, [r1, #0]
+ 2ee:	1c4a      	adds	r2, r1, #1
+ 2f0:	4613      	mov	r3, r2
+ 2f2:	428a      	cmp	r2, r1
+ 2f4:	9309      	str	r3, [sp, #36]	; 0x24
+ 2f6:	f0c0 812c 	bcc.w	552 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x552>
+ 2fa:	e7ff      	b.n	2fc <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x2fc>
+ 2fc:	9831      	ldr	r0, [sp, #196]	; 0xc4
+ 2fe:	9909      	ldr	r1, [sp, #36]	; 0x24
+ 300:	6001      	str	r1, [r0, #0]
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:246
                 if self.char_walk_x >= Conf::CHAR_WIDTH {
- 2fe:	9831      	ldr	r0, [sp, #196]	; 0xc4
- 300:	6800      	ldr	r0, [r0, #0]
- 302:	2806      	cmp	r0, #6
- 304:	d33e      	bcc.n	384 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x384>
- 306:	e7ff      	b.n	308 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x308>
+ 302:	9831      	ldr	r0, [sp, #196]	; 0xc4
+ 304:	6800      	ldr	r0, [r0, #0]
+ 306:	280c      	cmp	r0, #12
+ 308:	d33e      	bcc.n	388 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x388>
+ 30a:	e7ff      	b.n	30c <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x30c>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:247
                     self.char_walk_x = 0;
- 308:	9831      	ldr	r0, [sp, #196]	; 0xc4
- 30a:	2100      	movs	r1, #0
- 30c:	6001      	str	r1, [r0, #0]
+ 30c:	9831      	ldr	r0, [sp, #196]	; 0xc4
+ 30e:	2100      	movs	r1, #0
+ 310:	6001      	str	r1, [r0, #0]
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:248
                     self.char_walk_y += 1;
- 30e:	9831      	ldr	r0, [sp, #196]	; 0xc4
- 310:	6840      	ldr	r0, [r0, #4]
- 312:	1c41      	adds	r1, r0, #1
- 314:	460a      	mov	r2, r1
- 316:	4281      	cmp	r1, r0
- 318:	9208      	str	r2, [sp, #32]
- 31a:	f0c0 811f 	bcc.w	55c <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x55c>
- 31e:	e7ff      	b.n	320 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x320>
- 320:	9831      	ldr	r0, [sp, #196]	; 0xc4
- 322:	9908      	ldr	r1, [sp, #32]
- 324:	6041      	str	r1, [r0, #4]
+ 312:	9831      	ldr	r0, [sp, #196]	; 0xc4
+ 314:	6840      	ldr	r0, [r0, #4]
+ 316:	1c41      	adds	r1, r0, #1
+ 318:	460a      	mov	r2, r1
+ 31a:	4281      	cmp	r1, r0
+ 31c:	9208      	str	r2, [sp, #32]
+ 31e:	f0c0 811f 	bcc.w	560 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x560>
+ 322:	e7ff      	b.n	324 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x324>
+ 324:	9831      	ldr	r0, [sp, #196]	; 0xc4
+ 326:	9908      	ldr	r1, [sp, #32]
+ 328:	6041      	str	r1, [r0, #4]
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:251
                     if self.char_walk_y >= Conf::CHAR_HEIGHT {
- 326:	9831      	ldr	r0, [sp, #196]	; 0xc4
- 328:	6840      	ldr	r0, [r0, #4]
- 32a:	2808      	cmp	r0, #8
- 32c:	d329      	bcc.n	382 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x382>
- 32e:	e7ff      	b.n	330 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x330>
+ 32a:	9831      	ldr	r0, [sp, #196]	; 0xc4
+ 32c:	6840      	ldr	r0, [r0, #4]
+ 32e:	2810      	cmp	r0, #16
+ 330:	d329      	bcc.n	386 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x386>
+ 332:	e7ff      	b.n	334 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x334>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:252
                         self.char_walk_y = 0;
- 330:	9831      	ldr	r0, [sp, #196]	; 0xc4
- 332:	2100      	movs	r1, #0
- 334:	6041      	str	r1, [r0, #4]
+ 334:	9831      	ldr	r0, [sp, #196]	; 0xc4
+ 336:	2100      	movs	r1, #0
+ 338:	6041      	str	r1, [r0, #4]
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:253
                         self.idx += 1;
- 336:	9831      	ldr	r0, [sp, #196]	; 0xc4
- 338:	68c0      	ldr	r0, [r0, #12]
- 33a:	1c41      	adds	r1, r0, #1
- 33c:	460a      	mov	r2, r1
- 33e:	4281      	cmp	r1, r0
- 340:	9207      	str	r2, [sp, #28]
- 342:	f0c0 8112 	bcc.w	56a <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x56a>
- 346:	e7ff      	b.n	348 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x348>
- 348:	9831      	ldr	r0, [sp, #196]	; 0xc4
- 34a:	9907      	ldr	r1, [sp, #28]
- 34c:	60c1      	str	r1, [r0, #12]
+ 33a:	9831      	ldr	r0, [sp, #196]	; 0xc4
+ 33c:	68c0      	ldr	r0, [r0, #12]
+ 33e:	1c41      	adds	r1, r0, #1
+ 340:	460a      	mov	r2, r1
+ 342:	4281      	cmp	r1, r0
+ 344:	9207      	str	r2, [sp, #28]
+ 346:	f0c0 8112 	bcc.w	56e <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x56e>
+ 34a:	e7ff      	b.n	34c <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x34c>
+ 34c:	9831      	ldr	r0, [sp, #196]	; 0xc4
+ 34e:	9907      	ldr	r1, [sp, #28]
+ 350:	60c1      	str	r1, [r0, #12]
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:254
                         self.current_char = self.text.chars().skip(self.idx).next();
- 34e:	9831      	ldr	r0, [sp, #196]	; 0xc4
- 350:	6982      	ldr	r2, [r0, #24]
- 352:	69c1      	ldr	r1, [r0, #28]
- 354:	4610      	mov	r0, r2
- 356:	f7ff fffe 	bl	0 <core::str::<impl str>::chars>
- 35a:	9006      	str	r0, [sp, #24]
- 35c:	9105      	str	r1, [sp, #20]
- 35e:	e7ff      	b.n	360 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x360>
- 360:	9831      	ldr	r0, [sp, #196]	; 0xc4
- 362:	68c3      	ldr	r3, [r0, #12]
- 364:	a843      	add	r0, sp, #268	; 0x10c
- 366:	9906      	ldr	r1, [sp, #24]
- 368:	9a05      	ldr	r2, [sp, #20]
- 36a:	f7ff fffe 	bl	0 <core::iter::traits::iterator::Iterator::skip>
- 36e:	e7ff      	b.n	370 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x370>
- 370:	a843      	add	r0, sp, #268	; 0x10c
- 372:	f7ff fffe 	bl	0 <<core::iter::adapters::Skip<I> as core::iter::traits::iterator::Iterator>::next>
- 376:	9004      	str	r0, [sp, #16]
- 378:	e7ff      	b.n	37a <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x37a>
- 37a:	9831      	ldr	r0, [sp, #196]	; 0xc4
- 37c:	9904      	ldr	r1, [sp, #16]
- 37e:	6081      	str	r1, [r0, #8]
+ 352:	9831      	ldr	r0, [sp, #196]	; 0xc4
+ 354:	6982      	ldr	r2, [r0, #24]
+ 356:	69c1      	ldr	r1, [r0, #28]
+ 358:	4610      	mov	r0, r2
+ 35a:	f7ff fffe 	bl	0 <core::str::<impl str>::chars>
+ 35e:	9006      	str	r0, [sp, #24]
+ 360:	9105      	str	r1, [sp, #20]
+ 362:	e7ff      	b.n	364 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x364>
+ 364:	9831      	ldr	r0, [sp, #196]	; 0xc4
+ 366:	68c3      	ldr	r3, [r0, #12]
+ 368:	a843      	add	r0, sp, #268	; 0x10c
+ 36a:	9906      	ldr	r1, [sp, #24]
+ 36c:	9a05      	ldr	r2, [sp, #20]
+ 36e:	f7ff fffe 	bl	0 <core::iter::traits::iterator::Iterator::skip>
+ 372:	e7ff      	b.n	374 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x374>
+ 374:	a843      	add	r0, sp, #268	; 0x10c
+ 376:	f7ff fffe 	bl	0 <<core::iter::adapters::Skip<I> as core::iter::traits::iterator::Iterator>::next>
+ 37a:	9004      	str	r0, [sp, #16]
+ 37c:	e7ff      	b.n	37e <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x37e>
+ 37e:	9831      	ldr	r0, [sp, #196]	; 0xc4
+ 380:	9904      	ldr	r1, [sp, #16]
+ 382:	6081      	str	r1, [r0, #8]
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:251
                     if self.char_walk_y >= Conf::CHAR_HEIGHT {
- 380:	e7ff      	b.n	382 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x382>
+ 384:	e7ff      	b.n	386 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x386>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:246
                 if self.char_walk_x >= Conf::CHAR_WIDTH {
- 382:	e7ff      	b.n	384 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x384>
+ 386:	e7ff      	b.n	388 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x388>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:259
                 if let Some(color) = color {
- 384:	f8bd 0100 	ldrh.w	r0, [sp, #256]	; 0x100
- 388:	2801      	cmp	r0, #1
- 38a:	d14d      	bne.n	428 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x428>
- 38c:	e7ff      	b.n	38e <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x38e>
- 38e:	f8bd 0102 	ldrh.w	r0, [sp, #258]	; 0x102
- 392:	f8ad 0118 	strh.w	r0, [sp, #280]	; 0x118
+ 388:	f8bd 0100 	ldrh.w	r0, [sp, #256]	; 0x100
+ 38c:	2801      	cmp	r0, #1
+ 38e:	d14d      	bne.n	42c <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x42c>
+ 390:	e7ff      	b.n	392 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x392>
+ 392:	f8bd 0102 	ldrh.w	r0, [sp, #258]	; 0x102
+ 396:	f8ad 0118 	strh.w	r0, [sp, #280]	; 0x118
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:260
                     if x >= 0 && y >= 0 {
- 396:	9841      	ldr	r0, [sp, #260]	; 0x104
- 398:	f1b0 3fff 	cmp.w	r0, #4294967295	; 0xffffffff
- 39c:	dc04      	bgt.n	3a8 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x3a8>
- 39e:	e7ff      	b.n	3a0 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x3a0>
- 3a0:	2000      	movs	r0, #0
- 3a2:	f88d 011b 	strb.w	r0, [sp, #283]	; 0x11b
- 3a6:	e008      	b.n	3ba <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x3ba>
- 3a8:	9842      	ldr	r0, [sp, #264]	; 0x108
- 3aa:	2100      	movs	r1, #0
- 3ac:	f1b0 3fff 	cmp.w	r0, #4294967295	; 0xffffffff
- 3b0:	bfc8      	it	gt
- 3b2:	2101      	movgt	r1, #1
- 3b4:	f88d 111b 	strb.w	r1, [sp, #283]	; 0x11b
- 3b8:	e7ff      	b.n	3ba <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x3ba>
- 3ba:	f89d 011b 	ldrb.w	r0, [sp, #283]	; 0x11b
- 3be:	07c0      	lsls	r0, r0, #31
- 3c0:	2800      	cmp	r0, #0
- 3c2:	d030      	beq.n	426 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x426>
- 3c4:	e7ff      	b.n	3c6 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x3c6>
+ 39a:	9841      	ldr	r0, [sp, #260]	; 0x104
+ 39c:	f1b0 3fff 	cmp.w	r0, #4294967295	; 0xffffffff
+ 3a0:	dc04      	bgt.n	3ac <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x3ac>
+ 3a2:	e7ff      	b.n	3a4 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x3a4>
+ 3a4:	2000      	movs	r0, #0
+ 3a6:	f88d 011b 	strb.w	r0, [sp, #283]	; 0x11b
+ 3aa:	e008      	b.n	3be <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x3be>
+ 3ac:	9842      	ldr	r0, [sp, #264]	; 0x108
+ 3ae:	2100      	movs	r1, #0
+ 3b0:	f1b0 3fff 	cmp.w	r0, #4294967295	; 0xffffffff
+ 3b4:	bfc8      	it	gt
+ 3b6:	2101      	movgt	r1, #1
+ 3b8:	f88d 111b 	strb.w	r1, [sp, #283]	; 0x11b
+ 3bc:	e7ff      	b.n	3be <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x3be>
+ 3be:	f89d 011b 	ldrb.w	r0, [sp, #283]	; 0x11b
+ 3c2:	07c0      	lsls	r0, r0, #31
+ 3c4:	2800      	cmp	r0, #0
+ 3c6:	d030      	beq.n	42a <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x42a>
+ 3c8:	e7ff      	b.n	3ca <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x3ca>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:261
                         break Some(Pixel(Coord::new(x, y).to_unsigned(), color));
- 3c6:	9841      	ldr	r0, [sp, #260]	; 0x104
- 3c8:	9942      	ldr	r1, [sp, #264]	; 0x108
- 3ca:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
- 3ce:	9003      	str	r0, [sp, #12]
- 3d0:	9102      	str	r1, [sp, #8]
- 3d2:	e7ff      	b.n	3d4 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x3d4>
- 3d4:	9803      	ldr	r0, [sp, #12]
- 3d6:	9902      	ldr	r1, [sp, #8]
- 3d8:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as embedded_graphics::coord::ToUnsigned>::to_unsigned>
- 3dc:	9001      	str	r0, [sp, #4]
- 3de:	9100      	str	r1, [sp, #0]
- 3e0:	e7ff      	b.n	3e2 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x3e2>
- 3e2:	f8bd 0118 	ldrh.w	r0, [sp, #280]	; 0x118
- 3e6:	9901      	ldr	r1, [sp, #4]
- 3e8:	9147      	str	r1, [sp, #284]	; 0x11c
- 3ea:	9a00      	ldr	r2, [sp, #0]
- 3ec:	9248      	str	r2, [sp, #288]	; 0x120
- 3ee:	f8ad 0124 	strh.w	r0, [sp, #292]	; 0x124
- 3f2:	9847      	ldr	r0, [sp, #284]	; 0x11c
- 3f4:	9b48      	ldr	r3, [sp, #288]	; 0x120
- 3f6:	f8dd c124 	ldr.w	ip, [sp, #292]	; 0x124
- 3fa:	f8cd c0dc 	str.w	ip, [sp, #220]	; 0xdc
- 3fe:	9336      	str	r3, [sp, #216]	; 0xd8
- 400:	9035      	str	r0, [sp, #212]	; 0xd4
- 402:	2001      	movs	r0, #1
- 404:	9034      	str	r0, [sp, #208]	; 0xd0
- 406:	e7ff      	b.n	408 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x408>
+ 3ca:	9841      	ldr	r0, [sp, #260]	; 0x104
+ 3cc:	9942      	ldr	r1, [sp, #264]	; 0x108
+ 3ce:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
+ 3d2:	9003      	str	r0, [sp, #12]
+ 3d4:	9102      	str	r1, [sp, #8]
+ 3d6:	e7ff      	b.n	3d8 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x3d8>
+ 3d8:	9803      	ldr	r0, [sp, #12]
+ 3da:	9902      	ldr	r1, [sp, #8]
+ 3dc:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as embedded_graphics::coord::ToUnsigned>::to_unsigned>
+ 3e0:	9001      	str	r0, [sp, #4]
+ 3e2:	9100      	str	r1, [sp, #0]
+ 3e4:	e7ff      	b.n	3e6 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x3e6>
+ 3e6:	f8bd 0118 	ldrh.w	r0, [sp, #280]	; 0x118
+ 3ea:	9901      	ldr	r1, [sp, #4]
+ 3ec:	9147      	str	r1, [sp, #284]	; 0x11c
+ 3ee:	9a00      	ldr	r2, [sp, #0]
+ 3f0:	9248      	str	r2, [sp, #288]	; 0x120
+ 3f2:	f8ad 0124 	strh.w	r0, [sp, #292]	; 0x124
+ 3f6:	9847      	ldr	r0, [sp, #284]	; 0x11c
+ 3f8:	9b48      	ldr	r3, [sp, #288]	; 0x120
+ 3fa:	f8dd c124 	ldr.w	ip, [sp, #292]	; 0x124
+ 3fe:	f8cd c0dc 	str.w	ip, [sp, #220]	; 0xdc
+ 402:	9336      	str	r3, [sp, #216]	; 0xd8
+ 404:	9035      	str	r0, [sp, #212]	; 0xd4
+ 406:	2001      	movs	r0, #1
+ 408:	9034      	str	r0, [sp, #208]	; 0xd0
+ 40a:	e7ff      	b.n	40c <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x40c>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:269
         pixel
- 408:	9834      	ldr	r0, [sp, #208]	; 0xd0
- 40a:	9935      	ldr	r1, [sp, #212]	; 0xd4
- 40c:	9a36      	ldr	r2, [sp, #216]	; 0xd8
- 40e:	9b37      	ldr	r3, [sp, #220]	; 0xdc
- 410:	f8dd c0c0 	ldr.w	ip, [sp, #192]	; 0xc0
- 414:	f8cc 300c 	str.w	r3, [ip, #12]
- 418:	f8cc 2008 	str.w	r2, [ip, #8]
- 41c:	f8cc 1004 	str.w	r1, [ip, #4]
- 420:	f8cc 0000 	str.w	r0, [ip]
+ 40c:	9834      	ldr	r0, [sp, #208]	; 0xd0
+ 40e:	9935      	ldr	r1, [sp, #212]	; 0xd4
+ 410:	9a36      	ldr	r2, [sp, #216]	; 0xd8
+ 412:	9b37      	ldr	r3, [sp, #220]	; 0xdc
+ 414:	f8dd c0c0 	ldr.w	ip, [sp, #192]	; 0xc0
+ 418:	f8cc 300c 	str.w	r3, [ip, #12]
+ 41c:	f8cc 2008 	str.w	r2, [ip, #8]
+ 420:	f8cc 1004 	str.w	r1, [ip, #4]
+ 424:	f8cc 0000 	str.w	r0, [ip]
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:270
     }
- 424:	e647      	b.n	b6 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0xb6>
+ 428:	e645      	b.n	b6 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0xb6>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:259
                 if let Some(color) = color {
- 426:	e7ff      	b.n	428 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x428>
+ 42a:	e7ff      	b.n	42c <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x42c>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:209
         let pixel = loop {
- 428:	e64b      	b.n	c2 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0xc2>
- 42a:	2000      	movs	r0, #0
+ 42c:	e649      	b.n	c2 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0xc2>
+ 42e:	2000      	movs	r0, #0
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:265
                 break None;
- 42c:	9034      	str	r0, [sp, #208]	; 0xd0
- 42e:	e7eb      	b.n	408 <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x408>
+ 430:	9034      	str	r0, [sp, #208]	; 0xd0
+ 432:	e7eb      	b.n	40c <<embedded_graphics::fonts::font_builder::FontBuilderIterator<C,Conf> as core::iter::traits::iterator::Iterator>::next+0x40c>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:201
         if self.pos[0] + (self.text.len() as i32 * Conf::CHAR_WIDTH as i32) <= 0
- 430:	f240 0000 	movw	r0, #0
- 434:	f2c0 0000 	movt	r0, #0
- 438:	f7ff fffe 	bl	0 <core::panicking::panic>
- 43c:	defe      	udf	#254	; 0xfe
- 43e:	f240 0000 	movw	r0, #0
- 442:	f2c0 0000 	movt	r0, #0
- 446:	f7ff fffe 	bl	0 <core::panicking::panic>
- 44a:	defe      	udf	#254	; 0xfe
+ 434:	f240 0000 	movw	r0, #0
+ 438:	f2c0 0000 	movt	r0, #0
+ 43c:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 440:	defe      	udf	#254	; 0xfe
+ 442:	f240 0000 	movw	r0, #0
+ 446:	f2c0 0000 	movt	r0, #0
+ 44a:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 44e:	defe      	udf	#254	; 0xfe
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:202
             || self.pos[1] + (Conf::CHAR_HEIGHT as i32) <= 0
- 44c:	f240 0000 	movw	r0, #0
- 450:	f2c0 0000 	movt	r0, #0
- 454:	f7ff fffe 	bl	0 <core::panicking::panic>
- 458:	defe      	udf	#254	; 0xfe
+ 450:	f240 0000 	movw	r0, #0
+ 454:	f2c0 0000 	movt	r0, #0
+ 458:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 45c:	defe      	udf	#254	; 0xfe
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:214
                 let row = char_offset / char_per_row;
- 45a:	f240 0000 	movw	r0, #0
- 45e:	f2c0 0000 	movt	r0, #0
- 462:	f7ff fffe 	bl	0 <core::panicking::panic>
- 466:	defe      	udf	#254	; 0xfe
+ 45e:	f240 0000 	movw	r0, #0
+ 462:	f2c0 0000 	movt	r0, #0
+ 466:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 46a:	defe      	udf	#254	; 0xfe
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:217
                 let char_x = (char_offset - (row * char_per_row)) * Conf::CHAR_WIDTH;
- 468:	f240 0000 	movw	r0, #0
- 46c:	f2c0 0000 	movt	r0, #0
- 470:	f7ff fffe 	bl	0 <core::panicking::panic>
- 474:	defe      	udf	#254	; 0xfe
- 476:	f240 0000 	movw	r0, #0
- 47a:	f2c0 0000 	movt	r0, #0
- 47e:	f7ff fffe 	bl	0 <core::panicking::panic>
- 482:	defe      	udf	#254	; 0xfe
- 484:	f240 0000 	movw	r0, #0
- 488:	f2c0 0000 	movt	r0, #0
- 48c:	f7ff fffe 	bl	0 <core::panicking::panic>
- 490:	defe      	udf	#254	; 0xfe
+ 46c:	f240 0000 	movw	r0, #0
+ 470:	f2c0 0000 	movt	r0, #0
+ 474:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 478:	defe      	udf	#254	; 0xfe
+ 47a:	f240 0000 	movw	r0, #0
+ 47e:	f2c0 0000 	movt	r0, #0
+ 482:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 486:	defe      	udf	#254	; 0xfe
+ 488:	f240 0000 	movw	r0, #0
+ 48c:	f2c0 0000 	movt	r0, #0
+ 490:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 494:	defe      	udf	#254	; 0xfe
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:218
                 let char_y = row * Conf::CHAR_HEIGHT;
- 492:	f240 0000 	movw	r0, #0
- 496:	f2c0 0000 	movt	r0, #0
- 49a:	f7ff fffe 	bl	0 <core::panicking::panic>
- 49e:	defe      	udf	#254	; 0xfe
+ 496:	f240 0000 	movw	r0, #0
+ 49a:	f2c0 0000 	movt	r0, #0
+ 49e:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 4a2:	defe      	udf	#254	; 0xfe
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:226
                     + (Conf::FONT_IMAGE_WIDTH * char_y)
- 4a0:	f240 0000 	movw	r0, #0
- 4a4:	f2c0 0000 	movt	r0, #0
- 4a8:	f7ff fffe 	bl	0 <core::panicking::panic>
- 4ac:	defe      	udf	#254	; 0xfe
+ 4a4:	f240 0000 	movw	r0, #0
+ 4a8:	f2c0 0000 	movt	r0, #0
+ 4ac:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 4b0:	defe      	udf	#254	; 0xfe
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:225
                 let bitmap_bit_index = char_x
- 4ae:	f240 0000 	movw	r0, #0
- 4b2:	f2c0 0000 	movt	r0, #0
- 4b6:	f7ff fffe 	bl	0 <core::panicking::panic>
- 4ba:	defe      	udf	#254	; 0xfe
- 4bc:	f240 0000 	movw	r0, #0
- 4c0:	f2c0 0000 	movt	r0, #0
- 4c4:	f7ff fffe 	bl	0 <core::panicking::panic>
- 4c8:	defe      	udf	#254	; 0xfe
+ 4b2:	f240 0000 	movw	r0, #0
+ 4b6:	f2c0 0000 	movt	r0, #0
+ 4ba:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 4be:	defe      	udf	#254	; 0xfe
+ 4c0:	f240 0000 	movw	r0, #0
+ 4c4:	f2c0 0000 	movt	r0, #0
+ 4c8:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 4cc:	defe      	udf	#254	; 0xfe
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:228
                     + (self.char_walk_y * Conf::FONT_IMAGE_WIDTH);
- 4ca:	f240 0000 	movw	r0, #0
- 4ce:	f2c0 0000 	movt	r0, #0
- 4d2:	f7ff fffe 	bl	0 <core::panicking::panic>
- 4d6:	defe      	udf	#254	; 0xfe
+ 4ce:	f240 0000 	movw	r0, #0
+ 4d2:	f2c0 0000 	movt	r0, #0
+ 4d6:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 4da:	defe      	udf	#254	; 0xfe
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:225
                 let bitmap_bit_index = char_x
- 4d8:	f240 0000 	movw	r0, #0
- 4dc:	f2c0 0000 	movt	r0, #0
- 4e0:	f7ff fffe 	bl	0 <core::panicking::panic>
- 4e4:	defe      	udf	#254	; 0xfe
+ 4dc:	f240 0000 	movw	r0, #0
+ 4e0:	f2c0 0000 	movt	r0, #0
+ 4e4:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 4e8:	defe      	udf	#254	; 0xfe
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:231
                 let bitmap_bit = 7 - (bitmap_bit_index % 8);
- 4e6:	f240 0000 	movw	r0, #0
- 4ea:	f2c0 0000 	movt	r0, #0
- 4ee:	f7ff fffe 	bl	0 <core::panicking::panic>
- 4f2:	defe      	udf	#254	; 0xfe
+ 4ea:	f240 0000 	movw	r0, #0
+ 4ee:	f2c0 0000 	movt	r0, #0
+ 4f2:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 4f6:	defe      	udf	#254	; 0xfe
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:233
                 let color = if Conf::FONT_IMAGE[bitmap_byte as usize] & (1 << bitmap_bit) != 0 {
- 4f4:	f240 0000 	movw	r0, #0
- 4f8:	f2c0 0000 	movt	r0, #0
- 4fc:	f44f 6296 	mov.w	r2, #1200	; 0x4b0
- 500:	9917      	ldr	r1, [sp, #92]	; 0x5c
- 502:	f7ff fffe 	bl	0 <core::panicking::panic_bounds_check>
- 506:	defe      	udf	#254	; 0xfe
- 508:	f240 0000 	movw	r0, #0
- 50c:	f2c0 0000 	movt	r0, #0
- 510:	f7ff fffe 	bl	0 <core::panicking::panic>
- 514:	defe      	udf	#254	; 0xfe
+ 4f8:	f240 0000 	movw	r0, #0
+ 4fc:	f2c0 0000 	movt	r0, #0
+ 500:	f44f 5296 	mov.w	r2, #4800	; 0x12c0
+ 504:	9917      	ldr	r1, [sp, #92]	; 0x5c
+ 506:	f7ff fffe 	bl	0 <core::panicking::panic_bounds_check>
+ 50a:	defe      	udf	#254	; 0xfe
+ 50c:	f240 0000 	movw	r0, #0
+ 510:	f2c0 0000 	movt	r0, #0
+ 514:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 518:	defe      	udf	#254	; 0xfe
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:240
                     + (Conf::CHAR_WIDTH * self.idx as u32) as i32
- 516:	f240 0000 	movw	r0, #0
- 51a:	f2c0 0000 	movt	r0, #0
- 51e:	f7ff fffe 	bl	0 <core::panicking::panic>
- 522:	defe      	udf	#254	; 0xfe
+ 51a:	f240 0000 	movw	r0, #0
+ 51e:	f2c0 0000 	movt	r0, #0
+ 522:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 526:	defe      	udf	#254	; 0xfe
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:239
                 let x = self.pos[0]
- 524:	f240 0000 	movw	r0, #0
- 528:	f2c0 0000 	movt	r0, #0
- 52c:	f7ff fffe 	bl	0 <core::panicking::panic>
- 530:	defe      	udf	#254	; 0xfe
- 532:	f240 0000 	movw	r0, #0
- 536:	f2c0 0000 	movt	r0, #0
- 53a:	f7ff fffe 	bl	0 <core::panicking::panic>
- 53e:	defe      	udf	#254	; 0xfe
+ 528:	f240 0000 	movw	r0, #0
+ 52c:	f2c0 0000 	movt	r0, #0
+ 530:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 534:	defe      	udf	#254	; 0xfe
+ 536:	f240 0000 	movw	r0, #0
+ 53a:	f2c0 0000 	movt	r0, #0
+ 53e:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 542:	defe      	udf	#254	; 0xfe
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:242
                 let y = self.pos[1] + self.char_walk_y as i32;
- 540:	f240 0000 	movw	r0, #0
- 544:	f2c0 0000 	movt	r0, #0
- 548:	f7ff fffe 	bl	0 <core::panicking::panic>
- 54c:	defe      	udf	#254	; 0xfe
+ 544:	f240 0000 	movw	r0, #0
+ 548:	f2c0 0000 	movt	r0, #0
+ 54c:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 550:	defe      	udf	#254	; 0xfe
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:244
                 self.char_walk_x += 1;
- 54e:	f240 0000 	movw	r0, #0
- 552:	f2c0 0000 	movt	r0, #0
- 556:	f7ff fffe 	bl	0 <core::panicking::panic>
- 55a:	defe      	udf	#254	; 0xfe
+ 552:	f240 0000 	movw	r0, #0
+ 556:	f2c0 0000 	movt	r0, #0
+ 55a:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 55e:	defe      	udf	#254	; 0xfe
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:248
                     self.char_walk_y += 1;
- 55c:	f240 0000 	movw	r0, #0
- 560:	f2c0 0000 	movt	r0, #0
- 564:	f7ff fffe 	bl	0 <core::panicking::panic>
- 568:	defe      	udf	#254	; 0xfe
+ 560:	f240 0000 	movw	r0, #0
+ 564:	f2c0 0000 	movt	r0, #0
+ 568:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 56c:	defe      	udf	#254	; 0xfe
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:253
                         self.idx += 1;
- 56a:	f240 0000 	movw	r0, #0
- 56e:	f2c0 0000 	movt	r0, #0
- 572:	f7ff fffe 	bl	0 <core::panicking::panic>
- 576:	defe      	udf	#254	; 0xfe
+ 56e:	f240 0000 	movw	r0, #0
+ 572:	f2c0 0000 	movt	r0, #0
+ 576:	f7ff fffe 	bl	0 <core::panicking::panic>
+ 57a:	defe      	udf	#254	; 0xfe
 
 app-b8434b356de0ea5d.24yo3mxsoqcxh0en.rcgu.o:     file format elf32-littlearm
 
@@ -8321,7 +8321,7 @@ app-b8434b356de0ea5d.3j5s3n1ccuhe5j8s.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 3j5s3n1ccuhe5j8s
-00000137 l       .debug_str	00000000 
+0000013b l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000055 l       .debug_str	00000000 
@@ -8329,25 +8329,25 @@ SYMBOL TABLE:
 0000008a l       .debug_str	00000000 
 00000091 l       .debug_str	00000000 
 0000009a l       .debug_str	00000000 
-0000016f l       .debug_str	00000000 
+00000177 l       .debug_str	00000000 
 000000ac l       .debug_str	00000000 
 000000b2 l       .debug_str	00000000 
-000000ba l       .debug_str	00000000 
-000000c6 l       .debug_str	00000000 
-000000c8 l       .debug_str	00000000 
-00000000 l    d  .text._ZN77_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h3cf04b6e3da5c113E	00000000 .text._ZN77_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h3cf04b6e3da5c113E
+000000bc l       .debug_str	00000000 
+000000ca l       .debug_str	00000000 
+000000cc l       .debug_str	00000000 
+00000000 l    d  .text._ZN77_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17hf27e8efeb08536adE	00000000 .text._ZN77_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17hf27e8efeb08536adE
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
-00000000 g     F .text._ZN77_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h3cf04b6e3da5c113E	00000002 <core::marker::PhantomData<T> as core::default::Default>::default
+00000000 g     F .text._ZN77_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17hf27e8efeb08536adE	00000002 <core::marker::PhantomData<T> as core::default::Default>::default
 
 
 
-Disassembly of section .text._ZN77_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h3cf04b6e3da5c113E:
+Disassembly of section .text._ZN77_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17hf27e8efeb08536adE:
 
 00000000 <<core::marker::PhantomData<T> as core::default::Default>::default>:
-_ZN77_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h3cf04b6e3da5c113E():
+_ZN77_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17hf27e8efeb08536adE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/marker.rs:432
    0:	4770      	bx	lr
 
@@ -8355,54 +8355,54 @@ app-b8434b356de0ea5d.3jn3ml4cjsgi16hg.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 3jn3ml4cjsgi16hg
-000008d8 l       .debug_str	00000000 
-00000931 l       .debug_str	00000000 
-0000093a l       .debug_str	00000000 
-0000095d l       .debug_str	00000000 
-0000097c l       .debug_str	00000000 
-000009a3 l       .debug_str	00000000 
-000009a8 l       .debug_str	00000000 
-000009ae l       .debug_str	00000000 
+000008e4 l       .debug_str	00000000 
+0000093d l       .debug_str	00000000 
+00000946 l       .debug_str	00000000 
+00000969 l       .debug_str	00000000 
+00000988 l       .debug_str	00000000 
+000009af l       .debug_str	00000000 
 000009b4 l       .debug_str	00000000 
-000009c3 l       .debug_str	00000000 
-000009c7 l       .debug_str	00000000 
-000009d0 l       .debug_str	00000000 
-000009d8 l       .debug_str	00000000 
-000009e0 l       .debug_str	00000000 
-000009e7 l       .debug_str	00000000 
-000009fb l       .debug_str	00000000 
+000009ba l       .debug_str	00000000 
+000009c0 l       .debug_str	00000000 
+000009cf l       .debug_str	00000000 
+000009d3 l       .debug_str	00000000 
+000009dc l       .debug_str	00000000 
+000009e4 l       .debug_str	00000000 
+000009ec l       .debug_str	00000000 
+000009f3 l       .debug_str	00000000 
 00000a07 l       .debug_str	00000000 
 00000a13 l       .debug_str	00000000 
-00000a2c l       .debug_str	00000000 
-00000a31 l       .debug_str	00000000 
-00000a42 l       .debug_str	00000000 
-00000a4c l       .debug_str	00000000 
-00000a5a l       .debug_str	00000000 
-00000a5e l       .debug_str	00000000 
-00000a69 l       .debug_str	00000000 
-00000a70 l       .debug_str	00000000 
-00000a76 l       .debug_str	00000000 
-00000a7a l       .debug_str	00000000 
-00000a7e l       .debug_str	00000000 
+00000a1f l       .debug_str	00000000 
+00000a38 l       .debug_str	00000000 
+00000a3d l       .debug_str	00000000 
+00000a4e l       .debug_str	00000000 
+00000a58 l       .debug_str	00000000 
+00000a66 l       .debug_str	00000000 
+00000a6a l       .debug_str	00000000 
+00000a75 l       .debug_str	00000000 
+00000a7c l       .debug_str	00000000 
+00000a82 l       .debug_str	00000000 
 00000a86 l       .debug_str	00000000 
-00000a9d l       .debug_str	00000000 
-00000ac1 l       .debug_str	00000000 
-00000add l       .debug_str	00000000 
-00000ae7 l       .debug_str	00000000 
-00000b01 l       .debug_str	00000000 
-00000b5f l       .debug_str	00000000 
-00000b6a l       .debug_str	00000000 
-00000b87 l       .debug_str	00000000 
-00000ba0 l       .debug_str	00000000 
-00000baa l       .debug_str	00000000 
-00000bc0 l       .debug_str	00000000 
-00000bc5 l       .debug_str	00000000 
-00000be2 l       .debug_str	00000000 
-00000be8 l       .debug_str	00000000 
+00000a8a l       .debug_str	00000000 
+00000a92 l       .debug_str	00000000 
+00000aa9 l       .debug_str	00000000 
+00000acd l       .debug_str	00000000 
+00000ae9 l       .debug_str	00000000 
+00000af3 l       .debug_str	00000000 
+00000b0d l       .debug_str	00000000 
+00000b6b l       .debug_str	00000000 
+00000b76 l       .debug_str	00000000 
+00000b93 l       .debug_str	00000000 
+00000bac l       .debug_str	00000000 
+00000bb6 l       .debug_str	00000000 
+00000bcc l       .debug_str	00000000 
+00000bd1 l       .debug_str	00000000 
 00000bee l       .debug_str	00000000 
-00000c0c l       .debug_str	00000000 
-00000c2b l       .debug_str	00000000 
-00000c2e l       .debug_str	00000000 
+00000bf4 l       .debug_str	00000000 
+00000bfa l       .debug_str	00000000 
+00000c18 l       .debug_str	00000000 
+00000c37 l       .debug_str	00000000 
+00000c3a l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000055 l       .debug_str	00000000 
@@ -8530,41 +8530,41 @@ SYMBOL TABLE:
 00000760 l       .debug_str	00000000 
 00000766 l       .debug_str	00000000 
 0000076d l       .debug_str	00000000 
-00000775 l       .debug_str	00000000 
-00000781 l       .debug_str	00000000 
-000007bd l       .debug_str	00000000 
-000007c2 l       .debug_str	00000000 
-0000082d l       .debug_str	00000000 
-00000833 l       .debug_str	00000000 
+00000777 l       .debug_str	00000000 
+00000785 l       .debug_str	00000000 
+000007c5 l       .debug_str	00000000 
+000007ca l       .debug_str	00000000 
+00000839 l       .debug_str	00000000 
 0000083f l       .debug_str	00000000 
-0000084c l       .debug_str	00000000 
-00000873 l       .debug_str	00000000 
-00000876 l       .debug_str	00000000 
+0000084b l       .debug_str	00000000 
+00000858 l       .debug_str	00000000 
 0000087f l       .debug_str	00000000 
-00000884 l       .debug_str	00000000 
-0000088e l       .debug_str	00000000 
-00000893 l       .debug_str	00000000 
-00000899 l       .debug_str	00000000 
-0000089e l       .debug_str	00000000 
-000008a3 l       .debug_str	00000000 
+00000882 l       .debug_str	00000000 
+0000088b l       .debug_str	00000000 
+00000890 l       .debug_str	00000000 
+0000089a l       .debug_str	00000000 
+0000089f l       .debug_str	00000000 
+000008a5 l       .debug_str	00000000 
 000008aa l       .debug_str	00000000 
+000008af l       .debug_str	00000000 
 000008b6 l       .debug_str	00000000 
-000008be l       .debug_str	00000000 
-000008c7 l       .debug_str	00000000 
-000008cc l       .debug_str	00000000 
-000008cf l       .debug_str	00000000 
-000008df l       .debug_str	00000000 
-000008e4 l       .debug_str	00000000 
-000008e9 l       .debug_str	00000000 
-000008ef l       .debug_str	00000000 
+000008c2 l       .debug_str	00000000 
+000008ca l       .debug_str	00000000 
+000008d3 l       .debug_str	00000000 
+000008d8 l       .debug_str	00000000 
+000008db l       .debug_str	00000000 
+000008eb l       .debug_str	00000000 
+000008f0 l       .debug_str	00000000 
 000008f5 l       .debug_str	00000000 
-000008ff l       .debug_str	00000000 
-00000902 l       .debug_str	00000000 
-00000908 l       .debug_str	00000000 
-00000912 l       .debug_str	00000000 
-0000091a l       .debug_str	00000000 
-00000920 l       .debug_str	00000000 
+000008fb l       .debug_str	00000000 
+00000901 l       .debug_str	00000000 
+0000090b l       .debug_str	00000000 
+0000090e l       .debug_str	00000000 
+00000914 l       .debug_str	00000000 
+0000091e l       .debug_str	00000000 
 00000926 l       .debug_str	00000000 
+0000092c l       .debug_str	00000000 
+00000932 l       .debug_str	00000000 
 00000000 l     O .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.0	0000000b .Lanon.38b9c5610f928e42a3ac32bc89faedcb.0
 00000000 l     O .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.1	00000001 .Lanon.38b9c5610f928e42a3ac32bc89faedcb.1
 00000000 l     O .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.11	00000010 .Lanon.38b9c5610f928e42a3ac32bc89faedcb.11
@@ -8651,7 +8651,7 @@ Disassembly of section .text._ZN3app7display4show17hff9baa1b984cacacE:
 
 00000000 <app::display::show>:
 _ZN3app7display4show17hff9baa1b984cacacE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:43
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:42
     baudrate:   8000,  //  In kHZ. Use SPI at 8MHz (the fastest clock available on the nRF52832) because otherwise refreshing will be super slow.
     word_size:  hal::HAL_SPI_WORD_SIZE_8BIT as u8,
 };
@@ -8660,7 +8660,7 @@ _ZN3app7display4show17hff9baa1b984cacacE():
 pub fn show() -> MynewtResult<()> {
    0:	b570      	push	{r4, r5, r6, lr}
    2:	b0d8      	sub	sp, #352	; 0x160
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:45
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:44
     //  Create SPI port and GPIO pins
     let spi = MynewtSPI::new(
    4:	f240 0200 	movw	r2, #0
@@ -8672,7 +8672,7 @@ pub fn show() -> MynewtResult<()> {
   16:	9014      	str	r0, [sp, #80]	; 0x50
   18:	e7ff      	b.n	1a <app::display::show+0x1a>
   1a:	2012      	movs	r0, #18
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:50
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:49
         0,   //  Mynewt SPI port 0
         25,  //  LCD_CS (P0.25): Chip select
         unsafe { &mut SPI_SETTINGS }
@@ -8682,14 +8682,12 @@ pub fn show() -> MynewtResult<()> {
   20:	9016      	str	r0, [sp, #88]	; 0x58
   22:	e7ff      	b.n	24 <app::display::show+0x24>
   24:	201a      	movs	r0, #26
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:51
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:50
     let rst = MynewtGPIO::new(26);  //  LCD_RESET (P0.26): Display reset
   26:	f7ff fffe 	bl	0 <app::display::show>
   2a:	9017      	str	r0, [sp, #92]	; 0x5c
   2c:	e7ff      	b.n	2e <app::display::show+0x2e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:57
-    //  TODO: let dc = pins.d0.into_push_pull_output(&mut pins.port);
-    //  TODO: let rst = pins.d1.into_push_pull_output(&mut pins.port);
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:54
 
     //  Create display driver for SPI port 0
     let mut display = st7735_lcd::ST7735::new(
@@ -8698,7 +8696,7 @@ pub fn show() -> MynewtResult<()> {
   30:	9a15      	ldr	r2, [sp, #84]	; 0x54
   32:	9b16      	ldr	r3, [sp, #88]	; 0x58
   34:	9817      	ldr	r0, [sp, #92]	; 0x5c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:56
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:53
     let mut display = st7735_lcd::ST7735::new(
   36:	46ec      	mov	ip, sp
   38:	f04f 0e01 	mov.w	lr, #1
@@ -8710,7 +8708,7 @@ pub fn show() -> MynewtResult<()> {
   4e:	f7ff fffe 	bl	0 <st7735_lcd::ST7735<SPI,DC,RST>::new>
   52:	e7ff      	b.n	54 <app::display::show+0x54>
   54:	2017      	movs	r0, #23
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:61
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:58
     );
 
     //  Switch on the backlight
@@ -8719,7 +8717,7 @@ pub fn show() -> MynewtResult<()> {
   5a:	901e      	str	r0, [sp, #120]	; 0x78
   5c:	e7ff      	b.n	5e <app::display::show+0x5e>
   5e:	a81e      	add	r0, sp, #120	; 0x78
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:62
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:59
     backlight.set_low() ? ;
   60:	f7ff fffe 	bl	0 <app::display::show>
   64:	9012      	str	r0, [sp, #72]	; 0x48
@@ -8740,7 +8738,7 @@ pub fn show() -> MynewtResult<()> {
   84:	2801      	cmp	r0, #1
   86:	d001      	beq.n	8c <app::display::show+0x8c>
   88:	e7ff      	b.n	8a <app::display::show+0x8a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:83
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:80
 
     //  Render circle and text to display
     display.draw(c);
@@ -8748,7 +8746,7 @@ pub fn show() -> MynewtResult<()> {
     Ok(())
 }
   8a:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:62
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:59
     backlight.set_low() ? ;
   8c:	981f      	ldr	r0, [sp, #124]	; 0x7c
   8e:	9020      	str	r0, [sp, #128]	; 0x80
@@ -8761,17 +8759,17 @@ pub fn show() -> MynewtResult<()> {
   a0:	9013      	str	r0, [sp, #76]	; 0x4c
   a2:	e7ff      	b.n	a4 <app::display::show+0xa4>
   a4:	e002      	b.n	ac <app::display::show+0xac>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:83
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:80
 }
   a6:	9813      	ldr	r0, [sp, #76]	; 0x4c
   a8:	b058      	add	sp, #352	; 0x160
   aa:	bd70      	pop	{r4, r5, r6, pc}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:62
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:59
     backlight.set_low() ? ;
   ac:	e7fb      	b.n	a6 <app::display::show+0xa6>
-  ae:	2014      	movs	r0, #20
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:65
-    let c = Circle::<Rgb565>::new(Coord::new(20, 20), 8)
+  ae:	2028      	movs	r0, #40	; 0x28
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:62
+    let c = Circle::<Rgb565>::new(Coord::new(40, 40), 40)
   b0:	900f      	str	r0, [sp, #60]	; 0x3c
   b2:	990f      	ldr	r1, [sp, #60]	; 0x3c
   b4:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
@@ -8779,13 +8777,13 @@ pub fn show() -> MynewtResult<()> {
   ba:	910d      	str	r1, [sp, #52]	; 0x34
   bc:	e7ff      	b.n	be <app::display::show+0xbe>
   be:	a828      	add	r0, sp, #160	; 0xa0
-  c0:	2308      	movs	r3, #8
+  c0:	2328      	movs	r3, #40	; 0x28
   c2:	990e      	ldr	r1, [sp, #56]	; 0x38
   c4:	9a0d      	ldr	r2, [sp, #52]	; 0x34
   c6:	f7ff fffe 	bl	0 <embedded_graphics::primitives::circle::Circle<C>::new>
   ca:	e7ff      	b.n	cc <app::display::show+0xcc>
   cc:	2001      	movs	r0, #1
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:66
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:63
         .fill(Some(Rgb565::from(1u8)));
   ce:	f7ff fffe 	bl	0 <<embedded_graphics::pixelcolor::rgb565::Rgb565 as core::convert::From<u8>>::from>
   d2:	900c      	str	r0, [sp, #48]	; 0x30
@@ -8794,16 +8792,16 @@ pub fn show() -> MynewtResult<()> {
   d8:	f8ad 00ba 	strh.w	r0, [sp, #186]	; 0xba
   dc:	2101      	movs	r1, #1
   de:	f8ad 10b8 	strh.w	r1, [sp, #184]	; 0xb8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:65
-    let c = Circle::<Rgb565>::new(Coord::new(20, 20), 8)
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:62
+    let c = Circle::<Rgb565>::new(Coord::new(40, 40), 40)
   e2:	f8bd 30ba 	ldrh.w	r3, [sp, #186]	; 0xba
   e6:	f8bd 20b8 	ldrh.w	r2, [sp, #184]	; 0xb8
   ea:	a822      	add	r0, sp, #136	; 0x88
   ec:	a928      	add	r1, sp, #160	; 0xa0
   ee:	f7ff fffe 	bl	0 <<embedded_graphics::primitives::circle::Circle<C> as embedded_graphics::style::WithStyle<C>>::fill>
   f2:	e7ff      	b.n	2 <app::display::show+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:69
-    let t = Font6x8::<Rgb565>::render_str("Hello Rust!")
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:66
+    let t = fonts::Font12x16::<Rgb565>::render_str("Hello Rust!")
   f4:	f240 0100 	movw	r1, #0
   f8:	f2c0 0100 	movt	r1, #0
   fc:	a83d      	add	r0, sp, #244	; 0xf4
@@ -8811,7 +8809,7 @@ pub fn show() -> MynewtResult<()> {
  100:	f7ff fffe 	bl	0 <<embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::fonts::Font<C>>::render_str>
  104:	e7ff      	b.n	106 <app::display::show+0x106>
  106:	2014      	movs	r0, #20
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:70
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:67
         .fill(Some(Rgb565::from(20u8)))
  108:	f7ff fffe 	bl	0 <<embedded_graphics::pixelcolor::rgb565::Rgb565 as core::convert::From<u8>>::from>
  10c:	900b      	str	r0, [sp, #44]	; 0x2c
@@ -8820,8 +8818,8 @@ pub fn show() -> MynewtResult<()> {
  112:	f8ad 0112 	strh.w	r0, [sp, #274]	; 0x112
  116:	2101      	movs	r1, #1
  118:	f8ad 1110 	strh.w	r1, [sp, #272]	; 0x110
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:69
-    let t = Font6x8::<Rgb565>::render_str("Hello Rust!")
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:66
+    let t = fonts::Font12x16::<Rgb565>::render_str("Hello Rust!")
  11c:	f8bd 3112 	ldrh.w	r3, [sp, #274]	; 0x112
  120:	f8bd 2110 	ldrh.w	r2, [sp, #272]	; 0x110
  124:	a836      	add	r0, sp, #216	; 0xd8
@@ -8830,7 +8828,7 @@ pub fn show() -> MynewtResult<()> {
  12c:	e7ff      	b.n	12e <app::display::show+0x12e>
  12e:	2014      	movs	r0, #20
  130:	2110      	movs	r1, #16
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:71
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:68
         .translate(Coord::new(20, 16));
  132:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
  136:	900a      	str	r0, [sp, #40]	; 0x28
@@ -8838,15 +8836,15 @@ pub fn show() -> MynewtResult<()> {
  13a:	e7ff      	b.n	13c <app::display::show+0x13c>
  13c:	a82f      	add	r0, sp, #188	; 0xbc
  13e:	a936      	add	r1, sp, #216	; 0xd8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:69
-    let t = Font6x8::<Rgb565>::render_str("Hello Rust!")
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:66
+    let t = fonts::Font12x16::<Rgb565>::render_str("Hello Rust!")
  140:	9a0a      	ldr	r2, [sp, #40]	; 0x28
  142:	9b09      	ldr	r3, [sp, #36]	; 0x24
  144:	f7ff fffe 	bl	0 <<embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::transform::Transform>::translate>
  148:	e7ff      	b.n	14a <app::display::show+0x14a>
  14a:	a818      	add	r0, sp, #96	; 0x60
  14c:	a945      	add	r1, sp, #276	; 0x114
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:75
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:72
     display.init(&mut delay) ? ;
  14e:	f7ff fffe 	bl	0 <st7735_lcd::ST7735<SPI,DC,RST>::init>
  152:	9008      	str	r0, [sp, #32]
@@ -8875,7 +8873,7 @@ pub fn show() -> MynewtResult<()> {
  18e:	e7ff      	b.n	190 <app::display::show+0x190>
  190:	e7ff      	b.n	192 <app::display::show+0x192>
  192:	e78b      	b.n	ac <app::display::show+0xac>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:76
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:73
     display.set_orientation(&Orientation::Landscape) ? ;
  194:	f240 0100 	movw	r1, #0
  198:	f2c0 0100 	movt	r1, #0
@@ -8909,13 +8907,13 @@ pub fn show() -> MynewtResult<()> {
  1e2:	a818      	add	r0, sp, #96	; 0x60
  1e4:	2101      	movs	r1, #1
  1e6:	2219      	movs	r2, #25
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:77
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:74
     display.set_offset(1, 25);
  1e8:	f7ff fffe 	bl	0 <st7735_lcd::ST7735<SPI,DC,RST>::set_offset>
  1ec:	e7ff      	b.n	1ee <app::display::show+0x1ee>
  1ee:	a822      	add	r0, sp, #136	; 0x88
  1f0:	a94a      	add	r1, sp, #296	; 0x128
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:80
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:77
     display.draw(c);
  1f2:	460a      	mov	r2, r1
  1f4:	e890 5078 	ldmia.w	r0, {r3, r4, r5, r6, ip, lr}
@@ -8925,7 +8923,7 @@ pub fn show() -> MynewtResult<()> {
  202:	e7ff      	b.n	204 <app::display::show+0x204>
  204:	a82f      	add	r0, sp, #188	; 0xbc
  206:	a950      	add	r1, sp, #320	; 0x140
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:81
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:78
     display.draw(t);
  208:	460a      	mov	r2, r1
  20a:	e8b0 5008 	ldmia.w	r0!, {r3, ip, lr}
@@ -8936,12 +8934,12 @@ pub fn show() -> MynewtResult<()> {
  21c:	f7ff fffe 	bl	0 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw>
  220:	e7ff      	b.n	222 <app::display::show+0x222>
  222:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:82
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:79
     Ok(())
  224:	9013      	str	r0, [sp, #76]	; 0x4c
  226:	2001      	movs	r0, #1
  228:	9013      	str	r0, [sp, #76]	; 0x4c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:83
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:80
 }
  22a:	e73c      	b.n	a6 <app::display::show+0xa6>
 
@@ -8949,7 +8947,7 @@ Disassembly of section .text._ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E:
 
 00000000 <app::display::MynewtSPI::new>:
 _ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:88
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:85
 
 /// Rust Embedded HAL interface for Mynewt SPI
 impl MynewtSPI {
@@ -8963,7 +8961,7 @@ impl MynewtSPI {
    a:	9016      	str	r0, [sp, #88]	; 0x58
    c:	9117      	str	r1, [sp, #92]	; 0x5c
    e:	9218      	str	r2, [sp, #96]	; 0x60
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:89
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:86
         let rc = unsafe { hal::hal_spi_config(spi_num, spi_settings) };
   10:	9816      	ldr	r0, [sp, #88]	; 0x58
   12:	9918      	ldr	r1, [sp, #96]	; 0x60
@@ -8974,7 +8972,7 @@ impl MynewtSPI {
   22:	901b      	str	r0, [sp, #108]	; 0x6c
   24:	e7ff      	b.n	26 <app::display::MynewtSPI::new+0x26>
   26:	a81b      	add	r0, sp, #108	; 0x6c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:90
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:87
         assert_eq!(rc, 0, "spi config fail");
   28:	901c      	str	r0, [sp, #112]	; 0x70
   2a:	f240 0000 	movw	r0, #0
@@ -9006,7 +9004,7 @@ impl MynewtSPI {
   6a:	2201      	movs	r2, #1
   6c:	f7ff fffe 	bl	0 <core::fmt::Arguments::new_v1>
   70:	e004      	b.n	7c <app::display::MynewtSPI::new+0x7c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:92
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:89
 
         let rc = unsafe { hal::hal_spi_enable(spi_num) };
   72:	9816      	ldr	r0, [sp, #88]	; 0x58
@@ -9014,7 +9012,7 @@ impl MynewtSPI {
   78:	903a      	str	r0, [sp, #232]	; 0xe8
   7a:	e04e      	b.n	11a <app::display::MynewtSPI::new+0x11a>
   7c:	a82f      	add	r0, sp, #188	; 0xbc
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:90
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:87
         assert_eq!(rc, 0, "spi config fail");
   7e:	902c      	str	r0, [sp, #176]	; 0xb0
   80:	a830      	add	r0, sp, #192	; 0xc0
@@ -9076,7 +9074,7 @@ impl MynewtSPI {
  114:	f7ff fffe 	bl	0 <core::panicking::panic_fmt>
  118:	defe      	udf	#254	; 0xfe
  11a:	a83a      	add	r0, sp, #232	; 0xe8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:93
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:90
         assert_eq!(rc, 0, "spi enable fail");
  11c:	903b      	str	r0, [sp, #236]	; 0xec
  11e:	f240 0000 	movw	r0, #0
@@ -9108,7 +9106,7 @@ impl MynewtSPI {
  15e:	2201      	movs	r2, #1
  160:	f7ff fffe 	bl	0 <core::fmt::Arguments::new_v1>
  164:	e005      	b.n	172 <app::display::MynewtSPI::new+0x172>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:95
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:92
 
         let rc = unsafe { hal_gpio_init_out(cs_pin, 1) };
  166:	9817      	ldr	r0, [sp, #92]	; 0x5c
@@ -9117,7 +9115,7 @@ impl MynewtSPI {
  16e:	9059      	str	r0, [sp, #356]	; 0x164
  170:	e04e      	b.n	210 <app::display::MynewtSPI::new+0x210>
  172:	a84e      	add	r0, sp, #312	; 0x138
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:93
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:90
         assert_eq!(rc, 0, "spi enable fail");
  174:	904b      	str	r0, [sp, #300]	; 0x12c
  176:	a84f      	add	r0, sp, #316	; 0x13c
@@ -9179,7 +9177,7 @@ impl MynewtSPI {
  20a:	f7ff fffe 	bl	0 <core::panicking::panic_fmt>
  20e:	defe      	udf	#254	; 0xfe
  210:	a859      	add	r0, sp, #356	; 0x164
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:96
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:93
         assert_eq!(rc, 0, "spi init fail");
  212:	905a      	str	r0, [sp, #360]	; 0x168
  214:	f240 0000 	movw	r0, #0
@@ -9211,18 +9209,18 @@ impl MynewtSPI {
  254:	2201      	movs	r2, #1
  256:	f7ff fffe 	bl	0 <core::fmt::Arguments::new_v1>
  25a:	e007      	b.n	26c <app::display::MynewtSPI::new+0x26c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:98
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:95
         MynewtSPI {
             spi_num,
  25c:	9816      	ldr	r0, [sp, #88]	; 0x58
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:99
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:96
             cs_pin,
  25e:	9917      	ldr	r1, [sp, #92]	; 0x5c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:97
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:94
         MynewtSPI {
  260:	9019      	str	r0, [sp, #100]	; 0x64
  262:	911a      	str	r1, [sp, #104]	; 0x68
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:101
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:98
         }
     }
  264:	9819      	ldr	r0, [sp, #100]	; 0x64
@@ -9230,7 +9228,7 @@ impl MynewtSPI {
  268:	b078      	add	sp, #480	; 0x1e0
  26a:	bdb0      	pop	{r4, r5, r7, pc}
  26c:	a86d      	add	r0, sp, #436	; 0x1b4
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:96
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:93
         assert_eq!(rc, 0, "spi init fail");
  26e:	906a      	str	r0, [sp, #424]	; 0x1a8
  270:	a86e      	add	r0, sp, #440	; 0x1b8
@@ -9296,7 +9294,7 @@ Disassembly of section .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedd
 
 00000000 <<app::display::MynewtSPI as embedded_hal::blocking::spi::Write<u8>>::write>:
 _ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h1fcdecc5282f5d9cE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:107
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:104
 }
 
 /// Rust Embedded HAL interface for Mynewt SPI
@@ -9311,7 +9309,7 @@ impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
    a:	900a      	str	r0, [sp, #40]	; 0x28
    c:	910b      	str	r1, [sp, #44]	; 0x2c
    e:	920c      	str	r2, [sp, #48]	; 0x30
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:109
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:106
         //  Select the device
         unsafe { hal_gpio_write(self.cs_pin, 0) };
   10:	980a      	ldr	r0, [sp, #40]	; 0x28
@@ -9322,12 +9320,12 @@ impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
   1c:	f8cd e01c 	str.w	lr, [sp, #28]
   20:	f7ff fffe 	bl	0 <hal_gpio_write>
   24:	e7ff      	b.n	26 <<app::display::MynewtSPI as embedded_hal::blocking::spi::Write<u8>>::write+0x26>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:111
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:108
         //  Send the data
         unsafe { hal::hal_spi_txrx(self.spi_num, 
   26:	980a      	ldr	r0, [sp, #40]	; 0x28
   28:	6800      	ldr	r0, [r0, #0]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:112
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:109
             core::mem::transmute(words.as_ptr()),  //  TX Buffer
   2a:	990b      	ldr	r1, [sp, #44]	; 0x2c
   2c:	9a0c      	ldr	r2, [sp, #48]	; 0x30
@@ -9342,19 +9340,19 @@ impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
   40:	990f      	ldr	r1, [sp, #60]	; 0x3c
   42:	9104      	str	r1, [sp, #16]
   44:	e7ff      	b.n	46 <<app::display::MynewtSPI as embedded_hal::blocking::spi::Write<u8>>::write+0x46>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:113
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:110
             core::ptr::null_mut(),                 //  RX Buffer (don't receive)
   46:	f7ff fffe 	bl	0 <core::ptr::null_mut>
   4a:	9003      	str	r0, [sp, #12]
   4c:	e7ff      	b.n	4e <<app::display::MynewtSPI as embedded_hal::blocking::spi::Write<u8>>::write+0x4e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:114
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:111
             words.len() as i32) };                 //  Length
   4e:	980b      	ldr	r0, [sp, #44]	; 0x2c
   50:	990c      	ldr	r1, [sp, #48]	; 0x30
   52:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::len>
   56:	9002      	str	r0, [sp, #8]
   58:	e7ff      	b.n	5a <<app::display::MynewtSPI as embedded_hal::blocking::spi::Write<u8>>::write+0x5a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:111
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:108
         unsafe { hal::hal_spi_txrx(self.spi_num, 
   5a:	9806      	ldr	r0, [sp, #24]
   5c:	9904      	ldr	r1, [sp, #16]
@@ -9363,7 +9361,7 @@ impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
   62:	f7ff fffe 	bl	0 <hal_spi_txrx>
   66:	9001      	str	r0, [sp, #4]
   68:	e7ff      	b.n	6a <<app::display::MynewtSPI as embedded_hal::blocking::spi::Write<u8>>::write+0x6a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:116
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:113
         //  De-select the device
         unsafe { hal_gpio_write(self.cs_pin, 1) };
   6a:	980a      	ldr	r0, [sp, #40]	; 0x28
@@ -9372,12 +9370,12 @@ impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
   70:	f7ff fffe 	bl	0 <hal_gpio_write>
   74:	e7ff      	b.n	76 <<app::display::MynewtSPI as embedded_hal::blocking::spi::Write<u8>>::write+0x76>
   76:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:117
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:114
         Ok(())
   78:	900d      	str	r0, [sp, #52]	; 0x34
   7a:	2001      	movs	r0, #1
   7c:	900d      	str	r0, [sp, #52]	; 0x34
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:118
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:115
     }
   7e:	980d      	ldr	r0, [sp, #52]	; 0x34
   80:	b010      	add	sp, #64	; 0x40
@@ -9387,7 +9385,7 @@ Disassembly of section .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
 
 00000000 <app::display::MynewtGPIO::new>:
 _ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:127
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:124
 }
 
 /// Rust Embedded HAL interface for Mynewt GPIO
@@ -9398,7 +9396,9 @@ impl MynewtGPIO {
    2:	b0aa      	sub	sp, #168	; 0xa8
    4:	4601      	mov	r1, r0
    6:	9009      	str	r0, [sp, #36]	; 0x24
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:128
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:127
+        //  TODO: let dc = pins.d0.into_push_pull_output(&mut pins.port);
+        //  TODO: let rst = pins.d1.into_push_pull_output(&mut pins.port);
         let rc = unsafe { hal_gpio_init_out(pin, 0) };
    8:	9809      	ldr	r0, [sp, #36]	; 0x24
    a:	2200      	movs	r2, #0
@@ -9408,7 +9408,7 @@ impl MynewtGPIO {
   14:	900b      	str	r0, [sp, #44]	; 0x2c
   16:	e7ff      	b.n	18 <app::display::MynewtGPIO::new+0x18>
   18:	a80b      	add	r0, sp, #44	; 0x2c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:129
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:128
         assert_eq!(rc, 0, "spi config fail");
   1a:	900c      	str	r0, [sp, #48]	; 0x30
   1c:	f240 0000 	movw	r0, #0
@@ -9440,21 +9440,21 @@ impl MynewtGPIO {
   5c:	2201      	movs	r2, #1
   5e:	f7ff fffe 	bl	0 <core::fmt::Arguments::new_v1>
   62:	e004      	b.n	6e <app::display::MynewtGPIO::new+0x6e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:131
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:130
         MynewtGPIO {
             pin
   64:	9809      	ldr	r0, [sp, #36]	; 0x24
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:130
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:129
         MynewtGPIO {
   66:	900a      	str	r0, [sp, #40]	; 0x28
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:133
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:132
         }
     }
   68:	980a      	ldr	r0, [sp, #40]	; 0x28
   6a:	b02a      	add	sp, #168	; 0xa8
   6c:	bdb0      	pop	{r4, r5, r7, pc}
   6e:	a81f      	add	r0, sp, #124	; 0x7c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:129
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:128
         assert_eq!(rc, 0, "spi config fail");
   70:	901c      	str	r0, [sp, #112]	; 0x70
   72:	a820      	add	r0, sp, #128	; 0x80
@@ -9520,7 +9520,7 @@ Disassembly of section .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embed
 
 00000000 <<app::display::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_low>:
 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:139
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:138
 }
 
 /// Rust Embedded HAL interface for Mynewt GPIO
@@ -9531,7 +9531,7 @@ impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
    2:	b084      	sub	sp, #16
    4:	4601      	mov	r1, r0
    6:	9001      	str	r0, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:140
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:139
         unsafe { hal_gpio_write(self.pin, 0) };
    8:	9801      	ldr	r0, [sp, #4]
    a:	6800      	ldr	r0, [r0, #0]
@@ -9541,12 +9541,12 @@ impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
   12:	f7ff fffe 	bl	0 <hal_gpio_write>
   16:	e7ff      	b.n	18 <<app::display::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_low+0x18>
   18:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:141
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:140
         Ok(())
   1a:	9002      	str	r0, [sp, #8]
   1c:	2001      	movs	r0, #1
   1e:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:142
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:141
     }
   20:	9802      	ldr	r0, [sp, #8]
   22:	b004      	add	sp, #16
@@ -9556,7 +9556,7 @@ Disassembly of section .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embed
 
 00000000 <<app::display::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_high>:
 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:145
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:144
 
     /// Set the GPIO pin to high
     fn set_high(&mut self) -> Result<(), Self::Error> {
@@ -9564,7 +9564,7 @@ _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputP
    2:	b084      	sub	sp, #16
    4:	4601      	mov	r1, r0
    6:	9001      	str	r0, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:146
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:145
         unsafe { hal_gpio_write(self.pin, 1) };
    8:	9801      	ldr	r0, [sp, #4]
    a:	6800      	ldr	r0, [r0, #0]
@@ -9574,12 +9574,12 @@ _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputP
   12:	f7ff fffe 	bl	0 <hal_gpio_write>
   16:	e7ff      	b.n	18 <<app::display::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_high+0x18>
   18:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:147
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:146
         Ok(())
   1a:	9002      	str	r0, [sp, #8]
   1c:	2001      	movs	r0, #1
   1e:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:148
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:147
     }
   20:	9802      	ldr	r0, [sp, #8]
   22:	b004      	add	sp, #16
@@ -9589,7 +9589,7 @@ Disassembly of section .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embe
 
 00000000 <<app::display::MynewtDelay as embedded_hal::blocking::delay::DelayMs<u8>>::delay_ms>:
 _ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:157
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:156
 }
 
 /// Rust Embedded HAL interface for Mynewt Delay
@@ -9602,7 +9602,7 @@ impl embedded_hal::blocking::delay::DelayMs<u8> for MynewtDelay {
    6:	4603      	mov	r3, r0
    8:	9005      	str	r0, [sp, #20]
    a:	f88d 101b 	strb.w	r1, [sp, #27]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:160
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:159
         //  TODO: Get this constant from Mynewt
         const OS_TICKS_PER_SEC: u32 = 1000;
         let delay_ticks = (ms as u32) * OS_TICKS_PER_SEC / 1000;
@@ -9622,18 +9622,18 @@ impl embedded_hal::blocking::delay::DelayMs<u8> for MynewtDelay {
   32:	fba1 0200 	umull	r0, r2, r1, r0
   36:	0992      	lsrs	r2, r2, #6
   38:	9207      	str	r2, [sp, #28]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:161
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:160
         unsafe { os::os_time_delay(delay_ticks) };
   3a:	9a07      	ldr	r2, [sp, #28]
   3c:	9001      	str	r0, [sp, #4]
   3e:	4610      	mov	r0, r2
   40:	f7ff fffe 	bl	0 <os_time_delay>
   44:	e7ff      	b.n	46 <<app::display::MynewtDelay as embedded_hal::blocking::delay::DelayMs<u8>>::delay_ms+0x46>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:162
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:161
     }
   46:	b008      	add	sp, #32
   48:	bd80      	pop	{r7, pc}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:160
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:159
         let delay_ticks = (ms as u32) * OS_TICKS_PER_SEC / 1000;
   4a:	f240 0000 	movw	r0, #0
   4e:	f2c0 0000 	movt	r0, #0
