@@ -8540,41 +8540,41 @@ Disassembly of section .text._ZN3app7display4show17h3d99e0b5dbb54032E:
 
 00000000 <app::display::show>:
 _ZN3app7display4show17h3d99e0b5dbb54032E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:9
-use embedded_graphics::pixelcolor::Rgb565;
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:10
 use embedded_hal;
 use st7735_lcd;
 use st7735_lcd::Orientation;
+use mynewt::hw::hal;
 
 pub fn show() {
    0:	b570      	push	{r4, r5, r6, lr}
    2:	b0c4      	sub	sp, #272	; 0x110
    4:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:11
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:12
     //  Create display driver
     let spi = MynewtSPI::new(0);  //  TODO
    6:	f7ff fffe 	bl	0 <app::display::show>
    a:	900b      	str	r0, [sp, #44]	; 0x2c
    c:	e7ff      	b.n	e <app::display::show+0xe>
    e:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:12
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:13
     let dc =  MynewtGPIO::new(0);  //  TODO
   10:	f7ff fffe 	bl	0 <app::display::show>
   14:	900c      	str	r0, [sp, #48]	; 0x30
   16:	e7ff      	b.n	18 <app::display::show+0x18>
   18:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:13
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:14
     let rst = MynewtGPIO::new(0);  //  TODO
   1a:	f7ff fffe 	bl	0 <app::display::show>
   1e:	900d      	str	r0, [sp, #52]	; 0x34
   20:	e7ff      	b.n	22 <app::display::show+0x22>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:15
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:16
     let mut display = st7735_lcd::ST7735::new(
         spi, dc, rst, false, true
   22:	990b      	ldr	r1, [sp, #44]	; 0x2c
   24:	9a0c      	ldr	r2, [sp, #48]	; 0x30
   26:	9b0d      	ldr	r3, [sp, #52]	; 0x34
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:14
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:15
     let mut display = st7735_lcd::ST7735::new(
   28:	4668      	mov	r0, sp
   2a:	f04f 0c01 	mov.w	ip, #1
@@ -8586,7 +8586,7 @@ pub fn show() {
   40:	e7ff      	b.n	42 <app::display::show+0x42>
   42:	a80e      	add	r0, sp, #56	; 0x38
   44:	a913      	add	r1, sp, #76	; 0x4c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:20
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:21
     );
 
     //  Init display
@@ -8599,7 +8599,7 @@ pub fn show() {
   50:	f000 0001 	and.w	r0, r0, #1
   54:	f7ff fffe 	bl	0 <core::result::Result<T,E>::unwrap>
   58:	e7ff      	b.n	2 <app::display::show+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:21
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:22
     display.set_orientation(&Orientation::Landscape).unwrap();
   5a:	f240 0100 	movw	r1, #0
   5e:	f2c0 0100 	movt	r1, #0
@@ -8614,12 +8614,12 @@ pub fn show() {
   78:	a80e      	add	r0, sp, #56	; 0x38
   7a:	2101      	movs	r1, #1
   7c:	2219      	movs	r2, #25
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:22
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:23
     display.set_offset(1, 25);
   7e:	f7ff fffe 	bl	0 <st7735_lcd::ST7735<SPI,DC,RST>::set_offset>
   82:	e7ff      	b.n	84 <app::display::show+0x84>
   84:	2014      	movs	r0, #20
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:25
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:26
 
     //  Create circle
     let c = Circle::<Rgb565>::new(Coord::new(20, 20), 8)
@@ -8636,7 +8636,7 @@ pub fn show() {
   9c:	f7ff fffe 	bl	0 <embedded_graphics::primitives::circle::Circle<C>::new>
   a0:	e7ff      	b.n	a2 <app::display::show+0xa2>
   a2:	2001      	movs	r0, #1
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:26
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:27
         .fill(Some(Rgb565::from(1u8)));
   a4:	f7ff fffe 	bl	0 <<embedded_graphics::pixelcolor::rgb565::Rgb565 as core::convert::From<u8>>::from>
   a8:	9005      	str	r0, [sp, #20]
@@ -8645,7 +8645,7 @@ pub fn show() {
   ae:	f8ad 0082 	strh.w	r0, [sp, #130]	; 0x82
   b2:	2101      	movs	r1, #1
   b4:	f8ad 1080 	strh.w	r1, [sp, #128]	; 0x80
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:25
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:26
     let c = Circle::<Rgb565>::new(Coord::new(20, 20), 8)
   b8:	f8bd 3082 	ldrh.w	r3, [sp, #130]	; 0x82
   bc:	f8bd 2080 	ldrh.w	r2, [sp, #128]	; 0x80
@@ -8653,7 +8653,7 @@ pub fn show() {
   c2:	a91a      	add	r1, sp, #104	; 0x68
   c4:	f7ff fffe 	bl	0 <<embedded_graphics::primitives::circle::Circle<C> as embedded_graphics::style::WithStyle<C>>::fill>
   c8:	e7ff      	b.n	2 <app::display::show+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:29
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:30
 
     //  Create text
     let t = Font6x8::<Rgb565>::render_str("Hello Rust!")
@@ -8664,7 +8664,7 @@ pub fn show() {
   d6:	f7ff fffe 	bl	0 <<embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::fonts::Font<C>>::render_str>
   da:	e7ff      	b.n	dc <app::display::show+0xdc>
   dc:	2014      	movs	r0, #20
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:30
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:31
         .fill(Some(Rgb565::from(20u8)))
   de:	f7ff fffe 	bl	0 <<embedded_graphics::pixelcolor::rgb565::Rgb565 as core::convert::From<u8>>::from>
   e2:	9004      	str	r0, [sp, #16]
@@ -8673,7 +8673,7 @@ pub fn show() {
   e8:	f8ad 00da 	strh.w	r0, [sp, #218]	; 0xda
   ec:	2101      	movs	r1, #1
   ee:	f8ad 10d8 	strh.w	r1, [sp, #216]	; 0xd8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:29
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:30
     let t = Font6x8::<Rgb565>::render_str("Hello Rust!")
   f2:	f8bd 30da 	ldrh.w	r3, [sp, #218]	; 0xda
   f6:	f8bd 20d8 	ldrh.w	r2, [sp, #216]	; 0xd8
@@ -8683,7 +8683,7 @@ pub fn show() {
  102:	e7ff      	b.n	104 <app::display::show+0x104>
  104:	2014      	movs	r0, #20
  106:	2110      	movs	r1, #16
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:31
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:32
         .translate(Coord::new(20, 16));
  108:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
  10c:	9003      	str	r0, [sp, #12]
@@ -8691,7 +8691,7 @@ pub fn show() {
  110:	e7ff      	b.n	112 <app::display::show+0x112>
  112:	a821      	add	r0, sp, #132	; 0x84
  114:	a928      	add	r1, sp, #160	; 0xa0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:29
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:30
     let t = Font6x8::<Rgb565>::render_str("Hello Rust!")
  116:	9a03      	ldr	r2, [sp, #12]
  118:	9b02      	ldr	r3, [sp, #8]
@@ -8699,7 +8699,7 @@ pub fn show() {
  11e:	e7ff      	b.n	120 <app::display::show+0x120>
  120:	a814      	add	r0, sp, #80	; 0x50
  122:	a937      	add	r1, sp, #220	; 0xdc
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:34
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:35
 
     //  Render circle and text
     display.draw(c);
@@ -8711,7 +8711,7 @@ pub fn show() {
  134:	e7ff      	b.n	136 <app::display::show+0x136>
  136:	a821      	add	r0, sp, #132	; 0x84
  138:	a93d      	add	r1, sp, #244	; 0xf4
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:35
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:36
     display.draw(t);
  13a:	460a      	mov	r2, r1
  13c:	e8b0 5008 	ldmia.w	r0!, {r3, ip, lr}
@@ -8721,7 +8721,7 @@ pub fn show() {
  14c:	a80e      	add	r0, sp, #56	; 0x38
  14e:	f7ff fffe 	bl	0 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw>
  152:	e7ff      	b.n	154 <app::display::show+0x154>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:36
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:37
 }
  154:	b044      	add	sp, #272	; 0x110
  156:	bd70      	pop	{r4, r5, r6, pc}
@@ -8730,21 +8730,21 @@ Disassembly of section .text._ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E:
 
 00000000 <app::display::MynewtSPI::new>:
 _ZN3app7display9MynewtSPI3new17h1faf52d9840d5c00E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:39
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:40
 
 impl MynewtSPI {
     pub fn new(spi_num: i32) -> Self {
    0:	b083      	sub	sp, #12
    2:	4601      	mov	r1, r0
    4:	9001      	str	r0, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:41
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:42
         MynewtSPI {
             spi_num
    6:	9801      	ldr	r0, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:40
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:41
         MynewtSPI {
    8:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:43
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:44
         }
     }
    a:	9802      	ldr	r0, [sp, #8]
@@ -8756,7 +8756,7 @@ Disassembly of section .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedd
 
 00000000 <<app::display::MynewtSPI as embedded_hal::blocking::spi::Write<u8>>::write>:
 _ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17hdb94a38ed6b52eb1E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:47
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:48
 }
 
 impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
@@ -8770,13 +8770,13 @@ impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
    c:	9104      	str	r1, [sp, #16]
    e:	9205      	str	r2, [sp, #20]
   10:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:49
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:50
         //  TODO
         Ok(())
   12:	9006      	str	r0, [sp, #24]
   14:	2001      	movs	r0, #1
   16:	9006      	str	r0, [sp, #24]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:50
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:51
     }
   18:	9806      	ldr	r0, [sp, #24]
   1a:	9302      	str	r3, [sp, #8]
@@ -8789,7 +8789,7 @@ Disassembly of section .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
 
 00000000 <app::display::MynewtGPIO::new>:
 _ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:55
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:56
     type Error = mynewt::result::MynewtError;
 }
 
@@ -8798,14 +8798,14 @@ impl MynewtGPIO {
    0:	b083      	sub	sp, #12
    2:	4601      	mov	r1, r0
    4:	9001      	str	r0, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:57
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:58
         MynewtGPIO {
             pin
    6:	9801      	ldr	r0, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:56
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:57
         MynewtGPIO {
    8:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:59
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:60
         }
     }
    a:	9802      	ldr	r0, [sp, #8]
@@ -8817,7 +8817,7 @@ Disassembly of section .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embed
 
 00000000 <<app::display::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_low>:
 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:63
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:64
 }
 
 impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
@@ -8826,13 +8826,13 @@ impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
    2:	4601      	mov	r1, r0
    4:	9001      	str	r0, [sp, #4]
    6:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:65
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:66
         //  TODO
         Ok(())
    8:	9002      	str	r0, [sp, #8]
    a:	2001      	movs	r0, #1
    c:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:66
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:67
     }
    e:	9802      	ldr	r0, [sp, #8]
   10:	9100      	str	r1, [sp, #0]
@@ -8843,20 +8843,20 @@ Disassembly of section .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embed
 
 00000000 <<app::display::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_high>:
 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:68
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:69
 
     fn set_high(&mut self) -> Result<(), Self::Error> {
    0:	b084      	sub	sp, #16
    2:	4601      	mov	r1, r0
    4:	9001      	str	r0, [sp, #4]
    6:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:70
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:71
         //  TODO
         Ok(())
    8:	9002      	str	r0, [sp, #8]
    a:	2001      	movs	r0, #1
    c:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:71
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:72
     }
    e:	9802      	ldr	r0, [sp, #8]
   10:	9100      	str	r1, [sp, #0]
@@ -8867,7 +8867,7 @@ Disassembly of section .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embe
 
 00000000 <<app::display::MynewtDelay as embedded_hal::blocking::delay::DelayMs<u8>>::delay_ms>:
 _ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:77
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:78
 
     type Error = mynewt::result::MynewtError;
 }
@@ -8879,7 +8879,7 @@ impl embedded_hal::blocking::delay::DelayMs<u8> for MynewtDelay {
    4:	4603      	mov	r3, r0
    6:	9002      	str	r0, [sp, #8]
    8:	f88d 100f 	strb.w	r1, [sp, #15]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:79
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:80
         //  TODO
     }
    c:	9201      	str	r2, [sp, #4]

@@ -178,7 +178,8 @@ syscfg.vals:
 
     ###########################################################################
     # Hardware Settings
-     
+
+    SPI_0_MASTER:           1  # Enable SPI port 0 for ST7789 display
     LOW_POWER:              1  # Enable low power support for STM32 Blue Pill
     GPS_L70R:               1  # Enable driver for Quectel L70R GPS module
     BC95G:                  1  # Enable driver for Quectel BC95-G NB-IoT module

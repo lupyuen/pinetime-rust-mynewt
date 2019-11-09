@@ -35,9 +35,10 @@ syscfg.vals:
     # Set default pins for peripherals
     UART_0_PIN_TX: 6
     UART_0_PIN_RX: 8
-    SPI_0_MASTER_PIN_SCK: 12
-    SPI_0_MASTER_PIN_MOSI: 13
-    SPI_0_MASTER_PIN_MISO: 14
+    # SPI port 0 connected to ST7789 display
+    SPI_0_MASTER_PIN_SCK:  2   # LCD_SCK (P0.02)	SPI clock
+    SPI_0_MASTER_PIN_MOSI: 3   # LCD_SDI (P0.03)	SPI MOSI
+    SPI_0_MASTER_PIN_MISO: 14  # Unused
     I2C_0_PIN_SCL: 26
     I2C_0_PIN_SDA: 25
 
