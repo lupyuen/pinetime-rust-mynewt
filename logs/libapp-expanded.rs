@@ -353,7 +353,7 @@ mod display {
                               word_size: hal::HAL_SPI_WORD_SIZE_8BIT as u8,};
     /// Render the ST7789 display connected to SPI port 0
     pub fn show() -> MynewtResult<()> {
-        let spi = MynewtSPI::new(0, 25);
+        let spi = MynewtSPI::new(0, 25, unsafe { &mut SPI_SETTINGS });
         let dc = MynewtGPIO::new(18);
         let rst = MynewtGPIO::new(26);
         let mut display = st7735_lcd::ST7735::new(spi, dc, rst, false, true);
@@ -376,9 +376,9 @@ mod display {
     /// Rust Embedded HAL interface for Mynewt SPI
     impl MynewtSPI {
         /// Create a new SPI port
-        pub fn new(spi_num: i32, cs_pin: i32) -> Self {
-            let rc =
-                unsafe { hal::hal_spi_config(spi_num, &mut SPI_SETTINGS) };
+        pub fn new(spi_num: i32, cs_pin: i32,
+                   spi_settings: *mut hal::hal_spi_settings) -> Self {
+            let rc = unsafe { hal::hal_spi_config(spi_num, spi_settings) };
             {
                 match (&(rc), &(0)) {
                     (left_val, right_val) => {
@@ -409,7 +409,7 @@ mod display {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/app/src/display.rs",
-                                                               84u32, 9u32))
+                                                               90u32, 9u32))
                             }
                         }
                     }
@@ -446,7 +446,7 @@ mod display {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/app/src/display.rs",
-                                                               87u32, 9u32))
+                                                               93u32, 9u32))
                             }
                         }
                     }
@@ -483,7 +483,7 @@ mod display {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/app/src/display.rs",
-                                                               90u32, 9u32))
+                                                               96u32, 9u32))
                             }
                         }
                     }
@@ -546,7 +546,7 @@ mod display {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/app/src/display.rs",
-                                                               123u32, 9u32))
+                                                               129u32, 9u32))
                             }
                         }
                     }

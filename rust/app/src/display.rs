@@ -41,18 +41,24 @@ static mut SPI_SETTINGS: hal::hal_spi_settings = hal::hal_spi_settings {
 
 /// Render the ST7789 display connected to SPI port 0
 pub fn show() -> MynewtResult<()> {
-    //  Create display driver for SPI port 0
-    let spi = MynewtSPI::new(0, 25);  //  LCD_CS (P0.25)	Chip select
-    let dc =  MynewtGPIO::new(18);    //  LCD_RS (P0.18)	Clock/data pin (CD)
-    let rst = MynewtGPIO::new(26);    //  LCD_RESET (P0.26)	Display reset
+    //  Create SPI port and GPIO pins
+    let spi = MynewtSPI::new(
+        0,   //  Mynewt SPI port 0
+        25,  //  LCD_CS (P0.25): Chip select
+        unsafe { &mut SPI_SETTINGS }
+    );
+    let dc =  MynewtGPIO::new(18);  //  LCD_RS (P0.18): Clock/data pin (CD)
+    let rst = MynewtGPIO::new(26);  //  LCD_RESET (P0.26): Display reset
     //  TODO: let dc = pins.d0.into_push_pull_output(&mut pins.port);
     //  TODO: let rst = pins.d1.into_push_pull_output(&mut pins.port);
+
+    //  Create display driver for SPI port 0
     let mut display = st7735_lcd::ST7735::new(
         spi, dc, rst, false, true
     );
 
-    //  Switch on the backlight.
-    let mut backlight = MynewtGPIO::new(23);  //  LCD_BACKLIGHT_{LOW,MID,HIGH} (P0.14, 22, 23)	Backlight (active low)
+    //  Switch on the backlight
+    let mut backlight = MynewtGPIO::new(23);  //  LCD_BACKLIGHT_{LOW,MID,HIGH} (P0.14, 22, 23):	Backlight (active low)
     backlight.set_low() ? ;
 
     //  Create circle
@@ -79,8 +85,8 @@ pub fn show() -> MynewtResult<()> {
 /// Rust Embedded HAL interface for Mynewt SPI
 impl MynewtSPI {
     /// Create a new SPI port
-    pub fn new(spi_num: i32, cs_pin: i32) -> Self {
-        let rc = unsafe { hal::hal_spi_config(spi_num, &mut SPI_SETTINGS) };
+    pub fn new(spi_num: i32, cs_pin: i32, spi_settings: *mut hal::hal_spi_settings) -> Self {
+        let rc = unsafe { hal::hal_spi_config(spi_num, spi_settings) };
         assert_eq!(rc, 0, "spi config fail");
 
         let rc = unsafe { hal::hal_spi_enable(spi_num) };
