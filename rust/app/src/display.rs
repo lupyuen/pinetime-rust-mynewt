@@ -18,7 +18,7 @@ use mynewt::{
     kernel::os,
 };
 
-/*
+/* From PineTime Smart Watch wiki: https://wiki.pine64.org/index.php/PineTime
 Mynewt SPI port 0 connected to ST7789 display:
 LCD_RS (P0.18)	Clock/data pin (CD)
 LCD_CS (P0.25)	Chip select
@@ -28,8 +28,7 @@ LCD_BACKLIGHT_{LOW,MID,HIGH} (P0.14, 22, 23)	Backlight (active low)
 - Chip select must be held low while driving the display. It must be high when using other SPI devices on the same bus (such as external flash storage) so that the display controller won't respond to the wrong commands.
 - SPI must be used in mode 3. Mode 0 (the default) won't work.
 - LCD_DISPLAY_* is used to enable the backlight. Set at least one to low to see anything on the screen.
-- Use SPI at 8MHz (the fastest clock available on the nRF52832) because otherwise refreshing will be super slow.
-*/
+- Use SPI at 8MHz (the fastest clock available on the nRF52832) because otherwise refreshing will be super slow. */
 
 /// SPI settings for ST7789 display controller
 static mut SPI_SETTINGS: hal::hal_spi_settings = hal::hal_spi_settings {
