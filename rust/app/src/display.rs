@@ -3,9 +3,23 @@ use embedded_graphics::primitives::Circle;
 use embedded_graphics::fonts::Font6x8;
 use embedded_graphics::pixelcolor::Rgb565;
 use embedded_hal;
+use embedded_hal::digital::v2::OutputPin;
 use st7735_lcd;
 use st7735_lcd::Orientation;
 use mynewt::hw::hal;
+
+/*
+SPI port 0 connected to ST7789 display:
+LCD_RS (P0.18)	Clock/data pin (CD)
+LCD_CS (P0.25)	Chip select
+LCD_RESET (P0.26)	Display reset
+LCD_BACKLIGHT_{LOW,MID,HIGH} (P0.14, 22, 23)	Backlight (active low)
+
+Chip select must be held low while driving the display. It must be high when using other SPI devices on the same bus (such as external flash storage) so that the display controller won't respond to the wrong commands.
+SPI must be used in mode 3. Mode 0 (the default) won't work.
+LCD_DISPLAY_* is used to enable the backlight. Set at least one to low to see anything on the screen.
+Use SPI at 8MHz (the fastest clock available on the nRF52832) because otherwise refreshing will be super slow.
+*/
 
 pub fn show() {
     //  Create display driver for SPI port 0
@@ -17,6 +31,11 @@ pub fn show() {
     let mut display = st7735_lcd::ST7735::new(
         spi, dc, rst, false, true
     );
+
+    //  Switch on the backlight.
+    let backlight = MynewtGPIO::new(23);  //  LCD_BACKLIGHT_{LOW,MID,HIGH} (P0.14, 22, 23)	Backlight (active low)
+    backlight.set_low()
+        .expect("backlight fail");
 
     //  Init display
     let mut delay = MynewtDelay{};
@@ -40,47 +59,47 @@ pub fn show() {
 
 impl MynewtSPI {
     pub fn new(spi_num: i32, cs_pin: i32) -> Self {
-        /*
-        SPI port 0 connected to ST7789 display:
-        LCD_RS (P0.18)	Clock/data pin (CD)
-        LCD_CS (P0.25)	Chip select
-        LCD_RESET (P0.26)	Display reset
-        LCD_BACKLIGHT_{LOW,MID,HIGH}	Backlight (active low)
-
-        Chip select must be held low while driving the display. It must be high when using other SPI devices on the same bus (such as external flash storage) so that the display controller won't respond to the wrong commands.
-        SPI must be used in mode 3. Mode 0 (the default) won't work.
-        LCD_DISPLAY_* is used to enable the backlight. Set at least one to low to see anything on the screen.
-        Use SPI at 8MHz (the fastest clock available on the nRF52832) because otherwise refreshing will be super slow.
-        */
-        hal::hal_spi_config(spi_num, &spi_settings)
-            .expect("spi config fail");
-        hal::hal_spi_enable(spi_num)
-            .expect("spi enable fail");    
-        hal::hal_gpio_init_out(cs_pin, 1)
-            .expect("spi init fail");
+        let rc = hal::hal_spi_config(spi_num, &spi_settings);
+        assert_eq!(rc, 0, "spi config fail");
+        let rc = hal::hal_spi_enable(spi_num);
+        assert_eq!(rc, 0, "spi enable fail");
+        let rc = hal::hal_gpio_init_out(cs_pin, 1);
+        assert_eq!(rc, 0, "spi init fail");
         MynewtSPI {
-            spi_num
+            spi_num,
+            cs_pin,
         }
     }
 }
 
 impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
     fn write(&mut self, words: &[u8]) -> Result<(), Self::Error> {
-        //  TODO
+        //  Select the device
+        let rc = hal::hal_gpio_write(self.cs_pin, 0);
+        assert_eq!(rc, 0, "spi config fail");
+
+        //  Send the data
+        let retval = hal::hal_spi_tx_val(self.spi_num, words);
+
+        //  De-select the device
+        let rc = hal::hal_gpio_write(self.cs_pin, 1);
+        assert_eq!(rc, 0, "spi config fail");
         Ok(())
     }
     type Error = mynewt::result::MynewtError;
 }
 
 static spi_settings: hal::hal_spi_settings = hal::hal_spi_settings {
-    data_order: hal::HAL_SPI_MSB_FIRST,
-    data_mode:  hal::HAL_SPI_MODE0,
+    data_order: hal::HAL_SPI_MSB_FIRST as u8,
+    data_mode:  hal::HAL_SPI_MODE3 as u8,  //  SPI must be used in mode 3. Mode 0 (the default) won't work.
     baudrate:   8000,  //  In kHZ. Use SPI at 8MHz (the fastest clock available on the nRF52832) because otherwise refreshing will be super slow.
-    word_size:  hal::HAL_SPI_WORD_SIZE_8BIT,
+    word_size:  hal::HAL_SPI_WORD_SIZE_8BIT as u8,
 };
 
 impl MynewtGPIO {
     pub fn new(pin: i32) -> Self {
+        let rc = hal::hal_gpio_init_out(pin, 0);
+        assert_eq!(rc, 0, "spi config fail");
         MynewtGPIO {
             pin
         }
@@ -89,12 +108,12 @@ impl MynewtGPIO {
 
 impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
     fn set_low(&mut self) -> Result<(), Self::Error> {
-        //  TODO
+        hal::hal_gpio_write(self.pin, 0);
         Ok(())
     }
 
     fn set_high(&mut self) -> Result<(), Self::Error> {
-        //  TODO
+        hal::hal_gpio_write(self.pin, 1);
         Ok(())
     }
 
@@ -110,6 +129,7 @@ impl embedded_hal::blocking::delay::DelayMs<u8> for MynewtDelay {
 /// Wrapper for Mynewt SPI API
 struct MynewtSPI {
     spi_num: i32,
+    cs_pin: i32,
 }
 
 /// Wrapper for Mynewt GPIO API
