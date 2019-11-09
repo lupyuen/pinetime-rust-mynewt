@@ -54,6 +54,7 @@ extern crate macros as mynewt_macros;
 mod app_network {
     //  Declare `app_network.rs` as Rust module `app_network` for Application Network functions
     //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
+    //  Declare `display.rs` as Rust module `display` for Display functions
 
     //  If floating-point is enabled...
     //  Declare `gps_sensor.rs` as Rust module `gps_sensor` for GPS Sensor functions
@@ -83,6 +84,8 @@ mod app_network {
     //.expect("GPS fail");
 
     //  Start Bluetooth LE.  TODO: Create a safe wrapper for starting Bluetooth LE.
+
+    //  Show the display.
 
     //  Main event loop
     //  Loop forever...
@@ -337,6 +340,45 @@ mod app_sensor {
         Ok(())
     }
 }
+mod display {
+    use embedded_graphics::prelude::*;
+    use embedded_graphics::primitives::Circle;
+    use embedded_graphics::fonts::Font6x8;
+    use embedded_graphics::pixelcolor::Rgb565;
+    use embedded_hal;
+    use st7735_lcd;
+    use st7735_lcd::Orientation;
+    pub fn show() {
+        let mut display =
+            st7735_lcd::ST7735::new(DisplaySPI{}, DisplayDC{}, DisplayRST{},
+                                    false, true);
+        let mut delay = MynewtDelay{};
+        display.init(&mut delay).unwrap();
+        display.set_orientation(&Orientation::Landscape).unwrap();
+        display.set_offset(1, 25);
+        let c =
+            Circle::<Rgb565>::new(Coord::new(20, 20),
+                                  8).fill(Some(Rgb565::from(1u8)));
+        let t =
+            Font6x8::<Rgb565>::render_str("Hello Rust!").fill(Some(Rgb565::from(20u8))).translate(Coord::new(20,
+                                                                                                             16));
+        display.draw(c);
+        display.draw(t);
+    }
+    impl embedded_hal::blocking::spi::write::Default<u8> for DisplaySPI { }
+    impl embedded_hal::spi::FullDuplex<u8> for DisplaySPI { }
+    impl embedded_hal::digital::v1::OutputPin for DisplayDC { }
+    impl embedded_hal::digital::v1::OutputPin for DisplayRST { }
+    impl embedded_hal::blocking::delay::DelayMs<u8> for MynewtDelay { }
+    struct DisplaySPI {
+    }
+    struct DisplayDC {
+    }
+    struct DisplayRST {
+    }
+    struct MynewtDelay {
+    }
+}
 use core::panic::PanicInfo;
 use cortex_m::asm::bkpt;
 use mynewt::{kernel::os, sys::console, libs::sensor_network};
@@ -353,9 +395,10 @@ extern "C" fn main() -> ! {
     if !(rc == 0) {
         {
             ::core::panicking::panic(&("BLE fail", "rust/app/src/lib.rs",
-                                       75u32, 5u32))
+                                       76u32, 5u32))
         }
     };
+    display::show();
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }
