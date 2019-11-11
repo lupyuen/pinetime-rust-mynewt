@@ -7391,7 +7391,8 @@ app-b8434b356de0ea5d.2ock55n7ky3an0la.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 2ock55n7ky3an0la
-00000347 l       .debug_str	00000000 
+0000032c l       .debug_str	00000000 
+00000375 l       .debug_str	00000000 
 00000379 l       .debug_str	00000000 
 00000381 l       .debug_str	00000000 
 00000398 l       .debug_str	00000000 
@@ -7497,25 +7498,25 @@ SYMBOL TABLE:
 00000302 l       .debug_str	00000000 
 0000030e l       .debug_str	00000000 
 00000327 l       .debug_str	00000000 
-0000032c l       .debug_str	00000000 
 0000033d l       .debug_str	00000000 
+00000347 l       .debug_str	00000000 
 00000355 l       .debug_str	00000000 
 00000359 l       .debug_str	00000000 
 00000364 l       .debug_str	00000000 
 0000036b l       .debug_str	00000000 
 00000371 l       .debug_str	00000000 
-00000375 l       .debug_str	00000000 
 00000000 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.0
 00000008 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.1
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.10	00000006 .Lanon.3ed011473997af99b525cde47c9eaaac.10
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.11	00000001 .Lanon.3ed011473997af99b525cde47c9eaaac.11
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.10	00000003 .Lanon.3ed011473997af99b525cde47c9eaaac.10
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.11	00000006 .Lanon.3ed011473997af99b525cde47c9eaaac.11
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.12	00000001 .Lanon.3ed011473997af99b525cde47c9eaaac.12
 00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.3	00000018 .Lanon.3ed011473997af99b525cde47c9eaaac.3
 00000010 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.4
 00000018 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.5
 00000020 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.6
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.7	00000006 .Lanon.3ed011473997af99b525cde47c9eaaac.7
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.8	00000007 .Lanon.3ed011473997af99b525cde47c9eaaac.8
-00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.9	00000003 .Lanon.3ed011473997af99b525cde47c9eaaac.9
+00000028 l     O .rodata.cst8	00000008 .Lanon.3ed011473997af99b525cde47c9eaaac.7
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.8	00000006 .Lanon.3ed011473997af99b525cde47c9eaaac.8
+00000000 l     O .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.9	00000007 .Lanon.3ed011473997af99b525cde47c9eaaac.9
 00000000 l    d  .text.main	00000000 .text.main
 00000000 l    d  .text.rust_begin_unwind	00000000 .text.rust_begin_unwind
 00000000 l    d  .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.2	00000000 .rodata..Lanon.3ed011473997af99b525cde47c9eaaac.2
@@ -7525,6 +7526,7 @@ SYMBOL TABLE:
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
 00000000         *UND*	00000000 .hidden app::app_sensor::start_sensor_listener
+00000000         *UND*	00000000 .hidden app::touch_sensor::test
 00000000         *UND*	00000000 .hidden app::display::show
 00000000         *UND*	00000000 core::panic::Location::file
 00000000         *UND*	00000000 core::panic::Location::line
@@ -7539,7 +7541,7 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 mynewt::kernel::os::eventq_run
 00000000         *UND*	00000000 mynewt::kernel::os::eventq_dflt_get
 00000000         *UND*	00000000 mynewt::sysinit
-00000000 g     F .text.main	00000096 main
+00000000 g     F .text.main	000000b0 main
 00000000 g     F .text.rust_begin_unwind	000000ac rust_begin_unwind
 00000000         *UND*	00000000 start_ble
 
@@ -7549,7 +7551,7 @@ Disassembly of section .text.main:
 
 00000000 <main>:
 main():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:53
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:54
 };
 
 ///  Main program that initialises the sensor, network driver and starts reading and sending sensor data in the background.
@@ -7557,7 +7559,7 @@ main():
 #[no_mangle]                 //  Don't mangle the name "main"
 extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
    0:	b088      	sub	sp, #32
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:58
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:59
     //  Initialise the Mynewt packages and internal temperature sensor driver. Any startup
     //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
@@ -7565,7 +7567,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     mynewt::sysinit();
    2:	f7ff fffe 	bl	0 <mynewt::sysinit>
    6:	e7ff      	b.n	2 <app::app_sensor::start_sensor_listener+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:65
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:66
     //  Start the Server Transport for sending sensor data to CoAP Server over NB-IoT.
     //sensor_network::start_server_transport()
         //.expect("NET fail");
@@ -7581,17 +7583,17 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
   1a:	9804      	ldr	r0, [sp, #16]
   1c:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
   20:	e7ff      	b.n	2 <start_ble+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:74
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:75
     //gps_sensor::start_gps_listener()
         //.expect("GPS fail");
 
-    //  Start Bluetooth LE.  TODO: Create a safe wrapper for starting Bluetooth LE.
+    //  Start Bluetooth Beacon.  TODO: Create a safe wrapper for starting Bluetooth LE.
     extern { fn start_ble() -> i32; }
     let rc = unsafe { start_ble() };
   22:	f7ff fffe 	bl	0 <start_ble>
   26:	9005      	str	r0, [sp, #20]
   28:	e7ff      	b.n	2a <main+0x2a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:75
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:76
     assert!(rc == 0, "BLE fail");
   2a:	9805      	ldr	r0, [sp, #20]
   2c:	2800      	cmp	r0, #0
@@ -7601,7 +7603,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
   36:	f2c0 0000 	movt	r0, #0
   3a:	f7ff fffe 	bl	0 <core::panicking::panic>
   3e:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:78
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:79
 
     //  Show the display.
     display::show()
@@ -7613,47 +7615,61 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
   50:	2208      	movs	r2, #8
   52:	9803      	ldr	r0, [sp, #12]
   54:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
-  58:	e7ff      	b.n	5a <main+0x5a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:82
+  58:	e7ff      	b.n	2 <app::touch_sensor::test+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:83
         .expect("DSP fail");
+
+    //  Test the touch sensor.
+    touch_sensor::test()
+  5a:	f7ff fffe 	bl	0 <app::touch_sensor::test>
+  5e:	9002      	str	r0, [sp, #8]
+  60:	e7ff      	b.n	62 <main+0x62>
+  62:	f240 0100 	movw	r1, #0
+  66:	f2c0 0100 	movt	r1, #0
+  6a:	2208      	movs	r2, #8
+  6c:	9802      	ldr	r0, [sp, #8]
+  6e:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
+  72:	e7ff      	b.n	74 <main+0x74>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:87
+        .expect("TCH fail");
 
     //  Main event loop
     loop {                            //  Loop forever...
-  5a:	e7ff      	b.n	5c <main+0x5c>
-  5c:	a806      	add	r0, sp, #24
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:84
+  74:	e7ff      	b.n	76 <main+0x76>
+  76:	a806      	add	r0, sp, #24
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:89
         os::eventq_run(               //  Processing events...
             os::eventq_dflt_get()     //  From default event queue.
-  5e:	f7ff fffe 	bl	0 <mynewt::kernel::os::eventq_dflt_get>
-  62:	e7ff      	b.n	1a <main+0x1a>
-  64:	f240 0100 	movw	r1, #0
-  68:	f2c0 0100 	movt	r1, #0
-  6c:	a806      	add	r0, sp, #24
-  6e:	2208      	movs	r2, #8
-  70:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
-  74:	9002      	str	r0, [sp, #8]
-  76:	e7ff      	b.n	78 <main+0x78>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:83
+  78:	f7ff fffe 	bl	0 <mynewt::kernel::os::eventq_dflt_get>
+  7c:	e7ff      	b.n	22 <main+0x22>
+  7e:	f240 0100 	movw	r1, #0
+  82:	f2c0 0100 	movt	r1, #0
+  86:	a806      	add	r0, sp, #24
+  88:	2208      	movs	r2, #8
+  8a:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
+  8e:	9001      	str	r0, [sp, #4]
+  90:	e7ff      	b.n	92 <main+0x92>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:88
         os::eventq_run(               //  Processing events...
-  78:	9802      	ldr	r0, [sp, #8]
-  7a:	f7ff fffe 	bl	0 <mynewt::kernel::os::eventq_run>
-  7e:	9001      	str	r0, [sp, #4]
-  80:	e7ff      	b.n	82 <main+0x82>
-  82:	f240 0100 	movw	r1, #0
-  86:	f2c0 0100 	movt	r1, #0
-  8a:	2208      	movs	r2, #8
-  8c:	9801      	ldr	r0, [sp, #4]
-  8e:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
-  92:	e7ff      	b.n	94 <main+0x94>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:82
+  92:	9801      	ldr	r0, [sp, #4]
+  94:	f7ff fffe 	bl	0 <mynewt::kernel::os::eventq_run>
+  98:	9000      	str	r0, [sp, #0]
+  9a:	e7ff      	b.n	9c <main+0x9c>
+  9c:	f240 0100 	movw	r1, #0
+  a0:	f2c0 0100 	movt	r1, #0
+  a4:	2208      	movs	r2, #8
+  a6:	9800      	ldr	r0, [sp, #0]
+  a8:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
+  ac:	e7ff      	b.n	ae <main+0xae>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:87
     loop {                            //  Loop forever...
-  94:	e7e2      	b.n	5c <main+0x5c>
+  ae:	e7e2      	b.n	76 <main+0x76>
 
 Disassembly of section .text.rust_begin_unwind:
 
 00000000 <rust_begin_unwind>:
 rust_begin_unwind():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:93
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:98
     //  Never comes here
 }
 
@@ -7663,7 +7679,7 @@ fn panic(info: &PanicInfo) -> ! {
    0:	b088      	sub	sp, #32
    2:	4601      	mov	r1, r0
    4:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:95
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:100
     //  Display the filename and line number to the Semihosting Console.
     console::print("panic ");
    6:	f240 0000 	movw	r0, #0
@@ -7673,7 +7689,7 @@ fn panic(info: &PanicInfo) -> ! {
   12:	4611      	mov	r1, r2
   14:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
   18:	e7ff      	b.n	1a <rust_begin_unwind+0x1a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:96
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:101
     if let Some(location) = info.location() {
   1a:	9802      	ldr	r0, [sp, #8]
   1c:	f7ff fffe 	bl	0 <core::panic::PanicInfo::location>
@@ -7685,20 +7701,20 @@ fn panic(info: &PanicInfo) -> ! {
   2a:	e7ff      	b.n	2c <rust_begin_unwind+0x2c>
   2c:	9803      	ldr	r0, [sp, #12]
   2e:	9004      	str	r0, [sp, #16]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:97
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:102
         let file = location.file();
   30:	9804      	ldr	r0, [sp, #16]
   32:	f7ff fffe 	bl	0 <core::panic::Location::file>
   36:	9106      	str	r1, [sp, #24]
   38:	9005      	str	r0, [sp, #20]
   3a:	e7ff      	b.n	3c <rust_begin_unwind+0x3c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:98
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:103
         let line = location.line();
   3c:	9804      	ldr	r0, [sp, #16]
   3e:	f7ff fffe 	bl	0 <core::panic::Location::line>
   42:	9007      	str	r0, [sp, #28]
   44:	e7ff      	b.n	46 <rust_begin_unwind+0x46>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:99
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:104
         console::print("at ");       console::buffer(&file);
   46:	f240 0000 	movw	r0, #0
   4a:	f2c0 0000 	movt	r0, #0
@@ -7709,7 +7725,7 @@ fn panic(info: &PanicInfo) -> ! {
   58:	9906      	ldr	r1, [sp, #24]
   5a:	f7ff fffe 	bl	0 <mynewt::sys::console::buffer>
   5e:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:100
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:105
         console::print(" line ");    console::printint(line as i32);
   60:	f240 0000 	movw	r0, #0
   64:	f2c0 0000 	movt	r0, #0
@@ -7719,7 +7735,7 @@ fn panic(info: &PanicInfo) -> ! {
   70:	9807      	ldr	r0, [sp, #28]
   72:	f7ff fffe 	bl	0 <mynewt::sys::console::printint>
   76:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:101
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:106
         console::print("\n");        console::flush();
   78:	f240 0000 	movw	r0, #0
   7c:	f2c0 0000 	movt	r0, #0
@@ -7728,10 +7744,10 @@ fn panic(info: &PanicInfo) -> ! {
   86:	e7ff      	b.n	2 <mynewt::sys::console::flush+0x2>
   88:	f7ff fffe 	bl	0 <mynewt::sys::console::flush>
   8c:	e7ff      	b.n	8e <rust_begin_unwind+0x8e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:96
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:101
     if let Some(location) = info.location() {
   8e:	e00a      	b.n	a6 <rust_begin_unwind+0xa6>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:103
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:108
     } else {
         console::print("no loc\n");  console::flush();
   90:	f240 0000 	movw	r0, #0
@@ -7751,12 +7767,12 @@ pub fn bkpt() {
         () => unsafe { asm!("bkpt" :::: "volatile") },
   a6:	be00      	bkpt	0x0000
 rust_begin_unwind():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:106
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:111
     }
     //  Pause in the debugger.
     bkpt();
   a8:	e7ff      	b.n	aa <rust_begin_unwind+0xaa>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:108
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:113
     //  Loop forever so that device won't restart.
     loop {}
   aa:	e7fe      	b.n	aa <rust_begin_unwind+0xaa>
@@ -9632,6 +9648,80 @@ impl embedded_hal::blocking::delay::DelayMs<u8> for MynewtDelay {
   4e:	f2c0 0000 	movt	r0, #0
   52:	f7ff fffe 	bl	0 <core::panicking::panic>
   56:	defe      	udf	#254	; 0xfe
+
+app-b8434b356de0ea5d.3l4z2ex1n13xskbg.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 3l4z2ex1n13xskbg
+000001b0 l       .debug_str	00000000 
+000001b3 l       .debug_str	00000000 
+000001b7 l       .debug_str	00000000 
+000001ba l       .debug_str	00000000 
+000001bc l       .debug_str	00000000 
+000001be l       .debug_str	00000000 
+000001c2 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000055 l       .debug_str	00000000 
+00000085 l       .debug_str	00000000 
+0000008c l       .debug_str	00000000 
+00000093 l       .debug_str	00000000 
+00000097 l       .debug_str	00000000 
+0000009f l       .debug_str	00000000 
+000000aa l       .debug_str	00000000 
+000000b5 l       .debug_str	00000000 
+000000c2 l       .debug_str	00000000 
+000000cd l       .debug_str	00000000 
+000000d5 l       .debug_str	00000000 
+000000e0 l       .debug_str	00000000 
+000000eb l       .debug_str	00000000 
+000000f5 l       .debug_str	00000000 
+00000100 l       .debug_str	00000000 
+0000010b l       .debug_str	00000000 
+00000118 l       .debug_str	00000000 
+00000124 l       .debug_str	00000000 
+00000131 l       .debug_str	00000000 
+0000013f l       .debug_str	00000000 
+00000149 l       .debug_str	00000000 
+00000156 l       .debug_str	00000000 
+00000162 l       .debug_str	00000000 
+00000166 l       .debug_str	00000000 
+00000173 l       .debug_str	00000000 
+000001a2 l       .debug_str	00000000 
+000001a7 l       .debug_str	00000000 
+000001ac l       .debug_str	00000000 
+00000000 l    d  .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE	00000000 .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE	00000010 .hidden app::touch_sensor::test
+
+
+
+Disassembly of section .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE:
+
+00000000 <app::touch_sensor::test>:
+_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:6
+use mynewt::{
+    result::*,
+    hw::hal,
+};
+
+pub fn test() -> MynewtResult<()> {
+   0:	b082      	sub	sp, #8
+   2:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:7
+    Ok(())
+   4:	9000      	str	r0, [sp, #0]
+   6:	2001      	movs	r0, #1
+   8:	9000      	str	r0, [sp, #0]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:8
+}
+   a:	9800      	ldr	r0, [sp, #0]
+   c:	b002      	add	sp, #8
+   e:	4770      	bx	lr
 
 app-b8434b356de0ea5d.3wiwezkuh1kme3qe.rcgu.o:     file format elf32-littlearm
 
@@ -11841,6 +11931,7 @@ arm-none-eabi-objdump: app-b8434b356de0ea5d.35b8gycmn554xvz5.rcgu.bc.z: File for
 arm-none-eabi-objdump: app-b8434b356de0ea5d.3duxu2489k4fs6d1.rcgu.bc.z: File format not recognized
 arm-none-eabi-objdump: app-b8434b356de0ea5d.3j5s3n1ccuhe5j8s.rcgu.bc.z: File format not recognized
 arm-none-eabi-objdump: app-b8434b356de0ea5d.3jn3ml4cjsgi16hg.rcgu.bc.z: File format not recognized
+arm-none-eabi-objdump: app-b8434b356de0ea5d.3l4z2ex1n13xskbg.rcgu.bc.z: File format not recognized
 arm-none-eabi-objdump: app-b8434b356de0ea5d.3wiwezkuh1kme3qe.rcgu.bc.z: File format not recognized
 arm-none-eabi-objdump: app-b8434b356de0ea5d.4o4k463sud73nrfj.rcgu.bc.z: File format not recognized
 arm-none-eabi-objdump: app-b8434b356de0ea5d.4tydmtz0azhqdmnq.rcgu.bc.z: File format not recognized

@@ -34,6 +34,7 @@ extern crate macros as mynewt_macros;   //  Declare the Mynewt Procedural Macros
 
 mod app_network;    //  Declare `app_network.rs` as Rust module `app_network` for Application Network functions
 mod app_sensor;     //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
+mod touch_sensor;   //  Declare `touch_sensor.rs` as Rust module `touch_sensor` for Touch Sensor functions
 mod display;        //  Declare `display.rs` as Rust module `display` for Display functions
 
 #[cfg(feature = "use_float")]  //  If floating-point is enabled...
@@ -69,7 +70,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //gps_sensor::start_gps_listener()
         //.expect("GPS fail");
 
-    //  Start Bluetooth LE.  TODO: Create a safe wrapper for starting Bluetooth LE.
+    //  Start Bluetooth Beacon.  TODO: Create a safe wrapper for starting Bluetooth LE.
     extern { fn start_ble() -> i32; }
     let rc = unsafe { start_ble() };
     assert!(rc == 0, "BLE fail");
@@ -77,6 +78,10 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //  Show the display.
     display::show()
         .expect("DSP fail");
+
+    //  Test the touch sensor.
+    touch_sensor::test()
+        .expect("TCH fail");
 
     //  Main event loop
     loop {                            //  Loop forever...

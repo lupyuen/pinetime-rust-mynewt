@@ -52,6 +52,7 @@ extern crate macros as mynewt_macros;
 mod app_network {
     //  Declare `app_network.rs` as Rust module `app_network` for Application Network functions
     //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
+    //  Declare `touch_sensor.rs` as Rust module `touch_sensor` for Touch Sensor functions
     //  Declare `display.rs` as Rust module `display` for Display functions
 
     //  If floating-point is enabled...
@@ -82,9 +83,11 @@ mod app_network {
     //gps_sensor::start_gps_listener()
     //.expect("GPS fail");
 
-    //  Start Bluetooth LE.  TODO: Create a safe wrapper for starting Bluetooth LE.
+    //  Start Bluetooth Beacon.  TODO: Create a safe wrapper for starting Bluetooth LE.
 
     //  Show the display.
+
+    //  Test the touch sensor.
 
     //  Main event loop
     //  Loop forever...
@@ -338,6 +341,10 @@ mod app_sensor {
         sensor::register_listener(sensor, listener)?;
         Ok(())
     }
+}
+mod touch_sensor {
+    use mynewt::{result::*, hw::hal};
+    pub fn test() -> MynewtResult<()> { Ok(()) }
 }
 mod display {
     use embedded_graphics::{prelude::*, fonts, pixelcolor::Rgb565,
@@ -619,10 +626,11 @@ extern "C" fn main() -> ! {
     if !(rc == 0) {
         {
             ::core::panicking::panic(&("BLE fail", "rust/app/src/lib.rs",
-                                       75u32, 5u32))
+                                       76u32, 5u32))
         }
     };
     display::show().expect("DSP fail");
+    touch_sensor::test().expect("TCH fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }
