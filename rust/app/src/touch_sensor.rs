@@ -32,18 +32,15 @@ pub fn test() -> MynewtResult<()> {
         0x98u8, 
         0xc4u8
     ] {
-        // rc = bdev->dops->write(bdev, bnode, wbuf, wlength, timeout, BUS_F_NOSTOP);
-        // rc = bdev->dops->read(bdev, bnode, rbuf, rlength, timeout, flags);
-
         unsafe { 
-            I2C_BUFFER[0] = 0xaf;
+            I2C_BUFFER[0] = 0xaf;  //  Register to be read
             I2C_DATA.address = *addr;
             I2C_DATA.len = I2C_BUFFER.len() as u16;
             I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
         };
         let rc = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };
 
-        console::print("0x"); console::printhex(*addr); console::print(": ");
+        console::print("write 0x"); console::printhex(*addr); console::print(": ");
         console::printhex(rc as u8); console::print("\n"); console::flush();
 
         unsafe { 
@@ -54,8 +51,11 @@ pub fn test() -> MynewtResult<()> {
         };
         let rc = unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
 
-        console::print("0x"); console::printhex(*addr); console::print(": ");
+        console::print("read 0x"); console::printhex(*addr); console::print(": ");
         console::printhex(rc as u8); console::print("\n"); console::flush();
+
+        console::print("value 0x"); console::printhex(unsafe { I2C_BUFFER[0] }); 
+        console::print("\n"); console::flush();
     }
     console::print("Done\n"); console::flush();
     Ok(())
@@ -68,6 +68,21 @@ static mut I2C_DATA: hal::hal_i2c_master_data = hal::hal_i2c_master_data {
     len:     0,
     buffer:  core::ptr::null_mut(),
 };
+
+/*
+write 0x18: 00
+read 0x18: 00
+value 0x00
+write 0x44: 00
+read 0x44: 00
+value 0xa3
+write 0x98: 00
+read 0x98: 00
+value 0x00
+write 0xc4: 00
+read 0xc4: 00
+value 0xa3
+*/
 
 /*
 From http://www.hynitron.com/upload/1408075960.pdf:

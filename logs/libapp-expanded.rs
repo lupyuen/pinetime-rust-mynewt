@@ -373,7 +373,7 @@ mod touch_sensor {
                 unsafe {
                     hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0)
                 };
-            console::print("0x");
+            console::print("write 0x");
             console::printhex(*addr);
             console::print(": ");
             console::printhex(rc as u8);
@@ -389,10 +389,14 @@ mod touch_sensor {
                 unsafe {
                     hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1)
                 };
-            console::print("0x");
+            console::print("read 0x");
             console::printhex(*addr);
             console::print(": ");
             console::printhex(rc as u8);
+            console::print("\n");
+            console::flush();
+            console::print("value 0x");
+            console::printhex(unsafe { I2C_BUFFER[0] });
             console::print("\n");
             console::flush();
         }
