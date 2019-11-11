@@ -343,8 +343,24 @@ mod app_sensor {
     }
 }
 mod touch_sensor {
-    use mynewt::{result::*, hw::hal};
-    pub fn test() -> MynewtResult<()> { Ok(()) }
+    use mynewt::{result::*, hw::hal, sys::console};
+    /// Probe the I2C bus
+    pub fn probe() -> MynewtResult<()> {
+        for addr in 1..255 {
+            let rc = unsafe { hal::hal_i2c_master_probe(1, addr, 1000) };
+            if rc != hal::HAL_I2C_ERR_ADDR_NACK as i32 {
+                console::print("0x");
+                console::printhex(addr);
+                console::print(": ");
+                console::printhex(rc as u8);
+                console::print("\n");
+                console::flush();
+            }
+        }
+        console::print("Done\n");
+        console::flush();
+        Ok(())
+    }
 }
 mod display {
     use embedded_graphics::{prelude::*, fonts, pixelcolor::Rgb565,
@@ -630,7 +646,7 @@ extern "C" fn main() -> ! {
         }
     };
     display::show().expect("DSP fail");
-    touch_sensor::test().expect("TCH fail");
+    touch_sensor::probe().expect("TCH fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }
