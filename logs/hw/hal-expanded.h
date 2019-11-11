@@ -1,4 +1,4 @@
-# 1 "repos/apache-mynewt-core/hw/hal/src/hal_common.c"
+# 1 "libs/mynewt_rust/src/hal.c"
 # 1 "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor//"
 # 1 "<built-in>"
 #define __STDC__ 1
@@ -461,7 +461,30 @@
 #define HAL_ADC_MODULE_ENABLED 1
 #define MYNEWT 1
 #define NRF52 1
-# 1 "repos/apache-mynewt-core/hw/hal/src/hal_common.c"
+# 1 "libs/mynewt_rust/src/hal.c"
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+//  Used for generating Rust bindings for HAL APIs
+//#include <hal/hal_bsp.h>
+//#include <hal/hal_flash.h>
+//#include <hal/hal_flash_int.h>
+# 1 "repos/apache-mynewt-core/hw/hal/include/hal/hal_gpio.h" 1
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -481,39 +504,195 @@
  * under the License.
  */
 
-# 1 "repos/apache-mynewt-core/hw/hal/include/hal/hal_spi.h" 1
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
 
 /**
  * @addtogroup HAL
  * @{
- *   @defgroup HALSpi HAL SPI
+ *   @defgroup HALGpio HAL GPIO
  *   @{
  */
 
 
-#define H_HAL_SPI_ 
+#define H_HAL_GPIO_ 
 
 
 
 
+
+/**
+ * The "mode" of the gpio. The gpio is either an input, output, or it is
+ * "not connected" (the pin specified is not functioning as a gpio)
+ */
+enum hal_gpio_mode_e {
+    /** Not connected */
+    HAL_GPIO_MODE_NC = -1,
+    /** Input */
+    HAL_GPIO_MODE_IN = 0,
+    /** Output */
+    HAL_GPIO_MODE_OUT = 1
+};
+typedef enum hal_gpio_mode_e hal_gpio_mode_t;
+
+/*
+ * The "pull" of the gpio. This is either an input or an output.
+ */
+enum hal_gpio_pull {
+    /** Pull-up/down not enabled */
+    HAL_GPIO_PULL_NONE = 0,
+    /** Pull-up enabled */
+    HAL_GPIO_PULL_UP = 1,
+    /** Pull-down enabled */
+    HAL_GPIO_PULL_DOWN = 2
+};
+typedef enum hal_gpio_pull hal_gpio_pull_t;
+
+/*
+ * IRQ trigger type.
+ */
+enum hal_gpio_irq_trigger {
+    HAL_GPIO_TRIG_NONE = 0,
+    /** IRQ occurs on rising edge */
+    HAL_GPIO_TRIG_RISING = 1,
+    /** IRQ occurs on falling edge */
+    HAL_GPIO_TRIG_FALLING = 2,
+    /** IRQ occurs on either edge */
+    HAL_GPIO_TRIG_BOTH = 3,
+    /** IRQ occurs when line is low */
+    HAL_GPIO_TRIG_LOW = 4,
+    /** IRQ occurs when line is high */
+    HAL_GPIO_TRIG_HIGH = 5
+};
+typedef enum hal_gpio_irq_trigger hal_gpio_irq_trig_t;
+
+/* Function proto for GPIO irq handler functions */
+typedef void (*hal_gpio_irq_handler_t)(void *arg);
+
+/**
+ * Initializes the specified pin as an input
+ *
+ * @param pin   Pin number to set as input
+ * @param pull  pull type
+ *
+ * @return int  0: no error; -1 otherwise.
+ */
+int hal_gpio_init_in(int pin, hal_gpio_pull_t pull);
+
+/**
+ * Initialize the specified pin as an output, setting the pin to the specified
+ * value.
+ *
+ * @param pin Pin number to set as output
+ * @param val Value to set pin
+ *
+ * @return int  0: no error; -1 otherwise.
+ */
+int hal_gpio_init_out(int pin, int val);
+
+/**
+ * Deinitialize the specified pin to revert the previous initialization
+ *
+ * @param pin Pin number to unset
+ *
+ * @return int  0: no error; -1 otherwise.
+ */
+int hal_gpio_deinit(int pin);
+
+/**
+ * Write a value (either high or low) to the specified pin.
+ *
+ * @param pin Pin to set
+ * @param val Value to set pin (0:low 1:high)
+ */
+void hal_gpio_write(int pin, int val);
+
+/**
+ * Reads the specified pin.
+ *
+ * @param pin Pin number to read
+ *
+ * @return int 0: low, 1: high
+ */
+int hal_gpio_read(int pin);
+
+/**
+ * Toggles the specified pin
+ *
+ * @param pin Pin number to toggle
+ *
+ * @return current gpio state int 0: low, 1: high
+ */
+int hal_gpio_toggle(int pin);
+
+/**
+ * Initialize a given pin to trigger a GPIO IRQ callback.
+ *
+ * @param pin     The pin to trigger GPIO interrupt on
+ * @param handler The handler function to call
+ * @param arg     The argument to provide to the IRQ handler
+ * @param trig    The trigger mode (e.g. rising, falling)
+ * @param pull    The mode of the pin (e.g. pullup, pulldown)
+ *
+ * @return 0 on success, non-zero error code on failure.
+ */
+int hal_gpio_irq_init(int pin, hal_gpio_irq_handler_t handler, void *arg,
+                      hal_gpio_irq_trig_t trig, hal_gpio_pull_t pull);
+
+/**
+ * Release a pin from being configured to trigger IRQ on state change.
+ *
+ * @param pin The pin to release
+ */
+void hal_gpio_irq_release(int pin);
+
+/**
+ * Enable IRQs on the passed pin
+ *
+ * @param pin The pin to enable IRQs on
+ */
+void hal_gpio_irq_enable(int pin);
+
+/**
+ * Disable IRQs on the passed pin
+ *
+ * @param pin The pin to disable IRQs on
+ */
+void hal_gpio_irq_disable(int pin);
+# 181 "repos/apache-mynewt-core/hw/hal/include/hal/hal_gpio.h"
+/**
+ *   @} HALGpio
+ * @} HAL
+ */
+# 24 "libs/mynewt_rust/src/hal.c" 2
+# 1 "repos/apache-mynewt-core/hw/hal/include/hal/hal_i2c.h" 1
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+
+/**
+ * @addtogroup HAL
+ * @{
+ *   @defgroup HALI2c HAL I2c
+ *   @{
+ */
+
+
+#define H_HAL_I2C_ 
 
 # 1 "repos/apache-mynewt-core/libc/baselibc/include/inttypes.h" 1
 /*
@@ -1883,6 +2062,243 @@ extern uintmax_t strntoumax(const char *, char **, int, size_t);
 
 #define SCNxMAX __PRI64_RANK "x"
 #define SCNxPTR __PRIPTR_RANK "x"
+# 32 "repos/apache-mynewt-core/hw/hal/include/hal/hal_i2c.h" 2
+
+
+
+
+
+/**
+ * This is the API for an i2c bus.  Currently, this is a master API
+ * allowing the mynewt device to function as an I2C master.
+ *
+ * A slave API is pending for future release
+ *
+ * Typical usage of this API is as follows:
+ *
+ * Initialize an i2c device with:
+ *      :c:func:`hal_i2c_init()`
+ *
+ * When you wish to perform an i2c transaction, you call one or both of:
+ *      :c:func:`hal_i2c_master_write()`;
+ *      :c:func:`hal_i2c_master_read()`;
+ *
+ * These functions will issue a START condition, followed by the device's
+ * 7-bit I2C address, and then send or receive the payload based on the data
+ * provided. This will cause a repeated start on the bus, which is valid in
+ * I2C specification, and the decision to use repeated starts was made to
+ * simplify the I2C HAL. To set the STOP condition at an appropriate moment,
+ * you set the `last_op` field to a `1` in either function.
+ *
+ * For example, in an I2C memory access you might write a register address and
+ * then read data back via:
+ *      :c:func:`hal_i2c_write()`; -- write to a specific register on the device
+ *      :c:func:`hal_i2c_read()`; --- read back data, setting 'last_op' to '1'
+ */
+
+/*** I2C status codes (0=success). */
+
+/** Unknown error. */
+#define HAL_I2C_ERR_UNKNOWN 1
+
+/** Invalid argument. */
+#define HAL_I2C_ERR_INVAL 2
+
+/** MCU failed to report result of I2C operation. */
+#define HAL_I2C_ERR_TIMEOUT 3
+
+/** Slave responded to address with NACK. */
+#define HAL_I2C_ERR_ADDR_NACK 4
+
+/** Slave responded to data byte with NACK. */
+#define HAL_I2C_ERR_DATA_NACK 5
+
+/** I2C controller hardware settings */
+struct hal_i2c_hw_settings {
+    int pin_scl;
+    int pin_sda;
+};
+
+/** I2C configuration */
+struct hal_i2c_settings {
+    /** Frequency in kHz */
+    uint32_t frequency;
+};
+
+/**
+ * When sending a packet, use this structure to pass the arguments.
+ */
+struct hal_i2c_master_data {
+    /**
+     * Destination address
+     * An I2C address has 7 bits. In the protocol these
+     * 7 bits are combined with a 1 bit R/W bit to specify read
+     * or write operation in an 8-bit address field sent to
+     * the remote device.  This API accepts the 7-bit
+     * address as its argument in the 7 LSBs of the
+     * address field above.  For example if I2C was
+     * writing a 0x81 in its protocol, you would pass
+     * only the top 7-bits to this function as 0x40
+     */
+    uint8_t address;
+    /** Number of buffer bytes to transmit or receive */
+    uint16_t len;
+    /** Buffer space to hold the transmit or receive */
+    uint8_t *buffer;
+};
+
+/**
+ * Initialize a new i2c device with the I2C number.
+ *
+ * @param i2c_num The number of the I2C device being initialized
+ * @param cfg The hardware specific configuration structure to configure
+ *            the I2C with.  This includes things like pin configuration.
+ *
+ * @return 0 on success, and non-zero error code on failure
+ */
+int hal_i2c_init(uint8_t i2c_num, void *cfg);
+
+/**
+ * Initialize I2C controller
+ *
+ * This initializes I2C controller hardware before 1st use. Shall be called
+ * only once.
+ *
+ * @param i2c_num  Number of I2C controller
+ * @param cfg      Configuration
+ *
+ * @return 0 on success, non-zero error code on failure
+ */
+int hal_i2c_init_hw(uint8_t i2c_num, const struct hal_i2c_hw_settings *cfg);
+
+/**
+ * Enable I2C controller
+ *
+ * This enables I2C controller before usage.
+ *
+ * @param i2c_num  Number of I2C controller
+ *
+ * @return 0 on success, non-zero error code on failure
+ */
+int hal_i2c_enable(uint8_t i2c_num);
+
+/**
+ * Disable I2C controller
+ *
+ * This disabled I2C controller if no longer needed. Hardware configuration
+ * be preserved after controller is disabled.
+ *
+ * @param i2c_num  Number of I2C controller
+ *
+ * @return 0 on success, non-zero error code on failure
+ */
+int hal_i2c_disable(uint8_t i2c_num);
+
+/**
+ * Configure I2C controller
+ *
+ * This configures I2C controller for operation. Can be called multiple times.
+ *
+ * @param i2c_num  Number of I2C controller
+ * @param cfg      Configuration
+ */
+int hal_i2c_config(uint8_t i2c_num, const struct hal_i2c_settings *cfg);
+
+/**
+ * Sends a start condition and writes <len> bytes of data on the i2c bus.
+ * This API does NOT issue a stop condition unless `last_op` is set to `1`.
+ * You must stop the bus after successful or unsuccessful write attempts.
+ * This API is blocking until an error or NaK occurs. Timeout is platform
+ * dependent.
+ *
+ * @param i2c_num The number of the I2C device being written to
+ * @param pdata The data to write to the I2C bus
+ * @param timeout How long to wait for transaction to complete in ticks
+ * @param last_op Master should send a STOP at the end to signify end of
+ *        transaction.
+ *
+ * @return 0 on success, and non-zero error code on failure
+ */
+int hal_i2c_master_write(uint8_t i2c_num, struct hal_i2c_master_data *pdata,
+                         uint32_t timeout, uint8_t last_op);
+
+/**
+ * Sends a start condition and reads <len> bytes of data on the i2c bus.
+ * This API does NOT issue a stop condition unless `last_op` is set to `1`.
+ * You must stop the bus after successful or unsuccessful write attempts.
+ * This API is blocking until an error or NaK occurs. Timeout is platform
+ * dependent.
+ *
+ * @param i2c_num The number of the I2C device being written to
+ * @param pdata The location to place read data
+ * @param timeout How long to wait for transaction to complete in ticks
+ * @param last_op Master should send a STOP at the end to signify end of
+ *        transaction.
+ *
+ * @return 0 on success, and non-zero error code on failure
+ */
+int hal_i2c_master_read(uint8_t i2c_num, struct hal_i2c_master_data *pdata,
+                        uint32_t timeout, uint8_t last_op);
+
+/**
+ * Probes the i2c bus for a device with this address.  THIS API
+ * issues a start condition, probes the address using a read
+ * command and issues a stop condition.
+ *
+ * @param i2c_num The number of the I2C to probe
+ * @param address The address to probe for
+ * @param timeout How long to wait for transaction to complete in ticks
+ *
+ * @return 0 on success, non-zero error code on failure
+ */
+int hal_i2c_master_probe(uint8_t i2c_num, uint8_t address,
+                         uint32_t timeout);
+# 230 "repos/apache-mynewt-core/hw/hal/include/hal/hal_i2c.h"
+/**
+ *   @} HALI2c
+ * @} HAL
+ */
+# 25 "libs/mynewt_rust/src/hal.c" 2
+//#include <hal/hal_nvreg.h>
+//#include <hal/hal_os_tick.h>
+# 1 "repos/apache-mynewt-core/hw/hal/include/hal/hal_spi.h" 1
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+/**
+ * @addtogroup HAL
+ * @{
+ *   @defgroup HALSpi HAL SPI
+ *   @{
+ */
+
+
+#define H_HAL_SPI_ 
+
+
+
+
+
+# 1 "repos/apache-mynewt-core/libc/baselibc/include/inttypes.h" 1
+/*
+ * inttypes.h
+ */
 # 35 "repos/apache-mynewt-core/hw/hal/include/hal/hal_spi.h" 2
 
 /* SPI Type of Master */
@@ -2125,176 +2541,8 @@ int hal_spi_data_mode_breakout(uint8_t data_mode,
  *   @} HALSpi
  * @} HAL
  */
-# 21 "repos/apache-mynewt-core/hw/hal/src/hal_common.c" 2
-# 1 "repos/apache-mynewt-core/hw/hal/include/hal/hal_system.h" 1
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
-
-/**
- * @addtogroup HAL
- * @{
- *   @defgroup HALSystem HAL System
- *   @{
- */
-
-
-#define H_HAL_SYSTEM_ 
-
-
-
-
-
-/**
- * System reset.
- */
-void hal_system_reset(void) __attribute((noreturn));
-
-/**
- * Called by bootloader to start loaded program.
- */
-void hal_system_start(void *img_start) __attribute((noreturn));
-
-/**
- * Called by split app loader to start the app program.
- */
-void hal_system_restart(void *img_start) __attribute((noreturn));
-
-/**
- * Returns non-zero if there is a HW debugger attached.
- */
-int hal_debugger_connected(void);
-
-/**
- * Reboot reason
- */
-enum hal_reset_reason {
-    /** Power on Reset */
-    HAL_RESET_POR = 1,
-    /** Caused by Reset Pin */
-    HAL_RESET_PIN = 2,
-    /** Caused by Watchdog */
-    HAL_RESET_WATCHDOG = 3,
-    /** Soft reset, either system reset or crash */
-    HAL_RESET_SOFT = 4,
-    /** Low supply voltage */
-    HAL_RESET_BROWNOUT = 5,
-    /** Restart due to user request */
-    HAL_RESET_REQUESTED = 6,
-    /** System Off, wakeup on external interrupt*/
-    HAL_RESET_SYS_OFF_INT = 7,
-};
-
-/**
- * Return the reboot reason
- *
- * @return A reboot reason
- */
-enum hal_reset_reason hal_reset_cause(void);
-
-/**
- * Return the reboot reason as a string
- *
- * @return String describing previous reset reason
- */
-const char *hal_reset_cause_str(void);
-
-/**
- * Starts clocks needed by system
- */
-void hal_system_clock_start(void);
-
-/**
- * Reset callback to be called before an reset happens inside hal_system_reset()
- */
-void hal_system_reset_cb(void);
-
-
-
-
-
-
-
-/**
- *   @} HALSystem
- * @} HAL
- */
-# 22 "repos/apache-mynewt-core/hw/hal/src/hal_common.c" 2
-
-void _exit(int status);
-
-void
-_exit(int status)
-{
-    hal_system_reset();
-}
-
-
-int
-hal_spi_data_mode_breakout(uint8_t data_mode, int *out_cpol, int *out_cpha)
-{
-    switch (data_mode) {
-    case (0):
-        *out_cpol = 0;
-        *out_cpha = 0;
-        return 0;
-
-    case (1):
-        *out_cpol = 0;
-        *out_cpha = 1;
-        return 0;
-
-    case (2):
-        *out_cpol = 1;
-        *out_cpha = 0;
-        return 0;
-
-    case (3):
-        *out_cpol = 1;
-        *out_cpha = 1;
-        return 0;
-
-    default:
-        return -1;
-    }
-}
-
-const char *
-hal_reset_cause_str(void)
-{
-    enum hal_reset_reason cause;
-
-    cause = hal_reset_cause();
-    switch (cause) {
-    case HAL_RESET_POR:
-        return "Power on Reset";
-    case HAL_RESET_PIN:
-        return "Reset Pin";
-    case HAL_RESET_WATCHDOG:
-        return "Watchdog";
-    case HAL_RESET_SOFT:
-        return "Soft Reset";
-    case HAL_RESET_BROWNOUT:
-        return "Low Voltage";
-    case HAL_RESET_REQUESTED:
-        return "User Requested";
-    default:
-        return "Unknown";
-    }
-}
+# 28 "libs/mynewt_rust/src/hal.c" 2
+//#include <hal/hal_system.h>
+//#include <hal/hal_timer.h>
+//#include <hal/hal_uart.h>
+//#include <hal/hal_watchdog.h>

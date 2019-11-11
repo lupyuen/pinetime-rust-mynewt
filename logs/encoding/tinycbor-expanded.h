@@ -880,27 +880,28 @@ typedef struct {
 #define MYNEWT_VAL_I2C_0_FREQ_KHZ (100)
 
 
-/* Overridden by hw/bsp/nrf52 (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
+#undef MYNEWT_VAL_I2C_0_PIN_SCL
 
-#define MYNEWT_VAL_I2C_0_PIN_SCL (26)
+#undef MYNEWT_VAL_I2C_0_PIN_SDA
 
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
 
-/* Overridden by hw/bsp/nrf52 (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
-
-#define MYNEWT_VAL_I2C_0_PIN_SDA (25)
-
-
-
-#define MYNEWT_VAL_I2C_1 (0)
+#define MYNEWT_VAL_I2C_1 (1)
 
 
 
 #define MYNEWT_VAL_I2C_1_FREQ_KHZ (100)
 
 
-#undef MYNEWT_VAL_I2C_1_PIN_SCL
+/* Overridden by hw/bsp/nrf52 (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
 
-#undef MYNEWT_VAL_I2C_1_PIN_SDA
+#define MYNEWT_VAL_I2C_1_PIN_SCL (7)
+
+
+/* Overridden by hw/bsp/nrf52 (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
+
+#define MYNEWT_VAL_I2C_1_PIN_SDA (6)
+
 
 
 #define MYNEWT_VAL_MCU_BUS_DRIVER_I2C_USE_TWIM (0)
@@ -1054,23 +1055,24 @@ typedef struct {
 #define MYNEWT_VAL_QSPI_WRITEOC (0)
 
 
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
 
-#define MYNEWT_VAL_SPI_0_MASTER (0)
-
-
-/* Overridden by hw/bsp/nrf52 (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
-
-#define MYNEWT_VAL_SPI_0_MASTER_PIN_MISO (14)
+#define MYNEWT_VAL_SPI_0_MASTER (1)
 
 
 /* Overridden by hw/bsp/nrf52 (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
 
-#define MYNEWT_VAL_SPI_0_MASTER_PIN_MOSI (13)
+#define MYNEWT_VAL_SPI_0_MASTER_PIN_MISO (11)
 
 
 /* Overridden by hw/bsp/nrf52 (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
 
-#define MYNEWT_VAL_SPI_0_MASTER_PIN_SCK (12)
+#define MYNEWT_VAL_SPI_0_MASTER_PIN_MOSI (3)
+
+
+/* Overridden by hw/bsp/nrf52 (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
+
+#define MYNEWT_VAL_SPI_0_MASTER_PIN_SCK (2)
 
 
 

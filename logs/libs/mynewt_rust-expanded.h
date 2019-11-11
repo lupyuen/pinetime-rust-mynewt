@@ -462,6 +462,24 @@
 #define MYNEWT 1
 #define NRF52 1
 # 1 "libs/mynewt_rust/src/mynewt_rust.c"
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 # 1 "repos/apache-mynewt-core/sys/sysinit/include/sysinit/sysinit.h" 1
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -2003,27 +2021,28 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 #define MYNEWT_VAL_I2C_0_FREQ_KHZ (100)
 
 
-/* Overridden by hw/bsp/nrf52 (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
+#undef MYNEWT_VAL_I2C_0_PIN_SCL
 
-#define MYNEWT_VAL_I2C_0_PIN_SCL (26)
+#undef MYNEWT_VAL_I2C_0_PIN_SDA
 
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
 
-/* Overridden by hw/bsp/nrf52 (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
-
-#define MYNEWT_VAL_I2C_0_PIN_SDA (25)
-
-
-
-#define MYNEWT_VAL_I2C_1 (0)
+#define MYNEWT_VAL_I2C_1 (1)
 
 
 
 #define MYNEWT_VAL_I2C_1_FREQ_KHZ (100)
 
 
-#undef MYNEWT_VAL_I2C_1_PIN_SCL
+/* Overridden by hw/bsp/nrf52 (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
 
-#undef MYNEWT_VAL_I2C_1_PIN_SDA
+#define MYNEWT_VAL_I2C_1_PIN_SCL (7)
+
+
+/* Overridden by hw/bsp/nrf52 (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
+
+#define MYNEWT_VAL_I2C_1_PIN_SDA (6)
+
 
 
 #define MYNEWT_VAL_MCU_BUS_DRIVER_I2C_USE_TWIM (0)
@@ -2177,23 +2196,24 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 #define MYNEWT_VAL_QSPI_WRITEOC (0)
 
 
+/* Overridden by apps/my_sensor_app (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
 
-#define MYNEWT_VAL_SPI_0_MASTER (0)
-
-
-/* Overridden by hw/bsp/nrf52 (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
-
-#define MYNEWT_VAL_SPI_0_MASTER_PIN_MISO (14)
+#define MYNEWT_VAL_SPI_0_MASTER (1)
 
 
 /* Overridden by hw/bsp/nrf52 (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
 
-#define MYNEWT_VAL_SPI_0_MASTER_PIN_MOSI (13)
+#define MYNEWT_VAL_SPI_0_MASTER_PIN_MISO (11)
 
 
 /* Overridden by hw/bsp/nrf52 (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
 
-#define MYNEWT_VAL_SPI_0_MASTER_PIN_SCK (12)
+#define MYNEWT_VAL_SPI_0_MASTER_PIN_MOSI (3)
+
+
+/* Overridden by hw/bsp/nrf52 (defined by @apache-mynewt-core/hw/mcu/nordic/nrf52xxx) */
+
+#define MYNEWT_VAL_SPI_0_MASTER_PIN_SCK (2)
 
 
 
@@ -3978,7 +3998,7 @@ void sysinit_panic_set(sysinit_panic_fn *panic_fn);
 /*** System initialization for a unified image (no split). */
 void sysinit_app(void);
 #define sysinit() do { sysinit_start(); sysinit_app(); sysinit_end(); } while (0)
-# 2 "libs/mynewt_rust/src/mynewt_rust.c" 2
+# 20 "libs/mynewt_rust/src/mynewt_rust.c" 2
 # 1 "libs/mynewt_rust/include/mynewt_rust/mynewt_rust.h" 1
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -4011,7 +4031,7 @@ void sysinit_app(void);
 
 ///  Initialise the Mynewt system.  Start the Mynewt drivers and libraries.  Equivalent to `sysinit()` macro in C.
 void rust_sysinit();
-# 3 "libs/mynewt_rust/src/mynewt_rust.c" 2
+# 21 "libs/mynewt_rust/src/mynewt_rust.c" 2
 # 1 "libs/mynewt_rust/include/mynewt_rust/sensor_helper.h" 1
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32617,7 +32637,7 @@ int is_null_sensor(struct sensor *p);
 
 ///  Return non-zero if sensor data is NULL.
 int is_null_sensor_data(void *p);
-# 4 "libs/mynewt_rust/src/mynewt_rust.c" 2
+# 22 "libs/mynewt_rust/src/mynewt_rust.c" 2
 # 1 "libs/mynewt_rust/include/mynewt_rust/json_helper.h" 1
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32684,7 +32704,7 @@ void json_helper_set_float(void *object, const char *key, float value);
 
 ///  Encode a text value into the current JSON encoding value `coap_json_value`
 void json_helper_set_text_string(void *object, const char *key, const char *value);
-# 5 "libs/mynewt_rust/src/mynewt_rust.c" 2
+# 23 "libs/mynewt_rust/src/mynewt_rust.c" 2
 
 ///  Initialise the Mynewt system.  Start the Mynewt drivers and libraries.  Equivalent to `sysinit()` macro in C.
 void rust_sysinit() {

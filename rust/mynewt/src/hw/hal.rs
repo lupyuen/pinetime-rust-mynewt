@@ -4,6 +4,11 @@ use
 super::*;
 
 pub const HAL_ADC_MODULE_ENABLED: u32 = 1;
+pub const HAL_I2C_ERR_UNKNOWN: u32 = 1;
+pub const HAL_I2C_ERR_INVAL: u32 = 2;
+pub const HAL_I2C_ERR_TIMEOUT: u32 = 3;
+pub const HAL_I2C_ERR_ADDR_NACK: u32 = 4;
+pub const HAL_I2C_ERR_DATA_NACK: u32 = 5;
 pub const HAL_SPI_TYPE_MASTER: u32 = 0;
 pub const HAL_SPI_TYPE_SLAVE: u32 = 1;
 pub const HAL_SPI_MODE0: u32 = 0;
@@ -14,9 +19,271 @@ pub const HAL_SPI_MSB_FIRST: u32 = 0;
 pub const HAL_SPI_LSB_FIRST: u32 = 1;
 pub const HAL_SPI_WORD_SIZE_8BIT: u32 = 0;
 pub const HAL_SPI_WORD_SIZE_9BIT: u32 = 1;
+#[doc = " Not connected"]
+pub const hal_gpio_mode_e_HAL_GPIO_MODE_NC: hal_gpio_mode_e = -1;
+#[doc = " Input"]
+pub const hal_gpio_mode_e_HAL_GPIO_MODE_IN: hal_gpio_mode_e = 0;
+#[doc = " Output"]
+pub const hal_gpio_mode_e_HAL_GPIO_MODE_OUT: hal_gpio_mode_e = 1;
+#[doc = " The \"mode\" of the gpio. The gpio is either an input, output, or it is"]
+#[doc = " \"not connected\" (the pin specified is not functioning as a gpio)"]
+pub type hal_gpio_mode_e = i32;
+pub use self::hal_gpio_mode_e as hal_gpio_mode_t;
+#[doc = " Pull-up/down not enabled"]
+pub const hal_gpio_pull_HAL_GPIO_PULL_NONE: hal_gpio_pull = 0;
+#[doc = " Pull-up enabled"]
+pub const hal_gpio_pull_HAL_GPIO_PULL_UP: hal_gpio_pull = 1;
+#[doc = " Pull-down enabled"]
+pub const hal_gpio_pull_HAL_GPIO_PULL_DOWN: hal_gpio_pull = 2;
+pub type hal_gpio_pull = u32;
+pub use self::hal_gpio_pull as hal_gpio_pull_t;
+pub const hal_gpio_irq_trigger_HAL_GPIO_TRIG_NONE: hal_gpio_irq_trigger = 0;
+#[doc = " IRQ occurs on rising edge"]
+pub const hal_gpio_irq_trigger_HAL_GPIO_TRIG_RISING: hal_gpio_irq_trigger = 1;
+#[doc = " IRQ occurs on falling edge"]
+pub const hal_gpio_irq_trigger_HAL_GPIO_TRIG_FALLING: hal_gpio_irq_trigger = 2;
+#[doc = " IRQ occurs on either edge"]
+pub const hal_gpio_irq_trigger_HAL_GPIO_TRIG_BOTH: hal_gpio_irq_trigger = 3;
+#[doc = " IRQ occurs when line is low"]
+pub const hal_gpio_irq_trigger_HAL_GPIO_TRIG_LOW: hal_gpio_irq_trigger = 4;
+#[doc = " IRQ occurs when line is high"]
+pub const hal_gpio_irq_trigger_HAL_GPIO_TRIG_HIGH: hal_gpio_irq_trigger = 5;
+pub type hal_gpio_irq_trigger = u32;
+pub use self::hal_gpio_irq_trigger as hal_gpio_irq_trig_t;
+pub type hal_gpio_irq_handler_t =
+    ::core::option::Option<unsafe extern "C" fn(arg: *mut ::cty::c_void)>;
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[doc = " Initializes the specified pin as an input"]
+    #[doc = ""]
+    #[doc = " - __`pin`__:   Pin number to set as input"]
+    #[doc = " - __`pull`__:  pull type"]
+    #[doc = ""]
+    #[doc = " Return: int  0: no error; -1 otherwise."]
+    pub fn hal_gpio_init_in(pin: ::cty::c_int, pull: hal_gpio_pull_t) -> ::cty::c_int;
+}
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[doc = " Initialize the specified pin as an output, setting the pin to the specified"]
+    #[doc = " value."]
+    #[doc = ""]
+    #[doc = " - __`pin`__: Pin number to set as output"]
+    #[doc = " - __`val`__: Value to set pin"]
+    #[doc = ""]
+    #[doc = " Return: int  0: no error; -1 otherwise."]
+    pub fn hal_gpio_init_out(pin: ::cty::c_int, val: ::cty::c_int) -> ::cty::c_int;
+}
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[doc = " Deinitialize the specified pin to revert the previous initialization"]
+    #[doc = ""]
+    #[doc = " - __`pin`__: Pin number to unset"]
+    #[doc = ""]
+    #[doc = " Return: int  0: no error; -1 otherwise."]
+    pub fn hal_gpio_deinit(pin: ::cty::c_int) -> ::cty::c_int;
+}
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[doc = " Write a value (either high or low) to the specified pin."]
+    #[doc = ""]
+    #[doc = " - __`pin`__: Pin to set"]
+    #[doc = " - __`val`__: Value to set pin (0:low 1:high)"]
+    pub fn hal_gpio_write(pin: ::cty::c_int, val: ::cty::c_int);
+}
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[doc = " Reads the specified pin."]
+    #[doc = ""]
+    #[doc = " - __`pin`__: Pin number to read"]
+    #[doc = ""]
+    #[doc = " Return: int 0: low, 1: high"]
+    pub fn hal_gpio_read(pin: ::cty::c_int) -> ::cty::c_int;
+}
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[doc = " Toggles the specified pin"]
+    #[doc = ""]
+    #[doc = " - __`pin`__: Pin number to toggle"]
+    #[doc = ""]
+    #[doc = " Return: current gpio state int 0: low, 1: high"]
+    pub fn hal_gpio_toggle(pin: ::cty::c_int) -> ::cty::c_int;
+}
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[doc = " Initialize a given pin to trigger a GPIO IRQ callback."]
+    #[doc = ""]
+    #[doc = " - __`pin`__:     The pin to trigger GPIO interrupt on"]
+    #[doc = " - __`handler`__: The handler function to call"]
+    #[doc = " - __`arg`__:     The argument to provide to the IRQ handler"]
+    #[doc = " - __`trig`__:    The trigger mode (e.g. rising, falling)"]
+    #[doc = " - __`pull`__:    The mode of the pin (e.g. pullup, pulldown)"]
+    #[doc = ""]
+    #[doc = " Return: 0 on success, non-zero error code on failure."]
+    pub fn hal_gpio_irq_init(
+        pin: ::cty::c_int,
+        handler: hal_gpio_irq_handler_t,
+        arg: *mut ::cty::c_void,
+        trig: hal_gpio_irq_trig_t,
+        pull: hal_gpio_pull_t,
+    ) -> ::cty::c_int;
+}
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[doc = " Release a pin from being configured to trigger IRQ on state change."]
+    #[doc = ""]
+    #[doc = " - __`pin`__: The pin to release"]
+    pub fn hal_gpio_irq_release(pin: ::cty::c_int);
+}
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[doc = " Enable IRQs on the passed pin"]
+    #[doc = ""]
+    #[doc = " - __`pin`__: The pin to enable IRQs on"]
+    pub fn hal_gpio_irq_enable(pin: ::cty::c_int);
+}
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[doc = " Disable IRQs on the passed pin"]
+    #[doc = ""]
+    #[doc = " - __`pin`__: The pin to disable IRQs on"]
+    pub fn hal_gpio_irq_disable(pin: ::cty::c_int);
+}
 pub type __uint8_t = ::cty::c_uchar;
 pub type __uint16_t = ::cty::c_ushort;
 pub type __uint32_t = ::cty::c_ulong;
+#[doc = " I2C controller hardware settings"]
+#[repr(C)]
+#[derive(Default)]
+pub struct hal_i2c_hw_settings {
+    pub pin_scl: ::cty::c_int,
+    pub pin_sda: ::cty::c_int,
+}
+#[doc = " I2C configuration"]
+#[repr(C)]
+#[derive(Default)]
+pub struct hal_i2c_settings {
+    #[doc = " Frequency in kHz"]
+    pub frequency: u32,
+}
+#[doc = " When sending a packet, use this structure to pass the arguments."]
+#[repr(C)]
+pub struct hal_i2c_master_data {
+    #[doc = " Destination address"]
+    #[doc = " An I2C address has 7 bits. In the protocol these"]
+    #[doc = " 7 bits are combined with a 1 bit R/W bit to specify read"]
+    #[doc = " or write operation in an 8-bit address field sent to"]
+    #[doc = " the remote device.  This API accepts the 7-bit"]
+    #[doc = " address as its argument in the 7 LSBs of the"]
+    #[doc = " address field above.  For example if I2C was"]
+    #[doc = " writing a 0x81 in its protocol, you would pass"]
+    #[doc = " only the top 7-bits to this function as 0x40"]
+    pub address: u8,
+    #[doc = " Number of buffer bytes to transmit or receive"]
+    pub len: u16,
+    #[doc = " Buffer space to hold the transmit or receive"]
+    pub buffer: *mut u8,
+}
+impl Default for hal_i2c_master_data {
+    fn default() -> Self {
+        unsafe { ::core::mem::zeroed() }
+    }
+}
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[doc = " Initialize a new i2c device with the I2C number."]
+    #[doc = ""]
+    #[doc = " - __`i2c_num`__: The number of the I2C device being initialized"]
+    #[doc = " - __`cfg`__: The hardware specific configuration structure to configure"]
+    #[doc = "            the I2C with.  This includes things like pin configuration."]
+    #[doc = ""]
+    #[doc = " Return: 0 on success, and non-zero error code on failure"]
+    pub fn hal_i2c_init(i2c_num: u8, cfg: *mut ::cty::c_void) -> ::cty::c_int;
+}
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[doc = " Initialize I2C controller"]
+    #[doc = ""]
+    #[doc = " This initializes I2C controller hardware before 1st use. Shall be called"]
+    #[doc = " only once."]
+    #[doc = ""]
+    #[doc = " - __`i2c_num`__:  Number of I2C controller"]
+    #[doc = " - __`cfg`__:      Configuration"]
+    #[doc = ""]
+    #[doc = " Return: 0 on success, non-zero error code on failure"]
+    pub fn hal_i2c_init_hw(i2c_num: u8, cfg: *const hal_i2c_hw_settings) -> ::cty::c_int;
+}
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[doc = " Enable I2C controller"]
+    #[doc = ""]
+    #[doc = " This enables I2C controller before usage."]
+    #[doc = ""]
+    #[doc = " - __`i2c_num`__:  Number of I2C controller"]
+    #[doc = ""]
+    #[doc = " Return: 0 on success, non-zero error code on failure"]
+    pub fn hal_i2c_enable(i2c_num: u8) -> ::cty::c_int;
+}
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[doc = " Disable I2C controller"]
+    #[doc = ""]
+    #[doc = " This disabled I2C controller if no longer needed. Hardware configuration"]
+    #[doc = " be preserved after controller is disabled."]
+    #[doc = ""]
+    #[doc = " - __`i2c_num`__:  Number of I2C controller"]
+    #[doc = ""]
+    #[doc = " Return: 0 on success, non-zero error code on failure"]
+    pub fn hal_i2c_disable(i2c_num: u8) -> ::cty::c_int;
+}
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[doc = " Configure I2C controller"]
+    #[doc = ""]
+    #[doc = " This configures I2C controller for operation. Can be called multiple times."]
+    #[doc = ""]
+    #[doc = " - __`i2c_num`__:  Number of I2C controller"]
+    #[doc = " - __`cfg`__:      Configuration"]
+    pub fn hal_i2c_config(i2c_num: u8, cfg: *const hal_i2c_settings) -> ::cty::c_int;
+}
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[doc = " Sends a start condition and writes <len> bytes of data on the i2c bus."]
+    #[doc = " This API does NOT issue a stop condition unless `last_op` is set to `1`."]
+    #[doc = " You must stop the bus after successful or unsuccessful write attempts."]
+    #[doc = " This API is blocking until an error or NaK occurs. Timeout is platform"]
+    #[doc = " dependent."]
+    #[doc = ""]
+    #[doc = " - __`i2c_num`__: The number of the I2C device being written to"]
+    #[doc = " - __`pdata`__: The data to write to the I2C bus"]
+    #[doc = " - __`timeout`__: How long to wait for transaction to complete in ticks"]
+    #[doc = " - __`last_op`__: Master should send a STOP at the end to signify end of"]
+    #[doc = "        transaction."]
+    #[doc = ""]
+    #[doc = " Return: 0 on success, and non-zero error code on failure"]
+    pub fn hal_i2c_master_write(
+        i2c_num: u8,
+        pdata: *mut hal_i2c_master_data,
+        timeout: u32,
+        last_op: u8,
+    ) -> ::cty::c_int;
+}
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[doc = " Sends a start condition and reads <len> bytes of data on the i2c bus."]
+    #[doc = " This API does NOT issue a stop condition unless `last_op` is set to `1`."]
+    #[doc = " You must stop the bus after successful or unsuccessful write attempts."]
+    #[doc = " This API is blocking until an error or NaK occurs. Timeout is platform"]
+    #[doc = " dependent."]
+    #[doc = ""]
+    #[doc = " - __`i2c_num`__: The number of the I2C device being written to"]
+    #[doc = " - __`pdata`__: The location to place read data"]
+    #[doc = " - __`timeout`__: How long to wait for transaction to complete in ticks"]
+    #[doc = " - __`last_op`__: Master should send a STOP at the end to signify end of"]
+    #[doc = "        transaction."]
+    #[doc = ""]
+    #[doc = " Return: 0 on success, and non-zero error code on failure"]
+    pub fn hal_i2c_master_read(
+        i2c_num: u8,
+        pdata: *mut hal_i2c_master_data,
+        timeout: u32,
+        last_op: u8,
+    ) -> ::cty::c_int;
+}
+#[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[doc = " Probes the i2c bus for a device with this address.  THIS API"]
+    #[doc = " issues a start condition, probes the address using a read"]
+    #[doc = " command and issues a stop condition."]
+    #[doc = ""]
+    #[doc = " - __`i2c_num`__: The number of the I2C to probe"]
+    #[doc = " - __`address`__: The address to probe for"]
+    #[doc = " - __`timeout`__: How long to wait for transaction to complete in ticks"]
+    #[doc = ""]
+    #[doc = " Return: 0 on success, non-zero error code on failure"]
+    pub fn hal_i2c_master_probe(i2c_num: u8, address: u8, timeout: u32) -> ::cty::c_int;
+}
 pub type hal_spi_txrx_cb =
     ::core::option::Option<unsafe extern "C" fn(arg: *mut ::cty::c_void, len: ::cty::c_int)>;
 #[doc = " SPI controller hardware settings"]
@@ -239,56 +506,4 @@ pub struct hal_spi_settings {
         out_cpol: *mut ::cty::c_int,
         out_cpha: *mut ::cty::c_int,
     ) -> ::cty::c_int;
-}
-#[mynewt_macros::safe_wrap(attr)] extern "C" {
-    #[doc = " System reset."]
-    pub fn hal_system_reset();
-}
-#[mynewt_macros::safe_wrap(attr)] extern "C" {
-    #[doc = " Called by bootloader to start loaded program."]
-    pub fn hal_system_start(img_start: *mut ::cty::c_void);
-}
-#[mynewt_macros::safe_wrap(attr)] extern "C" {
-    #[doc = " Called by split app loader to start the app program."]
-    pub fn hal_system_restart(img_start: *mut ::cty::c_void);
-}
-#[mynewt_macros::safe_wrap(attr)] extern "C" {
-    #[doc = " Returns non-zero if there is a HW debugger attached."]
-    pub fn hal_debugger_connected() -> ::cty::c_int;
-}
-#[doc = " Power on Reset"]
-pub const hal_reset_reason_HAL_RESET_POR: hal_reset_reason = 1;
-#[doc = " Caused by Reset Pin"]
-pub const hal_reset_reason_HAL_RESET_PIN: hal_reset_reason = 2;
-#[doc = " Caused by Watchdog"]
-pub const hal_reset_reason_HAL_RESET_WATCHDOG: hal_reset_reason = 3;
-#[doc = " Soft reset, either system reset or crash"]
-pub const hal_reset_reason_HAL_RESET_SOFT: hal_reset_reason = 4;
-#[doc = " Low supply voltage"]
-pub const hal_reset_reason_HAL_RESET_BROWNOUT: hal_reset_reason = 5;
-#[doc = " Restart due to user request"]
-pub const hal_reset_reason_HAL_RESET_REQUESTED: hal_reset_reason = 6;
-#[doc = " System Off, wakeup on external interrupt"]
-pub const hal_reset_reason_HAL_RESET_SYS_OFF_INT: hal_reset_reason = 7;
-#[doc = " Reboot reason"]
-pub type hal_reset_reason = u32;
-#[mynewt_macros::safe_wrap(attr)] extern "C" {
-    #[doc = " Return the reboot reason"]
-    #[doc = ""]
-    #[doc = " Return: A reboot reason"]
-    pub fn hal_reset_cause() -> hal_reset_reason;
-}
-#[mynewt_macros::safe_wrap(attr)] extern "C" {
-    #[doc = " Return the reboot reason as a string"]
-    #[doc = ""]
-    #[doc = " Return: String describing previous reset reason"]
-    pub fn hal_reset_cause_str() -> *const ::cty::c_char;
-}
-#[mynewt_macros::safe_wrap(attr)] extern "C" {
-    #[doc = " Starts clocks needed by system"]
-    pub fn hal_system_clock_start();
-}
-#[mynewt_macros::safe_wrap(attr)] extern "C" {
-    #[doc = " Reset callback to be called before an reset happens inside hal_system_reset()"]
-    pub fn hal_system_reset_cb();
 }

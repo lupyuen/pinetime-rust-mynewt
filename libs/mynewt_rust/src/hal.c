@@ -17,15 +17,15 @@
  * under the License.
  */
 //  Used for generating Rust bindings for HAL APIs
-#include <hal/hal_bsp.h>
-#include <hal/hal_flash.h>
-#include <hal/hal_flash_int.h>
+//#include <hal/hal_bsp.h>
+//#include <hal/hal_flash.h>
+//#include <hal/hal_flash_int.h>
 #include <hal/hal_gpio.h>
 #include <hal/hal_i2c.h>
-#include <hal/hal_nvreg.h>
-#include <hal/hal_os_tick.h>
+//#include <hal/hal_nvreg.h>
+//#include <hal/hal_os_tick.h>
 #include <hal/hal_spi.h>
-#include <hal/hal_system.h>
-#include <hal/hal_timer.h>
-#include <hal/hal_uart.h>
-#include <hal/hal_watchdog.h>
+//#include <hal/hal_system.h>
+//#include <hal/hal_timer.h>
+//#include <hal/hal_uart.h>
+//#include <hal/hal_watchdog.h>

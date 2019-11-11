@@ -181,15 +181,26 @@ function generate_bindings_hw() {
         local modname=hw/$libname/bindings
         #  libdir looks like hw/sensor
         local libdir=hw/$libname
-    else
+        #  libcmd looks like
+        #  bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd
+        local libcmd=bin/targets/*_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$srcname.o.cmd
+    elif [ "$libname" == 'hal' ]; then
         #  modname looks like hw/hal.rs
         local modname=hw/$libname
         #  libdir looks like hw/hal
         local libdir=hw/$libname
+        #  libcmd looks like
+        #  bin/targets/nrf52_my_sensor/app/libs/mynewt_rust/libs/mynewt_rust/src/hal.o.cmd
+        local libcmd=bin/targets/*_my_sensor/app/libs/mynewt_rust/libs/mynewt_rust/src/$srcname.o.cmd
+    else
+        #  modname looks like hw/xxx.rs
+        local modname=hw/$libname
+        #  libdir looks like hw/xxx
+        local libdir=hw/$libname
+        #  libcmd looks like
+        #  bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd
+        local libcmd=bin/targets/*_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$srcname.o.cmd
     fi
-    #  libcmd looks like
-    #  bin/targets/bluepill_my_sensor/app/hw/sensor/repos/apache-mynewt-core/hw/sensor/src/sensor.o.cmd
-    local libcmd=bin/targets/*_my_sensor/app/$libdir/repos/apache-mynewt-core/$libdir/src/$srcname.o.cmd
     #  Add whitelist and blacklist.
     local whitelist=`cat << EOF
         --raw-line use \
@@ -332,7 +343,7 @@ generate_bindings_encoding json           json_encode    json  #  Generate bindi
 generate_bindings_encoding tinycbor       cborencoder    cbor  #  Generate bindings for encoding/tinycbor
 # TODO: generate_bindings_kernel   os             os             os    #  Generate bindings for kernel/os
 # TODO: generate_bindings_hw       sensor         sensor         sensor         #  Generate bindings for hw/sensor
-generate_bindings_hw       hal            hal_common     hal            #  Generate bindings for hw/hal
+generate_bindings_hw       hal            hal            hal            #  Generate bindings for hw/hal
 generate_bindings_libs     mynewt_rust    mynewt_rust    mynewt_rust    #  Generate bindings for libs/mynewt_rust
 generate_bindings_libs     sensor_network sensor_network sensor_network #  Generate bindings for libs/sensor_network
 generate_bindings_libs     sensor_coap    sensor_coap    sensor_coap    #  Generate bindings for libs/sensor_coap
