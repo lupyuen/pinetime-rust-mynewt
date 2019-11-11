@@ -72,7 +72,9 @@
 			"*.tcc": "cpp",
 			"platform.h": "c",
 			"clint.h": "c",
-			"gd32vf103_hal.h": "c"
+			"gd32vf103_hal.h": "c",
+			"console.h": "c",
+			"sensor_helper.h": "c"
 		},
 		"rust.racer_completion": false
 	}

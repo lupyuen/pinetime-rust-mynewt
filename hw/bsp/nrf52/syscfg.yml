@@ -42,9 +42,9 @@ syscfg.vals:
     SPI_0_MASTER_PIN_MOSI: 3   # LCD_SDI (P0.03)	SPI MOSI
     SPI_0_MASTER_PIN_MISO: 11  # Unused
 
-    # I2C port 0 connected to CST816S touch controller, BMA421 accelerometer, HRS3300 heart rate sensor 
-    I2C_0_PIN_SCL: 7  # P0.07: BMA421-SCL, HRS3300-SCL, TP-SCLOUT
-    I2C_0_PIN_SDA: 6  # P0.06: BMA421-SDA, HRS3300-SDA, TP-SDAI/O
+    # I2C port 1 connected to CST816S touch controller, BMA421 accelerometer, HRS3300 heart rate sensor 
+    I2C_1_PIN_SCL: 7  # P0.07: BMA421-SCL, HRS3300-SCL, TP-SCLOUT
+    I2C_1_PIN_SDA: 6  # P0.06: BMA421-SDA, HRS3300-SDA, TP-SDAI/O
 
     # Flash regions
     CONFIG_FCB_FLASH_AREA: FLASH_AREA_NFFS
