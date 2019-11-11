@@ -361,6 +361,50 @@ mod touch_sensor {
         console::flush();
         Ok(())
     }
+    pub fn test() -> MynewtResult<()> {
+        for addr in &[0x18u8, 0x44u8, 0x98u8, 0xc4u8] {
+            unsafe {
+                I2C_BUFFER[0] = 0xaf;
+                I2C_DATA.address = *addr;
+                I2C_DATA.len = I2C_BUFFER.len() as u16;
+                I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
+            };
+            let rc =
+                unsafe {
+                    hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0)
+                };
+            console::print("0x");
+            console::printhex(*addr);
+            console::print(": ");
+            console::printhex(rc as u8);
+            console::print("\n");
+            console::flush();
+            unsafe {
+                I2C_BUFFER[0] = 0x00;
+                I2C_DATA.address = *addr;
+                I2C_DATA.len = I2C_BUFFER.len() as u16;
+                I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
+            };
+            let rc =
+                unsafe {
+                    hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1)
+                };
+            console::print("0x");
+            console::printhex(*addr);
+            console::print(": ");
+            console::printhex(rc as u8);
+            console::print("\n");
+            console::flush();
+        }
+        console::print("Done\n");
+        console::flush();
+        Ok(())
+    }
+    static mut I2C_BUFFER: [u8; 1] = [0];
+    static mut I2C_DATA: hal::hal_i2c_master_data =
+        hal::hal_i2c_master_data{address: 0,
+                                 len: 0,
+                                 buffer: core::ptr::null_mut(),};
 }
 mod display {
     use embedded_graphics::{prelude::*, fonts, pixelcolor::Rgb565,
@@ -646,7 +690,7 @@ extern "C" fn main() -> ! {
         }
     };
     display::show().expect("DSP fail");
-    touch_sensor::probe().expect("TCH fail");
+    touch_sensor::test().expect("TCH fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }
