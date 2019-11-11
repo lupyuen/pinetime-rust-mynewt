@@ -32,26 +32,32 @@ syscfg.defs:
 syscfg.vals:
     # Enable nRF52832 MCU
     MCU_TARGET: nRF52832
+
     # Set default pins for peripherals
     UART_0_PIN_TX: 6
     UART_0_PIN_RX: 8
+
     # SPI port 0 connected to ST7789 display
     SPI_0_MASTER_PIN_SCK:  2   # LCD_SCK (P0.02)	SPI clock
     SPI_0_MASTER_PIN_MOSI: 3   # LCD_SDI (P0.03)	SPI MOSI
     SPI_0_MASTER_PIN_MISO: 11  # Unused
-    I2C_0_PIN_SCL: 26
-    I2C_0_PIN_SDA: 25
 
+    # I2C port 0 connected to CST816S touch controller, BMA421 accelerometer, HRS3300 heart rate sensor 
+    I2C_0_PIN_SCL: 7  # P0.07: BMA421-SCL, HRS3300-SCL, TP-SCLOUT
+    I2C_0_PIN_SDA: 6  # P0.06: BMA421-SDA, HRS3300-SDA, TP-SDAI/O
+
+    # Flash regions
     CONFIG_FCB_FLASH_AREA: FLASH_AREA_NFFS
     REBOOT_LOG_FLASH_AREA: FLASH_AREA_REBOOT_LOG
     NFFS_FLASH_AREA: FLASH_AREA_NFFS
     COREDUMP_FLASH_AREA: FLASH_AREA_IMAGE_1
+
     MCU_DCDC_ENABLED: 1
     MCU_LFCLK_SOURCE: LFXO
     BOOT_SERIAL_DETECT_PIN: 20
 
-# The module on the board has +/- 40 ppm crystal. A value of 5 is
-# for crystals in the range of 31 to 50 ppm.
+    # The module on the board has +/- 40 ppm crystal. A value of 5 is
+    # for crystals in the range of 31 to 50 ppm.
     BLE_LL_MASTER_SCA: 5
 
 syscfg.vals.BLE_CONTROLLER:

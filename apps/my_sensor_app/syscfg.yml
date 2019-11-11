@@ -180,12 +180,14 @@ syscfg.vals:
     # Hardware Settings
 
     SPI_0_MASTER:           1  # Enable SPI port 0 for ST7789 display
-    LOW_POWER:              1  # Enable low power support for STM32 Blue Pill
-    GPS_L70R:               1  # Enable driver for Quectel L70R GPS module
-    BC95G:                  1  # Enable driver for Quectel BC95-G NB-IoT module
-    TEMP_STM32:             1  # Enable Blue Pill internal temperature sensor
-    ADC_1:                  1  # Enable port ADC1 for internal temperature sensor
-    HMAC_PRNG:              1  # Enable HMAC PRNG pseudorandom number generator
+    I2C_0:                  1  # Enable I2C port 0 for CST816S touch controller, BMA421 accelerometer, HRS3300 heart rate sensor
+
+    LOW_POWER:              0  # Disable low power support for STM32 Blue Pill
+    GPS_L70R:               0  # Disable driver for Quectel L70R GPS module
+    BC95G:                  0  # Disable driver for Quectel BC95-G NB-IoT module
+    TEMP_STM32:             0  # Disable Blue Pill internal temperature sensor
+    ADC_1:                  0  # Disable port ADC1 for internal temperature sensor
+    HMAC_PRNG:              0  # Disable HMAC PRNG pseudorandom number generator
 
     ###########################################################################
     # OIC Settings for CoAP Transmission
