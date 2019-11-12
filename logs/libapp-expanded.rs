@@ -343,7 +343,7 @@ mod app_sensor {
     }
 }
 mod touch_sensor {
-    use mynewt::{result::*, hw::hal, sys::console};
+    use mynewt::{result::*, hw::hal, kernel::os, sys::console};
     /// Probe the I2C bus
     pub fn probe() -> MynewtResult<()> {
         for addr in 1..255 {
@@ -362,9 +362,14 @@ mod touch_sensor {
         Ok(())
     }
     pub fn test() -> MynewtResult<()> {
+        let register = 0x22;
+        loop  { read_register(register)?; delay_ms(200); break ; }
+        Ok(())
+    }
+    fn read_register(register: u8) -> MynewtResult<()> {
         for addr in &[0x18u8, 0x44u8, 0x98u8, 0xc4u8] {
             unsafe {
-                I2C_BUFFER[0] = 0xaf;
+                I2C_BUFFER[0] = register;
                 I2C_DATA.address = *addr;
                 I2C_DATA.len = I2C_BUFFER.len() as u16;
                 I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
@@ -373,12 +378,6 @@ mod touch_sensor {
                 unsafe {
                     hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0)
                 };
-            console::print("write 0x");
-            console::printhex(*addr);
-            console::print(": ");
-            console::printhex(rc as u8);
-            console::print("\n");
-            console::flush();
             unsafe {
                 I2C_BUFFER[0] = 0x00;
                 I2C_DATA.address = *addr;
@@ -389,19 +388,14 @@ mod touch_sensor {
                 unsafe {
                     hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1)
                 };
-            console::print("read 0x");
+            console::print("0x");
             console::printhex(*addr);
             console::print(": ");
-            console::printhex(rc as u8);
-            console::print("\n");
-            console::flush();
-            console::print("value 0x");
+            console::print("0x");
             console::printhex(unsafe { I2C_BUFFER[0] });
             console::print("\n");
             console::flush();
         }
-        console::print("Done\n");
-        console::flush();
         Ok(())
     }
     static mut I2C_BUFFER: [u8; 1] = [0];
@@ -409,6 +403,12 @@ mod touch_sensor {
         hal::hal_i2c_master_data{address: 0,
                                  len: 0,
                                  buffer: core::ptr::null_mut(),};
+    /// Sleep for the specified number of milliseconds
+    fn delay_ms(ms: u8) {
+        const OS_TICKS_PER_SEC: u32 = 1000;
+        let delay_ticks = (ms as u32) * OS_TICKS_PER_SEC / 1000;
+        unsafe { os::os_time_delay(delay_ticks) };
+    }
 }
 mod display {
     use embedded_graphics::{prelude::*, fonts, pixelcolor::Rgb565,
@@ -434,8 +434,8 @@ mod display {
             Circle::<Rgb565>::new(Coord::new(40, 40),
                                   40).fill(Some(Rgb565::from(1u8)));
         let t =
-            fonts::Font12x16::<Rgb565>::render_str("Hello Rust!").fill(Some(Rgb565::from(20u8))).translate(Coord::new(20,
-                                                                                                                      16));
+            fonts::Font12x16::<Rgb565>::render_str("I AM RUSTY BEACON").fill(Some(Rgb565::from(20u8))).translate(Coord::new(20,
+                                                                                                                            16));
         let mut delay = MynewtDelay{};
         display.init(&mut delay)?;
         display.set_orientation(&Orientation::Landscape)?;

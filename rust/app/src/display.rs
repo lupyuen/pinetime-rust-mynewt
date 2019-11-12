@@ -63,7 +63,7 @@ pub fn show() -> MynewtResult<()> {
         .fill(Some(Rgb565::from(1u8)));
 
     //  Create text
-    let t = fonts::Font12x16::<Rgb565>::render_str("Hello Rust!")
+    let t = fonts::Font12x16::<Rgb565>::render_str("I AM RUSTY BEACON")
         .fill(Some(Rgb565::from(20u8)))
         .translate(Coord::new(20, 16));
 
