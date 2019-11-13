@@ -25,6 +25,10 @@ This `pinetime` branch contains the firmware source code for PineTime Smart Watc
 
 [_Coding nRF52 with Rust and Apache Mynewt on Visual Studio Code_](https://medium.com/@ly.lee/coding-nrf52-with-rust-and-apache-mynewt-on-visual-studio-code-9521bcba6004?source=friends_link&sk=bb4e2523b922d0870259ab3fa696c7da)
 
+More details...
+
+[_Sneak Peek of PineTime Smart Watch… And why it's perfect for IoT Education_](https://medium.com/@ly.lee/sneak-peek-of-pinetime-smart-watch-and-why-its-perfect-for-iot-education-81b74161c159)
+
 # Fixes for Mynewt type conversion build warnings
 
 These fixes should be applied manually when upgrading Mynewt or installing Mynewt from scratch.
