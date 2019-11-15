@@ -523,7 +523,7 @@ mod display {
                     }
                 }
             };
-            let rc = unsafe { hal_gpio_init_out(cs_pin, 1) };
+            let rc = unsafe { hal::hal_gpio_init_out(cs_pin, 1) };
             {
                 match (&(rc), &(0)) {
                     (left_val, right_val) => {
@@ -567,13 +567,13 @@ mod display {
     impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
         /// Write to the SPI port
         fn write(&mut self, words: &[u8]) -> Result<(), Self::Error> {
-            unsafe { hal_gpio_write(self.cs_pin, 0) };
+            unsafe { hal::hal_gpio_write(self.cs_pin, 0) };
             unsafe {
                 hal::hal_spi_txrx(self.spi_num,
                                   core::mem::transmute(words.as_ptr()),
                                   core::ptr::null_mut(), words.len() as i32)
             };
-            unsafe { hal_gpio_write(self.cs_pin, 1) };
+            unsafe { hal::hal_gpio_write(self.cs_pin, 1) };
             Ok(())
         }
         /// Reuse Mynewt error codes
@@ -586,7 +586,7 @@ mod display {
     impl MynewtGPIO {
         /// Create a new output GPIO pin
         pub fn new(pin: i32) -> Self {
-            let rc = unsafe { hal_gpio_init_out(pin, 0) };
+            let rc = unsafe { hal::hal_gpio_init_out(pin, 0) };
             {
                 match (&(rc), &(0)) {
                     (left_val, right_val) => {
@@ -597,7 +597,7 @@ mod display {
                                                                                               "`: "],
                                                                                             &match (&&*left_val,
                                                                                                     &&*right_val,
-                                                                                                    &::core::fmt::Arguments::new_v1(&["spi config fail"],
+                                                                                                    &::core::fmt::Arguments::new_v1(&["gpio fail"],
                                                                                                                                     &match ()
                                                                                                                                          {
                                                                                                                                          ()
@@ -630,12 +630,12 @@ mod display {
     impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
         /// Set the GPIO pin to low
         fn set_low(&mut self) -> Result<(), Self::Error> {
-            unsafe { hal_gpio_write(self.pin, 0) };
+            unsafe { hal::hal_gpio_write(self.pin, 0) };
             Ok(())
         }
         /// Set the GPIO pin to high
         fn set_high(&mut self) -> Result<(), Self::Error> {
-            unsafe { hal_gpio_write(self.pin, 1) };
+            unsafe { hal::hal_gpio_write(self.pin, 1) };
             Ok(())
         }
         /// Reuse Mynewt error codes
@@ -654,24 +654,19 @@ mod display {
         }
     }
     /// Rust Embedded HAL interface for Mynewt SPI
-    struct MynewtSPI {
+    pub struct MynewtSPI {
         /// Mynewt SPI port number
         spi_num: i32,
         /// Mynewt GPIO pin number for Chip Select
         cs_pin: i32,
     }
     /// Rust Embedded HAL interface for Mynewt GPIO
-    struct MynewtGPIO {
+    pub struct MynewtGPIO {
         /// Mynewt GPIO pin number
         pin: i32,
     }
     /// Rust Embedded HAL interface for Mynewt Delay
-    struct MynewtDelay {
-    }
-    /// TODO: Fix gen-bindings.sh to generate GPIO bindings. https://mynewt.apache.org/latest/os/modules/hal/hal_gpio/hal_gpio.html
-    extern "C" {
-        fn hal_gpio_init_out(pin: i32, val: i32) -> i32;
-        fn hal_gpio_write(pin: i32, val: i32);
+    pub struct MynewtDelay {
     }
 }
 use core::panic::PanicInfo;
@@ -694,7 +689,7 @@ extern "C" fn main() -> ! {
         }
     };
     display::show().expect("DSP fail");
-    touch_sensor::test().expect("TCH fail");
+    touch_sensor::probe().expect("TCH fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }

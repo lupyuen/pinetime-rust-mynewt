@@ -89,7 +89,7 @@ impl MynewtSPI {
         let rc = unsafe { hal::hal_spi_enable(spi_num) };
         assert_eq!(rc, 0, "spi enable fail");
 
-        let rc = unsafe { hal_gpio_init_out(cs_pin, 1) };
+        let rc = unsafe { hal::hal_gpio_init_out(cs_pin, 1) };
         assert_eq!(rc, 0, "spi init fail");
         MynewtSPI {
             spi_num,
@@ -103,14 +103,14 @@ impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
     /// Write to the SPI port
     fn write(&mut self, words: &[u8]) -> Result<(), Self::Error> {
         //  Select the device
-        unsafe { hal_gpio_write(self.cs_pin, 0) };
+        unsafe { hal::hal_gpio_write(self.cs_pin, 0) };
         //  Send the data
         unsafe { hal::hal_spi_txrx(self.spi_num, 
             core::mem::transmute(words.as_ptr()),  //  TX Buffer
             core::ptr::null_mut(),                 //  RX Buffer (don't receive)
             words.len() as i32) };                 //  Length
         //  De-select the device
-        unsafe { hal_gpio_write(self.cs_pin, 1) };
+        unsafe { hal::hal_gpio_write(self.cs_pin, 1) };
         Ok(())
     }
 
@@ -124,8 +124,8 @@ impl MynewtGPIO {
     pub fn new(pin: i32) -> Self {
         //  TODO: let dc = pins.d0.into_push_pull_output(&mut pins.port);
         //  TODO: let rst = pins.d1.into_push_pull_output(&mut pins.port);
-        let rc = unsafe { hal_gpio_init_out(pin, 0) };
-        assert_eq!(rc, 0, "spi config fail");
+        let rc = unsafe { hal::hal_gpio_init_out(pin, 0) };
+        assert_eq!(rc, 0, "gpio fail");
         MynewtGPIO {
             pin
         }
@@ -136,13 +136,13 @@ impl MynewtGPIO {
 impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
     /// Set the GPIO pin to low
     fn set_low(&mut self) -> Result<(), Self::Error> {
-        unsafe { hal_gpio_write(self.pin, 0) };
+        unsafe { hal::hal_gpio_write(self.pin, 0) };
         Ok(())
     }
 
     /// Set the GPIO pin to high
     fn set_high(&mut self) -> Result<(), Self::Error> {
-        unsafe { hal_gpio_write(self.pin, 1) };
+        unsafe { hal::hal_gpio_write(self.pin, 1) };
         Ok(())
     }
 
@@ -162,7 +162,7 @@ impl embedded_hal::blocking::delay::DelayMs<u8> for MynewtDelay {
 }
 
 /// Rust Embedded HAL interface for Mynewt SPI
-struct MynewtSPI {
+pub struct MynewtSPI {
     /// Mynewt SPI port number
     spi_num: i32,
     /// Mynewt GPIO pin number for Chip Select
@@ -170,16 +170,10 @@ struct MynewtSPI {
 }
 
 /// Rust Embedded HAL interface for Mynewt GPIO
-struct MynewtGPIO {
+pub struct MynewtGPIO {
     /// Mynewt GPIO pin number
     pin: i32,
 }
 
 /// Rust Embedded HAL interface for Mynewt Delay
-struct MynewtDelay {}
-
-/// TODO: Fix gen-bindings.sh to generate GPIO bindings. https://mynewt.apache.org/latest/os/modules/hal/hal_gpio/hal_gpio.html
-extern "C" {
-    fn hal_gpio_init_out(pin: i32, val: i32) -> i32;
-    fn hal_gpio_write(pin: i32, val: i32);
-}
+pub struct MynewtDelay {}
