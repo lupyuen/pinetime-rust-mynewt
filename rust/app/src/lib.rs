@@ -32,6 +32,7 @@ extern crate cortex_m;                  //  Declare the external library `cortex
 extern crate mynewt;                    //  Declare the Mynewt library
 extern crate macros as mynewt_macros;   //  Declare the Mynewt Procedural Macros library
 
+mod mynewt_hal;     //  Declare `mynewt_hal.rs` as Rust module `mynewt_hal` for Mynewt Rust Embedded HAL functions
 mod app_network;    //  Declare `app_network.rs` as Rust module `app_network` for Application Network functions
 mod app_sensor;     //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
 mod touch_sensor;   //  Declare `touch_sensor.rs` as Rust module `touch_sensor` for Touch Sensor functions

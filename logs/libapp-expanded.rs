@@ -49,7 +49,8 @@ extern crate mynewt;
 extern crate macros as mynewt_macros;
 //  Declare the Mynewt Procedural Macros library
 
-mod app_network {
+mod mynewt_hal {
+    //  Declare `mynewt_hal.rs` as Rust module `mynewt_hal` for Mynewt Rust Embedded HAL functions
     //  Declare `app_network.rs` as Rust module `app_network` for Application Network functions
     //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
     //  Declare `touch_sensor.rs` as Rust module `touch_sensor` for Touch Sensor functions
@@ -98,6 +99,234 @@ mod app_network {
     //  Display the filename and line number to the Semihosting Console.
     //  Pause in the debugger.
     //  Loop forever so that device won't restart.
+    use embedded_hal;
+    use mynewt::{hw::hal, kernel::os};
+    /// Rust Embedded HAL interface for Mynewt SPI
+    impl MynewtSPI {
+        /// Create a new SPI port
+        pub fn new(spi_num: i32, cs_pin: i32,
+                   spi_settings: *mut hal::hal_spi_settings) -> Self {
+            let rc = unsafe { hal::hal_spi_config(spi_num, spi_settings) };
+            {
+                match (&(rc), &(0)) {
+                    (left_val, right_val) => {
+                        if !(*left_val == *right_val) {
+                            {
+                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                              "`,\n right: `",
+                                                                                              "`: "],
+                                                                                            &match (&&*left_val,
+                                                                                                    &&*right_val,
+                                                                                                    &::core::fmt::Arguments::new_v1(&["spi config fail"],
+                                                                                                                                    &match ()
+                                                                                                                                         {
+                                                                                                                                         ()
+                                                                                                                                         =>
+                                                                                                                                         [],
+                                                                                                                                     }))
+                                                                                                 {
+                                                                                                 (arg0,
+                                                                                                  arg1,
+                                                                                                  arg2)
+                                                                                                 =>
+                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                               ::core::fmt::Display::fmt)],
+                                                                                             }),
+                                                             &("rust/app/src/mynewt_hal.rs",
+                                                               12u32, 9u32))
+                            }
+                        }
+                    }
+                }
+            };
+            let rc = unsafe { hal::hal_spi_enable(spi_num) };
+            {
+                match (&(rc), &(0)) {
+                    (left_val, right_val) => {
+                        if !(*left_val == *right_val) {
+                            {
+                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                              "`,\n right: `",
+                                                                                              "`: "],
+                                                                                            &match (&&*left_val,
+                                                                                                    &&*right_val,
+                                                                                                    &::core::fmt::Arguments::new_v1(&["spi enable fail"],
+                                                                                                                                    &match ()
+                                                                                                                                         {
+                                                                                                                                         ()
+                                                                                                                                         =>
+                                                                                                                                         [],
+                                                                                                                                     }))
+                                                                                                 {
+                                                                                                 (arg0,
+                                                                                                  arg1,
+                                                                                                  arg2)
+                                                                                                 =>
+                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                               ::core::fmt::Display::fmt)],
+                                                                                             }),
+                                                             &("rust/app/src/mynewt_hal.rs",
+                                                               15u32, 9u32))
+                            }
+                        }
+                    }
+                }
+            };
+            let rc = unsafe { hal::hal_gpio_init_out(cs_pin, 1) };
+            {
+                match (&(rc), &(0)) {
+                    (left_val, right_val) => {
+                        if !(*left_val == *right_val) {
+                            {
+                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                              "`,\n right: `",
+                                                                                              "`: "],
+                                                                                            &match (&&*left_val,
+                                                                                                    &&*right_val,
+                                                                                                    &::core::fmt::Arguments::new_v1(&["spi init fail"],
+                                                                                                                                    &match ()
+                                                                                                                                         {
+                                                                                                                                         ()
+                                                                                                                                         =>
+                                                                                                                                         [],
+                                                                                                                                     }))
+                                                                                                 {
+                                                                                                 (arg0,
+                                                                                                  arg1,
+                                                                                                  arg2)
+                                                                                                 =>
+                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                               ::core::fmt::Display::fmt)],
+                                                                                             }),
+                                                             &("rust/app/src/mynewt_hal.rs",
+                                                               18u32, 9u32))
+                            }
+                        }
+                    }
+                }
+            };
+            MynewtSPI{spi_num, cs_pin,}
+        }
+    }
+    /// Rust Embedded HAL interface for Mynewt SPI
+    impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
+        /// Write to the SPI port
+        fn write(&mut self, words: &[u8]) -> Result<(), Self::Error> {
+            unsafe { hal::hal_gpio_write(self.cs_pin, 0) };
+            unsafe {
+                hal::hal_spi_txrx(self.spi_num,
+                                  core::mem::transmute(words.as_ptr()),
+                                  core::ptr::null_mut(), words.len() as i32)
+            };
+            unsafe { hal::hal_gpio_write(self.cs_pin, 1) };
+            Ok(())
+        }
+        /// Reuse Mynewt error codes
+        type
+        Error
+        =
+        mynewt::result::MynewtError;
+    }
+    /// Rust Embedded HAL interface for Mynewt GPIO
+    impl MynewtGPIO {
+        /// Create a new output GPIO pin
+        pub fn new(pin: i32) -> Self {
+            let rc = unsafe { hal::hal_gpio_init_out(pin, 0) };
+            {
+                match (&(rc), &(0)) {
+                    (left_val, right_val) => {
+                        if !(*left_val == *right_val) {
+                            {
+                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                              "`,\n right: `",
+                                                                                              "`: "],
+                                                                                            &match (&&*left_val,
+                                                                                                    &&*right_val,
+                                                                                                    &::core::fmt::Arguments::new_v1(&["gpio fail"],
+                                                                                                                                    &match ()
+                                                                                                                                         {
+                                                                                                                                         ()
+                                                                                                                                         =>
+                                                                                                                                         [],
+                                                                                                                                     }))
+                                                                                                 {
+                                                                                                 (arg0,
+                                                                                                  arg1,
+                                                                                                  arg2)
+                                                                                                 =>
+                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                               ::core::fmt::Display::fmt)],
+                                                                                             }),
+                                                             &("rust/app/src/mynewt_hal.rs",
+                                                               53u32, 9u32))
+                            }
+                        }
+                    }
+                }
+            };
+            MynewtGPIO{pin,}
+        }
+    }
+    /// Rust Embedded HAL interface for Mynewt GPIO
+    impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
+        /// Set the GPIO pin to low
+        fn set_low(&mut self) -> Result<(), Self::Error> {
+            unsafe { hal::hal_gpio_write(self.pin, 0) };
+            Ok(())
+        }
+        /// Set the GPIO pin to high
+        fn set_high(&mut self) -> Result<(), Self::Error> {
+            unsafe { hal::hal_gpio_write(self.pin, 1) };
+            Ok(())
+        }
+        /// Reuse Mynewt error codes
+        type
+        Error
+        =
+        mynewt::result::MynewtError;
+    }
+    /// Rust Embedded HAL interface for Mynewt Delay
+    impl embedded_hal::blocking::delay::DelayMs<u8> for MynewtDelay {
+        /// Sleep for the specified number of milliseconds
+        fn delay_ms(&mut self, ms: u8) {
+            const OS_TICKS_PER_SEC: u32 = 1000;
+            let delay_ticks = (ms as u32) * OS_TICKS_PER_SEC / 1000;
+            unsafe { os::os_time_delay(delay_ticks) };
+        }
+    }
+    /// Rust Embedded HAL interface for Mynewt SPI
+    pub struct MynewtSPI {
+        /// Mynewt SPI port number
+        spi_num: i32,
+        /// Mynewt GPIO pin number for Chip Select
+        cs_pin: i32,
+    }
+    /// Rust Embedded HAL interface for Mynewt GPIO
+    pub struct MynewtGPIO {
+        /// Mynewt GPIO pin number
+        pin: i32,
+    }
+    /// Rust Embedded HAL interface for Mynewt Delay
+    pub struct MynewtDelay {
+    }
+}
+mod app_network {
     //!  Transmit sensor data to a CoAP server like thethings.io.  The CoAP payload will be encoded as JSON.
     //!  The sensor data will be transmitted over NB-IoT.
     //!  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
@@ -415,7 +644,8 @@ mod display {
                             primitives::Circle};
     use embedded_hal::{self, digital::v2::OutputPin};
     use st7735_lcd::{self, Orientation};
-    use mynewt::{result::*, hw::hal, kernel::os};
+    use mynewt::{result::*, hw::hal};
+    use crate::mynewt_hal::{MynewtDelay, MynewtGPIO, MynewtSPI};
     /// SPI settings for ST7789 display controller
     static mut SPI_SETTINGS: hal::hal_spi_settings =
         hal::hal_spi_settings{data_order: hal::HAL_SPI_MSB_FIRST as u8,
@@ -444,230 +674,6 @@ mod display {
         display.draw(t);
         Ok(())
     }
-    /// Rust Embedded HAL interface for Mynewt SPI
-    impl MynewtSPI {
-        /// Create a new SPI port
-        pub fn new(spi_num: i32, cs_pin: i32,
-                   spi_settings: *mut hal::hal_spi_settings) -> Self {
-            let rc = unsafe { hal::hal_spi_config(spi_num, spi_settings) };
-            {
-                match (&(rc), &(0)) {
-                    (left_val, right_val) => {
-                        if !(*left_val == *right_val) {
-                            {
-                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                              "`,\n right: `",
-                                                                                              "`: "],
-                                                                                            &match (&&*left_val,
-                                                                                                    &&*right_val,
-                                                                                                    &::core::fmt::Arguments::new_v1(&["spi config fail"],
-                                                                                                                                    &match ()
-                                                                                                                                         {
-                                                                                                                                         ()
-                                                                                                                                         =>
-                                                                                                                                         [],
-                                                                                                                                     }))
-                                                                                                 {
-                                                                                                 (arg0,
-                                                                                                  arg1,
-                                                                                                  arg2)
-                                                                                                 =>
-                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                               ::core::fmt::Debug::fmt),
-                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                               ::core::fmt::Debug::fmt),
-                                                                                                  ::core::fmt::ArgumentV1::new(arg2,
-                                                                                                                               ::core::fmt::Display::fmt)],
-                                                                                             }),
-                                                             &("rust/app/src/display.rs",
-                                                               87u32, 9u32))
-                            }
-                        }
-                    }
-                }
-            };
-            let rc = unsafe { hal::hal_spi_enable(spi_num) };
-            {
-                match (&(rc), &(0)) {
-                    (left_val, right_val) => {
-                        if !(*left_val == *right_val) {
-                            {
-                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                              "`,\n right: `",
-                                                                                              "`: "],
-                                                                                            &match (&&*left_val,
-                                                                                                    &&*right_val,
-                                                                                                    &::core::fmt::Arguments::new_v1(&["spi enable fail"],
-                                                                                                                                    &match ()
-                                                                                                                                         {
-                                                                                                                                         ()
-                                                                                                                                         =>
-                                                                                                                                         [],
-                                                                                                                                     }))
-                                                                                                 {
-                                                                                                 (arg0,
-                                                                                                  arg1,
-                                                                                                  arg2)
-                                                                                                 =>
-                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                               ::core::fmt::Debug::fmt),
-                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                               ::core::fmt::Debug::fmt),
-                                                                                                  ::core::fmt::ArgumentV1::new(arg2,
-                                                                                                                               ::core::fmt::Display::fmt)],
-                                                                                             }),
-                                                             &("rust/app/src/display.rs",
-                                                               90u32, 9u32))
-                            }
-                        }
-                    }
-                }
-            };
-            let rc = unsafe { hal::hal_gpio_init_out(cs_pin, 1) };
-            {
-                match (&(rc), &(0)) {
-                    (left_val, right_val) => {
-                        if !(*left_val == *right_val) {
-                            {
-                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                              "`,\n right: `",
-                                                                                              "`: "],
-                                                                                            &match (&&*left_val,
-                                                                                                    &&*right_val,
-                                                                                                    &::core::fmt::Arguments::new_v1(&["spi init fail"],
-                                                                                                                                    &match ()
-                                                                                                                                         {
-                                                                                                                                         ()
-                                                                                                                                         =>
-                                                                                                                                         [],
-                                                                                                                                     }))
-                                                                                                 {
-                                                                                                 (arg0,
-                                                                                                  arg1,
-                                                                                                  arg2)
-                                                                                                 =>
-                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                               ::core::fmt::Debug::fmt),
-                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                               ::core::fmt::Debug::fmt),
-                                                                                                  ::core::fmt::ArgumentV1::new(arg2,
-                                                                                                                               ::core::fmt::Display::fmt)],
-                                                                                             }),
-                                                             &("rust/app/src/display.rs",
-                                                               93u32, 9u32))
-                            }
-                        }
-                    }
-                }
-            };
-            MynewtSPI{spi_num, cs_pin,}
-        }
-    }
-    /// Rust Embedded HAL interface for Mynewt SPI
-    impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
-        /// Write to the SPI port
-        fn write(&mut self, words: &[u8]) -> Result<(), Self::Error> {
-            unsafe { hal::hal_gpio_write(self.cs_pin, 0) };
-            unsafe {
-                hal::hal_spi_txrx(self.spi_num,
-                                  core::mem::transmute(words.as_ptr()),
-                                  core::ptr::null_mut(), words.len() as i32)
-            };
-            unsafe { hal::hal_gpio_write(self.cs_pin, 1) };
-            Ok(())
-        }
-        /// Reuse Mynewt error codes
-        type
-        Error
-        =
-        mynewt::result::MynewtError;
-    }
-    /// Rust Embedded HAL interface for Mynewt GPIO
-    impl MynewtGPIO {
-        /// Create a new output GPIO pin
-        pub fn new(pin: i32) -> Self {
-            let rc = unsafe { hal::hal_gpio_init_out(pin, 0) };
-            {
-                match (&(rc), &(0)) {
-                    (left_val, right_val) => {
-                        if !(*left_val == *right_val) {
-                            {
-                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                              "`,\n right: `",
-                                                                                              "`: "],
-                                                                                            &match (&&*left_val,
-                                                                                                    &&*right_val,
-                                                                                                    &::core::fmt::Arguments::new_v1(&["gpio fail"],
-                                                                                                                                    &match ()
-                                                                                                                                         {
-                                                                                                                                         ()
-                                                                                                                                         =>
-                                                                                                                                         [],
-                                                                                                                                     }))
-                                                                                                 {
-                                                                                                 (arg0,
-                                                                                                  arg1,
-                                                                                                  arg2)
-                                                                                                 =>
-                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                               ::core::fmt::Debug::fmt),
-                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                               ::core::fmt::Debug::fmt),
-                                                                                                  ::core::fmt::ArgumentV1::new(arg2,
-                                                                                                                               ::core::fmt::Display::fmt)],
-                                                                                             }),
-                                                             &("rust/app/src/display.rs",
-                                                               128u32, 9u32))
-                            }
-                        }
-                    }
-                }
-            };
-            MynewtGPIO{pin,}
-        }
-    }
-    /// Rust Embedded HAL interface for Mynewt GPIO
-    impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
-        /// Set the GPIO pin to low
-        fn set_low(&mut self) -> Result<(), Self::Error> {
-            unsafe { hal::hal_gpio_write(self.pin, 0) };
-            Ok(())
-        }
-        /// Set the GPIO pin to high
-        fn set_high(&mut self) -> Result<(), Self::Error> {
-            unsafe { hal::hal_gpio_write(self.pin, 1) };
-            Ok(())
-        }
-        /// Reuse Mynewt error codes
-        type
-        Error
-        =
-        mynewt::result::MynewtError;
-    }
-    /// Rust Embedded HAL interface for Mynewt Delay
-    impl embedded_hal::blocking::delay::DelayMs<u8> for MynewtDelay {
-        /// Sleep for the specified number of milliseconds
-        fn delay_ms(&mut self, ms: u8) {
-            const OS_TICKS_PER_SEC: u32 = 1000;
-            let delay_ticks = (ms as u32) * OS_TICKS_PER_SEC / 1000;
-            unsafe { os::os_time_delay(delay_ticks) };
-        }
-    }
-    /// Rust Embedded HAL interface for Mynewt SPI
-    pub struct MynewtSPI {
-        /// Mynewt SPI port number
-        spi_num: i32,
-        /// Mynewt GPIO pin number for Chip Select
-        cs_pin: i32,
-    }
-    /// Rust Embedded HAL interface for Mynewt GPIO
-    pub struct MynewtGPIO {
-        /// Mynewt GPIO pin number
-        pin: i32,
-    }
-    /// Rust Embedded HAL interface for Mynewt Delay
-    pub struct MynewtDelay {
-    }
 }
 use core::panic::PanicInfo;
 use cortex_m::asm::bkpt;
@@ -685,7 +691,7 @@ extern "C" fn main() -> ! {
     if !(rc == 0) {
         {
             ::core::panicking::panic(&("BLE fail", "rust/app/src/lib.rs",
-                                       76u32, 5u32))
+                                       77u32, 5u32))
         }
     };
     display::show().expect("DSP fail");

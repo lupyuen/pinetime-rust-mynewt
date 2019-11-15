@@ -2296,19 +2296,19 @@ SYMBOL TABLE:
 0000280a l       .debug_str	00000000 
 00002813 l       .debug_str	00000000 
 0000281e l       .debug_str	00000000 
-00000000 l     O .rodata..Lanon.f022521bc6ae17ee17a48feece421826.2	00000010 .Lanon.f022521bc6ae17ee17a48feece421826.2
-00000000 l     O .rodata..Lanon.f022521bc6ae17ee17a48feece421826.4	00000010 .Lanon.f022521bc6ae17ee17a48feece421826.4
+00000000 l     O .rodata..Lanon.0aee0ede91a9d9a909c52263b0dc4a52.2	00000010 .Lanon.0aee0ede91a9d9a909c52263b0dc4a52.2
+00000000 l     O .rodata..Lanon.0aee0ede91a9d9a909c52263b0dc4a52.4	00000010 .Lanon.0aee0ede91a9d9a909c52263b0dc4a52.4
 00000000 l    d  .text._ZN4core6result13unwrap_failed17h98acc4e3c98f3b49E	00000000 .text._ZN4core6result13unwrap_failed17h98acc4e3c98f3b49E
 00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17h5ec42800e30ed4b0E	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17h5ec42800e30ed4b0E
 00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17hac1fc70db3fae860E	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17hac1fc70db3fae860E
 00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17hb169fb8edd61be39E	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17hb169fb8edd61be39E
-00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE
-00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE
-00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E
-00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE
-00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E
-00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE
-00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E
+00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E
+00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E
+00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E
+00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE
+00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E
+00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E
+00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE
 00000000 l    d  .text._ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E	00000000 .text._ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E
 00000000 l    d  .text._ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E	00000000 .text._ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E
 00000000 l    d  .text._ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h1833658db2573647E	00000000 .text._ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h1833658db2573647E
@@ -2316,22 +2316,22 @@ SYMBOL TABLE:
 00000000 l    d  .text._ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6b7478485ecb4c3aE	00000000 .text._ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6b7478485ecb4c3aE
 00000000 l    d  .text._ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE	00000000 .text._ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE
 00000000 l    d  .text._ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc82509bdbe1fbaadE	00000000 .text._ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc82509bdbe1fbaadE
-00000000 l    d  .rodata..Lanon.f022521bc6ae17ee17a48feece421826.0	00000000 .rodata..Lanon.f022521bc6ae17ee17a48feece421826.0
-00000000 l    d  .rodata..Lanon.f022521bc6ae17ee17a48feece421826.1	00000000 .rodata..Lanon.f022521bc6ae17ee17a48feece421826.1
-00000000 l    d  .rodata..Lanon.f022521bc6ae17ee17a48feece421826.3	00000000 .rodata..Lanon.f022521bc6ae17ee17a48feece421826.3
+00000000 l    d  .rodata..Lanon.0aee0ede91a9d9a909c52263b0dc4a52.0	00000000 .rodata..Lanon.0aee0ede91a9d9a909c52263b0dc4a52.0
+00000000 l    d  .rodata..Lanon.0aee0ede91a9d9a909c52263b0dc4a52.1	00000000 .rodata..Lanon.0aee0ede91a9d9a909c52263b0dc4a52.1
+00000000 l    d  .rodata..Lanon.0aee0ede91a9d9a909c52263b0dc4a52.3	00000000 .rodata..Lanon.0aee0ede91a9d9a909c52263b0dc4a52.3
 00000000 l    d  .debug_loc	00000000 .debug_loc
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
 00000000 l    d  .debug_ranges	00000000 .debug_ranges
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
-00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0c0c8c1607749edaE
-00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0e314494eee32985E
-00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h31e47a41efff9c15E
-00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h981314307db29905E
-00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h9ebfecd8371d1560E
-00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h3040df065314095aE
-00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h8849c0e76bb071d1E
+00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hc5664bb9f9414dfbE
+00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hd46d896a3ef8f1ceE
+00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hdd80abbc8bfaee4eE
+00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h650cbcd208fc79f2E
+00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17hbd6a195e39b11d95E
+00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h25079c64f48e2241E
+00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h5b3ed9e2fe632613E
 00000000         *UND*	00000000 _ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17he3cf5f6c5a13ac43E
 00000000         *UND*	00000000 .hidden _ZN45_$LT$$LP$$RP$$u20$as$u20$core..fmt..Debug$GT$3fmt17h4c6d3aada1921c22E
 00000000         *UND*	00000000 _ZN4core3fmt10ArgumentV13new17h4c9157014a9151bcE
@@ -2342,13 +2342,13 @@ SYMBOL TABLE:
 00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17h5ec42800e30ed4b0E	0000005a _ZN4core6result19Result$LT$T$C$E$GT$6expect17h5ec42800e30ed4b0E
 00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17hac1fc70db3fae860E	00000050 _ZN4core6result19Result$LT$T$C$E$GT$6expect17hac1fc70db3fae860E
 00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17hb169fb8edd61be39E	00000052 _ZN4core6result19Result$LT$T$C$E$GT$6expect17hb169fb8edd61be39E
-00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE	000000ba _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE
-00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE	000000ba _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE
-00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E	000000ba _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E
-00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE	000000ba _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE
-00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E	000000ba _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E
-00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE	000000ba _ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE
-00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E	000000ba _ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E
+00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E	000000ba _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E
+00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E	000000ba _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E
+00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E	000000ba _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E
+00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE	000000ba _ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE
+00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E	000000ba _ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E
+00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E	000000ba _ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E
+00000000 g     F .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE	000000ba _ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE
 00000000         *UND*	00000000 _ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E
 00000000 g     F .text._ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E	00000012 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E
 00000000 g     F .text._ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E	00000010 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E
@@ -2573,10 +2573,10 @@ _ZN4core6result19Result$LT$T$C$E$GT$6expect17hb169fb8edd61be39E():
   4e:	bd80      	pop	{r7, pc}
   50:	e7fc      	b.n	4c <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hb169fb8edd61be39E+0x4c>
 
-Disassembly of section .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE:
+Disassembly of section .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E:
 
-00000000 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE>:
-_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE():
+00000000 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E>:
+_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:519
    0:	b580      	push	{r7, lr}
    2:	b088      	sub	sp, #32
@@ -2598,12 +2598,12 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE():
   2c:	2801      	cmp	r0, #1
   2e:	9101      	str	r1, [sp, #4]
   30:	9200      	str	r2, [sp, #0]
-  32:	d005      	beq.n	40 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE+0x40>
-  34:	e7ff      	b.n	36 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE+0x36>
+  32:	d005      	beq.n	40 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E+0x40>
+  34:	e7ff      	b.n	36 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E+0x36>
   36:	9800      	ldr	r0, [sp, #0]
   38:	2801      	cmp	r0, #1
-  3a:	d007      	beq.n	4c <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE+0x4c>
-  3c:	e7ff      	b.n	3e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE+0x3e>
+  3a:	d007      	beq.n	4c <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E+0x4c>
+  3c:	e7ff      	b.n	3e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E+0x3e>
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:524
   3e:	defe      	udf	#254	; 0xfe
   40:	2000      	movs	r0, #0
@@ -2611,7 +2611,7 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE():
   42:	f88d 001f 	strb.w	r0, [sp, #31]
   46:	f88d 000f 	strb.w	r0, [sp, #15]
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:520
-  4a:	e010      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE+0x6e>
+  4a:	e010      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E+0x6e>
   4c:	2000      	movs	r0, #0
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:522
   4e:	f88d 001e 	strb.w	r0, [sp, #30]
@@ -2621,49 +2621,49 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE():
   5a:	9805      	ldr	r0, [sp, #20]
   5c:	9006      	str	r0, [sp, #24]
   5e:	9806      	ldr	r0, [sp, #24]
-  60:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0c0c8c1607749edaE>
-  64:	e7ff      	b.n	66 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE+0x66>
+  60:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h650cbcd208fc79f2E>
+  64:	e7ff      	b.n	66 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E+0x66>
   66:	2001      	movs	r0, #1
   68:	f88d 000f 	strb.w	r0, [sp, #15]
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:520
-  6c:	e7ff      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE+0x6e>
+  6c:	e7ff      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E+0x6e>
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:524
   6e:	f89d 001d 	ldrb.w	r0, [sp, #29]
   72:	07c0      	lsls	r0, r0, #31
   74:	2800      	cmp	r0, #0
-  76:	d104      	bne.n	82 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE+0x82>
-  78:	e7ff      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE+0x7a>
+  76:	d104      	bne.n	82 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E+0x82>
+  78:	e7ff      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E+0x7a>
   7a:	9802      	ldr	r0, [sp, #8]
   7c:	2801      	cmp	r0, #1
-  7e:	d008      	beq.n	92 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE+0x92>
-  80:	e011      	b.n	a6 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE+0xa6>
+  7e:	d008      	beq.n	92 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E+0x92>
+  80:	e011      	b.n	a6 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E+0xa6>
   82:	2000      	movs	r0, #0
   84:	f88d 001d 	strb.w	r0, [sp, #29]
-  88:	e7f7      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE+0x7a>
+  88:	e7f7      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E+0x7a>
   8a:	f89d 000f 	ldrb.w	r0, [sp, #15]
   8e:	b008      	add	sp, #32
   90:	bd80      	pop	{r7, pc}
   92:	f89d 001f 	ldrb.w	r0, [sp, #31]
   96:	07c0      	lsls	r0, r0, #31
   98:	2800      	cmp	r0, #0
-  9a:	d0f6      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE+0x8a>
-  9c:	e7ff      	b.n	9e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE+0x9e>
+  9a:	d0f6      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E+0x8a>
+  9c:	e7ff      	b.n	9e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E+0x9e>
   9e:	2000      	movs	r0, #0
   a0:	f88d 001f 	strb.w	r0, [sp, #31]
-  a4:	e7f1      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE+0x8a>
+  a4:	e7f1      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E+0x8a>
   a6:	f89d 001e 	ldrb.w	r0, [sp, #30]
   aa:	07c0      	lsls	r0, r0, #31
   ac:	2800      	cmp	r0, #0
-  ae:	d0ec      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE+0x8a>
-  b0:	e7ff      	b.n	b2 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE+0xb2>
+  ae:	d0ec      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E+0x8a>
+  b0:	e7ff      	b.n	b2 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E+0xb2>
   b2:	2000      	movs	r0, #0
   b4:	f88d 001e 	strb.w	r0, [sp, #30]
-  b8:	e7e7      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE+0x8a>
+  b8:	e7e7      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E+0x8a>
 
-Disassembly of section .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE:
+Disassembly of section .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E:
 
-00000000 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE>:
-_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE():
+00000000 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E>:
+_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:519
    0:	b580      	push	{r7, lr}
    2:	b088      	sub	sp, #32
@@ -2685,12 +2685,12 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE():
   2c:	2801      	cmp	r0, #1
   2e:	9101      	str	r1, [sp, #4]
   30:	9200      	str	r2, [sp, #0]
-  32:	d005      	beq.n	40 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE+0x40>
-  34:	e7ff      	b.n	36 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE+0x36>
+  32:	d005      	beq.n	40 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E+0x40>
+  34:	e7ff      	b.n	36 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E+0x36>
   36:	9800      	ldr	r0, [sp, #0]
   38:	2801      	cmp	r0, #1
-  3a:	d007      	beq.n	4c <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE+0x4c>
-  3c:	e7ff      	b.n	3e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE+0x3e>
+  3a:	d007      	beq.n	4c <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E+0x4c>
+  3c:	e7ff      	b.n	3e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E+0x3e>
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:524
   3e:	defe      	udf	#254	; 0xfe
   40:	2000      	movs	r0, #0
@@ -2698,7 +2698,7 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE():
   42:	f88d 001f 	strb.w	r0, [sp, #31]
   46:	f88d 000f 	strb.w	r0, [sp, #15]
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:520
-  4a:	e010      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE+0x6e>
+  4a:	e010      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E+0x6e>
   4c:	2000      	movs	r0, #0
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:522
   4e:	f88d 001e 	strb.w	r0, [sp, #30]
@@ -2708,49 +2708,49 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE():
   5a:	9805      	ldr	r0, [sp, #20]
   5c:	9006      	str	r0, [sp, #24]
   5e:	9806      	ldr	r0, [sp, #24]
-  60:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h31e47a41efff9c15E>
-  64:	e7ff      	b.n	66 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE+0x66>
+  60:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h5b3ed9e2fe632613E>
+  64:	e7ff      	b.n	66 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E+0x66>
   66:	2001      	movs	r0, #1
   68:	f88d 000f 	strb.w	r0, [sp, #15]
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:520
-  6c:	e7ff      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE+0x6e>
+  6c:	e7ff      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E+0x6e>
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:524
   6e:	f89d 001d 	ldrb.w	r0, [sp, #29]
   72:	07c0      	lsls	r0, r0, #31
   74:	2800      	cmp	r0, #0
-  76:	d104      	bne.n	82 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE+0x82>
-  78:	e7ff      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE+0x7a>
+  76:	d104      	bne.n	82 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E+0x82>
+  78:	e7ff      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E+0x7a>
   7a:	9802      	ldr	r0, [sp, #8]
   7c:	2801      	cmp	r0, #1
-  7e:	d008      	beq.n	92 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE+0x92>
-  80:	e011      	b.n	a6 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE+0xa6>
+  7e:	d008      	beq.n	92 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E+0x92>
+  80:	e011      	b.n	a6 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E+0xa6>
   82:	2000      	movs	r0, #0
   84:	f88d 001d 	strb.w	r0, [sp, #29]
-  88:	e7f7      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE+0x7a>
+  88:	e7f7      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E+0x7a>
   8a:	f89d 000f 	ldrb.w	r0, [sp, #15]
   8e:	b008      	add	sp, #32
   90:	bd80      	pop	{r7, pc}
   92:	f89d 001f 	ldrb.w	r0, [sp, #31]
   96:	07c0      	lsls	r0, r0, #31
   98:	2800      	cmp	r0, #0
-  9a:	d0f6      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE+0x8a>
-  9c:	e7ff      	b.n	9e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE+0x9e>
+  9a:	d0f6      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E+0x8a>
+  9c:	e7ff      	b.n	9e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E+0x9e>
   9e:	2000      	movs	r0, #0
   a0:	f88d 001f 	strb.w	r0, [sp, #31]
-  a4:	e7f1      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE+0x8a>
+  a4:	e7f1      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E+0x8a>
   a6:	f89d 001e 	ldrb.w	r0, [sp, #30]
   aa:	07c0      	lsls	r0, r0, #31
   ac:	2800      	cmp	r0, #0
-  ae:	d0ec      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE+0x8a>
-  b0:	e7ff      	b.n	b2 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE+0xb2>
+  ae:	d0ec      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E+0x8a>
+  b0:	e7ff      	b.n	b2 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E+0xb2>
   b2:	2000      	movs	r0, #0
   b4:	f88d 001e 	strb.w	r0, [sp, #30]
-  b8:	e7e7      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE+0x8a>
+  b8:	e7e7      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E+0x8a>
 
-Disassembly of section .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E:
+Disassembly of section .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E:
 
-00000000 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E>:
-_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E():
+00000000 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E>:
+_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:519
    0:	b580      	push	{r7, lr}
    2:	b088      	sub	sp, #32
@@ -2772,12 +2772,12 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E():
   2c:	2801      	cmp	r0, #1
   2e:	9101      	str	r1, [sp, #4]
   30:	9200      	str	r2, [sp, #0]
-  32:	d005      	beq.n	40 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E+0x40>
-  34:	e7ff      	b.n	36 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E+0x36>
+  32:	d005      	beq.n	40 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E+0x40>
+  34:	e7ff      	b.n	36 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E+0x36>
   36:	9800      	ldr	r0, [sp, #0]
   38:	2801      	cmp	r0, #1
-  3a:	d007      	beq.n	4c <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E+0x4c>
-  3c:	e7ff      	b.n	3e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E+0x3e>
+  3a:	d007      	beq.n	4c <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E+0x4c>
+  3c:	e7ff      	b.n	3e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E+0x3e>
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:524
   3e:	defe      	udf	#254	; 0xfe
   40:	2000      	movs	r0, #0
@@ -2785,7 +2785,7 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E():
   42:	f88d 001f 	strb.w	r0, [sp, #31]
   46:	f88d 000f 	strb.w	r0, [sp, #15]
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:520
-  4a:	e010      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E+0x6e>
+  4a:	e010      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E+0x6e>
   4c:	2000      	movs	r0, #0
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:522
   4e:	f88d 001e 	strb.w	r0, [sp, #30]
@@ -2795,49 +2795,49 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E():
   5a:	9805      	ldr	r0, [sp, #20]
   5c:	9006      	str	r0, [sp, #24]
   5e:	9806      	ldr	r0, [sp, #24]
-  60:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h9ebfecd8371d1560E>
-  64:	e7ff      	b.n	66 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E+0x66>
+  60:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hc5664bb9f9414dfbE>
+  64:	e7ff      	b.n	66 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E+0x66>
   66:	2001      	movs	r0, #1
   68:	f88d 000f 	strb.w	r0, [sp, #15]
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:520
-  6c:	e7ff      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E+0x6e>
+  6c:	e7ff      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E+0x6e>
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:524
   6e:	f89d 001d 	ldrb.w	r0, [sp, #29]
   72:	07c0      	lsls	r0, r0, #31
   74:	2800      	cmp	r0, #0
-  76:	d104      	bne.n	82 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E+0x82>
-  78:	e7ff      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E+0x7a>
+  76:	d104      	bne.n	82 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E+0x82>
+  78:	e7ff      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E+0x7a>
   7a:	9802      	ldr	r0, [sp, #8]
   7c:	2801      	cmp	r0, #1
-  7e:	d008      	beq.n	92 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E+0x92>
-  80:	e011      	b.n	a6 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E+0xa6>
+  7e:	d008      	beq.n	92 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E+0x92>
+  80:	e011      	b.n	a6 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E+0xa6>
   82:	2000      	movs	r0, #0
   84:	f88d 001d 	strb.w	r0, [sp, #29]
-  88:	e7f7      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E+0x7a>
+  88:	e7f7      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E+0x7a>
   8a:	f89d 000f 	ldrb.w	r0, [sp, #15]
   8e:	b008      	add	sp, #32
   90:	bd80      	pop	{r7, pc}
   92:	f89d 001f 	ldrb.w	r0, [sp, #31]
   96:	07c0      	lsls	r0, r0, #31
   98:	2800      	cmp	r0, #0
-  9a:	d0f6      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E+0x8a>
-  9c:	e7ff      	b.n	9e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E+0x9e>
+  9a:	d0f6      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E+0x8a>
+  9c:	e7ff      	b.n	9e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E+0x9e>
   9e:	2000      	movs	r0, #0
   a0:	f88d 001f 	strb.w	r0, [sp, #31]
-  a4:	e7f1      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E+0x8a>
+  a4:	e7f1      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E+0x8a>
   a6:	f89d 001e 	ldrb.w	r0, [sp, #30]
   aa:	07c0      	lsls	r0, r0, #31
   ac:	2800      	cmp	r0, #0
-  ae:	d0ec      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E+0x8a>
-  b0:	e7ff      	b.n	b2 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E+0xb2>
+  ae:	d0ec      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E+0x8a>
+  b0:	e7ff      	b.n	b2 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E+0xb2>
   b2:	2000      	movs	r0, #0
   b4:	f88d 001e 	strb.w	r0, [sp, #30]
-  b8:	e7e7      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E+0x8a>
+  b8:	e7e7      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E+0x8a>
 
-Disassembly of section .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE:
+Disassembly of section .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE:
 
-00000000 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE>:
-_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE():
+00000000 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE>:
+_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:519
    0:	b580      	push	{r7, lr}
    2:	b088      	sub	sp, #32
@@ -2859,12 +2859,12 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE():
   2c:	2801      	cmp	r0, #1
   2e:	9101      	str	r1, [sp, #4]
   30:	9200      	str	r2, [sp, #0]
-  32:	d005      	beq.n	40 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE+0x40>
-  34:	e7ff      	b.n	36 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE+0x36>
+  32:	d005      	beq.n	40 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE+0x40>
+  34:	e7ff      	b.n	36 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE+0x36>
   36:	9800      	ldr	r0, [sp, #0]
   38:	2801      	cmp	r0, #1
-  3a:	d007      	beq.n	4c <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE+0x4c>
-  3c:	e7ff      	b.n	3e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE+0x3e>
+  3a:	d007      	beq.n	4c <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE+0x4c>
+  3c:	e7ff      	b.n	3e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE+0x3e>
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:524
   3e:	defe      	udf	#254	; 0xfe
   40:	2000      	movs	r0, #0
@@ -2872,7 +2872,7 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE():
   42:	f88d 001f 	strb.w	r0, [sp, #31]
   46:	f88d 000f 	strb.w	r0, [sp, #15]
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:520
-  4a:	e010      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE+0x6e>
+  4a:	e010      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE+0x6e>
   4c:	2000      	movs	r0, #0
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:522
   4e:	f88d 001e 	strb.w	r0, [sp, #30]
@@ -2882,49 +2882,49 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE():
   5a:	9805      	ldr	r0, [sp, #20]
   5c:	9006      	str	r0, [sp, #24]
   5e:	9806      	ldr	r0, [sp, #24]
-  60:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h981314307db29905E>
-  64:	e7ff      	b.n	66 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE+0x66>
+  60:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17hbd6a195e39b11d95E>
+  64:	e7ff      	b.n	66 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE+0x66>
   66:	2001      	movs	r0, #1
   68:	f88d 000f 	strb.w	r0, [sp, #15]
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:520
-  6c:	e7ff      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE+0x6e>
+  6c:	e7ff      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE+0x6e>
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:524
   6e:	f89d 001d 	ldrb.w	r0, [sp, #29]
   72:	07c0      	lsls	r0, r0, #31
   74:	2800      	cmp	r0, #0
-  76:	d104      	bne.n	82 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE+0x82>
-  78:	e7ff      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE+0x7a>
+  76:	d104      	bne.n	82 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE+0x82>
+  78:	e7ff      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE+0x7a>
   7a:	9802      	ldr	r0, [sp, #8]
   7c:	2801      	cmp	r0, #1
-  7e:	d008      	beq.n	92 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE+0x92>
-  80:	e011      	b.n	a6 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE+0xa6>
+  7e:	d008      	beq.n	92 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE+0x92>
+  80:	e011      	b.n	a6 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE+0xa6>
   82:	2000      	movs	r0, #0
   84:	f88d 001d 	strb.w	r0, [sp, #29]
-  88:	e7f7      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE+0x7a>
+  88:	e7f7      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE+0x7a>
   8a:	f89d 000f 	ldrb.w	r0, [sp, #15]
   8e:	b008      	add	sp, #32
   90:	bd80      	pop	{r7, pc}
   92:	f89d 001f 	ldrb.w	r0, [sp, #31]
   96:	07c0      	lsls	r0, r0, #31
   98:	2800      	cmp	r0, #0
-  9a:	d0f6      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE+0x8a>
-  9c:	e7ff      	b.n	9e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE+0x9e>
+  9a:	d0f6      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE+0x8a>
+  9c:	e7ff      	b.n	9e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE+0x9e>
   9e:	2000      	movs	r0, #0
   a0:	f88d 001f 	strb.w	r0, [sp, #31]
-  a4:	e7f1      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE+0x8a>
+  a4:	e7f1      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE+0x8a>
   a6:	f89d 001e 	ldrb.w	r0, [sp, #30]
   aa:	07c0      	lsls	r0, r0, #31
   ac:	2800      	cmp	r0, #0
-  ae:	d0ec      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE+0x8a>
-  b0:	e7ff      	b.n	b2 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE+0xb2>
+  ae:	d0ec      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE+0x8a>
+  b0:	e7ff      	b.n	b2 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE+0xb2>
   b2:	2000      	movs	r0, #0
   b4:	f88d 001e 	strb.w	r0, [sp, #30]
-  b8:	e7e7      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE+0x8a>
+  b8:	e7e7      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE+0x8a>
 
-Disassembly of section .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E:
+Disassembly of section .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E:
 
-00000000 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E>:
-_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E():
+00000000 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E>:
+_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:519
    0:	b580      	push	{r7, lr}
    2:	b088      	sub	sp, #32
@@ -2946,12 +2946,12 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E():
   2c:	2801      	cmp	r0, #1
   2e:	9101      	str	r1, [sp, #4]
   30:	9200      	str	r2, [sp, #0]
-  32:	d005      	beq.n	40 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E+0x40>
-  34:	e7ff      	b.n	36 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E+0x36>
+  32:	d005      	beq.n	40 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E+0x40>
+  34:	e7ff      	b.n	36 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E+0x36>
   36:	9800      	ldr	r0, [sp, #0]
   38:	2801      	cmp	r0, #1
-  3a:	d007      	beq.n	4c <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E+0x4c>
-  3c:	e7ff      	b.n	3e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E+0x3e>
+  3a:	d007      	beq.n	4c <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E+0x4c>
+  3c:	e7ff      	b.n	3e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E+0x3e>
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:524
   3e:	defe      	udf	#254	; 0xfe
   40:	2000      	movs	r0, #0
@@ -2959,7 +2959,7 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E():
   42:	f88d 001f 	strb.w	r0, [sp, #31]
   46:	f88d 000f 	strb.w	r0, [sp, #15]
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:520
-  4a:	e010      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E+0x6e>
+  4a:	e010      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E+0x6e>
   4c:	2000      	movs	r0, #0
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:522
   4e:	f88d 001e 	strb.w	r0, [sp, #30]
@@ -2969,49 +2969,49 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E():
   5a:	9805      	ldr	r0, [sp, #20]
   5c:	9006      	str	r0, [sp, #24]
   5e:	9806      	ldr	r0, [sp, #24]
-  60:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0e314494eee32985E>
-  64:	e7ff      	b.n	66 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E+0x66>
+  60:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hd46d896a3ef8f1ceE>
+  64:	e7ff      	b.n	66 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E+0x66>
   66:	2001      	movs	r0, #1
   68:	f88d 000f 	strb.w	r0, [sp, #15]
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:520
-  6c:	e7ff      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E+0x6e>
+  6c:	e7ff      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E+0x6e>
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:524
   6e:	f89d 001d 	ldrb.w	r0, [sp, #29]
   72:	07c0      	lsls	r0, r0, #31
   74:	2800      	cmp	r0, #0
-  76:	d104      	bne.n	82 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E+0x82>
-  78:	e7ff      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E+0x7a>
+  76:	d104      	bne.n	82 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E+0x82>
+  78:	e7ff      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E+0x7a>
   7a:	9802      	ldr	r0, [sp, #8]
   7c:	2801      	cmp	r0, #1
-  7e:	d008      	beq.n	92 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E+0x92>
-  80:	e011      	b.n	a6 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E+0xa6>
+  7e:	d008      	beq.n	92 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E+0x92>
+  80:	e011      	b.n	a6 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E+0xa6>
   82:	2000      	movs	r0, #0
   84:	f88d 001d 	strb.w	r0, [sp, #29]
-  88:	e7f7      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E+0x7a>
+  88:	e7f7      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E+0x7a>
   8a:	f89d 000f 	ldrb.w	r0, [sp, #15]
   8e:	b008      	add	sp, #32
   90:	bd80      	pop	{r7, pc}
   92:	f89d 001f 	ldrb.w	r0, [sp, #31]
   96:	07c0      	lsls	r0, r0, #31
   98:	2800      	cmp	r0, #0
-  9a:	d0f6      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E+0x8a>
-  9c:	e7ff      	b.n	9e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E+0x9e>
+  9a:	d0f6      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E+0x8a>
+  9c:	e7ff      	b.n	9e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E+0x9e>
   9e:	2000      	movs	r0, #0
   a0:	f88d 001f 	strb.w	r0, [sp, #31]
-  a4:	e7f1      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E+0x8a>
+  a4:	e7f1      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E+0x8a>
   a6:	f89d 001e 	ldrb.w	r0, [sp, #30]
   aa:	07c0      	lsls	r0, r0, #31
   ac:	2800      	cmp	r0, #0
-  ae:	d0ec      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E+0x8a>
-  b0:	e7ff      	b.n	b2 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E+0xb2>
+  ae:	d0ec      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E+0x8a>
+  b0:	e7ff      	b.n	b2 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E+0xb2>
   b2:	2000      	movs	r0, #0
   b4:	f88d 001e 	strb.w	r0, [sp, #30]
-  b8:	e7e7      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E+0x8a>
+  b8:	e7e7      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E+0x8a>
 
-Disassembly of section .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE:
+Disassembly of section .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E:
 
-00000000 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE>:
-_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE():
+00000000 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E>:
+_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:519
    0:	b580      	push	{r7, lr}
    2:	b088      	sub	sp, #32
@@ -3033,12 +3033,12 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE():
   2c:	2801      	cmp	r0, #1
   2e:	9101      	str	r1, [sp, #4]
   30:	9200      	str	r2, [sp, #0]
-  32:	d005      	beq.n	40 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE+0x40>
-  34:	e7ff      	b.n	36 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE+0x36>
+  32:	d005      	beq.n	40 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E+0x40>
+  34:	e7ff      	b.n	36 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E+0x36>
   36:	9800      	ldr	r0, [sp, #0]
   38:	2801      	cmp	r0, #1
-  3a:	d007      	beq.n	4c <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE+0x4c>
-  3c:	e7ff      	b.n	3e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE+0x3e>
+  3a:	d007      	beq.n	4c <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E+0x4c>
+  3c:	e7ff      	b.n	3e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E+0x3e>
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:524
   3e:	defe      	udf	#254	; 0xfe
   40:	2000      	movs	r0, #0
@@ -3046,7 +3046,7 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE():
   42:	f88d 001f 	strb.w	r0, [sp, #31]
   46:	f88d 000f 	strb.w	r0, [sp, #15]
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:520
-  4a:	e010      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE+0x6e>
+  4a:	e010      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E+0x6e>
   4c:	2000      	movs	r0, #0
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:522
   4e:	f88d 001e 	strb.w	r0, [sp, #30]
@@ -3056,49 +3056,49 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE():
   5a:	9805      	ldr	r0, [sp, #20]
   5c:	9006      	str	r0, [sp, #24]
   5e:	9806      	ldr	r0, [sp, #24]
-  60:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h8849c0e76bb071d1E>
-  64:	e7ff      	b.n	66 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE+0x66>
+  60:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hdd80abbc8bfaee4eE>
+  64:	e7ff      	b.n	66 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E+0x66>
   66:	2001      	movs	r0, #1
   68:	f88d 000f 	strb.w	r0, [sp, #15]
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:520
-  6c:	e7ff      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE+0x6e>
+  6c:	e7ff      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E+0x6e>
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:524
   6e:	f89d 001d 	ldrb.w	r0, [sp, #29]
   72:	07c0      	lsls	r0, r0, #31
   74:	2800      	cmp	r0, #0
-  76:	d104      	bne.n	82 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE+0x82>
-  78:	e7ff      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE+0x7a>
+  76:	d104      	bne.n	82 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E+0x82>
+  78:	e7ff      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E+0x7a>
   7a:	9802      	ldr	r0, [sp, #8]
   7c:	2801      	cmp	r0, #1
-  7e:	d008      	beq.n	92 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE+0x92>
-  80:	e011      	b.n	a6 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE+0xa6>
+  7e:	d008      	beq.n	92 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E+0x92>
+  80:	e011      	b.n	a6 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E+0xa6>
   82:	2000      	movs	r0, #0
   84:	f88d 001d 	strb.w	r0, [sp, #29]
-  88:	e7f7      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE+0x7a>
+  88:	e7f7      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E+0x7a>
   8a:	f89d 000f 	ldrb.w	r0, [sp, #15]
   8e:	b008      	add	sp, #32
   90:	bd80      	pop	{r7, pc}
   92:	f89d 001f 	ldrb.w	r0, [sp, #31]
   96:	07c0      	lsls	r0, r0, #31
   98:	2800      	cmp	r0, #0
-  9a:	d0f6      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE+0x8a>
-  9c:	e7ff      	b.n	9e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE+0x9e>
+  9a:	d0f6      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E+0x8a>
+  9c:	e7ff      	b.n	9e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E+0x9e>
   9e:	2000      	movs	r0, #0
   a0:	f88d 001f 	strb.w	r0, [sp, #31]
-  a4:	e7f1      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE+0x8a>
+  a4:	e7f1      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E+0x8a>
   a6:	f89d 001e 	ldrb.w	r0, [sp, #30]
   aa:	07c0      	lsls	r0, r0, #31
   ac:	2800      	cmp	r0, #0
-  ae:	d0ec      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE+0x8a>
-  b0:	e7ff      	b.n	b2 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE+0xb2>
+  ae:	d0ec      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E+0x8a>
+  b0:	e7ff      	b.n	b2 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E+0xb2>
   b2:	2000      	movs	r0, #0
   b4:	f88d 001e 	strb.w	r0, [sp, #30]
-  b8:	e7e7      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE+0x8a>
+  b8:	e7e7      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E+0x8a>
 
-Disassembly of section .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E:
+Disassembly of section .text._ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE:
 
-00000000 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E>:
-_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E():
+00000000 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE>:
+_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:519
    0:	b580      	push	{r7, lr}
    2:	b088      	sub	sp, #32
@@ -3120,12 +3120,12 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E():
   2c:	2801      	cmp	r0, #1
   2e:	9101      	str	r1, [sp, #4]
   30:	9200      	str	r2, [sp, #0]
-  32:	d005      	beq.n	40 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E+0x40>
-  34:	e7ff      	b.n	36 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E+0x36>
+  32:	d005      	beq.n	40 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE+0x40>
+  34:	e7ff      	b.n	36 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE+0x36>
   36:	9800      	ldr	r0, [sp, #0]
   38:	2801      	cmp	r0, #1
-  3a:	d007      	beq.n	4c <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E+0x4c>
-  3c:	e7ff      	b.n	3e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E+0x3e>
+  3a:	d007      	beq.n	4c <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE+0x4c>
+  3c:	e7ff      	b.n	3e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE+0x3e>
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:524
   3e:	defe      	udf	#254	; 0xfe
   40:	2000      	movs	r0, #0
@@ -3133,7 +3133,7 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E():
   42:	f88d 001f 	strb.w	r0, [sp, #31]
   46:	f88d 000f 	strb.w	r0, [sp, #15]
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:520
-  4a:	e010      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E+0x6e>
+  4a:	e010      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE+0x6e>
   4c:	2000      	movs	r0, #0
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:522
   4e:	f88d 001e 	strb.w	r0, [sp, #30]
@@ -3143,44 +3143,44 @@ _ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E():
   5a:	9805      	ldr	r0, [sp, #20]
   5c:	9006      	str	r0, [sp, #24]
   5e:	9806      	ldr	r0, [sp, #24]
-  60:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h3040df065314095aE>
-  64:	e7ff      	b.n	66 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E+0x66>
+  60:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h25079c64f48e2241E>
+  64:	e7ff      	b.n	66 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE+0x66>
   66:	2001      	movs	r0, #1
   68:	f88d 000f 	strb.w	r0, [sp, #15]
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:520
-  6c:	e7ff      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E+0x6e>
+  6c:	e7ff      	b.n	6e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE+0x6e>
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:524
   6e:	f89d 001d 	ldrb.w	r0, [sp, #29]
   72:	07c0      	lsls	r0, r0, #31
   74:	2800      	cmp	r0, #0
-  76:	d104      	bne.n	82 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E+0x82>
-  78:	e7ff      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E+0x7a>
+  76:	d104      	bne.n	82 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE+0x82>
+  78:	e7ff      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE+0x7a>
   7a:	9802      	ldr	r0, [sp, #8]
   7c:	2801      	cmp	r0, #1
-  7e:	d008      	beq.n	92 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E+0x92>
-  80:	e011      	b.n	a6 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E+0xa6>
+  7e:	d008      	beq.n	92 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE+0x92>
+  80:	e011      	b.n	a6 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE+0xa6>
   82:	2000      	movs	r0, #0
   84:	f88d 001d 	strb.w	r0, [sp, #29]
-  88:	e7f7      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E+0x7a>
+  88:	e7f7      	b.n	7a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE+0x7a>
   8a:	f89d 000f 	ldrb.w	r0, [sp, #15]
   8e:	b008      	add	sp, #32
   90:	bd80      	pop	{r7, pc}
   92:	f89d 001f 	ldrb.w	r0, [sp, #31]
   96:	07c0      	lsls	r0, r0, #31
   98:	2800      	cmp	r0, #0
-  9a:	d0f6      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E+0x8a>
-  9c:	e7ff      	b.n	9e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E+0x9e>
+  9a:	d0f6      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE+0x8a>
+  9c:	e7ff      	b.n	9e <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE+0x9e>
   9e:	2000      	movs	r0, #0
   a0:	f88d 001f 	strb.w	r0, [sp, #31]
-  a4:	e7f1      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E+0x8a>
+  a4:	e7f1      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE+0x8a>
   a6:	f89d 001e 	ldrb.w	r0, [sp, #30]
   aa:	07c0      	lsls	r0, r0, #31
   ac:	2800      	cmp	r0, #0
-  ae:	d0ec      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E+0x8a>
-  b0:	e7ff      	b.n	b2 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E+0xb2>
+  ae:	d0ec      	beq.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE+0x8a>
+  b0:	e7ff      	b.n	b2 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE+0xb2>
   b2:	2000      	movs	r0, #0
   b4:	f88d 001e 	strb.w	r0, [sp, #30]
-  b8:	e7e7      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E+0x8a>
+  b8:	e7e7      	b.n	8a <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE+0x8a>
 
 Disassembly of section .text._ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E:
 
@@ -3310,74 +3310,74 @@ app-b8434b356de0ea5d.1sgpzgj4qo12dzez.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 1sgpzgj4qo12dzez
-00000ec2 l       .debug_str	00000000 
-00000eb7 l       .debug_str	00000000 
-00000ecd l       .debug_str	00000000 
-00000ed4 l       .debug_str	00000000 
-00000edb l       .debug_str	00000000 
-00000f11 l       .debug_str	00000000 
-00000f1e l       .debug_str	00000000 
-00000f2b l       .debug_str	00000000 
-00000f2d l       .debug_str	00000000 
-00000f62 l       .debug_str	00000000 
-00000f68 l       .debug_str	00000000 
-00000f6f l       .debug_str	00000000 
-00000f79 l       .debug_str	00000000 
-00000f87 l       .debug_str	00000000 
-00000fc7 l       .debug_str	00000000 
-00000fc9 l       .debug_str	00000000 
-00000fce l       .debug_str	00000000 
-0000103d l       .debug_str	00000000 
-000010e9 l       .debug_str	00000000 
-000011d0 l       .debug_str	00000000 
-000011db l       .debug_str	00000000 
-000011e2 l       .debug_str	00000000 
-000011e9 l       .debug_str	00000000 
-000011f0 l       .debug_str	00000000 
-000011f4 l       .debug_str	00000000 
-0000122a l       .debug_str	00000000 
-000012d6 l       .debug_str	00000000 
-00001383 l       .debug_str	00000000 
-00001388 l       .debug_str	00000000 
-000013a1 l       .debug_str	00000000 
-00001406 l       .debug_str	00000000 
-0000140a l       .debug_str	00000000 
-0000140d l       .debug_str	00000000 
-00001415 l       .debug_str	00000000 
-0000141a l       .debug_str	00000000 
-00001420 l       .debug_str	00000000 
-00001426 l       .debug_str	00000000 
-0000142c l       .debug_str	00000000 
-00001440 l       .debug_str	00000000 
-00001448 l       .debug_str	00000000 
-0000144f l       .debug_str	00000000 
-0000145d l       .debug_str	00000000 
-00001469 l       .debug_str	00000000 
-0000146c l       .debug_str	00000000 
-0000146f l       .debug_str	00000000 
-00001472 l       .debug_str	00000000 
-00001475 l       .debug_str	00000000 
-0000147b l       .debug_str	00000000 
+00000f73 l       .debug_str	00000000 
+00000f66 l       .debug_str	00000000 
+00000f80 l       .debug_str	00000000 
+00000f82 l       .debug_str	00000000 
+00000fb7 l       .debug_str	00000000 
+00000fb9 l       .debug_str	00000000 
+00000fef l       .debug_str	00000000 
+0000109b l       .debug_str	00000000 
+00001151 l       .debug_str	00000000 
+00001157 l       .debug_str	00000000 
+00001164 l       .debug_str	00000000 
+00001168 l       .debug_str	00000000 
+0000116d l       .debug_str	00000000 
+00001176 l       .debug_str	00000000 
+00001180 l       .debug_str	00000000 
+00001187 l       .debug_str	00000000 
+0000118d l       .debug_str	00000000 
+00001192 l       .debug_str	00000000 
+00001198 l       .debug_str	00000000 
+0000119f l       .debug_str	00000000 
+000011a9 l       .debug_str	00000000 
+000011b7 l       .debug_str	00000000 
+000011f7 l       .debug_str	00000000 
+000011fc l       .debug_str	00000000 
+0000126b l       .debug_str	00000000 
+00001317 l       .debug_str	00000000 
+00001407 l       .debug_str	00000000 
+0000140c l       .debug_str	00000000 
+00001425 l       .debug_str	00000000 
+00001493 l       .debug_str	00000000 
+00001497 l       .debug_str	00000000 
 0000149a l       .debug_str	00000000 
-0000149c l       .debug_str	00000000 
-0000149e l       .debug_str	00000000 
-000014a4 l       .debug_str	00000000 
-000014a9 l       .debug_str	00000000 
-000014b5 l       .debug_str	00000000 
-000014c1 l       .debug_str	00000000 
-000014ce l       .debug_str	00000000 
-000014d3 l       .debug_str	00000000 
-000014e0 l       .debug_str	00000000 
-000014e4 l       .debug_str	00000000 
-0000155b l       .debug_str	00000000 
-00001562 l       .debug_str	00000000 
-0000156b l       .debug_str	00000000 
-00001579 l       .debug_str	00000000 
-00001591 l       .debug_str	00000000 
-0000159f l       .debug_str	00000000 
-000015d4 l       .debug_str	00000000 
-000015d8 l       .debug_str	00000000 
-000015e4 l       .debug_str	00000000 
+000014a2 l       .debug_str	00000000 
+000014a7 l       .debug_str	00000000 
+000014ad l       .debug_str	00000000 
+000014b3 l       .debug_str	00000000 
+000014b9 l       .debug_str	00000000 
+000014cd l       .debug_str	00000000 
+000014d5 l       .debug_str	00000000 
+000014dc l       .debug_str	00000000 
+000014ea l       .debug_str	00000000 
+000014f6 l       .debug_str	00000000 
+000014f9 l       .debug_str	00000000 
+000014fc l       .debug_str	00000000 
+000014ff l       .debug_str	00000000 
+00001502 l       .debug_str	00000000 
+0000150a l       .debug_str	00000000 
+00001510 l       .debug_str	00000000 
+00001532 l       .debug_str	00000000 
+00001534 l       .debug_str	00000000 
+00001536 l       .debug_str	00000000 
+0000153c l       .debug_str	00000000 
+00001541 l       .debug_str	00000000 
+0000157f l       .debug_str	00000000 
+00001586 l       .debug_str	00000000 
+0000158f l       .debug_str	00000000 
+0000159d l       .debug_str	00000000 
+000015b5 l       .debug_str	00000000 
+000015c3 l       .debug_str	00000000 
+000015f8 l       .debug_str	00000000 
+000015fc l       .debug_str	00000000 
+00001608 l       .debug_str	00000000 
+00001614 l       .debug_str	00000000 
+00001620 l       .debug_str	00000000 
+0000162d l       .debug_str	00000000 
+00001632 l       .debug_str	00000000 
+0000163f l       .debug_str	00000000 
+00001643 l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000055 l       .debug_str	00000000 
@@ -3458,120 +3458,121 @@ SYMBOL TABLE:
 000002f0 l       .debug_str	00000000 
 000002f4 l       .debug_str	00000000 
 000002f8 l       .debug_str	00000000 
-00000300 l       .debug_str	00000000 
-00000308 l       .debug_str	00000000 
-0000030f l       .debug_str	00000000 
-00000319 l       .debug_str	00000000 
+00000303 l       .debug_str	00000000 
+0000030b l       .debug_str	00000000 
+00000312 l       .debug_str	00000000 
 0000031c l       .debug_str	00000000 
-00000320 l       .debug_str	00000000 
-0000032b l       .debug_str	00000000 
-0000032f l       .debug_str	00000000 
-00000333 l       .debug_str	00000000 
-00000338 l       .debug_str	00000000 
-00000341 l       .debug_str	00000000 
+0000031f l       .debug_str	00000000 
+00000323 l       .debug_str	00000000 
+0000032e l       .debug_str	00000000 
+00000332 l       .debug_str	00000000 
+00000336 l       .debug_str	00000000 
+0000033b l       .debug_str	00000000 
 00000344 l       .debug_str	00000000 
-00000348 l       .debug_str	00000000 
+00000347 l       .debug_str	00000000 
 0000034b l       .debug_str	00000000 
-0000034f l       .debug_str	00000000 
+0000034e l       .debug_str	00000000 
 00000352 l       .debug_str	00000000 
-00000356 l       .debug_str	00000000 
-000003aa l       .debug_str	00000000 
-000003b3 l       .debug_str	00000000 
-000003be l       .debug_str	00000000 
-000003c9 l       .debug_str	00000000 
-000003d7 l       .debug_str	00000000 
-000003dc l       .debug_str	00000000 
-00000418 l       .debug_str	00000000 
-00000437 l       .debug_str	00000000 
-0000043e l       .debug_str	00000000 
+00000355 l       .debug_str	00000000 
+00000359 l       .debug_str	00000000 
+000003b6 l       .debug_str	00000000 
+000003bf l       .debug_str	00000000 
+000003ca l       .debug_str	00000000 
+000003d5 l       .debug_str	00000000 
+000003e3 l       .debug_str	00000000 
+000003e8 l       .debug_str	00000000 
+00000424 l       .debug_str	00000000 
 00000443 l       .debug_str	00000000 
-00000445 l       .debug_str	00000000 
 0000044a l       .debug_str	00000000 
-0000044e l       .debug_str	00000000 
-00000459 l       .debug_str	00000000 
-000004a7 l       .debug_str	00000000 
-000004fd l       .debug_str	00000000 
-00000569 l       .debug_str	00000000 
-000005c0 l       .debug_str	00000000 
-0000062c l       .debug_str	00000000 
-00000698 l       .debug_str	00000000 
-000006e6 l       .debug_str	00000000 
-0000073c l       .debug_str	00000000 
-0000078a l       .debug_str	00000000 
-000007e0 l       .debug_str	00000000 
-0000084c l       .debug_str	00000000 
-000008b8 l       .debug_str	00000000 
-00000906 l       .debug_str	00000000 
-0000095c l       .debug_str	00000000 
-000009ad l       .debug_str	00000000 
-00000a06 l       .debug_str	00000000 
-00000a75 l       .debug_str	00000000 
-00000ae4 l       .debug_str	00000000 
-00000b37 l       .debug_str	00000000 
-00000b92 l       .debug_str	00000000 
-00000be8 l       .debug_str	00000000 
-00000c46 l       .debug_str	00000000 
-00000c8c l       .debug_str	00000000 
-00000cdb l       .debug_str	00000000 
-00000ce7 l       .debug_str	00000000 
-00000ced l       .debug_str	00000000 
-00000d34 l       .debug_str	00000000 
-00000d9e l       .debug_str	00000000 
-00000dea l       .debug_str	00000000 
-00000e3f l       .debug_str	00000000 
-00000e51 l       .debug_str	00000000 
-00000e57 l       .debug_str	00000000 
-00000e64 l       .debug_str	00000000 
-00000e68 l       .debug_str	00000000 
-00000e6e l       .debug_str	00000000 
-00000e7d l       .debug_str	00000000 
-00000e81 l       .debug_str	00000000 
-00000e87 l       .debug_str	00000000 
-00000e8c l       .debug_str	00000000 
-00000e95 l       .debug_str	00000000 
-00000e9f l       .debug_str	00000000 
-00000ea6 l       .debug_str	00000000 
-00000eac l       .debug_str	00000000 
+0000044f l       .debug_str	00000000 
+00000451 l       .debug_str	00000000 
+00000456 l       .debug_str	00000000 
+0000045a l       .debug_str	00000000 
+00000465 l       .debug_str	00000000 
+000004b3 l       .debug_str	00000000 
+00000512 l       .debug_str	00000000 
+0000057e l       .debug_str	00000000 
+000005de l       .debug_str	00000000 
+0000064a l       .debug_str	00000000 
+000006b6 l       .debug_str	00000000 
+00000704 l       .debug_str	00000000 
+00000763 l       .debug_str	00000000 
+000007b1 l       .debug_str	00000000 
+00000810 l       .debug_str	00000000 
+0000087c l       .debug_str	00000000 
+000008e8 l       .debug_str	00000000 
+00000936 l       .debug_str	00000000 
+00000995 l       .debug_str	00000000 
+000009e6 l       .debug_str	00000000 
+00000a48 l       .debug_str	00000000 
+00000ab7 l       .debug_str	00000000 
+00000b26 l       .debug_str	00000000 
+00000b79 l       .debug_str	00000000 
+00000bdd l       .debug_str	00000000 
+00000c33 l       .debug_str	00000000 
+00000c9a l       .debug_str	00000000 
+00000ce0 l       .debug_str	00000000 
+00000d38 l       .debug_str	00000000 
+00000d44 l       .debug_str	00000000 
+00000d4a l       .debug_str	00000000 
+00000d91 l       .debug_str	00000000 
+00000e07 l       .debug_str	00000000 
+00000e53 l       .debug_str	00000000 
 00000eb1 l       .debug_str	00000000 
-00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.0	00000018 .Lanon.c0dfff91c1e4598ba8eb62511090c099.0
-00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.1	00000018 .Lanon.c0dfff91c1e4598ba8eb62511090c099.1
-00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.10	00000002 .Lanon.c0dfff91c1e4598ba8eb62511090c099.10
-00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.11	00000002 .Lanon.c0dfff91c1e4598ba8eb62511090c099.11
-00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.12	00000001 .Lanon.c0dfff91c1e4598ba8eb62511090c099.12
-00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.13	00000001 .Lanon.c0dfff91c1e4598ba8eb62511090c099.13
-00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.14	00000001 .Lanon.c0dfff91c1e4598ba8eb62511090c099.14
-00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.15	00000001 .Lanon.c0dfff91c1e4598ba8eb62511090c099.15
-00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.16	00000012 .Lanon.c0dfff91c1e4598ba8eb62511090c099.16
-00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.2	00000018 .Lanon.c0dfff91c1e4598ba8eb62511090c099.2
-00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.3	00000018 .Lanon.c0dfff91c1e4598ba8eb62511090c099.3
-00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.4	00000003 .Lanon.c0dfff91c1e4598ba8eb62511090c099.4
-00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.5	00000006 .Lanon.c0dfff91c1e4598ba8eb62511090c099.5
-00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.6	00000001 .Lanon.c0dfff91c1e4598ba8eb62511090c099.6
-00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.7	00000003 .Lanon.c0dfff91c1e4598ba8eb62511090c099.7
-00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.8	00000001 .Lanon.c0dfff91c1e4598ba8eb62511090c099.8
-00000000 l     O .rodata..Lanon.c0dfff91c1e4598ba8eb62511090c099.9	00000002 .Lanon.c0dfff91c1e4598ba8eb62511090c099.9
+00000ec3 l       .debug_str	00000000 
+00000ece l       .debug_str	00000000 
+00000ed5 l       .debug_str	00000000 
+00000edc l       .debug_str	00000000 
+00000ee2 l       .debug_str	00000000 
+00000ef1 l       .debug_str	00000000 
+00000ef5 l       .debug_str	00000000 
+00000efb l       .debug_str	00000000 
+00000f02 l       .debug_str	00000000 
+00000f06 l       .debug_str	00000000 
+00000f0c l       .debug_str	00000000 
+00000f17 l       .debug_str	00000000 
+00000f22 l       .debug_str	00000000 
+00000f29 l       .debug_str	00000000 
+00000f30 l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.f3106792272b13f2845605204828f1ef.0	00000018 .Lanon.f3106792272b13f2845605204828f1ef.0
+00000000 l     O .rodata..Lanon.f3106792272b13f2845605204828f1ef.1	00000018 .Lanon.f3106792272b13f2845605204828f1ef.1
+00000000 l     O .rodata..Lanon.f3106792272b13f2845605204828f1ef.10	00000002 .Lanon.f3106792272b13f2845605204828f1ef.10
+00000000 l     O .rodata..Lanon.f3106792272b13f2845605204828f1ef.11	00000002 .Lanon.f3106792272b13f2845605204828f1ef.11
+00000000 l     O .rodata..Lanon.f3106792272b13f2845605204828f1ef.12	00000001 .Lanon.f3106792272b13f2845605204828f1ef.12
+00000000 l     O .rodata..Lanon.f3106792272b13f2845605204828f1ef.13	00000001 .Lanon.f3106792272b13f2845605204828f1ef.13
+00000000 l     O .rodata..Lanon.f3106792272b13f2845605204828f1ef.14	00000001 .Lanon.f3106792272b13f2845605204828f1ef.14
+00000000 l     O .rodata..Lanon.f3106792272b13f2845605204828f1ef.15	00000001 .Lanon.f3106792272b13f2845605204828f1ef.15
+00000000 l     O .rodata..Lanon.f3106792272b13f2845605204828f1ef.16	00000012 .Lanon.f3106792272b13f2845605204828f1ef.16
+00000000 l     O .rodata..Lanon.f3106792272b13f2845605204828f1ef.2	00000018 .Lanon.f3106792272b13f2845605204828f1ef.2
+00000000 l     O .rodata..Lanon.f3106792272b13f2845605204828f1ef.3	00000018 .Lanon.f3106792272b13f2845605204828f1ef.3
+00000000 l     O .rodata..Lanon.f3106792272b13f2845605204828f1ef.4	00000003 .Lanon.f3106792272b13f2845605204828f1ef.4
+00000000 l     O .rodata..Lanon.f3106792272b13f2845605204828f1ef.5	00000006 .Lanon.f3106792272b13f2845605204828f1ef.5
+00000000 l     O .rodata..Lanon.f3106792272b13f2845605204828f1ef.6	00000001 .Lanon.f3106792272b13f2845605204828f1ef.6
+00000000 l     O .rodata..Lanon.f3106792272b13f2845605204828f1ef.7	00000003 .Lanon.f3106792272b13f2845605204828f1ef.7
+00000000 l     O .rodata..Lanon.f3106792272b13f2845605204828f1ef.8	00000001 .Lanon.f3106792272b13f2845605204828f1ef.8
+00000000 l     O .rodata..Lanon.f3106792272b13f2845605204828f1ef.9	00000002 .Lanon.f3106792272b13f2845605204828f1ef.9
 00000000 l     O .rodata.str.0	00000058 str.0
 00000000 l     O .rodata.str.1	0000001c str.1
 00000000 l    d  .text._ZN10num_traits4cast11ToPrimitive5to_u817h9a5b951c73eab503E	00000000 .text._ZN10num_traits4cast11ToPrimitive5to_u817h9a5b951c73eab503E
-00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE
-00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0c0c8c1607749edaE	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0c0c8c1607749edaE
-00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0e314494eee32985E	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0e314494eee32985E
-00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h31e47a41efff9c15E	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h31e47a41efff9c15E
-00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h8ff56cabcbc92457E	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h8ff56cabcbc92457E
-00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E
-00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h981314307db29905E	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h981314307db29905E
-00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h9ebfecd8371d1560E	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h9ebfecd8371d1560E
-00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h82f62612c5737ad0E	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h82f62612c5737ad0E
-00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE
-00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h3040df065314095aE	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h3040df065314095aE
-00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h8849c0e76bb071d1E	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h8849c0e76bb071d1E
-00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE
-00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE
-00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h2b7d8be26955941fE	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h2b7d8be26955941fE
-00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E
-00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE
-00000000 l    d  .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E	00000000 .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E
-00000000 l    d  .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E	00000000 .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E
+00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE
+00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hc5664bb9f9414dfbE	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hc5664bb9f9414dfbE
+00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hd46d896a3ef8f1ceE	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hd46d896a3ef8f1ceE
+00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hdd80abbc8bfaee4eE	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hdd80abbc8bfaee4eE
+00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h21804224a384e577E	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h21804224a384e577E
+00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17h524a6a341663fa8dE	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17h524a6a341663fa8dE
+00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h650cbcd208fc79f2E	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h650cbcd208fc79f2E
+00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17hbd6a195e39b11d95E	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17hbd6a195e39b11d95E
+00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h4a7e693dcef3b8b2E	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h4a7e693dcef3b8b2E
+00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E
+00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h25079c64f48e2241E	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h25079c64f48e2241E
+00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h5b3ed9e2fe632613E	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h5b3ed9e2fe632613E
+00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E
+00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE
+00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h723b2fb410ea497eE	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h723b2fb410ea497eE
+00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE
+00000000 l    d  .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE	00000000 .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE
+00000000 l    d  .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE	00000000 .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE
+00000000 l    d  .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E	00000000 .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E
 00000000 l    d  .rodata.str.0	00000000 .rodata.str.0
 00000000 l    d  .rodata.str.1	00000000 .rodata.str.1
 00000000 l    d  .debug_loc	00000000 .debug_loc
@@ -3582,30 +3583,30 @@ SYMBOL TABLE:
 00000000 l    d  .debug_line	00000000 .debug_line
 00000000         *UND*	00000000 _ZN10num_traits4cast11ToPrimitive5to_u817h24769e5d734e2a3eE
 00000000 g     F .text._ZN10num_traits4cast11ToPrimitive5to_u817h9a5b951c73eab503E	0000003c _ZN10num_traits4cast11ToPrimitive5to_u817h9a5b951c73eab503E
-00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE	000000ca _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE
-00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0c0c8c1607749edaE	0000000e _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0c0c8c1607749edaE
-00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0e314494eee32985E	0000000e _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0e314494eee32985E
-00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h31e47a41efff9c15E	0000000e _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h31e47a41efff9c15E
-00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h8ff56cabcbc92457E	00000032 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h8ff56cabcbc92457E
-00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E	0000008e _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E
-00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h981314307db29905E	0000000e _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h981314307db29905E
-00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h9ebfecd8371d1560E	0000000e _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h9ebfecd8371d1560E
-00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h82f62612c5737ad0E	00000040 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h82f62612c5737ad0E
-00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE	00000172 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE
-00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h3040df065314095aE	0000000e _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h3040df065314095aE
-00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h8849c0e76bb071d1E	0000000e _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h8849c0e76bb071d1E
-00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE	0000013c _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE
-00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE	00000262 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE
-00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h2b7d8be26955941fE	00000070 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h2b7d8be26955941fE
-00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E	00000748 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E
-00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE	000000ec _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE
+00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE	000000ca _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE
+00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hc5664bb9f9414dfbE	0000000e _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hc5664bb9f9414dfbE
+00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hd46d896a3ef8f1ceE	0000000e _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hd46d896a3ef8f1ceE
+00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hdd80abbc8bfaee4eE	0000000e _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hdd80abbc8bfaee4eE
+00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h21804224a384e577E	00000032 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h21804224a384e577E
+00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17h524a6a341663fa8dE	0000008e _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17h524a6a341663fa8dE
+00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h650cbcd208fc79f2E	0000000e _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h650cbcd208fc79f2E
+00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17hbd6a195e39b11d95E	0000000e _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17hbd6a195e39b11d95E
+00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h4a7e693dcef3b8b2E	00000040 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h4a7e693dcef3b8b2E
+00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E	00000172 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E
+00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h25079c64f48e2241E	0000000e _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h25079c64f48e2241E
+00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h5b3ed9e2fe632613E	0000000e _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h5b3ed9e2fe632613E
+00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E	0000013c _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E
+00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE	00000262 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE
+00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h723b2fb410ea497eE	00000070 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h723b2fb410ea497eE
+00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE	00000748 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE
+00000000 g     F .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE	000000ec _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE
 00000000         *UND*	00000000 _ZN10st7735_lcd37_IMPL_NUM_ToPrimitive_FOR_Orientation83_$LT$impl$u20$num_traits..cast..ToPrimitive$u20$for$u20$st7735_lcd..Orientation$GT$6to_u6417h19dbecc7a21c32baE
 00000000         *UND*	00000000 _ZN116_$LT$embedded_graphics..primitives..circle..Circle$LT$C$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h975a0379957271daE
 00000000         *UND*	00000000 _ZN121_$LT$embedded_graphics..primitives..circle..CircleIterator$LT$C$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h739931040b512223E
 00000000         *UND*	00000000 _ZN129_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h1676ae25d4fe1e7bE
 00000000         *UND*	00000000 _ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h84927a60c181f9e6E
-00000000 g     F .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E	000000c8 _ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E
-00000000 g     F .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E	000000c4 _ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E
+00000000 g     F .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE	000000c4 _ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE
+00000000 g     F .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E	000000c8 _ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E
 00000000         *UND*	00000000 .hidden _ZN4core3num21_$LT$impl$u20$u16$GT$5to_be17h761124024c578678E
 00000000         *UND*	00000000 _ZN4core6option15Option$LT$T$GT$6as_ref17h9727a5993e50ebacE
 00000000         *UND*	00000000 _ZN4core6option15Option$LT$T$GT$6unwrap17h84aea0c976a43651E
@@ -3613,21 +3614,21 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 _ZN4core6option15Option$LT$T$GT$7is_some17h9c577cacfe4fb6c8E
 00000000         *UND*	00000000 _ZN4core6option15Option$LT$T$GT$8and_then17h20b2525c583626fbE
 00000000         *UND*	00000000 _ZN4core6result19Result$LT$T$C$E$GT$6expect17hac1fc70db3fae860E
-00000000         *UND*	00000000 _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE
-00000000         *UND*	00000000 _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE
-00000000         *UND*	00000000 _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E
-00000000         *UND*	00000000 _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE
-00000000         *UND*	00000000 _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E
-00000000         *UND*	00000000 _ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE
-00000000         *UND*	00000000 _ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E
+00000000         *UND*	00000000 _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E
+00000000         *UND*	00000000 _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E
+00000000         *UND*	00000000 _ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E
+00000000         *UND*	00000000 _ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE
+00000000         *UND*	00000000 _ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E
+00000000         *UND*	00000000 _ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E
+00000000         *UND*	00000000 _ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE
 00000000         *UND*	00000000 _ZN4core9panicking5panic17h53ca63c6ac6312f8E
 00000000         *UND*	00000000 _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E
 00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E
 00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE
-00000000         *UND*	00000000 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E
-00000000         *UND*	00000000 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE
-00000000         *UND*	00000000 _ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h1fcdecc5282f5d9cE
-00000000         *UND*	00000000 _ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E
+00000000         *UND*	00000000 _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE
+00000000         *UND*	00000000 _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E
+00000000         *UND*	00000000 _ZN91_$LT$app..mynewt_hal..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h09ed721f103ba8b3E
+00000000         *UND*	00000000 _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
 
 
 
@@ -3673,10 +3674,10 @@ _ZN10num_traits4cast11ToPrimitive5to_u817h9a5b951c73eab503E():
   38:	b00a      	add	sp, #40	; 0x28
   3a:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE:
+Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE:
 
-00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE>:
-_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE():
+00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE>:
+_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:117
         self.write_command(Instruction::DISPON, None)?;
         delay.delay_ms(200);
@@ -3694,28 +3695,28 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE():
    8:	9809      	ldr	r0, [sp, #36]	; 0x24
    a:	300c      	adds	r0, #12
    c:	9108      	str	r1, [sp, #32]
-   e:	f7ff fffe 	bl	0 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE>
+   e:	f7ff fffe 	bl	0 <_ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E>
   12:	9007      	str	r0, [sp, #28]
-  14:	e7ff      	b.n	16 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0x16>
+  14:	e7ff      	b.n	16 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0x16>
   16:	9807      	ldr	r0, [sp, #28]
-  18:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h574517379b89c932E>
+  18:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hce390063c5fd0c06E>
   1c:	9006      	str	r0, [sp, #24]
-  1e:	e7ff      	b.n	20 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0x20>
+  1e:	e7ff      	b.n	20 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0x20>
   20:	9806      	ldr	r0, [sp, #24]
   22:	f000 0001 	and.w	r0, r0, #1
   26:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
   2a:	f88d 002b 	strb.w	r0, [sp, #43]	; 0x2b
-  2e:	e7ff      	b.n	30 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0x30>
+  2e:	e7ff      	b.n	30 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0x30>
   30:	f89d 002b 	ldrb.w	r0, [sp, #43]	; 0x2b
   34:	07c1      	lsls	r1, r0, #31
   36:	2900      	cmp	r1, #0
   38:	9005      	str	r0, [sp, #20]
-  3a:	d012      	beq.n	62 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0x62>
-  3c:	e7ff      	b.n	3e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0x3e>
+  3a:	d012      	beq.n	62 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0x62>
+  3c:	e7ff      	b.n	3e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0x3e>
   3e:	9805      	ldr	r0, [sp, #20]
   40:	2801      	cmp	r0, #1
-  42:	d001      	beq.n	48 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0x48>
-  44:	e7ff      	b.n	46 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0x46>
+  42:	d001      	beq.n	48 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0x48>
+  44:	e7ff      	b.n	46 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0x46>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:122
         self.rst.set_low().map_err(|_| ())?;
         self.rst.set_high().map_err(|_| ())
@@ -3727,8 +3728,8 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE():
   4c:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
   4e:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
   52:	f88d 002a 	strb.w	r0, [sp, #42]	; 0x2a
-  56:	e7ff      	b.n	58 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0x58>
-  58:	e7ff      	b.n	5a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0x5a>
+  56:	e7ff      	b.n	58 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0x58>
+  58:	e7ff      	b.n	5a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0x5a>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:122
     }
   5a:	f89d 002a 	ldrb.w	r0, [sp, #42]	; 0x2a
@@ -3738,95 +3739,95 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE():
         self.rst.set_low().map_err(|_| ())?;
   62:	9809      	ldr	r0, [sp, #36]	; 0x24
   64:	300c      	adds	r0, #12
-  66:	f7ff fffe 	bl	0 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E>
+  66:	f7ff fffe 	bl	0 <_ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE>
   6a:	9004      	str	r0, [sp, #16]
-  6c:	e7ff      	b.n	6e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0x6e>
+  6c:	e7ff      	b.n	6e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0x6e>
   6e:	9804      	ldr	r0, [sp, #16]
-  70:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h00486f02003c054cE>
+  70:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc21ba015cc2d10c1E>
   74:	9003      	str	r0, [sp, #12]
-  76:	e7ff      	b.n	78 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0x78>
+  76:	e7ff      	b.n	78 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0x78>
   78:	9803      	ldr	r0, [sp, #12]
   7a:	f000 0001 	and.w	r0, r0, #1
   7e:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
   82:	f88d 0037 	strb.w	r0, [sp, #55]	; 0x37
-  86:	e7ff      	b.n	88 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0x88>
+  86:	e7ff      	b.n	88 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0x88>
   88:	f89d 0037 	ldrb.w	r0, [sp, #55]	; 0x37
   8c:	07c1      	lsls	r1, r0, #31
   8e:	2900      	cmp	r1, #0
   90:	9002      	str	r0, [sp, #8]
-  92:	d00d      	beq.n	b0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0xb0>
-  94:	e7ff      	b.n	96 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0x96>
+  92:	d00d      	beq.n	b0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0xb0>
+  94:	e7ff      	b.n	96 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0x96>
   96:	9802      	ldr	r0, [sp, #8]
   98:	2801      	cmp	r0, #1
-  9a:	d1d4      	bne.n	46 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0x46>
-  9c:	e7ff      	b.n	9e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0x9e>
+  9a:	d1d4      	bne.n	46 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0x46>
+  9c:	e7ff      	b.n	9e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0x9e>
   9e:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
   a2:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
   a4:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
   a8:	f88d 002a 	strb.w	r0, [sp, #42]	; 0x2a
-  ac:	e7ff      	b.n	ae <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0xae>
-  ae:	e7d4      	b.n	5a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0x5a>
+  ac:	e7ff      	b.n	ae <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0xae>
+  ae:	e7d4      	b.n	5a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0x5a>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:121
         self.rst.set_high().map_err(|_| ())
   b0:	9809      	ldr	r0, [sp, #36]	; 0x24
   b2:	300c      	adds	r0, #12
-  b4:	f7ff fffe 	bl	0 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE>
+  b4:	f7ff fffe 	bl	0 <_ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E>
   b8:	9001      	str	r0, [sp, #4]
-  ba:	e7ff      	b.n	bc <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0xbc>
+  ba:	e7ff      	b.n	bc <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0xbc>
   bc:	9801      	ldr	r0, [sp, #4]
-  be:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h1123833211bbbe4eE>
+  be:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h560e3986265fa9f2E>
   c2:	f88d 002a 	strb.w	r0, [sp, #42]	; 0x2a
-  c6:	e7ff      	b.n	c8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0xc8>
+  c6:	e7ff      	b.n	c8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0xc8>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:122
     }
-  c8:	e7c7      	b.n	5a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h509b38b50924613bE+0x5a>
+  c8:	e7c7      	b.n	5a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset17h0fa1ebb4cf81aa7dE+0x5a>
 
-Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0c0c8c1607749edaE:
+Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hc5664bb9f9414dfbE:
 
-00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0c0c8c1607749edaE>:
-_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0c0c8c1607749edaE():
+00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hc5664bb9f9414dfbE>:
+_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hc5664bb9f9414dfbE():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:121
+        self.rst.set_high().map_err(|_| ())
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+   6:	9100      	str	r1, [sp, #0]
+   8:	e7ff      	b.n	a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hc5664bb9f9414dfbE+0xa>
+   a:	b003      	add	sp, #12
+   c:	4770      	bx	lr
+
+Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hd46d896a3ef8f1ceE:
+
+00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hd46d896a3ef8f1ceE>:
+_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hd46d896a3ef8f1ceE():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:120
         self.rst.set_low().map_err(|_| ())?;
    0:	b083      	sub	sp, #12
    2:	4601      	mov	r1, r0
    4:	9002      	str	r0, [sp, #8]
    6:	9100      	str	r1, [sp, #0]
-   8:	e7ff      	b.n	a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0c0c8c1607749edaE+0xa>
+   8:	e7ff      	b.n	a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hd46d896a3ef8f1ceE+0xa>
    a:	b003      	add	sp, #12
    c:	4770      	bx	lr
 
-Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0e314494eee32985E:
+Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hdd80abbc8bfaee4eE:
 
-00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0e314494eee32985E>:
-_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0e314494eee32985E():
+00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hdd80abbc8bfaee4eE>:
+_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hdd80abbc8bfaee4eE():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:119
         self.rst.set_high().map_err(|_| ())?;
    0:	b083      	sub	sp, #12
    2:	4601      	mov	r1, r0
    4:	9002      	str	r0, [sp, #8]
    6:	9100      	str	r1, [sp, #0]
-   8:	e7ff      	b.n	a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h0e314494eee32985E+0xa>
+   8:	e7ff      	b.n	a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17hdd80abbc8bfaee4eE+0xa>
    a:	b003      	add	sp, #12
    c:	4770      	bx	lr
 
-Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h31e47a41efff9c15E:
+Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h21804224a384e577E:
 
-00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h31e47a41efff9c15E>:
-_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h31e47a41efff9c15E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:121
-        self.rst.set_high().map_err(|_| ())
-   0:	b083      	sub	sp, #12
-   2:	4601      	mov	r1, r0
-   4:	9002      	str	r0, [sp, #8]
-   6:	9100      	str	r1, [sp, #0]
-   8:	e7ff      	b.n	a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10hard_reset28_$u7b$$u7b$closure$u7d$$u7d$17h31e47a41efff9c15E+0xa>
-   a:	b003      	add	sp, #12
-   c:	4770      	bx	lr
-
-Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h8ff56cabcbc92457E:
-
-00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h8ff56cabcbc92457E>:
-_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h8ff56cabcbc92457E():
+00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h21804224a384e577E>:
+_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h21804224a384e577E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:158
         }
         Ok(())
@@ -3860,10 +3861,10 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h8ff56cabcbc92457E():
   2e:	b005      	add	sp, #20
   30:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E:
+Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17h524a6a341663fa8dE:
 
-00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E>:
-_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E():
+00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17h524a6a341663fa8dE>:
+_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17h524a6a341663fa8dE():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:133
     fn write_data(&mut self, data: &[u8]) -> Result<(), ()> {
    0:	b580      	push	{r7, lr}
@@ -3881,28 +3882,28 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E():
   14:	9307      	str	r3, [sp, #28]
   16:	f8cd c018 	str.w	ip, [sp, #24]
   1a:	f8cd e014 	str.w	lr, [sp, #20]
-  1e:	f7ff fffe 	bl	0 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE>
+  1e:	f7ff fffe 	bl	0 <_ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E>
   22:	9004      	str	r0, [sp, #16]
-  24:	e7ff      	b.n	26 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E+0x26>
+  24:	e7ff      	b.n	26 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17h524a6a341663fa8dE+0x26>
   26:	9804      	ldr	r0, [sp, #16]
-  28:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h531c6635d2caea2dE>
+  28:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hc0cc433b24fb144cE>
   2c:	9003      	str	r0, [sp, #12]
-  2e:	e7ff      	b.n	30 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E+0x30>
+  2e:	e7ff      	b.n	30 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17h524a6a341663fa8dE+0x30>
   30:	9803      	ldr	r0, [sp, #12]
   32:	f000 0001 	and.w	r0, r0, #1
   36:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
   3a:	f88d 002f 	strb.w	r0, [sp, #47]	; 0x2f
-  3e:	e7ff      	b.n	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E+0x40>
+  3e:	e7ff      	b.n	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17h524a6a341663fa8dE+0x40>
   40:	f89d 002f 	ldrb.w	r0, [sp, #47]	; 0x2f
   44:	07c1      	lsls	r1, r0, #31
   46:	2900      	cmp	r1, #0
   48:	9002      	str	r0, [sp, #8]
-  4a:	d012      	beq.n	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E+0x72>
-  4c:	e7ff      	b.n	4e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E+0x4e>
+  4a:	d012      	beq.n	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17h524a6a341663fa8dE+0x72>
+  4c:	e7ff      	b.n	4e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17h524a6a341663fa8dE+0x4e>
   4e:	9802      	ldr	r0, [sp, #8]
   50:	2801      	cmp	r0, #1
-  52:	d001      	beq.n	58 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E+0x58>
-  54:	e7ff      	b.n	56 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E+0x56>
+  52:	d001      	beq.n	58 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17h524a6a341663fa8dE+0x58>
+  54:	e7ff      	b.n	56 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17h524a6a341663fa8dE+0x56>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:136
     }
   56:	defe      	udf	#254	; 0xfe
@@ -3912,8 +3913,8 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E():
   5c:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
   5e:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
   62:	f88d 002e 	strb.w	r0, [sp, #46]	; 0x2e
-  66:	e7ff      	b.n	68 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E+0x68>
-  68:	e7ff      	b.n	6a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E+0x6a>
+  66:	e7ff      	b.n	68 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17h524a6a341663fa8dE+0x68>
+  68:	e7ff      	b.n	6a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17h524a6a341663fa8dE+0x6a>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:136
     }
   6a:	f89d 002e 	ldrb.w	r0, [sp, #46]	; 0x2e
@@ -3924,49 +3925,49 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E():
   72:	9808      	ldr	r0, [sp, #32]
   74:	9909      	ldr	r1, [sp, #36]	; 0x24
   76:	9a0a      	ldr	r2, [sp, #40]	; 0x28
-  78:	f7ff fffe 	bl	0 <_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h1fcdecc5282f5d9cE>
+  78:	f7ff fffe 	bl	0 <_ZN91_$LT$app..mynewt_hal..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h09ed721f103ba8b3E>
   7c:	9001      	str	r0, [sp, #4]
-  7e:	e7ff      	b.n	80 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E+0x80>
+  7e:	e7ff      	b.n	80 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17h524a6a341663fa8dE+0x80>
   80:	9801      	ldr	r0, [sp, #4]
-  82:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h15b520b13c016ee8E>
+  82:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h032ac2e0199df231E>
   86:	f88d 002e 	strb.w	r0, [sp, #46]	; 0x2e
-  8a:	e7ff      	b.n	8c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E+0x8c>
+  8a:	e7ff      	b.n	8c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17h524a6a341663fa8dE+0x8c>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:136
     }
-  8c:	e7ed      	b.n	6a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17hf0db8a6447937531E+0x6a>
+  8c:	e7ed      	b.n	6a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data17h524a6a341663fa8dE+0x6a>
 
-Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h981314307db29905E:
+Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h650cbcd208fc79f2E:
 
-00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h981314307db29905E>:
-_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h981314307db29905E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:134
-        self.dc.set_high().map_err(|_| ())?;
-   0:	b083      	sub	sp, #12
-   2:	4601      	mov	r1, r0
-   4:	9002      	str	r0, [sp, #8]
-   6:	9100      	str	r1, [sp, #0]
-   8:	e7ff      	b.n	a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h981314307db29905E+0xa>
-   a:	b003      	add	sp, #12
-   c:	4770      	bx	lr
-
-Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h9ebfecd8371d1560E:
-
-00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h9ebfecd8371d1560E>:
-_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h9ebfecd8371d1560E():
+00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h650cbcd208fc79f2E>:
+_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h650cbcd208fc79f2E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:135
         self.spi.write(data).map_err(|_| ())
    0:	b083      	sub	sp, #12
    2:	4601      	mov	r1, r0
    4:	9002      	str	r0, [sp, #8]
    6:	9100      	str	r1, [sp, #0]
-   8:	e7ff      	b.n	a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h9ebfecd8371d1560E+0xa>
+   8:	e7ff      	b.n	a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17h650cbcd208fc79f2E+0xa>
    a:	b003      	add	sp, #12
    c:	4770      	bx	lr
 
-Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h82f62612c5737ad0E:
+Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17hbd6a195e39b11d95E:
 
-00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h82f62612c5737ad0E>:
-_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h82f62612c5737ad0E():
+00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17hbd6a195e39b11d95E>:
+_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17hbd6a195e39b11d95E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:134
+        self.dc.set_high().map_err(|_| ())?;
+   0:	b083      	sub	sp, #12
+   2:	4601      	mov	r1, r0
+   4:	9002      	str	r0, [sp, #8]
+   6:	9100      	str	r1, [sp, #0]
+   8:	e7ff      	b.n	a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_data28_$u7b$$u7b$closure$u7d$$u7d$17hbd6a195e39b11d95E+0xa>
+   a:	b003      	add	sp, #12
+   c:	4770      	bx	lr
+
+Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h4a7e693dcef3b8b2E:
+
+00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h4a7e693dcef3b8b2E>:
+_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h4a7e693dcef3b8b2E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:139
     fn write_word(&mut self, value: u16) -> Result<(), ()> {
    0:	b580      	push	{r7, lr}
@@ -3982,18 +3983,18 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h82f62612c5737ad0E():
   14:	9302      	str	r3, [sp, #8]
   16:	f7ff fffe 	bl	0 <_ZN4core3num21_$LT$impl$u20$u16$GT$5to_be17h761124024c578678E>
   1a:	9001      	str	r0, [sp, #4]
-  1c:	e7ff      	b.n	1e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h82f62612c5737ad0E+0x1e>
+  1c:	e7ff      	b.n	1e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h4a7e693dcef3b8b2E+0x1e>
   1e:	9801      	ldr	r0, [sp, #4]
   20:	f8ad 0016 	strh.w	r0, [sp, #22]
-  24:	e7ff      	b.n	26 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h82f62612c5737ad0E+0x26>
+  24:	e7ff      	b.n	26 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h4a7e693dcef3b8b2E+0x26>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:141
         self.write_data(&bytes)
   26:	9804      	ldr	r0, [sp, #16]
   28:	f10d 0116 	add.w	r1, sp, #22
   2c:	2202      	movs	r2, #2
-  2e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h82f62612c5737ad0E>
+  2e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h4a7e693dcef3b8b2E>
   32:	9000      	str	r0, [sp, #0]
-  34:	e7ff      	b.n	36 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h82f62612c5737ad0E+0x36>
+  34:	e7ff      	b.n	36 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h4a7e693dcef3b8b2E+0x36>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:142
     }
   36:	9800      	ldr	r0, [sp, #0]
@@ -4001,10 +4002,10 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10write_word17h82f62612c5737ad0E():
   3c:	b006      	add	sp, #24
   3e:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE:
+Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E:
 
-00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE>:
-_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE():
+00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E>:
+_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:124
     fn write_command(&mut self, command: Instruction, params: Option<&[u8]>) -> Result<(), ()> {
    0:	b5b0      	push	{r4, r5, r7, lr}
@@ -4025,28 +4026,28 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE
   1e:	f8cd e048 	str.w	lr, [sp, #72]	; 0x48
   22:	9411      	str	r4, [sp, #68]	; 0x44
   24:	9510      	str	r5, [sp, #64]	; 0x40
-  26:	f7ff fffe 	bl	0 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E>
+  26:	f7ff fffe 	bl	0 <_ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE>
   2a:	900f      	str	r0, [sp, #60]	; 0x3c
-  2c:	e7ff      	b.n	2e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x2e>
+  2c:	e7ff      	b.n	2e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x2e>
   2e:	980f      	ldr	r0, [sp, #60]	; 0x3c
-  30:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hee7ac6f174acdfaeE>
+  30:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h406b2108bd6b1012E>
   34:	900e      	str	r0, [sp, #56]	; 0x38
-  36:	e7ff      	b.n	38 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x38>
+  36:	e7ff      	b.n	38 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x38>
   38:	980e      	ldr	r0, [sp, #56]	; 0x38
   3a:	f000 0001 	and.w	r0, r0, #1
   3e:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
   42:	f88d 0063 	strb.w	r0, [sp, #99]	; 0x63
-  46:	e7ff      	b.n	48 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x48>
+  46:	e7ff      	b.n	48 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x48>
   48:	f89d 0063 	ldrb.w	r0, [sp, #99]	; 0x63
   4c:	07c1      	lsls	r1, r0, #31
   4e:	2900      	cmp	r1, #0
   50:	900d      	str	r0, [sp, #52]	; 0x34
-  52:	d012      	beq.n	7a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x7a>
-  54:	e7ff      	b.n	56 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x56>
+  52:	d012      	beq.n	7a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x7a>
+  54:	e7ff      	b.n	56 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x56>
   56:	980d      	ldr	r0, [sp, #52]	; 0x34
   58:	2801      	cmp	r0, #1
-  5a:	d001      	beq.n	60 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x60>
-  5c:	e7ff      	b.n	5e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x5e>
+  5a:	d001      	beq.n	60 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x60>
+  5c:	e7ff      	b.n	5e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x5e>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:131
     }
   5e:	defe      	udf	#254	; 0xfe
@@ -4056,8 +4057,8 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE
   64:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
   66:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
   6a:	f88d 0062 	strb.w	r0, [sp, #98]	; 0x62
-  6e:	e7ff      	b.n	70 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x70>
-  70:	e7ff      	b.n	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x72>
+  6e:	e7ff      	b.n	70 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x70>
+  70:	e7ff      	b.n	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x72>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:131
     }
   72:	f89d 0062 	ldrb.w	r0, [sp, #98]	; 0x62
@@ -4072,57 +4073,57 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE
   84:	f7ff fffe 	bl	0 <_ZN10num_traits4cast11ToPrimitive5to_u817h24769e5d734e2a3eE>
   88:	900b      	str	r0, [sp, #44]	; 0x2c
   8a:	910a      	str	r1, [sp, #40]	; 0x28
-  8c:	e7ff      	b.n	8e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x8e>
+  8c:	e7ff      	b.n	8e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x8e>
   8e:	980b      	ldr	r0, [sp, #44]	; 0x2c
   90:	f000 0001 	and.w	r0, r0, #1
   94:	990a      	ldr	r1, [sp, #40]	; 0x28
   96:	f7ff fffe 	bl	0 <_ZN4core6option15Option$LT$T$GT$6unwrap17h84aea0c976a43651E>
   9a:	9009      	str	r0, [sp, #36]	; 0x24
-  9c:	e7ff      	b.n	9e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x9e>
+  9c:	e7ff      	b.n	9e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x9e>
   9e:	9809      	ldr	r0, [sp, #36]	; 0x24
   a0:	f88d 006f 	strb.w	r0, [sp, #111]	; 0x6f
   a4:	f10d 016f 	add.w	r1, sp, #111	; 0x6f
   a8:	2201      	movs	r2, #1
   aa:	980c      	ldr	r0, [sp, #48]	; 0x30
-  ac:	f7ff fffe 	bl	0 <_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h1fcdecc5282f5d9cE>
+  ac:	f7ff fffe 	bl	0 <_ZN91_$LT$app..mynewt_hal..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h09ed721f103ba8b3E>
   b0:	9008      	str	r0, [sp, #32]
-  b2:	e7ff      	b.n	b4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0xb4>
+  b2:	e7ff      	b.n	b4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0xb4>
   b4:	9808      	ldr	r0, [sp, #32]
-  b6:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hf25ae72fd16b86f4E>
+  b6:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$7map_err17he46d8531291434efE>
   ba:	9007      	str	r0, [sp, #28]
-  bc:	e7ff      	b.n	be <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0xbe>
+  bc:	e7ff      	b.n	be <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0xbe>
   be:	9807      	ldr	r0, [sp, #28]
   c0:	f000 0001 	and.w	r0, r0, #1
   c4:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
   c8:	f88d 006e 	strb.w	r0, [sp, #110]	; 0x6e
-  cc:	e7ff      	b.n	ce <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0xce>
+  cc:	e7ff      	b.n	ce <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0xce>
   ce:	f89d 006e 	ldrb.w	r0, [sp, #110]	; 0x6e
   d2:	07c1      	lsls	r1, r0, #31
   d4:	2900      	cmp	r1, #0
   d6:	9006      	str	r0, [sp, #24]
-  d8:	d00d      	beq.n	f6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0xf6>
-  da:	e7ff      	b.n	dc <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0xdc>
+  d8:	d00d      	beq.n	f6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0xf6>
+  da:	e7ff      	b.n	dc <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0xdc>
   dc:	9806      	ldr	r0, [sp, #24]
   de:	2801      	cmp	r0, #1
-  e0:	d1bd      	bne.n	5e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x5e>
-  e2:	e7ff      	b.n	e4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0xe4>
+  e0:	d1bd      	bne.n	5e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x5e>
+  e2:	e7ff      	b.n	e4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0xe4>
   e4:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
   e8:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
   ea:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
   ee:	f88d 0062 	strb.w	r0, [sp, #98]	; 0x62
-  f2:	e7ff      	b.n	f4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0xf4>
-  f4:	e7bd      	b.n	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x72>
+  f2:	e7ff      	b.n	f4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0xf4>
+  f4:	e7bd      	b.n	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x72>
   f6:	a816      	add	r0, sp, #88	; 0x58
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:127
         if params.is_some() {
   f8:	f7ff fffe 	bl	0 <_ZN4core6option15Option$LT$T$GT$7is_some17h9c577cacfe4fb6c8E>
   fc:	9005      	str	r0, [sp, #20]
-  fe:	e7ff      	b.n	100 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x100>
+  fe:	e7ff      	b.n	100 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x100>
  100:	9805      	ldr	r0, [sp, #20]
  102:	07c1      	lsls	r1, r0, #31
  104:	2900      	cmp	r1, #0
- 106:	d030      	beq.n	16a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x16a>
- 108:	e7ff      	b.n	10a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x10a>
+ 106:	d030      	beq.n	16a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x16a>
+ 108:	e7ff      	b.n	10a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x10a>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:128
             self.write_data(params.unwrap())?;
  10a:	9814      	ldr	r0, [sp, #80]	; 0x50
@@ -4134,77 +4135,77 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE
  116:	f7ff fffe 	bl	0 <_ZN4core6option15Option$LT$T$GT$6unwrap17hdbb770f7e60c3a3aE>
  11a:	9003      	str	r0, [sp, #12]
  11c:	9102      	str	r1, [sp, #8]
- 11e:	e7ff      	b.n	120 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x120>
+ 11e:	e7ff      	b.n	120 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x120>
  120:	9804      	ldr	r0, [sp, #16]
  122:	9903      	ldr	r1, [sp, #12]
  124:	9a02      	ldr	r2, [sp, #8]
- 126:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE>
+ 126:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E>
  12a:	9001      	str	r0, [sp, #4]
- 12c:	e7ff      	b.n	12e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x12e>
+ 12c:	e7ff      	b.n	12e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x12e>
  12e:	9801      	ldr	r0, [sp, #4]
  130:	f000 0001 	and.w	r0, r0, #1
  134:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  138:	f88d 007b 	strb.w	r0, [sp, #123]	; 0x7b
- 13c:	e7ff      	b.n	13e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x13e>
+ 13c:	e7ff      	b.n	13e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x13e>
  13e:	f89d 007b 	ldrb.w	r0, [sp, #123]	; 0x7b
  142:	07c1      	lsls	r1, r0, #31
  144:	2900      	cmp	r1, #0
  146:	9000      	str	r0, [sp, #0]
- 148:	d00e      	beq.n	168 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x168>
- 14a:	e7ff      	b.n	14c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x14c>
+ 148:	d00e      	beq.n	168 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x168>
+ 14a:	e7ff      	b.n	14c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x14c>
  14c:	9800      	ldr	r0, [sp, #0]
  14e:	2801      	cmp	r0, #1
- 150:	f47f af85 	bne.w	5e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x5e>
+ 150:	f47f af85 	bne.w	5e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x5e>
  154:	e7ff      	b.n	2 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E+0x2>
  156:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  15a:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  15c:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  160:	f88d 0062 	strb.w	r0, [sp, #98]	; 0x62
- 164:	e7ff      	b.n	166 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x166>
- 166:	e784      	b.n	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x72>
+ 164:	e7ff      	b.n	166 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x166>
+ 166:	e784      	b.n	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x72>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:127
         if params.is_some() {
- 168:	e7ff      	b.n	16a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x16a>
+ 168:	e7ff      	b.n	16a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x16a>
  16a:	2000      	movs	r0, #0
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:130
         Ok(())
  16c:	f88d 0062 	strb.w	r0, [sp, #98]	; 0x62
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:131
     }
- 170:	e77f      	b.n	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h967df9c491eeeb7cE+0x72>
+ 170:	e77f      	b.n	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command17h5eb0c63abd3c8024E+0x72>
 
-Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h3040df065314095aE:
+Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h25079c64f48e2241E:
 
-00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h3040df065314095aE>:
-_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h3040df065314095aE():
+00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h25079c64f48e2241E>:
+_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h25079c64f48e2241E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:126
         self.spi.write(&[command.to_u8().unwrap()]).map_err(|_| ())?;
    0:	b083      	sub	sp, #12
    2:	4601      	mov	r1, r0
    4:	9002      	str	r0, [sp, #8]
    6:	9100      	str	r1, [sp, #0]
-   8:	e7ff      	b.n	a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h3040df065314095aE+0xa>
+   8:	e7ff      	b.n	a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h25079c64f48e2241E+0xa>
    a:	b003      	add	sp, #12
    c:	4770      	bx	lr
 
-Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h8849c0e76bb071d1E:
+Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h5b3ed9e2fe632613E:
 
-00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h8849c0e76bb071d1E>:
-_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h8849c0e76bb071d1E():
+00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h5b3ed9e2fe632613E>:
+_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h5b3ed9e2fe632613E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:125
         self.dc.set_low().map_err(|_| ())?;
    0:	b083      	sub	sp, #12
    2:	4601      	mov	r1, r0
    4:	9002      	str	r0, [sp, #8]
    6:	9100      	str	r1, [sp, #0]
-   8:	e7ff      	b.n	a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h8849c0e76bb071d1E+0xa>
+   8:	e7ff      	b.n	a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$13write_command28_$u7b$$u7b$closure$u7d$$u7d$17h5b3ed9e2fe632613E+0xa>
    a:	b003      	add	sp, #12
    c:	4770      	bx	lr
 
-Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE:
+Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E:
 
-00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE>:
-_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE():
+00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E>:
+_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:144
     pub fn set_orientation(&mut self, orientation: &Orientation) -> Result<(), ()> {
    0:	b580      	push	{r7, lr}
@@ -4221,8 +4222,8 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644e
   12:	2800      	cmp	r0, #0
   14:	920d      	str	r2, [sp, #52]	; 0x34
   16:	930c      	str	r3, [sp, #48]	; 0x30
-  18:	d048      	beq.n	ac <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0xac>
-  1a:	e7ff      	b.n	1c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0x1c>
+  18:	d048      	beq.n	ac <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0xac>
+  1a:	e7ff      	b.n	1c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0x1c>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:146
             self.write_command(
   1c:	980e      	ldr	r0, [sp, #56]	; 0x38
@@ -4233,16 +4234,16 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644e
   24:	990f      	ldr	r1, [sp, #60]	; 0x3c
   26:	900b      	str	r0, [sp, #44]	; 0x2c
   28:	4608      	mov	r0, r1
-  2a:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE>
+  2a:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E>
   2e:	900a      	str	r0, [sp, #40]	; 0x28
   30:	9109      	str	r1, [sp, #36]	; 0x24
-  32:	e7ff      	b.n	34 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0x34>
+  32:	e7ff      	b.n	34 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0x34>
   34:	980a      	ldr	r0, [sp, #40]	; 0x28
   36:	f000 0001 	and.w	r0, r0, #1
   3a:	9909      	ldr	r1, [sp, #36]	; 0x24
   3c:	f7ff fffe 	bl	0 <_ZN4core6option15Option$LT$T$GT$6unwrap17h84aea0c976a43651E>
   40:	9008      	str	r0, [sp, #32]
-  42:	e7ff      	b.n	44 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0x44>
+  42:	e7ff      	b.n	44 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0x44>
   44:	9808      	ldr	r0, [sp, #32]
   46:	f88d 004f 	strb.w	r0, [sp, #79]	; 0x4f
   4a:	f10d 014f 	add.w	r1, sp, #79	; 0x4f
@@ -4255,26 +4256,26 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644e
   56:	9b12      	ldr	r3, [sp, #72]	; 0x48
   58:	f89d 1043 	ldrb.w	r1, [sp, #67]	; 0x43
   5c:	980b      	ldr	r0, [sp, #44]	; 0x2c
-  5e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE>
+  5e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E>
   62:	9007      	str	r0, [sp, #28]
-  64:	e7ff      	b.n	66 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0x66>
+  64:	e7ff      	b.n	66 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0x66>
   66:	9807      	ldr	r0, [sp, #28]
   68:	f000 0001 	and.w	r0, r0, #1
   6c:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
   70:	f88d 0042 	strb.w	r0, [sp, #66]	; 0x42
-  74:	e7ff      	b.n	76 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0x76>
+  74:	e7ff      	b.n	76 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0x76>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:148
             ))?;
   76:	f89d 0042 	ldrb.w	r0, [sp, #66]	; 0x42
   7a:	07c1      	lsls	r1, r0, #31
   7c:	2900      	cmp	r1, #0
   7e:	9006      	str	r0, [sp, #24]
-  80:	d013      	beq.n	aa <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0xaa>
-  82:	e7ff      	b.n	84 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0x84>
+  80:	d013      	beq.n	aa <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0xaa>
+  82:	e7ff      	b.n	84 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0x84>
   84:	9806      	ldr	r0, [sp, #24]
   86:	2801      	cmp	r0, #1
-  88:	d001      	beq.n	8e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0x8e>
-  8a:	e7ff      	b.n	8c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0x8c>
+  88:	d001      	beq.n	8e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0x8e>
+  8a:	e7ff      	b.n	8c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0x8c>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:155
     }
   8c:	defe      	udf	#254	; 0xfe
@@ -4284,8 +4285,8 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644e
   92:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
   94:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
   98:	f88d 0041 	strb.w	r0, [sp, #65]	; 0x41
-  9c:	e7ff      	b.n	9e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0x9e>
-  9e:	e003      	b.n	a8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0xa8>
+  9c:	e7ff      	b.n	9e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0x9e>
+  9e:	e003      	b.n	a8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0xa8>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:155
     }
   a0:	f89d 0041 	ldrb.w	r0, [sp, #65]	; 0x41
@@ -4293,10 +4294,10 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644e
   a6:	bd80      	pop	{r7, pc}
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:148
             ))?;
-  a8:	e7fa      	b.n	a0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0xa0>
+  a8:	e7fa      	b.n	a0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0xa0>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:145
         if self.rgb {
-  aa:	e043      	b.n	134 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0x134>
+  aa:	e043      	b.n	134 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0x134>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:150
             self.write_command(
   ac:	980e      	ldr	r0, [sp, #56]	; 0x38
@@ -4307,16 +4308,16 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644e
   b4:	990f      	ldr	r1, [sp, #60]	; 0x3c
   b6:	9005      	str	r0, [sp, #20]
   b8:	4608      	mov	r0, r1
-  ba:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE>
+  ba:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E>
   be:	9004      	str	r0, [sp, #16]
   c0:	9103      	str	r1, [sp, #12]
-  c2:	e7ff      	b.n	c4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0xc4>
+  c2:	e7ff      	b.n	c4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0xc4>
   c4:	9804      	ldr	r0, [sp, #16]
   c6:	f000 0001 	and.w	r0, r0, #1
   ca:	9903      	ldr	r1, [sp, #12]
   cc:	f7ff fffe 	bl	0 <_ZN4core6option15Option$LT$T$GT$6unwrap17h84aea0c976a43651E>
   d0:	9002      	str	r0, [sp, #8]
-  d2:	e7ff      	b.n	d4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0xd4>
+  d2:	e7ff      	b.n	d4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0xd4>
   d4:	9802      	ldr	r0, [sp, #8]
   d6:	f040 0108 	orr.w	r1, r0, #8
   da:	f88d 1063 	strb.w	r1, [sp, #99]	; 0x63
@@ -4330,47 +4331,47 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644e
   ea:	9b17      	ldr	r3, [sp, #92]	; 0x5c
   ec:	f89d 1057 	ldrb.w	r1, [sp, #87]	; 0x57
   f0:	9805      	ldr	r0, [sp, #20]
-  f2:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE>
+  f2:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E>
   f6:	9001      	str	r0, [sp, #4]
-  f8:	e7ff      	b.n	fa <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0xfa>
+  f8:	e7ff      	b.n	fa <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0xfa>
   fa:	9801      	ldr	r0, [sp, #4]
   fc:	f000 0001 	and.w	r0, r0, #1
  100:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  104:	f88d 0056 	strb.w	r0, [sp, #86]	; 0x56
- 108:	e7ff      	b.n	10a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0x10a>
+ 108:	e7ff      	b.n	10a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0x10a>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:152
             ))?;
  10a:	f89d 0056 	ldrb.w	r0, [sp, #86]	; 0x56
  10e:	07c1      	lsls	r1, r0, #31
  110:	2900      	cmp	r1, #0
  112:	9000      	str	r0, [sp, #0]
- 114:	d00d      	beq.n	132 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0x132>
- 116:	e7ff      	b.n	118 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0x118>
+ 114:	d00d      	beq.n	132 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0x132>
+ 116:	e7ff      	b.n	118 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0x118>
  118:	9800      	ldr	r0, [sp, #0]
  11a:	2801      	cmp	r0, #1
- 11c:	d1b6      	bne.n	8c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0x8c>
- 11e:	e7ff      	b.n	120 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0x120>
+ 11c:	d1b6      	bne.n	8c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0x8c>
+ 11e:	e7ff      	b.n	120 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0x120>
  120:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  124:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  126:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  12a:	f88d 0041 	strb.w	r0, [sp, #65]	; 0x41
- 12e:	e7ff      	b.n	130 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0x130>
- 130:	e7ba      	b.n	a8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0xa8>
+ 12e:	e7ff      	b.n	130 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0x130>
+ 130:	e7ba      	b.n	a8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0xa8>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:145
         if self.rgb {
- 132:	e7ff      	b.n	134 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0x134>
+ 132:	e7ff      	b.n	134 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0x134>
  134:	2000      	movs	r0, #0
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:154
         Ok(())
  136:	f88d 0041 	strb.w	r0, [sp, #65]	; 0x41
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:155
     }
- 13a:	e7b1      	b.n	a0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE+0xa0>
+ 13a:	e7b1      	b.n	a0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E+0xa0>
 
-Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE:
+Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE:
 
-00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE>:
-_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE():
+00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE>:
+_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:164
 
     /// Sets the address window for the display.
@@ -4403,24 +4404,24 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446e
   3e:	9414      	str	r4, [sp, #80]	; 0x50
   40:	9513      	str	r5, [sp, #76]	; 0x4c
   42:	9612      	str	r6, [sp, #72]	; 0x48
-  44:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE>
+  44:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE>
   48:	9011      	str	r0, [sp, #68]	; 0x44
-  4a:	e7ff      	b.n	4c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x4c>
+  4a:	e7ff      	b.n	4c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x4c>
   4c:	9811      	ldr	r0, [sp, #68]	; 0x44
   4e:	f000 0001 	and.w	r0, r0, #1
   52:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
   56:	f88d 0066 	strb.w	r0, [sp, #102]	; 0x66
-  5a:	e7ff      	b.n	5c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x5c>
+  5a:	e7ff      	b.n	5c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x5c>
   5c:	f89d 0066 	ldrb.w	r0, [sp, #102]	; 0x66
   60:	07c1      	lsls	r1, r0, #31
   62:	2900      	cmp	r1, #0
   64:	9010      	str	r0, [sp, #64]	; 0x40
-  66:	d012      	beq.n	8e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x8e>
-  68:	e7ff      	b.n	6a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x6a>
+  66:	d012      	beq.n	8e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x8e>
+  68:	e7ff      	b.n	6a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x6a>
   6a:	9810      	ldr	r0, [sp, #64]	; 0x40
   6c:	2801      	cmp	r0, #1
-  6e:	d001      	beq.n	74 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x74>
-  70:	e7ff      	b.n	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x72>
+  6e:	d001      	beq.n	74 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x74>
+  70:	e7ff      	b.n	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x72>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:171
         self.write_word(sx + self.dx)?;
         self.write_word(ex + self.dx)?;
@@ -4435,8 +4436,8 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446e
   78:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
   7a:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
   7e:	f88d 0065 	strb.w	r0, [sp, #101]	; 0x65
-  82:	e7ff      	b.n	84 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x84>
-  84:	e7ff      	b.n	86 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x86>
+  82:	e7ff      	b.n	84 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x84>
+  84:	e7ff      	b.n	86 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x86>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:171
     }
   86:	f89d 0065 	ldrb.w	r0, [sp, #101]	; 0x65
@@ -4453,34 +4454,34 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446e
   9c:	428a      	cmp	r2, r1
   9e:	900f      	str	r0, [sp, #60]	; 0x3c
   a0:	930e      	str	r3, [sp, #56]	; 0x38
-  a2:	f040 80c2 	bne.w	22a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x22a>
-  a6:	e7ff      	b.n	a8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0xa8>
+  a2:	f040 80c2 	bne.w	22a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x22a>
+  a6:	e7ff      	b.n	a8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0xa8>
   a8:	980f      	ldr	r0, [sp, #60]	; 0x3c
   aa:	990e      	ldr	r1, [sp, #56]	; 0x38
-  ac:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE>
+  ac:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE>
   b0:	900d      	str	r0, [sp, #52]	; 0x34
-  b2:	e7ff      	b.n	b4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0xb4>
+  b2:	e7ff      	b.n	b4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0xb4>
   b4:	980d      	ldr	r0, [sp, #52]	; 0x34
   b6:	f000 0001 	and.w	r0, r0, #1
   ba:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
   be:	f88d 0077 	strb.w	r0, [sp, #119]	; 0x77
-  c2:	e7ff      	b.n	c4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0xc4>
+  c2:	e7ff      	b.n	c4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0xc4>
   c4:	f89d 0077 	ldrb.w	r0, [sp, #119]	; 0x77
   c8:	07c1      	lsls	r1, r0, #31
   ca:	2900      	cmp	r1, #0
   cc:	900c      	str	r0, [sp, #48]	; 0x30
-  ce:	d00d      	beq.n	ec <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0xec>
-  d0:	e7ff      	b.n	d2 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0xd2>
+  ce:	d00d      	beq.n	ec <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0xec>
+  d0:	e7ff      	b.n	d2 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0xd2>
   d2:	980c      	ldr	r0, [sp, #48]	; 0x30
   d4:	2801      	cmp	r0, #1
-  d6:	d1cc      	bne.n	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x72>
-  d8:	e7ff      	b.n	da <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0xda>
+  d6:	d1cc      	bne.n	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x72>
+  d8:	e7ff      	b.n	da <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0xda>
   da:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
   de:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
   e0:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
   e4:	f88d 0065 	strb.w	r0, [sp, #101]	; 0x65
-  e8:	e7ff      	b.n	ea <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0xea>
-  ea:	e7cc      	b.n	86 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x86>
+  e8:	e7ff      	b.n	ea <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0xea>
+  ea:	e7cc      	b.n	86 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x86>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:167
         self.write_word(ex + self.dx)?;
   ec:	9816      	ldr	r0, [sp, #88]	; 0x58
@@ -4492,34 +4493,34 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446e
   fa:	428a      	cmp	r2, r1
   fc:	900b      	str	r0, [sp, #44]	; 0x2c
   fe:	930a      	str	r3, [sp, #40]	; 0x28
- 100:	f040 809a 	bne.w	238 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x238>
- 104:	e7ff      	b.n	106 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x106>
+ 100:	f040 809a 	bne.w	238 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x238>
+ 104:	e7ff      	b.n	106 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x106>
  106:	980b      	ldr	r0, [sp, #44]	; 0x2c
  108:	990a      	ldr	r1, [sp, #40]	; 0x28
- 10a:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE>
+ 10a:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE>
  10e:	9009      	str	r0, [sp, #36]	; 0x24
- 110:	e7ff      	b.n	112 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x112>
+ 110:	e7ff      	b.n	112 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x112>
  112:	9809      	ldr	r0, [sp, #36]	; 0x24
  114:	f000 0001 	and.w	r0, r0, #1
  118:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  11c:	f88d 007f 	strb.w	r0, [sp, #127]	; 0x7f
- 120:	e7ff      	b.n	122 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x122>
+ 120:	e7ff      	b.n	122 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x122>
  122:	f89d 007f 	ldrb.w	r0, [sp, #127]	; 0x7f
  126:	07c1      	lsls	r1, r0, #31
  128:	2900      	cmp	r1, #0
  12a:	9008      	str	r0, [sp, #32]
- 12c:	d00d      	beq.n	14a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x14a>
- 12e:	e7ff      	b.n	130 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x130>
+ 12c:	d00d      	beq.n	14a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x14a>
+ 12e:	e7ff      	b.n	130 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x130>
  130:	9808      	ldr	r0, [sp, #32]
  132:	2801      	cmp	r0, #1
- 134:	d19d      	bne.n	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x72>
- 136:	e7ff      	b.n	138 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x138>
+ 134:	d19d      	bne.n	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x72>
+ 136:	e7ff      	b.n	138 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x138>
  138:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  13c:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  13e:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  142:	f88d 0065 	strb.w	r0, [sp, #101]	; 0x65
- 146:	e7ff      	b.n	148 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x148>
- 148:	e79d      	b.n	86 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x86>
+ 146:	e7ff      	b.n	148 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x148>
+ 148:	e79d      	b.n	86 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x86>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:168
         self.write_command(Instruction::RASET, None)?;
  14a:	9816      	ldr	r0, [sp, #88]	; 0x58
@@ -4532,30 +4533,30 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446e
  15a:	9a22      	ldr	r2, [sp, #136]	; 0x88
  15c:	9b23      	ldr	r3, [sp, #140]	; 0x8c
  15e:	f89d 1087 	ldrb.w	r1, [sp, #135]	; 0x87
- 162:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE>
+ 162:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE>
  166:	9007      	str	r0, [sp, #28]
- 168:	e7ff      	b.n	16a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x16a>
+ 168:	e7ff      	b.n	16a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x16a>
  16a:	9807      	ldr	r0, [sp, #28]
  16c:	f000 0001 	and.w	r0, r0, #1
  170:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  174:	f88d 0086 	strb.w	r0, [sp, #134]	; 0x86
- 178:	e7ff      	b.n	17a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x17a>
+ 178:	e7ff      	b.n	17a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x17a>
  17a:	f89d 0086 	ldrb.w	r0, [sp, #134]	; 0x86
  17e:	07c1      	lsls	r1, r0, #31
  180:	2900      	cmp	r1, #0
  182:	9006      	str	r0, [sp, #24]
- 184:	d00e      	beq.n	1a4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x1a4>
- 186:	e7ff      	b.n	188 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x188>
+ 184:	d00e      	beq.n	1a4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x1a4>
+ 186:	e7ff      	b.n	188 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x188>
  188:	9806      	ldr	r0, [sp, #24]
  18a:	2801      	cmp	r0, #1
- 18c:	f47f af71 	bne.w	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x72>
+ 18c:	f47f af71 	bne.w	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x72>
  190:	e7ff      	b.n	2 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E+0x2>
  192:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  196:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  198:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  19c:	f88d 0065 	strb.w	r0, [sp, #101]	; 0x65
- 1a0:	e7ff      	b.n	1a2 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x1a2>
- 1a2:	e770      	b.n	86 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x86>
+ 1a0:	e7ff      	b.n	1a2 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x1a2>
+ 1a2:	e770      	b.n	86 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x86>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:169
         self.write_word(sy + self.dy)?;
  1a4:	9816      	ldr	r0, [sp, #88]	; 0x58
@@ -4567,34 +4568,34 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446e
  1b2:	428a      	cmp	r2, r1
  1b4:	9005      	str	r0, [sp, #20]
  1b6:	9304      	str	r3, [sp, #16]
- 1b8:	d145      	bne.n	246 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x246>
- 1ba:	e7ff      	b.n	1bc <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x1bc>
+ 1b8:	d145      	bne.n	246 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x246>
+ 1ba:	e7ff      	b.n	1bc <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x1bc>
  1bc:	9805      	ldr	r0, [sp, #20]
  1be:	9904      	ldr	r1, [sp, #16]
- 1c0:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE>
+ 1c0:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE>
  1c4:	9003      	str	r0, [sp, #12]
- 1c6:	e7ff      	b.n	1c8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x1c8>
+ 1c6:	e7ff      	b.n	1c8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x1c8>
  1c8:	9803      	ldr	r0, [sp, #12]
  1ca:	f000 0001 	and.w	r0, r0, #1
  1ce:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  1d2:	f88d 0097 	strb.w	r0, [sp, #151]	; 0x97
- 1d6:	e7ff      	b.n	1d8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x1d8>
+ 1d6:	e7ff      	b.n	1d8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x1d8>
  1d8:	f89d 0097 	ldrb.w	r0, [sp, #151]	; 0x97
  1dc:	07c1      	lsls	r1, r0, #31
  1de:	2900      	cmp	r1, #0
  1e0:	9002      	str	r0, [sp, #8]
- 1e2:	d00e      	beq.n	202 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x202>
- 1e4:	e7ff      	b.n	1e6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x1e6>
+ 1e2:	d00e      	beq.n	202 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x202>
+ 1e4:	e7ff      	b.n	1e6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x1e6>
  1e6:	9802      	ldr	r0, [sp, #8]
  1e8:	2801      	cmp	r0, #1
- 1ea:	f47f af42 	bne.w	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x72>
+ 1ea:	f47f af42 	bne.w	72 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x72>
  1ee:	e7ff      	b.n	2 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E+0x2>
  1f0:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  1f4:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  1f6:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  1fa:	f88d 0065 	strb.w	r0, [sp, #101]	; 0x65
- 1fe:	e7ff      	b.n	200 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x200>
- 200:	e741      	b.n	86 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x86>
+ 1fe:	e7ff      	b.n	200 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x200>
+ 200:	e741      	b.n	86 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x86>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:170
         self.write_word(ey + self.dy)
  202:	9816      	ldr	r0, [sp, #88]	; 0x58
@@ -4606,16 +4607,16 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446e
  210:	428a      	cmp	r2, r1
  212:	9001      	str	r0, [sp, #4]
  214:	9300      	str	r3, [sp, #0]
- 216:	d11d      	bne.n	254 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x254>
- 218:	e7ff      	b.n	21a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x21a>
+ 216:	d11d      	bne.n	254 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x254>
+ 218:	e7ff      	b.n	21a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x21a>
  21a:	9801      	ldr	r0, [sp, #4]
  21c:	9900      	ldr	r1, [sp, #0]
- 21e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE>
+ 21e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE>
  222:	f88d 0065 	strb.w	r0, [sp, #101]	; 0x65
- 226:	e7ff      	b.n	228 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x228>
+ 226:	e7ff      	b.n	228 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x228>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:171
     }
- 228:	e72d      	b.n	86 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446edf6fE+0x86>
+ 228:	e72d      	b.n	86 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17hd57bf49179ab145cE+0x86>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:166
         self.write_word(sx + self.dx)?;
  22a:	f240 0000 	movw	r0, #0
@@ -4641,10 +4642,10 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$18set_address_window17h1b42de2c446e
  25c:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
  260:	defe      	udf	#254	; 0xfe
 
-Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h2b7d8be26955941fE:
+Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h723b2fb410ea497eE:
 
-00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h2b7d8be26955941fE>:
-_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h2b7d8be26955941fE():
+00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h723b2fb410ea497eE>:
+_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h723b2fb410ea497eE():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:60
     pub fn new(
    0:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
@@ -4703,10 +4704,10 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h2b7d8be26955941fE():
   6a:	b00f      	add	sp, #60	; 0x3c
   6c:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
 
-Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E:
+Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE:
 
-00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>:
-_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
+00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>:
+_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:82
     pub fn init<DELAY>(&mut self, delay: &mut DELAY) -> Result<(), ()>
    0:	b580      	push	{r7, lr}
@@ -4720,24 +4721,24 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
    c:	9828      	ldr	r0, [sp, #160]	; 0xa0
    e:	9227      	str	r2, [sp, #156]	; 0x9c
   10:	9326      	str	r3, [sp, #152]	; 0x98
-  12:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+  12:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
   16:	9025      	str	r0, [sp, #148]	; 0x94
-  18:	e7ff      	b.n	1a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x1a>
+  18:	e7ff      	b.n	1a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x1a>
   1a:	9825      	ldr	r0, [sp, #148]	; 0x94
   1c:	f000 0001 	and.w	r0, r0, #1
   20:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
   24:	f88d 00ab 	strb.w	r0, [sp, #171]	; 0xab
-  28:	e7ff      	b.n	2a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x2a>
+  28:	e7ff      	b.n	2a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x2a>
   2a:	f89d 00ab 	ldrb.w	r0, [sp, #171]	; 0xab
   2e:	07c1      	lsls	r1, r0, #31
   30:	2900      	cmp	r1, #0
   32:	9024      	str	r0, [sp, #144]	; 0x90
-  34:	d012      	beq.n	5c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x5c>
-  36:	e7ff      	b.n	38 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x38>
+  34:	d012      	beq.n	5c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x5c>
+  36:	e7ff      	b.n	38 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x38>
   38:	9824      	ldr	r0, [sp, #144]	; 0x90
   3a:	2801      	cmp	r0, #1
-  3c:	d001      	beq.n	42 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x42>
-  3e:	e7ff      	b.n	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x40>
+  3c:	d001      	beq.n	42 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x42>
+  3e:	e7ff      	b.n	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x40>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:115
     }
   40:	defe      	udf	#254	; 0xfe
@@ -4747,8 +4748,8 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
   46:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
   48:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
   4c:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
-  50:	e7ff      	b.n	52 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x52>
-  52:	e7ff      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x54>
+  50:	e7ff      	b.n	52 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x52>
+  52:	e7ff      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x54>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:115
     }
   54:	f89d 00aa 	ldrb.w	r0, [sp, #170]	; 0xaa
@@ -4766,36 +4767,36 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
   6c:	9a2d      	ldr	r2, [sp, #180]	; 0xb4
   6e:	9b2e      	ldr	r3, [sp, #184]	; 0xb8
   70:	f89d 10b3 	ldrb.w	r1, [sp, #179]	; 0xb3
-  74:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+  74:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
   78:	9023      	str	r0, [sp, #140]	; 0x8c
-  7a:	e7ff      	b.n	7c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x7c>
+  7a:	e7ff      	b.n	7c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x7c>
   7c:	9823      	ldr	r0, [sp, #140]	; 0x8c
   7e:	f000 0001 	and.w	r0, r0, #1
   82:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
   86:	f88d 00b2 	strb.w	r0, [sp, #178]	; 0xb2
-  8a:	e7ff      	b.n	8c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x8c>
+  8a:	e7ff      	b.n	8c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x8c>
   8c:	f89d 00b2 	ldrb.w	r0, [sp, #178]	; 0xb2
   90:	07c1      	lsls	r1, r0, #31
   92:	2900      	cmp	r1, #0
   94:	9022      	str	r0, [sp, #136]	; 0x88
-  96:	d00d      	beq.n	b4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0xb4>
-  98:	e7ff      	b.n	9a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x9a>
+  96:	d00d      	beq.n	b4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0xb4>
+  98:	e7ff      	b.n	9a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x9a>
   9a:	9822      	ldr	r0, [sp, #136]	; 0x88
   9c:	2801      	cmp	r0, #1
-  9e:	d1cf      	bne.n	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x40>
-  a0:	e7ff      	b.n	a2 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0xa2>
+  9e:	d1cf      	bne.n	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x40>
+  a0:	e7ff      	b.n	a2 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0xa2>
   a2:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
   a6:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
   a8:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
   ac:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
-  b0:	e7ff      	b.n	b2 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0xb2>
-  b2:	e7cf      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x54>
+  b0:	e7ff      	b.n	b2 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0xb2>
+  b2:	e7cf      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x54>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:87
         delay.delay_ms(200);
   b4:	9829      	ldr	r0, [sp, #164]	; 0xa4
   b6:	21c8      	movs	r1, #200	; 0xc8
-  b8:	f7ff fffe 	bl	0 <_ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E>
-  bc:	e7ff      	b.n	be <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0xbe>
+  b8:	f7ff fffe 	bl	0 <_ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E>
+  bc:	e7ff      	b.n	be <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0xbe>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:88
         self.write_command(Instruction::SLPOUT, None)?;
   be:	9828      	ldr	r0, [sp, #160]	; 0xa0
@@ -4808,36 +4809,36 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
   ce:	9a31      	ldr	r2, [sp, #196]	; 0xc4
   d0:	9b32      	ldr	r3, [sp, #200]	; 0xc8
   d2:	f89d 10c3 	ldrb.w	r1, [sp, #195]	; 0xc3
-  d6:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+  d6:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
   da:	9021      	str	r0, [sp, #132]	; 0x84
-  dc:	e7ff      	b.n	de <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0xde>
+  dc:	e7ff      	b.n	de <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0xde>
   de:	9821      	ldr	r0, [sp, #132]	; 0x84
   e0:	f000 0001 	and.w	r0, r0, #1
   e4:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
   e8:	f88d 00c2 	strb.w	r0, [sp, #194]	; 0xc2
-  ec:	e7ff      	b.n	ee <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0xee>
+  ec:	e7ff      	b.n	ee <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0xee>
   ee:	f89d 00c2 	ldrb.w	r0, [sp, #194]	; 0xc2
   f2:	07c1      	lsls	r1, r0, #31
   f4:	2900      	cmp	r1, #0
   f6:	9020      	str	r0, [sp, #128]	; 0x80
-  f8:	d00d      	beq.n	116 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x116>
-  fa:	e7ff      	b.n	fc <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0xfc>
+  f8:	d00d      	beq.n	116 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x116>
+  fa:	e7ff      	b.n	fc <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0xfc>
   fc:	9820      	ldr	r0, [sp, #128]	; 0x80
   fe:	2801      	cmp	r0, #1
- 100:	d19e      	bne.n	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x40>
- 102:	e7ff      	b.n	104 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x104>
+ 100:	d19e      	bne.n	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x40>
+ 102:	e7ff      	b.n	104 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x104>
  104:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  108:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  10a:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  10e:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
- 112:	e7ff      	b.n	114 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x114>
- 114:	e79e      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x54>
+ 112:	e7ff      	b.n	114 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x114>
+ 114:	e79e      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x54>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:89
         delay.delay_ms(200);
  116:	9829      	ldr	r0, [sp, #164]	; 0xa4
  118:	21c8      	movs	r1, #200	; 0xc8
- 11a:	f7ff fffe 	bl	0 <_ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E>
- 11e:	e7ff      	b.n	120 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x120>
+ 11a:	f7ff fffe 	bl	0 <_ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E>
+ 11e:	e7ff      	b.n	120 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x120>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:90
         self.write_command(Instruction::FRMCTR1, Some(&[0x01, 0x2C, 0x2D]))?;
  120:	9828      	ldr	r0, [sp, #160]	; 0xa0
@@ -4851,30 +4852,30 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
  136:	9a35      	ldr	r2, [sp, #212]	; 0xd4
  138:	9b36      	ldr	r3, [sp, #216]	; 0xd8
  13a:	f89d 10d3 	ldrb.w	r1, [sp, #211]	; 0xd3
- 13e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+ 13e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
  142:	901f      	str	r0, [sp, #124]	; 0x7c
- 144:	e7ff      	b.n	146 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x146>
+ 144:	e7ff      	b.n	146 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x146>
  146:	981f      	ldr	r0, [sp, #124]	; 0x7c
  148:	f000 0001 	and.w	r0, r0, #1
  14c:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  150:	f88d 00d2 	strb.w	r0, [sp, #210]	; 0xd2
- 154:	e7ff      	b.n	156 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x156>
+ 154:	e7ff      	b.n	156 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x156>
  156:	f89d 00d2 	ldrb.w	r0, [sp, #210]	; 0xd2
  15a:	07c1      	lsls	r1, r0, #31
  15c:	2900      	cmp	r1, #0
  15e:	901e      	str	r0, [sp, #120]	; 0x78
- 160:	d00e      	beq.n	180 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x180>
- 162:	e7ff      	b.n	164 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x164>
+ 160:	d00e      	beq.n	180 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x180>
+ 162:	e7ff      	b.n	164 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x164>
  164:	981e      	ldr	r0, [sp, #120]	; 0x78
  166:	2801      	cmp	r0, #1
- 168:	f47f af6a 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x40>
+ 168:	f47f af6a 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x40>
  16c:	e7ff      	b.n	2 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E+0x2>
  16e:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  172:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  174:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  178:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
- 17c:	e7ff      	b.n	17e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x17e>
- 17e:	e769      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x54>
+ 17c:	e7ff      	b.n	17e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x17e>
+ 17e:	e769      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x54>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:91
         self.write_command(Instruction::FRMCTR2, Some(&[0x01, 0x2C, 0x2D]))?;
  180:	9828      	ldr	r0, [sp, #160]	; 0xa0
@@ -4888,30 +4889,30 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
  196:	9a39      	ldr	r2, [sp, #228]	; 0xe4
  198:	9b3a      	ldr	r3, [sp, #232]	; 0xe8
  19a:	f89d 10e3 	ldrb.w	r1, [sp, #227]	; 0xe3
- 19e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+ 19e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
  1a2:	901d      	str	r0, [sp, #116]	; 0x74
- 1a4:	e7ff      	b.n	1a6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x1a6>
+ 1a4:	e7ff      	b.n	1a6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x1a6>
  1a6:	981d      	ldr	r0, [sp, #116]	; 0x74
  1a8:	f000 0001 	and.w	r0, r0, #1
  1ac:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  1b0:	f88d 00e2 	strb.w	r0, [sp, #226]	; 0xe2
- 1b4:	e7ff      	b.n	1b6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x1b6>
+ 1b4:	e7ff      	b.n	1b6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x1b6>
  1b6:	f89d 00e2 	ldrb.w	r0, [sp, #226]	; 0xe2
  1ba:	07c1      	lsls	r1, r0, #31
  1bc:	2900      	cmp	r1, #0
  1be:	901c      	str	r0, [sp, #112]	; 0x70
- 1c0:	d00e      	beq.n	1e0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x1e0>
- 1c2:	e7ff      	b.n	1c4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x1c4>
+ 1c0:	d00e      	beq.n	1e0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x1e0>
+ 1c2:	e7ff      	b.n	1c4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x1c4>
  1c4:	981c      	ldr	r0, [sp, #112]	; 0x70
  1c6:	2801      	cmp	r0, #1
- 1c8:	f47f af3a 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x40>
+ 1c8:	f47f af3a 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x40>
  1cc:	e7ff      	b.n	2 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E+0x2>
  1ce:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  1d2:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  1d4:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  1d8:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
- 1dc:	e7ff      	b.n	1de <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x1de>
- 1de:	e739      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x54>
+ 1dc:	e7ff      	b.n	1de <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x1de>
+ 1de:	e739      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x54>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:92
         self.write_command(Instruction::FRMCTR3,
  1e0:	9828      	ldr	r0, [sp, #160]	; 0xa0
@@ -4929,32 +4930,32 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
  1f6:	9a3d      	ldr	r2, [sp, #244]	; 0xf4
  1f8:	9b3e      	ldr	r3, [sp, #248]	; 0xf8
  1fa:	f89d 10f3 	ldrb.w	r1, [sp, #243]	; 0xf3
- 1fe:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+ 1fe:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
  202:	901b      	str	r0, [sp, #108]	; 0x6c
- 204:	e7ff      	b.n	206 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x206>
+ 204:	e7ff      	b.n	206 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x206>
  206:	981b      	ldr	r0, [sp, #108]	; 0x6c
  208:	f000 0001 	and.w	r0, r0, #1
  20c:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  210:	f88d 00f2 	strb.w	r0, [sp, #242]	; 0xf2
- 214:	e7ff      	b.n	216 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x216>
+ 214:	e7ff      	b.n	216 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x216>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:93
             Some(&[0x01, 0x2C, 0x2D, 0x01, 0x2C, 0x2D]))?;
  216:	f89d 00f2 	ldrb.w	r0, [sp, #242]	; 0xf2
  21a:	07c1      	lsls	r1, r0, #31
  21c:	2900      	cmp	r1, #0
  21e:	901a      	str	r0, [sp, #104]	; 0x68
- 220:	d00e      	beq.n	240 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x240>
- 222:	e7ff      	b.n	224 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x224>
+ 220:	d00e      	beq.n	240 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x240>
+ 222:	e7ff      	b.n	224 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x224>
  224:	981a      	ldr	r0, [sp, #104]	; 0x68
  226:	2801      	cmp	r0, #1
- 228:	f47f af0a 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x40>
+ 228:	f47f af0a 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x40>
  22c:	e7ff      	b.n	2 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E+0x2>
  22e:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  232:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  234:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  238:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
- 23c:	e7ff      	b.n	23e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x23e>
- 23e:	e709      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x54>
+ 23c:	e7ff      	b.n	23e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x23e>
+ 23e:	e709      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x54>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:94
         self.write_command(Instruction::INVCTR, Some(&[0x07]))?;
  240:	9828      	ldr	r0, [sp, #160]	; 0xa0
@@ -4968,30 +4969,30 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
  256:	9a41      	ldr	r2, [sp, #260]	; 0x104
  258:	9b42      	ldr	r3, [sp, #264]	; 0x108
  25a:	f89d 1103 	ldrb.w	r1, [sp, #259]	; 0x103
- 25e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+ 25e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
  262:	9019      	str	r0, [sp, #100]	; 0x64
- 264:	e7ff      	b.n	266 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x266>
+ 264:	e7ff      	b.n	266 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x266>
  266:	9819      	ldr	r0, [sp, #100]	; 0x64
  268:	f000 0001 	and.w	r0, r0, #1
  26c:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  270:	f88d 0102 	strb.w	r0, [sp, #258]	; 0x102
- 274:	e7ff      	b.n	276 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x276>
+ 274:	e7ff      	b.n	276 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x276>
  276:	f89d 0102 	ldrb.w	r0, [sp, #258]	; 0x102
  27a:	07c1      	lsls	r1, r0, #31
  27c:	2900      	cmp	r1, #0
  27e:	9018      	str	r0, [sp, #96]	; 0x60
- 280:	d00e      	beq.n	2a0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x2a0>
- 282:	e7ff      	b.n	284 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x284>
+ 280:	d00e      	beq.n	2a0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x2a0>
+ 282:	e7ff      	b.n	284 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x284>
  284:	9818      	ldr	r0, [sp, #96]	; 0x60
  286:	2801      	cmp	r0, #1
- 288:	f47f aeda 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x40>
+ 288:	f47f aeda 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x40>
  28c:	e7ff      	b.n	2 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E+0x2>
  28e:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  292:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  294:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  298:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
- 29c:	e7ff      	b.n	29e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x29e>
- 29e:	e6d9      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x54>
+ 29c:	e7ff      	b.n	29e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x29e>
+ 29e:	e6d9      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x54>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:95
         self.write_command(Instruction::PWCTR1, Some(&[0xA2, 0x02, 0x84]))?;
  2a0:	9828      	ldr	r0, [sp, #160]	; 0xa0
@@ -5005,30 +5006,30 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
  2b6:	9a45      	ldr	r2, [sp, #276]	; 0x114
  2b8:	9b46      	ldr	r3, [sp, #280]	; 0x118
  2ba:	f89d 1113 	ldrb.w	r1, [sp, #275]	; 0x113
- 2be:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+ 2be:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
  2c2:	9017      	str	r0, [sp, #92]	; 0x5c
- 2c4:	e7ff      	b.n	2c6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x2c6>
+ 2c4:	e7ff      	b.n	2c6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x2c6>
  2c6:	9817      	ldr	r0, [sp, #92]	; 0x5c
  2c8:	f000 0001 	and.w	r0, r0, #1
  2cc:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  2d0:	f88d 0112 	strb.w	r0, [sp, #274]	; 0x112
- 2d4:	e7ff      	b.n	2d6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x2d6>
+ 2d4:	e7ff      	b.n	2d6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x2d6>
  2d6:	f89d 0112 	ldrb.w	r0, [sp, #274]	; 0x112
  2da:	07c1      	lsls	r1, r0, #31
  2dc:	2900      	cmp	r1, #0
  2de:	9016      	str	r0, [sp, #88]	; 0x58
- 2e0:	d00e      	beq.n	300 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x300>
- 2e2:	e7ff      	b.n	2e4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x2e4>
+ 2e0:	d00e      	beq.n	300 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x300>
+ 2e2:	e7ff      	b.n	2e4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x2e4>
  2e4:	9816      	ldr	r0, [sp, #88]	; 0x58
  2e6:	2801      	cmp	r0, #1
- 2e8:	f47f aeaa 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x40>
+ 2e8:	f47f aeaa 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x40>
  2ec:	e7ff      	b.n	2 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E+0x2>
  2ee:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  2f2:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  2f4:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  2f8:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
- 2fc:	e7ff      	b.n	2fe <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x2fe>
- 2fe:	e6a9      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x54>
+ 2fc:	e7ff      	b.n	2fe <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x2fe>
+ 2fe:	e6a9      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x54>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:96
         self.write_command(Instruction::PWCTR2, Some(&[0xC5]))?;
  300:	9828      	ldr	r0, [sp, #160]	; 0xa0
@@ -5042,30 +5043,30 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
  316:	9a49      	ldr	r2, [sp, #292]	; 0x124
  318:	9b4a      	ldr	r3, [sp, #296]	; 0x128
  31a:	f89d 1123 	ldrb.w	r1, [sp, #291]	; 0x123
- 31e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+ 31e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
  322:	9015      	str	r0, [sp, #84]	; 0x54
- 324:	e7ff      	b.n	326 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x326>
+ 324:	e7ff      	b.n	326 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x326>
  326:	9815      	ldr	r0, [sp, #84]	; 0x54
  328:	f000 0001 	and.w	r0, r0, #1
  32c:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  330:	f88d 0122 	strb.w	r0, [sp, #290]	; 0x122
- 334:	e7ff      	b.n	336 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x336>
+ 334:	e7ff      	b.n	336 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x336>
  336:	f89d 0122 	ldrb.w	r0, [sp, #290]	; 0x122
  33a:	07c1      	lsls	r1, r0, #31
  33c:	2900      	cmp	r1, #0
  33e:	9014      	str	r0, [sp, #80]	; 0x50
- 340:	d00e      	beq.n	360 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x360>
- 342:	e7ff      	b.n	344 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x344>
+ 340:	d00e      	beq.n	360 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x360>
+ 342:	e7ff      	b.n	344 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x344>
  344:	9814      	ldr	r0, [sp, #80]	; 0x50
  346:	2801      	cmp	r0, #1
- 348:	f47f ae7a 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x40>
+ 348:	f47f ae7a 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x40>
  34c:	e7ff      	b.n	2 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E+0x2>
  34e:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  352:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  354:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  358:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
- 35c:	e7ff      	b.n	35e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x35e>
- 35e:	e679      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x54>
+ 35c:	e7ff      	b.n	35e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x35e>
+ 35e:	e679      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x54>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:97
         self.write_command(Instruction::PWCTR3, Some(&[0x0A, 0x00]))?;
  360:	9828      	ldr	r0, [sp, #160]	; 0xa0
@@ -5079,30 +5080,30 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
  376:	9a4d      	ldr	r2, [sp, #308]	; 0x134
  378:	9b4e      	ldr	r3, [sp, #312]	; 0x138
  37a:	f89d 1133 	ldrb.w	r1, [sp, #307]	; 0x133
- 37e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+ 37e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
  382:	9013      	str	r0, [sp, #76]	; 0x4c
- 384:	e7ff      	b.n	386 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x386>
+ 384:	e7ff      	b.n	386 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x386>
  386:	9813      	ldr	r0, [sp, #76]	; 0x4c
  388:	f000 0001 	and.w	r0, r0, #1
  38c:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  390:	f88d 0132 	strb.w	r0, [sp, #306]	; 0x132
- 394:	e7ff      	b.n	396 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x396>
+ 394:	e7ff      	b.n	396 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x396>
  396:	f89d 0132 	ldrb.w	r0, [sp, #306]	; 0x132
  39a:	07c1      	lsls	r1, r0, #31
  39c:	2900      	cmp	r1, #0
  39e:	9012      	str	r0, [sp, #72]	; 0x48
- 3a0:	d00e      	beq.n	3c0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x3c0>
- 3a2:	e7ff      	b.n	3a4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x3a4>
+ 3a0:	d00e      	beq.n	3c0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x3c0>
+ 3a2:	e7ff      	b.n	3a4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x3a4>
  3a4:	9812      	ldr	r0, [sp, #72]	; 0x48
  3a6:	2801      	cmp	r0, #1
- 3a8:	f47f ae4a 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x40>
+ 3a8:	f47f ae4a 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x40>
  3ac:	e7ff      	b.n	2 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E+0x2>
  3ae:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  3b2:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  3b4:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  3b8:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
- 3bc:	e7ff      	b.n	3be <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x3be>
- 3be:	e649      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x54>
+ 3bc:	e7ff      	b.n	3be <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x3be>
+ 3be:	e649      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x54>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:98
         self.write_command(Instruction::PWCTR4, Some(&[0x8A, 0x2A]))?;
  3c0:	9828      	ldr	r0, [sp, #160]	; 0xa0
@@ -5116,30 +5117,30 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
  3d6:	9a51      	ldr	r2, [sp, #324]	; 0x144
  3d8:	9b52      	ldr	r3, [sp, #328]	; 0x148
  3da:	f89d 1143 	ldrb.w	r1, [sp, #323]	; 0x143
- 3de:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+ 3de:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
  3e2:	9011      	str	r0, [sp, #68]	; 0x44
- 3e4:	e7ff      	b.n	3e6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x3e6>
+ 3e4:	e7ff      	b.n	3e6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x3e6>
  3e6:	9811      	ldr	r0, [sp, #68]	; 0x44
  3e8:	f000 0001 	and.w	r0, r0, #1
  3ec:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  3f0:	f88d 0142 	strb.w	r0, [sp, #322]	; 0x142
- 3f4:	e7ff      	b.n	3f6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x3f6>
+ 3f4:	e7ff      	b.n	3f6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x3f6>
  3f6:	f89d 0142 	ldrb.w	r0, [sp, #322]	; 0x142
  3fa:	07c1      	lsls	r1, r0, #31
  3fc:	2900      	cmp	r1, #0
  3fe:	9010      	str	r0, [sp, #64]	; 0x40
- 400:	d00e      	beq.n	420 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x420>
- 402:	e7ff      	b.n	404 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x404>
+ 400:	d00e      	beq.n	420 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x420>
+ 402:	e7ff      	b.n	404 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x404>
  404:	9810      	ldr	r0, [sp, #64]	; 0x40
  406:	2801      	cmp	r0, #1
- 408:	f47f ae1a 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x40>
+ 408:	f47f ae1a 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x40>
  40c:	e7ff      	b.n	2 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E+0x2>
  40e:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  412:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  414:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  418:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
- 41c:	e7ff      	b.n	41e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x41e>
- 41e:	e619      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x54>
+ 41c:	e7ff      	b.n	41e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x41e>
+ 41e:	e619      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x54>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:99
         self.write_command(Instruction::PWCTR5, Some(&[0x8A, 0xEE]))?;
  420:	9828      	ldr	r0, [sp, #160]	; 0xa0
@@ -5153,30 +5154,30 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
  436:	9a55      	ldr	r2, [sp, #340]	; 0x154
  438:	9b56      	ldr	r3, [sp, #344]	; 0x158
  43a:	f89d 1153 	ldrb.w	r1, [sp, #339]	; 0x153
- 43e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+ 43e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
  442:	900f      	str	r0, [sp, #60]	; 0x3c
- 444:	e7ff      	b.n	446 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x446>
+ 444:	e7ff      	b.n	446 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x446>
  446:	980f      	ldr	r0, [sp, #60]	; 0x3c
  448:	f000 0001 	and.w	r0, r0, #1
  44c:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  450:	f88d 0152 	strb.w	r0, [sp, #338]	; 0x152
- 454:	e7ff      	b.n	456 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x456>
+ 454:	e7ff      	b.n	456 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x456>
  456:	f89d 0152 	ldrb.w	r0, [sp, #338]	; 0x152
  45a:	07c1      	lsls	r1, r0, #31
  45c:	2900      	cmp	r1, #0
  45e:	900e      	str	r0, [sp, #56]	; 0x38
- 460:	d00e      	beq.n	480 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x480>
- 462:	e7ff      	b.n	464 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x464>
+ 460:	d00e      	beq.n	480 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x480>
+ 462:	e7ff      	b.n	464 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x464>
  464:	980e      	ldr	r0, [sp, #56]	; 0x38
  466:	2801      	cmp	r0, #1
- 468:	f47f adea 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x40>
+ 468:	f47f adea 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x40>
  46c:	e7ff      	b.n	2 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E+0x2>
  46e:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  472:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  474:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  478:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
- 47c:	e7ff      	b.n	47e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x47e>
- 47e:	e5e9      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x54>
+ 47c:	e7ff      	b.n	47e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x47e>
+ 47e:	e5e9      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x54>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:100
         self.write_command(Instruction::VMCTR1, Some(&[0x0E]))?;
  480:	9828      	ldr	r0, [sp, #160]	; 0xa0
@@ -5190,38 +5191,38 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
  496:	9a59      	ldr	r2, [sp, #356]	; 0x164
  498:	9b5a      	ldr	r3, [sp, #360]	; 0x168
  49a:	f89d 1163 	ldrb.w	r1, [sp, #355]	; 0x163
- 49e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+ 49e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
  4a2:	900d      	str	r0, [sp, #52]	; 0x34
- 4a4:	e7ff      	b.n	4a6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x4a6>
+ 4a4:	e7ff      	b.n	4a6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x4a6>
  4a6:	980d      	ldr	r0, [sp, #52]	; 0x34
  4a8:	f000 0001 	and.w	r0, r0, #1
  4ac:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  4b0:	f88d 0162 	strb.w	r0, [sp, #354]	; 0x162
- 4b4:	e7ff      	b.n	4b6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x4b6>
+ 4b4:	e7ff      	b.n	4b6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x4b6>
  4b6:	f89d 0162 	ldrb.w	r0, [sp, #354]	; 0x162
  4ba:	07c1      	lsls	r1, r0, #31
  4bc:	2900      	cmp	r1, #0
  4be:	900c      	str	r0, [sp, #48]	; 0x30
- 4c0:	d00e      	beq.n	4e0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x4e0>
- 4c2:	e7ff      	b.n	4c4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x4c4>
+ 4c0:	d00e      	beq.n	4e0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x4e0>
+ 4c2:	e7ff      	b.n	4c4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x4c4>
  4c4:	980c      	ldr	r0, [sp, #48]	; 0x30
  4c6:	2801      	cmp	r0, #1
- 4c8:	f47f adba 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x40>
+ 4c8:	f47f adba 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x40>
  4cc:	e7ff      	b.n	2 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E+0x2>
  4ce:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  4d2:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  4d4:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  4d8:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
- 4dc:	e7ff      	b.n	4de <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x4de>
- 4de:	e5b9      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x54>
+ 4dc:	e7ff      	b.n	4de <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x4de>
+ 4de:	e5b9      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x54>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:101
         if self.inverted {
  4e0:	9828      	ldr	r0, [sp, #160]	; 0xa0
  4e2:	7d40      	ldrb	r0, [r0, #21]
  4e4:	07c0      	lsls	r0, r0, #31
  4e6:	2800      	cmp	r0, #0
- 4e8:	d02f      	beq.n	54a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x54a>
- 4ea:	e7ff      	b.n	4ec <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x4ec>
+ 4e8:	d02f      	beq.n	54a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x54a>
+ 4ea:	e7ff      	b.n	4ec <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x4ec>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:102
             self.write_command(Instruction::INVON, None)?;
  4ec:	9828      	ldr	r0, [sp, #160]	; 0xa0
@@ -5234,34 +5235,34 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
  4fc:	9a5d      	ldr	r2, [sp, #372]	; 0x174
  4fe:	9b5e      	ldr	r3, [sp, #376]	; 0x178
  500:	f89d 1173 	ldrb.w	r1, [sp, #371]	; 0x173
- 504:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+ 504:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
  508:	900b      	str	r0, [sp, #44]	; 0x2c
- 50a:	e7ff      	b.n	50c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x50c>
+ 50a:	e7ff      	b.n	50c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x50c>
  50c:	980b      	ldr	r0, [sp, #44]	; 0x2c
  50e:	f000 0001 	and.w	r0, r0, #1
  512:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  516:	f88d 0172 	strb.w	r0, [sp, #370]	; 0x172
- 51a:	e7ff      	b.n	51c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x51c>
+ 51a:	e7ff      	b.n	51c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x51c>
  51c:	f89d 0172 	ldrb.w	r0, [sp, #370]	; 0x172
  520:	07c1      	lsls	r1, r0, #31
  522:	2900      	cmp	r1, #0
  524:	900a      	str	r0, [sp, #40]	; 0x28
- 526:	d00f      	beq.n	548 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x548>
- 528:	e7ff      	b.n	52a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x52a>
+ 526:	d00f      	beq.n	548 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x548>
+ 528:	e7ff      	b.n	52a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x52a>
  52a:	980a      	ldr	r0, [sp, #40]	; 0x28
  52c:	2801      	cmp	r0, #1
- 52e:	f47f ad87 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x40>
+ 52e:	f47f ad87 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x40>
  532:	e7ff      	b.n	2 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E+0x2>
  534:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  538:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  53a:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  53e:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
- 542:	e7ff      	b.n	544 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x544>
- 544:	e7ff      	b.n	546 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x546>
- 546:	e585      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x54>
+ 542:	e7ff      	b.n	544 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x544>
+ 544:	e7ff      	b.n	546 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x546>
+ 546:	e585      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x54>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:101
         if self.inverted {
- 548:	e02d      	b.n	5a6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x5a6>
+ 548:	e02d      	b.n	5a6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x5a6>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:104
             self.write_command(Instruction::INVOFF, None)?;
  54a:	9828      	ldr	r0, [sp, #160]	; 0xa0
@@ -5274,41 +5275,41 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
  55a:	9a61      	ldr	r2, [sp, #388]	; 0x184
  55c:	9b62      	ldr	r3, [sp, #392]	; 0x188
  55e:	f89d 1183 	ldrb.w	r1, [sp, #387]	; 0x183
- 562:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+ 562:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
  566:	9009      	str	r0, [sp, #36]	; 0x24
- 568:	e7ff      	b.n	56a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x56a>
+ 568:	e7ff      	b.n	56a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x56a>
  56a:	9809      	ldr	r0, [sp, #36]	; 0x24
  56c:	f000 0001 	and.w	r0, r0, #1
  570:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  574:	f88d 0182 	strb.w	r0, [sp, #386]	; 0x182
- 578:	e7ff      	b.n	57a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x57a>
+ 578:	e7ff      	b.n	57a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x57a>
  57a:	f89d 0182 	ldrb.w	r0, [sp, #386]	; 0x182
  57e:	07c1      	lsls	r1, r0, #31
  580:	2900      	cmp	r1, #0
  582:	9008      	str	r0, [sp, #32]
- 584:	d00e      	beq.n	5a4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x5a4>
- 586:	e7ff      	b.n	588 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x588>
+ 584:	d00e      	beq.n	5a4 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x5a4>
+ 586:	e7ff      	b.n	588 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x588>
  588:	9808      	ldr	r0, [sp, #32]
  58a:	2801      	cmp	r0, #1
- 58c:	f47f ad58 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x40>
+ 58c:	f47f ad58 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x40>
  590:	e7ff      	b.n	2 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E+0x2>
  592:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  596:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  598:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  59c:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
- 5a0:	e7ff      	b.n	5a2 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x5a2>
- 5a2:	e7d0      	b.n	546 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x546>
+ 5a0:	e7ff      	b.n	5a2 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x5a2>
+ 5a2:	e7d0      	b.n	546 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x546>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:101
         if self.inverted {
- 5a4:	e7ff      	b.n	5a6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x5a6>
+ 5a4:	e7ff      	b.n	5a6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x5a6>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:106
         if self.rgb {
  5a6:	9828      	ldr	r0, [sp, #160]	; 0xa0
  5a8:	7d00      	ldrb	r0, [r0, #20]
  5aa:	07c0      	lsls	r0, r0, #31
  5ac:	2800      	cmp	r0, #0
- 5ae:	d032      	beq.n	616 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x616>
- 5b0:	e7ff      	b.n	5b2 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x5b2>
+ 5ae:	d032      	beq.n	616 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x616>
+ 5b0:	e7ff      	b.n	5b2 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x5b2>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:107
             self.write_command(Instruction::MADCTL, Some(&[0x00]))?;
  5b2:	9828      	ldr	r0, [sp, #160]	; 0xa0
@@ -5322,34 +5323,34 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
  5c8:	9a65      	ldr	r2, [sp, #404]	; 0x194
  5ca:	9b66      	ldr	r3, [sp, #408]	; 0x198
  5cc:	f89d 1193 	ldrb.w	r1, [sp, #403]	; 0x193
- 5d0:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+ 5d0:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
  5d4:	9007      	str	r0, [sp, #28]
- 5d6:	e7ff      	b.n	5d8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x5d8>
+ 5d6:	e7ff      	b.n	5d8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x5d8>
  5d8:	9807      	ldr	r0, [sp, #28]
  5da:	f000 0001 	and.w	r0, r0, #1
  5de:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  5e2:	f88d 0192 	strb.w	r0, [sp, #402]	; 0x192
- 5e6:	e7ff      	b.n	5e8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x5e8>
+ 5e6:	e7ff      	b.n	5e8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x5e8>
  5e8:	f89d 0192 	ldrb.w	r0, [sp, #402]	; 0x192
  5ec:	07c1      	lsls	r1, r0, #31
  5ee:	2900      	cmp	r1, #0
  5f0:	9006      	str	r0, [sp, #24]
- 5f2:	d00f      	beq.n	614 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x614>
- 5f4:	e7ff      	b.n	5f6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x5f6>
+ 5f2:	d00f      	beq.n	614 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x614>
+ 5f4:	e7ff      	b.n	5f6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x5f6>
  5f6:	9806      	ldr	r0, [sp, #24]
  5f8:	2801      	cmp	r0, #1
- 5fa:	f47f ad21 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x40>
+ 5fa:	f47f ad21 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x40>
  5fe:	e7ff      	b.n	2 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E+0x2>
  600:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  604:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  606:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  60a:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
- 60e:	e7ff      	b.n	610 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x610>
- 610:	e7ff      	b.n	612 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x612>
- 612:	e51f      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x54>
+ 60e:	e7ff      	b.n	610 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x610>
+ 610:	e7ff      	b.n	612 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x612>
+ 612:	e51f      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x54>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:106
         if self.rgb {
- 614:	e030      	b.n	678 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x678>
+ 614:	e030      	b.n	678 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x678>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:109
             self.write_command(Instruction::MADCTL, Some(&[0x08]))?;
  616:	9828      	ldr	r0, [sp, #160]	; 0xa0
@@ -5363,33 +5364,33 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
  62c:	9a69      	ldr	r2, [sp, #420]	; 0x1a4
  62e:	9b6a      	ldr	r3, [sp, #424]	; 0x1a8
  630:	f89d 11a3 	ldrb.w	r1, [sp, #419]	; 0x1a3
- 634:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+ 634:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
  638:	9005      	str	r0, [sp, #20]
- 63a:	e7ff      	b.n	63c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x63c>
+ 63a:	e7ff      	b.n	63c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x63c>
  63c:	9805      	ldr	r0, [sp, #20]
  63e:	f000 0001 	and.w	r0, r0, #1
  642:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  646:	f88d 01a2 	strb.w	r0, [sp, #418]	; 0x1a2
- 64a:	e7ff      	b.n	64c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x64c>
+ 64a:	e7ff      	b.n	64c <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x64c>
  64c:	f89d 01a2 	ldrb.w	r0, [sp, #418]	; 0x1a2
  650:	07c1      	lsls	r1, r0, #31
  652:	2900      	cmp	r1, #0
  654:	9004      	str	r0, [sp, #16]
- 656:	d00e      	beq.n	676 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x676>
- 658:	e7ff      	b.n	65a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x65a>
+ 656:	d00e      	beq.n	676 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x676>
+ 658:	e7ff      	b.n	65a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x65a>
  65a:	9804      	ldr	r0, [sp, #16]
  65c:	2801      	cmp	r0, #1
- 65e:	f47f acef 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x40>
+ 65e:	f47f acef 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x40>
  662:	e7ff      	b.n	2 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E+0x2>
  664:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  668:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  66a:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  66e:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
- 672:	e7ff      	b.n	674 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x674>
- 674:	e7cd      	b.n	612 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x612>
+ 672:	e7ff      	b.n	674 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x674>
+ 674:	e7cd      	b.n	612 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x612>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:106
         if self.rgb {
- 676:	e7ff      	b.n	678 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x678>
+ 676:	e7ff      	b.n	678 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x678>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:111
         self.write_command(Instruction::COLMOD, Some(&[0x05]))?;
  678:	9828      	ldr	r0, [sp, #160]	; 0xa0
@@ -5403,30 +5404,30 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
  68e:	9a6d      	ldr	r2, [sp, #436]	; 0x1b4
  690:	9b6e      	ldr	r3, [sp, #440]	; 0x1b8
  692:	f89d 11b3 	ldrb.w	r1, [sp, #435]	; 0x1b3
- 696:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+ 696:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
  69a:	9003      	str	r0, [sp, #12]
- 69c:	e7ff      	b.n	69e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x69e>
+ 69c:	e7ff      	b.n	69e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x69e>
  69e:	9803      	ldr	r0, [sp, #12]
  6a0:	f000 0001 	and.w	r0, r0, #1
  6a4:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  6a8:	f88d 01b2 	strb.w	r0, [sp, #434]	; 0x1b2
- 6ac:	e7ff      	b.n	6ae <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x6ae>
+ 6ac:	e7ff      	b.n	6ae <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x6ae>
  6ae:	f89d 01b2 	ldrb.w	r0, [sp, #434]	; 0x1b2
  6b2:	07c1      	lsls	r1, r0, #31
  6b4:	2900      	cmp	r1, #0
  6b6:	9002      	str	r0, [sp, #8]
- 6b8:	d00e      	beq.n	6d8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x6d8>
- 6ba:	e7ff      	b.n	6bc <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x6bc>
+ 6b8:	d00e      	beq.n	6d8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x6d8>
+ 6ba:	e7ff      	b.n	6bc <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x6bc>
  6bc:	9802      	ldr	r0, [sp, #8]
  6be:	2801      	cmp	r0, #1
- 6c0:	f47f acbe 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x40>
+ 6c0:	f47f acbe 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x40>
  6c4:	e7ff      	b.n	2 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E+0x2>
  6c6:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  6ca:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  6cc:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  6d0:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
- 6d4:	e7ff      	b.n	6d6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x6d6>
- 6d6:	e4bd      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x54>
+ 6d4:	e7ff      	b.n	6d6 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x6d6>
+ 6d6:	e4bd      	b.n	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x54>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:112
         self.write_command(Instruction::DISPON, None)?;
  6d8:	9828      	ldr	r0, [sp, #160]	; 0xa0
@@ -5439,48 +5440,48 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E():
  6e8:	9a71      	ldr	r2, [sp, #452]	; 0x1c4
  6ea:	9b72      	ldr	r3, [sp, #456]	; 0x1c8
  6ec:	f89d 11c3 	ldrb.w	r1, [sp, #451]	; 0x1c3
- 6f0:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+ 6f0:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
  6f4:	9001      	str	r0, [sp, #4]
- 6f6:	e7ff      	b.n	6f8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x6f8>
+ 6f6:	e7ff      	b.n	6f8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x6f8>
  6f8:	9801      	ldr	r0, [sp, #4]
  6fa:	f000 0001 	and.w	r0, r0, #1
  6fe:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
  702:	f88d 01c2 	strb.w	r0, [sp, #450]	; 0x1c2
- 706:	e7ff      	b.n	708 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x708>
+ 706:	e7ff      	b.n	708 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x708>
  708:	f89d 01c2 	ldrb.w	r0, [sp, #450]	; 0x1c2
  70c:	07c1      	lsls	r1, r0, #31
  70e:	2900      	cmp	r1, #0
  710:	9000      	str	r0, [sp, #0]
- 712:	d00f      	beq.n	734 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x734>
- 714:	e7ff      	b.n	716 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x716>
+ 712:	d00f      	beq.n	734 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x734>
+ 714:	e7ff      	b.n	716 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x716>
  716:	9800      	ldr	r0, [sp, #0]
  718:	2801      	cmp	r0, #1
- 71a:	f47f ac91 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x40>
+ 71a:	f47f ac91 	bne.w	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x40>
  71e:	e7ff      	b.n	2 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E+0x2>
  720:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
  724:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
  726:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
  72a:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
- 72e:	e7ff      	b.n	730 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x730>
- 730:	f7ff bc90 	b.w	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x54>
+ 72e:	e7ff      	b.n	730 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x730>
+ 730:	f7ff bc90 	b.w	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x54>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:113
         delay.delay_ms(200);
  734:	9829      	ldr	r0, [sp, #164]	; 0xa4
  736:	21c8      	movs	r1, #200	; 0xc8
- 738:	f7ff fffe 	bl	0 <_ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E>
- 73c:	e7ff      	b.n	73e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x73e>
+ 738:	f7ff fffe 	bl	0 <_ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E>
+ 73c:	e7ff      	b.n	73e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x73e>
  73e:	2000      	movs	r0, #0
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:114
         Ok(())
  740:	f88d 00aa 	strb.w	r0, [sp, #170]	; 0xaa
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:115
     }
- 744:	f7ff bc86 	b.w	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E+0x54>
+ 744:	f7ff bc86 	b.w	54 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE+0x54>
 
-Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE:
+Disassembly of section .text._ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE:
 
-00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE>:
-_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE():
+00000000 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE>:
+_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:174
 
     /// Sets a pixel color at the given coords.
@@ -5508,24 +5509,24 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE():
   30:	f8cd e020 	str.w	lr, [sp, #32]
   34:	9407      	str	r4, [sp, #28]
   36:	9506      	str	r5, [sp, #24]
-  38:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE>
+  38:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE>
   3c:	9005      	str	r0, [sp, #20]
-  3e:	e7ff      	b.n	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE+0x40>
+  3e:	e7ff      	b.n	40 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE+0x40>
   40:	9805      	ldr	r0, [sp, #20]
   42:	f000 0001 	and.w	r0, r0, #1
   46:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
   4a:	f88d 0037 	strb.w	r0, [sp, #55]	; 0x37
-  4e:	e7ff      	b.n	50 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE+0x50>
+  4e:	e7ff      	b.n	50 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE+0x50>
   50:	f89d 0037 	ldrb.w	r0, [sp, #55]	; 0x37
   54:	07c1      	lsls	r1, r0, #31
   56:	2900      	cmp	r1, #0
   58:	9004      	str	r0, [sp, #16]
-  5a:	d012      	beq.n	82 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE+0x82>
-  5c:	e7ff      	b.n	5e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE+0x5e>
+  5a:	d012      	beq.n	82 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE+0x82>
+  5c:	e7ff      	b.n	5e <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE+0x5e>
   5e:	9804      	ldr	r0, [sp, #16]
   60:	2801      	cmp	r0, #1
-  62:	d001      	beq.n	68 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE+0x68>
-  64:	e7ff      	b.n	66 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE+0x66>
+  62:	d001      	beq.n	68 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE+0x68>
+  64:	e7ff      	b.n	66 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE+0x66>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:178
         self.write_command(Instruction::RAMWR, None)?;
         self.write_word(color)
@@ -5537,8 +5538,8 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE():
   6c:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
   6e:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
   72:	f88d 0036 	strb.w	r0, [sp, #54]	; 0x36
-  76:	e7ff      	b.n	78 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE+0x78>
-  78:	e7ff      	b.n	7a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE+0x7a>
+  76:	e7ff      	b.n	78 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE+0x78>
+  78:	e7ff      	b.n	7a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE+0x7a>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:178
     }
   7a:	f89d 0036 	ldrb.w	r0, [sp, #54]	; 0x36
@@ -5556,161 +5557,51 @@ _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE():
   92:	9a10      	ldr	r2, [sp, #64]	; 0x40
   94:	9b11      	ldr	r3, [sp, #68]	; 0x44
   96:	f89d 103f 	ldrb.w	r1, [sp, #63]	; 0x3f
-  9a:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE>
+  9a:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE>
   9e:	9003      	str	r0, [sp, #12]
-  a0:	e7ff      	b.n	a2 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE+0xa2>
+  a0:	e7ff      	b.n	a2 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE+0xa2>
   a2:	9803      	ldr	r0, [sp, #12]
   a4:	f000 0001 	and.w	r0, r0, #1
   a8:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE>
   ac:	f88d 003e 	strb.w	r0, [sp, #62]	; 0x3e
-  b0:	e7ff      	b.n	b2 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE+0xb2>
+  b0:	e7ff      	b.n	b2 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE+0xb2>
   b2:	f89d 003e 	ldrb.w	r0, [sp, #62]	; 0x3e
   b6:	07c1      	lsls	r1, r0, #31
   b8:	2900      	cmp	r1, #0
   ba:	9002      	str	r0, [sp, #8]
-  bc:	d00d      	beq.n	da <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE+0xda>
-  be:	e7ff      	b.n	c0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE+0xc0>
+  bc:	d00d      	beq.n	da <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE+0xda>
+  be:	e7ff      	b.n	c0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE+0xc0>
   c0:	9802      	ldr	r0, [sp, #8]
   c2:	2801      	cmp	r0, #1
-  c4:	d1cf      	bne.n	66 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE+0x66>
-  c6:	e7ff      	b.n	c8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE+0xc8>
+  c4:	d1cf      	bne.n	66 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE+0x66>
+  c6:	e7ff      	b.n	c8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE+0xc8>
   c8:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha5dabac1114321e8E>
   cc:	e7ff      	b.n	2 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E+0x2>
   ce:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17he489dc00afef2d26E>
   d2:	f88d 0036 	strb.w	r0, [sp, #54]	; 0x36
-  d6:	e7ff      	b.n	d8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE+0xd8>
-  d8:	e7cf      	b.n	7a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE+0x7a>
+  d6:	e7ff      	b.n	d8 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE+0xd8>
+  d8:	e7cf      	b.n	7a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE+0x7a>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:177
         self.write_word(color)
   da:	980b      	ldr	r0, [sp, #44]	; 0x2c
   dc:	f8bd 1034 	ldrh.w	r1, [sp, #52]	; 0x34
-  e0:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE>
+  e0:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE>
   e4:	f88d 0036 	strb.w	r0, [sp, #54]	; 0x36
-  e8:	e7ff      	b.n	ea <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE+0xea>
+  e8:	e7ff      	b.n	ea <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE+0xea>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:178
     }
-  ea:	e7c6      	b.n	7a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17h45221b8849e9f4dbE+0x7a>
+  ea:	e7c6      	b.n	7a <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$9set_pixel17he61da7a08d54fe0bE+0x7a>
 
-Disassembly of section .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E:
+Disassembly of section .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE:
 
-00000000 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E>:
-_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E():
+00000000 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE>:
+_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:209
 where
     SPI: spi::Write<u8>,
     DC: OutputPin,
     RST: OutputPin,
 {
-    fn draw<T>(&mut self, item_pixels: T)
-   0:	b570      	push	{r4, r5, r6, lr}
-   2:	b0b4      	sub	sp, #208	; 0xd0
-   4:	460a      	mov	r2, r1
-   6:	4603      	mov	r3, r0
-   8:	9006      	str	r0, [sp, #24]
-   a:	a812      	add	r0, sp, #72	; 0x48
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
-    where
-        T: IntoIterator<Item = Pixel<Rgb565>>,
-    {
-        for Pixel(coord, color) in item_pixels {
-   c:	4684      	mov	ip, r0
-   e:	e8b1 4030 	ldmia.w	r1!, {r4, r5, lr}
-  12:	e8ac 4030 	stmia.w	ip!, {r4, r5, lr}
-  16:	e891 4070 	ldmia.w	r1, {r4, r5, r6, lr}
-  1a:	e88c 4070 	stmia.w	ip, {r4, r5, r6, lr}
-  1e:	a907      	add	r1, sp, #28
-  20:	9005      	str	r0, [sp, #20]
-  22:	4608      	mov	r0, r1
-  24:	9905      	ldr	r1, [sp, #20]
-  26:	9204      	str	r2, [sp, #16]
-  28:	9303      	str	r3, [sp, #12]
-  2a:	f7ff fffe 	bl	0 <_ZN129_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h1676ae25d4fe1e7bE>
-  2e:	e7ff      	b.n	30 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E+0x30>
-  30:	a807      	add	r0, sp, #28
-  32:	a919      	add	r1, sp, #100	; 0x64
-  34:	e8b0 501c 	ldmia.w	r0!, {r2, r3, r4, ip, lr}
-  38:	e8a1 501c 	stmia.w	r1!, {r2, r3, r4, ip, lr}
-  3c:	e890 503c 	ldmia.w	r0, {r2, r3, r4, r5, ip, lr}
-  40:	e881 503c 	stmia.w	r1, {r2, r3, r4, r5, ip, lr}
-  44:	e7ff      	b.n	46 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E+0x46>
-  46:	a827      	add	r0, sp, #156	; 0x9c
-  48:	a919      	add	r1, sp, #100	; 0x64
-  4a:	f7ff fffe 	bl	0 <_ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h84927a60c181f9e6E>
-  4e:	e7ff      	b.n	50 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E+0x50>
-  50:	9827      	ldr	r0, [sp, #156]	; 0x9c
-  52:	2800      	cmp	r0, #0
-  54:	9002      	str	r0, [sp, #8]
-  56:	d028      	beq.n	aa <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E+0xaa>
-  58:	e7ff      	b.n	5a <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E+0x5a>
-  5a:	9802      	ldr	r0, [sp, #8]
-  5c:	2801      	cmp	r0, #1
-  5e:	d001      	beq.n	64 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E+0x64>
-  60:	e7ff      	b.n	62 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E+0x62>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:216
-            self.set_pixel(coord.0 as u16, coord.1 as u16, color.0).expect("pixel write failed");
-        }
-    }
-  62:	defe      	udf	#254	; 0xfe
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
-        for Pixel(coord, color) in item_pixels {
-  64:	9828      	ldr	r0, [sp, #160]	; 0xa0
-  66:	9929      	ldr	r1, [sp, #164]	; 0xa4
-  68:	9a2a      	ldr	r2, [sp, #168]	; 0xa8
-  6a:	922d      	str	r2, [sp, #180]	; 0xb4
-  6c:	912c      	str	r1, [sp, #176]	; 0xb0
-  6e:	902b      	str	r0, [sp, #172]	; 0xac
-  70:	982b      	ldr	r0, [sp, #172]	; 0xac
-  72:	992c      	ldr	r1, [sp, #176]	; 0xb0
-  74:	9a2d      	ldr	r2, [sp, #180]	; 0xb4
-  76:	9230      	str	r2, [sp, #192]	; 0xc0
-  78:	912f      	str	r1, [sp, #188]	; 0xbc
-  7a:	902e      	str	r0, [sp, #184]	; 0xb8
-  7c:	982e      	ldr	r0, [sp, #184]	; 0xb8
-  7e:	992f      	ldr	r1, [sp, #188]	; 0xbc
-  80:	9a30      	ldr	r2, [sp, #192]	; 0xc0
-  82:	9226      	str	r2, [sp, #152]	; 0x98
-  84:	9125      	str	r1, [sp, #148]	; 0x94
-  86:	9024      	str	r0, [sp, #144]	; 0x90
-  88:	9824      	ldr	r0, [sp, #144]	; 0x90
-  8a:	9925      	ldr	r1, [sp, #148]	; 0x94
-  8c:	9031      	str	r0, [sp, #196]	; 0xc4
-  8e:	9132      	str	r1, [sp, #200]	; 0xc8
-  90:	f8bd 0098 	ldrh.w	r0, [sp, #152]	; 0x98
-  94:	f8ad 00ce 	strh.w	r0, [sp, #206]	; 0xce
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:214
-            self.set_pixel(coord.0 as u16, coord.1 as u16, color.0).expect("pixel write failed");
-  98:	9806      	ldr	r0, [sp, #24]
-  9a:	9931      	ldr	r1, [sp, #196]	; 0xc4
-  9c:	9a32      	ldr	r2, [sp, #200]	; 0xc8
-  9e:	f8bd 30ce 	ldrh.w	r3, [sp, #206]	; 0xce
-  a2:	f7ff fffe 	bl	0 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E>
-  a6:	9001      	str	r0, [sp, #4]
-  a8:	e000      	b.n	ac <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E+0xac>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
-        for Pixel(coord, color) in item_pixels {
-  aa:	e00b      	b.n	c4 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E+0xc4>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:214
-            self.set_pixel(coord.0 as u16, coord.1 as u16, color.0).expect("pixel write failed");
-  ac:	9801      	ldr	r0, [sp, #4]
-  ae:	f000 0001 	and.w	r0, r0, #1
-  b2:	f240 0100 	movw	r1, #0
-  b6:	f2c0 0100 	movt	r1, #0
-  ba:	2212      	movs	r2, #18
-  bc:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hac1fc70db3fae860E>
-  c0:	e7ff      	b.n	c2 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E+0xc2>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
-        for Pixel(coord, color) in item_pixels {
-  c2:	e7c0      	b.n	46 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E+0x46>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:216
-    }
-  c4:	b034      	add	sp, #208	; 0xd0
-  c6:	bd70      	pop	{r4, r5, r6, pc}
-
-Disassembly of section .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E:
-
-00000000 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E>:
-_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:209
     fn draw<T>(&mut self, item_pixels: T)
    0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
    4:	b0ac      	sub	sp, #176	; 0xb0
@@ -5719,6 +5610,9 @@ _ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics
    a:	9005      	str	r0, [sp, #20]
    c:	a80e      	add	r0, sp, #56	; 0x38
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
+    where
+        T: IntoIterator<Item = Pixel<Rgb565>>,
+    {
         for Pixel(coord, color) in item_pixels {
    e:	4684      	mov	ip, r0
   10:	e891 41f0 	ldmia.w	r1, {r4, r5, r6, r7, r8, lr}
@@ -5730,28 +5624,30 @@ _ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics
   20:	9203      	str	r2, [sp, #12]
   22:	9302      	str	r3, [sp, #8]
   24:	f7ff fffe 	bl	0 <_ZN116_$LT$embedded_graphics..primitives..circle..Circle$LT$C$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h975a0379957271daE>
-  28:	e7ff      	b.n	2a <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E+0x2a>
+  28:	e7ff      	b.n	2a <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE+0x2a>
   2a:	a806      	add	r0, sp, #24
   2c:	a914      	add	r1, sp, #80	; 0x50
   2e:	e8b0 500c 	ldmia.w	r0!, {r2, r3, ip, lr}
   32:	e8a1 500c 	stmia.w	r1!, {r2, r3, ip, lr}
   36:	e890 500c 	ldmia.w	r0, {r2, r3, ip, lr}
   3a:	e881 500c 	stmia.w	r1, {r2, r3, ip, lr}
-  3e:	e7ff      	b.n	40 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E+0x40>
+  3e:	e7ff      	b.n	40 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE+0x40>
   40:	a81f      	add	r0, sp, #124	; 0x7c
   42:	a914      	add	r1, sp, #80	; 0x50
   44:	f7ff fffe 	bl	0 <_ZN121_$LT$embedded_graphics..primitives..circle..CircleIterator$LT$C$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h739931040b512223E>
-  48:	e7ff      	b.n	4a <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E+0x4a>
+  48:	e7ff      	b.n	4a <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE+0x4a>
   4a:	981f      	ldr	r0, [sp, #124]	; 0x7c
   4c:	2800      	cmp	r0, #0
   4e:	9001      	str	r0, [sp, #4]
-  50:	d028      	beq.n	a4 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E+0xa4>
-  52:	e7ff      	b.n	54 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E+0x54>
+  50:	d028      	beq.n	a4 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE+0xa4>
+  52:	e7ff      	b.n	54 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE+0x54>
   54:	9801      	ldr	r0, [sp, #4]
   56:	2801      	cmp	r0, #1
-  58:	d001      	beq.n	5e <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E+0x5e>
-  5a:	e7ff      	b.n	5c <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E+0x5c>
+  58:	d001      	beq.n	5e <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE+0x5e>
+  5a:	e7ff      	b.n	5c <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE+0x5c>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:216
+            self.set_pixel(coord.0 as u16, coord.1 as u16, color.0).expect("pixel write failed");
+        }
     }
   5c:	defe      	udf	#254	; 0xfe
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
@@ -5786,12 +5682,12 @@ _ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics
   94:	9929      	ldr	r1, [sp, #164]	; 0xa4
   96:	9a2a      	ldr	r2, [sp, #168]	; 0xa8
   98:	f8bd 30ae 	ldrh.w	r3, [sp, #174]	; 0xae
-  9c:	f7ff fffe 	bl	0 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E>
+  9c:	f7ff fffe 	bl	0 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE>
   a0:	9000      	str	r0, [sp, #0]
-  a2:	e000      	b.n	a6 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E+0xa6>
+  a2:	e000      	b.n	a6 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE+0xa6>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
         for Pixel(coord, color) in item_pixels {
-  a4:	e00b      	b.n	be <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E+0xbe>
+  a4:	e00b      	b.n	be <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE+0xbe>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:214
             self.set_pixel(coord.0 as u16, coord.1 as u16, color.0).expect("pixel write failed");
   a6:	9800      	ldr	r0, [sp, #0]
@@ -5800,14 +5696,119 @@ _ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics
   b0:	f2c0 0100 	movt	r1, #0
   b4:	2212      	movs	r2, #18
   b6:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hac1fc70db3fae860E>
-  ba:	e7ff      	b.n	bc <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E+0xbc>
+  ba:	e7ff      	b.n	bc <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE+0xbc>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
         for Pixel(coord, color) in item_pixels {
-  bc:	e7c0      	b.n	40 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E+0x40>
+  bc:	e7c0      	b.n	40 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE+0x40>
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:216
     }
   be:	b02c      	add	sp, #176	; 0xb0
   c0:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+
+Disassembly of section .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E:
+
+00000000 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E>:
+_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:209
+    fn draw<T>(&mut self, item_pixels: T)
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	b0b4      	sub	sp, #208	; 0xd0
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9006      	str	r0, [sp, #24]
+   a:	a812      	add	r0, sp, #72	; 0x48
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
+        for Pixel(coord, color) in item_pixels {
+   c:	4684      	mov	ip, r0
+   e:	e8b1 4030 	ldmia.w	r1!, {r4, r5, lr}
+  12:	e8ac 4030 	stmia.w	ip!, {r4, r5, lr}
+  16:	e891 4070 	ldmia.w	r1, {r4, r5, r6, lr}
+  1a:	e88c 4070 	stmia.w	ip, {r4, r5, r6, lr}
+  1e:	a907      	add	r1, sp, #28
+  20:	9005      	str	r0, [sp, #20]
+  22:	4608      	mov	r0, r1
+  24:	9905      	ldr	r1, [sp, #20]
+  26:	9204      	str	r2, [sp, #16]
+  28:	9303      	str	r3, [sp, #12]
+  2a:	f7ff fffe 	bl	0 <_ZN129_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h1676ae25d4fe1e7bE>
+  2e:	e7ff      	b.n	30 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E+0x30>
+  30:	a807      	add	r0, sp, #28
+  32:	a919      	add	r1, sp, #100	; 0x64
+  34:	e8b0 501c 	ldmia.w	r0!, {r2, r3, r4, ip, lr}
+  38:	e8a1 501c 	stmia.w	r1!, {r2, r3, r4, ip, lr}
+  3c:	e890 503c 	ldmia.w	r0, {r2, r3, r4, r5, ip, lr}
+  40:	e881 503c 	stmia.w	r1, {r2, r3, r4, r5, ip, lr}
+  44:	e7ff      	b.n	46 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E+0x46>
+  46:	a827      	add	r0, sp, #156	; 0x9c
+  48:	a919      	add	r1, sp, #100	; 0x64
+  4a:	f7ff fffe 	bl	0 <_ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h84927a60c181f9e6E>
+  4e:	e7ff      	b.n	50 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E+0x50>
+  50:	9827      	ldr	r0, [sp, #156]	; 0x9c
+  52:	2800      	cmp	r0, #0
+  54:	9002      	str	r0, [sp, #8]
+  56:	d028      	beq.n	aa <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E+0xaa>
+  58:	e7ff      	b.n	5a <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E+0x5a>
+  5a:	9802      	ldr	r0, [sp, #8]
+  5c:	2801      	cmp	r0, #1
+  5e:	d001      	beq.n	64 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E+0x64>
+  60:	e7ff      	b.n	62 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E+0x62>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:216
+    }
+  62:	defe      	udf	#254	; 0xfe
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
+        for Pixel(coord, color) in item_pixels {
+  64:	9828      	ldr	r0, [sp, #160]	; 0xa0
+  66:	9929      	ldr	r1, [sp, #164]	; 0xa4
+  68:	9a2a      	ldr	r2, [sp, #168]	; 0xa8
+  6a:	922d      	str	r2, [sp, #180]	; 0xb4
+  6c:	912c      	str	r1, [sp, #176]	; 0xb0
+  6e:	902b      	str	r0, [sp, #172]	; 0xac
+  70:	982b      	ldr	r0, [sp, #172]	; 0xac
+  72:	992c      	ldr	r1, [sp, #176]	; 0xb0
+  74:	9a2d      	ldr	r2, [sp, #180]	; 0xb4
+  76:	9230      	str	r2, [sp, #192]	; 0xc0
+  78:	912f      	str	r1, [sp, #188]	; 0xbc
+  7a:	902e      	str	r0, [sp, #184]	; 0xb8
+  7c:	982e      	ldr	r0, [sp, #184]	; 0xb8
+  7e:	992f      	ldr	r1, [sp, #188]	; 0xbc
+  80:	9a30      	ldr	r2, [sp, #192]	; 0xc0
+  82:	9226      	str	r2, [sp, #152]	; 0x98
+  84:	9125      	str	r1, [sp, #148]	; 0x94
+  86:	9024      	str	r0, [sp, #144]	; 0x90
+  88:	9824      	ldr	r0, [sp, #144]	; 0x90
+  8a:	9925      	ldr	r1, [sp, #148]	; 0x94
+  8c:	9031      	str	r0, [sp, #196]	; 0xc4
+  8e:	9132      	str	r1, [sp, #200]	; 0xc8
+  90:	f8bd 0098 	ldrh.w	r0, [sp, #152]	; 0x98
+  94:	f8ad 00ce 	strh.w	r0, [sp, #206]	; 0xce
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:214
+            self.set_pixel(coord.0 as u16, coord.1 as u16, color.0).expect("pixel write failed");
+  98:	9806      	ldr	r0, [sp, #24]
+  9a:	9931      	ldr	r1, [sp, #196]	; 0xc4
+  9c:	9a32      	ldr	r2, [sp, #200]	; 0xc8
+  9e:	f8bd 30ce 	ldrh.w	r3, [sp, #206]	; 0xce
+  a2:	f7ff fffe 	bl	0 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E>
+  a6:	9001      	str	r0, [sp, #4]
+  a8:	e000      	b.n	ac <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E+0xac>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
+        for Pixel(coord, color) in item_pixels {
+  aa:	e00b      	b.n	c4 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E+0xc4>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:214
+            self.set_pixel(coord.0 as u16, coord.1 as u16, color.0).expect("pixel write failed");
+  ac:	9801      	ldr	r0, [sp, #4]
+  ae:	f000 0001 	and.w	r0, r0, #1
+  b2:	f240 0100 	movw	r1, #0
+  b6:	f2c0 0100 	movt	r1, #0
+  ba:	2212      	movs	r2, #18
+  bc:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hac1fc70db3fae860E>
+  c0:	e7ff      	b.n	c2 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E+0xc2>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
+        for Pixel(coord, color) in item_pixels {
+  c2:	e7c0      	b.n	46 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E+0x46>
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:216
+    }
+  c4:	b034      	add	sp, #208	; 0xd0
+  c6:	bd70      	pop	{r4, r5, r6, pc}
 
 app-b8434b356de0ea5d.1t53zl09lntcc3fr.rcgu.o:     file format elf32-littlearm
 
@@ -7626,7 +7627,7 @@ Disassembly of section .text.main:
 
 00000000 <main>:
 main():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:54
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:55
 };
 
 ///  Main program that initialises the sensor, network driver and starts reading and sending sensor data in the background.
@@ -7634,7 +7635,7 @@ main():
 #[no_mangle]                 //  Don't mangle the name "main"
 extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
    0:	b088      	sub	sp, #32
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:59
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:60
     //  Initialise the Mynewt packages and internal temperature sensor driver. Any startup
     //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
@@ -7642,7 +7643,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     mynewt::sysinit();
    2:	f7ff fffe 	bl	0 <_ZN6mynewt7sysinit17hc166be3fcc964254E>
    6:	e7ff      	b.n	2 <_ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:66
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:67
     //  Start the Server Transport for sending sensor data to CoAP Server over NB-IoT.
     //sensor_network::start_server_transport()
         //.expect("NET fail");
@@ -7658,7 +7659,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
   1a:	9804      	ldr	r0, [sp, #16]
   1c:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hb169fb8edd61be39E>
   20:	e7ff      	b.n	2 <start_ble+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:75
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:76
     //gps_sensor::start_gps_listener()
         //.expect("GPS fail");
 
@@ -7668,7 +7669,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
   22:	f7ff fffe 	bl	0 <start_ble>
   26:	9005      	str	r0, [sp, #20]
   28:	e7ff      	b.n	2a <main+0x2a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:76
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:77
     assert!(rc == 0, "BLE fail");
   2a:	9805      	ldr	r0, [sp, #20]
   2c:	2800      	cmp	r0, #0
@@ -7678,7 +7679,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
   36:	f2c0 0000 	movt	r0, #0
   3a:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
   3e:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:79
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:80
 
     //  Show the display.
     display::show()
@@ -7691,7 +7692,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
   52:	9803      	ldr	r0, [sp, #12]
   54:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hb169fb8edd61be39E>
   58:	e7ff      	b.n	2 <_ZN3app12touch_sensor5probe17hb9c84b854e2a88eaE+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:83
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:84
         .expect("DSP fail");
 
     //  Test the touch sensor.
@@ -7705,14 +7706,14 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
   6c:	9802      	ldr	r0, [sp, #8]
   6e:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hb169fb8edd61be39E>
   72:	e7ff      	b.n	74 <main+0x74>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:87
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:88
         .expect("TCH fail");
 
     //  Main event loop
     loop {                            //  Loop forever...
   74:	e7ff      	b.n	76 <main+0x76>
   76:	a806      	add	r0, sp, #24
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:89
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:90
         os::eventq_run(               //  Processing events...
             os::eventq_dflt_get()     //  From default event queue.
   78:	f7ff fffe 	bl	0 <_ZN6mynewt6kernel2os15eventq_dflt_get17h1e9f1e095a2cf595E>
@@ -7724,7 +7725,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
   8a:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17h5ec42800e30ed4b0E>
   8e:	9001      	str	r0, [sp, #4]
   90:	e7ff      	b.n	92 <main+0x92>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:88
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:89
         os::eventq_run(               //  Processing events...
   92:	9801      	ldr	r0, [sp, #4]
   94:	f7ff fffe 	bl	0 <_ZN6mynewt6kernel2os10eventq_run17h02998220fee0e9b3E>
@@ -7736,7 +7737,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
   a6:	9800      	ldr	r0, [sp, #0]
   a8:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hb169fb8edd61be39E>
   ac:	e7ff      	b.n	ae <main+0xae>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:87
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:88
     loop {                            //  Loop forever...
   ae:	e7e2      	b.n	76 <main+0x76>
 
@@ -7744,7 +7745,7 @@ Disassembly of section .text.rust_begin_unwind:
 
 00000000 <rust_begin_unwind>:
 rust_begin_unwind():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:98
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:99
     //  Never comes here
 }
 
@@ -7754,7 +7755,7 @@ fn panic(info: &PanicInfo) -> ! {
    0:	b088      	sub	sp, #32
    2:	4601      	mov	r1, r0
    4:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:100
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:101
     //  Display the filename and line number to the Semihosting Console.
     console::print("panic ");
    6:	f240 0000 	movw	r0, #0
@@ -7764,7 +7765,7 @@ fn panic(info: &PanicInfo) -> ! {
   12:	4611      	mov	r1, r2
   14:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E>
   18:	e7ff      	b.n	1a <rust_begin_unwind+0x1a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:101
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:102
     if let Some(location) = info.location() {
   1a:	9802      	ldr	r0, [sp, #8]
   1c:	f7ff fffe 	bl	0 <_ZN4core5panic9PanicInfo8location17h5226165d8771f8a2E>
@@ -7776,20 +7777,20 @@ fn panic(info: &PanicInfo) -> ! {
   2a:	e7ff      	b.n	2c <rust_begin_unwind+0x2c>
   2c:	9803      	ldr	r0, [sp, #12]
   2e:	9004      	str	r0, [sp, #16]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:102
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:103
         let file = location.file();
   30:	9804      	ldr	r0, [sp, #16]
   32:	f7ff fffe 	bl	0 <_ZN4core5panic8Location4file17h94cc6af18de736c4E>
   36:	9106      	str	r1, [sp, #24]
   38:	9005      	str	r0, [sp, #20]
   3a:	e7ff      	b.n	3c <rust_begin_unwind+0x3c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:103
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:104
         let line = location.line();
   3c:	9804      	ldr	r0, [sp, #16]
   3e:	f7ff fffe 	bl	0 <_ZN4core5panic8Location4line17h3ffc63f14d0a6636E>
   42:	9007      	str	r0, [sp, #28]
   44:	e7ff      	b.n	46 <rust_begin_unwind+0x46>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:104
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:105
         console::print("at ");       console::buffer(&file);
   46:	f240 0000 	movw	r0, #0
   4a:	f2c0 0000 	movt	r0, #0
@@ -7800,7 +7801,7 @@ fn panic(info: &PanicInfo) -> ! {
   58:	9906      	ldr	r1, [sp, #24]
   5a:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console6buffer17hf49389ff246303d6E>
   5e:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:105
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:106
         console::print(" line ");    console::printint(line as i32);
   60:	f240 0000 	movw	r0, #0
   64:	f2c0 0000 	movt	r0, #0
@@ -7810,7 +7811,7 @@ fn panic(info: &PanicInfo) -> ! {
   70:	9807      	ldr	r0, [sp, #28]
   72:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console8printint17hbd22b2ad2f6089beE>
   76:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:106
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:107
         console::print("\n");        console::flush();
   78:	f240 0000 	movw	r0, #0
   7c:	f2c0 0000 	movt	r0, #0
@@ -7819,10 +7820,10 @@ fn panic(info: &PanicInfo) -> ! {
   86:	e7ff      	b.n	2 <_ZN6mynewt3sys7console5flush17hdebac7a23ce4130cE+0x2>
   88:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5flush17hdebac7a23ce4130cE>
   8c:	e7ff      	b.n	8e <rust_begin_unwind+0x8e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:101
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:102
     if let Some(location) = info.location() {
   8e:	e00a      	b.n	a6 <rust_begin_unwind+0xa6>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:108
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:109
     } else {
         console::print("no loc\n");  console::flush();
   90:	f240 0000 	movw	r0, #0
@@ -7842,12 +7843,12 @@ pub fn bkpt() {
         () => unsafe { asm!("bkpt" :::: "volatile") },
   a6:	be00      	bkpt	0x0000
 rust_begin_unwind():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:111
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:112
     }
     //  Pause in the debugger.
     bkpt();
   a8:	e7ff      	b.n	aa <rust_begin_unwind+0xaa>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:113
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:114
     //  Loop forever so that device won't restart.
     loop {}
   aa:	e7fe      	b.n	aa <rust_begin_unwind+0xaa>
@@ -8652,56 +8653,18 @@ app-b8434b356de0ea5d.3jn3ml4cjsgi16hg.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 3jn3ml4cjsgi16hg
-000008e4 l       .debug_str	00000000 
-0000092c l       .debug_str	00000000 
-00000932 l       .debug_str	00000000 
-0000093d l       .debug_str	00000000 
-00000946 l       .debug_str	00000000 
-00000969 l       .debug_str	00000000 
-00000988 l       .debug_str	00000000 
-000009af l       .debug_str	00000000 
-000009b4 l       .debug_str	00000000 
-000009ba l       .debug_str	00000000 
-000009c0 l       .debug_str	00000000 
-000009cf l       .debug_str	00000000 
-000009d3 l       .debug_str	00000000 
-000009dc l       .debug_str	00000000 
-000009e4 l       .debug_str	00000000 
-000009ec l       .debug_str	00000000 
-000009f3 l       .debug_str	00000000 
-00000a07 l       .debug_str	00000000 
-00000a13 l       .debug_str	00000000 
-00000a1f l       .debug_str	00000000 
-00000a38 l       .debug_str	00000000 
-00000a3d l       .debug_str	00000000 
-00000a4e l       .debug_str	00000000 
-00000a58 l       .debug_str	00000000 
-00000a66 l       .debug_str	00000000 
-00000a6a l       .debug_str	00000000 
-00000a75 l       .debug_str	00000000 
-00000a7c l       .debug_str	00000000 
-00000a82 l       .debug_str	00000000 
-00000a86 l       .debug_str	00000000 
-00000a8a l       .debug_str	00000000 
-00000a92 l       .debug_str	00000000 
-00000aa9 l       .debug_str	00000000 
-00000acd l       .debug_str	00000000 
-00000ae9 l       .debug_str	00000000 
-00000af3 l       .debug_str	00000000 
-00000b0d l       .debug_str	00000000 
-00000b6b l       .debug_str	00000000 
-00000b76 l       .debug_str	00000000 
-00000b93 l       .debug_str	00000000 
-00000bac l       .debug_str	00000000 
-00000bb6 l       .debug_str	00000000 
-00000bcc l       .debug_str	00000000 
-00000bd1 l       .debug_str	00000000 
-00000bee l       .debug_str	00000000 
-00000bf4 l       .debug_str	00000000 
-00000bfa l       .debug_str	00000000 
-00000c18 l       .debug_str	00000000 
-00000c37 l       .debug_str	00000000 
-00000c3a l       .debug_str	00000000 
+000003ca l       .debug_str	00000000 
+000004c1 l       .debug_str	00000000 
+000004c7 l       .debug_str	00000000 
+000004cc l       .debug_str	00000000 
+000004d2 l       .debug_str	00000000 
+000004d9 l       .debug_str	00000000 
+000004e3 l       .debug_str	00000000 
+000004f1 l       .debug_str	00000000 
+00000531 l       .debug_str	00000000 
+00000536 l       .debug_str	00000000 
+000005a5 l       .debug_str	00000000 
+000005ab l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000055 l       .debug_str	00000000 
@@ -8740,209 +8703,101 @@ SYMBOL TABLE:
 000001db l       .debug_str	00000000 
 000001e8 l       .debug_str	00000000 
 000001f4 l       .debug_str	00000000 
-000001f9 l       .debug_str	00000000 
-000001fd l       .debug_str	00000000 
-00000200 l       .debug_str	00000000 
-00000203 l       .debug_str	00000000 
-00000208 l       .debug_str	00000000 
-0000020e l       .debug_str	00000000 
-00000215 l       .debug_str	00000000 
 0000021d l       .debug_str	00000000 
+00000222 l       .debug_str	00000000 
 00000227 l       .debug_str	00000000 
 0000022a l       .debug_str	00000000 
 0000022e l       .debug_str	00000000 
+00000231 l       .debug_str	00000000 
+00000233 l       .debug_str	00000000 
 00000235 l       .debug_str	00000000 
-0000023d l       .debug_str	00000000 
-00000244 l       .debug_str	00000000 
-0000024e l       .debug_str	00000000 
-00000257 l       .debug_str	00000000 
-0000025b l       .debug_str	00000000 
-00000266 l       .debug_str	00000000 
-0000028f l       .debug_str	00000000 
-00000294 l       .debug_str	00000000 
-00000298 l       .debug_str	00000000 
+00000239 l       .debug_str	00000000 
+00000261 l       .debug_str	00000000 
+00000265 l       .debug_str	00000000 
+00000270 l       .debug_str	00000000 
+00000278 l       .debug_str	00000000 
+0000027f l       .debug_str	00000000 
+00000289 l       .debug_str	00000000 
+0000028c l       .debug_str	00000000 
+00000290 l       .debug_str	00000000 
 0000029b l       .debug_str	00000000 
-0000029d l       .debug_str	00000000 
 0000029f l       .debug_str	00000000 
-000002c7 l       .debug_str	00000000 
-000002f9 l       .debug_str	00000000 
-000002fd l       .debug_str	00000000 
-00000375 l       .debug_str	00000000 
-0000037b l       .debug_str	00000000 
-000003af l       .debug_str	00000000 
-00000422 l       .debug_str	00000000 
-0000042a l       .debug_str	00000000 
+000002aa l       .debug_str	00000000 
+000002ae l       .debug_str	00000000 
+000002b3 l       .debug_str	00000000 
+000002bc l       .debug_str	00000000 
+000002bf l       .debug_str	00000000 
+000002c3 l       .debug_str	00000000 
+000002c6 l       .debug_str	00000000 
+000002ca l       .debug_str	00000000 
+000002cd l       .debug_str	00000000 
+000002d1 l       .debug_str	00000000 
+0000032e l       .debug_str	00000000 
+00000338 l       .debug_str	00000000 
+0000033c l       .debug_str	00000000 
+0000033e l       .debug_str	00000000 
+00000350 l       .debug_str	00000000 
+0000035b l       .debug_str	00000000 
+00000362 l       .debug_str	00000000 
+00000369 l       .debug_str	00000000 
+0000036f l       .debug_str	00000000 
+0000037e l       .debug_str	00000000 
+00000382 l       .debug_str	00000000 
+00000388 l       .debug_str	00000000 
+0000038f l       .debug_str	00000000 
+00000395 l       .debug_str	00000000 
+000003a0 l       .debug_str	00000000 
+000003a7 l       .debug_str	00000000 
+000003ac l       .debug_str	00000000 
+000003b7 l       .debug_str	00000000 
+000003be l       .debug_str	00000000 
+000003c5 l       .debug_str	00000000 
+00000400 l       .debug_str	00000000 
+0000040d l       .debug_str	00000000 
+0000041a l       .debug_str	00000000 
+0000041c l       .debug_str	00000000 
+00000451 l       .debug_str	00000000 
+00000453 l       .debug_str	00000000 
+00000489 l       .debug_str	00000000 
+0000048b l       .debug_str	00000000 
+00000491 l       .debug_str	00000000 
 0000049e l       .debug_str	00000000 
+000004a2 l       .debug_str	00000000 
 000004a7 l       .debug_str	00000000 
-00000528 l       .debug_str	00000000 
-00000531 l       .debug_str	00000000 
-00000535 l       .debug_str	00000000 
-00000538 l       .debug_str	00000000 
-0000053c l       .debug_str	00000000 
-00000547 l       .debug_str	00000000 
-0000054b l       .debug_str	00000000 
-00000550 l       .debug_str	00000000 
-00000559 l       .debug_str	00000000 
-0000055c l       .debug_str	00000000 
-00000560 l       .debug_str	00000000 
-00000563 l       .debug_str	00000000 
-00000567 l       .debug_str	00000000 
-0000056a l       .debug_str	00000000 
-0000056e l       .debug_str	00000000 
-000005c2 l       .debug_str	00000000 
-000005cc l       .debug_str	00000000 
-000005d0 l       .debug_str	00000000 
-000005d2 l       .debug_str	00000000 
-000005e4 l       .debug_str	00000000 
-000005ef l       .debug_str	00000000 
-000005f6 l       .debug_str	00000000 
-000005fd l       .debug_str	00000000 
-00000603 l       .debug_str	00000000 
-00000612 l       .debug_str	00000000 
-00000616 l       .debug_str	00000000 
-0000061c l       .debug_str	00000000 
-00000623 l       .debug_str	00000000 
-00000629 l       .debug_str	00000000 
-00000634 l       .debug_str	00000000 
-0000063b l       .debug_str	00000000 
-00000640 l       .debug_str	00000000 
-0000064b l       .debug_str	00000000 
-00000652 l       .debug_str	00000000 
-00000659 l       .debug_str	00000000 
-0000065e l       .debug_str	00000000 
-00000694 l       .debug_str	00000000 
-000006a1 l       .debug_str	00000000 
-000006ae l       .debug_str	00000000 
-000006b0 l       .debug_str	00000000 
-000006e5 l       .debug_str	00000000 
-000006e7 l       .debug_str	00000000 
-0000071d l       .debug_str	00000000 
-0000071f l       .debug_str	00000000 
-00000725 l       .debug_str	00000000 
-00000732 l       .debug_str	00000000 
-00000736 l       .debug_str	00000000 
-0000073b l       .debug_str	00000000 
-00000744 l       .debug_str	00000000 
-0000074e l       .debug_str	00000000 
-00000755 l       .debug_str	00000000 
-0000075b l       .debug_str	00000000 
-00000760 l       .debug_str	00000000 
-00000766 l       .debug_str	00000000 
-0000076d l       .debug_str	00000000 
-00000777 l       .debug_str	00000000 
-00000785 l       .debug_str	00000000 
-000007c5 l       .debug_str	00000000 
-000007ca l       .debug_str	00000000 
-00000839 l       .debug_str	00000000 
-0000083f l       .debug_str	00000000 
-0000084b l       .debug_str	00000000 
-00000858 l       .debug_str	00000000 
-0000087f l       .debug_str	00000000 
-00000882 l       .debug_str	00000000 
-0000088b l       .debug_str	00000000 
-00000890 l       .debug_str	00000000 
-0000089a l       .debug_str	00000000 
-0000089f l       .debug_str	00000000 
-000008a5 l       .debug_str	00000000 
-000008aa l       .debug_str	00000000 
-000008af l       .debug_str	00000000 
-000008b6 l       .debug_str	00000000 
-000008c2 l       .debug_str	00000000 
-000008ca l       .debug_str	00000000 
-000008d3 l       .debug_str	00000000 
-000008d8 l       .debug_str	00000000 
-000008db l       .debug_str	00000000 
-000008eb l       .debug_str	00000000 
-000008f0 l       .debug_str	00000000 
-000008f5 l       .debug_str	00000000 
-000008fb l       .debug_str	00000000 
-00000901 l       .debug_str	00000000 
-0000090b l       .debug_str	00000000 
-0000090e l       .debug_str	00000000 
-00000914 l       .debug_str	00000000 
-0000091e l       .debug_str	00000000 
-00000926 l       .debug_str	00000000 
-00000000 l     O .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.0	00000011 .Lanon.38b9c5610f928e42a3ac32bc89faedcb.0
-00000000 l     O .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.1	00000001 .Lanon.38b9c5610f928e42a3ac32bc89faedcb.1
-00000000 l     O .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.11	00000010 .Lanon.38b9c5610f928e42a3ac32bc89faedcb.11
-00000000 l     O .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.13	00000008 .Lanon.38b9c5610f928e42a3ac32bc89faedcb.13
-00000000 l     O .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.14	00000010 .Lanon.38b9c5610f928e42a3ac32bc89faedcb.14
-00000000 l     O .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.16	00000008 .Lanon.38b9c5610f928e42a3ac32bc89faedcb.16
-00000000 l     O .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.17	00000010 .Lanon.38b9c5610f928e42a3ac32bc89faedcb.17
-00000000 l     O .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.19	00000008 .Lanon.38b9c5610f928e42a3ac32bc89faedcb.19
-00000000 l     O .rodata.cst4	00000004 .Lanon.38b9c5610f928e42a3ac32bc89faedcb.2
-00000000 l     O .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.20	00000010 .Lanon.38b9c5610f928e42a3ac32bc89faedcb.20
-00000000 l     O .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.21	00000018 .Lanon.38b9c5610f928e42a3ac32bc89faedcb.21
-00000000 l     O .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.6	00000018 .Lanon.38b9c5610f928e42a3ac32bc89faedcb.6
-00000000 l     O .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.8	00000008 .Lanon.38b9c5610f928e42a3ac32bc89faedcb.8
-00000000 l     O .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.9	00000000 .Lanon.38b9c5610f928e42a3ac32bc89faedcb.9
-00000000 l     F .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E	0000010c _ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
+000004b0 l       .debug_str	00000000 
+000004ba l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.2853127beb58ea5154c9cbfbed7b91e2.0	00000011 .Lanon.2853127beb58ea5154c9cbfbed7b91e2.0
+00000000 l     O .rodata..Lanon.2853127beb58ea5154c9cbfbed7b91e2.1	00000001 .Lanon.2853127beb58ea5154c9cbfbed7b91e2.1
 00000000 l     O .data._ZN3app7display12SPI_SETTINGS17he720d68fcb0f9f1dE	00000008 _ZN3app7display12SPI_SETTINGS17he720d68fcb0f9f1dE
-00000000 l     F .text._ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E	0000030a _ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E
-00000000 l     O .rodata.str.0	00000017 str.0
-00000000 l     O .rodata.str.1	00000021 str.1
 00000000 l    d  .text._ZN3app7display4show17hff9baa1b984cacacE	00000000 .text._ZN3app7display4show17hff9baa1b984cacacE
-00000000 l    d  .text._ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E	00000000 .text._ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E
-00000000 l    d  .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h1fcdecc5282f5d9cE	00000000 .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h1fcdecc5282f5d9cE
-00000000 l    d  .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E	00000000 .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E
-00000000 l    d  .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E	00000000 .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E
-00000000 l    d  .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE	00000000 .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE
-00000000 l    d  .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E	00000000 .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E
 00000000 l    d  .data._ZN3app7display12SPI_SETTINGS17he720d68fcb0f9f1dE	00000000 .data._ZN3app7display12SPI_SETTINGS17he720d68fcb0f9f1dE
-00000000 l    d  .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.3	00000000 .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.3
-00000000 l    d  .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.4	00000000 .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.4
-00000000 l    d  .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.5	00000000 .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.5
-00000000 l    d  .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.7	00000000 .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.7
-00000000 l    d  .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.10	00000000 .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.10
-00000000 l    d  .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.12	00000000 .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.12
-00000000 l    d  .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.15	00000000 .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.15
-00000000 l    d  .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.18	00000000 .rodata..Lanon.38b9c5610f928e42a3ac32bc89faedcb.18
-00000000 l    d  .rodata.str.0	00000000 .rodata.str.0
-00000000 l    d  .rodata.str.1	00000000 .rodata.str.1
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
 00000000 l    d  .debug_ranges	00000000 .debug_ranges
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
-00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h8ff56cabcbc92457E
-00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE
-00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h2b7d8be26955941fE
-00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E
+00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h21804224a384e577E
+00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E
+00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h723b2fb410ea497eE
+00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE
 00000000         *UND*	00000000 _ZN119_$LT$embedded_graphics..primitives..circle..Circle$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17hb6efe8c06b10f3f1E
 00000000         *UND*	00000000 _ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17hacb41e46f9562ddeE
 00000000         *UND*	00000000 _ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h6a77966259d87ac7E
 00000000         *UND*	00000000 _ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h0a04a2fcc8b3c085E
-00000000         *UND*	00000000 _ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E
-00000000         *UND*	00000000 _ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E
+00000000         *UND*	00000000 _ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE
+00000000         *UND*	00000000 _ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E
 00000000         *UND*	00000000 _ZN17embedded_graphics10primitives6circle15Circle$LT$C$GT$3new17hfb7a50a81d553696E
 00000000         *UND*	00000000 _ZN17embedded_graphics5coord14internal_coord5Coord3new17h5cc04c89c71e58a5E
+00000000         *UND*	00000000 .hidden _ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E
+00000000         *UND*	00000000 .hidden _ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E
 00000000 g     F .text._ZN3app7display4show17hff9baa1b984cacacE	0000022c .hidden _ZN3app7display4show17hff9baa1b984cacacE
-00000000         *UND*	00000000 _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h9f5638675334182dE
-00000000         *UND*	00000000 _ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E
-00000000         *UND*	00000000 _ZN4core3fmt10ArgumentV13new17h87b4fa2381289522E
-00000000         *UND*	00000000 .hidden _ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE
-00000000         *UND*	00000000 _ZN4core3ptr8null_mut17h58cf134f3f697ee2E
-00000000         *UND*	00000000 _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h70be3ebb33ef544dE
-00000000         *UND*	00000000 _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17he59896ae2e279711E
-00000000         *UND*	00000000 _ZN4core9panicking5panic17h53ca63c6ac6312f8E
-00000000         *UND*	00000000 _ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E
 00000000         *UND*	00000000 _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE
-00000000         *UND*	00000000 _ZN59_$LT$core..fmt..Arguments$u20$as$u20$core..fmt..Display$GT$3fmt17h3e269ca172b8335aE
 00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E
 00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6ae772a48cc87a1eE
 00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE
-00000000 g     F .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E	00000026 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E
-00000000 g     F .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE	00000026 _ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE
 00000000         *UND*	00000000 _ZN83_$LT$mynewt..result..MynewtError$u20$as$u20$core..convert..From$LT$$LP$$RP$$GT$$GT$4from17h8d90bc50a52456b7E
-00000000 g     F .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h1fcdecc5282f5d9cE	00000084 _ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h1fcdecc5282f5d9cE
-00000000 g     F .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E	00000058 _ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E
+00000000         *UND*	00000000 _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE
 00000000         *UND*	00000000 _ZN95_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$u8$GT$$GT$4from17h6ee2795358adec6eE
-00000000         *UND*	00000000 hal_gpio_init_out
-00000000         *UND*	00000000 hal_gpio_write
-00000000         *UND*	00000000 hal_spi_config
-00000000         *UND*	00000000 hal_spi_enable
-00000000         *UND*	00000000 hal_spi_txrx
-00000000         *UND*	00000000 os_time_delay
 
 
 
@@ -8950,7 +8805,7 @@ Disassembly of section .text._ZN3app7display4show17hff9baa1b984cacacE:
 
 00000000 <_ZN3app7display4show17hff9baa1b984cacacE>:
 _ZN3app7display4show17hff9baa1b984cacacE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:42
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:46
     baudrate:   8000,  //  In kHZ. Use SPI at 8MHz (the fastest clock available on the nRF52832) because otherwise refreshing will be super slow.
     word_size:  hal::HAL_SPI_WORD_SIZE_8BIT as u8,
 };
@@ -8959,34 +8814,34 @@ _ZN3app7display4show17hff9baa1b984cacacE():
 pub fn show() -> MynewtResult<()> {
    0:	b570      	push	{r4, r5, r6, lr}
    2:	b0d8      	sub	sp, #352	; 0x160
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:44
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:48
     //  Create SPI port and GPIO pins
     let spi = MynewtSPI::new(
    4:	f240 0200 	movw	r2, #0
    8:	f2c0 0200 	movt	r2, #0
    c:	2000      	movs	r0, #0
    e:	2119      	movs	r1, #25
-  10:	f7ff fffe 	bl	0 <_ZN3app7display4show17hff9baa1b984cacacE>
+  10:	f7ff fffe 	bl	0 <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E>
   14:	9115      	str	r1, [sp, #84]	; 0x54
   16:	9014      	str	r0, [sp, #80]	; 0x50
   18:	e7ff      	b.n	1a <_ZN3app7display4show17hff9baa1b984cacacE+0x1a>
   1a:	2012      	movs	r0, #18
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:49
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:53
         0,   //  Mynewt SPI port 0
         25,  //  LCD_CS (P0.25): Chip select
         unsafe { &mut SPI_SETTINGS }
     );
     let dc =  MynewtGPIO::new(18);  //  LCD_RS (P0.18): Clock/data pin (CD)
-  1c:	f7ff fffe 	bl	0 <_ZN3app7display4show17hff9baa1b984cacacE>
+  1c:	f7ff fffe 	bl	0 <_ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E>
   20:	9016      	str	r0, [sp, #88]	; 0x58
   22:	e7ff      	b.n	24 <_ZN3app7display4show17hff9baa1b984cacacE+0x24>
   24:	201a      	movs	r0, #26
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:50
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:54
     let rst = MynewtGPIO::new(26);  //  LCD_RESET (P0.26): Display reset
-  26:	f7ff fffe 	bl	0 <_ZN3app7display4show17hff9baa1b984cacacE>
+  26:	f7ff fffe 	bl	0 <_ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E>
   2a:	9017      	str	r0, [sp, #92]	; 0x5c
   2c:	e7ff      	b.n	2e <_ZN3app7display4show17hff9baa1b984cacacE+0x2e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:54
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:58
 
     //  Create display driver for SPI port 0
     let mut display = st7735_lcd::ST7735::new(
@@ -8995,7 +8850,7 @@ pub fn show() -> MynewtResult<()> {
   30:	9a15      	ldr	r2, [sp, #84]	; 0x54
   32:	9b16      	ldr	r3, [sp, #88]	; 0x58
   34:	9817      	ldr	r0, [sp, #92]	; 0x5c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:53
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:57
     let mut display = st7735_lcd::ST7735::new(
   36:	46ec      	mov	ip, sp
   38:	f04f 0e01 	mov.w	lr, #1
@@ -9004,21 +8859,21 @@ pub fn show() -> MynewtResult<()> {
   44:	f8cc e004 	str.w	lr, [ip, #4]
   48:	f8cc 0000 	str.w	r0, [ip]
   4c:	a818      	add	r0, sp, #96	; 0x60
-  4e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h2b7d8be26955941fE>
+  4e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17h723b2fb410ea497eE>
   52:	e7ff      	b.n	54 <_ZN3app7display4show17hff9baa1b984cacacE+0x54>
   54:	2017      	movs	r0, #23
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:58
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:62
     );
 
     //  Switch on the backlight
     let mut backlight = MynewtGPIO::new(23);  //  LCD_BACKLIGHT_{LOW,MID,HIGH} (P0.14, 22, 23):	Backlight (active low)
-  56:	f7ff fffe 	bl	0 <_ZN3app7display4show17hff9baa1b984cacacE>
+  56:	f7ff fffe 	bl	0 <_ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E>
   5a:	901e      	str	r0, [sp, #120]	; 0x78
   5c:	e7ff      	b.n	5e <_ZN3app7display4show17hff9baa1b984cacacE+0x5e>
   5e:	a81e      	add	r0, sp, #120	; 0x78
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:59
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:63
     backlight.set_low() ? ;
-  60:	f7ff fffe 	bl	0 <_ZN3app7display4show17hff9baa1b984cacacE>
+  60:	f7ff fffe 	bl	0 <_ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE>
   64:	9012      	str	r0, [sp, #72]	; 0x48
   66:	e7ff      	b.n	68 <_ZN3app7display4show17hff9baa1b984cacacE+0x68>
   68:	9812      	ldr	r0, [sp, #72]	; 0x48
@@ -9037,15 +8892,14 @@ pub fn show() -> MynewtResult<()> {
   84:	2801      	cmp	r0, #1
   86:	d001      	beq.n	8c <_ZN3app7display4show17hff9baa1b984cacacE+0x8c>
   88:	e7ff      	b.n	8a <_ZN3app7display4show17hff9baa1b984cacacE+0x8a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:80
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:84
 
     //  Render circle and text to display
     display.draw(c);
     display.draw(t);
     Ok(())
-}
   8a:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:59
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:63
     backlight.set_low() ? ;
   8c:	981f      	ldr	r0, [sp, #124]	; 0x7c
   8e:	9020      	str	r0, [sp, #128]	; 0x80
@@ -9058,16 +8912,15 @@ pub fn show() -> MynewtResult<()> {
   a0:	9013      	str	r0, [sp, #76]	; 0x4c
   a2:	e7ff      	b.n	a4 <_ZN3app7display4show17hff9baa1b984cacacE+0xa4>
   a4:	e002      	b.n	ac <_ZN3app7display4show17hff9baa1b984cacacE+0xac>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:80
-}
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:84
   a6:	9813      	ldr	r0, [sp, #76]	; 0x4c
   a8:	b058      	add	sp, #352	; 0x160
   aa:	bd70      	pop	{r4, r5, r6, pc}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:59
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:63
     backlight.set_low() ? ;
   ac:	e7fb      	b.n	a6 <_ZN3app7display4show17hff9baa1b984cacacE+0xa6>
   ae:	2028      	movs	r0, #40	; 0x28
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:62
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:66
     let c = Circle::<Rgb565>::new(Coord::new(40, 40), 40)
   b0:	900f      	str	r0, [sp, #60]	; 0x3c
   b2:	990f      	ldr	r1, [sp, #60]	; 0x3c
@@ -9082,7 +8935,7 @@ pub fn show() -> MynewtResult<()> {
   c6:	f7ff fffe 	bl	0 <_ZN17embedded_graphics10primitives6circle15Circle$LT$C$GT$3new17hfb7a50a81d553696E>
   ca:	e7ff      	b.n	cc <_ZN3app7display4show17hff9baa1b984cacacE+0xcc>
   cc:	2001      	movs	r0, #1
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:63
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:67
         .fill(Some(Rgb565::from(1u8)));
   ce:	f7ff fffe 	bl	0 <_ZN95_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$u8$GT$$GT$4from17h6ee2795358adec6eE>
   d2:	900c      	str	r0, [sp, #48]	; 0x30
@@ -9091,7 +8944,7 @@ pub fn show() -> MynewtResult<()> {
   d8:	f8ad 00ba 	strh.w	r0, [sp, #186]	; 0xba
   dc:	2101      	movs	r1, #1
   de:	f8ad 10b8 	strh.w	r1, [sp, #184]	; 0xb8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:62
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:66
     let c = Circle::<Rgb565>::new(Coord::new(40, 40), 40)
   e2:	f8bd 30ba 	ldrh.w	r3, [sp, #186]	; 0xba
   e6:	f8bd 20b8 	ldrh.w	r2, [sp, #184]	; 0xb8
@@ -9099,7 +8952,7 @@ pub fn show() -> MynewtResult<()> {
   ec:	a928      	add	r1, sp, #160	; 0xa0
   ee:	f7ff fffe 	bl	0 <_ZN119_$LT$embedded_graphics..primitives..circle..Circle$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17hb6efe8c06b10f3f1E>
   f2:	e7ff      	b.n	2 <_ZN3app7display4show17hff9baa1b984cacacE+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:66
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:70
     let t = fonts::Font12x16::<Rgb565>::render_str("I AM RUSTY BEACON")
   f4:	f240 0100 	movw	r1, #0
   f8:	f2c0 0100 	movt	r1, #0
@@ -9108,7 +8961,7 @@ pub fn show() -> MynewtResult<()> {
  100:	f7ff fffe 	bl	0 <_ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17hacb41e46f9562ddeE>
  104:	e7ff      	b.n	106 <_ZN3app7display4show17hff9baa1b984cacacE+0x106>
  106:	2014      	movs	r0, #20
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:67
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:71
         .fill(Some(Rgb565::from(20u8)))
  108:	f7ff fffe 	bl	0 <_ZN95_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$u8$GT$$GT$4from17h6ee2795358adec6eE>
  10c:	900b      	str	r0, [sp, #44]	; 0x2c
@@ -9117,7 +8970,7 @@ pub fn show() -> MynewtResult<()> {
  112:	f8ad 0112 	strh.w	r0, [sp, #274]	; 0x112
  116:	2101      	movs	r1, #1
  118:	f8ad 1110 	strh.w	r1, [sp, #272]	; 0x110
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:66
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:70
     let t = fonts::Font12x16::<Rgb565>::render_str("I AM RUSTY BEACON")
  11c:	f8bd 3112 	ldrh.w	r3, [sp, #274]	; 0x112
  120:	f8bd 2110 	ldrh.w	r2, [sp, #272]	; 0x110
@@ -9127,7 +8980,7 @@ pub fn show() -> MynewtResult<()> {
  12c:	e7ff      	b.n	12e <_ZN3app7display4show17hff9baa1b984cacacE+0x12e>
  12e:	2014      	movs	r0, #20
  130:	2110      	movs	r1, #16
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:68
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:72
         .translate(Coord::new(20, 16));
  132:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h5cc04c89c71e58a5E>
  136:	900a      	str	r0, [sp, #40]	; 0x28
@@ -9135,7 +8988,7 @@ pub fn show() -> MynewtResult<()> {
  13a:	e7ff      	b.n	13c <_ZN3app7display4show17hff9baa1b984cacacE+0x13c>
  13c:	a82f      	add	r0, sp, #188	; 0xbc
  13e:	a936      	add	r1, sp, #216	; 0xd8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:66
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:70
     let t = fonts::Font12x16::<Rgb565>::render_str("I AM RUSTY BEACON")
  140:	9a0a      	ldr	r2, [sp, #40]	; 0x28
  142:	9b09      	ldr	r3, [sp, #36]	; 0x24
@@ -9143,9 +8996,9 @@ pub fn show() -> MynewtResult<()> {
  148:	e7ff      	b.n	14a <_ZN3app7display4show17hff9baa1b984cacacE+0x14a>
  14a:	a818      	add	r0, sp, #96	; 0x60
  14c:	a945      	add	r1, sp, #276	; 0x114
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:72
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:76
     display.init(&mut delay) ? ;
- 14e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h937df439b05f33b0E>
+ 14e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
  152:	9008      	str	r0, [sp, #32]
  154:	e7ff      	b.n	156 <_ZN3app7display4show17hff9baa1b984cacacE+0x156>
  156:	9808      	ldr	r0, [sp, #32]
@@ -9172,12 +9025,12 @@ pub fn show() -> MynewtResult<()> {
  18e:	e7ff      	b.n	190 <_ZN3app7display4show17hff9baa1b984cacacE+0x190>
  190:	e7ff      	b.n	192 <_ZN3app7display4show17hff9baa1b984cacacE+0x192>
  192:	e78b      	b.n	ac <_ZN3app7display4show17hff9baa1b984cacacE+0xac>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:73
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:77
     display.set_orientation(&Orientation::Landscape) ? ;
  194:	f240 0100 	movw	r1, #0
  198:	f2c0 0100 	movt	r1, #0
  19c:	a818      	add	r0, sp, #96	; 0x60
- 19e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17hd120010474c644eeE>
+ 19e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h633063f4b0b43e09E>
  1a2:	9005      	str	r0, [sp, #20]
  1a4:	e7ff      	b.n	1a6 <_ZN3app7display4show17hff9baa1b984cacacE+0x1a6>
  1a6:	9805      	ldr	r0, [sp, #20]
@@ -9206,23 +9059,23 @@ pub fn show() -> MynewtResult<()> {
  1e2:	a818      	add	r0, sp, #96	; 0x60
  1e4:	2101      	movs	r1, #1
  1e6:	2219      	movs	r2, #25
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:74
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:78
     display.set_offset(1, 25);
- 1e8:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h8ff56cabcbc92457E>
+ 1e8:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_offset17h21804224a384e577E>
  1ec:	e7ff      	b.n	1ee <_ZN3app7display4show17hff9baa1b984cacacE+0x1ee>
  1ee:	a822      	add	r0, sp, #136	; 0x88
  1f0:	a94a      	add	r1, sp, #296	; 0x128
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:77
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:81
     display.draw(c);
  1f2:	460a      	mov	r2, r1
  1f4:	e890 5078 	ldmia.w	r0, {r3, r4, r5, r6, ip, lr}
  1f8:	e882 5078 	stmia.w	r2, {r3, r4, r5, r6, ip, lr}
  1fc:	a818      	add	r0, sp, #96	; 0x60
- 1fe:	f7ff fffe 	bl	0 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17hafbca8c68cccd1a2E>
+ 1fe:	f7ff fffe 	bl	0 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE>
  202:	e7ff      	b.n	204 <_ZN3app7display4show17hff9baa1b984cacacE+0x204>
  204:	a82f      	add	r0, sp, #188	; 0xbc
  206:	a950      	add	r1, sp, #320	; 0x140
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:78
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:82
     display.draw(t);
  208:	460a      	mov	r2, r1
  20a:	e8b0 5008 	ldmia.w	r0!, {r3, ip, lr}
@@ -9230,714 +9083,16 @@ pub fn show() -> MynewtResult<()> {
  212:	e890 5018 	ldmia.w	r0, {r3, r4, ip, lr}
  216:	e882 5018 	stmia.w	r2, {r3, r4, ip, lr}
  21a:	a818      	add	r0, sp, #96	; 0x60
- 21c:	f7ff fffe 	bl	0 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h7bcd5dfbfd9555d2E>
+ 21c:	f7ff fffe 	bl	0 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E>
  220:	e7ff      	b.n	222 <_ZN3app7display4show17hff9baa1b984cacacE+0x222>
  222:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:79
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:83
     Ok(())
  224:	9013      	str	r0, [sp, #76]	; 0x4c
  226:	2001      	movs	r0, #1
  228:	9013      	str	r0, [sp, #76]	; 0x4c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:80
-}
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:84
  22a:	e73c      	b.n	a6 <_ZN3app7display4show17hff9baa1b984cacacE+0xa6>
-
-Disassembly of section .text._ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E:
-
-00000000 <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E>:
-_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:85
-
-/// Rust Embedded HAL interface for Mynewt SPI
-impl MynewtSPI {
-    /// Create a new SPI port
-    pub fn new(spi_num: i32, cs_pin: i32, spi_settings: *mut hal::hal_spi_settings) -> Self {
-   0:	b5b0      	push	{r4, r5, r7, lr}
-   2:	b0f8      	sub	sp, #480	; 0x1e0
-   4:	4613      	mov	r3, r2
-   6:	468c      	mov	ip, r1
-   8:	4686      	mov	lr, r0
-   a:	9016      	str	r0, [sp, #88]	; 0x58
-   c:	9117      	str	r1, [sp, #92]	; 0x5c
-   e:	9218      	str	r2, [sp, #96]	; 0x60
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:86
-        let rc = unsafe { hal::hal_spi_config(spi_num, spi_settings) };
-  10:	9816      	ldr	r0, [sp, #88]	; 0x58
-  12:	9918      	ldr	r1, [sp, #96]	; 0x60
-  14:	9315      	str	r3, [sp, #84]	; 0x54
-  16:	f8cd c050 	str.w	ip, [sp, #80]	; 0x50
-  1a:	f8cd e04c 	str.w	lr, [sp, #76]	; 0x4c
-  1e:	f7ff fffe 	bl	0 <hal_spi_config>
-  22:	901b      	str	r0, [sp, #108]	; 0x6c
-  24:	e7ff      	b.n	26 <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x26>
-  26:	a81b      	add	r0, sp, #108	; 0x6c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:87
-        assert_eq!(rc, 0, "spi config fail");
-  28:	901c      	str	r0, [sp, #112]	; 0x70
-  2a:	f240 0000 	movw	r0, #0
-  2e:	f2c0 0000 	movt	r0, #0
-  32:	901d      	str	r0, [sp, #116]	; 0x74
-  34:	981c      	ldr	r0, [sp, #112]	; 0x70
-  36:	901e      	str	r0, [sp, #120]	; 0x78
-  38:	981d      	ldr	r0, [sp, #116]	; 0x74
-  3a:	901f      	str	r0, [sp, #124]	; 0x7c
-  3c:	981e      	ldr	r0, [sp, #120]	; 0x78
-  3e:	6800      	ldr	r0, [r0, #0]
-  40:	991f      	ldr	r1, [sp, #124]	; 0x7c
-  42:	6809      	ldr	r1, [r1, #0]
-  44:	4288      	cmp	r0, r1
-  46:	d014      	beq.n	72 <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x72>
-  48:	e7ff      	b.n	4a <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x4a>
-  4a:	981e      	ldr	r0, [sp, #120]	; 0x78
-  4c:	902f      	str	r0, [sp, #188]	; 0xbc
-  4e:	981f      	ldr	r0, [sp, #124]	; 0x7c
-  50:	9030      	str	r0, [sp, #192]	; 0xc0
-  52:	4668      	mov	r0, sp
-  54:	2100      	movs	r1, #0
-  56:	6001      	str	r1, [r0, #0]
-  58:	f240 0100 	movw	r1, #0
-  5c:	f2c0 0100 	movt	r1, #0
-  60:	f240 0300 	movw	r3, #0
-  64:	f2c0 0300 	movt	r3, #0
-  68:	a831      	add	r0, sp, #196	; 0xc4
-  6a:	2201      	movs	r2, #1
-  6c:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE>
-  70:	e004      	b.n	7c <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x7c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:89
-
-        let rc = unsafe { hal::hal_spi_enable(spi_num) };
-  72:	9816      	ldr	r0, [sp, #88]	; 0x58
-  74:	f7ff fffe 	bl	0 <hal_spi_enable>
-  78:	903a      	str	r0, [sp, #232]	; 0xe8
-  7a:	e04e      	b.n	11a <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x11a>
-  7c:	a82f      	add	r0, sp, #188	; 0xbc
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:87
-        assert_eq!(rc, 0, "spi config fail");
-  7e:	902c      	str	r0, [sp, #176]	; 0xb0
-  80:	a830      	add	r0, sp, #192	; 0xc0
-  82:	902d      	str	r0, [sp, #180]	; 0xb4
-  84:	a831      	add	r0, sp, #196	; 0xc4
-  86:	902e      	str	r0, [sp, #184]	; 0xb8
-  88:	982c      	ldr	r0, [sp, #176]	; 0xb0
-  8a:	9037      	str	r0, [sp, #220]	; 0xdc
-  8c:	982d      	ldr	r0, [sp, #180]	; 0xb4
-  8e:	9038      	str	r0, [sp, #224]	; 0xe0
-  90:	982e      	ldr	r0, [sp, #184]	; 0xb8
-  92:	9039      	str	r0, [sp, #228]	; 0xe4
-  94:	9837      	ldr	r0, [sp, #220]	; 0xdc
-  96:	f240 0100 	movw	r1, #0
-  9a:	f2c0 0100 	movt	r1, #0
-  9e:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E>
-  a2:	9012      	str	r0, [sp, #72]	; 0x48
-  a4:	9111      	str	r1, [sp, #68]	; 0x44
-  a6:	e7ff      	b.n	a8 <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0xa8>
-  a8:	9838      	ldr	r0, [sp, #224]	; 0xe0
-  aa:	f240 0100 	movw	r1, #0
-  ae:	f2c0 0100 	movt	r1, #0
-  b2:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E>
-  b6:	9010      	str	r0, [sp, #64]	; 0x40
-  b8:	910f      	str	r1, [sp, #60]	; 0x3c
-  ba:	e7ff      	b.n	bc <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0xbc>
-  bc:	9839      	ldr	r0, [sp, #228]	; 0xe4
-  be:	f240 0100 	movw	r1, #0
-  c2:	f2c0 0100 	movt	r1, #0
-  c6:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h87b4fa2381289522E>
-  ca:	900e      	str	r0, [sp, #56]	; 0x38
-  cc:	910d      	str	r1, [sp, #52]	; 0x34
-  ce:	e7ff      	b.n	d0 <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0xd0>
-  d0:	9812      	ldr	r0, [sp, #72]	; 0x48
-  d2:	9026      	str	r0, [sp, #152]	; 0x98
-  d4:	9911      	ldr	r1, [sp, #68]	; 0x44
-  d6:	9127      	str	r1, [sp, #156]	; 0x9c
-  d8:	9a10      	ldr	r2, [sp, #64]	; 0x40
-  da:	9228      	str	r2, [sp, #160]	; 0xa0
-  dc:	9b0f      	ldr	r3, [sp, #60]	; 0x3c
-  de:	9329      	str	r3, [sp, #164]	; 0xa4
-  e0:	f8dd c038 	ldr.w	ip, [sp, #56]	; 0x38
-  e4:	f8cd c0a8 	str.w	ip, [sp, #168]	; 0xa8
-  e8:	f8dd e034 	ldr.w	lr, [sp, #52]	; 0x34
-  ec:	f8cd e0ac 	str.w	lr, [sp, #172]	; 0xac
-  f0:	466c      	mov	r4, sp
-  f2:	2503      	movs	r5, #3
-  f4:	6025      	str	r5, [r4, #0]
-  f6:	f240 0100 	movw	r1, #0
-  fa:	f2c0 0100 	movt	r1, #0
-  fe:	a820      	add	r0, sp, #128	; 0x80
- 100:	ab26      	add	r3, sp, #152	; 0x98
- 102:	462a      	mov	r2, r5
- 104:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE>
- 108:	e7ff      	b.n	2 <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x2>
- 10a:	f240 0100 	movw	r1, #0
- 10e:	f2c0 0100 	movt	r1, #0
- 112:	a820      	add	r0, sp, #128	; 0x80
- 114:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
- 118:	defe      	udf	#254	; 0xfe
- 11a:	a83a      	add	r0, sp, #232	; 0xe8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:90
-        assert_eq!(rc, 0, "spi enable fail");
- 11c:	903b      	str	r0, [sp, #236]	; 0xec
- 11e:	f240 0000 	movw	r0, #0
- 122:	f2c0 0000 	movt	r0, #0
- 126:	903c      	str	r0, [sp, #240]	; 0xf0
- 128:	983b      	ldr	r0, [sp, #236]	; 0xec
- 12a:	903d      	str	r0, [sp, #244]	; 0xf4
- 12c:	983c      	ldr	r0, [sp, #240]	; 0xf0
- 12e:	903e      	str	r0, [sp, #248]	; 0xf8
- 130:	983d      	ldr	r0, [sp, #244]	; 0xf4
- 132:	6800      	ldr	r0, [r0, #0]
- 134:	993e      	ldr	r1, [sp, #248]	; 0xf8
- 136:	6809      	ldr	r1, [r1, #0]
- 138:	4288      	cmp	r0, r1
- 13a:	d014      	beq.n	166 <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x166>
- 13c:	e7ff      	b.n	13e <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x13e>
- 13e:	983d      	ldr	r0, [sp, #244]	; 0xf4
- 140:	904e      	str	r0, [sp, #312]	; 0x138
- 142:	983e      	ldr	r0, [sp, #248]	; 0xf8
- 144:	904f      	str	r0, [sp, #316]	; 0x13c
- 146:	4668      	mov	r0, sp
- 148:	2100      	movs	r1, #0
- 14a:	6001      	str	r1, [r0, #0]
- 14c:	f240 0100 	movw	r1, #0
- 150:	f2c0 0100 	movt	r1, #0
- 154:	f240 0300 	movw	r3, #0
- 158:	f2c0 0300 	movt	r3, #0
- 15c:	a850      	add	r0, sp, #320	; 0x140
- 15e:	2201      	movs	r2, #1
- 160:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE>
- 164:	e005      	b.n	172 <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x172>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:92
-
-        let rc = unsafe { hal::hal_gpio_init_out(cs_pin, 1) };
- 166:	9817      	ldr	r0, [sp, #92]	; 0x5c
- 168:	2101      	movs	r1, #1
- 16a:	f7ff fffe 	bl	0 <hal_gpio_init_out>
- 16e:	9059      	str	r0, [sp, #356]	; 0x164
- 170:	e04e      	b.n	210 <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x210>
- 172:	a84e      	add	r0, sp, #312	; 0x138
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:90
-        assert_eq!(rc, 0, "spi enable fail");
- 174:	904b      	str	r0, [sp, #300]	; 0x12c
- 176:	a84f      	add	r0, sp, #316	; 0x13c
- 178:	904c      	str	r0, [sp, #304]	; 0x130
- 17a:	a850      	add	r0, sp, #320	; 0x140
- 17c:	904d      	str	r0, [sp, #308]	; 0x134
- 17e:	984b      	ldr	r0, [sp, #300]	; 0x12c
- 180:	9056      	str	r0, [sp, #344]	; 0x158
- 182:	984c      	ldr	r0, [sp, #304]	; 0x130
- 184:	9057      	str	r0, [sp, #348]	; 0x15c
- 186:	984d      	ldr	r0, [sp, #308]	; 0x134
- 188:	9058      	str	r0, [sp, #352]	; 0x160
- 18a:	9856      	ldr	r0, [sp, #344]	; 0x158
- 18c:	f240 0100 	movw	r1, #0
- 190:	f2c0 0100 	movt	r1, #0
- 194:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E>
- 198:	900c      	str	r0, [sp, #48]	; 0x30
- 19a:	910b      	str	r1, [sp, #44]	; 0x2c
- 19c:	e7ff      	b.n	19e <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x19e>
- 19e:	9857      	ldr	r0, [sp, #348]	; 0x15c
- 1a0:	f240 0100 	movw	r1, #0
- 1a4:	f2c0 0100 	movt	r1, #0
- 1a8:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E>
- 1ac:	900a      	str	r0, [sp, #40]	; 0x28
- 1ae:	9109      	str	r1, [sp, #36]	; 0x24
- 1b0:	e7ff      	b.n	1b2 <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x1b2>
- 1b2:	9858      	ldr	r0, [sp, #352]	; 0x160
- 1b4:	f240 0100 	movw	r1, #0
- 1b8:	f2c0 0100 	movt	r1, #0
- 1bc:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h87b4fa2381289522E>
- 1c0:	9008      	str	r0, [sp, #32]
- 1c2:	9107      	str	r1, [sp, #28]
- 1c4:	e7ff      	b.n	1c6 <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x1c6>
- 1c6:	980c      	ldr	r0, [sp, #48]	; 0x30
- 1c8:	9045      	str	r0, [sp, #276]	; 0x114
- 1ca:	990b      	ldr	r1, [sp, #44]	; 0x2c
- 1cc:	9146      	str	r1, [sp, #280]	; 0x118
- 1ce:	9a0a      	ldr	r2, [sp, #40]	; 0x28
- 1d0:	9247      	str	r2, [sp, #284]	; 0x11c
- 1d2:	9b09      	ldr	r3, [sp, #36]	; 0x24
- 1d4:	9348      	str	r3, [sp, #288]	; 0x120
- 1d6:	f8dd c020 	ldr.w	ip, [sp, #32]
- 1da:	f8cd c124 	str.w	ip, [sp, #292]	; 0x124
- 1de:	f8dd e01c 	ldr.w	lr, [sp, #28]
- 1e2:	f8cd e128 	str.w	lr, [sp, #296]	; 0x128
- 1e6:	466c      	mov	r4, sp
- 1e8:	2503      	movs	r5, #3
- 1ea:	6025      	str	r5, [r4, #0]
- 1ec:	f240 0100 	movw	r1, #0
- 1f0:	f2c0 0100 	movt	r1, #0
- 1f4:	a83f      	add	r0, sp, #252	; 0xfc
- 1f6:	ab45      	add	r3, sp, #276	; 0x114
- 1f8:	462a      	mov	r2, r5
- 1fa:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE>
- 1fe:	e7ff      	b.n	2 <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x2>
- 200:	f240 0100 	movw	r1, #0
- 204:	f2c0 0100 	movt	r1, #0
- 208:	a83f      	add	r0, sp, #252	; 0xfc
- 20a:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
- 20e:	defe      	udf	#254	; 0xfe
- 210:	a859      	add	r0, sp, #356	; 0x164
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:93
-        assert_eq!(rc, 0, "spi init fail");
- 212:	905a      	str	r0, [sp, #360]	; 0x168
- 214:	f240 0000 	movw	r0, #0
- 218:	f2c0 0000 	movt	r0, #0
- 21c:	905b      	str	r0, [sp, #364]	; 0x16c
- 21e:	985a      	ldr	r0, [sp, #360]	; 0x168
- 220:	905c      	str	r0, [sp, #368]	; 0x170
- 222:	985b      	ldr	r0, [sp, #364]	; 0x16c
- 224:	905d      	str	r0, [sp, #372]	; 0x174
- 226:	985c      	ldr	r0, [sp, #368]	; 0x170
- 228:	6800      	ldr	r0, [r0, #0]
- 22a:	995d      	ldr	r1, [sp, #372]	; 0x174
- 22c:	6809      	ldr	r1, [r1, #0]
- 22e:	4288      	cmp	r0, r1
- 230:	d014      	beq.n	25c <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x25c>
- 232:	e7ff      	b.n	234 <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x234>
- 234:	985c      	ldr	r0, [sp, #368]	; 0x170
- 236:	906d      	str	r0, [sp, #436]	; 0x1b4
- 238:	985d      	ldr	r0, [sp, #372]	; 0x174
- 23a:	906e      	str	r0, [sp, #440]	; 0x1b8
- 23c:	4668      	mov	r0, sp
- 23e:	2100      	movs	r1, #0
- 240:	6001      	str	r1, [r0, #0]
- 242:	f240 0100 	movw	r1, #0
- 246:	f2c0 0100 	movt	r1, #0
- 24a:	f240 0300 	movw	r3, #0
- 24e:	f2c0 0300 	movt	r3, #0
- 252:	a86f      	add	r0, sp, #444	; 0x1bc
- 254:	2201      	movs	r2, #1
- 256:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE>
- 25a:	e007      	b.n	26c <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x26c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:95
-        MynewtSPI {
-            spi_num,
- 25c:	9816      	ldr	r0, [sp, #88]	; 0x58
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:96
-            cs_pin,
- 25e:	9917      	ldr	r1, [sp, #92]	; 0x5c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:94
-        MynewtSPI {
- 260:	9019      	str	r0, [sp, #100]	; 0x64
- 262:	911a      	str	r1, [sp, #104]	; 0x68
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:98
-        }
-    }
- 264:	9819      	ldr	r0, [sp, #100]	; 0x64
- 266:	991a      	ldr	r1, [sp, #104]	; 0x68
- 268:	b078      	add	sp, #480	; 0x1e0
- 26a:	bdb0      	pop	{r4, r5, r7, pc}
- 26c:	a86d      	add	r0, sp, #436	; 0x1b4
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:93
-        assert_eq!(rc, 0, "spi init fail");
- 26e:	906a      	str	r0, [sp, #424]	; 0x1a8
- 270:	a86e      	add	r0, sp, #440	; 0x1b8
- 272:	906b      	str	r0, [sp, #428]	; 0x1ac
- 274:	a86f      	add	r0, sp, #444	; 0x1bc
- 276:	906c      	str	r0, [sp, #432]	; 0x1b0
- 278:	986a      	ldr	r0, [sp, #424]	; 0x1a8
- 27a:	9075      	str	r0, [sp, #468]	; 0x1d4
- 27c:	986b      	ldr	r0, [sp, #428]	; 0x1ac
- 27e:	9076      	str	r0, [sp, #472]	; 0x1d8
- 280:	986c      	ldr	r0, [sp, #432]	; 0x1b0
- 282:	9077      	str	r0, [sp, #476]	; 0x1dc
- 284:	9875      	ldr	r0, [sp, #468]	; 0x1d4
- 286:	f240 0100 	movw	r1, #0
- 28a:	f2c0 0100 	movt	r1, #0
- 28e:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E>
- 292:	9006      	str	r0, [sp, #24]
- 294:	9105      	str	r1, [sp, #20]
- 296:	e7ff      	b.n	298 <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x298>
- 298:	9876      	ldr	r0, [sp, #472]	; 0x1d8
- 29a:	f240 0100 	movw	r1, #0
- 29e:	f2c0 0100 	movt	r1, #0
- 2a2:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E>
- 2a6:	9004      	str	r0, [sp, #16]
- 2a8:	9103      	str	r1, [sp, #12]
- 2aa:	e7ff      	b.n	2ac <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x2ac>
- 2ac:	9877      	ldr	r0, [sp, #476]	; 0x1dc
- 2ae:	f240 0100 	movw	r1, #0
- 2b2:	f2c0 0100 	movt	r1, #0
- 2b6:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h87b4fa2381289522E>
- 2ba:	9002      	str	r0, [sp, #8]
- 2bc:	9101      	str	r1, [sp, #4]
- 2be:	e7ff      	b.n	2c0 <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x2c0>
- 2c0:	9806      	ldr	r0, [sp, #24]
- 2c2:	9064      	str	r0, [sp, #400]	; 0x190
- 2c4:	9905      	ldr	r1, [sp, #20]
- 2c6:	9165      	str	r1, [sp, #404]	; 0x194
- 2c8:	9a04      	ldr	r2, [sp, #16]
- 2ca:	9266      	str	r2, [sp, #408]	; 0x198
- 2cc:	9b03      	ldr	r3, [sp, #12]
- 2ce:	9367      	str	r3, [sp, #412]	; 0x19c
- 2d0:	f8dd c008 	ldr.w	ip, [sp, #8]
- 2d4:	f8cd c1a0 	str.w	ip, [sp, #416]	; 0x1a0
- 2d8:	f8dd e004 	ldr.w	lr, [sp, #4]
- 2dc:	f8cd e1a4 	str.w	lr, [sp, #420]	; 0x1a4
- 2e0:	466c      	mov	r4, sp
- 2e2:	2503      	movs	r5, #3
- 2e4:	6025      	str	r5, [r4, #0]
- 2e6:	f240 0100 	movw	r1, #0
- 2ea:	f2c0 0100 	movt	r1, #0
- 2ee:	a85e      	add	r0, sp, #376	; 0x178
- 2f0:	ab64      	add	r3, sp, #400	; 0x190
- 2f2:	462a      	mov	r2, r5
- 2f4:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE>
- 2f8:	e7ff      	b.n	2 <_ZN3app7display9MynewtSPI3new17h111ff6bed07d2bc8E+0x2>
- 2fa:	f240 0100 	movw	r1, #0
- 2fe:	f2c0 0100 	movt	r1, #0
- 302:	a85e      	add	r0, sp, #376	; 0x178
- 304:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
- 308:	defe      	udf	#254	; 0xfe
-
-Disassembly of section .text._ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h1fcdecc5282f5d9cE:
-
-00000000 <_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h1fcdecc5282f5d9cE>:
-_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h1fcdecc5282f5d9cE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:104
-}
-
-/// Rust Embedded HAL interface for Mynewt SPI
-impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
-    /// Write to the SPI port
-    fn write(&mut self, words: &[u8]) -> Result<(), Self::Error> {
-   0:	b580      	push	{r7, lr}
-   2:	b090      	sub	sp, #64	; 0x40
-   4:	4613      	mov	r3, r2
-   6:	468c      	mov	ip, r1
-   8:	4686      	mov	lr, r0
-   a:	900a      	str	r0, [sp, #40]	; 0x28
-   c:	910b      	str	r1, [sp, #44]	; 0x2c
-   e:	920c      	str	r2, [sp, #48]	; 0x30
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:106
-        //  Select the device
-        unsafe { hal::hal_gpio_write(self.cs_pin, 0) };
-  10:	980a      	ldr	r0, [sp, #40]	; 0x28
-  12:	6840      	ldr	r0, [r0, #4]
-  14:	2100      	movs	r1, #0
-  16:	9309      	str	r3, [sp, #36]	; 0x24
-  18:	f8cd c020 	str.w	ip, [sp, #32]
-  1c:	f8cd e01c 	str.w	lr, [sp, #28]
-  20:	f7ff fffe 	bl	0 <hal_gpio_write>
-  24:	e7ff      	b.n	26 <_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h1fcdecc5282f5d9cE+0x26>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:108
-        //  Send the data
-        unsafe { hal::hal_spi_txrx(self.spi_num, 
-  26:	980a      	ldr	r0, [sp, #40]	; 0x28
-  28:	6800      	ldr	r0, [r0, #0]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:109
-            core::mem::transmute(words.as_ptr()),  //  TX Buffer
-  2a:	990b      	ldr	r1, [sp, #44]	; 0x2c
-  2c:	9a0c      	ldr	r2, [sp, #48]	; 0x30
-  2e:	9006      	str	r0, [sp, #24]
-  30:	4608      	mov	r0, r1
-  32:	4611      	mov	r1, r2
-  34:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17he59896ae2e279711E>
-  38:	9005      	str	r0, [sp, #20]
-  3a:	e7ff      	b.n	3c <_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h1fcdecc5282f5d9cE+0x3c>
-  3c:	9805      	ldr	r0, [sp, #20]
-  3e:	900f      	str	r0, [sp, #60]	; 0x3c
-  40:	990f      	ldr	r1, [sp, #60]	; 0x3c
-  42:	9104      	str	r1, [sp, #16]
-  44:	e7ff      	b.n	46 <_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h1fcdecc5282f5d9cE+0x46>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:110
-            core::ptr::null_mut(),                 //  RX Buffer (don't receive)
-  46:	f7ff fffe 	bl	0 <_ZN4core3ptr8null_mut17h58cf134f3f697ee2E>
-  4a:	9003      	str	r0, [sp, #12]
-  4c:	e7ff      	b.n	4e <_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h1fcdecc5282f5d9cE+0x4e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:111
-            words.len() as i32) };                 //  Length
-  4e:	980b      	ldr	r0, [sp, #44]	; 0x2c
-  50:	990c      	ldr	r1, [sp, #48]	; 0x30
-  52:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h70be3ebb33ef544dE>
-  56:	9002      	str	r0, [sp, #8]
-  58:	e7ff      	b.n	5a <_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h1fcdecc5282f5d9cE+0x5a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:108
-        unsafe { hal::hal_spi_txrx(self.spi_num, 
-  5a:	9806      	ldr	r0, [sp, #24]
-  5c:	9904      	ldr	r1, [sp, #16]
-  5e:	9a03      	ldr	r2, [sp, #12]
-  60:	9b02      	ldr	r3, [sp, #8]
-  62:	f7ff fffe 	bl	0 <hal_spi_txrx>
-  66:	9001      	str	r0, [sp, #4]
-  68:	e7ff      	b.n	6a <_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h1fcdecc5282f5d9cE+0x6a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:113
-        //  De-select the device
-        unsafe { hal::hal_gpio_write(self.cs_pin, 1) };
-  6a:	980a      	ldr	r0, [sp, #40]	; 0x28
-  6c:	6840      	ldr	r0, [r0, #4]
-  6e:	2101      	movs	r1, #1
-  70:	f7ff fffe 	bl	0 <hal_gpio_write>
-  74:	e7ff      	b.n	76 <_ZN88_$LT$app..display..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h1fcdecc5282f5d9cE+0x76>
-  76:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:114
-        Ok(())
-  78:	900d      	str	r0, [sp, #52]	; 0x34
-  7a:	2001      	movs	r0, #1
-  7c:	900d      	str	r0, [sp, #52]	; 0x34
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:115
-    }
-  7e:	980d      	ldr	r0, [sp, #52]	; 0x34
-  80:	b010      	add	sp, #64	; 0x40
-  82:	bd80      	pop	{r7, pc}
-
-Disassembly of section .text._ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E:
-
-00000000 <_ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E>:
-_ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:124
-}
-
-/// Rust Embedded HAL interface for Mynewt GPIO
-impl MynewtGPIO {
-    /// Create a new output GPIO pin
-    pub fn new(pin: i32) -> Self {
-   0:	b5b0      	push	{r4, r5, r7, lr}
-   2:	b0aa      	sub	sp, #168	; 0xa8
-   4:	4601      	mov	r1, r0
-   6:	9009      	str	r0, [sp, #36]	; 0x24
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:127
-        //  TODO: let dc = pins.d0.into_push_pull_output(&mut pins.port);
-        //  TODO: let rst = pins.d1.into_push_pull_output(&mut pins.port);
-        let rc = unsafe { hal::hal_gpio_init_out(pin, 0) };
-   8:	9809      	ldr	r0, [sp, #36]	; 0x24
-   a:	2200      	movs	r2, #0
-   c:	9108      	str	r1, [sp, #32]
-   e:	4611      	mov	r1, r2
-  10:	f7ff fffe 	bl	0 <hal_gpio_init_out>
-  14:	900b      	str	r0, [sp, #44]	; 0x2c
-  16:	e7ff      	b.n	18 <_ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E+0x18>
-  18:	a80b      	add	r0, sp, #44	; 0x2c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:128
-        assert_eq!(rc, 0, "gpio fail");
-  1a:	900c      	str	r0, [sp, #48]	; 0x30
-  1c:	f240 0000 	movw	r0, #0
-  20:	f2c0 0000 	movt	r0, #0
-  24:	900d      	str	r0, [sp, #52]	; 0x34
-  26:	980c      	ldr	r0, [sp, #48]	; 0x30
-  28:	900e      	str	r0, [sp, #56]	; 0x38
-  2a:	980d      	ldr	r0, [sp, #52]	; 0x34
-  2c:	900f      	str	r0, [sp, #60]	; 0x3c
-  2e:	980e      	ldr	r0, [sp, #56]	; 0x38
-  30:	6800      	ldr	r0, [r0, #0]
-  32:	990f      	ldr	r1, [sp, #60]	; 0x3c
-  34:	6809      	ldr	r1, [r1, #0]
-  36:	4288      	cmp	r0, r1
-  38:	d014      	beq.n	64 <_ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E+0x64>
-  3a:	e7ff      	b.n	3c <_ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E+0x3c>
-  3c:	980e      	ldr	r0, [sp, #56]	; 0x38
-  3e:	901f      	str	r0, [sp, #124]	; 0x7c
-  40:	980f      	ldr	r0, [sp, #60]	; 0x3c
-  42:	9020      	str	r0, [sp, #128]	; 0x80
-  44:	4668      	mov	r0, sp
-  46:	2100      	movs	r1, #0
-  48:	6001      	str	r1, [r0, #0]
-  4a:	f240 0100 	movw	r1, #0
-  4e:	f2c0 0100 	movt	r1, #0
-  52:	f240 0300 	movw	r3, #0
-  56:	f2c0 0300 	movt	r3, #0
-  5a:	a821      	add	r0, sp, #132	; 0x84
-  5c:	2201      	movs	r2, #1
-  5e:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE>
-  62:	e004      	b.n	6e <_ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E+0x6e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:130
-        MynewtGPIO {
-            pin
-  64:	9809      	ldr	r0, [sp, #36]	; 0x24
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:129
-        MynewtGPIO {
-  66:	900a      	str	r0, [sp, #40]	; 0x28
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:132
-        }
-    }
-  68:	980a      	ldr	r0, [sp, #40]	; 0x28
-  6a:	b02a      	add	sp, #168	; 0xa8
-  6c:	bdb0      	pop	{r4, r5, r7, pc}
-  6e:	a81f      	add	r0, sp, #124	; 0x7c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:128
-        assert_eq!(rc, 0, "gpio fail");
-  70:	901c      	str	r0, [sp, #112]	; 0x70
-  72:	a820      	add	r0, sp, #128	; 0x80
-  74:	901d      	str	r0, [sp, #116]	; 0x74
-  76:	a821      	add	r0, sp, #132	; 0x84
-  78:	901e      	str	r0, [sp, #120]	; 0x78
-  7a:	981c      	ldr	r0, [sp, #112]	; 0x70
-  7c:	9027      	str	r0, [sp, #156]	; 0x9c
-  7e:	981d      	ldr	r0, [sp, #116]	; 0x74
-  80:	9028      	str	r0, [sp, #160]	; 0xa0
-  82:	981e      	ldr	r0, [sp, #120]	; 0x78
-  84:	9029      	str	r0, [sp, #164]	; 0xa4
-  86:	9827      	ldr	r0, [sp, #156]	; 0x9c
-  88:	f240 0100 	movw	r1, #0
-  8c:	f2c0 0100 	movt	r1, #0
-  90:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E>
-  94:	9007      	str	r0, [sp, #28]
-  96:	9106      	str	r1, [sp, #24]
-  98:	e7ff      	b.n	9a <_ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E+0x9a>
-  9a:	9828      	ldr	r0, [sp, #160]	; 0xa0
-  9c:	f240 0100 	movw	r1, #0
-  a0:	f2c0 0100 	movt	r1, #0
-  a4:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E>
-  a8:	9005      	str	r0, [sp, #20]
-  aa:	9104      	str	r1, [sp, #16]
-  ac:	e7ff      	b.n	ae <_ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E+0xae>
-  ae:	9829      	ldr	r0, [sp, #164]	; 0xa4
-  b0:	f240 0100 	movw	r1, #0
-  b4:	f2c0 0100 	movt	r1, #0
-  b8:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h87b4fa2381289522E>
-  bc:	9003      	str	r0, [sp, #12]
-  be:	9102      	str	r1, [sp, #8]
-  c0:	e7ff      	b.n	c2 <_ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E+0xc2>
-  c2:	9807      	ldr	r0, [sp, #28]
-  c4:	9016      	str	r0, [sp, #88]	; 0x58
-  c6:	9906      	ldr	r1, [sp, #24]
-  c8:	9117      	str	r1, [sp, #92]	; 0x5c
-  ca:	9a05      	ldr	r2, [sp, #20]
-  cc:	9218      	str	r2, [sp, #96]	; 0x60
-  ce:	9b04      	ldr	r3, [sp, #16]
-  d0:	9319      	str	r3, [sp, #100]	; 0x64
-  d2:	f8dd c00c 	ldr.w	ip, [sp, #12]
-  d6:	f8cd c068 	str.w	ip, [sp, #104]	; 0x68
-  da:	f8dd e008 	ldr.w	lr, [sp, #8]
-  de:	f8cd e06c 	str.w	lr, [sp, #108]	; 0x6c
-  e2:	466c      	mov	r4, sp
-  e4:	2503      	movs	r5, #3
-  e6:	6025      	str	r5, [r4, #0]
-  e8:	f240 0100 	movw	r1, #0
-  ec:	f2c0 0100 	movt	r1, #0
-  f0:	a810      	add	r0, sp, #64	; 0x40
-  f2:	ab16      	add	r3, sp, #88	; 0x58
-  f4:	462a      	mov	r2, r5
-  f6:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE>
-  fa:	e7ff      	b.n	2 <_ZN3app7display10MynewtGPIO3new17h0d3e29f74e3fd916E+0x2>
-  fc:	f240 0100 	movw	r1, #0
- 100:	f2c0 0100 	movt	r1, #0
- 104:	a810      	add	r0, sp, #64	; 0x40
- 106:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
- 10a:	defe      	udf	#254	; 0xfe
-
-Disassembly of section .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E:
-
-00000000 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E>:
-_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:138
-}
-
-/// Rust Embedded HAL interface for Mynewt GPIO
-impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
-    /// Set the GPIO pin to low
-    fn set_low(&mut self) -> Result<(), Self::Error> {
-   0:	b580      	push	{r7, lr}
-   2:	b084      	sub	sp, #16
-   4:	4601      	mov	r1, r0
-   6:	9001      	str	r0, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:139
-        unsafe { hal::hal_gpio_write(self.pin, 0) };
-   8:	9801      	ldr	r0, [sp, #4]
-   a:	6800      	ldr	r0, [r0, #0]
-   c:	2200      	movs	r2, #0
-   e:	9100      	str	r1, [sp, #0]
-  10:	4611      	mov	r1, r2
-  12:	f7ff fffe 	bl	0 <hal_gpio_write>
-  16:	e7ff      	b.n	18 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he68d1ebd36e31b10E+0x18>
-  18:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:140
-        Ok(())
-  1a:	9002      	str	r0, [sp, #8]
-  1c:	2001      	movs	r0, #1
-  1e:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:141
-    }
-  20:	9802      	ldr	r0, [sp, #8]
-  22:	b004      	add	sp, #16
-  24:	bd80      	pop	{r7, pc}
-
-Disassembly of section .text._ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE:
-
-00000000 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE>:
-_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:144
-
-    /// Set the GPIO pin to high
-    fn set_high(&mut self) -> Result<(), Self::Error> {
-   0:	b580      	push	{r7, lr}
-   2:	b084      	sub	sp, #16
-   4:	4601      	mov	r1, r0
-   6:	9001      	str	r0, [sp, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:145
-        unsafe { hal::hal_gpio_write(self.pin, 1) };
-   8:	9801      	ldr	r0, [sp, #4]
-   a:	6800      	ldr	r0, [r0, #0]
-   c:	2201      	movs	r2, #1
-   e:	9100      	str	r1, [sp, #0]
-  10:	4611      	mov	r1, r2
-  12:	f7ff fffe 	bl	0 <hal_gpio_write>
-  16:	e7ff      	b.n	18 <_ZN81_$LT$app..display..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h6934281450d258cbE+0x18>
-  18:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:146
-        Ok(())
-  1a:	9002      	str	r0, [sp, #8]
-  1c:	2001      	movs	r0, #1
-  1e:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:147
-    }
-  20:	9802      	ldr	r0, [sp, #8]
-  22:	b004      	add	sp, #16
-  24:	bd80      	pop	{r7, pc}
-
-Disassembly of section .text._ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E:
-
-00000000 <_ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E>:
-_ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:156
-}
-
-/// Rust Embedded HAL interface for Mynewt Delay
-impl embedded_hal::blocking::delay::DelayMs<u8> for MynewtDelay {
-    /// Sleep for the specified number of milliseconds
-    fn delay_ms(&mut self, ms: u8) {
-   0:	b580      	push	{r7, lr}
-   2:	b088      	sub	sp, #32
-   4:	460a      	mov	r2, r1
-   6:	4603      	mov	r3, r0
-   8:	9005      	str	r0, [sp, #20]
-   a:	f88d 101b 	strb.w	r1, [sp, #27]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:159
-        //  TODO: Get this constant from Mynewt
-        const OS_TICKS_PER_SEC: u32 = 1000;
-        let delay_ticks = (ms as u32) * OS_TICKS_PER_SEC / 1000;
-   e:	f89d 001b 	ldrb.w	r0, [sp, #27]
-  12:	f44f 717a 	mov.w	r1, #1000	; 0x3e8
-  16:	fba0 0101 	umull	r0, r1, r0, r1
-  1a:	2900      	cmp	r1, #0
-  1c:	9204      	str	r2, [sp, #16]
-  1e:	9303      	str	r3, [sp, #12]
-  20:	9002      	str	r0, [sp, #8]
-  22:	d112      	bne.n	4a <_ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E+0x4a>
-  24:	e7ff      	b.n	26 <_ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E+0x26>
-  26:	e7ff      	b.n	28 <_ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E+0x28>
-  28:	f644 50d3 	movw	r0, #19923	; 0x4dd3
-  2c:	f2c1 0062 	movt	r0, #4194	; 0x1062
-  30:	9902      	ldr	r1, [sp, #8]
-  32:	fba1 0200 	umull	r0, r2, r1, r0
-  36:	0992      	lsrs	r2, r2, #6
-  38:	9207      	str	r2, [sp, #28]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:160
-        unsafe { os::os_time_delay(delay_ticks) };
-  3a:	9a07      	ldr	r2, [sp, #28]
-  3c:	9001      	str	r0, [sp, #4]
-  3e:	4610      	mov	r0, r2
-  40:	f7ff fffe 	bl	0 <os_time_delay>
-  44:	e7ff      	b.n	46 <_ZN94_$LT$app..display..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17he8a014b6625c8f91E+0x46>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:161
-    }
-  46:	b008      	add	sp, #32
-  48:	bd80      	pop	{r7, pc}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:159
-        let delay_ticks = (ms as u32) * OS_TICKS_PER_SEC / 1000;
-  4a:	f240 0000 	movw	r0, #0
-  4e:	f2c0 0000 	movt	r0, #0
-  52:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
-  56:	defe      	udf	#254	; 0xfe
 
 app-b8434b356de0ea5d.3l4z2ex1n13xskbg.rcgu.o:     file format elf32-littlearm
 
@@ -10228,6 +9383,924 @@ _ZN4core3mem7size_of17h85cb648434ab4930E():
    c:	9800      	ldr	r0, [sp, #0]
    e:	b002      	add	sp, #8
   10:	4770      	bx	lr
+
+app-b8434b356de0ea5d.3xc1yo2rqryg1tsa.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 3xc1yo2rqryg1tsa
+0000067a l       .debug_str	00000000 
+00000695 l       .debug_str	00000000 
+0000069c l       .debug_str	00000000 
+000006a0 l       .debug_str	00000000 
+000006a9 l       .debug_str	00000000 
+000006b1 l       .debug_str	00000000 
+000006b9 l       .debug_str	00000000 
+000006c0 l       .debug_str	00000000 
+000006d4 l       .debug_str	00000000 
+000006e0 l       .debug_str	00000000 
+000006ec l       .debug_str	00000000 
+00000705 l       .debug_str	00000000 
+0000070a l       .debug_str	00000000 
+0000071b l       .debug_str	00000000 
+00000725 l       .debug_str	00000000 
+00000733 l       .debug_str	00000000 
+00000737 l       .debug_str	00000000 
+00000742 l       .debug_str	00000000 
+00000749 l       .debug_str	00000000 
+0000074f l       .debug_str	00000000 
+00000753 l       .debug_str	00000000 
+00000757 l       .debug_str	00000000 
+0000075f l       .debug_str	00000000 
+00000776 l       .debug_str	00000000 
+0000079a l       .debug_str	00000000 
+000007b6 l       .debug_str	00000000 
+000007c0 l       .debug_str	00000000 
+000007da l       .debug_str	00000000 
+00000838 l       .debug_str	00000000 
+00000843 l       .debug_str	00000000 
+00000860 l       .debug_str	00000000 
+00000879 l       .debug_str	00000000 
+00000883 l       .debug_str	00000000 
+00000899 l       .debug_str	00000000 
+0000089e l       .debug_str	00000000 
+000008be l       .debug_str	00000000 
+000008c4 l       .debug_str	00000000 
+000008ca l       .debug_str	00000000 
+000008eb l       .debug_str	00000000 
+000008f7 l       .debug_str	00000000 
+00000919 l       .debug_str	00000000 
+0000091c l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000055 l       .debug_str	00000000 
+00000085 l       .debug_str	00000000 
+0000008a l       .debug_str	00000000 
+0000008e l       .debug_str	00000000 
+00000091 l       .debug_str	00000000 
+00000094 l       .debug_str	00000000 
+00000097 l       .debug_str	00000000 
+0000009c l       .debug_str	00000000 
+000000a2 l       .debug_str	00000000 
+000000a9 l       .debug_str	00000000 
+000000b1 l       .debug_str	00000000 
+000000bb l       .debug_str	00000000 
+000000c2 l       .debug_str	00000000 
+000000c5 l       .debug_str	00000000 
+000000c9 l       .debug_str	00000000 
+000000d0 l       .debug_str	00000000 
+000000d7 l       .debug_str	00000000 
+000000db l       .debug_str	00000000 
+000000e3 l       .debug_str	00000000 
+000000ee l       .debug_str	00000000 
+000000f9 l       .debug_str	00000000 
+00000106 l       .debug_str	00000000 
+00000111 l       .debug_str	00000000 
+00000119 l       .debug_str	00000000 
+00000124 l       .debug_str	00000000 
+0000012f l       .debug_str	00000000 
+00000139 l       .debug_str	00000000 
+00000144 l       .debug_str	00000000 
+0000014f l       .debug_str	00000000 
+0000015c l       .debug_str	00000000 
+00000168 l       .debug_str	00000000 
+00000175 l       .debug_str	00000000 
+00000183 l       .debug_str	00000000 
+0000018d l       .debug_str	00000000 
+0000019a l       .debug_str	00000000 
+000001a6 l       .debug_str	00000000 
+000001aa l       .debug_str	00000000 
+000001b5 l       .debug_str	00000000 
+000001bd l       .debug_str	00000000 
+000001c4 l       .debug_str	00000000 
+000001ce l       .debug_str	00000000 
+000001d7 l       .debug_str	00000000 
+000001db l       .debug_str	00000000 
+000001e6 l       .debug_str	00000000 
+0000021c l       .debug_str	00000000 
+00000220 l       .debug_str	00000000 
+0000029b l       .debug_str	00000000 
+000002a1 l       .debug_str	00000000 
+000002a5 l       .debug_str	00000000 
+000002a9 l       .debug_str	00000000 
+000002ac l       .debug_str	00000000 
+000002ae l       .debug_str	00000000 
+000002b0 l       .debug_str	00000000 
+000002d8 l       .debug_str	00000000 
+00000310 l       .debug_str	00000000 
+00000386 l       .debug_str	00000000 
+0000038e l       .debug_str	00000000 
+00000405 l       .debug_str	00000000 
+0000040e l       .debug_str	00000000 
+00000492 l       .debug_str	00000000 
+0000049b l       .debug_str	00000000 
+000004a8 l       .debug_str	00000000 
+000004ab l       .debug_str	00000000 
+000004af l       .debug_str	00000000 
+000004b9 l       .debug_str	00000000 
+000004c4 l       .debug_str	00000000 
+000004ce l       .debug_str	00000000 
+000004d7 l       .debug_str	00000000 
+000004e8 l       .debug_str	00000000 
+0000050f l       .debug_str	00000000 
+00000512 l       .debug_str	00000000 
+0000051b l       .debug_str	00000000 
+00000520 l       .debug_str	00000000 
+0000052a l       .debug_str	00000000 
+0000052f l       .debug_str	00000000 
+00000535 l       .debug_str	00000000 
+0000053a l       .debug_str	00000000 
+0000053f l       .debug_str	00000000 
+00000546 l       .debug_str	00000000 
+0000054f l       .debug_str	00000000 
+00000559 l       .debug_str	00000000 
+00000560 l       .debug_str	00000000 
+00000566 l       .debug_str	00000000 
+0000056b l       .debug_str	00000000 
+00000577 l       .debug_str	00000000 
+0000057f l       .debug_str	00000000 
+00000586 l       .debug_str	00000000 
+0000058b l       .debug_str	00000000 
+00000594 l       .debug_str	00000000 
+00000599 l       .debug_str	00000000 
+0000059c l       .debug_str	00000000 
+000005a5 l       .debug_str	00000000 
+000005ac l       .debug_str	00000000 
+000005b1 l       .debug_str	00000000 
+000005b6 l       .debug_str	00000000 
+000005bc l       .debug_str	00000000 
+000005c2 l       .debug_str	00000000 
+000005cc l       .debug_str	00000000 
+000005cf l       .debug_str	00000000 
+000005d5 l       .debug_str	00000000 
+000005df l       .debug_str	00000000 
+000005e7 l       .debug_str	00000000 
+000005ed l       .debug_str	00000000 
+000005f3 l       .debug_str	00000000 
+000005fe l       .debug_str	00000000 
+00000607 l       .debug_str	00000000 
+0000062a l       .debug_str	00000000 
+00000649 l       .debug_str	00000000 
+0000064e l       .debug_str	00000000 
+00000675 l       .debug_str	00000000 
+00000680 l       .debug_str	00000000 
+00000686 l       .debug_str	00000000 
+00000000 l     O .rodata.cst4	00000004 .Lanon.88fa30752ae8462a3955f22a791ff141.0
+00000000 l     O .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.11	00000008 .Lanon.88fa30752ae8462a3955f22a791ff141.11
+00000000 l     O .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.12	00000010 .Lanon.88fa30752ae8462a3955f22a791ff141.12
+00000000 l     O .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.14	00000008 .Lanon.88fa30752ae8462a3955f22a791ff141.14
+00000000 l     O .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.15	00000010 .Lanon.88fa30752ae8462a3955f22a791ff141.15
+00000000 l     O .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.17	00000008 .Lanon.88fa30752ae8462a3955f22a791ff141.17
+00000000 l     O .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.18	00000010 .Lanon.88fa30752ae8462a3955f22a791ff141.18
+00000000 l     O .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.19	00000018 .Lanon.88fa30752ae8462a3955f22a791ff141.19
+00000000 l     O .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.4	00000018 .Lanon.88fa30752ae8462a3955f22a791ff141.4
+00000000 l     O .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.6	00000008 .Lanon.88fa30752ae8462a3955f22a791ff141.6
+00000000 l     O .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.7	00000000 .Lanon.88fa30752ae8462a3955f22a791ff141.7
+00000000 l     O .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.9	00000010 .Lanon.88fa30752ae8462a3955f22a791ff141.9
+00000000 l     O .rodata.str.0	0000001a str.0
+00000000 l     O .rodata.str.1	00000021 str.1
+00000000 l    d  .text._ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E	00000000 .text._ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E
+00000000 l    d  .text._ZN91_$LT$app..mynewt_hal..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h09ed721f103ba8b3E	00000000 .text._ZN91_$LT$app..mynewt_hal..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h09ed721f103ba8b3E
+00000000 l    d  .text._ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E	00000000 .text._ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E
+00000000 l    d  .text._ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE	00000000 .text._ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE
+00000000 l    d  .text._ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E	00000000 .text._ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E
+00000000 l    d  .text._ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E	00000000 .text._ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
+00000000 l    d  .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.1	00000000 .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.1
+00000000 l    d  .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.2	00000000 .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.2
+00000000 l    d  .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.3	00000000 .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.3
+00000000 l    d  .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.5	00000000 .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.5
+00000000 l    d  .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.8	00000000 .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.8
+00000000 l    d  .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.10	00000000 .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.10
+00000000 l    d  .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.13	00000000 .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.13
+00000000 l    d  .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.16	00000000 .rodata..Lanon.88fa30752ae8462a3955f22a791ff141.16
+00000000 l    d  .rodata.str.0	00000000 .rodata.str.0
+00000000 l    d  .rodata.str.1	00000000 .rodata.str.1
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E	0000010c .hidden _ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E
+00000000 g     F .text._ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E	0000030a .hidden _ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E
+00000000         *UND*	00000000 _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h9f5638675334182dE
+00000000         *UND*	00000000 _ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E
+00000000         *UND*	00000000 _ZN4core3fmt10ArgumentV13new17h87b4fa2381289522E
+00000000         *UND*	00000000 .hidden _ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE
+00000000         *UND*	00000000 _ZN4core3ptr8null_mut17h58cf134f3f697ee2E
+00000000         *UND*	00000000 _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h70be3ebb33ef544dE
+00000000         *UND*	00000000 _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17he59896ae2e279711E
+00000000         *UND*	00000000 _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+00000000         *UND*	00000000 _ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E
+00000000         *UND*	00000000 _ZN59_$LT$core..fmt..Arguments$u20$as$u20$core..fmt..Display$GT$3fmt17h3e269ca172b8335aE
+00000000 g     F .text._ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE	00000026 _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE
+00000000 g     F .text._ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E	00000026 _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E
+00000000 g     F .text._ZN91_$LT$app..mynewt_hal..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h09ed721f103ba8b3E	00000084 _ZN91_$LT$app..mynewt_hal..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h09ed721f103ba8b3E
+00000000 g     F .text._ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E	00000058 _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
+00000000         *UND*	00000000 hal_gpio_init_out
+00000000         *UND*	00000000 hal_gpio_write
+00000000         *UND*	00000000 hal_spi_config
+00000000         *UND*	00000000 hal_spi_enable
+00000000         *UND*	00000000 hal_spi_txrx
+00000000         *UND*	00000000 os_time_delay
+
+
+
+Disassembly of section .text._ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E:
+
+00000000 <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E>:
+_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:10
+};
+
+/// Rust Embedded HAL interface for Mynewt SPI
+impl MynewtSPI {
+    /// Create a new SPI port
+    pub fn new(spi_num: i32, cs_pin: i32, spi_settings: *mut hal::hal_spi_settings) -> Self {
+   0:	b5b0      	push	{r4, r5, r7, lr}
+   2:	b0f8      	sub	sp, #480	; 0x1e0
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9016      	str	r0, [sp, #88]	; 0x58
+   c:	9117      	str	r1, [sp, #92]	; 0x5c
+   e:	9218      	str	r2, [sp, #96]	; 0x60
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:11
+        let rc = unsafe { hal::hal_spi_config(spi_num, spi_settings) };
+  10:	9816      	ldr	r0, [sp, #88]	; 0x58
+  12:	9918      	ldr	r1, [sp, #96]	; 0x60
+  14:	9315      	str	r3, [sp, #84]	; 0x54
+  16:	f8cd c050 	str.w	ip, [sp, #80]	; 0x50
+  1a:	f8cd e04c 	str.w	lr, [sp, #76]	; 0x4c
+  1e:	f7ff fffe 	bl	0 <hal_spi_config>
+  22:	901b      	str	r0, [sp, #108]	; 0x6c
+  24:	e7ff      	b.n	26 <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x26>
+  26:	a81b      	add	r0, sp, #108	; 0x6c
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:12
+        assert_eq!(rc, 0, "spi config fail");
+  28:	901c      	str	r0, [sp, #112]	; 0x70
+  2a:	f240 0000 	movw	r0, #0
+  2e:	f2c0 0000 	movt	r0, #0
+  32:	901d      	str	r0, [sp, #116]	; 0x74
+  34:	981c      	ldr	r0, [sp, #112]	; 0x70
+  36:	901e      	str	r0, [sp, #120]	; 0x78
+  38:	981d      	ldr	r0, [sp, #116]	; 0x74
+  3a:	901f      	str	r0, [sp, #124]	; 0x7c
+  3c:	981e      	ldr	r0, [sp, #120]	; 0x78
+  3e:	6800      	ldr	r0, [r0, #0]
+  40:	991f      	ldr	r1, [sp, #124]	; 0x7c
+  42:	6809      	ldr	r1, [r1, #0]
+  44:	4288      	cmp	r0, r1
+  46:	d014      	beq.n	72 <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x72>
+  48:	e7ff      	b.n	4a <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x4a>
+  4a:	981e      	ldr	r0, [sp, #120]	; 0x78
+  4c:	902f      	str	r0, [sp, #188]	; 0xbc
+  4e:	981f      	ldr	r0, [sp, #124]	; 0x7c
+  50:	9030      	str	r0, [sp, #192]	; 0xc0
+  52:	4668      	mov	r0, sp
+  54:	2100      	movs	r1, #0
+  56:	6001      	str	r1, [r0, #0]
+  58:	f240 0100 	movw	r1, #0
+  5c:	f2c0 0100 	movt	r1, #0
+  60:	f240 0300 	movw	r3, #0
+  64:	f2c0 0300 	movt	r3, #0
+  68:	a831      	add	r0, sp, #196	; 0xc4
+  6a:	2201      	movs	r2, #1
+  6c:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE>
+  70:	e004      	b.n	7c <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x7c>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:14
+
+        let rc = unsafe { hal::hal_spi_enable(spi_num) };
+  72:	9816      	ldr	r0, [sp, #88]	; 0x58
+  74:	f7ff fffe 	bl	0 <hal_spi_enable>
+  78:	903a      	str	r0, [sp, #232]	; 0xe8
+  7a:	e04e      	b.n	11a <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x11a>
+  7c:	a82f      	add	r0, sp, #188	; 0xbc
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:12
+        assert_eq!(rc, 0, "spi config fail");
+  7e:	902c      	str	r0, [sp, #176]	; 0xb0
+  80:	a830      	add	r0, sp, #192	; 0xc0
+  82:	902d      	str	r0, [sp, #180]	; 0xb4
+  84:	a831      	add	r0, sp, #196	; 0xc4
+  86:	902e      	str	r0, [sp, #184]	; 0xb8
+  88:	982c      	ldr	r0, [sp, #176]	; 0xb0
+  8a:	9037      	str	r0, [sp, #220]	; 0xdc
+  8c:	982d      	ldr	r0, [sp, #180]	; 0xb4
+  8e:	9038      	str	r0, [sp, #224]	; 0xe0
+  90:	982e      	ldr	r0, [sp, #184]	; 0xb8
+  92:	9039      	str	r0, [sp, #228]	; 0xe4
+  94:	9837      	ldr	r0, [sp, #220]	; 0xdc
+  96:	f240 0100 	movw	r1, #0
+  9a:	f2c0 0100 	movt	r1, #0
+  9e:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E>
+  a2:	9012      	str	r0, [sp, #72]	; 0x48
+  a4:	9111      	str	r1, [sp, #68]	; 0x44
+  a6:	e7ff      	b.n	a8 <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0xa8>
+  a8:	9838      	ldr	r0, [sp, #224]	; 0xe0
+  aa:	f240 0100 	movw	r1, #0
+  ae:	f2c0 0100 	movt	r1, #0
+  b2:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E>
+  b6:	9010      	str	r0, [sp, #64]	; 0x40
+  b8:	910f      	str	r1, [sp, #60]	; 0x3c
+  ba:	e7ff      	b.n	bc <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0xbc>
+  bc:	9839      	ldr	r0, [sp, #228]	; 0xe4
+  be:	f240 0100 	movw	r1, #0
+  c2:	f2c0 0100 	movt	r1, #0
+  c6:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h87b4fa2381289522E>
+  ca:	900e      	str	r0, [sp, #56]	; 0x38
+  cc:	910d      	str	r1, [sp, #52]	; 0x34
+  ce:	e7ff      	b.n	d0 <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0xd0>
+  d0:	9812      	ldr	r0, [sp, #72]	; 0x48
+  d2:	9026      	str	r0, [sp, #152]	; 0x98
+  d4:	9911      	ldr	r1, [sp, #68]	; 0x44
+  d6:	9127      	str	r1, [sp, #156]	; 0x9c
+  d8:	9a10      	ldr	r2, [sp, #64]	; 0x40
+  da:	9228      	str	r2, [sp, #160]	; 0xa0
+  dc:	9b0f      	ldr	r3, [sp, #60]	; 0x3c
+  de:	9329      	str	r3, [sp, #164]	; 0xa4
+  e0:	f8dd c038 	ldr.w	ip, [sp, #56]	; 0x38
+  e4:	f8cd c0a8 	str.w	ip, [sp, #168]	; 0xa8
+  e8:	f8dd e034 	ldr.w	lr, [sp, #52]	; 0x34
+  ec:	f8cd e0ac 	str.w	lr, [sp, #172]	; 0xac
+  f0:	466c      	mov	r4, sp
+  f2:	2503      	movs	r5, #3
+  f4:	6025      	str	r5, [r4, #0]
+  f6:	f240 0100 	movw	r1, #0
+  fa:	f2c0 0100 	movt	r1, #0
+  fe:	a820      	add	r0, sp, #128	; 0x80
+ 100:	ab26      	add	r3, sp, #152	; 0x98
+ 102:	462a      	mov	r2, r5
+ 104:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE>
+ 108:	e7ff      	b.n	2 <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x2>
+ 10a:	f240 0100 	movw	r1, #0
+ 10e:	f2c0 0100 	movt	r1, #0
+ 112:	a820      	add	r0, sp, #128	; 0x80
+ 114:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
+ 118:	defe      	udf	#254	; 0xfe
+ 11a:	a83a      	add	r0, sp, #232	; 0xe8
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:15
+        assert_eq!(rc, 0, "spi enable fail");
+ 11c:	903b      	str	r0, [sp, #236]	; 0xec
+ 11e:	f240 0000 	movw	r0, #0
+ 122:	f2c0 0000 	movt	r0, #0
+ 126:	903c      	str	r0, [sp, #240]	; 0xf0
+ 128:	983b      	ldr	r0, [sp, #236]	; 0xec
+ 12a:	903d      	str	r0, [sp, #244]	; 0xf4
+ 12c:	983c      	ldr	r0, [sp, #240]	; 0xf0
+ 12e:	903e      	str	r0, [sp, #248]	; 0xf8
+ 130:	983d      	ldr	r0, [sp, #244]	; 0xf4
+ 132:	6800      	ldr	r0, [r0, #0]
+ 134:	993e      	ldr	r1, [sp, #248]	; 0xf8
+ 136:	6809      	ldr	r1, [r1, #0]
+ 138:	4288      	cmp	r0, r1
+ 13a:	d014      	beq.n	166 <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x166>
+ 13c:	e7ff      	b.n	13e <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x13e>
+ 13e:	983d      	ldr	r0, [sp, #244]	; 0xf4
+ 140:	904e      	str	r0, [sp, #312]	; 0x138
+ 142:	983e      	ldr	r0, [sp, #248]	; 0xf8
+ 144:	904f      	str	r0, [sp, #316]	; 0x13c
+ 146:	4668      	mov	r0, sp
+ 148:	2100      	movs	r1, #0
+ 14a:	6001      	str	r1, [r0, #0]
+ 14c:	f240 0100 	movw	r1, #0
+ 150:	f2c0 0100 	movt	r1, #0
+ 154:	f240 0300 	movw	r3, #0
+ 158:	f2c0 0300 	movt	r3, #0
+ 15c:	a850      	add	r0, sp, #320	; 0x140
+ 15e:	2201      	movs	r2, #1
+ 160:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE>
+ 164:	e005      	b.n	172 <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x172>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:17
+
+        let rc = unsafe { hal::hal_gpio_init_out(cs_pin, 1) };
+ 166:	9817      	ldr	r0, [sp, #92]	; 0x5c
+ 168:	2101      	movs	r1, #1
+ 16a:	f7ff fffe 	bl	0 <hal_gpio_init_out>
+ 16e:	9059      	str	r0, [sp, #356]	; 0x164
+ 170:	e04e      	b.n	210 <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x210>
+ 172:	a84e      	add	r0, sp, #312	; 0x138
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:15
+        assert_eq!(rc, 0, "spi enable fail");
+ 174:	904b      	str	r0, [sp, #300]	; 0x12c
+ 176:	a84f      	add	r0, sp, #316	; 0x13c
+ 178:	904c      	str	r0, [sp, #304]	; 0x130
+ 17a:	a850      	add	r0, sp, #320	; 0x140
+ 17c:	904d      	str	r0, [sp, #308]	; 0x134
+ 17e:	984b      	ldr	r0, [sp, #300]	; 0x12c
+ 180:	9056      	str	r0, [sp, #344]	; 0x158
+ 182:	984c      	ldr	r0, [sp, #304]	; 0x130
+ 184:	9057      	str	r0, [sp, #348]	; 0x15c
+ 186:	984d      	ldr	r0, [sp, #308]	; 0x134
+ 188:	9058      	str	r0, [sp, #352]	; 0x160
+ 18a:	9856      	ldr	r0, [sp, #344]	; 0x158
+ 18c:	f240 0100 	movw	r1, #0
+ 190:	f2c0 0100 	movt	r1, #0
+ 194:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E>
+ 198:	900c      	str	r0, [sp, #48]	; 0x30
+ 19a:	910b      	str	r1, [sp, #44]	; 0x2c
+ 19c:	e7ff      	b.n	19e <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x19e>
+ 19e:	9857      	ldr	r0, [sp, #348]	; 0x15c
+ 1a0:	f240 0100 	movw	r1, #0
+ 1a4:	f2c0 0100 	movt	r1, #0
+ 1a8:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E>
+ 1ac:	900a      	str	r0, [sp, #40]	; 0x28
+ 1ae:	9109      	str	r1, [sp, #36]	; 0x24
+ 1b0:	e7ff      	b.n	1b2 <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x1b2>
+ 1b2:	9858      	ldr	r0, [sp, #352]	; 0x160
+ 1b4:	f240 0100 	movw	r1, #0
+ 1b8:	f2c0 0100 	movt	r1, #0
+ 1bc:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h87b4fa2381289522E>
+ 1c0:	9008      	str	r0, [sp, #32]
+ 1c2:	9107      	str	r1, [sp, #28]
+ 1c4:	e7ff      	b.n	1c6 <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x1c6>
+ 1c6:	980c      	ldr	r0, [sp, #48]	; 0x30
+ 1c8:	9045      	str	r0, [sp, #276]	; 0x114
+ 1ca:	990b      	ldr	r1, [sp, #44]	; 0x2c
+ 1cc:	9146      	str	r1, [sp, #280]	; 0x118
+ 1ce:	9a0a      	ldr	r2, [sp, #40]	; 0x28
+ 1d0:	9247      	str	r2, [sp, #284]	; 0x11c
+ 1d2:	9b09      	ldr	r3, [sp, #36]	; 0x24
+ 1d4:	9348      	str	r3, [sp, #288]	; 0x120
+ 1d6:	f8dd c020 	ldr.w	ip, [sp, #32]
+ 1da:	f8cd c124 	str.w	ip, [sp, #292]	; 0x124
+ 1de:	f8dd e01c 	ldr.w	lr, [sp, #28]
+ 1e2:	f8cd e128 	str.w	lr, [sp, #296]	; 0x128
+ 1e6:	466c      	mov	r4, sp
+ 1e8:	2503      	movs	r5, #3
+ 1ea:	6025      	str	r5, [r4, #0]
+ 1ec:	f240 0100 	movw	r1, #0
+ 1f0:	f2c0 0100 	movt	r1, #0
+ 1f4:	a83f      	add	r0, sp, #252	; 0xfc
+ 1f6:	ab45      	add	r3, sp, #276	; 0x114
+ 1f8:	462a      	mov	r2, r5
+ 1fa:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE>
+ 1fe:	e7ff      	b.n	2 <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x2>
+ 200:	f240 0100 	movw	r1, #0
+ 204:	f2c0 0100 	movt	r1, #0
+ 208:	a83f      	add	r0, sp, #252	; 0xfc
+ 20a:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
+ 20e:	defe      	udf	#254	; 0xfe
+ 210:	a859      	add	r0, sp, #356	; 0x164
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:18
+        assert_eq!(rc, 0, "spi init fail");
+ 212:	905a      	str	r0, [sp, #360]	; 0x168
+ 214:	f240 0000 	movw	r0, #0
+ 218:	f2c0 0000 	movt	r0, #0
+ 21c:	905b      	str	r0, [sp, #364]	; 0x16c
+ 21e:	985a      	ldr	r0, [sp, #360]	; 0x168
+ 220:	905c      	str	r0, [sp, #368]	; 0x170
+ 222:	985b      	ldr	r0, [sp, #364]	; 0x16c
+ 224:	905d      	str	r0, [sp, #372]	; 0x174
+ 226:	985c      	ldr	r0, [sp, #368]	; 0x170
+ 228:	6800      	ldr	r0, [r0, #0]
+ 22a:	995d      	ldr	r1, [sp, #372]	; 0x174
+ 22c:	6809      	ldr	r1, [r1, #0]
+ 22e:	4288      	cmp	r0, r1
+ 230:	d014      	beq.n	25c <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x25c>
+ 232:	e7ff      	b.n	234 <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x234>
+ 234:	985c      	ldr	r0, [sp, #368]	; 0x170
+ 236:	906d      	str	r0, [sp, #436]	; 0x1b4
+ 238:	985d      	ldr	r0, [sp, #372]	; 0x174
+ 23a:	906e      	str	r0, [sp, #440]	; 0x1b8
+ 23c:	4668      	mov	r0, sp
+ 23e:	2100      	movs	r1, #0
+ 240:	6001      	str	r1, [r0, #0]
+ 242:	f240 0100 	movw	r1, #0
+ 246:	f2c0 0100 	movt	r1, #0
+ 24a:	f240 0300 	movw	r3, #0
+ 24e:	f2c0 0300 	movt	r3, #0
+ 252:	a86f      	add	r0, sp, #444	; 0x1bc
+ 254:	2201      	movs	r2, #1
+ 256:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE>
+ 25a:	e007      	b.n	26c <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x26c>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:20
+        MynewtSPI {
+            spi_num,
+ 25c:	9816      	ldr	r0, [sp, #88]	; 0x58
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:21
+            cs_pin,
+ 25e:	9917      	ldr	r1, [sp, #92]	; 0x5c
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:19
+        MynewtSPI {
+ 260:	9019      	str	r0, [sp, #100]	; 0x64
+ 262:	911a      	str	r1, [sp, #104]	; 0x68
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:23
+        }
+    }
+ 264:	9819      	ldr	r0, [sp, #100]	; 0x64
+ 266:	991a      	ldr	r1, [sp, #104]	; 0x68
+ 268:	b078      	add	sp, #480	; 0x1e0
+ 26a:	bdb0      	pop	{r4, r5, r7, pc}
+ 26c:	a86d      	add	r0, sp, #436	; 0x1b4
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:18
+        assert_eq!(rc, 0, "spi init fail");
+ 26e:	906a      	str	r0, [sp, #424]	; 0x1a8
+ 270:	a86e      	add	r0, sp, #440	; 0x1b8
+ 272:	906b      	str	r0, [sp, #428]	; 0x1ac
+ 274:	a86f      	add	r0, sp, #444	; 0x1bc
+ 276:	906c      	str	r0, [sp, #432]	; 0x1b0
+ 278:	986a      	ldr	r0, [sp, #424]	; 0x1a8
+ 27a:	9075      	str	r0, [sp, #468]	; 0x1d4
+ 27c:	986b      	ldr	r0, [sp, #428]	; 0x1ac
+ 27e:	9076      	str	r0, [sp, #472]	; 0x1d8
+ 280:	986c      	ldr	r0, [sp, #432]	; 0x1b0
+ 282:	9077      	str	r0, [sp, #476]	; 0x1dc
+ 284:	9875      	ldr	r0, [sp, #468]	; 0x1d4
+ 286:	f240 0100 	movw	r1, #0
+ 28a:	f2c0 0100 	movt	r1, #0
+ 28e:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E>
+ 292:	9006      	str	r0, [sp, #24]
+ 294:	9105      	str	r1, [sp, #20]
+ 296:	e7ff      	b.n	298 <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x298>
+ 298:	9876      	ldr	r0, [sp, #472]	; 0x1d8
+ 29a:	f240 0100 	movw	r1, #0
+ 29e:	f2c0 0100 	movt	r1, #0
+ 2a2:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E>
+ 2a6:	9004      	str	r0, [sp, #16]
+ 2a8:	9103      	str	r1, [sp, #12]
+ 2aa:	e7ff      	b.n	2ac <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x2ac>
+ 2ac:	9877      	ldr	r0, [sp, #476]	; 0x1dc
+ 2ae:	f240 0100 	movw	r1, #0
+ 2b2:	f2c0 0100 	movt	r1, #0
+ 2b6:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h87b4fa2381289522E>
+ 2ba:	9002      	str	r0, [sp, #8]
+ 2bc:	9101      	str	r1, [sp, #4]
+ 2be:	e7ff      	b.n	2c0 <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x2c0>
+ 2c0:	9806      	ldr	r0, [sp, #24]
+ 2c2:	9064      	str	r0, [sp, #400]	; 0x190
+ 2c4:	9905      	ldr	r1, [sp, #20]
+ 2c6:	9165      	str	r1, [sp, #404]	; 0x194
+ 2c8:	9a04      	ldr	r2, [sp, #16]
+ 2ca:	9266      	str	r2, [sp, #408]	; 0x198
+ 2cc:	9b03      	ldr	r3, [sp, #12]
+ 2ce:	9367      	str	r3, [sp, #412]	; 0x19c
+ 2d0:	f8dd c008 	ldr.w	ip, [sp, #8]
+ 2d4:	f8cd c1a0 	str.w	ip, [sp, #416]	; 0x1a0
+ 2d8:	f8dd e004 	ldr.w	lr, [sp, #4]
+ 2dc:	f8cd e1a4 	str.w	lr, [sp, #420]	; 0x1a4
+ 2e0:	466c      	mov	r4, sp
+ 2e2:	2503      	movs	r5, #3
+ 2e4:	6025      	str	r5, [r4, #0]
+ 2e6:	f240 0100 	movw	r1, #0
+ 2ea:	f2c0 0100 	movt	r1, #0
+ 2ee:	a85e      	add	r0, sp, #376	; 0x178
+ 2f0:	ab64      	add	r3, sp, #400	; 0x190
+ 2f2:	462a      	mov	r2, r5
+ 2f4:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE>
+ 2f8:	e7ff      	b.n	2 <_ZN3app10mynewt_hal9MynewtSPI3new17h6ce3033c8648b4d8E+0x2>
+ 2fa:	f240 0100 	movw	r1, #0
+ 2fe:	f2c0 0100 	movt	r1, #0
+ 302:	a85e      	add	r0, sp, #376	; 0x178
+ 304:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
+ 308:	defe      	udf	#254	; 0xfe
+
+Disassembly of section .text._ZN91_$LT$app..mynewt_hal..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h09ed721f103ba8b3E:
+
+00000000 <_ZN91_$LT$app..mynewt_hal..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h09ed721f103ba8b3E>:
+_ZN91_$LT$app..mynewt_hal..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h09ed721f103ba8b3E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:29
+}
+
+/// Rust Embedded HAL interface for Mynewt SPI
+impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
+    /// Write to the SPI port
+    fn write(&mut self, words: &[u8]) -> Result<(), Self::Error> {
+   0:	b580      	push	{r7, lr}
+   2:	b090      	sub	sp, #64	; 0x40
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	900a      	str	r0, [sp, #40]	; 0x28
+   c:	910b      	str	r1, [sp, #44]	; 0x2c
+   e:	920c      	str	r2, [sp, #48]	; 0x30
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:31
+        //  Select the device
+        unsafe { hal::hal_gpio_write(self.cs_pin, 0) };
+  10:	980a      	ldr	r0, [sp, #40]	; 0x28
+  12:	6840      	ldr	r0, [r0, #4]
+  14:	2100      	movs	r1, #0
+  16:	9309      	str	r3, [sp, #36]	; 0x24
+  18:	f8cd c020 	str.w	ip, [sp, #32]
+  1c:	f8cd e01c 	str.w	lr, [sp, #28]
+  20:	f7ff fffe 	bl	0 <hal_gpio_write>
+  24:	e7ff      	b.n	26 <_ZN91_$LT$app..mynewt_hal..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h09ed721f103ba8b3E+0x26>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:33
+        //  Send the data
+        unsafe { hal::hal_spi_txrx(self.spi_num, 
+  26:	980a      	ldr	r0, [sp, #40]	; 0x28
+  28:	6800      	ldr	r0, [r0, #0]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:34
+            core::mem::transmute(words.as_ptr()),  //  TX Buffer
+  2a:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  2c:	9a0c      	ldr	r2, [sp, #48]	; 0x30
+  2e:	9006      	str	r0, [sp, #24]
+  30:	4608      	mov	r0, r1
+  32:	4611      	mov	r1, r2
+  34:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$6as_ptr17he59896ae2e279711E>
+  38:	9005      	str	r0, [sp, #20]
+  3a:	e7ff      	b.n	3c <_ZN91_$LT$app..mynewt_hal..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h09ed721f103ba8b3E+0x3c>
+  3c:	9805      	ldr	r0, [sp, #20]
+  3e:	900f      	str	r0, [sp, #60]	; 0x3c
+  40:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  42:	9104      	str	r1, [sp, #16]
+  44:	e7ff      	b.n	46 <_ZN91_$LT$app..mynewt_hal..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h09ed721f103ba8b3E+0x46>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:35
+            core::ptr::null_mut(),                 //  RX Buffer (don't receive)
+  46:	f7ff fffe 	bl	0 <_ZN4core3ptr8null_mut17h58cf134f3f697ee2E>
+  4a:	9003      	str	r0, [sp, #12]
+  4c:	e7ff      	b.n	4e <_ZN91_$LT$app..mynewt_hal..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h09ed721f103ba8b3E+0x4e>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:36
+            words.len() as i32) };                 //  Length
+  4e:	980b      	ldr	r0, [sp, #44]	; 0x2c
+  50:	990c      	ldr	r1, [sp, #48]	; 0x30
+  52:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h70be3ebb33ef544dE>
+  56:	9002      	str	r0, [sp, #8]
+  58:	e7ff      	b.n	5a <_ZN91_$LT$app..mynewt_hal..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h09ed721f103ba8b3E+0x5a>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:33
+        unsafe { hal::hal_spi_txrx(self.spi_num, 
+  5a:	9806      	ldr	r0, [sp, #24]
+  5c:	9904      	ldr	r1, [sp, #16]
+  5e:	9a03      	ldr	r2, [sp, #12]
+  60:	9b02      	ldr	r3, [sp, #8]
+  62:	f7ff fffe 	bl	0 <hal_spi_txrx>
+  66:	9001      	str	r0, [sp, #4]
+  68:	e7ff      	b.n	6a <_ZN91_$LT$app..mynewt_hal..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h09ed721f103ba8b3E+0x6a>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:38
+        //  De-select the device
+        unsafe { hal::hal_gpio_write(self.cs_pin, 1) };
+  6a:	980a      	ldr	r0, [sp, #40]	; 0x28
+  6c:	6840      	ldr	r0, [r0, #4]
+  6e:	2101      	movs	r1, #1
+  70:	f7ff fffe 	bl	0 <hal_gpio_write>
+  74:	e7ff      	b.n	76 <_ZN91_$LT$app..mynewt_hal..MynewtSPI$u20$as$u20$embedded_hal..blocking..spi..Write$LT$u8$GT$$GT$5write17h09ed721f103ba8b3E+0x76>
+  76:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:39
+        Ok(())
+  78:	900d      	str	r0, [sp, #52]	; 0x34
+  7a:	2001      	movs	r0, #1
+  7c:	900d      	str	r0, [sp, #52]	; 0x34
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:40
+    }
+  7e:	980d      	ldr	r0, [sp, #52]	; 0x34
+  80:	b010      	add	sp, #64	; 0x40
+  82:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E:
+
+00000000 <_ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E>:
+_ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:49
+}
+
+/// Rust Embedded HAL interface for Mynewt GPIO
+impl MynewtGPIO {
+    /// Create a new output GPIO pin
+    pub fn new(pin: i32) -> Self {
+   0:	b5b0      	push	{r4, r5, r7, lr}
+   2:	b0aa      	sub	sp, #168	; 0xa8
+   4:	4601      	mov	r1, r0
+   6:	9009      	str	r0, [sp, #36]	; 0x24
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:52
+        //  TODO: let dc = pins.d0.into_push_pull_output(&mut pins.port);
+        //  TODO: let rst = pins.d1.into_push_pull_output(&mut pins.port);
+        let rc = unsafe { hal::hal_gpio_init_out(pin, 0) };
+   8:	9809      	ldr	r0, [sp, #36]	; 0x24
+   a:	2200      	movs	r2, #0
+   c:	9108      	str	r1, [sp, #32]
+   e:	4611      	mov	r1, r2
+  10:	f7ff fffe 	bl	0 <hal_gpio_init_out>
+  14:	900b      	str	r0, [sp, #44]	; 0x2c
+  16:	e7ff      	b.n	18 <_ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E+0x18>
+  18:	a80b      	add	r0, sp, #44	; 0x2c
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:53
+        assert_eq!(rc, 0, "gpio fail");
+  1a:	900c      	str	r0, [sp, #48]	; 0x30
+  1c:	f240 0000 	movw	r0, #0
+  20:	f2c0 0000 	movt	r0, #0
+  24:	900d      	str	r0, [sp, #52]	; 0x34
+  26:	980c      	ldr	r0, [sp, #48]	; 0x30
+  28:	900e      	str	r0, [sp, #56]	; 0x38
+  2a:	980d      	ldr	r0, [sp, #52]	; 0x34
+  2c:	900f      	str	r0, [sp, #60]	; 0x3c
+  2e:	980e      	ldr	r0, [sp, #56]	; 0x38
+  30:	6800      	ldr	r0, [r0, #0]
+  32:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  34:	6809      	ldr	r1, [r1, #0]
+  36:	4288      	cmp	r0, r1
+  38:	d014      	beq.n	64 <_ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E+0x64>
+  3a:	e7ff      	b.n	3c <_ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E+0x3c>
+  3c:	980e      	ldr	r0, [sp, #56]	; 0x38
+  3e:	901f      	str	r0, [sp, #124]	; 0x7c
+  40:	980f      	ldr	r0, [sp, #60]	; 0x3c
+  42:	9020      	str	r0, [sp, #128]	; 0x80
+  44:	4668      	mov	r0, sp
+  46:	2100      	movs	r1, #0
+  48:	6001      	str	r1, [r0, #0]
+  4a:	f240 0100 	movw	r1, #0
+  4e:	f2c0 0100 	movt	r1, #0
+  52:	f240 0300 	movw	r3, #0
+  56:	f2c0 0300 	movt	r3, #0
+  5a:	a821      	add	r0, sp, #132	; 0x84
+  5c:	2201      	movs	r2, #1
+  5e:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE>
+  62:	e004      	b.n	6e <_ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E+0x6e>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:55
+        MynewtGPIO {
+            pin
+  64:	9809      	ldr	r0, [sp, #36]	; 0x24
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:54
+        MynewtGPIO {
+  66:	900a      	str	r0, [sp, #40]	; 0x28
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:57
+        }
+    }
+  68:	980a      	ldr	r0, [sp, #40]	; 0x28
+  6a:	b02a      	add	sp, #168	; 0xa8
+  6c:	bdb0      	pop	{r4, r5, r7, pc}
+  6e:	a81f      	add	r0, sp, #124	; 0x7c
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:53
+        assert_eq!(rc, 0, "gpio fail");
+  70:	901c      	str	r0, [sp, #112]	; 0x70
+  72:	a820      	add	r0, sp, #128	; 0x80
+  74:	901d      	str	r0, [sp, #116]	; 0x74
+  76:	a821      	add	r0, sp, #132	; 0x84
+  78:	901e      	str	r0, [sp, #120]	; 0x78
+  7a:	981c      	ldr	r0, [sp, #112]	; 0x70
+  7c:	9027      	str	r0, [sp, #156]	; 0x9c
+  7e:	981d      	ldr	r0, [sp, #116]	; 0x74
+  80:	9028      	str	r0, [sp, #160]	; 0xa0
+  82:	981e      	ldr	r0, [sp, #120]	; 0x78
+  84:	9029      	str	r0, [sp, #164]	; 0xa4
+  86:	9827      	ldr	r0, [sp, #156]	; 0x9c
+  88:	f240 0100 	movw	r1, #0
+  8c:	f2c0 0100 	movt	r1, #0
+  90:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E>
+  94:	9007      	str	r0, [sp, #28]
+  96:	9106      	str	r1, [sp, #24]
+  98:	e7ff      	b.n	9a <_ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E+0x9a>
+  9a:	9828      	ldr	r0, [sp, #160]	; 0xa0
+  9c:	f240 0100 	movw	r1, #0
+  a0:	f2c0 0100 	movt	r1, #0
+  a4:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E>
+  a8:	9005      	str	r0, [sp, #20]
+  aa:	9104      	str	r1, [sp, #16]
+  ac:	e7ff      	b.n	ae <_ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E+0xae>
+  ae:	9829      	ldr	r0, [sp, #164]	; 0xa4
+  b0:	f240 0100 	movw	r1, #0
+  b4:	f2c0 0100 	movt	r1, #0
+  b8:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17h87b4fa2381289522E>
+  bc:	9003      	str	r0, [sp, #12]
+  be:	9102      	str	r1, [sp, #8]
+  c0:	e7ff      	b.n	c2 <_ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E+0xc2>
+  c2:	9807      	ldr	r0, [sp, #28]
+  c4:	9016      	str	r0, [sp, #88]	; 0x58
+  c6:	9906      	ldr	r1, [sp, #24]
+  c8:	9117      	str	r1, [sp, #92]	; 0x5c
+  ca:	9a05      	ldr	r2, [sp, #20]
+  cc:	9218      	str	r2, [sp, #96]	; 0x60
+  ce:	9b04      	ldr	r3, [sp, #16]
+  d0:	9319      	str	r3, [sp, #100]	; 0x64
+  d2:	f8dd c00c 	ldr.w	ip, [sp, #12]
+  d6:	f8cd c068 	str.w	ip, [sp, #104]	; 0x68
+  da:	f8dd e008 	ldr.w	lr, [sp, #8]
+  de:	f8cd e06c 	str.w	lr, [sp, #108]	; 0x6c
+  e2:	466c      	mov	r4, sp
+  e4:	2503      	movs	r5, #3
+  e6:	6025      	str	r5, [r4, #0]
+  e8:	f240 0100 	movw	r1, #0
+  ec:	f2c0 0100 	movt	r1, #0
+  f0:	a810      	add	r0, sp, #64	; 0x40
+  f2:	ab16      	add	r3, sp, #88	; 0x58
+  f4:	462a      	mov	r2, r5
+  f6:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE>
+  fa:	e7ff      	b.n	2 <_ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E+0x2>
+  fc:	f240 0100 	movw	r1, #0
+ 100:	f2c0 0100 	movt	r1, #0
+ 104:	a810      	add	r0, sp, #64	; 0x40
+ 106:	f7ff fffe 	bl	0 <_ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E>
+ 10a:	defe      	udf	#254	; 0xfe
+
+Disassembly of section .text._ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE:
+
+00000000 <_ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE>:
+_ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:63
+}
+
+/// Rust Embedded HAL interface for Mynewt GPIO
+impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
+    /// Set the GPIO pin to low
+    fn set_low(&mut self) -> Result<(), Self::Error> {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9001      	str	r0, [sp, #4]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:64
+        unsafe { hal::hal_gpio_write(self.pin, 0) };
+   8:	9801      	ldr	r0, [sp, #4]
+   a:	6800      	ldr	r0, [r0, #0]
+   c:	2200      	movs	r2, #0
+   e:	9100      	str	r1, [sp, #0]
+  10:	4611      	mov	r1, r2
+  12:	f7ff fffe 	bl	0 <hal_gpio_write>
+  16:	e7ff      	b.n	18 <_ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE+0x18>
+  18:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:65
+        Ok(())
+  1a:	9002      	str	r0, [sp, #8]
+  1c:	2001      	movs	r0, #1
+  1e:	9002      	str	r0, [sp, #8]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:66
+    }
+  20:	9802      	ldr	r0, [sp, #8]
+  22:	b004      	add	sp, #16
+  24:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E:
+
+00000000 <_ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E>:
+_ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:69
+
+    /// Set the GPIO pin to high
+    fn set_high(&mut self) -> Result<(), Self::Error> {
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	4601      	mov	r1, r0
+   6:	9001      	str	r0, [sp, #4]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:70
+        unsafe { hal::hal_gpio_write(self.pin, 1) };
+   8:	9801      	ldr	r0, [sp, #4]
+   a:	6800      	ldr	r0, [r0, #0]
+   c:	2201      	movs	r2, #1
+   e:	9100      	str	r1, [sp, #0]
+  10:	4611      	mov	r1, r2
+  12:	f7ff fffe 	bl	0 <hal_gpio_write>
+  16:	e7ff      	b.n	18 <_ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E+0x18>
+  18:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:71
+        Ok(())
+  1a:	9002      	str	r0, [sp, #8]
+  1c:	2001      	movs	r0, #1
+  1e:	9002      	str	r0, [sp, #8]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:72
+    }
+  20:	9802      	ldr	r0, [sp, #8]
+  22:	b004      	add	sp, #16
+  24:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E:
+
+00000000 <_ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E>:
+_ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:81
+}
+
+/// Rust Embedded HAL interface for Mynewt Delay
+impl embedded_hal::blocking::delay::DelayMs<u8> for MynewtDelay {
+    /// Sleep for the specified number of milliseconds
+    fn delay_ms(&mut self, ms: u8) {
+   0:	b580      	push	{r7, lr}
+   2:	b088      	sub	sp, #32
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9005      	str	r0, [sp, #20]
+   a:	f88d 101b 	strb.w	r1, [sp, #27]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:84
+        //  TODO: Get this constant from Mynewt
+        const OS_TICKS_PER_SEC: u32 = 1000;
+        let delay_ticks = (ms as u32) * OS_TICKS_PER_SEC / 1000;
+   e:	f89d 001b 	ldrb.w	r0, [sp, #27]
+  12:	f44f 717a 	mov.w	r1, #1000	; 0x3e8
+  16:	fba0 0101 	umull	r0, r1, r0, r1
+  1a:	2900      	cmp	r1, #0
+  1c:	9204      	str	r2, [sp, #16]
+  1e:	9303      	str	r3, [sp, #12]
+  20:	9002      	str	r0, [sp, #8]
+  22:	d112      	bne.n	4a <_ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E+0x4a>
+  24:	e7ff      	b.n	26 <_ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E+0x26>
+  26:	e7ff      	b.n	28 <_ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E+0x28>
+  28:	f644 50d3 	movw	r0, #19923	; 0x4dd3
+  2c:	f2c1 0062 	movt	r0, #4194	; 0x1062
+  30:	9902      	ldr	r1, [sp, #8]
+  32:	fba1 0200 	umull	r0, r2, r1, r0
+  36:	0992      	lsrs	r2, r2, #6
+  38:	9207      	str	r2, [sp, #28]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:85
+        unsafe { os::os_time_delay(delay_ticks) };
+  3a:	9a07      	ldr	r2, [sp, #28]
+  3c:	9001      	str	r0, [sp, #4]
+  3e:	4610      	mov	r0, r2
+  40:	f7ff fffe 	bl	0 <os_time_delay>
+  44:	e7ff      	b.n	46 <_ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E+0x46>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:86
+    }
+  46:	b008      	add	sp, #32
+  48:	bd80      	pop	{r7, pc}
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/mynewt_hal.rs:84
+        let delay_ticks = (ms as u32) * OS_TICKS_PER_SEC / 1000;
+  4a:	f240 0000 	movw	r0, #0
+  4e:	f2c0 0000 	movt	r0, #0
+  52:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
+  56:	defe      	udf	#254	; 0xfe
 
 app-b8434b356de0ea5d.4o4k463sud73nrfj.rcgu.o:     file format elf32-littlearm
 
@@ -13052,6 +13125,7 @@ arm-none-eabi-objdump: app-b8434b356de0ea5d.3j5s3n1ccuhe5j8s.rcgu.bc.z: File for
 arm-none-eabi-objdump: app-b8434b356de0ea5d.3jn3ml4cjsgi16hg.rcgu.bc.z: File format not recognized
 arm-none-eabi-objdump: app-b8434b356de0ea5d.3l4z2ex1n13xskbg.rcgu.bc.z: File format not recognized
 arm-none-eabi-objdump: app-b8434b356de0ea5d.3wiwezkuh1kme3qe.rcgu.bc.z: File format not recognized
+arm-none-eabi-objdump: app-b8434b356de0ea5d.3xc1yo2rqryg1tsa.rcgu.bc.z: File format not recognized
 arm-none-eabi-objdump: app-b8434b356de0ea5d.4o4k463sud73nrfj.rcgu.bc.z: File format not recognized
 arm-none-eabi-objdump: app-b8434b356de0ea5d.4tydmtz0azhqdmnq.rcgu.bc.z: File format not recognized
 arm-none-eabi-objdump: app-b8434b356de0ea5d.4ug6anvcrmxnm3wg.rcgu.bc.z: File format not recognized
