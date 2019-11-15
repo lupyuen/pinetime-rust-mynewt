@@ -33,20 +33,25 @@ syscfg.vals:
     # Enable nRF52832 MCU
     MCU_TARGET: nRF52832
 
-    # Set default pins for peripherals
-    UART_0_PIN_TX: 6
-    UART_0_PIN_RX: 8
+    ###########################################################################
+    # Default Pins for Peripherals
 
     # SPI port 0 connected to ST7789 display
     SPI_0_MASTER_PIN_SCK:  2   # LCD_SCK (P0.02)	SPI clock
     SPI_0_MASTER_PIN_MOSI: 3   # LCD_SDI (P0.03)	SPI MOSI
-    SPI_0_MASTER_PIN_MISO: 11  # Unused
+    SPI_0_MASTER_PIN_MISO: 29  # Unused
 
     # I2C port 1 connected to CST816S touch controller, BMA421 accelerometer, HRS3300 heart rate sensor 
     I2C_1_PIN_SCL: 7  # P0.07: BMA421-SCL, HRS3300-SCL, TP-SCLOUT
     I2C_1_PIN_SDA: 6  # P0.06: BMA421-SDA, HRS3300-SDA, TP-SDAI/O
 
-    # Flash regions
+    # UART port 0 is unused
+    UART_0_PIN_TX: 11  # Unused
+    UART_0_PIN_RX: 17  # Unused
+
+    ###########################################################################
+    # Flash Regions
+
     CONFIG_FCB_FLASH_AREA: FLASH_AREA_NFFS
     REBOOT_LOG_FLASH_AREA: FLASH_AREA_REBOOT_LOG
     NFFS_FLASH_AREA: FLASH_AREA_NFFS
