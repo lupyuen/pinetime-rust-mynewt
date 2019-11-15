@@ -572,7 +572,10 @@ mod app_sensor {
     }
 }
 mod touch_sensor {
+    use embedded_hal::{self, blocking::delay::DelayMs,
+                       digital::v2::OutputPin};
     use mynewt::{result::*, hw::hal, kernel::os, sys::console};
+    use crate::mynewt_hal::{MynewtDelay, MynewtGPIO};
     /// Probe the I2C bus
     pub fn probe() -> MynewtResult<()> {
         for addr in 1..255 {
@@ -591,40 +594,53 @@ mod touch_sensor {
         Ok(())
     }
     pub fn test() -> MynewtResult<()> {
-        let register = 0x22;
-        loop  { read_register(register)?; delay_ms(200); break ; }
+        let mut delay = MynewtDelay{};
+        let mut reset = MynewtGPIO::new(10);
+        reset.set_low()?;
+        delay.delay_ms(20);
+        reset.set_high()?;
+        delay.delay_ms(200);
+        delay.delay_ms(200);
+        let addr = 0x95;
+        let register = 0x00;
+        read_register(addr, register)?;
         Ok(())
     }
-    fn read_register(register: u8) -> MynewtResult<()> {
-        for addr in &[0x18u8, 0x44u8, 0x98u8, 0xc4u8] {
-            unsafe {
-                I2C_BUFFER[0] = register;
-                I2C_DATA.address = *addr;
-                I2C_DATA.len = I2C_BUFFER.len() as u16;
-                I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
-            };
-            let rc =
-                unsafe {
-                    hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0)
-                };
-            unsafe {
-                I2C_BUFFER[0] = 0x00;
-                I2C_DATA.address = *addr;
-                I2C_DATA.len = I2C_BUFFER.len() as u16;
-                I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
-            };
-            let rc =
-                unsafe {
-                    hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1)
-                };
-            console::print("0x");
-            console::printhex(*addr);
-            console::print(": ");
-            console::print("0x");
-            console::printhex(unsafe { I2C_BUFFER[0] });
-            console::print("\n");
-            console::flush();
-        }
+    fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
+        unsafe {
+            I2C_BUFFER[0] = register;
+            I2C_DATA.address = addr;
+            I2C_DATA.len = I2C_BUFFER.len() as u16;
+            I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
+        };
+        let rc =
+            unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };
+        console::print("write 0x");
+        console::printhex(addr);
+        console::print(", rc: ");
+        console::printhex(rc as u8);
+        console::print("\n");
+        console::flush();
+        unsafe {
+            I2C_BUFFER[0] = 0x00;
+            I2C_DATA.address = addr;
+            I2C_DATA.len = I2C_BUFFER.len() as u16;
+            I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
+        };
+        let rc =
+            unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
+        console::print("read 0x");
+        console::printhex(addr);
+        console::print(", rc: ");
+        console::printhex(rc as u8);
+        console::print("\n");
+        console::flush();
+        console::print("value 0x");
+        console::printhex(unsafe { I2C_BUFFER[0] });
+        console::print("\n");
+        console::flush();
+        console::print("Done\n");
+        console::flush();
         Ok(())
     }
     static mut I2C_BUFFER: [u8; 1] = [0];
@@ -632,12 +648,6 @@ mod touch_sensor {
         hal::hal_i2c_master_data{address: 0,
                                  len: 0,
                                  buffer: core::ptr::null_mut(),};
-    /// Sleep for the specified number of milliseconds
-    fn delay_ms(ms: u8) {
-        const OS_TICKS_PER_SEC: u32 = 1000;
-        let delay_ticks = (ms as u32) * OS_TICKS_PER_SEC / 1000;
-        unsafe { os::os_time_delay(delay_ticks) };
-    }
 }
 mod display {
     use embedded_graphics::{prelude::*, fonts, pixelcolor::Rgb565,
@@ -695,7 +705,7 @@ extern "C" fn main() -> ! {
         }
     };
     display::show().expect("DSP fail");
-    touch_sensor::probe().expect("TCH fail");
+    touch_sensor::test().expect("TCH fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }

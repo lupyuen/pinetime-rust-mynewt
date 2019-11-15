@@ -1,8 +1,17 @@
+use embedded_hal::{
+    self,
+    blocking::delay::DelayMs,
+    digital::v2::OutputPin,
+};
 use mynewt::{
     result::*,
     hw::hal,
     kernel::os,
     sys::console,
+};
+use crate::mynewt_hal::{
+    MynewtDelay,
+    MynewtGPIO,
 };
 
 /// Probe the I2C bus
@@ -27,50 +36,51 @@ pub fn probe() -> MynewtResult<()> {
 */
 
 pub fn test() -> MynewtResult<()> {
+    let mut delay = MynewtDelay{};
+    let mut reset = MynewtGPIO::new(10);  //  P0.10/NFC2: TP_RESET
+    reset.set_low() ? ;
+    delay.delay_ms(20);
+    reset.set_high() ? ;
+    delay.delay_ms(200);
+    delay.delay_ms(200);
+
+    // let addr = 0x15;
+    let addr = 0x95;
+
     //  Register to be read
     //  let register = 0xaf;  //  WPR@AFH
-    let register = 0x22;  //  ButtonON@22H
-    loop {
-        read_register(register) ? ;
-        delay_ms(200);
-        break;
-    }
+    //  let register = 0x22;  //  ButtonON@22H
+    let register = 0x00;
+
+    read_register(addr, register) ? ;
     Ok(())
 }
 
-fn read_register(register: u8) -> MynewtResult<()> {
-    for addr in &[
-        0x18u8, 
-        0x44u8, 
-        0x98u8, 
-        0xc4u8
-    ] {
-        unsafe { 
-            I2C_BUFFER[0] = register;
-            I2C_DATA.address = *addr;
-            I2C_DATA.len = I2C_BUFFER.len() as u16;
-            I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
-        };
-        let rc = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };
+fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
+    unsafe { 
+        I2C_BUFFER[0] = register;
+        I2C_DATA.address = addr;
+        I2C_DATA.len = I2C_BUFFER.len() as u16;
+        I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
+    };
+    let rc = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };
+    console::print("write 0x"); console::printhex(addr); console::print(", rc: ");
+    console::printhex(rc as u8); console::print("\n"); console::flush();
 
-        // console::print("write 0x"); console::printhex(*addr); console::print(": ");
-        // console::printhex(rc as u8); console::print("\n"); console::flush();
+    unsafe { 
+        I2C_BUFFER[0] = 0x00;
+        I2C_DATA.address = addr;
+        I2C_DATA.len = I2C_BUFFER.len() as u16;
+        I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
+    };
+    let rc = unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
 
-        unsafe { 
-            I2C_BUFFER[0] = 0x00;
-            I2C_DATA.address = *addr;
-            I2C_DATA.len = I2C_BUFFER.len() as u16;
-            I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
-        };
-        let rc = unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
+    console::print("read 0x"); console::printhex(addr); console::print(", rc: ");
+    console::printhex(rc as u8); console::print("\n"); console::flush();
 
-        console::print("0x"); console::printhex(*addr); console::print(": ");
-        //  console::printhex(rc as u8); console::print("\n"); console::flush();
-
-        console::print("0x"); console::printhex(unsafe { I2C_BUFFER[0] }); 
-        console::print("\n"); console::flush();
-    }
-    //  console::print("Done\n"); console::flush();
+    console::print("value 0x"); console::printhex(unsafe { I2C_BUFFER[0] }); 
+    console::print("\n"); console::flush();
+    console::print("Done\n"); console::flush();
     Ok(())
 }
 
@@ -81,14 +91,6 @@ static mut I2C_DATA: hal::hal_i2c_master_data = hal::hal_i2c_master_data {
     len:     0,
     buffer:  core::ptr::null_mut(),
 };
-
-/// Sleep for the specified number of milliseconds
-fn delay_ms(ms: u8) {
-    //  TODO: Get this constant from Mynewt
-    const OS_TICKS_PER_SEC: u32 = 1000;
-    let delay_ticks = (ms as u32) * OS_TICKS_PER_SEC / 1000;
-    unsafe { os::os_time_delay(delay_ticks) };
-}
 
 /*
 write 0x18: 00
