@@ -59,28 +59,25 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
     mynewt::sysinit();
 
-    //  Start the Server Transport for sending sensor data to CoAP Server over NB-IoT.
-    //sensor_network::start_server_transport()
-        //.expect("NET fail");
+    //  TODO: Start the Server Transport for transmitting sensor data to the network.
+    //  sensor_network::start_server_transport()
+    //    .expect("NET fail");
 
-    //  Start polling the temperature sensor every 10 seconds in the background.
+    //  Start polling the simulated temperature sensor every 10 seconds in the background.
+    //  TODO: Replace by touch handler.
     app_sensor::start_sensor_listener()
         .expect("TMP fail");
-
-    //  Start polling the GPS.
-    //gps_sensor::start_gps_listener()
-        //.expect("GPS fail");
 
     //  Start Bluetooth Beacon.  TODO: Create a safe wrapper for starting Bluetooth LE.
     extern { fn start_ble() -> i32; }
     let rc = unsafe { start_ble() };
     assert!(rc == 0, "BLE fail");
 
-    //  Show the display.
+    //  Show the display
     display::show()
         .expect("DSP fail");
 
-    //  Test the touch sensor.
+    //  Test the touch sensor
     touch_sensor::test()
         .expect("TCH fail");
 

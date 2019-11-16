@@ -74,15 +74,12 @@ mod mynewt_hal {
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
 
 
-    //  Start the Server Transport for sending sensor data to CoAP Server over NB-IoT.
-    //sensor_network::start_server_transport()
-    //.expect("NET fail");
+    //  TODO: Start the Server Transport for sending sensor data.
+    //  sensor_network::start_server_transport()
+    //    .expect("NET fail");
 
-    //  Start polling the temperature sensor every 10 seconds in the background.
-
-    //  Start polling the GPS.
-    //gps_sensor::start_gps_listener()
-    //.expect("GPS fail");
+    //  Start polling the simulated temperature sensor every 10 seconds in the background.
+    //  TODO: Replace by touch handler.
 
     //  Start Bluetooth Beacon.  TODO: Create a safe wrapper for starting Bluetooth LE.
 
@@ -694,7 +691,7 @@ extern "C" fn main() -> ! {
     if !(rc == 0) {
         {
             ::core::panicking::panic(&("BLE fail", "rust/app/src/lib.rs",
-                                       77u32, 5u32))
+                                       74u32, 5u32))
         }
     };
     display::show().expect("DSP fail");
