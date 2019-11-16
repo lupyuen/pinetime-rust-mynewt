@@ -74,7 +74,7 @@ mod mynewt_hal {
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
 
 
-    //  TODO: Start the Server Transport for sending sensor data.
+    //  TODO: Start the Server Transport for transmitting sensor data to the network.
     //  sensor_network::start_server_transport()
     //    .expect("NET fail");
 
@@ -83,9 +83,9 @@ mod mynewt_hal {
 
     //  Start Bluetooth Beacon.  TODO: Create a safe wrapper for starting Bluetooth LE.
 
-    //  Show the display.
+    //  Show the display
 
-    //  Test the touch sensor.
+    //  Test the touch sensor
 
     //  Main event loop
     //  Loop forever...

@@ -7687,7 +7687,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
   3e:	defe      	udf	#254	; 0xfe
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:77
 
-    //  Show the display.
+    //  Show the display
     display::show()
   40:	f7ff fffe 	bl	0 <_ZN3app7display4show17hff9baa1b984cacacE>
   44:	9003      	str	r0, [sp, #12]
@@ -7701,7 +7701,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:81
         .expect("DSP fail");
 
-    //  Test the touch sensor.
+    //  Test the touch sensor
     touch_sensor::test()
   5a:	f7ff fffe 	bl	0 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE>
   5e:	9002      	str	r0, [sp, #8]
@@ -8898,15 +8898,10 @@ pub fn show() -> MynewtResult<()> {
   84:	2801      	cmp	r0, #1
   86:	d001      	beq.n	8c <_ZN3app7display4show17hff9baa1b984cacacE+0x8c>
   88:	e7ff      	b.n	8a <_ZN3app7display4show17hff9baa1b984cacacE+0x8a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:84
-
-    //  Render circle and text to display
-    display.draw(c);
-    display.draw(t);
-    Ok(())
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
+/*
   8a:	defe      	udf	#254	; 0xfe
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:63
-    backlight.set_low() ? ;
   8c:	981f      	ldr	r0, [sp, #124]	; 0x7c
   8e:	9020      	str	r0, [sp, #128]	; 0x80
   90:	9820      	ldr	r0, [sp, #128]	; 0x80
@@ -8918,15 +8913,16 @@ pub fn show() -> MynewtResult<()> {
   a0:	9013      	str	r0, [sp, #76]	; 0x4c
   a2:	e7ff      	b.n	a4 <_ZN3app7display4show17hff9baa1b984cacacE+0xa4>
   a4:	e002      	b.n	ac <_ZN3app7display4show17hff9baa1b984cacacE+0xac>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:84
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
   a6:	9813      	ldr	r0, [sp, #76]	; 0x4c
   a8:	b058      	add	sp, #352	; 0x160
   aa:	bd70      	pop	{r4, r5, r6, pc}
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:63
-    backlight.set_low() ? ;
   ac:	e7fb      	b.n	a6 <_ZN3app7display4show17hff9baa1b984cacacE+0xa6>
   ae:	2028      	movs	r0, #40	; 0x28
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:66
+
+    //  Create circle
     let c = Circle::<Rgb565>::new(Coord::new(40, 40), 40)
   b0:	900f      	str	r0, [sp, #60]	; 0x3c
   b2:	990f      	ldr	r1, [sp, #60]	; 0x3c
@@ -8959,6 +8955,8 @@ pub fn show() -> MynewtResult<()> {
   ee:	f7ff fffe 	bl	0 <_ZN119_$LT$embedded_graphics..primitives..circle..Circle$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17hb6efe8c06b10f3f1E>
   f2:	e7ff      	b.n	2 <_ZN3app7display4show17hff9baa1b984cacacE+0x2>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:70
+
+    //  Create text
     let t = fonts::Font12x16::<Rgb565>::render_str("I AM RUSTY BEACON")
   f4:	f240 0100 	movw	r1, #0
   f8:	f2c0 0100 	movt	r1, #0
@@ -9003,6 +9001,9 @@ pub fn show() -> MynewtResult<()> {
  14a:	a818      	add	r0, sp, #96	; 0x60
  14c:	a945      	add	r1, sp, #276	; 0x114
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:76
+
+    //  Init display
+    let mut delay = MynewtDelay{};
     display.init(&mut delay) ? ;
  14e:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h3e833340d4f1a02eE>
  152:	9008      	str	r0, [sp, #32]
@@ -9072,6 +9073,8 @@ pub fn show() -> MynewtResult<()> {
  1ee:	a822      	add	r0, sp, #136	; 0x88
  1f0:	a94a      	add	r1, sp, #296	; 0x128
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:81
+
+    //  Render circle and text to display
     display.draw(c);
  1f2:	460a      	mov	r2, r1
  1f4:	e890 5078 	ldmia.w	r0, {r3, r4, r5, r6, ip, lr}
@@ -9097,7 +9100,7 @@ pub fn show() -> MynewtResult<()> {
  224:	9013      	str	r0, [sp, #76]	; 0x4c
  226:	2001      	movs	r0, #1
  228:	9013      	str	r0, [sp, #76]	; 0x4c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:84
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:1
  22a:	e73c      	b.n	a6 <_ZN3app7display4show17hff9baa1b984cacacE+0xa6>
 
 app-b8434b356de0ea5d.3l4z2ex1n13xskbg.rcgu.o:     file format elf32-littlearm
