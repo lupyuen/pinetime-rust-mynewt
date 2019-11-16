@@ -33,8 +33,14 @@ pub fn probe() -> MynewtResult<()> {
 0x44: 00 */
 
 pub fn test() -> MynewtResult<()> {
+    /*
+    let peripherals = nrf52::Peripherals::take().unwrap();
+    let nfcpins = peripherals.UICR.nfcpins.read().bits();
+    console::print("nfcpins = "); console::printhex(nfcpins as u8); console::print("\n");
+    */
+
     let mut delay = MynewtDelay{};
-    let mut reset = MynewtGPIO::new(10);  //  P0.10/NFC2: TP_RESET
+    let mut reset = MynewtGPIO::new(10);  //  P0.10/NFC2: TP_RESET. NFC pins must be disabled for this to work.
 
     reset.set_low() ? ;
     //reset.set_high() ? ;

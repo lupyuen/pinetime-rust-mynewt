@@ -45,9 +45,11 @@ syscfg.vals:
     I2C_1_PIN_SCL: 7  # P0.07: BMA421-SCL, HRS3300-SCL, TP-SCLOUT
     I2C_1_PIN_SDA: 6  # P0.06: BMA421-SDA, HRS3300-SDA, TP-SDAI/O
 
-    # UART port 0 is unused
-    UART_0_PIN_TX: 11  # Unused
-    UART_0_PIN_RX: 17  # Unused
+    # UART port 0 is disabled
+    UART_0: 0
+
+    # Configure NFC pins as GPIO P0.09, P0.10
+    NFC_PINS_AS_GPIO: 1
 
     ###########################################################################
     # Flash Regions

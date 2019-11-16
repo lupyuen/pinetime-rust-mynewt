@@ -19,14 +19,14 @@
 
 pkg.name: hw/bsp/nrf52
 pkg.type: bsp
-pkg.description: BSP definition for Generic nRF52 devices.
+pkg.description: BSP definition for Pine64 PineTime Smart Watch.
 pkg.author:      "Lee Lup Yuen <luppy@appkaki.com>"
 pkg.homepage:    "https://github.com/lupyuen"
 pkg.keywords:
     - nrf52
 
 pkg.cflags:
-    - '-DNRF52'
+    - -DNRF52
 
 pkg.cflags.HARDFLOAT:
     - -mfloat-abi=hard -mfpu=fpv4-sp-d16

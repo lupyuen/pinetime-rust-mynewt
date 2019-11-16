@@ -192,7 +192,7 @@ ELF Header:
   Version:                           0x1
   Entry point address:               0x0
   Start of program headers:          0 (bytes into file)
-  Start of section headers:          37608 (bytes into file)
+  Start of section headers:          37584 (bytes into file)
   Flags:                             0x5000000, Version5 EABI
   Size of this header:               52 (bytes)
   Size of program headers:           0 (bytes)
@@ -204,37 +204,37 @@ ELF Header:
 Section Headers:
   [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
   [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .strtab           STRTAB          00000000 008c64 000684 00      0   0  1
+  [ 1] .strtab           STRTAB          00000000 008c4c 000684 00      0   0  1
   [ 2] .text             PROGBITS        00000000 000034 000000 00  AX  0   0  4
   [ 3] .text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E PROGBITS        00000000 000034 000176 00  AX  0   0  2
-  [ 4] .rel.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E REL             00000000 007994 0000e0 08     31   3  4
+  [ 4] .rel.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E REL             00000000 00797c 0000e0 08     31   3  4
   [ 5] .ARM.exidx.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E ARM_EXIDX       00000000 0001ac 000008 00  AL  3   0  4
-  [ 6] .rel.ARM.exidx.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E REL             00000000 007a74 000008 08     31   5  4
+  [ 6] .rel.ARM.exidx.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E REL             00000000 007a5c 000008 08     31   5  4
   [ 7] .rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.0 PROGBITS        00000000 0001b4 00000c 00   A  0   0  1
   [ 8] .rodata._ZN3app10app_sensor13SENSOR_DEVICE17h180f59dea1c4be56E PROGBITS        00000000 0001c0 00000c 00   A  0   0  4
-  [ 9] .rel.rodata._ZN3app10app_sensor13SENSOR_DEVICE17h180f59dea1c4be56E REL             00000000 007a7c 000008 08     31   8  4
+  [ 9] .rel.rodata._ZN3app10app_sensor13SENSOR_DEVICE17h180f59dea1c4be56E REL             00000000 007a64 000008 08     31   8  4
   [10] .rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.1 PROGBITS        00000000 0001cc 00000e 00   A  0   0  1
   [11] .rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.2 PROGBITS        00000000 0001da 000006 00   A  0   0  1
   [12] .rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.3 PROGBITS        00000000 0001e0 000002 00   A  0   0  1
   [13] .rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.4 PROGBITS        00000000 0001e4 00000c 00   A  0   0  4
-  [14] .rel.rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.4 REL             00000000 007a84 000008 08     31  13  4
+  [14] .rel.rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.4 REL             00000000 007a6c 000008 08     31  13  4
   [15] .debug_str        PROGBITS        00000000 0001f0 002502 01  MS  0   0  1
   [16] .debug_abbrev     PROGBITS        00000000 0026f2 00011f 00      0   0  1
   [17] .debug_info       PROGBITS        00000000 002811 001835 00      0   0  1
-  [18] .rel.debug_info   REL             00000000 007a8c 0011b0 08     31  17  4
+  [18] .rel.debug_info   REL             00000000 007a74 0011b0 08     31  17  4
   [19] .debug_ranges     PROGBITS        00000000 004046 000058 00      0   0  1
   [20] .debug_macinfo    PROGBITS        00000000 00409e 000001 00      0   0  1
   [21] .debug_pubnames   PROGBITS        00000000 00409f 0000c3 00      0   0  1
-  [22] .rel.debug_pubnames REL             00000000 008c3c 000008 08     31  21  4
+  [22] .rel.debug_pubnames REL             00000000 008c24 000008 08     31  21  4
   [23] .debug_pubtypes   PROGBITS        00000000 004162 001e58 00      0   0  1
-  [24] .rel.debug_pubtypes REL             00000000 008c44 000008 08     31  23  4
+  [24] .rel.debug_pubtypes REL             00000000 008c2c 000008 08     31  23  4
   [25] .note.GNU-stack   PROGBITS        00000000 005fba 000000 00      0   0  1
   [26] .ARM.attributes   ARM_ATTRIBUTES  00000000 005fba 00003a 00      0   0  1
   [27] .debug_frame      PROGBITS        00000000 005ff4 000038 00      0   0  4
-  [28] .rel.debug_frame  REL             00000000 008c4c 000010 08     31  27  4
-  [29] .debug_line       PROGBITS        00000000 00602c 0000d7 00      0   0  1
-  [30] .rel.debug_line   REL             00000000 008c5c 000008 08     31  29  4
-  [31] .symtab           SYMTAB          00000000 006104 001890 10      1 380  4
+  [28] .rel.debug_frame  REL             00000000 008c34 000010 08     31  27  4
+  [29] .debug_line       PROGBITS        00000000 00602c 0000c0 00      0   0  1
+  [30] .rel.debug_line   REL             00000000 008c44 000008 08     31  29  4
+  [31] .symtab           SYMTAB          00000000 0060ec 001890 10      1 380  4
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -247,7 +247,7 @@ There are no program headers in this file.
 
 There is no dynamic section in this file.
 
-Relocation section '.rel.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E' at offset 0x7994 contains 28 entries:
+Relocation section '.rel.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E' at offset 0x797c contains 28 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000004  00016f2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.1
 00000008  00016f30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.1
@@ -278,19 +278,19 @@ Relocation section '.rel.text._ZN3app10app_sensor21start_sensor_listener17hb5202
 00000158  00017f0a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE
 00000162  0001850a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E
 
-Relocation section '.rel.ARM.exidx.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E' at offset 0x7a74 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E' at offset 0x7a5c contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0001732a R_ARM_PREL31           00000000   .text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E
 
-Relocation section '.rel.rodata._ZN3app10app_sensor13SENSOR_DEVICE17h180f59dea1c4be56E' at offset 0x7a7c contains 1 entry:
+Relocation section '.rel.rodata._ZN3app10app_sensor13SENSOR_DEVICE17h180f59dea1c4be56E' at offset 0x7a64 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000004  00017402 R_ARM_ABS32            00000000   .rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.0
 
-Relocation section '.rel.rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.4' at offset 0x7a84 contains 1 entry:
+Relocation section '.rel.rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.4' at offset 0x7a6c contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000004  00017602 R_ARM_ABS32            00000000   .rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.3
 
-Relocation section '.rel.debug_info' at offset 0x7a8c contains 566 entries:
+Relocation section '.rel.debug_info' at offset 0x7a74 contains 566 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00017702 R_ARM_ABS32            00000000   .debug_abbrev
 0000000c  00001102 R_ARM_ABS32            00000000   
@@ -859,22 +859,22 @@ Relocation section '.rel.debug_info' at offset 0x7a8c contains 566 entries:
 00001812  00000702 R_ARM_ABS32            0000243b   
 0000181b  00016c02 R_ARM_ABS32            0000232e   
 
-Relocation section '.rel.debug_pubnames' at offset 0x8c3c contains 1 entry:
+Relocation section '.rel.debug_pubnames' at offset 0x8c24 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00017802 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_pubtypes' at offset 0x8c44 contains 1 entry:
+Relocation section '.rel.debug_pubtypes' at offset 0x8c2c contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00017802 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_frame' at offset 0x8c4c contains 2 entries:
+Relocation section '.rel.debug_frame' at offset 0x8c34 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000018  00017a02 R_ARM_ABS32            00000000   .debug_frame
 0000001c  00017302 R_ARM_ABS32            00000000   .text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E
 
-Relocation section '.rel.debug_line' at offset 0x8c5c contains 1 entry:
+Relocation section '.rel.debug_line' at offset 0x8c44 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000049  00017302 R_ARM_ABS32            00000000   .text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E
+0000003f  00017302 R_ARM_ABS32            00000000   .text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E
 
 Unwind section '.ARM.exidx.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E' at offset 0x1ac contains 1 entry:
 
@@ -10423,7 +10423,7 @@ ELF Header:
   Version:                           0x1
   Entry point address:               0x0
   Start of program headers:          0 (bytes into file)
-  Start of section headers:          12240 (bytes into file)
+  Start of section headers:          12216 (bytes into file)
   Flags:                             0x5000000, Version5 EABI
   Size of this header:               52 (bytes)
   Size of program headers:           0 (bytes)
@@ -10435,32 +10435,32 @@ ELF Header:
 Section Headers:
   [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
   [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .strtab           STRTAB          00000000 0024c8 000b05 00      0   0  1
+  [ 1] .strtab           STRTAB          00000000 0024b0 000b05 00      0   0  1
   [ 2] .text             PROGBITS        00000000 000034 000000 00  AX  0   0  4
   [ 3] .text._ZN3app7display4show17hff9baa1b984cacacE PROGBITS        00000000 000034 00022c 00  AX  0   0  2
-  [ 4] .rel.text._ZN3app7display4show17hff9baa1b984cacacE REL             00000000 001ec0 000118 08     26   3  4
+  [ 4] .rel.text._ZN3app7display4show17hff9baa1b984cacacE REL             00000000 001ea8 000118 08     26   3  4
   [ 5] .ARM.exidx.text._ZN3app7display4show17hff9baa1b984cacacE ARM_EXIDX       00000000 000260 000008 00  AL  3   0  4
-  [ 6] .rel.ARM.exidx.text._ZN3app7display4show17hff9baa1b984cacacE REL             00000000 001fd8 000008 08     26   5  4
+  [ 6] .rel.ARM.exidx.text._ZN3app7display4show17hff9baa1b984cacacE REL             00000000 001fc0 000008 08     26   5  4
   [ 7] .data._ZN3app7display12SPI_SETTINGS17he720d68fcb0f9f1dE PROGBITS        00000000 000268 000008 00  WA  0   0  4
   [ 8] .rodata..Lanon.2853127beb58ea5154c9cbfbed7b91e2.0 PROGBITS        00000000 000270 000011 00   A  0   0  1
   [ 9] .rodata..Lanon.2853127beb58ea5154c9cbfbed7b91e2.1 PROGBITS        00000000 000281 000001 00   A  0   0  1
   [10] .debug_str        PROGBITS        00000000 000282 0005b7 01  MS  0   0  1
   [11] .debug_abbrev     PROGBITS        00000000 000839 0000e5 00      0   0  1
   [12] .debug_info       PROGBITS        00000000 00091e 000586 00      0   0  1
-  [13] .rel.debug_info   REL             00000000 001fe0 0004c0 08     26  12  4
+  [13] .rel.debug_info   REL             00000000 001fc8 0004c0 08     26  12  4
   [14] .debug_ranges     PROGBITS        00000000 000ea4 0000f8 00      0   0  1
   [15] .debug_macinfo    PROGBITS        00000000 000f9c 000001 00      0   0  1
   [16] .debug_pubnames   PROGBITS        00000000 000f9d 00013c 00      0   0  1
-  [17] .rel.debug_pubnames REL             00000000 0024a0 000008 08     26  16  4
+  [17] .rel.debug_pubnames REL             00000000 002488 000008 08     26  16  4
   [18] .debug_pubtypes   PROGBITS        00000000 0010d9 0002cc 00      0   0  1
-  [19] .rel.debug_pubtypes REL             00000000 0024a8 000008 08     26  18  4
+  [19] .rel.debug_pubtypes REL             00000000 002490 000008 08     26  18  4
   [20] .note.GNU-stack   PROGBITS        00000000 0013a5 000000 00      0   0  1
   [21] .ARM.attributes   ARM_ATTRIBUTES  00000000 0013a5 00003a 00      0   0  1
   [22] .debug_frame      PROGBITS        00000000 0013e0 000034 00      0   0  4
-  [23] .rel.debug_frame  REL             00000000 0024b0 000010 08     26  22  4
-  [24] .debug_line       PROGBITS        00000000 001414 00016b 00      0   0  1
-  [25] .rel.debug_line   REL             00000000 0024c0 000008 08     26  24  4
-  [26] .symtab           SYMTAB          00000000 001580 000940 10      1 126  4
+  [23] .rel.debug_frame  REL             00000000 002498 000010 08     26  22  4
+  [24] .debug_line       PROGBITS        00000000 001414 000154 00      0   0  1
+  [25] .rel.debug_line   REL             00000000 0024a8 000008 08     26  24  4
+  [26] .symtab           SYMTAB          00000000 001568 000940 10      1 126  4
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -10473,7 +10473,7 @@ There are no program headers in this file.
 
 There is no dynamic section in this file.
 
-Relocation section '.rel.text._ZN3app7display4show17hff9baa1b984cacacE' at offset 0x1ec0 contains 35 entries:
+Relocation section '.rel.text._ZN3app7display4show17hff9baa1b984cacacE' at offset 0x1ea8 contains 35 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000004  0000762f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app7display12SPI_SETTINGS17he720d68fcb0f9f1dE
 00000008  00007630 R_ARM_THM_MOVT_ABS     00000000   _ZN3app7display12SPI_SETTINGS17he720d68fcb0f9f1dE
@@ -10511,11 +10511,11 @@ Relocation section '.rel.text._ZN3app7display4show17hff9baa1b984cacacE' at offse
 000001fe  0000860a R_ARM_THM_CALL         00000000   _ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h216bd8cb9d1347fcE
 0000021c  0000870a R_ARM_THM_CALL         00000000   _ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h761fce9fc7bb7866E
 
-Relocation section '.rel.ARM.exidx.text._ZN3app7display4show17hff9baa1b984cacacE' at offset 0x1fd8 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN3app7display4show17hff9baa1b984cacacE' at offset 0x1fc0 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0000772a R_ARM_PREL31           00000000   .text._ZN3app7display4show17hff9baa1b984cacacE
 
-Relocation section '.rel.debug_info' at offset 0x1fe0 contains 152 entries:
+Relocation section '.rel.debug_info' at offset 0x1fc8 contains 152 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00007902 R_ARM_ABS32            00000000   .debug_abbrev
 0000000c  00000e02 R_ARM_ABS32            00000000   
@@ -10670,22 +10670,22 @@ Relocation section '.rel.debug_info' at offset 0x1fe0 contains 152 entries:
 0000057a  00007102 R_ARM_ABS32            000004b0   
 0000057f  00000302 R_ARM_ABS32            000004c1   
 
-Relocation section '.rel.debug_pubnames' at offset 0x24a0 contains 1 entry:
+Relocation section '.rel.debug_pubnames' at offset 0x2488 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00007a02 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_pubtypes' at offset 0x24a8 contains 1 entry:
+Relocation section '.rel.debug_pubtypes' at offset 0x2490 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00007a02 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_frame' at offset 0x24b0 contains 2 entries:
+Relocation section '.rel.debug_frame' at offset 0x2498 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000018  00007c02 R_ARM_ABS32            00000000   .debug_frame
 0000001c  00007702 R_ARM_ABS32            00000000   .text._ZN3app7display4show17hff9baa1b984cacacE
 
-Relocation section '.rel.debug_line' at offset 0x24c0 contains 1 entry:
+Relocation section '.rel.debug_line' at offset 0x24a8 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000046  00007702 R_ARM_ABS32            00000000   .text._ZN3app7display4show17hff9baa1b984cacacE
+0000003c  00007702 R_ARM_ABS32            00000000   .text._ZN3app7display4show17hff9baa1b984cacacE
 
 Unwind section '.ARM.exidx.text._ZN3app7display4show17hff9baa1b984cacacE' at offset 0x260 contains 1 entry:
 
@@ -10924,7 +10924,7 @@ Section Headers:
   [31] .ARM.attributes   ARM_ATTRIBUTES  00000000 00102d 00003a 00      0   0  1
   [32] .debug_frame      PROGBITS        00000000 001068 00004c 00      0   0  4
   [33] .rel.debug_frame  REL             00000000 002238 000020 08     36  32  4
-  [34] .debug_line       PROGBITS        00000000 0010b4 0001ca 00      0   0  1
+  [34] .debug_line       PROGBITS        00000000 0010b4 0001cc 00      0   0  1
   [35] .rel.debug_line   REL             00000000 002258 000010 08     36  34  4
   [36] .symtab           SYMTAB          00000000 001280 0007a0 10      1 103  4
 Key to Flags:
@@ -11232,7 +11232,7 @@ Relocation section '.rel.debug_frame' at offset 0x2238 contains 4 entries:
 Relocation section '.rel.debug_line' at offset 0x2258 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 0000004b  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
-00000110  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
+00000112  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
 
 Unwind section '.ARM.exidx.text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE' at offset 0x220 contains 1 entry:
 
@@ -12666,7 +12666,7 @@ ELF Header:
   Version:                           0x1
   Entry point address:               0x0
   Start of program headers:          0 (bytes into file)
-  Start of section headers:          16716 (bytes into file)
+  Start of section headers:          16472 (bytes into file)
   Flags:                             0x5000000, Version5 EABI
   Size of this header:               52 (bytes)
   Size of program headers:           0 (bytes)
@@ -12678,16 +12678,16 @@ ELF Header:
 Section Headers:
   [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
   [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .strtab           STRTAB          00000000 002fa4 0011a7 00      0   0  1
+  [ 1] .strtab           STRTAB          00000000 002eb0 0011a7 00      0   0  1
   [ 2] .text             PROGBITS        00000000 000034 000000 00  AX  0   0  4
   [ 3] .text._ZN3app11app_network21aggregate_sensor_data17ha276eed4fcf2c397E PROGBITS        00000000 000034 00001a 00  AX  0   0  2
-  [ 4] .rel.text._ZN3app11app_network21aggregate_sensor_data17ha276eed4fcf2c397E REL             00000000 002534 000008 08     66   3  4
+  [ 4] .rel.text._ZN3app11app_network21aggregate_sensor_data17ha276eed4fcf2c397E REL             00000000 002440 000008 08     66   3  4
   [ 5] .ARM.exidx.text._ZN3app11app_network21aggregate_sensor_data17ha276eed4fcf2c397E ARM_EXIDX       00000000 000050 000008 00  AL  3   0  4
-  [ 6] .rel.ARM.exidx.text._ZN3app11app_network21aggregate_sensor_data17ha276eed4fcf2c397E REL             00000000 00253c 000008 08     66   5  4
+  [ 6] .rel.ARM.exidx.text._ZN3app11app_network21aggregate_sensor_data17ha276eed4fcf2c397E REL             00000000 002448 000008 08     66   5  4
   [ 7] .text._ZN3app11app_network16send_sensor_data17h5cf6e0827409e8f7E PROGBITS        00000000 000058 0005a2 00  AX  0   0  2
-  [ 8] .rel.text._ZN3app11app_network16send_sensor_data17h5cf6e0827409e8f7E REL             00000000 002544 000440 08     66   7  4
+  [ 8] .rel.text._ZN3app11app_network16send_sensor_data17h5cf6e0827409e8f7E REL             00000000 002450 000440 08     66   7  4
   [ 9] .ARM.exidx.text._ZN3app11app_network16send_sensor_data17h5cf6e0827409e8f7E ARM_EXIDX       00000000 0005fc 000008 00  AL  7   0  4
-  [10] .rel.ARM.exidx.text._ZN3app11app_network16send_sensor_data17h5cf6e0827409e8f7E REL             00000000 002984 000008 08     66   9  4
+  [10] .rel.ARM.exidx.text._ZN3app11app_network16send_sensor_data17h5cf6e0827409e8f7E REL             00000000 002890 000008 08     66   9  4
   [11] .rodata..Lanon.19a08c2c0b4d8d588337b40b6849382e.0 PROGBITS        00000000 000604 000017 00   A  0   0  1
   [12] .rodata..Lanon.19a08c2c0b4d8d588337b40b6849382e.1 PROGBITS        00000000 00061b 000001 00   A  0   0  1
   [13] .rodata..Lanon.19a08c2c0b4d8d588337b40b6849382e.2 PROGBITS        00000000 00061c 000001 00   A  0   0  1
@@ -12729,21 +12729,21 @@ Section Headers:
   [49] .debug_str        PROGBITS        00000000 000a54 0003ea 01  MS  0   0  1
   [50] .debug_abbrev     PROGBITS        00000000 000e3e 000126 00      0   0  1
   [51] .debug_info       PROGBITS        00000000 000f64 000664 00      0   0  1
-  [52] .rel.debug_info   REL             00000000 00298c 0004a8 08     66  51  4
+  [52] .rel.debug_info   REL             00000000 002898 0004a8 08     66  51  4
   [53] .debug_ranges     PROGBITS        00000000 0015c8 0000e0 00      0   0  1
-  [54] .rel.debug_ranges REL             00000000 002e34 000130 08     66  53  4
+  [54] .rel.debug_ranges REL             00000000 002d40 000130 08     66  53  4
   [55] .debug_macinfo    PROGBITS        00000000 0016a8 000001 00      0   0  1
   [56] .debug_pubnames   PROGBITS        00000000 0016a9 0000ac 00      0   0  1
-  [57] .rel.debug_pubnames REL             00000000 002f64 000008 08     66  56  4
+  [57] .rel.debug_pubnames REL             00000000 002e70 000008 08     66  56  4
   [58] .debug_pubtypes   PROGBITS        00000000 001755 000118 00      0   0  1
-  [59] .rel.debug_pubtypes REL             00000000 002f6c 000008 08     66  58  4
+  [59] .rel.debug_pubtypes REL             00000000 002e78 000008 08     66  58  4
   [60] .note.GNU-stack   PROGBITS        00000000 00186d 000000 00      0   0  1
   [61] .ARM.attributes   ARM_ATTRIBUTES  00000000 00186d 00003a 00      0   0  1
   [62] .debug_frame      PROGBITS        00000000 0018a8 00004c 00      0   0  4
-  [63] .rel.debug_frame  REL             00000000 002f74 000020 08     66  62  4
-  [64] .debug_line       PROGBITS        00000000 0018f4 00038f 00      0   0  1
-  [65] .rel.debug_line   REL             00000000 002f94 000010 08     66  64  4
-  [66] .symtab           SYMTAB          00000000 001c84 0008b0 10      1 108  4
+  [63] .rel.debug_frame  REL             00000000 002e80 000020 08     66  62  4
+  [64] .debug_line       PROGBITS        00000000 0018f4 00029a 00      0   0  1
+  [65] .rel.debug_line   REL             00000000 002ea0 000010 08     66  64  4
+  [66] .symtab           SYMTAB          00000000 001b90 0008b0 10      1 108  4
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -12756,15 +12756,15 @@ There are no program headers in this file.
 
 There is no dynamic section in this file.
 
-Relocation section '.rel.text._ZN3app11app_network21aggregate_sensor_data17ha276eed4fcf2c397E' at offset 0x2534 contains 1 entry:
+Relocation section '.rel.text._ZN3app11app_network21aggregate_sensor_data17ha276eed4fcf2c397E' at offset 0x2440 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 0000000c  0000640a R_ARM_THM_CALL         00000001   _ZN3app11app_network16send_sensor_data17h5cf6e0827409e8f7E
 
-Relocation section '.rel.ARM.exidx.text._ZN3app11app_network21aggregate_sensor_data17ha276eed4fcf2c397E' at offset 0x253c contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN3app11app_network21aggregate_sensor_data17ha276eed4fcf2c397E' at offset 0x2448 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0000652a R_ARM_PREL31           00000000   .text._ZN3app11app_network21aggregate_sensor_data17ha276eed4fcf2c397E
 
-Relocation section '.rel.text._ZN3app11app_network16send_sensor_data17h5cf6e0827409e8f7E' at offset 0x2544 contains 136 entries:
+Relocation section '.rel.text._ZN3app11app_network16send_sensor_data17h5cf6e0827409e8f7E' at offset 0x2450 contains 136 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 0000000a  0000552f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.19a08c2c0b4d8d588337b40b6849382e.0
 0000000e  00005530 R_ARM_THM_MOVT_ABS     00000000   .Lanon.19a08c2c0b4d8d588337b40b6849382e.0
@@ -12903,11 +12903,11 @@ Relocation section '.rel.text._ZN3app11app_network16send_sensor_data17h5cf6e0827
 0000058c  00005a30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.19a08c2c0b4d8d588337b40b6849382e.2
 00000592  0000700a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E
 
-Relocation section '.rel.ARM.exidx.text._ZN3app11app_network16send_sensor_data17h5cf6e0827409e8f7E' at offset 0x2984 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN3app11app_network16send_sensor_data17h5cf6e0827409e8f7E' at offset 0x2890 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0000662a R_ARM_PREL31           00000000   .text._ZN3app11app_network16send_sensor_data17h5cf6e0827409e8f7E
 
-Relocation section '.rel.debug_info' at offset 0x298c contains 149 entries:
+Relocation section '.rel.debug_info' at offset 0x2898 contains 149 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00006702 R_ARM_ABS32            00000000   .debug_abbrev
 0000000c  00001c02 R_ARM_ABS32            00000000   
@@ -13059,7 +13059,7 @@ Relocation section '.rel.debug_info' at offset 0x298c contains 149 entries:
 00000656  00001402 R_ARM_ABS32            00000390   
 0000065d  00001902 R_ARM_ABS32            000003d2   
 
-Relocation section '.rel.debug_ranges' at offset 0x2e34 contains 38 entries:
+Relocation section '.rel.debug_ranges' at offset 0x2d40 contains 38 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00006602 R_ARM_ABS32            00000000   .text._ZN3app11app_network16send_sensor_data17h5cf6e0827409e8f7E
 00000004  00006602 R_ARM_ABS32            00000000   .text._ZN3app11app_network16send_sensor_data17h5cf6e0827409e8f7E
@@ -13100,22 +13100,22 @@ Relocation section '.rel.debug_ranges' at offset 0x2e34 contains 38 entries:
 000000d0  00006602 R_ARM_ABS32            00000000   .text._ZN3app11app_network16send_sensor_data17h5cf6e0827409e8f7E
 000000d4  00006602 R_ARM_ABS32            00000000   .text._ZN3app11app_network16send_sensor_data17h5cf6e0827409e8f7E
 
-Relocation section '.rel.debug_pubnames' at offset 0x2f64 contains 1 entry:
+Relocation section '.rel.debug_pubnames' at offset 0x2e70 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00006802 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_pubtypes' at offset 0x2f6c contains 1 entry:
+Relocation section '.rel.debug_pubtypes' at offset 0x2e78 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00006802 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_frame' at offset 0x2f74 contains 4 entries:
+Relocation section '.rel.debug_frame' at offset 0x2e80 contains 4 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000018  00006a02 R_ARM_ABS32            00000000   .debug_frame
 0000001c  00006502 R_ARM_ABS32            00000000   .text._ZN3app11app_network21aggregate_sensor_data17ha276eed4fcf2c397E
 00000034  00006a02 R_ARM_ABS32            00000000   .debug_frame
 00000038  00006602 R_ARM_ABS32            00000000   .text._ZN3app11app_network16send_sensor_data17h5cf6e0827409e8f7E
 
-Relocation section '.rel.debug_line' at offset 0x2f94 contains 2 entries:
+Relocation section '.rel.debug_line' at offset 0x2ea0 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000094  00006502 R_ARM_ABS32            00000000   .text._ZN3app11app_network21aggregate_sensor_data17ha276eed4fcf2c397E
 000000af  00006602 R_ARM_ABS32            00000000   .text._ZN3app11app_network16send_sensor_data17h5cf6e0827409e8f7E
