@@ -601,7 +601,7 @@ mod touch_sensor {
         reset.set_high()?;
         delay.delay_ms(200);
         delay.delay_ms(200);
-        for register in &[0x00, 0xA3, 0x9F, 0x8F, 0xA6, 0xA8] {
+        for register in &[0x00, 0x01, 0xA3, 0x9F, 0x8F, 0xA6, 0xA8] {
             for addr in 0..0x80 { read_register(addr, *register)?; }
         }
         console::print("Done\n");
@@ -616,8 +616,7 @@ mod touch_sensor {
             I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
         };
         let rc1 =
-            unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 1) };
-        if rc1 == hal::HAL_I2C_ERR_ADDR_NACK as i32 { return Ok(()); }
+            unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };
         unsafe {
             I2C_BUFFER[0] = 0x00;
             I2C_DATA.address = addr;

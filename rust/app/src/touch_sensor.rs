@@ -60,6 +60,7 @@ pub fn test() -> MynewtResult<()> {
     //  Register to be read
     for register in &[
         0x00,
+        0x01,
         0xA3,  //  HYN_REG_CHIP_ID
         0x9F,  //  HYN_REG_CHIP_ID2                    
         0x8F,  //  HYN_REG_INT_CNT
@@ -75,7 +76,7 @@ pub fn test() -> MynewtResult<()> {
 }
 
 /*
-Accelerometer:
+Accelerometer: https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BMA423-DS000.pdf
 addr: 0x18, reg: 0x00 = 0x11
 addr: 0x18, reg: 0xa3 = 0x00
 addr: 0x18, reg: 0x9f = 0x00
@@ -83,7 +84,7 @@ addr: 0x18, reg: 0x8f = 0x00
 addr: 0x18, reg: 0xa6 = 0x80
 addr: 0x18, reg: 0xa8 = 0x00
 
-Heart Rate Sensor:
+Heart Rate Sensor: http://files.pine64.org/doc/datasheet/pinetime/HRS3300%20Heart%20Rate%20Sensor.pdf
 addr: 0x44, reg: 0x00 = 0x21
 addr: 0x44, reg: 0xa3 = 0xa3
 addr: 0x44, reg: 0x9f = 0xa3
@@ -96,21 +97,23 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
     //  first the register address must be sent in write mode (slave address xxxxxxx0). 
     unsafe { 
         I2C_BUFFER[0] = register;
-        I2C_DATA.address = addr; // (addr << 1) + 0;
+        I2C_DATA.address = addr;
         I2C_DATA.len = I2C_BUFFER.len() as u16;
         I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
     };
     //  Then either a stop or a repeated start condition must be generated. 
-    let rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 1) };
-    //let rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };
+    //let rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 1) };  //  With stop
+    let rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };  //  No stop
+    /*
     if rc1 == hal::HAL_I2C_ERR_ADDR_NACK as i32 {
         return Ok(());
     }
+    */
 
     //  After this the slave is addressed in read mode (RW = ‘1’) at address xxxxxxx1, 
     unsafe { 
         I2C_BUFFER[0] = 0x00;
-        I2C_DATA.address = addr; // (addr << 1) + 1;
+        I2C_DATA.address = addr;
         I2C_DATA.len = I2C_BUFFER.len() as u16;
         I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
     };
