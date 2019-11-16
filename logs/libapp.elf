@@ -10879,7 +10879,7 @@ ELF Header:
   Version:                           0x1
   Entry point address:               0x0
   Start of program headers:          0 (bytes into file)
-  Start of section headers:          10992 (bytes into file)
+  Start of section headers:          11304 (bytes into file)
   Flags:                             0x5000000, Version5 EABI
   Size of this header:               52 (bytes)
   Size of program headers:           0 (bytes)
@@ -10891,42 +10891,42 @@ ELF Header:
 Section Headers:
   [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
   [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .strtab           STRTAB          00000000 0021a8 000947 00      0   0  1
+  [ 1] .strtab           STRTAB          00000000 002268 0009be 00      0   0  1
   [ 2] .text             PROGBITS        00000000 000034 000000 00  AX  0   0  4
-  [ 3] .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE PROGBITS        00000000 000034 0001a6 00  AX  0   0  2
-  [ 4] .rel.text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE REL             00000000 0019a0 0000b0 08     36   3  4
-  [ 5] .ARM.exidx.text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE ARM_EXIDX       00000000 0001dc 000008 00  AL  3   0  4
-  [ 6] .rel.ARM.exidx.text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE REL             00000000 001a50 000008 08     36   5  4
-  [ 7] .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE PROGBITS        00000000 0001e4 00018c 00  AX  0   0  2
-  [ 8] .rel.text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE REL             00000000 001a58 000160 08     36   7  4
-  [ 9] .ARM.exidx.text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE ARM_EXIDX       00000000 000370 000008 00  AL  7   0  4
-  [10] .rel.ARM.exidx.text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE REL             00000000 001bb8 000008 08     36   9  4
-  [11] .rodata..Lanon.bee97170e4b04da3b7e6710c6e415747.0 PROGBITS        00000000 000378 000006 00   A  0   0  1
-  [12] .rodata..Lanon.bee97170e4b04da3b7e6710c6e415747.1 PROGBITS        00000000 00037e 000005 00   A  0   0  1
-  [13] .rodata.cst8      PROGBITS        00000000 000383 000008 08  AM  0   0  1
-  [14] .rodata..Lanon.bee97170e4b04da3b7e6710c6e415747.3 PROGBITS        00000000 00038b 000009 00   A  0   0  1
-  [15] .rodata..Lanon.bee97170e4b04da3b7e6710c6e415747.4 PROGBITS        00000000 000394 000005 00   A  0   0  1
-  [16] .rodata..Lanon.bee97170e4b04da3b7e6710c6e415747.5 PROGBITS        00000000 000399 000001 00   A  0   0  1
-  [17] .bss._ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE NOBITS          00000000 00039a 000001 00  WA  0   0  1
-  [18] .bss._ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE NOBITS          00000000 00039c 000008 00  WA  0   0  4
-  [19] .debug_str        PROGBITS        00000000 00039c 0003be 01  MS  0   0  1
-  [20] .debug_abbrev     PROGBITS        00000000 00075a 00010c 00      0   0  1
-  [21] .debug_info       PROGBITS        00000000 000866 00044c 00      0   0  1
-  [22] .rel.debug_info   REL             00000000 001bc0 0003a8 08     36  21  4
-  [23] .debug_ranges     PROGBITS        00000000 000cb2 000158 00      0   0  1
-  [24] .rel.debug_ranges REL             00000000 001f68 000200 08     36  23  4
-  [25] .debug_macinfo    PROGBITS        00000000 000e0a 000001 00      0   0  1
-  [26] .debug_pubnames   PROGBITS        00000000 000e0b 0000c6 00      0   0  1
-  [27] .rel.debug_pubnames REL             00000000 002168 000008 08     36  26  4
-  [28] .debug_pubtypes   PROGBITS        00000000 000ed1 0000fd 00      0   0  1
-  [29] .rel.debug_pubtypes REL             00000000 002170 000008 08     36  28  4
-  [30] .note.GNU-stack   PROGBITS        00000000 000fce 000000 00      0   0  1
-  [31] .ARM.attributes   ARM_ATTRIBUTES  00000000 000fce 00003a 00      0   0  1
-  [32] .debug_frame      PROGBITS        00000000 001008 00004c 00      0   0  4
-  [33] .rel.debug_frame  REL             00000000 002178 000020 08     36  32  4
-  [34] .debug_line       PROGBITS        00000000 001054 0001b9 00      0   0  1
-  [35] .rel.debug_line   REL             00000000 002198 000010 08     36  34  4
-  [36] .symtab           SYMTAB          00000000 001210 000790 10      1 103  4
+  [ 3] .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE PROGBITS        00000000 000034 0001ec 00  AX  0   0  2
+  [ 4] .rel.text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE REL             00000000 001a20 0000d0 08     36   3  4
+  [ 5] .ARM.exidx.text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE ARM_EXIDX       00000000 000220 000008 00  AL  3   0  4
+  [ 6] .rel.ARM.exidx.text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE REL             00000000 001af0 000008 08     36   5  4
+  [ 7] .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE PROGBITS        00000000 000228 000184 00  AX  0   0  2
+  [ 8] .rel.text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE REL             00000000 001af8 000160 08     36   7  4
+  [ 9] .ARM.exidx.text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE ARM_EXIDX       00000000 0003ac 000008 00  AL  7   0  4
+  [10] .rel.ARM.exidx.text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE REL             00000000 001c58 000008 08     36   9  4
+  [11] .rodata..Lanon.bee97170e4b04da3b7e6710c6e415747.0 PROGBITS        00000000 0003b4 000006 00   A  0   0  1
+  [12] .rodata..Lanon.bee97170e4b04da3b7e6710c6e415747.1 PROGBITS        00000000 0003ba 000005 00   A  0   0  1
+  [13] .rodata.cst8      PROGBITS        00000000 0003bf 000008 08  AM  0   0  1
+  [14] .rodata..Lanon.bee97170e4b04da3b7e6710c6e415747.3 PROGBITS        00000000 0003c7 000009 00   A  0   0  1
+  [15] .rodata..Lanon.bee97170e4b04da3b7e6710c6e415747.4 PROGBITS        00000000 0003d0 000005 00   A  0   0  1
+  [16] .rodata..Lanon.bee97170e4b04da3b7e6710c6e415747.5 PROGBITS        00000000 0003d5 000001 00   A  0   0  1
+  [17] .bss._ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE NOBITS          00000000 0003d6 000001 00  WA  0   0  1
+  [18] .bss._ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE NOBITS          00000000 0003d8 000008 00  WA  0   0  4
+  [19] .debug_str        PROGBITS        00000000 0003d8 0003be 01  MS  0   0  1
+  [20] .debug_abbrev     PROGBITS        00000000 000796 00010c 00      0   0  1
+  [21] .debug_info       PROGBITS        00000000 0008a2 000467 00      0   0  1
+  [22] .rel.debug_info   REL             00000000 001c60 0003b8 08     36  21  4
+  [23] .debug_ranges     PROGBITS        00000000 000d09 000160 00      0   0  1
+  [24] .rel.debug_ranges REL             00000000 002018 000210 08     36  23  4
+  [25] .debug_macinfo    PROGBITS        00000000 000e69 000001 00      0   0  1
+  [26] .debug_pubnames   PROGBITS        00000000 000e6a 0000c6 00      0   0  1
+  [27] .rel.debug_pubnames REL             00000000 002228 000008 08     36  26  4
+  [28] .debug_pubtypes   PROGBITS        00000000 000f30 0000fd 00      0   0  1
+  [29] .rel.debug_pubtypes REL             00000000 002230 000008 08     36  28  4
+  [30] .note.GNU-stack   PROGBITS        00000000 00102d 000000 00      0   0  1
+  [31] .ARM.attributes   ARM_ATTRIBUTES  00000000 00102d 00003a 00      0   0  1
+  [32] .debug_frame      PROGBITS        00000000 001068 00004c 00      0   0  4
+  [33] .rel.debug_frame  REL             00000000 002238 000020 08     36  32  4
+  [34] .debug_line       PROGBITS        00000000 0010b4 0001ca 00      0   0  1
+  [35] .rel.debug_line   REL             00000000 002258 000010 08     36  34  4
+  [36] .symtab           SYMTAB          00000000 001280 0007a0 10      1 103  4
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -10939,36 +10939,40 @@ There are no program headers in this file.
 
 There is no dynamic section in this file.
 
-Relocation section '.rel.text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE' at offset 0x19a0 contains 22 entries:
+Relocation section '.rel.text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE' at offset 0x1a20 contains 26 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  0000670a R_ARM_THM_CALL         00000000   _ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E
-00000010  0000740a R_ARM_THM_CALL         00000000   _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE
+00000010  0000750a R_ARM_THM_CALL         00000000   _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E
 0000001a  0000730a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE
 00000042  00006d0a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE
 0000004c  0000720a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E
-00000062  0000760a R_ARM_THM_CALL         00000000   _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
-0000006c  0000760a R_ARM_THM_CALL         00000000   _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
-00000076  0000760a R_ARM_THM_CALL         00000000   _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
-0000007c  0000552f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.0
-00000080  00005530 R_ARM_THM_MOVT_ABS     00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.0
-00000084  00006a0a R_ARM_THM_CALL         00000000   _ZN4core5array98_$LT$impl$u20$core..iter..traits..collect..IntoIterator$u20$for$u20$$RF$$u5b$T$u3b$$u20$_$u5d$$GT$9into_iter17h93964477595461e4E
-0000009a  0000750a R_ARM_THM_CALL         00000000   _ZN85_$LT$core..slice..Iter$LT$T$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h787a1134986c9ef9E
-000000dc  00006e0a R_ARM_THM_CALL         00000000   _ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h977f941582e9c4d8E
-000000e6  0000562f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.1
-000000ea  00005630 R_ARM_THM_MOVT_ABS     00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.1
-000000f0  0000700a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E
-00000106  0000690a R_ARM_THM_CALL         00000000   _ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17hde1b588eeba35004E
-0000014c  00005c0a R_ARM_THM_CALL         00000001   _ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
-00000158  0000730a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE
-00000180  00006d0a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE
-0000018a  0000720a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E
-00000196  00006f0a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5flush17hdebac7a23ce4130cE
+00000062  0000770a R_ARM_THM_CALL         00000000   _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
+0000006a  0000740a R_ARM_THM_CALL         00000000   _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE
+00000074  0000730a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE
+0000009a  00006d0a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE
+000000a4  0000720a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E
+000000b2  0000770a R_ARM_THM_CALL         00000000   _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
+000000bc  0000770a R_ARM_THM_CALL         00000000   _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
+000000c2  0000552f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.0
+000000c6  00005530 R_ARM_THM_MOVT_ABS     00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.0
+000000ca  00006a0a R_ARM_THM_CALL         00000000   _ZN4core5array98_$LT$impl$u20$core..iter..traits..collect..IntoIterator$u20$for$u20$$RF$$u5b$T$u3b$$u20$_$u5d$$GT$9into_iter17h93964477595461e4E
+000000e0  0000760a R_ARM_THM_CALL         00000000   _ZN85_$LT$core..slice..Iter$LT$T$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h787a1134986c9ef9E
+00000122  00006e0a R_ARM_THM_CALL         00000000   _ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h977f941582e9c4d8E
+0000012c  0000562f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.1
+00000130  00005630 R_ARM_THM_MOVT_ABS     00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.1
+00000136  0000700a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E
+0000014c  0000690a R_ARM_THM_CALL         00000000   _ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17hde1b588eeba35004E
+00000192  00005c0a R_ARM_THM_CALL         00000001   _ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
+0000019e  0000730a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE
+000001c6  00006d0a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE
+000001d0  0000720a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E
+000001dc  00006f0a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5flush17hdebac7a23ce4130cE
 
-Relocation section '.rel.ARM.exidx.text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE' at offset 0x1a50 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE' at offset 0x1af0 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00005e2a R_ARM_PREL31           00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
 
-Relocation section '.rel.text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE' at offset 0x1a58 contains 44 entries:
+Relocation section '.rel.text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE' at offset 0x1af8 contains 44 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 0000001c  00005b2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
 00000020  00005b30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
@@ -10982,44 +10986,44 @@ Relocation section '.rel.text._ZN3app12touch_sensor13read_register17h57ef0fa73ed
 00000056  00006b0a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$10as_mut_ptr17hca69c1fbf0f5619eE
 0000005e  00005d2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
 00000062  00005d30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
-0000007e  0000780a R_ARM_THM_CALL         00000000   hal_i2c_master_write
-000000a2  00005b2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
-000000a6  00005b30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
-000000b2  00005d2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
-000000b6  00005d30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
-000000be  00006c0a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h70be3ebb33ef544dE
-000000c6  00005d2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
-000000ca  00005d30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
-000000d2  00005b2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
-000000d6  00005b30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
-000000dc  00006b0a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$10as_mut_ptr17hca69c1fbf0f5619eE
-000000e4  00005d2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
-000000e8  00005d30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
-000000fc  0000770a R_ARM_THM_CALL         00000000   hal_i2c_master_read
-00000116  0000572f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.2
-0000011a  00005730 R_ARM_THM_MOVT_ABS     00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.2
-00000120  0000700a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E
-0000012a  0000710a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console8printhex17h73cec8f13f2f68e9E
-00000130  0000582f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.3
-00000134  00005830 R_ARM_THM_MOVT_ABS     00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.3
-0000013a  0000700a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E
-00000144  0000710a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console8printhex17h73cec8f13f2f68e9E
-0000014a  0000592f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.4
-0000014e  00005930 R_ARM_THM_MOVT_ABS     00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.4
-00000154  0000700a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E
-0000015c  00005b2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
-00000160  00005b30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
-00000166  0000710a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console8printhex17h73cec8f13f2f68e9E
-0000016c  00005a2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.5
-00000170  00005a30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.5
-00000176  0000700a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E
-0000017c  00006f0a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5flush17hdebac7a23ce4130cE
+00000076  0000790a R_ARM_THM_CALL         00000000   hal_i2c_master_write
+0000009a  00005b2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
+0000009e  00005b30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
+000000aa  00005d2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
+000000ae  00005d30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
+000000b6  00006c0a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h70be3ebb33ef544dE
+000000be  00005d2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
+000000c2  00005d30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
+000000ca  00005b2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
+000000ce  00005b30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
+000000d4  00006b0a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$10as_mut_ptr17hca69c1fbf0f5619eE
+000000dc  00005d2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
+000000e0  00005d30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
+000000f4  0000780a R_ARM_THM_CALL         00000000   hal_i2c_master_read
+0000010e  0000572f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.2
+00000112  00005730 R_ARM_THM_MOVT_ABS     00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.2
+00000118  0000700a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E
+00000122  0000710a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console8printhex17h73cec8f13f2f68e9E
+00000128  0000582f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.3
+0000012c  00005830 R_ARM_THM_MOVT_ABS     00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.3
+00000132  0000700a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E
+0000013c  0000710a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console8printhex17h73cec8f13f2f68e9E
+00000142  0000592f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.4
+00000146  00005930 R_ARM_THM_MOVT_ABS     00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.4
+0000014c  0000700a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E
+00000154  00005b2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
+00000158  00005b30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
+0000015e  0000710a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console8printhex17h73cec8f13f2f68e9E
+00000164  00005a2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.5
+00000168  00005a30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.bee97170e4b04da3b7e6710c6e415747.5
+0000016e  0000700a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E
+00000174  00006f0a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5flush17hdebac7a23ce4130cE
 
-Relocation section '.rel.ARM.exidx.text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE' at offset 0x1bb8 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE' at offset 0x1c58 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00005f2a R_ARM_PREL31           00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
 
-Relocation section '.rel.debug_info' at offset 0x1bc0 contains 117 entries:
+Relocation section '.rel.debug_info' at offset 0x1c60 contains 119 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00006202 R_ARM_ABS32            00000000   .debug_abbrev
 0000000c  00001702 R_ARM_ABS32            00000000   
@@ -11039,107 +11043,109 @@ Relocation section '.rel.debug_info' at offset 0x1bc0 contains 117 entries:
 00000065  00003f02 R_ARM_ABS32            00000241   
 00000069  00004002 R_ARM_ABS32            00000270   
 00000074  00006402 R_ARM_ABS32            00000000   .debug_ranges
-0000007c  00004c02 R_ARM_ABS32            000002ff   
-00000087  00006402 R_ARM_ABS32            00000000   .debug_ranges
-0000008f  00004f02 R_ARM_ABS32            0000031c   
-0000009a  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
-000000a7  00005202 R_ARM_ABS32            00000331   
-000000b3  00006402 R_ARM_ABS32            00000000   .debug_ranges
-000000bc  00000302 R_ARM_ABS32            00000335   
-000000c7  00006402 R_ARM_ABS32            00000000   .debug_ranges
-000000d0  00000c02 R_ARM_ABS32            0000037f   
-000000db  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
-000000e8  00000d02 R_ARM_ABS32            00000386   
-000000f4  00006402 R_ARM_ABS32            00000000   .debug_ranges
-000000fd  00000e02 R_ARM_ABS32            0000038a   
-00000108  00006402 R_ARM_ABS32            00000000   .debug_ranges
-00000111  00000302 R_ARM_ABS32            00000335   
-0000011c  00006402 R_ARM_ABS32            00000000   .debug_ranges
-00000125  00000c02 R_ARM_ABS32            0000037f   
-00000130  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
-0000013d  00000d02 R_ARM_ABS32            00000386   
-00000149  00006402 R_ARM_ABS32            00000000   .debug_ranges
-00000152  00001402 R_ARM_ABS32            000003b1   
-0000015d  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
-0000016a  00005202 R_ARM_ABS32            00000331   
-0000017f  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
-00000189  00004a02 R_ARM_ABS32            000002b8   
-0000018d  00004b02 R_ARM_ABS32            000002f1   
-0000019b  00001402 R_ARM_ABS32            000003b1   
-000001a9  00000e02 R_ARM_ABS32            0000038a   
-000001b4  00006402 R_ARM_ABS32            00000000   .debug_ranges
-000001bc  00001502 R_ARM_ABS32            000003b6   
-000001c7  00006402 R_ARM_ABS32            00000000   .debug_ranges
-000001cf  00001602 R_ARM_ABS32            000003ba   
-000001de  00004d02 R_ARM_ABS32            00000305   
-000001e3  00004e02 R_ARM_ABS32            00000310   
-000001ea  00005102 R_ARM_ABS32            00000326   
-000001f1  00005002 R_ARM_ABS32            00000322   
-0000020c  00001d02 R_ARM_ABS32            000000a1   
-00000213  00001e02 R_ARM_ABS32            000000a4   
-0000021a  00002102 R_ARM_ABS32            000000f7   
-0000021f  00002202 R_ARM_ABS32            000000fe   
-00000224  00002302 R_ARM_ABS32            00000101   
-00000229  00002902 R_ARM_ABS32            00000124   
-00000230  00002402 R_ARM_ABS32            00000105   
-0000023b  00002502 R_ARM_ABS32            0000010d   
-00000246  00002702 R_ARM_ABS32            00000115   
-00000254  00002b02 R_ARM_ABS32            0000016b   
-0000025d  00003e02 R_ARM_ABS32            00000235   
-00000264  00002d02 R_ARM_ABS32            00000176   
-0000026a  00002e02 R_ARM_ABS32            0000017e   
-00000274  00002f02 R_ARM_ABS32            00000189   
-0000027e  00003002 R_ARM_ABS32            00000194   
-00000288  00003102 R_ARM_ABS32            000001a1   
-00000292  00003202 R_ARM_ABS32            000001ac   
-0000029c  00003302 R_ARM_ABS32            000001b4   
-000002a6  00003402 R_ARM_ABS32            000001bf   
-000002b0  00003502 R_ARM_ABS32            000001ca   
-000002ba  00003602 R_ARM_ABS32            000001d4   
-000002c4  00003702 R_ARM_ABS32            000001df   
-000002ce  00003802 R_ARM_ABS32            000001ea   
-000002d8  00003902 R_ARM_ABS32            000001f7   
-000002e2  00003a02 R_ARM_ABS32            00000203   
-000002ec  00003b02 R_ARM_ABS32            00000210   
-000002f6  00003c02 R_ARM_ABS32            0000021e   
-00000300  00003d02 R_ARM_ABS32            00000228   
-0000030d  00002602 R_ARM_ABS32            00000111   
-00000318  00002802 R_ARM_ABS32            0000011c   
-0000031d  00002c02 R_ARM_ABS32            00000172   
-00000324  00004102 R_ARM_ABS32            00000275   
-00000329  00002b02 R_ARM_ABS32            0000016b   
-0000032e  00004902 R_ARM_ABS32            00000290   
-00000343  00004302 R_ARM_ABS32            0000027e   
-00000350  00004802 R_ARM_ABS32            0000028c   
-0000035d  00004302 R_ARM_ABS32            0000027e   
-00000364  00004402 R_ARM_ABS32            00000281   
-00000373  00004602 R_ARM_ABS32            00000288   
-0000037c  00004702 R_ARM_ABS32            0000028a   
-00000382  00004802 R_ARM_ABS32            0000028c   
-00000389  00004402 R_ARM_ABS32            00000281   
-00000398  00004602 R_ARM_ABS32            00000288   
-000003a1  00004702 R_ARM_ABS32            0000028a   
-000003a9  00000202 R_ARM_ABS32            0000033a   
-000003ae  00000b02 R_ARM_ABS32            00000376   
-000003b5  00000402 R_ARM_ABS32            00000340   
-000003c0  00000602 R_ARM_ABS32            0000034e   
-000003cb  00000702 R_ARM_ABS32            00000352   
-000003da  00004602 R_ARM_ABS32            00000288   
-000003e1  00000802 R_ARM_ABS32            0000035a   
-000003e6  00000a02 R_ARM_ABS32            00000365   
-000003f1  00004602 R_ARM_ABS32            00000288   
-000003f8  00000f02 R_ARM_ABS32            00000393   
-000003fd  00001002 R_ARM_ABS32            00000397   
-00000402  00001302 R_ARM_ABS32            000003a7   
-00000409  00001102 R_ARM_ABS32            0000039d   
-00000414  00000602 R_ARM_ABS32            0000034e   
-00000423  00001202 R_ARM_ABS32            000003a3   
-0000042c  00004202 R_ARM_ABS32            0000027a   
-00000433  00004502 R_ARM_ABS32            00000285   
-0000043e  00000502 R_ARM_ABS32            00000344   
-00000447  00000902 R_ARM_ABS32            00000361   
+0000007d  00004c02 R_ARM_ABS32            000002ff   
+00000088  00006402 R_ARM_ABS32            00000000   .debug_ranges
+00000091  00004f02 R_ARM_ABS32            0000031c   
+0000009c  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
+000000a9  00005202 R_ARM_ABS32            00000331   
+000000b5  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
+000000c2  00005202 R_ARM_ABS32            00000331   
+000000ce  00006402 R_ARM_ABS32            00000000   .debug_ranges
+000000d7  00000302 R_ARM_ABS32            00000335   
+000000e2  00006402 R_ARM_ABS32            00000000   .debug_ranges
+000000eb  00000c02 R_ARM_ABS32            0000037f   
+000000f6  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
+00000103  00000d02 R_ARM_ABS32            00000386   
+0000010f  00006402 R_ARM_ABS32            00000000   .debug_ranges
+00000118  00000e02 R_ARM_ABS32            0000038a   
+00000123  00006402 R_ARM_ABS32            00000000   .debug_ranges
+0000012c  00000302 R_ARM_ABS32            00000335   
+00000137  00006402 R_ARM_ABS32            00000000   .debug_ranges
+00000140  00000c02 R_ARM_ABS32            0000037f   
+0000014b  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
+00000158  00000d02 R_ARM_ABS32            00000386   
+00000164  00006402 R_ARM_ABS32            00000000   .debug_ranges
+0000016d  00001402 R_ARM_ABS32            000003b1   
+00000178  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
+00000185  00005202 R_ARM_ABS32            00000331   
+0000019a  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
+000001a4  00004a02 R_ARM_ABS32            000002b8   
+000001a8  00004b02 R_ARM_ABS32            000002f1   
+000001b6  00001402 R_ARM_ABS32            000003b1   
+000001c4  00000e02 R_ARM_ABS32            0000038a   
+000001cf  00006402 R_ARM_ABS32            00000000   .debug_ranges
+000001d7  00001502 R_ARM_ABS32            000003b6   
+000001e2  00006402 R_ARM_ABS32            00000000   .debug_ranges
+000001ea  00001602 R_ARM_ABS32            000003ba   
+000001f9  00004d02 R_ARM_ABS32            00000305   
+000001fe  00004e02 R_ARM_ABS32            00000310   
+00000205  00005102 R_ARM_ABS32            00000326   
+0000020c  00005002 R_ARM_ABS32            00000322   
+00000227  00001d02 R_ARM_ABS32            000000a1   
+0000022e  00001e02 R_ARM_ABS32            000000a4   
+00000235  00002102 R_ARM_ABS32            000000f7   
+0000023a  00002202 R_ARM_ABS32            000000fe   
+0000023f  00002302 R_ARM_ABS32            00000101   
+00000244  00002902 R_ARM_ABS32            00000124   
+0000024b  00002402 R_ARM_ABS32            00000105   
+00000256  00002502 R_ARM_ABS32            0000010d   
+00000261  00002702 R_ARM_ABS32            00000115   
+0000026f  00002b02 R_ARM_ABS32            0000016b   
+00000278  00003e02 R_ARM_ABS32            00000235   
+0000027f  00002d02 R_ARM_ABS32            00000176   
+00000285  00002e02 R_ARM_ABS32            0000017e   
+0000028f  00002f02 R_ARM_ABS32            00000189   
+00000299  00003002 R_ARM_ABS32            00000194   
+000002a3  00003102 R_ARM_ABS32            000001a1   
+000002ad  00003202 R_ARM_ABS32            000001ac   
+000002b7  00003302 R_ARM_ABS32            000001b4   
+000002c1  00003402 R_ARM_ABS32            000001bf   
+000002cb  00003502 R_ARM_ABS32            000001ca   
+000002d5  00003602 R_ARM_ABS32            000001d4   
+000002df  00003702 R_ARM_ABS32            000001df   
+000002e9  00003802 R_ARM_ABS32            000001ea   
+000002f3  00003902 R_ARM_ABS32            000001f7   
+000002fd  00003a02 R_ARM_ABS32            00000203   
+00000307  00003b02 R_ARM_ABS32            00000210   
+00000311  00003c02 R_ARM_ABS32            0000021e   
+0000031b  00003d02 R_ARM_ABS32            00000228   
+00000328  00002602 R_ARM_ABS32            00000111   
+00000333  00002802 R_ARM_ABS32            0000011c   
+00000338  00002c02 R_ARM_ABS32            00000172   
+0000033f  00004102 R_ARM_ABS32            00000275   
+00000344  00002b02 R_ARM_ABS32            0000016b   
+00000349  00004902 R_ARM_ABS32            00000290   
+0000035e  00004302 R_ARM_ABS32            0000027e   
+0000036b  00004802 R_ARM_ABS32            0000028c   
+00000378  00004302 R_ARM_ABS32            0000027e   
+0000037f  00004402 R_ARM_ABS32            00000281   
+0000038e  00004602 R_ARM_ABS32            00000288   
+00000397  00004702 R_ARM_ABS32            0000028a   
+0000039d  00004802 R_ARM_ABS32            0000028c   
+000003a4  00004402 R_ARM_ABS32            00000281   
+000003b3  00004602 R_ARM_ABS32            00000288   
+000003bc  00004702 R_ARM_ABS32            0000028a   
+000003c4  00000202 R_ARM_ABS32            0000033a   
+000003c9  00000b02 R_ARM_ABS32            00000376   
+000003d0  00000402 R_ARM_ABS32            00000340   
+000003db  00000602 R_ARM_ABS32            0000034e   
+000003e6  00000702 R_ARM_ABS32            00000352   
+000003f5  00004602 R_ARM_ABS32            00000288   
+000003fc  00000802 R_ARM_ABS32            0000035a   
+00000401  00000a02 R_ARM_ABS32            00000365   
+0000040c  00004602 R_ARM_ABS32            00000288   
+00000413  00000f02 R_ARM_ABS32            00000393   
+00000418  00001002 R_ARM_ABS32            00000397   
+0000041d  00001302 R_ARM_ABS32            000003a7   
+00000424  00001102 R_ARM_ABS32            0000039d   
+0000042f  00000602 R_ARM_ABS32            0000034e   
+0000043e  00001202 R_ARM_ABS32            000003a3   
+00000447  00004202 R_ARM_ABS32            0000027a   
+0000044e  00004502 R_ARM_ABS32            00000285   
+00000459  00000502 R_ARM_ABS32            00000344   
+00000462  00000902 R_ARM_ABS32            00000361   
 
-Relocation section '.rel.debug_ranges' at offset 0x1f68 contains 64 entries:
+Relocation section '.rel.debug_ranges' at offset 0x2018 contains 66 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
 00000004  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
@@ -11185,58 +11191,60 @@ Relocation section '.rel.debug_ranges' at offset 0x1f68 contains 64 entries:
 000000d4  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
 000000d8  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
 000000dc  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
-000000e8  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
-000000ec  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
+000000e0  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
+000000e4  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
 000000f0  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
 000000f4  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
 000000f8  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
 000000fc  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
-00000108  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
-0000010c  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
+00000100  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
+00000104  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
 00000110  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
 00000114  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
-00000120  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
-00000124  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
+00000118  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
+0000011c  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
 00000128  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
 0000012c  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
 00000130  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
 00000134  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
-00000140  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
-00000144  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
-00000148  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
-0000014c  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
+00000138  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
+0000013c  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
+00000148  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
+0000014c  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
+00000150  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
+00000154  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
 
-Relocation section '.rel.debug_pubnames' at offset 0x2168 contains 1 entry:
+Relocation section '.rel.debug_pubnames' at offset 0x2228 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00006302 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_pubtypes' at offset 0x2170 contains 1 entry:
+Relocation section '.rel.debug_pubtypes' at offset 0x2230 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00006302 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_frame' at offset 0x2178 contains 4 entries:
+Relocation section '.rel.debug_frame' at offset 0x2238 contains 4 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000018  00006502 R_ARM_ABS32            00000000   .debug_frame
 0000001c  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
 00000034  00006502 R_ARM_ABS32            00000000   .debug_frame
 00000038  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
 
-Relocation section '.rel.debug_line' at offset 0x2198 contains 2 entries:
+Relocation section '.rel.debug_line' at offset 0x2258 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 0000004b  00005e02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
-000000fe  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
+00000110  00005f02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
 
-Unwind section '.ARM.exidx.text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE' at offset 0x1dc contains 1 entry:
+Unwind section '.ARM.exidx.text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE' at offset 0x220 contains 1 entry:
 
 0x0 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE>: 0x1 [cantunwind]
 
 
-Unwind section '.ARM.exidx.text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE' at offset 0x370 contains 1 entry:
+Unwind section '.ARM.exidx.text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE' at offset 0x3ac contains 1 entry:
 
 0x0: 0x1 [cantunwind]
 
 
-Symbol table '.symtab' contains 121 entries:
+Symbol table '.symtab' contains 122 entries:
    Num:    Value  Size Type    Bind   Vis      Ndx Name
      0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
      1: 00000000     0 FILE    LOCAL  DEFAULT  ABS 3l4z2ex1n13xskbg
@@ -11330,7 +11338,7 @@ Symbol table '.symtab' contains 121 entries:
     89: 00000000     5 OBJECT  LOCAL  DEFAULT   15 .Lanon.bee97170e4b04da3b7e6710c6e415747.4
     90: 00000000     1 OBJECT  LOCAL  DEFAULT   16 .Lanon.bee97170e4b04da3b7e6710c6e415747.5
     91: 00000000     1 OBJECT  LOCAL  DEFAULT   17 _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
-    92: 00000001   396 FUNC    LOCAL  DEFAULT    7 _ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
+    92: 00000001   388 FUNC    LOCAL  DEFAULT    7 _ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
     93: 00000000     8 OBJECT  LOCAL  DEFAULT   18 _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
     94: 00000000     0 SECTION LOCAL  DEFAULT    3 
     95: 00000000     0 SECTION LOCAL  DEFAULT    7 
@@ -11342,7 +11350,7 @@ Symbol table '.symtab' contains 121 entries:
    101: 00000000     0 SECTION LOCAL  DEFAULT   32 
    102: 00000000     0 SECTION LOCAL  DEFAULT   34 
    103: 00000000     0 NOTYPE  GLOBAL HIDDEN   UND _ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E
-   104: 00000001   422 FUNC    GLOBAL HIDDEN     3 _ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
+   104: 00000001   492 FUNC    GLOBAL HIDDEN     3 _ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
    105: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17hde1b588eeba35004E
    106: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core5array98_$LT$impl$u20$core..iter..traits..collect..IntoIterator$u20$for$u20$$RF$$u5b$T$u3b$$u20$_$u5d$$GT$9into_iter17h93964477595461e4E
    107: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$10as_mut_ptr17hca69c1fbf0f5619eE
@@ -11355,10 +11363,11 @@ Symbol table '.symtab' contains 121 entries:
    114: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E
    115: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE
    116: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE
-   117: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN85_$LT$core..slice..Iter$LT$T$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h787a1134986c9ef9E
-   118: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
-   119: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND hal_i2c_master_read
-   120: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND hal_i2c_master_write
+   117: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E
+   118: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN85_$LT$core..slice..Iter$LT$T$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h787a1134986c9ef9E
+   119: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
+   120: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND hal_i2c_master_read
+   121: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND hal_i2c_master_write
 
 No version information found in this file.
 Attribute Section: aeabi

@@ -9196,7 +9196,7 @@ SYMBOL TABLE:
 00000000 l     O .rodata..Lanon.bee97170e4b04da3b7e6710c6e415747.4	00000005 .Lanon.bee97170e4b04da3b7e6710c6e415747.4
 00000000 l     O .rodata..Lanon.bee97170e4b04da3b7e6710c6e415747.5	00000001 .Lanon.bee97170e4b04da3b7e6710c6e415747.5
 00000000 l     O .bss._ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE	00000001 _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
-00000000 l     F .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE	0000018c _ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
+00000000 l     F .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE	00000184 _ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
 00000000 l     O .bss._ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE	00000008 _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
 00000000 l    d  .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE	00000000 .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
 00000000 l    d  .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE	00000000 .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE
@@ -9208,7 +9208,7 @@ SYMBOL TABLE:
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
 00000000         *UND*	00000000 .hidden _ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E
-00000000 g     F .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE	000001a6 .hidden _ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
+00000000 g     F .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE	000001ec .hidden _ZN3app12touch_sensor4test17hfc7b54ecab39a70fE
 00000000         *UND*	00000000 _ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17hde1b588eeba35004E
 00000000         *UND*	00000000 _ZN4core5array98_$LT$impl$u20$core..iter..traits..collect..IntoIterator$u20$for$u20$$RF$$u5b$T$u3b$$u20$_$u5d$$GT$9into_iter17h93964477595461e4E
 00000000         *UND*	00000000 _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$10as_mut_ptr17hca69c1fbf0f5619eE
@@ -9221,6 +9221,7 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E
 00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE
 00000000         *UND*	00000000 _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE
+00000000         *UND*	00000000 _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E
 00000000         *UND*	00000000 _ZN85_$LT$core..slice..Iter$LT$T$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h787a1134986c9ef9E
 00000000         *UND*	00000000 _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
 00000000         *UND*	00000000 hal_i2c_master_read
@@ -9240,34 +9241,35 @@ _ZN3app12touch_sensor4test17hfc7b54ecab39a70fE():
 
 pub fn test() -> MynewtResult<()> {
    0:	b580      	push	{r7, lr}
-   2:	b0a0      	sub	sp, #128	; 0x80
+   2:	b0a6      	sub	sp, #152	; 0x98
    4:	200a      	movs	r0, #10
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:37
     let mut delay = MynewtDelay{};
     let mut reset = MynewtGPIO::new(10);  //  P0.10/NFC2: TP_RESET
    6:	f7ff fffe 	bl	0 <_ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E>
-   a:	900f      	str	r0, [sp, #60]	; 0x3c
+   a:	9012      	str	r0, [sp, #72]	; 0x48
    c:	e7ff      	b.n	e <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0xe>
-   e:	a80f      	add	r0, sp, #60	; 0x3c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:39
+   e:	a812      	add	r0, sp, #72	; 0x48
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:40
 
-    reset.set_low() ? ;
-  10:	f7ff fffe 	bl	0 <_ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE>
-  14:	900c      	str	r0, [sp, #48]	; 0x30
+    //reset.set_low() ? ;
+    reset.set_high() ? ;
+  10:	f7ff fffe 	bl	0 <_ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E>
+  14:	900f      	str	r0, [sp, #60]	; 0x3c
   16:	e7ff      	b.n	18 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x18>
-  18:	980c      	ldr	r0, [sp, #48]	; 0x30
+  18:	980f      	ldr	r0, [sp, #60]	; 0x3c
   1a:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE>
-  1e:	9010      	str	r0, [sp, #64]	; 0x40
+  1e:	9013      	str	r0, [sp, #76]	; 0x4c
   20:	e7ff      	b.n	22 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x22>
-  22:	9810      	ldr	r0, [sp, #64]	; 0x40
+  22:	9813      	ldr	r0, [sp, #76]	; 0x4c
   24:	1e41      	subs	r1, r0, #1
   26:	bf18      	it	ne
   28:	2101      	movne	r1, #1
   2a:	2801      	cmp	r0, #1
-  2c:	910b      	str	r1, [sp, #44]	; 0x2c
+  2c:	910e      	str	r1, [sp, #56]	; 0x38
   2e:	d016      	beq.n	5e <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x5e>
   30:	e7ff      	b.n	32 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x32>
-  32:	980b      	ldr	r0, [sp, #44]	; 0x2c
+  32:	980e      	ldr	r0, [sp, #56]	; 0x38
   34:	2801      	cmp	r0, #1
   36:	d001      	beq.n	3c <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x3c>
   38:	e7ff      	b.n	3a <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x3a>
@@ -9279,190 +9281,227 @@ pub fn test() -> MynewtResult<()> {
     Ok(())
 }
   3a:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:39
-    reset.set_low() ? ;
-  3c:	9810      	ldr	r0, [sp, #64]	; 0x40
-  3e:	9011      	str	r0, [sp, #68]	; 0x44
-  40:	9811      	ldr	r0, [sp, #68]	; 0x44
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:40
+    reset.set_high() ? ;
+  3c:	9813      	ldr	r0, [sp, #76]	; 0x4c
+  3e:	9014      	str	r0, [sp, #80]	; 0x50
+  40:	9814      	ldr	r0, [sp, #80]	; 0x50
   42:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE>
-  46:	900a      	str	r0, [sp, #40]	; 0x28
+  46:	900d      	str	r0, [sp, #52]	; 0x34
   48:	e7ff      	b.n	4a <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x4a>
-  4a:	980a      	ldr	r0, [sp, #40]	; 0x28
+  4a:	980d      	ldr	r0, [sp, #52]	; 0x34
   4c:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E>
-  50:	900d      	str	r0, [sp, #52]	; 0x34
+  50:	9010      	str	r0, [sp, #64]	; 0x40
   52:	e7ff      	b.n	54 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x54>
   54:	e002      	b.n	5c <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x5c>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:69
 }
-  56:	980d      	ldr	r0, [sp, #52]	; 0x34
-  58:	b020      	add	sp, #128	; 0x80
+  56:	9810      	ldr	r0, [sp, #64]	; 0x40
+  58:	b026      	add	sp, #152	; 0x98
   5a:	bd80      	pop	{r7, pc}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:39
-    reset.set_low() ? ;
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:40
+    reset.set_high() ? ;
   5c:	e7fb      	b.n	56 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x56>
-  5e:	a80e      	add	r0, sp, #56	; 0x38
+  5e:	a811      	add	r0, sp, #68	; 0x44
   60:	2114      	movs	r1, #20
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:42
     delay.delay_ms(20);
   62:	f7ff fffe 	bl	0 <_ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E>
   66:	e7ff      	b.n	68 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x68>
-  68:	a80e      	add	r0, sp, #56	; 0x38
-  6a:	21c8      	movs	r1, #200	; 0xc8
+  68:	a812      	add	r0, sp, #72	; 0x48
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:45
+    reset.set_low() ? ;
+  6a:	f7ff fffe 	bl	0 <_ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE>
+  6e:	900c      	str	r0, [sp, #48]	; 0x30
+  70:	e7ff      	b.n	72 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x72>
+  72:	980c      	ldr	r0, [sp, #48]	; 0x30
+  74:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE>
+  78:	9016      	str	r0, [sp, #88]	; 0x58
+  7a:	e7ff      	b.n	7c <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x7c>
+  7c:	9816      	ldr	r0, [sp, #88]	; 0x58
+  7e:	1e41      	subs	r1, r0, #1
+  80:	bf18      	it	ne
+  82:	2101      	movne	r1, #1
+  84:	2801      	cmp	r0, #1
+  86:	910b      	str	r1, [sp, #44]	; 0x2c
+  88:	d011      	beq.n	ae <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0xae>
+  8a:	e7ff      	b.n	8c <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x8c>
+  8c:	980b      	ldr	r0, [sp, #44]	; 0x2c
+  8e:	2801      	cmp	r0, #1
+  90:	d1d3      	bne.n	3a <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x3a>
+  92:	e7ff      	b.n	94 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x94>
+  94:	9816      	ldr	r0, [sp, #88]	; 0x58
+  96:	9017      	str	r0, [sp, #92]	; 0x5c
+  98:	9817      	ldr	r0, [sp, #92]	; 0x5c
+  9a:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE>
+  9e:	900a      	str	r0, [sp, #40]	; 0x28
+  a0:	e7ff      	b.n	a2 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0xa2>
+  a2:	980a      	ldr	r0, [sp, #40]	; 0x28
+  a4:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E>
+  a8:	9010      	str	r0, [sp, #64]	; 0x40
+  aa:	e7ff      	b.n	ac <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0xac>
+  ac:	e7d6      	b.n	5c <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x5c>
+  ae:	a811      	add	r0, sp, #68	; 0x44
+  b0:	21c8      	movs	r1, #200	; 0xc8
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:47
     delay.delay_ms(200);
-  6c:	f7ff fffe 	bl	0 <_ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E>
-  70:	e7ff      	b.n	72 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x72>
-  72:	a80e      	add	r0, sp, #56	; 0x38
-  74:	21c8      	movs	r1, #200	; 0xc8
+  b2:	f7ff fffe 	bl	0 <_ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E>
+  b6:	e7ff      	b.n	b8 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0xb8>
+  b8:	a811      	add	r0, sp, #68	; 0x44
+  ba:	21c8      	movs	r1, #200	; 0xc8
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:48
     delay.delay_ms(200);
-  76:	f7ff fffe 	bl	0 <_ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E>
-  7a:	e7ff      	b.n	2 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x2>
+  bc:	f7ff fffe 	bl	0 <_ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E>
+  c0:	e7ff      	b.n	2 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x2>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:55
     for register in &[
-  7c:	f240 0000 	movw	r0, #0
-  80:	f2c0 0000 	movt	r0, #0
-  84:	f7ff fffe 	bl	0 <_ZN4core5array98_$LT$impl$u20$core..iter..traits..collect..IntoIterator$u20$for$u20$$RF$$u5b$T$u3b$$u20$_$u5d$$GT$9into_iter17h93964477595461e4E>
-  88:	9009      	str	r0, [sp, #36]	; 0x24
-  8a:	9108      	str	r1, [sp, #32]
-  8c:	e7ff      	b.n	8e <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x8e>
-  8e:	9809      	ldr	r0, [sp, #36]	; 0x24
-  90:	9013      	str	r0, [sp, #76]	; 0x4c
-  92:	9908      	ldr	r1, [sp, #32]
-  94:	9114      	str	r1, [sp, #80]	; 0x50
-  96:	e7ff      	b.n	98 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x98>
-  98:	a813      	add	r0, sp, #76	; 0x4c
-  9a:	f7ff fffe 	bl	0 <_ZN85_$LT$core..slice..Iter$LT$T$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h787a1134986c9ef9E>
-  9e:	9016      	str	r0, [sp, #88]	; 0x58
-  a0:	e7ff      	b.n	a2 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0xa2>
-  a2:	9816      	ldr	r0, [sp, #88]	; 0x58
-  a4:	2800      	cmp	r0, #0
-  a6:	4601      	mov	r1, r0
-  a8:	bf18      	it	ne
-  aa:	2101      	movne	r1, #1
-  ac:	2800      	cmp	r0, #0
-  ae:	9107      	str	r1, [sp, #28]
-  b0:	d019      	beq.n	e6 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0xe6>
-  b2:	e7ff      	b.n	b4 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0xb4>
-  b4:	9807      	ldr	r0, [sp, #28]
-  b6:	2801      	cmp	r0, #1
-  b8:	d1bf      	bne.n	3a <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x3a>
-  ba:	e7ff      	b.n	bc <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0xbc>
-  bc:	9816      	ldr	r0, [sp, #88]	; 0x58
-  be:	9017      	str	r0, [sp, #92]	; 0x5c
-  c0:	9817      	ldr	r0, [sp, #92]	; 0x5c
-  c2:	9015      	str	r0, [sp, #84]	; 0x54
-  c4:	9815      	ldr	r0, [sp, #84]	; 0x54
-  c6:	9018      	str	r0, [sp, #96]	; 0x60
-  c8:	2000      	movs	r0, #0
+  c2:	f240 0000 	movw	r0, #0
+  c6:	f2c0 0000 	movt	r0, #0
+  ca:	f7ff fffe 	bl	0 <_ZN4core5array98_$LT$impl$u20$core..iter..traits..collect..IntoIterator$u20$for$u20$$RF$$u5b$T$u3b$$u20$_$u5d$$GT$9into_iter17h93964477595461e4E>
+  ce:	9009      	str	r0, [sp, #36]	; 0x24
+  d0:	9108      	str	r1, [sp, #32]
+  d2:	e7ff      	b.n	d4 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0xd4>
+  d4:	9809      	ldr	r0, [sp, #36]	; 0x24
+  d6:	9019      	str	r0, [sp, #100]	; 0x64
+  d8:	9908      	ldr	r1, [sp, #32]
+  da:	911a      	str	r1, [sp, #104]	; 0x68
+  dc:	e7ff      	b.n	de <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0xde>
+  de:	a819      	add	r0, sp, #100	; 0x64
+  e0:	f7ff fffe 	bl	0 <_ZN85_$LT$core..slice..Iter$LT$T$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h787a1134986c9ef9E>
+  e4:	901c      	str	r0, [sp, #112]	; 0x70
+  e6:	e7ff      	b.n	e8 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0xe8>
+  e8:	981c      	ldr	r0, [sp, #112]	; 0x70
+  ea:	2800      	cmp	r0, #0
+  ec:	4601      	mov	r1, r0
+  ee:	bf18      	it	ne
+  f0:	2101      	movne	r1, #1
+  f2:	2800      	cmp	r0, #0
+  f4:	9107      	str	r1, [sp, #28]
+  f6:	d019      	beq.n	12c <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x12c>
+  f8:	e7ff      	b.n	fa <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0xfa>
+  fa:	9807      	ldr	r0, [sp, #28]
+  fc:	2801      	cmp	r0, #1
+  fe:	d19c      	bne.n	3a <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x3a>
+ 100:	e7ff      	b.n	102 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x102>
+ 102:	981c      	ldr	r0, [sp, #112]	; 0x70
+ 104:	901d      	str	r0, [sp, #116]	; 0x74
+ 106:	981d      	ldr	r0, [sp, #116]	; 0x74
+ 108:	901b      	str	r0, [sp, #108]	; 0x6c
+ 10a:	981b      	ldr	r0, [sp, #108]	; 0x6c
+ 10c:	901e      	str	r0, [sp, #120]	; 0x78
+ 10e:	2000      	movs	r0, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:63
-        for addr in 0..0x19 {
-  ca:	f88d 0064 	strb.w	r0, [sp, #100]	; 0x64
-  ce:	2019      	movs	r0, #25
-  d0:	f88d 0065 	strb.w	r0, [sp, #101]	; 0x65
-  d4:	f89d 0064 	ldrb.w	r0, [sp, #100]	; 0x64
-  d8:	f89d 1065 	ldrb.w	r1, [sp, #101]	; 0x65
-  dc:	f7ff fffe 	bl	0 <_ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h977f941582e9c4d8E>
-  e0:	9006      	str	r0, [sp, #24]
-  e2:	9105      	str	r1, [sp, #20]
-  e4:	e007      	b.n	f6 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0xf6>
+        for addr in 0..0x80 {
+ 110:	f88d 007c 	strb.w	r0, [sp, #124]	; 0x7c
+ 114:	2080      	movs	r0, #128	; 0x80
+ 116:	f88d 007d 	strb.w	r0, [sp, #125]	; 0x7d
+ 11a:	f89d 007c 	ldrb.w	r0, [sp, #124]	; 0x7c
+ 11e:	f89d 107d 	ldrb.w	r1, [sp, #125]	; 0x7d
+ 122:	f7ff fffe 	bl	0 <_ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h977f941582e9c4d8E>
+ 126:	9006      	str	r0, [sp, #24]
+ 128:	9105      	str	r1, [sp, #20]
+ 12a:	e007      	b.n	13c <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x13c>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:67
     console::print("Done\n"); console::flush();
-  e6:	f240 0000 	movw	r0, #0
-  ea:	f2c0 0000 	movt	r0, #0
-  ee:	2105      	movs	r1, #5
-  f0:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E>
-  f4:	e04f      	b.n	196 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x196>
+ 12c:	f240 0000 	movw	r0, #0
+ 130:	f2c0 0000 	movt	r0, #0
+ 134:	2105      	movs	r1, #5
+ 136:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E>
+ 13a:	e04f      	b.n	1dc <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x1dc>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:63
-        for addr in 0..0x19 {
-  f6:	9806      	ldr	r0, [sp, #24]
-  f8:	f88d 0068 	strb.w	r0, [sp, #104]	; 0x68
-  fc:	9905      	ldr	r1, [sp, #20]
-  fe:	f88d 1069 	strb.w	r1, [sp, #105]	; 0x69
- 102:	e7ff      	b.n	104 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x104>
- 104:	a81a      	add	r0, sp, #104	; 0x68
- 106:	f7ff fffe 	bl	0 <_ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17hde1b588eeba35004E>
- 10a:	f88d 106d 	strb.w	r1, [sp, #109]	; 0x6d
- 10e:	f88d 006c 	strb.w	r0, [sp, #108]	; 0x6c
- 112:	e7ff      	b.n	114 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x114>
- 114:	f89d 006c 	ldrb.w	r0, [sp, #108]	; 0x6c
- 118:	07c1      	lsls	r1, r0, #31
- 11a:	2900      	cmp	r1, #0
- 11c:	9004      	str	r0, [sp, #16]
- 11e:	d019      	beq.n	154 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x154>
- 120:	e7ff      	b.n	122 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x122>
- 122:	9804      	ldr	r0, [sp, #16]
- 124:	2801      	cmp	r0, #1
- 126:	f47f af88 	bne.w	3a <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x3a>
- 12a:	e7ff      	b.n	12c <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x12c>
- 12c:	f89d 006d 	ldrb.w	r0, [sp, #109]	; 0x6d
- 130:	f88d 006e 	strb.w	r0, [sp, #110]	; 0x6e
- 134:	f89d 006e 	ldrb.w	r0, [sp, #110]	; 0x6e
- 138:	f88d 006b 	strb.w	r0, [sp, #107]	; 0x6b
- 13c:	f89d 006b 	ldrb.w	r0, [sp, #107]	; 0x6b
- 140:	f88d 006f 	strb.w	r0, [sp, #111]	; 0x6f
+        for addr in 0..0x80 {
+ 13c:	9806      	ldr	r0, [sp, #24]
+ 13e:	f88d 0080 	strb.w	r0, [sp, #128]	; 0x80
+ 142:	9905      	ldr	r1, [sp, #20]
+ 144:	f88d 1081 	strb.w	r1, [sp, #129]	; 0x81
+ 148:	e7ff      	b.n	14a <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x14a>
+ 14a:	a820      	add	r0, sp, #128	; 0x80
+ 14c:	f7ff fffe 	bl	0 <_ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17hde1b588eeba35004E>
+ 150:	f88d 1085 	strb.w	r1, [sp, #133]	; 0x85
+ 154:	f88d 0084 	strb.w	r0, [sp, #132]	; 0x84
+ 158:	e7ff      	b.n	15a <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x15a>
+ 15a:	f89d 0084 	ldrb.w	r0, [sp, #132]	; 0x84
+ 15e:	07c1      	lsls	r1, r0, #31
+ 160:	2900      	cmp	r1, #0
+ 162:	9004      	str	r0, [sp, #16]
+ 164:	d019      	beq.n	19a <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x19a>
+ 166:	e7ff      	b.n	168 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x168>
+ 168:	9804      	ldr	r0, [sp, #16]
+ 16a:	2801      	cmp	r0, #1
+ 16c:	f47f af65 	bne.w	3a <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x3a>
+ 170:	e7ff      	b.n	172 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x172>
+ 172:	f89d 0085 	ldrb.w	r0, [sp, #133]	; 0x85
+ 176:	f88d 0086 	strb.w	r0, [sp, #134]	; 0x86
+ 17a:	f89d 0086 	ldrb.w	r0, [sp, #134]	; 0x86
+ 17e:	f88d 0083 	strb.w	r0, [sp, #131]	; 0x83
+ 182:	f89d 0083 	ldrb.w	r0, [sp, #131]	; 0x83
+ 186:	f88d 0087 	strb.w	r0, [sp, #135]	; 0x87
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:64
             read_register(addr, *register) ? ;
- 144:	9818      	ldr	r0, [sp, #96]	; 0x60
- 146:	7801      	ldrb	r1, [r0, #0]
- 148:	f89d 006f 	ldrb.w	r0, [sp, #111]	; 0x6f
- 14c:	f7ff fffe 	bl	0 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE>
- 150:	9003      	str	r0, [sp, #12]
- 152:	e000      	b.n	156 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x156>
+ 18a:	981e      	ldr	r0, [sp, #120]	; 0x78
+ 18c:	7801      	ldrb	r1, [r0, #0]
+ 18e:	f89d 0087 	ldrb.w	r0, [sp, #135]	; 0x87
+ 192:	f7ff fffe 	bl	0 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE>
+ 196:	9003      	str	r0, [sp, #12]
+ 198:	e000      	b.n	19c <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x19c>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:55
     for register in &[
- 154:	e7a0      	b.n	98 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x98>
+ 19a:	e7a0      	b.n	de <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0xde>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:64
             read_register(addr, *register) ? ;
- 156:	9803      	ldr	r0, [sp, #12]
- 158:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE>
- 15c:	901c      	str	r0, [sp, #112]	; 0x70
- 15e:	e7ff      	b.n	160 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x160>
- 160:	981c      	ldr	r0, [sp, #112]	; 0x70
- 162:	1e41      	subs	r1, r0, #1
- 164:	bf18      	it	ne
- 166:	2101      	movne	r1, #1
- 168:	2801      	cmp	r0, #1
- 16a:	9102      	str	r1, [sp, #8]
- 16c:	d012      	beq.n	194 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x194>
- 16e:	e7ff      	b.n	170 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x170>
- 170:	9802      	ldr	r0, [sp, #8]
- 172:	2801      	cmp	r0, #1
- 174:	f47f af61 	bne.w	3a <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x3a>
- 178:	e7ff      	b.n	17a <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x17a>
- 17a:	981c      	ldr	r0, [sp, #112]	; 0x70
- 17c:	901d      	str	r0, [sp, #116]	; 0x74
- 17e:	981d      	ldr	r0, [sp, #116]	; 0x74
- 180:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE>
- 184:	9001      	str	r0, [sp, #4]
- 186:	e7ff      	b.n	188 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x188>
- 188:	9801      	ldr	r0, [sp, #4]
- 18a:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E>
- 18e:	900d      	str	r0, [sp, #52]	; 0x34
- 190:	e7ff      	b.n	192 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x192>
- 192:	e763      	b.n	5c <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x5c>
+ 19c:	9803      	ldr	r0, [sp, #12]
+ 19e:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE>
+ 1a2:	9022      	str	r0, [sp, #136]	; 0x88
+ 1a4:	e7ff      	b.n	1a6 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x1a6>
+ 1a6:	9822      	ldr	r0, [sp, #136]	; 0x88
+ 1a8:	1e41      	subs	r1, r0, #1
+ 1aa:	bf18      	it	ne
+ 1ac:	2101      	movne	r1, #1
+ 1ae:	2801      	cmp	r0, #1
+ 1b0:	9102      	str	r1, [sp, #8]
+ 1b2:	d012      	beq.n	1da <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x1da>
+ 1b4:	e7ff      	b.n	1b6 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x1b6>
+ 1b6:	9802      	ldr	r0, [sp, #8]
+ 1b8:	2801      	cmp	r0, #1
+ 1ba:	f47f af3e 	bne.w	3a <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x3a>
+ 1be:	e7ff      	b.n	1c0 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x1c0>
+ 1c0:	9822      	ldr	r0, [sp, #136]	; 0x88
+ 1c2:	9023      	str	r0, [sp, #140]	; 0x8c
+ 1c4:	9823      	ldr	r0, [sp, #140]	; 0x8c
+ 1c6:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE>
+ 1ca:	9001      	str	r0, [sp, #4]
+ 1cc:	e7ff      	b.n	1ce <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x1ce>
+ 1ce:	9801      	ldr	r0, [sp, #4]
+ 1d0:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E>
+ 1d4:	9010      	str	r0, [sp, #64]	; 0x40
+ 1d6:	e7ff      	b.n	1d8 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x1d8>
+ 1d8:	e740      	b.n	5c <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x5c>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:63
-        for addr in 0..0x19 {
- 194:	e7b6      	b.n	104 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x104>
+        for addr in 0..0x80 {
+ 1da:	e7b6      	b.n	14a <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x14a>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:67
     console::print("Done\n"); console::flush();
- 196:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5flush17hdebac7a23ce4130cE>
- 19a:	e7ff      	b.n	19c <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x19c>
- 19c:	2000      	movs	r0, #0
+ 1dc:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5flush17hdebac7a23ce4130cE>
+ 1e0:	e7ff      	b.n	1e2 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x1e2>
+ 1e2:	2000      	movs	r0, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:68
     Ok(())
- 19e:	900d      	str	r0, [sp, #52]	; 0x34
- 1a0:	2001      	movs	r0, #1
- 1a2:	900d      	str	r0, [sp, #52]	; 0x34
+ 1e4:	9010      	str	r0, [sp, #64]	; 0x40
+ 1e6:	2001      	movs	r0, #1
+ 1e8:	9010      	str	r0, [sp, #64]	; 0x40
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:69
 }
- 1a4:	e757      	b.n	56 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x56>
+ 1ea:	e734      	b.n	56 <_ZN3app12touch_sensor4test17hfc7b54ecab39a70fE+0x56>
 
 Disassembly of section .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE:
 
 00000000 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE>:
 _ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:71
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:89
+addr: 0x44, reg: 0x8f = 0xa3
+addr: 0x44, reg: 0xa6 = 0xa3
+addr: 0x44, reg: 0xa8 = 0xa3
+*/
 
 fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
    0:	b580      	push	{r7, lr}
@@ -9471,7 +9510,7 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
    6:	4603      	mov	r3, r0
    8:	f88d 0026 	strb.w	r0, [sp, #38]	; 0x26
    c:	f88d 1027 	strb.w	r1, [sp, #39]	; 0x27
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:74
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:92
     //  first the register address must be sent in write mode (slave address xxxxxxx0). 
     unsafe { 
         I2C_BUFFER[0] = register;
@@ -9484,14 +9523,14 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
   20:	f2c0 0000 	movt	r0, #0
   24:	9906      	ldr	r1, [sp, #24]
   26:	7001      	strb	r1, [r0, #0]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:75
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:93
         I2C_DATA.address = addr; // (addr << 1) + 0;
   28:	f89d 2026 	ldrb.w	r2, [sp, #38]	; 0x26
   2c:	f240 0300 	movw	r3, #0
   30:	f2c0 0300 	movt	r3, #0
   34:	701a      	strb	r2, [r3, #0]
   36:	2101      	movs	r1, #1
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:76
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:94
         I2C_DATA.len = I2C_BUFFER.len() as u16;
   38:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h70be3ebb33ef544dE>
   3c:	9005      	str	r0, [sp, #20]
@@ -9500,7 +9539,7 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
   44:	f2c0 0000 	movt	r0, #0
   48:	9905      	ldr	r1, [sp, #20]
   4a:	8041      	strh	r1, [r0, #2]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:77
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:95
         I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
   4c:	f240 0000 	movw	r0, #0
   50:	f2c0 0000 	movt	r0, #0
@@ -9512,156 +9551,154 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
   62:	f2c0 0000 	movt	r0, #0
   66:	9904      	ldr	r1, [sp, #16]
   68:	6041      	str	r1, [r0, #4]
-  6a:	2201      	movs	r2, #1
-  6c:	f44f 737a 	mov.w	r3, #1000	; 0x3e8
-  70:	f04f 0c00 	mov.w	ip, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:80
+  6a:	f44f 727a 	mov.w	r2, #1000	; 0x3e8
+  6e:	2301      	movs	r3, #1
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:98
     };
     //  Then either a stop or a repeated start condition must be generated. 
-    let rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };
-  74:	9003      	str	r0, [sp, #12]
-  76:	4610      	mov	r0, r2
-  78:	9903      	ldr	r1, [sp, #12]
-  7a:	461a      	mov	r2, r3
-  7c:	4663      	mov	r3, ip
-  7e:	f7ff fffe 	bl	0 <hal_i2c_master_write>
-  82:	900b      	str	r0, [sp, #44]	; 0x2c
-  84:	e7ff      	b.n	86 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x86>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:81
+    let rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 1) };
+  70:	9003      	str	r0, [sp, #12]
+  72:	4618      	mov	r0, r3
+  74:	9903      	ldr	r1, [sp, #12]
+  76:	f7ff fffe 	bl	0 <hal_i2c_master_write>
+  7a:	900b      	str	r0, [sp, #44]	; 0x2c
+  7c:	e7ff      	b.n	7e <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x7e>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:100
+    //let rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };
     if rc1 == hal::HAL_I2C_ERR_ADDR_NACK as i32 {
-  86:	980b      	ldr	r0, [sp, #44]	; 0x2c
-  88:	2804      	cmp	r0, #4
-  8a:	d109      	bne.n	a0 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0xa0>
-  8c:	e7ff      	b.n	8e <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x8e>
-  8e:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:82
+  7e:	980b      	ldr	r0, [sp, #44]	; 0x2c
+  80:	2804      	cmp	r0, #4
+  82:	d109      	bne.n	98 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x98>
+  84:	e7ff      	b.n	86 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x86>
+  86:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:101
         return Ok(());
-  90:	900a      	str	r0, [sp, #40]	; 0x28
-  92:	2001      	movs	r0, #1
-  94:	900a      	str	r0, [sp, #40]	; 0x28
-  96:	e002      	b.n	9e <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x9e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:107
+  88:	900a      	str	r0, [sp, #40]	; 0x28
+  8a:	2001      	movs	r0, #1
+  8c:	900a      	str	r0, [sp, #40]	; 0x28
+  8e:	e002      	b.n	96 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x96>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:126
     console::print("addr: 0x"); console::printhex(addr); 
     console::print(", reg: 0x"); console::printhex(register); 
     console::print(" = 0x"); console::printhex(unsafe { I2C_BUFFER[0] }); 
     console::print("\n"); console::flush();
     Ok(())
 }
-  98:	980a      	ldr	r0, [sp, #40]	; 0x28
-  9a:	b010      	add	sp, #64	; 0x40
-  9c:	bd80      	pop	{r7, pc}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:82
+  90:	980a      	ldr	r0, [sp, #40]	; 0x28
+  92:	b010      	add	sp, #64	; 0x40
+  94:	bd80      	pop	{r7, pc}
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:101
         return Ok(());
-  9e:	e7fb      	b.n	98 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x98>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:87
-        I2C_BUFFER[0] = 0x00;
-  a0:	e7ff      	b.n	a2 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0xa2>
-  a2:	f240 0000 	movw	r0, #0
-  a6:	f2c0 0000 	movt	r0, #0
-  aa:	2100      	movs	r1, #0
-  ac:	7001      	strb	r1, [r0, #0]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:88
-        I2C_DATA.address = addr; // (addr << 1) + 1;
-  ae:	f89d 1026 	ldrb.w	r1, [sp, #38]	; 0x26
-  b2:	f240 0200 	movw	r2, #0
-  b6:	f2c0 0200 	movt	r2, #0
-  ba:	7011      	strb	r1, [r2, #0]
-  bc:	2101      	movs	r1, #1
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:89
-        I2C_DATA.len = I2C_BUFFER.len() as u16;
-  be:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h70be3ebb33ef544dE>
-  c2:	9002      	str	r0, [sp, #8]
-  c4:	e7ff      	b.n	c6 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0xc6>
-  c6:	f240 0000 	movw	r0, #0
-  ca:	f2c0 0000 	movt	r0, #0
-  ce:	9902      	ldr	r1, [sp, #8]
-  d0:	8041      	strh	r1, [r0, #2]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:90
-        I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
-  d2:	f240 0000 	movw	r0, #0
-  d6:	f2c0 0000 	movt	r0, #0
-  da:	2101      	movs	r1, #1
-  dc:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$10as_mut_ptr17hca69c1fbf0f5619eE>
-  e0:	9001      	str	r0, [sp, #4]
-  e2:	e7ff      	b.n	e4 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0xe4>
-  e4:	f240 0000 	movw	r0, #0
-  e8:	f2c0 0000 	movt	r0, #0
-  ec:	9901      	ldr	r1, [sp, #4]
-  ee:	6041      	str	r1, [r0, #4]
-  f0:	f44f 727a 	mov.w	r2, #1000	; 0x3e8
-  f4:	2301      	movs	r3, #1
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:93
-    let rc2 = unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
-  f6:	9000      	str	r0, [sp, #0]
-  f8:	4618      	mov	r0, r3
-  fa:	9900      	ldr	r1, [sp, #0]
-  fc:	f7ff fffe 	bl	0 <hal_i2c_master_read>
- 100:	900d      	str	r0, [sp, #52]	; 0x34
- 102:	e7ff      	b.n	104 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x104>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:94
-    if rc2 == hal::HAL_I2C_ERR_ADDR_NACK as i32 {
- 104:	980d      	ldr	r0, [sp, #52]	; 0x34
- 106:	2804      	cmp	r0, #4
- 108:	d105      	bne.n	116 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x116>
- 10a:	e7ff      	b.n	10c <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x10c>
- 10c:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:95
-        return Ok(());
- 10e:	900a      	str	r0, [sp, #40]	; 0x28
- 110:	2001      	movs	r0, #1
- 112:	900a      	str	r0, [sp, #40]	; 0x28
- 114:	e7c3      	b.n	9e <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x9e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:102
-    console::print("addr: 0x"); console::printhex(addr); 
- 116:	f240 0000 	movw	r0, #0
- 11a:	f2c0 0000 	movt	r0, #0
- 11e:	2108      	movs	r1, #8
- 120:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E>
- 124:	e7ff      	b.n	126 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x126>
- 126:	f89d 0026 	ldrb.w	r0, [sp, #38]	; 0x26
- 12a:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console8printhex17h73cec8f13f2f68e9E>
- 12e:	e7ff      	b.n	2 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:103
-    console::print(", reg: 0x"); console::printhex(register); 
- 130:	f240 0000 	movw	r0, #0
- 134:	f2c0 0000 	movt	r0, #0
- 138:	2109      	movs	r1, #9
- 13a:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E>
- 13e:	e7ff      	b.n	140 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x140>
- 140:	f89d 0027 	ldrb.w	r0, [sp, #39]	; 0x27
- 144:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console8printhex17h73cec8f13f2f68e9E>
- 148:	e7ff      	b.n	2 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:104
-    console::print(" = 0x"); console::printhex(unsafe { I2C_BUFFER[0] }); 
- 14a:	f240 0000 	movw	r0, #0
- 14e:	f2c0 0000 	movt	r0, #0
- 152:	2105      	movs	r1, #5
- 154:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E>
- 158:	e7ff      	b.n	15a <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x15a>
- 15a:	e7ff      	b.n	15c <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x15c>
- 15c:	f240 0000 	movw	r0, #0
- 160:	f2c0 0000 	movt	r0, #0
- 164:	7800      	ldrb	r0, [r0, #0]
- 166:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console8printhex17h73cec8f13f2f68e9E>
- 16a:	e7ff      	b.n	2 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:105
-    console::print("\n"); console::flush();
- 16c:	f240 0000 	movw	r0, #0
- 170:	f2c0 0000 	movt	r0, #0
- 174:	2101      	movs	r1, #1
- 176:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E>
- 17a:	e7ff      	b.n	2 <_ZN6mynewt3sys7console5flush17hdebac7a23ce4130cE+0x2>
- 17c:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5flush17hdebac7a23ce4130cE>
- 180:	e7ff      	b.n	182 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x182>
- 182:	2000      	movs	r0, #0
+  96:	e7fb      	b.n	90 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x90>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:106
-    Ok(())
- 184:	900a      	str	r0, [sp, #40]	; 0x28
- 186:	2001      	movs	r0, #1
- 188:	900a      	str	r0, [sp, #40]	; 0x28
+        I2C_BUFFER[0] = 0x00;
+  98:	e7ff      	b.n	9a <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x9a>
+  9a:	f240 0000 	movw	r0, #0
+  9e:	f2c0 0000 	movt	r0, #0
+  a2:	2100      	movs	r1, #0
+  a4:	7001      	strb	r1, [r0, #0]
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:107
+        I2C_DATA.address = addr; // (addr << 1) + 1;
+  a6:	f89d 1026 	ldrb.w	r1, [sp, #38]	; 0x26
+  aa:	f240 0200 	movw	r2, #0
+  ae:	f2c0 0200 	movt	r2, #0
+  b2:	7011      	strb	r1, [r2, #0]
+  b4:	2101      	movs	r1, #1
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:108
+        I2C_DATA.len = I2C_BUFFER.len() as u16;
+  b6:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h70be3ebb33ef544dE>
+  ba:	9002      	str	r0, [sp, #8]
+  bc:	e7ff      	b.n	be <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0xbe>
+  be:	f240 0000 	movw	r0, #0
+  c2:	f2c0 0000 	movt	r0, #0
+  c6:	9902      	ldr	r1, [sp, #8]
+  c8:	8041      	strh	r1, [r0, #2]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:109
+        I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
+  ca:	f240 0000 	movw	r0, #0
+  ce:	f2c0 0000 	movt	r0, #0
+  d2:	2101      	movs	r1, #1
+  d4:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$10as_mut_ptr17hca69c1fbf0f5619eE>
+  d8:	9001      	str	r0, [sp, #4]
+  da:	e7ff      	b.n	dc <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0xdc>
+  dc:	f240 0000 	movw	r0, #0
+  e0:	f2c0 0000 	movt	r0, #0
+  e4:	9901      	ldr	r1, [sp, #4]
+  e6:	6041      	str	r1, [r0, #4]
+  e8:	f44f 727a 	mov.w	r2, #1000	; 0x3e8
+  ec:	2301      	movs	r3, #1
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:112
+    let rc2 = unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
+  ee:	9000      	str	r0, [sp, #0]
+  f0:	4618      	mov	r0, r3
+  f2:	9900      	ldr	r1, [sp, #0]
+  f4:	f7ff fffe 	bl	0 <hal_i2c_master_read>
+  f8:	900d      	str	r0, [sp, #52]	; 0x34
+  fa:	e7ff      	b.n	fc <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0xfc>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:113
+    if rc2 == hal::HAL_I2C_ERR_ADDR_NACK as i32 {
+  fc:	980d      	ldr	r0, [sp, #52]	; 0x34
+  fe:	2804      	cmp	r0, #4
+ 100:	d105      	bne.n	10e <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x10e>
+ 102:	e7ff      	b.n	104 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x104>
+ 104:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:114
+        return Ok(());
+ 106:	900a      	str	r0, [sp, #40]	; 0x28
+ 108:	2001      	movs	r0, #1
+ 10a:	900a      	str	r0, [sp, #40]	; 0x28
+ 10c:	e7c3      	b.n	96 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x96>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:121
+    console::print("addr: 0x"); console::printhex(addr); 
+ 10e:	f240 0000 	movw	r0, #0
+ 112:	f2c0 0000 	movt	r0, #0
+ 116:	2108      	movs	r1, #8
+ 118:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E>
+ 11c:	e7ff      	b.n	11e <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x11e>
+ 11e:	f89d 0026 	ldrb.w	r0, [sp, #38]	; 0x26
+ 122:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console8printhex17h73cec8f13f2f68e9E>
+ 126:	e7ff      	b.n	2 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:122
+    console::print(", reg: 0x"); console::printhex(register); 
+ 128:	f240 0000 	movw	r0, #0
+ 12c:	f2c0 0000 	movt	r0, #0
+ 130:	2109      	movs	r1, #9
+ 132:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E>
+ 136:	e7ff      	b.n	138 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x138>
+ 138:	f89d 0027 	ldrb.w	r0, [sp, #39]	; 0x27
+ 13c:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console8printhex17h73cec8f13f2f68e9E>
+ 140:	e7ff      	b.n	2 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:123
+    console::print(" = 0x"); console::printhex(unsafe { I2C_BUFFER[0] }); 
+ 142:	f240 0000 	movw	r0, #0
+ 146:	f2c0 0000 	movt	r0, #0
+ 14a:	2105      	movs	r1, #5
+ 14c:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E>
+ 150:	e7ff      	b.n	152 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x152>
+ 152:	e7ff      	b.n	154 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x154>
+ 154:	f240 0000 	movw	r0, #0
+ 158:	f2c0 0000 	movt	r0, #0
+ 15c:	7800      	ldrb	r0, [r0, #0]
+ 15e:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console8printhex17h73cec8f13f2f68e9E>
+ 162:	e7ff      	b.n	2 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:124
+    console::print("\n"); console::flush();
+ 164:	f240 0000 	movw	r0, #0
+ 168:	f2c0 0000 	movt	r0, #0
+ 16c:	2101      	movs	r1, #1
+ 16e:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E>
+ 172:	e7ff      	b.n	2 <_ZN6mynewt3sys7console5flush17hdebac7a23ce4130cE+0x2>
+ 174:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5flush17hdebac7a23ce4130cE>
+ 178:	e7ff      	b.n	17a <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x17a>
+ 17a:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:125
+    Ok(())
+ 17c:	900a      	str	r0, [sp, #40]	; 0x28
+ 17e:	2001      	movs	r0, #1
+ 180:	900a      	str	r0, [sp, #40]	; 0x28
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:126
 }
- 18a:	e785      	b.n	98 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x98>
+ 182:	e785      	b.n	90 <_ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE+0x90>
 
 app-b8434b356de0ea5d.3wiwezkuh1kme3qe.rcgu.o:     file format elf32-littlearm
 

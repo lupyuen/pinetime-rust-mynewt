@@ -36,13 +36,13 @@ pub fn test() -> MynewtResult<()> {
     let mut delay = MynewtDelay{};
     let mut reset = MynewtGPIO::new(10);  //  P0.10/NFC2: TP_RESET
 
-    reset.set_low() ? ;
-    //reset.set_high() ? ;
+    //reset.set_low() ? ;
+    reset.set_high() ? ;
 
     delay.delay_ms(20);
 
-    reset.set_high() ? ;
-    //reset.set_low() ? ;
+    //reset.set_high() ? ;
+    reset.set_low() ? ;
 
     delay.delay_ms(200);
     delay.delay_ms(200);
@@ -60,7 +60,7 @@ pub fn test() -> MynewtResult<()> {
         0xA6,  //  HYN_REG_FW_VER                      
         0xA8,  //  HYN_REG_VENDOR_ID                       
     ] {
-        for addr in 0..0x19 {
+        for addr in 0..0x80 {
             read_register(addr, *register) ? ;
         }    
     }
@@ -69,12 +69,21 @@ pub fn test() -> MynewtResult<()> {
 }
 
 /*
+Accelerometer:
 addr: 0x18, reg: 0x00 = 0x11
 addr: 0x18, reg: 0xa3 = 0x00
 addr: 0x18, reg: 0x9f = 0x00
 addr: 0x18, reg: 0x8f = 0x00
 addr: 0x18, reg: 0xa6 = 0x80
 addr: 0x18, reg: 0xa8 = 0x00
+
+Heart Rate Sensor:
+addr: 0x44, reg: 0x00 = 0x21
+addr: 0x44, reg: 0xa3 = 0xa3
+addr: 0x44, reg: 0x9f = 0xa3
+addr: 0x44, reg: 0x8f = 0xa3
+addr: 0x44, reg: 0xa6 = 0xa3
+addr: 0x44, reg: 0xa8 = 0xa3
 */
 
 fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
@@ -86,7 +95,8 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
         I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
     };
     //  Then either a stop or a repeated start condition must be generated. 
-    let rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };
+    let rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 1) };
+    //let rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };
     if rc1 == hal::HAL_I2C_ERR_ADDR_NACK as i32 {
         return Ok(());
     }
