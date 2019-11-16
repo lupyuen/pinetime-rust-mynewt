@@ -10942,12 +10942,12 @@ There is no dynamic section in this file.
 Relocation section '.rel.text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE' at offset 0x1a20 contains 26 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  0000670a R_ARM_THM_CALL         00000000   _ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E
-00000010  0000750a R_ARM_THM_CALL         00000000   _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E
+00000010  0000740a R_ARM_THM_CALL         00000000   _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE
 0000001a  0000730a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE
 00000042  00006d0a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE
 0000004c  0000720a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E
 00000062  0000770a R_ARM_THM_CALL         00000000   _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
-0000006a  0000740a R_ARM_THM_CALL         00000000   _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE
+0000006a  0000750a R_ARM_THM_CALL         00000000   _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E
 00000074  0000730a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE
 0000009a  00006d0a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE
 000000a4  0000720a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E

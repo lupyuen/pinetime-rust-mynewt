@@ -9250,11 +9250,10 @@ pub fn test() -> MynewtResult<()> {
    a:	9012      	str	r0, [sp, #72]	; 0x48
    c:	e7ff      	b.n	e <app::touch_sensor::test+0xe>
    e:	a812      	add	r0, sp, #72	; 0x48
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:40
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:39
 
-    //reset.set_low() ? ;
-    reset.set_high() ? ;
-  10:	f7ff fffe 	bl	0 <<app::mynewt_hal::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_high>
+    reset.set_low() ? ;
+  10:	f7ff fffe 	bl	0 <<app::mynewt_hal::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_low>
   14:	900f      	str	r0, [sp, #60]	; 0x3c
   16:	e7ff      	b.n	18 <app::touch_sensor::test+0x18>
   18:	980f      	ldr	r0, [sp, #60]	; 0x3c
@@ -9281,8 +9280,8 @@ pub fn test() -> MynewtResult<()> {
     Ok(())
 }
   3a:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:40
-    reset.set_high() ? ;
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:39
+    reset.set_low() ? ;
   3c:	9813      	ldr	r0, [sp, #76]	; 0x4c
   3e:	9014      	str	r0, [sp, #80]	; 0x50
   40:	9814      	ldr	r0, [sp, #80]	; 0x50
@@ -9299,8 +9298,8 @@ pub fn test() -> MynewtResult<()> {
   56:	9810      	ldr	r0, [sp, #64]	; 0x40
   58:	b026      	add	sp, #152	; 0x98
   5a:	bd80      	pop	{r7, pc}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:40
-    reset.set_high() ? ;
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:39
+    reset.set_low() ? ;
   5c:	e7fb      	b.n	56 <app::touch_sensor::test+0x56>
   5e:	a811      	add	r0, sp, #68	; 0x44
   60:	2114      	movs	r1, #20
@@ -9309,9 +9308,9 @@ pub fn test() -> MynewtResult<()> {
   62:	f7ff fffe 	bl	0 <<app::mynewt_hal::MynewtDelay as embedded_hal::blocking::delay::DelayMs<u8>>::delay_ms>
   66:	e7ff      	b.n	68 <app::touch_sensor::test+0x68>
   68:	a812      	add	r0, sp, #72	; 0x48
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:45
-    reset.set_low() ? ;
-  6a:	f7ff fffe 	bl	0 <<app::mynewt_hal::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_low>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:44
+    reset.set_high() ? ;
+  6a:	f7ff fffe 	bl	0 <<app::mynewt_hal::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_high>
   6e:	900c      	str	r0, [sp, #48]	; 0x30
   70:	e7ff      	b.n	72 <app::touch_sensor::test+0x72>
   72:	980c      	ldr	r0, [sp, #48]	; 0x30

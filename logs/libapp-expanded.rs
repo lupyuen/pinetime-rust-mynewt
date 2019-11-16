@@ -596,9 +596,9 @@ mod touch_sensor {
     pub fn test() -> MynewtResult<()> {
         let mut delay = MynewtDelay{};
         let mut reset = MynewtGPIO::new(10);
-        reset.set_high()?;
-        delay.delay_ms(20);
         reset.set_low()?;
+        delay.delay_ms(20);
+        reset.set_high()?;
         delay.delay_ms(200);
         delay.delay_ms(200);
         for register in &[0x00, 0xA3, 0x9F, 0x8F, 0xA6, 0xA8] {

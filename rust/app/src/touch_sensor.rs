@@ -36,13 +36,13 @@ pub fn test() -> MynewtResult<()> {
     let mut delay = MynewtDelay{};
     let mut reset = MynewtGPIO::new(10);  //  P0.10/NFC2: TP_RESET
 
-    //reset.set_low() ? ;
-    reset.set_high() ? ;
+    reset.set_low() ? ;
+    //reset.set_high() ? ;
 
     delay.delay_ms(20);
 
-    //reset.set_high() ? ;
-    reset.set_low() ? ;
+    reset.set_high() ? ;
+    //reset.set_low() ? ;
 
     delay.delay_ms(200);
     delay.delay_ms(200);
