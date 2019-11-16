@@ -7,6 +7,61 @@ SYMBOL TABLE:
 
 
 
+app-b8434b356de0ea5d.122ry3e968f1dvym.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 122ry3e968f1dvym
+0000018d l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000055 l       .debug_str	00000000 
+00000085 l       .debug_str	00000000 
+0000008a l       .debug_str	00000000 
+0000008e l       .debug_str	00000000 
+000000a1 l       .debug_str	00000000 
+000000aa l       .debug_str	00000000 
+00000193 l       .debug_str	00000000 
+0000012f l       .debug_str	00000000 
+00000138 l       .debug_str	00000000 
+0000013f l       .debug_str	00000000 
+00000143 l       .debug_str	00000000 
+00000146 l       .debug_str	00000000 
+0000014a l       .debug_str	00000000 
+0000014c l       .debug_str	00000000 
+0000014f l       .debug_str	00000000 
+0000015f l       .debug_str	00000000 
+00000161 l       .debug_str	00000000 
+00000165 l       .debug_str	00000000 
+00000000 l    d  .text._ZN4core3num18ptr_try_from_impls69_$LT$impl$u20$core..convert..TryFrom$LT$usize$GT$$u20$for$u20$u32$GT$8try_from17he2b461ace387954aE	00000000 .text._ZN4core3num18ptr_try_from_impls69_$LT$impl$u20$core..convert..TryFrom$LT$usize$GT$$u20$for$u20$u32$GT$8try_from17he2b461ace387954aE
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN4core3num18ptr_try_from_impls69_$LT$impl$u20$core..convert..TryFrom$LT$usize$GT$$u20$for$u20$u32$GT$8try_from17he2b461ace387954aE	0000001a .hidden core::num::ptr_try_from_impls::<impl core::convert::TryFrom<usize> for u32>::try_from
+
+
+
+Disassembly of section .text._ZN4core3num18ptr_try_from_impls69_$LT$impl$u20$core..convert..TryFrom$LT$usize$GT$$u20$for$u20$u32$GT$8try_from17he2b461ace387954aE:
+
+00000000 <core::num::ptr_try_from_impls::<impl core::convert::TryFrom<usize> for u32>::try_from>:
+_ZN4core3num18ptr_try_from_impls69_$LT$impl$u20$core..convert..TryFrom$LT$usize$GT$$u20$for$u20$u32$GT$8try_from17he2b461ace387954aE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:4726
+   0:	b084      	sub	sp, #16
+   2:	4601      	mov	r1, r0
+   4:	9001      	str	r0, [sp, #4]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:4727
+   6:	9801      	ldr	r0, [sp, #4]
+   8:	9003      	str	r0, [sp, #12]
+   a:	2000      	movs	r0, #0
+   c:	9002      	str	r0, [sp, #8]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:4728
+   e:	9802      	ldr	r0, [sp, #8]
+  10:	9a03      	ldr	r2, [sp, #12]
+  12:	9100      	str	r1, [sp, #0]
+  14:	4611      	mov	r1, r2
+  16:	b004      	add	sp, #16
+  18:	4770      	bx	lr
+
 app-b8434b356de0ea5d.1f1w1qpphj6y4xva.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
@@ -7970,15 +8025,131 @@ _ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE():
   48:	b00a      	add	sp, #40	; 0x28
   4a:	bd70      	pop	{r4, r5, r6, pc}
 
+app-b8434b356de0ea5d.2xpvmtsqod5ydsrf.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 2xpvmtsqod5ydsrf
+00000138 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000055 l       .debug_str	00000000 
+00000085 l       .debug_str	00000000 
+0000008a l       .debug_str	00000000 
+0000008f l       .debug_str	00000000 
+00000095 l       .debug_str	00000000 
+0000009e l       .debug_str	00000000 
+000000f1 l       .debug_str	00000000 
+00000146 l       .debug_str	00000000 
+000000fb l       .debug_str	00000000 
+00000102 l       .debug_str	00000000 
+00000106 l       .debug_str	00000000 
+0000010b l       .debug_str	00000000 
+0000010f l       .debug_str	00000000 
+00000111 l       .debug_str	00000000 
+00000116 l       .debug_str	00000000 
+0000011a l       .debug_str	00000000 
+00000126 l       .debug_str	00000000 
+0000012b l       .debug_str	00000000 
+00000130 l       .debug_str	00000000 
+00000132 l       .debug_str	00000000 
+00000000 l    d  .text._ZN47_$LT$i32$u20$as$u20$core..iter..range..Step$GT$9add_usize17hbe2f2e34919b8b06E	00000000 .text._ZN47_$LT$i32$u20$as$u20$core..iter..range..Step$GT$9add_usize17hbe2f2e34919b8b06E
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN47_$LT$i32$u20$as$u20$core..iter..range..Step$GT$9add_usize17hbe2f2e34919b8b06E	00000072 .hidden <i32 as core::iter::range::Step>::add_usize
+00000000         *UND*	00000000 .hidden core::num::ptr_try_from_impls::<impl core::convert::TryFrom<usize> for u32>::try_from
+00000000         *UND*	00000000 .hidden core::num::<impl u32>::wrapping_add
+
+
+
+Disassembly of section .text._ZN47_$LT$i32$u20$as$u20$core..iter..range..Step$GT$9add_usize17hbe2f2e34919b8b06E:
+
+00000000 <<i32 as core::iter::range::Step>::add_usize>:
+_ZN47_$LT$i32$u20$as$u20$core..iter..range..Step$GT$9add_usize17hbe2f2e34919b8b06E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:111
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9004      	str	r0, [sp, #16]
+   a:	9105      	str	r1, [sp, #20]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:112
+   c:	9805      	ldr	r0, [sp, #20]
+   e:	9203      	str	r2, [sp, #12]
+  10:	9302      	str	r3, [sp, #8]
+  12:	f7ff fffe 	bl	0 <core::num::ptr_try_from_impls::<impl core::convert::TryFrom<usize> for u32>::try_from>
+  16:	9109      	str	r1, [sp, #36]	; 0x24
+  18:	9008      	str	r0, [sp, #32]
+  1a:	e7ff      	b.n	1c <<i32 as core::iter::range::Step>::add_usize+0x1c>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:113
+  1c:	9808      	ldr	r0, [sp, #32]
+  1e:	2800      	cmp	r0, #0
+  20:	9001      	str	r0, [sp, #4]
+  22:	d005      	beq.n	30 <<i32 as core::iter::range::Step>::add_usize+0x30>
+  24:	e7ff      	b.n	26 <<i32 as core::iter::range::Step>::add_usize+0x26>
+  26:	9801      	ldr	r0, [sp, #4]
+  28:	2801      	cmp	r0, #1
+  2a:	d01b      	beq.n	64 <<i32 as core::iter::range::Step>::add_usize+0x64>
+  2c:	e7ff      	b.n	2e <<i32 as core::iter::range::Step>::add_usize+0x2e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:126
+  2e:	defe      	udf	#254	; 0xfe
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:113
+  30:	9809      	ldr	r0, [sp, #36]	; 0x24
+  32:	900a      	str	r0, [sp, #40]	; 0x28
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:117
+  34:	9804      	ldr	r0, [sp, #16]
+  36:	6800      	ldr	r0, [r0, #0]
+  38:	990a      	ldr	r1, [sp, #40]	; 0x28
+  3a:	f7ff fffe 	bl	0 <core::num::<impl u32>::wrapping_add>
+  3e:	9000      	str	r0, [sp, #0]
+  40:	e7ff      	b.n	42 <<i32 as core::iter::range::Step>::add_usize+0x42>
+  42:	9800      	ldr	r0, [sp, #0]
+  44:	900b      	str	r0, [sp, #44]	; 0x2c
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:118
+  46:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  48:	9a04      	ldr	r2, [sp, #16]
+  4a:	6812      	ldr	r2, [r2, #0]
+  4c:	4291      	cmp	r1, r2
+  4e:	db05      	blt.n	5c <<i32 as core::iter::range::Step>::add_usize+0x5c>
+  50:	e7ff      	b.n	52 <<i32 as core::iter::range::Step>::add_usize+0x52>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:119
+  52:	980b      	ldr	r0, [sp, #44]	; 0x2c
+  54:	9007      	str	r0, [sp, #28]
+  56:	2001      	movs	r0, #1
+  58:	9006      	str	r0, [sp, #24]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:118
+  5a:	e002      	b.n	62 <<i32 as core::iter::range::Step>::add_usize+0x62>
+  5c:	2000      	movs	r0, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:121
+  5e:	9006      	str	r0, [sp, #24]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:118
+  60:	e7ff      	b.n	62 <<i32 as core::iter::range::Step>::add_usize+0x62>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:112
+  62:	e002      	b.n	6a <<i32 as core::iter::range::Step>::add_usize+0x6a>
+  64:	2000      	movs	r0, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:124
+  66:	9006      	str	r0, [sp, #24]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:112
+  68:	e7ff      	b.n	6a <<i32 as core::iter::range::Step>::add_usize+0x6a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:126
+  6a:	9806      	ldr	r0, [sp, #24]
+  6c:	9907      	ldr	r1, [sp, #28]
+  6e:	b00c      	add	sp, #48	; 0x30
+  70:	bd80      	pop	{r7, pc}
+
 app-b8434b356de0ea5d.2xze5wajftyu9ipr.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 2xze5wajftyu9ipr
+00000174 l       .debug_str	00000000 
 000000ea l       .debug_str	00000000 
-000000db l       .debug_str	00000000 
-000000e6 l       .debug_str	00000000 
 00000128 l       .debug_str	00000000 
 0000012e l       .debug_str	00000000 
+00000181 l       .debug_str	00000000 
+0000018a l       .debug_str	00000000 
+00000185 l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000055 l       .debug_str	00000000 
@@ -7986,15 +8157,19 @@ SYMBOL TABLE:
 0000008a l       .debug_str	00000000 
 0000008e l       .debug_str	00000000 
 00000097 l       .debug_str	00000000 
+000000db l       .debug_str	00000000 
+000000e6 l       .debug_str	00000000 
 00000000 l     F .text._ZN4core3num21_$LT$impl$u20$u16$GT$10swap_bytes17he5d853e7813d92cbE	00000024 core::num::<impl u16>::swap_bytes
 00000000 l    d  .text._ZN4core3num21_$LT$impl$u20$u16$GT$10swap_bytes17he5d853e7813d92cbE	00000000 .text._ZN4core3num21_$LT$impl$u20$u16$GT$10swap_bytes17he5d853e7813d92cbE
 00000000 l    d  .text._ZN4core3num21_$LT$impl$u20$u16$GT$5to_be17h761124024c578678E	00000000 .text._ZN4core3num21_$LT$impl$u20$u16$GT$5to_be17h761124024c578678E
+00000000 l    d  .text._ZN4core3num21_$LT$impl$u20$u32$GT$12wrapping_add17h7636b794a3c5717eE	00000000 .text._ZN4core3num21_$LT$impl$u20$u32$GT$12wrapping_add17h7636b794a3c5717eE
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
 00000000 l    d  .debug_ranges	00000000 .debug_ranges
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
 00000000 g     F .text._ZN4core3num21_$LT$impl$u20$u16$GT$5to_be17h761124024c578678E	0000001e .hidden core::num::<impl u16>::to_be
+00000000 g     F .text._ZN4core3num21_$LT$impl$u20$u32$GT$12wrapping_add17h7636b794a3c5717eE	00000022 .hidden core::num::<impl u32>::wrapping_add
 
 
 
@@ -8039,6 +8214,31 @@ _ZN4core3num21_$LT$impl$u20$u16$GT$5to_be17h761124024c578678E():
   18:	9801      	ldr	r0, [sp, #4]
   1a:	b004      	add	sp, #16
   1c:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3num21_$LT$impl$u20$u32$GT$12wrapping_add17h7636b794a3c5717eE:
+
+00000000 <core::num::<impl u32>::wrapping_add>:
+_ZN4core3num21_$LT$impl$u20$u32$GT$12wrapping_add17h7636b794a3c5717eE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3048
+   0:	b086      	sub	sp, #24
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9003      	str	r0, [sp, #12]
+   8:	9104      	str	r1, [sp, #16]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3049
+   a:	9803      	ldr	r0, [sp, #12]
+   c:	9904      	ldr	r1, [sp, #16]
+   e:	4408      	add	r0, r1
+  10:	9005      	str	r0, [sp, #20]
+  12:	9805      	ldr	r0, [sp, #20]
+  14:	9202      	str	r2, [sp, #8]
+  16:	9301      	str	r3, [sp, #4]
+  18:	9000      	str	r0, [sp, #0]
+  1a:	e7ff      	b.n	1c <core::num::<impl u32>::wrapping_add+0x1c>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/mod.rs:3050
+  1c:	9800      	ldr	r0, [sp, #0]
+  1e:	b006      	add	sp, #24
+  20:	4770      	bx	lr
 
 app-b8434b356de0ea5d.35b8gycmn554xvz5.rcgu.o:     file format elf32-littlearm
 
@@ -8820,20 +9020,10 @@ app-b8434b356de0ea5d.3l4z2ex1n13xskbg.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 3l4z2ex1n13xskbg
-00000288 l       .debug_str	00000000 
-00000275 l       .debug_str	00000000 
-0000027a l       .debug_str	00000000 
-0000027e l       .debug_str	00000000 
-00000281 l       .debug_str	00000000 
-00000285 l       .debug_str	00000000 
-0000028a l       .debug_str	00000000 
-0000028c l       .debug_str	00000000 
-00000290 l       .debug_str	00000000 
-000002b8 l       .debug_str	00000000 
+00000310 l       .debug_str	00000000 
 000002f1 l       .debug_str	00000000 
 000002ff l       .debug_str	00000000 
 00000305 l       .debug_str	00000000 
-00000310 l       .debug_str	00000000 
 0000031c l       .debug_str	00000000 
 00000322 l       .debug_str	00000000 
 00000326 l       .debug_str	00000000 
@@ -8841,6 +9031,16 @@ SYMBOL TABLE:
 00000335 l       .debug_str	00000000 
 0000033a l       .debug_str	00000000 
 00000343 l       .debug_str	00000000 
+00000348 l       .debug_str	00000000 
+0000034c l       .debug_str	00000000 
+00000352 l       .debug_str	00000000 
+00000358 l       .debug_str	00000000 
+0000035c l       .debug_str	00000000 
+00000360 l       .debug_str	00000000 
+0000036b l       .debug_str	00000000 
+00000372 l       .debug_str	00000000 
+00000376 l       .debug_str	00000000 
+0000037a l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000055 l       .debug_str	00000000 
@@ -8883,11 +9083,21 @@ SYMBOL TABLE:
 00000235 l       .debug_str	00000000 
 00000241 l       .debug_str	00000000 
 00000270 l       .debug_str	00000000 
+00000275 l       .debug_str	00000000 
+0000027a l       .debug_str	00000000 
+0000027e l       .debug_str	00000000 
+00000281 l       .debug_str	00000000 
+00000285 l       .debug_str	00000000 
+00000288 l       .debug_str	00000000 
+0000028a l       .debug_str	00000000 
+0000028c l       .debug_str	00000000 
+00000290 l       .debug_str	00000000 
+000002b8 l       .debug_str	00000000 
 00000000 l     O .rodata.cst8	00000008 .Lanon.bee97170e4b04da3b7e6710c6e415747.0
 00000000 l     O .rodata..Lanon.bee97170e4b04da3b7e6710c6e415747.1	00000006 .Lanon.bee97170e4b04da3b7e6710c6e415747.1
 00000000 l     O .rodata..Lanon.bee97170e4b04da3b7e6710c6e415747.2	00000001 .Lanon.bee97170e4b04da3b7e6710c6e415747.2
 00000000 l     O .rodata..Lanon.bee97170e4b04da3b7e6710c6e415747.3	00000007 .Lanon.bee97170e4b04da3b7e6710c6e415747.3
-00000008 l     O .rodata.cst8	00000008 .Lanon.bee97170e4b04da3b7e6710c6e415747.4
+00000000 l     O .rodata..Lanon.bee97170e4b04da3b7e6710c6e415747.4	0000000d .Lanon.bee97170e4b04da3b7e6710c6e415747.4
 00000000 l     O .rodata..Lanon.bee97170e4b04da3b7e6710c6e415747.5	00000005 .Lanon.bee97170e4b04da3b7e6710c6e415747.5
 00000000 l     O .bss._ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE	00000001 app::touch_sensor::I2C_BUFFER
 00000000 l     F .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE	000001d6 app::touch_sensor::read_register
@@ -8902,10 +9112,12 @@ SYMBOL TABLE:
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
 00000000         *UND*	00000000 .hidden app::mynewt_hal::MynewtGPIO::new
-00000000 g     F .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE	00000124 .hidden app::touch_sensor::test
+00000000 g     F .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE	00000178 .hidden app::touch_sensor::test
+00000000         *UND*	00000000 core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next
 00000000         *UND*	00000000 core::slice::<impl [T]>::as_mut_ptr
 00000000         *UND*	00000000 core::slice::<impl [T]>::len
 00000000         *UND*	00000000 <T as core::convert::From<T>>::from
+00000000         *UND*	00000000 <I as core::iter::traits::collect::IntoIterator>::into_iter
 00000000         *UND*	00000000 mynewt::sys::console::flush
 00000000         *UND*	00000000 mynewt::sys::console::print
 00000000         *UND*	00000000 mynewt::sys::console::printhex
@@ -8923,181 +9135,228 @@ Disassembly of section .text._ZN3app12touch_sensor4test17hfc7b54ecab39a70fE:
 
 00000000 <app::touch_sensor::test>:
 _ZN3app12touch_sensor4test17hfc7b54ecab39a70fE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:38
-0x44: 00
-0x98: 00
-0xc4: 00
-*/
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:35
+
+/* I2C devices found:
+0x18: 00
+0x44: 00 */
 
 pub fn test() -> MynewtResult<()> {
    0:	b580      	push	{r7, lr}
-   2:	b096      	sub	sp, #88	; 0x58
+   2:	b0a2      	sub	sp, #136	; 0x88
    4:	200a      	movs	r0, #10
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:40
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:37
     let mut delay = MynewtDelay{};
     let mut reset = MynewtGPIO::new(10);  //  P0.10/NFC2: TP_RESET
    6:	f7ff fffe 	bl	0 <app::mynewt_hal::MynewtGPIO::new>
-   a:	900b      	str	r0, [sp, #44]	; 0x2c
+   a:	900f      	str	r0, [sp, #60]	; 0x3c
    c:	e7ff      	b.n	e <app::touch_sensor::test+0xe>
-   e:	a80b      	add	r0, sp, #44	; 0x2c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:41
+   e:	a80f      	add	r0, sp, #60	; 0x3c
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:39
+
     reset.set_low() ? ;
   10:	f7ff fffe 	bl	0 <<app::mynewt_hal::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_low>
-  14:	9008      	str	r0, [sp, #32]
+  14:	900c      	str	r0, [sp, #48]	; 0x30
   16:	e7ff      	b.n	18 <app::touch_sensor::test+0x18>
-  18:	9808      	ldr	r0, [sp, #32]
+  18:	980c      	ldr	r0, [sp, #48]	; 0x30
   1a:	f7ff fffe 	bl	0 <<core::result::Result<T,E> as core::ops::try::Try>::into_result>
-  1e:	900c      	str	r0, [sp, #48]	; 0x30
+  1e:	9010      	str	r0, [sp, #64]	; 0x40
   20:	e7ff      	b.n	22 <app::touch_sensor::test+0x22>
-  22:	980c      	ldr	r0, [sp, #48]	; 0x30
+  22:	9810      	ldr	r0, [sp, #64]	; 0x40
   24:	1e41      	subs	r1, r0, #1
   26:	bf18      	it	ne
   28:	2101      	movne	r1, #1
   2a:	2801      	cmp	r0, #1
-  2c:	9107      	str	r1, [sp, #28]
+  2c:	910b      	str	r1, [sp, #44]	; 0x2c
   2e:	d016      	beq.n	5e <app::touch_sensor::test+0x5e>
   30:	e7ff      	b.n	32 <app::touch_sensor::test+0x32>
-  32:	9807      	ldr	r0, [sp, #28]
+  32:	980b      	ldr	r0, [sp, #44]	; 0x2c
   34:	2801      	cmp	r0, #1
   36:	d001      	beq.n	3c <app::touch_sensor::test+0x3c>
   38:	e7ff      	b.n	3a <app::touch_sensor::test+0x3a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:57
-    //  let register = 0x22;  //  ButtonON@22H
-    let register = 0x00;
-
-    read_register(addr, register) ? ;
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:65
+    for _ in 1..20 {
+        read_register(addr, register) ? ;
+        delay.delay_ms(200);
+    }
     Ok(())
 }
   3a:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:41
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:39
     reset.set_low() ? ;
-  3c:	980c      	ldr	r0, [sp, #48]	; 0x30
-  3e:	900d      	str	r0, [sp, #52]	; 0x34
-  40:	980d      	ldr	r0, [sp, #52]	; 0x34
+  3c:	9810      	ldr	r0, [sp, #64]	; 0x40
+  3e:	9011      	str	r0, [sp, #68]	; 0x44
+  40:	9811      	ldr	r0, [sp, #68]	; 0x44
   42:	f7ff fffe 	bl	0 <<T as core::convert::From<T>>::from>
-  46:	9006      	str	r0, [sp, #24]
+  46:	900a      	str	r0, [sp, #40]	; 0x28
   48:	e7ff      	b.n	4a <app::touch_sensor::test+0x4a>
-  4a:	9806      	ldr	r0, [sp, #24]
+  4a:	980a      	ldr	r0, [sp, #40]	; 0x28
   4c:	f7ff fffe 	bl	0 <<core::result::Result<T,E> as core::ops::try::Try>::from_error>
-  50:	9009      	str	r0, [sp, #36]	; 0x24
+  50:	900d      	str	r0, [sp, #52]	; 0x34
   52:	e7ff      	b.n	54 <app::touch_sensor::test+0x54>
   54:	e002      	b.n	5c <app::touch_sensor::test+0x5c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:57
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:65
 }
-  56:	9809      	ldr	r0, [sp, #36]	; 0x24
-  58:	b016      	add	sp, #88	; 0x58
+  56:	980d      	ldr	r0, [sp, #52]	; 0x34
+  58:	b022      	add	sp, #136	; 0x88
   5a:	bd80      	pop	{r7, pc}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:41
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:39
     reset.set_low() ? ;
   5c:	e7fb      	b.n	56 <app::touch_sensor::test+0x56>
-  5e:	a80a      	add	r0, sp, #40	; 0x28
+  5e:	a80e      	add	r0, sp, #56	; 0x38
   60:	2114      	movs	r1, #20
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:42
     delay.delay_ms(20);
   62:	f7ff fffe 	bl	0 <<app::mynewt_hal::MynewtDelay as embedded_hal::blocking::delay::DelayMs<u8>>::delay_ms>
   66:	e7ff      	b.n	68 <app::touch_sensor::test+0x68>
-  68:	a80b      	add	r0, sp, #44	; 0x2c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:43
+  68:	a80f      	add	r0, sp, #60	; 0x3c
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:44
     reset.set_high() ? ;
   6a:	f7ff fffe 	bl	0 <<app::mynewt_hal::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_high>
-  6e:	9005      	str	r0, [sp, #20]
+  6e:	9009      	str	r0, [sp, #36]	; 0x24
   70:	e7ff      	b.n	72 <app::touch_sensor::test+0x72>
-  72:	9805      	ldr	r0, [sp, #20]
+  72:	9809      	ldr	r0, [sp, #36]	; 0x24
   74:	f7ff fffe 	bl	0 <<core::result::Result<T,E> as core::ops::try::Try>::into_result>
-  78:	900f      	str	r0, [sp, #60]	; 0x3c
+  78:	9013      	str	r0, [sp, #76]	; 0x4c
   7a:	e7ff      	b.n	7c <app::touch_sensor::test+0x7c>
-  7c:	980f      	ldr	r0, [sp, #60]	; 0x3c
+  7c:	9813      	ldr	r0, [sp, #76]	; 0x4c
   7e:	1e41      	subs	r1, r0, #1
   80:	bf18      	it	ne
   82:	2101      	movne	r1, #1
   84:	2801      	cmp	r0, #1
-  86:	9104      	str	r1, [sp, #16]
+  86:	9108      	str	r1, [sp, #32]
   88:	d011      	beq.n	ae <app::touch_sensor::test+0xae>
   8a:	e7ff      	b.n	8c <app::touch_sensor::test+0x8c>
-  8c:	9804      	ldr	r0, [sp, #16]
+  8c:	9808      	ldr	r0, [sp, #32]
   8e:	2801      	cmp	r0, #1
   90:	d1d3      	bne.n	3a <app::touch_sensor::test+0x3a>
   92:	e7ff      	b.n	94 <app::touch_sensor::test+0x94>
-  94:	980f      	ldr	r0, [sp, #60]	; 0x3c
-  96:	9010      	str	r0, [sp, #64]	; 0x40
-  98:	9810      	ldr	r0, [sp, #64]	; 0x40
+  94:	9813      	ldr	r0, [sp, #76]	; 0x4c
+  96:	9014      	str	r0, [sp, #80]	; 0x50
+  98:	9814      	ldr	r0, [sp, #80]	; 0x50
   9a:	f7ff fffe 	bl	0 <<T as core::convert::From<T>>::from>
-  9e:	9003      	str	r0, [sp, #12]
+  9e:	9007      	str	r0, [sp, #28]
   a0:	e7ff      	b.n	a2 <app::touch_sensor::test+0xa2>
-  a2:	9803      	ldr	r0, [sp, #12]
+  a2:	9807      	ldr	r0, [sp, #28]
   a4:	f7ff fffe 	bl	0 <<core::result::Result<T,E> as core::ops::try::Try>::from_error>
-  a8:	9009      	str	r0, [sp, #36]	; 0x24
+  a8:	900d      	str	r0, [sp, #52]	; 0x34
   aa:	e7ff      	b.n	ac <app::touch_sensor::test+0xac>
   ac:	e7d6      	b.n	5c <app::touch_sensor::test+0x5c>
-  ae:	a80a      	add	r0, sp, #40	; 0x28
+  ae:	a80e      	add	r0, sp, #56	; 0x38
   b0:	21c8      	movs	r1, #200	; 0xc8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:44
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:47
     delay.delay_ms(200);
   b2:	f7ff fffe 	bl	0 <<app::mynewt_hal::MynewtDelay as embedded_hal::blocking::delay::DelayMs<u8>>::delay_ms>
   b6:	e7ff      	b.n	b8 <app::touch_sensor::test+0xb8>
-  b8:	a80a      	add	r0, sp, #40	; 0x28
+  b8:	a80e      	add	r0, sp, #56	; 0x38
   ba:	21c8      	movs	r1, #200	; 0xc8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:45
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:48
     delay.delay_ms(200);
   bc:	f7ff fffe 	bl	0 <<app::mynewt_hal::MynewtDelay as embedded_hal::blocking::delay::DelayMs<u8>>::delay_ms>
   c0:	e7ff      	b.n	c2 <app::touch_sensor::test+0xc2>
-  c2:	2095      	movs	r0, #149	; 0x95
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:48
-    let addr = 0x95;
-  c4:	f88d 0046 	strb.w	r0, [sp, #70]	; 0x46
-  c8:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:53
-    let register = 0x00;
-  ca:	f88d 0047 	strb.w	r0, [sp, #71]	; 0x47
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:55
-    read_register(addr, register) ? ;
-  ce:	f89d 1047 	ldrb.w	r1, [sp, #71]	; 0x47
-  d2:	f89d 0046 	ldrb.w	r0, [sp, #70]	; 0x46
-  d6:	f7ff fffe 	bl	0 <app::touch_sensor::test>
-  da:	9002      	str	r0, [sp, #8]
-  dc:	e7ff      	b.n	de <app::touch_sensor::test+0xde>
-  de:	9802      	ldr	r0, [sp, #8]
-  e0:	f7ff fffe 	bl	0 <<core::result::Result<T,E> as core::ops::try::Try>::into_result>
-  e4:	9012      	str	r0, [sp, #72]	; 0x48
-  e6:	e7ff      	b.n	e8 <app::touch_sensor::test+0xe8>
-  e8:	9812      	ldr	r0, [sp, #72]	; 0x48
-  ea:	1e41      	subs	r1, r0, #1
-  ec:	bf18      	it	ne
-  ee:	2101      	movne	r1, #1
-  f0:	2801      	cmp	r0, #1
-  f2:	9101      	str	r1, [sp, #4]
-  f4:	d011      	beq.n	11a <app::touch_sensor::test+0x11a>
-  f6:	e7ff      	b.n	f8 <app::touch_sensor::test+0xf8>
-  f8:	9801      	ldr	r0, [sp, #4]
-  fa:	2801      	cmp	r0, #1
-  fc:	d19d      	bne.n	3a <app::touch_sensor::test+0x3a>
-  fe:	e7ff      	b.n	100 <app::touch_sensor::test+0x100>
- 100:	9812      	ldr	r0, [sp, #72]	; 0x48
- 102:	9013      	str	r0, [sp, #76]	; 0x4c
- 104:	9813      	ldr	r0, [sp, #76]	; 0x4c
- 106:	f7ff fffe 	bl	0 <<T as core::convert::From<T>>::from>
- 10a:	9000      	str	r0, [sp, #0]
- 10c:	e7ff      	b.n	10e <app::touch_sensor::test+0x10e>
- 10e:	9800      	ldr	r0, [sp, #0]
- 110:	f7ff fffe 	bl	0 <<core::result::Result<T,E> as core::ops::try::Try>::from_error>
- 114:	9009      	str	r0, [sp, #36]	; 0x24
- 116:	e7ff      	b.n	118 <app::touch_sensor::test+0x118>
- 118:	e7a0      	b.n	5c <app::touch_sensor::test+0x5c>
- 11a:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:56
-    Ok(())
- 11c:	9009      	str	r0, [sp, #36]	; 0x24
- 11e:	2001      	movs	r0, #1
- 120:	9009      	str	r0, [sp, #36]	; 0x24
+  c2:	2015      	movs	r0, #21
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:50
+    let addr = 0x15;  //  From reference code
+  c4:	f88d 0056 	strb.w	r0, [sp, #86]	; 0x56
+  c8:	20a3      	movs	r0, #163	; 0xa3
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:57
+    let register = 0xA3;  //  HYN_REG_CHIP_ID
+  ca:	f88d 0057 	strb.w	r0, [sp, #87]	; 0x57
+  ce:	2001      	movs	r0, #1
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:60
+    for _ in 1..20 {
+  d0:	9016      	str	r0, [sp, #88]	; 0x58
+  d2:	2014      	movs	r0, #20
+  d4:	9017      	str	r0, [sp, #92]	; 0x5c
+  d6:	9816      	ldr	r0, [sp, #88]	; 0x58
+  d8:	9917      	ldr	r1, [sp, #92]	; 0x5c
+  da:	f7ff fffe 	bl	0 <<I as core::iter::traits::collect::IntoIterator>::into_iter>
+  de:	9006      	str	r0, [sp, #24]
+  e0:	9105      	str	r1, [sp, #20]
+  e2:	e7ff      	b.n	e4 <app::touch_sensor::test+0xe4>
+  e4:	9806      	ldr	r0, [sp, #24]
+  e6:	9018      	str	r0, [sp, #96]	; 0x60
+  e8:	9905      	ldr	r1, [sp, #20]
+  ea:	9119      	str	r1, [sp, #100]	; 0x64
+  ec:	e7ff      	b.n	ee <app::touch_sensor::test+0xee>
+  ee:	a818      	add	r0, sp, #96	; 0x60
+  f0:	f7ff fffe 	bl	0 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next>
+  f4:	911c      	str	r1, [sp, #112]	; 0x70
+  f6:	901b      	str	r0, [sp, #108]	; 0x6c
+  f8:	e7ff      	b.n	fa <app::touch_sensor::test+0xfa>
+  fa:	981b      	ldr	r0, [sp, #108]	; 0x6c
+  fc:	2800      	cmp	r0, #0
+  fe:	9004      	str	r0, [sp, #16]
+ 100:	d010      	beq.n	124 <app::touch_sensor::test+0x124>
+ 102:	e7ff      	b.n	104 <app::touch_sensor::test+0x104>
+ 104:	9804      	ldr	r0, [sp, #16]
+ 106:	2801      	cmp	r0, #1
+ 108:	d197      	bne.n	3a <app::touch_sensor::test+0x3a>
+ 10a:	e7ff      	b.n	10c <app::touch_sensor::test+0x10c>
+ 10c:	981c      	ldr	r0, [sp, #112]	; 0x70
+ 10e:	901d      	str	r0, [sp, #116]	; 0x74
+ 110:	981d      	ldr	r0, [sp, #116]	; 0x74
+ 112:	901a      	str	r0, [sp, #104]	; 0x68
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:61
+        read_register(addr, register) ? ;
+ 114:	f89d 1057 	ldrb.w	r1, [sp, #87]	; 0x57
+ 118:	f89d 0056 	ldrb.w	r0, [sp, #86]	; 0x56
+ 11c:	f7ff fffe 	bl	0 <app::touch_sensor::test>
+ 120:	9003      	str	r0, [sp, #12]
+ 122:	e004      	b.n	12e <app::touch_sensor::test+0x12e>
+ 124:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:64
+    Ok(())
+ 126:	900d      	str	r0, [sp, #52]	; 0x34
+ 128:	2001      	movs	r0, #1
+ 12a:	900d      	str	r0, [sp, #52]	; 0x34
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:65
 }
- 122:	e798      	b.n	56 <app::touch_sensor::test+0x56>
+ 12c:	e793      	b.n	56 <app::touch_sensor::test+0x56>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:61
+        read_register(addr, register) ? ;
+ 12e:	9803      	ldr	r0, [sp, #12]
+ 130:	f7ff fffe 	bl	0 <<core::result::Result<T,E> as core::ops::try::Try>::into_result>
+ 134:	901e      	str	r0, [sp, #120]	; 0x78
+ 136:	e7ff      	b.n	138 <app::touch_sensor::test+0x138>
+ 138:	981e      	ldr	r0, [sp, #120]	; 0x78
+ 13a:	1e41      	subs	r1, r0, #1
+ 13c:	bf18      	it	ne
+ 13e:	2101      	movne	r1, #1
+ 140:	2801      	cmp	r0, #1
+ 142:	9102      	str	r1, [sp, #8]
+ 144:	d012      	beq.n	16c <app::touch_sensor::test+0x16c>
+ 146:	e7ff      	b.n	148 <app::touch_sensor::test+0x148>
+ 148:	9802      	ldr	r0, [sp, #8]
+ 14a:	2801      	cmp	r0, #1
+ 14c:	f47f af75 	bne.w	3a <app::touch_sensor::test+0x3a>
+ 150:	e7ff      	b.n	152 <app::touch_sensor::test+0x152>
+ 152:	981e      	ldr	r0, [sp, #120]	; 0x78
+ 154:	901f      	str	r0, [sp, #124]	; 0x7c
+ 156:	981f      	ldr	r0, [sp, #124]	; 0x7c
+ 158:	f7ff fffe 	bl	0 <<T as core::convert::From<T>>::from>
+ 15c:	9001      	str	r0, [sp, #4]
+ 15e:	e7ff      	b.n	160 <app::touch_sensor::test+0x160>
+ 160:	9801      	ldr	r0, [sp, #4]
+ 162:	f7ff fffe 	bl	0 <<core::result::Result<T,E> as core::ops::try::Try>::from_error>
+ 166:	900d      	str	r0, [sp, #52]	; 0x34
+ 168:	e7ff      	b.n	16a <app::touch_sensor::test+0x16a>
+ 16a:	e777      	b.n	5c <app::touch_sensor::test+0x5c>
+ 16c:	a80e      	add	r0, sp, #56	; 0x38
+ 16e:	21c8      	movs	r1, #200	; 0xc8
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:62
+        delay.delay_ms(200);
+ 170:	f7ff fffe 	bl	0 <<app::mynewt_hal::MynewtDelay as embedded_hal::blocking::delay::DelayMs<u8>>::delay_ms>
+ 174:	e7ff      	b.n	176 <app::touch_sensor::test+0x176>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:60
+    for _ in 1..20 {
+ 176:	e7ba      	b.n	ee <app::touch_sensor::test+0xee>
 
 Disassembly of section .text._ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE:
 
 00000000 <app::touch_sensor::read_register>:
 _ZN3app12touch_sensor13read_register17h57ef0fa73ed7c0abE():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:59
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:67
 
 fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
    0:	b580      	push	{r7, lr}
@@ -9106,7 +9365,8 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
    6:	4603      	mov	r3, r0
    8:	f88d 0026 	strb.w	r0, [sp, #38]	; 0x26
    c:	f88d 1027 	strb.w	r1, [sp, #39]	; 0x27
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:61
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:70
+    //  first the register address must be sent in write mode (slave address xxxxxxx0). 
     unsafe { 
         I2C_BUFFER[0] = register;
   10:	f89d 0027 	ldrb.w	r0, [sp, #39]	; 0x27
@@ -9118,14 +9378,14 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
   20:	f2c0 0000 	movt	r0, #0
   24:	9906      	ldr	r1, [sp, #24]
   26:	7001      	strb	r1, [r0, #0]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:62
-        I2C_DATA.address = addr;
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:71
+        I2C_DATA.address = addr; // (addr << 1) + 0;
   28:	f89d 2026 	ldrb.w	r2, [sp, #38]	; 0x26
   2c:	f240 0300 	movw	r3, #0
   30:	f2c0 0300 	movt	r3, #0
   34:	701a      	strb	r2, [r3, #0]
   36:	2101      	movs	r1, #1
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:63
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:72
         I2C_DATA.len = I2C_BUFFER.len() as u16;
   38:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::len>
   3c:	9005      	str	r0, [sp, #20]
@@ -9134,7 +9394,7 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
   44:	f2c0 0000 	movt	r0, #0
   48:	9905      	ldr	r1, [sp, #20]
   4a:	8041      	strh	r1, [r0, #2]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:64
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:73
         I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
   4c:	f240 0000 	movw	r0, #0
   50:	f2c0 0000 	movt	r0, #0
@@ -9149,9 +9409,10 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
   6a:	2201      	movs	r2, #1
   6c:	f44f 737a 	mov.w	r3, #1000	; 0x3e8
   70:	f04f 0c00 	mov.w	ip, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:66
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:76
     };
-    let rc = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };
+    //  Then either a stop or a repeated start condition must be generated. 
+    let rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };
   74:	9003      	str	r0, [sp, #12]
   76:	4610      	mov	r0, r2
   78:	9903      	ldr	r1, [sp, #12]
@@ -9160,82 +9421,85 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
   7e:	f7ff fffe 	bl	0 <hal_i2c_master_write>
   82:	900b      	str	r0, [sp, #44]	; 0x2c
   84:	e7ff      	b.n	86 <app::touch_sensor::read_register+0x86>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:67
-    console::print("write 0x"); console::printhex(addr); console::print(", rc: ");
-  86:	f240 0000 	movw	r0, #0
-  8a:	f2c0 0000 	movt	r0, #0
-  8e:	2108      	movs	r1, #8
-  90:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
-  94:	e7ff      	b.n	96 <app::touch_sensor::read_register+0x96>
-  96:	f89d 0026 	ldrb.w	r0, [sp, #38]	; 0x26
-  9a:	f7ff fffe 	bl	0 <mynewt::sys::console::printhex>
-  9e:	e7ff      	b.n	2 <app::touch_sensor::read_register+0x2>
-  a0:	f240 0000 	movw	r0, #0
-  a4:	f2c0 0000 	movt	r0, #0
-  a8:	2106      	movs	r1, #6
-  aa:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
-  ae:	e7ff      	b.n	b0 <app::touch_sensor::read_register+0xb0>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:68
-    console::printhex(rc as u8); console::print("\n"); console::flush();
-  b0:	980b      	ldr	r0, [sp, #44]	; 0x2c
-  b2:	f7ff fffe 	bl	0 <mynewt::sys::console::printhex>
-  b6:	e7ff      	b.n	2 <app::touch_sensor::read_register+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:80
+
+    //  After this the slave is addressed in read mode (RW = ‘1’) at address xxxxxxx1, 
+    unsafe { 
+        I2C_BUFFER[0] = 0x00;
+  86:	e7ff      	b.n	88 <app::touch_sensor::read_register+0x88>
+  88:	f240 0000 	movw	r0, #0
+  8c:	f2c0 0000 	movt	r0, #0
+  90:	2100      	movs	r1, #0
+  92:	7001      	strb	r1, [r0, #0]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:81
+        I2C_DATA.address = addr; // (addr << 1) + 1;
+  94:	f89d 1026 	ldrb.w	r1, [sp, #38]	; 0x26
+  98:	f240 0200 	movw	r2, #0
+  9c:	f2c0 0200 	movt	r2, #0
+  a0:	7011      	strb	r1, [r2, #0]
+  a2:	2101      	movs	r1, #1
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:82
+        I2C_DATA.len = I2C_BUFFER.len() as u16;
+  a4:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::len>
+  a8:	9002      	str	r0, [sp, #8]
+  aa:	e7ff      	b.n	ac <app::touch_sensor::read_register+0xac>
+  ac:	f240 0000 	movw	r0, #0
+  b0:	f2c0 0000 	movt	r0, #0
+  b4:	9902      	ldr	r1, [sp, #8]
+  b6:	8041      	strh	r1, [r0, #2]
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:83
+        I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
   b8:	f240 0000 	movw	r0, #0
   bc:	f2c0 0000 	movt	r0, #0
   c0:	2101      	movs	r1, #1
-  c2:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
-  c6:	e7ff      	b.n	2 <mynewt::sys::console::flush+0x2>
-  c8:	f7ff fffe 	bl	0 <mynewt::sys::console::flush>
-  cc:	e7ff      	b.n	ce <app::touch_sensor::read_register+0xce>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:71
-
-    unsafe { 
-        I2C_BUFFER[0] = 0x00;
-  ce:	e7ff      	b.n	d0 <app::touch_sensor::read_register+0xd0>
-  d0:	f240 0000 	movw	r0, #0
-  d4:	f2c0 0000 	movt	r0, #0
-  d8:	2100      	movs	r1, #0
-  da:	7001      	strb	r1, [r0, #0]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:72
-        I2C_DATA.address = addr;
-  dc:	f89d 1026 	ldrb.w	r1, [sp, #38]	; 0x26
-  e0:	f240 0200 	movw	r2, #0
-  e4:	f2c0 0200 	movt	r2, #0
-  e8:	7011      	strb	r1, [r2, #0]
-  ea:	2101      	movs	r1, #1
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:73
-        I2C_DATA.len = I2C_BUFFER.len() as u16;
-  ec:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::len>
-  f0:	9002      	str	r0, [sp, #8]
-  f2:	e7ff      	b.n	f4 <app::touch_sensor::read_register+0xf4>
-  f4:	f240 0000 	movw	r0, #0
-  f8:	f2c0 0000 	movt	r0, #0
-  fc:	9902      	ldr	r1, [sp, #8]
-  fe:	8041      	strh	r1, [r0, #2]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:74
-        I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
- 100:	f240 0000 	movw	r0, #0
- 104:	f2c0 0000 	movt	r0, #0
- 108:	2101      	movs	r1, #1
- 10a:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::as_mut_ptr>
- 10e:	9001      	str	r0, [sp, #4]
- 110:	e7ff      	b.n	112 <app::touch_sensor::read_register+0x112>
- 112:	f240 0000 	movw	r0, #0
- 116:	f2c0 0000 	movt	r0, #0
- 11a:	9901      	ldr	r1, [sp, #4]
- 11c:	6041      	str	r1, [r0, #4]
- 11e:	f44f 727a 	mov.w	r2, #1000	; 0x3e8
- 122:	2301      	movs	r3, #1
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:76
+  c2:	f7ff fffe 	bl	0 <core::slice::<impl [T]>::as_mut_ptr>
+  c6:	9001      	str	r0, [sp, #4]
+  c8:	e7ff      	b.n	ca <app::touch_sensor::read_register+0xca>
+  ca:	f240 0000 	movw	r0, #0
+  ce:	f2c0 0000 	movt	r0, #0
+  d2:	9901      	ldr	r1, [sp, #4]
+  d4:	6041      	str	r1, [r0, #4]
+  d6:	f44f 727a 	mov.w	r2, #1000	; 0x3e8
+  da:	2301      	movs	r3, #1
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:86
     };
-    let rc = unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
- 124:	9000      	str	r0, [sp, #0]
- 126:	4618      	mov	r0, r3
- 128:	9900      	ldr	r1, [sp, #0]
- 12a:	f7ff fffe 	bl	0 <hal_i2c_master_read>
- 12e:	900c      	str	r0, [sp, #48]	; 0x30
- 130:	e7ff      	b.n	132 <app::touch_sensor::read_register+0x132>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:78
+    //  after which the slave sends out data from auto-incremented register addresses until a NOACKM and stop condition occurs.
+    let rc2 = unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
+  dc:	9000      	str	r0, [sp, #0]
+  de:	4618      	mov	r0, r3
+  e0:	9900      	ldr	r1, [sp, #0]
+  e2:	f7ff fffe 	bl	0 <hal_i2c_master_read>
+  e6:	900c      	str	r0, [sp, #48]	; 0x30
+  e8:	e7ff      	b.n	ea <app::touch_sensor::read_register+0xea>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:88
+
+    console::print("write 0x"); console::printhex(addr); console::print(", rc: ");
+  ea:	f240 0000 	movw	r0, #0
+  ee:	f2c0 0000 	movt	r0, #0
+  f2:	2108      	movs	r1, #8
+  f4:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
+  f8:	e7ff      	b.n	fa <app::touch_sensor::read_register+0xfa>
+  fa:	f89d 0026 	ldrb.w	r0, [sp, #38]	; 0x26
+  fe:	f7ff fffe 	bl	0 <mynewt::sys::console::printhex>
+ 102:	e7ff      	b.n	2 <app::touch_sensor::read_register+0x2>
+ 104:	f240 0000 	movw	r0, #0
+ 108:	f2c0 0000 	movt	r0, #0
+ 10c:	2106      	movs	r1, #6
+ 10e:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
+ 112:	e7ff      	b.n	114 <app::touch_sensor::read_register+0x114>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:89
+    console::printhex(rc1 as u8); console::print("\n"); console::flush();
+ 114:	980b      	ldr	r0, [sp, #44]	; 0x2c
+ 116:	f7ff fffe 	bl	0 <mynewt::sys::console::printhex>
+ 11a:	e7ff      	b.n	2 <app::touch_sensor::read_register+0x2>
+ 11c:	f240 0000 	movw	r0, #0
+ 120:	f2c0 0000 	movt	r0, #0
+ 124:	2101      	movs	r1, #1
+ 126:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
+ 12a:	e7ff      	b.n	2 <mynewt::sys::console::flush+0x2>
+ 12c:	f7ff fffe 	bl	0 <mynewt::sys::console::flush>
+ 130:	e7ff      	b.n	2 <app::touch_sensor::read_register+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:91
 
     console::print("read 0x"); console::printhex(addr); console::print(", rc: ");
  132:	f240 0000 	movw	r0, #0
@@ -9251,8 +9515,8 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
  154:	2106      	movs	r1, #6
  156:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
  15a:	e7ff      	b.n	15c <app::touch_sensor::read_register+0x15c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:79
-    console::printhex(rc as u8); console::print("\n"); console::flush();
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:92
+    console::printhex(rc2 as u8); console::print("\n"); console::flush();
  15c:	980c      	ldr	r0, [sp, #48]	; 0x30
  15e:	f7ff fffe 	bl	0 <mynewt::sys::console::printhex>
  162:	e7ff      	b.n	2 <app::touch_sensor::read_register+0x2>
@@ -9262,13 +9526,13 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
  16e:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
  172:	e7ff      	b.n	2 <mynewt::sys::console::flush+0x2>
  174:	f7ff fffe 	bl	0 <mynewt::sys::console::flush>
- 178:	e7ff      	b.n	a <app::touch_sensor::read_register+0xa>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:81
+ 178:	e7ff      	b.n	2 <app::touch_sensor::read_register+0x2>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:94
 
-    console::print("value 0x"); console::printhex(unsafe { I2C_BUFFER[0] }); 
+    console::print("read value 0x"); console::printhex(unsafe { I2C_BUFFER[0] }); 
  17a:	f240 0000 	movw	r0, #0
  17e:	f2c0 0000 	movt	r0, #0
- 182:	2108      	movs	r1, #8
+ 182:	210d      	movs	r1, #13
  184:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
  188:	e7ff      	b.n	18a <app::touch_sensor::read_register+0x18a>
  18a:	e7ff      	b.n	18c <app::touch_sensor::read_register+0x18c>
@@ -9277,7 +9541,7 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
  194:	7800      	ldrb	r0, [r0, #0]
  196:	f7ff fffe 	bl	0 <mynewt::sys::console::printhex>
  19a:	e7ff      	b.n	2 <app::touch_sensor::read_register+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:82
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:95
     console::print("\n"); console::flush();
  19c:	f240 0000 	movw	r0, #0
  1a0:	f2c0 0000 	movt	r0, #0
@@ -9286,7 +9550,7 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
  1aa:	e7ff      	b.n	2 <mynewt::sys::console::flush+0x2>
  1ac:	f7ff fffe 	bl	0 <mynewt::sys::console::flush>
  1b0:	e7ff      	b.n	2 <app::touch_sensor::read_register+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:83
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:96
     console::print("Done\n"); console::flush();
  1b2:	f240 0000 	movw	r0, #0
  1b6:	f2c0 0000 	movt	r0, #0
@@ -9296,12 +9560,12 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
  1c2:	f7ff fffe 	bl	0 <mynewt::sys::console::flush>
  1c6:	e7ff      	b.n	1c8 <app::touch_sensor::read_register+0x1c8>
  1c8:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:84
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:97
     Ok(())
  1ca:	900a      	str	r0, [sp, #40]	; 0x28
  1cc:	2001      	movs	r0, #1
  1ce:	900a      	str	r0, [sp, #40]	; 0x28
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:85
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:98
 }
  1d0:	980a      	ldr	r0, [sp, #40]	; 0x28
  1d2:	b00e      	add	sp, #56	; 0x38
@@ -9311,24 +9575,77 @@ app-b8434b356de0ea5d.3wiwezkuh1kme3qe.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 3wiwezkuh1kme3qe
-000000bd l       .debug_str	00000000 
+0000012d l       .debug_str	00000000 
+00000100 l       .debug_str	00000000 
+00000104 l       .debug_str	00000000 
+0000013a l       .debug_str	00000000 
+00000145 l       .debug_str	00000000 
+0000013c l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000055 l       .debug_str	00000000 
 00000085 l       .debug_str	00000000 
 0000008a l       .debug_str	00000000 
 0000008e l       .debug_str	00000000 
-000000ca l       .debug_str	00000000 
 00000092 l       .debug_str	00000000 
 00000094 l       .debug_str	00000000 
+000000ba l       .debug_str	00000000 
+000000c4 l       .debug_str	00000000 
+000000ed l       .debug_str	00000000 
+000000fa l       .debug_str	00000000 
+00000000 l    d  .text._ZN4core3mem4swap17hd05282ed8be028e1E	00000000 .text._ZN4core3mem4swap17hd05282ed8be028e1E
+00000000 l    d  .text._ZN4core3mem7size_of17h48bc475ee6e1dadaE	00000000 .text._ZN4core3mem7size_of17h48bc475ee6e1dadaE
 00000000 l    d  .text._ZN4core3mem7size_of17h85cb648434ab4930E	00000000 .text._ZN4core3mem7size_of17h85cb648434ab4930E
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN4core3mem4swap17hd05282ed8be028e1E	0000001e core::mem::swap
+00000000 g     F .text._ZN4core3mem7size_of17h48bc475ee6e1dadaE	00000012 core::mem::size_of
 00000000 g     F .text._ZN4core3mem7size_of17h85cb648434ab4930E	00000012 core::mem::size_of
+00000000         *UND*	00000000 core::ptr::swap_nonoverlapping_one
 
 
+
+Disassembly of section .text._ZN4core3mem4swap17hd05282ed8be028e1E:
+
+00000000 <core::mem::swap>:
+_ZN4core3mem4swap17hd05282ed8be028e1E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:493
+   0:	b580      	push	{r7, lr}
+   2:	b084      	sub	sp, #16
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9002      	str	r0, [sp, #8]
+   a:	9103      	str	r1, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:495
+   c:	9802      	ldr	r0, [sp, #8]
+   e:	9903      	ldr	r1, [sp, #12]
+  10:	9201      	str	r2, [sp, #4]
+  12:	9300      	str	r3, [sp, #0]
+  14:	f7ff fffe 	bl	0 <core::ptr::swap_nonoverlapping_one>
+  18:	e7ff      	b.n	1a <core::mem::swap+0x1a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:497
+  1a:	b004      	add	sp, #16
+  1c:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3mem7size_of17h48bc475ee6e1dadaE:
+
+00000000 <core::mem::size_of>:
+_ZN4core3mem7size_of17h48bc475ee6e1dadaE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:235
+   0:	b082      	sub	sp, #8
+   2:	2004      	movs	r0, #4
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:236
+   4:	9001      	str	r0, [sp, #4]
+   6:	9801      	ldr	r0, [sp, #4]
+   8:	9000      	str	r0, [sp, #0]
+   a:	e7ff      	b.n	c <core::mem::size_of+0xc>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:237
+   c:	9800      	ldr	r0, [sp, #0]
+   e:	b002      	add	sp, #8
+  10:	4770      	bx	lr
 
 Disassembly of section .text._ZN4core3mem7size_of17h85cb648434ab4930E:
 
@@ -12267,11 +12584,183 @@ _ZN17embedded_graphics10primitives6circle15Circle$LT$C$GT$3new17hfb7a50a81d55369
   58:	b00e      	add	sp, #56	; 0x38
   5a:	bdb0      	pop	{r4, r5, r7, pc}
 
+app-b8434b356de0ea5d.58priconi5rzan25.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 58priconi5rzan25
+00000223 l       .debug_str	00000000 
+000001fb l       .debug_str	00000000 
+00000228 l       .debug_str	00000000 
+0000024a l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000055 l       .debug_str	00000000 
+00000085 l       .debug_str	00000000 
+0000008a l       .debug_str	00000000 
+0000008f l       .debug_str	00000000 
+00000095 l       .debug_str	00000000 
+0000009e l       .debug_str	00000000 
+000000a5 l       .debug_str	00000000 
+000000ad l       .debug_str	00000000 
+000000b1 l       .debug_str	00000000 
+000000b3 l       .debug_str	00000000 
+00000148 l       .debug_str	00000000 
+00000152 l       .debug_str	00000000 
+00000159 l       .debug_str	00000000 
+0000015d l       .debug_str	00000000 
+00000162 l       .debug_str	00000000 
+00000164 l       .debug_str	00000000 
+00000169 l       .debug_str	00000000 
+0000016d l       .debug_str	00000000 
+00000179 l       .debug_str	00000000 
+0000017d l       .debug_str	00000000 
+00000183 l       .debug_str	00000000 
+00000187 l       .debug_str	00000000 
+0000018b l       .debug_str	00000000 
+00000196 l       .debug_str	00000000 
+00000198 l       .debug_str	00000000 
+00000000 l    d  .text._ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17hde04aeba88ea3327E	00000000 .text._ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17hde04aeba88ea3327E
+00000000 l    d  .text._ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hcfee549d78b37886E	00000000 .text._ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hcfee549d78b37886E
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 .hidden <i32 as core::iter::range::Step>::add_usize
+00000000         *UND*	00000000 .hidden core::cmp::impls::<impl core::cmp::PartialOrd for i32>::lt
+00000000         *UND*	00000000 core::mem::swap
+00000000 g     F .text._ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17hde04aeba88ea3327E	0000009a core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next
+00000000 g     F .text._ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hcfee549d78b37886E	00000016 <I as core::iter::traits::collect::IntoIterator>::into_iter
+
+
+
+Disassembly of section .text._ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17hde04aeba88ea3327E:
+
+00000000 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next>:
+_ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17hde04aeba88ea3327E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:170
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	4601      	mov	r1, r0
+   6:	9003      	str	r0, [sp, #12]
+   8:	2000      	movs	r0, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:171
+   a:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+   e:	9803      	ldr	r0, [sp, #12]
+  10:	1d02      	adds	r2, r0, #4
+  12:	9102      	str	r1, [sp, #8]
+  14:	4611      	mov	r1, r2
+  16:	f7ff fffe 	bl	0 <core::cmp::impls::<impl core::cmp::PartialOrd for i32>::lt>
+  1a:	9001      	str	r0, [sp, #4]
+  1c:	e7ff      	b.n	1e <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x1e>
+  1e:	9801      	ldr	r0, [sp, #4]
+  20:	07c1      	lsls	r1, r0, #31
+  22:	2900      	cmp	r1, #0
+  24:	d023      	beq.n	6e <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x6e>
+  26:	e7ff      	b.n	28 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x28>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:176
+  28:	9803      	ldr	r0, [sp, #12]
+  2a:	2101      	movs	r1, #1
+  2c:	f88d 1027 	strb.w	r1, [sp, #39]	; 0x27
+  30:	f7ff fffe 	bl	0 <<i32 as core::iter::range::Step>::add_usize>
+  34:	9107      	str	r1, [sp, #28]
+  36:	9006      	str	r0, [sp, #24]
+  38:	e7ff      	b.n	3a <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x3a>
+  3a:	9806      	ldr	r0, [sp, #24]
+  3c:	2801      	cmp	r0, #1
+  3e:	d10f      	bne.n	60 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x60>
+  40:	e7ff      	b.n	42 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x42>
+  42:	2000      	movs	r0, #0
+  44:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+  48:	9807      	ldr	r0, [sp, #28]
+  4a:	9008      	str	r0, [sp, #32]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:177
+  4c:	9903      	ldr	r1, [sp, #12]
+  4e:	a808      	add	r0, sp, #32
+  50:	f7ff fffe 	bl	0 <core::mem::swap>
+  54:	e7ff      	b.n	56 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x56>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:178
+  56:	9808      	ldr	r0, [sp, #32]
+  58:	9005      	str	r0, [sp, #20]
+  5a:	2001      	movs	r0, #1
+  5c:	9004      	str	r0, [sp, #16]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:176
+  5e:	e002      	b.n	66 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x66>
+  60:	2000      	movs	r0, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:180
+  62:	9004      	str	r0, [sp, #16]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:176
+  64:	e7ff      	b.n	66 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x66>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:182
+  66:	9806      	ldr	r0, [sp, #24]
+  68:	2801      	cmp	r0, #1
+  6a:	d00b      	beq.n	84 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x84>
+  6c:	e014      	b.n	98 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x98>
+  6e:	2000      	movs	r0, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:183
+  70:	9004      	str	r0, [sp, #16]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:171
+  72:	e7ff      	b.n	74 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x74>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:185
+  74:	9804      	ldr	r0, [sp, #16]
+  76:	9905      	ldr	r1, [sp, #20]
+  78:	b00a      	add	sp, #40	; 0x28
+  7a:	bd80      	pop	{r7, pc}
+  7c:	2000      	movs	r0, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:182
+  7e:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:171
+  82:	e7f7      	b.n	74 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x74>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/range.rs:182
+  84:	f89d 0027 	ldrb.w	r0, [sp, #39]	; 0x27
+  88:	07c0      	lsls	r0, r0, #31
+  8a:	2800      	cmp	r0, #0
+  8c:	d0f6      	beq.n	7c <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x7c>
+  8e:	e7ff      	b.n	90 <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x90>
+  90:	2000      	movs	r0, #0
+  92:	f88d 0027 	strb.w	r0, [sp, #39]	; 0x27
+  96:	e7f1      	b.n	7c <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x7c>
+  98:	e7f0      	b.n	7c <core::iter::range::<impl core::iter::traits::iterator::Iterator for core::ops::range::Range<A>>::next+0x7c>
+
+Disassembly of section .text._ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hcfee549d78b37886E:
+
+00000000 <<I as core::iter::traits::collect::IntoIterator>::into_iter>:
+_ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hcfee549d78b37886E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/traits/collect.rs:245
+   0:	b084      	sub	sp, #16
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9002      	str	r0, [sp, #8]
+   8:	9103      	str	r1, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/traits/collect.rs:246
+   a:	9802      	ldr	r0, [sp, #8]
+   c:	9903      	ldr	r1, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/traits/collect.rs:247
+   e:	9201      	str	r2, [sp, #4]
+  10:	9300      	str	r3, [sp, #0]
+  12:	b004      	add	sp, #16
+  14:	4770      	bx	lr
+
 app-b8434b356de0ea5d.bf3y0ko19be0l6h.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 bf3y0ko19be0l6h
-000000de l       .debug_str	00000000 
+00000427 l       .debug_str	00000000 
+000003f5 l       .debug_str	00000000 
+0000041c l       .debug_str	00000000 
+00000451 l       .debug_str	00000000 
+0000046d l       .debug_str	00000000 
+00000484 l       .debug_str	00000000 
+00000486 l       .debug_str	00000000 
+00000488 l       .debug_str	00000000 
+0000048e l       .debug_str	00000000 
+00000494 l       .debug_str	00000000 
+0000049c l       .debug_str	00000000 
+000004a0 l       .debug_str	00000000 
+000004a2 l       .debug_str	00000000 
+000004a6 l       .debug_str	00000000 
+000004b1 l       .debug_str	00000000 
+000004b5 l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000055 l       .debug_str	00000000 
@@ -12279,20 +12768,228 @@ SYMBOL TABLE:
 0000008a l       .debug_str	00000000 
 0000008e l       .debug_str	00000000 
 00000091 l       .debug_str	00000000 
-000000fa l       .debug_str	00000000 
 0000009c l       .debug_str	00000000 
 000000a7 l       .debug_str	00000000 
 000000ae l       .debug_str	00000000 
 000000b2 l       .debug_str	00000000 
-000000b4 l       .debug_str	00000000 
+000000b6 l       .debug_str	00000000 
+000000bd l       .debug_str	00000000 
+000000c0 l       .debug_str	00000000 
+000000c6 l       .debug_str	00000000 
+000000ca l       .debug_str	00000000 
+000000cc l       .debug_str	00000000 
+000000de l       .debug_str	00000000 
+000000ef l       .debug_str	00000000 
+0000012d l       .debug_str	00000000 
+00000139 l       .debug_str	00000000 
+0000017c l       .debug_str	00000000 
+0000018c l       .debug_str	00000000 
+00000195 l       .debug_str	00000000 
+0000019a l       .debug_str	00000000 
+000001bb l       .debug_str	00000000 
+000001c4 l       .debug_str	00000000 
+00000237 l       .debug_str	00000000 
+00000246 l       .debug_str	00000000 
+0000024f l       .debug_str	00000000 
+00000271 l       .debug_str	00000000 
+000002b5 l       .debug_str	00000000 
+000002c6 l       .debug_str	00000000 
+0000030a l       .debug_str	00000000 
+0000031a l       .debug_str	00000000 
+0000031f l       .debug_str	00000000 
+00000355 l       .debug_str	00000000 
+0000036e l       .debug_str	00000000 
+000003a8 l       .debug_str	00000000 
+000003c5 l       .debug_str	00000000 
+000003eb l       .debug_str	00000000 
+00000000 l    d  .text._ZN4core3ptr19swap_nonoverlapping17hd101ee506eea68feE	00000000 .text._ZN4core3ptr19swap_nonoverlapping17hd101ee506eea68feE
+00000000 l    d  .text._ZN4core3ptr23swap_nonoverlapping_one17hf7a10e482117d5d3E	00000000 .text._ZN4core3ptr23swap_nonoverlapping_one17hf7a10e482117d5d3E
+00000000 l    d  .text._ZN4core3ptr4read17ha99a69867461bcc2E	00000000 .text._ZN4core3ptr4read17ha99a69867461bcc2E
+00000000 l    d  .text._ZN4core3ptr5write17h1f74bbf7fa7f17f4E	00000000 .text._ZN4core3ptr5write17h1f74bbf7fa7f17f4E
 00000000 l    d  .text._ZN4core3ptr8null_mut17h58cf134f3f697ee2E	00000000 .text._ZN4core3ptr8null_mut17h58cf134f3f697ee2E
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 core::intrinsics::copy_nonoverlapping
+00000000         *UND*	00000000 core::mem::size_of
+00000000 g     F .text._ZN4core3ptr19swap_nonoverlapping17hd101ee506eea68feE	00000042 core::ptr::swap_nonoverlapping
+00000000 g     F .text._ZN4core3ptr23swap_nonoverlapping_one17hf7a10e482117d5d3E	00000054 core::ptr::swap_nonoverlapping_one
+00000000         *UND*	00000000 .hidden core::ptr::swap_nonoverlapping_bytes
+00000000 g     F .text._ZN4core3ptr4read17ha99a69867461bcc2E	00000042 core::ptr::read
+00000000 g     F .text._ZN4core3ptr5write17h1f74bbf7fa7f17f4E	00000018 core::ptr::write
 00000000 g     F .text._ZN4core3ptr8null_mut17h58cf134f3f697ee2E	00000004 core::ptr::null_mut
 
 
+
+Disassembly of section .text._ZN4core3ptr19swap_nonoverlapping17hd101ee506eea68feE:
+
+00000000 <core::ptr::swap_nonoverlapping>:
+_ZN4core3ptr19swap_nonoverlapping17hd101ee506eea68feE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:349
+   0:	b580      	push	{r7, lr}
+   2:	b08a      	sub	sp, #40	; 0x28
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9004      	str	r0, [sp, #16]
+   c:	9105      	str	r1, [sp, #20]
+   e:	9206      	str	r2, [sp, #24]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:350
+  10:	9804      	ldr	r0, [sp, #16]
+  12:	9007      	str	r0, [sp, #28]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:351
+  14:	9805      	ldr	r0, [sp, #20]
+  16:	9008      	str	r0, [sp, #32]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:352
+  18:	9303      	str	r3, [sp, #12]
+  1a:	f8cd c008 	str.w	ip, [sp, #8]
+  1e:	f8cd e004 	str.w	lr, [sp, #4]
+  22:	f7ff fffe 	bl	0 <core::mem::size_of>
+  26:	9000      	str	r0, [sp, #0]
+  28:	e7ff      	b.n	2a <core::ptr::swap_nonoverlapping+0x2a>
+  2a:	9806      	ldr	r0, [sp, #24]
+  2c:	9900      	ldr	r1, [sp, #0]
+  2e:	4348      	muls	r0, r1
+  30:	9009      	str	r0, [sp, #36]	; 0x24
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:353
+  32:	9807      	ldr	r0, [sp, #28]
+  34:	9908      	ldr	r1, [sp, #32]
+  36:	9a09      	ldr	r2, [sp, #36]	; 0x24
+  38:	f7ff fffe 	bl	0 <core::ptr::swap_nonoverlapping_bytes>
+  3c:	e7ff      	b.n	3e <core::ptr::swap_nonoverlapping+0x3e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:354
+  3e:	b00a      	add	sp, #40	; 0x28
+  40:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3ptr23swap_nonoverlapping_one17hf7a10e482117d5d3E:
+
+00000000 <core::ptr::swap_nonoverlapping_one>:
+_ZN4core3ptr23swap_nonoverlapping_one17hf7a10e482117d5d3E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:357
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+   4:	460a      	mov	r2, r1
+   6:	4603      	mov	r3, r0
+   8:	9003      	str	r0, [sp, #12]
+   a:	9104      	str	r1, [sp, #16]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:360
+   c:	9202      	str	r2, [sp, #8]
+   e:	9301      	str	r3, [sp, #4]
+  10:	f7ff fffe 	bl	0 <core::mem::size_of>
+  14:	9000      	str	r0, [sp, #0]
+  16:	e7ff      	b.n	18 <core::ptr::swap_nonoverlapping_one+0x18>
+  18:	9800      	ldr	r0, [sp, #0]
+  1a:	281f      	cmp	r0, #31
+  1c:	d811      	bhi.n	42 <core::ptr::swap_nonoverlapping_one+0x42>
+  1e:	e7ff      	b.n	20 <core::ptr::swap_nonoverlapping_one+0x20>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:361
+  20:	9803      	ldr	r0, [sp, #12]
+  22:	f7ff fffe 	bl	0 <core::ptr::swap_nonoverlapping_one>
+  26:	9005      	str	r0, [sp, #20]
+  28:	e7ff      	b.n	2a <core::ptr::swap_nonoverlapping_one+0x2a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:362
+  2a:	9804      	ldr	r0, [sp, #16]
+  2c:	9903      	ldr	r1, [sp, #12]
+  2e:	2201      	movs	r2, #1
+  30:	f7ff fffe 	bl	0 <core::intrinsics::copy_nonoverlapping>
+  34:	e7ff      	b.n	36 <core::ptr::swap_nonoverlapping_one+0x36>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:363
+  36:	9804      	ldr	r0, [sp, #16]
+  38:	9905      	ldr	r1, [sp, #20]
+  3a:	f7ff fffe 	bl	0 <core::ptr::swap_nonoverlapping_one>
+  3e:	e7ff      	b.n	40 <core::ptr::swap_nonoverlapping_one+0x40>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:360
+  40:	e006      	b.n	50 <core::ptr::swap_nonoverlapping_one+0x50>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:365
+  42:	9803      	ldr	r0, [sp, #12]
+  44:	9904      	ldr	r1, [sp, #16]
+  46:	2201      	movs	r2, #1
+  48:	f7ff fffe 	bl	0 <core::ptr::swap_nonoverlapping_one>
+  4c:	e7ff      	b.n	4e <core::ptr::swap_nonoverlapping_one+0x4e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:360
+  4e:	e7ff      	b.n	50 <core::ptr::swap_nonoverlapping_one+0x50>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:367
+  50:	b006      	add	sp, #24
+  52:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3ptr4read17ha99a69867461bcc2E:
+
+00000000 <core::ptr::read>:
+_ZN4core3ptr4read17ha99a69867461bcc2E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:572
+   0:	b580      	push	{r7, lr}
+   2:	b08c      	sub	sp, #48	; 0x30
+   4:	4601      	mov	r1, r0
+   6:	9005      	str	r0, [sp, #20]
+_ZN4core3mem20MaybeUninit$LT$T$GT$6uninit17hac8e29e139212468E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:1121
+   8:	9807      	ldr	r0, [sp, #28]
+_ZN4core3ptr4read17ha99a69867461bcc2E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:573
+   a:	9006      	str	r0, [sp, #24]
+   c:	9104      	str	r1, [sp, #16]
+   e:	e7ff      	b.n	10 <core::ptr::read+0x10>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:574
+  10:	9805      	ldr	r0, [sp, #20]
+  12:	a906      	add	r1, sp, #24
+  14:	910a      	str	r1, [sp, #40]	; 0x28
+_ZN4core3mem20MaybeUninit$LT$T$GT$10as_mut_ptr17hcaf1ff77091350e1E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:1252
+  16:	990a      	ldr	r1, [sp, #40]	; 0x28
+  18:	910b      	str	r1, [sp, #44]	; 0x2c
+_ZN79_$LT$core..mem..ManuallyDrop$LT$T$GT$$u20$as$u20$core..ops..deref..DerefMut$GT$9deref_mut17h48a5d104676ed0a0E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:887
+  1a:	990b      	ldr	r1, [sp, #44]	; 0x2c
+_ZN4core3ptr4read17ha99a69867461bcc2E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:574
+  1c:	9003      	str	r0, [sp, #12]
+  1e:	9102      	str	r1, [sp, #8]
+  20:	e7ff      	b.n	22 <core::ptr::read+0x22>
+  22:	2201      	movs	r2, #1
+  24:	9803      	ldr	r0, [sp, #12]
+  26:	9902      	ldr	r1, [sp, #8]
+  28:	f7ff fffe 	bl	0 <core::intrinsics::copy_nonoverlapping>
+  2c:	e7ff      	b.n	2e <core::ptr::read+0x2e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:575
+  2e:	9806      	ldr	r0, [sp, #24]
+  30:	9008      	str	r0, [sp, #32]
+_ZN4core3mem20MaybeUninit$LT$T$GT$11assume_init17h44db60ff8d9017e8E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:1294
+  32:	9808      	ldr	r0, [sp, #32]
+  34:	9009      	str	r0, [sp, #36]	; 0x24
+_ZN4core3mem21ManuallyDrop$LT$T$GT$10into_inner17h37d86a31920d92f1E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:828
+  36:	9809      	ldr	r0, [sp, #36]	; 0x24
+_ZN4core3ptr4read17ha99a69867461bcc2E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:575
+  38:	9001      	str	r0, [sp, #4]
+  3a:	e7ff      	b.n	3c <core::ptr::read+0x3c>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:576
+  3c:	9801      	ldr	r0, [sp, #4]
+  3e:	b00c      	add	sp, #48	; 0x30
+  40:	bd80      	pop	{r7, pc}
+
+Disassembly of section .text._ZN4core3ptr5write17h1f74bbf7fa7f17f4E:
+
+00000000 <core::ptr::write>:
+_ZN4core3ptr5write17h1f74bbf7fa7f17f4E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:733
+   0:	b084      	sub	sp, #16
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9002      	str	r0, [sp, #8]
+   8:	9103      	str	r1, [sp, #12]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:734
+   a:	9802      	ldr	r0, [sp, #8]
+   c:	9903      	ldr	r1, [sp, #12]
+   e:	6001      	str	r1, [r0, #0]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:735
+  10:	9201      	str	r2, [sp, #4]
+  12:	9300      	str	r3, [sp, #0]
+  14:	b004      	add	sp, #16
+  16:	4770      	bx	lr
 
 Disassembly of section .text._ZN4core3ptr8null_mut17h58cf134f3f697ee2E:
 
@@ -12415,6 +13112,335 @@ _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE
    8:	9100      	str	r1, [sp, #0]
    a:	b002      	add	sp, #8
    c:	4770      	bx	lr
+
+app-b8434b356de0ea5d.h5g9mj2xumotin5.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 h5g9mj2xumotin5
+00000657 l       .debug_str	00000000 
+000006a2 l       .debug_str	00000000 
+000006a6 l       .debug_str	00000000 
+000006ac l       .debug_str	00000000 
+000006b7 l       .debug_str	00000000 
+000006b9 l       .debug_str	00000000 
+000006bb l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000055 l       .debug_str	00000000 
+00000085 l       .debug_str	00000000 
+0000008a l       .debug_str	00000000 
+0000008e l       .debug_str	00000000 
+00000095 l       .debug_str	00000000 
+00000098 l       .debug_str	00000000 
+0000009e l       .debug_str	00000000 
+000000a2 l       .debug_str	00000000 
+000000bc l       .debug_str	00000000 
+000000c0 l       .debug_str	00000000 
+000000c4 l       .debug_str	00000000 
+000000c8 l       .debug_str	00000000 
+000000cc l       .debug_str	00000000 
+000000d0 l       .debug_str	00000000 
+000000d6 l       .debug_str	00000000 
+000000d8 l       .debug_str	00000000 
+00000112 l       .debug_str	00000000 
+0000014b l       .debug_str	00000000 
+0000018e l       .debug_str	00000000 
+000001c6 l       .debug_str	00000000 
+000001f7 l       .debug_str	00000000 
+000001fc l       .debug_str	00000000 
+00000245 l       .debug_str	00000000 
+0000024e l       .debug_str	00000000 
+000002c1 l       .debug_str	00000000 
+000002f8 l       .debug_str	00000000 
+00000329 l       .debug_str	00000000 
+00000373 l       .debug_str	00000000 
+00000382 l       .debug_str	00000000 
+000003c5 l       .debug_str	00000000 
+00000407 l       .debug_str	00000000 
+0000044a l       .debug_str	00000000 
+0000048b l       .debug_str	00000000 
+000004c5 l       .debug_str	00000000 
+00000517 l       .debug_str	00000000 
+0000058a l       .debug_str	00000000 
+000005ca l       .debug_str	00000000 
+00000604 l       .debug_str	00000000 
+00000693 l       .debug_str	00000000 
+00000695 l       .debug_str	00000000 
+00000698 l       .debug_str	00000000 
+000006a0 l       .debug_str	00000000 
+00000000 l    d  .text._ZN4core3ptr25swap_nonoverlapping_bytes17h198ca1ac741d1d12E	00000000 .text._ZN4core3ptr25swap_nonoverlapping_bytes17h198ca1ac741d1d12E
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000         *UND*	00000000 core::intrinsics::copy_nonoverlapping
+00000000         *UND*	00000000 core::mem::size_of
+00000000 g     F .text._ZN4core3ptr25swap_nonoverlapping_bytes17h198ca1ac741d1d12E	00000106 .hidden core::ptr::swap_nonoverlapping_bytes
+00000000         *UND*	00000000 core::ptr::<impl *mut T>::add
+
+
+
+Disassembly of section .text._ZN4core3ptr25swap_nonoverlapping_bytes17h198ca1ac741d1d12E:
+
+00000000 <core::ptr::swap_nonoverlapping_bytes>:
+_ZN4core3ptr25swap_nonoverlapping_bytes17h198ca1ac741d1d12E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:370
+   0:	b5d0      	push	{r4, r6, r7, lr}
+   2:	af02      	add	r7, sp, #8
+   4:	b0ac      	sub	sp, #176	; 0xb0
+   6:	466c      	mov	r4, sp
+   8:	f36f 0404 	bfc	r4, #0, #5
+   c:	46a5      	mov	sp, r4
+   e:	4613      	mov	r3, r2
+  10:	468c      	mov	ip, r1
+  12:	4686      	mov	lr, r0
+  14:	900b      	str	r0, [sp, #44]	; 0x2c
+  16:	910c      	str	r1, [sp, #48]	; 0x30
+  18:	920d      	str	r2, [sp, #52]	; 0x34
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:381
+  1a:	930a      	str	r3, [sp, #40]	; 0x28
+  1c:	f8cd c024 	str.w	ip, [sp, #36]	; 0x24
+  20:	f8cd e020 	str.w	lr, [sp, #32]
+  24:	f7ff fffe 	bl	0 <core::mem::size_of>
+  28:	900e      	str	r0, [sp, #56]	; 0x38
+  2a:	e7ff      	b.n	2c <core::ptr::swap_nonoverlapping_bytes+0x2c>
+  2c:	2000      	movs	r0, #0
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:386
+  2e:	900f      	str	r0, [sp, #60]	; 0x3c
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:387
+  30:	e7ff      	b.n	32 <core::ptr::swap_nonoverlapping_bytes+0x32>
+  32:	980f      	ldr	r0, [sp, #60]	; 0x3c
+  34:	990e      	ldr	r1, [sp, #56]	; 0x38
+  36:	4408      	add	r0, r1
+  38:	990d      	ldr	r1, [sp, #52]	; 0x34
+  3a:	4288      	cmp	r0, r1
+  3c:	d905      	bls.n	4a <core::ptr::swap_nonoverlapping_bytes+0x4a>
+  3e:	e7ff      	b.n	40 <core::ptr::swap_nonoverlapping_bytes+0x40>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:403
+  40:	980f      	ldr	r0, [sp, #60]	; 0x3c
+  42:	990d      	ldr	r1, [sp, #52]	; 0x34
+  44:	4288      	cmp	r0, r1
+  46:	d32d      	bcc.n	a4 <core::ptr::swap_nonoverlapping_bytes+0xa4>
+  48:	e059      	b.n	fe <core::ptr::swap_nonoverlapping_bytes+0xfe>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:390
+  4a:	e7ff      	b.n	4c <core::ptr::swap_nonoverlapping_bytes+0x4c>
+  4c:	a810      	add	r0, sp, #64	; 0x40
+  4e:	902a      	str	r0, [sp, #168]	; 0xa8
+_ZN4core3mem20MaybeUninit$LT$T$GT$10as_mut_ptr17h7d9b4a0276cd6eabE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:1252
+  50:	982a      	ldr	r0, [sp, #168]	; 0xa8
+  52:	902b      	str	r0, [sp, #172]	; 0xac
+_ZN79_$LT$core..mem..ManuallyDrop$LT$T$GT$$u20$as$u20$core..ops..deref..DerefMut$GT$9deref_mut17h35bbef0fb0a227f3E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:887
+  54:	982b      	ldr	r0, [sp, #172]	; 0xac
+_ZN4core3ptr25swap_nonoverlapping_bytes17h198ca1ac741d1d12E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:391
+  56:	9007      	str	r0, [sp, #28]
+  58:	e7ff      	b.n	5a <core::ptr::swap_nonoverlapping_bytes+0x5a>
+  5a:	9807      	ldr	r0, [sp, #28]
+  5c:	9019      	str	r0, [sp, #100]	; 0x64
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:392
+  5e:	980b      	ldr	r0, [sp, #44]	; 0x2c
+  60:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  62:	f7ff fffe 	bl	0 <core::ptr::<impl *mut T>::add>
+  66:	901a      	str	r0, [sp, #104]	; 0x68
+  68:	e7ff      	b.n	6a <core::ptr::swap_nonoverlapping_bytes+0x6a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:393
+  6a:	980c      	ldr	r0, [sp, #48]	; 0x30
+  6c:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  6e:	f7ff fffe 	bl	0 <core::ptr::<impl *mut T>::add>
+  72:	901b      	str	r0, [sp, #108]	; 0x6c
+  74:	e7ff      	b.n	76 <core::ptr::swap_nonoverlapping_bytes+0x76>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:397
+  76:	981a      	ldr	r0, [sp, #104]	; 0x68
+  78:	9919      	ldr	r1, [sp, #100]	; 0x64
+  7a:	9a0e      	ldr	r2, [sp, #56]	; 0x38
+  7c:	f7ff fffe 	bl	0 <core::intrinsics::copy_nonoverlapping>
+  80:	e7ff      	b.n	82 <core::ptr::swap_nonoverlapping_bytes+0x82>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:398
+  82:	981b      	ldr	r0, [sp, #108]	; 0x6c
+  84:	991a      	ldr	r1, [sp, #104]	; 0x68
+  86:	9a0e      	ldr	r2, [sp, #56]	; 0x38
+  88:	f7ff fffe 	bl	0 <core::intrinsics::copy_nonoverlapping>
+  8c:	e7ff      	b.n	8e <core::ptr::swap_nonoverlapping_bytes+0x8e>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:399
+  8e:	9819      	ldr	r0, [sp, #100]	; 0x64
+  90:	991b      	ldr	r1, [sp, #108]	; 0x6c
+  92:	9a0e      	ldr	r2, [sp, #56]	; 0x38
+  94:	f7ff fffe 	bl	0 <core::intrinsics::copy_nonoverlapping>
+  98:	e7ff      	b.n	9a <core::ptr::swap_nonoverlapping_bytes+0x9a>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:400
+  9a:	980e      	ldr	r0, [sp, #56]	; 0x38
+  9c:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  9e:	4408      	add	r0, r1
+  a0:	900f      	str	r0, [sp, #60]	; 0x3c
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:387
+  a2:	e7c6      	b.n	32 <core::ptr::swap_nonoverlapping_bytes+0x32>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:405
+  a4:	e7ff      	b.n	a6 <core::ptr::swap_nonoverlapping_bytes+0xa6>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:406
+  a6:	980d      	ldr	r0, [sp, #52]	; 0x34
+  a8:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  aa:	1a40      	subs	r0, r0, r1
+  ac:	9024      	str	r0, [sp, #144]	; 0x90
+  ae:	a81c      	add	r0, sp, #112	; 0x70
+  b0:	9028      	str	r0, [sp, #160]	; 0xa0
+_ZN4core3mem20MaybeUninit$LT$T$GT$10as_mut_ptr17h8b5a6ab64a9205aeE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:1252
+  b2:	9828      	ldr	r0, [sp, #160]	; 0xa0
+  b4:	9029      	str	r0, [sp, #164]	; 0xa4
+_ZN79_$LT$core..mem..ManuallyDrop$LT$T$GT$$u20$as$u20$core..ops..deref..DerefMut$GT$9deref_mut17h0331b0f6e9c1cf6cE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/mem.rs:887
+  b6:	9829      	ldr	r0, [sp, #164]	; 0xa4
+_ZN4core3ptr25swap_nonoverlapping_bytes17h198ca1ac741d1d12E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:408
+  b8:	9006      	str	r0, [sp, #24]
+  ba:	e7ff      	b.n	bc <core::ptr::swap_nonoverlapping_bytes+0xbc>
+  bc:	9806      	ldr	r0, [sp, #24]
+  be:	9025      	str	r0, [sp, #148]	; 0x94
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:409
+  c0:	980b      	ldr	r0, [sp, #44]	; 0x2c
+  c2:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  c4:	f7ff fffe 	bl	0 <core::ptr::<impl *mut T>::add>
+  c8:	9026      	str	r0, [sp, #152]	; 0x98
+  ca:	e7ff      	b.n	cc <core::ptr::swap_nonoverlapping_bytes+0xcc>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:410
+  cc:	980c      	ldr	r0, [sp, #48]	; 0x30
+  ce:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  d0:	f7ff fffe 	bl	0 <core::ptr::<impl *mut T>::add>
+  d4:	9027      	str	r0, [sp, #156]	; 0x9c
+  d6:	e7ff      	b.n	d8 <core::ptr::swap_nonoverlapping_bytes+0xd8>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:412
+  d8:	9826      	ldr	r0, [sp, #152]	; 0x98
+  da:	9925      	ldr	r1, [sp, #148]	; 0x94
+  dc:	9a24      	ldr	r2, [sp, #144]	; 0x90
+  de:	f7ff fffe 	bl	0 <core::intrinsics::copy_nonoverlapping>
+  e2:	e7ff      	b.n	e4 <core::ptr::swap_nonoverlapping_bytes+0xe4>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:413
+  e4:	9827      	ldr	r0, [sp, #156]	; 0x9c
+  e6:	9926      	ldr	r1, [sp, #152]	; 0x98
+  e8:	9a24      	ldr	r2, [sp, #144]	; 0x90
+  ea:	f7ff fffe 	bl	0 <core::intrinsics::copy_nonoverlapping>
+  ee:	e7ff      	b.n	f0 <core::ptr::swap_nonoverlapping_bytes+0xf0>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:414
+  f0:	9825      	ldr	r0, [sp, #148]	; 0x94
+  f2:	9927      	ldr	r1, [sp, #156]	; 0x9c
+  f4:	9a24      	ldr	r2, [sp, #144]	; 0x90
+  f6:	f7ff fffe 	bl	0 <core::intrinsics::copy_nonoverlapping>
+  fa:	e7ff      	b.n	fc <core::ptr::swap_nonoverlapping_bytes+0xfc>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:403
+  fc:	e7ff      	b.n	fe <core::ptr::swap_nonoverlapping_bytes+0xfe>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:416
+  fe:	f1a7 0408 	sub.w	r4, r7, #8
+ 102:	46a5      	mov	sp, r4
+ 104:	bdd0      	pop	{r4, r6, r7, pc}
+
+app-b8434b356de0ea5d.mpv3iqo0qt6xp53.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 mpv3iqo0qt6xp53
+00000111 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000055 l       .debug_str	00000000 
+00000085 l       .debug_str	00000000 
+0000008a l       .debug_str	00000000 
+0000008e l       .debug_str	00000000 
+00000094 l       .debug_str	00000000 
+00000116 l       .debug_str	00000000 
+0000009d l       .debug_str	00000000 
+00000100 l       .debug_str	00000000 
+00000103 l       .debug_str	00000000 
+00000108 l       .debug_str	00000000 
+0000010d l       .debug_str	00000000 
+00000000 l    d  .text._ZN4core3cmp5impls55_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$i32$GT$2lt17ha6b9aa9ba8b7791dE	00000000 .text._ZN4core3cmp5impls55_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$i32$GT$2lt17ha6b9aa9ba8b7791dE
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN4core3cmp5impls55_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$i32$GT$2lt17ha6b9aa9ba8b7791dE	00000028 .hidden core::cmp::impls::<impl core::cmp::PartialOrd for i32>::lt
+
+
+
+Disassembly of section .text._ZN4core3cmp5impls55_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$i32$GT$2lt17ha6b9aa9ba8b7791dE:
+
+00000000 <core::cmp::impls::<impl core::cmp::PartialOrd for i32>::lt>:
+_ZN4core3cmp5impls55_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$i32$GT$2lt17ha6b9aa9ba8b7791dE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/cmp.rs:974
+   0:	b084      	sub	sp, #16
+   2:	460a      	mov	r2, r1
+   4:	4603      	mov	r3, r0
+   6:	9002      	str	r0, [sp, #8]
+   8:	9103      	str	r1, [sp, #12]
+   a:	9802      	ldr	r0, [sp, #8]
+   c:	6800      	ldr	r0, [r0, #0]
+   e:	9903      	ldr	r1, [sp, #12]
+  10:	6809      	ldr	r1, [r1, #0]
+  12:	f04f 0c00 	mov.w	ip, #0
+  16:	4288      	cmp	r0, r1
+  18:	bfb8      	it	lt
+  1a:	f04f 0c01 	movlt.w	ip, #1
+  1e:	4660      	mov	r0, ip
+  20:	9201      	str	r2, [sp, #4]
+  22:	9300      	str	r3, [sp, #0]
+  24:	b004      	add	sp, #16
+  26:	4770      	bx	lr
+
+app-b8434b356de0ea5d.udolcouxu3aoe0w.rcgu.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    df *ABS*	00000000 udolcouxu3aoe0w
+00000114 l       .debug_str	00000000 
+00000000 l       .debug_str	00000000 
+00000041 l       .debug_str	00000000 
+00000055 l       .debug_str	00000000 
+00000085 l       .debug_str	00000000 
+0000008a l       .debug_str	00000000 
+00000095 l       .debug_str	00000000 
+00000099 l       .debug_str	00000000 
+0000010e l       .debug_str	00000000 
+0000009b l       .debug_str	00000000 
+000000d9 l       .debug_str	00000000 
+000000f2 l       .debug_str	00000000 
+000000f6 l       .debug_str	00000000 
+00000101 l       .debug_str	00000000 
+00000105 l       .debug_str	00000000 
+00000000 l    d  .text._ZN4core10intrinsics19copy_nonoverlapping17h69b132e12d2fd6dfE	00000000 .text._ZN4core10intrinsics19copy_nonoverlapping17h69b132e12d2fd6dfE
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 g     F .text._ZN4core10intrinsics19copy_nonoverlapping17h69b132e12d2fd6dfE	0000002c core::intrinsics::copy_nonoverlapping
+00000000         *UND*	00000000 __aeabi_memcpy4
+
+
+
+Disassembly of section .text._ZN4core10intrinsics19copy_nonoverlapping17h69b132e12d2fd6dfE:
+
+00000000 <core::intrinsics::copy_nonoverlapping>:
+_ZN4core10intrinsics19copy_nonoverlapping17h69b132e12d2fd6dfE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1411
+   0:	b580      	push	{r7, lr}
+   2:	b086      	sub	sp, #24
+   4:	4613      	mov	r3, r2
+   6:	468c      	mov	ip, r1
+   8:	4686      	mov	lr, r0
+   a:	9003      	str	r0, [sp, #12]
+   c:	9104      	str	r1, [sp, #16]
+   e:	9205      	str	r2, [sp, #20]
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1412
+  10:	9903      	ldr	r1, [sp, #12]
+  12:	9804      	ldr	r0, [sp, #16]
+  14:	9a05      	ldr	r2, [sp, #20]
+  16:	0092      	lsls	r2, r2, #2
+  18:	9302      	str	r3, [sp, #8]
+  1a:	f8cd c004 	str.w	ip, [sp, #4]
+  1e:	f8cd e000 	str.w	lr, [sp]
+  22:	f7ff fffe 	bl	0 <__aeabi_memcpy4>
+  26:	e7ff      	b.n	28 <core::intrinsics::copy_nonoverlapping+0x28>
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/intrinsics.rs:1413
+  28:	b006      	add	sp, #24
+  2a:	bd80      	pop	{r7, pc}
 
 as_slice-ee76df5be5b170e1.as_slice.ewirz8so-cgu.0.rcgu.o:     file format elf32-littlearm
 

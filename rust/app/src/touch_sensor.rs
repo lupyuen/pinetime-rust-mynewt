@@ -16,7 +16,7 @@ use crate::mynewt_hal::{
 
 /// Probe the I2C bus
 pub fn probe() -> MynewtResult<()> {
-    for addr in 1..255 {
+    for addr in 1..127 {
         let rc = unsafe { hal::hal_i2c_master_probe(1, addr, 1000) };
         if rc != hal::HAL_I2C_ERR_ADDR_NACK as i32 {
             //  I2C device found
@@ -30,55 +30,68 @@ pub fn probe() -> MynewtResult<()> {
 
 /* I2C devices found:
 0x18: 00
-0x44: 00
-0x98: 00
-0xc4: 00
-*/
+0x44: 00 */
 
 pub fn test() -> MynewtResult<()> {
     let mut delay = MynewtDelay{};
     let mut reset = MynewtGPIO::new(10);  //  P0.10/NFC2: TP_RESET
+
     reset.set_low() ? ;
+    //reset.set_high() ? ;
+
     delay.delay_ms(20);
+
     reset.set_high() ? ;
+    //reset.set_low() ? ;
+
     delay.delay_ms(200);
     delay.delay_ms(200);
 
-    // let addr = 0x15;
-    let addr = 0x95;
+    let addr = 0x15;  //  From reference code
+
+    //  let addr = 0x18;  //  From probe
+    //  let addr = 0x44;  //  From probe
 
     //  Register to be read
-    //  let register = 0xaf;  //  WPR@AFH
-    //  let register = 0x22;  //  ButtonON@22H
-    let register = 0x00;
+    //  let register = 0x00;
+    let register = 0xA3;  //  HYN_REG_CHIP_ID
+    //  let register = 0x8F;  //  HYN_REG_INT_CNT
 
-    read_register(addr, register) ? ;
+    for _ in 1..20 {
+        read_register(addr, register) ? ;
+        delay.delay_ms(200);
+    }
     Ok(())
 }
 
 fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
+    //  first the register address must be sent in write mode (slave address xxxxxxx0). 
     unsafe { 
         I2C_BUFFER[0] = register;
-        I2C_DATA.address = addr;
+        I2C_DATA.address = addr; // (addr << 1) + 0;
         I2C_DATA.len = I2C_BUFFER.len() as u16;
         I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
     };
-    let rc = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };
-    console::print("write 0x"); console::printhex(addr); console::print(", rc: ");
-    console::printhex(rc as u8); console::print("\n"); console::flush();
+    //  Then either a stop or a repeated start condition must be generated. 
+    let rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };
 
+    //  After this the slave is addressed in read mode (RW = ‘1’) at address xxxxxxx1, 
     unsafe { 
         I2C_BUFFER[0] = 0x00;
-        I2C_DATA.address = addr;
+        I2C_DATA.address = addr; // (addr << 1) + 1;
         I2C_DATA.len = I2C_BUFFER.len() as u16;
         I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
     };
-    let rc = unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
+    //  after which the slave sends out data from auto-incremented register addresses until a NOACKM and stop condition occurs.
+    let rc2 = unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
+
+    console::print("write 0x"); console::printhex(addr); console::print(", rc: ");
+    console::printhex(rc1 as u8); console::print("\n"); console::flush();
 
     console::print("read 0x"); console::printhex(addr); console::print(", rc: ");
-    console::printhex(rc as u8); console::print("\n"); console::flush();
+    console::printhex(rc2 as u8); console::print("\n"); console::flush();
 
-    console::print("value 0x"); console::printhex(unsafe { I2C_BUFFER[0] }); 
+    console::print("read value 0x"); console::printhex(unsafe { I2C_BUFFER[0] }); 
     console::print("\n"); console::flush();
     console::print("Done\n"); console::flush();
     Ok(())
