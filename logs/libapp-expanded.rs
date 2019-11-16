@@ -578,7 +578,7 @@ mod touch_sensor {
     use crate::mynewt_hal::{MynewtDelay, MynewtGPIO};
     /// Probe the I2C bus
     pub fn probe() -> MynewtResult<()> {
-        for addr in 1..127 {
+        for addr in 0..128 {
             let rc = unsafe { hal::hal_i2c_master_probe(1, addr, 1000) };
             if rc != hal::HAL_I2C_ERR_ADDR_NACK as i32 {
                 console::print("0x");
@@ -601,12 +601,11 @@ mod touch_sensor {
         reset.set_high()?;
         delay.delay_ms(200);
         delay.delay_ms(200);
-        let addr = 0x15;
-        let register = 0xA3;
-        for _ in 1..20 {
-            read_register(addr, register)?;
-            delay.delay_ms(200);
+        for register in &[0x00, 0xA3, 0x9F, 0x8F, 0xA6, 0xA8] {
+            for addr in 0..128 { read_register(addr, *register)?; }
         }
+        console::print("Done\n");
+        console::flush();
         Ok(())
     }
     fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
@@ -618,6 +617,7 @@ mod touch_sensor {
         };
         let rc1 =
             unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };
+        if rc1 == hal::HAL_I2C_ERR_ADDR_NACK as i32 { return Ok(()); }
         unsafe {
             I2C_BUFFER[0] = 0x00;
             I2C_DATA.address = addr;
@@ -626,23 +626,14 @@ mod touch_sensor {
         };
         let rc2 =
             unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
-        console::print("write 0x");
+        if rc2 == hal::HAL_I2C_ERR_ADDR_NACK as i32 { return Ok(()); }
+        console::print("addr: ");
         console::printhex(addr);
-        console::print(", rc: ");
-        console::printhex(rc1 as u8);
-        console::print("\n");
-        console::flush();
-        console::print("read 0x");
-        console::printhex(addr);
-        console::print(", rc: ");
-        console::printhex(rc2 as u8);
-        console::print("\n");
-        console::flush();
-        console::print("read value 0x");
+        console::print(", reg: ");
+        console::printhex(register);
+        console::print(" = ");
         console::printhex(unsafe { I2C_BUFFER[0] });
         console::print("\n");
-        console::flush();
-        console::print("Done\n");
         console::flush();
         Ok(())
     }

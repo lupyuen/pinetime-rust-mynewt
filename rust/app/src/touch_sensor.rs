@@ -16,7 +16,7 @@ use crate::mynewt_hal::{
 
 /// Probe the I2C bus
 pub fn probe() -> MynewtResult<()> {
-    for addr in 1..127 {
+    for addr in 0..128 {
         let rc = unsafe { hal::hal_i2c_master_probe(1, addr, 1000) };
         if rc != hal::HAL_I2C_ERR_ADDR_NACK as i32 {
             //  I2C device found
@@ -47,20 +47,24 @@ pub fn test() -> MynewtResult<()> {
     delay.delay_ms(200);
     delay.delay_ms(200);
 
-    let addr = 0x15;  //  From reference code
-
+    //  let addr = 0x15;  //  From reference code
     //  let addr = 0x18;  //  From probe
     //  let addr = 0x44;  //  From probe
 
     //  Register to be read
-    //  let register = 0x00;
-    let register = 0xA3;  //  HYN_REG_CHIP_ID
-    //  let register = 0x8F;  //  HYN_REG_INT_CNT
-
-    for _ in 1..20 {
-        read_register(addr, register) ? ;
-        delay.delay_ms(200);
+    for register in &[
+        0x00,
+        0xA3,  //  HYN_REG_CHIP_ID
+        0x9F,  //  HYN_REG_CHIP_ID2                    
+        0x8F,  //  HYN_REG_INT_CNT
+        0xA6,  //  HYN_REG_FW_VER                      
+        0xA8,  //  HYN_REG_VENDOR_ID                       
+    ] {
+        for addr in 0..128 {
+            read_register(addr, *register) ? ;
+        }    
     }
+    console::print("Done\n"); console::flush();
     Ok(())
 }
 
@@ -74,6 +78,9 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
     };
     //  Then either a stop or a repeated start condition must be generated. 
     let rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };
+    if rc1 == hal::HAL_I2C_ERR_ADDR_NACK as i32 {
+        return Ok(());
+    }
 
     //  After this the slave is addressed in read mode (RW = ‘1’) at address xxxxxxx1, 
     unsafe { 
@@ -84,16 +91,18 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
     };
     //  after which the slave sends out data from auto-incremented register addresses until a NOACKM and stop condition occurs.
     let rc2 = unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
+    if rc2 == hal::HAL_I2C_ERR_ADDR_NACK as i32 {
+        return Ok(());
+    }
 
-    console::print("write 0x"); console::printhex(addr); console::print(", rc: ");
-    console::printhex(rc1 as u8); console::print("\n"); console::flush();
-
-    console::print("read 0x"); console::printhex(addr); console::print(", rc: ");
-    console::printhex(rc2 as u8); console::print("\n"); console::flush();
-
-    console::print("read value 0x"); console::printhex(unsafe { I2C_BUFFER[0] }); 
+    // console::print("write 0x"); console::printhex(addr); console::print(", rc: ");
+    // console::printhex(rc1 as u8); console::print("\n"); console::flush();
+    // console::print("read 0x"); console::printhex(addr); console::print(", rc: ");
+    // console::printhex(rc2 as u8); console::print("\n"); console::flush();
+    console::print("addr: "); console::printhex(addr); 
+    console::print(", reg: "); console::printhex(register); 
+    console::print(" = "); console::printhex(unsafe { I2C_BUFFER[0] }); 
     console::print("\n"); console::flush();
-    console::print("Done\n"); console::flush();
     Ok(())
 }
 
