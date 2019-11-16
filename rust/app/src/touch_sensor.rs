@@ -190,39 +190,12 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
     Ok(())
 }
 
-static mut I2C_BUFFER: [u8; 1] =  [ 0 ];
-
+/// I2C packet to be sent
 static mut I2C_DATA: hal::hal_i2c_master_data = hal::hal_i2c_master_data {
     address: 0,
     len:     0,
     buffer:  core::ptr::null_mut(),
 };
 
-/*
-write 0x18: 00
-read 0x18: 00
-value 0x00
-write 0x44: 00
-read 0x44: 00
-value 0xa3
-write 0x98: 00
-read 0x98: 00
-value 0x00
-write 0xc4: 00
-read 0xc4: 00
-value 0xa3
-*/
-
-/*
-From http://www.hynitron.com/upload/1408075960.pdf:
-//初始化设置
-I2Cm_Write_Data(0xAF, 0x3A); //打开写保护
-I2Cm_Write_Data(0x1F,0x00); //关闭扫描
-I2Cm_Write_Data(0x12, 0x18); //设置允许多个button被同时触发，调试时关闭噪声保护
-
-//IRQ处理
-// 读取所有Button的状态
-Button=I2Cm_Read_Data(0x22); //读取感应通道0-7的状态寄存器用于判断其触摸状态
-I2Cm_Write_Data(0x1F, 0x01); //清除IRQ（不打开写保护时仅能清除IRQ位，其它控制位不变）
-// 客户可以根据Button的信息读取相关感应通道的Signal值并对数据进行进一步处理
-*/
+/// Buffer containing I2C read/write data
+static mut I2C_BUFFER: [u8; 1] =  [ 0 ];
