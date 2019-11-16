@@ -591,20 +591,25 @@ mod touch_sensor {
         Ok(())
     }
     pub fn test() -> MynewtResult<()> {
-        let mut delay = MynewtDelay{};
         let mut reset = MynewtGPIO::new(10);
+        let mut delay = MynewtDelay{};
         reset.set_low()?;
         delay.delay_ms(20);
         reset.set_high()?;
         delay.delay_ms(200);
         delay.delay_ms(200);
-        for register in &[0x00, 0x01, 0xA3, 0x9F, 0x8F, 0xA6, 0xA8] {
-            for addr in 0..0x80 { read_register(addr, *register)?; }
+        for _ in 0..20 {
+            for addr in &[0x15] {
+                for register in &[0x00, 0x01, 0xA3, 0x9F, 0x8F, 0xA6, 0xA8] {
+                    read_register(*addr, *register)?;
+                }
+            }
+            console::print("Done\n");
+            console::flush();
         }
-        console::print("Done\n");
-        console::flush();
         Ok(())
     }
+    /// Read the I2C register for the specified I2C address (7-bit address)
     fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
         unsafe {
             I2C_BUFFER[0] = register;
