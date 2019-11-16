@@ -598,11 +598,10 @@ mod touch_sensor {
         let mut reset = MynewtGPIO::new(10);
         reset.set_low()?;
         delay.delay_ms(20);
-        reset.set_high()?;
         delay.delay_ms(200);
         delay.delay_ms(200);
         for register in &[0x00, 0xA3, 0x9F, 0x8F, 0xA6, 0xA8] {
-            for addr in 0..128 { read_register(addr, *register)?; }
+            for addr in 0..0x19 { read_register(addr, *register)?; }
         }
         console::print("Done\n");
         console::flush();
@@ -627,11 +626,11 @@ mod touch_sensor {
         let rc2 =
             unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
         if rc2 == hal::HAL_I2C_ERR_ADDR_NACK as i32 { return Ok(()); }
-        console::print("addr: ");
+        console::print("addr: 0x");
         console::printhex(addr);
-        console::print(", reg: ");
+        console::print(", reg: 0x");
         console::printhex(register);
-        console::print(" = ");
+        console::print(" = 0x");
         console::printhex(unsafe { I2C_BUFFER[0] });
         console::print("\n");
         console::flush();

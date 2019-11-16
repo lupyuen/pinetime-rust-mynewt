@@ -60,13 +60,22 @@ pub fn test() -> MynewtResult<()> {
         0xA6,  //  HYN_REG_FW_VER                      
         0xA8,  //  HYN_REG_VENDOR_ID                       
     ] {
-        for addr in 0..128 {
+        for addr in 0..0x19 {
             read_register(addr, *register) ? ;
         }    
     }
     console::print("Done\n"); console::flush();
     Ok(())
 }
+
+/*
+addr: 0x18, reg: 0x00 = 0x11
+addr: 0x18, reg: 0xa3 = 0x00
+addr: 0x18, reg: 0x9f = 0x00
+addr: 0x18, reg: 0x8f = 0x00
+addr: 0x18, reg: 0xa6 = 0x80
+addr: 0x18, reg: 0xa8 = 0x00
+*/
 
 fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
     //  first the register address must be sent in write mode (slave address xxxxxxx0). 
@@ -99,9 +108,9 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
     // console::printhex(rc1 as u8); console::print("\n"); console::flush();
     // console::print("read 0x"); console::printhex(addr); console::print(", rc: ");
     // console::printhex(rc2 as u8); console::print("\n"); console::flush();
-    console::print("addr: "); console::printhex(addr); 
-    console::print(", reg: "); console::printhex(register); 
-    console::print(" = "); console::printhex(unsafe { I2C_BUFFER[0] }); 
+    console::print("addr: 0x"); console::printhex(addr); 
+    console::print(", reg: 0x"); console::printhex(register); 
+    console::print(" = 0x"); console::printhex(unsafe { I2C_BUFFER[0] }); 
     console::print("\n"); console::flush();
     Ok(())
 }
