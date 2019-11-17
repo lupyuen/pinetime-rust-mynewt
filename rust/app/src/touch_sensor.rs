@@ -136,19 +136,8 @@ fn read_touchdata(data: &mut ts_event) -> MynewtResult<()> {
 }
 */
 
-/// Touch Info. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.h#L93-L100
-struct touch_info
-{
-    y:  [i32; HYN_MAX_POINTS],
-    x:  [i32; HYN_MAX_POINTS],
-    p:  [i32; HYN_MAX_POINTS],
-    id: [i32; HYN_MAX_POINTS],
-    count: i32,
-}
-
 /// Touch Event Info. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.h#L104-L115
-struct ts_event
-{
+struct TouchEventInfo {
     /// X coordinate
     au16_x:          [u16; HYN_MAX_POINTS],
     /// Y coordinate
@@ -166,6 +155,15 @@ struct ts_event
 
 /// Max touch channels for the touch controller
 const HYN_MAX_POINTS: usize = 10;
+
+/// Touch Info. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.h#L93-L100
+struct TouchInfo {
+    y:  [i32; HYN_MAX_POINTS],
+    x:  [i32; HYN_MAX_POINTS],
+    p:  [i32; HYN_MAX_POINTS],
+    id: [i32; HYN_MAX_POINTS],
+    count: i32,
+}
 
 /// Event that will be forwarded to the Event Queue when a touch interrupt is triggered
 static mut TOUCH_EVENT: os_event = fill_zero!(os_event);  //  Init all fields to 0 or NULL
