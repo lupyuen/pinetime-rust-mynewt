@@ -85,7 +85,11 @@ mod mynewt_hal {
 
     //  Show the display
 
+    //  Start the touch sensor
+
     //  Test the touch sensor
+    //  touch_sensor::test()
+    //  .expect("TCH test fail");
 
     //  Main event loop
     //  Loop forever...
@@ -571,9 +575,98 @@ mod app_sensor {
 mod touch_sensor {
     use embedded_hal::{self, blocking::delay::DelayMs,
                        digital::v2::OutputPin};
-    use mynewt::{result::*, hw::hal, kernel::os, sys::console};
+    use mynewt::{result::*, hw::hal, kernel::os::{self, os_event},
+                 sys::console, fill_zero};
     use crate::mynewt_hal::{MynewtDelay, MynewtGPIO};
-    /// Probe the I2C bus
+    /// Reset Pin for touch controller. Note: NFC antenna pins must be reassigned as GPIO pins for this to work.
+    const TOUCH_RESET_PIN: i32 = 10;
+    /// Interrupt Pin for touch controller. We listen for the touch controller interrupt and trigger an event.
+    const TOUCH_INTERRUPT_PIN: i32 = 28;
+    /// Initialise the touch controller. NFC antenna pins must already be reassigned as GPIO pins:
+    /// Set `NFC_PINS_AS_GPIO: 1` in hw/bsp/nrf52/syscfg.yml.  To check whether whether NFC antenna 
+    /// pins have been correctly reassigned as GPIO pins, use the `nrf52` crate and check that the output is `fe`:
+    /// ```rust
+    /// let peripherals = nrf52::Peripherals::take().unwrap();
+    /// let nfcpins = peripherals.UICR.nfcpins.read().bits();
+    /// console::print("nfcpins = "); console::printhex(nfcpins as u8); console::print("\n");
+    /// ```
+    pub fn start_touch_sensor() -> MynewtResult<()> {
+        console::print("Rust touch sensor\n");
+        let mut reset = MynewtGPIO::new(TOUCH_RESET_PIN);
+        let mut delay = MynewtDelay{};
+        reset.set_low()?;
+        delay.delay_ms(20);
+        reset.set_high()?;
+        delay.delay_ms(200);
+        delay.delay_ms(200);
+        unsafe { TOUCH_EVENT.ev_cb = Some(touch_event_callback) };
+        let rc =
+            unsafe {
+                hal::hal_gpio_irq_init(TOUCH_INTERRUPT_PIN,
+                                       Some(touch_interrupt_handler),
+                                       core::ptr::null_mut(),
+                                       hal::hal_gpio_irq_trigger_HAL_GPIO_TRIG_FALLING,
+                                       hal::hal_gpio_pull_HAL_GPIO_PULL_UP)
+            };
+        {
+            match (&(rc), &(0)) {
+                (left_val, right_val) => {
+                    if !(*left_val == *right_val) {
+                        {
+                            ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                          "`,\n right: `",
+                                                                                          "`: "],
+                                                                                        &match (&&*left_val,
+                                                                                                &&*right_val,
+                                                                                                &::core::fmt::Arguments::new_v1(&["IRQ init fail"],
+                                                                                                                                &match ()
+                                                                                                                                     {
+                                                                                                                                     ()
+                                                                                                                                     =>
+                                                                                                                                     [],
+                                                                                                                                 }))
+                                                                                             {
+                                                                                             (arg0,
+                                                                                              arg1,
+                                                                                              arg2)
+                                                                                             =>
+                                                                                             [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                           ::core::fmt::Debug::fmt),
+                                                                                              ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                           ::core::fmt::Debug::fmt),
+                                                                                              ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                           ::core::fmt::Display::fmt)],
+                                                                                         }),
+                                                         &("rust/app/src/touch_sensor.rs",
+                                                           59u32, 5u32))
+                        }
+                    }
+                }
+            }
+        };
+        unsafe { hal::hal_gpio_irq_enable(TOUCH_INTERRUPT_PIN) };
+        Ok(())
+    }
+    /// Interrupt handler for the touch controller, triggered when a touch is detected
+    extern "C" fn touch_interrupt_handler(arg: *mut core::ffi::c_void) {
+        unsafe { TOUCH_EVENT.ev_arg = arg };
+        let queue = os::eventq_dflt_get().expect("GET fail");
+        unsafe { os::os_eventq_put(queue, &mut TOUCH_EVENT) };
+    }
+    /// Callback for the touch event that is triggered when a touch is detected
+    extern "C" fn touch_event_callback(_event: *mut os_event) {
+        console::printhex(unsafe { os::os_time_get() } as u8);
+        console::print(" touch\n");
+        console::flush();
+    }
+    ///  Event that will be forwarded to the Event Queue when a touch interrupt is triggered
+    static mut TOUCH_EVENT: os_event =
+        unsafe {
+            ::core::mem::transmute::<[u8; ::core::mem::size_of::<os_event>()],
+                                     os_event>([0;
+                                                   ::core::mem::size_of::<os_event>()])
+        };
+    /// Probe the I2C bus to discover I2C devices
     pub fn probe() -> MynewtResult<()> {
         for addr in 0..128 {
             let rc = unsafe { hal::hal_i2c_master_probe(1, addr, 1000) };
@@ -590,14 +683,8 @@ mod touch_sensor {
         console::flush();
         Ok(())
     }
+    /// Test the touch sensor. `start_touch_sensor()` must have been called before this.
     pub fn test() -> MynewtResult<()> {
-        let mut reset = MynewtGPIO::new(10);
-        let mut delay = MynewtDelay{};
-        reset.set_low()?;
-        delay.delay_ms(20);
-        reset.set_high()?;
-        delay.delay_ms(200);
-        delay.delay_ms(200);
         for _ in 0..20 {
             for addr in &[0x15] {
                 for register in &[0x00, 0x01, 0xA3, 0x9F, 0x8F, 0xA6, 0xA8] {
@@ -638,11 +725,13 @@ mod touch_sensor {
         console::flush();
         Ok(())
     }
-    static mut I2C_BUFFER: [u8; 1] = [0];
+    /// I2C packet to be sent
     static mut I2C_DATA: hal::hal_i2c_master_data =
         hal::hal_i2c_master_data{address: 0,
                                  len: 0,
                                  buffer: core::ptr::null_mut(),};
+    /// Buffer containing I2C read/write data
+    static mut I2C_BUFFER: [u8; 1] = [0];
 }
 mod display {
     use embedded_graphics::{prelude::*, fonts, pixelcolor::Rgb565,
@@ -700,7 +789,7 @@ extern "C" fn main() -> ! {
         }
     };
     display::show().expect("DSP fail");
-    touch_sensor::test().expect("TCH fail");
+    touch_sensor::start_touch_sensor().expect("TCH fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }

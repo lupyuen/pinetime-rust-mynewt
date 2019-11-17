@@ -6,15 +6,83 @@ use embedded_hal::{
 use mynewt::{
     result::*,
     hw::hal,
-    kernel::os,
+    kernel::os::{
+        self,
+        os_event,
+    },
     sys::console,
+    fill_zero,
 };
 use crate::mynewt_hal::{
     MynewtDelay,
     MynewtGPIO,
 };
 
-/// Probe the I2C bus
+/// Reset Pin for touch controller. Note: NFC antenna pins must be reassigned as GPIO pins for this to work.
+const TOUCH_RESET_PIN: i32 = 10;  //  P0.10/NFC2: TP_RESET
+
+/// Interrupt Pin for touch controller. We listen for the touch controller interrupt and trigger an event.
+const TOUCH_INTERRUPT_PIN: i32 = 28;  //  P0.28/AIN4: TP_INT
+
+/// Initialise the touch controller. NFC antenna pins must already be reassigned as GPIO pins:
+/// Set `NFC_PINS_AS_GPIO: 1` in hw/bsp/nrf52/syscfg.yml.  To check whether whether NFC antenna 
+/// pins have been correctly reassigned as GPIO pins, use the `nrf52` crate and check that the output is `fe`:
+/// ```rust
+/// let peripherals = nrf52::Peripherals::take().unwrap();
+/// let nfcpins = peripherals.UICR.nfcpins.read().bits();
+/// console::print("nfcpins = "); console::printhex(nfcpins as u8); console::print("\n");
+/// ```
+pub fn start_touch_sensor() -> MynewtResult<()> {
+    console::print("Rust touch sensor\n");
+
+    //  Create GPIO for the Reset Pin
+    let mut reset = MynewtGPIO::new(TOUCH_RESET_PIN);
+    let mut delay = MynewtDelay{};
+
+    //  Reset the touch controller by switching the Reset Pin low then high with pauses
+    reset.set_low() ? ;
+    delay.delay_ms(20);
+    reset.set_high() ? ;
+    delay.delay_ms(200); delay.delay_ms(200);
+
+    //  Initialise the touch event with the callback function
+    unsafe { TOUCH_EVENT.ev_cb = Some( touch_event_callback ) };
+
+    //  Configure the touch controller interrupt (active when low) to trigger a touch event
+    let rc = unsafe { hal::hal_gpio_irq_init(
+        TOUCH_INTERRUPT_PIN,              //  GPIO pin to be configured
+        Some( touch_interrupt_handler ),  //  Call `touch_interrupt_handler()` upon detecting interrupt
+        core::ptr::null_mut(),            //  No arguments for `touch_interrupt_handler()`
+        hal::hal_gpio_irq_trigger_HAL_GPIO_TRIG_FALLING,  //  Trigger when interrupt goes from high to low
+        hal::hal_gpio_pull_HAL_GPIO_PULL_UP               //  Pull up the GPIO pin
+    ) };
+    assert_eq!(rc, 0, "IRQ init fail");
+
+    //  Start monitoring for touch controller interrupts
+    unsafe { hal::hal_gpio_irq_enable(TOUCH_INTERRUPT_PIN) };
+    Ok(())
+}
+
+/// Interrupt handler for the touch controller, triggered when a touch is detected
+extern "C" fn touch_interrupt_handler(arg: *mut core::ffi::c_void) {
+    //  We forward a touch event to the Default Event Queue for deferred processing.  Don't do any processing here.
+    unsafe { TOUCH_EVENT.ev_arg = arg };
+    //  TODO: Use dedicated Event Queue for higher priority processing
+    let queue = os::eventq_dflt_get()
+        .expect("GET fail");
+	unsafe { os::os_eventq_put(queue, &mut TOUCH_EVENT) };  //  Trigger the callback function `touch_event_callback()`
+}
+
+/// Callback for the touch event that is triggered when a touch is detected
+extern "C" fn touch_event_callback(_event: *mut os_event) {
+    console::printhex(unsafe { os::os_time_get() } as u8);
+    console::print(" touch\n"); console::flush();   
+}
+
+///  Event that will be forwarded to the Event Queue when a touch interrupt is triggered
+static mut TOUCH_EVENT: os_event = fill_zero!(os_event);  //  Init all fields to 0 or NULL
+
+/// Probe the I2C bus to discover I2C devices
 pub fn probe() -> MynewtResult<()> {
     for addr in 0..128 {
         let rc = unsafe { hal::hal_i2c_master_probe(1, addr, 1000) };
@@ -29,25 +97,12 @@ pub fn probe() -> MynewtResult<()> {
 }
 
 /* I2C devices found:
-0x18: 00
-0x44: 00 */
+    0x18: 00 = Accelerometer: https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BMA423-DS000.pdf
+    0x44: 00 = Heart Rate Sensor: http://files.pine64.org/doc/datasheet/pinetime/HRS3300%20Heart%20Rate%20Sensor.pdf
+    Touch controller not detected unless you keep tapping the screen */
 
+/// Test the touch sensor. `start_touch_sensor()` must have been called before this.
 pub fn test() -> MynewtResult<()> {
-    /*
-        let peripherals = nrf52::Peripherals::take().unwrap();
-        let nfcpins = peripherals.UICR.nfcpins.read().bits();
-        console::print("nfcpins = "); console::printhex(nfcpins as u8); console::print("\n");
-    */
-    //  Create GPIO for the Reset Pin
-    let mut reset = MynewtGPIO::new(10);  //  P0.10/NFC2: TP_RESET. NFC pins must be disabled for this to work.
-    let mut delay = MynewtDelay{};
-
-    //  Reset the touch controller by switching the Reset Pin low then high with pauses
-    reset.set_low() ? ;
-    delay.delay_ms(20);
-    reset.set_high() ? ;
-    delay.delay_ms(200); delay.delay_ms(200);
-
     //  Repeat test a few times
     for _ in 0..20 {
         //  I2C addresses to test
