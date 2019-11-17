@@ -313,9 +313,42 @@ pub fn test() -> MynewtResult<()> {
     addr: 0x44, reg: 0xa8 = 0xa3
 */
 
+/// Read a range of I2C registers from the I2C address `addr` (7-bit address), starting at `start_register` for count `num_registers`. Save into `buffer`.
+fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: &mut[u8]) -> MynewtResult<()> {
+    assert!(buffer.len() >= num_registers as usize, "i2c buf");  //  Buffer too small
+    assert!(start_register >= 0 && start_register + num_registers < 128, "i2c addr");  //  Not 7-bit address
+    //  First the start register number must be sent in write mode (I2C address xxxxxxx0). 
+    unsafe { 
+        I2C_BUFFER[0] = start_register;
+        I2C_DATA.address = addr;
+        I2C_DATA.len = I2C_BUFFER.len() as u16;
+        I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
+    };
+    //  Then either a stop or a repeated start condition must be generated. 
+    let rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };  //  No stop yet, must continue even if we hit an error
+    //  After this the slave is addressed in read mode (RW = ‘1’) at I2C address xxxxxxx1
+    unsafe { 
+        I2C_BUFFER[0] = 0x00;
+        I2C_DATA.address = addr;
+        I2C_DATA.len = num_registers as u16;
+        I2C_DATA.buffer = buffer.as_mut_ptr();
+    };
+    //  After which the slave sends out data from auto-incremented register addresses until a NOACKM and stop condition occurs.
+    let rc2 = unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
+    if rc2 == hal::HAL_I2C_ERR_ADDR_NACK as i32 {
+        return Ok(());
+    }
+    console::print("addr: 0x"); console::printhex(addr); 
+    console::print(", reg: 0x"); console::printhex(start_register); 
+    console::print(" = 0x"); console::printhex(unsafe { I2C_BUFFER[0] }); 
+    console::print("\n"); console::flush();
+    Ok(())
+}
+
 /// Read the I2C register for the specified I2C address (7-bit address)
 fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
-    //  First the register address must be sent in write mode (slave address xxxxxxx0). 
+    assert!(register >= 0 && register < 128, "i2c addr");  //  Not 7-bit address
+    //  First the register number must be sent in write mode (I2C address xxxxxxx0). 
     unsafe { 
         I2C_BUFFER[0] = register;
         I2C_DATA.address = addr;
@@ -323,12 +356,8 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
         I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
     };
     //  Then either a stop or a repeated start condition must be generated. 
-    let rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };  //  No stop
-    //  let rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 1) };  //  With stop
-    /* if rc1 == hal::HAL_I2C_ERR_ADDR_NACK as i32 {
-        return Ok(());
-    } */
-    //  After this the slave is addressed in read mode (RW = ‘1’) at address xxxxxxx1, 
+    let rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };  //  No stop yet, must continue even if we hit an error
+    //  After this the slave is addressed in read mode (RW = ‘1’) at I2C address xxxxxxx1, 
     unsafe { 
         I2C_BUFFER[0] = 0x00;
         I2C_DATA.address = addr;
@@ -344,12 +373,6 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
     console::print(", reg: 0x"); console::printhex(register); 
     console::print(" = 0x"); console::printhex(unsafe { I2C_BUFFER[0] }); 
     console::print("\n"); console::flush();
-    Ok(())
-}
-
-/// Read a range of I2C registers from the I2C address, starting at `start_register` for count `num_registers`. Save into `buffer`.
-fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: &mut[u8]) -> MynewtResult<()> {
-    assert!(buffer.len() >= num_registers as usize, "i2c range overflow");
     Ok(())
 }
 

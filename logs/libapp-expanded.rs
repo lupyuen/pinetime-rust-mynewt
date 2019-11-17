@@ -786,8 +786,59 @@ mod touch_sensor {
         }
         Ok(())
     }
+    /// Read a range of I2C registers from the I2C address `addr` (7-bit address), starting at `start_register` for count `num_registers`. Save into `buffer`.
+    fn read_register_range(addr: u8, start_register: u8, num_registers: u8,
+                           buffer: &mut [u8]) -> MynewtResult<()> {
+        if !(buffer.len() >= num_registers as usize) {
+            {
+                ::core::panicking::panic(&("i2c buf",
+                                           "rust/app/src/touch_sensor.rs",
+                                           318u32, 5u32))
+            }
+        };
+        if !(start_register >= 0 && start_register + num_registers < 128) {
+            {
+                ::core::panicking::panic(&("i2c addr",
+                                           "rust/app/src/touch_sensor.rs",
+                                           319u32, 5u32))
+            }
+        };
+        unsafe {
+            I2C_BUFFER[0] = start_register;
+            I2C_DATA.address = addr;
+            I2C_DATA.len = I2C_BUFFER.len() as u16;
+            I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
+        };
+        let rc1 =
+            unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };
+        unsafe {
+            I2C_BUFFER[0] = 0x00;
+            I2C_DATA.address = addr;
+            I2C_DATA.len = num_registers as u16;
+            I2C_DATA.buffer = buffer.as_mut_ptr();
+        };
+        let rc2 =
+            unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
+        if rc2 == hal::HAL_I2C_ERR_ADDR_NACK as i32 { return Ok(()); }
+        console::print("addr: 0x");
+        console::printhex(addr);
+        console::print(", reg: 0x");
+        console::printhex(start_register);
+        console::print(" = 0x");
+        console::printhex(unsafe { I2C_BUFFER[0] });
+        console::print("\n");
+        console::flush();
+        Ok(())
+    }
     /// Read the I2C register for the specified I2C address (7-bit address)
     fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
+        if !(register >= 0 && register < 128) {
+            {
+                ::core::panicking::panic(&("i2c addr",
+                                           "rust/app/src/touch_sensor.rs",
+                                           350u32, 5u32))
+            }
+        };
         unsafe {
             I2C_BUFFER[0] = register;
             I2C_DATA.address = addr;
@@ -813,18 +864,6 @@ mod touch_sensor {
         console::printhex(unsafe { I2C_BUFFER[0] });
         console::print("\n");
         console::flush();
-        Ok(())
-    }
-    /// Read a range of I2C registers from the I2C address, starting at `start_register` for count `num_registers`. Save into `buffer`.
-    fn read_register_range(addr: u8, start_register: u8, num_registers: u8,
-                           buffer: &mut [u8]) -> MynewtResult<()> {
-        if !(buffer.len() >= num_registers as usize) {
-            {
-                ::core::panicking::panic(&("i2c range overflow",
-                                           "rust/app/src/touch_sensor.rs",
-                                           352u32, 5u32))
-            }
-        };
         Ok(())
     }
     /// I2C packet to be sent
