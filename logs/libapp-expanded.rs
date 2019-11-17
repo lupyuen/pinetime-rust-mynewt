@@ -659,7 +659,35 @@ mod touch_sensor {
         console::print(" touch\n");
         console::flush();
     }
-    ///  Event that will be forwarded to the Event Queue when a touch interrupt is triggered
+    /// Read touch controller data. This only works when the screen has been tapped and the touch controller wakes up.
+    /// Ported from https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.c#L407-L466
+    /// Touch Info. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.h#L93-L100
+    struct touch_info {
+        y: [i32; HYN_MAX_POINTS],
+        x: [i32; HYN_MAX_POINTS],
+        p: [i32; HYN_MAX_POINTS],
+        id: [i32; HYN_MAX_POINTS],
+        count: i32,
+    }
+    /// Touch Event Info. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.h#L104-L115
+    struct ts_event {
+        /// X coordinate
+        au16_x: [u16; HYN_MAX_POINTS],
+        /// Y coordinate
+        au16_y: [u16; HYN_MAX_POINTS],
+        /// Touch event: 0 = down, 1 = up, 2 = contact
+        au8_touch_event: [u8; HYN_MAX_POINTS],
+        /// Touch ID
+        au8_finger_id: [u8; HYN_MAX_POINTS],
+        pressure: [u16; HYN_MAX_POINTS],
+        area: [u16; HYN_MAX_POINTS],
+        touch_point: u8,
+        touches: i32,
+        touch_point_num: u8,
+    }
+    /// Max touch channels for the touch controller
+    const HYN_MAX_POINTS: usize = 10;
+    /// Event that will be forwarded to the Event Queue when a touch interrupt is triggered
     static mut TOUCH_EVENT: os_event =
         unsafe {
             ::core::mem::transmute::<[u8; ::core::mem::size_of::<os_event>()],

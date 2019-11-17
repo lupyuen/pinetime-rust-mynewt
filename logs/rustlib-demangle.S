@@ -9127,7 +9127,7 @@ pub fn start_touch_sensor() -> MynewtResult<()> {
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:43
     let mut delay = MynewtDelay{};
 
-    //  Reset the touch controller by switching the Reset Pin low then high with pauses
+    //  Reset the touch controller by switching the Reset Pin low then high with pauses. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.c#L1017-L1167
     reset.set_low() ? ;
   20:	f7ff fffe 	bl	0 <<app::mynewt_hal::MynewtGPIO as embedded_hal::digital::v2::OutputPin>::set_low>
   24:	900d      	str	r0, [sp, #52]	; 0x34
@@ -9386,7 +9386,7 @@ extern "C" fn touch_interrupt_handler(arg: *mut core::ffi::c_void) {
   12:	6090      	str	r0, [r2, #8]
   14:	a804      	add	r0, sp, #16
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:71
-    //  TODO: Use dedicated Event Queue for higher priority processing
+    //  Fetch the Default Event Queue. TODO: Use dedicated Event Queue for higher priority processing.
     let queue = os::eventq_dflt_get()
   16:	9101      	str	r1, [sp, #4]
   18:	f7ff fffe 	bl	0 <mynewt::kernel::os::eventq_dflt_get>
