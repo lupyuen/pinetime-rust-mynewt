@@ -74,12 +74,11 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     assert!(rc == 0, "BLE fail");
 
     //  Start the display
-    let mut display_context = display::DisplayContext::new();
-    display::start_display(&mut display_context)
+    display::start_display()
         .expect("DSP fail");
 
     //  Test the display
-    display::test(&mut display_context)
+    display::test()
         .expect("DSP test fail");
 
     //  Start the touch sensor

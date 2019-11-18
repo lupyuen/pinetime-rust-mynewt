@@ -45,7 +45,7 @@ static mut SPI_SETTINGS: hal::hal_spi_settings = hal::hal_spi_settings {
 };
 
 /// Initialise the display and populate the Display Context
-pub fn start_display(context: &mut DisplayContext) -> MynewtResult<()> {
+pub fn start_display() -> MynewtResult<()> {
     //  Create SPI port and GPIO pins
     let mut spi = MynewtSPI::new();
     let mut dc =  MynewtGPIO::new();
@@ -61,27 +61,37 @@ pub fn start_display(context: &mut DisplayContext) -> MynewtResult<()> {
     rst.init(26) ? ;  //  LCD_RESET (P0.26): Display reset
 
     //  Switch on the backlight
-    context.backlight_high.init(23) ? ;  //  LCD_BACKLIGHT_{LOW,MID,HIGH} (P0.14, 22, 23): Backlight (active low)
-    context.backlight_high.set_low() ? ;
+    unsafe {
+        backlight_high = MynewtGPIO::new();
+        backlight_high.init(23) ? ;  //  LCD_BACKLIGHT_{LOW,MID,HIGH} (P0.14, 22, 23): Backlight (active low)
+        backlight_high.set_low() ? ;    
+    }
     
     //  Create display driver
-    context.display = st7735_lcd::ST7735::new(
+    unsafe { display = st7735_lcd::ST7735::new(
         spi,    //  SPI Port
         dc,     //  GPIO Pin for DC
         rst,    //  GPIO Pin for RST
         false,  //  Whether the display is RGB (true) or BGR (false)
         true    //  Whether the colours are inverted (true) or not (false)
-    );
+    ) };
 
     //  Init display driver
-    context.display.init(&mut context.delay) ? ;
-    context.display.set_orientation(&Orientation::Landscape) ? ;
-    context.display.set_offset(1, 25);
+    let mut delay = MynewtDelay::new();
+    unsafe {
+        display.init(&mut delay) ? ;
+        display.set_orientation(&Orientation::Landscape) ? ;
+        display.set_offset(1, 25);    
+    }
+    Ok(())
+}
+
+pub fn show_touch() -> MynewtResult<()> {
     Ok(())
 }
 
 /// Render the ST7789 display connected to SPI port 0. `start_display()` must have been called earlier.
-pub fn test(context: &mut DisplayContext) -> MynewtResult<()> {
+pub fn test() -> MynewtResult<()> {
     //  Create circle
     let c = Circle::<Rgb565>::new(Coord::new(40, 40), 40)
         .fill(Some(Rgb565::from(1u8)));
@@ -92,32 +102,16 @@ pub fn test(context: &mut DisplayContext) -> MynewtResult<()> {
         .translate(Coord::new(20, 16));
 
     //  Render circle and text to display
-    context.display.draw(c);
-    context.display.draw(t);
+    unsafe {
+        display.draw(c);
+        display.draw(t);    
+    }
     Ok(())
 }
 
 /// Display Driver
+static mut display: Display = fill_zero!(Display);               //  Will be created in `start_display()`
 type Display = ST7735<MynewtSPI, MynewtGPIO, MynewtGPIO>;
 
-/// Display Context
-pub struct DisplayContext {
-    /// Display driver
-    display: Display,
-    /// GPIO Pin for high backlight
-    backlight_high: MynewtGPIO,
-    /// Delay
-    delay: MynewtDelay,    
-}
-
-/// Display Context
-impl DisplayContext {
-    /// Create a new uninitialised Display Context
-    pub fn new() -> Self {
-        DisplayContext {
-            display: fill_zero!(Display),  //  Will be created in `start_display()`
-            backlight_high: MynewtGPIO::new(),
-            delay: MynewtDelay::new(),            
-        }
-    }
-}
+/// GPIO Pin for Display Backlight
+static mut backlight_high: MynewtGPIO = fill_zero!(MynewtGPIO);  //  Will be created in `start_display()`

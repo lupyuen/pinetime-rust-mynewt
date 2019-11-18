@@ -795,36 +795,6 @@ mod touch_sensor {
                                      os_event>([0;
                                                    ::core::mem::size_of::<os_event>()])
         };
-    /// Probe the I2C bus to discover I2C devices
-    pub fn probe() -> MynewtResult<()> {
-        for addr in 0..128 {
-            let rc = unsafe { hal::hal_i2c_master_probe(1, addr, 1000) };
-            if rc != hal::HAL_I2C_ERR_ADDR_NACK as i32 {
-                console::print("0x");
-                console::printhex(addr);
-                console::print(": ");
-                console::printhex(rc as u8);
-                console::print("\n");
-                console::flush();
-            }
-        }
-        console::print("Done\n");
-        console::flush();
-        Ok(())
-    }
-    /// Test the touch sensor. `start_touch_sensor()` must have been called before this.
-    pub fn test() -> MynewtResult<()> {
-        for _ in 0..20 {
-            for addr in &[0x15] {
-                for register in &[0x00, 0x01, 0xA3, 0x9F, 0x8F, 0xA6, 0xA8] {
-                    read_register(*addr, *register)?;
-                }
-            }
-            console::print("Done\n");
-            console::flush();
-        }
-        Ok(())
-    }
     /// Read a range of I2C registers from the I2C address `addr` (7-bit address), starting at `start_register` for count `num_registers`. Save into `buffer`.
     fn read_register_range(addr: u8, start_register: u8, num_registers: u8,
                            buffer: &mut [u8]) -> MynewtResult<()> {
@@ -832,14 +802,14 @@ mod touch_sensor {
             {
                 ::core::panicking::panic(&("i2c buf",
                                            "rust/app/src/touch_sensor.rs",
-                                           334u32, 5u32))
+                                           205u32, 5u32))
             }
         };
         if !(start_register + num_registers < 128) {
             {
                 ::core::panicking::panic(&("i2c addr",
                                            "rust/app/src/touch_sensor.rs",
-                                           335u32, 5u32))
+                                           206u32, 5u32))
             }
         };
         unsafe {
@@ -863,7 +833,7 @@ mod touch_sensor {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
                                                "rust/app/src/touch_sensor.rs",
-                                               355u32, 9u32))
+                                               226u32, 9u32))
                 }
             };
             return Ok(());
@@ -876,7 +846,7 @@ mod touch_sensor {
             {
                 ::core::panicking::panic(&("i2c addr",
                                            "rust/app/src/touch_sensor.rs",
-                                           363u32, 5u32))
+                                           234u32, 5u32))
             }
         };
         unsafe {
@@ -913,6 +883,36 @@ mod touch_sensor {
                                  buffer: core::ptr::null_mut(),};
     /// Buffer containing I2C read/write data
     static mut I2C_BUFFER: [u8; 1] = [0];
+    /// Probe the I2C bus to discover I2C devices
+    pub fn probe() -> MynewtResult<()> {
+        for addr in 0..128 {
+            let rc = unsafe { hal::hal_i2c_master_probe(1, addr, 1000) };
+            if rc != hal::HAL_I2C_ERR_ADDR_NACK as i32 {
+                console::print("0x");
+                console::printhex(addr);
+                console::print(": ");
+                console::printhex(rc as u8);
+                console::print("\n");
+                console::flush();
+            }
+        }
+        console::print("Done\n");
+        console::flush();
+        Ok(())
+    }
+    /// Test the touch sensor. `start_touch_sensor()` must have been called before this.
+    pub fn test() -> MynewtResult<()> {
+        for _ in 0..20 {
+            for addr in &[0x15] {
+                for register in &[0x00, 0x01, 0xA3, 0x9F, 0x8F, 0xA6, 0xA8] {
+                    read_register(*addr, *register)?;
+                }
+            }
+            console::print("Done\n");
+            console::flush();
+        }
+        Ok(())
+    }
 }
 mod display {
     use embedded_graphics::{prelude::*, fonts, pixelcolor::Rgb565,
@@ -928,58 +928,56 @@ mod display {
                               baudrate: 8000,
                               word_size: hal::HAL_SPI_WORD_SIZE_8BIT as u8,};
     /// Initialise the display and populate the Display Context
-    pub fn start_display(context: &mut DisplayContext) -> MynewtResult<()> {
+    pub fn start_display() -> MynewtResult<()> {
         let mut spi = MynewtSPI::new();
         let mut dc = MynewtGPIO::new();
         let mut rst = MynewtGPIO::new();
         spi.init(0, 25, unsafe { &mut SPI_SETTINGS })?;
         dc.init(18)?;
         rst.init(26)?;
-        context.backlight_high.init(23)?;
-        context.backlight_high.set_low()?;
-        context.display = st7735_lcd::ST7735::new(spi, dc, rst, false, true);
-        context.display.init(&mut context.delay)?;
-        context.display.set_orientation(&Orientation::Landscape)?;
-        context.display.set_offset(1, 25);
+        unsafe {
+            backlight_high = MynewtGPIO::new();
+            backlight_high.init(23)?;
+            backlight_high.set_low()?;
+        }
+        unsafe {
+            display = st7735_lcd::ST7735::new(spi, dc, rst, false, true)
+        };
+        let mut delay = MynewtDelay::new();
+        unsafe {
+            display.init(&mut delay)?;
+            display.set_orientation(&Orientation::Landscape)?;
+            display.set_offset(1, 25);
+        }
         Ok(())
     }
+    pub fn show_touch() -> MynewtResult<()> { Ok(()) }
     /// Render the ST7789 display connected to SPI port 0. `start_display()` must have been called earlier.
-    pub fn test(context: &mut DisplayContext) -> MynewtResult<()> {
+    pub fn test() -> MynewtResult<()> {
         let c =
             Circle::<Rgb565>::new(Coord::new(40, 40),
                                   40).fill(Some(Rgb565::from(1u8)));
         let t =
             fonts::Font12x16::<Rgb565>::render_str("I AM RUSTY BEACON").fill(Some(Rgb565::from(20u8))).translate(Coord::new(20,
                                                                                                                             16));
-        context.display.draw(c);
-        context.display.draw(t);
+        unsafe { display.draw(c); display.draw(t); }
         Ok(())
     }
     /// Display Driver
+    static mut display: Display =
+        unsafe {
+            ::core::mem::transmute::<[u8; ::core::mem::size_of::<Display>()],
+                                     Display>([0;
+                                                  ::core::mem::size_of::<Display>()])
+        };
     type Display = ST7735<MynewtSPI, MynewtGPIO, MynewtGPIO>;
-    /// Display Context
-    pub struct DisplayContext {
-        /// Display driver
-        display: Display,
-        /// GPIO Pin for high backlight
-        backlight_high: MynewtGPIO,
-        /// Delay
-        delay: MynewtDelay,
-    }
-    /// Display Context
-    impl DisplayContext {
-        /// Create a new uninitialised Display Context
-        pub fn new() -> Self {
-            DisplayContext{display:
-                               unsafe {
-                                   ::core::mem::transmute::<[u8; ::core::mem::size_of::<Display>()],
-                                                            Display>([0;
-                                                                         ::core::mem::size_of::<Display>()])
-                               },
-                           backlight_high: MynewtGPIO::new(),
-                           delay: MynewtDelay::new(),}
-        }
-    }
+    /// GPIO Pin for Display Backlight
+    static mut backlight_high: MynewtGPIO =
+        unsafe {
+            ::core::mem::transmute::<[u8; ::core::mem::size_of::<MynewtGPIO>()],
+                                     MynewtGPIO>([0;
+                                                     ::core::mem::size_of::<MynewtGPIO>()])
+        };
 }
 use core::panic::PanicInfo;
 use cortex_m::asm::bkpt;
@@ -1000,9 +998,8 @@ extern "C" fn main() -> ! {
                                        74u32, 5u32))
         }
     };
-    let mut display_context = display::DisplayContext::new();
-    display::start_display(&mut display_context).expect("DSP fail");
-    display::test(&mut display_context).expect("DSP test fail");
+    display::start_display().expect("DSP fail");
+    display::test().expect("DSP test fail");
     touch_sensor::start_touch_sensor().expect("TCH fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
