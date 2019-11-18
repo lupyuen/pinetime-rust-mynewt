@@ -11,6 +11,7 @@ version = "0.1.0"
 embedded-graphics = "0.5.2"
 st7735-lcd        = { version = "0.6.1", features = [ "graphics" ] }
 embedded-hal      = "0.2.3"
+arrayvec          = { version = "0.5.1", default-features = false }
 cty       = "0.2.0"  # String utilities from cty library: https://crates.io/crates/cty
 cstr_core = "0.1.2"  # String utilities from cstr_core library: https://crates.io/crates/cstr_core
 memchr    = { version = "2", default-features = false } # String search. Reduce the ROM size by disabling default features. See https://github.com/BurntSushi/rust-memchr

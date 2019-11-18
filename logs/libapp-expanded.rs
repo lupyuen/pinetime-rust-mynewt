@@ -86,12 +86,14 @@ mod mynewt_hal {
     //  Start the display
 
     //  Test the display
+    //  display::test()
+    //    .expect("DSP test fail");
 
     //  Start the touch sensor
 
     //  Test the touch sensor
     //  touch_sensor::test()
-    //  .expect("TCH test fail");
+    //    .expect("TCH test fail");
 
     //  Main event loop
     //  Loop forever...
@@ -593,6 +595,7 @@ mod touch_sensor {
     use mynewt::{result::*, hw::hal, kernel::os::{self, os_event},
                  sys::console, fill_zero};
     use crate::mynewt_hal::{MynewtDelay, MynewtGPIO};
+    use crate::display;
     /// Reset Pin for touch controller. Note: NFC antenna pins must be reassigned as GPIO pins for this to work.
     const TOUCH_RESET_PIN: i32 = 10;
     /// Interrupt Pin for touch controller. We listen for the touch controller interrupt and trigger an event.
@@ -667,7 +670,7 @@ mod touch_sensor {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/app/src/touch_sensor.rs",
-                                                           64u32, 5u32))
+                                                           65u32, 5u32))
                         }
                     }
                 }
@@ -684,7 +687,11 @@ mod touch_sensor {
     }
     /// Callback for the touch event that is triggered when a touch is detected
     extern "C" fn touch_event_callback(_event: *mut os_event) {
-        unsafe { read_touchdata(&mut TOUCH_DATA).expect("touchdata fail") };
+        unsafe {
+            read_touchdata(&mut TOUCH_DATA).expect("touchdata fail");
+            display::show_touch(TOUCH_DATA.touches[0].x,
+                                TOUCH_DATA.touches[0].y).expect("show touch fail");
+        }
         console::printint(unsafe { TOUCH_DATA.touches[0].x } as i32);
         console::print(", ");
         console::printint(unsafe { TOUCH_DATA.touches[0].y } as i32);
@@ -802,14 +809,14 @@ mod touch_sensor {
             {
                 ::core::panicking::panic(&("i2c buf",
                                            "rust/app/src/touch_sensor.rs",
-                                           205u32, 5u32))
+                                           209u32, 5u32))
             }
         };
         if !(start_register + num_registers < 128) {
             {
                 ::core::panicking::panic(&("i2c addr",
                                            "rust/app/src/touch_sensor.rs",
-                                           206u32, 5u32))
+                                           210u32, 5u32))
             }
         };
         unsafe {
@@ -833,7 +840,7 @@ mod touch_sensor {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
                                                "rust/app/src/touch_sensor.rs",
-                                               226u32, 9u32))
+                                               230u32, 9u32))
                 }
             };
             return Ok(());
@@ -846,7 +853,7 @@ mod touch_sensor {
             {
                 ::core::panicking::panic(&("i2c addr",
                                            "rust/app/src/touch_sensor.rs",
-                                           234u32, 5u32))
+                                           238u32, 5u32))
             }
         };
         unsafe {
@@ -915,8 +922,10 @@ mod touch_sensor {
     }
 }
 mod display {
+    use core::fmt::Write;
+    use arrayvec::ArrayString;
     use embedded_graphics::{prelude::*, fonts, pixelcolor::Rgb565,
-                            primitives::Circle};
+                            primitives::{Circle, Rectangle}};
     use embedded_hal::{self, digital::v2::OutputPin};
     use st7735_lcd::{self, Orientation, ST7735};
     use mynewt::{result::*, hw::hal, fill_zero};
@@ -929,42 +938,80 @@ mod display {
                               word_size: hal::HAL_SPI_WORD_SIZE_8BIT as u8,};
     /// Initialise the display and populate the Display Context
     pub fn start_display() -> MynewtResult<()> {
-        let mut spi = MynewtSPI::new();
-        let mut dc = MynewtGPIO::new();
-        let mut rst = MynewtGPIO::new();
-        spi.init(0, 25, unsafe { &mut SPI_SETTINGS })?;
-        dc.init(18)?;
-        rst.init(26)?;
+        let mut spi_port = MynewtSPI::new();
+        let mut dc_gpio = MynewtGPIO::new();
+        let mut rst_gpio = MynewtGPIO::new();
+        spi_port.init(0, 25, unsafe { &mut SPI_SETTINGS })?;
+        dc_gpio.init(18)?;
+        rst_gpio.init(26)?;
         unsafe {
-            backlight_high = MynewtGPIO::new();
-            backlight_high.init(23)?;
-            backlight_high.set_low()?;
+            BACKLIGHT_HIGH = MynewtGPIO::new();
+            BACKLIGHT_HIGH.init(23)?;
+            BACKLIGHT_HIGH.set_low()?;
         }
         unsafe {
-            display = st7735_lcd::ST7735::new(spi, dc, rst, false, true)
+            DISPLAY =
+                st7735_lcd::ST7735::new(spi_port, dc_gpio, rst_gpio, false,
+                                        true)
         };
+        let background =
+            Rectangle::<Rgb565>::new(Coord::new(0, 0),
+                                     Coord::new(200,
+                                                200)).fill(Some(Rgb565::from((0xff,
+                                                                              0xff,
+                                                                              0xff))));
         let mut delay = MynewtDelay::new();
         unsafe {
-            display.init(&mut delay)?;
-            display.set_orientation(&Orientation::Landscape)?;
-            display.set_offset(1, 25);
+            DISPLAY.init(&mut delay)?;
+            DISPLAY.set_orientation(&Orientation::Landscape)?;
+            DISPLAY.draw(background);
         }
         Ok(())
     }
-    pub fn show_touch() -> MynewtResult<()> { Ok(()) }
+    /// Display the touched (X, Y) coordinates
+    pub fn show_touch(x: u16, y: u16) -> MynewtResult<()> {
+        let mut buf_x = ArrayString::<[u8; 20]>::new();
+        let mut buf_y = ArrayString::<[u8; 20]>::new();
+        (&mut buf_x).write_fmt(::core::fmt::Arguments::new_v1(&["  X = ",
+                                                                "  "],
+                                                              &match (&x,) {
+                                                                   (arg0,) =>
+                                                                   [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                 ::core::fmt::Display::fmt)],
+                                                               })).expect("show touch fail");
+        (&mut buf_y).write_fmt(::core::fmt::Arguments::new_v1(&["  Y = ",
+                                                                "  "],
+                                                              &match (&y,) {
+                                                                   (arg0,) =>
+                                                                   [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                 ::core::fmt::Display::fmt)],
+                                                               })).expect("show touch fail");
+        let text_x =
+            fonts::Font12x16::<Rgb565>::render_str(&buf_x).fill(Some(Rgb565::from((0xff,
+                                                                                   0xff,
+                                                                                   0xff)))).translate(Coord::new(20,
+                                                                                                                 50));
+        let text_y =
+            fonts::Font12x16::<Rgb565>::render_str(&buf_y).fill(Some(Rgb565::from((0xff,
+                                                                                   0xff,
+                                                                                   0xff)))).translate(Coord::new(20,
+                                                                                                                 80));
+        unsafe { DISPLAY.draw(text_x); DISPLAY.draw(text_y); }
+        Ok(())
+    }
     /// Render the ST7789 display connected to SPI port 0. `start_display()` must have been called earlier.
     pub fn test() -> MynewtResult<()> {
-        let c =
+        let circle =
             Circle::<Rgb565>::new(Coord::new(40, 40),
                                   40).fill(Some(Rgb565::from(1u8)));
-        let t =
+        let text =
             fonts::Font12x16::<Rgb565>::render_str("I AM RUSTY BEACON").fill(Some(Rgb565::from(20u8))).translate(Coord::new(20,
                                                                                                                             16));
-        unsafe { display.draw(c); display.draw(t); }
+        unsafe { DISPLAY.draw(circle); DISPLAY.draw(text); }
         Ok(())
     }
     /// Display Driver
-    static mut display: Display =
+    static mut DISPLAY: Display =
         unsafe {
             ::core::mem::transmute::<[u8; ::core::mem::size_of::<Display>()],
                                      Display>([0;
@@ -972,7 +1019,7 @@ mod display {
         };
     type Display = ST7735<MynewtSPI, MynewtGPIO, MynewtGPIO>;
     /// GPIO Pin for Display Backlight
-    static mut backlight_high: MynewtGPIO =
+    static mut BACKLIGHT_HIGH: MynewtGPIO =
         unsafe {
             ::core::mem::transmute::<[u8; ::core::mem::size_of::<MynewtGPIO>()],
                                      MynewtGPIO>([0;
@@ -999,7 +1046,6 @@ extern "C" fn main() -> ! {
         }
     };
     display::start_display().expect("DSP fail");
-    display::test().expect("DSP test fail");
     touch_sensor::start_touch_sensor().expect("TCH fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");

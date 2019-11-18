@@ -17,6 +17,7 @@ use crate::mynewt_hal::{
     MynewtDelay,
     MynewtGPIO,
 };
+use crate::display;
 
 /// Reset Pin for touch controller. Note: NFC antenna pins must be reassigned as GPIO pins for this to work.
 const TOUCH_RESET_PIN: i32 = 10;  //  P0.10/NFC2: TP_RESET
@@ -81,15 +82,18 @@ extern "C" fn touch_interrupt_handler(arg: *mut core::ffi::c_void) {
 /// Callback for the touch event that is triggered when a touch is detected
 extern "C" fn touch_event_callback(_event: *mut os_event) {
     //  console::printhex(unsafe { os::os_time_get() } as u8); console::print(" touch\n");
-    //  Fetch the touch data from the touch controller
     unsafe { 
+        //  Fetch the touch data from the touch controller
         read_touchdata(&mut TOUCH_DATA)
-            .expect("touchdata fail") 
-    };
-    console::printint(unsafe { TOUCH_DATA.touches[0].x } as i32);
-    console::print(", ");
-    console::printint(unsafe { TOUCH_DATA.touches[0].y } as i32);
-    console::print("\n");
+            .expect("touchdata fail");
+        //  Display the touch data
+        display::show_touch(
+            TOUCH_DATA.touches[0].x,
+            TOUCH_DATA.touches[0].y
+        ).expect("show touch fail");
+    }
+    console::printint(unsafe { TOUCH_DATA.touches[0].x } as i32); console::print(", ");
+    console::printint(unsafe { TOUCH_DATA.touches[0].y } as i32); console::print("\n");
     console::flush();   
 }
 

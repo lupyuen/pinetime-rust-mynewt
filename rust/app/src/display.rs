@@ -1,8 +1,13 @@
+use core::fmt::Write;
+use arrayvec::ArrayString;
 use embedded_graphics::{
     prelude::*,
     fonts,
     pixelcolor::Rgb565,
-    primitives::Circle,
+    primitives::{
+        Circle,
+        Rectangle,
+    },
 };
 use embedded_hal::{
     self,
@@ -47,71 +52,98 @@ static mut SPI_SETTINGS: hal::hal_spi_settings = hal::hal_spi_settings {
 /// Initialise the display and populate the Display Context
 pub fn start_display() -> MynewtResult<()> {
     //  Create SPI port and GPIO pins
-    let mut spi = MynewtSPI::new();
-    let mut dc =  MynewtGPIO::new();
-    let mut rst = MynewtGPIO::new();
+    let mut spi_port = MynewtSPI::new();
+    let mut dc_gpio =  MynewtGPIO::new();
+    let mut rst_gpio = MynewtGPIO::new();
 
     //  Init SPI port and GPIO pins
-    spi.init(
+    spi_port.init(
         0,   //  Mynewt SPI port 0
         25,  //  LCD_CS (P0.25): Chip select
         unsafe { &mut SPI_SETTINGS }
     ) ? ;
-    dc.init(18) ? ;   //  LCD_RS (P0.18): Clock/data pin (CD)
-    rst.init(26) ? ;  //  LCD_RESET (P0.26): Display reset
+    dc_gpio.init(18) ? ;   //  LCD_RS (P0.18): Clock/data pin (CD)
+    rst_gpio.init(26) ? ;  //  LCD_RESET (P0.26): Display reset
 
     //  Switch on the backlight
     unsafe {
-        backlight_high = MynewtGPIO::new();
-        backlight_high.init(23) ? ;  //  LCD_BACKLIGHT_{LOW,MID,HIGH} (P0.14, 22, 23): Backlight (active low)
-        backlight_high.set_low() ? ;    
+        BACKLIGHT_HIGH = MynewtGPIO::new();
+        BACKLIGHT_HIGH.init(23) ? ;  //  LCD_BACKLIGHT_{LOW,MID,HIGH} (P0.14, 22, 23): Backlight (active low)
+        BACKLIGHT_HIGH.set_low() ? ;    
     }
     
     //  Create display driver
-    unsafe { display = st7735_lcd::ST7735::new(
-        spi,    //  SPI Port
-        dc,     //  GPIO Pin for DC
-        rst,    //  GPIO Pin for RST
-        false,  //  Whether the display is RGB (true) or BGR (false)
-        true    //  Whether the colours are inverted (true) or not (false)
+    unsafe { DISPLAY = st7735_lcd::ST7735::new(
+        spi_port,    //  SPI Port
+        dc_gpio,     //  GPIO Pin for DC
+        rst_gpio,    //  GPIO Pin for RST
+        false,       //  Whether the display is RGB (true) or BGR (false)
+        true         //  Whether the colours are inverted (true) or not (false)
     ) };
 
-    //  Init display driver
+    //  Init display driver and draw the background
+    let background = Rectangle::<Rgb565>
+        ::new(Coord::new(0, 0), Coord::new(200, 200))
+        .fill(Some(Rgb565::from((0xff, 0xff, 0xff))));  //  White
     let mut delay = MynewtDelay::new();
     unsafe {
-        display.init(&mut delay) ? ;
-        display.set_orientation(&Orientation::Landscape) ? ;
-        display.set_offset(1, 25);    
+        DISPLAY.init(&mut delay) ? ;
+        DISPLAY.set_orientation(&Orientation::Landscape) ? ;
+        //  DISPLAY.set_offset(1, 25);
+        DISPLAY.draw(background);
     }
     Ok(())
 }
 
-pub fn show_touch() -> MynewtResult<()> {
+/// Display the touched (X, Y) coordinates
+pub fn show_touch(x: u16, y: u16) -> MynewtResult<()> {
+    //  Format coordinates as text
+    let mut buf_x = ArrayString::<[u8; 20]>::new();
+    let mut buf_y = ArrayString::<[u8; 20]>::new();
+    write!(&mut buf_x, "  X = {}  ", x)
+        .expect("show touch fail");
+    write!(&mut buf_y, "  Y = {}  ", y)
+        .expect("show touch fail");
+    let text_x = fonts::Font12x16::<Rgb565>
+        ::render_str(&buf_x)
+        .fill(Some(Rgb565::from((0xff, 0xff, 0xff))))  //  White
+        .translate(Coord::new(20, 50));
+    let text_y = fonts::Font12x16::<Rgb565>
+        ::render_str(&buf_y)
+        .fill(Some(Rgb565::from((0xff, 0xff, 0xff))))  //  White
+        .translate(Coord::new(20, 80));
+    //  Render text to display
+    unsafe {
+        DISPLAY.draw(text_x);    
+        DISPLAY.draw(text_y);    
+    }
     Ok(())
 }
 
 /// Render the ST7789 display connected to SPI port 0. `start_display()` must have been called earlier.
 pub fn test() -> MynewtResult<()> {
     //  Create circle
-    let c = Circle::<Rgb565>::new(Coord::new(40, 40), 40)
+    let circle = Circle::<Rgb565>
+        ::new(Coord::new(40, 40), 40)
         .fill(Some(Rgb565::from(1u8)));
 
     //  Create text
-    let t = fonts::Font12x16::<Rgb565>::render_str("I AM RUSTY BEACON")
+    let text = fonts::Font12x16::<Rgb565>
+        ::render_str("I AM RUSTY BEACON")
         .fill(Some(Rgb565::from(20u8)))
         .translate(Coord::new(20, 16));
 
     //  Render circle and text to display
     unsafe {
-        display.draw(c);
-        display.draw(t);    
+        DISPLAY.draw(circle);
+        DISPLAY.draw(text);    
     }
     Ok(())
 }
 
 /// Display Driver
-static mut display: Display = fill_zero!(Display);               //  Will be created in `start_display()`
+static mut DISPLAY: Display = fill_zero!(Display);               //  Will be created in `start_display()`
 type Display = ST7735<MynewtSPI, MynewtGPIO, MynewtGPIO>;
 
 /// GPIO Pin for Display Backlight
-static mut backlight_high: MynewtGPIO = fill_zero!(MynewtGPIO);  //  Will be created in `start_display()`
+static mut BACKLIGHT_HIGH: MynewtGPIO = fill_zero!(MynewtGPIO);  //  Will be created in `start_display()`
