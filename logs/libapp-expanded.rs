@@ -692,11 +692,6 @@ mod touch_sensor {
             display::show_touch(TOUCH_DATA.touches[0].x,
                                 TOUCH_DATA.touches[0].y).expect("show touch fail");
         }
-        console::printint(unsafe { TOUCH_DATA.touches[0].x } as i32);
-        console::print(", ");
-        console::printint(unsafe { TOUCH_DATA.touches[0].y } as i32);
-        console::print("\n");
-        console::flush();
     }
     /// Touch data will be populated here
     static mut TOUCH_DATA: TouchEventInfo =
@@ -809,14 +804,14 @@ mod touch_sensor {
             {
                 ::core::panicking::panic(&("i2c buf",
                                            "rust/app/src/touch_sensor.rs",
-                                           209u32, 5u32))
+                                           210u32, 5u32))
             }
         };
         if !(start_register + num_registers < 128) {
             {
                 ::core::panicking::panic(&("i2c addr",
                                            "rust/app/src/touch_sensor.rs",
-                                           210u32, 5u32))
+                                           211u32, 5u32))
             }
         };
         unsafe {
@@ -840,7 +835,7 @@ mod touch_sensor {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
                                                "rust/app/src/touch_sensor.rs",
-                                               230u32, 9u32))
+                                               231u32, 9u32))
                 }
             };
             return Ok(());
@@ -853,7 +848,7 @@ mod touch_sensor {
             {
                 ::core::panicking::panic(&("i2c addr",
                                            "rust/app/src/touch_sensor.rs",
-                                           238u32, 5u32))
+                                           239u32, 5u32))
             }
         };
         unsafe {
@@ -951,15 +946,15 @@ mod display {
         }
         unsafe {
             DISPLAY =
-                st7735_lcd::ST7735::new(spi_port, dc_gpio, rst_gpio, false,
+                st7735_lcd::ST7735::new(spi_port, dc_gpio, rst_gpio, true,
                                         true)
         };
         let background =
             Rectangle::<Rgb565>::new(Coord::new(0, 0),
-                                     Coord::new(200,
-                                                200)).fill(Some(Rgb565::from((0xff,
-                                                                              0xff,
-                                                                              0xff))));
+                                     Coord::new(240,
+                                                240)).fill(Some(Rgb565::from((0x0,
+                                                                              0x0,
+                                                                              0x0))));
         let mut delay = MynewtDelay::new();
         unsafe {
             DISPLAY.init(&mut delay)?;
@@ -987,15 +982,19 @@ mod display {
                                                                                                  ::core::fmt::Display::fmt)],
                                                                })).expect("show touch fail");
         let text_x =
-            fonts::Font12x16::<Rgb565>::render_str(&buf_x).fill(Some(Rgb565::from((0xff,
-                                                                                   0xff,
-                                                                                   0xff)))).translate(Coord::new(20,
-                                                                                                                 50));
+            fonts::Font12x16::<Rgb565>::render_str(&buf_x).stroke(Some(Rgb565::from((0xff,
+                                                                                     0xff,
+                                                                                     0xff)))).fill(Some(Rgb565::from((0x00,
+                                                                                                                      0x00,
+                                                                                                                      0x00)))).translate(Coord::new(40,
+                                                                                                                                                    100));
         let text_y =
-            fonts::Font12x16::<Rgb565>::render_str(&buf_y).fill(Some(Rgb565::from((0xff,
-                                                                                   0xff,
-                                                                                   0xff)))).translate(Coord::new(20,
-                                                                                                                 80));
+            fonts::Font12x16::<Rgb565>::render_str(&buf_y).stroke(Some(Rgb565::from((0xff,
+                                                                                     0xff,
+                                                                                     0xff)))).fill(Some(Rgb565::from((0x00,
+                                                                                                                      0x00,
+                                                                                                                      0x00)))).translate(Coord::new(40,
+                                                                                                                                                    130));
         unsafe { DISPLAY.draw(text_x); DISPLAY.draw(text_y); }
         Ok(())
     }
@@ -1003,10 +1002,15 @@ mod display {
     pub fn test() -> MynewtResult<()> {
         let circle =
             Circle::<Rgb565>::new(Coord::new(40, 40),
-                                  40).fill(Some(Rgb565::from(1u8)));
+                                  40).fill(Some(Rgb565::from((0xff, 0x00,
+                                                              0xff))));
         let text =
-            fonts::Font12x16::<Rgb565>::render_str("I AM RUSTY BEACON").fill(Some(Rgb565::from(20u8))).translate(Coord::new(20,
-                                                                                                                            16));
+            fonts::Font12x16::<Rgb565>::render_str("I AM RUSTY BEACON").stroke(Some(Rgb565::from((0x00,
+                                                                                                  0x00,
+                                                                                                  0x00)))).fill(Some(Rgb565::from((0xff,
+                                                                                                                                   0xff,
+                                                                                                                                   0x00)))).translate(Coord::new(20,
+                                                                                                                                                                 16));
         unsafe { DISPLAY.draw(circle); DISPLAY.draw(text); }
         Ok(())
     }

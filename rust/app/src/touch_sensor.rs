@@ -92,9 +92,10 @@ extern "C" fn touch_event_callback(_event: *mut os_event) {
             TOUCH_DATA.touches[0].y
         ).expect("show touch fail");
     }
-    console::printint(unsafe { TOUCH_DATA.touches[0].x } as i32); console::print(", ");
-    console::printint(unsafe { TOUCH_DATA.touches[0].y } as i32); console::print("\n");
-    console::flush();   
+    //  Disable the console output because it slows down the rendering
+    //  console::printint(unsafe { TOUCH_DATA.touches[0].x } as i32); console::print(", ");
+    //  console::printint(unsafe { TOUCH_DATA.touches[0].y } as i32); console::print("\n");
+    //  console::flush();   
 }
 
 /// Touch data will be populated here

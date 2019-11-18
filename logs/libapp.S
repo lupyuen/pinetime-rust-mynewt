@@ -168,8 +168,6 @@ app-b96ce2b812257dd5.1nzaz4au9tm11r30.rcgu.o:     file format elf32-littlearm
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 1nzaz4au9tm11r30
 0000099d l       .debug_str	00000000 
-000008d4 l       .debug_str	00000000 
-000008db l       .debug_str	00000000 
 000008e7 l       .debug_str	00000000 
 000008f3 l       .debug_str	00000000 
 0000090c l       .debug_str	00000000 
@@ -426,57 +424,57 @@ SYMBOL TABLE:
 000008bf l       .debug_str	00000000 
 000008c3 l       .debug_str	00000000 
 000008cc l       .debug_str	00000000 
+000008d4 l       .debug_str	00000000 
+000008db l       .debug_str	00000000 
 00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.0	00000012 .Lanon.cb0ffae57cc650814dc4ce27b125b757.0
 00000000 l     O .rodata.cst4	00000004 .Lanon.cb0ffae57cc650814dc4ce27b125b757.1
 00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.10	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.10
 00000000 l     O .rodata.cst8	00000008 .Lanon.cb0ffae57cc650814dc4ce27b125b757.11
 00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.12	0000000e .Lanon.cb0ffae57cc650814dc4ce27b125b757.12
 00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.13	0000000f .Lanon.cb0ffae57cc650814dc4ce27b125b757.13
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.14	00000002 .Lanon.cb0ffae57cc650814dc4ce27b125b757.14
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.15	00000001 .Lanon.cb0ffae57cc650814dc4ce27b125b757.15
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.16	00000013 .Lanon.cb0ffae57cc650814dc4ce27b125b757.16
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.17	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.17
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.14	00000013 .Lanon.cb0ffae57cc650814dc4ce27b125b757.14
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.15	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.15
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.16	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.16
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.17	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.17
 00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.18	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.18
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.19	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.19
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.19	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.19
 00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.20	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.20
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.21	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.21
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.21	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.21
 00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.22	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.22
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.23	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.23
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.24	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.24
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.25	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.25
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.26	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.26
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.27	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.27
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.28	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.28
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.23	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.23
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.24	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.24
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.25	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.25
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.26	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.26
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.27	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.27
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.28	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.28
 00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.29	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.29
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.30	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.30
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.31	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.31
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.32	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.32
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.33	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.33
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.34	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.34
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.35	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.35
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.36	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.36
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.37	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.37
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.38	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.38
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.39	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.39
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.40	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.40
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.41	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.41
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.42	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.42
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.43	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.43
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.44	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.44
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.45	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.45
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.46	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.46
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.47	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.47
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.48	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.48
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.30	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.30
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.31	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.31
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.32	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.32
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.33	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.33
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.34	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.34
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.35	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.35
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.36	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.36
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.37	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.37
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.38	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.38
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.39	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.39
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.40	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.40
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.41	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.41
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.42	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.42
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.43	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.43
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.44	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.44
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.45	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.45
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.46	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.46
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.47	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.47
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.48	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.48
 00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.49	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.49
 00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.5	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.5
 00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.50	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.50
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.51	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.51
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.52	00000010 .Lanon.cb0ffae57cc650814dc4ce27b125b757.52
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.54	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.54
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.52	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.52
+00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.53	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.53
+00000008 l     O .rodata.cst8	00000008 .Lanon.cb0ffae57cc650814dc4ce27b125b757.54
 00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.55	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.55
-00000008 l     O .rodata.cst8	00000008 .Lanon.cb0ffae57cc650814dc4ce27b125b757.56
 00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.57	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.57
-00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.59	00000018 .Lanon.cb0ffae57cc650814dc4ce27b125b757.59
 00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.7	00000008 .Lanon.cb0ffae57cc650814dc4ce27b125b757.7
 00000000 l     O .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.8	00000000 .Lanon.cb0ffae57cc650814dc4ce27b125b757.8
 00000000 l     O .bss._ZN3app12touch_sensor10I2C_BUFFER17hc71c38516b4ca00bE	00000001 _ZN3app12touch_sensor10I2C_BUFFER17hc71c38516b4ca00bE
@@ -486,7 +484,7 @@ SYMBOL TABLE:
 00000000 l     O .bss._ZN3app12touch_sensor11TOUCH_RESET17h7fea964f59732f9fE	00000004 _ZN3app12touch_sensor11TOUCH_RESET17h7fea964f59732f9fE
 00000000 l     F .text._ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E	000006b0 _ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E
 00000000 l     F .text._ZN3app12touch_sensor19read_register_range17hee25fbeab36c0684E	0000018a _ZN3app12touch_sensor19read_register_range17hee25fbeab36c0684E
-00000000 l     F .text._ZN3app12touch_sensor20touch_event_callback17h775ae69fed7e7611E	000000b0 _ZN3app12touch_sensor20touch_event_callback17h775ae69fed7e7611E
+00000000 l     F .text._ZN3app12touch_sensor20touch_event_callback17h775ae69fed7e7611E	00000066 _ZN3app12touch_sensor20touch_event_callback17h775ae69fed7e7611E
 00000000 l     F .text._ZN3app12touch_sensor23touch_interrupt_handler17heb7c6e45712d3b61E	00000046 _ZN3app12touch_sensor23touch_interrupt_handler17heb7c6e45712d3b61E
 00000000 l     O .bss._ZN3app12touch_sensor3buf17h16617f4285436338E	0000003f _ZN3app12touch_sensor3buf17h16617f4285436338E
 00000000 l     O .bss._ZN3app12touch_sensor8I2C_DATA17haa873c384a333bceE	00000008 _ZN3app12touch_sensor8I2C_DATA17haa873c384a333bceE
@@ -511,8 +509,8 @@ SYMBOL TABLE:
 00000000 l    d  .rodata.str.2	00000000 .rodata.str.2
 00000000 l    d  .bss._ZN3app12touch_sensor3buf17h16617f4285436338E	00000000 .bss._ZN3app12touch_sensor3buf17h16617f4285436338E
 00000000 l    d  .bss._ZN3app12touch_sensor11TOUCH_EVENT17h69109dd1411020eaE	00000000 .bss._ZN3app12touch_sensor11TOUCH_EVENT17h69109dd1411020eaE
-00000000 l    d  .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.53	00000000 .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.53
-00000000 l    d  .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.58	00000000 .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.58
+00000000 l    d  .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.51	00000000 .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.51
+00000000 l    d  .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.56	00000000 .rodata..Lanon.cb0ffae57cc650814dc4ce27b125b757.56
 00000000 l    d  .bss._ZN3app12touch_sensor8I2C_DATA17haa873c384a333bceE	00000000 .bss._ZN3app12touch_sensor8I2C_DATA17haa873c384a333bceE
 00000000 l    d  .bss._ZN3app12touch_sensor10I2C_BUFFER17hc71c38516b4ca00bE	00000000 .bss._ZN3app12touch_sensor10I2C_BUFFER17hc71c38516b4ca00bE
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
@@ -539,9 +537,7 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h998235d3321c0bddE
 00000000         *UND*	00000000 _ZN59_$LT$core..fmt..Arguments$u20$as$u20$core..fmt..Display$GT$3fmt17h3e269ca172b8335aE
 00000000         *UND*	00000000 _ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h055bb9e1dcd02e3eE
-00000000         *UND*	00000000 _ZN6mynewt3sys7console5flush17hdebac7a23ce4130cE
 00000000         *UND*	00000000 _ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E
-00000000         *UND*	00000000 _ZN6mynewt3sys7console8printint17hbd22b2ad2f6089beE
 00000000         *UND*	00000000 _ZN6mynewt6kernel2os15eventq_dflt_get17h1e9f1e095a2cf595E
 00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hd5f459e4034bbd2eE
 00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h69b32b31042c3a7eE
@@ -959,48 +955,21 @@ extern "C" fn touch_event_callback(_event: *mut os_event) {
   5a:	9801      	ldr	r0, [sp, #4]
   5c:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17hdac8925e2c4a8c6fE>
   60:	e7ff      	b.n	62 <_ZN3app12touch_sensor20touch_event_callback17h775ae69fed7e7611E+0x62>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:95
-        ).expect("show touch fail");
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:99
     }
-    console::printint(unsafe { TOUCH_DATA.touches[0].x } as i32); console::print(", ");
-  62:	e7ff      	b.n	64 <_ZN3app12touch_sensor20touch_event_callback17h775ae69fed7e7611E+0x64>
-  64:	f240 0000 	movw	r0, #0
-  68:	f2c0 0000 	movt	r0, #0
-  6c:	8800      	ldrh	r0, [r0, #0]
-  6e:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console8printint17hbd22b2ad2f6089beE>
-  72:	e7ff      	b.n	2 <_ZN3app12touch_sensor20touch_event_callback17h775ae69fed7e7611E+0x2>
-  74:	f240 0000 	movw	r0, #0
-  78:	f2c0 0000 	movt	r0, #0
-  7c:	2102      	movs	r1, #2
-  7e:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E>
-  82:	e7ff      	b.n	84 <_ZN3app12touch_sensor20touch_event_callback17h775ae69fed7e7611E+0x84>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:96
-    console::printint(unsafe { TOUCH_DATA.touches[0].y } as i32); console::print("\n");
-  84:	e7ff      	b.n	86 <_ZN3app12touch_sensor20touch_event_callback17h775ae69fed7e7611E+0x86>
-  86:	f240 0000 	movw	r0, #0
-  8a:	f2c0 0000 	movt	r0, #0
-  8e:	8840      	ldrh	r0, [r0, #2]
-  90:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console8printint17hbd22b2ad2f6089beE>
-  94:	e7ff      	b.n	2 <_ZN3app12touch_sensor20touch_event_callback17h775ae69fed7e7611E+0x2>
-  96:	f240 0000 	movw	r0, #0
-  9a:	f2c0 0000 	movt	r0, #0
-  9e:	2101      	movs	r1, #1
-  a0:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E>
-  a4:	e7ff      	b.n	2 <_ZN6mynewt3sys7console5flush17hdebac7a23ce4130cE+0x2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:97
-    console::flush();   
-  a6:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5flush17hdebac7a23ce4130cE>
-  aa:	e7ff      	b.n	ac <_ZN3app12touch_sensor20touch_event_callback17h775ae69fed7e7611E+0xac>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:98
+    //  Disable the console output because it slows down the rendering
+    //  console::printint(unsafe { TOUCH_DATA.touches[0].x } as i32); console::print(", ");
+    //  console::printint(unsafe { TOUCH_DATA.touches[0].y } as i32); console::print("\n");
+    //  console::flush();   
 }
-  ac:	b006      	add	sp, #24
-  ae:	bd80      	pop	{r7, pc}
+  62:	b006      	add	sp, #24
+  64:	bd80      	pop	{r7, pc}
 
 Disassembly of section .text._ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E:
 
 00000000 <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E>:
 _ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:105
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:106
 /// Touch data will be populated here
 static mut TOUCH_DATA: TouchEventInfo = fill_zero!(TouchEventInfo);
 
@@ -1011,7 +980,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
    2:	b0e6      	sub	sp, #408	; 0x198
    4:	4601      	mov	r1, r0
    6:	902e      	str	r0, [sp, #184]	; 0xb8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:106
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:107
     read_register_range(           //  Read the range of I2C registers...
    8:	4668      	mov	r0, sp
    a:	223f      	movs	r2, #63	; 0x3f
@@ -1033,7 +1002,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
   38:	e7ff      	b.n	3a <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E+0x3a>
   3a:	f50d 7089 	add.w	r0, sp, #274	; 0x112
   3e:	2152      	movs	r1, #82	; 0x52
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:112
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:113
         TOUCH_CONTROLLER_ADDRESS,  //  From the touch controller
         0,                         //  Starting from register 0
         POINT_READ_BUF as u8,      //  Number of registers to read
@@ -1053,7 +1022,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
   58:	a930      	add	r1, sp, #192	; 0xc0
   5a:	2252      	movs	r2, #82	; 0x52
   5c:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:113
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:114
     data.point_num = unsafe { buf[FT_TOUCH_POINT_NUM] & 0x0F };
   60:	9028      	str	r0, [sp, #160]	; 0xa0
   62:	e7ff      	b.n	64 <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E+0x64>
@@ -1063,12 +1032,12 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
   6e:	f000 000f 	and.w	r0, r0, #15
   72:	992e      	ldr	r1, [sp, #184]	; 0xb8
   74:	f881 0051 	strb.w	r0, [r1, #81]	; 0x51
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:114
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:115
     data.count     = 0;
   78:	982e      	ldr	r0, [sp, #184]	; 0xb8
   7a:	2100      	movs	r1, #0
   7c:	f880 1050 	strb.w	r1, [r0, #80]	; 0x50
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:116
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:117
 
     for i in 0..CFG_MAX_TOUCH_POINTS {
   80:	9159      	str	r1, [sp, #356]	; 0x164
@@ -1099,7 +1068,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
   b6:	2801      	cmp	r0, #1
   b8:	d001      	beq.n	be <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E+0xbe>
   ba:	e7ff      	b.n	bc <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E+0xbc>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:149
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:150
             && (data.point_num == 0) {
             break;
         }
@@ -1107,7 +1076,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
     Ok(())
 }
   bc:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:116
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:117
     for i in 0..CFG_MAX_TOUCH_POINTS {
   be:	985f      	ldr	r0, [sp, #380]	; 0x17c
   c0:	9060      	str	r0, [sp, #384]	; 0x180
@@ -1115,7 +1084,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
   c4:	905d      	str	r0, [sp, #372]	; 0x174
   c6:	985d      	ldr	r0, [sp, #372]	; 0x174
   c8:	9061      	str	r0, [sp, #388]	; 0x184
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:117
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:118
         let pointid = unsafe { buf[HYN_TOUCH_ID_POS + HYN_TOUCH_STEP * i] } >> 4;
   ca:	9861      	ldr	r0, [sp, #388]	; 0x184
   cc:	2106      	movs	r1, #6
@@ -1124,21 +1093,21 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
   d4:	9024      	str	r0, [sp, #144]	; 0x90
   d6:	f040 81cd 	bne.w	474 <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E+0x474>
   da:	e007      	b.n	ec <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E+0xec>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:116
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:117
     for i in 0..CFG_MAX_TOUCH_POINTS {
   dc:	e7ff      	b.n	de <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E+0xde>
   de:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:148
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:149
     Ok(())
   e0:	902f      	str	r0, [sp, #188]	; 0xbc
   e2:	2001      	movs	r0, #1
   e4:	902f      	str	r0, [sp, #188]	; 0xbc
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:149
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:150
 }
   e6:	982f      	ldr	r0, [sp, #188]	; 0xbc
   e8:	b066      	add	sp, #408	; 0x198
   ea:	bd80      	pop	{r7, pc}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:117
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:118
         let pointid = unsafe { buf[HYN_TOUCH_ID_POS + HYN_TOUCH_STEP * i] } >> 4;
   ec:	9824      	ldr	r0, [sp, #144]	; 0x90
   ee:	1d41      	adds	r1, r0, #5
@@ -1160,7 +1129,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  116:	e7ff      	b.n	118 <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E+0x118>
  118:	9822      	ldr	r0, [sp, #136]	; 0x88
  11a:	f88d 0189 	strb.w	r0, [sp, #393]	; 0x189
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:118
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:119
         if pointid >= HYN_MAX_ID { break; }
  11e:	f89d 1189 	ldrb.w	r1, [sp, #393]	; 0x189
  122:	290f      	cmp	r1, #15
@@ -1168,7 +1137,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  126:	e7ff      	b.n	128 <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E+0x128>
  128:	e7ff      	b.n	12a <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E+0x12a>
  12a:	e7d8      	b.n	de <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E+0xde>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:121
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:122
         data.count += 1;
  12c:	982e      	ldr	r0, [sp, #184]	; 0xb8
  12e:	f890 0050 	ldrb.w	r0, [r0, #80]	; 0x50
@@ -1182,7 +1151,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  142:	982e      	ldr	r0, [sp, #184]	; 0xb8
  144:	9921      	ldr	r1, [sp, #132]	; 0x84
  146:	f880 1050 	strb.w	r1, [r0, #80]	; 0x50
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:122
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:123
         let x_high = unsafe { buf[HYN_TOUCH_X_H_POS + HYN_TOUCH_STEP * i] & 0x0F } as u16;
  14a:	9861      	ldr	r0, [sp, #388]	; 0x184
  14c:	2206      	movs	r2, #6
@@ -1208,7 +1177,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  180:	5c40      	ldrb	r0, [r0, r1]
  182:	f000 000f 	and.w	r0, r0, #15
  186:	f8ad 018a 	strh.w	r0, [sp, #394]	; 0x18a
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:123
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:124
         let x_low  = unsafe { buf[HYN_TOUCH_X_L_POS + HYN_TOUCH_STEP * i] } as u16;
  18a:	9861      	ldr	r0, [sp, #388]	; 0x184
  18c:	2206      	movs	r2, #6
@@ -1233,7 +1202,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  1be:	991d      	ldr	r1, [sp, #116]	; 0x74
  1c0:	5c40      	ldrb	r0, [r0, r1]
  1c2:	f8ad 018c 	strh.w	r0, [sp, #396]	; 0x18c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:124
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:125
         data.touches[i].x  = (x_high << 8) | x_low;
  1c6:	f8bd 018a 	ldrh.w	r0, [sp, #394]	; 0x18a
  1ca:	0200      	lsls	r0, r0, #8
@@ -1252,7 +1221,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  1e8:	ea41 0302 	orr.w	r3, r1, r2
  1ec:	f8dd c068 	ldr.w	ip, [sp, #104]	; 0x68
  1f0:	f820 303c 	strh.w	r3, [r0, ip, lsl #3]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:126
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:127
         let y_high = unsafe { buf[HYN_TOUCH_Y_H_POS + HYN_TOUCH_STEP * i] & 0x0F } as u16;
  1f4:	9861      	ldr	r0, [sp, #388]	; 0x184
  1f6:	2306      	movs	r3, #6
@@ -1278,7 +1247,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  22a:	5c40      	ldrb	r0, [r0, r1]
  22c:	f000 000f 	and.w	r0, r0, #15
  230:	f8ad 018e 	strh.w	r0, [sp, #398]	; 0x18e
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:127
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:128
         let y_low  = unsafe { buf[HYN_TOUCH_Y_L_POS + HYN_TOUCH_STEP * i] } as u16;
  234:	9861      	ldr	r0, [sp, #388]	; 0x184
  236:	2206      	movs	r2, #6
@@ -1303,7 +1272,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  268:	9916      	ldr	r1, [sp, #88]	; 0x58
  26a:	5c40      	ldrb	r0, [r0, r1]
  26c:	f8ad 0190 	strh.w	r0, [sp, #400]	; 0x190
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:128
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:129
         data.touches[i].y  = (y_high << 8) | y_low;
  270:	f8bd 018e 	ldrh.w	r0, [sp, #398]	; 0x18e
  274:	0200      	lsls	r0, r0, #8
@@ -1323,7 +1292,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  296:	9b14      	ldr	r3, [sp, #80]	; 0x50
  298:	ea42 0c03 	orr.w	ip, r2, r3
  29c:	f8a0 c002 	strh.w	ip, [r0, #2]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:132
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:133
             unsafe { buf[HYN_TOUCH_EVENT_POS + HYN_TOUCH_STEP * i] } >> 6;
  2a0:	9861      	ldr	r0, [sp, #388]	; 0x184
  2a2:	f04f 0c06 	mov.w	ip, #6
@@ -1350,7 +1319,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  2dc:	0980      	lsrs	r0, r0, #6
  2de:	9010      	str	r0, [sp, #64]	; 0x40
  2e0:	e7ff      	b.n	2e2 <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E+0x2e2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:131
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:132
         data.touches[i].action =
  2e2:	9861      	ldr	r0, [sp, #388]	; 0x184
  2e4:	2809      	cmp	r0, #9
@@ -1362,7 +1331,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  2f2:	eb00 00c1 	add.w	r0, r0, r1, lsl #3
  2f6:	9a10      	ldr	r2, [sp, #64]	; 0x40
  2f8:	7102      	strb	r2, [r0, #4]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:134
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:135
             unsafe { buf[HYN_TOUCH_ID_POS    + HYN_TOUCH_STEP * i] } >> 4;
  2fa:	9861      	ldr	r0, [sp, #388]	; 0x184
  2fc:	2306      	movs	r3, #6
@@ -1389,7 +1358,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  332:	0900      	lsrs	r0, r0, #4
  334:	900c      	str	r0, [sp, #48]	; 0x30
  336:	e7ff      	b.n	338 <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E+0x338>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:133
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:134
         data.touches[i].finger =
  338:	9861      	ldr	r0, [sp, #388]	; 0x184
  33a:	2809      	cmp	r0, #9
@@ -1401,7 +1370,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  348:	eb00 00c1 	add.w	r0, r0, r1, lsl #3
  34c:	9a0c      	ldr	r2, [sp, #48]	; 0x30
  34e:	7142      	strb	r2, [r0, #5]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:138
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:139
             unsafe { buf[HYN_TOUCH_XY_POS + HYN_TOUCH_STEP * i] };  //  Can't be constant value
  350:	9861      	ldr	r0, [sp, #388]	; 0x184
  352:	2306      	movs	r3, #6
@@ -1425,7 +1394,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  380:	f2c0 0000 	movt	r0, #0
  384:	9909      	ldr	r1, [sp, #36]	; 0x24
  386:	5c40      	ldrb	r0, [r0, r1]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:137
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:138
         data.touches[i].pressure =
  388:	9a61      	ldr	r2, [sp, #388]	; 0x184
  38a:	2a09      	cmp	r2, #9
@@ -1438,7 +1407,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  39a:	eb00 00c1 	add.w	r0, r0, r1, lsl #3
  39e:	9a08      	ldr	r2, [sp, #32]
  3a0:	7182      	strb	r2, [r0, #6]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:140
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:141
             unsafe { buf[HYN_TOUCH_MISC   + HYN_TOUCH_STEP * i] } >> 4;
  3a2:	9861      	ldr	r0, [sp, #388]	; 0x184
  3a4:	2306      	movs	r3, #6
@@ -1465,7 +1434,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  3dc:	0900      	lsrs	r0, r0, #4
  3de:	9004      	str	r0, [sp, #16]
  3e0:	e7ff      	b.n	3e2 <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E+0x3e2>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:139
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:140
         data.touches[i].area =
  3e2:	9861      	ldr	r0, [sp, #388]	; 0x184
  3e4:	2809      	cmp	r0, #9
@@ -1477,7 +1446,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  3f2:	eb00 00c1 	add.w	r0, r0, r1, lsl #3
  3f6:	9a04      	ldr	r2, [sp, #16]
  3f8:	71c2      	strb	r2, [r0, #7]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:143
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:144
         if (data.touches[i].action == 0 || data.touches[i].action == 2)  //  If touch is down or contact
  3fa:	9861      	ldr	r0, [sp, #388]	; 0x184
  3fc:	280a      	cmp	r0, #10
@@ -1487,13 +1456,13 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  404:	2000      	movs	r0, #0
  406:	f88d 0192 	strb.w	r0, [sp, #402]	; 0x192
  40a:	e008      	b.n	41e <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E+0x41e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:144
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:145
             && (data.point_num == 0) {
  40c:	982e      	ldr	r0, [sp, #184]	; 0xb8
  40e:	f890 0051 	ldrb.w	r0, [r0, #81]	; 0x51
  412:	fab0 f080 	clz	r0, r0
  416:	0940      	lsrs	r0, r0, #5
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:143
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:144
         if (data.touches[i].action == 0 || data.touches[i].action == 2)  //  If touch is down or contact
  418:	f88d 0192 	strb.w	r0, [sp, #402]	; 0x192
  41c:	e7ff      	b.n	41e <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E+0x41e>
@@ -1531,13 +1500,13 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  468:	0940      	lsrs	r0, r0, #5
  46a:	f88d 0193 	strb.w	r0, [sp, #403]	; 0x193
  46e:	e7e5      	b.n	43c <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E+0x43c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:145
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:146
             break;
  470:	e65b      	b.n	12a <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E+0x12a>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:116
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:117
     for i in 0..CFG_MAX_TOUCH_POINTS {
  472:	e614      	b.n	9e <_ZN3app12touch_sensor14read_touchdata17h6595e0fb0bd86ef9E+0x9e>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:117
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:118
         let pointid = unsafe { buf[HYN_TOUCH_ID_POS + HYN_TOUCH_STEP * i] } >> 4;
  474:	f240 0000 	movw	r0, #0
  478:	f2c0 0000 	movt	r0, #0
@@ -1553,13 +1522,13 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  49a:	9923      	ldr	r1, [sp, #140]	; 0x8c
  49c:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E>
  4a0:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:121
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:122
         data.count += 1;
  4a2:	f240 0000 	movw	r0, #0
  4a6:	f2c0 0000 	movt	r0, #0
  4aa:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
  4ae:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:122
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:123
         let x_high = unsafe { buf[HYN_TOUCH_X_H_POS + HYN_TOUCH_STEP * i] & 0x0F } as u16;
  4b0:	f240 0000 	movw	r0, #0
  4b4:	f2c0 0000 	movt	r0, #0
@@ -1575,7 +1544,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  4d6:	991f      	ldr	r1, [sp, #124]	; 0x7c
  4d8:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E>
  4dc:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:123
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:124
         let x_low  = unsafe { buf[HYN_TOUCH_X_L_POS + HYN_TOUCH_STEP * i] } as u16;
  4de:	f240 0000 	movw	r0, #0
  4e2:	f2c0 0000 	movt	r0, #0
@@ -1591,7 +1560,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  504:	991d      	ldr	r1, [sp, #116]	; 0x74
  506:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E>
  50a:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:124
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:125
         data.touches[i].x  = (x_high << 8) | x_low;
  50c:	f240 0000 	movw	r0, #0
  510:	f2c0 0000 	movt	r0, #0
@@ -1599,7 +1568,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  516:	991a      	ldr	r1, [sp, #104]	; 0x68
  518:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E>
  51c:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:126
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:127
         let y_high = unsafe { buf[HYN_TOUCH_Y_H_POS + HYN_TOUCH_STEP * i] & 0x0F } as u16;
  51e:	f240 0000 	movw	r0, #0
  522:	f2c0 0000 	movt	r0, #0
@@ -1615,7 +1584,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  544:	9918      	ldr	r1, [sp, #96]	; 0x60
  546:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E>
  54a:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:127
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:128
         let y_low  = unsafe { buf[HYN_TOUCH_Y_L_POS + HYN_TOUCH_STEP * i] } as u16;
  54c:	f240 0000 	movw	r0, #0
  550:	f2c0 0000 	movt	r0, #0
@@ -1631,7 +1600,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  572:	9916      	ldr	r1, [sp, #88]	; 0x58
  574:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E>
  578:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:128
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:129
         data.touches[i].y  = (y_high << 8) | y_low;
  57a:	f240 0000 	movw	r0, #0
  57e:	f2c0 0000 	movt	r0, #0
@@ -1639,7 +1608,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  584:	9913      	ldr	r1, [sp, #76]	; 0x4c
  586:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E>
  58a:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:132
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:133
             unsafe { buf[HYN_TOUCH_EVENT_POS + HYN_TOUCH_STEP * i] } >> 6;
  58c:	f240 0000 	movw	r0, #0
  590:	f2c0 0000 	movt	r0, #0
@@ -1655,7 +1624,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  5b2:	9911      	ldr	r1, [sp, #68]	; 0x44
  5b4:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E>
  5b8:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:131
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:132
         data.touches[i].action =
  5ba:	f240 0000 	movw	r0, #0
  5be:	f2c0 0000 	movt	r0, #0
@@ -1663,7 +1632,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  5c4:	990f      	ldr	r1, [sp, #60]	; 0x3c
  5c6:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E>
  5ca:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:134
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:135
             unsafe { buf[HYN_TOUCH_ID_POS    + HYN_TOUCH_STEP * i] } >> 4;
  5cc:	f240 0000 	movw	r0, #0
  5d0:	f2c0 0000 	movt	r0, #0
@@ -1679,7 +1648,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  5f2:	990d      	ldr	r1, [sp, #52]	; 0x34
  5f4:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E>
  5f8:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:133
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:134
         data.touches[i].finger =
  5fa:	f240 0000 	movw	r0, #0
  5fe:	f2c0 0000 	movt	r0, #0
@@ -1687,7 +1656,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  604:	990b      	ldr	r1, [sp, #44]	; 0x2c
  606:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E>
  60a:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:138
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:139
             unsafe { buf[HYN_TOUCH_XY_POS + HYN_TOUCH_STEP * i] };  //  Can't be constant value
  60c:	f240 0000 	movw	r0, #0
  610:	f2c0 0000 	movt	r0, #0
@@ -1703,7 +1672,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  632:	9909      	ldr	r1, [sp, #36]	; 0x24
  634:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E>
  638:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:137
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:138
         data.touches[i].pressure =
  63a:	f240 0000 	movw	r0, #0
  63e:	f2c0 0000 	movt	r0, #0
@@ -1711,7 +1680,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  644:	9907      	ldr	r1, [sp, #28]
  646:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E>
  64a:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:140
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:141
             unsafe { buf[HYN_TOUCH_MISC   + HYN_TOUCH_STEP * i] } >> 4;
  64c:	f240 0000 	movw	r0, #0
  650:	f2c0 0000 	movt	r0, #0
@@ -1727,7 +1696,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  672:	9905      	ldr	r1, [sp, #20]
  674:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E>
  678:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:139
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:140
         data.touches[i].area =
  67a:	f240 0000 	movw	r0, #0
  67e:	f2c0 0000 	movt	r0, #0
@@ -1735,7 +1704,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
  684:	9903      	ldr	r1, [sp, #12]
  686:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E>
  68a:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:143
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:144
         if (data.touches[i].action == 0 || data.touches[i].action == 2)  //  If touch is down or contact
  68c:	f240 0000 	movw	r0, #0
  690:	f2c0 0000 	movt	r0, #0
@@ -1754,7 +1723,7 @@ Disassembly of section .text._ZN3app12touch_sensor19read_register_range17hee25fb
 
 00000000 <_ZN3app12touch_sensor19read_register_range17hee25fbeab36c0684E>:
 _ZN3app12touch_sensor19read_register_range17hee25fbeab36c0684E():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:208
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:209
 
 /// Event that will be forwarded to the Event Queue when a touch interrupt is triggered
 static mut TOUCH_EVENT: os_event = fill_zero!(os_event);  //  Init all fields to 0 or NULL
@@ -1773,7 +1742,7 @@ fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: 
   18:	f88d 2033 	strb.w	r2, [sp, #51]	; 0x33
   1c:	930d      	str	r3, [sp, #52]	; 0x34
   1e:	f8cd c038 	str.w	ip, [sp, #56]	; 0x38
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:209
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:210
     assert!(buffer.len() >= num_registers as usize, "i2c buf");  //  Buffer too small
   22:	980d      	ldr	r0, [sp, #52]	; 0x34
   24:	990e      	ldr	r1, [sp, #56]	; 0x38
@@ -1793,7 +1762,7 @@ fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: 
   48:	f2c0 0000 	movt	r0, #0
   4c:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
   50:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:210
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:211
     assert!(start_register + num_registers < 128, "i2c addr");  //  Not 7-bit address
   52:	f89d 0032 	ldrb.w	r0, [sp, #50]	; 0x32
   56:	f89d 1033 	ldrb.w	r1, [sp, #51]	; 0x33
@@ -1813,7 +1782,7 @@ fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: 
   7a:	f2c0 0000 	movt	r0, #0
   7e:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
   82:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:213
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:214
     //  First the start register number must be sent in write mode (I2C address xxxxxxx0). 
     unsafe { 
         I2C_BUFFER[0] = start_register;
@@ -1824,14 +1793,14 @@ fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: 
   90:	f2c0 0000 	movt	r0, #0
   94:	9905      	ldr	r1, [sp, #20]
   96:	7001      	strb	r1, [r0, #0]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:214
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:215
         I2C_DATA.address = addr;
   98:	f89d 2031 	ldrb.w	r2, [sp, #49]	; 0x31
   9c:	f240 0300 	movw	r3, #0
   a0:	f2c0 0300 	movt	r3, #0
   a4:	701a      	strb	r2, [r3, #0]
   a6:	2101      	movs	r1, #1
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:215
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:216
         I2C_DATA.len = I2C_BUFFER.len() as u16;
   a8:	f7ff fffe 	bl	0 <_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h70be3ebb33ef544dE>
   ac:	9004      	str	r0, [sp, #16]
@@ -1840,7 +1809,7 @@ fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: 
   b4:	f2c0 0000 	movt	r0, #0
   b8:	9904      	ldr	r1, [sp, #16]
   ba:	8041      	strh	r1, [r0, #2]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:216
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:217
         I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
   bc:	f240 0000 	movw	r0, #0
   c0:	f2c0 0000 	movt	r0, #0
@@ -1855,7 +1824,7 @@ fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: 
   da:	2201      	movs	r2, #1
   dc:	f44f 737a 	mov.w	r3, #1000	; 0x3e8
   e0:	f04f 0c00 	mov.w	ip, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:219
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:220
     };
     //  Then either a stop or a repeated start condition must be generated. 
     let _rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };  //  No stop yet, must continue even if we hit an error
@@ -1867,7 +1836,7 @@ fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: 
   ee:	f7ff fffe 	bl	0 <hal_i2c_master_write>
   f2:	9010      	str	r0, [sp, #64]	; 0x40
   f4:	e7ff      	b.n	f6 <_ZN3app12touch_sensor19read_register_range17hee25fbeab36c0684E+0xf6>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:222
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:223
     //  After this the slave is addressed in read mode (RW = ‘1’) at I2C address xxxxxxx1
     unsafe { 
         I2C_BUFFER[0] = 0x00;
@@ -1876,17 +1845,17 @@ fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: 
   fc:	f2c0 0000 	movt	r0, #0
  100:	2100      	movs	r1, #0
  102:	7001      	strb	r1, [r0, #0]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:223
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:224
         I2C_DATA.address = addr;
  104:	f89d 0031 	ldrb.w	r0, [sp, #49]	; 0x31
  108:	f240 0100 	movw	r1, #0
  10c:	f2c0 0100 	movt	r1, #0
  110:	7008      	strb	r0, [r1, #0]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:224
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:225
         I2C_DATA.len = num_registers as u16;
  112:	f89d 0033 	ldrb.w	r0, [sp, #51]	; 0x33
  116:	8048      	strh	r0, [r1, #2]
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:225
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:226
         I2C_DATA.buffer = buffer.as_mut_ptr();
  118:	980d      	ldr	r0, [sp, #52]	; 0x34
  11a:	990e      	ldr	r1, [sp, #56]	; 0x38
@@ -1899,7 +1868,7 @@ fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: 
  12e:	6041      	str	r1, [r0, #4]
  130:	f44f 727a 	mov.w	r2, #1000	; 0x3e8
  134:	2301      	movs	r3, #1
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:228
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:229
     };
     //  After which the slave sends out data from auto-incremented register addresses until a NOACKM and stop condition occurs.
     let rc2 = unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
@@ -1909,14 +1878,14 @@ fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: 
  13c:	f7ff fffe 	bl	0 <hal_i2c_master_read>
  140:	9011      	str	r0, [sp, #68]	; 0x44
  142:	e7ff      	b.n	144 <_ZN3app12touch_sensor19read_register_range17hee25fbeab36c0684E+0x144>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:229
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:230
     if rc2 == hal::HAL_I2C_ERR_ADDR_NACK as i32 {
  144:	9811      	ldr	r0, [sp, #68]	; 0x44
  146:	2804      	cmp	r0, #4
  148:	d113      	bne.n	172 <_ZN3app12touch_sensor19read_register_range17hee25fbeab36c0684E+0x172>
  14a:	e7ff      	b.n	14c <_ZN3app12touch_sensor19read_register_range17hee25fbeab36c0684E+0x14c>
  14c:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:230
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:231
         assert!(false);  //  I2C read failed
  14e:	2800      	cmp	r0, #0
  150:	d107      	bne.n	162 <_ZN3app12touch_sensor19read_register_range17hee25fbeab36c0684E+0x162>
@@ -1926,13 +1895,13 @@ fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: 
  15c:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17h53ca63c6ac6312f8E>
  160:	defe      	udf	#254	; 0xfe
  162:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:231
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:232
         return Ok(());
  164:	900f      	str	r0, [sp, #60]	; 0x3c
  166:	2001      	movs	r0, #1
  168:	900f      	str	r0, [sp, #60]	; 0x3c
  16a:	e7ff      	b.n	16c <_ZN3app12touch_sensor19read_register_range17hee25fbeab36c0684E+0x16c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:234
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:235
     }
     Ok(())
 }
@@ -1940,15 +1909,15 @@ fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: 
  16e:	b014      	add	sp, #80	; 0x50
  170:	bd70      	pop	{r4, r5, r6, pc}
  172:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:233
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:234
     Ok(())
  174:	900f      	str	r0, [sp, #60]	; 0x3c
  176:	2001      	movs	r0, #1
  178:	900f      	str	r0, [sp, #60]	; 0x3c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:234
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:235
 }
  17a:	e7f7      	b.n	16c <_ZN3app12touch_sensor19read_register_range17hee25fbeab36c0684E+0x16c>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:210
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/touch_sensor.rs:211
     assert!(start_register + num_registers < 128, "i2c addr");  //  Not 7-bit address
  17c:	f240 0000 	movw	r0, #0
  180:	f2c0 0000 	movt	r0, #0
@@ -2129,6 +2098,7 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 _ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17he310900df884591aE
 00000000         *UND*	00000000 _ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h1bf00a700a6aa91bE
 00000000         *UND*	00000000 _ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h87692cb29d8fcb1eE
+00000000         *UND*	00000000 _ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17hb2cedc7d36872ec1E
 00000000         *UND*	00000000 _ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h8d19cd1a65876d5aE
 00000000         *UND*	00000000 _ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17heafc53fa73f8a9e5E
 00000000         *UND*	00000000 _ZN17embedded_graphics10primitives9rectangle18Rectangle$LT$C$GT$3new17h77a99911427ed59aE
@@ -2138,8 +2108,8 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 .hidden _ZN3app10mynewt_hal11MynewtDelay3new17h5edf150cd8240df1E
 00000000         *UND*	00000000 .hidden _ZN3app10mynewt_hal9MynewtSPI3new17hed7d599fb448bcc4E
 00000000         *UND*	00000000 .hidden _ZN3app10mynewt_hal9MynewtSPI4init17h6daa05c4ce8f0ceaE
-00000000 g     F .text._ZN3app7display10show_touch17h0372b832ce02ff88E	00000224 .hidden _ZN3app7display10show_touch17h0372b832ce02ff88E
-00000000 g     F .text._ZN3app7display13start_display17h58d945c6238da875E	00000338 .hidden _ZN3app7display13start_display17h58d945c6238da875E
+00000000 g     F .text._ZN3app7display10show_touch17h0372b832ce02ff88E	000002a8 .hidden _ZN3app7display10show_touch17h0372b832ce02ff88E
+00000000 g     F .text._ZN3app7display13start_display17h58d945c6238da875E	00000334 .hidden _ZN3app7display13start_display17h58d945c6238da875E
 00000000         *UND*	00000000 _ZN4core3fmt10ArgumentV13new17heb6e8f616440b6a5E
 00000000         *UND*	00000000 _ZN4core3fmt3num3imp52_$LT$impl$u20$core..fmt..Display$u20$for$u20$u16$GT$3fmt17hc4c95b945dca8c87E
 00000000         *UND*	00000000 _ZN4core3fmt5Write9write_fmt17h5dd6483fdd4ae96bE
@@ -2407,158 +2377,157 @@ pub fn start_display() -> MynewtResult<()> {
  1bc:	46ec      	mov	ip, sp
  1be:	f04f 0e01 	mov.w	lr, #1
  1c2:	f8cc e008 	str.w	lr, [ip, #8]
- 1c6:	f04f 0e00 	mov.w	lr, #0
- 1ca:	f8cc e004 	str.w	lr, [ip, #4]
- 1ce:	f8cc 0000 	str.w	r0, [ip]
- 1d2:	a835      	add	r0, sp, #212	; 0xd4
- 1d4:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17he9f7cf3dda56d978E>
- 1d8:	e7ff      	b.n	2 <_ZN3app7display13start_display17h58d945c6238da875E+0x2>
- 1da:	f240 0000 	movw	r0, #0
- 1de:	f2c0 0000 	movt	r0, #0
- 1e2:	a935      	add	r1, sp, #212	; 0xd4
- 1e4:	e891 503c 	ldmia.w	r1, {r2, r3, r4, r5, ip, lr}
- 1e8:	e880 503c 	stmia.w	r0, {r2, r3, r4, r5, ip, lr}
- 1ec:	2000      	movs	r0, #0
+ 1c6:	f8cc e004 	str.w	lr, [ip, #4]
+ 1ca:	f8cc 0000 	str.w	r0, [ip]
+ 1ce:	a835      	add	r0, sp, #212	; 0xd4
+ 1d0:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$3new17he9f7cf3dda56d978E>
+ 1d4:	e7ff      	b.n	2 <_ZN3app7display13start_display17h58d945c6238da875E+0x2>
+ 1d6:	f240 0000 	movw	r0, #0
+ 1da:	f2c0 0000 	movt	r0, #0
+ 1de:	a935      	add	r1, sp, #212	; 0xd4
+ 1e0:	e891 503c 	ldmia.w	r1, {r2, r3, r4, r5, ip, lr}
+ 1e4:	e880 503c 	stmia.w	r0, {r2, r3, r4, r5, ip, lr}
+ 1e8:	2000      	movs	r0, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:86
-        ::new(Coord::new(0, 0), Coord::new(200, 200))
- 1ee:	9010      	str	r0, [sp, #64]	; 0x40
- 1f0:	9910      	ldr	r1, [sp, #64]	; 0x40
- 1f2:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h5cc04c89c71e58a5E>
- 1f6:	900f      	str	r0, [sp, #60]	; 0x3c
- 1f8:	910e      	str	r1, [sp, #56]	; 0x38
- 1fa:	e7ff      	b.n	1fc <_ZN3app7display13start_display17h58d945c6238da875E+0x1fc>
- 1fc:	20c8      	movs	r0, #200	; 0xc8
- 1fe:	900d      	str	r0, [sp, #52]	; 0x34
- 200:	990d      	ldr	r1, [sp, #52]	; 0x34
- 202:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h5cc04c89c71e58a5E>
- 206:	900c      	str	r0, [sp, #48]	; 0x30
- 208:	910b      	str	r1, [sp, #44]	; 0x2c
- 20a:	e7ff      	b.n	20c <_ZN3app7display13start_display17h58d945c6238da875E+0x20c>
+        ::new(Coord::new(0, 0), Coord::new(240, 240))
+ 1ea:	9010      	str	r0, [sp, #64]	; 0x40
+ 1ec:	9910      	ldr	r1, [sp, #64]	; 0x40
+ 1ee:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h5cc04c89c71e58a5E>
+ 1f2:	900f      	str	r0, [sp, #60]	; 0x3c
+ 1f4:	910e      	str	r1, [sp, #56]	; 0x38
+ 1f6:	e7ff      	b.n	1f8 <_ZN3app7display13start_display17h58d945c6238da875E+0x1f8>
+ 1f8:	20f0      	movs	r0, #240	; 0xf0
+ 1fa:	900d      	str	r0, [sp, #52]	; 0x34
+ 1fc:	990d      	ldr	r1, [sp, #52]	; 0x34
+ 1fe:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h5cc04c89c71e58a5E>
+ 202:	900c      	str	r0, [sp, #48]	; 0x30
+ 204:	910b      	str	r1, [sp, #44]	; 0x2c
+ 206:	e7ff      	b.n	208 <_ZN3app7display13start_display17h58d945c6238da875E+0x208>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:85
     let background = Rectangle::<Rgb565>
- 20c:	4668      	mov	r0, sp
- 20e:	990b      	ldr	r1, [sp, #44]	; 0x2c
- 210:	6001      	str	r1, [r0, #0]
- 212:	a842      	add	r0, sp, #264	; 0x108
- 214:	990f      	ldr	r1, [sp, #60]	; 0x3c
- 216:	9a0e      	ldr	r2, [sp, #56]	; 0x38
- 218:	9b0c      	ldr	r3, [sp, #48]	; 0x30
- 21a:	f7ff fffe 	bl	0 <_ZN17embedded_graphics10primitives9rectangle18Rectangle$LT$C$GT$3new17h77a99911427ed59aE>
- 21e:	e7ff      	b.n	220 <_ZN3app7display13start_display17h58d945c6238da875E+0x220>
- 220:	20ff      	movs	r0, #255	; 0xff
+ 208:	4668      	mov	r0, sp
+ 20a:	990b      	ldr	r1, [sp, #44]	; 0x2c
+ 20c:	6001      	str	r1, [r0, #0]
+ 20e:	a842      	add	r0, sp, #264	; 0x108
+ 210:	990f      	ldr	r1, [sp, #60]	; 0x3c
+ 212:	9a0e      	ldr	r2, [sp, #56]	; 0x38
+ 214:	9b0c      	ldr	r3, [sp, #48]	; 0x30
+ 216:	f7ff fffe 	bl	0 <_ZN17embedded_graphics10primitives9rectangle18Rectangle$LT$C$GT$3new17h77a99911427ed59aE>
+ 21a:	e7ff      	b.n	21c <_ZN3app7display13start_display17h58d945c6238da875E+0x21c>
+ 21c:	2000      	movs	r0, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:87
-        .fill(Some(Rgb565::from((0xff, 0xff, 0xff))));  //  White
- 222:	f88d 0128 	strb.w	r0, [sp, #296]	; 0x128
- 226:	f88d 0129 	strb.w	r0, [sp, #297]	; 0x129
- 22a:	f88d 012a 	strb.w	r0, [sp, #298]	; 0x12a
- 22e:	f89d 012a 	ldrb.w	r0, [sp, #298]	; 0x12a
- 232:	f8bd 1128 	ldrh.w	r1, [sp, #296]	; 0x128
- 236:	ea41 4000 	orr.w	r0, r1, r0, lsl #16
- 23a:	f7ff fffe 	bl	0 <_ZN123_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$$LP$u8$C$$u20$u8$C$$u20$u8$RP$$GT$$GT$4from17h6ddbce6ac604d28bE>
- 23e:	900a      	str	r0, [sp, #40]	; 0x28
- 240:	e7ff      	b.n	242 <_ZN3app7display13start_display17h58d945c6238da875E+0x242>
- 242:	980a      	ldr	r0, [sp, #40]	; 0x28
- 244:	f8ad 0126 	strh.w	r0, [sp, #294]	; 0x126
- 248:	2101      	movs	r1, #1
- 24a:	f8ad 1124 	strh.w	r1, [sp, #292]	; 0x124
+        .fill(Some(Rgb565::from((0x0, 0x0, 0x0))));  //  Black
+ 21e:	f88d 0128 	strb.w	r0, [sp, #296]	; 0x128
+ 222:	f88d 0129 	strb.w	r0, [sp, #297]	; 0x129
+ 226:	f88d 012a 	strb.w	r0, [sp, #298]	; 0x12a
+ 22a:	f89d 012a 	ldrb.w	r0, [sp, #298]	; 0x12a
+ 22e:	f8bd 1128 	ldrh.w	r1, [sp, #296]	; 0x128
+ 232:	ea41 4000 	orr.w	r0, r1, r0, lsl #16
+ 236:	f7ff fffe 	bl	0 <_ZN123_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$$LP$u8$C$$u20$u8$C$$u20$u8$RP$$GT$$GT$4from17h6ddbce6ac604d28bE>
+ 23a:	900a      	str	r0, [sp, #40]	; 0x28
+ 23c:	e7ff      	b.n	23e <_ZN3app7display13start_display17h58d945c6238da875E+0x23e>
+ 23e:	980a      	ldr	r0, [sp, #40]	; 0x28
+ 240:	f8ad 0126 	strh.w	r0, [sp, #294]	; 0x126
+ 244:	2101      	movs	r1, #1
+ 246:	f8ad 1124 	strh.w	r1, [sp, #292]	; 0x124
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:85
     let background = Rectangle::<Rgb565>
- 24e:	f8bd 3126 	ldrh.w	r3, [sp, #294]	; 0x126
- 252:	f8bd 2124 	ldrh.w	r2, [sp, #292]	; 0x124
- 256:	a83b      	add	r0, sp, #236	; 0xec
- 258:	a942      	add	r1, sp, #264	; 0x108
- 25a:	f7ff fffe 	bl	0 <_ZN125_$LT$embedded_graphics..primitives..rectangle..Rectangle$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17ha299d70387992344E>
- 25e:	e7ff      	b.n	2 <_ZN3app10mynewt_hal11MynewtDelay3new17h5edf150cd8240df1E+0x2>
+ 24a:	f8bd 3126 	ldrh.w	r3, [sp, #294]	; 0x126
+ 24e:	f8bd 2124 	ldrh.w	r2, [sp, #292]	; 0x124
+ 252:	a83b      	add	r0, sp, #236	; 0xec
+ 254:	a942      	add	r1, sp, #264	; 0x108
+ 256:	f7ff fffe 	bl	0 <_ZN125_$LT$embedded_graphics..primitives..rectangle..Rectangle$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17ha299d70387992344E>
+ 25a:	e7ff      	b.n	2 <_ZN3app10mynewt_hal11MynewtDelay3new17h5edf150cd8240df1E+0x2>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:88
     let mut delay = MynewtDelay::new();
- 260:	f7ff fffe 	bl	0 <_ZN3app10mynewt_hal11MynewtDelay3new17h5edf150cd8240df1E>
- 264:	e7ff      	b.n	2 <_ZN3app7display13start_display17h58d945c6238da875E+0x2>
+ 25c:	f7ff fffe 	bl	0 <_ZN3app10mynewt_hal11MynewtDelay3new17h5edf150cd8240df1E>
+ 260:	e7ff      	b.n	2 <_ZN3app7display13start_display17h58d945c6238da875E+0x2>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:90
         DISPLAY.init(&mut delay) ? ;
- 266:	f240 0000 	movw	r0, #0
- 26a:	f2c0 0000 	movt	r0, #0
- 26e:	a94b      	add	r1, sp, #300	; 0x12c
- 270:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h0a90f3239e9df8a2E>
- 274:	9009      	str	r0, [sp, #36]	; 0x24
- 276:	e7ff      	b.n	278 <_ZN3app7display13start_display17h58d945c6238da875E+0x278>
- 278:	9809      	ldr	r0, [sp, #36]	; 0x24
- 27a:	f000 0001 	and.w	r0, r0, #1
- 27e:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h35ed23fd07ec0d8fE>
- 282:	f88d 012f 	strb.w	r0, [sp, #303]	; 0x12f
- 286:	e7ff      	b.n	288 <_ZN3app7display13start_display17h58d945c6238da875E+0x288>
- 288:	f89d 012f 	ldrb.w	r0, [sp, #303]	; 0x12f
- 28c:	07c1      	lsls	r1, r0, #31
- 28e:	2900      	cmp	r1, #0
- 290:	9008      	str	r0, [sp, #32]
- 292:	d010      	beq.n	2b6 <_ZN3app7display13start_display17h58d945c6238da875E+0x2b6>
- 294:	e7ff      	b.n	296 <_ZN3app7display13start_display17h58d945c6238da875E+0x296>
- 296:	9808      	ldr	r0, [sp, #32]
- 298:	2801      	cmp	r0, #1
- 29a:	f47f aedc 	bne.w	56 <_ZN3app7display13start_display17h58d945c6238da875E+0x56>
- 29e:	e7ff      	b.n	2 <_ZN83_$LT$mynewt..result..MynewtError$u20$as$u20$core..convert..From$LT$$LP$$RP$$GT$$GT$4from17h8d90bc50a52456b7E+0x2>
- 2a0:	f7ff fffe 	bl	0 <_ZN83_$LT$mynewt..result..MynewtError$u20$as$u20$core..convert..From$LT$$LP$$RP$$GT$$GT$4from17h8d90bc50a52456b7E>
- 2a4:	9007      	str	r0, [sp, #28]
- 2a6:	e7ff      	b.n	2a8 <_ZN3app7display13start_display17h58d945c6238da875E+0x2a8>
- 2a8:	9807      	ldr	r0, [sp, #28]
- 2aa:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hd5f459e4034bbd2eE>
- 2ae:	9021      	str	r0, [sp, #132]	; 0x84
- 2b0:	e7ff      	b.n	2b2 <_ZN3app7display13start_display17h58d945c6238da875E+0x2b2>
- 2b2:	e7ff      	b.n	2b4 <_ZN3app7display13start_display17h58d945c6238da875E+0x2b4>
- 2b4:	e6e0      	b.n	78 <_ZN3app7display13start_display17h58d945c6238da875E+0x78>
+ 262:	f240 0000 	movw	r0, #0
+ 266:	f2c0 0000 	movt	r0, #0
+ 26a:	a94b      	add	r1, sp, #300	; 0x12c
+ 26c:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$4init17h0a90f3239e9df8a2E>
+ 270:	9009      	str	r0, [sp, #36]	; 0x24
+ 272:	e7ff      	b.n	274 <_ZN3app7display13start_display17h58d945c6238da875E+0x274>
+ 274:	9809      	ldr	r0, [sp, #36]	; 0x24
+ 276:	f000 0001 	and.w	r0, r0, #1
+ 27a:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h35ed23fd07ec0d8fE>
+ 27e:	f88d 012f 	strb.w	r0, [sp, #303]	; 0x12f
+ 282:	e7ff      	b.n	284 <_ZN3app7display13start_display17h58d945c6238da875E+0x284>
+ 284:	f89d 012f 	ldrb.w	r0, [sp, #303]	; 0x12f
+ 288:	07c1      	lsls	r1, r0, #31
+ 28a:	2900      	cmp	r1, #0
+ 28c:	9008      	str	r0, [sp, #32]
+ 28e:	d010      	beq.n	2b2 <_ZN3app7display13start_display17h58d945c6238da875E+0x2b2>
+ 290:	e7ff      	b.n	292 <_ZN3app7display13start_display17h58d945c6238da875E+0x292>
+ 292:	9808      	ldr	r0, [sp, #32]
+ 294:	2801      	cmp	r0, #1
+ 296:	f47f aede 	bne.w	56 <_ZN3app7display13start_display17h58d945c6238da875E+0x56>
+ 29a:	e7ff      	b.n	2 <_ZN83_$LT$mynewt..result..MynewtError$u20$as$u20$core..convert..From$LT$$LP$$RP$$GT$$GT$4from17h8d90bc50a52456b7E+0x2>
+ 29c:	f7ff fffe 	bl	0 <_ZN83_$LT$mynewt..result..MynewtError$u20$as$u20$core..convert..From$LT$$LP$$RP$$GT$$GT$4from17h8d90bc50a52456b7E>
+ 2a0:	9007      	str	r0, [sp, #28]
+ 2a2:	e7ff      	b.n	2a4 <_ZN3app7display13start_display17h58d945c6238da875E+0x2a4>
+ 2a4:	9807      	ldr	r0, [sp, #28]
+ 2a6:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hd5f459e4034bbd2eE>
+ 2aa:	9021      	str	r0, [sp, #132]	; 0x84
+ 2ac:	e7ff      	b.n	2ae <_ZN3app7display13start_display17h58d945c6238da875E+0x2ae>
+ 2ae:	e7ff      	b.n	2b0 <_ZN3app7display13start_display17h58d945c6238da875E+0x2b0>
+ 2b0:	e6e2      	b.n	78 <_ZN3app7display13start_display17h58d945c6238da875E+0x78>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:91
         DISPLAY.set_orientation(&Orientation::Landscape) ? ;
- 2b6:	f240 0000 	movw	r0, #0
- 2ba:	f2c0 0000 	movt	r0, #0
- 2be:	f240 0100 	movw	r1, #0
- 2c2:	f2c0 0100 	movt	r1, #0
- 2c6:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h60fbd217f9f47e3bE>
- 2ca:	9006      	str	r0, [sp, #24]
- 2cc:	e7ff      	b.n	2ce <_ZN3app7display13start_display17h58d945c6238da875E+0x2ce>
- 2ce:	9806      	ldr	r0, [sp, #24]
- 2d0:	f000 0001 	and.w	r0, r0, #1
- 2d4:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h35ed23fd07ec0d8fE>
- 2d8:	f88d 0137 	strb.w	r0, [sp, #311]	; 0x137
- 2dc:	e7ff      	b.n	2de <_ZN3app7display13start_display17h58d945c6238da875E+0x2de>
- 2de:	f89d 0137 	ldrb.w	r0, [sp, #311]	; 0x137
- 2e2:	07c1      	lsls	r1, r0, #31
- 2e4:	2900      	cmp	r1, #0
- 2e6:	9005      	str	r0, [sp, #20]
- 2e8:	d00f      	beq.n	30a <_ZN3app7display13start_display17h58d945c6238da875E+0x30a>
- 2ea:	e7ff      	b.n	2ec <_ZN3app7display13start_display17h58d945c6238da875E+0x2ec>
- 2ec:	9805      	ldr	r0, [sp, #20]
- 2ee:	2801      	cmp	r0, #1
- 2f0:	f47f aeb1 	bne.w	56 <_ZN3app7display13start_display17h58d945c6238da875E+0x56>
- 2f4:	e7ff      	b.n	2 <_ZN83_$LT$mynewt..result..MynewtError$u20$as$u20$core..convert..From$LT$$LP$$RP$$GT$$GT$4from17h8d90bc50a52456b7E+0x2>
- 2f6:	f7ff fffe 	bl	0 <_ZN83_$LT$mynewt..result..MynewtError$u20$as$u20$core..convert..From$LT$$LP$$RP$$GT$$GT$4from17h8d90bc50a52456b7E>
- 2fa:	9004      	str	r0, [sp, #16]
- 2fc:	e7ff      	b.n	2fe <_ZN3app7display13start_display17h58d945c6238da875E+0x2fe>
- 2fe:	9804      	ldr	r0, [sp, #16]
- 300:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hd5f459e4034bbd2eE>
- 304:	9021      	str	r0, [sp, #132]	; 0x84
- 306:	e7ff      	b.n	308 <_ZN3app7display13start_display17h58d945c6238da875E+0x308>
- 308:	e7d4      	b.n	2b4 <_ZN3app7display13start_display17h58d945c6238da875E+0x2b4>
- 30a:	a83b      	add	r0, sp, #236	; 0xec
- 30c:	a950      	add	r1, sp, #320	; 0x140
+ 2b2:	f240 0000 	movw	r0, #0
+ 2b6:	f2c0 0000 	movt	r0, #0
+ 2ba:	f240 0100 	movw	r1, #0
+ 2be:	f2c0 0100 	movt	r1, #0
+ 2c2:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$15set_orientation17h60fbd217f9f47e3bE>
+ 2c6:	9006      	str	r0, [sp, #24]
+ 2c8:	e7ff      	b.n	2ca <_ZN3app7display13start_display17h58d945c6238da875E+0x2ca>
+ 2ca:	9806      	ldr	r0, [sp, #24]
+ 2cc:	f000 0001 	and.w	r0, r0, #1
+ 2d0:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h35ed23fd07ec0d8fE>
+ 2d4:	f88d 0137 	strb.w	r0, [sp, #311]	; 0x137
+ 2d8:	e7ff      	b.n	2da <_ZN3app7display13start_display17h58d945c6238da875E+0x2da>
+ 2da:	f89d 0137 	ldrb.w	r0, [sp, #311]	; 0x137
+ 2de:	07c1      	lsls	r1, r0, #31
+ 2e0:	2900      	cmp	r1, #0
+ 2e2:	9005      	str	r0, [sp, #20]
+ 2e4:	d00f      	beq.n	306 <_ZN3app7display13start_display17h58d945c6238da875E+0x306>
+ 2e6:	e7ff      	b.n	2e8 <_ZN3app7display13start_display17h58d945c6238da875E+0x2e8>
+ 2e8:	9805      	ldr	r0, [sp, #20]
+ 2ea:	2801      	cmp	r0, #1
+ 2ec:	f47f aeb3 	bne.w	56 <_ZN3app7display13start_display17h58d945c6238da875E+0x56>
+ 2f0:	e7ff      	b.n	2 <_ZN83_$LT$mynewt..result..MynewtError$u20$as$u20$core..convert..From$LT$$LP$$RP$$GT$$GT$4from17h8d90bc50a52456b7E+0x2>
+ 2f2:	f7ff fffe 	bl	0 <_ZN83_$LT$mynewt..result..MynewtError$u20$as$u20$core..convert..From$LT$$LP$$RP$$GT$$GT$4from17h8d90bc50a52456b7E>
+ 2f6:	9004      	str	r0, [sp, #16]
+ 2f8:	e7ff      	b.n	2fa <_ZN3app7display13start_display17h58d945c6238da875E+0x2fa>
+ 2fa:	9804      	ldr	r0, [sp, #16]
+ 2fc:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hd5f459e4034bbd2eE>
+ 300:	9021      	str	r0, [sp, #132]	; 0x84
+ 302:	e7ff      	b.n	304 <_ZN3app7display13start_display17h58d945c6238da875E+0x304>
+ 304:	e7d4      	b.n	2b0 <_ZN3app7display13start_display17h58d945c6238da875E+0x2b0>
+ 306:	a83b      	add	r0, sp, #236	; 0xec
+ 308:	a950      	add	r1, sp, #320	; 0x140
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:93
         DISPLAY.draw(background);
- 30e:	460a      	mov	r2, r1
- 310:	e8b0 5008 	ldmia.w	r0!, {r3, ip, lr}
- 314:	e8a2 5008 	stmia.w	r2!, {r3, ip, lr}
- 318:	e890 5018 	ldmia.w	r0, {r3, r4, ip, lr}
- 31c:	e882 5018 	stmia.w	r2, {r3, r4, ip, lr}
- 320:	f240 0000 	movw	r0, #0
- 324:	f2c0 0000 	movt	r0, #0
- 328:	f7ff fffe 	bl	0 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h8d19cd1a65876d5aE>
- 32c:	e7ff      	b.n	32e <_ZN3app7display13start_display17h58d945c6238da875E+0x32e>
- 32e:	2000      	movs	r0, #0
+ 30a:	460a      	mov	r2, r1
+ 30c:	e8b0 5008 	ldmia.w	r0!, {r3, ip, lr}
+ 310:	e8a2 5008 	stmia.w	r2!, {r3, ip, lr}
+ 314:	e890 5018 	ldmia.w	r0, {r3, r4, ip, lr}
+ 318:	e882 5018 	stmia.w	r2, {r3, r4, ip, lr}
+ 31c:	f240 0000 	movw	r0, #0
+ 320:	f2c0 0000 	movt	r0, #0
+ 324:	f7ff fffe 	bl	0 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h8d19cd1a65876d5aE>
+ 328:	e7ff      	b.n	32a <_ZN3app7display13start_display17h58d945c6238da875E+0x32a>
+ 32a:	2000      	movs	r0, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:95
     Ok(())
+ 32c:	9021      	str	r0, [sp, #132]	; 0x84
+ 32e:	2001      	movs	r0, #1
  330:	9021      	str	r0, [sp, #132]	; 0x84
- 332:	2001      	movs	r0, #1
- 334:	9021      	str	r0, [sp, #132]	; 0x84
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:96
 }
- 336:	e69c      	b.n	72 <_ZN3app7display13start_display17h58d945c6238da875E+0x72>
+ 332:	e69e      	b.n	72 <_ZN3app7display13start_display17h58d945c6238da875E+0x72>
 
 Disassembly of section .text._ZN3app7display10show_touch17h0372b832ce02ff88E:
 
@@ -2569,260 +2538,308 @@ _ZN3app7display10show_touch17h0372b832ce02ff88E():
 /// Display the touched (X, Y) coordinates
 pub fn show_touch(x: u16, y: u16) -> MynewtResult<()> {
    0:	b510      	push	{r4, lr}
-   2:	b0f2      	sub	sp, #456	; 0x1c8
-   4:	460a      	mov	r2, r1
-   6:	4603      	mov	r3, r0
-   8:	f8ad 004c 	strh.w	r0, [sp, #76]	; 0x4c
-   c:	f8ad 104e 	strh.w	r1, [sp, #78]	; 0x4e
-  10:	a815      	add	r0, sp, #84	; 0x54
+   2:	f5ad 7d06 	sub.w	sp, sp, #536	; 0x218
+   6:	460a      	mov	r2, r1
+   8:	4603      	mov	r3, r0
+   a:	f8ad 0054 	strh.w	r0, [sp, #84]	; 0x54
+   e:	f8ad 1056 	strh.w	r1, [sp, #86]	; 0x56
+  12:	a817      	add	r0, sp, #92	; 0x5c
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:101
     //  Format coordinates as text
     let mut buf_x = ArrayString::<[u8; 20]>::new();
-  12:	9212      	str	r2, [sp, #72]	; 0x48
-  14:	9311      	str	r3, [sp, #68]	; 0x44
-  16:	f7ff fffe 	bl	0 <_ZN8arrayvec12array_string20ArrayString$LT$A$GT$3new17he580141bd206cc8bE>
-  1a:	e7ff      	b.n	1c <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x1c>
-  1c:	a81b      	add	r0, sp, #108	; 0x6c
+  14:	9214      	str	r2, [sp, #80]	; 0x50
+  16:	9313      	str	r3, [sp, #76]	; 0x4c
+  18:	f7ff fffe 	bl	0 <_ZN8arrayvec12array_string20ArrayString$LT$A$GT$3new17he580141bd206cc8bE>
+  1c:	e7ff      	b.n	1e <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x1e>
+  1e:	a81d      	add	r0, sp, #116	; 0x74
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:102
     let mut buf_y = ArrayString::<[u8; 20]>::new();
-  1e:	f7ff fffe 	bl	0 <_ZN8arrayvec12array_string20ArrayString$LT$A$GT$3new17he580141bd206cc8bE>
-  22:	e7ff      	b.n	24 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x24>
-  24:	a813      	add	r0, sp, #76	; 0x4c
+  20:	f7ff fffe 	bl	0 <_ZN8arrayvec12array_string20ArrayString$LT$A$GT$3new17he580141bd206cc8bE>
+  24:	e7ff      	b.n	26 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x26>
+  26:	a815      	add	r0, sp, #84	; 0x54
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:103
     write!(&mut buf_x, "  X = {}  ", x)
-  26:	9029      	str	r0, [sp, #164]	; 0xa4
-  28:	9829      	ldr	r0, [sp, #164]	; 0xa4
-  2a:	902a      	str	r0, [sp, #168]	; 0xa8
-  2c:	982a      	ldr	r0, [sp, #168]	; 0xa8
-  2e:	f240 0100 	movw	r1, #0
-  32:	f2c0 0100 	movt	r1, #0
-  36:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17heb6e8f616440b6a5E>
-  3a:	9010      	str	r0, [sp, #64]	; 0x40
-  3c:	910f      	str	r1, [sp, #60]	; 0x3c
-  3e:	e7ff      	b.n	40 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x40>
-  40:	9810      	ldr	r0, [sp, #64]	; 0x40
-  42:	9027      	str	r0, [sp, #156]	; 0x9c
-  44:	990f      	ldr	r1, [sp, #60]	; 0x3c
-  46:	9128      	str	r1, [sp, #160]	; 0xa0
-  48:	466a      	mov	r2, sp
-  4a:	2301      	movs	r3, #1
-  4c:	6013      	str	r3, [r2, #0]
-  4e:	f240 0100 	movw	r1, #0
-  52:	f2c0 0100 	movt	r1, #0
-  56:	a821      	add	r0, sp, #132	; 0x84
-  58:	2202      	movs	r2, #2
-  5a:	ab27      	add	r3, sp, #156	; 0x9c
-  5c:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117hcb18c4e26fc46722E>
-  60:	e7ff      	b.n	62 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x62>
-  62:	a815      	add	r0, sp, #84	; 0x54
-  64:	a921      	add	r1, sp, #132	; 0x84
-  66:	f7ff fffe 	bl	0 <_ZN4core3fmt5Write9write_fmt17h5dd6483fdd4ae96bE>
-  6a:	900e      	str	r0, [sp, #56]	; 0x38
-  6c:	e7ff      	b.n	6e <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x6e>
-  6e:	980e      	ldr	r0, [sp, #56]	; 0x38
-  70:	f000 0001 	and.w	r0, r0, #1
-  74:	f240 0100 	movw	r1, #0
-  78:	f2c0 0100 	movt	r1, #0
-  7c:	220f      	movs	r2, #15
-  7e:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17h3f0f4aca6e1d2facE>
-  82:	e7ff      	b.n	84 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x84>
-  84:	f10d 004e 	add.w	r0, sp, #78	; 0x4e
+  28:	902b      	str	r0, [sp, #172]	; 0xac
+  2a:	982b      	ldr	r0, [sp, #172]	; 0xac
+  2c:	902c      	str	r0, [sp, #176]	; 0xb0
+  2e:	982c      	ldr	r0, [sp, #176]	; 0xb0
+  30:	f240 0100 	movw	r1, #0
+  34:	f2c0 0100 	movt	r1, #0
+  38:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17heb6e8f616440b6a5E>
+  3c:	9012      	str	r0, [sp, #72]	; 0x48
+  3e:	9111      	str	r1, [sp, #68]	; 0x44
+  40:	e7ff      	b.n	42 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x42>
+  42:	9812      	ldr	r0, [sp, #72]	; 0x48
+  44:	9029      	str	r0, [sp, #164]	; 0xa4
+  46:	9911      	ldr	r1, [sp, #68]	; 0x44
+  48:	912a      	str	r1, [sp, #168]	; 0xa8
+  4a:	466a      	mov	r2, sp
+  4c:	2301      	movs	r3, #1
+  4e:	6013      	str	r3, [r2, #0]
+  50:	f240 0100 	movw	r1, #0
+  54:	f2c0 0100 	movt	r1, #0
+  58:	a823      	add	r0, sp, #140	; 0x8c
+  5a:	2202      	movs	r2, #2
+  5c:	ab29      	add	r3, sp, #164	; 0xa4
+  5e:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117hcb18c4e26fc46722E>
+  62:	e7ff      	b.n	64 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x64>
+  64:	a817      	add	r0, sp, #92	; 0x5c
+  66:	a923      	add	r1, sp, #140	; 0x8c
+  68:	f7ff fffe 	bl	0 <_ZN4core3fmt5Write9write_fmt17h5dd6483fdd4ae96bE>
+  6c:	9010      	str	r0, [sp, #64]	; 0x40
+  6e:	e7ff      	b.n	70 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x70>
+  70:	9810      	ldr	r0, [sp, #64]	; 0x40
+  72:	f000 0001 	and.w	r0, r0, #1
+  76:	f240 0100 	movw	r1, #0
+  7a:	f2c0 0100 	movt	r1, #0
+  7e:	220f      	movs	r2, #15
+  80:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17h3f0f4aca6e1d2facE>
+  84:	e7ff      	b.n	86 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x86>
+  86:	f10d 0056 	add.w	r0, sp, #86	; 0x56
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:105
         .expect("show touch fail");
     write!(&mut buf_y, "  Y = {}  ", y)
-  88:	9033      	str	r0, [sp, #204]	; 0xcc
-  8a:	9833      	ldr	r0, [sp, #204]	; 0xcc
-  8c:	9034      	str	r0, [sp, #208]	; 0xd0
-  8e:	9834      	ldr	r0, [sp, #208]	; 0xd0
-  90:	f240 0100 	movw	r1, #0
-  94:	f2c0 0100 	movt	r1, #0
-  98:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17heb6e8f616440b6a5E>
-  9c:	900d      	str	r0, [sp, #52]	; 0x34
-  9e:	910c      	str	r1, [sp, #48]	; 0x30
-  a0:	e7ff      	b.n	a2 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0xa2>
-  a2:	980d      	ldr	r0, [sp, #52]	; 0x34
-  a4:	9031      	str	r0, [sp, #196]	; 0xc4
-  a6:	990c      	ldr	r1, [sp, #48]	; 0x30
-  a8:	9132      	str	r1, [sp, #200]	; 0xc8
-  aa:	466a      	mov	r2, sp
-  ac:	2301      	movs	r3, #1
-  ae:	6013      	str	r3, [r2, #0]
-  b0:	f240 0100 	movw	r1, #0
-  b4:	f2c0 0100 	movt	r1, #0
-  b8:	a82b      	add	r0, sp, #172	; 0xac
-  ba:	2202      	movs	r2, #2
-  bc:	ab31      	add	r3, sp, #196	; 0xc4
-  be:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117hcb18c4e26fc46722E>
-  c2:	e7ff      	b.n	c4 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0xc4>
-  c4:	a81b      	add	r0, sp, #108	; 0x6c
-  c6:	a92b      	add	r1, sp, #172	; 0xac
-  c8:	f7ff fffe 	bl	0 <_ZN4core3fmt5Write9write_fmt17h5dd6483fdd4ae96bE>
-  cc:	900b      	str	r0, [sp, #44]	; 0x2c
-  ce:	e7ff      	b.n	d0 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0xd0>
-  d0:	980b      	ldr	r0, [sp, #44]	; 0x2c
-  d2:	f000 0001 	and.w	r0, r0, #1
-  d6:	f240 0100 	movw	r1, #0
-  da:	f2c0 0100 	movt	r1, #0
-  de:	220f      	movs	r2, #15
-  e0:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17h3f0f4aca6e1d2facE>
-  e4:	e7ff      	b.n	e6 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0xe6>
-  e6:	a815      	add	r0, sp, #84	; 0x54
+  8a:	9035      	str	r0, [sp, #212]	; 0xd4
+  8c:	9835      	ldr	r0, [sp, #212]	; 0xd4
+  8e:	9036      	str	r0, [sp, #216]	; 0xd8
+  90:	9836      	ldr	r0, [sp, #216]	; 0xd8
+  92:	f240 0100 	movw	r1, #0
+  96:	f2c0 0100 	movt	r1, #0
+  9a:	f7ff fffe 	bl	0 <_ZN4core3fmt10ArgumentV13new17heb6e8f616440b6a5E>
+  9e:	900f      	str	r0, [sp, #60]	; 0x3c
+  a0:	910e      	str	r1, [sp, #56]	; 0x38
+  a2:	e7ff      	b.n	a4 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0xa4>
+  a4:	980f      	ldr	r0, [sp, #60]	; 0x3c
+  a6:	9033      	str	r0, [sp, #204]	; 0xcc
+  a8:	990e      	ldr	r1, [sp, #56]	; 0x38
+  aa:	9134      	str	r1, [sp, #208]	; 0xd0
+  ac:	466a      	mov	r2, sp
+  ae:	2301      	movs	r3, #1
+  b0:	6013      	str	r3, [r2, #0]
+  b2:	f240 0100 	movw	r1, #0
+  b6:	f2c0 0100 	movt	r1, #0
+  ba:	a82d      	add	r0, sp, #180	; 0xb4
+  bc:	2202      	movs	r2, #2
+  be:	ab33      	add	r3, sp, #204	; 0xcc
+  c0:	f7ff fffe 	bl	0 <_ZN4core3fmt9Arguments6new_v117hcb18c4e26fc46722E>
+  c4:	e7ff      	b.n	c6 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0xc6>
+  c6:	a81d      	add	r0, sp, #116	; 0x74
+  c8:	a92d      	add	r1, sp, #180	; 0xb4
+  ca:	f7ff fffe 	bl	0 <_ZN4core3fmt5Write9write_fmt17h5dd6483fdd4ae96bE>
+  ce:	900d      	str	r0, [sp, #52]	; 0x34
+  d0:	e7ff      	b.n	d2 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0xd2>
+  d2:	980d      	ldr	r0, [sp, #52]	; 0x34
+  d4:	f000 0001 	and.w	r0, r0, #1
+  d8:	f240 0100 	movw	r1, #0
+  dc:	f2c0 0100 	movt	r1, #0
+  e0:	220f      	movs	r2, #15
+  e2:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17h3f0f4aca6e1d2facE>
+  e6:	e7ff      	b.n	e8 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0xe8>
+  e8:	a817      	add	r0, sp, #92	; 0x5c
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:108
         .expect("show touch fail");
     let text_x = fonts::Font12x16::<Rgb565>
         ::render_str(&buf_x)
-  e8:	f7ff fffe 	bl	0 <_ZN88_$LT$arrayvec..array_string..ArrayString$LT$A$GT$$u20$as$u20$core..ops..deref..Deref$GT$5deref17h6be915e1ec710b34E>
-  ec:	900a      	str	r0, [sp, #40]	; 0x28
-  ee:	9109      	str	r1, [sp, #36]	; 0x24
-  f0:	e7ff      	b.n	f2 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0xf2>
-  f2:	a843      	add	r0, sp, #268	; 0x10c
+  ea:	f7ff fffe 	bl	0 <_ZN88_$LT$arrayvec..array_string..ArrayString$LT$A$GT$$u20$as$u20$core..ops..deref..Deref$GT$5deref17h6be915e1ec710b34E>
+  ee:	900c      	str	r0, [sp, #48]	; 0x30
+  f0:	910b      	str	r1, [sp, #44]	; 0x2c
+  f2:	e7ff      	b.n	f4 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0xf4>
+  f4:	a84c      	add	r0, sp, #304	; 0x130
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:107
     let text_x = fonts::Font12x16::<Rgb565>
-  f4:	990a      	ldr	r1, [sp, #40]	; 0x28
-  f6:	9a09      	ldr	r2, [sp, #36]	; 0x24
-  f8:	f7ff fffe 	bl	0 <_ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17he310900df884591aE>
-  fc:	e7ff      	b.n	fe <_ZN3app7display10show_touch17h0372b832ce02ff88E+0xfe>
-  fe:	20ff      	movs	r0, #255	; 0xff
+  f6:	990c      	ldr	r1, [sp, #48]	; 0x30
+  f8:	9a0b      	ldr	r2, [sp, #44]	; 0x2c
+  fa:	f7ff fffe 	bl	0 <_ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17he310900df884591aE>
+  fe:	e7ff      	b.n	100 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x100>
+ 100:	20ff      	movs	r0, #255	; 0xff
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:109
-        .fill(Some(Rgb565::from((0xff, 0xff, 0xff))))  //  White
- 100:	f88d 012c 	strb.w	r0, [sp, #300]	; 0x12c
- 104:	f88d 012d 	strb.w	r0, [sp, #301]	; 0x12d
- 108:	f88d 012e 	strb.w	r0, [sp, #302]	; 0x12e
- 10c:	f89d 012e 	ldrb.w	r0, [sp, #302]	; 0x12e
- 110:	f8bd 112c 	ldrh.w	r1, [sp, #300]	; 0x12c
- 114:	ea41 4000 	orr.w	r0, r1, r0, lsl #16
- 118:	f7ff fffe 	bl	0 <_ZN123_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$$LP$u8$C$$u20$u8$C$$u20$u8$RP$$GT$$GT$4from17h6ddbce6ac604d28bE>
- 11c:	9008      	str	r0, [sp, #32]
- 11e:	e7ff      	b.n	120 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x120>
- 120:	9808      	ldr	r0, [sp, #32]
- 122:	f8ad 012a 	strh.w	r0, [sp, #298]	; 0x12a
- 126:	2101      	movs	r1, #1
- 128:	f8ad 1128 	strh.w	r1, [sp, #296]	; 0x128
+        .stroke(Some(Rgb565::from((0xff, 0xff, 0xff))))  //  White
+ 102:	f88d 0150 	strb.w	r0, [sp, #336]	; 0x150
+ 106:	f88d 0151 	strb.w	r0, [sp, #337]	; 0x151
+ 10a:	f88d 0152 	strb.w	r0, [sp, #338]	; 0x152
+ 10e:	f89d 0152 	ldrb.w	r0, [sp, #338]	; 0x152
+ 112:	f8bd 1150 	ldrh.w	r1, [sp, #336]	; 0x150
+ 116:	ea41 4000 	orr.w	r0, r1, r0, lsl #16
+ 11a:	f7ff fffe 	bl	0 <_ZN123_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$$LP$u8$C$$u20$u8$C$$u20$u8$RP$$GT$$GT$4from17h6ddbce6ac604d28bE>
+ 11e:	900a      	str	r0, [sp, #40]	; 0x28
+ 120:	e7ff      	b.n	122 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x122>
+ 122:	980a      	ldr	r0, [sp, #40]	; 0x28
+ 124:	f8ad 014e 	strh.w	r0, [sp, #334]	; 0x14e
+ 128:	2101      	movs	r1, #1
+ 12a:	f8ad 114c 	strh.w	r1, [sp, #332]	; 0x14c
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:107
     let text_x = fonts::Font12x16::<Rgb565>
- 12c:	f8bd 312a 	ldrh.w	r3, [sp, #298]	; 0x12a
- 130:	f8bd 2128 	ldrh.w	r2, [sp, #296]	; 0x128
- 134:	a83c      	add	r0, sp, #240	; 0xf0
- 136:	a943      	add	r1, sp, #268	; 0x10c
- 138:	f7ff fffe 	bl	0 <_ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h87692cb29d8fcb1eE>
- 13c:	e7ff      	b.n	13e <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x13e>
- 13e:	2014      	movs	r0, #20
- 140:	2132      	movs	r1, #50	; 0x32
+ 12e:	f8bd 314e 	ldrh.w	r3, [sp, #334]	; 0x14e
+ 132:	f8bd 214c 	ldrh.w	r2, [sp, #332]	; 0x14c
+ 136:	a845      	add	r0, sp, #276	; 0x114
+ 138:	a94c      	add	r1, sp, #304	; 0x130
+ 13a:	f7ff fffe 	bl	0 <_ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17hb2cedc7d36872ec1E>
+ 13e:	e7ff      	b.n	140 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x140>
+ 140:	2000      	movs	r0, #0
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:110
-        .translate(Coord::new(20, 50));
- 142:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h5cc04c89c71e58a5E>
- 146:	9007      	str	r0, [sp, #28]
- 148:	9106      	str	r1, [sp, #24]
- 14a:	e7ff      	b.n	14c <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x14c>
- 14c:	a835      	add	r0, sp, #212	; 0xd4
- 14e:	a93c      	add	r1, sp, #240	; 0xf0
+        .fill(Some(Rgb565::from((0x00, 0x00, 0x00))))    //  Black
+ 142:	f88d 0158 	strb.w	r0, [sp, #344]	; 0x158
+ 146:	f88d 0159 	strb.w	r0, [sp, #345]	; 0x159
+ 14a:	f88d 015a 	strb.w	r0, [sp, #346]	; 0x15a
+ 14e:	f89d 015a 	ldrb.w	r0, [sp, #346]	; 0x15a
+ 152:	f8bd 1158 	ldrh.w	r1, [sp, #344]	; 0x158
+ 156:	ea41 4000 	orr.w	r0, r1, r0, lsl #16
+ 15a:	f7ff fffe 	bl	0 <_ZN123_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$$LP$u8$C$$u20$u8$C$$u20$u8$RP$$GT$$GT$4from17h6ddbce6ac604d28bE>
+ 15e:	9009      	str	r0, [sp, #36]	; 0x24
+ 160:	e7ff      	b.n	162 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x162>
+ 162:	9809      	ldr	r0, [sp, #36]	; 0x24
+ 164:	f8ad 0156 	strh.w	r0, [sp, #342]	; 0x156
+ 168:	2101      	movs	r1, #1
+ 16a:	f8ad 1154 	strh.w	r1, [sp, #340]	; 0x154
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:107
     let text_x = fonts::Font12x16::<Rgb565>
- 150:	9a07      	ldr	r2, [sp, #28]
- 152:	9b06      	ldr	r3, [sp, #24]
- 154:	f7ff fffe 	bl	0 <_ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h1bf00a700a6aa91bE>
- 158:	e7ff      	b.n	15a <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x15a>
- 15a:	a81b      	add	r0, sp, #108	; 0x6c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:112
+ 16e:	f8bd 3156 	ldrh.w	r3, [sp, #342]	; 0x156
+ 172:	f8bd 2154 	ldrh.w	r2, [sp, #340]	; 0x154
+ 176:	a83e      	add	r0, sp, #248	; 0xf8
+ 178:	a945      	add	r1, sp, #276	; 0x114
+ 17a:	f7ff fffe 	bl	0 <_ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h87692cb29d8fcb1eE>
+ 17e:	e7ff      	b.n	180 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x180>
+ 180:	2028      	movs	r0, #40	; 0x28
+ 182:	2164      	movs	r1, #100	; 0x64
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:111
+        .translate(Coord::new(40, 100));
+ 184:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h5cc04c89c71e58a5E>
+ 188:	9008      	str	r0, [sp, #32]
+ 18a:	9107      	str	r1, [sp, #28]
+ 18c:	e7ff      	b.n	18e <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x18e>
+ 18e:	a837      	add	r0, sp, #220	; 0xdc
+ 190:	a93e      	add	r1, sp, #248	; 0xf8
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:107
+    let text_x = fonts::Font12x16::<Rgb565>
+ 192:	9a08      	ldr	r2, [sp, #32]
+ 194:	9b07      	ldr	r3, [sp, #28]
+ 196:	f7ff fffe 	bl	0 <_ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h1bf00a700a6aa91bE>
+ 19a:	e7ff      	b.n	19c <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x19c>
+ 19c:	a81d      	add	r0, sp, #116	; 0x74
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:113
     let text_y = fonts::Font12x16::<Rgb565>
         ::render_str(&buf_y)
- 15c:	f7ff fffe 	bl	0 <_ZN88_$LT$arrayvec..array_string..ArrayString$LT$A$GT$$u20$as$u20$core..ops..deref..Deref$GT$5deref17h6be915e1ec710b34E>
- 160:	9005      	str	r0, [sp, #20]
- 162:	9104      	str	r1, [sp, #16]
- 164:	e7ff      	b.n	166 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x166>
- 166:	a85a      	add	r0, sp, #360	; 0x168
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:111
+ 19e:	f7ff fffe 	bl	0 <_ZN88_$LT$arrayvec..array_string..ArrayString$LT$A$GT$$u20$as$u20$core..ops..deref..Deref$GT$5deref17h6be915e1ec710b34E>
+ 1a2:	9006      	str	r0, [sp, #24]
+ 1a4:	9105      	str	r1, [sp, #20]
+ 1a6:	e7ff      	b.n	1a8 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x1a8>
+ 1a8:	a86c      	add	r0, sp, #432	; 0x1b0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:112
     let text_y = fonts::Font12x16::<Rgb565>
- 168:	9905      	ldr	r1, [sp, #20]
- 16a:	9a04      	ldr	r2, [sp, #16]
- 16c:	f7ff fffe 	bl	0 <_ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17he310900df884591aE>
- 170:	e7ff      	b.n	172 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x172>
- 172:	20ff      	movs	r0, #255	; 0xff
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:113
-        .fill(Some(Rgb565::from((0xff, 0xff, 0xff))))  //  White
- 174:	f88d 0188 	strb.w	r0, [sp, #392]	; 0x188
- 178:	f88d 0189 	strb.w	r0, [sp, #393]	; 0x189
- 17c:	f88d 018a 	strb.w	r0, [sp, #394]	; 0x18a
- 180:	f89d 018a 	ldrb.w	r0, [sp, #394]	; 0x18a
- 184:	f8bd 1188 	ldrh.w	r1, [sp, #392]	; 0x188
- 188:	ea41 4000 	orr.w	r0, r1, r0, lsl #16
- 18c:	f7ff fffe 	bl	0 <_ZN123_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$$LP$u8$C$$u20$u8$C$$u20$u8$RP$$GT$$GT$4from17h6ddbce6ac604d28bE>
- 190:	9003      	str	r0, [sp, #12]
- 192:	e7ff      	b.n	194 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x194>
- 194:	9803      	ldr	r0, [sp, #12]
- 196:	f8ad 0186 	strh.w	r0, [sp, #390]	; 0x186
- 19a:	2101      	movs	r1, #1
- 19c:	f8ad 1184 	strh.w	r1, [sp, #388]	; 0x184
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:111
-    let text_y = fonts::Font12x16::<Rgb565>
- 1a0:	f8bd 3186 	ldrh.w	r3, [sp, #390]	; 0x186
- 1a4:	f8bd 2184 	ldrh.w	r2, [sp, #388]	; 0x184
- 1a8:	a853      	add	r0, sp, #332	; 0x14c
- 1aa:	a95a      	add	r1, sp, #360	; 0x168
- 1ac:	f7ff fffe 	bl	0 <_ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h87692cb29d8fcb1eE>
- 1b0:	e7ff      	b.n	1b2 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x1b2>
- 1b2:	2014      	movs	r0, #20
- 1b4:	2150      	movs	r1, #80	; 0x50
+ 1aa:	9906      	ldr	r1, [sp, #24]
+ 1ac:	9a05      	ldr	r2, [sp, #20]
+ 1ae:	f7ff fffe 	bl	0 <_ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17he310900df884591aE>
+ 1b2:	e7ff      	b.n	1b4 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x1b4>
+ 1b4:	20ff      	movs	r0, #255	; 0xff
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:114
-        .translate(Coord::new(20, 80));
- 1b6:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h5cc04c89c71e58a5E>
- 1ba:	9002      	str	r0, [sp, #8]
- 1bc:	9101      	str	r1, [sp, #4]
- 1be:	e7ff      	b.n	1c0 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x1c0>
- 1c0:	a84c      	add	r0, sp, #304	; 0x130
- 1c2:	a953      	add	r1, sp, #332	; 0x14c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:111
+        .stroke(Some(Rgb565::from((0xff, 0xff, 0xff))))  //  White
+ 1b6:	f88d 01d0 	strb.w	r0, [sp, #464]	; 0x1d0
+ 1ba:	f88d 01d1 	strb.w	r0, [sp, #465]	; 0x1d1
+ 1be:	f88d 01d2 	strb.w	r0, [sp, #466]	; 0x1d2
+ 1c2:	f89d 01d2 	ldrb.w	r0, [sp, #466]	; 0x1d2
+ 1c6:	f8bd 11d0 	ldrh.w	r1, [sp, #464]	; 0x1d0
+ 1ca:	ea41 4000 	orr.w	r0, r1, r0, lsl #16
+ 1ce:	f7ff fffe 	bl	0 <_ZN123_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$$LP$u8$C$$u20$u8$C$$u20$u8$RP$$GT$$GT$4from17h6ddbce6ac604d28bE>
+ 1d2:	9004      	str	r0, [sp, #16]
+ 1d4:	e7ff      	b.n	1d6 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x1d6>
+ 1d6:	9804      	ldr	r0, [sp, #16]
+ 1d8:	f8ad 01ce 	strh.w	r0, [sp, #462]	; 0x1ce
+ 1dc:	2101      	movs	r1, #1
+ 1de:	f8ad 11cc 	strh.w	r1, [sp, #460]	; 0x1cc
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:112
     let text_y = fonts::Font12x16::<Rgb565>
- 1c4:	9a02      	ldr	r2, [sp, #8]
- 1c6:	9b01      	ldr	r3, [sp, #4]
- 1c8:	f7ff fffe 	bl	0 <_ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h1bf00a700a6aa91bE>
- 1cc:	e7ff      	b.n	1ce <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x1ce>
- 1ce:	a835      	add	r0, sp, #212	; 0xd4
- 1d0:	a963      	add	r1, sp, #396	; 0x18c
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:117
+ 1e2:	f8bd 31ce 	ldrh.w	r3, [sp, #462]	; 0x1ce
+ 1e6:	f8bd 21cc 	ldrh.w	r2, [sp, #460]	; 0x1cc
+ 1ea:	a865      	add	r0, sp, #404	; 0x194
+ 1ec:	a96c      	add	r1, sp, #432	; 0x1b0
+ 1ee:	f7ff fffe 	bl	0 <_ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17hb2cedc7d36872ec1E>
+ 1f2:	e7ff      	b.n	1f4 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x1f4>
+ 1f4:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:115
+        .fill(Some(Rgb565::from((0x00, 0x00, 0x00))))    //  Black
+ 1f6:	f88d 01d8 	strb.w	r0, [sp, #472]	; 0x1d8
+ 1fa:	f88d 01d9 	strb.w	r0, [sp, #473]	; 0x1d9
+ 1fe:	f88d 01da 	strb.w	r0, [sp, #474]	; 0x1da
+ 202:	f89d 01da 	ldrb.w	r0, [sp, #474]	; 0x1da
+ 206:	f8bd 11d8 	ldrh.w	r1, [sp, #472]	; 0x1d8
+ 20a:	ea41 4000 	orr.w	r0, r1, r0, lsl #16
+ 20e:	f7ff fffe 	bl	0 <_ZN123_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$$LP$u8$C$$u20$u8$C$$u20$u8$RP$$GT$$GT$4from17h6ddbce6ac604d28bE>
+ 212:	9003      	str	r0, [sp, #12]
+ 214:	e7ff      	b.n	216 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x216>
+ 216:	9803      	ldr	r0, [sp, #12]
+ 218:	f8ad 01d6 	strh.w	r0, [sp, #470]	; 0x1d6
+ 21c:	2101      	movs	r1, #1
+ 21e:	f8ad 11d4 	strh.w	r1, [sp, #468]	; 0x1d4
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:112
+    let text_y = fonts::Font12x16::<Rgb565>
+ 222:	f8bd 31d6 	ldrh.w	r3, [sp, #470]	; 0x1d6
+ 226:	f8bd 21d4 	ldrh.w	r2, [sp, #468]	; 0x1d4
+ 22a:	a85e      	add	r0, sp, #376	; 0x178
+ 22c:	a965      	add	r1, sp, #404	; 0x194
+ 22e:	f7ff fffe 	bl	0 <_ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h87692cb29d8fcb1eE>
+ 232:	e7ff      	b.n	234 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x234>
+ 234:	2028      	movs	r0, #40	; 0x28
+ 236:	2182      	movs	r1, #130	; 0x82
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:116
+        .translate(Coord::new(40, 130));
+ 238:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h5cc04c89c71e58a5E>
+ 23c:	9002      	str	r0, [sp, #8]
+ 23e:	9101      	str	r1, [sp, #4]
+ 240:	e7ff      	b.n	242 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x242>
+ 242:	a857      	add	r0, sp, #348	; 0x15c
+ 244:	a95e      	add	r1, sp, #376	; 0x178
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:112
+    let text_y = fonts::Font12x16::<Rgb565>
+ 246:	9a02      	ldr	r2, [sp, #8]
+ 248:	9b01      	ldr	r3, [sp, #4]
+ 24a:	f7ff fffe 	bl	0 <_ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h1bf00a700a6aa91bE>
+ 24e:	e7ff      	b.n	250 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x250>
+ 250:	a837      	add	r0, sp, #220	; 0xdc
+ 252:	a977      	add	r1, sp, #476	; 0x1dc
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:119
     //  Render text to display
     unsafe {
         DISPLAY.draw(text_x);    
- 1d2:	460a      	mov	r2, r1
- 1d4:	e8b0 5008 	ldmia.w	r0!, {r3, ip, lr}
- 1d8:	e8a2 5008 	stmia.w	r2!, {r3, ip, lr}
- 1dc:	e890 5018 	ldmia.w	r0, {r3, r4, ip, lr}
- 1e0:	e882 5018 	stmia.w	r2, {r3, r4, ip, lr}
- 1e4:	f240 0000 	movw	r0, #0
- 1e8:	f2c0 0000 	movt	r0, #0
- 1ec:	f7ff fffe 	bl	0 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17heafc53fa73f8a9e5E>
- 1f0:	e7ff      	b.n	1f2 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x1f2>
- 1f2:	a84c      	add	r0, sp, #304	; 0x130
- 1f4:	a96a      	add	r1, sp, #424	; 0x1a8
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:118
-        DISPLAY.draw(text_y);    
- 1f6:	460a      	mov	r2, r1
- 1f8:	e8b0 5008 	ldmia.w	r0!, {r3, ip, lr}
- 1fc:	e8a2 5008 	stmia.w	r2!, {r3, ip, lr}
- 200:	e890 5018 	ldmia.w	r0, {r3, r4, ip, lr}
- 204:	e882 5018 	stmia.w	r2, {r3, r4, ip, lr}
- 208:	f240 0000 	movw	r0, #0
- 20c:	f2c0 0000 	movt	r0, #0
- 210:	f7ff fffe 	bl	0 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17heafc53fa73f8a9e5E>
- 214:	e7ff      	b.n	216 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x216>
- 216:	2000      	movs	r0, #0
+ 254:	460a      	mov	r2, r1
+ 256:	e8b0 5008 	ldmia.w	r0!, {r3, ip, lr}
+ 25a:	e8a2 5008 	stmia.w	r2!, {r3, ip, lr}
+ 25e:	e890 5018 	ldmia.w	r0, {r3, r4, ip, lr}
+ 262:	e882 5018 	stmia.w	r2, {r3, r4, ip, lr}
+ 266:	f240 0000 	movw	r0, #0
+ 26a:	f2c0 0000 	movt	r0, #0
+ 26e:	f7ff fffe 	bl	0 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17heafc53fa73f8a9e5E>
+ 272:	e7ff      	b.n	274 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x274>
+ 274:	a857      	add	r0, sp, #348	; 0x15c
+ 276:	a97e      	add	r1, sp, #504	; 0x1f8
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:120
+        DISPLAY.draw(text_y);    
+ 278:	460a      	mov	r2, r1
+ 27a:	e8b0 5008 	ldmia.w	r0!, {r3, ip, lr}
+ 27e:	e8a2 5008 	stmia.w	r2!, {r3, ip, lr}
+ 282:	e890 5018 	ldmia.w	r0, {r3, r4, ip, lr}
+ 286:	e882 5018 	stmia.w	r2, {r3, r4, ip, lr}
+ 28a:	f240 0000 	movw	r0, #0
+ 28e:	f2c0 0000 	movt	r0, #0
+ 292:	f7ff fffe 	bl	0 <_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17heafc53fa73f8a9e5E>
+ 296:	e7ff      	b.n	298 <_ZN3app7display10show_touch17h0372b832ce02ff88E+0x298>
+ 298:	2000      	movs	r0, #0
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:122
     }
     Ok(())
- 218:	9014      	str	r0, [sp, #80]	; 0x50
- 21a:	2001      	movs	r0, #1
- 21c:	9014      	str	r0, [sp, #80]	; 0x50
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:121
+ 29a:	9016      	str	r0, [sp, #88]	; 0x58
+ 29c:	2001      	movs	r0, #1
+ 29e:	9016      	str	r0, [sp, #88]	; 0x58
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/display.rs:123
 }
- 21e:	9814      	ldr	r0, [sp, #80]	; 0x50
- 220:	b072      	add	sp, #456	; 0x1c8
- 222:	bd10      	pop	{r4, pc}
+ 2a0:	9816      	ldr	r0, [sp, #88]	; 0x58
+ 2a2:	f50d 7d06 	add.w	sp, sp, #536	; 0x218
+ 2a6:	bd10      	pop	{r4, pc}
 
 app-b96ce2b812257dd5.1xczoh6r3e8skjj4.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 1xczoh6r3e8skjj4
-00000709 l       .debug_str	00000000 
+0000071a l       .debug_str	00000000 
 00000257 l       .debug_str	00000000 
 0000025c l       .debug_str	00000000 
 0000025e l       .debug_str	00000000 
@@ -2846,34 +2863,36 @@ SYMBOL TABLE:
 000006eb l       .debug_str	00000000 
 000006f7 l       .debug_str	00000000 
 00000704 l       .debug_str	00000000 
+00000709 l       .debug_str	00000000 
 00000716 l       .debug_str	00000000 
-0000071a l       .debug_str	00000000 
 00000791 l       .debug_str	00000000 
 00000835 l       .debug_str	00000000 
 0000089c l       .debug_str	00000000 
 00000942 l       .debug_str	00000000 
-000009a9 l       .debug_str	00000000 
-000009b2 l       .debug_str	00000000 
-000009c0 l       .debug_str	00000000 
-000009d8 l       .debug_str	00000000 
-000009e6 l       .debug_str	00000000 
-00000a1b l       .debug_str	00000000 
-00000a75 l       .debug_str	00000000 
-00000a7a l       .debug_str	00000000 
-00000b12 l       .debug_str	00000000 
-00000b15 l       .debug_str	00000000 
-00000b1b l       .debug_str	00000000 
-00000bbf l       .debug_str	00000000 
-00000bcc l       .debug_str	00000000 
-00000bd2 l       .debug_str	00000000 
-00000bde l       .debug_str	00000000 
-00000be2 l       .debug_str	00000000 
-00000be9 l       .debug_str	00000000 
-00000bf0 l       .debug_str	00000000 
-00000c01 l       .debug_str	00000000 
-00000c0d l       .debug_str	00000000 
-00000c18 l       .debug_str	00000000 
-00000c1a l       .debug_str	00000000 
+000009ab l       .debug_str	00000000 
+00000a51 l       .debug_str	00000000 
+00000ab8 l       .debug_str	00000000 
+00000ac1 l       .debug_str	00000000 
+00000acf l       .debug_str	00000000 
+00000ae7 l       .debug_str	00000000 
+00000af5 l       .debug_str	00000000 
+00000b2a l       .debug_str	00000000 
+00000b84 l       .debug_str	00000000 
+00000b89 l       .debug_str	00000000 
+00000c21 l       .debug_str	00000000 
+00000c24 l       .debug_str	00000000 
+00000c2a l       .debug_str	00000000 
+00000cce l       .debug_str	00000000 
+00000cdb l       .debug_str	00000000 
+00000ce1 l       .debug_str	00000000 
+00000ced l       .debug_str	00000000 
+00000cf1 l       .debug_str	00000000 
+00000cf8 l       .debug_str	00000000 
+00000cff l       .debug_str	00000000 
+00000d10 l       .debug_str	00000000 
+00000d1c l       .debug_str	00000000 
+00000d27 l       .debug_str	00000000 
+00000d29 l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000055 l       .debug_str	00000000 
@@ -2909,27 +2928,27 @@ SYMBOL TABLE:
 00000240 l       .debug_str	00000000 
 0000024b l       .debug_str	00000000 
 00000250 l       .debug_str	00000000 
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.0	00000018 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.0
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.1	00000018 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.1
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.10	00000018 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.10
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.11	00000018 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.11
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.12	000012c0 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.12
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.13	00000010 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.13
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.14	00000018 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.14
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.15	00000018 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.15
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.16	00000018 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.16
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.17	00000018 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.17
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.18	00000018 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.18
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.19	00000018 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.19
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.2	00000018 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.2
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.20	00000018 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.20
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.3	00000018 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.3
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.4	00000018 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.4
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.5	00000018 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.5
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.6	00000018 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.6
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.7	00000018 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.7
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.8	00000018 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.8
-00000000 l     O .rodata..Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.9	00000018 .Lanon.5b2f9e6a9b83c853a1417dfc57aa0d06.9
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.0	00000018 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.0
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.1	00000018 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.1
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.10	00000018 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.10
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.11	00000018 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.11
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.12	000012c0 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.12
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.13	00000010 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.13
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.14	00000018 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.14
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.15	00000018 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.15
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.16	00000018 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.16
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.17	00000018 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.17
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.18	00000018 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.18
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.19	00000018 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.19
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.2	00000018 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.2
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.20	00000018 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.20
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.3	00000018 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.3
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.4	00000018 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.4
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.5	00000018 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.5
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.6	00000018 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.6
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.7	00000018 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.7
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.8	00000018 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.8
+00000000 l     O .rodata..Lanon.1cc9db36658f22e35cac9dcd1105b46f.9	00000018 .Lanon.1cc9db36658f22e35cac9dcd1105b46f.9
 00000000 l     O .rodata.str.0	0000006e str.0
 00000000 l     O .rodata.str.1	00000021 str.1
 00000000 l     O .rodata.str.2	0000001c str.2
@@ -2941,6 +2960,7 @@ SYMBOL TABLE:
 00000000 l    d  .text._ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h1bf00a700a6aa91bE	00000000 .text._ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h1bf00a700a6aa91bE
 00000000 l    d  .text._ZN129_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hb2737f1b561e3bd6E	00000000 .text._ZN129_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hb2737f1b561e3bd6E
 00000000 l    d  .text._ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h87692cb29d8fcb1eE	00000000 .text._ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h87692cb29d8fcb1eE
+00000000 l    d  .text._ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17hb2cedc7d36872ec1E	00000000 .text._ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17hb2cedc7d36872ec1E
 00000000 l    d  .text._ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h0f9693f0d42933aeE	00000000 .text._ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h0f9693f0d42933aeE
 00000000 l    d  .rodata.str.0	00000000 .rodata.str.0
 00000000 l    d  .rodata.str.1	00000000 .rodata.str.1
@@ -2962,6 +2982,7 @@ SYMBOL TABLE:
 00000000 g     F .text._ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h1bf00a700a6aa91bE	0000006c _ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h1bf00a700a6aa91bE
 00000000 g     F .text._ZN129_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hb2737f1b561e3bd6E	0000008c _ZN129_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hb2737f1b561e3bd6E
 00000000 g     F .text._ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h87692cb29d8fcb1eE	0000003c _ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h87692cb29d8fcb1eE
+00000000 g     F .text._ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17hb2cedc7d36872ec1E	0000003c _ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17hb2cedc7d36872ec1E
 00000000 g     F .text._ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h0f9693f0d42933aeE	0000057c _ZN134_$LT$embedded_graphics..fonts..font_builder..FontBuilderIterator$LT$C$C$Conf$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h0f9693f0d42933aeE
 00000000         *UND*	00000000 _ZN17embedded_graphics5coord14internal_coord5Coord3new17h5cc04c89c71e58a5E
 00000000         *UND*	00000000 .hidden _ZN4core3str21_$LT$impl$u20$str$GT$3len17h1dfaf89744b87f90E
@@ -3284,6 +3305,41 @@ _ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u
   24:	e891 00cc 	ldmia.w	r1, {r2, r3, r6, r7}
   28:	e880 00cc 	stmia.w	r0, {r2, r3, r6, r7}
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:130
+    }
+  2c:	f8cd c00c 	str.w	ip, [sp, #12]
+  30:	f8cd e008 	str.w	lr, [sp, #8]
+  34:	9401      	str	r4, [sp, #4]
+  36:	9500      	str	r5, [sp, #0]
+  38:	b005      	add	sp, #20
+  3a:	bdf0      	pop	{r4, r5, r6, r7, pc}
+
+Disassembly of section .text._ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17hb2cedc7d36872ec1E:
+
+00000000 <_ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17hb2cedc7d36872ec1E>:
+_ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17hb2cedc7d36872ec1E():
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:114
+    fn stroke(mut self, color: Option<C>) -> Self {
+   0:	b5f0      	push	{r4, r5, r6, r7, lr}
+   2:	b085      	sub	sp, #20
+   4:	469c      	mov	ip, r3
+   6:	4696      	mov	lr, r2
+   8:	460c      	mov	r4, r1
+   a:	4605      	mov	r5, r0
+   c:	f8ad 2010 	strh.w	r2, [sp, #16]
+  10:	f8ad 3012 	strh.w	r3, [sp, #18]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:115
+        self.style.stroke_color = color;
+  14:	f8bd 2010 	ldrh.w	r2, [sp, #16]
+  18:	f8bd 3012 	ldrh.w	r3, [sp, #18]
+  1c:	828a      	strh	r2, [r1, #20]
+  1e:	82cb      	strh	r3, [r1, #22]
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:117
+        self
+  20:	c94c      	ldmia	r1!, {r2, r3, r6}
+  22:	c04c      	stmia	r0!, {r2, r3, r6}
+  24:	e891 00cc 	ldmia.w	r1, {r2, r3, r6, r7}
+  28:	e880 00cc 	stmia.w	r0, {r2, r3, r6, r7}
+/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/fonts/font_builder.rs:118
     }
   2c:	f8cd c00c 	str.w	ip, [sp, #12]
   30:	f8cd e008 	str.w	lr, [sp, #8]

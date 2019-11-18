@@ -77,14 +77,14 @@ pub fn start_display() -> MynewtResult<()> {
         spi_port,    //  SPI Port
         dc_gpio,     //  GPIO Pin for DC
         rst_gpio,    //  GPIO Pin for RST
-        false,       //  Whether the display is RGB (true) or BGR (false)
+        true,        //  Whether the display is RGB (true) or BGR (false)
         true         //  Whether the colours are inverted (true) or not (false)
     ) };
 
     //  Init display driver and draw the background
     let background = Rectangle::<Rgb565>
-        ::new(Coord::new(0, 0), Coord::new(200, 200))
-        .fill(Some(Rgb565::from((0xff, 0xff, 0xff))));  //  White
+        ::new(Coord::new(0, 0), Coord::new(240, 240))
+        .fill(Some(Rgb565::from((0x0, 0x0, 0x0))));  //  Black
     let mut delay = MynewtDelay::new();
     unsafe {
         DISPLAY.init(&mut delay) ? ;
@@ -106,12 +106,14 @@ pub fn show_touch(x: u16, y: u16) -> MynewtResult<()> {
         .expect("show touch fail");
     let text_x = fonts::Font12x16::<Rgb565>
         ::render_str(&buf_x)
-        .fill(Some(Rgb565::from((0xff, 0xff, 0xff))))  //  White
-        .translate(Coord::new(20, 50));
+        .stroke(Some(Rgb565::from((0xff, 0xff, 0xff))))  //  White
+        .fill(Some(Rgb565::from((0x00, 0x00, 0x00))))    //  Black
+        .translate(Coord::new(40, 100));
     let text_y = fonts::Font12x16::<Rgb565>
         ::render_str(&buf_y)
-        .fill(Some(Rgb565::from((0xff, 0xff, 0xff))))  //  White
-        .translate(Coord::new(20, 80));
+        .stroke(Some(Rgb565::from((0xff, 0xff, 0xff))))  //  White
+        .fill(Some(Rgb565::from((0x00, 0x00, 0x00))))    //  Black
+        .translate(Coord::new(40, 130));
     //  Render text to display
     unsafe {
         DISPLAY.draw(text_x);    
@@ -125,12 +127,13 @@ pub fn test() -> MynewtResult<()> {
     //  Create circle
     let circle = Circle::<Rgb565>
         ::new(Coord::new(40, 40), 40)
-        .fill(Some(Rgb565::from(1u8)));
+        .fill(Some(Rgb565::from((0xff, 0x00, 0xff))));  //  Magenta
 
     //  Create text
     let text = fonts::Font12x16::<Rgb565>
         ::render_str("I AM RUSTY BEACON")
-        .fill(Some(Rgb565::from(20u8)))
+        .stroke(Some(Rgb565::from((0x00, 0x00, 0x00))))  //  Black
+        .fill(Some(Rgb565::from((0xff, 0xff, 0x00))))    //  Yellow
         .translate(Coord::new(20, 16));
 
     //  Render circle and text to display
