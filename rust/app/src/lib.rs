@@ -78,8 +78,8 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
         .expect("DSP fail");
 
     //  Test the display
-    //  display::test()
-    //    .expect("DSP test fail");
+    display::test()
+        .expect("DSP test fail");
 
     //  Start the touch sensor
     touch_sensor::start_touch_sensor()

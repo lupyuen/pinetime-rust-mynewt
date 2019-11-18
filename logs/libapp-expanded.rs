@@ -86,8 +86,6 @@ mod mynewt_hal {
     //  Start the display
 
     //  Test the display
-    //  display::test()
-    //    .expect("DSP test fail");
 
     //  Start the touch sensor
 
@@ -1050,6 +1048,7 @@ extern "C" fn main() -> ! {
         }
     };
     display::start_display().expect("DSP fail");
+    display::test().expect("DSP test fail");
     touch_sensor::start_touch_sensor().expect("TCH fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
