@@ -24,6 +24,10 @@ const TOUCH_RESET_PIN: i32 = 10;  //  P0.10/NFC2: TP_RESET
 /// Interrupt Pin for touch controller. We listen for the touch controller interrupt and trigger an event.
 const TOUCH_INTERRUPT_PIN: i32 = 28;  //  P0.28/AIN4: TP_INT
 
+/// Reset GPIO Pin
+static mut TOUCH_RESET: MynewtGPIO =  fill_zero!(MynewtGPIO);
+static mut TOUCH_DELAY: MynewtDelay = fill_zero!(MynewtDelay);
+
 /// Initialise the touch controller. NFC antenna pins must already be reassigned as GPIO pins:
 /// Set `NFC_PINS_AS_GPIO: 1` in hw/bsp/nrf52/syscfg.yml.  To check whether whether NFC antenna 
 /// pins have been correctly reassigned as GPIO pins, use the `nrf52` crate and check that the output is `fe`:
@@ -35,15 +39,16 @@ const TOUCH_INTERRUPT_PIN: i32 = 28;  //  P0.28/AIN4: TP_INT
 pub fn start_touch_sensor() -> MynewtResult<()> {
     console::print("Rust touch sensor\n");
 
-    //  Create GPIO for the Reset Pin
-    let mut reset = MynewtGPIO::new(TOUCH_RESET_PIN);
-    let mut delay = MynewtDelay{};
+    //  Init GPIO for the Reset Pin
+    unsafe { TOUCH_RESET.init(TOUCH_RESET_PIN) ? };
 
     //  Reset the touch controller by switching the Reset Pin low then high with pauses. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.c#L1017-L1167
-    reset.set_low() ? ;
-    delay.delay_ms(20);
-    reset.set_high() ? ;
-    delay.delay_ms(200); delay.delay_ms(200);
+    unsafe {
+        TOUCH_RESET.set_low() ? ;
+        TOUCH_DELAY.delay_ms(20);
+        TOUCH_RESET.set_high() ? ;
+        TOUCH_DELAY.delay_ms(200); TOUCH_DELAY.delay_ms(200);    
+    };
 
     //  Initialise the touch event with the callback function
     unsafe { TOUCH_EVENT.ev_cb = Some( touch_event_callback ) };
@@ -88,6 +93,7 @@ extern "C" fn touch_event_callback(_event: *mut os_event) {
     console::flush();   
 }
 
+/// Touch data will be populated here
 static mut TOUCH_DATA: TouchEventInfo = fill_zero!(TouchEventInfo);
 
 /// Read touch controller data. This only works when the screen has been tapped and the touch controller wakes up.

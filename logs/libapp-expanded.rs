@@ -83,7 +83,9 @@ mod mynewt_hal {
 
     //  Start Bluetooth Beacon.  TODO: Create a safe wrapper for starting Bluetooth LE.
 
-    //  Show the display
+    //  Start the display
+
+    //  Test the display
 
     //  Start the touch sensor
 
@@ -101,12 +103,15 @@ mod mynewt_hal {
     //  Pause in the debugger.
     //  Loop forever so that device won't restart.
     use embedded_hal;
-    use mynewt::{hw::hal, kernel::os};
+    use mynewt::{result::*, hw::hal, kernel::os};
     /// Rust Embedded HAL interface for Mynewt SPI
     impl MynewtSPI {
         /// Create a new SPI port
-        pub fn new(spi_num: i32, cs_pin: i32,
-                   spi_settings: *mut hal::hal_spi_settings) -> Self {
+        pub fn new() -> Self { MynewtSPI{spi_num: 0, cs_pin: 0,} }
+        /// Initiaise the SPI port
+        pub fn init(&mut self, spi_num: i32, cs_pin: i32,
+                    spi_settings: *mut hal::hal_spi_settings)
+         -> MynewtResult<()> {
             let rc = unsafe { hal::hal_spi_config(spi_num, spi_settings) };
             {
                 match (&(rc), &(0)) {
@@ -138,7 +143,7 @@ mod mynewt_hal {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/app/src/mynewt_hal.rs",
-                                                               12u32, 9u32))
+                                                               22u32, 9u32))
                             }
                         }
                     }
@@ -175,7 +180,7 @@ mod mynewt_hal {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/app/src/mynewt_hal.rs",
-                                                               15u32, 9u32))
+                                                               25u32, 9u32))
                             }
                         }
                     }
@@ -212,13 +217,15 @@ mod mynewt_hal {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/app/src/mynewt_hal.rs",
-                                                               18u32, 9u32))
+                                                               28u32, 9u32))
                             }
                         }
                     }
                 }
             };
-            MynewtSPI{spi_num, cs_pin,}
+            self.spi_num = spi_num;
+            self.cs_pin = cs_pin;
+            Ok(())
         }
     }
     /// Rust Embedded HAL interface for Mynewt SPI
@@ -243,7 +250,9 @@ mod mynewt_hal {
     /// Rust Embedded HAL interface for Mynewt GPIO
     impl MynewtGPIO {
         /// Create a new output GPIO pin
-        pub fn new(pin: i32) -> Self {
+        pub fn new() -> Self { MynewtGPIO{pin: 0,} }
+        /// Initialise the output GPIO pin
+        pub fn init(&mut self, pin: i32) -> MynewtResult<()> {
             let rc = unsafe { hal::hal_gpio_init_out(pin, 0) };
             {
                 match (&(rc), &(0)) {
@@ -275,13 +284,14 @@ mod mynewt_hal {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/app/src/mynewt_hal.rs",
-                                                               53u32, 9u32))
+                                                               69u32, 9u32))
                             }
                         }
                     }
                 }
             };
-            MynewtGPIO{pin,}
+            self.pin = pin;
+            Ok(())
         }
     }
     /// Rust Embedded HAL interface for Mynewt GPIO
@@ -301,6 +311,11 @@ mod mynewt_hal {
         Error
         =
         mynewt::result::MynewtError;
+    }
+    /// Rust Embedded HAL interface for Mynewt Delay
+    impl MynewtDelay {
+        /// Create a new delay
+        pub fn new() -> Self { MynewtDelay{} }
     }
     /// Rust Embedded HAL interface for Mynewt Delay
     impl embedded_hal::blocking::delay::DelayMs<u8> for MynewtDelay {
@@ -582,6 +597,19 @@ mod touch_sensor {
     const TOUCH_RESET_PIN: i32 = 10;
     /// Interrupt Pin for touch controller. We listen for the touch controller interrupt and trigger an event.
     const TOUCH_INTERRUPT_PIN: i32 = 28;
+    /// Reset GPIO Pin
+    static mut TOUCH_RESET: MynewtGPIO =
+        unsafe {
+            ::core::mem::transmute::<[u8; ::core::mem::size_of::<MynewtGPIO>()],
+                                     MynewtGPIO>([0;
+                                                     ::core::mem::size_of::<MynewtGPIO>()])
+        };
+    static mut TOUCH_DELAY: MynewtDelay =
+        unsafe {
+            ::core::mem::transmute::<[u8; ::core::mem::size_of::<MynewtDelay>()],
+                                     MynewtDelay>([0;
+                                                      ::core::mem::size_of::<MynewtDelay>()])
+        };
     /// Initialise the touch controller. NFC antenna pins must already be reassigned as GPIO pins:
     /// Set `NFC_PINS_AS_GPIO: 1` in hw/bsp/nrf52/syscfg.yml.  To check whether whether NFC antenna 
     /// pins have been correctly reassigned as GPIO pins, use the `nrf52` crate and check that the output is `fe`:
@@ -592,13 +620,14 @@ mod touch_sensor {
     /// ```
     pub fn start_touch_sensor() -> MynewtResult<()> {
         console::print("Rust touch sensor\n");
-        let mut reset = MynewtGPIO::new(TOUCH_RESET_PIN);
-        let mut delay = MynewtDelay{};
-        reset.set_low()?;
-        delay.delay_ms(20);
-        reset.set_high()?;
-        delay.delay_ms(200);
-        delay.delay_ms(200);
+        unsafe { TOUCH_RESET.init(TOUCH_RESET_PIN)? };
+        unsafe {
+            TOUCH_RESET.set_low()?;
+            TOUCH_DELAY.delay_ms(20);
+            TOUCH_RESET.set_high()?;
+            TOUCH_DELAY.delay_ms(200);
+            TOUCH_DELAY.delay_ms(200);
+        };
         unsafe { TOUCH_EVENT.ev_cb = Some(touch_event_callback) };
         let rc =
             unsafe {
@@ -638,7 +667,7 @@ mod touch_sensor {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/app/src/touch_sensor.rs",
-                                                           59u32, 5u32))
+                                                           64u32, 5u32))
                         }
                     }
                 }
@@ -662,6 +691,7 @@ mod touch_sensor {
         console::print("\n");
         console::flush();
     }
+    /// Touch data will be populated here
     static mut TOUCH_DATA: TouchEventInfo =
         unsafe {
             ::core::mem::transmute::<[u8; ::core::mem::size_of::<TouchEventInfo>()],
@@ -802,14 +832,14 @@ mod touch_sensor {
             {
                 ::core::panicking::panic(&("i2c buf",
                                            "rust/app/src/touch_sensor.rs",
-                                           328u32, 5u32))
+                                           334u32, 5u32))
             }
         };
         if !(start_register + num_registers < 128) {
             {
                 ::core::panicking::panic(&("i2c addr",
                                            "rust/app/src/touch_sensor.rs",
-                                           329u32, 5u32))
+                                           335u32, 5u32))
             }
         };
         unsafe {
@@ -833,7 +863,7 @@ mod touch_sensor {
                 {
                     ::core::panicking::panic(&("assertion failed: false",
                                                "rust/app/src/touch_sensor.rs",
-                                               349u32, 9u32))
+                                               355u32, 9u32))
                 }
             };
             return Ok(());
@@ -846,7 +876,7 @@ mod touch_sensor {
             {
                 ::core::panicking::panic(&("i2c addr",
                                            "rust/app/src/touch_sensor.rs",
-                                           357u32, 5u32))
+                                           363u32, 5u32))
             }
         };
         unsafe {
@@ -888,8 +918,8 @@ mod display {
     use embedded_graphics::{prelude::*, fonts, pixelcolor::Rgb565,
                             primitives::Circle};
     use embedded_hal::{self, digital::v2::OutputPin};
-    use st7735_lcd::{self, Orientation};
-    use mynewt::{result::*, hw::hal};
+    use st7735_lcd::{self, Orientation, ST7735};
+    use mynewt::{result::*, hw::hal, fill_zero};
     use crate::mynewt_hal::{MynewtDelay, MynewtGPIO, MynewtSPI};
     /// SPI settings for ST7789 display controller
     static mut SPI_SETTINGS: hal::hal_spi_settings =
@@ -897,27 +927,58 @@ mod display {
                               data_mode: hal::HAL_SPI_MODE3 as u8,
                               baudrate: 8000,
                               word_size: hal::HAL_SPI_WORD_SIZE_8BIT as u8,};
-    /// Render the ST7789 display connected to SPI port 0
-    pub fn show() -> MynewtResult<()> {
-        let spi = MynewtSPI::new(0, 25, unsafe { &mut SPI_SETTINGS });
-        let dc = MynewtGPIO::new(18);
-        let rst = MynewtGPIO::new(26);
-        let mut display = st7735_lcd::ST7735::new(spi, dc, rst, false, true);
-        let mut backlight = MynewtGPIO::new(23);
-        backlight.set_low()?;
+    /// Initialise the display and populate the Display Context
+    pub fn start_display(context: &mut DisplayContext) -> MynewtResult<()> {
+        let mut spi = MynewtSPI::new();
+        let mut dc = MynewtGPIO::new();
+        let mut rst = MynewtGPIO::new();
+        spi.init(0, 25, unsafe { &mut SPI_SETTINGS })?;
+        dc.init(18)?;
+        rst.init(26)?;
+        context.backlight_high.init(23)?;
+        context.backlight_high.set_low()?;
+        context.display = st7735_lcd::ST7735::new(spi, dc, rst, false, true);
+        context.display.init(&mut context.delay)?;
+        context.display.set_orientation(&Orientation::Landscape)?;
+        context.display.set_offset(1, 25);
+        Ok(())
+    }
+    /// Render the ST7789 display connected to SPI port 0. `start_display()` must have been called earlier.
+    pub fn test(context: &mut DisplayContext) -> MynewtResult<()> {
         let c =
             Circle::<Rgb565>::new(Coord::new(40, 40),
                                   40).fill(Some(Rgb565::from(1u8)));
         let t =
             fonts::Font12x16::<Rgb565>::render_str("I AM RUSTY BEACON").fill(Some(Rgb565::from(20u8))).translate(Coord::new(20,
                                                                                                                             16));
-        let mut delay = MynewtDelay{};
-        display.init(&mut delay)?;
-        display.set_orientation(&Orientation::Landscape)?;
-        display.set_offset(1, 25);
-        display.draw(c);
-        display.draw(t);
+        context.display.draw(c);
+        context.display.draw(t);
         Ok(())
+    }
+    /// Display Driver
+    type Display = ST7735<MynewtSPI, MynewtGPIO, MynewtGPIO>;
+    /// Display Context
+    pub struct DisplayContext {
+        /// Display driver
+        display: Display,
+        /// GPIO Pin for high backlight
+        backlight_high: MynewtGPIO,
+        /// Delay
+        delay: MynewtDelay,
+    }
+    /// Display Context
+    impl DisplayContext {
+        /// Create a new uninitialised Display Context
+        pub fn new() -> Self {
+            DisplayContext{display:
+                               unsafe {
+                                   ::core::mem::transmute::<[u8; ::core::mem::size_of::<Display>()],
+                                                            Display>([0;
+                                                                         ::core::mem::size_of::<Display>()])
+                               },
+                           backlight_high: MynewtGPIO::new(),
+                           delay: MynewtDelay::new(),}
+        }
     }
 }
 use core::panic::PanicInfo;
@@ -939,7 +1000,9 @@ extern "C" fn main() -> ! {
                                        74u32, 5u32))
         }
     };
-    display::show().expect("DSP fail");
+    let mut display_context = display::DisplayContext::new();
+    display::start_display(&mut display_context).expect("DSP fail");
+    display::test(&mut display_context).expect("DSP test fail");
     touch_sensor::start_touch_sensor().expect("TCH fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");

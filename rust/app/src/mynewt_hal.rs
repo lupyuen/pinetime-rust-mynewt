@@ -1,5 +1,6 @@
 use embedded_hal;
 use mynewt::{
+    result::*,
     hw::hal,
     kernel::os,
 };
@@ -7,7 +8,16 @@ use mynewt::{
 /// Rust Embedded HAL interface for Mynewt SPI
 impl MynewtSPI {
     /// Create a new SPI port
-    pub fn new(spi_num: i32, cs_pin: i32, spi_settings: *mut hal::hal_spi_settings) -> Self {
+    pub fn new() -> Self {
+        MynewtSPI {
+            spi_num: 0,
+            cs_pin:  0,
+        }
+    }
+
+    /// Initiaise the SPI port
+    pub fn init(&mut self, spi_num: i32, cs_pin: i32, spi_settings: *mut hal::hal_spi_settings) 
+        -> MynewtResult<()> {
         let rc = unsafe { hal::hal_spi_config(spi_num, spi_settings) };
         assert_eq!(rc, 0, "spi config fail");
 
@@ -16,10 +26,9 @@ impl MynewtSPI {
 
         let rc = unsafe { hal::hal_gpio_init_out(cs_pin, 1) };
         assert_eq!(rc, 0, "spi init fail");
-        MynewtSPI {
-            spi_num,
-            cs_pin,
-        }
+        self.spi_num = spi_num;
+        self.cs_pin  = cs_pin;
+        Ok(())
     }
 }
 
@@ -46,14 +55,20 @@ impl embedded_hal::blocking::spi::Write<u8> for MynewtSPI {
 /// Rust Embedded HAL interface for Mynewt GPIO
 impl MynewtGPIO {
     /// Create a new output GPIO pin
-    pub fn new(pin: i32) -> Self {
+    pub fn new() -> Self {
+        MynewtGPIO {
+            pin: 0,
+        }
+    }
+
+    /// Initialise the output GPIO pin
+    pub fn init(&mut self, pin: i32) -> MynewtResult<()> {
         //  TODO: let dc = pins.d0.into_push_pull_output(&mut pins.port);
         //  TODO: let rst = pins.d1.into_push_pull_output(&mut pins.port);
         let rc = unsafe { hal::hal_gpio_init_out(pin, 0) };
         assert_eq!(rc, 0, "gpio fail");
-        MynewtGPIO {
-            pin
-        }
+        self.pin = pin;
+        Ok(())
     }
 }
 
@@ -73,6 +88,15 @@ impl embedded_hal::digital::v2::OutputPin for MynewtGPIO {
 
     /// Reuse Mynewt error codes
     type Error = mynewt::result::MynewtError;
+}
+
+/// Rust Embedded HAL interface for Mynewt Delay
+impl MynewtDelay {
+    /// Create a new delay
+    pub fn new() -> Self {
+        MynewtDelay {
+        }
+    }
 }
 
 /// Rust Embedded HAL interface for Mynewt Delay
