@@ -75,9 +75,20 @@ extern "C" fn touch_interrupt_handler(arg: *mut core::ffi::c_void) {
 
 /// Callback for the touch event that is triggered when a touch is detected
 extern "C" fn touch_event_callback(_event: *mut os_event) {
-    console::printhex(unsafe { os::os_time_get() } as u8);
-    console::print(" touch\n"); console::flush();   
+    //  console::printhex(unsafe { os::os_time_get() } as u8); console::print(" touch\n");
+    //  Fetch the touch data from the touch controller
+    unsafe { 
+        read_touchdata(&mut TOUCH_DATA)
+            .expect("touchdata fail") 
+    };
+    console::printint(unsafe { TOUCH_DATA.touches[0].x } as i32);
+    console::print(", ");
+    console::printint(unsafe { TOUCH_DATA.touches[0].y } as i32);
+    console::print("\n");
+    console::flush();   
 }
+
+static mut TOUCH_DATA: TouchEventInfo = fill_zero!(TouchEventInfo);
 
 /// Read touch controller data. This only works when the screen has been tapped and the touch controller wakes up.
 /// Ported from https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.c#L407-L466
@@ -87,40 +98,40 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
         0,                         //  Starting from register 0
         POINT_READ_BUF as u8,      //  Number of registers to read
         unsafe { &mut buf }        //  Save the read data into `buf`
-    ).expect("touchdata fail");
+    ).expect("read touchdata fail");
     *data = fill_zero!(TouchEventInfo);
-    data.touch_point_num = unsafe { buf[FT_TOUCH_POINT_NUM] & 0x0F };
-    data.touch_point     = 0;
+    data.point_num = unsafe { buf[FT_TOUCH_POINT_NUM] & 0x0F };
+    data.count     = 0;
 
     for i in 0..CFG_MAX_TOUCH_POINTS {
         let pointid = unsafe { buf[HYN_TOUCH_ID_POS + HYN_TOUCH_STEP * i] } >> 4;
         if pointid >= HYN_MAX_ID { break; }
 
         //  Compute X and Y coordinates
-        data.touch_point += 1;
+        data.count += 1;
         let x_high = unsafe { buf[HYN_TOUCH_X_H_POS + HYN_TOUCH_STEP * i] & 0x0F } as u16;
         let x_low  = unsafe { buf[HYN_TOUCH_X_L_POS + HYN_TOUCH_STEP * i] } as u16;
-        data.x[i]  = (x_high << 8) | x_low;
+        data.touches[i].x  = (x_high << 8) | x_low;
 
         let y_high = unsafe { buf[HYN_TOUCH_Y_H_POS + HYN_TOUCH_STEP * i] & 0x0F } as u16;
         let y_low  = unsafe { buf[HYN_TOUCH_Y_L_POS + HYN_TOUCH_STEP * i] } as u16;
-        data.y[i]  = (y_high << 8) | y_low;
+        data.touches[i].y  = (y_high << 8) | y_low;
 
         //  Compute type of touch (0 = down, 1 = up, 2 = contact) and finger ID
-        data.touch_event[i] =
+        data.touches[i].action =
             unsafe { buf[HYN_TOUCH_EVENT_POS + HYN_TOUCH_STEP * i] } >> 6;
-        data.finger_id[i] =
-            unsafe { buf[HYN_TOUCH_ID_POS + HYN_TOUCH_STEP * i] } >> 4;
+        data.touches[i].finger =
+            unsafe { buf[HYN_TOUCH_ID_POS    + HYN_TOUCH_STEP * i] } >> 4;
 
         //  Compute touch pressure and area
-        data.pressure[i] =
+        data.touches[i].pressure =
             unsafe { buf[HYN_TOUCH_XY_POS + HYN_TOUCH_STEP * i] };  //  Can't be constant value
-        data.area[i] =
-            unsafe { buf[HYN_TOUCH_MISC + HYN_TOUCH_STEP * i] } >> 4;
+        data.touches[i].area =
+            unsafe { buf[HYN_TOUCH_MISC   + HYN_TOUCH_STEP * i] } >> 4;
 
         //  If no more touch points, stop
-        if (data.touch_event[i] == 0 || data.touch_event[i] == 2)  //  If touch is down or contact
-            && (data.touch_point_num == 0) {
+        if (data.touches[i].action == 0 || data.touches[i].action == 2)  //  If touch is down or contact
+            && (data.point_num == 0) {
             break;
         }
     }
@@ -133,30 +144,29 @@ static mut buf: [u8; POINT_READ_BUF] = [0; POINT_READ_BUF];
 /// Touch Controller I2C Address: https://github.com/lupyuen/hynitron_i2c_cst0xxse
 const TOUCH_CONTROLLER_ADDRESS: u8 = 0x15;
 
-/// Touch Event Info. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.h#L104-L115
+/// Touch Event Info for multiple touches. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.h#L104-L115
 struct TouchEventInfo {
-    /// X coordinate
-    x:               [u16; HYN_MAX_POINTS],
-    /// Y coordinate
-    y:               [u16; HYN_MAX_POINTS],
-    /// Touch event: 0 = down, 1 = up, 2 = contact
-    touch_event:     [u8;  HYN_MAX_POINTS],
-    /// Touch ID
-    finger_id:       [u8;  HYN_MAX_POINTS],         
-    pressure:        [u8; HYN_MAX_POINTS],  //  Previously u16
-    area:            [u8; HYN_MAX_POINTS],  //  Previously u16
-    touch_point:     u8,
-    touches:         i32,
-    touch_point_num: u8,
+    /// Array of touch points
+    touches:   [TouchInfo; HYN_MAX_POINTS],
+    /// How many touch points
+    count:     u8,
+    point_num: u8,
 }
 
-/// Touch Info. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.h#L93-L100
+/// Touch Info for a single touch. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.h#L104-L115
 struct TouchInfo {
-    y:  [i32; HYN_MAX_POINTS],
-    x:  [i32; HYN_MAX_POINTS],
-    p:  [i32; HYN_MAX_POINTS],
-    id: [i32; HYN_MAX_POINTS],
-    count: i32,
+    /// X coordinate
+    x:          u16,
+    /// Y coordinate
+    y:          u16,
+    /// Action: 0 = down, 1 = up, 2 = contact
+    action:     u8,
+    /// Which finger touched
+    finger:     u8,         
+    /// Pressure of touch
+    pressure:   u8,
+    /// Area touched
+    area:       u8,
 }
 
 //  Touch Controller Constants. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.h
@@ -169,7 +179,7 @@ const HYN_MAX_POINTS: usize = 10;
 
 const HYN_MAX_ID: u8             = 0x0F;
 const HYN_TOUCH_STEP: usize      = 6;
-const HYN_FACE_DETECT_POS: usize = 1;
+// const HYN_FACE_DETECT_POS: usize = 1;
 const HYN_TOUCH_X_H_POS: usize   = 3;
 const HYN_TOUCH_X_L_POS: usize   = 4;
 const HYN_TOUCH_Y_H_POS: usize   = 5;
@@ -316,7 +326,7 @@ pub fn test() -> MynewtResult<()> {
 /// Read a range of I2C registers from the I2C address `addr` (7-bit address), starting at `start_register` for count `num_registers`. Save into `buffer`.
 fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: &mut[u8]) -> MynewtResult<()> {
     assert!(buffer.len() >= num_registers as usize, "i2c buf");  //  Buffer too small
-    assert!(start_register >= 0 && start_register + num_registers < 128, "i2c addr");  //  Not 7-bit address
+    assert!(start_register + num_registers < 128, "i2c addr");  //  Not 7-bit address
     //  First the start register number must be sent in write mode (I2C address xxxxxxx0). 
     unsafe { 
         I2C_BUFFER[0] = start_register;
@@ -325,7 +335,7 @@ fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: 
         I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
     };
     //  Then either a stop or a repeated start condition must be generated. 
-    let rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };  //  No stop yet, must continue even if we hit an error
+    let _rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };  //  No stop yet, must continue even if we hit an error
     //  After this the slave is addressed in read mode (RW = ‘1’) at I2C address xxxxxxx1
     unsafe { 
         I2C_BUFFER[0] = 0x00;
@@ -336,18 +346,15 @@ fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: 
     //  After which the slave sends out data from auto-incremented register addresses until a NOACKM and stop condition occurs.
     let rc2 = unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
     if rc2 == hal::HAL_I2C_ERR_ADDR_NACK as i32 {
+        assert!(false);  //  I2C read failed
         return Ok(());
     }
-    console::print("addr: 0x"); console::printhex(addr); 
-    console::print(", reg: 0x"); console::printhex(start_register); 
-    console::print(" = 0x"); console::printhex(unsafe { I2C_BUFFER[0] }); 
-    console::print("\n"); console::flush();
     Ok(())
 }
 
 /// Read the I2C register for the specified I2C address (7-bit address)
 fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
-    assert!(register >= 0 && register < 128, "i2c addr");  //  Not 7-bit address
+    assert!(register < 128, "i2c addr");  //  Not 7-bit address
     //  First the register number must be sent in write mode (I2C address xxxxxxx0). 
     unsafe { 
         I2C_BUFFER[0] = register;
@@ -356,7 +363,7 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
         I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
     };
     //  Then either a stop or a repeated start condition must be generated. 
-    let rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };  //  No stop yet, must continue even if we hit an error
+    let _rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };  //  No stop yet, must continue even if we hit an error
     //  After this the slave is addressed in read mode (RW = ‘1’) at I2C address xxxxxxx1, 
     unsafe { 
         I2C_BUFFER[0] = 0x00;

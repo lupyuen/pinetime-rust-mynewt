@@ -12,7 +12,7 @@ ELF Header:
   Version:                           0x1
   Entry point address:               0x0
   Start of program headers:          0 (bytes into file)
-  Start of section headers:          37608 (bytes into file)
+  Start of section headers:          37584 (bytes into file)
   Flags:                             0x5000000, Version5 EABI
   Size of this header:               52 (bytes)
   Size of program headers:           0 (bytes)
@@ -24,37 +24,37 @@ ELF Header:
 Section Headers:
   [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
   [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .strtab           STRTAB          00000000 008c64 000684 00      0   0  1
+  [ 1] .strtab           STRTAB          00000000 008c4c 000684 00      0   0  1
   [ 2] .text             PROGBITS        00000000 000034 000000 00  AX  0   0  4
   [ 3] .text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E PROGBITS        00000000 000034 000176 00  AX  0   0  2
-  [ 4] .rel.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E REL             00000000 007994 0000e0 08     31   3  4
+  [ 4] .rel.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E REL             00000000 00797c 0000e0 08     31   3  4
   [ 5] .ARM.exidx.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E ARM_EXIDX       00000000 0001ac 000008 00  AL  3   0  4
-  [ 6] .rel.ARM.exidx.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E REL             00000000 007a74 000008 08     31   5  4
+  [ 6] .rel.ARM.exidx.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E REL             00000000 007a5c 000008 08     31   5  4
   [ 7] .rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.0 PROGBITS        00000000 0001b4 00000c 00   A  0   0  1
   [ 8] .rodata._ZN3app10app_sensor13SENSOR_DEVICE17h180f59dea1c4be56E PROGBITS        00000000 0001c0 00000c 00   A  0   0  4
-  [ 9] .rel.rodata._ZN3app10app_sensor13SENSOR_DEVICE17h180f59dea1c4be56E REL             00000000 007a7c 000008 08     31   8  4
+  [ 9] .rel.rodata._ZN3app10app_sensor13SENSOR_DEVICE17h180f59dea1c4be56E REL             00000000 007a64 000008 08     31   8  4
   [10] .rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.1 PROGBITS        00000000 0001cc 00000e 00   A  0   0  1
   [11] .rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.2 PROGBITS        00000000 0001da 000006 00   A  0   0  1
   [12] .rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.3 PROGBITS        00000000 0001e0 000002 00   A  0   0  1
   [13] .rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.4 PROGBITS        00000000 0001e4 00000c 00   A  0   0  4
-  [14] .rel.rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.4 REL             00000000 007a84 000008 08     31  13  4
+  [14] .rel.rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.4 REL             00000000 007a6c 000008 08     31  13  4
   [15] .debug_str        PROGBITS        00000000 0001f0 002502 01  MS  0   0  1
   [16] .debug_abbrev     PROGBITS        00000000 0026f2 00011f 00      0   0  1
   [17] .debug_info       PROGBITS        00000000 002811 001835 00      0   0  1
-  [18] .rel.debug_info   REL             00000000 007a8c 0011b0 08     31  17  4
+  [18] .rel.debug_info   REL             00000000 007a74 0011b0 08     31  17  4
   [19] .debug_ranges     PROGBITS        00000000 004046 000058 00      0   0  1
   [20] .debug_macinfo    PROGBITS        00000000 00409e 000001 00      0   0  1
   [21] .debug_pubnames   PROGBITS        00000000 00409f 0000c3 00      0   0  1
-  [22] .rel.debug_pubnames REL             00000000 008c3c 000008 08     31  21  4
+  [22] .rel.debug_pubnames REL             00000000 008c24 000008 08     31  21  4
   [23] .debug_pubtypes   PROGBITS        00000000 004162 001e58 00      0   0  1
-  [24] .rel.debug_pubtypes REL             00000000 008c44 000008 08     31  23  4
+  [24] .rel.debug_pubtypes REL             00000000 008c2c 000008 08     31  23  4
   [25] .note.GNU-stack   PROGBITS        00000000 005fba 000000 00      0   0  1
   [26] .ARM.attributes   ARM_ATTRIBUTES  00000000 005fba 00003a 00      0   0  1
   [27] .debug_frame      PROGBITS        00000000 005ff4 000038 00      0   0  4
-  [28] .rel.debug_frame  REL             00000000 008c4c 000010 08     31  27  4
-  [29] .debug_line       PROGBITS        00000000 00602c 0000d7 00      0   0  1
-  [30] .rel.debug_line   REL             00000000 008c5c 000008 08     31  29  4
-  [31] .symtab           SYMTAB          00000000 006104 001890 10      1 380  4
+  [28] .rel.debug_frame  REL             00000000 008c34 000010 08     31  27  4
+  [29] .debug_line       PROGBITS        00000000 00602c 0000c0 00      0   0  1
+  [30] .rel.debug_line   REL             00000000 008c44 000008 08     31  29  4
+  [31] .symtab           SYMTAB          00000000 0060ec 001890 10      1 380  4
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -67,7 +67,7 @@ There are no program headers in this file.
 
 There is no dynamic section in this file.
 
-Relocation section '.rel.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E' at offset 0x7994 contains 28 entries:
+Relocation section '.rel.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E' at offset 0x797c contains 28 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000004  00016f2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.1
 00000008  00016f30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.1
@@ -98,19 +98,19 @@ Relocation section '.rel.text._ZN3app10app_sensor21start_sensor_listener17hb5202
 00000158  00017f0a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE
 00000162  0001850a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E
 
-Relocation section '.rel.ARM.exidx.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E' at offset 0x7a74 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E' at offset 0x7a5c contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000000  0001732a R_ARM_PREL31           00000000   .text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E
 
-Relocation section '.rel.rodata._ZN3app10app_sensor13SENSOR_DEVICE17h180f59dea1c4be56E' at offset 0x7a7c contains 1 entry:
+Relocation section '.rel.rodata._ZN3app10app_sensor13SENSOR_DEVICE17h180f59dea1c4be56E' at offset 0x7a64 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000004  00017402 R_ARM_ABS32            00000000   .rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.0
 
-Relocation section '.rel.rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.4' at offset 0x7a84 contains 1 entry:
+Relocation section '.rel.rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.4' at offset 0x7a6c contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000004  00017602 R_ARM_ABS32            00000000   .rodata..Lanon.df8f2465e5afaff2b36ae3eeeb67fdcb.3
 
-Relocation section '.rel.debug_info' at offset 0x7a8c contains 566 entries:
+Relocation section '.rel.debug_info' at offset 0x7a74 contains 566 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00017702 R_ARM_ABS32            00000000   .debug_abbrev
 0000000c  00001102 R_ARM_ABS32            00000000   
@@ -679,22 +679,22 @@ Relocation section '.rel.debug_info' at offset 0x7a8c contains 566 entries:
 00001812  00000702 R_ARM_ABS32            0000243b   
 0000181b  00016c02 R_ARM_ABS32            0000232e   
 
-Relocation section '.rel.debug_pubnames' at offset 0x8c3c contains 1 entry:
+Relocation section '.rel.debug_pubnames' at offset 0x8c24 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00017802 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_pubtypes' at offset 0x8c44 contains 1 entry:
+Relocation section '.rel.debug_pubtypes' at offset 0x8c2c contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000006  00017802 R_ARM_ABS32            00000000   .debug_info
 
-Relocation section '.rel.debug_frame' at offset 0x8c4c contains 2 entries:
+Relocation section '.rel.debug_frame' at offset 0x8c34 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000018  00017a02 R_ARM_ABS32            00000000   .debug_frame
 0000001c  00017302 R_ARM_ABS32            00000000   .text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E
 
-Relocation section '.rel.debug_line' at offset 0x8c5c contains 1 entry:
+Relocation section '.rel.debug_line' at offset 0x8c44 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000049  00017302 R_ARM_ABS32            00000000   .text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E
+0000003f  00017302 R_ARM_ABS32            00000000   .text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E
 
 Unwind section '.ARM.exidx.text._ZN3app10app_sensor21start_sensor_listener17hb5202e60c123db83E' at offset 0x1ac contains 1 entry:
 
@@ -10400,70 +10400,167 @@ ELF Header:
   Version:                           0x1
   Entry point address:               0x0
   Start of program headers:          0 (bytes into file)
-  Start of section headers:          21372 (bytes into file)
+  Start of section headers:          35212 (bytes into file)
   Flags:                             0x5000000, Version5 EABI
   Size of this header:               52 (bytes)
   Size of program headers:           0 (bytes)
   Number of program headers:         0
   Size of section headers:           40 (bytes)
-  Number of section headers:         53
+  Number of section headers:         150
   Section header string table index: 1
 
 Section Headers:
   [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
   [ 0]                   NULL            00000000 000000 000000 00      0   0  0
-  [ 1] .strtab           STRTAB          00000000 004778 000c04 00      0   0  1
+  [ 1] .strtab           STRTAB          00000000 006fb8 0019d2 00      0   0  1
   [ 2] .text             PROGBITS        00000000 000034 000000 00  AX  0   0  4
   [ 3] .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E PROGBITS        00000000 000034 000208 00  AX  0   0  2
-  [ 4] .rel.text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E REL             00000000 003a90 000170 08     52   3  4
+  [ 4] .rel.text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E REL             00000000 005738 000170 08     149   3  4
   [ 5] .ARM.exidx.text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E ARM_EXIDX       00000000 00023c 000008 00  AL  3   0  4
-  [ 6] .rel.ARM.exidx.text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E REL             00000000 003c00 000008 08     52   5  4
+  [ 6] .rel.ARM.exidx.text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E REL             00000000 0058a8 000008 08     149   5  4
   [ 7] .text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE PROGBITS        00000000 000244 000046 00  AX  0   0  2
-  [ 8] .rel.text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE REL             00000000 003c08 000048 08     52   7  4
+  [ 8] .rel.text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE REL             00000000 0058b0 000048 08     149   7  4
   [ 9] .ARM.exidx.text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE ARM_EXIDX       00000000 00028c 000008 00  AL  7   0  4
-  [10] .rel.ARM.exidx.text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE REL             00000000 003c50 000008 08     52   9  4
-  [11] .text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE PROGBITS        00000000 000294 000034 00  AX  0   0  2
-  [12] .rel.text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE REL             00000000 003c58 000030 08     52  11  4
-  [13] .ARM.exidx.text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE ARM_EXIDX       00000000 0002c8 000008 00  AL 11   0  4
-  [14] .rel.ARM.exidx.text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE REL             00000000 003c88 000008 08     52  13  4
-  [15] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.0 PROGBITS        00000000 0002d0 000012 00   A  0   0  1
-  [16] .rodata.cst4      PROGBITS        00000000 0002e4 000004 04  AM  0   0  4
-  [17] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.2 PROGBITS        00000000 0002e8 00002d 00   A  0   0  1
-  [18] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.3 PROGBITS        00000000 000315 00000c 00   A  0   0  1
-  [19] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.4 PROGBITS        00000000 000321 000003 00   A  0   0  1
-  [20] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.5 PROGBITS        00000000 000324 000018 00   A  0   0  4
-  [21] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.5 REL             00000000 003c90 000018 08     52  20  4
-  [22] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.6 PROGBITS        00000000 00033c 00000d 00   A  0   0  1
-  [23] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.7 PROGBITS        00000000 00034c 000008 00   A  0   0  4
-  [24] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.7 REL             00000000 003ca8 000008 08     52  23  4
-  [25] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.8 PROGBITS        00000000 000354 000000 00   A  0   0  4
-  [26] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.9 PROGBITS        00000000 000354 00001c 00   A  0   0  1
-  [27] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.10 PROGBITS        00000000 000370 000010 00   A  0   0  4
-  [28] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.10 REL             00000000 003cb0 000008 08     52  27  4
-  [29] .rodata.cst8      PROGBITS        00000000 000380 000008 08  AM  0   0  1
-  [30] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.12 PROGBITS        00000000 000388 000007 00   A  0   0  1
-  [31] .bss._ZN3app12touch_sensor3buf17h3250d7e59de0f5beE NOBITS          00000000 00038f 00003f 00  WA  0   0  1
-  [32] .bss._ZN3app12touch_sensor11TOUCH_EVENT17h60e9cad73e6ebeb5E NOBITS          00000000 000390 000010 00  WA  0   0  4
-  [33] .bss._ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE NOBITS          00000000 000390 000008 00  WA  0   0  4
-  [34] .bss._ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE NOBITS          00000000 000390 000001 00  WA  0   0  1
-  [35] .debug_str        PROGBITS        00000000 000390 000cd0 01  MS  0   0  1
-  [36] .debug_abbrev     PROGBITS        00000000 001060 00015c 00      0   0  1
-  [37] .debug_info       PROGBITS        00000000 0011bc 000c36 00      0   0  1
-  [38] .rel.debug_info   REL             00000000 003cb8 0009a8 08     52  37  4
-  [39] .debug_ranges     PROGBITS        00000000 001df2 000080 00      0   0  1
-  [40] .rel.debug_ranges REL             00000000 004660 0000c0 08     52  39  4
-  [41] .debug_macinfo    PROGBITS        00000000 001e72 000001 00      0   0  1
-  [42] .debug_pubnames   PROGBITS        00000000 001e73 00014d 00      0   0  1
-  [43] .rel.debug_pubnames REL             00000000 004720 000008 08     52  42  4
-  [44] .debug_pubtypes   PROGBITS        00000000 001fc0 000772 00      0   0  1
-  [45] .rel.debug_pubtypes REL             00000000 004728 000008 08     52  44  4
-  [46] .note.GNU-stack   PROGBITS        00000000 002732 000000 00      0   0  1
-  [47] .ARM.attributes   ARM_ATTRIBUTES  00000000 002732 00003a 00      0   0  1
-  [48] .debug_frame      PROGBITS        00000000 00276c 00006c 00      0   0  4
-  [49] .rel.debug_frame  REL             00000000 004730 000030 08     52  48  4
-  [50] .debug_line       PROGBITS        00000000 0027d8 000147 00      0   0  1
-  [51] .rel.debug_line   REL             00000000 004760 000018 08     52  50  4
-  [52] .symtab           SYMTAB          00000000 002920 001170 10      1 255  4
+  [10] .rel.ARM.exidx.text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE REL             00000000 0058f8 000008 08     149   9  4
+  [11] .text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE PROGBITS        00000000 000294 00007a 00  AX  0   0  2
+  [12] .rel.text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE REL             00000000 005900 000098 08     149  11  4
+  [13] .ARM.exidx.text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE ARM_EXIDX       00000000 000310 000008 00  AL 11   0  4
+  [14] .rel.ARM.exidx.text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE REL             00000000 005998 000008 08     149  13  4
+  [15] .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E PROGBITS        00000000 000318 0006b0 00  AX  0   0  2
+  [16] .rel.text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E REL             00000000 0059a0 000458 08     149  15  4
+  [17] .ARM.exidx.text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E ARM_EXIDX       00000000 0009c8 000008 00  AL 15   0  4
+  [18] .rel.ARM.exidx.text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E REL             00000000 005df8 000008 08     149  17  4
+  [19] .text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE PROGBITS        00000000 0009d0 00018a 00  AX  0   0  2
+  [20] .rel.text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE REL             00000000 005e00 000110 08     149  19  4
+  [21] .ARM.exidx.text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE ARM_EXIDX       00000000 000b5c 000008 00  AL 19   0  4
+  [22] .rel.ARM.exidx.text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE REL             00000000 005f10 000008 08     149  21  4
+  [23] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.0 PROGBITS        00000000 000b64 000012 00   A  0   0  1
+  [24] .rodata.cst4      PROGBITS        00000000 000b78 000004 04  AM  0   0  4
+  [25] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.2 PROGBITS        00000000 000b7c 00002d 00   A  0   0  1
+  [26] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.3 PROGBITS        00000000 000ba9 00000c 00   A  0   0  1
+  [27] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.4 PROGBITS        00000000 000bb5 000003 00   A  0   0  1
+  [28] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.5 PROGBITS        00000000 000bb8 000018 00   A  0   0  4
+  [29] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.5 REL             00000000 005f18 000018 08     149  28  4
+  [30] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.6 PROGBITS        00000000 000bd0 00000d 00   A  0   0  1
+  [31] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.7 PROGBITS        00000000 000be0 000008 00   A  0   0  4
+  [32] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.7 REL             00000000 005f30 000008 08     149  31  4
+  [33] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.8 PROGBITS        00000000 000be8 000000 00   A  0   0  4
+  [34] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.9 PROGBITS        00000000 000be8 00001c 00   A  0   0  1
+  [35] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.10 PROGBITS        00000000 000c04 000010 00   A  0   0  4
+  [36] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.10 REL             00000000 005f38 000008 08     149  35  4
+  [37] .rodata.cst8      PROGBITS        00000000 000c14 000010 08  AM  0   0  1
+  [38] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.12 PROGBITS        00000000 000c24 00000e 00   A  0   0  1
+  [39] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.13 PROGBITS        00000000 000c32 000002 00   A  0   0  1
+  [40] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.14 PROGBITS        00000000 000c34 000001 00   A  0   0  1
+  [41] .bss._ZN3app12touch_sensor10TOUCH_DATA17h0930039bb32940b8E NOBITS          00000000 000c36 000052 00  WA  0   0  2
+  [42] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.15 PROGBITS        00000000 000c36 000013 00   A  0   0  1
+  [43] .rodata.str.0     PROGBITS        00000000 000c50 00001c 00   A  0   0 16
+  [44] .rodata.str.1     PROGBITS        00000000 000c70 000021 00   A  0   0 16
+  [45] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.16 PROGBITS        00000000 000c94 000018 00   A  0   0  4
+  [46] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.16 REL             00000000 005f40 000010 08     149  45  4
+  [47] .rodata.str.2     PROGBITS        00000000 000cb0 00001c 00   A  0   0 16
+  [48] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.17 PROGBITS        00000000 000ccc 000018 00   A  0   0  4
+  [49] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.17 REL             00000000 005f50 000010 08     149  48  4
+  [50] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.18 PROGBITS        00000000 000ce4 000010 00   A  0   0  4
+  [51] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.18 REL             00000000 005f60 000008 08     149  50  4
+  [52] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.19 PROGBITS        00000000 000cf4 000018 00   A  0   0  4
+  [53] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.19 REL             00000000 005f68 000010 08     149  52  4
+  [54] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.20 PROGBITS        00000000 000d0c 000018 00   A  0   0  4
+  [55] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.20 REL             00000000 005f78 000010 08     149  54  4
+  [56] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.21 PROGBITS        00000000 000d24 000018 00   A  0   0  4
+  [57] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.21 REL             00000000 005f88 000010 08     149  56  4
+  [58] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.22 PROGBITS        00000000 000d3c 000010 00   A  0   0  4
+  [59] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.22 REL             00000000 005f98 000008 08     149  58  4
+  [60] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.23 PROGBITS        00000000 000d4c 000018 00   A  0   0  4
+  [61] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.23 REL             00000000 005fa0 000010 08     149  60  4
+  [62] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.24 PROGBITS        00000000 000d64 000018 00   A  0   0  4
+  [63] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.24 REL             00000000 005fb0 000010 08     149  62  4
+  [64] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.25 PROGBITS        00000000 000d7c 000010 00   A  0   0  4
+  [65] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.25 REL             00000000 005fc0 000008 08     149  64  4
+  [66] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.26 PROGBITS        00000000 000d8c 000010 00   A  0   0  4
+  [67] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.26 REL             00000000 005fc8 000008 08     149  66  4
+  [68] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.27 PROGBITS        00000000 000d9c 000018 00   A  0   0  4
+  [69] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.27 REL             00000000 005fd0 000010 08     149  68  4
+  [70] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.28 PROGBITS        00000000 000db4 000018 00   A  0   0  4
+  [71] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.28 REL             00000000 005fe0 000010 08     149  70  4
+  [72] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.29 PROGBITS        00000000 000dcc 000010 00   A  0   0  4
+  [73] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.29 REL             00000000 005ff0 000008 08     149  72  4
+  [74] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.30 PROGBITS        00000000 000ddc 000018 00   A  0   0  4
+  [75] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.30 REL             00000000 005ff8 000010 08     149  74  4
+  [76] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.31 PROGBITS        00000000 000df4 000018 00   A  0   0  4
+  [77] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.31 REL             00000000 006008 000010 08     149  76  4
+  [78] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.32 PROGBITS        00000000 000e0c 000010 00   A  0   0  4
+  [79] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.32 REL             00000000 006018 000008 08     149  78  4
+  [80] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.33 PROGBITS        00000000 000e1c 000010 00   A  0   0  4
+  [81] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.33 REL             00000000 006020 000008 08     149  80  4
+  [82] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.34 PROGBITS        00000000 000e2c 000018 00   A  0   0  4
+  [83] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.34 REL             00000000 006028 000010 08     149  82  4
+  [84] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.35 PROGBITS        00000000 000e44 000018 00   A  0   0  4
+  [85] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.35 REL             00000000 006038 000010 08     149  84  4
+  [86] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.36 PROGBITS        00000000 000e5c 000010 00   A  0   0  4
+  [87] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.36 REL             00000000 006048 000008 08     149  86  4
+  [88] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.37 PROGBITS        00000000 000e6c 000010 00   A  0   0  4
+  [89] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.37 REL             00000000 006050 000008 08     149  88  4
+  [90] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.38 PROGBITS        00000000 000e7c 000018 00   A  0   0  4
+  [91] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.38 REL             00000000 006058 000010 08     149  90  4
+  [92] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.39 PROGBITS        00000000 000e94 000018 00   A  0   0  4
+  [93] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.39 REL             00000000 006068 000010 08     149  92  4
+  [94] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.40 PROGBITS        00000000 000eac 000010 00   A  0   0  4
+  [95] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.40 REL             00000000 006078 000008 08     149  94  4
+  [96] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.41 PROGBITS        00000000 000ebc 000010 00   A  0   0  4
+  [97] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.41 REL             00000000 006080 000008 08     149  96  4
+  [98] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.42 PROGBITS        00000000 000ecc 000018 00   A  0   0  4
+  [99] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.42 REL             00000000 006088 000010 08     149  98  4
+  [100] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.43 PROGBITS        00000000 000ee4 000018 00   A  0   0  4
+  [101] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.43 REL             00000000 006098 000010 08     149 100  4
+  [102] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.44 PROGBITS        00000000 000efc 000010 00   A  0   0  4
+  [103] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.44 REL             00000000 0060a8 000008 08     149 102  4
+  [104] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.45 PROGBITS        00000000 000f0c 000010 00   A  0   0  4
+  [105] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.45 REL             00000000 0060b0 000008 08     149 104  4
+  [106] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.46 PROGBITS        00000000 000f1c 000018 00   A  0   0  4
+  [107] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.46 REL             00000000 0060b8 000010 08     149 106  4
+  [108] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.47 PROGBITS        00000000 000f34 000018 00   A  0   0  4
+  [109] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.47 REL             00000000 0060c8 000010 08     149 108  4
+  [110] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.48 PROGBITS        00000000 000f4c 000010 00   A  0   0  4
+  [111] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.48 REL             00000000 0060d8 000008 08     149 110  4
+  [112] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.49 PROGBITS        00000000 000f5c 000010 00   A  0   0  4
+  [113] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.49 REL             00000000 0060e0 000008 08     149 112  4
+  [114] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.50 PROGBITS        00000000 000f6c 000010 00   A  0   0  4
+  [115] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.50 REL             00000000 0060e8 000008 08     149 114  4
+  [116] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.51 PROGBITS        00000000 000f7c 000010 00   A  0   0  4
+  [117] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.51 REL             00000000 0060f0 000008 08     149 116  4
+  [118] .bss._ZN3app12touch_sensor3buf17h3250d7e59de0f5beE NOBITS          00000000 000f8c 00003f 00  WA  0   0  1
+  [119] .bss._ZN3app12touch_sensor11TOUCH_EVENT17h60e9cad73e6ebeb5E NOBITS          00000000 000f8c 000010 00  WA  0   0  4
+  [120] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.52 PROGBITS        00000000 000f8c 000007 00   A  0   0  1
+  [121] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.53 PROGBITS        00000000 000f94 000018 00   A  0   0  4
+  [122] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.53 REL             00000000 0060f8 000010 08     149 121  4
+  [123] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.54 PROGBITS        00000000 000fac 000018 00   A  0   0  4
+  [124] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.54 REL             00000000 006108 000010 08     149 123  4
+  [125] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.56 PROGBITS        00000000 000fc4 000018 00   A  0   0  4
+  [126] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.56 REL             00000000 006118 000010 08     149 125  4
+  [127] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.57 PROGBITS        00000000 000fdc 000017 00   A  0   0  1
+  [128] .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.58 PROGBITS        00000000 000ff4 000018 00   A  0   0  4
+  [129] .rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.58 REL             00000000 006128 000010 08     149 128  4
+  [130] .bss._ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE NOBITS          00000000 00100c 000008 00  WA  0   0  4
+  [131] .bss._ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE NOBITS          00000000 00100c 000001 00  WA  0   0  1
+  [132] .debug_str        PROGBITS        00000000 00100c 000eb0 01  MS  0   0  1
+  [133] .debug_abbrev     PROGBITS        00000000 001ebc 000180 00      0   0  1
+  [134] .debug_info       PROGBITS        00000000 00203c 000e88 00      0   0  1
+  [135] .rel.debug_info   REL             00000000 006138 000b68 08     149 134  4
+  [136] .debug_ranges     PROGBITS        00000000 002ec4 0001b8 00      0   0  1
+  [137] .rel.debug_ranges REL             00000000 006ca0 000290 08     149 136  4
+  [138] .debug_macinfo    PROGBITS        00000000 00307c 000001 00      0   0  1
+  [139] .debug_pubnames   PROGBITS        00000000 00307d 000191 00      0   0  1
+  [140] .rel.debug_pubnames REL             00000000 006f30 000008 08     149 139  4
+  [141] .debug_pubtypes   PROGBITS        00000000 00320e 0007dd 00      0   0  1
+  [142] .rel.debug_pubtypes REL             00000000 006f38 000008 08     149 141  4
+  [143] .note.GNU-stack   PROGBITS        00000000 0039eb 000000 00      0   0  1
+  [144] .ARM.attributes   ARM_ATTRIBUTES  00000000 0039eb 00003a 00      0   0  1
+  [145] .debug_frame      PROGBITS        00000000 003a28 0000a8 00      0   0  4
+  [146] .rel.debug_frame  REL             00000000 006f40 000050 08     149 145  4
+  [147] .debug_line       PROGBITS        00000000 003ad0 000438 00      0   0  1
+  [148] .rel.debug_line   REL             00000000 006f90 000028 08     149 147  4
+  [149] .symtab           SYMTAB          00000000 003f08 001830 10      1 353  4
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
   L (link order), O (extra OS processing required), G (group), T (TLS),
@@ -10476,463 +10573,966 @@ There are no program headers in this file.
 
 There is no dynamic section in this file.
 
-Relocation section '.rel.text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E' at offset 0x3a90 contains 46 entries:
+Relocation section '.rel.text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E' at offset 0x5738 contains 46 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000004  0000e02f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.0
-00000008  0000e030 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.0
-0000000e  00010b0a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E
-00000016  0000ff0a R_ARM_THM_CALL         00000000   _ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E
-00000020  0001100a R_ARM_THM_CALL         00000000   _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE
-0000002a  00010f0a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE
-00000052  0001080a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE
-0000005c  00010e0a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E
-00000072  0001120a R_ARM_THM_CALL         00000000   _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
-0000007a  0001110a R_ARM_THM_CALL         00000000   _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E
-00000084  00010f0a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE
-000000aa  0001080a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE
-000000b4  00010e0a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E
-000000c2  0001120a R_ARM_THM_CALL         00000000   _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
-000000cc  0001120a R_ARM_THM_CALL         00000000   _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
-000000d2  0000e92f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor11TOUCH_EVENT17h60e9cad73e6ebeb5E
-000000d6  0000e930 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor11TOUCH_EVENT17h60e9cad73e6ebeb5E
-000000da  0000ea2f R_ARM_THM_MOVW_ABS_NC  00000001   _ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE
-000000de  0000ea30 R_ARM_THM_MOVT_ABS     00000001   _ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE
-000000e4  0000eb2f R_ARM_THM_MOVW_ABS_NC  00000001   _ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
-000000e8  0000eb30 R_ARM_THM_MOVT_ABS     00000001   _ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
-000000ee  0001050a R_ARM_THM_CALL         00000000   _ZN4core3ptr8null_mut17h58cf134f3f697ee2E
-00000104  0001140a R_ARM_THM_CALL         00000000   hal_gpio_irq_init
-00000110  0000e12f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.1
-00000114  0000e130 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.1
-0000013e  0000e62f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.7
-00000142  0000e630 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.7
-00000146  0000e72f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.8
-0000014a  0000e730 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.8
-00000152  0001040a R_ARM_THM_CALL         00000000   _ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE
-0000015a  0001130a R_ARM_THM_CALL         00000000   hal_gpio_irq_enable
-0000017a  0001012f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h9f5638675334182dE
-0000017e  00010130 R_ARM_THM_MOVT_ABS     00000000   _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h9f5638675334182dE
-00000182  0001020a R_ARM_THM_CALL         00000000   _ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E
-0000018e  0001012f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h9f5638675334182dE
-00000192  00010130 R_ARM_THM_MOVT_ABS     00000000   _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h9f5638675334182dE
-00000196  0001020a R_ARM_THM_CALL         00000000   _ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E
-000001a2  0001092f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN59_$LT$core..fmt..Arguments$u20$as$u20$core..fmt..Display$GT$3fmt17h3e269ca172b8335aE
-000001a6  00010930 R_ARM_THM_MOVT_ABS     00000000   _ZN59_$LT$core..fmt..Arguments$u20$as$u20$core..fmt..Display$GT$3fmt17h3e269ca172b8335aE
-000001aa  0001030a R_ARM_THM_CALL         00000000   _ZN4core3fmt10ArgumentV13new17h87b4fa2381289522E
-000001da  0000e52f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.5
-000001de  0000e530 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.5
-000001e8  0001040a R_ARM_THM_CALL         00000000   _ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE
-000001ee  0000e22f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.10
-000001f2  0000e230 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.10
-000001f8  0001070a R_ARM_THM_CALL         00000000   _ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E
+00000004  0001082f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.0
+00000008  00010830 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.0
+0000000e  0001740a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E
+00000016  0001610a R_ARM_THM_CALL         00000000   _ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E
+00000020  0001790a R_ARM_THM_CALL         00000000   _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE
+0000002a  0001780a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE
+00000052  0001700a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE
+0000005c  0001770a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E
+00000072  00017b0a R_ARM_THM_CALL         00000000   _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
+0000007a  00017a0a R_ARM_THM_CALL         00000000   _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E
+00000084  0001780a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE
+000000aa  0001700a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE
+000000b4  0001770a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E
+000000c2  00017b0a R_ARM_THM_CALL         00000000   _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
+000000cc  00017b0a R_ARM_THM_CALL         00000000   _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
+000000d2  00013e2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor11TOUCH_EVENT17h60e9cad73e6ebeb5E
+000000d6  00013e30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor11TOUCH_EVENT17h60e9cad73e6ebeb5E
+000000da  0001412f R_ARM_THM_MOVW_ABS_NC  00000001   _ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE
+000000de  00014130 R_ARM_THM_MOVT_ABS     00000001   _ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE
+000000e4  0001422f R_ARM_THM_MOVW_ABS_NC  00000001   _ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
+000000e8  00014230 R_ARM_THM_MOVT_ABS     00000001   _ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
+000000ee  0001670a R_ARM_THM_CALL         00000000   _ZN4core3ptr8null_mut17h58cf134f3f697ee2E
+00000104  00017f0a R_ARM_THM_CALL         00000000   hal_gpio_irq_init
+00000110  0001092f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.1
+00000114  00010930 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.1
+0000013e  00013a2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.7
+00000142  00013a30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.7
+00000146  00013b2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.8
+0000014a  00013b30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.8
+00000152  0001660a R_ARM_THM_CALL         00000000   _ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE
+0000015a  00017e0a R_ARM_THM_CALL         00000000   hal_gpio_irq_enable
+0000017a  0001632f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h9f5638675334182dE
+0000017e  00016330 R_ARM_THM_MOVT_ABS     00000000   _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h9f5638675334182dE
+00000182  0001640a R_ARM_THM_CALL         00000000   _ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E
+0000018e  0001632f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h9f5638675334182dE
+00000192  00016330 R_ARM_THM_MOVT_ABS     00000000   _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h9f5638675334182dE
+00000196  0001640a R_ARM_THM_CALL         00000000   _ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E
+000001a2  0001712f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN59_$LT$core..fmt..Arguments$u20$as$u20$core..fmt..Display$GT$3fmt17h3e269ca172b8335aE
+000001a6  00017130 R_ARM_THM_MOVT_ABS     00000000   _ZN59_$LT$core..fmt..Arguments$u20$as$u20$core..fmt..Display$GT$3fmt17h3e269ca172b8335aE
+000001aa  0001650a R_ARM_THM_CALL         00000000   _ZN4core3fmt10ArgumentV13new17h87b4fa2381289522E
+000001da  0001322f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.5
+000001de  00013230 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.5
+000001e8  0001660a R_ARM_THM_CALL         00000000   _ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE
+000001ee  00010a2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.10
+000001f2  00010a30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.10
+000001f8  00016f0a R_ARM_THM_CALL         00000000   _ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E
 
-Relocation section '.rel.ARM.exidx.text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E' at offset 0x3c00 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E' at offset 0x58a8 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  0000ee2a R_ARM_PREL31           00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000000  0001482a R_ARM_PREL31           00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
 
-Relocation section '.rel.text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE' at offset 0x3c08 contains 9 entries:
+Relocation section '.rel.text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE' at offset 0x58b0 contains 9 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-0000000a  0000e92f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor11TOUCH_EVENT17h60e9cad73e6ebeb5E
-0000000e  0000e930 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor11TOUCH_EVENT17h60e9cad73e6ebeb5E
-00000018  00010d0a R_ARM_THM_CALL         00000000   _ZN6mynewt6kernel2os15eventq_dflt_get17h1e9f1e095a2cf595E
-0000001e  0000e32f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.11
-00000022  0000e330 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.11
-0000002a  0001060a R_ARM_THM_CALL         00000000   _ZN4core6result19Result$LT$T$C$E$GT$6expect17h5ec42800e30ed4b0E
-00000034  0000e92f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor11TOUCH_EVENT17h60e9cad73e6ebeb5E
-00000038  0000e930 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor11TOUCH_EVENT17h60e9cad73e6ebeb5E
-0000003c  0001150a R_ARM_THM_CALL         00000000   os_eventq_put
+0000000a  00013e2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor11TOUCH_EVENT17h60e9cad73e6ebeb5E
+0000000e  00013e30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor11TOUCH_EVENT17h60e9cad73e6ebeb5E
+00000018  0001760a R_ARM_THM_CALL         00000000   _ZN6mynewt6kernel2os15eventq_dflt_get17h1e9f1e095a2cf595E
+0000001e  00010b2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.11
+00000022  00010b30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.11
+0000002a  00016b0a R_ARM_THM_CALL         00000000   _ZN4core6result19Result$LT$T$C$E$GT$6expect17h5ec42800e30ed4b0E
+00000034  00013e2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor11TOUCH_EVENT17h60e9cad73e6ebeb5E
+00000038  00013e30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor11TOUCH_EVENT17h60e9cad73e6ebeb5E
+0000003c  0001820a R_ARM_THM_CALL         00000000   os_eventq_put
 
-Relocation section '.rel.ARM.exidx.text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE' at offset 0x3c50 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE' at offset 0x58f8 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  0000ef2a R_ARM_PREL31           00000000   .text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
+00000000  0001492a R_ARM_PREL31           00000000   .text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
 
-Relocation section '.rel.text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE' at offset 0x3c58 contains 6 entries:
+Relocation section '.rel.text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE' at offset 0x5900 contains 19 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-0000000a  0001160a R_ARM_THM_CALL         00000000   os_time_get
-00000014  00010c0a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console8printhex17h73cec8f13f2f68e9E
-0000001a  0000e42f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.12
-0000001e  0000e430 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.12
-00000024  00010b0a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E
-0000002a  00010a0a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5flush17hdebac7a23ce4130cE
+00000008  00013d2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor10TOUCH_DATA17h0930039bb32940b8E
+0000000c  00013d30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor10TOUCH_DATA17h0930039bb32940b8E
+00000012  00013f0a R_ARM_THM_CALL         00000001   _ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+0000001a  00010c2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.12
+0000001e  00010c30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.12
+00000026  00016c0a R_ARM_THM_CALL         00000000   _ZN4core6result19Result$LT$T$C$E$GT$6expect17hb169fb8edd61be39E
+0000002e  00013d2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor10TOUCH_DATA17h0930039bb32940b8E
+00000032  00013d30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor10TOUCH_DATA17h0930039bb32940b8E
+00000038  0001750a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console8printint17hbd22b2ad2f6089beE
+0000003e  00010d2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.13
+00000042  00010d30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.13
+00000048  0001740a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E
+00000050  00013d2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor10TOUCH_DATA17h0930039bb32940b8E
+00000054  00013d30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor10TOUCH_DATA17h0930039bb32940b8E
+0000005a  0001750a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console8printint17hbd22b2ad2f6089beE
+00000060  00010e2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.14
+00000064  00010e30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.14
+0000006a  0001740a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E
+00000070  0001730a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5flush17hdebac7a23ce4130cE
 
-Relocation section '.rel.ARM.exidx.text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE' at offset 0x3c88 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE' at offset 0x5998 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  0000f02a R_ARM_PREL31           00000000   .text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE
+00000000  00014a2a R_ARM_PREL31           00000000   .text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE
 
-Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.5' at offset 0x3c90 contains 3 entries:
+Relocation section '.rel.text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E' at offset 0x59a0 contains 139 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  0000f102 R_ARM_ABS32            00000000   .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.2
-00000008  0000f202 R_ARM_ABS32            00000000   .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.3
-00000010  0000f302 R_ARM_ABS32            00000000   .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.4
+0000000e  0001432f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+00000012  00014330 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+00000020  0001400a R_ARM_THM_CALL         00000001   _ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE
+00000028  00010f2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.15
+0000002c  00010f30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.15
+00000034  00016c0a R_ARM_THM_CALL         00000000   _ZN4core6result19Result$LT$T$C$E$GT$6expect17hb169fb8edd61be39E
+00000044  00017c0a R_ARM_THM_CALL         00000000   __aeabi_memclr
+0000004e  00017d0a R_ARM_THM_CALL         00000000   __aeabi_memcpy
+0000005c  00017d0a R_ARM_THM_CALL         00000000   __aeabi_memcpy
+00000064  0001432f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+00000068  00014330 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+0000008a  0001720a R_ARM_THM_CALL         00000000   _ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h055bb9e1dcd02e3eE
+000000a0  0001680a R_ARM_THM_CALL         00000000   _ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17h958b1d5f87088d8dE
+00000106  0001432f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+0000010a  00014330 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+00000176  0001432f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+0000017a  00014330 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+000001b6  0001432f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+000001ba  00014330 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+00000220  0001432f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+00000224  00014330 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+00000260  0001432f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+00000264  00014330 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+000002d0  0001432f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+000002d4  00014330 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+00000326  0001432f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+0000032a  00014330 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+0000037c  0001432f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+00000380  00014330 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+000003d0  0001432f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+000003d4  00014330 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+00000474  0001102f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.16
+00000478  00011030 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.16
+0000047c  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+00000482  0001112f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.17
+00000486  00011130 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.17
+0000048a  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+00000490  0001122f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.18
+00000494  00011230 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.18
+0000049c  00016d0a R_ARM_THM_CALL         00000000   _ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E
+000004a2  0001132f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.19
+000004a6  00011330 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.19
+000004aa  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+000004b0  0001142f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.20
+000004b4  00011430 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.20
+000004b8  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+000004be  0001152f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.21
+000004c2  00011530 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.21
+000004c6  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+000004cc  0001162f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.22
+000004d0  00011630 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.22
+000004d8  00016d0a R_ARM_THM_CALL         00000000   _ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E
+000004de  0001172f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.23
+000004e2  00011730 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.23
+000004e6  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+000004ec  0001182f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.24
+000004f0  00011830 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.24
+000004f4  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+000004fa  0001192f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.25
+000004fe  00011930 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.25
+00000506  00016d0a R_ARM_THM_CALL         00000000   _ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E
+0000050c  00011a2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.26
+00000510  00011a30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.26
+00000518  00016d0a R_ARM_THM_CALL         00000000   _ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E
+0000051e  00011b2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.27
+00000522  00011b30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.27
+00000526  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+0000052c  00011c2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.28
+00000530  00011c30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.28
+00000534  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+0000053a  00011d2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.29
+0000053e  00011d30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.29
+00000546  00016d0a R_ARM_THM_CALL         00000000   _ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E
+0000054c  00011e2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.30
+00000550  00011e30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.30
+00000554  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+0000055a  00011f2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.31
+0000055e  00011f30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.31
+00000562  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+00000568  0001202f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.32
+0000056c  00012030 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.32
+00000574  00016d0a R_ARM_THM_CALL         00000000   _ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E
+0000057a  0001212f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.33
+0000057e  00012130 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.33
+00000586  00016d0a R_ARM_THM_CALL         00000000   _ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E
+0000058c  0001222f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.34
+00000590  00012230 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.34
+00000594  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+0000059a  0001232f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.35
+0000059e  00012330 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.35
+000005a2  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+000005a8  0001242f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.36
+000005ac  00012430 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.36
+000005b4  00016d0a R_ARM_THM_CALL         00000000   _ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E
+000005ba  0001252f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.37
+000005be  00012530 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.37
+000005c6  00016d0a R_ARM_THM_CALL         00000000   _ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E
+000005cc  0001262f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.38
+000005d0  00012630 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.38
+000005d4  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+000005da  0001272f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.39
+000005de  00012730 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.39
+000005e2  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+000005e8  0001282f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.40
+000005ec  00012830 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.40
+000005f4  00016d0a R_ARM_THM_CALL         00000000   _ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E
+000005fa  0001292f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.41
+000005fe  00012930 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.41
+00000606  00016d0a R_ARM_THM_CALL         00000000   _ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E
+0000060c  00012a2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.42
+00000610  00012a30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.42
+00000614  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+0000061a  00012b2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.43
+0000061e  00012b30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.43
+00000622  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+00000628  00012c2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.44
+0000062c  00012c30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.44
+00000634  00016d0a R_ARM_THM_CALL         00000000   _ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E
+0000063a  00012d2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.45
+0000063e  00012d30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.45
+00000646  00016d0a R_ARM_THM_CALL         00000000   _ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E
+0000064c  00012e2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.46
+00000650  00012e30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.46
+00000654  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+0000065a  00012f2f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.47
+0000065e  00012f30 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.47
+00000662  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+00000668  0001302f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.48
+0000066c  00013030 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.48
+00000674  00016d0a R_ARM_THM_CALL         00000000   _ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E
+0000067a  0001312f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.49
+0000067e  00013130 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.49
+00000686  00016d0a R_ARM_THM_CALL         00000000   _ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E
+0000068c  0001332f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.50
+00000690  00013330 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.50
+00000698  00016d0a R_ARM_THM_CALL         00000000   _ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E
+0000069e  0001342f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.51
+000006a2  00013430 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.51
+000006aa  00016d0a R_ARM_THM_CALL         00000000   _ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E
 
-Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.7' at offset 0x3ca8 contains 1 entry:
+Relocation section '.rel.ARM.exidx.text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E' at offset 0x5df8 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  0000f402 R_ARM_ABS32            00000000   .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.6
+00000000  00014b2a R_ARM_PREL31           00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
 
-Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.10' at offset 0x3cb0 contains 1 entry:
+Relocation section '.rel.text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE' at offset 0x5e00 contains 34 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  0000f502 R_ARM_ABS32            00000000   .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.9
+00000030  00016a0a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h70be3ebb33ef544dE
+00000044  0001352f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.53
+00000048  00013530 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.53
+0000004c  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+00000076  0001382f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.56
+0000007a  00013830 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.56
+0000007e  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+0000008c  00013c2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
+00000090  00013c30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
+0000009c  0001442f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
+000000a0  00014430 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
+000000a8  00016a0a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h70be3ebb33ef544dE
+000000b0  0001442f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
+000000b4  00014430 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
+000000bc  00013c2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
+000000c0  00013c30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
+000000c6  0001690a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$10as_mut_ptr17hca69c1fbf0f5619eE
+000000ce  0001442f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
+000000d2  00014430 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
+000000ee  0001810a R_ARM_THM_CALL         00000000   hal_i2c_master_write
+000000f8  00013c2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
+000000fc  00013c30 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
+00000108  0001442f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
+0000010c  00014430 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
+0000011c  0001690a R_ARM_THM_CALL         00000000   _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$10as_mut_ptr17hca69c1fbf0f5619eE
+00000124  0001442f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
+00000128  00014430 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
+0000013c  0001800a R_ARM_THM_CALL         00000000   hal_i2c_master_read
+00000154  0001392f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.58
+00000158  00013930 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.58
+0000015c  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+0000017c  0001362f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.54
+00000180  00013630 R_ARM_THM_MOVT_ABS     00000000   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.54
+00000184  00016e0a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
 
-Relocation section '.rel.debug_info' at offset 0x3cb8 contains 309 entries:
+Relocation section '.rel.ARM.exidx.text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE' at offset 0x5f10 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000006  0000fa02 R_ARM_ABS32            00000000   .debug_abbrev
-0000000c  00002502 R_ARM_ABS32            00000000   
-00000012  00002602 R_ARM_ABS32            00000041   
-00000016  0000fe02 R_ARM_ABS32            00000000   .debug_line
-0000001a  00002702 R_ARM_ABS32            00000055   
-00000022  0000fc02 R_ARM_ABS32            00000000   .debug_ranges
-00000027  00002802 R_ARM_ABS32            00000085   
-0000002c  00002902 R_ARM_ABS32            00000089   
-00000031  00002a02 R_ARM_ABS32            00000096   
-0000003d  0000f602 R_ARM_ABS32            00000000   .bss._ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
-00000041  00002d02 R_ARM_ABS32            000000b1   
-00000046  00002e02 R_ARM_ABS32            000000df   
-00000052  0000f702 R_ARM_ABS32            00000000   .bss._ZN3app12touch_sensor11TOUCH_EVENT17h60e9cad73e6ebeb5E
-00000056  00004802 R_ARM_ABS32            00000237   
-0000005b  00004902 R_ARM_ABS32            0000026e   
-00000068  0000f802 R_ARM_ABS32            00000000   .bss._ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
-0000006c  00005202 R_ARM_ABS32            000002b1   
-00000071  00005302 R_ARM_ABS32            000002e4   
-0000007e  0000f902 R_ARM_ABS32            00000000   .bss._ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
-00000082  00005402 R_ARM_ABS32            000002ef   
-00000087  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000091  00007402 R_ARM_ABS32            00000437   
-00000095  00007502 R_ARM_ABS32            00000475   
-000000a0  0000fc02 R_ARM_ABS32            00000000   .debug_ranges
-000000a8  00007d02 R_ARM_ABS32            00000565   
-000000b3  0000fc02 R_ARM_ABS32            00000000   .debug_ranges
-000000bc  00008102 R_ARM_ABS32            00000585   
-000000c7  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-000000d4  00008302 R_ARM_ABS32            00000597   
-000000e0  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-000000ed  00008302 R_ARM_ABS32            00000597   
-000000f9  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000106  00008402 R_ARM_ABS32            0000059b   
-00000111  0000fc02 R_ARM_ABS32            00000000   .debug_ranges
-0000011a  00008502 R_ARM_ABS32            0000059e   
-00000129  00008702 R_ARM_ABS32            000005ac   
-00000134  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000141  00008802 R_ARM_ABS32            000005b6   
-00000150  00008a02 R_ARM_ABS32            000005c1   
-0000015f  00008b02 R_ARM_ABS32            000005c6   
-00000170  0000ef02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
-0000017a  00007902 R_ARM_ABS32            000004b5   
-0000017e  00007a02 R_ARM_ABS32            000004f8   
-00000188  0000c902 R_ARM_ABS32            000008f4   
-00000193  0000ef02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
-0000019f  0000ca02 R_ARM_ABS32            000008f8   
-000001ac  0000f002 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE
-000001b6  00007b02 R_ARM_ABS32            00000510   
-000001ba  00007c02 R_ARM_ABS32            00000550   
-000001c4  00002402 R_ARM_ABS32            00000cc9   
-000001d1  00007e02 R_ARM_ABS32            0000056b   
-000001d6  00008002 R_ARM_ABS32            0000057a   
-000001dd  00007f02 R_ARM_ABS32            00000576   
-000001e9  00008202 R_ARM_ABS32            0000058b   
-000001ff  00002b02 R_ARM_ABS32            0000009a   
-00000206  00002c02 R_ARM_ABS32            0000009d   
-0000020d  00002f02 R_ARM_ABS32            000000eb   
-00000212  00003002 R_ARM_ABS32            000000f2   
-00000217  00003102 R_ARM_ABS32            000000f9   
-0000021c  00004702 R_ARM_ABS32            0000022e   
-00000223  00003202 R_ARM_ABS32            000000fc   
-0000022e  00003302 R_ARM_ABS32            00000106   
-00000239  00003e02 R_ARM_ABS32            000001c6   
-00000244  00004402 R_ARM_ABS32            00000205   
-00000250  00004602 R_ARM_ABS32            00000217   
-00000257  00004502 R_ARM_ABS32            0000020d   
-00000263  00002202 R_ARM_ABS32            00000c9c   
-0000026a  0000cb02 R_ARM_ABS32            000008fe   
-00000275  00001c02 R_ARM_ABS32            00000c36   
-00000280  00001d02 R_ARM_ABS32            00000c3f   
-0000028c  00001a02 R_ARM_ABS32            00000c0d   
-00000293  0000cc02 R_ARM_ABS32            00000908   
-0000029e  0000ce02 R_ARM_ABS32            0000091c   
-000002a9  0000cf02 R_ARM_ABS32            00000927   
-000002b4  0000d002 R_ARM_ABS32            00000933   
-000002bf  0000d102 R_ARM_ABS32            0000093c   
-000002ca  0000d202 R_ARM_ABS32            00000943   
-000002d5  0000d302 R_ARM_ABS32            0000094b   
-000002e0  0000d402 R_ARM_ABS32            00000953   
-000002eb  0000d502 R_ARM_ABS32            0000095d   
-000002f6  0000d602 R_ARM_ABS32            00000963   
-00000301  0000d702 R_ARM_ABS32            0000096a   
-0000030c  0000da02 R_ARM_ABS32            000009d3   
-00000317  0000db02 R_ARM_ABS32            000009d9   
-00000322  0000dc02 R_ARM_ABS32            000009df   
-0000032d  00000e02 R_ARM_ABS32            00000b49   
-00000338  00000f02 R_ARM_ABS32            00000b57   
-00000343  00001002 R_ARM_ABS32            00000b62   
-0000034e  00001102 R_ARM_ABS32            00000b6f   
-00000359  00001302 R_ARM_ABS32            00000b94   
-00000364  00001802 R_ARM_ABS32            00000bec   
-00000370  00000d02 R_ARM_ABS32            00000b39   
-00000377  00000302 R_ARM_ABS32            000009ee   
-00000382  00000402 R_ARM_ABS32            000009fe   
-0000038d  00000502 R_ARM_ABS32            00000a0e   
-00000398  00000902 R_ARM_ABS32            00000b03   
-000003a3  00000a02 R_ARM_ABS32            00000b0a   
-000003af  00000c02 R_ARM_ABS32            00000b1b   
-000003b6  00000b02 R_ARM_ABS32            00000b12   
-000003c2  00001202 R_ARM_ABS32            00000b7e   
-000003c9  00004502 R_ARM_ABS32            0000020d   
-000003d5  00001702 R_ARM_ABS32            00000bd6   
-000003dc  00001402 R_ARM_ABS32            00000b9e   
-000003e7  00001502 R_ARM_ABS32            00000ba7   
-000003f3  00001902 R_ARM_ABS32            00000bf7   
-000003fa  00000b02 R_ARM_ABS32            00000b12   
-00000406  00002102 R_ARM_ABS32            00000c84   
-0000040d  00001e02 R_ARM_ABS32            00000c48   
-00000418  00001f02 R_ARM_ABS32            00000c53   
-00000426  00004a02 R_ARM_ABS32            00000277   
-0000042b  00004b02 R_ARM_ABS32            0000027a   
-00000430  00005102 R_ARM_ABS32            0000029d   
-00000437  00004c02 R_ARM_ABS32            0000027e   
-00000442  00004d02 R_ARM_ABS32            00000286   
-0000044d  00004f02 R_ARM_ABS32            0000028e   
-0000045b  00005502 R_ARM_ABS32            00000325   
-00000464  00006802 R_ARM_ABS32            000003ef   
-0000046b  00005702 R_ARM_ABS32            00000330   
-00000471  00005802 R_ARM_ABS32            00000338   
-0000047b  00005902 R_ARM_ABS32            00000343   
-00000485  00005a02 R_ARM_ABS32            0000034e   
-0000048f  00005b02 R_ARM_ABS32            0000035b   
-00000499  00005c02 R_ARM_ABS32            00000366   
-000004a3  00005d02 R_ARM_ABS32            0000036e   
-000004ad  00005e02 R_ARM_ABS32            00000379   
-000004b7  00005f02 R_ARM_ABS32            00000384   
-000004c1  00006002 R_ARM_ABS32            0000038e   
-000004cb  00006102 R_ARM_ABS32            00000399   
-000004d5  00006202 R_ARM_ABS32            000003a4   
-000004df  00006302 R_ARM_ABS32            000003b1   
-000004e9  00006402 R_ARM_ABS32            000003bd   
-000004f3  00006502 R_ARM_ABS32            000003ca   
-000004fd  00006602 R_ARM_ABS32            000003d8   
-00000507  00006702 R_ARM_ABS32            000003e2   
-00000514  00003402 R_ARM_ABS32            0000010c   
-00000519  00003502 R_ARM_ABS32            00000111   
-0000051e  00003d02 R_ARM_ABS32            00000186   
-00000533  00003702 R_ARM_ABS32            0000011c   
-00000540  00003b02 R_ARM_ABS32            0000017d   
-0000054d  00003702 R_ARM_ABS32            0000011c   
-00000558  00003a02 R_ARM_ABS32            0000017b   
-0000055e  00003b02 R_ARM_ABS32            0000017d   
-00000565  00003c02 R_ARM_ABS32            00000182   
-00000574  00003a02 R_ARM_ABS32            0000017b   
-0000057b  0000a802 R_ARM_ABS32            000006c9   
-00000590  00003702 R_ARM_ABS32            0000011c   
-0000059d  00003b02 R_ARM_ABS32            0000017d   
-000005aa  00003702 R_ARM_ABS32            0000011c   
-000005b5  00003a02 R_ARM_ABS32            0000017b   
-000005bb  00003b02 R_ARM_ABS32            0000017d   
-000005c2  00003c02 R_ARM_ABS32            00000182   
-000005d1  00003a02 R_ARM_ABS32            0000017b   
-000005d8  0000b802 R_ARM_ABS32            00000784   
-000005ed  00003702 R_ARM_ABS32            0000011c   
-000005fb  00003b02 R_ARM_ABS32            0000017d   
-00000608  00003702 R_ARM_ABS32            0000011c   
-00000613  00003a02 R_ARM_ABS32            0000017b   
-00000619  00003b02 R_ARM_ABS32            0000017d   
-00000620  00003c02 R_ARM_ABS32            00000182   
-0000062f  00003a02 R_ARM_ABS32            0000017b   
-00000636  0000d902 R_ARM_ABS32            0000099e   
-0000064b  00003702 R_ARM_ABS32            0000011c   
-00000658  00003b02 R_ARM_ABS32            0000017d   
-00000665  00003702 R_ARM_ABS32            0000011c   
-00000670  00003a02 R_ARM_ABS32            0000017b   
-00000676  00003b02 R_ARM_ABS32            0000017d   
-0000067d  00003c02 R_ARM_ABS32            00000182   
-0000068c  00003a02 R_ARM_ABS32            0000017b   
-00000693  00000802 R_ARM_ABS32            00000a9d   
-000006a8  00003702 R_ARM_ABS32            0000011c   
-000006b5  00003b02 R_ARM_ABS32            0000017d   
-000006c2  00003702 R_ARM_ABS32            0000011c   
-000006cd  00003a02 R_ARM_ABS32            0000017b   
-000006d3  00003b02 R_ARM_ABS32            0000017d   
-000006da  00003c02 R_ARM_ABS32            00000182   
-000006e9  00003a02 R_ARM_ABS32            0000017b   
-000006f1  00003f02 R_ARM_ABS32            000001cd   
-000006fa  00004202 R_ARM_ABS32            000001e7   
-00000701  00004002 R_ARM_ABS32            000001d1   
-00000707  00004102 R_ARM_ABS32            000001dc   
-0000070f  00006902 R_ARM_ABS32            000003fb   
-00000714  00006a02 R_ARM_ABS32            000003ff   
-00000719  00006b02 R_ARM_ABS32            00000402   
-00000722  00007002 R_ARM_ABS32            0000041f   
-00000729  00006c02 R_ARM_ABS32            00000405   
-0000072f  00006d02 R_ARM_ABS32            0000040a   
-00000735  00006e02 R_ARM_ABS32            00000410   
-0000073b  00006f02 R_ARM_ABS32            00000417   
-00000742  0000a502 R_ARM_ABS32            0000067e   
-00000749  00009402 R_ARM_ABS32            0000060b   
-00000754  00009802 R_ARM_ABS32            00000625   
-00000760  00009702 R_ARM_ABS32            0000061c   
-00000775  00009502 R_ARM_ABS32            00000614   
-00000783  00009602 R_ARM_ABS32            00000619   
-00000790  00009502 R_ARM_ABS32            00000614   
-00000797  00009602 R_ARM_ABS32            00000619   
-0000079e  00003c02 R_ARM_ABS32            00000182   
-000007ab  0000a402 R_ARM_ABS32            00000673   
-000007b2  00009902 R_ARM_ABS32            0000062c   
-000007bd  00009b02 R_ARM_ABS32            00000636   
-000007c8  00009c02 R_ARM_ABS32            0000063c   
-000007d3  00009d02 R_ARM_ABS32            00000642   
-000007de  0000a302 R_ARM_ABS32            0000066d   
-000007ea  0000a202 R_ARM_ABS32            00000667   
-000007ff  00009e02 R_ARM_ABS32            0000064c   
-0000080d  00009f02 R_ARM_ABS32            0000064f   
-0000081b  0000a002 R_ARM_ABS32            00000655   
-00000829  0000a102 R_ARM_ABS32            0000065f   
-00000836  00009e02 R_ARM_ABS32            0000064c   
-0000083d  00003c02 R_ARM_ABS32            00000182   
-00000849  00009f02 R_ARM_ABS32            0000064f   
-00000850  00003c02 R_ARM_ABS32            00000182   
-0000085c  0000a002 R_ARM_ABS32            00000655   
-00000863  0000a102 R_ARM_ABS32            0000065f   
-0000086d  0000c702 R_ARM_ABS32            000008d4   
-00000874  00008c02 R_ARM_ABS32            000005cb   
-0000087f  00006902 R_ARM_ABS32            000003fb   
-0000088a  0000a902 R_ARM_ABS32            000006f0   
-00000896  0000c502 R_ARM_ABS32            00000893   
-0000089d  0000aa02 R_ARM_ABS32            000006f5   
-000008a8  0000b702 R_ARM_ABS32            0000077a   
-000008b4  0000b502 R_ARM_ABS32            00000764   
-000008bb  0000ab02 R_ARM_ABS32            000006fb   
-000008c6  0000ac02 R_ARM_ABS32            00000701   
-000008d2  0000c202 R_ARM_ABS32            00000811   
-000008d9  00009c02 R_ARM_ABS32            0000063c   
-000008e4  00009902 R_ARM_ABS32            0000062c   
-000008ef  00009b02 R_ARM_ABS32            00000636   
-000008fa  0000a302 R_ARM_ABS32            0000066d   
-00000905  00009d02 R_ARM_ABS32            00000642   
-00000910  00002a02 R_ARM_ABS32            00000096   
-0000091b  0000ba02 R_ARM_ABS32            0000079d   
-00000926  0000a902 R_ARM_ABS32            000006f0   
-00000932  0000b902 R_ARM_ABS32            00000792   
-00000939  0000b002 R_ARM_ABS32            00000724   
-00000944  0000b102 R_ARM_ABS32            0000072c   
-00000951  00005502 R_ARM_ABS32            00000325   
-0000095a  00007302 R_ARM_ABS32            00000430   
-00000961  00007102 R_ARM_ABS32            00000429   
-00000967  00007202 R_ARM_ABS32            0000042c   
-0000096e  00007802 R_ARM_ABS32            0000048d   
-00000983  00007102 R_ARM_ABS32            00000429   
-00000990  00007202 R_ARM_ABS32            0000042c   
-0000099d  00007102 R_ARM_ABS32            00000429   
-000009a4  00003c02 R_ARM_ABS32            00000182   
-000009b3  00003a02 R_ARM_ABS32            0000017b   
-000009bc  00007702 R_ARM_ABS32            0000048b   
-000009c2  00007202 R_ARM_ABS32            0000042c   
-000009c9  00003c02 R_ARM_ABS32            00000182   
-000009d8  00003a02 R_ARM_ABS32            0000017b   
-000009e1  00007702 R_ARM_ABS32            0000048b   
-000009e9  0000ad02 R_ARM_ABS32            00000710   
-000009ee  0000b402 R_ARM_ABS32            0000074b   
-000009f9  00003a02 R_ARM_ABS32            0000017b   
-000009ff  0000c002 R_ARM_ABS32            000007d1   
-00000a0a  00003a02 R_ARM_ABS32            0000017b   
-00000a11  0000ae02 R_ARM_ABS32            00000717   
-00000a16  0000af02 R_ARM_ABS32            0000071b   
-00000a1b  0000b302 R_ARM_ABS32            0000073f   
-00000a22  0000b002 R_ARM_ABS32            00000724   
-00000a2d  0000b102 R_ARM_ABS32            0000072c   
-00000a3b  0000bb02 R_ARM_ABS32            000007a4   
-00000a40  0000c102 R_ARM_ABS32            000007f5   
-00000a47  0000bc02 R_ARM_ABS32            000007aa   
-00000a52  0000bd02 R_ARM_ABS32            000007ae   
-00000a5d  0000be02 R_ARM_ABS32            000007b2   
-00000a6c  00003a02 R_ARM_ABS32            0000017b   
-00000a74  00003602 R_ARM_ABS32            00000118   
-00000a7f  00003902 R_ARM_ABS32            00000143   
-00000a8f  00003802 R_ARM_ABS32            00000121   
-00000a98  00004302 R_ARM_ABS32            000001ee   
-00000a9d  00004e02 R_ARM_ABS32            0000028a   
-00000aa8  00005002 R_ARM_ABS32            00000295   
-00000aba  00005602 R_ARM_ABS32            0000032c   
-00000ac1  00007602 R_ARM_ABS32            00000488   
-00000acc  00008602 R_ARM_ABS32            000005a7   
-00000ad5  00008902 R_ARM_ABS32            000005bb   
-00000ade  0000c802 R_ARM_ABS32            000008de   
-00000ae3  00009302 R_ARM_ABS32            00000603   
-00000aea  00008d02 R_ARM_ABS32            000005d2   
-00000af5  00008f02 R_ARM_ABS32            000005e5   
-00000b05  00009202 R_ARM_ABS32            000005f7   
-00000b0a  00009102 R_ARM_ABS32            000005f2   
-00000b11  00008d02 R_ARM_ABS32            000005d2   
-00000b1c  00008f02 R_ARM_ABS32            000005e5   
-00000b2c  00008e02 R_ARM_ABS32            000005db   
-00000b31  00009002 R_ARM_ABS32            000005ec   
-00000b38  0000a702 R_ARM_ABS32            000006aa   
-00000b3f  00008d02 R_ARM_ABS32            000005d2   
-00000b4a  00008f02 R_ARM_ABS32            000005e5   
-00000b5a  0000a602 R_ARM_ABS32            00000687   
-00000b5f  00009a02 R_ARM_ABS32            00000631   
-00000b66  0000c602 R_ARM_ABS32            000008bb   
-00000b6d  00008d02 R_ARM_ABS32            000005d2   
-00000b78  00008f02 R_ARM_ABS32            000005e5   
-00000b88  00000202 R_ARM_ABS32            0000089e   
-00000b91  0000b602 R_ARM_ABS32            00000769   
-00000b9a  0000b202 R_ARM_ABS32            00000733   
-00000bb0  0000c402 R_ARM_ABS32            00000835   
-00000bc9  0000c302 R_ARM_ABS32            0000081b   
-00000bd2  0000bf02 R_ARM_ABS32            000007ba   
-00000bdb  00002302 R_ARM_ABS32            00000ca6   
-00000be4  00001b02 R_ARM_ABS32            00000c15   
-00000bed  0000cd02 R_ARM_ABS32            00000913   
-00000bf6  0000d802 R_ARM_ABS32            00000971   
-00000c06  00000702 R_ARM_ABS32            00000a3f   
-00000c1f  00000602 R_ARM_ABS32            00000a16   
-00000c28  00001602 R_ARM_ABS32            00000bb0   
-00000c31  00002002 R_ARM_ABS32            00000c5d   
+00000000  00014c2a R_ARM_PREL31           00000000   .text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE
 
-Relocation section '.rel.debug_ranges' at offset 0x4660 contains 24 entries:
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.5' at offset 0x5f18 contains 3 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000000  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000004  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000008  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-0000000c  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000018  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-0000001c  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000020  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000024  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000028  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-0000002c  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000030  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000034  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000040  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000044  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000048  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-0000004c  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000050  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000054  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000060  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000064  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000068  0000ef02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
-0000006c  0000ef02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
-00000070  0000f002 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE
-00000074  0000f002 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE
+00000000  00014d02 R_ARM_ABS32            00000000   .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.2
+00000008  00014e02 R_ARM_ABS32            00000000   .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.3
+00000010  00014f02 R_ARM_ABS32            00000000   .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.4
 
-Relocation section '.rel.debug_pubnames' at offset 0x4720 contains 1 entry:
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.7' at offset 0x5f30 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000006  0000fb02 R_ARM_ABS32            00000000   .debug_info
+00000000  00015002 R_ARM_ABS32            00000000   .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.6
 
-Relocation section '.rel.debug_pubtypes' at offset 0x4728 contains 1 entry:
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.10' at offset 0x5f38 contains 1 entry:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000006  0000fb02 R_ARM_ABS32            00000000   .debug_info
+00000000  00015102 R_ARM_ABS32            00000000   .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.9
 
-Relocation section '.rel.debug_frame' at offset 0x4730 contains 6 entries:
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.16' at offset 0x5f40 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-00000018  0000fd02 R_ARM_ABS32            00000000   .debug_frame
-0000001c  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000038  0000fd02 R_ARM_ABS32            00000000   .debug_frame
-0000003c  0000ef02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
-00000054  0000fd02 R_ARM_ABS32            00000000   .debug_frame
-00000058  0000f002 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE
+00000000  00015402 R_ARM_ABS32            00000000   .rodata.str.1
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
 
-Relocation section '.rel.debug_line' at offset 0x4760 contains 3 entries:
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.17' at offset 0x5f50 contains 2 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
-0000004b  0000ee02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-00000100  0000ef02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
-00000128  0000f002 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE
+00000000  00015502 R_ARM_ABS32            00000000   .rodata.str.2
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.18' at offset 0x5f60 contains 1 entry:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.19' at offset 0x5f68 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015502 R_ARM_ABS32            00000000   .rodata.str.2
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.20' at offset 0x5f78 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015402 R_ARM_ABS32            00000000   .rodata.str.1
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.21' at offset 0x5f88 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015502 R_ARM_ABS32            00000000   .rodata.str.2
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.22' at offset 0x5f98 contains 1 entry:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.23' at offset 0x5fa0 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015402 R_ARM_ABS32            00000000   .rodata.str.1
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.24' at offset 0x5fb0 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015502 R_ARM_ABS32            00000000   .rodata.str.2
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.25' at offset 0x5fc0 contains 1 entry:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.26' at offset 0x5fc8 contains 1 entry:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.27' at offset 0x5fd0 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015402 R_ARM_ABS32            00000000   .rodata.str.1
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.28' at offset 0x5fe0 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015502 R_ARM_ABS32            00000000   .rodata.str.2
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.29' at offset 0x5ff0 contains 1 entry:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.30' at offset 0x5ff8 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015402 R_ARM_ABS32            00000000   .rodata.str.1
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.31' at offset 0x6008 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015502 R_ARM_ABS32            00000000   .rodata.str.2
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.32' at offset 0x6018 contains 1 entry:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.33' at offset 0x6020 contains 1 entry:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.34' at offset 0x6028 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015402 R_ARM_ABS32            00000000   .rodata.str.1
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.35' at offset 0x6038 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015502 R_ARM_ABS32            00000000   .rodata.str.2
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.36' at offset 0x6048 contains 1 entry:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.37' at offset 0x6050 contains 1 entry:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.38' at offset 0x6058 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015402 R_ARM_ABS32            00000000   .rodata.str.1
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.39' at offset 0x6068 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015502 R_ARM_ABS32            00000000   .rodata.str.2
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.40' at offset 0x6078 contains 1 entry:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.41' at offset 0x6080 contains 1 entry:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.42' at offset 0x6088 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015402 R_ARM_ABS32            00000000   .rodata.str.1
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.43' at offset 0x6098 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015502 R_ARM_ABS32            00000000   .rodata.str.2
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.44' at offset 0x60a8 contains 1 entry:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.45' at offset 0x60b0 contains 1 entry:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.46' at offset 0x60b8 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015402 R_ARM_ABS32            00000000   .rodata.str.1
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.47' at offset 0x60c8 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015502 R_ARM_ABS32            00000000   .rodata.str.2
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.48' at offset 0x60d8 contains 1 entry:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.49' at offset 0x60e0 contains 1 entry:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.50' at offset 0x60e8 contains 1 entry:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.51' at offset 0x60f0 contains 1 entry:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.53' at offset 0x60f8 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015802 R_ARM_ABS32            00000000   .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.52
+00000008  00015102 R_ARM_ABS32            00000000   .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.9
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.54' at offset 0x6108 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015502 R_ARM_ABS32            00000000   .rodata.str.2
+00000008  00015302 R_ARM_ABS32            00000000   .rodata.str.0
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.56' at offset 0x6118 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00013702 R_ARM_ABS32            00000008   .Lanon.2f40d91cf76d3e43add664e1b0b07c66.55
+00000008  00015102 R_ARM_ABS32            00000000   .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.9
+
+Relocation section '.rel.rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.58' at offset 0x6128 contains 2 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00015902 R_ARM_ABS32            00000000   .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.57
+00000008  00015102 R_ARM_ABS32            00000000   .rodata..Lanon.2f40d91cf76d3e43add664e1b0b07c66.9
+
+Relocation section '.rel.debug_info' at offset 0x6138 contains 365 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000006  00015c02 R_ARM_ABS32            00000000   .debug_abbrev
+0000000c  00006102 R_ARM_ABS32            00000000   
+00000012  00006202 R_ARM_ABS32            00000041   
+00000016  00016002 R_ARM_ABS32            00000000   .debug_line
+0000001a  00006302 R_ARM_ABS32            00000055   
+00000022  00015e02 R_ARM_ABS32            00000000   .debug_ranges
+00000027  00006402 R_ARM_ABS32            00000085   
+0000002c  00006502 R_ARM_ABS32            00000089   
+00000031  00006602 R_ARM_ABS32            00000096   
+0000003d  00015202 R_ARM_ABS32            00000000   .bss._ZN3app12touch_sensor10TOUCH_DATA17h0930039bb32940b8E
+00000041  00007502 R_ARM_ABS32            0000010d   
+00000046  00007402 R_ARM_ABS32            000000fe   
+0000004d  00006702 R_ARM_ABS32            000000a1   
+00000058  00007202 R_ARM_ABS32            000000ee   
+00000063  00007302 R_ARM_ABS32            000000f4   
+0000006f  00007002 R_ARM_ABS32            000000d0   
+00000076  00006802 R_ARM_ABS32            000000a9   
+00000081  00006a02 R_ARM_ABS32            000000af   
+0000008c  00006b02 R_ARM_ABS32            000000b1   
+00000097  00006d02 R_ARM_ABS32            000000bb   
+000000a2  00006e02 R_ARM_ABS32            000000c2   
+000000ad  00006f02 R_ARM_ABS32            000000cb   
+000000b9  00007602 R_ARM_ABS32            00000143   
+000000c5  00015602 R_ARM_ABS32            00000000   .bss._ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+000000c9  00007702 R_ARM_ABS32            00000147   
+000000ce  00007802 R_ARM_ABS32            00000175   
+000000da  00015702 R_ARM_ABS32            00000000   .bss._ZN3app12touch_sensor11TOUCH_EVENT17h60e9cad73e6ebeb5E
+000000de  00009202 R_ARM_ABS32            000002cd   
+000000e3  00009302 R_ARM_ABS32            00000304   
+000000f0  00015a02 R_ARM_ABS32            00000000   .bss._ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
+000000f4  00009b02 R_ARM_ABS32            00000343   
+000000f9  00009c02 R_ARM_ABS32            00000376   
+00000106  00015b02 R_ARM_ABS32            00000000   .bss._ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
+0000010a  00009d02 R_ARM_ABS32            00000381   
+0000010f  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000119  0000bd02 R_ARM_ABS32            000004c9   
+0000011d  0000be02 R_ARM_ABS32            00000507   
+00000128  00015e02 R_ARM_ABS32            00000000   .debug_ranges
+00000130  0000ca02 R_ARM_ABS32            00000693   
+0000013b  00015e02 R_ARM_ABS32            00000000   .debug_ranges
+00000144  0000ce02 R_ARM_ABS32            000006b3   
+0000014f  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+0000015c  0000d002 R_ARM_ABS32            000006c5   
+00000168  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000175  0000d002 R_ARM_ABS32            000006c5   
+00000181  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+0000018e  0000d102 R_ARM_ABS32            000006c9   
+00000199  00015e02 R_ARM_ABS32            00000000   .debug_ranges
+000001a2  0000d202 R_ARM_ABS32            000006cc   
+000001b1  0000d402 R_ARM_ABS32            000006da   
+000001bc  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+000001c9  0000d502 R_ARM_ABS32            000006e4   
+000001d8  0000d702 R_ARM_ABS32            000006ef   
+000001e7  0000d802 R_ARM_ABS32            000006f4   
+000001f8  00014902 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
+00000202  0000c202 R_ARM_ABS32            00000547   
+00000206  0000c302 R_ARM_ABS32            0000058a   
+00000210  00001602 R_ARM_ABS32            00000a22   
+0000021b  00014902 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
+00000227  00001702 R_ARM_ABS32            00000a26   
+00000234  00014a02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE
+0000023e  0000c402 R_ARM_ABS32            000005a2   
+00000242  0000c502 R_ARM_ABS32            000005e2   
+0000024c  00004b02 R_ARM_ABS32            00000df7   
+00000258  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000262  0000c602 R_ARM_ABS32            000005f7   
+00000266  0000c702 R_ARM_ABS32            00000631   
+00000275  00004c02 R_ARM_ABS32            00000dfe   
+00000280  00015e02 R_ARM_ABS32            00000000   .debug_ranges
+00000289  00004e02 R_ARM_ABS32            00000e2a   
+00000294  00015e02 R_ARM_ABS32            00000000   .debug_ranges
+0000029d  00005302 R_ARM_ABS32            00000e4c   
+000002a8  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000002b5  00005402 R_ARM_ABS32            00000e53   
+000002c1  00015e02 R_ARM_ABS32            00000000   .debug_ranges
+000002ca  00005502 R_ARM_ABS32            00000e57   
+000002d5  00015e02 R_ARM_ABS32            00000000   .debug_ranges
+000002de  00005602 R_ARM_ABS32            00000e59   
+000002e9  00015e02 R_ARM_ABS32            00000000   .debug_ranges
+000002f2  00005702 R_ARM_ABS32            00000e61   
+000002fd  00015e02 R_ARM_ABS32            00000000   .debug_ranges
+00000306  00005802 R_ARM_ABS32            00000e68   
+00000311  00015e02 R_ARM_ABS32            00000000   .debug_ranges
+0000031a  00005902 R_ARM_ABS32            00000e6e   
+00000325  00015e02 R_ARM_ABS32            00000000   .debug_ranges
+0000032e  00005a02 R_ARM_ABS32            00000e75   
+00000342  00014c02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE
+0000034c  0000c802 R_ARM_ABS32            00000640   
+00000350  0000c902 R_ARM_ABS32            0000067f   
+0000035f  00005b02 R_ARM_ABS32            00000e7b   
+0000036d  00005c02 R_ARM_ABS32            00000e80   
+0000037b  00005d02 R_ARM_ABS32            00000e8f   
+00000389  00009802 R_ARM_ABS32            00000320   
+00000394  00015e02 R_ARM_ABS32            00000000   .debug_ranges
+0000039d  00005f02 R_ARM_ABS32            00000ea7   
+000003a9  00015e02 R_ARM_ABS32            00000000   .debug_ranges
+000003b2  00006002 R_ARM_ABS32            00000eac   
+000003c2  0000cb02 R_ARM_ABS32            00000699   
+000003c7  0000cd02 R_ARM_ABS32            000006a8   
+000003ce  0000cc02 R_ARM_ABS32            000006a4   
+000003da  0000cf02 R_ARM_ABS32            000006b9   
+000003f0  00006902 R_ARM_ABS32            000000ab   
+000003f7  00006c02 R_ARM_ABS32            000000b8   
+000003fe  00007102 R_ARM_ABS32            000000da   
+00000412  00007902 R_ARM_ABS32            00000181   
+00000417  00007a02 R_ARM_ABS32            00000188   
+0000041c  00007b02 R_ARM_ABS32            0000018f   
+00000421  00009102 R_ARM_ABS32            000002c4   
+00000428  00007c02 R_ARM_ABS32            00000192   
+00000433  00007d02 R_ARM_ABS32            0000019c   
+0000043e  00008802 R_ARM_ABS32            0000025c   
+00000449  00008e02 R_ARM_ABS32            0000029b   
+00000455  00009002 R_ARM_ABS32            000002ad   
+0000045c  00008f02 R_ARM_ABS32            000002a3   
+00000468  00004902 R_ARM_ABS32            00000dca   
+0000046f  00001802 R_ARM_ABS32            00000a2c   
+0000047a  00004302 R_ARM_ABS32            00000d64   
+00000485  00004402 R_ARM_ABS32            00000d6d   
+00000491  00004102 R_ARM_ABS32            00000d3b   
+00000498  00001902 R_ARM_ABS32            00000a36   
+000004a3  00001b02 R_ARM_ABS32            00000a4a   
+000004ae  00001c02 R_ARM_ABS32            00000a55   
+000004b9  00001d02 R_ARM_ABS32            00000a61   
+000004c4  00001e02 R_ARM_ABS32            00000a6a   
+000004cf  00001f02 R_ARM_ABS32            00000a71   
+000004da  00002002 R_ARM_ABS32            00000a79   
+000004e5  00002102 R_ARM_ABS32            00000a81   
+000004f0  00002202 R_ARM_ABS32            00000a8b   
+000004fb  00002302 R_ARM_ABS32            00000a91   
+00000506  00002402 R_ARM_ABS32            00000a98   
+00000511  00002702 R_ARM_ABS32            00000b01   
+0000051c  00002802 R_ARM_ABS32            00000b07   
+00000527  00002902 R_ARM_ABS32            00000b0d   
+00000532  00003502 R_ARM_ABS32            00000c77   
+0000053d  00003602 R_ARM_ABS32            00000c85   
+00000548  00003702 R_ARM_ABS32            00000c90   
+00000553  00003802 R_ARM_ABS32            00000c9d   
+0000055e  00003a02 R_ARM_ABS32            00000cc2   
+00000569  00003f02 R_ARM_ABS32            00000d1a   
+00000575  00003402 R_ARM_ABS32            00000c67   
+0000057c  00002a02 R_ARM_ABS32            00000b1c   
+00000587  00002b02 R_ARM_ABS32            00000b2c   
+00000592  00002c02 R_ARM_ABS32            00000b3c   
+0000059d  00003002 R_ARM_ABS32            00000c31   
+000005a8  00003102 R_ARM_ABS32            00000c38   
+000005b4  00003302 R_ARM_ABS32            00000c49   
+000005bb  00003202 R_ARM_ABS32            00000c40   
+000005c7  00003902 R_ARM_ABS32            00000cac   
+000005ce  00008f02 R_ARM_ABS32            000002a3   
+000005da  00003e02 R_ARM_ABS32            00000d04   
+000005e1  00003b02 R_ARM_ABS32            00000ccc   
+000005ec  00003c02 R_ARM_ABS32            00000cd5   
+000005f8  00004002 R_ARM_ABS32            00000d25   
+000005ff  00003202 R_ARM_ABS32            00000c40   
+0000060b  00004802 R_ARM_ABS32            00000db2   
+00000612  00004502 R_ARM_ABS32            00000d76   
+0000061d  00004602 R_ARM_ABS32            00000d81   
+0000062b  00009402 R_ARM_ABS32            0000030d   
+00000630  00009502 R_ARM_ABS32            00000310   
+00000635  00009a02 R_ARM_ABS32            0000032f   
+0000063c  00009602 R_ARM_ABS32            00000314   
+00000647  00009702 R_ARM_ABS32            0000031c   
+00000652  00009802 R_ARM_ABS32            00000320   
+00000660  00009e02 R_ARM_ABS32            000003b7   
+00000669  0000b102 R_ARM_ABS32            00000481   
+00000670  0000a002 R_ARM_ABS32            000003c2   
+00000676  0000a102 R_ARM_ABS32            000003ca   
+00000680  0000a202 R_ARM_ABS32            000003d5   
+0000068a  0000a302 R_ARM_ABS32            000003e0   
+00000694  0000a402 R_ARM_ABS32            000003ed   
+0000069e  0000a502 R_ARM_ABS32            000003f8   
+000006a8  0000a602 R_ARM_ABS32            00000400   
+000006b2  0000a702 R_ARM_ABS32            0000040b   
+000006bc  0000a802 R_ARM_ABS32            00000416   
+000006c6  0000a902 R_ARM_ABS32            00000420   
+000006d0  0000aa02 R_ARM_ABS32            0000042b   
+000006da  0000ab02 R_ARM_ABS32            00000436   
+000006e4  0000ac02 R_ARM_ABS32            00000443   
+000006ee  0000ad02 R_ARM_ABS32            0000044f   
+000006f8  0000ae02 R_ARM_ABS32            0000045c   
+00000702  0000af02 R_ARM_ABS32            0000046a   
+0000070c  0000b002 R_ARM_ABS32            00000474   
+00000719  00007e02 R_ARM_ABS32            000001a2   
+0000071e  00007f02 R_ARM_ABS32            000001a7   
+00000723  00008702 R_ARM_ABS32            0000021c   
+00000738  00008102 R_ARM_ABS32            000001b2   
+00000745  00008502 R_ARM_ABS32            00000213   
+00000752  00008102 R_ARM_ABS32            000001b2   
+0000075d  00008402 R_ARM_ABS32            00000211   
+00000763  00008502 R_ARM_ABS32            00000213   
+0000076a  00008602 R_ARM_ABS32            00000218   
+00000779  00008402 R_ARM_ABS32            00000211   
+00000780  0000f502 R_ARM_ABS32            000007f7   
+00000795  00008102 R_ARM_ABS32            000001b2   
+000007a2  00008502 R_ARM_ABS32            00000213   
+000007af  00008102 R_ARM_ABS32            000001b2   
+000007ba  00008402 R_ARM_ABS32            00000211   
+000007c0  00008502 R_ARM_ABS32            00000213   
+000007c7  00008602 R_ARM_ABS32            00000218   
+000007d6  00008402 R_ARM_ABS32            00000211   
+000007dd  00000502 R_ARM_ABS32            000008b2   
+000007f2  00008102 R_ARM_ABS32            000001b2   
+00000800  00008502 R_ARM_ABS32            00000213   
+0000080d  00008102 R_ARM_ABS32            000001b2   
+00000818  00008402 R_ARM_ABS32            00000211   
+0000081e  00008502 R_ARM_ABS32            00000213   
+00000825  00008602 R_ARM_ABS32            00000218   
+00000834  00008402 R_ARM_ABS32            00000211   
+0000083b  00002602 R_ARM_ABS32            00000acc   
+00000850  00008102 R_ARM_ABS32            000001b2   
+0000085d  00008502 R_ARM_ABS32            00000213   
+0000086a  00008102 R_ARM_ABS32            000001b2   
+00000875  00008402 R_ARM_ABS32            00000211   
+0000087b  00008502 R_ARM_ABS32            00000213   
+00000882  00008602 R_ARM_ABS32            00000218   
+00000891  00008402 R_ARM_ABS32            00000211   
+00000898  00002f02 R_ARM_ABS32            00000bcb   
+000008ad  00008102 R_ARM_ABS32            000001b2   
+000008ba  00008502 R_ARM_ABS32            00000213   
+000008c7  00008102 R_ARM_ABS32            000001b2   
+000008d2  00008402 R_ARM_ABS32            00000211   
+000008d8  00008502 R_ARM_ABS32            00000213   
+000008df  00008602 R_ARM_ABS32            00000218   
+000008ee  00008402 R_ARM_ABS32            00000211   
+000008f6  00008902 R_ARM_ABS32            00000263   
+000008ff  00008c02 R_ARM_ABS32            0000027d   
+00000906  00008a02 R_ARM_ABS32            00000267   
+0000090c  00008b02 R_ARM_ABS32            00000272   
+00000914  0000b202 R_ARM_ABS32            0000048d   
+00000919  0000b302 R_ARM_ABS32            00000491   
+0000091e  0000b402 R_ARM_ABS32            00000494   
+00000927  0000b902 R_ARM_ABS32            000004b1   
+0000092e  0000b502 R_ARM_ABS32            00000497   
+00000934  0000b602 R_ARM_ABS32            0000049c   
+0000093a  0000b702 R_ARM_ABS32            000004a2   
+00000940  0000b802 R_ARM_ABS32            000004a9   
+00000947  0000f202 R_ARM_ABS32            000007ac   
+0000094e  0000e102 R_ARM_ABS32            00000739   
+00000959  0000e502 R_ARM_ABS32            00000753   
+00000965  0000e402 R_ARM_ABS32            0000074a   
+0000097a  0000e202 R_ARM_ABS32            00000742   
+00000988  0000e302 R_ARM_ABS32            00000747   
+00000995  0000e202 R_ARM_ABS32            00000742   
+0000099c  0000e302 R_ARM_ABS32            00000747   
+000009a3  00008602 R_ARM_ABS32            00000218   
+000009b0  0000f102 R_ARM_ABS32            000007a1   
+000009b7  0000e602 R_ARM_ABS32            0000075a   
+000009c2  0000e802 R_ARM_ABS32            00000764   
+000009cd  0000e902 R_ARM_ABS32            0000076a   
+000009d8  0000ea02 R_ARM_ABS32            00000770   
+000009e3  0000f002 R_ARM_ABS32            0000079b   
+000009ef  0000ef02 R_ARM_ABS32            00000795   
+00000a04  0000eb02 R_ARM_ABS32            0000077a   
+00000a12  0000ec02 R_ARM_ABS32            0000077d   
+00000a20  0000ed02 R_ARM_ABS32            00000783   
+00000a2e  0000ee02 R_ARM_ABS32            0000078d   
+00000a3b  0000eb02 R_ARM_ABS32            0000077a   
+00000a42  00008602 R_ARM_ABS32            00000218   
+00000a4e  0000ec02 R_ARM_ABS32            0000077d   
+00000a55  00008602 R_ARM_ABS32            00000218   
+00000a61  0000ed02 R_ARM_ABS32            00000783   
+00000a68  0000ee02 R_ARM_ABS32            0000078d   
+00000a72  00001402 R_ARM_ABS32            00000a02   
+00000a79  0000d902 R_ARM_ABS32            000006f9   
+00000a84  0000b202 R_ARM_ABS32            0000048d   
+00000a8f  0000f602 R_ARM_ABS32            0000081e   
+00000a9b  00001102 R_ARM_ABS32            000009c1   
+00000aa2  0000f702 R_ARM_ABS32            00000823   
+00000aad  00000402 R_ARM_ABS32            000008a8   
+00000ab9  00010202 R_ARM_ABS32            00000892   
+00000ac0  0000f802 R_ARM_ABS32            00000829   
+00000acb  0000f902 R_ARM_ABS32            0000082f   
+00000ad7  00000f02 R_ARM_ABS32            0000093f   
+00000ade  0000e902 R_ARM_ABS32            0000076a   
+00000ae9  0000e602 R_ARM_ABS32            0000075a   
+00000af4  0000e802 R_ARM_ABS32            00000764   
+00000aff  0000f002 R_ARM_ABS32            0000079b   
+00000b0a  0000ea02 R_ARM_ABS32            00000770   
+00000b15  00007602 R_ARM_ABS32            00000143   
+00000b20  00000702 R_ARM_ABS32            000008cb   
+00000b2b  0000f602 R_ARM_ABS32            0000081e   
+00000b37  00000602 R_ARM_ABS32            000008c0   
+00000b3e  0000fd02 R_ARM_ABS32            00000852   
+00000b49  0000fe02 R_ARM_ABS32            0000085a   
+00000b56  00009e02 R_ARM_ABS32            000003b7   
+00000b5f  0000bc02 R_ARM_ABS32            000004c2   
+00000b66  0000ba02 R_ARM_ABS32            000004bb   
+00000b6c  0000bb02 R_ARM_ABS32            000004be   
+00000b73  0000c102 R_ARM_ABS32            0000051f   
+00000b88  0000ba02 R_ARM_ABS32            000004bb   
+00000b95  0000bb02 R_ARM_ABS32            000004be   
+00000ba2  0000ba02 R_ARM_ABS32            000004bb   
+00000ba9  00008602 R_ARM_ABS32            00000218   
+00000bb8  00008402 R_ARM_ABS32            00000211   
+00000bc1  0000c002 R_ARM_ABS32            0000051d   
+00000bc7  0000bb02 R_ARM_ABS32            000004be   
+00000bce  00008602 R_ARM_ABS32            00000218   
+00000bdd  00008402 R_ARM_ABS32            00000211   
+00000be6  0000c002 R_ARM_ABS32            0000051d   
+00000bee  0000fa02 R_ARM_ABS32            0000083e   
+00000bf3  00010102 R_ARM_ABS32            00000879   
+00000bfe  00008402 R_ARM_ABS32            00000211   
+00000c04  00000d02 R_ARM_ABS32            000008ff   
+00000c0f  00008402 R_ARM_ABS32            00000211   
+00000c16  0000fb02 R_ARM_ABS32            00000845   
+00000c1b  0000fc02 R_ARM_ABS32            00000849   
+00000c20  00010002 R_ARM_ABS32            0000086d   
+00000c27  0000fd02 R_ARM_ABS32            00000852   
+00000c32  0000fe02 R_ARM_ABS32            0000085a   
+00000c3f  00004f02 R_ARM_ABS32            00000e2f   
+00000c44  00005202 R_ARM_ABS32            00000e3f   
+00000c4b  00005002 R_ARM_ABS32            00000e35   
+00000c56  00000a02 R_ARM_ABS32            000008dc   
+00000c65  00005102 R_ARM_ABS32            00000e3b   
+00000c6d  00000802 R_ARM_ABS32            000008d2   
+00000c72  00000e02 R_ARM_ABS32            00000923   
+00000c79  00000902 R_ARM_ABS32            000008d8   
+00000c84  00000a02 R_ARM_ABS32            000008dc   
+00000c8f  00000b02 R_ARM_ABS32            000008e0   
+00000c9e  00008402 R_ARM_ABS32            00000211   
+00000ca6  00008002 R_ARM_ABS32            000001ae   
+00000cb1  00008302 R_ARM_ABS32            000001d9   
+00000cc1  00008202 R_ARM_ABS32            000001b7   
+00000cca  00008d02 R_ARM_ABS32            00000284   
+00000cd3  00009902 R_ARM_ABS32            00000327   
+00000ce5  00009f02 R_ARM_ABS32            000003be   
+00000cec  0000bf02 R_ARM_ABS32            0000051a   
+00000cf7  0000d302 R_ARM_ABS32            000006d5   
+00000d00  0000d602 R_ARM_ABS32            000006e9   
+00000d09  00001502 R_ARM_ABS32            00000a0c   
+00000d0e  0000e002 R_ARM_ABS32            00000731   
+00000d15  0000da02 R_ARM_ABS32            00000700   
+00000d20  0000dc02 R_ARM_ABS32            00000713   
+00000d30  0000df02 R_ARM_ABS32            00000725   
+00000d35  0000de02 R_ARM_ABS32            00000720   
+00000d3c  0000da02 R_ARM_ABS32            00000700   
+00000d47  0000dc02 R_ARM_ABS32            00000713   
+00000d57  0000db02 R_ARM_ABS32            00000709   
+00000d5c  0000dd02 R_ARM_ABS32            0000071a   
+00000d63  0000f402 R_ARM_ABS32            000007d8   
+00000d6a  0000da02 R_ARM_ABS32            00000700   
+00000d75  0000dc02 R_ARM_ABS32            00000713   
+00000d85  0000f302 R_ARM_ABS32            000007b5   
+00000d8a  0000e702 R_ARM_ABS32            0000075f   
+00000d91  00001302 R_ARM_ABS32            000009e9   
+00000d98  0000da02 R_ARM_ABS32            00000700   
+00000da3  0000dc02 R_ARM_ABS32            00000713   
+00000db3  00001202 R_ARM_ABS32            000009cc   
+00000dbc  00000302 R_ARM_ABS32            00000897   
+00000dc5  0000ff02 R_ARM_ABS32            00000861   
+00000ddb  00001002 R_ARM_ABS32            00000963   
+00000df4  00000202 R_ARM_ABS32            00000949   
+00000dfd  00000c02 R_ARM_ABS32            000008e8   
+00000e06  00004a02 R_ARM_ABS32            00000dd4   
+00000e0f  00004202 R_ARM_ABS32            00000d43   
+00000e18  00001a02 R_ARM_ABS32            00000a41   
+00000e21  00002502 R_ARM_ABS32            00000a9f   
+00000e31  00002e02 R_ARM_ABS32            00000b6d   
+00000e4a  00002d02 R_ARM_ABS32            00000b44   
+00000e53  00003d02 R_ARM_ABS32            00000cde   
+00000e5c  00004702 R_ARM_ABS32            00000d8b   
+00000e65  00004d02 R_ARM_ABS32            00000e03   
+00000e6a  00005e02 R_ARM_ABS32            00000e9d   
+00000e71  0000da02 R_ARM_ABS32            00000700   
+00000e7c  0000dc02 R_ARM_ABS32            00000713   
+
+Relocation section '.rel.debug_ranges' at offset 0x6ca0 contains 82 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000000  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000004  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000008  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+0000000c  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000018  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+0000001c  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000020  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000024  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000028  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+0000002c  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000030  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000034  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000040  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000044  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000048  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+0000004c  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000050  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000054  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000060  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000064  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000068  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+0000006c  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000078  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+0000007c  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000080  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000084  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000090  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000094  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000098  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+0000009c  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000000a8  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000000ac  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000000b0  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000000b4  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000000c0  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000000c4  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000000c8  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000000cc  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000000d0  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000000d4  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000000e0  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000000e4  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000000e8  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000000ec  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000000f0  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000000f4  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000000f8  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000000fc  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000108  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+0000010c  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000110  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000114  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000118  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+0000011c  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000120  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000124  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000128  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+0000012c  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000138  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+0000013c  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000140  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000144  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000148  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+0000014c  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+00000158  00014c02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE
+0000015c  00014c02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE
+00000160  00014c02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE
+00000164  00014c02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE
+00000170  00014c02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE
+00000174  00014c02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE
+00000178  00014c02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE
+0000017c  00014c02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE
+00000188  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+0000018c  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000190  00014902 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
+00000194  00014902 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
+00000198  00014a02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE
+0000019c  00014a02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE
+000001a0  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000001a4  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+000001a8  00014c02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE
+000001ac  00014c02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE
+
+Relocation section '.rel.debug_pubnames' at offset 0x6f30 contains 1 entry:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000006  00015d02 R_ARM_ABS32            00000000   .debug_info
+
+Relocation section '.rel.debug_pubtypes' at offset 0x6f38 contains 1 entry:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000006  00015d02 R_ARM_ABS32            00000000   .debug_info
+
+Relocation section '.rel.debug_frame' at offset 0x6f40 contains 10 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+00000018  00015f02 R_ARM_ABS32            00000000   .debug_frame
+0000001c  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000038  00015f02 R_ARM_ABS32            00000000   .debug_frame
+0000003c  00014902 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
+00000054  00015f02 R_ARM_ABS32            00000000   .debug_frame
+00000058  00014a02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE
+00000070  00015f02 R_ARM_ABS32            00000000   .debug_frame
+00000074  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+0000008c  00015f02 R_ARM_ABS32            00000000   .debug_frame
+00000090  00014c02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE
+
+Relocation section '.rel.debug_line' at offset 0x6f90 contains 5 entries:
+ Offset     Info    Type                Sym. Value  Symbol's Name
+0000004b  00014802 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+00000100  00014902 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
+00000128  00014a02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE
+00000154  00014b02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+0000038b  00014c02 R_ARM_ABS32            00000000   .text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE
 
 Unwind section '.ARM.exidx.text._ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E' at offset 0x23c contains 1 entry:
 
@@ -10941,295 +11541,413 @@ Unwind section '.ARM.exidx.text._ZN3app12touch_sensor18start_touch_sensor17ha035
 
 Unwind section '.ARM.exidx.text._ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE' at offset 0x28c contains 1 entry:
 
-0x0 <_ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE>: 0x1 [cantunwind]
+0x0: 0x1 [cantunwind]
 
 
-Unwind section '.ARM.exidx.text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE' at offset 0x2c8 contains 1 entry:
+Unwind section '.ARM.exidx.text._ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE' at offset 0x310 contains 1 entry:
+
+0x0 <_ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE>: 0x1 [cantunwind]
+
+
+Unwind section '.ARM.exidx.text._ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E' at offset 0x9c8 contains 1 entry:
 
 0x0: 0x1 [cantunwind]
 
 
-Symbol table '.symtab' contains 279 entries:
+Unwind section '.ARM.exidx.text._ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE' at offset 0xb5c contains 1 entry:
+
+0x0: 0x1 [cantunwind]
+
+
+Symbol table '.symtab' contains 387 entries:
    Num:    Value  Size Type    Bind   Vis      Ndx Name
      0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
      1: 00000000     0 FILE    LOCAL  DEFAULT  ABS 3l4z2ex1n13xskbg
-     2: 0000089e     0 NOTYPE  LOCAL  DEFAULT   35 
-     3: 000009ee     0 NOTYPE  LOCAL  DEFAULT   35 
-     4: 000009fe     0 NOTYPE  LOCAL  DEFAULT   35 
-     5: 00000a0e     0 NOTYPE  LOCAL  DEFAULT   35 
-     6: 00000a16     0 NOTYPE  LOCAL  DEFAULT   35 
-     7: 00000a3f     0 NOTYPE  LOCAL  DEFAULT   35 
-     8: 00000a9d     0 NOTYPE  LOCAL  DEFAULT   35 
-     9: 00000b03     0 NOTYPE  LOCAL  DEFAULT   35 
-    10: 00000b0a     0 NOTYPE  LOCAL  DEFAULT   35 
-    11: 00000b12     0 NOTYPE  LOCAL  DEFAULT   35 
-    12: 00000b1b     0 NOTYPE  LOCAL  DEFAULT   35 
-    13: 00000b39     0 NOTYPE  LOCAL  DEFAULT   35 
-    14: 00000b49     0 NOTYPE  LOCAL  DEFAULT   35 
-    15: 00000b57     0 NOTYPE  LOCAL  DEFAULT   35 
-    16: 00000b62     0 NOTYPE  LOCAL  DEFAULT   35 
-    17: 00000b6f     0 NOTYPE  LOCAL  DEFAULT   35 
-    18: 00000b7e     0 NOTYPE  LOCAL  DEFAULT   35 
-    19: 00000b94     0 NOTYPE  LOCAL  DEFAULT   35 
-    20: 00000b9e     0 NOTYPE  LOCAL  DEFAULT   35 
-    21: 00000ba7     0 NOTYPE  LOCAL  DEFAULT   35 
-    22: 00000bb0     0 NOTYPE  LOCAL  DEFAULT   35 
-    23: 00000bd6     0 NOTYPE  LOCAL  DEFAULT   35 
-    24: 00000bec     0 NOTYPE  LOCAL  DEFAULT   35 
-    25: 00000bf7     0 NOTYPE  LOCAL  DEFAULT   35 
-    26: 00000c0d     0 NOTYPE  LOCAL  DEFAULT   35 
-    27: 00000c15     0 NOTYPE  LOCAL  DEFAULT   35 
-    28: 00000c36     0 NOTYPE  LOCAL  DEFAULT   35 
-    29: 00000c3f     0 NOTYPE  LOCAL  DEFAULT   35 
-    30: 00000c48     0 NOTYPE  LOCAL  DEFAULT   35 
-    31: 00000c53     0 NOTYPE  LOCAL  DEFAULT   35 
-    32: 00000c5d     0 NOTYPE  LOCAL  DEFAULT   35 
-    33: 00000c84     0 NOTYPE  LOCAL  DEFAULT   35 
-    34: 00000c9c     0 NOTYPE  LOCAL  DEFAULT   35 
-    35: 00000ca6     0 NOTYPE  LOCAL  DEFAULT   35 
-    36: 00000cc9     0 NOTYPE  LOCAL  DEFAULT   35 
-    37: 00000000     0 NOTYPE  LOCAL  DEFAULT   35 
-    38: 00000041     0 NOTYPE  LOCAL  DEFAULT   35 
-    39: 00000055     0 NOTYPE  LOCAL  DEFAULT   35 
-    40: 00000085     0 NOTYPE  LOCAL  DEFAULT   35 
-    41: 00000089     0 NOTYPE  LOCAL  DEFAULT   35 
-    42: 00000096     0 NOTYPE  LOCAL  DEFAULT   35 
-    43: 0000009a     0 NOTYPE  LOCAL  DEFAULT   35 
-    44: 0000009d     0 NOTYPE  LOCAL  DEFAULT   35 
-    45: 000000b1     0 NOTYPE  LOCAL  DEFAULT   35 
-    46: 000000df     0 NOTYPE  LOCAL  DEFAULT   35 
-    47: 000000eb     0 NOTYPE  LOCAL  DEFAULT   35 
-    48: 000000f2     0 NOTYPE  LOCAL  DEFAULT   35 
-    49: 000000f9     0 NOTYPE  LOCAL  DEFAULT   35 
-    50: 000000fc     0 NOTYPE  LOCAL  DEFAULT   35 
-    51: 00000106     0 NOTYPE  LOCAL  DEFAULT   35 
-    52: 0000010c     0 NOTYPE  LOCAL  DEFAULT   35 
-    53: 00000111     0 NOTYPE  LOCAL  DEFAULT   35 
-    54: 00000118     0 NOTYPE  LOCAL  DEFAULT   35 
-    55: 0000011c     0 NOTYPE  LOCAL  DEFAULT   35 
-    56: 00000121     0 NOTYPE  LOCAL  DEFAULT   35 
-    57: 00000143     0 NOTYPE  LOCAL  DEFAULT   35 
-    58: 0000017b     0 NOTYPE  LOCAL  DEFAULT   35 
-    59: 0000017d     0 NOTYPE  LOCAL  DEFAULT   35 
-    60: 00000182     0 NOTYPE  LOCAL  DEFAULT   35 
-    61: 00000186     0 NOTYPE  LOCAL  DEFAULT   35 
-    62: 000001c6     0 NOTYPE  LOCAL  DEFAULT   35 
-    63: 000001cd     0 NOTYPE  LOCAL  DEFAULT   35 
-    64: 000001d1     0 NOTYPE  LOCAL  DEFAULT   35 
-    65: 000001dc     0 NOTYPE  LOCAL  DEFAULT   35 
-    66: 000001e7     0 NOTYPE  LOCAL  DEFAULT   35 
-    67: 000001ee     0 NOTYPE  LOCAL  DEFAULT   35 
-    68: 00000205     0 NOTYPE  LOCAL  DEFAULT   35 
-    69: 0000020d     0 NOTYPE  LOCAL  DEFAULT   35 
-    70: 00000217     0 NOTYPE  LOCAL  DEFAULT   35 
-    71: 0000022e     0 NOTYPE  LOCAL  DEFAULT   35 
-    72: 00000237     0 NOTYPE  LOCAL  DEFAULT   35 
-    73: 0000026e     0 NOTYPE  LOCAL  DEFAULT   35 
-    74: 00000277     0 NOTYPE  LOCAL  DEFAULT   35 
-    75: 0000027a     0 NOTYPE  LOCAL  DEFAULT   35 
-    76: 0000027e     0 NOTYPE  LOCAL  DEFAULT   35 
-    77: 00000286     0 NOTYPE  LOCAL  DEFAULT   35 
-    78: 0000028a     0 NOTYPE  LOCAL  DEFAULT   35 
-    79: 0000028e     0 NOTYPE  LOCAL  DEFAULT   35 
-    80: 00000295     0 NOTYPE  LOCAL  DEFAULT   35 
-    81: 0000029d     0 NOTYPE  LOCAL  DEFAULT   35 
-    82: 000002b1     0 NOTYPE  LOCAL  DEFAULT   35 
-    83: 000002e4     0 NOTYPE  LOCAL  DEFAULT   35 
-    84: 000002ef     0 NOTYPE  LOCAL  DEFAULT   35 
-    85: 00000325     0 NOTYPE  LOCAL  DEFAULT   35 
-    86: 0000032c     0 NOTYPE  LOCAL  DEFAULT   35 
-    87: 00000330     0 NOTYPE  LOCAL  DEFAULT   35 
-    88: 00000338     0 NOTYPE  LOCAL  DEFAULT   35 
-    89: 00000343     0 NOTYPE  LOCAL  DEFAULT   35 
-    90: 0000034e     0 NOTYPE  LOCAL  DEFAULT   35 
-    91: 0000035b     0 NOTYPE  LOCAL  DEFAULT   35 
-    92: 00000366     0 NOTYPE  LOCAL  DEFAULT   35 
-    93: 0000036e     0 NOTYPE  LOCAL  DEFAULT   35 
-    94: 00000379     0 NOTYPE  LOCAL  DEFAULT   35 
-    95: 00000384     0 NOTYPE  LOCAL  DEFAULT   35 
-    96: 0000038e     0 NOTYPE  LOCAL  DEFAULT   35 
-    97: 00000399     0 NOTYPE  LOCAL  DEFAULT   35 
-    98: 000003a4     0 NOTYPE  LOCAL  DEFAULT   35 
-    99: 000003b1     0 NOTYPE  LOCAL  DEFAULT   35 
-   100: 000003bd     0 NOTYPE  LOCAL  DEFAULT   35 
-   101: 000003ca     0 NOTYPE  LOCAL  DEFAULT   35 
-   102: 000003d8     0 NOTYPE  LOCAL  DEFAULT   35 
-   103: 000003e2     0 NOTYPE  LOCAL  DEFAULT   35 
-   104: 000003ef     0 NOTYPE  LOCAL  DEFAULT   35 
-   105: 000003fb     0 NOTYPE  LOCAL  DEFAULT   35 
-   106: 000003ff     0 NOTYPE  LOCAL  DEFAULT   35 
-   107: 00000402     0 NOTYPE  LOCAL  DEFAULT   35 
-   108: 00000405     0 NOTYPE  LOCAL  DEFAULT   35 
-   109: 0000040a     0 NOTYPE  LOCAL  DEFAULT   35 
-   110: 00000410     0 NOTYPE  LOCAL  DEFAULT   35 
-   111: 00000417     0 NOTYPE  LOCAL  DEFAULT   35 
-   112: 0000041f     0 NOTYPE  LOCAL  DEFAULT   35 
-   113: 00000429     0 NOTYPE  LOCAL  DEFAULT   35 
-   114: 0000042c     0 NOTYPE  LOCAL  DEFAULT   35 
-   115: 00000430     0 NOTYPE  LOCAL  DEFAULT   35 
-   116: 00000437     0 NOTYPE  LOCAL  DEFAULT   35 
-   117: 00000475     0 NOTYPE  LOCAL  DEFAULT   35 
-   118: 00000488     0 NOTYPE  LOCAL  DEFAULT   35 
-   119: 0000048b     0 NOTYPE  LOCAL  DEFAULT   35 
-   120: 0000048d     0 NOTYPE  LOCAL  DEFAULT   35 
-   121: 000004b5     0 NOTYPE  LOCAL  DEFAULT   35 
-   122: 000004f8     0 NOTYPE  LOCAL  DEFAULT   35 
-   123: 00000510     0 NOTYPE  LOCAL  DEFAULT   35 
-   124: 00000550     0 NOTYPE  LOCAL  DEFAULT   35 
-   125: 00000565     0 NOTYPE  LOCAL  DEFAULT   35 
-   126: 0000056b     0 NOTYPE  LOCAL  DEFAULT   35 
-   127: 00000576     0 NOTYPE  LOCAL  DEFAULT   35 
-   128: 0000057a     0 NOTYPE  LOCAL  DEFAULT   35 
-   129: 00000585     0 NOTYPE  LOCAL  DEFAULT   35 
-   130: 0000058b     0 NOTYPE  LOCAL  DEFAULT   35 
-   131: 00000597     0 NOTYPE  LOCAL  DEFAULT   35 
-   132: 0000059b     0 NOTYPE  LOCAL  DEFAULT   35 
-   133: 0000059e     0 NOTYPE  LOCAL  DEFAULT   35 
-   134: 000005a7     0 NOTYPE  LOCAL  DEFAULT   35 
-   135: 000005ac     0 NOTYPE  LOCAL  DEFAULT   35 
-   136: 000005b6     0 NOTYPE  LOCAL  DEFAULT   35 
-   137: 000005bb     0 NOTYPE  LOCAL  DEFAULT   35 
-   138: 000005c1     0 NOTYPE  LOCAL  DEFAULT   35 
-   139: 000005c6     0 NOTYPE  LOCAL  DEFAULT   35 
-   140: 000005cb     0 NOTYPE  LOCAL  DEFAULT   35 
-   141: 000005d2     0 NOTYPE  LOCAL  DEFAULT   35 
-   142: 000005db     0 NOTYPE  LOCAL  DEFAULT   35 
-   143: 000005e5     0 NOTYPE  LOCAL  DEFAULT   35 
-   144: 000005ec     0 NOTYPE  LOCAL  DEFAULT   35 
-   145: 000005f2     0 NOTYPE  LOCAL  DEFAULT   35 
-   146: 000005f7     0 NOTYPE  LOCAL  DEFAULT   35 
-   147: 00000603     0 NOTYPE  LOCAL  DEFAULT   35 
-   148: 0000060b     0 NOTYPE  LOCAL  DEFAULT   35 
-   149: 00000614     0 NOTYPE  LOCAL  DEFAULT   35 
-   150: 00000619     0 NOTYPE  LOCAL  DEFAULT   35 
-   151: 0000061c     0 NOTYPE  LOCAL  DEFAULT   35 
-   152: 00000625     0 NOTYPE  LOCAL  DEFAULT   35 
-   153: 0000062c     0 NOTYPE  LOCAL  DEFAULT   35 
-   154: 00000631     0 NOTYPE  LOCAL  DEFAULT   35 
-   155: 00000636     0 NOTYPE  LOCAL  DEFAULT   35 
-   156: 0000063c     0 NOTYPE  LOCAL  DEFAULT   35 
-   157: 00000642     0 NOTYPE  LOCAL  DEFAULT   35 
-   158: 0000064c     0 NOTYPE  LOCAL  DEFAULT   35 
-   159: 0000064f     0 NOTYPE  LOCAL  DEFAULT   35 
-   160: 00000655     0 NOTYPE  LOCAL  DEFAULT   35 
-   161: 0000065f     0 NOTYPE  LOCAL  DEFAULT   35 
-   162: 00000667     0 NOTYPE  LOCAL  DEFAULT   35 
-   163: 0000066d     0 NOTYPE  LOCAL  DEFAULT   35 
-   164: 00000673     0 NOTYPE  LOCAL  DEFAULT   35 
-   165: 0000067e     0 NOTYPE  LOCAL  DEFAULT   35 
-   166: 00000687     0 NOTYPE  LOCAL  DEFAULT   35 
-   167: 000006aa     0 NOTYPE  LOCAL  DEFAULT   35 
-   168: 000006c9     0 NOTYPE  LOCAL  DEFAULT   35 
-   169: 000006f0     0 NOTYPE  LOCAL  DEFAULT   35 
-   170: 000006f5     0 NOTYPE  LOCAL  DEFAULT   35 
-   171: 000006fb     0 NOTYPE  LOCAL  DEFAULT   35 
-   172: 00000701     0 NOTYPE  LOCAL  DEFAULT   35 
-   173: 00000710     0 NOTYPE  LOCAL  DEFAULT   35 
-   174: 00000717     0 NOTYPE  LOCAL  DEFAULT   35 
-   175: 0000071b     0 NOTYPE  LOCAL  DEFAULT   35 
-   176: 00000724     0 NOTYPE  LOCAL  DEFAULT   35 
-   177: 0000072c     0 NOTYPE  LOCAL  DEFAULT   35 
-   178: 00000733     0 NOTYPE  LOCAL  DEFAULT   35 
-   179: 0000073f     0 NOTYPE  LOCAL  DEFAULT   35 
-   180: 0000074b     0 NOTYPE  LOCAL  DEFAULT   35 
-   181: 00000764     0 NOTYPE  LOCAL  DEFAULT   35 
-   182: 00000769     0 NOTYPE  LOCAL  DEFAULT   35 
-   183: 0000077a     0 NOTYPE  LOCAL  DEFAULT   35 
-   184: 00000784     0 NOTYPE  LOCAL  DEFAULT   35 
-   185: 00000792     0 NOTYPE  LOCAL  DEFAULT   35 
-   186: 0000079d     0 NOTYPE  LOCAL  DEFAULT   35 
-   187: 000007a4     0 NOTYPE  LOCAL  DEFAULT   35 
-   188: 000007aa     0 NOTYPE  LOCAL  DEFAULT   35 
-   189: 000007ae     0 NOTYPE  LOCAL  DEFAULT   35 
-   190: 000007b2     0 NOTYPE  LOCAL  DEFAULT   35 
-   191: 000007ba     0 NOTYPE  LOCAL  DEFAULT   35 
-   192: 000007d1     0 NOTYPE  LOCAL  DEFAULT   35 
-   193: 000007f5     0 NOTYPE  LOCAL  DEFAULT   35 
-   194: 00000811     0 NOTYPE  LOCAL  DEFAULT   35 
-   195: 0000081b     0 NOTYPE  LOCAL  DEFAULT   35 
-   196: 00000835     0 NOTYPE  LOCAL  DEFAULT   35 
-   197: 00000893     0 NOTYPE  LOCAL  DEFAULT   35 
-   198: 000008bb     0 NOTYPE  LOCAL  DEFAULT   35 
-   199: 000008d4     0 NOTYPE  LOCAL  DEFAULT   35 
-   200: 000008de     0 NOTYPE  LOCAL  DEFAULT   35 
-   201: 000008f4     0 NOTYPE  LOCAL  DEFAULT   35 
-   202: 000008f8     0 NOTYPE  LOCAL  DEFAULT   35 
-   203: 000008fe     0 NOTYPE  LOCAL  DEFAULT   35 
-   204: 00000908     0 NOTYPE  LOCAL  DEFAULT   35 
-   205: 00000913     0 NOTYPE  LOCAL  DEFAULT   35 
-   206: 0000091c     0 NOTYPE  LOCAL  DEFAULT   35 
-   207: 00000927     0 NOTYPE  LOCAL  DEFAULT   35 
-   208: 00000933     0 NOTYPE  LOCAL  DEFAULT   35 
-   209: 0000093c     0 NOTYPE  LOCAL  DEFAULT   35 
-   210: 00000943     0 NOTYPE  LOCAL  DEFAULT   35 
-   211: 0000094b     0 NOTYPE  LOCAL  DEFAULT   35 
-   212: 00000953     0 NOTYPE  LOCAL  DEFAULT   35 
-   213: 0000095d     0 NOTYPE  LOCAL  DEFAULT   35 
-   214: 00000963     0 NOTYPE  LOCAL  DEFAULT   35 
-   215: 0000096a     0 NOTYPE  LOCAL  DEFAULT   35 
-   216: 00000971     0 NOTYPE  LOCAL  DEFAULT   35 
-   217: 0000099e     0 NOTYPE  LOCAL  DEFAULT   35 
-   218: 000009d3     0 NOTYPE  LOCAL  DEFAULT   35 
-   219: 000009d9     0 NOTYPE  LOCAL  DEFAULT   35 
-   220: 000009df     0 NOTYPE  LOCAL  DEFAULT   35 
-   221: 00000000     0 NOTYPE  LOCAL  DEFAULT    3 $t.0
-   222: 00000000     0 NOTYPE  LOCAL  DEFAULT    7 $t.1
-   223: 00000000     0 NOTYPE  LOCAL  DEFAULT   11 $t.2
-   224: 00000000    18 OBJECT  LOCAL  DEFAULT   15 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.0
-   225: 00000000     4 OBJECT  LOCAL  DEFAULT   16 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.1
-   226: 00000000    16 OBJECT  LOCAL  DEFAULT   27 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.10
-   227: 00000000     8 OBJECT  LOCAL  DEFAULT   29 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.11
-   228: 00000000     7 OBJECT  LOCAL  DEFAULT   30 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.12
-   229: 00000000    24 OBJECT  LOCAL  DEFAULT   20 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.5
-   230: 00000000     8 OBJECT  LOCAL  DEFAULT   23 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.7
-   231: 00000000     0 OBJECT  LOCAL  DEFAULT   25 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.8
-   232: 00000000     1 OBJECT  LOCAL  DEFAULT   34 _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
-   233: 00000000    16 OBJECT  LOCAL  DEFAULT   32 _ZN3app12touch_sensor11TOUCH_EVENT17h60e9cad73e6ebeb5E
-   234: 00000001    52 FUNC    LOCAL  DEFAULT   11 _ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE
-   235: 00000001    70 FUNC    LOCAL  DEFAULT    7 _ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
-   236: 00000000    63 OBJECT  LOCAL  DEFAULT   31 _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
-   237: 00000000     8 OBJECT  LOCAL  DEFAULT   33 _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
-   238: 00000000     0 SECTION LOCAL  DEFAULT    3 
-   239: 00000000     0 SECTION LOCAL  DEFAULT    7 
-   240: 00000000     0 SECTION LOCAL  DEFAULT   11 
-   241: 00000000     0 SECTION LOCAL  DEFAULT   17 
-   242: 00000000     0 SECTION LOCAL  DEFAULT   18 
-   243: 00000000     0 SECTION LOCAL  DEFAULT   19 
-   244: 00000000     0 SECTION LOCAL  DEFAULT   22 
-   245: 00000000     0 SECTION LOCAL  DEFAULT   26 
-   246: 00000000     0 SECTION LOCAL  DEFAULT   31 
-   247: 00000000     0 SECTION LOCAL  DEFAULT   32 
-   248: 00000000     0 SECTION LOCAL  DEFAULT   33 
-   249: 00000000     0 SECTION LOCAL  DEFAULT   34 
-   250: 00000000     0 SECTION LOCAL  DEFAULT   36 
-   251: 00000000     0 SECTION LOCAL  DEFAULT   37 
-   252: 00000000     0 SECTION LOCAL  DEFAULT   39 
-   253: 00000000     0 SECTION LOCAL  DEFAULT   48 
-   254: 00000000     0 SECTION LOCAL  DEFAULT   50 
-   255: 00000000     0 NOTYPE  GLOBAL HIDDEN   UND _ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E
-   256: 00000001   520 FUNC    GLOBAL HIDDEN     3 _ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
-   257: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h9f5638675334182dE
-   258: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E
-   259: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core3fmt10ArgumentV13new17h87b4fa2381289522E
-   260: 00000000     0 NOTYPE  GLOBAL HIDDEN   UND _ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE
-   261: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core3ptr8null_mut17h58cf134f3f697ee2E
-   262: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core6result19Result$LT$T$C$E$GT$6expect17h5ec42800e30ed4b0E
-   263: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E
-   264: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE
-   265: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN59_$LT$core..fmt..Arguments$u20$as$u20$core..fmt..Display$GT$3fmt17h3e269ca172b8335aE
-   266: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console5flush17hdebac7a23ce4130cE
-   267: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E
-   268: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console8printhex17h73cec8f13f2f68e9E
-   269: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt6kernel2os15eventq_dflt_get17h1e9f1e095a2cf595E
-   270: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E
-   271: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE
-   272: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE
-   273: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E
-   274: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
-   275: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND hal_gpio_irq_enable
-   276: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND hal_gpio_irq_init
-   277: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND os_eventq_put
-   278: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND os_time_get
+     2: 00000949     0 NOTYPE  LOCAL  DEFAULT  132 
+     3: 00000897     0 NOTYPE  LOCAL  DEFAULT  132 
+     4: 000008a8     0 NOTYPE  LOCAL  DEFAULT  132 
+     5: 000008b2     0 NOTYPE  LOCAL  DEFAULT  132 
+     6: 000008c0     0 NOTYPE  LOCAL  DEFAULT  132 
+     7: 000008cb     0 NOTYPE  LOCAL  DEFAULT  132 
+     8: 000008d2     0 NOTYPE  LOCAL  DEFAULT  132 
+     9: 000008d8     0 NOTYPE  LOCAL  DEFAULT  132 
+    10: 000008dc     0 NOTYPE  LOCAL  DEFAULT  132 
+    11: 000008e0     0 NOTYPE  LOCAL  DEFAULT  132 
+    12: 000008e8     0 NOTYPE  LOCAL  DEFAULT  132 
+    13: 000008ff     0 NOTYPE  LOCAL  DEFAULT  132 
+    14: 00000923     0 NOTYPE  LOCAL  DEFAULT  132 
+    15: 0000093f     0 NOTYPE  LOCAL  DEFAULT  132 
+    16: 00000963     0 NOTYPE  LOCAL  DEFAULT  132 
+    17: 000009c1     0 NOTYPE  LOCAL  DEFAULT  132 
+    18: 000009cc     0 NOTYPE  LOCAL  DEFAULT  132 
+    19: 000009e9     0 NOTYPE  LOCAL  DEFAULT  132 
+    20: 00000a02     0 NOTYPE  LOCAL  DEFAULT  132 
+    21: 00000a0c     0 NOTYPE  LOCAL  DEFAULT  132 
+    22: 00000a22     0 NOTYPE  LOCAL  DEFAULT  132 
+    23: 00000a26     0 NOTYPE  LOCAL  DEFAULT  132 
+    24: 00000a2c     0 NOTYPE  LOCAL  DEFAULT  132 
+    25: 00000a36     0 NOTYPE  LOCAL  DEFAULT  132 
+    26: 00000a41     0 NOTYPE  LOCAL  DEFAULT  132 
+    27: 00000a4a     0 NOTYPE  LOCAL  DEFAULT  132 
+    28: 00000a55     0 NOTYPE  LOCAL  DEFAULT  132 
+    29: 00000a61     0 NOTYPE  LOCAL  DEFAULT  132 
+    30: 00000a6a     0 NOTYPE  LOCAL  DEFAULT  132 
+    31: 00000a71     0 NOTYPE  LOCAL  DEFAULT  132 
+    32: 00000a79     0 NOTYPE  LOCAL  DEFAULT  132 
+    33: 00000a81     0 NOTYPE  LOCAL  DEFAULT  132 
+    34: 00000a8b     0 NOTYPE  LOCAL  DEFAULT  132 
+    35: 00000a91     0 NOTYPE  LOCAL  DEFAULT  132 
+    36: 00000a98     0 NOTYPE  LOCAL  DEFAULT  132 
+    37: 00000a9f     0 NOTYPE  LOCAL  DEFAULT  132 
+    38: 00000acc     0 NOTYPE  LOCAL  DEFAULT  132 
+    39: 00000b01     0 NOTYPE  LOCAL  DEFAULT  132 
+    40: 00000b07     0 NOTYPE  LOCAL  DEFAULT  132 
+    41: 00000b0d     0 NOTYPE  LOCAL  DEFAULT  132 
+    42: 00000b1c     0 NOTYPE  LOCAL  DEFAULT  132 
+    43: 00000b2c     0 NOTYPE  LOCAL  DEFAULT  132 
+    44: 00000b3c     0 NOTYPE  LOCAL  DEFAULT  132 
+    45: 00000b44     0 NOTYPE  LOCAL  DEFAULT  132 
+    46: 00000b6d     0 NOTYPE  LOCAL  DEFAULT  132 
+    47: 00000bcb     0 NOTYPE  LOCAL  DEFAULT  132 
+    48: 00000c31     0 NOTYPE  LOCAL  DEFAULT  132 
+    49: 00000c38     0 NOTYPE  LOCAL  DEFAULT  132 
+    50: 00000c40     0 NOTYPE  LOCAL  DEFAULT  132 
+    51: 00000c49     0 NOTYPE  LOCAL  DEFAULT  132 
+    52: 00000c67     0 NOTYPE  LOCAL  DEFAULT  132 
+    53: 00000c77     0 NOTYPE  LOCAL  DEFAULT  132 
+    54: 00000c85     0 NOTYPE  LOCAL  DEFAULT  132 
+    55: 00000c90     0 NOTYPE  LOCAL  DEFAULT  132 
+    56: 00000c9d     0 NOTYPE  LOCAL  DEFAULT  132 
+    57: 00000cac     0 NOTYPE  LOCAL  DEFAULT  132 
+    58: 00000cc2     0 NOTYPE  LOCAL  DEFAULT  132 
+    59: 00000ccc     0 NOTYPE  LOCAL  DEFAULT  132 
+    60: 00000cd5     0 NOTYPE  LOCAL  DEFAULT  132 
+    61: 00000cde     0 NOTYPE  LOCAL  DEFAULT  132 
+    62: 00000d04     0 NOTYPE  LOCAL  DEFAULT  132 
+    63: 00000d1a     0 NOTYPE  LOCAL  DEFAULT  132 
+    64: 00000d25     0 NOTYPE  LOCAL  DEFAULT  132 
+    65: 00000d3b     0 NOTYPE  LOCAL  DEFAULT  132 
+    66: 00000d43     0 NOTYPE  LOCAL  DEFAULT  132 
+    67: 00000d64     0 NOTYPE  LOCAL  DEFAULT  132 
+    68: 00000d6d     0 NOTYPE  LOCAL  DEFAULT  132 
+    69: 00000d76     0 NOTYPE  LOCAL  DEFAULT  132 
+    70: 00000d81     0 NOTYPE  LOCAL  DEFAULT  132 
+    71: 00000d8b     0 NOTYPE  LOCAL  DEFAULT  132 
+    72: 00000db2     0 NOTYPE  LOCAL  DEFAULT  132 
+    73: 00000dca     0 NOTYPE  LOCAL  DEFAULT  132 
+    74: 00000dd4     0 NOTYPE  LOCAL  DEFAULT  132 
+    75: 00000df7     0 NOTYPE  LOCAL  DEFAULT  132 
+    76: 00000dfe     0 NOTYPE  LOCAL  DEFAULT  132 
+    77: 00000e03     0 NOTYPE  LOCAL  DEFAULT  132 
+    78: 00000e2a     0 NOTYPE  LOCAL  DEFAULT  132 
+    79: 00000e2f     0 NOTYPE  LOCAL  DEFAULT  132 
+    80: 00000e35     0 NOTYPE  LOCAL  DEFAULT  132 
+    81: 00000e3b     0 NOTYPE  LOCAL  DEFAULT  132 
+    82: 00000e3f     0 NOTYPE  LOCAL  DEFAULT  132 
+    83: 00000e4c     0 NOTYPE  LOCAL  DEFAULT  132 
+    84: 00000e53     0 NOTYPE  LOCAL  DEFAULT  132 
+    85: 00000e57     0 NOTYPE  LOCAL  DEFAULT  132 
+    86: 00000e59     0 NOTYPE  LOCAL  DEFAULT  132 
+    87: 00000e61     0 NOTYPE  LOCAL  DEFAULT  132 
+    88: 00000e68     0 NOTYPE  LOCAL  DEFAULT  132 
+    89: 00000e6e     0 NOTYPE  LOCAL  DEFAULT  132 
+    90: 00000e75     0 NOTYPE  LOCAL  DEFAULT  132 
+    91: 00000e7b     0 NOTYPE  LOCAL  DEFAULT  132 
+    92: 00000e80     0 NOTYPE  LOCAL  DEFAULT  132 
+    93: 00000e8f     0 NOTYPE  LOCAL  DEFAULT  132 
+    94: 00000e9d     0 NOTYPE  LOCAL  DEFAULT  132 
+    95: 00000ea7     0 NOTYPE  LOCAL  DEFAULT  132 
+    96: 00000eac     0 NOTYPE  LOCAL  DEFAULT  132 
+    97: 00000000     0 NOTYPE  LOCAL  DEFAULT  132 
+    98: 00000041     0 NOTYPE  LOCAL  DEFAULT  132 
+    99: 00000055     0 NOTYPE  LOCAL  DEFAULT  132 
+   100: 00000085     0 NOTYPE  LOCAL  DEFAULT  132 
+   101: 00000089     0 NOTYPE  LOCAL  DEFAULT  132 
+   102: 00000096     0 NOTYPE  LOCAL  DEFAULT  132 
+   103: 000000a1     0 NOTYPE  LOCAL  DEFAULT  132 
+   104: 000000a9     0 NOTYPE  LOCAL  DEFAULT  132 
+   105: 000000ab     0 NOTYPE  LOCAL  DEFAULT  132 
+   106: 000000af     0 NOTYPE  LOCAL  DEFAULT  132 
+   107: 000000b1     0 NOTYPE  LOCAL  DEFAULT  132 
+   108: 000000b8     0 NOTYPE  LOCAL  DEFAULT  132 
+   109: 000000bb     0 NOTYPE  LOCAL  DEFAULT  132 
+   110: 000000c2     0 NOTYPE  LOCAL  DEFAULT  132 
+   111: 000000cb     0 NOTYPE  LOCAL  DEFAULT  132 
+   112: 000000d0     0 NOTYPE  LOCAL  DEFAULT  132 
+   113: 000000da     0 NOTYPE  LOCAL  DEFAULT  132 
+   114: 000000ee     0 NOTYPE  LOCAL  DEFAULT  132 
+   115: 000000f4     0 NOTYPE  LOCAL  DEFAULT  132 
+   116: 000000fe     0 NOTYPE  LOCAL  DEFAULT  132 
+   117: 0000010d     0 NOTYPE  LOCAL  DEFAULT  132 
+   118: 00000143     0 NOTYPE  LOCAL  DEFAULT  132 
+   119: 00000147     0 NOTYPE  LOCAL  DEFAULT  132 
+   120: 00000175     0 NOTYPE  LOCAL  DEFAULT  132 
+   121: 00000181     0 NOTYPE  LOCAL  DEFAULT  132 
+   122: 00000188     0 NOTYPE  LOCAL  DEFAULT  132 
+   123: 0000018f     0 NOTYPE  LOCAL  DEFAULT  132 
+   124: 00000192     0 NOTYPE  LOCAL  DEFAULT  132 
+   125: 0000019c     0 NOTYPE  LOCAL  DEFAULT  132 
+   126: 000001a2     0 NOTYPE  LOCAL  DEFAULT  132 
+   127: 000001a7     0 NOTYPE  LOCAL  DEFAULT  132 
+   128: 000001ae     0 NOTYPE  LOCAL  DEFAULT  132 
+   129: 000001b2     0 NOTYPE  LOCAL  DEFAULT  132 
+   130: 000001b7     0 NOTYPE  LOCAL  DEFAULT  132 
+   131: 000001d9     0 NOTYPE  LOCAL  DEFAULT  132 
+   132: 00000211     0 NOTYPE  LOCAL  DEFAULT  132 
+   133: 00000213     0 NOTYPE  LOCAL  DEFAULT  132 
+   134: 00000218     0 NOTYPE  LOCAL  DEFAULT  132 
+   135: 0000021c     0 NOTYPE  LOCAL  DEFAULT  132 
+   136: 0000025c     0 NOTYPE  LOCAL  DEFAULT  132 
+   137: 00000263     0 NOTYPE  LOCAL  DEFAULT  132 
+   138: 00000267     0 NOTYPE  LOCAL  DEFAULT  132 
+   139: 00000272     0 NOTYPE  LOCAL  DEFAULT  132 
+   140: 0000027d     0 NOTYPE  LOCAL  DEFAULT  132 
+   141: 00000284     0 NOTYPE  LOCAL  DEFAULT  132 
+   142: 0000029b     0 NOTYPE  LOCAL  DEFAULT  132 
+   143: 000002a3     0 NOTYPE  LOCAL  DEFAULT  132 
+   144: 000002ad     0 NOTYPE  LOCAL  DEFAULT  132 
+   145: 000002c4     0 NOTYPE  LOCAL  DEFAULT  132 
+   146: 000002cd     0 NOTYPE  LOCAL  DEFAULT  132 
+   147: 00000304     0 NOTYPE  LOCAL  DEFAULT  132 
+   148: 0000030d     0 NOTYPE  LOCAL  DEFAULT  132 
+   149: 00000310     0 NOTYPE  LOCAL  DEFAULT  132 
+   150: 00000314     0 NOTYPE  LOCAL  DEFAULT  132 
+   151: 0000031c     0 NOTYPE  LOCAL  DEFAULT  132 
+   152: 00000320     0 NOTYPE  LOCAL  DEFAULT  132 
+   153: 00000327     0 NOTYPE  LOCAL  DEFAULT  132 
+   154: 0000032f     0 NOTYPE  LOCAL  DEFAULT  132 
+   155: 00000343     0 NOTYPE  LOCAL  DEFAULT  132 
+   156: 00000376     0 NOTYPE  LOCAL  DEFAULT  132 
+   157: 00000381     0 NOTYPE  LOCAL  DEFAULT  132 
+   158: 000003b7     0 NOTYPE  LOCAL  DEFAULT  132 
+   159: 000003be     0 NOTYPE  LOCAL  DEFAULT  132 
+   160: 000003c2     0 NOTYPE  LOCAL  DEFAULT  132 
+   161: 000003ca     0 NOTYPE  LOCAL  DEFAULT  132 
+   162: 000003d5     0 NOTYPE  LOCAL  DEFAULT  132 
+   163: 000003e0     0 NOTYPE  LOCAL  DEFAULT  132 
+   164: 000003ed     0 NOTYPE  LOCAL  DEFAULT  132 
+   165: 000003f8     0 NOTYPE  LOCAL  DEFAULT  132 
+   166: 00000400     0 NOTYPE  LOCAL  DEFAULT  132 
+   167: 0000040b     0 NOTYPE  LOCAL  DEFAULT  132 
+   168: 00000416     0 NOTYPE  LOCAL  DEFAULT  132 
+   169: 00000420     0 NOTYPE  LOCAL  DEFAULT  132 
+   170: 0000042b     0 NOTYPE  LOCAL  DEFAULT  132 
+   171: 00000436     0 NOTYPE  LOCAL  DEFAULT  132 
+   172: 00000443     0 NOTYPE  LOCAL  DEFAULT  132 
+   173: 0000044f     0 NOTYPE  LOCAL  DEFAULT  132 
+   174: 0000045c     0 NOTYPE  LOCAL  DEFAULT  132 
+   175: 0000046a     0 NOTYPE  LOCAL  DEFAULT  132 
+   176: 00000474     0 NOTYPE  LOCAL  DEFAULT  132 
+   177: 00000481     0 NOTYPE  LOCAL  DEFAULT  132 
+   178: 0000048d     0 NOTYPE  LOCAL  DEFAULT  132 
+   179: 00000491     0 NOTYPE  LOCAL  DEFAULT  132 
+   180: 00000494     0 NOTYPE  LOCAL  DEFAULT  132 
+   181: 00000497     0 NOTYPE  LOCAL  DEFAULT  132 
+   182: 0000049c     0 NOTYPE  LOCAL  DEFAULT  132 
+   183: 000004a2     0 NOTYPE  LOCAL  DEFAULT  132 
+   184: 000004a9     0 NOTYPE  LOCAL  DEFAULT  132 
+   185: 000004b1     0 NOTYPE  LOCAL  DEFAULT  132 
+   186: 000004bb     0 NOTYPE  LOCAL  DEFAULT  132 
+   187: 000004be     0 NOTYPE  LOCAL  DEFAULT  132 
+   188: 000004c2     0 NOTYPE  LOCAL  DEFAULT  132 
+   189: 000004c9     0 NOTYPE  LOCAL  DEFAULT  132 
+   190: 00000507     0 NOTYPE  LOCAL  DEFAULT  132 
+   191: 0000051a     0 NOTYPE  LOCAL  DEFAULT  132 
+   192: 0000051d     0 NOTYPE  LOCAL  DEFAULT  132 
+   193: 0000051f     0 NOTYPE  LOCAL  DEFAULT  132 
+   194: 00000547     0 NOTYPE  LOCAL  DEFAULT  132 
+   195: 0000058a     0 NOTYPE  LOCAL  DEFAULT  132 
+   196: 000005a2     0 NOTYPE  LOCAL  DEFAULT  132 
+   197: 000005e2     0 NOTYPE  LOCAL  DEFAULT  132 
+   198: 000005f7     0 NOTYPE  LOCAL  DEFAULT  132 
+   199: 00000631     0 NOTYPE  LOCAL  DEFAULT  132 
+   200: 00000640     0 NOTYPE  LOCAL  DEFAULT  132 
+   201: 0000067f     0 NOTYPE  LOCAL  DEFAULT  132 
+   202: 00000693     0 NOTYPE  LOCAL  DEFAULT  132 
+   203: 00000699     0 NOTYPE  LOCAL  DEFAULT  132 
+   204: 000006a4     0 NOTYPE  LOCAL  DEFAULT  132 
+   205: 000006a8     0 NOTYPE  LOCAL  DEFAULT  132 
+   206: 000006b3     0 NOTYPE  LOCAL  DEFAULT  132 
+   207: 000006b9     0 NOTYPE  LOCAL  DEFAULT  132 
+   208: 000006c5     0 NOTYPE  LOCAL  DEFAULT  132 
+   209: 000006c9     0 NOTYPE  LOCAL  DEFAULT  132 
+   210: 000006cc     0 NOTYPE  LOCAL  DEFAULT  132 
+   211: 000006d5     0 NOTYPE  LOCAL  DEFAULT  132 
+   212: 000006da     0 NOTYPE  LOCAL  DEFAULT  132 
+   213: 000006e4     0 NOTYPE  LOCAL  DEFAULT  132 
+   214: 000006e9     0 NOTYPE  LOCAL  DEFAULT  132 
+   215: 000006ef     0 NOTYPE  LOCAL  DEFAULT  132 
+   216: 000006f4     0 NOTYPE  LOCAL  DEFAULT  132 
+   217: 000006f9     0 NOTYPE  LOCAL  DEFAULT  132 
+   218: 00000700     0 NOTYPE  LOCAL  DEFAULT  132 
+   219: 00000709     0 NOTYPE  LOCAL  DEFAULT  132 
+   220: 00000713     0 NOTYPE  LOCAL  DEFAULT  132 
+   221: 0000071a     0 NOTYPE  LOCAL  DEFAULT  132 
+   222: 00000720     0 NOTYPE  LOCAL  DEFAULT  132 
+   223: 00000725     0 NOTYPE  LOCAL  DEFAULT  132 
+   224: 00000731     0 NOTYPE  LOCAL  DEFAULT  132 
+   225: 00000739     0 NOTYPE  LOCAL  DEFAULT  132 
+   226: 00000742     0 NOTYPE  LOCAL  DEFAULT  132 
+   227: 00000747     0 NOTYPE  LOCAL  DEFAULT  132 
+   228: 0000074a     0 NOTYPE  LOCAL  DEFAULT  132 
+   229: 00000753     0 NOTYPE  LOCAL  DEFAULT  132 
+   230: 0000075a     0 NOTYPE  LOCAL  DEFAULT  132 
+   231: 0000075f     0 NOTYPE  LOCAL  DEFAULT  132 
+   232: 00000764     0 NOTYPE  LOCAL  DEFAULT  132 
+   233: 0000076a     0 NOTYPE  LOCAL  DEFAULT  132 
+   234: 00000770     0 NOTYPE  LOCAL  DEFAULT  132 
+   235: 0000077a     0 NOTYPE  LOCAL  DEFAULT  132 
+   236: 0000077d     0 NOTYPE  LOCAL  DEFAULT  132 
+   237: 00000783     0 NOTYPE  LOCAL  DEFAULT  132 
+   238: 0000078d     0 NOTYPE  LOCAL  DEFAULT  132 
+   239: 00000795     0 NOTYPE  LOCAL  DEFAULT  132 
+   240: 0000079b     0 NOTYPE  LOCAL  DEFAULT  132 
+   241: 000007a1     0 NOTYPE  LOCAL  DEFAULT  132 
+   242: 000007ac     0 NOTYPE  LOCAL  DEFAULT  132 
+   243: 000007b5     0 NOTYPE  LOCAL  DEFAULT  132 
+   244: 000007d8     0 NOTYPE  LOCAL  DEFAULT  132 
+   245: 000007f7     0 NOTYPE  LOCAL  DEFAULT  132 
+   246: 0000081e     0 NOTYPE  LOCAL  DEFAULT  132 
+   247: 00000823     0 NOTYPE  LOCAL  DEFAULT  132 
+   248: 00000829     0 NOTYPE  LOCAL  DEFAULT  132 
+   249: 0000082f     0 NOTYPE  LOCAL  DEFAULT  132 
+   250: 0000083e     0 NOTYPE  LOCAL  DEFAULT  132 
+   251: 00000845     0 NOTYPE  LOCAL  DEFAULT  132 
+   252: 00000849     0 NOTYPE  LOCAL  DEFAULT  132 
+   253: 00000852     0 NOTYPE  LOCAL  DEFAULT  132 
+   254: 0000085a     0 NOTYPE  LOCAL  DEFAULT  132 
+   255: 00000861     0 NOTYPE  LOCAL  DEFAULT  132 
+   256: 0000086d     0 NOTYPE  LOCAL  DEFAULT  132 
+   257: 00000879     0 NOTYPE  LOCAL  DEFAULT  132 
+   258: 00000892     0 NOTYPE  LOCAL  DEFAULT  132 
+   259: 00000000     0 NOTYPE  LOCAL  DEFAULT    3 $t.0
+   260: 00000000     0 NOTYPE  LOCAL  DEFAULT    7 $t.1
+   261: 00000000     0 NOTYPE  LOCAL  DEFAULT   11 $t.2
+   262: 00000000     0 NOTYPE  LOCAL  DEFAULT   15 $t.3
+   263: 00000000     0 NOTYPE  LOCAL  DEFAULT   19 $t.4
+   264: 00000000    18 OBJECT  LOCAL  DEFAULT   23 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.0
+   265: 00000000     4 OBJECT  LOCAL  DEFAULT   24 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.1
+   266: 00000000    16 OBJECT  LOCAL  DEFAULT   35 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.10
+   267: 00000000     8 OBJECT  LOCAL  DEFAULT   37 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.11
+   268: 00000000    14 OBJECT  LOCAL  DEFAULT   38 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.12
+   269: 00000000     2 OBJECT  LOCAL  DEFAULT   39 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.13
+   270: 00000000     1 OBJECT  LOCAL  DEFAULT   40 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.14
+   271: 00000000    19 OBJECT  LOCAL  DEFAULT   42 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.15
+   272: 00000000    24 OBJECT  LOCAL  DEFAULT   45 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.16
+   273: 00000000    24 OBJECT  LOCAL  DEFAULT   48 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.17
+   274: 00000000    16 OBJECT  LOCAL  DEFAULT   50 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.18
+   275: 00000000    24 OBJECT  LOCAL  DEFAULT   52 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.19
+   276: 00000000    24 OBJECT  LOCAL  DEFAULT   54 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.20
+   277: 00000000    24 OBJECT  LOCAL  DEFAULT   56 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.21
+   278: 00000000    16 OBJECT  LOCAL  DEFAULT   58 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.22
+   279: 00000000    24 OBJECT  LOCAL  DEFAULT   60 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.23
+   280: 00000000    24 OBJECT  LOCAL  DEFAULT   62 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.24
+   281: 00000000    16 OBJECT  LOCAL  DEFAULT   64 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.25
+   282: 00000000    16 OBJECT  LOCAL  DEFAULT   66 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.26
+   283: 00000000    24 OBJECT  LOCAL  DEFAULT   68 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.27
+   284: 00000000    24 OBJECT  LOCAL  DEFAULT   70 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.28
+   285: 00000000    16 OBJECT  LOCAL  DEFAULT   72 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.29
+   286: 00000000    24 OBJECT  LOCAL  DEFAULT   74 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.30
+   287: 00000000    24 OBJECT  LOCAL  DEFAULT   76 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.31
+   288: 00000000    16 OBJECT  LOCAL  DEFAULT   78 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.32
+   289: 00000000    16 OBJECT  LOCAL  DEFAULT   80 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.33
+   290: 00000000    24 OBJECT  LOCAL  DEFAULT   82 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.34
+   291: 00000000    24 OBJECT  LOCAL  DEFAULT   84 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.35
+   292: 00000000    16 OBJECT  LOCAL  DEFAULT   86 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.36
+   293: 00000000    16 OBJECT  LOCAL  DEFAULT   88 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.37
+   294: 00000000    24 OBJECT  LOCAL  DEFAULT   90 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.38
+   295: 00000000    24 OBJECT  LOCAL  DEFAULT   92 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.39
+   296: 00000000    16 OBJECT  LOCAL  DEFAULT   94 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.40
+   297: 00000000    16 OBJECT  LOCAL  DEFAULT   96 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.41
+   298: 00000000    24 OBJECT  LOCAL  DEFAULT   98 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.42
+   299: 00000000    24 OBJECT  LOCAL  DEFAULT  100 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.43
+   300: 00000000    16 OBJECT  LOCAL  DEFAULT  102 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.44
+   301: 00000000    16 OBJECT  LOCAL  DEFAULT  104 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.45
+   302: 00000000    24 OBJECT  LOCAL  DEFAULT  106 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.46
+   303: 00000000    24 OBJECT  LOCAL  DEFAULT  108 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.47
+   304: 00000000    16 OBJECT  LOCAL  DEFAULT  110 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.48
+   305: 00000000    16 OBJECT  LOCAL  DEFAULT  112 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.49
+   306: 00000000    24 OBJECT  LOCAL  DEFAULT   28 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.5
+   307: 00000000    16 OBJECT  LOCAL  DEFAULT  114 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.50
+   308: 00000000    16 OBJECT  LOCAL  DEFAULT  116 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.51
+   309: 00000000    24 OBJECT  LOCAL  DEFAULT  121 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.53
+   310: 00000000    24 OBJECT  LOCAL  DEFAULT  123 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.54
+   311: 00000008     8 OBJECT  LOCAL  DEFAULT   37 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.55
+   312: 00000000    24 OBJECT  LOCAL  DEFAULT  125 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.56
+   313: 00000000    24 OBJECT  LOCAL  DEFAULT  128 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.58
+   314: 00000000     8 OBJECT  LOCAL  DEFAULT   31 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.7
+   315: 00000000     0 OBJECT  LOCAL  DEFAULT   33 .Lanon.2f40d91cf76d3e43add664e1b0b07c66.8
+   316: 00000000     1 OBJECT  LOCAL  DEFAULT  131 _ZN3app12touch_sensor10I2C_BUFFER17h6587d4cecf1aef8dE
+   317: 00000000    82 OBJECT  LOCAL  DEFAULT   41 _ZN3app12touch_sensor10TOUCH_DATA17h0930039bb32940b8E
+   318: 00000000    16 OBJECT  LOCAL  DEFAULT  119 _ZN3app12touch_sensor11TOUCH_EVENT17h60e9cad73e6ebeb5E
+   319: 00000001  1712 FUNC    LOCAL  DEFAULT   15 _ZN3app12touch_sensor14read_touchdata17ha2c340de13fada08E
+   320: 00000001   394 FUNC    LOCAL  DEFAULT   19 _ZN3app12touch_sensor19read_register_range17h092f11a839e1ab1fE
+   321: 00000001   122 FUNC    LOCAL  DEFAULT   11 _ZN3app12touch_sensor20touch_event_callback17h199d1bf89ac9439bE
+   322: 00000001    70 FUNC    LOCAL  DEFAULT    7 _ZN3app12touch_sensor23touch_interrupt_handler17h4fa29b976b50a1beE
+   323: 00000000    63 OBJECT  LOCAL  DEFAULT  118 _ZN3app12touch_sensor3buf17h3250d7e59de0f5beE
+   324: 00000000     8 OBJECT  LOCAL  DEFAULT  130 _ZN3app12touch_sensor8I2C_DATA17h4d726476aeec469eE
+   325: 00000000    28 OBJECT  LOCAL  DEFAULT   43 str.0
+   326: 00000000    33 OBJECT  LOCAL  DEFAULT   44 str.1
+   327: 00000000    28 OBJECT  LOCAL  DEFAULT   47 str.2
+   328: 00000000     0 SECTION LOCAL  DEFAULT    3 
+   329: 00000000     0 SECTION LOCAL  DEFAULT    7 
+   330: 00000000     0 SECTION LOCAL  DEFAULT   11 
+   331: 00000000     0 SECTION LOCAL  DEFAULT   15 
+   332: 00000000     0 SECTION LOCAL  DEFAULT   19 
+   333: 00000000     0 SECTION LOCAL  DEFAULT   25 
+   334: 00000000     0 SECTION LOCAL  DEFAULT   26 
+   335: 00000000     0 SECTION LOCAL  DEFAULT   27 
+   336: 00000000     0 SECTION LOCAL  DEFAULT   30 
+   337: 00000000     0 SECTION LOCAL  DEFAULT   34 
+   338: 00000000     0 SECTION LOCAL  DEFAULT   41 
+   339: 00000000     0 SECTION LOCAL  DEFAULT   43 
+   340: 00000000     0 SECTION LOCAL  DEFAULT   44 
+   341: 00000000     0 SECTION LOCAL  DEFAULT   47 
+   342: 00000000     0 SECTION LOCAL  DEFAULT  118 
+   343: 00000000     0 SECTION LOCAL  DEFAULT  119 
+   344: 00000000     0 SECTION LOCAL  DEFAULT  120 
+   345: 00000000     0 SECTION LOCAL  DEFAULT  127 
+   346: 00000000     0 SECTION LOCAL  DEFAULT  130 
+   347: 00000000     0 SECTION LOCAL  DEFAULT  131 
+   348: 00000000     0 SECTION LOCAL  DEFAULT  133 
+   349: 00000000     0 SECTION LOCAL  DEFAULT  134 
+   350: 00000000     0 SECTION LOCAL  DEFAULT  136 
+   351: 00000000     0 SECTION LOCAL  DEFAULT  145 
+   352: 00000000     0 SECTION LOCAL  DEFAULT  147 
+   353: 00000000     0 NOTYPE  GLOBAL HIDDEN   UND _ZN3app10mynewt_hal10MynewtGPIO3new17hea4fbfeaf5935887E
+   354: 00000001   520 FUNC    GLOBAL HIDDEN     3 _ZN3app12touch_sensor18start_touch_sensor17ha0354fb86fd161d9E
+   355: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h9f5638675334182dE
+   356: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core3fmt10ArgumentV13new17h4da1eba1d2a1ef10E
+   357: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core3fmt10ArgumentV13new17h87b4fa2381289522E
+   358: 00000000     0 NOTYPE  GLOBAL HIDDEN   UND _ZN4core3fmt9Arguments6new_v117he9fc2510b9da50dfE
+   359: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core3ptr8null_mut17h58cf134f3f697ee2E
+   360: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core4iter5range101_$LT$impl$u20$core..iter..traits..iterator..Iterator$u20$for$u20$core..ops..range..Range$LT$A$GT$$GT$4next17h958b1d5f87088d8dE
+   361: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$10as_mut_ptr17hca69c1fbf0f5619eE
+   362: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h70be3ebb33ef544dE
+   363: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core6result19Result$LT$T$C$E$GT$6expect17h5ec42800e30ed4b0E
+   364: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core6result19Result$LT$T$C$E$GT$6expect17hb169fb8edd61be39E
+   365: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core9panicking18panic_bounds_check17h946762cd0671aec9E
+   366: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core9panicking5panic17h53ca63c6ac6312f8E
+   367: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN4core9panicking9panic_fmt17h6b4d8e87b0965449E
+   368: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hbea119b66b1a4f5dE
+   369: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN59_$LT$core..fmt..Arguments$u20$as$u20$core..fmt..Display$GT$3fmt17h3e269ca172b8335aE
+   370: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h055bb9e1dcd02e3eE
+   371: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console5flush17hdebac7a23ce4130cE
+   372: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console5print17h1c4aea0ed0a4bc27E
+   373: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console8printint17hbd22b2ad2f6089beE
+   374: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt6kernel2os15eventq_dflt_get17h1e9f1e095a2cf595E
+   375: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hacebbf7ef421c603E
+   376: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hc4a660f1189e64cdE
+   377: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17he1f42e2511dbd54dE
+   378: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN84_$LT$app..mynewt_hal..MynewtGPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17hbcdddbf62d74eb35E
+   379: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN97_$LT$app..mynewt_hal..MynewtDelay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h8d63445346ca4234E
+   380: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND __aeabi_memclr
+   381: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND __aeabi_memcpy
+   382: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND hal_gpio_irq_enable
+   383: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND hal_gpio_irq_init
+   384: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND hal_i2c_master_read
+   385: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND hal_i2c_master_write
+   386: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND os_eventq_put
 
 No version information found in this file.
 Attribute Section: aeabi

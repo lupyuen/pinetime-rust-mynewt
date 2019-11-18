@@ -34,8 +34,8 @@ use crate::app_network;                     //  Import `app_network.rs` for send
 
 ///  Sensor to be polled: `temp_stub_0` is the stub temperature sensor that simulates a temperature sensor
 static SENSOR_DEVICE: Strn      = init_strn!("temp_stub_0");
-///  Poll sensor every 10,000 milliseconds (10 seconds)  
-const SENSOR_POLL_TIME: u32     = (10 * 1000);  
+///  Poll sensor every 30,000 milliseconds (30 seconds)  
+const SENSOR_POLL_TIME: u32     = (30 * 1000);  
 ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
 const TEMP_SENSOR_KEY: Strn     = init_strn!("t");
 ///  Type of sensor: Raw temperature sensor (integer sensor values 0 to 4095)

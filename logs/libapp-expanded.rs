@@ -550,8 +550,8 @@ mod app_sensor {
     ///  Sensor to be polled: `temp_stub_0` is the stub temperature sensor that simulates a temperature sensor
     static SENSOR_DEVICE: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"temp_stub_0\x00"),};
-    ///  Poll sensor every 10,000 milliseconds (10 seconds)  
-    const SENSOR_POLL_TIME: u32 = (10 * 1000);
+    ///  Poll sensor every 30,000 milliseconds (30 seconds)  
+    const SENSOR_POLL_TIME: u32 = (30 * 1000);
     ///  Use key (field name) `t` to transmit raw temperature to CoAP Server
     const TEMP_SENSOR_KEY: Strn =
         Strn{rep: mynewt::StrnRep::ByteStr(b"t\x00"),};
@@ -655,50 +655,61 @@ mod touch_sensor {
     }
     /// Callback for the touch event that is triggered when a touch is detected
     extern "C" fn touch_event_callback(_event: *mut os_event) {
-        console::printhex(unsafe { os::os_time_get() } as u8);
-        console::print(" touch\n");
+        unsafe { read_touchdata(&mut TOUCH_DATA).expect("touchdata fail") };
+        console::printint(unsafe { TOUCH_DATA.touches[0].x } as i32);
+        console::print(", ");
+        console::printint(unsafe { TOUCH_DATA.touches[0].y } as i32);
+        console::print("\n");
         console::flush();
     }
+    static mut TOUCH_DATA: TouchEventInfo =
+        unsafe {
+            ::core::mem::transmute::<[u8; ::core::mem::size_of::<TouchEventInfo>()],
+                                     TouchEventInfo>([0;
+                                                         ::core::mem::size_of::<TouchEventInfo>()])
+        };
     /// Read touch controller data. This only works when the screen has been tapped and the touch controller wakes up.
     /// Ported from https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.c#L407-L466
     fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
         read_register_range(TOUCH_CONTROLLER_ADDRESS, 0, POINT_READ_BUF as u8,
-                            unsafe { &mut buf }).expect("touchdata fail");
+                            unsafe {
+                                &mut buf
+                            }).expect("read touchdata fail");
         *data =
             unsafe {
                 ::core::mem::transmute::<[u8; ::core::mem::size_of::<TouchEventInfo>()],
                                          TouchEventInfo>([0;
                                                              ::core::mem::size_of::<TouchEventInfo>()])
             };
-        data.touch_point_num = unsafe { buf[FT_TOUCH_POINT_NUM] & 0x0F };
-        data.touch_point = 0;
+        data.point_num = unsafe { buf[FT_TOUCH_POINT_NUM] & 0x0F };
+        data.count = 0;
         for i in 0..CFG_MAX_TOUCH_POINTS {
             let pointid =
                 unsafe { buf[HYN_TOUCH_ID_POS + HYN_TOUCH_STEP * i] } >> 4;
             if pointid >= HYN_MAX_ID { break ; }
-            data.touch_point += 1;
+            data.count += 1;
             let x_high =
                 unsafe { buf[HYN_TOUCH_X_H_POS + HYN_TOUCH_STEP * i] & 0x0F }
                     as u16;
             let x_low =
                 unsafe { buf[HYN_TOUCH_X_L_POS + HYN_TOUCH_STEP * i] } as u16;
-            data.x[i] = (x_high << 8) | x_low;
+            data.touches[i].x = (x_high << 8) | x_low;
             let y_high =
                 unsafe { buf[HYN_TOUCH_Y_H_POS + HYN_TOUCH_STEP * i] & 0x0F }
                     as u16;
             let y_low =
                 unsafe { buf[HYN_TOUCH_Y_L_POS + HYN_TOUCH_STEP * i] } as u16;
-            data.y[i] = (y_high << 8) | y_low;
-            data.touch_event[i] =
+            data.touches[i].y = (y_high << 8) | y_low;
+            data.touches[i].action =
                 unsafe { buf[HYN_TOUCH_EVENT_POS + HYN_TOUCH_STEP * i] } >> 6;
-            data.finger_id[i] =
+            data.touches[i].finger =
                 unsafe { buf[HYN_TOUCH_ID_POS + HYN_TOUCH_STEP * i] } >> 4;
-            data.pressure[i] =
+            data.touches[i].pressure =
                 unsafe { buf[HYN_TOUCH_XY_POS + HYN_TOUCH_STEP * i] };
-            data.area[i] =
+            data.touches[i].area =
                 unsafe { buf[HYN_TOUCH_MISC + HYN_TOUCH_STEP * i] } >> 4;
-            if (data.touch_event[i] == 0 || data.touch_event[i] == 2) &&
-                   (data.touch_point_num == 0) {
+            if (data.touches[i].action == 0 || data.touches[i].action == 2) &&
+                   (data.point_num == 0) {
                 break ;
             }
         }
@@ -708,29 +719,28 @@ mod touch_sensor {
     static mut buf: [u8; POINT_READ_BUF] = [0; POINT_READ_BUF];
     /// Touch Controller I2C Address: https://github.com/lupyuen/hynitron_i2c_cst0xxse
     const TOUCH_CONTROLLER_ADDRESS: u8 = 0x15;
-    /// Touch Event Info. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.h#L104-L115
+    /// Touch Event Info for multiple touches. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.h#L104-L115
     struct TouchEventInfo {
-        /// X coordinate
-        x: [u16; HYN_MAX_POINTS],
-        /// Y coordinate
-        y: [u16; HYN_MAX_POINTS],
-        /// Touch event: 0 = down, 1 = up, 2 = contact
-        touch_event: [u8; HYN_MAX_POINTS],
-        /// Touch ID
-        finger_id: [u8; HYN_MAX_POINTS],
-        pressure: [u8; HYN_MAX_POINTS],
-        area: [u8; HYN_MAX_POINTS],
-        touch_point: u8,
-        touches: i32,
-        touch_point_num: u8,
+        /// Array of touch points
+        touches: [TouchInfo; HYN_MAX_POINTS],
+        /// How many touch points
+        count: u8,
+        point_num: u8,
     }
-    /// Touch Info. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.h#L93-L100
+    /// Touch Info for a single touch. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.h#L104-L115
     struct TouchInfo {
-        y: [i32; HYN_MAX_POINTS],
-        x: [i32; HYN_MAX_POINTS],
-        p: [i32; HYN_MAX_POINTS],
-        id: [i32; HYN_MAX_POINTS],
-        count: i32,
+        /// X coordinate
+        x: u16,
+        /// Y coordinate
+        y: u16,
+        /// Action: 0 = down, 1 = up, 2 = contact
+        action: u8,
+        /// Which finger touched
+        finger: u8,
+        /// Pressure of touch
+        pressure: u8,
+        /// Area touched
+        area: u8,
     }
     /// Max touch points for the touch controller
     const CFG_MAX_TOUCH_POINTS: usize = 5;
@@ -738,7 +748,6 @@ mod touch_sensor {
     const HYN_MAX_POINTS: usize = 10;
     const HYN_MAX_ID: u8 = 0x0F;
     const HYN_TOUCH_STEP: usize = 6;
-    const HYN_FACE_DETECT_POS: usize = 1;
     const HYN_TOUCH_X_H_POS: usize = 3;
     const HYN_TOUCH_X_L_POS: usize = 4;
     const HYN_TOUCH_Y_H_POS: usize = 5;
@@ -793,14 +802,14 @@ mod touch_sensor {
             {
                 ::core::panicking::panic(&("i2c buf",
                                            "rust/app/src/touch_sensor.rs",
-                                           318u32, 5u32))
+                                           328u32, 5u32))
             }
         };
-        if !(start_register >= 0 && start_register + num_registers < 128) {
+        if !(start_register + num_registers < 128) {
             {
                 ::core::panicking::panic(&("i2c addr",
                                            "rust/app/src/touch_sensor.rs",
-                                           319u32, 5u32))
+                                           329u32, 5u32))
             }
         };
         unsafe {
@@ -809,7 +818,7 @@ mod touch_sensor {
             I2C_DATA.len = I2C_BUFFER.len() as u16;
             I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
         };
-        let rc1 =
+        let _rc1 =
             unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };
         unsafe {
             I2C_BUFFER[0] = 0x00;
@@ -819,24 +828,25 @@ mod touch_sensor {
         };
         let rc2 =
             unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
-        if rc2 == hal::HAL_I2C_ERR_ADDR_NACK as i32 { return Ok(()); }
-        console::print("addr: 0x");
-        console::printhex(addr);
-        console::print(", reg: 0x");
-        console::printhex(start_register);
-        console::print(" = 0x");
-        console::printhex(unsafe { I2C_BUFFER[0] });
-        console::print("\n");
-        console::flush();
+        if rc2 == hal::HAL_I2C_ERR_ADDR_NACK as i32 {
+            if !false {
+                {
+                    ::core::panicking::panic(&("assertion failed: false",
+                                               "rust/app/src/touch_sensor.rs",
+                                               349u32, 9u32))
+                }
+            };
+            return Ok(());
+        }
         Ok(())
     }
     /// Read the I2C register for the specified I2C address (7-bit address)
     fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
-        if !(register >= 0 && register < 128) {
+        if !(register < 128) {
             {
                 ::core::panicking::panic(&("i2c addr",
                                            "rust/app/src/touch_sensor.rs",
-                                           350u32, 5u32))
+                                           357u32, 5u32))
             }
         };
         unsafe {
@@ -845,7 +855,7 @@ mod touch_sensor {
             I2C_DATA.len = I2C_BUFFER.len() as u16;
             I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
         };
-        let rc1 =
+        let _rc1 =
             unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };
         unsafe {
             I2C_BUFFER[0] = 0x00;
