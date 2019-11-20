@@ -2147,7 +2147,7 @@ _ZN3app7display13start_display17h58d945c6238da875E():
     word_size:  hal::HAL_SPI_WORD_SIZE_8BIT as u8,
 };
 
-/// Initialise the display and populate the Display Context
+/// Initialise the display controller
 pub fn start_display() -> MynewtResult<()> {
    0:	b5b0      	push	{r4, r5, r7, lr}
    2:	b0d8      	sub	sp, #352	; 0x160

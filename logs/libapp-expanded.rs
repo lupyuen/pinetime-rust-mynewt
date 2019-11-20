@@ -929,7 +929,7 @@ mod display {
                               data_mode: hal::HAL_SPI_MODE3 as u8,
                               baudrate: 8000,
                               word_size: hal::HAL_SPI_WORD_SIZE_8BIT as u8,};
-    /// Initialise the display and populate the Display Context
+    /// Initialise the display controller
     pub fn start_display() -> MynewtResult<()> {
         let mut spi_port = MynewtSPI::new();
         let mut dc_gpio = MynewtGPIO::new();
