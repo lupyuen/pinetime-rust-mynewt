@@ -209,8 +209,10 @@ static mut TOUCH_EVENT: os_event = fill_zero!(os_event);  //  Init all fields to
 fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: &mut[u8]) -> MynewtResult<()> {
     assert!(buffer.len() >= num_registers as usize, "i2c buf");  //  Buffer too small
     assert!(start_register + num_registers < 128, "i2c addr");   //  Not 7-bit address
-    //  Step 1: System sends Clock Signal on SCL to sync Microcontroller with I2C Device
-    //  Step 2: Send the Start Condition (High to Low SDA Transition)...
+    //  Step 1: Prepare to read I2C Device Registers:
+    //    System sends Clock Signal on SCL to sync Microcontroller with I2C Device
+    //  Step 2: Transmit the I2C Address and the starting Register Number:
+    //    Send the Start Condition (High to Low SDA Transition)...
     //    Followed by I2C Address (7 bits)...
     //    Followed by Write Mode (1 bit, value 0)...
     //    Followed by starting Register Number (8 bits)
@@ -221,7 +223,8 @@ fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: 
         I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();  //  I2C Packet data points to packet buffer
     };
     let _rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };  //  No stop yet, must continue even if we hit an error
-    //  Step 3: Send the Start Condition (High to Low SDA Transition)...
+    //  Step 3: Prepare to receive the stream of I2C Device Register values...
+    //    Send the Start Condition (High to Low SDA Transition)...
     //    Followed by I2C Address (7 bits)...
     //    Followed by Read Mode (1 bit, value 1)
     unsafe { 
@@ -230,7 +233,7 @@ fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: 
         I2C_DATA.len = num_registers as u16;    //  I2C Packet data size is number of Registers to read
         I2C_DATA.buffer = buffer.as_mut_ptr();  //  I2C Packet data points to packet buffer
     };
-    //  Step 4: Receive the requested number of Registers from I2C Device (1 byte per register)
+    //  Step 4: Receive the requested number of Register values from I2C Device (1 byte per register)
     //  Step 5: Send the Stop Condition (Low to High SDA Transition)
     let rc2 = unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
     if rc2 == hal::HAL_I2C_ERR_ADDR_NACK as i32 {
