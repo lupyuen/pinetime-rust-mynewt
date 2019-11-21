@@ -208,28 +208,34 @@ static mut TOUCH_EVENT: os_event = fill_zero!(os_event);  //  Init all fields to
 /// Read a range of I2C registers from the I2C address `addr` (7-bit address), starting at `start_register` for count `num_registers`. Save into `buffer`.
 fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: &mut[u8]) -> MynewtResult<()> {
     assert!(buffer.len() >= num_registers as usize, "i2c buf");  //  Buffer too small
-    assert!(start_register + num_registers < 128, "i2c addr");  //  Not 7-bit address
-    //  First the start register number must be sent in write mode (I2C address xxxxxxx0). 
+    assert!(start_register + num_registers < 128, "i2c addr");   //  Not 7-bit address
+    //  Step 1: System sends Clock Signal on SCL to sync Microcontroller with I2C Device
+    //  Step 2: Send the Start Condition (High to Low SDA Transition)...
+    //    Followed by I2C Address (7 bits)...
+    //    Followed by Write Mode (1 bit, value 0)...
+    //    Followed by starting Register Number (8 bits)
     unsafe { 
-        I2C_BUFFER[0] = start_register;
-        I2C_DATA.address = addr;
-        I2C_DATA.len = I2C_BUFFER.len() as u16;
-        I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();
+        I2C_BUFFER[0] = start_register;  //  I2C Packet buffer contains starting Register Number (1 byte)
+        I2C_DATA.address = addr;         //  I2C Packet address (7 bits)
+        I2C_DATA.len = I2C_BUFFER.len() as u16;     //  I2C Packet data size is 1 byte
+        I2C_DATA.buffer = I2C_BUFFER.as_mut_ptr();  //  I2C Packet data points to packet buffer
     };
-    //  Then either a stop or a repeated start condition must be generated. 
     let _rc1 = unsafe { hal::hal_i2c_master_write(1, &mut I2C_DATA, 1000, 0) };  //  No stop yet, must continue even if we hit an error
-    //  After this the slave is addressed in read mode (RW = ‘1’) at I2C address xxxxxxx1
+    //  Step 3: Send the Start Condition (High to Low SDA Transition)...
+    //    Followed by I2C Address (7 bits)...
+    //    Followed by Read Mode (1 bit, value 1)
     unsafe { 
-        I2C_BUFFER[0] = 0x00;
-        I2C_DATA.address = addr;
-        I2C_DATA.len = num_registers as u16;
-        I2C_DATA.buffer = buffer.as_mut_ptr();
+        I2C_BUFFER[0] = 0x00;     //  I2C Packet buffer should be empty (provided by caller)
+        I2C_DATA.address = addr;  //  I2C Packet address (7 bits)
+        I2C_DATA.len = num_registers as u16;    //  I2C Packet data size is number of Registers to read
+        I2C_DATA.buffer = buffer.as_mut_ptr();  //  I2C Packet data points to packet buffer
     };
-    //  After which the slave sends out data from auto-incremented register addresses until a NOACKM and stop condition occurs.
+    //  Step 4: Receive the requested number of Registers from I2C Device (1 byte per register)
+    //  Step 5: Send the Stop Condition (Low to High SDA Transition)
     let rc2 = unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
     if rc2 == hal::HAL_I2C_ERR_ADDR_NACK as i32 {
-        assert!(false);  //  I2C read failed
-        return Ok(());
+        assert!(false, "i2c fail");  //  I2C read failed
+        return Ok(());               //  TODO: Return an error
     }
     Ok(())
 }
@@ -277,21 +283,22 @@ static mut I2C_BUFFER: [u8; 1] =  [ 0 ];
 
 /// Probe the I2C bus to discover I2C devices
 pub fn probe() -> MynewtResult<()> {
+    //  For each I2C address 0 to 127...
     for addr in 0..128 {
+        //  Probe the I2C address at I2C Port 1. Time out after 1,000 milliseconds (1 second).
         let rc = unsafe { hal::hal_i2c_master_probe(1, addr, 1000) };
+        //  If we received an acknowledgement...
         if rc != hal::HAL_I2C_ERR_ADDR_NACK as i32 {
             //  I2C device found
-            console::print("0x"); console::printhex(addr); console::print(": ");
-            console::printhex(rc as u8); console::print("\n"); console::flush();
+            console::print("0x"); console::printhex(addr); console::print("\n"); console::flush();
         }
     }
     console::print("Done\n"); console::flush();
     Ok(())
 }
-
 /* I2C devices found:
-    0x18: 00 = Accelerometer: https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BMA423-DS000.pdf
-    0x44: 00 = Heart Rate Sensor: http://files.pine64.org/doc/datasheet/pinetime/HRS3300%20Heart%20Rate%20Sensor.pdf
+    0x18: Accelerometer: https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BMA423-DS000.pdf
+    0x44: Heart Rate Sensor: http://files.pine64.org/doc/datasheet/pinetime/HRS3300%20Heart%20Rate%20Sensor.pdf
     Touch controller not detected unless you keep tapping the screen */
 
 /// Test the touch sensor. `start_touch_sensor()` must have been called before this.
