@@ -97,13 +97,15 @@ pub fn start_display() -> MynewtResult<()> {
 
 /// Display the touched (X, Y) coordinates
 pub fn show_touch(x: u16, y: u16) -> MynewtResult<()> {
-    //  Format coordinates as text
+    //  Format coordinates as text into a fixed-size buffer
     let mut buf_x = ArrayString::<[u8; 20]>::new();
     let mut buf_y = ArrayString::<[u8; 20]>::new();
     write!(&mut buf_x, "  X = {}  ", x)
         .expect("show touch fail");
     write!(&mut buf_y, "  Y = {}  ", y)
         .expect("show touch fail");
+
+    //  Prepare the text for rendering
     let text_x = fonts::Font12x16::<Rgb565>
         ::render_str(&buf_x)
         .stroke(Some(Rgb565::from((0xff, 0xff, 0xff))))  //  White
@@ -114,6 +116,7 @@ pub fn show_touch(x: u16, y: u16) -> MynewtResult<()> {
         .stroke(Some(Rgb565::from((0xff, 0xff, 0xff))))  //  White
         .fill(Some(Rgb565::from((0x00, 0x00, 0x00))))    //  Black
         .translate(Coord::new(40, 130));
+        
     //  Render text to display
     unsafe {
         DISPLAY.draw(text_x);    

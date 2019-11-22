@@ -114,6 +114,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
     data.point_num = unsafe { buf[FT_TOUCH_POINT_NUM] & 0x0F };
     data.count     = 0;
 
+    //  Populate the first 5 touch points
     for i in 0..CFG_MAX_TOUCH_POINTS {
         let pointid = unsafe { buf[HYN_TOUCH_ID_POS + HYN_TOUCH_STEP * i] } >> 4;
         if pointid >= HYN_MAX_ID { break; }
@@ -149,7 +150,7 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
     Ok(())
 }
 
-/// TODO: Rename buf
+/// Buffer for raw touch data. TODO: Rename buf
 static mut buf: [u8; POINT_READ_BUF] = [0; POINT_READ_BUF];
 
 /// Touch Controller I2C Address: https://github.com/lupyuen/hynitron_i2c_cst0xxse
