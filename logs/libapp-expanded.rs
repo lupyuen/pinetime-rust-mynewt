@@ -93,6 +93,8 @@ mod mynewt_hal {
     //  touch_sensor::test()
     //    .expect("TCH test fail");
 
+    //  Launch the Druid UI
+
     //  Main event loop
     //  Loop forever...
     //  Processing events...
@@ -745,7 +747,7 @@ mod touch_sensor {
         }
         Ok(())
     }
-    /// TODO: Rename buf
+    /// Buffer for raw touch data. TODO: Rename buf
     static mut buf: [u8; POINT_READ_BUF] = [0; POINT_READ_BUF];
     /// Touch Controller I2C Address: https://github.com/lupyuen/hynitron_i2c_cst0xxse
     const TOUCH_CONTROLLER_ADDRESS: u8 = 0x15;
@@ -802,14 +804,14 @@ mod touch_sensor {
             {
                 ::core::panicking::panic(&("i2c buf",
                                            "rust/app/src/touch_sensor.rs",
-                                           210u32, 5u32))
+                                           211u32, 5u32))
             }
         };
         if !(start_register + num_registers < 128) {
             {
                 ::core::panicking::panic(&("i2c addr",
                                            "rust/app/src/touch_sensor.rs",
-                                           211u32, 5u32))
+                                           212u32, 5u32))
             }
         };
         unsafe {
@@ -831,9 +833,9 @@ mod touch_sensor {
         if rc2 == hal::HAL_I2C_ERR_ADDR_NACK as i32 {
             if !false {
                 {
-                    ::core::panicking::panic(&("assertion failed: false",
+                    ::core::panicking::panic(&("i2c fail",
                                                "rust/app/src/touch_sensor.rs",
-                                               231u32, 9u32))
+                                               241u32, 9u32))
                 }
             };
             return Ok(());
@@ -846,7 +848,7 @@ mod touch_sensor {
             {
                 ::core::panicking::panic(&("i2c addr",
                                            "rust/app/src/touch_sensor.rs",
-                                           239u32, 5u32))
+                                           249u32, 5u32))
             }
         };
         unsafe {
@@ -890,8 +892,6 @@ mod touch_sensor {
             if rc != hal::HAL_I2C_ERR_ADDR_NACK as i32 {
                 console::print("0x");
                 console::printhex(addr);
-                console::print(": ");
-                console::printhex(rc as u8);
                 console::print("\n");
                 console::flush();
             }
@@ -900,11 +900,13 @@ mod touch_sensor {
         console::flush();
         Ok(())
     }
-    /// Test the touch sensor. `start_touch_sensor()` must have been called before this.
+    /// Test reading some registers for I2C devices
     pub fn test() -> MynewtResult<()> {
         for _ in 0..20 {
-            for addr in &[0x15] {
-                for register in &[0x00, 0x01, 0xA3, 0x9F, 0x8F, 0xA6, 0xA8] {
+            for addr in &[0x44] {
+                for register in
+                    &[0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,
+                      0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f] {
                     read_register(*addr, *register)?;
                 }
             }
@@ -1028,6 +1030,29 @@ mod display {
                                                      ::core::mem::size_of::<MynewtGPIO>()])
         };
 }
+mod hello {
+    #![no_std]
+    use druid::widget::{Align, Button, Column, Label, Padding};
+    use druid::{AppLauncher, LocalizedString, Widget, WindowDesc};
+    pub fn launch() {
+        let main_window = WindowDesc::new(ui_builder);
+        let data = 0_u32;
+        AppLauncher::with_window(main_window).use_simple_logger().launch(data).expect("launch failed");
+    }
+    /// Build the UI for the window. The window state consists of 1 value: `count` of type `u32`.
+    fn ui_builder() -> impl Widget<u32> {
+        let text =
+            LocalizedString::new("hello-counter").with_arg("count",
+                                                           |data: &u32, _env|
+                                                               (*data).into());
+        let label = Label::new(text);
+        let button =
+            Button::<u32>::new("increment", |_ctx, data, _env| *data += 1);
+        let mut col = Column::new();
+        col.add_child(label, 1.0);
+        col
+    }
+}
 use core::panic::PanicInfo;
 use cortex_m::asm::bkpt;
 use mynewt::{kernel::os, sys::console};
@@ -1044,12 +1069,13 @@ extern "C" fn main() -> ! {
     if !(rc == 0) {
         {
             ::core::panicking::panic(&("BLE fail", "rust/app/src/lib.rs",
-                                       74u32, 5u32))
+                                       75u32, 5u32))
         }
     };
     display::start_display().expect("DSP fail");
     display::test().expect("DSP test fail");
     touch_sensor::start_touch_sensor().expect("TCH fail");
+    hello::launch();
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }
