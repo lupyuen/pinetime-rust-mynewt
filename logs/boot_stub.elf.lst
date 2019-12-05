@@ -1311,8 +1311,8 @@ _exit(int status)
  632:	f7ff fd9f 	bl	174 <hal_system_reset>
 
 00000636 <hal_system_start>:
-                  /* 1st word is stack pointer */
-                  "    msr  msp, %0       \n"
+                  //// /* 1st word is stack pointer */ ////TODO
+                  //// "    msr  psp, %0       \n" ////TODO
                   /* 2nd word is a reset handler (image entry) */
                   "    bx   %1            \n"
                   : /* no output */
