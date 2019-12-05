@@ -182,6 +182,12 @@ newt build $mynewt_build_app
 #  Display the image size.
 newt size -v $mynewt_build_app
 
+#  Copy the disassembly and linker map to the logs folder.
+set +x
+cp bin/targets/$mynewt_build_app/app/apps/my_sensor_app/my_sensor_app.elf.lst logs
+cp bin/targets/$mynewt_build_app/app/apps/my_sensor_app/my_sensor_app.elf.map logs
+set -x
+
 ####  TODO: Remove these
 # sleep 5
 # scripts/gd32vf103/image-app.sh
