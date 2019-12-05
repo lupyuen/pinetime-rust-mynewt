@@ -90,7 +90,7 @@ pub fn start_display() -> MynewtResult<()> {
         DISPLAY.init(&mut delay) ? ;
         DISPLAY.set_orientation(&Orientation::Landscape) ? ;
         //  DISPLAY.set_offset(1, 25);
-        DISPLAY.draw(background);
+        ////  DISPLAY.draw(background);
     }
     Ok(())
 }

@@ -86,12 +86,14 @@ mod mynewt_hal {
     //  Start the display
 
     //  Test the display
+    //  display::test()
+    //      .expect("DSP test fail");
 
     //  Start the touch sensor
 
     //  Test the touch sensor
     //  touch_sensor::test()
-    //    .expect("TCH test fail");
+    //      .expect("TCH test fail");
 
     //  Launch the Druid UI
 
@@ -959,7 +961,6 @@ mod display {
         unsafe {
             DISPLAY.init(&mut delay)?;
             DISPLAY.set_orientation(&Orientation::Landscape)?;
-            DISPLAY.draw(background);
         }
         Ok(())
     }
@@ -1073,7 +1074,6 @@ extern "C" fn main() -> ! {
         }
     };
     display::start_display().expect("DSP fail");
-    display::test().expect("DSP test fail");
     touch_sensor::start_touch_sensor().expect("TCH fail");
     hello::launch();
     loop  {
