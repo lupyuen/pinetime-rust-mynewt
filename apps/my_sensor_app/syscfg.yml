@@ -97,7 +97,7 @@ syscfg.defs:
 syscfg.vals:
     # OS_MAIN_STACK_SIZE: 1024  #  Small stack size: 2 KB
     # OS_MAIN_STACK_SIZE: 2048  #  Normal stack size: 4 KB
-    OS_MAIN_STACK_SIZE: 12288  #  Large stack size: 24 KB
+    OS_MAIN_STACK_SIZE: 8192  #  Large stack size: 16 KB
 
     ###########################################################################
     # CoAP Server Settings

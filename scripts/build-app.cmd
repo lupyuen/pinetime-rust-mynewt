@@ -23,8 +23,8 @@ copy /y .vscode\launch-nrf52.json .vscode\launch.json
 @echo "----- Building Rust app and Mynewt OS for %rust_build_target% / %mynewt_build_app%..."
 
 ::  Rust build profile: debug or release
-set rust_build_profile=debug
-::  set rust_build_profile=release
+::  set rust_build_profile=debug
+set rust_build_profile=release
 
 ::  Add toolchain to PATH.
 set PATH=%PATH%;%cd%\xPack\RISC-V Embedded GCC\8.2.0-3.1\bin

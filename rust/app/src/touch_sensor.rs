@@ -14,7 +14,6 @@ use mynewt::{
     sys::console,
     fill_zero,
 };
-use crate::display;
 
 /// Reset Pin for touch controller. Note: NFC antenna pins must be reassigned as GPIO pins for this to work.
 const TOUCH_RESET_PIN: i32 = 10;  //  P0.10/NFC2: TP_RESET
@@ -86,7 +85,7 @@ extern "C" fn touch_event_callback(_event: *mut os_event) {
         read_touchdata(&mut TOUCH_DATA)
             .expect("touchdata fail");
         //  Display the touch data
-        display::show_touch(
+        druid::show_touch(
             TOUCH_DATA.touches[0].x,
             TOUCH_DATA.touches[0].y
         ).expect("show touch fail");
