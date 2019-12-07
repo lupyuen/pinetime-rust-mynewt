@@ -114,11 +114,11 @@ fn panic(info: &PanicInfo) -> ! {
     } else {
         console::print("no loc\n");  console::flush();
     }
+    //  Pause in the debugger.
+    bkpt();
     //  Display the payload.
     console::print(info.payload().downcast_ref::<&str>().unwrap());
     console::print("\n");  console::flush();
-    //  Pause in the debugger.
-    bkpt();
     //  Loop forever so that device won't restart.
     loop {}
 }

@@ -152,19 +152,19 @@ SYMBOL TABLE:
 0000ed54 l       .debug_str	00000000 
 0000ed94 l       .debug_str	00000000 
 0000edb9 l       .debug_str	00000000 
-0000edfa l       .debug_str	00000000 
-0000ee03 l       .debug_str	00000000 
-0000ee08 l       .debug_str	00000000 
-0000ee11 l       .debug_str	00000000 
-0000ee5d l       .debug_str	00000000 
-0000ee70 l       .debug_str	00000000 
-0000ee7e l       .debug_str	00000000 
-0000eee1 l       .debug_str	00000000 
+0000edc2 l       .debug_str	00000000 
+0000edc6 l       .debug_str	00000000 
+0000edf0 l       .debug_str	00000000 
+0000edf5 l       .debug_str	00000000 
+0000ee36 l       .debug_str	00000000 
+0000ee3f l       .debug_str	00000000 
+0000ee44 l       .debug_str	00000000 
+0000ee4d l       .debug_str	00000000 
+0000ee99 l       .debug_str	00000000 
+0000eeac l       .debug_str	00000000 
+0000eeba l       .debug_str	00000000 
 0000ef1d l       .debug_str	00000000 
-0000ef2b l       .debug_str	00000000 
-0000ef34 l       .debug_str	00000000 
-0000ef38 l       .debug_str	00000000 
-0000ef62 l       .debug_str	00000000 
+0000ef59 l       .debug_str	00000000 
 0000ef67 l       .debug_str	00000000 
 0000eff5 l       .debug_str	00000000 
 0000f0d7 l       .debug_str	00000000 
@@ -11151,40 +11151,13 @@ fn panic(info: &PanicInfo) -> ! {
   4c:	2107      	movs	r1, #7
   4e:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
   52:	f7ff fffe 	bl	0 <mynewt::sys::console::flush>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:118
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:120
     }
+    //  Pause in the debugger.
+    bkpt();
     //  Display the payload.
     console::print(info.payload().downcast_ref::<&str>().unwrap());
   56:	4620      	mov	r0, r4
-  58:	f7ff fffe 	bl	0 <core::panic::PanicInfo::payload>
-_ZN36_$LT$dyn$u20$$u2b$core..any..Any$GT$2is17h1feb6fcad6b54e3eE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/any.rs:160
-  5c:	68c9      	ldr	r1, [r1, #12]
-rust_begin_unwind():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:118
-  5e:	4604      	mov	r4, r0
-_ZN36_$LT$dyn$u20$$u2b$core..any..Any$GT$2is17h1feb6fcad6b54e3eE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/any.rs:160
-  60:	4788      	blx	r1
-_ZN4core6option15Option$LT$T$GT$6unwrap17h4f8b16a15b1de518E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:346
-  62:	b18c      	cbz	r4, 88 <rust_begin_unwind+0x88>
-  64:	4a10      	ldr	r2, [pc, #64]	; (a8 <rust_begin_unwind+0xa8>)
-  66:	4b11      	ldr	r3, [pc, #68]	; (ac <rust_begin_unwind+0xac>)
-  68:	4051      	eors	r1, r2
-  6a:	4058      	eors	r0, r3
-  6c:	4308      	orrs	r0, r1
-  6e:	d10b      	bne.n	88 <rust_begin_unwind+0x88>
-rust_begin_unwind():
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:118
-  70:	e9d4 0100 	ldrd	r0, r1, [r4]
-  74:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:119
-    console::print("\n");  console::flush();
-  78:	4809      	ldr	r0, [pc, #36]	; (a0 <rust_begin_unwind+0xa0>)
-  7a:	2101      	movs	r1, #1
-  7c:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
-  80:	f7ff fffe 	bl	0 <mynewt::sys::console::flush>
 _ZN8cortex_m3asm4bkpt17h1714df8ce7052ca3E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.1/src/asm.rs:11
 /// exception.
@@ -11193,11 +11166,39 @@ pub fn bkpt() {
     match () {
         #[cfg(all(cortex_m, feature = "inline-asm"))]
         () => unsafe { asm!("bkpt" :::: "volatile") },
-  84:	be00      	bkpt	0x0000
+  58:	be00      	bkpt	0x0000
 rust_begin_unwind():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:120
+  5a:	f7ff fffe 	bl	0 <core::panic::PanicInfo::payload>
+_ZN36_$LT$dyn$u20$$u2b$core..any..Any$GT$2is17h1feb6fcad6b54e3eE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/any.rs:160
+  5e:	68c9      	ldr	r1, [r1, #12]
+rust_begin_unwind():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:120
+  60:	4604      	mov	r4, r0
+_ZN36_$LT$dyn$u20$$u2b$core..any..Any$GT$2is17h1feb6fcad6b54e3eE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/any.rs:160
+  62:	4788      	blx	r1
+_ZN4core6option15Option$LT$T$GT$6unwrap17h4f8b16a15b1de518E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:346
+  64:	b184      	cbz	r4, 88 <rust_begin_unwind+0x88>
+  66:	4a10      	ldr	r2, [pc, #64]	; (a8 <rust_begin_unwind+0xa8>)
+  68:	4b10      	ldr	r3, [pc, #64]	; (ac <rust_begin_unwind+0xac>)
+  6a:	4051      	eors	r1, r2
+  6c:	4058      	eors	r0, r3
+  6e:	4308      	orrs	r0, r1
+  70:	d10a      	bne.n	88 <rust_begin_unwind+0x88>
+rust_begin_unwind():
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:120
+  72:	e9d4 0100 	ldrd	r0, r1, [r4]
+  76:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
+/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:121
+    console::print("\n");  console::flush();
+  7a:	4809      	ldr	r0, [pc, #36]	; (a0 <rust_begin_unwind+0xa0>)
+  7c:	2101      	movs	r1, #1
+  7e:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
+  82:	f7ff fffe 	bl	0 <mynewt::sys::console::flush>
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:123
-    //  Pause in the debugger.
-    bkpt();
     //  Loop forever so that device won't restart.
     loop {}
   86:	e7fe      	b.n	86 <rust_begin_unwind+0x86>

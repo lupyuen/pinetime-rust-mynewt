@@ -861,7 +861,7 @@ Section Headers:
   [835] .ARM.attributes   ARM_ATTRIBUTES  00000000 03b4bc 00003a 00      0   0  1
   [836] .debug_frame      PROGBITS        00000000 03b4f8 0012ec 00      0   0  4
   [837] .rel.debug_frame  REL             00000000 05e118 000bd0 08     840 836  4
-  [838] .debug_line       PROGBITS        00000000 03c7e4 0035e1 00      0   0  1
+  [838] .debug_line       PROGBITS        00000000 03c7e4 0035e4 00      0   0  1
   [839] .rel.debug_line   REL             00000000 05ece8 0005e8 08     840 838  4
   [840] .symtab           SYMTAB          00000000 03fdc8 00a5e0 10      1 2325  4
 Key to Flags:
@@ -2718,10 +2718,10 @@ Relocation section '.rel.text.rust_begin_unwind' at offset 0x4be88 contains 20 e
 0000003e  0009d40a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console8printint17hbd0a6209ae7a3496E
 0000004e  0009d20a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h896ee3811baae8faE
 00000052  0009d10a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5flush17h0a8a2fe2affc1a7bE
-00000058  0009620a R_ARM_THM_CALL         00000000   _ZN4core5panic9PanicInfo7payload17h618364282c06396fE
-00000074  0009d20a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h896ee3811baae8faE
-0000007c  0009d20a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h896ee3811baae8faE
-00000080  0009d10a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5flush17h0a8a2fe2affc1a7bE
+0000005a  0009620a R_ARM_THM_CALL         00000000   _ZN4core5panic9PanicInfo7payload17h618364282c06396fE
+00000076  0009d20a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h896ee3811baae8faE
+0000007e  0009d20a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5print17h896ee3811baae8faE
+00000082  0009d10a R_ARM_THM_CALL         00000000   _ZN6mynewt3sys7console5flush17h0a8a2fe2affc1a7bE
 0000008a  0009710a R_ARM_THM_CALL         00000000   _ZN4core9panicking5panic17h53ca63c6ac6312f8E
 00000090  00090a02 R_ARM_ABS32            00000000   .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.90
 00000094  00090c02 R_ARM_ABS32            00000000   .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.92
@@ -6372,7 +6372,7 @@ Relocation section '.rel.debug_info' at offset 0x508d8 contains 5378 entries:
 00003005  00032802 R_ARM_ABS32            00001b36   
 00003010  00039b02 R_ARM_ABS32            00002cd4   
 0000301c  00036802 R_ARM_ABS32            0000229f   
-0000302b  00009b02 R_ARM_ABS32            0000ee70   
+0000302b  00009f02 R_ARM_ABS32            0000eeac   
 00003040  0002c202 R_ARM_ABS32            00001580   
 0000304d  0002c502 R_ARM_ABS32            000015df   
 0000305a  0002c202 R_ARM_ABS32            00001580   
@@ -6380,8 +6380,8 @@ Relocation section '.rel.debug_info' at offset 0x508d8 contains 5378 entries:
 0000306b  0002c502 R_ARM_ABS32            000015df   
 00003072  00024d02 R_ARM_ABS32            000000ce   
 00003081  00025b02 R_ARM_ABS32            0000011e   
-00003087  00009d02 R_ARM_ABS32            0000eee1   
-0000308b  00009e02 R_ARM_ABS32            0000ef1d   
+00003087  0000a102 R_ARM_ABS32            0000ef1d   
+0000308b  0000a202 R_ARM_ABS32            0000ef59   
 0000309c  00025b02 R_ARM_ABS32            0000011e   
 000030a1  00032802 R_ARM_ABS32            00001b36   
 000030ad  00036802 R_ARM_ABS32            0000229f   
@@ -7064,24 +7064,24 @@ Relocation section '.rel.debug_info' at offset 0x508d8 contains 5378 entries:
 00004b54  0000cb02 R_ARM_ABS32            0000fb0c   
 00004b64  00025b02 R_ARM_ABS32            0000011e   
 00004b6b  0002ff02 R_ARM_ABS32            000018b0   
-00004b70  00009502 R_ARM_ABS32            0000edb9   
-00004b74  00009602 R_ARM_ABS32            0000edfa   
+00004b70  00009902 R_ARM_ABS32            0000edf5   
+00004b74  00009a02 R_ARM_ABS32            0000ee36   
 00004b84  00025b02 R_ARM_ABS32            0000011e   
 00004b89  00032802 R_ARM_ABS32            00001b36   
 00004b95  00038702 R_ARM_ABS32            0000283c   
-00004ba2  00009802 R_ARM_ABS32            0000ee08   
-00004bb1  00009902 R_ARM_ABS32            0000ee11   
-00004bb5  00009a02 R_ARM_ABS32            0000ee5d   
+00004ba2  00009c02 R_ARM_ABS32            0000ee44   
+00004bb1  00009d02 R_ARM_ABS32            0000ee4d   
+00004bb5  00009e02 R_ARM_ABS32            0000ee99   
 00004bc5  00025b02 R_ARM_ABS32            0000011e   
 00004bca  00032802 R_ARM_ABS32            00001b36   
-00004bd6  00009c02 R_ARM_ABS32            0000ee7e   
-00004bda  00009a02 R_ARM_ABS32            0000ee5d   
+00004bd6  0000a002 R_ARM_ABS32            0000eeba   
+00004bda  00009e02 R_ARM_ABS32            0000ee99   
 00004beb  00025b02 R_ARM_ABS32            0000011e   
 00004bf0  00032802 R_ARM_ABS32            00001b36   
-00004bfd  00009702 R_ARM_ABS32            0000ee03   
+00004bfd  00009b02 R_ARM_ABS32            0000ee3f   
 00004c04  0003ae02 R_ARM_ABS32            00002e8b   
 00004c0f  00024502 R_ARM_ABS32            00000085   
-00004c1b  00009702 R_ARM_ABS32            0000ee03   
+00004c1b  00009b02 R_ARM_ABS32            0000ee3f   
 00004c22  0003ae02 R_ARM_ABS32            00002e8b   
 00004c2d  00024502 R_ARM_ABS32            00000085   
 00004c3a  0003ac02 R_ARM_ABS32            00002e7e   
@@ -9342,18 +9342,18 @@ Relocation section '.rel.debug_info' at offset 0x508d8 contains 5378 entries:
 0000a29d  0008b802 R_ARM_ABS32            00000000   .text.rust_begin_unwind
 0000a2a6  00090f02 R_ARM_ABS32            00000000   .debug_loc
 0000a2aa  00034902 R_ARM_ABS32            00001ef5   
-0000a2bc  00091202 R_ARM_ABS32            00000000   .debug_ranges
-0000a2c3  00090f02 R_ARM_ABS32            00000000   .debug_loc
-0000a2d0  00091202 R_ARM_ABS32            00000000   .debug_ranges
-0000a2d8  00090f02 R_ARM_ABS32            00000000   .debug_loc
-0000a2e5  00091202 R_ARM_ABS32            00000000   .debug_ranges
-0000a2ec  00090f02 R_ARM_ABS32            00000000   .debug_loc
-0000a2f5  00091202 R_ARM_ABS32            00000000   .debug_ranges
-0000a2fa  00090f02 R_ARM_ABS32            00000000   .debug_loc
-0000a30b  00091202 R_ARM_ABS32            00000000   .debug_ranges
-0000a312  0008b802 R_ARM_ABS32            00000000   .text.rust_begin_unwind
-0000a31b  00090f02 R_ARM_ABS32            00000000   .debug_loc
-0000a32a  0008b802 R_ARM_ABS32            00000000   .text.rust_begin_unwind
+0000a2bc  0008b802 R_ARM_ABS32            00000000   .text.rust_begin_unwind
+0000a2cb  00091202 R_ARM_ABS32            00000000   .debug_ranges
+0000a2d2  00090f02 R_ARM_ABS32            00000000   .debug_loc
+0000a2df  00091202 R_ARM_ABS32            00000000   .debug_ranges
+0000a2e7  00090f02 R_ARM_ABS32            00000000   .debug_loc
+0000a2f4  00091202 R_ARM_ABS32            00000000   .debug_ranges
+0000a2fb  00090f02 R_ARM_ABS32            00000000   .debug_loc
+0000a304  00091202 R_ARM_ABS32            00000000   .debug_ranges
+0000a309  00090f02 R_ARM_ABS32            00000000   .debug_loc
+0000a31a  00091202 R_ARM_ABS32            00000000   .debug_ranges
+0000a321  0008b802 R_ARM_ABS32            00000000   .text.rust_begin_unwind
+0000a32a  00090f02 R_ARM_ABS32            00000000   .debug_loc
 0000a337  00029902 R_ARM_ABS32            0000136b   
 0000a33c  00029f02 R_ARM_ABS32            00001391   
 0000a343  00029a02 R_ARM_ABS32            00001372   
@@ -10496,10 +10496,10 @@ Relocation section '.rel.debug_info' at offset 0x508d8 contains 5378 entries:
 0000cfbb  00007502 R_ARM_ABS32            0000e8d3   
 0000cfd9  00008d02 R_ARM_ABS32            0000ecbd   
 0000cfe2  00008e02 R_ARM_ABS32            0000ecc3   
-0000cfe7  00009f02 R_ARM_ABS32            0000ef2b   
-0000cfec  0000a002 R_ARM_ABS32            0000ef34   
-0000cff1  0000a102 R_ARM_ABS32            0000ef38   
-0000cff5  0000a202 R_ARM_ABS32            0000ef62   
+0000cfe7  00009502 R_ARM_ABS32            0000edb9   
+0000cfec  00009602 R_ARM_ABS32            0000edc2   
+0000cff1  00009702 R_ARM_ABS32            0000edc6   
+0000cff5  00009802 R_ARM_ABS32            0000edf0   
 0000cfff  0000d802 R_ARM_ABS32            0000fe0c   
 0000d006  00024d02 R_ARM_ABS32            000000ce   
 0000d011  00026802 R_ARM_ABS32            00000377   
@@ -13775,19 +13775,19 @@ Symbol table '.symtab' contains 2654 entries:
    147: 0000ed54     0 NOTYPE  LOCAL  DEFAULT  821 
    148: 0000ed94     0 NOTYPE  LOCAL  DEFAULT  821 
    149: 0000edb9     0 NOTYPE  LOCAL  DEFAULT  821 
-   150: 0000edfa     0 NOTYPE  LOCAL  DEFAULT  821 
-   151: 0000ee03     0 NOTYPE  LOCAL  DEFAULT  821 
-   152: 0000ee08     0 NOTYPE  LOCAL  DEFAULT  821 
-   153: 0000ee11     0 NOTYPE  LOCAL  DEFAULT  821 
-   154: 0000ee5d     0 NOTYPE  LOCAL  DEFAULT  821 
-   155: 0000ee70     0 NOTYPE  LOCAL  DEFAULT  821 
-   156: 0000ee7e     0 NOTYPE  LOCAL  DEFAULT  821 
-   157: 0000eee1     0 NOTYPE  LOCAL  DEFAULT  821 
-   158: 0000ef1d     0 NOTYPE  LOCAL  DEFAULT  821 
-   159: 0000ef2b     0 NOTYPE  LOCAL  DEFAULT  821 
-   160: 0000ef34     0 NOTYPE  LOCAL  DEFAULT  821 
-   161: 0000ef38     0 NOTYPE  LOCAL  DEFAULT  821 
-   162: 0000ef62     0 NOTYPE  LOCAL  DEFAULT  821 
+   150: 0000edc2     0 NOTYPE  LOCAL  DEFAULT  821 
+   151: 0000edc6     0 NOTYPE  LOCAL  DEFAULT  821 
+   152: 0000edf0     0 NOTYPE  LOCAL  DEFAULT  821 
+   153: 0000edf5     0 NOTYPE  LOCAL  DEFAULT  821 
+   154: 0000ee36     0 NOTYPE  LOCAL  DEFAULT  821 
+   155: 0000ee3f     0 NOTYPE  LOCAL  DEFAULT  821 
+   156: 0000ee44     0 NOTYPE  LOCAL  DEFAULT  821 
+   157: 0000ee4d     0 NOTYPE  LOCAL  DEFAULT  821 
+   158: 0000ee99     0 NOTYPE  LOCAL  DEFAULT  821 
+   159: 0000eeac     0 NOTYPE  LOCAL  DEFAULT  821 
+   160: 0000eeba     0 NOTYPE  LOCAL  DEFAULT  821 
+   161: 0000ef1d     0 NOTYPE  LOCAL  DEFAULT  821 
+   162: 0000ef59     0 NOTYPE  LOCAL  DEFAULT  821 
    163: 0000ef67     0 NOTYPE  LOCAL  DEFAULT  821 
    164: 0000eff5     0 NOTYPE  LOCAL  DEFAULT  821 
    165: 0000f0d7     0 NOTYPE  LOCAL  DEFAULT  821 
