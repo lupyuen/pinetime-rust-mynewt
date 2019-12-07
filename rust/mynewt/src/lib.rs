@@ -5,7 +5,6 @@
 #![feature(const_transmute)]      //  Allow `transmute` for initialising Mynewt structs
 #![feature(trace_macros)]         //  Enable tracing of macros
 #![feature(proc_macro_hygiene)]   //  Allow proc macros to be unhygienic
-#![feature(custom_attribute)]     //  Allow Custom Attributes like `#[safe_wrap]`
 
 extern crate macros as mynewt_macros;  //  Import Procedural Macros from `macros` library
 
@@ -32,6 +31,9 @@ pub mod util;                     //  Mynewt Utility API. Export folder `encodin
 #[allow(non_camel_case_types)]    //  Allow type names to have non-camel case
 #[allow(non_upper_case_globals)]  //  Allow globals to have lowercase letters
 pub mod libs;                     //  Mynewt Custom API. Export folder `libs` as Rust module `mynewt::libs`
+
+mod hal;                            //  Import module `hal` for Embedded HAL functions but don't export it
+pub use hal::{ Delay, GPIO, SPI };  //  Export `hal` types GPIO and SPI
 
 ///  Initialise the Mynewt system.  Start the Mynewt drivers and libraries.  Equivalent to `sysinit()` macro in C.
 pub fn sysinit() {

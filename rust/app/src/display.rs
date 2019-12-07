@@ -19,14 +19,10 @@ use st7735_lcd::{
     ST7735,
 };
 use mynewt::{
+    self,
     result::*,
     hw::hal,
     fill_zero,
-};
-use crate::mynewt_hal::{
-    MynewtDelay,
-    MynewtGPIO,
-    MynewtSPI,
 };
 
 /* From PineTime Smart Watch wiki: https://wiki.pine64.org/index.php/PineTime
@@ -52,9 +48,9 @@ static mut SPI_SETTINGS: hal::hal_spi_settings = hal::hal_spi_settings {
 /// Initialise the display controller
 pub fn start_display() -> MynewtResult<()> {
     //  Create SPI port and GPIO pins
-    let mut spi_port = MynewtSPI::new();
-    let mut dc_gpio =  MynewtGPIO::new();
-    let mut rst_gpio = MynewtGPIO::new();
+    let mut spi_port = mynewt::SPI::new();
+    let mut dc_gpio =  mynewt::GPIO::new();
+    let mut rst_gpio = mynewt::GPIO::new();
 
     //  Init SPI port and GPIO pins
     spi_port.init(
@@ -67,7 +63,7 @@ pub fn start_display() -> MynewtResult<()> {
 
     //  Switch on the backlight
     unsafe {
-        BACKLIGHT_HIGH = MynewtGPIO::new();
+        BACKLIGHT_HIGH = mynewt::GPIO::new();
         BACKLIGHT_HIGH.init(23) ? ;  //  LCD_BACKLIGHT_{LOW,MID,HIGH} (P0.14, 22, 23): Backlight (active low)
         BACKLIGHT_HIGH.set_low() ? ;    
     }
@@ -85,7 +81,7 @@ pub fn start_display() -> MynewtResult<()> {
     let background = Rectangle::<Rgb565>
         ::new(Coord::new(0, 0), Coord::new(240, 240))
         .fill(Some(Rgb565::from((0x0, 0x0, 0x0))));  //  Black
-    let mut delay = MynewtDelay::new();
+    let mut delay = mynewt::Delay::new();
     unsafe {
         DISPLAY.init(&mut delay) ? ;
         DISPLAY.set_orientation(&Orientation::Landscape) ? ;
@@ -149,7 +145,8 @@ pub fn test() -> MynewtResult<()> {
 
 /// Display Driver
 static mut DISPLAY: Display = fill_zero!(Display);               //  Will be created in `start_display()`
-type Display = ST7735<MynewtSPI, MynewtGPIO, MynewtGPIO>;
+type Display = ST7735<mynewt::SPI, mynewt::GPIO, mynewt::GPIO>;
 
 /// GPIO Pin for Display Backlight
-static mut BACKLIGHT_HIGH: MynewtGPIO = fill_zero!(MynewtGPIO);  //  Will be created in `start_display()`
+static mut BACKLIGHT_HIGH: mynewt::GPIO = fill_zero!(MynewtGPIO);  //  Will be created in `start_display()`
+type MynewtGPIO = mynewt::GPIO;
