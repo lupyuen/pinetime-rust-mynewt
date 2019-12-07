@@ -1,3 +1,4 @@
+/* Code has been moved to `mynewt` library: rust/mynewt/src/hal.rs
 use embedded_hal;
 use mynewt::{
     result::*,
@@ -126,3 +127,4 @@ pub struct MynewtGPIO {
 
 /// Rust Embedded HAL interface for Mynewt Delay
 pub struct MynewtDelay {}
+*/

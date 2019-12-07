@@ -1,3 +1,4 @@
+/*  Code has been moved to https://github.com/lupyuen/piet-embedded/blob/master/piet-embedded-graphics/src/display.rs
 use core::fmt::Write;
 use arrayvec::ArrayString;
 use embedded_graphics::{
@@ -24,6 +25,7 @@ use mynewt::{
     hw::hal,
     fill_zero,
 };
+*/
 
 /* From PineTime Smart Watch wiki: https://wiki.pine64.org/index.php/PineTime
 Mynewt SPI port 0 connected to ST7789 display:
@@ -37,6 +39,7 @@ LCD_BACKLIGHT_{LOW,MID,HIGH} (P0.14, 22, 23)	Backlight (active low)
 - LCD_DISPLAY_* is used to enable the backlight. Set at least one to low to see anything on the screen.
 - Use SPI at 8MHz (the fastest clock available on the nRF52832) because otherwise refreshing will be super slow. */
 
+/*
 /// SPI settings for ST7789 display controller
 static mut SPI_SETTINGS: hal::hal_spi_settings = hal::hal_spi_settings {
     data_order: hal::HAL_SPI_MSB_FIRST as u8,
@@ -150,3 +153,4 @@ type Display = ST7735<mynewt::SPI, mynewt::GPIO, mynewt::GPIO>;
 /// GPIO Pin for Display Backlight
 static mut BACKLIGHT_HIGH: mynewt::GPIO = fill_zero!(MynewtGPIO);  //  Will be created in `start_display()`
 type MynewtGPIO = mynewt::GPIO;
+*/
