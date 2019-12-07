@@ -82,7 +82,7 @@ mod app_network {
     //  Start the display
 
     //  Test the display
-    //  display::test()
+    //  druid::test_display()
     //      .expect("DSP test fail");
 
     //  Start the touch sensor

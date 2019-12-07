@@ -10904,7 +10904,7 @@ _ZN3app12touch_sensor18start_touch_sensor17h57e1b5d397cafe7eE():
 main():
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/rust/app/src/lib.rs:83
     //  Test the display
-    //  display::test()
+    //  druid::test_display()
     //      .expect("DSP test fail");
 
     //  Start the touch sensor
