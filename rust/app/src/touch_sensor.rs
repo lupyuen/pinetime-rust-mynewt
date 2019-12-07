@@ -4,6 +4,7 @@ use embedded_hal::{
     digital::v2::OutputPin,
 };
 use mynewt::{
+    self,
     result::*,
     hw::hal,
     kernel::os::{
@@ -12,10 +13,6 @@ use mynewt::{
     },
     sys::console,
     fill_zero,
-};
-use crate::mynewt_hal::{
-    MynewtDelay,
-    MynewtGPIO,
 };
 use crate::display;
 
@@ -28,6 +25,8 @@ const TOUCH_INTERRUPT_PIN: i32 = 28;  //  P0.28/AIN4: TP_INT
 /// Reset GPIO Pin
 static mut TOUCH_RESET: MynewtGPIO =  fill_zero!(MynewtGPIO);
 static mut TOUCH_DELAY: MynewtDelay = fill_zero!(MynewtDelay);
+type MynewtGPIO = mynewt::GPIO;
+type MynewtDelay = mynewt::Delay;
 
 /// Initialise the touch controller. NFC antenna pins must already be reassigned as GPIO pins:
 /// Set `NFC_PINS_AS_GPIO: 1` in hw/bsp/nrf52/syscfg.yml.  To check whether whether NFC antenna 
