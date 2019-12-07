@@ -1,4 +1,5 @@
 #![feature(prelude_import)]
+#![no_std]
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -32,11 +33,11 @@
 //  Allow `transmute` for initialising Mynewt structs
 #![feature(proc_macro_hygiene)]
 #[prelude_import]
-use core::prelude::v1::*;
+use ::core::prelude::v1::*;
 #[macro_use]
-extern crate core;
+extern crate core as core;
 #[macro_use]
-extern crate compiler_builtins;
+extern crate compiler_builtins as compiler_builtins;
 //  Allow Procedural Macros like `run!()`
 
 extern crate cortex_m;
@@ -60,12 +61,14 @@ mod app_network {
     //  Import Mynewt Console API
     //libs::sensor_network,   //  Import Mynewt Sensor Network Library
 
+
     //  Don't mangle the name "main"
     //  Declare extern "C" because it will be called by Mynewt
     //  Initialise the Mynewt packages and internal temperature sensor driver. Any startup
     //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
+
 
     //  TODO: Start the Server Transport for transmitting sensor data to the network.
     //  sensor_network::start_server_transport()
@@ -108,7 +111,7 @@ mod app_network {
                  sys::console, encoding::coap_context::*,
                  libs::{sensor_network}, coap, d, Strn};
     use mynewt_macros::strn;
-    #[cfg(not (feature = "use_float"))]
+    #[cfg(not(feature = "use_float"))]
     pub fn aggregate_sensor_data(sensor_value: &SensorValue)
      -> MynewtResult<()> {
         send_sensor_data(sensor_value)
@@ -149,7 +152,7 @@ mod app_network {
                     }
                     {
                         {
-                            "begin json coap_array, object : COAP_CONTEXT, key : values";
+                            "begin json coap_array , object : COAP_CONTEXT , key : values";
                             {
                                 "<< jarri , o: COAP_CONTEXT, k: values";
                                 let key_with_null: &str = "values\u{0}";
@@ -159,17 +162,17 @@ mod app_network {
                                 };
                             };
                             {
-                                " >>  >> val >> , \"device\" : & device_id,";
+                                " >>  >> val >> , \"device\" : & device_id ,";
                                 "--------------------";
                                 {
-                                    "begin json coap_item_int_val, c : COAP_CONTEXT, val : val";
+                                    "begin json coap_item_int_val , c : COAP_CONTEXT , val : val";
                                     let geo = val.geo;
                                     if let SensorValueType::Uint(val) =
                                            val.value {
                                         {
-                                            "begin json coap_item_int, key : val.key, value : val";
+                                            "begin json coap_item_int , key : val.key , value : val";
                                             {
-                                                "begin json coap_item, array : COAP_CONTEXT";
+                                                "begin json coap_item , array : COAP_CONTEXT";
                                                 {
                                                     "<< jitmi c: COAP_CONTEXT";
                                                     let key_with_null: &str =
@@ -233,12 +236,12 @@ mod app_network {
                                     "end json coap_item_int_val";
                                 };
                                 "--------------------";
-                                " >>  >> \"device\" >> : & device_id,";
-                                "add1 key : \"device\" value : ::mynewt::parse!(@ json &device_id) to object :\nCOAP_CONTEXT";
+                                " >>  >> \"device\" >> : & device_id ,";
+                                "add1 key : \"device\" value : $crate::parse!(@ json &device_id) to object :\nCOAP_CONTEXT";
                                 {
-                                    "begin json coap_item_str, parent : COAP_CONTEXT, key : \"device\", val :\n::mynewt::parse!(@ json &device_id)";
+                                    "begin json coap_item_str , parent : COAP_CONTEXT , key : \"device\" , val :\n$crate::parse!(@ json &device_id)";
                                     {
-                                        "begin json coap_item, array : COAP_CONTEXT";
+                                        "begin json coap_item , array : COAP_CONTEXT";
                                         {
                                             "<< jitmi c: COAP_CONTEXT";
                                             let key_with_null: &str =
@@ -260,7 +263,7 @@ mod app_network {
                                                 };
                                             };
                                             {
-                                                "-- jtxti o: COAP_CONTEXT, k: value, v: ::mynewt::parse!(@ json &device_id)";
+                                                "-- jtxti o: COAP_CONTEXT, k: value, v: $crate::parse!(@ json &device_id)";
                                                 let key_strn: &Strn =
                                                     &Strn::new(b"value\x00");
                                                 let value_strn: &Strn =
@@ -398,31 +401,34 @@ mod touch_sensor {
             match (&(rc), &(0)) {
                 (left_val, right_val) => {
                     if !(*left_val == *right_val) {
-                        ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                      "`,\n right: `",
-                                                                                      "`: "],
-                                                                                    &match (&&*left_val,
-                                                                                            &&*right_val,
-                                                                                            &::core::fmt::Arguments::new_v1(&["IRQ init fail"],
-                                                                                                                            &match ()
-                                                                                                                                 {
-                                                                                                                                 ()
-                                                                                                                                 =>
-                                                                                                                                 [],
-                                                                                                                             }))
-                                                                                         {
-                                                                                         (arg0,
-                                                                                          arg1,
-                                                                                          arg2)
-                                                                                         =>
-                                                                                         [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                       ::core::fmt::Debug::fmt),
-                                                                                          ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                       ::core::fmt::Debug::fmt),
-                                                                                          ::core::fmt::ArgumentV1::new(arg2,
-                                                                                                                       ::core::fmt::Display::fmt)],
-                                                                                     }),
-                                                     ::core::intrinsics::caller_location())
+                        {
+                            ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                          "`,\n right: `",
+                                                                                          "`: "],
+                                                                                        &match (&&*left_val,
+                                                                                                &&*right_val,
+                                                                                                &::core::fmt::Arguments::new_v1(&["IRQ init fail"],
+                                                                                                                                &match ()
+                                                                                                                                     {
+                                                                                                                                     ()
+                                                                                                                                     =>
+                                                                                                                                     [],
+                                                                                                                                 }))
+                                                                                             {
+                                                                                             (arg0,
+                                                                                              arg1,
+                                                                                              arg2)
+                                                                                             =>
+                                                                                             [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                           ::core::fmt::Debug::fmt),
+                                                                                              ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                           ::core::fmt::Debug::fmt),
+                                                                                              ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                           ::core::fmt::Display::fmt)],
+                                                                                         }),
+                                                         &("rust/app/src/touch_sensor.rs",
+                                                           63u32, 5u32))
+                        }
                     }
                 }
             }
@@ -552,12 +558,18 @@ mod touch_sensor {
     fn read_register_range(addr: u8, start_register: u8, num_registers: u8,
                            buffer: &mut [u8]) -> MynewtResult<()> {
         if !(buffer.len() >= num_registers as usize) {
-            ::core::panicking::panic("i2c buf",
-                                     ::core::intrinsics::caller_location())
+            {
+                ::core::panicking::panic(&("i2c buf",
+                                           "rust/app/src/touch_sensor.rs",
+                                           209u32, 5u32))
+            }
         };
         if !(start_register + num_registers < 128) {
-            ::core::panicking::panic("i2c addr",
-                                     ::core::intrinsics::caller_location())
+            {
+                ::core::panicking::panic(&("i2c addr",
+                                           "rust/app/src/touch_sensor.rs",
+                                           210u32, 5u32))
+            }
         };
         unsafe {
             I2C_BUFFER[0] = start_register;
@@ -577,8 +589,11 @@ mod touch_sensor {
             unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
         if rc2 == hal::HAL_I2C_ERR_ADDR_NACK as i32 {
             if !false {
-                ::core::panicking::panic("i2c fail",
-                                         ::core::intrinsics::caller_location())
+                {
+                    ::core::panicking::panic(&("i2c fail",
+                                               "rust/app/src/touch_sensor.rs",
+                                               239u32, 9u32))
+                }
             };
             return Ok(());
         }
@@ -587,8 +602,11 @@ mod touch_sensor {
     /// Read the I2C register for the specified I2C address (7-bit address)
     fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
         if !(register < 128) {
-            ::core::panicking::panic("i2c addr",
-                                     ::core::intrinsics::caller_location())
+            {
+                ::core::panicking::panic(&("i2c addr",
+                                           "rust/app/src/touch_sensor.rs",
+                                           247u32, 5u32))
+            }
         };
         unsafe {
             I2C_BUFFER[0] = register;
@@ -687,13 +705,15 @@ use mynewt::{kernel::os, sys::console};
 extern "C" fn main() -> ! {
     mynewt::sysinit();
     app_sensor::start_sensor_listener().expect("TMP fail");
-    extern {
+    extern "C" {
         fn start_ble() -> i32;
     }
     let rc = unsafe { start_ble() };
     if !(rc == 0) {
-        ::core::panicking::panic("BLE fail",
-                                 ::core::intrinsics::caller_location())
+        {
+            ::core::panicking::panic(&("BLE fail", "rust/app/src/lib.rs",
+                                       72u32, 5u32))
+        }
     };
     druid::start_display().expect("DSP fail");
     touch_sensor::start_touch_sensor().expect("TCH fail");
