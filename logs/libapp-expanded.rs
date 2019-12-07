@@ -100,6 +100,7 @@ mod app_network {
     //  Never comes here
 
     //  Display the filename and line number to the Semihosting Console.
+    //  Display the payload.
     //  Pause in the debugger.
     //  Loop forever so that device won't restart.
     //!  Transmit sensor data to a CoAP server like thethings.io.  The CoAP payload will be encoded as JSON.
@@ -736,6 +737,9 @@ fn panic(info: &PanicInfo) -> ! {
         console::print("\n");
         console::flush();
     } else { console::print("no loc\n"); console::flush(); }
+    console::print(info.payload().downcast_ref::<&str>().unwrap());
+    console::print("\n");
+    console::flush();
     bkpt();
     loop  { }
 }
