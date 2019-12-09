@@ -26,8 +26,8 @@ cp .vscode/launch-nrf52.json .vscode/launch.json
 #  cp .vscode/launch-bluepill.json .vscode/launch.json
 
 #  Rust build profile: debug or release
-#  rust_build_profile=debug
-rust_build_profile=release
+rust_build_profile=debug
+#  rust_build_profile=release
 
 #  Add toolchain to PATH.
 export PATH="$PWD/xPacks/riscv-none-embed-gcc/8.2.0-3.1/bin:$PATH"

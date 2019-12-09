@@ -114,7 +114,7 @@ syscfg.vals:
     ###########################################################################
     # Bluetooth LE Settings
 
-    BLUETOOTH_LE:   1  # Enable Bluetooth LE
+    BLUETOOTH_LE:   0  # Disable Bluetooth LE
 
     ###########################################################################
     # Bluetooth Mesh Settings
