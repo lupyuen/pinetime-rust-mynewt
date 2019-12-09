@@ -4,582 +4,388 @@ app-3c6db803b2a68304.app.ckcqlk7k-cgu.0.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 app.ckcqlk7k-cgu.0
-0000dbfa l       .debug_str	00000000 
-0000db90 l       .debug_str	00000000 
-0000dbd9 l       .debug_str	00000000 
-0000dbde l       .debug_str	00000000 
-0000dbe2 l       .debug_str	00000000 
-0000dbeb l       .debug_str	00000000 
-0000dbf2 l       .debug_str	00000000 
-0000dc0c l       .debug_str	00000000 
-0000dc41 l       .debug_str	00000000 
-0000dc83 l       .debug_str	00000000 
-0000dccd l       .debug_str	00000000 
-0000dcd1 l       .debug_str	00000000 
-0000dcd7 l       .debug_str	00000000 
-0000dcdd l       .debug_str	00000000 
-0000dce3 l       .debug_str	00000000 
-0000dce9 l       .debug_str	00000000 
-0000dcf1 l       .debug_str	00000000 
-0000dcff l       .debug_str	00000000 
-0000dd0e l       .debug_str	00000000 
-0000dd1f l       .debug_str	00000000 
-0000dd2a l       .debug_str	00000000 
-0000dd35 l       .debug_str	00000000 
-0000dd40 l       .debug_str	00000000 
-0000dd47 l       .debug_str	00000000 
-0000dd6a l       .debug_str	00000000 
-0000dd7c l       .debug_str	00000000 
-0000ddb1 l       .debug_str	00000000 
-0000ddf3 l       .debug_str	00000000 
-0000de3d l       .debug_str	00000000 
-0000de41 l       .debug_str	00000000 
-0000de4b l       .debug_str	00000000 
-0000de5d l       .debug_str	00000000 
-0000de92 l       .debug_str	00000000 
-0000ded4 l       .debug_str	00000000 
-0000df1e l       .debug_str	00000000 
-0000df23 l       .debug_str	00000000 
-0000df2d l       .debug_str	00000000 
-0000df3f l       .debug_str	00000000 
-0000df74 l       .debug_str	00000000 
-0000dfb6 l       .debug_str	00000000 
-0000e000 l       .debug_str	00000000 
-0000e014 l       .debug_str	00000000 
-0000e022 l       .debug_str	00000000 
-0000e032 l       .debug_str	00000000 
-0000e03b l       .debug_str	00000000 
-0000e046 l       .debug_str	00000000 
-0000e055 l       .debug_str	00000000 
-0000e06a l       .debug_str	00000000 
-0000e09b l       .debug_str	00000000 
-0000e138 l       .debug_str	00000000 
-0000e1dd l       .debug_str	00000000 
-0000e1e8 l       .debug_str	00000000 
-0000e1f1 l       .debug_str	00000000 
-0000e212 l       .debug_str	00000000 
-0000e225 l       .debug_str	00000000 
-0000e25b l       .debug_str	00000000 
-0000e2de l       .debug_str	00000000 
-0000e369 l       .debug_str	00000000 
-0000e385 l       .debug_str	00000000 
-0000e3d1 l       .debug_str	00000000 
-0000e425 l       .debug_str	00000000 
-0000e442 l       .debug_str	00000000 
-0000e456 l       .debug_str	00000000 
-0000e4a2 l       .debug_str	00000000 
-0000e4f6 l       .debug_str	00000000 
-0000e50c l       .debug_str	00000000 
-0000e520 l       .debug_str	00000000 
-0000e567 l       .debug_str	00000000 
-0000e5b6 l       .debug_str	00000000 
-0000e5bf l       .debug_str	00000000 
-0000e5cd l       .debug_str	00000000 
-0000e5fe l       .debug_str	00000000 
-0000e604 l       .debug_str	00000000 
-0000e60c l       .debug_str	00000000 
-0000e613 l       .debug_str	00000000 
-0000e61b l       .debug_str	00000000 
-0000e626 l       .debug_str	00000000 
-0000e62e l       .debug_str	00000000 
-0000e63d l       .debug_str	00000000 
-0000e641 l       .debug_str	00000000 
-0000e64c l       .debug_str	00000000 
-0000e658 l       .debug_str	00000000 
-0000e663 l       .debug_str	00000000 
-0000e674 l       .debug_str	00000000 
-0000e67a l       .debug_str	00000000 
-0000e682 l       .debug_str	00000000 
-0000e689 l       .debug_str	00000000 
-0000e693 l       .debug_str	00000000 
-0000e69b l       .debug_str	00000000 
-0000e6a3 l       .debug_str	00000000 
-0000e6c5 l       .debug_str	00000000 
-0000e6d0 l       .debug_str	00000000 
-0000e6dc l       .debug_str	00000000 
-0000e6e4 l       .debug_str	00000000 
-0000e6ed l       .debug_str	00000000 
-0000e6f8 l       .debug_str	00000000 
-0000e6ff l       .debug_str	00000000 
-0000e70a l       .debug_str	00000000 
-0000e715 l       .debug_str	00000000 
-0000e725 l       .debug_str	00000000 
-0000e735 l       .debug_str	00000000 
-0000e744 l       .debug_str	00000000 
-0000e74c l       .debug_str	00000000 
-0000e753 l       .debug_str	00000000 
-0000e75b l       .debug_str	00000000 
-0000e779 l       .debug_str	00000000 
-0000e789 l       .debug_str	00000000 
-0000e7bc l       .debug_str	00000000 
-0000e7d1 l       .debug_str	00000000 
-0000e7da l       .debug_str	00000000 
-0000e837 l       .debug_str	00000000 
-0000e89c l       .debug_str	00000000 
-0000e8a6 l       .debug_str	00000000 
-0000e8b6 l       .debug_str	00000000 
-0000e8cb l       .debug_str	00000000 
-0000e8d3 l       .debug_str	00000000 
-0000e937 l       .debug_str	00000000 
-0000e9a3 l       .debug_str	00000000 
-0000e9aa l       .debug_str	00000000 
-0000e9b2 l       .debug_str	00000000 
-0000e9d0 l       .debug_str	00000000 
-0000e9e0 l       .debug_str	00000000 
-0000ea13 l       .debug_str	00000000 
-0000ea28 l       .debug_str	00000000 
-0000ea3b l       .debug_str	00000000 
-0000ea50 l       .debug_str	00000000 
-0000ea57 l       .debug_str	00000000 
-0000ea6c l       .debug_str	00000000 
-0000ea96 l       .debug_str	00000000 
-0000ea9f l       .debug_str	00000000 
-0000ead1 l       .debug_str	00000000 
-0000eb0d l       .debug_str	00000000 
-0000eb3f l       .debug_str	00000000 
-0000ebaf l       .debug_str	00000000 
-0000ec06 l       .debug_str	00000000 
-0000ec59 l       .debug_str	00000000 
-0000ec97 l       .debug_str	00000000 
-0000ecaa l       .debug_str	00000000 
-0000ecb3 l       .debug_str	00000000 
-0000ecbd l       .debug_str	00000000 
-0000ecc3 l       .debug_str	00000000 
-0000ecd9 l       .debug_str	00000000 
+00009e8f l       .debug_str	00000000 
+0000a0bb l       .debug_str	00000000 
+0000a0de l       .debug_str	00000000 
+0000a0f0 l       .debug_str	00000000 
+0000a125 l       .debug_str	00000000 
+0000a167 l       .debug_str	00000000 
+0000a1b1 l       .debug_str	00000000 
+0000a1b5 l       .debug_str	00000000 
+0000a1bf l       .debug_str	00000000 
+0000a1d1 l       .debug_str	00000000 
+0000a206 l       .debug_str	00000000 
+0000a248 l       .debug_str	00000000 
+0000a292 l       .debug_str	00000000 
+0000a297 l       .debug_str	00000000 
+0000a2a1 l       .debug_str	00000000 
+0000a2b3 l       .debug_str	00000000 
+0000a2e8 l       .debug_str	00000000 
+0000a32a l       .debug_str	00000000 
+0000a374 l       .debug_str	00000000 
+0000a388 l       .debug_str	00000000 
+0000a396 l       .debug_str	00000000 
+0000a3a6 l       .debug_str	00000000 
+0000a3af l       .debug_str	00000000 
+0000a3ba l       .debug_str	00000000 
+0000a3c9 l       .debug_str	00000000 
+0000a3de l       .debug_str	00000000 
+0000a40f l       .debug_str	00000000 
+0000a4ac l       .debug_str	00000000 
+0000a551 l       .debug_str	00000000 
+0000a55c l       .debug_str	00000000 
+0000a565 l       .debug_str	00000000 
+0000a586 l       .debug_str	00000000 
+0000a599 l       .debug_str	00000000 
+0000a5cf l       .debug_str	00000000 
+0000a652 l       .debug_str	00000000 
+0000a6dd l       .debug_str	00000000 
+0000a6f9 l       .debug_str	00000000 
+0000a745 l       .debug_str	00000000 
+0000a799 l       .debug_str	00000000 
+0000a7b6 l       .debug_str	00000000 
+0000a7ca l       .debug_str	00000000 
+0000a816 l       .debug_str	00000000 
+0000a86a l       .debug_str	00000000 
+0000a880 l       .debug_str	00000000 
+0000a894 l       .debug_str	00000000 
+0000a8db l       .debug_str	00000000 
+0000a92a l       .debug_str	00000000 
+0000a933 l       .debug_str	00000000 
+0000a941 l       .debug_str	00000000 
+0000a972 l       .debug_str	00000000 
+0000a978 l       .debug_str	00000000 
+0000a980 l       .debug_str	00000000 
+0000a987 l       .debug_str	00000000 
+0000a98f l       .debug_str	00000000 
+0000a99a l       .debug_str	00000000 
+0000a9a2 l       .debug_str	00000000 
+0000a9b1 l       .debug_str	00000000 
+0000a9b5 l       .debug_str	00000000 
+0000a9c0 l       .debug_str	00000000 
+0000a9cc l       .debug_str	00000000 
+0000a9d7 l       .debug_str	00000000 
+0000a9e8 l       .debug_str	00000000 
+0000a9ee l       .debug_str	00000000 
+0000a9f6 l       .debug_str	00000000 
+0000a9fd l       .debug_str	00000000 
+0000aa07 l       .debug_str	00000000 
+0000aa0f l       .debug_str	00000000 
+0000aa17 l       .debug_str	00000000 
+0000aa39 l       .debug_str	00000000 
+0000aa44 l       .debug_str	00000000 
+0000aa50 l       .debug_str	00000000 
+0000aa58 l       .debug_str	00000000 
+0000aa61 l       .debug_str	00000000 
+0000aa6c l       .debug_str	00000000 
+0000aa73 l       .debug_str	00000000 
+0000aa7e l       .debug_str	00000000 
+0000aa89 l       .debug_str	00000000 
+0000aa99 l       .debug_str	00000000 
+0000aaa9 l       .debug_str	00000000 
+0000aab8 l       .debug_str	00000000 
+0000aac0 l       .debug_str	00000000 
+0000aac7 l       .debug_str	00000000 
+0000aacf l       .debug_str	00000000 
+0000aaed l       .debug_str	00000000 
+0000aafd l       .debug_str	00000000 
+0000ab30 l       .debug_str	00000000 
+0000ab45 l       .debug_str	00000000 
+0000ab4e l       .debug_str	00000000 
+0000abab l       .debug_str	00000000 
+0000ac10 l       .debug_str	00000000 
+0000ac1a l       .debug_str	00000000 
+0000ac2a l       .debug_str	00000000 
+0000ac3f l       .debug_str	00000000 
+0000ac47 l       .debug_str	00000000 
+0000acab l       .debug_str	00000000 
+0000ad17 l       .debug_str	00000000 
+0000ad1e l       .debug_str	00000000 
+0000ad26 l       .debug_str	00000000 
+0000ad44 l       .debug_str	00000000 
+0000ad54 l       .debug_str	00000000 
+0000ad87 l       .debug_str	00000000 
+0000ad9c l       .debug_str	00000000 
+0000adaf l       .debug_str	00000000 
+0000adc4 l       .debug_str	00000000 
+0000adcb l       .debug_str	00000000 
+0000ade0 l       .debug_str	00000000 
+0000ae0a l       .debug_str	00000000 
+0000ae13 l       .debug_str	00000000 
+0000ae45 l       .debug_str	00000000 
+0000ae81 l       .debug_str	00000000 
+0000aeb3 l       .debug_str	00000000 
+0000af23 l       .debug_str	00000000 
+0000af7a l       .debug_str	00000000 
+0000afcd l       .debug_str	00000000 
+0000b00b l       .debug_str	00000000 
+0000b01e l       .debug_str	00000000 
+0000b027 l       .debug_str	00000000 
+0000b02c l       .debug_str	00000000 
+0000b036 l       .debug_str	00000000 
+0000b03c l       .debug_str	00000000 
+0000b052 l       .debug_str	00000000 
+0000b091 l       .debug_str	00000000 
+0000b0ba l       .debug_str	00000000 
+0000b0c1 l       .debug_str	00000000 
+0000b0cd l       .debug_str	00000000 
+0000b10d l       .debug_str	00000000 
+0000b132 l       .debug_str	00000000 
+0000b13b l       .debug_str	00000000 
+0000b13f l       .debug_str	00000000 
+0000b169 l       .debug_str	00000000 
+0000b16e l       .debug_str	00000000 
+0000b1af l       .debug_str	00000000 
+0000b1b8 l       .debug_str	00000000 
+0000b1bd l       .debug_str	00000000 
+0000b1c6 l       .debug_str	00000000 
+0000b212 l       .debug_str	00000000 
+0000b225 l       .debug_str	00000000 
+0000b233 l       .debug_str	00000000 
+0000b296 l       .debug_str	00000000 
+0000b2d2 l       .debug_str	00000000 
+0000b2e0 l       .debug_str	00000000 
+0000b341 l       .debug_str	00000000 
+0000b3ab l       .debug_str	00000000 
+0000b40c l       .debug_str	00000000 
+0000b46f l       .debug_str	00000000 
+0000b4ef l       .debug_str	00000000 
+0000b5a5 l       .debug_str	00000000 
+0000b5b6 l       .debug_str	00000000 
+0000b66e l       .debug_str	00000000 
+0000b681 l       .debug_str	00000000 
+0000b730 l       .debug_str	00000000 
+0000b73b l       .debug_str	00000000 
+0000b783 l       .debug_str	00000000 
+0000b7ac l       .debug_str	00000000 
+0000b7d7 l       .debug_str	00000000 
+0000b7e0 l       .debug_str	00000000 
+0000b811 l       .debug_str	00000000 
+0000b83c l       .debug_str	00000000 
+0000b86d l       .debug_str	00000000 
+0000b89e l       .debug_str	00000000 
+0000b8cf l       .debug_str	00000000 
+0000b910 l       .debug_str	00000000 
+0000b941 l       .debug_str	00000000 
+0000b960 l       .debug_str	00000000 
+0000b991 l       .debug_str	00000000 
+0000ba8e l       .debug_str	00000000 
+0000baa7 l       .debug_str	00000000 
+0000baac l       .debug_str	00000000 
+0000bae7 l       .debug_str	00000000 
+0000bb13 l       .debug_str	00000000 
+0000bb17 l       .debug_str	00000000 
+0000bb4f l       .debug_str	00000000 
+0000bb8a l       .debug_str	00000000 
+0000bbd5 l       .debug_str	00000000 
+0000bc0a l       .debug_str	00000000 
+0000bc43 l       .debug_str	00000000 
+0000bc78 l       .debug_str	00000000 
+0000bcad l       .debug_str	00000000 
+0000bce2 l       .debug_str	00000000 
+0000bded l       .debug_str	00000000 
+0000be22 l       .debug_str	00000000 
+0000be3c l       .debug_str	00000000 
+0000be71 l       .debug_str	00000000 
+0000bebb l       .debug_str	00000000 
+0000bef0 l       .debug_str	00000000 
+0000bfbe l       .debug_str	00000000 
+0000c044 l       .debug_str	00000000 
+0000c07b l       .debug_str	00000000 
+0000c0ae l       .debug_str	00000000 
+0000c0f9 l       .debug_str	00000000 
+0000c0fb l       .debug_str	00000000 
+0000c12e l       .debug_str	00000000 
+0000c169 l       .debug_str	00000000 
+0000c19c l       .debug_str	00000000 
+0000c1c5 l       .debug_str	00000000 
+0000c1f8 l       .debug_str	00000000 
+0000c22d l       .debug_str	00000000 
+0000c26d l       .debug_str	00000000 
+0000c294 l       .debug_str	00000000 
+0000c2d4 l       .debug_str	00000000 
+0000c31b l       .debug_str	00000000 
+0000c35b l       .debug_str	00000000 
+0000c369 l       .debug_str	00000000 
+0000c3c1 l       .debug_str	00000000 
+0000c4bf l       .debug_str	00000000 
+0000c515 l       .debug_str	00000000 
+0000c56b l       .debug_str	00000000 
+0000c668 l       .debug_str	00000000 
+0000c6b9 l       .debug_str	00000000 
+0000c6d9 l       .debug_str	00000000 
+0000c72a l       .debug_str	00000000 
+0000c77f l       .debug_str	00000000 
+0000c7d0 l       .debug_str	00000000 
+0000c80a l       .debug_str	00000000 
+0000c80e l       .debug_str	00000000 
+0000c812 l       .debug_str	00000000 
+0000c86b l       .debug_str	00000000 
+0000c899 l       .debug_str	00000000 
+0000c8ee l       .debug_str	00000000 
+0000c909 l       .debug_str	00000000 
+0000c94b l       .debug_str	00000000 
+0000c98f l       .debug_str	00000000 
+0000c9dd l       .debug_str	00000000 
+0000c9ed l       .debug_str	00000000 
+0000ca3a l       .debug_str	00000000 
+0000ca8a l       .debug_str	00000000 
+0000ca98 l       .debug_str	00000000 
+0000cae9 l       .debug_str	00000000 
+0000caf8 l       .debug_str	00000000 
+0000cb47 l       .debug_str	00000000 
+0000cb55 l       .debug_str	00000000 
+0000cb8f l       .debug_str	00000000 
+0000cbc1 l       .debug_str	00000000 
+0000cc0a l       .debug_str	00000000 
+0000cc3b l       .debug_str	00000000 
+0000cc84 l       .debug_str	00000000 
+0000ccb4 l       .debug_str	00000000 
+0000cd03 l       .debug_str	00000000 
+0000cd39 l       .debug_str	00000000 
+0000cd7c l       .debug_str	00000000 
+0000cda7 l       .debug_str	00000000 
+0000cdea l       .debug_str	00000000 
+0000ce1a l       .debug_str	00000000 
+0000ce5d l       .debug_str	00000000 
+0000ce6f l       .debug_str	00000000 
+0000ceb0 l       .debug_str	00000000 
+0000cebe l       .debug_str	00000000 
+0000cf05 l       .debug_str	00000000 
+0000cf2f l       .debug_str	00000000 
+0000cf93 l       .debug_str	00000000 
+0000d08c l       .debug_str	00000000 
+0000d0f8 l       .debug_str	00000000 
+0000d1dc l       .debug_str	00000000 
+0000d242 l       .debug_str	00000000 
+0000d26a l       .debug_str	00000000 
+0000d2d2 l       .debug_str	00000000 
+0000d377 l       .debug_str	00000000 
+0000d3e1 l       .debug_str	00000000 
+0000d3ea l       .debug_str	00000000 
+0000d459 l       .debug_str	00000000 
+0000d466 l       .debug_str	00000000 
+0000d4d2 l       .debug_str	00000000 
+0000d53f l       .debug_str	00000000 
+0000d5af l       .debug_str	00000000 
+0000d5bb l       .debug_str	00000000 
+0000d62c l       .debug_str	00000000 
+0000d639 l       .debug_str	00000000 
+0000d640 l       .debug_str	00000000 
+0000d646 l       .debug_str	00000000 
+0000d656 l       .debug_str	00000000 
+0000d6c6 l       .debug_str	00000000 
+0000d739 l       .debug_str	00000000 
+0000d817 l       .debug_str	00000000 
+0000d852 l       .debug_str	00000000 
+0000d92e l       .debug_str	00000000 
+0000d96a l       .debug_str	00000000 
+0000da47 l       .debug_str	00000000 
+0000da83 l       .debug_str	00000000 
+0000db28 l       .debug_str	00000000 
+0000db64 l       .debug_str	00000000 
+0000dbf9 l       .debug_str	00000000 
+0000dc4f l       .debug_str	00000000 
+0000dd11 l       .debug_str	00000000 
+0000dd67 l       .debug_str	00000000 
+0000de61 l       .debug_str	00000000 
+0000deed l       .debug_str	00000000 
+0000df8f l       .debug_str	00000000 
+0000e00d l       .debug_str	00000000 
+0000e08b l       .debug_str	00000000 
+0000e109 l       .debug_str	00000000 
+0000e1ea l       .debug_str	00000000 
+0000e1f9 l       .debug_str	00000000 
+0000e277 l       .debug_str	00000000 
+0000e2f6 l       .debug_str	00000000 
+0000e3d8 l       .debug_str	00000000 
+0000e457 l       .debug_str	00000000 
+0000e4d9 l       .debug_str	00000000 
+0000e5ba l       .debug_str	00000000 
+0000e63c l       .debug_str	00000000 
+0000e6d5 l       .debug_str	00000000 
+0000e757 l       .debug_str	00000000 
+0000e800 l       .debug_str	00000000 
+0000e881 l       .debug_str	00000000 
+0000e92b l       .debug_str	00000000 
+0000e9a9 l       .debug_str	00000000 
+0000ea27 l       .debug_str	00000000 
+0000eacc l       .debug_str	00000000 
+0000eb10 l       .debug_str	00000000 
+0000eb50 l       .debug_str	00000000 
+0000eb66 l       .debug_str	00000000 
+0000eba9 l       .debug_str	00000000 
+0000ebc1 l       .debug_str	00000000 
+0000ec01 l       .debug_str	00000000 
+0000ec16 l       .debug_str	00000000 
+0000ec44 l       .debug_str	00000000 
+0000ec49 l       .debug_str	00000000 
+0000ec5b l       .debug_str	00000000 
+0000ec61 l       .debug_str	00000000 
+0000ecbf l       .debug_str	00000000 
+0000ecc6 l       .debug_str	00000000 
+0000eced l       .debug_str	00000000 
 0000ed18 l       .debug_str	00000000 
-0000ed41 l       .debug_str	00000000 
-0000ed48 l       .debug_str	00000000 
-0000ed54 l       .debug_str	00000000 
-0000ed94 l       .debug_str	00000000 
-0000edb9 l       .debug_str	00000000 
-0000edc2 l       .debug_str	00000000 
-0000edc6 l       .debug_str	00000000 
-0000edf0 l       .debug_str	00000000 
-0000edf5 l       .debug_str	00000000 
-0000ee36 l       .debug_str	00000000 
-0000ee3f l       .debug_str	00000000 
-0000ee44 l       .debug_str	00000000 
-0000ee4d l       .debug_str	00000000 
-0000ee99 l       .debug_str	00000000 
-0000eeac l       .debug_str	00000000 
-0000eeba l       .debug_str	00000000 
-0000ef1d l       .debug_str	00000000 
-0000ef59 l       .debug_str	00000000 
-0000ef67 l       .debug_str	00000000 
-0000eff5 l       .debug_str	00000000 
-0000f0d7 l       .debug_str	00000000 
-0000f0e2 l       .debug_str	00000000 
-0000f0f7 l       .debug_str	00000000 
-0000f182 l       .debug_str	00000000 
-0000f1bc l       .debug_str	00000000 
-0000f249 l       .debug_str	00000000 
-0000f285 l       .debug_str	00000000 
-0000f315 l       .debug_str	00000000 
-0000f347 l       .debug_str	00000000 
-0000f3e3 l       .debug_str	00000000 
-0000f41f l       .debug_str	00000000 
-0000f4b8 l       .debug_str	00000000 
-0000f54d l       .debug_str	00000000 
-0000f581 l       .debug_str	00000000 
-0000f58a l       .debug_str	00000000 
-0000f598 l       .debug_str	00000000 
-0000f5b0 l       .debug_str	00000000 
-0000f5be l       .debug_str	00000000 
-0000f5f3 l       .debug_str	00000000 
-0000f64d l       .debug_str	00000000 
-0000f6a5 l       .debug_str	00000000 
+0000ed3e l       .debug_str	00000000 
+0000ed65 l       .debug_str	00000000 
+0000edd9 l       .debug_str	00000000 
+0000ee53 l       .debug_str	00000000 
+0000ee90 l       .debug_str	00000000 
+0000ef1a l       .debug_str	00000000 
+0000ef35 l       .debug_str	00000000 
+0000ef9d l       .debug_str	00000000 
+0000efc7 l       .debug_str	00000000 
+0000efed l       .debug_str	00000000 
+0000f0e9 l       .debug_str	00000000 
+0000f0f4 l       .debug_str	00000000 
+0000f12f l       .debug_str	00000000 
+0000f137 l       .debug_str	00000000 
+0000f140 l       .debug_str	00000000 
+0000f147 l       .debug_str	00000000 
+0000f152 l       .debug_str	00000000 
+0000f15d l       .debug_str	00000000 
+0000f184 l       .debug_str	00000000 
+0000f1b4 l       .debug_str	00000000 
+0000f1be l       .debug_str	00000000 
+0000f1c9 l       .debug_str	00000000 
+0000f1d0 l       .debug_str	00000000 
+0000f1d7 l       .debug_str	00000000 
+0000f1e0 l       .debug_str	00000000 
+0000f1eb l       .debug_str	00000000 
+0000f1f8 l       .debug_str	00000000 
+0000f202 l       .debug_str	00000000 
+0000f22f l       .debug_str	00000000 
+0000f239 l       .debug_str	00000000 
+0000f242 l       .debug_str	00000000 
+0000f24e l       .debug_str	00000000 
+0000f253 l       .debug_str	00000000 
+0000f277 l       .debug_str	00000000 
+0000f27d l       .debug_str	00000000 
+0000f289 l       .debug_str	00000000 
+0000f294 l       .debug_str	00000000 
+0000f299 l       .debug_str	00000000 
+0000f29d l       .debug_str	00000000 
+0000f38e l       .debug_str	00000000 
+0000f394 l       .debug_str	00000000 
+0000f399 l       .debug_str	00000000 
+0000f4a9 l       .debug_str	00000000 
+0000f5b5 l       .debug_str	00000000 
+0000f6bd l       .debug_str	00000000 
+0000f6ca l       .debug_str	00000000 
+0000f6ce l       .debug_str	00000000 
+0000f6d4 l       .debug_str	00000000 
+0000f6db l       .debug_str	00000000 
+0000f6df l       .debug_str	00000000 
+0000f6e4 l       .debug_str	00000000 
+0000f6ec l       .debug_str	00000000 
 0000f6f4 l       .debug_str	00000000 
-0000f71f l       .debug_str	00000000 
-0000f770 l       .debug_str	00000000 
-0000f79d l       .debug_str	00000000 
-0000f7f1 l       .debug_str	00000000 
-0000f852 l       .debug_str	00000000 
-0000f8b3 l       .debug_str	00000000 
-0000f916 l       .debug_str	00000000 
-0000f91e l       .debug_str	00000000 
-0000f925 l       .debug_str	00000000 
-0000f929 l       .debug_str	00000000 
-0000f92c l       .debug_str	00000000 
-0000f930 l       .debug_str	00000000 
-0000f9dc l       .debug_str	00000000 
-0000fa70 l       .debug_str	00000000 
-0000fab8 l       .debug_str	00000000 
-0000fae1 l       .debug_str	00000000 
-0000fb0c l       .debug_str	00000000 
-0000fb15 l       .debug_str	00000000 
-0000fb46 l       .debug_str	00000000 
-0000fb71 l       .debug_str	00000000 
-0000fba2 l       .debug_str	00000000 
-0000fbd3 l       .debug_str	00000000 
-0000fc04 l       .debug_str	00000000 
-0000fc45 l       .debug_str	00000000 
-0000fc76 l       .debug_str	00000000 
-0000fc95 l       .debug_str	00000000 
-0000fcc6 l       .debug_str	00000000 
-0000fcde l       .debug_str	00000000 
-0000fd0f l       .debug_str	00000000 
-0000fe0c l       .debug_str	00000000 
-0000fe25 l       .debug_str	00000000 
-0000fe2a l       .debug_str	00000000 
-0000fe65 l       .debug_str	00000000 
-0000fe91 l       .debug_str	00000000 
-0000fe95 l       .debug_str	00000000 
-0000fecd l       .debug_str	00000000 
-0000ff08 l       .debug_str	00000000 
-0000ff53 l       .debug_str	00000000 
-0000ff88 l       .debug_str	00000000 
-0000ffbd l       .debug_str	00000000 
-0000fff2 l       .debug_str	00000000 
-0001002b l       .debug_str	00000000 
-00010060 l       .debug_str	00000000 
-00010095 l       .debug_str	00000000 
-000100ca l       .debug_str	00000000 
-000101d5 l       .debug_str	00000000 
-0001020a l       .debug_str	00000000 
-00010224 l       .debug_str	00000000 
-00010259 l       .debug_str	00000000 
-000102a3 l       .debug_str	00000000 
-000102d8 l       .debug_str	00000000 
-000103a6 l       .debug_str	00000000 
-000103db l       .debug_str	00000000 
-00010426 l       .debug_str	00000000 
-00010467 l       .debug_str	00000000 
-000104ad l       .debug_str	00000000 
-00010533 l       .debug_str	00000000 
-0001056a l       .debug_str	00000000 
-000105f0 l       .debug_str	00000000 
-00010621 l       .debug_str	00000000 
-00010654 l       .debug_str	00000000 
-0001069f l       .debug_str	00000000 
-000106a1 l       .debug_str	00000000 
-000106d4 l       .debug_str	00000000 
-0001070f l       .debug_str	00000000 
-00010742 l       .debug_str	00000000 
-0001076b l       .debug_str	00000000 
-0001079e l       .debug_str	00000000 
-000107c0 l       .debug_str	00000000 
-000107f3 l       .debug_str	00000000 
-00010828 l       .debug_str	00000000 
-00010868 l       .debug_str	00000000 
-0001088f l       .debug_str	00000000 
-000108cf l       .debug_str	00000000 
-00010916 l       .debug_str	00000000 
-00010956 l       .debug_str	00000000 
-00010964 l       .debug_str	00000000 
-000109bc l       .debug_str	00000000 
-00010aba l       .debug_str	00000000 
-00010b10 l       .debug_str	00000000 
-00010b66 l       .debug_str	00000000 
-00010c63 l       .debug_str	00000000 
-00010cb4 l       .debug_str	00000000 
-00010cd4 l       .debug_str	00000000 
-00010d25 l       .debug_str	00000000 
-00010d3d l       .debug_str	00000000 
-00010d8e l       .debug_str	00000000 
-00010de3 l       .debug_str	00000000 
-00010e34 l       .debug_str	00000000 
-00010e5e l       .debug_str	00000000 
-00010e69 l       .debug_str	00000000 
-00010eba l       .debug_str	00000000 
-00010edf l       .debug_str	00000000 
-00010f30 l       .debug_str	00000000 
-00010f53 l       .debug_str	00000000 
-00010fa4 l       .debug_str	00000000 
-00010fca l       .debug_str	00000000 
-0001101b l       .debug_str	00000000 
-00011055 l       .debug_str	00000000 
-000110a9 l       .debug_str	00000000 
-0001110b l       .debug_str	00000000 
-0001110f l       .debug_str	00000000 
-00011113 l       .debug_str	00000000 
-0001116c l       .debug_str	00000000 
-0001119a l       .debug_str	00000000 
-000111db l       .debug_str	00000000 
-000111e4 l       .debug_str	00000000 
-00011239 l       .debug_str	00000000 
-00011254 l       .debug_str	00000000 
-00011298 l       .debug_str	00000000 
-000112a3 l       .debug_str	00000000 
-000112f0 l       .debug_str	00000000 
-00011340 l       .debug_str	00000000 
-0001134e l       .debug_str	00000000 
-0001139f l       .debug_str	00000000 
-000113ae l       .debug_str	00000000 
-00011403 l       .debug_str	00000000 
-00011416 l       .debug_str	00000000 
-00011465 l       .debug_str	00000000 
-00011473 l       .debug_str	00000000 
-00011483 l       .debug_str	00000000 
-000114bb l       .debug_str	00000000 
-000114d1 l       .debug_str	00000000 
-0001151a l       .debug_str	00000000 
-0001155a l       .debug_str	00000000 
-000115a8 l       .debug_str	00000000 
-000115ed l       .debug_str	00000000 
-00011627 l       .debug_str	00000000 
-00011659 l       .debug_str	00000000 
-00011695 l       .debug_str	00000000 
-000116bf l       .debug_str	00000000 
-00011708 l       .debug_str	00000000 
-00011739 l       .debug_str	00000000 
-00011782 l       .debug_str	00000000 
-000117b2 l       .debug_str	00000000 
-00011801 l       .debug_str	00000000 
-00011837 l       .debug_str	00000000 
-0001187a l       .debug_str	00000000 
-000118a5 l       .debug_str	00000000 
-000118e8 l       .debug_str	00000000 
-00011918 l       .debug_str	00000000 
-0001195f l       .debug_str	00000000 
-0001196f l       .debug_str	00000000 
-000119b2 l       .debug_str	00000000 
-000119c4 l       .debug_str	00000000 
-00011a11 l       .debug_str	00000000 
-00011a23 l       .debug_str	00000000 
-00011a64 l       .debug_str	00000000 
-00011a72 l       .debug_str	00000000 
-00011ab9 l       .debug_str	00000000 
-00011ae3 l       .debug_str	00000000 
-00011b23 l       .debug_str	00000000 
-00011b64 l       .debug_str	00000000 
-00011b76 l       .debug_str	00000000 
-00011bbb l       .debug_str	00000000 
-00011bc1 l       .debug_str	00000000 
-00011bd3 l       .debug_str	00000000 
-00011bee l       .debug_str	00000000 
-00011c25 l       .debug_str	00000000 
-00011c4f l       .debug_str	00000000 
-00011c99 l       .debug_str	00000000 
-00011cd0 l       .debug_str	00000000 
-00011d12 l       .debug_str	00000000 
-00011d55 l       .debug_str	00000000 
-00011d61 l       .debug_str	00000000 
-00011d9b l       .debug_str	00000000 
-00011dd3 l       .debug_str	00000000 
-00011dff l       .debug_str	00000000 
-00011e03 l       .debug_str	00000000 
-00011e30 l       .debug_str	00000000 
-00011e34 l       .debug_str	00000000 
-00011e37 l       .debug_str	00000000 
-00011e44 l       .debug_str	00000000 
-00011e49 l       .debug_str	00000000 
-00011e4d l       .debug_str	00000000 
-00011e54 l       .debug_str	00000000 
-00011e5a l       .debug_str	00000000 
-00011e65 l       .debug_str	00000000 
-00011e6d l       .debug_str	00000000 
-00011e78 l       .debug_str	00000000 
-00011e7f l       .debug_str	00000000 
-00011e8d l       .debug_str	00000000 
-00011ea1 l       .debug_str	00000000 
-00011f04 l       .debug_str	00000000 
-00011f38 l       .debug_str	00000000 
-00011f9c l       .debug_str	00000000 
-00012095 l       .debug_str	00000000 
-000120f9 l       .debug_str	00000000 
-00012121 l       .debug_str	00000000 
-0001218d l       .debug_str	00000000 
-00012271 l       .debug_str	00000000 
-000122d7 l       .debug_str	00000000 
-000122ff l       .debug_str	00000000 
-00012368 l       .debug_str	00000000 
-000123d0 l       .debug_str	00000000 
-00012475 l       .debug_str	00000000 
-000124df l       .debug_str	00000000 
-000124e8 l       .debug_str	00000000 
-00012555 l       .debug_str	00000000 
-000125c3 l       .debug_str	00000000 
-0001262f l       .debug_str	00000000 
-0001269c l       .debug_str	00000000 
-0001270b l       .debug_str	00000000 
-0001277b l       .debug_str	00000000 
-00012787 l       .debug_str	00000000 
-000127f7 l       .debug_str	00000000 
-00012868 l       .debug_str	00000000 
-00012875 l       .debug_str	00000000 
-0001287c l       .debug_str	00000000 
-00012882 l       .debug_str	00000000 
-00012892 l       .debug_str	00000000 
-00012907 l       .debug_str	00000000 
-00012978 l       .debug_str	00000000 
-000129ea l       .debug_str	00000000 
-00012a5d l       .debug_str	00000000 
-00012b3b l       .debug_str	00000000 
-00012baf l       .debug_str	00000000 
-00012bb3 l       .debug_str	00000000 
-00012c2a l       .debug_str	00000000 
-00012ca2 l       .debug_str	00000000 
-00012cdd l       .debug_str	00000000 
-00012db9 l       .debug_str	00000000 
-00012df5 l       .debug_str	00000000 
-00012ed2 l       .debug_str	00000000 
-00012f0e l       .debug_str	00000000 
-00012fb3 l       .debug_str	00000000 
-00012fef l       .debug_str	00000000 
-00013084 l       .debug_str	00000000 
-000130da l       .debug_str	00000000 
-0001319c l       .debug_str	00000000 
-00013228 l       .debug_str	00000000 
-00013312 l       .debug_str	00000000 
-0001339e l       .debug_str	00000000 
-00013440 l       .debug_str	00000000 
-000134be l       .debug_str	00000000 
-0001353c l       .debug_str	00000000 
-000135ba l       .debug_str	00000000 
-0001369b l       .debug_str	00000000 
-000136aa l       .debug_str	00000000 
-00013728 l       .debug_str	00000000 
-000137a7 l       .debug_str	00000000 
-00013826 l       .debug_str	00000000 
-00013908 l       .debug_str	00000000 
-00013987 l       .debug_str	00000000 
-00013a09 l       .debug_str	00000000 
-00013aea l       .debug_str	00000000 
-00013b6c l       .debug_str	00000000 
-00013c05 l       .debug_str	00000000 
-00013c87 l       .debug_str	00000000 
-00013d30 l       .debug_str	00000000 
-00013dad l       .debug_str	00000000 
-00013e2e l       .debug_str	00000000 
-00013ed8 l       .debug_str	00000000 
-00013f56 l       .debug_str	00000000 
-00013fd4 l       .debug_str	00000000 
-00014079 l       .debug_str	00000000 
-000140bd l       .debug_str	00000000 
-0001413d l       .debug_str	00000000 
-00014194 l       .debug_str	00000000 
-000141d4 l       .debug_str	00000000 
-000141ea l       .debug_str	00000000 
-0001422d l       .debug_str	00000000 
-00014245 l       .debug_str	00000000 
-00014285 l       .debug_str	00000000 
-0001429a l       .debug_str	00000000 
-000142c8 l       .debug_str	00000000 
-000142cd l       .debug_str	00000000 
-000142df l       .debug_str	00000000 
-000142e5 l       .debug_str	00000000 
-000142eb l       .debug_str	00000000 
-000142f4 l       .debug_str	00000000 
-000142fe l       .debug_str	00000000 
-00014308 l       .debug_str	00000000 
-00014311 l       .debug_str	00000000 
-0001431e l       .debug_str	00000000 
-00014357 l       .debug_str	00000000 
-0001435c l       .debug_str	00000000 
-00014363 l       .debug_str	00000000 
-0001436b l       .debug_str	00000000 
-00014372 l       .debug_str	00000000 
-00014379 l       .debug_str	00000000 
-00014380 l       .debug_str	00000000 
-00014388 l       .debug_str	00000000 
-00014392 l       .debug_str	00000000 
-00014399 l       .debug_str	00000000 
-0001439c l       .debug_str	00000000 
-000143a7 l       .debug_str	00000000 
-000143af l       .debug_str	00000000 
-000143b2 l       .debug_str	00000000 
-000143bb l       .debug_str	00000000 
-000143be l       .debug_str	00000000 
-000143c7 l       .debug_str	00000000 
-000143cb l       .debug_str	00000000 
-000143cf l       .debug_str	00000000 
-000143fe l       .debug_str	00000000 
-00014402 l       .debug_str	00000000 
-00014408 l       .debug_str	00000000 
-00014415 l       .debug_str	00000000 
-0001441b l       .debug_str	00000000 
-00014425 l       .debug_str	00000000 
-00014433 l       .debug_str	00000000 
-00014473 l       .debug_str	00000000 
-00014478 l       .debug_str	00000000 
-000144e7 l       .debug_str	00000000 
-00014541 l       .debug_str	00000000 
-000145a7 l       .debug_str	00000000 
-000145b2 l       .debug_str	00000000 
-000145bc l       .debug_str	00000000 
-0001460b l       .debug_str	00000000 
-00014669 l       .debug_str	00000000 
-00014694 l       .debug_str	00000000 
-0001469e l       .debug_str	00000000 
-000146a2 l       .debug_str	00000000 
-000146a5 l       .debug_str	00000000 
-000146a9 l       .debug_str	00000000 
-000146ad l       .debug_str	00000000 
-000146b6 l       .debug_str	00000000 
-000146b9 l       .debug_str	00000000 
-000146bc l       .debug_str	00000000 
-000146fb l       .debug_str	00000000 
-0001474b l       .debug_str	00000000 
-00014757 l       .debug_str	00000000 
-0001477d l       .debug_str	00000000 
-000147f1 l       .debug_str	00000000 
-0001486b l       .debug_str	00000000 
-000148a8 l       .debug_str	00000000 
-00014932 l       .debug_str	00000000 
-0001494d l       .debug_str	00000000 
-000149b5 l       .debug_str	00000000 
-000149c9 l       .debug_str	00000000 
-00014a2a l       .debug_str	00000000 
-00014a50 l       .debug_str	00000000 
-00014a7a l       .debug_str	00000000 
-00014aa0 l       .debug_str	00000000 
-00014b9c l       .debug_str	00000000 
-00014ba7 l       .debug_str	00000000 
-00014be2 l       .debug_str	00000000 
-00014c1e l       .debug_str	00000000 
-00014c26 l       .debug_str	00000000 
-00014c2f l       .debug_str	00000000 
-00014c36 l       .debug_str	00000000 
-00014c41 l       .debug_str	00000000 
-00014c4c l       .debug_str	00000000 
-00014c56 l       .debug_str	00000000 
-00014c64 l       .debug_str	00000000 
-00014c6c l       .debug_str	00000000 
-00014c81 l       .debug_str	00000000 
-00014c8a l       .debug_str	00000000 
-00014c96 l       .debug_str	00000000 
-00014c9b l       .debug_str	00000000 
-00014ca5 l       .debug_str	00000000 
-00014caf l       .debug_str	00000000 
-00014cb4 l       .debug_str	00000000 
-00014cc0 l       .debug_str	00000000 
-00014ccb l       .debug_str	00000000 
-00014ce8 l       .debug_str	00000000 
-00014cf2 l       .debug_str	00000000 
-00014cf4 l       .debug_str	00000000 
-00014cf9 l       .debug_str	00000000 
-00014d05 l       .debug_str	00000000 
-00014d14 l       .debug_str	00000000 
-00014d1a l       .debug_str	00000000 
-00014d23 l       .debug_str	00000000 
-00014d2e l       .debug_str	00000000 
-00014d3a l       .debug_str	00000000 
-00014d43 l       .debug_str	00000000 
-00014d4d l       .debug_str	00000000 
-00014d53 l       .debug_str	00000000 
-00014d5d l       .debug_str	00000000 
-00014d63 l       .debug_str	00000000 
-00014d6f l       .debug_str	00000000 
-00014d78 l       .debug_str	00000000 
-00014d85 l       .debug_str	00000000 
-00014db3 l       .debug_str	00000000 
-00014db8 l       .debug_str	00000000 
-00014ec8 l       .debug_str	00000000 
-00014fd4 l       .debug_str	00000000 
-00014fe1 l       .debug_str	00000000 
-00014fe5 l       .debug_str	00000000 
-00014feb l       .debug_str	00000000 
-00014ff2 l       .debug_str	00000000 
-00014ff6 l       .debug_str	00000000 
-00014ffb l       .debug_str	00000000 
-00015003 l       .debug_str	00000000 
-0001500b l       .debug_str	00000000 
-00015029 l       .debug_str	00000000 
-00015032 l       .debug_str	00000000 
-00015037 l       .debug_str	00000000 
-00015040 l       .debug_str	00000000 
-0001504a l       .debug_str	00000000 
-00015062 l       .debug_str	00000000 
+0000f712 l       .debug_str	00000000 
+0000f71b l       .debug_str	00000000 
+0000f720 l       .debug_str	00000000 
+0000f725 l       .debug_str	00000000 
+0000f72e l       .debug_str	00000000 
+0000f738 l       .debug_str	00000000 
+0000f750 l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000055 l       .debug_str	00000000 
@@ -769,1003 +575,729 @@ SYMBOL TABLE:
 00001891 l       .debug_str	00000000 
 0000189e l       .debug_str	00000000 
 000018aa l       .debug_str	00000000 
-000018b0 l       .debug_str	00000000 
-000018b9 l       .debug_str	00000000 
-000018bf l       .debug_str	00000000 
-000018cb l       .debug_str	00000000 
-000018d1 l       .debug_str	00000000 
-000018d6 l       .debug_str	00000000 
-000018d9 l       .debug_str	00000000 
-000018dd l       .debug_str	00000000 
-000018e0 l       .debug_str	00000000 
-000018e3 l       .debug_str	00000000 
-000018e6 l       .debug_str	00000000 
-000018eb l       .debug_str	00000000 
-000018f7 l       .debug_str	00000000 
-000018fc l       .debug_str	00000000 
-00001903 l       .debug_str	00000000 
-0000190d l       .debug_str	00000000 
-00001918 l       .debug_str	00000000 
-00001925 l       .debug_str	00000000 
-00001933 l       .debug_str	00000000 
-0000193d l       .debug_str	00000000 
-0000194b l       .debug_str	00000000 
-00001955 l       .debug_str	00000000 
-0000195e l       .debug_str	00000000 
-0000196a l       .debug_str	00000000 
-00001970 l       .debug_str	00000000 
-0000197a l       .debug_str	00000000 
-0000198b l       .debug_str	00000000 
-0000198d l       .debug_str	00000000 
-0000199c l       .debug_str	00000000 
-0000199e l       .debug_str	00000000 
-000019d7 l       .debug_str	00000000 
-000019de l       .debug_str	00000000 
-000019e5 l       .debug_str	00000000 
-000019f6 l       .debug_str	00000000 
-00001a41 l       .debug_str	00000000 
-00001a71 l       .debug_str	00000000 
-00001a75 l       .debug_str	00000000 
-00001aa0 l       .debug_str	00000000 
-00001aa4 l       .debug_str	00000000 
-00001acf l       .debug_str	00000000 
-00001b07 l       .debug_str	00000000 
-00001b36 l       .debug_str	00000000 
-00001b3b l       .debug_str	00000000 
-00001b68 l       .debug_str	00000000 
-00001b95 l       .debug_str	00000000 
-00001b9a l       .debug_str	00000000 
-00001ba9 l       .debug_str	00000000 
-00001bc0 l       .debug_str	00000000 
-00001bc8 l       .debug_str	00000000 
-00001bdb l       .debug_str	00000000 
-00001bdd l       .debug_str	00000000 
-00001bea l       .debug_str	00000000 
-00001bf1 l       .debug_str	00000000 
-00001bfd l       .debug_str	00000000 
-00001c1f l       .debug_str	00000000 
-00001c27 l       .debug_str	00000000 
-00001c3d l       .debug_str	00000000 
-00001cb2 l       .debug_str	00000000 
-00001cfa l       .debug_str	00000000 
-00001d00 l       .debug_str	00000000 
-00001d06 l       .debug_str	00000000 
-00001d0c l       .debug_str	00000000 
+000018b4 l       .debug_str	00000000 
+000018ba l       .debug_str	00000000 
+000018c2 l       .debug_str	00000000 
+000018ce l       .debug_str	00000000 
+000018d7 l       .debug_str	00000000 
+000018df l       .debug_str	00000000 
+000018f0 l       .debug_str	00000000 
+00001902 l       .debug_str	00000000 
+0000190b l       .debug_str	00000000 
+0000193e l       .debug_str	00000000 
+00001972 l       .debug_str	00000000 
+00001977 l       .debug_str	00000000 
+0000197d l       .debug_str	00000000 
+00001983 l       .debug_str	00000000 
+00001987 l       .debug_str	00000000 
+0000198e l       .debug_str	00000000 
+00001993 l       .debug_str	00000000 
+000019c6 l       .debug_str	00000000 
+000019fb l       .debug_str	00000000 
+00001a01 l       .debug_str	00000000 
+00001a07 l       .debug_str	00000000 
+00001a10 l       .debug_str	00000000 
+00001a16 l       .debug_str	00000000 
+00001a18 l       .debug_str	00000000 
+00001a84 l       .debug_str	00000000 
+00001a86 l       .debug_str	00000000 
+00001ac1 l       .debug_str	00000000 
+00001ac3 l       .debug_str	00000000 
+00001b04 l       .debug_str	00000000 
+00001bc5 l       .debug_str	00000000 
+00001bca l       .debug_str	00000000 
+00001bcd l       .debug_str	00000000 
+00001bcf l       .debug_str	00000000 
+00001bd1 l       .debug_str	00000000 
+00001c37 l       .debug_str	00000000 
+00001c67 l       .debug_str	00000000 
+00001cca l       .debug_str	00000000 
+00001cd0 l       .debug_str	00000000 
+00001cd9 l       .debug_str	00000000 
+00001cdd l       .debug_str	00000000 
+00001ce1 l       .debug_str	00000000 
+00001ce8 l       .debug_str	00000000 
+00001cee l       .debug_str	00000000 
+00001cfd l       .debug_str	00000000 
+00001d01 l       .debug_str	00000000 
+00001d0a l       .debug_str	00000000 
 00001d12 l       .debug_str	00000000 
-00001d19 l       .debug_str	00000000 
-00001d1f l       .debug_str	00000000 
-00001d33 l       .debug_str	00000000 
-00001d6c l       .debug_str	00000000 
-00001d72 l       .debug_str	00000000 
-00001dd3 l       .debug_str	00000000 
-00001de0 l       .debug_str	00000000 
-00001df3 l       .debug_str	00000000 
-00001e63 l       .debug_str	00000000 
-00001ed8 l       .debug_str	00000000 
-00001eea l       .debug_str	00000000 
-00001ef5 l       .debug_str	00000000 
-00001efa l       .debug_str	00000000 
-00001f00 l       .debug_str	00000000 
-00001f06 l       .debug_str	00000000 
-00001f15 l       .debug_str	00000000 
-00001f1b l       .debug_str	00000000 
-00001f21 l       .debug_str	00000000 
-00001f2c l       .debug_str	00000000 
-00001f37 l       .debug_str	00000000 
-00001f3e l       .debug_str	00000000 
-00001f45 l       .debug_str	00000000 
-00001f7b l       .debug_str	00000000 
-00001f88 l       .debug_str	00000000 
-00001f95 l       .debug_str	00000000 
-00001fca l       .debug_str	00000000 
-00001fcc l       .debug_str	00000000 
-00002000 l       .debug_str	00000000 
-0000204f l       .debug_str	00000000 
-00002082 l       .debug_str	00000000 
-00002117 l       .debug_str	00000000 
-0000214d l       .debug_str	00000000 
-000021c2 l       .debug_str	00000000 
-000021c5 l       .debug_str	00000000 
-000021f6 l       .debug_str	00000000 
-000021fc l       .debug_str	00000000 
-00002207 l       .debug_str	00000000 
-0000220c l       .debug_str	00000000 
-00002217 l       .debug_str	00000000 
-00002222 l       .debug_str	00000000 
+00001d1e l       .debug_str	00000000 
+00001d2a l       .debug_str	00000000 
+00001d43 l       .debug_str	00000000 
+00001d48 l       .debug_str	00000000 
+00001d59 l       .debug_str	00000000 
+00001d63 l       .debug_str	00000000 
+00001d69 l       .debug_str	00000000 
+00001d6e l       .debug_str	00000000 
+00001d73 l       .debug_str	00000000 
+00001d79 l       .debug_str	00000000 
+00001d87 l       .debug_str	00000000 
+00001d91 l       .debug_str	00000000 
+00001d9c l       .debug_str	00000000 
+00001da3 l       .debug_str	00000000 
+00001da9 l       .debug_str	00000000 
+00001dad l       .debug_str	00000000 
+00001dca l       .debug_str	00000000 
+00001dce l       .debug_str	00000000 
+00001de5 l       .debug_str	00000000 
+00001e09 l       .debug_str	00000000 
+00001e25 l       .debug_str	00000000 
+00001e2a l       .debug_str	00000000 
+00001e43 l       .debug_str	00000000 
+00001e4d l       .debug_str	00000000 
+00001e67 l       .debug_str	00000000 
+00001ec5 l       .debug_str	00000000 
+00001ed0 l       .debug_str	00000000 
+00001ed6 l       .debug_str	00000000 
+00001edc l       .debug_str	00000000 
+00001ee7 l       .debug_str	00000000 
+00001f33 l       .debug_str	00000000 
+00001f3f l       .debug_str	00000000 
+00001f47 l       .debug_str	00000000 
+00001f50 l       .debug_str	00000000 
+00001f55 l       .debug_str	00000000 
+00001f5d l       .debug_str	00000000 
+00001fae l       .debug_str	00000000 
+000020aa l       .debug_str	00000000 
+000020b1 l       .debug_str	00000000 
+000020fd l       .debug_str	00000000 
+00002102 l       .debug_str	00000000 
+0000210a l       .debug_str	00000000 
+00002116 l       .debug_str	00000000 
+00002160 l       .debug_str	00000000 
+0000216b l       .debug_str	00000000 
+00002177 l       .debug_str	00000000 
+0000217c l       .debug_str	00000000 
+0000217f l       .debug_str	00000000 
+00002182 l       .debug_str	00000000 
+00002185 l       .debug_str	00000000 
+00002188 l       .debug_str	00000000 
+0000218d l       .debug_str	00000000 
+00002199 l       .debug_str	00000000 
+0000219e l       .debug_str	00000000 
+000021a5 l       .debug_str	00000000 
+000021af l       .debug_str	00000000 
+000021ba l       .debug_str	00000000 
+000021c7 l       .debug_str	00000000 
+000021d5 l       .debug_str	00000000 
+000021df l       .debug_str	00000000 
+000021ed l       .debug_str	00000000 
+000021f7 l       .debug_str	00000000 
+0000220d l       .debug_str	00000000 
+00002218 l       .debug_str	00000000 
+00002223 l       .debug_str	00000000 
+0000222b l       .debug_str	00000000 
 0000222d l       .debug_str	00000000 
-00002269 l       .debug_str	00000000 
-0000229f l       .debug_str	00000000 
-000022a3 l       .debug_str	00000000 
-000022ab l       .debug_str	00000000 
-000022b7 l       .debug_str	00000000 
-000022c1 l       .debug_str	00000000 
-000022ca l       .debug_str	00000000 
-000022d6 l       .debug_str	00000000 
-000022e8 l       .debug_str	00000000 
-000022f1 l       .debug_str	00000000 
-00002324 l       .debug_str	00000000 
-00002358 l       .debug_str	00000000 
-00002386 l       .debug_str	00000000 
-0000238b l       .debug_str	00000000 
-00002391 l       .debug_str	00000000 
-00002398 l       .debug_str	00000000 
-0000239d l       .debug_str	00000000 
-000023d2 l       .debug_str	00000000 
-0000243c l       .debug_str	00000000 
-0000246f l       .debug_str	00000000 
-000024d2 l       .debug_str	00000000 
-000024d8 l       .debug_str	00000000 
-000024de l       .debug_str	00000000 
-000024e7 l       .debug_str	00000000 
-000024ed l       .debug_str	00000000 
-000024ef l       .debug_str	00000000 
-0000256f l       .debug_str	00000000 
-0000261c l       .debug_str	00000000 
-0000261e l       .debug_str	00000000 
-0000265b l       .debug_str	00000000 
-000027cd l       .debug_str	00000000 
-00002839 l       .debug_str	00000000 
-0000283c l       .debug_str	00000000 
-0000283e l       .debug_str	00000000 
-00002840 l       .debug_str	00000000 
-0000287b l       .debug_str	00000000 
-0000287d l       .debug_str	00000000 
-000028be l       .debug_str	00000000 
-0000297f l       .debug_str	00000000 
-000029e5 l       .debug_str	00000000 
-00002a15 l       .debug_str	00000000 
-00002a73 l       .debug_str	00000000 
-00002a79 l       .debug_str	00000000 
-00002a92 l       .debug_str	00000000 
-00002b02 l       .debug_str	00000000 
-00002b0d l       .debug_str	00000000 
-00002b34 l       .debug_str	00000000 
-00002b54 l       .debug_str	00000000 
-00002be0 l       .debug_str	00000000 
-00002c0d l       .debug_str	00000000 
-00002c6a l       .debug_str	00000000 
-00002ca6 l       .debug_str	00000000 
-00002cd4 l       .debug_str	00000000 
-00002cd8 l       .debug_str	00000000 
-00002cde l       .debug_str	00000000 
-00002d73 l       .debug_str	00000000 
-00002dac l       .debug_str	00000000 
-00002db2 l       .debug_str	00000000 
-00002dbc l       .debug_str	00000000 
-00002dc0 l       .debug_str	00000000 
-00002dc5 l       .debug_str	00000000 
-00002e01 l       .debug_str	00000000 
-00002e41 l       .debug_str	00000000 
-00002e4f l       .debug_str	00000000 
-00002e5a l       .debug_str	00000000 
-00002e5e l       .debug_str	00000000 
-00002e62 l       .debug_str	00000000 
-00002e69 l       .debug_str	00000000 
-00002e6f l       .debug_str	00000000 
-00002e7e l       .debug_str	00000000 
+0000223b l       .debug_str	00000000 
+00002255 l       .debug_str	00000000 
+0000225e l       .debug_str	00000000 
+00002268 l       .debug_str	00000000 
+0000226c l       .debug_str	00000000 
+00002278 l       .debug_str	00000000 
+00002372 l       .debug_str	00000000 
+0000239e l       .debug_str	00000000 
+000023e3 l       .debug_str	00000000 
+0000241c l       .debug_str	00000000 
+000024b3 l       .debug_str	00000000 
+00002551 l       .debug_str	00000000 
+0000260c l       .debug_str	00000000 
+000026c6 l       .debug_str	00000000 
+00002778 l       .debug_str	00000000 
+0000280d l       .debug_str	00000000 
+000028b9 l       .debug_str	00000000 
+000028c2 l       .debug_str	00000000 
+000028d7 l       .debug_str	00000000 
+000028e0 l       .debug_str	00000000 
+000028ef l       .debug_str	00000000 
+00002924 l       .debug_str	00000000 
+0000295d l       .debug_str	00000000 
+00002987 l       .debug_str	00000000 
+000029bc l       .debug_str	00000000 
+000029fa l       .debug_str	00000000 
+00002a29 l       .debug_str	00000000 
+00002a5e l       .debug_str	00000000 
+00002b16 l       .debug_str	00000000 
+00002bbf l       .debug_str	00000000 
+00002c06 l       .debug_str	00000000 
+00002c38 l       .debug_str	00000000 
+00002c6b l       .debug_str	00000000 
+00002c98 l       .debug_str	00000000 
+00002cd2 l       .debug_str	00000000 
+00002d04 l       .debug_str	00000000 
+00002d33 l       .debug_str	00000000 
+00002d3a l       .debug_str	00000000 
+00002d46 l       .debug_str	00000000 
+00002d4e l       .debug_str	00000000 
+00002d57 l       .debug_str	00000000 
+00002d5c l       .debug_str	00000000 
+00002d5f l       .debug_str	00000000 
+00002d68 l       .debug_str	00000000 
+00002d6f l       .debug_str	00000000 
+00002d72 l       .debug_str	00000000 
+00002d78 l       .debug_str	00000000 
+00002d82 l       .debug_str	00000000 
+00002d8a l       .debug_str	00000000 
+00002d90 l       .debug_str	00000000 
+00002d9b l       .debug_str	00000000 
+00002da4 l       .debug_str	00000000 
+00002dc7 l       .debug_str	00000000 
+00002de6 l       .debug_str	00000000 
+00002e0d l       .debug_str	00000000 
+00002e17 l       .debug_str	00000000 
+00002e49 l       .debug_str	00000000 
+00002e50 l       .debug_str	00000000 
+00002e78 l       .debug_str	00000000 
 00002e82 l       .debug_str	00000000 
-00002e8b l       .debug_str	00000000 
-00002e93 l       .debug_str	00000000 
-00002e9f l       .debug_str	00000000 
-00002eab l       .debug_str	00000000 
-00002ec4 l       .debug_str	00000000 
-00002ec9 l       .debug_str	00000000 
-00002eda l       .debug_str	00000000 
+00002e8d l       .debug_str	00000000 
+00002e96 l       .debug_str	00000000 
+00002ea1 l       .debug_str	00000000 
+00002ead l       .debug_str	00000000 
+00002eb6 l       .debug_str	00000000 
+00002ebd l       .debug_str	00000000 
+00002ec5 l       .debug_str	00000000 
+00002ecd l       .debug_str	00000000 
+00002ed7 l       .debug_str	00000000 
+00002edd l       .debug_str	00000000 
 00002ee4 l       .debug_str	00000000 
-00002eea l       .debug_str	00000000 
-00002eef l       .debug_str	00000000 
-00002ef4 l       .debug_str	00000000 
-00002efa l       .debug_str	00000000 
-00002f08 l       .debug_str	00000000 
-00002f12 l       .debug_str	00000000 
-00002f1d l       .debug_str	00000000 
-00002f24 l       .debug_str	00000000 
-00002f41 l       .debug_str	00000000 
-00002f58 l       .debug_str	00000000 
-00002f7c l       .debug_str	00000000 
-00002f98 l       .debug_str	00000000 
-00002f9d l       .debug_str	00000000 
-00002fb6 l       .debug_str	00000000 
-00002fc0 l       .debug_str	00000000 
-00002fda l       .debug_str	00000000 
-00003038 l       .debug_str	00000000 
-00003043 l       .debug_str	00000000 
-00003049 l       .debug_str	00000000 
-0000304f l       .debug_str	00000000 
-0000305a l       .debug_str	00000000 
-000030a6 l       .debug_str	00000000 
-000030b2 l       .debug_str	00000000 
-000030bb l       .debug_str	00000000 
-000030c0 l       .debug_str	00000000 
-000030c8 l       .debug_str	00000000 
-00003119 l       .debug_str	00000000 
-00003215 l       .debug_str	00000000 
-0000321c l       .debug_str	00000000 
-00003268 l       .debug_str	00000000 
-0000326d l       .debug_str	00000000 
-00003275 l       .debug_str	00000000 
-00003281 l       .debug_str	00000000 
-000032cb l       .debug_str	00000000 
-000032d6 l       .debug_str	00000000 
-000032ec l       .debug_str	00000000 
-000032f7 l       .debug_str	00000000 
-00003302 l       .debug_str	00000000 
-0000330a l       .debug_str	00000000 
-00003318 l       .debug_str	00000000 
-00003332 l       .debug_str	00000000 
-0000333b l       .debug_str	00000000 
-00003345 l       .debug_str	00000000 
-0000334a l       .debug_str	00000000 
-0000334f l       .debug_str	00000000 
-00003352 l       .debug_str	00000000 
-0000335b l       .debug_str	00000000 
-0000339a l       .debug_str	00000000 
-000033cd l       .debug_str	00000000 
-00003458 l       .debug_str	00000000 
-0000352f l       .debug_str	00000000 
-00003652 l       .debug_str	00000000 
-000036c9 l       .debug_str	00000000 
-0000374d l       .debug_str	00000000 
-000037c8 l       .debug_str	00000000 
-00003866 l       .debug_str	00000000 
-00003911 l       .debug_str	00000000 
-000039b3 l       .debug_str	00000000 
-00003a99 l       .debug_str	00000000 
-00003b9c l       .debug_str	00000000 
-00003c9e l       .debug_str	00000000 
-00003d98 l       .debug_str	00000000 
-00003e75 l       .debug_str	00000000 
-00003e7f l       .debug_str	00000000 
-00003eae l       .debug_str	00000000 
-00003ebb l       .debug_str	00000000 
-00003ee7 l       .debug_str	00000000 
-00003ef7 l       .debug_str	00000000 
-00003f2c l       .debug_str	00000000 
-00003f62 l       .debug_str	00000000 
-00003f89 l       .debug_str	00000000 
-00003fbe l       .debug_str	00000000 
-00004008 l       .debug_str	00000000 
-00004043 l       .debug_str	00000000 
-00004078 l       .debug_str	00000000 
-000040c7 l       .debug_str	00000000 
-00004107 l       .debug_str	00000000 
-0000413c l       .debug_str	00000000 
-0000423c l       .debug_str	00000000 
-0000432d l       .debug_str	00000000 
-00004362 l       .debug_str	00000000 
-00004395 l       .debug_str	00000000 
-000043b9 l       .debug_str	00000000 
-000043c3 l       .debug_str	00000000 
-000043c7 l       .debug_str	00000000 
-000043d3 l       .debug_str	00000000 
-000044cd l       .debug_str	00000000 
-000044f9 l       .debug_str	00000000 
-0000453e l       .debug_str	00000000 
-00004577 l       .debug_str	00000000 
-0000460e l       .debug_str	00000000 
-000046ac l       .debug_str	00000000 
-00004767 l       .debug_str	00000000 
-00004821 l       .debug_str	00000000 
-000048d3 l       .debug_str	00000000 
-00004968 l       .debug_str	00000000 
-00004a14 l       .debug_str	00000000 
-00004a1d l       .debug_str	00000000 
-00004a32 l       .debug_str	00000000 
-00004a3b l       .debug_str	00000000 
-00004a4a l       .debug_str	00000000 
-00004a7f l       .debug_str	00000000 
-00004ab8 l       .debug_str	00000000 
-00004ae2 l       .debug_str	00000000 
-00004b17 l       .debug_str	00000000 
-00004b55 l       .debug_str	00000000 
-00004b84 l       .debug_str	00000000 
-00004bb9 l       .debug_str	00000000 
-00004c71 l       .debug_str	00000000 
-00004d1a l       .debug_str	00000000 
-00004d1f l       .debug_str	00000000 
-00004d26 l       .debug_str	00000000 
-00004d2f l       .debug_str	00000000 
-00004d38 l       .debug_str	00000000 
-00004d41 l       .debug_str	00000000 
-00004d68 l       .debug_str	00000000 
-00004d9c l       .debug_str	00000000 
-00004dc8 l       .debug_str	00000000 
-00004dca l       .debug_str	00000000 
-00004dcc l       .debug_str	00000000 
-00004e13 l       .debug_str	00000000 
-00004e5a l       .debug_str	00000000 
-00004e8c l       .debug_str	00000000 
-00004ebf l       .debug_str	00000000 
-00004eec l       .debug_str	00000000 
-00004f26 l       .debug_str	00000000 
-00004f58 l       .debug_str	00000000 
-00004f87 l       .debug_str	00000000 
-00004fce l       .debug_str	00000000 
-00004ffa l       .debug_str	00000000 
-00005023 l       .debug_str	00000000 
-0000502a l       .debug_str	00000000 
-00005036 l       .debug_str	00000000 
-0000503e l       .debug_str	00000000 
-00005047 l       .debug_str	00000000 
-0000504c l       .debug_str	00000000 
-0000504f l       .debug_str	00000000 
-00005058 l       .debug_str	00000000 
-0000505f l       .debug_str	00000000 
-00005062 l       .debug_str	00000000 
-00005068 l       .debug_str	00000000 
-00005072 l       .debug_str	00000000 
-0000507a l       .debug_str	00000000 
-00005080 l       .debug_str	00000000 
-0000508b l       .debug_str	00000000 
-00005094 l       .debug_str	00000000 
-000050b7 l       .debug_str	00000000 
-000050d6 l       .debug_str	00000000 
-000050fd l       .debug_str	00000000 
-00005107 l       .debug_str	00000000 
-00005139 l       .debug_str	00000000 
-00005140 l       .debug_str	00000000 
-00005168 l       .debug_str	00000000 
-00005172 l       .debug_str	00000000 
-0000517d l       .debug_str	00000000 
-00005186 l       .debug_str	00000000 
-00005191 l       .debug_str	00000000 
-0000519d l       .debug_str	00000000 
-000051a6 l       .debug_str	00000000 
-000051ad l       .debug_str	00000000 
-000051b5 l       .debug_str	00000000 
-000051bd l       .debug_str	00000000 
-000051c7 l       .debug_str	00000000 
-000051cd l       .debug_str	00000000 
-000051d4 l       .debug_str	00000000 
-000051db l       .debug_str	00000000 
+00002eeb l       .debug_str	00000000 
+00002f18 l       .debug_str	00000000 
+00002f4d l       .debug_str	00000000 
+00002f53 l       .debug_str	00000000 
+00002f59 l       .debug_str	00000000 
+00002f68 l       .debug_str	00000000 
+00002f78 l       .debug_str	00000000 
+00002f88 l       .debug_str	00000000 
+00002f90 l       .debug_str	00000000 
+00002fb9 l       .debug_str	00000000 
+00003017 l       .debug_str	00000000 
+0000307d l       .debug_str	00000000 
+00003084 l       .debug_str	00000000 
+0000308c l       .debug_str	00000000 
+00003095 l       .debug_str	00000000 
+000030b3 l       .debug_str	00000000 
+000030c3 l       .debug_str	00000000 
+000030d1 l       .debug_str	00000000 
+000030dc l       .debug_str	00000000 
+000030e9 l       .debug_str	00000000 
+000030f8 l       .debug_str	00000000 
+0000310e l       .debug_str	00000000 
+00003118 l       .debug_str	00000000 
+00003121 l       .debug_str	00000000 
+0000312a l       .debug_str	00000000 
+00003150 l       .debug_str	00000000 
+00003166 l       .debug_str	00000000 
+00003171 l       .debug_str	00000000 
+00003187 l       .debug_str	00000000 
+0000318f l       .debug_str	00000000 
+000031b0 l       .debug_str	00000000 
+000031b9 l       .debug_str	00000000 
+000031c2 l       .debug_str	00000000 
+000031cd l       .debug_str	00000000 
+000031d7 l       .debug_str	00000000 
+000031fe l       .debug_str	00000000 
+00003216 l       .debug_str	00000000 
+00003220 l       .debug_str	00000000 
+00003243 l       .debug_str	00000000 
+0000328b l       .debug_str	00000000 
+000032cd l       .debug_str	00000000 
+000033af l       .debug_str	00000000 
+00003419 l       .debug_str	00000000 
+000034fc l       .debug_str	00000000 
+000034fe l       .debug_str	00000000 
+000035a3 l       .debug_str	00000000 
+000035ad l       .debug_str	00000000 
+000035b1 l       .debug_str	00000000 
+000035bf l       .debug_str	00000000 
+000035c5 l       .debug_str	00000000 
+00003627 l       .debug_str	00000000 
+00003638 l       .debug_str	00000000 
+0000363c l       .debug_str	00000000 
+00003653 l       .debug_str	00000000 
+00003657 l       .debug_str	00000000 
+0000365c l       .debug_str	00000000 
+00003673 l       .debug_str	00000000 
+0000367b l       .debug_str	00000000 
+0000368e l       .debug_str	00000000 
+000036c7 l       .debug_str	00000000 
+000036fa l       .debug_str	00000000 
+00003738 l       .debug_str	00000000 
+00003749 l       .debug_str	00000000 
+00003782 l       .debug_str	00000000 
+000037bf l       .debug_str	00000000 
+000037cc l       .debug_str	00000000 
+000037ce l       .debug_str	00000000 
+00003809 l       .debug_str	00000000 
+0000389d l       .debug_str	00000000 
+000038e1 l       .debug_str	00000000 
+00003994 l       .debug_str	00000000 
+00003a53 l       .debug_str	00000000 
+00003a55 l       .debug_str	00000000 
+00003a8d l       .debug_str	00000000 
+00003acd l       .debug_str	00000000 
+00003b04 l       .debug_str	00000000 
+00003b08 l       .debug_str	00000000 
+00003b65 l       .debug_str	00000000 
+00003b6d l       .debug_str	00000000 
+00003b76 l       .debug_str	00000000 
+00003b82 l       .debug_str	00000000 
+00003b88 l       .debug_str	00000000 
+00003b8b l       .debug_str	00000000 
+00003b95 l       .debug_str	00000000 
+00003b9e l       .debug_str	00000000 
+00003ba8 l       .debug_str	00000000 
+00003bb7 l       .debug_str	00000000 
+00003bb9 l       .debug_str	00000000 
+00003bf2 l       .debug_str	00000000 
+00003bf9 l       .debug_str	00000000 
+00003c00 l       .debug_str	00000000 
+00003c11 l       .debug_str	00000000 
+00003c50 l       .debug_str	00000000 
+00003c83 l       .debug_str	00000000 
+00003d0e l       .debug_str	00000000 
+00003de5 l       .debug_str	00000000 
+00003f08 l       .debug_str	00000000 
+00003f7f l       .debug_str	00000000 
+00004003 l       .debug_str	00000000 
+0000407e l       .debug_str	00000000 
+0000411c l       .debug_str	00000000 
+000041c7 l       .debug_str	00000000 
+00004269 l       .debug_str	00000000 
+0000434f l       .debug_str	00000000 
+00004452 l       .debug_str	00000000 
+00004554 l       .debug_str	00000000 
+0000464e l       .debug_str	00000000 
+0000472b l       .debug_str	00000000 
+00004735 l       .debug_str	00000000 
+00004764 l       .debug_str	00000000 
+000047b3 l       .debug_str	00000000 
+000047de l       .debug_str	00000000 
+00004836 l       .debug_str	00000000 
+00004869 l       .debug_str	00000000 
+000048b8 l       .debug_str	00000000 
+0000490c l       .debug_str	00000000 
+00004946 l       .debug_str	00000000 
+0000496e l       .debug_str	00000000 
+00004973 l       .debug_str	00000000 
+00004980 l       .debug_str	00000000 
+000049ac l       .debug_str	00000000 
+000049ea l       .debug_str	00000000 
+00004a5d l       .debug_str	00000000 
+00004a6d l       .debug_str	00000000 
+00004a77 l       .debug_str	00000000 
+00004a7c l       .debug_str	00000000 
+00004a8c l       .debug_str	00000000 
+00004a9b l       .debug_str	00000000 
+00004aa6 l       .debug_str	00000000 
+00004af7 l       .debug_str	00000000 
+00004b24 l       .debug_str	00000000 
+00004b31 l       .debug_str	00000000 
+00004b58 l       .debug_str	00000000 
+00004b72 l       .debug_str	00000000 
+00004ba2 l       .debug_str	00000000 
+00004bf7 l       .debug_str	00000000 
+00004c40 l       .debug_str	00000000 
+00004cf7 l       .debug_str	00000000 
+00004da5 l       .debug_str	00000000 
+00004e70 l       .debug_str	00000000 
+00004f3a l       .debug_str	00000000 
+00004ffc l       .debug_str	00000000 
+000050a1 l       .debug_str	00000000 
+000050dc l       .debug_str	00000000 
+00005180 l       .debug_str	00000000 
+000051c8 l       .debug_str	00000000 
 00005208 l       .debug_str	00000000 
-0000523d l       .debug_str	00000000 
-00005243 l       .debug_str	00000000 
-00005249 l       .debug_str	00000000 
-00005258 l       .debug_str	00000000 
-00005268 l       .debug_str	00000000 
-00005278 l       .debug_str	00000000 
-00005280 l       .debug_str	00000000 
-000052a9 l       .debug_str	00000000 
-00005307 l       .debug_str	00000000 
-0000536d l       .debug_str	00000000 
-00005374 l       .debug_str	00000000 
-0000537c l       .debug_str	00000000 
-00005385 l       .debug_str	00000000 
-000053a3 l       .debug_str	00000000 
-000053b3 l       .debug_str	00000000 
-000053c1 l       .debug_str	00000000 
-000053cc l       .debug_str	00000000 
-000053d9 l       .debug_str	00000000 
+0000524f l       .debug_str	00000000 
+00005257 l       .debug_str	00000000 
+00005288 l       .debug_str	00000000 
+000052f8 l       .debug_str	00000000 
+00005368 l       .debug_str	00000000 
+000053b7 l       .debug_str	00000000 
+000053e3 l       .debug_str	00000000 
 000053e8 l       .debug_str	00000000 
-000053fe l       .debug_str	00000000 
-00005408 l       .debug_str	00000000 
-00005411 l       .debug_str	00000000 
-0000541a l       .debug_str	00000000 
-00005440 l       .debug_str	00000000 
-00005456 l       .debug_str	00000000 
-00005461 l       .debug_str	00000000 
-00005477 l       .debug_str	00000000 
-0000547f l       .debug_str	00000000 
-000054a0 l       .debug_str	00000000 
-000054a9 l       .debug_str	00000000 
-000054b2 l       .debug_str	00000000 
-000054bd l       .debug_str	00000000 
+00005492 l       .debug_str	00000000 
 000054c7 l       .debug_str	00000000 
-000054ee l       .debug_str	00000000 
-00005506 l       .debug_str	00000000 
-00005510 l       .debug_str	00000000 
-00005533 l       .debug_str	00000000 
-0000557b l       .debug_str	00000000 
-000055bd l       .debug_str	00000000 
-0000569f l       .debug_str	00000000 
-00005709 l       .debug_str	00000000 
-000057ec l       .debug_str	00000000 
-000057ee l       .debug_str	00000000 
-00005893 l       .debug_str	00000000 
-0000589d l       .debug_str	00000000 
+00005594 l       .debug_str	00000000 
+00005652 l       .debug_str	00000000 
+000056c1 l       .debug_str	00000000 
+000056ea l       .debug_str	00000000 
+00005710 l       .debug_str	00000000 
+00005742 l       .debug_str	00000000 
+00005782 l       .debug_str	00000000 
+000057b3 l       .debug_str	00000000 
+000057ba l       .debug_str	00000000 
+000057bf l       .debug_str	00000000 
+000057c8 l       .debug_str	00000000 
+000057ca l       .debug_str	00000000 
+000057d4 l       .debug_str	00000000 
+000057df l       .debug_str	00000000 
+00005830 l       .debug_str	00000000 
+00005860 l       .debug_str	00000000 
+00005867 l       .debug_str	00000000 
 000058a1 l       .debug_str	00000000 
-000058a7 l       .debug_str	00000000 
-000058af l       .debug_str	00000000 
-000058be l       .debug_str	00000000 
-000058e7 l       .debug_str	00000000 
-000058ee l       .debug_str	00000000 
-000058ff l       .debug_str	00000000 
-0000592c l       .debug_str	00000000 
-00005939 l       .debug_str	00000000 
-0000599d l       .debug_str	00000000 
-000059c9 l       .debug_str	00000000 
-00005a05 l       .debug_str	00000000 
-00005a0e l       .debug_str	00000000 
-00005a34 l       .debug_str	00000000 
-00005a70 l       .debug_str	00000000 
-00005a9d l       .debug_str	00000000 
-00005ad9 l       .debug_str	00000000 
-00005b02 l       .debug_str	00000000 
-00005b43 l       .debug_str	00000000 
-00005b4c l       .debug_str	00000000 
-00005b72 l       .debug_str	00000000 
-00005b80 l       .debug_str	00000000 
-00005bf1 l       .debug_str	00000000 
-00005bfe l       .debug_str	00000000 
-00005c15 l       .debug_str	00000000 
-00005c48 l       .debug_str	00000000 
-00005c86 l       .debug_str	00000000 
-00005c97 l       .debug_str	00000000 
-00005cd0 l       .debug_str	00000000 
-00005d0d l       .debug_str	00000000 
-00005d1a l       .debug_str	00000000 
-00005d20 l       .debug_str	00000000 
-00005d82 l       .debug_str	00000000 
-00005d93 l       .debug_str	00000000 
-00005d97 l       .debug_str	00000000 
-00005d9b l       .debug_str	00000000 
-00005dd0 l       .debug_str	00000000 
-00005e0f l       .debug_str	00000000 
-00005e3f l       .debug_str	00000000 
-00005e74 l       .debug_str	00000000 
-00005ea9 l       .debug_str	00000000 
-00005ede l       .debug_str	00000000 
-00005f14 l       .debug_str	00000000 
+000058ad l       .debug_str	00000000 
+000058b3 l       .debug_str	00000000 
+000058b9 l       .debug_str	00000000 
+0000591e l       .debug_str	00000000 
+00005989 l       .debug_str	00000000 
+00005994 l       .debug_str	00000000 
+000059b6 l       .debug_str	00000000 
+000059c1 l       .debug_str	00000000 
+000059e7 l       .debug_str	00000000 
+000059f2 l       .debug_str	00000000 
+00005a0d l       .debug_str	00000000 
+00005a18 l       .debug_str	00000000 
+00005a87 l       .debug_str	00000000 
+00005a90 l       .debug_str	00000000 
+00005abb l       .debug_str	00000000 
+00005bae l       .debug_str	00000000 
+00005c16 l       .debug_str	00000000 
+00005cf5 l       .debug_str	00000000 
+00005d69 l       .debug_str	00000000 
+00005e24 l       .debug_str	00000000 
+00005f2d l       .debug_str	00000000 
+00005f38 l       .debug_str	00000000 
 00005f3b l       .debug_str	00000000 
-00005f76 l       .debug_str	00000000 
-0000600a l       .debug_str	00000000 
-0000604e l       .debug_str	00000000 
-00006101 l       .debug_str	00000000 
-000061c0 l       .debug_str	00000000 
-000061c2 l       .debug_str	00000000 
-000061fa l       .debug_str	00000000 
-0000623a l       .debug_str	00000000 
-00006271 l       .debug_str	00000000 
-00006275 l       .debug_str	00000000 
-00006279 l       .debug_str	00000000 
-00006288 l       .debug_str	00000000 
-000062ba l       .debug_str	00000000 
-000062c4 l       .debug_str	00000000 
-000062cb l       .debug_str	00000000 
-000062fc l       .debug_str	00000000 
-00006307 l       .debug_str	00000000 
-00006316 l       .debug_str	00000000 
-00006352 l       .debug_str	00000000 
-0000638e l       .debug_str	00000000 
-000063bc l       .debug_str	00000000 
-000063e9 l       .debug_str	00000000 
-00006418 l       .debug_str	00000000 
-00006447 l       .debug_str	00000000 
-0000644e l       .debug_str	00000000 
-00006454 l       .debug_str	00000000 
-0000645a l       .debug_str	00000000 
-00006461 l       .debug_str	00000000 
-00006468 l       .debug_str	00000000 
-0000646d l       .debug_str	00000000 
-00006472 l       .debug_str	00000000 
-00006474 l       .debug_str	00000000 
-000064aa l       .debug_str	00000000 
-000064c7 l       .debug_str	00000000 
-000064c9 l       .debug_str	00000000 
-0000653b l       .debug_str	00000000 
-0000653f l       .debug_str	00000000 
-0000659c l       .debug_str	00000000 
-000065a4 l       .debug_str	00000000 
-0000660f l       .debug_str	00000000 
-00006631 l       .debug_str	00000000 
-00006669 l       .debug_str	00000000 
-000066d5 l       .debug_str	00000000 
-000066f8 l       .debug_str	00000000 
-00006703 l       .debug_str	00000000 
-00006751 l       .debug_str	00000000 
-00006761 l       .debug_str	00000000 
-0000676f l       .debug_str	00000000 
-000067a9 l       .debug_str	00000000 
-000067d1 l       .debug_str	00000000 
-0000680f l       .debug_str	00000000 
-00006882 l       .debug_str	00000000 
-00006892 l       .debug_str	00000000 
-0000689d l       .debug_str	00000000 
-000068e7 l       .debug_str	00000000 
-000068f7 l       .debug_str	00000000 
-00006904 l       .debug_str	00000000 
-0000692b l       .debug_str	00000000 
-00006945 l       .debug_str	00000000 
+00005fa2 l       .debug_str	00000000 
+00005fad l       .debug_str	00000000 
+00006011 l       .debug_str	00000000 
+000060bc l       .debug_str	00000000 
+00006161 l       .debug_str	00000000 
+000061c7 l       .debug_str	00000000 
+0000625d l       .debug_str	00000000 
+000062bd l       .debug_str	00000000 
+00006330 l       .debug_str	00000000 
+0000635a l       .debug_str	00000000 
+0000637a l       .debug_str	00000000 
+00006382 l       .debug_str	00000000 
+000063cd l       .debug_str	00000000 
+000063d6 l       .debug_str	00000000 
+000063db l       .debug_str	00000000 
+00006419 l       .debug_str	00000000 
+000064f7 l       .debug_str	00000000 
+000064f9 l       .debug_str	00000000 
+00006548 l       .debug_str	00000000 
+00006554 l       .debug_str	00000000 
+0000655d l       .debug_str	00000000 
+00006561 l       .debug_str	00000000 
+0000656b l       .debug_str	00000000 
+00006570 l       .debug_str	00000000 
+00006577 l       .debug_str	00000000 
+0000657c l       .debug_str	00000000 
+00006581 l       .debug_str	00000000 
+00006603 l       .debug_str	00000000 
+000066ac l       .debug_str	00000000 
+000066ef l       .debug_str	00000000 
+0000672e l       .debug_str	00000000 
+000067fe l       .debug_str	00000000 
+00006885 l       .debug_str	00000000 
+00006932 l       .debug_str	00000000 
 00006975 l       .debug_str	00000000 
-000069ca l       .debug_str	00000000 
-00006a13 l       .debug_str	00000000 
-00006aca l       .debug_str	00000000 
-00006b78 l       .debug_str	00000000 
-00006c43 l       .debug_str	00000000 
-00006d0d l       .debug_str	00000000 
-00006dcf l       .debug_str	00000000 
-00006e74 l       .debug_str	00000000 
-00006eaf l       .debug_str	00000000 
-00006f53 l       .debug_str	00000000 
-00006f9b l       .debug_str	00000000 
-00006fdb l       .debug_str	00000000 
-00007022 l       .debug_str	00000000 
-00007053 l       .debug_str	00000000 
-00007095 l       .debug_str	00000000 
-0000709e l       .debug_str	00000000 
-0000710e l       .debug_str	00000000 
-0000717e l       .debug_str	00000000 
-000071cd l       .debug_str	00000000 
-000071f9 l       .debug_str	00000000 
-000071fe l       .debug_str	00000000 
-000072a8 l       .debug_str	00000000 
-000072dd l       .debug_str	00000000 
-000073aa l       .debug_str	00000000 
-00007468 l       .debug_str	00000000 
-000074d7 l       .debug_str	00000000 
-00007500 l       .debug_str	00000000 
-00007526 l       .debug_str	00000000 
-00007558 l       .debug_str	00000000 
-00007598 l       .debug_str	00000000 
-000075c9 l       .debug_str	00000000 
-000075d0 l       .debug_str	00000000 
-000075d5 l       .debug_str	00000000 
-000075df l       .debug_str	00000000 
-0000761f l       .debug_str	00000000 
-00007662 l       .debug_str	00000000 
-00007672 l       .debug_str	00000000 
-000076bc l       .debug_str	00000000 
-000076fc l       .debug_str	00000000 
-00007745 l       .debug_str	00000000 
-0000774e l       .debug_str	00000000 
-00007750 l       .debug_str	00000000 
-0000775a l       .debug_str	00000000 
-00007765 l       .debug_str	00000000 
-000077b6 l       .debug_str	00000000 
-000077e6 l       .debug_str	00000000 
-00007826 l       .debug_str	00000000 
-00007906 l       .debug_str	00000000 
-000079f9 l       .debug_str	00000000 
-00007a00 l       .debug_str	00000000 
-00007a3a l       .debug_str	00000000 
-00007a46 l       .debug_str	00000000 
-00007a4c l       .debug_str	00000000 
-00007ab1 l       .debug_str	00000000 
-00007b1c l       .debug_str	00000000 
-00007b3e l       .debug_str	00000000 
-00007b64 l       .debug_str	00000000 
-00007b7f l       .debug_str	00000000 
-00007bee l       .debug_str	00000000 
-00007c19 l       .debug_str	00000000 
-00007c81 l       .debug_str	00000000 
-00007d60 l       .debug_str	00000000 
-00007dd4 l       .debug_str	00000000 
-00007e8f l       .debug_str	00000000 
-00007f98 l       .debug_str	00000000 
-00007fa3 l       .debug_str	00000000 
-00007fa6 l       .debug_str	00000000 
-0000800d l       .debug_str	00000000 
-00008018 l       .debug_str	00000000 
-0000807c l       .debug_str	00000000 
-00008127 l       .debug_str	00000000 
-000081cc l       .debug_str	00000000 
-00008232 l       .debug_str	00000000 
-000082c8 l       .debug_str	00000000 
-00008328 l       .debug_str	00000000 
-00008365 l       .debug_str	00000000 
-00008390 l       .debug_str	00000000 
-0000839b l       .debug_str	00000000 
-000083a8 l       .debug_str	00000000 
-000083b2 l       .debug_str	00000000 
+00006a49 l       .debug_str	00000000 
+00006abb l       .debug_str	00000000 
+00006b65 l       .debug_str	00000000 
+00006c1e l       .debug_str	00000000 
+00006ca5 l       .debug_str	00000000 
+00006cec l       .debug_str	00000000 
+00006cf2 l       .debug_str	00000000 
+00006cf8 l       .debug_str	00000000 
+00006cfc l       .debug_str	00000000 
+00006d09 l       .debug_str	00000000 
+00006d95 l       .debug_str	00000000 
+00006da6 l       .debug_str	00000000 
+00006da8 l       .debug_str	00000000 
+00006e24 l       .debug_str	00000000 
+00006e8e l       .debug_str	00000000 
+00006e94 l       .debug_str	00000000 
+00006ef2 l       .debug_str	00000000 
+00006f0b l       .debug_str	00000000 
+00006f48 l       .debug_str	00000000 
+00007025 l       .debug_str	00000000 
+00007065 l       .debug_str	00000000 
+00007081 l       .debug_str	00000000 
+000070a8 l       .debug_str	00000000 
+000070db l       .debug_str	00000000 
+0000710c l       .debug_str	00000000 
+00007154 l       .debug_str	00000000 
+00007158 l       .debug_str	00000000 
+000071a1 l       .debug_str	00000000 
+000071d5 l       .debug_str	00000000 
+000071db l       .debug_str	00000000 
+00007221 l       .debug_str	00000000 
+00007252 l       .debug_str	00000000 
+00007279 l       .debug_str	00000000 
+000072a6 l       .debug_str	00000000 
+000072d1 l       .debug_str	00000000 
+00007319 l       .debug_str	00000000 
+00007362 l       .debug_str	00000000 
+00007390 l       .debug_str	00000000 
+000073d6 l       .debug_str	00000000 
+00007401 l       .debug_str	00000000 
+00007428 l       .debug_str	00000000 
+0000746b l       .debug_str	00000000 
+000074ac l       .debug_str	00000000 
+000074f4 l       .debug_str	00000000 
+0000757d l       .debug_str	00000000 
+0000761c l       .debug_str	00000000 
+000076e0 l       .debug_str	00000000 
+000076e5 l       .debug_str	00000000 
+000076eb l       .debug_str	00000000 
+000076f0 l       .debug_str	00000000 
+0000771f l       .debug_str	00000000 
+00007752 l       .debug_str	00000000 
+00007781 l       .debug_str	00000000 
+00007898 l       .debug_str	00000000 
+000079a9 l       .debug_str	00000000 
+00007a17 l       .debug_str	00000000 
+00007a62 l       .debug_str	00000000 
+00007aa4 l       .debug_str	00000000 
+00007ae0 l       .debug_str	00000000 
+00007b24 l       .debug_str	00000000 
+00007b2b l       .debug_str	00000000 
+00007b2f l       .debug_str	00000000 
+00007ba3 l       .debug_str	00000000 
+00007bd5 l       .debug_str	00000000 
+00007c0a l       .debug_str	00000000 
+00007c93 l       .debug_str	00000000 
+00007d42 l       .debug_str	00000000 
+00007dcb l       .debug_str	00000000 
+00007eb2 l       .debug_str	00000000 
+00007fbe l       .debug_str	00000000 
+00008040 l       .debug_str	00000000 
+000080d9 l       .debug_str	00000000 
+00008199 l       .debug_str	00000000 
+000081ef l       .debug_str	00000000 
+000082a1 l       .debug_str	00000000 
+0000839f l       .debug_str	00000000 
 000083df l       .debug_str	00000000 
-000083e9 l       .debug_str	00000000 
-000083ff l       .debug_str	00000000 
-00008402 l       .debug_str	00000000 
-00008419 l       .debug_str	00000000 
-00008460 l       .debug_str	00000000 
-00008494 l       .debug_str	00000000 
-000084f2 l       .debug_str	00000000 
-00008522 l       .debug_str	00000000 
-0000852d l       .debug_str	00000000 
-00008534 l       .debug_str	00000000 
-0000853d l       .debug_str	00000000 
-00008552 l       .debug_str	00000000 
-00008569 l       .debug_str	00000000 
-000085d5 l       .debug_str	00000000 
-0000860f l       .debug_str	00000000 
-00008654 l       .debug_str	00000000 
-00008665 l       .debug_str	00000000 
-0000869a l       .debug_str	00000000 
-000086cf l       .debug_str	00000000 
-000086d2 l       .debug_str	00000000 
-000086d5 l       .debug_str	00000000 
-000086dd l       .debug_str	00000000 
-00008749 l       .debug_str	00000000 
-0000876c l       .debug_str	00000000 
+000084dc l       .debug_str	00000000 
+00008547 l       .debug_str	00000000 
+000085ed l       .debug_str	00000000 
+000086a2 l       .debug_str	00000000 
+000086ad l       .debug_str	00000000 
+000086eb l       .debug_str	00000000 
+0000873c l       .debug_str	00000000 
+00008762 l       .debug_str	00000000 
+000087a4 l       .debug_str	00000000 
 000087a8 l       .debug_str	00000000 
-00008813 l       .debug_str	00000000 
-00008835 l       .debug_str	00000000 
-0000888c l       .debug_str	00000000 
-0000889e l       .debug_str	00000000 
-00008902 l       .debug_str	00000000 
-0000892c l       .debug_str	00000000 
-00008963 l       .debug_str	00000000 
-0000897e l       .debug_str	00000000 
-0000899e l       .debug_str	00000000 
-000089c5 l       .debug_str	00000000 
-00008a2e l       .debug_str	00000000 
-00008a41 l       .debug_str	00000000 
-00008aa5 l       .debug_str	00000000 
-00008b0b l       .debug_str	00000000 
-00008be9 l       .debug_str	00000000 
-00008cd6 l       .debug_str	00000000 
-00008d3f l       .debug_str	00000000 
-00008d5a l       .debug_str	00000000 
-00008dbe l       .debug_str	00000000 
-00008dd5 l       .debug_str	00000000 
-00008e35 l       .debug_str	00000000 
-00008e8d l       .debug_str	00000000 
-00008e95 l       .debug_str	00000000 
-00008ee0 l       .debug_str	00000000 
-00008ee9 l       .debug_str	00000000 
-00008eee l       .debug_str	00000000 
-00008f2c l       .debug_str	00000000 
-0000900a l       .debug_str	00000000 
-0000900c l       .debug_str	00000000 
-0000905b l       .debug_str	00000000 
-00009067 l       .debug_str	00000000 
-00009070 l       .debug_str	00000000 
-00009074 l       .debug_str	00000000 
-0000907e l       .debug_str	00000000 
-00009083 l       .debug_str	00000000 
-0000908a l       .debug_str	00000000 
-0000908f l       .debug_str	00000000 
-00009094 l       .debug_str	00000000 
-00009116 l       .debug_str	00000000 
-000091bf l       .debug_str	00000000 
-00009202 l       .debug_str	00000000 
-00009241 l       .debug_str	00000000 
-00009311 l       .debug_str	00000000 
-00009393 l       .debug_str	00000000 
-00009474 l       .debug_str	00000000 
-0000957c l       .debug_str	00000000 
-000095c5 l       .debug_str	00000000 
-000095f3 l       .debug_str	00000000 
-000095f9 l       .debug_str	00000000 
-0000963e l       .debug_str	00000000 
-00009674 l       .debug_str	00000000 
-000096b5 l       .debug_str	00000000 
-000096bc l       .debug_str	00000000 
-000096c0 l       .debug_str	00000000 
-00009737 l       .debug_str	00000000 
-00009763 l       .debug_str	00000000 
-00009796 l       .debug_str	00000000 
-000097d3 l       .debug_str	00000000 
-00009808 l       .debug_str	00000000 
-0000984f l       .debug_str	00000000 
-0000988d l       .debug_str	00000000 
-000098f8 l       .debug_str	00000000 
-000099d6 l       .debug_str	00000000 
-000099db l       .debug_str	00000000 
-000099dd l       .debug_str	00000000 
-00009a1c l       .debug_str	00000000 
-00009a82 l       .debug_str	00000000 
-00009ac7 l       .debug_str	00000000 
-00009ad3 l       .debug_str	00000000 
-00009b18 l       .debug_str	00000000 
-00009b24 l       .debug_str	00000000 
-00009b6b l       .debug_str	00000000 
-00009ba9 l       .debug_str	00000000 
-00009bea l       .debug_str	00000000 
-00009c1f l       .debug_str	00000000 
-00009c40 l       .debug_str	00000000 
-00009cc7 l       .debug_str	00000000 
-00009d74 l       .debug_str	00000000 
-00009db7 l       .debug_str	00000000 
-00009e8b l       .debug_str	00000000 
-00009efd l       .debug_str	00000000 
-00009fa7 l       .debug_str	00000000 
-0000a060 l       .debug_str	00000000 
-0000a0e7 l       .debug_str	00000000 
-0000a12e l       .debug_str	00000000 
-0000a134 l       .debug_str	00000000 
-0000a138 l       .debug_str	00000000 
-0000a145 l       .debug_str	00000000 
-0000a1d1 l       .debug_str	00000000 
-0000a1e2 l       .debug_str	00000000 
-0000a25e l       .debug_str	00000000 
-0000a2c8 l       .debug_str	00000000 
-0000a2ce l       .debug_str	00000000 
-0000a319 l       .debug_str	00000000 
-0000a32a l       .debug_str	00000000 
-0000a356 l       .debug_str	00000000 
-0000a35a l       .debug_str	00000000 
-0000a397 l       .debug_str	00000000 
-0000a3dd l       .debug_str	00000000 
-0000a3e9 l       .debug_str	00000000 
-0000a42c l       .debug_str	00000000 
-0000a436 l       .debug_str	00000000 
-0000a473 l       .debug_str	00000000 
-0000a550 l       .debug_str	00000000 
-0000a590 l       .debug_str	00000000 
-0000a5ac l       .debug_str	00000000 
-0000a5d3 l       .debug_str	00000000 
-0000a606 l       .debug_str	00000000 
-0000a637 l       .debug_str	00000000 
-0000a67f l       .debug_str	00000000 
-0000a6c8 l       .debug_str	00000000 
-0000a6fc l       .debug_str	00000000 
-0000a742 l       .debug_str	00000000 
-0000a773 l       .debug_str	00000000 
-0000a79a l       .debug_str	00000000 
-0000a7c7 l       .debug_str	00000000 
-0000a80f l       .debug_str	00000000 
-0000a855 l       .debug_str	00000000 
-0000a880 l       .debug_str	00000000 
-0000a8a7 l       .debug_str	00000000 
-0000a8ea l       .debug_str	00000000 
-0000a92b l       .debug_str	00000000 
-0000a973 l       .debug_str	00000000 
-0000a9fc l       .debug_str	00000000 
-0000aae3 l       .debug_str	00000000 
-0000abef l       .debug_str	00000000 
-0000abf4 l       .debug_str	00000000 
-0000ac58 l       .debug_str	00000000 
-0000ac8c l       .debug_str	00000000 
-0000acb6 l       .debug_str	00000000 
-0000ad26 l       .debug_str	00000000 
-0000ad43 l       .debug_str	00000000 
-0000adb6 l       .debug_str	00000000 
-0000ae18 l       .debug_str	00000000 
-0000ae63 l       .debug_str	00000000 
-0000aea5 l       .debug_str	00000000 
-0000aee3 l       .debug_str	00000000 
-0000af57 l       .debug_str	00000000 
-0000af86 l       .debug_str	00000000 
-0000b00f l       .debug_str	00000000 
-0000b0ae l       .debug_str	00000000 
-0000b172 l       .debug_str	00000000 
-0000b178 l       .debug_str	00000000 
-0000b1a7 l       .debug_str	00000000 
-0000b1da l       .debug_str	00000000 
-0000b209 l       .debug_str	00000000 
-0000b320 l       .debug_str	00000000 
-0000b431 l       .debug_str	00000000 
-0000b49f l       .debug_str	00000000 
-0000b4ea l       .debug_str	00000000 
-0000b52c l       .debug_str	00000000 
-0000b568 l       .debug_str	00000000 
-0000b5ac l       .debug_str	00000000 
-0000b620 l       .debug_str	00000000 
-0000b652 l       .debug_str	00000000 
-0000b687 l       .debug_str	00000000 
-0000b710 l       .debug_str	00000000 
-0000b7bf l       .debug_str	00000000 
-0000b815 l       .debug_str	00000000 
-0000b90f l       .debug_str	00000000 
-0000b991 l       .debug_str	00000000 
-0000ba2a l       .debug_str	00000000 
-0000baea l       .debug_str	00000000 
-0000bb40 l       .debug_str	00000000 
-0000bbf2 l       .debug_str	00000000 
-0000bcf0 l       .debug_str	00000000 
-0000bd30 l       .debug_str	00000000 
-0000be2d l       .debug_str	00000000 
-0000be98 l       .debug_str	00000000 
-0000bf3e l       .debug_str	00000000 
-0000bff3 l       .debug_str	00000000 
-0000bffe l       .debug_str	00000000 
-0000c03c l       .debug_str	00000000 
-0000c08d l       .debug_str	00000000 
-0000c0b3 l       .debug_str	00000000 
-0000c0f5 l       .debug_str	00000000 
-0000c0f9 l       .debug_str	00000000 
-0000c143 l       .debug_str	00000000 
-0000c18c l       .debug_str	00000000 
-0000c1d5 l       .debug_str	00000000 
-0000c1dc l       .debug_str	00000000 
-0000c268 l       .debug_str	00000000 
-0000c275 l       .debug_str	00000000 
-0000c27b l       .debug_str	00000000 
-0000c280 l       .debug_str	00000000 
-0000c284 l       .debug_str	00000000 
-0000c286 l       .debug_str	00000000 
-0000c324 l       .debug_str	00000000 
-0000c382 l       .debug_str	00000000 
-0000c386 l       .debug_str	00000000 
-0000c38a l       .debug_str	00000000 
-0000c38c l       .debug_str	00000000 
-0000c391 l       .debug_str	00000000 
-0000c405 l       .debug_str	00000000 
-0000c43d l       .debug_str	00000000 
-0000c442 l       .debug_str	00000000 
-0000c446 l       .debug_str	00000000 
-0000c4b8 l       .debug_str	00000000 
-0000c522 l       .debug_str	00000000 
-0000c524 l       .debug_str	00000000 
-0000c526 l       .debug_str	00000000 
-0000c532 l       .debug_str	00000000 
-0000c56d l       .debug_str	00000000 
-0000c57e l       .debug_str	00000000 
-0000c585 l       .debug_str	00000000 
-0000c593 l       .debug_str	00000000 
-0000c598 l       .debug_str	00000000 
-0000c5a8 l       .debug_str	00000000 
-0000c5ac l       .debug_str	00000000 
-0000c5b8 l       .debug_str	00000000 
-0000c5d9 l       .debug_str	00000000 
-0000c5e3 l       .debug_str	00000000 
-0000c5e6 l       .debug_str	00000000 
-0000c5f4 l       .debug_str	00000000 
-0000c606 l       .debug_str	00000000 
-0000c61a l       .debug_str	00000000 
-0000c623 l       .debug_str	00000000 
-0000c62e l       .debug_str	00000000 
-0000c637 l       .debug_str	00000000 
-0000c6a7 l       .debug_str	00000000 
-0000c6dd l       .debug_str	00000000 
-0000c70f l       .debug_str	00000000 
-0000c77f l       .debug_str	00000000 
-0000c7ad l       .debug_str	00000000 
-0000c7d7 l       .debug_str	00000000 
-0000c816 l       .debug_str	00000000 
-0000c82a l       .debug_str	00000000 
-0000c82f l       .debug_str	00000000 
-0000c83e l       .debug_str	00000000 
-0000c84c l       .debug_str	00000000 
-0000c851 l       .debug_str	00000000 
-0000c855 l       .debug_str	00000000 
-0000c88f l       .debug_str	00000000 
-0000c89e l       .debug_str	00000000 
-0000c8c5 l       .debug_str	00000000 
-0000c8cc l       .debug_str	00000000 
-0000c8d4 l       .debug_str	00000000 
-0000c8db l       .debug_str	00000000 
-0000c8e1 l       .debug_str	00000000 
-0000c8e8 l       .debug_str	00000000 
-0000c8ee l       .debug_str	00000000 
-0000c983 l       .debug_str	00000000 
-0000c98f l       .debug_str	00000000 
-0000c9b3 l       .debug_str	00000000 
-0000c9b5 l       .debug_str	00000000 
-0000ca0a l       .debug_str	00000000 
-0000ca14 l       .debug_str	00000000 
-0000ca1b l       .debug_str	00000000 
-0000ca1f l       .debug_str	00000000 
-0000ca6a l       .debug_str	00000000 
-0000ca7a l       .debug_str	00000000 
-0000ca88 l       .debug_str	00000000 
-0000ca8c l       .debug_str	00000000 
-0000cad3 l       .debug_str	00000000 
-0000cadf l       .debug_str	00000000 
-0000cb29 l       .debug_str	00000000 
-0000cb41 l       .debug_str	00000000 
-0000cb80 l       .debug_str	00000000 
-0000cbb3 l       .debug_str	00000000 
-0000cbe8 l       .debug_str	00000000 
-0000cc1d l       .debug_str	00000000 
-0000cc54 l       .debug_str	00000000 
-0000cc7c l       .debug_str	00000000 
-0000ccbb l       .debug_str	00000000 
-0000ccd1 l       .debug_str	00000000 
-0000ccda l       .debug_str	00000000 
-0000cce0 l       .debug_str	00000000 
-0000ccec l       .debug_str	00000000 
-0000ccf4 l       .debug_str	00000000 
-0000cd4e l       .debug_str	00000000 
-0000cdb0 l       .debug_str	00000000 
-0000cdbb l       .debug_str	00000000 
-0000ce02 l       .debug_str	00000000 
-0000ce51 l       .debug_str	00000000 
-0000ce5b l       .debug_str	00000000 
-0000ce98 l       .debug_str	00000000 
-0000cedd l       .debug_str	00000000 
-0000cee6 l       .debug_str	00000000 
-0000cef6 l       .debug_str	00000000 
-0000cefe l       .debug_str	00000000 
-0000cf53 l       .debug_str	00000000 
-0000cfb0 l       .debug_str	00000000 
-0000cfbc l       .debug_str	00000000 
-0000cfc5 l       .debug_str	00000000 
-0000cfd1 l       .debug_str	00000000 
-0000cfdd l       .debug_str	00000000 
-0000cfe6 l       .debug_str	00000000 
-0000cfee l       .debug_str	00000000 
-0000cff6 l       .debug_str	00000000 
-0000d00b l       .debug_str	00000000 
-0000d012 l       .debug_str	00000000 
-0000d032 l       .debug_str	00000000 
-0000d039 l       .debug_str	00000000 
-0000d041 l       .debug_str	00000000 
-0000d04b l       .debug_str	00000000 
-0000d062 l       .debug_str	00000000 
-0000d067 l       .debug_str	00000000 
-0000d06f l       .debug_str	00000000 
-0000d078 l       .debug_str	00000000 
-0000d081 l       .debug_str	00000000 
-0000d08a l       .debug_str	00000000 
-0000d092 l       .debug_str	00000000 
-0000d096 l       .debug_str	00000000 
-0000d09d l       .debug_str	00000000 
-0000d0a9 l       .debug_str	00000000 
-0000d0b4 l       .debug_str	00000000 
-0000d0bc l       .debug_str	00000000 
-0000d0c4 l       .debug_str	00000000 
-0000d140 l       .debug_str	00000000 
-0000d1c4 l       .debug_str	00000000 
-0000d2c0 l       .debug_str	00000000 
-0000d3c4 l       .debug_str	00000000 
-0000d3d2 l       .debug_str	00000000 
-0000d3dd l       .debug_str	00000000 
-0000d3e7 l       .debug_str	00000000 
-0000d3f2 l       .debug_str	00000000 
-0000d420 l       .debug_str	00000000 
-0000d49b l       .debug_str	00000000 
-0000d51e l       .debug_str	00000000 
-0000d52c l       .debug_str	00000000 
-0000d58b l       .debug_str	00000000 
-0000d5f2 l       .debug_str	00000000 
-0000d608 l       .debug_str	00000000 
-0000d618 l       .debug_str	00000000 
-0000d627 l       .debug_str	00000000 
-0000d62b l       .debug_str	00000000 
-0000d631 l       .debug_str	00000000 
-0000d635 l       .debug_str	00000000 
-0000d63b l       .debug_str	00000000 
-0000d641 l       .debug_str	00000000 
-0000d64d l       .debug_str	00000000 
-0000d655 l       .debug_str	00000000 
-0000d65d l       .debug_str	00000000 
-0000d663 l       .debug_str	00000000 
-0000d686 l       .debug_str	00000000 
-0000d696 l       .debug_str	00000000 
-0000d6c9 l       .debug_str	00000000 
-0000d709 l       .debug_str	00000000 
-0000d751 l       .debug_str	00000000 
-0000d755 l       .debug_str	00000000 
-0000d75b l       .debug_str	00000000 
-0000d761 l       .debug_str	00000000 
-0000d767 l       .debug_str	00000000 
-0000d779 l       .debug_str	00000000 
-0000d7ae l       .debug_str	00000000 
-0000d7f0 l       .debug_str	00000000 
-0000d83a l       .debug_str	00000000 
-0000d83e l       .debug_str	00000000 
-0000d844 l       .debug_str	00000000 
-0000d84a l       .debug_str	00000000 
-0000d850 l       .debug_str	00000000 
-0000d862 l       .debug_str	00000000 
-0000d897 l       .debug_str	00000000 
-0000d8d9 l       .debug_str	00000000 
-0000d923 l       .debug_str	00000000 
-0000d927 l       .debug_str	00000000 
-0000d92d l       .debug_str	00000000 
-0000d933 l       .debug_str	00000000 
-0000d939 l       .debug_str	00000000 
-0000d93f l       .debug_str	00000000 
-0000d950 l       .debug_str	00000000 
-0000d984 l       .debug_str	00000000 
-0000d9c5 l       .debug_str	00000000 
-0000da0e l       .debug_str	00000000 
-0000da13 l       .debug_str	00000000 
-0000da18 l       .debug_str	00000000 
-0000da1c l       .debug_str	00000000 
-0000da22 l       .debug_str	00000000 
-0000da28 l       .debug_str	00000000 
-0000da2e l       .debug_str	00000000 
-0000da3f l       .debug_str	00000000 
-0000da73 l       .debug_str	00000000 
-0000dab4 l       .debug_str	00000000 
-0000dafd l       .debug_str	00000000 
-0000db01 l       .debug_str	00000000 
-0000db0a l       .debug_str	00000000 
-0000db1b l       .debug_str	00000000 
-0000db4f l       .debug_str	00000000 
-00000000 l     O .rodata.cst8	00000008 .Lanon.589feb885dedf5ed926e49154914a7d9.18
-00000000 l     O .rodata.cst4	00000004 .Lanon.589feb885dedf5ed926e49154914a7d9.31
-00000004 l     O .rodata.cst4	00000004 .Lanon.589feb885dedf5ed926e49154914a7d9.32
-00000008 l     O .rodata.cst4	00000004 .Lanon.589feb885dedf5ed926e49154914a7d9.47
-0000000c l     O .rodata.cst4	00000004 .Lanon.589feb885dedf5ed926e49154914a7d9.48
-00000010 l     O .rodata.cst4	00000004 .Lanon.589feb885dedf5ed926e49154914a7d9.50
-00000014 l     O .rodata.cst4	00000004 .Lanon.589feb885dedf5ed926e49154914a7d9.60
-00000008 l     O .rodata.cst8	00000008 .Lanon.589feb885dedf5ed926e49154914a7d9.69
-00000010 l     O .rodata.cst8	00000008 .Lanon.589feb885dedf5ed926e49154914a7d9.77
-00000018 l     O .rodata.cst8	00000008 .Lanon.589feb885dedf5ed926e49154914a7d9.83
-00000020 l     O .rodata.cst8	00000008 .Lanon.589feb885dedf5ed926e49154914a7d9.84
-00000028 l     O .rodata.cst8	00000008 .Lanon.589feb885dedf5ed926e49154914a7d9.87
-00000030 l     O .rodata.cst8	00000008 .Lanon.589feb885dedf5ed926e49154914a7d9.88
-00000038 l     O .rodata.cst8	00000008 .Lanon.589feb885dedf5ed926e49154914a7d9.89
+000087f2 l       .debug_str	00000000 
+0000883b l       .debug_str	00000000 
+00008884 l       .debug_str	00000000 
+00008890 l       .debug_str	00000000 
+000088cb l       .debug_str	00000000 
+000088dc l       .debug_str	00000000 
+000088e3 l       .debug_str	00000000 
+000088f1 l       .debug_str	00000000 
+000088f6 l       .debug_str	00000000 
+00008906 l       .debug_str	00000000 
+0000890a l       .debug_str	00000000 
+00008916 l       .debug_str	00000000 
+00008937 l       .debug_str	00000000 
+00008941 l       .debug_str	00000000 
+00008944 l       .debug_str	00000000 
+00008952 l       .debug_str	00000000 
+00008964 l       .debug_str	00000000 
+00008978 l       .debug_str	00000000 
+00008981 l       .debug_str	00000000 
+0000898c l       .debug_str	00000000 
+00008995 l       .debug_str	00000000 
+00008999 l       .debug_str	00000000 
+00008a09 l       .debug_str	00000000 
+00008a3f l       .debug_str	00000000 
+00008a71 l       .debug_str	00000000 
+00008ae1 l       .debug_str	00000000 
+00008b0f l       .debug_str	00000000 
+00008b39 l       .debug_str	00000000 
+00008b78 l       .debug_str	00000000 
+00008b8c l       .debug_str	00000000 
+00008b91 l       .debug_str	00000000 
+00008ba0 l       .debug_str	00000000 
+00008bae l       .debug_str	00000000 
+00008bb3 l       .debug_str	00000000 
+00008bb7 l       .debug_str	00000000 
+00008bf1 l       .debug_str	00000000 
+00008c00 l       .debug_str	00000000 
+00008c27 l       .debug_str	00000000 
+00008c2c l       .debug_str	00000000 
+00008c33 l       .debug_str	00000000 
+00008c3b l       .debug_str	00000000 
+00008c42 l       .debug_str	00000000 
+00008c48 l       .debug_str	00000000 
+00008c4f l       .debug_str	00000000 
+00008c55 l       .debug_str	00000000 
+00008cea l       .debug_str	00000000 
+00008cf6 l       .debug_str	00000000 
+00008d1a l       .debug_str	00000000 
+00008d1c l       .debug_str	00000000 
+00008d71 l       .debug_str	00000000 
+00008d7b l       .debug_str	00000000 
+00008d82 l       .debug_str	00000000 
+00008d86 l       .debug_str	00000000 
+00008dd1 l       .debug_str	00000000 
+00008de1 l       .debug_str	00000000 
+00008def l       .debug_str	00000000 
+00008df3 l       .debug_str	00000000 
+00008df5 l       .debug_str	00000000 
+00008df7 l       .debug_str	00000000 
+00008e3e l       .debug_str	00000000 
+00008e4a l       .debug_str	00000000 
+00008e94 l       .debug_str	00000000 
+00008e9d l       .debug_str	00000000 
+00008eb5 l       .debug_str	00000000 
+00008ef4 l       .debug_str	00000000 
+00008f27 l       .debug_str	00000000 
+00008f5c l       .debug_str	00000000 
+00008f91 l       .debug_str	00000000 
+00008fc8 l       .debug_str	00000000 
+00008ff0 l       .debug_str	00000000 
+0000902f l       .debug_str	00000000 
+00009045 l       .debug_str	00000000 
+0000904e l       .debug_str	00000000 
+00009054 l       .debug_str	00000000 
+00009060 l       .debug_str	00000000 
+00009068 l       .debug_str	00000000 
+000090c2 l       .debug_str	00000000 
+00009124 l       .debug_str	00000000 
+0000912f l       .debug_str	00000000 
+00009176 l       .debug_str	00000000 
+000091c5 l       .debug_str	00000000 
+000091cf l       .debug_str	00000000 
+0000920c l       .debug_str	00000000 
+00009251 l       .debug_str	00000000 
+0000925a l       .debug_str	00000000 
+0000926a l       .debug_str	00000000 
+00009272 l       .debug_str	00000000 
+000092c7 l       .debug_str	00000000 
+00009324 l       .debug_str	00000000 
+00009330 l       .debug_str	00000000 
+00009339 l       .debug_str	00000000 
+00009345 l       .debug_str	00000000 
+00009351 l       .debug_str	00000000 
+0000935a l       .debug_str	00000000 
+00009362 l       .debug_str	00000000 
+0000936a l       .debug_str	00000000 
+0000937f l       .debug_str	00000000 
+00009386 l       .debug_str	00000000 
+000093a6 l       .debug_str	00000000 
+000093ad l       .debug_str	00000000 
+000093b5 l       .debug_str	00000000 
+000093bf l       .debug_str	00000000 
+000093d6 l       .debug_str	00000000 
+000093db l       .debug_str	00000000 
+000093e3 l       .debug_str	00000000 
+000093ec l       .debug_str	00000000 
+000093f5 l       .debug_str	00000000 
+000093fe l       .debug_str	00000000 
+00009406 l       .debug_str	00000000 
+0000940a l       .debug_str	00000000 
+00009411 l       .debug_str	00000000 
+0000941d l       .debug_str	00000000 
+00009428 l       .debug_str	00000000 
+00009430 l       .debug_str	00000000 
+00009438 l       .debug_str	00000000 
+000094b4 l       .debug_str	00000000 
+00009538 l       .debug_str	00000000 
+00009634 l       .debug_str	00000000 
+00009738 l       .debug_str	00000000 
+00009746 l       .debug_str	00000000 
+00009751 l       .debug_str	00000000 
+0000975b l       .debug_str	00000000 
+00009766 l       .debug_str	00000000 
+00009794 l       .debug_str	00000000 
+0000980f l       .debug_str	00000000 
+00009892 l       .debug_str	00000000 
+000098a0 l       .debug_str	00000000 
+000098ff l       .debug_str	00000000 
+00009966 l       .debug_str	00000000 
+0000997c l       .debug_str	00000000 
+0000998c l       .debug_str	00000000 
+0000999b l       .debug_str	00000000 
+0000999f l       .debug_str	00000000 
+000099a5 l       .debug_str	00000000 
+000099a9 l       .debug_str	00000000 
+000099af l       .debug_str	00000000 
+000099b5 l       .debug_str	00000000 
+000099c1 l       .debug_str	00000000 
+000099c9 l       .debug_str	00000000 
+000099d1 l       .debug_str	00000000 
+000099d7 l       .debug_str	00000000 
+000099fa l       .debug_str	00000000 
+00009a0a l       .debug_str	00000000 
+00009a3d l       .debug_str	00000000 
+00009a7d l       .debug_str	00000000 
+00009ac5 l       .debug_str	00000000 
+00009ac9 l       .debug_str	00000000 
+00009acf l       .debug_str	00000000 
+00009ad5 l       .debug_str	00000000 
+00009adb l       .debug_str	00000000 
+00009aed l       .debug_str	00000000 
+00009b22 l       .debug_str	00000000 
+00009b64 l       .debug_str	00000000 
+00009bae l       .debug_str	00000000 
+00009bb2 l       .debug_str	00000000 
+00009bb8 l       .debug_str	00000000 
+00009bbe l       .debug_str	00000000 
+00009bc4 l       .debug_str	00000000 
+00009bd6 l       .debug_str	00000000 
+00009c0b l       .debug_str	00000000 
+00009c4d l       .debug_str	00000000 
+00009c97 l       .debug_str	00000000 
+00009c9b l       .debug_str	00000000 
+00009ca1 l       .debug_str	00000000 
+00009ca7 l       .debug_str	00000000 
+00009cad l       .debug_str	00000000 
+00009cb3 l       .debug_str	00000000 
+00009cc4 l       .debug_str	00000000 
+00009cf8 l       .debug_str	00000000 
+00009d39 l       .debug_str	00000000 
+00009d82 l       .debug_str	00000000 
+00009d87 l       .debug_str	00000000 
+00009d8c l       .debug_str	00000000 
+00009d90 l       .debug_str	00000000 
+00009d96 l       .debug_str	00000000 
+00009d9c l       .debug_str	00000000 
+00009da2 l       .debug_str	00000000 
+00009db3 l       .debug_str	00000000 
+00009de7 l       .debug_str	00000000 
+00009e28 l       .debug_str	00000000 
+00009e71 l       .debug_str	00000000 
+00009e75 l       .debug_str	00000000 
+00009e7e l       .debug_str	00000000 
+00009ec3 l       .debug_str	00000000 
+00009f04 l       .debug_str	00000000 
+00009f4d l       .debug_str	00000000 
+00009f52 l       .debug_str	00000000 
+00009f56 l       .debug_str	00000000 
+00009f5f l       .debug_str	00000000 
+00009f66 l       .debug_str	00000000 
+00009f6e l       .debug_str	00000000 
+00009f80 l       .debug_str	00000000 
+00009fb5 l       .debug_str	00000000 
+00009ff7 l       .debug_str	00000000 
+0000a041 l       .debug_str	00000000 
+0000a045 l       .debug_str	00000000 
+0000a04b l       .debug_str	00000000 
+0000a051 l       .debug_str	00000000 
+0000a057 l       .debug_str	00000000 
+0000a05d l       .debug_str	00000000 
+0000a065 l       .debug_str	00000000 
+0000a073 l       .debug_str	00000000 
+0000a082 l       .debug_str	00000000 
+0000a093 l       .debug_str	00000000 
+0000a09e l       .debug_str	00000000 
+0000a0a9 l       .debug_str	00000000 
+0000a0b4 l       .debug_str	00000000 
+00000000 l     O .rodata.cst4	00000004 .Lanon.73ec4dbdc3e34bf5216e860e6e103950.29
+00000004 l     O .rodata.cst4	00000004 .Lanon.73ec4dbdc3e34bf5216e860e6e103950.30
+00000008 l     O .rodata.cst4	00000004 .Lanon.73ec4dbdc3e34bf5216e860e6e103950.32
+0000000c l     O .rodata.cst4	00000004 .Lanon.73ec4dbdc3e34bf5216e860e6e103950.42
+00000000 l     O .rodata.cst8	00000008 .Lanon.73ec4dbdc3e34bf5216e860e6e103950.51
+00000008 l     O .rodata.cst8	00000008 .Lanon.73ec4dbdc3e34bf5216e860e6e103950.59
+00000010 l     O .rodata.cst8	00000008 .Lanon.73ec4dbdc3e34bf5216e860e6e103950.65
+00000018 l     O .rodata.cst8	00000008 .Lanon.73ec4dbdc3e34bf5216e860e6e103950.66
+00000020 l     O .rodata.cst8	00000008 .Lanon.73ec4dbdc3e34bf5216e860e6e103950.69
+00000028 l     O .rodata.cst8	00000008 .Lanon.73ec4dbdc3e34bf5216e860e6e103950.70
+00000030 l     O .rodata.cst8	00000008 .Lanon.73ec4dbdc3e34bf5216e860e6e103950.71
 00000000 l     O .rodata._ZN3app10app_sensor13SENSOR_DEVICE17h0cd740b16f912f04E	0000000c app::app_sensor::SENSOR_DEVICE
 00000000 l     F .text._ZN3app11app_network21aggregate_sensor_data17h9b78c5e16db97c27E	00000274 app::app_network::aggregate_sensor_data
 00000000 l     O .bss..L_MergedGlobals	00000001 app::touch_sensor::I2C_BUFFER
@@ -1780,75 +1312,51 @@ SYMBOL TABLE:
 00000000 l     F .text._ZN3app5hello10ui_builder17hc876176f6df01194E	000000b8 app::hello::ui_builder
 00000000 l     F .text._ZN4core3ops8function6FnOnce9call_once17h5947320a8aa0b3f7E	0000000a core::ops::function::FnOnce::call_once
 00000000 l     F .text._ZN4core3ops8function6FnOnce9call_once17h75913317ca02ddf4E	00000008 core::ops::function::FnOnce::call_once
-00000000 l     F .text._ZN4core3ptr18real_drop_in_place17h2ac0e1c84b8c6234E	00000010 core::ptr::real_drop_in_place
 00000000 l     F .text._ZN4core3ptr18real_drop_in_place17h2d160c1876d25fbeE	00000002 core::ptr::real_drop_in_place
 00000000 l     F .text._ZN4core3ptr18real_drop_in_place17h407573432a8d62a2E	0000000c core::ptr::real_drop_in_place
 00000000 l     F .text._ZN4core3ptr18real_drop_in_place17h7ae1c1c93c63dfaaE	00000002 core::ptr::real_drop_in_place
 00000000 l     F .text._ZN4core3ptr18real_drop_in_place17h897a7d5835071a91E	00000002 core::ptr::real_drop_in_place
 00000000 l     F .text._ZN4core3ptr18real_drop_in_place17h9757770568a0fd13E	00000002 core::ptr::real_drop_in_place
 00000000 l     F .text._ZN4core3ptr18real_drop_in_place17h9880d25711f8717aE	0000000c core::ptr::real_drop_in_place
-00000000 l     F .text._ZN4core3ptr18real_drop_in_place17h9cd0f2166b39e13dE	0000000e core::ptr::real_drop_in_place
 00000000 l     F .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17h06de3ed274e3b86fE	00000014 core::result::Result<T,E>::expect
 00000000 l     F .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17h468aab9711338b2eE	0000001c core::result::Result<T,E>::expect
 00000000 l     F .text._ZN4core6result19Result$LT$T$C$E$GT$6unwrap17h6c1677eb16e5b690E	00000014 core::result::Result<T,E>::unwrap
-00000000 l     F .text._ZN5kurbo4rect4Rect16from_origin_size17h18a40b933e1fa35fE	000000c8 kurbo::rect::Rect::from_origin_size
-00000000 l     F .text._ZN5kurbo4rect4Rect3abs17h393fde2ef1301248E	00000158 kurbo::rect::Rect::abs
-00000000 l     F .text._ZN5kurbo4rect4Rect4size17hfbe816224eb47d69E	00000030 kurbo::rect::Rect::size
-00000000 l     F .text._ZN5kurbo4rect4Rect5width17h191192c502e7a8d0E	0000001c kurbo::rect::Rect::width
-00000000 l     F .text._ZN5kurbo4rect4Rect6height17hae62dab19ba98920E	0000001c kurbo::rect::Rect::height
 00000000 l     F .text._ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17he97e257f986fa149E	00000032 <core::option::Option<T> as core::clone::Clone>::clone
-00000000 l     F .text._ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hfa65ce8def0dacd8E	000000f0 <core::option::Option<T> as core::clone::Clone>::clone
-00000000 l     F .text._ZN86_$LT$kurbo..point..Point$u20$as$u20$core..ops..arith..Add$LT$kurbo..vec2..Vec2$GT$$GT$3add17h0222e21504e61b64E	00000048 <kurbo::point::Point as core::ops::arith::Add<kurbo::vec2::Vec2>>::add
-00000000 l     O .rodata.str.2	00000040 str.2
-00000000 l     O .rodata.str.3	0000001c str.3
-00000000 l    d  .text._ZN105_$LT$$RF$mut$u20$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h618972ac489595dcE	00000000 .text._ZN105_$LT$$RF$mut$u20$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h618972ac489595dcE
-00000000 l    d  .text._ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$4fill17hf2073d7cf1f1cfaaE	00000000 .text._ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$4fill17hf2073d7cf1f1cfaaE
-00000000 l    d  .text._ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$6stroke17h887aab595dc1b126E	00000000 .text._ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$6stroke17h887aab595dc1b126E
-00000000 l    d  .text._ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$9draw_text17h70ba672292d0e07fE	00000000 .text._ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$9draw_text17h70ba672292d0e07fE
-00000000 l    d  .text._ZN112_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h3f7d5efa2dceb5b2E	00000000 .text._ZN112_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h3f7d5efa2dceb5b2E
-00000000 l    d  .text._ZN115_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$12stroke_width17hc2ea950a8d8b75d8E	00000000 .text._ZN115_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$12stroke_width17hc2ea950a8d8b75d8E
-00000000 l    d  .text._ZN115_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17hecdb52488ac5ba9eE	00000000 .text._ZN115_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17hecdb52488ac5ba9eE
-00000000 l    d  .text._ZN116_$LT$$RF$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hebc18ce664679dacE	00000000 .text._ZN116_$LT$$RF$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hebc18ce664679dacE
-00000000 l    d  .text._ZN117_$LT$embedded_graphics..primitives..line..LineIterator$LT$C$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17hc571cb1699da7f7eE	00000000 .text._ZN117_$LT$embedded_graphics..primitives..line..LineIterator$LT$C$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17hc571cb1699da7f7eE
-00000000 l    d  .text._ZN11druid_shell6window28WindowHandle$LT$THandler$GT$4show17h30b740c0d5fb30ddE	00000000 .text._ZN11druid_shell6window28WindowHandle$LT$THandler$GT$4show17h30b740c0d5fb30ddE
-00000000 l    d  .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$11set_handler17h219a5ec1877db8b4E	00000000 .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$11set_handler17h219a5ec1877db8b4E
-00000000 l    d  .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$3new17hb7821e313474b62eE	00000000 .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$3new17hb7821e313474b62eE
-00000000 l    d  .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$5build17h2b657cfb00029c58E	00000000 .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$5build17h2b657cfb00029c58E
-00000000 l    d  .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$8set_size17hf9dcda0ec1e8a4a4E	00000000 .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$8set_size17hf9dcda0ec1e8a4a4E
-00000000 l    d  .text._ZN11druid_shell8platform8embedded6window28WindowHandle$LT$THandler$GT$4show17h43b5e51b93253014E	00000000 .text._ZN11druid_shell8platform8embedded6window28WindowHandle$LT$THandler$GT$4show17h43b5e51b93253014E
-00000000 l    d  .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$11set_handler17h4c8b4e1f9c2cbf76E	00000000 .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$11set_handler17h4c8b4e1f9c2cbf76E
-00000000 l    d  .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$3new17h4b08c18c402884a5E	00000000 .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$3new17h4b08c18c402884a5E
-00000000 l    d  .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17h2f69b26f1a11b3b5E	00000000 .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17h2f69b26f1a11b3b5E
-00000000 l    d  .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$8set_size17h354af77636d8b139E	00000000 .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$8set_size17h354af77636d8b139E
+00000000 l     F .text._ZN80_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hc620bed67f272b68E	0000000c <druid::win_handler::DruidHandler<T> as core::clone::Clone>::clone
+00000000 l     O .rodata.str.2	0000001c str.2
+00000000 l    d  .text._ZN11druid_shell6window28WindowHandle$LT$THandler$GT$4show17h134ed8ca931cf0c9E	00000000 .text._ZN11druid_shell6window28WindowHandle$LT$THandler$GT$4show17h134ed8ca931cf0c9E
+00000000 l    d  .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$11set_handler17h9b79e6e842b1ac4cE	00000000 .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$11set_handler17h9b79e6e842b1ac4cE
+00000000 l    d  .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$3new17h9318f9ddc7dd47f7E	00000000 .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$3new17h9318f9ddc7dd47f7E
+00000000 l    d  .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$5build17h0f064f81c542df56E	00000000 .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$5build17h0f064f81c542df56E
+00000000 l    d  .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$8set_size17h3c29ce68c1763b41E	00000000 .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$8set_size17h3c29ce68c1763b41E
+00000000 l    d  .text._ZN11druid_shell8platform8embedded6window28WindowHandle$LT$THandler$GT$4show17h3260cc05ad062ed6E	00000000 .text._ZN11druid_shell8platform8embedded6window28WindowHandle$LT$THandler$GT$4show17h3260cc05ad062ed6E
+00000000 l    d  .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$11set_handler17h48ce44174a3e4a39E	00000000 .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$11set_handler17h48ce44174a3e4a39E
+00000000 l    d  .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$3new17h9d10bc3a9bb2a124E	00000000 .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$3new17h9d10bc3a9bb2a124E
+00000000 l    d  .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17h8b297c3bf6260738E	00000000 .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17h8b297c3bf6260738E
+00000000 l    d  .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$8set_size17h3274caad77b0c5daE	00000000 .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$8set_size17h3274caad77b0c5daE
 00000000 l    d  .text._ZN133_$LT$druid..widget..label..LabelText$LT$T$GT$$u20$as$u20$core..convert..From$LT$druid..localization..LocalizedString$LT$T$GT$$GT$$GT$4from17h040614271e868eafE	00000000 .text._ZN133_$LT$druid..widget..label..LabelText$LT$T$GT$$u20$as$u20$core..convert..From$LT$druid..localization..LocalizedString$LT$T$GT$$GT$$GT$4from17h040614271e868eafE
-00000000 l    d  .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h4b600d67757774b7E	00000000 .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h4b600d67757774b7E
-00000000 l    d  .text._ZN17embedded_graphics10primitives4line13Line$LT$C$GT$3new17ha6b5b7281e547f2dE	00000000 .text._ZN17embedded_graphics10primitives4line13Line$LT$C$GT$3new17ha6b5b7281e547f2dE
+00000000 l    d  .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$11add_handler17h368dd22c9271fbb8E	00000000 .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$11add_handler17h368dd22c9271fbb8E
+00000000 l    d  .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$13get_window_id17h5b1368ded6e9995cE	00000000 .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$13get_window_id17h5b1368ded6e9995cE
+00000000 l    d  .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$5paint17h68dc89214dae0af1E	00000000 .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$5paint17h68dc89214dae0af1E
 00000000 l    d  .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h61dc4b3a6e897eddE	00000000 .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h61dc4b3a6e897eddE
 00000000 l    d  .text._ZN4core3any6TypeId2of17h6b8e9ea545854fecE	00000000 .text._ZN4core3any6TypeId2of17h6b8e9ea545854fecE
 00000000 l    d  .text._ZN4core3fmt10ArgumentV13new17h5afdc9114721082cE	00000000 .text._ZN4core3fmt10ArgumentV13new17h5afdc9114721082cE
 00000000 l    d  .text._ZN4core3fmt10ArgumentV13new17h626f6a79cd2c9820E	00000000 .text._ZN4core3fmt10ArgumentV13new17h626f6a79cd2c9820E
 00000000 l    d  .text._ZN4core3fmt10ArgumentV13new17h89bb951440abb0afE	00000000 .text._ZN4core3fmt10ArgumentV13new17h89bb951440abb0afE
 00000000 l    d  .text._ZN4core3fmt10ArgumentV13new17hbad5e2e2cf1ee20dE	00000000 .text._ZN4core3fmt10ArgumentV13new17hbad5e2e2cf1ee20dE
-00000000 l    d  .text._ZN4core3fmt10ArgumentV13new17he198b3fef53b1fc4E	00000000 .text._ZN4core3fmt10ArgumentV13new17he198b3fef53b1fc4E
 00000000 l    d  .text._ZN4core3fmt5Write9write_fmt17h94b01f6b2ab9eb0fE	00000000 .text._ZN4core3fmt5Write9write_fmt17h94b01f6b2ab9eb0fE
 00000000 l    d  .text._ZN4core3ops8function6FnOnce9call_once17h5947320a8aa0b3f7E	00000000 .text._ZN4core3ops8function6FnOnce9call_once17h5947320a8aa0b3f7E
 00000000 l    d  .text._ZN4core3ops8function6FnOnce9call_once17h75913317ca02ddf4E	00000000 .text._ZN4core3ops8function6FnOnce9call_once17h75913317ca02ddf4E
-00000000 l    d  .text._ZN4core3ptr18real_drop_in_place17h2ac0e1c84b8c6234E	00000000 .text._ZN4core3ptr18real_drop_in_place17h2ac0e1c84b8c6234E
 00000000 l    d  .text._ZN4core3ptr18real_drop_in_place17h2d160c1876d25fbeE	00000000 .text._ZN4core3ptr18real_drop_in_place17h2d160c1876d25fbeE
 00000000 l    d  .text._ZN4core3ptr18real_drop_in_place17h407573432a8d62a2E	00000000 .text._ZN4core3ptr18real_drop_in_place17h407573432a8d62a2E
 00000000 l    d  .text._ZN4core3ptr18real_drop_in_place17h7ae1c1c93c63dfaaE	00000000 .text._ZN4core3ptr18real_drop_in_place17h7ae1c1c93c63dfaaE
 00000000 l    d  .text._ZN4core3ptr18real_drop_in_place17h897a7d5835071a91E	00000000 .text._ZN4core3ptr18real_drop_in_place17h897a7d5835071a91E
 00000000 l    d  .text._ZN4core3ptr18real_drop_in_place17h9757770568a0fd13E	00000000 .text._ZN4core3ptr18real_drop_in_place17h9757770568a0fd13E
 00000000 l    d  .text._ZN4core3ptr18real_drop_in_place17h9880d25711f8717aE	00000000 .text._ZN4core3ptr18real_drop_in_place17h9880d25711f8717aE
-00000000 l    d  .text._ZN4core3ptr18real_drop_in_place17h9cd0f2166b39e13dE	00000000 .text._ZN4core3ptr18real_drop_in_place17h9cd0f2166b39e13dE
-00000000 l    d  .text._ZN4core4iter6traits8iterator8Iterator3sum17hcea24d6c1580b5caE	00000000 .text._ZN4core4iter6traits8iterator8Iterator3sum17hcea24d6c1580b5caE
-00000000 l    d  .text._ZN4core4iter8adapters16Map$LT$I$C$F$GT$3new17h2c17a05c1f7fe2e5E	00000000 .text._ZN4core4iter8adapters16Map$LT$I$C$F$GT$3new17h2c17a05c1f7fe2e5E
 00000000 l    d  .text._ZN4core5slice87_$LT$impl$u20$core..iter..traits..collect..IntoIterator$u20$for$u20$$RF$$u5b$T$u5d$$GT$9into_iter17h418d4651c790d753E	00000000 .text._ZN4core5slice87_$LT$impl$u20$core..iter..traits..collect..IntoIterator$u20$for$u20$$RF$$u5b$T$u5d$$GT$9into_iter17h418d4651c790d753E
-00000000 l    d  .text._ZN4core5slice87_$LT$impl$u20$core..iter..traits..collect..IntoIterator$u20$for$u20$$RF$$u5b$T$u5d$$GT$9into_iter17h99fb34e0b12f431fE	00000000 .text._ZN4core5slice87_$LT$impl$u20$core..iter..traits..collect..IntoIterator$u20$for$u20$$RF$$u5b$T$u5d$$GT$9into_iter17h99fb34e0b12f431fE
 00000000 l    d  .text._ZN4core6result13unwrap_failed17h7cb7e5157e5e15caE	00000000 .text._ZN4core6result13unwrap_failed17h7cb7e5157e5e15caE
 00000000 l    d  .text._ZN4core6result13unwrap_failed17h99ce152f202e1453E	00000000 .text._ZN4core6result13unwrap_failed17h99ce152f202e1453E
 00000000 l    d  .text._ZN4core6result13unwrap_failed17h9d3e328873a9b317E	00000000 .text._ZN4core6result13unwrap_failed17h9d3e328873a9b317E
-00000000 l    d  .text._ZN4core6result13unwrap_failed17hd44ca5a5d4325ac5E	00000000 .text._ZN4core6result13unwrap_failed17hd44ca5a5d4325ac5E
 00000000 l    d  .text._ZN4core6result13unwrap_failed17hebf47e2bb94a8a51E	00000000 .text._ZN4core6result13unwrap_failed17hebf47e2bb94a8a51E
 00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17h06de3ed274e3b86fE	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17h06de3ed274e3b86fE
 00000000 l    d  .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17h468aab9711338b2eE	00000000 .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17h468aab9711338b2eE
@@ -1857,100 +1365,52 @@ SYMBOL TABLE:
 00000000 l    d  .text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_fmt17hc4cfe1b2012bb7feE	00000000 .text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_fmt17hc4cfe1b2012bb7feE
 00000000 l    d  .text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17h744011ce020712c0E	00000000 .text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17h744011ce020712c0E
 00000000 l    d  .text._ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h2eb55c03c673d4b0E	00000000 .text._ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h2eb55c03c673d4b0E
-00000000 l    d  .text._ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hc635f563bf13e853E	00000000 .text._ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hc635f563bf13e853E
 00000000 l    d  .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h05744007cac56a82E	00000000 .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h05744007cac56a82E
 00000000 l    d  .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h15962fb47157b6d8E	00000000 .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h15962fb47157b6d8E
-00000000 l    d  .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h49b90ae20817fee0E	00000000 .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h49b90ae20817fee0E
-00000000 l    d  .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h7440c0a8314f390bE	00000000 .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h7440c0a8314f390bE
 00000000 l    d  .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h945b111611b9b324E	00000000 .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h945b111611b9b324E
-00000000 l    d  .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17hab3a6ad9ad122901E	00000000 .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17hab3a6ad9ad122901E
-00000000 l    d  .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17hc712cc3761443c8dE	00000000 .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17hc712cc3761443c8dE
 00000000 l    d  .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17hf9a2610d20630218E	00000000 .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17hf9a2610d20630218E
-00000000 l    d  .text._ZN54_$LT$f64$u20$as$u20$core..iter..traits..accum..Sum$GT$3sum17h999b03237a24ac94E	00000000 .text._ZN54_$LT$f64$u20$as$u20$core..iter..traits..accum..Sum$GT$3sum17h999b03237a24ac94E
 00000000 l    d  .text._ZN59_$LT$$LP$T10$C$$u20$T11$RP$$u20$as$u20$core..fmt..Debug$GT$3fmt17h2e2c98cdec5a2a42E	00000000 .text._ZN59_$LT$$LP$T10$C$$u20$T11$RP$$u20$as$u20$core..fmt..Debug$GT$3fmt17h2e2c98cdec5a2a42E
-00000000 l    d  .text._ZN5druid11win_handler16Windows$LT$T$GT$3add17he7daad1f64ca3955E	00000000 .text._ZN5druid11win_handler16Windows$LT$T$GT$3add17he7daad1f64ca3955E
-00000000 l    d  .text._ZN5druid11win_handler16Windows$LT$T$GT$3get17h8ba88b4407e966e4E	00000000 .text._ZN5druid11win_handler16Windows$LT$T$GT$3get17h8ba88b4407e966e4E
-00000000 l    d  .text._ZN5druid11win_handler17AppState$LT$T$GT$10add_window17hfc7bc34c37833954E	00000000 .text._ZN5druid11win_handler17AppState$LT$T$GT$10add_window17hfc7bc34c37833954E
-00000000 l    d  .text._ZN5druid11win_handler17AppState$LT$T$GT$21assemble_window_state17hd7bde4f0dfdf50a9E	00000000 .text._ZN5druid11win_handler17AppState$LT$T$GT$21assemble_window_state17hd7bde4f0dfdf50a9E
-00000000 l    d  .text._ZN5druid11win_handler17AppState$LT$T$GT$3new17hb5e5f4243b10c353E	00000000 .text._ZN5druid11win_handler17AppState$LT$T$GT$3new17hb5e5f4243b10c353E
-00000000 l    d  .text._ZN5druid11win_handler17AppState$LT$T$GT$5paint17h184f39a8829a089eE	00000000 .text._ZN5druid11win_handler17AppState$LT$T$GT$5paint17h184f39a8829a089eE
-00000000 l    d  .text._ZN5druid11win_handler21DruidHandler$LT$T$GT$10new_shared17h42c4a4b0329eb3c4E	00000000 .text._ZN5druid11win_handler21DruidHandler$LT$T$GT$10new_shared17h42c4a4b0329eb3c4E
-00000000 l    d  .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$5paint17h656e38f7f0f1c346E	00000000 .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$5paint17h656e38f7f0f1c346E
-00000000 l    d  .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$8do_paint17h7a043a4f6300fae9E	00000000 .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$8do_paint17h7a043a4f6300fae9E
-00000000 l    d  .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$9do_layout17hdca5fbee5f0fc916E	00000000 .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$9do_layout17hdca5fbee5f0fc916E
-00000000 l    d  .text._ZN5druid12localization24LocalizedString$LT$T$GT$13localized_str17hf6b3d53aaf43e5adE	00000000 .text._ZN5druid12localization24LocalizedString$LT$T$GT$13localized_str17hf6b3d53aaf43e5adE
+00000000 l    d  .text._ZN5druid11win_handler17AppState$LT$T$GT$21assemble_window_state17h74aa682bcaa5ff5dE	00000000 .text._ZN5druid11win_handler17AppState$LT$T$GT$21assemble_window_state17h74aa682bcaa5ff5dE
+00000000 l    d  .text._ZN5druid11win_handler17AppState$LT$T$GT$3new17h8ac3ab33e7da130dE	00000000 .text._ZN5druid11win_handler17AppState$LT$T$GT$3new17h8ac3ab33e7da130dE
+00000000 l    d  .text._ZN5druid11win_handler17AppState$LT$T$GT$5paint17hd8a6be67606aa237E	00000000 .text._ZN5druid11win_handler17AppState$LT$T$GT$5paint17hd8a6be67606aa237E
+00000000 l    d  .text._ZN5druid11win_handler21DruidHandler$LT$T$GT$10new_shared17h2e143bd64265c152E	00000000 .text._ZN5druid11win_handler21DruidHandler$LT$T$GT$10new_shared17h2e143bd64265c152E
+00000000 l    d  .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$5paint17h0f9d50e1bcb9ae40E	00000000 .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$5paint17h0f9d50e1bcb9ae40E
+00000000 l    d  .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$8do_paint17h504e926baedded14E	00000000 .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$8do_paint17h504e926baedded14E
+00000000 l    d  .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$9do_layout17h2723ced434e2874dE	00000000 .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$9do_layout17h2723ced434e2874dE
 00000000 l    d  .text._ZN5druid12localization24LocalizedString$LT$T$GT$3new17h80fb9461e3b01a82E	00000000 .text._ZN5druid12localization24LocalizedString$LT$T$GT$3new17h80fb9461e3b01a82E
 00000000 l    d  .text._ZN5druid12localization24LocalizedString$LT$T$GT$8with_arg17h08b814a4f1bf07d8E	00000000 .text._ZN5druid12localization24LocalizedString$LT$T$GT$8with_arg17h08b814a4f1bf07d8E
-00000000 l    d  .text._ZN5druid14BoxConstraints9constrain17hbbee7236e4843f14E	00000000 .text._ZN5druid14BoxConstraints9constrain17hbbee7236e4843f14E
-00000000 l    d  .text._ZN5druid22WidgetPod$LT$T$C$W$GT$15get_layout_rect17h319b76947dd7a68dE	00000000 .text._ZN5druid22WidgetPod$LT$T$C$W$GT$15get_layout_rect17h319b76947dd7a68dE
-00000000 l    d  .text._ZN5druid22WidgetPod$LT$T$C$W$GT$15set_layout_rect17h1abe560ea13fb200E	00000000 .text._ZN5druid22WidgetPod$LT$T$C$W$GT$15set_layout_rect17h1abe560ea13fb200E
-00000000 l    d  .text._ZN5druid22WidgetPod$LT$T$C$W$GT$15set_layout_rect17h6960e6ada6946819E	00000000 .text._ZN5druid22WidgetPod$LT$T$C$W$GT$15set_layout_rect17h6960e6ada6946819E
-00000000 l    d  .text._ZN5druid22WidgetPod$LT$T$C$W$GT$17paint_with_offset17h3f87dbe7f2300e2dE	00000000 .text._ZN5druid22WidgetPod$LT$T$C$W$GT$17paint_with_offset17h3f87dbe7f2300e2dE
-00000000 l    d  .text._ZN5druid22WidgetPod$LT$T$C$W$GT$22paint_with_offset_impl17he7173c6058e37867E	00000000 .text._ZN5druid22WidgetPod$LT$T$C$W$GT$22paint_with_offset_impl17he7173c6058e37867E
 00000000 l    d  .text._ZN5druid22WidgetPod$LT$T$C$W$GT$3new17h19f68049a961c92dE	00000000 .text._ZN5druid22WidgetPod$LT$T$C$W$GT$3new17h19f68049a961c92dE
 00000000 l    d  .text._ZN5druid22WidgetPod$LT$T$C$W$GT$3new17hf01255c82a56ab0cE	00000000 .text._ZN5druid22WidgetPod$LT$T$C$W$GT$3new17hf01255c82a56ab0cE
-00000000 l    d  .text._ZN5druid22WidgetPod$LT$T$C$W$GT$5paint17h88bdb7939a389289E	00000000 .text._ZN5druid22WidgetPod$LT$T$C$W$GT$5paint17h88bdb7939a389289E
-00000000 l    d  .text._ZN5druid22WidgetPod$LT$T$C$W$GT$6layout17hcb2dc5c268d2316cE	00000000 .text._ZN5druid22WidgetPod$LT$T$C$W$GT$6layout17hcb2dc5c268d2316cE
-00000000 l    d  .text._ZN5druid22WidgetPod$LT$T$C$W$GT$6layout17hf7c4f008cff3c9dbE	00000000 .text._ZN5druid22WidgetPod$LT$T$C$W$GT$6layout17hf7c4f008cff3c9dbE
-00000000 l    d  .text._ZN5druid3app23WindowDesc$LT$T$C$W$GT$12build_native17h29a055c1696a0945E	00000000 .text._ZN5druid3app23WindowDesc$LT$T$C$W$GT$12build_native17h29a055c1696a0945E
+00000000 l    d  .text._ZN5druid3app23WindowDesc$LT$T$C$W$GT$12build_native17ha4c1e9abdc88db78E	00000000 .text._ZN5druid3app23WindowDesc$LT$T$C$W$GT$12build_native17ha4c1e9abdc88db78E
 00000000 l    d  .text._ZN5druid3app23WindowDesc$LT$T$C$W$GT$3new17h1b02657d01a7432dE	00000000 .text._ZN5druid3app23WindowDesc$LT$T$C$W$GT$3new17h1b02657d01a7432dE
 00000000 l    d  .text._ZN5druid3app24AppLauncher$LT$T$C$W$GT$11with_window17h8345a2e2baf5e16cE	00000000 .text._ZN5druid3app24AppLauncher$LT$T$C$W$GT$11with_window17h8345a2e2baf5e16cE
 00000000 l    d  .text._ZN5druid3app24AppLauncher$LT$T$C$W$GT$17use_simple_logger17h2ef613a23ce08719E	00000000 .text._ZN5druid3app24AppLauncher$LT$T$C$W$GT$17use_simple_logger17h2ef613a23ce08719E
 00000000 l    d  .text._ZN5druid3app24AppLauncher$LT$T$C$W$GT$6launch17h6a562b72bd769919E	00000000 .text._ZN5druid3app24AppLauncher$LT$T$C$W$GT$6launch17h6a562b72bd769919E
 00000000 l    d  .text._ZN5druid6widget4flex13Flex$LT$T$GT$9add_child17h5624c42956239f03E	00000000 .text._ZN5druid6widget4flex13Flex$LT$T$GT$9add_child17h5624c42956239f03E
 00000000 l    d  .text._ZN5druid6widget4flex6Column3new17h4c592896946036e0E	00000000 .text._ZN5druid6widget4flex6Column3new17h4c592896946036e0E
-00000000 l    d  .text._ZN5druid6widget5label14Label$LT$T$GT$10get_layout17h9ef7245ac155f5c3E	00000000 .text._ZN5druid6widget5label14Label$LT$T$GT$10get_layout17h9ef7245ac155f5c3E
 00000000 l    d  .text._ZN5druid6widget5label14Label$LT$T$GT$3new17h91f1829925616702E	00000000 .text._ZN5druid6widget5label14Label$LT$T$GT$3new17h91f1829925616702E
 00000000 l    d  .text._ZN5druid6widget5label14Label$LT$T$GT$7aligned17h854ef5cd67a29fe8E	00000000 .text._ZN5druid6widget5label14Label$LT$T$GT$7aligned17h854ef5cd67a29fe8E
-00000000 l    d  .text._ZN5druid6widget5label18LabelText$LT$T$GT$12display_text17h4185910fc34e873eE	00000000 .text._ZN5druid6widget5label18LabelText$LT$T$GT$12display_text17h4185910fc34e873eE
 00000000 l    d  .text._ZN5druid6widget6button15Button$LT$T$GT$3new17hd5104a5ead1b56dfE	00000000 .text._ZN5druid6widget6button15Button$LT$T$GT$3new17hd5104a5ead1b56dfE
 00000000 l    d  .text._ZN5druid6widget9widgetbox18WidgetBox$LT$D$GT$3new17hbe4d5d7da74c7744E	00000000 .text._ZN5druid6widget9widgetbox18WidgetBox$LT$D$GT$3new17hbe4d5d7da74c7744E
 00000000 l    d  .text._ZN5druid6window19Window$LT$T$C$W$GT$3new17h7bb59c31c3a67b3aE	00000000 .text._ZN5druid6window19Window$LT$T$C$W$GT$3new17h7bb59c31c3a67b3aE
-00000000 l    d  .text._ZN5druid6window19Window$LT$T$C$W$GT$5paint17h4b966dd8ea413905E	00000000 .text._ZN5druid6window19Window$LT$T$C$W$GT$5paint17h4b966dd8ea413905E
-00000000 l    d  .text._ZN5druid6window19Window$LT$T$C$W$GT$6layout17h2b4e279365cc35a1E	00000000 .text._ZN5druid6window19Window$LT$T$C$W$GT$6layout17h2b4e279365cc35a1E
-00000000 l    d  .text._ZN5druid8PaintCtx14with_child_ctx17hb2de607a67903714E	00000000 .text._ZN5druid8PaintCtx14with_child_ctx17hb2de607a67903714E
-00000000 l    d  .text._ZN5druid8PaintCtx14with_child_ctx17hb3e968378919c61fE	00000000 .text._ZN5druid8PaintCtx14with_child_ctx17hb3e968378919c61fE
-00000000 l    d  .text._ZN5druid9windowbox18WindowBox$LT$D$GT$5paint17h64dae4b6f089541fE	00000000 .text._ZN5druid9windowbox18WindowBox$LT$D$GT$5paint17h64dae4b6f089541fE
-00000000 l    d  .text._ZN5druid9windowbox18WindowBox$LT$D$GT$6layout17hec846ec48102ef83E	00000000 .text._ZN5druid9windowbox18WindowBox$LT$D$GT$6layout17hec846ec48102ef83E
-00000000 l    d  .text._ZN5kurbo4rect4Rect16from_origin_size17h18a40b933e1fa35fE	00000000 .text._ZN5kurbo4rect4Rect16from_origin_size17h18a40b933e1fa35fE
-00000000 l    d  .text._ZN5kurbo4rect4Rect3abs17h393fde2ef1301248E	00000000 .text._ZN5kurbo4rect4Rect3abs17h393fde2ef1301248E
-00000000 l    d  .text._ZN5kurbo4rect4Rect4size17hfbe816224eb47d69E	00000000 .text._ZN5kurbo4rect4Rect4size17hfbe816224eb47d69E
-00000000 l    d  .text._ZN5kurbo4rect4Rect5width17h191192c502e7a8d0E	00000000 .text._ZN5kurbo4rect4Rect5width17h191192c502e7a8d0E
-00000000 l    d  .text._ZN5kurbo4rect4Rect6height17hae62dab19ba98920E	00000000 .text._ZN5kurbo4rect4Rect6height17hae62dab19ba98920E
-00000000 l    d  .text._ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h11a608e9594ae542E	00000000 .text._ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h11a608e9594ae542E
 00000000 l    d  .text._ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17he97e257f986fa149E	00000000 .text._ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17he97e257f986fa149E
-00000000 l    d  .text._ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hfa65ce8def0dacd8E	00000000 .text._ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hfa65ce8def0dacd8E
 00000000 l    d  .text._ZN70_$LT$heapless..string..String$LT$N$GT$$u20$as$u20$core..fmt..Write$GT$10write_char17hd30c626f25cb5066E	00000000 .text._ZN70_$LT$heapless..string..String$LT$N$GT$$u20$as$u20$core..fmt..Write$GT$10write_char17hd30c626f25cb5066E
 00000000 l    d  .text._ZN70_$LT$heapless..string..String$LT$N$GT$$u20$as$u20$core..fmt..Write$GT$9write_str17hac2b2a0e713a281bE	00000000 .text._ZN70_$LT$heapless..string..String$LT$N$GT$$u20$as$u20$core..fmt..Write$GT$9write_str17hac2b2a0e713a281bE
-00000000 l    d  .text._ZN70_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17haaf35ae7f65a7c05E	00000000 .text._ZN70_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17haaf35ae7f65a7c05E
 00000000 l    d  .text._ZN70_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hf1102e84a1207c7aE	00000000 .text._ZN70_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hf1102e84a1207c7aE
 00000000 l    d  .text._ZN72_$LT$druid..app..WindowDesc$LT$T$C$W$GT$$u20$as$u20$core..fmt..Debug$GT$3fmt17h2909ec93ec2c69a1E	00000000 .text._ZN72_$LT$druid..app..WindowDesc$LT$T$C$W$GT$$u20$as$u20$core..fmt..Debug$GT$3fmt17h2909ec93ec2c69a1E
 00000000 l    d  .text._ZN72_$LT$heapless..string..String$LT$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hb47fd3dcb5ddeabdE	00000000 .text._ZN72_$LT$heapless..string..String$LT$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hb47fd3dcb5ddeabdE
-00000000 l    d  .text._ZN73_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hb3c8a7cd4b4ba199E	00000000 .text._ZN73_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hb3c8a7cd4b4ba199E
 00000000 l    d  .text._ZN73_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..ops..drop..Drop$GT$4drop17h9d510813db44a6bfE	00000000 .text._ZN73_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..ops..drop..Drop$GT$4drop17h9d510813db44a6bfE
 00000000 l    d  .text._ZN75_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..ops..deref..Deref$GT$5deref17h98eae354a490e829E	00000000 .text._ZN75_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..ops..deref..Deref$GT$5deref17h98eae354a490e829E
-00000000 l    d  .text._ZN75_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..ops..deref..Deref$GT$5deref17hf3f6792a7cf00ca2E	00000000 .text._ZN75_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..ops..deref..Deref$GT$5deref17hf3f6792a7cf00ca2E
 00000000 l    d  .text._ZN76_$LT$druid..localization..ArgSource$LT$T$GT$$u20$as$u20$core..fmt..Debug$GT$3fmt17h7ccc0917ea1d6fe8E	00000000 .text._ZN76_$LT$druid..localization..ArgSource$LT$T$GT$$u20$as$u20$core..fmt..Debug$GT$3fmt17h7ccc0917ea1d6fe8E
-00000000 l    d  .text._ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$10new_window17h6936f2998f02c112E	00000000 .text._ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$10new_window17h6936f2998f02c112E
-00000000 l    d  .text._ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17h9c6516708bca10d9E	00000000 .text._ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17h9c6516708bca10d9E
-00000000 l    d  .text._ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E	00000000 .text._ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E
+00000000 l    d  .text._ZN77_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h0d1e369dd8539c9cE	00000000 .text._ZN77_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h0d1e369dd8539c9cE
+00000000 l    d  .text._ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$10new_window17h88a41f26931e4403E	00000000 .text._ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$10new_window17h88a41f26931e4403E
 00000000 l    d  .text._ZN78_$LT$druid..widget..flex..ChildWidget$LT$T$GT$$u20$as$u20$core..fmt..Debug$GT$3fmt17h45f2cd87827a61adE	00000000 .text._ZN78_$LT$druid..widget..flex..ChildWidget$LT$T$GT$$u20$as$u20$core..fmt..Debug$GT$3fmt17h45f2cd87827a61adE
 00000000 l    d  .text._ZN78_$LT$heapless..vec..IntoIter$LT$T$C$N$GT$$u20$as$u20$core..ops..drop..Drop$GT$4drop17hc69559face95b31bE	00000000 .text._ZN78_$LT$heapless..vec..IntoIter$LT$T$C$N$GT$$u20$as$u20$core..ops..drop..Drop$GT$4drop17hc69559face95b31bE
 00000000 l    d  .text._ZN78_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..ops..deref..DerefMut$GT$9deref_mut17hf4817c4349193a7eE	00000000 .text._ZN78_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..ops..deref..DerefMut$GT$9deref_mut17hf4817c4349193a7eE
-00000000 l    d  .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hc4e86af8b0cb16f4E	00000000 .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hc4e86af8b0cb16f4E
 00000000 l    d  .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6get_id17h9a108e15d7319460E	00000000 .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6get_id17h9a108e15d7319460E
-00000000 l    d  .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hf14abcee172e218cE	00000000 .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hf14abcee172e218cE
-00000000 l    d  .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$7to_type17h5811fc8ab6d2bcefE	00000000 .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$7to_type17h5811fc8ab6d2bcefE
-00000000 l    d  .text._ZN79_$LT$druid..win_handler..Windows$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h52d097338afc5db1E	00000000 .text._ZN79_$LT$druid..win_handler..Windows$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h52d097338afc5db1E
-00000000 l    d  .text._ZN79_$LT$piet..color..Color$u20$as$u20$piet..render_context..IntoBrush$LT$P$GT$$GT$10make_brush17h5b3153c85b4102d2E	00000000 .text._ZN79_$LT$piet..color..Color$u20$as$u20$piet..render_context..IntoBrush$LT$P$GT$$GT$10make_brush17h5b3153c85b4102d2E
-00000000 l    d  .text._ZN79_$LT$piet..color..Color$u20$as$u20$piet..render_context..IntoBrush$LT$P$GT$$GT$10make_brush17h92b8d8477cfa4bc3E	00000000 .text._ZN79_$LT$piet..color..Color$u20$as$u20$piet..render_context..IntoBrush$LT$P$GT$$GT$10make_brush17h92b8d8477cfa4bc3E
-00000000 l    d  .text._ZN79_$LT$piet..color..Color$u20$as$u20$piet..render_context..IntoBrush$LT$P$GT$$GT$10make_brush17hbbb99e2c81c459fcE	00000000 .text._ZN79_$LT$piet..color..Color$u20$as$u20$piet..render_context..IntoBrush$LT$P$GT$$GT$10make_brush17hbbb99e2c81c459fcE
-00000000 l    d  .text._ZN81_$LT$druid..widget..button..Button$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hf3fdd03cb553599eE	00000000 .text._ZN81_$LT$druid..widget..button..Button$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hf3fdd03cb553599eE
-00000000 l    d  .text._ZN81_$LT$druid..widget..button..Button$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17haa57874c3e53bd7aE	00000000 .text._ZN81_$LT$druid..widget..button..Button$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17haa57874c3e53bd7aE
+00000000 l    d  .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$7to_type17h6cfecb1feaf3111cE	00000000 .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$7to_type17h6cfecb1feaf3111cE
+00000000 l    d  .text._ZN80_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hc620bed67f272b68E	00000000 .text._ZN80_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hc620bed67f272b68E
 00000000 l    d  .text._ZN84_$LT$heapless..string..String$LT$N$GT$$u20$as$u20$core..convert..From$LT$u32$GT$$GT$4from17hf04fb1f6e012796bE	00000000 .text._ZN84_$LT$heapless..string..String$LT$N$GT$$u20$as$u20$core..convert..From$LT$u32$GT$$GT$4from17hf04fb1f6e012796bE
-00000000 l    d  .text._ZN86_$LT$kurbo..point..Point$u20$as$u20$core..ops..arith..Add$LT$kurbo..vec2..Vec2$GT$$GT$3add17h0222e21504e61b64E	00000000 .text._ZN86_$LT$kurbo..point..Point$u20$as$u20$core..ops..arith..Add$LT$kurbo..vec2..Vec2$GT$$GT$3add17h0222e21504e61b64E
-00000000 l    d  .text._ZN87_$LT$druid..widget..widgetbox..WidgetBox$LT$D$GT$$u20$as$u20$druid..Widget$LT$D$GT$$GT$5paint17hee1468e7b5a189dfE	00000000 .text._ZN87_$LT$druid..widget..widgetbox..WidgetBox$LT$D$GT$$u20$as$u20$druid..Widget$LT$D$GT$$GT$5paint17hee1468e7b5a189dfE
-00000000 l    d  .text._ZN87_$LT$druid..widget..widgetbox..WidgetBox$LT$D$GT$$u20$as$u20$druid..Widget$LT$D$GT$$GT$6layout17h769b7cbf4ccbfea9E	00000000 .text._ZN87_$LT$druid..widget..widgetbox..WidgetBox$LT$D$GT$$u20$as$u20$druid..Widget$LT$D$GT$$GT$6layout17h769b7cbf4ccbfea9E
 00000000 l    d  .text._ZN8heapless3vec16Vec$LT$T$C$N$GT$3new17h53311de4d544ea74E	00000000 .text._ZN8heapless3vec16Vec$LT$T$C$N$GT$3new17h53311de4d544ea74E
 00000000 l    d  .text._ZN8heapless3vec16Vec$LT$T$C$N$GT$3new17hd71966dac52d399eE	00000000 .text._ZN8heapless3vec16Vec$LT$T$C$N$GT$3new17hd71966dac52d399eE
 00000000 l    d  .text._ZN8heapless3vec16Vec$LT$T$C$N$GT$3new17hf9c77d32aa535311E	00000000 .text._ZN8heapless3vec16Vec$LT$T$C$N$GT$3new17hf9c77d32aa535311E
@@ -1964,117 +1424,96 @@ SYMBOL TABLE:
 00000000 l    d  .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$14push_unchecked17h0a1abb9f050f4e33E	00000000 .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$14push_unchecked17h0a1abb9f050f4e33E
 00000000 l    d  .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$14push_unchecked17h5d42e9793f89872aE	00000000 .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$14push_unchecked17h5d42e9793f89872aE
 00000000 l    d  .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$14push_unchecked17h85e521a7c5a2255eE	00000000 .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$14push_unchecked17h85e521a7c5a2255eE
-00000000 l    d  .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$17extend_from_slice17h4f760a4706bdbd93E	00000000 .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$17extend_from_slice17h4f760a4706bdbd93E
 00000000 l    d  .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$17extend_from_slice17hc081e04848c5d3e6E	00000000 .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$17extend_from_slice17hc081e04848c5d3e6E
 00000000 l    d  .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$4push17h1fb29f651d080fc3E	00000000 .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$4push17h1fb29f651d080fc3E
 00000000 l    d  .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$4push17h2888ebf57320ada9E	00000000 .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$4push17h2888ebf57320ada9E
 00000000 l    d  .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$4push17h9a4681c2d53c9cd4E	00000000 .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$4push17h9a4681c2d53c9cd4E
 00000000 l    d  .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$4push17hf7f43f8e4aa57b84E	00000000 .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$4push17hf7f43f8e4aa57b84E
-00000000 l    d  .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$5clone17h03821103712eec77E	00000000 .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$5clone17h03821103712eec77E
 00000000 l    d  .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$5clone17h279b5bfbfa510c1fE	00000000 .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$5clone17h279b5bfbfa510c1fE
 00000000 l    d  .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$5clone17h2f2294f449db8971E	00000000 .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$5clone17h2f2294f449db8971E
 00000000 l    d  .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8as_slice17h577824057efa037dE	00000000 .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8as_slice17h577824057efa037dE
 00000000 l    d  .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8as_slice17h8816d891cbcb4adeE	00000000 .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8as_slice17h8816d891cbcb4adeE
-00000000 l    d  .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8as_slice17hb1701ce17c6108edE	00000000 .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8as_slice17hb1701ce17c6108edE
 00000000 l    d  .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8capacity17h3fe105568d08c791E	00000000 .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8capacity17h3fe105568d08c791E
 00000000 l    d  .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8capacity17h41b1a58588e7b482E	00000000 .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8capacity17h41b1a58588e7b482E
 00000000 l    d  .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8capacity17h8aebbd0f5b014e51E	00000000 .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8capacity17h8aebbd0f5b014e51E
-00000000 l    d  .text._ZN93_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$GT$5paint17hb1f800153ff5da2bE	00000000 .text._ZN93_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$GT$5paint17hb1f800153ff5da2bE
 00000000 l    d  .text._ZN93_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h69e96b6a767e322dE	00000000 .text._ZN93_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h69e96b6a767e322dE
 00000000 l    d  .text._ZN95_$LT$druid..widget..label..LabelText$LT$T$GT$$u20$as$u20$core..convert..From$LT$$RF$str$GT$$GT$4from17h926425defb6f75d5E	00000000 .text._ZN95_$LT$druid..widget..label..LabelText$LT$T$GT$$u20$as$u20$core..convert..From$LT$$RF$str$GT$$GT$4from17h926425defb6f75d5E
 00000000 l    d  .text._ZN95_$LT$heapless..vec..IntoIter$LT$T$C$N$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h78d3bb3422c4c011E	00000000 .text._ZN95_$LT$heapless..vec..IntoIter$LT$T$C$N$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h78d3bb3422c4c011E
-00000000 l    d  .text._ZN97_$LT$core..iter..adapters..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17h56472e4a61ad933bE	00000000 .text._ZN97_$LT$core..iter..adapters..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17h56472e4a61ad933bE
 00000000 l    d  .text._ZN3app11app_network21aggregate_sensor_data17h9b78c5e16db97c27E	00000000 .text._ZN3app11app_network21aggregate_sensor_data17h9b78c5e16db97c27E
 00000000 l    d  .text._ZN3app12touch_sensor23touch_interrupt_handler17hdf0c4c6e984bd2f4E	00000000 .text._ZN3app12touch_sensor23touch_interrupt_handler17hdf0c4c6e984bd2f4E
 00000000 l    d  .text._ZN3app12touch_sensor20touch_event_callback17h0fffc1defec7edc2E	00000000 .text._ZN3app12touch_sensor20touch_event_callback17h0fffc1defec7edc2E
 00000000 l    d  .text._ZN3app5hello10ui_builder17hc876176f6df01194E	00000000 .text._ZN3app5hello10ui_builder17hc876176f6df01194E
 00000000 l    d  .text.main	00000000 .text.main
 00000000 l    d  .text.rust_begin_unwind	00000000 .text.rust_begin_unwind
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.0	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.0
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.1	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.1
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.2	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.2
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.3	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.3
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.4	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.4
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.5	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.5
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.6	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.6
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.7	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.7
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.8	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.8
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.9	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.9
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.10	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.10
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.11	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.11
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.12	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.12
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.13	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.13
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.14	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.14
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.15	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.15
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.16	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.16
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.17	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.17
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.19	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.19
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.20	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.20
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.21	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.21
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.22	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.22
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.23	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.23
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.24	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.24
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.25	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.25
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.26	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.26
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.27	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.27
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.28	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.28
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.29	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.29
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.30	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.30
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.33	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.33
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.34	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.34
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.35	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.35
-00000000 l    d  .rodata.str.2	00000000 .rodata.str.2
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.36	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.36
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.37	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.37
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.38	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.38
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.39	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.39
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.40	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.40
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.41	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.41
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.42	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.42
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.43	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.43
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.44	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.44
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.45	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.45
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.46	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.46
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.49	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.49
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.51	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.51
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.52	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.52
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.53	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.53
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.54	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.54
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.0	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.0
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.1	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.1
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.2	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.2
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.3	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.3
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.4	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.4
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.5	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.5
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.6	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.6
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.7	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.7
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.8	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.8
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.9	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.9
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.10	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.10
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.11	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.11
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.12	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.12
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.13	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.13
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.14	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.14
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.15	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.15
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.16	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.16
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.17	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.17
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.18	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.18
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.19	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.19
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.20	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.20
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.21	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.21
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.22	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.22
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.23	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.23
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.24	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.24
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.25	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.25
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.26	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.26
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.27	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.27
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.28	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.28
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.31	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.31
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.33	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.33
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.34	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.34
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.35	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.35
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.36	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.36
 00000000 l    d  .rodata._ZN3app10app_sensor13SENSOR_DEVICE17h0cd740b16f912f04E	00000000 .rodata._ZN3app10app_sensor13SENSOR_DEVICE17h0cd740b16f912f04E
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.55	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.55
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.56	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.56
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.57	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.57
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.58	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.58
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.59	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.59
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.61	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.61
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.62	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.62
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.63	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.63
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.64	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.64
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.65	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.65
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.66	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.66
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.67	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.67
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.68	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.68
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.70	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.70
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.37	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.37
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.38	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.38
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.39	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.39
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.40	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.40
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.41	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.41
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.43	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.43
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.44	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.44
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.45	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.45
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.46	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.46
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.47	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.47
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.48	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.48
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.49	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.49
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.50	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.50
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.52	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.52
 00000000 l    d  .bss._ZN3app12touch_sensor10TOUCH_DATA17h1acf0fb27bdac613E	00000000 .bss._ZN3app12touch_sensor10TOUCH_DATA17h1acf0fb27bdac613E
-00000000 l    d  .rodata.str.3	00000000 .rodata.str.3
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.71	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.71
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.72	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.72
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.73	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.73
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.74	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.74
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.75	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.75
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.76	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.76
+00000000 l    d  .rodata.str.2	00000000 .rodata.str.2
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.53	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.53
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.54	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.54
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.55	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.55
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.56	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.56
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.57	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.57
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.58	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.58
 00000000 l    d  .bss._ZN3app12touch_sensor11TOUCH_EVENT17hd4ff704c68fbe257E	00000000 .bss._ZN3app12touch_sensor11TOUCH_EVENT17hd4ff704c68fbe257E
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.78	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.78
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.79	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.79
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.80	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.80
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.81	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.81
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.82	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.82
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.85	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.85
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.86	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.86
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.90	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.90
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.91	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.91
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.92	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.92
-00000000 l    d  .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.93	00000000 .rodata..Lanon.589feb885dedf5ed926e49154914a7d9.93
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.60	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.60
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.61	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.61
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.62	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.62
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.63	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.63
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.64	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.64
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.67	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.67
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.68	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.68
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.72	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.72
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.73	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.73
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.74	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.74
+00000000 l    d  .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.75	00000000 .rodata..Lanon.73ec4dbdc3e34bf5216e860e6e103950.75
 00000000 l    d  .bss..L_MergedGlobals	00000000 .bss..L_MergedGlobals
 00000000 l    d  .debug_loc	00000000 .debug_loc
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
@@ -2085,56 +1524,34 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 <druid_shell::platform::embedded::window::DruidContext as druid_shell::window::WinCtx>::invalidate
 00000000         *UND*	00000000 <druid_shell::platform::embedded::window::DruidContext as druid_shell::window::WinCtx>::set_cursor
 00000000         *UND*	00000000 <druid_shell::platform::embedded::window::DruidContext as druid_shell::window::WinCtx>::text_factory
-00000000         *UND*	00000000 <piet_embedded_graphics::text::EmbedTextLayoutBuilder as piet::text::TextLayoutBuilder>::build
-00000000         *UND*	00000000 <embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index
-00000000         *UND*	00000000 <embedded_graphics::coord::internal_coord::Coord as embedded_graphics::coord::ToUnsigned>::to_unsigned
-00000000 g     F .text._ZN105_$LT$$RF$mut$u20$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h618972ac489595dcE	0000000c <&mut heapless::vec::Vec<T,N> as core::iter::traits::collect::IntoIterator>::into_iter
-00000000         *UND*	00000000 <piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::solid_brush
-00000000 g     F .text._ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$4fill17hf2073d7cf1f1cfaaE	000000b4 <piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::fill
-00000000         *UND*	00000000 <piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::save
+00000000         *UND*	00000000 <druid::win_handler::AppState<u32> as druid::win_handler::GlobalWindows<u32>>::add_window
+00000000         *UND*	00000000 <druid::win_handler::AppState<u32> as druid::win_handler::GlobalWindows<u32>>::add_handler
+00000000         *UND*	00000000 <druid::win_handler::AppState<u32> as druid::win_handler::GlobalWindows<u32>>::window_paint
+00000000         *UND*	00000000 <druid::win_handler::AppState<u32> as druid::win_handler::GlobalWindows<u32>>::window_layout
+00000000         *UND*	00000000 <druid::win_handler::AppState<u32> as druid::win_handler::GlobalWindows<u32>>::set_data
 00000000         *UND*	00000000 <piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::text
 00000000         *UND*	00000000 <piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::clear
 00000000         *UND*	00000000 <piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::finish
-00000000 g     F .text._ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$6stroke17h887aab595dc1b126E	00000284 <piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::stroke
-00000000         *UND*	00000000 <piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::restore
-00000000 g     F .text._ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$9draw_text17h70ba672292d0e07fE	000000c0 <piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::draw_text
-00000000         *UND*	00000000 <piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::transform
-00000000         *UND*	00000000 st7735_lcd::ST7735<SPI,DC,RST>::set_pixel
-00000000 g     F .text._ZN112_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h3f7d5efa2dceb5b2E	00000008 <embedded_graphics::primitives::line::Line<C> as core::iter::traits::collect::IntoIterator>::into_iter
 00000000         *UND*	00000000 <druid::widget::widgetbox::WidgetBox<u32> as druid::widget::widgetbox::GlobalState<u32>>::add_widget
-00000000         *UND*	00000000 <druid::widget::widgetbox::WidgetBox<u32> as druid::widget::widgetbox::GlobalState<u32>>::get_global_state
-00000000 g     F .text._ZN115_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$12stroke_width17hc2ea950a8d8b75d8E	0000000c <embedded_graphics::primitives::line::Line<C> as embedded_graphics::style::WithStyle<C>>::stroke_width
-00000000 g     F .text._ZN115_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17hecdb52488ac5ba9eE	0000000e <embedded_graphics::primitives::line::Line<C> as embedded_graphics::style::WithStyle<C>>::stroke
-00000000 g     F .text._ZN116_$LT$$RF$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hebc18ce664679dacE	0000016c <&embedded_graphics::primitives::line::Line<C> as core::iter::traits::collect::IntoIterator>::into_iter
-00000000 g     F .text._ZN117_$LT$embedded_graphics..primitives..line..LineIterator$LT$C$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17hc571cb1699da7f7eE	00000110 <embedded_graphics::primitives::line::LineIterator<C> as core::iter::traits::iterator::Iterator>::next
 00000000         *UND*	00000000 druid_shell::application::Application::init
-00000000 g     F .text._ZN11druid_shell6window28WindowHandle$LT$THandler$GT$4show17h30b740c0d5fb30ddE	00000004 druid_shell::window::WindowHandle<THandler>::show
-00000000 g     F .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$11set_handler17h219a5ec1877db8b4E	00000008 druid_shell::window::WindowBuilder<THandler>::set_handler
-00000000 g     F .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$3new17hb7821e313474b62eE	00000014 druid_shell::window::WindowBuilder<THandler>::new
-00000000 g     F .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$5build17h2b657cfb00029c58E	0000003a druid_shell::window::WindowBuilder<THandler>::build
-00000000 g     F .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$8set_size17hf9dcda0ec1e8a4a4E	00000006 druid_shell::window::WindowBuilder<THandler>::set_size
+00000000 g     F .text._ZN11druid_shell6window28WindowHandle$LT$THandler$GT$4show17h134ed8ca931cf0c9E	00000004 druid_shell::window::WindowHandle<THandler>::show
+00000000 g     F .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$11set_handler17h9b79e6e842b1ac4cE	00000004 druid_shell::window::WindowBuilder<THandler>::set_handler
+00000000 g     F .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$3new17h9318f9ddc7dd47f7E	00000018 druid_shell::window::WindowBuilder<THandler>::new
+00000000 g     F .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$5build17h0f064f81c542df56E	00000010 druid_shell::window::WindowBuilder<THandler>::build
+00000000 g     F .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$8set_size17h3c29ce68c1763b41E	00000006 druid_shell::window::WindowBuilder<THandler>::set_size
 00000000         *UND*	00000000 druid_shell::platform::embedded::window::PIET_CONTEXT
 00000000         *UND*	00000000 druid_shell::platform::embedded::window::DRUID_CONTEXT
-00000000 g     F .text._ZN11druid_shell8platform8embedded6window28WindowHandle$LT$THandler$GT$4show17h43b5e51b93253014E	00000038 druid_shell::platform::embedded::window::WindowHandle<THandler>::show
-00000000 g     F .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$11set_handler17h4c8b4e1f9c2cbf76E	00000008 druid_shell::platform::embedded::window::WindowBuilder<THandler>::set_handler
-00000000 g     F .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$3new17h4b08c18c402884a5E	00000014 druid_shell::platform::embedded::window::WindowBuilder<THandler>::new
-00000000 g     F .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17h2f69b26f1a11b3b5E	0000001c druid_shell::platform::embedded::window::WindowBuilder<THandler>::build
-00000000 g     F .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$8set_size17h354af77636d8b139E	00000006 druid_shell::platform::embedded::window::WindowBuilder<THandler>::set_size
-00000000         *UND*	00000000 <embedded_graphics::primitives::rectangle::Rectangle<C> as embedded_graphics::style::WithStyle<C>>::fill
-00000000         *UND*	00000000 <embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::fonts::Font<C>>::render_str
-00000000         *UND*	00000000 <embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::transform::Transform>::translate
-00000000         *UND*	00000000 <embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::style::WithStyle<C>>::stroke
+00000000 g     F .text._ZN11druid_shell8platform8embedded6window28WindowHandle$LT$THandler$GT$4show17h3260cc05ad062ed6E	0000003c druid_shell::platform::embedded::window::WindowHandle<THandler>::show
+00000000 g     F .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$11set_handler17h48ce44174a3e4a39E	0000001e druid_shell::platform::embedded::window::WindowBuilder<THandler>::set_handler
+00000000 g     F .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$3new17h9d10bc3a9bb2a124E	00000018 druid_shell::platform::embedded::window::WindowBuilder<THandler>::new
+00000000 g     F .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17h8b297c3bf6260738E	00000010 druid_shell::platform::embedded::window::WindowBuilder<THandler>::build
+00000000 g     F .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$8set_size17h3274caad77b0c5daE	00000006 druid_shell::platform::embedded::window::WindowBuilder<THandler>::set_size
 00000000 g     F .text._ZN133_$LT$druid..widget..label..LabelText$LT$T$GT$$u20$as$u20$core..convert..From$LT$druid..localization..LocalizedString$LT$T$GT$$GT$$GT$4from17h040614271e868eafE	00000012 <druid::widget::label::LabelText<T> as core::convert::From<druid::localization::LocalizedString<T>>>::from
-00000000 g     F .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h4b600d67757774b7E	00000058 <st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw
-00000000         *UND*	00000000 <st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw
-00000000         *UND*	00000000 <st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw
-00000000 g     F .text._ZN17embedded_graphics10primitives4line13Line$LT$C$GT$3new17ha6b5b7281e547f2dE	0000002e embedded_graphics::primitives::line::Line<C>::new
-00000000         *UND*	00000000 embedded_graphics::primitives::rectangle::Rectangle<C>::new
-00000000         *UND*	00000000 embedded_graphics::coord::internal_coord::Coord::new
-00000000         *UND*	00000000 piet_embedded_graphics::context::EmbedRenderContext::convert_brush
+00000000 g     F .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$11add_handler17h368dd22c9271fbb8E	0000000a <druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::add_handler
+00000000 g     F .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$13get_window_id17h5b1368ded6e9995cE	00000004 <druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::get_window_id
+00000000 g     F .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$5paint17h68dc89214dae0af1E	00000016 <druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::paint
 00000000         *UND*	00000000 piet_embedded_graphics::display::show_touch
 00000000         *UND*	00000000 piet_embedded_graphics::display::start_display
-00000000         *UND*	00000000 piet_embedded_graphics::display::DISPLAY
 00000000         *UND*	00000000 <&T as core::fmt::Debug>::fmt
 00000000 g     F .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h61dc4b3a6e897eddE	00000004 <&T as core::fmt::Debug>::fmt
 00000000         *UND*	00000000 <&T as core::fmt::Debug>::fmt
@@ -2148,22 +1565,18 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 core::fmt::ArgumentV1::new
 00000000 g     F .text._ZN4core3fmt10ArgumentV13new17h89bb951440abb0afE	00000002 core::fmt::ArgumentV1::new
 00000000 g     F .text._ZN4core3fmt10ArgumentV13new17hbad5e2e2cf1ee20dE	00000002 core::fmt::ArgumentV1::new
-00000000 g     F .text._ZN4core3fmt10ArgumentV13new17he198b3fef53b1fc4E	00000002 core::fmt::ArgumentV1::new
 00000000         *UND*	00000000 core::fmt::num::imp::<impl core::fmt::Display for u32>::fmt
 00000000 g     F .text._ZN4core3fmt5Write9write_fmt17h94b01f6b2ab9eb0fE	00000028 core::fmt::Write::write_fmt
 00000000         *UND*	00000000 core::fmt::write
 00000000         *UND*	00000000 core::fmt::builders::DebugTuple::field
 00000000         *UND*	00000000 core::fmt::builders::DebugTuple::finish
 00000000         *UND*	00000000 core::fmt::Formatter::debug_tuple
-00000000 g     F .text._ZN4core4iter6traits8iterator8Iterator3sum17hcea24d6c1580b5caE	00000004 core::iter::traits::iterator::Iterator::sum
-00000000 g     F .text._ZN4core4iter8adapters16Map$LT$I$C$F$GT$3new17h2c17a05c1f7fe2e5E	00000002 core::iter::adapters::Map<I,F>::new
 00000000         *UND*	00000000 core::panic::Location::file
 00000000         *UND*	00000000 core::panic::Location::line
 00000000         *UND*	00000000 core::panic::PanicInfo::payload
 00000000         *UND*	00000000 core::panic::PanicInfo::location
 00000000         *UND*	00000000 core::slice::slice_index_order_fail
 00000000 g     F .text._ZN4core5slice87_$LT$impl$u20$core..iter..traits..collect..IntoIterator$u20$for$u20$$RF$$u5b$T$u5d$$GT$9into_iter17h418d4651c790d753E	0000000a core::slice::<impl core::iter::traits::collect::IntoIterator for &[T]>::into_iter
-00000000 g     F .text._ZN4core5slice87_$LT$impl$u20$core..iter..traits..collect..IntoIterator$u20$for$u20$$RF$$u5b$T$u5d$$GT$9into_iter17h99fb34e0b12f431fE	00000006 core::slice::<impl core::iter::traits::collect::IntoIterator for &[T]>::into_iter
 00000000         *UND*	00000000 core::option::expect_failed
 00000000         *UND*	00000000 core::result::unwrap_failed
 00000000 g     F .text._ZN4core6result13unwrap_failed17h7cb7e5157e5e15caE	0000004c core::result::unwrap_failed
@@ -2171,98 +1584,49 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 core::result::unwrap_failed
 00000000 g     F .text._ZN4core6result13unwrap_failed17h99ce152f202e1453E	0000004c core::result::unwrap_failed
 00000000 g     F .text._ZN4core6result13unwrap_failed17h9d3e328873a9b317E	00000054 core::result::unwrap_failed
-00000000 g     F .text._ZN4core6result13unwrap_failed17hd44ca5a5d4325ac5E	00000050 core::result::unwrap_failed
 00000000 g     F .text._ZN4core6result13unwrap_failed17hebf47e2bb94a8a51E	0000004c core::result::unwrap_failed
 00000000         *UND*	00000000 core::panicking::panic_bounds_check
 00000000         *UND*	00000000 core::panicking::panic
 00000000         *UND*	00000000 core::panicking::panic_fmt
-00000000         *UND*	00000000 libm::math::fabs::fabs
-00000000         *UND*	00000000 piet::gradient::UnitPoint::resolve
 00000000 g     F .text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$10write_char17hc8be0f2983e80e8aE	00000006 <&mut W as core::fmt::Write>::write_char
 00000000 g     F .text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_fmt17hc4cfe1b2012bb7feE	0000001e <&mut W as core::fmt::Write>::write_fmt
 00000000 g     F .text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17h744011ce020712c0E	00000006 <&mut W as core::fmt::Write>::write_str
 00000000 g     F .text._ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h2eb55c03c673d4b0E	00000002 <T as core::convert::From<T>>::from
 00000000         *UND*	00000000 <T as core::convert::From<T>>::from
-00000000 g     F .text._ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hc635f563bf13e853E	00000002 <T as core::convert::From<T>>::from
-00000000         *UND*	00000000 <T as core::convert::From<T>>::from
 00000000 g     F .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h05744007cac56a82E	00000008 <T as core::convert::Into<U>>::into
+00000000         *UND*	00000000 <T as core::convert::Into<U>>::into
 00000000 g     F .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h15962fb47157b6d8E	00000012 <T as core::convert::Into<U>>::into
-00000000         *UND*	00000000 <T as core::convert::Into<U>>::into
-00000000 g     F .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h49b90ae20817fee0E	00000002 <T as core::convert::Into<U>>::into
-00000000 g     F .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h7440c0a8314f390bE	00000002 <T as core::convert::Into<U>>::into
 00000000 g     F .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h945b111611b9b324E	00000008 <T as core::convert::Into<U>>::into
-00000000 g     F .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17hab3a6ad9ad122901E	00000002 <T as core::convert::Into<U>>::into
-00000000 g     F .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17hc712cc3761443c8dE	0000001c <T as core::convert::Into<U>>::into
-00000000         *UND*	00000000 <T as core::convert::Into<U>>::into
 00000000 g     F .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17hf9a2610d20630218E	00000002 <T as core::convert::Into<U>>::into
 00000000         *UND*	00000000 <T as core::convert::TryFrom<U>>::try_from
-00000000 g     F .text._ZN54_$LT$f64$u20$as$u20$core..iter..traits..accum..Sum$GT$3sum17h999b03237a24ac94E	00000010 <f64 as core::iter::traits::accum::Sum>::sum
-00000000         *UND*	00000000 <piet::error::Error as core::fmt::Debug>::fmt
 00000000 g     F .text._ZN59_$LT$$LP$T10$C$$u20$T11$RP$$u20$as$u20$core..fmt..Debug$GT$3fmt17h2e2c98cdec5a2a42E	00000044 <(T10, T11) as core::fmt::Debug>::fmt
 00000000         *UND*	00000000 <core::fmt::Arguments as core::fmt::Display>::fmt
-00000000         *UND*	00000000 druid::win_handler::APP_STATE_U32
-00000000 g     F .text._ZN5druid11win_handler16Windows$LT$T$GT$3add17he7daad1f64ca3955E	00000018 druid::win_handler::Windows<T>::add
-00000000 g     F .text._ZN5druid11win_handler16Windows$LT$T$GT$3get17h8ba88b4407e966e4E	00000060 druid::win_handler::Windows<T>::get
-00000000 g     F .text._ZN5druid11win_handler17AppState$LT$T$GT$10add_window17hfc7bc34c37833954E	00000018 druid::win_handler::AppState<T>::add_window
-00000000 g     F .text._ZN5druid11win_handler17AppState$LT$T$GT$21assemble_window_state17hd7bde4f0dfdf50a9E	0000000e druid::win_handler::AppState<T>::assemble_window_state
-00000000 g     F .text._ZN5druid11win_handler17AppState$LT$T$GT$3new17hb5e5f4243b10c353E	00000024 druid::win_handler::AppState<T>::new
-00000000 g     F .text._ZN5druid11win_handler17AppState$LT$T$GT$5paint17h184f39a8829a089eE	0000003c druid::win_handler::AppState<T>::paint
-00000000 g     F .text._ZN5druid11win_handler21DruidHandler$LT$T$GT$10new_shared17h42c4a4b0329eb3c4E	0000000c druid::win_handler::DruidHandler<T>::new_shared
-00000000 g     F .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$5paint17h656e38f7f0f1c346E	0000001e druid::win_handler::SingleWindowState<T>::paint
-00000000 g     F .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$8do_paint17h7a043a4f6300fae9E	00000038 druid::win_handler::SingleWindowState<T>::do_paint
-00000000 g     F .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$9do_layout17hdca5fbee5f0fc916E	00000020 druid::win_handler::SingleWindowState<T>::do_layout
-00000000 g     F .text._ZN5druid12localization24LocalizedString$LT$T$GT$13localized_str17hf6b3d53aaf43e5adE	0000000c druid::localization::LocalizedString<T>::localized_str
+00000000 g     F .text._ZN5druid11win_handler17AppState$LT$T$GT$21assemble_window_state17h74aa682bcaa5ff5dE	00000004 druid::win_handler::AppState<T>::assemble_window_state
+00000000 g     F .text._ZN5druid11win_handler17AppState$LT$T$GT$3new17h8ac3ab33e7da130dE	00000002 druid::win_handler::AppState<T>::new
+00000000 g     F .text._ZN5druid11win_handler17AppState$LT$T$GT$5paint17hd8a6be67606aa237E	00000012 druid::win_handler::AppState<T>::paint
+00000000 g     F .text._ZN5druid11win_handler21DruidHandler$LT$T$GT$10new_shared17h2e143bd64265c152E	00000002 druid::win_handler::DruidHandler<T>::new_shared
+00000000 g     F .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$5paint17h0f9d50e1bcb9ae40E	0000001e druid::win_handler::SingleWindowState<T>::paint
+00000000 g     F .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$8do_paint17h504e926baedded14E	00000034 druid::win_handler::SingleWindowState<T>::do_paint
+00000000 g     F .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$9do_layout17h2723ced434e2874dE	0000001a druid::win_handler::SingleWindowState<T>::do_layout
 00000000 g     F .text._ZN5druid12localization24LocalizedString$LT$T$GT$3new17h80fb9461e3b01a82E	0000000a druid::localization::LocalizedString<T>::new
 00000000 g     F .text._ZN5druid12localization24LocalizedString$LT$T$GT$8with_arg17h08b814a4f1bf07d8E	0000007c druid::localization::LocalizedString<T>::with_arg
-00000000         *UND*	00000000 druid::BoxConstraints::debug_check
-00000000         *UND*	00000000 druid::BoxConstraints::max
-00000000         *UND*	00000000 druid::BoxConstraints::min
-00000000         *UND*	00000000 druid::BoxConstraints::new
-00000000         *UND*	00000000 druid::BoxConstraints::tight
-00000000 g     F .text._ZN5druid14BoxConstraints9constrain17hbbee7236e4843f14E	00000008 druid::BoxConstraints::constrain
-00000000 g     F .text._ZN5druid22WidgetPod$LT$T$C$W$GT$15get_layout_rect17h319b76947dd7a68dE	0000000a druid::WidgetPod<T,W>::get_layout_rect
-00000000 g     F .text._ZN5druid22WidgetPod$LT$T$C$W$GT$15set_layout_rect17h1abe560ea13fb200E	0000000a druid::WidgetPod<T,W>::set_layout_rect
-00000000 g     F .text._ZN5druid22WidgetPod$LT$T$C$W$GT$15set_layout_rect17h6960e6ada6946819E	0000000a druid::WidgetPod<T,W>::set_layout_rect
-00000000 g     F .text._ZN5druid22WidgetPod$LT$T$C$W$GT$17paint_with_offset17h3f87dbe7f2300e2dE	00000010 druid::WidgetPod<T,W>::paint_with_offset
-00000000 g     F .text._ZN5druid22WidgetPod$LT$T$C$W$GT$22paint_with_offset_impl17he7173c6058e37867E	000002fc druid::WidgetPod<T,W>::paint_with_offset_impl
 00000000 g     F .text._ZN5druid22WidgetPod$LT$T$C$W$GT$3new17h19f68049a961c92dE	00000026 druid::WidgetPod<T,W>::new
 00000000 g     F .text._ZN5druid22WidgetPod$LT$T$C$W$GT$3new17hf01255c82a56ab0cE	00000018 druid::WidgetPod<T,W>::new
-00000000 g     F .text._ZN5druid22WidgetPod$LT$T$C$W$GT$5paint17h88bdb7939a389289E	0000000e druid::WidgetPod<T,W>::paint
-00000000 g     F .text._ZN5druid22WidgetPod$LT$T$C$W$GT$6layout17hcb2dc5c268d2316cE	0000000c druid::WidgetPod<T,W>::layout
-00000000 g     F .text._ZN5druid22WidgetPod$LT$T$C$W$GT$6layout17hf7c4f008cff3c9dbE	00000006 druid::WidgetPod<T,W>::layout
-00000000 g     F .text._ZN5druid3app23WindowDesc$LT$T$C$W$GT$12build_native17h29a055c1696a0945E	00000118 druid::app::WindowDesc<T,W>::build_native
+00000000 g     F .text._ZN5druid3app23WindowDesc$LT$T$C$W$GT$12build_native17ha4c1e9abdc88db78E	000000e4 druid::app::WindowDesc<T,W>::build_native
 00000000 g     F .text._ZN5druid3app23WindowDesc$LT$T$C$W$GT$3new17h1b02657d01a7432dE	00000016 druid::app::WindowDesc<T,W>::new
 00000000 g     F .text._ZN5druid3app24AppLauncher$LT$T$C$W$GT$11with_window17h8345a2e2baf5e16cE	00000054 druid::app::AppLauncher<T,W>::with_window
 00000000 g     F .text._ZN5druid3app24AppLauncher$LT$T$C$W$GT$17use_simple_logger17h2ef613a23ce08719E	0000000a druid::app::AppLauncher<T,W>::use_simple_logger
-00000000 g     F .text._ZN5druid3app24AppLauncher$LT$T$C$W$GT$6launch17h6a562b72bd769919E	000000ba druid::app::AppLauncher<T,W>::launch
-00000000         *UND*	00000000 druid::Region::to_rect
+00000000 g     F .text._ZN5druid3app24AppLauncher$LT$T$C$W$GT$6launch17h6a562b72bd769919E	000000a2 druid::app::AppLauncher<T,W>::launch
 00000000         *UND*	00000000 druid::widget::get_widget_id
 00000000 g     F .text._ZN5druid6widget4flex13Flex$LT$T$GT$9add_child17h5624c42956239f03E	00000070 druid::widget::flex::Flex<T>::add_child
-00000000         *UND*	00000000 druid::widget::flex::Axis::pack
-00000000         *UND*	00000000 druid::widget::flex::Axis::major
-00000000         *UND*	00000000 druid::widget::flex::Axis::minor
 00000000 g     F .text._ZN5druid6widget4flex6Column3new17h4c592896946036e0E	0000001a druid::widget::flex::Column::new
-00000000 g     F .text._ZN5druid6widget5label14Label$LT$T$GT$10get_layout17h9ef7245ac155f5c3E	00000070 druid::widget::label::Label<T>::get_layout
 00000000 g     F .text._ZN5druid6widget5label14Label$LT$T$GT$3new17h91f1829925616702E	0000002c druid::widget::label::Label<T>::new
 00000000 g     F .text._ZN5druid6widget5label14Label$LT$T$GT$7aligned17h854ef5cd67a29fe8E	00000054 druid::widget::label::Label<T>::aligned
-00000000 g     F .text._ZN5druid6widget5label18LabelText$LT$T$GT$12display_text17h4185910fc34e873eE	0000001c druid::widget::label::LabelText<T>::display_text
 00000000 g     F .text._ZN5druid6widget6button15Button$LT$T$GT$3new17hd5104a5ead1b56dfE	00000038 druid::widget::button::Button<T>::new
-00000000 g     F .text._ZN5druid6widget9widgetbox18WidgetBox$LT$D$GT$3new17hbe4d5d7da74c7744E	000000ea druid::widget::widgetbox::WidgetBox<D>::new
+00000000 g     F .text._ZN5druid6widget9widgetbox18WidgetBox$LT$D$GT$3new17hbe4d5d7da74c7744E	00000106 druid::widget::widgetbox::WidgetBox<D>::new
 00000000 g     F .text._ZN5druid6window19Window$LT$T$C$W$GT$3new17h7bb59c31c3a67b3aE	00000046 druid::window::Window<T,W>::new
-00000000 g     F .text._ZN5druid6window19Window$LT$T$C$W$GT$5paint17h4b966dd8ea413905E	00000058 druid::window::Window<T,W>::paint
-00000000 g     F .text._ZN5druid6window19Window$LT$T$C$W$GT$6layout17h2b4e279365cc35a1E	00000070 druid::window::Window<T,W>::layout
 00000000         *UND*	00000000 druid::window::WindowId::next
-00000000 g     F .text._ZN5druid8PaintCtx14with_child_ctx17hb2de607a67903714E	00000038 druid::PaintCtx::with_child_ctx
-00000000 g     F .text._ZN5druid8PaintCtx14with_child_ctx17hb3e968378919c61fE	0000003a druid::PaintCtx::with_child_ctx
-00000000         *UND*	00000000 druid::BaseState::size
-00000000         *UND*	00000000 druid::BaseState::is_hot
-00000000         *UND*	00000000 druid::BaseState::is_active
-00000000         *UND*	00000000 druid::LayoutCtx::text
-00000000 g     F .text._ZN5druid9windowbox18WindowBox$LT$D$GT$5paint17h64dae4b6f089541fE	00000010 druid::windowbox::WindowBox<D>::paint
-00000000 g     F .text._ZN5druid9windowbox18WindowBox$LT$D$GT$6layout17hec846ec48102ef83E	00000010 druid::windowbox::WindowBox<D>::layout
-00000000         *UND*	00000000 kurbo::size::Size::clamp
 00000000         *UND*	00000000 <druid_shell::error::Error as core::fmt::Debug>::fmt
-00000000 g     F .text._ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h11a608e9594ae542E	0000000c <I as core::iter::traits::collect::IntoIterator>::into_iter
 00000000         *UND*	00000000 <I as core::iter::traits::collect::IntoIterator>::into_iter
 00000000         *UND*	00000000 mynewt::hw::sensor_mgr::find_bydevname
 00000000         *UND*	00000000 mynewt::hw::sensor::register_listener
@@ -2291,51 +1655,28 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 mynewt::encoding::coap_context::COAP_CONTEXT
 00000000 g     F .text._ZN70_$LT$heapless..string..String$LT$N$GT$$u20$as$u20$core..fmt..Write$GT$10write_char17hd30c626f25cb5066E	00000094 <heapless::string::String<N> as core::fmt::Write>::write_char
 00000000 g     F .text._ZN70_$LT$heapless..string..String$LT$N$GT$$u20$as$u20$core..fmt..Write$GT$9write_str17hac2b2a0e713a281bE	00000004 <heapless::string::String<N> as core::fmt::Write>::write_str
-00000000 g     F .text._ZN70_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17haaf35ae7f65a7c05E	00000008 <heapless::vec::Vec<T,N> as core::clone::Clone>::clone
 00000000 g     F .text._ZN70_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hf1102e84a1207c7aE	00000008 <heapless::vec::Vec<T,N> as core::clone::Clone>::clone
 00000000 g     F .text._ZN72_$LT$druid..app..WindowDesc$LT$T$C$W$GT$$u20$as$u20$core..fmt..Debug$GT$3fmt17h2909ec93ec2c69a1E	00000004 <druid::app::WindowDesc<T,W> as core::fmt::Debug>::fmt
 00000000 g     F .text._ZN72_$LT$heapless..string..String$LT$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hb47fd3dcb5ddeabdE	00000008 <heapless::string::String<N> as core::clone::Clone>::clone
 00000000         *UND*	00000000 <heapless::string::String<N> as core::str::FromStr>::from_str
-00000000         *UND*	00000000 <kurbo::rounded_rect::RoundedRect as kurbo::shape::Shape>::to_bez_path
-00000000 g     F .text._ZN73_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hb3c8a7cd4b4ba199E	00000002 <core::marker::PhantomData<T> as core::clone::Clone>::clone
-00000000         *UND*	00000000 <heapless::vec::Vec<T,N> as core::ops::drop::Drop>::drop
+00000000         *UND*	00000000 <core::marker::PhantomData<T> as core::clone::Clone>::clone
 00000000 g     F .text._ZN73_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..ops..drop..Drop$GT$4drop17h9d510813db44a6bfE	00000002 <heapless::vec::Vec<T,N> as core::ops::drop::Drop>::drop
 00000000         *UND*	00000000 <heapless::vec::Vec<T,N> as core::ops::drop::Drop>::drop
 00000000         *UND*	00000000 <mynewt::hal::GPIO as embedded_hal::digital::v2::OutputPin>::set_low
 00000000         *UND*	00000000 <mynewt::hal::GPIO as embedded_hal::digital::v2::OutputPin>::set_high
 00000000 g     F .text._ZN75_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..ops..deref..Deref$GT$5deref17h98eae354a490e829E	00000004 <heapless::vec::Vec<T,N> as core::ops::deref::Deref>::deref
-00000000 g     F .text._ZN75_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..ops..deref..Deref$GT$5deref17hf3f6792a7cf00ca2E	00000006 <heapless::vec::Vec<T,N> as core::ops::deref::Deref>::deref
 00000000         *UND*	00000000 <str as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul
 00000000 g     F .text._ZN76_$LT$druid..localization..ArgSource$LT$T$GT$$u20$as$u20$core..fmt..Debug$GT$3fmt17h7ccc0917ea1d6fe8E	00000004 <druid::localization::ArgSource<T> as core::fmt::Debug>::fmt
-00000000         *UND*	00000000 <piet_embedded_graphics::text::EmbedText as piet::text::Text>::new_text_layout
-00000000         *UND*	00000000 <piet_embedded_graphics::text::EmbedText as piet::text::Text>::new_font_by_name
-00000000 g     F .text._ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$10new_window17h6936f2998f02c112E	0000005a <druid::widget::flex::Flex<T> as druid::Widget<T>>::new_window
-00000000 g     F .text._ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17h9c6516708bca10d9E	00000030 <druid::widget::flex::Flex<T> as druid::Widget<T>>::paint
-00000000 g     F .text._ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E	000004ac <druid::widget::flex::Flex<T> as druid::Widget<T>>::layout
-00000000         *UND*	00000000 <heapless::string::String<N> as core::ops::deref::Deref>::deref
-00000000         *UND*	00000000 <druid::Region as core::convert::From<kurbo::rect::Rect>>::from
+00000000 g     F .text._ZN77_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h0d1e369dd8539c9cE	00000002 <core::marker::PhantomData<T> as core::default::Default>::default
+00000000 g     F .text._ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$10new_window17h88a41f26931e4403E	0000005a <druid::widget::flex::Flex<T> as druid::Widget<T>>::new_window
 00000000 g     F .text._ZN78_$LT$druid..widget..flex..ChildWidget$LT$T$GT$$u20$as$u20$core..fmt..Debug$GT$3fmt17h45f2cd87827a61adE	00000004 <druid::widget::flex::ChildWidget<T> as core::fmt::Debug>::fmt
 00000000 g     F .text._ZN78_$LT$heapless..vec..IntoIter$LT$T$C$N$GT$$u20$as$u20$core..ops..drop..Drop$GT$4drop17hc69559face95b31bE	00000016 <heapless::vec::IntoIter<T,N> as core::ops::drop::Drop>::drop
-00000000         *UND*	00000000 <heapless::vec::Vec<T,N> as core::ops::deref::DerefMut>::deref_mut
 00000000 g     F .text._ZN78_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..ops..deref..DerefMut$GT$9deref_mut17hf4817c4349193a7eE	00000004 <heapless::vec::Vec<T,N> as core::ops::deref::DerefMut>::deref_mut
-00000000 g     F .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hc4e86af8b0cb16f4E	00000128 <druid::widget::label::Label<T> as druid::Widget<T>>::paint
 00000000 g     F .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6get_id17h9a108e15d7319460E	0000000c <druid::widget::label::Label<T> as druid::Widget<T>>::get_id
-00000000 g     F .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hf14abcee172e218cE	0000004c <druid::widget::label::Label<T> as druid::Widget<T>>::layout
-00000000 g     F .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$7to_type17h5811fc8ab6d2bcefE	00000016 <druid::widget::label::Label<T> as druid::Widget<T>>::to_type
-00000000 g     F .text._ZN79_$LT$druid..win_handler..Windows$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h52d097338afc5db1E	0000001e <druid::win_handler::Windows<T> as core::default::Default>::default
-00000000 g     F .text._ZN79_$LT$piet..color..Color$u20$as$u20$piet..render_context..IntoBrush$LT$P$GT$$GT$10make_brush17h5b3153c85b4102d2E	0000000a <piet::color::Color as piet::render_context::IntoBrush<P>>::make_brush
-00000000 g     F .text._ZN79_$LT$piet..color..Color$u20$as$u20$piet..render_context..IntoBrush$LT$P$GT$$GT$10make_brush17h92b8d8477cfa4bc3E	0000000a <piet::color::Color as piet::render_context::IntoBrush<P>>::make_brush
-00000000 g     F .text._ZN79_$LT$piet..color..Color$u20$as$u20$piet..render_context..IntoBrush$LT$P$GT$$GT$10make_brush17hbbb99e2c81c459fcE	0000000a <piet::color::Color as piet::render_context::IntoBrush<P>>::make_brush
-00000000 g     F .text._ZN81_$LT$druid..widget..button..Button$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hf3fdd03cb553599eE	000001b0 <druid::widget::button::Button<T> as druid::Widget<T>>::paint
-00000000 g     F .text._ZN81_$LT$druid..widget..button..Button$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17haa57874c3e53bd7aE	00000024 <druid::widget::button::Button<T> as druid::Widget<T>>::layout
-00000000         *UND*	00000000 <embedded_graphics::style::Style<P> as core::default::Default>::default
+00000000 g     F .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$7to_type17h6cfecb1feaf3111cE	00000016 <druid::widget::label::Label<T> as druid::Widget<T>>::to_type
 00000000 g     F .text._ZN84_$LT$heapless..string..String$LT$N$GT$$u20$as$u20$core..convert..From$LT$u32$GT$$GT$4from17hf04fb1f6e012796bE	0000005c <heapless::string::String<N> as core::convert::From<u32>>::from
 00000000         *UND*	00000000 <mynewt::Strn as mynewt::encoding::coap_context::ToBytesOptionalNull>::to_bytes_optional_nul
-00000000 g     F .text._ZN87_$LT$druid..widget..widgetbox..WidgetBox$LT$D$GT$$u20$as$u20$druid..Widget$LT$D$GT$$GT$5paint17hee1468e7b5a189dfE	00000050 <druid::widget::widgetbox::WidgetBox<D> as druid::Widget<D>>::paint
-00000000 g     F .text._ZN87_$LT$druid..widget..widgetbox..WidgetBox$LT$D$GT$$u20$as$u20$druid..Widget$LT$D$GT$$GT$6layout17h769b7cbf4ccbfea9E	0000006c <druid::widget::widgetbox::WidgetBox<D> as druid::Widget<D>>::layout
 00000000         *UND*	00000000 <mynewt::hal::Delay as embedded_hal::blocking::delay::DelayMs<u8>>::delay_ms
-00000000         *UND*	00000000 <piet_embedded_graphics::text::EmbedTextLayout as piet::text::TextLayout>::width
-00000000         *UND*	00000000 <embedded_graphics::coord::internal_coord::Coord as core::ops::arith::Sub>::sub
 00000000 g     F .text._ZN8heapless3vec16Vec$LT$T$C$N$GT$3new17h53311de4d544ea74E	00000008 heapless::vec::Vec<T,N>::new
 00000000 g     F .text._ZN8heapless3vec16Vec$LT$T$C$N$GT$3new17hd71966dac52d399eE	00000006 heapless::vec::Vec<T,N>::new
 00000000 g     F .text._ZN8heapless3vec16Vec$LT$T$C$N$GT$3new17hf9c77d32aa535311E	00000006 heapless::vec::Vec<T,N>::new
@@ -2352,49 +1693,30 @@ SYMBOL TABLE:
 00000000 g     F .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$14push_unchecked17h85e521a7c5a2255eE	00000018 heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::push_unchecked
 00000000         *UND*	00000000 heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::push_unchecked
 00000000         *UND*	00000000 heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::extend_from_slice
-00000000 g     F .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$17extend_from_slice17h4f760a4706bdbd93E	00000070 heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::extend_from_slice
 00000000 g     F .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$17extend_from_slice17hc081e04848c5d3e6E	0000004c heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::extend_from_slice
 00000000 g     F .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$4push17h1fb29f651d080fc3E	0000003e heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::push
 00000000 g     F .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$4push17h2888ebf57320ada9E	00000030 heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::push
 00000000 g     F .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$4push17h9a4681c2d53c9cd4E	00000022 heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::push
 00000000 g     F .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$4push17hf7f43f8e4aa57b84E	0000003e heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::push
-00000000 g     F .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$5clone17h03821103712eec77E	0000002e heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::clone
 00000000 g     F .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$5clone17h279b5bfbfa510c1fE	00000032 heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::clone
 00000000 g     F .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$5clone17h2f2294f449db8971E	00000026 heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::clone
 00000000         *UND*	00000000 heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::as_slice
 00000000 g     F .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8as_slice17h577824057efa037dE	00000004 heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::as_slice
 00000000 g     F .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8as_slice17h8816d891cbcb4adeE	00000004 heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::as_slice
-00000000 g     F .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8as_slice17hb1701ce17c6108edE	00000006 heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::as_slice
 00000000 g     F .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8capacity17h3fe105568d08c791E	00000004 heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::capacity
 00000000 g     F .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8capacity17h41b1a58588e7b482E	00000004 heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::capacity
 00000000         *UND*	00000000 heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::capacity
 00000000 g     F .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8capacity17h8aebbd0f5b014e51E	00000004 heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::capacity
 00000000         *UND*	00000000 heapless::string::<impl heapless::i::String<A>>::new
-00000000         *UND*	00000000 <piet_embedded_graphics::text::EmbedFontBuilder as piet::text::FontBuilder>::build
-00000000 g     F .text._ZN93_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$GT$5paint17hb1f800153ff5da2bE	0000001c <druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler>::paint
 00000000 g     F .text._ZN93_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h69e96b6a767e322dE	00000010 <heapless::vec::Vec<T,N> as core::iter::traits::collect::IntoIterator>::into_iter
 00000000 g     F .text._ZN95_$LT$druid..widget..label..LabelText$LT$T$GT$$u20$as$u20$core..convert..From$LT$$RF$str$GT$$GT$4from17h926425defb6f75d5E	00000050 <druid::widget::label::LabelText<T> as core::convert::From<&str>>::from
-00000000         *UND*	00000000 <embedded_graphics::coord::internal_coord::Coord as core::ops::arith::AddAssign>::add_assign
 00000000 g     F .text._ZN95_$LT$heapless..vec..IntoIter$LT$T$C$N$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h78d3bb3422c4c011E	00000034 <heapless::vec::IntoIter<T,N> as core::iter::traits::iterator::Iterator>::next
-00000000 g     F .text._ZN97_$LT$core..iter..adapters..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17h56472e4a61ad933bE	00000028 <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::fold
-00000000         *UND*	00000000 <kurbo::rounded_rect::RoundedRectPathIter as core::iter::traits::iterator::Iterator>::next
 00000000         *UND*	00000000 <mynewt::hw::sensor_mgr::SensorsByDevname as core::iter::traits::iterator::Iterator>::next
-00000000         *UND*	00000000 __aeabi_d2iz
-00000000         *UND*	00000000 __aeabi_dadd
-00000000         *UND*	00000000 __aeabi_dcmpeq
-00000000         *UND*	00000000 __aeabi_dcmpge
-00000000         *UND*	00000000 __aeabi_dcmpgt
-00000000         *UND*	00000000 __aeabi_dcmplt
-00000000         *UND*	00000000 __aeabi_dcmpun
-00000000         *UND*	00000000 __aeabi_ddiv
-00000000         *UND*	00000000 __aeabi_dmul
-00000000         *UND*	00000000 __aeabi_dsub
 00000000         *UND*	00000000 __aeabi_memclr4
 00000000         *UND*	00000000 __aeabi_memclr8
 00000000         *UND*	00000000 __aeabi_memcpy
 00000000         *UND*	00000000 __aeabi_memcpy4
 00000000         *UND*	00000000 __aeabi_memcpy8
-00000000         *UND*	00000000 __aeabi_memmove8
 00000000         *UND*	00000000 hal_gpio_irq_enable
 00000000         *UND*	00000000 hal_gpio_irq_init
 00000000         *UND*	00000000 hal_i2c_master_read
@@ -2414,1084 +1736,11 @@ SYMBOL TABLE:
 
 
 
-Disassembly of section .text._ZN105_$LT$$RF$mut$u20$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h618972ac489595dcE:
-
-00000000 <<&mut heapless::vec::Vec<T,N> as core::iter::traits::collect::IntoIterator>::into_iter>:
-_ZN105_$LT$$RF$mut$u20$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h618972ac489595dcE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:441
-    N: ArrayLength<T>,
-{
-    type Item = &'a mut T;
-    type IntoIter = slice::IterMut<'a, T>;
-
-    fn into_iter(self) -> Self::IntoIter {
-   0:	b580      	push	{r7, lr}
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:442
-        self.iter_mut()
-   2:	f7ff fffe 	bl	0 <<heapless::vec::Vec<T,N> as core::ops::deref::DerefMut>::deref_mut>
-_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$8iter_mut17h6cf65465c0fdc7f6E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:578
-   6:	eb00 1181 	add.w	r1, r0, r1, lsl #6
-_ZN105_$LT$$RF$mut$u20$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h618972ac489595dcE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:443
-    }
-   a:	bd80      	pop	{r7, pc}
-
-Disassembly of section .text._ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$4fill17hf2073d7cf1f1cfaaE:
-
-00000000 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::fill>:
-_ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$4fill17hf2073d7cf1f1cfaaE():
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:120
-                }
-            }
-        }
-    */ ////
-
-    fn fill(&mut self, shape: impl Shape, brush: &impl IntoBrush<Self>) {
-   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
-   4:	ed2d 8b02 	vpush	{d8}
-   8:	b098      	sub	sp, #96	; 0x60
-   a:	460d      	mov	r5, r1
-_ZN79_$LT$piet..color..Color$u20$as$u20$piet..render_context..IntoBrush$LT$P$GT$$GT$10make_brush17hbbb99e2c81c459fcE():
-/Users/Luppy/mynewt/piet-embedded/piet/src/render_context.rs:209
-}
-
-impl<P: RenderContext> IntoBrush<P> for Color {
-    fn make_brush<'a>(&'a self, piet: &mut P, _bbox: impl FnOnce() -> Rect) -> P::Brush { ////
-    ////fn make_brush<'a>(&'a self, piet: &mut P, _bbox: impl FnOnce() -> Rect) -> Bow<'a, P::Brush> {
-        piet.solid_brush(*self) ////
-   c:	6811      	ldr	r1, [r2, #0]
-   e:	4604      	mov	r4, r0
-  10:	f7ff fffe 	bl	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::solid_brush>
-_ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$4fill17hf2073d7cf1f1cfaaE():
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:121
-        let brush = brush.make_brush(self, || shape.bounding_box());
-  14:	9001      	str	r0, [sp, #4]
-  16:	a802      	add	r0, sp, #8
-_ZN57_$LT$kurbo..rect..Rect$u20$as$u20$kurbo..shape..Shape$GT$12bounding_box17hef0b7d457cddcf65E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:359
-        }
-    }
-
-    #[inline]
-    fn bounding_box(&self) -> Rect {
-        self.abs()
-  18:	4629      	mov	r1, r5
-  1a:	f7ff fffe 	bl	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::fill>
-_ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$4fill17hf2073d7cf1f1cfaaE():
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:127
-        //  TODO: Handle Bezier path
-        //  self.set_path(shape);
-
-        //  TODO: For now we fill the bounding box
-        let bounding_box = shape.bounding_box();
-        let left_top = Coord::new(bounding_box.x0 as i32, bounding_box.y0 as i32);
-  1e:	ed9d 0b02 	vldr	d0, [sp, #8]
-  22:	ed9d 8b04 	vldr	d8, [sp, #16]
-  26:	ec51 0b10 	vmov	r0, r1, d0
-  2a:	f7ff fffe 	bl	0 <__aeabi_d2iz>
-  2e:	4605      	mov	r5, r0
-  30:	ec51 0b18 	vmov	r0, r1, d8
-  34:	f7ff fffe 	bl	0 <__aeabi_d2iz>
-  38:	4601      	mov	r1, r0
-  3a:	4628      	mov	r0, r5
-  3c:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:128
-        let right_btm = Coord::new(bounding_box.x1 as i32, bounding_box.y1 as i32);
-  40:	ed9d 0b06 	vldr	d0, [sp, #24]
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:127
-        let left_top = Coord::new(bounding_box.x0 as i32, bounding_box.y0 as i32);
-  44:	4680      	mov	r8, r0
-  46:	460e      	mov	r6, r1
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:128
-        let right_btm = Coord::new(bounding_box.x1 as i32, bounding_box.y1 as i32);
-  48:	ed9d 8b08 	vldr	d8, [sp, #32]
-  4c:	ec51 0b10 	vmov	r0, r1, d0
-  50:	f7ff fffe 	bl	0 <__aeabi_d2iz>
-  54:	4607      	mov	r7, r0
-  56:	ec51 0b18 	vmov	r0, r1, d8
-  5a:	f7ff fffe 	bl	0 <__aeabi_d2iz>
-  5e:	4601      	mov	r1, r0
-  60:	4638      	mov	r0, r7
-  62:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
-  66:	460d      	mov	r5, r1
-  68:	a901      	add	r1, sp, #4
-  6a:	4607      	mov	r7, r0
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:131
-
-        //  Get fill color
-        let fill = self.convert_brush(&brush);
-  6c:	4620      	mov	r0, r4
-  6e:	f7ff fffe 	bl	0 <piet_embedded_graphics::context::EmbedRenderContext::convert_brush>
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:134
-
-        //  Create rectangle with fill
-        let rect = Rectangle::<Rgb565>
-  72:	9500      	str	r5, [sp, #0]
-  74:	ad11      	add	r5, sp, #68	; 0x44
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:131
-        let fill = self.convert_brush(&brush);
-  76:	4604      	mov	r4, r0
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:134
-        let rect = Rectangle::<Rgb565>
-  78:	4641      	mov	r1, r8
-  7a:	4628      	mov	r0, r5
-  7c:	4632      	mov	r2, r6
-  7e:	463b      	mov	r3, r7
-  80:	f7ff fffe 	bl	0 <embedded_graphics::primitives::rectangle::Rectangle<C>::new>
-  84:	ae0a      	add	r6, sp, #40	; 0x28
-  86:	4629      	mov	r1, r5
-  88:	2201      	movs	r2, #1
-  8a:	4623      	mov	r3, r4
-  8c:	4630      	mov	r0, r6
-  8e:	f7ff fffe 	bl	0 <<embedded_graphics::primitives::rectangle::Rectangle<C> as embedded_graphics::style::WithStyle<C>>::fill>
-  92:	ac11      	add	r4, sp, #68	; 0x44
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:137
-            ::new(left_top, right_btm)
-            .fill(Some(fill));
-        unsafe { display::DISPLAY.draw(rect); }
-  94:	4631      	mov	r1, r6
-  96:	221c      	movs	r2, #28
-  98:	4620      	mov	r0, r4
-  9a:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-  9e:	4804      	ldr	r0, [pc, #16]	; (b0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::fill+0xb0>)
-  a0:	4621      	mov	r1, r4
-  a2:	f7ff fffe 	bl	0 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw>
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:141
-
-        ////self.ctx.set_fill_rule(embedded_graphics::FillRule::Winding);
-        ////self.ctx.fill();
-    }
-  a6:	b018      	add	sp, #96	; 0x60
-  a8:	ecbd 8b02 	vpop	{d8}
-  ac:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
-  b0:	00000000 	.word	0x00000000
-
-Disassembly of section .text._ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$6stroke17h887aab595dc1b126E:
-
-00000000 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::stroke>:
-_ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$6stroke17h887aab595dc1b126E():
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:163
-        self.ctx.set_fill_rule(embedded_graphics::FillRule::Winding);
-        self.ctx.clip();
-        */
-    }
-
-    fn stroke(&mut self, shape: impl Shape, brush: &impl IntoBrush<Self>, width: f64) {
-   0:	e92d 4ff8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, lr}
-   4:	ed2d 8b08 	vpush	{d8-d11}
-   8:	f5ad 7d5e 	sub.w	sp, sp, #888	; 0x378
-   c:	460c      	mov	r4, r1
-_ZN79_$LT$piet..color..Color$u20$as$u20$piet..render_context..IntoBrush$LT$P$GT$$GT$10make_brush17h92b8d8477cfa4bc3E():
-/Users/Luppy/mynewt/piet-embedded/piet/src/render_context.rs:209
-   e:	6811      	ldr	r1, [r2, #0]
-  10:	eeb0 8a40 	vmov.f32	s16, s0
-  14:	4605      	mov	r5, r0
-  16:	eef0 8a60 	vmov.f32	s17, s1
-  1a:	f7ff fffe 	bl	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::solid_brush>
-  1e:	a901      	add	r1, sp, #4
-_ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$6stroke17h887aab595dc1b126E():
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:164
-        let brush = brush.make_brush(self, || shape.bounding_box());
-  20:	9001      	str	r0, [sp, #4]
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:167
-
-        //  Get stroke color
-        let stroke = self.convert_brush(&brush);
-  22:	4628      	mov	r0, r5
-  24:	f7ff fffe 	bl	0 <piet_embedded_graphics::context::EmbedRenderContext::convert_brush>
-  28:	ad02      	add	r5, sp, #8
-  2a:	ed9f 0b91 	vldr	d0, [pc, #580]	; 270 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::stroke+0x270>
-  2e:	9000      	str	r0, [sp, #0]
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:171
-
-        //  Draw a line for each segment of the Bezier path
-        let mut last = Point::ZERO;
-        for el in shape.to_bez_path(0.1) {  //  Previously 1e-3
-  30:	4621      	mov	r1, r4
-  32:	4628      	mov	r0, r5
-  34:	f7ff fffe 	bl	0 <<kurbo::rounded_rect::RoundedRect as kurbo::shape::Shape>::to_bez_path>
-  38:	f50d 78d0 	add.w	r8, sp, #416	; 0x1a0
-  3c:	4629      	mov	r1, r5
-  3e:	f44f 72cc 	mov.w	r2, #408	; 0x198
-  42:	4640      	mov	r0, r8
-  44:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-  48:	ec51 0b18 	vmov	r0, r1, d8
-  4c:	f7ff fffe 	bl	0 <__aeabi_d2iz>
-  50:	ed9f bb89 	vldr	d11, [pc, #548]	; 278 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::stroke+0x278>
-  54:	f50d 794e 	add.w	r9, sp, #824	; 0x338
-  58:	f109 0a19 	add.w	sl, r9, #25
-  5c:	4683      	mov	fp, r0
-  5e:	eeb0 aa4b 	vmov.f32	s20, s22
-  62:	eef0 aa6b 	vmov.f32	s21, s23
-  66:	e0ef      	b.n	248 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::stroke+0x248>
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:173
-            match el {
-                PathEl::MoveTo(p) => {
-  68:	3801      	subs	r0, #1
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:171
-        for el in shape.to_bez_path(0.1) {  //  Previously 1e-3
-  6a:	ed9d 9bd0 	vldr	d9, [sp, #832]	; 0x340
-  6e:	ed9d 8bd2 	vldr	d8, [sp, #840]	; 0x348
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:173
-                PathEl::MoveTo(p) => {
-  72:	2803      	cmp	r0, #3
-  74:	f200 80e0 	bhi.w	238 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::stroke+0x238>
-  78:	e8df f000 	tbb	[pc, r0]
-  7c:	e6933f02 	.word	0xe6933f02
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:179
-                    ////self.ctx.move_to(p.x, p.y);
-                    last = p;
-                }
-                PathEl::LineTo(p) => {
-                    //  Draw line from last to p with styled stroke
-                    let last_coord = Coord::new(last.x as i32, last.y as i32);
-  80:	ec51 0b1b 	vmov	r0, r1, d11
-  84:	f7ff fffe 	bl	0 <__aeabi_d2iz>
-  88:	4604      	mov	r4, r0
-  8a:	ec51 0b1a 	vmov	r0, r1, d10
-  8e:	f7ff fffe 	bl	0 <__aeabi_d2iz>
-  92:	4601      	mov	r1, r0
-  94:	4620      	mov	r0, r4
-  96:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
-  9a:	4605      	mov	r5, r0
-  9c:	460c      	mov	r4, r1
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:180
-                    let p_coord = Coord::new(p.x as i32, p.y as i32);
-  9e:	ec51 0b19 	vmov	r0, r1, d9
-  a2:	f7ff fffe 	bl	0 <__aeabi_d2iz>
-  a6:	4606      	mov	r6, r0
-  a8:	ec51 0b18 	vmov	r0, r1, d8
-  ac:	f7ff fffe 	bl	0 <__aeabi_d2iz>
-  b0:	4601      	mov	r1, r0
-  b2:	4630      	mov	r0, r6
-  b4:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
-  b8:	4606      	mov	r6, r0
-_ZN17embedded_graphics10primitives4line13Line$LT$C$GT$3new17ha6b5b7281e547f2dE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:84
-    /// Create a new line
-    pub fn new(start: Coord, end: Coord) -> Self {
-        Line {
-            start,
-            end,
-            style: Style::default(),
-  ba:	4648      	mov	r0, r9
-  bc:	4647      	mov	r7, r8
-_ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$6stroke17h887aab595dc1b126E():
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:180
-  be:	4688      	mov	r8, r1
-_ZN17embedded_graphics10primitives4line13Line$LT$C$GT$3new17ha6b5b7281e547f2dE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:84
-  c0:	f7ff fffe 	bl	0 <<embedded_graphics::style::Style<P> as core::default::Default>::default>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:81
-        Line {
-  c4:	f89d 0341 	ldrb.w	r0, [sp, #833]	; 0x341
-  c8:	f88d 0375 	strb.w	r0, [sp, #885]	; 0x375
-_ZN115_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17hecdb52488ac5ba9eE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:102
-    }
-
-    fn stroke(mut self, color: Option<C>) -> Self {
-        self.style.stroke_color = color;
-
-        self
-  cc:	f89d 0377 	ldrb.w	r0, [sp, #887]	; 0x377
-  d0:	f8bd 2375 	ldrh.w	r2, [sp, #885]	; 0x375
-_ZN17embedded_graphics10primitives4line13Line$LT$C$GT$3new17ha6b5b7281e547f2dE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:81
-        Line {
-  d4:	99ce      	ldr	r1, [sp, #824]	; 0x338
-_ZN115_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17hecdb52488ac5ba9eE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:102
-        self
-  d6:	f88d 0374 	strb.w	r0, [sp, #884]	; 0x374
-  da:	f8ad 2372 	strh.w	r2, [sp, #882]	; 0x372
-_ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$6stroke17h887aab595dc1b126E():
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:185
-                    let line = Line::<Rgb565>
-                        ::new(last_coord, p_coord)
-                        .stroke(Some(stroke))
-                        .stroke_width(width as u8);
-                    unsafe { display::DISPLAY.draw(line); }
-  de:	2201      	movs	r2, #1
-  e0:	9800      	ldr	r0, [sp, #0]
-  e2:	f88d b350 	strb.w	fp, [sp, #848]	; 0x350
-  e6:	f8ad 034e 	strh.w	r0, [sp, #846]	; 0x34e
-  ea:	f8bd 0372 	ldrh.w	r0, [sp, #882]	; 0x372
-  ee:	f8ad 234c 	strh.w	r2, [sp, #844]	; 0x34c
-  f2:	e9cd 81d1 	strd	r8, r1, [sp, #836]	; 0x344
-  f6:	46b8      	mov	r8, r7
-  f8:	e091      	b.n	21e <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::stroke+0x21e>
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:192
-                    last = p;
-                }
-                PathEl::QuadTo(_p1, p2) => {
-                    //  TODO: Handle quad
-                    //  Draw line from last to p2 with styled stroke
-                    let last_coord = Coord::new(last.x as i32, last.y as i32);
-  fa:	ec51 0b1b 	vmov	r0, r1, d11
-  fe:	ed9d 8bd4 	vldr	d8, [sp, #848]	; 0x350
- 102:	ed9d 9bd6 	vldr	d9, [sp, #856]	; 0x358
- 106:	f7ff fffe 	bl	0 <__aeabi_d2iz>
- 10a:	4604      	mov	r4, r0
- 10c:	ec51 0b1a 	vmov	r0, r1, d10
- 110:	f7ff fffe 	bl	0 <__aeabi_d2iz>
- 114:	4601      	mov	r1, r0
- 116:	4620      	mov	r0, r4
- 118:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
- 11c:	4605      	mov	r5, r0
- 11e:	460c      	mov	r4, r1
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:193
-                    let p2_coord = Coord::new(p2.x as i32, p2.y as i32);
- 120:	ec51 0b18 	vmov	r0, r1, d8
- 124:	f7ff fffe 	bl	0 <__aeabi_d2iz>
- 128:	4606      	mov	r6, r0
- 12a:	ec51 0b19 	vmov	r0, r1, d9
- 12e:	f7ff fffe 	bl	0 <__aeabi_d2iz>
- 132:	4601      	mov	r1, r0
- 134:	4630      	mov	r0, r6
- 136:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
- 13a:	4606      	mov	r6, r0
-_ZN17embedded_graphics10primitives4line13Line$LT$C$GT$3new17ha6b5b7281e547f2dE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:84
-            style: Style::default(),
- 13c:	4648      	mov	r0, r9
-_ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$6stroke17h887aab595dc1b126E():
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:193
- 13e:	460f      	mov	r7, r1
-_ZN17embedded_graphics10primitives4line13Line$LT$C$GT$3new17ha6b5b7281e547f2dE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:84
- 140:	f7ff fffe 	bl	0 <<embedded_graphics::style::Style<P> as core::default::Default>::default>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:81
-        Line {
- 144:	f89d 0341 	ldrb.w	r0, [sp, #833]	; 0x341
- 148:	f88d 0375 	strb.w	r0, [sp, #885]	; 0x375
-_ZN115_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17hecdb52488ac5ba9eE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:102
-        self
- 14c:	f89d 0377 	ldrb.w	r0, [sp, #887]	; 0x377
- 150:	f8bd 2375 	ldrh.w	r2, [sp, #885]	; 0x375
- 154:	f88d 0374 	strb.w	r0, [sp, #884]	; 0x374
- 158:	f8ad 2372 	strh.w	r2, [sp, #882]	; 0x372
-_ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$6stroke17h887aab595dc1b126E():
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:198
-                    let line = Line::<Rgb565>
-                        ::new(last_coord, p2_coord)
-                        .stroke(Some(stroke))
-                        .stroke_width(width as u8);
-                    unsafe { display::DISPLAY.draw(line); }
- 15c:	2201      	movs	r2, #1
- 15e:	9800      	ldr	r0, [sp, #0]
-_ZN17embedded_graphics10primitives4line13Line$LT$C$GT$3new17ha6b5b7281e547f2dE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:81
-        Line {
- 160:	99ce      	ldr	r1, [sp, #824]	; 0x338
-_ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$6stroke17h887aab595dc1b126E():
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:198
- 162:	f88d b350 	strb.w	fp, [sp, #848]	; 0x350
- 166:	f8ad 034e 	strh.w	r0, [sp, #846]	; 0x34e
- 16a:	f8bd 0372 	ldrh.w	r0, [sp, #882]	; 0x372
- 16e:	f8ad 234c 	strh.w	r2, [sp, #844]	; 0x34c
- 172:	91d2      	str	r1, [sp, #840]	; 0x348
- 174:	e9cd 67d0 	strd	r6, r7, [sp, #832]	; 0x340
- 178:	e9cd 54ce 	strd	r5, r4, [sp, #824]	; 0x338
- 17c:	f8aa 0000 	strh.w	r0, [sl]
- 180:	483f      	ldr	r0, [pc, #252]	; (280 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::stroke+0x280>)
- 182:	f89d 1374 	ldrb.w	r1, [sp, #884]	; 0x374
- 186:	f88a 1002 	strb.w	r1, [sl, #2]
- 18a:	4649      	mov	r1, r9
- 18c:	f7ff fffe 	bl	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::stroke>
- 190:	eeb0 ba48 	vmov.f32	s22, s16
- 194:	eeb0 aa49 	vmov.f32	s20, s18
- 198:	eef0 ba68 	vmov.f32	s23, s17
- 19c:	eef0 aa69 	vmov.f32	s21, s19
- 1a0:	e052      	b.n	248 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::stroke+0x248>
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:208
-                    last = p2;
-                }
-                PathEl::CurveTo(_p1, _p2, p3) => {
-                    //  TODO: Handle curve
-                    //  Draw line from last to p3 with styled stroke
-                    let last_coord = Coord::new(last.x as i32, last.y as i32);
- 1a2:	ec51 0b1b 	vmov	r0, r1, d11
- 1a6:	ed9d 8bda 	vldr	d8, [sp, #872]	; 0x368
- 1aa:	ed9d 9bd8 	vldr	d9, [sp, #864]	; 0x360
- 1ae:	f7ff fffe 	bl	0 <__aeabi_d2iz>
- 1b2:	4604      	mov	r4, r0
- 1b4:	ec51 0b1a 	vmov	r0, r1, d10
- 1b8:	f7ff fffe 	bl	0 <__aeabi_d2iz>
- 1bc:	4601      	mov	r1, r0
- 1be:	4620      	mov	r0, r4
- 1c0:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
- 1c4:	4605      	mov	r5, r0
- 1c6:	460c      	mov	r4, r1
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:209
-                    let p3_coord = Coord::new(p3.x as i32, p3.y as i32);
- 1c8:	ec51 0b19 	vmov	r0, r1, d9
- 1cc:	f7ff fffe 	bl	0 <__aeabi_d2iz>
- 1d0:	4606      	mov	r6, r0
- 1d2:	ec51 0b18 	vmov	r0, r1, d8
- 1d6:	f7ff fffe 	bl	0 <__aeabi_d2iz>
- 1da:	4601      	mov	r1, r0
- 1dc:	4630      	mov	r0, r6
- 1de:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
- 1e2:	4606      	mov	r6, r0
-_ZN17embedded_graphics10primitives4line13Line$LT$C$GT$3new17ha6b5b7281e547f2dE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:84
-            style: Style::default(),
- 1e4:	4648      	mov	r0, r9
-_ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$6stroke17h887aab595dc1b126E():
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:209
- 1e6:	460f      	mov	r7, r1
-_ZN17embedded_graphics10primitives4line13Line$LT$C$GT$3new17ha6b5b7281e547f2dE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:84
- 1e8:	f7ff fffe 	bl	0 <<embedded_graphics::style::Style<P> as core::default::Default>::default>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:81
-        Line {
- 1ec:	f89d 0341 	ldrb.w	r0, [sp, #833]	; 0x341
- 1f0:	f88d 0375 	strb.w	r0, [sp, #885]	; 0x375
- 1f4:	99ce      	ldr	r1, [sp, #824]	; 0x338
-_ZN115_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17hecdb52488ac5ba9eE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:102
-        self
- 1f6:	f89d 0377 	ldrb.w	r0, [sp, #887]	; 0x377
- 1fa:	f8bd 2375 	ldrh.w	r2, [sp, #885]	; 0x375
- 1fe:	f88d 0374 	strb.w	r0, [sp, #884]	; 0x374
- 202:	f8ad 2372 	strh.w	r2, [sp, #882]	; 0x372
-_ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$6stroke17h887aab595dc1b126E():
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:214
-                    let line = Line::<Rgb565>
-                        ::new(last_coord, p3_coord)
-                        .stroke(Some(stroke))
-                        .stroke_width(width as u8);
-                    unsafe { display::DISPLAY.draw(line); }
- 206:	2201      	movs	r2, #1
- 208:	9800      	ldr	r0, [sp, #0]
- 20a:	f88d b350 	strb.w	fp, [sp, #848]	; 0x350
- 20e:	f8ad 034e 	strh.w	r0, [sp, #846]	; 0x34e
- 212:	f8bd 0372 	ldrh.w	r0, [sp, #882]	; 0x372
- 216:	f8ad 234c 	strh.w	r2, [sp, #844]	; 0x34c
- 21a:	e9cd 71d1 	strd	r7, r1, [sp, #836]	; 0x344
- 21e:	f89d 1374 	ldrb.w	r1, [sp, #884]	; 0x374
- 222:	96d0      	str	r6, [sp, #832]	; 0x340
- 224:	94cf      	str	r4, [sp, #828]	; 0x33c
- 226:	95ce      	str	r5, [sp, #824]	; 0x338
- 228:	f88a 1002 	strb.w	r1, [sl, #2]
- 22c:	4649      	mov	r1, r9
- 22e:	f8aa 0000 	strh.w	r0, [sl]
- 232:	4813      	ldr	r0, [pc, #76]	; (50 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::stroke+0x50>)
- 234:	f7ff fffe 	bl	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::stroke>
- 238:	eeb0 ba49 	vmov.f32	s22, s18
- 23c:	eeb0 aa48 	vmov.f32	s20, s16
- 240:	eef0 ba69 	vmov.f32	s23, s19
- 244:	eef0 aa68 	vmov.f32	s21, s17
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:171
-        for el in shape.to_bez_path(0.1) {  //  Previously 1e-3
- 248:	4648      	mov	r0, r9
- 24a:	4641      	mov	r1, r8
- 24c:	f7ff fffe 	bl	0 <<kurbo::rounded_rect::RoundedRectPathIter as core::iter::traits::iterator::Iterator>::next>
- 250:	e9dd 01ce 	ldrd	r0, r1, [sp, #824]	; 0x338
- 254:	f080 0205 	eor.w	r2, r0, #5
- 258:	4311      	orrs	r1, r2
- 25a:	f47f af05 	bne.w	68 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::stroke+0x68>
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:225
-                }
-            }
-        }
-
-        ////self.ctx.stroke();
-    }
- 25e:	f50d 7d5e 	add.w	sp, sp, #888	; 0x378
- 262:	ecbd 8b08 	vpop	{d8-d11}
- 266:	b001      	add	sp, #4
- 268:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
- 26c:	bf00      	nop
- 26e:	bf00      	nop
- 270:	9999999a 	.word	0x9999999a
- 274:	3fb99999 	.word	0x3fb99999
-	...
-
-Disassembly of section .text._ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$9draw_text17h70ba672292d0e07fE:
-
-00000000 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::draw_text>:
-_ZN107_$LT$piet_embedded_graphics..context..EmbedRenderContext$u20$as$u20$piet..render_context..RenderContext$GT$9draw_text17h70ba672292d0e07fE():
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:248
-
-    fn text(&mut self) -> &mut Self::Text {
-        unsafe { &mut EMBED_TEXT }
-    }
-
-    fn draw_text(
-   0:	b570      	push	{r4, r5, r6, lr}
-   2:	ed2d 8b04 	vpush	{d8-d9}
-   6:	b096      	sub	sp, #88	; 0x58
-   8:	4605      	mov	r5, r0
-   a:	eeb0 8a41 	vmov.f32	s16, s2
-   e:	eeb0 9a40 	vmov.f32	s18, s0
-  12:	460c      	mov	r4, r1
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:254
-        &mut self,
-        layout: &Self::TextLayout,
-        pos: impl Into<Point>,
-        brush: &impl IntoBrush<Self>,
-    ) {
-        let brush = brush.make_brush(self, || Rect::ZERO);
-  14:	4610      	mov	r0, r2
-  16:	4629      	mov	r1, r5
-  18:	eef0 8a61 	vmov.f32	s17, s3
-  1c:	eef0 9a60 	vmov.f32	s19, s1
-  20:	f7ff fffe 	bl	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::draw_text>
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:255
-        let pos = pos.into();
-  24:	eeb0 0a49 	vmov.f32	s0, s18
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:254
-        let brush = brush.make_brush(self, || Rect::ZERO);
-  28:	9000      	str	r0, [sp, #0]
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:255
-        let pos = pos.into();
-  2a:	eeb0 1a48 	vmov.f32	s2, s16
-  2e:	eef0 0a69 	vmov.f32	s1, s19
-  32:	eef0 1a68 	vmov.f32	s3, s17
-  36:	f7ff fffe 	bl	0 <<T as core::convert::Into<U>>::into>
-  3a:	eeb0 8a40 	vmov.f32	s16, s0
-  3e:	4669      	mov	r1, sp
-  40:	eeb0 9a41 	vmov.f32	s18, s2
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:258
-
-        //  Get stroke color
-        let stroke = self.convert_brush(&brush);
-  44:	4628      	mov	r0, r5
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:255
-        let pos = pos.into();
-  46:	eef0 8a60 	vmov.f32	s17, s1
-  4a:	eef0 9a61 	vmov.f32	s19, s3
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:258
-        let stroke = self.convert_brush(&brush);
-  4e:	f7ff fffe 	bl	0 <piet_embedded_graphics::context::EmbedRenderContext::convert_brush>
-  52:	4605      	mov	r5, r0
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:262
-
-        //  Create text
-        let text = embedded_graphics::fonts::Font12x16::<Rgb565>
-            ::render_str(&layout.text)
-  54:	4620      	mov	r0, r4
-  56:	f7ff fffe 	bl	0 <<heapless::string::String<N> as core::ops::deref::Deref>::deref>
-  5a:	ae0f      	add	r6, sp, #60	; 0x3c
-  5c:	4602      	mov	r2, r0
-  5e:	460b      	mov	r3, r1
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:261
-        let text = embedded_graphics::fonts::Font12x16::<Rgb565>
-  60:	4611      	mov	r1, r2
-  62:	4630      	mov	r0, r6
-  64:	461a      	mov	r2, r3
-  66:	f7ff fffe 	bl	0 <<embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::fonts::Font<C>>::render_str>
-  6a:	ac08      	add	r4, sp, #32
-  6c:	4631      	mov	r1, r6
-  6e:	2201      	movs	r2, #1
-  70:	462b      	mov	r3, r5
-  72:	4620      	mov	r0, r4
-  74:	f7ff fffe 	bl	0 <<embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::style::WithStyle<C>>::stroke>
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:264
-            .stroke(Some(stroke))
-            .translate(Coord::new(pos.x as i32, pos.y as i32));
-  78:	ec51 0b18 	vmov	r0, r1, d8
-  7c:	f7ff fffe 	bl	0 <__aeabi_d2iz>
-  80:	4605      	mov	r5, r0
-  82:	ec51 0b19 	vmov	r0, r1, d9
-  86:	f7ff fffe 	bl	0 <__aeabi_d2iz>
-  8a:	4601      	mov	r1, r0
-  8c:	4628      	mov	r0, r5
-  8e:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
-  92:	ad01      	add	r5, sp, #4
-  94:	4602      	mov	r2, r0
-  96:	460b      	mov	r3, r1
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:261
-        let text = embedded_graphics::fonts::Font12x16::<Rgb565>
-  98:	4621      	mov	r1, r4
-  9a:	4628      	mov	r0, r5
-  9c:	f7ff fffe 	bl	0 <<embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::transform::Transform>::translate>
-  a0:	ac0f      	add	r4, sp, #60	; 0x3c
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:267
-        
-        //  Render text to display
-        unsafe { display::DISPLAY.draw(text); }
-  a2:	4629      	mov	r1, r5
-  a4:	221c      	movs	r2, #28
-  a6:	4620      	mov	r0, r4
-  a8:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-  ac:	4803      	ldr	r0, [pc, #12]	; (bc <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::draw_text+0xbc>)
-  ae:	4621      	mov	r1, r4
-  b0:	f7ff fffe 	bl	0 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw>
-/Users/Luppy/mynewt/piet-embedded/piet-embedded-graphics/src/context.rs:276
-        self.ctx.set_scaled_font(&layout.font);
-        self.set_brush(&brush);
-        self.ctx.move_to(pos.x, pos.y);
-        self.ctx.show_text(&layout.text);
-        */
-    }
-  b4:	b016      	add	sp, #88	; 0x58
-  b6:	ecbd 8b04 	vpop	{d8-d9}
-  ba:	bd70      	pop	{r4, r5, r6, pc}
-  bc:	00000000 	.word	0x00000000
-
-Disassembly of section .text._ZN112_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h3f7d5efa2dceb5b2E:
-
-00000000 <<embedded_graphics::primitives::line::Line<C> as core::iter::traits::collect::IntoIterator>::into_iter>:
-_ZN112_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h3f7d5efa2dceb5b2E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:125
-    C: PixelColor,
-{
-    type Item = Pixel<C>;
-    type IntoIter = LineIterator<C>;
-
-    fn into_iter(self) -> Self::IntoIter {
-   0:	b580      	push	{r7, lr}
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:126
-        (&self).into_iter()
-   2:	f7ff fffe 	bl	0 <<embedded_graphics::primitives::line::Line<C> as core::iter::traits::collect::IntoIterator>::into_iter>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:127
-    }
-   6:	bd80      	pop	{r7, pc}
-
-Disassembly of section .text._ZN115_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$12stroke_width17hc2ea950a8d8b75d8E:
-
-00000000 <<embedded_graphics::primitives::line::Line<C> as embedded_graphics::style::WithStyle<C>>::stroke_width>:
-_ZN115_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$12stroke_width17hc2ea950a8d8b75d8E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:105
-    fn stroke_width(mut self, width: u8) -> Self {
-   0:	b580      	push	{r7, lr}
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:106
-        self.style.stroke_width = width;
-   2:	760a      	strb	r2, [r1, #24]
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:108
-        self
-   4:	221c      	movs	r2, #28
-   6:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:109
-    }
-   a:	bd80      	pop	{r7, pc}
-
-Disassembly of section .text._ZN115_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17hecdb52488ac5ba9eE:
-
-00000000 <<embedded_graphics::primitives::line::Line<C> as embedded_graphics::style::WithStyle<C>>::stroke>:
-_ZN115_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17hecdb52488ac5ba9eE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:99
-    fn stroke(mut self, color: Option<C>) -> Self {
-   0:	b580      	push	{r7, lr}
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:100
-        self.style.stroke_color = color;
-   2:	82cb      	strh	r3, [r1, #22]
-   4:	828a      	strh	r2, [r1, #20]
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:102
-        self
-   6:	221c      	movs	r2, #28
-   8:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:103
-    }
-   c:	bd80      	pop	{r7, pc}
-
-Disassembly of section .text._ZN116_$LT$$RF$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hebc18ce664679dacE:
-
-00000000 <<&embedded_graphics::primitives::line::Line<C> as core::iter::traits::collect::IntoIterator>::into_iter>:
-_ZN116_$LT$$RF$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hebc18ce664679dacE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:134
-
-impl<'a, C: PixelColor> IntoIterator for &'a Line<C> {
-    type Item = Pixel<C>;
-    type IntoIter = LineIterator<C>;
-
-    fn into_iter(self) -> Self::IntoIter {
-   0:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
-   4:	b08b      	sub	sp, #44	; 0x2c
-   6:	460d      	mov	r5, r1
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:135
-        let mut delta = self.end - self.start;
-   8:	e9d1 2300 	ldrd	r2, r3, [r1]
-   c:	46a9      	mov	r9, r5
-   e:	4682      	mov	sl, r0
-  10:	68c9      	ldr	r1, [r1, #12]
-  12:	f859 0f08 	ldr.w	r0, [r9, #8]!
-  16:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::arith::Sub>::sub>
-  1a:	e9cd 0106 	strd	r0, r1, [sp, #24]
-  1e:	a806      	add	r0, sp, #24
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:136
-        if delta[0] < 0 {
-  20:	2100      	movs	r1, #0
-  22:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
-  26:	6800      	ldr	r0, [r0, #0]
-  28:	f1b0 3fff 	cmp.w	r0, #4294967295	; 0xffffffff
-  2c:	dc10      	bgt.n	50 <<&embedded_graphics::primitives::line::Line<C> as core::iter::traits::collect::IntoIterator>::into_iter+0x50>
-  2e:	f10d 0818 	add.w	r8, sp, #24
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:137
-            delta = Coord::new(-delta[0], delta[1]);
-  32:	2100      	movs	r1, #0
-  34:	4640      	mov	r0, r8
-  36:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
-  3a:	6807      	ldr	r7, [r0, #0]
-  3c:	4640      	mov	r0, r8
-  3e:	2101      	movs	r1, #1
-  40:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
-  44:	6801      	ldr	r1, [r0, #0]
-  46:	4278      	negs	r0, r7
-  48:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
-  4c:	e9cd 0106 	strd	r0, r1, [sp, #24]
-  50:	a806      	add	r0, sp, #24
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:139
-        }
-        if delta[1] > 0 {
-  52:	2101      	movs	r1, #1
-  54:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
-  58:	6800      	ldr	r0, [r0, #0]
-  5a:	2801      	cmp	r0, #1
-  5c:	db11      	blt.n	82 <<&embedded_graphics::primitives::line::Line<C> as core::iter::traits::collect::IntoIterator>::into_iter+0x82>
-  5e:	f10d 0818 	add.w	r8, sp, #24
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:140
-            delta = Coord::new(delta[0], -delta[1]);
-  62:	2100      	movs	r1, #0
-  64:	4640      	mov	r0, r8
-  66:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
-  6a:	6807      	ldr	r7, [r0, #0]
-  6c:	4640      	mov	r0, r8
-  6e:	2101      	movs	r1, #1
-  70:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
-  74:	6800      	ldr	r0, [r0, #0]
-  76:	4241      	negs	r1, r0
-  78:	4638      	mov	r0, r7
-  7a:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
-  7e:	e9cd 0106 	strd	r0, r1, [sp, #24]
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:143
-        }
-
-        let direction = match (self.start[0] >= self.end[0], self.start[1] >= self.end[1]) {
-  82:	4e39      	ldr	r6, [pc, #228]	; (168 <<&embedded_graphics::primitives::line::Line<C> as core::iter::traits::collect::IntoIterator>::into_iter+0x168>)
-  84:	4628      	mov	r0, r5
-  86:	2100      	movs	r1, #0
-  88:	47b0      	blx	r6
-  8a:	f8d0 8000 	ldr.w	r8, [r0]
-  8e:	4648      	mov	r0, r9
-  90:	2100      	movs	r1, #0
-  92:	47b0      	blx	r6
-  94:	6804      	ldr	r4, [r0, #0]
-  96:	4628      	mov	r0, r5
-  98:	2101      	movs	r1, #1
-  9a:	47b0      	blx	r6
-  9c:	6807      	ldr	r7, [r0, #0]
-  9e:	4648      	mov	r0, r9
-  a0:	2101      	movs	r1, #1
-  a2:	47b0      	blx	r6
-  a4:	6800      	ldr	r0, [r0, #0]
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:144
-            (false, false) => Coord::new(1, 1),
-  a6:	45a0      	cmp	r8, r4
-  a8:	da03      	bge.n	b2 <<&embedded_graphics::primitives::line::Line<C> as core::iter::traits::collect::IntoIterator>::into_iter+0xb2>
-  aa:	4287      	cmp	r7, r0
-  ac:	db08      	blt.n	c0 <<&embedded_graphics::primitives::line::Line<C> as core::iter::traits::collect::IntoIterator>::into_iter+0xc0>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:145
-            (false, true) => Coord::new(1, -1),
-  ae:	2001      	movs	r0, #1
-  b0:	e003      	b.n	ba <<&embedded_graphics::primitives::line::Line<C> as core::iter::traits::collect::IntoIterator>::into_iter+0xba>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:146
-            (true, false) => Coord::new(-1, 1),
-  b2:	4287      	cmp	r7, r0
-  b4:	db06      	blt.n	c4 <<&embedded_graphics::primitives::line::Line<C> as core::iter::traits::collect::IntoIterator>::into_iter+0xc4>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:147
-            (true, true) => Coord::new(-1, -1),
-  b6:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
-  ba:	f04f 31ff 	mov.w	r1, #4294967295	; 0xffffffff
-  be:	e004      	b.n	ca <<&embedded_graphics::primitives::line::Line<C> as core::iter::traits::collect::IntoIterator>::into_iter+0xca>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:144
-            (false, false) => Coord::new(1, 1),
-  c0:	2001      	movs	r0, #1
-  c2:	e001      	b.n	c8 <<&embedded_graphics::primitives::line::Line<C> as core::iter::traits::collect::IntoIterator>::into_iter+0xc8>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:146
-            (true, false) => Coord::new(-1, 1),
-  c4:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
-  c8:	2101      	movs	r1, #1
-  ca:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
-  ce:	e9cd 1004 	strd	r1, r0, [sp, #16]
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:151
-        };
-
-        LineIterator {
-            style: self.style,
-  d2:	f105 0010 	add.w	r0, r5, #16
-  d6:	af08      	add	r7, sp, #32
-  d8:	ae06      	add	r6, sp, #24
-  da:	c80c      	ldmia	r0!, {r2, r3}
-  dc:	f04f 0800 	mov.w	r8, #0
-  e0:	4639      	mov	r1, r7
-  e2:	c10c      	stmia	r1!, {r2, r3}
-  e4:	8800      	ldrh	r0, [r0, #0]
-  e6:	8008      	strh	r0, [r1, #0]
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:157
-
-            start: self.start,
-            end: self.end,
-            delta,
-            direction,
-            err: delta[0] + delta[1],
-  e8:	2100      	movs	r1, #0
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:153
-            start: self.start,
-  ea:	6828      	ldr	r0, [r5, #0]
-  ec:	9003      	str	r0, [sp, #12]
-  ee:	e9d5 b001 	ldrd	fp, r0, [r5, #4]
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:154
-            end: self.end,
-  f2:	f8d5 900c 	ldr.w	r9, [r5, #12]
-  f6:	9002      	str	r0, [sp, #8]
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:155
-            delta,
-  f8:	9806      	ldr	r0, [sp, #24]
-  fa:	9001      	str	r0, [sp, #4]
-  fc:	9807      	ldr	r0, [sp, #28]
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:157
-            err: delta[0] + delta[1],
-  fe:	9000      	str	r0, [sp, #0]
- 100:	4630      	mov	r0, r6
- 102:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
- 106:	6804      	ldr	r4, [r0, #0]
- 108:	4630      	mov	r0, r6
- 10a:	2101      	movs	r1, #1
- 10c:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
- 110:	6800      	ldr	r0, [r0, #0]
-_ZN88_$LT$embedded_graphics..coord..internal_coord..Coord$u20$as$u20$core..cmp..PartialEq$GT$2eq17h94266980049b7603E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/coord.rs:39
-    ///
-    /// [`UnsignedCoord`]: ../unsignedcoord/struct.UnsignedCoord.html
-    /// [`Rect`]: ../primitives/rectangle/struct.Rectangle.html
-    /// [`Vector2<i32>`]: https://docs.rs/nalgebra/0.18.0/nalgebra/base/type.Vector2.html
-    #[derive(Debug, Copy, Clone, Eq, PartialEq)]
-    pub struct Coord(pub CoordPart, pub CoordPart);
- 112:	6829      	ldr	r1, [r5, #0]
- 114:	68aa      	ldr	r2, [r5, #8]
-_ZN116_$LT$$RF$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hebc18ce664679dacE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:157
- 116:	4420      	add	r0, r4
-_ZN88_$LT$embedded_graphics..coord..internal_coord..Coord$u20$as$u20$core..cmp..PartialEq$GT$2eq17h94266980049b7603E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/coord.rs:39
- 118:	4291      	cmp	r1, r2
- 11a:	d106      	bne.n	12a <<&embedded_graphics::primitives::line::Line<C> as core::iter::traits::collect::IntoIterator>::into_iter+0x12a>
- 11c:	6869      	ldr	r1, [r5, #4]
- 11e:	68ea      	ldr	r2, [r5, #12]
- 120:	1a89      	subs	r1, r1, r2
- 122:	fab1 f181 	clz	r1, r1
- 126:	ea4f 1851 	mov.w	r8, r1, lsr #5
-_ZN116_$LT$$RF$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17hebc18ce664679dacE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:150
-        LineIterator {
- 12a:	cf0c      	ldmia	r7!, {r2, r3}
- 12c:	f10a 0124 	add.w	r1, sl, #36	; 0x24
- 130:	c10c      	stmia	r1!, {r2, r3}
- 132:	883a      	ldrh	r2, [r7, #0]
- 134:	800a      	strh	r2, [r1, #0]
- 136:	f88a 802e 	strb.w	r8, [sl, #46]	; 0x2e
- 13a:	f8ca 0020 	str.w	r0, [sl, #32]
- 13e:	9803      	ldr	r0, [sp, #12]
- 140:	e9ca 0b00 	strd	r0, fp, [sl]
- 144:	9802      	ldr	r0, [sp, #8]
- 146:	e9ca 0902 	strd	r0, r9, [sl, #8]
- 14a:	9801      	ldr	r0, [sp, #4]
- 14c:	f8ca 0010 	str.w	r0, [sl, #16]
- 150:	9800      	ldr	r0, [sp, #0]
- 152:	f8ca 0014 	str.w	r0, [sl, #20]
- 156:	9805      	ldr	r0, [sp, #20]
- 158:	f8ca 0018 	str.w	r0, [sl, #24]
- 15c:	9804      	ldr	r0, [sp, #16]
- 15e:	f8ca 001c 	str.w	r0, [sl, #28]
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:160
-            stop: self.start == self.end, // if line length is zero, draw nothing
-        }
-    }
- 162:	b00b      	add	sp, #44	; 0x2c
- 164:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
- 168:	00000000 	.word	0x00000000
-
-Disassembly of section .text._ZN117_$LT$embedded_graphics..primitives..line..LineIterator$LT$C$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17hc571cb1699da7f7eE:
-
-00000000 <<embedded_graphics::primitives::line::LineIterator<C> as core::iter::traits::iterator::Iterator>::next>:
-_ZN117_$LT$embedded_graphics..primitives..line..LineIterator$LT$C$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17hc571cb1699da7f7eE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:184
-
-// [Bresenham's line algorithm](https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm)
-impl<C: PixelColor> Iterator for LineIterator<C> {
-    type Item = Pixel<C>;
-
-    fn next(&mut self) -> Option<Self::Item> {
-   0:	e92d 4ffe 	stmdb	sp!, {r1, r2, r3, r4, r5, r6, r7, r8, r9, sl, fp, lr}
-   4:	4680      	mov	r8, r0
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:186
-        // return none if stroke color is none
-        self.style.stroke_color?;
-   6:	8d08      	ldrh	r0, [r1, #40]	; 0x28
-   8:	2801      	cmp	r0, #1
-   a:	d174      	bne.n	f6 <<embedded_graphics::primitives::line::LineIterator<C> as core::iter::traits::iterator::Iterator>::next+0xf6>
-   c:	f101 0b18 	add.w	fp, r1, #24
-  10:	f101 0710 	add.w	r7, r1, #16
-  14:	f10d 0a04 	add.w	sl, sp, #4
-  18:	460d      	mov	r5, r1
-  1a:	f04f 0901 	mov.w	r9, #1
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:188
-
-        while !self.stop {
-  1e:	f895 002e 	ldrb.w	r0, [r5, #46]	; 0x2e
-  22:	2800      	cmp	r0, #0
-  24:	d169      	bne.n	fa <<embedded_graphics::primitives::line::LineIterator<C> as core::iter::traits::iterator::Iterator>::next+0xfa>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:189
-            let p_coord = self.start;
-  26:	e9d5 1000 	ldrd	r1, r0, [r5]
-_ZN88_$LT$embedded_graphics..coord..internal_coord..Coord$u20$as$u20$core..cmp..PartialEq$GT$2eq17h94266980049b7603E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/coord.rs:39
-  2a:	68aa      	ldr	r2, [r5, #8]
-_ZN117_$LT$embedded_graphics..primitives..line..LineIterator$LT$C$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17hc571cb1699da7f7eE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:189
-  2c:	e9cd 1001 	strd	r1, r0, [sp, #4]
-_ZN88_$LT$embedded_graphics..coord..internal_coord..Coord$u20$as$u20$core..cmp..PartialEq$GT$2eq17h94266980049b7603E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/coord.rs:39
-  30:	4291      	cmp	r1, r2
-  32:	bf02      	ittt	eq
-  34:	68e9      	ldreq	r1, [r5, #12]
-  36:	4288      	cmpeq	r0, r1
-_ZN117_$LT$embedded_graphics..primitives..line..LineIterator$LT$C$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17hc571cb1699da7f7eE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:192
-
-            if self.start == self.end {
-                self.stop = true;
-  38:	f885 902e 	strbeq.w	r9, [r5, #46]	; 0x2e
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:195
-            }
-            let err_double = 2 * self.err;
-            if err_double > self.delta[1] {
-  3c:	4638      	mov	r0, r7
-  3e:	2101      	movs	r1, #1
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:194
-            let err_double = 2 * self.err;
-  40:	6a2e      	ldr	r6, [r5, #32]
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:195
-            if err_double > self.delta[1] {
-  42:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
-  46:	6800      	ldr	r0, [r0, #0]
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:194
-            let err_double = 2 * self.err;
-  48:	0074      	lsls	r4, r6, #1
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:195
-            if err_double > self.delta[1] {
-  4a:	ebb0 0f46 	cmp.w	r0, r6, lsl #1
-  4e:	da16      	bge.n	7e <<embedded_graphics::primitives::line::LineIterator<C> as core::iter::traits::iterator::Iterator>::next+0x7e>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:196
-                self.err += self.delta[1];
-  50:	4638      	mov	r0, r7
-  52:	2101      	movs	r1, #1
-  54:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
-  58:	6800      	ldr	r0, [r0, #0]
-  5a:	6a29      	ldr	r1, [r5, #32]
-  5c:	4408      	add	r0, r1
-  5e:	6228      	str	r0, [r5, #32]
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:197
-                self.start += Coord::new(self.direction[0], 0);
-  60:	4658      	mov	r0, fp
-  62:	2100      	movs	r1, #0
-  64:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
-  68:	6800      	ldr	r0, [r0, #0]
-  6a:	2100      	movs	r1, #0
-  6c:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
-  70:	4602      	mov	r2, r0
-  72:	460b      	mov	r3, r1
-  74:	4611      	mov	r1, r2
-  76:	4628      	mov	r0, r5
-  78:	461a      	mov	r2, r3
-  7a:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::arith::AddAssign>::add_assign>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:199
-            }
-            if err_double < self.delta[0] {
-  7e:	4638      	mov	r0, r7
-  80:	2100      	movs	r1, #0
-  82:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
-  86:	6800      	ldr	r0, [r0, #0]
-  88:	4284      	cmp	r4, r0
-  8a:	da16      	bge.n	ba <<embedded_graphics::primitives::line::LineIterator<C> as core::iter::traits::iterator::Iterator>::next+0xba>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:200
-                self.err += self.delta[0];
-  8c:	4638      	mov	r0, r7
-  8e:	2100      	movs	r1, #0
-  90:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
-  94:	6800      	ldr	r0, [r0, #0]
-  96:	6a29      	ldr	r1, [r5, #32]
-  98:	4408      	add	r0, r1
-  9a:	6228      	str	r0, [r5, #32]
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:201
-                self.start += Coord::new(0, self.direction[1]);
-  9c:	4658      	mov	r0, fp
-  9e:	2101      	movs	r1, #1
-  a0:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
-  a4:	6801      	ldr	r1, [r0, #0]
-  a6:	2000      	movs	r0, #0
-  a8:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
-  ac:	4602      	mov	r2, r0
-  ae:	460b      	mov	r3, r1
-  b0:	4611      	mov	r1, r2
-  b2:	4628      	mov	r0, r5
-  b4:	461a      	mov	r2, r3
-  b6:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::arith::AddAssign>::add_assign>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:203
-            }
-            if p_coord[0] >= 0 && p_coord[1] >= 0 {
-  ba:	4650      	mov	r0, sl
-  bc:	2100      	movs	r1, #0
-  be:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
-  c2:	6800      	ldr	r0, [r0, #0]
-  c4:	2800      	cmp	r0, #0
-  c6:	dbaa      	blt.n	1e <<embedded_graphics::primitives::line::LineIterator<C> as core::iter::traits::iterator::Iterator>::next+0x1e>
-  c8:	4650      	mov	r0, sl
-  ca:	2101      	movs	r1, #1
-  cc:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as core::ops::index::Index<usize>>::index>
-  d0:	6800      	ldr	r0, [r0, #0]
-  d2:	2800      	cmp	r0, #0
-  d4:	dba3      	blt.n	1e <<embedded_graphics::primitives::line::LineIterator<C> as core::iter::traits::iterator::Iterator>::next+0x1e>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:205
-                return Some(Pixel(
-                    p_coord.to_unsigned(),
-  d6:	e9dd 0101 	ldrd	r0, r1, [sp, #4]
-  da:	f7ff fffe 	bl	0 <<embedded_graphics::coord::internal_coord::Coord as embedded_graphics::coord::ToUnsigned>::to_unsigned>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:206
-                    self.style.stroke_color.unwrap(),
-  de:	8d2a      	ldrh	r2, [r5, #40]	; 0x28
-  e0:	b182      	cbz	r2, 104 <<embedded_graphics::primitives::line::LineIterator<C> as core::iter::traits::iterator::Iterator>::next+0x104>
-  e2:	8d6a      	ldrh	r2, [r5, #42]	; 0x2a
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:204
-                return Some(Pixel(
-  e4:	f8a8 200c 	strh.w	r2, [r8, #12]
-  e8:	2201      	movs	r2, #1
-  ea:	e9c8 2000 	strd	r2, r0, [r8]
-  ee:	f8c8 1008 	str.w	r1, [r8, #8]
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:211
-                ));
-            }
-        }
-        None
-    }
-  f2:	e8bd 8ffe 	ldmia.w	sp!, {r1, r2, r3, r4, r5, r6, r7, r8, r9, sl, fp, pc}
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:186
-        self.style.stroke_color?;
-  f6:	f7ff fffe 	bl	0 <<T as core::convert::From<T>>::from>
-  fa:	2000      	movs	r0, #0
-  fc:	f8c8 0000 	str.w	r0, [r8]
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:211
-    }
- 100:	e8bd 8ffe 	ldmia.w	sp!, {r1, r2, r3, r4, r5, r6, r7, r8, r9, sl, fp, pc}
-_ZN4core6option15Option$LT$T$GT$6unwrap17h167246c5d573b1b0E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:12
- 104:	4801      	ldr	r0, [pc, #4]	; (8 <core::panicking::panic+0x8>)
- 106:	f7ff fffe 	bl	0 <core::panicking::panic>
- 10a:	defe      	udf	#254	; 0xfe
-_ZN117_$LT$embedded_graphics..primitives..line..LineIterator$LT$C$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17hc571cb1699da7f7eE():
- 10c:	00000000 	.word	0x00000000
-
-Disassembly of section .text._ZN11druid_shell6window28WindowHandle$LT$THandler$GT$4show17h30b740c0d5fb30ddE:
+Disassembly of section .text._ZN11druid_shell6window28WindowHandle$LT$THandler$GT$4show17h134ed8ca931cf0c9E:
 
 00000000 <druid_shell::window::WindowHandle<THandler>::show>:
-_ZN11druid_shell6window28WindowHandle$LT$THandler$GT$4show17h30b740c0d5fb30ddE():
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:89
+_ZN11druid_shell6window28WindowHandle$LT$THandler$GT$4show17h134ed8ca931cf0c9E():
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:88
     /// Make this window visible.
     ///
     /// This is part of the initialization process; it should only be called
@@ -3500,234 +1749,188 @@ _ZN11druid_shell6window28WindowHandle$LT$THandler$GT$4show17h30b740c0d5fb30ddE()
         self.0.show()
    0:	f7ff bffe 	b.w	0 <druid_shell::window::WindowHandle<THandler>::show>
 
-Disassembly of section .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$11set_handler17h219a5ec1877db8b4E:
+Disassembly of section .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$11set_handler17h9b79e6e842b1ac4cE:
 
 00000000 <druid_shell::window::WindowBuilder<THandler>::set_handler>:
-_ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$11set_handler17h219a5ec1877db8b4E():
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:159
-
-    /// Set the [`WinHandler`]. This is the object that will receive
+_ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$11set_handler17h9b79e6e842b1ac4cE():
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:162
     /// callbacks from this window.
     ///
     /// [`WinHandler`]: trait.WinHandler.html
     pub fn set_handler(&mut self, handler: THandler) { ////
-   0:	2201      	movs	r2, #1
-_ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$11set_handler17h4c8b4e1f9c2cbf76E():
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:153
-        }
-    }
-
-    pub fn set_handler(&mut self, handler: THandler) { ////
-    ////pub fn set_handler(&mut self, handler: Box<dyn WinHandler>) {
-        self.handler = Some(handler);
-   2:	e9c0 2104 	strd	r2, r1, [r0, #16]
-_ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$11set_handler17h219a5ec1877db8b4E():
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:162
     ////pub fn set_handler(&mut self, handler: Box<dyn WinHandler>) {
         self.0.set_handler(handler)
-    }
-   6:	4770      	bx	lr
+   0:	f7ff bffe 	b.w	0 <druid_shell::window::WindowBuilder<THandler>::set_handler>
 
-Disassembly of section .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$3new17hb7821e313474b62eE:
+Disassembly of section .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$3new17h9318f9ddc7dd47f7E:
 
 00000000 <druid_shell::window::WindowBuilder<THandler>::new>:
-_ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$3new17hb7821e313474b62eE():
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:150
+_ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$3new17h9318f9ddc7dd47f7E():
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:148
     pub fn new() -> Self { ////
-   0:	4903      	ldr	r1, [pc, #12]	; (10 <druid_shell::window::WindowBuilder<THandler>::new+0x10>)
+   0:	4904      	ldr	r1, [pc, #16]	; (14 <druid_shell::window::WindowBuilder<THandler>::new+0x14>)
    2:	2200      	movs	r2, #0
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:152
-        WindowBuilder(platform::WindowBuilder::new())
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:150
+        WindowBuilder(
    4:	e9c0 2100 	strd	r2, r1, [r0]
    8:	e9c0 2102 	strd	r2, r1, [r0, #8]
-   c:	6102      	str	r2, [r0, #16]
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:153
+   c:	e9c0 2204 	strd	r2, r2, [r0, #16]
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:154
     }
-   e:	4770      	bx	lr
-  10:	406e0000 	.word	0x406e0000
+  10:	4770      	bx	lr
+  12:	bf00      	nop
+  14:	406e0000 	.word	0x406e0000
 
-Disassembly of section .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$5build17h2b657cfb00029c58E:
+Disassembly of section .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$5build17h0f064f81c542df56E:
 
 00000000 <druid_shell::window::WindowBuilder<THandler>::build>:
-_ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$5build17h2b657cfb00029c58E():
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:184
-    */ ////
-
+_ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$5build17h0f064f81c542df56E():
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:187
     /// Attempt to construct the platform window.
     ///
     /// If this fails, your application should exit.
     pub fn build(self) -> Result<WindowHandle<THandler>, Error> { ////
-   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
-   4:	b08a      	sub	sp, #40	; 0x28
-   6:	f10d 0c10 	add.w	ip, sp, #16
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:186
     ////pub fn build(self) -> Result<WindowHandle, Error> {
         self.0.build().map(WindowHandle).map_err(Into::into)
-   a:	e891 00fc 	ldmia.w	r1, {r2, r3, r4, r5, r6, r7}
-   e:	4680      	mov	r8, r0
-  10:	4660      	mov	r0, ip
-  12:	4661      	mov	r1, ip
-  14:	c0fc      	stmia	r0!, {r2, r3, r4, r5, r6, r7}
-  16:	a801      	add	r0, sp, #4
-  18:	f7ff fffe 	bl	0 <druid_shell::window::WindowBuilder<THandler>::build>
-_ZN4core6result19Result$LT$T$C$E$GT$3map17hb87f44c1780ef4c7E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:460
-  1c:	e9dd 1001 	ldrd	r1, r0, [sp, #4]
-  20:	2901      	cmp	r1, #1
-  22:	d104      	bne.n	2e <druid_shell::window::WindowBuilder<THandler>::build+0x2e>
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:461
-  24:	9903      	ldr	r1, [sp, #12]
-_ZN4core6result19Result$LT$T$C$E$GT$7map_err17hbb281673cd7efd07E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:522
-  26:	f8c8 1008 	str.w	r1, [r8, #8]
-  2a:	2101      	movs	r1, #1
-  2c:	e000      	b.n	30 <druid_shell::window::WindowBuilder<THandler>::build+0x30>
-  2e:	2100      	movs	r1, #0
-  30:	e9c8 1000 	strd	r1, r0, [r8]
-_ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$5build17h2b657cfb00029c58E():
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:187
+   0:	e9d1 1204 	ldrd	r1, r2, [r1, #16]
+   4:	2300      	movs	r3, #0
+_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h2a4569c23ae840d9E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:521
+   6:	e9c0 3100 	strd	r3, r1, [r0]
+   a:	e9c0 1202 	strd	r1, r2, [r0, #8]
+_ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$5build17h0f064f81c542df56E():
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:188
     }
-  34:	b00a      	add	sp, #40	; 0x28
-  36:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+   e:	4770      	bx	lr
 
-Disassembly of section .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$8set_size17hf9dcda0ec1e8a4a4E:
+Disassembly of section .text._ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$8set_size17h3c29ce68c1763b41E:
 
 00000000 <druid_shell::window::WindowBuilder<THandler>::set_size>:
-_ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$8set_size17h354af77636d8b139E():
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:157
+_ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$8set_size17h3274caad77b0c5daE():
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:168
+        self.handler = handler; ////
+        ////self.handler = Some(handler);
     }
 
     pub fn set_size(&mut self, size: Size) {
         self.size = size;
    0:	eca0 0b04 	vstmia	r0!, {d0-d1}
-_ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$8set_size17hf9dcda0ec1e8a4a4E():
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:167
+_ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$8set_size17h3c29ce68c1763b41E():
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:168
     }
    4:	4770      	bx	lr
 
-Disassembly of section .text._ZN11druid_shell8platform8embedded6window28WindowHandle$LT$THandler$GT$4show17h43b5e51b93253014E:
+Disassembly of section .text._ZN11druid_shell8platform8embedded6window28WindowHandle$LT$THandler$GT$4show17h3260cc05ad062ed6E:
 
 00000000 <druid_shell::platform::embedded::window::WindowHandle<THandler>::show>:
-_ZN11druid_shell8platform8embedded6window28WindowHandle$LT$THandler$GT$4show17h43b5e51b93253014E():
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:355
+_ZN11druid_shell8platform8embedded6window28WindowHandle$LT$THandler$GT$4show17h3260cc05ad062ed6E():
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:361
     }
 }
 
-impl<THandler: WinHandler + Clone> WindowHandle<THandler> { ////
+impl<THandler: WinHandler<THandler> + Clone + Default> WindowHandle<THandler> {  ////  THandler is DruidHandler<T: Data + 'static>
 ////impl WindowHandle {
     pub fn show(&self) {
    0:	b51c      	push	{r2, r3, r4, lr}
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:357
-        let handler = &mut self.state.clone().handler;
-        unsafe { handler.paint(&mut PIET_CONTEXT, &mut DRUID_CONTEXT); }
-   2:	4c09      	ldr	r4, [pc, #36]	; (28 <druid_shell::platform::embedded::window::WindowHandle<THandler>::show+0x28>)
-_ZN62_$LT$druid..window..WindowId$u20$as$u20$core..clone..Clone$GT$5clone17hfcff8550c3f6a613E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:30
-    PaintCtx, UpdateCtx, Widget, WidgetPod,
-    widget::WidgetBox, WindowBox, WindowType, ////
-};
-
-/// A unique identifier for a window.
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash, PartialOrd, Ord)] ////
-   4:	6800      	ldr	r0, [r0, #0]
-_ZN11druid_shell8platform8embedded6window28WindowHandle$LT$THandler$GT$4show17h43b5e51b93253014E():
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:357
-   6:	4a09      	ldr	r2, [pc, #36]	; (2c <druid_shell::platform::embedded::window::WindowHandle<THandler>::show+0x2c>)
-   8:	4b09      	ldr	r3, [pc, #36]	; (30 <druid_shell::platform::embedded::window::WindowHandle<THandler>::show+0x30>)
-   a:	4621      	mov	r1, r4
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:356
-        let handler = &mut self.state.clone().handler;
-   c:	9001      	str	r0, [sp, #4]
-   e:	a801      	add	r0, sp, #4
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:357
-        unsafe { handler.paint(&mut PIET_CONTEXT, &mut DRUID_CONTEXT); }
-  10:	f7ff fffe 	bl	0 <druid_shell::platform::embedded::window::WindowHandle<THandler>::show>
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:358
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:362
+        unsafe { self.state.handler.clone().paint(&mut PIET_CONTEXT, &mut DRUID_CONTEXT); }
+   2:	3008      	adds	r0, #8
+   4:	f7ff fffe 	bl	0 <druid_shell::platform::embedded::window::WindowHandle<THandler>::show>
+   8:	4c08      	ldr	r4, [pc, #32]	; (2c <druid_shell::platform::embedded::window::WindowHandle<THandler>::show+0x2c>)
+   a:	4a09      	ldr	r2, [pc, #36]	; (30 <druid_shell::platform::embedded::window::WindowHandle<THandler>::show+0x30>)
+   c:	4b09      	ldr	r3, [pc, #36]	; (34 <druid_shell::platform::embedded::window::WindowHandle<THandler>::show+0x34>)
+   e:	9001      	str	r0, [sp, #4]
+  10:	a801      	add	r0, sp, #4
+  12:	4621      	mov	r1, r4
+  14:	f7ff fffe 	bl	0 <druid_shell::platform::embedded::window::WindowHandle<THandler>::show>
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:363
         if let Err(_) = unsafe { PIET_CONTEXT.finish() } {
-  14:	4620      	mov	r0, r4
-  16:	f7ff fffe 	bl	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::finish>
-  1a:	b900      	cbnz	r0, 1e <druid_shell::platform::embedded::window::WindowHandle<THandler>::show+0x1e>
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:361
+  18:	4620      	mov	r0, r4
+  1a:	f7ff fffe 	bl	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::finish>
+  1e:	b900      	cbnz	r0, 22 <druid_shell::platform::embedded::window::WindowHandle<THandler>::show+0x22>
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:366
             panic!("piet error on render");
         }
     }
-  1c:	bd1c      	pop	{r2, r3, r4, pc}
+  20:	bd1c      	pop	{r2, r3, r4, pc}
 /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/<::core::macros::panic macros>:3
-  1e:	4805      	ldr	r0, [pc, #20]	; (34 <druid_shell::platform::embedded::window::WindowHandle<THandler>::show+0x34>)
-  20:	f7ff fffe 	bl	0 <core::panicking::panic>
-  24:	defe      	udf	#254	; 0xfe
-  26:	bf00      	nop
+  22:	4805      	ldr	r0, [pc, #20]	; (38 <druid_shell::platform::embedded::window::WindowHandle<THandler>::show+0x38>)
+  24:	f7ff fffe 	bl	0 <core::panicking::panic>
+  28:	defe      	udf	#254	; 0xfe
+  2a:	bf00      	nop
 	...
 
-Disassembly of section .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$11set_handler17h4c8b4e1f9c2cbf76E:
+Disassembly of section .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$11set_handler17h48ce44174a3e4a39E:
 
 00000000 <druid_shell::platform::embedded::window::WindowBuilder<THandler>::set_handler>:
-_ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$11set_handler17h4c8b4e1f9c2cbf76E():
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:151
+_ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$11set_handler17h48ce44174a3e4a39E():
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:158
     pub fn set_handler(&mut self, handler: THandler) { ////
-   0:	2201      	movs	r2, #1
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:153
-        self.handler = Some(handler);
-   2:	e9c0 2104 	strd	r2, r1, [r0, #16]
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:154
+   0:	b5bc      	push	{r2, r3, r4, r5, r7, lr}
+   2:	9101      	str	r1, [sp, #4]
+   4:	4605      	mov	r5, r0
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:161
+        self.window_id = window_id; ////
+   6:	6101      	str	r1, [r0, #16]
+   8:	a801      	add	r0, sp, #4
+   a:	460c      	mov	r4, r1
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:162
+        handler.add_handler(window_id, handler.clone()); ////
+   c:	f7ff fffe 	bl	0 <druid_shell::platform::embedded::window::WindowBuilder<THandler>::set_handler>
+  10:	4621      	mov	r1, r4
+  12:	4602      	mov	r2, r0
+  14:	f7ff fffe 	bl	0 <druid_shell::platform::embedded::window::WindowBuilder<THandler>::set_handler>
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:163
+        self.handler = handler; ////
+  18:	9801      	ldr	r0, [sp, #4]
+  1a:	6168      	str	r0, [r5, #20]
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:165
     }
-   6:	4770      	bx	lr
+  1c:	bdbc      	pop	{r2, r3, r4, r5, r7, pc}
 
-Disassembly of section .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$3new17h4b08c18c402884a5E:
+Disassembly of section .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$3new17h9d10bc3a9bb2a124E:
 
 00000000 <druid_shell::platform::embedded::window::WindowBuilder<THandler>::new>:
-_ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$3new17h4b08c18c402884a5E():
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:137
+_ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$3new17h9d10bc3a9bb2a124E():
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:141
     pub fn new() -> Self { ////
-   0:	4903      	ldr	r1, [pc, #12]	; (10 <druid_shell::platform::embedded::window::WindowBuilder<THandler>::new+0x10>)
+   0:	4904      	ldr	r1, [pc, #16]	; (14 <druid_shell::platform::embedded::window::WindowBuilder<THandler>::new+0x14>)
    2:	2200      	movs	r2, #0
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:139
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:143
         WindowBuilder  {
    4:	e9c0 2100 	strd	r2, r1, [r0]
    8:	e9c0 2102 	strd	r2, r1, [r0, #8]
-   c:	6102      	str	r2, [r0, #16]
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:149
+   c:	e9c0 2204 	strd	r2, r2, [r0, #16]
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:156
     }
-   e:	4770      	bx	lr
-  10:	406e0000 	.word	0x406e0000
+  10:	4770      	bx	lr
+  12:	bf00      	nop
+  14:	406e0000 	.word	0x406e0000
 
-Disassembly of section .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17h2f69b26f1a11b3b5E:
+Disassembly of section .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17h8b297c3bf6260738E:
 
 00000000 <druid_shell::platform::embedded::window::WindowBuilder<THandler>::build>:
-_ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17h2f69b26f1a11b3b5E():
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:162
-        let handler = self
-   0:	690a      	ldr	r2, [r1, #16]
-_ZN4core6option15Option$LT$T$GT$6expect17hc47b92edfb5e318fE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:313
-   2:	b122      	cbz	r2, e <druid_shell::platform::embedded::window::WindowBuilder<THandler>::build+0xe>
-_ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17h2f69b26f1a11b3b5E():
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:162
-   4:	6949      	ldr	r1, [r1, #20]
-   6:	2200      	movs	r2, #0
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:349
+_ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17h8b297c3bf6260738E():
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:173
+        let window_id = self.window_id; ////
+   0:	e9d1 1204 	ldrd	r1, r2, [r1, #16]
+   4:	2300      	movs	r3, #0
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:184
         Ok(handle)
-   8:	e9c0 2100 	strd	r2, r1, [r0]
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:350
+   6:	e9c0 3100 	strd	r3, r1, [r0]
+   a:	e9c0 1202 	strd	r1, r2, [r0, #8]
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:356
     }
-   c:	4770      	bx	lr
-_ZN4core6option15Option$LT$T$GT$6expect17hc47b92edfb5e318fE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:314
-   e:	4802      	ldr	r0, [pc, #8]	; (18 <druid_shell::platform::embedded::window::WindowBuilder<THandler>::build+0x18>)
-  10:	2133      	movs	r1, #51	; 0x33
-  12:	f7ff fffe 	bl	0 <core::option::expect_failed>
-  16:	defe      	udf	#254	; 0xfe
-_ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17h2f69b26f1a11b3b5E():
-  18:	00000000 	.word	0x00000000
+   e:	4770      	bx	lr
 
-Disassembly of section .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$8set_size17h354af77636d8b139E:
+Disassembly of section .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$8set_size17h3274caad77b0c5daE:
 
 00000000 <druid_shell::platform::embedded::window::WindowBuilder<THandler>::set_size>:
-_ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$8set_size17h354af77636d8b139E():
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:157
+_ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$8set_size17h3274caad77b0c5daE():
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:168
         self.size = size;
    0:	eca0 0b04 	vstmia	r0!, {d0-d1}
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:158
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:169
     }
    4:	4770      	bx	lr
 
@@ -3755,101 +1958,57 @@ impl<T> From<LocalizedString<T>> for LabelText<T> {
     }
   10:	bd10      	pop	{r4, pc}
 
-Disassembly of section .text._ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h4b600d67757774b7E:
+Disassembly of section .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$11add_handler17h368dd22c9271fbb8E:
 
-00000000 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw>:
-_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h4b600d67757774b7E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:209
-where
-    SPI: spi::Write<u8>,
-    DC: OutputPin,
-    RST: OutputPin,
-{
-    fn draw<T>(&mut self, item_pixels: T)
-   0:	b570      	push	{r4, r5, r6, lr}
-   2:	b09c      	sub	sp, #112	; 0x70
-   4:	ad0c      	add	r5, sp, #48	; 0x30
-   6:	4604      	mov	r4, r0
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
-    where
-        T: IntoIterator<Item = Pixel<Rgb565>>,
-    {
-        for Pixel(coord, color) in item_pixels {
-   8:	221c      	movs	r2, #28
-   a:	4628      	mov	r0, r5
-   c:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-  10:	466e      	mov	r6, sp
-_ZN112_$LT$embedded_graphics..primitives..line..Line$LT$C$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h3f7d5efa2dceb5b2E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:126
-        (&self).into_iter()
-  12:	4629      	mov	r1, r5
-  14:	4630      	mov	r0, r6
-  16:	f7ff fffe 	bl	0 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw>
-  1a:	a80c      	add	r0, sp, #48	; 0x30
-_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h4b600d67757774b7E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:213
-  1c:	4631      	mov	r1, r6
-  1e:	2230      	movs	r2, #48	; 0x30
-  20:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-  24:	ae18      	add	r6, sp, #96	; 0x60
-  26:	4630      	mov	r0, r6
-  28:	4629      	mov	r1, r5
-  2a:	f7ff fffe 	bl	0 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw>
-  2e:	9818      	ldr	r0, [sp, #96]	; 0x60
-  30:	2801      	cmp	r0, #1
-  32:	d10d      	bne.n	50 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0x50>
-  34:	e9dd 1219 	ldrd	r1, r2, [sp, #100]	; 0x64
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:214
-            self.set_pixel(coord.0 as u16, coord.1 as u16, color.0).expect("pixel write failed");
-  38:	4620      	mov	r0, r4
-  3a:	f8bd 306c 	ldrh.w	r3, [sp, #108]	; 0x6c
-  3e:	f7ff fffe 	bl	0 <st7735_lcd::ST7735<SPI,DC,RST>::set_pixel>
-_ZN4core6result19Result$LT$T$C$E$GT$6expect17h0b4702227bdb203bE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:826
-  42:	2800      	cmp	r0, #0
-  44:	d0ef      	beq.n	26 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0x26>
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:827
-  46:	4803      	ldr	r0, [pc, #12]	; (54 <<st7735_lcd::ST7735<SPI,DC,RST> as embedded_graphics::Drawing<embedded_graphics::pixelcolor::rgb565::Rgb565>>::draw+0x54>)
-  48:	2112      	movs	r1, #18
-  4a:	f7ff fffe 	bl	0 <core::result::unwrap_failed>
-  4e:	defe      	udf	#254	; 0xfe
-_ZN140_$LT$st7735_lcd..ST7735$LT$SPI$C$DC$C$RST$GT$$u20$as$u20$embedded_graphics..Drawing$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$GT$$GT$4draw17h4b600d67757774b7E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/st7735-lcd-0.6.1/src/lib.rs:216
-        }
+00000000 <<druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::add_handler>:
+_ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$11add_handler17h368dd22c9271fbb8E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:941
+
+    fn get_window_id(&self) -> u32 { ////
+        self.window_id.0
     }
-  50:	b01c      	add	sp, #112	; 0x70
-  52:	bd70      	pop	{r4, r5, r6, pc}
-  54:	00000000 	.word	0x00000000
 
-Disassembly of section .text._ZN17embedded_graphics10primitives4line13Line$LT$C$GT$3new17ha6b5b7281e547f2dE:
-
-00000000 <embedded_graphics::primitives::line::Line<C>::new>:
-_ZN17embedded_graphics10primitives4line13Line$LT$C$GT$3new17ha6b5b7281e547f2dE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:80
-    pub fn new(start: Coord, end: Coord) -> Self {
-   0:	e92d 41ff 	stmdb	sp!, {r0, r1, r2, r3, r4, r5, r6, r7, r8, lr}
-   4:	ac01      	add	r4, sp, #4
-   6:	4607      	mov	r7, r0
-   8:	4698      	mov	r8, r3
-   a:	4615      	mov	r5, r2
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:84
-            style: Style::default(),
-   c:	4620      	mov	r0, r4
-   e:	460e      	mov	r6, r1
-  10:	f7ff fffe 	bl	0 <<embedded_graphics::style::Style<P> as core::default::Default>::default>
-  14:	980a      	ldr	r0, [sp, #40]	; 0x28
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:81
-        Line {
-  16:	e9c7 6500 	strd	r6, r5, [r7]
-  1a:	e9c7 8002 	strd	r8, r0, [r7, #8]
-  1e:	f107 0010 	add.w	r0, r7, #16
-  22:	cc06      	ldmia	r4!, {r1, r2}
-  24:	c006      	stmia	r0!, {r1, r2}
-  26:	8821      	ldrh	r1, [r4, #0]
-  28:	8001      	strh	r1, [r0, #0]
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/embedded-graphics-0.5.2/src/primitives/line.rs:86
+    fn add_handler(&self, window_id: u32, handler: DruidHandler<T>) { ////
+   0:	b5e0      	push	{r5, r6, r7, lr}
+   2:	a801      	add	r0, sp, #4
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:942
+        AppState::<T>::new().add_handler(WindowId(window_id), handler);
+   4:	f7ff fffe 	bl	0 <<druid::win_handler::AppState<u32> as druid::win_handler::GlobalWindows<u32>>::add_handler>
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:943
     }
-  2a:	e8bd 81ff 	ldmia.w	sp!, {r0, r1, r2, r3, r4, r5, r6, r7, r8, pc}
+   8:	bd8c      	pop	{r2, r3, r7, pc}
+
+Disassembly of section .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$13get_window_id17h5b1368ded6e9995cE:
+
+00000000 <<druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::get_window_id>:
+_ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$13get_window_id17h5b1368ded6e9995cE():
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:938
+        self.window_id.0
+   0:	6800      	ldr	r0, [r0, #0]
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:939
+    }
+   2:	4770      	bx	lr
+
+Disassembly of section .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$5paint17h68dc89214dae0af1E:
+
+00000000 <<druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::paint>:
+_ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$5paint17h68dc89214dae0af1E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:878
+    fn paint(&mut self, piet: &mut Piet, ctx: &mut dyn WinCtx) -> bool {
+   0:	b5e0      	push	{r5, r6, r7, lr}
+   2:	4694      	mov	ip, r2
+   4:	460a      	mov	r2, r1
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:879
+        AppState::<T>::new().paint(self.window_id, piet, ctx) ////
+   6:	6801      	ldr	r1, [r0, #0]
+   8:	9300      	str	r3, [sp, #0]
+   a:	4663      	mov	r3, ip
+   c:	f7ff fffe 	bl	0 <<druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::paint>
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:881
+    }
+  10:	2000      	movs	r0, #0
+  12:	b002      	add	sp, #8
+  14:	bd80      	pop	{r7, pc}
 
 Disassembly of section .text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h61dc4b3a6e897eddE:
 
@@ -3897,13 +2056,6 @@ Disassembly of section .text._ZN4core3fmt10ArgumentV13new17hbad5e2e2cf1ee20dE:
 
 00000000 <core::fmt::ArgumentV1::new>:
 _ZN4core3fmt10ArgumentV13new17hbad5e2e2cf1ee20dE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:286
-   0:	4770      	bx	lr
-
-Disassembly of section .text._ZN4core3fmt10ArgumentV13new17he198b3fef53b1fc4E:
-
-00000000 <core::fmt::ArgumentV1::new>:
-_ZN4core3fmt10ArgumentV13new17he198b3fef53b1fc4E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:286
    0:	4770      	bx	lr
 
@@ -3970,24 +2122,6 @@ _ZN4core3ops8function6FnOnce9call_once17h75913317ca02ddf4E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ops/function.rs:231
    6:	4770      	bx	lr
 
-Disassembly of section .text._ZN4core3ptr18real_drop_in_place17h2ac0e1c84b8c6234E:
-
-00000000 <core::ptr::real_drop_in_place>:
-_ZN4core3ptr18real_drop_in_place17h54c0901ab1bc34d5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:195
-   0:	f8d0 1238 	ldr.w	r1, [r0, #568]	; 0x238
-   4:	2902      	cmp	r1, #2
-_ZN4core3ptr18real_drop_in_place17hda185978634c8256E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:195
-   6:	bf1c      	itt	ne
-   8:	3028      	addne	r0, #40	; 0x28
-_ZN4core3ptr18real_drop_in_place17h4df10f87d759b725E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:195
-   a:	f7ff bffe 	bne.w	0 <<heapless::vec::Vec<T,N> as core::ops::drop::Drop>::drop>
-_ZN4core3ptr18real_drop_in_place17h2ac0e1c84b8c6234E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:195
-   e:	4770      	bx	lr
-
 Disassembly of section .text._ZN4core3ptr18real_drop_in_place17h2d160c1876d25fbeE:
 
 00000000 <core::ptr::real_drop_in_place>:
@@ -4046,31 +2180,6 @@ _ZN4core3ptr18real_drop_in_place17h9880d25711f8717aE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:195
    a:	4770      	bx	lr
 
-Disassembly of section .text._ZN4core3ptr18real_drop_in_place17h9cd0f2166b39e13dE:
-
-00000000 <core::ptr::real_drop_in_place>:
-_ZN4core3ptr18real_drop_in_place17h9cd0f2166b39e13dE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:195
-   0:	f8d0 1238 	ldr.w	r1, [r0, #568]	; 0x238
-   4:	2903      	cmp	r1, #3
-   6:	bf18      	it	ne
-   8:	f7ff bffe 	bne.w	0 <core::ptr::real_drop_in_place>
-   c:	4770      	bx	lr
-
-Disassembly of section .text._ZN4core4iter6traits8iterator8Iterator3sum17hcea24d6c1580b5caE:
-
-00000000 <core::iter::traits::iterator::Iterator::sum>:
-_ZN4core4iter6traits8iterator8Iterator3sum17hcea24d6c1580b5caE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/traits/iterator.rs:2313
-   0:	f7ff bffe 	b.w	0 <core::iter::traits::iterator::Iterator::sum>
-
-Disassembly of section .text._ZN4core4iter8adapters16Map$LT$I$C$F$GT$3new17h2c17a05c1f7fe2e5E:
-
-00000000 <core::iter::adapters::Map<I,F>::new>:
-_ZN4core4iter8adapters16Map$LT$I$C$F$GT$3new17h2c17a05c1f7fe2e5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/adapters/mod.rs:557
-   0:	4770      	bx	lr
-
 Disassembly of section .text._ZN4core5slice87_$LT$impl$u20$core..iter..traits..collect..IntoIterator$u20$for$u20$$RF$$u5b$T$u5d$$GT$9into_iter17h418d4651c790d753E:
 
 00000000 <core::slice::<impl core::iter::traits::collect::IntoIterator for &[T]>::into_iter>:
@@ -4081,16 +2190,6 @@ _ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$4iter17he7cd5fafff65337aE():
 _ZN4core5slice87_$LT$impl$u20$core..iter..traits..collect..IntoIterator$u20$for$u20$$RF$$u5b$T$u5d$$GT$9into_iter17h418d4651c790d753E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:2973
    8:	4770      	bx	lr
-
-Disassembly of section .text._ZN4core5slice87_$LT$impl$u20$core..iter..traits..collect..IntoIterator$u20$for$u20$$RF$$u5b$T$u5d$$GT$9into_iter17h99fb34e0b12f431fE:
-
-00000000 <core::slice::<impl core::iter::traits::collect::IntoIterator for &[T]>::into_iter>:
-_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$4iter17hcdf585c0bc6e7f5cE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:546
-   0:	eb00 1181 	add.w	r1, r0, r1, lsl #6
-_ZN4core5slice87_$LT$impl$u20$core..iter..traits..collect..IntoIterator$u20$for$u20$$RF$$u5b$T$u5d$$GT$9into_iter17h99fb34e0b12f431fE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:2973
-   4:	4770      	bx	lr
 
 Disassembly of section .text._ZN4core6result13unwrap_failed17h7cb7e5157e5e15caE:
 
@@ -4217,48 +2316,6 @@ _ZN4core6result13unwrap_failed17h9d3e328873a9b317E():
   3c:	f7ff fffe 	bl	0 <core::panicking::panic_fmt>
   40:	defe      	udf	#254	; 0xfe
   42:	bf00      	nop
-	...
-
-Disassembly of section .text._ZN4core6result13unwrap_failed17hd44ca5a5d4325ac5E:
-
-00000000 <core::result::unwrap_failed>:
-_ZN4core6result13unwrap_failed17hd44ca5a5d4325ac5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:998
-   0:	b08e      	sub	sp, #56	; 0x38
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:18
-   2:	4a0f      	ldr	r2, [pc, #60]	; (40 <core::result::unwrap_failed+0x40>)
-   4:	e9cd 0101 	strd	r0, r1, [sp, #4]
-   8:	a801      	add	r0, sp, #4
-   a:	4611      	mov	r1, r2
-   c:	f7ff fffe 	bl	0 <core::fmt::ArgumentV1::new>
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:999
-  10:	4b0c      	ldr	r3, [pc, #48]	; (44 <core::result::unwrap_failed+0x44>)
-  12:	f10d 0e24 	add.w	lr, sp, #36	; 0x24
-  16:	930c      	str	r3, [sp, #48]	; 0x30
-  18:	ab0d      	add	r3, sp, #52	; 0x34
-  1a:	e8ae 000b 	stmia.w	lr!, {r0, r1, r3}
-  1e:	2002      	movs	r0, #2
-  20:	a909      	add	r1, sp, #36	; 0x24
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:18
-  22:	f8df c028 	ldr.w	ip, [pc, #40]	; 4c <core::result::unwrap_failed+0x4c>
-_ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
-  26:	9008      	str	r0, [sp, #32]
-  28:	9107      	str	r1, [sp, #28]
-  2a:	2100      	movs	r1, #0
-  2c:	4a06      	ldr	r2, [pc, #24]	; (48 <core::result::unwrap_failed+0x48>)
-  2e:	e9cd 1105 	strd	r1, r1, [sp, #20]
-_ZN4core6result13unwrap_failed17hd44ca5a5d4325ac5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:18
-  32:	4661      	mov	r1, ip
-_ZN4core3fmt9Arguments6new_v117ha99294a9defa432aE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/fmt/mod.rs:316
-  34:	e9cd 2003 	strd	r2, r0, [sp, #12]
-  38:	a803      	add	r0, sp, #12
-_ZN4core6result13unwrap_failed17hd44ca5a5d4325ac5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/macros.rs:18
-  3a:	f7ff fffe 	bl	0 <core::panicking::panic_fmt>
-  3e:	defe      	udf	#254	; 0xfe
 	...
 
 Disassembly of section .text._ZN4core6result13unwrap_failed17hebf47e2bb94a8a51E:
@@ -4406,13 +2463,6 @@ _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h2eb55c03c673d4b0E
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/convert.rs:547
    0:	4770      	bx	lr
 
-Disassembly of section .text._ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hc635f563bf13e853E:
-
-00000000 <<T as core::convert::From<T>>::from>:
-_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17hc635f563bf13e853E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/convert.rs:547
-   0:	4770      	bx	lr
-
 Disassembly of section .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h05744007cac56a82E:
 
 00000000 <<T as core::convert::Into<U>>::into>:
@@ -4443,20 +2493,6 @@ _ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h15962fb47157b6d8E
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/convert.rs:541
   10:	bd10      	pop	{r4, pc}
 
-Disassembly of section .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h49b90ae20817fee0E:
-
-00000000 <<T as core::convert::Into<U>>::into>:
-_ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h49b90ae20817fee0E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/convert.rs:541
-   0:	4770      	bx	lr
-
-Disassembly of section .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h7440c0a8314f390bE:
-
-00000000 <<T as core::convert::Into<U>>::into>:
-_ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h7440c0a8314f390bE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/convert.rs:541
-   0:	4770      	bx	lr
-
 Disassembly of section .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h945b111611b9b324E:
 
 00000000 <<T as core::convert::Into<U>>::into>:
@@ -4468,49 +2504,12 @@ _ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17h945b111611b9b324E
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/convert.rs:541
    6:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17hab3a6ad9ad122901E:
-
-00000000 <<T as core::convert::Into<U>>::into>:
-_ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17hab3a6ad9ad122901E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/convert.rs:541
-   0:	4770      	bx	lr
-
-Disassembly of section .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17hc712cc3761443c8dE:
-
-00000000 <<T as core::convert::Into<U>>::into>:
-_ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17hc712cc3761443c8dE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/convert.rs:539
-   0:	b5b0      	push	{r4, r5, r7, lr}
-   2:	b088      	sub	sp, #32
-   4:	466d      	mov	r5, sp
-   6:	4604      	mov	r4, r0
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/convert.rs:540
-   8:	4628      	mov	r0, r5
-   a:	2220      	movs	r2, #32
-   c:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-  10:	4620      	mov	r0, r4
-  12:	4629      	mov	r1, r5
-  14:	f7ff fffe 	bl	0 <<druid::Region as core::convert::From<kurbo::rect::Rect>>::from>
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/convert.rs:541
-  18:	b008      	add	sp, #32
-  1a:	bdb0      	pop	{r4, r5, r7, pc}
-
 Disassembly of section .text._ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17hf9a2610d20630218E:
 
 00000000 <<T as core::convert::Into<U>>::into>:
 _ZN50_$LT$T$u20$as$u20$core..convert..Into$LT$U$GT$$GT$4into17hf9a2610d20630218E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/convert.rs:541
    0:	4770      	bx	lr
-
-Disassembly of section .text._ZN54_$LT$f64$u20$as$u20$core..iter..traits..accum..Sum$GT$3sum17h999b03237a24ac94E:
-
-00000000 <<f64 as core::iter::traits::accum::Sum>::sum>:
-_ZN54_$LT$f64$u20$as$u20$core..iter..traits..accum..Sum$GT$3sum17h999b03237a24ac94E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/traits/accum.rs:86
-   0:	ed9f 0b01 	vldr	d0, [pc, #4]	; 8 <<f64 as core::iter::traits::accum::Sum>::sum+0x8>
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/traits/accum.rs:87
-   4:	f7ff bffe 	b.w	0 <<f64 as core::iter::traits::accum::Sum>::sum>
-	...
 
 Disassembly of section .text._ZN59_$LT$$LP$T10$C$$u20$T11$RP$$u20$as$u20$core..fmt..Debug$GT$3fmt17h2e2c98cdec5a2a42E:
 
@@ -4550,370 +2549,153 @@ _ZN59_$LT$$LP$T10$C$$u20$T11$RP$$u20$as$u20$core..fmt..Debug$GT$3fmt17h2e2c98cde
   36:	bdb0      	pop	{r4, r5, r7, pc}
 	...
 
-Disassembly of section .text._ZN5druid11win_handler16Windows$LT$T$GT$3add17he7daad1f64ca3955E:
-
-00000000 <druid::win_handler::Windows<T>::add>:
-_ZN5druid11win_handler16Windows$LT$T$GT$3add17he7daad1f64ca3955E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:202
-        };
-        self.state = Some(state); ////
-        ////self.state.insert(id, state);
-    }
-
-    fn add(&mut self, id: WindowId, window: WindowBox<T>) { ////
-   0:	b5b0      	push	{r4, r5, r7, lr}
-   2:	4614      	mov	r4, r2
-   4:	4605      	mov	r5, r0
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:204
-    ////fn add(&mut self, id: WindowId, window: Window<T>) {
-        self.windows = Some(window); ////
-   6:	f7ff fffe 	bl	0 <druid::win_handler::Windows<T>::add>
-   a:	4628      	mov	r0, r5
-   c:	4621      	mov	r1, r4
-   e:	f44f 7216 	mov.w	r2, #600	; 0x258
-  12:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:206
-        ////self.windows.insert(id, window);
-    }
-  16:	bdb0      	pop	{r4, r5, r7, pc}
-
-Disassembly of section .text._ZN5druid11win_handler16Windows$LT$T$GT$3get17h8ba88b4407e966e4E:
-
-00000000 <druid::win_handler::Windows<T>::get>:
-_ZN5druid11win_handler16Windows$LT$T$GT$3get17h8ba88b4407e966e4E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:217
-        ////Some(self.state[0].handle) ////
-        None ////
-    }
-
-    //TODO: rename me?
-    fn get<'a>( ////
-   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
-   4:	f5ad 7d16 	sub.w	sp, sp, #600	; 0x258
-   8:	4605      	mov	r5, r0
-_ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h1ac151bb27eae301E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
-   a:	f8d1 0258 	ldr.w	r0, [r1, #600]	; 0x258
-_ZN4core6option15Option$LT$T$GT$6expect17hf31be73688c02be3E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:313
-   e:	b1c8      	cbz	r0, 44 <druid::win_handler::Windows<T>::get+0x44>
-_ZN5druid11win_handler16Windows$LT$T$GT$3get17h8ba88b4407e966e4E():
-  10:	4668      	mov	r0, sp
-  12:	461c      	mov	r4, r3
-  14:	4616      	mov	r6, r2
-  16:	f8d1 725c 	ldr.w	r7, [r1, #604]	; 0x25c
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:227
-        env: &'a Env,
-    ) -> Option<SingleWindowState<'a, T>> { ////
-    ////) -> Option<SingleWindowState<'a, T>> {        
-        let state = self.state.clone().expect("no state"); ////
-        ////let state = self.state.get_mut(&window_id);
-        let window = self.windows.clone().expect("no window"); ////
-  1a:	f7ff fffe 	bl	0 <druid::win_handler::Windows<T>::get>
-_ZN4core6option15Option$LT$T$GT$6expect17h0e390daaf2f8be7dE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:313
-  1e:	988e      	ldr	r0, [sp, #568]	; 0x238
-  20:	2803      	cmp	r0, #3
-  22:	d014      	beq.n	4e <druid::win_handler::Windows<T>::get+0x4e>
-  24:	4669      	mov	r1, sp
-  26:	4628      	mov	r0, r5
-  28:	f44f 7216 	mov.w	r2, #600	; 0x258
-  2c:	f8dd 8270 	ldr.w	r8, [sp, #624]	; 0x270
-  30:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-_ZN5druid11win_handler16Windows$LT$T$GT$3get17h8ba88b4407e966e4E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:229
-        ////let window = self.windows.get_mut(&window_id);
-        Some(SingleWindowState { ////
-  34:	e9c5 6796 	strd	r6, r7, [r5, #600]	; 0x258
-  38:	e9c5 4898 	strd	r4, r8, [r5, #608]	; 0x260
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:259
-            (Some(_), None) => {} ////warn!("missing state for window id {:?}", window_id),
-            (None, None) => {} ////warn!("unknown window {:?}", window_id),
-        }
-        None
-        */ ////
-    }
-  3c:	f50d 7d16 	add.w	sp, sp, #600	; 0x258
-  40:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
-_ZN4core6option15Option$LT$T$GT$6expect17hf31be73688c02be3E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:314
-  44:	4805      	ldr	r0, [pc, #20]	; (5c <druid::win_handler::Windows<T>::get+0x5c>)
-  46:	2108      	movs	r1, #8
-  48:	f7ff fffe 	bl	0 <core::option::expect_failed>
-  4c:	defe      	udf	#254	; 0xfe
-_ZN4core6option15Option$LT$T$GT$6expect17h0e390daaf2f8be7dE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:314
-  4e:	4802      	ldr	r0, [pc, #8]	; (58 <druid::win_handler::Windows<T>::get+0x58>)
-  50:	2109      	movs	r1, #9
-  52:	f7ff fffe 	bl	0 <core::option::expect_failed>
-  56:	defe      	udf	#254	; 0xfe
-	...
-
-Disassembly of section .text._ZN5druid11win_handler17AppState$LT$T$GT$10add_window17hfc7bc34c37833954E:
-
-00000000 <druid::win_handler::AppState<T>::add_window>:
-_ZN5druid11win_handler17AppState$LT$T$GT$10add_window17hfc7bc34c37833954E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:494
-                del.window_added(id, data, env, ctx)
-            });
-        }
-    */ ////
-
-    pub(crate) fn add_window(&mut self, id: WindowId, window: WindowBox<T>) { ////
-   0:	b5b0      	push	{r4, r5, r7, lr}
-   2:	4614      	mov	r4, r2
-   4:	4605      	mov	r5, r0
-_ZN5druid11win_handler16Windows$LT$T$GT$3add17he7daad1f64ca3955E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:204
-        self.windows = Some(window); ////
-   6:	f7ff fffe 	bl	0 <druid::win_handler::AppState<T>::add_window>
-   a:	4628      	mov	r0, r5
-   c:	4621      	mov	r1, r4
-   e:	f44f 7216 	mov.w	r2, #600	; 0x258
-  12:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-_ZN5druid11win_handler17AppState$LT$T$GT$10add_window17hfc7bc34c37833954E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:497
-    ////pub(crate) fn add_window(&mut self, id: WindowId, window: Window<T>) {
-        self.windows.add(id, window);
-    }
-  16:	bdb0      	pop	{r4, r5, r7, pc}
-
-Disassembly of section .text._ZN5druid11win_handler17AppState$LT$T$GT$21assemble_window_state17hd7bde4f0dfdf50a9E:
+Disassembly of section .text._ZN5druid11win_handler17AppState$LT$T$GT$21assemble_window_state17h74aa682bcaa5ff5dE:
 
 00000000 <druid::win_handler::AppState<T>::assemble_window_state>:
-_ZN5druid11win_handler17AppState$LT$T$GT$21assemble_window_state17hd7bde4f0dfdf50a9E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:517
-        ////if let Some(state) = self.windows.state.get(&id) {
-            state.handle.bring_to_front_and_focus();
-        ////}
+_ZN5druid11win_handler17AppState$LT$T$GT$21assemble_window_state17h74aa682bcaa5ff5dE():
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:638
     }
+   0:	2001      	movs	r0, #1
+   2:	4770      	bx	lr
 
-    fn assemble_window_state(&mut self, window_id: WindowId) -> Option<SingleWindowState<'_, T>> { ////
-   0:	b5e0      	push	{r5, r6, r7, lr}
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:522
-    ////fn assemble_window_state(&mut self, window_id: WindowId) -> Option<SingleWindowState<'_, T>> {
-        let AppState {
-            ////ref mut command_queue,
-            ref mut windows,
-            ref mut data,
-   2:	f501 7318 	add.w	r3, r1, #608	; 0x260
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:526
-            ref env,
-            ..
-        } = self;
-        windows.get(window_id, data, env) ////
-   6:	9100      	str	r1, [sp, #0]
-   8:	f7ff fffe 	bl	0 <druid::win_handler::AppState<T>::assemble_window_state>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:528
-        ////windows.get(window_id, command_queue, data, env)
-    }
-   c:	bd8c      	pop	{r2, r3, r7, pc}
-
-Disassembly of section .text._ZN5druid11win_handler17AppState$LT$T$GT$3new17hb5e5f4243b10c353E:
+Disassembly of section .text._ZN5druid11win_handler17AppState$LT$T$GT$3new17h8ac3ab33e7da130dE:
 
 00000000 <druid::win_handler::AppState<T>::new>:
-_ZN5druid11win_handler17AppState$LT$T$GT$3new17hb5e5f4243b10c353E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:428
-    pub(crate) fn new(
-   0:	b5b0      	push	{r4, r5, r7, lr}
-   2:	460c      	mov	r4, r1
-_ZN79_$LT$druid..win_handler..Windows$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h52d097338afc5db1E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:844
-
-impl<T: Data + 'static> Default for Windows<T> { ////
-////impl<T: Data> Default for Windows<T> {
-    fn default() -> Self {
-        Windows {
-            windows: None, ////
-   4:	f44f 710e 	mov.w	r1, #568	; 0x238
-   8:	4605      	mov	r5, r0
-   a:	f7ff fffe 	bl	0 <__aeabi_memclr8>
-   e:	2003      	movs	r0, #3
-_ZN5druid11win_handler17AppState$LT$T$GT$3new17hb5e5f4243b10c353E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:434
-        AppState { ////
-  10:	2120      	movs	r1, #32
-  12:	f8c5 0238 	str.w	r0, [r5, #568]	; 0x238
-  16:	f505 700f 	add.w	r0, r5, #572	; 0x23c
-  1a:	f7ff fffe 	bl	0 <__aeabi_memclr4>
-  1e:	f8c5 4260 	str.w	r4, [r5, #608]	; 0x260
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:442
+_ZN5druid11win_handler17AppState$LT$T$GT$3new17h8ac3ab33e7da130dE():
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:544
     }
-  22:	bdb0      	pop	{r4, r5, r7, pc}
+   0:	4770      	bx	lr
 
-Disassembly of section .text._ZN5druid11win_handler17AppState$LT$T$GT$5paint17h184f39a8829a089eE:
+Disassembly of section .text._ZN5druid11win_handler17AppState$LT$T$GT$5paint17hd8a6be67606aa237E:
 
 00000000 <druid::win_handler::AppState<T>::paint>:
-_ZN5druid11win_handler17AppState$LT$T$GT$5paint17h184f39a8829a089eE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:530
+_ZN5druid11win_handler17AppState$LT$T$GT$5paint17hd8a6be67606aa237E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:640
     fn paint(&mut self, window_id: WindowId, piet: &mut Piet, ctx: &mut dyn WinCtx) -> bool {
-   0:	b5b0      	push	{r4, r5, r7, lr}
-   2:	f5ad 6d9a 	sub.w	sp, sp, #1232	; 0x4d0
-   6:	4614      	mov	r4, r2
-   8:	460a      	mov	r2, r1
-   a:	4601      	mov	r1, r0
-   c:	4668      	mov	r0, sp
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:531
-        self.assemble_window_state(window_id)
-   e:	f7ff fffe 	bl	0 <druid::win_handler::AppState<T>::paint>
-_ZN4core6option15Option$LT$T$GT$3map17h44a86b0b27a5f2eeE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:416
-  12:	988e      	ldr	r0, [sp, #568]	; 0x238
-  14:	2803      	cmp	r0, #3
-  16:	d00d      	beq.n	34 <druid::win_handler::AppState<T>::paint+0x34>
-  18:	ad9a      	add	r5, sp, #616	; 0x268
-  1a:	4669      	mov	r1, sp
-  1c:	f44f 721a 	mov.w	r2, #616	; 0x268
-  20:	4628      	mov	r0, r5
-  22:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-_ZN5druid11win_handler17AppState$LT$T$GT$5paint28_$u7b$$u7b$closure$u7d$$u7d$17h48d818a7e27b69daE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:532
+   0:	b5e0      	push	{r5, r6, r7, lr}
+   2:	a801      	add	r0, sp, #4
+   4:	9101      	str	r1, [sp, #4]
+_ZN5druid11win_handler17AppState$LT$T$GT$5paint28_$u7b$$u7b$closure$u7d$$u7d$17h8bca2472ec785997E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:642
             .map(|mut win| win.paint(piet, ctx))
-  26:	4628      	mov	r0, r5
-  28:	4621      	mov	r1, r4
-  2a:	f7ff fffe 	bl	0 <druid::win_handler::AppState<T>::paint>
-_ZN4core3ptr18real_drop_in_place17h43557cb0522303d8E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:195
-  2e:	4628      	mov	r0, r5
-  30:	f7ff fffe 	bl	0 <druid::win_handler::AppState<T>::paint>
-_ZN5druid11win_handler17AppState$LT$T$GT$5paint17h184f39a8829a089eE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:534
+   6:	4611      	mov	r1, r2
+   8:	f7ff fffe 	bl	0 <druid::win_handler::AppState<T>::paint>
+_ZN5druid11win_handler17AppState$LT$T$GT$5paint17hd8a6be67606aa237E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:644
     }
-  34:	2000      	movs	r0, #0
-  36:	f50d 6d9a 	add.w	sp, sp, #1232	; 0x4d0
-  3a:	bdb0      	pop	{r4, r5, r7, pc}
+   c:	2000      	movs	r0, #0
+   e:	b002      	add	sp, #8
+  10:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN5druid11win_handler21DruidHandler$LT$T$GT$10new_shared17h42c4a4b0329eb3c4E:
+Disassembly of section .text._ZN5druid11win_handler21DruidHandler$LT$T$GT$10new_shared17h2e143bd64265c152E:
 
 00000000 <druid::win_handler::DruidHandler<T>::new_shared>:
-_ZN5druid11win_handler21DruidHandler$LT$T$GT$10new_shared17h42c4a4b0329eb3c4E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:610
-    pub(crate) fn new_shared(
-   0:	b510      	push	{r4, lr}
-   2:	460c      	mov	r4, r1
-_ZN4core3ptr18real_drop_in_place17h4cf97fa60ae553fbE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:195
-   4:	f7ff fffe 	bl	0 <druid::win_handler::DruidHandler<T>::new_shared>
-_ZN5druid11win_handler21DruidHandler$LT$T$GT$10new_shared17h42c4a4b0329eb3c4E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:623
+_ZN5druid11win_handler21DruidHandler$LT$T$GT$10new_shared17h2e143bd64265c152E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:729
     }
-   8:	4620      	mov	r0, r4
-   a:	bd10      	pop	{r4, pc}
+   0:	4770      	bx	lr
 
-Disassembly of section .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$5paint17h656e38f7f0f1c346E:
+Disassembly of section .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$5paint17h0f9d50e1bcb9ae40E:
 
 00000000 <druid::win_handler::SingleWindowState<T>::paint>:
-_ZN5druid11win_handler26SingleWindowState$LT$T$GT$5paint17h656e38f7f0f1c346E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:263
+_ZN5druid11win_handler26SingleWindowState$LT$T$GT$5paint17h0f9d50e1bcb9ae40E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:359
     fn paint(&mut self, piet: &mut Piet, ctx: &mut dyn WinCtx) -> bool {
    0:	b5b0      	push	{r4, r5, r7, lr}
    2:	460c      	mov	r4, r1
    4:	4605      	mov	r5, r0
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:265
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:361
         self.do_layout(piet);
    6:	f7ff fffe 	bl	0 <druid::win_handler::SingleWindowState<T>::paint>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:266
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:362
         piet.clear(crate::env::WINDOW_BACKGROUND_COLOR); ////
    a:	4620      	mov	r0, r4
    c:	21ff      	movs	r1, #255	; 0xff
    e:	f7ff fffe 	bl	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::clear>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:268
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:364
         self.do_paint(piet);
   12:	4628      	mov	r0, r5
   14:	4621      	mov	r1, r4
   16:	f7ff fffe 	bl	0 <druid::win_handler::SingleWindowState<T>::paint>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:271
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:367
     }
   1a:	2000      	movs	r0, #0
   1c:	bdb0      	pop	{r4, r5, r7, pc}
 
-Disassembly of section .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$8do_paint17h7a043a4f6300fae9E:
+Disassembly of section .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$8do_paint17h504e926baedded14E:
 
 00000000 <druid::win_handler::SingleWindowState<T>::do_paint>:
-_ZN5druid11win_handler26SingleWindowState$LT$T$GT$8do_paint17h7a043a4f6300fae9E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:307
+_ZN5druid11win_handler26SingleWindowState$LT$T$GT$8do_paint17h504e926baedded14E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:404
     fn do_paint(&mut self, piet: &mut Piet) {
    0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
-   4:	b092      	sub	sp, #72	; 0x48
+   4:	b094      	sub	sp, #80	; 0x50
    6:	ae0a      	add	r6, sp, #40	; 0x28
    8:	460c      	mov	r4, r1
    a:	4605      	mov	r5, r0
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:310
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:407
             window_id: self.window_id,
-   c:	f8d0 7258 	ldr.w	r7, [r0, #600]	; 0x258
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:311
+   c:	6807      	ldr	r7, [r0, #0]
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:408
             region: Rect::ZERO.into(),
-  10:	4630      	mov	r0, r6
-  12:	2120      	movs	r1, #32
-  14:	f7ff fffe 	bl	0 <__aeabi_memclr8>
-  18:	46e8      	mov	r8, sp
-  1a:	4631      	mov	r1, r6
-  1c:	4640      	mov	r0, r8
-  1e:	f7ff fffe 	bl	0 <druid::win_handler::SingleWindowState<T>::do_paint>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:308
+   e:	4630      	mov	r0, r6
+  10:	2120      	movs	r1, #32
+  12:	f7ff fffe 	bl	0 <__aeabi_memclr8>
+  16:	46e8      	mov	r8, sp
+  18:	4631      	mov	r1, r6
+  1a:	4640      	mov	r0, r8
+  1c:	f7ff fffe 	bl	0 <<T as core::convert::Into<U>>::into>
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:405
         let mut paint_ctx = PaintCtx {
-  22:	e9cd 4708 	strd	r4, r7, [sp, #32]
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:313
-        self.window.paint(&mut paint_ctx, self.data, self.env);
-  26:	4628      	mov	r0, r5
-  28:	e9d5 2398 	ldrd	r2, r3, [r5, #608]	; 0x260
-  2c:	4641      	mov	r1, r8
-  2e:	f7ff fffe 	bl	0 <druid::win_handler::SingleWindowState<T>::do_paint>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:314
+  20:	e9cd 4708 	strd	r4, r7, [sp, #32]
+  24:	a813      	add	r0, sp, #76	; 0x4c
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:410
+        AppState::<T>::new().window_paint(self.window_id, &mut paint_ctx); ////
+  26:	6829      	ldr	r1, [r5, #0]
+  28:	4642      	mov	r2, r8
+  2a:	f7ff fffe 	bl	0 <<druid::win_handler::AppState<u32> as druid::win_handler::GlobalWindows<u32>>::window_paint>
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:412
     }
-  32:	b012      	add	sp, #72	; 0x48
-  34:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
+  2e:	b014      	add	sp, #80	; 0x50
+  30:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
 
-Disassembly of section .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$9do_layout17hdca5fbee5f0fc916E:
+Disassembly of section .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$9do_layout17h2723ced434e2874dE:
 
 00000000 <druid::win_handler::SingleWindowState<T>::do_layout>:
-_ZN5druid11win_handler26SingleWindowState$LT$T$GT$9do_layout17hdca5fbee5f0fc916E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:299
+_ZN5druid11win_handler26SingleWindowState$LT$T$GT$9do_layout17h2723ced434e2874dE():
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:395
     fn do_layout(&mut self, piet: &mut Piet) {
-   0:	b51c      	push	{r2, r3, r4, lr}
+   0:	b51f      	push	{r0, r1, r2, r3, r4, lr}
    2:	4604      	mov	r4, r0
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:301
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:397
             text_factory: piet.text(),
    4:	4608      	mov	r0, r1
    6:	f7ff fffe 	bl	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::text>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:302
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:398
             window_id: self.window_id,
-   a:	f8d4 1258 	ldr.w	r1, [r4, #600]	; 0x258
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:300
+   a:	6821      	ldr	r1, [r4, #0]
+   c:	aa01      	add	r2, sp, #4
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:396
         let mut layout_ctx = LayoutCtx {
-   e:	e9cd 0100 	strd	r0, r1, [sp]
-  12:	4669      	mov	r1, sp
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:304
-        self.window.layout(&mut layout_ctx, self.data, self.env);
-  14:	e9d4 2398 	ldrd	r2, r3, [r4, #608]	; 0x260
-  18:	4620      	mov	r0, r4
-  1a:	f7ff fffe 	bl	0 <druid::win_handler::SingleWindowState<T>::do_layout>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:305
+   e:	e9cd 0101 	strd	r0, r1, [sp, #4]
+  12:	a803      	add	r0, sp, #12
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:400
+        AppState::<T>::new().window_layout(self.window_id, &mut layout_ctx); ////
+  14:	f7ff fffe 	bl	0 <<druid::win_handler::AppState<u32> as druid::win_handler::GlobalWindows<u32>>::window_layout>
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:402
     }
-  1e:	bd1c      	pop	{r2, r3, r4, pc}
-
-Disassembly of section .text._ZN5druid12localization24LocalizedString$LT$T$GT$13localized_str17hf6b3d53aaf43e5adE:
-
-00000000 <druid::localization::LocalizedString<T>::localized_str>:
-_ZN5druid12localization24LocalizedString$LT$T$GT$13localized_str17hf6b3d53aaf43e5adE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/localization.rs:343
-                .as_ref()
-                .map(|s| s.as_str())
-                .or_else(|| self.placeholder.as_ref().map(String::as_ref))
-                .unwrap_or(self.key)
-            */ ////
-        }
-   0:	4801      	ldr	r0, [pc, #4]	; (8 <druid::localization::LocalizedString<T>::localized_str+0x8>)
-   2:	2112      	movs	r1, #18
-   4:	4770      	bx	lr
-   6:	bf00      	nop
-   8:	00000000 	.word	0x00000000
+  18:	bd1f      	pop	{r0, r1, r2, r3, r4, pc}
 
 Disassembly of section .text._ZN5druid12localization24LocalizedString$LT$T$GT$3new17h80fb9461e3b01a82E:
 
 00000000 <druid::localization::LocalizedString<T>::new>:
 _ZN5druid12localization24LocalizedString$LT$T$GT$3new17h80fb9461e3b01a82E():
 /Users/Luppy/mynewt/druid-embedded/druid/src/localization.rs:312
+}
+*/ ////
+
+impl<T> LocalizedString<T> {
+    /// Create a new `LocalizedString` with the given key.
     pub const fn new(key: &'static str) -> Self {
    0:	2300      	movs	r3, #0
 /Users/Luppy/mynewt/druid-embedded/druid/src/localization.rs:313
@@ -4922,6 +2704,11 @@ _ZN5druid12localization24LocalizedString$LT$T$GT$3new17h80fb9461e3b01a82E():
    4:	6243      	str	r3, [r0, #36]	; 0x24
    6:	c00e      	stmia	r0!, {r1, r2, r3}
 /Users/Luppy/mynewt/druid-embedded/druid/src/localization.rs:320
+            args: None,
+            placeholder: None,
+            resolved: None,
+            ////resolved_lang: None,
+        }
     }
    8:	4770      	bx	lr
 
@@ -4942,6 +2729,11 @@ _ZN5druid12localization24LocalizedString$LT$T$GT$8with_arg17h08b814a4f1bf07d8E()
    8:	2000      	movs	r0, #0
 _ZN8heapless3vec16Vec$LT$T$C$N$GT$3new17hf9c77d32aa535311E():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:197
+    ///
+    /// // allocate the vector in a static variable
+    /// static mut X: Vec<u8, U16> = Vec(heapless::i::Vec::new());
+    /// ```
+    pub fn new() -> Self {
         Vec(crate::i::Vec::new())
    a:	9009      	str	r0, [sp, #36]	; 0x24
 _ZN4core6option15Option$LT$T$GT$13get_or_insert17hab21420747f406d3E():
@@ -5019,530 +2811,28 @@ _ZN4core6result19Result$LT$T$C$E$GT$6expect17h770761e5dd6aca5bE():
 _ZN5druid12localization24LocalizedString$LT$T$GT$8with_arg17h08b814a4f1bf07d8E():
   78:	00000000 	.word	0x00000000
 
-Disassembly of section .text._ZN5druid14BoxConstraints9constrain17hbbee7236e4843f14E:
-
-00000000 <druid::BoxConstraints::constrain>:
-_ZN5druid14BoxConstraints9constrain17hbbee7236e4843f14E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:835
-        }
-    }
-
-    /// Clamp a given size so that fits within the constraints.
-    pub fn constrain(&self, size: impl Into<Size>) -> Size {
-        size.into().clamp(self.min, self.max)
-   0:	ecb0 2b08 	vldmia	r0!, {d2-d5}
-   4:	f7ff bffe 	b.w	0 <kurbo::size::Size::clamp>
-
-Disassembly of section .text._ZN5druid22WidgetPod$LT$T$C$W$GT$15get_layout_rect17h319b76947dd7a68dE:
-
-00000000 <druid::WidgetPod<T,W>::get_layout_rect>:
-_ZN5druid22WidgetPod$LT$T$C$W$GT$15get_layout_rect17h319b76947dd7a68dE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:482
-    pub fn get_layout_rect(&self) -> Rect {
-   0:	b580      	push	{r7, lr}
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:483
-        self.state.layout_rect
-   2:	2220      	movs	r2, #32
-   4:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:484
-    }
-   8:	bd80      	pop	{r7, pc}
-
-Disassembly of section .text._ZN5druid22WidgetPod$LT$T$C$W$GT$15set_layout_rect17h1abe560ea13fb200E:
-
-00000000 <druid::WidgetPod<T,W>::set_layout_rect>:
-_ZN5druid22WidgetPod$LT$T$C$W$GT$15set_layout_rect17h1abe560ea13fb200E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:475
-    pub fn set_layout_rect(&mut self, layout_rect: Rect) {
-   0:	b580      	push	{r7, lr}
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:476
-        self.state.layout_rect = layout_rect;
-   2:	2220      	movs	r2, #32
-   4:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:477
-    }
-   8:	bd80      	pop	{r7, pc}
-
-Disassembly of section .text._ZN5druid22WidgetPod$LT$T$C$W$GT$15set_layout_rect17h6960e6ada6946819E:
-
-00000000 <druid::WidgetPod<T,W>::set_layout_rect>:
-_ZN5druid22WidgetPod$LT$T$C$W$GT$15set_layout_rect17h6960e6ada6946819E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:475
-    pub fn set_layout_rect(&mut self, layout_rect: Rect) {
-   0:	b580      	push	{r7, lr}
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:476
-        self.state.layout_rect = layout_rect;
-   2:	2220      	movs	r2, #32
-   4:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:477
-    }
-   8:	bd80      	pop	{r7, pc}
-
-Disassembly of section .text._ZN5druid22WidgetPod$LT$T$C$W$GT$17paint_with_offset17h3f87dbe7f2300e2dE:
-
-00000000 <druid::WidgetPod<T,W>::paint_with_offset>:
-_ZN5druid22WidgetPod$LT$T$C$W$GT$17paint_with_offset17h3f87dbe7f2300e2dE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:506
-    pub fn paint_with_offset(&mut self, paint_ctx: &mut PaintCtx, data: &T, env: &Env) {
-   0:	b5e0      	push	{r5, r6, r7, lr}
-   2:	f04f 0c00 	mov.w	ip, #0
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:507
-        self.paint_with_offset_impl(paint_ctx, data, env, false)
-   6:	f8cd c000 	str.w	ip, [sp]
-   a:	f7ff fffe 	bl	0 <druid::WidgetPod<T,W>::paint_with_offset>
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:508
-    }
-   e:	bd8c      	pop	{r2, r3, r7, pc}
-
-Disassembly of section .text._ZN5druid22WidgetPod$LT$T$C$W$GT$22paint_with_offset_impl17he7173c6058e37867E:
-
-00000000 <druid::WidgetPod<T,W>::paint_with_offset_impl>:
-_ZN5druid22WidgetPod$LT$T$C$W$GT$22paint_with_offset_impl17he7173c6058e37867E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:517
-    fn paint_with_offset_impl(
-   0:	e92d 4ff8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, lr}
-   4:	ed2d 8b0c 	vpush	{d8-d13}
-   8:	b0a0      	sub	sp, #128	; 0x80
-   a:	4604      	mov	r4, r0
-   c:	9836      	ldr	r0, [sp, #216]	; 0xd8
-   e:	468a      	mov	sl, r1
-  10:	e9cd 420d 	strd	r4, r2, [sp, #52]	; 0x34
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:524
-        if !paint_if_not_visible && !paint_ctx.region().intersects(self.state.layout_rect) {
-  14:	2800      	cmp	r0, #0
-  16:	930f      	str	r3, [sp, #60]	; 0x3c
-  18:	f040 80f1 	bne.w	1fe <druid::WidgetPod<T,W>::paint_with_offset_impl+0x1fe>
-_ZN5kurbo4rect4Rect9intersect17h826db7bcbf4d1643E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:212
-        let x0 = self.x0.max(other.x0);
-  1c:	ed9a 0b00 	vldr	d0, [sl]
-_ZN5druid22WidgetPod$LT$T$C$W$GT$22paint_with_offset_impl17he7173c6058e37867E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:524
-  20:	ed94 1b00 	vldr	d1, [r4]
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
-  24:	ec55 7b10 	vmov	r7, r5, d0
-_ZN5kurbo4rect4Rect9intersect17h826db7bcbf4d1643E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:213
-        let y0 = self.y0.max(other.y0);
-  28:	ed9a ab02 	vldr	d10, [sl, #8]
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
-  2c:	ec5b 2b11 	vmov	r2, fp, d1
-_ZN5kurbo4rect4Rect9intersect17h826db7bcbf4d1643E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:214
-        let x1 = self.x1.min(other.x1);
-  30:	ed9a cb04 	vldr	d12, [sl, #16]
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:215
-        let y1 = self.y1.min(other.y1);
-  34:	ed9a 8b06 	vldr	d8, [sl, #24]
-_ZN5druid22WidgetPod$LT$T$C$W$GT$22paint_with_offset_impl17he7173c6058e37867E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:524
-  38:	ed94 bb02 	vldr	d11, [r4, #8]
-  3c:	ed94 db04 	vldr	d13, [r4, #16]
-  40:	ed94 9b06 	vldr	d9, [r4, #24]
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
-  44:	9209      	str	r2, [sp, #36]	; 0x24
-  46:	4638      	mov	r0, r7
-  48:	4629      	mov	r1, r5
-  4a:	465b      	mov	r3, fp
-  4c:	4616      	mov	r6, r2
-  4e:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
-  52:	9405      	str	r4, [sp, #20]
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
-  54:	ec58 4b1d 	vmov	r4, r8, d13
-  58:	f8cd a018 	str.w	sl, [sp, #24]
-  5c:	ec5a 1b1c 	vmov	r1, sl, d12
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
-  60:	2800      	cmp	r0, #0
-  62:	4628      	mov	r0, r5
-  64:	bf18      	it	ne
-  66:	4658      	movne	r0, fp
-  68:	900c      	str	r0, [sp, #48]	; 0x30
-  6a:	4638      	mov	r0, r7
-  6c:	bf18      	it	ne
-  6e:	4630      	movne	r0, r6
-  70:	900a      	str	r0, [sp, #40]	; 0x28
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
-  72:	4622      	mov	r2, r4
-  74:	4643      	mov	r3, r8
-  76:	4608      	mov	r0, r1
-  78:	460e      	mov	r6, r1
-  7a:	4651      	mov	r1, sl
-  7c:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
-  80:	2800      	cmp	r0, #0
-  82:	4640      	mov	r0, r8
-  84:	bf18      	it	ne
-  86:	4650      	movne	r0, sl
-  88:	900b      	str	r0, [sp, #44]	; 0x2c
-  8a:	46a1      	mov	r9, r4
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
-  8c:	4638      	mov	r0, r7
-  8e:	4629      	mov	r1, r5
-  90:	463a      	mov	r2, r7
-  92:	462b      	mov	r3, r5
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
-  94:	bf18      	it	ne
-  96:	46b1      	movne	r9, r6
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
-  98:	f7ff fffe 	bl	0 <__aeabi_dcmpun>
-  9c:	4605      	mov	r5, r0
-  9e:	2800      	cmp	r0, #0
-  a0:	9f0c      	ldr	r7, [sp, #48]	; 0x30
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
-  a2:	4620      	mov	r0, r4
-  a4:	4641      	mov	r1, r8
-  a6:	4622      	mov	r2, r4
-  a8:	4643      	mov	r3, r8
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
-  aa:	bf18      	it	ne
-  ac:	465f      	movne	r7, fp
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
-  ae:	970c      	str	r7, [sp, #48]	; 0x30
-  b0:	f7ff fffe 	bl	0 <__aeabi_dcmpun>
-  b4:	990b      	ldr	r1, [sp, #44]	; 0x2c
-  b6:	2800      	cmp	r0, #0
-  b8:	bf18      	it	ne
-  ba:	4651      	movne	r1, sl
-  bc:	910b      	str	r1, [sp, #44]	; 0x2c
-  be:	bf18      	it	ne
-  c0:	46b1      	movne	r9, r6
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
-  c2:	f8cd 901c 	str.w	r9, [sp, #28]
-  c6:	e9dd 3209 	ldrd	r3, r2, [sp, #36]	; 0x24
-  ca:	2d00      	cmp	r5, #0
-  cc:	bf18      	it	ne
-  ce:	461a      	movne	r2, r3
-  d0:	4648      	mov	r0, r9
-  d2:	463b      	mov	r3, r7
-  d4:	920a      	str	r2, [sp, #40]	; 0x28
-  d6:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
-  da:	ec56 2b1b 	vmov	r2, r6, d11
-  de:	9004      	str	r0, [sp, #16]
-  e0:	ec5b 7b1a 	vmov	r7, fp, d10
-  e4:	9602      	str	r6, [sp, #8]
-  e6:	9203      	str	r2, [sp, #12]
-  e8:	4633      	mov	r3, r6
-  ea:	4614      	mov	r4, r2
-  ec:	4638      	mov	r0, r7
-  ee:	4659      	mov	r1, fp
-  f0:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
-  f4:	ec58 ab19 	vmov	sl, r8, d9
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
-  f8:	2800      	cmp	r0, #0
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
-  fa:	ec55 1b18 	vmov	r1, r5, d8
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
-  fe:	4658      	mov	r0, fp
- 100:	bf18      	it	ne
- 102:	4630      	movne	r0, r6
- 104:	9009      	str	r0, [sp, #36]	; 0x24
- 106:	4638      	mov	r0, r7
- 108:	bf18      	it	ne
- 10a:	4620      	movne	r0, r4
- 10c:	9008      	str	r0, [sp, #32]
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
- 10e:	f8cd 8004 	str.w	r8, [sp, #4]
- 112:	4652      	mov	r2, sl
- 114:	4643      	mov	r3, r8
- 116:	4608      	mov	r0, r1
- 118:	460c      	mov	r4, r1
- 11a:	4629      	mov	r1, r5
- 11c:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
- 120:	2800      	cmp	r0, #0
- 122:	46d1      	mov	r9, sl
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
- 124:	4638      	mov	r0, r7
- 126:	4659      	mov	r1, fp
- 128:	463a      	mov	r2, r7
- 12a:	465b      	mov	r3, fp
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
- 12c:	bf1c      	itt	ne
- 12e:	46a8      	movne	r8, r5
- 130:	46a1      	movne	r9, r4
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
- 132:	f7ff fffe 	bl	0 <__aeabi_dcmpun>
- 136:	4606      	mov	r6, r0
- 138:	2800      	cmp	r0, #0
- 13a:	9809      	ldr	r0, [sp, #36]	; 0x24
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
- 13c:	4652      	mov	r2, sl
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
- 13e:	9902      	ldr	r1, [sp, #8]
- 140:	bf18      	it	ne
- 142:	4608      	movne	r0, r1
- 144:	9901      	ldr	r1, [sp, #4]
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
- 146:	9009      	str	r0, [sp, #36]	; 0x24
- 148:	4650      	mov	r0, sl
- 14a:	460b      	mov	r3, r1
- 14c:	f7ff fffe 	bl	0 <__aeabi_dcmpun>
- 150:	2800      	cmp	r0, #0
- 152:	bf1c      	itt	ne
- 154:	46a8      	movne	r8, r5
- 156:	46a1      	movne	r9, r4
- 158:	9a08      	ldr	r2, [sp, #32]
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
- 15a:	2e00      	cmp	r6, #0
- 15c:	9803      	ldr	r0, [sp, #12]
- 15e:	bf18      	it	ne
- 160:	4602      	movne	r2, r0
- 162:	9804      	ldr	r0, [sp, #16]
- 164:	4641      	mov	r1, r8
- 166:	9208      	str	r2, [sp, #32]
- 168:	2800      	cmp	r0, #0
- 16a:	e9dd 400b 	ldrd	r4, r0, [sp, #44]	; 0x2c
- 16e:	bf18      	it	ne
- 170:	4604      	movne	r4, r0
- 172:	9d07      	ldr	r5, [sp, #28]
- 174:	9f0a      	ldr	r7, [sp, #40]	; 0x28
- 176:	bf18      	it	ne
- 178:	463d      	movne	r5, r7
- 17a:	9e09      	ldr	r6, [sp, #36]	; 0x24
- 17c:	4648      	mov	r0, r9
- 17e:	4633      	mov	r3, r6
- 180:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
- 184:	46c3      	mov	fp, r8
- 186:	46ca      	mov	sl, r9
- 188:	2800      	cmp	r0, #0
- 18a:	bf18      	it	ne
- 18c:	46b3      	movne	fp, r6
- 18e:	9e08      	ldr	r6, [sp, #32]
- 190:	bf18      	it	ne
- 192:	46b2      	movne	sl, r6
- 194:	9807      	ldr	r0, [sp, #28]
- 196:	990b      	ldr	r1, [sp, #44]	; 0x2c
- 198:	4602      	mov	r2, r0
- 19a:	460b      	mov	r3, r1
- 19c:	f7ff fffe 	bl	0 <__aeabi_dcmpun>
- 1a0:	2800      	cmp	r0, #0
- 1a2:	980c      	ldr	r0, [sp, #48]	; 0x30
- 1a4:	bf1c      	itt	ne
- 1a6:	4604      	movne	r4, r0
- 1a8:	463d      	movne	r5, r7
- 1aa:	4648      	mov	r0, r9
- 1ac:	4641      	mov	r1, r8
- 1ae:	464a      	mov	r2, r9
- 1b0:	4643      	mov	r3, r8
- 1b2:	f7ff fffe 	bl	0 <__aeabi_dcmpun>
- 1b6:	2800      	cmp	r0, #0
- 1b8:	9f09      	ldr	r7, [sp, #36]	; 0x24
- 1ba:	bf1c      	itt	ne
- 1bc:	46bb      	movne	fp, r7
- 1be:	46b2      	movne	sl, r6
-_ZN5kurbo4rect4Rect5width17h191192c502e7a8d0E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:94
-        self.x1 - self.x0
- 1c0:	9a0a      	ldr	r2, [sp, #40]	; 0x28
- 1c2:	9b0c      	ldr	r3, [sp, #48]	; 0x30
- 1c4:	4628      	mov	r0, r5
- 1c6:	4621      	mov	r1, r4
- 1c8:	f7ff fffe 	bl	0 <__aeabi_dsub>
- 1cc:	4604      	mov	r4, r0
- 1ce:	460d      	mov	r5, r1
-_ZN5kurbo4rect4Rect6height17hae62dab19ba98920E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:102
-        self.y1 - self.y0
- 1d0:	4650      	mov	r0, sl
- 1d2:	4659      	mov	r1, fp
- 1d4:	4632      	mov	r2, r6
- 1d6:	463b      	mov	r3, r7
- 1d8:	f8dd a018 	ldr.w	sl, [sp, #24]
- 1dc:	f7ff fffe 	bl	0 <__aeabi_dsub>
- 1e0:	4602      	mov	r2, r0
- 1e2:	460b      	mov	r3, r1
-_ZN5kurbo4rect4Rect4area17h353a22162873d879E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:147
-        self.width() * self.height()
- 1e4:	4620      	mov	r0, r4
- 1e6:	4629      	mov	r1, r5
- 1e8:	9c05      	ldr	r4, [sp, #20]
- 1ea:	f7ff fffe 	bl	0 <__aeabi_dmul>
- 1ee:	ed9f 0b3e 	vldr	d0, [pc, #248]	; 2e8 <druid::WidgetPod<T,W>::paint_with_offset_impl+0x2e8>
-_ZN5druid22WidgetPod$LT$T$C$W$GT$22paint_with_offset_impl17he7173c6058e37867E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:524
- 1f2:	ec53 2b10 	vmov	r2, r3, d0
- 1f6:	f7ff fffe 	bl	0 <__aeabi_dcmpgt>
- 1fa:	2800      	cmp	r0, #0
- 1fc:	d065      	beq.n	2ca <druid::WidgetPod<T,W>::paint_with_offset_impl+0x2ca>
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:528
-        if let Err(e) = paint_ctx.render_ctx.save() { ////
- 1fe:	f8da 0020 	ldr.w	r0, [sl, #32]
- 202:	f7ff fffe 	bl	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::save>
- 206:	2800      	cmp	r0, #0
- 208:	d165      	bne.n	2d6 <druid::WidgetPod<T,W>::paint_with_offset_impl+0x2d6>
- 20a:	4939      	ldr	r1, [pc, #228]	; (2f0 <druid::WidgetPod<T,W>::paint_with_offset_impl+0x2f0>)
- 20c:	2200      	movs	r2, #0
-_ZN5kurbo4rect4Rect6origin17h4e6dde054abf9084E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:135
-        Point::new(self.x0, self.y0)
- 20e:	ecb4 8b04 	vldmia	r4!, {d8-d9}
-_ZN5druid22WidgetPod$LT$T$C$W$GT$22paint_with_offset_impl17he7173c6058e37867E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:536
-        paint_ctx.render_ctx.transform(Affine::translate(layout_origin)); ////
- 212:	f8da 0020 	ldr.w	r0, [sl, #32]
-_ZN5kurbo6affine6Affine9translate17h488925d27288f8a0E():
-/Users/Luppy/mynewt/kurbo-embedded/src/affine.rs:70
-
-    /// An affine transform representing translation.
-    #[inline]
-    pub fn translate<V: Into<Vec2>>(p: V) -> Affine {
-        let p = p.into();
-        Affine([1.0, 0.0, 0.0, 1.0, p.x, p.y])
- 216:	9111      	str	r1, [sp, #68]	; 0x44
- 218:	9210      	str	r2, [sp, #64]	; 0x40
- 21a:	e9cd 2214 	strd	r2, r2, [sp, #80]	; 0x50
- 21e:	e9cd 2212 	strd	r2, r2, [sp, #72]	; 0x48
- 222:	e9cd 2116 	strd	r2, r1, [sp, #88]	; 0x58
- 226:	a910      	add	r1, sp, #64	; 0x40
- 228:	ed8d 9b1a 	vstr	d9, [sp, #104]	; 0x68
- 22c:	ed8d 8b18 	vstr	d8, [sp, #96]	; 0x60
-_ZN5druid22WidgetPod$LT$T$C$W$GT$22paint_with_offset_impl17he7173c6058e37867E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:536
- 230:	f7ff fffe 	bl	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::transform>
- 234:	a810      	add	r0, sp, #64	; 0x40
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:539
-        let visible = paint_ctx.region().to_rect() - layout_origin;
- 236:	4651      	mov	r1, sl
- 238:	f7ff fffe 	bl	0 <druid::Region::to_rect>
-_ZN84_$LT$kurbo..rect..Rect$u20$as$u20$core..ops..arith..Sub$LT$kurbo..vec2..Vec2$GT$$GT$3sub17h40cb41bd9ead03d0E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:291
-            y0: self.y0 - v.y,
- 23c:	a812      	add	r0, sp, #72	; 0x48
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:290
-            x0: self.x0 - v.x,
- 23e:	ed9d 0b10 	vldr	d0, [sp, #64]	; 0x40
- 242:	ec55 4b18 	vmov	r4, r5, d8
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:291
-            y0: self.y0 - v.y,
- 246:	ecb0 ab06 	vldmia	r0!, {d10-d12}
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:290
-            x0: self.x0 - v.x,
- 24a:	ec51 0b10 	vmov	r0, r1, d0
- 24e:	4622      	mov	r2, r4
- 250:	462b      	mov	r3, r5
- 252:	f7ff fffe 	bl	0 <__aeabi_dsub>
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:291
-            y0: self.y0 - v.y,
- 256:	ec57 6b19 	vmov	r6, r7, d9
- 25a:	ec53 2b1a 	vmov	r2, r3, d10
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:290
-            x0: self.x0 - v.x,
- 25e:	ec41 0b18 	vmov	d8, r0, r1
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:291
-            y0: self.y0 - v.y,
- 262:	4610      	mov	r0, r2
- 264:	4619      	mov	r1, r3
- 266:	4632      	mov	r2, r6
- 268:	463b      	mov	r3, r7
- 26a:	f7ff fffe 	bl	0 <__aeabi_dsub>
- 26e:	4680      	mov	r8, r0
- 270:	4689      	mov	r9, r1
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:292
-            x1: self.x1 - v.x,
- 272:	ec51 0b1b 	vmov	r0, r1, d11
- 276:	4622      	mov	r2, r4
- 278:	462b      	mov	r3, r5
- 27a:	f7ff fffe 	bl	0 <__aeabi_dsub>
- 27e:	4604      	mov	r4, r0
- 280:	460d      	mov	r5, r1
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:293
-            y1: self.y1 - v.y,
- 282:	ec51 0b1c 	vmov	r0, r1, d12
- 286:	4632      	mov	r2, r6
- 288:	463b      	mov	r3, r7
- 28a:	f7ff fffe 	bl	0 <__aeabi_dsub>
- 28e:	ec41 0b10 	vmov	d0, r0, r1
- 292:	a80f      	add	r0, sp, #60	; 0x3c
-_ZN5druid22WidgetPod$LT$T$C$W$GT$22paint_with_offset_impl17he7173c6058e37867E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:541
-        paint_ctx.with_child_ctx(visible, |ctx| {
- 294:	901f      	str	r0, [sp, #124]	; 0x7c
- 296:	a80e      	add	r0, sp, #56	; 0x38
- 298:	901e      	str	r0, [sp, #120]	; 0x78
- 29a:	a80d      	add	r0, sp, #52	; 0x34
-_ZN84_$LT$kurbo..rect..Rect$u20$as$u20$core..ops..arith..Sub$LT$kurbo..vec2..Vec2$GT$$GT$3sub17h40cb41bd9ead03d0E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:292
-            x1: self.x1 - v.x,
- 29c:	ec45 4b11 	vmov	d1, r4, r5
- 2a0:	a910      	add	r1, sp, #64	; 0x40
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:291
-            y0: self.y0 - v.y,
- 2a2:	ec49 8b12 	vmov	d2, r8, r9
- 2a6:	aa1d      	add	r2, sp, #116	; 0x74
-_ZN5druid22WidgetPod$LT$T$C$W$GT$22paint_with_offset_impl17he7173c6058e37867E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:541
- 2a8:	901d      	str	r0, [sp, #116]	; 0x74
- 2aa:	4650      	mov	r0, sl
- 2ac:	ed8d 0b16 	vstr	d0, [sp, #88]	; 0x58
- 2b0:	ed8d 1b14 	vstr	d1, [sp, #80]	; 0x50
- 2b4:	ed8d 2b12 	vstr	d2, [sp, #72]	; 0x48
- 2b8:	ed8d 8b10 	vstr	d8, [sp, #64]	; 0x40
- 2bc:	f7ff fffe 	bl	0 <druid::WidgetPod<T,W>::paint_with_offset_impl>
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:545
-        if let Err(e) = paint_ctx.render_ctx.restore() { ////
- 2c0:	f8da 0020 	ldr.w	r0, [sl, #32]
- 2c4:	f7ff fffe 	bl	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::restore>
- 2c8:	b948      	cbnz	r0, 2de <druid::WidgetPod<T,W>::paint_with_offset_impl+0x2de>
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:550
-    }
- 2ca:	b020      	add	sp, #128	; 0x80
- 2cc:	ecbd 8b0c 	vpop	{d8-d13}
- 2d0:	b001      	add	sp, #4
- 2d2:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/<::core::macros::panic macros>:3
- 2d6:	4808      	ldr	r0, [pc, #32]	; (24 <core::panicking::panic+0x24>)
- 2d8:	f7ff fffe 	bl	0 <core::panicking::panic>
- 2dc:	defe      	udf	#254	; 0xfe
- 2de:	4805      	ldr	r0, [pc, #20]	; (2f4 <druid::WidgetPod<T,W>::paint_with_offset_impl+0x2f4>)
- 2e0:	f7ff fffe 	bl	0 <core::panicking::panic>
- 2e4:	defe      	udf	#254	; 0xfe
- 2e6:	bf00      	nop
-	...
- 2f0:	3ff00000 	.word	0x3ff00000
-	...
-
 Disassembly of section .text._ZN5druid22WidgetPod$LT$T$C$W$GT$3new17h19f68049a961c92dE:
 
 00000000 <druid::WidgetPod<T,W>::new>:
 _ZN5druid22WidgetPod$LT$T$C$W$GT$3new17h19f68049a961c92dE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:452
+/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:453
+    /// Create a new widget pod.
+    ///
+    /// In a widget hierarchy, each widget is wrapped in a `WidgetPod`
+    /// so it can participate in layout and event flow. The process of
+    /// adding a child widget to a container should call this method.
     pub fn new(inner: W) -> WidgetPod<T, W> {
    0:	b5b0      	push	{r4, r5, r7, lr}
    2:	460c      	mov	r4, r1
 _ZN59_$LT$druid..BaseState$u20$as$u20$core..default..Default$GT$7default17h3b085c6439d19087E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:119
+/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:120
 #[derive(Clone, Copy, Default)] ////
    4:	2128      	movs	r1, #40	; 0x28
    6:	4605      	mov	r5, r0
    8:	f7ff fffe 	bl	0 <__aeabi_memclr8>
    c:	2000      	movs	r0, #0
 _ZN5druid22WidgetPod$LT$T$C$W$GT$3new17h19f68049a961c92dE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:453
+/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:454
         WidgetPod {
    e:	4621      	mov	r1, r4
   10:	f885 0240 	strb.w	r0, [r5, #576]	; 0x240
@@ -5550,7 +2840,12 @@ _ZN5druid22WidgetPod$LT$T$C$W$GT$3new17h19f68049a961c92dE():
   18:	f8c5 0238 	str.w	r0, [r5, #568]	; 0x238
   1c:	f105 0028 	add.w	r0, r5, #40	; 0x28
   20:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:459
+/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:460
+            state: Default::default(),
+            old_data: None,
+            env: None,
+            inner,
+        }
     }
   24:	bdb0      	pop	{r4, r5, r7, pc}
 
@@ -5558,279 +2853,205 @@ Disassembly of section .text._ZN5druid22WidgetPod$LT$T$C$W$GT$3new17hf01255c82a5
 
 00000000 <druid::WidgetPod<T,W>::new>:
 _ZN5druid22WidgetPod$LT$T$C$W$GT$3new17hf01255c82a56ab0cE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:452
+/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:453
     pub fn new(inner: W) -> WidgetPod<T, W> {
    0:	b5b0      	push	{r4, r5, r7, lr}
    2:	4605      	mov	r5, r0
    4:	2000      	movs	r0, #0
    6:	460c      	mov	r4, r1
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:453
+/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:454
         WidgetPod {
    8:	f885 0034 	strb.w	r0, [r5, #52]	; 0x34
    c:	4628      	mov	r0, r5
    e:	212c      	movs	r1, #44	; 0x2c
   10:	f7ff fffe 	bl	0 <__aeabi_memclr8>
   14:	632c      	str	r4, [r5, #48]	; 0x30
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:459
+/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:460
     }
   16:	bdb0      	pop	{r4, r5, r7, pc}
 
-Disassembly of section .text._ZN5druid22WidgetPod$LT$T$C$W$GT$5paint17h88bdb7939a389289E:
-
-00000000 <druid::WidgetPod<T,W>::paint>:
-_ZN5druid22WidgetPod$LT$T$C$W$GT$5paint17h88bdb7939a389289E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:497
-    pub fn paint(&mut self, paint_ctx: &mut PaintCtx, data: &T, env: &Env) {
-   0:	b5e0      	push	{r5, r6, r7, lr}
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:498
-        self.inner.paint(paint_ctx, &self.state, data, &env);
-   2:	3028      	adds	r0, #40	; 0x28
-   4:	9300      	str	r3, [sp, #0]
-   6:	4613      	mov	r3, r2
-   8:	f7ff fffe 	bl	0 <druid::WidgetPod<T,W>::paint>
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:499
-    }
-   c:	bd8c      	pop	{r2, r3, r7, pc}
-
-Disassembly of section .text._ZN5druid22WidgetPod$LT$T$C$W$GT$6layout17hcb2dc5c268d2316cE:
-
-00000000 <druid::WidgetPod<T,W>::layout>:
-_ZN5druid22WidgetPod$LT$T$C$W$GT$6layout17hcb2dc5c268d2316cE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:558
-    pub fn layout(
-   0:	b5e0      	push	{r5, r6, r7, lr}
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:565
-        self.inner.layout(layout_ctx, bc, data, &env)
-   2:	3030      	adds	r0, #48	; 0x30
-   4:	f7ff fffe 	bl	0 <druid::WidgetPod<T,W>::layout>
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:566
-    }
-   8:	b002      	add	sp, #8
-   a:	bd80      	pop	{r7, pc}
-
-Disassembly of section .text._ZN5druid22WidgetPod$LT$T$C$W$GT$6layout17hf7c4f008cff3c9dbE:
-
-00000000 <druid::WidgetPod<T,W>::layout>:
-_ZN5druid22WidgetPod$LT$T$C$W$GT$6layout17hf7c4f008cff3c9dbE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:565
-        self.inner.layout(layout_ctx, bc, data, &env)
-   0:	3028      	adds	r0, #40	; 0x28
-   2:	f7ff bffe 	b.w	0 <druid::WidgetPod<T,W>::layout>
-
-Disassembly of section .text._ZN5druid3app23WindowDesc$LT$T$C$W$GT$12build_native17h29a055c1696a0945E:
+Disassembly of section .text._ZN5druid3app23WindowDesc$LT$T$C$W$GT$12build_native17ha4c1e9abdc88db78E:
 
 00000000 <druid::app::WindowDesc<T,W>::build_native>:
-_ZN5druid3app23WindowDesc$LT$T$C$W$GT$12build_native17h29a055c1696a0945E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:196
+_ZN5druid3app23WindowDesc$LT$T$C$W$GT$12build_native17ha4c1e9abdc88db78E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:197
         self.size = Some(size.into());
         self
     }
 
     /// Attempt to create a platform window from this `WindowDesc`.
     pub(crate) fn build_native(
-   0:	e92d 4ff8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, lr}
-   4:	ed2d 8b04 	vpush	{d8-d9}
-   8:	f5ad 6de2 	sub.w	sp, sp, #1808	; 0x710
-   c:	f50d 6493 	add.w	r4, sp, #1176	; 0x498
-  10:	460f      	mov	r7, r1
-  12:	9001      	str	r0, [sp, #4]
-_ZN75_$LT$druid..win_handler..Windows$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h7dadf89be6446194E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:162
-    windows: Option<WindowBox<T>>, //// Only 1 window supported
-  14:	4611      	mov	r1, r2
-  16:	4620      	mov	r0, r4
-  18:	4615      	mov	r5, r2
-  1a:	f7ff fffe 	bl	0 <druid::app::WindowDesc<T,W>::build_native>
-_ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h1ac151bb27eae301E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
-  1e:	f505 7616 	add.w	r6, r5, #600	; 0x258
-  22:	f10d 0a08 	add.w	sl, sp, #8
-_ZN76_$LT$druid..win_handler..AppState$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hbe3a00c44a6eeaf7E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:147
-#[derive(Clone)] ////
-  26:	f44f 7218 	mov.w	r2, #608	; 0x260
-_ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h1ac151bb27eae301E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
-  2a:	ce43      	ldmia	r6, {r0, r1, r6}
-_ZN75_$LT$druid..win_handler..Windows$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h7dadf89be6446194E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:159
-#[derive(Clone)] ////
-  2c:	f8cd 16f4 	str.w	r1, [sp, #1780]	; 0x6f4
-_ZN76_$LT$druid..win_handler..AppState$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hbe3a00c44a6eeaf7E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:147
-#[derive(Clone)] ////
-  30:	4621      	mov	r1, r4
-_ZN75_$LT$druid..win_handler..Windows$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h7dadf89be6446194E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:159
-#[derive(Clone)] ////
-  32:	f8cd 06f0 	str.w	r0, [sp, #1776]	; 0x6f0
-_ZN76_$LT$druid..win_handler..AppState$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hbe3a00c44a6eeaf7E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:147
-#[derive(Clone)] ////
-  36:	4650      	mov	r0, sl
-  38:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-_ZN4core3ptr18real_drop_in_place17h4cf97fa60ae553fbE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:195
-  3c:	4650      	mov	r0, sl
-_ZN76_$LT$druid..win_handler..AppState$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hbe3a00c44a6eeaf7E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:147
-  3e:	969a      	str	r6, [sp, #616]	; 0x268
-_ZN5druid3app23WindowDesc$LT$T$C$W$GT$12build_native17h29a055c1696a0945E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:214
+   0:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+   4:	f5ad 6ddf 	sub.w	sp, sp, #1784	; 0x6f8
+   8:	b081      	sub	sp, #4
+   a:	4680      	mov	r8, r0
+   c:	4834      	ldr	r0, [pc, #208]	; (e0 <druid::app::WindowDesc<T,W>::build_native+0xe0>)
+   e:	460f      	mov	r7, r1
+  10:	2600      	movs	r6, #0
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:215
         let platform_menu = menu
             .as_mut()
             .map(|m| m.build_window_menu(&state.borrow().data, &state.borrow().env));
         */ ////
 
-        let mut handler: DruidHandler<T> = DruidHandler::new_shared(state.clone(), self.id); ////
-  40:	f8d7 901c 	ldr.w	r9, [r7, #28]
-_ZN4core3ptr18real_drop_in_place17h4cf97fa60ae553fbE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:195
-  44:	f7ff fffe 	bl	0 <druid::app::WindowDesc<T,W>::build_native>
-_ZN5druid3app23WindowDesc$LT$T$C$W$GT$12build_native17h29a055c1696a0945E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:220
+        let mut handler: DruidHandler<T> = DruidHandler::new_shared(self.id); ////
+  12:	69c9      	ldr	r1, [r1, #28]
+  14:	9203      	str	r2, [sp, #12]
+_ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$3new17h9318f9ddc7dd47f7E():
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:150
+        WindowBuilder(
+  16:	9005      	str	r0, [sp, #20]
+  18:	9604      	str	r6, [sp, #16]
+  1a:	e9cd 6006 	strd	r6, r0, [sp, #24]
+  1e:	a804      	add	r0, sp, #16
+  20:	e9cd 6608 	strd	r6, r6, [sp, #32]
+  24:	9102      	str	r1, [sp, #8]
+_ZN11druid_shell6window29WindowBuilder$LT$THandler$GT$11set_handler17h9b79e6e842b1ac4cE():
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:162
+        self.0.set_handler(handler)
+  26:	f7ff fffe 	bl	0 <druid::app::WindowDesc<T,W>::build_native>
+_ZN5druid3app23WindowDesc$LT$T$C$W$GT$12build_native17ha4c1e9abdc88db78E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:221
         ////let handler = DruidHandler::new_shared(state.clone(), self.id);
 
         let mut builder: WindowBuilder<DruidHandler<T>> = WindowBuilder::new();
         builder.set_handler(handler); ////
         ////builder.set_handler(Box::new(handler));
         if let Some(size) = self.size {
-  48:	e9d7 0100 	ldrd	r0, r1, [r7]
-  4c:	f080 0001 	eor.w	r0, r0, #1
-  50:	4308      	orrs	r0, r1
-  52:	d104      	bne.n	5e <druid::app::WindowDesc<T,W>::build_native+0x5e>
-  54:	ed97 9b02 	vldr	d9, [r7, #8]
-  58:	ed97 8b04 	vldr	d8, [r7, #16]
-  5c:	e005      	b.n	6a <druid::app::WindowDesc<T,W>::build_native+0x6a>
-  5e:	ed9f 8b2c 	vldr	d8, [pc, #176]	; 110 <druid::app::WindowDesc<T,W>::build_native+0x110>
-  62:	eeb0 9a48 	vmov.f32	s18, s16
-  66:	eef0 9a68 	vmov.f32	s19, s17
-  6a:	ac9c      	add	r4, sp, #624	; 0x270
-/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:230
+  2a:	e9d7 0100 	ldrd	r0, r1, [r7]
+  2e:	ad0a      	add	r5, sp, #40	; 0x28
+  30:	f080 0001 	eor.w	r0, r0, #1
+  34:	4308      	orrs	r0, r1
+  36:	bf01      	itttt	eq
+  38:	ed97 0b02 	vldreq	d0, [r7, #8]
+  3c:	ed97 1b04 	vldreq	d1, [r7, #16]
+_ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$8set_size17h3274caad77b0c5daE():
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:168
+        self.size = size;
+  40:	ed8d 1b06 	vstreq	d1, [sp, #24]
+  44:	ed8d 0b04 	vstreq	d0, [sp, #16]
+_ZN5druid3app23WindowDesc$LT$T$C$W$GT$12build_native17ha4c1e9abdc88db78E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:231
         if let Some(menu) = platform_menu {
             builder.set_menu(menu);
         }
         */ ////
 
         let root_widget = (self.root_builder)(); ////
-  6c:	69b9      	ldr	r1, [r7, #24]
-  6e:	4620      	mov	r0, r4
-  70:	4788      	blx	r1
+  48:	69b9      	ldr	r1, [r7, #24]
+  4a:	4628      	mov	r0, r5
+  4c:	4788      	blx	r1
+  4e:	f50d 6991 	add.w	r9, sp, #1160	; 0x488
 _ZN59_$LT$druid..BaseState$u20$as$u20$core..default..Default$GT$7default17h3b085c6439d19087E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:119
+/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:120
 #[derive(Clone, Copy, Default)] ////
-  72:	4650      	mov	r0, sl
-  74:	2128      	movs	r1, #40	; 0x28
-  76:	f7ff fffe 	bl	0 <__aeabi_memclr8>
+  52:	2128      	movs	r1, #40	; 0x28
+  54:	4648      	mov	r0, r9
+  56:	f7ff fffe 	bl	0 <__aeabi_memclr8>
 _ZN5druid22WidgetPod$LT$T$C$W$GT$3new17h19f68049a961c92dE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:453
+/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:454
         WidgetPod {
-  7a:	f10a 0028 	add.w	r0, sl, #40	; 0x28
-  7e:	4621      	mov	r1, r4
-  80:	f44f 7204 	mov.w	r2, #528	; 0x210
-  84:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-  88:	f50d 6b93 	add.w	fp, sp, #1176	; 0x498
+  5a:	f109 0028 	add.w	r0, r9, #40	; 0x28
+  5e:	4629      	mov	r1, r5
+  60:	f44f 7204 	mov.w	r2, #528	; 0x210
+  64:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
+  68:	f50d 7a14 	add.w	sl, sp, #592	; 0x250
 _ZN5druid6window19Window$LT$T$C$W$GT$3new17h7bb59c31c3a67b3aE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:59
+/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:60
         root: W,
         ////root: &dyn Widget<T>,
         ////title: LocalizedString<T>,
         ////menu: Option<MenuDesc<T>>,
     ) -> Self {
         Window {
-  8c:	4651      	mov	r1, sl
-  8e:	f44f 720e 	mov.w	r2, #568	; 0x238
-  92:	4658      	mov	r0, fp
-  94:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-  98:	f04f 0800 	mov.w	r8, #0
-  9c:	f50d 60df 	add.w	r0, sp, #1784	; 0x6f8
-  a0:	f8cd 870b 	str.w	r8, [sp, #1803]	; 0x70b
-  a4:	f50d 6a90 	add.w	sl, sp, #1152	; 0x480
-  a8:	f8cd 8707 	str.w	r8, [sp, #1799]	; 0x707
-  ac:	f8cd 8703 	str.w	r8, [sp, #1795]	; 0x703
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$10new_window17h6936f2998f02c112E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:273
+  6c:	4649      	mov	r1, r9
+  6e:	f44f 720e 	mov.w	r2, #568	; 0x238
+  72:	4650      	mov	r0, sl
+  74:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
+  78:	f20d 60e4 	addw	r0, sp, #1764	; 0x6e4
+  7c:	f8cd 66f7 	str.w	r6, [sp, #1783]	; 0x6f7
+  80:	f8cd 66f3 	str.w	r6, [sp, #1779]	; 0x6f3
+  84:	f50d 7b0e 	add.w	fp, sp, #568	; 0x238
+  88:	f8cd 66ef 	str.w	r6, [sp, #1775]	; 0x6ef
+  8c:	f8cd 66eb 	str.w	r6, [sp, #1771]	; 0x6eb
+_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$10new_window17h88a41f26931e4403E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:272
         let window = Window::new(self);
         let window_box = WindowBox(
             WindowType::Flex(window),
-            PhantomData,
+            //PhantomData,
         );
         window_box
-  b0:	4651      	mov	r1, sl
-_ZN5druid6window19Window$LT$T$C$W$GT$3new17h7bb59c31c3a67b3aE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:59
-  b2:	f8cd 86ff 	str.w	r8, [sp, #1791]	; 0x6ff
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$10new_window17h6936f2998f02c112E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:273
-  b6:	c8dc      	ldmia	r0!, {r2, r3, r4, r6, r7}
-  b8:	c1dc      	stmia	r1!, {r2, r3, r4, r6, r7}
-  ba:	8802      	ldrh	r2, [r0, #0]
-  bc:	7880      	ldrb	r0, [r0, #2]
-  be:	7088      	strb	r0, [r1, #2]
-_ZN5druid11win_handler16Windows$LT$T$GT$3add17he7daad1f64ca3955E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:204
-        self.windows = Some(window); ////
-  c0:	4628      	mov	r0, r5
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$10new_window17h6936f2998f02c112E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:273
-  c2:	800a      	strh	r2, [r1, #0]
-_ZN5druid11win_handler16Windows$LT$T$GT$3add17he7daad1f64ca3955E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:204
-  c4:	f7ff fffe 	bl	0 <druid::app::WindowDesc<T,W>::build_native>
-  c8:	4628      	mov	r0, r5
-  ca:	4659      	mov	r1, fp
-  cc:	f44f 720e 	mov.w	r2, #568	; 0x238
-  d0:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-  d4:	f205 2041 	addw	r0, r5, #577	; 0x241
-  d8:	4651      	mov	r1, sl
-  da:	2217      	movs	r2, #23
-  dc:	f885 8240 	strb.w	r8, [r5, #576]	; 0x240
-  e0:	f8c5 8238 	str.w	r8, [r5, #568]	; 0x238
-  e4:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-  e8:	2001      	movs	r0, #1
-_ZN5druid3app23WindowDesc$LT$T$C$W$GT$12build_native17h29a055c1696a0945E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:240
+  90:	4659      	mov	r1, fp
+  92:	c8bc      	ldmia	r0!, {r2, r3, r4, r5, r7}
+  94:	c1bc      	stmia	r1!, {r2, r3, r4, r5, r7}
+  96:	8802      	ldrh	r2, [r0, #0]
+  98:	7880      	ldrb	r0, [r0, #2]
+  9a:	7088      	strb	r0, [r1, #2]
+_ZN5druid3app23WindowDesc$LT$T$C$W$GT$12build_native17ha4c1e9abdc88db78E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:238
+        //let root_win = Window::new(root_widget); ////
+        //let root_box = WindowBox::new(&mut root_win); ////
+        ////let root = (self.root_builder)();
         state
             ////.borrow_mut()
             .add_window(self.id, root_box); ////
+  9c:	4648      	mov	r0, r9
+_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$10new_window17h88a41f26931e4403E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:272
+  9e:	800a      	strh	r2, [r1, #0]
+_ZN5druid3app23WindowDesc$LT$T$C$W$GT$12build_native17ha4c1e9abdc88db78E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:238
+  a0:	4651      	mov	r1, sl
+  a2:	f44f 720e 	mov.w	r2, #568	; 0x238
+  a6:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
+  aa:	f209 2041 	addw	r0, r9, #577	; 0x241
+  ae:	4659      	mov	r1, fp
+  b0:	2217      	movs	r2, #23
+  b2:	f88d 66c8 	strb.w	r6, [sp, #1736]	; 0x6c8
+  b6:	f8cd 66c0 	str.w	r6, [sp, #1728]	; 0x6c0
+  ba:	f7ff fffe 	bl	0 <__aeabi_memcpy>
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:236
+        state
+  be:	e9dd 1002 	ldrd	r1, r0, [sp, #8]
+  c2:	464a      	mov	r2, r9
+  c4:	f7ff fffe 	bl	0 <<druid::win_handler::AppState<u32> as druid::win_handler::GlobalWindows<u32>>::add_window>
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:241
             ////.add_window(self.id, Window::new(root, title, menu));
 
         builder.build()
-  ea:	f8cd 901c 	str.w	r9, [sp, #28]
-  ee:	9006      	str	r0, [sp, #24]
-  f0:	a902      	add	r1, sp, #8
-  f2:	9801      	ldr	r0, [sp, #4]
-  f4:	ed8d 8b04 	vstr	d8, [sp, #16]
-  f8:	ed8d 9b02 	vstr	d9, [sp, #8]
-  fc:	f7ff fffe 	bl	0 <druid::app::WindowDesc<T,W>::build_native>
-/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:241
+  c8:	e9dd 0108 	ldrd	r0, r1, [sp, #32]
+_ZN4core6result19Result$LT$T$C$E$GT$7map_err17h2a4569c23ae840d9E():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:521
+  cc:	e9c8 6000 	strd	r6, r0, [r8]
+  d0:	e9c8 0102 	strd	r0, r1, [r8, #8]
+_ZN5druid3app23WindowDesc$LT$T$C$W$GT$12build_native17ha4c1e9abdc88db78E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:242
     }
- 100:	f50d 6de2 	add.w	sp, sp, #1808	; 0x710
- 104:	ecbd 8b04 	vpop	{d8-d9}
- 108:	b001      	add	sp, #4
- 10a:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
- 10e:	bf00      	nop
- 110:	00000000 	.word	0x00000000
- 114:	406e0000 	.word	0x406e0000
+  d4:	f50d 6ddf 	add.w	sp, sp, #1784	; 0x6f8
+  d8:	b001      	add	sp, #4
+  da:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
+  de:	bf00      	nop
+  e0:	406e0000 	.word	0x406e0000
 
 Disassembly of section .text._ZN5druid3app23WindowDesc$LT$T$C$W$GT$3new17h1b02657d01a7432dE:
 
 00000000 <druid::app::WindowDesc<T,W>::new>:
 _ZN5druid3app23WindowDesc$LT$T$C$W$GT$3new17h1b02657d01a7432dE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:151
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:152
     pub fn new(root: fn() -> W) -> WindowDesc<T, W> ////
    0:	b570      	push	{r4, r5, r6, lr}
    2:	460c      	mov	r4, r1
    4:	4605      	mov	r5, r0
    6:	2600      	movs	r6, #0
-/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:168
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:169
             id: WindowId::next(),
    8:	f7ff fffe 	bl	0 <druid::window::WindowId::next>
-/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:161
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:162
         WindowDesc {
    c:	e9c5 6600 	strd	r6, r6, [r5]
   10:	e9c5 4006 	strd	r4, r0, [r5, #24]
-/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:171
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:172
     }
   14:	bd70      	pop	{r4, r5, r6, pc}
 
@@ -5913,112 +3134,97 @@ _ZN5druid3app24AppLauncher$LT$T$C$W$GT$6launch17h6a562b72bd769919E():
 /Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:121
     pub fn launch(mut self, data: T) -> Result<(), PlatformError> {
    0:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
-   4:	f5ad 7d42 	sub.w	sp, sp, #776	; 0x308
-   8:	4614      	mov	r4, r2
-   a:	460d      	mov	r5, r1
-   c:	4680      	mov	r8, r0
+   4:	b0ac      	sub	sp, #176	; 0xb0
+   6:	4614      	mov	r4, r2
+   8:	460d      	mov	r5, r1
+   a:	4680      	mov	r8, r0
 /Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:122
         Application::init();
-   e:	f7ff fffe 	bl	0 <druid_shell::application::Application::init>
-  12:	46e9      	mov	r9, sp
-_ZN79_$LT$druid..win_handler..Windows$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h52d097338afc5db1E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:844
-            windows: None, ////
-  14:	f44f 710e 	mov.w	r1, #568	; 0x238
-  18:	4648      	mov	r0, r9
-  1a:	f7ff fffe 	bl	0 <__aeabi_memclr8>
-  1e:	2003      	movs	r0, #3
-_ZN5druid11win_handler17AppState$LT$T$GT$3new17hb5e5f4243b10c353E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:434
-        AppState { ////
-  20:	2120      	movs	r1, #32
-  22:	908e      	str	r0, [sp, #568]	; 0x238
-  24:	f509 700f 	add.w	r0, r9, #572	; 0x23c
-  28:	f7ff fffe 	bl	0 <__aeabi_memclr4>
-  2c:	f50d 7a1a 	add.w	sl, sp, #616	; 0x268
-_ZN5druid3app24AppLauncher$LT$T$C$W$GT$6launch17h6a562b72bd769919E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:134
-        for desc in self.windows {
-  30:	4629      	mov	r1, r5
-  32:	2248      	movs	r2, #72	; 0x48
-_ZN5druid11win_handler17AppState$LT$T$GT$3new17hb5e5f4243b10c353E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:434
-  34:	9498      	str	r4, [sp, #608]	; 0x260
-_ZN5druid3app24AppLauncher$LT$T$C$W$GT$6launch17h6a562b72bd769919E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:134
-  36:	4650      	mov	r0, sl
-  38:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-  3c:	afb6      	add	r7, sp, #728	; 0x2d8
-  3e:	acae      	add	r4, sp, #696	; 0x2b8
-  40:	adbf      	add	r5, sp, #764	; 0x2fc
-  42:	aebe      	add	r6, sp, #760	; 0x2f8
-  44:	2000      	movs	r0, #0
-  46:	90ac      	str	r0, [sp, #688]	; 0x2b0
-  48:	e016      	b.n	78 <druid::app::AppLauncher<T,W>::launch+0x78>
-  4a:	4620      	mov	r0, r4
-  4c:	4639      	mov	r1, r7
-  4e:	2220      	movs	r2, #32
-  50:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-  54:	4638      	mov	r0, r7
-  56:	4621      	mov	r1, r4
-  58:	2220      	movs	r2, #32
-  5a:	f7ff fffe 	bl	0 <__aeabi_memcpy>
+   c:	f7ff fffe 	bl	0 <druid_shell::application::Application::init>
+  10:	f10d 09ac 	add.w	r9, sp, #172	; 0xac
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:132
+        state.set_data(data); ////
+  14:	4621      	mov	r1, r4
+  16:	4648      	mov	r0, r9
+  18:	f7ff fffe 	bl	0 <<druid::win_handler::AppState<u32> as druid::win_handler::GlobalWindows<u32>>::set_data>
+  1c:	46ea      	mov	sl, sp
 /Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:135
+        for desc in self.windows {
+  1e:	4629      	mov	r1, r5
+  20:	4650      	mov	r0, sl
+  22:	2248      	movs	r2, #72	; 0x48
+  24:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
+  28:	af1c      	add	r7, sp, #112	; 0x70
+  2a:	ac14      	add	r4, sp, #80	; 0x50
+  2c:	ad27      	add	r5, sp, #156	; 0x9c
+  2e:	ae24      	add	r6, sp, #144	; 0x90
+  30:	2000      	movs	r0, #0
+  32:	9012      	str	r0, [sp, #72]	; 0x48
+  34:	e019      	b.n	6a <druid::app::AppLauncher<T,W>::launch+0x6a>
+  36:	4620      	mov	r0, r4
+  38:	4639      	mov	r1, r7
+  3a:	2220      	movs	r2, #32
+  3c:	f7ff fffe 	bl	0 <__aeabi_memcpy>
+  40:	4638      	mov	r0, r7
+  42:	4621      	mov	r1, r4
+  44:	2220      	movs	r2, #32
+  46:	f7ff fffe 	bl	0 <__aeabi_memcpy>
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:136
             let window = desc.build_native(&mut state)?;
-  5e:	4628      	mov	r0, r5
-  60:	4639      	mov	r1, r7
-  62:	464a      	mov	r2, r9
-  64:	f7ff fffe 	bl	0 <druid::app::AppLauncher<T,W>::launch>
-_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h702a216831938a95E():
+  4a:	4628      	mov	r0, r5
+  4c:	4639      	mov	r1, r7
+  4e:	464a      	mov	r2, r9
+  50:	f7ff fffe 	bl	0 <druid::app::AppLauncher<T,W>::launch>
+_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hcb5c5fe6e5566ab1E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:1283
-  68:	e9dd 10bf 	ldrd	r1, r0, [sp, #764]	; 0x2fc
+  54:	e9dd 2027 	ldrd	r2, r0, [sp, #156]	; 0x9c
+  58:	9929      	ldr	r1, [sp, #164]	; 0xa4
+_ZN5druid3app24AppLauncher$LT$T$C$W$GT$6launch17h6a562b72bd769919E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:136
+  5a:	2a01      	cmp	r2, #1
+  5c:	d016      	beq.n	8c <druid::app::AppLauncher<T,W>::launch+0x8c>
+  5e:	ab24      	add	r3, sp, #144	; 0x90
+  60:	9a2a      	ldr	r2, [sp, #168]	; 0xa8
+  62:	c307      	stmia	r3!, {r0, r1, r2}
+_ZN11druid_shell6window28WindowHandle$LT$THandler$GT$4show17h134ed8ca931cf0c9E():
+/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:88
+        self.0.show()
+  64:	4630      	mov	r0, r6
+  66:	f7ff fffe 	bl	0 <druid::app::AppLauncher<T,W>::launch>
 _ZN5druid3app24AppLauncher$LT$T$C$W$GT$6launch17h6a562b72bd769919E():
 /Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:135
-  6c:	2901      	cmp	r1, #1
-  6e:	d014      	beq.n	9a <druid::app::AppLauncher<T,W>::launch+0x9a>
-  70:	90be      	str	r0, [sp, #760]	; 0x2f8
-_ZN11druid_shell6window28WindowHandle$LT$THandler$GT$4show17h30b740c0d5fb30ddE():
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/window.rs:89
-        self.0.show()
-  72:	4630      	mov	r0, r6
-  74:	f7ff fffe 	bl	0 <druid::app::AppLauncher<T,W>::launch>
-_ZN5druid3app24AppLauncher$LT$T$C$W$GT$6launch17h6a562b72bd769919E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:134
         for desc in self.windows {
-  78:	4638      	mov	r0, r7
-  7a:	4651      	mov	r1, sl
-  7c:	f7ff fffe 	bl	0 <druid::app::AppLauncher<T,W>::launch>
-  80:	e9dd 01b6 	ldrd	r0, r1, [sp, #728]	; 0x2d8
-  84:	f080 0002 	eor.w	r0, r0, #2
-  88:	4308      	orrs	r0, r1
-  8a:	d1de      	bne.n	4a <druid::app::AppLauncher<T,W>::launch+0x4a>
-  8c:	a89a      	add	r0, sp, #616	; 0x268
+  6a:	4638      	mov	r0, r7
+  6c:	4651      	mov	r1, sl
+  6e:	f7ff fffe 	bl	0 <druid::app::AppLauncher<T,W>::launch>
+  72:	e9dd 011c 	ldrd	r0, r1, [sp, #112]	; 0x70
+  76:	f080 0002 	eor.w	r0, r0, #2
+  7a:	4308      	orrs	r0, r1
+  7c:	d1db      	bne.n	36 <druid::app::AppLauncher<T,W>::launch+0x36>
+  7e:	4668      	mov	r0, sp
 _ZN4core3ptr18real_drop_in_place17h7ebcac642c37ffcdE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:195
-  8e:	f7ff fffe 	bl	0 <druid::app::AppLauncher<T,W>::launch>
-  92:	2000      	movs	r0, #0
+  80:	f7ff fffe 	bl	0 <druid::app::AppLauncher<T,W>::launch>
+  84:	2000      	movs	r0, #0
 _ZN5druid3app24AppLauncher$LT$T$C$W$GT$6launch17h6a562b72bd769919E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:140
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:141
         Ok(())
-  94:	f8c8 0000 	str.w	r0, [r8]
-  98:	e008      	b.n	ac <druid::app::AppLauncher<T,W>::launch+0xac>
-  9a:	2201      	movs	r2, #1
-  9c:	99c1      	ldr	r1, [sp, #772]	; 0x304
+  86:	f8c8 0000 	str.w	r0, [r8]
+  8a:	e007      	b.n	9c <druid::app::AppLauncher<T,W>::launch+0x9c>
+  8c:	2201      	movs	r2, #1
 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hc511ecfb08299448E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:1293
-  9e:	e9c8 2000 	strd	r2, r0, [r8]
-  a2:	a89a      	add	r0, sp, #616	; 0x268
-  a4:	f8c8 1008 	str.w	r1, [r8, #8]
+  8e:	e9c8 2000 	strd	r2, r0, [r8]
+  92:	4668      	mov	r0, sp
+  94:	f8c8 1008 	str.w	r1, [r8, #8]
 _ZN4core3ptr18real_drop_in_place17h7ebcac642c37ffcdE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:195
-  a8:	f7ff fffe 	bl	0 <druid::app::AppLauncher<T,W>::launch>
+  98:	f7ff fffe 	bl	0 <druid::app::AppLauncher<T,W>::launch>
 _ZN5druid3app24AppLauncher$LT$T$C$W$GT$6launch17h6a562b72bd769919E():
-  ac:	4668      	mov	r0, sp
-  ae:	f7ff fffe 	bl	0 <druid::app::AppLauncher<T,W>::launch>
-/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:141
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:142
     }
-  b2:	f50d 7d42 	add.w	sp, sp, #776	; 0x308
-  b6:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
+  9c:	b02c      	add	sp, #176	; 0xb0
+  9e:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
 
 Disassembly of section .text._ZN5druid6widget4flex13Flex$LT$T$GT$9add_child17h5624c42956239f03E:
 
@@ -6105,73 +3311,6 @@ _ZN5druid6widget4flex6Column3new17h4c592896946036e0E():
     }
   18:	bdb0      	pop	{r4, r5, r7, pc}
 
-Disassembly of section .text._ZN5druid6widget5label14Label$LT$T$GT$10get_layout17h9ef7245ac155f5c3E:
-
-00000000 <druid::widget::label::Label<T>::get_layout>:
-_ZN5druid6widget5label14Label$LT$T$GT$10get_layout17h9ef7245ac155f5c3E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:84
-    fn get_layout(&self, t: &mut PietText, env: &Env) -> PietTextLayout {
-   0:	b5f0      	push	{r4, r5, r6, r7, lr}
-   2:	b08f      	sub	sp, #60	; 0x3c
-   4:	4604      	mov	r4, r0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:87
-        let text = self.text.display_text();
-   6:	f101 0014 	add.w	r0, r1, #20
-   a:	4615      	mov	r5, r2
-   c:	f7ff fffe 	bl	0 <druid::widget::label::Label<T>::get_layout>
-  10:	460f      	mov	r7, r1
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:89
-        let font = t.new_font_by_name(font_name, font_size).build().expect("get layout fail"); //// .unwrap();
-  12:	4915      	ldr	r1, [pc, #84]	; (68 <druid::widget::label::Label<T>::get_layout+0x68>)
-  14:	ed9f 0b12 	vldr	d0, [pc, #72]	; 60 <druid::widget::label::Label<T>::get_layout+0x60>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:87
-        let text = self.text.display_text();
-  18:	4606      	mov	r6, r0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:89
-        let font = t.new_font_by_name(font_name, font_size).build().expect("get layout fail"); //// .unwrap();
-  1a:	4628      	mov	r0, r5
-  1c:	2209      	movs	r2, #9
-  1e:	f7ff fffe 	bl	0 <<piet_embedded_graphics::text::EmbedText as piet::text::Text>::new_font_by_name>
-  22:	f7ff fffe 	bl	0 <<piet_embedded_graphics::text::EmbedFontBuilder as piet::text::FontBuilder>::build>
-_ZN4core6result19Result$LT$T$C$E$GT$6expect17hbaa3ca43969ac755E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:826
-  26:	b9b0      	cbnz	r0, 56 <druid::widget::label::Label<T>::get_layout+0x56>
-_ZN5druid6widget5label14Label$LT$T$GT$10get_layout17h9ef7245ac155f5c3E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:90
-        t.new_text_layout(&font, text).build().expect("get layout fail") ///// .unwrap()
-  28:	9700      	str	r7, [sp, #0]
-  2a:	af08      	add	r7, sp, #32
-  2c:	aa0e      	add	r2, sp, #56	; 0x38
-  2e:	4629      	mov	r1, r5
-  30:	4638      	mov	r0, r7
-  32:	4633      	mov	r3, r6
-  34:	f7ff fffe 	bl	0 <<piet_embedded_graphics::text::EmbedText as piet::text::Text>::new_text_layout>
-  38:	ad01      	add	r5, sp, #4
-  3a:	4639      	mov	r1, r7
-  3c:	4628      	mov	r0, r5
-  3e:	f7ff fffe 	bl	0 <<piet_embedded_graphics::text::EmbedTextLayoutBuilder as piet::text::TextLayoutBuilder>::build>
-_ZN4core6result19Result$LT$T$C$E$GT$6expect17h1d140daa40f79afaE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:826
-  42:	9801      	ldr	r0, [sp, #4]
-  44:	2801      	cmp	r0, #1
-  46:	bf1f      	itttt	ne
-  48:	1d28      	addne	r0, r5, #4
-  4a:	e890 00ee 	ldmiane.w	r0, {r1, r2, r3, r5, r6, r7}
-  4e:	c4ee      	stmiane	r4!, {r1, r2, r3, r5, r6, r7}
-_ZN5druid6widget5label14Label$LT$T$GT$10get_layout17h9ef7245ac155f5c3E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:91
-    }
-  50:	b00f      	addne	sp, #60	; 0x3c
-  52:	bf18      	it	ne
-  54:	bdf0      	popne	{r4, r5, r6, r7, pc}
-  56:	4805      	ldr	r0, [pc, #20]	; (6c <druid::widget::label::Label<T>::get_layout+0x6c>)
-  58:	210f      	movs	r1, #15
-  5a:	f7ff fffe 	bl	0 <druid::widget::label::Label<T>::get_layout>
-  5e:	defe      	udf	#254	; 0xfe
-  60:	00000000 	.word	0x00000000
-  64:	40300000 	.word	0x40300000
-	...
-
 Disassembly of section .text._ZN5druid6widget5label14Label$LT$T$GT$3new17h91f1829925616702E:
 
 00000000 <druid::widget::label::Label<T>::new>:
@@ -6243,33 +3382,6 @@ _ZN5druid6widget5label14Label$LT$T$GT$7aligned17h854ef5cd67a29fe8E():
   4c:	ecbd 8b04 	vpop	{d8-d9}
   50:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
 
-Disassembly of section .text._ZN5druid6widget5label18LabelText$LT$T$GT$12display_text17h4185910fc34e873eE:
-
-00000000 <druid::widget::label::LabelText<T>::display_text>:
-_ZN5druid6widget5label18LabelText$LT$T$GT$12display_text17h4185910fc34e873eE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:163
-            LabelText::Specific(s) => s.as_str(),
-   0:	6801      	ldr	r1, [r0, #0]
-   2:	2901      	cmp	r1, #1
-   4:	bf1e      	ittt	ne
-   6:	4804      	ldrne	r0, [pc, #16]	; (18 <druid::widget::label::LabelText<T>::display_text+0x18>)
-   8:	2112      	movne	r1, #18
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:166
-    }
-   a:	4770      	bxne	lr
-   c:	b580      	push	{r7, lr}
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:163
-            LabelText::Specific(s) => s.as_str(),
-   e:	3004      	adds	r0, #4
-_ZN8heapless6string15String$LT$N$GT$6as_str17h3ef5d573c9fe155cE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/string.rs:159
-        unsafe { str::from_utf8_unchecked(self.0.vec.as_slice()) }
-  10:	f7ff fffe 	bl	0 <heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::as_slice>
-  14:	bd80      	pop	{r7, pc}
-_ZN5druid6widget5label18LabelText$LT$T$GT$12display_text17h4185910fc34e873eE():
-  16:	bf00      	nop
-  18:	00000000 	.word	0x00000000
-
 Disassembly of section .text._ZN5druid6widget6button15Button$LT$T$GT$3new17hd5104a5ead1b56dfE:
 
 00000000 <druid::widget::button::Button<T>::new>:
@@ -6329,18 +3441,18 @@ impl<D: Data + 'static> WidgetBox<D> {
     pub fn new<W: Widget<D> + Clone>(widget: W) -> Self {
    0:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
    4:	ed2d 8b04 	vpush	{d8-d9}
-   8:	b0be      	sub	sp, #248	; 0xf8
-   a:	4604      	mov	r4, r0
+   8:	f5ad 7d3a 	sub.w	sp, sp, #744	; 0x2e8
+   c:	4604      	mov	r4, r0
 _ZN4core5clone5impls52_$LT$impl$u20$core..clone..Clone$u20$for$u20$u32$GT$5clone17h5d163be40911e00dE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/clone.rs:168
-   c:	e9d0 8004 	ldrd	r8, r0, [r0, #16]
+   e:	e9d0 8004 	ldrd	r8, r0, [r0, #16]
 _ZN79_$LT$druid..widget..label..LabelText$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h60131efcc9da7bd8E():
 /Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:39
 #[derive(Clone)] ////
-  10:	2801      	cmp	r0, #1
-  12:	d10f      	bne.n	34 <druid::widget::widgetbox::WidgetBox<D>::new+0x34>
-  14:	466d      	mov	r5, sp
-  16:	f104 0118 	add.w	r1, r4, #24
+  12:	2801      	cmp	r0, #1
+  14:	d10f      	bne.n	36 <druid::widget::widgetbox::WidgetBox<D>::new+0x36>
+  16:	ad1e      	add	r5, sp, #120	; 0x78
+  18:	f104 0118 	add.w	r1, r4, #24
 _ZN72_$LT$heapless..string..String$LT$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hb47fd3dcb5ddeabdE():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/string.rs:392
 where
@@ -6349,65 +3461,67 @@ where
     fn clone(&self) -> Self {
         Self(crate::i::String {
             vec: self.0.vec.clone(),
-  1a:	4628      	mov	r0, r5
-  1c:	f7ff fffe 	bl	0 <druid::widget::widgetbox::WidgetBox<D>::new>
+  1c:	4628      	mov	r0, r5
+  1e:	f7ff fffe 	bl	0 <druid::widget::widgetbox::WidgetBox<D>::new>
 _ZN79_$LT$druid..widget..label..LabelText$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h60131efcc9da7bd8E():
 /Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:39
-  20:	f105 0008 	add.w	r0, r5, #8
-  24:	e9dd a600 	ldrd	sl, r6, [sp]
-  28:	a930      	add	r1, sp, #192	; 0xc0
-  2a:	e890 00ac 	ldmia.w	r0, {r2, r3, r5, r7}
-  2e:	2001      	movs	r0, #1
-  30:	c1ac      	stmia	r1!, {r2, r3, r5, r7}
-  32:	e024      	b.n	7e <druid::widget::widgetbox::WidgetBox<D>::new+0x7e>
+  22:	f105 0008 	add.w	r0, r5, #8
+  26:	e9dd a61e 	ldrd	sl, r6, [sp, #120]	; 0x78
+  2a:	a9b3      	add	r1, sp, #716	; 0x2cc
+  2c:	e890 00ac 	ldmia.w	r0, {r2, r3, r5, r7}
+  30:	2001      	movs	r0, #1
+  32:	c1ac      	stmia	r1!, {r2, r3, r5, r7}
+  34:	e024      	b.n	80 <druid::widget::widgetbox::WidgetBox<D>::new+0x80>
 _ZN84_$LT$druid..localization..LocalizedString$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h1447bb70328f4dd7E():
 /Users/Luppy/mynewt/druid-embedded/druid/src/localization.rs:109
     placeholder: Option<String>,
-  34:	f104 0120 	add.w	r1, r4, #32
-  38:	a837      	add	r0, sp, #220	; 0xdc
+  36:	f104 0120 	add.w	r1, r4, #32
+  3a:	4668      	mov	r0, sp
 _ZN4core5clone5impls54_$LT$impl$u20$core..clone..Clone$u20$for$u20$$RF$T$GT$5clone17h757154e2e8c25142E():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/clone.rs:211
-  3a:	e9d4 a606 	ldrd	sl, r6, [r4, #24]
+  3c:	e9d4 a606 	ldrd	sl, r6, [r4, #24]
 _ZN84_$LT$druid..localization..LocalizedString$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h1447bb70328f4dd7E():
 /Users/Luppy/mynewt/druid-embedded/druid/src/localization.rs:109
-  3e:	f7ff fffe 	bl	0 <druid::widget::widgetbox::WidgetBox<D>::new>
+  40:	f7ff fffe 	bl	0 <druid::widget::widgetbox::WidgetBox<D>::new>
 _ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h60e615ee79d097ebE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
-  42:	6be0      	ldr	r0, [r4, #60]	; 0x3c
+  44:	6be0      	ldr	r0, [r4, #60]	; 0x3c
 _ZN84_$LT$druid..localization..LocalizedString$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h1447bb70328f4dd7E():
 /Users/Luppy/mynewt/druid-embedded/druid/src/localization.rs:111
     resolved: Option<String>,
-  44:	f104 055c 	add.w	r5, r4, #92	; 0x5c
+  46:	f104 055c 	add.w	r5, r4, #92	; 0x5c
 _ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h60e615ee79d097ebE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
-  48:	2801      	cmp	r0, #1
-  4a:	d107      	bne.n	5c <druid::widget::widgetbox::WidgetBox<D>::new+0x5c>
+  4a:	2801      	cmp	r0, #1
+  4c:	d107      	bne.n	5e <druid::widget::widgetbox::WidgetBox<D>::new+0x5e>
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:156
-  4c:	f104 0140 	add.w	r1, r4, #64	; 0x40
-  50:	4668      	mov	r0, sp
+  4e:	f104 0140 	add.w	r1, r4, #64	; 0x40
+  52:	a81e      	add	r0, sp, #120	; 0x78
 _ZN70_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hf1102e84a1207c7aE():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:173
         Vec(self.0.clone())
-  52:	f7ff fffe 	bl	0 <druid::widget::widgetbox::WidgetBox<D>::new>
-  56:	f04f 0901 	mov.w	r9, #1
-  5a:	e001      	b.n	60 <druid::widget::widgetbox::WidgetBox<D>::new+0x60>
+  54:	f7ff fffe 	bl	0 <druid::widget::widgetbox::WidgetBox<D>::new>
+  58:	f04f 0901 	mov.w	r9, #1
+  5c:	e001      	b.n	62 <druid::widget::widgetbox::WidgetBox<D>::new+0x62>
 _ZN84_$LT$druid..localization..LocalizedString$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h1447bb70328f4dd7E():
-  5c:	f04f 0900 	mov.w	r9, #0
-  60:	a822      	add	r0, sp, #136	; 0x88
+  5e:	f04f 0900 	mov.w	r9, #0
+  62:	a8a5      	add	r0, sp, #660	; 0x294
 /Users/Luppy/mynewt/druid-embedded/druid/src/localization.rs:111
-  62:	4629      	mov	r1, r5
-  64:	f7ff fffe 	bl	0 <druid::widget::widgetbox::WidgetBox<D>::new>
-  68:	a830      	add	r0, sp, #192	; 0xc0
-  6a:	a937      	add	r1, sp, #220	; 0xdc
+  64:	4629      	mov	r1, r5
+  66:	f7ff fffe 	bl	0 <druid::widget::widgetbox::WidgetBox<D>::new>
+  6a:	a8b3      	add	r0, sp, #716	; 0x2cc
+  6c:	4669      	mov	r1, sp
 /Users/Luppy/mynewt/druid-embedded/druid/src/localization.rs:105
 #[derive(Clone)]////
-  6c:	221c      	movs	r2, #28
-  6e:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-  72:	a829      	add	r0, sp, #164	; 0xa4
-  74:	4669      	mov	r1, sp
-  76:	221c      	movs	r2, #28
-  78:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-  7c:	2000      	movs	r0, #0
+  6e:	221c      	movs	r2, #28
+  70:	f7ff fffe 	bl	0 <__aeabi_memcpy>
+  74:	a8ac      	add	r0, sp, #688	; 0x2b0
+  76:	a91e      	add	r1, sp, #120	; 0x78
+  78:	221c      	movs	r2, #28
+  7a:	f7ff fffe 	bl	0 <__aeabi_memcpy>
+  7e:	2000      	movs	r0, #0
+_ZN75_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h11e3a505764a5d37E():
+  80:	ad1e      	add	r5, sp, #120	; 0x78
 _ZN64_$LT$piet..gradient..UnitPoint$u20$as$u20$core..clone..Clone$GT$5clone17h854c76e254ee6c5dE():
 /Users/Luppy/mynewt/piet-embedded/piet/src/gradient.rs:188
     /// values on the other axis may extend outside the target rectangle.
@@ -6416,69 +3530,84 @@ _ZN64_$LT$piet..gradient..UnitPoint$u20$as$u20$core..clone..Clone$GT$5clone17h85
 
 /// A representation of a point relative to a unit rectangle.
 #[derive(Debug, Clone, Copy)]
-  7e:	ec94 8b04 	vldmia	r4, {d8-d9}
-  82:	466d      	mov	r5, sp
-  84:	a930      	add	r1, sp, #192	; 0xc0
+  82:	ec94 8b04 	vldmia	r4, {d8-d9}
+  86:	a9b3      	add	r1, sp, #716	; 0x2cc
 _ZN75_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h11e3a505764a5d37E():
 /Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:46
 #[derive(Clone)] ////
-  86:	221c      	movs	r2, #28
-  88:	e9cd a606 	strd	sl, r6, [sp, #24]
-  8c:	e9cd 8004 	strd	r8, r0, [sp, #16]
-  90:	f105 0020 	add.w	r0, r5, #32
-  94:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-  98:	f105 0040 	add.w	r0, r5, #64	; 0x40
-  9c:	a929      	add	r1, sp, #164	; 0xa4
-  9e:	221c      	movs	r2, #28
-  a0:	f8cd 903c 	str.w	r9, [sp, #60]	; 0x3c
-  a4:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-  a8:	f105 005c 	add.w	r0, r5, #92	; 0x5c
-  ac:	a922      	add	r1, sp, #136	; 0x88
-  ae:	221c      	movs	r2, #28
-  b0:	f7ff fffe 	bl	0 <__aeabi_memcpy>
+  88:	221c      	movs	r2, #28
+  8a:	e9cd a624 	strd	sl, r6, [sp, #144]	; 0x90
+  8e:	e9cd 8022 	strd	r8, r0, [sp, #136]	; 0x88
+  92:	f105 0020 	add.w	r0, r5, #32
+  96:	f7ff fffe 	bl	0 <__aeabi_memcpy>
+  9a:	f105 0040 	add.w	r0, r5, #64	; 0x40
+  9e:	a9ac      	add	r1, sp, #688	; 0x2b0
+  a0:	221c      	movs	r2, #28
+  a2:	f8cd 90b4 	str.w	r9, [sp, #180]	; 0xb4
+  a6:	f7ff fffe 	bl	0 <__aeabi_memcpy>
+  aa:	f105 005c 	add.w	r0, r5, #92	; 0x5c
+  ae:	a9a5      	add	r1, sp, #660	; 0x294
+  b0:	221c      	movs	r2, #28
+  b2:	f7ff fffe 	bl	0 <__aeabi_memcpy>
 _ZN5druid6widget9widgetbox18WidgetBox$LT$D$GT$3new17hbe4d5d7da74c7744E():
 /Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:66
         let id = widget.clone().get_id();
-  b4:	4628      	mov	r0, r5
+  b6:	4628      	mov	r0, r5
 _ZN75_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h11e3a505764a5d37E():
 /Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:46
-  b6:	ec8d 8b04 	vstmia	sp, {d8-d9}
+  b8:	ed8d 9b20 	vstr	d9, [sp, #128]	; 0x80
+  bc:	ed8d 8b1e 	vstr	d8, [sp, #120]	; 0x78
 _ZN5druid6widget9widgetbox18WidgetBox$LT$D$GT$3new17hbe4d5d7da74c7744E():
 /Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:66
-  ba:	f7ff fffe 	bl	0 <druid::widget::widgetbox::WidgetBox<D>::new>
-  be:	4606      	mov	r6, r0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:72
+  c0:	f7ff fffe 	bl	0 <druid::widget::widgetbox::WidgetBox<D>::new>
+  c4:	466f      	mov	r7, sp
+  c6:	4606      	mov	r6, r0
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:67
         let widget_type: WidgetType<D> = widget.to_type();
+  c8:	4638      	mov	r0, r7
+  ca:	4621      	mov	r1, r4
+  cc:	2278      	movs	r2, #120	; 0x78
+  ce:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
+  d2:	a8ac      	add	r0, sp, #688	; 0x2b0
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:68
         let widget_box: WidgetBox<D> = WidgetBox(
+  d4:	96ac      	str	r6, [sp, #688]	; 0x2b0
+_ZN83_$LT$druid..widget..widgetbox..WidgetBox$LT$D$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h4e34b575aecd2ffeE():
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:46
+    PhantomData<D>,  //  Needed to do compile-time checking for `Data`
+  d6:	f7ff fffe 	bl	0 <<core::marker::PhantomData<T> as core::clone::Clone>::clone>
+  da:	2000      	movs	r0, #0
+_ZN5druid6widget9widgetbox18WidgetBox$LT$D$GT$3new17hbe4d5d7da74c7744E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:72
             id,
             PhantomData,
         );
         widget_box.clone().add_widget(widget_type);
-  c0:	9037      	str	r0, [sp, #220]	; 0xdc
-  c2:	2000      	movs	r0, #0
-  c4:	4621      	mov	r1, r4
-  c6:	9001      	str	r0, [sp, #4]
-  c8:	2002      	movs	r0, #2
-  ca:	9000      	str	r0, [sp, #0]
-  cc:	f105 0008 	add.w	r0, r5, #8
-  d0:	2278      	movs	r2, #120	; 0x78
-  d2:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-  d6:	a837      	add	r0, sp, #220	; 0xdc
-  d8:	4629      	mov	r1, r5
-  da:	f7ff fffe 	bl	0 <<druid::widget::widgetbox::WidgetBox<u32> as druid::widget::widgetbox::GlobalState<u32>>::add_widget>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:74
+  dc:	4639      	mov	r1, r7
+  de:	901f      	str	r0, [sp, #124]	; 0x7c
+  e0:	2003      	movs	r0, #3
+  e2:	901e      	str	r0, [sp, #120]	; 0x78
+  e4:	f105 0008 	add.w	r0, r5, #8
+  e8:	2278      	movs	r2, #120	; 0x78
+  ea:	96b3      	str	r6, [sp, #716]	; 0x2cc
+  ec:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
+  f0:	a8b3      	add	r0, sp, #716	; 0x2cc
+  f2:	4629      	mov	r1, r5
+  f4:	f7ff fffe 	bl	0 <<druid::widget::widgetbox::WidgetBox<u32> as druid::widget::widgetbox::GlobalState<u32>>::add_widget>
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:73
         widget_box
+  f8:	98ac      	ldr	r0, [sp, #688]	; 0x2b0
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:74
     }
-  de:	4630      	mov	r0, r6
-  e0:	b03e      	add	sp, #248	; 0xf8
-  e2:	ecbd 8b04 	vpop	{d8-d9}
-  e6:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
+  fa:	f50d 7d3a 	add.w	sp, sp, #744	; 0x2e8
+  fe:	ecbd 8b04 	vpop	{d8-d9}
+ 102:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
 
 Disassembly of section .text._ZN5druid6window19Window$LT$T$C$W$GT$3new17h7bb59c31c3a67b3aE:
 
 00000000 <druid::window::Window<T,W>::new>:
 _ZN5druid6window19Window$LT$T$C$W$GT$3new17h7bb59c31c3a67b3aE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:53
+/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:54
     pub fn new(
    0:	b570      	push	{r4, r5, r6, lr}
    2:	f5ad 7d0e 	sub.w	sp, sp, #568	; 0x238
@@ -6486,20 +3615,20 @@ _ZN5druid6window19Window$LT$T$C$W$GT$3new17h7bb59c31c3a67b3aE():
    8:	460c      	mov	r4, r1
    a:	4605      	mov	r5, r0
 _ZN59_$LT$druid..BaseState$u20$as$u20$core..default..Default$GT$7default17h3b085c6439d19087E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:119
+/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:120
 #[derive(Clone, Copy, Default)] ////
    c:	4630      	mov	r0, r6
    e:	2128      	movs	r1, #40	; 0x28
   10:	f7ff fffe 	bl	0 <__aeabi_memclr8>
 _ZN5druid22WidgetPod$LT$T$C$W$GT$3new17h19f68049a961c92dE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:453
+/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:454
         WidgetPod {
   14:	f106 0028 	add.w	r0, r6, #40	; 0x28
   18:	4621      	mov	r1, r4
   1a:	f44f 7204 	mov.w	r2, #528	; 0x210
   1e:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
 _ZN5druid6window19Window$LT$T$C$W$GT$3new17h7bb59c31c3a67b3aE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:59
+/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:60
         Window {
   22:	4628      	mov	r0, r5
   24:	4631      	mov	r1, r6
@@ -6510,7 +3639,7 @@ _ZN5druid6window19Window$LT$T$C$W$GT$3new17h7bb59c31c3a67b3aE():
   34:	f8c5 0238 	str.w	r0, [r5, #568]	; 0x238
   38:	e9c5 0092 	strd	r0, r0, [r5, #584]	; 0x248
   3c:	e9c5 0094 	strd	r0, r0, [r5, #592]	; 0x250
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:69
+/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:70
             ////title,
             ////menu,
             ////context_menu: None,
@@ -6519,583 +3648,6 @@ _ZN5druid6window19Window$LT$T$C$W$GT$3new17h7bb59c31c3a67b3aE():
     }
   40:	f50d 7d0e 	add.w	sp, sp, #568	; 0x238
   44:	bd70      	pop	{r4, r5, r6, pc}
-
-Disassembly of section .text._ZN5druid6window19Window$LT$T$C$W$GT$5paint17h4b966dd8ea413905E:
-
-00000000 <druid::window::Window<T,W>::paint>:
-_ZN5druid6window19Window$LT$T$C$W$GT$5paint17h4b966dd8ea413905E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:98
-        let size = self.root.layout(layout_ctx, &bc, data, env);
-        self.root
-            .set_layout_rect(Rect::from_origin_size(Point::ORIGIN, size));
-    }
-
-    pub fn paint(&mut self, paint_ctx: &mut PaintCtx, data: &T, env: &Env) {
-   0:	b570      	push	{r4, r5, r6, lr}
-   2:	b098      	sub	sp, #96	; 0x60
-   4:	ed9f 0b12 	vldr	d0, [pc, #72]	; 50 <druid::window::Window<T,W>::paint+0x50>
-   8:	460c      	mov	r4, r1
-   a:	a901      	add	r1, sp, #4
-   c:	ad04      	add	r5, sp, #16
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:99
-        let visible = Rect::from_origin_size(Point::ZERO, self.size);
-   e:	eeb0 1a40 	vmov.f32	s2, s0
-  12:	c10d      	stmia	r1!, {r0, r2, r3}
-  14:	eef0 1a60 	vmov.f32	s3, s1
-  18:	ed90 2b92 	vldr	d2, [r0, #584]	; 0x248
-  1c:	ed90 3b94 	vldr	d3, [r0, #592]	; 0x250
-  20:	4628      	mov	r0, r5
-  22:	f7ff fffe 	bl	0 <druid::window::Window<T,W>::paint>
-  26:	ae0c      	add	r6, sp, #48	; 0x30
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:100
-        paint_ctx.with_child_ctx(visible, |ctx| self.root.paint(ctx, data, env));
-  28:	4629      	mov	r1, r5
-  2a:	2220      	movs	r2, #32
-  2c:	4630      	mov	r0, r6
-  2e:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-  32:	a803      	add	r0, sp, #12
-  34:	9017      	str	r0, [sp, #92]	; 0x5c
-  36:	a802      	add	r0, sp, #8
-  38:	9016      	str	r0, [sp, #88]	; 0x58
-  3a:	a801      	add	r0, sp, #4
-  3c:	aa15      	add	r2, sp, #84	; 0x54
-  3e:	9015      	str	r0, [sp, #84]	; 0x54
-  40:	4620      	mov	r0, r4
-  42:	4631      	mov	r1, r6
-  44:	f7ff fffe 	bl	0 <druid::window::Window<T,W>::paint>
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:101
-    }
-  48:	b018      	add	sp, #96	; 0x60
-  4a:	bd70      	pop	{r4, r5, r6, pc}
-  4c:	bf00      	nop
-  4e:	bf00      	nop
-	...
-
-Disassembly of section .text._ZN5druid6window19Window$LT$T$C$W$GT$6layout17h2b4e279365cc35a1E:
-
-00000000 <druid::window::Window<T,W>::layout>:
-_ZN5druid6window19Window$LT$T$C$W$GT$6layout17h2b4e279365cc35a1E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:91
-    pub fn layout(&mut self, layout_ctx: &mut LayoutCtx, data: &T, env: &Env) {
-   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
-   4:	b092      	sub	sp, #72	; 0x48
-   6:	f10d 0808 	add.w	r8, sp, #8
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:92
-        let bc = BoxConstraints::tight(self.size);
-   a:	ed90 0b92 	vldr	d0, [r0, #584]	; 0x248
-   e:	ed90 1b94 	vldr	d1, [r0, #592]	; 0x250
-  12:	4604      	mov	r4, r0
-  14:	4640      	mov	r0, r8
-  16:	461d      	mov	r5, r3
-  18:	4616      	mov	r6, r2
-  1a:	460f      	mov	r7, r1
-  1c:	f7ff fffe 	bl	0 <druid::BoxConstraints::tight>
-_ZN5druid22WidgetPod$LT$T$C$W$GT$6layout17hf7c4f008cff3c9dbE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:565
-        self.inner.layout(layout_ctx, bc, data, &env)
-  20:	f104 0028 	add.w	r0, r4, #40	; 0x28
-  24:	4639      	mov	r1, r7
-  26:	4642      	mov	r2, r8
-  28:	4633      	mov	r3, r6
-  2a:	9500      	str	r5, [sp, #0]
-  2c:	f7ff fffe 	bl	0 <druid::window::Window<T,W>::layout>
-  30:	eeb0 2a40 	vmov.f32	s4, s0
-  34:	ad0a      	add	r5, sp, #40	; 0x28
-  36:	eef0 2a60 	vmov.f32	s5, s1
-  3a:	ed9f 0b0b 	vldr	d0, [pc, #44]	; 68 <druid::window::Window<T,W>::layout+0x68>
-  3e:	eeb0 3a41 	vmov.f32	s6, s2
-_ZN5druid6window19Window$LT$T$C$W$GT$6layout17h2b4e279365cc35a1E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:95
-            .set_layout_rect(Rect::from_origin_size(Point::ORIGIN, size));
-  42:	4628      	mov	r0, r5
-  44:	eeb0 1a40 	vmov.f32	s2, s0
-_ZN5druid22WidgetPod$LT$T$C$W$GT$6layout17hf7c4f008cff3c9dbE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:565
-  48:	eef0 3a61 	vmov.f32	s7, s3
-_ZN5druid6window19Window$LT$T$C$W$GT$6layout17h2b4e279365cc35a1E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:95
-  4c:	eef0 1a60 	vmov.f32	s3, s1
-  50:	f7ff fffe 	bl	0 <druid::window::Window<T,W>::layout>
-_ZN5druid22WidgetPod$LT$T$C$W$GT$15set_layout_rect17h1abe560ea13fb200E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:476
-        self.state.layout_rect = layout_rect;
-  54:	4620      	mov	r0, r4
-  56:	4629      	mov	r1, r5
-  58:	2220      	movs	r2, #32
-  5a:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-_ZN5druid6window19Window$LT$T$C$W$GT$6layout17h2b4e279365cc35a1E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:96
-    }
-  5e:	b012      	add	sp, #72	; 0x48
-  60:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
-  64:	bf00      	nop
-  66:	bf00      	nop
-	...
-
-Disassembly of section .text._ZN5druid8PaintCtx14with_child_ctx17hb2de607a67903714E:
-
-00000000 <druid::PaintCtx::with_child_ctx>:
-_ZN5druid8PaintCtx14with_child_ctx17hb2de607a67903714E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:357
-    pub fn with_child_ctx(&mut self, region: impl Into<Region>, f: impl FnOnce(&mut PaintCtx)) {
-   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
-   4:	b092      	sub	sp, #72	; 0x48
-   6:	ad0a      	add	r5, sp, #40	; 0x28
-   8:	4614      	mov	r4, r2
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:364
-            render_ctx,
-   a:	e9d0 7608 	ldrd	r7, r6, [r0, #32]
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:366
-            region: region.into(),
-   e:	2220      	movs	r2, #32
-  10:	4628      	mov	r0, r5
-  12:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-  16:	46e8      	mov	r8, sp
-  18:	4629      	mov	r1, r5
-  1a:	4640      	mov	r0, r8
-  1c:	f7ff fffe 	bl	0 <druid::PaintCtx::with_child_ctx>
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:363
-        let mut child_ctx = PaintCtx {
-  20:	e9cd 7608 	strd	r7, r6, [sp, #32]
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:368
-        f(&mut child_ctx)
-  24:	cc07      	ldmia	r4!, {r0, r1, r2}
-_ZN5druid6window19Window$LT$T$C$W$GT$5paint28_$u7b$$u7b$closure$u7d$$u7d$17h0a13c4afbaa289d6E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:100
-        paint_ctx.with_child_ctx(visible, |ctx| self.root.paint(ctx, data, env));
-  26:	6813      	ldr	r3, [r2, #0]
-  28:	680a      	ldr	r2, [r1, #0]
-  2a:	4641      	mov	r1, r8
-  2c:	6800      	ldr	r0, [r0, #0]
-  2e:	f7ff fffe 	bl	0 <druid::PaintCtx::with_child_ctx>
-_ZN5druid8PaintCtx14with_child_ctx17hb2de607a67903714E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:369
-    }
-  32:	b012      	add	sp, #72	; 0x48
-  34:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
-
-Disassembly of section .text._ZN5druid8PaintCtx14with_child_ctx17hb3e968378919c61fE:
-
-00000000 <druid::PaintCtx::with_child_ctx>:
-_ZN5druid8PaintCtx14with_child_ctx17hb3e968378919c61fE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:357
-    pub fn with_child_ctx(&mut self, region: impl Into<Region>, f: impl FnOnce(&mut PaintCtx)) {
-   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
-   4:	b094      	sub	sp, #80	; 0x50
-   6:	ad0c      	add	r5, sp, #48	; 0x30
-   8:	4614      	mov	r4, r2
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:364
-            render_ctx,
-   a:	e9d0 7608 	ldrd	r7, r6, [r0, #32]
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:366
-            region: region.into(),
-   e:	2220      	movs	r2, #32
-  10:	4628      	mov	r0, r5
-  12:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-  16:	f10d 0808 	add.w	r8, sp, #8
-  1a:	4629      	mov	r1, r5
-  1c:	4640      	mov	r0, r8
-  1e:	f7ff fffe 	bl	0 <druid::PaintCtx::with_child_ctx>
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:363
-        let mut child_ctx = PaintCtx {
-  22:	e9cd 760a 	strd	r7, r6, [sp, #40]	; 0x28
-_ZN5druid22WidgetPod$LT$T$C$W$GT$22paint_with_offset_impl28_$u7b$$u7b$closure$u7d$$u7d$17h5a4f3c9143326a06E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:542
-            self.inner.paint(ctx, &self.state, data, &env)
-  26:	4641      	mov	r1, r8
-_ZN5druid8PaintCtx14with_child_ctx17hb3e968378919c61fE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:368
-        f(&mut child_ctx)
-  28:	6820      	ldr	r0, [r4, #0]
-_ZN5druid22WidgetPod$LT$T$C$W$GT$22paint_with_offset_impl28_$u7b$$u7b$closure$u7d$$u7d$17h5a4f3c9143326a06E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:542
-            self.inner.paint(ctx, &self.state, data, &env)
-  2a:	6802      	ldr	r2, [r0, #0]
-  2c:	f102 0030 	add.w	r0, r2, #48	; 0x30
-  30:	f7ff fffe 	bl	0 <druid::PaintCtx::with_child_ctx>
-_ZN5druid8PaintCtx14with_child_ctx17hb3e968378919c61fE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:369
-    }
-  34:	b014      	add	sp, #80	; 0x50
-  36:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
-
-Disassembly of section .text._ZN5druid9windowbox18WindowBox$LT$D$GT$5paint17h64dae4b6f089541fE:
-
-00000000 <druid::windowbox::WindowBox<D>::paint>:
-_ZN5druid9windowbox18WindowBox$LT$D$GT$5paint17h64dae4b6f089541fE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/windowbox.rs:85
-        paint_ctx: &mut PaintCtx, 
-        data: &D, 
-        env: &Env
-    ) {
-        match &mut self.0 {
-            WindowType::Flex(w)   => w.paint(paint_ctx, data, env),
-   0:	f8d0 c238 	ldr.w	ip, [r0, #568]	; 0x238
-   4:	f1bc 0f02 	cmp.w	ip, #2
-   8:	bf18      	it	ne
-   a:	f7ff bffe 	bne.w	0 <druid::windowbox::WindowBox<D>::paint>
-/Users/Luppy/mynewt/druid-embedded/druid/src/windowbox.rs:88
-            WindowType::None => {}
-        };
-    }
-   e:	4770      	bx	lr
-
-Disassembly of section .text._ZN5druid9windowbox18WindowBox$LT$D$GT$6layout17hec846ec48102ef83E:
-
-00000000 <druid::windowbox::WindowBox<D>::layout>:
-_ZN5druid9windowbox18WindowBox$LT$D$GT$6layout17hec846ec48102ef83E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/windowbox.rs:73
-            WindowType::Flex(w)   => w.layout(layout_ctx, data, env),
-   0:	f8d0 c238 	ldr.w	ip, [r0, #568]	; 0x238
-   4:	f1bc 0f02 	cmp.w	ip, #2
-   8:	bf18      	it	ne
-   a:	f7ff bffe 	bne.w	0 <druid::windowbox::WindowBox<D>::layout>
-/Users/Luppy/mynewt/druid-embedded/druid/src/windowbox.rs:76
-    }
-   e:	4770      	bx	lr
-
-Disassembly of section .text._ZN5kurbo4rect4Rect16from_origin_size17h18a40b933e1fa35fE:
-
-00000000 <kurbo::rect::Rect::from_origin_size>:
-_ZN5kurbo4rect4Rect16from_origin_size17h18a40b933e1fa35fE():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:52
-    pub fn from_origin_size(origin: impl Into<Point>, size: impl Into<Size>) -> Rect {
-   0:	b5b0      	push	{r4, r5, r7, lr}
-   2:	ed2d 4b10 	vpush	{d4-d11}
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:53
-        let origin = origin.into();
-   6:	4d2f      	ldr	r5, [pc, #188]	; (c4 <kurbo::rect::Rect::from_origin_size+0xc4>)
-   8:	eeb0 8a43 	vmov.f32	s16, s6
-   c:	eeb0 9a42 	vmov.f32	s18, s4
-  10:	4604      	mov	r4, r0
-  12:	eef0 8a63 	vmov.f32	s17, s7
-  16:	eef0 9a62 	vmov.f32	s19, s5
-  1a:	47a8      	blx	r5
-  1c:	eeb0 aa40 	vmov.f32	s20, s0
-  20:	eeb0 ba41 	vmov.f32	s22, s2
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:54
-        Rect::from_points(origin, origin + size.into().to_vec2())
-  24:	eeb0 0a49 	vmov.f32	s0, s18
-  28:	eeb0 1a48 	vmov.f32	s2, s16
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:53
-        let origin = origin.into();
-  2c:	eef0 aa60 	vmov.f32	s21, s1
-  30:	eef0 ba61 	vmov.f32	s23, s3
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:54
-        Rect::from_points(origin, origin + size.into().to_vec2())
-  34:	eef0 0a69 	vmov.f32	s1, s19
-  38:	eef0 1a68 	vmov.f32	s3, s17
-  3c:	f7ff fffe 	bl	0 <<T as core::convert::Into<U>>::into>
-  40:	eeb0 2a40 	vmov.f32	s4, s0
-  44:	eeb0 3a41 	vmov.f32	s6, s2
-  48:	eeb0 0a4a 	vmov.f32	s0, s20
-  4c:	eeb0 1a4b 	vmov.f32	s2, s22
-  50:	eef0 2a60 	vmov.f32	s5, s1
-  54:	eef0 3a61 	vmov.f32	s7, s3
-  58:	eef0 0a6a 	vmov.f32	s1, s21
-  5c:	eef0 1a6b 	vmov.f32	s3, s23
-  60:	f7ff fffe 	bl	0 <kurbo::rect::Rect::from_origin_size>
-  64:	eeb0 8a40 	vmov.f32	s16, s0
-  68:	eeb0 9a41 	vmov.f32	s18, s2
-_ZN5kurbo4rect4Rect11from_points17hf0b92d5ab30648cfE():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:37
-        let p0 = p0.into();
-  6c:	eeb0 0a4a 	vmov.f32	s0, s20
-  70:	eeb0 1a4b 	vmov.f32	s2, s22
-_ZN5kurbo4rect4Rect16from_origin_size17h18a40b933e1fa35fE():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:54
-        Rect::from_points(origin, origin + size.into().to_vec2())
-  74:	eef0 8a60 	vmov.f32	s17, s1
-  78:	eef0 9a61 	vmov.f32	s19, s3
-_ZN5kurbo4rect4Rect11from_points17hf0b92d5ab30648cfE():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:37
-        let p0 = p0.into();
-  7c:	eef0 0a6a 	vmov.f32	s1, s21
-  80:	eef0 1a6b 	vmov.f32	s3, s23
-  84:	47a8      	blx	r5
-  86:	eeb0 aa40 	vmov.f32	s20, s0
-  8a:	eeb0 ba41 	vmov.f32	s22, s2
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:38
-        let p1 = p1.into();
-  8e:	eeb0 0a48 	vmov.f32	s0, s16
-  92:	eeb0 1a49 	vmov.f32	s2, s18
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:37
-        let p0 = p0.into();
-  96:	eef0 aa60 	vmov.f32	s21, s1
-  9a:	eef0 ba61 	vmov.f32	s23, s3
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:38
-        let p1 = p1.into();
-  9e:	eef0 0a68 	vmov.f32	s1, s17
-  a2:	eef0 1a69 	vmov.f32	s3, s19
-  a6:	47a8      	blx	r5
-  a8:	4669      	mov	r1, sp
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:39
-        Rect {
-  aa:	4620      	mov	r0, r4
-  ac:	ed8d 1b06 	vstr	d1, [sp, #24]
-  b0:	ed8d 0b04 	vstr	d0, [sp, #16]
-  b4:	ec8d ab04 	vstmia	sp, {d10-d11}
-  b8:	f7ff fffe 	bl	0 <kurbo::rect::Rect::from_origin_size>
-_ZN5kurbo4rect4Rect16from_origin_size17h18a40b933e1fa35fE():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:55
-    }
-  bc:	ecbd 4b10 	vpop	{d4-d11}
-  c0:	bdb0      	pop	{r4, r5, r7, pc}
-  c2:	bf00      	nop
-  c4:	00000000 	.word	0x00000000
-
-Disassembly of section .text._ZN5kurbo4rect4Rect3abs17h393fde2ef1301248E:
-
-00000000 <kurbo::rect::Rect::abs>:
-_ZN5kurbo4rect4Rect3abs17h393fde2ef1301248E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:167
-    pub fn abs(&self) -> Rect {
-   0:	e92d 4ff8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, lr}
-   4:	ed2d 2b10 	vpush	{d2-d9}
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:168
-        let Rect { x0, y0, x1, y1 } = *self;
-   8:	ed91 0b00 	vldr	d0, [r1]
-   c:	ed91 1b04 	vldr	d1, [r1, #16]
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
-  10:	ec57 8b10 	vmov	r8, r7, d0
-  14:	9008      	str	r0, [sp, #32]
-  16:	ec54 ab11 	vmov	sl, r4, d1
-_ZN5kurbo4rect4Rect3abs17h393fde2ef1301248E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:168
-  1a:	ed91 8b02 	vldr	d8, [r1, #8]
-  1e:	ed91 9b06 	vldr	d9, [r1, #24]
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
-  22:	9400      	str	r4, [sp, #0]
-  24:	4640      	mov	r0, r8
-  26:	4639      	mov	r1, r7
-  28:	4652      	mov	r2, sl
-  2a:	4623      	mov	r3, r4
-  2c:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
-  30:	ec55 9b19 	vmov	r9, r5, d9
-  34:	2800      	cmp	r0, #0
-  36:	ec51 6b18 	vmov	r6, r1, d8
-  3a:	bf18      	it	ne
-  3c:	463c      	movne	r4, r7
-  3e:	46d3      	mov	fp, sl
-  40:	9401      	str	r4, [sp, #4]
-  42:	bf18      	it	ne
-  44:	46c3      	movne	fp, r8
-  46:	9509      	str	r5, [sp, #36]	; 0x24
-  48:	9604      	str	r6, [sp, #16]
-  4a:	464a      	mov	r2, r9
-  4c:	462b      	mov	r3, r5
-  4e:	4630      	mov	r0, r6
-  50:	460c      	mov	r4, r1
-  52:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
-  56:	2800      	cmp	r0, #0
-  58:	bf18      	it	ne
-  5a:	4625      	movne	r5, r4
-  5c:	4648      	mov	r0, r9
-  5e:	9402      	str	r4, [sp, #8]
-  60:	950b      	str	r5, [sp, #44]	; 0x2c
-  62:	bf18      	it	ne
-  64:	4630      	movne	r0, r6
-  66:	9d00      	ldr	r5, [sp, #0]
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
-  68:	4639      	mov	r1, r7
-  6a:	900a      	str	r0, [sp, #40]	; 0x28
-  6c:	4640      	mov	r0, r8
-  6e:	4652      	mov	r2, sl
-  70:	462b      	mov	r3, r5
-  72:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
-  76:	2800      	cmp	r0, #0
-  78:	4638      	mov	r0, r7
-  7a:	bf18      	it	ne
-  7c:	4628      	movne	r0, r5
-  7e:	9005      	str	r0, [sp, #20]
-  80:	4640      	mov	r0, r8
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
-  82:	464a      	mov	r2, r9
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
-  84:	bf18      	it	ne
-  86:	4650      	movne	r0, sl
-  88:	9909      	ldr	r1, [sp, #36]	; 0x24
-  8a:	9007      	str	r0, [sp, #28]
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
-  8c:	4648      	mov	r0, r9
-  8e:	f8cd 900c 	str.w	r9, [sp, #12]
-  92:	460b      	mov	r3, r1
-  94:	f7ff fffe 	bl	0 <__aeabi_dcmpun>
-  98:	4606      	mov	r6, r0
-  9a:	2800      	cmp	r0, #0
-  9c:	980b      	ldr	r0, [sp, #44]	; 0x2c
-  9e:	4629      	mov	r1, r5
-  a0:	bf18      	it	ne
-  a2:	4620      	movne	r0, r4
-  a4:	900b      	str	r0, [sp, #44]	; 0x2c
-  a6:	4650      	mov	r0, sl
-  a8:	4652      	mov	r2, sl
-  aa:	462b      	mov	r3, r5
-  ac:	f8cd a018 	str.w	sl, [sp, #24]
-  b0:	462c      	mov	r4, r5
-  b2:	f7ff fffe 	bl	0 <__aeabi_dcmpun>
-  b6:	2800      	cmp	r0, #0
-  b8:	9801      	ldr	r0, [sp, #4]
-  ba:	bf1c      	itt	ne
-  bc:	4638      	movne	r0, r7
-  be:	46c3      	movne	fp, r8
-  c0:	ec40 bb18 	vmov	d8, fp, r0
-  c4:	980a      	ldr	r0, [sp, #40]	; 0x28
-  c6:	2e00      	cmp	r6, #0
-  c8:	9d04      	ldr	r5, [sp, #16]
-  ca:	bf18      	it	ne
-  cc:	4628      	movne	r0, r5
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
-  ce:	900a      	str	r0, [sp, #40]	; 0x28
-  d0:	4640      	mov	r0, r8
-  d2:	4639      	mov	r1, r7
-  d4:	4642      	mov	r2, r8
-  d6:	463b      	mov	r3, r7
-  d8:	f7ff fffe 	bl	0 <__aeabi_dcmpun>
-  dc:	f8dd b014 	ldr.w	fp, [sp, #20]
-  e0:	2800      	cmp	r0, #0
-  e2:	bf18      	it	ne
-  e4:	46a3      	movne	fp, r4
-  e6:	4680      	mov	r8, r0
-  e8:	9f02      	ldr	r7, [sp, #8]
-  ea:	4628      	mov	r0, r5
-  ec:	46aa      	mov	sl, r5
-  ee:	9c03      	ldr	r4, [sp, #12]
-  f0:	9d09      	ldr	r5, [sp, #36]	; 0x24
-  f2:	4639      	mov	r1, r7
-  f4:	4622      	mov	r2, r4
-  f6:	462b      	mov	r3, r5
-  f8:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
-  fc:	463e      	mov	r6, r7
-  fe:	2800      	cmp	r0, #0
- 100:	bf18      	it	ne
- 102:	462e      	movne	r6, r5
- 104:	46a9      	mov	r9, r5
- 106:	4655      	mov	r5, sl
- 108:	4650      	mov	r0, sl
- 10a:	4652      	mov	r2, sl
- 10c:	4639      	mov	r1, r7
- 10e:	463b      	mov	r3, r7
- 110:	bf18      	it	ne
- 112:	4625      	movne	r5, r4
- 114:	f7ff fffe 	bl	0 <__aeabi_dcmpun>
- 118:	2800      	cmp	r0, #0
- 11a:	bf1c      	itt	ne
- 11c:	464e      	movne	r6, r9
- 11e:	4625      	movne	r5, r4
- 120:	e9dd 1006 	ldrd	r1, r0, [sp, #24]
- 124:	f1b8 0f00 	cmp.w	r8, #0
- 128:	bf18      	it	ne
- 12a:	4608      	movne	r0, r1
- 12c:	ec4b 0b11 	vmov	d1, r0, fp
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
- 130:	e9dd 100a 	ldrd	r1, r0, [sp, #40]	; 0x28
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
- 134:	ec46 5b10 	vmov	d0, r5, r6
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
- 138:	ec40 1b12 	vmov	d2, r1, r0
- 13c:	9808      	ldr	r0, [sp, #32]
-_ZN5kurbo4rect4Rect3abs17h393fde2ef1301248E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:169
-        Rect {
- 13e:	ed80 8b00 	vstr	d8, [r0]
- 142:	ed80 2b02 	vstr	d2, [r0, #8]
- 146:	ed80 1b04 	vstr	d1, [r0, #16]
- 14a:	ed80 0b06 	vstr	d0, [r0, #24]
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:175
-    }
- 14e:	ecbd 2b10 	vpop	{d2-d9}
- 152:	b001      	add	sp, #4
- 154:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
-
-Disassembly of section .text._ZN5kurbo4rect4Rect4size17hfbe816224eb47d69E:
-
-00000000 <kurbo::rect::Rect::size>:
-_ZN5kurbo4rect4Rect4size17hfbe816224eb47d69E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:140
-    pub fn size(&self) -> Size {
-   0:	b510      	push	{r4, lr}
-   2:	ed2d 8b02 	vpush	{d8}
-   6:	4604      	mov	r4, r0
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:141
-        Size::new(self.width(), self.height())
-   8:	f7ff fffe 	bl	0 <kurbo::rect::Rect::size>
-   c:	eeb0 8a40 	vmov.f32	s16, s0
-  10:	4620      	mov	r0, r4
-  12:	eef0 8a60 	vmov.f32	s17, s1
-  16:	f7ff fffe 	bl	0 <kurbo::rect::Rect::size>
-  1a:	eeb0 1a40 	vmov.f32	s2, s0
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:142
-    }
-  1e:	eeb0 0a48 	vmov.f32	s0, s16
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:141
-        Size::new(self.width(), self.height())
-  22:	eef0 1a60 	vmov.f32	s3, s1
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:142
-    }
-  26:	eef0 0a68 	vmov.f32	s1, s17
-  2a:	ecbd 8b02 	vpop	{d8}
-  2e:	bd10      	pop	{r4, pc}
-
-Disassembly of section .text._ZN5kurbo4rect4Rect5width17h191192c502e7a8d0E:
-
-00000000 <kurbo::rect::Rect::width>:
-_ZN5kurbo4rect4Rect5width17h191192c502e7a8d0E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:93
-    pub fn width(&self) -> f64 {
-   0:	b580      	push	{r7, lr}
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:94
-        self.x1 - self.x0
-   2:	ed90 0b00 	vldr	d0, [r0]
-   6:	ed90 1b04 	vldr	d1, [r0, #16]
-   a:	ec53 2b10 	vmov	r2, r3, d0
-   e:	ec51 0b11 	vmov	r0, r1, d1
-  12:	f7ff fffe 	bl	0 <__aeabi_dsub>
-  16:	ec41 0b10 	vmov	d0, r0, r1
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:95
-    }
-  1a:	bd80      	pop	{r7, pc}
-
-Disassembly of section .text._ZN5kurbo4rect4Rect6height17hae62dab19ba98920E:
-
-00000000 <kurbo::rect::Rect::height>:
-_ZN5kurbo4rect4Rect6height17hae62dab19ba98920E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:101
-    pub fn height(&self) -> f64 {
-   0:	b580      	push	{r7, lr}
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:102
-        self.y1 - self.y0
-   2:	ed90 0b02 	vldr	d0, [r0, #8]
-   6:	ed90 1b06 	vldr	d1, [r0, #24]
-   a:	ec53 2b10 	vmov	r2, r3, d0
-   e:	ec51 0b11 	vmov	r0, r1, d1
-  12:	f7ff fffe 	bl	0 <__aeabi_dsub>
-  16:	ec41 0b10 	vmov	d0, r0, r1
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:103
-    }
-  1a:	bd80      	pop	{r7, pc}
-
-Disassembly of section .text._ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h11a608e9594ae542E:
-
-00000000 <<I as core::iter::traits::collect::IntoIterator>::into_iter>:
-_ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h11a608e9594ae542E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/traits/collect.rs:245
-   0:	b580      	push	{r7, lr}
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/traits/collect.rs:246
-   2:	f44f 72cc 	mov.w	r2, #408	; 0x198
-   6:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/traits/collect.rs:247
-   a:	bd80      	pop	{r7, pc}
 
 Disassembly of section .text._ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17he97e257f986fa149E:
 
@@ -7126,133 +3678,6 @@ _ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone1
   28:	f8c8 0000 	str.w	r0, [r8]
   2c:	b006      	add	sp, #24
   2e:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
-
-Disassembly of section .text._ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hfa65ce8def0dacd8E:
-
-00000000 <<core::option::Option<T> as core::clone::Clone>::clone>:
-_ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hfa65ce8def0dacd8E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
-   0:	e92d 4ff8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, lr}
-   4:	ed2d 8b04 	vpush	{d8-d9}
-   8:	f5ad 6d8f 	sub.w	sp, sp, #1144	; 0x478
-   c:	f8d1 6238 	ldr.w	r6, [r1, #568]	; 0x238
-  10:	4604      	mov	r4, r0
-  12:	2e03      	cmp	r6, #3
-  14:	d108      	bne.n	28 <<core::option::Option<T> as core::clone::Clone>::clone+0x28>
-  16:	4620      	mov	r0, r4
-  18:	f44f 7116 	mov.w	r1, #600	; 0x258
-  1c:	f7ff fffe 	bl	0 <__aeabi_memclr8>
-  20:	2003      	movs	r0, #3
-  22:	f8c4 0238 	str.w	r0, [r4, #568]	; 0x238
-  26:	e057      	b.n	d8 <<core::option::Option<T> as core::clone::Clone>::clone+0xd8>
-_ZN76_$LT$druid..windowbox..WindowType$LT$D$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h31089f4e5701d386E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/windowbox.rs:18
-#[derive(Clone)]
-  28:	2e02      	cmp	r6, #2
-  2a:	d111      	bne.n	50 <<core::option::Option<T> as core::clone::Clone>::clone+0x50>
-  2c:	a802      	add	r0, sp, #8
-  2e:	f44f 710e 	mov.w	r1, #568	; 0x238
-  32:	f7ff fffe 	bl	0 <__aeabi_memclr8>
-  36:	ed9f 8b2c 	vldr	d8, [pc, #176]	; e8 <<core::option::Option<T> as core::clone::Clone>::clone+0xe8>
-  3a:	2700      	movs	r7, #0
-  3c:	f8cd 7243 	str.w	r7, [sp, #579]	; 0x243
-  40:	f04f 0a00 	mov.w	sl, #0
-  44:	eeb0 9a48 	vmov.f32	s18, s16
-  48:	9790      	str	r7, [sp, #576]	; 0x240
-  4a:	eef0 9a68 	vmov.f32	s19, s17
-  4e:	e028      	b.n	a2 <<core::option::Option<T> as core::clone::Clone>::clone+0xa2>
-  50:	a890      	add	r0, sp, #576	; 0x240
-_ZN55_$LT$druid..BaseState$u20$as$u20$core..clone..Clone$GT$5clone17h2c1b2d56fb636985E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:119
-#[derive(Clone, Copy, Default)] ////
-  52:	2228      	movs	r2, #40	; 0x28
-  54:	460d      	mov	r5, r1
-  56:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-  5a:	f10d 0908 	add.w	r9, sp, #8
-_ZN68_$LT$druid..WidgetPod$LT$T$C$W$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h393c2bba1c1d2e0aE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:96
-    inner: W,
-  5e:	f105 0128 	add.w	r1, r5, #40	; 0x28
-_ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h73400f7246072279E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
-  62:	f8d5 a23c 	ldr.w	sl, [r5, #572]	; 0x23c
-_ZN70_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17haaf35ae7f65a7c05E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:173
-  66:	4648      	mov	r0, r9
-_ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h6dc060872a3f2519E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
-  68:	f895 7240 	ldrb.w	r7, [r5, #576]	; 0x240
-_ZN4core5clone5impls52_$LT$impl$u20$core..clone..Clone$u20$for$u20$u32$GT$5clone17h5d163be40911e00dE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/clone.rs:168
-  6c:	f8d5 b230 	ldr.w	fp, [r5, #560]	; 0x230
-_ZN64_$LT$druid..widget..flex..Axis$u20$as$u20$core..clone..Clone$GT$5clone17h016589a199b21e6bE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:62
-#[derive(Clone, Copy)] ////
-  70:	f895 8234 	ldrb.w	r8, [r5, #564]	; 0x234
-_ZN70_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17haaf35ae7f65a7c05E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:173
-  74:	f7ff fffe 	bl	0 <<core::option::Option<T> as core::clone::Clone>::clone>
-_ZN68_$LT$druid..WidgetPod$LT$T$C$W$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h393c2bba1c1d2e0aE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:90
-#[derive(Clone, Copy, Default)] ////
-  78:	a890      	add	r0, sp, #576	; 0x240
-  7a:	4649      	mov	r1, r9
-  7c:	3028      	adds	r0, #40	; 0x28
-  7e:	f44f 7204 	mov.w	r2, #528	; 0x210
-_ZN73_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h551aeb51d9f75485E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:45
-#[derive(Clone)] ////
-  82:	f88d 8214 	strb.w	r8, [sp, #532]	; 0x214
-  86:	f8cd b210 	str.w	fp, [sp, #528]	; 0x210
-_ZN68_$LT$druid..WidgetPod$LT$T$C$W$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h393c2bba1c1d2e0aE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:90
-  8a:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-  8e:	a802      	add	r0, sp, #8
-_ZN73_$LT$druid..window..Window$LT$T$C$W$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h7ff85cb22caae191E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:38
-#[derive(Clone)] ////
-  90:	a990      	add	r1, sp, #576	; 0x240
-  92:	f44f 720e 	mov.w	r2, #568	; 0x238
-_ZN56_$LT$kurbo..size..Size$u20$as$u20$core..clone..Clone$GT$5clone17h3cf50ca418eefd83E():
-/Users/Luppy/mynewt/kurbo-embedded/src/size.rs:10
-use core::fmt; ////
-////use std::fmt;
-use core::ops::{Mul, MulAssign};
-
-/// A 2d size.
-#[derive(Clone, Copy, Default, PartialEq)]
-  96:	ed95 8b92 	vldr	d8, [r5, #584]	; 0x248
-  9a:	ed95 9b94 	vldr	d9, [r5, #592]	; 0x250
-_ZN73_$LT$druid..window..Window$LT$T$C$W$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h7ff85cb22caae191E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:38
-  9e:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-_ZN75_$LT$druid..windowbox..WindowBox$LT$D$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h867436aeb0fa533bE():
-  a2:	a902      	add	r1, sp, #8
-/Users/Luppy/mynewt/druid-embedded/druid/src/windowbox.rs:11
-#[derive(Clone, Default)]
-  a4:	4620      	mov	r0, r4
-  a6:	f44f 720e 	mov.w	r2, #568	; 0x238
-  aa:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-  ae:	f8dd 1243 	ldr.w	r1, [sp, #579]	; 0x243
-  b2:	9890      	ldr	r0, [sp, #576]	; 0x240
-  b4:	f8cd 1003 	str.w	r1, [sp, #3]
-  b8:	9000      	str	r0, [sp, #0]
-_ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hfa65ce8def0dacd8E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
-  ba:	9800      	ldr	r0, [sp, #0]
-  bc:	f8dd 1003 	ldr.w	r1, [sp, #3]
-  c0:	f884 7240 	strb.w	r7, [r4, #576]	; 0x240
-  c4:	e9c4 6a8e 	strd	r6, sl, [r4, #568]	; 0x238
-  c8:	f8c4 1244 	str.w	r1, [r4, #580]	; 0x244
-  cc:	f8c4 0241 	str.w	r0, [r4, #577]	; 0x241
-  d0:	ed84 8b92 	vstr	d8, [r4, #584]	; 0x248
-  d4:	ed84 9b94 	vstr	d9, [r4, #592]	; 0x250
-  d8:	f50d 6d8f 	add.w	sp, sp, #1144	; 0x478
-  dc:	ecbd 8b04 	vpop	{d8-d9}
-  e0:	b001      	add	sp, #4
-  e2:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
-  e6:	bf00      	nop
-	...
 
 Disassembly of section .text._ZN70_$LT$heapless..string..String$LT$N$GT$$u20$as$u20$core..fmt..Write$GT$10write_char17hd30c626f25cb5066E:
 
@@ -7363,20 +3788,6 @@ _ZN8heapless6string15String$LT$N$GT$8push_str17h1e187a52136833a6E():
         self.0.vec.extend_from_slice(string.as_bytes())
    0:	f7ff bffe 	b.w	0 <heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::extend_from_slice>
 
-Disassembly of section .text._ZN70_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17haaf35ae7f65a7c05E:
-
-00000000 <<heapless::vec::Vec<T,N> as core::clone::Clone>::clone>:
-_ZN70_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17haaf35ae7f65a7c05E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:172
-    fn clone(&self) -> Self {
-   0:	b580      	push	{r7, lr}
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:173
-        Vec(self.0.clone())
-   2:	f7ff fffe 	bl	0 <<heapless::vec::Vec<T,N> as core::clone::Clone>::clone>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:174
-    }
-   6:	bd80      	pop	{r7, pc}
-
 Disassembly of section .text._ZN70_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hf1102e84a1207c7aE:
 
 00000000 <<heapless::vec::Vec<T,N> as core::clone::Clone>::clone>:
@@ -7395,7 +3806,7 @@ Disassembly of section .text._ZN72_$LT$druid..app..WindowDesc$LT$T$C$W$GT$$u20$a
 
 00000000 <<druid::app::WindowDesc<T,W> as core::fmt::Debug>::fmt>:
 _ZN72_$LT$druid..app..WindowDesc$LT$T$C$W$GT$$u20$as$u20$core..fmt..Debug$GT$3fmt17h2909ec93ec2c69a1E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:257
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:258
 /// Implement formatted output for WindowDesc
 impl<T: Data + Default, W: Widget<T>> core::fmt::Debug for WindowDesc<T, W> { ////
     fn fmt(&self, _fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
@@ -7419,18 +3830,16 @@ _ZN72_$LT$heapless..string..String$LT$N$GT$$u20$as$u20$core..clone..Clone$GT$5cl
     }
    6:	bd80      	pop	{r7, pc}
 
-Disassembly of section .text._ZN73_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hb3c8a7cd4b4ba199E:
-
-00000000 <<core::marker::PhantomData<T> as core::clone::Clone>::clone>:
-_ZN73_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hb3c8a7cd4b4ba199E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/marker.rs:425
-   0:	4770      	bx	lr
-
 Disassembly of section .text._ZN73_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..ops..drop..Drop$GT$4drop17h9d510813db44a6bfE:
 
 00000000 <<heapless::vec::Vec<T,N> as core::ops::drop::Drop>::drop>:
 _ZN73_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..ops..drop..Drop$GT$4drop17h9d510813db44a6bfE():
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:374
+where
+    N: ArrayLength<T>,
+{
+    fn drop(&mut self) {
+        unsafe { ptr::drop_in_place(&mut self[..]) }
     }
    0:	4770      	bx	lr
 
@@ -7451,18 +3860,6 @@ _ZN75_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..ops..deref..Deref$GT$
     }
    2:	4770      	bx	lr
 
-Disassembly of section .text._ZN75_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..ops..deref..Deref$GT$5deref17hf3f6792a7cf00ca2E:
-
-00000000 <<heapless::vec::Vec<T,N> as core::ops::deref::Deref>::deref>:
-_ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8as_slice17hb1701ce17c6108edE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:23
-        unsafe { slice::from_raw_parts(self.buffer.as_ptr() as *const T, self.len) }
-   0:	f8d0 1200 	ldr.w	r1, [r0, #512]	; 0x200
-_ZN75_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..ops..deref..Deref$GT$5deref17hf3f6792a7cf00ca2E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:593
-    }
-   4:	4770      	bx	lr
-
 Disassembly of section .text._ZN76_$LT$druid..localization..ArgSource$LT$T$GT$$u20$as$u20$core..fmt..Debug$GT$3fmt17h7ccc0917ea1d6fe8E:
 
 00000000 <<druid::localization::ArgSource<T> as core::fmt::Debug>::fmt>:
@@ -7477,11 +3874,18 @@ impl<T> core::fmt::Debug for ArgSource<T> { ////
    0:	2000      	movs	r0, #0
    2:	4770      	bx	lr
 
-Disassembly of section .text._ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$10new_window17h6936f2998f02c112E:
+Disassembly of section .text._ZN77_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h0d1e369dd8539c9cE:
+
+00000000 <<core::marker::PhantomData<T> as core::default::Default>::default>:
+_ZN77_$LT$core..marker..PhantomData$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h0d1e369dd8539c9cE():
+/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/marker.rs:432
+   0:	4770      	bx	lr
+
+Disassembly of section .text._ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$10new_window17h88a41f26931e4403E:
 
 00000000 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::new_window>:
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$10new_window17h6936f2998f02c112E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:267
+_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$10new_window17h88a41f26931e4403E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:266
     fn new_window(self) -> WindowBox<T> { ////
    0:	b570      	push	{r4, r5, r6, lr}
    2:	f5ad 7d14 	sub.w	sp, sp, #592	; 0x250
@@ -7489,20 +3893,20 @@ _ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$G
    8:	460c      	mov	r4, r1
    a:	4605      	mov	r5, r0
 _ZN59_$LT$druid..BaseState$u20$as$u20$core..default..Default$GT$7default17h3b085c6439d19087E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:119
+/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:120
 #[derive(Clone, Copy, Default)] ////
    c:	2128      	movs	r1, #40	; 0x28
    e:	4630      	mov	r0, r6
   10:	f7ff fffe 	bl	0 <__aeabi_memclr8>
 _ZN5druid22WidgetPod$LT$T$C$W$GT$3new17h19f68049a961c92dE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:453
+/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:454
         WidgetPod {
   14:	f106 0028 	add.w	r0, r6, #40	; 0x28
   18:	4621      	mov	r1, r4
   1a:	f44f 7204 	mov.w	r2, #528	; 0x210
   1e:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
 _ZN5druid6window19Window$LT$T$C$W$GT$3new17h7bb59c31c3a67b3aE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:59
+/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:60
         Window {
   22:	4628      	mov	r0, r5
   24:	4631      	mov	r1, r6
@@ -7510,663 +3914,32 @@ _ZN5druid6window19Window$LT$T$C$W$GT$3new17h7bb59c31c3a67b3aE():
   2a:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
   2e:	2000      	movs	r0, #0
   30:	4669      	mov	r1, sp
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$10new_window17h6936f2998f02c112E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:273
+_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$10new_window17h88a41f26931e4403E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:272
         window_box
   32:	f885 0240 	strb.w	r0, [r5, #576]	; 0x240
   36:	2217      	movs	r2, #23
 _ZN5druid6window19Window$LT$T$C$W$GT$3new17h7bb59c31c3a67b3aE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:59
+/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:60
   38:	f8cd 0013 	str.w	r0, [sp, #19]
   3c:	f8cd 000f 	str.w	r0, [sp, #15]
   40:	f8cd 000b 	str.w	r0, [sp, #11]
   44:	f8cd 0007 	str.w	r0, [sp, #7]
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$10new_window17h6936f2998f02c112E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:273
+_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$10new_window17h88a41f26931e4403E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:272
   48:	f8c5 0238 	str.w	r0, [r5, #568]	; 0x238
   4c:	f205 2041 	addw	r0, r5, #577	; 0x241
   50:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:274
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:273
     }
   54:	f50d 7d14 	add.w	sp, sp, #592	; 0x250
   58:	bd70      	pop	{r4, r5, r6, pc}
-
-Disassembly of section .text._ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17h9c6516708bca10d9E:
-
-00000000 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::paint>:
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17h9c6516708bca10d9E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:155
-    fn paint(&mut self, paint_ctx: &mut PaintCtx, _base_state: &BaseState, data: &T, env: &Env) {
-   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
-   4:	461c      	mov	r4, r3
-   6:	460d      	mov	r5, r1
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:156
-        for child in &mut self.children {
-   8:	f7ff fffe 	bl	0 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::paint>
-   c:	f8dd 8018 	ldr.w	r8, [sp, #24]
-  10:	4606      	mov	r6, r0
-  12:	460f      	mov	r7, r1
-  14:	e006      	b.n	24 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::paint+0x24>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:157
-            child.widget.paint_with_offset(paint_ctx, data, env);
-  16:	4630      	mov	r0, r6
-  18:	4629      	mov	r1, r5
-  1a:	4622      	mov	r2, r4
-  1c:	4643      	mov	r3, r8
-  1e:	f7ff fffe 	bl	0 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::paint>
-_ZN4core3ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$6offset17hecc8873afc25db60E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1703
-  22:	3640      	adds	r6, #64	; 0x40
-_ZN88_$LT$core..slice..IterMut$LT$T$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h494546299990d0cdE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:3086
-  24:	42b7      	cmp	r7, r6
-  26:	bf18      	it	ne
-  28:	2e00      	cmpne	r6, #0
-  2a:	d1f4      	bne.n	16 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::paint+0x16>
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17h9c6516708bca10d9E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:159
-    }
-  2c:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
-
-Disassembly of section .text._ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E:
-
-00000000 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout>:
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:161
-    fn layout(
-   0:	e92d 4ff8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, lr}
-   4:	ed2d 8b10 	vpush	{d8-d15}
-   8:	b0a4      	sub	sp, #144	; 0x90
-   a:	9107      	str	r1, [sp, #28]
-   c:	4604      	mov	r4, r0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:168
-        bc.debug_check("Flex");
-   e:	f8df 1498 	ldr.w	r1, [pc, #1176]	; 4a8 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout+0x4a8>
-  12:	4692      	mov	sl, r2
-  14:	4610      	mov	r0, r2
-  16:	2204      	movs	r2, #4
-  18:	f7ff fffe 	bl	0 <druid::BoxConstraints::debug_check>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:172
-        let mut minor = self.direction.minor(bc.min());
-  1c:	4650      	mov	r0, sl
-  1e:	f7ff fffe 	bl	0 <druid::BoxConstraints::min>
-  22:	f504 7903 	add.w	r9, r4, #524	; 0x20c
-  26:	4648      	mov	r0, r9
-  28:	f7ff fffe 	bl	0 <druid::widget::flex::Axis::minor>
-  2c:	eeb0 8a40 	vmov.f32	s16, s0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:173
-        for child in &mut self.children {
-  30:	4620      	mov	r0, r4
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:172
-        let mut minor = self.direction.minor(bc.min());
-  32:	eef0 8a60 	vmov.f32	s17, s1
-  36:	940a      	str	r4, [sp, #40]	; 0x28
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:173
-        for child in &mut self.children {
-  38:	f7ff fffe 	bl	0 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout>
-  3c:	ed9f abde 	vldr	d10, [pc, #888]	; 3b8 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout+0x3b8>
-  40:	f10d 0b50 	add.w	fp, sp, #80	; 0x50
-  44:	ed9f 9bde 	vldr	d9, [pc, #888]	; 3c0 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout+0x3c0>
-  48:	4606      	mov	r6, r0
-  4a:	ec54 5b1a 	vmov	r5, r4, d10
-  4e:	460f      	mov	r7, r1
-  50:	eeb0 fa4a 	vmov.f32	s30, s20
-  54:	f8cd 902c 	str.w	r9, [sp, #44]	; 0x2c
-  58:	eef0 fa6a 	vmov.f32	s31, s21
-  5c:	f8cd a020 	str.w	sl, [sp, #32]
-  60:	e0a9      	b.n	1b6 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout+0x1b6>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:174
-            if child.params.flex == 0.0 {
-  62:	ed96 0b0e 	vldr	d0, [r6, #56]	; 0x38
-  66:	462a      	mov	r2, r5
-  68:	4623      	mov	r3, r4
-  6a:	ec51 0b10 	vmov	r0, r1, d0
-  6e:	f7ff fffe 	bl	0 <__aeabi_dcmpeq>
-_ZN4core3ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$6offset17hecc8873afc25db60E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1703
-  72:	3640      	adds	r6, #64	; 0x40
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:174
-  74:	2800      	cmp	r0, #0
-  76:	f000 809e 	beq.w	1b6 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout+0x1b6>
-  7a:	4650      	mov	r0, sl
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:176
-                    Axis::Horizontal => BoxConstraints::new(
-  7c:	f899 8000 	ldrb.w	r8, [r9]
-  80:	f7ff fffe 	bl	0 <druid::BoxConstraints::min>
-  84:	f1b8 0f01 	cmp.w	r8, #1
-  88:	d118      	bne.n	bc <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout+0xbc>
-  8a:	eeb0 ba40 	vmov.f32	s22, s0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:183
-                        Size::new(bc.max().width, core::f64::INFINITY), ////
-  8e:	4650      	mov	r0, sl
-  90:	eef0 ba60 	vmov.f32	s23, s1
-  94:	f7ff fffe 	bl	0 <druid::BoxConstraints::max>
-  98:	eeb0 2a40 	vmov.f32	s4, s0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:181
-                    Axis::Vertical => BoxConstraints::new(
-  9c:	4658      	mov	r0, fp
-  9e:	eeb0 1a4a 	vmov.f32	s2, s20
-  a2:	eeb0 3a49 	vmov.f32	s6, s18
-  a6:	eeb0 0a4b 	vmov.f32	s0, s22
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:183
-                        Size::new(bc.max().width, core::f64::INFINITY), ////
-  aa:	eef0 2a60 	vmov.f32	s5, s1
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:181
-                    Axis::Vertical => BoxConstraints::new(
-  ae:	eef0 0a6b 	vmov.f32	s1, s23
-  b2:	eef0 1a6a 	vmov.f32	s3, s21
-  b6:	eef0 3a69 	vmov.f32	s7, s19
-  ba:	e00a      	b.n	d2 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout+0xd2>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:176
-                    Axis::Horizontal => BoxConstraints::new(
-  bc:	eeb0 0a4a 	vmov.f32	s0, s20
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:178
-                        Size::new(core::f64::INFINITY, bc.max.height), ////
-  c0:	ed9a 3b06 	vldr	d3, [sl, #24]
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:176
-                    Axis::Horizontal => BoxConstraints::new(
-  c4:	eeb0 2a49 	vmov.f32	s4, s18
-  c8:	4658      	mov	r0, fp
-  ca:	eef0 0a6a 	vmov.f32	s1, s21
-  ce:	eef0 2a69 	vmov.f32	s5, s19
-  d2:	f7ff fffe 	bl	0 <druid::BoxConstraints::new>
-_ZN5druid22WidgetPod$LT$T$C$W$GT$6layout17hcb2dc5c268d2316cE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:565
-        self.inner.layout(layout_ctx, bc, data, &env)
-  d6:	9907      	ldr	r1, [sp, #28]
-  d8:	f1a6 0010 	sub.w	r0, r6, #16
-  dc:	465a      	mov	r2, fp
-  de:	f7ff fffe 	bl	0 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout>
-  e2:	eeb0 ba40 	vmov.f32	s22, s0
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:188
-                minor = minor.max(self.direction.minor(child_size));
-  e6:	4648      	mov	r0, r9
-_ZN5druid22WidgetPod$LT$T$C$W$GT$6layout17hcb2dc5c268d2316cE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:565
-  e8:	eeb0 ca41 	vmov.f32	s24, s2
-  ec:	eef0 ba60 	vmov.f32	s23, s1
-  f0:	eef0 ca61 	vmov.f32	s25, s3
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:188
-  f4:	f7ff fffe 	bl	0 <druid::widget::flex::Axis::minor>
-  f8:	eeb0 da40 	vmov.f32	s26, s0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:189
-                total_non_flex += self.direction.major(child_size);
-  fc:	4648      	mov	r0, r9
-  fe:	eeb0 1a4c 	vmov.f32	s2, s24
- 102:	eeb0 0a4b 	vmov.f32	s0, s22
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:188
-                minor = minor.max(self.direction.minor(child_size));
- 106:	eef0 da60 	vmov.f32	s27, s1
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:189
-                total_non_flex += self.direction.major(child_size);
- 10a:	eef0 0a6b 	vmov.f32	s1, s23
- 10e:	eef0 1a6c 	vmov.f32	s3, s25
- 112:	f7ff fffe 	bl	0 <druid::widget::flex::Axis::major>
- 116:	eeb0 ea40 	vmov.f32	s28, s0
- 11a:	f10d 0870 	add.w	r8, sp, #112	; 0x70
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:191
-                let rect = Rect::from_origin_size(Point::ORIGIN, child_size);
- 11e:	eeb0 1a4a 	vmov.f32	s2, s20
- 122:	eeb0 2a4b 	vmov.f32	s4, s22
- 126:	4640      	mov	r0, r8
- 128:	eeb0 3a4c 	vmov.f32	s6, s24
- 12c:	eeb0 0a4a 	vmov.f32	s0, s20
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:189
-                total_non_flex += self.direction.major(child_size);
- 130:	eef0 ea60 	vmov.f32	s29, s1
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:191
-                let rect = Rect::from_origin_size(Point::ORIGIN, child_size);
- 134:	eef0 0a6a 	vmov.f32	s1, s21
- 138:	eef0 1a6a 	vmov.f32	s3, s21
- 13c:	eef0 2a6b 	vmov.f32	s5, s23
- 140:	eef0 3a6c 	vmov.f32	s7, s25
- 144:	f7ff fffe 	bl	0 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout>
-_ZN5druid22WidgetPod$LT$T$C$W$GT$15set_layout_rect17h6960e6ada6946819E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:476
-        self.state.layout_rect = layout_rect;
- 148:	f1a6 0040 	sub.w	r0, r6, #64	; 0x40
- 14c:	4641      	mov	r1, r8
- 14e:	2220      	movs	r2, #32
- 150:	f7ff fffe 	bl	0 <__aeabi_memmove8>
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
- 154:	ec59 2b1d 	vmov	r2, r9, d13
- 158:	ec5a bb18 	vmov	fp, sl, d8
- 15c:	f8cd 9018 	str.w	r9, [sp, #24]
- 160:	9209      	str	r2, [sp, #36]	; 0x24
- 162:	464b      	mov	r3, r9
- 164:	4658      	mov	r0, fp
- 166:	4651      	mov	r1, sl
- 168:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
- 16c:	46d0      	mov	r8, sl
- 16e:	2800      	cmp	r0, #0
- 170:	bf18      	it	ne
- 172:	46c8      	movne	r8, r9
- 174:	46d9      	mov	r9, fp
- 176:	9809      	ldr	r0, [sp, #36]	; 0x24
- 178:	bf18      	it	ne
- 17a:	4681      	movne	r9, r0
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:189
-                total_non_flex += self.direction.major(child_size);
- 17c:	ec51 0b1f 	vmov	r0, r1, d15
- 180:	ec53 2b1e 	vmov	r2, r3, d14
- 184:	f7ff fffe 	bl	0 <__aeabi_dadd>
- 188:	ec41 0b1f 	vmov	d15, r0, r1
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
- 18c:	4658      	mov	r0, fp
- 18e:	465a      	mov	r2, fp
- 190:	4651      	mov	r1, sl
- 192:	4653      	mov	r3, sl
- 194:	f10d 0b50 	add.w	fp, sp, #80	; 0x50
- 198:	f7ff fffe 	bl	0 <__aeabi_dcmpun>
- 19c:	2800      	cmp	r0, #0
- 19e:	9806      	ldr	r0, [sp, #24]
- 1a0:	bf18      	it	ne
- 1a2:	4680      	movne	r8, r0
- 1a4:	9809      	ldr	r0, [sp, #36]	; 0x24
- 1a6:	bf18      	it	ne
- 1a8:	4681      	movne	r9, r0
- 1aa:	ec48 9b18 	vmov	d8, r9, r8
- 1ae:	f8dd 902c 	ldr.w	r9, [sp, #44]	; 0x2c
- 1b2:	f8dd a020 	ldr.w	sl, [sp, #32]
-_ZN88_$LT$core..slice..IterMut$LT$T$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h494546299990d0cdE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:3086
- 1b6:	42be      	cmp	r6, r7
- 1b8:	f47f af53 	bne.w	62 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout+0x62>
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:196
-        let total_major = self.direction.major(bc.max());
- 1bc:	4650      	mov	r0, sl
- 1be:	f7ff fffe 	bl	0 <druid::BoxConstraints::max>
- 1c2:	4648      	mov	r0, r9
- 1c4:	f7ff fffe 	bl	0 <druid::widget::flex::Axis::major>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:197
-        let remaining = (total_major - total_non_flex).max(0.0);
- 1c8:	ec57 0b10 	vmov	r0, r7, d0
- 1cc:	ec53 2b1f 	vmov	r2, r3, d15
- 1d0:	9006      	str	r0, [sp, #24]
- 1d2:	9705      	str	r7, [sp, #20]
- 1d4:	4639      	mov	r1, r7
- 1d6:	f7ff fffe 	bl	0 <__aeabi_dsub>
- 1da:	ed9f abb1 	vldr	d10, [pc, #708]	; 4a0 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout+0x4a0>
- 1de:	4606      	mov	r6, r0
- 1e0:	460f      	mov	r7, r1
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
- 1e2:	ec59 8b1a 	vmov	r8, r9, d10
- 1e6:	4642      	mov	r2, r8
- 1e8:	464b      	mov	r3, r9
- 1ea:	f7ff fffe 	bl	0 <__aeabi_dcmpge>
- 1ee:	9c0a      	ldr	r4, [sp, #40]	; 0x28
- 1f0:	2800      	cmp	r0, #0
-_ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8as_slice17hb1701ce17c6108edE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:23
-        unsafe { slice::from_raw_parts(self.buffer.as_ptr() as *const T, self.len) }
- 1f2:	f8d4 1200 	ldr.w	r1, [r4, #512]	; 0x200
-_ZN4core4iter6traits8iterator8Iterator3sum17hcea24d6c1580b5caE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/traits/iterator.rs:2313
- 1f6:	4620      	mov	r0, r4
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
- 1f8:	bf04      	itt	eq
- 1fa:	464f      	moveq	r7, r9
- 1fc:	4646      	moveq	r6, r8
-_ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$4iter17hcdf585c0bc6e7f5cE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:546
- 1fe:	eb04 1181 	add.w	r1, r4, r1, lsl #6
-_ZN4core4iter6traits8iterator8Iterator3sum17hcea24d6c1580b5caE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/traits/iterator.rs:2313
- 202:	f7ff fffe 	bl	0 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout>
- 206:	eeb0 ba40 	vmov.f32	s22, s0
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:201
-        for child in &mut self.children {
- 20a:	4620      	mov	r0, r4
-_ZN4core4iter6traits8iterator8Iterator3sum17hcea24d6c1580b5caE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/traits/iterator.rs:2313
- 20c:	eef0 ba60 	vmov.f32	s23, s1
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:201
- 210:	f7ff fffe 	bl	0 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout>
- 214:	4682      	mov	sl, r0
- 216:	468b      	mov	fp, r1
- 218:	e0b9      	b.n	38e <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout+0x38e>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:202
-            if child.params.flex != 0.0 {
- 21a:	ed9a 0b0e 	vldr	d0, [sl, #56]	; 0x38
- 21e:	4642      	mov	r2, r8
- 220:	464b      	mov	r3, r9
- 222:	ec54 5b10 	vmov	r5, r4, d0
- 226:	4628      	mov	r0, r5
- 228:	4621      	mov	r1, r4
- 22a:	f7ff fffe 	bl	0 <__aeabi_dcmpeq>
-_ZN4core3ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$6offset17hecc8873afc25db60E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1703
- 22e:	f10a 0a40 	add.w	sl, sl, #64	; 0x40
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:202
- 232:	2800      	cmp	r0, #0
- 234:	f040 80ab 	bne.w	38e <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout+0x38e>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:203
-                let major = remaining * child.params.flex / flex_sum;
- 238:	4630      	mov	r0, r6
- 23a:	4639      	mov	r1, r7
- 23c:	462a      	mov	r2, r5
- 23e:	4623      	mov	r3, r4
- 240:	9604      	str	r6, [sp, #16]
- 242:	f7ff fffe 	bl	0 <__aeabi_dmul>
- 246:	ec53 2b1b 	vmov	r2, r3, d11
- 24a:	f7ff fffe 	bl	0 <__aeabi_ddiv>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:205
-                let min_major = if major.is_infinite() { 0.0 } else { major };
- 24e:	ec53 2b19 	vmov	r2, r3, d9
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:203
-                let major = remaining * child.params.flex / flex_sum;
- 252:	460d      	mov	r5, r1
- 254:	ec41 0b1c 	vmov	d12, r0, r1
-_ZN4core3f6421_$LT$impl$u20$f64$GT$11abs_private17h9b750849d1ef248cE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:169
- 258:	f021 4100 	bic.w	r1, r1, #2147483648	; 0x80000000
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:203
- 25c:	4604      	mov	r4, r0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:205
-                let min_major = if major.is_infinite() { 0.0 } else { major };
- 25e:	f7ff fffe 	bl	0 <__aeabi_dcmpeq>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:208
-                    Axis::Horizontal => BoxConstraints::new(
- 262:	990b      	ldr	r1, [sp, #44]	; 0x2c
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:205
-                let min_major = if major.is_infinite() { 0.0 } else { major };
- 264:	2800      	cmp	r0, #0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:208
-                    Axis::Horizontal => BoxConstraints::new(
- 266:	780e      	ldrb	r6, [r1, #0]
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:205
-                let min_major = if major.is_infinite() { 0.0 } else { major };
- 268:	bf1c      	itt	ne
- 26a:	464d      	movne	r5, r9
- 26c:	4644      	movne	r4, r8
- 26e:	ec45 4b1d 	vmov	d13, r4, r5
- 272:	9c08      	ldr	r4, [sp, #32]
- 274:	4620      	mov	r0, r4
- 276:	f7ff fffe 	bl	0 <druid::BoxConstraints::min>
- 27a:	ad14      	add	r5, sp, #80	; 0x50
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:208
-                    Axis::Horizontal => BoxConstraints::new(
- 27c:	2e01      	cmp	r6, #1
- 27e:	d118      	bne.n	2b2 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout+0x2b2>
- 280:	eeb0 fa40 	vmov.f32	s30, s0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:214
-                        Size::new(bc.max().width, major),
- 284:	4620      	mov	r0, r4
- 286:	eef0 fa60 	vmov.f32	s31, s1
- 28a:	f7ff fffe 	bl	0 <druid::BoxConstraints::max>
- 28e:	eeb0 2a40 	vmov.f32	s4, s0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:212
-                    Axis::Vertical => BoxConstraints::new(
- 292:	4628      	mov	r0, r5
- 294:	eeb0 1a4d 	vmov.f32	s2, s26
- 298:	eeb0 3a4c 	vmov.f32	s6, s24
- 29c:	eeb0 0a4f 	vmov.f32	s0, s30
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:214
-                        Size::new(bc.max().width, major),
- 2a0:	eef0 2a60 	vmov.f32	s5, s1
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:212
-                    Axis::Vertical => BoxConstraints::new(
- 2a4:	eef0 0a6f 	vmov.f32	s1, s31
- 2a8:	eef0 1a6d 	vmov.f32	s3, s27
- 2ac:	eef0 3a6c 	vmov.f32	s7, s25
- 2b0:	e017      	b.n	2e2 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout+0x2e2>
- 2b2:	eeb0 ea41 	vmov.f32	s28, s2
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:210
-                        Size::new(major, bc.max().height),
- 2b6:	4620      	mov	r0, r4
- 2b8:	eef0 ea61 	vmov.f32	s29, s3
- 2bc:	f7ff fffe 	bl	0 <druid::BoxConstraints::max>
- 2c0:	eeb0 3a41 	vmov.f32	s6, s2
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:208
-                    Axis::Horizontal => BoxConstraints::new(
- 2c4:	4628      	mov	r0, r5
- 2c6:	eeb0 0a4d 	vmov.f32	s0, s26
- 2ca:	eeb0 2a4c 	vmov.f32	s4, s24
- 2ce:	eeb0 1a4e 	vmov.f32	s2, s28
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:210
-                        Size::new(major, bc.max().height),
- 2d2:	eef0 3a61 	vmov.f32	s7, s3
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:208
-                    Axis::Horizontal => BoxConstraints::new(
- 2d6:	eef0 0a6d 	vmov.f32	s1, s27
- 2da:	eef0 1a6e 	vmov.f32	s3, s29
- 2de:	eef0 2a6c 	vmov.f32	s5, s25
- 2e2:	f7ff fffe 	bl	0 <druid::BoxConstraints::new>
-_ZN5druid22WidgetPod$LT$T$C$W$GT$6layout17hcb2dc5c268d2316cE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:565
-        self.inner.layout(layout_ctx, bc, data, &env)
- 2e6:	9907      	ldr	r1, [sp, #28]
- 2e8:	f1aa 0010 	sub.w	r0, sl, #16
- 2ec:	462a      	mov	r2, r5
- 2ee:	f7ff fffe 	bl	0 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout>
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:218
-                minor = minor.max(self.direction.minor(child_size));
- 2f2:	980b      	ldr	r0, [sp, #44]	; 0x2c
-_ZN5druid22WidgetPod$LT$T$C$W$GT$6layout17hcb2dc5c268d2316cE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:565
- 2f4:	eeb0 ca40 	vmov.f32	s24, s0
- 2f8:	eeb0 da41 	vmov.f32	s26, s2
- 2fc:	eef0 ca60 	vmov.f32	s25, s1
- 300:	eef0 da61 	vmov.f32	s27, s3
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:218
- 304:	f7ff fffe 	bl	0 <druid::widget::flex::Axis::minor>
- 308:	eeb0 ea40 	vmov.f32	s28, s0
- 30c:	ac1c      	add	r4, sp, #112	; 0x70
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:220
-                let rect = Rect::from_origin_size(Point::ORIGIN, child_size);
- 30e:	eeb0 1a4a 	vmov.f32	s2, s20
- 312:	eeb0 2a4c 	vmov.f32	s4, s24
- 316:	4620      	mov	r0, r4
- 318:	eeb0 3a4d 	vmov.f32	s6, s26
- 31c:	eeb0 0a4a 	vmov.f32	s0, s20
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:218
-                minor = minor.max(self.direction.minor(child_size));
- 320:	eef0 ea60 	vmov.f32	s29, s1
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:220
-                let rect = Rect::from_origin_size(Point::ORIGIN, child_size);
- 324:	eef0 0a6a 	vmov.f32	s1, s21
- 328:	eef0 1a6a 	vmov.f32	s3, s21
- 32c:	eef0 2a6c 	vmov.f32	s5, s25
- 330:	eef0 3a6d 	vmov.f32	s7, s27
- 334:	f7ff fffe 	bl	0 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout>
-_ZN5druid22WidgetPod$LT$T$C$W$GT$15set_layout_rect17h6960e6ada6946819E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:476
-        self.state.layout_rect = layout_rect;
- 338:	f1aa 0040 	sub.w	r0, sl, #64	; 0x40
- 33c:	4621      	mov	r1, r4
- 33e:	2220      	movs	r2, #32
- 340:	f7ff fffe 	bl	0 <__aeabi_memmove8>
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
- 344:	ec54 2b1e 	vmov	r2, r4, d14
- 348:	9703      	str	r7, [sp, #12]
- 34a:	ec57 6b18 	vmov	r6, r7, d8
- 34e:	9402      	str	r4, [sp, #8]
- 350:	9209      	str	r2, [sp, #36]	; 0x24
- 352:	4623      	mov	r3, r4
- 354:	4630      	mov	r0, r6
- 356:	4639      	mov	r1, r7
- 358:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
- 35c:	463d      	mov	r5, r7
- 35e:	2800      	cmp	r0, #0
- 360:	bf18      	it	ne
- 362:	4625      	movne	r5, r4
- 364:	4634      	mov	r4, r6
- 366:	9809      	ldr	r0, [sp, #36]	; 0x24
- 368:	bf18      	it	ne
- 36a:	4604      	movne	r4, r0
- 36c:	4630      	mov	r0, r6
- 36e:	4639      	mov	r1, r7
- 370:	463b      	mov	r3, r7
- 372:	4632      	mov	r2, r6
- 374:	9f03      	ldr	r7, [sp, #12]
- 376:	f7ff fffe 	bl	0 <__aeabi_dcmpun>
- 37a:	2800      	cmp	r0, #0
- 37c:	9802      	ldr	r0, [sp, #8]
- 37e:	bf18      	it	ne
- 380:	4605      	movne	r5, r0
- 382:	9809      	ldr	r0, [sp, #36]	; 0x24
- 384:	bf18      	it	ne
- 386:	4604      	movne	r4, r0
- 388:	ec45 4b18 	vmov	d8, r4, r5
- 38c:	9e04      	ldr	r6, [sp, #16]
-_ZN88_$LT$core..slice..IterMut$LT$T$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h494546299990d0cdE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:3086
- 38e:	45da      	cmp	sl, fp
- 390:	f47f af43 	bne.w	21a <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout+0x21a>
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:227
-        for child in &mut self.children {
- 394:	980a      	ldr	r0, [sp, #40]	; 0x28
- 396:	f7ff fffe 	bl	0 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout>
- 39a:	eeb0 9a4a 	vmov.f32	s18, s20
- 39e:	9f0b      	ldr	r7, [sp, #44]	; 0x2c
- 3a0:	eef0 9a6a 	vmov.f32	s19, s21
- 3a4:	ae0c      	add	r6, sp, #48	; 0x30
- 3a6:	f10d 0870 	add.w	r8, sp, #112	; 0x70
- 3aa:	f10d 0950 	add.w	r9, sp, #80	; 0x50
- 3ae:	4604      	mov	r4, r0
- 3b0:	460d      	mov	r5, r1
- 3b2:	e050      	b.n	456 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout+0x456>
- 3b4:	bf00      	nop
- 3b6:	bf00      	nop
-	...
- 3c4:	7ff00000 	.word	0x7ff00000
-_ZN5druid22WidgetPod$LT$T$C$W$GT$15get_layout_rect17h319b76947dd7a68dE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:483
-        self.state.layout_rect
- 3c8:	4630      	mov	r0, r6
- 3ca:	4621      	mov	r1, r4
- 3cc:	2220      	movs	r2, #32
- 3ce:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:230
-            let pos: Point = self.direction.pack(major, 0.0).into();
- 3d2:	eeb0 0a49 	vmov.f32	s0, s18
- 3d6:	4638      	mov	r0, r7
- 3d8:	eeb0 1a4a 	vmov.f32	s2, s20
- 3dc:	eef0 0a69 	vmov.f32	s1, s19
- 3e0:	eef0 1a6a 	vmov.f32	s3, s21
- 3e4:	f7ff fffe 	bl	0 <druid::widget::flex::Axis::pack>
- 3e8:	eeb0 ca40 	vmov.f32	s24, s0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:231
-            child.widget.set_layout_rect(rect.with_origin(pos));
- 3ec:	4640      	mov	r0, r8
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:230
-            let pos: Point = self.direction.pack(major, 0.0).into();
- 3ee:	eeb0 da41 	vmov.f32	s26, s2
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:231
-            child.widget.set_layout_rect(rect.with_origin(pos));
- 3f2:	4631      	mov	r1, r6
- 3f4:	2220      	movs	r2, #32
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:230
-            let pos: Point = self.direction.pack(major, 0.0).into();
- 3f6:	eef0 ca60 	vmov.f32	s25, s1
- 3fa:	eef0 da61 	vmov.f32	s27, s3
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:231
-            child.widget.set_layout_rect(rect.with_origin(pos));
- 3fe:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-_ZN5kurbo4rect4Rect11with_origin17hfa79cdcd47f4ff53E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:60
-        Rect::from_origin_size(origin, self.size())
- 402:	4640      	mov	r0, r8
- 404:	f7ff fffe 	bl	0 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout>
- 408:	eeb0 2a40 	vmov.f32	s4, s0
- 40c:	4648      	mov	r0, r9
- 40e:	eeb0 3a41 	vmov.f32	s6, s2
- 412:	eeb0 0a4c 	vmov.f32	s0, s24
- 416:	eeb0 1a4d 	vmov.f32	s2, s26
- 41a:	eef0 2a60 	vmov.f32	s5, s1
- 41e:	eef0 3a61 	vmov.f32	s7, s3
- 422:	eef0 0a6c 	vmov.f32	s1, s25
- 426:	eef0 1a6d 	vmov.f32	s3, s27
- 42a:	f7ff fffe 	bl	0 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout>
-_ZN5druid22WidgetPod$LT$T$C$W$GT$15set_layout_rect17h6960e6ada6946819E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/lib.rs:476
-        self.state.layout_rect = layout_rect;
- 42e:	4620      	mov	r0, r4
- 430:	4649      	mov	r1, r9
- 432:	2220      	movs	r2, #32
- 434:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:232
-            major += self.direction.major(rect.size());
- 438:	4630      	mov	r0, r6
- 43a:	f7ff fffe 	bl	0 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout>
- 43e:	4638      	mov	r0, r7
- 440:	f7ff fffe 	bl	0 <druid::widget::flex::Axis::major>
- 444:	ec51 0b19 	vmov	r0, r1, d9
- 448:	ec53 2b10 	vmov	r2, r3, d0
- 44c:	f7ff fffe 	bl	0 <__aeabi_dadd>
- 450:	ec41 0b19 	vmov	d9, r0, r1
-_ZN4core3ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$6offset17hecc8873afc25db60E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1703
- 454:	3440      	adds	r4, #64	; 0x40
-_ZN88_$LT$core..slice..IterMut$LT$T$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h494546299990d0cdE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:3086
- 456:	42a5      	cmp	r5, r4
- 458:	bf18      	it	ne
- 45a:	2c00      	cmpne	r4, #0
- 45c:	d1b4      	bne.n	3c8 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout+0x3c8>
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hc1e80aee526f1079E():
- 45e:	ed9f 0b10 	vldr	d0, [pc, #64]	; 4a0 <<druid::widget::flex::Flex<T> as druid::Widget<T>>::layout+0x4a0>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:235
-        if flex_sum > 0.0 && total_major.is_infinite() {
- 462:	ec51 0b1b 	vmov	r0, r1, d11
- 466:	ec53 2b10 	vmov	r2, r3, d0
- 46a:	f7ff fffe 	bl	0 <__aeabi_dcmpgt>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:244
-        let (width, height) = self.direction.pack(major, minor);
- 46e:	eeb0 1a48 	vmov.f32	s2, s16
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:235
-        if flex_sum > 0.0 && total_major.is_infinite() {
- 472:	2800      	cmp	r0, #0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:244
-        let (width, height) = self.direction.pack(major, minor);
- 474:	eef0 1a68 	vmov.f32	s3, s17
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:235
-        if flex_sum > 0.0 && total_major.is_infinite() {
- 478:	9805      	ldr	r0, [sp, #20]
- 47a:	ec51 2b19 	vmov	r2, r1, d9
- 47e:	bf18      	it	ne
- 480:	4601      	movne	r1, r0
- 482:	9806      	ldr	r0, [sp, #24]
- 484:	bf18      	it	ne
- 486:	4602      	movne	r2, r0
- 488:	ec41 2b10 	vmov	d0, r2, r1
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:244
-        let (width, height) = self.direction.pack(major, minor);
- 48c:	4638      	mov	r0, r7
- 48e:	f7ff fffe 	bl	0 <druid::widget::flex::Axis::pack>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:246
-    }
- 492:	b024      	add	sp, #144	; 0x90
- 494:	ecbd 8b10 	vpop	{d8-d15}
- 498:	b001      	add	sp, #4
- 49a:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
- 49e:	bf00      	nop
-	...
 
 Disassembly of section .text._ZN78_$LT$druid..widget..flex..ChildWidget$LT$T$GT$$u20$as$u20$core..fmt..Debug$GT$3fmt17h45f2cd87827a61adE:
 
 00000000 <<druid::widget::flex::ChildWidget<T> as core::fmt::Debug>::fmt>:
 _ZN78_$LT$druid..widget..flex..ChildWidget$LT$T$GT$$u20$as$u20$core..fmt..Debug$GT$3fmt17h45f2cd87827a61adE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:286
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:285
 /// Implement formatted output for ChildWidget
 impl<T: Data> core::fmt::Debug for ChildWidget<T> { ////
     fn fmt(&self, _fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
@@ -8222,159 +3995,6 @@ where
     }
    2:	4770      	bx	lr
 
-Disassembly of section .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hc4e86af8b0cb16f4E:
-
-00000000 <<druid::widget::label::Label<T> as druid::Widget<T>>::paint>:
-_ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hc4e86af8b0cb16f4E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:96
-    fn paint(&mut self, paint_ctx: &mut PaintCtx, base_state: &BaseState, _data: &T, env: &Env) {
-   0:	e92d 4ff8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, lr}
-   4:	ed2d 0b14 	vpush	{d0-d9}
-   8:	4682      	mov	sl, r0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:99
-        let text_layout = self.get_layout(paint_ctx.render_ctx.text(), env); ////
-   a:	6a08      	ldr	r0, [r1, #32]
-   c:	4693      	mov	fp, r2
-   e:	9101      	str	r1, [sp, #4]
-  10:	f7ff fffe 	bl	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::text>
-  14:	ac02      	add	r4, sp, #8
-  16:	4602      	mov	r2, r0
-  18:	4651      	mov	r1, sl
-  1a:	4620      	mov	r0, r4
-  1c:	f7ff fffe 	bl	0 <<druid::widget::label::Label<T> as druid::Widget<T>>::paint>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:106
-                (base_state.size().width - text_layout.width()).max(0.0),
-  20:	f8df 90fc 	ldr.w	r9, [pc, #252]	; 120 <<druid::widget::label::Label<T> as druid::Widget<T>>::paint+0x120>
-  24:	4658      	mov	r0, fp
-  26:	47c8      	blx	r9
-  28:	eeb0 8a40 	vmov.f32	s16, s0
-  2c:	4620      	mov	r0, r4
-  2e:	eef0 8a60 	vmov.f32	s17, s1
-  32:	f7ff fffe 	bl	0 <<piet_embedded_graphics::text::EmbedTextLayout as piet::text::TextLayout>::width>
-  36:	ec51 0b18 	vmov	r0, r1, d8
-  3a:	ec53 2b10 	vmov	r2, r3, d0
-  3e:	f7ff fffe 	bl	0 <__aeabi_dsub>
-  42:	ed9f 8b33 	vldr	d8, [pc, #204]	; 110 <<druid::widget::label::Label<T> as druid::Widget<T>>::paint+0x110>
-  46:	4605      	mov	r5, r0
-  48:	460e      	mov	r6, r1
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
-  4a:	ec54 7b18 	vmov	r7, r4, d8
-  4e:	463a      	mov	r2, r7
-  50:	4623      	mov	r3, r4
-  52:	f7ff fffe 	bl	0 <__aeabi_dcmpge>
-  56:	4680      	mov	r8, r0
-_ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hc4e86af8b0cb16f4E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:107
-                base_state.size().height + (font_size * 1.2) / 2.,
-  58:	4658      	mov	r0, fp
-  5a:	47c8      	blx	r9
-  5c:	ed9f 0b2e 	vldr	d0, [pc, #184]	; 118 <<druid::widget::label::Label<T> as druid::Widget<T>>::paint+0x118>
-  60:	ec51 0b11 	vmov	r0, r1, d1
-  64:	ec53 2b10 	vmov	r2, r3, d0
-  68:	f7ff fffe 	bl	0 <__aeabi_dadd>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:103
-        let mut origin = self.align.resolve(Rect::from_origin_size(
-  6c:	eeb0 0a48 	vmov.f32	s0, s16
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
-  70:	f1b8 0f00 	cmp.w	r8, #0
-_ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hc4e86af8b0cb16f4E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:103
-  74:	eeb0 1a48 	vmov.f32	s2, s16
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
-  78:	bf1c      	itt	ne
-  7a:	4634      	movne	r4, r6
-  7c:	462f      	movne	r7, r5
-_ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hc4e86af8b0cb16f4E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:103
-  7e:	eef0 0a68 	vmov.f32	s1, s17
-  82:	eef0 1a68 	vmov.f32	s3, s17
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3max17h0bb21a088f31ed90E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:396
-  86:	ec44 7b12 	vmov	d2, r7, r4
-  8a:	ac08      	add	r4, sp, #32
-_ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hc4e86af8b0cb16f4E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:107
-                base_state.size().height + (font_size * 1.2) / 2.,
-  8c:	ec41 0b13 	vmov	d3, r0, r1
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:103
-        let mut origin = self.align.resolve(Rect::from_origin_size(
-  90:	4620      	mov	r0, r4
-  92:	f7ff fffe 	bl	0 <<druid::widget::label::Label<T> as druid::Widget<T>>::paint>
-  96:	4650      	mov	r0, sl
-  98:	4621      	mov	r1, r4
-  9a:	f7ff fffe 	bl	0 <piet::gradient::UnitPoint::resolve>
-  9e:	eeb0 8a40 	vmov.f32	s16, s0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:112
-        origin.y = origin.y.min(base_state.size().height);
-  a2:	4658      	mov	r0, fp
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:103
-        let mut origin = self.align.resolve(Rect::from_origin_size(
-  a4:	eeb0 9a41 	vmov.f32	s18, s2
-  a8:	eef0 8a60 	vmov.f32	s17, s1
-  ac:	eef0 9a61 	vmov.f32	s19, s3
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:112
-        origin.y = origin.y.min(base_state.size().height);
-  b0:	47c8      	blx	r9
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
-  b2:	ec54 7b11 	vmov	r7, r4, d1
-  b6:	ec5a 8b19 	vmov	r8, sl, d9
-  ba:	463a      	mov	r2, r7
-  bc:	4623      	mov	r3, r4
-  be:	4640      	mov	r0, r8
-  c0:	4651      	mov	r1, sl
-  c2:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
-  c6:	2800      	cmp	r0, #0
-  c8:	4626      	mov	r6, r4
-  ca:	463d      	mov	r5, r7
-  cc:	4638      	mov	r0, r7
-  ce:	4621      	mov	r1, r4
-  d0:	463a      	mov	r2, r7
-  d2:	4623      	mov	r3, r4
-  d4:	bf1c      	itt	ne
-  d6:	4656      	movne	r6, sl
-  d8:	4645      	movne	r5, r8
-  da:	f7ff fffe 	bl	0 <__aeabi_dcmpun>
-_ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hc4e86af8b0cb16f4E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:114
-        paint_ctx.render_ctx.draw_text(&text_layout, origin, &crate::env::LABEL_COLOR); ////
-  de:	9901      	ldr	r1, [sp, #4]
-  e0:	eeb0 0a48 	vmov.f32	s0, s16
-  e4:	eef0 0a68 	vmov.f32	s1, s17
-  e8:	4a0e      	ldr	r2, [pc, #56]	; (124 <<druid::widget::label::Label<T> as druid::Widget<T>>::paint+0x124>)
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
-  ea:	2800      	cmp	r0, #0
-_ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hc4e86af8b0cb16f4E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:114
-  ec:	6a09      	ldr	r1, [r1, #32]
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
-  ee:	bf1c      	itt	ne
-  f0:	4656      	movne	r6, sl
-  f2:	4645      	movne	r5, r8
-  f4:	ec46 5b11 	vmov	d1, r5, r6
-_ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hc4e86af8b0cb16f4E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:114
-  f8:	4608      	mov	r0, r1
-  fa:	a902      	add	r1, sp, #8
-  fc:	f7ff fffe 	bl	0 <<druid::widget::label::Label<T> as druid::Widget<T>>::paint>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:116
-    }
- 100:	ecbd 0b14 	vpop	{d0-d9}
- 104:	b001      	add	sp, #4
- 106:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
- 10a:	bf00      	nop
- 10c:	bf00      	nop
- 10e:	bf00      	nop
-	...
- 118:	33333333 	.word	0x33333333
- 11c:	40233333 	.word	0x40233333
-	...
-
 Disassembly of section .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6get_id17h9a108e15d7319460E:
 
 00000000 <<druid::widget::label::Label<T> as druid::Widget<T>>::get_id>:
@@ -8391,54 +4011,10 @@ _ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$
    8:	4620      	mov	r0, r4
    a:	bd10      	pop	{r4, pc}
 
-Disassembly of section .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hf14abcee172e218cE:
-
-00000000 <<druid::widget::label::Label<T> as druid::Widget<T>>::layout>:
-_ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17hf14abcee172e218cE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:118
-    fn layout(
-   0:	b570      	push	{r4, r5, r6, lr}
-   2:	b086      	sub	sp, #24
-   4:	460d      	mov	r5, r1
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:125
-        bc.debug_check("Label");
-   6:	4910      	ldr	r1, [pc, #64]	; (48 <<druid::widget::label::Label<T> as druid::Widget<T>>::layout+0x48>)
-   8:	4606      	mov	r6, r0
-   a:	4614      	mov	r4, r2
-   c:	4610      	mov	r0, r2
-   e:	2205      	movs	r2, #5
-  10:	f7ff fffe 	bl	0 <druid::BoxConstraints::debug_check>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:129
-        let text_layout = self.get_layout(layout_ctx.text(), env);
-  14:	4628      	mov	r0, r5
-  16:	f7ff fffe 	bl	0 <druid::LayoutCtx::text>
-  1a:	466d      	mov	r5, sp
-  1c:	4602      	mov	r2, r0
-  1e:	4628      	mov	r0, r5
-  20:	4631      	mov	r1, r6
-  22:	f7ff fffe 	bl	0 <<druid::widget::label::Label<T> as druid::Widget<T>>::layout>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:131
-        bc.constrain((text_layout.width(), font_size * 1.2))
-  26:	4628      	mov	r0, r5
-  28:	f7ff fffe 	bl	0 <<piet_embedded_graphics::text::EmbedTextLayout as piet::text::TextLayout>::width>
-  2c:	ed9f 1b04 	vldr	d1, [pc, #16]	; 40 <<druid::widget::label::Label<T> as druid::Widget<T>>::layout+0x40>
-  30:	4620      	mov	r0, r4
-  32:	f7ff fffe 	bl	0 <<druid::widget::label::Label<T> as druid::Widget<T>>::layout>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:132
-    }
-  36:	b006      	add	sp, #24
-  38:	bd70      	pop	{r4, r5, r6, pc}
-  3a:	bf00      	nop
-  3c:	bf00      	nop
-  3e:	bf00      	nop
-  40:	33333333 	.word	0x33333333
-  44:	40333333 	.word	0x40333333
-  48:	00000000 	.word	0x00000000
-
-Disassembly of section .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$7to_type17h5811fc8ab6d2bcefE:
+Disassembly of section .text._ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$7to_type17h6cfecb1feaf3111cE:
 
 00000000 <<druid::widget::label::Label<T> as druid::Widget<T>>::to_type>:
-_ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$7to_type17h5811fc8ab6d2bcefE():
+_ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$7to_type17h6cfecb1feaf3111cE():
 /Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:144
     fn to_type(self) -> WidgetType<T> { ////
    0:	b510      	push	{r4, lr}
@@ -8449,382 +4025,31 @@ _ZN79_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$
    6:	2278      	movs	r2, #120	; 0x78
    8:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
    c:	2000      	movs	r0, #0
-   e:	2102      	movs	r1, #2
+   e:	2103      	movs	r1, #3
   10:	e9c4 1000 	strd	r1, r0, [r4]
 /Users/Luppy/mynewt/druid-embedded/druid/src/widget/label.rs:146
     }
   14:	bd10      	pop	{r4, pc}
 
-Disassembly of section .text._ZN79_$LT$druid..win_handler..Windows$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h52d097338afc5db1E:
+Disassembly of section .text._ZN80_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hc620bed67f272b68E:
 
-00000000 <<druid::win_handler::Windows<T> as core::default::Default>::default>:
-_ZN79_$LT$druid..win_handler..Windows$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h52d097338afc5db1E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:842
-    fn default() -> Self {
+00000000 <<druid::win_handler::DruidHandler<T> as core::clone::Clone>::clone>:
+_ZN80_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hc620bed67f272b68E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:235
+#[derive(Clone, Default)] ////
    0:	b510      	push	{r4, lr}
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:844
-            windows: None, ////
-   2:	f44f 710e 	mov.w	r1, #568	; 0x238
-   6:	4604      	mov	r4, r0
-   8:	f7ff fffe 	bl	0 <__aeabi_memclr8>
-   c:	2003      	movs	r0, #3
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:843
-        Windows {
-   e:	2120      	movs	r1, #32
-  10:	f8c4 0238 	str.w	r0, [r4, #568]	; 0x238
-  14:	f504 700f 	add.w	r0, r4, #572	; 0x23c
-  18:	f7ff fffe 	bl	0 <__aeabi_memclr4>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:849
-            ////windows: HashMap::new(),
-            state: None, ////
-            ////state: HashMap::new(),
-        }
-    }
-  1c:	bd10      	pop	{r4, pc}
-
-Disassembly of section .text._ZN79_$LT$piet..color..Color$u20$as$u20$piet..render_context..IntoBrush$LT$P$GT$$GT$10make_brush17h5b3153c85b4102d2E:
-
-00000000 <<piet::color::Color as piet::render_context::IntoBrush<P>>::make_brush>:
-_ZN79_$LT$piet..color..Color$u20$as$u20$piet..render_context..IntoBrush$LT$P$GT$$GT$10make_brush17h5b3153c85b4102d2E():
-/Users/Luppy/mynewt/piet-embedded/piet/src/render_context.rs:207
-    fn make_brush<'a>(&'a self, piet: &mut P, _bbox: impl FnOnce() -> Rect) -> P::Brush { ////
-   0:	460a      	mov	r2, r1
-/Users/Luppy/mynewt/piet-embedded/piet/src/render_context.rs:209
-        piet.solid_brush(*self) ////
-   2:	6801      	ldr	r1, [r0, #0]
-   4:	4610      	mov	r0, r2
-   6:	f7ff bffe 	b.w	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::solid_brush>
-
-Disassembly of section .text._ZN79_$LT$piet..color..Color$u20$as$u20$piet..render_context..IntoBrush$LT$P$GT$$GT$10make_brush17h92b8d8477cfa4bc3E:
-
-00000000 <<piet::color::Color as piet::render_context::IntoBrush<P>>::make_brush>:
-_ZN79_$LT$piet..color..Color$u20$as$u20$piet..render_context..IntoBrush$LT$P$GT$$GT$10make_brush17h92b8d8477cfa4bc3E():
-/Users/Luppy/mynewt/piet-embedded/piet/src/render_context.rs:207
-    fn make_brush<'a>(&'a self, piet: &mut P, _bbox: impl FnOnce() -> Rect) -> P::Brush { ////
-   0:	460a      	mov	r2, r1
-/Users/Luppy/mynewt/piet-embedded/piet/src/render_context.rs:209
-        piet.solid_brush(*self) ////
-   2:	6801      	ldr	r1, [r0, #0]
-   4:	4610      	mov	r0, r2
-   6:	f7ff bffe 	b.w	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::solid_brush>
-
-Disassembly of section .text._ZN79_$LT$piet..color..Color$u20$as$u20$piet..render_context..IntoBrush$LT$P$GT$$GT$10make_brush17hbbb99e2c81c459fcE:
-
-00000000 <<piet::color::Color as piet::render_context::IntoBrush<P>>::make_brush>:
-_ZN79_$LT$piet..color..Color$u20$as$u20$piet..render_context..IntoBrush$LT$P$GT$$GT$10make_brush17hbbb99e2c81c459fcE():
-/Users/Luppy/mynewt/piet-embedded/piet/src/render_context.rs:207
-    fn make_brush<'a>(&'a self, piet: &mut P, _bbox: impl FnOnce() -> Rect) -> P::Brush { ////
-   0:	460a      	mov	r2, r1
-/Users/Luppy/mynewt/piet-embedded/piet/src/render_context.rs:209
-        piet.solid_brush(*self) ////
-   2:	6801      	ldr	r1, [r0, #0]
-   4:	4610      	mov	r0, r2
-   6:	f7ff bffe 	b.w	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::solid_brush>
-
-Disassembly of section .text._ZN81_$LT$druid..widget..button..Button$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hf3fdd03cb553599eE:
-
-00000000 <<druid::widget::button::Button<T> as druid::Widget<T>>::paint>:
-_ZN81_$LT$druid..widget..button..Button$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hf3fdd03cb553599eE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/button.rs:92
-}
-
-
-impl<T: Data + 'static> Widget<T> for Button<T> { ////
-////impl<T: Data> Widget<T> for Button<T> {
-    fn paint(&mut self, paint_ctx: &mut PaintCtx, base_state: &BaseState, data: &T, env: &Env) {
-   0:	e92d 4ff8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, lr}
-   4:	ed2d 8b0a 	vpush	{d8-d12}
-   8:	b0a2      	sub	sp, #136	; 0x88
-   a:	9005      	str	r0, [sp, #20]
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/button.rs:93
-        let is_active = base_state.is_active();
-   c:	4610      	mov	r0, r2
-   e:	4614      	mov	r4, r2
-  10:	9204      	str	r2, [sp, #16]
-  12:	460d      	mov	r5, r1
-  14:	9103      	str	r1, [sp, #12]
-  16:	f7ff fffe 	bl	0 <druid::BaseState::is_active>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/button.rs:94
-        let is_hot = base_state.is_hot();
-  1a:	4620      	mov	r0, r4
-  1c:	f7ff fffe 	bl	0 <druid::BaseState::is_hot>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/button.rs:97
-
-        let rounded_rect =
-            RoundedRect::from_origin_size(Point::ORIGIN, base_state.size().to_vec2(), 4.);
-  20:	4620      	mov	r0, r4
-  22:	f7ff fffe 	bl	0 <druid::BaseState::size>
-  26:	eeb0 2a40 	vmov.f32	s4, s0
-  2a:	eef0 2a60 	vmov.f32	s5, s1
-  2e:	ed9f 0b58 	vldr	d0, [pc, #352]	; 190 <<druid::widget::button::Button<T> as druid::Widget<T>>::paint+0x190>
-  32:	eeb0 3a41 	vmov.f32	s6, s2
-_ZN5kurbo12rounded_rect11RoundedRect16from_origin_size17h11b70753f1d62d9fE():
-/Users/Luppy/mynewt/kurbo-embedded/src/rounded_rect.rs:62
-    /// A new rectangle from origin and size.
-    ///
-    /// The result will have non-negative width, height and radius.
-    #[inline]
-    pub fn from_origin_size(origin: Point, size: Vec2, radius: f64) -> RoundedRect {
-        RoundedRect::from_points(origin, origin + size, radius)
-  36:	eeb0 1a40 	vmov.f32	s2, s0
-_ZN81_$LT$druid..widget..button..Button$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hf3fdd03cb553599eE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/button.rs:97
-  3a:	eef0 3a61 	vmov.f32	s7, s3
-_ZN5kurbo12rounded_rect11RoundedRect16from_origin_size17h11b70753f1d62d9fE():
-/Users/Luppy/mynewt/kurbo-embedded/src/rounded_rect.rs:62
-  3e:	eef0 1a60 	vmov.f32	s3, s1
-  42:	f7ff fffe 	bl	0 <<druid::widget::button::Button<T> as druid::Widget<T>>::paint>
-  46:	ae10      	add	r6, sp, #64	; 0x40
-  48:	2000      	movs	r0, #0
-  4a:	a91a      	add	r1, sp, #104	; 0x68
-_ZN5kurbo4rect4Rect3new17h07914d6c76322973E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:29
-        Rect { x0, y0, x1, y1 }
-  4c:	e9cd 001c 	strd	r0, r0, [sp, #112]	; 0x70
-  50:	e9cd 001a 	strd	r0, r0, [sp, #104]	; 0x68
-_ZN5kurbo12rounded_rect11RoundedRect9from_rect17h2379eed6d781198cE():
-/Users/Luppy/mynewt/kurbo-embedded/src/rounded_rect.rs:34
-        let rect = rect.abs();
-  54:	4630      	mov	r0, r6
-_ZN5kurbo4rect4Rect3new17h07914d6c76322973E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:29
-  56:	ed8d 1b20 	vstr	d1, [sp, #128]	; 0x80
-  5a:	ed8d 0b1e 	vstr	d0, [sp, #120]	; 0x78
-_ZN5kurbo12rounded_rect11RoundedRect9from_rect17h2379eed6d781198cE():
-/Users/Luppy/mynewt/kurbo-embedded/src/rounded_rect.rs:34
-  5e:	f7ff fffe 	bl	0 <<druid::widget::button::Button<T> as druid::Widget<T>>::paint>
-  62:	ed9f 0b4d 	vldr	d0, [pc, #308]	; 198 <<druid::widget::button::Button<T> as druid::Widget<T>>::paint+0x198>
-/Users/Luppy/mynewt/kurbo-embedded/src/rounded_rect.rs:36
-            libm::fabs(radius)
-  66:	f7ff fffe 	bl	0 <libm::math::fabs::fabs>
-  6a:	ac06      	add	r4, sp, #24
-  6c:	eeb0 8a40 	vmov.f32	s16, s0
-/Users/Luppy/mynewt/kurbo-embedded/src/rounded_rect.rs:46
-        RoundedRect { rect, radius }
-  70:	4631      	mov	r1, r6
-  72:	2220      	movs	r2, #32
-  74:	4620      	mov	r0, r4
-/Users/Luppy/mynewt/kurbo-embedded/src/rounded_rect.rs:36
-            libm::fabs(radius)
-  76:	eef0 8a60 	vmov.f32	s17, s1
-_ZN5kurbo4rect4Rect5width17h191192c502e7a8d0E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:94
-        self.x1 - self.x0
-  7a:	ed9d bb10 	vldr	d11, [sp, #64]	; 0x40
-_ZN5kurbo4rect4Rect6height17hae62dab19ba98920E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:102
-        self.y1 - self.y0
-  7e:	ed9d 9b12 	vldr	d9, [sp, #72]	; 0x48
-_ZN5kurbo4rect4Rect5width17h191192c502e7a8d0E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:94
-        self.x1 - self.x0
-  82:	ed9d cb14 	vldr	d12, [sp, #80]	; 0x50
-_ZN5kurbo4rect4Rect6height17hae62dab19ba98920E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:102
-        self.y1 - self.y0
-  86:	ed9d ab16 	vldr	d10, [sp, #88]	; 0x58
-_ZN5kurbo12rounded_rect11RoundedRect9from_rect17h2379eed6d781198cE():
-/Users/Luppy/mynewt/kurbo-embedded/src/rounded_rect.rs:46
-        RoundedRect { rect, radius }
-  8a:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-  8e:	20ff      	movs	r0, #255	; 0xff
-_ZN81_$LT$druid..widget..button..Button$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hf3fdd03cb553599eE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/button.rs:124
-            } else {
-                env.get(theme::BORDER)
-            };
-        */ ////
-
-        paint_ctx.render_ctx.stroke(rounded_rect, &border_color, 2.0); ////
-  90:	4621      	mov	r1, r4
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/button.rs:98
-        let bg_color = crate::env::BUTTON_DARK; ////
-  92:	900f      	str	r0, [sp, #60]	; 0x3c
-  94:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/button.rs:115
-        let border_color = crate::env::BORDER; ////
-  98:	901a      	str	r0, [sp, #104]	; 0x68
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/button.rs:124
-        paint_ctx.render_ctx.stroke(rounded_rect, &border_color, 2.0); ////
-  9a:	2220      	movs	r2, #32
-  9c:	6a28      	ldr	r0, [r5, #32]
-  9e:	9002      	str	r0, [sp, #8]
-  a0:	a810      	add	r0, sp, #64	; 0x40
-  a2:	f7ff fffe 	bl	0 <__aeabi_memcpy>
-_ZN5kurbo4rect4Rect5width17h191192c502e7a8d0E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:94
-        self.x1 - self.x0
-  a6:	ec51 0b1c 	vmov	r0, r1, d12
-  aa:	ec53 2b1b 	vmov	r2, r3, d11
-  ae:	f7ff fffe 	bl	0 <__aeabi_dsub>
-  b2:	ed9f 0b3b 	vldr	d0, [pc, #236]	; 1a0 <<druid::widget::button::Button<T> as druid::Widget<T>>::paint+0x1a0>
-_ZN5kurbo12rounded_rect11RoundedRect9from_rect17h2379eed6d781198cE():
-/Users/Luppy/mynewt/kurbo-embedded/src/rounded_rect.rs:37
-            .min(rect.width() / 2.0)
-  b6:	ec55 9b10 	vmov	r9, r5, d0
-  ba:	464a      	mov	r2, r9
-  bc:	462b      	mov	r3, r5
-  be:	f7ff fffe 	bl	0 <__aeabi_dmul>
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
-  c2:	ec54 ab18 	vmov	sl, r4, d8
-_ZN5kurbo12rounded_rect11RoundedRect9from_rect17h2379eed6d781198cE():
-/Users/Luppy/mynewt/kurbo-embedded/src/rounded_rect.rs:37
-  c6:	4606      	mov	r6, r0
-  c8:	460f      	mov	r7, r1
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
-  ca:	4632      	mov	r2, r6
-  cc:	463b      	mov	r3, r7
-  ce:	4650      	mov	r0, sl
-  d0:	4621      	mov	r1, r4
-  d2:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
-  d6:	2800      	cmp	r0, #0
-  d8:	46b8      	mov	r8, r7
-  da:	46b3      	mov	fp, r6
-  dc:	4630      	mov	r0, r6
-  de:	4639      	mov	r1, r7
-  e0:	4632      	mov	r2, r6
-  e2:	463b      	mov	r3, r7
-  e4:	bf1c      	itt	ne
-  e6:	46a0      	movne	r8, r4
-  e8:	46d3      	movne	fp, sl
-  ea:	f7ff fffe 	bl	0 <__aeabi_dcmpun>
-  ee:	2800      	cmp	r0, #0
-  f0:	4606      	mov	r6, r0
-_ZN5kurbo4rect4Rect6height17hae62dab19ba98920E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:102
-        self.y1 - self.y0
-  f2:	ec51 0b1a 	vmov	r0, r1, d10
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
-  f6:	bf18      	it	ne
-  f8:	46a0      	movne	r8, r4
-_ZN5kurbo4rect4Rect6height17hae62dab19ba98920E():
-/Users/Luppy/mynewt/kurbo-embedded/src/rect.rs:102
-  fa:	ec53 2b19 	vmov	r2, r3, d9
-  fe:	f7ff fffe 	bl	0 <__aeabi_dsub>
-_ZN5kurbo12rounded_rect11RoundedRect9from_rect17h2379eed6d781198cE():
-/Users/Luppy/mynewt/kurbo-embedded/src/rounded_rect.rs:38
-            .min(rect.height() / 2.0); ////
- 102:	464a      	mov	r2, r9
- 104:	462b      	mov	r3, r5
- 106:	f7ff fffe 	bl	0 <__aeabi_dmul>
- 10a:	460f      	mov	r7, r1
- 10c:	4605      	mov	r5, r0
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
- 10e:	2e00      	cmp	r6, #0
- 110:	bf18      	it	ne
- 112:	46d3      	movne	fp, sl
- 114:	4658      	mov	r0, fp
- 116:	4641      	mov	r1, r8
- 118:	462a      	mov	r2, r5
- 11a:	463b      	mov	r3, r7
- 11c:	f7ff fffe 	bl	0 <__aeabi_dcmplt>
- 120:	2800      	cmp	r0, #0
- 122:	463e      	mov	r6, r7
- 124:	462c      	mov	r4, r5
- 126:	4628      	mov	r0, r5
- 128:	4639      	mov	r1, r7
- 12a:	462a      	mov	r2, r5
- 12c:	463b      	mov	r3, r7
- 12e:	bf1c      	itt	ne
- 130:	4646      	movne	r6, r8
- 132:	465c      	movne	r4, fp
- 134:	f7ff fffe 	bl	0 <__aeabi_dcmpun>
- 138:	2800      	cmp	r0, #0
- 13a:	bf1c      	itt	ne
- 13c:	4646      	movne	r6, r8
- 13e:	465c      	movne	r4, fp
-_ZN81_$LT$druid..widget..button..Button$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hf3fdd03cb553599eE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/button.rs:124
- 140:	9802      	ldr	r0, [sp, #8]
-_ZN4core3f6421_$LT$impl$u20$f64$GT$3min17h7166a920f0d9dcb5E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/num/f64.rs:420
- 142:	ec46 4b18 	vmov	d8, r4, r6
- 146:	ed9f 0b18 	vldr	d0, [pc, #96]	; 1a8 <<druid::widget::button::Button<T> as druid::Widget<T>>::paint+0x1a8>
- 14a:	aa1a      	add	r2, sp, #104	; 0x68
-_ZN81_$LT$druid..widget..button..Button$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$5paint17hf3fdd03cb553599eE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/button.rs:124
- 14c:	a910      	add	r1, sp, #64	; 0x40
- 14e:	ed8d 8b18 	vstr	d8, [sp, #96]	; 0x60
- 152:	f7ff fffe 	bl	0 <<druid::widget::button::Button<T> as druid::Widget<T>>::paint>
- 156:	9e03      	ldr	r6, [sp, #12]
- 158:	ad10      	add	r5, sp, #64	; 0x40
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/button.rs:127
-        ////paint_ctx.stroke(rounded_rect, &border_color, 2.0);
-
-        paint_ctx.render_ctx.fill(rounded_rect, &bg_color); ////
- 15a:	a906      	add	r1, sp, #24
- 15c:	2220      	movs	r2, #32
- 15e:	4628      	mov	r0, r5
- 160:	6a34      	ldr	r4, [r6, #32]
- 162:	f7ff fffe 	bl	0 <__aeabi_memcpy>
- 166:	aa0f      	add	r2, sp, #60	; 0x3c
- 168:	4620      	mov	r0, r4
- 16a:	4629      	mov	r1, r5
- 16c:	ed8d 8b18 	vstr	d8, [sp, #96]	; 0x60
- 170:	f7ff fffe 	bl	0 <<druid::widget::button::Button<T> as druid::Widget<T>>::paint>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/button.rs:131
-        ////paint_ctx.render_ctx.fill(rounded_rect, &bg_gradient); ////
-        ////paint_ctx.fill(rounded_rect, &bg_gradient);
-
-        self.label.paint(paint_ctx, base_state, data, env);
- 174:	9805      	ldr	r0, [sp, #20]
- 176:	4631      	mov	r1, r6
- 178:	9a04      	ldr	r2, [sp, #16]
- 17a:	f7ff fffe 	bl	0 <<druid::widget::button::Button<T> as druid::Widget<T>>::paint>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/button.rs:132
-    }
- 17e:	b022      	add	sp, #136	; 0x88
- 180:	ecbd 8b0a 	vpop	{d8-d12}
- 184:	b001      	add	sp, #4
- 186:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
- 18a:	bf00      	nop
- 18c:	bf00      	nop
- 18e:	bf00      	nop
-	...
- 19c:	40100000 	.word	0x40100000
- 1a0:	00000000 	.word	0x00000000
- 1a4:	3fe00000 	.word	0x3fe00000
- 1a8:	00000000 	.word	0x00000000
- 1ac:	40000000 	.word	0x40000000
-
-Disassembly of section .text._ZN81_$LT$druid..widget..button..Button$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17haa57874c3e53bd7aE:
-
-00000000 <<druid::widget::button::Button<T> as druid::Widget<T>>::layout>:
-_ZN81_$LT$druid..widget..button..Button$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout17haa57874c3e53bd7aE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/button.rs:134
-
-    fn layout(
-   0:	b57c      	push	{r2, r3, r4, r5, r6, lr}
-   2:	460d      	mov	r5, r1
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/button.rs:141
-        layout_ctx: &mut LayoutCtx,
-        bc: &BoxConstraints,
-        data: &T,
-        env: &Env,
-    ) -> Size {
-        bc.debug_check("Button");
-   4:	4906      	ldr	r1, [pc, #24]	; (20 <<druid::widget::button::Button<T> as druid::Widget<T>>::layout+0x20>)
-   6:	4606      	mov	r6, r0
-   8:	4614      	mov	r4, r2
-   a:	4610      	mov	r0, r2
-   c:	2206      	movs	r2, #6
-   e:	f7ff fffe 	bl	0 <druid::BoxConstraints::debug_check>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/button.rs:143
-
-        self.label.layout(layout_ctx, bc, data, env)
-  12:	4630      	mov	r0, r6
-  14:	4629      	mov	r1, r5
-  16:	4622      	mov	r2, r4
-  18:	f7ff fffe 	bl	0 <<druid::widget::button::Button<T> as druid::Widget<T>>::layout>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/button.rs:144
-    }
-  1c:	b002      	add	sp, #8
-  1e:	bd70      	pop	{r4, r5, r6, pc}
-  20:	00000000 	.word	0x00000000
+_ZN62_$LT$druid..window..WindowId$u20$as$u20$core..clone..Clone$GT$5clone17hadb074156ccb06ddE():
+/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:30
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash, PartialOrd, Ord)] ////
+   2:	6804      	ldr	r4, [r0, #0]
+_ZN80_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hc620bed67f272b68E():
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:243
+    phantom: PhantomData<T>,  ////  Needed to do compile-time checking for `Data`
+   4:	f7ff fffe 	bl	0 <<core::marker::PhantomData<T> as core::clone::Clone>::clone>
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:235
+#[derive(Clone, Default)] ////
+   8:	4620      	mov	r0, r4
+   a:	bd10      	pop	{r4, pc}
 
 Disassembly of section .text._ZN84_$LT$heapless..string..String$LT$N$GT$$u20$as$u20$core..convert..From$LT$u32$GT$$GT$4from17hf04fb1f6e012796bE:
 
@@ -8892,176 +4117,6 @@ _ZN4core6result19Result$LT$T$C$E$GT$6unwrap17h0d4607d3dec404a9E():
 _ZN84_$LT$heapless..string..String$LT$N$GT$$u20$as$u20$core..convert..From$LT$u32$GT$$GT$4from17hf04fb1f6e012796bE():
 /rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/result.rs:800
   4e:	bf00      	nop
-	...
-
-Disassembly of section .text._ZN86_$LT$kurbo..point..Point$u20$as$u20$core..ops..arith..Add$LT$kurbo..vec2..Vec2$GT$$GT$3add17h0222e21504e61b64E:
-
-00000000 <<kurbo::point::Point as core::ops::arith::Add<kurbo::vec2::Vec2>>::add>:
-_ZN86_$LT$kurbo..point..Point$u20$as$u20$core..ops..arith..Add$LT$kurbo..vec2..Vec2$GT$$GT$3add17h0222e21504e61b64E():
-/Users/Luppy/mynewt/kurbo-embedded/src/point.rs:82
-
-impl Add<Vec2> for Point {
-    type Output = Point;
-
-    #[inline]
-    fn add(self, other: Vec2) -> Self {
-   0:	b580      	push	{r7, lr}
-   2:	ed2d 8b04 	vpush	{d8-d9}
-/Users/Luppy/mynewt/kurbo-embedded/src/point.rs:83
-        Point::new(self.x + other.x, self.y + other.y)
-   6:	ec51 0b10 	vmov	r0, r1, d0
-   a:	ec53 2b12 	vmov	r2, r3, d2
-   e:	eeb0 8a43 	vmov.f32	s16, s6
-  12:	eeb0 9a41 	vmov.f32	s18, s2
-  16:	eef0 8a63 	vmov.f32	s17, s7
-  1a:	eef0 9a61 	vmov.f32	s19, s3
-  1e:	f7ff fffe 	bl	0 <__aeabi_dadd>
-  22:	ec5c eb19 	vmov	lr, ip, d9
-  26:	ec53 2b18 	vmov	r2, r3, d8
-  2a:	ec41 0b18 	vmov	d8, r0, r1
-  2e:	4670      	mov	r0, lr
-  30:	4661      	mov	r1, ip
-  32:	f7ff fffe 	bl	0 <__aeabi_dadd>
-/Users/Luppy/mynewt/kurbo-embedded/src/point.rs:84
-    }
-  36:	eeb0 0a48 	vmov.f32	s0, s16
-/Users/Luppy/mynewt/kurbo-embedded/src/point.rs:83
-        Point::new(self.x + other.x, self.y + other.y)
-  3a:	ec41 0b11 	vmov	d1, r0, r1
-/Users/Luppy/mynewt/kurbo-embedded/src/point.rs:84
-    }
-  3e:	eef0 0a68 	vmov.f32	s1, s17
-  42:	ecbd 8b04 	vpop	{d8-d9}
-  46:	bd80      	pop	{r7, pc}
-
-Disassembly of section .text._ZN87_$LT$druid..widget..widgetbox..WidgetBox$LT$D$GT$$u20$as$u20$druid..Widget$LT$D$GT$$GT$5paint17hee1468e7b5a189dfE:
-
-00000000 <<druid::widget::widgetbox::WidgetBox<D> as druid::Widget<D>>::paint>:
-_ZN87_$LT$druid..widget..widgetbox..WidgetBox$LT$D$GT$$u20$as$u20$druid..Widget$LT$D$GT$$GT$5paint17hee1468e7b5a189dfE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:79
-}
-
-/// Implementation of `Widget` trait for `WidgetBox`. We just forward to the inner `Widget`.
-impl<D: Data + 'static> Widget<D> for WidgetBox<D> {
-    fn paint(
-   0:	b57c      	push	{r2, r3, r4, r5, r6, lr}
-   2:	4614      	mov	r4, r2
-   4:	460d      	mov	r5, r1
-   6:	4606      	mov	r6, r0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:86
-        paint_ctx: &mut PaintCtx, 
-        base_state: &BaseState, 
-        data: &D, 
-        env: &Env
-    ) {
-        match &mut self.get_global_state()[self.0 as usize] {
-   8:	f7ff fffe 	bl	0 <<druid::widget::widgetbox::WidgetBox<u32> as druid::widget::widgetbox::GlobalState<u32>>::get_global_state>
-   c:	460a      	mov	r2, r1
-   e:	6831      	ldr	r1, [r6, #0]
-  10:	4291      	cmp	r1, r2
-  12:	d217      	bcs.n	44 <<druid::widget::widgetbox::WidgetBox<D> as druid::Widget<D>>::paint+0x44>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:87
-            WidgetType::Button(w) => w.paint(paint_ctx, base_state, data, env),
-  14:	eb01 1101 	add.w	r1, r1, r1, lsl #4
-  18:	f850 2031 	ldr.w	r2, [r0, r1, lsl #3]
-  1c:	2a01      	cmp	r2, #1
-  1e:	d009      	beq.n	34 <<druid::widget::widgetbox::WidgetBox<D> as druid::Widget<D>>::paint+0x34>
-  20:	2a02      	cmp	r2, #2
-  22:	d106      	bne.n	32 <<druid::widget::widgetbox::WidgetBox<D> as druid::Widget<D>>::paint+0x32>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:89
-            ////WidgetType::Flex(w)   => w.paint(paint_ctx, base_state, data, env),
-            WidgetType::Label(w)  => w.paint(paint_ctx, base_state, data, env),
-  24:	eb00 00c1 	add.w	r0, r0, r1, lsl #3
-  28:	4629      	mov	r1, r5
-  2a:	3008      	adds	r0, #8
-  2c:	4622      	mov	r2, r4
-  2e:	f7ff fffe 	bl	0 <<druid::widget::widgetbox::WidgetBox<D> as druid::Widget<D>>::paint>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:92
-            WidgetType::None => {}
-        };
-    }
-  32:	bd7c      	pop	{r2, r3, r4, r5, r6, pc}
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:87
-            WidgetType::Button(w) => w.paint(paint_ctx, base_state, data, env),
-  34:	eb00 00c1 	add.w	r0, r0, r1, lsl #3
-  38:	4629      	mov	r1, r5
-  3a:	3008      	adds	r0, #8
-  3c:	4622      	mov	r2, r4
-  3e:	f7ff fffe 	bl	0 <<druid::widget::widgetbox::WidgetBox<D> as druid::Widget<D>>::paint>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:92
-    }
-  42:	bd7c      	pop	{r2, r3, r4, r5, r6, pc}
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:86
-        match &mut self.get_global_state()[self.0 as usize] {
-  44:	4801      	ldr	r0, [pc, #4]	; (4c <<druid::widget::widgetbox::WidgetBox<D> as druid::Widget<D>>::paint+0x4c>)
-  46:	f7ff fffe 	bl	0 <core::panicking::panic_bounds_check>
-  4a:	defe      	udf	#254	; 0xfe
-  4c:	00000000 	.word	0x00000000
-
-Disassembly of section .text._ZN87_$LT$druid..widget..widgetbox..WidgetBox$LT$D$GT$$u20$as$u20$druid..Widget$LT$D$GT$$GT$6layout17h769b7cbf4ccbfea9E:
-
-00000000 <<druid::widget::widgetbox::WidgetBox<D> as druid::Widget<D>>::layout>:
-_ZN87_$LT$druid..widget..widgetbox..WidgetBox$LT$D$GT$$u20$as$u20$druid..Widget$LT$D$GT$$GT$6layout17h769b7cbf4ccbfea9E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:94
-
-    fn layout(
-   0:	b57c      	push	{r2, r3, r4, r5, r6, lr}
-   2:	4614      	mov	r4, r2
-   4:	460d      	mov	r5, r1
-   6:	4606      	mov	r6, r0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:101
-        layout_ctx: &mut LayoutCtx,
-        bc: &BoxConstraints,
-        data: &D,
-        env: &Env,
-    ) -> Size {
-        match &mut self.get_global_state()[self.0 as usize] {
-   8:	f7ff fffe 	bl	0 <<druid::widget::widgetbox::WidgetBox<u32> as druid::widget::widgetbox::GlobalState<u32>>::get_global_state>
-   c:	460a      	mov	r2, r1
-   e:	6831      	ldr	r1, [r6, #0]
-  10:	4291      	cmp	r1, r2
-  12:	d21f      	bcs.n	54 <<druid::widget::widgetbox::WidgetBox<D> as druid::Widget<D>>::layout+0x54>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:102
-            WidgetType::Button(w) => w.layout(layout_ctx, bc, data, env),
-  14:	eb01 1101 	add.w	r1, r1, r1, lsl #4
-  18:	f850 2031 	ldr.w	r2, [r0, r1, lsl #3]
-  1c:	2a01      	cmp	r2, #1
-  1e:	d009      	beq.n	34 <<druid::widget::widgetbox::WidgetBox<D> as druid::Widget<D>>::layout+0x34>
-  20:	2a02      	cmp	r2, #2
-  22:	d10f      	bne.n	44 <<druid::widget::widgetbox::WidgetBox<D> as druid::Widget<D>>::layout+0x44>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:104
-            ////WidgetType::Flex(w)   => w.layout(layout_ctx, bc, data, env),
-            WidgetType::Label(w)  => w.layout(layout_ctx, bc, data, env),
-  24:	eb00 00c1 	add.w	r0, r0, r1, lsl #3
-  28:	4629      	mov	r1, r5
-  2a:	3008      	adds	r0, #8
-  2c:	4622      	mov	r2, r4
-  2e:	f7ff fffe 	bl	0 <<druid::widget::widgetbox::WidgetBox<D> as druid::Widget<D>>::layout>
-  32:	e00d      	b.n	50 <<druid::widget::widgetbox::WidgetBox<D> as druid::Widget<D>>::layout+0x50>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:102
-            WidgetType::Button(w) => w.layout(layout_ctx, bc, data, env),
-  34:	eb00 00c1 	add.w	r0, r0, r1, lsl #3
-  38:	4629      	mov	r1, r5
-  3a:	3008      	adds	r0, #8
-  3c:	4622      	mov	r2, r4
-  3e:	f7ff fffe 	bl	0 <<druid::widget::widgetbox::WidgetBox<D> as druid::Widget<D>>::layout>
-  42:	e005      	b.n	50 <<druid::widget::widgetbox::WidgetBox<D> as druid::Widget<D>>::layout+0x50>
-  44:	ed9f 0b06 	vldr	d0, [pc, #24]	; 60 <<druid::widget::widgetbox::WidgetBox<D> as druid::Widget<D>>::layout+0x60>
-  48:	eeb0 1a40 	vmov.f32	s2, s0
-  4c:	eef0 1a60 	vmov.f32	s3, s1
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:107
-            WidgetType::None => Size::ZERO,
-        }
-    }
-  50:	b002      	add	sp, #8
-  52:	bd70      	pop	{r4, r5, r6, pc}
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:101
-        match &mut self.get_global_state()[self.0 as usize] {
-  54:	4804      	ldr	r0, [pc, #16]	; (68 <<druid::widget::widgetbox::WidgetBox<D> as druid::Widget<D>>::layout+0x68>)
-  56:	f7ff fffe 	bl	0 <core::panicking::panic_bounds_check>
-  5a:	defe      	udf	#254	; 0xfe
-  5c:	bf00      	nop
-  5e:	bf00      	nop
 	...
 
 Disassembly of section .text._ZN8heapless3vec16Vec$LT$T$C$N$GT$3new17h53311de4d544ea74E:
@@ -9316,86 +4371,6 @@ _ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$
     }
   16:	bd10      	pop	{r4, pc}
 
-Disassembly of section .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$17extend_from_slice17h4f760a4706bdbd93E:
-
-00000000 <heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::extend_from_slice>:
-_ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$17extend_from_slice17h4f760a4706bdbd93E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:58
-    pub(crate) fn extend_from_slice(&mut self, other: &[T]) -> Result<(), ()>
-   0:	e92d 4ff8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, sl, fp, lr}
-   4:	ed2d 8b02 	vpush	{d8}
-   8:	4680      	mov	r8, r0
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:62
-        if self.len + other.len() > self.capacity() {
-   a:	f8d0 0200 	ldr.w	r0, [r0, #512]	; 0x200
-   e:	460c      	mov	r4, r1
-  10:	1881      	adds	r1, r0, r2
-  12:	2908      	cmp	r1, #8
-  14:	d901      	bls.n	1a <heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::extend_from_slice+0x1a>
-  16:	2001      	movs	r0, #1
-  18:	e025      	b.n	66 <heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::extend_from_slice+0x66>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:66
-            for elem in other {
-  1a:	ea4f 1982 	mov.w	r9, r2, lsl #6
-  1e:	e01e      	b.n	5e <heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::extend_from_slice+0x5e>
-_ZN4core3ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$6offset17hecc8873afc25db60E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1703
-  20:	eb08 1680 	add.w	r6, r8, r0, lsl #6
-_ZN4core3ptr5write17h752be07b1a0e0c20E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:734
-  24:	4621      	mov	r1, r4
-  26:	2228      	movs	r2, #40	; 0x28
-_ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h73400f7246072279E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
-  28:	e9d4 b70a 	ldrd	fp, r7, [r4, #40]	; 0x28
-_ZN4core3ptr5write17h752be07b1a0e0c20E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:734
-  2c:	4630      	mov	r0, r6
-_ZN4core5clone5impls52_$LT$impl$u20$core..clone..Clone$u20$for$u20$u32$GT$5clone17h5d163be40911e00dE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/clone.rs:168
-  2e:	f8d4 a030 	ldr.w	sl, [r4, #48]	; 0x30
-_ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h6dc060872a3f2519E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:148
-  32:	f894 5034 	ldrb.w	r5, [r4, #52]	; 0x34
-_ZN66_$LT$druid..widget..flex..Params$u20$as$u20$core..clone..Clone$GT$5clone17h54ca19302b4d6e7aE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:68
-#[derive(Copy, Clone, Default)]
-  36:	ed94 8b0e 	vldr	d8, [r4, #56]	; 0x38
-_ZN4core3ptr5write17h752be07b1a0e0c20E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:734
-  3a:	f7ff fffe 	bl	0 <__aeabi_memmove8>
-  3e:	ed86 8b0e 	vstr	d8, [r6, #56]	; 0x38
-_ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$17extend_from_slice17h4f760a4706bdbd93E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:66
-  42:	f1a9 0940 	sub.w	r9, r9, #64	; 0x40
-_ZN4core3ptr5write17h752be07b1a0e0c20E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:734
-  46:	f886 5034 	strb.w	r5, [r6, #52]	; 0x34
-_ZN4core3ptr33_$LT$impl$u20$$BP$const$u20$T$GT$6offset17hb0dedbd73d8e5b59E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:1077
-  4a:	3440      	adds	r4, #64	; 0x40
-_ZN4core3ptr5write17h752be07b1a0e0c20E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:734
-  4c:	e9c6 b70a 	strd	fp, r7, [r6, #40]	; 0x28
-  50:	f8c6 a030 	str.w	sl, [r6, #48]	; 0x30
-_ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$14push_unchecked17h5d42e9793f89872aE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:102
-        self.len += 1;
-  54:	f8d8 0200 	ldr.w	r0, [r8, #512]	; 0x200
-  58:	3001      	adds	r0, #1
-  5a:	f8c8 0200 	str.w	r0, [r8, #512]	; 0x200
-_ZN85_$LT$core..slice..Iter$LT$T$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h433cf98027dee751E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:3086
-  5e:	f1b9 0f00 	cmp.w	r9, #0
-  62:	d1dd      	bne.n	20 <heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::extend_from_slice+0x20>
-_ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$17extend_from_slice17h4f760a4706bdbd93E():
-  64:	2000      	movs	r0, #0
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:73
-    }
-  66:	ecbd 8b02 	vpop	{d8}
-  6a:	b001      	add	sp, #4
-  6c:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
-
 Disassembly of section .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$17extend_from_slice17hc081e04848c5d3e6E:
 
 00000000 <heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::extend_from_slice>:
@@ -9636,42 +4611,6 @@ _ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$
     }
   3c:	bdb0      	pop	{r4, r5, r7, pc}
 
-Disassembly of section .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$5clone17h03821103712eec77E:
-
-00000000 <heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::clone>:
-_ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$5clone17h03821103712eec77E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:40
-    pub(crate) fn clone(&self) -> Self
-   0:	b5b0      	push	{r4, r5, r7, lr}
-   2:	f5ad 7d02 	sub.w	sp, sp, #520	; 0x208
-_ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8as_slice17hb1701ce17c6108edE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:23
-        unsafe { slice::from_raw_parts(self.buffer.as_ptr() as *const T, self.len) }
-   6:	f8d1 2200 	ldr.w	r2, [r1, #512]	; 0x200
-   a:	4604      	mov	r4, r0
-   c:	2000      	movs	r0, #0
-   e:	466d      	mov	r5, sp
-_ZN8heapless3vec43_$LT$impl$u20$heapless..i..Vec$LT$A$GT$$GT$3new17he51d968b54c5e64aE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:9
-        Self {
-  10:	9080      	str	r0, [sp, #512]	; 0x200
-_ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$5clone17h03821103712eec77E():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:45
-        new.extend_from_slice(self.as_slice()).unwrap();
-  12:	4628      	mov	r0, r5
-  14:	f7ff fffe 	bl	0 <heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::clone>
-  18:	f7ff fffe 	bl	0 <heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::clone>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:46
-        new
-  1c:	4620      	mov	r0, r4
-  1e:	4629      	mov	r1, r5
-  20:	f44f 7202 	mov.w	r2, #520	; 0x208
-  24:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:47
-    }
-  28:	f50d 7d02 	add.w	sp, sp, #520	; 0x208
-  2c:	bdb0      	pop	{r4, r5, r7, pc}
-
 Disassembly of section .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$5clone17h279b5bfbfa510c1fE:
 
 00000000 <heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::clone>:
@@ -9765,17 +4704,6 @@ _ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$
     }
    2:	4770      	bx	lr
 
-Disassembly of section .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8as_slice17hb1701ce17c6108edE:
-
-00000000 <heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::as_slice>:
-_ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8as_slice17hb1701ce17c6108edE():
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:23
-        unsafe { slice::from_raw_parts(self.buffer.as_ptr() as *const T, self.len) }
-   0:	f8d0 1200 	ldr.w	r1, [r0, #512]	; 0x200
-/Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:24
-    }
-   4:	4770      	bx	lr
-
 Disassembly of section .text._ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$LT$T$C$N$GT$$GT$$GT$8capacity17h3fe105568d08c791E:
 
 00000000 <heapless::vec::<impl heapless::i::Vec<generic_array::GenericArray<T,N>>>::capacity>:
@@ -9800,29 +4728,6 @@ _ZN8heapless3vec82_$LT$impl$u20$heapless..i..Vec$LT$generic_array..GenericArray$
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:34
    0:	2002      	movs	r0, #2
    2:	4770      	bx	lr
-
-Disassembly of section .text._ZN93_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$GT$5paint17hb1f800153ff5da2bE:
-
-00000000 <<druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler>::paint>:
-_ZN93_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$GT$5paint17hb1f800153ff5da2bE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:771
-    fn paint(&mut self, piet: &mut Piet, ctx: &mut dyn WinCtx) -> bool {
-   0:	b5e0      	push	{r5, r6, r7, lr}
-   2:	4694      	mov	ip, r2
-   4:	460a      	mov	r2, r1
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:772
-        unsafe { APP_STATE_U32.paint(self.window_id, piet, ctx) } ////
-   6:	6801      	ldr	r1, [r0, #0]
-   8:	4803      	ldr	r0, [pc, #12]	; (18 <<druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler>::paint+0x18>)
-   a:	9300      	str	r3, [sp, #0]
-   c:	4663      	mov	r3, ip
-   e:	f7ff fffe 	bl	0 <<druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler>::paint>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:774
-    }
-  12:	b002      	add	sp, #8
-  14:	bd80      	pop	{r7, pc}
-  16:	bf00      	nop
-  18:	00000000 	.word	0x00000000
 
 Disassembly of section .text._ZN93_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h69e96b6a767e322dE:
 
@@ -9936,38 +4841,6 @@ _ZN95_$LT$heapless..vec..IntoIter$LT$T$C$N$GT$$u20$as$u20$core..iter..traits..it
 /Users/Luppy/.cargo/registry/src/github.com-1ecc6299db9ec823/heapless-0.5.1/src/vec.rs:493
     }
   32:	bd70      	pop	{r4, r5, r6, pc}
-
-Disassembly of section .text._ZN97_$LT$core..iter..adapters..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17h56472e4a61ad933bE:
-
-00000000 <<core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::fold>:
-_ZN97_$LT$core..iter..adapters..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17h56472e4a61ad933bE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/adapters/mod.rs:590
-   0:	b5b0      	push	{r4, r5, r7, lr}
-   2:	460c      	mov	r4, r1
-   4:	4605      	mov	r5, r0
-   6:	e00a      	b.n	1e <<core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::fold+0x1e>
-_ZN77_$LT$druid..widget..flex..Flex$LT$T$GT$$u20$as$u20$druid..Widget$LT$T$GT$$GT$6layout28_$u7b$$u7b$closure$u7d$$u7d$17hfeff44cc791c8f1eE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/flex.rs:198
-        let flex_sum: f64 = self.children.iter().map(|child| child.params.flex).sum();
-   8:	ed95 1b0e 	vldr	d1, [r5, #56]	; 0x38
-_ZN54_$LT$f64$u20$as$u20$core..iter..traits..accum..Sum$GT$3sum28_$u7b$$u7b$closure$u7d$$u7d$17hcabe49ab96b8c82bE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/traits/accum.rs:87
-   c:	ec51 0b10 	vmov	r0, r1, d0
-  10:	ec53 2b11 	vmov	r2, r3, d1
-  14:	f7ff fffe 	bl	0 <__aeabi_dadd>
-  18:	ec41 0b10 	vmov	d0, r0, r1
-_ZN85_$LT$core..slice..Iter$LT$T$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hcc41648a544ddb6aE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:3158
-  1c:	3540      	adds	r5, #64	; 0x40
-_ZN85_$LT$core..slice..Iter$LT$T$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h433cf98027dee751E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/slice/mod.rs:3086
-  1e:	42a5      	cmp	r5, r4
-  20:	bf18      	it	ne
-  22:	2d00      	cmpne	r5, #0
-  24:	d1f0      	bne.n	8 <<core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::fold+0x8>
-_ZN97_$LT$core..iter..adapters..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17h56472e4a61ad933bE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/iter/adapters/mod.rs:595
-  26:	bdb0      	pop	{r4, r5, r7, pc}
 
 Disassembly of section .text._ZN3app11app_network21aggregate_sensor_data17h9b78c5e16db97c27E:
 
@@ -10285,7 +5158,7 @@ _ZN3app11app_network16send_sensor_data17hef289fead77ae2a3E():
  222:	2101      	movs	r1, #1
  224:	2401      	movs	r4, #1
  226:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
- 22a:	e7ee      	b.n	ffffffe0 <.Lanon.589feb885dedf5ed926e49154914a7d9.89+0xffffffa8>
+ 22a:	e7ee      	b.n	ffffffe0 <.Lanon.73ec4dbdc3e34bf5216e860e6e103950.71+0xffffffb0>
 	...
 
 Disassembly of section .text._ZN3app12touch_sensor23touch_interrupt_handler17hdf0c4c6e984bd2f4E:
@@ -10954,7 +5827,7 @@ main():
  118:	2208      	movs	r2, #8
  11a:	f7ff fffe 	bl	0 <main>
 _ZN5druid3app23WindowDesc$LT$T$C$W$GT$3new17h1b02657d01a7432dE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:168
+/Users/Luppy/mynewt/druid-embedded/druid/src/app.rs:169
             id: WindowId::next(),
  11e:	f7ff fffe 	bl	0 <druid::window::WindowId::next>
  122:	2200      	movs	r2, #0
