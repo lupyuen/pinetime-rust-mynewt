@@ -1962,7 +1962,7 @@ Disassembly of section .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT
 
 00000000 <<druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::add_handler>:
 _ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$11add_handler17h368dd22c9271fbb8E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:941
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:954
 
     fn get_window_id(&self) -> u32 { ////
         self.window_id.0
@@ -1971,10 +1971,10 @@ _ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..win
     fn add_handler(&self, window_id: u32, handler: DruidHandler<T>) { ////
    0:	b5e0      	push	{r5, r6, r7, lr}
    2:	a801      	add	r0, sp, #4
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:942
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:955
         AppState::<T>::new().add_handler(WindowId(window_id), handler);
    4:	f7ff fffe 	bl	0 <<druid::win_handler::AppState<u32> as druid::win_handler::GlobalWindows<u32>>::add_handler>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:943
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:956
     }
    8:	bd8c      	pop	{r2, r3, r7, pc}
 
@@ -1982,10 +1982,10 @@ Disassembly of section .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT
 
 00000000 <<druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::get_window_id>:
 _ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$13get_window_id17h5b1368ded6e9995cE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:938
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:951
         self.window_id.0
    0:	6800      	ldr	r0, [r0, #0]
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:939
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:952
     }
    2:	4770      	bx	lr
 
@@ -1993,18 +1993,18 @@ Disassembly of section .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT
 
 00000000 <<druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::paint>:
 _ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$5paint17h68dc89214dae0af1E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:878
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:891
     fn paint(&mut self, piet: &mut Piet, ctx: &mut dyn WinCtx) -> bool {
    0:	b5e0      	push	{r5, r6, r7, lr}
    2:	4694      	mov	ip, r2
    4:	460a      	mov	r2, r1
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:879
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:892
         AppState::<T>::new().paint(self.window_id, piet, ctx) ////
    6:	6801      	ldr	r1, [r0, #0]
    8:	9300      	str	r3, [sp, #0]
    a:	4663      	mov	r3, ip
    c:	f7ff fffe 	bl	0 <<druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::paint>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:881
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:894
     }
   10:	2000      	movs	r0, #0
   12:	b002      	add	sp, #8
@@ -2553,7 +2553,7 @@ Disassembly of section .text._ZN5druid11win_handler17AppState$LT$T$GT$21assemble
 
 00000000 <druid::win_handler::AppState<T>::assemble_window_state>:
 _ZN5druid11win_handler17AppState$LT$T$GT$21assemble_window_state17h74aa682bcaa5ff5dE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:638
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:651
     }
    0:	2001      	movs	r0, #1
    2:	4770      	bx	lr
@@ -2562,7 +2562,7 @@ Disassembly of section .text._ZN5druid11win_handler17AppState$LT$T$GT$3new17h8ac
 
 00000000 <druid::win_handler::AppState<T>::new>:
 _ZN5druid11win_handler17AppState$LT$T$GT$3new17h8ac3ab33e7da130dE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:544
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:557
     }
    0:	4770      	bx	lr
 
@@ -2570,18 +2570,18 @@ Disassembly of section .text._ZN5druid11win_handler17AppState$LT$T$GT$5paint17hd
 
 00000000 <druid::win_handler::AppState<T>::paint>:
 _ZN5druid11win_handler17AppState$LT$T$GT$5paint17hd8a6be67606aa237E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:640
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:653
     fn paint(&mut self, window_id: WindowId, piet: &mut Piet, ctx: &mut dyn WinCtx) -> bool {
    0:	b5e0      	push	{r5, r6, r7, lr}
    2:	a801      	add	r0, sp, #4
    4:	9101      	str	r1, [sp, #4]
 _ZN5druid11win_handler17AppState$LT$T$GT$5paint28_$u7b$$u7b$closure$u7d$$u7d$17h8bca2472ec785997E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:642
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:655
             .map(|mut win| win.paint(piet, ctx))
    6:	4611      	mov	r1, r2
    8:	f7ff fffe 	bl	0 <druid::win_handler::AppState<T>::paint>
 _ZN5druid11win_handler17AppState$LT$T$GT$5paint17hd8a6be67606aa237E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:644
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:657
     }
    c:	2000      	movs	r0, #0
    e:	b002      	add	sp, #8
@@ -2591,7 +2591,7 @@ Disassembly of section .text._ZN5druid11win_handler21DruidHandler$LT$T$GT$10new_
 
 00000000 <druid::win_handler::DruidHandler<T>::new_shared>:
 _ZN5druid11win_handler21DruidHandler$LT$T$GT$10new_shared17h2e143bd64265c152E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:729
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:742
     }
    0:	4770      	bx	lr
 
@@ -2599,25 +2599,25 @@ Disassembly of section .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$5
 
 00000000 <druid::win_handler::SingleWindowState<T>::paint>:
 _ZN5druid11win_handler26SingleWindowState$LT$T$GT$5paint17h0f9d50e1bcb9ae40E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:359
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:372
     fn paint(&mut self, piet: &mut Piet, ctx: &mut dyn WinCtx) -> bool {
    0:	b5b0      	push	{r4, r5, r7, lr}
    2:	460c      	mov	r4, r1
    4:	4605      	mov	r5, r0
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:361
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:374
         self.do_layout(piet);
    6:	f7ff fffe 	bl	0 <druid::win_handler::SingleWindowState<T>::paint>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:362
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:375
         piet.clear(crate::env::WINDOW_BACKGROUND_COLOR); ////
    a:	4620      	mov	r0, r4
    c:	21ff      	movs	r1, #255	; 0xff
    e:	f7ff fffe 	bl	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::clear>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:364
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:377
         self.do_paint(piet);
   12:	4628      	mov	r0, r5
   14:	4621      	mov	r1, r4
   16:	f7ff fffe 	bl	0 <druid::win_handler::SingleWindowState<T>::paint>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:367
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:380
     }
   1a:	2000      	movs	r0, #0
   1c:	bdb0      	pop	{r4, r5, r7, pc}
@@ -2626,17 +2626,17 @@ Disassembly of section .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$8
 
 00000000 <druid::win_handler::SingleWindowState<T>::do_paint>:
 _ZN5druid11win_handler26SingleWindowState$LT$T$GT$8do_paint17h504e926baedded14E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:404
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:417
     fn do_paint(&mut self, piet: &mut Piet) {
    0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
    4:	b094      	sub	sp, #80	; 0x50
    6:	ae0a      	add	r6, sp, #40	; 0x28
    8:	460c      	mov	r4, r1
    a:	4605      	mov	r5, r0
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:407
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:420
             window_id: self.window_id,
    c:	6807      	ldr	r7, [r0, #0]
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:408
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:421
             region: Rect::ZERO.into(),
    e:	4630      	mov	r0, r6
   10:	2120      	movs	r1, #32
@@ -2645,16 +2645,16 @@ _ZN5druid11win_handler26SingleWindowState$LT$T$GT$8do_paint17h504e926baedded14E(
   18:	4631      	mov	r1, r6
   1a:	4640      	mov	r0, r8
   1c:	f7ff fffe 	bl	0 <<T as core::convert::Into<U>>::into>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:405
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:418
         let mut paint_ctx = PaintCtx {
   20:	e9cd 4708 	strd	r4, r7, [sp, #32]
   24:	a813      	add	r0, sp, #76	; 0x4c
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:410
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:423
         AppState::<T>::new().window_paint(self.window_id, &mut paint_ctx); ////
   26:	6829      	ldr	r1, [r5, #0]
   28:	4642      	mov	r2, r8
   2a:	f7ff fffe 	bl	0 <<druid::win_handler::AppState<u32> as druid::win_handler::GlobalWindows<u32>>::window_paint>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:412
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:425
     }
   2e:	b014      	add	sp, #80	; 0x50
   30:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
@@ -2663,26 +2663,26 @@ Disassembly of section .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$9
 
 00000000 <druid::win_handler::SingleWindowState<T>::do_layout>:
 _ZN5druid11win_handler26SingleWindowState$LT$T$GT$9do_layout17h2723ced434e2874dE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:395
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:408
     fn do_layout(&mut self, piet: &mut Piet) {
    0:	b51f      	push	{r0, r1, r2, r3, r4, lr}
    2:	4604      	mov	r4, r0
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:397
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:410
             text_factory: piet.text(),
    4:	4608      	mov	r0, r1
    6:	f7ff fffe 	bl	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::text>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:398
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:411
             window_id: self.window_id,
    a:	6821      	ldr	r1, [r4, #0]
    c:	aa01      	add	r2, sp, #4
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:396
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:409
         let mut layout_ctx = LayoutCtx {
    e:	e9cd 0101 	strd	r0, r1, [sp, #4]
   12:	a803      	add	r0, sp, #12
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:400
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:413
         AppState::<T>::new().window_layout(self.window_id, &mut layout_ctx); ////
   14:	f7ff fffe 	bl	0 <<druid::win_handler::AppState<u32> as druid::win_handler::GlobalWindows<u32>>::window_layout>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:402
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:415
     }
   18:	bd1f      	pop	{r0, r1, r2, r3, r4, pc}
 
@@ -3432,7 +3432,7 @@ Disassembly of section .text._ZN5druid6widget9widgetbox18WidgetBox$LT$D$GT$3new1
 
 00000000 <druid::widget::widgetbox::WidgetBox<D>::new>:
 _ZN5druid6widget9widgetbox18WidgetBox$LT$D$GT$3new17hbe4d5d7da74c7744E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:65
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:66
 }
 
 /// Generic implementation of `WidgetBox`
@@ -3550,7 +3550,7 @@ _ZN75_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$
   b0:	221c      	movs	r2, #28
   b2:	f7ff fffe 	bl	0 <__aeabi_memcpy>
 _ZN5druid6widget9widgetbox18WidgetBox$LT$D$GT$3new17hbe4d5d7da74c7744E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:66
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:67
         let id = widget.clone().get_id();
   b6:	4628      	mov	r0, r5
 _ZN75_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h11e3a505764a5d37E():
@@ -3558,27 +3558,27 @@ _ZN75_$LT$druid..widget..label..Label$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$
   b8:	ed8d 9b20 	vstr	d9, [sp, #128]	; 0x80
   bc:	ed8d 8b1e 	vstr	d8, [sp, #120]	; 0x78
 _ZN5druid6widget9widgetbox18WidgetBox$LT$D$GT$3new17hbe4d5d7da74c7744E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:66
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:67
   c0:	f7ff fffe 	bl	0 <druid::widget::widgetbox::WidgetBox<D>::new>
   c4:	466f      	mov	r7, sp
   c6:	4606      	mov	r6, r0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:67
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:68
         let widget_type: WidgetType<D> = widget.to_type();
   c8:	4638      	mov	r0, r7
   ca:	4621      	mov	r1, r4
   cc:	2278      	movs	r2, #120	; 0x78
   ce:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
   d2:	a8ac      	add	r0, sp, #688	; 0x2b0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:68
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:69
         let widget_box: WidgetBox<D> = WidgetBox(
   d4:	96ac      	str	r6, [sp, #688]	; 0x2b0
 _ZN83_$LT$druid..widget..widgetbox..WidgetBox$LT$D$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h4e34b575aecd2ffeE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:46
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:47
     PhantomData<D>,  //  Needed to do compile-time checking for `Data`
   d6:	f7ff fffe 	bl	0 <<core::marker::PhantomData<T> as core::clone::Clone>::clone>
   da:	2000      	movs	r0, #0
 _ZN5druid6widget9widgetbox18WidgetBox$LT$D$GT$3new17hbe4d5d7da74c7744E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:72
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:73
             id,
             PhantomData,
         );
@@ -3594,10 +3594,10 @@ _ZN5druid6widget9widgetbox18WidgetBox$LT$D$GT$3new17hbe4d5d7da74c7744E():
   f0:	a8b3      	add	r0, sp, #716	; 0x2cc
   f2:	4629      	mov	r1, r5
   f4:	f7ff fffe 	bl	0 <<druid::widget::widgetbox::WidgetBox<u32> as druid::widget::widgetbox::GlobalState<u32>>::add_widget>
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:73
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:74
         widget_box
   f8:	98ac      	ldr	r0, [sp, #688]	; 0x2b0
-/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:74
+/Users/Luppy/mynewt/druid-embedded/druid/src/widget/widgetbox.rs:75
     }
   fa:	f50d 7d3a 	add.w	sp, sp, #744	; 0x2e8
   fe:	ecbd 8b04 	vpop	{d8-d9}
@@ -4035,7 +4035,7 @@ Disassembly of section .text._ZN80_$LT$druid..win_handler..DruidHandler$LT$T$GT$
 
 00000000 <<druid::win_handler::DruidHandler<T> as core::clone::Clone>::clone>:
 _ZN80_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hc620bed67f272b68E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:235
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:248
 #[derive(Clone, Default)] ////
    0:	b510      	push	{r4, lr}
 _ZN62_$LT$druid..window..WindowId$u20$as$u20$core..clone..Clone$GT$5clone17hadb074156ccb06ddE():
@@ -4043,10 +4043,10 @@ _ZN62_$LT$druid..window..WindowId$u20$as$u20$core..clone..Clone$GT$5clone17hadb0
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash, PartialOrd, Ord)] ////
    2:	6804      	ldr	r4, [r0, #0]
 _ZN80_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hc620bed67f272b68E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:243
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:256
     phantom: PhantomData<T>,  ////  Needed to do compile-time checking for `Data`
    4:	f7ff fffe 	bl	0 <<core::marker::PhantomData<T> as core::clone::Clone>::clone>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:235
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:248
 #[derive(Clone, Default)] ////
    8:	4620      	mov	r0, r4
    a:	bd10      	pop	{r4, pc}
