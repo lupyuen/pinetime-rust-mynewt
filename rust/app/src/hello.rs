@@ -35,18 +35,18 @@ fn ui_builder() -> impl Widget<u32> {  //  `u32` is the application state
         LocalizedString::new("hello-counter")
         .with_arg(
             "count", 
-            //  Closure that will be run to fetch the counter value
-            | data: &u32, _env | 
-                (*data).into()  //  We return the counter value in the application state
+            //  Closure that will fetch the counter value...
+            | data: &u32, _env |  //  Closure will receive the application state and environment
+                (*data).into()    //  We return the counter value in the application state
         );
     //  Create a label widget to display the text
     let label = Label::new(text);
     //  Create a button widget to increment the counter
     let button = Button::new(
         "increment",  //  Text to be shown
-        //  Closure that will be run when button is tapped
-        | _ctx, data, _env | 
-            *data += 1  //  We increment the counter
+        //  Closure that will be called when button is tapped...
+        | _ctx, data, _env |  //  Closure will receive the context, application state and environment
+            *data += 1        //  We increment the counter
     );
 
     //  Create a column for the UI
