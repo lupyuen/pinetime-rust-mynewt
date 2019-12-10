@@ -683,7 +683,7 @@ mod hello {
         let data = 0_u32;
         AppLauncher::with_window(main_window).use_simple_logger().launch(data).expect("launch failed");
     }
-    /// Build the UI for the window. The window state consists of 1 value: `count` of type `u32`.
+    /// Build the UI for the window. The application state consists of 1 value: `count` of type `u32`.
     fn ui_builder() -> impl Widget<u32> {
         let text =
             LocalizedString::new("hello-counter").with_arg("count",
