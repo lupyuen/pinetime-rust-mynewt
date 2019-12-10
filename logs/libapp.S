@@ -12632,7 +12632,6 @@ app-e8778d9de5b9c761.499my7he7zu10zd3.rcgu.o:     file format elf32-littlearm
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 499my7he7zu10zd3
 000006ee l       .debug_str	00000000 
-00000fac l       .debug_str	00000000 
 00000fb1 l       .debug_str	00000000 
 00000fb7 l       .debug_str	00000000 
 00000fbe l       .debug_str	00000000 
@@ -12746,7 +12745,7 @@ SYMBOL TABLE:
 00000e96 l       .debug_str	00000000 
 00000f73 l       .debug_str	00000000 
 00000f7d l       .debug_str	00000000 
-00000000 l     O .rodata.cst16	00000010 .Lanon.ad439f8c054f0fe063633b63cf325e77.0
+00000fac l       .debug_str	00000000 
 00000000 l    d  .text._ZN5druid6window19Window$LT$T$C$W$GT$3new17h0b9be2cce058e2b0E	00000000 .text._ZN5druid6window19Window$LT$T$C$W$GT$3new17h0b9be2cce058e2b0E
 00000000 l    d  .debug_loc	00000000 .debug_loc
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
@@ -12754,7 +12753,7 @@ SYMBOL TABLE:
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
 00000000         *UND*	00000000 _ZN5druid22WidgetPod$LT$T$C$W$GT$3new17h8ba74bf1189ade89E
-00000000 g     F .text._ZN5druid6window19Window$LT$T$C$W$GT$3new17h0b9be2cce058e2b0E	00000052 _ZN5druid6window19Window$LT$T$C$W$GT$3new17h0b9be2cce058e2b0E
+00000000 g     F .text._ZN5druid6window19Window$LT$T$C$W$GT$3new17h0b9be2cce058e2b0E	0000006e _ZN5druid6window19Window$LT$T$C$W$GT$3new17h0b9be2cce058e2b0E
 00000000         *UND*	00000000 __aeabi_memcpy8
 
 
@@ -12771,10 +12770,13 @@ impl<T: Data + 'static, W: Widget<T> + 'static> Window<T, W> { ////
 ////impl<T: Data> Window<T> {
     pub fn new(
    0:	b580      	push	{r7, lr}
-   2:	f5ad 6d8e 	sub.w	sp, sp, #1136	; 0x470
-   6:	460a      	mov	r2, r1
-   8:	ab96      	add	r3, sp, #600	; 0x258
-   a:	f44f 7c04 	mov.w	ip, #528	; 0x210
+   2:	f5ad 6d90 	sub.w	sp, sp, #1152	; 0x480
+/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:1
+// Copyright 2019 The xi-editor Authors.
+   6:	f50d 628d 	add.w	r2, sp, #1128	; 0x468
+   a:	460b      	mov	r3, r1
+   c:	f50d 7c16 	add.w	ip, sp, #600	; 0x258
+  10:	f44f 7e04 	mov.w	lr, #528	; 0x210
 /Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:61
         ////root: &dyn Widget<T>,
         ////title: LocalizedString<T>,
@@ -12782,38 +12784,49 @@ impl<T: Data + 'static, W: Widget<T> + 'static> Window<T, W> { ////
     ) -> Self {
         Window {
             root: WidgetPod::new(root), ////
-   e:	9003      	str	r0, [sp, #12]
-  10:	4618      	mov	r0, r3
-  12:	9202      	str	r2, [sp, #8]
-  14:	4662      	mov	r2, ip
-  16:	9301      	str	r3, [sp, #4]
-  18:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-  1c:	a804      	add	r0, sp, #16
-  1e:	9901      	ldr	r1, [sp, #4]
-  20:	f7ff fffe 	bl	0 <_ZN5druid22WidgetPod$LT$T$C$W$GT$3new17h8ba74bf1189ade89E>
-  24:	e7ff      	b.n	26 <_ZN5druid6window19Window$LT$T$C$W$GT$3new17h0b9be2cce058e2b0E+0x26>
-  26:	a904      	add	r1, sp, #16
-  28:	f44f 7212 	mov.w	r2, #584	; 0x248
+  14:	9003      	str	r0, [sp, #12]
+  16:	4660      	mov	r0, ip
+  18:	9202      	str	r2, [sp, #8]
+  1a:	4672      	mov	r2, lr
+  1c:	9301      	str	r3, [sp, #4]
+  1e:	f8cd c000 	str.w	ip, [sp]
+  22:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
+  26:	a804      	add	r0, sp, #16
+  28:	9900      	ldr	r1, [sp, #0]
+  2a:	f7ff fffe 	bl	0 <_ZN5druid22WidgetPod$LT$T$C$W$GT$3new17h8ba74bf1189ade89E>
+  2e:	e7ff      	b.n	30 <_ZN5druid6window19Window$LT$T$C$W$GT$3new17h0b9be2cce058e2b0E+0x30>
+  30:	2000      	movs	r0, #0
+  32:	f2c4 006e 	movt	r0, #16494	; 0x406e
+/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:64
+            ////root: WidgetPod::new(WidgetBox::new(root)), ////
+            ////root: WidgetPod::new(Box::new(root)),
+            size: Size { //// TODO: Allow auto size
+  36:	f8cd 046c 	str.w	r0, [sp, #1132]	; 0x46c
+  3a:	2100      	movs	r1, #0
+  3c:	f8cd 1468 	str.w	r1, [sp, #1128]	; 0x468
+  40:	f8cd 0474 	str.w	r0, [sp, #1140]	; 0x474
+  44:	f8cd 1470 	str.w	r1, [sp, #1136]	; 0x470
+  48:	a904      	add	r1, sp, #16
+  4a:	f44f 7212 	mov.w	r2, #584	; 0x248
 /Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:60
         Window {
-  2c:	9803      	ldr	r0, [sp, #12]
-  2e:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-  32:	f240 0000 	movw	r0, #0
-  36:	f2c0 0000 	movt	r0, #0
-  3a:	ed90 0b00 	vldr	d0, [r0]
-  3e:	ed90 1b02 	vldr	d1, [r0, #8]
-  42:	9803      	ldr	r0, [sp, #12]
-  44:	ed80 0b92 	vstr	d0, [r0, #584]	; 0x248
-  48:	ed80 1b94 	vstr	d1, [r0, #592]	; 0x250
-/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:70
+  4e:	9803      	ldr	r0, [sp, #12]
+  50:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
+  54:	9802      	ldr	r0, [sp, #8]
+  56:	ed90 0b00 	vldr	d0, [r0]
+  5a:	ed90 1b02 	vldr	d1, [r0, #8]
+  5e:	9903      	ldr	r1, [sp, #12]
+  60:	ed81 0b92 	vstr	d0, [r1, #584]	; 0x248
+  64:	ed81 1b94 	vstr	d1, [r1, #592]	; 0x250
+/Users/Luppy/mynewt/druid-embedded/druid/src/window.rs:74
             ////title,
             ////menu,
             ////context_menu: None,
             phantom_data: PhantomData, ////
         }
     }
-  4c:	f50d 6d8e 	add.w	sp, sp, #1136	; 0x470
-  50:	bd80      	pop	{r7, pc}
+  68:	f50d 6d90 	add.w	sp, sp, #1152	; 0x480
+  6c:	bd80      	pop	{r7, pc}
 
 app-e8778d9de5b9c761.4gj7jcuyk8wgzbvy.rcgu.o:     file format elf32-littlearm
 
