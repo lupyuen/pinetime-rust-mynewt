@@ -690,10 +690,10 @@ mod hello {
                                                            |data: &u32, _env|
                                                                (*data).into());
         let label = Label::new(text);
-        let button =
-            Button::<u32>::new("increment", |_ctx, data, _env| *data += 1);
+        let button = Button::new("increment", |_ctx, data, _env| *data += 1);
         let mut col = Column::new();
-        col.add_child(label, 1.0);
+        col.add_child(Align::centered(Padding::new(5.0, label)), 1.0);
+        col.add_child(Padding::new(5.0, button), 1.0);
         col
     }
 }
