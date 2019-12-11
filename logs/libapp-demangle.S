@@ -797,33 +797,20 @@ app-7b71aa5444d93031.1mmfj9lzmks8wo6g.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 1mmfj9lzmks8wo6g
-00000745 l       .debug_str	00000000 
-0000070c l       .debug_str	00000000 
-00000713 l       .debug_str	00000000 
-00000719 l       .debug_str	00000000 
-0000072d l       .debug_str	00000000 
-00000739 l       .debug_str	00000000 
-0000076c l       .debug_str	00000000 
-00000770 l       .debug_str	00000000 
-000007a0 l       .debug_str	00000000 
-000007aa l       .debug_str	00000000 
-000007b5 l       .debug_str	00000000 
-000007bc l       .debug_str	00000000 
-000007c2 l       .debug_str	00000000 
-000007c7 l       .debug_str	00000000 
-000007ca l       .debug_str	00000000 
-000007ce l       .debug_str	00000000 
-000007d1 l       .debug_str	00000000 
-000007d4 l       .debug_str	00000000 
-000007d7 l       .debug_str	00000000 
-000007dc l       .debug_str	00000000 
-000007e3 l       .debug_str	00000000 
-000007ec l       .debug_str	00000000 
-000007f7 l       .debug_str	00000000 
-00000804 l       .debug_str	00000000 
-00000809 l       .debug_str	00000000 
-00000813 l       .debug_str	00000000 
-00000840 l       .debug_str	00000000 
+000002db l       .debug_str	00000000 
+000000d6 l       .debug_str	00000000 
+000000d8 l       .debug_str	00000000 
+000000e9 l       .debug_str	00000000 
+000000fb l       .debug_str	00000000 
+000001b1 l       .debug_str	00000000 
+000001c2 l       .debug_str	00000000 
+0000027a l       .debug_str	00000000 
+0000028d l       .debug_str	00000000 
+000002eb l       .debug_str	00000000 
+00000361 l       .debug_str	00000000 
+0000036e l       .debug_str	00000000 
+00000373 l       .debug_str	00000000 
+0000039a l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000055 l       .debug_str	00000000 
@@ -831,62 +818,16 @@ SYMBOL TABLE:
 0000008b l       .debug_str	00000000 
 00000097 l       .debug_str	00000000 
 000000a0 l       .debug_str	00000000 
-000000a8 l       .debug_str	00000000 
-000000ad l       .debug_str	00000000 
-000000b4 l       .debug_str	00000000 
-000000b8 l       .debug_str	00000000 
-000000ba l       .debug_str	00000000 
-000000cb l       .debug_str	00000000 
-000000d9 l       .debug_str	00000000 
-000000df l       .debug_str	00000000 
-000000e9 l       .debug_str	00000000 
-000000f0 l       .debug_str	00000000 
-000000f4 l       .debug_str	00000000 
-000000fd l       .debug_str	00000000 
-0000010f l       .debug_str	00000000 
-00000126 l       .debug_str	00000000 
-000001dc l       .debug_str	00000000 
-000001ed l       .debug_str	00000000 
-000002a5 l       .debug_str	00000000 
-000002b8 l       .debug_str	00000000 
-00000367 l       .debug_str	00000000 
-00000372 l       .debug_str	00000000 
-00000377 l       .debug_str	00000000 
-000003bb l       .debug_str	00000000 
-0000041d l       .debug_str	00000000 
-0000042e l       .debug_str	00000000 
-0000047c l       .debug_str	00000000 
-0000048c l       .debug_str	00000000 
-000004d9 l       .debug_str	00000000 
-00000529 l       .debug_str	00000000 
-00000537 l       .debug_str	00000000 
-00000588 l       .debug_str	00000000 
-00000597 l       .debug_str	00000000 
-0000060d l       .debug_str	00000000 
-0000061a l       .debug_str	00000000 
-0000061f l       .debug_str	00000000 
-00000646 l       .debug_str	00000000 
-0000064e l       .debug_str	00000000 
-00000679 l       .debug_str	00000000 
-0000067e l       .debug_str	00000000 
-00000695 l       .debug_str	00000000 
-0000069d l       .debug_str	00000000 
-000006b0 l       .debug_str	00000000 
-000006e9 l       .debug_str	00000000 
-000006ed l       .debug_str	00000000 
-000006f9 l       .debug_str	00000000 
-00000701 l       .debug_str	00000000 
-00000704 l       .debug_str	00000000 
-00000000 l     O .rodata.cst32	00000020 .Lanon.915019f46237d32dd68c6bc09adc15b6.0
+000000aa l       .debug_str	00000000 
+000000b1 l       .debug_str	00000000 
+000000b5 l       .debug_str	00000000 
+000000b9 l       .debug_str	00000000 
+000000c2 l       .debug_str	00000000 
+000000ca l       .debug_str	00000000 
+000000cf l       .debug_str	00000000 
 00000000 l    d  .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$11add_handler17hbae48a6c270de765E	00000000 .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$11add_handler17hbae48a6c270de765E
 00000000 l    d  .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$13get_window_id17h67f32a79fa8f0bfdE	00000000 .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$13get_window_id17h67f32a79fa8f0bfdE
-00000000 l    d  .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$5paint17h14e28aef833ccf6aE	00000000 .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$5paint17h14e28aef833ccf6aE
-00000000 l    d  .text._ZN5druid11win_handler17AppState$LT$T$GT$5paint17hdfc239834dd27253E	00000000 .text._ZN5druid11win_handler17AppState$LT$T$GT$5paint17hdfc239834dd27253E
-00000000 l    d  .text._ZN5druid11win_handler17AppState$LT$T$GT$5paint28_$u7b$$u7b$closure$u7d$$u7d$17h62dee049f7f3d174E	00000000 .text._ZN5druid11win_handler17AppState$LT$T$GT$5paint28_$u7b$$u7b$closure$u7d$$u7d$17h62dee049f7f3d174E
 00000000 l    d  .text._ZN5druid11win_handler21DruidHandler$LT$T$GT$10new_shared17hd686e23f5119f07fE	00000000 .text._ZN5druid11win_handler21DruidHandler$LT$T$GT$10new_shared17hd686e23f5119f07fE
-00000000 l    d  .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$5paint17hb7830dd050d85b45E	00000000 .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$5paint17hb7830dd050d85b45E
-00000000 l    d  .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$8do_paint17h7fb775a90432a235E	00000000 .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$8do_paint17h7fb775a90432a235E
-00000000 l    d  .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$9do_layout17hf448c4fc5ab5c3e4E	00000000 .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$9do_layout17hf448c4fc5ab5c3e4E
 00000000 l    d  .text._ZN84_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h4718253420d43a83E	00000000 .text._ZN84_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h4718253420d43a83E
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
@@ -894,24 +835,10 @@ SYMBOL TABLE:
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
 00000000         *UND*	00000000 <druid::win_handler::AppState<u32> as druid::win_handler::GlobalWindows<u32>>::add_handler
-00000000         *UND*	00000000 <druid::win_handler::AppState<u32> as druid::win_handler::GlobalWindows<u32>>::window_paint
-00000000         *UND*	00000000 <druid::win_handler::AppState<u32> as druid::win_handler::GlobalWindows<u32>>::window_layout
-00000000         *UND*	00000000 <piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::text
-00000000         *UND*	00000000 <piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::clear
 00000000 g     F .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$11add_handler17hbae48a6c270de765E	00000034 <druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::add_handler
 00000000 g     F .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$13get_window_id17h67f32a79fa8f0bfdE	00000010 <druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::get_window_id
-00000000 g     F .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$5paint17h14e28aef833ccf6aE	0000004a <druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::paint
-00000000         *UND*	00000000 core::option::Option<T>::map
-00000000         *UND*	00000000 core::option::Option<T>::unwrap_or
-00000000         *UND*	00000000 <T as core::convert::Into<U>>::into
-00000000         *UND*	00000000 druid::win_handler::AppState<T>::assemble_window_state
 00000000         *UND*	00000000 druid::win_handler::AppState<T>::new
-00000000 g     F .text._ZN5druid11win_handler17AppState$LT$T$GT$5paint17hdfc239834dd27253E	00000064 druid::win_handler::AppState<T>::paint
-00000000 g     F .text._ZN5druid11win_handler17AppState$LT$T$GT$5paint28_$u7b$$u7b$closure$u7d$$u7d$17h62dee049f7f3d174E	00000046 druid::win_handler::AppState<T>::paint::{{closure}}
 00000000 g     F .text._ZN5druid11win_handler21DruidHandler$LT$T$GT$10new_shared17hd686e23f5119f07fE	00000012 druid::win_handler::DruidHandler<T>::new_shared
-00000000 g     F .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$5paint17hb7830dd050d85b45E	00000044 druid::win_handler::SingleWindowState<T>::paint
-00000000 g     F .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$8do_paint17h7fb775a90432a235E	0000007e druid::win_handler::SingleWindowState<T>::do_paint
-00000000 g     F .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$9do_layout17hf448c4fc5ab5c3e4E	0000003c druid::win_handler::SingleWindowState<T>::do_layout
 00000000         *UND*	00000000 .hidden <druid::window::WindowId as core::default::Default>::default
 00000000         *UND*	00000000 <core::marker::PhantomData<T> as core::default::Default>::default
 00000000 g     F .text._ZN84_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h4718253420d43a83E	0000001c <druid::win_handler::DruidHandler<T> as core::default::Default>::default
@@ -922,7 +849,7 @@ Disassembly of section .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT
 
 00000000 <<druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::add_handler>:
 _ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$11add_handler17hbae48a6c270de765E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:990
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:994
 
     fn get_window_id(&self) -> u32 { ////
         self.window_id.0
@@ -937,7 +864,7 @@ _ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..win
    a:	9003      	str	r0, [sp, #12]
    c:	9104      	str	r1, [sp, #16]
    e:	9205      	str	r2, [sp, #20]
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:991
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:995
         AppState::<T>::new().add_handler(WindowId(window_id), handler);
   10:	9302      	str	r3, [sp, #8]
   12:	f8cd c004 	str.w	ip, [sp, #4]
@@ -951,7 +878,7 @@ _ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..win
   28:	a806      	add	r0, sp, #24
   2a:	f7ff fffe 	bl	0 <<druid::win_handler::AppState<u32> as druid::win_handler::GlobalWindows<u32>>::add_handler>
   2e:	e7ff      	b.n	30 <<druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::add_handler+0x30>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:992
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:996
     }
   30:	b008      	add	sp, #32
   32:	bd80      	pop	{r7, pc}
@@ -960,333 +887,42 @@ Disassembly of section .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT
 
 00000000 <<druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::get_window_id>:
 _ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$13get_window_id17h67f32a79fa8f0bfdE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:986
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:990
     fn get_window_id(&self) -> u32 { ////
    0:	b082      	sub	sp, #8
    2:	4601      	mov	r1, r0
    4:	9001      	str	r0, [sp, #4]
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:987
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:991
         self.window_id.0
    6:	9801      	ldr	r0, [sp, #4]
    8:	6800      	ldr	r0, [r0, #0]
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:988
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:992
     }
    a:	9100      	str	r1, [sp, #0]
    c:	b002      	add	sp, #8
    e:	4770      	bx	lr
 
-Disassembly of section .text._ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$5paint17h14e28aef833ccf6aE:
-
-00000000 <<druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::paint>:
-_ZN142_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$druid_shell..window..WinHandler$LT$druid..win_handler..DruidHandler$LT$T$GT$$GT$$GT$5paint17h14e28aef833ccf6aE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:928
-    fn paint(&mut self, piet: &mut Piet, ctx: &mut dyn WinCtx) -> bool {
-   0:	b5b0      	push	{r4, r5, r7, lr}
-   2:	b08c      	sub	sp, #48	; 0x30
-   4:	469c      	mov	ip, r3
-   6:	4696      	mov	lr, r2
-   8:	460c      	mov	r4, r1
-   a:	4605      	mov	r5, r0
-   c:	9007      	str	r0, [sp, #28]
-   e:	9108      	str	r1, [sp, #32]
-  10:	9209      	str	r2, [sp, #36]	; 0x24
-  12:	930a      	str	r3, [sp, #40]	; 0x28
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:929
-        AppState::<T>::new().paint(self.window_id, piet, ctx) ////
-  14:	f8cd c018 	str.w	ip, [sp, #24]
-  18:	f8cd e014 	str.w	lr, [sp, #20]
-  1c:	9404      	str	r4, [sp, #16]
-  1e:	9503      	str	r5, [sp, #12]
-  20:	f7ff fffe 	bl	0 <druid::win_handler::AppState<T>::new>
-  24:	e7ff      	b.n	26 <<druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::paint+0x26>
-  26:	9807      	ldr	r0, [sp, #28]
-  28:	6801      	ldr	r1, [r0, #0]
-  2a:	9a08      	ldr	r2, [sp, #32]
-  2c:	9b09      	ldr	r3, [sp, #36]	; 0x24
-  2e:	980a      	ldr	r0, [sp, #40]	; 0x28
-  30:	46ec      	mov	ip, sp
-  32:	f8cc 0000 	str.w	r0, [ip]
-  36:	a80b      	add	r0, sp, #44	; 0x2c
-  38:	f7ff fffe 	bl	0 <<druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::paint>
-  3c:	9002      	str	r0, [sp, #8]
-  3e:	e7ff      	b.n	40 <<druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::paint+0x40>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:931
-    }
-  40:	9802      	ldr	r0, [sp, #8]
-  42:	f000 0001 	and.w	r0, r0, #1
-  46:	b00c      	add	sp, #48	; 0x30
-  48:	bdb0      	pop	{r4, r5, r7, pc}
-
-Disassembly of section .text._ZN5druid11win_handler17AppState$LT$T$GT$5paint17hdfc239834dd27253E:
-
-00000000 <druid::win_handler::AppState<T>::paint>:
-_ZN5druid11win_handler17AppState$LT$T$GT$5paint17hdfc239834dd27253E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:678
-    fn paint(&mut self, window_id: WindowId, piet: &mut Piet, ctx: &mut dyn WinCtx) -> bool {
-   0:	b570      	push	{r4, r5, r6, lr}
-   2:	b090      	sub	sp, #64	; 0x40
-   4:	f8dd c050 	ldr.w	ip, [sp, #80]	; 0x50
-   8:	469e      	mov	lr, r3
-   a:	4614      	mov	r4, r2
-   c:	460d      	mov	r5, r1
-   e:	4606      	mov	r6, r0
-  10:	9009      	str	r0, [sp, #36]	; 0x24
-  12:	910a      	str	r1, [sp, #40]	; 0x28
-  14:	920b      	str	r2, [sp, #44]	; 0x2c
-  16:	930c      	str	r3, [sp, #48]	; 0x30
-  18:	f8cd c034 	str.w	ip, [sp, #52]	; 0x34
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:679
-        self.assemble_window_state(window_id)
-  1c:	9809      	ldr	r0, [sp, #36]	; 0x24
-  1e:	990a      	ldr	r1, [sp, #40]	; 0x28
-  20:	f8cd e020 	str.w	lr, [sp, #32]
-  24:	9407      	str	r4, [sp, #28]
-  26:	9506      	str	r5, [sp, #24]
-  28:	9605      	str	r6, [sp, #20]
-  2a:	f7ff fffe 	bl	0 <druid::win_handler::AppState<T>::assemble_window_state>
-  2e:	9004      	str	r0, [sp, #16]
-  30:	9103      	str	r1, [sp, #12]
-  32:	e7ff      	b.n	34 <druid::win_handler::AppState<T>::paint+0x34>
-  34:	a80b      	add	r0, sp, #44	; 0x2c
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:680
-            .map(|mut win| win.paint(piet, ctx))
-  36:	900e      	str	r0, [sp, #56]	; 0x38
-  38:	a80c      	add	r0, sp, #48	; 0x30
-  3a:	900f      	str	r0, [sp, #60]	; 0x3c
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:679
-        self.assemble_window_state(window_id)
-  3c:	9a0e      	ldr	r2, [sp, #56]	; 0x38
-  3e:	9b0f      	ldr	r3, [sp, #60]	; 0x3c
-  40:	9804      	ldr	r0, [sp, #16]
-  42:	9903      	ldr	r1, [sp, #12]
-  44:	f7ff fffe 	bl	0 <core::option::Option<T>::map>
-  48:	b2c0      	uxtb	r0, r0
-  4a:	9002      	str	r0, [sp, #8]
-  4c:	e7ff      	b.n	4e <druid::win_handler::AppState<T>::paint+0x4e>
-  4e:	2100      	movs	r1, #0
-  50:	9802      	ldr	r0, [sp, #8]
-  52:	f7ff fffe 	bl	0 <core::option::Option<T>::unwrap_or>
-  56:	9001      	str	r0, [sp, #4]
-  58:	e7ff      	b.n	5a <druid::win_handler::AppState<T>::paint+0x5a>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:682
-    }
-  5a:	9801      	ldr	r0, [sp, #4]
-  5c:	f000 0001 	and.w	r0, r0, #1
-  60:	b010      	add	sp, #64	; 0x40
-  62:	bd70      	pop	{r4, r5, r6, pc}
-
-Disassembly of section .text._ZN5druid11win_handler17AppState$LT$T$GT$5paint28_$u7b$$u7b$closure$u7d$$u7d$17h62dee049f7f3d174E:
-
-00000000 <druid::win_handler::AppState<T>::paint::{{closure}}>:
-_ZN5druid11win_handler17AppState$LT$T$GT$5paint28_$u7b$$u7b$closure$u7d$$u7d$17h62dee049f7f3d174E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:680
-            .map(|mut win| win.paint(piet, ctx))
-   0:	b5b0      	push	{r4, r5, r7, lr}
-   2:	b08a      	sub	sp, #40	; 0x28
-   4:	4613      	mov	r3, r2
-   6:	468c      	mov	ip, r1
-   8:	4686      	mov	lr, r0
-   a:	9007      	str	r0, [sp, #28]
-   c:	9108      	str	r1, [sp, #32]
-   e:	9209      	str	r2, [sp, #36]	; 0x24
-  10:	9807      	ldr	r0, [sp, #28]
-  12:	9908      	ldr	r1, [sp, #32]
-  14:	6800      	ldr	r0, [r0, #0]
-  16:	680a      	ldr	r2, [r1, #0]
-  18:	6849      	ldr	r1, [r1, #4]
-  1a:	ac09      	add	r4, sp, #36	; 0x24
-  1c:	9006      	str	r0, [sp, #24]
-  1e:	4620      	mov	r0, r4
-  20:	9c06      	ldr	r4, [sp, #24]
-  22:	9105      	str	r1, [sp, #20]
-  24:	4621      	mov	r1, r4
-  26:	9d05      	ldr	r5, [sp, #20]
-  28:	9304      	str	r3, [sp, #16]
-  2a:	462b      	mov	r3, r5
-  2c:	f8cd c00c 	str.w	ip, [sp, #12]
-  30:	f8cd e008 	str.w	lr, [sp, #8]
-  34:	f7ff fffe 	bl	0 <druid::win_handler::AppState<T>::paint::{{closure}}>
-  38:	9001      	str	r0, [sp, #4]
-  3a:	e7ff      	b.n	3c <druid::win_handler::AppState<T>::paint::{{closure}}+0x3c>
-  3c:	9801      	ldr	r0, [sp, #4]
-  3e:	f000 0001 	and.w	r0, r0, #1
-  42:	b00a      	add	sp, #40	; 0x28
-  44:	bdb0      	pop	{r4, r5, r7, pc}
-
 Disassembly of section .text._ZN5druid11win_handler21DruidHandler$LT$T$GT$10new_shared17hd686e23f5119f07fE:
 
 00000000 <druid::win_handler::DruidHandler<T>::new_shared>:
 _ZN5druid11win_handler21DruidHandler$LT$T$GT$10new_shared17hd686e23f5119f07fE():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:770
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:774
     pub(crate) fn new_shared(
    0:	b084      	sub	sp, #16
    2:	4601      	mov	r1, r0
    4:	9001      	str	r0, [sp, #4]
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:776
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:780
             window_id,
    6:	9801      	ldr	r0, [sp, #4]
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:775
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:779
         DruidHandler {
    8:	9002      	str	r0, [sp, #8]
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:779
+/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:783
     }
    a:	9802      	ldr	r0, [sp, #8]
    c:	9100      	str	r1, [sp, #0]
    e:	b004      	add	sp, #16
   10:	4770      	bx	lr
-
-Disassembly of section .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$5paint17hb7830dd050d85b45E:
-
-00000000 <druid::win_handler::SingleWindowState<T>::paint>:
-_ZN5druid11win_handler26SingleWindowState$LT$T$GT$5paint17hb7830dd050d85b45E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:396
-    fn paint(&mut self, piet: &mut Piet, ctx: &mut dyn WinCtx) -> bool {
-   0:	b5b0      	push	{r4, r5, r7, lr}
-   2:	b088      	sub	sp, #32
-   4:	469c      	mov	ip, r3
-   6:	4696      	mov	lr, r2
-   8:	460c      	mov	r4, r1
-   a:	4605      	mov	r5, r0
-   c:	9004      	str	r0, [sp, #16]
-   e:	9105      	str	r1, [sp, #20]
-  10:	9206      	str	r2, [sp, #24]
-  12:	9307      	str	r3, [sp, #28]
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:398
-        self.do_layout(piet);
-  14:	9804      	ldr	r0, [sp, #16]
-  16:	9905      	ldr	r1, [sp, #20]
-  18:	f8cd c00c 	str.w	ip, [sp, #12]
-  1c:	f8cd e008 	str.w	lr, [sp, #8]
-  20:	9401      	str	r4, [sp, #4]
-  22:	9500      	str	r5, [sp, #0]
-  24:	f7ff fffe 	bl	0 <druid::win_handler::SingleWindowState<T>::paint>
-  28:	e7ff      	b.n	2a <druid::win_handler::SingleWindowState<T>::paint+0x2a>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:399
-        piet.clear(crate::env::WINDOW_BACKGROUND_COLOR); ////
-  2a:	9805      	ldr	r0, [sp, #20]
-  2c:	21ff      	movs	r1, #255	; 0xff
-  2e:	f7ff fffe 	bl	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::clear>
-  32:	e7ff      	b.n	34 <druid::win_handler::SingleWindowState<T>::paint+0x34>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:401
-        self.do_paint(piet);
-  34:	9804      	ldr	r0, [sp, #16]
-  36:	9905      	ldr	r1, [sp, #20]
-  38:	f7ff fffe 	bl	0 <druid::win_handler::SingleWindowState<T>::paint>
-  3c:	e7ff      	b.n	3e <druid::win_handler::SingleWindowState<T>::paint+0x3e>
-  3e:	2000      	movs	r0, #0
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:404
-    }
-  40:	b008      	add	sp, #32
-  42:	bdb0      	pop	{r4, r5, r7, pc}
-
-Disassembly of section .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$8do_paint17h7fb775a90432a235E:
-
-00000000 <druid::win_handler::SingleWindowState<T>::do_paint>:
-_ZN5druid11win_handler26SingleWindowState$LT$T$GT$8do_paint17h7fb775a90432a235E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:441
-    fn do_paint(&mut self, piet: &mut Piet) {
-   0:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
-   4:	b0a2      	sub	sp, #136	; 0x88
-   6:	460a      	mov	r2, r1
-   8:	4603      	mov	r3, r0
-   a:	9004      	str	r0, [sp, #16]
-   c:	9105      	str	r1, [sp, #20]
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:443
-            render_ctx: piet,
-   e:	9805      	ldr	r0, [sp, #20]
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:444
-            window_id: self.window_id,
-  10:	9904      	ldr	r1, [sp, #16]
-  12:	6809      	ldr	r1, [r1, #0]
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:445
-            region: Rect::ZERO.into(),
-  14:	f240 0c00 	movw	ip, #0
-  18:	f2c0 0c00 	movt	ip, #0
-  1c:	f10d 0e68 	add.w	lr, sp, #104	; 0x68
-  20:	4674      	mov	r4, lr
-  22:	e8bc 01e0 	ldmia.w	ip!, {r5, r6, r7, r8}
-  26:	e8a4 01e0 	stmia.w	r4!, {r5, r6, r7, r8}
-  2a:	e89c 01e0 	ldmia.w	ip, {r5, r6, r7, r8}
-  2e:	e884 01e0 	stmia.w	r4, {r5, r6, r7, r8}
-  32:	f10d 0c40 	add.w	ip, sp, #64	; 0x40
-  36:	9003      	str	r0, [sp, #12]
-  38:	4660      	mov	r0, ip
-  3a:	9102      	str	r1, [sp, #8]
-  3c:	4671      	mov	r1, lr
-  3e:	9201      	str	r2, [sp, #4]
-  40:	9300      	str	r3, [sp, #0]
-  42:	f7ff fffe 	bl	0 <<T as core::convert::Into<U>>::into>
-  46:	e7ff      	b.n	48 <druid::win_handler::SingleWindowState<T>::do_paint+0x48>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:442
-        let mut paint_ctx = PaintCtx {
-  48:	9803      	ldr	r0, [sp, #12]
-  4a:	900e      	str	r0, [sp, #56]	; 0x38
-  4c:	9902      	ldr	r1, [sp, #8]
-  4e:	910f      	str	r1, [sp, #60]	; 0x3c
-  50:	aa10      	add	r2, sp, #64	; 0x40
-  52:	ab06      	add	r3, sp, #24
-  54:	e8b2 5030 	ldmia.w	r2!, {r4, r5, ip, lr}
-  58:	e8a3 5030 	stmia.w	r3!, {r4, r5, ip, lr}
-  5c:	e892 5030 	ldmia.w	r2, {r4, r5, ip, lr}
-  60:	e883 5030 	stmia.w	r3, {r4, r5, ip, lr}
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:447
-        AppState::<T>::new().window_paint(self.window_id, &mut paint_ctx); ////
-  64:	f7ff fffe 	bl	0 <druid::win_handler::AppState<T>::new>
-  68:	e7ff      	b.n	6a <druid::win_handler::SingleWindowState<T>::do_paint+0x6a>
-  6a:	9804      	ldr	r0, [sp, #16]
-  6c:	6801      	ldr	r1, [r0, #0]
-  6e:	a819      	add	r0, sp, #100	; 0x64
-  70:	aa06      	add	r2, sp, #24
-  72:	f7ff fffe 	bl	0 <<druid::win_handler::AppState<u32> as druid::win_handler::GlobalWindows<u32>>::window_paint>
-  76:	e7ff      	b.n	78 <druid::win_handler::SingleWindowState<T>::do_paint+0x78>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:449
-    }
-  78:	b022      	add	sp, #136	; 0x88
-  7a:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
-
-Disassembly of section .text._ZN5druid11win_handler26SingleWindowState$LT$T$GT$9do_layout17hf448c4fc5ab5c3e4E:
-
-00000000 <druid::win_handler::SingleWindowState<T>::do_layout>:
-_ZN5druid11win_handler26SingleWindowState$LT$T$GT$9do_layout17hf448c4fc5ab5c3e4E():
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:432
-    fn do_layout(&mut self, piet: &mut Piet) {
-   0:	b580      	push	{r7, lr}
-   2:	b088      	sub	sp, #32
-   4:	460a      	mov	r2, r1
-   6:	4603      	mov	r3, r0
-   8:	9003      	str	r0, [sp, #12]
-   a:	9104      	str	r1, [sp, #16]
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:434
-            text_factory: piet.text(),
-   c:	9804      	ldr	r0, [sp, #16]
-   e:	9202      	str	r2, [sp, #8]
-  10:	9301      	str	r3, [sp, #4]
-  12:	f7ff fffe 	bl	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::text>
-  16:	9000      	str	r0, [sp, #0]
-  18:	e7ff      	b.n	1a <druid::win_handler::SingleWindowState<T>::do_layout+0x1a>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:435
-            window_id: self.window_id,
-  1a:	9803      	ldr	r0, [sp, #12]
-  1c:	6800      	ldr	r0, [r0, #0]
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:433
-        let mut layout_ctx = LayoutCtx {
-  1e:	9900      	ldr	r1, [sp, #0]
-  20:	9105      	str	r1, [sp, #20]
-  22:	9006      	str	r0, [sp, #24]
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:437
-        AppState::<T>::new().window_layout(self.window_id, &mut layout_ctx); ////
-  24:	f7ff fffe 	bl	0 <druid::win_handler::AppState<T>::new>
-  28:	e7ff      	b.n	2a <druid::win_handler::SingleWindowState<T>::do_layout+0x2a>
-  2a:	9803      	ldr	r0, [sp, #12]
-  2c:	6801      	ldr	r1, [r0, #0]
-  2e:	a807      	add	r0, sp, #28
-  30:	aa05      	add	r2, sp, #20
-  32:	f7ff fffe 	bl	0 <<druid::win_handler::AppState<u32> as druid::win_handler::GlobalWindows<u32>>::window_layout>
-  36:	e7ff      	b.n	38 <druid::win_handler::SingleWindowState<T>::do_layout+0x38>
-/Users/Luppy/mynewt/druid-embedded/druid/src/win_handler.rs:439
-    }
-  38:	b008      	add	sp, #32
-  3a:	bd80      	pop	{r7, pc}
 
 Disassembly of section .text._ZN84_$LT$druid..win_handler..DruidHandler$LT$T$GT$$u20$as$u20$core..default..Default$GT$7default17h4718253420d43a83E:
 
@@ -1598,7 +1234,7 @@ _ZN5druid6widget9widgetbox18WidgetBox$LT$D$GT$3new17h0a91e694e0fb6f04E():
 }
 
 /// Generic implementation of `WidgetBox`
-impl<D: Data + 'static> WidgetBox<D> {
+impl<D: Data + 'static + Default> WidgetBox<D> {
     /// Create a new box for the `Widget`
     pub fn new<W: Widget<D> + Clone>(widget: W) -> Self {
    0:	b580      	push	{r7, lr}
@@ -1892,34 +1528,32 @@ app-7b71aa5444d93031.1sb5zs26571jgkwp.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 1sb5zs26571jgkwp
-00003434 l       .debug_str	00000000 
-00003ffa l       .debug_str	00000000 
-00003ffe l       .debug_str	00000000 
-00004062 l       .debug_str	00000000 
-0000406d l       .debug_str	00000000 
-00004079 l       .debug_str	00000000 
-000040dd l       .debug_str	00000000 
-000040e8 l       .debug_str	00000000 
-000040f4 l       .debug_str	00000000 
-00004158 l       .debug_str	00000000 
-00004203 l       .debug_str	00000000 
-00004267 l       .debug_str	00000000 
-0000427e l       .debug_str	00000000 
-00004283 l       .debug_str	00000000 
-00004342 l       .debug_str	00000000 
-00004344 l       .debug_str	00000000 
-00004346 l       .debug_str	00000000 
-00004348 l       .debug_str	00000000 
-0000434c l       .debug_str	00000000 
-00004350 l       .debug_str	00000000 
-00004459 l       .debug_str	00000000 
-00004462 l       .debug_str	00000000 
-00004555 l       .debug_str	00000000 
-00004570 l       .debug_str	00000000 
-00004575 l       .debug_str	00000000 
-00004590 l       .debug_str	00000000 
-0000464b l       .debug_str	00000000 
-000046f0 l       .debug_str	00000000 
+00003289 l       .debug_str	00000000 
+00003dea l       .debug_str	00000000 
+00003dee l       .debug_str	00000000 
+00003e52 l       .debug_str	00000000 
+00003e5d l       .debug_str	00000000 
+00003e69 l       .debug_str	00000000 
+00003ecd l       .debug_str	00000000 
+00003ed8 l       .debug_str	00000000 
+00003ee4 l       .debug_str	00000000 
+00003f48 l       .debug_str	00000000 
+00003ff3 l       .debug_str	00000000 
+00004057 l       .debug_str	00000000 
+0000406e l       .debug_str	00000000 
+00004073 l       .debug_str	00000000 
+00004132 l       .debug_str	00000000 
+00004134 l       .debug_str	00000000 
+00004138 l       .debug_str	00000000 
+0000413c l       .debug_str	00000000 
+00004245 l       .debug_str	00000000 
+0000424e l       .debug_str	00000000 
+00004341 l       .debug_str	00000000 
+0000435c l       .debug_str	00000000 
+00004361 l       .debug_str	00000000 
+0000437c l       .debug_str	00000000 
+00004437 l       .debug_str	00000000 
+000044dc l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000055 l       .debug_str	00000000 
@@ -2019,352 +1653,325 @@ SYMBOL TABLE:
 0000157d l       .debug_str	00000000 
 00001612 l       .debug_str	00000000 
 000016be l       .debug_str	00000000 
-000016ca l       .debug_str	00000000 
-000016d4 l       .debug_str	00000000 
-000016db l       .debug_str	00000000 
-000016e4 l       .debug_str	00000000 
-000016ec l       .debug_str	00000000 
-000016fd l       .debug_str	00000000 
-00001714 l       .debug_str	00000000 
-00001747 l       .debug_str	00000000 
-0000174e l       .debug_str	00000000 
-00001751 l       .debug_str	00000000 
-00001758 l       .debug_str	00000000 
-00001761 l       .debug_str	00000000 
-00001767 l       .debug_str	00000000 
-0000176e l       .debug_str	00000000 
+000016c5 l       .debug_str	00000000 
+000016c8 l       .debug_str	00000000 
+000016cf l       .debug_str	00000000 
+000016d8 l       .debug_str	00000000 
+000016de l       .debug_str	00000000 
+000016e5 l       .debug_str	00000000 
+000016e8 l       .debug_str	00000000 
+000016f4 l       .debug_str	00000000 
+000016fc l       .debug_str	00000000 
+00001700 l       .debug_str	00000000 
+00001717 l       .debug_str	00000000 
 00001771 l       .debug_str	00000000 
-0000177d l       .debug_str	00000000 
-00001785 l       .debug_str	00000000 
-00001789 l       .debug_str	00000000 
-000017a0 l       .debug_str	00000000 
-000017fa l       .debug_str	00000000 
-0000185c l       .debug_str	00000000 
-00001867 l       .debug_str	00000000 
-000018ae l       .debug_str	00000000 
-000018fd l       .debug_str	00000000 
-00001907 l       .debug_str	00000000 
-00001944 l       .debug_str	00000000 
-00001989 l       .debug_str	00000000 
-00001992 l       .debug_str	00000000 
-000019a2 l       .debug_str	00000000 
-000019aa l       .debug_str	00000000 
-000019ff l       .debug_str	00000000 
-00001a5c l       .debug_str	00000000 
-00001a68 l       .debug_str	00000000 
-00001a71 l       .debug_str	00000000 
-00001a7d l       .debug_str	00000000 
-00001a89 l       .debug_str	00000000 
-00001a92 l       .debug_str	00000000 
-00001a9a l       .debug_str	00000000 
-00001aa2 l       .debug_str	00000000 
-00001aac l       .debug_str	00000000 
-00001ac1 l       .debug_str	00000000 
-00001ac8 l       .debug_str	00000000 
-00001ae8 l       .debug_str	00000000 
-00001aef l       .debug_str	00000000 
-00001af7 l       .debug_str	00000000 
-00001b01 l       .debug_str	00000000 
-00001b0c l       .debug_str	00000000 
-00001b15 l       .debug_str	00000000 
-00001b20 l       .debug_str	00000000 
-00001b2c l       .debug_str	00000000 
-00001b30 l       .debug_str	00000000 
-00001b39 l       .debug_str	00000000 
-00001b40 l       .debug_str	00000000 
-00001b48 l       .debug_str	00000000 
-00001b50 l       .debug_str	00000000 
-00001b5a l       .debug_str	00000000 
-00001b60 l       .debug_str	00000000 
-00001b67 l       .debug_str	00000000 
-00001b6e l       .debug_str	00000000 
-00001b9b l       .debug_str	00000000 
-00001bd0 l       .debug_str	00000000 
-00001bd6 l       .debug_str	00000000 
-00001bdc l       .debug_str	00000000 
-00001beb l       .debug_str	00000000 
-00001bfb l       .debug_str	00000000 
-00001c0b l       .debug_str	00000000 
-00001c13 l       .debug_str	00000000 
-00001c3c l       .debug_str	00000000 
-00001c9a l       .debug_str	00000000 
-00001d00 l       .debug_str	00000000 
-00001d07 l       .debug_str	00000000 
-00001d0f l       .debug_str	00000000 
-00001d18 l       .debug_str	00000000 
-00001d36 l       .debug_str	00000000 
-00001d46 l       .debug_str	00000000 
-00001d54 l       .debug_str	00000000 
-00001d5f l       .debug_str	00000000 
-00001d6c l       .debug_str	00000000 
-00001d7b l       .debug_str	00000000 
-00001d91 l       .debug_str	00000000 
-00001d9b l       .debug_str	00000000 
-00001da4 l       .debug_str	00000000 
-00001dad l       .debug_str	00000000 
-00001dd3 l       .debug_str	00000000 
+000017d3 l       .debug_str	00000000 
+000017de l       .debug_str	00000000 
+00001825 l       .debug_str	00000000 
+00001874 l       .debug_str	00000000 
+0000187e l       .debug_str	00000000 
+000018bb l       .debug_str	00000000 
+00001900 l       .debug_str	00000000 
+00001909 l       .debug_str	00000000 
+00001919 l       .debug_str	00000000 
+00001921 l       .debug_str	00000000 
+00001976 l       .debug_str	00000000 
+000019d3 l       .debug_str	00000000 
+000019df l       .debug_str	00000000 
+000019e8 l       .debug_str	00000000 
+000019f4 l       .debug_str	00000000 
+00001a00 l       .debug_str	00000000 
+00001a09 l       .debug_str	00000000 
+00001a11 l       .debug_str	00000000 
+00001a19 l       .debug_str	00000000 
+00001a23 l       .debug_str	00000000 
+00001a38 l       .debug_str	00000000 
+00001a3f l       .debug_str	00000000 
+00001a5f l       .debug_str	00000000 
+00001a66 l       .debug_str	00000000 
+00001a6e l       .debug_str	00000000 
+00001a78 l       .debug_str	00000000 
+00001a83 l       .debug_str	00000000 
+00001a8c l       .debug_str	00000000 
+00001a97 l       .debug_str	00000000 
+00001aa3 l       .debug_str	00000000 
+00001aa7 l       .debug_str	00000000 
+00001ab0 l       .debug_str	00000000 
+00001ab7 l       .debug_str	00000000 
+00001abf l       .debug_str	00000000 
+00001ac7 l       .debug_str	00000000 
+00001ad1 l       .debug_str	00000000 
+00001ad7 l       .debug_str	00000000 
+00001ade l       .debug_str	00000000 
+00001ae5 l       .debug_str	00000000 
+00001b12 l       .debug_str	00000000 
+00001b47 l       .debug_str	00000000 
+00001b4d l       .debug_str	00000000 
+00001b53 l       .debug_str	00000000 
+00001b62 l       .debug_str	00000000 
+00001b72 l       .debug_str	00000000 
+00001b82 l       .debug_str	00000000 
+00001b8a l       .debug_str	00000000 
+00001bb3 l       .debug_str	00000000 
+00001c11 l       .debug_str	00000000 
+00001c77 l       .debug_str	00000000 
+00001c7e l       .debug_str	00000000 
+00001c86 l       .debug_str	00000000 
+00001c8f l       .debug_str	00000000 
+00001cad l       .debug_str	00000000 
+00001cbd l       .debug_str	00000000 
+00001ccb l       .debug_str	00000000 
+00001cd6 l       .debug_str	00000000 
+00001ce3 l       .debug_str	00000000 
+00001cf2 l       .debug_str	00000000 
+00001d08 l       .debug_str	00000000 
+00001d12 l       .debug_str	00000000 
+00001d1b l       .debug_str	00000000 
+00001d24 l       .debug_str	00000000 
+00001d4a l       .debug_str	00000000 
+00001d60 l       .debug_str	00000000 
+00001d6b l       .debug_str	00000000 
+00001d81 l       .debug_str	00000000 
+00001d89 l       .debug_str	00000000 
+00001daa l       .debug_str	00000000 
+00001dc1 l       .debug_str	00000000 
+00001dc6 l       .debug_str	00000000 
+00001dce l       .debug_str	00000000 
+00001dd7 l       .debug_str	00000000 
+00001de0 l       .debug_str	00000000 
 00001de9 l       .debug_str	00000000 
-00001df4 l       .debug_str	00000000 
-00001e0a l       .debug_str	00000000 
-00001e12 l       .debug_str	00000000 
-00001e33 l       .debug_str	00000000 
-00001e4a l       .debug_str	00000000 
-00001e4f l       .debug_str	00000000 
-00001e57 l       .debug_str	00000000 
-00001e60 l       .debug_str	00000000 
-00001e69 l       .debug_str	00000000 
-00001e72 l       .debug_str	00000000 
-00001e7a l       .debug_str	00000000 
-00001e7e l       .debug_str	00000000 
-00001e85 l       .debug_str	00000000 
-00001e91 l       .debug_str	00000000 
-00001e9c l       .debug_str	00000000 
-00001ea4 l       .debug_str	00000000 
-00001eac l       .debug_str	00000000 
-00001f28 l       .debug_str	00000000 
-00001fac l       .debug_str	00000000 
-000020a8 l       .debug_str	00000000 
-000021ac l       .debug_str	00000000 
-000021ba l       .debug_str	00000000 
-000021c5 l       .debug_str	00000000 
-000021cf l       .debug_str	00000000 
-000021e3 l       .debug_str	00000000 
-000021ee l       .debug_str	00000000 
-0000221c l       .debug_str	00000000 
-00002297 l       .debug_str	00000000 
-0000231a l       .debug_str	00000000 
-00002328 l       .debug_str	00000000 
-00002387 l       .debug_str	00000000 
-000023ee l       .debug_str	00000000 
-00002404 l       .debug_str	00000000 
-00002414 l       .debug_str	00000000 
-00002423 l       .debug_str	00000000 
-00002427 l       .debug_str	00000000 
-0000242d l       .debug_str	00000000 
-00002431 l       .debug_str	00000000 
-00002437 l       .debug_str	00000000 
-0000243d l       .debug_str	00000000 
-00002449 l       .debug_str	00000000 
-00002451 l       .debug_str	00000000 
-00002457 l       .debug_str	00000000 
-0000245f l       .debug_str	00000000 
-00002465 l       .debug_str	00000000 
-00002488 l       .debug_str	00000000 
-00002498 l       .debug_str	00000000 
-000024cb l       .debug_str	00000000 
-0000250b l       .debug_str	00000000 
-00002553 l       .debug_str	00000000 
-00002557 l       .debug_str	00000000 
-0000255d l       .debug_str	00000000 
-00002563 l       .debug_str	00000000 
+00001df1 l       .debug_str	00000000 
+00001df5 l       .debug_str	00000000 
+00001dfc l       .debug_str	00000000 
+00001e08 l       .debug_str	00000000 
+00001e13 l       .debug_str	00000000 
+00001e1b l       .debug_str	00000000 
+00001e23 l       .debug_str	00000000 
+00001e9f l       .debug_str	00000000 
+00001f23 l       .debug_str	00000000 
+0000201f l       .debug_str	00000000 
+00002123 l       .debug_str	00000000 
+00002131 l       .debug_str	00000000 
+0000213c l       .debug_str	00000000 
+00002146 l       .debug_str	00000000 
+0000215a l       .debug_str	00000000 
+00002165 l       .debug_str	00000000 
+00002193 l       .debug_str	00000000 
+0000220e l       .debug_str	00000000 
+00002291 l       .debug_str	00000000 
+0000229f l       .debug_str	00000000 
+000022fe l       .debug_str	00000000 
+00002365 l       .debug_str	00000000 
+0000237b l       .debug_str	00000000 
+0000238b l       .debug_str	00000000 
+0000239a l       .debug_str	00000000 
+0000239e l       .debug_str	00000000 
+000023a4 l       .debug_str	00000000 
+000023a8 l       .debug_str	00000000 
+000023ae l       .debug_str	00000000 
+000023b4 l       .debug_str	00000000 
+000023c0 l       .debug_str	00000000 
+000023c8 l       .debug_str	00000000 
+000023ce l       .debug_str	00000000 
+000023d6 l       .debug_str	00000000 
+000023dc l       .debug_str	00000000 
+000023ff l       .debug_str	00000000 
+0000240f l       .debug_str	00000000 
+00002442 l       .debug_str	00000000 
+00002482 l       .debug_str	00000000 
+000024ca l       .debug_str	00000000 
+000024ce l       .debug_str	00000000 
+000024d4 l       .debug_str	00000000 
+000024da l       .debug_str	00000000 
+000024e0 l       .debug_str	00000000 
+000024f2 l       .debug_str	00000000 
+00002527 l       .debug_str	00000000 
 00002569 l       .debug_str	00000000 
-0000257b l       .debug_str	00000000 
-000025b0 l       .debug_str	00000000 
-000025f2 l       .debug_str	00000000 
-0000263c l       .debug_str	00000000 
-00002640 l       .debug_str	00000000 
-00002646 l       .debug_str	00000000 
-0000264c l       .debug_str	00000000 
+000025b3 l       .debug_str	00000000 
+000025b7 l       .debug_str	00000000 
+000025bd l       .debug_str	00000000 
+000025c3 l       .debug_str	00000000 
+000025c9 l       .debug_str	00000000 
+000025db l       .debug_str	00000000 
+00002610 l       .debug_str	00000000 
 00002652 l       .debug_str	00000000 
-00002664 l       .debug_str	00000000 
-00002699 l       .debug_str	00000000 
-000026db l       .debug_str	00000000 
-00002725 l       .debug_str	00000000 
-00002729 l       .debug_str	00000000 
-0000272f l       .debug_str	00000000 
-00002735 l       .debug_str	00000000 
-0000273b l       .debug_str	00000000 
-00002741 l       .debug_str	00000000 
-00002752 l       .debug_str	00000000 
-00002786 l       .debug_str	00000000 
-000027c7 l       .debug_str	00000000 
-00002810 l       .debug_str	00000000 
-00002815 l       .debug_str	00000000 
-0000281a l       .debug_str	00000000 
-0000281e l       .debug_str	00000000 
-00002824 l       .debug_str	00000000 
-0000282a l       .debug_str	00000000 
-00002830 l       .debug_str	00000000 
-00002841 l       .debug_str	00000000 
-00002875 l       .debug_str	00000000 
-000028b6 l       .debug_str	00000000 
-000028ff l       .debug_str	00000000 
-00002903 l       .debug_str	00000000 
-0000290c l       .debug_str	00000000 
-0000291d l       .debug_str	00000000 
-00002951 l       .debug_str	00000000 
-00002992 l       .debug_str	00000000 
-000029db l       .debug_str	00000000 
-000029e0 l       .debug_str	00000000 
-000029e4 l       .debug_str	00000000 
-000029ed l       .debug_str	00000000 
-000029f4 l       .debug_str	00000000 
+0000269c l       .debug_str	00000000 
+000026a0 l       .debug_str	00000000 
+000026a6 l       .debug_str	00000000 
+000026ac l       .debug_str	00000000 
+000026b2 l       .debug_str	00000000 
+000026b8 l       .debug_str	00000000 
+000026c9 l       .debug_str	00000000 
+000026fd l       .debug_str	00000000 
+0000273e l       .debug_str	00000000 
+00002787 l       .debug_str	00000000 
+0000278c l       .debug_str	00000000 
+00002791 l       .debug_str	00000000 
+00002795 l       .debug_str	00000000 
+0000279b l       .debug_str	00000000 
+000027a1 l       .debug_str	00000000 
+000027a7 l       .debug_str	00000000 
+000027b8 l       .debug_str	00000000 
+000027ec l       .debug_str	00000000 
+0000282d l       .debug_str	00000000 
+00002876 l       .debug_str	00000000 
+0000287a l       .debug_str	00000000 
+00002883 l       .debug_str	00000000 
+00002894 l       .debug_str	00000000 
+000028c8 l       .debug_str	00000000 
+00002909 l       .debug_str	00000000 
+00002952 l       .debug_str	00000000 
+00002957 l       .debug_str	00000000 
+0000295b l       .debug_str	00000000 
+00002964 l       .debug_str	00000000 
+0000296b l       .debug_str	00000000 
+00002973 l       .debug_str	00000000 
+00002985 l       .debug_str	00000000 
+000029ba l       .debug_str	00000000 
 000029fc l       .debug_str	00000000 
-00002a0e l       .debug_str	00000000 
-00002a43 l       .debug_str	00000000 
-00002a85 l       .debug_str	00000000 
-00002acf l       .debug_str	00000000 
-00002ad3 l       .debug_str	00000000 
-00002ad9 l       .debug_str	00000000 
-00002adf l       .debug_str	00000000 
-00002ae5 l       .debug_str	00000000 
-00002aeb l       .debug_str	00000000 
-00002af3 l       .debug_str	00000000 
-00002b01 l       .debug_str	00000000 
-00002b10 l       .debug_str	00000000 
-00002b21 l       .debug_str	00000000 
-00002b2c l       .debug_str	00000000 
-00002b37 l       .debug_str	00000000 
-00002b42 l       .debug_str	00000000 
-00002b49 l       .debug_str	00000000 
+00002a46 l       .debug_str	00000000 
+00002a4a l       .debug_str	00000000 
+00002a50 l       .debug_str	00000000 
+00002a56 l       .debug_str	00000000 
+00002a5c l       .debug_str	00000000 
+00002a62 l       .debug_str	00000000 
+00002a6a l       .debug_str	00000000 
+00002a78 l       .debug_str	00000000 
+00002a87 l       .debug_str	00000000 
+00002a98 l       .debug_str	00000000 
+00002aa3 l       .debug_str	00000000 
+00002aae l       .debug_str	00000000 
+00002ab9 l       .debug_str	00000000 
+00002ac0 l       .debug_str	00000000 
+00002ae3 l       .debug_str	00000000 
+00002af5 l       .debug_str	00000000 
+00002b2a l       .debug_str	00000000 
 00002b6c l       .debug_str	00000000 
-00002b7e l       .debug_str	00000000 
-00002bb3 l       .debug_str	00000000 
-00002bf5 l       .debug_str	00000000 
-00002c3f l       .debug_str	00000000 
-00002c43 l       .debug_str	00000000 
+00002bb6 l       .debug_str	00000000 
+00002bba l       .debug_str	00000000 
+00002bc4 l       .debug_str	00000000 
+00002bd6 l       .debug_str	00000000 
+00002c0b l       .debug_str	00000000 
 00002c4d l       .debug_str	00000000 
-00002c5f l       .debug_str	00000000 
-00002c94 l       .debug_str	00000000 
-00002cd6 l       .debug_str	00000000 
-00002d20 l       .debug_str	00000000 
-00002d25 l       .debug_str	00000000 
+00002c97 l       .debug_str	00000000 
+00002c9c l       .debug_str	00000000 
+00002ca6 l       .debug_str	00000000 
+00002cb8 l       .debug_str	00000000 
+00002ced l       .debug_str	00000000 
 00002d2f l       .debug_str	00000000 
-00002d41 l       .debug_str	00000000 
-00002d76 l       .debug_str	00000000 
+00002d79 l       .debug_str	00000000 
+00002d8d l       .debug_str	00000000 
+00002d91 l       .debug_str	00000000 
+00002d9f l       .debug_str	00000000 
+00002daf l       .debug_str	00000000 
 00002db8 l       .debug_str	00000000 
-00002e02 l       .debug_str	00000000 
-00002e16 l       .debug_str	00000000 
-00002e1a l       .debug_str	00000000 
-00002e28 l       .debug_str	00000000 
-00002e38 l       .debug_str	00000000 
-00002e41 l       .debug_str	00000000 
-00002e4c l       .debug_str	00000000 
-00002e5b l       .debug_str	00000000 
-00002e70 l       .debug_str	00000000 
-00002ea1 l       .debug_str	00000000 
-00002f3e l       .debug_str	00000000 
-00002fe3 l       .debug_str	00000000 
-00002fee l       .debug_str	00000000 
-00002ff7 l       .debug_str	00000000 
-00003018 l       .debug_str	00000000 
-0000302b l       .debug_str	00000000 
-00003061 l       .debug_str	00000000 
-000030e4 l       .debug_str	00000000 
-0000316f l       .debug_str	00000000 
-0000318b l       .debug_str	00000000 
-000031d7 l       .debug_str	00000000 
-0000322b l       .debug_str	00000000 
-00003248 l       .debug_str	00000000 
-0000325c l       .debug_str	00000000 
-000032a8 l       .debug_str	00000000 
-000032fc l       .debug_str	00000000 
-00003312 l       .debug_str	00000000 
-00003326 l       .debug_str	00000000 
-0000336d l       .debug_str	00000000 
-000033bc l       .debug_str	00000000 
-000033c5 l       .debug_str	00000000 
-000033d3 l       .debug_str	00000000 
-00003404 l       .debug_str	00000000 
-0000340a l       .debug_str	00000000 
-00003412 l       .debug_str	00000000 
-00003419 l       .debug_str	00000000 
-00003421 l       .debug_str	00000000 
-0000342c l       .debug_str	00000000 
-00003443 l       .debug_str	00000000 
-00003447 l       .debug_str	00000000 
-00003452 l       .debug_str	00000000 
-0000345e l       .debug_str	00000000 
-00003469 l       .debug_str	00000000 
-0000347a l       .debug_str	00000000 
-00003480 l       .debug_str	00000000 
-00003488 l       .debug_str	00000000 
-0000348f l       .debug_str	00000000 
-00003499 l       .debug_str	00000000 
-000034a1 l       .debug_str	00000000 
-000034a9 l       .debug_str	00000000 
-000034cb l       .debug_str	00000000 
-000034d6 l       .debug_str	00000000 
-000034e2 l       .debug_str	00000000 
-000034ea l       .debug_str	00000000 
-000034f3 l       .debug_str	00000000 
-000034fe l       .debug_str	00000000 
-00003505 l       .debug_str	00000000 
-00003510 l       .debug_str	00000000 
-0000351b l       .debug_str	00000000 
-0000352b l       .debug_str	00000000 
-00003535 l       .debug_str	00000000 
-0000353b l       .debug_str	00000000 
-0000355d l       .debug_str	00000000 
-00003595 l       .debug_str	00000000 
-000035d5 l       .debug_str	00000000 
-000035dc l       .debug_str	00000000 
-000035e4 l       .debug_str	00000000 
-000035fb l       .debug_str	00000000 
-00003604 l       .debug_str	00000000 
-00003614 l       .debug_str	00000000 
-00003623 l       .debug_str	00000000 
-0000362b l       .debug_str	00000000 
-00003632 l       .debug_str	00000000 
-0000363a l       .debug_str	00000000 
-00003658 l       .debug_str	00000000 
-00003668 l       .debug_str	00000000 
-0000369b l       .debug_str	00000000 
-000036b0 l       .debug_str	00000000 
-000036b9 l       .debug_str	00000000 
-00003716 l       .debug_str	00000000 
-0000377b l       .debug_str	00000000 
-00003785 l       .debug_str	00000000 
-00003795 l       .debug_str	00000000 
-000037aa l       .debug_str	00000000 
-000037b2 l       .debug_str	00000000 
-00003816 l       .debug_str	00000000 
-00003882 l       .debug_str	00000000 
-00003889 l       .debug_str	00000000 
+00002dc3 l       .debug_str	00000000 
+00002dd2 l       .debug_str	00000000 
+00002de7 l       .debug_str	00000000 
+00002e18 l       .debug_str	00000000 
+00002eb5 l       .debug_str	00000000 
+00002f5a l       .debug_str	00000000 
+00002f65 l       .debug_str	00000000 
+00002f6e l       .debug_str	00000000 
+00002f8f l       .debug_str	00000000 
+00002fa2 l       .debug_str	00000000 
+00002fd8 l       .debug_str	00000000 
+0000305b l       .debug_str	00000000 
+000030e6 l       .debug_str	00000000 
+00003102 l       .debug_str	00000000 
+0000314e l       .debug_str	00000000 
+000031a2 l       .debug_str	00000000 
+000031bf l       .debug_str	00000000 
+000031d3 l       .debug_str	00000000 
+0000321f l       .debug_str	00000000 
+00003273 l       .debug_str	00000000 
+0000329d l       .debug_str	00000000 
+000032e4 l       .debug_str	00000000 
+00003333 l       .debug_str	00000000 
+0000333c l       .debug_str	00000000 
+0000334a l       .debug_str	00000000 
+0000337b l       .debug_str	00000000 
+00003381 l       .debug_str	00000000 
+00003389 l       .debug_str	00000000 
+00003390 l       .debug_str	00000000 
+00003398 l       .debug_str	00000000 
+000033a3 l       .debug_str	00000000 
+000033ab l       .debug_str	00000000 
+000033ba l       .debug_str	00000000 
+000033be l       .debug_str	00000000 
+000033c9 l       .debug_str	00000000 
+000033d5 l       .debug_str	00000000 
+000033e0 l       .debug_str	00000000 
+000033f1 l       .debug_str	00000000 
+000033f7 l       .debug_str	00000000 
+000033ff l       .debug_str	00000000 
+00003406 l       .debug_str	00000000 
+00003410 l       .debug_str	00000000 
+00003418 l       .debug_str	00000000 
+00003420 l       .debug_str	00000000 
+00003442 l       .debug_str	00000000 
+0000344d l       .debug_str	00000000 
+00003459 l       .debug_str	00000000 
+00003461 l       .debug_str	00000000 
+0000346a l       .debug_str	00000000 
+00003475 l       .debug_str	00000000 
+0000347c l       .debug_str	00000000 
+00003487 l       .debug_str	00000000 
+00003492 l       .debug_str	00000000 
+000034a2 l       .debug_str	00000000 
+000034ac l       .debug_str	00000000 
+000034b2 l       .debug_str	00000000 
+000034d4 l       .debug_str	00000000 
+0000350c l       .debug_str	00000000 
+0000354c l       .debug_str	00000000 
+00003553 l       .debug_str	00000000 
+0000355b l       .debug_str	00000000 
+00003572 l       .debug_str	00000000 
+0000357b l       .debug_str	00000000 
+0000358b l       .debug_str	00000000 
+0000359a l       .debug_str	00000000 
+000035a2 l       .debug_str	00000000 
+000035a9 l       .debug_str	00000000 
+000035b1 l       .debug_str	00000000 
+000035cf l       .debug_str	00000000 
+000035df l       .debug_str	00000000 
+00003612 l       .debug_str	00000000 
+00003627 l       .debug_str	00000000 
+00003630 l       .debug_str	00000000 
+0000368d l       .debug_str	00000000 
+000036f2 l       .debug_str	00000000 
+000036fc l       .debug_str	00000000 
+0000370c l       .debug_str	00000000 
+00003721 l       .debug_str	00000000 
+00003729 l       .debug_str	00000000 
+0000378d l       .debug_str	00000000 
+000037f9 l       .debug_str	00000000 
+00003800 l       .debug_str	00000000 
+00003808 l       .debug_str	00000000 
+00003826 l       .debug_str	00000000 
+00003836 l       .debug_str	00000000 
+00003869 l       .debug_str	00000000 
+0000387e l       .debug_str	00000000 
 00003891 l       .debug_str	00000000 
-000038af l       .debug_str	00000000 
-000038bf l       .debug_str	00000000 
-000038f2 l       .debug_str	00000000 
-00003907 l       .debug_str	00000000 
-0000391a l       .debug_str	00000000 
-0000392f l       .debug_str	00000000 
-00003936 l       .debug_str	00000000 
-0000394b l       .debug_str	00000000 
-00003975 l       .debug_str	00000000 
-000039a7 l       .debug_str	00000000 
-000039ad l       .debug_str	00000000 
-000039bb l       .debug_str	00000000 
-000039c4 l       .debug_str	00000000 
-00003a08 l       .debug_str	00000000 
-00003abb l       .debug_str	00000000 
-00003b64 l       .debug_str	00000000 
-00003b69 l       .debug_str	00000000 
-00003b80 l       .debug_str	00000000 
-00003b88 l       .debug_str	00000000 
-00003b9b l       .debug_str	00000000 
-00003bd4 l       .debug_str	00000000 
-00003c12 l       .debug_str	00000000 
-00003c1e l       .debug_str	00000000 
-00003c26 l       .debug_str	00000000 
-00003c2e l       .debug_str	00000000 
-00003c35 l       .debug_str	00000000 
-00003c41 l       .debug_str	00000000 
-00003c4d l       .debug_str	00000000 
-00003c5e l       .debug_str	00000000 
-00003c66 l       .debug_str	00000000 
-00003c68 l       .debug_str	00000000 
-00003ca1 l       .debug_str	00000000 
-00003cde l       .debug_str	00000000 
-00003ceb l       .debug_str	00000000 
-00003d27 l       .debug_str	00000000 
-00003d59 l       .debug_str	00000000 
-00003d95 l       .debug_str	00000000 
-00003da3 l       .debug_str	00000000 
-00003e07 l       .debug_str	00000000 
-00003f00 l       .debug_str	00000000 
-00000000 l     O .rodata..Lanon.46faa80c99cd77a3f196395cec5ecab1.2	00000018 .Lanon.46faa80c99cd77a3f196395cec5ecab1.2
+000038a6 l       .debug_str	00000000 
+000038ad l       .debug_str	00000000 
+000038c2 l       .debug_str	00000000 
+000038ec l       .debug_str	00000000 
+0000391e l       .debug_str	00000000 
+00003924 l       .debug_str	00000000 
+00003932 l       .debug_str	00000000 
+0000393b l       .debug_str	00000000 
+0000397f l       .debug_str	00000000 
+00003a32 l       .debug_str	00000000 
+00003adb l       .debug_str	00000000 
+00003b17 l       .debug_str	00000000 
+00003b49 l       .debug_str	00000000 
+00003b85 l       .debug_str	00000000 
+00003b93 l       .debug_str	00000000 
+00003bf7 l       .debug_str	00000000 
+00003cf0 l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.c6e1dafc1151de5ca10a7022955a31e4.2	00000018 .Lanon.c6e1dafc1151de5ca10a7022955a31e4.2
 00000000 l    d  .text._ZN4core6option15Option$LT$T$GT$13get_or_insert17hff5d47816dcfc317E	00000000 .text._ZN4core6option15Option$LT$T$GT$13get_or_insert17hff5d47816dcfc317E
-00000000 l    d  .text._ZN4core6option15Option$LT$T$GT$3map17h89f679e3dbf92534E	00000000 .text._ZN4core6option15Option$LT$T$GT$3map17h89f679e3dbf92534E
 00000000 l    d  .text._ZN4core6option15Option$LT$T$GT$6expect17hab030a0ff0fee8deE	00000000 .text._ZN4core6option15Option$LT$T$GT$6expect17hab030a0ff0fee8deE
 00000000 l    d  .text._ZN4core6option15Option$LT$T$GT$6unwrap17h830a779b43c05711E	00000000 .text._ZN4core6option15Option$LT$T$GT$6unwrap17h830a779b43c05711E
 00000000 l    d  .text._ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h0d91251d6f63fc02E	00000000 .text._ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h0d91251d6f63fc02E
@@ -2372,8 +1979,8 @@ SYMBOL TABLE:
 00000000 l    d  .text._ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h4cd7475e7d73bcc7E	00000000 .text._ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h4cd7475e7d73bcc7E
 00000000 l    d  .text._ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h64164d99943e1daaE	00000000 .text._ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h64164d99943e1daaE
 00000000 l    d  .text._ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hb3002c059b68c01aE	00000000 .text._ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17hb3002c059b68c01aE
-00000000 l    d  .rodata..Lanon.46faa80c99cd77a3f196395cec5ecab1.0	00000000 .rodata..Lanon.46faa80c99cd77a3f196395cec5ecab1.0
-00000000 l    d  .rodata..Lanon.46faa80c99cd77a3f196395cec5ecab1.1	00000000 .rodata..Lanon.46faa80c99cd77a3f196395cec5ecab1.1
+00000000 l    d  .rodata..Lanon.c6e1dafc1151de5ca10a7022955a31e4.0	00000000 .rodata..Lanon.c6e1dafc1151de5ca10a7022955a31e4.0
+00000000 l    d  .rodata..Lanon.c6e1dafc1151de5ca10a7022955a31e4.1	00000000 .rodata..Lanon.c6e1dafc1151de5ca10a7022955a31e4.1
 00000000 l    d  .debug_loc	00000000 .debug_loc
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
@@ -2387,12 +1994,10 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 .hidden core::clone::impls::<impl core::clone::Clone for u32>::clone
 00000000         *UND*	00000000 core::option::expect_failed
 00000000 g     F .text._ZN4core6option15Option$LT$T$GT$13get_or_insert17hff5d47816dcfc317E	000000ba core::option::Option<T>::get_or_insert
-00000000 g     F .text._ZN4core6option15Option$LT$T$GT$3map17h89f679e3dbf92534E	000000bc core::option::Option<T>::map
 00000000 g     F .text._ZN4core6option15Option$LT$T$GT$6expect17hab030a0ff0fee8deE	00000056 core::option::Option<T>::expect
 00000000 g     F .text._ZN4core6option15Option$LT$T$GT$6unwrap17h830a779b43c05711E	0000004a core::option::Option<T>::unwrap
 00000000         *UND*	00000000 core::panicking::panic
 00000000         *UND*	00000000 .hidden <druid::env::Env as core::clone::Clone>::clone
-00000000         *UND*	00000000 druid::win_handler::AppState<T>::paint::{{closure}}
 00000000 g     F .text._ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h0d91251d6f63fc02E	00000056 <core::option::Option<T> as core::clone::Clone>::clone
 00000000 g     F .text._ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h1d150ef79f28df16E	0000005c <core::option::Option<T> as core::clone::Clone>::clone
 00000000 g     F .text._ZN68_$LT$core..option..Option$LT$T$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h4cd7475e7d73bcc7E	0000004c <core::option::Option<T> as core::clone::Clone>::clone
@@ -2492,95 +2097,6 @@ _ZN4core6option15Option$LT$T$GT$13get_or_insert17hff5d47816dcfc317E():
   b2:	9803      	ldr	r0, [sp, #12]
   b4:	f7ff fffe 	bl	0 <core::ptr::real_drop_in_place>
   b8:	e7ea      	b.n	90 <core::option::Option<T>::get_or_insert+0x90>
-
-Disassembly of section .text._ZN4core6option15Option$LT$T$GT$3map17h89f679e3dbf92534E:
-
-00000000 <core::option::Option<T>::map>:
-_ZN4core6option15Option$LT$T$GT$3map17h89f679e3dbf92534E():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:414
-   0:	b5b0      	push	{r4, r5, r7, lr}
-   2:	b08e      	sub	sp, #56	; 0x38
-   4:	469c      	mov	ip, r3
-   6:	4696      	mov	lr, r2
-   8:	460c      	mov	r4, r1
-   a:	4605      	mov	r5, r0
-   c:	9006      	str	r0, [sp, #24]
-   e:	9107      	str	r1, [sp, #28]
-  10:	9208      	str	r2, [sp, #32]
-  12:	9309      	str	r3, [sp, #36]	; 0x24
-  14:	2000      	movs	r0, #0
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:416
-  16:	f88d 0036 	strb.w	r0, [sp, #54]	; 0x36
-  1a:	f88d 0037 	strb.w	r0, [sp, #55]	; 0x37
-  1e:	2001      	movs	r0, #1
-  20:	f88d 0037 	strb.w	r0, [sp, #55]	; 0x37
-  24:	f88d 0036 	strb.w	r0, [sp, #54]	; 0x36
-  28:	9806      	ldr	r0, [sp, #24]
-  2a:	2800      	cmp	r0, #0
-  2c:	f8cd c014 	str.w	ip, [sp, #20]
-  30:	f8cd e010 	str.w	lr, [sp, #16]
-  34:	9403      	str	r4, [sp, #12]
-  36:	9502      	str	r5, [sp, #8]
-  38:	9001      	str	r0, [sp, #4]
-  3a:	d01b      	beq.n	74 <core::option::Option<T>::map+0x74>
-  3c:	e7ff      	b.n	3e <core::option::Option<T>::map+0x3e>
-  3e:	9801      	ldr	r0, [sp, #4]
-  40:	2801      	cmp	r0, #1
-  42:	d001      	beq.n	48 <core::option::Option<T>::map+0x48>
-  44:	e7ff      	b.n	46 <core::option::Option<T>::map+0x46>
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:419
-  46:	defe      	udf	#254	; 0xfe
-  48:	2000      	movs	r0, #0
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:416
-  4a:	f88d 0037 	strb.w	r0, [sp, #55]	; 0x37
-  4e:	9907      	ldr	r1, [sp, #28]
-  50:	910b      	str	r1, [sp, #44]	; 0x2c
-  52:	f88d 0036 	strb.w	r0, [sp, #54]	; 0x36
-  56:	9808      	ldr	r0, [sp, #32]
-  58:	9909      	ldr	r1, [sp, #36]	; 0x24
-  5a:	9a0b      	ldr	r2, [sp, #44]	; 0x2c
-  5c:	920c      	str	r2, [sp, #48]	; 0x30
-  5e:	9a0c      	ldr	r2, [sp, #48]	; 0x30
-  60:	f7ff fffe 	bl	0 <druid::win_handler::AppState<T>::paint::{{closure}}>
-  64:	9000      	str	r0, [sp, #0]
-  66:	e7ff      	b.n	68 <core::option::Option<T>::map+0x68>
-  68:	9800      	ldr	r0, [sp, #0]
-  6a:	f000 0101 	and.w	r1, r0, #1
-  6e:	f88d 102b 	strb.w	r1, [sp, #43]	; 0x2b
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:415
-  72:	e006      	b.n	82 <core::option::Option<T>::map+0x82>
-  74:	2000      	movs	r0, #0
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:417
-  76:	f88d 002b 	strb.w	r0, [sp, #43]	; 0x2b
-  7a:	2002      	movs	r0, #2
-  7c:	f88d 002b 	strb.w	r0, [sp, #43]	; 0x2b
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:415
-  80:	e7ff      	b.n	82 <core::option::Option<T>::map+0x82>
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/option.rs:419
-  82:	f89d 0036 	ldrb.w	r0, [sp, #54]	; 0x36
-  86:	07c0      	lsls	r0, r0, #31
-  88:	2800      	cmp	r0, #0
-  8a:	d104      	bne.n	96 <core::option::Option<T>::map+0x96>
-  8c:	e7ff      	b.n	8e <core::option::Option<T>::map+0x8e>
-  8e:	9806      	ldr	r0, [sp, #24]
-  90:	2801      	cmp	r0, #1
-  92:	d008      	beq.n	a6 <core::option::Option<T>::map+0xa6>
-  94:	e011      	b.n	ba <core::option::Option<T>::map+0xba>
-  96:	2000      	movs	r0, #0
-  98:	f88d 0036 	strb.w	r0, [sp, #54]	; 0x36
-  9c:	e7f7      	b.n	8e <core::option::Option<T>::map+0x8e>
-  9e:	f89d 002b 	ldrb.w	r0, [sp, #43]	; 0x2b
-  a2:	b00e      	add	sp, #56	; 0x38
-  a4:	bdb0      	pop	{r4, r5, r7, pc}
-  a6:	f89d 0037 	ldrb.w	r0, [sp, #55]	; 0x37
-  aa:	07c0      	lsls	r0, r0, #31
-  ac:	2800      	cmp	r0, #0
-  ae:	d0f6      	beq.n	9e <core::option::Option<T>::map+0x9e>
-  b0:	e7ff      	b.n	b2 <core::option::Option<T>::map+0xb2>
-  b2:	2000      	movs	r0, #0
-  b4:	f88d 0037 	strb.w	r0, [sp, #55]	; 0x37
-  b8:	e7f1      	b.n	9e <core::option::Option<T>::map+0x9e>
-  ba:	e7f0      	b.n	9e <core::option::Option<T>::map+0x9e>
 
 Disassembly of section .text._ZN4core6option15Option$LT$T$GT$6expect17hab030a0ff0fee8deE:
 
@@ -3186,7 +2702,7 @@ Disassembly of section .text._ZN5druid6widget6button15Button$LT$T$GT$3new17h08d2
 _ZN5druid6widget6button15Button$LT$T$GT$3new17h08d23753e5cee0e1E():
 /Users/Luppy/mynewt/druid-embedded/druid/src/widget/button.rs:44
 
-impl<T: Data + 'static> Button<T> { ////
+impl<T: Data + 'static + Default> Button<T> { ////
 ////impl<T: Data + 'static> Button<T> {
     /// Create a new button. The closure provided will be called when the button
     /// is clicked.
@@ -3942,7 +3458,7 @@ _ZN78_$LT$druid..widget..flex..ChildWidget$LT$T$GT$$u20$as$u20$core..fmt..Debug$
 }
 
 /// Implement formatted output for ChildWidget
-impl<T: Data> core::fmt::Debug for ChildWidget<T> { ////
+impl<T: Data + Default> core::fmt::Debug for ChildWidget<T> { ////
     fn fmt(&self, _fmt: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
    0:	b086      	sub	sp, #24
    2:	460a      	mov	r2, r1
@@ -14427,7 +13943,7 @@ _ZN11druid_shell6window12WindowHandle17h335d38e13d4b2f1fE():
 
 /// A handle to a platform window object.
 #[derive(Clone, Default)]
-pub struct WindowHandle<THandler: WinHandler<THandler>> (  ////  THandler is DruidHandler<T: Data + 'static>
+pub struct WindowHandle<THandler: WinHandler<THandler> + Clone + Default> (  ////  THandler is DruidHandler<T: Data + 'static>
    0:	b580      	push	{r7, lr}
    2:	b082      	sub	sp, #8
    4:	460a      	mov	r2, r1
@@ -19081,7 +18597,7 @@ _ZN5druid6window19Window$LT$T$C$W$GT$3new17hd4eaafb5b629dea8E():
     // delegate?
 }
 
-impl<T: Data + 'static, W: Widget<T> + 'static> Window<T, W> { ////
+impl<T: Data + 'static + Default, W: Widget<T> + 'static> Window<T, W> { ////
 ////impl<T: Data> Window<T> {
     pub fn new(
    0:	b580      	push	{r7, lr}
@@ -19147,170 +18663,96 @@ app-7b71aa5444d93031.s210jw3xk7o796t.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 s210jw3xk7o796t
-00000493 l       .debug_str	00000000 
-000003e1 l       .debug_str	00000000 
-00000444 l       .debug_str	00000000 
-00000471 l       .debug_str	00000000 
-00000478 l       .debug_str	00000000 
-0000047b l       .debug_str	00000000 
-00000481 l       .debug_str	00000000 
-00000487 l       .debug_str	00000000 
-00000490 l       .debug_str	00000000 
-0000049d l       .debug_str	00000000 
-000004a4 l       .debug_str	00000000 
-000004aa l       .debug_str	00000000 
-000004af l       .debug_str	00000000 
-000004b8 l       .debug_str	00000000 
-000004be l       .debug_str	00000000 
-000004c0 l       .debug_str	00000000 
-000004c4 l       .debug_str	00000000 
-00000544 l       .debug_str	00000000 
-000005aa l       .debug_str	00000000 
-000005da l       .debug_str	00000000 
-000005df l       .debug_str	00000000 
-0000063d l       .debug_str	00000000 
-000006a0 l       .debug_str	00000000 
+000003fc l       .debug_str	00000000 
+000003e6 l       .debug_str	00000000 
+000003ef l       .debug_str	00000000 
+000003f2 l       .debug_str	00000000 
+00000403 l       .debug_str	00000000 
+00000409 l       .debug_str	00000000 
+0000040e l       .debug_str	00000000 
+00000417 l       .debug_str	00000000 
+0000041d l       .debug_str	00000000 
+0000041f l       .debug_str	00000000 
+00000423 l       .debug_str	00000000 
+000004a3 l       .debug_str	00000000 
+00000509 l       .debug_str	00000000 
+00000539 l       .debug_str	00000000 
+0000053e l       .debug_str	00000000 
+000005a1 l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000055 l       .debug_str	00000000 
 00000085 l       .debug_str	00000000 
-0000008c l       .debug_str	00000000 
-00000098 l       .debug_str	00000000 
-000000a1 l       .debug_str	00000000 
+00000091 l       .debug_str	00000000 
+0000009a l       .debug_str	00000000 
+000000a3 l       .debug_str	00000000 
 000000aa l       .debug_str	00000000 
-000000b1 l       .debug_str	00000000 
-000000be l       .debug_str	00000000 
-000000c8 l       .debug_str	00000000 
-000000cc l       .debug_str	00000000 
+000000b4 l       .debug_str	00000000 
+000000b8 l       .debug_str	00000000 
+000000c0 l       .debug_str	00000000 
+000000c6 l       .debug_str	00000000 
 000000d2 l       .debug_str	00000000 
-000000da l       .debug_str	00000000 
-000000e0 l       .debug_str	00000000 
+000000d6 l       .debug_str	00000000 
+000000df l       .debug_str	00000000 
+000000e7 l       .debug_str	00000000 
 000000ec l       .debug_str	00000000 
-000000f0 l       .debug_str	00000000 
-000000f9 l       .debug_str	00000000 
-00000101 l       .debug_str	00000000 
+000000f3 l       .debug_str	00000000 
+000000f5 l       .debug_str	00000000 
 00000106 l       .debug_str	00000000 
-0000010d l       .debug_str	00000000 
-0000010f l       .debug_str	00000000 
-00000120 l       .debug_str	00000000 
-00000132 l       .debug_str	00000000 
-0000013b l       .debug_str	00000000 
-0000016e l       .debug_str	00000000 
-000001a2 l       .debug_str	00000000 
-000001a7 l       .debug_str	00000000 
-000001ad l       .debug_str	00000000 
-000001b3 l       .debug_str	00000000 
-000001b7 l       .debug_str	00000000 
-000001be l       .debug_str	00000000 
-000001c3 l       .debug_str	00000000 
-000001f6 l       .debug_str	00000000 
-0000022b l       .debug_str	00000000 
-0000028c l       .debug_str	00000000 
-000002b8 l       .debug_str	00000000 
-00000322 l       .debug_str	00000000 
-00000355 l       .debug_str	00000000 
-000003b6 l       .debug_str	00000000 
-00000000 l     O .rodata..Lanon.2fba440bd3e0d793e6dc2ee41f978796.0	00000018 .Lanon.2fba440bd3e0d793e6dc2ee41f978796.0
-00000000 l     O .rodata..Lanon.2fba440bd3e0d793e6dc2ee41f978796.3	00000018 .Lanon.2fba440bd3e0d793e6dc2ee41f978796.3
-00000000 l    d  .text._ZN11druid_shell8platform8embedded6window28WindowHandle$LT$THandler$GT$4show17h76869aa9a67122ccE	00000000 .text._ZN11druid_shell8platform8embedded6window28WindowHandle$LT$THandler$GT$4show17h76869aa9a67122ccE
+00000118 l       .debug_str	00000000 
+0000011d l       .debug_str	00000000 
+00000123 l       .debug_str	00000000 
+00000129 l       .debug_str	00000000 
+0000012d l       .debug_str	00000000 
+00000134 l       .debug_str	00000000 
+00000139 l       .debug_str	00000000 
+0000016c l       .debug_str	00000000 
+00000175 l       .debug_str	00000000 
+000001aa l       .debug_str	00000000 
+00000214 l       .debug_str	00000000 
+00000247 l       .debug_str	00000000 
+000002a8 l       .debug_str	00000000 
+000002d3 l       .debug_str	00000000 
+00000336 l       .debug_str	00000000 
+00000363 l       .debug_str	00000000 
+0000036a l       .debug_str	00000000 
+0000036d l       .debug_str	00000000 
+00000373 l       .debug_str	00000000 
+000003a6 l       .debug_str	00000000 
+000003da l       .debug_str	00000000 
+000003e0 l       .debug_str	00000000 
 00000000 l    d  .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$11set_handler17hcfeeddc1c48ac6a0E	00000000 .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$11set_handler17hcfeeddc1c48ac6a0E
 00000000 l    d  .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$3new17hc97f554a7075e93fE	00000000 .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$3new17hc97f554a7075e93fE
 00000000 l    d  .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17hb3ef0d9b33dcf1d8E	00000000 .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17hb3ef0d9b33dcf1d8E
 00000000 l    d  .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$8set_size17ha7c6c1b587da659aE	00000000 .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$8set_size17ha7c6c1b587da659aE
-00000000 l    d  .rodata..Lanon.2fba440bd3e0d793e6dc2ee41f978796.0	00000000 .rodata..Lanon.2fba440bd3e0d793e6dc2ee41f978796.0
-00000000 l    d  .rodata..Lanon.2fba440bd3e0d793e6dc2ee41f978796.1	00000000 .rodata..Lanon.2fba440bd3e0d793e6dc2ee41f978796.1
-00000000 l    d  .rodata..Lanon.2fba440bd3e0d793e6dc2ee41f978796.2	00000000 .rodata..Lanon.2fba440bd3e0d793e6dc2ee41f978796.2
 00000000 l    d  .debug_loc	00000000 .debug_loc
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
 00000000 l    d  .debug_ranges	00000000 .debug_ranges
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
-00000000         *UND*	00000000 <druid_shell::platform::embedded::window::DruidContext as druid_shell::window::WinCtx>::invalidate
-00000000         *UND*	00000000 <druid_shell::platform::embedded::window::DruidContext as druid_shell::window::WinCtx>::set_cursor
-00000000         *UND*	00000000 <druid_shell::platform::embedded::window::DruidContext as druid_shell::window::WinCtx>::text_factory
-00000000         *UND*	00000000 <piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::finish
-00000000         *UND*	00000000 druid_shell::platform::embedded::window::PIET_CONTEXT
-00000000         *UND*	00000000 druid_shell::platform::embedded::window::DRUID_CONTEXT
-00000000 g     F .text._ZN11druid_shell8platform8embedded6window28WindowHandle$LT$THandler$GT$4show17h76869aa9a67122ccE	0000006a druid_shell::platform::embedded::window::WindowHandle<THandler>::show
 00000000 g     F .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$11set_handler17hcfeeddc1c48ac6a0E	0000004a druid_shell::platform::embedded::window::WindowBuilder<THandler>::set_handler
 00000000 g     F .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$3new17hc97f554a7075e93fE	00000050 druid_shell::platform::embedded::window::WindowBuilder<THandler>::new
 00000000 g     F .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17hb3ef0d9b33dcf1d8E	00000068 druid_shell::platform::embedded::window::WindowBuilder<THandler>::build
 00000000 g     F .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$8set_size17ha7c6c1b587da659aE	0000003e druid_shell::platform::embedded::window::WindowBuilder<THandler>::set_size
 00000000         *UND*	00000000 <druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::add_handler
 00000000         *UND*	00000000 <druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::get_window_id
-00000000         *UND*	00000000 <druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::paint
-00000000         *UND*	00000000 core::ptr::real_drop_in_place
-00000000         *UND*	00000000 core::panicking::panic
 00000000         *UND*	00000000 .hidden kurbo::size::Size::new
 00000000         *UND*	00000000 <druid::win_handler::DruidHandler<T> as core::clone::Clone>::clone
 00000000         *UND*	00000000 <druid::win_handler::DruidHandler<T> as core::default::Default>::default
 
 
 
-Disassembly of section .text._ZN11druid_shell8platform8embedded6window28WindowHandle$LT$THandler$GT$4show17h76869aa9a67122ccE:
-
-00000000 <druid_shell::platform::embedded::window::WindowHandle<THandler>::show>:
-_ZN11druid_shell8platform8embedded6window28WindowHandle$LT$THandler$GT$4show17h76869aa9a67122ccE():
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:370
-    }
-}
-
-impl<THandler: WinHandler<THandler> + Clone + Default> WindowHandle<THandler> {  ////  THandler is DruidHandler<T: Data + 'static>
-////impl WindowHandle {
-    pub fn show(&self) {
-   0:	b580      	push	{r7, lr}
-   2:	b086      	sub	sp, #24
-   4:	4601      	mov	r1, r0
-   6:	9003      	str	r0, [sp, #12]
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:371
-        unsafe { self.state.handler.clone().paint(&mut PIET_CONTEXT, &mut DRUID_CONTEXT); }
-   8:	9803      	ldr	r0, [sp, #12]
-   a:	3008      	adds	r0, #8
-   c:	9102      	str	r1, [sp, #8]
-   e:	f7ff fffe 	bl	0 <<druid::win_handler::DruidHandler<T> as core::clone::Clone>::clone>
-  12:	9004      	str	r0, [sp, #16]
-  14:	e7ff      	b.n	16 <druid_shell::platform::embedded::window::WindowHandle<THandler>::show+0x16>
-  16:	f240 0100 	movw	r1, #0
-  1a:	f2c0 0100 	movt	r1, #0
-  1e:	f240 0200 	movw	r2, #0
-  22:	f2c0 0200 	movt	r2, #0
-  26:	f240 0300 	movw	r3, #0
-  2a:	f2c0 0300 	movt	r3, #0
-  2e:	a804      	add	r0, sp, #16
-  30:	f7ff fffe 	bl	0 <<druid::win_handler::DruidHandler<T> as druid_shell::window::WinHandler<druid::win_handler::DruidHandler<T>>>::paint>
-  34:	9001      	str	r0, [sp, #4]
-  36:	e7ff      	b.n	38 <druid_shell::platform::embedded::window::WindowHandle<THandler>::show+0x38>
-  38:	e7ff      	b.n	3a <druid_shell::platform::embedded::window::WindowHandle<THandler>::show+0x3a>
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:372
-        if let Err(_) = unsafe { PIET_CONTEXT.finish() } {
-  3a:	f240 0000 	movw	r0, #0
-  3e:	f2c0 0000 	movt	r0, #0
-  42:	f7ff fffe 	bl	0 <<piet_embedded_graphics::context::EmbedRenderContext as piet::render_context::RenderContext>::finish>
-  46:	f88d 0017 	strb.w	r0, [sp, #23]
-  4a:	e7ff      	b.n	4c <druid_shell::platform::embedded::window::WindowHandle<THandler>::show+0x4c>
-  4c:	f89d 0017 	ldrb.w	r0, [sp, #23]
-  50:	07c0      	lsls	r0, r0, #31
-  52:	2800      	cmp	r0, #0
-  54:	d007      	beq.n	66 <druid_shell::platform::embedded::window::WindowHandle<THandler>::show+0x66>
-  56:	e7ff      	b.n	58 <druid_shell::platform::embedded::window::WindowHandle<THandler>::show+0x58>
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/<::core::macros::panic macros>:3
-  58:	f240 0000 	movw	r0, #0
-  5c:	f2c0 0000 	movt	r0, #0
-  60:	f7ff fffe 	bl	0 <core::panicking::panic>
-  64:	defe      	udf	#254	; 0xfe
-/Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:375
-            panic!("piet error on render");
-        }
-    }
-  66:	b006      	add	sp, #24
-  68:	bd80      	pop	{r7, pc}
-
 Disassembly of section .text._ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$11set_handler17hcfeeddc1c48ac6a0E:
 
 00000000 <druid_shell::platform::embedded::window::WindowBuilder<THandler>::set_handler>:
 _ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$11set_handler17hcfeeddc1c48ac6a0E():
 /Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:167
+            ////menu: None,
+            ////size: Size::new(500.0, 400.0),
+        }
+    }
+
     pub fn set_handler(&mut self, handler: THandler) { ////
    0:	b580      	push	{r7, lr}
    2:	b088      	sub	sp, #32
@@ -19320,6 +18762,7 @@ _ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$11set_ha
    a:	9106      	str	r1, [sp, #24]
    c:	a806      	add	r0, sp, #24
 /Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:169
+    ////pub fn set_handler(&mut self, handler: Box<dyn WinHandler>) {
         let window_id = handler.get_window_id(); ////
    e:	9204      	str	r2, [sp, #16]
   10:	9303      	str	r3, [sp, #12]
@@ -19353,6 +18796,7 @@ _ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$11set_ha
   42:	9900      	ldr	r1, [sp, #0]
   44:	6141      	str	r1, [r0, #20]
 /Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:174
+        ////self.handler = Some(handler);
     }
   46:	b008      	add	sp, #32
   48:	bd80      	pop	{r7, pc}
@@ -19404,12 +18848,18 @@ Disassembly of section .text._ZN11druid_shell8platform8embedded6window29WindowBu
 00000000 <druid_shell::platform::embedded::window::WindowBuilder<THandler>::build>:
 _ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17hb3ef0d9b33dcf1d8E():
 /Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:180
+
+    pub fn set_size(&mut self, size: Size) {
+        self.size = size;
+    }
+
     pub fn build(self) -> Result<WindowHandle<THandler>, Error> { ////
    0:	b580      	push	{r7, lr}
    2:	b08c      	sub	sp, #48	; 0x30
    4:	460a      	mov	r2, r1
    6:	4603      	mov	r3, r0
 /Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:182
+    ////pub fn build(self) -> Result<WindowHandle, Error> {
         let window_id = self.window_id; ////
    8:	f8d1 c010 	ldr.w	ip, [r1, #16]
    c:	f8cd c008 	str.w	ip, [sp, #8]
@@ -19418,6 +18868,7 @@ _ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17
   10:	6949      	ldr	r1, [r1, #20]
   12:	9103      	str	r1, [sp, #12]
 /Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:185
+        let state = WindowState {
             window_id, ////
   14:	9902      	ldr	r1, [sp, #8]
 /Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:186
@@ -19428,6 +18879,8 @@ _ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17
   1a:	9104      	str	r1, [sp, #16]
   1c:	f8cd c014 	str.w	ip, [sp, #20]
 /Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:189
+        };
+        let handle = WindowHandle {
             window_id, ////
   20:	9902      	ldr	r1, [sp, #8]
 /Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:190
@@ -19440,6 +18893,8 @@ _ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17
   2c:	f8cd c01c 	str.w	ip, [sp, #28]
   30:	f8cd e020 	str.w	lr, [sp, #32]
 /Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:193
+        };
+        ////TODO handler.connect(&mut handle.into()); ////
         Ok(handle)
   34:	9906      	ldr	r1, [sp, #24]
   36:	f8dd c01c 	ldr.w	ip, [sp, #28]
@@ -19456,6 +18911,11 @@ _ZN11druid_shell8platform8embedded6window29WindowBuilder$LT$THandler$GT$5build17
   5c:	2100      	movs	r1, #0
   5e:	6001      	str	r1, [r0, #0]
 /Users/Luppy/mynewt/druid-embedded/druid-shell/src/platform/embedded/window.rs:365
+                .handler
+                ////.borrow_mut()
+                .connect(&handle.into());
+                ////.connect(&handle.clone().into());
+        */ ////
     }
   60:	9201      	str	r2, [sp, #4]
   62:	9300      	str	r3, [sp, #0]
@@ -19496,7 +18956,9 @@ app-7b71aa5444d93031.zzyvx8gecmspqbn.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 zzyvx8gecmspqbn
-00002116 l       .debug_str	00000000 
+00002108 l       .debug_str	00000000 
+0000313e l       .debug_str	00000000 
+000031e3 l       .debug_str	00000000 
 000031e8 l       .debug_str	00000000 
 00003292 l       .debug_str	00000000 
 000032c7 l       .debug_str	00000000 
@@ -19509,38 +18971,34 @@ SYMBOL TABLE:
 000035fe l       .debug_str	00000000 
 00003633 l       .debug_str	00000000 
 00003671 l       .debug_str	00000000 
-0000367e l       .debug_str	00000000 
-000036b3 l       .debug_str	00000000 
-000036fd l       .debug_str	00000000 
-00003732 l       .debug_str	00000000 
-0000376b l       .debug_str	00000000 
-00003771 l       .debug_str	00000000 
-000037a6 l       .debug_str	00000000 
-000037c0 l       .debug_str	00000000 
-000037f5 l       .debug_str	00000000 
-000038ad l       .debug_str	00000000 
-000038d2 l       .debug_str	00000000 
-00003907 l       .debug_str	00000000 
-00003940 l       .debug_str	00000000 
-0000396f l       .debug_str	00000000 
-000039b0 l       .debug_str	00000000 
-000039df l       .debug_str	00000000 
-00003a12 l       .debug_str	00000000 
-00003a41 l       .debug_str	00000000 
-00003a80 l       .debug_str	00000000 
-00003aa8 l       .debug_str	00000000 
-00003b66 l       .debug_str	00000000 
-00003c25 l       .debug_str	00000000 
-00003cde l       .debug_str	00000000 
-00003d04 l       .debug_str	00000000 
-00003d33 l       .debug_str	00000000 
-00003d6e l       .debug_str	00000000 
-00003d98 l       .debug_str	00000000 
-00003da3 l       .debug_str	00000000 
-00003e4c l       .debug_str	00000000 
-00003e76 l       .debug_str	00000000 
-00003eb1 l       .debug_str	00000000 
-00003ede l       .debug_str	00000000 
+000036a6 l       .debug_str	00000000 
+000036df l       .debug_str	00000000 
+000036e5 l       .debug_str	00000000 
+0000371a l       .debug_str	00000000 
+00003734 l       .debug_str	00000000 
+00003769 l       .debug_str	00000000 
+00003821 l       .debug_str	00000000 
+00003846 l       .debug_str	00000000 
+0000387b l       .debug_str	00000000 
+000038b4 l       .debug_str	00000000 
+000038e3 l       .debug_str	00000000 
+00003924 l       .debug_str	00000000 
+00003953 l       .debug_str	00000000 
+00003986 l       .debug_str	00000000 
+000039b5 l       .debug_str	00000000 
+000039f4 l       .debug_str	00000000 
+00003a1c l       .debug_str	00000000 
+00003ada l       .debug_str	00000000 
+00003b99 l       .debug_str	00000000 
+00003c52 l       .debug_str	00000000 
+00003c78 l       .debug_str	00000000 
+00003ca7 l       .debug_str	00000000 
+00003cd1 l       .debug_str	00000000 
+00003cdc l       .debug_str	00000000 
+00003d85 l       .debug_str	00000000 
+00003daf l       .debug_str	00000000 
+00003dea l       .debug_str	00000000 
+00003e17 l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000055 l       .debug_str	00000000 
@@ -19754,8 +19212,8 @@ SYMBOL TABLE:
 000020be l       .debug_str	00000000 
 000020cd l       .debug_str	00000000 
 000020cf l       .debug_str	00000000 
-00002108 l       .debug_str	00000000 
 0000210f l       .debug_str	00000000 
+00002116 l       .debug_str	00000000 
 00002127 l       .debug_str	00000000 
 00002166 l       .debug_str	00000000 
 00002199 l       .debug_str	00000000 
@@ -19789,8 +19247,6 @@ SYMBOL TABLE:
 00002ee7 l       .debug_str	00000000 
 00002fb2 l       .debug_str	00000000 
 0000307c l       .debug_str	00000000 
-0000313e l       .debug_str	00000000 
-000031e3 l       .debug_str	00000000 
 00000000 l     F .text._ZN4core3ptr18real_drop_in_place17h4fae14d26f1b6ceaE	00000016 core::ptr::real_drop_in_place
 00000000 l     F .text._ZN4core3ptr18real_drop_in_place17h626f9093d3be9d7fE	00000018 core::ptr::real_drop_in_place
 00000000 l     F .text._ZN4core3ptr18real_drop_in_place17h9bd6901eaeed1e86E	00000022 core::ptr::real_drop_in_place
@@ -19804,7 +19260,6 @@ SYMBOL TABLE:
 00000000 l    d  .text._ZN4core3ptr18real_drop_in_place17h4fae14d26f1b6ceaE	00000000 .text._ZN4core3ptr18real_drop_in_place17h4fae14d26f1b6ceaE
 00000000 l    d  .text._ZN4core3ptr18real_drop_in_place17h50aa4a6b1b5dce88E	00000000 .text._ZN4core3ptr18real_drop_in_place17h50aa4a6b1b5dce88E
 00000000 l    d  .text._ZN4core3ptr18real_drop_in_place17h626f9093d3be9d7fE	00000000 .text._ZN4core3ptr18real_drop_in_place17h626f9093d3be9d7fE
-00000000 l    d  .text._ZN4core3ptr18real_drop_in_place17h97283749393eab5fE	00000000 .text._ZN4core3ptr18real_drop_in_place17h97283749393eab5fE
 00000000 l    d  .text._ZN4core3ptr18real_drop_in_place17h9bd6901eaeed1e86E	00000000 .text._ZN4core3ptr18real_drop_in_place17h9bd6901eaeed1e86E
 00000000 l    d  .text._ZN4core3ptr18real_drop_in_place17hb4c78971cb46c18fE	00000000 .text._ZN4core3ptr18real_drop_in_place17hb4c78971cb46c18fE
 00000000 l    d  .text._ZN4core3ptr18real_drop_in_place17hd9ae7c92088d7d97E	00000000 .text._ZN4core3ptr18real_drop_in_place17hd9ae7c92088d7d97E
@@ -19828,7 +19283,6 @@ SYMBOL TABLE:
 00000000 g     F .text._ZN4core3ptr18real_drop_in_place17h2f3d6693b6b2769aE	0000001e .hidden core::ptr::real_drop_in_place
 00000000 g     F .text._ZN4core3ptr18real_drop_in_place17h4b9a895eae28c903E	00000022 .hidden core::ptr::real_drop_in_place
 00000000 g     F .text._ZN4core3ptr18real_drop_in_place17h50aa4a6b1b5dce88E	00000018 .hidden core::ptr::real_drop_in_place
-00000000 g     F .text._ZN4core3ptr18real_drop_in_place17h97283749393eab5fE	0000000c .hidden core::ptr::real_drop_in_place
 00000000 g     F .text._ZN4core3ptr18real_drop_in_place17hb4c78971cb46c18fE	0000000c .hidden core::ptr::real_drop_in_place
 00000000 g     F .text._ZN4core3ptr18real_drop_in_place17hd9ae7c92088d7d97E	00000016 .hidden core::ptr::real_drop_in_place
 00000000 g     F .text._ZN4core3ptr18real_drop_in_place17hda782b12866d5912E	0000000c .hidden core::ptr::real_drop_in_place
@@ -20055,18 +19509,6 @@ _ZN4core3ptr18real_drop_in_place17h626f9093d3be9d7fE():
   12:	e7ff      	b.n	14 <core::ptr::real_drop_in_place+0x14>
   14:	b002      	add	sp, #8
   16:	bd80      	pop	{r7, pc}
-
-Disassembly of section .text._ZN4core3ptr18real_drop_in_place17h97283749393eab5fE:
-
-00000000 <core::ptr::real_drop_in_place>:
-_ZN4core3ptr18real_drop_in_place17h97283749393eab5fE():
-/rustc/50a0defd5a93523067ef239936cc2e0755220904/src/libcore/ptr.rs:195
-   0:	b082      	sub	sp, #8
-   2:	4601      	mov	r1, r0
-   4:	9001      	str	r0, [sp, #4]
-   6:	9100      	str	r1, [sp, #0]
-   8:	b002      	add	sp, #8
-   a:	4770      	bx	lr
 
 Disassembly of section .text._ZN4core3ptr18real_drop_in_place17h9bd6901eaeed1e86E:
 
