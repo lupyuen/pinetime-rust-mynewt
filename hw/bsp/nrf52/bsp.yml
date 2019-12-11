@@ -34,6 +34,7 @@ bsp.debugscript: "hw/bsp/nrf52/nrf52_debug.sh"
 bsp.downloadscript.WINDOWS.OVERWRITE: "hw/bsp/nrf52/nrf52_download.cmd"
 bsp.debugscript.WINDOWS.OVERWRITE: "hw/bsp/nrf52/nrf52_debug.cmd"
 
+# TODO: These values must sync with scripts/nrf52/flash-boot.ocd, scripts/nrf52/flash-app.ocd, hw/bsp/nrf52/boot-nrf52xxaa.ld, hw/bsp/nrf52/nrf52xxaa.ld
 bsp.flash_map:
     areas:
         # System areas.
@@ -44,11 +45,11 @@ bsp.flash_map:
         FLASH_AREA_IMAGE_0:
             device: 0
             offset: 0x00008000
-            size: 232kB
-        FLASH_AREA_IMAGE_1:
+            size: 463kB           #  Previously 232kB
+        FLASH_AREA_IMAGE_1:       #  Flash Image 1 disabled
             device: 0
-            offset: 0x00042000
-            size: 232kB
+            offset: 0x0007bc00    #  Previously 0x00042000
+            size: 1kB             #  Previously 232kB
         FLASH_AREA_IMAGE_SCRATCH:
             device: 0
             offset: 0x0007c000

@@ -3,6 +3,7 @@ use embedded_hal::{
     blocking::delay::DelayMs,
     digital::v2::OutputPin,
 };
+use druid;
 use mynewt::{
     self,
     result::*,
@@ -84,11 +85,14 @@ extern "C" fn touch_event_callback(_event: *mut os_event) {
         //  Fetch the touch data from the touch controller
         read_touchdata(&mut TOUCH_DATA)
             .expect("touchdata fail");
+        let x = TOUCH_DATA.touches[0].x;
+        let y = TOUCH_DATA.touches[0].y;
+
+        //  Handle the touch data in the UI        
+        druid::handle_touch(x, y);
+        
         //  Display the touch data
-        druid::show_touch(
-            TOUCH_DATA.touches[0].x,
-            TOUCH_DATA.touches[0].y
-        ).expect("show touch fail");
+        //  druid::show_touch(x, y).expect("show touch fail");
     }
     //  Disable the console output because it slows down the rendering
     //  console::printint(unsafe { TOUCH_DATA.touches[0].x } as i32); console::print(", ");

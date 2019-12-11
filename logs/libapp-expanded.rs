@@ -350,6 +350,7 @@ mod app_sensor {
 mod touch_sensor {
     use embedded_hal::{self, blocking::delay::DelayMs,
                        digital::v2::OutputPin};
+    use druid;
     use mynewt::{self, result::*, hw::hal, kernel::os::{self, os_event},
                  sys::console, fill_zero};
     /// Reset Pin for touch controller. Note: NFC antenna pins must be reassigned as GPIO pins for this to work.
@@ -428,7 +429,7 @@ mod touch_sensor {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/app/src/touch_sensor.rs",
-                                                           63u32, 5u32))
+                                                           64u32, 5u32))
                         }
                     }
                 }
@@ -447,8 +448,9 @@ mod touch_sensor {
     extern "C" fn touch_event_callback(_event: *mut os_event) {
         unsafe {
             read_touchdata(&mut TOUCH_DATA).expect("touchdata fail");
-            druid::show_touch(TOUCH_DATA.touches[0].x,
-                              TOUCH_DATA.touches[0].y).expect("show touch fail");
+            let x = TOUCH_DATA.touches[0].x;
+            let y = TOUCH_DATA.touches[0].y;
+            druid::handle_touch(x, y);
         }
     }
     /// Touch data will be populated here
@@ -562,14 +564,14 @@ mod touch_sensor {
             {
                 ::core::panicking::panic(&("i2c buf",
                                            "rust/app/src/touch_sensor.rs",
-                                           209u32, 5u32))
+                                           213u32, 5u32))
             }
         };
         if !(start_register + num_registers < 128) {
             {
                 ::core::panicking::panic(&("i2c addr",
                                            "rust/app/src/touch_sensor.rs",
-                                           210u32, 5u32))
+                                           214u32, 5u32))
             }
         };
         unsafe {
@@ -593,7 +595,7 @@ mod touch_sensor {
                 {
                     ::core::panicking::panic(&("i2c fail",
                                                "rust/app/src/touch_sensor.rs",
-                                               239u32, 9u32))
+                                               243u32, 9u32))
                 }
             };
             return Ok(());
@@ -606,7 +608,7 @@ mod touch_sensor {
             {
                 ::core::panicking::panic(&("i2c addr",
                                            "rust/app/src/touch_sensor.rs",
-                                           247u32, 5u32))
+                                           251u32, 5u32))
             }
         };
         unsafe {
