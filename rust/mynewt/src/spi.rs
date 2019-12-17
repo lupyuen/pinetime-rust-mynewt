@@ -2,7 +2,10 @@
 use crate::{
     result::*,
     hw::hal,
-    kernel::os,
+    kernel::os::{
+        self,
+        os_callout,
+    },
 };
 
 //  TODO: Remove this
@@ -37,11 +40,8 @@ static mut spi_cb_obj: spi_cb_arg = spi_cb_arg {
     tx_rx_bytes: 0,
 };
 
-/// Called by interrupt handler after Non-blocking SPI transfer
-extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
-    //  Set SS Pin to high to stop the transfer.
-    unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
-}
+/// Callout that is invoked when non-blocking SPI transfer is completed
+static mut rx_callout: os_callout = fill_zero!(os_callout);
 
 /// Init non-blocking SPI transfer
 pub fn spi_noblock_init() {
@@ -51,27 +51,47 @@ pub fn spi_noblock_init() {
     assert_eq!(rc, 0, "spi config fail");
 
     let arg = unsafe { core::mem::transmute(&mut spi_cb_obj) };
-    unsafe { hal::hal_spi_set_txrx_cb(SPI_NUM, Some(spi_noblock_handler), arg) };
+    let rc = unsafe { hal::hal_spi_set_txrx_cb(SPI_NUM, Some(spi_noblock_handler), arg) };
+    assert_eq!(rc, 0, "spi cb fail");
 
     let rc = unsafe { hal::hal_spi_enable(SPI_NUM) };
     assert_eq!(rc, 0, "spi enable fail");
 
     let rc = unsafe { hal::hal_gpio_init_out(SPI_SS_PIN, 1) };
     assert_eq!(rc, 0, "gpio fail");    
+
+    //  Init the callout to handle completed SPI transfers.
+    unsafe {
+        os::os_callout_init(&mut rx_callout, os::eventq_dflt_get().expect("never"), 
+            Some(spi_noblock_callback), core::ptr::null_mut())
+    };
 }
 
 /// Do non-blocking SPI transfer
 #[cfg(feature = "spi_noblock")]
 pub fn spi_noblock_transfer(txlen: i32) {
+    unsafe { spi_cb_obj.txlen = txlen };
+
     //  Set the SS Pin to low to start the transfer.
-    spi_cb_obj.txlen = txlen;
-    hal::hal_gpio_write(SPI_SS_PIN, 0);
-    let rc = hal::hal_spi_txrx_noblock(
+    unsafe { hal::hal_gpio_write(SPI_SS_PIN, 0) };
+
+    let rc = unsafe { hal::hal_spi_txrx_noblock(
         SPI_NUM, 
         core::mem::transmute(txbuffer.as_ptr()),  //  TX Buffer
         core::ptr::null_mut(),                    //  RX Buffer (don't receive)        
-        txlen);
+        txlen) };
     assert_eq!(rc, 0, "spi fail");    
+}
+
+/// Called by interrupt handler after Non-blocking SPI transfer
+extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
+    //  Set SS Pin to high to stop the transfer.
+    unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
+    unsafe { os::os_callout_reset(&mut rx_callout, 0) };  //  Trigger the callout
+}
+
+/// Callout after Non-blocking SPI transfer
+extern "C" fn spi_noblock_callback(ev: *mut os::os_event) {
 }
 
 /* Non-Blocking SPI Transfer in Mynewt OS

@@ -11722,7 +11722,7 @@ mod hal {
 pub use hal::{Delay, GPIO, SPI};
 pub mod spi {
     //!  Experimental Non-Blocking SPI Transfer API
-    use crate::{result::*, hw::hal, kernel::os};
+    use crate::{result::*, hw::hal, kernel::os::{self, os_callout}};
     const DISPLAY_SPI: i32 = 0;
     const DISPLAY_CS: i32 = 25;
     const DISPLAY_DC: i32 = 18;
@@ -11730,6 +11730,12 @@ pub mod spi {
     const DISPLAY_HIGH: i32 = 23;
     const SPI_NUM: i32 = DISPLAY_SPI;
     const SPI_SS_PIN: i32 = DISPLAY_CS;
+    /// SPI settings for ST7789 display controller
+    static mut SPI_SETTINGS: hal::hal_spi_settings =
+        hal::hal_spi_settings{data_order: hal::HAL_SPI_MSB_FIRST as u8,
+                              data_mode: hal::HAL_SPI_MODE3 as u8,
+                              baudrate: 8000,
+                              word_size: hal::HAL_SPI_WORD_SIZE_8BIT as u8,};
     /// Non-blocking SPI transfer callback parameter
     struct spi_cb_arg {
         transfers: i32,
@@ -11739,19 +11745,123 @@ pub mod spi {
     /// Non-blocking SPI transfer callback values
     static mut spi_cb_obj: spi_cb_arg =
         spi_cb_arg{transfers: 0, txlen: 0, tx_rx_bytes: 0,};
-    /// Called by interrupt handler after Non-blocking SPI transfer
-    extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void,
-                                      _len: i32) {
-        unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
-    }
+    /// Callout that is invoked when non-blocking SPI transfer is completed
+    static mut rx_callout: os_callout =
+        unsafe {
+            ::core::mem::transmute::<[u8; ::core::mem::size_of::<os_callout>()],
+                                     os_callout>([0;
+                                                     ::core::mem::size_of::<os_callout>()])
+        };
     /// Init non-blocking SPI transfer
     pub fn spi_noblock_init() {
         unsafe { hal::hal_spi_disable(SPI_NUM) };
-        let arg = unsafe { core::mem::transmute(&mut spi_cb_obj) };
-        unsafe {
-            hal::hal_spi_set_txrx_cb(SPI_NUM, Some(spi_noblock_handler), arg)
+        let rc = unsafe { hal::hal_spi_config(SPI_NUM, &mut SPI_SETTINGS) };
+        {
+            match (&(rc), &(0)) {
+                (left_val, right_val) => {
+                    if !(*left_val == *right_val) {
+                        ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                      "`,\n right: `",
+                                                                                      "`: "],
+                                                                                    &match (&&*left_val,
+                                                                                            &&*right_val,
+                                                                                            &::core::fmt::Arguments::new_v1(&["spi config fail"],
+                                                                                                                            &match ()
+                                                                                                                                 {
+                                                                                                                                 ()
+                                                                                                                                 =>
+                                                                                                                                 [],
+                                                                                                                             }))
+                                                                                         {
+                                                                                         (arg0,
+                                                                                          arg1,
+                                                                                          arg2)
+                                                                                         =>
+                                                                                         [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                       ::core::fmt::Debug::fmt),
+                                                                                          ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                       ::core::fmt::Debug::fmt),
+                                                                                          ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                       ::core::fmt::Display::fmt)],
+                                                                                     }),
+                                                     ::core::intrinsics::caller_location())
+                    }
+                }
+            }
         };
-        unsafe { hal::hal_spi_enable(SPI_NUM) };
+        let arg = unsafe { core::mem::transmute(&mut spi_cb_obj) };
+        let rc =
+            unsafe {
+                hal::hal_spi_set_txrx_cb(SPI_NUM, Some(spi_noblock_handler),
+                                         arg)
+            };
+        {
+            match (&(rc), &(0)) {
+                (left_val, right_val) => {
+                    if !(*left_val == *right_val) {
+                        ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                      "`,\n right: `",
+                                                                                      "`: "],
+                                                                                    &match (&&*left_val,
+                                                                                            &&*right_val,
+                                                                                            &::core::fmt::Arguments::new_v1(&["spi cb fail"],
+                                                                                                                            &match ()
+                                                                                                                                 {
+                                                                                                                                 ()
+                                                                                                                                 =>
+                                                                                                                                 [],
+                                                                                                                             }))
+                                                                                         {
+                                                                                         (arg0,
+                                                                                          arg1,
+                                                                                          arg2)
+                                                                                         =>
+                                                                                         [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                       ::core::fmt::Debug::fmt),
+                                                                                          ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                       ::core::fmt::Debug::fmt),
+                                                                                          ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                       ::core::fmt::Display::fmt)],
+                                                                                     }),
+                                                     ::core::intrinsics::caller_location())
+                    }
+                }
+            }
+        };
+        let rc = unsafe { hal::hal_spi_enable(SPI_NUM) };
+        {
+            match (&(rc), &(0)) {
+                (left_val, right_val) => {
+                    if !(*left_val == *right_val) {
+                        ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                      "`,\n right: `",
+                                                                                      "`: "],
+                                                                                    &match (&&*left_val,
+                                                                                            &&*right_val,
+                                                                                            &::core::fmt::Arguments::new_v1(&["spi enable fail"],
+                                                                                                                            &match ()
+                                                                                                                                 {
+                                                                                                                                 ()
+                                                                                                                                 =>
+                                                                                                                                 [],
+                                                                                                                             }))
+                                                                                         {
+                                                                                         (arg0,
+                                                                                          arg1,
+                                                                                          arg2)
+                                                                                         =>
+                                                                                         [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                       ::core::fmt::Debug::fmt),
+                                                                                          ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                       ::core::fmt::Debug::fmt),
+                                                                                          ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                       ::core::fmt::Display::fmt)],
+                                                                                     }),
+                                                     ::core::intrinsics::caller_location())
+                    }
+                }
+            }
+        };
         let rc = unsafe { hal::hal_gpio_init_out(SPI_SS_PIN, 1) };
         {
             match (&(rc), &(0)) {
@@ -11786,7 +11896,21 @@ pub mod spi {
                 }
             }
         };
+        unsafe {
+            os::os_callout_init(&mut rx_callout,
+                                os::eventq_dflt_get().expect("never"),
+                                Some(spi_noblock_callback),
+                                core::ptr::null_mut())
+        };
     }
+    /// Called by interrupt handler after Non-blocking SPI transfer
+    extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void,
+                                      _len: i32) {
+        unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
+        unsafe { os::os_callout_reset(&mut rx_callout, 0) };
+    }
+    /// Callout after Non-blocking SPI transfer
+    extern "C" fn spi_noblock_callback(ev: *mut os::os_event) { }
 }
 ///  Initialise the Mynewt system.  Start the Mynewt drivers and libraries.  Equivalent to `sysinit()` macro in C.
 pub fn sysinit() { unsafe { rust_sysinit(); } sys::console::flush(); }
