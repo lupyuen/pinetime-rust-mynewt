@@ -62,13 +62,8 @@ pub fn spi_noblock_init() -> MynewtResult<()> {
 
     /*
     os_sem        _rx_sem;     //  Semaphore that is signalled for every byte received.
-    
+
     os_error_t rc = os_sem_init(&_rx_sem, 0);  //  Init to 0 tokens, so caller will block until data is available.
-    assert(rc == OS_OK);
-
-    os_sem_pend(&_rx_sem, timeout * OS_TICKS_PER_SEC / 1000);
-
-    os_error_t rc = os_sem_release(&_rx_sem);  //  Signal to semaphore that data is available.
     assert(rc == OS_OK);
     */
 
@@ -87,7 +82,18 @@ pub fn spi_noblock_init() -> MynewtResult<()> {
 /// Enqueue request for non-blocking SPI write. Returns without waiting for write to complete.
 #[cfg(feature = "spi_noblock")]
 pub fn spi_noblock_write(words: &[u8]) -> MynewtResult<()> {
-    //  TODO: Add to request queue. Make a copy of the data to be sent.
+    //  Add to request queue. Make a copy of the data to be sent.
+
+    //  struct os_mbuf *semihost_mbuf = os_msys_get_pkthdr(length, 0);
+    //  if (!semihost_mbuf) { return; }  //  If out of memory, quit.
+
+    //  Append the data to the mbuf chain.  This may increase the numbere of mbufs in the chain.
+    //  rc = os_mbuf_append(semihost_mbuf, buffer, length);
+    //  if (rc) { return; }  //  If out of memory, quit.
+
+    //  rc = os_mqueue_put(&rxpkt_q, &my_task_evq, om);
+    //  if (rc) { return; }  //  If out of memory, quit.
+
     Ok(())
 }
 
@@ -104,6 +110,8 @@ fn internal_spi_noblock_write(txbuffer: *mut core::ffi::c_void, txlen: i32) -> M
         core::ptr::null_mut(),  //  RX Buffer (don't receive)        
         txlen) };
     assert_eq!(rc, 0, "spi fail");  //  TODO: Map to MynewtResult
+    //  Wait for spi_noblock_handler() to signal that SPI request has been completed.
+    //  os_sem_pend(&_rx_sem, timeout * OS_TICKS_PER_SEC / 1000);
     Ok(())
 }
 
@@ -113,6 +121,9 @@ extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
     unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
     //  Trigger the callout to transmit next SPI request.
     unsafe { os::os_callout_reset(&mut spi_callout, 0) };
+    //  Signal to internal_spi_noblock_write() that SPI request has been completed.
+    //  os_error_t rc = os_sem_release(&_rx_sem);
+    //  assert(rc == OS_OK);
 }
 
 /// Callout after Non-blocking SPI transfer
