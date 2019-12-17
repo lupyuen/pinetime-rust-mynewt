@@ -8,7 +8,7 @@ use crate::{
     },
 };
 
-//  TODO: Remove this
+//  TODO: Remove SPI settings for ST7789 display controller
 const DISPLAY_SPI: i32  =  0;  //  Mynewt SPI port 0
 const DISPLAY_CS: i32   = 25;  //  LCD_CS (P0.25): Chip select
 const DISPLAY_DC: i32   = 18;  //  LCD_RS (P0.18): Clock/data pin (CD)
@@ -44,7 +44,7 @@ static mut spi_cb_obj: spi_cb_arg = spi_cb_arg {
 static mut spi_callout: os_callout = fill_zero!(os_callout);
 
 /// Init non-blocking SPI transfer
-pub fn spi_noblock_init() {
+pub fn spi_noblock_init() -> MynewtResult<()> {
     unsafe { hal::hal_spi_disable(SPI_NUM) };
 
     let rc = unsafe { hal::hal_spi_config(SPI_NUM, &mut SPI_SETTINGS) };
@@ -62,14 +62,26 @@ pub fn spi_noblock_init() {
 
     //  Init the callout to handle completed SPI transfers.
     unsafe {
-        os::os_callout_init(&mut spi_callout, os::eventq_dflt_get().expect("never"), 
-            Some(spi_noblock_callback), core::ptr::null_mut())
+        os::os_callout_init(
+            &mut spi_callout, 
+            os::eventq_dflt_get() ? , 
+            Some(spi_noblock_callback), 
+            core::ptr::null_mut()
+        )
     };
+    Ok(())
 }
 
-/// Do non-blocking SPI transfer
+/// Enqueue request for non-blocking SPI write. Returns without waiting for write to complete.
 #[cfg(feature = "spi_noblock")]
-pub fn spi_noblock_transfer(txbuffer: *mut core::ffi::c_void, txlen: i32) {
+pub fn spi_noblock_write(words: &[u8]) -> MynewtResult<()> {
+    //  TODO: Add to request queue. Make a copy of the data to be sent.
+    Ok(())
+}
+
+/// Perform non-blocking SPI write.  Returns without waiting for write to complete.
+#[cfg(feature = "spi_noblock")]
+fn internal_spi_noblock_write(txbuffer: *mut core::ffi::c_void, txlen: i32) -> MynewtResult<()> {
     unsafe { spi_cb_obj.txlen = txlen };
 
     //  Set the SS Pin to low to start the transfer.
@@ -81,22 +93,7 @@ pub fn spi_noblock_transfer(txbuffer: *mut core::ffi::c_void, txlen: i32) {
         core::ptr::null_mut(),  //  RX Buffer (don't receive)        
         txlen) };
     assert_eq!(rc, 0, "spi fail");    
-}
-
-/// Do non-blocking SPI transfer
-#[cfg(feature = "spi_noblock")]
-fn internal_spi_noblock_transfer(txbuffer: *mut core::ffi::c_void, txlen: i32) {
-    unsafe { spi_cb_obj.txlen = txlen };
-
-    //  Set the SS Pin to low to start the transfer.
-    unsafe { hal::hal_gpio_write(SPI_SS_PIN, 0) };
-
-    let rc = unsafe { hal::hal_spi_txrx_noblock(
-        SPI_NUM, 
-        txbuffer,               //  TX Buffer
-        core::ptr::null_mut(),  //  RX Buffer (don't receive)        
-        txlen) };
-    assert_eq!(rc, 0, "spi fail");    
+    Ok(())
 }
 
 /// Called by interrupt handler after Non-blocking SPI transfer
@@ -108,7 +105,7 @@ extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
 
 /// Callout after Non-blocking SPI transfer
 extern "C" fn spi_noblock_callback(_ev: *mut os::os_event) {
-    //  Transmit the next SPI request.
+    //  TODO: Transmit the next queued SPI request.
 }
 
 /* Non-Blocking SPI Transfer in Mynewt OS
