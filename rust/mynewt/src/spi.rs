@@ -48,17 +48,17 @@ pub fn spi_noblock_init() -> MynewtResult<()> {
     unsafe { hal::hal_spi_disable(SPI_NUM) };
 
     let rc = unsafe { hal::hal_spi_config(SPI_NUM, &mut SPI_SETTINGS) };
-    assert_eq!(rc, 0, "spi config fail");
+    assert_eq!(rc, 0, "spi config fail");  //  TODO: Map to MynewtResult
 
     let arg = unsafe { core::mem::transmute(&mut spi_cb_obj) };
     let rc = unsafe { hal::hal_spi_set_txrx_cb(SPI_NUM, Some(spi_noblock_handler), arg) };
-    assert_eq!(rc, 0, "spi cb fail");
+    assert_eq!(rc, 0, "spi cb fail");  //  TODO: Map to MynewtResult
 
     let rc = unsafe { hal::hal_spi_enable(SPI_NUM) };
-    assert_eq!(rc, 0, "spi enable fail");
+    assert_eq!(rc, 0, "spi enable fail");  //  TODO: Map to MynewtResult
 
     let rc = unsafe { hal::hal_gpio_init_out(SPI_SS_PIN, 1) };
-    assert_eq!(rc, 0, "gpio fail");    
+    assert_eq!(rc, 0, "gpio fail");  //  TODO: Map to MynewtResult
 
     //  Init the callout to handle completed SPI transfers.
     unsafe {
@@ -83,16 +83,15 @@ pub fn spi_noblock_write(words: &[u8]) -> MynewtResult<()> {
 #[cfg(feature = "spi_noblock")]
 fn internal_spi_noblock_write(txbuffer: *mut core::ffi::c_void, txlen: i32) -> MynewtResult<()> {
     unsafe { spi_cb_obj.txlen = txlen };
-
     //  Set the SS Pin to low to start the transfer.
     unsafe { hal::hal_gpio_write(SPI_SS_PIN, 0) };
-
+    //  Write the SPI data.
     let rc = unsafe { hal::hal_spi_txrx_noblock(
         SPI_NUM, 
         txbuffer,               //  TX Buffer
         core::ptr::null_mut(),  //  RX Buffer (don't receive)        
         txlen) };
-    assert_eq!(rc, 0, "spi fail");    
+    assert_eq!(rc, 0, "spi fail");  //  TODO: Map to MynewtResult
     Ok(())
 }
 
@@ -100,12 +99,14 @@ fn internal_spi_noblock_write(txbuffer: *mut core::ffi::c_void, txlen: i32) -> M
 extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
     //  Set SS Pin to high to stop the transfer.
     unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
-    unsafe { os::os_callout_reset(&mut spi_callout, 0) };  //  Trigger the callout
+    //  Trigger the callout to transmit next SPI request.
+    unsafe { os::os_callout_reset(&mut spi_callout, 0) };
 }
 
 /// Callout after Non-blocking SPI transfer
 extern "C" fn spi_noblock_callback(_ev: *mut os::os_event) {
     //  TODO: Transmit the next queued SPI request.
+    //  internal_spi_noblock_write(txbuffer: *mut core::ffi::c_void, txlen: i32);
 }
 
 /* Non-Blocking SPI Transfer in Mynewt OS
