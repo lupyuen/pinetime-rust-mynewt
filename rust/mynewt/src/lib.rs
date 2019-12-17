@@ -35,6 +35,8 @@ pub mod libs;                     //  Mynewt Custom API. Export folder `libs` as
 mod hal;                            //  Import module `hal` for Embedded HAL functions but don't export it
 pub use hal::{ Delay, GPIO, SPI };  //  Export `hal` types GPIO and SPI
 
+pub mod spi;  //  Export Non-Blocking SPI API
+
 ///  Initialise the Mynewt system.  Start the Mynewt drivers and libraries.  Equivalent to `sysinit()` macro in C.
 pub fn sysinit() {
     unsafe { rust_sysinit(); }
