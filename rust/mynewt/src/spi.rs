@@ -61,8 +61,12 @@ pub fn spi_noblock_init() -> MynewtResult<()> {
     assert_eq!(rc, 0, "gpio fail");  //  TODO: Map to MynewtResult
 
     /*
-    os_sem        _rx_sem;     //  Semaphore that is signalled for every byte received.
+    struct os_mqueue rxpkt_q;
+    struct os_eventq my_task_evq;
+    os_eventq_init(&my_task_evq);
+    os_mqueue_init(&rxpkt_q, NULL);
 
+    os_sem _rx_sem;     //  Semaphore that is signalled for every byte received.
     os_error_t rc = os_sem_init(&_rx_sem, 0);  //  Init to 0 tokens, so caller will block until data is available.
     assert(rc == OS_OK);
     */
@@ -103,6 +107,7 @@ fn internal_spi_noblock_write(txbuffer: *mut core::ffi::c_void, txlen: i32) -> M
     unsafe { spi_cb_obj.txlen = txlen };
     //  Set the SS Pin to low to start the transfer.
     unsafe { hal::hal_gpio_write(SPI_SS_PIN, 0) };
+
     //  Write the SPI data.
     let rc = unsafe { hal::hal_spi_txrx_noblock(
         SPI_NUM, 
@@ -110,23 +115,45 @@ fn internal_spi_noblock_write(txbuffer: *mut core::ffi::c_void, txlen: i32) -> M
         core::ptr::null_mut(),  //  RX Buffer (don't receive)        
         txlen) };
     assert_eq!(rc, 0, "spi fail");  //  TODO: Map to MynewtResult
+
     //  Wait for spi_noblock_handler() to signal that SPI request has been completed.
     //  os_sem_pend(&_rx_sem, timeout * OS_TICKS_PER_SEC / 1000);
     Ok(())
 }
 
-/// Called by interrupt handler after Non-blocking SPI transfer
+/*
+// Process each event posted to our eventq.  When there are no events to process, sleep until one arrives.
+void my_task_handler(void *arg) {
+    while (1) {
+        os_eventq_run(&my_task_evq);
+    }
+}
+
+// Removes each packet from the receive queue and processes it.
+void process_rx_data_queue(void) {
+    struct os_mbuf *om;
+
+    while ((om = os_mqueue_get(&rxpkt_q)) != NULL) {
+        ++pkts_rxd;
+        os_mbuf_free_chain(om);
+    }
+}
+*/
+
+/// Called by interrupt handler after Non-blocking SPI transfer has completed
 extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
     //  Set SS Pin to high to stop the transfer.
     unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
+
     //  Trigger the callout to transmit next SPI request.
     unsafe { os::os_callout_reset(&mut spi_callout, 0) };
+
     //  Signal to internal_spi_noblock_write() that SPI request has been completed.
     //  os_error_t rc = os_sem_release(&_rx_sem);
     //  assert(rc == OS_OK);
 }
 
-/// Callout after Non-blocking SPI transfer
+/// Callout after Non-blocking SPI transfer as completed
 extern "C" fn spi_noblock_callback(_ev: *mut os::os_event) {
     //  TODO: Transmit the next queued SPI request.
     //  internal_spi_noblock_write(txbuffer: *mut core::ffi::c_void, txlen: i32);
