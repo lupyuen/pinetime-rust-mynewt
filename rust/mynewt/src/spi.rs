@@ -60,6 +60,18 @@ pub fn spi_noblock_init() -> MynewtResult<()> {
     let rc = unsafe { hal::hal_gpio_init_out(SPI_SS_PIN, 1) };
     assert_eq!(rc, 0, "gpio fail");  //  TODO: Map to MynewtResult
 
+    /*
+    os_sem        _rx_sem;     //  Semaphore that is signalled for every byte received.
+    
+    os_error_t rc = os_sem_init(&_rx_sem, 0);  //  Init to 0 tokens, so caller will block until data is available.
+    assert(rc == OS_OK);
+
+    os_sem_pend(&_rx_sem, timeout * OS_TICKS_PER_SEC / 1000);
+
+    os_error_t rc = os_sem_release(&_rx_sem);  //  Signal to semaphore that data is available.
+    assert(rc == OS_OK);
+    */
+
     //  Init the callout to handle completed SPI transfers.
     unsafe {
         os::os_callout_init(
@@ -111,6 +123,26 @@ extern "C" fn spi_noblock_callback(_ev: *mut os::os_event) {
 
 /* mbuf
     static struct os_mbuf *semihost_mbuf = NULL;
+
+    void console_flush(void) {
+        //  Flush output buffer to the console log.  This will be slow.
+        if (!log_enabled) { return; }       //  Skip if log not enabled.
+        if (!semihost_mbuf) { return; }     //  Buffer is empty, nothing to write.
+        if (os_arch_in_isr()) { return; }   //  Don't flush if we are called during an interrupt.
+
+        //  Swap mbufs first to prevent concurrency problems.
+        struct os_mbuf *old = semihost_mbuf;
+        semihost_mbuf = NULL;
+
+        struct os_mbuf *m = old;
+        while (m) {  //  For each mbuf in the chain...
+            const unsigned char *data = OS_MBUF_DATA(m, const unsigned char *);  //  Fetch the data.
+            int size = m->om_len;                         //  Fetch the size.
+            semihost_write(SEMIHOST_HANDLE, data, size);  //  Write the data to Semihosting output.
+            m = m->om_next.sle_next;                      //  Fetch next mbuf in the chain.
+        }
+        if (old) { os_mbuf_free_chain(old); }  //  Deallocate the old chain.
+    }
 
     void console_buffer(const char *buffer, unsigned int length) {
         //  Append "length" number of bytes from "buffer" to the output buffer.
