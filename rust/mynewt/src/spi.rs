@@ -7,6 +7,7 @@ use crate::{
         os_callout,
         os_task,
     },
+    Out, Strn,
 };
 
 //  TODO: Remove SPI settings for ST7789 display controller
@@ -44,13 +45,13 @@ static mut spi_cb_obj: spi_cb_arg = spi_cb_arg {
 /// Callout that is invoked when non-blocking SPI transfer is completed
 static mut spi_callout: os_callout = fill_zero!(os_callout);
 
-///  Storage for Network Task: Mynewt task object will be saved here.
-static mut NETWORK_TASK: os_task = fill_zero!(os_task);
-///  Stack space for Network Task, initialised to 0.
-static mut NETWORK_TASK_STACK: [os::os_stack_t; NETWORK_TASK_STACK_SIZE] = 
-    [0; NETWORK_TASK_STACK_SIZE];
+///  Storage for SPI Task: Mynewt task object will be saved here.
+static mut SPI_TASK: os_task = fill_zero!(os_task);
+///  Stack space for SPI Task, initialised to 0.
+static mut SPI_TASK_STACK: [os::os_stack_t; SPI_TASK_STACK_SIZE] = 
+    [0; SPI_TASK_STACK_SIZE];
 ///  Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
-const NETWORK_TASK_STACK_SIZE: usize = 256;
+const SPI_TASK_STACK_SIZE: usize = 256;
 
 /// Init non-blocking SPI transfer
 pub fn spi_noblock_init() -> MynewtResult<()> {
@@ -79,16 +80,16 @@ pub fn spi_noblock_init() -> MynewtResult<()> {
     os_error_t rc = os_sem_init(&_rx_sem, 0);  //  Init to 0 tokens, so caller will block until data is available.
     assert(rc == OS_OK);
 
-    task_init(                      //  Create a new task and start it...
-        out!( NETWORK_TASK ),       //  Task object will be saved here
-        strn!( "network" ),         //  Name of task
-        Some( network_task_func ),  //  Function to execute when task starts
+    task_init(                  //  Create a new task and start it...
+        Out!( SPI_TASK ),       //  Task object will be saved here
+        Strn!( "spi" ),         //  Name of task
+        Some( spi_task_func ),  //  Function to execute when task starts
         NULL,  //  Argument to be passed to above function
         10,    //  Task priority: highest is 0, lowest is 255 (main task is 127)
         os::OS_WAIT_FOREVER as u32,   //  Don't do sanity / watchdog checking
-        out!( NETWORK_TASK_STACK ),   //  Stack space for the task
-        NETWORK_TASK_STACK_SIZE as u16 //  Size of the stack (in 4-byte units)
-    ) ? ;                              //  `?` means check for error
+        Out!( SPI_TASK_STACK ),       //  Stack space for the task
+        SPI_TASK_STACK_SIZE as u16    //  Size of the stack (in 4-byte units)
+    ) ? ;                             //  `?` means check for error
     */
 
     //  Init the callout to handle completed SPI transfers.
@@ -143,7 +144,7 @@ fn internal_spi_noblock_write(txbuffer: *mut core::ffi::c_void, txlen: i32) -> M
 
 /*
 // Process each event posted to our eventq.  When there are no events to process, sleep until one arrives.
-void my_task_handler(void *arg) {
+void spi_task_func(void *arg) {
     while (1) {
         os_eventq_run(&my_task_evq);
     }
