@@ -109,6 +109,82 @@ extern "C" fn spi_noblock_callback(_ev: *mut os::os_event) {
     //  internal_spi_noblock_write(txbuffer: *mut core::ffi::c_void, txlen: i32);
 }
 
+/* mbuf
+    static struct os_mbuf *semihost_mbuf = NULL;
+
+    void console_buffer(const char *buffer, unsigned int length) {
+        //  Append "length" number of bytes from "buffer" to the output buffer.
+    #ifdef DISABLE_SEMIHOSTING  //  If Arm Semihosting is disabled...
+        return;                 //  Don't write debug messages.
+    #else                       //  If Arm Semihosting is enabled...
+        int rc;
+        if (!log_enabled) { return; }           //  Skip if log not enabled.
+        if (!debugger_connected()) { return; }  //  If debugger is not connected, quit.
+        if (!semihost_mbuf) {                   //  Allocate mbuf if not already allocated.
+            semihost_mbuf = os_msys_get_pkthdr(length, 0);
+            if (!semihost_mbuf) { return; }  //  If out of memory, quit.
+        }
+        //  Limit the buffer size.  Quit if too big.
+        if (os_mbuf_len(semihost_mbuf) + length >= OUTPUT_BUFFER_SIZE) { return; }
+        //  Append the data to the mbuf chain.  This may increase the numbere of mbufs in the chain.
+        rc = os_mbuf_append(semihost_mbuf, buffer, length);
+        if (rc) { return; }  //  If out of memory, quit.
+    #endif  //  DISABLE_SEMIHOSTING
+    }
+*/
+
+/* mqueue
+    uint32_t pkts_rxd;
+    struct os_mqueue rxpkt_q;
+    struct os_eventq my_task_evq;
+
+    // Removes each packet from the receive queue and processes it.
+    void
+    process_rx_data_queue(void)
+    {
+        struct os_mbuf *om;
+
+        while ((om = os_mqueue_get(&rxpkt_q)) != NULL) {
+            ++pkts_rxd;
+            os_mbuf_free_chain(om);
+        }
+    }
+
+    // Called when a packet is received.
+    int
+    my_task_rx_data_func(struct os_mbuf *om)
+    {
+        int rc;
+
+        // Enqueue the received packet and wake up the listening task.
+        rc = os_mqueue_put(&rxpkt_q, &my_task_evq, om);
+        if (rc != 0) {
+            return -1;
+        }
+
+        return 0;
+    }
+
+    void
+    my_task_handler(void *arg)
+    {
+        struct os_event *ev;
+        struct os_callout_func *cf;
+        int rc;
+
+        // Initialize eventq
+        os_eventq_init(&my_task_evq);
+
+        // Initialize mqueue
+        os_mqueue_init(&rxpkt_q, NULL);
+
+        // Process each event posted to our eventq.  When there are no events to process, sleep until one arrives.
+        while (1) {
+            os_eventq_run(&my_task_evq);
+        }
+    }
+*/
+
 /* Non-Blocking SPI Transfer in Mynewt OS
 
     //  The spi txrx callback
