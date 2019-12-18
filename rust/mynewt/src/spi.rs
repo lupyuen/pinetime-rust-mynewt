@@ -51,42 +51,39 @@ static mut SPI_DATA_QUEUE: os::os_mqueue = fill_zero!(os::os_mqueue);
 /// Event Queue that contains the pending non-blocking SPI requests
 static mut SPI_EVENT_QUEUE: os::os_eventq = fill_zero!(os::os_eventq);
 
-///  Storage for SPI Task: Mynewt task object will be saved here.
+/// SPI Task that will send each SPI request sequentially
 static mut SPI_TASK: os::os_task = fill_zero!(os::os_task);
 
-///  Stack space for SPI Task, initialised to 0.
+/// Stack space for SPI Task, initialised to 0.
 static mut SPI_TASK_STACK: [os::os_stack_t; SPI_TASK_STACK_SIZE] = 
     [0; SPI_TASK_STACK_SIZE];
 
-///  Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
+/// Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
 const SPI_TASK_STACK_SIZE: usize = 256;
 
 /// Init non-blocking SPI transfer
 pub fn spi_noblock_init() -> MynewtResult<()> {
+    //  Disable SPI port
     unsafe { hal::hal_spi_disable(SPI_NUM) };
 
-    let rc = unsafe { hal::hal_spi_config(SPI_NUM, &mut SPI_SETTINGS) };
-    assert_eq!(rc, 0, "spi config fail");  //  TODO: Map to MynewtResult
-
+    //  Configure SPI port for non-blocking SPI
+    let rc = unsafe { hal::hal_spi_config(SPI_NUM, &mut SPI_SETTINGS) }; assert_eq!(rc, 0, "spi config fail");  //  TODO: Map to MynewtResult
     let arg = unsafe { core::mem::transmute(&mut spi_cb_obj) };
-    let rc = unsafe { hal::hal_spi_set_txrx_cb(SPI_NUM, Some(spi_noblock_handler), arg) };
-    assert_eq!(rc, 0, "spi cb fail");  //  TODO: Map to MynewtResult
+    let rc = unsafe { hal::hal_spi_set_txrx_cb(SPI_NUM, Some(spi_noblock_handler), arg) }; assert_eq!(rc, 0, "spi cb fail");  //  TODO: Map to MynewtResult
 
-    let rc = unsafe { hal::hal_spi_enable(SPI_NUM) };
-    assert_eq!(rc, 0, "spi enable fail");  //  TODO: Map to MynewtResult
+    //  Enable SPI port and set SS to high to disable SPI device
+    let rc = unsafe { hal::hal_spi_enable(SPI_NUM) }; assert_eq!(rc, 0, "spi enable fail");  //  TODO: Map to MynewtResult
+    let rc = unsafe { hal::hal_gpio_init_out(SPI_SS_PIN, 1) }; assert_eq!(rc, 0, "gpio fail");  //  TODO: Map to MynewtResult
 
-    let rc = unsafe { hal::hal_gpio_init_out(SPI_SS_PIN, 1) };
-    assert_eq!(rc, 0, "gpio fail");  //  TODO: Map to MynewtResult
-
+    //  Create Event Queue and Mbuf (Data) Queue that will store the pending SPI requests
     unsafe { os::os_eventq_init(&mut SPI_EVENT_QUEUE) };
+    let rc = unsafe { os::os_mqueue_init(&mut SPI_DATA_QUEUE, Some(spi_event_callback), NULL) }; assert_eq!(rc, 0, "mqueue fail");  //  TODO: Map to MynewtResult
 
-    let rc = unsafe { os::os_mqueue_init(&mut SPI_DATA_QUEUE, Some(spi_event_callback), NULL) };
-    assert_eq!(rc, 0, "mqueue fail");  //  TODO: Map to MynewtResult
-
+    //  Create the Semaphore that will signal whether the SPI request has completed
     let rc = unsafe { os::os_sem_init(&mut SPI_SEM, 0) };  //  Init to 0 tokens, so caller will block until SPI request is completed.
     assert_eq!(rc, 0, "sem fail");  //  TODO: Map to MynewtResult
 
-    //  Create a new task to send each SPI request
+    //  Create a task to send SPI requests sequentially from the SPI Event Queue and Mbuf Queue
     os::task_init(                //  Create a new task and start it...
         unsafe { &mut SPI_TASK }, //  Task object will be saved here
         &init_strn!( "spi" ),     //  Name of task
