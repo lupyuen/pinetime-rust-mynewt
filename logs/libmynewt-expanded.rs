@@ -11891,24 +11891,19 @@ pub mod spi {
                                      os::os_sem>([0;
                                                      ::core::mem::size_of::<os::os_sem>()])
         };
+    /// MBuf Queue that contains the SPI data packets to be sent
     static mut SPI_DATA_QUEUE: os::os_mqueue =
         unsafe {
             ::core::mem::transmute::<[u8; ::core::mem::size_of::<os::os_mqueue>()],
                                      os::os_mqueue>([0;
                                                         ::core::mem::size_of::<os::os_mqueue>()])
         };
+    /// Event Queue that contains the pending non-blocking SPI requests
     static mut SPI_EVENT_QUEUE: os::os_eventq =
         unsafe {
             ::core::mem::transmute::<[u8; ::core::mem::size_of::<os::os_eventq>()],
                                      os::os_eventq>([0;
                                                         ::core::mem::size_of::<os::os_eventq>()])
-        };
-    /// Callout that is invoked when non-blocking SPI transfer is completed
-    static mut spi_callout: os::os_callout =
-        unsafe {
-            ::core::mem::transmute::<[u8; ::core::mem::size_of::<os::os_callout>()],
-                                     os::os_callout>([0;
-                                                         ::core::mem::size_of::<os::os_callout>()])
         };
     ///  Storage for SPI Task: Mynewt task object will be saved here.
     static mut SPI_TASK: os::os_task =
@@ -11956,7 +11951,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           66u32, 5u32))
+                                                           69u32, 5u32))
                         }
                     }
                 }
@@ -11998,7 +11993,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           70u32, 5u32))
+                                                           73u32, 5u32))
                         }
                     }
                 }
@@ -12035,7 +12030,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           73u32, 5u32))
+                                                           76u32, 5u32))
                         }
                     }
                 }
@@ -12072,7 +12067,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           76u32, 5u32))
+                                                           79u32, 5u32))
                         }
                     }
                 }
@@ -12114,7 +12109,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           81u32, 5u32))
+                                                           84u32, 5u32))
                         }
                     }
                 }
@@ -12151,7 +12146,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           84u32, 5u32))
+                                                           87u32, 5u32))
                         }
                     }
                 }
@@ -12163,14 +12158,17 @@ pub mod spi {
                       os::OS_WAIT_FOREVER as u32,
                       unsafe { &mut SPI_TASK_STACK },
                       SPI_TASK_STACK_SIZE as u16)?;
-        unsafe {
-            os::os_callout_init(&mut spi_callout, os::eventq_dflt_get()?,
-                                Some(spi_noblock_callback),
-                                core::ptr::null_mut())
-        };
         Ok(())
     }
-    /// Callback for the touch event that is triggered when a touch is detected
+    /// SPI Task Function.  Process each SPI request posted to our Event Queue.  When there are no events to process, sleep until one arrives.
+    extern "C" fn spi_task_func(_arg: Ptr) {
+        loop  {
+            os::eventq_run(unsafe {
+                               &mut SPI_EVENT_QUEUE
+                           }).expect("eventq fail");
+        }
+    }
+    /// Callback for the event that is triggered when an SPI request is added to the queue.
     extern "C" fn spi_event_callback(_event: *mut os::os_event) {
         loop  {
             let om = unsafe { os::os_mqueue_get(&mut SPI_DATA_QUEUE) };
@@ -12184,21 +12182,11 @@ pub mod spi {
             unsafe { os::os_mbuf_free_chain(om) };
         }
     }
-    extern "C" fn spi_task_func(_arg: Ptr) {
-        loop  {
-            os::eventq_run(unsafe {
-                               &mut SPI_EVENT_QUEUE
-                           }).expect("eventq fail");
-        }
-    }
     /// Called by interrupt handler after Non-blocking SPI transfer has completed
     extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void,
                                       _len: i32) {
         unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
-        unsafe { os::os_callout_reset(&mut spi_callout, 0) };
     }
-    /// Callout after Non-blocking SPI transfer as completed
-    extern "C" fn spi_noblock_callback(_ev: *mut os::os_event) { }
 }
 ///  Initialise the Mynewt system.  Start the Mynewt drivers and libraries.  Equivalent to `sysinit()` macro in C.
 pub fn sysinit() { unsafe { rust_sysinit(); } sys::console::flush(); }
