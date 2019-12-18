@@ -13,12 +13,13 @@ use mynewt_macros::{
 //  TODO: Remove SPI settings for ST7789 display controller
 const DISPLAY_SPI: i32  =  0;  //  Mynewt SPI port 0
 const DISPLAY_CS: i32   = 25;  //  LCD_CS (P0.25): Chip select
-//  const DISPLAY_DC: i32   = 18;  //  LCD_RS (P0.18): Clock/data pin (CD)
+const DISPLAY_DC: i32   = 18;  //  LCD_RS (P0.18): Clock/data pin (CD)
 //  const DISPLAY_RST: i32  = 26;  //  LCD_RESET (P0.26): Display reset
 //  const DISPLAY_HIGH: i32 = 23;  //  LCD_BACKLIGHT_{LOW,MID,HIGH} (P0.14, 22, 23): Backlight (active low)
 
-const SPI_NUM: i32 = DISPLAY_SPI;
+const SPI_NUM: i32    = DISPLAY_SPI;
 const SPI_SS_PIN: i32 = DISPLAY_CS;
+const SPI_DC_PIN: i32 = DISPLAY_DC;
 
 /// SPI settings for ST7789 display controller
 static mut SPI_SETTINGS: hal::hal_spi_settings = hal::hal_spi_settings {
@@ -81,6 +82,7 @@ pub fn spi_noblock_init() -> MynewtResult<()> {
     //  Enable SPI port and set SS to high to disable SPI device
     let rc = unsafe { hal::hal_spi_enable(SPI_NUM) }; assert_eq!(rc, 0, "spi enable fail");  //  TODO: Map to MynewtResult
     let rc = unsafe { hal::hal_gpio_init_out(SPI_SS_PIN, 1) }; assert_eq!(rc, 0, "gpio fail");  //  TODO: Map to MynewtResult
+    let rc = unsafe { hal::hal_gpio_init_out(SPI_DC_PIN, 1) }; assert_eq!(rc, 0, "gpio fail");  //  TODO: Map to MynewtResult
 
     //  Create Event Queue and Mbuf (Data) Queue that will store the pending SPI requests
     unsafe { os::os_eventq_init(&mut SPI_EVENT_QUEUE) };
@@ -120,17 +122,18 @@ extern "C" fn spi_task_func(_arg: Ptr) {
 }
 
 /// Enqueue request for non-blocking SPI write. Returns without waiting for write to complete.
-pub fn spi_noblock_write(words: &[u8]) -> MynewtResult<()> {
+/// First byte of the data must be a Command Byte, followed by Data Bytes.
+pub fn spi_noblock_write(data: &[u8]) -> MynewtResult<()> {
     //  Allocate a new mbuf to copy the data to be sent.
-    let mbuf = unsafe { os::os_msys_get_pkthdr(words.len() as u16, 0) };
+    let mbuf = unsafe { os::os_msys_get_pkthdr(data.len() as u16, 0) };
     assert!(!mbuf.is_null(), "mbuf fail");
     if mbuf.is_null() { return Err(MynewtError::SYS_ENOMEM); }  //  If out of memory, quit.
 
     //  Append the request data to the mbuf chain.  This may increase the number of mbufs in the chain.
     let rc = unsafe { os::os_mbuf_append(
         mbuf, 
-        core::mem::transmute(words.as_ptr()), 
-        words.len() as u16
+        core::mem::transmute(data.as_ptr()), 
+        data.len() as u16
     ) };
     assert_eq!(rc, 0, "append fail");  //  TODO: Remove this
     if rc != 0 { return Err(MynewtError::SYS_ENOMEM); }  //  If out of memory, quit.
@@ -153,27 +156,34 @@ extern "C" fn spi_event_callback(_event: *mut os::os_event) {
         let om = unsafe { os::os_mqueue_get(&mut SPI_DATA_QUEUE) };
         if om.is_null() { break; }
 
-        //  TODO: Handle command vs data bytes. First byte is always command byte.
+        //  Send the mbuf chain.
         let mut m = om;
         let mut first_byte = true;
         while !m.is_null() {  //  For each mbuf in the chain...
-            if first_byte {
-                //  TODO: Send command byte.
-                first_byte = false;
-            }
             let data = unsafe { (*m).om_data };  //  Fetch the data
             let len = unsafe { (*m).om_len };    //  Fetch the length
-
-            //  Write the mbuf
-            internal_spi_noblock_write(
-                unsafe { core::mem::transmute(data) }, 
-                len as i32
-            ).expect("int spi fail");
-
-            //  Wait for spi_noblock_handler() to signal that SPI request has been completed. Timeout in 1 second.
-            let timeout = 1000;
-            unsafe { os::os_sem_pend(&mut SPI_SEM, timeout * OS_TICKS_PER_SEC / 1000) };
-
+            if first_byte {  //  First byte of the mbuf chain is always command byte
+                first_byte = false;
+                //  Write the command byte
+                internal_spi_noblock_write(
+                    unsafe { core::mem::transmute(data) }, 
+                    1 as i32,
+                    true
+                ).expect("int spi fail");
+                //  Write the rest of the data, after the command byte
+                internal_spi_noblock_write(
+                    unsafe { core::mem::transmute(data.add(1)) }, 
+                    (len - 1) as i32,
+                    false
+                ).expect("int spi fail");
+            } else {  //  Second and subsequently mbufs in the chain are all data bytes
+                //  Write the data
+                internal_spi_noblock_write(
+                    unsafe { core::mem::transmute(data) }, 
+                    len as i32,
+                    false
+                ).expect("int spi fail");
+            }
             m = unsafe { (*m).om_next.sle_next };  //  Fetch next mbuf in the chain.
         }
         //  Free the entire mbuf chain.
@@ -181,9 +191,18 @@ extern "C" fn spi_event_callback(_event: *mut os::os_event) {
     }
 }
 
-/// Perform non-blocking SPI write.  Returns without waiting for write to complete.
-fn internal_spi_noblock_write(txbuffer: Ptr, txlen: i32) -> MynewtResult<()> {
+/// Perform non-blocking SPI write.  Blocks until SPI write completes.
+fn internal_spi_noblock_write(txbuffer: Ptr, txlen: i32, is_command: bool) -> MynewtResult<()> {
+    if txlen == 0 { return Ok(()); }
     unsafe { SPI_CALLBACK.txlen = txlen };
+    assert!(txlen > 0, "bad spi len");
+
+    //  If this is a command byte, set DC to low, else set DC to high.
+    unsafe { hal::hal_gpio_write(
+        SPI_DC_PIN,
+        if is_command { 0 }
+        else { 1 }
+    ) };
     //  Set the SS Pin to low to start the transfer.
     unsafe { hal::hal_gpio_write(SPI_SS_PIN, 0) };
 
@@ -194,6 +213,10 @@ fn internal_spi_noblock_write(txbuffer: Ptr, txlen: i32) -> MynewtResult<()> {
         NULL,     //  RX Buffer (don't receive)        
         txlen) };
     assert_eq!(rc, 0, "spi fail");  //  TODO: Map to MynewtResult
+
+    //  Wait for spi_noblock_handler() to signal that SPI request has been completed. Timeout in 1 second.
+    let timeout = 1000;
+    unsafe { os::os_sem_pend(&mut SPI_SEM, timeout * OS_TICKS_PER_SEC / 1000) };
     Ok(())
 }
 

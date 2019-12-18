@@ -11864,8 +11864,10 @@ pub mod spi {
     use mynewt_macros::{init_strn};
     const DISPLAY_SPI: i32 = 0;
     const DISPLAY_CS: i32 = 25;
+    const DISPLAY_DC: i32 = 18;
     const SPI_NUM: i32 = DISPLAY_SPI;
     const SPI_SS_PIN: i32 = DISPLAY_CS;
+    const SPI_DC_PIN: i32 = DISPLAY_DC;
     /// SPI settings for ST7789 display controller
     static mut SPI_SETTINGS: hal::hal_spi_settings =
         hal::hal_spi_settings{data_order: hal::HAL_SPI_MSB_FIRST as u8,
@@ -11946,7 +11948,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           72u32, 74u32))
+                                                           73u32, 74u32))
                         }
                     }
                 }
@@ -11988,7 +11990,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           79u32, 5u32))
+                                                           80u32, 5u32))
                         }
                     }
                 }
@@ -12025,7 +12027,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           82u32, 55u32))
+                                                           83u32, 55u32))
                         }
                     }
                 }
@@ -12062,7 +12064,44 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           83u32, 64u32))
+                                                           84u32, 64u32))
+                        }
+                    }
+                }
+            }
+        };
+        let rc = unsafe { hal::hal_gpio_init_out(SPI_DC_PIN, 1) };
+        {
+            match (&(rc), &(0)) {
+                (left_val, right_val) => {
+                    if !(*left_val == *right_val) {
+                        {
+                            ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                          "`,\n right: `",
+                                                                                          "`: "],
+                                                                                        &match (&&*left_val,
+                                                                                                &&*right_val,
+                                                                                                &::core::fmt::Arguments::new_v1(&["gpio fail"],
+                                                                                                                                &match ()
+                                                                                                                                     {
+                                                                                                                                     ()
+                                                                                                                                     =>
+                                                                                                                                     [],
+                                                                                                                                 }))
+                                                                                             {
+                                                                                             (arg0,
+                                                                                              arg1,
+                                                                                              arg2)
+                                                                                             =>
+                                                                                             [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                           ::core::fmt::Debug::fmt),
+                                                                                              ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                           ::core::fmt::Debug::fmt),
+                                                                                              ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                           ::core::fmt::Display::fmt)],
+                                                                                         }),
+                                                         &("rust/mynewt/src/spi.rs",
+                                                           85u32, 64u32))
                         }
                     }
                 }
@@ -12104,7 +12143,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           92u32, 5u32))
+                                                           94u32, 5u32))
                         }
                     }
                 }
@@ -12141,7 +12180,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           96u32, 5u32))
+                                                           98u32, 5u32))
                         }
                     }
                 }
@@ -12164,20 +12203,21 @@ pub mod spi {
         }
     }
     /// Enqueue request for non-blocking SPI write. Returns without waiting for write to complete.
-    pub fn spi_noblock_write(words: &[u8]) -> MynewtResult<()> {
-        let mbuf = unsafe { os::os_msys_get_pkthdr(words.len() as u16, 0) };
+    /// First byte of the data must be a Command Byte, followed by Data Bytes.
+    pub fn spi_noblock_write(data: &[u8]) -> MynewtResult<()> {
+        let mbuf = unsafe { os::os_msys_get_pkthdr(data.len() as u16, 0) };
         if !!mbuf.is_null() {
             {
                 ::core::panicking::panic(&("mbuf fail",
-                                           "rust/mynewt/src/spi.rs", 126u32,
+                                           "rust/mynewt/src/spi.rs", 129u32,
                                            5u32))
             }
         };
         if mbuf.is_null() { return Err(MynewtError::SYS_ENOMEM); }
         let rc =
             unsafe {
-                os::os_mbuf_append(mbuf, core::mem::transmute(words.as_ptr()),
-                                   words.len() as u16)
+                os::os_mbuf_append(mbuf, core::mem::transmute(data.as_ptr()),
+                                   data.len() as u16)
             };
         {
             match (&(rc), &(0)) {
@@ -12209,7 +12249,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           135u32, 5u32))
+                                                           138u32, 5u32))
                         }
                     }
                 }
@@ -12251,7 +12291,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           144u32, 5u32))
+                                                           147u32, 5u32))
                         }
                     }
                 }
@@ -12268,27 +12308,44 @@ pub mod spi {
             let mut m = om;
             let mut first_byte = true;
             while !m.is_null() {
-                if first_byte { first_byte = false; }
                 let data = unsafe { (*m).om_data };
                 let len = unsafe { (*m).om_len };
-                internal_spi_noblock_write(unsafe {
-                                               core::mem::transmute(data)
-                                           },
-                                           len as i32).expect("int spi fail");
-                let timeout = 1000;
-                unsafe {
-                    os::os_sem_pend(&mut SPI_SEM,
-                                    timeout * OS_TICKS_PER_SEC / 1000)
-                };
+                if first_byte {
+                    first_byte = false;
+                    internal_spi_noblock_write(unsafe {
+                                                   core::mem::transmute(data)
+                                               }, 1 as i32,
+                                               true).expect("int spi fail");
+                    internal_spi_noblock_write(unsafe {
+                                                   core::mem::transmute(data.add(1))
+                                               }, (len - 1) as i32,
+                                               false).expect("int spi fail");
+                } else {
+                    internal_spi_noblock_write(unsafe {
+                                                   core::mem::transmute(data)
+                                               }, len as i32,
+                                               false).expect("int spi fail");
+                }
                 m = unsafe { (*m).om_next.sle_next };
             }
             unsafe { os::os_mbuf_free_chain(om) };
         }
     }
-    /// Perform non-blocking SPI write.  Returns without waiting for write to complete.
-    fn internal_spi_noblock_write(txbuffer: Ptr, txlen: i32)
+    /// Perform non-blocking SPI write.  Blocks until SPI write completes.
+    fn internal_spi_noblock_write(txbuffer: Ptr, txlen: i32, is_command: bool)
      -> MynewtResult<()> {
+        if txlen == 0 { return Ok(()); }
         unsafe { SPI_CALLBACK.txlen = txlen };
+        if !(txlen > 0) {
+            {
+                ::core::panicking::panic(&("bad spi len",
+                                           "rust/mynewt/src/spi.rs", 198u32,
+                                           5u32))
+            }
+        };
+        unsafe {
+            hal::hal_gpio_write(SPI_DC_PIN, if is_command { 0 } else { 1 })
+        };
         unsafe { hal::hal_gpio_write(SPI_SS_PIN, 0) };
         let rc =
             unsafe {
@@ -12324,11 +12381,15 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           196u32, 5u32))
+                                                           215u32, 5u32))
                         }
                     }
                 }
             }
+        };
+        let timeout = 1000;
+        unsafe {
+            os::os_sem_pend(&mut SPI_SEM, timeout * OS_TICKS_PER_SEC / 1000)
         };
         Ok(())
     }
@@ -12367,7 +12428,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           207u32, 5u32))
+                                                           230u32, 5u32))
                         }
                     }
                 }
