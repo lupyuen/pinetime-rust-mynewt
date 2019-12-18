@@ -69,7 +69,12 @@ pub fn spi_noblock_init() -> MynewtResult<()> {
     //  Configure SPI port for non-blocking SPI
     let rc = unsafe { hal::hal_spi_config(SPI_NUM, &mut SPI_SETTINGS) }; assert_eq!(rc, 0, "spi config fail");  //  TODO: Map to MynewtResult
     let arg = unsafe { core::mem::transmute(&mut spi_cb_obj) };
-    let rc = unsafe { hal::hal_spi_set_txrx_cb(SPI_NUM, Some(spi_noblock_handler), arg) }; assert_eq!(rc, 0, "spi cb fail");  //  TODO: Map to MynewtResult
+    let rc = unsafe { hal::hal_spi_set_txrx_cb(
+        SPI_NUM, 
+        Some(spi_noblock_handler), 
+        arg
+    ) };
+    assert_eq!(rc, 0, "spi cb fail");  //  TODO: Map to MynewtResult
 
     //  Enable SPI port and set SS to high to disable SPI device
     let rc = unsafe { hal::hal_spi_enable(SPI_NUM) }; assert_eq!(rc, 0, "spi enable fail");  //  TODO: Map to MynewtResult
@@ -77,7 +82,12 @@ pub fn spi_noblock_init() -> MynewtResult<()> {
 
     //  Create Event Queue and Mbuf (Data) Queue that will store the pending SPI requests
     unsafe { os::os_eventq_init(&mut SPI_EVENT_QUEUE) };
-    let rc = unsafe { os::os_mqueue_init(&mut SPI_DATA_QUEUE, Some(spi_event_callback), NULL) }; assert_eq!(rc, 0, "mqueue fail");  //  TODO: Map to MynewtResult
+    let rc = unsafe { os::os_mqueue_init(
+        &mut SPI_DATA_QUEUE, 
+        Some(spi_event_callback), 
+        NULL
+    ) };
+    assert_eq!(rc, 0, "mqueue fail");  //  TODO: Map to MynewtResult
 
     //  Create the Semaphore that will signal whether the SPI request has completed
     let rc = unsafe { os::os_sem_init(&mut SPI_SEM, 0) };  //  Init to 0 tokens, so caller will block until SPI request is completed.
@@ -97,9 +107,10 @@ pub fn spi_noblock_init() -> MynewtResult<()> {
     Ok(())
 }
 
-/// SPI Task Function.  Process each SPI request posted to our Event Queue.  When there are no events to process, sleep until one arrives.
+/// SPI Task Function.  Execute sequentially each SPI request posted to our Event Queue.  When there are no requests to process, block until one arrives.
 extern "C" fn spi_task_func(_arg: Ptr) {
     loop {
+        //  Forever read SPI requests and execute them
         os::eventq_run(
             unsafe { &mut SPI_EVENT_QUEUE }
         ).expect("eventq fail");
@@ -107,17 +118,29 @@ extern "C" fn spi_task_func(_arg: Ptr) {
 }
 
 /// Enqueue request for non-blocking SPI write. Returns without waiting for write to complete.
-#[cfg(feature = "spi_noblock")]
 pub fn spi_noblock_write(words: &[u8]) -> MynewtResult<()> {
-    //  TODO: Add to request queue. Make a copy of the data to be sent.
-    //  let mbuf = os_msys_get_pkthdr(words.len(), 0);
-    //  if (!mbuf) { return; }  //  If out of memory, quit.
+    //  Allocate a new mbuf to copy the data to be sent.
+    let mbuf = unsafe { os::os_msys_get_pkthdr(words.len() as u16, 0) };
+    assert!(!mbuf.is_null(), "mbuf fail");
+    if mbuf.is_null() { return Err(MynewtError::SYS_ENOMEM); }  //  If out of memory, quit.
 
-    //  TODO: Append the data to the mbuf chain.  This may increase the numbere of mbufs in the chain.
-    //  rc = os_mbuf_append(mbuf, works, length);
-    //  if (rc) { return; }  //  If out of memory, quit.
-    //  rc = os_mqueue_put(&SPI_DATA_QUEUE, &SPI_EVENT_QUEUE, om);
-    //  if (rc) { return; }  //  If out of memory, quit.
+    //  Append the request data to the mbuf chain.  This may increase the number of mbufs in the chain.
+    let rc = unsafe { os::os_mbuf_append(
+        mbuf, 
+        core::mem::transmute(words.as_ptr()), 
+        words.len() as u16
+    ) };
+    assert_eq!(rc, 0, "append fail");  //  TODO: Remove this
+    if rc != 0 { return Err(MynewtError::SYS_ENOMEM); }  //  If out of memory, quit.
+
+    //  Add the mbuf to the SPI Mbuf Queue and trigger an event in the SPI Event Queue.
+    let rc = unsafe { os::os_mqueue_put(
+        &mut SPI_DATA_QUEUE, 
+        &mut SPI_EVENT_QUEUE, 
+        mbuf
+    ) };
+    assert_eq!(rc, 0, "put fail");  //  TODO: Remove this
+    if rc != 0 { return Err(MynewtError::SYS_EUNKNOWN); }  //  If out of memory, quit.
     Ok(())
 }
 
@@ -142,7 +165,6 @@ extern "C" fn spi_event_callback(_event: *mut os::os_event) {
 }
 
 /// Perform non-blocking SPI write.  Returns without waiting for write to complete.
-#[cfg(feature = "spi_noblock")]
 fn internal_spi_noblock_write(txbuffer: Ptr, txlen: i32) -> MynewtResult<()> {
     unsafe { spi_cb_obj.txlen = txlen };
     //  Set the SS Pin to low to start the transfer.
@@ -163,9 +185,9 @@ extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
     //  Set SS Pin to high to stop the transfer.
     unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
 
-    //  TODO: Signal to internal_spi_noblock_write() that SPI request has been completed.
-    //  os_error_t rc = os_sem_release(&SPI_SEM);
-    //  assert(rc == OS_OK);
+    //  Signal to internal_spi_noblock_write() that SPI request has been completed.
+    let rc = unsafe { os::os_sem_release(&mut SPI_SEM) };
+    assert_eq!(rc, 0, "sem fail");
 }
 
 /* mbuf
