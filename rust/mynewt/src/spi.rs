@@ -1,13 +1,13 @@
 //!  Experimental Non-Blocking SPI Transfer API
 use crate::{
+    self as mynewt,
     result::*,
     hw::hal,
-    kernel::os::{
-        self,
-        os_callout,
-        os_task,
-    },
-    Out, Strn,
+    kernel::os,
+    NULL, Ptr, Strn,
+};
+use mynewt_macros::{
+    init_strn,
 };
 
 //  TODO: Remove SPI settings for ST7789 display controller
@@ -42,11 +42,16 @@ static mut spi_cb_obj: spi_cb_arg = spi_cb_arg {
     tx_rx_bytes: 0,
 };
 
+/// Semaphore that is signalled for every completed SPI request
+static mut SPI_SEM: os::os_sem = fill_zero!(os::os_sem);
+static mut SPI_DATA_QUEUE: os::os_mqueue = fill_zero!(os::os_mqueue);
+static mut SPI_EVENT_QUEUE: os::os_eventq = fill_zero!(os::os_eventq);
+
 /// Callout that is invoked when non-blocking SPI transfer is completed
-static mut spi_callout: os_callout = fill_zero!(os_callout);
+static mut spi_callout: os::os_callout = fill_zero!(os::os_callout);
 
 ///  Storage for SPI Task: Mynewt task object will be saved here.
-static mut SPI_TASK: os_task = fill_zero!(os_task);
+static mut SPI_TASK: os::os_task = fill_zero!(os::os_task);
 ///  Stack space for SPI Task, initialised to 0.
 static mut SPI_TASK_STACK: [os::os_stack_t; SPI_TASK_STACK_SIZE] = 
     [0; SPI_TASK_STACK_SIZE];
@@ -70,27 +75,23 @@ pub fn spi_noblock_init() -> MynewtResult<()> {
     let rc = unsafe { hal::hal_gpio_init_out(SPI_SS_PIN, 1) };
     assert_eq!(rc, 0, "gpio fail");  //  TODO: Map to MynewtResult
 
-    /*
-    struct os_mqueue rxpkt_q;
-    struct os_eventq my_task_evq;
-    os_eventq_init(&my_task_evq);
-    os_mqueue_init(&rxpkt_q, NULL);
+    unsafe { os::os_eventq_init(&mut SPI_EVENT_QUEUE) };
 
-    os_sem _rx_sem;     //  Semaphore that is signalled for every byte received.
-    os_error_t rc = os_sem_init(&_rx_sem, 0);  //  Init to 0 tokens, so caller will block until data is available.
-    assert(rc == OS_OK);
+    unsafe { os::os_mqueue_init(&mut SPI_DATA_QUEUE, Some(spi_event_callback), NULL) };
 
-    task_init(                  //  Create a new task and start it...
-        Out!( SPI_TASK ),       //  Task object will be saved here
-        Strn!( "spi" ),         //  Name of task
-        Some( spi_task_func ),  //  Function to execute when task starts
+    let rc = unsafe { os::os_sem_init(&mut SPI_SEM, 0) };  //  Init to 0 tokens, so caller will block until data is available.
+    assert_eq!(rc, 0, "sem fail");  //  TODO: Map to MynewtResult
+
+    os::task_init(                //  Create a new task and start it...
+        unsafe { &mut SPI_TASK }, //  Task object will be saved here
+        &init_strn!( "spi" ),     //  Name of task
+        Some( spi_task_func ),    //  Function to execute when task starts
         NULL,  //  Argument to be passed to above function
         10,    //  Task priority: highest is 0, lowest is 255 (main task is 127)
-        os::OS_WAIT_FOREVER as u32,   //  Don't do sanity / watchdog checking
-        Out!( SPI_TASK_STACK ),       //  Stack space for the task
-        SPI_TASK_STACK_SIZE as u16    //  Size of the stack (in 4-byte units)
-    ) ? ;                             //  `?` means check for error
-    */
+        os::OS_WAIT_FOREVER as u32,     //  Don't do sanity / watchdog checking
+        unsafe { &mut SPI_TASK_STACK }, //  Stack space for the task
+        SPI_TASK_STACK_SIZE as u16      //  Size of the stack (in 4-byte units)
+    ) ? ;                               //  `?` means check for error
 
     //  Init the callout to handle completed SPI transfers.
     unsafe {
@@ -116,7 +117,7 @@ pub fn spi_noblock_write(words: &[u8]) -> MynewtResult<()> {
     //  rc = os_mbuf_append(semihost_mbuf, buffer, length);
     //  if (rc) { return; }  //  If out of memory, quit.
 
-    //  rc = os_mqueue_put(&rxpkt_q, &my_task_evq, om);
+    //  rc = os_mqueue_put(&SPI_DATA_QUEUE, &SPI_EVENT_QUEUE, om);
     //  if (rc) { return; }  //  If out of memory, quit.
 
     Ok(())
@@ -124,7 +125,7 @@ pub fn spi_noblock_write(words: &[u8]) -> MynewtResult<()> {
 
 /// Perform non-blocking SPI write.  Returns without waiting for write to complete.
 #[cfg(feature = "spi_noblock")]
-fn internal_spi_noblock_write(txbuffer: *mut core::ffi::c_void, txlen: i32) -> MynewtResult<()> {
+fn internal_spi_noblock_write(txbuffer: Ptr, txlen: i32) -> MynewtResult<()> {
     unsafe { spi_cb_obj.txlen = txlen };
     //  Set the SS Pin to low to start the transfer.
     unsafe { hal::hal_gpio_write(SPI_SS_PIN, 0) };
@@ -132,29 +133,43 @@ fn internal_spi_noblock_write(txbuffer: *mut core::ffi::c_void, txlen: i32) -> M
     //  Write the SPI data.
     let rc = unsafe { hal::hal_spi_txrx_noblock(
         SPI_NUM, 
-        txbuffer,               //  TX Buffer
-        core::ptr::null_mut(),  //  RX Buffer (don't receive)        
+        txbuffer, //  TX Buffer
+        NULL,     //  RX Buffer (don't receive)        
         txlen) };
     assert_eq!(rc, 0, "spi fail");  //  TODO: Map to MynewtResult
 
     //  Wait for spi_noblock_handler() to signal that SPI request has been completed.
-    //  os_sem_pend(&_rx_sem, timeout * OS_TICKS_PER_SEC / 1000);
+    //  os_sem_pend(&SPI_SEM, timeout * OS_TICKS_PER_SEC / 1000);
     Ok(())
 }
 
+/// Callback for the touch event that is triggered when a touch is detected
+extern "C" fn spi_event_callback(_event: *mut os::os_event) {
 /*
+    struct os_mbuf *om;
+
+    while ((om = os_mqueue_get(&SPI_DATA_QUEUE)) != NULL) {
+        ++pkts_rxd;
+        os_mbuf_free_chain(om);
+    }
+*/
+}
+
 // Process each event posted to our eventq.  When there are no events to process, sleep until one arrives.
-void spi_task_func(void *arg) {
-    while (1) {
-        os_eventq_run(&my_task_evq);
+extern "C" fn spi_task_func(_arg: Ptr) {
+    loop {
+        os::eventq_run(
+            unsafe { &mut SPI_EVENT_QUEUE }
+        ).expect("eventq fail");
     }
 }
 
+/*
 // Removes each packet from the receive queue and processes it.
 void process_rx_data_queue(void) {
     struct os_mbuf *om;
 
-    while ((om = os_mqueue_get(&rxpkt_q)) != NULL) {
+    while ((om = os_mqueue_get(&SPI_DATA_QUEUE)) != NULL) {
         ++pkts_rxd;
         os_mbuf_free_chain(om);
     }
@@ -170,7 +185,7 @@ extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
     unsafe { os::os_callout_reset(&mut spi_callout, 0) };
 
     //  Signal to internal_spi_noblock_write() that SPI request has been completed.
-    //  os_error_t rc = os_sem_release(&_rx_sem);
+    //  os_error_t rc = os_sem_release(&SPI_SEM);
     //  assert(rc == OS_OK);
 }
 
@@ -226,8 +241,8 @@ extern "C" fn spi_noblock_callback(_ev: *mut os::os_event) {
 
 /* mqueue
     uint32_t pkts_rxd;
-    struct os_mqueue rxpkt_q;
-    struct os_eventq my_task_evq;
+    struct os_mqueue SPI_DATA_QUEUE;
+    struct os_eventq SPI_EVENT_QUEUE;
 
     // Removes each packet from the receive queue and processes it.
     void
@@ -235,7 +250,7 @@ extern "C" fn spi_noblock_callback(_ev: *mut os::os_event) {
     {
         struct os_mbuf *om;
 
-        while ((om = os_mqueue_get(&rxpkt_q)) != NULL) {
+        while ((om = os_mqueue_get(&SPI_DATA_QUEUE)) != NULL) {
             ++pkts_rxd;
             os_mbuf_free_chain(om);
         }
@@ -248,7 +263,7 @@ extern "C" fn spi_noblock_callback(_ev: *mut os::os_event) {
         int rc;
 
         // Enqueue the received packet and wake up the listening task.
-        rc = os_mqueue_put(&rxpkt_q, &my_task_evq, om);
+        rc = os_mqueue_put(&SPI_DATA_QUEUE, &SPI_EVENT_QUEUE, om);
         if (rc != 0) {
             return -1;
         }
@@ -264,14 +279,14 @@ extern "C" fn spi_noblock_callback(_ev: *mut os::os_event) {
         int rc;
 
         // Initialize eventq
-        os_eventq_init(&my_task_evq);
+        os_eventq_init(&SPI_EVENT_QUEUE);
 
         // Initialize mqueue
-        os_mqueue_init(&rxpkt_q, NULL);
+        os_mqueue_init(&SPI_DATA_QUEUE, NULL);
 
         // Process each event posted to our eventq.  When there are no events to process, sleep until one arrives.
         while (1) {
-            os_eventq_run(&my_task_evq);
+            os_eventq_run(&SPI_EVENT_QUEUE);
         }
     }
 */

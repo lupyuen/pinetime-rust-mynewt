@@ -6,43 +6,43 @@
 //  Utility Macros
 
 ///  Return a const struct that has all fields set to 0. Used for initialising static mutable structs like `os_task`.
-///  `fill_zero!(os_task)` expands to
+///  `fill_zero!(os::os_task)` expands to
 ///  ```
 /// unsafe { 
 ///	::core::mem::transmute::
 ///	<
 ///	  [
 ///		u8; 
-///		::core::mem::size_of::<os_task>()
+///		::core::mem::size_of::<os::os_task>()
 ///	  ], 
-///	  os_task
+///	  os::os_task
 ///	>
 ///	(
 ///	  [
 ///		0; 
-///		::core::mem::size_of::<os_task>()
+///		::core::mem::size_of::<os::os_task>()
 ///	  ]
 ///	) 
 /// }
 ///  ```
 #[macro_export]
 macro_rules! fill_zero {
-  ($type:ident) => {
+  ($($tts:tt)*) => {
     unsafe { 
-        ::core::mem::transmute::
-        <
-        [
-            u8; 
-            ::core::mem::size_of::<$type>()
-        ], 
-        $type
-        >
-        (
-        [
-            0; 
-            ::core::mem::size_of::<$type>()
-        ]
-        ) 
+      ::core::mem::transmute::
+      <
+      [
+          u8; 
+          ::core::mem::size_of::<$($tts)*>()
+      ], 
+      $($tts)*
+      >
+      (
+      [
+          0; 
+          ::core::mem::size_of::<$($tts)*>()
+      ]
+      ) 
     }      
   };
 }

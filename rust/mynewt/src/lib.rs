@@ -241,7 +241,7 @@ pub type Out<T> = &'static mut T;
 pub type Ptr = *mut ::cty::c_void;
 
 ///  Declare a `NULL` pointer that will be passed to C functions
-pub const NULL: Ptr = 0 as Ptr;
+pub const NULL: Ptr = core::ptr::null_mut();
 
 ///  Import the custom interop helper library at `libs/mynewt_rust`
 #[link(name = "libs_mynewt_rust")]  //  Functions below are located in the Mynewt build output `libs_mynewt_rust.a`

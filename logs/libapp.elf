@@ -13787,7 +13787,7 @@ Relocation section '.rel.text._ZN3app10app_sensor21start_sensor_listener17h499c7
 00000046  0001722f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app10app_sensor13SENSOR_DEVICE17h2c816247f6d93e25E
 0000004a  00017230 R_ARM_THM_MOVT_ABS     00000000   _ZN3app10app_sensor13SENSOR_DEVICE17h2c816247f6d93e25E
 00000052  0001830a R_ARM_THM_CALL         00000000   _ZN6mynewt2hw6sensor8bindings16set_poll_rate_ms17hfc32a2e5182c6cc1E
-0000005c  0001870a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17he427c3daae7f9e0eE
+0000005c  0001860a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb6e112d1b567b34dE
 00000084  00017f0a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h5b01dfc32323494dE
 0000008e  0001850a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h9f0b2895ef3826ddE
 000000a0  00017d2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app11app_network21aggregate_sensor_data17h38cb1cce9e46670cE
@@ -13795,11 +13795,11 @@ Relocation section '.rel.text._ZN3app10app_sensor21start_sensor_listener17h499c7
 000000ac  0001712f R_ARM_THM_MOVW_ABS_NC  00000000   .Lanon.51d390867f75f259bdc23bebf7910bf0.4
 000000b0  00017130 R_ARM_THM_MOVT_ABS     00000000   .Lanon.51d390867f75f259bdc23bebf7910bf0.4
 000000bc  0001820a R_ARM_THM_CALL         00000000   _ZN6mynewt2hw6sensor19new_sensor_listener17hc9c9529fe0dba5c4E
-000000c6  0001860a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb7a7f4e391c52399E
+000000c6  0001870a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb7a7f4e391c52399E
 000000e4  00017f0a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h5b01dfc32323494dE
 000000ee  0001850a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h9f0b2895ef3826ddE
 00000128  0001810a R_ARM_THM_CALL         00000000   _ZN6mynewt2hw6sensor17register_listener17h5af529d7d0725b75E
-00000132  0001870a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17he427c3daae7f9e0eE
+00000132  0001860a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb6e112d1b567b34dE
 00000158  00017f0a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h5b01dfc32323494dE
 00000162  0001850a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h9f0b2895ef3826ddE
 
@@ -14798,8 +14798,8 @@ Symbol table '.symtab' contains 393 entries:
    387: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt2hw6sensor8bindings16set_poll_rate_ms17hfc32a2e5182c6cc1E
    388: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console5print17h972a9e9622d76f5aE
    389: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h9f0b2895ef3826ddE
-   390: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb7a7f4e391c52399E
-   391: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17he427c3daae7f9e0eE
+   390: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb6e112d1b567b34dE
+   391: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb7a7f4e391c52399E
    392: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN99_$LT$mynewt..hw..sensor_mgr..SensorsByDevname$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h571916aa3dbe0aa8E
 
 No version information found in this file.
@@ -19835,13 +19835,13 @@ Relocation section '.rel.text._ZN3app12touch_sensor18start_touch_sensor17h135ea8
 00000014  0001402f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor11TOUCH_RESET17h5bc57940d6ae8318E
 00000018  00014030 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor11TOUCH_RESET17h5bc57940d6ae8318E
 0000001e  0001760a R_ARM_THM_CALL         00000000   _ZN6mynewt3hal4GPIO4init17hf5f1984fe4e29a7cE
-00000028  00017a0a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17he427c3daae7f9e0eE
+00000028  00017a0a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb6e112d1b567b34dE
 00000050  0001720a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h5b01dfc32323494dE
 0000005a  0001790a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h9f0b2895ef3826ddE
 0000006a  0001402f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor11TOUCH_RESET17h5bc57940d6ae8318E
 0000006e  00014030 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor11TOUCH_RESET17h5bc57940d6ae8318E
 00000072  00017b0a R_ARM_THM_CALL         00000000   _ZN74_$LT$mynewt..hal..GPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h0b84ba831847fa43E
-0000007c  00017a0a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17he427c3daae7f9e0eE
+0000007c  00017a0a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb6e112d1b567b34dE
 000000a2  0001720a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h5b01dfc32323494dE
 000000ac  0001790a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h9f0b2895ef3826ddE
 000000b6  00013e2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor11TOUCH_DELAY17hb3ac4feedfebc988E
@@ -19850,7 +19850,7 @@ Relocation section '.rel.text._ZN3app12touch_sensor18start_touch_sensor17h135ea8
 000000c6  0001402f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor11TOUCH_RESET17h5bc57940d6ae8318E
 000000ca  00014030 R_ARM_THM_MOVT_ABS     00000000   _ZN3app12touch_sensor11TOUCH_RESET17h5bc57940d6ae8318E
 000000ce  00017c0a R_ARM_THM_CALL         00000000   _ZN74_$LT$mynewt..hal..GPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h998e476930e3e595E
-000000d8  00017a0a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17he427c3daae7f9e0eE
+000000d8  00017a0a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb6e112d1b567b34dE
 000000fe  0001720a R_ARM_THM_CALL         00000000   _ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17h5b01dfc32323494dE
 00000108  0001790a R_ARM_THM_CALL         00000000   _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h9f0b2895ef3826ddE
 00000112  00013e2f R_ARM_THM_MOVW_ABS_NC  00000000   _ZN3app12touch_sensor11TOUCH_DELAY17hb3ac4feedfebc988E
@@ -21194,7 +21194,7 @@ Symbol table '.symtab' contains 389 entries:
    375: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt3sys7console5print17h972a9e9622d76f5aE
    376: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN6mynewt6kernel2os15eventq_dflt_get17h4d8f6c55485386a3E
    377: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h9f0b2895ef3826ddE
-   378: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17he427c3daae7f9e0eE
+   378: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb6e112d1b567b34dE
    379: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN74_$LT$mynewt..hal..GPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h0b84ba831847fa43E
    380: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN74_$LT$mynewt..hal..GPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h998e476930e3e595E
    381: 00000000     0 NOTYPE  GLOBAL DEFAULT  UND _ZN87_$LT$mynewt..hal..Delay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h3c5f01aff4c2cd9fE

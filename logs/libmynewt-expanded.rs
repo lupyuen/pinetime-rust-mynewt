@@ -9588,34 +9588,34 @@ pub mod util {
         //!  This works with Rust compiler versions 1.30 and later.  See https://doc.rust-lang.org/stable/edition-guide/rust-2018/macros/macro-changes.html
         //!  To see the expanded macros: `cargo rustc -- -Z unstable-options --pretty expanded`
         ///  Return a const struct that has all fields set to 0. Used for initialising static mutable structs like `os_task`.
-        ///  `fill_zero!(os_task)` expands to
+        ///  `fill_zero!(os::os_task)` expands to
         ///  ```
         /// unsafe { 
         ///	::core::mem::transmute::
         ///	<
         ///	  [
         ///		u8; 
-        ///		::core::mem::size_of::<os_task>()
+        ///		::core::mem::size_of::<os::os_task>()
         ///	  ], 
-        ///	  os_task
+        ///	  os::os_task
         ///	>
         ///	(
         ///	  [
         ///		0; 
-        ///		::core::mem::size_of::<os_task>()
+        ///		::core::mem::size_of::<os::os_task>()
         ///	  ]
         ///	) 
         /// }
         ///  ```
         #[macro_export]
-        macro_rules! fill_zero(( $ type : ident ) => {
+        macro_rules! fill_zero(( $ ( $ tts : tt ) * ) => {
                                unsafe {
                                :: core :: mem :: transmute :: < [
-                               u8 ; :: core :: mem :: size_of :: < $ type > (
-                               ) ] , $ type > (
+                               u8 ; :: core :: mem :: size_of :: < $ ( $ tts )
+                               * > (  ) ] , $ ( $ tts ) * > (
                                [
-                               0 ; :: core :: mem :: size_of :: < $ type > (
-                               ) ] ) } } ;);
+                               0 ; :: core :: mem :: size_of :: < $ ( $ tts )
+                               * > (  ) ] ) } } ;);
         ///  Macro that takes an identifier and returns a `[u8]` containing the identifier, terminated by 0.
         ///  Used to convert an identifier to a C null-terminated string.
         #[macro_export]
@@ -11859,7 +11859,9 @@ mod hal {
 pub use hal::{Delay, GPIO, SPI};
 pub mod spi {
     //!  Experimental Non-Blocking SPI Transfer API
-    use crate::{result::*, hw::hal, kernel::os::{self, os_callout}};
+    use crate::{self as mynewt, result::*, hw::hal, kernel::os, NULL, Ptr,
+                Strn};
+    use mynewt_macros::{init_strn};
     const DISPLAY_SPI: i32 = 0;
     const DISPLAY_CS: i32 = 25;
     const DISPLAY_DC: i32 = 18;
@@ -11882,13 +11884,44 @@ pub mod spi {
     /// Non-blocking SPI transfer callback values
     static mut spi_cb_obj: spi_cb_arg =
         spi_cb_arg{transfers: 0, txlen: 0, tx_rx_bytes: 0,};
-    /// Callout that is invoked when non-blocking SPI transfer is completed
-    static mut spi_callout: os_callout =
+    /// Semaphore that is signalled for every completed SPI request
+    static mut SPI_SEM: os::os_sem =
         unsafe {
-            ::core::mem::transmute::<[u8; ::core::mem::size_of::<os_callout>()],
-                                     os_callout>([0;
-                                                     ::core::mem::size_of::<os_callout>()])
+            ::core::mem::transmute::<[u8; ::core::mem::size_of::<os::os_sem>()],
+                                     os::os_sem>([0;
+                                                     ::core::mem::size_of::<os::os_sem>()])
         };
+    static mut SPI_DATA_QUEUE: os::os_mqueue =
+        unsafe {
+            ::core::mem::transmute::<[u8; ::core::mem::size_of::<os::os_mqueue>()],
+                                     os::os_mqueue>([0;
+                                                        ::core::mem::size_of::<os::os_mqueue>()])
+        };
+    static mut SPI_EVENT_QUEUE: os::os_eventq =
+        unsafe {
+            ::core::mem::transmute::<[u8; ::core::mem::size_of::<os::os_eventq>()],
+                                     os::os_eventq>([0;
+                                                        ::core::mem::size_of::<os::os_eventq>()])
+        };
+    /// Callout that is invoked when non-blocking SPI transfer is completed
+    static mut spi_callout: os::os_callout =
+        unsafe {
+            ::core::mem::transmute::<[u8; ::core::mem::size_of::<os::os_callout>()],
+                                     os::os_callout>([0;
+                                                         ::core::mem::size_of::<os::os_callout>()])
+        };
+    ///  Storage for SPI Task: Mynewt task object will be saved here.
+    static mut SPI_TASK: os::os_task =
+        unsafe {
+            ::core::mem::transmute::<[u8; ::core::mem::size_of::<os::os_task>()],
+                                     os::os_task>([0;
+                                                      ::core::mem::size_of::<os::os_task>()])
+        };
+    ///  Stack space for SPI Task, initialised to 0.
+    static mut SPI_TASK_STACK: [os::os_stack_t; SPI_TASK_STACK_SIZE] =
+        [0; SPI_TASK_STACK_SIZE];
+    ///  Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
+    const SPI_TASK_STACK_SIZE: usize = 256;
     /// Init non-blocking SPI transfer
     pub fn spi_noblock_init() -> MynewtResult<()> {
         unsafe { hal::hal_spi_disable(SPI_NUM) };
@@ -11923,7 +11956,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           51u32, 5u32))
+                                                           66u32, 5u32))
                         }
                     }
                 }
@@ -11965,7 +11998,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           55u32, 5u32))
+                                                           70u32, 5u32))
                         }
                     }
                 }
@@ -12002,7 +12035,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           58u32, 5u32))
+                                                           73u32, 5u32))
                         }
                     }
                 }
@@ -12039,31 +12072,18 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           61u32, 5u32))
+                                                           76u32, 5u32))
                         }
                     }
                 }
             }
         };
+        unsafe { os::os_eventq_init(&mut SPI_EVENT_QUEUE) };
         unsafe {
-            os::os_callout_init(&mut spi_callout, os::eventq_dflt_get()?,
-                                Some(spi_noblock_callback),
-                                core::ptr::null_mut())
+            os::os_mqueue_init(&mut SPI_DATA_QUEUE, Some(spi_event_callback),
+                               NULL)
         };
-        Ok(())
-    }
-    /// Enqueue request for non-blocking SPI write. Returns without waiting for write to complete.
-    pub fn spi_noblock_write(words: &[u8]) -> MynewtResult<()> { Ok(()) }
-    /// Perform non-blocking SPI write.  Returns without waiting for write to complete.
-    fn internal_spi_noblock_write(txbuffer: *mut core::ffi::c_void,
-                                  txlen: i32) -> MynewtResult<()> {
-        unsafe { spi_cb_obj.txlen = txlen };
-        unsafe { hal::hal_gpio_write(SPI_SS_PIN, 0) };
-        let rc =
-            unsafe {
-                hal::hal_spi_txrx_noblock(SPI_NUM, txbuffer,
-                                          core::ptr::null_mut(), txlen)
-            };
+        let rc = unsafe { os::os_sem_init(&mut SPI_SEM, 0) };
         {
             match (&(rc), &(0)) {
                 (left_val, right_val) => {
@@ -12074,7 +12094,7 @@ pub mod spi {
                                                                                           "`: "],
                                                                                         &match (&&*left_val,
                                                                                                 &&*right_val,
-                                                                                                &::core::fmt::Arguments::new_v1(&["spi fail"],
+                                                                                                &::core::fmt::Arguments::new_v1(&["sem fail"],
                                                                                                                                 &match ()
                                                                                                                                      {
                                                                                                                                      ()
@@ -12094,21 +12114,37 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           95u32, 5u32))
+                                                           83u32, 5u32))
                         }
                     }
                 }
             }
         };
+        os::task_init(unsafe { &mut SPI_TASK },
+                      &Strn{rep: mynewt::StrnRep::ByteStr(b"spi\x00"),},
+                      Some(spi_task_func), NULL, 10,
+                      os::OS_WAIT_FOREVER as u32,
+                      unsafe { &mut SPI_TASK_STACK },
+                      SPI_TASK_STACK_SIZE as u16)?;
+        unsafe {
+            os::os_callout_init(&mut spi_callout, os::eventq_dflt_get()?,
+                                Some(spi_noblock_callback),
+                                core::ptr::null_mut())
+        };
         Ok(())
     }
-    /// Called by interrupt handler after Non-blocking SPI transfer
+    /// Callback for the touch event that is triggered when a touch is detected
+    extern "C" fn spi_event_callback(_event: *mut os::os_event) { }
+    extern "C" fn spi_task_func(_arg: Ptr) {
+        loop  { os::eventq_run(unsafe { &mut SPI_EVENT_QUEUE }); }
+    }
+    /// Called by interrupt handler after Non-blocking SPI transfer has completed
     extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void,
                                       _len: i32) {
         unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
         unsafe { os::os_callout_reset(&mut spi_callout, 0) };
     }
-    /// Callout after Non-blocking SPI transfer
+    /// Callout after Non-blocking SPI transfer as completed
     extern "C" fn spi_noblock_callback(_ev: *mut os::os_event) { }
 }
 ///  Initialise the Mynewt system.  Start the Mynewt drivers and libraries.  Equivalent to `sysinit()` macro in C.
@@ -12547,7 +12583,7 @@ pub type Out<T> = &'static mut T;
 ///  Declare a `void *` pointer that will be passed to C functions
 pub type Ptr = *mut ::cty::c_void;
 ///  Declare a `NULL` pointer that will be passed to C functions
-pub const NULL: Ptr = 0 as Ptr;
+pub const NULL: Ptr = core::ptr::null_mut();
 ///  Import the custom interop helper library at `libs/mynewt_rust`
 #[link(name = "libs_mynewt_rust")]
 extern "C" {

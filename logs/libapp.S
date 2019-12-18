@@ -8736,8 +8736,8 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 _ZN6mynewt2hw6sensor8bindings16set_poll_rate_ms17hfc32a2e5182c6cc1E
 00000000         *UND*	00000000 _ZN6mynewt3sys7console5print17h972a9e9622d76f5aE
 00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h9f0b2895ef3826ddE
+00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb6e112d1b567b34dE
 00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb7a7f4e391c52399E
-00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17he427c3daae7f9e0eE
 00000000         *UND*	00000000 _ZN99_$LT$mynewt..hw..sensor_mgr..SensorsByDevname$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h571916aa3dbe0aa8E
 
 
@@ -8797,7 +8797,7 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   56:	9008      	str	r0, [sp, #32]
   58:	e7ff      	b.n	5a <_ZN3app10app_sensor21start_sensor_listener17h499c7bf4afaa3c1fE+0x5a>
   5a:	9808      	ldr	r0, [sp, #32]
-  5c:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17he427c3daae7f9e0eE>
+  5c:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb6e112d1b567b34dE>
   60:	9011      	str	r0, [sp, #68]	; 0x44
   62:	e7ff      	b.n	64 <_ZN3app10app_sensor21start_sensor_listener17h499c7bf4afaa3c1fE+0x64>
   64:	9811      	ldr	r0, [sp, #68]	; 0x44
@@ -8905,7 +8905,7 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
  12c:	9003      	str	r0, [sp, #12]
  12e:	e7ff      	b.n	130 <_ZN3app10app_sensor21start_sensor_listener17h499c7bf4afaa3c1fE+0x130>
  130:	9803      	ldr	r0, [sp, #12]
- 132:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17he427c3daae7f9e0eE>
+ 132:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb6e112d1b567b34dE>
  136:	9033      	str	r0, [sp, #204]	; 0xcc
  138:	e7ff      	b.n	13a <_ZN3app10app_sensor21start_sensor_listener17h499c7bf4afaa3c1fE+0x13a>
  13a:	9833      	ldr	r0, [sp, #204]	; 0xcc
@@ -12151,7 +12151,7 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 _ZN6mynewt3sys7console5print17h972a9e9622d76f5aE
 00000000         *UND*	00000000 _ZN6mynewt6kernel2os15eventq_dflt_get17h4d8f6c55485386a3E
 00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17h9f0b2895ef3826ddE
-00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17he427c3daae7f9e0eE
+00000000         *UND*	00000000 _ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb6e112d1b567b34dE
 00000000         *UND*	00000000 _ZN74_$LT$mynewt..hal..GPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$7set_low17h0b84ba831847fa43E
 00000000         *UND*	00000000 _ZN74_$LT$mynewt..hal..GPIO$u20$as$u20$embedded_hal..digital..v2..OutputPin$GT$8set_high17h998e476930e3e595E
 00000000         *UND*	00000000 _ZN87_$LT$mynewt..hal..Delay$u20$as$u20$embedded_hal..blocking..delay..DelayMs$LT$u8$GT$$GT$8delay_ms17h3c5f01aff4c2cd9fE
@@ -12196,7 +12196,7 @@ pub fn start_touch_sensor() -> MynewtResult<()> {
   22:	9010      	str	r0, [sp, #64]	; 0x40
   24:	e7ff      	b.n	26 <_ZN3app12touch_sensor18start_touch_sensor17h135ea805a84f3af9E+0x26>
   26:	9810      	ldr	r0, [sp, #64]	; 0x40
-  28:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17he427c3daae7f9e0eE>
+  28:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb6e112d1b567b34dE>
   2c:	9012      	str	r0, [sp, #72]	; 0x48
   2e:	e7ff      	b.n	30 <_ZN3app12touch_sensor18start_touch_sensor17h135ea805a84f3af9E+0x30>
   30:	9812      	ldr	r0, [sp, #72]	; 0x48
@@ -12245,7 +12245,7 @@ pub fn start_touch_sensor() -> MynewtResult<()> {
   76:	900d      	str	r0, [sp, #52]	; 0x34
   78:	e7ff      	b.n	7a <_ZN3app12touch_sensor18start_touch_sensor17h135ea805a84f3af9E+0x7a>
   7a:	980d      	ldr	r0, [sp, #52]	; 0x34
-  7c:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17he427c3daae7f9e0eE>
+  7c:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb6e112d1b567b34dE>
   80:	9015      	str	r0, [sp, #84]	; 0x54
   82:	e7ff      	b.n	84 <_ZN3app12touch_sensor18start_touch_sensor17h135ea805a84f3af9E+0x84>
   84:	9815      	ldr	r0, [sp, #84]	; 0x54
@@ -12286,7 +12286,7 @@ pub fn start_touch_sensor() -> MynewtResult<()> {
   d2:	900a      	str	r0, [sp, #40]	; 0x28
   d4:	e7ff      	b.n	d6 <_ZN3app12touch_sensor18start_touch_sensor17h135ea805a84f3af9E+0xd6>
   d6:	980a      	ldr	r0, [sp, #40]	; 0x28
-  d8:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17he427c3daae7f9e0eE>
+  d8:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17hb6e112d1b567b34dE>
   dc:	9018      	str	r0, [sp, #96]	; 0x60
   de:	e7ff      	b.n	e0 <_ZN3app12touch_sensor18start_touch_sensor17h135ea805a84f3af9E+0xe0>
   e0:	9818      	ldr	r0, [sp, #96]	; 0x60
