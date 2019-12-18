@@ -12079,9 +12079,46 @@ pub mod spi {
             }
         };
         unsafe { os::os_eventq_init(&mut SPI_EVENT_QUEUE) };
-        unsafe {
-            os::os_mqueue_init(&mut SPI_DATA_QUEUE, Some(spi_event_callback),
-                               NULL)
+        let rc =
+            unsafe {
+                os::os_mqueue_init(&mut SPI_DATA_QUEUE,
+                                   Some(spi_event_callback), NULL)
+            };
+        {
+            match (&(rc), &(0)) {
+                (left_val, right_val) => {
+                    if !(*left_val == *right_val) {
+                        {
+                            ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                          "`,\n right: `",
+                                                                                          "`: "],
+                                                                                        &match (&&*left_val,
+                                                                                                &&*right_val,
+                                                                                                &::core::fmt::Arguments::new_v1(&["mqueue fail"],
+                                                                                                                                &match ()
+                                                                                                                                     {
+                                                                                                                                     ()
+                                                                                                                                     =>
+                                                                                                                                     [],
+                                                                                                                                 }))
+                                                                                             {
+                                                                                             (arg0,
+                                                                                              arg1,
+                                                                                              arg2)
+                                                                                             =>
+                                                                                             [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                           ::core::fmt::Debug::fmt),
+                                                                                              ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                           ::core::fmt::Debug::fmt),
+                                                                                              ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                           ::core::fmt::Display::fmt)],
+                                                                                         }),
+                                                         &("rust/mynewt/src/spi.rs",
+                                                           81u32, 5u32))
+                        }
+                    }
+                }
+            }
         };
         let rc = unsafe { os::os_sem_init(&mut SPI_SEM, 0) };
         {
@@ -12114,7 +12151,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           83u32, 5u32))
+                                                           84u32, 5u32))
                         }
                     }
                 }
@@ -12134,9 +12171,25 @@ pub mod spi {
         Ok(())
     }
     /// Callback for the touch event that is triggered when a touch is detected
-    extern "C" fn spi_event_callback(_event: *mut os::os_event) { }
+    extern "C" fn spi_event_callback(_event: *mut os::os_event) {
+        loop  {
+            let om = unsafe { os::os_mqueue_get(&mut SPI_DATA_QUEUE) };
+            if om.is_null() { break ; }
+            let timeout = 1000;
+            let OS_TICKS_PER_SEC = 1000;
+            unsafe {
+                os::os_sem_pend(&mut SPI_SEM,
+                                timeout * OS_TICKS_PER_SEC / 1000)
+            };
+            unsafe { os::os_mbuf_free_chain(om) };
+        }
+    }
     extern "C" fn spi_task_func(_arg: Ptr) {
-        loop  { os::eventq_run(unsafe { &mut SPI_EVENT_QUEUE }); }
+        loop  {
+            os::eventq_run(unsafe {
+                               &mut SPI_EVENT_QUEUE
+                           }).expect("eventq fail");
+        }
     }
     /// Called by interrupt handler after Non-blocking SPI transfer has completed
     extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void,

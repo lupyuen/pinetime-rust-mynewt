@@ -77,9 +77,10 @@ pub fn spi_noblock_init() -> MynewtResult<()> {
 
     unsafe { os::os_eventq_init(&mut SPI_EVENT_QUEUE) };
 
-    unsafe { os::os_mqueue_init(&mut SPI_DATA_QUEUE, Some(spi_event_callback), NULL) };
+    let rc = unsafe { os::os_mqueue_init(&mut SPI_DATA_QUEUE, Some(spi_event_callback), NULL) };
+    assert_eq!(rc, 0, "mqueue fail");  //  TODO: Map to MynewtResult
 
-    let rc = unsafe { os::os_sem_init(&mut SPI_SEM, 0) };  //  Init to 0 tokens, so caller will block until data is available.
+    let rc = unsafe { os::os_sem_init(&mut SPI_SEM, 0) };  //  Init to 0 tokens, so caller will block until SPI request is completed.
     assert_eq!(rc, 0, "sem fail");  //  TODO: Map to MynewtResult
 
     os::task_init(                //  Create a new task and start it...
@@ -137,22 +138,26 @@ fn internal_spi_noblock_write(txbuffer: Ptr, txlen: i32) -> MynewtResult<()> {
         NULL,     //  RX Buffer (don't receive)        
         txlen) };
     assert_eq!(rc, 0, "spi fail");  //  TODO: Map to MynewtResult
-
-    //  Wait for spi_noblock_handler() to signal that SPI request has been completed.
-    //  os_sem_pend(&SPI_SEM, timeout * OS_TICKS_PER_SEC / 1000);
     Ok(())
 }
 
 /// Callback for the touch event that is triggered when a touch is detected
 extern "C" fn spi_event_callback(_event: *mut os::os_event) {
-/*
-    struct os_mbuf *om;
+    loop {
+        //  Get the next data packet.
+        let om = unsafe { os::os_mqueue_get(&mut SPI_DATA_QUEUE) };
+        if om.is_null() { break; }
 
-    while ((om = os_mqueue_get(&SPI_DATA_QUEUE)) != NULL) {
-        ++pkts_rxd;
-        os_mbuf_free_chain(om);
+        //  TODO: Write the data packet
+
+        //  Wait for spi_noblock_handler() to signal that SPI request has been completed.
+        let timeout = 1000;
+        let OS_TICKS_PER_SEC = 1000;
+        unsafe { os::os_sem_pend(&mut SPI_SEM, timeout * OS_TICKS_PER_SEC / 1000) };
+
+        //  Free the data packet.
+        unsafe { os::os_mbuf_free_chain(om) };
     }
-*/
 }
 
 // Process each event posted to our eventq.  When there are no events to process, sleep until one arrives.
@@ -163,18 +168,6 @@ extern "C" fn spi_task_func(_arg: Ptr) {
         ).expect("eventq fail");
     }
 }
-
-/*
-// Removes each packet from the receive queue and processes it.
-void process_rx_data_queue(void) {
-    struct os_mbuf *om;
-
-    while ((om = os_mqueue_get(&SPI_DATA_QUEUE)) != NULL) {
-        ++pkts_rxd;
-        os_mbuf_free_chain(om);
-    }
-}
-*/
 
 /// Called by interrupt handler after Non-blocking SPI transfer has completed
 extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
