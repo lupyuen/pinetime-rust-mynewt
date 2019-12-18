@@ -45,7 +45,7 @@ static mut spi_cb_obj: spi_cb_arg = spi_cb_arg {
 /// Semaphore that is signalled for every completed SPI request
 static mut SPI_SEM: os::os_sem = fill_zero!(os::os_sem);
 
-/// MBuf Queue that contains the SPI data packets to be sent
+/// Mbuf Queue that contains the SPI data packets to be sent
 static mut SPI_DATA_QUEUE: os::os_mqueue = fill_zero!(os::os_mqueue);
 
 /// Event Queue that contains the pending non-blocking SPI requests
@@ -58,7 +58,7 @@ static mut SPI_TASK: os::os_task = fill_zero!(os::os_task);
 static mut SPI_TASK_STACK: [os::os_stack_t; SPI_TASK_STACK_SIZE] = 
     [0; SPI_TASK_STACK_SIZE];
 
-    ///  Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
+///  Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
 const SPI_TASK_STACK_SIZE: usize = 256;
 
 /// Init non-blocking SPI transfer
@@ -113,11 +113,11 @@ extern "C" fn spi_task_func(_arg: Ptr) {
 #[cfg(feature = "spi_noblock")]
 pub fn spi_noblock_write(words: &[u8]) -> MynewtResult<()> {
     //  TODO: Add to request queue. Make a copy of the data to be sent.
-    //  let semihost_mbuf = os_msys_get_pkthdr(words.len(), 0);
-    //  if (!semihost_mbuf) { return; }  //  If out of memory, quit.
+    //  let mbuf = os_msys_get_pkthdr(words.len(), 0);
+    //  if (!mbuf) { return; }  //  If out of memory, quit.
 
     //  TODO: Append the data to the mbuf chain.  This may increase the numbere of mbufs in the chain.
-    //  rc = os_mbuf_append(semihost_mbuf, buffer, length);
+    //  rc = os_mbuf_append(mbuf, works, length);
     //  if (rc) { return; }  //  If out of memory, quit.
     //  rc = os_mqueue_put(&SPI_DATA_QUEUE, &SPI_EVENT_QUEUE, om);
     //  if (rc) { return; }  //  If out of memory, quit.
@@ -172,17 +172,17 @@ extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
 }
 
 /* mbuf
-    static struct os_mbuf *semihost_mbuf = NULL;
+    static struct os_mbuf *mbuf = NULL;
 
     void console_flush(void) {
         //  Flush output buffer to the console log.  This will be slow.
         if (!log_enabled) { return; }       //  Skip if log not enabled.
-        if (!semihost_mbuf) { return; }     //  Buffer is empty, nothing to write.
+        if (!mbuf) { return; }     //  Buffer is empty, nothing to write.
         if (os_arch_in_isr()) { return; }   //  Don't flush if we are called during an interrupt.
 
         //  Swap mbufs first to prevent concurrency problems.
-        struct os_mbuf *old = semihost_mbuf;
-        semihost_mbuf = NULL;
+        struct os_mbuf *old = mbuf;
+        mbuf = NULL;
 
         struct os_mbuf *m = old;
         while (m) {  //  For each mbuf in the chain...
@@ -202,14 +202,14 @@ extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
         int rc;
         if (!log_enabled) { return; }           //  Skip if log not enabled.
         if (!debugger_connected()) { return; }  //  If debugger is not connected, quit.
-        if (!semihost_mbuf) {                   //  Allocate mbuf if not already allocated.
-            semihost_mbuf = os_msys_get_pkthdr(length, 0);
-            if (!semihost_mbuf) { return; }  //  If out of memory, quit.
+        if (!mbuf) {                   //  Allocate mbuf if not already allocated.
+            mbuf = os_msys_get_pkthdr(length, 0);
+            if (!mbuf) { return; }  //  If out of memory, quit.
         }
         //  Limit the buffer size.  Quit if too big.
-        if (os_mbuf_len(semihost_mbuf) + length >= OUTPUT_BUFFER_SIZE) { return; }
+        if (os_mbuf_len(mbuf) + length >= OUTPUT_BUFFER_SIZE) { return; }
         //  Append the data to the mbuf chain.  This may increase the numbere of mbufs in the chain.
-        rc = os_mbuf_append(semihost_mbuf, buffer, length);
+        rc = os_mbuf_append(mbuf, buffer, length);
         if (rc) { return; }  //  If out of memory, quit.
     #endif  //  DISABLE_SEMIHOSTING
     }
