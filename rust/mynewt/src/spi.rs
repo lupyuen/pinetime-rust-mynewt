@@ -13,9 +13,9 @@ use mynewt_macros::{
 //  TODO: Remove SPI settings for ST7789 display controller
 const DISPLAY_SPI: i32  =  0;  //  Mynewt SPI port 0
 const DISPLAY_CS: i32   = 25;  //  LCD_CS (P0.25): Chip select
-const DISPLAY_DC: i32   = 18;  //  LCD_RS (P0.18): Clock/data pin (CD)
-const DISPLAY_RST: i32  = 26;  //  LCD_RESET (P0.26): Display reset
-const DISPLAY_HIGH: i32 = 23;  //  LCD_BACKLIGHT_{LOW,MID,HIGH} (P0.14, 22, 23): Backlight (active low)
+//  const DISPLAY_DC: i32   = 18;  //  LCD_RS (P0.18): Clock/data pin (CD)
+//  const DISPLAY_RST: i32  = 26;  //  LCD_RESET (P0.26): Display reset
+//  const DISPLAY_HIGH: i32 = 23;  //  LCD_BACKLIGHT_{LOW,MID,HIGH} (P0.14, 22, 23): Backlight (active low)
 
 const SPI_NUM: i32 = DISPLAY_SPI;
 const SPI_SS_PIN: i32 = DISPLAY_CS;
@@ -28,18 +28,20 @@ static mut SPI_SETTINGS: hal::hal_spi_settings = hal::hal_spi_settings {
     word_size:  hal::HAL_SPI_WORD_SIZE_8BIT as u8,
 };
 
+const OS_TICKS_PER_SEC: u32 = 1000;  //  TODO: Remove this
+
 /// Non-blocking SPI transfer callback parameter
-struct spi_cb_arg {
-    transfers: i32,
+struct SpiCallback {
+    //  transfers: i32,
     txlen: i32,
-    tx_rx_bytes: u32,
+    //  tx_rx_bytes: u32,
 }
 
 /// Non-blocking SPI transfer callback values
-static mut spi_cb_obj: spi_cb_arg = spi_cb_arg {
-    transfers: 0,
+static mut SPI_CALLBACK: SpiCallback = SpiCallback {
+    //  transfers: 0,
     txlen: 0,
-    tx_rx_bytes: 0,
+    //  tx_rx_bytes: 0,
 };
 
 /// Semaphore that is signalled for every completed SPI request
@@ -68,7 +70,7 @@ pub fn spi_noblock_init() -> MynewtResult<()> {
 
     //  Configure SPI port for non-blocking SPI
     let rc = unsafe { hal::hal_spi_config(SPI_NUM, &mut SPI_SETTINGS) }; assert_eq!(rc, 0, "spi config fail");  //  TODO: Map to MynewtResult
-    let arg = unsafe { core::mem::transmute(&mut spi_cb_obj) };
+    let arg = unsafe { core::mem::transmute(&mut SPI_CALLBACK) };
     let rc = unsafe { hal::hal_spi_set_txrx_cb(
         SPI_NUM, 
         Some(spi_noblock_handler), 
@@ -147,26 +149,41 @@ pub fn spi_noblock_write(words: &[u8]) -> MynewtResult<()> {
 /// Callback for the event that is triggered when an SPI request is added to the queue.
 extern "C" fn spi_event_callback(_event: *mut os::os_event) {
     loop {
-        //  Get the next data packet.
+        //  Get the next data packet, stored as an mbuf chain.
         let om = unsafe { os::os_mqueue_get(&mut SPI_DATA_QUEUE) };
         if om.is_null() { break; }
 
-        //  TODO: Write the data packet
-        //  internal_spi_noblock_write(txbuffer: *mut core::ffi::c_void, txlen: i32);
+        //  TODO: Handle command vs data bytes. First byte is always command byte.
+        let mut m = om;
+        let mut first_byte = true;
+        while !m.is_null() {  //  For each mbuf in the chain...
+            if first_byte {
+                //  TODO: Send command byte.
+                first_byte = false;
+            }
+            let data = unsafe { (*m).om_data };  //  Fetch the data
+            let len = unsafe { (*m).om_len };    //  Fetch the length
 
-        //  Wait for spi_noblock_handler() to signal that SPI request has been completed.
-        let timeout = 1000;
-        let OS_TICKS_PER_SEC = 1000;
-        unsafe { os::os_sem_pend(&mut SPI_SEM, timeout * OS_TICKS_PER_SEC / 1000) };
+            //  Write the mbuf
+            internal_spi_noblock_write(
+                unsafe { core::mem::transmute(data) }, 
+                len as i32
+            ).expect("int spi fail");
 
-        //  Free the data packet.
+            //  Wait for spi_noblock_handler() to signal that SPI request has been completed. Timeout in 1 second.
+            let timeout = 1000;
+            unsafe { os::os_sem_pend(&mut SPI_SEM, timeout * OS_TICKS_PER_SEC / 1000) };
+
+            m = unsafe { (*m).om_next.sle_next };  //  Fetch next mbuf in the chain.
+        }
+        //  Free the entire mbuf chain.
         unsafe { os::os_mbuf_free_chain(om) };
     }
 }
 
 /// Perform non-blocking SPI write.  Returns without waiting for write to complete.
 fn internal_spi_noblock_write(txbuffer: Ptr, txlen: i32) -> MynewtResult<()> {
-    unsafe { spi_cb_obj.txlen = txlen };
+    unsafe { SPI_CALLBACK.txlen = txlen };
     //  Set the SS Pin to low to start the transfer.
     unsafe { hal::hal_gpio_write(SPI_SS_PIN, 0) };
 

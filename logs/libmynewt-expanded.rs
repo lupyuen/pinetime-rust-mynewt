@@ -11864,9 +11864,6 @@ pub mod spi {
     use mynewt_macros::{init_strn};
     const DISPLAY_SPI: i32 = 0;
     const DISPLAY_CS: i32 = 25;
-    const DISPLAY_DC: i32 = 18;
-    const DISPLAY_RST: i32 = 26;
-    const DISPLAY_HIGH: i32 = 23;
     const SPI_NUM: i32 = DISPLAY_SPI;
     const SPI_SS_PIN: i32 = DISPLAY_CS;
     /// SPI settings for ST7789 display controller
@@ -11875,15 +11872,13 @@ pub mod spi {
                               data_mode: hal::HAL_SPI_MODE3 as u8,
                               baudrate: 8000,
                               word_size: hal::HAL_SPI_WORD_SIZE_8BIT as u8,};
+    const OS_TICKS_PER_SEC: u32 = 1000;
     /// Non-blocking SPI transfer callback parameter
-    struct spi_cb_arg {
-        transfers: i32,
+    struct SpiCallback {
         txlen: i32,
-        tx_rx_bytes: u32,
     }
     /// Non-blocking SPI transfer callback values
-    static mut spi_cb_obj: spi_cb_arg =
-        spi_cb_arg{transfers: 0, txlen: 0, tx_rx_bytes: 0,};
+    static mut SPI_CALLBACK: SpiCallback = SpiCallback{txlen: 0,};
     /// Semaphore that is signalled for every completed SPI request
     static mut SPI_SEM: os::os_sem =
         unsafe {
@@ -11951,13 +11946,13 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           70u32, 74u32))
+                                                           72u32, 74u32))
                         }
                     }
                 }
             }
         };
-        let arg = unsafe { core::mem::transmute(&mut spi_cb_obj) };
+        let arg = unsafe { core::mem::transmute(&mut SPI_CALLBACK) };
         let rc =
             unsafe {
                 hal::hal_spi_set_txrx_cb(SPI_NUM, Some(spi_noblock_handler),
@@ -11993,7 +11988,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           77u32, 5u32))
+                                                           79u32, 5u32))
                         }
                     }
                 }
@@ -12030,7 +12025,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           80u32, 55u32))
+                                                           82u32, 55u32))
                         }
                     }
                 }
@@ -12067,7 +12062,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           81u32, 64u32))
+                                                           83u32, 64u32))
                         }
                     }
                 }
@@ -12109,7 +12104,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           90u32, 5u32))
+                                                           92u32, 5u32))
                         }
                     }
                 }
@@ -12146,7 +12141,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           94u32, 5u32))
+                                                           96u32, 5u32))
                         }
                     }
                 }
@@ -12174,7 +12169,7 @@ pub mod spi {
         if !!mbuf.is_null() {
             {
                 ::core::panicking::panic(&("mbuf fail",
-                                           "rust/mynewt/src/spi.rs", 125u32,
+                                           "rust/mynewt/src/spi.rs", 126u32,
                                            5u32))
             }
         };
@@ -12214,7 +12209,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           134u32, 5u32))
+                                                           135u32, 5u32))
                         }
                     }
                 }
@@ -12256,7 +12251,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           143u32, 5u32))
+                                                           144u32, 5u32))
                         }
                     }
                 }
@@ -12270,19 +12265,30 @@ pub mod spi {
         loop  {
             let om = unsafe { os::os_mqueue_get(&mut SPI_DATA_QUEUE) };
             if om.is_null() { break ; }
-            let timeout = 1000;
-            let OS_TICKS_PER_SEC = 1000;
-            unsafe {
-                os::os_sem_pend(&mut SPI_SEM,
-                                timeout * OS_TICKS_PER_SEC / 1000)
-            };
+            let mut m = om;
+            let mut first_byte = true;
+            while !m.is_null() {
+                if first_byte { first_byte = false; }
+                let data = unsafe { (*m).om_data };
+                let len = unsafe { (*m).om_len };
+                internal_spi_noblock_write(unsafe {
+                                               core::mem::transmute(data)
+                                           },
+                                           len as i32).expect("int spi fail");
+                let timeout = 1000;
+                unsafe {
+                    os::os_sem_pend(&mut SPI_SEM,
+                                    timeout * OS_TICKS_PER_SEC / 1000)
+                };
+                m = unsafe { (*m).om_next.sle_next };
+            }
             unsafe { os::os_mbuf_free_chain(om) };
         }
     }
     /// Perform non-blocking SPI write.  Returns without waiting for write to complete.
     fn internal_spi_noblock_write(txbuffer: Ptr, txlen: i32)
      -> MynewtResult<()> {
-        unsafe { spi_cb_obj.txlen = txlen };
+        unsafe { SPI_CALLBACK.txlen = txlen };
         unsafe { hal::hal_gpio_write(SPI_SS_PIN, 0) };
         let rc =
             unsafe {
@@ -12318,7 +12324,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           181u32, 5u32))
+                                                           196u32, 5u32))
                         }
                     }
                 }
@@ -12361,7 +12367,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           192u32, 5u32))
+                                                           207u32, 5u32))
                         }
                     }
                 }
