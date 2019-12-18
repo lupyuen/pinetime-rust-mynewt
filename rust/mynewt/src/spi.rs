@@ -33,15 +33,15 @@ const OS_TICKS_PER_SEC: u32 = 1000;  //  TODO: Remove this
 
 /// Non-blocking SPI transfer callback parameter
 struct SpiCallback {
-    //  transfers: i32,
     txlen: i32,
+    //  transfers: i32,
     //  tx_rx_bytes: u32,
 }
 
 /// Non-blocking SPI transfer callback values
 static mut SPI_CALLBACK: SpiCallback = SpiCallback {
-    //  transfers: 0,
     txlen: 0,
+    //  transfers: 0,
     //  tx_rx_bytes: 0,
 };
 
@@ -170,6 +170,17 @@ extern "C" fn spi_event_callback(_event: *mut os::os_event) {
                     1 as i32,
                     true
                 ).expect("int spi fail");
+
+                /* TODO: Delay for selected commands
+                self.write_command(Instruction::SWRESET, None)?;
+                delay.delay_ms(200);
+                
+                self.write_command(Instruction::SLPOUT, None)?;
+                delay.delay_ms(200);
+
+                self.write_command(Instruction::DISPON, None)?;
+                delay.delay_ms(200); */
+
                 //  Write the rest of the data, after the command byte
                 internal_spi_noblock_write(
                     unsafe { core::mem::transmute(data.add(1)) }, 
