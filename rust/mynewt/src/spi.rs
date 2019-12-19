@@ -36,15 +36,11 @@ const OS_TICKS_PER_SEC: u32 = 1000;
 /// Non-blocking SPI transfer callback parameter
 struct SpiCallback {
     txlen: i32,
-    //  transfers: i32,
-    //  tx_rx_bytes: u32,
 }
 
 /// Non-blocking SPI transfer callback values
 static mut SPI_CALLBACK: SpiCallback = SpiCallback {
     txlen: 0,
-    //  transfers: 0,
-    //  tx_rx_bytes: 0,
 };
 
 /// Semaphore that is signalled for every completed SPI request
@@ -268,8 +264,9 @@ fn internal_spi_noblock_write(txbuffer: Ptr, txlen: i32, is_command: bool) -> My
     if txlen == 0 { return Ok(()); }
     unsafe { SPI_CALLBACK.txlen = txlen };
     assert!(txlen > 0, "bad spi len");
+    cortex_m::asm::bkpt();  ////  Break here to inspect the SPI request
 
-    //  If this is a command byte, set DC to low, else set DC to high.
+    //  If this is a Command Byte, set DC Pin to low, else set DC Pin to high.
     unsafe { hal::hal_gpio_write(
         SPI_DC_PIN,
         if is_command { 0 }
