@@ -1,4 +1,5 @@
-//!  Experimental Non-Blocking SPI Transfer API
+//! Experimental Non-Blocking SPI Transfer API. Uses a background task to send SPI requests sequentially.
+//! Request data is copied into Mbuf Queues before transmitting. 
 use crate::{
     self as mynewt,
     result::*,
@@ -307,7 +308,7 @@ fn delay_ms(ms: u8) {
     unsafe { os::os_time_delay(delay_ticks) };
 }
 
-/* mbuf code in C
+/* Original mbuf code in C
     static struct os_mbuf *mbuf = NULL;
 
     void console_flush(void) {
@@ -351,7 +352,7 @@ fn delay_ms(ms: u8) {
     }
 */
 
-/* mqueue code in C
+/* Original mqueue code in C
     uint32_t pkts_rxd;
     struct os_mqueue SPI_DATA_QUEUE;
     struct os_eventq SPI_EVENT_QUEUE;
