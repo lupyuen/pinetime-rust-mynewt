@@ -122,13 +122,67 @@ extern "C" fn spi_task_func(_arg: Ptr) {
     }
 }
 
+/// Pending SPI Command Byte to be written
+static mut PENDING_CMD: heapless::Vec<u8, PendingCmdSize> = heapless::Vec(heapless::i::Vec::new());
+/// Pending SPI Data Bytes to be written
+static mut PENDING_DATA: heapless::Vec<u8, PendingDataSize> = heapless::Vec(heapless::i::Vec::new());
+/// Max size of pending Command Bytes
+type PendingCmdSize = heapless::consts::U1;
+/// Max size of pending Data Bytes
+type PendingDataSize = heapless::consts::U2048;
+
+/// Enqueue request for non-blocking SPI write for Command Byte. Returns without waiting for write to complete.
+pub fn spi_noblock_write_command(cmd: u8) -> MynewtResult<()> {
+    //  If there is a pending Command Byte, enqueue it.
+    if unsafe { PENDING_CMD.len() } > 0 {
+        spi_noblock_write_flush() ? ;
+    }
+    //  Set the pending Command Byte.
+    if unsafe { PENDING_CMD.push(cmd).is_err() } {
+        return Err(MynewtError::SYS_EINVAL);
+    }
+    Ok(())
+}
+
+/// Enqueue request for non-blocking SPI write for Data Bytes. Returns without waiting for write to complete.
+pub fn spi_noblock_write_data(data: &[u8]) -> MynewtResult<()> {
+    assert!(unsafe { PENDING_CMD.len() } > 0);  //  Must have Command Byte before Data Bytes
+    unsafe { PENDING_DATA.extend_from_slice(data) } ? ;
+    Ok(())
+}
+
+/// Enqueue request for non-blocking SPI write for Command Byte and Data Bytes. Returns without waiting for write to complete.
+pub fn spi_noblock_write_flush() -> MynewtResult<()> {
+    if let Err(e) = spi_noblock_write(
+        unsafe { PENDING_CMD[0] },  //  Command Byte
+        unsafe { &PENDING_DATA }    //  Data Bytes
+    ) {
+        unsafe { PENDING_CMD.clear() };
+        unsafe { PENDING_DATA.clear() };    
+        return Err(e);
+    }
+    unsafe { PENDING_CMD.clear() };
+    unsafe { PENDING_DATA.clear() };
+    Ok(())
+}
+
 /// Enqueue request for non-blocking SPI write. Returns without waiting for write to complete.
-/// First byte of the data must be a Command Byte, followed by Data Bytes.
-pub fn spi_noblock_write(data: &[u8]) -> MynewtResult<()> {
+/// First byte must be a Command Byte, followed by Data Bytes.
+fn spi_noblock_write(cmd: u8, data: &[u8]) -> MynewtResult<()> {
     //  Allocate a new mbuf to copy the data to be sent.
-    let mbuf = unsafe { os::os_msys_get_pkthdr(data.len() as u16, 0) };
+    let len = data.len() as u16 + 1;
+    let mbuf = unsafe { os::os_msys_get_pkthdr(len, 0) };
     assert!(!mbuf.is_null(), "mbuf fail");
     if mbuf.is_null() { return Err(MynewtError::SYS_ENOMEM); }  //  If out of memory, quit.
+
+    //  Append the request command to the mbuf chain.  This may increase the number of mbufs in the chain.
+    let rc = unsafe { os::os_mbuf_append(
+        mbuf, 
+        core::mem::transmute(&cmd), 
+        1
+    ) };
+    assert_eq!(rc, 0, "append fail");  //  TODO: Remove this
+    if rc != 0 { return Err(MynewtError::SYS_ENOMEM); }  //  If out of memory, quit.
 
     //  Append the request data to the mbuf chain.  This may increase the number of mbufs in the chain.
     let rc = unsafe { os::os_mbuf_append(
