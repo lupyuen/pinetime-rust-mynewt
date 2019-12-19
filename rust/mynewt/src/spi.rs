@@ -30,18 +30,15 @@ static mut SPI_SETTINGS: hal::hal_spi_settings = hal::hal_spi_settings {
     word_size:  hal::HAL_SPI_WORD_SIZE_8BIT as u8,
 };
 
-//  TODO: Get this constant from Mynewt
-const OS_TICKS_PER_SEC: u32 = 1000;
+/// Max size of pending Command Bytes
+type PendingCmdSize = heapless::consts::U1;
+/// Max size of pending Data Bytes
+type PendingDataSize = heapless::consts::U2048;
 
-/// Non-blocking SPI transfer callback parameter
-struct SpiCallback {
-    txlen: i32,
-}
-
-/// Non-blocking SPI transfer callback values
-static mut SPI_CALLBACK: SpiCallback = SpiCallback {
-    txlen: 0,
-};
+/// Pending SPI Command Byte to be written
+static mut PENDING_CMD: heapless::Vec<u8, PendingCmdSize> = heapless::Vec(heapless::i::Vec::new());
+/// Pending SPI Data Bytes to be written
+static mut PENDING_DATA: heapless::Vec<u8, PendingDataSize> = heapless::Vec(heapless::i::Vec::new());
 
 /// Semaphore that is signalled for every completed SPI request
 static mut SPI_SEM: os::os_sem = fill_zero!(os::os_sem);
@@ -62,6 +59,18 @@ static mut SPI_TASK_STACK: [os::os_stack_t; SPI_TASK_STACK_SIZE] =
 
 /// Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
 const SPI_TASK_STACK_SIZE: usize = 256;
+//  TODO: Get this constant from Mynewt
+const OS_TICKS_PER_SEC: u32 = 1000;
+
+/// Non-blocking SPI transfer callback parameter
+struct SpiCallback {
+    txlen: i32,
+}
+
+/// Non-blocking SPI transfer callback values
+static mut SPI_CALLBACK: SpiCallback = SpiCallback {
+    txlen: 0,
+};
 
 /// Init non-blocking SPI transfer
 pub fn spi_noblock_init() -> MynewtResult<()> {
@@ -119,15 +128,6 @@ extern "C" fn spi_task_func(_arg: Ptr) {
         ).expect("eventq fail");
     }
 }
-
-/// Pending SPI Command Byte to be written
-static mut PENDING_CMD: heapless::Vec<u8, PendingCmdSize> = heapless::Vec(heapless::i::Vec::new());
-/// Pending SPI Data Bytes to be written
-static mut PENDING_DATA: heapless::Vec<u8, PendingDataSize> = heapless::Vec(heapless::i::Vec::new());
-/// Max size of pending Command Bytes
-type PendingCmdSize = heapless::consts::U1;
-/// Max size of pending Data Bytes
-type PendingDataSize = heapless::consts::U2048;
 
 /// Set pending request for non-blocking SPI write for Command Byte. Returns without waiting for write to complete.
 pub fn spi_noblock_write_command(cmd: u8) -> MynewtResult<()> {
