@@ -179,7 +179,7 @@ fn spi_noblock_write(cmd: u8, data: &[u8]) -> MynewtResult<()> {
     assert!(!mbuf.is_null(), "mbuf fail");
     if mbuf.is_null() { return Err(MynewtError::SYS_ENOMEM); }  //  If out of memory, quit.
 
-    //  Append the Command Byte to the mbuf chain.  This may increase the number of mbufs in the chain.
+    //  Append the Command Byte to the mbuf chain.
     let rc = unsafe { os::os_mbuf_append(
         mbuf, 
         core::mem::transmute(&cmd), 
