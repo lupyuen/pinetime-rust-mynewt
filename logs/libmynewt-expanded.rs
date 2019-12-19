@@ -11868,7 +11868,7 @@ pub mod spi {
     const SPI_NUM: i32 = DISPLAY_SPI;
     const SPI_SS_PIN: i32 = DISPLAY_CS;
     const SPI_DC_PIN: i32 = DISPLAY_DC;
-    /// SPI settings for ST7789 display controller
+    /// TODO: Remove SPI settings for ST7789 display controller
     static mut SPI_SETTINGS: hal::hal_spi_settings =
         hal::hal_spi_settings{data_order: hal::HAL_SPI_MSB_FIRST as u8,
                               data_mode: hal::HAL_SPI_MODE3 as u8,
@@ -11888,7 +11888,7 @@ pub mod spi {
                                      os::os_sem>([0;
                                                      ::core::mem::size_of::<os::os_sem>()])
         };
-    /// Mbuf Queue that contains the SPI data packets to be sent
+    /// Mbuf Queue that contains the SPI data packets to be sent. Why did we use Mbuf Queue? Because it allows packets of various sizes to be copied efficiently.
     static mut SPI_DATA_QUEUE: os::os_mqueue =
         unsafe {
             ::core::mem::transmute::<[u8; ::core::mem::size_of::<os::os_mqueue>()],
@@ -11948,7 +11948,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           73u32, 74u32))
+                                                           74u32, 74u32))
                         }
                     }
                 }
@@ -11990,7 +11990,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           80u32, 5u32))
+                                                           81u32, 5u32))
                         }
                     }
                 }
@@ -12027,7 +12027,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           83u32, 55u32))
+                                                           84u32, 55u32))
                         }
                     }
                 }
@@ -12064,7 +12064,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           84u32, 64u32))
+                                                           85u32, 64u32))
                         }
                     }
                 }
@@ -12101,7 +12101,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           85u32, 64u32))
+                                                           86u32, 64u32))
                         }
                     }
                 }
@@ -12143,7 +12143,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           94u32, 5u32))
+                                                           95u32, 5u32))
                         }
                     }
                 }
@@ -12180,7 +12180,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           98u32, 5u32))
+                                                           99u32, 5u32))
                         }
                     }
                 }
@@ -12209,7 +12209,7 @@ pub mod spi {
         if !!mbuf.is_null() {
             {
                 ::core::panicking::panic(&("mbuf fail",
-                                           "rust/mynewt/src/spi.rs", 129u32,
+                                           "rust/mynewt/src/spi.rs", 130u32,
                                            5u32))
             }
         };
@@ -12249,7 +12249,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           138u32, 5u32))
+                                                           139u32, 5u32))
                         }
                     }
                 }
@@ -12291,7 +12291,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           147u32, 5u32))
+                                                           148u32, 5u32))
                         }
                     }
                 }
@@ -12316,6 +12316,10 @@ pub mod spi {
                                                    core::mem::transmute(data)
                                                }, 1 as i32,
                                                true).expect("int spi fail");
+                    if unsafe { *data } == 0x01 || unsafe { *data } == 0x11 ||
+                           unsafe { *data } == 0x29 {
+                        delay_ms(200);
+                    }
                     internal_spi_noblock_write(unsafe {
                                                    core::mem::transmute(data.add(1))
                                                }, (len - 1) as i32,
@@ -12339,7 +12343,7 @@ pub mod spi {
         if !(txlen > 0) {
             {
                 ::core::panicking::panic(&("bad spi len",
-                                           "rust/mynewt/src/spi.rs", 198u32,
+                                           "rust/mynewt/src/spi.rs", 208u32,
                                            5u32))
             }
         };
@@ -12381,7 +12385,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           215u32, 5u32))
+                                                           225u32, 5u32))
                         }
                     }
                 }
@@ -12428,12 +12432,17 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           230u32, 5u32))
+                                                           240u32, 5u32))
                         }
                     }
                 }
             }
         };
+    }
+    /// Sleep for the specified number of milliseconds
+    fn delay_ms(ms: u8) {
+        let delay_ticks = (ms as u32) * OS_TICKS_PER_SEC / 1000;
+        unsafe { os::os_time_delay(delay_ticks) };
     }
 }
 ///  Initialise the Mynewt system.  Start the Mynewt drivers and libraries.  Equivalent to `sysinit()` macro in C.

@@ -21,7 +21,7 @@ const SPI_NUM: i32    = DISPLAY_SPI;
 const SPI_SS_PIN: i32 = DISPLAY_CS;
 const SPI_DC_PIN: i32 = DISPLAY_DC;
 
-/// SPI settings for ST7789 display controller
+/// TODO: Remove SPI settings for ST7789 display controller
 static mut SPI_SETTINGS: hal::hal_spi_settings = hal::hal_spi_settings {
     data_order: hal::HAL_SPI_MSB_FIRST as u8,
     data_mode:  hal::HAL_SPI_MODE3 as u8,  //  SPI must be used in mode 3. Mode 0 (the default) won't work.
@@ -29,7 +29,8 @@ static mut SPI_SETTINGS: hal::hal_spi_settings = hal::hal_spi_settings {
     word_size:  hal::HAL_SPI_WORD_SIZE_8BIT as u8,
 };
 
-const OS_TICKS_PER_SEC: u32 = 1000;  //  TODO: Remove this
+//  TODO: Get this constant from Mynewt
+const OS_TICKS_PER_SEC: u32 = 1000;
 
 /// Non-blocking SPI transfer callback parameter
 struct SpiCallback {
@@ -48,7 +49,7 @@ static mut SPI_CALLBACK: SpiCallback = SpiCallback {
 /// Semaphore that is signalled for every completed SPI request
 static mut SPI_SEM: os::os_sem = fill_zero!(os::os_sem);
 
-/// Mbuf Queue that contains the SPI data packets to be sent
+/// Mbuf Queue that contains the SPI data packets to be sent. Why did we use Mbuf Queue? Because it allows packets of various sizes to be copied efficiently.
 static mut SPI_DATA_QUEUE: os::os_mqueue = fill_zero!(os::os_mqueue);
 
 /// Event Queue that contains the pending non-blocking SPI requests
@@ -151,8 +152,8 @@ pub fn spi_noblock_write(data: &[u8]) -> MynewtResult<()> {
 
 /// Callback for the event that is triggered when an SPI request is added to the queue.
 extern "C" fn spi_event_callback(_event: *mut os::os_event) {
-    loop {
-        //  Get the next data packet, stored as an mbuf chain.
+    loop {  //  For each mbuf chain found...
+        //  Get the next SPI request, stored as an mbuf chain.
         let om = unsafe { os::os_mqueue_get(&mut SPI_DATA_QUEUE) };
         if om.is_null() { break; }
 
@@ -171,15 +172,12 @@ extern "C" fn spi_event_callback(_event: *mut os::os_event) {
                     true
                 ).expect("int spi fail");
 
-                /* TODO: Delay for selected commands
-                self.write_command(Instruction::SWRESET, None)?;
-                delay.delay_ms(200);
-                
-                self.write_command(Instruction::SLPOUT, None)?;
-                delay.delay_ms(200);
-
-                self.write_command(Instruction::DISPON, None)?;
-                delay.delay_ms(200); */
+                //  These commands require a delay. TODO: Move to caller
+                if unsafe { *data } == 0x01 /* Instruction::SWRESET */ ||
+                    unsafe { *data } == 0x11 /* Instruction::SLPOUT */ ||
+                    unsafe { *data } == 0x29 /* Instruction::DISPON */ {
+                    delay_ms(200);
+                }
 
                 //  Write the rest of the data, after the command byte
                 internal_spi_noblock_write(
@@ -187,6 +185,7 @@ extern "C" fn spi_event_callback(_event: *mut os::os_event) {
                     (len - 1) as i32,
                     false
                 ).expect("int spi fail");
+
             } else {  //  Second and subsequently mbufs in the chain are all data bytes
                 //  Write the data
                 internal_spi_noblock_write(
@@ -241,7 +240,13 @@ extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
     assert_eq!(rc, 0, "sem fail");
 }
 
-/* mbuf
+/// Sleep for the specified number of milliseconds
+fn delay_ms(ms: u8) {
+    let delay_ticks = (ms as u32) * OS_TICKS_PER_SEC / 1000;
+    unsafe { os::os_time_delay(delay_ticks) };
+}
+
+/* mbuf code in C
     static struct os_mbuf *mbuf = NULL;
 
     void console_flush(void) {
@@ -285,7 +290,7 @@ extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
     }
 */
 
-/* mqueue
+/* mqueue code in C
     uint32_t pkts_rxd;
     struct os_mqueue SPI_DATA_QUEUE;
     struct os_eventq SPI_EVENT_QUEUE;
