@@ -49,7 +49,8 @@ static mut SPI_CALLBACK: SpiCallback = SpiCallback {
 /// Semaphore that is signalled for every completed SPI request
 static mut SPI_SEM: os::os_sem = fill_zero!(os::os_sem);
 
-/// Mbuf Queue that contains the SPI data packets to be sent. Why did we use Mbuf Queue? Because it allows packets of various sizes to be copied efficiently.
+/// Mbuf Queue that contains the SPI data packets to be sent. Why did use Mbuf Queue? 
+/// Because it's a Mynewt OS low-level buffer that allows packets of various sizes to be copied efficiently.
 static mut SPI_DATA_QUEUE: os::os_mqueue = fill_zero!(os::os_mqueue);
 
 /// Event Queue that contains the pending non-blocking SPI requests
@@ -85,7 +86,7 @@ pub fn spi_noblock_init() -> MynewtResult<()> {
     let rc = unsafe { hal::hal_gpio_init_out(SPI_SS_PIN, 1) }; assert_eq!(rc, 0, "gpio fail");  //  TODO: Map to MynewtResult
     let rc = unsafe { hal::hal_gpio_init_out(SPI_DC_PIN, 1) }; assert_eq!(rc, 0, "gpio fail");  //  TODO: Map to MynewtResult
 
-    //  Create Event Queue and Mbuf (Data) Queue that will store the pending SPI requests
+    //  Create Event Queue and Mbuf (Data) Queue that will store the SPI requests
     unsafe { os::os_eventq_init(&mut SPI_EVENT_QUEUE) };
     let rc = unsafe { os::os_mqueue_init(
         &mut SPI_DATA_QUEUE, 
@@ -131,12 +132,10 @@ type PendingCmdSize = heapless::consts::U1;
 /// Max size of pending Data Bytes
 type PendingDataSize = heapless::consts::U2048;
 
-/// Enqueue request for non-blocking SPI write for Command Byte. Returns without waiting for write to complete.
+/// Set pending request for non-blocking SPI write for Command Byte. Returns without waiting for write to complete.
 pub fn spi_noblock_write_command(cmd: u8) -> MynewtResult<()> {
     //  If there is a pending Command Byte, enqueue it.
-    if unsafe { PENDING_CMD.len() } > 0 {
-        spi_noblock_write_flush() ? ;
-    }
+    spi_noblock_write_flush() ? ;
     //  Set the pending Command Byte.
     if unsafe { PENDING_CMD.push(cmd).is_err() } {
         return Err(MynewtError::SYS_EINVAL);
@@ -144,38 +143,46 @@ pub fn spi_noblock_write_command(cmd: u8) -> MynewtResult<()> {
     Ok(())
 }
 
-/// Enqueue request for non-blocking SPI write for Data Bytes. Returns without waiting for write to complete.
+/// Set pending request for non-blocking SPI write for Data Bytes. Returns without waiting for write to complete.
 pub fn spi_noblock_write_data(data: &[u8]) -> MynewtResult<()> {
     assert!(unsafe { PENDING_CMD.len() } > 0);  //  Must have Command Byte before Data Bytes
+    //  Append Data Bytes to Pending Data Bytes.
     unsafe { PENDING_DATA.extend_from_slice(data) } ? ;
     Ok(())
 }
 
-/// Enqueue request for non-blocking SPI write for Command Byte and Data Bytes. Returns without waiting for write to complete.
+/// Enqueue any pending request for non-blocking SPI write for Command Byte and Data Bytes. Returns without waiting for write to complete.
 pub fn spi_noblock_write_flush() -> MynewtResult<()> {
+    //  If no pending request, quit.
+    if unsafe { PENDING_CMD.len() } == 0 &&
+        unsafe { PENDING_DATA.len() } == 0 {
+        return Ok(());
+    }
+    //  Enqueue the pending SPI request into the Mbuf Queue
     if let Err(e) = spi_noblock_write(
         unsafe { PENDING_CMD[0] },  //  Command Byte
         unsafe { &PENDING_DATA }    //  Data Bytes
-    ) {
+    ) {  //  In case of error, clear the pending request and return error.        
         unsafe { PENDING_CMD.clear() };
         unsafe { PENDING_DATA.clear() };    
         return Err(e);
     }
+    //  Else clear the pending request and return Ok.
     unsafe { PENDING_CMD.clear() };
     unsafe { PENDING_DATA.clear() };
     Ok(())
 }
 
 /// Enqueue request for non-blocking SPI write. Returns without waiting for write to complete.
-/// First byte must be a Command Byte, followed by Data Bytes.
+/// Request must have a Command Byte, followed by optional Data Bytes.
 fn spi_noblock_write(cmd: u8, data: &[u8]) -> MynewtResult<()> {
     //  Allocate a new mbuf to copy the data to be sent.
-    let len = data.len() as u16 + 1;
+    let len = data.len() as u16 + 1;  //  1 Command Byte + Multiple Data Bytes
     let mbuf = unsafe { os::os_msys_get_pkthdr(len, 0) };
     assert!(!mbuf.is_null(), "mbuf fail");
     if mbuf.is_null() { return Err(MynewtError::SYS_ENOMEM); }  //  If out of memory, quit.
 
-    //  Append the request command to the mbuf chain.  This may increase the number of mbufs in the chain.
+    //  Append the Command Byte to the mbuf chain.  This may increase the number of mbufs in the chain.
     let rc = unsafe { os::os_mbuf_append(
         mbuf, 
         core::mem::transmute(&cmd), 
@@ -184,7 +191,7 @@ fn spi_noblock_write(cmd: u8, data: &[u8]) -> MynewtResult<()> {
     assert_eq!(rc, 0, "append fail");  //  TODO: Remove this
     if rc != 0 { return Err(MynewtError::SYS_ENOMEM); }  //  If out of memory, quit.
 
-    //  Append the request data to the mbuf chain.  This may increase the number of mbufs in the chain.
+    //  Append the Data Bytes to the mbuf chain.  This may increase the number of mbufs in the chain.
     let rc = unsafe { os::os_mbuf_append(
         mbuf, 
         core::mem::transmute(data.as_ptr()), 
@@ -255,7 +262,7 @@ extern "C" fn spi_event_callback(_event: *mut os::os_event) {
     }
 }
 
-/// Perform non-blocking SPI write.  Blocks until SPI write completes.
+/// Perform non-blocking SPI write in Mynewt OS.  Blocks until SPI write completes.
 fn internal_spi_noblock_write(txbuffer: Ptr, txlen: i32, is_command: bool) -> MynewtResult<()> {
     if txlen == 0 { return Ok(()); }
     unsafe { SPI_CALLBACK.txlen = txlen };
