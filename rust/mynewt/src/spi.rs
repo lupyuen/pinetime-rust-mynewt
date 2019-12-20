@@ -5,6 +5,7 @@ use crate::{
     result::*,
     hw::hal,
     kernel::os,
+    sys::console,
     NULL, Ptr, Strn,
 };
 use mynewt_macros::{
@@ -176,8 +177,11 @@ fn spi_noblock_write(cmd: u8, data: &[u8]) -> MynewtResult<()> {
     //  Allocate a new mbuf to copy the data to be sent.
     let len = data.len() as u16 + 1;  //  1 Command Byte + Multiple Data Bytes
     let mbuf = unsafe { os::os_msys_get_pkthdr(len, 0) };
-    assert!(!mbuf.is_null(), "mbuf fail");
-    if mbuf.is_null() { return Err(MynewtError::SYS_ENOMEM); }  //  If out of memory, quit.
+    if mbuf.is_null() {    //  If out of memory, quit.
+        cortex_m::asm::bkpt(); ////
+        assert!(!mbuf.is_null(), "mbuf fail"); ////
+        return Err(MynewtError::SYS_ENOMEM); 
+    }
 
     //  Append the Command Byte to the mbuf chain.
     let rc = unsafe { os::os_mbuf_append(
@@ -260,11 +264,13 @@ extern "C" fn spi_event_callback(_event: *mut os::os_event) {
 }
 
 /// Perform non-blocking SPI write in Mynewt OS.  Blocks until SPI write completes.
-fn internal_spi_noblock_write(txbuffer: Ptr, txlen: i32, is_command: bool) -> MynewtResult<()> {
+fn internal_spi_noblock_write(txbuffer: &u8, txlen: i32, is_command: bool) -> MynewtResult<()> {
     if txlen == 0 { return Ok(()); }
     unsafe { SPI_CALLBACK.txlen = txlen };
     assert!(txlen > 0, "bad spi len");
-    cortex_m::asm::bkpt();  ////  Break here to inspect the SPI request
+    console::print("write "); console::printint(txlen); ////
+    console::print(if is_command { " cmd bytes\n" } else { " data bytes\n" }); ////
+    //cortex_m::asm::bkpt();  ////  Break here to inspect the SPI request
 
     //  If this is a Command Byte, set DC Pin to low, else set DC Pin to high.
     unsafe { hal::hal_gpio_write(
@@ -278,7 +284,7 @@ fn internal_spi_noblock_write(txbuffer: Ptr, txlen: i32, is_command: bool) -> My
     //  Write the SPI data.
     let rc = unsafe { hal::hal_spi_txrx_noblock(
         SPI_NUM, 
-        txbuffer, //  TX Buffer
+        core::mem::transmute(txbuffer), //  TX Buffer
         NULL,     //  RX Buffer (don't receive)        
         txlen) };
     assert_eq!(rc, 0, "spi fail");  //  TODO: Map to MynewtResult

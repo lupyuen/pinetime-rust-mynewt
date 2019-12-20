@@ -95,9 +95,9 @@ syscfg.defs:
 #   targets/bluepill_my_sensor/syscfg.yml will override the settings below.
 
 syscfg.vals:
-    # OS_MAIN_STACK_SIZE: 1024  #  Small stack size: 2 KB
-    # OS_MAIN_STACK_SIZE: 2048  #  Normal stack size: 4 KB
-    OS_MAIN_STACK_SIZE: 8192  #  Large stack size: 16 KB
+    # OS_MAIN_STACK_SIZE: 1024  #  Small stack size: 4 KB
+    OS_MAIN_STACK_SIZE: 2048  #  Normal stack size: 8 KB
+    # OS_MAIN_STACK_SIZE: 4096  #  Large stack size: 16 KB
 
     ###########################################################################
     # CoAP Server Settings
@@ -119,7 +119,7 @@ syscfg.vals:
     ###########################################################################
     # Bluetooth Mesh Settings
     
-    # MSYS_1_BLOCK_COUNT: 48  # Allocate extra MSYS buffers
+    MSYS_1_BLOCK_COUNT: 48  # Allocate extra MSYS buffers
 
     # BLE_MESH_DEV_UUID: "((uint8_t[16]){0xdd, 0xdd, 0})"
     # BLE_MESH_ADV_BUF_COUNT: 60
