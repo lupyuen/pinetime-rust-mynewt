@@ -303,6 +303,7 @@ fn internal_spi_noblock_write(
     ) };
     //  Set the SS Pin to low to start the transfer.
     unsafe { hal::hal_gpio_write(SPI_SS_PIN, 0) };
+    console::print("sending...\n"); console::flush(); ////
 
     //  Write the SPI data.  Will call spi_noblock_handler() after writing, which will send second packet.
     let rc = unsafe { hal::hal_spi_txrx_noblock(
@@ -313,8 +314,9 @@ fn internal_spi_noblock_write(
     assert_eq!(rc, 0, "spi fail");  //  TODO: Map to MynewtResult
 
     //  Wait for spi_noblock_handler() to signal that SPI request has been completed. Timeout in 1 second.
-    let timeout = 1000;
+    let timeout = 10_000;
     unsafe { os::os_sem_pend(&mut SPI_SEM, timeout * OS_TICKS_PER_SEC / 1000) };
+    console::print("sent\n"); console::flush(); ////
     Ok(())
 }
 
@@ -322,7 +324,9 @@ fn internal_spi_noblock_write(
 extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
     //  Send the next packet, if any.
     let (buf, len, is_command) = unsafe { (SPI_CALLBACK.buf, SPI_CALLBACK.len, SPI_CALLBACK.is_command) };
-    if len > 0 {  //  If there is a packet to write...
+    unsafe { SPI_CALLBACK.len = 0 };
+    if len > 0 {  //  If there is a second packet to write...
+        console::print("sending int "); console::printint(_len); console::print("...\n"); ////
         //  If this is a Command Byte, set DC Pin to low, else set DC Pin to high.
         unsafe { hal::hal_gpio_write(
             SPI_DC_PIN,
@@ -340,10 +344,14 @@ extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
             NULL,     //  RX Buffer (don't receive)        
             len) };
         assert_eq!(rc, 0, "spi fail");  //  TODO: Map to MynewtResult
+
+        //  Wait for second packet to be written.
+        return;
     }    
 
     //  Set SS Pin to high to stop the transfer.
     unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
+    console::print("sent int "); console::printint(_len); console::print("\n"); ////
 
     //  Signal to internal_spi_noblock_write() that SPI request has been completed.
     let rc = unsafe { os::os_sem_release(&mut SPI_SEM) };
