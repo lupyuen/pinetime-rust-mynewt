@@ -40,6 +40,11 @@ pub fn printdouble(v: f64) {
     unsafe { console_printdouble(v); }
 }
 
+///  Write "length" number of bytes from "buffer" to the output buffer in hex format.
+pub fn dump(buffer: *const u8, len: u32) {
+    unsafe { console_dump(buffer, len); }
+}
+
 ///  Flush the output buffer to the console.
 pub fn flush() {
     unsafe { console_flush(); }
@@ -69,7 +74,7 @@ extern {
     ///  C API: `void console_printdouble(double d)`
     fn console_printdouble(d: f64);
 
-    ///  Append "length" number of bytes from "buffer" to the output buffer in hex format.
+    ///  Write "length" number of bytes from "buffer" to the output buffer in hex format.
     ///  C API: `void console_dump(const uint8_t *buffer, unsigned int len)`
     fn console_dump(buffer: *const u8, len: u32);  
 

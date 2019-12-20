@@ -6842,6 +6842,10 @@ pub mod sys {
         pub fn printfloat(v: f32) { unsafe { console_printfloat(v); } }
         ///  Write a double to the output buffer, with 6 decimal places.
         pub fn printdouble(v: f64) { unsafe { console_printdouble(v); } }
+        ///  Write "length" number of bytes from "buffer" to the output buffer in hex format.
+        pub fn dump(buffer: *const u8, len: u32) {
+            unsafe { console_dump(buffer, len); }
+        }
         ///  Flush the output buffer to the console.
         pub fn flush() { unsafe { console_flush(); } }
         ///  Import the custom Mynewt library for displaying messages on the Arm Semihosting Console (via OpenOCD).
@@ -6863,7 +6867,7 @@ pub mod sys {
             ///  Write a double to the output buffer, with 6 decimal places.
             ///  C API: `void console_printdouble(double d)`
             fn console_printdouble(d: f64);
-            ///  Append "length" number of bytes from "buffer" to the output buffer in hex format.
+            ///  Write "length" number of bytes from "buffer" to the output buffer in hex format.
             ///  C API: `void console_dump(const uint8_t *buffer, unsigned int len)`
             fn console_dump(buffer: *const u8, len: u32);
             ///  Flush the output buffer to the console.
@@ -11922,10 +11926,16 @@ pub mod spi {
     const OS_TICKS_PER_SEC: u32 = 1000;
     /// Non-blocking SPI transfer callback parameter
     struct SpiCallback {
-        txlen: i32,
+        /// Next packet to be sent
+        buf: &'static u8,
+        /// Length of next packet
+        len: i32,
+        /// Is packet a command
+        is_command: bool,
     }
     /// Non-blocking SPI transfer callback values
-    static mut SPI_CALLBACK: SpiCallback = SpiCallback{txlen: 0,};
+    static mut SPI_CALLBACK: SpiCallback =
+        SpiCallback{buf: &0_u8, len: 0, is_command: false,};
     /// Init non-blocking SPI transfer
     pub fn spi_noblock_init() -> MynewtResult<()> {
         unsafe { hal::hal_spi_disable(SPI_NUM) };
@@ -11960,7 +11970,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           82u32, 74u32))
+                                                           89u32, 74u32))
                         }
                     }
                 }
@@ -12002,7 +12012,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           89u32, 5u32))
+                                                           96u32, 5u32))
                         }
                     }
                 }
@@ -12039,7 +12049,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           92u32, 55u32))
+                                                           99u32, 55u32))
                         }
                     }
                 }
@@ -12076,7 +12086,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           93u32, 64u32))
+                                                           100u32, 64u32))
                         }
                     }
                 }
@@ -12113,7 +12123,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           94u32, 64u32))
+                                                           101u32, 64u32))
                         }
                     }
                 }
@@ -12155,7 +12165,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           103u32, 5u32))
+                                                           110u32, 5u32))
                         }
                     }
                 }
@@ -12192,7 +12202,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           107u32, 5u32))
+                                                           114u32, 5u32))
                         }
                     }
                 }
@@ -12227,7 +12237,7 @@ pub mod spi {
         if !(unsafe { PENDING_CMD.len() } > 0) {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { PENDING_CMD.len() } > 0",
-                                           "rust/mynewt/src/spi.rs", 146u32,
+                                           "rust/mynewt/src/spi.rs", 153u32,
                                            5u32))
             }
         };
@@ -12291,7 +12301,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           193u32, 5u32))
+                                                           200u32, 5u32))
                         }
                     }
                 }
@@ -12333,7 +12343,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           202u32, 5u32))
+                                                           209u32, 5u32))
                         }
                     }
                 }
@@ -12375,7 +12385,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           211u32, 5u32))
+                                                           218u32, 5u32))
                         }
                     }
                 }
@@ -12398,20 +12408,22 @@ pub mod spi {
                     first_byte = false;
                     internal_spi_noblock_write(unsafe {
                                                    core::mem::transmute(data)
-                                               }, 1 as i32,
-                                               true).expect("int spi fail");
+                                               }, 1 as i32, true,
+                                               unsafe {
+                                                   core::mem::transmute(data.add(1))
+                                               }, (len - 1) as i32,
+                                               false).expect("int spi fail");
                     if unsafe { *data } == 0x01 || unsafe { *data } == 0x11 ||
                            unsafe { *data } == 0x29 {
                         delay_ms(200);
                     }
-                    internal_spi_noblock_write(unsafe {
-                                                   core::mem::transmute(data.add(1))
-                                               }, (len - 1) as i32,
-                                               false).expect("int spi fail");
                 } else {
                     internal_spi_noblock_write(unsafe {
                                                    core::mem::transmute(data)
-                                               }, len as i32,
+                                               }, len as i32, false,
+                                               unsafe {
+                                                   core::mem::transmute(data)
+                                               }, 0 as i32,
                                                false).expect("int spi fail");
                 }
                 m = unsafe { (*m).om_next.sle_next };
@@ -12420,33 +12432,50 @@ pub mod spi {
         }
     }
     /// Perform non-blocking SPI write in Mynewt OS.  Blocks until SPI write completes.
-    fn internal_spi_noblock_write(txbuffer: &u8, txlen: i32, is_command: bool)
+    fn internal_spi_noblock_write(buf1: &'static u8, len1: i32,
+                                  is_command1: bool, buf2: &'static u8,
+                                  len2: i32, is_command2: bool)
      -> MynewtResult<()> {
-        if txlen == 0 { return Ok(()); }
-        unsafe { SPI_CALLBACK.txlen = txlen };
-        if !(txlen > 0) {
+        if len1 == 0 && len2 == 0 { return Ok(()); }
+        if !(len1 > 0) {
             {
                 ::core::panicking::panic(&("bad spi len",
-                                           "rust/mynewt/src/spi.rs", 271u32,
+                                           "rust/mynewt/src/spi.rs", 278u32,
                                            5u32))
             }
         };
-        console::print("write ");
-        console::printint(txlen);
-        console::print(if is_command {
-                           " cmd bytes\n"
-                       } else { " data bytes\n" });
+        if !(len2 >= 0) {
+            {
+                ::core::panicking::panic(&("bad spi len",
+                                           "rust/mynewt/src/spi.rs", 279u32,
+                                           5u32))
+            }
+        };
+        console::print(if is_command1 { "spi cmd " } else { "spi data " });
+        console::dump(buf1, len1 as u32);
+        console::print("\n");
+        if len2 > 0 {
+            console::print(if is_command2 {
+                               "spi cmd "
+                           } else { "spi data " });
+            console::dump(buf2, len2 as u32);
+            console::print("\n");
+        }
         console::flush();
-        cortex_m::asm::bkpt();
+        unsafe {
+            SPI_CALLBACK.len = len2;
+            SPI_CALLBACK.buf = buf2;
+            SPI_CALLBACK.is_command = is_command2;
+        }
+        let (buf, len, is_command) = (buf1, len1, is_command1);
         unsafe {
             hal::hal_gpio_write(SPI_DC_PIN, if is_command { 0 } else { 1 })
         };
         unsafe { hal::hal_gpio_write(SPI_SS_PIN, 0) };
         let rc =
             unsafe {
-                hal::hal_spi_txrx_noblock(SPI_NUM,
-                                          core::mem::transmute(txbuffer),
-                                          NULL, txlen)
+                hal::hal_spi_txrx_noblock(SPI_NUM, core::mem::transmute(buf),
+                                          NULL, len)
             };
         {
             match (&(rc), &(0)) {
@@ -12478,7 +12507,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           292u32, 5u32))
+                                                           313u32, 5u32))
                         }
                     }
                 }
@@ -12493,6 +12522,58 @@ pub mod spi {
     /// Called by interrupt handler after Non-blocking SPI transfer has completed
     extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void,
                                       _len: i32) {
+        let (buf, len, is_command) =
+            unsafe {
+                (SPI_CALLBACK.buf, SPI_CALLBACK.len, SPI_CALLBACK.is_command)
+            };
+        if len > 0 {
+            unsafe {
+                hal::hal_gpio_write(SPI_DC_PIN,
+                                    if is_command { 0 } else { 1 })
+            };
+            let rc =
+                unsafe {
+                    hal::hal_spi_txrx_noblock(SPI_NUM,
+                                              core::mem::transmute(buf), NULL,
+                                              len)
+                };
+            {
+                match (&(rc), &(0)) {
+                    (left_val, right_val) => {
+                        if !(*left_val == *right_val) {
+                            {
+                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                              "`,\n right: `",
+                                                                                              "`: "],
+                                                                                            &match (&&*left_val,
+                                                                                                    &&*right_val,
+                                                                                                    &::core::fmt::Arguments::new_v1(&["spi fail"],
+                                                                                                                                    &match ()
+                                                                                                                                         {
+                                                                                                                                         ()
+                                                                                                                                         =>
+                                                                                                                                         [],
+                                                                                                                                     }))
+                                                                                                 {
+                                                                                                 (arg0,
+                                                                                                  arg1,
+                                                                                                  arg2)
+                                                                                                 =>
+                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                               ::core::fmt::Display::fmt)],
+                                                                                             }),
+                                                             &("rust/mynewt/src/spi.rs",
+                                                               342u32, 9u32))
+                            }
+                        }
+                    }
+                }
+            };
+        }
         unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
         let rc = unsafe { os::os_sem_release(&mut SPI_SEM) };
         {
@@ -12525,7 +12606,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           307u32, 5u32))
+                                                           350u32, 5u32))
                         }
                     }
                 }
