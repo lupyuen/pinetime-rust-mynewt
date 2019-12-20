@@ -287,14 +287,16 @@ fn internal_spi_noblock_write(
     if len1 == 0 && len2 == 0 { return Ok(()); }
     assert!(len1 > 0, "bad spi len");
     assert!(len2 >= 0, "bad spi len");
+    /*
     console::print(if is_command1 { "spi cmd " } else { "spi data " }); ////
     console::dump(buf1, len1 as u32); console::print("\n"); ////
     if len2 > 0 {
         console::print(if is_command2 { "spi cmd " } else { "spi data " }); ////
         console::dump(buf2, len2 as u32); console::print("\n"); ////    
     }
-    static mut i: u32 = 0;
-    unsafe { i += 1 }; if unsafe { i % 20 } == 0 { console::flush(); } ////
+    static mut I: u32 = 0;
+    unsafe { I += 1 }; if unsafe { I % 40 } == 0 { console::flush(); } ////
+    */
     //cortex_m::asm::bkpt();  ////  Break here to inspect the SPI request
 
     //  Remember the second packet to be written by spi_noblock_handler.
@@ -317,7 +319,7 @@ fn internal_spi_noblock_write(
     //console::print("sending...\n"); console::flush(); ////
 
     //  Write the SPI data.  Will call spi_noblock_handler() after writing, which will send second packet.
-    let rc = unsafe { hal::hal_spi_txrx_noblock(
+    let rc = unsafe { hal::hal_spi_txrx( //// _noblock(
         SPI_NUM, 
         core::mem::transmute(buf), //  TX Buffer
         NULL,     //  RX Buffer (don't receive)        
@@ -325,9 +327,13 @@ fn internal_spi_noblock_write(
     assert_eq!(rc, 0, "spi fail");  //  TODO: Map to MynewtResult
 
     //  Wait for spi_noblock_handler() to signal that SPI request has been completed. Timeout in 1 second.
-    let timeout = 10_000;
-    unsafe { os::os_sem_pend(&mut SPI_SEM, timeout * OS_TICKS_PER_SEC / 1000) };
+    let timeout = 30_000;
+    ////unsafe { os::os_sem_pend(&mut SPI_SEM, timeout * OS_TICKS_PER_SEC / 1000) };
     //console::print("sent\n"); console::flush(); ////
+
+    //  Set SS Pin to high to stop the transfer.
+    unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
+
     Ok(())
 }
 
@@ -361,7 +367,7 @@ extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
     }    
 
     //  Set SS Pin to high to stop the transfer.
-    unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
+    //unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
     //console::print("sent int "); console::printint(_len); console::print("\n"); ////
 
     //  Signal to internal_spi_noblock_write() that SPI request has been completed.
