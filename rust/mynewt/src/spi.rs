@@ -241,7 +241,7 @@ extern "C" fn spi_event_callback(_event: *mut os::os_event) {
                     1 as i32,          //  Write 1 Command Byte
                     true,
                     unsafe { core::mem::transmute(data.add(1)) }, 
-                    (len - 1) as i32,  //  Then write 0 or more Data Bytes
+                    0, // (len - 1) as i32,  //  Then write 0 or more Data Bytes
                     false
                 ).expect("int spi fail");
 
@@ -251,6 +251,16 @@ extern "C" fn spi_event_callback(_event: *mut os::os_event) {
                     unsafe { *data } == 0x29 /* Instruction::DISPON */ {
                     delay_ms(200);
                 }
+
+                internal_spi_noblock_write(
+                    unsafe { core::mem::transmute(data.add(1)) }, 
+                    (len - 1) as i32,  //  Then write 0 or more Data Bytes
+                    false,
+                    unsafe { core::mem::transmute(data.add(1)) }, 
+                    0, // (len - 1) as i32,  //  Then write 0 or more Data Bytes
+                    false
+                ).expect("int spi fail");
+
             } else {  //  Second and subsequently mbufs in the chain are all Data Bytes
                 //  Write the Data Bytes.
                 internal_spi_noblock_write(
@@ -283,7 +293,8 @@ fn internal_spi_noblock_write(
         console::print(if is_command2 { "spi cmd " } else { "spi data " }); ////
         console::dump(buf2, len2 as u32); console::print("\n"); ////    
     }
-    console::flush(); ////
+    static mut i: u32 = 0;
+    unsafe { i += 1 }; if unsafe { i % 20 } == 0 { console::flush(); } ////
     //cortex_m::asm::bkpt();  ////  Break here to inspect the SPI request
 
     //  Remember the second packet to be written by spi_noblock_handler.
@@ -303,7 +314,7 @@ fn internal_spi_noblock_write(
     ) };
     //  Set the SS Pin to low to start the transfer.
     unsafe { hal::hal_gpio_write(SPI_SS_PIN, 0) };
-    console::print("sending...\n"); console::flush(); ////
+    //console::print("sending...\n"); console::flush(); ////
 
     //  Write the SPI data.  Will call spi_noblock_handler() after writing, which will send second packet.
     let rc = unsafe { hal::hal_spi_txrx_noblock(
@@ -316,7 +327,7 @@ fn internal_spi_noblock_write(
     //  Wait for spi_noblock_handler() to signal that SPI request has been completed. Timeout in 1 second.
     let timeout = 10_000;
     unsafe { os::os_sem_pend(&mut SPI_SEM, timeout * OS_TICKS_PER_SEC / 1000) };
-    console::print("sent\n"); console::flush(); ////
+    //console::print("sent\n"); console::flush(); ////
     Ok(())
 }
 
@@ -326,7 +337,7 @@ extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
     let (buf, len, is_command) = unsafe { (SPI_CALLBACK.buf, SPI_CALLBACK.len, SPI_CALLBACK.is_command) };
     unsafe { SPI_CALLBACK.len = 0 };
     if len > 0 {  //  If there is a second packet to write...
-        console::print("sending int "); console::printint(_len); console::print("...\n"); ////
+        //console::print("sending int "); console::printint(_len); console::print("...\n"); ////
         //  If this is a Command Byte, set DC Pin to low, else set DC Pin to high.
         unsafe { hal::hal_gpio_write(
             SPI_DC_PIN,
@@ -351,7 +362,7 @@ extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
 
     //  Set SS Pin to high to stop the transfer.
     unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
-    console::print("sent int "); console::printint(_len); console::print("\n"); ////
+    //console::print("sent int "); console::printint(_len); console::print("\n"); ////
 
     //  Signal to internal_spi_noblock_write() that SPI request has been completed.
     let rc = unsafe { os::os_sem_release(&mut SPI_SEM) };

@@ -12411,12 +12411,19 @@ pub mod spi {
                                                }, 1 as i32, true,
                                                unsafe {
                                                    core::mem::transmute(data.add(1))
-                                               }, (len - 1) as i32,
+                                               }, 0,
                                                false).expect("int spi fail");
                     if unsafe { *data } == 0x01 || unsafe { *data } == 0x11 ||
                            unsafe { *data } == 0x29 {
                         delay_ms(200);
                     }
+                    internal_spi_noblock_write(unsafe {
+                                                   core::mem::transmute(data.add(1))
+                                               }, (len - 1) as i32, false,
+                                               unsafe {
+                                                   core::mem::transmute(data.add(1))
+                                               }, 0,
+                                               false).expect("int spi fail");
                 } else {
                     internal_spi_noblock_write(unsafe {
                                                    core::mem::transmute(data)
@@ -12440,14 +12447,14 @@ pub mod spi {
         if !(len1 > 0) {
             {
                 ::core::panicking::panic(&("bad spi len",
-                                           "rust/mynewt/src/spi.rs", 278u32,
+                                           "rust/mynewt/src/spi.rs", 288u32,
                                            5u32))
             }
         };
         if !(len2 >= 0) {
             {
                 ::core::panicking::panic(&("bad spi len",
-                                           "rust/mynewt/src/spi.rs", 279u32,
+                                           "rust/mynewt/src/spi.rs", 289u32,
                                            5u32))
             }
         };
@@ -12461,7 +12468,9 @@ pub mod spi {
             console::dump(buf2, len2 as u32);
             console::print("\n");
         }
-        console::flush();
+        static mut i: u32 = 0;
+        unsafe { i += 1 };
+        if unsafe { i % 20 } == 0 { console::flush(); }
         unsafe {
             SPI_CALLBACK.len = len2;
             SPI_CALLBACK.buf = buf2;
@@ -12472,8 +12481,6 @@ pub mod spi {
             hal::hal_gpio_write(SPI_DC_PIN, if is_command { 0 } else { 1 })
         };
         unsafe { hal::hal_gpio_write(SPI_SS_PIN, 0) };
-        console::print("sending...\n");
-        console::flush();
         let rc =
             unsafe {
                 hal::hal_spi_txrx_noblock(SPI_NUM, core::mem::transmute(buf),
@@ -12509,7 +12516,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           314u32, 5u32))
+                                                           325u32, 5u32))
                         }
                     }
                 }
@@ -12519,8 +12526,6 @@ pub mod spi {
         unsafe {
             os::os_sem_pend(&mut SPI_SEM, timeout * OS_TICKS_PER_SEC / 1000)
         };
-        console::print("sent\n");
-        console::flush();
         Ok(())
     }
     /// Called by interrupt handler after Non-blocking SPI transfer has completed
@@ -12532,9 +12537,6 @@ pub mod spi {
             };
         unsafe { SPI_CALLBACK.len = 0 };
         if len > 0 {
-            console::print("sending int ");
-            console::printint(_len);
-            console::print("...\n");
             unsafe {
                 hal::hal_gpio_write(SPI_DC_PIN,
                                     if is_command { 0 } else { 1 })
@@ -12575,7 +12577,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               346u32, 9u32))
+                                                               357u32, 9u32))
                             }
                         }
                     }
@@ -12584,9 +12586,6 @@ pub mod spi {
             return;
         }
         unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
-        console::print("sent int ");
-        console::printint(_len);
-        console::print("\n");
         let rc = unsafe { os::os_sem_release(&mut SPI_SEM) };
         {
             match (&(rc), &(0)) {
@@ -12618,7 +12617,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           358u32, 5u32))
+                                                           369u32, 5u32))
                         }
                     }
                 }
