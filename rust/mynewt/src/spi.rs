@@ -288,16 +288,16 @@ fn internal_spi_noblock_write(
     assert!(len1 > 0, "bad spi len");
     assert!(len2 >= 0, "bad spi len");
     /*
-    console::print(if is_command1 { "spi cmd " } else { "spi data " }); ////
-    console::dump(buf1, len1 as u32); console::print("\n"); ////
-    if len2 > 0 {
-        console::print(if is_command2 { "spi cmd " } else { "spi data " }); ////
-        console::dump(buf2, len2 as u32); console::print("\n"); ////    
-    }
-    static mut I: u32 = 0;
-    unsafe { I += 1 }; if unsafe { I % 40 } == 0 { console::flush(); } ////
+        console::print(if is_command1 { "spi cmd " } else { "spi data " }); ////
+        console::dump(buf1, len1 as u32); console::print("\n"); ////
+        if len2 > 0 {
+            console::print(if is_command2 { "spi cmd " } else { "spi data " }); ////
+            console::dump(buf2, len2 as u32); console::print("\n"); ////    
+        }
+        static mut I: u32 = 0;
+        unsafe { I += 1 }; if unsafe { I % 40 } == 0 { console::flush(); } ////
+        //cortex_m::asm::bkpt();  ////  Break here to inspect the SPI request
     */
-    //cortex_m::asm::bkpt();  ////  Break here to inspect the SPI request
 
     //  Remember the second packet to be written by spi_noblock_handler.
     unsafe { 
@@ -314,22 +314,37 @@ fn internal_spi_noblock_write(
         if is_command { 0 }
         else { 1 }
     ) };
+
     //  Set the SS Pin to low to start the transfer.
     unsafe { hal::hal_gpio_write(SPI_SS_PIN, 0) };
     //console::print("sending...\n"); console::flush(); ////
 
-    //  Write the SPI data.  Will call spi_noblock_handler() after writing, which will send second packet.
-    let rc = unsafe { hal::hal_spi_txrx( //// _noblock(
-        SPI_NUM, 
-        core::mem::transmute(buf), //  TX Buffer
-        NULL,     //  RX Buffer (don't receive)        
-        len) };
-    assert_eq!(rc, 0, "spi fail");  //  TODO: Map to MynewtResult
+    if len == 1 {  //  If writing only 1 byte...
+        //  From https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_spi.c#L1106-L1118
+        //  There is a known issue in nRF52832 with sending 1 byte in SPIM mode that
+        //  it clocks out additional byte. For this reason, let us use SPI mode
+        //  for such a write
+        //  Write the SPI data the blocking way.
+        let rc = unsafe { hal::hal_spi_txrx(
+            SPI_NUM, 
+            core::mem::transmute(buf), //  TX Buffer
+            NULL,     //  RX Buffer (don't receive)        
+            len) };
+        assert_eq!(rc, 0, "spi fail");  //  TODO: Map to MynewtResult
+    } else {  //  If writing more than 1 byte...
+        //  Write the SPI data the non-blocking way.  Will call spi_noblock_handler() after writing, which will send second packet.
+        let rc = unsafe { hal::hal_spi_txrx_noblock(
+            SPI_NUM, 
+            core::mem::transmute(buf), //  TX Buffer
+            NULL,     //  RX Buffer (don't receive)        
+            len) };
+        assert_eq!(rc, 0, "spi fail");  //  TODO: Map to MynewtResult
 
-    //  Wait for spi_noblock_handler() to signal that SPI request has been completed. Timeout in 1 second.
-    let timeout = 30_000;
-    ////unsafe { os::os_sem_pend(&mut SPI_SEM, timeout * OS_TICKS_PER_SEC / 1000) };
-    //console::print("sent\n"); console::flush(); ////
+        //  Wait for spi_noblock_handler() to signal that SPI request has been completed. Timeout in 1 second.
+        let timeout = 30_000;
+        unsafe { os::os_sem_pend(&mut SPI_SEM, timeout * OS_TICKS_PER_SEC / 1000) };
+        //console::print("sent\n"); console::flush(); ////
+    }
 
     //  Set SS Pin to high to stop the transfer.
     unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
