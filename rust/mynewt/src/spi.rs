@@ -178,9 +178,10 @@ fn spi_noblock_write(cmd: u8, data: &[u8]) -> MynewtResult<()> {
     let len = data.len() as u16 + 1;  //  1 Command Byte + Multiple Data Bytes
     let mbuf = unsafe { os::os_msys_get_pkthdr(len, 0) };
     if mbuf.is_null() {    //  If out of memory, quit.
-        cortex_m::asm::bkpt(); ////
-        assert!(!mbuf.is_null(), "mbuf fail"); ////
-        return Err(MynewtError::SYS_ENOMEM); 
+        return Ok(());  ////  TODO
+        ////cortex_m::asm::bkpt(); ////
+        ////assert!(!mbuf.is_null(), "mbuf fail"); ////
+        ////return Err(MynewtError::SYS_ENOMEM); 
     }
 
     //  Append the Command Byte to the mbuf chain.
@@ -270,7 +271,8 @@ fn internal_spi_noblock_write(txbuffer: &u8, txlen: i32, is_command: bool) -> My
     assert!(txlen > 0, "bad spi len");
     console::print("write "); console::printint(txlen); ////
     console::print(if is_command { " cmd bytes\n" } else { " data bytes\n" }); ////
-    //cortex_m::asm::bkpt();  ////  Break here to inspect the SPI request
+    console::flush(); ////
+    cortex_m::asm::bkpt();  ////  Break here to inspect the SPI request
 
     //  If this is a Command Byte, set DC Pin to low, else set DC Pin to high.
     unsafe { hal::hal_gpio_write(
