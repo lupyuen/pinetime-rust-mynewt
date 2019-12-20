@@ -76,8 +76,8 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
         .expect("DSP fail");
 
     //  Test the display
-    //  druid::test_display()
-    //      .expect("DSP test fail");
+    druid::test_display()
+        .expect("DSP test fail");
 
     //  Start the touch sensor
     touch_sensor::start_touch_sensor()
@@ -88,7 +88,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //      .expect("TCH test fail");
 
     //  Launch the Druid UI
-    hello::launch();
+    //  hello::launch();
 
     //  Main event loop
     loop {                            //  Loop forever...

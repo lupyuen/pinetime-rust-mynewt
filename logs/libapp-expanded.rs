@@ -82,8 +82,6 @@ mod app_network {
     //  Start the display
 
     //  Test the display
-    //  druid::test_display()
-    //      .expect("DSP test fail");
 
     //  Start the touch sensor
 
@@ -92,6 +90,7 @@ mod app_network {
     //      .expect("TCH test fail");
 
     //  Launch the Druid UI
+    //  hello::launch();
 
     //  Main event loop
     //  Loop forever...
@@ -719,8 +718,8 @@ extern "C" fn main() -> ! {
         }
     };
     druid::start_display().expect("DSP fail");
+    druid::test_display().expect("DSP test fail");
     touch_sensor::start_touch_sensor().expect("TCH fail");
-    hello::launch();
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }
