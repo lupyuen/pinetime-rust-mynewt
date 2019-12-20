@@ -12504,7 +12504,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               333u32, 9u32))
+                                                               332u32, 9u32))
                             }
                         }
                     }
@@ -12547,7 +12547,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               341u32, 9u32))
+                                                               340u32, 9u32))
                             }
                         }
                     }
@@ -12611,7 +12611,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               378u32, 9u32))
+                                                               375u32, 9u32))
                             }
                         }
                     }
@@ -12650,7 +12650,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           390u32, 5u32))
+                                                           387u32, 5u32))
                         }
                     }
                 }

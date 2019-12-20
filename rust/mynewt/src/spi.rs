@@ -317,7 +317,6 @@ fn internal_spi_noblock_write(
 
     //  Set the SS Pin to low to start the transfer.
     unsafe { hal::hal_gpio_write(SPI_SS_PIN, 0) };
-    //console::print("sending...\n"); console::flush(); ////
 
     if len == 1 {  //  If writing only 1 byte...
         //  From https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_spi.c#L1106-L1118
@@ -343,12 +342,10 @@ fn internal_spi_noblock_write(
         //  Wait for spi_noblock_handler() to signal that SPI request has been completed. Timeout in 1 second.
         let timeout = 30_000;
         unsafe { os::os_sem_pend(&mut SPI_SEM, timeout * OS_TICKS_PER_SEC / 1000) };
-        //console::print("sent\n"); console::flush(); ////
     }
 
     //  Set SS Pin to high to stop the transfer.
     unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
-
     Ok(())
 }
 
