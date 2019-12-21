@@ -1,0 +1,346 @@
+GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-15-13:49)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+WARNING: interface/stlink-v2.cfg is deprecated, please switch to interface/stlink.cfg
+Info : auto-selecting first available session transport "hla_swd". To override use 'transport select <transport>'.
+Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+adapter speed: 1000 kHz
+debug_level: 2
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
+Info : clock speed 1000 kHz
+Info : STLINK V2J17S4 (API v2) VID:PID 0483:3748
+Info : Target voltage: 3.253616
+Info : nrf52.cpu: hardware has 6 breakpoints, 4 watchpoints
+Info : Listening on port 50000 for gdb connections
+Info : accepting 'gdb' connection on tcp/50000
+Info : nRF52832-QFAA(build code: E0) 512kB Flash
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000
+Enable ARM Semihosting to show debug output
+semihosting is enabled
+Warn : using fast async flash loader. This is currently supported
+Warn : only with ST-Link and CMSIS-DAP. If you have issues, add
+Warn : "set WORKAREASIZE 0" before sourcing nrf51.cfg/nrf52.cfg to disable it
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000001e msp: 0x20010000, semihosting
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
+Info : halted: PC: 0x00008ede
+TMP create temp_stub_0
+NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
+NET standalone node 
+Rust TMP poll
+spi cmd 01 
+spi data 
+spi cmd 11 
+spi data 
+spi cmd b1 
+spi data 01 2c 2d 
+spi cmd b2 
+spi data 01 2c 2d 
+spi cmd b3 
+spi data 01 2c 2d 01 2c 2d 
+spi cmd b4 
+spi data 07 
+spi cmd c0 
+spi data a2 02 84 
+spi cmd c1 
+spi data c5 
+spi cmd c2 
+spi data 0a 00 
+spi cmd c3 
+spi data 8a 2a 
+spi cmd c4 
+spi data 8a ee 
+spi cmd c5 
+spi data 0e 
+spi cmd 21 
+spi data 
+spi cmd 36 
+spi data 00 
+spi cmd 3a 
+spi data 05 
+spi cmd 29 
+spi data 
+spi cmd 36 
+spi data 60 
+spi cmd 2a 
+spi data 00 00 00 00 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 01 00 01 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 02 00 02 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 03 00 03 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 04 00 04 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 05 00 05 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 06 00 06 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 07 00 07 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 08 00 08 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 09 00 09 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 0a 00 0a 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 0b 00 0b 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 0c 00 0c 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 0d 00 0d 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 0e 00 0e 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 0f 00 0f 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 10 00 10 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 11 00 11 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 12 00 12 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 13 00 13 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 14 00 14 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 15 00 15 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 16 00 16 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 17 00 17 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 18 00 18 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 19 00 19 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 1a 00 1a 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 1b 00 1b 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 1c 00 1c 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 1d 00 1d 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 1e 00 1e 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 1f 00 1f 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 20 00 20 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 21 00 21 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 22 00 22 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 23 00 23 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 24 00 24 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 25 00 25 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 26 00 26 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 27 00 27 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 28 00 28 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 29 00 29 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 2a 00 2a 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 2b 00 2b 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 2c 00 2c 
+spi cmd 2b 
+spi data 00 00 00 00 
+spi cmd 2c 
+spi data f8 00 
+spi cmd 2a 
+spi data 00 2d 00 2d 
+spi cmd 2b 
+spi data 00 00 00 00 

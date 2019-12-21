@@ -12301,6 +12301,13 @@ pub mod spi {
     /// Enqueue request for non-blocking SPI write. Returns without waiting for write to complete.
     /// Request must have a Command Byte, followed by optional Data Bytes.
     fn spi_noblock_write(cmd: u8, data: &[u8]) -> MynewtResult<()> {
+        console::print("spi cmd ");
+        console::dump(&cmd, 1 as u32);
+        console::print("\n");
+        console::print("spi data ");
+        console::dump(data.as_ptr(), data.len() as u32);
+        console::print("\n");
+        console::flush();
         let timeout = 30_000;
         unsafe {
             os::os_sem_pend(&mut SPI_THROTTLE_SEM,
@@ -12340,7 +12347,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               188u32, 73u32))
+                                                               194u32, 73u32))
                             }
                         }
                     }
@@ -12382,7 +12389,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           200u32, 5u32))
+                                                           206u32, 5u32))
                         }
                     }
                 }
@@ -12427,7 +12434,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               211u32, 73u32))
+                                                               217u32, 73u32))
                             }
                         }
                     }
@@ -12473,7 +12480,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               225u32, 73u32))
+                                                               231u32, 73u32))
                             }
                         }
                     }
@@ -12547,7 +12554,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               284u32, 9u32))
+                                                               290u32, 9u32))
                             }
                         }
                     }
@@ -12562,17 +12569,10 @@ pub mod spi {
         if !(len > 0) {
             {
                 ::core::panicking::panic(&("bad spi len",
-                                           "rust/mynewt/src/spi.rs", 291u32,
+                                           "rust/mynewt/src/spi.rs", 297u32,
                                            5u32))
             }
         };
-        console::print(if is_command { "spi cmd " } else { "spi data " });
-        console::dump(buf, len as u32);
-        console::print("\n");
-        console::flush();
-        static mut I: u32 = 0;
-        unsafe { I += 1 };
-        if unsafe { I % 40 } == 0 { console::flush(); }
         unsafe {
             hal::hal_gpio_write(SPI_DC_PIN, if is_command { 0 } else { 1 })
         };
@@ -12613,7 +12613,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               318u32, 9u32))
+                                                               319u32, 9u32))
                             }
                         }
                     }
@@ -12656,7 +12656,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               327u32, 9u32))
+                                                               328u32, 9u32))
                             }
                         }
                     }
@@ -12705,7 +12705,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           343u32, 5u32))
+                                                           344u32, 5u32))
                         }
                     }
                 }

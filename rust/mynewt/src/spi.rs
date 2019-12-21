@@ -177,6 +177,12 @@ pub fn spi_noblock_write_flush() -> MynewtResult<()> {
 /// Enqueue request for non-blocking SPI write. Returns without waiting for write to complete.
 /// Request must have a Command Byte, followed by optional Data Bytes.
 fn spi_noblock_write(cmd: u8, data: &[u8]) -> MynewtResult<()> {
+    console::print("spi cmd "); ////
+    console::dump(&cmd, 1 as u32); console::print("\n"); ////
+    console::print("spi data "); ////
+    console::dump(data.as_ptr(), data.len() as u32); console::print("\n"); ////
+    console::flush(); ////  static mut I: u32 = 0; unsafe { I += 1 }; if unsafe { I % 40 } == 0 { console::flush(); } ////
+
     //  Throttle the number of pending SPI requests.
     let timeout = 30_000;
     unsafe { os::os_sem_pend(&mut SPI_THROTTLE_SEM, timeout * OS_TICKS_PER_SEC / 1000) };
@@ -289,11 +295,6 @@ extern "C" fn spi_event_callback(_event: *mut os::os_event) {
 fn internal_spi_noblock_write(buf: &'static u8, len: i32, is_command: bool) -> MynewtResult<()> {
     if len == 0 { return Ok(()); }
     assert!(len > 0, "bad spi len");
-    console::print(if is_command { "spi cmd " } else { "spi data " }); ////
-    console::dump(buf, len as u32); console::print("\n"); ////
-    console::flush(); ////
-    static mut I: u32 = 0;
-    unsafe { I += 1 }; if unsafe { I % 40 } == 0 { console::flush(); } ////
 
     //  If this is a Command Byte, set DC Pin to low, else set DC Pin to high.
     unsafe { hal::hal_gpio_write(
