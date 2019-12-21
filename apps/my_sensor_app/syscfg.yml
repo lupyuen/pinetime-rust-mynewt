@@ -99,6 +99,8 @@ syscfg.vals:
     # OS_MAIN_STACK_SIZE: 2048  #  Normal stack size: 8 KB
     OS_MAIN_STACK_SIZE: 4096  #  Large stack size: 16 KB
 
+    MSYS_1_BLOCK_COUNT: 64  # Allocate extra MSYS buffers
+
     ###########################################################################
     # CoAP Server Settings
 
@@ -119,7 +121,7 @@ syscfg.vals:
     ###########################################################################
     # Bluetooth Mesh Settings
     
-    MSYS_1_BLOCK_COUNT: 48  # Allocate extra MSYS buffers
+    # MSYS_1_BLOCK_COUNT: 48  # Allocate extra MSYS buffers
 
     # BLE_MESH_DEV_UUID: "((uint8_t[16]){0xdd, 0xdd, 0})"
     # BLE_MESH_ADV_BUF_COUNT: 60

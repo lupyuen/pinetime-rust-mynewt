@@ -44,6 +44,9 @@ static mut PENDING_DATA: heapless::Vec<u8, PendingDataSize> = heapless::Vec(heap
 /// Semaphore that is signalled for every completed SPI request
 static mut SPI_SEM: os::os_sem = fill_zero!(os::os_sem);
 
+/// Semaphore that throttles the number of pending SPI requests
+static mut SPI_THROTTLE_SEM: os::os_sem = fill_zero!(os::os_sem);
+
 /// Mbuf Queue that contains the SPI data packets to be sent. Why did use Mbuf Queue? 
 /// Because it's a Mynewt OS low-level buffer that allows packets of various sizes to be copied efficiently.
 static mut SPI_DATA_QUEUE: os::os_mqueue = fill_zero!(os::os_mqueue);
@@ -113,6 +116,10 @@ pub fn spi_noblock_init() -> MynewtResult<()> {
     let rc = unsafe { os::os_sem_init(&mut SPI_SEM, 0) };  //  Init to 0 tokens, so caller will block until SPI request is completed.
     assert_eq!(rc, 0, "sem fail");  //  TODO: Map to MynewtResult
 
+    //  Create the Semaphore that will throttle the number of pending SPI requests
+    let rc = unsafe { os::os_sem_init(&mut SPI_THROTTLE_SEM, 2) };
+    assert_eq!(rc, 0, "sem fail");  //  TODO: Map to MynewtResult
+    
     //  Create a task to send SPI requests sequentially from the SPI Event Queue and Mbuf Queue
     os::task_init(                //  Create a new task and start it...
         unsafe { &mut SPI_TASK }, //  Task object will be saved here
@@ -181,12 +188,15 @@ pub fn spi_noblock_write_flush() -> MynewtResult<()> {
 /// Enqueue request for non-blocking SPI write. Returns without waiting for write to complete.
 /// Request must have a Command Byte, followed by optional Data Bytes.
 fn spi_noblock_write(cmd: u8, data: &[u8]) -> MynewtResult<()> {
+    //  Throttle the number of pending SPI requests.
+    let timeout = 30_000;
+    unsafe { os::os_sem_pend(&mut SPI_THROTTLE_SEM, timeout * OS_TICKS_PER_SEC / 1000) };
+
     //  Allocate a new mbuf to copy the data to be sent.
     let len = data.len() as u16 + 1;  //  1 Command Byte + Multiple Data Bytes
     let mbuf = unsafe { os::os_msys_get_pkthdr(len, 0) };
     if mbuf.is_null() {    //  If out of memory, quit.
         return Ok(());  ////  TODO
-        ////cortex_m::asm::bkpt(); ////
         ////assert!(!mbuf.is_null(), "mbuf fail"); ////
         ////return Err(MynewtError::SYS_ENOMEM); 
     }
@@ -206,8 +216,11 @@ fn spi_noblock_write(cmd: u8, data: &[u8]) -> MynewtResult<()> {
         core::mem::transmute(data.as_ptr()), 
         data.len() as u16
     ) };
-    assert_eq!(rc, 0, "append fail");  //  TODO: Remove this
-    if rc != 0 { return Err(MynewtError::SYS_ENOMEM); }  //  If out of memory, quit.
+    if rc != 0 { 
+        return Ok(()); //// TODO
+        ////assert_eq!(rc, 0, "append fail");  //  TODO: Remove this
+        ////return Err(MynewtError::SYS_ENOMEM); 
+    }  //  If out of memory, quit.
 
     //  Add the mbuf to the SPI Mbuf Queue and trigger an event in the SPI Event Queue.
     let rc = unsafe { os::os_mqueue_put(
@@ -215,8 +228,11 @@ fn spi_noblock_write(cmd: u8, data: &[u8]) -> MynewtResult<()> {
         &mut SPI_EVENT_QUEUE, 
         mbuf
     ) };
-    assert_eq!(rc, 0, "put fail");  //  TODO: Remove this
-    if rc != 0 { return Err(MynewtError::SYS_EUNKNOWN); }  //  If out of memory, quit.
+    if rc != 0 { 
+        return Ok(()); //// TOOD
+        ////assert_eq!(rc, 0, "put fail");  //  TODO: Remove this
+        ////return Err(MynewtError::SYS_EUNKNOWN); 
+    }  //  If out of memory, quit.
     Ok(())
 }
 
@@ -276,6 +292,9 @@ extern "C" fn spi_event_callback(_event: *mut os::os_event) {
         }
         //  Free the entire mbuf chain.
         unsafe { os::os_mbuf_free_chain(om) };
+        //  Release the throttle.
+        let rc = unsafe { os::os_sem_release(&mut SPI_THROTTLE_SEM) };
+        assert_eq!(rc, 0, "sem fail");    
     }
 }
 
