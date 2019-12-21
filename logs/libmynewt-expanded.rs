@@ -11931,18 +11931,11 @@ pub mod spi {
     /// Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
     const SPI_TASK_STACK_SIZE: usize = 256;
     const OS_TICKS_PER_SEC: u32 = 1000;
-    /// Non-blocking SPI transfer callback parameter
+    /// Non-blocking SPI transfer callback parameter (not used)
     struct SpiCallback {
-        /// Next packet to be sent
-        buf: &'static u8,
-        /// Length of next packet
-        len: i32,
-        /// Is packet a command
-        is_command: bool,
     }
-    /// Non-blocking SPI transfer callback values
-    static mut SPI_CALLBACK: SpiCallback =
-        SpiCallback{buf: &0_u8, len: 0, is_command: false,};
+    /// Non-blocking SPI transfer callback values (not used)
+    static mut SPI_CALLBACK: SpiCallback = SpiCallback{};
     /// Init non-blocking SPI transfer
     pub fn spi_noblock_init() -> MynewtResult<()> {
         unsafe { hal::hal_spi_disable(SPI_NUM) };
@@ -11977,7 +11970,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           92u32, 74u32))
+                                                           81u32, 74u32))
                         }
                     }
                 }
@@ -12019,7 +12012,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           99u32, 5u32))
+                                                           88u32, 5u32))
                         }
                     }
                 }
@@ -12056,7 +12049,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           102u32, 55u32))
+                                                           91u32, 55u32))
                         }
                     }
                 }
@@ -12093,7 +12086,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           103u32, 64u32))
+                                                           92u32, 64u32))
                         }
                     }
                 }
@@ -12130,7 +12123,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           104u32, 64u32))
+                                                           93u32, 64u32))
                         }
                     }
                 }
@@ -12172,7 +12165,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           113u32, 5u32))
+                                                           102u32, 5u32))
                         }
                     }
                 }
@@ -12209,7 +12202,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           117u32, 5u32))
+                                                           106u32, 5u32))
                         }
                     }
                 }
@@ -12246,7 +12239,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           121u32, 5u32))
+                                                           110u32, 5u32))
                         }
                     }
                 }
@@ -12281,7 +12274,7 @@ pub mod spi {
         if !(unsafe { PENDING_CMD.len() } > 0) {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { PENDING_CMD.len() } > 0",
-                                           "rust/mynewt/src/spi.rs", 160u32,
+                                           "rust/mynewt/src/spi.rs", 149u32,
                                            5u32))
             }
         };
@@ -12315,7 +12308,46 @@ pub mod spi {
         };
         let len = data.len() as u16 + 1;
         let mbuf = unsafe { os::os_msys_get_pkthdr(len, 0) };
-        if mbuf.is_null() { return Ok(()); }
+        if mbuf.is_null() {
+            let rc = unsafe { os::os_sem_release(&mut SPI_THROTTLE_SEM) };
+            {
+                match (&(rc), &(0)) {
+                    (left_val, right_val) => {
+                        if !(*left_val == *right_val) {
+                            {
+                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                              "`,\n right: `",
+                                                                                              "`: "],
+                                                                                            &match (&&*left_val,
+                                                                                                    &&*right_val,
+                                                                                                    &::core::fmt::Arguments::new_v1(&["sem fail"],
+                                                                                                                                    &match ()
+                                                                                                                                         {
+                                                                                                                                         ()
+                                                                                                                                         =>
+                                                                                                                                         [],
+                                                                                                                                     }))
+                                                                                                 {
+                                                                                                 (arg0,
+                                                                                                  arg1,
+                                                                                                  arg2)
+                                                                                                 =>
+                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                               ::core::fmt::Display::fmt)],
+                                                                                             }),
+                                                             &("rust/mynewt/src/spi.rs",
+                                                               188u32, 73u32))
+                            }
+                        }
+                    }
+                }
+            };
+            return Ok(());
+        }
         let rc =
             unsafe {
                 os::os_mbuf_append(mbuf, core::mem::transmute(&cmd), 1)
@@ -12350,7 +12382,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           210u32, 5u32))
+                                                           200u32, 5u32))
                         }
                     }
                 }
@@ -12362,13 +12394,93 @@ pub mod spi {
                 os::os_mbuf_append(mbuf, core::mem::transmute(data.as_ptr()),
                                    data.len() as u16)
             };
-        if rc != 0 { return Ok(()); }
+        if rc != 0 {
+            unsafe { os::os_mbuf_free_chain(mbuf) };
+            let rc = unsafe { os::os_sem_release(&mut SPI_THROTTLE_SEM) };
+            {
+                match (&(rc), &(0)) {
+                    (left_val, right_val) => {
+                        if !(*left_val == *right_val) {
+                            {
+                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                              "`,\n right: `",
+                                                                                              "`: "],
+                                                                                            &match (&&*left_val,
+                                                                                                    &&*right_val,
+                                                                                                    &::core::fmt::Arguments::new_v1(&["sem fail"],
+                                                                                                                                    &match ()
+                                                                                                                                         {
+                                                                                                                                         ()
+                                                                                                                                         =>
+                                                                                                                                         [],
+                                                                                                                                     }))
+                                                                                                 {
+                                                                                                 (arg0,
+                                                                                                  arg1,
+                                                                                                  arg2)
+                                                                                                 =>
+                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                               ::core::fmt::Display::fmt)],
+                                                                                             }),
+                                                             &("rust/mynewt/src/spi.rs",
+                                                               211u32, 73u32))
+                            }
+                        }
+                    }
+                }
+            };
+            return Ok(());
+        }
         let rc =
             unsafe {
                 os::os_mqueue_put(&mut SPI_DATA_QUEUE, &mut SPI_EVENT_QUEUE,
                                   mbuf)
             };
-        if rc != 0 { return Ok(()); }
+        if rc != 0 {
+            unsafe { os::os_mbuf_free_chain(mbuf) };
+            let rc = unsafe { os::os_sem_release(&mut SPI_THROTTLE_SEM) };
+            {
+                match (&(rc), &(0)) {
+                    (left_val, right_val) => {
+                        if !(*left_val == *right_val) {
+                            {
+                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                              "`,\n right: `",
+                                                                                              "`: "],
+                                                                                            &match (&&*left_val,
+                                                                                                    &&*right_val,
+                                                                                                    &::core::fmt::Arguments::new_v1(&["sem fail"],
+                                                                                                                                    &match ()
+                                                                                                                                         {
+                                                                                                                                         ()
+                                                                                                                                         =>
+                                                                                                                                         [],
+                                                                                                                                     }))
+                                                                                                 {
+                                                                                                 (arg0,
+                                                                                                  arg1,
+                                                                                                  arg2)
+                                                                                                 =>
+                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                               ::core::fmt::Debug::fmt),
+                                                                                                  ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                               ::core::fmt::Display::fmt)],
+                                                                                             }),
+                                                             &("rust/mynewt/src/spi.rs",
+                                                               225u32, 73u32))
+                            }
+                        }
+                    }
+                }
+            };
+            return Ok(());
+        }
         Ok(())
     }
     /// Callback for the event that is triggered when an SPI request is added to the queue.
@@ -12385,29 +12497,20 @@ pub mod spi {
                     first_byte = false;
                     internal_spi_noblock_write(unsafe {
                                                    core::mem::transmute(data)
-                                               }, 1 as i32, true,
-                                               unsafe {
-                                                   core::mem::transmute(data.add(1))
-                                               }, 0,
-                                               false).expect("int spi fail");
+                                               }, 1 as i32,
+                                               true).expect("int spi fail");
                     if unsafe { *data } == 0x01 || unsafe { *data } == 0x11 ||
                            unsafe { *data } == 0x29 {
                         delay_ms(200);
                     }
                     internal_spi_noblock_write(unsafe {
                                                    core::mem::transmute(data.add(1))
-                                               }, (len - 1) as i32, false,
-                                               unsafe {
-                                                   core::mem::transmute(data.add(1))
-                                               }, 0,
+                                               }, (len - 1) as i32,
                                                false).expect("int spi fail");
                 } else {
                     internal_spi_noblock_write(unsafe {
                                                    core::mem::transmute(data)
-                                               }, len as i32, false,
-                                               unsafe {
-                                                   core::mem::transmute(data)
-                                               }, 0 as i32,
+                                               }, len as i32,
                                                false).expect("int spi fail");
                 }
                 m = unsafe { (*m).om_next.sle_next };
@@ -12444,7 +12547,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               297u32, 9u32))
+                                                               284u32, 9u32))
                             }
                         }
                     }
@@ -12453,31 +12556,23 @@ pub mod spi {
         }
     }
     /// Perform non-blocking SPI write in Mynewt OS.  Blocks until SPI write completes.
-    fn internal_spi_noblock_write(buf1: &'static u8, len1: i32,
-                                  is_command1: bool, buf2: &'static u8,
-                                  len2: i32, is_command2: bool)
-     -> MynewtResult<()> {
-        if len1 == 0 && len2 == 0 { return Ok(()); }
-        if !(len1 > 0) {
+    fn internal_spi_noblock_write(buf: &'static u8, len: i32,
+                                  is_command: bool) -> MynewtResult<()> {
+        if len == 0 { return Ok(()); }
+        if !(len > 0) {
             {
                 ::core::panicking::panic(&("bad spi len",
-                                           "rust/mynewt/src/spi.rs", 307u32,
+                                           "rust/mynewt/src/spi.rs", 291u32,
                                            5u32))
             }
         };
-        if !(len2 >= 0) {
-            {
-                ::core::panicking::panic(&("bad spi len",
-                                           "rust/mynewt/src/spi.rs", 308u32,
-                                           5u32))
-            }
-        };
-        unsafe {
-            SPI_CALLBACK.len = len2;
-            SPI_CALLBACK.buf = buf2;
-            SPI_CALLBACK.is_command = is_command2;
-        }
-        let (buf, len, is_command) = (buf1, len1, is_command1);
+        console::print(if is_command { "spi cmd " } else { "spi data " });
+        console::dump(buf, len as u32);
+        console::print("\n");
+        console::flush();
+        static mut I: u32 = 0;
+        unsafe { I += 1 };
+        if unsafe { I % 40 } == 0 { console::flush(); }
         unsafe {
             hal::hal_gpio_write(SPI_DC_PIN, if is_command { 0 } else { 1 })
         };
@@ -12518,7 +12613,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               351u32, 9u32))
+                                                               318u32, 9u32))
                             }
                         }
                     }
@@ -12561,7 +12656,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               359u32, 9u32))
+                                                               327u32, 9u32))
                             }
                         }
                     }
@@ -12579,60 +12674,6 @@ pub mod spi {
     /// Called by interrupt handler after Non-blocking SPI transfer has completed
     extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void,
                                       _len: i32) {
-        let (buf, len, is_command) =
-            unsafe {
-                (SPI_CALLBACK.buf, SPI_CALLBACK.len, SPI_CALLBACK.is_command)
-            };
-        unsafe { SPI_CALLBACK.len = 0 };
-        if len > 0 {
-            unsafe {
-                hal::hal_gpio_write(SPI_DC_PIN,
-                                    if is_command { 0 } else { 1 })
-            };
-            let rc =
-                unsafe {
-                    hal::hal_spi_txrx_noblock(SPI_NUM,
-                                              core::mem::transmute(buf), NULL,
-                                              len)
-                };
-            {
-                match (&(rc), &(0)) {
-                    (left_val, right_val) => {
-                        if !(*left_val == *right_val) {
-                            {
-                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                              "`,\n right: `",
-                                                                                              "`: "],
-                                                                                            &match (&&*left_val,
-                                                                                                    &&*right_val,
-                                                                                                    &::core::fmt::Arguments::new_v1(&["spi fail"],
-                                                                                                                                    &match ()
-                                                                                                                                         {
-                                                                                                                                         ()
-                                                                                                                                         =>
-                                                                                                                                         [],
-                                                                                                                                     }))
-                                                                                                 {
-                                                                                                 (arg0,
-                                                                                                  arg1,
-                                                                                                  arg2)
-                                                                                                 =>
-                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                               ::core::fmt::Debug::fmt),
-                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                               ::core::fmt::Debug::fmt),
-                                                                                                  ::core::fmt::ArgumentV1::new(arg2,
-                                                                                                                               ::core::fmt::Display::fmt)],
-                                                                                             }),
-                                                             &("rust/mynewt/src/spi.rs",
-                                                               394u32, 9u32))
-                            }
-                        }
-                    }
-                }
-            };
-            return;
-        }
         let rc = unsafe { os::os_sem_release(&mut SPI_SEM) };
         {
             match (&(rc), &(0)) {
@@ -12664,7 +12705,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           406u32, 5u32))
+                                                           343u32, 5u32))
                         }
                     }
                 }

@@ -66,22 +66,11 @@ const SPI_TASK_STACK_SIZE: usize = 256;
 //  TODO: Get this constant from Mynewt
 const OS_TICKS_PER_SEC: u32 = 1000;
 
-/// Non-blocking SPI transfer callback parameter
-struct SpiCallback {
-    /// Next packet to be sent
-    buf: &'static u8,
-    /// Length of next packet
-    len: i32,
-    /// Is packet a command
-    is_command: bool,
-}
+/// Non-blocking SPI transfer callback parameter (not used)
+struct SpiCallback {}
 
-/// Non-blocking SPI transfer callback values
-static mut SPI_CALLBACK: SpiCallback = SpiCallback {
-    buf: &0_u8,
-    len: 0,
-    is_command: false,
-};
+/// Non-blocking SPI transfer callback values (not used)
+static mut SPI_CALLBACK: SpiCallback = SpiCallback {};
 
 /// Init non-blocking SPI transfer
 pub fn spi_noblock_init() -> MynewtResult<()> {
@@ -195,7 +184,8 @@ fn spi_noblock_write(cmd: u8, data: &[u8]) -> MynewtResult<()> {
     //  Allocate a new mbuf to copy the data to be sent.
     let len = data.len() as u16 + 1;  //  1 Command Byte + Multiple Data Bytes
     let mbuf = unsafe { os::os_msys_get_pkthdr(len, 0) };
-    if mbuf.is_null() {    //  If out of memory, quit.
+    if mbuf.is_null() {  //  If out of memory, quit.
+        let rc = unsafe { os::os_sem_release(&mut SPI_THROTTLE_SEM) };  assert_eq!(rc, 0, "sem fail");    
         return Ok(());  ////  TODO
         ////assert!(!mbuf.is_null(), "mbuf fail"); ////
         ////return Err(MynewtError::SYS_ENOMEM); 
@@ -216,11 +206,13 @@ fn spi_noblock_write(cmd: u8, data: &[u8]) -> MynewtResult<()> {
         core::mem::transmute(data.as_ptr()), 
         data.len() as u16
     ) };
-    if rc != 0 { 
+    if rc != 0 {  //  If out of memory, quit.
+        unsafe { os::os_mbuf_free_chain(mbuf) };
+        let rc = unsafe { os::os_sem_release(&mut SPI_THROTTLE_SEM) };  assert_eq!(rc, 0, "sem fail");    
         return Ok(()); //// TODO
         ////assert_eq!(rc, 0, "append fail");  //  TODO: Remove this
         ////return Err(MynewtError::SYS_ENOMEM); 
-    }  //  If out of memory, quit.
+    }
 
     //  Add the mbuf to the SPI Mbuf Queue and trigger an event in the SPI Event Queue.
     let rc = unsafe { os::os_mqueue_put(
@@ -228,11 +220,13 @@ fn spi_noblock_write(cmd: u8, data: &[u8]) -> MynewtResult<()> {
         &mut SPI_EVENT_QUEUE, 
         mbuf
     ) };
-    if rc != 0 { 
+    if rc != 0 {  //  If out of memory, quit.
+        unsafe { os::os_mbuf_free_chain(mbuf) };
+        let rc = unsafe { os::os_sem_release(&mut SPI_THROTTLE_SEM) };  assert_eq!(rc, 0, "sem fail");    
         return Ok(()); //// TOOD
         ////assert_eq!(rc, 0, "put fail");  //  TODO: Remove this
         ////return Err(MynewtError::SYS_EUNKNOWN); 
-    }  //  If out of memory, quit.
+    }
     Ok(())
 }
 
@@ -251,29 +245,24 @@ extern "C" fn spi_event_callback(_event: *mut os::os_event) {
             let len = unsafe { (*m).om_len };    //  Fetch the length
             if first_byte {  //  First byte of the mbuf chain is always Command Byte
                 first_byte = false;
-                //  Write the Command Byte followed by the Data Bytes.
+                //  Write the Command Byte.
                 internal_spi_noblock_write(
                     unsafe { core::mem::transmute(data) }, 
                     1 as i32,          //  Write 1 Command Byte
-                    true,
-                    unsafe { core::mem::transmute(data.add(1)) }, 
-                    0, // (len - 1) as i32,  //  Then write 0 or more Data Bytes
-                    false
+                    true
                 ).expect("int spi fail");
 
                 //  These commands require a delay. TODO: Move to caller
-                if unsafe { *data } == 0x01 /* Instruction::SWRESET */ ||
-                    unsafe { *data } == 0x11 /* Instruction::SLPOUT */ ||
-                    unsafe { *data } == 0x29 /* Instruction::DISPON */ {
+                if  unsafe { *data } == 0x01 || //  SWRESET
+                    unsafe { *data } == 0x11 || //  SLPOUT
+                    unsafe { *data } == 0x29 {  //  DISPON
                     delay_ms(200);
                 }
 
+                //  Then write the Data Bytes.
                 internal_spi_noblock_write(
                     unsafe { core::mem::transmute(data.add(1)) }, 
                     (len - 1) as i32,  //  Then write 0 or more Data Bytes
-                    false,
-                    unsafe { core::mem::transmute(data.add(1)) }, 
-                    0, // (len - 1) as i32,  //  Then write 0 or more Data Bytes
                     false
                 ).expect("int spi fail");
 
@@ -282,50 +271,29 @@ extern "C" fn spi_event_callback(_event: *mut os::os_event) {
                 internal_spi_noblock_write(
                     unsafe { core::mem::transmute(data) }, 
                     len as i32,  //  Write all Data Bytes
-                    false,
-                    unsafe { core::mem::transmute(data) }, 
-                    0 as i32,    //  No more bytes to write
-                    false,
+                    false
                 ).expect("int spi fail");
             }
             m = unsafe { (*m).om_next.sle_next };  //  Fetch next mbuf in the chain.
         }
         //  Free the entire mbuf chain.
         unsafe { os::os_mbuf_free_chain(om) };
-        //  Release the throttle.
+
+        //  Release the throttle semaphore to allow next request to be queued.
         let rc = unsafe { os::os_sem_release(&mut SPI_THROTTLE_SEM) };
         assert_eq!(rc, 0, "sem fail");    
     }
 }
 
 /// Perform non-blocking SPI write in Mynewt OS.  Blocks until SPI write completes.
-fn internal_spi_noblock_write(
-    buf1: &'static u8, len1: i32, is_command1: bool,
-    buf2: &'static u8, len2: i32, is_command2: bool,
-) -> MynewtResult<()> {
-    if len1 == 0 && len2 == 0 { return Ok(()); }
-    assert!(len1 > 0, "bad spi len");
-    assert!(len2 >= 0, "bad spi len");
-    /*
-        console::print(if is_command1 { "spi cmd " } else { "spi data " }); ////
-        console::dump(buf1, len1 as u32); console::print("\n"); ////
-        if len2 > 0 {
-            console::print(if is_command2 { "spi cmd " } else { "spi data " }); ////
-            console::dump(buf2, len2 as u32); console::print("\n"); ////    
-        }
-        static mut I: u32 = 0;
-        unsafe { I += 1 }; if unsafe { I % 40 } == 0 { console::flush(); } ////
-        //cortex_m::asm::bkpt();  ////  Break here to inspect the SPI request
-    */
-
-    //  Remember the second packet to be written by spi_noblock_handler.
-    unsafe { 
-        SPI_CALLBACK.len = len2; 
-        SPI_CALLBACK.buf = buf2;
-        SPI_CALLBACK.is_command = is_command2;
-    }    
-    //  Rename the variables.
-    let (buf, len, is_command) = (buf1, len1, is_command1);
+fn internal_spi_noblock_write(buf: &'static u8, len: i32, is_command: bool) -> MynewtResult<()> {
+    if len == 0 { return Ok(()); }
+    assert!(len > 0, "bad spi len");
+    console::print(if is_command { "spi cmd " } else { "spi data " }); ////
+    console::dump(buf, len as u32); console::print("\n"); ////
+    console::flush(); ////
+    static mut I: u32 = 0;
+    unsafe { I += 1 }; if unsafe { I % 40 } == 0 { console::flush(); } ////
 
     //  If this is a Command Byte, set DC Pin to low, else set DC Pin to high.
     unsafe { hal::hal_gpio_write(
@@ -340,15 +308,15 @@ fn internal_spi_noblock_write(
     if len == 1 {  //  If writing only 1 byte...
         //  From https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_spi.c#L1106-L1118
         //  There is a known issue in nRF52832 with sending 1 byte in SPIM mode that
-        //  it clocks out additional byte. For this reason, let us use SPI mode
-        //  for such a write
-        //  Write the SPI data the blocking way.
+        //  it clocks out additional byte. For this reason, let us use SPI mode for such a write.
+        //  Write the SPI byte the blocking way.
         let rc = unsafe { hal::hal_spi_txrx(
             SPI_NUM, 
             core::mem::transmute(buf), //  TX Buffer
             NULL,     //  RX Buffer (don't receive)        
             len) };
         assert_eq!(rc, 0, "spi fail");  //  TODO: Map to MynewtResult
+
     } else {  //  If writing more than 1 byte...
         //  Write the SPI data the non-blocking way.  Will call spi_noblock_handler() after writing, which will send second packet.
         let rc = unsafe { hal::hal_spi_txrx_noblock(
@@ -370,37 +338,6 @@ fn internal_spi_noblock_write(
 
 /// Called by interrupt handler after Non-blocking SPI transfer has completed
 extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
-    //  Send the next packet, if any.
-    let (buf, len, is_command) = unsafe { (SPI_CALLBACK.buf, SPI_CALLBACK.len, SPI_CALLBACK.is_command) };
-    unsafe { SPI_CALLBACK.len = 0 };
-    if len > 0 {  //  If there is a second packet to write...
-        //console::print("sending int "); console::printint(_len); console::print("...\n"); ////
-        //  If this is a Command Byte, set DC Pin to low, else set DC Pin to high.
-        unsafe { hal::hal_gpio_write(
-            SPI_DC_PIN,
-            if is_command { 0 }
-            else { 1 }
-        ) };
-
-        //  Set the SS Pin to low to start the transfer.
-        //  unsafe { hal::hal_gpio_write(SPI_SS_PIN, 0) };
-
-        //  Write the SPI data.
-        let rc = unsafe { hal::hal_spi_txrx_noblock(
-            SPI_NUM, 
-            core::mem::transmute(buf), //  TX Buffer
-            NULL,     //  RX Buffer (don't receive)        
-            len) };
-        assert_eq!(rc, 0, "spi fail");  //  TODO: Map to MynewtResult
-
-        //  Wait for second packet to be written.
-        return;
-    }    
-
-    //  Set SS Pin to high to stop the transfer.
-    //unsafe { hal::hal_gpio_write(SPI_SS_PIN, 1) };
-    //console::print("sent int "); console::printint(_len); console::print("\n"); ////
-
     //  Signal to internal_spi_noblock_write() that SPI request has been completed.
     let rc = unsafe { os::os_sem_release(&mut SPI_SEM) };
     assert_eq!(rc, 0, "sem fail");
