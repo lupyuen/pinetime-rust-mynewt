@@ -44,7 +44,7 @@ static mut PENDING_DATA: heapless::Vec<u8, PendingDataSize> = heapless::Vec(heap
 /// Semaphore that is signalled for every completed SPI request
 static mut SPI_SEM: os::os_sem = fill_zero!(os::os_sem);
 
-/// Semaphore that throttles the number of pending SPI requests
+/// Semaphore that throttles the number of queued SPI requests
 static mut SPI_THROTTLE_SEM: os::os_sem = fill_zero!(os::os_sem);
 
 /// Mbuf Queue that contains the SPI data packets to be sent. Why did use Mbuf Queue? 
@@ -105,8 +105,8 @@ pub fn spi_noblock_init() -> MynewtResult<()> {
     let rc = unsafe { os::os_sem_init(&mut SPI_SEM, 0) };  //  Init to 0 tokens, so caller will block until SPI request is completed.
     assert_eq!(rc, 0, "sem fail");  //  TODO: Map to MynewtResult
 
-    //  Create the Semaphore that will throttle the number of pending SPI requests
-    let rc = unsafe { os::os_sem_init(&mut SPI_THROTTLE_SEM, 2) };
+    //  Create the Semaphore that will throttle the number of queued SPI requests
+    let rc = unsafe { os::os_sem_init(&mut SPI_THROTTLE_SEM, 2) };  //  Only max 2 requests queued, the next request will block
     assert_eq!(rc, 0, "sem fail");  //  TODO: Map to MynewtResult
     
     //  Create a task to send SPI requests sequentially from the SPI Event Queue and Mbuf Queue
@@ -177,13 +177,15 @@ pub fn spi_noblock_write_flush() -> MynewtResult<()> {
 /// Enqueue request for non-blocking SPI write. Returns without waiting for write to complete.
 /// Request must have a Command Byte, followed by optional Data Bytes.
 fn spi_noblock_write(cmd: u8, data: &[u8]) -> MynewtResult<()> {
+    /*
     console::print("spi cmd "); ////
     console::dump(&cmd, 1 as u32); console::print("\n"); ////
     console::print("spi data "); ////
     console::dump(data.as_ptr(), data.len() as u32); console::print("\n"); ////
     console::flush(); ////  static mut I: u32 = 0; unsafe { I += 1 }; if unsafe { I % 40 } == 0 { console::flush(); } ////
+    */
 
-    //  Throttle the number of pending SPI requests.
+    //  Throttle the number of queued SPI requests.
     let timeout = 30_000;
     unsafe { os::os_sem_pend(&mut SPI_THROTTLE_SEM, timeout * OS_TICKS_PER_SEC / 1000) };
 
