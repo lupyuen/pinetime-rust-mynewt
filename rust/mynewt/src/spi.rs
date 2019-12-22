@@ -125,21 +125,13 @@ pub fn spi_noblock_init() -> MynewtResult<()> {
 
 /// SPI Task Function.  Execute sequentially each SPI request posted to our Event Queue.  When there are no requests to process, block until one arrives.
 extern "C" fn spi_task_func(_arg: Ptr) {
-    /*
-    //  Set a recurring watchdog timer to fire no sooner than in ‘expire_secs’ seconds. Watchdog should be tickled periodically with a frequency smaller than ‘expire_secs’. Watchdog needs to be then started with a call to :c:func:hal_watchdog_enable().
-    extern "C" { fn hal_watchdog_init(expire_msecs: u32) -> i32; }
-    let rc = unsafe { hal_watchdog_init(0x100_0000) }; ////
-    assert_eq!(rc, 0, "watchdog fail");  //  TODO: Map to Mynewt Error
-    */
-
     loop {
         //  Forever read SPI requests and execute them
         os::eventq_run(
             unsafe { &mut SPI_EVENT_QUEUE }
         ).expect("eventq fail");
 
-        //  Tickles the watchdog. This needs to be done periodically, before the value configured in :c:func:hal_watchdog_init() expires.
-        extern "C" { fn hal_watchdog_tickle(); }
+        //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
         unsafe { hal_watchdog_tickle() };
     }
 }
@@ -361,6 +353,12 @@ extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
 fn delay_ms(ms: u8) {
     let delay_ticks = (ms as u32) * OS_TICKS_PER_SEC / 1000;
     unsafe { os::os_time_delay(delay_ticks) };
+}
+
+//  TODO: Move this to Mynewt library
+extern "C" { 
+    /// Tickles the watchdog so that the Watchdog Timer doesn't expire. This needs to be done periodically, before the value configured in hal_watchdog_init() expires.
+    fn hal_watchdog_tickle(); 
 }
 
 /* Original mbuf code in C

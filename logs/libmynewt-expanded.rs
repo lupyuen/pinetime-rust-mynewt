@@ -12259,9 +12259,6 @@ pub mod spi {
             os::eventq_run(unsafe {
                                &mut SPI_EVENT_QUEUE
                            }).expect("eventq fail");
-            extern "C" {
-                fn hal_watchdog_tickle();
-            }
             unsafe { hal_watchdog_tickle() };
         }
     }
@@ -12278,7 +12275,7 @@ pub mod spi {
         if !(unsafe { PENDING_CMD.len() } > 0) {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { PENDING_CMD.len() } > 0",
-                                           "rust/mynewt/src/spi.rs", 160u32,
+                                           "rust/mynewt/src/spi.rs", 152u32,
                                            5u32))
             }
         };
@@ -12344,7 +12341,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               207u32, 73u32))
+                                                               199u32, 73u32))
                             }
                         }
                     }
@@ -12386,7 +12383,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           219u32, 5u32))
+                                                           211u32, 5u32))
                         }
                     }
                 }
@@ -12431,7 +12428,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               230u32, 73u32))
+                                                               222u32, 73u32))
                             }
                         }
                     }
@@ -12477,7 +12474,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               244u32, 73u32))
+                                                               236u32, 73u32))
                             }
                         }
                     }
@@ -12551,7 +12548,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               303u32, 9u32))
+                                                               295u32, 9u32))
                             }
                         }
                     }
@@ -12566,7 +12563,7 @@ pub mod spi {
         if !(len > 0) {
             {
                 ::core::panicking::panic(&("bad spi len",
-                                           "rust/mynewt/src/spi.rs", 310u32,
+                                           "rust/mynewt/src/spi.rs", 302u32,
                                            5u32))
             }
         };
@@ -12610,7 +12607,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               332u32, 9u32))
+                                                               324u32, 9u32))
                             }
                         }
                     }
@@ -12653,7 +12650,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               341u32, 9u32))
+                                                               333u32, 9u32))
                             }
                         }
                     }
@@ -12702,7 +12699,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           357u32, 5u32))
+                                                           349u32, 5u32))
                         }
                     }
                 }
@@ -12713,6 +12710,10 @@ pub mod spi {
     fn delay_ms(ms: u8) {
         let delay_ticks = (ms as u32) * OS_TICKS_PER_SEC / 1000;
         unsafe { os::os_time_delay(delay_ticks) };
+    }
+    extern "C" {
+        /// Tickles the watchdog so that the Watchdog Timer doesn't expire. This needs to be done periodically, before the value configured in hal_watchdog_init() expires.
+        fn hal_watchdog_tickle();
     }
 }
 ///  Initialise the Mynewt system.  Start the Mynewt drivers and libraries.  Equivalent to `sysinit()` macro in C.
