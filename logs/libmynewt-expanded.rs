@@ -12259,6 +12259,10 @@ pub mod spi {
             os::eventq_run(unsafe {
                                &mut SPI_EVENT_QUEUE
                            }).expect("eventq fail");
+            extern "C" {
+                fn hal_watchdog_tickle();
+            }
+            unsafe { hal_watchdog_tickle() };
         }
     }
     /// Set pending request for non-blocking SPI write for Command Byte. Returns without waiting for write to complete.
@@ -12274,7 +12278,7 @@ pub mod spi {
         if !(unsafe { PENDING_CMD.len() } > 0) {
             {
                 ::core::panicking::panic(&("assertion failed: unsafe { PENDING_CMD.len() } > 0",
-                                           "rust/mynewt/src/spi.rs", 149u32,
+                                           "rust/mynewt/src/spi.rs", 160u32,
                                            5u32))
             }
         };
@@ -12340,7 +12344,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               196u32, 73u32))
+                                                               207u32, 73u32))
                             }
                         }
                     }
@@ -12382,7 +12386,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           208u32, 5u32))
+                                                           219u32, 5u32))
                         }
                     }
                 }
@@ -12427,7 +12431,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               219u32, 73u32))
+                                                               230u32, 73u32))
                             }
                         }
                     }
@@ -12473,7 +12477,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               233u32, 73u32))
+                                                               244u32, 73u32))
                             }
                         }
                     }
@@ -12547,7 +12551,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               292u32, 9u32))
+                                                               303u32, 9u32))
                             }
                         }
                     }
@@ -12562,7 +12566,7 @@ pub mod spi {
         if !(len > 0) {
             {
                 ::core::panicking::panic(&("bad spi len",
-                                           "rust/mynewt/src/spi.rs", 299u32,
+                                           "rust/mynewt/src/spi.rs", 310u32,
                                            5u32))
             }
         };
@@ -12606,7 +12610,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               321u32, 9u32))
+                                                               332u32, 9u32))
                             }
                         }
                     }
@@ -12649,7 +12653,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               330u32, 9u32))
+                                                               341u32, 9u32))
                             }
                         }
                     }
@@ -12698,7 +12702,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           346u32, 5u32))
+                                                           357u32, 5u32))
                         }
                     }
                 }

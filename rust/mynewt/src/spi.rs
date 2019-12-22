@@ -125,11 +125,22 @@ pub fn spi_noblock_init() -> MynewtResult<()> {
 
 /// SPI Task Function.  Execute sequentially each SPI request posted to our Event Queue.  When there are no requests to process, block until one arrives.
 extern "C" fn spi_task_func(_arg: Ptr) {
+    /*
+    //  Set a recurring watchdog timer to fire no sooner than in ‘expire_secs’ seconds. Watchdog should be tickled periodically with a frequency smaller than ‘expire_secs’. Watchdog needs to be then started with a call to :c:func:hal_watchdog_enable().
+    extern "C" { fn hal_watchdog_init(expire_msecs: u32) -> i32; }
+    let rc = unsafe { hal_watchdog_init(0x100_0000) }; ////
+    assert_eq!(rc, 0, "watchdog fail");  //  TODO: Map to Mynewt Error
+    */
+
     loop {
         //  Forever read SPI requests and execute them
         os::eventq_run(
             unsafe { &mut SPI_EVENT_QUEUE }
         ).expect("eventq fail");
+
+        //  Tickles the watchdog. This needs to be done periodically, before the value configured in :c:func:hal_watchdog_init() expires.
+        extern "C" { fn hal_watchdog_tickle(); }
+        unsafe { hal_watchdog_tickle() };
     }
 }
 
@@ -239,7 +250,7 @@ fn spi_noblock_write(cmd: u8, data: &[u8]) -> MynewtResult<()> {
 }
 
 /// Callback for the event that is triggered when an SPI request is added to the queue.
-extern "C" fn spi_event_callback(_event: *mut os::os_event) {
+extern "C" fn spi_event_callback(_event: *mut os::os_event) {    
     loop {  //  For each mbuf chain found...
         //  Get the next SPI request, stored as an mbuf chain.
         let om = unsafe { os::os_mqueue_get(&mut SPI_DATA_QUEUE) };
