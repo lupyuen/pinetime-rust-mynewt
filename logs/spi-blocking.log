@@ -36,6 +36,7 @@ TMP create temp_stub_0
 NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
 NET standalone node 
 Rust TMP poll
+//  Initialise Display: st7735_lcd::init()
 spi cmd 01 
 spi data 
 spi cmd 11 
@@ -68,18 +69,25 @@ spi cmd 3a
 spi data 05 
 spi cmd 29 
 spi data 
+//  Set Orientation: st7735_lcd::set_orientation()
 spi cmd 36 
 spi data 60 
+//  Set Address Window Columns (CASET): st7735_lcd::draw() → set_pixel() → set_address_window()
 spi cmd 2a 
 spi data 00 00 00 00 
+//  Set Address Window Rows (RASET): st7735_lcd::draw() → set_pixel() → set_address_window()
 spi cmd 2b 
 spi data 00 00 00 00 
+//  Write Pixels (RAMWR): st7735_lcd::draw() → set_pixel()
 spi cmd 2c 
 spi data f8 00 
+//  Set Address Window Columns (CASET): st7735_lcd::draw() → set_pixel() → set_address_window()
 spi cmd 2a 
 spi data 00 01 00 01 
+//  Set Address Window Rows (RASET): st7735_lcd::draw() → set_pixel() → set_address_window()
 spi cmd 2b 
 spi data 00 00 00 00 
+//  Write Pixels (RAMWR): st7735_lcd::draw() → set_pixel()
 spi cmd 2c 
 spi data f8 00 
 spi cmd 2a 
