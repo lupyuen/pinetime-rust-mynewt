@@ -47,7 +47,7 @@ static mut SPI_SEM: os::os_sem = fill_zero!(os::os_sem);
 /// Semaphore that throttles the number of queued SPI requests
 static mut SPI_THROTTLE_SEM: os::os_sem = fill_zero!(os::os_sem);
 
-/// Mbuf Queue that contains the SPI data packets to be sent. Why did use Mbuf Queue? 
+/// Mbuf Queue that contains the SPI data packets to be sent. Why use Mbuf Queue? 
 /// Because it's a Mynewt OS low-level buffer that allows packets of various sizes to be copied efficiently.
 static mut SPI_DATA_QUEUE: os::os_mqueue = fill_zero!(os::os_mqueue);
 
@@ -126,7 +126,7 @@ pub fn spi_noblock_init() -> MynewtResult<()> {
 /// SPI Task Function.  Execute sequentially each SPI request posted to our Event Queue.  When there are no requests to process, block until one arrives.
 extern "C" fn spi_task_func(_arg: Ptr) {
     loop {
-        //  Forever read SPI requests and execute them
+        //  Forever read SPI requests and execute them. Will call spi_event_callback().
         os::eventq_run(
             unsafe { &mut SPI_EVENT_QUEUE }
         ).expect("eventq fail");
@@ -209,7 +209,11 @@ fn spi_noblock_write(cmd: u8, data: &[u8]) -> MynewtResult<()> {
         1
     ) };
     assert_eq!(rc, 0, "append fail");  //  TODO: Remove this
-    if rc != 0 { return Err(MynewtError::SYS_ENOMEM); }  //  If out of memory, quit.
+    if rc != 0 {  //  If out of memory, quit.
+        unsafe { os::os_mbuf_free_chain(mbuf) };
+        let rc = unsafe { os::os_sem_release(&mut SPI_THROTTLE_SEM) };  assert_eq!(rc, 0, "sem fail");    
+        return Err(MynewtError::SYS_ENOMEM); 
+    }
 
     //  Append the Data Bytes to the mbuf chain.  This may increase the number of mbufs in the chain.
     let rc = unsafe { os::os_mbuf_append(
@@ -324,7 +328,7 @@ fn internal_spi_noblock_write(buf: &'static u8, len: i32, is_command: bool) -> M
         assert_eq!(rc, 0, "spi fail");  //  TODO: Map to MynewtResult
 
     } else {  //  If writing more than 1 byte...
-        //  Write the SPI data the non-blocking way.  Will call spi_noblock_handler() after writing, which will send second packet.
+        //  Write the SPI data the non-blocking way.  Will call spi_noblock_handler() after writing.
         let rc = unsafe { hal::hal_spi_txrx_noblock(
             SPI_NUM, 
             core::mem::transmute(buf), //  TX Buffer
@@ -332,7 +336,7 @@ fn internal_spi_noblock_write(buf: &'static u8, len: i32, is_command: bool) -> M
             len) };
         assert_eq!(rc, 0, "spi fail");  //  TODO: Map to MynewtResult
 
-        //  Wait for spi_noblock_handler() to signal that SPI request has been completed. Timeout in 1 second.
+        //  Wait for spi_noblock_handler() to signal that SPI request has been completed. Timeout in 30 seconds.
         let timeout = 30_000;
         unsafe { os::os_sem_pend(&mut SPI_SEM, timeout * OS_TICKS_PER_SEC / 1000) };
     }
@@ -343,7 +347,7 @@ fn internal_spi_noblock_write(buf: &'static u8, len: i32, is_command: bool) -> M
 }
 
 /// Called by interrupt handler after Non-blocking SPI transfer has completed
-extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void, _len: i32) {
+extern "C" fn spi_noblock_handler(_arg: Ptr, _len: i32) {
     //  Signal to internal_spi_noblock_write() that SPI request has been completed.
     let rc = unsafe { os::os_sem_release(&mut SPI_SEM) };
     assert_eq!(rc, 0, "sem fail");

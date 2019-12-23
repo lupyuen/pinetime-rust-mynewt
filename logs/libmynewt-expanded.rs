@@ -11903,7 +11903,7 @@ pub mod spi {
                                      os::os_sem>([0;
                                                      ::core::mem::size_of::<os::os_sem>()])
         };
-    /// Mbuf Queue that contains the SPI data packets to be sent. Why did use Mbuf Queue? 
+    /// Mbuf Queue that contains the SPI data packets to be sent. Why use Mbuf Queue? 
     /// Because it's a Mynewt OS low-level buffer that allows packets of various sizes to be copied efficiently.
     static mut SPI_DATA_QUEUE: os::os_mqueue =
         unsafe {
@@ -12666,8 +12666,7 @@ pub mod spi {
         Ok(())
     }
     /// Called by interrupt handler after Non-blocking SPI transfer has completed
-    extern "C" fn spi_noblock_handler(_arg: *mut core::ffi::c_void,
-                                      _len: i32) {
+    extern "C" fn spi_noblock_handler(_arg: Ptr, _len: i32) {
         let rc = unsafe { os::os_sem_release(&mut SPI_SEM) };
         {
             match (&(rc), &(0)) {
