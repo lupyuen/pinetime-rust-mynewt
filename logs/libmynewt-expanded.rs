@@ -12310,86 +12310,18 @@ pub mod spi {
         let len = data.len() as u16 + 1;
         let mbuf = unsafe { os::os_msys_get_pkthdr(len, 0) };
         if mbuf.is_null() {
-            let rc = unsafe { os::os_sem_release(&mut SPI_THROTTLE_SEM) };
-            {
-                match (&(rc), &(0)) {
-                    (left_val, right_val) => {
-                        if !(*left_val == *right_val) {
-                            {
-                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                              "`,\n right: `",
-                                                                                              "`: "],
-                                                                                            &match (&&*left_val,
-                                                                                                    &&*right_val,
-                                                                                                    &::core::fmt::Arguments::new_v1(&["sem fail"],
-                                                                                                                                    &match ()
-                                                                                                                                         {
-                                                                                                                                         ()
-                                                                                                                                         =>
-                                                                                                                                         [],
-                                                                                                                                     }))
-                                                                                                 {
-                                                                                                 (arg0,
-                                                                                                  arg1,
-                                                                                                  arg2)
-                                                                                                 =>
-                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                               ::core::fmt::Debug::fmt),
-                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                               ::core::fmt::Debug::fmt),
-                                                                                                  ::core::fmt::ArgumentV1::new(arg2,
-                                                                                                                               ::core::fmt::Display::fmt)],
-                                                                                             }),
-                                                             &("rust/mynewt/src/spi.rs",
-                                                               199u32, 73u32))
-                            }
-                        }
-                    }
-                }
-            };
-            return Ok(());
+            unsafe { os::os_sem_release(&mut SPI_THROTTLE_SEM) };
+            return Err(MynewtError::SYS_ENOMEM);
         }
         let rc =
             unsafe {
                 os::os_mbuf_append(mbuf, core::mem::transmute(&cmd), 1)
             };
-        {
-            match (&(rc), &(0)) {
-                (left_val, right_val) => {
-                    if !(*left_val == *right_val) {
-                        {
-                            ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                          "`,\n right: `",
-                                                                                          "`: "],
-                                                                                        &match (&&*left_val,
-                                                                                                &&*right_val,
-                                                                                                &::core::fmt::Arguments::new_v1(&["append fail"],
-                                                                                                                                &match ()
-                                                                                                                                     {
-                                                                                                                                     ()
-                                                                                                                                     =>
-                                                                                                                                     [],
-                                                                                                                                 }))
-                                                                                             {
-                                                                                             (arg0,
-                                                                                              arg1,
-                                                                                              arg2)
-                                                                                             =>
-                                                                                             [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                           ::core::fmt::Debug::fmt),
-                                                                                              ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                           ::core::fmt::Debug::fmt),
-                                                                                              ::core::fmt::ArgumentV1::new(arg2,
-                                                                                                                           ::core::fmt::Display::fmt)],
-                                                                                         }),
-                                                         &("rust/mynewt/src/spi.rs",
-                                                           211u32, 5u32))
-                        }
-                    }
-                }
-            }
-        };
-        if rc != 0 { return Err(MynewtError::SYS_ENOMEM); }
+        if rc != 0 {
+            unsafe { os::os_mbuf_free_chain(mbuf) };
+            unsafe { os::os_sem_release(&mut SPI_THROTTLE_SEM) };
+            return Err(MynewtError::SYS_ENOMEM);
+        }
         let rc =
             unsafe {
                 os::os_mbuf_append(mbuf, core::mem::transmute(data.as_ptr()),
@@ -12397,44 +12329,8 @@ pub mod spi {
             };
         if rc != 0 {
             unsafe { os::os_mbuf_free_chain(mbuf) };
-            let rc = unsafe { os::os_sem_release(&mut SPI_THROTTLE_SEM) };
-            {
-                match (&(rc), &(0)) {
-                    (left_val, right_val) => {
-                        if !(*left_val == *right_val) {
-                            {
-                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                              "`,\n right: `",
-                                                                                              "`: "],
-                                                                                            &match (&&*left_val,
-                                                                                                    &&*right_val,
-                                                                                                    &::core::fmt::Arguments::new_v1(&["sem fail"],
-                                                                                                                                    &match ()
-                                                                                                                                         {
-                                                                                                                                         ()
-                                                                                                                                         =>
-                                                                                                                                         [],
-                                                                                                                                     }))
-                                                                                                 {
-                                                                                                 (arg0,
-                                                                                                  arg1,
-                                                                                                  arg2)
-                                                                                                 =>
-                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                               ::core::fmt::Debug::fmt),
-                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                               ::core::fmt::Debug::fmt),
-                                                                                                  ::core::fmt::ArgumentV1::new(arg2,
-                                                                                                                               ::core::fmt::Display::fmt)],
-                                                                                             }),
-                                                             &("rust/mynewt/src/spi.rs",
-                                                               222u32, 73u32))
-                            }
-                        }
-                    }
-                }
-            };
-            return Ok(());
+            unsafe { os::os_sem_release(&mut SPI_THROTTLE_SEM) };
+            return Err(MynewtError::SYS_ENOMEM);
         }
         let rc =
             unsafe {
@@ -12443,44 +12339,8 @@ pub mod spi {
             };
         if rc != 0 {
             unsafe { os::os_mbuf_free_chain(mbuf) };
-            let rc = unsafe { os::os_sem_release(&mut SPI_THROTTLE_SEM) };
-            {
-                match (&(rc), &(0)) {
-                    (left_val, right_val) => {
-                        if !(*left_val == *right_val) {
-                            {
-                                ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
-                                                                                              "`,\n right: `",
-                                                                                              "`: "],
-                                                                                            &match (&&*left_val,
-                                                                                                    &&*right_val,
-                                                                                                    &::core::fmt::Arguments::new_v1(&["sem fail"],
-                                                                                                                                    &match ()
-                                                                                                                                         {
-                                                                                                                                         ()
-                                                                                                                                         =>
-                                                                                                                                         [],
-                                                                                                                                     }))
-                                                                                                 {
-                                                                                                 (arg0,
-                                                                                                  arg1,
-                                                                                                  arg2)
-                                                                                                 =>
-                                                                                                 [::core::fmt::ArgumentV1::new(arg0,
-                                                                                                                               ::core::fmt::Debug::fmt),
-                                                                                                  ::core::fmt::ArgumentV1::new(arg1,
-                                                                                                                               ::core::fmt::Debug::fmt),
-                                                                                                  ::core::fmt::ArgumentV1::new(arg2,
-                                                                                                                               ::core::fmt::Display::fmt)],
-                                                                                             }),
-                                                             &("rust/mynewt/src/spi.rs",
-                                                               236u32, 73u32))
-                            }
-                        }
-                    }
-                }
-            };
-            return Ok(());
+            unsafe { os::os_sem_release(&mut SPI_THROTTLE_SEM) };
+            return Err(MynewtError::SYS_EUNKNOWN);
         }
         Ok(())
     }
@@ -12548,7 +12408,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               295u32, 9u32))
+                                                               291u32, 9u32))
                             }
                         }
                     }
@@ -12563,7 +12423,7 @@ pub mod spi {
         if !(len > 0) {
             {
                 ::core::panicking::panic(&("bad spi len",
-                                           "rust/mynewt/src/spi.rs", 302u32,
+                                           "rust/mynewt/src/spi.rs", 298u32,
                                            5u32))
             }
         };
@@ -12607,7 +12467,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               324u32, 9u32))
+                                                               320u32, 9u32))
                             }
                         }
                     }
@@ -12650,7 +12510,7 @@ pub mod spi {
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
                                                              &("rust/mynewt/src/spi.rs",
-                                                               333u32, 9u32))
+                                                               329u32, 9u32))
                             }
                         }
                     }
@@ -12698,7 +12558,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
                                                          &("rust/mynewt/src/spi.rs",
-                                                           349u32, 5u32))
+                                                           345u32, 5u32))
                         }
                     }
                 }
