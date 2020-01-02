@@ -121,3 +121,4 @@ pkg.cflags:
 #  Linker flags
 pkg.lflags:
     - -Wl,-wrap,coap_receive  #  Rename all coap_receive() references to __wrap_coap_receive(), so that we can provide a custom implementation
+    - -lm                     #  Include Math library (libm.a), needed by [kurbo] curve library
