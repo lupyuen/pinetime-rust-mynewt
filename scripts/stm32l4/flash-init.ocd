@@ -1,4 +1,0 @@
-# This is an OpenOCD script that prepares the microcontroller before any flashing.
-
-# Disable all openocd messages.
-debug_level 0

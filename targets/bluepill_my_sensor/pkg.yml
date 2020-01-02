@@ -1,6 +1,0 @@
-# Package Settings.  Overrides apps/my_sensor_app/pkg.yml
-pkg.name:       targets/bluepill_my_sensor
-pkg.type:       target
-pkg.description: 
-pkg.author: 
-pkg.homepage: 
