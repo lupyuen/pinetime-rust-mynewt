@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "piet-embedded"
+		},
+		{
+			"path": "druid-embedded"
+		},
+		{
+			"path": "kurbo-embedded"
+		},
+		{
+			"path": "st7735-lcd-batch-rs"
+		}
+	],
+	"settings": {}
+}
