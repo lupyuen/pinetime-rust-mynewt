@@ -21,11 +21,15 @@
 
 # PineTime Smart Watch Firmware with Apache Mynewt and Embedded Rust
 
-This `pinetime` branch contains the firmware source code for PineTime Smart Watch with Apache Mynewt and Embedded Rust. Refer to the articles...
+This `master` branch contains the firmware source code for PineTime Smart Watch with Apache Mynewt and Embedded Rust. Refer to the articles...
 
 1. [_Sneak Peek of PineTime Smart Watch… And why it's perfect for teaching IoT_](https://medium.com/swlh/sneak-peek-of-pinetime-smart-watch-and-why-its-perfect-for-teaching-iot-81b74161c159?source=friends_link&sk=d9301466f5499bece3e7b638e99ec20d)
 
 1. [_Building a Rust Driver for PineTime’s Touch Controller_](https://medium.com/@ly.lee/building-a-rust-driver-for-pinetimes-touch-controller-cbc1a5d5d3e9?source=friends_link&sk=d8cf73fc943d9c0e960627d768f309cb)
+
+1. [_Porting [druid] Rust Widgets to PineTime Smart Watch_](https://medium.com/@ly.lee/porting-druid-rust-widgets-to-pinetime-smart-watch-7e1d5a5d977a?source=friends_link&sk=09b153c68483f7fa9e63350efd167b07)
+
+1. [_Optimising PineTime’s Display Driver with Rust and Mynewt_](https://medium.com/@ly.lee/optimising-pinetimes-display-driver-with-rust-and-mynewt-3ba269ea2f5c?source=friends_link&sk=4d2cbd2e6cd2343eed62d214814f7b81)
 
 The code structure is similar to the earlier article on nRF52...
 
