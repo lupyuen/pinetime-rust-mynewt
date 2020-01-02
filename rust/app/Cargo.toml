@@ -17,9 +17,9 @@ cortex-m  = { version = "0.6.1", features = [ "inline-asm" ] }  # Arm Cortex-M u
 macros = { path = "../macros" } # Import path `../macros` as macros library
 mynewt = { path = "../mynewt" } # Import path `../mynewt` as mynewt library
 # Druid UI Dependencies
-druid        = { path = "../../../druid-embedded/druid" }        # TODO: https://github.com/lupyuen/druid-embedded
-druid-derive = { path = "../../../druid-embedded/druid-derive" } # TODO: https://github.com/lupyuen/druid-embedded
-druid-shell  = { path = "../../../druid-embedded/druid-shell" }  # TODO: https://github.com/lupyuen/druid-embedded
+druid        = { path = "../druid-embedded/druid" }        # TODO: https://github.com/lupyuen/druid-embedded
+druid-derive = { path = "../druid-embedded/druid-derive" } # TODO: https://github.com/lupyuen/druid-embedded
+druid-shell  = { path = "../druid-embedded/druid-shell" }  # TODO: https://github.com/lupyuen/druid-embedded
 
 # Build this module as a Rust library, not a Rust application.  We will link this library with the Mynewt executable.
 [lib]

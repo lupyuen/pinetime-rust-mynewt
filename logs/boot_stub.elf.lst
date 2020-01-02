@@ -1,6 +1,6 @@
 
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf:     file format elf32-littlearm
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf
+/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf:     file format elf32-littlearm
+/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf
 architecture: arm, flags 0x00000112:
 EXEC_P, HAS_SYMS, D_PAGED
 start address 0x000000d9
@@ -34,10 +34,10 @@ Idx Name               Size      VMA       LMA       File off  Algn  Flags
  13 .debug_info        0000a2ad  00000000  00000000  00024c5b  2**0  CONTENTS, READONLY, DEBUGGING
  14 .debug_abbrev      00001ffa  00000000  00000000  0002ef08  2**0  CONTENTS, READONLY, DEBUGGING
  15 .debug_aranges     000004f0  00000000  00000000  00030f08  2**3  CONTENTS, READONLY, DEBUGGING
- 16 .debug_str         00002491  00000000  00000000  000313f8  2**0  CONTENTS, READONLY, DEBUGGING
- 17 .debug_loc         00001e98  00000000  00000000  00033889  2**0  CONTENTS, READONLY, DEBUGGING
- 18 .debug_ranges      000003b0  00000000  00000000  00035721  2**0  CONTENTS, READONLY, DEBUGGING
- 19 .debug_frame       000009d4  00000000  00000000  00035ad4  2**2  CONTENTS, READONLY, DEBUGGING
+ 16 .debug_str         0000248c  00000000  00000000  000313f8  2**0  CONTENTS, READONLY, DEBUGGING
+ 17 .debug_loc         00001e98  00000000  00000000  00033884  2**0  CONTENTS, READONLY, DEBUGGING
+ 18 .debug_ranges      000003b0  00000000  00000000  0003571c  2**0  CONTENTS, READONLY, DEBUGGING
+ 19 .debug_frame       000009d4  00000000  00000000  00035acc  2**2  CONTENTS, READONLY, DEBUGGING
 SYMBOL TABLE:
 00000000 l    d  .text	00000000 .text
 00000b48 l    d  .ARM.extab	00000000 .ARM.extab
@@ -2434,8 +2434,8 @@ SysTick_Handler:
  b28:	0007c000 00001000 00000010 00004000     .............@..
  b38:	00004000 00000011 0007d000 00003000     .@...........0..
 
-/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf:     file format elf32-littlearm
+/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf:     file format elf32-littlearm
 
 arm-none-eabi-objdump: section '.rodata' mentioned in a -j option, but not found in any input file
    text	   data	    bss	    dec	    hex	filename
-   2912	     24	    260	   3196	    c7c	/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf
+   2912	     24	    260	   3196	    c7c	/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf
