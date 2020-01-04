@@ -74,7 +74,6 @@ transport select swd
 ###############################################################################
 # Target
 
-set WORKAREASIZE 0
 source [find target/nrf52.cfg]
 
 # Configure reset to use SRST line

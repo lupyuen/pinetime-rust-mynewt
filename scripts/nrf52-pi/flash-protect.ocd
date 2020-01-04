@@ -4,8 +4,14 @@
 gdb_flash_program enable
 gdb_breakpoint_override hard
 
+#flash bank uicr nrf5 0x10001000 0x210 1 1 $_TARGETNAME
+
 # Connect to the device.
 init
+
+nrf5
+flash read_bank 2 nrf52-uicr.hex 0x0 0x210
+exit
 
 # Fetch APPROTECTSTATUS status register for access port protection. 
 echo "Checking flash protection..."
