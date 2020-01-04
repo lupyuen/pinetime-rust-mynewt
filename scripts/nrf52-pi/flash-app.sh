@@ -7,4 +7,4 @@ set -x  #  Echo all commands.
 sudo /home/pi/openocd/src/openocd \
     -s /home/pi/openocd/tcl \
     -f scripts/nrf52-pi/swd-pi.ocd \
-    -f scripts/nrf52-pi/flash-app.ocd
+    -f scripts/nrf52/flash-app.ocd
