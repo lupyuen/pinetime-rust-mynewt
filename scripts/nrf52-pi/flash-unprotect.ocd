@@ -1,0 +1,18 @@
+# This is an OpenOCD script that connects Raspberry Pi to the nRF52 and removes flash protection
+
+# From https://devzone.nordicsemi.com/f/nordic-q-a/42824/flashing-nrf5832-using-only-st-link-v2-and-openocd
+gdb_flash_program enable
+gdb_breakpoint_override hard
+
+# Check APPROTECTSTATUS status register for access port protection. 
+# Should show 0, which means protection enabled.
+echo "Checking flash protection..."
+nrf52.dap apreg 1 0x0c
+echo ""
+
+#echo "Restarting..."
+#reset halt
+#echo ""
+
+echo "**** Done!"
+exit
