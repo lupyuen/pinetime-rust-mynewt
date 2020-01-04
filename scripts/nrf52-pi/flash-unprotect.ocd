@@ -4,15 +4,50 @@
 gdb_flash_program enable
 gdb_breakpoint_override hard
 
-# Check APPROTECTSTATUS status register for access port protection. 
-# Should show 0, which means protection enabled.
+# Connect to the device.
+init
+
+# Fetch APPROTECTSTATUS status register for access port protection. 
 echo "Checking flash protection..."
-nrf52.dap apreg 1 0x0c
+set flash_protection [nrf52.dap apreg 1 0x0c]
+echo "Flash protection is $flash_protection"
+
+# APPROTECTSTATUS status register should be 0, which means flash protection enabled.
+if {$flash_protection != 0} {
+    echo "Flash is already unprotected"
+    exit 1
+}
+echo "Flash is protected"
+
+# Set ERASEALL register to 1 to erase all FLASH and RAM and remove access port protection.
+echo "Removing flash protection and erasing flash..."
+nrf52.dap apreg 1 0x04 0x01
 echo ""
 
-#echo "Restarting..."
-#reset halt
-#echo ""
+# Check ERASEALL register. Should show 1 when erasing FLASH and RAM and removing access port protection. 
+set flash_erase [nrf52.dap apreg 1 0x04]
+echo "Flash erase is $flash_erase"
+if {$flash_erase != 1} {
+    echo "Unable to remove flash protection"
+    exit 2
+}
+
+# Restart to perform the erase.
+echo "Restarting..."
+reset halt
+echo ""
+
+# After erasing, check APPROTECTSTATUS status register for access port protection.
+echo "Checking flash protection..."
+set flash_protection [nrf52.dap apreg 1 0x0c]
+echo "Flash protection is $flash_protection"
+
+# APPROTECTSTATUS status register should be 1, which means flash protection removed.
+if {$flash_protection != 1} {
+    echo "Flash is still protected"
+    exit 3
+}
+echo "Flash protection has been removed"
 
 echo "**** Done!"
 exit
