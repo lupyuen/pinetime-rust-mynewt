@@ -1,7 +1,7 @@
 pi@raspberrypi:~ $ cd ~/pinetime-rust-mynewt
 pi@raspberrypi:~/pinetime-rust-mynewt $ scripts/nrf52-pi/flash-app.sh 
 + sudo /home/pi/openocd/src/openocd -s /home/pi/openocd/tcl -f scripts/nrf52-pi/swd-pi.ocd -f scripts/nrf52/flash-app.ocd
-Open On-Chip Debugger 0.10.0+dev-00954-gded67990 (2019-11-07-01:19)
+Open On-Chip Debugger 0.10.0+dev-00998-g9f1529da (2020-01-05-22:10)
 Licensed under GNU GPL v2
 For bug reports, read
         http://openocd.org/doc/doxygen/bugs.html
@@ -22,10 +22,8 @@ Flashing Application...
 target halted due to debug-request, current mode: Thread 
 xPSR: 0x61000000 pc: 0x2000002e psp: 0x200030c8, semihosting
 ** Programming Started **
-Info : nRF52832-QFAA(build code: E0) 512kB Flash
-Warn : using fast async flash loader. This is currently supported
-Warn : only with ST-Link and CMSIS-DAP. If you have issues, add
-Warn : "set WORKAREASIZE 0" before sourcing nrf51.cfg/nrf52.cfg to disable it
+Info : nRF52832-QFAA(build code: E0) 512kB Flash, 64kB RAM
+Warn : Adding extra erase range, 0x0003b634 .. 0x0003bfff
 ** Programming Finished **
 ** Verify Started **
 ** Verified OK **
