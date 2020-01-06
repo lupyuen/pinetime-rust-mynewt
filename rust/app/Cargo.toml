@@ -20,6 +20,7 @@ mynewt = { path = "../mynewt" } # Import path `../mynewt` as mynewt library
 druid        = { path = "../druid-embedded/druid" }        # TODO: https://github.com/lupyuen/druid-embedded
 druid-derive = { path = "../druid-embedded/druid-derive" } # TODO: https://github.com/lupyuen/druid-embedded
 druid-shell  = { path = "../druid-embedded/druid-shell" }  # TODO: https://github.com/lupyuen/druid-embedded
+embedded-graphics = "0.5.2"
 
 # Build this module as a Rust library, not a Rust application.  We will link this library with the Mynewt executable.
 [lib]

@@ -657,6 +657,42 @@ mod touch_sensor {
         Ok(())
     }
 }
+mod display {
+    use embedded_graphics::{prelude::*, fonts, pixelcolor::Rgb565,
+                            primitives::{Circle, Rectangle}};
+    use mynewt::{result::*};
+    /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
+    pub fn test_display() -> MynewtResult<()> {
+        let background =
+            Rectangle::<Rgb565>::new(Coord::new(0, 0),
+                                     Coord::new(239,
+                                                239)).fill(Some(Rgb565::from((0x00,
+                                                                              0x00,
+                                                                              0x00))));
+        let circle =
+            Circle::<Rgb565>::new(Coord::new(40, 40),
+                                  40).fill(Some(Rgb565::from((0xff, 0x00,
+                                                              0xff))));
+        let square =
+            Rectangle::<Rgb565>::new(Coord::new(60, 60),
+                                     Coord::new(150,
+                                                150)).fill(Some(Rgb565::from((0x00,
+                                                                              0x00,
+                                                                              0xff))));
+        let text =
+            fonts::Font12x16::<Rgb565>::render_str("I AM PINETIME").stroke(Some(Rgb565::from((0x00,
+                                                                                              0x00,
+                                                                                              0x00)))).fill(Some(Rgb565::from((0xff,
+                                                                                                                               0xff,
+                                                                                                                               0x00)))).translate(Coord::new(20,
+                                                                                                                                                             16));
+        druid::draw_to_display(background);
+        druid::draw_to_display(circle);
+        druid::draw_to_display(square);
+        druid::draw_to_display(text);
+        Ok(())
+    }
+}
 mod hello {
     #![no_std]
     use druid::widget::{Align, Button, Column, Label, Padding};
@@ -698,7 +734,7 @@ extern "C" fn main() -> ! {
                                  ::core::intrinsics::caller_location())
     };
     druid::start_display().expect("DSP fail");
-    druid::test_display().expect("DSP test fail");
+    display::test_display().expect("DSP test fail");
     touch_sensor::start_touch_sensor().expect("TCH fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
