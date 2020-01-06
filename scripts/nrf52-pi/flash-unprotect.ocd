@@ -32,22 +32,6 @@ if {$flash_erase != 1} {
     exit 2
 }
 
-# Restart to perform the erase.
-echo "Restarting..."
-reset halt
-echo ""
-
-# After erasing, check APPROTECTSTATUS status register for access port protection.
-echo "Checking flash protection..."
-set flash_protection [nrf52.dap apreg 1 0x0c]
-echo "Flash protection is $flash_protection"
-
-# APPROTECTSTATUS status register should be 1, which means flash protection removed.
-if {$flash_protection != 1} {
-    echo "Flash is still protected"
-    exit 3
-}
-echo "Flash protection has been removed"
-
-echo "**** Done!"
+# Restart to perform the erase and remove flash protection.
+echo "**** Shut down and power off your Raspberry Pi. Wait 30 seconds then power on your Raspberry Pi. Run flash-unprotect.sh to check flash protection."
 exit

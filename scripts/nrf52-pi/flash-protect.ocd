@@ -4,16 +4,11 @@
 gdb_flash_program enable
 gdb_breakpoint_override hard
 
-#flash bank uicr nrf5 0x10001000 0x210 1 1 $_TARGETNAME
-
 # Connect to the device.
 init
 
-# Dump UICR flash region to a file.
-flash read_bank 1 nrf52-uicr.bin 0x0 0x210
-
-reset
-exit
+# Dump UICR flash region to a file. Creates the original UICR file.
+# flash read_bank 1 scripts/nrf52-pi/nrf52-uicr-original.bin 0x0 0x210
 
 # Fetch APPROTECTSTATUS status register for access port protection. 
 echo "Checking flash protection..."
@@ -27,27 +22,11 @@ if {$flash_protection != 1} {
 }
 echo "Flash is unprotected"
 
-# Set APPROTECT register to 0 to enable flash protection.
+# Load UICR flash region from a file to set APPROTECT to 0 (enable flash protection).
 echo "Enabling flash protection..."
-#nrf52.dap apreg 1 0x208 0x00
+flash write_bank 1 scripts/nrf52-pi/nrf52-uicr-protect.bin 0x0
 echo ""
 
 # Restart to update the flash protection.
-echo "Restarting..."
-reset halt
-echo ""
-
-# Check APPROTECTSTATUS status register for access port protection.
-echo "Checking flash protection..."
-set flash_protection [nrf52.dap apreg 1 0x0c]
-echo "Flash protection is $flash_protection"
-
-# APPROTECTSTATUS status register should be 0, which means flash protection enabled.
-if {$flash_protection != 0} {
-    echo "Flash protection has not been enabled"
-    exit 3
-}
-echo "Flash protection has been enabled"
-
-echo "**** Done!"
+echo "**** Shut down and power off your Raspberry Pi. Wait 30 seconds then power on your Raspberry Pi. Run flash-protect.sh to check flash protection."
 exit
