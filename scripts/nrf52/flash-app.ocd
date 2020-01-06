@@ -12,8 +12,10 @@ init
 # Enable ARM semihosting to show debug console output in OpenOCD console.
 arm semihosting enable
 
+# Raspberry Pi fails with timeout when calling "reset halt" here, so we "reset" then "halt".
 echo "Stopping..."
-reset halt
+reset
+halt
 echo ""
 
 # Application address must sync with hw/bsp/nrf52/bsp.yml

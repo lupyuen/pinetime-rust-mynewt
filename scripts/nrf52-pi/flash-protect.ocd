@@ -9,8 +9,10 @@ gdb_breakpoint_override hard
 # Connect to the device.
 init
 
-nrf5
-flash read_bank 2 nrf52-uicr.hex 0x0 0x210
+# Dump UICR flash region to a file.
+flash read_bank 1 nrf52-uicr.bin 0x0 0x210
+
+reset
 exit
 
 # Fetch APPROTECTSTATUS status register for access port protection. 
