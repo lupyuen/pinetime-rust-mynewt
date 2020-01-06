@@ -4,67 +4,41 @@
 # https://www.raspberrypi.org/forums/viewtopic.php?t=252551
 # https://learn.adafruit.com/programming-microcontrollers-using-openocd-on-raspberry-pi?view=all
 
-# Build OpenOCD on Raspberry Pi with latest patches:
-# sudo apt install git autoconf libtool make pkg-config libusb-1.0-0 libusb-1.0-0-dev libhidapi-dev libftdi-dev
-# git clone https://github.com/ntfreak/openocd
-# cd openocd
-# ./bootstrap
-# ./configure --enable-sysfsgpio --enable-bcm2835gpio --enable-cmsis-dap
-# Check for << CMSIS-DAP Compliant Debugger            yes >>
-# make
-
-# Run OpenOCD on Raspberry Pi:
-# sudo /home/pi/openocd/src/openocd \
-#    -s /home/pi/openocd/tcl \
-#    -d4 \
-#    -f swd-pi.ocd
-
-# Sample log is in swd-pi.log
-
 # Select the Broadcom GPIO interface for Raspbery Pi
 interface bcm2835gpio
 
 ###############################################################################
-# Peripheral Base Address
+# Peripheral Base Address and Transition Delay
 
 # For Pi 4
 bcm2835gpio_peripheral_base 0xFE000000
-
-# For Pi 2 and 3
-# bcm2835gpio_peripheral_base 0x3F000000
-
-# For Pi 1
-# bcm2835gpio_peripheral_base 0x20000000
-
-###############################################################################
-# Transition delay calculation: SPEED_COEFF/khz - SPEED_OFFSET
-# bcm2835gpio_speed SPEED_COEFF SPEED_OFFSET
-
-# For Pi 4
 bcm2835gpio_speed_coeffs 236181 60
 
 # For Pi 3 BCM2837 (1200Mhz)
+# bcm2835gpio_peripheral_base 0x3F000000
 # bcm2835gpio_speed_coeffs 194938 48
 
 # For Pi 2 BCM2836 (900Mhz)
+# bcm2835gpio_peripheral_base 0x3F000000
 # bcm2835gpio_speed_coeffs 146203 36
 
 # For Pi 1 BCM2835 (700Mhz)
+# bcm2835gpio_peripheral_base 0x20000000
 # bcm2835gpio_speed_coeffs 113714 28
 
 ###############################################################################
 # SWD Configuration
 
 # Assign each SWD line (SWCLK, SWDIO) to a Pi GPIO: (See https://pinout.xyz/ for Pi Header Pin Number to GPIO mapping)
-# Connect Pi Header Pin Number 38 (GPIO 20) to nRF52 SWCLK (Yellow wire)
-# Connect Pi Header Pin Number 40 (GPIO 21) to nRF52 SWDIO (Green wire)
+# Connect Pi Header Pin Number 38 (GPIO 20) to nRF52 SWCLK
+# Connect Pi Header Pin Number 40 (GPIO 21) to nRF52 SWDIO
 bcm2835gpio_swd_nums 20 21
 
-# Assign SRST (Reset) line to a Pi GPIO:
-# Connect Pi Header Pin Number 12 (GPIO 18) to nRF52 RESET (White wire)
+# Optional: Assign SRST (Reset) line to a Pi GPIO:
+# Connect Pi Header Pin Number 12 (GPIO 18) to nRF52 RESET
 bcm2835gpio_srst_num 18
 
-# Connect Pi 3.3V (Red) and GND (Purple) to nRF52 VDD and GND
+# Connect Pi 3.3V and GND to nRF52 VDD and GND
 
 ###############################################################################
 # Transport
