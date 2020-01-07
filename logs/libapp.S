@@ -1449,6 +1449,7 @@ app-d559bf047a1af437.1w1kiq5qai6r4hqv.rcgu.o:     file format elf32-littlearm
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 1w1kiq5qai6r4hqv
 00000364 l       .debug_str	00000000 
+000003e4 l       .debug_str	00000000 
 000003e9 l       .debug_str	00000000 
 000003ef l       .debug_str	00000000 
 000003f6 l       .debug_str	00000000 
@@ -1532,8 +1533,8 @@ SYMBOL TABLE:
 000003cd l       .debug_str	00000000 
 000003d7 l       .debug_str	00000000 
 000003de l       .debug_str	00000000 
-000003e4 l       .debug_str	00000000 
-00000000 l     O .rodata..Lanon.535bb3c3aa8231aa26bae559f0ad512d.0	0000000d .Lanon.535bb3c3aa8231aa26bae559f0ad512d.0
+00000000 l     O .rodata..Lanon.535bb3c3aa8231aa26bae559f0ad512d.0	00000012 .Lanon.535bb3c3aa8231aa26bae559f0ad512d.0
+00000000 l     O .rodata..Lanon.535bb3c3aa8231aa26bae559f0ad512d.1	0000000d .Lanon.535bb3c3aa8231aa26bae559f0ad512d.1
 00000000 l    d  .text._ZN3app7display12test_display17h3a2b5249d93d345eE	00000000 .text._ZN3app7display12test_display17h3a2b5249d93d345eE
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
@@ -1552,7 +1553,9 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 _ZN22piet_embedded_graphics7display15draw_to_display17h2681b1ea4540d259E
 00000000         *UND*	00000000 _ZN22piet_embedded_graphics7display15draw_to_display17h8f053d084b2d9a5cE
 00000000         *UND*	00000000 _ZN22piet_embedded_graphics7display15draw_to_display17hfbbfebae406ebcf9E
-00000000 g     F .text._ZN3app7display12test_display17h3a2b5249d93d345eE	00000278 .hidden _ZN3app7display12test_display17h3a2b5249d93d345eE
+00000000 g     F .text._ZN3app7display12test_display17h3a2b5249d93d345eE	0000028e .hidden _ZN3app7display12test_display17h3a2b5249d93d345eE
+00000000         *UND*	00000000 _ZN6mynewt3sys7console5flush17hf9aae4f0cd77d4acE
+00000000         *UND*	00000000 _ZN6mynewt3sys7console5print17h67a3059d9eb8a82eE
 
 
 
@@ -1560,299 +1563,309 @@ Disassembly of section .text._ZN3app7display12test_display17h3a2b5249d93d345eE:
 
 00000000 <_ZN3app7display12test_display17h3a2b5249d93d345eE>:
 _ZN3app7display12test_display17h3a2b5249d93d345eE():
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:16
-use mynewt::{
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:17
     result::*,
+    sys::console,
 };
 
 /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
 pub fn test_display() -> MynewtResult<()> {
    0:	b570      	push	{r4, r5, r6, lr}
    2:	f5ad 7d00 	sub.w	sp, sp, #512	; 0x200
-   6:	2000      	movs	r0, #0
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:19
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:18
+    console::print("Rust test display\n"); console::flush();
+   6:	f240 0000 	movw	r0, #0
+   a:	f2c0 0000 	movt	r0, #0
+   e:	2112      	movs	r1, #18
+  10:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5print17h67a3059d9eb8a82eE>
+  14:	e7ff      	b.n	2 <_ZN6mynewt3sys7console5flush17hf9aae4f0cd77d4acE+0x2>
+  16:	f7ff fffe 	bl	0 <_ZN6mynewt3sys7console5flush17hf9aae4f0cd77d4acE>
+  1a:	e7ff      	b.n	1c <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x1c>
+  1c:	2000      	movs	r0, #0
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:22
+    
     //  Create black background
     let background = Rectangle::<Rgb565>
         ::new( Coord::new( 0, 0 ), Coord::new( 239, 239 ) )   //  Rectangle coordinates
-   8:	9016      	str	r0, [sp, #88]	; 0x58
-   a:	9916      	ldr	r1, [sp, #88]	; 0x58
-   c:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h337630cfd7cf8814E>
-  10:	9015      	str	r0, [sp, #84]	; 0x54
-  12:	9114      	str	r1, [sp, #80]	; 0x50
-  14:	e7ff      	b.n	16 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x16>
-  16:	20ef      	movs	r0, #239	; 0xef
-  18:	9013      	str	r0, [sp, #76]	; 0x4c
-  1a:	9913      	ldr	r1, [sp, #76]	; 0x4c
-  1c:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h337630cfd7cf8814E>
-  20:	9012      	str	r0, [sp, #72]	; 0x48
-  22:	9111      	str	r1, [sp, #68]	; 0x44
-  24:	e7ff      	b.n	26 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x26>
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:18
+  1e:	9016      	str	r0, [sp, #88]	; 0x58
+  20:	9916      	ldr	r1, [sp, #88]	; 0x58
+  22:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h337630cfd7cf8814E>
+  26:	9015      	str	r0, [sp, #84]	; 0x54
+  28:	9114      	str	r1, [sp, #80]	; 0x50
+  2a:	e7ff      	b.n	2c <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x2c>
+  2c:	20ef      	movs	r0, #239	; 0xef
+  2e:	9013      	str	r0, [sp, #76]	; 0x4c
+  30:	9913      	ldr	r1, [sp, #76]	; 0x4c
+  32:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h337630cfd7cf8814E>
+  36:	9012      	str	r0, [sp, #72]	; 0x48
+  38:	9111      	str	r1, [sp, #68]	; 0x44
+  3a:	e7ff      	b.n	3c <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x3c>
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:21
     let background = Rectangle::<Rgb565>
-  26:	4668      	mov	r0, sp
-  28:	9911      	ldr	r1, [sp, #68]	; 0x44
-  2a:	6001      	str	r1, [r0, #0]
-  2c:	a81e      	add	r0, sp, #120	; 0x78
-  2e:	9915      	ldr	r1, [sp, #84]	; 0x54
-  30:	9a14      	ldr	r2, [sp, #80]	; 0x50
-  32:	9b12      	ldr	r3, [sp, #72]	; 0x48
-  34:	f7ff fffe 	bl	0 <_ZN17embedded_graphics10primitives9rectangle18Rectangle$LT$C$GT$3new17hb10b8ce5aecb39f5E>
-  38:	e7ff      	b.n	3a <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x3a>
-  3a:	2000      	movs	r0, #0
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:20
+  3c:	4668      	mov	r0, sp
+  3e:	9911      	ldr	r1, [sp, #68]	; 0x44
+  40:	6001      	str	r1, [r0, #0]
+  42:	a81e      	add	r0, sp, #120	; 0x78
+  44:	9915      	ldr	r1, [sp, #84]	; 0x54
+  46:	9a14      	ldr	r2, [sp, #80]	; 0x50
+  48:	9b12      	ldr	r3, [sp, #72]	; 0x48
+  4a:	f7ff fffe 	bl	0 <_ZN17embedded_graphics10primitives9rectangle18Rectangle$LT$C$GT$3new17hb10b8ce5aecb39f5E>
+  4e:	e7ff      	b.n	50 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x50>
+  50:	2000      	movs	r0, #0
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:23
         .fill( Some( Rgb565::from(( 0x00, 0x00, 0x00 )) ) );  //  Black
-  3c:	f88d 0098 	strb.w	r0, [sp, #152]	; 0x98
-  40:	f88d 0099 	strb.w	r0, [sp, #153]	; 0x99
-  44:	f88d 009a 	strb.w	r0, [sp, #154]	; 0x9a
-  48:	f89d 009a 	ldrb.w	r0, [sp, #154]	; 0x9a
-  4c:	f8bd 1098 	ldrh.w	r1, [sp, #152]	; 0x98
-  50:	ea41 4000 	orr.w	r0, r1, r0, lsl #16
-  54:	f7ff fffe 	bl	0 <_ZN123_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$$LP$u8$C$$u20$u8$C$$u20$u8$RP$$GT$$GT$4from17hef6b76a507f632f1E>
-  58:	9010      	str	r0, [sp, #64]	; 0x40
-  5a:	e7ff      	b.n	5c <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x5c>
-  5c:	9810      	ldr	r0, [sp, #64]	; 0x40
-  5e:	f8ad 0096 	strh.w	r0, [sp, #150]	; 0x96
-  62:	2101      	movs	r1, #1
-  64:	f8ad 1094 	strh.w	r1, [sp, #148]	; 0x94
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:18
+  52:	f88d 0098 	strb.w	r0, [sp, #152]	; 0x98
+  56:	f88d 0099 	strb.w	r0, [sp, #153]	; 0x99
+  5a:	f88d 009a 	strb.w	r0, [sp, #154]	; 0x9a
+  5e:	f89d 009a 	ldrb.w	r0, [sp, #154]	; 0x9a
+  62:	f8bd 1098 	ldrh.w	r1, [sp, #152]	; 0x98
+  66:	ea41 4000 	orr.w	r0, r1, r0, lsl #16
+  6a:	f7ff fffe 	bl	0 <_ZN123_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$$LP$u8$C$$u20$u8$C$$u20$u8$RP$$GT$$GT$4from17hef6b76a507f632f1E>
+  6e:	9010      	str	r0, [sp, #64]	; 0x40
+  70:	e7ff      	b.n	72 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x72>
+  72:	9810      	ldr	r0, [sp, #64]	; 0x40
+  74:	f8ad 0096 	strh.w	r0, [sp, #150]	; 0x96
+  78:	2101      	movs	r1, #1
+  7a:	f8ad 1094 	strh.w	r1, [sp, #148]	; 0x94
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:21
     let background = Rectangle::<Rgb565>
-  68:	f8bd 3096 	ldrh.w	r3, [sp, #150]	; 0x96
-  6c:	f8bd 2094 	ldrh.w	r2, [sp, #148]	; 0x94
-  70:	a817      	add	r0, sp, #92	; 0x5c
-  72:	a91e      	add	r1, sp, #120	; 0x78
-  74:	f7ff fffe 	bl	0 <_ZN125_$LT$embedded_graphics..primitives..rectangle..Rectangle$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h80dff45f29022eafE>
-  78:	e7ff      	b.n	7a <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x7a>
-  7a:	2028      	movs	r0, #40	; 0x28
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:24
+  7e:	f8bd 3096 	ldrh.w	r3, [sp, #150]	; 0x96
+  82:	f8bd 2094 	ldrh.w	r2, [sp, #148]	; 0x94
+  86:	a817      	add	r0, sp, #92	; 0x5c
+  88:	a91e      	add	r1, sp, #120	; 0x78
+  8a:	f7ff fffe 	bl	0 <_ZN125_$LT$embedded_graphics..primitives..rectangle..Rectangle$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h80dff45f29022eafE>
+  8e:	e7ff      	b.n	90 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x90>
+  90:	2028      	movs	r0, #40	; 0x28
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:27
 
     //  Create circle
     let circle = Circle::<Rgb565>
         ::new( Coord::new( 40, 40 ), 40 )                     //  Circle centre and radius
-  7c:	900f      	str	r0, [sp, #60]	; 0x3c
-  7e:	990f      	ldr	r1, [sp, #60]	; 0x3c
-  80:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h337630cfd7cf8814E>
-  84:	900e      	str	r0, [sp, #56]	; 0x38
-  86:	910d      	str	r1, [sp, #52]	; 0x34
-  88:	e7ff      	b.n	8a <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x8a>
-  8a:	a82d      	add	r0, sp, #180	; 0xb4
-  8c:	2328      	movs	r3, #40	; 0x28
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:23
+  92:	900f      	str	r0, [sp, #60]	; 0x3c
+  94:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  96:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h337630cfd7cf8814E>
+  9a:	900e      	str	r0, [sp, #56]	; 0x38
+  9c:	910d      	str	r1, [sp, #52]	; 0x34
+  9e:	e7ff      	b.n	a0 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0xa0>
+  a0:	a82d      	add	r0, sp, #180	; 0xb4
+  a2:	2328      	movs	r3, #40	; 0x28
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:26
     let circle = Circle::<Rgb565>
-  8e:	990e      	ldr	r1, [sp, #56]	; 0x38
-  90:	9a0d      	ldr	r2, [sp, #52]	; 0x34
-  92:	f7ff fffe 	bl	0 <_ZN17embedded_graphics10primitives6circle15Circle$LT$C$GT$3new17h919718b5bd96a6bbE>
-  96:	e7ff      	b.n	98 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x98>
-  98:	20ff      	movs	r0, #255	; 0xff
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:25
+  a4:	990e      	ldr	r1, [sp, #56]	; 0x38
+  a6:	9a0d      	ldr	r2, [sp, #52]	; 0x34
+  a8:	f7ff fffe 	bl	0 <_ZN17embedded_graphics10primitives6circle15Circle$LT$C$GT$3new17h919718b5bd96a6bbE>
+  ac:	e7ff      	b.n	ae <_ZN3app7display12test_display17h3a2b5249d93d345eE+0xae>
+  ae:	20ff      	movs	r0, #255	; 0xff
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:28
         .fill( Some( Rgb565::from(( 0xff, 0x00, 0xff )) ) );  //  Magenta
-  9a:	f88d 00d0 	strb.w	r0, [sp, #208]	; 0xd0
-  9e:	2100      	movs	r1, #0
-  a0:	f88d 10d1 	strb.w	r1, [sp, #209]	; 0xd1
-  a4:	f88d 00d2 	strb.w	r0, [sp, #210]	; 0xd2
-  a8:	f89d 00d2 	ldrb.w	r0, [sp, #210]	; 0xd2
-  ac:	f8bd 10d0 	ldrh.w	r1, [sp, #208]	; 0xd0
-  b0:	ea41 4000 	orr.w	r0, r1, r0, lsl #16
-  b4:	f7ff fffe 	bl	0 <_ZN123_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$$LP$u8$C$$u20$u8$C$$u20$u8$RP$$GT$$GT$4from17hef6b76a507f632f1E>
-  b8:	900c      	str	r0, [sp, #48]	; 0x30
-  ba:	e7ff      	b.n	bc <_ZN3app7display12test_display17h3a2b5249d93d345eE+0xbc>
-  bc:	980c      	ldr	r0, [sp, #48]	; 0x30
-  be:	f8ad 00ce 	strh.w	r0, [sp, #206]	; 0xce
-  c2:	2101      	movs	r1, #1
-  c4:	f8ad 10cc 	strh.w	r1, [sp, #204]	; 0xcc
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:23
+  b0:	f88d 00d0 	strb.w	r0, [sp, #208]	; 0xd0
+  b4:	2100      	movs	r1, #0
+  b6:	f88d 10d1 	strb.w	r1, [sp, #209]	; 0xd1
+  ba:	f88d 00d2 	strb.w	r0, [sp, #210]	; 0xd2
+  be:	f89d 00d2 	ldrb.w	r0, [sp, #210]	; 0xd2
+  c2:	f8bd 10d0 	ldrh.w	r1, [sp, #208]	; 0xd0
+  c6:	ea41 4000 	orr.w	r0, r1, r0, lsl #16
+  ca:	f7ff fffe 	bl	0 <_ZN123_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$$LP$u8$C$$u20$u8$C$$u20$u8$RP$$GT$$GT$4from17hef6b76a507f632f1E>
+  ce:	900c      	str	r0, [sp, #48]	; 0x30
+  d0:	e7ff      	b.n	d2 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0xd2>
+  d2:	980c      	ldr	r0, [sp, #48]	; 0x30
+  d4:	f8ad 00ce 	strh.w	r0, [sp, #206]	; 0xce
+  d8:	2101      	movs	r1, #1
+  da:	f8ad 10cc 	strh.w	r1, [sp, #204]	; 0xcc
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:26
     let circle = Circle::<Rgb565>
-  c8:	f8bd 30ce 	ldrh.w	r3, [sp, #206]	; 0xce
-  cc:	f8bd 20cc 	ldrh.w	r2, [sp, #204]	; 0xcc
-  d0:	a827      	add	r0, sp, #156	; 0x9c
-  d2:	a92d      	add	r1, sp, #180	; 0xb4
-  d4:	f7ff fffe 	bl	0 <_ZN119_$LT$embedded_graphics..primitives..circle..Circle$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h3e93264c3e4e60edE>
-  d8:	e7ff      	b.n	da <_ZN3app7display12test_display17h3a2b5249d93d345eE+0xda>
-  da:	203c      	movs	r0, #60	; 0x3c
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:29
+  de:	f8bd 30ce 	ldrh.w	r3, [sp, #206]	; 0xce
+  e2:	f8bd 20cc 	ldrh.w	r2, [sp, #204]	; 0xcc
+  e6:	a827      	add	r0, sp, #156	; 0x9c
+  e8:	a92d      	add	r1, sp, #180	; 0xb4
+  ea:	f7ff fffe 	bl	0 <_ZN119_$LT$embedded_graphics..primitives..circle..Circle$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h3e93264c3e4e60edE>
+  ee:	e7ff      	b.n	f0 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0xf0>
+  f0:	203c      	movs	r0, #60	; 0x3c
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:32
 
     //  Create square
     let square = Rectangle::<Rgb565>
         ::new( Coord::new( 60, 60 ), Coord::new( 150, 150 ) ) //  Square coordinates
-  dc:	900b      	str	r0, [sp, #44]	; 0x2c
-  de:	990b      	ldr	r1, [sp, #44]	; 0x2c
-  e0:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h337630cfd7cf8814E>
-  e4:	900a      	str	r0, [sp, #40]	; 0x28
-  e6:	9109      	str	r1, [sp, #36]	; 0x24
-  e8:	e7ff      	b.n	ea <_ZN3app7display12test_display17h3a2b5249d93d345eE+0xea>
-  ea:	2096      	movs	r0, #150	; 0x96
-  ec:	9008      	str	r0, [sp, #32]
-  ee:	9908      	ldr	r1, [sp, #32]
-  f0:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h337630cfd7cf8814E>
-  f4:	9007      	str	r0, [sp, #28]
-  f6:	9106      	str	r1, [sp, #24]
-  f8:	e7ff      	b.n	fa <_ZN3app7display12test_display17h3a2b5249d93d345eE+0xfa>
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:28
+  f2:	900b      	str	r0, [sp, #44]	; 0x2c
+  f4:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  f6:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h337630cfd7cf8814E>
+  fa:	900a      	str	r0, [sp, #40]	; 0x28
+  fc:	9109      	str	r1, [sp, #36]	; 0x24
+  fe:	e7ff      	b.n	100 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x100>
+ 100:	2096      	movs	r0, #150	; 0x96
+ 102:	9008      	str	r0, [sp, #32]
+ 104:	9908      	ldr	r1, [sp, #32]
+ 106:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h337630cfd7cf8814E>
+ 10a:	9007      	str	r0, [sp, #28]
+ 10c:	9106      	str	r1, [sp, #24]
+ 10e:	e7ff      	b.n	110 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x110>
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:31
     let square = Rectangle::<Rgb565>
-  fa:	4668      	mov	r0, sp
-  fc:	9906      	ldr	r1, [sp, #24]
-  fe:	6001      	str	r1, [r0, #0]
- 100:	a83c      	add	r0, sp, #240	; 0xf0
- 102:	990a      	ldr	r1, [sp, #40]	; 0x28
- 104:	9a09      	ldr	r2, [sp, #36]	; 0x24
- 106:	9b07      	ldr	r3, [sp, #28]
- 108:	f7ff fffe 	bl	0 <_ZN17embedded_graphics10primitives9rectangle18Rectangle$LT$C$GT$3new17hb10b8ce5aecb39f5E>
- 10c:	e7ff      	b.n	10e <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x10e>
- 10e:	2000      	movs	r0, #0
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:30
-        .fill( Some( Rgb565::from(( 0x00, 0x00, 0xff )) ) );  //  Blue
- 110:	f88d 0110 	strb.w	r0, [sp, #272]	; 0x110
- 114:	f88d 0111 	strb.w	r0, [sp, #273]	; 0x111
- 118:	20ff      	movs	r0, #255	; 0xff
- 11a:	f88d 0112 	strb.w	r0, [sp, #274]	; 0x112
- 11e:	f89d 0112 	ldrb.w	r0, [sp, #274]	; 0x112
- 122:	f8bd 1110 	ldrh.w	r1, [sp, #272]	; 0x110
- 126:	ea41 4000 	orr.w	r0, r1, r0, lsl #16
- 12a:	f7ff fffe 	bl	0 <_ZN123_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$$LP$u8$C$$u20$u8$C$$u20$u8$RP$$GT$$GT$4from17hef6b76a507f632f1E>
- 12e:	9005      	str	r0, [sp, #20]
- 130:	e7ff      	b.n	132 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x132>
- 132:	9805      	ldr	r0, [sp, #20]
- 134:	f8ad 010e 	strh.w	r0, [sp, #270]	; 0x10e
- 138:	2101      	movs	r1, #1
- 13a:	f8ad 110c 	strh.w	r1, [sp, #268]	; 0x10c
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:28
-    let square = Rectangle::<Rgb565>
- 13e:	f8bd 310e 	ldrh.w	r3, [sp, #270]	; 0x10e
- 142:	f8bd 210c 	ldrh.w	r2, [sp, #268]	; 0x10c
- 146:	a835      	add	r0, sp, #212	; 0xd4
- 148:	a93c      	add	r1, sp, #240	; 0xf0
- 14a:	f7ff fffe 	bl	0 <_ZN125_$LT$embedded_graphics..primitives..rectangle..Rectangle$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h80dff45f29022eafE>
- 14e:	e7ff      	b.n	2 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x2>
+ 110:	4668      	mov	r0, sp
+ 112:	9906      	ldr	r1, [sp, #24]
+ 114:	6001      	str	r1, [r0, #0]
+ 116:	a83c      	add	r0, sp, #240	; 0xf0
+ 118:	990a      	ldr	r1, [sp, #40]	; 0x28
+ 11a:	9a09      	ldr	r2, [sp, #36]	; 0x24
+ 11c:	9b07      	ldr	r3, [sp, #28]
+ 11e:	f7ff fffe 	bl	0 <_ZN17embedded_graphics10primitives9rectangle18Rectangle$LT$C$GT$3new17hb10b8ce5aecb39f5E>
+ 122:	e7ff      	b.n	124 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x124>
+ 124:	2000      	movs	r0, #0
 /Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:33
+        .fill( Some( Rgb565::from(( 0x00, 0x00, 0xff )) ) );  //  Blue
+ 126:	f88d 0110 	strb.w	r0, [sp, #272]	; 0x110
+ 12a:	f88d 0111 	strb.w	r0, [sp, #273]	; 0x111
+ 12e:	20ff      	movs	r0, #255	; 0xff
+ 130:	f88d 0112 	strb.w	r0, [sp, #274]	; 0x112
+ 134:	f89d 0112 	ldrb.w	r0, [sp, #274]	; 0x112
+ 138:	f8bd 1110 	ldrh.w	r1, [sp, #272]	; 0x110
+ 13c:	ea41 4000 	orr.w	r0, r1, r0, lsl #16
+ 140:	f7ff fffe 	bl	0 <_ZN123_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$$LP$u8$C$$u20$u8$C$$u20$u8$RP$$GT$$GT$4from17hef6b76a507f632f1E>
+ 144:	9005      	str	r0, [sp, #20]
+ 146:	e7ff      	b.n	148 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x148>
+ 148:	9805      	ldr	r0, [sp, #20]
+ 14a:	f8ad 010e 	strh.w	r0, [sp, #270]	; 0x10e
+ 14e:	2101      	movs	r1, #1
+ 150:	f8ad 110c 	strh.w	r1, [sp, #268]	; 0x10c
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:31
+    let square = Rectangle::<Rgb565>
+ 154:	f8bd 310e 	ldrh.w	r3, [sp, #270]	; 0x10e
+ 158:	f8bd 210c 	ldrh.w	r2, [sp, #268]	; 0x10c
+ 15c:	a835      	add	r0, sp, #212	; 0xd4
+ 15e:	a93c      	add	r1, sp, #240	; 0xf0
+ 160:	f7ff fffe 	bl	0 <_ZN125_$LT$embedded_graphics..primitives..rectangle..Rectangle$LT$C$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h80dff45f29022eafE>
+ 164:	e7ff      	b.n	2 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x2>
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:36
 
     //  Create text
     let text = fonts::Font12x16::<Rgb565>
- 150:	f240 0100 	movw	r1, #0
- 154:	f2c0 0100 	movt	r1, #0
- 158:	a85a      	add	r0, sp, #360	; 0x168
- 15a:	220d      	movs	r2, #13
- 15c:	f7ff fffe 	bl	0 <_ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17he8fbfdb434099f6dE>
- 160:	e7ff      	b.n	162 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x162>
- 162:	2000      	movs	r0, #0
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:35
+ 166:	f240 0100 	movw	r1, #0
+ 16a:	f2c0 0100 	movt	r1, #0
+ 16e:	a85a      	add	r0, sp, #360	; 0x168
+ 170:	220d      	movs	r2, #13
+ 172:	f7ff fffe 	bl	0 <_ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..fonts..Font$LT$C$GT$$GT$10render_str17he8fbfdb434099f6dE>
+ 176:	e7ff      	b.n	178 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x178>
+ 178:	2000      	movs	r0, #0
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:38
         ::render_str("I AM PINETIME")                          //  Text to be rendered
         .stroke( Some( Rgb565::from(( 0x00, 0x00, 0x00 )) ) )  //  Black
- 164:	f88d 0188 	strb.w	r0, [sp, #392]	; 0x188
- 168:	f88d 0189 	strb.w	r0, [sp, #393]	; 0x189
- 16c:	f88d 018a 	strb.w	r0, [sp, #394]	; 0x18a
- 170:	f89d 018a 	ldrb.w	r0, [sp, #394]	; 0x18a
- 174:	f8bd 1188 	ldrh.w	r1, [sp, #392]	; 0x188
- 178:	ea41 4000 	orr.w	r0, r1, r0, lsl #16
- 17c:	f7ff fffe 	bl	0 <_ZN123_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$$LP$u8$C$$u20$u8$C$$u20$u8$RP$$GT$$GT$4from17hef6b76a507f632f1E>
- 180:	9004      	str	r0, [sp, #16]
- 182:	e7ff      	b.n	184 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x184>
- 184:	9804      	ldr	r0, [sp, #16]
- 186:	f8ad 0186 	strh.w	r0, [sp, #390]	; 0x186
- 18a:	2101      	movs	r1, #1
- 18c:	f8ad 1184 	strh.w	r1, [sp, #388]	; 0x184
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:33
-    let text = fonts::Font12x16::<Rgb565>
- 190:	f8bd 3186 	ldrh.w	r3, [sp, #390]	; 0x186
- 194:	f8bd 2184 	ldrh.w	r2, [sp, #388]	; 0x184
- 198:	a853      	add	r0, sp, #332	; 0x14c
- 19a:	a95a      	add	r1, sp, #360	; 0x168
- 19c:	f7ff fffe 	bl	0 <_ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17he3a98d61e2ed9d87E>
- 1a0:	e7ff      	b.n	1a2 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x1a2>
- 1a2:	20ff      	movs	r0, #255	; 0xff
+ 17a:	f88d 0188 	strb.w	r0, [sp, #392]	; 0x188
+ 17e:	f88d 0189 	strb.w	r0, [sp, #393]	; 0x189
+ 182:	f88d 018a 	strb.w	r0, [sp, #394]	; 0x18a
+ 186:	f89d 018a 	ldrb.w	r0, [sp, #394]	; 0x18a
+ 18a:	f8bd 1188 	ldrh.w	r1, [sp, #392]	; 0x188
+ 18e:	ea41 4000 	orr.w	r0, r1, r0, lsl #16
+ 192:	f7ff fffe 	bl	0 <_ZN123_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$$LP$u8$C$$u20$u8$C$$u20$u8$RP$$GT$$GT$4from17hef6b76a507f632f1E>
+ 196:	9004      	str	r0, [sp, #16]
+ 198:	e7ff      	b.n	19a <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x19a>
+ 19a:	9804      	ldr	r0, [sp, #16]
+ 19c:	f8ad 0186 	strh.w	r0, [sp, #390]	; 0x186
+ 1a0:	2101      	movs	r1, #1
+ 1a2:	f8ad 1184 	strh.w	r1, [sp, #388]	; 0x184
 /Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:36
+    let text = fonts::Font12x16::<Rgb565>
+ 1a6:	f8bd 3186 	ldrh.w	r3, [sp, #390]	; 0x186
+ 1aa:	f8bd 2184 	ldrh.w	r2, [sp, #388]	; 0x184
+ 1ae:	a853      	add	r0, sp, #332	; 0x14c
+ 1b0:	a95a      	add	r1, sp, #360	; 0x168
+ 1b2:	f7ff fffe 	bl	0 <_ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$6stroke17he3a98d61e2ed9d87E>
+ 1b6:	e7ff      	b.n	1b8 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x1b8>
+ 1b8:	20ff      	movs	r0, #255	; 0xff
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:39
         .fill( Some( Rgb565::from((   0xff, 0xff, 0x00 )) ) )  //  Yellow
- 1a4:	f88d 0190 	strb.w	r0, [sp, #400]	; 0x190
- 1a8:	f88d 0191 	strb.w	r0, [sp, #401]	; 0x191
- 1ac:	2000      	movs	r0, #0
- 1ae:	f88d 0192 	strb.w	r0, [sp, #402]	; 0x192
- 1b2:	f89d 0192 	ldrb.w	r0, [sp, #402]	; 0x192
- 1b6:	f8bd 1190 	ldrh.w	r1, [sp, #400]	; 0x190
- 1ba:	ea41 4000 	orr.w	r0, r1, r0, lsl #16
- 1be:	f7ff fffe 	bl	0 <_ZN123_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$$LP$u8$C$$u20$u8$C$$u20$u8$RP$$GT$$GT$4from17hef6b76a507f632f1E>
- 1c2:	9003      	str	r0, [sp, #12]
- 1c4:	e7ff      	b.n	1c6 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x1c6>
- 1c6:	9803      	ldr	r0, [sp, #12]
- 1c8:	f8ad 018e 	strh.w	r0, [sp, #398]	; 0x18e
- 1cc:	2101      	movs	r1, #1
- 1ce:	f8ad 118c 	strh.w	r1, [sp, #396]	; 0x18c
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:33
+ 1ba:	f88d 0190 	strb.w	r0, [sp, #400]	; 0x190
+ 1be:	f88d 0191 	strb.w	r0, [sp, #401]	; 0x191
+ 1c2:	2000      	movs	r0, #0
+ 1c4:	f88d 0192 	strb.w	r0, [sp, #402]	; 0x192
+ 1c8:	f89d 0192 	ldrb.w	r0, [sp, #402]	; 0x192
+ 1cc:	f8bd 1190 	ldrh.w	r1, [sp, #400]	; 0x190
+ 1d0:	ea41 4000 	orr.w	r0, r1, r0, lsl #16
+ 1d4:	f7ff fffe 	bl	0 <_ZN123_$LT$embedded_graphics..pixelcolor..rgb565..Rgb565$u20$as$u20$core..convert..From$LT$$LP$u8$C$$u20$u8$C$$u20$u8$RP$$GT$$GT$4from17hef6b76a507f632f1E>
+ 1d8:	9003      	str	r0, [sp, #12]
+ 1da:	e7ff      	b.n	1dc <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x1dc>
+ 1dc:	9803      	ldr	r0, [sp, #12]
+ 1de:	f8ad 018e 	strh.w	r0, [sp, #398]	; 0x18e
+ 1e2:	2101      	movs	r1, #1
+ 1e4:	f8ad 118c 	strh.w	r1, [sp, #396]	; 0x18c
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:36
     let text = fonts::Font12x16::<Rgb565>
- 1d2:	f8bd 318e 	ldrh.w	r3, [sp, #398]	; 0x18e
- 1d6:	f8bd 218c 	ldrh.w	r2, [sp, #396]	; 0x18c
- 1da:	a84c      	add	r0, sp, #304	; 0x130
- 1dc:	a953      	add	r1, sp, #332	; 0x14c
- 1de:	f7ff fffe 	bl	0 <_ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h43897e68e6174723E>
- 1e2:	e7ff      	b.n	1e4 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x1e4>
- 1e4:	2014      	movs	r0, #20
- 1e6:	2110      	movs	r1, #16
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:37
-        .translate( Coord::new( 20, 16 ));                     //  Move the text
- 1e8:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h337630cfd7cf8814E>
- 1ec:	9002      	str	r0, [sp, #8]
- 1ee:	9101      	str	r1, [sp, #4]
- 1f0:	e7ff      	b.n	1f2 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x1f2>
- 1f2:	a845      	add	r0, sp, #276	; 0x114
- 1f4:	a94c      	add	r1, sp, #304	; 0x130
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:33
-    let text = fonts::Font12x16::<Rgb565>
- 1f6:	9a02      	ldr	r2, [sp, #8]
- 1f8:	9b01      	ldr	r3, [sp, #4]
- 1fa:	f7ff fffe 	bl	0 <_ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h6081851f80e8a13bE>
- 1fe:	e7ff      	b.n	200 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x200>
- 200:	a817      	add	r0, sp, #92	; 0x5c
- 202:	a965      	add	r1, sp, #404	; 0x194
+ 1e8:	f8bd 318e 	ldrh.w	r3, [sp, #398]	; 0x18e
+ 1ec:	f8bd 218c 	ldrh.w	r2, [sp, #396]	; 0x18c
+ 1f0:	a84c      	add	r0, sp, #304	; 0x130
+ 1f2:	a953      	add	r1, sp, #332	; 0x14c
+ 1f4:	f7ff fffe 	bl	0 <_ZN132_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..style..WithStyle$LT$C$GT$$GT$4fill17h43897e68e6174723E>
+ 1f8:	e7ff      	b.n	1fa <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x1fa>
+ 1fa:	2014      	movs	r0, #20
+ 1fc:	2110      	movs	r1, #16
 /Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:40
+        .translate( Coord::new( 20, 16 ));                     //  Move the text
+ 1fe:	f7ff fffe 	bl	0 <_ZN17embedded_graphics5coord14internal_coord5Coord3new17h337630cfd7cf8814E>
+ 202:	9002      	str	r0, [sp, #8]
+ 204:	9101      	str	r1, [sp, #4]
+ 206:	e7ff      	b.n	208 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x208>
+ 208:	a845      	add	r0, sp, #276	; 0x114
+ 20a:	a94c      	add	r1, sp, #304	; 0x130
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:36
+    let text = fonts::Font12x16::<Rgb565>
+ 20c:	9a02      	ldr	r2, [sp, #8]
+ 20e:	9b01      	ldr	r3, [sp, #4]
+ 210:	f7ff fffe 	bl	0 <_ZN127_$LT$embedded_graphics..fonts..font_builder..FontBuilder$LT$C$C$Conf$GT$$u20$as$u20$embedded_graphics..transform..Transform$GT$9translate17h6081851f80e8a13bE>
+ 214:	e7ff      	b.n	216 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x216>
+ 216:	a817      	add	r0, sp, #92	; 0x5c
+ 218:	a965      	add	r1, sp, #404	; 0x194
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:43
 
     //  Render background, circle, square and text to display
     druid::draw_to_display(background);
- 204:	460a      	mov	r2, r1
- 206:	e8b0 5008 	ldmia.w	r0!, {r3, ip, lr}
- 20a:	e8a2 5008 	stmia.w	r2!, {r3, ip, lr}
- 20e:	e890 5018 	ldmia.w	r0, {r3, r4, ip, lr}
- 212:	e882 5018 	stmia.w	r2, {r3, r4, ip, lr}
- 216:	4608      	mov	r0, r1
- 218:	f7ff fffe 	bl	0 <_ZN22piet_embedded_graphics7display15draw_to_display17h8f053d084b2d9a5cE>
- 21c:	e7ff      	b.n	21e <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x21e>
- 21e:	a827      	add	r0, sp, #156	; 0x9c
- 220:	a96c      	add	r1, sp, #432	; 0x1b0
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:41
-    druid::draw_to_display(circle);
- 222:	460a      	mov	r2, r1
- 224:	e890 5078 	ldmia.w	r0, {r3, r4, r5, r6, ip, lr}
- 228:	e882 5078 	stmia.w	r2, {r3, r4, r5, r6, ip, lr}
+ 21a:	460a      	mov	r2, r1
+ 21c:	e8b0 5008 	ldmia.w	r0!, {r3, ip, lr}
+ 220:	e8a2 5008 	stmia.w	r2!, {r3, ip, lr}
+ 224:	e890 5018 	ldmia.w	r0, {r3, r4, ip, lr}
+ 228:	e882 5018 	stmia.w	r2, {r3, r4, ip, lr}
  22c:	4608      	mov	r0, r1
- 22e:	f7ff fffe 	bl	0 <_ZN22piet_embedded_graphics7display15draw_to_display17h2681b1ea4540d259E>
+ 22e:	f7ff fffe 	bl	0 <_ZN22piet_embedded_graphics7display15draw_to_display17h8f053d084b2d9a5cE>
  232:	e7ff      	b.n	234 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x234>
- 234:	a835      	add	r0, sp, #212	; 0xd4
- 236:	a972      	add	r1, sp, #456	; 0x1c8
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:42
-    druid::draw_to_display(square);
+ 234:	a827      	add	r0, sp, #156	; 0x9c
+ 236:	a96c      	add	r1, sp, #432	; 0x1b0
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:44
+    druid::draw_to_display(circle);
  238:	460a      	mov	r2, r1
- 23a:	e8b0 5008 	ldmia.w	r0!, {r3, ip, lr}
- 23e:	e8a2 5008 	stmia.w	r2!, {r3, ip, lr}
- 242:	e890 5018 	ldmia.w	r0, {r3, r4, ip, lr}
- 246:	e882 5018 	stmia.w	r2, {r3, r4, ip, lr}
- 24a:	4608      	mov	r0, r1
- 24c:	f7ff fffe 	bl	0 <_ZN22piet_embedded_graphics7display15draw_to_display17h8f053d084b2d9a5cE>
- 250:	e7ff      	b.n	252 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x252>
- 252:	a845      	add	r0, sp, #276	; 0x114
- 254:	a979      	add	r1, sp, #484	; 0x1e4
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:43
+ 23a:	e890 5078 	ldmia.w	r0, {r3, r4, r5, r6, ip, lr}
+ 23e:	e882 5078 	stmia.w	r2, {r3, r4, r5, r6, ip, lr}
+ 242:	4608      	mov	r0, r1
+ 244:	f7ff fffe 	bl	0 <_ZN22piet_embedded_graphics7display15draw_to_display17h2681b1ea4540d259E>
+ 248:	e7ff      	b.n	24a <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x24a>
+ 24a:	a835      	add	r0, sp, #212	; 0xd4
+ 24c:	a972      	add	r1, sp, #456	; 0x1c8
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:45
+    druid::draw_to_display(square);
+ 24e:	460a      	mov	r2, r1
+ 250:	e8b0 5008 	ldmia.w	r0!, {r3, ip, lr}
+ 254:	e8a2 5008 	stmia.w	r2!, {r3, ip, lr}
+ 258:	e890 5018 	ldmia.w	r0, {r3, r4, ip, lr}
+ 25c:	e882 5018 	stmia.w	r2, {r3, r4, ip, lr}
+ 260:	4608      	mov	r0, r1
+ 262:	f7ff fffe 	bl	0 <_ZN22piet_embedded_graphics7display15draw_to_display17h8f053d084b2d9a5cE>
+ 266:	e7ff      	b.n	268 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x268>
+ 268:	a845      	add	r0, sp, #276	; 0x114
+ 26a:	a979      	add	r1, sp, #484	; 0x1e4
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:46
     druid::draw_to_display(text);    
- 256:	460a      	mov	r2, r1
- 258:	e8b0 5008 	ldmia.w	r0!, {r3, ip, lr}
- 25c:	e8a2 5008 	stmia.w	r2!, {r3, ip, lr}
- 260:	e890 5018 	ldmia.w	r0, {r3, r4, ip, lr}
- 264:	e882 5018 	stmia.w	r2, {r3, r4, ip, lr}
- 268:	4608      	mov	r0, r1
- 26a:	f7ff fffe 	bl	0 <_ZN22piet_embedded_graphics7display15draw_to_display17hfbbfebae406ebcf9E>
- 26e:	e7ff      	b.n	270 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x270>
- 270:	2001      	movs	r0, #1
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:47
+ 26c:	460a      	mov	r2, r1
+ 26e:	e8b0 5008 	ldmia.w	r0!, {r3, ip, lr}
+ 272:	e8a2 5008 	stmia.w	r2!, {r3, ip, lr}
+ 276:	e890 5018 	ldmia.w	r0, {r3, r4, ip, lr}
+ 27a:	e882 5018 	stmia.w	r2, {r3, r4, ip, lr}
+ 27e:	4608      	mov	r0, r1
+ 280:	f7ff fffe 	bl	0 <_ZN22piet_embedded_graphics7display15draw_to_display17hfbbfebae406ebcf9E>
+ 284:	e7ff      	b.n	286 <_ZN3app7display12test_display17h3a2b5249d93d345eE+0x286>
+ 286:	2001      	movs	r0, #1
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/display.rs:50
 
     //  Return success to the caller
     Ok(())
- 272:	f50d 7d00 	add.w	sp, sp, #512	; 0x200
- 276:	bd70      	pop	{r4, r5, r6, pc}
+ 288:	f50d 7d00 	add.w	sp, sp, #512	; 0x200
+ 28c:	bd70      	pop	{r4, r5, r6, pc}
 
 app-d559bf047a1af437.2bxzo9r06w54kjdx.rcgu.o:     file format elf32-littlearm
 

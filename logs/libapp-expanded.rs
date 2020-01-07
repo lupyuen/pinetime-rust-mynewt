@@ -660,9 +660,11 @@ mod touch_sensor {
 mod display {
     use embedded_graphics::{prelude::*, fonts, pixelcolor::Rgb565,
                             primitives::{Circle, Rectangle}};
-    use mynewt::{result::*};
+    use mynewt::{result::*, sys::console};
     /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
     pub fn test_display() -> MynewtResult<()> {
+        console::print("Rust test display\n");
+        console::flush();
         let background =
             Rectangle::<Rgb565>::new(Coord::new(0, 0),
                                      Coord::new(239,

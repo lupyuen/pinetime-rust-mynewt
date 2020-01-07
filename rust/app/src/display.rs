@@ -10,10 +10,13 @@ use embedded_graphics::{
 };
 use mynewt::{
     result::*,
+    sys::console,
 };
 
 /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
 pub fn test_display() -> MynewtResult<()> {
+    console::print("Rust test display\n"); console::flush();
+    
     //  Create black background
     let background = Rectangle::<Rgb565>
         ::new( Coord::new( 0, 0 ), Coord::new( 239, 239 ) )   //  Rectangle coordinates
