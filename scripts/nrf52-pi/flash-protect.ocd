@@ -7,6 +7,12 @@ gdb_breakpoint_override hard
 # Connect to the device.
 init
 
+# Raspberry Pi fails with timeout when calling "reset halt" here, so we "reset" then "halt".
+echo "Stopping..."
+reset
+halt
+echo ""
+
 # Dump UICR flash region to a file. Creates the original UICR file.
 # flash read_bank 1 scripts/nrf52-pi/nrf52-uicr-original.bin 0x0 0x210
 

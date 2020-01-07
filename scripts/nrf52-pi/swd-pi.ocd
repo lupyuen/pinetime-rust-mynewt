@@ -54,32 +54,3 @@ source [find target/nrf52.cfg]
 reset_config srst_only srst_nogate
 adapter_nsrst_delay 100
 adapter_nsrst_assert_width 100
-
-###############################################################################
-# Execution
-
-# init
-
-# Open another command prompt on Raspberry Pi and enter
-# telnet localhost 4444
-
-# To remove nRF52 flash protection, enter these commands...
-
-# Check APPROTECTSTATUS status register for access port protection. 
-# Should show 0, which means protection enabled.
-# nrf52.dap apreg 1 0x0c
-
-# Set ERASEALL register to 1 to erase all FLASH and RAM and remove access port protection.
-# nrf52.dap apreg 1 0x04 0x01
-
-# Check ERASEALL register. Should show 1 when erasing FLASH and RAM and removing access port protection. 
-# Power off and on to perform the erase.
-# nrf52.dap apreg 1 0x04
-
-# After erasing, check APPROTECTSTATUS status register for access port protection.
-# Should show 1, which means protection disabled.
-
-# telnet localhost 4444
-# targets
-# halt
-# nrf52.dap apreg 1 0x0c
