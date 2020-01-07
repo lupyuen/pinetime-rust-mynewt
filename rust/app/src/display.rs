@@ -35,9 +35,9 @@ pub fn test_display() -> MynewtResult<()> {
     //  Create text
     let text = fonts::Font12x16::<Rgb565>
         ::render_str("I AM PINETIME")                          //  Text to be rendered
-        .stroke( Some( Rgb565::from(( 0x00, 0x00, 0x00 )) ) )  //  Black
-        .fill( Some( Rgb565::from((   0xff, 0xff, 0x00 )) ) )  //  Yellow
-        .translate( Coord::new( 20, 16 ));                     //  Move the text
+        .stroke( Some( Rgb565::from(( 0x00, 0x00, 0x00 )) ) )  //  Black text
+        .fill(   Some( Rgb565::from(( 0xff, 0xff, 0x00 )) ) )  //  Yellow background
+        .translate( Coord::new( 20, 16 ));                     //  Shift the text
 
     //  Render background, circle, square and text to display
     druid::draw_to_display(background);
