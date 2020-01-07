@@ -6,11 +6,14 @@
 gdb_flash_program enable
 gdb_breakpoint_override hard
 
+$_TARGETNAME configure -event reset-init {
+    # Arm Semihosting is used to show debug console output and may only be enabled after init event.  We wait for the event and enable Arm Semihosting.
+    echo "Enabled ARM Semihosting to show debug output"
+    arm semihosting enable
+}
+
 # Connect to the device.
 init
-
-# Enable ARM semihosting to show debug console output in OpenOCD console.
-arm semihosting enable
 
 # Raspberry Pi fails with timeout when calling "reset halt" here, so we "reset" then "halt".
 echo "Stopping..."
@@ -29,4 +32,5 @@ reset halt
 echo ""
 
 echo "**** Done!"
-exit
+####exit
+echo "zzzexit"

@@ -34,7 +34,7 @@ bcm2835gpio_speed_coeffs 236181 60
 # Connect Pi Header Pin Number 40 (GPIO 21) to nRF52 SWDIO
 bcm2835gpio_swd_nums 20 21
 
-# Optional: Assign SRST (Reset) line to a Pi GPIO:
+# Optional: Assign SRST (Reset) line to a Pi GPIO: (Not used on PineTime)
 # Connect Pi Header Pin Number 12 (GPIO 18) to nRF52 RESET
 bcm2835gpio_srst_num 18
 
@@ -50,7 +50,7 @@ transport select swd
 
 source [find target/nrf52.cfg]
 
-# Configure reset to use SRST line
-reset_config srst_only srst_nogate
-adapter_nsrst_delay 100
-adapter_nsrst_assert_width 100
+# Configure reset to use SRST line (Not used on PineTime)
+# reset_config srst_only srst_nogate
+# adapter_nsrst_delay 100
+# adapter_nsrst_assert_width 100
