@@ -46,13 +46,13 @@ main(void)
     //  Previously: flash_map_init();
     //  Previously: rc = boot_go(&rsp);
 
-    //  img_start points to the STM32 Vector Table for the app...
+    //  img_start points to the nRF52 Vector Table for the app...
     //  First word contains initial MSP value (estack = end of RAM)
     //  Second word contains address of entry point (Reset_Handler = 0x0800112d)
     void *img_start = (void *) (
-        sysflash_map_dflt[1].fa_off  //  Offset of FLASH_AREA_IMAGE_0 (application image): 0x08001000
+        sysflash_map_dflt[1].fa_off  //  Offset of FLASH_AREA_IMAGE_0 (application image): 0x00008000
         + 0x20                       //  Size of Mynewt image header
-    );  //  Equals 0x08001020 (__isr_vector)
+    );  //  Equals 0x00008020 (__isr_vector)
 
     //  Jump to Reset_Handler of the application. Uses first word and second word of img_start.
     hal_system_start(img_start);

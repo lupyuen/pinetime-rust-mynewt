@@ -14,8 +14,8 @@ $_TARGETNAME configure -event reset-init {
 init
 
 # Dump bootloader and application flash regions to a file, only the initial part of each region.
-flash read_bank 0 nrf52-dump-boot.bin 0x0000 0x100
-flash read_bank 0 nrf52-dump-app.bin  0x4000 0x100
+flash read_bank 0 nrf52-dump-boot.bin 0x0000 0xc00
+flash read_bank 0 nrf52-dump-app.bin  0x8000 0x100
 
 #echo "**** Done"
 #exit

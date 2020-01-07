@@ -1,12 +1,9 @@
-pi@raspberrypi:~ $ cd ~/pinetime-rust-mynewt
-pi@raspberrypi:~/pinetime-rust-mynewt $ scripts/nrf52-pi/flash-app.sh 
+pi@raspberrypi:~/pinetime-rust-mynewt $ cd ~/pinetime-rust-mynewt ; scripts/nrf52-pi/flash-app.sh 
 + sudo /home/pi/openocd/src/openocd -s /home/pi/openocd/tcl -f scripts/nrf52-pi/swd-pi.ocd -f scripts/nrf52/flash-app.ocd
 Open On-Chip Debugger 0.10.0+dev-00998-g9f1529da (2020-01-05-22:10)
 Licensed under GNU GPL v2
 For bug reports, read
         http://openocd.org/doc/doxygen/bugs.html
-adapter_nsrst_assert_width: 100
-
 force hard breakpoints
 Info : BCM2835 GPIO JTAG/SWD bitbang driver
 Info : SWD only mode enabled (specify tck, tms, tdi and tdo gpios to add JTAG mode)
@@ -16,20 +13,35 @@ Info : nrf52.cpu: hardware has 6 breakpoints, 4 watchpoints
 Info : Listening on port 3333 for gdb connections
 Stopping...
 target halted due to debug-request, current mode: Thread 
-xPSR: 0x61000000 pc: 0x2000002e psp: 0x200030c8, semihosting
+xPSR: 0x61000000 pc: 0x0000822a msp: 0x2000ffd8
 
 Flashing Application...
 target halted due to debug-request, current mode: Thread 
-xPSR: 0x61000000 pc: 0x2000002e psp: 0x200030c8, semihosting
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000
+Enabled ARM Semihosting to show debug output
 ** Programming Started **
 Info : nRF52832-QFAA(build code: E0) 512kB Flash, 64kB RAM
-Warn : Adding extra erase range, 0x0003b634 .. 0x0003bfff
+Warn : Adding extra erase range, 0x0003f774 .. 0x0003ffff
 ** Programming Finished **
 ** Verify Started **
 ** Verified OK **
 
 Restarting...
 target halted due to debug-request, current mode: Thread 
-xPSR: 0x61000000 pc: 0x2000002e psp: 0x200030c8, semihosting
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
+Enabled ARM Semihosting to show debug output
 
-**** Done!
+**** Done! Press Ctrl-C to exit...
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
+TMP create temp_stub_0
+NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
+NET standalone node 
+Rust TMP poll
+Rust touch sensor
+STB read temp sensor
+Rust send_sensor_data: t=1757
+NET random device id nrf52,00000000000000000000000000
+NET network not ready
+STB read temp sensor
+Rust send_sensor_data: t=1757

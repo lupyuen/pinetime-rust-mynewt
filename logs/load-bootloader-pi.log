@@ -1,10 +1,9 @@
+pi@raspberrypi:~/pinetime-rust-mynewt $ cd ~/pinetime-rust-mynewt ; scripts/nrf52-pi/flash-boot.sh 
 + sudo /home/pi/openocd/src/openocd -s /home/pi/openocd/tcl -f scripts/nrf52-pi/swd-pi.ocd -f scripts/nrf52/flash-boot.ocd
 Open On-Chip Debugger 0.10.0+dev-00998-g9f1529da (2020-01-05-22:10)
 Licensed under GNU GPL v2
 For bug reports, read
         http://openocd.org/doc/doxygen/bugs.html
-adapter_nsrst_assert_width: 100
-
 force hard breakpoints
 Info : BCM2835 GPIO JTAG/SWD bitbang driver
 Info : SWD only mode enabled (specify tck, tms, tdi and tdo gpios to add JTAG mode)
@@ -14,11 +13,12 @@ Info : nrf52.cpu: hardware has 6 breakpoints, 4 watchpoints
 Info : Listening on port 3333 for gdb connections
 Stopping...
 target halted due to debug-request, current mode: Thread 
-xPSR: 0x61000000 pc: 0x2000002e psp: 0x200030c8, semihosting
+xPSR: 0x61000000 pc: 0x000001c6 msp: 0x2000ffe8
 
 Flashing Bootloader...
 target halted due to debug-request, current mode: Thread 
-xPSR: 0x61000000 pc: 0x2000002e psp: 0x200030c8, semihosting
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000
+Enabled ARM Semihosting to show debug output
 ** Programming Started **
 Info : nRF52832-QFAA(build code: E0) 512kB Flash, 64kB RAM
 Warn : Adding extra erase range, 0x00000b78 .. 0x00000fff
@@ -28,6 +28,6 @@ Warn : Adding extra erase range, 0x00000b78 .. 0x00000fff
 
 Restarting...
 target halted due to debug-request, current mode: Thread 
-xPSR: 0x61000000 pc: 0x2000002e psp: 0x200030c8, semihosting
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
 
 **** Done!

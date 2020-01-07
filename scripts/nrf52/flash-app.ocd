@@ -23,14 +23,13 @@ echo ""
 
 # Application address must sync with hw/bsp/nrf52/bsp.yml
 echo "Flashing Application..."
-program bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img verify 0x00004000
+program bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img verify 0x00008000
 echo ""
 
-# Restart the device.
+# Restart the device and start the bootloader.
 echo "Restarting..."
-reset halt
+reset init
+resume
 echo ""
 
-echo "**** Done!"
-####exit
-echo "zzzexit"
+echo "**** Done! Press Ctrl-C to exit..."
