@@ -51,8 +51,14 @@ mod app_network {
     //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
     //  Declare `touch_sensor.rs` as Rust module `touch_sensor` for Touch Sensor functions
 
+    //  If graphics display app is enabled...
+    //  Graphics display app
+
+    //  If druid UI app is enabled...
+    //  druid UI app
+
     //  If floating-point is enabled...
-    //  Declare `gps_sensor.rs` as Rust module `gps_sensor` for GPS Sensor functions
+    //  GPS Sensor functions
 
     //  Import `PanicInfo` type which is used by `panic()` below
     //  Import cortex_m assembly function to inject breakpoint
@@ -79,7 +85,7 @@ mod app_network {
     //  Start the display
 
     //  Test the display
-    //  If graphics app is enabled...
+    //  If graphics display app is enabled...
 
     //  Start the touch sensor
 
@@ -88,7 +94,7 @@ mod app_network {
     //      .expect("TCH test fail");
 
     //  Launch the druid UI app
-    //  If druid app is enabled...
+    //  If druid UI app is enabled...
 
     //  Main event loop
     //  Loop forever...
@@ -655,45 +661,8 @@ mod touch_sensor {
         Ok(())
     }
 }
-mod display {
-    use embedded_graphics::{prelude::*, fonts, pixelcolor::Rgb565,
-                            primitives::{Circle, Rectangle}};
-    use mynewt::{result::*, sys::console};
-    /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
-    pub fn test_display() -> MynewtResult<()> {
-        console::print("Rust test display\n");
-        console::flush();
-        let background =
-            Rectangle::<Rgb565>::new(Coord::new(0, 0),
-                                     Coord::new(239,
-                                                239)).fill(Some(Rgb565::from((0x00,
-                                                                              0x00,
-                                                                              0x00))));
-        let circle =
-            Circle::<Rgb565>::new(Coord::new(40, 40),
-                                  40).fill(Some(Rgb565::from((0xff, 0x00,
-                                                              0xff))));
-        let square =
-            Rectangle::<Rgb565>::new(Coord::new(60, 60),
-                                     Coord::new(150,
-                                                150)).fill(Some(Rgb565::from((0x00,
-                                                                              0x00,
-                                                                              0xff))));
-        let text =
-            fonts::Font12x16::<Rgb565>::render_str("I AM PINETIME").stroke(Some(Rgb565::from((0x00,
-                                                                                              0x00,
-                                                                                              0x00)))).fill(Some(Rgb565::from((0xff,
-                                                                                                                               0xff,
-                                                                                                                               0x00)))).translate(Coord::new(20,
-                                                                                                                                                             16));
-        druid::draw_to_display(background);
-        druid::draw_to_display(circle);
-        druid::draw_to_display(square);
-        druid::draw_to_display(text);
-        Ok(())
-    }
-}
-mod hello {
+#[cfg(feature = "ui_app")]
+mod ui {
     #![no_std]
     use druid::widget::{Align, Button, Column, Label, Padding};
     use druid::{AppLauncher, LocalizedString, Widget, WindowDesc};
@@ -736,8 +705,8 @@ extern "C" fn main() -> ! {
     druid::start_display().expect("DSP fail");
     touch_sensor::start_touch_sensor().expect("TCH fail");
 
-    #[cfg(feature = "druid_app")]
-    hello::launch();
+    #[cfg(feature = "ui_app")]
+    ui::launch();
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }
