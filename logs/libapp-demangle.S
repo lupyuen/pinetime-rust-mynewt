@@ -4540,7 +4540,8 @@ fn ui_builder() -> impl Widget<u32> {  //  `u32` is the application state
     col
   e6:	9805      	ldr	r0, [sp, #20]
   e8:	f7ff fffe 	bl	0 <__aeabi_memcpy8>
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/hello.rs:68
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/lib.rs:1
+/*
   ec:	f50d 6dcd 	add.w	sp, sp, #1640	; 0x668
   f0:	bd80      	pop	{r7, pc}
   f2:	bf00      	nop
@@ -10264,17 +10265,12 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   7c:	f7ff fffe 	bl	0 <<T as core::convert::From<T>>::from>
   80:	9005      	str	r0, [sp, #20]
   82:	e002      	b.n	8a <app::app_sensor::start_sensor_listener+0x8a>
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/app_sensor.rs:69
-    //  Register the Listener Function to be called with the polled sensor data.
-    sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
-
-    //  Return `Ok()` to indicate success.  This line should not end with a semicolon (;).
-    Ok(())
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/lib.rs:1
+/*
   84:	9809      	ldr	r0, [sp, #36]	; 0x24
   86:	b03b      	add	sp, #236	; 0xec
   88:	bdf0      	pop	{r4, r5, r6, r7, pc}
 /Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/app_sensor.rs:55
-    sensor::set_poll_rate_ms(&SENSOR_DEVICE, SENSOR_POLL_TIME) ? ;
   8a:	9805      	ldr	r0, [sp, #20]
   8c:	f7ff fffe 	bl	0 <<core::result::Result<T,E> as core::ops::try::Try>::from_error>
   90:	9009      	str	r0, [sp, #36]	; 0x24
@@ -10282,6 +10278,8 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   94:	e7ff      	b.n	96 <app::app_sensor::start_sensor_listener+0x96>
   96:	e7f5      	b.n	84 <app::app_sensor::start_sensor_listener+0x84>
 /Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/app_sensor.rs:58
+
+    // Create a sensor listener that will call function `aggregate_sensor_data` after polling the sensor data
     let listener = sensor::new_sensor_listener(
   98:	f240 0000 	movw	r0, #0
   9c:	f2c0 0000 	movt	r0, #0
@@ -10299,6 +10297,9 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
   be:	f7ff fffe 	bl	0 <<core::result::Result<T,E> as core::ops::try::Try>::into_result>
   c2:	e7ff      	b.n	c4 <app::app_sensor::start_sensor_listener+0xc4>
 /Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/app_sensor.rs:62
+        &TEMP_SENSOR_KEY,   //  Transmit as field: `t`
+        TEMP_SENSOR_TYPE,   //  Type of sensor data: Raw temperature (integer from 0 to 4095)
+        app_network::aggregate_sensor_data  //  Call this function with the polled data: `aggregate_sensor_data`
     ) ? ;
   c4:	9818      	ldr	r0, [sp, #96]	; 0x60
   c6:	2800      	cmp	r0, #0
@@ -10335,6 +10336,8 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
  100:	e891 5078 	ldmia.w	r1, {r3, r4, r5, r6, ip, lr}
  104:	e882 5078 	stmia.w	r2, {r3, r4, r5, r6, ip, lr}
 /Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/app_sensor.rs:65
+
+    //  Register the Listener Function to be called with the polled sensor data.
     sensor::register_listener(sensor, listener) ? ;  //  `?` means in case of error, return error now.
  108:	990a      	ldr	r1, [sp, #40]	; 0x28
  10a:	aa32      	add	r2, sp, #200	; 0xc8
@@ -10372,11 +10375,13 @@ pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code
  156:	e7c8      	b.n	ea <app::app_sensor::start_sensor_listener+0xea>
  158:	2000      	movs	r0, #0
 /Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/app_sensor.rs:68
+
+    //  Return `Ok()` to indicate success.  This line should not end with a semicolon (;).
     Ok(())
  15a:	9009      	str	r0, [sp, #36]	; 0x24
  15c:	2001      	movs	r0, #1
  15e:	9009      	str	r0, [sp, #36]	; 0x24
-/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/app_sensor.rs:69
+/Users/Luppy/PineTime/pinetime-rust-mynewt/rust/app/src/lib.rs:1
  160:	e790      	b.n	84 <app::app_sensor::start_sensor_listener+0x84>
 
 app-f4c44a7673e4b2c0.50wb5b9f96jt8x9f.rcgu.o:     file format elf32-littlearm
