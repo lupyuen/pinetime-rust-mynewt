@@ -30,7 +30,11 @@ bench      = false
 
 # Optional features
 [features]
-default =  [      # Select the conditional compiled features
-    # "use_float" # Uncomment to support floating-point e.g. GPS geolocation
+default =  [         # Select the conditional compiled features
+    # "graphics_app" # Uncomment to execute Rust graphics app
+    "druid_app"      # Uncomment to execute druid UI app
+    # "use_float"    # Uncomment to support floating-point e.g. GPS geolocation
 ]
-use_float = []    # Define the feature
+use_float    = []    # Define the features
+graphics_app = []
+druid_app    = []
