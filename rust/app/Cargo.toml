@@ -31,8 +31,8 @@ bench      = false
 # Optional features
 [features]
 default =  [          # Select the conditional compiled features
-    # "display_app",  # Uncomment to enable graphics display app
-    "ui_app",         # Uncomment to enable druid UI app
+    "display_app",    # Uncomment to enable graphics display app
+    # "ui_app",       # Uncomment to enable druid UI app
     # "use_float",    # Uncomment to enable floating-point support e.g. GPS geolocation
 ]
 display_app  = []     # Define the features
