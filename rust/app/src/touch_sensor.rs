@@ -240,7 +240,8 @@ fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: 
     //  Step 5: Send the Stop Condition (Low to High SDA Transition)
     let rc2 = unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
     if rc2 == hal::HAL_I2C_ERR_ADDR_NACK as i32 {
-        assert!(false, "i2c fail");  //  I2C read failed
+        ////assert!(false, "i2c fail");  //  I2C read failed
+        console::print("i2c fail\n"); ////
         return Ok(());               //  TODO: Return an error
     }
     Ok(())

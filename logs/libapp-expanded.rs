@@ -79,6 +79,7 @@ mod app_network {
     //  Start the display
 
     //  Test the display
+    //  If graphics app is enabled...
 
     //  Start the touch sensor
 
@@ -86,8 +87,8 @@ mod app_network {
     //  touch_sensor::test()
     //      .expect("TCH test fail");
 
-    //  Launch the Druid UI
-    //  hello::launch();
+    //  Launch the druid UI app
+    //  If druid app is enabled...
 
     //  Main event loop
     //  Loop forever...
@@ -578,10 +579,7 @@ mod touch_sensor {
         let rc2 =
             unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
         if rc2 == hal::HAL_I2C_ERR_ADDR_NACK as i32 {
-            if !false {
-                ::core::panicking::panic("i2c fail",
-                                         ::core::intrinsics::caller_location())
-            };
+            console::print("i2c fail\n");
             return Ok(());
         }
         Ok(())
@@ -736,8 +734,10 @@ extern "C" fn main() -> ! {
                                  ::core::intrinsics::caller_location())
     };
     druid::start_display().expect("DSP fail");
-    display::test_display().expect("DSP test fail");
     touch_sensor::start_touch_sensor().expect("TCH fail");
+
+    #[cfg(feature = "druid_app")]
+    hello::launch();
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }

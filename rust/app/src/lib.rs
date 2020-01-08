@@ -77,6 +77,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
         .expect("DSP fail");
 
     //  Test the display
+    #[cfg(feature = "graphics_app")]  //  If graphics app is enabled...
     display::test_display()
         .expect("DSP test fail");
 
@@ -88,8 +89,9 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //  touch_sensor::test()
     //      .expect("TCH test fail");
 
-    //  Launch the Druid UI
-    //  hello::launch();
+    //  Launch the druid UI app
+    #[cfg(feature = "druid_app")]  //  If druid app is enabled...
+    hello::launch();
 
     //  Main event loop
     loop {                            //  Loop forever...
