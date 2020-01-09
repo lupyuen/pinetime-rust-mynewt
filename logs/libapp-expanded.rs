@@ -51,8 +51,14 @@ mod app_network {
     //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
     //  Declare `touch_sensor.rs` as Rust module `touch_sensor` for Touch Sensor functions
 
+    //  If graphics display app is enabled...
+    //  Graphics display app
+
+    //  If druid UI app is enabled...
+    //  druid UI app
+
     //  If floating-point is enabled...
-    //  Declare `gps_sensor.rs` as Rust module `gps_sensor` for GPS Sensor functions
+    //  GPS Sensor functions
 
     //  Import `PanicInfo` type which is used by `panic()` below
     //  Import cortex_m assembly function to inject breakpoint
@@ -72,13 +78,18 @@ mod app_network {
     //    .expect("NET fail");
 
     //  Start polling the simulated temperature sensor every 10 seconds in the background.
-    //  TODO: Replace by touch handler.
+    //  app_sensor::start_sensor_listener()
+    //    .expect("TMP fail");
 
     //  Start Bluetooth Beacon.  TODO: Create a safe wrapper for starting Bluetooth LE.
+    //  extern { fn start_ble() -> i32; }
+    //  let rc = unsafe { start_ble() };
+    //  assert!(rc == 0, "BLE fail");
 
     //  Start the display
 
     //  Test the display
+    //  If graphics display app is enabled...
 
     //  Start the touch sensor
 
@@ -86,8 +97,8 @@ mod app_network {
     //  touch_sensor::test()
     //      .expect("TCH test fail");
 
-    //  Launch the Druid UI
-    //  hello::launch();
+    //  Launch the druid UI app
+    //  If druid UI app is enabled...
 
     //  Main event loop
     //  Loop forever...
@@ -441,9 +452,12 @@ mod touch_sensor {
     extern "C" fn touch_event_callback(_event: *mut os_event) {
         unsafe {
             read_touchdata(&mut TOUCH_DATA).expect("touchdata fail");
-            let x = TOUCH_DATA.touches[0].x;
-            let y = TOUCH_DATA.touches[0].y;
-            druid::handle_touch(x, y);
+            for i in 0..TOUCH_DATA.count as usize {
+                let TouchInfo { x, y, action, .. } = TOUCH_DATA.touches[i];
+                if x == 0 && y == 0 { continue ; }
+                if action != 0 && action != 2 { continue ; }
+                druid::handle_touch(x, y);
+            }
         }
     }
     /// Touch data will be populated here
@@ -578,10 +592,7 @@ mod touch_sensor {
         let rc2 =
             unsafe { hal::hal_i2c_master_read(1, &mut I2C_DATA, 1000, 1) };
         if rc2 == hal::HAL_I2C_ERR_ADDR_NACK as i32 {
-            if !false {
-                ::core::panicking::panic("i2c fail",
-                                         ::core::intrinsics::caller_location())
-            };
+            console::print("i2c fail\n");
             return Ok(());
         }
         Ok(())
@@ -657,6 +668,7 @@ mod touch_sensor {
         Ok(())
     }
 }
+#[cfg(feature = "display_app")]
 mod display {
     use embedded_graphics::{prelude::*, fonts, pixelcolor::Rgb565,
                             primitives::{Circle, Rectangle}};
@@ -695,29 +707,6 @@ mod display {
         Ok(())
     }
 }
-mod hello {
-    #![no_std]
-    use druid::widget::{Align, Button, Column, Label, Padding};
-    use druid::{AppLauncher, LocalizedString, Widget, WindowDesc};
-    pub fn launch() {
-        let main_window = WindowDesc::new(ui_builder);
-        let data = 0_u32;
-        AppLauncher::with_window(main_window).use_simple_logger().launch(data).expect("launch failed");
-    }
-    /// Build the UI for the window. The application state consists of 1 value: `count` of type `u32`.
-    fn ui_builder() -> impl Widget<u32> {
-        let text =
-            LocalizedString::new("hello-counter").with_arg("count",
-                                                           |data: &u32, _env|
-                                                               (*data).into());
-        let label = Label::new(text);
-        let button = Button::new("increment", |_ctx, data, _env| *data += 1);
-        let mut col = Column::new();
-        col.add_child(Align::centered(Padding::new(5.0, label)), 1.0);
-        col.add_child(Padding::new(5.0, button), 1.0);
-        col
-    }
-}
 use core::panic::PanicInfo;
 use cortex_m::asm::bkpt;
 use mynewt::{kernel::os, sys::console};
@@ -726,16 +715,9 @@ use mynewt::{kernel::os, sys::console};
 #[no_mangle]
 extern "C" fn main() -> ! {
     mynewt::sysinit();
-    app_sensor::start_sensor_listener().expect("TMP fail");
-    extern {
-        fn start_ble() -> i32;
-    }
-    let rc = unsafe { start_ble() };
-    if !(rc == 0) {
-        ::core::panicking::panic("BLE fail",
-                                 ::core::intrinsics::caller_location())
-    };
     druid::start_display().expect("DSP fail");
+
+    #[cfg(feature = "display_app")]
     display::test_display().expect("DSP test fail");
     touch_sensor::start_touch_sensor().expect("TCH fail");
     loop  {

@@ -34,11 +34,15 @@ extern crate macros as mynewt_macros;   //  Declare the Mynewt Procedural Macros
 mod app_network;    //  Declare `app_network.rs` as Rust module `app_network` for Application Network functions
 mod app_sensor;     //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
 mod touch_sensor;   //  Declare `touch_sensor.rs` as Rust module `touch_sensor` for Touch Sensor functions
-mod display;
-mod hello;
 
-#[cfg(feature = "use_float")]  //  If floating-point is enabled...
-mod gps_sensor;     //  Declare `gps_sensor.rs` as Rust module `gps_sensor` for GPS Sensor functions
+#[cfg(feature = "display_app")]  //  If graphics display app is enabled...
+mod display;        //  Graphics display app
+
+#[cfg(feature = "ui_app")]       //  If druid UI app is enabled...
+mod ui;             //  druid UI app
+
+#[cfg(feature = "use_float")]    //  If floating-point is enabled...
+mod gps_sensor;     //  GPS Sensor functions
 
 use core::panic::PanicInfo; //  Import `PanicInfo` type which is used by `panic()` below
 use cortex_m::asm::bkpt;    //  Import cortex_m assembly function to inject breakpoint
@@ -63,20 +67,20 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //    .expect("NET fail");
 
     //  Start polling the simulated temperature sensor every 10 seconds in the background.
-    //  TODO: Replace by touch handler.
-    app_sensor::start_sensor_listener()
-        .expect("TMP fail");
+    //  app_sensor::start_sensor_listener()
+    //    .expect("TMP fail");
 
     //  Start Bluetooth Beacon.  TODO: Create a safe wrapper for starting Bluetooth LE.
-    extern { fn start_ble() -> i32; }
-    let rc = unsafe { start_ble() };
-    assert!(rc == 0, "BLE fail");
+    //  extern { fn start_ble() -> i32; }
+    //  let rc = unsafe { start_ble() };
+    //  assert!(rc == 0, "BLE fail");
 
     //  Start the display
     druid::start_display()
         .expect("DSP fail");
 
     //  Test the display
+    #[cfg(feature = "display_app")]  //  If graphics display app is enabled...
     display::test_display()
         .expect("DSP test fail");
 
@@ -88,8 +92,9 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //  touch_sensor::test()
     //      .expect("TCH test fail");
 
-    //  Launch the Druid UI
-    //  hello::launch();
+    //  Launch the druid UI app
+    #[cfg(feature = "ui_app")]  //  If druid UI app is enabled...
+    ui::launch();
 
     //  Main event loop
     loop {                            //  Loop forever...
