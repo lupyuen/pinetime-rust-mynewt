@@ -15,8 +15,10 @@
 #![no_std]  //  This program will run on embedded platforms
 use druid::widget::{Align, Button, Column, Label, Padding};
 use druid::{AppLauncher, LocalizedString, Widget, WindowDesc};
+use mynewt::{sys::console};
 
 pub fn launch() {
+    console::print("Rust launch\n"); console::flush();
     //  Build a new window
     let main_window = WindowDesc::new(ui_builder);
     //  Application state is initially 0
@@ -30,6 +32,7 @@ pub fn launch() {
 
 /// Build the UI for the window. The application state consists of 1 value: `count` of type `u32`.
 fn ui_builder() -> impl Widget<u32> {  //  `u32` is the application state
+    console::print("Rust UI builder\n"); console::flush();
     //  Create a line of text based on a counter value
     let text =
         LocalizedString::new("hello-counter")

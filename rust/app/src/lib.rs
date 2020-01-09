@@ -67,14 +67,13 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //    .expect("NET fail");
 
     //  Start polling the simulated temperature sensor every 10 seconds in the background.
-    //  TODO: Replace by touch handler.
-    app_sensor::start_sensor_listener()
-        .expect("TMP fail");
+    //  app_sensor::start_sensor_listener()
+    //    .expect("TMP fail");
 
     //  Start Bluetooth Beacon.  TODO: Create a safe wrapper for starting Bluetooth LE.
-    extern { fn start_ble() -> i32; }
-    let rc = unsafe { start_ble() };
-    assert!(rc == 0, "BLE fail");
+    //  extern { fn start_ble() -> i32; }
+    //  let rc = unsafe { start_ble() };
+    //  assert!(rc == 0, "BLE fail");
 
     //  Start the display
     druid::start_display()

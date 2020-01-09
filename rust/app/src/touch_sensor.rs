@@ -75,7 +75,8 @@ extern "C" fn touch_interrupt_handler(arg: *mut core::ffi::c_void) {
     //  Fetch the Default Event Queue. TODO: Use dedicated Event Queue for higher priority processing.
     let queue = os::eventq_dflt_get()
         .expect("GET fail");
-	unsafe { os::os_eventq_put(queue, &mut TOUCH_EVENT) };  //  Trigger the callback function `touch_event_callback()`
+    unsafe { os::os_eventq_put(queue, &mut TOUCH_EVENT) };  //  Trigger the callback function `touch_event_callback()`
+    //console::print("touch\n"); ////
 }
 
 /// Callback for the touch event that is triggered when a touch is detected
@@ -85,19 +86,46 @@ extern "C" fn touch_event_callback(_event: *mut os_event) {
         //  Fetch the touch data from the touch controller
         read_touchdata(&mut TOUCH_DATA)
             .expect("touchdata fail");
-        let x = TOUCH_DATA.touches[0].x;
-        let y = TOUCH_DATA.touches[0].y;
+        //  Handle each touch data info
+        for i in 0..TOUCH_DATA.count as usize {
+            let TouchInfo{ x, y, action, .. } = TOUCH_DATA.touches[i];
+            //  Skip invalid responses (see note below)
+            if x == 0 && y == 0 { continue; }
+            //  Handle only touch down and contact actions, not touch up (see note below)
+            if action != 0 && action != 2 { continue; }
+            //  Handle the touch data in the UI        
+            druid::handle_touch(x, y);
+            //  Display the touch data
+            //  druid::show_touch(x, y).expect("show touch fail");
 
-        //  Handle the touch data in the UI        
-        druid::handle_touch(x, y);
-        
-        //  Display the touch data
-        //  druid::show_touch(x, y).expect("show touch fail");
+            /* Usually we get responses like:
+            touch
+            count: 1, pt: 0
+            act: 0, fin 0, x: 124, y: 190
+
+            Need to handle unusual responses like: 
+            touch
+            count: 5, pt: 1
+            act: 2, fin 0, x: 166, y: 62
+            act: 0, fin 0, x: 0, y: 0
+            act: 0, fin 0, x: 0, y: 0
+            act: 0, fin 0, x: 0, y: 0
+            act: 0, fin 0, x: 0, y: 0 */
+        }    
     }
-    //  Disable the console output because it slows down the rendering
-    //  console::printint(unsafe { TOUCH_DATA.touches[0].x } as i32); console::print(", ");
-    //  console::printint(unsafe { TOUCH_DATA.touches[0].y } as i32); console::print("\n");
-    //  console::flush();   
+    /* unsafe {
+        //  Disable the console output because it may interfere with touch events
+        console::print("count: "); console::printint(TOUCH_DATA.count as i32);
+        console::print(", pt: "); console::printint(TOUCH_DATA.point_num as i32); console::print("\n");
+        for i in 0..TOUCH_DATA.count as usize {
+            let TouchInfo{ x, y, action, finger, .. } = TOUCH_DATA.touches[i];
+            console::print("act: "); console::printint(action as i32); 
+            console::print(", fin "); console::printint(finger as i32); 
+            console::print(", x: "); console::printint(x as i32); 
+            console::print(", y: "); console::printint(y as i32); console::print("\n");
+        }
+        console::flush();   
+    } */
 }
 
 /// Touch data will be populated here

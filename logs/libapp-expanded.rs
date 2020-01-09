@@ -78,9 +78,13 @@ mod app_network {
     //    .expect("NET fail");
 
     //  Start polling the simulated temperature sensor every 10 seconds in the background.
-    //  TODO: Replace by touch handler.
+    //  app_sensor::start_sensor_listener()
+    //    .expect("TMP fail");
 
     //  Start Bluetooth Beacon.  TODO: Create a safe wrapper for starting Bluetooth LE.
+    //  extern { fn start_ble() -> i32; }
+    //  let rc = unsafe { start_ble() };
+    //  assert!(rc == 0, "BLE fail");
 
     //  Start the display
 
@@ -448,9 +452,12 @@ mod touch_sensor {
     extern "C" fn touch_event_callback(_event: *mut os_event) {
         unsafe {
             read_touchdata(&mut TOUCH_DATA).expect("touchdata fail");
-            let x = TOUCH_DATA.touches[0].x;
-            let y = TOUCH_DATA.touches[0].y;
-            druid::handle_touch(x, y);
+            for i in 0..TOUCH_DATA.count as usize {
+                let TouchInfo { x, y, action, .. } = TOUCH_DATA.touches[i];
+                if x == 0 && y == 0 { continue ; }
+                if action != 0 && action != 2 { continue ; }
+                druid::handle_touch(x, y);
+            }
         }
     }
     /// Touch data will be populated here
@@ -708,15 +715,6 @@ use mynewt::{kernel::os, sys::console};
 #[no_mangle]
 extern "C" fn main() -> ! {
     mynewt::sysinit();
-    app_sensor::start_sensor_listener().expect("TMP fail");
-    extern {
-        fn start_ble() -> i32;
-    }
-    let rc = unsafe { start_ble() };
-    if !(rc == 0) {
-        ::core::panicking::panic("BLE fail",
-                                 ::core::intrinsics::caller_location())
-    };
     druid::start_display().expect("DSP fail");
 
     #[cfg(feature = "display_app")]
