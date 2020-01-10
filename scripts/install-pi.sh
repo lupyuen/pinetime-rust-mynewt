@@ -77,26 +77,3 @@ fi
 
 set +x  #  Stop echoing all commands.
 echo ✅ ◾ ️Done! See README.md for Mynewt type conversion build fixes. Please restart Visual Studio Code to activate the extensions
-
-exit
-
-## VSCode
-https://code.headmelted.com/
-sudo -s
-
-## Rust
-source $HOME/.cargo/env
-
-## gcc
-sudo apt install -y gcc-arm-none-eabi
-
-## newt
-
-cd pinetime-rust-mynewt/
-./scripts/install-pi.sh 
-
-## gcc for x86
-
-gcc-arm-none-eabi-8-2019-q3-update-linux.tar.bz2
-Linux 64-bit Tarball
-https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2019q3/RC1.1/gcc-arm-none-eabi-8-2019-q3-update-linux.tar.bz2?revision=c34d758a-be0c-476e-a2de-af8c6e16a8a2?product=GNU%20Arm%20Embedded%20Toolchain,64-bit,,Linux,8-2019-q3-update
