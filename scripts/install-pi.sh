@@ -11,6 +11,10 @@ mynewt_version=mynewt_1_7_0_tag
 nimble_version=nimble_1_2_0_tag
 mcuboot_version=v1.3.1
 
+echo "***** Installing gdb..."
+
+sudo apt install -y gdb-multiarch
+
 echo "***** Installing go..."
 
 #  Install go 1.13 to prevent newt build error: "go 1.12 or later is required (detected version: 1.2.X)"
