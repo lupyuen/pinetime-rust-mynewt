@@ -43,90 +43,59 @@ if [ ! -e "${brewdir}"/bin/wget ]; then
     brew install wget unzip -f
 fi
 
-echo "***** Installing openocd..."
+# echo "***** Installing openocd..."
 
 #  Install Arm version of OpenOCD into the ./openocd folder.
-if [ ! -e openocd/bin/openocd ]; then
-    if [ -e gnu-mcu-eclipse*tgz* ]; then
-        rm gnu-mcu-eclipse*tgz*
-    fi
-    wget https://github.com/gnu-mcu-eclipse/openocd/releases/download/v0.10.0-11-20190118/gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
-    tar xf gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
-    rm gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
-    mv gnu-mcu-eclipse openocd
-    mv openocd/openocd/*/* openocd
-    rm -rf openocd/openocd
-fi
+# if [ ! -e openocd/bin/openocd ]; then
+#     if [ -e gnu-mcu-eclipse*tgz* ]; then
+#         rm gnu-mcu-eclipse*tgz*
+#     fi
+#     wget https://github.com/gnu-mcu-eclipse/openocd/releases/download/v0.10.0-11-20190118/gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
+#     tar xf gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
+#     rm gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz
+#     mv gnu-mcu-eclipse openocd
+#     mv openocd/openocd/*/* openocd
+#     rm -rf openocd/openocd
+# fi
 
-#  Install RISC-V version of OpenOCD into the ./riscv-openocd folder.
-if [ ! -d riscv-openocd ]; then
-    git clone https://github.com/riscv-mcu/riscv-openocd
-    cd riscv-openocd
-    ./bootstrap
-    ./configure --enable-cmsis-dap --enable-ftdi
-    make
-    cd ..
-fi
-
-echo "***** Installing npm..."
+# echo "***** Installing npm..."
 
 #  Install npm.
-if [ ! -e "${brewdir}"/bin/npm ]; then
-    brew install node -f
-    node --version
-fi
+# if [ ! -e "${brewdir}"/bin/npm ]; then
+#     brew install node -f
+#     node --version
+# fi
 
-echo "***** Installing Arm Toolchain..."
+# echo "***** Installing Arm Toolchain..."
 
 #  Install Arm Toolchain into $HOME/opt/gnu-mcu-eclipse/arm-none-eabi-gcc/*/. From https://gnu-mcu-eclipse.github.io/toolchain/arm/install/
-if [ ! -d "${HOME}"/opt/gnu-mcu-eclipse/arm-none-eabi-gcc ]; then
-    if [ ! -d "${HOME}"/opt ]; then
-        mkdir -p "${HOME}"/opt
-    fi
-    pushd "${HOME}"/opt
+# if [ ! -d "${HOME}"/opt/gnu-mcu-eclipse/arm-none-eabi-gcc ]; then
+#     if [ ! -d "${HOME}"/opt ]; then
+#         mkdir -p "${HOME}"/opt
+#     fi
+#     pushd "${HOME}"/opt
 
-    #  Remove partial downloads.
-    if [ -d gnu-mcu-eclipse ]; then
-        rm -rf gnu-mcu-eclipse
-    fi
-    rm gnu-mcu-eclipse*tgz*
+#     #  Remove partial downloads.
+#     if [ -d gnu-mcu-eclipse ]; then
+#         rm -rf gnu-mcu-eclipse
+#     fi
+#     rm gnu-mcu-eclipse*tgz*
     
-    wget https://github.com/gnu-mcu-eclipse/arm-none-eabi-gcc/releases/download/v8.2.1-1.4/gnu-mcu-eclipse-arm-none-eabi-gcc-8.2.1-1.4-20190214-0604-macos.tgz
-    tar xf gnu-mcu-eclipse-arm-none-eabi-gcc-8.2.1-1.4-20190214-0604-macos.tgz
-    rm gnu-mcu-eclipse-arm-none-eabi-gcc-8.2.1-1.4-20190214-0604-macos.tgz
-    chmod -R -w "${HOME}"/opt/gnu-mcu-eclipse/arm-none-eabi-gcc/*
-    gccpath=`ls -d "${HOME}"/opt/gnu-mcu-eclipse/arm-none-eabi-gcc/*/bin`
-    echo export PATH=\"$gccpath:\$PATH\" >> ~/.bashrc
-    echo export PATH=\"$gccpath:\$PATH\" >> ~/.profile
-    export PATH="$gccpath:$PATH"
-    popd
-fi
-arm-none-eabi-gcc --version  #  Should show "gcc version 8.2.1 20181213" or later.
-
-echo "***** Installing RISC-V Toolchain..."
-
-#  Install RISC-V Toolchain into xPacks/riscv-none-embed-gcc/*/. From https://xpack.github.io/riscv-none-embed-gcc/, https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/tag/v8.2.0-3.1/
-if [ ! -d xPacks/riscv-none-embed-gcc ]; then
-    #  Remove partial downloads.
-    if [ -d xPacks ]; then
-        rm -rf xPacks
-    fi
-    rm xpack-riscv-none-embed-gcc*tgz*
-    
-    wget https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/download/v8.2.0-3.1/xpack-riscv-none-embed-gcc-8.2.0-3.1-darwin-x64.tgz
-    tar xf xpack-riscv-none-embed-gcc-8.2.0-3.1-darwin-x64.tgz
-    rm xpack-riscv-none-embed-gcc-8.2.0-3.1-darwin-x64.tgz
-    chmod -R -w xPacks/riscv-none-embed-gcc/*
-    # gccpath=`ls -d "${HOME}"/opt/xPacks/riscv-none-embed-gcc/*/bin`
-    # echo export PATH=\"$gccpath:\$PATH\" >> ~/.bashrc
-    # echo export PATH=\"$gccpath:\$PATH\" >> ~/.profile
-    # export PATH="$gccpath:$PATH"
-fi
-xPacks/riscv-none-embed-gcc/8.2.0-3.1/bin/riscv-none-embed-gcc --version  #  Should show "riscv-none-embed-gcc 8.2.0" or later.
+#     wget https://github.com/gnu-mcu-eclipse/arm-none-eabi-gcc/releases/download/v8.2.1-1.4/gnu-mcu-eclipse-arm-none-eabi-gcc-8.2.1-1.4-20190214-0604-macos.tgz
+#     tar xf gnu-mcu-eclipse-arm-none-eabi-gcc-8.2.1-1.4-20190214-0604-macos.tgz
+#     rm gnu-mcu-eclipse-arm-none-eabi-gcc-8.2.1-1.4-20190214-0604-macos.tgz
+#     chmod -R -w "${HOME}"/opt/gnu-mcu-eclipse/arm-none-eabi-gcc/*
+#     gccpath=`ls -d "${HOME}"/opt/gnu-mcu-eclipse/arm-none-eabi-gcc/*/bin`
+#     echo export PATH=\"$gccpath:\$PATH\" >> ~/.bashrc
+#     echo export PATH=\"$gccpath:\$PATH\" >> ~/.profile
+#     export PATH="$gccpath:$PATH"
+#     popd
+# fi
+# arm-none-eabi-gcc --version  #  Should show "gcc version 8.2.1 20181213" or later.
 
 echo "***** Installing go..."
 
-#  Install go 1.10 to prevent newt build error: "go 1.10 or later is required (detected version: 1.2.X)"
+#  Install go 1.12 to prevent newt build error: "go 1.12 or later is required (detected version: 1.2.X)"
 golangpath="${brewdir}"/bin
 if [ ! -e $golangpath/go ]; then
     brew install go -f
@@ -155,9 +124,9 @@ go version  #  Should show "go1.12.1" or later.
 echo "***** Installing newt..."
 
 #  Uninstall the brew version of newt.
-if [ -e "${brewdir}"/bin/newt ]; then
-    brew uninstall mynewt-newt -f
-fi
+# if [ -e "${brewdir}"/bin/newt ]; then
+#     brew uninstall mynewt-newt -f
+# fi
 
 #  Build newt in /tmp/mynewt. Copy to /usr/local/bin.
 if [ ! -e /usr/local/bin/newt ]; then

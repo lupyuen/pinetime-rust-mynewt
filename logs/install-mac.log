@@ -1,3 +1,4 @@
+→ ~/PineTime/pinetime-rust-mynewt/scripts/install-mac.sh
 Installing Apache Mynewt for macOS..
 + mynewt_version=mynewt_1_7_0_tag
 + nimble_version=nimble_1_2_0_tag
@@ -10,21 +11,6 @@ Installing Apache Mynewt for macOS..
 + echo '***** Installing wget and unzip...'
 ***** Installing wget and unzip...
 + '[' '!' -e /usr/local/bin/wget ']'
-+ echo '***** Installing openocd...'
-***** Installing openocd...
-+ '[' '!' -e openocd/bin/openocd ']'
-+ echo '***** Installing npm...'
-***** Installing npm...
-+ '[' '!' -e /usr/local/bin/npm ']'
-+ echo '***** Installing Arm Toolchain...'
-***** Installing Arm Toolchain...
-+ '[' '!' -d /Users/Luppy/opt/gnu-mcu-eclipse/arm-none-eabi-gcc ']'
-+ arm-none-eabi-gcc --version
-arm-none-eabi-gcc (GNU Tools for Arm Embedded Processors 7-2018-q2-update) 7.3.1 20180622 (release) [ARM/embedded-7-branch revision 261907]
-Copyright (C) 2017 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
 + echo '***** Installing go...'
 ***** Installing go...
 + golangpath=/usr/local/bin
@@ -35,79 +21,45 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 go version go1.12 darwin/amd64
 + echo '***** Installing newt...'
 ***** Installing newt...
-+ '[' -e /usr/local/bin/newt ']'
-+ brew uninstall mynewt-newt -f
 + '[' '!' -e /usr/local/bin/newt ']'
++ mynewtpath=/tmp/mynewt
++ '[' -d /tmp/mynewt ']'
++ mkdir /tmp/mynewt
++ pushd /tmp/mynewt
+/tmp/mynewt /tmp/a
++ git clone --branch mynewt_1_7_0_tag https://github.com/apache/mynewt-newt/
+Cloning into 'mynewt-newt'...
+remote: Enumerating objects: 36, done.
+remote: Counting objects: 100% (36/36), done.
+remote: Compressing objects: 100% (20/20), done.
+remote: Total 11483 (delta 16), reused 19 (delta 13), pack-reused 11447
+Receiving objects: 100% (11483/11483), 11.42 MiB | 3.45 MiB/s, done.
+Resolving deltas: 100% (7105/7105), done.
+Checking connectivity... done.
+Note: checking out '80bcba727dfe828dcb1f8da522f0502377d18fd4'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
++ cd mynewt-newt/
++ ./build.sh
+Building newt.  This may take a minute...
+Successfully built executable: /tmp/mynewt/mynewt-newt/newt/newt
++ sudo mv newt/newt /usr/local/bin
++ popd
+/tmp/a
 + which newt
 /usr/local/bin/newt
 + newt version
 Apache Newt
    Version: 1.7.0
   Git Hash: 80bcba7
-Build Date: 2019-09-06_07:32
-+ echo '***** Installing mynewt...'
-***** Installing mynewt...
-+ '[' -d repos ']'
-+ rm -rf repos
-+ newt install -v -f
-[apache-mynewt-core]:
-Downloading repository description
-Downloading repository mynewt-core (commit: master) from https://github.com/apache/mynewt-core.git
-Cloning into '/var/folders/gp/jb0b68fn3b187mgyyrjml3km0000gn/T/newt-repo580044478'...
-remote: Enumerating objects: 8, done.
-remote: Counting objects: 100% (8/8), done.
-remote: Compressing objects: 100% (8/8), done.
-remote: Total 108561 (delta 0), reused 1 (delta 0), pack-reused 108553
-Receiving objects: 100% (108561/108561), 162.63 MiB | 15.81 MiB/s, done.
-Resolving deltas: 100% (66464/66464), done.
-Checking connectivity... done.
-Checking out files: 100% (5834/5834), done.
-Will checkout origin/master
-Fetching repo mynewt-core
-Download of "repository.yml" from repo:apache-mynewt-core commit:master successful
-[mcuboot]:
-Downloading repository description
-Downloading repository mcuboot (commit: master) from https://github.com/JuulLabs-OSS/mcuboot.git
-Cloning into '/var/folders/gp/jb0b68fn3b187mgyyrjml3km0000gn/T/newt-repo159442181'...
-remote: Enumerating objects: 7, done.
-remote: Counting objects: 100% (7/7), done.
-remote: Compressing objects: 100% (7/7), done.
-remote: Total 6845 (delta 0), reused 0 (delta 0), pack-reused 6838
-Receiving objects: 100% (6845/6845), 2.71 MiB | 1.04 MiB/s, done.
-Resolving deltas: 100% (4221/4221), done.
-Checking connectivity... done.
-Will checkout origin/master
-Fetching repo mcuboot
-Download of "repository.yml" from repo:mcuboot commit:master successful
-[apache-mynewt-nimble]:
-Downloading repository description
-Downloading repository mynewt-nimble (commit: master) from https://github.com/apache/mynewt-nimble.git
-Cloning into '/var/folders/gp/jb0b68fn3b187mgyyrjml3km0000gn/T/newt-repo099613344'...
-remote: Enumerating objects: 9, done.
-remote: Counting objects: 100% (9/9), done.
-remote: Compressing objects: 100% (8/8), done.
-remote: Total 35257 (delta 0), reused 2 (delta 0), pack-reused 35248
-Receiving objects: 100% (35257/35257), 10.06 MiB | 1.45 MiB/s, done.
-Resolving deltas: 100% (20971/20971), done.
-Checking connectivity... done.
-Will checkout origin/master
-Fetching repo mynewt-nimble
-Download of "repository.yml" from repo:apache-mynewt-nimble commit:master successful
-Making the following changes to the project:
-    reinstall apache-mynewt-core (1.7.0)
-    reinstall apache-mynewt-nimble (1.2.0)
-    reinstall mcuboot (1.3.1)
-Will checkout mynewt_1_7_0_tag
-Merging changes from mynewt_1_7_0_tag
-Will checkout mynewt_1_7_0_tag
-apache-mynewt-core successfully installed version 1.7.0
-Will checkout nimble_1_2_0_tag
-Merging changes from nimble_1_2_0_tag
-Will checkout nimble_1_2_0_tag
-apache-mynewt-nimble successfully installed version 1.2.0
-Will checkout v1.3.1
-Merging changes from v1.3.1
-Will checkout v1.3.1
-mcuboot successfully installed version 1.3.1
+Build Date: 2020-01-10_15:25
 + set +x
 ✅ ◾ ️Done! Please restart Visual Studio Code to activate the extensions
