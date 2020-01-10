@@ -1,0 +1,99 @@
+pi@raspberrypi:~/pinetime-rust-mynewt $ ./scripts/install-pi.sh 
+Installing Apache Mynewt for Raspberry Pi...
++ mynewt_version=mynewt_1_7_0_tag
++ nimble_version=nimble_1_2_0_tag
++ mcuboot_version=v1.3.1
++ echo '***** Installing go...'
+***** Installing go...
++ golangpath=/usr/lib/go-1.13.6/bin
++ '[' '!' -e /usr/lib/go-1.13.6/bin/go ']'
++ wget https://dl.google.com/go/go1.13.6.linux-armv6l.tar.gz
+--2020-01-10 07:21:44--  https://dl.google.com/go/go1.13.6.linux-armv6l.tar.gz
+Resolving dl.google.com (dl.google.com)... 172.217.194.136, 172.217.194.190, 172.217.194.91, ...
+Connecting to dl.google.com (dl.google.com)|172.217.194.136|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 98280955 (94M) [application/octet-stream]
+Saving to: ‘go1.13.6.linux-armv6l.tar.gz’
+
+go1.13.6.linux-armv6l.ta 100%[================================>]  93.73M  6.02MB/s    in 18s     
+
+2020-01-10 07:22:02 (5.13 MB/s) - ‘go1.13.6.linux-armv6l.tar.gz’ saved [98280955/98280955]
+
++ tar xf go1.13.6.linux-armv6l.tar.gz
++ sudo mv go /usr/lib/go-1.13.6
++ echo export 'PATH=/usr/lib/go-1.13.6/bin:$PATH'
++ echo export 'PATH=/usr/lib/go-1.13.6/bin:$PATH'
++ echo export GOROOT=
++ echo export GOROOT=
++ export PATH=/usr/lib/go-1.13.6/bin:/home/pi/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
++ PATH=/usr/lib/go-1.13.6/bin:/home/pi/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
++ export GOROOT=
++ GOROOT=
++ go version
+go version go1.13.6 linux/arm
++ echo '***** Fixing ownership...'
+***** Fixing ownership...
++ '[' -d /home/pi/.caches ']'
++ '[' -d /home/pi/.config ']'
++ sudo chown -R pi:pi /home/pi/.config
++ '[' -d /home/pi/opt ']'
++ echo '***** Installing newt...'
+***** Installing newt...
++ '[' '!' -e /usr/local/bin/newt ']'
++ mynewtpath=/tmp/mynewt
++ '[' -d /tmp/mynewt ']'
++ rm -rf /tmp/mynewt
++ mkdir /tmp/mynewt
++ pushd /tmp/mynewt
+/tmp/mynewt ~/pinetime-rust-mynewt
++ git clone --branch mynewt_1_7_0_tag https://github.com/apache/mynewt-newt/
+Cloning into 'mynewt-newt'...
+remote: Enumerating objects: 36, done.
+remote: Counting objects: 100% (36/36), done.
+remote: Compressing objects: 100% (21/21), done.
+remote: Total 11483 (delta 16), reused 18 (delta 12), pack-reused 11447
+Receiving objects: 100% (11483/11483), 11.42 MiB | 4.12 MiB/s, done.
+Resolving deltas: 100% (7105/7105), done.
+Note: checking out '80bcba727dfe828dcb1f8da522f0502377d18fd4'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
++ cd mynewt-newt/
++ ./build.sh
+Building newt.  This may take a minute...
+go: downloading github.com/spf13/cobra v0.0.5
+go: downloading github.com/spf13/cast v1.3.0
+go: downloading github.com/spf13/pflag v1.0.3
+go: downloading github.com/sirupsen/logrus v1.4.2
+go: downloading golang.org/x/crypto v0.0.0-20190621222207-cc06ce4a13d4
+go: downloading github.com/NickBall/go-aes-key-wrap v0.0.0-20170929221519-1c3aa3e4dfc5
+go: extracting github.com/spf13/cast v1.3.0
+go: extracting github.com/NickBall/go-aes-key-wrap v0.0.0-20170929221519-1c3aa3e4dfc5
+go: extracting github.com/spf13/pflag v1.0.3
+go: extracting github.com/sirupsen/logrus v1.4.2
+go: extracting github.com/spf13/cobra v0.0.5
+go: downloading golang.org/x/sys v0.0.0-20190422165155-953cdadca894
+go: extracting golang.org/x/crypto v0.0.0-20190621222207-cc06ce4a13d4
+go: extracting golang.org/x/sys v0.0.0-20190422165155-953cdadca894
+go: finding github.com/sirupsen/logrus v1.4.2
+go: finding github.com/spf13/cobra v0.0.5
+go: finding github.com/spf13/pflag v1.0.3
+go: finding github.com/spf13/cast v1.3.0
+go: finding golang.org/x/sys v0.0.0-20190422165155-953cdadca894
+go: finding golang.org/x/crypto v0.0.0-20190621222207-cc06ce4a13d4
+go: finding github.com/NickBall/go-aes-key-wrap v0.0.0-20170929221519-1c3aa3e4dfc5
+Successfully built executable: /tmp/mynewt/mynewt-newt/newt/newt
++ sudo mv newt/newt /usr/local/bin
++ popd
+~/pinetime-rust-mynewt
++ echo '***** Installing mynewt...'
+***** Installing mynewt...
++ set +x
+✅ ◾ ️Done! See README.md for Mynewt type conversion build fixes. Please restart Visual Studio Code to activate the extensions
