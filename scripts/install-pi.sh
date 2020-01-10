@@ -11,6 +11,10 @@ mynewt_version=mynewt_1_7_0_tag
 nimble_version=nimble_1_2_0_tag
 mcuboot_version=v1.3.1
 
+echo "***** Installing gcc..."
+
+sudo apt install -y gcc-arm-none-eabi
+
 echo "***** Installing gdb..."
 
 if [ ! -e /usr/bin/arm-none-eabi-gdb ]; then
