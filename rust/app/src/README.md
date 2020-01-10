@@ -8,6 +8,8 @@ This is the Rust application that runs on top of Mynewt OS.  The application is 
 
 [`ui.rs`](ui.rs): druid UI application. Shows a button that may be tapped to increment a counter.
 
+[`touch_sensor.rs`](touch_sensor.rs): Touchscreen driver for PineTime.
+
 [`app_sensor.rs`](app_sensor.rs): Calls the [Mynewt Sensor Framework API](https://mynewt.apache.org/latest/os/modules/sensor_framework/sensor_framework.html) to poll the [STM32 internal temperature sensor](/libs/temp_stm32), and register a Listener Function that will be called after each poll.
 
 [`gps_sensor.rs`](gps_sensor.rs): Calls the [Mynewt Sensor Framework API](https://mynewt.apache.org/latest/os/modules/sensor_framework/sensor_framework.html) to poll the [Quectel L70-R GPS module](/libs/gps_l70r), and register a Listener Function that will be called after each poll.
@@ -18,6 +20,12 @@ This is the Rust application that runs on top of Mynewt OS.  The application is 
 
 ## Related Files
 
-[`/Cargo.toml`](/Cargo.toml): Rust Build Settings
+[`../Cargo.toml`](../Cargo.toml): Rust Build Settings
 
 [`/.cargo`](/.cargo): Rust Target Settings
+
+[`piet-embedded/piet-embedded-graphics/src/display.rs`](https://github.com/lupyuen/piet-embedded/blob/master/piet-embedded-graphics/src/display.rs): Display driver for PineTime
+
+[`piet-embedded/piet-embedded-graphics/src/batch.rs`](https://github.com/lupyuen/piet-embedded/blob/master/piet-embedded-graphics/src/batch.rs): Batching SPI display requests for PineTime
+
+[`/rust/mynewt/src/spi.rs`](/rust/mynewt/src/spi.rs): Non-Blocking SPI driver for PineTime
