@@ -13,7 +13,17 @@ mcuboot_version=v1.3.1
 
 echo "***** Installing gdb..."
 
-sudo apt install -y gdb-multiarch
+if [ ! -e /usr/bin/arm-none-eabi-gdb ]; then
+    sudo apt install -y gdb-multiarch
+    sudo ln -s /usr/bin/gdb-multiarch /usr/bin/arm-none-eabi-gdb
+fi
+
+#  echo "***** Installing OpenOCD..."
+
+#  rm -rf openocd
+#  cp -r ~/openocd .
+#  mkdir openocd/bin
+#  cp openocd/src/openocd openocd/bin
 
 echo "***** Installing go..."
 
