@@ -23,11 +23,9 @@ if [ ! -e /usr/bin/arm-none-eabi-gdb ]; then
 fi
 
 #  echo "***** Installing OpenOCD..."
-
-#  rm -rf openocd
-#  cp -r ~/openocd .
-#  mkdir openocd/bin
-#  cp openocd/src/openocd openocd/bin
+#  cp ~/openocd/src/openocd openocd/bin/openocd
+#  sudo chown root openocd/bin/openocd
+#  chmod +s openocd/bin/openocd 
 
 echo "***** Installing go..."
 

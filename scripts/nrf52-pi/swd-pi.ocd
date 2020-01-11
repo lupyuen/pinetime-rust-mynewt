@@ -48,6 +48,7 @@ transport select swd
 ###############################################################################
 # Target
 
+# add_script_search_dir openocd/scripts
 source [find target/nrf52.cfg]
 
 # Configure reset to use SRST line (Not used on PineTime)
