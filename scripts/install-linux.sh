@@ -120,4 +120,4 @@ newt version  #  Should show "Version: 1.7.0" or later.  Should NOT show "...-de
 #  newt install -v -f
 
 set +x  #  Stop echoing all commands.
-echo ✅ ◾ ️Done! See README.md for Mynewt type conversion build fixes. Please restart Visual Studio Code to activate the extensions
+echo ✅ ◾ ️Done! See README.md for Mynewt type conversion build fixes.
