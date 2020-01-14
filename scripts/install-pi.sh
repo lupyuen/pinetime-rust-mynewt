@@ -11,16 +11,15 @@ mynewt_version=mynewt_1_7_0_tag
 nimble_version=nimble_1_2_0_tag
 mcuboot_version=v1.3.1
 
-echo "***** Installing gcc..."
+# Don't install gcc and gdb here, will clash with PineBook
+# echo "***** Installing gcc..."
+# sudo apt install -y gcc-arm-none-eabi
 
-sudo apt install -y gcc-arm-none-eabi
-
-echo "***** Installing gdb..."
-
-if [ ! -e /usr/bin/arm-none-eabi-gdb ]; then
-    sudo apt install -y gdb-multiarch
-    sudo ln -s /usr/bin/gdb-multiarch /usr/bin/arm-none-eabi-gdb
-fi
+# echo "***** Installing gdb..."
+# if [ ! -e /usr/bin/arm-none-eabi-gdb ]; then
+#     sudo apt install -y gdb-multiarch
+#     sudo ln -s /usr/bin/gdb-multiarch /usr/bin/arm-none-eabi-gdb
+# fi
 
 #  echo "***** Installing OpenOCD..."
 #  cp ~/openocd/src/openocd openocd/bin/openocd
