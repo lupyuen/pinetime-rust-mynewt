@@ -24,7 +24,7 @@ mcuboot_version=v1.3.1
 #  echo "***** Installing OpenOCD..."
 #  cp ~/openocd/src/openocd openocd/bin/openocd
 #  sudo chown root openocd/bin/openocd
-#  chmod +s openocd/bin/openocd 
+#  sudo chmod +s openocd/bin/openocd 
 
 echo "***** Installing go..."
 
