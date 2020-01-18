@@ -82,12 +82,12 @@ for %%f in (%rust_build_dir%\libapp*.rlib) do del %%f
 
 ::  Expand Rust macros for troubleshooting: logs/libmynewt-expanded.rs and libapp-expanded.rs
 rustup default nightly
-pushd rust\mynewt && cargo rustc -v %rust_build_options% -- -Z unstable-options --pretty expanded > ..\..\logs\libmynewt-expanded.rs && popd
-pushd rust\app    && cargo rustc -v %rust_build_options% -- -Z unstable-options --pretty expanded > ..\..\logs\libapp-expanded.rs    && popd
+pushd rust\mynewt && cargo rustc %rust_build_options% -- -Z unstable-options --pretty expanded > ..\..\logs\libmynewt-expanded.rs && popd
+pushd rust\app    && cargo rustc %rust_build_options% -- -Z unstable-options --pretty expanded > ..\..\logs\libapp-expanded.rs    && popd
 
 ::  Build the Rust app in "src" folder.
 @echo "----- Build Rust app"
-cargo build -v %rust_build_options%
+cargo build %rust_build_options%
 @if errorlevel 1 goto :EOF
 
 ::  Export the metadata for the Rust build.

@@ -78,13 +78,13 @@ done
 #  Expand Rust macros for troubleshooting: logs/libmynewt-expanded.rs and libapp-expanded.rs
 rustup default nightly
 set +e  # Ignore errors
-pushd rust/mynewt ; cargo rustc -v $rust_build_options -- -Z unstable-options --pretty expanded -Z external-macro-backtrace > ../../logs/libmynewt-expanded.rs ; popd
-pushd rust/app    ; cargo rustc -v $rust_build_options -- -Z unstable-options --pretty expanded -Z external-macro-backtrace > ../../logs/libapp-expanded.rs    ; popd
+pushd rust/mynewt ; cargo rustc $rust_build_options -- -Z unstable-options --pretty expanded -Z external-macro-backtrace > ../../logs/libmynewt-expanded.rs ; popd
+pushd rust/app    ; cargo rustc $rust_build_options -- -Z unstable-options --pretty expanded -Z external-macro-backtrace > ../../logs/libapp-expanded.rs    ; popd
 set -e  # Stop on errors
 
 #  Build the Rust app in "src" folder.
 set +x ; echo ; echo "----- Build Rust app" ; set -x
-cargo build -v $rust_build_options
+cargo build $rust_build_options
 
 #  Export the metadata for the Rust build.
 cargo metadata --format-version 1 >logs/libapp.json
@@ -125,8 +125,8 @@ cp rustlib.a $rust_app_dest
 $ar_cmd s $rust_app_dest
 
 #  Dump the ELF and disassembly for the compiled Rust application and libraries (except libcore)
-$objdump_cmd -t -S            --line-numbers --wide rustlib.a >../logs/rustlib.S 2>&1
-$objdump_cmd -t -S --demangle --line-numbers --wide rustlib.a >../logs/rustlib-demangle.S 2>&1
+#  $objdump_cmd -t -S            --line-numbers --wide rustlib.a >../logs/rustlib.S 2>&1
+#  $objdump_cmd -t -S --demangle --line-numbers --wide rustlib.a >../logs/rustlib-demangle.S 2>&1
 
 #  Return to the parent directory.
 popd

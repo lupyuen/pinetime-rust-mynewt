@@ -18,8 +18,7 @@
             "svdFile": "scripts/nrf52/nrf52.svd",
             "configFiles": [ 
                 //  Tell OpenOCD to open the ST Link connection to STM32 MCU.
-                "interface/stlink-v2.cfg",
-                "target/nrf52.cfg",
+                "scripts/nrf52-pi/swd-pi.ocd",
                 //  Tell OpenOCD to run our custom debug commands.
                 "scripts/nrf52/debug.ocd"
             ],
