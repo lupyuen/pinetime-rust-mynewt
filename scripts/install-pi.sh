@@ -15,7 +15,7 @@ openocd_version=spi
 #  Preqrequisites:
 #  sudo apt install -y wget p7zip-full
 #  cd ~
-#  wget https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v2.0.0/pinetime-rust-mynewt.7z
+#  wget https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v2.0.1/pinetime-rust-mynewt.7z
 #  7z x pinetime-rust-mynewt.7z
 #  rm pinetime-rust-mynewt.7z
 #  cd ~/pinetime-rust-mynewt
