@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-#  Install Apache Mynewt for Raspberry Pi.  Based on https://mynewt.apache.org/latest/newt/install/newt_linux.html.  
+#  Install Rust and Mynewt Build Tools for Raspberry Pi.  Based on https://mynewt.apache.org/latest/newt/install/newt_linux.html.  
 
-echo "Installing Apache Mynewt for Raspberry Pi..."
+echo "Installing Rust and Mynewt Build Tools for Raspberry Pi..."
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
@@ -26,7 +26,6 @@ rustup default nightly
 rustup update
 rustup target add thumbv7em-none-eabihf
 
-# Install GCC toolchain for Arm Cortex
 set +x; echo; echo "----- Installing build tools..."; set -x
 sudo apt install -y wget git autoconf libtool make pkg-config libusb-1.0-0 libusb-1.0-0-dev libhidapi-dev libftdi-dev telnet p7zip-full
 
