@@ -9,6 +9,15 @@ set -x  #  Echo all commands.
 mynewt_version=mynewt_1_7_0_tag
 nimble_version=nimble_1_2_0_tag
 mcuboot_version=v1.3.1
+#### TODO: openocd_version=master
+openocd_version=spi
+
+#  Preqrequisites:
+#  sudo apt install -y wget p7zip-full
+#  cd ~
+#  wget https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v1.0.4/pinetime-rust-mynewt.7z
+#  7z x pinetime-rust-mynewt.7z
+#  rm pinetime-rust-mynewt.7z
 
 echo "***** Installing build tools..."
 sudo apt install -y wget git autoconf libtool make pkg-config libusb-1.0-0 libusb-1.0-0-dev libhidapi-dev libftdi-dev telnet p7zip-full
@@ -24,12 +33,13 @@ fi
 
 echo "***** Installing openocd-spi..."
 if [ ! -d $HOME/openocd-spi ]; then
-    cd $HOME
-    git clone https://github.com/lupyuen/openocd-spi
+    pushd $HOME
+    git clone --branch $openocd_version https://github.com/lupyuen/openocd-spi
     cd openocd-spi
     ./bootstrap
     ./configure --enable-sysfsgpio --enable-bcm2835spi --enable-cmsis-dap
     make
+    popd
 fi
 cp $HOME/openocd-spi/src/openocd $HOME/pinetime-rust-mynewt/openocd/bin/openocd
 
@@ -49,7 +59,7 @@ if [ ! -e $golangpath/go ]; then
 fi
 #  Prevent mismatch library errors when building newt.
 export GOROOT=
-go version  #  Should show "go1.12.1" or later.
+go version  #  Should show "go1.13" or later.
 
 #  Change owner from root back to user for the installed packages.
 echo "***** Fixing ownership..."
@@ -76,10 +86,6 @@ if [ ! -e /usr/local/bin/newt ]; then
     git clone --branch $mynewt_version https://github.com/apache/mynewt-newt/
     cd mynewt-newt/
     ./build.sh
-    #  Should show: "Building newt.  This may take a minute..."
-    #  "Successfully built executable: /tmp/mynewt/mynewt-newt/newt/newt"
-    #  If you see "Error: go 1.10 or later is required (detected version: 1.2.X)"
-    #  then install go 1.10 as shown above.
     sudo mv newt/newt /usr/local/bin
     popd
 fi
