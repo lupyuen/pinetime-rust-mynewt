@@ -3,11 +3,8 @@
 # VSCode debugger searches this folder for OpenOCD scripts
 add_script_search_dir openocd/scripts
 
-# Select the Broadcom SPI interface for Raspbery Pi
+# Select the Broadcom SPI interface for Raspberry Pi (SWD transport)
 interface bcm2835spi
-
-# Select SWD as transport
-transport select swd
 
 # Select nRF52 as target
 source [find target/nrf52.cfg]
