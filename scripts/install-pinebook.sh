@@ -39,8 +39,8 @@ if [ ! -e $golangpath/go ]; then
     echo export PATH=$golangpath:\$PATH >> ~/.profile
     echo export GOROOT= >> ~/.bashrc
     echo export GOROOT= >> ~/.profile
-    export PATH=$golangpath:$PATH
 fi
+export PATH=$golangpath:$PATH
 #  Prevent mismatch library errors when building newt.
 export GOROOT=
 go version  #  Should show "go1.13" or later.
