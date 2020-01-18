@@ -1,24 +1,8 @@
 ::  Windows script to build Rust application hosted on Mynewt OS
 
-::  TODO: GD32VF103
-::  set mynewt_build_app=gd32vf103c-start_my_sensor
-::  set rust_build_target=riscv32imac-unknown-none-elf
-::  copy /y .vscode\launch-gd32vf103.json .vscode\launch.json
-
-::  TODO: nRF52
 set mynewt_build_app=nrf52_my_sensor
 set rust_build_target=thumbv7em-none-eabihf
 copy /y .vscode\launch-nrf52.json .vscode\launch.json
-
-::  TODO: STM32L4
-::  set mynewt_build_app=stm32l4_my_sensor
-::  set rust_build_target=thumbv7em-none-eabihf
-::  copy /y .vscode\launch-stm32l4.json .vscode\launch.json
-
-::  TODO: STM32 Blue Pill
-::  set mynewt_build_app=bluepill_my_sensor
-::  set rust_build_target=thumbv7m-none-eabi
-::  copy /y .vscode\launch-bluepill.json .vscode\launch.json
 
 @echo "----- Building Rust app and Mynewt OS for %rust_build_target% / %mynewt_build_app%..."
 
