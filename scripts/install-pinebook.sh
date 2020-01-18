@@ -10,29 +10,25 @@ mynewt_version=mynewt_1_7_0_tag
 nimble_version=nimble_1_2_0_tag
 mcuboot_version=v1.3.1
 
-echo "***** Installing build tools..."
-sudo apt install -y wget git autoconf libtool make pkg-config libusb-1.0-0 libusb-1.0-0-dev libhidapi-dev libftdi-dev telnet p7zip-full
+#  TODO
+# Don't install gcc and gdb here, will clash with PineBook
+# echo "***** Installing gcc..."
+# sudo apt install -y gcc-arm-none-eabi
 
-echo "***** Installing gcc..."
-sudo apt install -y gcc-arm-none-eabi
+#  TODO
+# echo "***** Installing gdb..."
+# if [ ! -e /usr/bin/arm-none-eabi-gdb ]; then
+#     sudo apt install -y gdb-multiarch
+#     sudo ln -s /usr/bin/gdb-multiarch /usr/bin/arm-none-eabi-gdb
+# fi
 
-echo "***** Installing gdb..."
-if [ ! -e /usr/bin/arm-none-eabi-gdb ]; then
-    sudo apt install -y gdb-multiarch
-    sudo ln -s /usr/bin/gdb-multiarch /usr/bin/arm-none-eabi-gdb
-fi
+#  TODO
+#  echo "***** Installing OpenOCD..."
+#  cp ~/openocd/src/openocd openocd/bin/openocd
+#  sudo chown root openocd/bin/openocd
+#  sudo chmod +s openocd/bin/openocd 
 
-echo "***** Installing openocd-spi..."
-if [ ! -d $HOME/openocd-spi ]; then
-    cd $HOME
-    git clone https://github.com/lupyuen/openocd-spi
-    cd openocd-spi
-    ./bootstrap
-    ./configure --enable-sysfsgpio --enable-bcm2835spi --enable-cmsis-dap
-    make
-fi
-cp $HOME/openocd-spi/src/openocd $HOME/pinetime-rust-mynewt/openocd/bin/openocd
-
+#  TODO: Move to install-go-pi.sh
 #  Install go 1.13 to prevent newt build error: "go 1.12 or later is required (detected version: 1.2.X)"
 echo "***** Installing go..."
 golangpath=/usr/lib/go-1.13.6/bin
@@ -63,6 +59,7 @@ if [ -d "$HOME/opt" ]; then
     sudo chown -R $USER:$USER "$HOME/opt"
 fi
 
+#  TODO: Move to install-newt.sh
 #  Build newt in /tmp/mynewt. Copy to /usr/local/bin.
 echo "***** Installing newt..."
 if [ ! -e /usr/local/bin/newt ]; then
@@ -85,10 +82,12 @@ if [ ! -e /usr/local/bin/newt ]; then
 fi
 
 #  echo "***** Installing mynewt..."
+
 #  Remove the existing Mynewt OS in "repos"
 #  if [ -d repos ]; then
 #      rm -rf repos
 #  fi
+
 #  Download Mynewt OS into the current project folder, under "repos" subfolder.
 #  newt install -v -f
 
