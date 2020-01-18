@@ -92,6 +92,9 @@ if [ ! -e /usr/local/bin/newt ]; then
 fi
 newt version  #  Should show "Version: 1.7.0" or later.  Should NOT show "...-dev".
 
+echo "***** Installing Rust..."
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
 #  echo "***** Installing mynewt..."
 #  Remove the existing Mynewt OS in "repos"
 #  if [ -d repos ]; then
