@@ -10,7 +10,8 @@ mynewt_version=mynewt_1_7_0_tag
 nimble_version=nimble_1_2_0_tag
 mcuboot_version=v1.3.1
 
-echo "***** Skipping gcc-arm-none-eabi, assume installed..."
+#  gcc should be manually installed
+echo "***** Skipping gcc-arm-none-eabi..."
 
 #  TODO
 # echo "***** Installing gdb..."
@@ -25,13 +26,14 @@ echo "***** Skipping gcc-arm-none-eabi, assume installed..."
 #  sudo chown root openocd/bin/openocd
 #  sudo chmod +s openocd/bin/openocd 
 
-#  Install go 1.13 to prevent newt build error: "go 1.12 or later is required (detected version: 1.2.X)"
+#  Install go for building newt
 echo "***** Installing go..."
 golangpath=/usr/lib/go-1.13.6/bin
 if [ ! -e $golangpath/go ]; then
     wget https://dl.google.com/go/go1.13.6.linux-armv6l.tar.gz
-    tar xf go1.13.6.linux-armv6l.tar.gz 
+    tar xf go*.tar.gz
     sudo mv go /usr/lib/go-1.13.6
+    rm go*.tar.gz
 
     echo export PATH=$golangpath:\$PATH >> ~/.bashrc
     echo export PATH=$golangpath:\$PATH >> ~/.profile
