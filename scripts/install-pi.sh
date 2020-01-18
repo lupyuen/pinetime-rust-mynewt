@@ -19,7 +19,7 @@ openocd_version=spi
 #  7z x pinetime-rust-mynewt.7z
 #  rm pinetime-rust-mynewt.7z
 
-set +x; echo; echo "***** Installing Rust. When prompted, press Enter to select default option..."; sleep 5; set -x
+set +x; echo; echo "----- Installing Rust. When prompted, press Enter to select default option..."; sleep 5; set -x
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source $HOME/.cargo/env
 rustup default nightly
@@ -27,19 +27,19 @@ rustup update
 rustup target add thumbv7em-none-eabihf
 
 # Install GCC toolchain for Arm Cortex
-set +x; echo; echo "***** Installing build tools..."; set -x
+set +x; echo; echo "----- Installing build tools..."; set -x
 sudo apt install -y wget git autoconf libtool make pkg-config libusb-1.0-0 libusb-1.0-0-dev libhidapi-dev libftdi-dev telnet p7zip-full
 
-set +x; echo; echo "***** Installing gcc..."; set -x 
+set +x; echo; echo "----- Installing gcc..."; set -x 
 sudo apt install -y gcc-arm-none-eabi
 
-set +x; echo; echo "***** Installing gdb..."; set -x 
+set +x; echo; echo "----- Installing gdb..."; set -x 
 if [ ! -e /usr/bin/arm-none-eabi-gdb ]; then
     sudo apt install -y gdb-multiarch
     sudo ln -s /usr/bin/gdb-multiarch /usr/bin/arm-none-eabi-gdb
 fi
 
-set +x; echo; echo "***** Installing openocd-spi..."; set -x 
+set +x; echo; echo "----- Installing openocd-spi..."; set -x 
 if [ ! -d $HOME/openocd-spi ]; then
     pushd $HOME
     git clone --branch $openocd_version https://github.com/lupyuen/openocd-spi
@@ -52,7 +52,7 @@ fi
 cp $HOME/openocd-spi/src/openocd $HOME/pinetime-rust-mynewt/openocd/bin/openocd
 
 #  Install go for building newt
-set +x; echo; echo "***** Installing go..."; set -x 
+set +x; echo; echo "----- Installing go..."; set -x 
 golangpath=/usr/lib/go-1.13.6/bin
 if [ ! -e $golangpath/go ]; then
     wget https://dl.google.com/go/go1.13.6.linux-armv6l.tar.gz
@@ -71,7 +71,7 @@ export GOROOT=
 go version  #  Should show "go1.13" or later.
 
 #  Change owner from root back to user for the installed packages.
-set +x; echo; echo "***** Fixing ownership..."; set -x 
+set +x; echo; echo "----- Fixing ownership..."; set -x 
 if [ -d "$HOME/.caches" ]; then
     sudo chown -R $USER:$USER "$HOME/.caches"
 fi
@@ -84,7 +84,7 @@ fi
 set +x; echo; set -x
 
 #  Build newt in /tmp/mynewt. Copy to /usr/local/bin.
-set +x; echo; echo "***** Installing newt..."; set -x 
+set +x; echo; echo "----- Installing newt..."; set -x 
 if [ ! -e /usr/local/bin/newt ]; then
     mynewtpath=/tmp/mynewt
     if [ -d $mynewtpath ]; then
@@ -101,7 +101,7 @@ if [ ! -e /usr/local/bin/newt ]; then
 fi
 newt version  #  Should show "Version: 1.7.0" or later.  Should NOT show "...-dev".
 
-#  echo "***** Installing mynewt..."
+#  echo "----- Installing mynewt..."
 #  Remove the existing Mynewt OS in "repos"
 #  if [ -d repos ]; then
 #      rm -rf repos

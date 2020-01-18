@@ -4,6 +4,4 @@
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
-newt create-image -v nrf52_my_sensor 1.0.0
-
-newt size -v nrf52_my_sensor
+newt create-image nrf52_my_sensor 1.0.0
