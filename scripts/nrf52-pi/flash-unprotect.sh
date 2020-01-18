@@ -4,7 +4,7 @@
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
-sudo /home/pi/openocd/src/openocd \
-    -s /home/pi/openocd/tcl \
+$HOME/openocd-spi/src/openocd \
+    -s $HOME/openocd-spi/tcl \
     -f scripts/nrf52-pi/swd-pi.ocd \
     -f scripts/nrf52-pi/flash-unprotect.ocd
