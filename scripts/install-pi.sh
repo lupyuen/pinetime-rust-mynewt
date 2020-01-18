@@ -89,6 +89,7 @@ if [ ! -e /usr/local/bin/newt ]; then
     sudo mv newt/newt /usr/local/bin
     popd
 fi
+newt version  #  Should show "Version: 1.7.0" or later.  Should NOT show "...-dev".
 
 #  echo "***** Installing mynewt..."
 #  Remove the existing Mynewt OS in "repos"
