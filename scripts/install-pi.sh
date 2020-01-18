@@ -18,6 +18,8 @@ openocd_version=spi
 #  wget https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v2.0.0/pinetime-rust-mynewt.7z
 #  7z x pinetime-rust-mynewt.7z
 #  rm pinetime-rust-mynewt.7z
+#  cd ~/pinetime-rust-mynewt
+#  scripts/install-pi.sh
 
 set +x; echo; echo "----- Installing Rust. When prompted, press Enter to select default option..."; sleep 5; set -x
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
