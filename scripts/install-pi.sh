@@ -21,7 +21,12 @@ openocd_version=spi
 
 set +x; echo; echo "***** Installing Rust. When prompted, press Enter to select default option..."; sleep 5; set -x
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
+rustup default nightly
+rustup update
+rustup target add thumbv7em-none-eabihf
 
+# Install GCC toolchain for Arm Cortex
 set +x; echo; echo "***** Installing build tools..."; set -x
 sudo apt install -y wget git autoconf libtool make pkg-config libusb-1.0-0 libusb-1.0-0-dev libhidapi-dev libftdi-dev telnet p7zip-full
 
