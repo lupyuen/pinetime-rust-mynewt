@@ -26,7 +26,6 @@ use proc_macro2::{
 };
 use std::{
     collections::HashMap,
-    error::Error,
     fs::File,
     io::prelude::*,
     path::Path,
