@@ -4,31 +4,33 @@
 echo "Installing Apache Mynewt for Raspberry Pi..."
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
-#  echo $PATH
 
 #  Versions to install
 mynewt_version=mynewt_1_7_0_tag
 nimble_version=nimble_1_2_0_tag
 mcuboot_version=v1.3.1
 
+#  TODO
 # Don't install gcc and gdb here, will clash with PineBook
 # echo "***** Installing gcc..."
 # sudo apt install -y gcc-arm-none-eabi
 
+#  TODO
 # echo "***** Installing gdb..."
 # if [ ! -e /usr/bin/arm-none-eabi-gdb ]; then
 #     sudo apt install -y gdb-multiarch
 #     sudo ln -s /usr/bin/gdb-multiarch /usr/bin/arm-none-eabi-gdb
 # fi
 
+#  TODO
 #  echo "***** Installing OpenOCD..."
 #  cp ~/openocd/src/openocd openocd/bin/openocd
 #  sudo chown root openocd/bin/openocd
 #  sudo chmod +s openocd/bin/openocd 
 
-echo "***** Installing go..."
-
+#  TODO: Move to install-go-pi.sh
 #  Install go 1.13 to prevent newt build error: "go 1.12 or later is required (detected version: 1.2.X)"
+echo "***** Installing go..."
 golangpath=/usr/lib/go-1.13.6/bin
 if [ ! -e $golangpath/go ]; then
     wget https://dl.google.com/go/go1.13.6.linux-armv6l.tar.gz
@@ -45,9 +47,8 @@ fi
 export GOROOT=
 go version  #  Should show "go1.12.1" or later.
 
-echo "***** Fixing ownership..."
-
 #  Change owner from root back to user for the installed packages.
+echo "***** Fixing ownership..."
 if [ -d "$HOME/.caches" ]; then
     sudo chown -R $USER:$USER "$HOME/.caches"
 fi
@@ -58,9 +59,9 @@ if [ -d "$HOME/opt" ]; then
     sudo chown -R $USER:$USER "$HOME/opt"
 fi
 
-echo "***** Installing newt..."
-
+#  TODO: Move to install-newt.sh
 #  Build newt in /tmp/mynewt. Copy to /usr/local/bin.
+echo "***** Installing newt..."
 if [ ! -e /usr/local/bin/newt ]; then
     mynewtpath=/tmp/mynewt
     if [ -d $mynewtpath ]; then
