@@ -434,7 +434,7 @@ mod touch_sensor {
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                      }),
-                                                     ::core::panic::Location::caller())
+                                                     ::core::intrinsics::caller_location())
                     }
                 }
             }
@@ -568,10 +568,12 @@ mod touch_sensor {
     fn read_register_range(addr: u8, start_register: u8, num_registers: u8,
                            buffer: &mut [u8]) -> MynewtResult<()> {
         if !(buffer.len() >= num_registers as usize) {
-            ::core::panicking::panic("i2c buf")
+            ::core::panicking::panic("i2c buf",
+                                     ::core::intrinsics::caller_location())
         };
         if !(start_register + num_registers < 128) {
-            ::core::panicking::panic("i2c addr")
+            ::core::panicking::panic("i2c addr",
+                                     ::core::intrinsics::caller_location())
         };
         unsafe {
             I2C_BUFFER[0] = start_register;
@@ -597,7 +599,10 @@ mod touch_sensor {
     }
     /// Read the I2C register for the specified I2C address (7-bit address)
     fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
-        if !(register < 128) { ::core::panicking::panic("i2c addr") };
+        if !(register < 128) {
+            ::core::panicking::panic("i2c addr",
+                                     ::core::intrinsics::caller_location())
+        };
         unsafe {
             I2C_BUFFER[0] = register;
             I2C_DATA.address = addr;
