@@ -5,11 +5,11 @@ use cty::*;               //  Import C types from cty library: https://crates.io
 use crate::{
     sys::console,
     encoding::{
-        json,                   //  Mynewt JSON encoding library
+        //json,                   //  Mynewt JSON encoding library
         tinycbor::CborEncoder,  //  Mynewt CBOR encoding library
     },
     libs::mynewt_rust,          //  JSON encoding helper library
-    libs::sensor_coap,
+    //libs::sensor_coap,
     hw::sensor::SensorValueType,
     fill_zero, Strn, StrnRep,
 };
@@ -67,7 +67,7 @@ impl CoapContext {
     }
 
     #[cfg(not(feature = "use_float"))]  //  If floating-point is disabled, do nothing
-    pub fn json_set_geolocation(&mut self, key: &Strn, lat_key: &Strn, long_key: &Strn, geo: SensorValueType) {}
+    pub fn json_set_geolocation(&mut self, _key: &Strn, _lat_key: &Strn, _long_key: &Strn, _geo: SensorValueType) {}
 
     ///  Encode a text value into the current JSON document with the specified key
     pub fn json_set_text_string(&mut self, key: &Strn, value: &Strn) {

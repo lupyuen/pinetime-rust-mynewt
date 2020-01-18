@@ -5,7 +5,6 @@ use crate::{
     result::*,
     hw::hal,
     kernel::os,
-    sys::console,
     NULL, Ptr, Strn,
 };
 use mynewt_macros::{
