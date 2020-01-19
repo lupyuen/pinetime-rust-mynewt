@@ -6,5 +6,8 @@ add_script_search_dir openocd/scripts
 # Select the Broadcom SPI interface for Raspberry Pi (SWD transport)
 interface bcm2835spi
 
+# Set the SPI speed in kHz
+bcm2835spi_speed 31200
+
 # Select nRF52 as target
 source [find target/nrf52.cfg]
