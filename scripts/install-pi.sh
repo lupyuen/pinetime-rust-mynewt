@@ -37,7 +37,12 @@ if [ ! -e /usr/bin/arm-none-eabi-gdb ]; then
 fi
 
 set +x; echo; echo "----- Installing VSCode..."; set -x 
-sudo -s . <( wget -O - https://code.headmelted.com/installers/apt.sh )
+if [ ! -e /usr/bin/code-oss ]; then
+    cd ~
+    wget https://code.headmelted.com/installers/apt.sh 
+    chmod +x apt.sh
+    sudo -s ./apt.sh
+fi
 
 set +x; echo; echo "----- Installing openocd-spi..."; set -x 
 if [ ! -d $HOME/openocd-spi ]; then
