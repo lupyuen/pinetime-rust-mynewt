@@ -65,6 +65,12 @@ if [ ! -d $HOME/openocd-spi ]; then
 fi
 cp $HOME/openocd-spi/src/openocd $HOME/pinetime-rust-mynewt/openocd/bin/openocd
 
+#  Install the ST-Link V2 driver: https://docs.platformio.org/en/latest/faq.html#platformio-udev-rules
+set +x; echo; echo "-----  Installing ST-Link V2 driver..."; set -x
+if [ ! -e /etc/udev/rules.d/99-platformio-udev.rules ]; then
+    curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/scripts/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
+fi
+
 #  Install go for building newt
 set +x; echo; echo "----- Installing go..."; set -x
 golangpath=/usr/lib/go-1.13.6/bin
