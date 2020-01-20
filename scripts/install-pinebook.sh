@@ -15,14 +15,38 @@ rustup default nightly
 rustup update
 rustup target add thumbv7em-none-eabihf
 
+#  Add Rust to the PATH
+echo source \$HOME/.cargo/env >> ~/.bashrc
+echo source \$HOME/.cargo/env >> ~/.profile
+
 set +x; echo; echo "----- Installing build tools..."; set -x
 sudo apt install -y wget git autoconf libtool make pkg-config libusb-1.0-0 libusb-1.0-0-dev libhidapi-dev libftdi-dev telnet p7zip-full
 
-#  gcc should be manually installed
-set +x; echo; echo "----- Skipping gcc-arm-none-eabi..."; set -x
+#  Install Arm Embedded Toolchain into /opt/gcc-arm-none-eabi
+set +x; echo; echo "----- Installing gcc..."; set -x 
+gccpath=/opt/gcc-arm-none-eabi/bin
+if [ ! -d /opt/gcc-arm-none-eabi ]; then
+    cd ~
+    wget https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v1.0.5/gcc-arm-none-eabi.tar.bz2
+    tar xf gcc-arm-none-eabi.tar.bz2
+    rm gcc-arm-none-eabi.tar.bz2
+    cd ~/gcc-arm-none-eabi-*
+    sudo mkdir -p /opt/gcc-arm-none-eabi
+    sudo mv install-native/* /opt/gcc-arm-none-eabi/
+    echo export PATH=$gccpath:\$PATH >> ~/.bashrc
+    echo export PATH=$gccpath:\$PATH >> ~/.profile
+fi
+export PATH=$gccpath:$PATH
+arm-none-eabi-gcc --version  #  Should show "9.2.1 20191025" or later.
 
-#  gdb should be manually installed
-set +x; echo; echo "----- Skipping gdb-arm-none-eabi..."; set -x
+set +x; echo; echo "----- Installing gdb..."; set -x 
+if [ ! -e /usr/bin/arm-none-eabi-gdb ]; then
+    sudo apt install -y gdb-multiarch
+    sudo ln -s /usr/bin/gdb-multiarch /usr/bin/arm-none-eabi-gdb
+fi
+
+set +x; echo; echo "----- Installing VSCode..."; set -x 
+sudo -s . <( wget -O - https://code.headmelted.com/installers/apt.sh )
 
 set +x; echo; echo "----- Installing openocd-spi..."; set -x 
 if [ ! -d $HOME/openocd-spi ]; then

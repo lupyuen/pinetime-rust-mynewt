@@ -36,6 +36,9 @@ if [ ! -e /usr/bin/arm-none-eabi-gdb ]; then
     sudo ln -s /usr/bin/gdb-multiarch /usr/bin/arm-none-eabi-gdb
 fi
 
+set +x; echo; echo "----- Installing VSCode..."; set -x 
+sudo -s . <( wget -O - https://code.headmelted.com/installers/apt.sh )
+
 set +x; echo; echo "----- Installing openocd-spi..."; set -x 
 if [ ! -d $HOME/openocd-spi ]; then
     pushd $HOME
