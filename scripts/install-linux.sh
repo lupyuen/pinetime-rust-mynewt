@@ -1,22 +1,14 @@
 #!/usr/bin/env bash
-#  Install Apache Mynewt for Ubuntu Linux.  Based on https://mynewt.apache.org/latest/newt/install/newt_linux.html.  
+#  Install Rust and Mynewt Build Tools for Ubuntu x64.  Based on https://mynewt.apache.org/latest/newt/install/newt_linux.html.  
 
-echo "Installing Apache Mynewt for Linux..."
+echo "Installing Rust and Mynewt Build Tools for Linux..."; set -x
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
-#  echo $PATH
 
-#  Versions to install
-mynewt_version=mynewt_1_7_0_tag
-nimble_version=nimble_1_2_0_tag
-mcuboot_version=v1.3.1
+set +x; echo; echo "----- Setting versions..."; set -x
+source scripts/install-version.sh
 
-#  Previously:
-#  mynewt_version=mynewt_1_6_0_tag
-#  nimble_version=nimble_1_1_0_tag
-#  mcuboot_version=v1.3.0
-
-echo "***** Installing curl, git..."
+set +x; echo; echo "-----  Installing curl, git..."; set -x
 
 #  Upgrade git to prevent "newt install" error: "Unknown subcommand: get-url".
 sudo add-apt-repository ppa:git-core/ppa -y
@@ -24,14 +16,14 @@ sudo apt update -y
 sudo apt install curl git -y
 git --version  #  Should show "git version 2.21.0" or later.
 
-echo "***** Installing ST-Link V2 driver..."
+set +x; echo; echo "-----  Installing ST-Link V2 driver..."; set -x
 
 #  Install the ST-Link V2 driver: https://docs.platformio.org/en/latest/faq.html#platformio-udev-rules
 if [ ! -e /etc/udev/rules.d/99-platformio-udev.rules ]; then
     curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/scripts/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
 fi
 
-echo "***** Installing openocd..."
+set +x; echo; echo "-----  Installing openocd..."; set -x
 
 #  Install OpenOCD into the ./openocd folder.  Use "apt install" because Ubuntu build is not available for OpenOCD for gnu-mcu-eclipse.
 if [ ! -e openocd/bin/openocd ]; then
@@ -42,7 +34,7 @@ if [ ! -e openocd/bin/openocd ]; then
     ln -s /usr/bin/openocd openocd/bin/openocd
 fi
 
-echo "***** Installing npm..."
+set +x; echo; echo "-----  Installing npm..."; set -x
 
 #  Install npm.
 if [ ! -e /usr/bin/npm ]; then
@@ -53,7 +45,7 @@ if [ ! -e /usr/bin/npm ]; then
     node --version
 fi
 
-echo "***** Installing Arm Toolchain..."
+set +x; echo; echo "-----  Installing Arm Toolchain..."; set -x
 
 #  Install Arm Toolchain into $HOME/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc/*/.content/. From https://gnu-mcu-eclipse.github.io/toolchain/arm/install/
 if [ ! -d $HOME/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc ]; then
@@ -66,7 +58,7 @@ if [ ! -d $HOME/opt/xPacks/@gnu-mcu-eclipse/arm-none-eabi-gcc ]; then
 fi
 arm-none-eabi-gcc --version  #  Should show "gcc version 8.2.1 20181213" or later.
 
-echo "***** Installing go..."
+set +x; echo; echo "-----  Installing go..."; set -x
 
 #  Install go 1.10 to prevent newt build error: "go 1.10 or later is required (detected version: 1.2.X)"
 golangpath=/usr/lib/go-1.10/bin
@@ -82,7 +74,7 @@ fi
 export GOROOT=
 go version  #  Should show "go1.10.1" or later.
 
-echo "***** Fixing ownership..."
+set +x; echo; echo "-----  Fixing ownership..."; set -x
 
 #  Change owner from root back to user for the installed packages.
 if [ -d "$HOME/.caches" ]; then
@@ -95,7 +87,7 @@ if [ -d "$HOME/opt" ]; then
     sudo chown -R $USER:$USER "$HOME/opt"
 fi
 
-echo "***** Installing newt..."
+set +x; echo; echo "-----  Installing newt..."; set -x
 
 #  Install latest official release of newt.  If dev version from Tutorial 1 is installed, it will be overwritten.
 #  Based on https://mynewt.apache.org/latest/newt/install/newt_linux.html
@@ -109,7 +101,7 @@ sudo apt install newt -y
 which newt    #  Should show "/usr/bin/newt"
 newt version  #  Should show "Version: 1.7.0" or later.  Should NOT show "...-dev".
 
-#  echo "***** Installing mynewt..."
+#  set +x; echo; echo "-----  Installing mynewt..."; set -x
 
 #  Remove the existing Mynewt OS in "repos"
 #  if [ -d repos ]; then
@@ -120,4 +112,4 @@ newt version  #  Should show "Version: 1.7.0" or later.  Should NOT show "...-de
 #  newt install -v -f
 
 set +x  #  Stop echoing all commands.
-echo ✅ ◾ ️Done! See README.md for Mynewt type conversion build fixes.
+echo ✅ ◾ ️Done!

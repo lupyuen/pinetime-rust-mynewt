@@ -5,13 +5,6 @@ echo "Installing Rust and Mynewt Build Tools for Raspberry Pi..."
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
-#  Versions to install
-mynewt_version=mynewt_1_7_0_tag
-nimble_version=nimble_1_2_0_tag
-mcuboot_version=v1.3.1
-#### TODO: openocd_version=master
-openocd_version=spi
-
 #  Preqrequisites: (Remove folders ~/pinetime-rust-mynewt and ~/openocd-spi if they exist)
 #  sudo apt install -y wget p7zip-full
 #  cd ~
@@ -20,6 +13,9 @@ openocd_version=spi
 #  rm pinetime-rust-mynewt.7z
 #  cd ~/pinetime-rust-mynewt
 #  scripts/install-pi.sh
+
+set +x; echo; echo "----- Setting versions..."; set -x
+source scripts/install-version.sh
 
 set +x; echo; echo "----- Installing Rust. When prompted, press Enter to select default option..."; sleep 5; set -x
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
