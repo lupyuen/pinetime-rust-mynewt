@@ -135,7 +135,7 @@
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/nrf52-pi/flash-boot.sh && echo ✅ ◾ ️Done! "
+                    " scripts/nrf52/flash-boot.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "problemMatcher": [],
@@ -167,7 +167,7 @@
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/nrf52-pi/flash-app.sh && echo ✅ ◾ ️Done! "
+                    " scripts/nrf52/flash-app.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "problemMatcher": [],
@@ -197,7 +197,7 @@
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/nrf52-pi/flash-erase.sh && echo ✅ ◾ ️Done! "
+                    " scripts/nrf52/flash-erase.sh && echo ✅ ◾ ️Done! "
                 ],
             },
             "problemMatcher": [],

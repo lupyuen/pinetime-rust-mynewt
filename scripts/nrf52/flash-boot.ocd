@@ -1,4 +1,4 @@
-# This is an OpenOCD script that connects ST-Link to the nRF52 and flashes the Bootloader ROM.
+# This is an OpenOCD script that connects ST-Link or Raspberry Pi to the nRF52 and flashes the Bootloader ROM.
 # Used by tasks.json for "Load Bootloader" command.
 # Equivalent to "newt load -v nrf52_boot".
 

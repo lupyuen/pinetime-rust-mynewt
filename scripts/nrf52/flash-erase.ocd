@@ -1,4 +1,4 @@
-# This is an OpenOCD script that connects ST-Link to the nRF52 and erases the flash ROM.
+# This is an OpenOCD script that connects ST-Link or Raspberry Pi to the nRF52 and erases the flash ROM.
 # Used by tasks.json for "Erase Flash" command.
 
 # From https://devzone.nordicsemi.com/f/nordic-q-a/42824/flashing-nrf5832-using-only-st-link-v2-and-openocd

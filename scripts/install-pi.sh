@@ -14,6 +14,9 @@ set -x  #  Echo all commands.
 #  cd ~/pinetime-rust-mynewt
 #  scripts/install-pi.sh
 
+#  Configure scripts for Raspberry Pi
+echo "source scripts/nrf52-pi/config.sh" >scripts/config.sh
+
 set +x; echo; echo "----- Setting versions..."; set -x
 source scripts/install-version.sh
 

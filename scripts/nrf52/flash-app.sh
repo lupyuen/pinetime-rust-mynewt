@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
-#  Flash Mynewt Application to nRF52 with ST-Link on macOS and Linux
+#  Flash Mynewt Application to nRF52 on macOS, Linux and Raspberry Pi
 
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
+#  Configure SWD Programmer
+source scripts/config.sh
+
+#  Flash the device
 openocd/bin/openocd \
-    -f scripts/nrf52/swd-stlink.ocd \
+    -f $swd_device \
     -f scripts/nrf52/flash-app.ocd
