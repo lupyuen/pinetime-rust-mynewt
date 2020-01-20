@@ -1,0 +1,14 @@
+# OpenOCD script for using ST-Link v2 as SWD Programmer for nRF52
+
+# VSCode debugger searches this folder for OpenOCD scripts
+add_script_search_dir openocd/scripts
+
+# Set OpenOCD logging
+source [find scripts/nrf52/flash-init.ocd]
+
+# Select the ST-Link v2 interface (SWD transport)
+source [find interface/stlink.cfg]
+transport select hla_swd
+
+# Select nRF52 as target
+source [find target/nrf52.cfg]
