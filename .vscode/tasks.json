@@ -113,7 +113,7 @@
         },
         {
             //  Flash the Bootloader.  We use custom scripts instead of "newt load" because "newt" runs in Ubuntu while the ST Link driver runs under Windows.
-            "label": "4️⃣ Load Bootloader",
+            "label": "4️⃣ Flash Bootloader",
             "type": "shell",
             "windows": {
                 "command": "cmd",
@@ -145,7 +145,7 @@
         },
         {
             //  Flash the Application.  We use custom scripts instead of "newt load" because "newt" runs in Ubuntu while the ST Link driver runs under Windows.
-            "label": "5️⃣ Load Application",
+            "label": "5️⃣ Flash Application",
             "type": "shell",
             "windows": {
                 "command": "cmd",
