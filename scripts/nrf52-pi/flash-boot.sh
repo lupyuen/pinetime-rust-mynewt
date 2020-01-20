@@ -4,7 +4,6 @@
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
-$HOME/openocd-spi/src/openocd \
-    -s $HOME/openocd-spi/tcl \
+openocd/bin/openocd \
     -f scripts/nrf52-pi/swd-pi.ocd \
     -f scripts/nrf52/flash-boot.ocd
