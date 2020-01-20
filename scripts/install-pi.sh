@@ -12,7 +12,7 @@ mcuboot_version=v1.3.1
 #### TODO: openocd_version=master
 openocd_version=spi
 
-#  Preqrequisites:
+#  Preqrequisites: (Remove ~/openocd-spi if it exists)
 #  sudo apt install -y wget p7zip-full
 #  cd ~
 #  wget https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v2.0.1/pinetime-rust-mynewt.7z
