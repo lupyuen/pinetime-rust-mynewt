@@ -1,26 +1,27 @@
-pi@raspberrypi:~/pinetime-rust-mynewt $ cd ~/pinetime-rust-mynewt ; scripts/nrf52-pi/flash-boot.sh 
-+ sudo /home/pi/openocd/src/openocd -s /home/pi/openocd/tcl -f scripts/nrf52-pi/swd-pi.ocd -f scripts/nrf52/flash-boot.ocd
-Open On-Chip Debugger 0.10.0+dev-00998-g9f1529da (2020-01-05-22:10)
+pi@raspberrypi:~/pinetime-rust-mynewt $ scripts/nrf52-pi/flash-boot.sh 
++ openocd/bin/openocd -f scripts/nrf52-pi/swd-pi.ocd -f scripts/nrf52/flash-boot.ocd
+Open On-Chip Debugger 0.10.0+dev-01126-g307e591f (2020-01-20-21:33)
 Licensed under GNU GPL v2
 For bug reports, read
         http://openocd.org/doc/doxygen/bugs.html
+Info : only one transport option; autoselect 'swd'
 force hard breakpoints
-Info : BCM2835 GPIO JTAG/SWD bitbang driver
-Info : SWD only mode enabled (specify tck, tms, tdi and tdo gpios to add JTAG mode)
-Info : clock speed 1000 kHz
+Info : BCM2835 SPI SWD driver
+Info : SWD only mode enabled
+Info : clock speed 31200 kHz
 Info : SWD DPIDR 0x2ba01477
 Info : nrf52.cpu: hardware has 6 breakpoints, 4 watchpoints
 Info : Listening on port 3333 for gdb connections
 Stopping...
 target halted due to debug-request, current mode: Thread 
-xPSR: 0x61000000 pc: 0x000001c6 msp: 0x2000ffe8
+xPSR: 0x61000000 pc: 0x000001ca msp: 0x2000ffe8
 
 Flashing Bootloader...
 target halted due to debug-request, current mode: Thread 
 xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000
 Enabled ARM Semihosting to show debug output
 ** Programming Started **
-Info : nRF52832-QFAA(build code: E0) 512kB Flash, 64kB RAM
+Info : nRF52832-QFAA(build code: E1) 512kB Flash, 64kB RAM
 Warn : Adding extra erase range, 0x00000b78 .. 0x00000fff
 ** Programming Finished **
 ** Verify Started **
