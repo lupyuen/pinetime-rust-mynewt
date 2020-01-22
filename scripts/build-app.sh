@@ -1,36 +1,22 @@
 #!/usr/bin/env bash
 #  macOS and Linux Bash script to build Rust application hosted on Mynewt OS
 
-set -e  #  Exit when any command fails.
-set -x  #  Echo all commands.
-set +x ; echo ; echo "----- Building Rust app and Mynewt OS for $rust_build_target / $mynewt_build_app..." ; set -x
+set -e  #  Exit when any command fails
 
-#  TODO: GD32VF103
-#  mynewt_build_app=gd32vf103c-start_my_sensor
-#  rust_build_target=riscv32imac-unknown-none-elf
-#  cp .vscode/launch-gd32vf103.json .vscode/launch.json
-
-#  TODO: nRF52
+set -x  #  Echo commands
 mynewt_build_app=nrf52_my_sensor
 rust_build_target=thumbv7em-none-eabihf
-cp .vscode/launch-nrf52.json .vscode/launch.json
-
-#  TODO: STM32L4
-#  mynewt_build_app=stm32l4_my_sensor
-#  rust_build_target=thumbv7em-none-eabihf
-#  cp .vscode/launch-stm32l4.json .vscode/launch.json
-
-#  TODO: STM32 Blue Pill
-#  mynewt_build_app=bluepill_my_sensor
-#  rust_build_target=thumbv7m-none-eabi
-#  cp .vscode/launch-bluepill.json .vscode/launch.json
+launch_config=launch-nrf52-pi.json
+#  TODO: On macOS and x64 Linux: launch_config=launch-nrf52.json
+set +x  #  Stop echo
+echo ; echo "----- Building Rust app and Mynewt OS for $rust_build_target / $mynewt_build_app..." 
 
 #  Rust build profile: debug or release
 rust_build_profile=debug
 #  rust_build_profile=release
 
 #  Add toolchain to PATH.
-export PATH="$PWD/xPacks/riscv-none-embed-gcc/8.2.0-3.1/bin:$PATH"
+#  export PATH="$PWD/xPacks/riscv-none-embed-gcc/8.2.0-3.1/bin:$PATH"
 
 #  Location of the compiled ROM image.  We will remove this to force relinking the Rust app with Mynewt OS.
 app_build=$PWD/bin/targets/$mynewt_build_app/app/apps/my_sensor_app/my_sensor_app.elf
@@ -68,11 +54,16 @@ else
     objdump_cmd=arm-none-eabi-objdump
 fi
 
+#  Copy debugger launch config
+cp .vscode/$launch_config .vscode/launch.json
+
 #  If this is the very first build, do the Mynewt build to generate the rust_app and rust_libcore stubs.  This build will not link successfully but it's OK.
 if [ ! -e $rust_app_dest ]; then
-    set +x ; echo ; echo "----- Build Mynewt stubs for Rust app and Rust libcore (ignore error)" ; set -x
+    echo ; echo "----- Build Mynewt stubs for Rust app and Rust libcore (ignore error)"
     set +e
+    set -x
     newt build $mynewt_build_app
+    set +x
     set -e
 fi
 
@@ -91,63 +82,64 @@ do
 done
 
 #  Expand Rust macros for troubleshooting: logs/libmynewt-expanded.rs and libapp-expanded.rs
-rustup default nightly
-set +e  # Ignore errors
-pushd rust/mynewt ; cargo rustc -v $rust_build_options -- -Z unstable-options --pretty expanded -Z external-macro-backtrace > ../../logs/libmynewt-expanded.rs ; popd
-pushd rust/app    ; cargo rustc -v $rust_build_options -- -Z unstable-options --pretty expanded -Z external-macro-backtrace > ../../logs/libapp-expanded.rs    ; popd
-set -e  # Stop on errors
+# set +e  # Ignore errors
+# pushd rust/mynewt ; cargo rustc $rust_build_options -- -Z unstable-options --pretty expanded -Z external-macro-backtrace > ../../logs/libmynewt-expanded.rs ; popd
+# pushd rust/app    ; cargo rustc $rust_build_options -- -Z unstable-options --pretty expanded -Z external-macro-backtrace > ../../logs/libapp-expanded.rs    ; popd
+# set -e  # Stop on errors
 
 #  Build the Rust app in "src" folder.
-set +x ; echo ; echo "----- Build Rust app" ; set -x
-cargo build -v $rust_build_options
+echo ; echo "----- Build Rust app" 
+set -x
+cargo build $rust_build_options
+set +x
 
 #  Export the metadata for the Rust build.
 cargo metadata --format-version 1 >logs/libapp.json
 
 #  Create rustlib, the library that contains the compiled Rust app and its dependencies (except libcore).  Create in temp folder named "tmprustlib"
-set +x ; echo ; echo "----- Consolidate Rust app and external libraries" ; set -x
+echo ; echo "----- Consolidate Rust app and crates"
 if [ -d tmprustlib ]; then
     rm -r tmprustlib
 fi
 if [ ! -d tmprustlib ]; then
     mkdir tmprustlib
 fi
-pushd tmprustlib
+pushd tmprustlib >/dev/null
 
 #  Extract the object (*.o) files in the compiled Rust output (*.rlib).
-set +x
 rust_build=$rust_build_dir/*.rlib
 for f in $rust_build
 do
     if [ -e $f ]; then
-        echo "$ar_cmd x $f"
-        $ar_cmd x $f
+        #  echo "$ar_cmd x $f"
+        $ar_cmd x $f >/dev/null 2>&1
     fi
 done
 
 #  Archive the object (*.o) files into rustlib.a.
-echo "$ar_cmd r rustlib.a *.o"
-$ar_cmd r rustlib.a *.o
-set -x
+#  echo "$ar_cmd r rustlib.a *.o"
+$ar_cmd r rustlib.a *.o >/dev/null 2>&1
 
 #  Overwrite libs_rust_app.a in the Mynewt build by rustlib.a.  libs_rust_app.a was originally created from libs/rust_app.
 if [ ! -d $rust_app_dir ]; then
     mkdir -p $rust_app_dir
 fi
-cp rustlib.a $rust_app_dest
+set -x
+cp $PWD/rustlib.a $rust_app_dest
+set +x
 
 #  Update the timestamp on libs_rust_app.a so that Mynewt build won't overwrite the Rust app we have copied.
 $ar_cmd s $rust_app_dest
 
 #  Dump the ELF and disassembly for the compiled Rust application and libraries (except libcore)
-$objdump_cmd -t -S            --line-numbers --wide rustlib.a >../logs/rustlib.S 2>&1
-$objdump_cmd -t -S --demangle --line-numbers --wide rustlib.a >../logs/rustlib-demangle.S 2>&1
+#  $objdump_cmd -t -S            --line-numbers --wide rustlib.a >../logs/rustlib.S 2>&1
+#  $objdump_cmd -t -S --demangle --line-numbers --wide rustlib.a >../logs/rustlib-demangle.S 2>&1
 
 #  Return to the parent directory.
-popd
+popd >/dev/null
 
 #  Copy Rust libcore to libs_rust_libcore.a, which is originally generated by libs/rust_libcore.
-set +x ; echo ; echo "----- Copy Rust libcore" ; set -x
+echo ; echo "----- Copy Rust libcore" 
 #  Get the Rust compiler sysroot e.g. /Users/Luppy/.rustup/toolchains/nightly-2019-05-22-x86_64-apple-darwin
 rust_sysroot=`rustc --print sysroot --target $rust_build_target`
 #  Get the libcore file in the sysroot.
@@ -161,37 +153,34 @@ if [ -e $rust_libcore_dest ]; then
 fi
 for f in $rust_libcore_src
 do
+    set -x
     cp $f $rust_libcore_dest
+    set +x
 done
 
 #  Update the timestamp on libs_rust_libcore.a so that Mynewt build won't overwrite the Rust libcore we have copied.
 $ar_cmd s $rust_libcore_dest
 
 #  Dump the ELF and disassembly for the compiled Rust application.
-set +e
-$readelf_cmd -a --wide target/$rust_build_target/$rust_build_profile/libapp.rlib >logs/libapp.elf 2>&1
-$objdump_cmd -t -S            --line-numbers --wide target/$rust_build_target/$rust_build_profile/libapp.rlib >logs/libapp.S 2>&1
-$objdump_cmd -t -S --demangle --line-numbers --wide target/$rust_build_target/$rust_build_profile/libapp.rlib >logs/libapp-demangle.S 2>&1
-set -e
+#  set +e
+#  $readelf_cmd -a --wide target/$rust_build_target/$rust_build_profile/libapp.rlib >logs/libapp.elf 2>&1
+#  $objdump_cmd -t -S            --line-numbers --wide target/$rust_build_target/$rust_build_profile/libapp.rlib >logs/libapp.S 2>&1
+#  $objdump_cmd -t -S --demangle --line-numbers --wide target/$rust_build_target/$rust_build_profile/libapp.rlib >logs/libapp-demangle.S 2>&1
+#  set -e
 
 #  Run the Mynewt build, which will link with the Rust app, Rust libraries and libcore.
 #  For verbose build: newt build -v -p $mynewt_build_app
-set +x ; echo ; echo "----- Build and link Mynewt with Rust app" ; set -x
+echo ; echo "----- Build Mynewt and link with Rust app" 
+set -x
 newt build $mynewt_build_app
 
 #  Display the image size.
 newt size -v $mynewt_build_app
+set +x
 
 #  Copy the disassembly and linker map to the logs folder.
-set +x
 cp bin/targets/$mynewt_build_app/app/apps/my_sensor_app/my_sensor_app.elf.lst logs
 cp bin/targets/$mynewt_build_app/app/apps/my_sensor_app/my_sensor_app.elf.map logs
-set -x
-
-####  TODO: Remove these
-# sleep 5
-# scripts/gd32vf103/image-app.sh
-# scripts/gd32vf103/flash-app.sh
 
 #  Typical Mynewt build options:
 #  arm-none-eabi-gcc -DAPP_NAME=my_sensor_app -DAPP_my_sensor_app -DARCH_NAME=cortex_m4 -DARCH_cortex_m4 

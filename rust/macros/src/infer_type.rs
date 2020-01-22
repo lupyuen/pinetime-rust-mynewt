@@ -26,7 +26,6 @@ use proc_macro2::{
 };
 use std::{
     collections::HashMap,
-    error::Error,
     fs::File,
     io::prelude::*,
     path::Path,
@@ -436,11 +435,11 @@ fn save_decls(all_funcs: &FuncTypeMap) {
     // println!("save_decls: {}, {:#?}", display, encoded);
     // Open a file in write-only mode, returns `io::Result<File>`
     let mut file = match File::create(&path) {
-        Err(why) => panic!("couldn't create {}: {}", display, why.description()),
+        Err(why) => panic!("couldn't create {}: {}", display, why.to_string()),
         Ok(file) => file,
     };
     match file.write_all(encoded.as_bytes()) {
-        Err(why) => panic!("couldn't write to {}: {}", display, why.description()),
+        Err(why) => panic!("couldn't write to {}: {}", display, why.to_string()),
         Ok(_) => println!("{}: updated {}", get_current_function(), display),
     };
 }

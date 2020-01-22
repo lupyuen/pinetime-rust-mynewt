@@ -43,6 +43,7 @@ const TEMP_SENSOR_TYPE: sensor_type_t = sensor::SENSOR_TYPE_AMBIENT_TEMPERATURE_
 
 ///  Ask Mynewt to poll or read the temperature sensor and call `aggregate_sensor_data()`
 ///  Return `Ok()` if successful, else return `Err()` with `MynewtError` error code inside.
+#[allow(dead_code)]
 pub fn start_sensor_listener() -> MynewtResult<()>  {  //  Returns an error code upon error.
     console::print("Rust TMP poll\n");
 

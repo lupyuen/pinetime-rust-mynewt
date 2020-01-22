@@ -4,36 +4,6 @@
     "version": "2.0.0",
     "tasks": [
         {
-            //  Install VSCode Extensions. They will be activated upon restarting VSCode.
-            "label": "0️⃣ Install Extensions",
-            "type": "shell",
-            "windows": {
-                "command": "cmd",
-                "args": [
-                    "/c",
-                    " code --force --install-extension sanaajani.taskrunnercode --install-extension marus25.cortex-debug --install-extension ms-vscode.cpptools --install-extension rust-lang.rust --install-extension bungcip.better-toml && echo Done! Please restart Visual Studio Code to activate the extensions"
-                ]
-            },
-            "osx": {
-                "command": "bash",
-                "args": [
-                    "-c", "-l",
-                    " code --force --install-extension sanaajani.taskrunnercode --install-extension marus25.cortex-debug --install-extension ms-vscode.cpptools --install-extension rust-lang.rust --install-extension bungcip.better-toml "
-                ]
-            },
-            "linux": {
-                "command": "bash",
-                "args": [
-                    "-c", "-l",
-                    " code --force --install-extension sanaajani.taskrunnercode --install-extension marus25.cortex-debug --install-extension ms-vscode.cpptools --install-extension rust-lang.rust --install-extension bungcip.better-toml "
-                ]
-            },
-            "problemMatcher": [],
-            "presentation": {
-                "clear": true
-            }
-        },
-        {
             //  Build the Bootloader.
             "label": "1️⃣ Build Bootloader",
             "type": "shell",
@@ -143,7 +113,7 @@
         },
         {
             //  Flash the Bootloader.  We use custom scripts instead of "newt load" because "newt" runs in Ubuntu while the ST Link driver runs under Windows.
-            "label": "4️⃣ Load Bootloader",
+            "label": "4️⃣ Flash Bootloader",
             "type": "shell",
             "windows": {
                 "command": "cmd",
@@ -175,7 +145,7 @@
         },
         {
             //  Flash the Application.  We use custom scripts instead of "newt load" because "newt" runs in Ubuntu while the ST Link driver runs under Windows.
-            "label": "5️⃣ Load Application",
+            "label": "5️⃣ Flash Application",
             "type": "shell",
             "windows": {
                 "command": "cmd",

@@ -1,22 +1,14 @@
 #!/usr/bin/env bash
-#  Install Apache Mynewt for macOS.  Based on https://mynewt.apache.org/latest/newt/install/newt_mac.html
+#  Install Rust and Mynewt Build Tools for macOS.  Based on https://mynewt.apache.org/latest/newt/install/newt_linux.html.  
 
-echo "Installing Apache Mynewt for macOS.."
+echo "Installing Rust and Mynewt Build Tools for macOS.."
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
-#  echo $PATH
 
-#  Versions to install
-mynewt_version=mynewt_1_7_0_tag
-nimble_version=nimble_1_2_0_tag
-mcuboot_version=v1.3.1
+set +x; echo; echo "----- Setting versions..."; set -x; set -x
+source scripts/install-version.sh
 
-#  Previously:
-#  mynewt_version=mynewt_1_6_0_tag
-#  nimble_version=nimble_1_1_0_tag
-#  mcuboot_version=v1.3.0
-
-echo "***** Installing brew..."
+set +x; echo; echo "-----  Installing brew..."; set -x
 
 #  For Testing: Install brew locally.
 #  mkdir "${HOME}"/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C "${HOME}"/homebrew
@@ -36,14 +28,14 @@ if [ -e "${HOME}"/homebrew/bin/brew ]; then
     brewdir="${HOME}"/homebrew
 fi
 
-echo "***** Installing wget and unzip..."
+set +x; echo; echo "-----  Installing wget and unzip..."; set -x
 
 #  Install wget and unzip.
 if [ ! -e "${brewdir}"/bin/wget ]; then
     brew install wget unzip -f
 fi
 
-# echo "***** Installing openocd..."
+# set +x; echo; echo "-----  Installing openocd..."; set -x
 
 #  Install Arm version of OpenOCD into the ./openocd folder.
 # if [ ! -e openocd/bin/openocd ]; then
@@ -58,7 +50,7 @@ fi
 #     rm -rf openocd/openocd
 # fi
 
-# echo "***** Installing npm..."
+# set +x; echo; echo "-----  Installing npm..."; set -x
 
 #  Install npm.
 # if [ ! -e "${brewdir}"/bin/npm ]; then
@@ -66,7 +58,7 @@ fi
 #     node --version
 # fi
 
-# echo "***** Installing Arm Toolchain..."
+# set +x; echo; echo "-----  Installing Arm Toolchain..."; set -x
 
 #  Install Arm Toolchain into $HOME/opt/gnu-mcu-eclipse/arm-none-eabi-gcc/*/. From https://gnu-mcu-eclipse.github.io/toolchain/arm/install/
 # if [ ! -d "${HOME}"/opt/gnu-mcu-eclipse/arm-none-eabi-gcc ]; then
@@ -93,7 +85,7 @@ fi
 # fi
 # arm-none-eabi-gcc --version  #  Should show "gcc version 8.2.1 20181213" or later.
 
-echo "***** Installing go..."
+set +x; echo; echo "-----  Installing go..."; set -x
 
 #  Install go 1.12 to prevent newt build error: "go 1.12 or later is required (detected version: 1.2.X)"
 golangpath="${brewdir}"/bin
@@ -109,7 +101,7 @@ fi
 export GOROOT=
 go version  #  Should show "go1.12.1" or later.
 
-#  echo "***** Fixing ownership..."
+#  set +x; echo; echo "-----  Fixing ownership..."; set -x
 #  Change owner from root back to user for the installed packages.
 # if [ -d "$HOME/.caches" ]; then
 #     sudo chown -R $USER:$USER "$HOME/.caches"
@@ -121,7 +113,7 @@ go version  #  Should show "go1.12.1" or later.
 #     sudo chown -R $USER:$USER "$HOME/opt"
 # fi
 
-echo "***** Installing newt..."
+set +x; echo; echo "-----  Installing newt..."; set -x
 
 #  Uninstall the brew version of newt.
 # if [ -e "${brewdir}"/bin/newt ]; then
@@ -162,16 +154,15 @@ fi
 which newt    #  Should show "/usr/local/bin/newt"
 newt version  #  Should show "Version: 1.7.0" or later.  Should NOT show "...-dev".
 
-# echo "***** Installing mynewt..."
-
-# #  Remove the existing Mynewt OS in "repos"
+# #  Install the existing Mynewt OS in "repos"
+# set +x; echo; echo "-----  Installing mynewt..."; set -x
 # if [ -d repos ]; then
 #     rm -rf repos
 # fi
 
 # #  Download Mynewt OS into the current project folder, under "repos" subfolder.
 # newt install -v -f
-# echo ✅ ◾ ️Done! See README.md for Mynewt type conversion build fixes. Please restart Visual Studio Code to activate the extensions
+# echo ✅ ◾ ️Done! See README.md for Mynewt type conversion build fixes
 
 set +x  #  Stop echoing all commands.
-echo ✅ ◾ ️Done! Please restart Visual Studio Code to activate the extensions
+echo ✅ ◾ ️Done!

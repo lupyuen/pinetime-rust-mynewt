@@ -1,4 +1,4 @@
-# This is an OpenOCD script that connects ST-Link to the nRF52 and flashes the Application ROM.
+# This is an OpenOCD script that connects ST-Link or Raspberry Pi to the nRF52 and flashes the Application ROM.
 # Used by tasks.json for "Load Application" command.
 # Equivalent to "newt load -v nrf52_my_sensor".
 

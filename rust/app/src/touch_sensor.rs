@@ -138,38 +138,38 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
         TOUCH_CONTROLLER_ADDRESS,  //  From the touch controller
         0,                         //  Starting from register 0
         POINT_READ_BUF as u8,      //  Number of registers to read
-        unsafe { &mut buf }        //  Save the read data into `buf`
+        unsafe { &mut BUF }        //  Save the read data into `buf`
     ).expect("read touchdata fail");
     *data = fill_zero!(TouchEventInfo);
-    data.point_num = unsafe { buf[FT_TOUCH_POINT_NUM] & 0x0F };
+    data.point_num = unsafe { BUF[FT_TOUCH_POINT_NUM] & 0x0F };
     data.count     = 0;
 
     //  Populate the first 5 touch points
     for i in 0..CFG_MAX_TOUCH_POINTS {
-        let pointid = unsafe { buf[HYN_TOUCH_ID_POS + HYN_TOUCH_STEP * i] } >> 4;
+        let pointid = unsafe { BUF[HYN_TOUCH_ID_POS + HYN_TOUCH_STEP * i] } >> 4;
         if pointid >= HYN_MAX_ID { break; }
 
         //  Compute X and Y coordinates
         data.count += 1;
-        let x_high = unsafe { buf[HYN_TOUCH_X_H_POS + HYN_TOUCH_STEP * i] & 0x0F } as u16;
-        let x_low  = unsafe { buf[HYN_TOUCH_X_L_POS + HYN_TOUCH_STEP * i] } as u16;
+        let x_high = unsafe { BUF[HYN_TOUCH_X_H_POS + HYN_TOUCH_STEP * i] & 0x0F } as u16;
+        let x_low  = unsafe { BUF[HYN_TOUCH_X_L_POS + HYN_TOUCH_STEP * i] } as u16;
         data.touches[i].x  = (x_high << 8) | x_low;
 
-        let y_high = unsafe { buf[HYN_TOUCH_Y_H_POS + HYN_TOUCH_STEP * i] & 0x0F } as u16;
-        let y_low  = unsafe { buf[HYN_TOUCH_Y_L_POS + HYN_TOUCH_STEP * i] } as u16;
+        let y_high = unsafe { BUF[HYN_TOUCH_Y_H_POS + HYN_TOUCH_STEP * i] & 0x0F } as u16;
+        let y_low  = unsafe { BUF[HYN_TOUCH_Y_L_POS + HYN_TOUCH_STEP * i] } as u16;
         data.touches[i].y  = (y_high << 8) | y_low;
 
         //  Compute touch action (0 = down, 1 = up, 2 = contact) and finger ID
         data.touches[i].action =
-            unsafe { buf[HYN_TOUCH_EVENT_POS + HYN_TOUCH_STEP * i] } >> 6;
+            unsafe { BUF[HYN_TOUCH_EVENT_POS + HYN_TOUCH_STEP * i] } >> 6;
         data.touches[i].finger =
-            unsafe { buf[HYN_TOUCH_ID_POS    + HYN_TOUCH_STEP * i] } >> 4;
+            unsafe { BUF[HYN_TOUCH_ID_POS    + HYN_TOUCH_STEP * i] } >> 4;
 
         //  Compute touch pressure and area
         data.touches[i].pressure =
-            unsafe { buf[HYN_TOUCH_XY_POS + HYN_TOUCH_STEP * i] };  //  Can't be constant value
+            unsafe { BUF[HYN_TOUCH_XY_POS + HYN_TOUCH_STEP * i] };  //  Can't be constant value
         data.touches[i].area =
-            unsafe { buf[HYN_TOUCH_MISC   + HYN_TOUCH_STEP * i] } >> 4;
+            unsafe { BUF[HYN_TOUCH_MISC   + HYN_TOUCH_STEP * i] } >> 4;
 
         //  If no more touch points, stop
         if (data.touches[i].action == 0 || data.touches[i].action == 2)  //  If touch is down or contact
@@ -180,8 +180,8 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
     Ok(())
 }
 
-/// Buffer for raw touch data. TODO: Rename buf
-static mut buf: [u8; POINT_READ_BUF] = [0; POINT_READ_BUF];
+/// Buffer for raw touch data
+static mut BUF: [u8; POINT_READ_BUF] = [0; POINT_READ_BUF];
 
 /// Touch Controller I2C Address: https://github.com/lupyuen/hynitron_i2c_cst0xxse
 const TOUCH_CONTROLLER_ADDRESS: u8 = 0x15;
@@ -276,6 +276,7 @@ fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: 
 }
 
 /// Read the I2C register for the specified I2C address (7-bit address)
+#[allow(dead_code)]
 fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
     assert!(register < 128, "i2c addr");  //  Not 7-bit address
     //  First the register number must be sent in write mode (I2C address xxxxxxx0). 
@@ -317,6 +318,7 @@ static mut I2C_DATA: hal::hal_i2c_master_data = hal::hal_i2c_master_data {
 static mut I2C_BUFFER: [u8; 1] =  [ 0 ];
 
 /// Probe the I2C bus to discover I2C devices
+#[allow(dead_code)]
 pub fn probe() -> MynewtResult<()> {
     //  For each I2C address 0 to 127...
     for addr in 0..128 {
@@ -337,6 +339,7 @@ pub fn probe() -> MynewtResult<()> {
     Touch controller not detected unless you keep tapping the screen */
 
 /// Test reading some registers for I2C devices
+#[allow(dead_code)]
 pub fn test() -> MynewtResult<()> {
     //  Repeat test a few times
     for _ in 0..20 {
