@@ -4,92 +4,92 @@ app-2bc386860c9913e9.1baba3fm44chs5nv.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 1baba3fm44chs5nv
-00000513 l       .debug_str	00000000 
-00000e63 l       .debug_str	00000000 
-00000e5d l       .debug_str	00000000 
-00000e57 l       .debug_str	00000000 
-00000e52 l       .debug_str	00000000 
-00000e4b l       .debug_str	00000000 
-00000e28 l       .debug_str	00000000 
-00000e1e l       .debug_str	00000000 
-00000e06 l       .debug_str	00000000 
-00000ddf l       .debug_str	00000000 
-00000dd5 l       .debug_str	00000000 
-00000dca l       .debug_str	00000000 
-00000f00 l       .debug_str	00000000 
-00000dc1 l       .debug_str	00000000 
-00000db8 l       .debug_str	00000000 
-00000efb l       .debug_str	00000000 
-00000d97 l       .debug_str	00000000 
-00000d8f l       .debug_str	00000000 
-00000d79 l       .debug_str	00000000 
-00000d6e l       .debug_str	00000000 
-00000d58 l       .debug_str	00000000 
-00000ef1 l       .debug_str	00000000 
-00000d32 l       .debug_str	00000000 
-00000d29 l       .debug_str	00000000 
-00000d20 l       .debug_str	00000000 
-00000d16 l       .debug_str	00000000 
-00000d00 l       .debug_str	00000000 
-00000cf1 l       .debug_str	00000000 
-00000ce4 l       .debug_str	00000000 
-00000cd9 l       .debug_str	00000000 
-00000ccb l       .debug_str	00000000 
-00000cbb l       .debug_str	00000000 
-00000c9d l       .debug_str	00000000 
-00000c94 l       .debug_str	00000000 
-00000c8c l       .debug_str	00000000 
-00000c85 l       .debug_str	00000000 
-00000c1f l       .debug_str	00000000 
-00000bc1 l       .debug_str	00000000 
-00000b98 l       .debug_str	00000000 
-00000b90 l       .debug_str	00000000 
-00000b80 l       .debug_str	00000000 
-00000b70 l       .debug_str	00000000 
-00000b61 l       .debug_str	00000000 
-00000b5b l       .debug_str	00000000 
-00000b55 l       .debug_str	00000000 
-00000b20 l       .debug_str	00000000 
-00000af3 l       .debug_str	00000000 
-00000aec l       .debug_str	00000000 
-00000ae5 l       .debug_str	00000000 
-00000adf l       .debug_str	00000000 
-00000ad5 l       .debug_str	00000000 
-00000acd l       .debug_str	00000000 
-00000ac5 l       .debug_str	00000000 
-00000abe l       .debug_str	00000000 
-00000ab5 l       .debug_str	00000000 
-00000aa9 l       .debug_str	00000000 
-00000a9e l       .debug_str	00000000 
-00000a95 l       .debug_str	00000000 
-00000a8a l       .debug_str	00000000 
-00000a80 l       .debug_str	00000000 
+00000517 l       .debug_str	00000000 
+00000e67 l       .debug_str	00000000 
+00000e61 l       .debug_str	00000000 
+00000e5b l       .debug_str	00000000 
+00000e56 l       .debug_str	00000000 
+00000e4f l       .debug_str	00000000 
+00000e2c l       .debug_str	00000000 
+00000e22 l       .debug_str	00000000 
+00000e0a l       .debug_str	00000000 
+00000de3 l       .debug_str	00000000 
+00000dd9 l       .debug_str	00000000 
+00000dce l       .debug_str	00000000 
+00000f04 l       .debug_str	00000000 
+00000dc5 l       .debug_str	00000000 
+00000dbc l       .debug_str	00000000 
+00000eff l       .debug_str	00000000 
+00000d9b l       .debug_str	00000000 
+00000d93 l       .debug_str	00000000 
+00000d7d l       .debug_str	00000000 
+00000d72 l       .debug_str	00000000 
+00000d5c l       .debug_str	00000000 
+00000ef5 l       .debug_str	00000000 
+00000d36 l       .debug_str	00000000 
+00000d2d l       .debug_str	00000000 
+00000d24 l       .debug_str	00000000 
+00000d1a l       .debug_str	00000000 
+00000d04 l       .debug_str	00000000 
+00000cf5 l       .debug_str	00000000 
+00000ce8 l       .debug_str	00000000 
+00000cdd l       .debug_str	00000000 
+00000ccf l       .debug_str	00000000 
+00000cbf l       .debug_str	00000000 
+00000ca1 l       .debug_str	00000000 
+00000c98 l       .debug_str	00000000 
+00000c90 l       .debug_str	00000000 
+00000c89 l       .debug_str	00000000 
+00000c23 l       .debug_str	00000000 
+00000bc5 l       .debug_str	00000000 
+00000b9c l       .debug_str	00000000 
+00000b94 l       .debug_str	00000000 
+00000b84 l       .debug_str	00000000 
+00000b74 l       .debug_str	00000000 
+00000b65 l       .debug_str	00000000 
+00000b5f l       .debug_str	00000000 
+00000b59 l       .debug_str	00000000 
+00000b24 l       .debug_str	00000000 
+00000af7 l       .debug_str	00000000 
+00000af0 l       .debug_str	00000000 
+00000ae9 l       .debug_str	00000000 
+00000ae3 l       .debug_str	00000000 
+00000ad9 l       .debug_str	00000000 
+00000ad1 l       .debug_str	00000000 
+00000ac9 l       .debug_str	00000000 
+00000ac2 l       .debug_str	00000000 
+00000ab9 l       .debug_str	00000000 
+00000aad l       .debug_str	00000000 
+00000aa2 l       .debug_str	00000000 
+00000a99 l       .debug_str	00000000 
+00000a8e l       .debug_str	00000000 
+00000a84 l       .debug_str	00000000 
+00000a7e l       .debug_str	00000000 
 00000a7a l       .debug_str	00000000 
-00000a76 l       .debug_str	00000000 
-00000a60 l       .debug_str	00000000 
-00000a56 l       .debug_str	00000000 
-00000ee3 l       .debug_str	00000000 
-00000a3d l       .debug_str	00000000 
-00000a20 l       .debug_str	00000000 
-00000a15 l       .debug_str	00000000 
-000009b7 l       .debug_str	00000000 
-0000099d l       .debug_str	00000000 
-00000993 l       .debug_str	00000000 
-00000977 l       .debug_str	00000000 
-00000953 l       .debug_str	00000000 
-0000093c l       .debug_str	00000000 
-00000ed4 l       .debug_str	00000000 
-00000ecf l       .debug_str	00000000 
-00000ec9 l       .debug_str	00000000 
-00000ec2 l       .debug_str	00000000 
-00000ebc l       .debug_str	00000000 
-00000eb5 l       .debug_str	00000000 
-00000ead l       .debug_str	00000000 
-00000e86 l       .debug_str	00000000 
-00000e81 l       .debug_str	00000000 
+00000a64 l       .debug_str	00000000 
+00000a5a l       .debug_str	00000000 
+00000ee7 l       .debug_str	00000000 
+00000a41 l       .debug_str	00000000 
+00000a24 l       .debug_str	00000000 
+00000a19 l       .debug_str	00000000 
+000009bb l       .debug_str	00000000 
+000009a1 l       .debug_str	00000000 
+00000997 l       .debug_str	00000000 
+0000097b l       .debug_str	00000000 
+00000957 l       .debug_str	00000000 
+00000940 l       .debug_str	00000000 
+00000ed8 l       .debug_str	00000000 
+00000ed3 l       .debug_str	00000000 
+00000ecd l       .debug_str	00000000 
+00000ec6 l       .debug_str	00000000 
+00000ec0 l       .debug_str	00000000 
+00000eb9 l       .debug_str	00000000 
+00000eb1 l       .debug_str	00000000 
+00000e8a l       .debug_str	00000000 
+00000e85 l       .debug_str	00000000 
+00000e83 l       .debug_str	00000000 
 00000e7f l       .debug_str	00000000 
-00000e7b l       .debug_str	00000000 
-00000e74 l       .debug_str	00000000 
+00000e78 l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000055 l       .debug_str	00000000 
@@ -178,8 +178,8 @@ SYMBOL TABLE:
 000004f0 l       .debug_str	00000000 
 000004fa l       .debug_str	00000000 
 00000507 l       .debug_str	00000000 
-00000934 l       .debug_str	00000000 
-00000517 l       .debug_str	00000000 
+00000513 l       .debug_str	00000000 
+00000938 l       .debug_str	00000000 
 0000051a l       .debug_str	00000000 
 0000051d l       .debug_str	00000000 
 00000522 l       .debug_str	00000000 
@@ -257,11 +257,12 @@ SYMBOL TABLE:
 000008fc l       .debug_str	00000000 
 00000906 l       .debug_str	00000000 
 00000914 l       .debug_str	00000000 
-0000091f l       .debug_str	00000000 
-00000926 l       .debug_str	00000000 
-0000092c l       .debug_str	00000000 
+00000918 l       .debug_str	00000000 
+00000923 l       .debug_str	00000000 
+0000092a l       .debug_str	00000000 
 00000930 l       .debug_str	00000000 
-00000e67 l       .debug_str	00000000 
+00000934 l       .debug_str	00000000 
+00000e6b l       .debug_str	00000000 
 00000000 l     O .rodata..Lanon.1f622fce4c07219b5c98dab48e8797c6.0	00000012 .Lanon.1f622fce4c07219b5c98dab48e8797c6.0
 00000000 l     O .rodata.cst4	00000004 .Lanon.1f622fce4c07219b5c98dab48e8797c6.1
 00000000 l     O .rodata.cst8	00000008 .Lanon.1f622fce4c07219b5c98dab48e8797c6.10
@@ -322,7 +323,7 @@ SYMBOL TABLE:
 00000000 l     F .text._ZN3app12touch_sensor19read_register_range17hab14c31f3ed3e51dE	000001ce _ZN3app12touch_sensor19read_register_range17hab14c31f3ed3e51dE
 00000000 l     F .text._ZN3app12touch_sensor20touch_event_callback17hf497039fcb26522dE	0000013e _ZN3app12touch_sensor20touch_event_callback17hf497039fcb26522dE
 00000000 l     F .text._ZN3app12touch_sensor23touch_interrupt_handler17h94d76a182a506e4fE	00000046 _ZN3app12touch_sensor23touch_interrupt_handler17h94d76a182a506e4fE
-00000000 l     O .bss._ZN3app12touch_sensor3buf17h7dfce7c6c023e3e3E	0000003f _ZN3app12touch_sensor3buf17h7dfce7c6c023e3e3E
+00000000 l     O .bss._ZN3app12touch_sensor3BUF17h1a933cabf672187eE	0000003f _ZN3app12touch_sensor3BUF17h1a933cabf672187eE
 00000000 l     O .bss._ZN3app12touch_sensor8I2C_DATA17h48c58619d67a9edeE	00000008 _ZN3app12touch_sensor8I2C_DATA17h48c58619d67a9edeE
 00000000 l     O .rodata.str.0	00000021 str.0
 00000000 l     O .rodata.str.1	0000001c str.1
@@ -339,7 +340,7 @@ SYMBOL TABLE:
 00000000 l    d  .rodata..Lanon.1f622fce4c07219b5c98dab48e8797c6.6	00000000 .rodata..Lanon.1f622fce4c07219b5c98dab48e8797c6.6
 00000000 l    d  .rodata..Lanon.1f622fce4c07219b5c98dab48e8797c6.8	00000000 .rodata..Lanon.1f622fce4c07219b5c98dab48e8797c6.8
 00000000 l    d  .bss._ZN3app12touch_sensor10TOUCH_DATA17h9dc288d57708cf72E	00000000 .bss._ZN3app12touch_sensor10TOUCH_DATA17h9dc288d57708cf72E
-00000000 l    d  .bss._ZN3app12touch_sensor3buf17h7dfce7c6c023e3e3E	00000000 .bss._ZN3app12touch_sensor3buf17h7dfce7c6c023e3e3E
+00000000 l    d  .bss._ZN3app12touch_sensor3BUF17h1a933cabf672187eE	00000000 .bss._ZN3app12touch_sensor3BUF17h1a933cabf672187eE
 00000000 l    d  .bss._ZN3app12touch_sensor11TOUCH_EVENT17heb8b87356b68e6c4E	00000000 .bss._ZN3app12touch_sensor11TOUCH_EVENT17heb8b87356b68e6c4E
 00000000 l    d  .bss._ZN3app12touch_sensor8I2C_DATA17h48c58619d67a9edeE	00000000 .bss._ZN3app12touch_sensor8I2C_DATA17h48c58619d67a9edeE
 00000000 l    d  .bss._ZN3app12touch_sensor10I2C_BUFFER17h3991c07213b1d64cE	00000000 .bss._ZN3app12touch_sensor10I2C_BUFFER17h3991c07213b1d64cE
@@ -933,7 +934,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:143
         TOUCH_CONTROLLER_ADDRESS,  //  From the touch controller
         0,                         //  Starting from register 0
         POINT_READ_BUF as u8,      //  Number of registers to read
-        unsafe { &mut buf }        //  Save the read data into `buf`
+        unsafe { &mut BUF }        //  Save the read data into `buf`
     ).expect("read touchdata fail");
     *data = fill_zero!(TouchEventInfo);
   3e:	902a      	str	r0, [sp, #168]	; 0xa8
@@ -949,7 +950,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:143
   56:	2252      	movs	r2, #82	; 0x52
   58:	f7ff fffe 	bl	0 <__aeabi_memcpy>
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:144
-    data.point_num = unsafe { buf[FT_TOUCH_POINT_NUM] & 0x0F };
+    data.point_num = unsafe { BUF[FT_TOUCH_POINT_NUM] & 0x0F };
   5c:	f240 0100 	movw	r1, #0
   60:	f2c0 0100 	movt	r1, #0
   64:	9157      	str	r1, [sp, #348]	; 0x15c
@@ -1003,7 +1004,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:148
   c2:	985c      	ldr	r0, [sp, #368]	; 0x170
   c4:	9060      	str	r0, [sp, #384]	; 0x180
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:149
-        let pointid = unsafe { buf[HYN_TOUCH_ID_POS + HYN_TOUCH_STEP * i] } >> 4;
+        let pointid = unsafe { BUF[HYN_TOUCH_ID_POS + HYN_TOUCH_STEP * i] } >> 4;
   c6:	f240 0000 	movw	r0, #0
   ca:	f2c0 0000 	movt	r0, #0
   ce:	9062      	str	r0, [sp, #392]	; 0x188
@@ -1025,7 +1026,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:181
   e4:	b070      	add	sp, #448	; 0x1c0
   e6:	bd80      	pop	{r7, pc}
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:149
-        let pointid = unsafe { buf[HYN_TOUCH_ID_POS + HYN_TOUCH_STEP * i] } >> 4;
+        let pointid = unsafe { BUF[HYN_TOUCH_ID_POS + HYN_TOUCH_STEP * i] } >> 4;
   e8:	9825      	ldr	r0, [sp, #148]	; 0x94
   ea:	1d41      	adds	r1, r0, #5
   ec:	460a      	mov	r2, r1
@@ -1072,7 +1073,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:153
  13a:	9922      	ldr	r1, [sp, #136]	; 0x88
  13c:	f880 1050 	strb.w	r1, [r0, #80]	; 0x50
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:154
-        let x_high = unsafe { buf[HYN_TOUCH_X_H_POS + HYN_TOUCH_STEP * i] & 0x0F } as u16;
+        let x_high = unsafe { BUF[HYN_TOUCH_X_H_POS + HYN_TOUCH_STEP * i] & 0x0F } as u16;
  140:	f240 0000 	movw	r0, #0
  144:	f2c0 0000 	movt	r0, #0
  148:	9064      	str	r0, [sp, #400]	; 0x190
@@ -1100,7 +1101,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:154
  17c:	f000 000f 	and.w	r0, r0, #15
  180:	f8ad 018e 	strh.w	r0, [sp, #398]	; 0x18e
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:155
-        let x_low  = unsafe { buf[HYN_TOUCH_X_L_POS + HYN_TOUCH_STEP * i] } as u16;
+        let x_low  = unsafe { BUF[HYN_TOUCH_X_L_POS + HYN_TOUCH_STEP * i] } as u16;
  184:	f240 0000 	movw	r0, #0
  188:	f2c0 0000 	movt	r0, #0
  18c:	9066      	str	r0, [sp, #408]	; 0x198
@@ -1146,7 +1147,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:156
  1ea:	f8dd c06c 	ldr.w	ip, [sp, #108]	; 0x6c
  1ee:	f820 303c 	strh.w	r3, [r0, ip, lsl #3]
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:158
-        let y_high = unsafe { buf[HYN_TOUCH_Y_H_POS + HYN_TOUCH_STEP * i] & 0x0F } as u16;
+        let y_high = unsafe { BUF[HYN_TOUCH_Y_H_POS + HYN_TOUCH_STEP * i] & 0x0F } as u16;
  1f2:	f240 0000 	movw	r0, #0
  1f6:	f2c0 0000 	movt	r0, #0
  1fa:	9068      	str	r0, [sp, #416]	; 0x1a0
@@ -1174,7 +1175,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:158
  22e:	f000 000f 	and.w	r0, r0, #15
  232:	f8ad 019e 	strh.w	r0, [sp, #414]	; 0x19e
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:159
-        let y_low  = unsafe { buf[HYN_TOUCH_Y_L_POS + HYN_TOUCH_STEP * i] } as u16;
+        let y_low  = unsafe { BUF[HYN_TOUCH_Y_L_POS + HYN_TOUCH_STEP * i] } as u16;
  236:	f240 0000 	movw	r0, #0
  23a:	f2c0 0000 	movt	r0, #0
  23e:	906a      	str	r0, [sp, #424]	; 0x1a8
@@ -1221,7 +1222,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:160
  29e:	ea42 0c03 	orr.w	ip, r2, r3
  2a2:	f8a0 c002 	strh.w	ip, [r0, #2]
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:164
-            unsafe { buf[HYN_TOUCH_EVENT_POS + HYN_TOUCH_STEP * i] } >> 6;
+            unsafe { BUF[HYN_TOUCH_EVENT_POS + HYN_TOUCH_STEP * i] } >> 6;
  2a6:	f240 0000 	movw	r0, #0
  2aa:	f2c0 0000 	movt	r0, #0
  2ae:	906b      	str	r0, [sp, #428]	; 0x1ac
@@ -1262,7 +1263,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:163
  300:	9a11      	ldr	r2, [sp, #68]	; 0x44
  302:	7102      	strb	r2, [r0, #4]
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:166
-            unsafe { buf[HYN_TOUCH_ID_POS    + HYN_TOUCH_STEP * i] } >> 4;
+            unsafe { BUF[HYN_TOUCH_ID_POS    + HYN_TOUCH_STEP * i] } >> 4;
  304:	f240 0000 	movw	r0, #0
  308:	f2c0 0000 	movt	r0, #0
  30c:	906c      	str	r0, [sp, #432]	; 0x1b0
@@ -1303,7 +1304,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:165
  35a:	9a0d      	ldr	r2, [sp, #52]	; 0x34
  35c:	7142      	strb	r2, [r0, #5]
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:170
-            unsafe { buf[HYN_TOUCH_XY_POS + HYN_TOUCH_STEP * i] };  //  Can't be constant value
+            unsafe { BUF[HYN_TOUCH_XY_POS + HYN_TOUCH_STEP * i] };  //  Can't be constant value
  35e:	f240 0000 	movw	r0, #0
  362:	f2c0 0000 	movt	r0, #0
  366:	906d      	str	r0, [sp, #436]	; 0x1b4
@@ -1342,7 +1343,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:169
  3b0:	9a09      	ldr	r2, [sp, #36]	; 0x24
  3b2:	7182      	strb	r2, [r0, #6]
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:172
-            unsafe { buf[HYN_TOUCH_MISC   + HYN_TOUCH_STEP * i] } >> 4;
+            unsafe { BUF[HYN_TOUCH_MISC   + HYN_TOUCH_STEP * i] } >> 4;
  3b4:	f240 0000 	movw	r0, #0
  3b8:	f2c0 0000 	movt	r0, #0
  3bc:	906e      	str	r0, [sp, #440]	; 0x1b8
@@ -1446,7 +1447,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:177
             break;
  48a:	e654      	b.n	136 <_ZN3app12touch_sensor14read_touchdata17h22f38f3ba6d0e0f1E+0x136>
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:149
-        let pointid = unsafe { buf[HYN_TOUCH_ID_POS + HYN_TOUCH_STEP * i] } >> 4;
+        let pointid = unsafe { BUF[HYN_TOUCH_ID_POS + HYN_TOUCH_STEP * i] } >> 4;
  48c:	f240 0000 	movw	r0, #0
  490:	f2c0 0000 	movt	r0, #0
  494:	f240 0200 	movw	r2, #0
@@ -1477,7 +1478,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:153
  4e0:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17hfdd0eecc44a682f8E>
  4e4:	defe      	udf	#254	; 0xfe
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:154
-        let x_high = unsafe { buf[HYN_TOUCH_X_H_POS + HYN_TOUCH_STEP * i] & 0x0F } as u16;
+        let x_high = unsafe { BUF[HYN_TOUCH_X_H_POS + HYN_TOUCH_STEP * i] & 0x0F } as u16;
  4e6:	f240 0000 	movw	r0, #0
  4ea:	f2c0 0000 	movt	r0, #0
  4ee:	f240 0200 	movw	r2, #0
@@ -1499,7 +1500,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:154
  522:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17hefada55beeee1c8fE>
  526:	defe      	udf	#254	; 0xfe
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:155
-        let x_low  = unsafe { buf[HYN_TOUCH_X_L_POS + HYN_TOUCH_STEP * i] } as u16;
+        let x_low  = unsafe { BUF[HYN_TOUCH_X_L_POS + HYN_TOUCH_STEP * i] } as u16;
  528:	f240 0000 	movw	r0, #0
  52c:	f2c0 0000 	movt	r0, #0
  530:	f240 0200 	movw	r2, #0
@@ -1529,7 +1530,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:156
  576:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17hefada55beeee1c8fE>
  57a:	defe      	udf	#254	; 0xfe
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:158
-        let y_high = unsafe { buf[HYN_TOUCH_Y_H_POS + HYN_TOUCH_STEP * i] & 0x0F } as u16;
+        let y_high = unsafe { BUF[HYN_TOUCH_Y_H_POS + HYN_TOUCH_STEP * i] & 0x0F } as u16;
  57c:	f240 0000 	movw	r0, #0
  580:	f2c0 0000 	movt	r0, #0
  584:	f240 0200 	movw	r2, #0
@@ -1551,7 +1552,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:158
  5b8:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17hefada55beeee1c8fE>
  5bc:	defe      	udf	#254	; 0xfe
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:159
-        let y_low  = unsafe { buf[HYN_TOUCH_Y_L_POS + HYN_TOUCH_STEP * i] } as u16;
+        let y_low  = unsafe { BUF[HYN_TOUCH_Y_L_POS + HYN_TOUCH_STEP * i] } as u16;
  5be:	f240 0000 	movw	r0, #0
  5c2:	f2c0 0000 	movt	r0, #0
  5c6:	f240 0200 	movw	r2, #0
@@ -1581,7 +1582,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:160
  60c:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17hefada55beeee1c8fE>
  610:	defe      	udf	#254	; 0xfe
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:164
-            unsafe { buf[HYN_TOUCH_EVENT_POS + HYN_TOUCH_STEP * i] } >> 6;
+            unsafe { BUF[HYN_TOUCH_EVENT_POS + HYN_TOUCH_STEP * i] } >> 6;
  612:	f240 0000 	movw	r0, #0
  616:	f2c0 0000 	movt	r0, #0
  61a:	f240 0200 	movw	r2, #0
@@ -1611,7 +1612,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:163
  660:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17hefada55beeee1c8fE>
  664:	defe      	udf	#254	; 0xfe
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:166
-            unsafe { buf[HYN_TOUCH_ID_POS    + HYN_TOUCH_STEP * i] } >> 4;
+            unsafe { BUF[HYN_TOUCH_ID_POS    + HYN_TOUCH_STEP * i] } >> 4;
  666:	f240 0000 	movw	r0, #0
  66a:	f2c0 0000 	movt	r0, #0
  66e:	f240 0200 	movw	r2, #0
@@ -1641,7 +1642,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:165
  6b4:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17hefada55beeee1c8fE>
  6b8:	defe      	udf	#254	; 0xfe
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:170
-            unsafe { buf[HYN_TOUCH_XY_POS + HYN_TOUCH_STEP * i] };  //  Can't be constant value
+            unsafe { BUF[HYN_TOUCH_XY_POS + HYN_TOUCH_STEP * i] };  //  Can't be constant value
  6ba:	f240 0000 	movw	r0, #0
  6be:	f2c0 0000 	movt	r0, #0
  6c2:	f240 0200 	movw	r2, #0
@@ -1671,7 +1672,7 @@ c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:169
  708:	f7ff fffe 	bl	0 <_ZN4core9panicking18panic_bounds_check17hefada55beeee1c8fE>
  70c:	defe      	udf	#254	; 0xfe
 c:\PineTime\pinetime-rust-mynewt/rust\app\src/touch_sensor.rs:172
-            unsafe { buf[HYN_TOUCH_MISC   + HYN_TOUCH_STEP * i] } >> 4;
+            unsafe { BUF[HYN_TOUCH_MISC   + HYN_TOUCH_STEP * i] } >> 4;
  70e:	f240 0000 	movw	r0, #0
  712:	f2c0 0000 	movt	r0, #0
  716:	f240 0200 	movw	r2, #0
@@ -3770,22 +3771,22 @@ app-2bc386860c9913e9.381sfvjc3fnwbg7d.rcgu.o:     file format elf32-littlearm
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 381sfvjc3fnwbg7d
 000007e4 l       .debug_str	00000000 
-00002af7 l       .debug_str	00000000 
-00002af4 l       .debug_str	00000000 
-00002aeb l       .debug_str	00000000 
-00002ae7 l       .debug_str	00000000 
-00002b9f l       .debug_str	00000000 
-00002ae3 l       .debug_str	00000000 
-00002ae0 l       .debug_str	00000000 
-00002b9b l       .debug_str	00000000 
+00002af9 l       .debug_str	00000000 
+00002af6 l       .debug_str	00000000 
+00002aed l       .debug_str	00000000 
+00002ae9 l       .debug_str	00000000 
+00002ba1 l       .debug_str	00000000 
+00002ae5 l       .debug_str	00000000 
+00002ae1 l       .debug_str	00000000 
+00002b9d l       .debug_str	00000000 
 00002adc l       .debug_str	00000000 
-00002b97 l       .debug_str	00000000 
+00002b99 l       .debug_str	00000000 
 00002ad1 l       .debug_str	00000000 
-00002b90 l       .debug_str	00000000 
+00002b92 l       .debug_str	00000000 
 00002ac9 l       .debug_str	00000000 
-00002b89 l       .debug_str	00000000 
+00002b8b l       .debug_str	00000000 
 00002ac0 l       .debug_str	00000000 
-00002b39 l       .debug_str	00000000 
+00002b3b l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
 00000055 l       .debug_str	00000000 
@@ -3950,30 +3951,30 @@ SYMBOL TABLE:
 00002998 l       .debug_str	00000000 
 000029f2 l       .debug_str	00000000 
 000029f6 l       .debug_str	00000000 
-00002afa l       .debug_str	00000000 
-00000000 l     O .rodata..Lanon.cafc1abc082c47f1ef7cf2a3bf0e4ee6.0	00000005 .Lanon.cafc1abc082c47f1ef7cf2a3bf0e4ee6.0
-00000000 l     O .rodata..Lanon.cafc1abc082c47f1ef7cf2a3bf0e4ee6.2	00000010 .Lanon.cafc1abc082c47f1ef7cf2a3bf0e4ee6.2
-00000000 l     O .rodata..Lanon.cafc1abc082c47f1ef7cf2a3bf0e4ee6.3	00000010 .Lanon.cafc1abc082c47f1ef7cf2a3bf0e4ee6.3
+00002afc l       .debug_str	00000000 
+00000000 l     O .rodata..Lanon.91f20e34ef4495d72488b03952d30d61.0	00000005 .Lanon.91f20e34ef4495d72488b03952d30d61.0
+00000000 l     O .rodata..Lanon.91f20e34ef4495d72488b03952d30d61.2	00000010 .Lanon.91f20e34ef4495d72488b03952d30d61.2
+00000000 l     O .rodata..Lanon.91f20e34ef4495d72488b03952d30d61.3	00000010 .Lanon.91f20e34ef4495d72488b03952d30d61.3
 00000000 l     O .rodata.str.0	0000001c str.0
 00000000 l    d  .text._ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE	00000000 .text._ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE
 00000000 l    d  .text._ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E	00000000 .text._ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E
-00000000 l    d  .text._ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E	00000000 .text._ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E
+00000000 l    d  .text._ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E	00000000 .text._ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E
 00000000 l    d  .text._ZN22piet_embedded_graphics5batch7to_rows17h805810457c89a051E	00000000 .text._ZN22piet_embedded_graphics5batch7to_rows17h805810457c89a051E
 00000000 l    d  .text._ZN22piet_embedded_graphics5batch9to_blocks17h21dc045e9abdcbcfE	00000000 .text._ZN22piet_embedded_graphics5batch9to_blocks17h21dc045e9abdcbcfE
 00000000 l    d  .text._ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17ha19f9e6918009fe8E	00000000 .text._ZN63_$LT$I$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17ha19f9e6918009fe8E
-00000000 l    d  .rodata..Lanon.cafc1abc082c47f1ef7cf2a3bf0e4ee6.1	00000000 .rodata..Lanon.cafc1abc082c47f1ef7cf2a3bf0e4ee6.1
+00000000 l    d  .rodata..Lanon.91f20e34ef4495d72488b03952d30d61.1	00000000 .rodata..Lanon.91f20e34ef4495d72488b03952d30d61.1
 00000000 l    d  .debug_loc	00000000 .debug_loc
 00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
 00000000 l    d  .debug_info	00000000 .debug_info
 00000000 l    d  .debug_ranges	00000000 .debug_ranges
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
-00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_pixels17h5315e4d083cbdb62E
+00000000         *UND*	00000000 _ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_pixels17h033eb41c68c14138E
 00000000 g     F .text._ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE	000002a6 _ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE
 00000000 g     F .text._ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E	000003a6 _ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E
 00000000         *UND*	00000000 _ZN116_$LT$embedded_graphics..primitives..circle..Circle$LT$C$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h0f12e0e052eb0b2dE
 00000000         *UND*	00000000 _ZN121_$LT$embedded_graphics..primitives..circle..CircleIterator$LT$C$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he7626936cc4fb435E
-00000000 g     F .text._ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E	000001c2 _ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E
+00000000 g     F .text._ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E	000001c2 _ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E
 00000000 g     F .text._ZN22piet_embedded_graphics5batch7to_rows17h805810457c89a051E	0000005e _ZN22piet_embedded_graphics5batch7to_rows17h805810457c89a051E
 00000000 g     F .text._ZN22piet_embedded_graphics5batch9to_blocks17h21dc045e9abdcbcfE	00000050 _ZN22piet_embedded_graphics5batch9to_blocks17h21dc045e9abdcbcfE
 00000000         *UND*	00000000 _ZN4core3ptr18real_drop_in_place17h0a953d836c5653beE
@@ -4006,7 +4007,7 @@ Disassembly of section .text._ZN110_$LT$piet_embedded_graphics..batch..RowIterat
 
 00000000 <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE>:
 _ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE():
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:168
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:158
 impl<P: Iterator<Item = Pixel<Rgb565>>> Iterator for RowIterator<P> {
     /// This Iterator returns Pixel Rows
     type Item = PixelRow;
@@ -4016,19 +4017,19 @@ impl<P: Iterator<Item = Pixel<Rgb565>>> Iterator for RowIterator<P> {
    0:	b580      	push	{r7, lr}
    2:	f5ad 7d44 	sub.w	sp, sp, #784	; 0x310
    6:	9115      	str	r1, [sp, #84]	; 0x54
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:170
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:160
         //  Loop over all pixels until we have composed a Pixel Row, or we have run out of pixels.
         loop {
    8:	9014      	str	r0, [sp, #80]	; 0x50
    a:	e7ff      	b.n	c <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0xc>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:172
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:162
             //  Get the next pixel.
             let next_pixel = self.pixels.next();
    c:	9915      	ldr	r1, [sp, #84]	; 0x54
    e:	a816      	add	r0, sp, #88	; 0x58
   10:	f7ff fffe 	bl	0 <_ZN121_$LT$embedded_graphics..primitives..circle..CircleIterator$LT$C$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he7626936cc4fb435E>
   14:	e7ff      	b.n	16 <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x16>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:174
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:164
             match next_pixel {
                 None => {  //  If no more pixels...
   16:	9816      	ldr	r0, [sp, #88]	; 0x58
@@ -4036,10 +4037,10 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   1a:	d002      	beq.n	22 <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x22>
   1c:	e7ff      	b.n	1e <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x1e>
   1e:	e04e      	b.n	be <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0xbe>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:173
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:163
             match next_pixel {
   20:	defe      	udf	#254	; 0xfe
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:175
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:165
                     if self.first_pixel {
   22:	9815      	ldr	r0, [sp, #84]	; 0x54
   24:	f890 008e 	ldrb.w	r0, [r0, #142]	; 0x8e
@@ -4047,7 +4048,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   2a:	2800      	cmp	r0, #0
   2c:	d115      	bne.n	5a <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x5a>
   2e:	e7ff      	b.n	30 <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x30>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:180
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:170
                         return None;  //  No pixels to group
                     }                    
                     //  Else return previous pixels as row.
@@ -4055,13 +4056,13 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
                         x_left: self.x_left,
   30:	9815      	ldr	r0, [sp, #84]	; 0x54
   32:	f8b0 1088 	ldrh.w	r1, [r0, #136]	; 0x88
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:181
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:171
                         x_right: self.x_right,
   36:	f8b0 208a 	ldrh.w	r2, [r0, #138]	; 0x8a
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:182
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:172
                         y: self.y,
   3a:	f8b0 308c 	ldrh.w	r3, [r0, #140]	; 0x8c
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:183
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:173
                         colors: self.colors.clone(),
   3e:	3020      	adds	r0, #32
   40:	f10d 0cd8 	add.w	ip, sp, #216	; 0xd8
@@ -4075,12 +4076,12 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   54:	f7ff fffe 	bl	0 <_ZN70_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17heeedb175dea731a1E>
   58:	e006      	b.n	68 <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x68>
   5a:	2000      	movs	r0, #0
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:176
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:166
                         return None;  //  No pixels to group
   5c:	9914      	ldr	r1, [sp, #80]	; 0x50
   5e:	6008      	str	r0, [r1, #0]
   60:	e7ff      	b.n	62 <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x62>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:229
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:219
                         .expect("never");
                     return Some(row);
                 }
@@ -4089,7 +4090,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
     }
   62:	f50d 7d44 	add.w	sp, sp, #784	; 0x310
   66:	bd80      	pop	{r7, pc}
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:179
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:169
                     let row = PixelRow {
   68:	9812      	ldr	r0, [sp, #72]	; 0x48
   6a:	f8ad 00d0 	strh.w	r0, [sp, #208]	; 0xd0
@@ -4101,13 +4102,13 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   7c:	a936      	add	r1, sp, #216	; 0xd8
   7e:	2268      	movs	r2, #104	; 0x68
   80:	f7ff fffe 	bl	0 <__aeabi_memcpy4>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:185
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:175
                     self.colors.clear();
   84:	9815      	ldr	r0, [sp, #84]	; 0x54
   86:	3020      	adds	r0, #32
   88:	f7ff fffe 	bl	0 <_ZN8heapless3vec16Vec$LT$T$C$N$GT$5clear17ha931fec77f832a3bE>
   8c:	e7ff      	b.n	8e <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x8e>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:186
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:176
                     self.first_pixel = true;
   8e:	9815      	ldr	r0, [sp, #84]	; 0x54
   90:	2101      	movs	r1, #1
@@ -4115,7 +4116,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   96:	a850      	add	r0, sp, #320	; 0x140
   98:	aa1a      	add	r2, sp, #104	; 0x68
   9a:	2370      	movs	r3, #112	; 0x70
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:187
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:177
                     return Some(row);
   9c:	900f      	str	r0, [sp, #60]	; 0x3c
   9e:	910e      	str	r1, [sp, #56]	; 0x38
@@ -4132,7 +4133,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   b8:	9914      	ldr	r1, [sp, #80]	; 0x50
   ba:	6008      	str	r0, [r1, #0]
   bc:	e7d1      	b.n	62 <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x62>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:189
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:179
                 Some(Pixel(coord, color)) => {  //  If there is a pixel...
   be:	9817      	ldr	r0, [sp, #92]	; 0x5c
   c0:	9918      	ldr	r1, [sp, #96]	; 0x60
@@ -4140,19 +4141,19 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   c4:	916d      	str	r1, [sp, #436]	; 0x1b4
   c6:	f8bd 0064 	ldrh.w	r0, [sp, #100]	; 0x64
   ca:	f8ad 01ba 	strh.w	r0, [sp, #442]	; 0x1ba
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:190
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:180
                     let x = coord.0 as u16;
   ce:	986c      	ldr	r0, [sp, #432]	; 0x1b0
   d0:	f8ad 01bc 	strh.w	r0, [sp, #444]	; 0x1bc
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:191
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:181
                     let y = coord.1 as u16;
   d4:	986d      	ldr	r0, [sp, #436]	; 0x1b4
   d6:	f8ad 01be 	strh.w	r0, [sp, #446]	; 0x1be
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:192
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:182
                     let color = color.0;
   da:	f8bd 01ba 	ldrh.w	r0, [sp, #442]	; 0x1ba
   de:	f8ad 01c0 	strh.w	r0, [sp, #448]	; 0x1c0
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:194
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:184
                     if self.first_pixel {
   e2:	9815      	ldr	r0, [sp, #84]	; 0x54
   e4:	f890 008e 	ldrb.w	r0, [r0, #142]	; 0x8e
@@ -4160,7 +4161,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   ea:	2800      	cmp	r0, #0
   ec:	d10e      	bne.n	10c <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x10c>
   ee:	e7ff      	b.n	f0 <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0xf0>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:205
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:195
                     if x == self.x_right + 1 && y == self.y {
   f0:	f8bd 01bc 	ldrh.w	r0, [sp, #444]	; 0x1bc
   f4:	9915      	ldr	r1, [sp, #84]	; 0x54
@@ -4173,33 +4174,33 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  104:	930b      	str	r3, [sp, #44]	; 0x2c
  106:	f040 80c2 	bne.w	28e <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x28e>
  10a:	e042      	b.n	192 <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x192>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:195
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:185
                         self.first_pixel = false;
  10c:	9815      	ldr	r0, [sp, #84]	; 0x54
  10e:	2100      	movs	r1, #0
  110:	f880 108e 	strb.w	r1, [r0, #142]	; 0x8e
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:196
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:186
                         self.x_left = x;
  114:	f8bd 01bc 	ldrh.w	r0, [sp, #444]	; 0x1bc
  118:	9915      	ldr	r1, [sp, #84]	; 0x54
  11a:	f8a1 0088 	strh.w	r0, [r1, #136]	; 0x88
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:197
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:187
                         self.x_right = x;
  11e:	f8bd 01bc 	ldrh.w	r0, [sp, #444]	; 0x1bc
  122:	9915      	ldr	r1, [sp, #84]	; 0x54
  124:	f8a1 008a 	strh.w	r0, [r1, #138]	; 0x8a
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:198
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:188
                         self.y = y;
  128:	f8bd 01be 	ldrh.w	r0, [sp, #446]	; 0x1be
  12c:	9915      	ldr	r1, [sp, #84]	; 0x54
  12e:	f8a1 008c 	strh.w	r0, [r1, #140]	; 0x8c
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:199
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:189
                         self.colors.clear();
  132:	9815      	ldr	r0, [sp, #84]	; 0x54
  134:	3020      	adds	r0, #32
  136:	f7ff fffe 	bl	0 <_ZN8heapless3vec16Vec$LT$T$C$N$GT$5clear17ha931fec77f832a3bE>
  13a:	e7ff      	b.n	13c <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x13c>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:200
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:190
                         self.colors.push(color)
  13c:	9815      	ldr	r0, [sp, #84]	; 0x54
  13e:	3020      	adds	r0, #32
@@ -4215,12 +4216,12 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  15a:	9909      	ldr	r1, [sp, #36]	; 0x24
  15c:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17h50be0804bdcda9d2E>
  160:	e7ff      	b.n	162 <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x162>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:202
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:192
                         continue;
  162:	e7ff      	b.n	164 <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x164>
  164:	e752      	b.n	c <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0xc>
  166:	2001      	movs	r0, #1
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:205
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:195
                     if x == self.x_right + 1 && y == self.y {
  168:	f88d 01c3 	strb.w	r0, [sp, #451]	; 0x1c3
  16c:	e00b      	b.n	186 <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x186>
@@ -4245,7 +4246,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  19a:	428b      	cmp	r3, r1
  19c:	d0eb      	beq.n	176 <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x176>
  19e:	e7e6      	b.n	16e <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x16e>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:206
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:196
                         if self.colors.push(color).is_ok() {
  1a0:	9815      	ldr	r0, [sp, #84]	; 0x54
  1a2:	3020      	adds	r0, #32
@@ -4263,28 +4264,28 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  1c4:	2900      	cmp	r1, #0
  1c6:	d101      	bne.n	1cc <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x1cc>
  1c8:	e7ff      	b.n	1ca <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x1ca>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:205
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:195
                     if x == self.x_right + 1 && y == self.y {
  1ca:	e005      	b.n	1d8 <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x1d8>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:208
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:198
                             self.x_right = x;
  1cc:	f8bd 01bc 	ldrh.w	r0, [sp, #444]	; 0x1bc
  1d0:	9915      	ldr	r1, [sp, #84]	; 0x54
  1d2:	f8a1 008a 	strh.w	r0, [r1, #138]	; 0x8a
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:209
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:199
                             continue;
  1d6:	e7c5      	b.n	164 <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x164>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:214
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:204
                         x_left: self.x_left,
  1d8:	9815      	ldr	r0, [sp, #84]	; 0x54
  1da:	f8b0 1088 	ldrh.w	r1, [r0, #136]	; 0x88
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:215
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:205
                         x_right: self.x_right,
  1de:	f8b0 208a 	ldrh.w	r2, [r0, #138]	; 0x8a
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:216
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:206
                         y: self.y,
  1e2:	f8b0 308c 	ldrh.w	r3, [r0, #140]	; 0x8c
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:217
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:207
                         colors: self.colors.clone(),
  1e6:	3020      	adds	r0, #32
  1e8:	f50d 7c0e 	add.w	ip, sp, #568	; 0x238
@@ -4297,7 +4298,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  1fa:	9304      	str	r3, [sp, #16]
  1fc:	f7ff fffe 	bl	0 <_ZN70_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17heeedb175dea731a1E>
  200:	e7ff      	b.n	202 <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x202>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:213
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:203
                     let row = PixelRow {
  202:	9806      	ldr	r0, [sp, #24]
  204:	f8ad 0230 	strh.w	r0, [sp, #560]	; 0x230
@@ -4309,28 +4310,28 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  216:	a98e      	add	r1, sp, #568	; 0x238
  218:	2268      	movs	r2, #104	; 0x68
  21a:	f7ff fffe 	bl	0 <__aeabi_memcpy4>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:219
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:209
                     self.x_left = x;
  21e:	f8bd 01bc 	ldrh.w	r0, [sp, #444]	; 0x1bc
  222:	9915      	ldr	r1, [sp, #84]	; 0x54
  224:	f8a1 0088 	strh.w	r0, [r1, #136]	; 0x88
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:220
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:210
                     self.x_right = x;
  228:	f8bd 01bc 	ldrh.w	r0, [sp, #444]	; 0x1bc
  22c:	9915      	ldr	r1, [sp, #84]	; 0x54
  22e:	f8a1 008a 	strh.w	r0, [r1, #138]	; 0x8a
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:221
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:211
                     self.y = y;
  232:	f8bd 01be 	ldrh.w	r0, [sp, #446]	; 0x1be
  236:	9915      	ldr	r1, [sp, #84]	; 0x54
  238:	f8a1 008c 	strh.w	r0, [r1, #140]	; 0x8c
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:222
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:212
                     self.colors.clear();
  23c:	9815      	ldr	r0, [sp, #84]	; 0x54
  23e:	3020      	adds	r0, #32
  240:	f7ff fffe 	bl	0 <_ZN8heapless3vec16Vec$LT$T$C$N$GT$5clear17ha931fec77f832a3bE>
  244:	e7ff      	b.n	246 <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x246>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:223
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:213
                     self.colors.push(color)
  246:	9815      	ldr	r0, [sp, #84]	; 0x54
  248:	3020      	adds	r0, #32
@@ -4349,7 +4350,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  26c:	a8a8      	add	r0, sp, #672	; 0x2a0
  26e:	a972      	add	r1, sp, #456	; 0x1c8
  270:	2270      	movs	r2, #112	; 0x70
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:225
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:215
                     return Some(row);
  272:	9001      	str	r0, [sp, #4]
  274:	9200      	str	r2, [sp, #0]
@@ -4363,7 +4364,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  288:	9914      	ldr	r1, [sp, #80]	; 0x50
  28a:	6008      	str	r0, [r1, #0]
  28c:	e6e9      	b.n	62 <_ZN110_$LT$piet_embedded_graphics..batch..RowIterator$LT$P$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17he240c760ec5ff34dE+0x62>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:205
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:195
                     if x == self.x_right + 1 && y == self.y {
  28e:	f240 0000 	movw	r0, #0
  292:	f2c0 0000 	movt	r0, #0
@@ -4377,7 +4378,7 @@ Disassembly of section .text._ZN112_$LT$piet_embedded_graphics..batch..BlockIter
 
 00000000 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E>:
 _ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E():
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:239
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:229
 impl<R: Iterator<Item = PixelRow>> Iterator for BlockIterator<R> {
     /// This Iterator returns Pixel Blocks
     type Item = PixelBlock;
@@ -4388,13 +4389,13 @@ impl<R: Iterator<Item = PixelRow>> Iterator for BlockIterator<R> {
    2:	f5ad 6dca 	sub.w	sp, sp, #1616	; 0x650
    6:	911e      	str	r1, [sp, #120]	; 0x78
    8:	2100      	movs	r1, #0
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:241
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:231
         //  Loop over all Pixel Rows until we have composed a Pixel Block, or we have run out of Pixel Rows.
         loop {
    a:	f88d 164f 	strb.w	r1, [sp, #1615]	; 0x64f
    e:	901d      	str	r0, [sp, #116]	; 0x74
   10:	e7ff      	b.n	12 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x12>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:243
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:233
             //  Get the next Pixel Row.
             let next_row = self.rows.next();
   12:	991e      	ldr	r1, [sp, #120]	; 0x78
@@ -4403,7 +4404,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   1a:	a81f      	add	r0, sp, #124	; 0x7c
   1c:	f7ff fffe 	bl	0 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E>
   20:	e7ff      	b.n	22 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x22>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:245
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:235
             match next_row {
                 None => {  //  If no more Pixel Rows...
   22:	981f      	ldr	r0, [sp, #124]	; 0x7c
@@ -4411,10 +4412,10 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   26:	d002      	beq.n	2e <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x2e>
   28:	e7ff      	b.n	2a <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x2a>
   2a:	e052      	b.n	d2 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0xd2>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:244
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:234
             match next_row {
   2c:	defe      	udf	#254	; 0xfe
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:246
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:236
                     if self.first_row {
   2e:	981e      	ldr	r0, [sp, #120]	; 0x78
   30:	f890 0164 	ldrb.w	r0, [r0, #356]	; 0x164
@@ -4422,7 +4423,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   36:	2800      	cmp	r0, #0
   38:	d119      	bne.n	6e <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x6e>
   3a:	e7ff      	b.n	3c <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x3c>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:251
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:241
                         return None;  //  No rows to group
                     }                    
                     //  Else return previous rows as block.
@@ -4430,16 +4431,16 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
                         x_left: self.x_left,
   3c:	981e      	ldr	r0, [sp, #120]	; 0x78
   3e:	f8b0 115c 	ldrh.w	r1, [r0, #348]	; 0x15c
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:252
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:242
                         x_right: self.x_right,
   42:	f8b0 215e 	ldrh.w	r2, [r0, #350]	; 0x15e
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:253
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:243
                         y_top: self.y_top,
   46:	f8b0 3160 	ldrh.w	r3, [r0, #352]	; 0x160
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:254
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:244
                         y_bottom: self.y_bottom,
   4a:	f8b0 c162 	ldrh.w	ip, [r0, #354]	; 0x162
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:255
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:245
                         colors: self.colors.clone(),
   4e:	3090      	adds	r0, #144	; 0x90
   50:	f50d 7ee2 	add.w	lr, sp, #452	; 0x1c4
@@ -4454,12 +4455,12 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   68:	f7ff fffe 	bl	0 <_ZN70_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h4d892b419e507335E>
   6c:	e003      	b.n	76 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x76>
   6e:	2000      	movs	r0, #0
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:247
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:237
                         return None;  //  No rows to group
   70:	991d      	ldr	r1, [sp, #116]	; 0x74
   72:	6008      	str	r0, [r1, #0]
   74:	e17f      	b.n	376 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x376>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:250
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:240
                     let row = PixelBlock {
   76:	981b      	ldr	r0, [sp, #108]	; 0x6c
   78:	f8ad 01bc 	strh.w	r0, [sp, #444]	; 0x1bc
@@ -4473,14 +4474,14 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   90:	a971      	add	r1, sp, #452	; 0x1c4
   92:	22cc      	movs	r2, #204	; 0xcc
   94:	f7ff fffe 	bl	0 <__aeabi_memcpy4>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:257
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:247
                     };
                     self.colors.clear();
   98:	981e      	ldr	r0, [sp, #120]	; 0x78
   9a:	3090      	adds	r0, #144	; 0x90
   9c:	f7ff fffe 	bl	0 <_ZN8heapless3vec16Vec$LT$T$C$N$GT$5clear17hd1207b6e81f7b78cE>
   a0:	e7ff      	b.n	a2 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0xa2>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:258
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:248
                     self.first_row = true;
   a2:	981e      	ldr	r0, [sp, #120]	; 0x78
   a4:	2101      	movs	r1, #1
@@ -4488,7 +4489,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   aa:	a8a4      	add	r0, sp, #656	; 0x290
   ac:	aa3c      	add	r2, sp, #240	; 0xf0
   ae:	23d4      	movs	r3, #212	; 0xd4
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:259
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:249
                     return Some(row);
   b0:	9017      	str	r0, [sp, #92]	; 0x5c
   b2:	9116      	str	r1, [sp, #88]	; 0x58
@@ -4506,7 +4507,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   ce:	6008      	str	r0, [r1, #0]
   d0:	e151      	b.n	376 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x376>
   d2:	a81f      	add	r0, sp, #124	; 0x7c
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:261
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:251
                 }
                 Some(PixelRow { x_left, x_right, y, colors, .. }) => {  //  If there is a Pixel Row...
   d4:	1d01      	adds	r1, r0, #4
@@ -4521,7 +4522,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   f4:	a8db      	add	r0, sp, #876	; 0x36c
   f6:	2268      	movs	r2, #104	; 0x68
   f8:	f7ff fffe 	bl	0 <__aeabi_memcpy4>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:263
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:253
                     //  Save the first row as the block start and handle next block.
                     if self.first_row {
   fc:	981e      	ldr	r0, [sp, #120]	; 0x78
@@ -4530,7 +4531,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  104:	2800      	cmp	r0, #0
  106:	d10e      	bne.n	126 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x126>
  108:	e7ff      	b.n	10a <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x10a>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:275
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:265
                         self.colors.extend_from_slice(&colors)
                             .expect("never");
                         continue;
@@ -4548,38 +4549,38 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  11e:	9313      	str	r3, [sp, #76]	; 0x4c
  120:	f040 8135 	bne.w	38e <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x38e>
  124:	e06e      	b.n	204 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x204>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:264
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:254
                         self.first_row = false;
  126:	981e      	ldr	r0, [sp, #120]	; 0x78
  128:	2100      	movs	r1, #0
  12a:	f880 1164 	strb.w	r1, [r0, #356]	; 0x164
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:265
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:255
                         self.x_left = x_left;
  12e:	f8bd 0366 	ldrh.w	r0, [sp, #870]	; 0x366
  132:	991e      	ldr	r1, [sp, #120]	; 0x78
  134:	f8a1 015c 	strh.w	r0, [r1, #348]	; 0x15c
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:266
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:256
                         self.x_right = x_right;
  138:	f8bd 0368 	ldrh.w	r0, [sp, #872]	; 0x368
  13c:	991e      	ldr	r1, [sp, #120]	; 0x78
  13e:	f8a1 015e 	strh.w	r0, [r1, #350]	; 0x15e
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:267
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:257
                         self.y_top = y;
  142:	f8bd 036a 	ldrh.w	r0, [sp, #874]	; 0x36a
  146:	991e      	ldr	r1, [sp, #120]	; 0x78
  148:	f8a1 0160 	strh.w	r0, [r1, #352]	; 0x160
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:268
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:258
                         self.y_bottom = y;
  14c:	f8bd 036a 	ldrh.w	r0, [sp, #874]	; 0x36a
  150:	991e      	ldr	r1, [sp, #120]	; 0x78
  152:	f8a1 0162 	strh.w	r0, [r1, #354]	; 0x162
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:269
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:259
                         self.colors.clear();
  156:	981e      	ldr	r0, [sp, #120]	; 0x78
  158:	3090      	adds	r0, #144	; 0x90
  15a:	f7ff fffe 	bl	0 <_ZN8heapless3vec16Vec$LT$T$C$N$GT$5clear17hd1207b6e81f7b78cE>
  15e:	e7ff      	b.n	160 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x160>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:270
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:260
                         self.colors.extend_from_slice(&colors)
  160:	981e      	ldr	r0, [sp, #120]	; 0x78
  162:	3090      	adds	r0, #144	; 0x90
@@ -4603,11 +4604,11 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  190:	2205      	movs	r2, #5
  192:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17h628ea316be0f2099E>
  196:	e7ff      	b.n	198 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x198>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:272
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:262
                         continue;
  198:	e7ff      	b.n	19a <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x19a>
  19a:	a8db      	add	r0, sp, #876	; 0x36c
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:299
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:289
                     self.colors.clear();
                     self.colors.extend_from_slice(&colors)
                         .expect("never");
@@ -4616,14 +4617,14 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
             }
  19c:	f7ff fffe 	bl	0 <_ZN4core3ptr18real_drop_in_place17h0a953d836c5653beE>
  1a0:	e7ff      	b.n	1a2 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x1a2>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:300
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:290
         }
  1a2:	981f      	ldr	r0, [sp, #124]	; 0x7c
  1a4:	2801      	cmp	r0, #1
  1a6:	f000 80ea 	beq.w	37e <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x37e>
  1aa:	e0ec      	b.n	386 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x386>
  1ac:	2001      	movs	r0, #1
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:275
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:265
                     if y == self.y_bottom + 1 && x_left == self.x_left && x_right == self.x_right {                        
  1ae:	f88d 03d5 	strb.w	r0, [sp, #981]	; 0x3d5
  1b2:	e00b      	b.n	1cc <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x1cc>
@@ -4665,7 +4666,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  20c:	428b      	cmp	r3, r1
  20e:	d0eb      	beq.n	1e8 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x1e8>
  210:	e7e6      	b.n	1e0 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x1e0>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:277
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:267
                         if self.colors.extend_from_slice(&colors).is_ok() {
  212:	981e      	ldr	r0, [sp, #120]	; 0x78
  214:	3090      	adds	r0, #144	; 0x90
@@ -4691,31 +4692,31 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  246:	2900      	cmp	r1, #0
  248:	d101      	bne.n	24e <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x24e>
  24a:	e7ff      	b.n	24c <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x24c>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:275
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:265
                     if y == self.y_bottom + 1 && x_left == self.x_left && x_right == self.x_right {                        
  24c:	e005      	b.n	25a <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x25a>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:278
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:268
                             self.y_bottom = y;
  24e:	f8bd 036a 	ldrh.w	r0, [sp, #874]	; 0x36a
  252:	991e      	ldr	r1, [sp, #120]	; 0x78
  254:	f8a1 0162 	strh.w	r0, [r1, #354]	; 0x162
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:279
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:269
                             continue;    
  258:	e79f      	b.n	19a <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x19a>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:284
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:274
                         x_left: self.x_left,
  25a:	981e      	ldr	r0, [sp, #120]	; 0x78
  25c:	f8b0 115c 	ldrh.w	r1, [r0, #348]	; 0x15c
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:285
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:275
                         x_right: self.x_right,
  260:	f8b0 215e 	ldrh.w	r2, [r0, #350]	; 0x15e
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:286
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:276
                         y_top: self.y_top,
  264:	f8b0 3160 	ldrh.w	r3, [r0, #352]	; 0x160
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:287
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:277
                         y_bottom: self.y_bottom,
  268:	f8b0 c162 	ldrh.w	ip, [r0, #354]	; 0x162
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:288
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:278
                         colors: self.colors.clone(),
  26c:	3090      	adds	r0, #144	; 0x90
  26e:	f20d 4eac 	addw	lr, sp, #1196	; 0x4ac
@@ -4729,7 +4730,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  282:	f8cd c018 	str.w	ip, [sp, #24]
  286:	f7ff fffe 	bl	0 <_ZN70_$LT$heapless..vec..Vec$LT$T$C$N$GT$$u20$as$u20$core..clone..Clone$GT$5clone17h4d892b419e507335E>
  28a:	e7ff      	b.n	28c <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x28c>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:283
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:273
                     let row = PixelBlock {
  28c:	9809      	ldr	r0, [sp, #36]	; 0x24
  28e:	f8ad 04a4 	strh.w	r0, [sp, #1188]	; 0x4a4
@@ -4743,33 +4744,33 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  2a6:	f20d 41ac 	addw	r1, sp, #1196	; 0x4ac
  2aa:	22cc      	movs	r2, #204	; 0xcc
  2ac:	f7ff fffe 	bl	0 <__aeabi_memcpy4>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:290
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:280
                     self.x_left = x_left;
  2b0:	f8bd 0366 	ldrh.w	r0, [sp, #870]	; 0x366
  2b4:	991e      	ldr	r1, [sp, #120]	; 0x78
  2b6:	f8a1 015c 	strh.w	r0, [r1, #348]	; 0x15c
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:291
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:281
                     self.x_right = x_right;
  2ba:	f8bd 0368 	ldrh.w	r0, [sp, #872]	; 0x368
  2be:	991e      	ldr	r1, [sp, #120]	; 0x78
  2c0:	f8a1 015e 	strh.w	r0, [r1, #350]	; 0x15e
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:292
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:282
                     self.y_top = y;
  2c4:	f8bd 036a 	ldrh.w	r0, [sp, #874]	; 0x36a
  2c8:	991e      	ldr	r1, [sp, #120]	; 0x78
  2ca:	f8a1 0160 	strh.w	r0, [r1, #352]	; 0x160
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:293
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:283
                     self.y_bottom = y;
  2ce:	f8bd 036a 	ldrh.w	r0, [sp, #874]	; 0x36a
  2d2:	991e      	ldr	r1, [sp, #120]	; 0x78
  2d4:	f8a1 0162 	strh.w	r0, [r1, #354]	; 0x162
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:294
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:284
                     self.colors.clear();
  2d8:	981e      	ldr	r0, [sp, #120]	; 0x78
  2da:	3090      	adds	r0, #144	; 0x90
  2dc:	f7ff fffe 	bl	0 <_ZN8heapless3vec16Vec$LT$T$C$N$GT$5clear17hd1207b6e81f7b78cE>
  2e0:	e7ff      	b.n	2e2 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x2e2>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:295
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:285
                     self.colors.extend_from_slice(&colors)
  2e2:	981e      	ldr	r0, [sp, #120]	; 0x78
  2e4:	3090      	adds	r0, #144	; 0x90
@@ -4796,7 +4797,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  31a:	f50d 60af 	add.w	r0, sp, #1400	; 0x578
  31e:	a9f6      	add	r1, sp, #984	; 0x3d8
  320:	22d4      	movs	r2, #212	; 0xd4
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:297
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:287
                     return Some(row);
  322:	9001      	str	r0, [sp, #4]
  324:	9200      	str	r2, [sp, #0]
@@ -4810,22 +4811,22 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  338:	991d      	ldr	r1, [sp, #116]	; 0x74
  33a:	6008      	str	r0, [r1, #0]
  33c:	a8db      	add	r0, sp, #876	; 0x36c
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:299
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:289
             }
  33e:	f7ff fffe 	bl	0 <_ZN4core3ptr18real_drop_in_place17h0a953d836c5653beE>
  342:	e7ff      	b.n	344 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x344>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:297
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:287
                     return Some(row);
  344:	e017      	b.n	376 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x376>
  346:	2000      	movs	r0, #0
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:300
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:290
         }
  348:	f88d 064f 	strb.w	r0, [sp, #1615]	; 0x64f
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:301
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:291
     }
  34c:	f50d 6dca 	add.w	sp, sp, #1616	; 0x650
  350:	bd80      	pop	{r7, pc}
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:300
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:290
         }
  352:	f89d 064f 	ldrb.w	r0, [sp, #1615]	; 0x64f
  356:	07c0      	lsls	r0, r0, #31
@@ -4847,15 +4848,15 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  37c:	e7f7      	b.n	36e <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x36e>
  37e:	2000      	movs	r0, #0
  380:	f88d 064f 	strb.w	r0, [sp, #1615]	; 0x64f
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:272
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:262
                         continue;
  384:	e645      	b.n	12 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0x12>
  386:	a81f      	add	r0, sp, #124	; 0x7c
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:300
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:290
         }
  388:	f7ff fffe 	bl	0 <_ZN4core3ptr18real_drop_in_place17hd1f8190c506e115bE>
  38c:	e7f7      	b.n	fffffff2 <_ZN112_$LT$piet_embedded_graphics..batch..BlockIterator$LT$R$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h6d7ebc6c16cf0449E+0xfffffff2>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:275
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:265
                     if y == self.y_bottom + 1 && x_left == self.x_left && x_right == self.x_right {                        
  38e:	f240 0000 	movw	r0, #0
  392:	f2c0 0000 	movt	r0, #0
@@ -4865,17 +4866,17 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  3a0:	f7ff fffe 	bl	0 <_ZN4core9panicking5panic17hfdd0eecc44a682f8E>
  3a4:	defe      	udf	#254	; 0xfe
 
-Disassembly of section .text._ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E:
+Disassembly of section .text._ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E:
 
-00000000 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E>:
-_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E():
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:99
+00000000 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E>:
+_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E():
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:89
 pub fn draw_blocks<SPI, DC, RST, T>(display: &mut ST7735<SPI, DC, RST>, item_pixels: T) -> Result<(),()>
    0:	b570      	push	{r4, r5, r6, lr}
    2:	f5ad 6d46 	sub.w	sp, sp, #3168	; 0xc60
    6:	9010      	str	r0, [sp, #64]	; 0x40
    8:	a81a      	add	r0, sp, #104	; 0x68
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:106
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:96
     let pixels = item_pixels.into_iter();
    a:	4602      	mov	r2, r0
    c:	e891 5078 	ldmia.w	r1, {r3, r4, r5, r6, ip, lr}
@@ -4885,10 +4886,10 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   18:	4608      	mov	r0, r1
   1a:	990f      	ldr	r1, [sp, #60]	; 0x3c
   1c:	f7ff fffe 	bl	0 <_ZN116_$LT$embedded_graphics..primitives..circle..Circle$LT$C$GT$$u20$as$u20$core..iter..traits..collect..IntoIterator$GT$9into_iter17h0f12e0e052eb0b2dE>
-  20:	e7ff      	b.n	22 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x22>
+  20:	e7ff      	b.n	22 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x22>
   22:	a812      	add	r0, sp, #72	; 0x48
   24:	a944      	add	r1, sp, #272	; 0x110
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:108
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:98
     let rows = to_rows(pixels);
   26:	460a      	mov	r2, r1
   28:	e8b0 5018 	ldmia.w	r0!, {r3, r4, ip, lr}
@@ -4896,47 +4897,47 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   30:	e890 5018 	ldmia.w	r0, {r3, r4, ip, lr}
   34:	e882 5018 	stmia.w	r2, {r3, r4, ip, lr}
   38:	a820      	add	r0, sp, #128	; 0x80
-  3a:	f7ff fffe 	bl	0 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E>
-  3e:	e7ff      	b.n	40 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x40>
+  3a:	f7ff fffe 	bl	0 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E>
+  3e:	e7ff      	b.n	40 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x40>
   40:	a8a6      	add	r0, sp, #664	; 0x298
   42:	a920      	add	r1, sp, #128	; 0x80
   44:	2290      	movs	r2, #144	; 0x90
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:110
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:100
     let blocks = to_blocks(rows);
   46:	900e      	str	r0, [sp, #56]	; 0x38
   48:	f7ff fffe 	bl	0 <__aeabi_memcpy4>
   4c:	a84c      	add	r0, sp, #304	; 0x130
   4e:	990e      	ldr	r1, [sp, #56]	; 0x38
-  50:	f7ff fffe 	bl	0 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E>
-  54:	e7ff      	b.n	56 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x56>
+  50:	f7ff fffe 	bl	0 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E>
+  54:	e7ff      	b.n	56 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x56>
   56:	f50d 6092 	add.w	r0, sp, #1168	; 0x490
   5a:	a94c      	add	r1, sp, #304	; 0x130
   5c:	f44f 72b4 	mov.w	r2, #360	; 0x168
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:112
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:102
     for PixelBlock { x_left, x_right, y_top, y_bottom, colors, .. } in blocks {
   60:	900d      	str	r0, [sp, #52]	; 0x34
   62:	f7ff fffe 	bl	0 <__aeabi_memcpy4>
   66:	a8ca      	add	r0, sp, #808	; 0x328
   68:	990d      	ldr	r1, [sp, #52]	; 0x34
-  6a:	f7ff fffe 	bl	0 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E>
-  6e:	e7ff      	b.n	70 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x70>
+  6a:	f7ff fffe 	bl	0 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E>
+  6e:	e7ff      	b.n	70 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x70>
   70:	f50d 60bf 	add.w	r0, sp, #1528	; 0x5f8
   74:	a9ca      	add	r1, sp, #808	; 0x328
   76:	f44f 72b4 	mov.w	r2, #360	; 0x168
   7a:	f7ff fffe 	bl	0 <__aeabi_memcpy4>
-  7e:	e7ff      	b.n	80 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x80>
+  7e:	e7ff      	b.n	80 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x80>
   80:	f60d 0034 	addw	r0, sp, #2100	; 0x834
   84:	f50d 61bf 	add.w	r1, sp, #1528	; 0x5f8
-  88:	f7ff fffe 	bl	0 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E>
-  8c:	e7ff      	b.n	8e <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x8e>
+  88:	f7ff fffe 	bl	0 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E>
+  8c:	e7ff      	b.n	8e <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x8e>
   8e:	f8dd 0834 	ldr.w	r0, [sp, #2100]	; 0x834
   92:	2800      	cmp	r0, #0
-  94:	d001      	beq.n	9a <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x9a>
-  96:	e7ff      	b.n	98 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x98>
-  98:	e005      	b.n	a6 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0xa6>
+  94:	d001      	beq.n	9a <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x9a>
+  96:	e7ff      	b.n	98 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x98>
+  98:	e005      	b.n	a6 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0xa6>
   9a:	f60d 0034 	addw	r0, sp, #2100	; 0x834
   9e:	f7ff fffe 	bl	0 <_ZN4core3ptr18real_drop_in_place17h7705f424901406b7E>
-  a2:	e01c      	b.n	de <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0xde>
+  a2:	e01c      	b.n	de <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0xde>
   a4:	defe      	udf	#254	; 0xfe
   a6:	f60d 0034 	addw	r0, sp, #2100	; 0x834
   aa:	1d01      	adds	r1, r0, #4
@@ -4956,63 +4957,63 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   d0:	f7ff fffe 	bl	0 <__aeabi_memcpy4>
   d4:	f8dd 0834 	ldr.w	r0, [sp, #2100]	; 0x834
   d8:	2801      	cmp	r0, #1
-  da:	d02c      	beq.n	136 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x136>
-  dc:	e06c      	b.n	1b8 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x1b8>
+  da:	d02c      	beq.n	136 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x136>
+  dc:	e06c      	b.n	1b8 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x1b8>
   de:	f50d 60bf 	add.w	r0, sp, #1528	; 0x5f8
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:126
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:116
     }
   e2:	f7ff fffe 	bl	0 <_ZN4core3ptr18real_drop_in_place17h74d1def115ce632eE>
-  e6:	e022      	b.n	12e <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x12e>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:114
+  e6:	e022      	b.n	12e <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x12e>
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:104
         display.set_pixels(
   e8:	f89d 0b8b 	ldrb.w	r0, [sp, #2955]	; 0xb8b
   ec:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$11into_result17h6080547b3bb225c9E>
   f0:	f88d 0b8a 	strb.w	r0, [sp, #2954]	; 0xb8a
-  f4:	e7ff      	b.n	f6 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0xf6>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:119
+  f4:	e7ff      	b.n	f6 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0xf6>
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:109
             colors) ? ;
   f6:	f89d 0b8a 	ldrb.w	r0, [sp, #2954]	; 0xb8a
   fa:	07c1      	lsls	r1, r0, #31
   fc:	2900      	cmp	r1, #0
-  fe:	d015      	beq.n	12c <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x12c>
- 100:	e7ff      	b.n	102 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x102>
- 102:	e000      	b.n	106 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x106>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:114
+  fe:	d015      	beq.n	12c <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x12c>
+ 100:	e7ff      	b.n	102 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x102>
+ 102:	e000      	b.n	106 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x106>
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:104
         display.set_pixels(
  104:	defe      	udf	#254	; 0xfe
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:119
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:109
             colors) ? ;
  106:	f7ff fffe 	bl	0 <_ZN50_$LT$T$u20$as$u20$core..convert..From$LT$T$GT$$GT$4from17ha31222aae56585dcE>
- 10a:	e004      	b.n	116 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x116>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:128
+ 10a:	e004      	b.n	116 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x116>
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:118
 }
  10c:	f89d 0047 	ldrb.w	r0, [sp, #71]	; 0x47
  110:	f50d 6d46 	add.w	sp, sp, #3168	; 0xc60
  114:	bd70      	pop	{r4, r5, r6, pc}
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:119
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:109
             colors) ? ;
  116:	f7ff fffe 	bl	0 <_ZN73_$LT$core..result..Result$LT$T$C$E$GT$$u20$as$u20$core..ops..try..Try$GT$10from_error17hffcf477f632200deE>
  11a:	f88d 0047 	strb.w	r0, [sp, #71]	; 0x47
- 11e:	e7ff      	b.n	120 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x120>
+ 11e:	e7ff      	b.n	120 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x120>
  120:	f50d 60bf 	add.w	r0, sp, #1528	; 0x5f8
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:126
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:116
     }
  124:	f7ff fffe 	bl	0 <_ZN4core3ptr18real_drop_in_place17h74d1def115ce632eE>
- 128:	e7ff      	b.n	12a <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x12a>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:128
+ 128:	e7ff      	b.n	12a <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x12a>
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:118
 }
- 12a:	e7ef      	b.n	10c <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x10c>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:112
+ 12a:	e7ef      	b.n	10c <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x10c>
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:102
     for PixelBlock { x_left, x_right, y_top, y_bottom, colors, .. } in blocks {
- 12c:	e7a8      	b.n	80 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x80>
+ 12c:	e7a8      	b.n	80 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x80>
  12e:	2000      	movs	r0, #0
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:127
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:117
     Ok(())
  130:	f88d 0047 	strb.w	r0, [sp, #71]	; 0x47
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:128
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:118
 }
- 134:	e7ea      	b.n	10c <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x10c>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:112
+ 134:	e7ea      	b.n	10c <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x10c>
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:102
     for PixelBlock { x_left, x_right, y_top, y_bottom, colors, .. } in blocks {
  136:	f8bd 082c 	ldrh.w	r0, [sp, #2092]	; 0x82c
  13a:	f8ad 0ab4 	strh.w	r0, [sp, #2740]	; 0xab4
@@ -5028,7 +5029,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  160:	9009      	str	r0, [sp, #36]	; 0x24
  162:	9208      	str	r2, [sp, #32]
  164:	f7ff fffe 	bl	0 <__aeabi_memcpy4>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:114
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:104
         display.set_pixels(
  168:	9810      	ldr	r0, [sp, #64]	; 0x40
  16a:	f8bd 3ab6 	ldrh.w	r3, [sp, #2742]	; 0xab6
@@ -5036,7 +5037,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  172:	f8bd 1ab4 	ldrh.w	r1, [sp, #2740]	; 0xab4
  176:	f8bd caba 	ldrh.w	ip, [sp, #2746]	; 0xaba
  17a:	f60d 3e8c 	addw	lr, sp, #2956	; 0xb8c
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:119
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:109
             colors) ? ;
  17e:	9007      	str	r0, [sp, #28]
  180:	4670      	mov	r0, lr
@@ -5050,7 +5051,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  190:	f8cd c00c 	str.w	ip, [sp, #12]
  194:	f8cd e008 	str.w	lr, [sp, #8]
  198:	f7ff fffe 	bl	0 <__aeabi_memcpy4>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:114
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:104
         display.set_pixels(
  19c:	4668      	mov	r0, sp
  19e:	9902      	ldr	r1, [sp, #8]
@@ -5061,39 +5062,39 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
  1a8:	9906      	ldr	r1, [sp, #24]
  1aa:	9a05      	ldr	r2, [sp, #20]
  1ac:	9b04      	ldr	r3, [sp, #16]
- 1ae:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_pixels17h5315e4d083cbdb62E>
+ 1ae:	f7ff fffe 	bl	0 <_ZN10st7735_lcd28ST7735$LT$SPI$C$DC$C$RST$GT$10set_pixels17h033eb41c68c14138E>
  1b2:	f88d 0b8b 	strb.w	r0, [sp, #2955]	; 0xb8b
- 1b6:	e797      	b.n	e8 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0xe8>
+ 1b6:	e797      	b.n	e8 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0xe8>
  1b8:	f60d 0034 	addw	r0, sp, #2100	; 0x834
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:112
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:102
     for PixelBlock { x_left, x_right, y_top, y_bottom, colors, .. } in blocks {
  1bc:	f7ff fffe 	bl	0 <_ZN4core3ptr18real_drop_in_place17h7705f424901406b7E>
- 1c0:	e7b9      	b.n	136 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E+0x136>
+ 1c0:	e7b9      	b.n	136 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E+0x136>
 
 Disassembly of section .text._ZN22piet_embedded_graphics5batch7to_rows17h805810457c89a051E:
 
 00000000 <_ZN22piet_embedded_graphics5batch7to_rows17h805810457c89a051E>:
 _ZN22piet_embedded_graphics5batch7to_rows17h805810457c89a051E():
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:132
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:122
 fn to_rows<P>(pixels: P) -> RowIterator<P>
    0:	b510      	push	{r4, lr}
    2:	b0a4      	sub	sp, #144	; 0x90
    4:	aa02      	add	r2, sp, #8
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:136
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:126
         pixels,
    6:	e8b1 5018 	ldmia.w	r1!, {r3, r4, ip, lr}
    a:	e8a2 5018 	stmia.w	r2!, {r3, r4, ip, lr}
    e:	e891 5018 	ldmia.w	r1, {r3, r4, ip, lr}
   12:	e882 5018 	stmia.w	r2, {r3, r4, ip, lr}
   16:	a90a      	add	r1, sp, #40	; 0x28
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:140
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:130
         colors: RowColors::new(),
   18:	9001      	str	r0, [sp, #4]
   1a:	4608      	mov	r0, r1
   1c:	f7ff fffe 	bl	0 <_ZN8heapless3vec16Vec$LT$T$C$N$GT$3new17he8dd1043f24661e1E>
   20:	e7ff      	b.n	22 <_ZN22piet_embedded_graphics5batch7to_rows17h805810457c89a051E+0x22>
   22:	a802      	add	r0, sp, #8
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:135
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:125
     RowIterator::<P> {
   24:	9901      	ldr	r1, [sp, #4]
   26:	e8b0 500c 	ldmia.w	r0!, {r2, r3, ip, lr}
@@ -5112,7 +5113,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   52:	2001      	movs	r0, #1
   54:	9901      	ldr	r1, [sp, #4]
   56:	f881 008e 	strb.w	r0, [r1, #142]	; 0x8e
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:143
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:133
 }
   5a:	b024      	add	sp, #144	; 0x90
   5c:	bd10      	pop	{r4, pc}
@@ -5121,26 +5122,26 @@ Disassembly of section .text._ZN22piet_embedded_graphics5batch9to_blocks17h21dc0
 
 00000000 <_ZN22piet_embedded_graphics5batch9to_blocks17h21dc045e9abdcbcfE>:
 _ZN22piet_embedded_graphics5batch9to_blocks17h21dc045e9abdcbcfE():
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:147
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:137
 fn to_blocks<R>(rows: R) -> BlockIterator<R>
    0:	b580      	push	{r7, lr}
    2:	b0d8      	sub	sp, #352	; 0x160
    4:	aa01      	add	r2, sp, #4
    6:	2390      	movs	r3, #144	; 0x90
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:151
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:141
         rows,
    8:	9000      	str	r0, [sp, #0]
    a:	4610      	mov	r0, r2
    c:	461a      	mov	r2, r3
    e:	f7ff fffe 	bl	0 <__aeabi_memcpy4>
   12:	a825      	add	r0, sp, #148	; 0x94
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:156
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:146
         colors: BlockColors::new(),
   14:	f7ff fffe 	bl	0 <_ZN8heapless3vec16Vec$LT$T$C$N$GT$3new17h21f2fbeed2fdb35aE>
   18:	e7ff      	b.n	1a <_ZN22piet_embedded_graphics5batch9to_blocks17h21dc045e9abdcbcfE+0x1a>
   1a:	a901      	add	r1, sp, #4
   1c:	2290      	movs	r2, #144	; 0x90
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:150
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:140
     BlockIterator::<R> {
   1e:	9800      	ldr	r0, [sp, #0]
   20:	f7ff fffe 	bl	0 <__aeabi_memcpy4>
@@ -5157,7 +5158,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/b
   44:	2001      	movs	r0, #1
   46:	9900      	ldr	r1, [sp, #0]
   48:	f881 0164 	strb.w	r0, [r1, #356]	; 0x164
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:159
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/batch.rs:149
 }    
   4c:	b058      	add	sp, #352	; 0x160
   4e:	bd80      	pop	{r7, pc}
@@ -5224,9 +5225,9 @@ SYMBOL TABLE:
 00000000 l    d  .debug_info	00000000 .debug_info
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    d  .debug_line	00000000 .debug_line
-00000000         *UND*	00000000 _ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E
+00000000         *UND*	00000000 _ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E
 00000000 g     F .text._ZN22piet_embedded_graphics7display15draw_to_display17h7b400c5118e860e4E	0000003a _ZN22piet_embedded_graphics7display15draw_to_display17h7b400c5118e860e4E
-00000000         *UND*	00000000 _ZN22piet_embedded_graphics7display7DISPLAY17h3d0900dc8f9778ffE
+00000000         *UND*	00000000 _ZN22piet_embedded_graphics7display7DISPLAY17hef54ab4f44cb993eE
 00000000         *UND*	00000000 _ZN4core6result19Result$LT$T$C$E$GT$6expect17h628ea316be0f2099E
 
 
@@ -5235,7 +5236,7 @@ Disassembly of section .text._ZN22piet_embedded_graphics7display15draw_to_displa
 
 00000000 <_ZN22piet_embedded_graphics7display15draw_to_display17h7b400c5118e860e4E>:
 _ZN22piet_embedded_graphics7display15draw_to_display17h7b400c5118e860e4E():
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/display.rs:126
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/display.rs:122
     }
     Ok(())
 }
@@ -5245,7 +5246,7 @@ pub fn draw_to_display<T>(item: T)
    0:	b570      	push	{r4, r5, r6, lr}
    2:	b088      	sub	sp, #32
    4:	a902      	add	r1, sp, #8
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/display.rs:134
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/display.rs:130
     unsafe { DISPLAY.draw(item) };        //  Draw text or graphics the usual slow way
 
     #[cfg(feature = "noblock_spi")]       //  If batching is enabled...
@@ -5255,11 +5256,11 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/d
    6:	460a      	mov	r2, r1
    8:	e890 5078 	ldmia.w	r0, {r3, r4, r5, r6, ip, lr}
    c:	e882 5078 	stmia.w	r2, {r3, r4, r5, r6, ip, lr}
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/display.rs:132
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/display.rs:128
     super::batch::draw_blocks(            //  Draw text or graphics the new faster way, as pixel blocks
   10:	f240 0000 	movw	r0, #0
   14:	f2c0 0000 	movt	r0, #0
-  18:	f7ff fffe 	bl	0 <_ZN22piet_embedded_graphics5batch11draw_blocks17h861f5eb2f65f2571E>
+  18:	f7ff fffe 	bl	0 <_ZN22piet_embedded_graphics5batch11draw_blocks17h0f62937d950720e2E>
   1c:	9001      	str	r0, [sp, #4]
   1e:	e7ff      	b.n	20 <_ZN22piet_embedded_graphics7display15draw_to_display17h7b400c5118e860e4E+0x20>
   20:	9801      	ldr	r0, [sp, #4]
@@ -5269,7 +5270,7 @@ c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/d
   2e:	2210      	movs	r2, #16
   30:	f7ff fffe 	bl	0 <_ZN4core6result19Result$LT$T$C$E$GT$6expect17h628ea316be0f2099E>
   34:	e7ff      	b.n	36 <_ZN22piet_embedded_graphics7display15draw_to_display17h7b400c5118e860e4E+0x36>
-c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/display.rs:136
+c:\PineTime\pinetime-rust-mynewt\rust\piet-embedded\piet-embedded-graphics\src/display.rs:132
     ).expect("draw blocks fail");
 }
   36:	b008      	add	sp, #32

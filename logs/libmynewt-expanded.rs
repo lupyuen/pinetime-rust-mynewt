@@ -2742,7 +2742,6 @@ pub mod kernel {
 pub mod hw {
     //! Mynewt Hardware API for Rust
     pub mod hal {
-        use super::*;
         pub const HAL_ADC_MODULE_ENABLED: u32 = 1;
         pub const HAL_I2C_ERR_UNKNOWN: u32 = 1;
         pub const HAL_I2C_ERR_INVAL: u32 = 2;
@@ -9157,9 +9156,9 @@ pub mod encoding {
         //! COAP encoder state used by CoAP encoding macros
         use cstr_core::CStr;
         use cty::*;
-        use crate::{sys::console, encoding::{json, tinycbor::CborEncoder},
-                    libs::mynewt_rust, libs::sensor_coap,
-                    hw::sensor::SensorValueType, fill_zero, Strn, StrnRep};
+        use crate::{sys::console, encoding::{tinycbor::CborEncoder},
+                    libs::mynewt_rust, hw::sensor::SensorValueType, fill_zero,
+                    Strn, StrnRep};
         /// Global instance that contains the current state of the CoAP encoder. Only 1 encoding task is supported at a time.
         pub static mut COAP_CONTEXT: CoapContext =
             unsafe {
@@ -9203,9 +9202,9 @@ pub mod encoding {
             };
         impl CoapContext {
             #[cfg(not (feature = "use_float"))]
-            pub fn json_set_geolocation(&mut self, key: &Strn, lat_key: &Strn,
-                                        long_key: &Strn,
-                                        geo: SensorValueType) {
+            pub fn json_set_geolocation(&mut self, _key: &Strn,
+                                        _lat_key: &Strn, _long_key: &Strn,
+                                        _geo: SensorValueType) {
             }
             ///  Encode a text value into the current JSON document with the specified key
             pub fn json_set_text_string(&mut self, key: &Strn, value: &Strn) {
@@ -11728,8 +11727,8 @@ pub use hal::{Delay, GPIO, SPI};
 pub mod spi {
     //! Experimental Non-Blocking SPI Transfer API. Uses a background task to send SPI requests sequentially.
     //! Request data is copied into Mbuf Queues before transmitting. 
-    use crate::{self as mynewt, result::*, hw::hal, kernel::os, sys::console,
-                NULL, Ptr, Strn};
+    use crate::{self as mynewt, result::*, hw::hal, kernel::os, NULL, Ptr,
+                Strn};
     use mynewt_macros::{init_strn};
     const DISPLAY_SPI: i32 = 0;
     const DISPLAY_CS: i32 = 25;
