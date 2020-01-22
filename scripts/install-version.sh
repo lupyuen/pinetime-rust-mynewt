@@ -5,5 +5,4 @@
 mynewt_version=mynewt_1_7_0_tag
 nimble_version=nimble_1_2_0_tag
 mcuboot_version=v1.3.1
-#### TODO: openocd_version=master
-openocd_version=spi
+openocd_version=master
