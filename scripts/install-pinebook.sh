@@ -30,9 +30,8 @@ if [ ! -d /opt/gcc-arm-none-eabi ]; then
     wget https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v1.0.5/gcc-arm-none-eabi.tar.bz2
     tar xf gcc-arm-none-eabi.tar.bz2
     rm gcc-arm-none-eabi.tar.bz2
-    cd ~/gcc-arm-none-eabi-*
     sudo mkdir -p /opt/gcc-arm-none-eabi
-    sudo mv install-native/* /opt/gcc-arm-none-eabi/
+    sudo mv opt/gcc-arm-none-eabi/* /opt/gcc-arm-none-eabi/
     echo export PATH=$gccpath:\$PATH >> ~/.bashrc
     echo export PATH=$gccpath:\$PATH >> ~/.profile
 fi
@@ -51,6 +50,7 @@ if [ ! -e /usr/bin/code-oss ]; then
     wget https://code.headmelted.com/installers/apt.sh 
     chmod +x apt.sh
     sudo -s ./apt.sh
+    rm apt.sh
 fi
 
 set +x; echo; echo "----- Installing openocd-spi..."; set -x 
