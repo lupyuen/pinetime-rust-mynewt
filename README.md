@@ -41,15 +41,39 @@ The code structure is similar to the earlier article on nRF52...
 
 # Build Instructions
 
-Check the [`rust`](rust) folder for additional sub-repositories that should be cloned in order to build this project.
+If you are building from this repository from scratch instead of the Released Packages, here are the steps:
 
-Build instructions are in the article...
+1. Install `rustup` with support for nightly target `thumbv7em-none-eabihf`. Also install Arm toolchain `gcc-arm-none-eabi` and the `newt` build tool for Mynewt.  Refer to this script...
 
-[_Build and Flash Rust+Mynewt Firmware for PineTime Smart Watch_](https://medium.com/@ly.lee/build-and-flash-rust-mynewt-firmware-for-pinetime-smart-watch-5e14259c55?source=friends_link&sk=150b2a73b84144e5ef25b985e65aebe9)
+    [`scripts/install-pi.sh`](scripts/install-pi.sh)
+
+1. [`repos`](repos) folder should contain the Mynewt source code, installed by the `newt install` command:
+
+    ```bash
+    cd pinetime-rust-mynewt
+    newt install
+    ```
+
+    Ignore the error `Error: Error updating "mcuboot"`
+
+1. Check the [`rust`](rust) folder for additional sub-repositories that should be cloned in order to build this project.
+
+1. Build the project...
+
+    ```bash
+    cd pinetime-rust-mynewt
+    scripts/build-app.sh
+    ```
+
+1. If you see the error `Undefined main`, run `scripts/build-app.sh` again. It should fix the error.
+
+1. Check this article in case of problems...
+
+    [_Build and Flash Rust+Mynewt Firmware for PineTime Smart Watch_](https://medium.com/@ly.lee/build-and-flash-rust-mynewt-firmware-for-pinetime-smart-watch-5e14259c55?source=friends_link&sk=150b2a73b84144e5ef25b985e65aebe9)
 
 # Fixes for Mynewt type conversion build warnings
 
-These fixes should be applied manually when upgrading Mynewt or installing Mynewt from scratch.
+These fixes should be applied manually when upgrading Mynewt or installing Mynewt from scratch. They suppress the compiler warning messages that stop the Mynewt build for C++ source files.
 
 1️⃣ `repos/apache-mynewt-core/kernel/os/include/os/os_mutex.h` line 122 <br>
 ```C
