@@ -58,14 +58,38 @@ If you are building from this repository from scratch instead of the Released Pa
 
 1. Check the [`rust`](rust) folder for additional sub-repositories that should be cloned in order to build this project.
 
-1. Build the project...
+1. Build the bootloader...
 
     ```bash
     cd pinetime-rust-mynewt
+    scripts/nrf52/build-boot.sh
+    ```
+
+1. Build the application...
+
+    ```bash
     scripts/build-app.sh
     ```
 
-1. If you see the error `Undefined main`, run `scripts/build-app.sh` again. It should fix the error.
+    If you see the error `Undefined main`, run `scripts/build-app.sh` again. It should fix the error.
+
+1. Create the application firmware image...
+
+    ```bash
+    scripts/nrf52/image-app.sh
+    ```
+
+1. Flash the bootloader...
+
+    ```bash
+    scripts/nrf52-pi/flash-boot.sh
+    ```
+
+1. Flash the application and run it...
+
+    ```bash
+    scripts/nrf52-pi/flash-app.sh
+    ```
 
 1. Check this article in case of problems...
 
