@@ -27,7 +27,9 @@ use druid::{
 use mynewt::sys::console;
 
 /// The Application State consists of 1 value: `count` of type `u32` (32-bit unsigned int)
-type State = u32;
+struct State {
+    count: u32,
+}
 
 /// Launch the UI application
 pub fn launch() {
@@ -48,7 +50,7 @@ fn ui_builder() -> impl Widget<State> {  //  `State` is the application state
     console::print("Rust UI builder\n"); console::flush();
     //  Create a line of text based on a counter value
     let text = LocalizedString::new("hello-counter")
-        .with_arg("count", on_format_label);  //  Call on_format_label to get label
+        .with_arg("count", on_label_show);  //  Call on_label_show to get label
     //  Create a label widget to display the text
     let label = Label::new(text);
     //  Create a button widget labelled "increment" to increment the counter
@@ -74,16 +76,16 @@ fn ui_builder() -> impl Widget<State> {  //  `State` is the application state
 }
 
 ///  Callback function that will be called to create the formatted text for the label
-fn on_format_label(data: &State, _env: &Env) -> ArgValue {
+fn on_label_show(state: &State, _env: &Env) -> ArgValue {
     //  We return the counter, converted into text
-    let counter = *data;  //  Fetch the counter from the application state
-    counter.into()        //  Convert counter into text
+    let count = state.count;  //  Fetch the counter from the application state
+    count.into()              //  Convert counter into text
 }
 
 ///  Callback function that will be called when the button is tapped
-fn on_button_press(_ctx: &mut EventCtx<State>, data: &mut State, _env: &Env) {
+fn on_button_press(_ctx: &mut EventCtx<State>, state: &mut State, _env: &Env) {
     //  We increment the counter
-    *data += 1  //  Changes the application state
+    state.count += 1  //  Changes the application state
 }
 
 /*  Future update for Visual Rust:
