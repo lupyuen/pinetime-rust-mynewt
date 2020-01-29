@@ -13,20 +13,17 @@
 // limitations under the License.
 
 use druid::{
-    AppLauncher, EventCtx, LocalizedString, Widget, WindowDesc,
+    AppLauncher, Data, EventCtx, LocalizedString, Widget, WindowDesc,
     widget::{
         Align, Button, Column, Label, Padding,
     },
-    argvalue::{
-        ArgValue,
-    },
-    env::{
-        Env,
-    },
+    argvalue::ArgValue,
+    env::Env,
 };
 use mynewt::sys::console;
 
 /// The Application State consists of 1 value: `count` of type `u32` (32-bit unsigned int)
+#[derive(Clone, Data, Default)]
 struct State {
     count: u32,
 }
@@ -37,7 +34,7 @@ pub fn launch() {
     //  Build a new window
     let main_window = WindowDesc::new(ui_builder);
     //  Application state is initially 0
-    let data = 0 as State;
+    let data = State::default();
     //  Launch the window with the initial application state
     AppLauncher::with_window(main_window)
         .use_simple_logger()
