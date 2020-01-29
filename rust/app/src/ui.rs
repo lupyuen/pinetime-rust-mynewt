@@ -34,11 +34,11 @@ pub fn launch() {
     //  Build a new window
     let main_window = WindowDesc::new(ui_builder);
     //  Application state is initially 0
-    let data = State::default();
+    let state = State::default();
     //  Launch the window with the initial application state
     AppLauncher::with_window(main_window)
         .use_simple_logger()
-        .launch(data)
+        .launch(state)
         .expect("launch failed");
 }
 
