@@ -25,6 +25,7 @@ use mynewt::sys::console;
 /// The Application State consists of 1 value: `count` of type `u32` (32-bit unsigned int)
 #[derive(Clone, Data, Default)]
 struct State {
+    /// Counter value in our Application State
     count: u32,
 }
 
@@ -43,7 +44,7 @@ pub fn launch() {
 }
 
 /// Build the UI for the window
-fn ui_builder() -> impl Widget<State> {  //  `State` is the application state
+fn ui_builder() -> impl Widget<State> {  //  `State` is the Application State
     console::print("Rust UI builder\n"); console::flush();
     //  Create a line of text based on a counter value
     let text = LocalizedString::new("hello-counter")
