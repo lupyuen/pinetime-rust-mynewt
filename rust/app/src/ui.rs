@@ -12,16 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use druid::widget::{Align, Button, Column, Label, Padding};
-use druid::{AppLauncher, LocalizedString, Widget, WindowDesc};
-use mynewt::{sys::console};
+use druid::{
+    AppLauncher, EventCtx, LocalizedString, Widget, WindowDesc,
+    widget::{
+        Align, Button, Column, Label, Padding,
+    },
+    argvalue::{
+        ArgValue,
+    },
+    env::{
+        Env,
+    },
+};
+use mynewt::sys::console;
 
+/// The Application State consists of 1 value: `count` of type `u32` (32-bit unsigned int)
+type State = u32;
+
+/// Launch the UI application
 pub fn launch() {
     console::print("Rust launch\n"); console::flush();
     //  Build a new window
     let main_window = WindowDesc::new(ui_builder);
     //  Application state is initially 0
-    let data = 0_u32;
+    let data = 0 as State;
     //  Launch the window with the initial application state
     AppLauncher::with_window(main_window)
         .use_simple_logger()
@@ -29,27 +43,17 @@ pub fn launch() {
         .expect("launch failed");
 }
 
-/// Build the UI for the window. The application state consists of 1 value: `count` of type `u32`.
-fn ui_builder() -> impl Widget<u32> {  //  `u32` is the application state
+/// Build the UI for the window
+fn ui_builder() -> impl Widget<State> {  //  `State` is the application state
     console::print("Rust UI builder\n"); console::flush();
     //  Create a line of text based on a counter value
-    let text =
-        LocalizedString::new("hello-counter")
-        .with_arg(
-            "count", 
-            //  Closure that will fetch the counter value...
-            | data: &u32, _env |  //  Closure will receive the application state and environment
-                (*data).into()    //  We return the counter value in the application state
-        );
+    let text = LocalizedString::new("hello-counter")
+        .with_arg("count", on_format_label);  //  Call on_format_label to get label
     //  Create a label widget to display the text
     let label = Label::new(text);
-    //  Create a button widget to increment the counter
-    let button = Button::new(
-        "increment",  //  Text to be shown
-        //  Closure that will be called when button is tapped...
-        | _ctx, data, _env |  //  Closure will receive the context, application state and environment
-            *data += 1        //  We increment the counter
-    );
+    //  Create a button widget labelled "increment" to increment the counter
+    //  Call on_button_press when pressed
+    let button = Button::new("increment", on_button_press);
 
     //  Create a column for the UI
     let mut col = Column::new();
@@ -68,3 +72,24 @@ fn ui_builder() -> impl Widget<u32> {  //  `u32` is the application state
     //  Return the column containing the label and button widgets
     col
 }
+
+///  Callback function that will be called to create the formatted text for the label
+fn on_format_label(data: &State, _env: &Env) -> ArgValue {
+    //  We return the counter, converted into text
+    let counter = *data;  //  Fetch the counter from the application state
+    counter.into()        //  Convert counter into text
+}
+
+///  Callback function that will be called when the button is tapped
+fn on_button_press(_ctx: &mut EventCtx<State>, data: &mut State, _env: &Env) {
+    //  We increment the counter
+    *data += 1  //  Changes the application state
+}
+
+/*  Future update for Visual Rust:
+    //  Add the label and button widgets to the column, centered with padding (5 pixels)
+    col.add([
+        pad!(label, 5.0),
+        pad!(button, 5.0),
+    ]);
+*/
