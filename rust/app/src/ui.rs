@@ -93,3 +93,70 @@ fn on_button_press(_ctx: &mut EventCtx<State>, state: &mut State, _env: &Env) {
         pad!(button, 5.0),
     ]);
 */
+
+/*
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="" id="mQ/]ot*@*I$hCHerd)Qp">count</variable>
+  </variables>
+  <block type="on_start" id="/#!!Quw;xx~*kEf.T!,5" x="63" y="37">
+    <statement name="STMTS">
+      <block type="variables_set" id="CP$4kQNW*^oThdx]%4Xg">
+        <field name="VAR" id="mQ/]ot*@*I$hCHerd)Qp" variabletype="">count</field>
+        <value name="VALUE">
+          <block type="math_number" id="i6fG5z9;FL42h{WK^TzD">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="app" id="eRLnZ_Te.^:tJ0FyDL/1" x="62" y="188">
+    <mutation items="3"></mutation>
+    <value name="ADD0">
+      <block type="label" id="DH@$20QRAWK`V4v=z+(#">
+        <field name="NAME">my_label</field>
+        <field name="PADDING">5</field>
+      </block>
+    </value>
+    <value name="ADD1">
+      <block type="button" id="EJgEa}x:M*Rg45ZI)R^%">
+        <field name="NAME">my_button</field>
+        <field name="PADDING">5</field>
+      </block>
+    </value>
+  </block>
+  <block type="on_label_show" id="#~GhsC^=TV$ncR8Qr^_%" x="62" y="338">
+    <field name="NAME">my_label</field>
+  </block>
+  <block type="variables_get" id="C(rju}N`}M/A%i/g=s*b" x="113" y="362">
+    <field name="VAR" id="mQ/]ot*@*I$hCHerd)Qp" variabletype="">count</field>
+  </block>
+  <block type="on_button_press" id="wsA6Lf+*s3SlaC.%DCxe" x="63" y="463">
+    <field name="NAME">my_button</field>
+    <statement name="NAME">
+      <block type="variables_set" id="yK6x[R]EOnHu/[#SS@H0">
+        <field name="VAR" id="mQ/]ot*@*I$hCHerd)Qp" variabletype="">count</field>
+        <value name="VALUE">
+          <block type="math_arithmetic" id="(.X]NW{SO=nI|4+]8@o|">
+            <field name="OP">ADD</field>
+            <value name="A">
+              <shadow type="math_number" id="iZ+(Vd=H._YROPci~.7g">
+                <field name="NUM">1</field>
+              </shadow>
+              <block type="variables_get" id="!BV+h8;zf0$od{fzmLXa">
+                <field name="VAR" id="mQ/]ot*@*I$hCHerd)Qp" variabletype="">count</field>
+              </block>
+            </value>
+            <value name="B">
+              <shadow type="math_number" id="-K#y+!e]?Azs7{Ho}t66">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+</xml>
+*/
