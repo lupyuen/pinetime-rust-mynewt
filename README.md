@@ -53,7 +53,7 @@ If you are building from this repository from scratch instead of the Released Pa
    git clone https://github.com/lupyuen/pinetime-rust-mynewt
    ```
 
-1. [`repos`](repos) folder should contain the Mynewt source code, installed by the `newt install` command:
+1. [`repos`](repos) folder should contain the Mynewt source code. If your `repos` folder is empty, install the Mynewt source code with the `newt install` command:
 
     ```bash
     cd pinetime-rust-mynewt
