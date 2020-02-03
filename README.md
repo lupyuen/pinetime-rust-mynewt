@@ -116,6 +116,10 @@ If you are building from this repository from scratch instead of the Released Pa
     ```bash
     scripts/nrf52-pi/flash-app.sh
     ```
+    
+1. You may need to edit the scripts to set the right path of OpenOCD. 
+
+   Also for Windows, the ST-Link interface for OpenOCD is `stlink-v2.cfg` instead of `stlink.cfg`.
 
 1. Check this article in case of problems...
 
