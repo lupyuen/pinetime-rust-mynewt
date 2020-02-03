@@ -65,12 +65,11 @@ If you are building from this repository from scratch instead of the Released Pa
 1. Populate the [`rust`](rust) folder with additional sub-repositories that should be cloned in order to build this project.
 
    ```bash
-   cd rust
+   cd pinetime-rust-mynewt/rust
    git clone https://github.com/lupyuen/st7735-lcd-batch-rs
    git clone https://github.com/lupyuen/druid-embedded
    git clone https://github.com/lupyuen/piet-embedded
    git clone https://github.com/lupyuen/kurbo-embedded
-   cd ..
    ```
 
 1. Build the bootloader...
