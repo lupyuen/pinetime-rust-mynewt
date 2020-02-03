@@ -47,6 +47,12 @@ If you are building from this repository from scratch instead of the Released Pa
 
     [`scripts/install-pi.sh`](scripts/install-pi.sh)
 
+1. Clone this repository...
+
+   ```bash
+   git clone https://github.com/lupyuen/pinetime-rust-mynewt
+   ```
+
 1. [`repos`](repos) folder should contain the Mynewt source code, installed by the `newt install` command:
 
     ```bash
