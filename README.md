@@ -43,7 +43,19 @@ The code structure is similar to the earlier article on nRF52...
 
 If you are building from this repository from scratch instead of the Released Packages, here are the steps:
 
-1. Install `rustup` with support for nightly target `thumbv7em-none-eabihf`. Also install Arm toolchain `gcc-arm-none-eabi` and the `newt` build tool for Mynewt.  Refer to this script...
+1. Install `rustup` with support for nightly target `thumbv7em-none-eabihf`. 
+   
+   Follow the instructions at https://rustup.rs/
+   
+   Then execute...
+
+   ```bash
+   rustup default nightly
+   rustup update
+   rustup target add thumbv7em-none-eabihf
+   ```
+
+1. Install Arm toolchain `gcc-arm-none-eabi` and the `newt` build tool for Mynewt.  Refer to this script...
 
     [`scripts/install-pi.sh`](scripts/install-pi.sh)
 
