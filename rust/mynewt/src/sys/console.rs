@@ -1,15 +1,24 @@
 //! Display messages on Arm Semihosting Console (via OpenOCD)
 
+/// Return the Dispatch Address for the OS function whose function name hashed is `hash`
+#[cfg(feature = "dispatch")]  //  With dispatch...
+pub fn get_dispatch_address(hash: u32) -> u32 {
+    0
+}
+
 ///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
 #[cfg(feature = "dispatch")]  //  With dispatch...
 pub fn print(msg: &str) {
     //  Call the Semihosting Console API, which is unsafe.
     let buf = msg.as_ptr();
     let len = msg.len() as u32;
+
     //  TODO: Dispatch the Mynewt C function console_buffer.
-    //  Lookup the address of console_buffer.
-    //  Pass in the hash of function name.
-    //  Call the function.
+    //  TODO: Compute the hash of function name.
+    let hash = 0;  //  TODO
+    //  TODO: Lookup the address of console_buffer.
+    let addr = get_dispatch_address(hash);
+    //  TODO: Call the function.
     unsafe { console_buffer(buf, len); }
 }
 
