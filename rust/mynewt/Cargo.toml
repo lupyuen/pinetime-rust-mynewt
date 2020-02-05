@@ -25,6 +25,8 @@ bench      = false
 # Optional features
 [features]
 default =  [      # Select the conditional compiled features
+    "dispatch",   # Uncomment to support dispatching of OS functions to OS firmware
     # "use_float" # Uncomment to support floating-point e.g. GPS geolocation
 ]
 use_float = []    # Define the feature
+dispatch  = []

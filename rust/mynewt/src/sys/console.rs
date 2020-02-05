@@ -1,6 +1,20 @@
 //! Display messages on Arm Semihosting Console (via OpenOCD)
 
 ///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
+#[cfg(feature = "dispatch")]  //  With dispatch...
+pub fn print(msg: &str) {
+    //  Call the Semihosting Console API, which is unsafe.
+    let buf = msg.as_ptr();
+    let len = msg.len() as u32;
+    //  TODO: Dispatch the Mynewt C function console_buffer.
+    //  Lookup the address of console_buffer.
+    //  Pass in the hash of function name.
+    //  Call the function.
+    unsafe { console_buffer(buf, len); }
+}
+
+///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
+#[cfg(not(feature = "dispatch"))]  //  Previously without dispatch...
 pub fn print(msg: &str) {
     //  Call the Semihosting Console API, which is unsafe.
     unsafe { console_buffer(msg.as_ptr(), msg.len() as u32); }
