@@ -152,6 +152,9 @@ fn infer_function_types(input: syn::ItemFn) -> TokenStream {
             _ => { assert!(false, "Unknown input"); }
         }
     }
+
+    //  TODO: Set the Application State.
+    
     //  Add this function to the global declaration list. Must reload because another process may have updated the file.
     let mut new_func_map = load_decls();
     new_func_map.insert(Box::new(fname), all_para_types);
@@ -388,13 +391,38 @@ fn infer_from_block(all_para: &mut ParaMap, block: &Block) {
     s(block.span());
 }
 
+/// Infer the types of the parameters in `all_para` from the assignment `assign`, e.g. `state.count = 0`
+fn infer_from_assign(all_para: &mut ParaMap, assign: &syn::ExprAssign) {
+    //  println!("infer_from_assign: {:#?}", assign);
+    let syn::ExprAssign{ left, right, .. } = assign;
+    let var_name = quote!{ #left }.to_string().replace(" ", "");  //  e.g. `state.count`
+    println!("var_name: {:#?}", var_name);
+    let value = quote!{ #right }.to_string();  //  e.g. `0`
+    println!("value: {:#?}", value);
+
+    if value.parse::<i32>().is_ok() {
+        //  If value is an integer, the variable must be i32.
+        all_para.insert(Box::new(var_name.clone()), Box::new("i32".to_string()));
+    } else if value.parse::<f32>().is_ok() {
+        //  If value is a float, the variable must be f32.
+        all_para.insert(Box::new(var_name.clone()), Box::new("f32".to_string()));
+    } else if value.as_str().chars().nth(0) == Some('"') {
+        //  If value is a string, the variable must be &str.
+        all_para.insert(Box::new(var_name.clone()), Box::new("&str".to_string()));
+    }
+    //  TODO: Handle function calls for value.
+    println!("infer_from_assign: {:#?}", all_para);
+}
+
 /// Infer the types of the parameters in `all_para` recursively from the expression `expr`
 fn infer_from_expr(all_para: &mut ParaMap, expr: &Expr) {
     //  println!("expr: {:#?}", expr);
     s(expr.span());
     match expr {
         //  `fname( ... )`
-        Expr::Call(expr) => { infer_from_call(all_para, &expr); }
+        Expr::Call(expr) => { 
+            infer_from_call(all_para, &expr); 
+        }
         //  `... + ...`
         Expr::Binary(expr) => {
             infer_from_expr(all_para, &expr.left);
@@ -407,6 +435,10 @@ fn infer_from_expr(all_para: &mut ParaMap, expr: &Expr) {
         //  `let x = ...`
         Expr::Let(expr) => {
             infer_from_expr(all_para, &expr.expr);            
+        }
+        //  State Creation: `state.count = 0`
+        Expr::Assign(expr) => {            
+            infer_from_assign(all_para, &expr); 
         }
         //  `if cond { ... } else { ... }`
         Expr::If(expr) => {
@@ -447,8 +479,7 @@ fn infer_from_expr(all_para: &mut ParaMap, expr: &Expr) {
         Expr::Macro(expr) => {
             infer_from_macro(all_para, &expr);
         }
-
-        //  TODO: Box, Array, MethodCall, Tuple, Match, Closure, Unsafe, Block, Assign, AssignOp
+        //  TODO: Box, Array, MethodCall, Tuple, Match, Closure, Unsafe, Block, AssignOp
 
         //  Not interested: InPlace, Field, Index, Range, Path, Reference, Break, Continue, Return, Struct, Repeat, Async, TryBlock, Yield, Verbatim
         _ => {}
