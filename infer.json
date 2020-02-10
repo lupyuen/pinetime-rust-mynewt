@@ -1,8 +1,16 @@
 {
-    "handle_sensor_data": [
+    "on_my_button_press": [
         [
-            "sensor_data",
-            "&SensorValue"
+            "ctx",
+            "_"
+        ],
+        [
+            "state",
+            "_"
+        ],
+        [
+            "env",
+            "_"
         ]
     ],
     "start_sensor_listener": [
@@ -23,10 +31,26 @@
             "u32"
         ]
     ],
+    "handle_sensor_data": [
+        [
+            "sensor_data",
+            "&SensorValue"
+        ]
+    ],
     "send_sensor_data": [
         [
             "sensor_data",
             "&SensorValue"
+        ]
+    ],
+    "on_my_label_show": [
+        [
+            "state",
+            "_"
+        ],
+        [
+            "env",
+            "_"
         ]
     ]
 }

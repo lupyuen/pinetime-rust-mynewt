@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-//! Mynewt Macro that infers the types in a Rust function
+//! Mynewt Macro that infers the types in a Rust function or struct
 extern crate proc_macro;
 use proc_macro::{
     TokenStream,
