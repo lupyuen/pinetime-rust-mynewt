@@ -48,8 +48,10 @@ const MYNEWT_DECL_JSON: &str = r#"{
     "sensor::set_poll_rate_ms"          : [ ["devname", "&Strn"],            ["poll_rate",   "u32"]             ],
     "sensor::mgr_find_next_bydevname"   : [ ["devname", "&Strn"],            ["prev_cursor", "*mut sensor"]     ],
     "sensor::register_listener"         : [ ["sensor",  "*mut sensor"],      ["listener",    "sensor_listener"] ],
-    "sensor::new_sensor_listener"       : [ ["sensor_key", "&'static Strn"], ["sensor_type", "sensor_type_t"],  ["listener_func", "SensorValueFunc"] ]
-}"#;
+    "sensor::new_sensor_listener"       : [ ["sensor_key", "&'static Strn"], ["sensor_type", "sensor_type_t"],  ["listener_func", "SensorValueFunc"] ],
+    "on_my_label_show"                  : [ ["state", "&State"],             ["env", "&Env"] ],
+    "on_my_button_press"                : [ ["ctx", "&mut EventCtx<State>"], ["state", "&mut State"],           ["env", "&Env"] ]
+}"#;  //  TODO: Generalise `on_..._show` and `on_..._press`
 
 /// File for storing type inference across builds
 const INFER_FILE: &str = "infer.json";
@@ -203,9 +205,8 @@ fn infer_struct_types(input: syn::ItemStruct) -> TokenStream {
     unsafe { CURRENT_FUNC = Some(Box::new(struct_name.clone())); }
     //  println!("struct_name: {:#?}", struct_name);
 
-    //  Get the list of fields and their types
+    //  Get the list of fields and their inferred types
     //  let mut all_para: ParaMap = HashMap::new();
-
     if let syn::Fields::Named(fields) = &input.fields {
         //  Clone the fields for updating.
         let mut new_fields = fields.named.clone();
@@ -215,16 +216,13 @@ fn infer_struct_types(input: syn::ItemStruct) -> TokenStream {
             if let Some(ident) = &field.ident {  //  e.g. `count`
                 //  all_para.insert(Box::new(ident.to_string()), Box::new("_".to_string()));
                 //  s(field.span());
-
                 //  Fetch the inferred type.
                 let type_str = get_inferred_type(&struct_name, &ident.to_string());
-
                 //  Populate the inferred type into the struct definition.
                 if type_str != "_" {
                     let tokens = type_str.parse().unwrap();
                     field.ty = parse_macro_input!(tokens as syn::Type);
                 }
-
                 /*
                 //  Remember the field type globally e.g. `[count, i32]`
                 let para_type: ParaType = vec![Box::new(ident.to_string()), Box::new(type_str.to_string())];
@@ -232,7 +230,6 @@ fn infer_struct_types(input: syn::ItemStruct) -> TokenStream {
                 */
             }
         }
-
         //  Populate the inferred types into the old struct definition.
         let new_fields_named = syn::FieldsNamed {
             named: new_fields,
@@ -248,15 +245,6 @@ fn infer_struct_types(input: syn::ItemStruct) -> TokenStream {
         };
         return expanded.into()
     }
-
-    /*
-    //  Add this struct to the global declaration list. Must reload because another process may have updated the file.
-    //  TODO: Is this needed?
-    let mut new_func_map = load_decls();
-    new_func_map.insert(Box::new(struct_name), all_para_types);
-    save_decls(&new_func_map);
-    */    
-    //  assert!(false, "Stopped for development");
     TokenStream::new()  //  TODO: Return the previous struct
 }
 

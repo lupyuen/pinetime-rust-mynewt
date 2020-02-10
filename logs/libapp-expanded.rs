@@ -5,8 +5,8 @@ on_start: updated infer.json
 on_my_label_show: updated infer.json
 infer_from_assign: {
     "env": "_",
-    "state": "_",
     "ctx": "_",
+    "state": "_",
 }
 on_my_button_press: updated infer.json
 #![feature(prelude_import)]
