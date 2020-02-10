@@ -180,13 +180,15 @@ fn infer_struct_types(input: syn::ItemStruct) -> TokenStream {
         //  For each field e.g. `count: _`
         for field in &fields.named {
             //  Mark each field for Type Inference.
-            println!("field: {:#?}", field);
-            if let Some(ident) = &field.ident {
+            //  println!("field: {:#?}", field);
+            if let Some(ident) = &field.ident {  //  e.g. `count`
                 all_para.insert(Box::new(ident.to_string()), Box::new("_".to_string()));
                 s(field.span());
 
+                //  TODO: Fetch the type
                 let type_str = "_";
-                //  Remember the parameter type globally e.g. `[sensor, &Strn]`
+
+                //  Remember the field type globally e.g. `[count, i32]`
                 let para_type: ParaType = vec![Box::new(ident.to_string()), Box::new(type_str.to_string())];
                 all_para_types.push(para_type);                
             }
@@ -199,7 +201,7 @@ fn infer_struct_types(input: syn::ItemStruct) -> TokenStream {
     save_decls(&new_func_map);
     
     //assert!(false, "Stopped for development");
-    TokenStream::new()
+    TokenStream::new()  //  TODO: Return the updated struct
 }
 
 /// Infer the types of the parameters in `all_para` recursively from the function call `call`
