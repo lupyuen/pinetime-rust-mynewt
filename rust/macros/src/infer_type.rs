@@ -164,6 +164,40 @@ fn infer_function_types(input: syn::ItemFn) -> TokenStream {
 
 /// Given a Rust struct definition, infer the placeholder types in the struct
 fn infer_struct_types(input: syn::ItemStruct) -> TokenStream {
+    //  Process the Struct Definition
+    //  e.g. `struct State { count: _, }`
+
+    //  `struct_name` is struct name e.g. `Struct`
+    let struct_name = input.ident.to_string();
+    unsafe { CURRENT_FUNC = Some(Box::new(struct_name.clone())); }
+    //  println!("struct_name: {:#?}", struct_name);
+
+    //  Get the list of fields and their types
+    let mut all_para: ParaMap = HashMap::new();
+    let mut all_para_types: ParaTypeList = Vec::new();
+
+    if let syn::Fields::Named(fields) = &input.fields {
+        //  For each field e.g. `count: _`
+        for field in &fields.named {
+            //  Mark each field for Type Inference.
+            println!("field: {:#?}", field);
+            if let Some(ident) = &field.ident {
+                all_para.insert(Box::new(ident.to_string()), Box::new("_".to_string()));
+                s(field.span());
+
+                let type_str = "_";
+                //  Remember the parameter type globally e.g. `[sensor, &Strn]`
+                let para_type: ParaType = vec![Box::new(ident.to_string()), Box::new(type_str.to_string())];
+                all_para_types.push(para_type);                
+            }
+        }
+    }
+        
+    //  Add this function to the global declaration list. Must reload because another process may have updated the file.
+    let mut new_func_map = load_decls();
+    new_func_map.insert(Box::new(struct_name), all_para_types);
+    save_decls(&new_func_map);
+    
     //assert!(false, "Stopped for development");
     TokenStream::new()
 }
