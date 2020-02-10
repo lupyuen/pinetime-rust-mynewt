@@ -54,13 +54,27 @@ const MYNEWT_DECL_JSON: &str = r#"{
 /// File for storing type inference across builds
 const INFER_FILE: &str = "infer.json";
 
-/// Given a Rust function definition, infer the placeholder types in the function
+/// Given a Rust function or struct definition, infer the placeholder types in the function or struct
 pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream {
     //  println!("attr: {:#?}", attr); println!("item: {:#?}", item);
-    //  Parse the macro input as Rust function definition.
-    let input: syn::ItemFn = parse_macro_input!(item as syn::ItemFn);
-    //  println!("input: {:#?}", input);
 
+    //  Parse the macro input.
+    let input = parse_macro_input!(item as syn::Item);
+    //  println!("input: {:#?}", input);    
+    match input {
+        //  If it's a function, infer type types in the function.
+        syn::Item::Fn(item_fn) => infer_function_types(item_fn),
+        //  If it's a struct, infer type types in the struct.
+        syn::Item::Struct(item_struct) => infer_struct_types(item_struct),
+        _ => { 
+            assert!(false, "infer_type may be used for functions and structs only");
+            TokenStream::new()
+        },
+    }
+}
+
+/// Given a Rust function definition, infer the placeholder types in the function
+fn infer_function_types(input: syn::ItemFn) -> TokenStream {
     //  Process the Function Declaration
     //  e.g. `fn start_sensor_listener(sensor: _, sensor_type: _, poll_time: _) -> MynewtResult<()>`
     let sig = &input.sig;
@@ -146,6 +160,12 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
         #output
     };
     expanded.into()
+}
+
+/// Given a Rust struct definition, infer the placeholder types in the struct
+fn infer_struct_types(input: syn::ItemStruct) -> TokenStream {
+    //assert!(false, "Stopped for development");
+    TokenStream::new()
 }
 
 /// Infer the types of the parameters in `all_para` recursively from the function call `call`
