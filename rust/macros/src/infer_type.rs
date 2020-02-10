@@ -153,11 +153,27 @@ fn infer_function_types(input: syn::ItemFn) -> TokenStream {
         }
     }
 
-    //  TODO: Set the Application State.
+    //  Populate the types in the Application State.
+    let mut state: ParaTypeList = Vec::new();
+    for (field_name, field_type) in &all_para {
+        //  State variables begin with `state.`
+        if !field_name.starts_with("state.") { continue; }
+        if field_type.to_string() == "_" { continue; }  //  No inferred type
+
+        //  Remember the state type globally e.g. `[count, i32]`
+        let state_item: ParaType = vec![
+            Box::new(field_name.get(6..).unwrap().to_string()), 
+            Box::new(field_type.to_string())
+        ];
+        state.push(state_item);                        
+    }
     
     //  Add this function to the global declaration list. Must reload because another process may have updated the file.
     let mut new_func_map = load_decls();
     new_func_map.insert(Box::new(fname), all_para_types);
+    if state.len() > 0 {
+        new_func_map.insert(Box::new("State".to_string()), state);
+    }
     save_decls(&new_func_map);
 
     //  Combine the new Rust function definition with the old function body.
