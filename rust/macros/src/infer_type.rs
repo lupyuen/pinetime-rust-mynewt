@@ -62,9 +62,9 @@ pub fn infer_type_internal(_attr: TokenStream, item: TokenStream) -> TokenStream
     let input = parse_macro_input!(item as syn::Item);
     //  println!("input: {:#?}", input);    
     match input {
-        //  If it's a function, infer type types in the function.
+        //  If it's a function, infer the types in the function declaration.
         syn::Item::Fn(item_fn) => infer_function_types(item_fn),
-        //  If it's a struct, infer type types in the struct.
+        //  If it's a struct, infer the types inside the struct.
         syn::Item::Struct(item_struct) => infer_struct_types(item_struct),
         _ => { 
             assert!(false, "infer_type may be used for functions and structs only");
@@ -106,6 +106,7 @@ fn infer_function_types(input: syn::ItemFn) -> TokenStream {
     }
 
     //  Add the Application State fields for type inference, e.g. `struct State { count: _, }` which becomes `state.count`
+    //  TODO: Is this needed?
     let state = get_decl("State");
     //  println!("state: {:#?}", state);
     for field in state {
@@ -203,6 +204,21 @@ fn infer_struct_types(input: syn::ItemStruct) -> TokenStream {
     unsafe { CURRENT_FUNC = Some(Box::new(struct_name.clone())); }
     //  println!("struct_name: {:#?}", struct_name);
 
+    /*
+    //  Add the Application State fields for type inference, e.g. `struct State { count: _, }` which becomes `state.count`
+    //  TODO: Is this needed?
+    let state = get_decl("State");
+    //  println!("state: {:#?}", state);
+    for field in state {
+        let field_name = field[0].to_string();
+        let field_type = field[1].to_string();
+        if field_type != "_" { continue; }  //  Skip if already inferred
+        all_para.insert(Box::new("state.".to_string() + &field_name), Box::new("_".to_string()));
+        //  all_para.insert(Box::new(field_name), Box::new("_".to_string()));
+    }
+    println!("all_para: {:#?}", all_para);
+    */
+
     //  Get the list of fields and their types
     let mut all_para: ParaMap = HashMap::new();
     let mut all_para_types: ParaTypeList = Vec::new();
@@ -226,13 +242,30 @@ fn infer_struct_types(input: syn::ItemStruct) -> TokenStream {
         }
     }
         
-    //  Add this function to the global declaration list. Must reload because another process may have updated the file.
+    //  Add this struct to the global declaration list. Must reload because another process may have updated the file.
+    //  TODO: Is this needed?
     let mut new_func_map = load_decls();
     new_func_map.insert(Box::new(struct_name), all_para_types);
     save_decls(&new_func_map);
+
+    /*
+    //  Populate the inferred types into the old struct definition.
+    let new_sig = syn::Signature {
+        inputs: new_inputs,
+        ..sig.clone()
+    };
+    */
+    let output = syn::ItemStruct {
+        ..input
+    };
+    //  Return the new Rust struct definition to the Rust Compiler.
+    let expanded = quote! {        
+        #output
+    };
+    expanded.into()
     
-    //assert!(false, "Stopped for development");
-    TokenStream::new()  //  TODO: Return the updated struct
+    //  assert!(false, "Stopped for development");
+    //  TokenStream::new()  //  TODO: Return the updated struct
 }
 
 /// Infer the types of the parameters in `all_para` recursively from the function call `call`

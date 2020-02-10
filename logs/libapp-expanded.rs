@@ -9,24 +9,24 @@ infer_from_assign: {
 }
 on_start: updated infer.json
 all_para: {
+    "state.count": "_",
     "state": "_",
     "env": "_",
-    "state.count": "_",
 }
 on_my_label_show: updated infer.json
 all_para: {
-    "state": "_",
-    "state.count": "_",
     "ctx": "_",
+    "state": "_",
     "env": "_",
+    "state.count": "_",
 }
 var_name: "state.count"
 value: "state . count + 1"
 infer_from_assign: {
-    "state": "_",
-    "state.count": "_",
     "ctx": "_",
+    "state": "_",
     "env": "_",
+    "state.count": "_",
 }
 on_my_button_press: updated infer.json
 #![feature(prelude_import)]
@@ -713,6 +713,34 @@ mod visual {
     use druid::{AppLauncher, Data, EventCtx, LocalizedString, Widget,
                 WindowDesc, widget::{Align, Button, Column, Label, Padding},
                 argvalue::ArgValue, env::Env};
+    #[doc = " Application State"]
+    struct State {
+        count: _,
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::clone::Clone for State {
+        #[inline]
+        fn clone(&self) -> State {
+            match *self {
+                State { count: ref __self_0_0 } =>
+                State{count: ::core::clone::Clone::clone(&(*__self_0_0)),},
+            }
+        }
+    }
+    impl druid::Data for State {
+        fn same(&self, other: &Self) -> bool {
+            druid::Data::same(&self.count, &other.count)
+        }
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::default::Default for State {
+        #[inline]
+        fn default() -> State {
+            State{count: ::core::default::Default::default(),}
+        }
+    }
     #[doc = " Will be run upon startup to launch the app"]
     pub fn on_start() -> MynewtResult<()> {
         console::print("on_start\n");
