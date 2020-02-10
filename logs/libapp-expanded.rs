@@ -1,32 +1,12 @@
-State: updated infer.json
-all_para: {
-    "state.count": "_",
-}
-var_name: "state.count"
-value: "0"
 infer_from_assign: {
     "state.count": "i32",
 }
 on_start: updated infer.json
-all_para: {
-    "state.count": "_",
-    "state": "_",
-    "env": "_",
-}
 on_my_label_show: updated infer.json
-all_para: {
-    "ctx": "_",
-    "state": "_",
-    "env": "_",
-    "state.count": "_",
-}
-var_name: "state.count"
-value: "state . count + 1"
 infer_from_assign: {
-    "ctx": "_",
-    "state": "_",
     "env": "_",
-    "state.count": "_",
+    "state": "_",
+    "ctx": "_",
 }
 on_my_button_press: updated infer.json
 #![feature(prelude_import)]
@@ -715,7 +695,7 @@ mod visual {
                 argvalue::ArgValue, env::Env};
     #[doc = " Application State"]
     struct State {
-        count: _,
+        count: i32,
     }
     #[automatically_derived]
     #[allow(unused_qualifications)]

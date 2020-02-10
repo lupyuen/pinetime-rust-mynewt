@@ -116,7 +116,6 @@ fn infer_function_types(input: syn::ItemFn) -> TokenStream {
         all_para.insert(Box::new("state.".to_string() + &field_name), Box::new("_".to_string()));
         //  all_para.insert(Box::new(field_name), Box::new("_".to_string()));
     }
-    println!("all_para: {:#?}", all_para);
 
     //  Infer the types from the Block of code inside the function.
     let block = input.block;
@@ -144,7 +143,7 @@ fn infer_function_types(input: syn::ItemFn) -> TokenStream {
                 if type_str != "_" {
                     //  If the type exists, remember it.
                     let tokens = type_str.parse().unwrap();
-                    arg_captured.ty =  Box::new(parse_macro_input!(tokens as syn::Type));
+                    arg_captured.ty = Box::new(parse_macro_input!(tokens as syn::Type));
                 }
                 //  Remember the parameter type globally e.g. `[sensor, &Strn]`
                 let para_type: ParaType = vec![Box::new(para), Box::new(type_str.to_string())];
@@ -204,68 +203,74 @@ fn infer_struct_types(input: syn::ItemStruct) -> TokenStream {
     unsafe { CURRENT_FUNC = Some(Box::new(struct_name.clone())); }
     //  println!("struct_name: {:#?}", struct_name);
 
-    /*
-    //  Add the Application State fields for type inference, e.g. `struct State { count: _, }` which becomes `state.count`
-    //  TODO: Is this needed?
-    let state = get_decl("State");
-    //  println!("state: {:#?}", state);
-    for field in state {
-        let field_name = field[0].to_string();
-        let field_type = field[1].to_string();
-        if field_type != "_" { continue; }  //  Skip if already inferred
-        all_para.insert(Box::new("state.".to_string() + &field_name), Box::new("_".to_string()));
-        //  all_para.insert(Box::new(field_name), Box::new("_".to_string()));
-    }
-    println!("all_para: {:#?}", all_para);
-    */
-
     //  Get the list of fields and their types
-    let mut all_para: ParaMap = HashMap::new();
-    let mut all_para_types: ParaTypeList = Vec::new();
+    //  let mut all_para: ParaMap = HashMap::new();
 
     if let syn::Fields::Named(fields) = &input.fields {
+        //  Clone the fields for updating.
+        let mut new_fields = fields.named.clone();
         //  For each field e.g. `count: _`
-        for field in &fields.named {
-            //  Mark each field for Type Inference.
+        for field in &mut new_fields {
             //  println!("field: {:#?}", field);
             if let Some(ident) = &field.ident {  //  e.g. `count`
-                all_para.insert(Box::new(ident.to_string()), Box::new("_".to_string()));
-                s(field.span());
+                //  all_para.insert(Box::new(ident.to_string()), Box::new("_".to_string()));
+                //  s(field.span());
 
-                //  TODO: Fetch the type
-                let type_str = "_";
+                //  Fetch the inferred type.
+                let type_str = get_inferred_type(&struct_name, &ident.to_string());
 
+                //  Populate the inferred type into the struct definition.
+                if type_str != "_" {
+                    let tokens = type_str.parse().unwrap();
+                    field.ty = parse_macro_input!(tokens as syn::Type);
+                }
+
+                /*
                 //  Remember the field type globally e.g. `[count, i32]`
                 let para_type: ParaType = vec![Box::new(ident.to_string()), Box::new(type_str.to_string())];
                 all_para_types.push(para_type);                
+                */
             }
         }
+
+        //  Populate the inferred types into the old struct definition.
+        let new_fields_named = syn::FieldsNamed {
+            named: new_fields,
+            ..fields.clone()
+        };
+        let output = syn::ItemStruct {
+            fields: syn::Fields::Named(new_fields_named),
+            ..input
+        };
+        //  Return the new Rust struct definition to the Rust Compiler.
+        let expanded = quote! {        
+            #output
+        };
+        return expanded.into()
     }
-        
+
+    /*
     //  Add this struct to the global declaration list. Must reload because another process may have updated the file.
     //  TODO: Is this needed?
     let mut new_func_map = load_decls();
     new_func_map.insert(Box::new(struct_name), all_para_types);
     save_decls(&new_func_map);
-
-    /*
-    //  Populate the inferred types into the old struct definition.
-    let new_sig = syn::Signature {
-        inputs: new_inputs,
-        ..sig.clone()
-    };
-    */
-    let output = syn::ItemStruct {
-        ..input
-    };
-    //  Return the new Rust struct definition to the Rust Compiler.
-    let expanded = quote! {        
-        #output
-    };
-    expanded.into()
-    
+    */    
     //  assert!(false, "Stopped for development");
-    //  TokenStream::new()  //  TODO: Return the updated struct
+    TokenStream::new()  //  TODO: Return the previous struct
+}
+
+/// Return the previously inferred type for the function/struct and parameter/variable name
+fn get_inferred_type(function_name: &str, para_name: &str) -> String {
+    //  Populate the previously inferred types into the old struct definition.
+    let state = get_decl(function_name);
+    //  println!("state: {:#?}", state);
+    for field in state {
+        let field_name = field[0].to_string();  //  e.g. `count`
+        let field_type = field[1].to_string();  //  e.g. `i32`
+        if field_name == para_name { return field_type; }
+    }
+    "_".to_string()  //  Field not found
 }
 
 /// Infer the types of the parameters in `all_para` recursively from the function call `call`
@@ -445,9 +450,9 @@ fn infer_from_assign(all_para: &mut ParaMap, assign: &syn::ExprAssign) {
     //  println!("infer_from_assign: {:#?}", assign);
     let syn::ExprAssign{ left, right, .. } = assign;
     let var_name = quote!{ #left }.to_string().replace(" ", "");  //  e.g. `state.count`
-    println!("var_name: {:#?}", var_name);
+    //  println!("var_name: {:#?}", var_name);
     let value = quote!{ #right }.to_string();  //  e.g. `0`
-    println!("value: {:#?}", value);
+    //  println!("value: {:#?}", value);
 
     if value.parse::<i32>().is_ok() {
         //  If value is an integer, the variable must be i32.
