@@ -105,6 +105,18 @@ fn infer_function_types(input: syn::ItemFn) -> TokenStream {
         }
     }
 
+    //  Add the Application State fields for type inference, e.g. `struct State { count: _, }` which becomes `state.count`
+    let state = get_decl("State");
+    //  println!("state: {:#?}", state);
+    for field in state {
+        let field_name = field[0].to_string();
+        let field_type = field[1].to_string();
+        if field_type != "_" { continue; }  //  Skip if already inferred
+        all_para.insert(Box::new("state.".to_string() + &field_name), Box::new("_".to_string()));
+        //  all_para.insert(Box::new(field_name), Box::new("_".to_string()));
+    }
+    println!("all_para: {:#?}", all_para);
+
     //  Infer the types from the Block of code inside the function.
     let block = input.block;
     infer_from_block(&mut all_para, &block);

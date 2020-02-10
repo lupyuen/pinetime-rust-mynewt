@@ -22,6 +22,7 @@ struct State {
 }
 
 /// Will be run upon startup to launch the app
+#[infer_type]  //  Infer the missing types
 pub fn on_start() -> MynewtResult<()> {
     console::print("on_start\n");
     //  Build a new window
