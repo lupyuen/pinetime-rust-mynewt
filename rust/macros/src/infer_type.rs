@@ -175,7 +175,7 @@ fn infer_function_types(input: syn::ItemFn) -> TokenStream {
 
         //  Remember the state type globally e.g. `[count, i32]`
         let state_item: ParaType = vec![
-            Box::new(field_name.get(6..).unwrap().to_string()), 
+            Box::new(field_name.get(6..).unwrap().to_string()),  //  Remove `state.`
             Box::new(field_type.to_string())
         ];
         state.push(state_item);                        
@@ -551,9 +551,19 @@ lazy_static::lazy_static! {
 
 /// Return the Mynewt API function declaration or previously-inferred parameter types for the function named `fname`
 fn get_decl(fname: &str) -> &ParaTypeList {
+    //  TODO: Generalise for UI events `on_..._show` and `on_..._press`
     if let Some(para_type_list) = MYNEWT_DECL.get(&fname.to_string()) { return &para_type_list }
     if let Some(para_type_list) = SOURCE_DECL.get(&fname.to_string()) { return &para_type_list }
     &EMPTY_PARA_TYPE_LIST
+}
+
+/// Return the return type for the function named `fname`
+fn get_return_type(fname: &str) -> String {
+    //  TODO: Generalise for UI events `on_..._show` and `on_..._press`
+    match fname {
+        "on_my_label_show" => "MynewtResult<ArgValue>".to_string(),
+        _ => "_".to_string()
+    }
 }
 
 /// Load the function declarations from a JSON file.
