@@ -87,6 +87,9 @@ fn infer_function_types(input: syn::ItemFn) -> TokenStream {
     unsafe { CURRENT_FUNC = Some(Box::new(fname.clone())); }
     //  println!("fname: {:#?}", fname);
 
+    //  If this is a known function prototype e.g. `on_my_button_press`, get the prototype para types and apply later.
+    let mut known_paras = get_decl(&fname).clone();
+
     //  For each parameter e.g. `sensor`, `sensor_type`, `poll_time`...
     let mut all_para: ParaMap = HashMap::new();
     for input in &sig.inputs {
@@ -100,12 +103,20 @@ fn infer_function_types(input: syn::ItemFn) -> TokenStream {
                 //  `para` is the name of the parameter e.g. `sensor`
                 let para = quote!{ #pat }.to_string();
                 //  println!("para: {:#?}", para);
-                all_para.insert(Box::new(para), Box::new("_".to_string()));
+
+                //  If this is a known function prototype e.g. `on_my_button_press`, apply the prototype para type.
+                let mut para_type = "_".to_string();
+                if known_paras.len() > 0 {
+                    para_type = known_paras[0][1].to_string();
+                    known_paras = known_paras[1..].to_vec();
+                }
+                all_para.insert(Box::new(para), Box::new(para_type));
                 s(pat.span());
             }
             _ => { assert!(false, "Unknown input"); }
         }
     }
+    //  println!("all_para: {:#?}", all_para);
 
     //  Add the Application State fields for type inference, e.g. `struct State { count: _, }` which becomes `state.count`
     //  TODO: Is this needed?

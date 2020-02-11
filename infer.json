@@ -5,29 +5,29 @@
             "i32"
         ]
     ],
+    "on_start": [],
     "on_my_label_show": [
         [
             "state",
-            "_"
+            "&State"
         ],
         [
             "env",
-            "_"
+            "&Env"
         ]
     ],
-    "on_start": [],
     "on_my_button_press": [
         [
             "ctx",
-            "_"
+            "&mut EventCtx<State>"
         ],
         [
             "state",
-            "_"
+            "&mut State"
         ],
         [
             "env",
-            "_"
+            "&Env"
         ]
     ]
 }

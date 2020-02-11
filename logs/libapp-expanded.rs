@@ -1,12 +1,22 @@
+all_para: {}
 infer_from_assign: {
     "state.count": "i32",
 }
 on_start: updated infer.json
+all_para: {
+    "env": "&Env",
+    "state": "&State",
+}
 on_my_label_show: updated infer.json
+all_para: {
+    "ctx": "&mut EventCtx<State>",
+    "env": "&Env",
+    "state": "&mut State",
+}
 infer_from_assign: {
-    "env": "_",
-    "ctx": "_",
-    "state": "_",
+    "ctx": "&mut EventCtx<State>",
+    "env": "&Env",
+    "state": "&mut State",
 }
 on_my_button_press: updated infer.json
 #![feature(prelude_import)]
@@ -695,7 +705,7 @@ mod visual {
                 argvalue::ArgValue, env::Env};
     #[doc = " Application State"]
     struct State {
-        count: i32,
+        count: _,
     }
     #[automatically_derived]
     #[allow(unused_qualifications)]
@@ -746,13 +756,14 @@ mod visual {
     }
     #[doc =
       "  Callback function that will be called to create the formatted text for the label my_label"]
-    fn on_my_label_show(state: _, env: _) -> MynewtResult {
+    fn on_my_label_show(state: &State, env: &Env) -> MynewtResult {
         console::print("on_my_label_show\n");
         Ok(state.count)
     }
     #[doc =
       "  Callback function that will be called when the button my_button is pressed"]
-    fn on_my_button_press(ctx: _, state: _, env: _) -> MynewtResult<()> {
+    fn on_my_button_press(ctx: &mut EventCtx<State>, state: &mut State,
+                          env: &Env) -> MynewtResult<()> {
         console::print("on_my_button_press\n");
         state.count = state.count + 1;
         Ok(())
