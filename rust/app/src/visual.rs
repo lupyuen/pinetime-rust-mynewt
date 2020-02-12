@@ -72,7 +72,7 @@ fn ui_builder() -> impl Widget {  //  `State` is the Application State
     );
     //  Return the column containing the widgets
     col
-}
+}  //  ;
 
 /// Callback function that will be called to create the formatted text for the label `my_label`
 #[infer_type]  //  Infer the missing types
