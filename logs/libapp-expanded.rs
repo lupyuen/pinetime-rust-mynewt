@@ -1,14 +1,6 @@
-infer_from_assign: {
-    "state.count": "i32",
-}
 on_start: updated infer.json
 ui_builder: updated infer.json
 on_my_label_show: updated infer.json
-infer_from_assign: {
-    "ctx": "&mut EventCtx<State>",
-    "state": "&mut State",
-    "env": "&Env",
-}
 on_my_button_press: updated infer.json
 #![feature(prelude_import)]
 /*
@@ -737,9 +729,9 @@ mod visual {
         console::flush();
         let my_label_text =
             LocalizedString::new("hello-counter").with_arg("count",
-                                                           on_my_label_show);
+                                                           on_my_label_show.into());
         let my_label = Label::new(my_label_text);
-        let my_button = Button::new("increment", on_my_button_press);
+        let my_button = Button::new("increment", on_my_button_press.into());
         let mut col = Column::new();
         col.add_child(Align::centered(Padding::new(5.0, my_label)), 1.0);
         col.add_child(Padding::new(5.0, my_button), 1.0);

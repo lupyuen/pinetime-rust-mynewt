@@ -46,11 +46,11 @@ fn ui_builder() -> impl Widget {  //  `State` is the Application State
     console::print("Rust UI builder\n"); console::flush();
     //  Create a line of text
     let my_label_text = LocalizedString::new("hello-counter")
-        .with_arg("count", on_my_label_show);  //  Call `on_my_label_show` to get label text
+        .with_arg("count", on_my_label_show.into());  //  Call `on_my_label_show` to get label text
     //  Create a label widget my_label
     let my_label = Label::new(my_label_text);
     //  Create a button widget my_button
-    let my_button = Button::new("increment", on_my_button_press);  //  Call `on_my_button_press` when pressed
+    let my_button = Button::new("increment", on_my_button_press.into());  //  Call `on_my_button_press` when pressed
 
     //  Create a column
     let mut col = Column::new();

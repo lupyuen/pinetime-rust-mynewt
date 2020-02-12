@@ -471,7 +471,7 @@ fn infer_from_assign(all_para: &mut ParaMap, assign: &syn::ExprAssign) {
         all_para.insert(Box::new(var_name.clone()), Box::new("&str".to_string()));
     }
     //  TODO: Handle function calls for value.
-    println!("infer_from_assign: {:#?}", all_para);
+    //  println!("infer_from_assign: {:#?}", all_para);
 }
 
 /// Infer the types of the parameters in `all_para` recursively from the expression `expr`
