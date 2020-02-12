@@ -87,3 +87,154 @@ fn on_my_button_press(ctx: _, state: _, env: _) {
     console::print("on_my_button_press\n");
     state.count = state.count + 1;
 }
+
+////////////////////////////// TODO: Generate via Data trait
+
+/// Static list of `Widgets` just for embedded platforms
+/// TODO: Generate via Data trait
+static mut WIDGET_STATE_STATE: [ WidgetType<State>; MAX_WIDGETS ] = [ 
+    WidgetType::None, WidgetType::None, WidgetType::None, WidgetType::None, WidgetType::None,
+    WidgetType::None, WidgetType::None, WidgetType::None, WidgetType::None, WidgetType::None,
+];
+
+/// Specialised Trait will store `Widgets` statically on embedded platforms
+/// TODO: Generate via Data trait
+impl GlobalWidgets<State> for WidgetBox<State> {
+    /// Fetch the static `Widgets` for the Data type
+    fn get_widgets(&self) -> &'static mut [ WidgetType<State> ] {
+        unsafe { &mut WIDGET_STATE_STATE }
+    }
+    /// Add a `Widget` for the Data type
+    fn add_widget(&self, widget: WidgetType<State>) {
+        assert!(self.0 < MAX_WIDGETS as u32, "too many widgets");
+        unsafe { WIDGET_STATE_STATE[self.0 as usize] = widget; }        
+    }    
+}
+
+/// ALL_WINDOWS[i] is the WindowBox for the Window with window ID i. i=0 is not used.
+/// TODO: Generate via Data trait
+static mut ALL_WINDOWS_STATE: [ WindowBox<State>; MAX_WINDOWS ] = [ ////
+    WindowBox::<State>( WindowType::None ), 
+    WindowBox::<State>( WindowType::None ), 
+    WindowBox::<State>( WindowType::None ), 
+];
+/// ALL_HANDLERS[i] is the Window Handler for the Window with window ID i. i=0 is not used.
+/// TODO: Generate via Data trait
+static mut ALL_HANDLERS_STATE: [ DruidHandler<State>; MAX_WINDOWS ] = [ ////
+    DruidHandler::<State> { window_id: WindowId(0), phantom: PhantomData },
+    DruidHandler::<State> { window_id: WindowId(0), phantom: PhantomData },
+    DruidHandler::<State> { window_id: WindowId(0), phantom: PhantomData },
+];
+/// DATA is the Application Data
+/// TODO: Generate via Data trait
+static mut DATA_STATE: u32 = 0;
+
+/// TODO: Generate via Data trait
+pub fn handle_touch(x: u16, y: u16) {
+    let mut ctx = DruidContext::new();
+    let handler = unsafe { &mut ALL_HANDLERS_STATE[1] };  //  Assume first window has ID 1
+    handler.mouse_down(
+        &MouseEvent {
+            pos: Point::new(x as f64, y as f64),
+            count: 1,
+            button: MouseButton::Left,
+        },
+        &mut ctx,
+    );
+    handler.mouse_up(
+        &MouseEvent {
+            pos: Point::new(x as f64, y as f64),
+            count: 0,
+            button: MouseButton::Left,
+        },
+        &mut ctx,
+    );
+}
+
+/// Specialised Trait will store Windows and Window Handlers statically on embedded platforms
+/// TODO: Generate via Data trait
+impl GlobalWindows<State> for AppState<State> {
+    fn add_window(&self, window_id: WindowId, window: WindowBox<State>) {
+        unsafe { ALL_WINDOWS_STATE[window_id.0 as usize] = window; }
+    }
+    fn add_handler(&self, window_id: WindowId, handler: DruidHandler<State>) {
+        unsafe { ALL_HANDLERS_STATE[window_id.0 as usize] = handler; }
+    }
+    fn get_handle(&self, window_id: WindowId) -> WindowHandle<DruidHandler<State>> {
+        let handler = unsafe { ALL_HANDLERS_STATE[window_id.0 as usize].clone() };
+        WindowHandle(
+            crate::shell::platform::window::WindowHandle {
+                window_id: window_id.0,
+                state: crate::shell::platform::window::WindowState {
+                    window_id: window_id.0,
+                    handler,                
+                }            
+            }
+        )
+    }
+    fn set_data(&self, data: u32) {
+        unsafe { DATA_STATE = data; }
+    }
+    fn window_event(
+        &mut self, 
+        window_id: WindowId,
+        ctx: &mut EventCtx<State>, 
+        event: &Event, 
+    ) {
+        unsafe { 
+            ALL_WINDOWS_STATE[window_id.0 as usize].event(
+                ctx, 
+                event, 
+                &mut DATA_STATE,  //  Data
+                &Env {}           //  Env
+            );
+        }
+    }
+    fn window_update(
+        &mut self, 
+        window_id: WindowId,
+        ctx: &mut UpdateCtx<State>, 
+    ) {
+        unsafe { 
+            ALL_WINDOWS_STATE[window_id.0 as usize].update(
+                ctx,
+                &mut DATA_STATE,  //  Data
+                &Env {}           //  Env
+            ); 
+        }
+    }
+    fn window_layout(
+        &mut self,
+        window_id: WindowId,
+        layout_ctx: &mut LayoutCtx,
+    ) {
+        unsafe { 
+            ALL_WINDOWS_STATE[window_id.0 as usize].layout(
+                layout_ctx, 
+                &mut DATA_STATE,  //  Data
+                &Env {}           //  Env
+            ); 
+        }
+    }
+    fn window_paint(
+        &mut self, 
+        window_id: WindowId,
+        paint_ctx: &mut PaintCtx, 
+    ) {
+        unsafe { 
+            ALL_WINDOWS_STATE[window_id.0 as usize].paint(
+                paint_ctx, 
+                &mut DATA_STATE,  //  Data
+                &Env {}           //  Env
+            ); 
+        }
+    }
+    fn window_has_active(
+        &mut self,
+        window_id: WindowId,
+    ) -> bool {
+        unsafe { 
+            ALL_WINDOWS_STATE[window_id.0 as usize].has_active() 
+        }
+    }
+}
