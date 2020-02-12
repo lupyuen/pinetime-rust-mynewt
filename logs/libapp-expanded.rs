@@ -5,9 +5,9 @@ on_start: updated infer.json
 ui_builder: updated infer.json
 on_my_label_show: updated infer.json
 infer_from_assign: {
-    "env": "&Env",
-    "state": "&mut State",
     "ctx": "&mut EventCtx<State>",
+    "state": "&mut State",
+    "env": "&Env",
 }
 on_my_button_press: updated infer.json
 #![feature(prelude_import)]
