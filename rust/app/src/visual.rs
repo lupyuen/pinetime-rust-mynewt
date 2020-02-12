@@ -41,6 +41,7 @@ pub fn on_start() -> MynewtResult<()> {
 }
 
 /// Build the UI for the window
+#[infer_type]  //  Infer the missing types
 fn ui_builder() -> impl Widget {  //  `State` is the Application State
     console::print("Rust UI builder\n"); console::flush();
     //  Create a line of text
@@ -77,7 +78,7 @@ fn ui_builder() -> impl Widget {  //  `State` is the Application State
 #[infer_type]  //  Infer the missing types
 fn on_my_label_show(state: _, env: _) -> MynewtResult {
     console::print("on_my_label_show\n");
-    Ok(state.count)
+    Ok(state.count.into())
 }
 
 ///  Callback function that will be called when the button my_button is pressed

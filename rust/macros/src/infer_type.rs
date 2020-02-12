@@ -183,17 +183,24 @@ fn infer_function_types(input: syn::ItemFn) -> TokenStream {
     
     //  Add this function to the global declaration list. Must reload because another process may have updated the file.
     let mut new_func_map = load_decls();
-    new_func_map.insert(Box::new(fname), all_para_types);
+    new_func_map.insert(Box::new(fname.clone()), all_para_types);
     if state.len() > 0 {
         new_func_map.insert(Box::new("State".to_string()), state);
     }
     save_decls(&new_func_map);
 
     //  Combine the new Rust function definition with the old function body.
-    let new_sig = syn::Signature {
+    let mut new_sig = syn::Signature {
         inputs: new_inputs,
         ..sig.clone()
     };
+    //  Set the return type, if known.
+    let return_type = get_return_type(&fname);  //  e.g. `MynewtResult<ArgValue>`
+    if return_type != "_" {
+        let arrow_return_type = "-> ".to_string() + &return_type;  //  e.g. `-> MynewtResult<ArgValue>`
+        let tokens = arrow_return_type.parse().unwrap();
+        new_sig.output = parse_macro_input!(tokens as syn::ReturnType);
+    }
     let output = syn::ItemFn {
         sig:    new_sig,
         block:  block,
@@ -562,6 +569,7 @@ fn get_return_type(fname: &str) -> String {
     //  TODO: Generalise for UI events `on_..._show` and `on_..._press`
     match fname {
         "on_my_label_show" => "MynewtResult<ArgValue>".to_string(),
+        "ui_builder" => "impl Widget<State>".to_string(),
         _ => "_".to_string()
     }
 }

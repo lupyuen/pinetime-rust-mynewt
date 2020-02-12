@@ -2,10 +2,11 @@ infer_from_assign: {
     "state.count": "i32",
 }
 on_start: updated infer.json
+ui_builder: updated infer.json
 on_my_label_show: updated infer.json
 infer_from_assign: {
-    "state": "&mut State",
     "env": "&Env",
+    "state": "&mut State",
     "ctx": "&mut EventCtx<State>",
 }
 on_my_button_press: updated infer.json
@@ -730,8 +731,8 @@ mod visual {
         AppLauncher::with_window(main_window).use_simple_logger().launch(state).expect("launch failed");
         Ok(())
     }
-    /// Build the UI for the window
-    fn ui_builder() -> impl Widget {
+    #[doc = " Build the UI for the window"]
+    fn ui_builder() -> impl Widget<State> {
         console::print("Rust UI builder\n");
         console::flush();
         let my_label_text =
@@ -746,9 +747,9 @@ mod visual {
     }
     #[doc =
       "  Callback function that will be called to create the formatted text for the label my_label"]
-    fn on_my_label_show(state: &State, env: &Env) -> MynewtResult {
+    fn on_my_label_show(state: &State, env: &Env) -> MynewtResult<ArgValue> {
         console::print("on_my_label_show\n");
-        Ok(state.count)
+        Ok(state.count.into())
     }
     #[doc =
       "  Callback function that will be called when the button my_button is pressed"]

@@ -1,1 +1,1 @@
-{"State":[["count","i32"]],"on_my_label_show":[["state","&State"],["env","&Env"]],"on_my_button_press":[["ctx","&mut EventCtx<State>"],["state","&mut State"],["env","&Env"]],"on_start":[]}
+{"ui_builder":[],"State":[["count","i32"]],"on_start":[],"on_my_label_show":[["state","&State"],["env","&Env"]],"on_my_button_press":[["ctx","&mut EventCtx<State>"],["state","&mut State"],["env","&Env"]]}
