@@ -86,77 +86,54 @@ fn on_button_press(_ctx: &mut EventCtx<State>, state: &mut State, _env: &Env) {
     state.count += 1  //  Changes the application state
 }
 
+/* To Handle MynewtResult:
+///  Callback function that will be called to create the formatted text for the label
+type LabelFn = fn(state: &State, env: &Env) -> ArgValue;
+type LabelMynewtFn = fn(state: &State, env: &Env) -> MynewtResult<ArgValue>;
+
+///  Callback function that will be called when the button is tapped
+type ButtonFn = fn(ctx: &mut EventCtx<State>, state: &mut State, env: &Env);
+type ButtonMynewtFn = fn(ctx: &mut EventCtx<State>, state: &mut State, env: &Env) -> MynewtResult<()>;
+
+/// Cast `LabelMynewtFn` to `LabelFn`
+impl From<LabelMynewtFn> for LabelFn {
+    /// Cast `LabelMynewtFn` to `LabelFn`
+    fn from(err: LabelMynewtFn) -> Self {
+        on_label_show
+    }
+}
+
+/// Cast `ButtonMynewtFn` to `ButtonFn`
+impl From<ButtonMynewtFn> for ButtonFn {
+    /// Cast `ButtonMynewtFn` to `ButtonFn`
+    fn from(err: ButtonMynewtFn) -> Self {
+        on_button_press
+    }
+}
+
+/// TODO: Placeholders
+fn on_label_show(state: &State, env: &Env) -> ArgValue {
+    let result = on_my_label_show(state, env);
+    match result {
+        Ok(argValue) => argValue,
+        Err() => 0  //  TODO
+    }
+}
+
+/// TODO: Placeholders
+fn on_button_press(ctx: &mut EventCtx<State>, state: &mut State, env: &Env) {
+    let result = on_my_button_press(ctx, state, env);
+    match result {
+        Ok() => (),
+        Err() => ()  //  TODO
+    }
+}
+*/
+
 /*  Future update for Visual Rust:
     //  Add the label and button widgets to the column, centered with padding (5 pixels)
     col.add([
         pad!(label, 5.0),
         pad!(button, 5.0),
     ]);
-*/
-
-/*
-<xml xmlns="http://www.w3.org/1999/xhtml">
-  <variables>
-    <variable type="" id="mQ/]ot*@*I$hCHerd)Qp">count</variable>
-  </variables>
-  <block type="on_start" id="/#!!Quw;xx~*kEf.T!,5" x="63" y="37">
-    <statement name="STMTS">
-      <block type="variables_set" id="CP$4kQNW*^oThdx]%4Xg">
-        <field name="VAR" id="mQ/]ot*@*I$hCHerd)Qp" variabletype="">count</field>
-        <value name="VALUE">
-          <block type="math_number" id="i6fG5z9;FL42h{WK^TzD">
-            <field name="NUM">0</field>
-          </block>
-        </value>
-      </block>
-    </statement>
-  </block>
-  <block type="app" id="eRLnZ_Te.^:tJ0FyDL/1" x="62" y="188">
-    <mutation items="3"></mutation>
-    <value name="ADD0">
-      <block type="label" id="DH@$20QRAWK`V4v=z+(#">
-        <field name="NAME">my_label</field>
-        <field name="PADDING">5</field>
-      </block>
-    </value>
-    <value name="ADD1">
-      <block type="button" id="EJgEa}x:M*Rg45ZI)R^%">
-        <field name="NAME">my_button</field>
-        <field name="PADDING">5</field>
-      </block>
-    </value>
-  </block>
-  <block type="on_label_show" id="#~GhsC^=TV$ncR8Qr^_%" x="62" y="338">
-    <field name="NAME">my_label</field>
-  </block>
-  <block type="variables_get" id="C(rju}N`}M/A%i/g=s*b" x="113" y="362">
-    <field name="VAR" id="mQ/]ot*@*I$hCHerd)Qp" variabletype="">count</field>
-  </block>
-  <block type="on_button_press" id="wsA6Lf+*s3SlaC.%DCxe" x="63" y="463">
-    <field name="NAME">my_button</field>
-    <statement name="NAME">
-      <block type="variables_set" id="yK6x[R]EOnHu/[#SS@H0">
-        <field name="VAR" id="mQ/]ot*@*I$hCHerd)Qp" variabletype="">count</field>
-        <value name="VALUE">
-          <block type="math_arithmetic" id="(.X]NW{SO=nI|4+]8@o|">
-            <field name="OP">ADD</field>
-            <value name="A">
-              <shadow type="math_number" id="iZ+(Vd=H._YROPci~.7g">
-                <field name="NUM">1</field>
-              </shadow>
-              <block type="variables_get" id="!BV+h8;zf0$od{fzmLXa">
-                <field name="VAR" id="mQ/]ot*@*I$hCHerd)Qp" variabletype="">count</field>
-              </block>
-            </value>
-            <value name="B">
-              <shadow type="math_number" id="-K#y+!e]?Azs7{Ho}t66">
-                <field name="NUM">1</field>
-              </shadow>
-            </value>
-          </block>
-        </value>
-      </block>
-    </statement>
-  </block>
-</xml>
 */

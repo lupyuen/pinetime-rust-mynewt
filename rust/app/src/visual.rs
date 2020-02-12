@@ -28,7 +28,7 @@ pub fn on_start() -> MynewtResult<()> {
     //  Build a new window
     let main_window = WindowDesc::new(ui_builder);
     //  Create application state
-    let state = State::default();
+    let mut state = State::default();
     state.count = 0;
 
     //  Launch the window with the application state
@@ -46,11 +46,11 @@ fn ui_builder() -> impl Widget {  //  `State` is the Application State
     console::print("Rust UI builder\n"); console::flush();
     //  Create a line of text
     let my_label_text = LocalizedString::new("hello-counter")
-        .with_arg("count", on_my_label_show.into());  //  Call `on_my_label_show` to get label text
+        .with_arg("count", on_my_label_show);  //  Call `on_my_label_show` to get label text
     //  Create a label widget `my_label`
     let my_label = Label::new(my_label_text);
     //  Create a button widget `my_button`
-    let my_button = Button::new("increment", on_my_button_press.into());  //  Call `on_my_button_press` when pressed
+    let my_button = Button::new("increment", on_my_button_press);  //  Call `on_my_button_press` when pressed
 
     //  Create a column
     let mut col = Column::new();
@@ -76,19 +76,19 @@ fn ui_builder() -> impl Widget {  //  `State` is the Application State
 
 /// Callback function that will be called to create the formatted text for the label `my_label`
 #[infer_type]  //  Infer the missing types
-fn on_my_label_show(state: _, env: _) -> MynewtResult {
+fn on_my_label_show(state: _, env: _) -> ArgValue {
     console::print("on_my_label_show\n");
-    Ok(state.count.into())
+    state.count.into()
 }
 
 /// Callback function that will be called when the button `my_button` is pressed
 #[infer_type]  //  Infer the missing types
-fn on_my_button_press(ctx: _, state: _, env: _) -> MynewtResult<()> {
+fn on_my_button_press(ctx: _, state: _, env: _) {
     console::print("on_my_button_press\n");
     state.count = state.count + 1;
-    Ok(())
 }
 
+/*
 ///  Callback function that will be called to create the formatted text for the label
 type LabelFn = fn(state: &State, env: &Env) -> ArgValue;
 type LabelMynewtFn = fn(state: &State, env: &Env) -> MynewtResult<ArgValue>;
@@ -130,3 +130,4 @@ fn on_button_press(ctx: &mut EventCtx<State>, state: &mut State, env: &Env) {
         Err() => ()  //  TODO
     }
 }
+*/

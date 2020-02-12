@@ -197,7 +197,9 @@ fn infer_function_types(input: syn::ItemFn) -> TokenStream {
     //  Set the return type, if known.
     let return_type = get_return_type(&fname);  //  e.g. `MynewtResult<ArgValue>`
     if return_type != "_" {
-        let arrow_return_type = "-> ".to_string() + &return_type;  //  e.g. `-> MynewtResult<ArgValue>`
+        let arrow_return_type = 
+            if return_type == "" { "".to_string() }    //  No return value
+            else { "-> ".to_string() + &return_type };  //  e.g. `-> MynewtResult<ArgValue>`
         let tokens = arrow_return_type.parse().unwrap();
         new_sig.output = parse_macro_input!(tokens as syn::ReturnType);
     }
@@ -568,7 +570,8 @@ fn get_decl(fname: &str) -> &ParaTypeList {
 fn get_return_type(fname: &str) -> String {
     //  TODO: Generalise for UI events `on_..._show` and `on_..._press`
     match fname {
-        "on_my_label_show" => "MynewtResult<ArgValue>".to_string(),
+        "on_my_label_show"   => "ArgValue".to_string(),  //  "MynewtResult<ArgValue>".to_string(),
+        "on_my_button_press" => "".to_string(),  //  "MynewtResult".to_string(),
         "ui_builder" => "impl Widget<State>".to_string(),
         _ => "_".to_string()
     }
