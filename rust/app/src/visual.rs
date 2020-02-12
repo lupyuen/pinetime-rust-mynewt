@@ -88,3 +88,45 @@ fn on_my_button_press(ctx: _, state: _, env: _) -> MynewtResult<()> {
     state.count = state.count + 1;
     Ok(())
 }
+
+///  Callback function that will be called to create the formatted text for the label
+type LabelFn = fn(state: &State, env: &Env) -> ArgValue;
+type LabelMynewtFn = fn(state: &State, env: &Env) -> MynewtResult<ArgValue>;
+
+///  Callback function that will be called when the button is tapped
+type ButtonFn = fn(ctx: &mut EventCtx<State>, state: &mut State, env: &Env);
+type ButtonMynewtFn = fn(ctx: &mut EventCtx<State>, state: &mut State, env: &Env) -> MynewtResult<()>;
+
+/// Cast `LabelMynewtFn` to `LabelFn`
+impl From<LabelMynewtFn> for LabelFn {
+    /// Cast `LabelMynewtFn` to `LabelFn`
+    fn from(err: LabelMynewtFn) -> Self {
+        on_label_show
+    }
+}
+
+/// Cast `ButtonMynewtFn` to `ButtonFn`
+impl From<ButtonMynewtFn> for ButtonFn {
+    /// Cast `ButtonMynewtFn` to `ButtonFn`
+    fn from(err: ButtonMynewtFn) -> Self {
+        on_button_press
+    }
+}
+
+/// TODO: Placeholders
+fn on_label_show(state: &State, env: &Env) -> ArgValue {
+    let result = on_my_label_show(state, env);
+    match result {
+        Ok(argValue) => argValue,
+        Err() => 0  //  TODO
+    }
+}
+
+/// TODO: Placeholders
+fn on_button_press(ctx: &mut EventCtx<State>, state: &mut State, env: &Env) {
+    let result = on_my_button_press(ctx, state, env);
+    match result {
+        Ok() => (),
+        Err() => ()  //  TODO
+    }
+}
