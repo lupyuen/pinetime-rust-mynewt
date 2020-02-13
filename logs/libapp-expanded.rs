@@ -1,3 +1,49 @@
+state_type: Ident {
+    ident: "State",
+    span: #0 bytes(47546..47551),
+}
+state_struct: DataStruct {
+    struct_token: Struct,
+    fields: Named(
+        FieldsNamed {
+            brace_token: Brace,
+            named: [
+                Field {
+                    attrs: [],
+                    vis: Inherited,
+                    ident: Some(
+                        Ident {
+                            ident: "count",
+                            span: #0 bytes(47558..47563),
+                        },
+                    ),
+                    colon_token: Some(
+                        Colon,
+                    ),
+                    ty: Path(
+                        TypePath {
+                            qself: None,
+                            path: Path {
+                                leading_colon: None,
+                                segments: [
+                                    PathSegment {
+                                        ident: Ident {
+                                            ident: "i32",
+                                            span: #162 bytes(47464..47477),
+                                        },
+                                        arguments: None,
+                                    },
+                                ],
+                            },
+                        },
+                    ),
+                },
+                Comma,
+            ],
+        },
+    ),
+    semi_token: None,
+}
 on_start: updated infer.json
 ui_builder: updated infer.json
 on_my_label_show: updated infer.json
@@ -783,7 +829,7 @@ mod visual {
     }
     /// DATA is the Application Data
     static mut DATA_STATE: State = State{count: 0,};
-    /// Static list of `Widgets` for embedded platforms
+    /// Static list of Widgets for embedded platforms
     static mut ALL_WIDGETS_STATE:
            [druid::WidgetType<State>; druid::MAX_WIDGETS] =
         [druid::WidgetType::None, druid::WidgetType::None,
@@ -806,7 +852,7 @@ mod visual {
                                       phantom: core::marker::PhantomData,},
          druid::DruidHandler::<State>{window_id: druid::WindowId(0),
                                       phantom: core::marker::PhantomData,}];
-    /// Specialised Trait to store Widgets statically on embedded platforms
+    /// Specialised Trait to reference Widgets statically on embedded platforms
     impl druid::GlobalWidgets<State> for druid::WidgetBox<State> {
         /// Fetch the static Widgets for the Data type
         fn get_widgets(&self) -> &'static mut [druid::WidgetType<State>] {
@@ -820,7 +866,7 @@ mod visual {
             unsafe { ALL_WIDGETS_STATE[self.0 as usize] = widget; }
         }
     }
-    /// Specialised Trait to store Windows and Window Handlers statically on embedded platforms
+    /// Specialised Trait to reference Windows and Window Handlers statically on embedded platforms
     impl druid::GlobalWindows<State> for druid::AppState<State> {
         fn add_window(&self, window_id: druid::WindowId,
                       window: druid::WindowBox<State>) {
