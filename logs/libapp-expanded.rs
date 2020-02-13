@@ -750,9 +750,10 @@ mod visual {
         console::print("on_my_button_press\n");
         state.count = state.count + 1;
     }
-    /// Static list of `Widgets` just for embedded platforms
+    /// Static list of `Widgets` for embedded platforms
     /// TODO: Generate via Data trait
-    static mut WIDGET_STATE_STATE: [druid::WidgetType<State>; MAX_WIDGETS] =
+    static mut WIDGET_STATE_STATE:
+           [druid::WidgetType<State>; druid::MAX_WIDGETS] =
         [druid::WidgetType::None, druid::WidgetType::None,
          druid::WidgetType::None, druid::WidgetType::None,
          druid::WidgetType::None, druid::WidgetType::None,
@@ -782,7 +783,8 @@ mod visual {
          druid::WindowBox::<State>(druid::WindowType::None)];
     /// ALL_HANDLERS[i] is the Window Handler for the Window with window ID i. i=0 is not used.
     /// TODO: Generate via Data trait
-    static mut ALL_HANDLERS_STATE: [druid::DruidHandler<State>; MAX_WINDOWS] =
+    static mut ALL_HANDLERS_STATE:
+           [druid::DruidHandler<State>; druid::MAX_WINDOWS] =
         [druid::DruidHandler::<State>{window_id: druid::WindowId(0),
                                       phantom: core::marker::PhantomData,},
          druid::DruidHandler::<State>{window_id: druid::WindowId(0),
