@@ -752,7 +752,7 @@ mod visual {
         console::print("on_my_button_press\n");
         state.count = state.count + 1;
     }
-    use druid_shell::window::WinHandler;
+    use druid_shell::WinHandler;
     /// Static list of `Widgets` for embedded platforms
     /// TODO: Generate via Data trait
     static mut WIDGET_STATE_STATE:
@@ -796,24 +796,28 @@ mod visual {
                                       phantom: core::marker::PhantomData,}];
     /// DATA is the Application Data
     /// TODO: Generate via Data trait
-    static mut DATA_STATE: State = Default::default();
+    static mut DATA_STATE: State = State{count: 0,};
     /// TODO: Generate via Data trait
     pub fn handle_touch(x: u16, y: u16) {
         let mut ctx = druid::DruidContext::new();
         let handler = unsafe { &mut ALL_HANDLERS_STATE[1] };
-        handler.mouse_down(&druid::MouseEvent{pos:
-                                                  druid::Point::new(x as f64,
-                                                                    y as f64),
-                                              count: 1,
-                                              button:
-                                                  druid::MouseButton::Left,},
+        handler.mouse_down(&druid_shell::MouseEvent{pos:
+                                                        druid::Point::new(x as
+                                                                              f64,
+                                                                          y as
+                                                                              f64),
+                                                    count: 1,
+                                                    button:
+                                                        druid_shell::MouseButton::Left,},
                            &mut ctx);
-        handler.mouse_up(&druid::MouseEvent{pos:
-                                                druid::Point::new(x as f64,
-                                                                  y as f64),
-                                            count: 0,
-                                            button:
-                                                druid::MouseButton::Left,},
+        handler.mouse_up(&druid_shell::MouseEvent{pos:
+                                                      druid::Point::new(x as
+                                                                            f64,
+                                                                        y as
+                                                                            f64),
+                                                  count: 0,
+                                                  button:
+                                                      druid_shell::MouseButton::Left,},
                          &mut ctx);
     }
     /// Specialised Trait will store Windows and Window Handlers statically on embedded platforms

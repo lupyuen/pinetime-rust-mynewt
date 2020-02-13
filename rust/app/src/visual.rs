@@ -89,7 +89,7 @@ fn on_my_button_press(ctx: _, state: _, env: _) {
 }
 
 ////////////////////////////// TODO: Generate via Data trait
-use druid_shell::window::WinHandler;
+use druid_shell::WinHandler;
 
 /// Static list of `Widgets` for embedded platforms
 /// TODO: Generate via Data trait
@@ -128,25 +128,25 @@ static mut ALL_HANDLERS_STATE: [ druid::DruidHandler<State>; druid::MAX_WINDOWS 
 ];
 /// DATA is the Application Data
 /// TODO: Generate via Data trait
-static mut DATA_STATE: State = Default::default();
+static mut DATA_STATE: State = State { count: 0 };
 
 /// TODO: Generate via Data trait
 pub fn handle_touch(x: u16, y: u16) {
     let mut ctx = druid::DruidContext::new();
     let handler = unsafe { &mut ALL_HANDLERS_STATE[1] };  //  Assume first window has ID 1
     handler.mouse_down(
-        &druid::MouseEvent {
+        &druid_shell::MouseEvent {
             pos: druid::Point::new(x as f64, y as f64),
             count: 1,
-            button: druid::MouseButton::Left,
+            button: druid_shell::MouseButton::Left,
         },
         &mut ctx,
     );
     handler.mouse_up(
-        &druid::MouseEvent {
+        &druid_shell::MouseEvent {
             pos: druid::Point::new(x as f64, y as f64),
             count: 0,
-            button: druid::MouseButton::Left,
+            button: druid_shell::MouseButton::Left,
         },
         &mut ctx,
     );
