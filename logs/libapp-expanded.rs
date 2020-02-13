@@ -738,7 +738,7 @@ mod visual {
             LocalizedString::new("hello-counter").with_arg("count",
                                                            on_my_label_show);
         let my_label = Label::new(my_label_text);
-        let my_button = Button::new("increment", on_my_button_press);
+        let my_button = Button::new("increment2", on_my_button_press);
         let mut col = Column::new();
         col.add_child(Align::centered(Padding::new(5.0, my_label)), 1.0);
         col.add_child(Padding::new(5.0, my_button), 1.0);
