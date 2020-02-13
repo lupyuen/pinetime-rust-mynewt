@@ -163,9 +163,9 @@ impl druid::GlobalWindows<State> for druid::AppState<State> {
     fn get_handle(&self, window_id: druid::WindowId) -> druid::WindowHandle<druid::DruidHandler<State>> {
         let handler = unsafe { ALL_HANDLERS_STATE[window_id.0 as usize].clone() };
         druid::WindowHandle(
-            crate::shell::platform::window::WindowHandle {
+            druid::PlatformWindowHandle {
                 window_id: window_id.0,
-                state: crate::shell::platform::window::WindowState {
+                state: druid::PlatformWindowState {
                     window_id: window_id.0,
                     handler,                
                 }            

@@ -828,12 +828,12 @@ mod visual {
          -> druid::WindowHandle<druid::DruidHandler<State>> {
             let handler =
                 unsafe { ALL_HANDLERS_STATE[window_id.0 as usize].clone() };
-            druid::WindowHandle(crate::shell::platform::window::WindowHandle{window_id:
-                                                                                 window_id.0,
-                                                                             state:
-                                                                                 crate::shell::platform::window::WindowState{window_id:
-                                                                                                                                 window_id.0,
-                                                                                                                             handler,},})
+            druid::WindowHandle(druid::PlatformWindowHandle{window_id:
+                                                                window_id.0,
+                                                            state:
+                                                                druid::PlatformWindowState{window_id:
+                                                                                               window_id.0,
+                                                                                           handler,},})
         }
         fn set_data(&self, data: State) { unsafe { DATA_STATE = data; } }
         fn window_event(&mut self, window_id: druid::WindowId,
