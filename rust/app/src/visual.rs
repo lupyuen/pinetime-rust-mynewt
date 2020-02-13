@@ -89,6 +89,7 @@ fn on_my_button_press(ctx: _, state: _, env: _) {
 }
 
 ////////////////////////////// TODO: Generate via Data trait
+use druid_shell::window::WinHandler;
 
 /// Static list of `Widgets` for embedded platforms
 /// TODO: Generate via Data trait

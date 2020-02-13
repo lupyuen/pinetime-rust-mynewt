@@ -752,6 +752,7 @@ mod visual {
         console::print("on_my_button_press\n");
         state.count = state.count + 1;
     }
+    use druid_shell::window::WinHandler;
     /// Static list of `Widgets` for embedded platforms
     /// TODO: Generate via Data trait
     static mut WIDGET_STATE_STATE:
