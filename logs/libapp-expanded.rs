@@ -777,21 +777,21 @@ mod visual {
     /// TODO: Generate via Data trait
     static mut ALL_WINDOWS_STATE:
            [druid::WindowBox<State>; druid::MAX_WINDOWS] =
-        [WindowBox::<State>(druid::WindowType::None),
-         WindowBox::<State>(druid::WindowType::None),
-         WindowBox::<State>(druid::WindowType::None)];
+        [druid::WindowBox::<State>(druid::WindowType::None),
+         druid::WindowBox::<State>(druid::WindowType::None),
+         druid::WindowBox::<State>(druid::WindowType::None)];
     /// ALL_HANDLERS[i] is the Window Handler for the Window with window ID i. i=0 is not used.
     /// TODO: Generate via Data trait
     static mut ALL_HANDLERS_STATE: [druid::DruidHandler<State>; MAX_WINDOWS] =
-        [druid::DruidHandler::<State>{window_id: WindowId(0),
-                                      phantom: PhantomData,},
-         druid::DruidHandler::<State>{window_id: WindowId(0),
-                                      phantom: PhantomData,},
-         druid::DruidHandler::<State>{window_id: WindowId(0),
-                                      phantom: PhantomData,}];
+        [druid::DruidHandler::<State>{window_id: druid::WindowId(0),
+                                      phantom: core::marker::PhantomData,},
+         druid::DruidHandler::<State>{window_id: druid::WindowId(0),
+                                      phantom: core::marker::PhantomData,},
+         druid::DruidHandler::<State>{window_id: druid::WindowId(0),
+                                      phantom: core::marker::PhantomData,}];
     /// DATA is the Application Data
     /// TODO: Generate via Data trait
-    static mut DATA_STATE: u32 = 0;
+    static mut DATA_STATE: State = Default::default();
     /// TODO: Generate via Data trait
     pub fn handle_touch(x: u16, y: u16) {
         let mut ctx = druid::DruidContext::new();
@@ -826,14 +826,14 @@ mod visual {
          -> druid::WindowHandle<druid::DruidHandler<State>> {
             let handler =
                 unsafe { ALL_HANDLERS_STATE[window_id.0 as usize].clone() };
-            WindowHandle(crate::shell::platform::window::WindowHandle{window_id:
-                                                                          window_id.0,
-                                                                      state:
-                                                                          crate::shell::platform::window::WindowState{window_id:
-                                                                                                                          window_id.0,
-                                                                                                                      handler,},})
+            druid::WindowHandle(crate::shell::platform::window::WindowHandle{window_id:
+                                                                                 window_id.0,
+                                                                             state:
+                                                                                 crate::shell::platform::window::WindowState{window_id:
+                                                                                                                                 window_id.0,
+                                                                                                                             handler,},})
         }
-        fn set_data(&self, data: u32) { unsafe { DATA_STATE = data; } }
+        fn set_data(&self, data: State) { unsafe { DATA_STATE = data; } }
         fn window_event(&mut self, window_id: druid::WindowId,
                         ctx: &mut druid::EventCtx<State>,
                         event: &druid::Event) {
