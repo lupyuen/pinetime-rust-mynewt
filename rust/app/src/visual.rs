@@ -113,14 +113,14 @@ impl druid::GlobalWidgets<State> for druid::WidgetBox<State> {
 
 /// ALL_WINDOWS[i] is the WindowBox for the Window with window ID i. i=0 is not used.
 /// TODO: Generate via Data trait
-static mut ALL_WINDOWS_STATE: [ druid::WindowBox<State>; druid::MAX_WINDOWS ] = [ ////
+static mut ALL_WINDOWS_STATE: [ druid::WindowBox<State>; druid::MAX_WINDOWS ] = [
     WindowBox::<State>( druid::WindowType::None ), 
     WindowBox::<State>( druid::WindowType::None ), 
     WindowBox::<State>( druid::WindowType::None ), 
 ];
 /// ALL_HANDLERS[i] is the Window Handler for the Window with window ID i. i=0 is not used.
 /// TODO: Generate via Data trait
-static mut ALL_HANDLERS_STATE: [ druid::DruidHandler<State>; MAX_WINDOWS ] = [ ////
+static mut ALL_HANDLERS_STATE: [ druid::DruidHandler<State>; MAX_WINDOWS ] = [
     druid::DruidHandler::<State> { window_id: WindowId(0), phantom: PhantomData },
     druid::DruidHandler::<State> { window_id: WindowId(0), phantom: PhantomData },
     druid::DruidHandler::<State> { window_id: WindowId(0), phantom: PhantomData },
