@@ -75,6 +75,12 @@ mod app_network {
     //  Import Mynewt Console API
     //libs::sensor_network,   //  Import Mynewt Sensor Network Library
 
+    //  If Visual Rust app is enabled...
+    //  Use the touch handler from the Visual Rust app
+
+    //  If Visual Rust app is not enabled...
+    //  Use the touch handler from druid UI app
+
     //  Don't mangle the name "main"
     //  Declare extern "C" because it will be called by Mynewt
     //  Initialise the Mynewt packages and internal temperature sensor driver. Any startup
@@ -370,7 +376,6 @@ mod app_sensor {
 mod touch_sensor {
     use embedded_hal::{self, blocking::delay::DelayMs,
                        digital::v2::OutputPin};
-    use druid;
     use mynewt::{self, result::*, hw::hal, kernel::os::{self, os_event},
                  sys::console, fill_zero};
     /// Reset Pin for touch controller. Note: NFC antenna pins must be reassigned as GPIO pins for this to work.
@@ -469,7 +474,7 @@ mod touch_sensor {
                 let TouchInfo { x, y, action, .. } = TOUCH_DATA.touches[i];
                 if x == 0 && y == 0 { continue ; }
                 if action != 0 && action != 2 { continue ; }
-                druid::handle_touch(x, y);
+                super::handle_touch(x, y);
             }
         }
     }
@@ -884,6 +889,8 @@ mod visual {
 use core::panic::PanicInfo;
 use cortex_m::asm::bkpt;
 use mynewt::{kernel::os, sys::console};
+#[cfg(feature = "visual_app")]
+use visual::handle_touch;
 ///  Main program that initialises the sensor, network driver and starts reading and sending sensor data in the background.
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
 #[no_mangle]

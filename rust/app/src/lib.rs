@@ -56,6 +56,12 @@ use mynewt::{
     //libs::sensor_network,   //  Import Mynewt Sensor Network Library
 };
 
+#[cfg(feature = "visual_app")]       //  If Visual Rust app is enabled...
+use visual::handle_touch;            //  Use the touch handler from the Visual Rust app
+
+#[cfg(not(feature = "visual_app"))]  //  If Visual Rust app is not enabled...
+use druid::handle_touch;             //  Use the touch handler from druid UI app
+
 ///  Main program that initialises the sensor, network driver and starts reading and sending sensor data in the background.
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
 #[no_mangle]                 //  Don't mangle the name "main"
