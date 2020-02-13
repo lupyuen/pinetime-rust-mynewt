@@ -758,51 +758,7 @@ mod visual {
         state.count = state.count + 1;
     }
     use druid_shell::WinHandler;
-    /// Static list of `Widgets` for embedded platforms
-    /// TODO: Generate via Data trait
-    static mut WIDGET_STATE_STATE:
-           [druid::WidgetType<State>; druid::MAX_WIDGETS] =
-        [druid::WidgetType::None, druid::WidgetType::None,
-         druid::WidgetType::None, druid::WidgetType::None,
-         druid::WidgetType::None, druid::WidgetType::None,
-         druid::WidgetType::None, druid::WidgetType::None,
-         druid::WidgetType::None, druid::WidgetType::None];
-    /// Specialised Trait will store `Widgets` statically on embedded platforms
-    /// TODO: Generate via Data trait
-    impl druid::GlobalWidgets<State> for druid::WidgetBox<State> {
-        /// Fetch the static `Widgets` for the Data type
-        fn get_widgets(&self) -> &'static mut [druid::WidgetType<State>] {
-            unsafe { &mut WIDGET_STATE_STATE }
-        }
-        /// Add a `Widget` for the Data type
-        fn add_widget(&self, widget: druid::WidgetType<State>) {
-            if !(self.0 < druid::MAX_WIDGETS as u32) {
-                ::core::panicking::panic("too many widgets")
-            };
-            unsafe { WIDGET_STATE_STATE[self.0 as usize] = widget; }
-        }
-    }
-    /// ALL_WINDOWS[i] is the WindowBox for the Window with window ID i. i=0 is not used.
-    /// TODO: Generate via Data trait
-    static mut ALL_WINDOWS_STATE:
-           [druid::WindowBox<State>; druid::MAX_WINDOWS] =
-        [druid::WindowBox::<State>(druid::WindowType::None),
-         druid::WindowBox::<State>(druid::WindowType::None),
-         druid::WindowBox::<State>(druid::WindowType::None)];
-    /// ALL_HANDLERS[i] is the Window Handler for the Window with window ID i. i=0 is not used.
-    /// TODO: Generate via Data trait
-    static mut ALL_HANDLERS_STATE:
-           [druid::DruidHandler<State>; druid::MAX_WINDOWS] =
-        [druid::DruidHandler::<State>{window_id: druid::WindowId(0),
-                                      phantom: core::marker::PhantomData,},
-         druid::DruidHandler::<State>{window_id: druid::WindowId(0),
-                                      phantom: core::marker::PhantomData,},
-         druid::DruidHandler::<State>{window_id: druid::WindowId(0),
-                                      phantom: core::marker::PhantomData,}];
-    /// DATA is the Application Data
-    /// TODO: Generate via Data trait
-    static mut DATA_STATE: State = State{count: 0,};
-    /// TODO: Generate via Data trait
+    /// Handle a touch event at the (x,y) coordinates
     pub fn handle_touch(x: u16, y: u16) {
         let mut ctx = druid::DruidContext::new();
         let handler = unsafe { &mut ALL_HANDLERS_STATE[1] };
@@ -825,8 +781,46 @@ mod visual {
                                                       druid_shell::MouseButton::Left,},
                          &mut ctx);
     }
-    /// Specialised Trait will store Windows and Window Handlers statically on embedded platforms
-    /// TODO: Generate via Data trait
+    /// DATA is the Application Data
+    static mut DATA_STATE: State = State{count: 0,};
+    /// Static list of `Widgets` for embedded platforms
+    static mut ALL_WIDGETS_STATE:
+           [druid::WidgetType<State>; druid::MAX_WIDGETS] =
+        [druid::WidgetType::None, druid::WidgetType::None,
+         druid::WidgetType::None, druid::WidgetType::None,
+         druid::WidgetType::None, druid::WidgetType::None,
+         druid::WidgetType::None, druid::WidgetType::None,
+         druid::WidgetType::None, druid::WidgetType::None];
+    /// ALL_WINDOWS[i] is the WindowBox for the Window with window ID i. i=0 is not used.
+    static mut ALL_WINDOWS_STATE:
+           [druid::WindowBox<State>; druid::MAX_WINDOWS] =
+        [druid::WindowBox::<State>(druid::WindowType::None),
+         druid::WindowBox::<State>(druid::WindowType::None),
+         druid::WindowBox::<State>(druid::WindowType::None)];
+    /// ALL_HANDLERS[i] is the Window Handler for the Window with window ID i. i=0 is not used.
+    static mut ALL_HANDLERS_STATE:
+           [druid::DruidHandler<State>; druid::MAX_WINDOWS] =
+        [druid::DruidHandler::<State>{window_id: druid::WindowId(0),
+                                      phantom: core::marker::PhantomData,},
+         druid::DruidHandler::<State>{window_id: druid::WindowId(0),
+                                      phantom: core::marker::PhantomData,},
+         druid::DruidHandler::<State>{window_id: druid::WindowId(0),
+                                      phantom: core::marker::PhantomData,}];
+    /// Specialised Trait to store Widgets statically on embedded platforms
+    impl druid::GlobalWidgets<State> for druid::WidgetBox<State> {
+        /// Fetch the static Widgets for the Data type
+        fn get_widgets(&self) -> &'static mut [druid::WidgetType<State>] {
+            unsafe { &mut ALL_WIDGETS_STATE }
+        }
+        /// Add a Widget for the Data type
+        fn add_widget(&self, widget: druid::WidgetType<State>) {
+            if !(self.0 < druid::MAX_WIDGETS as u32) {
+                ::core::panicking::panic("too many widgets")
+            };
+            unsafe { ALL_WIDGETS_STATE[self.0 as usize] = widget; }
+        }
+    }
+    /// Specialised Trait to store Windows and Window Handlers statically on embedded platforms
     impl druid::GlobalWindows<State> for druid::AppState<State> {
         fn add_window(&self, window_id: druid::WindowId,
                       window: druid::WindowBox<State>) {
