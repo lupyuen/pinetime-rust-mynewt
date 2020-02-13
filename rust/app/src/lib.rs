@@ -26,6 +26,7 @@
 #![feature(concat_idents)]       //  Allow `concat_idents!()` macro used in `coap!()` macro
 #![feature(const_transmute)]     //  Allow `transmute` for initialising Mynewt structs
 #![feature(proc_macro_hygiene)]  //  Allow Procedural Macros like `run!()`
+#![feature(specialization)]      //  Allow Specialised Traits for druid UI library
 
 extern crate cortex_m;                  //  Declare the external library `cortex_m`
 extern crate mynewt;                    //  Declare the Mynewt library

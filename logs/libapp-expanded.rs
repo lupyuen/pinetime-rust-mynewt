@@ -35,13 +35,15 @@ on_my_button_press: updated infer.json
 #![feature(const_transmute)]
 //  Allow `transmute` for initialising Mynewt structs
 #![feature(proc_macro_hygiene)]
+//  Allow Procedural Macros like `run!()`
+#![feature(specialization)]
 #[prelude_import]
 use core::prelude::v1::*;
 #[macro_use]
 extern crate core;
 #[macro_use]
 extern crate compiler_builtins;
-//  Allow Procedural Macros like `run!()`
+//  Allow Specialised Traits for druid UI library
 
 extern crate cortex_m;
 //  Declare the external library `cortex_m`
