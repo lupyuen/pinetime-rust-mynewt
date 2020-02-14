@@ -1,49 +1,3 @@
-state_type: Ident {
-    ident: "State",
-    span: #0 bytes(47546..47551),
-}
-state_struct: DataStruct {
-    struct_token: Struct,
-    fields: Named(
-        FieldsNamed {
-            brace_token: Brace,
-            named: [
-                Field {
-                    attrs: [],
-                    vis: Inherited,
-                    ident: Some(
-                        Ident {
-                            ident: "count",
-                            span: #0 bytes(47558..47563),
-                        },
-                    ),
-                    colon_token: Some(
-                        Colon,
-                    ),
-                    ty: Path(
-                        TypePath {
-                            qself: None,
-                            path: Path {
-                                leading_colon: None,
-                                segments: [
-                                    PathSegment {
-                                        ident: Ident {
-                                            ident: "i32",
-                                            span: #162 bytes(47464..47477),
-                                        },
-                                        arguments: None,
-                                    },
-                                ],
-                            },
-                        },
-                    ),
-                },
-                Comma,
-            ],
-        },
-    ),
-    semi_token: None,
-}
 on_start: updated infer.json
 ui_builder: updated infer.json
 on_my_label_show: updated infer.json
@@ -763,7 +717,7 @@ mod visual {
     #[doc = r" Handle a touch event at the (x,y) coordinates"]
     pub fn handle_touch(x: u16, y: u16) {
         let mut ctx = druid::DruidContext::new();
-        let handler = unsafe { &mut ALL_HANDLERS_STATE[1] };
+        let handler = unsafe { &mut ALL_HANDLERS_State[1] };
         handler.mouse_down(&druid_shell::MouseEvent{pos:
                                                         druid::Point::new(x as
                                                                               f64,
@@ -784,9 +738,9 @@ mod visual {
                          &mut ctx);
     }
     #[doc = r" DATA is the Application Data"]
-    static mut DATA_STATE: State = State{count: 0,};
+    static mut DATA_State: State = State{count: 0,};
     #[doc = r" Static list of Widgets for embedded platforms"]
-    static mut ALL_WIDGETS_STATE:
+    static mut ALL_WIDGETS_State:
            [druid::WidgetType<State>; druid::MAX_WIDGETS] =
         [druid::WidgetType::None, druid::WidgetType::None,
          druid::WidgetType::None, druid::WidgetType::None,
@@ -795,14 +749,14 @@ mod visual {
          druid::WidgetType::None, druid::WidgetType::None];
     #[doc =
       r" ALL_WINDOWS[i] is the WindowBox for the Window with window ID i. i=0 is not used."]
-    static mut ALL_WINDOWS_STATE:
+    static mut ALL_WINDOWS_State:
            [druid::WindowBox<State>; druid::MAX_WINDOWS] =
         [druid::WindowBox::<State>(druid::WindowType::None),
          druid::WindowBox::<State>(druid::WindowType::None),
          druid::WindowBox::<State>(druid::WindowType::None)];
     #[doc =
       r" ALL_HANDLERS[i] is the Window Handler for the Window with window ID i. i=0 is not used."]
-    static mut ALL_HANDLERS_STATE:
+    static mut ALL_HANDLERS_State:
            [druid::DruidHandler<State>; druid::MAX_WINDOWS] =
         [druid::DruidHandler::<State>{window_id: druid::WindowId(0),
                                       phantom: core::marker::PhantomData,},
@@ -815,14 +769,14 @@ mod visual {
     impl druid::GlobalWidgets<State> for druid::WidgetBox<State> {
         #[doc = r" Fetch the static Widgets for the Data type"]
         fn get_widgets(&self) -> &'static mut [druid::WidgetType<State>] {
-            unsafe { &mut ALL_WIDGETS_STATE }
+            unsafe { &mut ALL_WIDGETS_State }
         }
         #[doc = r" Add a Widget for the Data type"]
         fn add_widget(&self, widget: druid::WidgetType<State>) {
             if !(self.0 < druid::MAX_WIDGETS as u32) {
                 ::core::panicking::panic("too many widgets")
             };
-            unsafe { ALL_WIDGETS_STATE[self.0 as usize] = widget; }
+            unsafe { ALL_WIDGETS_State[self.0 as usize] = widget; }
         }
     }
     #[doc =
@@ -830,16 +784,16 @@ mod visual {
     impl druid::GlobalWindows<State> for druid::AppState<State> {
         fn add_window(&self, window_id: druid::WindowId,
                       window: druid::WindowBox<State>) {
-            unsafe { ALL_WINDOWS_STATE[window_id.0 as usize] = window; }
+            unsafe { ALL_WINDOWS_State[window_id.0 as usize] = window; }
         }
         fn add_handler(&self, window_id: druid::WindowId,
                        handler: druid::DruidHandler<State>) {
-            unsafe { ALL_HANDLERS_STATE[window_id.0 as usize] = handler; }
+            unsafe { ALL_HANDLERS_State[window_id.0 as usize] = handler; }
         }
         fn get_handle(&self, window_id: druid::WindowId)
          -> druid::WindowHandle<druid::DruidHandler<State>> {
             let handler =
-                unsafe { ALL_HANDLERS_STATE[window_id.0 as usize].clone() };
+                unsafe { ALL_HANDLERS_State[window_id.0 as usize].clone() };
             druid::WindowHandle(druid::PlatformWindowHandle{window_id:
                                                                 window_id.0,
                                                             state:
@@ -847,42 +801,42 @@ mod visual {
                                                                                                window_id.0,
                                                                                            handler,},})
         }
-        fn set_data(&self, data: State) { unsafe { DATA_STATE = data; } }
+        fn set_data(&self, data: State) { unsafe { DATA_State = data; } }
         fn window_event(&mut self, window_id: druid::WindowId,
                         ctx: &mut druid::EventCtx<State>,
                         event: &druid::Event) {
             unsafe {
-                ALL_WINDOWS_STATE[window_id.0 as
+                ALL_WINDOWS_State[window_id.0 as
                                       usize].event(ctx, event,
-                                                   &mut DATA_STATE, &Env{});
+                                                   &mut DATA_State, &Env{});
             }
         }
         fn window_update(&mut self, window_id: druid::WindowId,
                          ctx: &mut druid::UpdateCtx<State>) {
             unsafe {
-                ALL_WINDOWS_STATE[window_id.0 as
-                                      usize].update(ctx, &mut DATA_STATE,
+                ALL_WINDOWS_State[window_id.0 as
+                                      usize].update(ctx, &mut DATA_State,
                                                     &Env{});
             }
         }
         fn window_layout(&mut self, window_id: druid::WindowId,
                          layout_ctx: &mut druid::LayoutCtx) {
             unsafe {
-                ALL_WINDOWS_STATE[window_id.0 as
+                ALL_WINDOWS_State[window_id.0 as
                                       usize].layout(layout_ctx,
-                                                    &mut DATA_STATE, &Env{});
+                                                    &mut DATA_State, &Env{});
             }
         }
         fn window_paint(&mut self, window_id: druid::WindowId,
                         paint_ctx: &mut druid::PaintCtx) {
             unsafe {
-                ALL_WINDOWS_STATE[window_id.0 as
-                                      usize].paint(paint_ctx, &mut DATA_STATE,
+                ALL_WINDOWS_State[window_id.0 as
+                                      usize].paint(paint_ctx, &mut DATA_State,
                                                    &Env{});
             }
         }
         fn window_has_active(&mut self, window_id: druid::WindowId) -> bool {
-            unsafe { ALL_WINDOWS_STATE[window_id.0 as usize].has_active() }
+            unsafe { ALL_WINDOWS_State[window_id.0 as usize].has_active() }
         }
     }
     #[automatically_derived]
