@@ -1,68 +1,3 @@
-state_struct: DataStruct {
-    struct_token: Struct,
-    fields: Named(
-        FieldsNamed {
-            brace_token: Brace,
-            named: [
-                Field {
-                    attrs: [],
-                    vis: Inherited,
-                    ident: Some(
-                        Ident {
-                            ident: "count",
-                            span: #0 bytes(47558..47563),
-                        },
-                    ),
-                    colon_token: Some(
-                        Colon,
-                    ),
-                    ty: Path(
-                        TypePath {
-                            qself: None,
-                            path: Path {
-                                leading_colon: None,
-                                segments: [
-                                    PathSegment {
-                                        ident: Ident {
-                                            ident: "i32",
-                                            span: #162 bytes(47464..47477),
-                                        },
-                                        arguments: None,
-                                    },
-                                ],
-                            },
-                        },
-                    ),
-                },
-                Comma,
-            ],
-        },
-    ),
-    semi_token: None,
-}
-field_name: Some(
-    Ident {
-        ident: "count",
-        span: #0 bytes(47558..47563),
-    },
-)
-field_type: Path(
-    TypePath {
-        qself: None,
-        path: Path {
-            leading_colon: None,
-            segments: [
-                PathSegment {
-                    ident: Ident {
-                        ident: "i32",
-                        span: #162 bytes(47464..47477),
-                    },
-                    arguments: None,
-                },
-            ],
-        },
-    },
-)
 on_start: updated infer.json
 ui_builder: updated infer.json
 on_my_label_show: updated infer.json
@@ -929,7 +864,7 @@ mod visual {
             LocalizedString::new("hello-counter").with_arg("count",
                                                            on_my_label_show);
         let my_label = Label::new(my_label_text);
-        let my_button = Button::new("increment2", on_my_button_press);
+        let my_button = Button::new("Press Me", on_my_button_press);
         let mut col = Column::new();
         col.add_child(Align::centered(Padding::new(5.0, my_label)), 1.0);
         col.add_child(Padding::new(5.0, my_button), 1.0);
