@@ -1,3 +1,68 @@
+state_struct: DataStruct {
+    struct_token: Struct,
+    fields: Named(
+        FieldsNamed {
+            brace_token: Brace,
+            named: [
+                Field {
+                    attrs: [],
+                    vis: Inherited,
+                    ident: Some(
+                        Ident {
+                            ident: "count",
+                            span: #0 bytes(47558..47563),
+                        },
+                    ),
+                    colon_token: Some(
+                        Colon,
+                    ),
+                    ty: Path(
+                        TypePath {
+                            qself: None,
+                            path: Path {
+                                leading_colon: None,
+                                segments: [
+                                    PathSegment {
+                                        ident: Ident {
+                                            ident: "i32",
+                                            span: #162 bytes(47464..47477),
+                                        },
+                                        arguments: None,
+                                    },
+                                ],
+                            },
+                        },
+                    ),
+                },
+                Comma,
+            ],
+        },
+    ),
+    semi_token: None,
+}
+field_name: Some(
+    Ident {
+        ident: "count",
+        span: #0 bytes(47558..47563),
+    },
+)
+field_type: Path(
+    TypePath {
+        qself: None,
+        path: Path {
+            leading_colon: None,
+            segments: [
+                PathSegment {
+                    ident: Ident {
+                        ident: "i32",
+                        span: #162 bytes(47464..47477),
+                    },
+                    arguments: None,
+                },
+            ],
+        },
+    },
+)
 on_start: updated infer.json
 ui_builder: updated infer.json
 on_my_label_show: updated infer.json
@@ -738,7 +803,7 @@ mod visual {
                          &mut ctx);
     }
     #[doc = r" DATA is the Application Data"]
-    static mut DATA_State: State = State{count: 0,};
+    static mut DATA_State: State = State{count: 0 as i32,};
     #[doc = r" Static list of Widgets for embedded platforms"]
     static mut ALL_WIDGETS_State:
            [druid::WidgetType<State>; druid::MAX_WIDGETS] =
