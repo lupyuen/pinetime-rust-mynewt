@@ -759,52 +759,8 @@ mod visual {
             druid::Data::same(&self.count, &other.count)
         }
     }
-    #[automatically_derived]
-    #[allow(unused_qualifications)]
-    impl ::core::default::Default for State {
-        #[inline]
-        fn default() -> State {
-            State{count: ::core::default::Default::default(),}
-        }
-    }
-    #[doc = " Will be run upon startup to launch the app"]
-    pub fn on_start() -> MynewtResult<()> {
-        console::print("on_start\n");
-        let main_window = WindowDesc::new(ui_builder);
-        let mut state = State::default();
-        state.count = 0;
-        AppLauncher::with_window(main_window).use_simple_logger().launch(state).expect("launch failed");
-        Ok(())
-    }
-    #[doc = " Build the UI for the window"]
-    fn ui_builder() -> impl Widget<State> {
-        console::print("Rust UI builder\n");
-        console::flush();
-        let my_label_text =
-            LocalizedString::new("hello-counter").with_arg("count",
-                                                           on_my_label_show);
-        let my_label = Label::new(my_label_text);
-        let my_button = Button::new("increment2", on_my_button_press);
-        let mut col = Column::new();
-        col.add_child(Align::centered(Padding::new(5.0, my_label)), 1.0);
-        col.add_child(Padding::new(5.0, my_button), 1.0);
-        col
-    }
-    #[doc =
-      " Callback function that will be called to create the formatted text for the label `my_label`"]
-    fn on_my_label_show(state: &State, env: &Env) -> ArgValue {
-        console::print("on_my_label_show\n");
-        state.count.into()
-    }
-    #[doc =
-      " Callback function that will be called when the button `my_button` is pressed"]
-    fn on_my_button_press(ctx: &mut EventCtx<State>, state: &mut State,
-                          env: &Env) {
-        console::print("on_my_button_press\n");
-        state.count = state.count + 1;
-    }
     use druid_shell::WinHandler;
-    /// Handle a touch event at the (x,y) coordinates
+    #[doc = r" Handle a touch event at the (x,y) coordinates"]
     pub fn handle_touch(x: u16, y: u16) {
         let mut ctx = druid::DruidContext::new();
         let handler = unsafe { &mut ALL_HANDLERS_STATE[1] };
@@ -827,9 +783,9 @@ mod visual {
                                                       druid_shell::MouseButton::Left,},
                          &mut ctx);
     }
-    /// DATA is the Application Data
+    #[doc = r" DATA is the Application Data"]
     static mut DATA_STATE: State = State{count: 0,};
-    /// Static list of Widgets for embedded platforms
+    #[doc = r" Static list of Widgets for embedded platforms"]
     static mut ALL_WIDGETS_STATE:
            [druid::WidgetType<State>; druid::MAX_WIDGETS] =
         [druid::WidgetType::None, druid::WidgetType::None,
@@ -837,13 +793,15 @@ mod visual {
          druid::WidgetType::None, druid::WidgetType::None,
          druid::WidgetType::None, druid::WidgetType::None,
          druid::WidgetType::None, druid::WidgetType::None];
-    /// ALL_WINDOWS[i] is the WindowBox for the Window with window ID i. i=0 is not used.
+    #[doc =
+      r" ALL_WINDOWS[i] is the WindowBox for the Window with window ID i. i=0 is not used."]
     static mut ALL_WINDOWS_STATE:
            [druid::WindowBox<State>; druid::MAX_WINDOWS] =
         [druid::WindowBox::<State>(druid::WindowType::None),
          druid::WindowBox::<State>(druid::WindowType::None),
          druid::WindowBox::<State>(druid::WindowType::None)];
-    /// ALL_HANDLERS[i] is the Window Handler for the Window with window ID i. i=0 is not used.
+    #[doc =
+      r" ALL_HANDLERS[i] is the Window Handler for the Window with window ID i. i=0 is not used."]
     static mut ALL_HANDLERS_STATE:
            [druid::DruidHandler<State>; druid::MAX_WINDOWS] =
         [druid::DruidHandler::<State>{window_id: druid::WindowId(0),
@@ -852,13 +810,14 @@ mod visual {
                                       phantom: core::marker::PhantomData,},
          druid::DruidHandler::<State>{window_id: druid::WindowId(0),
                                       phantom: core::marker::PhantomData,}];
-    /// Specialised Trait to reference Widgets statically on embedded platforms
+    #[doc =
+      r" Specialised Trait to reference Widgets statically on embedded platforms"]
     impl druid::GlobalWidgets<State> for druid::WidgetBox<State> {
-        /// Fetch the static Widgets for the Data type
+        #[doc = r" Fetch the static Widgets for the Data type"]
         fn get_widgets(&self) -> &'static mut [druid::WidgetType<State>] {
             unsafe { &mut ALL_WIDGETS_STATE }
         }
-        /// Add a Widget for the Data type
+        #[doc = r" Add a Widget for the Data type"]
         fn add_widget(&self, widget: druid::WidgetType<State>) {
             if !(self.0 < druid::MAX_WIDGETS as u32) {
                 ::core::panicking::panic("too many widgets")
@@ -866,7 +825,8 @@ mod visual {
             unsafe { ALL_WIDGETS_STATE[self.0 as usize] = widget; }
         }
     }
-    /// Specialised Trait to reference Windows and Window Handlers statically on embedded platforms
+    #[doc =
+      r" Specialised Trait to reference Windows and Window Handlers statically on embedded platforms"]
     impl druid::GlobalWindows<State> for druid::AppState<State> {
         fn add_window(&self, window_id: druid::WindowId,
                       window: druid::WindowBox<State>) {
@@ -924,6 +884,50 @@ mod visual {
         fn window_has_active(&mut self, window_id: druid::WindowId) -> bool {
             unsafe { ALL_WINDOWS_STATE[window_id.0 as usize].has_active() }
         }
+    }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    impl ::core::default::Default for State {
+        #[inline]
+        fn default() -> State {
+            State{count: ::core::default::Default::default(),}
+        }
+    }
+    #[doc = " Will be run upon startup to launch the app"]
+    pub fn on_start() -> MynewtResult<()> {
+        console::print("on_start\n");
+        let main_window = WindowDesc::new(ui_builder);
+        let mut state = State::default();
+        state.count = 0;
+        AppLauncher::with_window(main_window).use_simple_logger().launch(state).expect("launch failed");
+        Ok(())
+    }
+    #[doc = " Build the UI for the window"]
+    fn ui_builder() -> impl Widget<State> {
+        console::print("Rust UI builder\n");
+        console::flush();
+        let my_label_text =
+            LocalizedString::new("hello-counter").with_arg("count",
+                                                           on_my_label_show);
+        let my_label = Label::new(my_label_text);
+        let my_button = Button::new("increment2", on_my_button_press);
+        let mut col = Column::new();
+        col.add_child(Align::centered(Padding::new(5.0, my_label)), 1.0);
+        col.add_child(Padding::new(5.0, my_button), 1.0);
+        col
+    }
+    #[doc =
+      " Callback function that will be called to create the formatted text for the label `my_label`"]
+    fn on_my_label_show(state: &State, env: &Env) -> ArgValue {
+        console::print("on_my_label_show\n");
+        state.count.into()
+    }
+    #[doc =
+      " Callback function that will be called when the button `my_button` is pressed"]
+    fn on_my_button_press(ctx: &mut EventCtx<State>, state: &mut State,
+                          env: &Env) {
+        console::print("on_my_button_press\n");
+        state.count = state.count + 1;
     }
 }
 use core::panic::PanicInfo;

@@ -88,6 +88,7 @@ fn on_my_button_press(ctx: _, state: _, env: _) {
     state.count = state.count + 1;
 }
 
+/*
 ////////////////////////////// TODO: Generate via Data trait
 
 use druid_shell::WinHandler;
@@ -236,3 +237,4 @@ impl druid::GlobalWindows<State> for druid::AppState<State> {
         }
     }
 }
+*/
