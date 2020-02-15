@@ -42,7 +42,7 @@ pub fn on_start() -> MynewtResult<()> {
 
 /// Build the UI for the window
 #[infer_type]  //  Infer the missing types
-fn ui_builder() -> impl Widget {  //  `State` is the Application State
+fn ui_builder() -> impl Widget<State> {  //  `State` is the Application State
     console::print("Rust UI builder\n"); console::flush();
     //  Create a line of text
     let my_label_text = LocalizedString::new("hello-counter")
@@ -87,3 +87,5 @@ fn on_my_button_press(ctx: _, state: _, env: _) {
     console::print("on_my_button_press\n");
     state.count = state.count + 1;
 }
+
+//  -- BEGIN BLOCKS --<xml xmlns="http://www.w3.org/1999/xhtml"><variables><variable type="" id="7gmf.o0opM2*Y0$95Xv*">count</variable></variables><block type="on_start" id="3zi/F838J{]z`u2sOwAy" x="38" y="13"><statement name="STMTS"><block type="variables_set" id="u;:BgkEw07cVd%QWWy|_"><field name="VAR" id="7gmf.o0opM2*Y0$95Xv*" variabletype="">count</field><value name="VALUE"><block type="math_number" id=",@3g:]LmR.jMQ?dkOVeo"><field name="NUM">0</field></block></value></block></statement></block><block type="app" id="a+fa^[wDegFmxc]0oS)*" x="38" y="88"><mutation items="3"></mutation><value name="ADD0"><block type="label" id="iP(ppbW~bgVwE{uY3ZCF"><field name="NAME">my_label</field><field name="PADDING">5</field></block></value><value name="ADD1"><block type="button" id="C9k`r{IwfwWbtEqn9tw!"><field name="NAME">my_button</field><field name="TITLE">Press Me</field><field name="PADDING">5</field></block></value></block><block type="widgets_defreturn" id="}ggypf|bz!fTICk_[bN]" x="38" y="187"><field name="NAME">my_label</field><value name="RETURN"><block type="variables_get" id="5Qfvt?a#qJ]ow$7{/F.|"><field name="VAR" id="7gmf.o0opM2*Y0$95Xv*" variabletype="">count</field></block></value></block><block type="widgets_defnoreturn" id="on[)x(-*wwqqpST6`+$}" x="37" y="313"><field name="NAME">my_button</field><statement name="STACK"><block type="variables_set" id="+`t4VSP2GAe%4nSdW40I"><field name="VAR" id="7gmf.o0opM2*Y0$95Xv*" variabletype="">count</field><value name="VALUE"><block type="math_arithmetic" id="wF(J#r9b-l5W5k$*-sg,"><field name="OP">ADD</field><value name="A"><shadow type="math_number" id="X/gy5eKt6K.Z.[TfIdI`"><field name="NUM">1</field></shadow><block type="variables_get" id="b[t|v|7RR73g)rSpp`89"><field name="VAR" id="7gmf.o0opM2*Y0$95Xv*" variabletype="">count</field></block></value><value name="B"><shadow type="math_number" id=",)krx?Q@g{CengYXN}n#"><field name="NUM">1</field></shadow></value></block></value></block></statement></block></xml>-- END BLOCKS --
