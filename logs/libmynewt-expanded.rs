@@ -3700,8 +3700,7 @@ pub mod hw {
                 pub fn get_bit(&self, index: usize) -> bool {
                     if true {
                         if !(index / 8 < self.storage.as_ref().len()) {
-                            ::core::panicking::panic("assertion failed: index / 8 < self.storage.as_ref().len()",
-                                                     ::core::intrinsics::caller_location())
+                            ::core::panicking::panic("assertion failed: index / 8 < self.storage.as_ref().len()")
                         };
                     };
                     let byte_index = index / 8;
@@ -3715,8 +3714,7 @@ pub mod hw {
                 pub fn set_bit(&mut self, index: usize, val: bool) {
                     if true {
                         if !(index / 8 < self.storage.as_ref().len()) {
-                            ::core::panicking::panic("assertion failed: index / 8 < self.storage.as_ref().len()",
-                                                     ::core::intrinsics::caller_location())
+                            ::core::panicking::panic("assertion failed: index / 8 < self.storage.as_ref().len()")
                         };
                     };
                     let byte_index = index / 8;
@@ -3730,21 +3728,18 @@ pub mod hw {
                 pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
                     if true {
                         if !(bit_width <= 64) {
-                            ::core::panicking::panic("assertion failed: bit_width <= 64",
-                                                     ::core::intrinsics::caller_location())
+                            ::core::panicking::panic("assertion failed: bit_width <= 64")
                         };
                     };
                     if true {
                         if !(bit_offset / 8 < self.storage.as_ref().len()) {
-                            ::core::panicking::panic("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
-                                                     ::core::intrinsics::caller_location())
+                            ::core::panicking::panic("assertion failed: bit_offset / 8 < self.storage.as_ref().len()")
                         };
                     };
                     if true {
                         if !((bit_offset + (bit_width as usize)) / 8 <=
                                  self.storage.as_ref().len()) {
-                            ::core::panicking::panic("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
-                                                     ::core::intrinsics::caller_location())
+                            ::core::panicking::panic("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()")
                         };
                     };
                     let mut val = 0;
@@ -3764,21 +3759,18 @@ pub mod hw {
                            val: u64) {
                     if true {
                         if !(bit_width <= 64) {
-                            ::core::panicking::panic("assertion failed: bit_width <= 64",
-                                                     ::core::intrinsics::caller_location())
+                            ::core::panicking::panic("assertion failed: bit_width <= 64")
                         };
                     };
                     if true {
                         if !(bit_offset / 8 < self.storage.as_ref().len()) {
-                            ::core::panicking::panic("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
-                                                     ::core::intrinsics::caller_location())
+                            ::core::panicking::panic("assertion failed: bit_offset / 8 < self.storage.as_ref().len()")
                         };
                     };
                     if true {
                         if !((bit_offset + (bit_width as usize)) / 8 <=
                                  self.storage.as_ref().len()) {
-                            ::core::panicking::panic("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
-                                                     ::core::intrinsics::caller_location())
+                            ::core::panicking::panic("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()")
                         };
                     };
                     for i in 0..(bit_width as usize) {
@@ -6305,7 +6297,7 @@ pub mod hw {
                                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
-                                                                                 ::core::intrinsics::caller_location())
+                                                                                 ::core::panic::Location::caller())
                                                 }
                                             }
                                         }
@@ -6339,7 +6331,7 @@ pub mod hw {
                                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                                  }),
-                                                                                 ::core::intrinsics::caller_location())
+                                                                                 ::core::panic::Location::caller())
                                                 }
                                             }
                                         }
@@ -6348,8 +6340,7 @@ pub mod hw {
                                 }
                                 _ => {
                                     if !false {
-                                        ::core::panicking::panic("sensor type",
-                                                                 ::core::intrinsics::caller_location())
+                                        ::core::panicking::panic("sensor type")
                                     };
                                     SensorValueType::None
                                 }
@@ -6411,7 +6402,7 @@ pub mod hw {
                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                    ::core::fmt::Display::fmt)],
                                                                                                  }),
-                                                                 ::core::intrinsics::caller_location())
+                                                                 ::core::panic::Location::caller())
                                 }
                             }
                         }
@@ -6434,8 +6425,7 @@ pub mod hw {
                                    listener_func: SensorValueFunc)
          -> MynewtResult<sensor_listener> {
             if !!sensor_key.is_empty() {
-                ::core::panicking::panic("missing sensor key",
-                                         ::core::intrinsics::caller_location())
+                ::core::panicking::panic("missing sensor key")
             };
             let mut arg = MAX_SENSOR_LISTENERS + 1;
             for i in 0..MAX_SENSOR_LISTENERS {
@@ -6443,8 +6433,7 @@ pub mod hw {
                 if info.sensor_key.is_empty() { arg = i; break ; }
             }
             if !(arg < MAX_SENSOR_LISTENERS) {
-                ::core::panicking::panic("increase MAX_SENSOR_LISTENERS",
-                                         ::core::intrinsics::caller_location())
+                ::core::panicking::panic("increase MAX_SENSOR_LISTENERS")
             };
             let listener =
                 sensor_listener{sl_sensor_type: sensor_type,
@@ -6474,19 +6463,14 @@ pub mod hw {
          -> i32 {
             let arg = arg as usize;
             if !(arg < MAX_SENSOR_LISTENERS) {
-                ::core::panicking::panic("bad sensor arg",
-                                         ::core::intrinsics::caller_location())
+                ::core::panicking::panic("bad sensor arg")
             };
             let info = unsafe { SENSOR_LISTENERS[arg] };
             if !!info.sensor_key.is_empty() {
-                ::core::panicking::panic("missing sensor key",
-                                         ::core::intrinsics::caller_location())
+                ::core::panicking::panic("missing sensor key")
             };
             if sensor_data.is_null() { return SYS_EINVAL }
-            if !!sensor.is_null() {
-                ::core::panicking::panic("null sensor",
-                                         ::core::intrinsics::caller_location())
-            };
+            if !!sensor.is_null() { ::core::panicking::panic("null sensor") };
             let sensor_value =
                 convert_sensor_data(sensor_data, info.sensor_key,
                                     sensor_type);
@@ -6763,9 +6747,17 @@ pub mod sys {
     pub mod console {
         //! Display messages on Arm Semihosting Console (via OpenOCD)
         ///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
+        #[cfg(feature = "dispatch")]
         pub fn print(msg: &str) {
-            unsafe { console_buffer(msg.as_ptr(), msg.len() as u32); }
+            let buf = msg.as_ptr();
+            let len = msg.len() as u32;
+            let hash = 0;
+            let addr = get_dispatch_address(hash);
+            unsafe { console_buffer(buf, len); }
         }
+        /// Return the Dispatch Address for the OS function whose function name hashed is `hash`
+        #[cfg(feature = "dispatch")]
+        pub fn get_dispatch_address(hash: u32) -> u32 { 0 }
         ///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
         pub fn print_strn(msg: &crate::Strn) {
             unsafe { console_buffer(msg.as_ptr(), msg.len() as u32); }
@@ -8130,8 +8122,7 @@ pub mod encoding {
             pub fn get_bit(&self, index: usize) -> bool {
                 if true {
                     if !(index / 8 < self.storage.as_ref().len()) {
-                        ::core::panicking::panic("assertion failed: index / 8 < self.storage.as_ref().len()",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: index / 8 < self.storage.as_ref().len()")
                     };
                 };
                 let byte_index = index / 8;
@@ -8145,8 +8136,7 @@ pub mod encoding {
             pub fn set_bit(&mut self, index: usize, val: bool) {
                 if true {
                     if !(index / 8 < self.storage.as_ref().len()) {
-                        ::core::panicking::panic("assertion failed: index / 8 < self.storage.as_ref().len()",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: index / 8 < self.storage.as_ref().len()")
                     };
                 };
                 let byte_index = index / 8;
@@ -8160,21 +8150,18 @@ pub mod encoding {
             pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
                 if true {
                     if !(bit_width <= 64) {
-                        ::core::panicking::panic("assertion failed: bit_width <= 64",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: bit_width <= 64")
                     };
                 };
                 if true {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
-                        ::core::panicking::panic("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: bit_offset / 8 < self.storage.as_ref().len()")
                     };
                 };
                 if true {
                     if !((bit_offset + (bit_width as usize)) / 8 <=
                              self.storage.as_ref().len()) {
-                        ::core::panicking::panic("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()")
                     };
                 };
                 let mut val = 0;
@@ -8194,21 +8181,18 @@ pub mod encoding {
                        val: u64) {
                 if true {
                     if !(bit_width <= 64) {
-                        ::core::panicking::panic("assertion failed: bit_width <= 64",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: bit_width <= 64")
                     };
                 };
                 if true {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
-                        ::core::panicking::panic("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: bit_offset / 8 < self.storage.as_ref().len()")
                     };
                 };
                 if true {
                     if !((bit_offset + (bit_width as usize)) / 8 <=
                              self.storage.as_ref().len()) {
-                        ::core::panicking::panic("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()")
                     };
                 };
                 for i in 0..(bit_width as usize) {
@@ -9243,8 +9227,7 @@ pub mod encoding {
             pub fn key_to_cstr(&mut self, s: &[u8]) -> *const u8 {
                 if s.last() == Some(&0) { return s.as_ptr() as *const u8; }
                 if !(s.len() < COAP_KEY_SIZE) {
-                    ::core::panicking::panic("big key",
-                                             ::core::intrinsics::caller_location())
+                    ::core::panicking::panic("big key")
                 };
                 self.key_buffer[..s.len()].copy_from_slice(s);
                 self.key_buffer[s.len()] = 0;
@@ -9256,8 +9239,7 @@ pub mod encoding {
             pub fn value_to_cstr(&mut self, s: &[u8]) -> *const u8 {
                 if s.last() == Some(&0) { return s.as_ptr() as *const u8; }
                 if !(s.len() < COAP_VALUE_SIZE) {
-                    ::core::panicking::panic("big value",
-                                             ::core::intrinsics::caller_location())
+                    ::core::panicking::panic("big value")
                 };
                 self.value_buffer[..s.len()].copy_from_slice(s);
                 self.value_buffer[s.len()] = 0;
@@ -9287,8 +9269,7 @@ pub mod encoding {
                     unsafe { &mut cbor_encoder1 }
                 } else {
                     if !false {
-                        ::core::panicking::panic("new_encoder fail",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("new_encoder fail")
                     };
                     unsafe { &mut super::root_map }
                 }
@@ -9307,10 +9288,7 @@ pub mod encoding {
                 } else if (key, suffix) == ("values", _MAP) {
                     unsafe { &mut cbor_encoder1 }
                 } else {
-                    if !false {
-                        ::core::panicking::panic("encoder fail",
-                                                 ::core::intrinsics::caller_location())
-                    };
+                    if !false { ::core::panicking::panic("encoder fail") };
                     unsafe { &mut super::root_map }
                 }
             }
@@ -9344,7 +9322,7 @@ pub mod encoding {
                                                                                                   ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
-                                                             ::core::intrinsics::caller_location())
+                                                             ::core::panic::Location::caller())
                             }
                         }
                     }
@@ -9380,7 +9358,7 @@ pub mod encoding {
                                                                                                   ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
-                                                             ::core::intrinsics::caller_location())
+                                                             ::core::panic::Location::caller())
                             }
                         }
                     }
@@ -9464,10 +9442,7 @@ pub mod encoding {
                 match self.rep {
                     StrnRep::ByteStr(bs) => { bs }
                     StrnRep::CStr(_cstr) => {
-                        if !false {
-                            ::core::panicking::panic("strn bytes",
-                                                     ::core::intrinsics::caller_location())
-                        };
+                        if !false { ::core::panicking::panic("strn bytes") };
                         &[]
                     }
                 }
@@ -9835,8 +9810,7 @@ pub mod libs {
             pub fn get_bit(&self, index: usize) -> bool {
                 if true {
                     if !(index / 8 < self.storage.as_ref().len()) {
-                        ::core::panicking::panic("assertion failed: index / 8 < self.storage.as_ref().len()",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: index / 8 < self.storage.as_ref().len()")
                     };
                 };
                 let byte_index = index / 8;
@@ -9850,8 +9824,7 @@ pub mod libs {
             pub fn set_bit(&mut self, index: usize, val: bool) {
                 if true {
                     if !(index / 8 < self.storage.as_ref().len()) {
-                        ::core::panicking::panic("assertion failed: index / 8 < self.storage.as_ref().len()",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: index / 8 < self.storage.as_ref().len()")
                     };
                 };
                 let byte_index = index / 8;
@@ -9865,21 +9838,18 @@ pub mod libs {
             pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
                 if true {
                     if !(bit_width <= 64) {
-                        ::core::panicking::panic("assertion failed: bit_width <= 64",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: bit_width <= 64")
                     };
                 };
                 if true {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
-                        ::core::panicking::panic("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: bit_offset / 8 < self.storage.as_ref().len()")
                     };
                 };
                 if true {
                     if !((bit_offset + (bit_width as usize)) / 8 <=
                              self.storage.as_ref().len()) {
-                        ::core::panicking::panic("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()")
                     };
                 };
                 let mut val = 0;
@@ -9899,21 +9869,18 @@ pub mod libs {
                        val: u64) {
                 if true {
                     if !(bit_width <= 64) {
-                        ::core::panicking::panic("assertion failed: bit_width <= 64",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: bit_width <= 64")
                     };
                 };
                 if true {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
-                        ::core::panicking::panic("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: bit_offset / 8 < self.storage.as_ref().len()")
                     };
                 };
                 if true {
                     if !((bit_offset + (bit_width as usize)) / 8 <=
                              self.storage.as_ref().len()) {
-                        ::core::panicking::panic("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()")
                     };
                 };
                 for i in 0..(bit_width as usize) {
@@ -10802,8 +10769,7 @@ pub mod libs {
             pub fn get_bit(&self, index: usize) -> bool {
                 if true {
                     if !(index / 8 < self.storage.as_ref().len()) {
-                        ::core::panicking::panic("assertion failed: index / 8 < self.storage.as_ref().len()",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: index / 8 < self.storage.as_ref().len()")
                     };
                 };
                 let byte_index = index / 8;
@@ -10817,8 +10783,7 @@ pub mod libs {
             pub fn set_bit(&mut self, index: usize, val: bool) {
                 if true {
                     if !(index / 8 < self.storage.as_ref().len()) {
-                        ::core::panicking::panic("assertion failed: index / 8 < self.storage.as_ref().len()",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: index / 8 < self.storage.as_ref().len()")
                     };
                 };
                 let byte_index = index / 8;
@@ -10832,21 +10797,18 @@ pub mod libs {
             pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
                 if true {
                     if !(bit_width <= 64) {
-                        ::core::panicking::panic("assertion failed: bit_width <= 64",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: bit_width <= 64")
                     };
                 };
                 if true {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
-                        ::core::panicking::panic("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: bit_offset / 8 < self.storage.as_ref().len()")
                     };
                 };
                 if true {
                     if !((bit_offset + (bit_width as usize)) / 8 <=
                              self.storage.as_ref().len()) {
-                        ::core::panicking::panic("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()")
                     };
                 };
                 let mut val = 0;
@@ -10866,21 +10828,18 @@ pub mod libs {
                        val: u64) {
                 if true {
                     if !(bit_width <= 64) {
-                        ::core::panicking::panic("assertion failed: bit_width <= 64",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: bit_width <= 64")
                     };
                 };
                 if true {
                     if !(bit_offset / 8 < self.storage.as_ref().len()) {
-                        ::core::panicking::panic("assertion failed: bit_offset / 8 < self.storage.as_ref().len()",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: bit_offset / 8 < self.storage.as_ref().len()")
                     };
                 };
                 if true {
                     if !((bit_offset + (bit_width as usize)) / 8 <=
                              self.storage.as_ref().len()) {
-                        ::core::panicking::panic("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()",
-                                                 ::core::intrinsics::caller_location())
+                        ::core::panicking::panic("assertion failed: (bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len()")
                     };
                 };
                 for i in 0..(bit_width as usize) {
@@ -11534,7 +11493,7 @@ mod hal {
                                                                                               ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
-                                                         ::core::intrinsics::caller_location())
+                                                         ::core::panic::Location::caller())
                         }
                     }
                 }
@@ -11568,7 +11527,7 @@ mod hal {
                                                                                               ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
-                                                         ::core::intrinsics::caller_location())
+                                                         ::core::panic::Location::caller())
                         }
                     }
                 }
@@ -11602,7 +11561,7 @@ mod hal {
                                                                                               ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
-                                                         ::core::intrinsics::caller_location())
+                                                         ::core::panic::Location::caller())
                         }
                     }
                 }
@@ -11666,7 +11625,7 @@ mod hal {
                                                                                               ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
-                                                         ::core::intrinsics::caller_location())
+                                                         ::core::panic::Location::caller())
                         }
                     }
                 }
@@ -11831,7 +11790,7 @@ pub mod spi {
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                      }),
-                                                     ::core::intrinsics::caller_location())
+                                                     ::core::panic::Location::caller())
                     }
                 }
             }
@@ -11870,7 +11829,7 @@ pub mod spi {
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                      }),
-                                                     ::core::intrinsics::caller_location())
+                                                     ::core::panic::Location::caller())
                     }
                 }
             }
@@ -11904,7 +11863,7 @@ pub mod spi {
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                      }),
-                                                     ::core::intrinsics::caller_location())
+                                                     ::core::panic::Location::caller())
                     }
                 }
             }
@@ -11938,7 +11897,7 @@ pub mod spi {
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                      }),
-                                                     ::core::intrinsics::caller_location())
+                                                     ::core::panic::Location::caller())
                     }
                 }
             }
@@ -11972,7 +11931,7 @@ pub mod spi {
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                      }),
-                                                     ::core::intrinsics::caller_location())
+                                                     ::core::panic::Location::caller())
                     }
                 }
             }
@@ -12011,7 +11970,7 @@ pub mod spi {
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                      }),
-                                                     ::core::intrinsics::caller_location())
+                                                     ::core::panic::Location::caller())
                     }
                 }
             }
@@ -12045,7 +12004,7 @@ pub mod spi {
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                      }),
-                                                     ::core::intrinsics::caller_location())
+                                                     ::core::panic::Location::caller())
                     }
                 }
             }
@@ -12079,7 +12038,7 @@ pub mod spi {
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                      }),
-                                                     ::core::intrinsics::caller_location())
+                                                     ::core::panic::Location::caller())
                     }
                 }
             }
@@ -12112,8 +12071,7 @@ pub mod spi {
     /// Set pending request for non-blocking SPI write for Data Bytes. Returns without waiting for write to complete.
     pub fn spi_noblock_write_data(data: &[u8]) -> MynewtResult<()> {
         if !(unsafe { PENDING_CMD.len() } > 0) {
-            ::core::panicking::panic("assertion failed: unsafe { PENDING_CMD.len() } > 0",
-                                     ::core::intrinsics::caller_location())
+            ::core::panicking::panic("assertion failed: unsafe { PENDING_CMD.len() } > 0")
         };
         unsafe { PENDING_DATA.extend_from_slice(data) }?;
         Ok(())
@@ -12242,7 +12200,7 @@ pub mod spi {
                                                                                               ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
-                                                         ::core::intrinsics::caller_location())
+                                                         ::core::panic::Location::caller())
                         }
                     }
                 }
@@ -12253,10 +12211,7 @@ pub mod spi {
     fn internal_spi_noblock_write(buf: &'static u8, len: i32,
                                   is_command: bool) -> MynewtResult<()> {
         if len == 0 { return Ok(()); }
-        if !(len > 0) {
-            ::core::panicking::panic("bad spi len",
-                                     ::core::intrinsics::caller_location())
-        };
+        if !(len > 0) { ::core::panicking::panic("bad spi len") };
         unsafe {
             hal::hal_gpio_write(SPI_DC_PIN, if is_command { 0 } else { 1 })
         };
@@ -12295,7 +12250,7 @@ pub mod spi {
                                                                                               ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
-                                                         ::core::intrinsics::caller_location())
+                                                         ::core::panic::Location::caller())
                         }
                     }
                 }
@@ -12335,7 +12290,7 @@ pub mod spi {
                                                                                               ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                            ::core::fmt::Display::fmt)],
                                                                                          }),
-                                                         ::core::intrinsics::caller_location())
+                                                         ::core::panic::Location::caller())
                         }
                     }
                 }
@@ -12380,7 +12335,7 @@ pub mod spi {
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                      }),
-                                                     ::core::intrinsics::caller_location())
+                                                     ::core::panic::Location::caller())
                     }
                 }
             }
@@ -12552,7 +12507,7 @@ impl Strn {
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                      }),
-                                                     ::core::intrinsics::caller_location())
+                                                     ::core::panic::Location::caller())
                     }
                 }
             }
@@ -12602,7 +12557,7 @@ impl Strn {
                                                                                                   ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
-                                                             ::core::intrinsics::caller_location())
+                                                             ::core::panic::Location::caller())
                             }
                         }
                     }
@@ -12615,10 +12570,7 @@ impl Strn {
                     let ptr: *const u8 = ((cstr as u32) + len) as *const u8;
                     if unsafe { *ptr } == 0 { return len as usize; }
                 }
-                if !false {
-                    ::core::panicking::panic("big strn",
-                                             ::core::intrinsics::caller_location())
-                };
+                if !false { ::core::panicking::panic("big strn") };
                 return 128 as usize;
             }
         }
@@ -12658,7 +12610,7 @@ impl Strn {
                                                                                                   ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
-                                                             ::core::intrinsics::caller_location())
+                                                             ::core::panic::Location::caller())
                             }
                         }
                     }
@@ -12701,7 +12653,7 @@ impl Strn {
                                                                                                   ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
-                                                             ::core::intrinsics::caller_location())
+                                                             ::core::panic::Location::caller())
                             }
                         }
                     }
@@ -12709,10 +12661,7 @@ impl Strn {
                 &bs
             }
             StrnRep::CStr(_cstr) => {
-                if !false {
-                    ::core::panicking::panic("strn cstr",
-                                             ::core::intrinsics::caller_location())
-                };
+                if !false { ::core::panicking::panic("strn cstr") };
                 b"\0"
             }
         }
@@ -12749,7 +12698,7 @@ impl Strn {
                                                                                                   ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                ::core::fmt::Display::fmt)],
                                                                                              }),
-                                                             ::core::intrinsics::caller_location())
+                                                             ::core::panic::Location::caller())
                             }
                         }
                     }
@@ -12788,7 +12737,7 @@ impl Strn {
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                      }),
-                                                     ::core::intrinsics::caller_location())
+                                                     ::core::panic::Location::caller())
                     }
                 }
             }

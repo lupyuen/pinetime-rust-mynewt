@@ -3,7 +3,6 @@ use embedded_hal::{
     blocking::delay::DelayMs,
     digital::v2::OutputPin,
 };
-use druid;
 use mynewt::{
     self,
     result::*,
@@ -94,7 +93,8 @@ extern "C" fn touch_event_callback(_event: *mut os_event) {
             //  Handle only touch down and contact actions, not touch up (see note below)
             if action != 0 && action != 2 { continue; }
             //  Handle the touch data in the UI        
-            druid::handle_touch(x, y);
+            super::handle_touch(x, y);
+
             //  Display the touch data
             //  druid::show_touch(x, y).expect("show touch fail");
 

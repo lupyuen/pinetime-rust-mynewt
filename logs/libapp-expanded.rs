@@ -17,11 +17,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-//!  Sensor app that reads sensor data from a temperature sensor and sends the sensor data to a CoAP server over NB-IoT.
-//!  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
-//!  fixes AT response parsing bugs.  The patched file must be present in that location.
-//!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/main.c`
-
+//!  Main Rust Application for PineTime with Apache Mynewt OS
 #![no_std]
 //  Don't link with standard Rust library, which is not compatible with embedded systems
 #![feature(trace_macros)]
@@ -31,14 +27,17 @@
 #![feature(const_transmute)]
 //  Allow `transmute` for initialising Mynewt structs
 #![feature(proc_macro_hygiene)]
+//  Allow Procedural Macros like `run!()`
+#![feature(specialization)]
 #[prelude_import]
 use core::prelude::v1::*;
 #[macro_use]
 extern crate core;
 #[macro_use]
 extern crate compiler_builtins;
-//  Allow Procedural Macros like `run!()`
+//  Allow Specialised Traits for druid UI library
 
+//  Declare the libraries that contain macros
 extern crate cortex_m;
 //  Declare the external library `cortex_m`
 extern crate mynewt;
@@ -46,25 +45,40 @@ extern crate mynewt;
 extern crate macros as mynewt_macros;
 //  Declare the Mynewt Procedural Macros library
 
+//  Declare the modules in our application
 mod app_network {
     //  Declare `app_network.rs` as Rust module `app_network` for Application Network functions
     //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
     //  Declare `touch_sensor.rs` as Rust module `touch_sensor` for Touch Sensor functions
 
+    //  Declare the optional modules depending on the options in `../Cargo.toml`
     //  If graphics display app is enabled...
     //  Graphics display app
 
     //  If druid UI app is enabled...
     //  druid UI app
 
+    //  If Visual Rust app is enabled...
+    //  Visual Rust app
+
     //  If floating-point is enabled...
     //  GPS Sensor functions
 
+    //  Declare the system modules
     //  Import `PanicInfo` type which is used by `panic()` below
     //  Import cortex_m assembly function to inject breakpoint
     //  Import Mynewt OS API
     //  Import Mynewt Console API
-    //libs::sensor_network,   //  Import Mynewt Sensor Network Library
+
+    //  Select the touch handler depending on the options in `../Cargo.toml`
+    //  If druid UI app is enabled...
+    //  Use the touch handler from druid UI app
+
+    //  If Visual Rust app is enabled...
+    //  Use the touch handler from the Visual Rust app
+
+    //  If neither druid UI app nor Visual Rust app are enabled...
+    //  Define a touch handler that does nothing
 
     //  Don't mangle the name "main"
     //  Declare extern "C" because it will be called by Mynewt
@@ -72,14 +86,6 @@ mod app_network {
     //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
-
-    //  TODO: Start the Server Transport for transmitting sensor data to the network.
-    //  sensor_network::start_server_transport()
-    //    .expect("NET fail");
-
-    //  Start polling the simulated temperature sensor every 10 seconds in the background.
-    //  app_sensor::start_sensor_listener()
-    //    .expect("TMP fail");
 
     //  Start Bluetooth Beacon.  TODO: Create a safe wrapper for starting Bluetooth LE.
     //  extern { fn start_ble() -> i32; }
@@ -99,6 +105,9 @@ mod app_network {
 
     //  Launch the druid UI app
     //  If druid UI app is enabled...
+
+    //  Launch the Visual Rust app
+    //  If Visual Rust app is enabled...
 
     //  Main event loop
     //  Loop forever...
@@ -358,7 +367,6 @@ mod app_sensor {
 mod touch_sensor {
     use embedded_hal::{self, blocking::delay::DelayMs,
                        digital::v2::OutputPin};
-    use druid;
     use mynewt::{self, result::*, hw::hal, kernel::os::{self, os_event},
                  sys::console, fill_zero};
     /// Reset Pin for touch controller. Note: NFC antenna pins must be reassigned as GPIO pins for this to work.
@@ -435,7 +443,7 @@ mod touch_sensor {
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
                                                                                      }),
-                                                     ::core::intrinsics::caller_location())
+                                                     ::core::panic::Location::caller())
                     }
                 }
             }
@@ -457,7 +465,7 @@ mod touch_sensor {
                 let TouchInfo { x, y, action, .. } = TOUCH_DATA.touches[i];
                 if x == 0 && y == 0 { continue ; }
                 if action != 0 && action != 2 { continue ; }
-                druid::handle_touch(x, y);
+                super::handle_touch(x, y);
             }
         }
     }
@@ -569,12 +577,10 @@ mod touch_sensor {
     fn read_register_range(addr: u8, start_register: u8, num_registers: u8,
                            buffer: &mut [u8]) -> MynewtResult<()> {
         if !(buffer.len() >= num_registers as usize) {
-            ::core::panicking::panic("i2c buf",
-                                     ::core::intrinsics::caller_location())
+            ::core::panicking::panic("i2c buf")
         };
         if !(start_register + num_registers < 128) {
-            ::core::panicking::panic("i2c addr",
-                                     ::core::intrinsics::caller_location())
+            ::core::panicking::panic("i2c addr")
         };
         unsafe {
             I2C_BUFFER[0] = start_register;
@@ -601,10 +607,7 @@ mod touch_sensor {
     /// Read the I2C register for the specified I2C address (7-bit address)
     #[allow(dead_code)]
     fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
-        if !(register < 128) {
-            ::core::panicking::panic("i2c addr",
-                                     ::core::intrinsics::caller_location())
-        };
+        if !(register < 128) { ::core::panicking::panic("i2c addr") };
         unsafe {
             I2C_BUFFER[0] = register;
             I2C_DATA.address = addr;
@@ -714,6 +717,11 @@ mod display {
 use core::panic::PanicInfo;
 use cortex_m::asm::bkpt;
 use mynewt::{kernel::os, sys::console};
+#[cfg(not (any (feature = "ui_app", feature = "visual_app")))]
+pub fn handle_touch(_x: u16, _y: u16) {
+    console::print("touch not handled\n");
+    console::flush();
+}
 ///  Main program that initialises the sensor, network driver and starts reading and sending sensor data in the background.
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
 #[no_mangle]
