@@ -31,10 +31,9 @@ bench      = false
 # Optional features
 [features]
 default =  [          # Select the conditional compiled features
-    ####"display_app",    # Uncomment to enable graphics display app
+    "display_app",    # Uncomment to enable graphics display app
     # "ui_app",       # Uncomment to enable druid UI app
-    ####
-    "visual_app",     # Uncomment to enable Visual Rust app
+    # "visual_app",   # Uncomment to enable Visual Rust app
     # "use_float",    # Uncomment to enable floating-point support e.g. GPS geolocation
 ]
 display_app  = []     # Define the features
