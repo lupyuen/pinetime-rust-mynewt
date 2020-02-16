@@ -21,11 +21,7 @@ on_my_button_press: updated infer.json
  * specific language governing permissions and limitations
  * under the License.
  */
-//!  Sensor app that reads sensor data from a temperature sensor and sends the sensor data to a CoAP server over NB-IoT.
-//!  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
-//!  fixes AT response parsing bugs.  The patched file must be present in that location.
-//!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/main.c`
-
+//!  Main Rust Application for PineTime with Apache Mynewt OS
 #![no_std]
 //  Don't link with standard Rust library, which is not compatible with embedded systems
 #![feature(trace_macros)]
@@ -45,6 +41,7 @@ extern crate core;
 extern crate compiler_builtins;
 //  Allow Specialised Traits for druid UI library
 
+//  Declare the libraries that contain macros
 extern crate cortex_m;
 //  Declare the external library `cortex_m`
 extern crate mynewt;
@@ -52,11 +49,13 @@ extern crate mynewt;
 extern crate macros as mynewt_macros;
 //  Declare the Mynewt Procedural Macros library
 
+//  Declare the modules in our application
 mod app_network {
     //  Declare `app_network.rs` as Rust module `app_network` for Application Network functions
     //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
     //  Declare `touch_sensor.rs` as Rust module `touch_sensor` for Touch Sensor functions
 
+    //  Declare the optional modules depending on the options in `../Cargo.toml`
     //  If graphics display app is enabled...
     //  Graphics display app
 
@@ -69,17 +68,21 @@ mod app_network {
     //  If floating-point is enabled...
     //  GPS Sensor functions
 
+    //  Declare the system modules
     //  Import `PanicInfo` type which is used by `panic()` below
     //  Import cortex_m assembly function to inject breakpoint
     //  Import Mynewt OS API
     //  Import Mynewt Console API
-    //libs::sensor_network,   //  Import Mynewt Sensor Network Library
+
+    //  Select the touch handler depending on the options in `../Cargo.toml`
+    //  If druid UI app is enabled...
+    //  Use the touch handler from druid UI app
 
     //  If Visual Rust app is enabled...
     //  Use the touch handler from the Visual Rust app
 
-    //  If Visual Rust app is not enabled...
-    //  Use the touch handler from druid UI app
+    //  If neither druid UI app nor Visual Rust app are enabled...
+    //  Define a touch handler that does nothing
 
     //  Don't mangle the name "main"
     //  Declare extern "C" because it will be called by Mynewt
@@ -87,14 +90,6 @@ mod app_network {
     //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
-
-    //  TODO: Start the Server Transport for transmitting sensor data to the network.
-    //  sensor_network::start_server_transport()
-    //    .expect("NET fail");
-
-    //  Start polling the simulated temperature sensor every 10 seconds in the background.
-    //  app_sensor::start_sensor_listener()
-    //    .expect("TMP fail");
 
     //  Start Bluetooth Beacon.  TODO: Create a safe wrapper for starting Bluetooth LE.
     //  extern { fn start_ble() -> i32; }

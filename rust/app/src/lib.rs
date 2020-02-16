@@ -16,11 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-//!  Sensor app that reads sensor data from a temperature sensor and sends the sensor data to a CoAP server over NB-IoT.
-//!  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
-//!  fixes AT response parsing bugs.  The patched file must be present in that location.
-//!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/main.c`
-
+//!  Main Rust Application for PineTime with Apache Mynewt OS
 #![no_std]                       //  Don't link with standard Rust library, which is not compatible with embedded systems
 #![feature(trace_macros)]        //  Allow macro tracing: `trace_macros!(true)`
 #![feature(concat_idents)]       //  Allow `concat_idents!()` macro used in `coap!()` macro
@@ -28,14 +24,17 @@
 #![feature(proc_macro_hygiene)]  //  Allow Procedural Macros like `run!()`
 #![feature(specialization)]      //  Allow Specialised Traits for druid UI library
 
+//  Declare the libraries that contain macros
 extern crate cortex_m;                  //  Declare the external library `cortex_m`
 extern crate mynewt;                    //  Declare the Mynewt library
 extern crate macros as mynewt_macros;   //  Declare the Mynewt Procedural Macros library
 
+//  Declare the modules in our application
 mod app_network;    //  Declare `app_network.rs` as Rust module `app_network` for Application Network functions
 mod app_sensor;     //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
 mod touch_sensor;   //  Declare `touch_sensor.rs` as Rust module `touch_sensor` for Touch Sensor functions
 
+//  Declare the optional modules depending on the options in `../Cargo.toml`
 #[cfg(feature = "display_app")]  //  If graphics display app is enabled...
 mod display;        //  Graphics display app
 
@@ -48,19 +47,23 @@ mod visual;         //  Visual Rust app
 #[cfg(feature = "use_float")]    //  If floating-point is enabled...
 mod gps_sensor;     //  GPS Sensor functions
 
+//  Declare the system modules
 use core::panic::PanicInfo; //  Import `PanicInfo` type which is used by `panic()` below
 use cortex_m::asm::bkpt;    //  Import cortex_m assembly function to inject breakpoint
 use mynewt::{
     kernel::os,             //  Import Mynewt OS API
     sys::console,           //  Import Mynewt Console API
-    //libs::sensor_network,   //  Import Mynewt Sensor Network Library
 };
 
-#[cfg(feature = "visual_app")]       //  If Visual Rust app is enabled...
-use visual::handle_touch;            //  Use the touch handler from the Visual Rust app
+//  Select the touch handler depending on the options in `../Cargo.toml`
+#[cfg(feature = "ui_app")]      //  If druid UI app is enabled...
+use ui::handle_touch;           //  Use the touch handler from druid UI app
 
-#[cfg(not(feature = "visual_app"))]  //  If Visual Rust app is not enabled...
-use druid::handle_touch;             //  Use the touch handler from druid UI app
+#[cfg(feature = "visual_app")]  //  If Visual Rust app is enabled...
+use visual::handle_touch;       //  Use the touch handler from the Visual Rust app
+
+#[cfg(not(any(feature = "ui_app", feature = "visual_app")))]  //  If neither druid UI app nor Visual Rust app are enabled...
+pub fn handle_touch(_x: u16, _y: u16) { console::print("touch not handled\n"); console::flush(); }  //  Define a touch handler that does nothing
 
 ///  Main program that initialises the sensor, network driver and starts reading and sending sensor data in the background.
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
@@ -71,14 +74,6 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
     mynewt::sysinit();
-
-    //  TODO: Start the Server Transport for transmitting sensor data to the network.
-    //  sensor_network::start_server_transport()
-    //    .expect("NET fail");
-
-    //  Start polling the simulated temperature sensor every 10 seconds in the background.
-    //  app_sensor::start_sensor_listener()
-    //    .expect("TMP fail");
 
     //  Start Bluetooth Beacon.  TODO: Create a safe wrapper for starting Bluetooth LE.
     //  extern { fn start_ble() -> i32; }
