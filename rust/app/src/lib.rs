@@ -36,16 +36,17 @@ mod touch_sensor;   //  Declare `touch_sensor.rs` as Rust module `touch_sensor` 
 
 //  Declare the optional modules depending on the options in `../Cargo.toml`
 #[cfg(feature = "display_app")]  //  If graphics display app is enabled...
-mod display;        //  Graphics display app
+mod display;                     //  Include the graphics display app
 
 #[cfg(feature = "ui_app")]       //  If druid UI app is enabled...
-mod ui;             //  druid UI app
+mod ui;                          //  Include the druid UI app
 
 #[cfg(feature = "visual_app")]   //  If Visual Rust app is enabled...
-mod visual;         //  Visual Rust app
+#[allow(unused_variables)]       //  Don't warn about unused variables
+mod visual;                      //  Include the Visual Rust app
 
 #[cfg(feature = "use_float")]    //  If floating-point is enabled...
-mod gps_sensor;     //  GPS Sensor functions
+mod gps_sensor;                  //  Include the GPS Sensor functions
 
 //  Declare the system modules
 use core::panic::PanicInfo; //  Import `PanicInfo` type which is used by `panic()` below

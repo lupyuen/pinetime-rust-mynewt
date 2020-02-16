@@ -53,16 +53,17 @@ mod app_network {
 
     //  Declare the optional modules depending on the options in `../Cargo.toml`
     //  If graphics display app is enabled...
-    //  Graphics display app
+    //  Include the graphics display app
 
     //  If druid UI app is enabled...
-    //  druid UI app
+    //  Include the druid UI app
 
     //  If Visual Rust app is enabled...
-    //  Visual Rust app
+    //  Don't warn about unused variables
+    //  Include the Visual Rust app
 
     //  If floating-point is enabled...
-    //  GPS Sensor functions
+    //  Include the GPS Sensor functions
 
     //  Declare the system modules
     //  Import `PanicInfo` type which is used by `panic()` below

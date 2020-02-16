@@ -35,17 +35,17 @@ Idx Name               Size      VMA       LMA       File off  Algn  Flags
  10 .ARM.attributes    0000003b  00000000  00000000  000202f0  2**0  CONTENTS, READONLY
  11 .comment           0000007f  00000000  00000000  0002032b  2**0  CONTENTS, READONLY
  12 .svc_table         00000004  00000000  00000000  000203aa  2**0  CONTENTS, READONLY
- 13 .debug_line        00055c75  00000000  00000000  000203ae  2**0  CONTENTS, READONLY, DEBUGGING
- 14 .debug_info        00095119  00000000  00000000  00076023  2**0  CONTENTS, READONLY, DEBUGGING
- 15 .debug_abbrev      0000eb18  00000000  00000000  0010b13c  2**0  CONTENTS, READONLY, DEBUGGING
- 16 .debug_aranges     00006160  00000000  00000000  00119c58  2**3  CONTENTS, READONLY, DEBUGGING
- 17 .debug_str         00069aea  00000000  00000000  0011fdb8  2**0  CONTENTS, READONLY, DEBUGGING
- 18 .debug_loc         000136c2  00000000  00000000  001898a2  2**0  CONTENTS, READONLY, DEBUGGING
- 19 .debug_ranges      0001e0c0  00000000  00000000  0019cf64  2**0  CONTENTS, READONLY, DEBUGGING
- 20 .debug_frame       000101e0  00000000  00000000  001bb024  2**2  CONTENTS, READONLY, DEBUGGING
- 21 .debug_macinfo     0000005a  00000000  00000000  001cb204  2**0  CONTENTS, READONLY, DEBUGGING
- 22 .debug_pubnames    0001df34  00000000  00000000  001cb25e  2**0  CONTENTS, READONLY, DEBUGGING
- 23 .debug_pubtypes    00047c53  00000000  00000000  001e9192  2**0  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_line        00055c7f  00000000  00000000  000203ae  2**0  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_info        00095119  00000000  00000000  0007602d  2**0  CONTENTS, READONLY, DEBUGGING
+ 15 .debug_abbrev      0000eb18  00000000  00000000  0010b146  2**0  CONTENTS, READONLY, DEBUGGING
+ 16 .debug_aranges     00006160  00000000  00000000  00119c60  2**3  CONTENTS, READONLY, DEBUGGING
+ 17 .debug_str         00069aea  00000000  00000000  0011fdc0  2**0  CONTENTS, READONLY, DEBUGGING
+ 18 .debug_loc         000136c2  00000000  00000000  001898aa  2**0  CONTENTS, READONLY, DEBUGGING
+ 19 .debug_ranges      0001e0c0  00000000  00000000  0019cf6c  2**0  CONTENTS, READONLY, DEBUGGING
+ 20 .debug_frame       000101e0  00000000  00000000  001bb02c  2**2  CONTENTS, READONLY, DEBUGGING
+ 21 .debug_macinfo     0000005a  00000000  00000000  001cb20c  2**0  CONTENTS, READONLY, DEBUGGING
+ 22 .debug_pubnames    0001df34  00000000  00000000  001cb266  2**0  CONTENTS, READONLY, DEBUGGING
+ 23 .debug_pubtypes    00047c53  00000000  00000000  001e919a  2**0  CONTENTS, READONLY, DEBUGGING
 SYMBOL TABLE:
 00008000 l    d  .imghdr	00000000 .imghdr
 00008020 l    d  .text	00000000 .text
@@ -16855,9 +16855,7 @@ pub fn test_display() -> MynewtResult<()> {
     8a76:	f001 fec3 	bl	a800 <_ZN22piet_embedded_graphics7display15draw_to_display17ha79c713c1ca91064E>
     8a7a:	e7ff      	b.n	8a7c <_ZN3app7display12test_display17h08c9cf64b305749cE+0x286>
     8a7c:	2001      	movs	r0, #1
-
-    //  Return success to the caller
-    Ok(())
+/*
     8a7e:	f50d 7d00 	add.w	sp, sp, #512	; 0x200
     8a82:	bd70      	pop	{r4, r5, r6, pc}
 
@@ -56813,7 +56811,7 @@ int sprintf(char *buffer, const char *format, ...)
    1afc8:	0073722e 	.word	0x0073722e
    1afcc:	0001afb8 	.word	0x0001afb8
    1afd0:	00000013 	.word	0x00000013
-   1afd4:	00000054 	.word	0x00000054
+   1afd4:	00000055 	.word	0x00000055
    1afd8:	00000005 	.word	0x00000005
    1afdc:	20505344 	.word	0x20505344
    1afe0:	74736574 	.word	0x74736574
@@ -56821,19 +56819,19 @@ int sprintf(char *buffer, const char *format, ...)
    1afe8:	0000006c 	.word	0x0000006c
    1afec:	0001afb8 	.word	0x0001afb8
    1aff0:	00000013 	.word	0x00000013
-   1aff4:	00000059 	.word	0x00000059
+   1aff4:	0000005a 	.word	0x0000005a
    1aff8:	00000005 	.word	0x00000005
    1affc:	0001afb8 	.word	0x0001afb8
    1b000:	00000013 	.word	0x00000013
-   1b004:	0000005d 	.word	0x0000005d
+   1b004:	0000005e 	.word	0x0000005e
    1b008:	00000005 	.word	0x00000005
    1b00c:	0001afb8 	.word	0x0001afb8
    1b010:	00000013 	.word	0x00000013
-   1b014:	00000070 	.word	0x00000070
+   1b014:	00000071 	.word	0x00000071
    1b018:	0000000d 	.word	0x0000000d
    1b01c:	0001afb8 	.word	0x0001afb8
    1b020:	00000013 	.word	0x00000013
-   1b024:	0000006f 	.word	0x0000006f
+   1b024:	00000070 	.word	0x00000070
    1b028:	00000009 	.word	0x00000009
    1b02c:	696e6170 	.word	0x696e6170
    1b030:	2063      	.short	0x2063
@@ -56847,7 +56845,7 @@ int sprintf(char *buffer, const char *format, ...)
    1b042:	000a      	.short	0x000a
    1b044:	0001afb8 	.word	0x0001afb8
    1b048:	00000013 	.word	0x00000013
-   1b04c:	00000088 	.word	0x00000088
+   1b04c:	00000089 	.word	0x00000089
    1b050:	00000014 	.word	0x00000014
    1b054:	74737552 	.word	0x74737552
    1b058:	73657420 	.word	0x73657420
