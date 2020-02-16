@@ -51,9 +51,8 @@ fn ui_builder() -> impl Widget<State> {  //  `State` is the Application State
         .with_arg("count", on_label_show);  //  Call on_label_show to get label
     //  Create a label widget to display the text
     let label = Label::new(text);
-    //  Create a button widget labelled "increment" to increment the counter
-    //  Call on_button_press when pressed
-    let button = Button::new("increment", on_button_press);
+    //  Create a button widget to increment the counter    
+    let button = Button::new("UI App", on_button_press);  //  Call on_button_press when pressed
 
     //  Create a column for the UI
     let mut col = Column::new();
