@@ -6,9 +6,9 @@ set -x  #  Echo all commands.
 
 cd ..
 set +e
-rm pinetime-mynewt-rust.7z
+rm pinetime-rust-mynewt.7z
 set -e
-7z a pinetime-mynewt-rust.7z pinetime-mynewt-rust
+7z a pinetime-rust-mynewt.7z pinetime-rust-mynewt
 
 set +x  #  Stop echoing all commands.
 echo ✅ ◾ ️Done!
