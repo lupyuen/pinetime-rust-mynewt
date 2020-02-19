@@ -96,8 +96,8 @@ syscfg.defs:
 
 syscfg.vals:
     # OS_MAIN_STACK_SIZE: 1024  #  Small stack size: 4 KB
-    # OS_MAIN_STACK_SIZE: 2048  #  Normal stack size: 8 KB
-    OS_MAIN_STACK_SIZE: 4096  #  Large stack size: 16 KB
+    OS_MAIN_STACK_SIZE: 2048  #  Normal stack size: 8 KB
+    # OS_MAIN_STACK_SIZE: 4096  #  Large stack size: 16 KB
 
     MSYS_1_BLOCK_COUNT: 64  # Allocate extra MSYS buffers
 

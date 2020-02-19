@@ -24,7 +24,7 @@ static mut CHIP8_TASK_STACK: [os::os_stack_t; CHIP8_TASK_STACK_SIZE] =
     [0; CHIP8_TASK_STACK_SIZE];
 
 /// Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
-const CHIP8_TASK_STACK_SIZE: usize = 3072;  //  Must be 3072 and above because CHIP8 Emulator requires substantial stack space
+const CHIP8_TASK_STACK_SIZE: usize = 4096;  //  Must be 3072 and above because CHIP8 Emulator requires substantial stack space
 
 /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
 pub fn on_start() -> MynewtResult<()> {
@@ -117,6 +117,8 @@ impl libchip8::Hardware for Hardware {
         //  Set the state of a pixel in the screen.
         //  true for white, and false for black.
         console::print("set "); console::printint(x as i32); console::print(", "); console::printint(y as i32); console::print("\n"); console::flush(); ////
+        assert!(x < SCREEN_WIDTH, "x overflow");
+        assert!(y < SCREEN_HEIGHT, "y overflow");
         let i = x + y * SCREEN_WIDTH;
         unsafe { SCREEN_BUFFER[i] = if d { 1 } else { 0 } };
         let x_scaled: i32 = x as i32 * PIXEL_SIZE;
@@ -134,6 +136,8 @@ impl libchip8::Hardware for Hardware {
     fn vram_get(&mut self, x: usize, y: usize) -> bool {
         //  Get the current state of a pixel in the screen.
         console::print("get "); console::printint(x as i32); console::print(", "); console::printint(y as i32); console::print("\n"); console::flush(); ////
+        assert!(x < SCREEN_WIDTH, "x overflow");
+        assert!(y < SCREEN_HEIGHT, "y overflow");
         let i = x + y * SCREEN_WIDTH;
         unsafe { SCREEN_BUFFER[i] != 0 }
         //  self.vram[(y * self.vramsz.0) + x]
