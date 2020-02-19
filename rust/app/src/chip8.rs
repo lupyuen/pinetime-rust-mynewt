@@ -16,6 +16,16 @@ use mynewt_macros::{
     init_strn,
 };
 
+/// CHIP8 Background Task
+static mut CHIP8_TASK: os::os_task = fill_zero!(os::os_task);
+
+/// Stack space for CHIP8 Task, initialised to 0.
+static mut CHIP8_TASK_STACK: [os::os_stack_t; CHIP8_TASK_STACK_SIZE] = 
+    [0; CHIP8_TASK_STACK_SIZE];
+
+/// Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
+const CHIP8_TASK_STACK_SIZE: usize = 3072;  //  Must be 3072 and above because CHIP8 Emulator requires substantial stack space
+
 /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
 pub fn on_start() -> MynewtResult<()> {
     console::print("Rust CHIP8\n"); console::flush();
@@ -34,7 +44,7 @@ pub fn on_start() -> MynewtResult<()> {
         &init_strn!( "chip8" ),     //  Name of task
         Some( task_func ),    //  Function to execute when task starts
         NULL,  //  Argument to be passed to above function
-        10,    //  Task priority: highest is 0, lowest is 255 (main task is 127)
+        128,    //  Task priority: highest is 0, lowest is 255 (main task is 127)
         os::OS_WAIT_FOREVER as u32,     //  Don't do sanity / watchdog checking
         unsafe { &mut CHIP8_TASK_STACK }, //  Stack space for the task
         CHIP8_TASK_STACK_SIZE as u16      //  Size of the stack (in 4-byte units)
@@ -44,28 +54,19 @@ pub fn on_start() -> MynewtResult<()> {
     Ok(())
 }
 
-///  Start the emulator
-extern "C" fn task_func(_arg: Ptr) {
-    console::print("CHIP8 started\n"); console::flush();
+///  Run the emulator
+extern "C" fn task_func(_arg: Ptr) {    
+    //  Create the emulator
     let chip8 = libchip8::Chip8::new(Hardware);
 
     //  This will block until emulator terminates
+    console::print("CHIP8 started\n"); console::flush();
     chip8.run(include_bytes!("../roms/invaders.ch8"));
 
     //  Should not come here
     console::print("CHIP8 done\n"); console::flush();
     assert!(false, "CHIP8 should not end");
 }
-
-/// SPI Task that will send each SPI request sequentially
-static mut CHIP8_TASK: os::os_task = fill_zero!(os::os_task);
-
-/// Stack space for SPI Task, initialised to 0.
-static mut CHIP8_TASK_STACK: [os::os_stack_t; CHIP8_TASK_STACK_SIZE] = 
-    [0; CHIP8_TASK_STACK_SIZE];
-
-/// Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
-const CHIP8_TASK_STACK_SIZE: usize = 256;
 
 const SCREEN_WIDTH: usize = 64;
 const SCREEN_HEIGHT: usize = 32;
@@ -185,7 +186,9 @@ impl libchip8::Hardware for Hardware {
 
     fn sched(&mut self) -> bool {
         //  Called in every step; return true for shutdown.
-        unsafe { os::os_time_delay(1000) };
+        //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
+        unsafe { hal_watchdog_tickle() };
+        //  unsafe { os::os_time_delay(1) };
         false
         /*
         std::thread::sleep(std::time::Duration::from_micros(1000_000 / self.opt.hz));
@@ -209,4 +212,10 @@ impl libchip8::Hardware for Hardware {
 
 pub fn handle_touch(_x: u16, _y: u16) { 
     console::print("CHIP8 touch not handled\n"); console::flush(); 
+}
+
+//  TODO: Move this to Mynewt library
+extern "C" { 
+    /// Tickles the watchdog so that the Watchdog Timer doesn't expire. This needs to be done periodically, before the value configured in hal_watchdog_init() expires.
+    fn hal_watchdog_tickle(); 
 }
