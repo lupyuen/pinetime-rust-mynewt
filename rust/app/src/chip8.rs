@@ -133,13 +133,15 @@ impl libchip8::Hardware for Hardware {
 
     fn vram_get(&mut self, x: usize, y: usize) -> bool {
         //  Get the current state of a pixel in the screen.
+        console::print("get "); console::printint(x as i32); console::print(", "); console::printint(y as i32); console::print("\n"); console::flush(); ////
         let i = x + y * SCREEN_WIDTH;
         unsafe { SCREEN_BUFFER[i] != 0 }
         //  self.vram[(y * self.vramsz.0) + x]
     }
 
-    fn vram_setsize(&mut self, _size: (usize, usize)) {
+    fn vram_setsize(&mut self, size: (usize, usize)) {
         //  Set the size of the screen.
+        console::print("setsize "); console::printint(size.0 as i32); console::print(", "); console::printint(size.1 as i32); console::print("\n"); console::flush(); ////
         /*
         self.vramsz = size;
         self.vram = vec![false; size.0 * size.1];
@@ -171,7 +173,7 @@ impl libchip8::Hardware for Hardware {
 
     fn clock(&mut self) -> u64 {
         //  Return the current clock value in nanoseconds.
-        os::os_time_get as u64 * 1000_u64 * 1000_u64
+        unsafe { os::os_time_get() as u64 * 1000_u64 * 1000_u64 }
         /*
         let d = self.inst.elapsed();
         d.as_secs()
@@ -186,9 +188,10 @@ impl libchip8::Hardware for Hardware {
 
     fn sched(&mut self) -> bool {
         //  Called in every step; return true for shutdown.
+        console::print("sched\n"); console::flush(); ////
         //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
-        //  unsafe { hal_watchdog_tickle() };
-        //  unsafe { os::os_time_delay(1) };
+        unsafe { hal_watchdog_tickle() };
+        unsafe { os::os_time_delay(100) };
         false
         /*
         std::thread::sleep(std::time::Duration::from_micros(1000_000 / self.opt.hz));
