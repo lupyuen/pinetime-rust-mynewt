@@ -36,7 +36,7 @@ pub fn on_start() -> MynewtResult<()> {
         .fill( Some( Rgb565::from(( 0x00, 0x00, 0x00 )) ) );  //  Black
 
     //  Render background to display
-    //  druid::draw_to_display(background);
+    druid::draw_to_display(background);
 
     //  Start the emulator in a background task
     os::task_init(                  //  Create a new task and start it...
@@ -62,10 +62,14 @@ extern "C" fn task_func(_arg: Ptr) {
 
     //  Create the emulator
     let chip8 = libchip8::Chip8::new(Hardware);
-
-    //  This will block until emulator terminates
     console::print("CHIP8 started\n"); console::flush();
-    chip8.run(include_bytes!("../roms/invaders.ch8"));
+
+    //  Load the emulator ROM
+    //  let rom = include_bytes!("../roms/invaders.ch8");
+    let rom = include_bytes!("../roms/pong.ch8");
+
+    //  Run the emulator ROM. This will block until emulator terminates
+    chip8.run(rom);
 
     //  Should not come here
     console::print("CHIP8 done\n"); console::flush();
@@ -75,7 +79,7 @@ extern "C" fn task_func(_arg: Ptr) {
 const SCREEN_WIDTH: usize = 64;
 const SCREEN_HEIGHT: usize = 32;
 const PIXEL_WIDTH: usize = 3;
-const PIXEL_HEIGHT: usize = 4;
+const PIXEL_HEIGHT: usize = 5;
 static mut SCREEN_BUFFER: [u8; SCREEN_WIDTH * SCREEN_HEIGHT] = [0; SCREEN_WIDTH * SCREEN_HEIGHT];
 static PIXEL_ON: [u16; PIXEL_WIDTH * PIXEL_HEIGHT] = [0xffff; PIXEL_WIDTH * PIXEL_HEIGHT];
 static PIXEL_OFF: [u16; PIXEL_WIDTH * PIXEL_HEIGHT] = [0x0; PIXEL_WIDTH * PIXEL_HEIGHT];
@@ -83,7 +87,7 @@ static PIXEL_OFF: [u16; PIXEL_WIDTH * PIXEL_HEIGHT] = [0x0; PIXEL_WIDTH * PIXEL_
 //  static mut PIXEL_OFF: PixelColors = heapless::Vec(heapless::i::Vec::new());
 
 /// Max number of physical pixels per virtual pixel
-type PixelSize = heapless::consts::U12;  //  PIXEL_WIDTH * PIXEL_HEIGHT
+type PixelSize = heapless::consts::U15;  //  PIXEL_WIDTH * PIXEL_HEIGHT
 
 /// Consecutive color words for a virtual pixel
 type PixelColors = heapless::Vec::<u16, PixelSize>;
