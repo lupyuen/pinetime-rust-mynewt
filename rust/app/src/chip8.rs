@@ -23,7 +23,8 @@ pub fn on_start() -> MynewtResult<()> {
 
 
     //  Render background to display
-    druid::draw_to_display(background);
+    //  druid::draw_to_display(background);
+    //  unsafe { os::os_time_delay(1000) };  ////
 
     //  Start the emulator
     let chip8 = libchip8::Chip8::new(Hardware);
@@ -81,6 +82,7 @@ impl libchip8::Hardware for Hardware {
     fn vram_set(&mut self, x: usize, y: usize, d: bool) {
         //  Set the state of a pixel in the screen.
         //  true for white, and false for black.
+        console::print("set "); console::printint(x as i32); console::print(", "); console::printint(y as i32); console::print("\n"); console::flush(); ////
         let i = x + y * SCREEN_WIDTH;
         unsafe { SCREEN_BUFFER[i] = if d { 1 } else { 0 } };
         let x_scaled: i32 = x as i32 * PIXEL_SIZE;
