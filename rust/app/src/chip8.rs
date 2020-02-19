@@ -187,7 +187,7 @@ impl libchip8::Hardware for Hardware {
     fn sched(&mut self) -> bool {
         //  Called in every step; return true for shutdown.
         //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
-        unsafe { hal_watchdog_tickle() };
+        //  unsafe { hal_watchdog_tickle() };
         //  unsafe { os::os_time_delay(1) };
         false
         /*
