@@ -24,7 +24,7 @@ static mut CHIP8_TASK_STACK: [os::os_stack_t; CHIP8_TASK_STACK_SIZE] =
     [0; CHIP8_TASK_STACK_SIZE];
 
 /// Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
-const CHIP8_TASK_STACK_SIZE: usize = 4096;  //  Must be 3072 and above because CHIP8 Emulator requires substantial stack space
+const CHIP8_TASK_STACK_SIZE: usize = 6144;  //  Must be 3072 and above because CHIP8 Emulator requires substantial stack space
 
 /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
 pub fn on_start() -> MynewtResult<()> {
@@ -116,13 +116,15 @@ impl libchip8::Hardware for Hardware {
     fn vram_set(&mut self, x: usize, y: usize, d: bool) {
         //  Set the state of a pixel in the screen.
         //  true for white, and false for black.
-        console::print("set "); console::printint(x as i32); console::print(", "); console::printint(y as i32); console::print("\n"); console::flush(); ////
+        //  console::print("set "); console::printint(x as i32); console::print(", "); console::printint(y as i32); console::print("\n"); console::flush(); ////
         assert!(x < SCREEN_WIDTH, "x overflow");
         assert!(y < SCREEN_HEIGHT, "y overflow");
         let i = x + y * SCREEN_WIDTH;
         unsafe { SCREEN_BUFFER[i] = if d { 1 } else { 0 } };
         let x_scaled: i32 = x as i32 * PIXEL_SIZE;
         let y_scaled: i32 = y as i32 * PIXEL_SIZE; 
+        assert!(x_scaled < 240 - PIXEL_SIZE, "x overflow");
+        assert!(y_scaled < 240 - PIXEL_SIZE, "y overflow");
         let color = if d { Rgb565::from(( 0x00, 0x00, 0xff )) } else { Rgb565::from(( 0x00, 0x00, 0x00 )) };
         let pixel = Rectangle::<Rgb565>
             ::new( Coord::new( x_scaled, y_scaled ), Coord::new( x_scaled + PIXEL_SIZE - 1, y_scaled + PIXEL_SIZE - 1 ) ) //  Square coordinates
@@ -135,7 +137,7 @@ impl libchip8::Hardware for Hardware {
 
     fn vram_get(&mut self, x: usize, y: usize) -> bool {
         //  Get the current state of a pixel in the screen.
-        console::print("get "); console::printint(x as i32); console::print(", "); console::printint(y as i32); console::print("\n"); console::flush(); ////
+        //  console::print("get "); console::printint(x as i32); console::print(", "); console::printint(y as i32); console::print("\n"); console::flush(); ////
         assert!(x < SCREEN_WIDTH, "x overflow");
         assert!(y < SCREEN_HEIGHT, "y overflow");
         let i = x + y * SCREEN_WIDTH;
@@ -192,10 +194,10 @@ impl libchip8::Hardware for Hardware {
 
     fn sched(&mut self) -> bool {
         //  Called in every step; return true for shutdown.
-        console::print("sched\n"); console::flush(); ////
+        console::print("sched\n"); // console::flush(); ////
         //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
         unsafe { hal_watchdog_tickle() };
-        unsafe { os::os_time_delay(100) };
+        unsafe { os::os_time_delay(1) };
         false
         /*
         std::thread::sleep(std::time::Duration::from_micros(1000_000 / self.opt.hz));
