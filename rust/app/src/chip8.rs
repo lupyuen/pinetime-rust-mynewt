@@ -125,7 +125,7 @@ impl libchip8::Hardware for Hardware {
         let y_scaled: i32 = y as i32 * PIXEL_SIZE; 
         assert!(x_scaled < 240 - PIXEL_SIZE, "x overflow");
         assert!(y_scaled < 240 - PIXEL_SIZE, "y overflow");
-        let color = if d { Rgb565::from(( 0x00, 0x00, 0xff )) } else { Rgb565::from(( 0x00, 0x00, 0x00 )) };
+        let color = if d { Rgb565::from(( 0x80, 0x80, 0xff )) } else { Rgb565::from(( 0x00, 0x00, 0x00 )) };
         let pixel = Rectangle::<Rgb565>
             ::new( Coord::new( x_scaled, y_scaled ), Coord::new( x_scaled + PIXEL_SIZE - 1, y_scaled + PIXEL_SIZE - 1 ) ) //  Square coordinates
             .fill( Some( color ) );
@@ -179,7 +179,7 @@ impl libchip8::Hardware for Hardware {
 
     fn clock(&mut self) -> u64 {
         //  Return the current clock value in nanoseconds.
-        unsafe { os::os_time_get() as u64 * 1000_u64 * 1000_u64 }
+        unsafe { os::os_time_get() as u64 * 1000_u64 * 2000_u64 }
         /*
         let d = self.inst.elapsed();
         d.as_secs()
@@ -194,7 +194,7 @@ impl libchip8::Hardware for Hardware {
 
     fn sched(&mut self) -> bool {
         //  Called in every step; return true for shutdown.
-        console::print("sched\n"); // console::flush(); ////
+        //  console::print("sched\n"); console::flush(); ////
         //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
         unsafe { hal_watchdog_tickle() };
         unsafe { os::os_time_delay(1) };
