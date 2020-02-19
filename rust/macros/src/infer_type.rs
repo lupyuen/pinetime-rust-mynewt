@@ -561,6 +561,14 @@ lazy_static::lazy_static! {
 /// Return the Mynewt API function declaration or previously-inferred parameter types for the function named `fname`
 fn get_decl(fname: &str) -> &ParaTypeList {
     //  TODO: Generalise for UI events `on_..._show` and `on_..._press`
+    if fname.starts_with("on_") {
+        if fname.ends_with("_show") {
+            return MYNEWT_DECL.get(&"on_my_label_show".to_string()).unwrap();
+        }
+        if fname.ends_with("_press") {
+            return MYNEWT_DECL.get(&"on_my_button_press".to_string()).unwrap();
+        }
+    }
     if let Some(para_type_list) = MYNEWT_DECL.get(&fname.to_string()) { return &para_type_list }
     if let Some(para_type_list) = SOURCE_DECL.get(&fname.to_string()) { return &para_type_list }
     &EMPTY_PARA_TYPE_LIST
@@ -569,9 +577,17 @@ fn get_decl(fname: &str) -> &ParaTypeList {
 /// Return the return type for the function named `fname`
 fn get_return_type(fname: &str) -> String {
     //  TODO: Generalise for UI events `on_..._show` and `on_..._press`
+    if fname.starts_with("on_") {
+        if fname.ends_with("_show") {
+            return "ArgValue".to_string();
+        }
+        if fname.ends_with("_press") {
+            return "".to_string();
+        }
+    }
     match fname {
-        "on_my_label_show"   => "ArgValue".to_string(),  //  "MynewtResult<ArgValue>".to_string(),
-        "on_my_button_press" => "".to_string(),  //  "MynewtResult".to_string(),
+        //  "on_my_label_show"   => "ArgValue".to_string(),  //  "MynewtResult<ArgValue>".to_string(),
+        //  "on_my_button_press" => "".to_string(),  //  "MynewtResult".to_string(),
         "ui_builder" => "impl Widget<State>".to_string(),
         _ => "_".to_string()
     }
