@@ -56,6 +56,10 @@ pub fn on_start() -> MynewtResult<()> {
 
 ///  Run the emulator
 extern "C" fn task_func(_arg: Ptr) {    
+    //  Init the colours
+    //  loop { if PIXEL_OFF.push(0x0).is_err() { break; } }
+    //  loop { if PIXEL_ON.push(0xffff).is_err() { break; } }
+
     //  Create the emulator
     let chip8 = libchip8::Chip8::new(Hardware);
 
@@ -70,8 +74,19 @@ extern "C" fn task_func(_arg: Ptr) {
 
 const SCREEN_WIDTH: usize = 64;
 const SCREEN_HEIGHT: usize = 32;
-const PIXEL_SIZE: i32 = 3;
+const PIXEL_WIDTH: usize = 3;
+const PIXEL_HEIGHT: usize = 4;
 static mut SCREEN_BUFFER: [u8; SCREEN_WIDTH * SCREEN_HEIGHT] = [0; SCREEN_WIDTH * SCREEN_HEIGHT];
+static PIXEL_ON: [u16; PIXEL_WIDTH * PIXEL_HEIGHT] = [0xffff; PIXEL_WIDTH * PIXEL_HEIGHT];
+static PIXEL_OFF: [u16; PIXEL_WIDTH * PIXEL_HEIGHT] = [0x0; PIXEL_WIDTH * PIXEL_HEIGHT];
+//  static mut PIXEL_ON: PixelColors = heapless::Vec(heapless::i::Vec::new());
+//  static mut PIXEL_OFF: PixelColors = heapless::Vec(heapless::i::Vec::new());
+
+/// Max number of physical pixels per virtual pixel
+type PixelSize = heapless::consts::U12;  //  PIXEL_WIDTH * PIXEL_HEIGHT
+
+/// Consecutive color words for a virtual pixel
+type PixelColors = heapless::Vec::<u16, PixelSize>;
 
 struct Hardware;
 
@@ -121,16 +136,27 @@ impl libchip8::Hardware for Hardware {
         assert!(y < SCREEN_HEIGHT, "y overflow");
         let i = x + y * SCREEN_WIDTH;
         unsafe { SCREEN_BUFFER[i] = if d { 1 } else { 0 } };
-        let x_scaled: i32 = x as i32 * PIXEL_SIZE;
-        let y_scaled: i32 = y as i32 * PIXEL_SIZE; 
-        assert!(x_scaled < 240 - PIXEL_SIZE, "x overflow");
-        assert!(y_scaled < 240 - PIXEL_SIZE, "y overflow");
+
+        let x_scaled: u16 = x as u16 * PIXEL_WIDTH as u16;
+        let y_scaled: u16 = y as u16 * PIXEL_HEIGHT as u16; 
+        assert!(x_scaled < 240 - PIXEL_WIDTH as u16, "x overflow");
+        assert!(y_scaled < 240 - PIXEL_HEIGHT as u16, "y overflow");
+
+        let pixel_colors = if d { &PIXEL_ON } else { &PIXEL_OFF };
+        let mut colors = PixelColors::new();
+        colors.extend_from_slice(pixel_colors).expect("extend failed");
+        druid::set_display_pixels(x_scaled, y_scaled, 
+            x_scaled + PIXEL_WIDTH as u16 - 1,
+            y_scaled + PIXEL_HEIGHT as u16 - 1,
+            colors
+        ).expect("set pixels failed");
+        /*
         let color = if d { Rgb565::from(( 0x80, 0x80, 0xff )) } else { Rgb565::from(( 0x00, 0x00, 0x00 )) };
         let pixel = Rectangle::<Rgb565>
-            ::new( Coord::new( x_scaled, y_scaled ), Coord::new( x_scaled + PIXEL_SIZE - 1, y_scaled + PIXEL_SIZE - 1 ) ) //  Square coordinates
+            ::new( Coord::new( x_scaled, y_scaled ), Coord::new( x_scaled + PIXEL_WIDTH - 1, y_scaled + PIXEL_HEIGHT - 1 ) ) //  Square coordinates
             .fill( Some( color ) );
         druid::draw_to_display(pixel);
-
+        */
         //  trace!("Set pixel ({},{})", x, y);
         //  self.vram[(y * self.vramsz.0) + x] = d;
     }
