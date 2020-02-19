@@ -21,6 +21,7 @@ druid        = { path = "../druid-embedded/druid" }        # TODO: https://githu
 druid-derive = { path = "../druid-embedded/druid-derive" } # TODO: https://github.com/lupyuen/druid-embedded
 druid-shell  = { path = "../druid-embedded/druid-shell" }  # TODO: https://github.com/lupyuen/druid-embedded
 embedded-graphics = "0.5.2"
+libchip8 = "0.1.2"
 
 # Build this module as a Rust library, not a Rust application.  We will link this library with the Mynewt executable.
 [lib]
@@ -31,12 +32,14 @@ bench      = false
 # Optional features
 [features]
 default =  [          # Select the conditional compiled features
-    "display_app",    # Uncomment to enable graphics display app
+    # "display_app",  # Uncomment to enable graphics display app
     # "ui_app",       # Uncomment to enable druid UI app
     # "visual_app",   # Uncomment to enable Visual Rust app
+    "chip8_app",      # Uncomment to enable CHIP8 Emulator app
     # "use_float",    # Uncomment to enable floating-point support e.g. GPS geolocation
 ]
 display_app  = []     # Define the features
 ui_app       = []
 visual_app   = []
+chip8_app    = []
 use_float    = []

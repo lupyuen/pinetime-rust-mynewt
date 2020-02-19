@@ -45,6 +45,9 @@ mod ui;                          //  Include the druid UI app
 #[allow(unused_variables)]       //  Don't warn about unused variables
 mod visual;                      //  Include the Visual Rust app
 
+#[cfg(feature = "chip8_app")]    //  If CHIP8 Emulator app is enabled...
+mod chip8;                       //  Include the CHIP8 Emulator app
+
 #[cfg(feature = "use_float")]    //  If floating-point is enabled...
 mod gps_sensor;                  //  Include the GPS Sensor functions
 
@@ -63,7 +66,10 @@ use ui::handle_touch;           //  Use the touch handler from druid UI app
 #[cfg(feature = "visual_app")]  //  If Visual Rust app is enabled...
 use visual::handle_touch;       //  Use the touch handler from the Visual Rust app
 
-#[cfg(not(any(feature = "ui_app", feature = "visual_app")))]  //  If neither druid UI app nor Visual Rust app are enabled...
+#[cfg(feature = "chip8_app")]   //  If CHIP8 Emulator app is enabled...
+use chip8::handle_touch;       //  Use the touch handler from the CHIP8 Emulator app
+
+#[cfg(not(any(feature = "ui_app", feature = "visual_app", feature = "chip8_app")))]  //  If neither druid UI app nor Visual Rust app are enabled...
 pub fn handle_touch(_x: u16, _y: u16) { console::print("touch not handled\n"); console::flush(); }  //  Define a touch handler that does nothing
 
 ///  Main program that initialises the sensor, network driver and starts reading and sending sensor data in the background.
@@ -106,7 +112,12 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     #[cfg(feature = "visual_app")]  //  If Visual Rust app is enabled...
     visual::on_start()
         .expect("VIS fail");
-    
+
+    //  Launch the CHIP8 Emulator app
+    #[cfg(feature = "chip8_app")]  //  If CHIP8 Emulator app is enabled...
+    chip8::on_start()
+        .expect("CHIP8 fail");
+
     //  Main event loop
     loop {                            //  Loop forever...
         os::eventq_run(               //  Processing events...
