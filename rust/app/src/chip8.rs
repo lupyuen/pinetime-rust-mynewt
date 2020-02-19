@@ -10,6 +10,10 @@ use mynewt::{
     result::*,
     sys::console,
     kernel::os,
+    NULL, Ptr, Strn, fill_zero,
+};
+use mynewt_macros::{
+    init_strn,
 };
 
 /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
@@ -21,18 +25,47 @@ pub fn on_start() -> MynewtResult<()> {
         ::new( Coord::new( 0, 0 ), Coord::new( 239, 239 ) )   //  Rectangle coordinates
         .fill( Some( Rgb565::from(( 0x00, 0x00, 0x00 )) ) );  //  Black
 
-
     //  Render background to display
     //  druid::draw_to_display(background);
-    //  unsafe { os::os_time_delay(1000) };  ////
 
-    //  Start the emulator
-    let chip8 = libchip8::Chip8::new(Hardware);
-    chip8.run(include_bytes!("../roms/invaders.ch8"));
+    //  Start the emulator in a background task
+    os::task_init(                  //  Create a new task and start it...
+        unsafe { &mut CHIP8_TASK }, //  Task object will be saved here
+        &init_strn!( "chip8" ),     //  Name of task
+        Some( task_func ),    //  Function to execute when task starts
+        NULL,  //  Argument to be passed to above function
+        10,    //  Task priority: highest is 0, lowest is 255 (main task is 127)
+        os::OS_WAIT_FOREVER as u32,     //  Don't do sanity / watchdog checking
+        unsafe { &mut CHIP8_TASK_STACK }, //  Stack space for the task
+        CHIP8_TASK_STACK_SIZE as u16      //  Size of the stack (in 4-byte units)
+    ) ? ;                               //  `?` means check for error
 
     //  Return success to the caller
     Ok(())
 }
+
+///  Start the emulator
+extern "C" fn task_func(_arg: Ptr) {
+    console::print("CHIP8 started\n"); console::flush();
+    let chip8 = libchip8::Chip8::new(Hardware);
+
+    //  This will block until emulator terminates
+    chip8.run(include_bytes!("../roms/invaders.ch8"));
+
+    //  Should not come here
+    console::print("CHIP8 done\n"); console::flush();
+    assert!(false, "CHIP8 should not end");
+}
+
+/// SPI Task that will send each SPI request sequentially
+static mut CHIP8_TASK: os::os_task = fill_zero!(os::os_task);
+
+/// Stack space for SPI Task, initialised to 0.
+static mut CHIP8_TASK_STACK: [os::os_stack_t; CHIP8_TASK_STACK_SIZE] = 
+    [0; CHIP8_TASK_STACK_SIZE];
+
+/// Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
+const CHIP8_TASK_STACK_SIZE: usize = 256;
 
 const SCREEN_WIDTH: usize = 64;
 const SCREEN_HEIGHT: usize = 32;
@@ -152,6 +185,8 @@ impl libchip8::Hardware for Hardware {
 
     fn sched(&mut self) -> bool {
         //  Called in every step; return true for shutdown.
+        unsafe { os::os_time_delay(1000) };
+        false
         /*
         std::thread::sleep(std::time::Duration::from_micros(1000_000 / self.opt.hz));
 
@@ -169,7 +204,6 @@ impl libchip8::Hardware for Hardware {
             win.update_with_buffer(&vram).unwrap();
         }
         */
-        false
     }
 }
 
