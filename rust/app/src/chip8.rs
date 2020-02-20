@@ -36,7 +36,7 @@ pub fn on_start() -> MynewtResult<()> {
         .fill( Some( Rgb565::from(( 0x00, 0x00, 0x00 )) ) );  //  Black
 
     //  Render background to display
-    druid::draw_to_display(background);
+    //  druid::draw_to_display(background);
 
     //  Start the emulator in a background task
     os::task_init(                  //  Create a new task and start it...
@@ -56,12 +56,11 @@ pub fn on_start() -> MynewtResult<()> {
 
 ///  Run the emulator
 extern "C" fn task_func(_arg: Ptr) {    
-    //  Init the colours
-    //  loop { if PIXEL_OFF.push(0x0).is_err() { break; } }
-    //  loop { if PIXEL_ON.push(0xffff).is_err() { break; } }
+    //  Create the hardware API for rendering the emulator
+    let hardware = Hardware::new();
 
     //  Create the emulator
-    let chip8 = libchip8::Chip8::new(Hardware);
+    let chip8 = libchip8::Chip8::new(hardware);
     console::print("CHIP8 started\n"); console::flush();
 
     //  Load the emulator ROM
@@ -76,23 +75,158 @@ extern "C" fn task_func(_arg: Ptr) {
     assert!(false, "CHIP8 should not end");
 }
 
+/// CHIP8 Virtual Screen size, in Virtual Pixels
 const SCREEN_WIDTH: usize = 64;
 const SCREEN_HEIGHT: usize = 32;
+
+/// CHIP8 Virtual Block size. We render the CHIP8 Virtual Screen in blocks of Virtual Pixels
+const BLOCK_WIDTH: usize = 16;
+const BLOCK_HEIGHT: usize = 8;
+
+/// CHIP8 Virtual Pixel size, in Physical Pixels
 const PIXEL_WIDTH: usize = 3;
 const PIXEL_HEIGHT: usize = 5;
+
+/// CHIP8 Virtual Screen Buffer, 1 byte per Virtual Pixel
 static mut SCREEN_BUFFER: [u8; SCREEN_WIDTH * SCREEN_HEIGHT] = [0; SCREEN_WIDTH * SCREEN_HEIGHT];
-static PIXEL_ON: [u16; PIXEL_WIDTH * PIXEL_HEIGHT] = [0xffff; PIXEL_WIDTH * PIXEL_HEIGHT];
-static PIXEL_OFF: [u16; PIXEL_WIDTH * PIXEL_HEIGHT] = [0x0; PIXEL_WIDTH * PIXEL_HEIGHT];
-//  static mut PIXEL_ON: PixelColors = heapless::Vec(heapless::i::Vec::new());
-//  static mut PIXEL_OFF: PixelColors = heapless::Vec(heapless::i::Vec::new());
 
-/// Max number of physical pixels per virtual pixel
-type PixelSize = heapless::consts::U15;  //  PIXEL_WIDTH * PIXEL_HEIGHT
+/// CHIP8 Virtual Pixel mapped to Physical Pixels with 16-bit colour
+//  static PIXEL_ON: [u16; PIXEL_WIDTH * PIXEL_HEIGHT] = [0xffff; PIXEL_WIDTH * PIXEL_HEIGHT];
+//  static PIXEL_OFF: [u16; PIXEL_WIDTH * PIXEL_HEIGHT] = [0x0; PIXEL_WIDTH * PIXEL_HEIGHT];
 
-/// Consecutive color words for a virtual pixel
-type PixelColors = heapless::Vec::<u16, PixelSize>;
+/// Max number of Physical Pixels per Virtual Pixel
+//  type PixelSize = heapless::consts::U15;  //  PIXEL_WIDTH * PIXEL_HEIGHT
 
-struct Hardware;
+/// Consecutive color words for a Virtual Pixel
+//  type PixelColors = heapless::Vec::<u16, PixelSize>;
+
+/// Iterator for each Virtual Pixels in a Virtual Block
+#[derive(Debug, Clone)]
+pub struct PixelIterator {
+    /// Current column number
+    x:           u8,
+    /// Current row number
+    y:           u8,
+    /// Current column offset of Physical Pixel within the Virtual Pixel: 0 to PIXEL_WIDTH - 1
+    x_offset:    u8,
+    /// Current row offset of Physical Pixel within the Virtual Pixel: 0 to PIXEL_HEIGHT - 1
+    y_offset:    u8,
+    /// Start column number for block
+    block_left:      u8,
+    /// End column number for block
+    block_right:     u8,
+    /// Start row number for block
+    block_top:       u8,
+    /// End row number for block
+    block_bottom:    u8,
+}
+
+impl PixelIterator {
+    /// Return a new PixelInterator for the block dimensions
+    pub fn new(
+        //  Start column number for block
+        block_left:      u8,
+        //  Start row number for block
+        block_top:       u8,
+        //  End column number for block
+        block_right:     u8,
+        //  End row number for block
+        block_bottom:    u8,        
+    ) -> PixelIterator {
+        PixelIterator {
+            x: block_left, 
+            y: block_top,
+            x_offset: 0, 
+            y_offset: 0,
+            block_left, block_right,
+            block_top, block_bottom,
+        }
+    }
+    /*
+    /// Return true if the block is empty
+    pub fn is_empty(&self) -> bool {
+        self.x == self.block_left && self.y == self.block_top &&
+            self.x_offset == 0 && self.y_offset == 0
+    }
+    */
+    /// Return true if the Virtual Pixel is in the block
+    pub fn contains(&self, x: u8, y: u8) -> bool {
+        x >= self.block_left && x <= self.block_right &&
+            y >= self.block_top && y <= self.block_bottom
+    }
+    /// Return window of Physical Pixels: (left, top, right, bottom)
+    pub fn get_window(&self) -> (u8, u8, u8, u8) {
+        let left: u8 = self.block_left as u8 * PIXEL_WIDTH as u8;
+        let top: u8 = self.block_top as u8 * PIXEL_HEIGHT as u8; 
+        let right: u8 = left + (self.block_right - self.block_left + 1) * PIXEL_WIDTH as u8 - 1;
+        let bottom: u8 = top + (self.block_bottom - self.block_top + 1) * PIXEL_HEIGHT as u8 - 1;
+        assert!(left < 240 && top < 240 && right < 240 && bottom < 240, "overflow");
+        ( left, top, right, bottom )
+    }
+}
+
+/// Implement the Iterator for Virtual Pixels in a Virtual Block
+impl Iterator for PixelIterator {
+    /// This Iterator returns Physical Pixel colour words (16-bit)
+    type Item = u16;
+
+    /// Return the next Physical Pixel colour
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.y > self.block_bottom { return None; }  //  No more Physical Pixels
+
+        if self.x >= SCREEN_WIDTH as u8 ||
+            self.y >= SCREEN_HEIGHT as u8 { cortex_m::asm::bkpt(); }
+        assert!(self.x < SCREEN_WIDTH as u8, "x overflow");
+        assert!(self.y < SCREEN_HEIGHT as u8, "y overflow");
+        let i = self.x as usize + self.y as usize * SCREEN_WIDTH;
+        let color = unsafe { 
+            if SCREEN_BUFFER[i] != 0 { 0xffff } else { 0x0 }
+        };
+        //  Loop over x_offset from 0 to PIXEL_WIDTH - 1
+        self.x_offset += 1;
+        if self.x_offset >= PIXEL_WIDTH as u8 {
+            self.x_offset = 0;
+
+            //  Loop over x from block_left to block_right
+            self.x += 1;
+            if self.x > self.block_right {
+                self.x = self.block_left;
+
+                //  Loop over y_offset from 0 to PIXEL_HEIGHT - 1
+                self.y_offset += 1;
+                if self.y_offset >= PIXEL_HEIGHT as u8 {
+                    self.y_offset = 0;
+
+                    //  Loop over y from block_top to block_bottom
+                    self.y += 1;
+                }
+            }
+        }
+        //  Return the Physical Pixel color
+        return Some(color);
+    }
+}
+
+/// Hardware API for rendering CHIP8 Emulator
+struct Hardware {
+    block: PixelIterator,
+}
+
+impl Hardware {
+    /// Return a new Hardware API for rendering CHIP8 Emulator
+    pub fn new() -> Hardware {
+        let left = 0 as u8;
+        let top = 0 as u8;
+        let right = left + BLOCK_WIDTH as u8  - 1;
+        let bottom = top  + BLOCK_HEIGHT as u8 - 1;
+        Hardware {
+            block: PixelIterator::new(
+                left, top, 
+                right, bottom
+            ),
+        }
+    }
+}
 
 impl libchip8::Hardware for Hardware {
     fn rand(&mut self) -> u8 {
@@ -141,11 +275,33 @@ impl libchip8::Hardware for Hardware {
         let i = x + y * SCREEN_WIDTH;
         unsafe { SCREEN_BUFFER[i] = if d { 1 } else { 0 } };
 
+        //  If (x,y) are inside the current block, do nothing.
+        if self.block.contains(x as u8, y as u8) { return; }
+
+        //  If (x,y) are outside the current block, render the previous block (if any).
+        //  if !self.block.is_empty() {
+            let (left, top, right, bottom) = self.block.get_window();
+            druid::set_display_pixels(left as u16, top as u16, right as u16, bottom as u16,
+                &mut self.block
+            ).expect("set pixels failed");    
+        //  }
+
+        //  Create a new block.
+        let left = x as u8;
+        let top = y as u8;
+        let right = left + BLOCK_WIDTH as u8  - 1;
+        let bottom = top  + BLOCK_HEIGHT as u8 - 1;
+        self.block = PixelIterator::new(
+            left, top, 
+            if right < SCREEN_WIDTH as u8 { right } else { SCREEN_WIDTH as u8 - 1 }, 
+            if bottom < SCREEN_HEIGHT as u8 { bottom } else { SCREEN_HEIGHT as u8 - 1 }
+        );
+
+        /*
         let x_scaled: u16 = x as u16 * PIXEL_WIDTH as u16;
         let y_scaled: u16 = y as u16 * PIXEL_HEIGHT as u16; 
         assert!(x_scaled < 240 - PIXEL_WIDTH as u16, "x overflow");
-        assert!(y_scaled < 240 - PIXEL_HEIGHT as u16, "y overflow");
-
+        assert!(y_scaled < 240 - PIXEL_HEIGHT as u16, "y overflow");        
         let pixel_colors = if d { &PIXEL_ON } else { &PIXEL_OFF };
         let mut colors = PixelColors::new();
         colors.extend_from_slice(pixel_colors).expect("extend failed");
@@ -154,6 +310,8 @@ impl libchip8::Hardware for Hardware {
             y_scaled + PIXEL_HEIGHT as u16 - 1,
             colors
         ).expect("set pixels failed");
+        */
+
         /*
         let color = if d { Rgb565::from(( 0x80, 0x80, 0xff )) } else { Rgb565::from(( 0x00, 0x00, 0x00 )) };
         let pixel = Rectangle::<Rgb565>
