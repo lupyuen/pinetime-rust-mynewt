@@ -80,8 +80,8 @@ const SCREEN_WIDTH: usize = 64;
 const SCREEN_HEIGHT: usize = 32;
 
 /// CHIP8 Virtual Block size. We render the CHIP8 Virtual Screen in blocks of Virtual Pixels
-const BLOCK_WIDTH: usize = 16;
-const BLOCK_HEIGHT: usize = 8;
+const BLOCK_WIDTH: usize = 32;
+const BLOCK_HEIGHT: usize = 6;
 
 /// CHIP8 Virtual Pixel size, in Physical Pixels
 const PIXEL_WIDTH: usize = 3;

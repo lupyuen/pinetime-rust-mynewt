@@ -33,7 +33,7 @@ static mut SPI_SETTINGS: hal::hal_spi_settings = hal::hal_spi_settings {
 /// Max size of pending Command Bytes
 type PendingCmdSize = heapless::consts::U1;
 /// Max size of pending Data Bytes
-type PendingDataSize = heapless::consts::U4096;
+type PendingDataSize = heapless::consts::U8192;
 
 /// Pending SPI Command Byte to be written
 static mut PENDING_CMD: heapless::Vec<u8, PendingCmdSize> = heapless::Vec(heapless::i::Vec::new());
