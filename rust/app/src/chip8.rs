@@ -209,7 +209,11 @@ impl Iterator for PixelIterator {
 
 /// Hardware API for rendering CHIP8 Emulator
 struct Hardware {
-    block: PixelIterator,
+    //  block: PixelIterator,
+    update_left: u8,
+    update_top: u8,
+    update_right: u8,
+    update_bottom: u8,
 }
 
 impl Hardware {
@@ -220,10 +224,16 @@ impl Hardware {
         let right = left + BLOCK_WIDTH as u8  - 1;
         let bottom = top  + BLOCK_HEIGHT as u8 - 1;
         Hardware {
+            /*
             block: PixelIterator::new(
                 left, top, 
                 right, bottom
             ),
+            */
+            update_left: 0,
+            update_top: 0,
+            update_right: 0,
+            update_bottom: 0,
         }
     }
 }
@@ -275,6 +285,20 @@ impl libchip8::Hardware for Hardware {
         let i = x + y * SCREEN_WIDTH;
         unsafe { SCREEN_BUFFER[i] = if d { 1 } else { 0 } };
 
+        //  Remember the boundaries of the screen region to be updated
+        if self.update_left == 0 && self.update_right == 0 &&
+            self.update_top == 0 && self.update_bottom == 0 {
+            self.update_left = x as u8;
+            self.update_right = x as u8;
+            self.update_top = y as u8;
+            self.update_bottom = y as u8;
+        }
+        if (x as u8) < self.update_left { self.update_left = x as u8; }
+        if (x as u8) > self.update_right { self.update_right = x as u8; }
+        if (y as u8) < self.update_top { self.update_top = y as u8; }
+        if (y as u8) > self.update_bottom { self.update_bottom = y as u8; }
+
+        /*
         //  If (x,y) are inside the current block, do nothing.
         if self.block.contains(x as u8, y as u8) { return; }
 
@@ -296,6 +320,7 @@ impl libchip8::Hardware for Hardware {
             if right < SCREEN_WIDTH as u8 { right } else { SCREEN_WIDTH as u8 - 1 }, 
             if bottom < SCREEN_HEIGHT as u8 { bottom } else { SCREEN_HEIGHT as u8 - 1 }
         );
+        */
 
         /*
         let x_scaled: u16 = x as u16 * PIXEL_WIDTH as u16;
@@ -383,9 +408,39 @@ impl libchip8::Hardware for Hardware {
     fn sched(&mut self) -> bool {
         //  Called in every step; return true for shutdown.
         //  console::print("sched\n"); console::flush(); ////
+
         //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
         unsafe { hal_watchdog_tickle() };
+
+        //  Sleep a while to allow other tasks to run, e.g. SPI background task
         unsafe { os::os_time_delay(1) };
+
+        //  If no screen update, return
+        if self.update_left == 0 && self.update_right == 0 &&
+            self.update_top == 0 && self.update_bottom == 0 { return false; }
+
+        //  Create a new block for the region to be updated
+        let left = self.update_left;
+        let top = self.update_top;
+        let right = self.update_right;
+        let bottom = self.update_bottom;
+        let mut block = PixelIterator::new(
+            left, top, 
+            right, bottom,
+        );
+
+        //  Render the block
+        let (left, top, right, bottom) = block.get_window();
+        druid::set_display_pixels(left as u16, top as u16, right as u16, bottom as u16,
+            &mut block
+        ).expect("set pixels failed");
+
+        //  Reset the screen region to be updated
+        self.update_left = 0;
+        self.update_top = 0;
+        self.update_right = 0;
+        self.update_bottom = 0;
+
         false
         /*
         std::thread::sleep(std::time::Duration::from_micros(1000_000 / self.opt.hz));
