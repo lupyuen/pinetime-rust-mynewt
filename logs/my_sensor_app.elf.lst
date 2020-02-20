@@ -22427,7 +22427,7 @@ fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: 
 0000c1f4 <_ZN3app5chip88on_start17h473d234c4f7ef3a3E>:
 
 /// Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
-const CHIP8_TASK_STACK_SIZE: usize = 6144;  //  Must be 3072 and above because CHIP8 Emulator requires substantial stack space
+const CHIP8_TASK_STACK_SIZE: usize = 6144;  //  Must be 6144 and above because CHIP8 Emulator requires substantial stack space
 
 /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
 pub fn on_start() -> MynewtResult<()> {
@@ -22527,7 +22527,7 @@ pub fn on_start() -> MynewtResult<()> {
     c2c8:	6083      	str	r3, [r0, #8]
     c2ca:	f04f 33ff 	mov.w	r3, #4294967295	; 0xffffffff
     c2ce:	6043      	str	r3, [r0, #4]
-    c2d0:	2380      	movs	r3, #128	; 0x80
+    c2d0:	2314      	movs	r3, #20
     c2d2:	6003      	str	r3, [r0, #0]
     c2d4:	f240 2018 	movw	r0, #536	; 0x218
     c2d8:	f2c2 0000 	movt	r0, #8192	; 0x2000
@@ -22540,7 +22540,7 @@ pub fn on_start() -> MynewtResult<()> {
     c2ec:	9026      	str	r0, [sp, #152]	; 0x98
     c2ee:	e7ff      	b.n	c2f0 <_ZN3app5chip88on_start17h473d234c4f7ef3a3E+0xfc>
         NULL,  //  Argument to be passed to above function
-        128,    //  Task priority: highest is 0, lowest is 255 (main task is 127)
+        20,    //  Task priority: highest is 0, lowest is 255 (main task is 127), SPI is 10
         os::OS_WAIT_FOREVER as u32,     //  Don't do sanity / watchdog checking
         unsafe { &mut CHIP8_TASK_STACK }, //  Stack space for the task
         CHIP8_TASK_STACK_SIZE as u16      //  Size of the stack (in 4-byte units)

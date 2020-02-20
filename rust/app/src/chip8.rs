@@ -1,4 +1,4 @@
-//  Chip8 Emulator App
+//  CHIP8 Emulator App. Need to edit apps/my_sensor_app/syscfg.yml and reduce the main stack size (OS_MAIN_STACK_SIZE) to 2048.
 use embedded_graphics::{
     prelude::*,
     pixelcolor::Rgb565,
@@ -24,7 +24,7 @@ static mut CHIP8_TASK_STACK: [os::os_stack_t; CHIP8_TASK_STACK_SIZE] =
     [0; CHIP8_TASK_STACK_SIZE];
 
 /// Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
-const CHIP8_TASK_STACK_SIZE: usize = 6144;  //  Must be 3072 and above because CHIP8 Emulator requires substantial stack space
+const CHIP8_TASK_STACK_SIZE: usize = 6144;  //  Must be 6144 and above because CHIP8 Emulator requires substantial stack space
 
 /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
 pub fn on_start() -> MynewtResult<()> {
@@ -44,11 +44,11 @@ pub fn on_start() -> MynewtResult<()> {
         &init_strn!( "chip8" ),     //  Name of task
         Some( task_func ),    //  Function to execute when task starts
         NULL,  //  Argument to be passed to above function
-        128,    //  Task priority: highest is 0, lowest is 255 (main task is 127)
-        os::OS_WAIT_FOREVER as u32,     //  Don't do sanity / watchdog checking
+        20,    //  Task priority: highest is 0, lowest is 255 (main task is 127), SPI is 10
+        os::OS_WAIT_FOREVER as u32,       //  Don't do sanity / watchdog checking
         unsafe { &mut CHIP8_TASK_STACK }, //  Stack space for the task
         CHIP8_TASK_STACK_SIZE as u16      //  Size of the stack (in 4-byte units)
-    ) ? ;                               //  `?` means check for error
+    ) ? ;                                 //  `?` means check for error
 
     //  Return success to the caller
     Ok(())
