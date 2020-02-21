@@ -38,7 +38,8 @@ pub fn on_start() -> MynewtResult<()> {
         .fill( Some( Rgb565::from(( 0x00, 0x00, 0x00 )) ) );  //  Black
 
     //  Render background to display
-    druid::draw_to_display(background);
+    //  druid::draw_to_display(background);
+    render_region(0, 0, SCREEN_WIDTH as u8 - 1, SCREEN_HEIGHT as u8 - 1);
 
     //  Start the emulator in a background task
     os::task_init(                  //  Create a new task and start it...
@@ -76,9 +77,9 @@ extern "C" fn task_func(_arg: Ptr) {
     console::print("CHIP8 started\n"); console::flush();
 
     //  Load the emulator ROM
-    let rom = include_bytes!("../roms/invaders.ch8");
+    //  let rom = include_bytes!("../roms/invaders.ch8");
     //  let rom = include_bytes!("../roms/pong.ch8");
-    //  let rom = include_bytes!("../roms/blinky.ch8");
+    let rom = include_bytes!("../roms/blinky.ch8");
 
     //  Run the emulator ROM. This will block until emulator terminates
     chip8.run(rom);
@@ -95,9 +96,9 @@ struct Hardware {
     update_top: u8,
     update_right: u8,
     update_bottom: u8,
-    /// True if emulator has started accepting input
+    /// True if emulator has started accepting input, i.e. emulator has drawn loading screen
     is_interactive: bool,
-    /// True if emulator is checking input
+    /// True if emulator is checking input, i.e. emulator has updated a sprite
     is_checking_input: bool,
 }
 
@@ -375,9 +376,8 @@ impl Iterator for PixelIterator {
         assert!(self.x < SCREEN_WIDTH as u8, "x overflow");
         assert!(self.y < SCREEN_HEIGHT as u8, "y overflow");
         let i = self.x as usize + self.y as usize * SCREEN_WIDTH;
-        let color = unsafe { 
-            if SCREEN_BUFFER[i] >= 128 { 0xffff } else { 0x0 }
-        };
+        let color = unsafe { convert_color(SCREEN_BUFFER[i]) };
+        unsafe { SCREEN_BUFFER[i] = update_color(SCREEN_BUFFER[i]); }  //  Fade to black
         //  Loop over x_offset from 0 to PIXEL_WIDTH - 1
         self.x_offset += 1;
         if self.x_offset >= PIXEL_WIDTH as u8 {
@@ -400,6 +400,24 @@ impl Iterator for PixelIterator {
         }
         //  Return the Physical Pixel color
         return Some(color);
+    }
+}
+
+/// Convert the Virtual Colour (8-bit greyscale) to 16-bit Colour
+fn convert_color(grey: u8) -> u16 {
+    match grey {
+        255      => Rgb565::from(( 0xFF, 0xFF, 0xFF )).0,  //  White
+        128..255 => Rgb565::from(( grey - 50, 0xFF, grey - 50 )).0,  //  Greenish
+        0..128   => Rgb565::from(( grey >> 1, grey >> 1, grey )).0,  //  Dark Blue
+    }
+}
+
+/// Fade the Virtual Colour (8-bit greyscale) to black
+fn update_color(grey: u8) -> u8 {
+    match grey {
+        255      => 200,        //  Initial white flash fade to normal brightness
+        0..128   => grey >> 1,  //  Fade to black
+        _        => grey
     }
 }
 

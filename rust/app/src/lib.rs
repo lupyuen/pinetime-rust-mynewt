@@ -17,12 +17,13 @@
  * under the License.
  */
 //!  Main Rust Application for PineTime with Apache Mynewt OS
-#![no_std]                       //  Don't link with standard Rust library, which is not compatible with embedded systems
-#![feature(trace_macros)]        //  Allow macro tracing: `trace_macros!(true)`
-#![feature(concat_idents)]       //  Allow `concat_idents!()` macro used in `coap!()` macro
-#![feature(const_transmute)]     //  Allow `transmute` for initialising Mynewt structs
-#![feature(proc_macro_hygiene)]  //  Allow Procedural Macros like `run!()`
-#![feature(specialization)]      //  Allow Specialised Traits for druid UI library
+#![no_std]                              //  Don't link with standard Rust library, which is not compatible with embedded systems
+#![feature(trace_macros)]               //  Allow macro tracing: `trace_macros!(true)`
+#![feature(concat_idents)]              //  Allow `concat_idents!()` macro used in `coap!()` macro
+#![feature(const_transmute)]            //  Allow `transmute` for initialising Mynewt structs
+#![feature(proc_macro_hygiene)]         //  Allow Procedural Macros like `run!()`
+#![feature(specialization)]             //  Allow Specialised Traits for druid UI library
+#![feature(exclusive_range_pattern)]    //  Allow ranges like `0..128` in `match` statements
 
 //  Declare the libraries that contain macros
 extern crate cortex_m;                  //  Declare the external library `cortex_m`
