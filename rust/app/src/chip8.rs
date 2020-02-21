@@ -77,9 +77,9 @@ extern "C" fn task_func(_arg: Ptr) {
     console::print("CHIP8 started\n"); console::flush();
 
     //  Load the emulator ROM
-    let rom = include_bytes!("../roms/invaders.ch8");
+    //  let rom = include_bytes!("../roms/invaders.ch8");
+    let rom = include_bytes!("../roms/blinky.ch8");
     //  let rom = include_bytes!("../roms/pong.ch8");
-    //  let rom = include_bytes!("../roms/blinky.ch8");
 
     //  Run the emulator ROM. This will block until emulator terminates
     chip8.run(rom);
@@ -303,7 +303,8 @@ fn render_block(left: u8, top: u8, right: u8, bottom: u8) {
     ).expect("set pixels failed");    
 }
 
-/// CHIP8 Virtual Screen Buffer, 1 byte per Virtual Pixel
+/// CHIP8 Virtual Screen Buffer, 8-bit greyscale (from black=0 to white=255) per Virtual Pixel.
+/// The greyscale is mapped to 16-bit colour for display.
 static mut SCREEN_BUFFER: [u8; SCREEN_WIDTH * SCREEN_HEIGHT] = [0; SCREEN_WIDTH * SCREEN_HEIGHT];
 
 /// Iterator for each Virtual Pixels in a Virtual Block. This allows the display driver to iterate and
