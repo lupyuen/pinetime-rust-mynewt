@@ -16,16 +16,6 @@ use mynewt_macros::{
     init_strn,
 };
 
-/// CHIP8 Background Task
-static mut CHIP8_TASK: os::os_task = fill_zero!(os::os_task);
-
-/// Stack space for CHIP8 Task, initialised to 0.
-static mut CHIP8_TASK_STACK: [os::os_stack_t; CHIP8_TASK_STACK_SIZE] = 
-    [0; CHIP8_TASK_STACK_SIZE];
-
-/// Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
-const CHIP8_TASK_STACK_SIZE: usize = 4096;  //  Must be 4096 and above because CHIP8 Emulator requires substantial stack space
-
 /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
 pub fn on_start() -> MynewtResult<()> {
     console::print("Rust CHIP8\n"); console::flush();
@@ -54,6 +44,16 @@ pub fn on_start() -> MynewtResult<()> {
     Ok(())
 }
 
+/// CHIP8 Background Task
+static mut CHIP8_TASK: os::os_task = fill_zero!(os::os_task);
+
+/// Stack space for CHIP8 Task, initialised to 0.
+static mut CHIP8_TASK_STACK: [os::os_stack_t; CHIP8_TASK_STACK_SIZE] = 
+    [0; CHIP8_TASK_STACK_SIZE];
+
+/// Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
+const CHIP8_TASK_STACK_SIZE: usize = 4096;  //  Must be 4096 and above because CHIP8 Emulator requires substantial stack space
+
 ///  Run the emulator
 extern "C" fn task_func(_arg: Ptr) {    
     //  Create the hardware API for rendering the emulator
@@ -65,7 +65,8 @@ extern "C" fn task_func(_arg: Ptr) {
 
     //  Load the emulator ROM
     //  let rom = include_bytes!("../roms/invaders.ch8");
-    let rom = include_bytes!("../roms/pong.ch8");
+    //  let rom = include_bytes!("../roms/pong.ch8");
+    let rom = include_bytes!("../roms/blinky.ch8");
 
     //  Run the emulator ROM. This will block until emulator terminates
     chip8.run(rom);
