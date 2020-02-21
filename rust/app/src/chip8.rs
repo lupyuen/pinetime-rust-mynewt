@@ -76,9 +76,9 @@ extern "C" fn task_func(_arg: Ptr) {
     console::print("CHIP8 started\n"); console::flush();
 
     //  Load the emulator ROM
-    //  let rom = include_bytes!("../roms/invaders.ch8");
+    let rom = include_bytes!("../roms/invaders.ch8");
     //  let rom = include_bytes!("../roms/pong.ch8");
-    let rom = include_bytes!("../roms/blinky.ch8");
+    //  let rom = include_bytes!("../roms/blinky.ch8");
 
     //  Run the emulator ROM. This will block until emulator terminates
     chip8.run(rom);
@@ -95,8 +95,10 @@ struct Hardware {
     update_top: u8,
     update_right: u8,
     update_bottom: u8,
-    /// True if emulator is accepting input
+    /// True if emulator has started accepting input
     is_interactive: bool,
+    /// True if emulator is checking input
+    is_checking_input: bool,
 }
 
 impl Hardware {
@@ -108,6 +110,7 @@ impl Hardware {
             update_right: 0,
             update_bottom: 0,
             is_interactive: false,
+            is_checking_input: false,
         }
     }
 }
@@ -124,6 +127,7 @@ impl libchip8::Hardware for Hardware {
             self.is_interactive = true;
             console::print("key\n"); console::flush(); ////
         }
+        self.is_checking_input = true;
         false
         /*
         let k = match key {
@@ -222,6 +226,10 @@ impl libchip8::Hardware for Hardware {
 
         //  If emulator is preparing the initial screen, refresh the screen later
         if !self.is_interactive { return false; }
+
+        //  If emulator is not ready to accept input, refresh the screen later
+        if !self.is_checking_input { return false; }
+        self.is_checking_input = false;
 
         //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
         unsafe { hal_watchdog_tickle() };
