@@ -64,8 +64,8 @@ extern "C" fn task_func(_arg: Ptr) {
     console::print("CHIP8 started\n"); console::flush();
 
     //  Load the emulator ROM
-    let rom = include_bytes!("../roms/invaders.ch8");
-    //  let rom = include_bytes!("../roms/pong.ch8");
+    //  let rom = include_bytes!("../roms/invaders.ch8");
+    let rom = include_bytes!("../roms/pong.ch8");
 
     //  Run the emulator ROM. This will block until emulator terminates
     chip8.run(rom);
@@ -90,7 +90,8 @@ const PIXEL_HEIGHT: usize = 5;
 /// CHIP8 Virtual Screen Buffer, 1 byte per Virtual Pixel
 static mut SCREEN_BUFFER: [u8; SCREEN_WIDTH * SCREEN_HEIGHT] = [0; SCREEN_WIDTH * SCREEN_HEIGHT];
 
-/// Iterator for each Virtual Pixels in a Virtual Block
+/// Iterator for each Virtual Pixels in a Virtual Block. This allows the display driver to iterate and
+/// render each Physical Pixel that corresponds to a Virtual Block.
 #[derive(Debug, Clone)]
 pub struct PixelIterator {
     /// Current column number
@@ -202,10 +203,6 @@ struct Hardware {
 impl Hardware {
     /// Return a new Hardware API for rendering CHIP8 Emulator
     pub fn new() -> Hardware {
-        let left = 0 as u8;
-        let top = 0 as u8;
-        let right = left + BLOCK_WIDTH as u8  - 1;
-        let bottom = top  + BLOCK_HEIGHT as u8 - 1;
         Hardware {
             update_left: 0,
             update_top: 0,
@@ -318,23 +315,13 @@ impl libchip8::Hardware for Hardware {
         if self.update_left == 0 && self.update_right == 0 &&
             self.update_top == 0 && self.update_bottom == 0 { return false; }
 
-        //  Create a new block for the region to be updated
-        let left = self.update_left;
-        let top = self.update_top;
-        let right = self.update_right;
-        let bottom = self.update_bottom;
-        let mut block = PixelIterator::new(
-            left, top, 
-            right, bottom,
+        //  Render the updated region
+        render_region(
+            self.update_left,
+            self.update_top,
+            self.update_right,
+            self.update_bottom
         );
-        //  console::print("render "); console::printint(left as i32); console::print(", "); console::printint(top as i32); 
-        //  console::print(", "); console::printint(right as i32 - left as i32); console::print(", "); console::printint(bottom as i32 - top as i32); console::print("\n"); console::flush(); ////
-
-        //  Render the block
-        let (left, top, right, bottom) = block.get_window();
-        druid::set_display_pixels(left as u16, top as u16, right as u16, bottom as u16,
-            &mut block
-        ).expect("set pixels failed");
 
         //  Reset the screen region to be updated
         self.update_left = 0;
@@ -342,8 +329,52 @@ impl libchip8::Hardware for Hardware {
         self.update_right = 0;
         self.update_bottom = 0;
 
+        //  Return false to indicate no shutdown
         false
     }
+}
+
+/// Render the Virtual Screen region
+fn render_region(left: u8, top: u8, right: u8, bottom: u8) {
+    let width = right - left + 1;
+    let height = bottom - top + 1;
+    //  If the update region is small, render with a single block
+    if width + height <= BLOCK_WIDTH as u8 + BLOCK_HEIGHT as u8 {  //  Will not overflow SPI buffer
+        render_block(left, top, right, bottom);
+    } else {
+        //  If the update region is too big for a single block, break the region into blocks and render
+        let mut x = left;
+        let mut y = top;
+        loop {
+            let block_right = x + BLOCK_WIDTH as u8 - 1;
+            let block_bottom = y + BLOCK_HEIGHT as u8 - 1;
+            render_block(x, y,
+                if block_right  <= right  { block_right }  else { right },
+                if block_bottom <= bottom { block_bottom } else { bottom }
+            );  //  Will not overflow SPI buffer
+            x += BLOCK_WIDTH as u8;
+            if x > right {
+                x = left;
+                y += BLOCK_HEIGHT as u8;
+                if y > bottom { break; }
+            }
+        }
+    }
+}
+
+/// Render the Virtual Block
+fn render_block(left: u8, top: u8, right: u8, bottom: u8) {
+    //  console::print("render "); console::printint(left as i32); console::print(", "); console::printint(top as i32); console::print(", "); console::printint(right as i32 - left as i32); console::print(", "); console::printint(bottom as i32 - top as i32); console::print("\n"); console::flush(); ////
+    //  Create a new block for the region to be updated
+    let mut block = PixelIterator::new(
+        left, top, 
+        right, bottom,
+    );
+    //  Render the block
+    let (left, top, right, bottom) = block.get_window();
+    druid::set_display_pixels(left as u16, top as u16, right as u16, bottom as u16,
+        &mut block
+    ).expect("set pixels failed");    
 }
 
 pub fn handle_touch(_x: u16, _y: u16) { 
