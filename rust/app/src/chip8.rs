@@ -90,11 +90,13 @@ extern "C" fn task_func(_arg: Ptr) {
 
 /// Hardware API for rendering CHIP8 Emulator
 struct Hardware {
-    //  block: PixelIterator,
+    /// Boundaries of the Virtual Screen region to be refreshed
     update_left: u8,
     update_top: u8,
     update_right: u8,
     update_bottom: u8,
+    /// True if emulator is accepting input
+    is_interactive: bool,
 }
 
 impl Hardware {
@@ -105,6 +107,7 @@ impl Hardware {
             update_top: 0,
             update_right: 0,
             update_bottom: 0,
+            is_interactive: false,
         }
     }
 }
@@ -117,7 +120,10 @@ impl libchip8::Hardware for Hardware {
 
     /// Check if the key is pressed.
     fn key(&mut self, _key: u8) -> bool {
-        console::print("key\n"); console::flush(); ////
+        if !self.is_interactive {
+            self.is_interactive = true;
+            console::print("key\n"); console::flush(); ////
+        }
         false
         /*
         let k = match key {
@@ -153,7 +159,13 @@ impl libchip8::Hardware for Hardware {
         assert!(x < SCREEN_WIDTH, "x overflow");
         assert!(y < SCREEN_HEIGHT, "y overflow");
         let i = x + y * SCREEN_WIDTH;
-        unsafe { SCREEN_BUFFER[i] = if d { 255 } else { 127 } };
+        unsafe { SCREEN_BUFFER[i] = 
+            if d {
+                if self.is_interactive { 255 }  //  Brighter colour when emulator is active
+                else { 200 }                    //  Darker colour for initial screen
+            } 
+            else { 127 }  //  Fade to black
+        };
 
         //  Remember the boundaries of the screen region to be updated
         if self.update_left == 0 && self.update_right == 0 &&
@@ -204,15 +216,18 @@ impl libchip8::Hardware for Hardware {
     fn sched(&mut self) -> bool {
         //  console::print("sched\n"); console::flush(); ////
 
+        //  If no screen update, return
+        if self.update_left == 0 && self.update_right == 0 &&
+            self.update_top == 0 && self.update_bottom == 0 { return false; }
+
+        //  If emulator is preparing the initial screen, refresh the screen later
+        if !self.is_interactive { return false; }
+
         //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
         unsafe { hal_watchdog_tickle() };
 
         //  Sleep a while to allow other tasks to run, e.g. SPI background task
         unsafe { os::os_time_delay(1) };
-
-        //  If no screen update, return
-        if self.update_left == 0 && self.update_right == 0 &&
-            self.update_top == 0 && self.update_bottom == 0 { return false; }
 
         //  Render the updated region
         render_region(
