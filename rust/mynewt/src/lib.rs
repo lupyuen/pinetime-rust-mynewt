@@ -33,7 +33,7 @@ pub mod util;                     //  Mynewt Utility API. Export folder `encodin
 pub mod libs;                     //  Mynewt Custom API. Export folder `libs` as Rust module `mynewt::libs`
 
 mod hal;                            //  Import module `hal` for Embedded HAL functions but don't export it
-pub use hal::{ Delay, GPIO, SPI };  //  Export `hal` types GPIO and SPI
+pub use hal::{ Delay, GPIO, SPI, I2C };  //  Export `hal` types GPIO, SPI and I2C
 
 pub mod spi;  //  Export Non-Blocking SPI API
 
@@ -74,6 +74,11 @@ pub mod result {
         SYS_EREMOTEIO   = os::SYS_EREMOTEIO,
         SYS_EDONE       = os::SYS_EDONE,
         SYS_EPERUSER    = os::SYS_EPERUSER,
+        HAL_I2C_ERR_UNKNOWN,
+        HAL_I2C_ERR_INVAL,
+        HAL_I2C_ERR_TIMEOUT,
+        HAL_I2C_ERR_ADDR_NACK,
+        HAL_I2C_ERR_DATA_NACK,
     }
 
     /// Cast `MynewtError` to `i32`
