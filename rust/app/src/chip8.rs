@@ -16,6 +16,18 @@ use mynewt_macros::{
     init_strn,
 };
 
+/// CHIP8 Virtual Screen size, in Virtual Pixels
+const SCREEN_WIDTH: usize = 64;
+const SCREEN_HEIGHT: usize = 32;
+
+/// CHIP8 Virtual Block size. We render the CHIP8 Virtual Screen in blocks of Virtual Pixels
+const BLOCK_WIDTH: usize = 32;
+const BLOCK_HEIGHT: usize = 5;  //  Letter height
+
+/// CHIP8 Virtual Pixel size, in Physical Pixels
+const PIXEL_WIDTH: usize = 3;
+const PIXEL_HEIGHT: usize = 5;
+
 /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
 pub fn on_start() -> MynewtResult<()> {
     console::print("Rust CHIP8\n"); console::flush();
@@ -76,17 +88,193 @@ extern "C" fn task_func(_arg: Ptr) {
     assert!(false, "CHIP8 should not end");
 }
 
-/// CHIP8 Virtual Screen size, in Virtual Pixels
-const SCREEN_WIDTH: usize = 64;
-const SCREEN_HEIGHT: usize = 32;
+/// Hardware API for rendering CHIP8 Emulator
+struct Hardware {
+    //  block: PixelIterator,
+    update_left: u8,
+    update_top: u8,
+    update_right: u8,
+    update_bottom: u8,
+}
 
-/// CHIP8 Virtual Block size. We render the CHIP8 Virtual Screen in blocks of Virtual Pixels
-const BLOCK_WIDTH: usize = 32;
-const BLOCK_HEIGHT: usize = 5;  //  Letter height
+impl Hardware {
+    /// Return a new Hardware API for rendering CHIP8 Emulator
+    pub fn new() -> Hardware {
+        Hardware {
+            update_left: 0,
+            update_top: 0,
+            update_right: 0,
+            update_bottom: 0,
+        }
+    }
+}
 
-/// CHIP8 Virtual Pixel size, in Physical Pixels
-const PIXEL_WIDTH: usize = 3;
-const PIXEL_HEIGHT: usize = 5;
+impl libchip8::Hardware for Hardware {
+    /// Return a random value.
+    fn rand(&mut self) -> u8 {
+        123  //  TODO
+    }
+
+    /// Check if the key is pressed.
+    fn key(&mut self, _key: u8) -> bool {
+        console::print("key\n"); console::flush(); ////
+        false
+        /*
+        let k = match key {
+            0 => Key::X,
+            1 => Key::Key1,
+            2 => Key::Key2,
+            3 => Key::Key3,
+            4 => Key::Q,
+            5 => Key::W,
+            6 => Key::E,
+            7 => Key::A,
+            8 => Key::S,
+            9 => Key::D,
+            0xa => Key::Z,
+            0xb => Key::C,
+            0xc => Key::Key4,
+            0xd => Key::E,
+            0xe => Key::D,
+            0xf => Key::C,
+            _ => return false,
+        };
+
+        match &self.win {
+            Some(win) => win.is_key_down(k),
+            None => false,
+        }
+        */
+    }
+
+    /// Set the state of a pixel in the screen. true for white, and false for black.
+    fn vram_set(&mut self, x: usize, y: usize, d: bool) {
+        //  console::print("set "); console::printint(x as i32); console::print(", "); console::printint(y as i32); console::print("\n"); console::flush(); ////
+        assert!(x < SCREEN_WIDTH, "x overflow");
+        assert!(y < SCREEN_HEIGHT, "y overflow");
+        let i = x + y * SCREEN_WIDTH;
+        unsafe { SCREEN_BUFFER[i] = if d { 255 } else { 127 } };
+
+        //  Remember the boundaries of the screen region to be updated
+        if self.update_left == 0 && self.update_right == 0 &&
+            self.update_top == 0 && self.update_bottom == 0 {
+            self.update_left = x as u8;
+            self.update_right = x as u8;
+            self.update_top = y as u8;
+            self.update_bottom = y as u8;
+        }
+        if (x as u8) < self.update_left { self.update_left = x as u8; }
+        if (x as u8) > self.update_right { self.update_right = x as u8; }
+        if (y as u8) < self.update_top { self.update_top = y as u8; }
+        if (y as u8) > self.update_bottom { self.update_bottom = y as u8; }
+    }
+
+    /// Get the current state of a pixel in the screen.
+    fn vram_get(&mut self, x: usize, y: usize) -> bool {
+        //  console::print("get "); console::printint(x as i32); console::print(", "); console::printint(y as i32); console::print("\n"); console::flush(); ////
+        assert!(x < SCREEN_WIDTH, "x overflow");
+        assert!(y < SCREEN_HEIGHT, "y overflow");
+        let i = x + y * SCREEN_WIDTH;
+        unsafe { SCREEN_BUFFER[i] >= 128 }
+    }
+
+    /// Set the size of the screen.
+    fn vram_setsize(&mut self, size: (usize, usize)) {
+        //  Do nothing. We assume SCREEN_WIDTH and SCREEN_HEIGHT.
+        assert!(size.0 == SCREEN_WIDTH && size.1 == SCREEN_HEIGHT, "bad size");
+        console::print("setsize "); console::printint(size.0 as i32); console::print(", "); console::printint(size.1 as i32); console::print("\n"); console::flush(); ////
+    }
+
+    /// Get the size of the screen.
+    fn vram_size(&mut self) -> (usize, usize) {
+        (SCREEN_WIDTH, SCREEN_HEIGHT)
+    }
+
+    /// Return the current clock value in nanoseconds.
+    fn clock(&mut self) -> u64 {
+        unsafe { os::os_time_get() as u64 * 1000_u64 * 2000_u64 }
+    }
+
+    /// Play beep sound.
+    fn beep(&mut self) {
+        //  TODO: Vibrate? Flash?
+    }
+
+    /// Called in every step; return true for shutdown.
+    fn sched(&mut self) -> bool {
+        //  console::print("sched\n"); console::flush(); ////
+
+        //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
+        unsafe { hal_watchdog_tickle() };
+
+        //  Sleep a while to allow other tasks to run, e.g. SPI background task
+        unsafe { os::os_time_delay(1) };
+
+        //  If no screen update, return
+        if self.update_left == 0 && self.update_right == 0 &&
+            self.update_top == 0 && self.update_bottom == 0 { return false; }
+
+        //  Render the updated region
+        render_region(
+            self.update_left,
+            self.update_top,
+            self.update_right,
+            self.update_bottom
+        );
+
+        //  Reset the screen region to be updated
+        self.update_left = 0;
+        self.update_top = 0;
+        self.update_right = 0;
+        self.update_bottom = 0;
+
+        //  Return false to indicate no shutdown
+        false
+    }
+}
+
+/// Render the Virtual Screen region
+fn render_region(left: u8, top: u8, right: u8, bottom: u8) {
+    let width = right - left + 1;
+    let height = bottom - top + 1;
+    //  If the update region is small, render with a single block
+    if width + height <= BLOCK_WIDTH as u8 + BLOCK_HEIGHT as u8 {  //  Will not overflow SPI buffer
+        render_block(left, top, right, bottom);
+    } else {
+        //  If the update region is too big for a single block, break the region into blocks and render
+        let mut x = left;
+        let mut y = top;
+        loop {
+            let block_right = x + BLOCK_WIDTH as u8 - 1;
+            let block_bottom = y + BLOCK_HEIGHT as u8 - 1;
+            render_block(x, y,
+                if block_right  <= right  { block_right }  else { right },
+                if block_bottom <= bottom { block_bottom } else { bottom }
+            );  //  Will not overflow SPI buffer
+            x += BLOCK_WIDTH as u8;
+            if x > right {
+                x = left;
+                y += BLOCK_HEIGHT as u8;
+                if y > bottom { break; }
+            }
+        }
+    }
+}
+
+/// Render the Virtual Block
+fn render_block(left: u8, top: u8, right: u8, bottom: u8) {
+    //  console::print("render "); console::printint(left as i32); console::print(", "); console::printint(top as i32); console::print(", "); console::printint(right as i32 - left as i32); console::print(", "); console::printint(bottom as i32 - top as i32); console::print("\n"); console::flush(); ////
+    //  Create a new block for the region to be updated
+    let mut block = PixelIterator::new(
+        left, top, 
+        right, bottom,
+    );
+    //  Render the block
+    let (left, top, right, bottom) = block.get_window();
+    druid::set_display_pixels(left as u16, top as u16, right as u16, bottom as u16,
+        &mut block
+    ).expect("set pixels failed");    
+}
 
 /// CHIP8 Virtual Screen Buffer, 1 byte per Virtual Pixel
 static mut SCREEN_BUFFER: [u8; SCREEN_WIDTH * SCREEN_HEIGHT] = [0; SCREEN_WIDTH * SCREEN_HEIGHT];
@@ -165,7 +353,7 @@ impl Iterator for PixelIterator {
         assert!(self.y < SCREEN_HEIGHT as u8, "y overflow");
         let i = self.x as usize + self.y as usize * SCREEN_WIDTH;
         let color = unsafe { 
-            if SCREEN_BUFFER[i] != 0 { 0xffff } else { 0x0 }
+            if SCREEN_BUFFER[i] >= 128 { 0xffff } else { 0x0 }
         };
         //  Loop over x_offset from 0 to PIXEL_WIDTH - 1
         self.x_offset += 1;
@@ -190,192 +378,6 @@ impl Iterator for PixelIterator {
         //  Return the Physical Pixel color
         return Some(color);
     }
-}
-
-/// Hardware API for rendering CHIP8 Emulator
-struct Hardware {
-    //  block: PixelIterator,
-    update_left: u8,
-    update_top: u8,
-    update_right: u8,
-    update_bottom: u8,
-}
-
-impl Hardware {
-    /// Return a new Hardware API for rendering CHIP8 Emulator
-    pub fn new() -> Hardware {
-        Hardware {
-            update_left: 0,
-            update_top: 0,
-            update_right: 0,
-            update_bottom: 0,
-        }
-    }
-}
-
-impl libchip8::Hardware for Hardware {
-    fn rand(&mut self) -> u8 {
-        //  Return a random value.
-        123  //  TODO
-        //  self.rng.gen()
-    }
-
-    fn key(&mut self, _key: u8) -> bool {
-        //  Check if the key is pressed.
-        false
-        /*
-        let k = match key {
-            0 => Key::X,
-            1 => Key::Key1,
-            2 => Key::Key2,
-            3 => Key::Key3,
-            4 => Key::Q,
-            5 => Key::W,
-            6 => Key::E,
-            7 => Key::A,
-            8 => Key::S,
-            9 => Key::D,
-            0xa => Key::Z,
-            0xb => Key::C,
-            0xc => Key::Key4,
-            0xd => Key::E,
-            0xe => Key::D,
-            0xf => Key::C,
-            _ => return false,
-        };
-
-        match &self.win {
-            Some(win) => win.is_key_down(k),
-            None => false,
-        }
-        */
-    }
-
-    fn vram_set(&mut self, x: usize, y: usize, d: bool) {
-        //  Set the state of a pixel in the screen.
-        //  true for white, and false for black.
-        //  console::print("set "); console::printint(x as i32); console::print(", "); console::printint(y as i32); console::print("\n"); console::flush(); ////
-        assert!(x < SCREEN_WIDTH, "x overflow");
-        assert!(y < SCREEN_HEIGHT, "y overflow");
-        let i = x + y * SCREEN_WIDTH;
-        unsafe { SCREEN_BUFFER[i] = if d { 1 } else { 0 } };
-
-        //  Remember the boundaries of the screen region to be updated
-        if self.update_left == 0 && self.update_right == 0 &&
-            self.update_top == 0 && self.update_bottom == 0 {
-            self.update_left = x as u8;
-            self.update_right = x as u8;
-            self.update_top = y as u8;
-            self.update_bottom = y as u8;
-        }
-        if (x as u8) < self.update_left { self.update_left = x as u8; }
-        if (x as u8) > self.update_right { self.update_right = x as u8; }
-        if (y as u8) < self.update_top { self.update_top = y as u8; }
-        if (y as u8) > self.update_bottom { self.update_bottom = y as u8; }
-    }
-
-    fn vram_get(&mut self, x: usize, y: usize) -> bool {
-        //  Get the current state of a pixel in the screen.
-        //  console::print("get "); console::printint(x as i32); console::print(", "); console::printint(y as i32); console::print("\n"); console::flush(); ////
-        assert!(x < SCREEN_WIDTH, "x overflow");
-        assert!(y < SCREEN_HEIGHT, "y overflow");
-        let i = x + y * SCREEN_WIDTH;
-        unsafe { SCREEN_BUFFER[i] != 0 }
-    }
-
-    fn vram_setsize(&mut self, size: (usize, usize)) {
-        //  Set the size of the screen.
-        console::print("setsize "); console::printint(size.0 as i32); console::print(", "); console::printint(size.1 as i32); console::print("\n"); console::flush(); ////
-    }
-
-    fn vram_size(&mut self) -> (usize, usize) {
-        //  Get the size of the screen.
-        (SCREEN_WIDTH, SCREEN_HEIGHT)
-    }
-
-    fn clock(&mut self) -> u64 {
-        //  Return the current clock value in nanoseconds.
-        unsafe { os::os_time_get() as u64 * 1000_u64 * 2000_u64 }
-    }
-
-    fn beep(&mut self) {
-        //  TODO: Play beep sound.
-    }
-
-    fn sched(&mut self) -> bool {
-        //  Called in every step; return true for shutdown.
-        //  console::print("sched\n"); console::flush(); ////
-
-        //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
-        unsafe { hal_watchdog_tickle() };
-
-        //  Sleep a while to allow other tasks to run, e.g. SPI background task
-        unsafe { os::os_time_delay(1) };
-
-        //  If no screen update, return
-        if self.update_left == 0 && self.update_right == 0 &&
-            self.update_top == 0 && self.update_bottom == 0 { return false; }
-
-        //  Render the updated region
-        render_region(
-            self.update_left,
-            self.update_top,
-            self.update_right,
-            self.update_bottom
-        );
-
-        //  Reset the screen region to be updated
-        self.update_left = 0;
-        self.update_top = 0;
-        self.update_right = 0;
-        self.update_bottom = 0;
-
-        //  Return false to indicate no shutdown
-        false
-    }
-}
-
-/// Render the Virtual Screen region
-fn render_region(left: u8, top: u8, right: u8, bottom: u8) {
-    let width = right - left + 1;
-    let height = bottom - top + 1;
-    //  If the update region is small, render with a single block
-    if width + height <= BLOCK_WIDTH as u8 + BLOCK_HEIGHT as u8 {  //  Will not overflow SPI buffer
-        render_block(left, top, right, bottom);
-    } else {
-        //  If the update region is too big for a single block, break the region into blocks and render
-        let mut x = left;
-        let mut y = top;
-        loop {
-            let block_right = x + BLOCK_WIDTH as u8 - 1;
-            let block_bottom = y + BLOCK_HEIGHT as u8 - 1;
-            render_block(x, y,
-                if block_right  <= right  { block_right }  else { right },
-                if block_bottom <= bottom { block_bottom } else { bottom }
-            );  //  Will not overflow SPI buffer
-            x += BLOCK_WIDTH as u8;
-            if x > right {
-                x = left;
-                y += BLOCK_HEIGHT as u8;
-                if y > bottom { break; }
-            }
-        }
-    }
-}
-
-/// Render the Virtual Block
-fn render_block(left: u8, top: u8, right: u8, bottom: u8) {
-    //  console::print("render "); console::printint(left as i32); console::print(", "); console::printint(top as i32); console::print(", "); console::printint(right as i32 - left as i32); console::print(", "); console::printint(bottom as i32 - top as i32); console::print("\n"); console::flush(); ////
-    //  Create a new block for the region to be updated
-    let mut block = PixelIterator::new(
-        left, top, 
-        right, bottom,
-    );
-    //  Render the block
-    let (left, top, right, bottom) = block.get_window();
-    druid::set_display_pixels(left as u16, top as u16, right as u16, bottom as u16,
-        &mut block
-    ).expect("set pixels failed");    
 }
 
 pub fn handle_touch(_x: u16, _y: u16) { 
