@@ -36,7 +36,7 @@ pub fn on_start() -> MynewtResult<()> {
         .fill( Some( Rgb565::from(( 0x00, 0x00, 0x00 )) ) );  //  Black
 
     //  Render background to display
-    //  druid::draw_to_display(background);
+    druid::draw_to_display(background);
 
     //  Start the emulator in a background task
     os::task_init(                  //  Create a new task and start it...
@@ -81,7 +81,7 @@ const SCREEN_HEIGHT: usize = 32;
 
 /// CHIP8 Virtual Block size. We render the CHIP8 Virtual Screen in blocks of Virtual Pixels
 const BLOCK_WIDTH: usize = 32;
-const BLOCK_HEIGHT: usize = 6;
+const BLOCK_HEIGHT: usize = 5;  //  Letter height
 
 /// CHIP8 Virtual Pixel size, in Physical Pixels
 const PIXEL_WIDTH: usize = 3;
@@ -89,16 +89,6 @@ const PIXEL_HEIGHT: usize = 5;
 
 /// CHIP8 Virtual Screen Buffer, 1 byte per Virtual Pixel
 static mut SCREEN_BUFFER: [u8; SCREEN_WIDTH * SCREEN_HEIGHT] = [0; SCREEN_WIDTH * SCREEN_HEIGHT];
-
-/// CHIP8 Virtual Pixel mapped to Physical Pixels with 16-bit colour
-//  static PIXEL_ON: [u16; PIXEL_WIDTH * PIXEL_HEIGHT] = [0xffff; PIXEL_WIDTH * PIXEL_HEIGHT];
-//  static PIXEL_OFF: [u16; PIXEL_WIDTH * PIXEL_HEIGHT] = [0x0; PIXEL_WIDTH * PIXEL_HEIGHT];
-
-/// Max number of Physical Pixels per Virtual Pixel
-//  type PixelSize = heapless::consts::U15;  //  PIXEL_WIDTH * PIXEL_HEIGHT
-
-/// Consecutive color words for a Virtual Pixel
-//  type PixelColors = heapless::Vec::<u16, PixelSize>;
 
 /// Iterator for each Virtual Pixels in a Virtual Block
 #[derive(Debug, Clone)]
@@ -142,13 +132,6 @@ impl PixelIterator {
             block_top, block_bottom,
         }
     }
-    /*
-    /// Return true if the block is empty
-    pub fn is_empty(&self) -> bool {
-        self.x == self.block_left && self.y == self.block_top &&
-            self.x_offset == 0 && self.y_offset == 0
-    }
-    */
     /// Return true if the Virtual Pixel is in the block
     pub fn contains(&self, x: u8, y: u8) -> bool {
         x >= self.block_left && x <= self.block_right &&
@@ -224,12 +207,6 @@ impl Hardware {
         let right = left + BLOCK_WIDTH as u8  - 1;
         let bottom = top  + BLOCK_HEIGHT as u8 - 1;
         Hardware {
-            /*
-            block: PixelIterator::new(
-                left, top, 
-                right, bottom
-            ),
-            */
             update_left: 0,
             update_top: 0,
             update_right: 0,
@@ -297,55 +274,6 @@ impl libchip8::Hardware for Hardware {
         if (x as u8) > self.update_right { self.update_right = x as u8; }
         if (y as u8) < self.update_top { self.update_top = y as u8; }
         if (y as u8) > self.update_bottom { self.update_bottom = y as u8; }
-
-        /*
-        //  If (x,y) are inside the current block, do nothing.
-        if self.block.contains(x as u8, y as u8) { return; }
-
-        //  If (x,y) are outside the current block, render the previous block (if any).
-        //  if !self.block.is_empty() {
-            let (left, top, right, bottom) = self.block.get_window();
-            druid::set_display_pixels(left as u16, top as u16, right as u16, bottom as u16,
-                &mut self.block
-            ).expect("set pixels failed");    
-        //  }
-
-        //  Create a new block.
-        let left = x as u8;
-        let top = y as u8;
-        let right = left + BLOCK_WIDTH as u8  - 1;
-        let bottom = top  + BLOCK_HEIGHT as u8 - 1;
-        self.block = PixelIterator::new(
-            left, top, 
-            if right < SCREEN_WIDTH as u8 { right } else { SCREEN_WIDTH as u8 - 1 }, 
-            if bottom < SCREEN_HEIGHT as u8 { bottom } else { SCREEN_HEIGHT as u8 - 1 }
-        );
-        */
-
-        /*
-        let x_scaled: u16 = x as u16 * PIXEL_WIDTH as u16;
-        let y_scaled: u16 = y as u16 * PIXEL_HEIGHT as u16; 
-        assert!(x_scaled < 240 - PIXEL_WIDTH as u16, "x overflow");
-        assert!(y_scaled < 240 - PIXEL_HEIGHT as u16, "y overflow");        
-        let pixel_colors = if d { &PIXEL_ON } else { &PIXEL_OFF };
-        let mut colors = PixelColors::new();
-        colors.extend_from_slice(pixel_colors).expect("extend failed");
-        druid::set_display_pixels(x_scaled, y_scaled, 
-            x_scaled + PIXEL_WIDTH as u16 - 1,
-            y_scaled + PIXEL_HEIGHT as u16 - 1,
-            colors
-        ).expect("set pixels failed");
-        */
-
-        /*
-        let color = if d { Rgb565::from(( 0x80, 0x80, 0xff )) } else { Rgb565::from(( 0x00, 0x00, 0x00 )) };
-        let pixel = Rectangle::<Rgb565>
-            ::new( Coord::new( x_scaled, y_scaled ), Coord::new( x_scaled + PIXEL_WIDTH - 1, y_scaled + PIXEL_HEIGHT - 1 ) ) //  Square coordinates
-            .fill( Some( color ) );
-        druid::draw_to_display(pixel);
-        */
-        //  trace!("Set pixel ({},{})", x, y);
-        //  self.vram[(y * self.vramsz.0) + x] = d;
     }
 
     fn vram_get(&mut self, x: usize, y: usize) -> bool {
@@ -355,54 +283,25 @@ impl libchip8::Hardware for Hardware {
         assert!(y < SCREEN_HEIGHT, "y overflow");
         let i = x + y * SCREEN_WIDTH;
         unsafe { SCREEN_BUFFER[i] != 0 }
-        //  self.vram[(y * self.vramsz.0) + x]
     }
 
     fn vram_setsize(&mut self, size: (usize, usize)) {
         //  Set the size of the screen.
         console::print("setsize "); console::printint(size.0 as i32); console::print(", "); console::printint(size.1 as i32); console::print("\n"); console::flush(); ////
-        /*
-        self.vramsz = size;
-        self.vram = vec![false; size.0 * size.1];
-
-        let win = match Window::new(
-            "Chip8",
-            64,
-            32,
-            WindowOptions {
-                resize: true,
-                scale: Scale::X4,
-                ..WindowOptions::default()
-            },
-        ) {
-            Ok(win) => win,
-            Err(err) => {
-                panic!("Unable to create window {}", err);
-            }
-        };
-        self.win = Some(win);
-        */
     }
 
     fn vram_size(&mut self) -> (usize, usize) {
         //  Get the size of the screen.
         (SCREEN_WIDTH, SCREEN_HEIGHT)
-        //  self.vramsz
     }
 
     fn clock(&mut self) -> u64 {
         //  Return the current clock value in nanoseconds.
         unsafe { os::os_time_get() as u64 * 1000_u64 * 2000_u64 }
-        /*
-        let d = self.inst.elapsed();
-        d.as_secs()
-            .wrapping_mul(1000_000_000)
-            .wrapping_add(d.subsec_nanos().into())
-        */
     }
 
     fn beep(&mut self) {
-        //  Play beep sound.
+        //  TODO: Play beep sound.
     }
 
     fn sched(&mut self) -> bool {
@@ -428,6 +327,8 @@ impl libchip8::Hardware for Hardware {
             left, top, 
             right, bottom,
         );
+        //  console::print("render "); console::printint(left as i32); console::print(", "); console::printint(top as i32); 
+        //  console::print(", "); console::printint(right as i32 - left as i32); console::print(", "); console::printint(bottom as i32 - top as i32); console::print("\n"); console::flush(); ////
 
         //  Render the block
         let (left, top, right, bottom) = block.get_window();
@@ -442,23 +343,6 @@ impl libchip8::Hardware for Hardware {
         self.update_bottom = 0;
 
         false
-        /*
-        std::thread::sleep(std::time::Duration::from_micros(1000_000 / self.opt.hz));
-
-        if let Some(win) = &mut self.win {
-            if !win.is_open() || win.is_key_down(Key::Escape) {
-                return true;
-            }
-
-            let vram: Vec<u32> = self
-                .vram
-                .clone()
-                .into_iter()
-                .map(|b| if b { 0xffffff } else { 0 })
-                .collect();
-            win.update_with_buffer(&vram).unwrap();
-        }
-        */
     }
 }
 
