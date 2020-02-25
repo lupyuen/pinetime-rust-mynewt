@@ -68,7 +68,7 @@ use ui::handle_touch;           //  Use the touch handler from druid UI app
 use visual::handle_touch;       //  Use the touch handler from the Visual Rust app
 
 #[cfg(feature = "chip8_app")]   //  If CHIP8 Emulator app is enabled...
-use chip8::handle_touch;       //  Use the touch handler from the CHIP8 Emulator app
+use chip8::handle_touch;        //  Use the touch handler from the CHIP8 Emulator app
 
 #[cfg(not(any(feature = "ui_app", feature = "visual_app", feature = "chip8_app")))]  //  If neither druid UI app nor Visual Rust app are enabled...
 pub fn handle_touch(_x: u16, _y: u16) { console::print("touch not handled\n"); console::flush(); }  //  Define a touch handler that does nothing

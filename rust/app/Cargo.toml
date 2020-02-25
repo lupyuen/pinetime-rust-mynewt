@@ -37,10 +37,12 @@ default =  [          # Select the conditional compiled features
     # "ui_app",       # Uncomment to enable druid UI app
     # "visual_app",   # Uncomment to enable Visual Rust app
     "chip8_app",      # Uncomment to enable CHIP8 Emulator app
+    "chip8_curve",    # Uncomment to render CHIP8 Emulator as curved surface (requires chip8_app)
     # "use_float",    # Uncomment to enable floating-point support e.g. GPS geolocation
 ]
 display_app  = []     # Define the features
 ui_app       = []
 visual_app   = []
 chip8_app    = []
+chip8_curve  = []
 use_float    = []
