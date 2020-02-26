@@ -578,7 +578,7 @@ fn map_physical_to_virtual(x: u8, y: u8) -> (u8, u8) {
         if flip.0 { SCREEN_WIDTH as u8 / 2 - p.0 } 
         else      { p.0 + SCREEN_WIDTH as u8 / 2 }
         ,
-        if flip.0 { SCREEN_HEIGHT as u8 / 2 - p.1 } 
+        if flip.1 { SCREEN_HEIGHT as u8 / 2 - p.1 } 
         else      { p.1 + SCREEN_HEIGHT as u8 / 2 }
     );
     //  Crop to screen size
@@ -613,13 +613,13 @@ fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
         if flip.0 { PHYSICAL_WIDTH as u8 / 2 - b.0 } 
         else      { b.0 + PHYSICAL_WIDTH as u8 / 2 }
         ,
-        if flip.0 { PHYSICAL_HEIGHT as u8 / 2 - b.1 } 
+        if flip.1 { PHYSICAL_HEIGHT as u8 / 2 - b.1 } 
         else      { b.1 + PHYSICAL_HEIGHT as u8 / 2 }
         ,
         if flip.0 { PHYSICAL_WIDTH as u8 / 2 - b.2 } 
         else      { b.2 + PHYSICAL_WIDTH as u8 / 2 }
         ,
-        if flip.0 { PHYSICAL_HEIGHT as u8 / 2 - b.3 } 
+        if flip.1 { PHYSICAL_HEIGHT as u8 / 2 - b.3 } 
         else      { b.3 + PHYSICAL_HEIGHT as u8 / 2 }
     );
     //  Crop to screen size
