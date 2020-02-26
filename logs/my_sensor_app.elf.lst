@@ -35,9 +35,9 @@ Idx Name               Size      VMA       LMA       File off  Algn  Flags
  10 .ARM.attributes    0000003b  00000000  00000000  000302f8  2**0  CONTENTS, READONLY
  11 .comment           0000007f  00000000  00000000  00030333  2**0  CONTENTS, READONLY
  12 .svc_table         00000004  00000000  00000000  000303b2  2**0  CONTENTS, READONLY
- 13 .debug_line        0004b478  00000000  00000000  000303b6  2**0  CONTENTS, READONLY, DEBUGGING
- 14 .debug_info        0008b036  00000000  00000000  0007b82e  2**0  CONTENTS, READONLY, DEBUGGING
- 15 .debug_abbrev      0000ef3e  00000000  00000000  00106864  2**0  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_line        0004b47a  00000000  00000000  000303b6  2**0  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_info        0008b036  00000000  00000000  0007b830  2**0  CONTENTS, READONLY, DEBUGGING
+ 15 .debug_abbrev      0000ef3e  00000000  00000000  00106866  2**0  CONTENTS, READONLY, DEBUGGING
  16 .debug_aranges     00005f78  00000000  00000000  001157a8  2**3  CONTENTS, READONLY, DEBUGGING
  17 .debug_str         00061f26  00000000  00000000  0011b720  2**0  CONTENTS, READONLY, DEBUGGING
  18 .debug_loc         00013534  00000000  00000000  0017d646  2**0  CONTENTS, READONLY, DEBUGGING
@@ -27635,7 +27635,7 @@ fn render_region(left: u8, top: u8, right: u8, bottom: u8) {
     fdb4:	f0c0 80f9 	bcc.w	ffaa <_ZN3app5chip813render_region17hc692a4d55cab74f0E+0x2a2>
     fdb8:	e7ff      	b.n	fdba <_ZN3app5chip813render_region17hc692a4d55cab74f0E+0xb2>
     fdba:	980d      	ldr	r0, [sp, #52]	; 0x34
-    fdbc:	284a      	cmp	r0, #74	; 0x4a
+    fdbc:	2838      	cmp	r0, #56	; 0x38
     fdbe:	d307      	bcc.n	fdd0 <_ZN3app5chip813render_region17hc692a4d55cab74f0E+0xc8>
     fdc0:	e7ff      	b.n	fdc2 <_ZN3app5chip813render_region17hc692a4d55cab74f0E+0xba>
         render_block(left, top, right, bottom);
@@ -27660,7 +27660,7 @@ fn render_region(left: u8, top: u8, right: u8, bottom: u8) {
     fdde:	e0b2      	b.n	ff46 <_ZN3app5chip813render_region17hc692a4d55cab74f0E+0x23e>
             let block_right  = (x + BLOCK_WIDTH as u8 - 1).min(right);
     fde0:	f89d 0062 	ldrb.w	r0, [sp, #98]	; 0x62
-    fde4:	3010      	adds	r0, #16
+    fde4:	300a      	adds	r0, #10
     fde6:	b2c1      	uxtb	r1, r0
     fde8:	4602      	mov	r2, r0
     fdea:	4281      	cmp	r1, r0
@@ -27776,7 +27776,7 @@ fn render_region(left: u8, top: u8, right: u8, bottom: u8) {
             );  //  Will not overflow SPI buffer
             x += BLOCK_WIDTH as u8;
     feea:	f89d 0062 	ldrb.w	r0, [sp, #98]	; 0x62
-    feee:	3010      	adds	r0, #16
+    feee:	300a      	adds	r0, #10
     fef0:	b2c1      	uxtb	r1, r0
     fef2:	4602      	mov	r2, r0
     fef4:	4281      	cmp	r1, r0

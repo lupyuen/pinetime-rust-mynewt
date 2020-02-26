@@ -30,7 +30,7 @@ const BLOCK_HEIGHT: usize = 5;  //  Letter height
 #[cfg(not(feature = "chip8_curve"))]  //  If we are not rendering CHIP8 Emulator as curved surface...
 const BLOCK_WIDTH: usize = 32;        //  Use normal width
 #[cfg(feature = "chip8_curve")]       //  If we are rendering CHIP8 Emulator as curved surface...
-const BLOCK_WIDTH: usize = 16;        //  Use shorter width because curved regions have more pixels
+const BLOCK_WIDTH: usize = 10;        //  Use shorter width because curved regions have more pixels
 
 /// CHIP8 Virtual Pixel size, in Physical Pixels
 const PIXEL_WIDTH: usize = 3;
