@@ -27635,7 +27635,7 @@ fn render_region(left: u8, top: u8, right: u8, bottom: u8) {
     fdb4:	f0c0 80f9 	bcc.w	ffaa <_ZN3app5chip813render_region17hc692a4d55cab74f0E+0x2a2>
     fdb8:	e7ff      	b.n	fdba <_ZN3app5chip813render_region17hc692a4d55cab74f0E+0xb2>
     fdba:	980d      	ldr	r0, [sp, #52]	; 0x34
-    fdbc:	2838      	cmp	r0, #56	; 0x38
+    fdbc:	2829      	cmp	r0, #41	; 0x29
     fdbe:	d307      	bcc.n	fdd0 <_ZN3app5chip813render_region17hc692a4d55cab74f0E+0xc8>
     fdc0:	e7ff      	b.n	fdc2 <_ZN3app5chip813render_region17hc692a4d55cab74f0E+0xba>
         render_block(left, top, right, bottom);
@@ -27660,7 +27660,7 @@ fn render_region(left: u8, top: u8, right: u8, bottom: u8) {
     fdde:	e0b2      	b.n	ff46 <_ZN3app5chip813render_region17hc692a4d55cab74f0E+0x23e>
             let block_right  = (x + BLOCK_WIDTH as u8 - 1).min(right);
     fde0:	f89d 0062 	ldrb.w	r0, [sp, #98]	; 0x62
-    fde4:	300a      	adds	r0, #10
+    fde4:	3005      	adds	r0, #5
     fde6:	b2c1      	uxtb	r1, r0
     fde8:	4602      	mov	r2, r0
     fdea:	4281      	cmp	r1, r0
@@ -27776,7 +27776,7 @@ fn render_region(left: u8, top: u8, right: u8, bottom: u8) {
             );  //  Will not overflow SPI buffer
             x += BLOCK_WIDTH as u8;
     feea:	f89d 0062 	ldrb.w	r0, [sp, #98]	; 0x62
-    feee:	300a      	adds	r0, #10
+    feee:	3005      	adds	r0, #5
     fef0:	b2c1      	uxtb	r1, r0
     fef2:	4602      	mov	r2, r0
     fef4:	4281      	cmp	r1, r0
