@@ -16,6 +16,10 @@ use mynewt_macros::{
     init_strn,
 };
 
+/// CHIP8 Physical Screen size, in Physical Pixels
+const PHYSICAL_WIDTH: usize = 240;
+const PHYSICAL_HEIGHT: usize = 200;
+
 /// CHIP8 Virtual Screen size, in Virtual Pixels
 const SCREEN_WIDTH: usize = 64;
 const SCREEN_HEIGHT: usize = 32;
@@ -25,7 +29,9 @@ const BLOCK_WIDTH: usize = 32;
 const BLOCK_HEIGHT: usize = 5;  //  Letter height
 
 /// CHIP8 Virtual Pixel size, in Physical Pixels
+#[cfg(not(feature = "chip8_curve"))]  //  If we are not rendering CHIP8 Emulator as curved surface...
 const PIXEL_WIDTH: usize = 3;
+#[cfg(not(feature = "chip8_curve"))]  //  If we are not rendering CHIP8 Emulator as curved surface...
 const PIXEL_HEIGHT: usize = 5;
 
 /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
@@ -380,7 +386,7 @@ impl PixelIterator {
         let top: u8 = virtual_top as u8 * PIXEL_HEIGHT as u8; 
         let right: u8 = left + (virtual_right - virtual_left + 1) * PIXEL_WIDTH as u8 - 1;
         let bottom: u8 = top + (virtual_bottom - virtual_top + 1) * PIXEL_HEIGHT as u8 - 1;
-        assert!(left < 240 && top < 240 && right < 240 && bottom < 240, "overflow");
+        assert!(left < PHYSICAL_WIDTH as u8 && top < PHYSICAL_HEIGHT as u8 && right < PHYSICAL_WIDTH as u8 && bottom < PHYSICAL_HEIGHT as u8, "overflow");
         ( left, top, right, bottom )
     }
 
@@ -389,14 +395,19 @@ impl PixelIterator {
     fn get_bounding_box(virtual_left: u8, virtual_top: u8, virtual_right: u8, virtual_bottom: u8) -> (u8, u8, u8, u8) {
         //  One Virtual Pixel may map to multiple Physical Pixels, so we lookup the Physical Bounding Box.
         //  TODO: Handle wide and tall Bounding Boxes
-        let physical_left_top = VIRTUAL_TO_PHYSICAL_MAP[virtual_top as usize][virtual_left as usize];  //  Returns (left,top,right,bottom)
-        let physical_right_bottom = VIRTUAL_TO_PHYSICAL_MAP[virtual_bottom as usize][virtual_right as usize];
+        let left_index = virtual_left.min(VIRTUAL_TO_PHYSICAL_MAP_WIDTH as u8 - 1);
+        let top_index = virtual_top.min(VIRTUAL_TO_PHYSICAL_MAP_HEIGHT as u8 - 1);
+        let right_index = virtual_right.min(VIRTUAL_TO_PHYSICAL_MAP_WIDTH as u8 - 1);
+        let bottom_index = virtual_bottom.min(VIRTUAL_TO_PHYSICAL_MAP_HEIGHT as u8 - 1);
+        
+        let physical_left_top = VIRTUAL_TO_PHYSICAL_MAP[top_index as usize][left_index as usize];  //  Returns (left,top,right,bottom)
+        let physical_right_bottom = VIRTUAL_TO_PHYSICAL_MAP[bottom_index as usize][right_index as usize];
 
         let left: u8 = physical_left_top.0;
         let top: u8 = physical_left_top.1;
-        let right: u8 = physical_right_bottom.2.min(239);
-        let bottom: u8 = physical_right_bottom.3.min(239);
-        assert!(left < 240 && top < 240 && right < 240 && bottom < 240, "overflow");
+        let right: u8 = physical_right_bottom.2.min(PHYSICAL_WIDTH as u8 - 1);
+        let bottom: u8 = physical_right_bottom.3.min(PHYSICAL_HEIGHT as u8 - 1);
+        assert!(left < PHYSICAL_WIDTH as u8 && top < PHYSICAL_HEIGHT as u8 && right < PHYSICAL_WIDTH as u8 && bottom < PHYSICAL_HEIGHT as u8, "overflow");
         ( left, top, right, bottom )
     }
 
@@ -404,6 +415,16 @@ impl PixelIterator {
     pub fn get_window(&self) -> (u8, u8, u8, u8) {
         ( self.physical_left, self.physical_top, self.physical_right, self.physical_bottom )
     }
+
+    /// Return the 16-bit colour of the Virtual Pixel
+    fn get_color(&mut self) -> u16 {
+        let i = self.x as usize + self.y as usize * SCREEN_WIDTH;
+        let color = unsafe { convert_color(SCREEN_BUFFER[i]) };
+        if self.x_offset == 0 && self.y_offset == 0 {  //  Update colours only once per Virtual Pixel
+            unsafe { SCREEN_BUFFER[i] = update_color(SCREEN_BUFFER[i]); }  //  Fade to black
+        }
+        color
+    }    
 }
 
 /// Implement the Iterator for Virtual Pixels in a Virtual Block
@@ -420,11 +441,10 @@ impl Iterator for PixelIterator {
             self.y >= SCREEN_HEIGHT as u8 { cortex_m::asm::bkpt(); }
         assert!(self.x < SCREEN_WIDTH as u8, "x overflow");
         assert!(self.y < SCREEN_HEIGHT as u8, "y overflow");
-        let i = self.x as usize + self.y as usize * SCREEN_WIDTH;
-        let color = unsafe { convert_color(SCREEN_BUFFER[i]) };
-        if self.x_offset == 0 && self.y_offset == 0 {  //  Update colours only once per Virtual Pixel
-            unsafe { SCREEN_BUFFER[i] = update_color(SCREEN_BUFFER[i]); }  //  Fade to black
-        }
+
+        //  Get the colour for the Virtual Pixel
+        let color = self.get_color();
+
         //  Loop over x_offset from 0 to PIXEL_WIDTH - 1
         self.x_offset += 1;
         if self.x_offset >= PIXEL_WIDTH as u8 {
@@ -464,8 +484,10 @@ impl Iterator for PixelIterator {
         assert!(self.y_physical < SCREEN_HEIGHT as u8, "y overflow");
 
         //  Map the Physical Pixel to the Virtual Pixel
-        //  TODO Check range of (x,y)
-        let virtual_pixel = PHYSICAL_TO_VIRTUAL_MAP[self.y_physical as usize][self.x_physical as usize];
+        let x_map = self.x_physical.min(PHYSICAL_TO_VIRTUAL_MAP_WIDTH as u8 - 1);
+        let y_map = self.y_physical.min(PHYSICAL_TO_VIRTUAL_MAP_HEIGHT as u8 - 1);
+        let virtual_pixel = PHYSICAL_TO_VIRTUAL_MAP[y_map as usize][x_map as usize];
+
         if self.x == virtual_pixel.0 && self.y == virtual_pixel.1 {
             //  If rendering the same Virtual Pixel, increment the offset
             self.x_offset += 1;
@@ -478,11 +500,7 @@ impl Iterator for PixelIterator {
         }
 
         //  Get the colour from the Virtual Screen Buffer
-        let i = self.x as usize + self.y as usize * SCREEN_WIDTH;
-        let color = unsafe { convert_color(SCREEN_BUFFER[i]) };
-        if self.x_offset == 0 && self.y_offset == 0 {  //  Update colours only once per Virtual Pixel
-            unsafe { SCREEN_BUFFER[i] = update_color(SCREEN_BUFFER[i]); }  //  Fade to black
-        }
+        let color = self.get_color();
 
         //  Loop over x_physical from physical_left to physical_right
         self.x_physical += 1;
@@ -515,6 +533,7 @@ fn update_color(grey: u8) -> u8 {
     }
 }
 
+/// TODO: Handle touch events to emulate buttons
 pub fn handle_touch(_x: u16, _y: u16) { 
     console::print("CHIP8 touch not handled\n"); console::flush(); 
 }
@@ -525,10 +544,17 @@ extern "C" {
     fn hal_watchdog_tickle(); 
 }
 
+/// Dimensions of the Physical To Virtual Map and Virtual To Physical Map
+const PHYSICAL_TO_VIRTUAL_MAP_WIDTH: usize = PHYSICAL_WIDTH / 2;
+const PHYSICAL_TO_VIRTUAL_MAP_HEIGHT: usize = PHYSICAL_HEIGHT / 2;
+const VIRTUAL_TO_PHYSICAL_MAP_WIDTH: usize = SCREEN_WIDTH / 2;
+const VIRTUAL_TO_PHYSICAL_MAP_HEIGHT: usize = SCREEN_HEIGHT / 2;
+
 /// For each Physical (x,y) Coordinate, return the corresponding Virtual (x,y) Coordinates.
 /// Used by the CHIP-8 Emulator to decide which Virtual Pixel to fetch the colour value when rendering a Physical Pixel.
+/// Since X and Y are symmetric, this grid only covers one quadrant (X >= 0, Y >= 0)
 #[cfg(feature = "chip8_curve")]  //  If we are rendering CHIP8 Emulator as curved surface...
-static PHYSICAL_TO_VIRTUAL_MAP: &[[(u8,u8); 120]; 100] = &  //  Row=Y, Col=X
+static PHYSICAL_TO_VIRTUAL_MAP: &[[(u8,u8); PHYSICAL_TO_VIRTUAL_MAP_WIDTH]; PHYSICAL_TO_VIRTUAL_MAP_HEIGHT] = &  //  Row=Y, Col=X
 //  Copied from output of https://github.com/lupyuen/interpolate-surface
 [[(0,0),(0,0),(0,0),(0,0),(0,0),(1,0),(1,0),(1,0),(1,0),(2,0),(2,0),(2,0),(2,0),(3,0),(3,0),(3,0),(3,0),(4,0),(4,0),(4,0),(4,0),(5,0),(5,0),(5,0),(5,0),(6,0),(6,0),(6,0),(6,0),(7,0),(7,0),(7,0),(7,0),(8,0),(8,0),(8,0),(9,0),(9,0),(9,0),(9,0),(10,0),(10,0),(10,0),(10,0),(11,0),(11,0),(11,0),(12,0),(12,0),(12,0),(12,0),(13,0),(13,0),(13,0),(14,0),(14,0),(14,0),(14,0),(15,0),(15,0),(15,0),(16,0),(16,0),(16,0),(17,0),(17,0),(17,0),(17,0),(18,0),(18,0),(18,0),(19,0),(19,0),(19,0),(20,0),(20,0),(20,0),(20,0),(21,0),(21,0),(21,0),(22,0),(22,0),(22,0),(23,0),(23,0),(23,0),(23,0),(24,0),(24,0),(24,0),(25,0),(25,0),(25,0),(25,0),(26,0),(26,0),(26,0),(27,0),(27,0),(27,0),(28,0),(28,0),(28,0),(28,0),(29,0),(29,0),(29,0),(30,0),(30,0),(30,0),(31,0),(31,0),(31,0),(31,0),(32,0),(32,0),(32,0),(32,0),(32,0),],
 [(0,0),(0,0),(0,0),(0,0),(0,0),(1,0),(1,0),(1,0),(1,0),(2,0),(2,0),(2,0),(2,0),(3,0),(3,0),(3,0),(3,0),(4,0),(4,0),(4,0),(4,0),(5,0),(5,0),(5,0),(5,0),(6,0),(6,0),(6,0),(6,0),(7,0),(7,0),(7,0),(7,0),(8,0),(8,0),(8,0),(9,0),(9,0),(9,0),(9,0),(10,0),(10,0),(10,0),(10,0),(11,0),(11,0),(11,0),(11,0),(12,0),(12,0),(12,0),(13,0),(13,0),(13,0),(13,0),(14,0),(14,0),(14,0),(14,0),(15,0),(15,0),(15,0),(16,0),(16,0),(16,0),(16,0),(17,0),(17,0),(17,0),(18,0),(18,0),(18,0),(18,0),(19,0),(19,0),(19,0),(19,0),(20,0),(20,0),(20,0),(21,0),(21,0),(21,0),(22,0),(22,0),(22,0),(22,0),(23,0),(23,0),(23,0),(24,0),(24,0),(24,0),(25,0),(25,0),(25,0),(26,0),(26,0),(26,0),(27,0),(27,0),(27,0),(28,0),(28,0),(28,0),(29,0),(29,0),(29,0),(30,0),(30,0),(30,0),(30,0),(31,0),(31,0),(31,0),(32,0),(32,0),(32,0),(32,0),(32,0),],
@@ -635,8 +661,9 @@ static PHYSICAL_TO_VIRTUAL_MAP: &[[(u8,u8); 120]; 100] = &  //  Row=Y, Col=X
 
 /// For each Virtual (x,y) Coordinate, return the Bounding Box (left, top, right, bottom) that encloses the corresponding Physical (x,y) Coordinates.
 /// Used by the CHIP-8 Emulator to decide which Physical Pixels to redraw when a Virtual Pixel is updated.
+/// Since X and Y are symmetric, this grid only covers one quadrant (X >= 0, Y >= 0)
 #[cfg(feature = "chip8_curve")]  //  If we are rendering CHIP8 Emulator as curved surface...
-static VIRTUAL_TO_PHYSICAL_MAP: &[[(u8,u8,u8,u8); 32]; 16] = &  //  Row=Y, Col=X
+static VIRTUAL_TO_PHYSICAL_MAP: &[[(u8,u8,u8,u8); VIRTUAL_TO_PHYSICAL_MAP_WIDTH]; VIRTUAL_TO_PHYSICAL_MAP_HEIGHT] = &  //  Row=Y, Col=X
 //  Copied from output of https://github.com/lupyuen/interpolate-surface
 [[(0,0,4,6),(5,0,8,6),(9,0,12,6),(13,0,16,6),(17,0,21,6),(22,0,25,6),(26,0,29,6),(29,0,33,6),(33,0,36,6),(37,0,40,6),(42,0,45,6),(46,0,49,6),(49,0,52,6),(53,0,56,6),(56,0,60,6),(60,0,64,6),(64,0,68,6),(67,0,71,6),(71,0,75,6),(74,0,79,6),(77,0,82,6),(81,0,86,6),(85,0,90,6),(88,0,93,5),(92,0,96,5),(95,0,99,5),(99,0,102,5),(102,0,106,5),(106,0,109,5),(110,0,112,4),(113,0,116,4),(116,0,119,4),],
 [(0,7,4,12),(5,7,8,12),(9,7,12,12),(13,7,16,12),(17,7,21,12),(22,7,25,12),(25,7,28,12),(29,7,32,12),(33,7,36,12),(37,7,40,12),(42,7,45,12),(45,7,48,12),(49,7,52,12),(53,7,56,12),(56,7,59,11),(60,7,64,11),(64,7,67,11),(68,7,71,11),(72,7,75,11),(75,7,78,11),(79,7,82,11),(82,7,86,11),(87,6,89,11),(90,6,92,11),(93,6,96,10),(96,6,99,10),(99,6,102,10),(103,6,106,10),(107,5,109,9),(110,5,112,9),(113,5,115,9),(116,5,119,9),],
