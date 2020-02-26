@@ -35,9 +35,9 @@ Idx Name               Size      VMA       LMA       File off  Algn  Flags
  10 .ARM.attributes    0000003b  00000000  00000000  000302f8  2**0  CONTENTS, READONLY
  11 .comment           0000007f  00000000  00000000  00030333  2**0  CONTENTS, READONLY
  12 .svc_table         00000004  00000000  00000000  000303b2  2**0  CONTENTS, READONLY
- 13 .debug_line        0004b47a  00000000  00000000  000303b6  2**0  CONTENTS, READONLY, DEBUGGING
- 14 .debug_info        0008b036  00000000  00000000  0007b830  2**0  CONTENTS, READONLY, DEBUGGING
- 15 .debug_abbrev      0000ef3e  00000000  00000000  00106866  2**0  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_line        0004b479  00000000  00000000  000303b6  2**0  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_info        0008b036  00000000  00000000  0007b82f  2**0  CONTENTS, READONLY, DEBUGGING
+ 15 .debug_abbrev      0000ef3e  00000000  00000000  00106865  2**0  CONTENTS, READONLY, DEBUGGING
  16 .debug_aranges     00005f78  00000000  00000000  001157a8  2**3  CONTENTS, READONLY, DEBUGGING
  17 .debug_str         00061f26  00000000  00000000  0011b720  2**0  CONTENTS, READONLY, DEBUGGING
  18 .debug_loc         00013534  00000000  00000000  0017d646  2**0  CONTENTS, READONLY, DEBUGGING
@@ -29072,8 +29072,8 @@ fn map_physical_to_virtual(x: u8, y: u8) -> (u8, u8) {
         if flip.0 { SCREEN_WIDTH as u8 / 2 - p.0 } 
    10a0c:	e7ff      	b.n	10a0e <_ZN3app5chip823map_physical_to_virtual17h27b2afc71d7e4361E+0x1d4>
         ,
-        if flip.0 { SCREEN_HEIGHT as u8 / 2 - p.1 } 
-   10a0e:	f89d 003c 	ldrb.w	r0, [sp, #60]	; 0x3c
+        if flip.1 { SCREEN_HEIGHT as u8 / 2 - p.1 } 
+   10a0e:	f89d 003d 	ldrb.w	r0, [sp, #61]	; 0x3d
    10a12:	07c0      	lsls	r0, r0, #31
    10a14:	2800      	cmp	r0, #0
    10a16:	d10b      	bne.n	10a30 <_ZN3app5chip823map_physical_to_virtual17h27b2afc71d7e4361E+0x1f6>
@@ -29088,7 +29088,7 @@ fn map_physical_to_virtual(x: u8, y: u8) -> (u8, u8) {
    10a28:	9303      	str	r3, [sp, #12]
    10a2a:	f040 8089 	bne.w	10b40 <_ZN3app5chip823map_physical_to_virtual17h27b2afc71d7e4361E+0x306>
    10a2e:	e00d      	b.n	10a4c <_ZN3app5chip823map_physical_to_virtual17h27b2afc71d7e4361E+0x212>
-        if flip.0 { SCREEN_HEIGHT as u8 / 2 - p.1 } 
+        if flip.1 { SCREEN_HEIGHT as u8 / 2 - p.1 } 
    10a30:	9806      	ldr	r0, [sp, #24]
    10a32:	b2c1      	uxtb	r1, r0
    10a34:	f1c1 0110 	rsb	r1, r1, #16
@@ -29104,7 +29104,7 @@ fn map_physical_to_virtual(x: u8, y: u8) -> (u8, u8) {
         else      { p.1 + SCREEN_HEIGHT as u8 / 2 }
    10a4c:	9803      	ldr	r0, [sp, #12]
    10a4e:	f88d 0049 	strb.w	r0, [sp, #73]	; 0x49
-        if flip.0 { SCREEN_HEIGHT as u8 / 2 - p.1 } 
+        if flip.1 { SCREEN_HEIGHT as u8 / 2 - p.1 } 
    10a52:	e7ff      	b.n	10a54 <_ZN3app5chip823map_physical_to_virtual17h27b2afc71d7e4361E+0x21a>
     let p2 = (
    10a54:	f89d 0048 	ldrb.w	r0, [sp, #72]	; 0x48
@@ -29185,7 +29185,7 @@ fn map_physical_to_virtual(x: u8, y: u8) -> (u8, u8) {
    10b20:	211c      	movs	r1, #28
    10b22:	f007 fd05 	bl	18530 <_ZN4core9panicking5panic17h24d1dd0a9d540834E>
    10b26:	defe      	udf	#254	; 0xfe
-        if flip.0 { SCREEN_HEIGHT as u8 / 2 - p.1 } 
+        if flip.1 { SCREEN_HEIGHT as u8 / 2 - p.1 } 
    10b28:	f640 40c0 	movw	r0, #3264	; 0xcc0
    10b2c:	f2c0 0002 	movt	r0, #2
    10b30:	f640 7260 	movw	r2, #3936	; 0xf60
@@ -29431,8 +29431,8 @@ fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
         if flip.0 { PHYSICAL_WIDTH as u8 / 2 - b.0 } 
    10d20:	e7ff      	b.n	10d22 <_ZN3app5chip823map_virtual_to_physical17h86013679af9f807aE+0x1ca>
         ,
-        if flip.0 { PHYSICAL_HEIGHT as u8 / 2 - b.1 } 
-   10d22:	f89d 004c 	ldrb.w	r0, [sp, #76]	; 0x4c
+        if flip.1 { PHYSICAL_HEIGHT as u8 / 2 - b.1 } 
+   10d22:	f89d 004d 	ldrb.w	r0, [sp, #77]	; 0x4d
    10d26:	07c0      	lsls	r0, r0, #31
    10d28:	2800      	cmp	r0, #0
    10d2a:	d10a      	bne.n	10d42 <_ZN3app5chip823map_virtual_to_physical17h86013679af9f807aE+0x1ea>
@@ -29446,7 +29446,7 @@ fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
    10d3a:	9209      	str	r2, [sp, #36]	; 0x24
    10d3c:	f040 80e9 	bne.w	10f12 <_ZN3app5chip823map_virtual_to_physical17h86013679af9f807aE+0x3ba>
    10d40:	e00e      	b.n	10d60 <_ZN3app5chip823map_virtual_to_physical17h86013679af9f807aE+0x208>
-        if flip.0 { PHYSICAL_HEIGHT as u8 / 2 - b.1 } 
+        if flip.1 { PHYSICAL_HEIGHT as u8 / 2 - b.1 } 
    10d42:	f89d 0055 	ldrb.w	r0, [sp, #85]	; 0x55
    10d46:	f1c0 0064 	rsb	r0, r0, #100	; 0x64
    10d4a:	b2c1      	uxtb	r1, r0
@@ -29461,7 +29461,7 @@ fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
         else      { b.1 + PHYSICAL_HEIGHT as u8 / 2 }
    10d60:	9809      	ldr	r0, [sp, #36]	; 0x24
    10d62:	f88d 005f 	strb.w	r0, [sp, #95]	; 0x5f
-        if flip.0 { PHYSICAL_HEIGHT as u8 / 2 - b.1 } 
+        if flip.1 { PHYSICAL_HEIGHT as u8 / 2 - b.1 } 
    10d66:	e7ff      	b.n	10d68 <_ZN3app5chip823map_virtual_to_physical17h86013679af9f807aE+0x210>
         ,
         if flip.0 { PHYSICAL_WIDTH as u8 / 2 - b.2 } 
@@ -29497,8 +29497,8 @@ fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
         if flip.0 { PHYSICAL_WIDTH as u8 / 2 - b.2 } 
    10dac:	e7ff      	b.n	10dae <_ZN3app5chip823map_virtual_to_physical17h86013679af9f807aE+0x256>
         ,
-        if flip.0 { PHYSICAL_HEIGHT as u8 / 2 - b.3 } 
-   10dae:	f89d 004c 	ldrb.w	r0, [sp, #76]	; 0x4c
+        if flip.1 { PHYSICAL_HEIGHT as u8 / 2 - b.3 } 
+   10dae:	f89d 004d 	ldrb.w	r0, [sp, #77]	; 0x4d
    10db2:	07c0      	lsls	r0, r0, #31
    10db4:	2800      	cmp	r0, #0
    10db6:	d10a      	bne.n	10dce <_ZN3app5chip823map_virtual_to_physical17h86013679af9f807aE+0x276>
@@ -29512,7 +29512,7 @@ fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
    10dc6:	9205      	str	r2, [sp, #20]
    10dc8:	f040 80d3 	bne.w	10f72 <_ZN3app5chip823map_virtual_to_physical17h86013679af9f807aE+0x41a>
    10dcc:	e00e      	b.n	10dec <_ZN3app5chip823map_virtual_to_physical17h86013679af9f807aE+0x294>
-        if flip.0 { PHYSICAL_HEIGHT as u8 / 2 - b.3 } 
+        if flip.1 { PHYSICAL_HEIGHT as u8 / 2 - b.3 } 
    10dce:	f89d 0057 	ldrb.w	r0, [sp, #87]	; 0x57
    10dd2:	f1c0 0064 	rsb	r0, r0, #100	; 0x64
    10dd6:	b2c1      	uxtb	r1, r0
@@ -29527,7 +29527,7 @@ fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
         else      { b.3 + PHYSICAL_HEIGHT as u8 / 2 }
    10dec:	9805      	ldr	r0, [sp, #20]
    10dee:	f88d 0061 	strb.w	r0, [sp, #97]	; 0x61
-        if flip.0 { PHYSICAL_HEIGHT as u8 / 2 - b.3 } 
+        if flip.1 { PHYSICAL_HEIGHT as u8 / 2 - b.3 } 
    10df2:	e7ff      	b.n	10df4 <_ZN3app5chip823map_virtual_to_physical17h86013679af9f807aE+0x29c>
     let b2 = (
    10df4:	f89d 005e 	ldrb.w	r0, [sp, #94]	; 0x5e
@@ -29627,7 +29627,7 @@ fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
    10ef2:	211c      	movs	r1, #28
    10ef4:	f007 fb1c 	bl	18530 <_ZN4core9panicking5panic17h24d1dd0a9d540834E>
    10ef8:	defe      	udf	#254	; 0xfe
-        if flip.0 { PHYSICAL_HEIGHT as u8 / 2 - b.1 } 
+        if flip.1 { PHYSICAL_HEIGHT as u8 / 2 - b.1 } 
    10efa:	f640 40c0 	movw	r0, #3264	; 0xcc0
    10efe:	f2c0 0002 	movt	r0, #2
    10f02:	f640 72e0 	movw	r2, #4064	; 0xfe0
@@ -29659,7 +29659,7 @@ fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
    10f52:	211c      	movs	r1, #28
    10f54:	f007 faec 	bl	18530 <_ZN4core9panicking5panic17h24d1dd0a9d540834E>
    10f58:	defe      	udf	#254	; 0xfe
-        if flip.0 { PHYSICAL_HEIGHT as u8 / 2 - b.3 } 
+        if flip.1 { PHYSICAL_HEIGHT as u8 / 2 - b.3 } 
    10f5a:	f640 40c0 	movw	r0, #3264	; 0xcc0
    10f5e:	f2c0 0002 	movt	r0, #2
    10f62:	f241 0220 	movw	r2, #4128	; 0x1020
