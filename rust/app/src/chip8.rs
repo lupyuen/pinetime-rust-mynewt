@@ -395,13 +395,8 @@ impl PixelIterator {
     fn get_bounding_box(virtual_left: u8, virtual_top: u8, virtual_right: u8, virtual_bottom: u8) -> (u8, u8, u8, u8) {
         //  One Virtual Pixel may map to multiple Physical Pixels, so we lookup the Physical Bounding Box.
         //  TODO: Handle wide and tall Bounding Boxes
-        let left_index = virtual_left.min(VIRTUAL_TO_PHYSICAL_MAP_WIDTH as u8 - 1);
-        let top_index = virtual_top.min(VIRTUAL_TO_PHYSICAL_MAP_HEIGHT as u8 - 1);
-        let right_index = virtual_right.min(VIRTUAL_TO_PHYSICAL_MAP_WIDTH as u8 - 1);
-        let bottom_index = virtual_bottom.min(VIRTUAL_TO_PHYSICAL_MAP_HEIGHT as u8 - 1);
-        
-        let physical_left_top = VIRTUAL_TO_PHYSICAL_MAP[top_index as usize][left_index as usize];  //  Returns (left,top,right,bottom)
-        let physical_right_bottom = VIRTUAL_TO_PHYSICAL_MAP[bottom_index as usize][right_index as usize];
+        let physical_left_top = map_virtual_to_physical(virtual_left, virtual_top);  //  Returns (left,top,right,bottom)
+        let physical_right_bottom = map_virtual_to_physical(virtual_right, virtual_bottom);
 
         let left: u8 = physical_left_top.0;
         let top: u8 = physical_left_top.1;
@@ -480,13 +475,11 @@ impl Iterator for PixelIterator {
     #[cfg(feature = "chip8_curve")]  //  If we are rendering CHIP8 Emulator as curved surface...
     fn next(&mut self) -> Option<Self::Item> {
         if self.y_physical > self.physical_bottom { return None; }  //  No more Physical Pixels
-        assert!(self.x_physical < SCREEN_WIDTH as u8, "x overflow");
-        assert!(self.y_physical < SCREEN_HEIGHT as u8, "y overflow");
+        assert!(self.x_physical < PHYSICAL_WIDTH as u8, "x overflow");
+        assert!(self.y_physical < PHYSICAL_HEIGHT as u8, "y overflow");
 
         //  Map the Physical Pixel to the Virtual Pixel
-        let x_map = self.x_physical.min(PHYSICAL_TO_VIRTUAL_MAP_WIDTH as u8 - 1);
-        let y_map = self.y_physical.min(PHYSICAL_TO_VIRTUAL_MAP_HEIGHT as u8 - 1);
-        let virtual_pixel = PHYSICAL_TO_VIRTUAL_MAP[y_map as usize][x_map as usize];
+        let virtual_pixel = map_physical_to_virtual(self.x_physical, self.y_physical);
 
         if self.x == virtual_pixel.0 && self.y == virtual_pixel.1 {
             //  If rendering the same Virtual Pixel, increment the offset
@@ -549,6 +542,24 @@ const PHYSICAL_TO_VIRTUAL_MAP_WIDTH: usize = PHYSICAL_WIDTH / 2;
 const PHYSICAL_TO_VIRTUAL_MAP_HEIGHT: usize = PHYSICAL_HEIGHT / 2;
 const VIRTUAL_TO_PHYSICAL_MAP_WIDTH: usize = SCREEN_WIDTH / 2;
 const VIRTUAL_TO_PHYSICAL_MAP_HEIGHT: usize = SCREEN_HEIGHT / 2;
+
+/// For Physical (x,y) Coordinates, return the corresponding Virtual (x,y) Coordinates.
+/// Used by the CHIP-8 Emulator to decide which Virtual Pixel to fetch the colour value when rendering a Physical Pixel.
+fn map_physical_to_virtual(x: u8, y: u8) -> (u8, u8) {
+    let x_index = x.min(PHYSICAL_TO_VIRTUAL_MAP_WIDTH as u8 - 1);
+    let y_index = y.min(PHYSICAL_TO_VIRTUAL_MAP_HEIGHT as u8 - 1);
+    let virtual_pixel = PHYSICAL_TO_VIRTUAL_MAP[y_index as usize][x_index as usize];  //  Returns (x,y)
+    virtual_pixel
+}
+
+/// For each Virtual (x,y) Coordinate, return the Bounding Box (left, top, right, bottom) that encloses the corresponding Physical (x,y) Coordinates.
+/// Used by the CHIP-8 Emulator to decide which Physical Pixels to redraw when a Virtual Pixel is updated.
+fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
+    let x_index = x.min(VIRTUAL_TO_PHYSICAL_MAP_WIDTH as u8 - 1);
+    let y_index = y.min(VIRTUAL_TO_PHYSICAL_MAP_HEIGHT as u8 - 1);
+    let physical_box = VIRTUAL_TO_PHYSICAL_MAP[y_index as usize][x_index as usize];  //  Returns (left,top,right,bottom)
+    physical_box
+}
 
 /// For each Physical (x,y) Coordinate, return the corresponding Virtual (x,y) Coordinates.
 /// Used by the CHIP-8 Emulator to decide which Virtual Pixel to fetch the colour value when rendering a Physical Pixel.
