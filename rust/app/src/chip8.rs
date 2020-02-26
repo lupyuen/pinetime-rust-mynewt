@@ -546,15 +546,79 @@ const VIRTUAL_TO_PHYSICAL_MAP_HEIGHT: usize = SCREEN_HEIGHT / 2;
 /// For Physical (x,y) Coordinates, return the corresponding Virtual (x,y) Coordinates.
 /// Used by the CHIP-8 Emulator to decide which Virtual Pixel to fetch the colour value when rendering a Physical Pixel.
 fn map_physical_to_virtual(x: u8, y: u8) -> (u8, u8) {
+    //  Check which quadrant (x,y) belongs to and flip accordingly
+    let flip =  //  (flip for X, flip for Y)
+        if x < PHYSICAL_WIDTH as u8 / 2 && y < PHYSICAL_HEIGHT as u8 / 2 {
+            (true, true)  //  Top left quadrant: Flip horizontally and vertically
+        } else if x >= PHYSICAL_WIDTH as u8 / 2 && y < PHYSICAL_HEIGHT as u8 / 2 {
+            (false, true)   //  Top right quadrant: Flip vertically
+        } else if x < PHYSICAL_WIDTH as u8 / 2 && y >= PHYSICAL_HEIGHT as u8 / 2 {
+            (true, false)   //  Bottom left quadrant: Flip horizontally
+        } else {
+            (false, false)    //  Bottom right quadrant: Don't flip
+        };
+    let x_normalised = 
+        if flip.0 { PHYSICAL_WIDTH as u8 / 2 - x } 
+        else      { x - PHYSICAL_WIDTH as u8 / 2 };
+    let y_normalised = 
+        if flip.1 { PHYSICAL_HEIGHT as u8 / 2 - y }
+        else      { y - PHYSICAL_HEIGHT as u8 / 2 };
+    let p = map_physical_to_virtual_normalised(x_normalised, y_normalised);  //  Returns (x,y)
+    (
+        if flip.0 { SCREEN_WIDTH as u8 / 2 - p.0 } 
+        else      { p.0 + SCREEN_WIDTH as u8 / 2 }
+        ,
+        if flip.0 { SCREEN_HEIGHT as u8 / 2 - p.1 } 
+        else      { p.1 + SCREEN_HEIGHT as u8 / 2 }
+    )
+}
+
+/// For each Virtual (x,y) Coordinate, return the Bounding Box (left, top, right, bottom) that encloses the corresponding Physical (x,y) Coordinates.
+/// Used by the CHIP-8 Emulator to decide which Physical Pixels to redraw when a Virtual Pixel is updated.
+fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
+    //  Check which quadrant (x,y) belongs to and flip accordingly
+    let flip =  //  (flip for X, flip for Y)
+        if x < SCREEN_WIDTH as u8 / 2 && y < SCREEN_HEIGHT as u8 / 2 {
+            (true, true)  //  Top left quadrant: Flip horizontally and vertically
+        } else if x >= SCREEN_WIDTH as u8 / 2 && y < SCREEN_HEIGHT as u8 / 2 {
+            (false, true)   //  Top right quadrant: Flip vertically
+        } else if x < SCREEN_WIDTH as u8 / 2 && y >= SCREEN_HEIGHT as u8 / 2 {
+            (true, false)   //  Bottom left quadrant: Flip horizontally
+        } else {
+            (false, false)    //  Bottom right quadrant: Don't flip
+        };
+    let x_normalised = 
+        if flip.0 { SCREEN_WIDTH as u8 / 2 - x } 
+        else      { x - SCREEN_WIDTH as u8 / 2 };
+    let y_normalised = 
+        if flip.1 { SCREEN_HEIGHT as u8 / 2 - y }
+        else      { y - SCREEN_HEIGHT as u8 / 2 };
+    let b = map_virtual_to_physical_normalised(x_normalised, y_normalised);  //  Returns (left,top,right,bottom)
+    (
+        if flip.0 { PHYSICAL_WIDTH as u8 / 2 - b.0 } 
+        else      { b.0 + PHYSICAL_WIDTH as u8 / 2 }
+        ,
+        if flip.0 { PHYSICAL_HEIGHT as u8 / 2 - b.1 } 
+        else      { b.1 + PHYSICAL_HEIGHT as u8 / 2 }
+        ,
+        if flip.0 { PHYSICAL_WIDTH as u8 / 2 - b.2 } 
+        else      { b.2 + PHYSICAL_WIDTH as u8 / 2 }
+        ,
+        if flip.0 { PHYSICAL_HEIGHT as u8 / 2 - b.3 } 
+        else      { b.3 + PHYSICAL_HEIGHT as u8 / 2 }
+    )
+}
+
+/// Same as map_physical_to_virtual, except that (x,y) belongs to the X >= 0, Y >= 0 quadrant
+fn map_physical_to_virtual_normalised(x: u8, y: u8) -> (u8, u8) {
     let x_index = x.min(PHYSICAL_TO_VIRTUAL_MAP_WIDTH as u8 - 1);
     let y_index = y.min(PHYSICAL_TO_VIRTUAL_MAP_HEIGHT as u8 - 1);
     let virtual_pixel = PHYSICAL_TO_VIRTUAL_MAP[y_index as usize][x_index as usize];  //  Returns (x,y)
     virtual_pixel
 }
 
-/// For each Virtual (x,y) Coordinate, return the Bounding Box (left, top, right, bottom) that encloses the corresponding Physical (x,y) Coordinates.
-/// Used by the CHIP-8 Emulator to decide which Physical Pixels to redraw when a Virtual Pixel is updated.
-fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
+/// Same as map_virtual_to_physical, except that (x,y) belongs to the X >= 0, Y >= 0 quadrant
+fn map_virtual_to_physical_normalised(x: u8, y: u8) -> (u8, u8, u8, u8) {
     let x_index = x.min(VIRTUAL_TO_PHYSICAL_MAP_WIDTH as u8 - 1);
     let y_index = y.min(VIRTUAL_TO_PHYSICAL_MAP_HEIGHT as u8 - 1);
     let physical_box = VIRTUAL_TO_PHYSICAL_MAP[y_index as usize][x_index as usize];  //  Returns (left,top,right,bottom)
