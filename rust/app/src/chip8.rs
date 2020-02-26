@@ -394,9 +394,8 @@ impl PixelIterator {
 
         let left: u8 = physical_left_top.0;
         let top: u8 = physical_left_top.1;
-        let right: u8 = physical_right_bottom.2;
-        let bottom: u8 = physical_right_bottom.3;
-        //  TODO
+        let right: u8 = physical_right_bottom.2.min(239);
+        let bottom: u8 = physical_right_bottom.3.min(239);
         assert!(left < 240 && top < 240 && right < 240 && bottom < 240, "overflow");
         ( left, top, right, bottom )
     }
@@ -446,6 +445,13 @@ impl Iterator for PixelIterator {
                 }
             }
         }
+        //  Loop over x_physical from physical_left to physical_right
+        self.x_physical += 1;
+        if self.x_physical > self.physical_right {
+            self.x_physical = self.physical_left;
+            //  Loop over y_physical from physical_top to physical_bottom
+            self.y_physical += 1;
+        }
         //  Return the Physical Pixel color
         return Some(color);
     }
@@ -453,37 +459,39 @@ impl Iterator for PixelIterator {
     /// Return the next Physical Pixel colour
     #[cfg(feature = "chip8_curve")]  //  If we are rendering CHIP8 Emulator as curved surface...
     fn next(&mut self) -> Option<Self::Item> {
-        if self.y > self.block_bottom { return None; }  //  No more Physical Pixels
+        if self.y_physical > self.physical_bottom { return None; }  //  No more Physical Pixels
+        assert!(self.x_physical < SCREEN_WIDTH as u8, "x overflow");
+        assert!(self.y_physical < SCREEN_HEIGHT as u8, "y overflow");
 
-        if self.x >= SCREEN_WIDTH as u8 ||
-            self.y >= SCREEN_HEIGHT as u8 { cortex_m::asm::bkpt(); }
-        assert!(self.x < SCREEN_WIDTH as u8, "x overflow");
-        assert!(self.y < SCREEN_HEIGHT as u8, "y overflow");
+        //  Map the Physical Pixel to the Virtual Pixel
+        //  TODO Check range of (x,y)
+        let virtual_pixel = PHYSICAL_TO_VIRTUAL_MAP[self.y_physical as usize][self.x_physical as usize];
+        if self.x == virtual_pixel.0 && self.y == virtual_pixel.1 {
+            //  If rendering the same Virtual Pixel, increment the offset
+            self.x_offset += 1;
+        } else {
+            //  If rendering a different Virtual Pixel, reset the offset
+            self.x = virtual_pixel.0;
+            self.y = virtual_pixel.1;
+            self.x_offset = 0;
+            self.y_offset = 0;
+        }
+
+        //  Get the colour from the Virtual Screen Buffer
         let i = self.x as usize + self.y as usize * SCREEN_WIDTH;
         let color = unsafe { convert_color(SCREEN_BUFFER[i]) };
         if self.x_offset == 0 && self.y_offset == 0 {  //  Update colours only once per Virtual Pixel
             unsafe { SCREEN_BUFFER[i] = update_color(SCREEN_BUFFER[i]); }  //  Fade to black
         }
-        //  Loop over x_offset from 0 to PIXEL_WIDTH - 1
-        self.x_offset += 1;
-        if self.x_offset >= PIXEL_WIDTH as u8 {
-            self.x_offset = 0;
 
-            //  Loop over x from block_left to block_right
-            self.x += 1;
-            if self.x > self.block_right {
-                self.x = self.block_left;
-
-                //  Loop over y_offset from 0 to PIXEL_HEIGHT - 1
-                self.y_offset += 1;
-                if self.y_offset >= PIXEL_HEIGHT as u8 {
-                    self.y_offset = 0;
-
-                    //  Loop over y from block_top to block_bottom
-                    self.y += 1;
-                }
-            }
+        //  Loop over x_physical from physical_left to physical_right
+        self.x_physical += 1;
+        if self.x_physical > self.physical_right {
+            self.x_physical = self.physical_left;
+            //  Loop over y_physical from physical_top to physical_bottom
+            self.y_physical += 1;
         }
+        
         //  Return the Physical Pixel color
         return Some(color);
     }    
