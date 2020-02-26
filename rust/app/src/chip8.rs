@@ -24,9 +24,13 @@ const PHYSICAL_HEIGHT: usize = 200;
 const SCREEN_WIDTH: usize = 64;
 const SCREEN_HEIGHT: usize = 32;
 
-/// CHIP8 Virtual Block size. We render the CHIP8 Virtual Screen in blocks of Virtual Pixels
-const BLOCK_WIDTH: usize = 32;
+/// CHIP8 Virtual Block size. We render the CHIP8 Virtual Screen in blocks of Virtual Pixels, without overflowing the SPI buffer.
+/// PendingDataSize in SPI is 8192. (BLOCK_WIDTH * PIXEL_WIDTH * BLOCK_HEIGHT * PIXEL_HEIGHT) * 2 must be less than PendingDataSize
 const BLOCK_HEIGHT: usize = 5;  //  Letter height
+#[cfg(not(feature = "chip8_curve"))]  //  If we are not rendering CHIP8 Emulator as curved surface...
+const BLOCK_WIDTH: usize = 32;        //  Use normal width
+#[cfg(feature = "chip8_curve")]       //  If we are rendering CHIP8 Emulator as curved surface...
+const BLOCK_WIDTH: usize = 16;        //  Use shorter width because curved regions have more pixels
 
 /// CHIP8 Virtual Pixel size, in Physical Pixels
 const PIXEL_WIDTH: usize = 3;
@@ -42,7 +46,7 @@ pub fn on_start() -> MynewtResult<()> {
         .fill( Some( Rgb565::from(( 0x00, 0x00, 0x00 )) ) );  //  Black
 
     //  Render background to display
-    //  druid::draw_to_display(background);
+    druid::draw_to_display(background);
     render_region(0, 0, SCREEN_WIDTH as u8 - 1, SCREEN_HEIGHT as u8 - 1);
 
     //  Start the emulator in a background task
@@ -278,11 +282,16 @@ fn render_region(left: u8, top: u8, right: u8, bottom: u8) {
         let mut x = left;
         let mut y = top;
         loop {
-            let block_right = x + BLOCK_WIDTH as u8 - 1;
-            let block_bottom = y + BLOCK_HEIGHT as u8 - 1;
+            let block_right  = (x + BLOCK_WIDTH as u8 - 1).min(right);
+            let block_bottom = (y + BLOCK_HEIGHT as u8 - 1).min(bottom);
+
+            let physical_box    = get_bounding_box(left, top, right, bottom);  //  Returns (left,top,right,bottom)
+            let physical_width  = (physical_box.2 - physical_box.0 + 1) as usize;
+            let physical_height = (physical_box.3 - physical_box.1 + 1) as usize;
+            //  assert!(physical_width + physical_height <= (BLOCK_WIDTH * PIXEL_WIDTH) + (BLOCK_HEIGHT * PIXEL_HEIGHT), "region overflow");
             render_block(x, y,
-                if block_right  <= right  { block_right }  else { right },
-                if block_bottom <= bottom { block_bottom } else { bottom }
+                block_right,
+                block_bottom
             );  //  Will not overflow SPI buffer
             x += BLOCK_WIDTH as u8;
             if x > right {
@@ -386,6 +395,7 @@ impl PixelIterator {
 
     /// Return the 16-bit colour of the Virtual Pixel
     fn get_color(&mut self) -> u16 {
+        assert!(self.x < SCREEN_WIDTH as u8 && self.y < SCREEN_HEIGHT as u8, "color overflow");
         let i = self.x as usize + self.y as usize * SCREEN_WIDTH;
         let color = unsafe { convert_color(SCREEN_BUFFER[i]) };
         if self.x_offset == 0 && self.y_offset == 0 {  //  Update colours only once per Virtual Pixel
@@ -564,12 +574,17 @@ fn map_physical_to_virtual(x: u8, y: u8) -> (u8, u8) {
         if flip.1 { PHYSICAL_HEIGHT as u8 / 2 - y }
         else      { y - PHYSICAL_HEIGHT as u8 / 2 };
     let p = map_physical_to_virtual_normalised(x_normalised, y_normalised);  //  Returns (x,y)
-    (
+    let p2 = (
         if flip.0 { SCREEN_WIDTH as u8 / 2 - p.0 } 
         else      { p.0 + SCREEN_WIDTH as u8 / 2 }
         ,
         if flip.0 { SCREEN_HEIGHT as u8 / 2 - p.1 } 
         else      { p.1 + SCREEN_HEIGHT as u8 / 2 }
+    );
+    //  Crop to screen size
+    (
+        p2.0.min(SCREEN_WIDTH as u8 - 1),
+        p2.1.min(SCREEN_HEIGHT as u8 - 1),
     )
 }
 
@@ -594,7 +609,7 @@ fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
         if flip.1 { SCREEN_HEIGHT as u8 / 2 - y }
         else      { y - SCREEN_HEIGHT as u8 / 2 };
     let b = map_virtual_to_physical_normalised(x_normalised, y_normalised);  //  Returns (left,top,right,bottom)
-    (
+    let b2 = (
         if flip.0 { PHYSICAL_WIDTH as u8 / 2 - b.0 } 
         else      { b.0 + PHYSICAL_WIDTH as u8 / 2 }
         ,
@@ -606,7 +621,14 @@ fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
         ,
         if flip.0 { PHYSICAL_HEIGHT as u8 / 2 - b.3 } 
         else      { b.3 + PHYSICAL_HEIGHT as u8 / 2 }
-    )
+    );
+    //  Crop to screen size
+    (
+        b2.0.min(PHYSICAL_WIDTH as u8 - 1),
+        b2.1.min(PHYSICAL_HEIGHT as u8 - 1),
+        b2.2.min(PHYSICAL_WIDTH as u8 - 1),
+        b2.3.min(PHYSICAL_HEIGHT as u8 - 1),
+    )    
 }
 
 /// Same as map_physical_to_virtual, except that (x,y) belongs to the X >= 0, Y >= 0 quadrant
