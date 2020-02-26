@@ -29,9 +29,7 @@ const BLOCK_WIDTH: usize = 32;
 const BLOCK_HEIGHT: usize = 5;  //  Letter height
 
 /// CHIP8 Virtual Pixel size, in Physical Pixels
-#[cfg(not(feature = "chip8_curve"))]  //  If we are not rendering CHIP8 Emulator as curved surface...
 const PIXEL_WIDTH: usize = 3;
-#[cfg(not(feature = "chip8_curve"))]  //  If we are not rendering CHIP8 Emulator as curved surface...
 const PIXEL_HEIGHT: usize = 5;
 
 /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
@@ -268,10 +266,12 @@ impl libchip8::Hardware for Hardware {
 
 /// Render the Virtual Screen region
 fn render_region(left: u8, top: u8, right: u8, bottom: u8) {
-    let width = right - left + 1;
-    let height = bottom - top + 1;
+    //  Get the physical bounding box width and height
+    let physical_box    = get_bounding_box(left, top, right, bottom);  //  Returns (left,top,right,bottom)
+    let physical_width  = (physical_box.2 - physical_box.0 + 1) as usize;
+    let physical_height = (physical_box.3 - physical_box.1 + 1) as usize;
     //  If the update region is small, render with a single block
-    if width + height <= BLOCK_WIDTH as u8 + BLOCK_HEIGHT as u8 {  //  Will not overflow SPI buffer
+    if physical_width + physical_height <= (BLOCK_WIDTH * PIXEL_WIDTH) + (BLOCK_HEIGHT * PIXEL_HEIGHT) {  //  Will not overflow SPI buffer
         render_block(left, top, right, bottom);
     } else {
         //  If the update region is too big for a single block, break the region into blocks and render
@@ -360,7 +360,7 @@ impl PixelIterator {
         block_bottom:    u8,        
     ) -> PixelIterator {
         let (physical_left, physical_top, physical_right, physical_bottom) = 
-            Self::get_bounding_box(block_left, block_top, block_right, block_bottom);
+            get_bounding_box(block_left, block_top, block_right, block_bottom);
         PixelIterator {
             x: block_left, 
             y: block_top,
@@ -377,33 +377,6 @@ impl PixelIterator {
     pub fn contains(&self, x: u8, y: u8) -> bool {
         x >= self.block_left && x <= self.block_right &&
             y >= self.block_top && y <= self.block_bottom
-    }
-
-    /// Return Bounding Box of Physical Pixels (left, top, right, bottom) that correspond to the Virtual Pixels
-    #[cfg(not(feature = "chip8_curve"))]  //  If we are not rendering CHIP8 Emulator as curved surface...
-    fn get_bounding_box(virtual_left: u8, virtual_top: u8, virtual_right: u8, virtual_bottom: u8) -> (u8, u8, u8, u8) {
-        let left: u8 = virtual_left as u8 * PIXEL_WIDTH as u8;
-        let top: u8 = virtual_top as u8 * PIXEL_HEIGHT as u8; 
-        let right: u8 = left + (virtual_right - virtual_left + 1) * PIXEL_WIDTH as u8 - 1;
-        let bottom: u8 = top + (virtual_bottom - virtual_top + 1) * PIXEL_HEIGHT as u8 - 1;
-        assert!(left < PHYSICAL_WIDTH as u8 && top < PHYSICAL_HEIGHT as u8 && right < PHYSICAL_WIDTH as u8 && bottom < PHYSICAL_HEIGHT as u8, "overflow");
-        ( left, top, right, bottom )
-    }
-
-    /// Return Bounding Box of Physical Pixels (left, top, right, bottom) that correspond to the Virtual Pixels
-    #[cfg(feature = "chip8_curve")]  //  If we are rendering CHIP8 Emulator as curved surface...
-    fn get_bounding_box(virtual_left: u8, virtual_top: u8, virtual_right: u8, virtual_bottom: u8) -> (u8, u8, u8, u8) {
-        //  One Virtual Pixel may map to multiple Physical Pixels, so we lookup the Physical Bounding Box.
-        //  TODO: Handle wide and tall Bounding Boxes
-        let physical_left_top = map_virtual_to_physical(virtual_left, virtual_top);  //  Returns (left,top,right,bottom)
-        let physical_right_bottom = map_virtual_to_physical(virtual_right, virtual_bottom);
-
-        let left: u8 = physical_left_top.0;
-        let top: u8 = physical_left_top.1;
-        let right: u8 = physical_right_bottom.2.min(PHYSICAL_WIDTH as u8 - 1);
-        let bottom: u8 = physical_right_bottom.3.min(PHYSICAL_HEIGHT as u8 - 1);
-        assert!(left < PHYSICAL_WIDTH as u8 && top < PHYSICAL_HEIGHT as u8 && right < PHYSICAL_WIDTH as u8 && bottom < PHYSICAL_HEIGHT as u8, "overflow");
-        ( left, top, right, bottom )
     }
 
     /// Return window of Physical Pixels (left, top, right, bottom) for this Virtual Block
@@ -535,6 +508,33 @@ pub fn handle_touch(_x: u16, _y: u16) {
 extern "C" { 
     /// Tickles the watchdog so that the Watchdog Timer doesn't expire. This needs to be done periodically, before the value configured in hal_watchdog_init() expires.
     fn hal_watchdog_tickle(); 
+}
+
+/// Return Bounding Box of Physical Pixels (left, top, right, bottom) that correspond to the Virtual Pixels
+#[cfg(not(feature = "chip8_curve"))]  //  If we are not rendering CHIP8 Emulator as curved surface...
+fn get_bounding_box(virtual_left: u8, virtual_top: u8, virtual_right: u8, virtual_bottom: u8) -> (u8, u8, u8, u8) {
+    let left: u8 = virtual_left as u8 * PIXEL_WIDTH as u8;
+    let top: u8 = virtual_top as u8 * PIXEL_HEIGHT as u8; 
+    let right: u8 = left + (virtual_right - virtual_left + 1) * PIXEL_WIDTH as u8 - 1;
+    let bottom: u8 = top + (virtual_bottom - virtual_top + 1) * PIXEL_HEIGHT as u8 - 1;
+    assert!(left < PHYSICAL_WIDTH as u8 && top < PHYSICAL_HEIGHT as u8 && right < PHYSICAL_WIDTH as u8 && bottom < PHYSICAL_HEIGHT as u8, "overflow");
+    ( left, top, right, bottom )
+}
+
+/// Return Bounding Box of Physical Pixels (left, top, right, bottom) that correspond to the Virtual Pixels
+#[cfg(feature = "chip8_curve")]  //  If we are rendering CHIP8 Emulator as curved surface...
+fn get_bounding_box(virtual_left: u8, virtual_top: u8, virtual_right: u8, virtual_bottom: u8) -> (u8, u8, u8, u8) {
+    //  One Virtual Pixel may map to multiple Physical Pixels, so we lookup the Physical Bounding Box.
+    //  TODO: Handle wide and tall Bounding Boxes
+    let physical_left_top = map_virtual_to_physical(virtual_left, virtual_top);  //  Returns (left,top,right,bottom)
+    let physical_right_bottom = map_virtual_to_physical(virtual_right, virtual_bottom);
+
+    let left: u8 = physical_left_top.0;
+    let top: u8 = physical_left_top.1;
+    let right: u8 = physical_right_bottom.2.min(PHYSICAL_WIDTH as u8 - 1);
+    let bottom: u8 = physical_right_bottom.3.min(PHYSICAL_HEIGHT as u8 - 1);
+    assert!(left < PHYSICAL_WIDTH as u8 && top < PHYSICAL_HEIGHT as u8 && right < PHYSICAL_WIDTH as u8 && bottom < PHYSICAL_HEIGHT as u8, "overflow");
+    ( left, top, right, bottom )
 }
 
 /// Dimensions of the Physical To Virtual Map and Virtual To Physical Map
