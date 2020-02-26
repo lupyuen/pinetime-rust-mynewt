@@ -297,8 +297,8 @@ fn render_block(left: u8, top: u8, right: u8, bottom: u8) {
         right, bottom,
     );
     //  Render the block
-    let (left, top, right, bottom) = block.get_window();
-    druid::set_display_pixels(left as u16, top as u16, right as u16, bottom as u16,
+    let (left_physical, top_physical, right_physical, bottom_physical) = block.get_window();
+    druid::set_display_pixels(left_physical as u16, top_physical as u16, right_physical as u16, bottom_physical as u16,
         &mut block
     ).expect("set pixels failed");    
 }
@@ -319,14 +319,26 @@ pub struct PixelIterator {
     x_offset:    u8,
     /// Current row offset of Physical Pixel within the Virtual Pixel: 0 to PIXEL_HEIGHT - 1
     y_offset:    u8,
-    /// Start column number for block
+    /// Current Physical column number
+    x_physical:      u8,
+    /// Current Physical row number
+    y_physical:      u8,
+    /// Start Virtual column number for block
     block_left:      u8,
-    /// End column number for block
+    /// End Virtual column number for block
     block_right:     u8,
-    /// Start row number for block
+    /// Start Virtual row number for block
     block_top:       u8,
-    /// End row number for block
+    /// End Virtual row number for block
     block_bottom:    u8,
+    /// Start Physical column number for block
+    physical_left:      u8,
+    /// End Physical column number for block
+    physical_right:     u8,
+    /// Start Physical row number for block
+    physical_top:       u8,
+    /// End Physical row number for block
+    physical_bottom:    u8,
 }
 
 impl PixelIterator {
@@ -341,13 +353,17 @@ impl PixelIterator {
         //  End row number for block
         block_bottom:    u8,        
     ) -> PixelIterator {
+        let (physical_left, physical_top, physical_right, physical_bottom) = 
+            Self::get_bounding_box(block_left, block_top, block_right, block_bottom);
         PixelIterator {
             x: block_left, 
             y: block_top,
             x_offset: 0, 
             y_offset: 0,
-            block_left, block_right,
-            block_top, block_bottom,
+            x_physical: physical_left,
+            y_physical: physical_top,
+            block_left, block_right, block_top, block_bottom,
+            physical_left, physical_top, physical_right, physical_bottom
         }
     }
 
@@ -357,24 +373,24 @@ impl PixelIterator {
             y >= self.block_top && y <= self.block_bottom
     }
 
-    /// Return window of Physical Pixels: (left, top, right, bottom)
+    /// Return Bounding Box of Physical Pixels (left, top, right, bottom) that correspond to the Virtual Pixels
     #[cfg(not(feature = "chip8_curve"))]  //  If we are not rendering CHIP8 Emulator as curved surface...
-    pub fn get_window(&self) -> (u8, u8, u8, u8) {
-        let left: u8 = self.block_left as u8 * PIXEL_WIDTH as u8;
-        let top: u8 = self.block_top as u8 * PIXEL_HEIGHT as u8; 
-        let right: u8 = left + (self.block_right - self.block_left + 1) * PIXEL_WIDTH as u8 - 1;
-        let bottom: u8 = top + (self.block_bottom - self.block_top + 1) * PIXEL_HEIGHT as u8 - 1;
+    fn get_bounding_box(virtual_left: u8, virtual_top: u8, virtual_right: u8, virtual_bottom: u8) -> (u8, u8, u8, u8) {
+        let left: u8 = virtual_left as u8 * PIXEL_WIDTH as u8;
+        let top: u8 = virtual_top as u8 * PIXEL_HEIGHT as u8; 
+        let right: u8 = left + (virtual_right - virtual_left + 1) * PIXEL_WIDTH as u8 - 1;
+        let bottom: u8 = top + (virtual_bottom - virtual_top + 1) * PIXEL_HEIGHT as u8 - 1;
         assert!(left < 240 && top < 240 && right < 240 && bottom < 240, "overflow");
         ( left, top, right, bottom )
     }
 
-    /// Return window of Physical Pixels: (left, top, right, bottom)
+    /// Return Bounding Box of Physical Pixels (left, top, right, bottom) that correspond to the Virtual Pixels
     #[cfg(feature = "chip8_curve")]  //  If we are rendering CHIP8 Emulator as curved surface...
-    pub fn get_window(&self) -> (u8, u8, u8, u8) {
+    fn get_bounding_box(virtual_left: u8, virtual_top: u8, virtual_right: u8, virtual_bottom: u8) -> (u8, u8, u8, u8) {
         //  One Virtual Pixel may map to multiple Physical Pixels, so we lookup the Physical Bounding Box.
         //  TODO: Handle wide and tall Bounding Boxes
-        let physical_left_top = VIRTUAL_TO_PHYSICAL_MAP[self.block_top][self.block_left];  //  Returns (left,top,right,bottom)
-        let physical_right_bottom = VIRTUAL_TO_PHYSICAL_MAP[self.block_bottom][self.block_right];
+        let physical_left_top = VIRTUAL_TO_PHYSICAL_MAP[virtual_top as usize][virtual_left as usize];  //  Returns (left,top,right,bottom)
+        let physical_right_bottom = VIRTUAL_TO_PHYSICAL_MAP[virtual_bottom as usize][virtual_right as usize];
 
         let left: u8 = physical_left_top.0;
         let top: u8 = physical_left_top.1;
@@ -384,6 +400,11 @@ impl PixelIterator {
         assert!(left < 240 && top < 240 && right < 240 && bottom < 240, "overflow");
         ( left, top, right, bottom )
     }
+
+    /// Return window of Physical Pixels (left, top, right, bottom) for this Virtual Block
+    pub fn get_window(&self) -> (u8, u8, u8, u8) {
+        ( self.physical_left, self.physical_top, self.physical_right, self.physical_bottom )
+    }
 }
 
 /// Implement the Iterator for Virtual Pixels in a Virtual Block
@@ -392,6 +413,7 @@ impl Iterator for PixelIterator {
     type Item = u16;
 
     /// Return the next Physical Pixel colour
+    #[cfg(not(feature = "chip8_curve"))]  //  If we are not rendering CHIP8 Emulator as curved surface...
     fn next(&mut self) -> Option<Self::Item> {
         if self.y > self.block_bottom { return None; }  //  No more Physical Pixels
 
@@ -427,6 +449,44 @@ impl Iterator for PixelIterator {
         //  Return the Physical Pixel color
         return Some(color);
     }
+
+    /// Return the next Physical Pixel colour
+    #[cfg(feature = "chip8_curve")]  //  If we are rendering CHIP8 Emulator as curved surface...
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.y > self.block_bottom { return None; }  //  No more Physical Pixels
+
+        if self.x >= SCREEN_WIDTH as u8 ||
+            self.y >= SCREEN_HEIGHT as u8 { cortex_m::asm::bkpt(); }
+        assert!(self.x < SCREEN_WIDTH as u8, "x overflow");
+        assert!(self.y < SCREEN_HEIGHT as u8, "y overflow");
+        let i = self.x as usize + self.y as usize * SCREEN_WIDTH;
+        let color = unsafe { convert_color(SCREEN_BUFFER[i]) };
+        if self.x_offset == 0 && self.y_offset == 0 {  //  Update colours only once per Virtual Pixel
+            unsafe { SCREEN_BUFFER[i] = update_color(SCREEN_BUFFER[i]); }  //  Fade to black
+        }
+        //  Loop over x_offset from 0 to PIXEL_WIDTH - 1
+        self.x_offset += 1;
+        if self.x_offset >= PIXEL_WIDTH as u8 {
+            self.x_offset = 0;
+
+            //  Loop over x from block_left to block_right
+            self.x += 1;
+            if self.x > self.block_right {
+                self.x = self.block_left;
+
+                //  Loop over y_offset from 0 to PIXEL_HEIGHT - 1
+                self.y_offset += 1;
+                if self.y_offset >= PIXEL_HEIGHT as u8 {
+                    self.y_offset = 0;
+
+                    //  Loop over y from block_top to block_bottom
+                    self.y += 1;
+                }
+            }
+        }
+        //  Return the Physical Pixel color
+        return Some(color);
+    }    
 }
 
 /// Convert the Virtual Colour (8-bit greyscale) to 16-bit Colour
