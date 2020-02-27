@@ -343,7 +343,9 @@ _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/ch
 TODO
 
 ```rust
-/// Same as map_physical_to_virtual, except that (x,y) belongs to the X >= 0, Y >= 0 quadrant
+/// For Physical (x,y) Coordinates, return the corresponding Virtual (x,y) Coordinates.
+/// Used by the CHIP-8 Emulator to decide which Virtual Pixel to fetch the colour value when rendering a Physical Pixel.
+/// (x,y) must belong to the X >= 0, Y >= 0 quadrant
 fn map_physical_to_virtual_normalised(x: u8, y: u8) -> (u8, u8) {
     let x_index = x.min(PHYSICAL_TO_VIRTUAL_MAP_WIDTH as u8 - 1);
     let y_index = y.min(PHYSICAL_TO_VIRTUAL_MAP_HEIGHT as u8 - 1);
@@ -415,7 +417,9 @@ _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/ch
 TODO
 
 ```rust
-/// Same as map_virtual_to_physical, except that (x,y) belongs to the X >= 0, Y >= 0 quadrant
+/// For each Virtual (x,y) Coordinate, return the Bounding Box (left, top, right, bottom) that encloses the corresponding Physical (x,y) Coordinates.
+/// Used by the CHIP-8 Emulator to decide which Physical Pixels to redraw when a Virtual Pixel is updated.
+/// (x,y) must belong to the X >= 0, Y >= 0 quadrant
 fn map_virtual_to_physical_normalised(x: u8, y: u8) -> (u8, u8, u8, u8) {
     let x_index = x.min(VIRTUAL_TO_PHYSICAL_MAP_WIDTH as u8 - 1);
     let y_index = y.min(VIRTUAL_TO_PHYSICAL_MAP_HEIGHT as u8 - 1);
