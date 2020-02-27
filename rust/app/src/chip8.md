@@ -2,7 +2,7 @@
 
 Retro Gaming On Your Watch!
 
-UNDER CONSTRUCTION
+__UNDER CONSTRUCTION__
 
 TODO
 
@@ -20,7 +20,7 @@ https://github.com/YushiOMOTE/libchip8
 
 The code I actually wrote is surprisingly little… (What took so long to get it right? Tracking down which Rust function was taking too much stack space)
 
-https://github.com/lupyuen/pinetime-rust...c/chip8.rs
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs
 
 Thinking of using the accelerometer to control the game… tilt your watch up / down / left / right to control the player…. will this be playable? Hmmm…
 
@@ -50,6 +50,7 @@ const BLOCK_WIDTH: usize = 32;
 const PIXEL_WIDTH: usize = 3;
 const PIXEL_HEIGHT: usize = 5;
 ```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L19-L37_
 
 ## Clear the PineTime Display
 
@@ -85,6 +86,7 @@ pub fn on_start() -> MynewtResult<()> {
     Ok(())
 }
 ```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L39-L66_
 
 ## Start the CHIP-8 Emulator
 
@@ -113,6 +115,7 @@ extern "C" fn task_func(_arg: Ptr) {
     assert!(false, "CHIP8 should not end");
 }
 ```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L78-L98_
 
 ## Set a Pixel Colour
 
@@ -151,6 +154,7 @@ impl libchip8::Hardware for Hardware {
         if (y as u8) > self.update_bottom { self.update_bottom = y as u8; }
     }
 ```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L169-L198_
 
 ## Render the Display
 
@@ -195,6 +199,7 @@ impl libchip8::Hardware for Hardware {
         false
     }
 ```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L231-L268_
 
 ## Render a Region
 
@@ -236,6 +241,7 @@ fn render_region(left: u8, top: u8, right: u8, bottom: u8) {
     }
 }
 ```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L271-L304_
 
 ## Render a Block
 
@@ -256,6 +262,7 @@ fn render_block(left: u8, top: u8, right: u8, bottom: u8) {
     ).expect("set pixels failed");    
 }
 ```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L306-L319_
 
 ## Iterate Pixels in a Block
 
@@ -304,6 +311,7 @@ impl Iterator for PixelIterator {
         return Some(color);
     }
 ```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L408-L455_
 
 ## Convert Colours
 
@@ -328,6 +336,7 @@ fn update_color(grey: u8) -> u8 {
     }
 }
 ```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L494-L510_
 
 ## Map Physical Pixels to Virtual Pixels
 
@@ -353,6 +362,7 @@ static PHYSICAL_TO_VIRTUAL_MAP: &[[(u8,u8); PHYSICAL_TO_VIRTUAL_MAP_WIDTH]; PHYS
 [(0,0),(0,0),(0,0),(0,0),(0,0),(1,0),(1,0),(1,0),(1,0),(2,0),(2,0),(2,0),(2,0),(3,0),(3,0),(3,0),(3,0),(4,0),(4,0),(4,0),(4,0),(5,0),(5,0),(5,0),(5,0),(6,0),(6,0),(6,0),(6,0),(7,0),(7,0),(7,0),(8,0),(8,0),(8,0),(8,0),(9,0),(9,0),(9,0),(9,0),(10,0),(10,0),(10,0),(10,0),(11,0),(11,0),(11,0),(11,0),(12,0),(12,0),(12,0),(13,0),(13,0),(13,0),(13,0),(14,0),(14,0),(14,0),(15,0),(15,0),(15,0),(15,0),(16,0),(16,0),(16,0),(16,0),(17,0),(17,0),(17,0),(18,0),(18,0),(18,0),(18,0),(19,0),(19,0),(19,0),(20,0),(20,0),(20,0),(20,0),(21,0),(21,0),(21,0),(22,0),(22,0),(22,0),(23,0),(23,0),(23,0),(23,0),(24,0),(24,0),(24,0),(25,0),(25,0),(25,0),(26,0),(26,0),(26,0),(27,0),(27,0),(27,0),(28,0),(28,0),(28,0),(29,0),(29,0),(29,0),(30,0),(30,0),(30,0),(30,0),(31,0),(31,0),(31,0),(32,0),(32,0),(32,0),(32,0),(32,0),],
 ...
 ```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L645-L673_
 
 ```rust
 /// For Physical (x,y) Coordinates, return the corresponding Virtual (x,y) Coordinates.
@@ -390,6 +400,7 @@ fn map_physical_to_virtual(x: u8, y: u8) -> (u8, u8) {
     )
 }
 ```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L556-L590_
 
 ## Map Virtual Pixels to Physical Pixels
 
@@ -415,6 +426,7 @@ static VIRTUAL_TO_PHYSICAL_MAP: &[[(u8,u8,u8,u8); VIRTUAL_TO_PHYSICAL_MAP_WIDTH]
 [(0,21,4,26),(5,19,8,26),(9,19,12,26),(13,19,16,26),(16,19,19,26),(21,19,24,26),(25,19,28,26),(29,19,32,25),(32,19,35,25),(36,19,39,25),(40,19,44,25),(45,19,48,25),(48,19,51,25),(52,18,55,25),(56,18,58,24),(59,18,63,24),(64,18,67,24),(67,18,70,24),(71,18,74,23),(75,18,77,23),(78,17,81,23),(82,17,85,23),(86,17,89,23),(89,17,92,22),(92,16,95,22),(96,16,98,21),(99,16,101,21),(102,15,106,21),(106,15,109,19),(109,15,112,19),(113,15,115,18),(116,14,118,18),],
 ...
 ```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L654-L782_
 
 ```rust
 /// For each Virtual (x,y) Coordinate, return the Bounding Box (left, top, right, bottom) that encloses the corresponding Physical (x,y) Coordinates.
@@ -470,6 +482,7 @@ fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
     result
 }
 ```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L592-L643_
 
 ## Iterate Curved Pixels
 
@@ -517,3 +530,4 @@ impl Iterator for PixelIterator {
         return Some(color);
     }    
 ```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L457-L491_
