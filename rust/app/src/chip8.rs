@@ -86,8 +86,8 @@ extern "C" fn task_func(_arg: Ptr) {
 
     //  Load the emulator ROM
     //  let rom = include_bytes!("../roms/invaders.ch8");
-    //  let rom = include_bytes!("../roms/blinky.ch8");
-    let rom = include_bytes!("../roms/pong.ch8");
+    let rom = include_bytes!("../roms/blinky.ch8");
+    //  let rom = include_bytes!("../roms/pong.ch8");
 
     //  Run the emulator ROM. This will block until emulator terminates
     chip8.run(rom);
@@ -555,6 +555,7 @@ const VIRTUAL_TO_PHYSICAL_MAP_HEIGHT: usize = SCREEN_HEIGHT / 2;
 
 /// For Physical (x,y) Coordinates, return the corresponding Virtual (x,y) Coordinates.
 /// Used by the CHIP-8 Emulator to decide which Virtual Pixel to fetch the colour value when rendering a Physical Pixel.
+#[cfg(feature = "chip8_curve")]  //  If we are rendering CHIP8 Emulator as curved surface...
 fn map_physical_to_virtual(x: u8, y: u8) -> (u8, u8) {
     //  Check which quadrant (x,y) belongs to and flip accordingly
     let flip =  //  (flip for X, flip for Y)
@@ -590,6 +591,7 @@ fn map_physical_to_virtual(x: u8, y: u8) -> (u8, u8) {
 
 /// For each Virtual (x,y) Coordinate, return the Bounding Box (left, top, right, bottom) that encloses the corresponding Physical (x,y) Coordinates.
 /// Used by the CHIP-8 Emulator to decide which Physical Pixels to redraw when a Virtual Pixel is updated.
+#[cfg(feature = "chip8_curve")]  //  If we are rendering CHIP8 Emulator as curved surface...
 fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
     //  Check which quadrant (x,y) belongs to and flip accordingly
     let flip =  //  (flip for X, flip for Y)
@@ -632,6 +634,7 @@ fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
 }
 
 /// Same as map_physical_to_virtual, except that (x,y) belongs to the X >= 0, Y >= 0 quadrant
+#[cfg(feature = "chip8_curve")]  //  If we are rendering CHIP8 Emulator as curved surface...
 fn map_physical_to_virtual_normalised(x: u8, y: u8) -> (u8, u8) {
     let x_index = x.min(PHYSICAL_TO_VIRTUAL_MAP_WIDTH as u8 - 1);
     let y_index = y.min(PHYSICAL_TO_VIRTUAL_MAP_HEIGHT as u8 - 1);
@@ -640,6 +643,7 @@ fn map_physical_to_virtual_normalised(x: u8, y: u8) -> (u8, u8) {
 }
 
 /// Same as map_virtual_to_physical, except that (x,y) belongs to the X >= 0, Y >= 0 quadrant
+#[cfg(feature = "chip8_curve")]  //  If we are rendering CHIP8 Emulator as curved surface...
 fn map_virtual_to_physical_normalised(x: u8, y: u8) -> (u8, u8, u8, u8) {
     let x_index = x.min(VIRTUAL_TO_PHYSICAL_MAP_WIDTH as u8 - 1);
     let y_index = y.min(VIRTUAL_TO_PHYSICAL_MAP_HEIGHT as u8 - 1);
