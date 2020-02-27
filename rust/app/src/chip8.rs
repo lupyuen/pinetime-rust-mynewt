@@ -285,9 +285,9 @@ fn render_region(left: u8, top: u8, right: u8, bottom: u8) {
             let block_right  = (x + BLOCK_WIDTH as u8 - 1).min(right);
             let block_bottom = (y + BLOCK_HEIGHT as u8 - 1).min(bottom);
 
-            let physical_box    = get_bounding_box(left, top, right, bottom);  //  Returns (left,top,right,bottom)
-            let physical_width  = (physical_box.2 - physical_box.0 + 1) as usize;
-            let physical_height = (physical_box.3 - physical_box.1 + 1) as usize;
+            let physical_box     = get_bounding_box(left, top, right, bottom);  //  Returns (left,top,right,bottom)
+            let _physical_width  = (physical_box.2 - physical_box.0 + 1) as usize;
+            let _physical_height = (physical_box.3 - physical_box.1 + 1) as usize;
             //  assert!(physical_width + physical_height <= (BLOCK_WIDTH * PIXEL_WIDTH) + (BLOCK_HEIGHT * PIXEL_HEIGHT), "region overflow");
             render_block(x, y,
                 block_right,
@@ -382,11 +382,11 @@ impl PixelIterator {
         }
     }
 
-    /// Return true if the Virtual Pixel is in the block
+    /* /// Return true if the Virtual Pixel is in the block
     pub fn contains(&self, x: u8, y: u8) -> bool {
         x >= self.block_left && x <= self.block_right &&
             y >= self.block_top && y <= self.block_bottom
-    }
+    } */
 
     /// Return window of Physical Pixels (left, top, right, bottom) for this Virtual Block
     pub fn get_window(&self) -> (u8, u8, u8, u8) {
@@ -625,12 +625,21 @@ fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
         else      { b.3 + PHYSICAL_HEIGHT as u8 / 2 }
     );
     //  Crop to screen size
-    (
-        b2.0.min(PHYSICAL_WIDTH as u8 - 1),
-        b2.1.min(PHYSICAL_HEIGHT as u8 - 1),
-        b2.2.min(PHYSICAL_WIDTH as u8 - 1),
-        b2.3.min(PHYSICAL_HEIGHT as u8 - 1),
-    )    
+    let crop = (
+        b2.0.min(PHYSICAL_WIDTH as u8 - 1),   //  Left
+        b2.1.min(PHYSICAL_HEIGHT as u8 - 1),  //  Top
+        b2.2.min(PHYSICAL_WIDTH as u8 - 1),   //  Right
+        b2.3.min(PHYSICAL_HEIGHT as u8 - 1),  //  Bottom
+    );
+    //  Flip left and right, top and bottom if necessary
+    let result = (
+        crop.0.min(crop.2),  //  Left
+        crop.1.min(crop.3),  //  Top
+        crop.0.max(crop.2),  //  Right
+        crop.1.max(crop.3),  //  Bottom
+    );
+    assert!(result.0 <= result.2 && result.1 <= result.3, "flip error");  //  Left <= Right and Top <= Bottom
+    result
 }
 
 /// Same as map_physical_to_virtual, except that (x,y) belongs to the X >= 0, Y >= 0 quadrant
