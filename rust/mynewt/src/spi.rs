@@ -33,7 +33,7 @@ static mut SPI_SETTINGS: hal::hal_spi_settings = hal::hal_spi_settings {
 /// Max size of pending Command Bytes
 type PendingCmdSize = heapless::consts::U1;
 /// Max size of pending Data Bytes
-type PendingDataSize = heapless::consts::U2048;
+type PendingDataSize = heapless::consts::U8192;
 
 /// Pending SPI Command Byte to be written
 static mut PENDING_CMD: heapless::Vec<u8, PendingCmdSize> = heapless::Vec(heapless::i::Vec::new());
@@ -148,7 +148,9 @@ pub fn spi_noblock_write_command(cmd: u8) -> MynewtResult<()> {
 
 /// Set pending request for non-blocking SPI write for Data Bytes. Returns without waiting for write to complete.
 pub fn spi_noblock_write_data(data: &[u8]) -> MynewtResult<()> {
-    assert!(unsafe { PENDING_CMD.len() } > 0);  //  Must have Command Byte before Data Bytes
+    assert!(unsafe { PENDING_CMD.len() } > 0, "no cmd byte");  //  Must have Command Byte before Data Bytes
+    //  if unsafe { PENDING_DATA.len() + data.len() > PENDING_DATA.capacity() } { cortex_m::asm::bkpt(); } ////
+    assert!(unsafe { PENDING_DATA.len() + data.len() <= PENDING_DATA.capacity() }, "spi overflow");
     //  Append Data Bytes to Pending Data Bytes.
     unsafe { PENDING_DATA.extend_from_slice(data) } ? ;
     Ok(())

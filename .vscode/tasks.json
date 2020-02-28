@@ -48,7 +48,7 @@
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " scripts/build-app.sh && echo ✅ ◾ ️Done! "
+                    " scripts/build-app.sh && cp .vscode/launch-nrf52.json .vscode/launch.json && echo ✅ ◾ ️Done! "
                 ],
             },
             "linux": {

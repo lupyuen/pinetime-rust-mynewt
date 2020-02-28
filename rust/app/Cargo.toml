@@ -10,6 +10,7 @@ version = "0.1.0"
 [dependencies]
 embedded-hal = "0.2.3" # Rust Embedded HAL Framework
 arrayvec     = { version = "0.5.1", default-features = false }
+heapless     = "0.5.1" # `static` friendly data structures that don't require dynamic memory allocation
 cty       = "0.2.0"  # String utilities from cty library: https://crates.io/crates/cty
 cstr_core = "0.1.2"  # String utilities from cstr_core library: https://crates.io/crates/cstr_core
 memchr    = { version = "2", default-features = false } # String search. Reduce the ROM size by disabling default features. See https://github.com/BurntSushi/rust-memchr
@@ -21,6 +22,7 @@ druid        = { path = "../druid-embedded/druid" }        # TODO: https://githu
 druid-derive = { path = "../druid-embedded/druid-derive" } # TODO: https://github.com/lupyuen/druid-embedded
 druid-shell  = { path = "../druid-embedded/druid-shell" }  # TODO: https://github.com/lupyuen/druid-embedded
 embedded-graphics = "0.5.2"
+libchip8 = "0.1.2"
 
 # Build this module as a Rust library, not a Rust application.  We will link this library with the Mynewt executable.
 [lib]
@@ -34,9 +36,13 @@ default =  [          # Select the conditional compiled features
     "display_app",    # Uncomment to enable graphics display app
     # "ui_app",       # Uncomment to enable druid UI app
     # "visual_app",   # Uncomment to enable Visual Rust app
+    # "chip8_app",    # Uncomment to enable CHIP8 Emulator app
+    # "chip8_curve",  # Uncomment to render CHIP8 Emulator as curved surface (requires chip8_app)
     # "use_float",    # Uncomment to enable floating-point support e.g. GPS geolocation
 ]
 display_app  = []     # Define the features
 ui_app       = []
 visual_app   = []
+chip8_app    = []
+chip8_curve  = []
 use_float    = []

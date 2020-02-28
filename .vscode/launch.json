@@ -18,7 +18,8 @@
             "svdFile": "scripts/nrf52/nrf52.svd",
             "configFiles": [ 
                 //  Tell OpenOCD to open the ST Link connection to STM32 MCU.
-                "scripts/nrf52-pi/swd-pi.ocd",
+                "interface/stlink-v2.cfg",
+                "target/nrf52.cfg",
                 //  Tell OpenOCD to run our custom debug commands.
                 "scripts/nrf52/debug.ocd"
             ],
@@ -46,8 +47,9 @@
                 //  "set $pc = Reset_Handler",  //  Prepare to jump to the Application's Reset Handler
                 //  "stepi",                    //  Execute the Reset Handler
                 "break main",                   //  Break at main()
-                "break __assert_func",          //  Break for any assert failures
-                "break os_default_irq"          //  Break for any unhandled interrupts
+                "break __assert_func",          //  Break for any C assert failures
+                "break os_default_irq",         //  Break for any Mynewt unhandled interrupts
+                "break core::panicking::panic"  //  Break for any Rust assert failures and panics
             ],
             "preRestartCommands": [
             ],
