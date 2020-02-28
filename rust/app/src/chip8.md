@@ -14,6 +14,10 @@ Whole lot of games available here…
 
 https://github.com/dmatlack/chip8/tree/master/roms
 
+To test in emulator...
+
+http://mir3z.github.io/chip8-emu/
+
 I used an existing CHIP-8 Emulator for Rust…
 
 https://github.com/YushiOMOTE/libchip8

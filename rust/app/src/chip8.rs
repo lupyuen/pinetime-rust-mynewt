@@ -85,8 +85,8 @@ extern "C" fn task_func(_arg: Ptr) {
     console::print("CHIP8 started\n"); console::flush();
 
     //  Load the emulator ROM
-    //  let rom = include_bytes!("../roms/invaders.ch8");
-    let rom = include_bytes!("../roms/blinky.ch8");
+    let rom = include_bytes!("../roms/invaders.ch8");
+    //  let rom = include_bytes!("../roms/blinky.ch8");
     //  let rom = include_bytes!("../roms/pong.ch8");
 
     //  Run the emulator ROM. This will block until emulator terminates
@@ -131,39 +131,19 @@ impl libchip8::Hardware for Hardware {
     }
 
     /// Check if the key is pressed.
-    fn key(&mut self, _key: u8) -> bool {
+    fn key(&mut self, key: u8) -> bool {
+        //  key is 0-9 for keys "0" to "9", 0xa-0xf to keys "A" to "F"
         if !self.is_interactive {
             self.is_interactive = true;
             console::print("key\n"); console::flush(); ////
         }
         self.is_checking_input = true;
-        false
-        /*
-        let k = match key {
-            0 => Key::X,
-            1 => Key::Key1,
-            2 => Key::Key2,
-            3 => Key::Key3,
-            4 => Key::Q,
-            5 => Key::W,
-            6 => Key::E,
-            7 => Key::A,
-            8 => Key::S,
-            9 => Key::D,
-            0xa => Key::Z,
-            0xb => Key::C,
-            0xc => Key::Key4,
-            0xd => Key::E,
-            0xe => Key::D,
-            0xf => Key::C,
-            _ => return false,
-        };
-
-        match &self.win {
-            Some(win) => win.is_key_down(k),
-            None => false,
+        //  Compare the key with the last touch event
+        if unsafe { KEY_PRESSED == Some(key) } {
+            unsafe { KEY_PRESSED = None };  //  Clear the touch event
+            return true;
         }
-        */
+        false
     }
 
     /// Set the state of a pixel in the screen. true for white, and false for black.
@@ -239,12 +219,12 @@ impl libchip8::Hardware for Hardware {
         //  If emulator is preparing the initial screen, refresh the screen later
         if !self.is_interactive { return false; }
 
+        //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
+        unsafe { hal_watchdog_tickle() };
+
         //  If emulator is not ready to accept input, refresh the screen later
         if !self.is_checking_input { return false; }
         self.is_checking_input = false;
-
-        //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
-        unsafe { hal_watchdog_tickle() };
 
         //  Sleep a while to allow other tasks to run, e.g. SPI background task
         unsafe { os::os_time_delay(1) };
@@ -509,10 +489,19 @@ fn update_color(grey: u8) -> u8 {
     }
 }
 
-/// TODO: Handle touch events to emulate buttons
-pub fn handle_touch(_x: u16, _y: u16) { 
-    console::print("CHIP8 touch not handled\n"); console::flush(); 
+/// Handle touch events to emulate buttons
+pub fn handle_touch(x: u16, _y: u16) { 
+    //  We only handle 3 keys: 4, 5, 6, which correspond to Left, Centre, Right
+    //  console::print("CHIP8 touch\n"); console::flush(); 
+    let key = 
+        if x < PHYSICAL_WIDTH as u16 / 3 { Some(4) }
+        else if x < 2 * PHYSICAL_WIDTH as u16 / 3 { Some(5) }
+        else { Some(6) };
+    unsafe { KEY_PRESSED = key };
 }
+
+/// Represents the key pressed: 0-9 for keys "0" to "9", 0xa-0xf to keys "A" to "F", None for nothing pressed
+static mut KEY_PRESSED: Option<u8> = None;
 
 //  TODO: Move this to Mynewt library
 extern "C" { 
@@ -548,9 +537,13 @@ fn get_bounding_box(virtual_left: u8, virtual_top: u8, virtual_right: u8, virtua
 }
 
 /// Dimensions of the Physical To Virtual Map and Virtual To Physical Map
+#[cfg(feature = "chip8_curve")]  //  If we are rendering CHIP8 Emulator as curved surface...
 const PHYSICAL_TO_VIRTUAL_MAP_WIDTH: usize = PHYSICAL_WIDTH / 2;
+#[cfg(feature = "chip8_curve")]  //  If we are rendering CHIP8 Emulator as curved surface...
 const PHYSICAL_TO_VIRTUAL_MAP_HEIGHT: usize = PHYSICAL_HEIGHT / 2;
+#[cfg(feature = "chip8_curve")]  //  If we are rendering CHIP8 Emulator as curved surface...
 const VIRTUAL_TO_PHYSICAL_MAP_WIDTH: usize = SCREEN_WIDTH / 2;
+#[cfg(feature = "chip8_curve")]  //  If we are rendering CHIP8 Emulator as curved surface...
 const VIRTUAL_TO_PHYSICAL_MAP_HEIGHT: usize = SCREEN_HEIGHT / 2;
 
 /// For Physical (x,y) Coordinates, return the corresponding Virtual (x,y) Coordinates.
