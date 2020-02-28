@@ -248,7 +248,7 @@
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " set -e -x ; cargo doc --document-private-items ; echo ✅ ◾ ️Done! target/thumbv7m-none-eabi/doc "
+                    " set -e -x ; rustdoc --output docs/app rust/app/src/chip8.md ; cargo doc --document-private-items ; echo ✅ ◾ ️Done! target/thumbv7m-none-eabi/doc "
                 ]
             },
             "linux": {
