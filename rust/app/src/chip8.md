@@ -32,7 +32,7 @@ I have some ideas how to optimise the rendering (e.g. batching of pixels into bl
 
 How about we take some retro games and turn them into PineTime Watch Faces?
 
-## Map the Emulator Display to PineTime Display
+# Map the Emulator Display to PineTime Display
 
 TODO
 
@@ -56,7 +56,7 @@ const PIXEL_HEIGHT: usize = 5;
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L19-L37_
 
-## Clear the PineTime Display
+# Clear the PineTime Display
 
 TODO
 
@@ -92,7 +92,7 @@ pub fn on_start() -> MynewtResult<()> {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L39-L66_
 
-## Start the CHIP-8 Emulator
+# Start the CHIP-8 Emulator
 
 TODO
 
@@ -121,7 +121,7 @@ extern "C" fn task_func(_arg: Ptr) {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L78-L98_
 
-## Set a Pixel Colour
+# Set a Pixel Colour
 
 TODO
 
@@ -160,7 +160,7 @@ impl libchip8::Hardware for Hardware {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L169-L198_
 
-## Render the Display
+# Render the Display
 
 TODO
 
@@ -205,7 +205,7 @@ impl libchip8::Hardware for Hardware {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L231-L268_
 
-## Render a Region
+# Render a Region
 
 TODO
 
@@ -247,7 +247,7 @@ fn render_region(left: u8, top: u8, right: u8, bottom: u8) {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L271-L304_
 
-## Render a Block
+# Render a Block
 
 TODO
 
@@ -268,7 +268,7 @@ fn render_block(left: u8, top: u8, right: u8, bottom: u8) {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L306-L319_
 
-## Iterate Pixels in a Block
+# Iterate Pixels in a Block
 
 TODO
 
@@ -317,7 +317,7 @@ impl Iterator for PixelIterator {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L408-L455_
 
-## Convert Colours
+# Convert Colours
 
 TODO
 
@@ -342,7 +342,7 @@ fn update_color(grey: u8) -> u8 {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L494-L510_
 
-## Map Physical Pixels to Virtual Pixels
+# Map Physical Pixels to Virtual Pixels
 
 TODO
 
@@ -416,7 +416,7 @@ fn map_physical_to_virtual(x: u8, y: u8) -> (u8, u8) {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L556-L590_
 
-## Map Virtual Pixels to Physical Pixels
+# Map Virtual Pixels to Physical Pixels
 
 TODO
 
@@ -508,7 +508,7 @@ fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L592-L643_
 
-## Iterate Curved Pixels
+# Iterate Curved Pixels
 
 TODO
 
