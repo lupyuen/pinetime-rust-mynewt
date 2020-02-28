@@ -1,0 +1,1 @@
+initSidebarItems({"derive":[["Data",""]],"trait":[["Data","A trait used to represent value types."]]});

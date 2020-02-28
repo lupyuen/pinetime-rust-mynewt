@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>chip8.rs: CHIP-8 Game Emulator for PineTime Smart Watch with Rust</title>
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+    <h1 class="title">chip8.rs: CHIP-8 Game Emulator for PineTime Smart Watch with Rust</h1>
+    <nav id="TOC"><ul>
+<li><a href="#map-the-emulator-display-to-pinetimedisplay">0.1 Map the Emulator Display to PineTime Display</a><ul></ul></li>
+<li><a href="#clear-the-pinetimedisplay">0.2 Clear the PineTime Display</a><ul></ul></li>
+<li><a href="#start-the-chip-8emulator">0.3 Start the CHIP-8 Emulator</a><ul></ul></li>
+<li><a href="#set-a-pixelcolour">0.4 Set a Pixel Colour</a><ul></ul></li>
+<li><a href="#render-thedisplay">0.5 Render the Display</a><ul></ul></li>
+<li><a href="#render-aregion">0.6 Render a Region</a><ul></ul></li>
+<li><a href="#render-ablock">0.7 Render a Block</a><ul></ul></li>
+<li><a href="#iterate-pixels-in-ablock">0.8 Iterate Pixels in a Block</a><ul></ul></li>
+<li><a href="#convert-colours">0.9 Convert Colours</a><ul></ul></li>
+<li><a href="#map-physical-pixels-to-virtualpixels">0.10 Map Physical Pixels to Virtual Pixels</a><ul></ul></li>
+<li><a href="#map-virtual-pixels-to-physicalpixels">0.11 Map Virtual Pixels to Physical Pixels</a><ul></ul></li>
+<li><a href="#iterate-curvedpixels">0.12 Iterate Curved Pixels</a><ul></ul></li></ul></nav><p>Retro Gaming On Your Watch!</p>
+<p><strong>UNDER CONSTRUCTION</strong></p>
+<p>TODO</p>
+<p>More info about CHIP-8…</p>
+<p>http://www.multigesture.net/articles/how...terpreter/</p>
+<p>Whole lot of games available here…</p>
+<p>https://github.com/dmatlack/chip8/tree/master/roms</p>
+<p>To test in emulator...</p>
+<p>http://mir3z.github.io/chip8-emu/</p>
+<p>I used an existing CHIP-8 Emulator for Rust…</p>
+<p>https://github.com/YushiOMOTE/libchip8</p>
+<p>The code I actually wrote is surprisingly little… (What took so long to get it right? Tracking down which Rust function was taking too much stack space)</p>
+<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs</p>
+<p>Thinking of using the accelerometer to control the game… tilt your watch up / down / left / right to control the player…. will this be playable? Hmmm…</p>
+<p>I have some ideas how to optimise the rendering (e.g. batching of pixels into blocks). But this has been a really rewarding exercise on PineTime… All it takes is a few lines of Rust code to run games on PineTime! :-)</p>
+<p>How about we take some retro games and turn them into PineTime Watch Faces?</p>
+<h2 id="map-the-emulator-display-to-pinetimedisplay" class="section-header"><a href="#map-the-emulator-display-to-pinetimedisplay">0.1 Map the Emulator Display to PineTime Display</a></h2>
+<p>TODO</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// CHIP8 Physical Screen size, in Physical Pixels</span>
+<span class="kw">const</span> <span class="ident">PHYSICAL_WIDTH</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">240</span>;
+<span class="kw">const</span> <span class="ident">PHYSICAL_HEIGHT</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">200</span>;
+
+<span class="doccomment">/// CHIP8 Virtual Screen size, in Virtual Pixels</span>
+<span class="kw">const</span> <span class="ident">SCREEN_WIDTH</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">64</span>;
+<span class="kw">const</span> <span class="ident">SCREEN_HEIGHT</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">32</span>;
+
+<span class="doccomment">/// CHIP8 Virtual Block size. We render the CHIP8 Virtual Screen in blocks of Virtual Pixels, without overflowing the SPI buffer.</span>
+<span class="doccomment">/// PendingDataSize in SPI is 8192. (BLOCK_WIDTH * PIXEL_WIDTH * BLOCK_HEIGHT * PIXEL_HEIGHT) * 2 must be less than PendingDataSize</span>
+<span class="kw">const</span> <span class="ident">BLOCK_HEIGHT</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">5</span>;  <span class="comment">//  Letter height</span>
+<span class="kw">const</span> <span class="ident">BLOCK_WIDTH</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">32</span>;
+
+<span class="doccomment">/// CHIP8 Virtual Pixel size, in Physical Pixels</span>
+<span class="kw">const</span> <span class="ident">PIXEL_WIDTH</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">3</span>;
+<span class="kw">const</span> <span class="ident">PIXEL_HEIGHT</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">5</span>;</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L19-L37</em></p>
+<h2 id="clear-the-pinetimedisplay" class="section-header"><a href="#clear-the-pinetimedisplay">0.2 Clear the PineTime Display</a></h2>
+<p>TODO</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">on_start</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;Rust CHIP8\n&quot;</span>); <span class="ident">console</span>::<span class="ident">flush</span>();
+    
+    <span class="comment">//  Create black background</span>
+    <span class="kw">let</span> <span class="ident">background</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="op">&lt;</span><span class="ident">Rgb565</span><span class="op">&gt;</span>
+        ::<span class="ident">new</span>( <span class="ident">Coord</span>::<span class="ident">new</span>( <span class="number">0</span>, <span class="number">0</span> ), <span class="ident">Coord</span>::<span class="ident">new</span>( <span class="number">239</span>, <span class="number">239</span> ) )   <span class="comment">//  Rectangle coordinates</span>
+        .<span class="ident">fill</span>( <span class="prelude-val">Some</span>( <span class="ident">Rgb565</span>::<span class="ident">from</span>(( <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span> )) ) );  <span class="comment">//  Black</span>
+
+    <span class="comment">//  Render background to display</span>
+    <span class="ident">druid</span>::<span class="ident">draw_to_display</span>(<span class="ident">background</span>);
+    <span class="ident">render_region</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="ident">SCREEN_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">-</span> <span class="number">1</span>, <span class="ident">SCREEN_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">-</span> <span class="number">1</span>);
+
+    <span class="comment">//  Start the emulator in a background task</span>
+    <span class="ident">os</span>::<span class="ident">task_init</span>(                  <span class="comment">//  Create a new task and start it...</span>
+        <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">CHIP8_TASK</span> }, <span class="comment">//  Task object will be saved here</span>
+        <span class="kw-2">&amp;</span><span class="macro">init_strn</span><span class="macro">!</span>( <span class="string">&quot;chip8&quot;</span> ),     <span class="comment">//  Name of task</span>
+        <span class="prelude-val">Some</span>( <span class="ident">task_func</span> ),    <span class="comment">//  Function to execute when task starts</span>
+        <span class="ident">NULL</span>,  <span class="comment">//  Argument to be passed to above function</span>
+        <span class="number">20</span>,    <span class="comment">//  Task priority: highest is 0, lowest is 255 (main task is 127), SPI is 10</span>
+        <span class="ident">os</span>::<span class="ident">OS_WAIT_FOREVER</span> <span class="kw">as</span> <span class="ident">u32</span>,       <span class="comment">//  Don&#39;t do sanity / watchdog checking</span>
+        <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">CHIP8_TASK_STACK</span> }, <span class="comment">//  Stack space for the task</span>
+        <span class="ident">CHIP8_TASK_STACK_SIZE</span> <span class="kw">as</span> <span class="ident">u16</span>      <span class="comment">//  Size of the stack (in 4-byte units)</span>
+    ) <span class="question-mark">?</span> ;                                 <span class="comment">//  `?` means check for error</span>
+
+    <span class="comment">//  Return success to the caller</span>
+    <span class="prelude-val">Ok</span>(())
+}</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L39-L66</em></p>
+<h2 id="start-the-chip-8emulator" class="section-header"><a href="#start-the-chip-8emulator">0.3 Start the CHIP-8 Emulator</a></h2>
+<p>TODO</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">///  Run the emulator</span>
+<span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">task_func</span>(<span class="ident">_arg</span>: <span class="ident">Ptr</span>) {    
+    <span class="comment">//  Create the hardware API for rendering the emulator</span>
+    <span class="kw">let</span> <span class="ident">hardware</span> <span class="op">=</span> <span class="ident">Hardware</span>::<span class="ident">new</span>();
+
+    <span class="comment">//  Create the emulator</span>
+    <span class="kw">let</span> <span class="ident">chip8</span> <span class="op">=</span> <span class="ident">libchip8</span>::<span class="ident">Chip8</span>::<span class="ident">new</span>(<span class="ident">hardware</span>);
+    <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;CHIP8 started\n&quot;</span>); <span class="ident">console</span>::<span class="ident">flush</span>();
+
+    <span class="comment">//  Load the emulator ROM</span>
+    <span class="comment">//  let rom = include_bytes!(&quot;../roms/invaders.ch8&quot;);</span>
+    <span class="kw">let</span> <span class="ident">rom</span> <span class="op">=</span> <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../roms/blinky.ch8&quot;</span>);
+    <span class="comment">//  let rom = include_bytes!(&quot;../roms/pong.ch8&quot;);</span>
+
+    <span class="comment">//  Run the emulator ROM. This will block until emulator terminates</span>
+    <span class="ident">chip8</span>.<span class="ident">run</span>(<span class="ident">rom</span>);
+
+    <span class="comment">//  Should not come here</span>
+    <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;CHIP8 done\n&quot;</span>); <span class="ident">console</span>::<span class="ident">flush</span>();
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="bool-val">false</span>, <span class="string">&quot;CHIP8 should not end&quot;</span>);
+}</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L78-L98</em></p>
+<h2 id="set-a-pixelcolour" class="section-header"><a href="#set-a-pixelcolour">0.4 Set a Pixel Colour</a></h2>
+<p>TODO</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">impl</span> <span class="ident">libchip8</span>::<span class="ident">Hardware</span> <span class="kw">for</span> <span class="ident">Hardware</span> {
+    <span class="doccomment">/// Set the state of a pixel in the screen. true for white, and false for black.</span>
+    <span class="kw">fn</span> <span class="ident">vram_set</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">x</span>: <span class="ident">usize</span>, <span class="ident">y</span>: <span class="ident">usize</span>, <span class="ident">d</span>: <span class="ident">bool</span>) {
+        <span class="comment">//  console::print(&quot;set &quot;); console::printint(x as i32); console::print(&quot;, &quot;); console::printint(y as i32); console::print(&quot;\n&quot;); console::flush(); ////</span>
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">x</span> <span class="op">&lt;</span> <span class="ident">SCREEN_WIDTH</span>, <span class="string">&quot;x overflow&quot;</span>);
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">y</span> <span class="op">&lt;</span> <span class="ident">SCREEN_HEIGHT</span>, <span class="string">&quot;y overflow&quot;</span>);
+        <span class="kw">let</span> <span class="ident">i</span> <span class="op">=</span> <span class="ident">x</span> <span class="op">+</span> <span class="ident">y</span> <span class="op">*</span> <span class="ident">SCREEN_WIDTH</span>;
+        <span class="kw">unsafe</span> { <span class="ident">SCREEN_BUFFER</span>[<span class="ident">i</span>] <span class="op">=</span> 
+            <span class="kw">if</span> <span class="ident">d</span> {
+                <span class="kw">if</span> <span class="self">self</span>.<span class="ident">is_interactive</span> { <span class="number">255</span> }  <span class="comment">//  Brighter colour when emulator is active</span>
+                <span class="kw">else</span> { <span class="number">200</span> }                    <span class="comment">//  Darker colour for initial screen</span>
+            } 
+            <span class="kw">else</span> { 
+                <span class="kw">if</span> <span class="self">self</span>.<span class="ident">is_interactive</span> { <span class="number">127</span> }  <span class="comment">//  Fade to black</span>
+                <span class="kw">else</span> { <span class="number">0</span> }                      <span class="comment">//  Black for initial screen                 </span>
+            }  
+        };
+
+        <span class="comment">//  Remember the boundaries of the screen region to be updated</span>
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">update_left</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="self">self</span>.<span class="ident">update_right</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span>
+            <span class="self">self</span>.<span class="ident">update_top</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="self">self</span>.<span class="ident">update_bottom</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
+            <span class="self">self</span>.<span class="ident">update_left</span> <span class="op">=</span> <span class="ident">x</span> <span class="kw">as</span> <span class="ident">u8</span>;
+            <span class="self">self</span>.<span class="ident">update_right</span> <span class="op">=</span> <span class="ident">x</span> <span class="kw">as</span> <span class="ident">u8</span>;
+            <span class="self">self</span>.<span class="ident">update_top</span> <span class="op">=</span> <span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>;
+            <span class="self">self</span>.<span class="ident">update_bottom</span> <span class="op">=</span> <span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>;
+        }
+        <span class="kw">if</span> (<span class="ident">x</span> <span class="kw">as</span> <span class="ident">u8</span>) <span class="op">&lt;</span> <span class="self">self</span>.<span class="ident">update_left</span> { <span class="self">self</span>.<span class="ident">update_left</span> <span class="op">=</span> <span class="ident">x</span> <span class="kw">as</span> <span class="ident">u8</span>; }
+        <span class="kw">if</span> (<span class="ident">x</span> <span class="kw">as</span> <span class="ident">u8</span>) <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">update_right</span> { <span class="self">self</span>.<span class="ident">update_right</span> <span class="op">=</span> <span class="ident">x</span> <span class="kw">as</span> <span class="ident">u8</span>; }
+        <span class="kw">if</span> (<span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>) <span class="op">&lt;</span> <span class="self">self</span>.<span class="ident">update_top</span> { <span class="self">self</span>.<span class="ident">update_top</span> <span class="op">=</span> <span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>; }
+        <span class="kw">if</span> (<span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>) <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">update_bottom</span> { <span class="self">self</span>.<span class="ident">update_bottom</span> <span class="op">=</span> <span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>; }
+    }</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L169-L198</em></p>
+<h2 id="render-thedisplay" class="section-header"><a href="#render-thedisplay">0.5 Render the Display</a></h2>
+<p>TODO</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">impl</span> <span class="ident">libchip8</span>::<span class="ident">Hardware</span> <span class="kw">for</span> <span class="ident">Hardware</span> {
+    <span class="doccomment">/// Called in every step; return true for shutdown.</span>
+    <span class="kw">fn</span> <span class="ident">sched</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+        <span class="comment">//  If no screen update, return</span>
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">update_left</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="self">self</span>.<span class="ident">update_right</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span>
+            <span class="self">self</span>.<span class="ident">update_top</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="self">self</span>.<span class="ident">update_bottom</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> { <span class="kw">return</span> <span class="bool-val">false</span>; }
+
+        <span class="comment">//  If emulator is preparing the initial screen, refresh the screen later</span>
+        <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">is_interactive</span> { <span class="kw">return</span> <span class="bool-val">false</span>; }
+
+        <span class="comment">//  If emulator is not ready to accept input, refresh the screen later</span>
+        <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">is_checking_input</span> { <span class="kw">return</span> <span class="bool-val">false</span>; }
+        <span class="self">self</span>.<span class="ident">is_checking_input</span> <span class="op">=</span> <span class="bool-val">false</span>;
+
+        <span class="comment">//  Tickle the watchdog so that the Watchdog Timer doesn&#39;t expire. Mynewt assumes the process is hung if we don&#39;t tickle the watchdog.</span>
+        <span class="kw">unsafe</span> { <span class="ident">hal_watchdog_tickle</span>() };
+
+        <span class="comment">//  Sleep a while to allow other tasks to run, e.g. SPI background task</span>
+        <span class="kw">unsafe</span> { <span class="ident">os</span>::<span class="ident">os_time_delay</span>(<span class="number">1</span>) };
+
+        <span class="comment">//  Render the updated region</span>
+        <span class="ident">render_region</span>(
+            <span class="self">self</span>.<span class="ident">update_left</span>,
+            <span class="self">self</span>.<span class="ident">update_top</span>,
+            <span class="self">self</span>.<span class="ident">update_right</span>,
+            <span class="self">self</span>.<span class="ident">update_bottom</span>
+        );
+
+        <span class="comment">//  Reset the screen region to be updated</span>
+        <span class="self">self</span>.<span class="ident">update_left</span> <span class="op">=</span> <span class="number">0</span>;
+        <span class="self">self</span>.<span class="ident">update_top</span> <span class="op">=</span> <span class="number">0</span>;
+        <span class="self">self</span>.<span class="ident">update_right</span> <span class="op">=</span> <span class="number">0</span>;
+        <span class="self">self</span>.<span class="ident">update_bottom</span> <span class="op">=</span> <span class="number">0</span>;
+
+        <span class="comment">//  Return false to indicate no shutdown</span>
+        <span class="bool-val">false</span>
+    }</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L231-L268</em></p>
+<h2 id="render-aregion" class="section-header"><a href="#render-aregion">0.6 Render a Region</a></h2>
+<p>TODO</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Render the Virtual Screen region</span>
+<span class="kw">fn</span> <span class="ident">render_region</span>(<span class="ident">left</span>: <span class="ident">u8</span>, <span class="ident">top</span>: <span class="ident">u8</span>, <span class="ident">right</span>: <span class="ident">u8</span>, <span class="ident">bottom</span>: <span class="ident">u8</span>) {
+    <span class="comment">//  Get the physical bounding box width and height</span>
+    <span class="kw">let</span> <span class="ident">physical_box</span>    <span class="op">=</span> <span class="ident">get_bounding_box</span>(<span class="ident">left</span>, <span class="ident">top</span>, <span class="ident">right</span>, <span class="ident">bottom</span>);  <span class="comment">//  Returns (left,top,right,bottom)</span>
+    <span class="kw">let</span> <span class="ident">physical_width</span>  <span class="op">=</span> (<span class="ident">physical_box</span>.<span class="number">2</span> <span class="op">-</span> <span class="ident">physical_box</span>.<span class="number">0</span> <span class="op">+</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">usize</span>;
+    <span class="kw">let</span> <span class="ident">physical_height</span> <span class="op">=</span> (<span class="ident">physical_box</span>.<span class="number">3</span> <span class="op">-</span> <span class="ident">physical_box</span>.<span class="number">1</span> <span class="op">+</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">usize</span>;
+    <span class="comment">//  If the update region is small, render with a single block</span>
+    <span class="kw">if</span> <span class="ident">physical_width</span> <span class="op">+</span> <span class="ident">physical_height</span> <span class="op">&lt;</span><span class="op">=</span> (<span class="ident">BLOCK_WIDTH</span> <span class="op">*</span> <span class="ident">PIXEL_WIDTH</span>) <span class="op">+</span> (<span class="ident">BLOCK_HEIGHT</span> <span class="op">*</span> <span class="ident">PIXEL_HEIGHT</span>) {  <span class="comment">//  Will not overflow SPI buffer</span>
+        <span class="ident">render_block</span>(<span class="ident">left</span>, <span class="ident">top</span>, <span class="ident">right</span>, <span class="ident">bottom</span>);
+    } <span class="kw">else</span> {
+        <span class="comment">//  If the update region is too big for a single block, break the region into blocks and render</span>
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">left</span>;
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">y</span> <span class="op">=</span> <span class="ident">top</span>;
+        <span class="kw">loop</span> {
+            <span class="kw">let</span> <span class="ident">block_right</span>  <span class="op">=</span> (<span class="ident">x</span> <span class="op">+</span> <span class="ident">BLOCK_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">-</span> <span class="number">1</span>).<span class="ident">min</span>(<span class="ident">right</span>);
+            <span class="kw">let</span> <span class="ident">block_bottom</span> <span class="op">=</span> (<span class="ident">y</span> <span class="op">+</span> <span class="ident">BLOCK_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">-</span> <span class="number">1</span>).<span class="ident">min</span>(<span class="ident">bottom</span>);
+
+            <span class="kw">let</span> <span class="ident">physical_box</span>    <span class="op">=</span> <span class="ident">get_bounding_box</span>(<span class="ident">left</span>, <span class="ident">top</span>, <span class="ident">right</span>, <span class="ident">bottom</span>);  <span class="comment">//  Returns (left,top,right,bottom)</span>
+            <span class="kw">let</span> <span class="ident">physical_width</span>  <span class="op">=</span> (<span class="ident">physical_box</span>.<span class="number">2</span> <span class="op">-</span> <span class="ident">physical_box</span>.<span class="number">0</span> <span class="op">+</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">usize</span>;
+            <span class="kw">let</span> <span class="ident">physical_height</span> <span class="op">=</span> (<span class="ident">physical_box</span>.<span class="number">3</span> <span class="op">-</span> <span class="ident">physical_box</span>.<span class="number">1</span> <span class="op">+</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">usize</span>;
+            <span class="comment">//  assert!(physical_width + physical_height &lt;= (BLOCK_WIDTH * PIXEL_WIDTH) + (BLOCK_HEIGHT * PIXEL_HEIGHT), &quot;region overflow&quot;);</span>
+            <span class="ident">render_block</span>(<span class="ident">x</span>, <span class="ident">y</span>,
+                <span class="ident">block_right</span>,
+                <span class="ident">block_bottom</span>
+            );  <span class="comment">//  Will not overflow SPI buffer</span>
+            <span class="ident">x</span> <span class="op">+</span><span class="op">=</span> <span class="ident">BLOCK_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span>;
+            <span class="kw">if</span> <span class="ident">x</span> <span class="op">&gt;</span> <span class="ident">right</span> {
+                <span class="ident">x</span> <span class="op">=</span> <span class="ident">left</span>;
+                <span class="ident">y</span> <span class="op">+</span><span class="op">=</span> <span class="ident">BLOCK_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span>;
+                <span class="kw">if</span> <span class="ident">y</span> <span class="op">&gt;</span> <span class="ident">bottom</span> { <span class="kw">break</span>; }
+            }
+        }
+    }
+}</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L271-L304</em></p>
+<h2 id="render-ablock" class="section-header"><a href="#render-ablock">0.7 Render a Block</a></h2>
+<p>TODO</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Render the Virtual Block</span>
+<span class="kw">fn</span> <span class="ident">render_block</span>(<span class="ident">left</span>: <span class="ident">u8</span>, <span class="ident">top</span>: <span class="ident">u8</span>, <span class="ident">right</span>: <span class="ident">u8</span>, <span class="ident">bottom</span>: <span class="ident">u8</span>) {
+    <span class="comment">//  Create a new block for the region to be updated</span>
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">block</span> <span class="op">=</span> <span class="ident">PixelIterator</span>::<span class="ident">new</span>(
+        <span class="ident">left</span>, <span class="ident">top</span>, 
+        <span class="ident">right</span>, <span class="ident">bottom</span>,
+    );
+    <span class="comment">//  Render the block</span>
+    <span class="kw">let</span> (<span class="ident">left_physical</span>, <span class="ident">top_physical</span>, <span class="ident">right_physical</span>, <span class="ident">bottom_physical</span>) <span class="op">=</span> <span class="ident">block</span>.<span class="ident">get_window</span>();
+    <span class="ident">druid</span>::<span class="ident">set_display_pixels</span>(<span class="ident">left_physical</span> <span class="kw">as</span> <span class="ident">u16</span>, <span class="ident">top_physical</span> <span class="kw">as</span> <span class="ident">u16</span>, <span class="ident">right_physical</span> <span class="kw">as</span> <span class="ident">u16</span>, <span class="ident">bottom_physical</span> <span class="kw">as</span> <span class="ident">u16</span>,
+        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">block</span>
+    ).<span class="ident">expect</span>(<span class="string">&quot;set pixels failed&quot;</span>);    
+}</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L306-L319</em></p>
+<h2 id="iterate-pixels-in-ablock" class="section-header"><a href="#iterate-pixels-in-ablock">0.8 Iterate Pixels in a Block</a></h2>
+<p>TODO</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Implement the Iterator for Virtual Pixels in a Virtual Block</span>
+<span class="kw">impl</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">PixelIterator</span> {
+    <span class="doccomment">/// This Iterator returns Physical Pixel colour words (16-bit)</span>
+    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">u16</span>;
+
+    <span class="doccomment">/// Return the next Physical Pixel colour</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;chip8_curve&quot;</span>))]</span>  <span class="comment">//  If we are not rendering CHIP8 Emulator as curved surface...</span>
+    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Item</span><span class="op">&gt;</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">y</span> <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">block_bottom</span> { <span class="kw">return</span> <span class="prelude-val">None</span>; }  <span class="comment">//  No more Physical Pixels</span>
+
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">x</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">SCREEN_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">|</span><span class="op">|</span>
+            <span class="self">self</span>.<span class="ident">y</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">SCREEN_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> { <span class="ident">cortex_m</span>::<span class="ident">asm</span>::<span class="ident">bkpt</span>(); }
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">x</span> <span class="op">&lt;</span> <span class="ident">SCREEN_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span>, <span class="string">&quot;x overflow&quot;</span>);
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">y</span> <span class="op">&lt;</span> <span class="ident">SCREEN_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span>, <span class="string">&quot;y overflow&quot;</span>);
+
+        <span class="comment">//  Get the colour for the Virtual Pixel</span>
+        <span class="kw">let</span> <span class="ident">color</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_color</span>();
+
+        <span class="comment">//  Loop over x_offset from 0 to PIXEL_WIDTH - 1</span>
+        <span class="self">self</span>.<span class="ident">x_offset</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">x_offset</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">PIXEL_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> {
+            <span class="self">self</span>.<span class="ident">x_offset</span> <span class="op">=</span> <span class="number">0</span>;
+
+            <span class="comment">//  Loop over x from block_left to block_right</span>
+            <span class="self">self</span>.<span class="ident">x</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
+            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">x</span> <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">block_right</span> {
+                <span class="self">self</span>.<span class="ident">x</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">block_left</span>;
+
+                <span class="comment">//  Loop over y_offset from 0 to PIXEL_HEIGHT - 1</span>
+                <span class="self">self</span>.<span class="ident">y_offset</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
+                <span class="kw">if</span> <span class="self">self</span>.<span class="ident">y_offset</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">PIXEL_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> {
+                    <span class="self">self</span>.<span class="ident">y_offset</span> <span class="op">=</span> <span class="number">0</span>;
+
+                    <span class="comment">//  Loop over y from block_top to block_bottom</span>
+                    <span class="self">self</span>.<span class="ident">y</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
+                }
+            }
+        }
+        <span class="comment">//  Return the Physical Pixel color</span>
+        <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">color</span>);
+    }</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L408-L455</em></p>
+<h2 id="convert-colours" class="section-header"><a href="#convert-colours">0.9 Convert Colours</a></h2>
+<p>TODO</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Convert the Virtual Colour (8-bit greyscale) to 16-bit Colour</span>
+<span class="kw">fn</span> <span class="ident">convert_color</span>(<span class="ident">grey</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u16</span> {
+    <span class="kw">match</span> <span class="ident">grey</span> {
+        <span class="number">250</span>..<span class="op">=</span><span class="number">255</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Rgb565</span>::<span class="ident">from</span>(( <span class="ident">grey</span>, <span class="ident">grey</span>, <span class="ident">grey</span> )).<span class="number">0</span>,  <span class="comment">//  White</span>
+        <span class="number">128</span>..<span class="number">250</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Rgb565</span>::<span class="ident">from</span>(( <span class="ident">grey</span> <span class="op">-</span> <span class="number">100</span>, <span class="ident">grey</span>, <span class="ident">grey</span> <span class="op">-</span> <span class="number">100</span> )).<span class="number">0</span>,  <span class="comment">//  Greenish</span>
+        <span class="number">0</span>..<span class="number">128</span>   <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Rgb565</span>::<span class="ident">from</span>(( <span class="number">0</span>, <span class="number">0</span>, <span class="ident">grey</span> )).<span class="number">0</span>,  <span class="comment">//  Dark Blue</span>
+    }
+}
+
+<span class="doccomment">/// Fade the Virtual Colour (8-bit greyscale) to black</span>
+<span class="kw">fn</span> <span class="ident">update_color</span>(<span class="ident">grey</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
+    <span class="kw">match</span> <span class="ident">grey</span> {
+        <span class="number">200</span>..<span class="op">=</span><span class="number">255</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">grey</span> <span class="op">-</span> <span class="number">2</span>,   <span class="comment">//  Initial white flash fade to normal white</span>
+        <span class="number">128</span>..<span class="number">200</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">grey</span>,        <span class="comment">//  Normal white stays the same</span>
+        <span class="number">0</span>..<span class="number">128</span>   <span class="op">=</span><span class="op">&gt;</span> <span class="ident">grey</span> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">1</span>,   <span class="comment">//  Dark fade to black</span>
+    }
+}</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L494-L510</em></p>
+<h2 id="map-physical-pixels-to-virtualpixels" class="section-header"><a href="#map-physical-pixels-to-virtualpixels">0.10 Map Physical Pixels to Virtual Pixels</a></h2>
+<p>TODO</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// For Physical (x,y) Coordinates, return the corresponding Virtual (x,y) Coordinates.</span>
+<span class="doccomment">/// Used by the CHIP-8 Emulator to decide which Virtual Pixel to fetch the colour value when rendering a Physical Pixel.</span>
+<span class="doccomment">/// (x,y) must belong to the X &gt;= 0, Y &gt;= 0 quadrant</span>
+<span class="kw">fn</span> <span class="ident">map_physical_to_virtual_normalised</span>(<span class="ident">x</span>: <span class="ident">u8</span>, <span class="ident">y</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">u8</span>, <span class="ident">u8</span>) {
+    <span class="kw">let</span> <span class="ident">x_index</span> <span class="op">=</span> <span class="ident">x</span>.<span class="ident">min</span>(<span class="ident">PHYSICAL_TO_VIRTUAL_MAP_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">-</span> <span class="number">1</span>);
+    <span class="kw">let</span> <span class="ident">y_index</span> <span class="op">=</span> <span class="ident">y</span>.<span class="ident">min</span>(<span class="ident">PHYSICAL_TO_VIRTUAL_MAP_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">-</span> <span class="number">1</span>);
+    <span class="kw">let</span> <span class="ident">virtual_pixel</span> <span class="op">=</span> <span class="ident">PHYSICAL_TO_VIRTUAL_MAP</span>[<span class="ident">y_index</span> <span class="kw">as</span> <span class="ident">usize</span>][<span class="ident">x_index</span> <span class="kw">as</span> <span class="ident">usize</span>];  <span class="comment">//  Returns (x,y)</span>
+    <span class="ident">virtual_pixel</span>
+}
+
+<span class="doccomment">/// For each Physical (x,y) Coordinate, return the corresponding Virtual (x,y) Coordinates.</span>
+<span class="doccomment">/// Used by the CHIP-8 Emulator to decide which Virtual Pixel to fetch the colour value when rendering a Physical Pixel.</span>
+<span class="doccomment">/// Since X and Y are symmetric, this grid only covers one quadrant (X &gt;= 0, Y &gt;= 0)</span>
+<span class="kw">static</span> <span class="ident">PHYSICAL_TO_VIRTUAL_MAP</span>: <span class="kw-2">&amp;</span>[[(<span class="ident">u8</span>,<span class="ident">u8</span>); <span class="ident">PHYSICAL_TO_VIRTUAL_MAP_WIDTH</span>]; <span class="ident">PHYSICAL_TO_VIRTUAL_MAP_HEIGHT</span> <span class="op">=</span> <span class="op">&amp;</span>  <span class="comment">//  Row=Y, Col=X</span>
+[               <span class="comment">//  Copied from output of https://github.com/lupyuen/interpolate-surface</span>
+    [           <span class="comment">//  Physical Row 0</span>
+        (<span class="number">0</span>,<span class="number">0</span>),  <span class="comment">//  Physical Row 0, Col 0   =&gt; Virtual Col 0,  Row 0</span>
+        (<span class="number">0</span>,<span class="number">0</span>),  <span class="comment">//  Physical Row 0, Col 1   =&gt; Virtual Col 0,  Row 0</span>
+        ...
+        (<span class="number">32</span>,<span class="number">0</span>), <span class="comment">//  Physical Row 0, Col 239 =&gt; Virtual Col 32, Row 0</span>
+    ],
+    [           <span class="comment">//  Physical Row 1</span>
+        (<span class="number">0</span>,<span class="number">0</span>),  <span class="comment">//  Physical Row 1, Col 0   =&gt; Virtual Col 0,  Row 0</span>
+        (<span class="number">0</span>,<span class="number">0</span>),  <span class="comment">//  Physical Row 1, Col 1   =&gt; Virtual Col 0,  Row 0</span>
+        ...
+        (<span class="number">32</span>,<span class="number">0</span>), <span class="comment">//  Physical Row 1, Col 239 =&gt; Virtual Col 32, Row 0</span>
+    ],
+...</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L645-L673</em></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// For Physical (x,y) Coordinates, return the corresponding Virtual (x,y) Coordinates.</span>
+<span class="doccomment">/// Used by the CHIP-8 Emulator to decide which Virtual Pixel to fetch the colour value when rendering a Physical Pixel.</span>
+<span class="kw">fn</span> <span class="ident">map_physical_to_virtual</span>(<span class="ident">x</span>: <span class="ident">u8</span>, <span class="ident">y</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">u8</span>, <span class="ident">u8</span>) {
+    <span class="comment">//  Check which quadrant (x,y) belongs to and flip accordingly</span>
+    <span class="kw">let</span> <span class="ident">flip</span> <span class="op">=</span>  <span class="comment">//  (flip for X, flip for Y)</span>
+        <span class="kw">if</span> <span class="ident">x</span> <span class="op">&lt;</span> <span class="ident">PHYSICAL_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">y</span> <span class="op">&lt;</span> <span class="ident">PHYSICAL_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> {
+            (<span class="bool-val">true</span>, <span class="bool-val">true</span>)  <span class="comment">//  Top left quadrant: Flip horizontally and vertically</span>
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">x</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">PHYSICAL_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">y</span> <span class="op">&lt;</span> <span class="ident">PHYSICAL_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> {
+            (<span class="bool-val">false</span>, <span class="bool-val">true</span>)   <span class="comment">//  Top right quadrant: Flip vertically</span>
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">x</span> <span class="op">&lt;</span> <span class="ident">PHYSICAL_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">y</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">PHYSICAL_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> {
+            (<span class="bool-val">true</span>, <span class="bool-val">false</span>)   <span class="comment">//  Bottom left quadrant: Flip horizontally</span>
+        } <span class="kw">else</span> {
+            (<span class="bool-val">false</span>, <span class="bool-val">false</span>)    <span class="comment">//  Bottom right quadrant: Don&#39;t flip</span>
+        };
+    <span class="kw">let</span> <span class="ident">x_normalised</span> <span class="op">=</span> 
+        <span class="kw">if</span> <span class="ident">flip</span>.<span class="number">0</span> { <span class="ident">PHYSICAL_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> <span class="op">-</span> <span class="ident">x</span> } 
+        <span class="kw">else</span>      { <span class="ident">x</span> <span class="op">-</span> <span class="ident">PHYSICAL_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> };
+    <span class="kw">let</span> <span class="ident">y_normalised</span> <span class="op">=</span> 
+        <span class="kw">if</span> <span class="ident">flip</span>.<span class="number">1</span> { <span class="ident">PHYSICAL_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> <span class="op">-</span> <span class="ident">y</span> }
+        <span class="kw">else</span>      { <span class="ident">y</span> <span class="op">-</span> <span class="ident">PHYSICAL_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> };
+    <span class="kw">let</span> <span class="ident">p</span> <span class="op">=</span> <span class="ident">map_physical_to_virtual_normalised</span>(<span class="ident">x_normalised</span>, <span class="ident">y_normalised</span>);  <span class="comment">//  Returns (x,y)</span>
+    <span class="kw">let</span> <span class="ident">p2</span> <span class="op">=</span> (
+        <span class="kw">if</span> <span class="ident">flip</span>.<span class="number">0</span> { <span class="ident">SCREEN_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> <span class="op">-</span> <span class="ident">p</span>.<span class="number">0</span> } 
+        <span class="kw">else</span>      { <span class="ident">p</span>.<span class="number">0</span> <span class="op">+</span> <span class="ident">SCREEN_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> }
+        ,
+        <span class="kw">if</span> <span class="ident">flip</span>.<span class="number">1</span> { <span class="ident">SCREEN_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> <span class="op">-</span> <span class="ident">p</span>.<span class="number">1</span> } 
+        <span class="kw">else</span>      { <span class="ident">p</span>.<span class="number">1</span> <span class="op">+</span> <span class="ident">SCREEN_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> }
+    );
+    <span class="comment">//  Crop to screen size</span>
+    (
+        <span class="ident">p2</span>.<span class="number">0</span>.<span class="ident">min</span>(<span class="ident">SCREEN_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">-</span> <span class="number">1</span>),
+        <span class="ident">p2</span>.<span class="number">1</span>.<span class="ident">min</span>(<span class="ident">SCREEN_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">-</span> <span class="number">1</span>),
+    )
+}</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L556-L590</em></p>
+<h2 id="map-virtual-pixels-to-physicalpixels" class="section-header"><a href="#map-virtual-pixels-to-physicalpixels">0.11 Map Virtual Pixels to Physical Pixels</a></h2>
+<p>TODO</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// For each Virtual (x,y) Coordinate, return the Bounding Box (left, top, right, bottom) that encloses the corresponding Physical (x,y) Coordinates.</span>
+<span class="doccomment">/// Used by the CHIP-8 Emulator to decide which Physical Pixels to redraw when a Virtual Pixel is updated.</span>
+<span class="doccomment">/// (x,y) must belong to the X &gt;= 0, Y &gt;= 0 quadrant</span>
+<span class="kw">fn</span> <span class="ident">map_virtual_to_physical_normalised</span>(<span class="ident">x</span>: <span class="ident">u8</span>, <span class="ident">y</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">u8</span>, <span class="ident">u8</span>, <span class="ident">u8</span>, <span class="ident">u8</span>) {
+    <span class="kw">let</span> <span class="ident">x_index</span> <span class="op">=</span> <span class="ident">x</span>.<span class="ident">min</span>(<span class="ident">VIRTUAL_TO_PHYSICAL_MAP_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">-</span> <span class="number">1</span>);
+    <span class="kw">let</span> <span class="ident">y_index</span> <span class="op">=</span> <span class="ident">y</span>.<span class="ident">min</span>(<span class="ident">VIRTUAL_TO_PHYSICAL_MAP_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">-</span> <span class="number">1</span>);
+    <span class="kw">let</span> <span class="ident">physical_box</span> <span class="op">=</span> <span class="ident">VIRTUAL_TO_PHYSICAL_MAP</span>[<span class="ident">y_index</span> <span class="kw">as</span> <span class="ident">usize</span>][<span class="ident">x_index</span> <span class="kw">as</span> <span class="ident">usize</span>];  <span class="comment">//  Returns (left,top,right,bottom)</span>
+    <span class="ident">physical_box</span>
+}
+
+<span class="doccomment">/// For each Virtual (x,y) Coordinate, return the Bounding Box (left, top, right, bottom) that encloses the corresponding Physical (x,y) Coordinates.</span>
+<span class="doccomment">/// Used by the CHIP-8 Emulator to decide which Physical Pixels to redraw when a Virtual Pixel is updated.</span>
+<span class="doccomment">/// Since X and Y are symmetric, this grid only covers one quadrant (X &gt;= 0, Y &gt;= 0)</span>
+<span class="kw">static</span> <span class="ident">VIRTUAL_TO_PHYSICAL_MAP</span>: <span class="kw-2">&amp;</span>[[(<span class="ident">u8</span>,<span class="ident">u8</span>,<span class="ident">u8</span>,<span class="ident">u8</span>); <span class="ident">VIRTUAL_TO_PHYSICAL_MAP_WIDTH</span>]; <span class="ident">VIRTUAL_TO_PHYSICAL_MAP_HEIGHT</span>] <span class="op">=</span> <span class="op">&amp;</span>  <span class="comment">//  Row=Y, Col=X</span>
+[                      <span class="comment">//  Copied from output of https://github.com/lupyuen/interpolate-surface</span>
+    [                  <span class="comment">//  Virtual Row 0</span>
+        (<span class="number">0</span>,<span class="number">0</span>,<span class="number">4</span>,<span class="number">6</span>),     <span class="comment">//  Virtual Row 0, Col 0    =&gt; Physical Left Col 0,   Top Row 0, Right Col 4,  Bottom Row 6</span>
+        (<span class="number">5</span>,<span class="number">0</span>,<span class="number">8</span>,<span class="number">6</span>),     <span class="comment">//  Virtual Row 0, Col 1    =&gt; Physical Left Col 5,   Top Row 0, Right Col 8,  Bottom Row 6</span>
+        ...
+        (<span class="number">116</span>,<span class="number">0</span>,<span class="number">119</span>,<span class="number">4</span>), <span class="comment">//  Virtual Row 0, Col 31   =&gt; Physical Left Col 116, Top Row 0, Right Col 119, Bottom Row 4</span>
+    ],    
+    [                  <span class="comment">//  Virtual Row 1</span>
+        (<span class="number">0</span>,<span class="number">7</span>,<span class="number">4</span>,<span class="number">12</span>),    <span class="comment">//  Virtual Row 1, Col 0    =&gt; Physical Left Col 0,   Top Row 7, Right Col 4,  Bottom Row 12</span>
+        (<span class="number">5</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">12</span>),    <span class="comment">//  Virtual Row 1, Col 1    =&gt; Physical Left Col 5,   Top Row 7, Right Col 8,  Bottom Row 12</span>
+        ...
+        (<span class="number">116</span>,<span class="number">5</span>,<span class="number">119</span>,<span class="number">9</span>), <span class="comment">//  Virtual Row 1, Col 31   =&gt; Physical Left Col 116, Top Row 5, Right Col 119, Bottom Row 9</span>
+    ],
+...</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L654-L782</em></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// For each Virtual (x,y) Coordinate, return the Bounding Box (left, top, right, bottom) that encloses the corresponding Physical (x,y) Coordinates.</span>
+<span class="doccomment">/// Used by the CHIP-8 Emulator to decide which Physical Pixels to redraw when a Virtual Pixel is updated.</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;chip8_curve&quot;</span>)]</span>  <span class="comment">//  If we are rendering CHIP8 Emulator as curved surface...</span>
+<span class="kw">fn</span> <span class="ident">map_virtual_to_physical</span>(<span class="ident">x</span>: <span class="ident">u8</span>, <span class="ident">y</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">u8</span>, <span class="ident">u8</span>, <span class="ident">u8</span>, <span class="ident">u8</span>) {
+    <span class="comment">//  Check which quadrant (x,y) belongs to and flip accordingly</span>
+    <span class="kw">let</span> <span class="ident">flip</span> <span class="op">=</span>  <span class="comment">//  (flip for X, flip for Y)</span>
+        <span class="kw">if</span> <span class="ident">x</span> <span class="op">&lt;</span> <span class="ident">SCREEN_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">y</span> <span class="op">&lt;</span> <span class="ident">SCREEN_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> {
+            (<span class="bool-val">true</span>, <span class="bool-val">true</span>)  <span class="comment">//  Top left quadrant: Flip horizontally and vertically</span>
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">x</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">SCREEN_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">y</span> <span class="op">&lt;</span> <span class="ident">SCREEN_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> {
+            (<span class="bool-val">false</span>, <span class="bool-val">true</span>)   <span class="comment">//  Top right quadrant: Flip vertically</span>
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">x</span> <span class="op">&lt;</span> <span class="ident">SCREEN_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">y</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">SCREEN_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> {
+            (<span class="bool-val">true</span>, <span class="bool-val">false</span>)   <span class="comment">//  Bottom left quadrant: Flip horizontally</span>
+        } <span class="kw">else</span> {
+            (<span class="bool-val">false</span>, <span class="bool-val">false</span>)    <span class="comment">//  Bottom right quadrant: Don&#39;t flip</span>
+        };
+    <span class="kw">let</span> <span class="ident">x_normalised</span> <span class="op">=</span> 
+        <span class="kw">if</span> <span class="ident">flip</span>.<span class="number">0</span> { <span class="ident">SCREEN_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> <span class="op">-</span> <span class="ident">x</span> } 
+        <span class="kw">else</span>      { <span class="ident">x</span> <span class="op">-</span> <span class="ident">SCREEN_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> };
+    <span class="kw">let</span> <span class="ident">y_normalised</span> <span class="op">=</span> 
+        <span class="kw">if</span> <span class="ident">flip</span>.<span class="number">1</span> { <span class="ident">SCREEN_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> <span class="op">-</span> <span class="ident">y</span> }
+        <span class="kw">else</span>      { <span class="ident">y</span> <span class="op">-</span> <span class="ident">SCREEN_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> };
+    <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="ident">map_virtual_to_physical_normalised</span>(<span class="ident">x_normalised</span>, <span class="ident">y_normalised</span>);  <span class="comment">//  Returns (left,top,right,bottom)</span>
+    <span class="kw">let</span> <span class="ident">b2</span> <span class="op">=</span> (
+        <span class="kw">if</span> <span class="ident">flip</span>.<span class="number">0</span> { <span class="ident">PHYSICAL_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> <span class="op">-</span> <span class="ident">b</span>.<span class="number">0</span> } 
+        <span class="kw">else</span>      { <span class="ident">b</span>.<span class="number">0</span> <span class="op">+</span> <span class="ident">PHYSICAL_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> }
+        ,
+        <span class="kw">if</span> <span class="ident">flip</span>.<span class="number">1</span> { <span class="ident">PHYSICAL_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> <span class="op">-</span> <span class="ident">b</span>.<span class="number">1</span> } 
+        <span class="kw">else</span>      { <span class="ident">b</span>.<span class="number">1</span> <span class="op">+</span> <span class="ident">PHYSICAL_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> }
+        ,
+        <span class="kw">if</span> <span class="ident">flip</span>.<span class="number">0</span> { <span class="ident">PHYSICAL_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> <span class="op">-</span> <span class="ident">b</span>.<span class="number">2</span> } 
+        <span class="kw">else</span>      { <span class="ident">b</span>.<span class="number">2</span> <span class="op">+</span> <span class="ident">PHYSICAL_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> }
+        ,
+        <span class="kw">if</span> <span class="ident">flip</span>.<span class="number">1</span> { <span class="ident">PHYSICAL_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> <span class="op">-</span> <span class="ident">b</span>.<span class="number">3</span> } 
+        <span class="kw">else</span>      { <span class="ident">b</span>.<span class="number">3</span> <span class="op">+</span> <span class="ident">PHYSICAL_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">/</span> <span class="number">2</span> }
+    );
+    <span class="comment">//  Crop to screen size</span>
+    <span class="kw">let</span> <span class="ident">crop</span> <span class="op">=</span> (
+        <span class="ident">b2</span>.<span class="number">0</span>.<span class="ident">min</span>(<span class="ident">PHYSICAL_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">-</span> <span class="number">1</span>),   <span class="comment">//  Left</span>
+        <span class="ident">b2</span>.<span class="number">1</span>.<span class="ident">min</span>(<span class="ident">PHYSICAL_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">-</span> <span class="number">1</span>),  <span class="comment">//  Top</span>
+        <span class="ident">b2</span>.<span class="number">2</span>.<span class="ident">min</span>(<span class="ident">PHYSICAL_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">-</span> <span class="number">1</span>),   <span class="comment">//  Right</span>
+        <span class="ident">b2</span>.<span class="number">3</span>.<span class="ident">min</span>(<span class="ident">PHYSICAL_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">-</span> <span class="number">1</span>),  <span class="comment">//  Bottom</span>
+    );
+    <span class="comment">//  Flip left and right, top and bottom if necessary</span>
+    <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> (
+        <span class="ident">crop</span>.<span class="number">0</span>.<span class="ident">min</span>(<span class="ident">crop</span>.<span class="number">2</span>),  <span class="comment">//  Left</span>
+        <span class="ident">crop</span>.<span class="number">1</span>.<span class="ident">min</span>(<span class="ident">crop</span>.<span class="number">3</span>),  <span class="comment">//  Top</span>
+        <span class="ident">crop</span>.<span class="number">0</span>.<span class="ident">max</span>(<span class="ident">crop</span>.<span class="number">2</span>),  <span class="comment">//  Right</span>
+        <span class="ident">crop</span>.<span class="number">1</span>.<span class="ident">max</span>(<span class="ident">crop</span>.<span class="number">3</span>),  <span class="comment">//  Bottom</span>
+    );
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">result</span>.<span class="number">0</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">result</span>.<span class="number">2</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">result</span>.<span class="number">1</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">result</span>.<span class="number">3</span>, <span class="string">&quot;flip error&quot;</span>);  <span class="comment">//  Left &lt;= Right and Top &lt;= Bottom</span>
+    <span class="ident">result</span>
+}</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L592-L643</em></p>
+<h2 id="iterate-curvedpixels" class="section-header"><a href="#iterate-curvedpixels">0.12 Iterate Curved Pixels</a></h2>
+<p>TODO</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Implement the Iterator for Virtual Pixels in a Virtual Block</span>
+<span class="kw">impl</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">PixelIterator</span> {
+    <span class="doccomment">/// This Iterator returns Physical Pixel colour words (16-bit)</span>
+    <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">u16</span>;
+    ...    
+    <span class="doccomment">/// Return the next Physical Pixel colour</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;chip8_curve&quot;</span>)]</span>  <span class="comment">//  If we are rendering CHIP8 Emulator as curved surface...</span>
+    <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Item</span><span class="op">&gt;</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">y_physical</span> <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">physical_bottom</span> { <span class="kw">return</span> <span class="prelude-val">None</span>; }  <span class="comment">//  No more Physical Pixels</span>
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">x_physical</span> <span class="op">&lt;</span> <span class="ident">PHYSICAL_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span>, <span class="string">&quot;x overflow&quot;</span>);
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">y_physical</span> <span class="op">&lt;</span> <span class="ident">PHYSICAL_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span>, <span class="string">&quot;y overflow&quot;</span>);
+
+        <span class="comment">//  Map the Physical Pixel to the Virtual Pixel</span>
+        <span class="kw">let</span> <span class="ident">virtual_pixel</span> <span class="op">=</span> <span class="ident">map_physical_to_virtual</span>(<span class="self">self</span>.<span class="ident">x_physical</span>, <span class="self">self</span>.<span class="ident">y_physical</span>);
+
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">x</span> <span class="op">=</span><span class="op">=</span> <span class="ident">virtual_pixel</span>.<span class="number">0</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="self">self</span>.<span class="ident">y</span> <span class="op">=</span><span class="op">=</span> <span class="ident">virtual_pixel</span>.<span class="number">1</span> {
+            <span class="comment">//  If rendering the same Virtual Pixel, increment the offset</span>
+            <span class="self">self</span>.<span class="ident">x_offset</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
+        } <span class="kw">else</span> {
+            <span class="comment">//  If rendering a different Virtual Pixel, reset the offset</span>
+            <span class="self">self</span>.<span class="ident">x</span> <span class="op">=</span> <span class="ident">virtual_pixel</span>.<span class="number">0</span>;
+            <span class="self">self</span>.<span class="ident">y</span> <span class="op">=</span> <span class="ident">virtual_pixel</span>.<span class="number">1</span>;
+            <span class="self">self</span>.<span class="ident">x_offset</span> <span class="op">=</span> <span class="number">0</span>;
+            <span class="self">self</span>.<span class="ident">y_offset</span> <span class="op">=</span> <span class="number">0</span>;
+        }
+
+        <span class="comment">//  Get the colour from the Virtual Screen Buffer</span>
+        <span class="kw">let</span> <span class="ident">color</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_color</span>();
+
+        <span class="comment">//  Loop over x_physical from physical_left to physical_right</span>
+        <span class="self">self</span>.<span class="ident">x_physical</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">x_physical</span> <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">physical_right</span> {
+            <span class="self">self</span>.<span class="ident">x_physical</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">physical_left</span>;
+            <span class="comment">//  Loop over y_physical from physical_top to physical_bottom</span>
+            <span class="self">self</span>.<span class="ident">y_physical</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
+        }
+        
+        <span class="comment">//  Return the Physical Pixel color</span>
+        <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">color</span>);
+    }    </pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L457-L491</em></p>
+
+    
+</body>
+</html>

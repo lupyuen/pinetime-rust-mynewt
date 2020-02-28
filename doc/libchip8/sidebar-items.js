@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Chip8","Interpreter instance"]],"trait":[["Hardware","Represents environment-specific logic."]]});

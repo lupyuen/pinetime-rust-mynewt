@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TranslateScale","A transformation including scaling and translation."]]});

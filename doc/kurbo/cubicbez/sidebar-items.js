@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["CubicBez","A single cubic Bézier segment."],["ToQuads","An iterator which produces quadratic Bézier segments."]]});

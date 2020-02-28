@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_BEZ_PATH",""]],"enum":[["PathEl","The element of a Bézier path."],["PathSeg","A segment of a Bézier path."]],"struct":[["BezPath","A path that can Bézier segments up to cubic, possibly with multiple subpaths."],["BezPathSegs",""]],"type":[["PathElArray",""]]});

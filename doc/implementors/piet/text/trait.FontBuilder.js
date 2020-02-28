@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["piet_embedded_graphics"] = [{"text":"impl <a class=\"trait\" href=\"piet/text/trait.FontBuilder.html\" title=\"trait piet::text::FontBuilder\">FontBuilder</a> for <a class=\"struct\" href=\"piet_embedded_graphics/struct.EmbedFontBuilder.html\" title=\"struct piet_embedded_graphics::EmbedFontBuilder\">EmbedFontBuilder</a>","synthetic":false,"types":["piet_embedded_graphics::text::EmbedFontBuilder"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

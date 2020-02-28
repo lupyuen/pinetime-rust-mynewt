@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ConstPoint","A trivial \"curve\" that is just a constant."],["Line","A single line."]]});

@@ -76,6 +76,7 @@
 			"console.h": "c",
 			"sensor_helper.h": "c"
 		},
-		"rust.racer_completion": false
+		"rust.racer_completion": false,
+		"git.ignoreLimitWarning": true
 	}
 }

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["UnsignedCoord","2D unsigned coordinate in screen space"]],"trait":[["ToSigned","Convert an unsigned coordinate to a signed representation"]]});

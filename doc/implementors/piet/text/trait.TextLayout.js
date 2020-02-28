@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["piet_embedded_graphics"] = [{"text":"impl <a class=\"trait\" href=\"piet/text/trait.TextLayout.html\" title=\"trait piet::text::TextLayout\">TextLayout</a> for <a class=\"struct\" href=\"piet_embedded_graphics/struct.EmbedTextLayout.html\" title=\"struct piet_embedded_graphics::EmbedTextLayout\">EmbedTextLayout</a>","synthetic":false,"types":["piet_embedded_graphics::text::EmbedTextLayout"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

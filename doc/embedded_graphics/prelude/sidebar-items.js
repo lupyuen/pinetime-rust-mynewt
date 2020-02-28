@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Coord","2D signed integer coordinate type"],["Image","An image constructed from a slice"],["UnsignedCoord","2D unsigned coordinate in screen space"]],"trait":[["ImageFile","Image trait"]]});

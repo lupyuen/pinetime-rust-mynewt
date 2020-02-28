@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MAX_DASH",""]],"enum":[["LineCap","Options for the cap of stroked lines."],["LineJoin","Options for angled joins in strokes."]],"struct":[["StrokeStyle","Options for drawing stroked lines."]],"type":[["DashArray",""]]});

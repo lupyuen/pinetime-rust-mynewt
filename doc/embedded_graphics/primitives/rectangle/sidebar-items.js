@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Rectangle","Rectangle primitive"],["RectangleIterator","Pixel iterator for each pixel in the rect border"]]});

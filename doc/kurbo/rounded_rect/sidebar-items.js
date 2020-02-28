@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["RectPathIter",""],["RoundedRect","A rectangle with equally rounded corners."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Error","An error that can occur while rendering 2D graphics."]]});

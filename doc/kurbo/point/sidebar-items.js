@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Point","A 2d point."]]});

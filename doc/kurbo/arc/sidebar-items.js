@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["rotate_pt",""],["sample_ellipse",""],["signum",""]],"struct":[["Arc","A single arc segment."]]});

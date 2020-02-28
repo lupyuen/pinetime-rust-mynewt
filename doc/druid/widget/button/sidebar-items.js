@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Button","A button with a text label."]]});

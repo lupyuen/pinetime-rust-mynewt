@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Image","An image constructed from a slice"]],"trait":[["ImageFile","Image trait"]],"type":[["Image16BPP","16 bits per pixel image"],["Image1BPP","1 bit per pixel image"],["Image8BPP","8 bits per pixel image"]]});

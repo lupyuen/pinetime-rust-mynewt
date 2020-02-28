@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["_IMPL_NUM_ToPrimitive_FOR_Orientation",""]],"enum":[["Orientation","Display orientation."]],"mod":[["instruction",""]],"struct":[["ST7735","ST7735 driver to connect to TFT displays."]]});

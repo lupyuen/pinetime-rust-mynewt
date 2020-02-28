@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["macros","Mynewt Macros for Rust. Note that macros defined locally should be called with `$crate::`, like `$crate::parse`. This works with Rust compiler versions 1.30 and later.  See https://doc.rust-lang.org/stable/edition-guide/rust-2018/macros/macro-changes.html To see the expanded macros: `cargo rustc -- -Z unstable-options --pretty expanded`"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["AppLauncher","Handles initial setup of an application, and starts the runloop."],["WindowDesc","A function that can create a widget. A description of a window to be instantiated."]],"type":[["MaxWindows",""],["Vec",""]]});

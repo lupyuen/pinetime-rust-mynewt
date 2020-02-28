@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Style","Style properties for an object"]],"trait":[["WithStyle","Add a style to an object"]]});

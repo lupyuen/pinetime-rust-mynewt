@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["hal",""],["sensor","Contains the Mynewt Sensor API for Rust, including the safe version of the API. Auto-generated Rust bindings are in the `bindings` module."],["sensor_mgr","Contains the Mynewt Sensor Manager API for Rust, including the safe version of the API."]]});

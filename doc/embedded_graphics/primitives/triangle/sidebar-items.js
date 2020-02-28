@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Triangle","Triangle primitive"],["TriangleIterator","Pixel iterator for each pixel in the triangle border"]]});

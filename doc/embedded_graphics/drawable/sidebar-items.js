@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Pixel","A single pixel"]],"trait":[["Dimensions","Adds the ability to get the dimensions/position of a graphics object"],["Drawable","Marks an object as \"drawable\". Must be implemented for all graphics objects"]]});

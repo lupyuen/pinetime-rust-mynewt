@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FontBuilder","The font builder"],["FontBuilderIterator","Pixel iterator for the `FontBuilder` object"]],"trait":[["FontBuilderConf","The configuration of the font"]]});

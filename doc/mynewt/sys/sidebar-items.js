@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["console","Display messages on Arm Semihosting Console (via OpenOCD)"]]});

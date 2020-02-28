@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["WindowType","Enum to store each `Window`"]],"struct":[["WindowBox","Boxed version of a `Window`"]]});

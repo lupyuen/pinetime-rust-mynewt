@@ -1,0 +1,252 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `rust/app/src/app_network.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>app_network.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../app/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<span id="2">  2</span>
+<span id="3">  3</span>
+<span id="4">  4</span>
+<span id="5">  5</span>
+<span id="6">  6</span>
+<span id="7">  7</span>
+<span id="8">  8</span>
+<span id="9">  9</span>
+<span id="10"> 10</span>
+<span id="11"> 11</span>
+<span id="12"> 12</span>
+<span id="13"> 13</span>
+<span id="14"> 14</span>
+<span id="15"> 15</span>
+<span id="16"> 16</span>
+<span id="17"> 17</span>
+<span id="18"> 18</span>
+<span id="19"> 19</span>
+<span id="20"> 20</span>
+<span id="21"> 21</span>
+<span id="22"> 22</span>
+<span id="23"> 23</span>
+<span id="24"> 24</span>
+<span id="25"> 25</span>
+<span id="26"> 26</span>
+<span id="27"> 27</span>
+<span id="28"> 28</span>
+<span id="29"> 29</span>
+<span id="30"> 30</span>
+<span id="31"> 31</span>
+<span id="32"> 32</span>
+<span id="33"> 33</span>
+<span id="34"> 34</span>
+<span id="35"> 35</span>
+<span id="36"> 36</span>
+<span id="37"> 37</span>
+<span id="38"> 38</span>
+<span id="39"> 39</span>
+<span id="40"> 40</span>
+<span id="41"> 41</span>
+<span id="42"> 42</span>
+<span id="43"> 43</span>
+<span id="44"> 44</span>
+<span id="45"> 45</span>
+<span id="46"> 46</span>
+<span id="47"> 47</span>
+<span id="48"> 48</span>
+<span id="49"> 49</span>
+<span id="50"> 50</span>
+<span id="51"> 51</span>
+<span id="52"> 52</span>
+<span id="53"> 53</span>
+<span id="54"> 54</span>
+<span id="55"> 55</span>
+<span id="56"> 56</span>
+<span id="57"> 57</span>
+<span id="58"> 58</span>
+<span id="59"> 59</span>
+<span id="60"> 60</span>
+<span id="61"> 61</span>
+<span id="62"> 62</span>
+<span id="63"> 63</span>
+<span id="64"> 64</span>
+<span id="65"> 65</span>
+<span id="66"> 66</span>
+<span id="67"> 67</span>
+<span id="68"> 68</span>
+<span id="69"> 69</span>
+<span id="70"> 70</span>
+<span id="71"> 71</span>
+<span id="72"> 72</span>
+<span id="73"> 73</span>
+<span id="74"> 74</span>
+<span id="75"> 75</span>
+<span id="76"> 76</span>
+<span id="77"> 77</span>
+<span id="78"> 78</span>
+<span id="79"> 79</span>
+<span id="80"> 80</span>
+<span id="81"> 81</span>
+<span id="82"> 82</span>
+<span id="83"> 83</span>
+<span id="84"> 84</span>
+<span id="85"> 85</span>
+<span id="86"> 86</span>
+<span id="87"> 87</span>
+<span id="88"> 88</span>
+<span id="89"> 89</span>
+<span id="90"> 90</span>
+<span id="91"> 91</span>
+<span id="92"> 92</span>
+<span id="93"> 93</span>
+<span id="94"> 94</span>
+<span id="95"> 95</span>
+<span id="96"> 96</span>
+<span id="97"> 97</span>
+<span id="98"> 98</span>
+<span id="99"> 99</span>
+<span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+</pre><div class="example-wrap"><pre class="rust ">
+<span class="comment">/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * &quot;License&quot;); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */</span>
+<span class="doccomment">//!  Transmit sensor data to a CoAP server like thethings.io.  The CoAP payload will be encoded as JSON.</span>
+<span class="doccomment">//!  The sensor data will be transmitted over NB-IoT.</span>
+<span class="doccomment">//!  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that</span>
+<span class="doccomment">//!  fixes response parsing bugs.  The patched file must be present in that location.</span>
+<span class="doccomment">//!  This is the Rust version of `https://github.com/lupyuen/stm32bluepill-mynewt-sensor/blob/rust-nbiot/apps/my_sensor_app/OLDsrc/network.c`</span>
+
+<span class="kw">use</span> <span class="ident">mynewt</span>::{
+    <span class="ident">result</span>::<span class="kw-2">*</span>,                  <span class="comment">//  Import Mynewt result and error types</span>
+    <span class="ident">hw</span>::<span class="ident">sensor</span>::{               <span class="comment">//  Import Mynewt Sensor API</span>
+        <span class="ident">SensorValue</span>, <span class="ident">SensorValueType</span>,
+    },
+    <span class="ident">sys</span>::<span class="ident">console</span>,               <span class="comment">//  Import Mynewt Console API</span>
+    <span class="ident">encoding</span>::<span class="ident">coap_context</span>::<span class="kw-2">*</span>,  <span class="comment">//  Import Mynewt Encoding API</span>
+    <span class="ident">libs</span>::{
+        <span class="ident">sensor_network</span>,         <span class="comment">//  Import Mynewt Sensor Network API</span>
+    },
+    <span class="ident">coap</span>, <span class="ident">d</span>, <span class="ident">Strn</span>,              <span class="comment">//  Import Mynewt macros</span>
+};
+<span class="kw">use</span> <span class="ident">mynewt_macros</span>::<span class="ident">strn</span>;        <span class="comment">//  Import Mynewt procedural macros</span>
+
+<span class="doccomment">///  Aggregate the sensor value with other sensor data before transmitting to server.</span>
+<span class="doccomment">///  If the sensor value is a GPS geolocation, we remember it and attach it to other sensor data for transmission.</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_float&quot;</span>)]</span>  <span class="comment">//  If floating-point is enabled...</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">aggregate_sensor_data</span>(<span class="ident">sensor_value</span>: <span class="kw-2">&amp;</span><span class="ident">SensorValue</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span>  {  <span class="comment">//  Returns an error code upon error.</span>
+    <span class="kw">if</span> <span class="kw">let</span> <span class="ident">SensorValueType</span>::<span class="ident">Geolocation</span> {..} <span class="op">=</span> <span class="ident">sensor_value</span>.<span class="ident">value</span> {
+        <span class="comment">//  If this is a geolocation, save the geolocation for later transmission.</span>
+        <span class="kw">unsafe</span> { <span class="ident">CURRENT_GEOLOCATION</span> <span class="op">=</span> <span class="ident">sensor_value</span>.<span class="ident">value</span> };  <span class="comment">//  Current geolocation is unsafe because it&#39;s a mutable static</span>
+        <span class="prelude-val">Ok</span>(())
+    } <span class="kw">else</span> {
+        <span class="comment">//  If this is temperature sensor data, attach the current geolocation to the sensor data for transmission.</span>
+        <span class="kw">let</span> <span class="ident">transmit_value</span> <span class="op">=</span> <span class="ident">SensorValue</span> {
+            <span class="ident">geo</span>: <span class="kw">unsafe</span> { <span class="ident">CURRENT_GEOLOCATION</span> },  <span class="comment">//  Current geolocation is unsafe because it&#39;s a mutable static</span>
+            ..<span class="kw-2">*</span><span class="ident">sensor_value</span>                       <span class="comment">//  Copy the sensor name and value for transmission</span>
+        };
+        <span class="comment">//  Transmit sensor value with geolocation and return the result</span>
+        <span class="ident">send_sensor_data</span>(<span class="kw-2">&amp;</span><span class="ident">transmit_value</span>)
+    }
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_float&quot;</span>))]</span>  <span class="comment">//  If floating-point and geolocation are disabled, send sensor data without geolocation</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">aggregate_sensor_data</span>(<span class="ident">sensor_value</span>: <span class="kw-2">&amp;</span><span class="ident">SensorValue</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span>  {  <span class="comment">//  Returns an error code upon error.</span>
+    <span class="comment">//  Transmit sensor value without geolocation and return the result</span>
+    <span class="ident">send_sensor_data</span>(<span class="ident">sensor_value</span>)
+}
+
+<span class="doccomment">/// Compose a CoAP JSON message with the Sensor Key (field name), Value and Geolocation (optional) in `val`</span>
+<span class="doccomment">/// and send to the CoAP server.  The message will be enqueued for transmission by the CoAP / OIC </span>
+<span class="doccomment">/// Background Task so this function will return without waiting for the message to be transmitted.</span>
+<span class="doccomment">/// Return `Ok()` if successful, `SYS_EAGAIN` if network is not ready yet.</span>
+<span class="doccomment">/// For the CoAP server hosted at thethings.io, the CoAP payload shall be encoded in JSON like this:</span>
+<span class="doccomment">/// ```json</span>
+<span class="doccomment">/// {&quot;values&quot;:[</span>
+<span class="doccomment">///   {&quot;key&quot;:&quot;t&quot;,      &quot;value&quot;:1715, &quot;geo&quot;: { &quot;lat&quot;: ..., &quot;long&quot;: ... }},</span>
+<span class="doccomment">///   {&quot;key&quot;:&quot;device&quot;, &quot;value&quot;:&quot;0102030405060708090a0b0c0d0e0f10&quot;}</span>
+<span class="doccomment">/// ]}</span>
+<span class="doccomment">/// ```</span>
+<span class="kw">fn</span> <span class="ident">send_sensor_data</span>(<span class="ident">val</span>: <span class="kw-2">&amp;</span><span class="ident">SensorValue</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span>  {  <span class="comment">//  Returns an error code upon error.</span>
+    <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;Rust send_sensor_data: &quot;</span>);
+    <span class="kw">if</span> <span class="kw">let</span> <span class="ident">SensorValueType</span>::<span class="ident">Uint</span>(<span class="ident">i</span>) <span class="op">=</span> <span class="ident">val</span>.<span class="ident">value</span> {
+        <span class="ident">console</span>::<span class="ident">print_strn</span>(<span class="ident">val</span>.<span class="ident">key</span>);
+        <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;=&quot;</span>);
+        <span class="ident">console</span>::<span class="ident">printint</span>(<span class="ident">i</span> <span class="kw">as</span> <span class="ident">i32</span>);
+    }
+    <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;\n&quot;</span>);
+    <span class="ident">console</span>::<span class="ident">flush</span>(); <span class="comment">////</span>
+
+    <span class="comment">//  Get a randomly-generated device ID that changes each time we restart the device.</span>
+    <span class="kw">let</span> <span class="ident">device_id</span> <span class="op">=</span> <span class="ident">sensor_network</span>::<span class="ident">get_device_id</span>() <span class="question-mark">?</span> ;
+
+    <span class="comment">//  Start composing the CoAP Server message with the sensor data in the payload.  This will </span>
+    <span class="comment">//  block other tasks from composing and posting CoAP messages (through a semaphore).</span>
+    <span class="comment">//  We only have 1 memory buffer for composing CoAP messages so it needs to be locked.</span>
+    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="ident">sensor_network</span>::<span class="ident">init_server_post</span>( <span class="macro">strn</span><span class="macro">!</span>(()) ) <span class="question-mark">?</span> ;  <span class="comment">//  `strn!(())` means use default CoAP URI in `syscfg.yml`</span>
+
+    <span class="comment">//  If network transport not ready, tell caller (Sensor Listener) to try again later.</span>
+    <span class="kw">if</span> <span class="op">!</span><span class="ident">rc</span> { <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">MynewtError</span>::<span class="ident">SYS_EAGAIN</span>); }
+
+    <span class="comment">//  Compose the CoAP Payload using the coap!() macro.</span>
+    <span class="comment">//  Select @json or @cbor To encode CoAP Payload in JSON or CBOR format.</span>
+    <span class="kw">let</span> <span class="ident">_payload</span> <span class="op">=</span> <span class="macro">coap</span><span class="macro">!</span>( @<span class="ident">json</span> {        
+        <span class="comment">//  Create `values` as an array of items under the root.</span>
+        <span class="comment">//  Assume `val` contains `key: &quot;t&quot;, val: 2870, geo: { lat, long }`. </span>
+        <span class="comment">//  Append to the `values` array the Sensor Key, Value and optional Geolocation:</span>
+        <span class="comment">//  `{&quot;key&quot;: &quot;t&quot;, &quot;value&quot;: 2870, &quot;geo&quot;: { &quot;lat&quot;: ..., &quot;long&quot;: ... }}`</span>
+        <span class="ident">val</span>,
+
+        <span class="comment">//  Append to the `values` array the random device ID:</span>
+        <span class="comment">//  `{&quot;key&quot;:&quot;device&quot;, &quot;value&quot;:&quot;0102030405060708090a0b0c0d0e0f10&quot;}`</span>
+        <span class="string">&quot;device&quot;</span>: <span class="kw-2">&amp;</span><span class="ident">device_id</span>,
+    });
+
+    <span class="comment">//  Post the CoAP Server message to the CoAP Background Task for transmission.  After posting the</span>
+    <span class="comment">//  message to the background task, we release a semaphore that unblocks other requests</span>
+    <span class="comment">//  to compose and post CoAP messages.</span>
+    <span class="ident">sensor_network</span>::<span class="ident">do_server_post</span>() <span class="question-mark">?</span> ;
+
+    <span class="comment">//  Display the URL with the random device ID for viewing the sensor data.</span>
+    <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;NET view your sensor at \nhttps://blue-pill-geolocate.appspot.com?device=&quot;</span>);
+    <span class="ident">console</span>::<span class="ident">print_strn</span>(<span class="kw-2">&amp;</span><span class="ident">device_id</span>); <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;\n&quot;</span>);
+
+    <span class="comment">//  The CoAP Background Task will transmit the message in the background.</span>
+    <span class="prelude-val">Ok</span>(())
+}
+
+<span class="doccomment">///  Current geolocation recorded from GPS</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use_float&quot;</span>)]</span>  <span class="comment">//  If floating-point is enabled...</span>
+<span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">CURRENT_GEOLOCATION</span>: <span class="ident">SensorValueType</span> <span class="op">=</span> <span class="ident">SensorValueType</span>::<span class="prelude-val">None</span>;</pre></div>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "app";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

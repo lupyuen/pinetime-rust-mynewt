@@ -1,0 +1,1 @@
+initSidebarItems({"static":[["DRUID_CONTEXT",""],["PIET_CONTEXT",""],["TEXT",""]],"struct":[["DruidContext",""],["WindowBuilder","Builder abstraction for creating new windows"],["WindowHandle",""],["WindowState",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ArgSource","Wraps a closure that generates an argument for localization."],["LocalizedString","A string that can be localized based on the current locale."]],"type":[["ArgClosure",""],["MaxLocalizedArg",""],["MaxLocalizedString",""],["String",""],["Vec",""]]});

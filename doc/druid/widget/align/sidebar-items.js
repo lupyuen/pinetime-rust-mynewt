@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Align","A widget that aligns its child."]]});

@@ -1,0 +1,4 @@
+(function() {var implementors = {};
+implementors["num_traits"] = [];
+implementors["st7735_lcd"] = [{"text":"impl <a class=\"trait\" href=\"num_traits/cast/trait.ToPrimitive.html\" title=\"trait num_traits::cast::ToPrimitive\">ToPrimitive</a> for <a class=\"enum\" href=\"st7735_lcd/instruction/enum.Instruction.html\" title=\"enum st7735_lcd::instruction::Instruction\">Instruction</a>","synthetic":false,"types":["st7735_lcd::instruction::Instruction"]},{"text":"impl <a class=\"trait\" href=\"num_traits/cast/trait.ToPrimitive.html\" title=\"trait num_traits::cast::ToPrimitive\">ToPrimitive</a> for <a class=\"enum\" href=\"st7735_lcd/enum.Orientation.html\" title=\"enum st7735_lcd::Orientation\">Orientation</a>","synthetic":false,"types":["st7735_lcd::Orientation"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

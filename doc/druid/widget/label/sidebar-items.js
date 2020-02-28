@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["LabelText","The text for the label; either a localized or a specific string."]],"struct":[["Label","A label that displays some text."]],"type":[["MaxLabel",""],["String",""]]});

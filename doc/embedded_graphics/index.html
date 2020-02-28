@@ -1,0 +1,142 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `embedded_graphics` crate."><meta name="keywords" content="rust, rustlang, rust-lang, embedded_graphics"><title>embedded_graphics - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="shortcut icon" href="../favicon.ico"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../embedded_graphics/index.html'><div class='logo-container'><img src='https://raw.githubusercontent.com/jamwaffles/embedded-graphics/01d2ea6e7053f9f79cab19d0c193a00dbdaea321/assets/logo.png' alt='logo'></div></a><p class='location'>Crate embedded_graphics</p><div class="sidebar-elems"><a id='all-types' href='all.html'><p>See all embedded_graphics's items</p></a><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#traits">Traits</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'embedded_graphics', ty: 'mod', relpath: '../'};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/embedded_graphics/lib.rs.html#1-340' title='goto source code'>[src]</a></span><span class='in-band'>Crate <a class="mod" href=''>embedded_graphics</a></span></h1><div class='docblock'><h1 id="embedded-graphics" class="section-header"><a href="#embedded-graphics">Embedded graphics</a></h1>
+<p>This crate aims to make drawing 2D graphics primitives super easy. It currently supports the
+following:</p>
+<ul>
+<li><a href="./image/type.Image1BPP.html">1 bit-per-pixel images</a></li>
+<li><a href="./image/type.Image8BPP.html">8 bits-per-pixel images</a></li>
+<li><a href="./image/type.Image16BPP.html">16 bits-per-pixel images</a></li>
+<li><a href="./image/struct.ImageBmp.html">BMP-format images</a> (with <code>bmp</code> feature enabled)</li>
+<li><a href="./image/struct.ImageTga.html">TGA-format images</a> (with <code>tga</code> feature enabled)</li>
+<li><a href="./primitives/index.html">Primitives</a>
+<ul>
+<li><a href="./primitives/line/struct.Line.html">Lines</a></li>
+<li><a href="./primitives/rectangle/struct.Rectangle.html">Rectangles (and squares)</a></li>
+<li><a href="./primitives/circle/struct.Circle.html">Circles</a></li>
+<li><a href="./primitives/triangle/struct.Triangle.html">Triangles</a></li>
+</ul>
+</li>
+<li><a href="./fonts/index.html#types">Text with multiple fonts</a></li>
+</ul>
+<p>You can also add your own objects by implementing <code>IntoIterator&lt;Item = Pixel&lt;C&gt;&gt;</code> to create an
+iterator that <a href="./trait.Drawing.html"><code>Drawing#draw()</code></a> can consume.</p>
+<p>A core goal is to do the above without using any buffers; the crate should work without a
+dynamic memory allocator and without pre-allocating large chunks of memory. To achieve this, it
+takes an <code>Iterator</code> based approach, where pixel values and positions are calculated on the fly,
+with the minimum of saved state. This allows the consuming application to use far less RAM at
+little to no performance penalty.</p>
+<h1 id="supported-displays" class="section-header"><a href="#supported-displays">Supported displays</a></h1>
+<p>These are just some of the displays the community has added embedded_graphics support to. This
+list is taken from the <a href="https://crates.io/crates/embedded-graphics/reverse_dependencies">dependent crates
+list</a> on crates.io so might be
+missing some unpublished entries. Please <a href="https://github.com/jamwaffles/embedded-graphics/issues/new">open an
+issue</a> if there's a display driver
+that should be added to this list.</p>
+<ul>
+<li><a href="https://crates.io/crates/ili9341">ili9341</a>: A platform agnostic driver to interface with the ILI9341 (and ILI9340C) TFT LCD display</li>
+<li><a href="https://crates.io/crates/ls010b7dh01">ls010b7dh01</a>: A platform agnostic driver for the LS010B7DH01 memory LCD display</li>
+<li><a href="https://crates.io/crates/sh1106">sh1106</a>: I2C driver for the SH1106 OLED display</li>
+<li><a href="https://crates.io/crates/ssd1306">ssd1306</a>: I2C and SPI (4 wire) driver for the SSD1306 OLED display</li>
+<li><a href="https://crates.io/crates/ssd1322">ssd1322</a>: Pure Rust driver for the SSD1322 OLED display chip</li>
+<li><a href="https://crates.io/crates/ssd1331">ssd1331</a>: SPI (4 wire) driver for the SSD1331 OLED display</li>
+<li><a href="https://crates.io/crates/ssd1351">ssd1351</a>: SSD1351 driver</li>
+<li><a href="https://crates.io/crates/ssd1675">ssd1675</a>: Rust driver for the Solomon Systech SSD1675 e-Paper display (EPD) controller</li>
+<li><a href="https://crates.io/crates/st7735-lcd">st7735-lcd</a>: Rust library for displays using the ST7735 driver</li>
+</ul>
+<h1 id="simulator" class="section-header"><a href="#simulator">Simulator</a></h1>
+<p>Embedded graphics comes with a <a href="https://github.com/jamwaffles/embedded-graphics/tree/c4f74c12dae9f0a0193fa48192f905a002bf8c9d/simulator">simulator</a>!</p>
+<p><img src="https://raw.githubusercontent.com/jamwaffles/embedded-graphics/master/assets/simulator-demo.png" alt="It can display all sorts of embedded-graphics test code." /></p>
+<p>Take a look at the <a href="https://github.com/jamwaffles/embedded-graphics/tree/c4f74c12dae9f0a0193fa48192f905a002bf8c9d/simulator/examples">simulator examples</a> to see what
+embedded_graphics can do, and how it might look on a display. You can run the examples like
+this:</p>
+<pre><code class="language-bash">git clone https://github.com/jamwaffles/embedded-graphics.git
+cd embedded-graphics
+
+cargo run -p embedded-graphics-simulator --example hello
+</code></pre>
+<h1 id="crate-features" class="section-header"><a href="#crate-features">Crate features</a></h1>
+<p>Add these to your <code>Cargo.toml</code> to turn on extra bits of functionality.</p>
+<ul>
+<li><code>nalgebra_support</code> - use the <a href="https://crates.io/crates/nalgebra">Nalgebra</a> crate with <code>no_std</code>
+support to use as the <code>Coord</code> type. This should allow you to use most Nalgebra methods on
+objects rendered by embedded_graphics.</li>
+<li><code>bmp</code> - use the <a href="https://crates.io/crates/tinybmp">TinyBMP</a> crate for BMP image support.</li>
+<li><code>tga</code> - use the <a href="https://crates.io/crates/tinytga">TinyTGA</a> crate for TGA image support.</li>
+</ul>
+<h1 id="examples" class="section-header"><a href="#examples">Examples</a></h1><h2 id="draw-a-circle-and-some-text" class="section-header"><a href="#draw-a-circle-and-some-text">Draw a circle and some text</a></h2>
+<p>This example uses the <a href="./primitives/circle/struct.Circle.html"><code>Circle</code></a> primitive and the <a href="./fonts/type.Font6x8.html"><code>Font6x8</code></a> font to draw a filled circle and  some text over it on the screen.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">embedded_graphics</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">embedded_graphics</span>::<span class="ident">primitives</span>::<span class="ident">Circle</span>;
+<span class="kw">use</span> <span class="ident">embedded_graphics</span>::<span class="ident">fonts</span>::<span class="ident">Font6x8</span>;
+
+<span class="kw">let</span> <span class="ident">c</span> <span class="op">=</span> <span class="ident">Circle</span>::<span class="ident">new</span>(<span class="ident">Coord</span>::<span class="ident">new</span>(<span class="number">20</span>, <span class="number">20</span>), <span class="number">8</span>).<span class="ident">fill</span>(<span class="prelude-val">Some</span>(<span class="number">1u8</span>));
+<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="ident">Font6x8</span>::<span class="ident">render_str</span>(<span class="string">&quot;Hello Rust!&quot;</span>).<span class="ident">fill</span>(<span class="prelude-val">Some</span>(<span class="number">20u8</span>)).<span class="ident">translate</span>(<span class="ident">Coord</span>::<span class="ident">new</span>(<span class="number">20</span>, <span class="number">16</span>));
+
+<span class="ident">display</span>.<span class="ident">draw</span>(<span class="ident">c</span>);
+<span class="ident">display</span>.<span class="ident">draw</span>(<span class="ident">t</span>);</pre></div>
+<h2 id="draw-a-circle-and-some-text-1" class="section-header"><a href="#draw-a-circle-and-some-text-1">Draw a circle and some text</a></h2>
+<p>To make life even easier, some handy <a href="#macros">macros</a> are provided for drawing styled
+primitives and text. Converting the example above, we get this:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">embedded_graphics</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">embedded_graphics</span>::{<span class="ident">text_6x8</span>, <span class="ident">egcircle</span>, <span class="ident">icoord</span>};
+
+<span class="kw">let</span> <span class="ident">c</span> <span class="op">=</span> <span class="macro">egcircle</span><span class="macro">!</span>((<span class="number">20</span>, <span class="number">20</span>), <span class="number">8</span>, <span class="ident">fill</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="number">1u8</span>));
+<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="macro">text_6x8</span><span class="macro">!</span>(<span class="string">&quot;Hello Rust!&quot;</span>, <span class="ident">fill</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="number">20u8</span>)).<span class="ident">translate</span>(<span class="macro">icoord</span><span class="macro">!</span>(<span class="number">20</span>, <span class="number">16</span>));
+
+<span class="ident">display</span>.<span class="ident">draw</span>(<span class="ident">c</span>);
+<span class="ident">display</span>.<span class="ident">draw</span>(<span class="ident">t</span>);</pre></div>
+<h2 id="chaining" class="section-header"><a href="#chaining">Chaining</a></h2>
+<p>Items can be chained to build more complex graphics objects.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">embedded_graphics</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">embedded_graphics</span>::{<span class="ident">text_6x8</span>, <span class="ident">egcircle</span>, <span class="ident">icoord</span>, <span class="ident">egrectangle</span>};
+
+<span class="kw">fn</span> <span class="ident">build_thing</span>(<span class="ident">text</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">Pixel</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="macro">egrectangle</span><span class="macro">!</span>((<span class="number">0</span>, <span class="number">0</span>), (<span class="number">40</span>, <span class="number">40</span>)).<span class="ident">into_iter</span>()
+        .<span class="ident">chain</span>(<span class="macro">egcircle</span><span class="macro">!</span>((<span class="number">20</span>, <span class="number">20</span>), <span class="number">8</span>, <span class="ident">fill</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="number">1u8</span>)))
+        .<span class="ident">chain</span>(<span class="macro">text_6x8</span><span class="macro">!</span>(<span class="ident">text</span>, <span class="ident">fill</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="number">20u8</span>)).<span class="ident">translate</span>(<span class="macro">icoord</span><span class="macro">!</span>(<span class="number">20</span>, <span class="number">16</span>)))
+}
+
+<span class="kw">fn</span> <span class="ident">main</span>() {
+    <span class="ident">display</span>.<span class="ident">draw</span>(<span class="ident">build_thing</span>(<span class="string">&quot;Hello Rust!&quot;</span>));
+}</pre></div>
+<h1 id="implementing-embedded_graphics-in-a-driver" class="section-header"><a href="#implementing-embedded_graphics-in-a-driver">Implementing <code>embedded_graphics</code> in a driver</a></h1>
+<p>To add support for embedded_graphics to a display driver, <a href="./trait.Drawing.html"><code>Drawing</code></a> (and if possible
+<a href="./trait.SizedDrawing.html"><code>SizedDrawing</code></a>) should be implemented. This allows all embedded_graphics objects to be
+rendered by the display. See their <a href="./trait.Drawing.html">respective</a> <a href="./trait.SizedDrawing.html">docs</a> for
+implementation details.</p>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table><tr class='module-item'><td><a class="mod" href="coord/index.html" title='embedded_graphics::coord mod'>coord</a></td><td class='docblock-short'><p>2D signed coordinate in screen space</p>
+</td></tr><tr class='module-item'><td><a class="mod" href="drawable/index.html" title='embedded_graphics::drawable mod'>drawable</a></td><td class='docblock-short'><p><code>Drawable</code> trait and helpers</p>
+</td></tr><tr class='module-item'><td><a class="mod" href="fonts/index.html" title='embedded_graphics::fonts mod'>fonts</a></td><td class='docblock-short'><p>Pixel based fonts</p>
+</td></tr><tr class='module-item'><td><a class="mod" href="image/index.html" title='embedded_graphics::image mod'>image</a></td><td class='docblock-short'><p>Image object</p>
+</td></tr><tr class='module-item'><td><a class="mod" href="pixelcolor/index.html" title='embedded_graphics::pixelcolor mod'>pixelcolor</a></td><td class='docblock-short'><p>Pixel color</p>
+</td></tr><tr class='module-item'><td><a class="mod" href="prelude/index.html" title='embedded_graphics::prelude mod'>prelude</a></td><td class='docblock-short'><p>Prelude</p>
+</td></tr><tr class='module-item'><td><a class="mod" href="primitives/index.html" title='embedded_graphics::primitives mod'>primitives</a></td><td class='docblock-short'><p>Graphics primitives</p>
+</td></tr><tr class='module-item'><td><a class="mod" href="style/index.html" title='embedded_graphics::style mod'>style</a></td><td class='docblock-short'><p>Styling struct to customise the look of objects.</p>
+</td></tr><tr class='module-item'><td><a class="mod" href="transform/index.html" title='embedded_graphics::transform mod'>transform</a></td><td class='docblock-short'><p>Transformations for graphics objects</p>
+</td></tr><tr class='module-item'><td><a class="mod" href="unsignedcoord/index.html" title='embedded_graphics::unsignedcoord mod'>unsignedcoord</a></td><td class='docblock-short'><p>2D unsigned coordinate</p>
+</td></tr></table><h2 id='macros' class='section-header'><a href="#macros">Macros</a></h2>
+<table><tr class='module-item'><td><a class="macro" href="macro.egcircle.html" title='embedded_graphics::egcircle macro'>egcircle</a></td><td class='docblock-short'><p>Create a <a href="./primitives/circle/struct.Circle.html"><code>Circle</code></a> with optional styling using a
+convenient macro.</p>
+</td></tr><tr class='module-item'><td><a class="macro" href="macro.egline.html" title='embedded_graphics::egline macro'>egline</a></td><td class='docblock-short'><p>Create a <a href="./primitives/line/struct.Line.html"><code>Line</code></a> with optional styling using a
+convenient macro.</p>
+</td></tr><tr class='module-item'><td><a class="macro" href="macro.egrectangle.html" title='embedded_graphics::egrectangle macro'>egrectangle</a></td><td class='docblock-short'><p>Create a <a href="./primitives/rectangle/struct.Rectangle.html"><code>Rectangle</code></a> with optional styling using a
+convenient macro.</p>
+</td></tr><tr class='module-item'><td><a class="macro" href="macro.egtriangle.html" title='embedded_graphics::egtriangle macro'>egtriangle</a></td><td class='docblock-short'><p>Create a <a href="./primitives/triangle/struct.Triangle.html"><code>Triangle</code></a> with optional styling using a
+convenient macro.</p>
+</td></tr><tr class='module-item'><td><a class="macro" href="macro.icoord.html" title='embedded_graphics::icoord macro'>icoord</a></td><td class='docblock-short'><p>Create a <code>Coord</code> from a pair of integer values</p>
+</td></tr><tr class='module-item'><td><a class="macro" href="macro.text_12x16.html" title='embedded_graphics::text_12x16 macro'>text_12x16</a></td><td class='docblock-short'><p>Render text using the <a href="./fonts/type.Font12x16.html"><code>Font12x16</code></a> font</p>
+</td></tr><tr class='module-item'><td><a class="macro" href="macro.text_6x8.html" title='embedded_graphics::text_6x8 macro'>text_6x8</a></td><td class='docblock-short'><p>Render text using the <a href="./fonts/type.Font6x8.html"><code>Font6x8</code></a> font</p>
+</td></tr><tr class='module-item'><td><a class="macro" href="macro.text_6x12.html" title='embedded_graphics::text_6x12 macro'>text_6x12</a></td><td class='docblock-short'><p>Render text using the <a href="./fonts/type.Font6x12.html"><code>Font6x12</code></a> font</p>
+</td></tr><tr class='module-item'><td><a class="macro" href="macro.text_8x16.html" title='embedded_graphics::text_8x16 macro'>text_8x16</a></td><td class='docblock-short'><p>Render text using the <a href="./fonts/type.Font8x16.html"><code>Font8x16</code></a> font</p>
+</td></tr><tr class='module-item'><td><a class="macro" href="macro.ucoord.html" title='embedded_graphics::ucoord macro'>ucoord</a></td><td class='docblock-short'><p>Create an <code>UnsignedCoord</code> from a pair of integer values</p>
+</td></tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table><tr class='module-item'><td><a class="trait" href="trait.Drawing.html" title='embedded_graphics::Drawing trait'>Drawing</a></td><td class='docblock-short'><p>To use this crate in a driver, <code>Drawing</code> must be implemented. This allows display drivers to
+support all embedded_graphics objects through the <code>draw()</code> method.</p>
+</td></tr><tr class='module-item'><td><a class="trait" href="trait.SizedDrawing.html" title='embedded_graphics::SizedDrawing trait'>SizedDrawing</a></td><td class='docblock-short'><p>Very similar to the <a href="./trait.Drawing.html"><code>Drawing</code></a> trait, but accepts drawable objects which have a known size</p>
+</td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../";window.currentCrate = "embedded_graphics";</script><script src="../aliases.js"></script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>

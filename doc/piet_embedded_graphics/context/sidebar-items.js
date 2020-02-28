@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["DISPLAY_HEIGHT",""],["DISPLAY_WIDTH",""]],"fn":[["get_transform_stack",""]],"static":[["EMBED_TEXT",""],["TRANSFORM_STACK","Stack of transforms to be applied to the current render"]],"struct":[["EmbedRenderContext",""]],"type":[["MaxTransforms","Maximum number of transforms supported"]]});

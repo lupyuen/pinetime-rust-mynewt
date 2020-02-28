@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Insets","Insets from the edges of a rectangle."]]});

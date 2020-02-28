@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["kurbo"] = [{"text":"impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/ops/arith/trait.DivAssign.html\" title=\"trait core::ops::arith::DivAssign\">DivAssign</a>&lt;f64&gt; for <a class=\"struct\" href=\"kurbo/struct.Vec2.html\" title=\"struct kurbo::Vec2\">Vec2</a>","synthetic":false,"types":["kurbo::vec2::Vec2"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

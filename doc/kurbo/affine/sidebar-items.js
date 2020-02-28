@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Affine","A 2D affine transform."]]});
