@@ -39,6 +39,8 @@ This `master` branch contains the firmware source code for PineTime Smart Watch 
 
 1. [_My First Week As Embedded FOSS Advocate_](https://medium.com/@ly.lee/my-first-week-as-embedded-foss-advocate-106d625deae?source=friends_link&sk=4128d2bb8a7098658fafc462a1531d34)
 
+1. [_Rust Documentation_](https://lupyuen.github.io/pinetime-rust-mynewt/?1)
+
 The code structure is similar to the earlier article on nRF52...
 
 [_Coding nRF52 with Rust and Apache Mynewt on Visual Studio Code_](https://medium.com/@ly.lee/coding-nrf52-with-rust-and-apache-mynewt-on-visual-studio-code-9521bcba6004?source=friends_link&sk=bb4e2523b922d0870259ab3fa696c7da)

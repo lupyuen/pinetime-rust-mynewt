@@ -8,13 +8,13 @@ TODO
 
 More info about CHIP-8…
 
-http://www.multigesture.net/articles/how...terpreter/
+http://www.multigesture.net/articles/how-to-write-an-emulator-chip-8-interpreter/
 
 Whole lot of games available here…
 
 https://github.com/dmatlack/chip8/tree/master/roms
 
-To test in emulator...
+To test in web browser...
 
 http://mir3z.github.io/chip8-emu/
 
@@ -24,7 +24,7 @@ https://github.com/YushiOMOTE/libchip8
 
 The code I actually wrote is surprisingly little… (What took so long to get it right? Tracking down which Rust function was taking too much stack space)
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs
 
 Thinking of using the accelerometer to control the game… tilt your watch up / down / left / right to control the player…. will this be playable? Hmmm…
 
@@ -54,7 +54,7 @@ const BLOCK_WIDTH: usize = 32;
 const PIXEL_WIDTH: usize = 3;
 const PIXEL_HEIGHT: usize = 5;
 ```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L19-L37_
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L19-L37_
 
 ## Clear the PineTime Display
 
@@ -90,7 +90,7 @@ pub fn on_start() -> MynewtResult<()> {
     Ok(())
 }
 ```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L39-L66_
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L39-L66_
 
 ## Start the CHIP-8 Emulator
 
@@ -119,7 +119,7 @@ extern "C" fn task_func(_arg: Ptr) {
     assert!(false, "CHIP8 should not end");
 }
 ```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L78-L98_
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L78-L98_
 
 ## Set a Pixel Colour
 
@@ -158,7 +158,7 @@ impl libchip8::Hardware for Hardware {
         if (y as u8) > self.update_bottom { self.update_bottom = y as u8; }
     }
 ```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L169-L198_
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L169-L198_
 
 ## Render the Display
 
@@ -203,7 +203,7 @@ impl libchip8::Hardware for Hardware {
         false
     }
 ```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L231-L268_
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L231-L268_
 
 ## Render a Region
 
@@ -245,7 +245,7 @@ fn render_region(left: u8, top: u8, right: u8, bottom: u8) {
     }
 }
 ```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L271-L304_
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L271-L304_
 
 ## Render a Block
 
@@ -266,7 +266,7 @@ fn render_block(left: u8, top: u8, right: u8, bottom: u8) {
     ).expect("set pixels failed");    
 }
 ```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L306-L319_
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L306-L319_
 
 ## Iterate Pixels in a Block
 
@@ -315,7 +315,7 @@ impl Iterator for PixelIterator {
         return Some(color);
     }
 ```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L408-L455_
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L408-L455_
 
 ## Convert Colours
 
@@ -340,7 +340,7 @@ fn update_color(grey: u8) -> u8 {
     }
 }
 ```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L494-L510_
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L494-L510_
 
 ## Map Physical Pixels to Virtual Pixels
 
@@ -376,7 +376,7 @@ static PHYSICAL_TO_VIRTUAL_MAP: &[[(u8,u8); PHYSICAL_TO_VIRTUAL_MAP_WIDTH]; PHYS
     ],
 ...
 ```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L645-L673_
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L645-L673_
 
 ```rust
 /// For Physical (x,y) Coordinates, return the corresponding Virtual (x,y) Coordinates.
@@ -414,7 +414,7 @@ fn map_physical_to_virtual(x: u8, y: u8) -> (u8, u8) {
     )
 }
 ```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L556-L590_
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L556-L590_
 
 ## Map Virtual Pixels to Physical Pixels
 
@@ -450,7 +450,7 @@ static VIRTUAL_TO_PHYSICAL_MAP: &[[(u8,u8,u8,u8); VIRTUAL_TO_PHYSICAL_MAP_WIDTH]
     ],
 ...
 ```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L654-L782_
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L654-L782_
 
 ```rust
 /// For each Virtual (x,y) Coordinate, return the Bounding Box (left, top, right, bottom) that encloses the corresponding Physical (x,y) Coordinates.
@@ -506,7 +506,7 @@ fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
     result
 }
 ```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L592-L643_
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L592-L643_
 
 ## Iterate Curved Pixels
 
@@ -554,4 +554,4 @@ impl Iterator for PixelIterator {
         return Some(color);
     }    
 ```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/chip8/rust/app/src/chip8.rs#L457-L491_
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L457-L491_
