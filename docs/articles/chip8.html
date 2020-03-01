@@ -132,6 +132,7 @@
         <span class="kw">if</span> (<span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>) <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">update_bottom</span> { <span class="self">self</span>.<span class="ident">update_bottom</span> <span class="op">=</span> <span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>; }
     }</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L169-L198</em></p>
+<p><em>(<code>u8</code> means unsigned byte; <code>usize</code> is similar to <code>size_t</code> in C )</em></p>
 <p>The CHIP-8 Emulator has a simple screen layout: 64 rows, 32 columns, 1-bit colour (black or white). <code>vram_set</code> updates the pixel colour in a greyscale memory buffer named <code>SCREEN_BUFFER</code> that's only 2 KB (64 rows of 32 bytes)...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -312,25 +313,30 @@
 <p><code>get_bounding_box</code> doesn't do much now... But it will become very interesting later when we stretch the CHIP-8 pixels in a curvy way.</p>
 <p><em>(Oh yes I love Rust tuples! As much as roti prata!)</em></p>
 <h1 id="render-ablock" class="section-header"><a href="#render-ablock">5 Render a Block</a></h1>
-<p>TODO</p>
+<p>Now we're ready to render a block of CHIP-8 Virtual Pixels (that has been checked by <code>render_region</code> and won't overflow the SPI buffer)...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// Render the Virtual Block</span>
 <span class="kw">fn</span> <span class="ident">render_block</span>(<span class="ident">left</span>: <span class="ident">u8</span>, <span class="ident">top</span>: <span class="ident">u8</span>, <span class="ident">right</span>: <span class="ident">u8</span>, <span class="ident">bottom</span>: <span class="ident">u8</span>) {
-    <span class="comment">//  Create a new block for the region to be updated</span>
+    <span class="comment">//  Create an iterator for the Physical Pixels to be rendered</span>
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">block</span> <span class="op">=</span> <span class="ident">PixelIterator</span>::<span class="ident">new</span>(
         <span class="ident">left</span>, <span class="ident">top</span>, 
         <span class="ident">right</span>, <span class="ident">bottom</span>,
     );
-    <span class="comment">//  Render the block</span>
+    <span class="comment">//  Get the Physical Pixel dimensions of the Virtual Pixels</span>
     <span class="kw">let</span> (<span class="ident">left_physical</span>, <span class="ident">top_physical</span>, <span class="ident">right_physical</span>, <span class="ident">bottom_physical</span>) <span class="op">=</span> <span class="ident">block</span>.<span class="ident">get_window</span>();
+    <span class="comment">//  Render the block via the iterator</span>
     <span class="ident">druid</span>::<span class="ident">set_display_pixels</span>(<span class="ident">left_physical</span> <span class="kw">as</span> <span class="ident">u16</span>, <span class="ident">top_physical</span> <span class="kw">as</span> <span class="ident">u16</span>, <span class="ident">right_physical</span> <span class="kw">as</span> <span class="ident">u16</span>, <span class="ident">bottom_physical</span> <span class="kw">as</span> <span class="ident">u16</span>,
         <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">block</span>
     ).<span class="ident">expect</span>(<span class="string">&quot;set pixels failed&quot;</span>);    
 }</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L306-L319</em></p>
+<p><em>Rendering a block of CHIP-8 Virtual Pixels looks suspiciously simple... What's an Iterator?</em></p>
+<p>A Rust Iterator loops over individual values in a sequence of values. (It's often used in <code>for</code> loops)</p>
+<p>Here we create a Rust Iterator that loops over individual Physical PineTime Pixels to be rendered (based on the Virtual CHIP-8 Block that's passed in).</p>
+<p>The values returned by the Rust Iterator are 16-bit colour values. Our Rust display driver for PineTime calls the Rust Iterator to enumerate all the 16-bit colour values and blast all values in a single SPI operation. Super efficient!</p>
 <h1 id="iterate-pixels-in-ablock" class="section-header"><a href="#iterate-pixels-in-ablock">6 Iterate Pixels in a Block</a></h1>
-<p>TODO</p>
+<p>Here's the implementation of our iterator that enumerates all Physical Pixel Colours within a Virtual Pixel Block that's defined by the Virtual <code>(x, y)</code> Coordinates from <code>(block_left, block_top)</code> to <code>(block_right, block_bottom)</code>...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// Implement the Iterator for Virtual Pixels in a Virtual Block</span>
@@ -343,30 +349,26 @@
     <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Item</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">y</span> <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">block_bottom</span> { <span class="kw">return</span> <span class="prelude-val">None</span>; }  <span class="comment">//  No more Physical Pixels</span>
 
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">x</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">SCREEN_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">|</span><span class="op">|</span>
-            <span class="self">self</span>.<span class="ident">y</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">SCREEN_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> { <span class="ident">cortex_m</span>::<span class="ident">asm</span>::<span class="ident">bkpt</span>(); }
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">x</span> <span class="op">&lt;</span> <span class="ident">SCREEN_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span>, <span class="string">&quot;x overflow&quot;</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">y</span> <span class="op">&lt;</span> <span class="ident">SCREEN_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span>, <span class="string">&quot;y overflow&quot;</span>);
-
-        <span class="comment">//  Get the colour for the Virtual Pixel</span>
+        <span class="comment">//  Get the 16-bit Physical Colour for the Virtual Pixel at (x, y)</span>
         <span class="kw">let</span> <span class="ident">color</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_color</span>();
 
-        <span class="comment">//  Loop over x_offset from 0 to PIXEL_WIDTH - 1</span>
+        <span class="comment">//  Update (x, y) to the next pixel left to right, then top to bottom...</span>
+        <span class="comment">//  Loop over every stretched horizontal Physical Pixel (x_offset) from 0 to PIXEL_WIDTH - 1</span>
         <span class="self">self</span>.<span class="ident">x_offset</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">x_offset</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">PIXEL_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> {
             <span class="self">self</span>.<span class="ident">x_offset</span> <span class="op">=</span> <span class="number">0</span>;
 
-            <span class="comment">//  Loop over x from block_left to block_right</span>
+            <span class="comment">//  Loop over every Virtual Pixel (x) from block_left to block_right</span>
             <span class="self">self</span>.<span class="ident">x</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
             <span class="kw">if</span> <span class="self">self</span>.<span class="ident">x</span> <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">block_right</span> {
                 <span class="self">self</span>.<span class="ident">x</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">block_left</span>;
 
-                <span class="comment">//  Loop over y_offset from 0 to PIXEL_HEIGHT - 1</span>
+                <span class="comment">//  Loop over every stretched vertical Vertical Pixel (y_offset) from 0 to PIXEL_HEIGHT - 1</span>
                 <span class="self">self</span>.<span class="ident">y_offset</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
                 <span class="kw">if</span> <span class="self">self</span>.<span class="ident">y_offset</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">PIXEL_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> {
                     <span class="self">self</span>.<span class="ident">y_offset</span> <span class="op">=</span> <span class="number">0</span>;
 
-                    <span class="comment">//  Loop over y from block_top to block_bottom</span>
+                    <span class="comment">//  Loop over every Virtual Pixel (y) from block_top to block_bottom</span>
                     <span class="self">self</span>.<span class="ident">y</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
                 }
             }
@@ -375,25 +377,43 @@
         <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">color</span>);
     }</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L408-L455</em></p>
+<p>The Iterator returns the next Physical Pixel Colour, as defined by <code>self.x</code> (Current Virtual Column) and <code>self.y</code> (Current Virtual Row). </p>
+<p>Let's look at function <code>get_color</code>, which maps greyscale CHIP-8 Virtual Colours to 16-bit PineTime Physical Colours...</p>
 <h1 id="convert-colours" class="section-header"><a href="#convert-colours">7 Convert Colours</a></h1>
 <p>TODO</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">impl</span> <span class="ident">PixelIterator</span> {
+    <span class="doccomment">/// Return the 16-bit colour of the Virtual Pixel</span>
+    <span class="kw">fn</span> <span class="ident">get_color</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u16</span> {
+        <span class="comment">//  Get the greyscale colour at Virtual Coordinates (x,y) and convert to 16-bit Physical Colour</span>
+        <span class="kw">let</span> <span class="ident">i</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">x</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">+</span> <span class="self">self</span>.<span class="ident">y</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">*</span> <span class="ident">SCREEN_WIDTH</span>;
+        <span class="kw">let</span> <span class="ident">color</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">convert_color</span>( <span class="ident">SCREEN_BUFFER</span>[<span class="ident">i</span>] ) };
+        <span class="comment">//  Update the greyscale colour at Virtual Coordinates (x,y)</span>
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">x_offset</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="self">self</span>.<span class="ident">y_offset</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {  <span class="comment">//  Update colours only once per Virtual Pixel</span>
+            <span class="kw">unsafe</span> { <span class="ident">SCREEN_BUFFER</span>[<span class="ident">i</span>] <span class="op">=</span> <span class="ident">update_color</span>( <span class="ident">SCREEN_BUFFER</span>[<span class="ident">i</span>] ); }  <span class="comment">//  e.g. fade to black</span>
+        }
+        <span class="ident">color</span>  <span class="comment">//  Return the 16-bit Physical Colour</span>
+    }    
+}</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L376-L385</em></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// Convert the Virtual Colour (8-bit greyscale) to 16-bit Colour</span>
 <span class="kw">fn</span> <span class="ident">convert_color</span>(<span class="ident">grey</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u16</span> {
     <span class="kw">match</span> <span class="ident">grey</span> {
         <span class="number">250</span>..<span class="op">=</span><span class="number">255</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Rgb565</span>::<span class="ident">from</span>(( <span class="ident">grey</span>, <span class="ident">grey</span>, <span class="ident">grey</span> )).<span class="number">0</span>,  <span class="comment">//  White</span>
-        <span class="number">128</span>..<span class="number">250</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Rgb565</span>::<span class="ident">from</span>(( <span class="ident">grey</span> <span class="op">-</span> <span class="number">100</span>, <span class="ident">grey</span>, <span class="ident">grey</span> <span class="op">-</span> <span class="number">100</span> )).<span class="number">0</span>,  <span class="comment">//  Greenish</span>
-        <span class="number">0</span>..<span class="number">128</span>   <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Rgb565</span>::<span class="ident">from</span>(( <span class="number">0</span>, <span class="number">0</span>, <span class="ident">grey</span> )).<span class="number">0</span>,  <span class="comment">//  Dark Blue</span>
+        <span class="number">128</span>..<span class="number">250</span>  <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Rgb565</span>::<span class="ident">from</span>(( <span class="ident">grey</span> <span class="op">-</span> <span class="number">100</span>, <span class="ident">grey</span>, <span class="ident">grey</span> <span class="op">-</span> <span class="number">100</span> )).<span class="number">0</span>,  <span class="comment">//  Greenish</span>
+        <span class="number">0</span>..<span class="number">128</span>    <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Rgb565</span>::<span class="ident">from</span>(( <span class="number">0</span>, <span class="number">0</span>, <span class="ident">grey</span> )).<span class="number">0</span>,  <span class="comment">//  Dark Blue</span>
     }
 }
 
 <span class="doccomment">/// Fade the Virtual Colour (8-bit greyscale) to black</span>
 <span class="kw">fn</span> <span class="ident">update_color</span>(<span class="ident">grey</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u8</span> {
     <span class="kw">match</span> <span class="ident">grey</span> {
-        <span class="number">200</span>..<span class="op">=</span><span class="number">255</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">grey</span> <span class="op">-</span> <span class="number">2</span>,   <span class="comment">//  Initial white flash fade to normal white</span>
-        <span class="number">128</span>..<span class="number">200</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">grey</span>,        <span class="comment">//  Normal white stays the same</span>
-        <span class="number">0</span>..<span class="number">128</span>   <span class="op">=</span><span class="op">&gt;</span> <span class="ident">grey</span> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">1</span>,   <span class="comment">//  Dark fade to black</span>
+        <span class="number">200</span>..<span class="op">=</span><span class="number">255</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">grey</span> <span class="op">-</span> <span class="number">2</span>,    <span class="comment">//  Initial white flash fade to normal white</span>
+        <span class="number">128</span>..<span class="number">200</span>  <span class="op">=</span><span class="op">&gt;</span> <span class="ident">grey</span>,        <span class="comment">//  Normal white stays the same</span>
+        <span class="number">0</span>..<span class="number">128</span>    <span class="op">=</span><span class="op">&gt;</span> <span class="ident">grey</span> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">1</span>,   <span class="comment">//  Dark fade to black</span>
     }
 }</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L494-L510</em></p>
