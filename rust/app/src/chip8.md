@@ -100,6 +100,8 @@ impl libchip8::Hardware for Hardware {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L169-L198_
 
+_(`u8` means unsigned byte; `usize` is similar to `size_t` in C )_
+
 The CHIP-8 Emulator has a simple screen layout: 64 rows, 32 columns, 1-bit colour (black or white). `vram_set` updates the pixel colour in a greyscale memory buffer named `SCREEN_BUFFER` that's only 2 KB (64 rows of 32 bytes)...
 
 ```rust
@@ -329,24 +331,33 @@ _(Oh yes I love Rust tuples! As much as roti prata!)_
 
 # Render a Block
 
-TODO
+Now we're ready to render a block of CHIP-8 Virtual Pixels (that has been checked by `render_region` and won't overflow the SPI buffer)...
 
 ```rust
 /// Render the Virtual Block
 fn render_block(left: u8, top: u8, right: u8, bottom: u8) {
-    //  Create a new block for the region to be updated
+    //  Create an iterator for the Physical Pixels to be rendered
     let mut block = PixelIterator::new(
         left, top, 
         right, bottom,
     );
-    //  Render the block
+    //  Get the Physical Pixel dimensions of the Virtual Pixels
     let (left_physical, top_physical, right_physical, bottom_physical) = block.get_window();
+    //  Render the block via the iterator
     druid::set_display_pixels(left_physical as u16, top_physical as u16, right_physical as u16, bottom_physical as u16,
         &mut block
     ).expect("set pixels failed");    
 }
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L306-L319_
+
+_Rendering a block of CHIP-8 Virtual Pixels looks suspiciously simple... What's happening here? What's an Iterator?_
+
+A Rust Iterator loops over individual values in an array of values. (It's often used in `for` loops)
+
+Here we create a Rust Iterator that loops over individual Physical PineTime Pixels to be rendered (based on the Virtual CHIP-8 Block that's passed in).
+
+The values returned by the Rust Iterator are 16-bit colour values. Our Rust display driver for PineTime is capable of calling the Rust Iterator to blast all the 16-bit colour values as a single SPI operation. Super efficient!
 
 # Iterate Pixels in a Block
 
