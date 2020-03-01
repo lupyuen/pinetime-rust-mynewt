@@ -195,26 +195,32 @@
 <span class="doccomment">/// The greyscale is mapped to 16-bit colour for display.</span>
 <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">SCREEN_BUFFER</span>: [<span class="ident">u8</span>; <span class="ident">SCREEN_WIDTH</span> <span class="op">*</span> <span class="ident">SCREEN_HEIGHT</span>] <span class="op">=</span> [<span class="number">0</span>; <span class="ident">SCREEN_WIDTH</span> <span class="op">*</span> <span class="ident">SCREEN_HEIGHT</span>];  <span class="comment">//  2 KB (64 rows of 32 bytes), u8 means unsigned byte</span></pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L19-L37</em></p>
-<p><em>Why did we allocate 8 bits per pixel in <code>SCREEN_BUFFER</code>?</em> So that we can implement interesting colour effects. (We'll cover this later) We actually update <code>SCREEN_BUFFER</code> with a greyscale colour like this...</p>
+<p><em>Why did we allocate 8 bits per pixel in <code>SCREEN_BUFFER</code>?</em> </p>
+<p>So that we can implement interesting colour effects. (We'll cover this later) We actually update <code>SCREEN_BUFFER</code> with a greyscale colour like this...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-        <span class="kw">unsafe</span> { <span class="ident">SCREEN_BUFFER</span>[<span class="ident">i</span>] <span class="op">=</span> 
-            <span class="kw">if</span> <span class="ident">color</span> {
-                <span class="kw">if</span> <span class="self">self</span>.<span class="ident">is_interactive</span> { <span class="number">255</span> }  <span class="comment">//  Brighter colour when emulator is active</span>
-                <span class="kw">else</span> { <span class="number">200</span> }                    <span class="comment">//  Darker colour for initial screen</span>
-            } 
-            <span class="kw">else</span> { 
-                <span class="kw">if</span> <span class="self">self</span>.<span class="ident">is_interactive</span> { <span class="number">127</span> }  <span class="comment">//  Fade to black</span>
-                <span class="kw">else</span> { <span class="number">0</span> }                      <span class="comment">//  Black for initial screen                 </span>
-            }  
-        };</pre></div>
+<span class="kw">unsafe</span> { <span class="ident">SCREEN_BUFFER</span>[<span class="ident">i</span>] <span class="op">=</span> 
+    <span class="kw">if</span> <span class="ident">color</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">is_interactive</span> { <span class="number">255</span> }  <span class="comment">//  Brighter colour when emulator is active</span>
+        <span class="kw">else</span> { <span class="number">200</span> }                    <span class="comment">//  Darker colour for initial screen</span>
+    } 
+    <span class="kw">else</span> { 
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">is_interactive</span> { <span class="number">127</span> }  <span class="comment">//  Fade to black</span>
+        <span class="kw">else</span> { <span class="number">0</span> }                      <span class="comment">//  Black for initial screen                 </span>
+    }  
+};</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L169-L198</em></p>
-<p><em>Something seems to be missing... <code>vram_set</code> is updating a screen buffer in memory... But we haven't actually updated the PineTime display!</em></p>
+<p><em>Something seems to be missing... <code>vram_set</code> updates a screen buffer in memory... But we haven't actually updated the PineTime display!</em></p>
 <p><code>vram_set</code> is called every time the Emulator paints a pixel. Instead of refreshing the PineTime display pixel by pixel, we update the display by <strong>Sprite</strong> instead. </p>
-<p><em>(What's a Sprite? No not the lemon-lime drink... It's the graphic that moves around in a game. In the Blinky / Pac-Man game, Pac-Man and the Ghosts are rendered as Sprites)</em></p>
-<p><em>How do we know when a Sprite has been drawn?</em> We detect that in the <code>sched</code> function, where we update the PineTime display too.</p>
+<p><em>What's a Sprite?</em></p>
+<p>No not the lemon-lime drink... It's the graphic that moves around in a game. In the Blinky / Pac-Man game, Pac-Man and the Ghosts are rendered as Sprites.</p>
+<p><em>How do we know when a Sprite has been drawn?</em> </p>
+<p>We detect that in the <code>sched</code> function, where we update the PineTime display too.</p>
 <h1 id="render-thedisplay" class="section-header"><a href="#render-thedisplay">5 Render the Display</a></h1>
-<p>TODO</p>
+<p><em>How does CHIP-8 run game programs and render Sprites?</em></p>
+<p>Think of CHIP-8 as an old-style home computer from the 1980s. It executes simple 8-bit Instructions (Opcodes), reading and writing data to CPU registers and RAM.</p>
+<p>CHIP-8 has a unique Instruction that's not found in computers from the 1980s... An Instruction that <strong>renders Sprites.</strong> Since CHIP-8 renders Sprites as an CHIP-8 Instruction, we should update the PineTime screen only when the CHIP-8 Instruction has completed.</p>
+<p>The CHIP-8 Emulator provides a convenient hook for that... It calls <code>sched</code> after executing every CHIP-8 Instruction...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">impl</span> <span class="ident">libchip8</span>::<span class="ident">Hardware</span> <span class="kw">for</span> <span class="ident">Hardware</span> {
@@ -246,15 +252,33 @@
         );
 
         <span class="comment">//  Reset the screen region to be updated</span>
-        <span class="self">self</span>.<span class="ident">update_left</span> <span class="op">=</span> <span class="number">0</span>;
-        <span class="self">self</span>.<span class="ident">update_top</span> <span class="op">=</span> <span class="number">0</span>;
-        <span class="self">self</span>.<span class="ident">update_right</span> <span class="op">=</span> <span class="number">0</span>;
+        <span class="self">self</span>.<span class="ident">update_left</span>   <span class="op">=</span> <span class="number">0</span>;
+        <span class="self">self</span>.<span class="ident">update_top</span>    <span class="op">=</span> <span class="number">0</span>;
+        <span class="self">self</span>.<span class="ident">update_right</span>  <span class="op">=</span> <span class="number">0</span>;
         <span class="self">self</span>.<span class="ident">update_bottom</span> <span class="op">=</span> <span class="number">0</span>;
 
         <span class="comment">//  Return false to indicate no shutdown</span>
         <span class="bool-val">false</span>
     }</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L231-L268</em></p>
+<p>Instead of updating the entire PineTime display, we update only the rectangular portion that has been changed, by calling <code>render_region</code>.</p>
+<p><em>(Recall that screen updates are tracked by <code>vram_set</code>)</em></p>
+<p>Updating the PineTime display really slows down the CHIP-8 Emulator, so we defer all display updates until absolutely necessary.</p>
+<p><em>When is it absolutely necessary to update the PineTime display?</em></p>
+<p><em>That's when the game has rendered something and is checking the player has pressed any buttons</em></p>
+<p>Thus we have these conditions to defer the PineTime display updates in <code>sched</code>...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">//  If emulator is preparing the initial screen, refresh the screen later</span>
+<span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">is_interactive</span> { <span class="kw">return</span> <span class="bool-val">false</span>; }
+
+<span class="comment">//  If emulator is not ready to accept input, refresh the screen later</span>
+<span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">is_checking_input</span> { <span class="kw">return</span> <span class="bool-val">false</span>; }
+<span class="self">self</span>.<span class="ident">is_checking_input</span> <span class="op">=</span> <span class="bool-val">false</span>;</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L231-L268</em></p>
+<p><code>is_interactive</code> and <code>is_checking_input</code> are flags set in the <code>key</code> function, which is called whenever the CHIP-8 Emulator is checking for button presses.</p>
+<p>These simple conditions for defering the PineTime rendering are extremely effective. They make the PineTime CHIP-8 Emulator refresh some screens quicker than other versions of the CHIP-8 Emulator.</p>
+<p><em>(Compare the loading screen for Blinky on PineTime vs other platforms)</em></p>
 <h1 id="render-aregion" class="section-header"><a href="#render-aregion">6 Render a Region</a></h1>
 <p>TODO</p>
 
