@@ -32,66 +32,6 @@ I have some ideas how to optimise the rendering (e.g. batching of pixels into bl
 
 How about we take some retro games and turn them into PineTime Watch Faces?
 
-# Map the Emulator Display to PineTime Display
-
-TODO
-
-```rust
-/// CHIP8 Physical Screen size, in Physical Pixels
-const PHYSICAL_WIDTH: usize = 240;
-const PHYSICAL_HEIGHT: usize = 200;
-
-/// CHIP8 Virtual Screen size, in Virtual Pixels
-const SCREEN_WIDTH: usize = 64;
-const SCREEN_HEIGHT: usize = 32;
-
-/// CHIP8 Virtual Block size. We render the CHIP8 Virtual Screen in blocks of Virtual Pixels, without overflowing the SPI buffer.
-/// PendingDataSize in SPI is 8192. (BLOCK_WIDTH * PIXEL_WIDTH * BLOCK_HEIGHT * PIXEL_HEIGHT) * 2 must be less than PendingDataSize
-const BLOCK_HEIGHT: usize = 5;  //  Letter height
-const BLOCK_WIDTH: usize = 32;
-
-/// CHIP8 Virtual Pixel size, in Physical Pixels
-const PIXEL_WIDTH: usize = 3;
-const PIXEL_HEIGHT: usize = 5;
-```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L19-L37_
-
-# Clear the PineTime Display
-
-TODO
-
-```rust
-/// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
-pub fn on_start() -> MynewtResult<()> {
-    console::print("Rust CHIP8\n"); console::flush();
-    
-    //  Create black background
-    let background = Rectangle::<Rgb565>
-        ::new( Coord::new( 0, 0 ), Coord::new( 239, 239 ) )   //  Rectangle coordinates
-        .fill( Some( Rgb565::from(( 0x00, 0x00, 0x00 )) ) );  //  Black
-
-    //  Render background to display
-    druid::draw_to_display(background);
-    render_region(0, 0, SCREEN_WIDTH as u8 - 1, SCREEN_HEIGHT as u8 - 1);
-
-    //  Start the emulator in a background task
-    os::task_init(                  //  Create a new task and start it...
-        unsafe { &mut CHIP8_TASK }, //  Task object will be saved here
-        &init_strn!( "chip8" ),     //  Name of task
-        Some( task_func ),    //  Function to execute when task starts
-        NULL,  //  Argument to be passed to above function
-        20,    //  Task priority: highest is 0, lowest is 255 (main task is 127), SPI is 10
-        os::OS_WAIT_FOREVER as u32,       //  Don't do sanity / watchdog checking
-        unsafe { &mut CHIP8_TASK_STACK }, //  Stack space for the task
-        CHIP8_TASK_STACK_SIZE as u16      //  Size of the stack (in 4-byte units)
-    ) ? ;                                 //  `?` means check for error
-
-    //  Return success to the caller
-    Ok(())
-}
-```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L39-L66_
-
 # Start the CHIP-8 Emulator
 
 We're using the [libchip8 CHIP-8 Emulator for Rust](https://github.com/YushiOMOTE/libchip8). To start the emulator, we load the ROM file for the CHIP-8 game into memory, and call the Emulator to start the game...
@@ -283,7 +223,7 @@ _(Compare the loading screen for Blinky on PineTime vs other platforms)_
 
 # Render a Region
 
-TODO
+Previously in `sched` we have identified the rectangular region of the PineTime display to be updated. We could call `render_region` to render the entire region to the PineTime display in a __single SPI operation__ like this...
 
 ```rust
 /// Render the Virtual Screen region
@@ -296,6 +236,65 @@ fn render_region(left: u8, top: u8, right: u8, bottom: u8) {
     if physical_width + physical_height <= (BLOCK_WIDTH * PIXEL_WIDTH) + (BLOCK_HEIGHT * PIXEL_HEIGHT) {  //  Will not overflow SPI buffer
         render_block(left, top, right, bottom);
     } else {
+        ...
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L271-L304_
+
+_...But it won't always work!_
+
+Our Rust display driver for PineTime has a buffer size of __8 KB.__
+
+Since one pixel on the PineTime display has 16-bit colour, that means we can (roughly) transmit at most __4,096 pixels in a single SPI operation.__
+
+_If we need to update the __entire CHIP-8 Emulator screen__, how many pixels would we need to transmit?_
+
+```rust
+/// CHIP8 Physical Screen size, in Physical Pixels
+const PHYSICAL_WIDTH:  usize = 240;
+const PHYSICAL_HEIGHT: usize = 200;
+
+/// CHIP8 Virtual Screen size, in Virtual Pixels
+const SCREEN_WIDTH:  usize = 64;
+const SCREEN_HEIGHT: usize = 32;
+
+/// CHIP8 Virtual Pixel size, in Physical Pixels
+const PIXEL_WIDTH:  usize = 3;  //  One Virtual Pixel = 3 x 5 Physical Pixels
+const PIXEL_HEIGHT: usize = 5;
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L19-L37_
+
+To update the entite CHIP-8 display, we would need to transmit __48,000 pixels__ over SPI (`PHYSICAL_WIDTH` * `PHYSICAL_HEIGHT`)... Waaaaay too many pixels!
+
+_Why so many pixels? Isn't the CHIP-8 screen size only 64 x 32? (`SCREEN_WIDTH` by `SCREEN_HEIGHT`)_
+
+Yeah but we need to __stretch every CHIP-8 Virtual Pixel into 15 PineTime Physical Pixels__ to fill the PineTime display!
+
+_(That's 3 * 5... `PIXEL_WIDTH` * `PIXEL_HEIGHT`)_
+
+Unfortunately the PineTime display controller (ST7789) doesn't handle stretching, so we need to do the stretching ourselves.
+
+_(But don't fret... There's something interesting we shall see later... We can do curved stretching! Just like making pizza or roti prata!)_
+
+Thus to prevent the SPI buffer from overflowing, we update the screen in blocks of 32 by 5 Virtual Pixels on CHIP-8... (Or 96 by 25 Physical Pixels on the PineTime display)
+
+```rust
+/// CHIP8 Virtual Block size. We render the CHIP8 Virtual Screen in blocks of Virtual Pixels, without overflowing the SPI buffer.
+/// PendingDataSize in SPI is 8192. (BLOCK_WIDTH * PIXEL_WIDTH * BLOCK_HEIGHT * PIXEL_HEIGHT) * 2 must be less than PendingDataSize
+const BLOCK_WIDTH:  usize = 32;
+const BLOCK_HEIGHT: usize = 5;  //  Letter height
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L27-L33_
+
+Here's how we break the rendering region into smaller blocks to be rendered by `render_block`...
+
+```rust
+/// Render the Virtual Screen region
+fn render_region(left: u8, top: u8, right: u8, bottom: u8) {
+    ...
+    //  If the update region is small, render with a single block
+    if physical_width + physical_height <= (BLOCK_WIDTH * PIXEL_WIDTH) + (BLOCK_HEIGHT * PIXEL_HEIGHT) {
+        ...
+    } else {
         //  If the update region is too big for a single block, break the region into blocks and render
         let mut x = left;
         let mut y = top;
@@ -306,7 +305,6 @@ fn render_region(left: u8, top: u8, right: u8, bottom: u8) {
             let physical_box    = get_bounding_box(left, top, right, bottom);  //  Returns (left,top,right,bottom)
             let physical_width  = (physical_box.2 - physical_box.0 + 1) as usize;
             let physical_height = (physical_box.3 - physical_box.1 + 1) as usize;
-            //  assert!(physical_width + physical_height <= (BLOCK_WIDTH * PIXEL_WIDTH) + (BLOCK_HEIGHT * PIXEL_HEIGHT), "region overflow");
             render_block(x, y,
                 block_right,
                 block_bottom
@@ -322,6 +320,12 @@ fn render_region(left: u8, top: u8, right: u8, bottom: u8) {
 }
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L271-L304_
+
+The function `get_bounding_box(left, top, right, bottom)` simply returns a Rust tuple `(left, top, right, bottom)` that may be accessed by using the `.0`, `.1`, `.2` and `.3` notation (shown above like `physical_box.0`).
+
+`get_bounding_box` doesn't do much now... But it will become very interesting later when we stretch the CHIP-8 pixels in a curvy way.
+
+_(Oh yes I love Rust tuples!)_
 
 # Render a Block
 
@@ -631,6 +635,89 @@ impl Iterator for PixelIterator {
     }    
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L457-L491_
+
+# Check for Input
+
+```rust
+/// Handle touch events to emulate buttons
+pub fn handle_touch(x: u16, _y: u16) { 
+    //  We only handle 3 keys: 4, 5, 6, which correspond to Left, Centre, Right
+    //  console::print("CHIP8 touch\n"); console::flush(); 
+    let key = 
+        if x < PHYSICAL_WIDTH as u16 / 3 { Some(4) }
+        else if x < 2 * PHYSICAL_WIDTH as u16 / 3 { Some(5) }
+        else { Some(6) };
+    unsafe { KEY_PRESSED = key };
+}
+
+/// Represents the key pressed: 0-9 for keys "0" to "9", 0xa-0xf to keys "A" to "F", None for nothing pressed
+static mut KEY_PRESSED: Option<u8> = None;
+
+impl libchip8::Hardware for Hardware {
+    /// Check if the key is pressed.
+    fn key(&mut self, key: u8) -> bool {
+        //  key is 0-9 for keys "0" to "9", 0xa-0xf to keys "A" to "F"
+        if !self.is_interactive {
+            self.is_interactive = true;
+            console::print("key\n"); console::flush(); ////
+        }
+        self.is_checking_input = true;
+        //  Compare the key with the last touch event
+        if unsafe { KEY_PRESSED == Some(key) } {
+            unsafe { KEY_PRESSED = None };  //  Clear the touch event
+            return true;
+        }
+        false
+    }
+```
+
+# Clear the PineTime Display
+
+TODO
+
+```rust
+/// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
+pub fn on_start() -> MynewtResult<()> {
+    console::print("Rust CHIP8\n"); console::flush();
+    
+    //  Create black background
+    let background = Rectangle::<Rgb565>
+        ::new( Coord::new( 0, 0 ), Coord::new( 239, 239 ) )   //  Rectangle coordinates
+        .fill( Some( Rgb565::from(( 0x00, 0x00, 0x00 )) ) );  //  Black
+
+    //  Render background to display
+    druid::draw_to_display(background);
+    render_region(0, 0, SCREEN_WIDTH as u8 - 1, SCREEN_HEIGHT as u8 - 1);
+
+    //  Start the emulator in a background task
+    os::task_init(                  //  Create a new task and start it...
+        unsafe { &mut CHIP8_TASK }, //  Task object will be saved here
+        &init_strn!( "chip8" ),     //  Name of task
+        Some( task_func ),    //  Function to execute when task starts
+        NULL,  //  Argument to be passed to above function
+        20,    //  Task priority: highest is 0, lowest is 255 (main task is 127), SPI is 10
+        os::OS_WAIT_FOREVER as u32,       //  Don't do sanity / watchdog checking
+        unsafe { &mut CHIP8_TASK_STACK }, //  Stack space for the task
+        CHIP8_TASK_STACK_SIZE as u16      //  Size of the stack (in 4-byte units)
+    ) ? ;                                 //  `?` means check for error
+
+    //  Return success to the caller
+    Ok(())
+}
+
+/// CHIP8 Background Task
+static mut CHIP8_TASK: os::os_task = fill_zero!(os::os_task);
+
+/// Stack space for CHIP8 Task, initialised to 0.
+static mut CHIP8_TASK_STACK: [os::os_stack_t; CHIP8_TASK_STACK_SIZE] = 
+    [0; CHIP8_TASK_STACK_SIZE];
+
+/// Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
+const CHIP8_TASK_STACK_SIZE: usize = 4096;  //  Must be 4096 and above because CHIP8 Emulator requires substantial stack space
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L39-L66_
+
+# Build and Run the Emulator
 
 ```yaml
 [features]
