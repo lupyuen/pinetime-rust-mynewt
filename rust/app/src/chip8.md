@@ -104,18 +104,14 @@ extern "C" fn task_func(_arg: Ptr) {
 
     //  Create the emulator
     let chip8 = libchip8::Chip8::new(hardware);
-    console::print("CHIP8 started\n"); console::flush();
 
     //  Load the emulator ROM
-    //  let rom = include_bytes!("../roms/invaders.ch8");
     let rom = include_bytes!("../roms/blinky.ch8");
-    //  let rom = include_bytes!("../roms/pong.ch8");
 
     //  Run the emulator ROM. This will block until emulator terminates
     chip8.run(rom);
 
     //  Should not come here
-    console::print("CHIP8 done\n"); console::flush();
     assert!(false, "CHIP8 should not end");
 }
 ```
