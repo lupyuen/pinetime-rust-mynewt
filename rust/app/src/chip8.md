@@ -94,7 +94,7 @@ _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/c
 
 # Start the CHIP-8 Emulator
 
-TODO
+We're using the [libchip8 CHIP-8 Emulator for Rust](https://github.com/YushiOMOTE/libchip8). To start the emulator, we load the ROM file for the CHIP-8 game into memory, and call the Emulator to start the game...
 
 ```rust
 ///  Run the emulator
@@ -120,6 +120,17 @@ extern "C" fn task_func(_arg: Ptr) {
 }
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L78-L98_
+
+Note the neat syntax used in Rust to load binary files into memory...
+
+```rust
+    //  Load the emulator ROM
+    let rom = include_bytes!("../roms/blinky.ch8");
+```
+
+`blinky.ch8` is a binary file that contains the program and data for the Blinky CHIP-8 game. By calling the `include_bytes!` macro, we load the entire binary file into memory as a Rust static memory object.
+
+How is `Hardware` used? We'll find out next...
 
 # Set a Pixel Colour
 
@@ -555,3 +566,24 @@ impl Iterator for PixelIterator {
     }    
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L457-L491_
+
+```yaml
+[features]
+default =  [          # Select the conditional compiled features
+    # "display_app",  # Disable graphics display app
+    # "ui_app",       # Disable druid UI app
+    # "visual_app",   # Disable Visual Rust app
+    "chip8_app",      # Enable CHIP8 Emulator app
+    # "chip8_curve",  # Uncomment to render CHIP8 Emulator as curved surface (requires chip8_app)
+    # "use_float",    # Disable floating-point support e.g. GPS geolocation
+]
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml_
+
+```yaml
+syscfg.vals:
+    # OS_MAIN_STACK_SIZE: 1024  #  Small stack size: 4 KB
+    OS_MAIN_STACK_SIZE: 2048    #  Normal stack size: 8 KB
+    # OS_MAIN_STACK_SIZE: 4096  #  Large stack size: 16 KB
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/syscfg.yml_

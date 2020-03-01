@@ -7,7 +7,7 @@
     <title>chip8.rs: CHIP-8 Game Emulator for PineTime Smart Watch with Rust</title>
 
     
-    <!-- Begin Header for Custom Markdown files processed by rustdoc, like chip8.md -->
+    <!-- Begin scripts/rustdoc-header.html: Header for Custom Markdown files processed by rustdoc, like chip8.md -->
 <link rel="stylesheet" type="text/css" href="../normalize.css">
 <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
 <link rel="stylesheet" type="text/css" href="../dark.css">
@@ -20,7 +20,7 @@
         background-image: url("../down-arrow.svg");
     }
 </style>
-<!-- End Header for Custom Markdown files processed by rustdoc -->
+<!-- End scripts/rustdoc-header.html -->
 
 
 </head>
@@ -32,6 +32,8 @@
     </div>
     <![endif]-->
 
+        <!-- Begin scripts/rustdoc-before.html: Pre-HTML for Custom Markdown files processed by rustdoc, like chip8.md -->
+
     <!-- Begin Theme Picker -->
     <div class="theme-picker" style="left: 0"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg"
         width="18" alt="Pick another theme!"></button>
@@ -40,7 +42,9 @@
     <script src="../theme.js"></script>
     <!-- Theme Picker -->
 
+    <!-- End scripts/rustdoc-before.html -->
     
+
     <h1 class="title">chip8.rs: CHIP-8 Game Emulator for PineTime Smart Watch with Rust</h1>
     <nav id="TOC"><ul>
 <li><a href="#map-the-emulator-display-to-pinetimedisplay">1 Map the Emulator Display to PineTime Display</a><ul></ul></li>
@@ -125,7 +129,7 @@
 }</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L39-L66</em></p>
 <h1 id="start-the-chip-8emulator" class="section-header"><a href="#start-the-chip-8emulator">3 Start the CHIP-8 Emulator</a></h1>
-<p>TODO</p>
+<p>We're using the <a href="https://github.com/YushiOMOTE/libchip8">libchip8 CHIP-8 Emulator for Rust</a>. To start the emulator, we load the ROM file for the CHIP-8 game into memory, and call the Emulator to start the game...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">///  Run the emulator</span>
@@ -150,6 +154,13 @@
     <span class="macro">assert</span><span class="macro">!</span>(<span class="bool-val">false</span>, <span class="string">&quot;CHIP8 should not end&quot;</span>);
 }</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L78-L98</em></p>
+<p>Note the neat syntax used in Rust to load binary files into memory...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+    <span class="comment">//  Load the emulator ROM</span>
+    <span class="kw">let</span> <span class="ident">rom</span> <span class="op">=</span> <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../roms/blinky.ch8&quot;</span>);</pre></div>
+<p><code>blinky.ch8</code> is a binary file that contains the program and data for the Blinky CHIP-8 game. By calling the <code>include_bytes!</code> macro, we load the entire binary file into memory as a Rust static memory object.</p>
+<p>How is <code>Hardware</code> used? We'll find out next...</p>
 <h1 id="set-a-pixelcolour" class="section-header"><a href="#set-a-pixelcolour">4 Set a Pixel Colour</a></h1>
 <p>TODO</p>
 
@@ -556,6 +567,23 @@
         <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">color</span>);
     }    </pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L457-L491</em></p>
+<pre><code class="language-yaml">[features]
+default =  [          # Select the conditional compiled features
+    # &quot;display_app&quot;,  # Disable graphics display app
+    # &quot;ui_app&quot;,       # Disable druid UI app
+    # &quot;visual_app&quot;,   # Disable Visual Rust app
+    &quot;chip8_app&quot;,      # Enable CHIP8 Emulator app
+    # &quot;chip8_curve&quot;,  # Uncomment to render CHIP8 Emulator as curved surface (requires chip8_app)
+    # &quot;use_float&quot;,    # Disable floating-point support e.g. GPS geolocation
+]
+</code></pre>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml</em></p>
+<pre><code class="language-yaml">syscfg.vals:
+    # OS_MAIN_STACK_SIZE: 1024  #  Small stack size: 4 KB
+    OS_MAIN_STACK_SIZE: 2048    #  Normal stack size: 8 KB
+    # OS_MAIN_STACK_SIZE: 4096  #  Large stack size: 16 KB
+</code></pre>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/syscfg.yml</em></p>
 
     
 </body>
