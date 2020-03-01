@@ -261,7 +261,7 @@ Updating the PineTime display really slows down the CHIP-8 Emulator, so we defer
 
 _When is it absolutely necessary to update the PineTime display?_
 
-_That's when the game has rendered something and is checking the player has pressed any buttons_
+_That's when the game has rendered something and is checking whether the player has pressed any buttons_
 
 Thus we have these conditions to defer the PineTime display updates in `sched`...
 

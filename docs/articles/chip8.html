@@ -265,7 +265,7 @@
 <p><em>(Recall that screen updates are tracked by <code>vram_set</code>)</em></p>
 <p>Updating the PineTime display really slows down the CHIP-8 Emulator, so we defer all display updates until absolutely necessary.</p>
 <p><em>When is it absolutely necessary to update the PineTime display?</em></p>
-<p><em>That's when the game has rendered something and is checking the player has pressed any buttons</em></p>
+<p><em>That's when the game has rendered something and is checking whether the player has pressed any buttons</em></p>
 <p>Thus we have these conditions to defer the PineTime display updates in <code>sched</code>...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
