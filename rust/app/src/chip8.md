@@ -172,33 +172,45 @@ static mut SCREEN_BUFFER: [u8; SCREEN_WIDTH * SCREEN_HEIGHT] = [0; SCREEN_WIDTH 
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L19-L37_
 
-_Why did we allocate 8 bits per pixel in `SCREEN_BUFFER`?_ So that we can implement interesting colour effects. (We'll cover this later) We actually update `SCREEN_BUFFER` with a greyscale colour like this...
+_Why did we allocate 8 bits per pixel in `SCREEN_BUFFER`?_ 
+
+So that we can implement interesting colour effects. (We'll cover this later) We actually update `SCREEN_BUFFER` with a greyscale colour like this...
 
 ```rust
-        unsafe { SCREEN_BUFFER[i] = 
-            if color {
-                if self.is_interactive { 255 }  //  Brighter colour when emulator is active
-                else { 200 }                    //  Darker colour for initial screen
-            } 
-            else { 
-                if self.is_interactive { 127 }  //  Fade to black
-                else { 0 }                      //  Black for initial screen                 
-            }  
-        };
+unsafe { SCREEN_BUFFER[i] = 
+    if color {
+        if self.is_interactive { 255 }  //  Brighter colour when emulator is active
+        else { 200 }                    //  Darker colour for initial screen
+    } 
+    else { 
+        if self.is_interactive { 127 }  //  Fade to black
+        else { 0 }                      //  Black for initial screen                 
+    }  
+};
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L169-L198_
 
-_Something seems to be missing... `vram_set` is updating a screen buffer in memory... But we haven't actually updated the PineTime display!_
+_Something seems to be missing... `vram_set` updates a screen buffer in memory... But we haven't actually updated the PineTime display!_
 
 `vram_set` is called every time the Emulator paints a pixel. Instead of refreshing the PineTime display pixel by pixel, we update the display by __Sprite__ instead. 
 
-_(What's a Sprite? No not the lemon-lime drink... It's the graphic that moves around in a game. In the Blinky / Pac-Man game, Pac-Man and the Ghosts are rendered as Sprites)_
+_What's a Sprite?_
 
-_How do we know when a Sprite has been drawn?_ We detect that in the `sched` function, where we update the PineTime display too.
+No not the lemon-lime drink... It's the graphic that moves around in a game. In the Blinky / Pac-Man game, Pac-Man and the Ghosts are rendered as Sprites.
+
+_How do we know when a Sprite has been drawn?_ 
+
+We detect that in the `sched` function, where we update the PineTime display too.
 
 # Render the Display
 
-TODO
+_How does CHIP-8 run game programs and render Sprites?_
+
+Think of CHIP-8 as an old-style home computer from the 1980s. It executes simple 8-bit Instructions (Opcodes), reading and writing data to CPU registers and RAM.
+
+CHIP-8 has a unique Instruction that's not found in computers from the 1980s... An Instruction that __renders Sprites.__ Since CHIP-8 renders Sprites as an CHIP-8 Instruction, we should update the PineTime screen only when the CHIP-8 Instruction has completed.
+
+The CHIP-8 Emulator provides a convenient hook for that... It calls `sched` after executing every CHIP-8 Instruction...
 
 ```rust
 impl libchip8::Hardware for Hardware {
@@ -230,9 +242,9 @@ impl libchip8::Hardware for Hardware {
         );
 
         //  Reset the screen region to be updated
-        self.update_left = 0;
-        self.update_top = 0;
-        self.update_right = 0;
+        self.update_left   = 0;
+        self.update_top    = 0;
+        self.update_right  = 0;
         self.update_bottom = 0;
 
         //  Return false to indicate no shutdown
@@ -240,6 +252,34 @@ impl libchip8::Hardware for Hardware {
     }
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L231-L268_
+
+Instead of updating the entire PineTime display, we update only the rectangular portion that has been changed, by calling `render_region`.
+
+_(Recall that screen updates are tracked by `vram_set`)_
+
+Updating the PineTime display really slows down the CHIP-8 Emulator, so we defer all display updates until absolutely necessary.
+
+_When is it absolutely necessary to update the PineTime display?_
+
+_That's when the game has rendered something and is checking the player has pressed any buttons_
+
+Thus we have these conditions to defer the PineTime display updates in `sched`...
+
+```rust
+//  If emulator is preparing the initial screen, refresh the screen later
+if !self.is_interactive { return false; }
+
+//  If emulator is not ready to accept input, refresh the screen later
+if !self.is_checking_input { return false; }
+self.is_checking_input = false;
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L231-L268_
+
+`is_interactive` and `is_checking_input` are flags set in the `key` function, which is called whenever the CHIP-8 Emulator is checking for button presses.
+
+These simple conditions for defering the PineTime rendering are extremely effective. They make the PineTime CHIP-8 Emulator refresh some screens quicker than other versions of the CHIP-8 Emulator.
+
+_(Compare the loading screen for Blinky on PineTime vs other platforms)_
 
 # Render a Region
 
