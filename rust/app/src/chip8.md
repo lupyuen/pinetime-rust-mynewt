@@ -351,17 +351,17 @@ fn render_block(left: u8, top: u8, right: u8, bottom: u8) {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L306-L319_
 
-_Rendering a block of CHIP-8 Virtual Pixels looks suspiciously simple... What's happening here? What's an Iterator?_
+_Rendering a block of CHIP-8 Virtual Pixels looks suspiciously simple... What's an Iterator?_
 
-A Rust Iterator loops over individual values in an array of values. (It's often used in `for` loops)
+A Rust Iterator loops over individual values in a sequence of values. (It's often used in `for` loops)
 
 Here we create a Rust Iterator that loops over individual Physical PineTime Pixels to be rendered (based on the Virtual CHIP-8 Block that's passed in).
 
-The values returned by the Rust Iterator are 16-bit colour values. Our Rust display driver for PineTime is capable of calling the Rust Iterator to enumerate all the 16-bit colour values and blast everything in a single SPI operation. Super efficient!
+The values returned by the Rust Iterator are 16-bit colour values. Our Rust display driver for PineTime calls the Rust Iterator to enumerate all the 16-bit colour values and blast all values in a single SPI operation. Super efficient!
 
 # Iterate Pixels in a Block
 
-Here's the implementation of our iterator that enumerates all Physical Pixel Colours within a Virtual Pixel Block that's defined by the Virtual `(x, y)` Coordinates `(block_left, block_top)` and `(block_right, block_bottom)`...
+Here's the implementation of our iterator that enumerates all Physical Pixel Colours within a Virtual Pixel Block that's defined by the Virtual `(x, y)` Coordinates from `(block_left, block_top)` to `(block_right, block_bottom)`...
 
 ```rust
 /// Implement the Iterator for Virtual Pixels in a Virtual Block
