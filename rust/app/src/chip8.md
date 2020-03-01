@@ -130,18 +130,53 @@ How is `Hardware` used? We'll find out next...
 
 # Set a Pixel Colour
 
-TODO
+`libchip8` is a clever CHIP-8 Emulator that supports all kinds of platforms, including Windows. _How does it do that?_
+
+`libchip8` abstracts all platform-specific operations (like Screen Updates) into the `Hardware` trait.  Here's how we implement the `Hardware` trait on PineTime to set a screen pixel on or off...
 
 ```rust
 impl libchip8::Hardware for Hardware {
-    /// Set the state of a pixel in the screen. true for white, and false for black.
-    fn vram_set(&mut self, x: usize, y: usize, d: bool) {
-        //  console::print("set "); console::printint(x as i32); console::print(", "); console::printint(y as i32); console::print("\n"); console::flush(); ////
-        assert!(x < SCREEN_WIDTH, "x overflow");
-        assert!(y < SCREEN_HEIGHT, "y overflow");
-        let i = x + y * SCREEN_WIDTH;
+    /// Set the color of a pixel in the screen. true for white, and false for black.
+    fn vram_set(&mut self, x: usize, y: usize, color: bool) {
+        assert!(x < SCREEN_WIDTH,  "x overflow");  //  x must be 0 to 63
+        assert!(y < SCREEN_HEIGHT, "y overflow");  //  y must be 0 to 31
+        let i = x + y * SCREEN_WIDTH;              //  index into screen buffer
+        unsafe { SCREEN_BUFFER[i] =  //  Screen the screen buffer to...
+            if color { 255 }         //  White pixel
+            else     {   0 }         //  Black pixel
+        };
+        //  Remember the boundary of the screen region to be updated
+        if self.update_left == 0 && self.update_right == 0 &&
+            self.update_top == 0 && self.update_bottom == 0 {
+            self.update_left = x as u8; self.update_right  = x as u8;
+            self.update_top  = y as u8; self.update_bottom = y as u8;
+        }
+        //  If this pixel is outside the the boundary of the screen region to be updated, extend the boundary
+        if (x as u8) < self.update_left   { self.update_left = x as u8;   }
+        if (x as u8) > self.update_right  { self.update_right = x as u8;  }
+        if (y as u8) < self.update_top    { self.update_top = y as u8;    }
+        if (y as u8) > self.update_bottom { self.update_bottom = y as u8; }
+    }
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L169-L198_
+
+The CHIP-8 Emulator has a simple screen layout: 64 rows, 32 columns, 1-bit colour (black or white). `vram_set` updates the pixel colour in a greyscale memory buffer named `SCREEN_BUFFER` that's only 2 KB (64 rows of 32 bytes)...
+
+```rust
+/// CHIP8 Virtual Screen size, in Virtual Pixels
+const SCREEN_WIDTH:  usize = 64;
+const SCREEN_HEIGHT: usize = 32;
+/// CHIP8 Virtual Screen Buffer, 8-bit greyscale (from black=0 to white=255) per Virtual Pixel.
+/// The greyscale is mapped to 16-bit colour for display.
+static mut SCREEN_BUFFER: [u8; SCREEN_WIDTH * SCREEN_HEIGHT] = [0; SCREEN_WIDTH * SCREEN_HEIGHT];  //  2 KB (64 rows of 32 bytes), u8 means unsigned byte
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L19-L37_
+
+_Why did we allocate 8 bits per pixel in `SCREEN_BUFFER`?_ So that we can implement interesting colour effects. (We'll cover this later) We actually update `SCREEN_BUFFER` with a greyscale colour like this...
+
+```rust
         unsafe { SCREEN_BUFFER[i] = 
-            if d {
+            if color {
                 if self.is_interactive { 255 }  //  Brighter colour when emulator is active
                 else { 200 }                    //  Darker colour for initial screen
             } 
@@ -150,22 +185,16 @@ impl libchip8::Hardware for Hardware {
                 else { 0 }                      //  Black for initial screen                 
             }  
         };
-
-        //  Remember the boundaries of the screen region to be updated
-        if self.update_left == 0 && self.update_right == 0 &&
-            self.update_top == 0 && self.update_bottom == 0 {
-            self.update_left = x as u8;
-            self.update_right = x as u8;
-            self.update_top = y as u8;
-            self.update_bottom = y as u8;
-        }
-        if (x as u8) < self.update_left { self.update_left = x as u8; }
-        if (x as u8) > self.update_right { self.update_right = x as u8; }
-        if (y as u8) < self.update_top { self.update_top = y as u8; }
-        if (y as u8) > self.update_bottom { self.update_bottom = y as u8; }
-    }
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L169-L198_
+
+_Something seems to be missing... `vram_set` is updating a screen buffer in memory... But we haven't actually updated the PineTime display!_
+
+`vram_set` is called every time the Emulator paints a pixel. Instead of refreshing the PineTime display pixel by pixel, we update the display by __Sprite__ instead. 
+
+_(What's a Sprite? No not the lemon-lime drink... It's the graphic that moves around in a game. In the Blinky / Pac-Man game, Pac-Man and the Ghosts are rendered as Sprites)_
+
+_How do we know when a Sprite has been drawn?_ We detect that in the `sched` function, where we update the PineTime display too.
 
 # Render the Display
 
