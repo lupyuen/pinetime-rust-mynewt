@@ -158,18 +158,48 @@
 <p><code>blinky.ch8</code> is a binary file that contains the program and data for the Blinky CHIP-8 game. By calling the <code>include_bytes!</code> macro, we load the entire binary file into memory as a Rust static memory object.</p>
 <p>How is <code>Hardware</code> used? We'll find out next...</p>
 <h1 id="set-a-pixelcolour" class="section-header"><a href="#set-a-pixelcolour">4 Set a Pixel Colour</a></h1>
-<p>TODO</p>
+<p><code>libchip8</code> is a clever CHIP-8 Emulator that supports all kinds of platforms, including Windows. <em>How does it do that?</em></p>
+<p><code>libchip8</code> abstracts all platform-specific operations (like Screen Updates) into the <code>Hardware</code> trait.  Here's how we implement the <code>Hardware</code> trait on PineTime to set a screen pixel on or off...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">impl</span> <span class="ident">libchip8</span>::<span class="ident">Hardware</span> <span class="kw">for</span> <span class="ident">Hardware</span> {
-    <span class="doccomment">/// Set the state of a pixel in the screen. true for white, and false for black.</span>
-    <span class="kw">fn</span> <span class="ident">vram_set</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">x</span>: <span class="ident">usize</span>, <span class="ident">y</span>: <span class="ident">usize</span>, <span class="ident">d</span>: <span class="ident">bool</span>) {
-        <span class="comment">//  console::print(&quot;set &quot;); console::printint(x as i32); console::print(&quot;, &quot;); console::printint(y as i32); console::print(&quot;\n&quot;); console::flush(); ////</span>
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">x</span> <span class="op">&lt;</span> <span class="ident">SCREEN_WIDTH</span>, <span class="string">&quot;x overflow&quot;</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">y</span> <span class="op">&lt;</span> <span class="ident">SCREEN_HEIGHT</span>, <span class="string">&quot;y overflow&quot;</span>);
-        <span class="kw">let</span> <span class="ident">i</span> <span class="op">=</span> <span class="ident">x</span> <span class="op">+</span> <span class="ident">y</span> <span class="op">*</span> <span class="ident">SCREEN_WIDTH</span>;
+    <span class="doccomment">/// Set the color of a pixel in the screen. true for white, and false for black.</span>
+    <span class="kw">fn</span> <span class="ident">vram_set</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">x</span>: <span class="ident">usize</span>, <span class="ident">y</span>: <span class="ident">usize</span>, <span class="ident">color</span>: <span class="ident">bool</span>) {
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">x</span> <span class="op">&lt;</span> <span class="ident">SCREEN_WIDTH</span>,  <span class="string">&quot;x overflow&quot;</span>);  <span class="comment">//  x must be 0 to 63</span>
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">y</span> <span class="op">&lt;</span> <span class="ident">SCREEN_HEIGHT</span>, <span class="string">&quot;y overflow&quot;</span>);  <span class="comment">//  y must be 0 to 31</span>
+        <span class="kw">let</span> <span class="ident">i</span> <span class="op">=</span> <span class="ident">x</span> <span class="op">+</span> <span class="ident">y</span> <span class="op">*</span> <span class="ident">SCREEN_WIDTH</span>;              <span class="comment">//  index into screen buffer</span>
+        <span class="kw">unsafe</span> { <span class="ident">SCREEN_BUFFER</span>[<span class="ident">i</span>] <span class="op">=</span>  <span class="comment">//  Screen the screen buffer to...</span>
+            <span class="kw">if</span> <span class="ident">color</span> { <span class="number">255</span> }         <span class="comment">//  White pixel</span>
+            <span class="kw">else</span>     {   <span class="number">0</span> }         <span class="comment">//  Black pixel</span>
+        };
+        <span class="comment">//  Remember the boundary of the screen region to be updated</span>
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">update_left</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="self">self</span>.<span class="ident">update_right</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span>
+            <span class="self">self</span>.<span class="ident">update_top</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="self">self</span>.<span class="ident">update_bottom</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
+            <span class="self">self</span>.<span class="ident">update_left</span> <span class="op">=</span> <span class="ident">x</span> <span class="kw">as</span> <span class="ident">u8</span>; <span class="self">self</span>.<span class="ident">update_right</span>  <span class="op">=</span> <span class="ident">x</span> <span class="kw">as</span> <span class="ident">u8</span>;
+            <span class="self">self</span>.<span class="ident">update_top</span>  <span class="op">=</span> <span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>; <span class="self">self</span>.<span class="ident">update_bottom</span> <span class="op">=</span> <span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>;
+        }
+        <span class="comment">//  If this pixel is outside the the boundary of the screen region to be updated, extend the boundary</span>
+        <span class="kw">if</span> (<span class="ident">x</span> <span class="kw">as</span> <span class="ident">u8</span>) <span class="op">&lt;</span> <span class="self">self</span>.<span class="ident">update_left</span>   { <span class="self">self</span>.<span class="ident">update_left</span> <span class="op">=</span> <span class="ident">x</span> <span class="kw">as</span> <span class="ident">u8</span>;   }
+        <span class="kw">if</span> (<span class="ident">x</span> <span class="kw">as</span> <span class="ident">u8</span>) <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">update_right</span>  { <span class="self">self</span>.<span class="ident">update_right</span> <span class="op">=</span> <span class="ident">x</span> <span class="kw">as</span> <span class="ident">u8</span>;  }
+        <span class="kw">if</span> (<span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>) <span class="op">&lt;</span> <span class="self">self</span>.<span class="ident">update_top</span>    { <span class="self">self</span>.<span class="ident">update_top</span> <span class="op">=</span> <span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>;    }
+        <span class="kw">if</span> (<span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>) <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">update_bottom</span> { <span class="self">self</span>.<span class="ident">update_bottom</span> <span class="op">=</span> <span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>; }
+    }</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L169-L198</em></p>
+<p>The CHIP-8 Emulator has a simple screen layout: 64 rows, 32 columns, 1-bit colour (black or white). <code>vram_set</code> updates the pixel colour in a greyscale memory buffer named <code>SCREEN_BUFFER</code> that's only 2 KB (64 rows of 32 bytes)...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// CHIP8 Virtual Screen size, in Virtual Pixels</span>
+<span class="kw">const</span> <span class="ident">SCREEN_WIDTH</span>:  <span class="ident">usize</span> <span class="op">=</span> <span class="number">64</span>;
+<span class="kw">const</span> <span class="ident">SCREEN_HEIGHT</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">32</span>;
+<span class="doccomment">/// CHIP8 Virtual Screen Buffer, 8-bit greyscale (from black=0 to white=255) per Virtual Pixel.</span>
+<span class="doccomment">/// The greyscale is mapped to 16-bit colour for display.</span>
+<span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">SCREEN_BUFFER</span>: [<span class="ident">u8</span>; <span class="ident">SCREEN_WIDTH</span> <span class="op">*</span> <span class="ident">SCREEN_HEIGHT</span>] <span class="op">=</span> [<span class="number">0</span>; <span class="ident">SCREEN_WIDTH</span> <span class="op">*</span> <span class="ident">SCREEN_HEIGHT</span>];  <span class="comment">//  2 KB (64 rows of 32 bytes), u8 means unsigned byte</span></pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L19-L37</em></p>
+<p><em>Why did we allocate 8 bits per pixel in <code>SCREEN_BUFFER</code>?</em> So that we can implement interesting colour effects. (We'll cover this later) We actually update <code>SCREEN_BUFFER</code> with a greyscale colour like this...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
         <span class="kw">unsafe</span> { <span class="ident">SCREEN_BUFFER</span>[<span class="ident">i</span>] <span class="op">=</span> 
-            <span class="kw">if</span> <span class="ident">d</span> {
+            <span class="kw">if</span> <span class="ident">color</span> {
                 <span class="kw">if</span> <span class="self">self</span>.<span class="ident">is_interactive</span> { <span class="number">255</span> }  <span class="comment">//  Brighter colour when emulator is active</span>
                 <span class="kw">else</span> { <span class="number">200</span> }                    <span class="comment">//  Darker colour for initial screen</span>
             } 
@@ -177,22 +207,12 @@
                 <span class="kw">if</span> <span class="self">self</span>.<span class="ident">is_interactive</span> { <span class="number">127</span> }  <span class="comment">//  Fade to black</span>
                 <span class="kw">else</span> { <span class="number">0</span> }                      <span class="comment">//  Black for initial screen                 </span>
             }  
-        };
-
-        <span class="comment">//  Remember the boundaries of the screen region to be updated</span>
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">update_left</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="self">self</span>.<span class="ident">update_right</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span>
-            <span class="self">self</span>.<span class="ident">update_top</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="self">self</span>.<span class="ident">update_bottom</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
-            <span class="self">self</span>.<span class="ident">update_left</span> <span class="op">=</span> <span class="ident">x</span> <span class="kw">as</span> <span class="ident">u8</span>;
-            <span class="self">self</span>.<span class="ident">update_right</span> <span class="op">=</span> <span class="ident">x</span> <span class="kw">as</span> <span class="ident">u8</span>;
-            <span class="self">self</span>.<span class="ident">update_top</span> <span class="op">=</span> <span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>;
-            <span class="self">self</span>.<span class="ident">update_bottom</span> <span class="op">=</span> <span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>;
-        }
-        <span class="kw">if</span> (<span class="ident">x</span> <span class="kw">as</span> <span class="ident">u8</span>) <span class="op">&lt;</span> <span class="self">self</span>.<span class="ident">update_left</span> { <span class="self">self</span>.<span class="ident">update_left</span> <span class="op">=</span> <span class="ident">x</span> <span class="kw">as</span> <span class="ident">u8</span>; }
-        <span class="kw">if</span> (<span class="ident">x</span> <span class="kw">as</span> <span class="ident">u8</span>) <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">update_right</span> { <span class="self">self</span>.<span class="ident">update_right</span> <span class="op">=</span> <span class="ident">x</span> <span class="kw">as</span> <span class="ident">u8</span>; }
-        <span class="kw">if</span> (<span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>) <span class="op">&lt;</span> <span class="self">self</span>.<span class="ident">update_top</span> { <span class="self">self</span>.<span class="ident">update_top</span> <span class="op">=</span> <span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>; }
-        <span class="kw">if</span> (<span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>) <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">update_bottom</span> { <span class="self">self</span>.<span class="ident">update_bottom</span> <span class="op">=</span> <span class="ident">y</span> <span class="kw">as</span> <span class="ident">u8</span>; }
-    }</pre></div>
+        };</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L169-L198</em></p>
+<p><em>Something seems to be missing... <code>vram_set</code> is updating a screen buffer in memory... But we haven't actually updated the PineTime display!</em></p>
+<p><code>vram_set</code> is called every time the Emulator paints a pixel. Instead of refreshing the PineTime display pixel by pixel, we update the display by <strong>Sprite</strong> instead. </p>
+<p><em>(What's a Sprite? No not the lemon-lime drink... It's the graphic that moves around in a game. In the Blinky / Pac-Man game, Pac-Man and the Ghosts are rendered as Sprites)</em></p>
+<p><em>How do we know when a Sprite has been drawn?</em> We detect that in the <code>sched</code> function, where we update the PineTime display too.</p>
 <h1 id="render-thedisplay" class="section-header"><a href="#render-thedisplay">5 Render the Display</a></h1>
 <p>TODO</p>
 
