@@ -357,11 +357,11 @@ A Rust Iterator loops over individual values in an array of values. (It's often 
 
 Here we create a Rust Iterator that loops over individual Physical PineTime Pixels to be rendered (based on the Virtual CHIP-8 Block that's passed in).
 
-The values returned by the Rust Iterator are 16-bit colour values. Our Rust display driver for PineTime is capable of calling the Rust Iterator to blast all the 16-bit colour values as a single SPI operation. Super efficient!
+The values returned by the Rust Iterator are 16-bit colour values. Our Rust display driver for PineTime is capable of calling the Rust Iterator to enumerate all the 16-bit colour values and blast everything in a single SPI operation. Super efficient!
 
 # Iterate Pixels in a Block
 
-TODO
+Here's the implementation of our iterator that enumerates all Physical Pixel Colours within a Virtual Pixel Block defined by ????
 
 ```rust
 /// Implement the Iterator for Virtual Pixels in a Virtual Block
