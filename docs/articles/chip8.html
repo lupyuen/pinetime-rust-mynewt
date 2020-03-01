@@ -227,7 +227,7 @@
 <p>These simple conditions for defering the PineTime rendering are extremely effective. They make the PineTime CHIP-8 Emulator refresh some screens quicker than other versions of the CHIP-8 Emulator.</p>
 <p><em>(Compare the loading screen for Blinky on PineTime vs other platforms)</em></p>
 <h1 id="render-aregion" class="section-header"><a href="#render-aregion">4 Render a Region</a></h1>
-<p>Previously in <code>sched</code> we have identified the rectangular region of the PineTime display to be updated. We could call <code>render_region</code> to render the entire region to the PineTime display in a <strong>single SPI operation</strong> like this...</p>
+<p>Previously in <code>sched</code> we have identified the rectangular region of the PineTime display to be updated. We could call <code>render_block</code> to render the entire region to the PineTime display in a <strong>single SPI operation</strong> like this...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// Render the Virtual Screen region</span>
@@ -265,7 +265,7 @@
 <p>Yeah but we need to <strong>stretch every CHIP-8 Virtual Pixel into 15 PineTime Physical Pixels</strong> to fill the PineTime display!</p>
 <p><em>(That's 3 * 5... <code>PIXEL_WIDTH</code> * <code>PIXEL_HEIGHT</code>)</em></p>
 <p>Unfortunately the PineTime display controller (ST7789) doesn't handle stretching, so we need to do the stretching ourselves.</p>
-<p><em>(But don't fret... There's something interesting we shall see later... We can do curved stretching! Just like making pizza or roti prata!)</em></p>
+<p><em>(But fret not... There's something interesting we shall see later... We can do curved stretching! Just like making pizza or roti prata!)</em></p>
 <p>Thus to prevent the SPI buffer from overflowing, we update the screen in blocks of 32 by 5 Virtual Pixels on CHIP-8... (Or 96 by 25 Physical Pixels on the PineTime display)</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -310,7 +310,7 @@
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L271-L304</em></p>
 <p>The function <code>get_bounding_box(left, top, right, bottom)</code> simply returns a Rust tuple <code>(left, top, right, bottom)</code> that may be accessed by using the <code>.0</code>, <code>.1</code>, <code>.2</code> and <code>.3</code> notation (shown above like <code>physical_box.0</code>).</p>
 <p><code>get_bounding_box</code> doesn't do much now... But it will become very interesting later when we stretch the CHIP-8 pixels in a curvy way.</p>
-<p><em>(Oh yes I love Rust tuples!)</em></p>
+<p><em>(Oh yes I love Rust tuples! As much as roti prata!)</em></p>
 <h1 id="render-ablock" class="section-header"><a href="#render-ablock">5 Render a Block</a></h1>
 <p>TODO</p>
 

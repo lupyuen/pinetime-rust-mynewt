@@ -223,7 +223,7 @@ _(Compare the loading screen for Blinky on PineTime vs other platforms)_
 
 # Render a Region
 
-Previously in `sched` we have identified the rectangular region of the PineTime display to be updated. We could call `render_region` to render the entire region to the PineTime display in a __single SPI operation__ like this...
+Previously in `sched` we have identified the rectangular region of the PineTime display to be updated. We could call `render_block` to render the entire region to the PineTime display in a __single SPI operation__ like this...
 
 ```rust
 /// Render the Virtual Screen region
@@ -273,7 +273,7 @@ _(That's 3 * 5... `PIXEL_WIDTH` * `PIXEL_HEIGHT`)_
 
 Unfortunately the PineTime display controller (ST7789) doesn't handle stretching, so we need to do the stretching ourselves.
 
-_(But don't fret... There's something interesting we shall see later... We can do curved stretching! Just like making pizza or roti prata!)_
+_(But fret not... There's something interesting we shall see later... We can do curved stretching! Just like making pizza or roti prata!)_
 
 Thus to prevent the SPI buffer from overflowing, we update the screen in blocks of 32 by 5 Virtual Pixels on CHIP-8... (Or 96 by 25 Physical Pixels on the PineTime display)
 
@@ -325,7 +325,7 @@ The function `get_bounding_box(left, top, right, bottom)` simply returns a Rust 
 
 `get_bounding_box` doesn't do much now... But it will become very interesting later when we stretch the CHIP-8 pixels in a curvy way.
 
-_(Oh yes I love Rust tuples!)_
+_(Oh yes I love Rust tuples! As much as roti prata!)_
 
 # Render a Block
 
