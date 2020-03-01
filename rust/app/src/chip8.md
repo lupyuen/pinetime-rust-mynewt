@@ -361,7 +361,7 @@ The values returned by the Rust Iterator are 16-bit colour values. Our Rust disp
 
 # Iterate Pixels in a Block
 
-Here's the implementation of our iterator that enumerates all Physical Pixel Colours within a Virtual Pixel Block defined by ????
+Here's the implementation of our iterator that enumerates all Physical Pixel Colours within a Virtual Pixel Block that's defined by the Virtual `(x, y)` Coordinates `(block_left, block_top)` and `(block_right, block_bottom)`...
 
 ```rust
 /// Implement the Iterator for Virtual Pixels in a Virtual Block
@@ -374,30 +374,26 @@ impl Iterator for PixelIterator {
     fn next(&mut self) -> Option<Self::Item> {
         if self.y > self.block_bottom { return None; }  //  No more Physical Pixels
 
-        if self.x >= SCREEN_WIDTH as u8 ||
-            self.y >= SCREEN_HEIGHT as u8 { cortex_m::asm::bkpt(); }
-        assert!(self.x < SCREEN_WIDTH as u8, "x overflow");
-        assert!(self.y < SCREEN_HEIGHT as u8, "y overflow");
-
-        //  Get the colour for the Virtual Pixel
+        //  Get the 16-bit Physical Colour for the Virtual Pixel at (x, y)
         let color = self.get_color();
 
-        //  Loop over x_offset from 0 to PIXEL_WIDTH - 1
+        //  Update (x, y) to the next pixel left to right, then top to bottom...
+        //  Loop over every stretched horizontal Physical Pixel (x_offset) from 0 to PIXEL_WIDTH - 1
         self.x_offset += 1;
         if self.x_offset >= PIXEL_WIDTH as u8 {
             self.x_offset = 0;
 
-            //  Loop over x from block_left to block_right
+            //  Loop over every Virtual Pixel (x) from block_left to block_right
             self.x += 1;
             if self.x > self.block_right {
                 self.x = self.block_left;
 
-                //  Loop over y_offset from 0 to PIXEL_HEIGHT - 1
+                //  Loop over every stretched vertical Vertical Pixel (y_offset) from 0 to PIXEL_HEIGHT - 1
                 self.y_offset += 1;
                 if self.y_offset >= PIXEL_HEIGHT as u8 {
                     self.y_offset = 0;
 
-                    //  Loop over y from block_top to block_bottom
+                    //  Loop over every Virtual Pixel (y) from block_top to block_bottom
                     self.y += 1;
                 }
             }
@@ -408,26 +404,47 @@ impl Iterator for PixelIterator {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L408-L455_
 
+The Iterator returns the next Physical Pixel Colour, as defined by `self.x` (Current Virtual Column) and `self.y` (Current Virtual Row). 
+
+Let's look at function `get_color`, which maps greyscale CHIP-8 Virtual Colours to 16-bit PineTime Physical Colours...
+
 # Convert Colours
 
 TODO
+
+```rust
+impl PixelIterator {
+    /// Return the 16-bit colour of the Virtual Pixel
+    fn get_color(&mut self) -> u16 {
+        //  Get the greyscale colour at Virtual Coordinates (x,y) and convert to 16-bit Physical Colour
+        let i = self.x as usize + self.y as usize * SCREEN_WIDTH;
+        let color = unsafe { convert_color( SCREEN_BUFFER[i] ) };
+        //  Update the greyscale colour at Virtual Coordinates (x,y)
+        if self.x_offset == 0 && self.y_offset == 0 {  //  Update colours only once per Virtual Pixel
+            unsafe { SCREEN_BUFFER[i] = update_color( SCREEN_BUFFER[i] ); }  //  e.g. fade to black
+        }
+        color  //  Return the 16-bit Physical Colour
+    }    
+}
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L376-L385_
 
 ```rust
 /// Convert the Virtual Colour (8-bit greyscale) to 16-bit Colour
 fn convert_color(grey: u8) -> u16 {
     match grey {
         250..=255 => Rgb565::from(( grey, grey, grey )).0,  //  White
-        128..250 => Rgb565::from(( grey - 100, grey, grey - 100 )).0,  //  Greenish
-        0..128   => Rgb565::from(( 0, 0, grey )).0,  //  Dark Blue
+        128..250  => Rgb565::from(( grey - 100, grey, grey - 100 )).0,  //  Greenish
+        0..128    => Rgb565::from(( 0, 0, grey )).0,  //  Dark Blue
     }
 }
 
 /// Fade the Virtual Colour (8-bit greyscale) to black
 fn update_color(grey: u8) -> u8 {
     match grey {
-        200..=255 => grey - 2,   //  Initial white flash fade to normal white
-        128..200 => grey,        //  Normal white stays the same
-        0..128   => grey >> 1,   //  Dark fade to black
+        200..=255 => grey - 2,    //  Initial white flash fade to normal white
+        128..200  => grey,        //  Normal white stays the same
+        0..128    => grey >> 1,   //  Dark fade to black
     }
 }
 ```
