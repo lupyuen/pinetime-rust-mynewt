@@ -119,6 +119,7 @@ _Why did we allocate 8 bits per pixel in `SCREEN_BUFFER`?_
 So that we can implement interesting colour effects. (We'll cover this later) We actually update `SCREEN_BUFFER` with a greyscale colour like this...
 
 ```rust
+//  color is true when emulator draws a white pixel, black otherwise
 unsafe { SCREEN_BUFFER[i] = 
     if color {
         if self.is_interactive { 255 }  //  Brighter colour when emulator is active
@@ -410,7 +411,70 @@ Let's look at function `get_color`, which maps greyscale CHIP-8 Virtual Colours 
 
 # Convert Colours
 
-TODO
+CHIP-8 doesn't support colour... Everything is rendered in black and white.
+
+_What if we spice up CHIP-8 games with a dash of colour? How shall we colourise a CHIP-8 game that doesn't know anything about colour?_
+
+By hooking on to the `key` function, we know when the game is first seeking input... Everything that the game renders after startup and up till the first call to `key` is most likely the Initial Loading Screen. 
+
+Thus in the `key` function we flag `is_interactive` as `true` at the first call to `key`.
+
+```rust
+impl libchip8::Hardware for Hardware {
+    /// Check if the key is pressed.
+    fn key(&mut self, key: u8) -> bool {
+        //  key is 0-9 for keys "0" to "9", 0xa-0xf to keys "A" to "F"
+        if !self.is_interactive {
+            self.is_interactive = true;
+        }
+        self.is_checking_input = true;
+        //  Compare the key with the last touch event
+        if unsafe { KEY_PRESSED == Some(key) } {
+            unsafe { KEY_PRESSED = None };  //  Clear the touch event
+            return true;
+        }
+        false
+    }
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L133-L147_
+
+_Since we can identify the Initial Loading Screen, why don't we colour that screen?_
+
+Remember this code from `vram_set`?
+
+```rust
+//  color is true when emulator draws a white pixel, black otherwise
+unsafe { SCREEN_BUFFER[i] = 
+    if color {                          //  If emulator draws a white pixel...
+        if self.is_interactive { 255 }  //  Brighter colour when emulator is active
+        else { 200 }                    //  Darker colour for initial screen
+    } 
+    else {                              //  If emulator draws a black pixel...
+        ...
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L169-L198_
+
+Instead of plain black and white, our CHIP-8 Virtual Screen Buffer now stores 8-bit greyscale... 256 Shades of Grey!
+
+Using the `is_interactive` flag, we may now paint the Initial Loading Screen as greyscale `200`. Other pixels drawn after the Initial Loading Screen will be set to greyscale `255`.
+
+Greyscale `200` is converted into a greenish hue, while greyscale `255` is converted to bright white...
+
+```rust
+/// Convert the Virtual Colour (8-bit greyscale) to 16-bit Physical Pixel Colour
+fn convert_color(grey: u8) -> u16 {
+    match grey {
+        250..=255 => Rgb565::from(( grey, grey, grey )).0,  //  White
+        128..250  => Rgb565::from(( grey - 100, grey, grey - 100 )).0,  //  Greenish
+        0..128    => Rgb565::from(( 0, 0, grey )).0,  //  Dark Blue
+    }
+}
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L494-L510_
+
+_Note that `128..250` means 128 to 249, excluding 250. Whereas `250..=255` means 250 to 255 (inclusive)_
+
+The above function `convert_color` is called by `get_color` to map CHIP-8 Virtual Pixel Greyscale into 16-bit Physical Pixel Colour...
 
 ```rust
 impl PixelIterator {
@@ -429,8 +493,32 @@ impl PixelIterator {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L376-L385_
 
+So our Initial Loading Screen now looks green. Other Sprites in the game will appear as white because they are rendered after seeking button input.
+
+This colouring effect is most obvious in the Space Invaders title screen.
+
+What about black pixels? Recall the code from `vram_set`...
+
 ```rust
-/// Convert the Virtual Colour (8-bit greyscale) to 16-bit Colour
+//  color is true when emulator draws a white pixel, black otherwise
+unsafe { SCREEN_BUFFER[i] = 
+    if color {                          //  If emulator draws a white pixel...
+        ...
+    } 
+    else {                              //  If emulator draws a black pixel...
+        if self.is_interactive { 127 }  //  Fade to black
+        else { 0 }                      //  Black for initial screen                 
+    }  
+};
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L169-L198_
+
+Assuming that the game is actually running (after showing the Initial Loading Screen), `is_interactive` is flagged as true.
+
+The above code sets the CHIP-8 Virtual Pixel to greyscale `127`. Which is mapped by `convert_color` to a dark blue colour...
+
+```rust
+/// Convert the Virtual Colour (8-bit greyscale) to 16-bit Physical Pixel Colour
 fn convert_color(grey: u8) -> u16 {
     match grey {
         250..=255 => Rgb565::from(( grey, grey, grey )).0,  //  White
@@ -449,6 +537,15 @@ fn update_color(grey: u8) -> u8 {
 }
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L494-L510_
+
+
+Note that the `update_color` function above is also called by `get_color` while rendering each pixel of the PineTime display.
+
+`update_color` gradually diminishes greyscale `127` until it reaches `0`, at every rendering of the pixel. (`>>1` shifts the greyscale right by 1 bit, which is the same as dividing by 2)
+
+The result: Black pixels appear as dark blue trails that fade to black.
+
+This colouring effect is most obvious in the Pong game... Watch the trail of the bouncing ball.
 
 # Map Physical Pixels to Virtual Pixels
 
@@ -687,7 +784,6 @@ impl libchip8::Hardware for Hardware {
         //  key is 0-9 for keys "0" to "9", 0xa-0xf to keys "A" to "F"
         if !self.is_interactive {
             self.is_interactive = true;
-            console::print("key\n"); console::flush(); ////
         }
         self.is_checking_input = true;
         //  Compare the key with the last touch event
@@ -698,6 +794,7 @@ impl libchip8::Hardware for Hardware {
         false
     }
 ```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L492-L504_
 
 # Clear the PineTime Display
 
