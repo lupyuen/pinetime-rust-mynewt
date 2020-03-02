@@ -438,7 +438,7 @@ impl libchip8::Hardware for Hardware {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L133-L147_
 
-_Since we can identify the Initial Loading Screen, why don't we colour that screen?_
+_Since we can identify the Initial Loading Screen... Let's colour that screen!_
 
 Remember this code from `vram_set`?
 
@@ -456,7 +456,7 @@ _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/c
 
 Instead of plain black and white, our CHIP-8 Virtual Screen Buffer now stores 8-bit greyscale... 256 Shades of Grey!
 
-Using the `is_interactive` flag, we may now paint the Initial Loading Screen as greyscale `200`. Other pixels drawn after the Initial Loading Screen will be set to greyscale `255`.
+Through the `is_interactive` flag, we may now paint the Initial Loading Screen as greyscale `200`. Other pixels drawn after the Initial Loading Screen will be set to greyscale `255`.
 
 Greyscale `200` is converted into a greenish hue, while greyscale `255` is converted to bright white...
 
@@ -464,9 +464,9 @@ Greyscale `200` is converted into a greenish hue, while greyscale `255` is conve
 /// Convert the Virtual Colour (8-bit greyscale) to 16-bit Physical Pixel Colour
 fn convert_color(grey: u8) -> u16 {
     match grey {
-        250..=255 => Rgb565::from(( grey, grey, grey )).0,  //  White
+        250..=255 => Rgb565::from(( grey,       grey, grey )).0,        //  White
         128..250  => Rgb565::from(( grey - 100, grey, grey - 100 )).0,  //  Greenish
-        0..128    => Rgb565::from(( 0, 0, grey )).0,  //  Dark Blue
+        0..128    => Rgb565::from(( 0,          0,    grey )).0,        //  Dark Blue
     }
 }
 ```
@@ -474,7 +474,7 @@ _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/c
 
 _Note that `128..250` means 128 to 249, excluding 250. Whereas `250..=255` means 250 to 255 (inclusive)_
 
-The above function `convert_color` is called by `get_color` to map CHIP-8 Virtual Pixel Greyscale into 16-bit Physical Pixel Colour...
+The above function `convert_color` is called by `get_color` to map CHIP-8 Virtual Pixel Greyscale into 16-bit Physical Pixel Colour when rendering every pixel...
 
 ```rust
 impl PixelIterator {
@@ -493,7 +493,7 @@ impl PixelIterator {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L376-L385_
 
-So our Initial Loading Screen now looks green. Other Sprites in the game will appear as white because they are rendered after seeking button input.
+Thus our Initial Loading Screen now looks green. Other Sprites in the game will appear as white (greyscale `255`) because they are rendered after the game has started seeking button input.
 
 This colouring effect is most obvious in the Space Invaders title screen.
 
@@ -521,9 +521,9 @@ The above code sets the CHIP-8 Virtual Pixel to greyscale `127`. Which is mapped
 /// Convert the Virtual Colour (8-bit greyscale) to 16-bit Physical Pixel Colour
 fn convert_color(grey: u8) -> u16 {
     match grey {
-        250..=255 => Rgb565::from(( grey, grey, grey )).0,  //  White
+        250..=255 => Rgb565::from(( grey,       grey, grey )).0,        //  White
         128..250  => Rgb565::from(( grey - 100, grey, grey - 100 )).0,  //  Greenish
-        0..128    => Rgb565::from(( 0, 0, grey )).0,  //  Dark Blue
+        0..128    => Rgb565::from(( 0,          0,    grey )).0,        //  Dark Blue
     }
 }
 
@@ -537,7 +537,6 @@ fn update_color(grey: u8) -> u8 {
 }
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L494-L510_
-
 
 Note that the `update_color` function above is also called by `get_color` while rendering each pixel of the PineTime display.
 

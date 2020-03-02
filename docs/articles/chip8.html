@@ -147,6 +147,7 @@
 <p>So that we can implement interesting colour effects. (We'll cover this later) We actually update <code>SCREEN_BUFFER</code> with a greyscale colour like this...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">//  color is true when emulator draws a white pixel, black otherwise</span>
 <span class="kw">unsafe</span> { <span class="ident">SCREEN_BUFFER</span>[<span class="ident">i</span>] <span class="op">=</span> 
     <span class="kw">if</span> <span class="ident">color</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">is_interactive</span> { <span class="number">255</span> }  <span class="comment">//  Brighter colour when emulator is active</span>
@@ -380,7 +381,57 @@
 <p>The Iterator returns the next Physical Pixel Colour, as defined by <code>self.x</code> (Current Virtual Column) and <code>self.y</code> (Current Virtual Row). </p>
 <p>Let's look at function <code>get_color</code>, which maps greyscale CHIP-8 Virtual Colours to 16-bit PineTime Physical Colours...</p>
 <h1 id="convert-colours" class="section-header"><a href="#convert-colours">7 Convert Colours</a></h1>
-<p>TODO</p>
+<p>CHIP-8 doesn't support colour... Everything is rendered in black and white.</p>
+<p><em>What if we spice up CHIP-8 games with a dash of colour? How shall we colourise a CHIP-8 game that doesn't know anything about colour?</em></p>
+<p>By hooking on to the <code>key</code> function, we know when the game is first seeking input... Everything that the game renders after startup and up till the first call to <code>key</code> is most likely the Initial Loading Screen. </p>
+<p>Thus in the <code>key</code> function we flag <code>is_interactive</code> as <code>true</code> at the first call to <code>key</code>.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">impl</span> <span class="ident">libchip8</span>::<span class="ident">Hardware</span> <span class="kw">for</span> <span class="ident">Hardware</span> {
+    <span class="doccomment">/// Check if the key is pressed.</span>
+    <span class="kw">fn</span> <span class="ident">key</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">key</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+        <span class="comment">//  key is 0-9 for keys &quot;0&quot; to &quot;9&quot;, 0xa-0xf to keys &quot;A&quot; to &quot;F&quot;</span>
+        <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">is_interactive</span> {
+            <span class="self">self</span>.<span class="ident">is_interactive</span> <span class="op">=</span> <span class="bool-val">true</span>;
+        }
+        <span class="self">self</span>.<span class="ident">is_checking_input</span> <span class="op">=</span> <span class="bool-val">true</span>;
+        <span class="comment">//  Compare the key with the last touch event</span>
+        <span class="kw">if</span> <span class="kw">unsafe</span> { <span class="ident">KEY_PRESSED</span> <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">key</span>) } {
+            <span class="kw">unsafe</span> { <span class="ident">KEY_PRESSED</span> <span class="op">=</span> <span class="prelude-val">None</span> };  <span class="comment">//  Clear the touch event</span>
+            <span class="kw">return</span> <span class="bool-val">true</span>;
+        }
+        <span class="bool-val">false</span>
+    }</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L133-L147</em></p>
+<p><em>Since we can identify the Initial Loading Screen... Let's colour that screen!</em></p>
+<p>Remember this code from <code>vram_set</code>?</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">//  color is true when emulator draws a white pixel, black otherwise</span>
+<span class="kw">unsafe</span> { <span class="ident">SCREEN_BUFFER</span>[<span class="ident">i</span>] <span class="op">=</span> 
+    <span class="kw">if</span> <span class="ident">color</span> {                          <span class="comment">//  If emulator draws a white pixel...</span>
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">is_interactive</span> { <span class="number">255</span> }  <span class="comment">//  Brighter colour when emulator is active</span>
+        <span class="kw">else</span> { <span class="number">200</span> }                    <span class="comment">//  Darker colour for initial screen</span>
+    } 
+    <span class="kw">else</span> {                              <span class="comment">//  If emulator draws a black pixel...</span>
+        ...</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L169-L198</em></p>
+<p>Instead of plain black and white, our CHIP-8 Virtual Screen Buffer now stores 8-bit greyscale... 256 Shades of Grey!</p>
+<p>Through the <code>is_interactive</code> flag, we may now paint the Initial Loading Screen as greyscale <code>200</code>. Other pixels drawn after the Initial Loading Screen will be set to greyscale <code>255</code>.</p>
+<p>Greyscale <code>200</code> is converted into a greenish hue, while greyscale <code>255</code> is converted to bright white...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Convert the Virtual Colour (8-bit greyscale) to 16-bit Physical Pixel Colour</span>
+<span class="kw">fn</span> <span class="ident">convert_color</span>(<span class="ident">grey</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u16</span> {
+    <span class="kw">match</span> <span class="ident">grey</span> {
+        <span class="number">250</span>..<span class="op">=</span><span class="number">255</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Rgb565</span>::<span class="ident">from</span>(( <span class="ident">grey</span>,       <span class="ident">grey</span>, <span class="ident">grey</span> )).<span class="number">0</span>,        <span class="comment">//  White</span>
+        <span class="number">128</span>..<span class="number">250</span>  <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Rgb565</span>::<span class="ident">from</span>(( <span class="ident">grey</span> <span class="op">-</span> <span class="number">100</span>, <span class="ident">grey</span>, <span class="ident">grey</span> <span class="op">-</span> <span class="number">100</span> )).<span class="number">0</span>,  <span class="comment">//  Greenish</span>
+        <span class="number">0</span>..<span class="number">128</span>    <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Rgb565</span>::<span class="ident">from</span>(( <span class="number">0</span>,          <span class="number">0</span>,    <span class="ident">grey</span> )).<span class="number">0</span>,        <span class="comment">//  Dark Blue</span>
+    }
+}</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L494-L510</em></p>
+<p><em>Note that <code>128..250</code> means 128 to 249, excluding 250. Whereas <code>250..=255</code> means 250 to 255 (inclusive)</em></p>
+<p>The above function <code>convert_color</code> is called by <code>get_color</code> to map CHIP-8 Virtual Pixel Greyscale into 16-bit Physical Pixel Colour when rendering every pixel...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">impl</span> <span class="ident">PixelIterator</span> {
@@ -397,14 +448,32 @@
     }    
 }</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L376-L385</em></p>
+<p>Thus our Initial Loading Screen now looks green. Other Sprites in the game will appear as white (greyscale <code>255</code>) because they are rendered after the game has started seeking button input.</p>
+<p>This colouring effect is most obvious in the Space Invaders title screen.</p>
+<p>What about black pixels? Recall the code from <code>vram_set</code>...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="doccomment">/// Convert the Virtual Colour (8-bit greyscale) to 16-bit Colour</span>
+<span class="comment">//  color is true when emulator draws a white pixel, black otherwise</span>
+<span class="kw">unsafe</span> { <span class="ident">SCREEN_BUFFER</span>[<span class="ident">i</span>] <span class="op">=</span> 
+    <span class="kw">if</span> <span class="ident">color</span> {                          <span class="comment">//  If emulator draws a white pixel...</span>
+        ...
+    } 
+    <span class="kw">else</span> {                              <span class="comment">//  If emulator draws a black pixel...</span>
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">is_interactive</span> { <span class="number">127</span> }  <span class="comment">//  Fade to black</span>
+        <span class="kw">else</span> { <span class="number">0</span> }                      <span class="comment">//  Black for initial screen                 </span>
+    }  
+};</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L169-L198</em></p>
+<p>Assuming that the game is actually running (after showing the Initial Loading Screen), <code>is_interactive</code> is flagged as true.</p>
+<p>The above code sets the CHIP-8 Virtual Pixel to greyscale <code>127</code>. Which is mapped by <code>convert_color</code> to a dark blue colour...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Convert the Virtual Colour (8-bit greyscale) to 16-bit Physical Pixel Colour</span>
 <span class="kw">fn</span> <span class="ident">convert_color</span>(<span class="ident">grey</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">u16</span> {
     <span class="kw">match</span> <span class="ident">grey</span> {
-        <span class="number">250</span>..<span class="op">=</span><span class="number">255</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Rgb565</span>::<span class="ident">from</span>(( <span class="ident">grey</span>, <span class="ident">grey</span>, <span class="ident">grey</span> )).<span class="number">0</span>,  <span class="comment">//  White</span>
+        <span class="number">250</span>..<span class="op">=</span><span class="number">255</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Rgb565</span>::<span class="ident">from</span>(( <span class="ident">grey</span>,       <span class="ident">grey</span>, <span class="ident">grey</span> )).<span class="number">0</span>,        <span class="comment">//  White</span>
         <span class="number">128</span>..<span class="number">250</span>  <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Rgb565</span>::<span class="ident">from</span>(( <span class="ident">grey</span> <span class="op">-</span> <span class="number">100</span>, <span class="ident">grey</span>, <span class="ident">grey</span> <span class="op">-</span> <span class="number">100</span> )).<span class="number">0</span>,  <span class="comment">//  Greenish</span>
-        <span class="number">0</span>..<span class="number">128</span>    <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Rgb565</span>::<span class="ident">from</span>(( <span class="number">0</span>, <span class="number">0</span>, <span class="ident">grey</span> )).<span class="number">0</span>,  <span class="comment">//  Dark Blue</span>
+        <span class="number">0</span>..<span class="number">128</span>    <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Rgb565</span>::<span class="ident">from</span>(( <span class="number">0</span>,          <span class="number">0</span>,    <span class="ident">grey</span> )).<span class="number">0</span>,        <span class="comment">//  Dark Blue</span>
     }
 }
 
@@ -417,6 +486,10 @@
     }
 }</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L494-L510</em></p>
+<p>Note that the <code>update_color</code> function above is also called by <code>get_color</code> while rendering each pixel of the PineTime display.</p>
+<p><code>update_color</code> gradually diminishes greyscale <code>127</code> until it reaches <code>0</code>, at every rendering of the pixel. (<code>&gt;&gt;1</code> shifts the greyscale right by 1 bit, which is the same as dividing by 2)</p>
+<p>The result: Black pixels appear as dark blue trails that fade to black.</p>
+<p>This colouring effect is most obvious in the Pong game... Watch the trail of the bouncing ball.</p>
 <h1 id="map-physical-pixels-to-virtualpixels" class="section-header"><a href="#map-physical-pixels-to-virtualpixels">8 Map Physical Pixels to Virtual Pixels</a></h1>
 <p>TODO</p>
 
@@ -642,7 +715,6 @@
         <span class="comment">//  key is 0-9 for keys &quot;0&quot; to &quot;9&quot;, 0xa-0xf to keys &quot;A&quot; to &quot;F&quot;</span>
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">is_interactive</span> {
             <span class="self">self</span>.<span class="ident">is_interactive</span> <span class="op">=</span> <span class="bool-val">true</span>;
-            <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;key\n&quot;</span>); <span class="ident">console</span>::<span class="ident">flush</span>(); <span class="comment">////</span>
         }
         <span class="self">self</span>.<span class="ident">is_checking_input</span> <span class="op">=</span> <span class="bool-val">true</span>;
         <span class="comment">//  Compare the key with the last touch event</span>
@@ -652,6 +724,7 @@
         }
         <span class="bool-val">false</span>
     }</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L492-L504</em></p>
 <h1 id="clear-the-pinetimedisplay" class="section-header"><a href="#clear-the-pinetimedisplay">12 Clear the PineTime Display</a></h1>
 <p>TODO</p>
 
