@@ -381,7 +381,7 @@
 <p>The Iterator returns the next Physical Pixel Colour, as defined by <code>self.x</code> (Current Virtual Column) and <code>self.y</code> (Current Virtual Row). </p>
 <p>Let's look at function <code>get_color</code>, which maps greyscale CHIP-8 Virtual Colours to 16-bit PineTime Physical Colours...</p>
 <h1 id="convert-colours" class="section-header"><a href="#convert-colours">7 Convert Colours</a></h1>
-<p>CHIP-8 doesn't support colour... Everything is rendered in black and white.</p>
+<p>CHIP-8 doesn't support colour... Everything is rendered in black and white... Only Two Shades of Grey!</p>
 <p><em>What if we spice up CHIP-8 games with a dash of colour? How shall we colourise a CHIP-8 game that doesn't know anything about colour?</em></p>
 <p>By hooking on to the <code>key</code> function, we know when the game is first seeking input... Everything that the game renders after startup and up till the first call to <code>key</code> is most likely the Initial Loading Screen. </p>
 <p>Thus in the <code>key</code> function we flag <code>is_interactive</code> as <code>true</code> at the first call to <code>key</code>.</p>

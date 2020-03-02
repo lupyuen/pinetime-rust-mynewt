@@ -411,7 +411,7 @@ Let's look at function `get_color`, which maps greyscale CHIP-8 Virtual Colours 
 
 # Convert Colours
 
-CHIP-8 doesn't support colour... Everything is rendered in black and white.
+CHIP-8 doesn't support colour... Everything is rendered in black and white... Only Two Shades of Grey!
 
 _What if we spice up CHIP-8 games with a dash of colour? How shall we colourise a CHIP-8 game that doesn't know anything about colour?_
 
