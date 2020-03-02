@@ -671,6 +671,8 @@ _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor
 
 TODO
 
+https://stackoverflow.com/questions/18264703/mapping-a-2d-grid-onto-a-sphere
+
 ```rust
 /// For Physical (x,y) Coordinates, return the corresponding Virtual (x,y) Coordinates.
 /// Used by the CHIP-8 Emulator to decide which Virtual Pixel to fetch the colour value when rendering a Physical Pixel.
