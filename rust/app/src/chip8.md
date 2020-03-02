@@ -548,21 +548,37 @@ This colouring effect is most obvious in the Pong game... Watch the trail of the
 
 # Handle Touch Events
 
+CHIP-8 uses a keypad with 15 keys, marked `0` to `9`, `A` to `F`.
+
+For PineTime we'll emulate a simple keypad: Tapping the Left part of the touchscreen simulates the key `4`, Centre part simulates `5`, Right part simulates `6`.
+
+This is sufficient for playing Space Invaders, which uses `4` and `6` to move your spaceship Left and Right, and `5` to fire.
+
+Function `handle_touch` is called by the PineTime Rust touch controller driver with the `(x,y)` coordinates of the touched point, from `(0,0)` to `(239,239)`...
+
 ```rust
 /// Handle touch events to emulate buttons
 pub fn handle_touch(x: u16, _y: u16) { 
     //  We only handle 3 keys: 4, 5, 6, which correspond to Left, Centre, Right
-    //  console::print("CHIP8 touch\n"); console::flush(); 
-    let key = 
-        if x < PHYSICAL_WIDTH as u16 / 3 { Some(4) }
-        else if x < 2 * PHYSICAL_WIDTH as u16 / 3 { Some(5) }
-        else { Some(6) };
+    let key =                                                  //  PHYSICAL_WIDTH is 240
+        if x < PHYSICAL_WIDTH as u16 / 3 { Some(4) }           //  Left = 4
+        else if x < 2 * PHYSICAL_WIDTH as u16 / 3 { Some(5) }  //  Centre = 5
+        else { Some(6) };                                      //  Right = 6
     unsafe { KEY_PRESSED = key };
 }
 
 /// Represents the key pressed: 0-9 for keys "0" to "9", 0xa-0xf to keys "A" to "F", None for nothing pressed
 static mut KEY_PRESSED: Option<u8> = None;
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L133-L147_
 
+`handle_touch` stores the simulated keypress into `KEY_PRESSED`
+
+Note that `KEY_PRESSED` has type `Option<u8>`, which is an optional unsigned byte. So `KEY_PRESSED` may contain a specified byte (like `Some(4)`), or nothing (`None`).
+
+The CHIP-8 Emulator checks for keys pressed by calling the `key` function...
+
+```rust
 impl libchip8::Hardware for Hardware {
     /// Check if the key is pressed.
     fn key(&mut self, key: u8) -> bool {
@@ -581,15 +597,17 @@ impl libchip8::Hardware for Hardware {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L492-L504_
 
-# Clear the PineTime Display
+When the Emulator calls `key(self, 4)`, we should return `true` if the key `4` has been pressed, i.e. `KEY_PRESSED` has value `Some(4)`
+
+This doesn't found efficient for checking many keys... But it's probably OK for retro games.
+
+# CHIP-8 Emulator Task
 
 TODO
 
 ```rust
-/// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
+/// Erase the PineTime display and start the CHIP-8 Emulator task
 pub fn on_start() -> MynewtResult<()> {
-    console::print("Rust CHIP8\n"); console::flush();
-    
     //  Create black background
     let background = Rectangle::<Rgb565>
         ::new( Coord::new( 0, 0 ), Coord::new( 239, 239 ) )   //  Rectangle coordinates
@@ -597,7 +615,6 @@ pub fn on_start() -> MynewtResult<()> {
 
     //  Render background to display
     druid::draw_to_display(background);
-    render_region(0, 0, SCREEN_WIDTH as u8 - 1, SCREEN_HEIGHT as u8 - 1);
 
     //  Start the emulator in a background task
     os::task_init(                  //  Create a new task and start it...
