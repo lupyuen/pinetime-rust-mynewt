@@ -1,6 +1,8 @@
 # chip8.rs: CHIP-8 Game Emulator for PineTime Smart Watch with Rust
 
-Retro Gaming On Your Watch!
+![Space Invaders running on CHIP-8 Emulator on PineTime Smart Watch](https://lupyuen.github.io/images/chip8-invaders.jpg)
+
+_Space Invaders running on CHIP-8 Emulator on PineTime Smart Watch_
 
 __UNDER CONSTRUCTION__
 
@@ -671,7 +673,9 @@ _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor
 
 TODO
 
-https://stackoverflow.com/questions/18264703/mapping-a-2d-grid-onto-a-sphere
+![Rendering CHIP-8 on a curved surface](https://lupyuen.github.io/images/chip8-curve.jpg)
+
+_From https://stackoverflow.com/questions/18264703/mapping-a-2d-grid-onto-a-sphere_
 
 ```rust
 /// For Physical (x,y) Coordinates, return the corresponding Virtual (x,y) Coordinates.
