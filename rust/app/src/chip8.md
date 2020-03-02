@@ -546,6 +546,110 @@ The result: Black pixels appear as dark blue trails that fade to black.
 
 This colouring effect is most obvious in the Pong game... Watch the trail of the bouncing ball.
 
+# Handle Touch Events
+
+```rust
+/// Handle touch events to emulate buttons
+pub fn handle_touch(x: u16, _y: u16) { 
+    //  We only handle 3 keys: 4, 5, 6, which correspond to Left, Centre, Right
+    //  console::print("CHIP8 touch\n"); console::flush(); 
+    let key = 
+        if x < PHYSICAL_WIDTH as u16 / 3 { Some(4) }
+        else if x < 2 * PHYSICAL_WIDTH as u16 / 3 { Some(5) }
+        else { Some(6) };
+    unsafe { KEY_PRESSED = key };
+}
+
+/// Represents the key pressed: 0-9 for keys "0" to "9", 0xa-0xf to keys "A" to "F", None for nothing pressed
+static mut KEY_PRESSED: Option<u8> = None;
+
+impl libchip8::Hardware for Hardware {
+    /// Check if the key is pressed.
+    fn key(&mut self, key: u8) -> bool {
+        //  key is 0-9 for keys "0" to "9", 0xa-0xf to keys "A" to "F"
+        if !self.is_interactive {
+            self.is_interactive = true;
+        }
+        self.is_checking_input = true;
+        //  Compare the key with the last touch event
+        if unsafe { KEY_PRESSED == Some(key) } {
+            unsafe { KEY_PRESSED = None };  //  Clear the touch event
+            return true;
+        }
+        false
+    }
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L492-L504_
+
+# Clear the PineTime Display
+
+TODO
+
+```rust
+/// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
+pub fn on_start() -> MynewtResult<()> {
+    console::print("Rust CHIP8\n"); console::flush();
+    
+    //  Create black background
+    let background = Rectangle::<Rgb565>
+        ::new( Coord::new( 0, 0 ), Coord::new( 239, 239 ) )   //  Rectangle coordinates
+        .fill( Some( Rgb565::from(( 0x00, 0x00, 0x00 )) ) );  //  Black
+
+    //  Render background to display
+    druid::draw_to_display(background);
+    render_region(0, 0, SCREEN_WIDTH as u8 - 1, SCREEN_HEIGHT as u8 - 1);
+
+    //  Start the emulator in a background task
+    os::task_init(                  //  Create a new task and start it...
+        unsafe { &mut CHIP8_TASK }, //  Task object will be saved here
+        &init_strn!( "chip8" ),     //  Name of task
+        Some( task_func ),    //  Function to execute when task starts
+        NULL,  //  Argument to be passed to above function
+        20,    //  Task priority: highest is 0, lowest is 255 (main task is 127), SPI is 10
+        os::OS_WAIT_FOREVER as u32,       //  Don't do sanity / watchdog checking
+        unsafe { &mut CHIP8_TASK_STACK }, //  Stack space for the task
+        CHIP8_TASK_STACK_SIZE as u16      //  Size of the stack (in 4-byte units)
+    ) ? ;                                 //  `?` means check for error
+
+    //  Return success to the caller
+    Ok(())
+}
+
+/// CHIP8 Background Task
+static mut CHIP8_TASK: os::os_task = fill_zero!(os::os_task);
+
+/// Stack space for CHIP8 Task, initialised to 0.
+static mut CHIP8_TASK_STACK: [os::os_stack_t; CHIP8_TASK_STACK_SIZE] = 
+    [0; CHIP8_TASK_STACK_SIZE];
+
+/// Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
+const CHIP8_TASK_STACK_SIZE: usize = 4096;  //  Must be 4096 and above because CHIP8 Emulator requires substantial stack space
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L39-L66_
+
+# Build and Run the Emulator
+
+```yaml
+[features]
+default =  [          # Select the conditional compiled features
+    # "display_app",  # Disable graphics display app
+    # "ui_app",       # Disable druid UI app
+    # "visual_app",   # Disable Visual Rust app
+    "chip8_app",      # Enable CHIP8 Emulator app
+    # "chip8_curve",  # Uncomment to render CHIP8 Emulator as curved surface (requires chip8_app)
+    # "use_float",    # Disable floating-point support e.g. GPS geolocation
+]
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml_
+
+```yaml
+syscfg.vals:
+    # OS_MAIN_STACK_SIZE: 1024  #  Small stack size: 4 KB
+    OS_MAIN_STACK_SIZE: 2048    #  Normal stack size: 8 KB
+    # OS_MAIN_STACK_SIZE: 4096  #  Large stack size: 16 KB
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/syscfg.yml_
+
 # Map Physical Pixels to Virtual Pixels
 
 TODO
@@ -760,106 +864,3 @@ impl Iterator for PixelIterator {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L457-L491_
 
-# Check for Input
-
-```rust
-/// Handle touch events to emulate buttons
-pub fn handle_touch(x: u16, _y: u16) { 
-    //  We only handle 3 keys: 4, 5, 6, which correspond to Left, Centre, Right
-    //  console::print("CHIP8 touch\n"); console::flush(); 
-    let key = 
-        if x < PHYSICAL_WIDTH as u16 / 3 { Some(4) }
-        else if x < 2 * PHYSICAL_WIDTH as u16 / 3 { Some(5) }
-        else { Some(6) };
-    unsafe { KEY_PRESSED = key };
-}
-
-/// Represents the key pressed: 0-9 for keys "0" to "9", 0xa-0xf to keys "A" to "F", None for nothing pressed
-static mut KEY_PRESSED: Option<u8> = None;
-
-impl libchip8::Hardware for Hardware {
-    /// Check if the key is pressed.
-    fn key(&mut self, key: u8) -> bool {
-        //  key is 0-9 for keys "0" to "9", 0xa-0xf to keys "A" to "F"
-        if !self.is_interactive {
-            self.is_interactive = true;
-        }
-        self.is_checking_input = true;
-        //  Compare the key with the last touch event
-        if unsafe { KEY_PRESSED == Some(key) } {
-            unsafe { KEY_PRESSED = None };  //  Clear the touch event
-            return true;
-        }
-        false
-    }
-```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L492-L504_
-
-# Clear the PineTime Display
-
-TODO
-
-```rust
-/// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
-pub fn on_start() -> MynewtResult<()> {
-    console::print("Rust CHIP8\n"); console::flush();
-    
-    //  Create black background
-    let background = Rectangle::<Rgb565>
-        ::new( Coord::new( 0, 0 ), Coord::new( 239, 239 ) )   //  Rectangle coordinates
-        .fill( Some( Rgb565::from(( 0x00, 0x00, 0x00 )) ) );  //  Black
-
-    //  Render background to display
-    druid::draw_to_display(background);
-    render_region(0, 0, SCREEN_WIDTH as u8 - 1, SCREEN_HEIGHT as u8 - 1);
-
-    //  Start the emulator in a background task
-    os::task_init(                  //  Create a new task and start it...
-        unsafe { &mut CHIP8_TASK }, //  Task object will be saved here
-        &init_strn!( "chip8" ),     //  Name of task
-        Some( task_func ),    //  Function to execute when task starts
-        NULL,  //  Argument to be passed to above function
-        20,    //  Task priority: highest is 0, lowest is 255 (main task is 127), SPI is 10
-        os::OS_WAIT_FOREVER as u32,       //  Don't do sanity / watchdog checking
-        unsafe { &mut CHIP8_TASK_STACK }, //  Stack space for the task
-        CHIP8_TASK_STACK_SIZE as u16      //  Size of the stack (in 4-byte units)
-    ) ? ;                                 //  `?` means check for error
-
-    //  Return success to the caller
-    Ok(())
-}
-
-/// CHIP8 Background Task
-static mut CHIP8_TASK: os::os_task = fill_zero!(os::os_task);
-
-/// Stack space for CHIP8 Task, initialised to 0.
-static mut CHIP8_TASK_STACK: [os::os_stack_t; CHIP8_TASK_STACK_SIZE] = 
-    [0; CHIP8_TASK_STACK_SIZE];
-
-/// Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  
-const CHIP8_TASK_STACK_SIZE: usize = 4096;  //  Must be 4096 and above because CHIP8 Emulator requires substantial stack space
-```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L39-L66_
-
-# Build and Run the Emulator
-
-```yaml
-[features]
-default =  [          # Select the conditional compiled features
-    # "display_app",  # Disable graphics display app
-    # "ui_app",       # Disable druid UI app
-    # "visual_app",   # Disable Visual Rust app
-    "chip8_app",      # Enable CHIP8 Emulator app
-    # "chip8_curve",  # Uncomment to render CHIP8 Emulator as curved surface (requires chip8_app)
-    # "use_float",    # Disable floating-point support e.g. GPS geolocation
-]
-```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml_
-
-```yaml
-syscfg.vals:
-    # OS_MAIN_STACK_SIZE: 1024  #  Small stack size: 4 KB
-    OS_MAIN_STACK_SIZE: 2048    #  Normal stack size: 8 KB
-    # OS_MAIN_STACK_SIZE: 4096  #  Large stack size: 16 KB
-```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/syscfg.yml_
