@@ -685,9 +685,7 @@ syscfg.vals:
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/syscfg.yml_
 
-# Map Physical Pixels to Virtual Pixels
-
-TODO
+# Distort the CHIP-8 Rendering Surface
 
 ![Blinky distorted on a curved surface](https://lupyuen.github.io/images/chip8-blinky-curve.jpg)
 
@@ -700,6 +698,10 @@ _Blinky without distortion_
 ![Distorting CHIP-8 on a curved surface](https://lupyuen.github.io/images/chip8-curve.jpg)
 
 _From https://stackoverflow.com/questions/18264703/mapping-a-2d-grid-onto-a-sphere_
+
+# Map Physical Pixels to Virtual Pixels
+
+TODO
 
 ```rust
 /// For Physical (x,y) Coordinates, return the corresponding Virtual (x,y) Coordinates.

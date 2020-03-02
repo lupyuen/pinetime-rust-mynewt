@@ -60,9 +60,10 @@
 <li><a href="#handle-touch-events">8 Handle Touch Events</a><ul></ul></li>
 <li><a href="#chip-8-emulator-task">9 CHIP-8 Emulator Task</a><ul></ul></li>
 <li><a href="#build-and-run-the-emulator">10 Build and Run the Emulator</a><ul></ul></li>
-<li><a href="#map-physical-pixels-to-virtualpixels">11 Map Physical Pixels to Virtual Pixels</a><ul></ul></li>
-<li><a href="#map-virtual-pixels-to-physicalpixels">12 Map Virtual Pixels to Physical Pixels</a><ul></ul></li>
-<li><a href="#iterate-curvedpixels">13 Iterate Curved Pixels</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/chip8-invaders.jpg" alt="Space Invaders running on CHIP-8 Emulator on PineTime Smart Watch" /></p>
+<li><a href="#distort-the-chip-8-rendering-surface">11 Distort the CHIP-8 Rendering Surface</a><ul></ul></li>
+<li><a href="#map-physical-pixels-to-virtualpixels">12 Map Physical Pixels to Virtual Pixels</a><ul></ul></li>
+<li><a href="#map-virtual-pixels-to-physicalpixels">13 Map Virtual Pixels to Physical Pixels</a><ul></ul></li>
+<li><a href="#iterate-curvedpixels">14 Iterate Curved Pixels</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/chip8-invaders.jpg" alt="Space Invaders running on CHIP-8 Emulator on PineTime Smart Watch" /></p>
 <p><em>Space Invaders running on CHIP-8 Emulator on PineTime Smart Watch</em></p>
 <p><strong>UNDER CONSTRUCTION</strong></p>
 <p>TODO</p>
@@ -603,14 +604,15 @@ default =  [          # Select the conditional compiled features
     # OS_MAIN_STACK_SIZE: 4096  #  Large stack size: 16 KB
 </code></pre>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/syscfg.yml</em></p>
-<h1 id="map-physical-pixels-to-virtualpixels" class="section-header"><a href="#map-physical-pixels-to-virtualpixels">11 Map Physical Pixels to Virtual Pixels</a></h1>
-<p>TODO</p>
+<h1 id="distort-the-chip-8-rendering-surface" class="section-header"><a href="#distort-the-chip-8-rendering-surface">11 Distort the CHIP-8 Rendering Surface</a></h1>
 <p><img src="https://lupyuen.github.io/images/chip8-blinky-curve.jpg" alt="Blinky distorted on a curved surface" /></p>
 <p><em>Blinky distorted on a curved surface</em></p>
 <p><img src="https://lupyuen.github.io/images/chip8-blinky.jpg" alt="Blinky without distortion" /></p>
 <p><em>Blinky without distortion</em></p>
 <p><img src="https://lupyuen.github.io/images/chip8-curve.jpg" alt="Distorting CHIP-8 on a curved surface" /></p>
 <p><em>From https://stackoverflow.com/questions/18264703/mapping-a-2d-grid-onto-a-sphere</em></p>
+<h1 id="map-physical-pixels-to-virtualpixels" class="section-header"><a href="#map-physical-pixels-to-virtualpixels">12 Map Physical Pixels to Virtual Pixels</a></h1>
+<p>TODO</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// For Physical (x,y) Coordinates, return the corresponding Virtual (x,y) Coordinates.</span>
@@ -679,7 +681,7 @@ default =  [          # Select the conditional compiled features
     )
 }</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L556-L590</em></p>
-<h1 id="map-virtual-pixels-to-physicalpixels" class="section-header"><a href="#map-virtual-pixels-to-physicalpixels">12 Map Virtual Pixels to Physical Pixels</a></h1>
+<h1 id="map-virtual-pixels-to-physicalpixels" class="section-header"><a href="#map-virtual-pixels-to-physicalpixels">13 Map Virtual Pixels to Physical Pixels</a></h1>
 <p>TODO</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -767,7 +769,7 @@ default =  [          # Select the conditional compiled features
     <span class="ident">result</span>
 }</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L592-L643</em></p>
-<h1 id="iterate-curvedpixels" class="section-header"><a href="#iterate-curvedpixels">13 Iterate Curved Pixels</a></h1>
+<h1 id="iterate-curvedpixels" class="section-header"><a href="#iterate-curvedpixels">14 Iterate Curved Pixels</a></h1>
 <p>TODO</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
