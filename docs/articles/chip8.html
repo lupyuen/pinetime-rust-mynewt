@@ -10,8 +10,8 @@
     <!-- Begin scripts/rustdoc-header.html: Header for Custom Markdown files processed by rustdoc, like chip8.md -->
 <link rel="stylesheet" type="text/css" href="../normalize.css">
 <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
-<link rel="stylesheet" type="text/css" href="../dark.css">
 <link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle">
+<link rel="stylesheet" type="text/css" href="../dark.css">
 <script src="../storage.js"></script><noscript>
     <link rel="stylesheet" href="../noscript.css"></noscript>
 <link rel="shortcut icon" href="../favicon.ico">
@@ -54,12 +54,12 @@
 <li><a href="#render-ablock">5 Render a Block</a><ul></ul></li>
 <li><a href="#iterate-pixels-in-ablock">6 Iterate Pixels in a Block</a><ul></ul></li>
 <li><a href="#convert-colours">7 Convert Colours</a><ul></ul></li>
-<li><a href="#map-physical-pixels-to-virtualpixels">8 Map Physical Pixels to Virtual Pixels</a><ul></ul></li>
-<li><a href="#map-virtual-pixels-to-physicalpixels">9 Map Virtual Pixels to Physical Pixels</a><ul></ul></li>
-<li><a href="#iterate-curvedpixels">10 Iterate Curved Pixels</a><ul></ul></li>
-<li><a href="#check-for-input">11 Check for Input</a><ul></ul></li>
-<li><a href="#clear-the-pinetimedisplay">12 Clear the PineTime Display</a><ul></ul></li>
-<li><a href="#build-and-run-the-emulator">13 Build and Run the Emulator</a><ul></ul></li></ul></nav><p>Retro Gaming On Your Watch!</p>
+<li><a href="#handle-touch-events">8 Handle Touch Events</a><ul></ul></li>
+<li><a href="#chip-8-emulator-task">9 CHIP-8 Emulator Task</a><ul></ul></li>
+<li><a href="#build-and-run-the-emulator">10 Build and Run the Emulator</a><ul></ul></li>
+<li><a href="#map-physical-pixels-to-virtualpixels">11 Map Physical Pixels to Virtual Pixels</a><ul></ul></li>
+<li><a href="#map-virtual-pixels-to-physicalpixels">12 Map Virtual Pixels to Physical Pixels</a><ul></ul></li>
+<li><a href="#iterate-curvedpixels">13 Iterate Curved Pixels</a><ul></ul></li></ul></nav><p>Retro Gaming On Your Watch!</p>
 <p><strong>UNDER CONSTRUCTION</strong></p>
 <p>TODO</p>
 <p>More info about CHIP-8…</p>
@@ -490,7 +490,108 @@
 <p><code>update_color</code> gradually diminishes greyscale <code>127</code> until it reaches <code>0</code>, at every rendering of the pixel. (<code>&gt;&gt;1</code> shifts the greyscale right by 1 bit, which is the same as dividing by 2)</p>
 <p>The result: Black pixels appear as dark blue trails that fade to black.</p>
 <p>This colouring effect is most obvious in the Pong game... Watch the trail of the bouncing ball.</p>
-<h1 id="map-physical-pixels-to-virtualpixels" class="section-header"><a href="#map-physical-pixels-to-virtualpixels">8 Map Physical Pixels to Virtual Pixels</a></h1>
+<h1 id="handle-touch-events" class="section-header"><a href="#handle-touch-events">8 Handle Touch Events</a></h1>
+<p>CHIP-8 uses a keypad with 15 keys, marked <code>0</code> to <code>9</code>, <code>A</code> to <code>F</code>.</p>
+<p>For PineTime we'll emulate a simple keypad: Tapping the Left part of the touchscreen simulates the key <code>4</code>, Centre part simulates <code>5</code>, Right part simulates <code>6</code>.</p>
+<p>This is sufficient for playing Space Invaders, which uses <code>4</code> and <code>6</code> to move your spaceship Left and Right, and <code>5</code> to fire.</p>
+<p>Function <code>handle_touch</code> is called by the PineTime Rust touch controller driver with the <code>(x,y)</code> coordinates of the touched point, from <code>(0,0)</code> to <code>(239,239)</code>...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Handle touch events to emulate buttons</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">handle_touch</span>(<span class="ident">x</span>: <span class="ident">u16</span>, <span class="ident">_y</span>: <span class="ident">u16</span>) { 
+    <span class="comment">//  We only handle 3 keys: 4, 5, 6, which correspond to Left, Centre, Right</span>
+    <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span>                                                  <span class="comment">//  PHYSICAL_WIDTH is 240</span>
+        <span class="kw">if</span> <span class="ident">x</span> <span class="op">&lt;</span> <span class="ident">PHYSICAL_WIDTH</span> <span class="kw">as</span> <span class="ident">u16</span> <span class="op">/</span> <span class="number">3</span> { <span class="prelude-val">Some</span>(<span class="number">4</span>) }           <span class="comment">//  Left = 4</span>
+        <span class="kw">else</span> <span class="kw">if</span> <span class="ident">x</span> <span class="op">&lt;</span> <span class="number">2</span> <span class="op">*</span> <span class="ident">PHYSICAL_WIDTH</span> <span class="kw">as</span> <span class="ident">u16</span> <span class="op">/</span> <span class="number">3</span> { <span class="prelude-val">Some</span>(<span class="number">5</span>) }  <span class="comment">//  Centre = 5</span>
+        <span class="kw">else</span> { <span class="prelude-val">Some</span>(<span class="number">6</span>) };                                      <span class="comment">//  Right = 6</span>
+    <span class="kw">unsafe</span> { <span class="ident">KEY_PRESSED</span> <span class="op">=</span> <span class="ident">key</span> };
+}
+
+<span class="doccomment">/// Represents the key pressed: 0-9 for keys &quot;0&quot; to &quot;9&quot;, 0xa-0xf to keys &quot;A&quot; to &quot;F&quot;, None for nothing pressed</span>
+<span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">KEY_PRESSED</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="prelude-val">None</span>;</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L133-L147</em></p>
+<p><code>handle_touch</code> stores the simulated keypress into <code>KEY_PRESSED</code></p>
+<p>Note that <code>KEY_PRESSED</code> has type <code>Option&lt;u8&gt;</code>, which is an optional unsigned byte. So <code>KEY_PRESSED</code> may contain a specified byte (like <code>Some(4)</code>), or nothing (<code>None</code>).</p>
+<p>The CHIP-8 Emulator checks for keys pressed by calling the <code>key</code> function...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">impl</span> <span class="ident">libchip8</span>::<span class="ident">Hardware</span> <span class="kw">for</span> <span class="ident">Hardware</span> {
+    <span class="doccomment">/// Check if the key is pressed.</span>
+    <span class="kw">fn</span> <span class="ident">key</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">key</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
+        <span class="comment">//  key is 0-9 for keys &quot;0&quot; to &quot;9&quot;, 0xa-0xf to keys &quot;A&quot; to &quot;F&quot;</span>
+        <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">is_interactive</span> {
+            <span class="self">self</span>.<span class="ident">is_interactive</span> <span class="op">=</span> <span class="bool-val">true</span>;
+        }
+        <span class="self">self</span>.<span class="ident">is_checking_input</span> <span class="op">=</span> <span class="bool-val">true</span>;
+        <span class="comment">//  Compare the key with the last touch event</span>
+        <span class="kw">if</span> <span class="kw">unsafe</span> { <span class="ident">KEY_PRESSED</span> <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">key</span>) } {
+            <span class="kw">unsafe</span> { <span class="ident">KEY_PRESSED</span> <span class="op">=</span> <span class="prelude-val">None</span> };  <span class="comment">//  Clear the touch event</span>
+            <span class="kw">return</span> <span class="bool-val">true</span>;
+        }
+        <span class="bool-val">false</span>
+    }</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L492-L504</em></p>
+<p>When the Emulator calls <code>key(self, 4)</code>, we should return <code>true</code> if the key <code>4</code> has been pressed, i.e. <code>KEY_PRESSED</code> has value <code>Some(4)</code></p>
+<p>This doesn't found efficient for checking many keys... But it's probably OK for retro games.</p>
+<h1 id="chip-8-emulator-task" class="section-header"><a href="#chip-8-emulator-task">9 CHIP-8 Emulator Task</a></h1>
+<p>TODO</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Erase the PineTime display and start the CHIP-8 Emulator task</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">on_start</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="comment">//  Create black background</span>
+    <span class="kw">let</span> <span class="ident">background</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="op">&lt;</span><span class="ident">Rgb565</span><span class="op">&gt;</span>
+        ::<span class="ident">new</span>( <span class="ident">Coord</span>::<span class="ident">new</span>( <span class="number">0</span>, <span class="number">0</span> ), <span class="ident">Coord</span>::<span class="ident">new</span>( <span class="number">239</span>, <span class="number">239</span> ) )   <span class="comment">//  Rectangle coordinates</span>
+        .<span class="ident">fill</span>( <span class="prelude-val">Some</span>( <span class="ident">Rgb565</span>::<span class="ident">from</span>(( <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span> )) ) );  <span class="comment">//  Black</span>
+
+    <span class="comment">//  Render background to display</span>
+    <span class="ident">druid</span>::<span class="ident">draw_to_display</span>(<span class="ident">background</span>);
+
+    <span class="comment">//  Start the emulator in a background task</span>
+    <span class="ident">os</span>::<span class="ident">task_init</span>(                  <span class="comment">//  Create a new task and start it...</span>
+        <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">CHIP8_TASK</span> }, <span class="comment">//  Task object will be saved here</span>
+        <span class="kw-2">&amp;</span><span class="macro">init_strn</span><span class="macro">!</span>( <span class="string">&quot;chip8&quot;</span> ),     <span class="comment">//  Name of task</span>
+        <span class="prelude-val">Some</span>( <span class="ident">task_func</span> ),    <span class="comment">//  Function to execute when task starts</span>
+        <span class="ident">NULL</span>,  <span class="comment">//  Argument to be passed to above function</span>
+        <span class="number">20</span>,    <span class="comment">//  Task priority: highest is 0, lowest is 255 (main task is 127), SPI is 10</span>
+        <span class="ident">os</span>::<span class="ident">OS_WAIT_FOREVER</span> <span class="kw">as</span> <span class="ident">u32</span>,       <span class="comment">//  Don&#39;t do sanity / watchdog checking</span>
+        <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">CHIP8_TASK_STACK</span> }, <span class="comment">//  Stack space for the task</span>
+        <span class="ident">CHIP8_TASK_STACK_SIZE</span> <span class="kw">as</span> <span class="ident">u16</span>      <span class="comment">//  Size of the stack (in 4-byte units)</span>
+    ) <span class="question-mark">?</span> ;                                 <span class="comment">//  `?` means check for error</span>
+
+    <span class="comment">//  Return success to the caller</span>
+    <span class="prelude-val">Ok</span>(())
+}
+
+<span class="doccomment">/// CHIP8 Background Task</span>
+<span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">CHIP8_TASK</span>: <span class="ident">os</span>::<span class="ident">os_task</span> <span class="op">=</span> <span class="macro">fill_zero</span><span class="macro">!</span>(<span class="ident">os</span>::<span class="ident">os_task</span>);
+
+<span class="doccomment">/// Stack space for CHIP8 Task, initialised to 0.</span>
+<span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">CHIP8_TASK_STACK</span>: [<span class="ident">os</span>::<span class="ident">os_stack_t</span>; <span class="ident">CHIP8_TASK_STACK_SIZE</span>] <span class="op">=</span> 
+    [<span class="number">0</span>; <span class="ident">CHIP8_TASK_STACK_SIZE</span>];
+
+<span class="doccomment">/// Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  </span>
+<span class="kw">const</span> <span class="ident">CHIP8_TASK_STACK_SIZE</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">4096</span>;  <span class="comment">//  Must be 4096 and above because CHIP8 Emulator requires substantial stack space</span></pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L39-L66</em></p>
+<h1 id="build-and-run-the-emulator" class="section-header"><a href="#build-and-run-the-emulator">10 Build and Run the Emulator</a></h1>
+<pre><code class="language-yaml">[features]
+default =  [          # Select the conditional compiled features
+    # &quot;display_app&quot;,  # Disable graphics display app
+    # &quot;ui_app&quot;,       # Disable druid UI app
+    # &quot;visual_app&quot;,   # Disable Visual Rust app
+    &quot;chip8_app&quot;,      # Enable CHIP8 Emulator app
+    # &quot;chip8_curve&quot;,  # Uncomment to render CHIP8 Emulator as curved surface (requires chip8_app)
+    # &quot;use_float&quot;,    # Disable floating-point support e.g. GPS geolocation
+]
+</code></pre>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml</em></p>
+<pre><code class="language-yaml">syscfg.vals:
+    # OS_MAIN_STACK_SIZE: 1024  #  Small stack size: 4 KB
+    OS_MAIN_STACK_SIZE: 2048    #  Normal stack size: 8 KB
+    # OS_MAIN_STACK_SIZE: 4096  #  Large stack size: 16 KB
+</code></pre>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/syscfg.yml</em></p>
+<h1 id="map-physical-pixels-to-virtualpixels" class="section-header"><a href="#map-physical-pixels-to-virtualpixels">11 Map Physical Pixels to Virtual Pixels</a></h1>
 <p>TODO</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -560,7 +661,7 @@
     )
 }</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L556-L590</em></p>
-<h1 id="map-virtual-pixels-to-physicalpixels" class="section-header"><a href="#map-virtual-pixels-to-physicalpixels">9 Map Virtual Pixels to Physical Pixels</a></h1>
+<h1 id="map-virtual-pixels-to-physicalpixels" class="section-header"><a href="#map-virtual-pixels-to-physicalpixels">12 Map Virtual Pixels to Physical Pixels</a></h1>
 <p>TODO</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -648,7 +749,7 @@
     <span class="ident">result</span>
 }</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L592-L643</em></p>
-<h1 id="iterate-curvedpixels" class="section-header"><a href="#iterate-curvedpixels">10 Iterate Curved Pixels</a></h1>
+<h1 id="iterate-curvedpixels" class="section-header"><a href="#iterate-curvedpixels">13 Iterate Curved Pixels</a></h1>
 <p>TODO</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -693,99 +794,6 @@
         <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">color</span>);
     }    </pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L457-L491</em></p>
-<h1 id="check-for-input" class="section-header"><a href="#check-for-input">11 Check for Input</a></h1>
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="doccomment">/// Handle touch events to emulate buttons</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">handle_touch</span>(<span class="ident">x</span>: <span class="ident">u16</span>, <span class="ident">_y</span>: <span class="ident">u16</span>) { 
-    <span class="comment">//  We only handle 3 keys: 4, 5, 6, which correspond to Left, Centre, Right</span>
-    <span class="comment">//  console::print(&quot;CHIP8 touch\n&quot;); console::flush(); </span>
-    <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> 
-        <span class="kw">if</span> <span class="ident">x</span> <span class="op">&lt;</span> <span class="ident">PHYSICAL_WIDTH</span> <span class="kw">as</span> <span class="ident">u16</span> <span class="op">/</span> <span class="number">3</span> { <span class="prelude-val">Some</span>(<span class="number">4</span>) }
-        <span class="kw">else</span> <span class="kw">if</span> <span class="ident">x</span> <span class="op">&lt;</span> <span class="number">2</span> <span class="op">*</span> <span class="ident">PHYSICAL_WIDTH</span> <span class="kw">as</span> <span class="ident">u16</span> <span class="op">/</span> <span class="number">3</span> { <span class="prelude-val">Some</span>(<span class="number">5</span>) }
-        <span class="kw">else</span> { <span class="prelude-val">Some</span>(<span class="number">6</span>) };
-    <span class="kw">unsafe</span> { <span class="ident">KEY_PRESSED</span> <span class="op">=</span> <span class="ident">key</span> };
-}
-
-<span class="doccomment">/// Represents the key pressed: 0-9 for keys &quot;0&quot; to &quot;9&quot;, 0xa-0xf to keys &quot;A&quot; to &quot;F&quot;, None for nothing pressed</span>
-<span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">KEY_PRESSED</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="prelude-val">None</span>;
-
-<span class="kw">impl</span> <span class="ident">libchip8</span>::<span class="ident">Hardware</span> <span class="kw">for</span> <span class="ident">Hardware</span> {
-    <span class="doccomment">/// Check if the key is pressed.</span>
-    <span class="kw">fn</span> <span class="ident">key</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">key</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">bool</span> {
-        <span class="comment">//  key is 0-9 for keys &quot;0&quot; to &quot;9&quot;, 0xa-0xf to keys &quot;A&quot; to &quot;F&quot;</span>
-        <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">is_interactive</span> {
-            <span class="self">self</span>.<span class="ident">is_interactive</span> <span class="op">=</span> <span class="bool-val">true</span>;
-        }
-        <span class="self">self</span>.<span class="ident">is_checking_input</span> <span class="op">=</span> <span class="bool-val">true</span>;
-        <span class="comment">//  Compare the key with the last touch event</span>
-        <span class="kw">if</span> <span class="kw">unsafe</span> { <span class="ident">KEY_PRESSED</span> <span class="op">=</span><span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">key</span>) } {
-            <span class="kw">unsafe</span> { <span class="ident">KEY_PRESSED</span> <span class="op">=</span> <span class="prelude-val">None</span> };  <span class="comment">//  Clear the touch event</span>
-            <span class="kw">return</span> <span class="bool-val">true</span>;
-        }
-        <span class="bool-val">false</span>
-    }</pre></div>
-<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L492-L504</em></p>
-<h1 id="clear-the-pinetimedisplay" class="section-header"><a href="#clear-the-pinetimedisplay">12 Clear the PineTime Display</a></h1>
-<p>TODO</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="doccomment">/// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">on_start</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-    <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;Rust CHIP8\n&quot;</span>); <span class="ident">console</span>::<span class="ident">flush</span>();
-    
-    <span class="comment">//  Create black background</span>
-    <span class="kw">let</span> <span class="ident">background</span> <span class="op">=</span> <span class="ident">Rectangle</span>::<span class="op">&lt;</span><span class="ident">Rgb565</span><span class="op">&gt;</span>
-        ::<span class="ident">new</span>( <span class="ident">Coord</span>::<span class="ident">new</span>( <span class="number">0</span>, <span class="number">0</span> ), <span class="ident">Coord</span>::<span class="ident">new</span>( <span class="number">239</span>, <span class="number">239</span> ) )   <span class="comment">//  Rectangle coordinates</span>
-        .<span class="ident">fill</span>( <span class="prelude-val">Some</span>( <span class="ident">Rgb565</span>::<span class="ident">from</span>(( <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span> )) ) );  <span class="comment">//  Black</span>
-
-    <span class="comment">//  Render background to display</span>
-    <span class="ident">druid</span>::<span class="ident">draw_to_display</span>(<span class="ident">background</span>);
-    <span class="ident">render_region</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="ident">SCREEN_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">-</span> <span class="number">1</span>, <span class="ident">SCREEN_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">-</span> <span class="number">1</span>);
-
-    <span class="comment">//  Start the emulator in a background task</span>
-    <span class="ident">os</span>::<span class="ident">task_init</span>(                  <span class="comment">//  Create a new task and start it...</span>
-        <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">CHIP8_TASK</span> }, <span class="comment">//  Task object will be saved here</span>
-        <span class="kw-2">&amp;</span><span class="macro">init_strn</span><span class="macro">!</span>( <span class="string">&quot;chip8&quot;</span> ),     <span class="comment">//  Name of task</span>
-        <span class="prelude-val">Some</span>( <span class="ident">task_func</span> ),    <span class="comment">//  Function to execute when task starts</span>
-        <span class="ident">NULL</span>,  <span class="comment">//  Argument to be passed to above function</span>
-        <span class="number">20</span>,    <span class="comment">//  Task priority: highest is 0, lowest is 255 (main task is 127), SPI is 10</span>
-        <span class="ident">os</span>::<span class="ident">OS_WAIT_FOREVER</span> <span class="kw">as</span> <span class="ident">u32</span>,       <span class="comment">//  Don&#39;t do sanity / watchdog checking</span>
-        <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">CHIP8_TASK_STACK</span> }, <span class="comment">//  Stack space for the task</span>
-        <span class="ident">CHIP8_TASK_STACK_SIZE</span> <span class="kw">as</span> <span class="ident">u16</span>      <span class="comment">//  Size of the stack (in 4-byte units)</span>
-    ) <span class="question-mark">?</span> ;                                 <span class="comment">//  `?` means check for error</span>
-
-    <span class="comment">//  Return success to the caller</span>
-    <span class="prelude-val">Ok</span>(())
-}
-
-<span class="doccomment">/// CHIP8 Background Task</span>
-<span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">CHIP8_TASK</span>: <span class="ident">os</span>::<span class="ident">os_task</span> <span class="op">=</span> <span class="macro">fill_zero</span><span class="macro">!</span>(<span class="ident">os</span>::<span class="ident">os_task</span>);
-
-<span class="doccomment">/// Stack space for CHIP8 Task, initialised to 0.</span>
-<span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">CHIP8_TASK_STACK</span>: [<span class="ident">os</span>::<span class="ident">os_stack_t</span>; <span class="ident">CHIP8_TASK_STACK_SIZE</span>] <span class="op">=</span> 
-    [<span class="number">0</span>; <span class="ident">CHIP8_TASK_STACK_SIZE</span>];
-
-<span class="doccomment">/// Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  </span>
-<span class="kw">const</span> <span class="ident">CHIP8_TASK_STACK_SIZE</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">4096</span>;  <span class="comment">//  Must be 4096 and above because CHIP8 Emulator requires substantial stack space</span></pre></div>
-<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L39-L66</em></p>
-<h1 id="build-and-run-the-emulator" class="section-header"><a href="#build-and-run-the-emulator">13 Build and Run the Emulator</a></h1>
-<pre><code class="language-yaml">[features]
-default =  [          # Select the conditional compiled features
-    # &quot;display_app&quot;,  # Disable graphics display app
-    # &quot;ui_app&quot;,       # Disable druid UI app
-    # &quot;visual_app&quot;,   # Disable Visual Rust app
-    &quot;chip8_app&quot;,      # Enable CHIP8 Emulator app
-    # &quot;chip8_curve&quot;,  # Uncomment to render CHIP8 Emulator as curved surface (requires chip8_app)
-    # &quot;use_float&quot;,    # Disable floating-point support e.g. GPS geolocation
-]
-</code></pre>
-<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml</em></p>
-<pre><code class="language-yaml">syscfg.vals:
-    # OS_MAIN_STACK_SIZE: 1024  #  Small stack size: 4 KB
-    OS_MAIN_STACK_SIZE: 2048    #  Normal stack size: 8 KB
-    # OS_MAIN_STACK_SIZE: 4096  #  Large stack size: 16 KB
-</code></pre>
-<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/syscfg.yml</em></p>
 
     
 </body>
