@@ -108,6 +108,8 @@
     <span class="kw">let</span> <span class="ident">rom</span> <span class="op">=</span> <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../roms/blinky.ch8&quot;</span>);</pre></div>
 <p><code>blinky.ch8</code> is a binary file that contains the program and data for the Blinky CHIP-8 game. By calling the <code>include_bytes!</code> macro, we load the entire binary file into memory as a Rust static memory object.</p>
 <p>How is <code>Hardware</code> used? We'll find out next...</p>
+<p><img src="https://lupyuen.github.io/images/chip8-blinky.jpg" alt="Blinky running on CHIP-8 Emulator on PineTime Smart Watch" /></p>
+<p><em>Blinky running on CHIP-8 Emulator on PineTime Smart Watch</em></p>
 <h1 id="set-a-pixelcolour" class="section-header"><a href="#set-a-pixelcolour">2 Set a Pixel Colour</a></h1>
 <p><code>libchip8</code> is a clever CHIP-8 Emulator that supports all kinds of platforms, including Windows. <em>How does it do that?</em></p>
 <p><code>libchip8</code> abstracts all platform-specific operations (like Screen Updates) into the <code>Hardware</code> trait.  Here's how we implement the <code>Hardware</code> trait on PineTime to set a screen pixel on or off...</p>
@@ -454,6 +456,8 @@
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L376-L385</em></p>
 <p>Thus our Initial Loading Screen now looks green. Other Sprites in the game will appear as white (greyscale <code>255</code>) because they are rendered after the game has started seeking button input.</p>
 <p>This colouring effect is most obvious in the Space Invaders title screen.</p>
+<p><img src="https://lupyuen.github.io/images/chip8-invaders.jpg" alt="Space Invaders title screen in green" /></p>
+<p><em>Space Invaders title screen in green</em></p>
 <p>What about black pixels? Recall the code from <code>vram_set</code>...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -494,6 +498,8 @@
 <p><code>update_color</code> gradually diminishes greyscale <code>127</code> until it reaches <code>0</code>, at every rendering of the pixel. (<code>&gt;&gt;1</code> shifts the greyscale right by 1 bit, which is the same as dividing by 2)</p>
 <p>The result: Black pixels appear as dark blue trails that fade to black.</p>
 <p>This colouring effect is most obvious in the Pong game... Watch the trail of the bouncing ball.</p>
+<p><img src="https://lupyuen.github.io/images/chip8-pong.jpg" alt="Pong ball trail in blue" /></p>
+<p><em>Pong ball trail in blue</em></p>
 <h1 id="handle-touch-events" class="section-header"><a href="#handle-touch-events">8 Handle Touch Events</a></h1>
 <p>CHIP-8 uses a keypad with 15 keys, marked <code>0</code> to <code>9</code>, <code>A</code> to <code>F</code>.</p>
 <p>For PineTime we'll emulate a simple keypad: Tapping the Left part of the touchscreen simulates the key <code>4</code>, Centre part simulates <code>5</code>, Right part simulates <code>6</code>.</p>
@@ -537,6 +543,8 @@
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L492-L504</em></p>
 <p>When the Emulator calls <code>key(self, 4)</code>, we should return <code>true</code> if the key <code>4</code> has been pressed, i.e. <code>KEY_PRESSED</code> has value <code>Some(4)</code></p>
 <p>This doesn't found efficient for checking many keys... But it's probably OK for retro games.</p>
+<p><img src="https://lupyuen.github.io/images/chip8-invaders2.jpg" alt="Playing Space Invaders with 3 touch points: Left, Centre, Right" /></p>
+<p><em>Playing Space Invaders with 3 touch points: Left, Centre, Right</em></p>
 <h1 id="chip-8-emulator-task" class="section-header"><a href="#chip-8-emulator-task">9 CHIP-8 Emulator Task</a></h1>
 <p>TODO</p>
 
@@ -597,7 +605,11 @@ default =  [          # Select the conditional compiled features
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/syscfg.yml</em></p>
 <h1 id="map-physical-pixels-to-virtualpixels" class="section-header"><a href="#map-physical-pixels-to-virtualpixels">11 Map Physical Pixels to Virtual Pixels</a></h1>
 <p>TODO</p>
-<p><img src="https://lupyuen.github.io/images/chip8-curve.jpg" alt="Rendering CHIP-8 on a curved surface" /></p>
+<p><img src="https://lupyuen.github.io/images/chip8-blinky-curve.jpg" alt="Blinky distorted on a curved surface" /></p>
+<p><em>Blinky distorted on a curved surface</em></p>
+<p><img src="https://lupyuen.github.io/images/chip8-blinky.jpg" alt="Blinky without distortion" /></p>
+<p><em>Blinky without distortion</em></p>
+<p><img src="https://lupyuen.github.io/images/chip8-curve.jpg" alt="Distorting CHIP-8 on a curved surface" /></p>
 <p><em>From https://stackoverflow.com/questions/18264703/mapping-a-2d-grid-onto-a-sphere</em></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">

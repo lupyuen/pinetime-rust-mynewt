@@ -70,6 +70,10 @@ Note the neat syntax used in Rust to load binary files into memory...
 
 How is `Hardware` used? We'll find out next...
 
+![Blinky running on CHIP-8 Emulator on PineTime Smart Watch](https://lupyuen.github.io/images/chip8-blinky.jpg)
+
+_Blinky running on CHIP-8 Emulator on PineTime Smart Watch_
+
 # Set a Pixel Colour
 
 `libchip8` is a clever CHIP-8 Emulator that supports all kinds of platforms, including Windows. _How does it do that?_
@@ -499,6 +503,10 @@ Thus our Initial Loading Screen now looks green. Other Sprites in the game will 
 
 This colouring effect is most obvious in the Space Invaders title screen.
 
+![Space Invaders title screen in green](https://lupyuen.github.io/images/chip8-invaders.jpg)
+
+_Space Invaders title screen in green_
+
 What about black pixels? Recall the code from `vram_set`...
 
 ```rust
@@ -547,6 +555,10 @@ Note that the `update_color` function above is also called by `get_color` while 
 The result: Black pixels appear as dark blue trails that fade to black.
 
 This colouring effect is most obvious in the Pong game... Watch the trail of the bouncing ball.
+
+![Pong ball trail in blue](https://lupyuen.github.io/images/chip8-pong.jpg)
+
+_Pong ball trail in blue_
 
 # Handle Touch Events
 
@@ -602,6 +614,10 @@ _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/c
 When the Emulator calls `key(self, 4)`, we should return `true` if the key `4` has been pressed, i.e. `KEY_PRESSED` has value `Some(4)`
 
 This doesn't found efficient for checking many keys... But it's probably OK for retro games.
+
+![Playing Space Invaders with 3 touch points: Left, Centre, Right](https://lupyuen.github.io/images/chip8-invaders2.jpg)
+
+_Playing Space Invaders with 3 touch points: Left, Centre, Right_
 
 # CHIP-8 Emulator Task
 
@@ -673,7 +689,15 @@ _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor
 
 TODO
 
-![Rendering CHIP-8 on a curved surface](https://lupyuen.github.io/images/chip8-curve.jpg)
+![Blinky distorted on a curved surface](https://lupyuen.github.io/images/chip8-blinky-curve.jpg)
+
+_Blinky distorted on a curved surface_
+
+![Blinky without distortion](https://lupyuen.github.io/images/chip8-blinky.jpg)
+
+_Blinky without distortion_
+
+![Distorting CHIP-8 on a curved surface](https://lupyuen.github.io/images/chip8-curve.jpg)
 
 _From https://stackoverflow.com/questions/18264703/mapping-a-2d-grid-onto-a-sphere_
 
