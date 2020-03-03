@@ -723,11 +723,15 @@ Let's look at __3D Interpolation__ instead.  I have a strong hunch that...
 
 1. The PineTime display is only 240x240... Precomputing and storing the Lookup Tables into ROM should be easy. Note that the mapping of Square to Sphere is Symmetric on the X and Y axes. So we only need to compute one quadrant of the mapping! (I chose the lower right quadrant)
 
-1. To compute the Lookup Tables, we'll take a few points from the Square to Sphere mapping and interpolate them (i.e. fill in the missing pixels between the points).
+1. To compute the Lookup Tables, we'll take a few points from the Square to Sphere mapping and interpolate them (i.e. run a Rust program to fill in the missing pixels between the points).
 
-1. Interpolating the pixels is probably a good idea for the long term... It lets us tweak the mapping manually by adjusting the position of the points. (Instead of figuring out complicated math formulae)
+1. Interpolating the pixels is probably a good idea for the long term... It lets us tweak the mapping manually by shifting the points. (Instead of figuring out complicated math formulae)
 
+_How shall we get the Interpolation Points? Let's copy them from the diagram above!_
 
+![Interpolation Points](https://lupyuen.github.io/images/chip8-points.png)
+
+_From https://docs.google.com/spreadsheets/d/1G9kLS0Es6kwcMA3SC50w5-T-LBYi3NQeY98y7HOAovs/edit#gid=0_
 
 # Map Physical Pixels to Virtual Pixels
 
