@@ -715,11 +715,17 @@ Let's look at __3D Interpolation__ instead.  I have a strong hunch that...
 
 1. Calling `sin` and `cos` at every pixel rendering would be too taxing on our nRF52 microcontroller
 
-1. We have plenty of ROM on PineTime (64 KB). Perfect for simple __Lookup Tables__ that will map Virtual Pixel to Physical Pixels and vice versa.  
+1. We have plenty of ROM on PineTime (512 KB). Perfect for our nRF52 microcontroller to look up simple __Lookup Tables__ that will map Virtual Pixel to Physical Pixels and vice versa.  
 
-1. How will the Lookup Tables work? Given a Virtual Pixel on CHIP-8, we need to find out the corresponding Physical Pixels on the curvy PineTime display. And the Lookup Tables will also tell us the Virtual Pixel that corresponds to each Physical Pixel. (This is a One Virtual Pixel to Multiple Physical Pixel mapping... Mathematically, `1:N`)
+1. How will the Lookup Tables work? Given a Virtual Pixel on CHIP-8, we need to find out the corresponding Physical Pixels on the curvy PineTime display. 
 
-1. The PineTime display is only 240x240... Precomputing and storing the Lookup Tables into ROM should be easy. Note that the mapping of Square to Sphere is Symmetric on the X and Y axes. So we only need to compute one quadrant of the mapping! (I chose the lower right quadrant: `X >= 0, Y >= 0`)
+1. And the Lookup Tables will also tell us the Virtual Pixel that corresponds to each Physical Pixel. (This is a One Virtual Pixel to Multiple Physical Pixel mapping... Mathematically, `1:N`)
+
+1. The PineTime display is only 240x240... Precomputing and storing the Lookup Tables into ROM should be easy. Note that the mapping of Square to Sphere is Symmetric on the X and Y axes. So we only need to compute one quadrant of the mapping! (I chose the lower right quadrant)
+
+1. To compute the Lookup Tables, we'll take a few points from the Square to Sphere mapping and interpolate them (i.e. fill in the missing pixels between the points).
+
+1. Interpolating the pixels is probably a good idea for the long term... It lets us tweak the mapping manually by adjusting the position of the points.
 
 # Map Physical Pixels to Virtual Pixels
 

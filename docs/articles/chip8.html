@@ -60,7 +60,7 @@
 <li><a href="#handle-touch-events">8 Handle Touch Events</a><ul></ul></li>
 <li><a href="#chip-8-emulator-task">9 CHIP-8 Emulator Task</a><ul></ul></li>
 <li><a href="#build-and-run-the-emulator">10 Build and Run the Emulator</a><ul></ul></li>
-<li><a href="#distort-the-chip-8-rendering-surface">11 Distort the CHIP-8 Rendering Surface</a><ul></ul></li>
+<li><a href="#distort-the-chip-8-rendering">11 Distort the CHIP-8 Rendering</a><ul></ul></li>
 <li><a href="#map-physical-pixels-to-virtualpixels">12 Map Physical Pixels to Virtual Pixels</a><ul></ul></li>
 <li><a href="#map-virtual-pixels-to-physicalpixels">13 Map Virtual Pixels to Physical Pixels</a><ul></ul></li>
 <li><a href="#iterate-curvedpixels">14 Iterate Curved Pixels</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/chip8-invaders.jpg" alt="Space Invaders running on CHIP-8 Emulator on PineTime Smart Watch" /></p>
@@ -604,13 +604,43 @@ default =  [          # Select the conditional compiled features
     # OS_MAIN_STACK_SIZE: 4096  #  Large stack size: 16 KB
 </code></pre>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/syscfg.yml</em></p>
-<h1 id="distort-the-chip-8-rendering-surface" class="section-header"><a href="#distort-the-chip-8-rendering-surface">11 Distort the CHIP-8 Rendering Surface</a></h1>
+<h1 id="distort-the-chip-8-rendering" class="section-header"><a href="#distort-the-chip-8-rendering">11 Distort the CHIP-8 Rendering</a></h1>
+<p>Remember we said earlier that every Virtual Pixel on CHIP-8 is rendered as a rectangular chunk of 15 Physical Pixels on the PineTime display. (Because we need to stretch the pixel to fill the PineTime display)</p>
+<p><em>Not super efficient... But since we're blasting out 15 pixels anyway... Can we be more creative? What if we blast the 15 pixels in a curvy way like this...</em></p>
 <p><img src="https://lupyuen.github.io/images/chip8-blinky-curve.jpg" alt="Blinky distorted on a curved surface" /></p>
 <p><em>Blinky distorted on a curved surface</em></p>
+<p>This looks interesting... Almost &quot;Organic&quot;, like a CRT display protruding from the PineTime screen.  So let's get adventurous! </p>
+<p><em>How shall we distort the CHIP-8 Emulator in a curvy way based on this rectangular grid...</em></p>
 <p><img src="https://lupyuen.github.io/images/chip8-blinky.jpg" alt="Blinky without distortion" /></p>
 <p><em>Blinky without distortion</em></p>
+<p>Mathematically we are mapping a <strong>Square (the CHIP-8 output) to a Sphere (the curved rendering surface)</strong> like this...</p>
 <p><img src="https://lupyuen.github.io/images/chip8-curve.jpg" alt="Distorting CHIP-8 on a curved surface" /></p>
 <p><em>From https://stackoverflow.com/questions/18264703/mapping-a-2d-grid-onto-a-sphere</em></p>
+<p>The obvious approach would be to crack open the Sine and Cosine Functions from our high school textbooks and work out the correct formula... But we shall do no such boring things here!</p>
+<p>Let's look at <strong>3D Interpolation</strong> instead.  I have a strong hunch that...</p>
+<ol>
+<li>
+<p>Calling <code>sin</code> and <code>cos</code> at every pixel rendering would be too taxing on our nRF52 microcontroller</p>
+</li>
+<li>
+<p>We have plenty of ROM on PineTime (512 KB). Perfect for our nRF52 microcontroller to look up simple <strong>Lookup Tables</strong> that will map Virtual Pixel to Physical Pixels and vice versa.</p>
+</li>
+<li>
+<p>How will the Lookup Tables work? Given a Virtual Pixel on CHIP-8, we need to find out the corresponding Physical Pixels on the curvy PineTime display. </p>
+</li>
+<li>
+<p>And the Lookup Tables will also tell us the Virtual Pixel that corresponds to each Physical Pixel. (This is a One Virtual Pixel to Multiple Physical Pixel mapping... Mathematically, <code>1:N</code>)</p>
+</li>
+<li>
+<p>The PineTime display is only 240x240... Precomputing and storing the Lookup Tables into ROM should be easy. Note that the mapping of Square to Sphere is Symmetric on the X and Y axes. So we only need to compute one quadrant of the mapping! (I chose the lower right quadrant)</p>
+</li>
+<li>
+<p>To compute the Lookup Tables, we'll take a few points from the Square to Sphere mapping and interpolate them (i.e. fill in the missing pixels between the points).</p>
+</li>
+<li>
+<p>Interpolating the pixels is probably a good idea for the long term... It lets us tweak the mapping manually by adjusting the position of the points.</p>
+</li>
+</ol>
 <h1 id="map-physical-pixels-to-virtualpixels" class="section-header"><a href="#map-physical-pixels-to-virtualpixels">12 Map Physical Pixels to Virtual Pixels</a></h1>
 <p>TODO</p>
 
