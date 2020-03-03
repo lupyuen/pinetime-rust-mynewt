@@ -725,7 +725,9 @@ Let's look at __3D Interpolation__ instead.  I have a strong hunch that...
 
 1. To compute the Lookup Tables, we'll take a few points from the Square to Sphere mapping and interpolate them (i.e. fill in the missing pixels between the points).
 
-1. Interpolating the pixels is probably a good idea for the long term... It lets us tweak the mapping manually by adjusting the position of the points.
+1. Interpolating the pixels is probably a good idea for the long term... It lets us tweak the mapping manually by adjusting the position of the points. (Instead of figuring out complicated math formulae)
+
+
 
 # Map Physical Pixels to Virtual Pixels
 
