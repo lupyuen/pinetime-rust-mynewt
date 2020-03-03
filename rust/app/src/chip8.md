@@ -957,7 +957,9 @@ _Blinky distorted on a curved surface, interpolated from 16 points in the lower 
 
 # Map Physical Pixels to Virtual Pixels
 
-TODO
+Now that we have precomputed the Lookup Tables `PHYSICAL_TO_VIRTUAL_MAP` and `VIRTUAL_TO_PHYSICAL_MAP`, let's embed them into PineTime's Flash ROM.
+
+Here's how we embed `PHYSICAL_TO_VIRTUAL_MAP`, the array that maps every Physical Pixel to the corresponding Virtual Pixel...
 
 ```rust
 /// For Physical (x,y) Coordinates, return the corresponding Virtual (x,y) Coordinates.
@@ -1032,6 +1034,8 @@ _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/c
 # Map Virtual Pixels to Physical Pixels
 
 TODO
+
+Here's how we embed `VIRTUAL_TO_PHYSICAL_MAP`, the array that maps every Virtual Pixel to the corresponding Physical Bounding Box... (The box that contains all Physical Pixels that map to the same Virtual Pixel)
 
 ```rust
 /// For each Virtual (x,y) Coordinate, return the Bounding Box (left, top, right, bottom) that encloses the corresponding Physical (x,y) Coordinates.
