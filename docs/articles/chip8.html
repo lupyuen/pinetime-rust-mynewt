@@ -644,7 +644,7 @@ default =  [          # Select the conditional compiled features
 </li>
 </ol>
 <h1 id="interpolate-the-square-to-sphere-mapping" class="section-header"><a href="#interpolate-the-square-to-sphere-mapping">12 Interpolate the Square to Sphere mapping</a></h1>
-<p><em>How shall we get the Interpolation Points to map the Virtual Pixels (CHIP-8) to Physical Pixels (PineTime display)? Let's copy them literally from the <a href="https://stackoverflow.com/questions/18264703/mapping-a-2d-grid-onto-a-sphere_">Square to Sphere Interpolation Diagram</a>!</em></p>
+<p><em>How shall we get the Interpolation Points to map the rectangular Virtual Pixels on CHIP-8 to the curved Physical Pixels on PineTime display? Let's copy them literally from the <a href="https://stackoverflow.com/questions/18264703/mapping-a-2d-grid-onto-a-sphere_">Square to Sphere Interpolation Diagram</a>!</em></p>
 <p><img src="https://lupyuen.github.io/images/chip8-points.png" alt="Interpolation Points copied from diagram into spreadsheet" /></p>
 <p><em>Interpolation Points copied from diagram into spreadsheet. From https://docs.google.com/spreadsheets/d/1G9kLS0Es6kwcMA3SC50w5-T-LBYi3NQeY98y7HOAovs/edit#gid=0</em></p>
 <p>This produces 49 curved Intepolation Points (7 * 7) that we shall map into a rectangular grid for CHIP-8. As shown in the top left corner of <a href="https://docs.google.com/spreadsheets/d/1G9kLS0Es6kwcMA3SC50w5-T-LBYi3NQeY98y7HOAovs/edit#gid=0">the spreadsheet</a>...</p>
@@ -699,7 +699,7 @@ default =  [          # Select the conditional compiled features
 <p><em>From https://github.com/lupyuen/interpolate-surface/blob/master/src/delaunay_creation.rs</em></p>
 <p>We'll use <strong><a href="https://stoeoef.gitbooks.io/spade-user-manual/content/interpolation.html">Natural Neighbor 3D Interpolation</a></strong> from the [spade] crate to interpolate the missing Virtual (X, Y) pixels, in two steps (Virtual X then Virtual Y).</p>
 <p><em>Why is this considered 3D Interpolation, not 2D Interpolation? Because we are mapping two numbers (Physical X = 1, Physical Y = 0) to a third number (Virtual X = 0)</em></p>
-<p>It sounds like a miracle, but the <a href="https://github.com/lupyuen/interpolate-surface">[spade] 3D Interpolation Program</a> will produce smoothly-interpolated Virtual X values for <strong>every single pixel of Physical (X, Y)</strong> from (0, 0) to (120, 100)... (That's the lower right quadrant)</p>
+<p>It sounds like a miracle, but the <a href="https://github.com/lupyuen/interpolate-surface">[spade] 3D Interpolation Program</a> will produce smoothly-interpolated CHIP-8 Virtual X values for <strong>every single PineTime pixel of Physical (X, Y)</strong> from (0, 0) to (120, 100)... (That's the lower right quadrant)</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Physical</span> ( <span class="number">1</span>,  <span class="number">0</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Virtual</span> <span class="ident">X</span> <span class="op">=</span>  <span class="number">0</span>  <span class="comment">//  Provided value</span>
@@ -715,8 +715,8 @@ default =  [          # Select the conditional compiled features
 <span class="ident">Physical</span> ( <span class="number">3</span>, <span class="number">36</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Virtual</span> <span class="ident">X</span> <span class="op">=</span>  <span class="number">1</span>  <span class="comment">//  Interpolated value</span>
 ...</pre></div>
 <p><em>Output of <a href="https://github.com/lupyuen/interpolate-surface">interpolate-surface program</a>. From https://docs.google.com/spreadsheets/d/1G9kLS0Es6kwcMA3SC50w5-T-LBYi3NQeY98y7HOAovs/edit#gid=1436721555</em></p>
-<p>The program will also produce smoothly-interpolated Virtual Y values for every single pixel of Physical (X, Y) in the lower right quadrant. (Need to edit <code>Cargo.toml</code> and select the feature <code>interpolate_y</code>)</p>
-<p>So mapping from Physical (X, Y) to Virtual (X, Y) is complete!</p>
+<p>The program will also produce smoothly-interpolated CHIP-8 Virtual Y values for every single PineTime pixel of Physical (X, Y) in the lower right quadrant. (Need to edit <code>Cargo.toml</code> and select the feature <code>interpolate_y</code>)</p>
+<p>So mapping from Physical (X, Y) on the curved PineTime display to Virtual (X, Y) on CHIP-8 is complete!</p>
 <h1 id="validate-the-square-to-sphere-interpolation" class="section-header"><a href="#validate-the-square-to-sphere-interpolation">13 Validate the Square to Sphere Interpolation</a></h1>
 <p><img src="https://lupyuen.github.io/images/chip8-interpolate.png" alt="Natural Neighbor Interpolation vs Barycentic Interpolation in 3D perspective" /></p>
 <p><em>Natural Neighbor Interpolation vs Barycentic Interpolation in 3D perspective. From https://github.com/lupyuen/interpolate-surface</em></p>

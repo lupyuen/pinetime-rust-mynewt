@@ -729,7 +729,7 @@ Let's look at __3D Interpolation__ instead.  I have a strong hunch that...
 
 # Interpolate the Square to Sphere mapping
 
-_How shall we get the Interpolation Points to map the Virtual Pixels (CHIP-8) to Physical Pixels (PineTime display)? Let's copy them literally from the [Square to Sphere Interpolation Diagram](https://stackoverflow.com/questions/18264703/mapping-a-2d-grid-onto-a-sphere_)!_
+_How shall we get the Interpolation Points to map the rectangular Virtual Pixels on CHIP-8 to the curved Physical Pixels on PineTime display? Let's copy them literally from the [Square to Sphere Interpolation Diagram](https://stackoverflow.com/questions/18264703/mapping-a-2d-grid-onto-a-sphere_)!_
 
 ![Interpolation Points copied from diagram into spreadsheet](https://lupyuen.github.io/images/chip8-points.png)
 
@@ -787,7 +787,7 @@ We'll use __[Natural Neighbor 3D Interpolation](https://stoeoef.gitbooks.io/spad
 
 _Why is this considered 3D Interpolation, not 2D Interpolation? Because we are mapping two numbers (Physical X = 1, Physical Y = 0) to a third number (Virtual X = 0)_
 
-It sounds like a miracle, but the [[spade] 3D Interpolation Program](https://github.com/lupyuen/interpolate-surface) will produce smoothly-interpolated Virtual X values for __every single pixel of Physical (X, Y)__ from (0, 0) to (120, 100)... (That's the lower right quadrant)
+It sounds like a miracle, but the [[spade] 3D Interpolation Program](https://github.com/lupyuen/interpolate-surface) will produce smoothly-interpolated CHIP-8 Virtual X values for __every single PineTime pixel of Physical (X, Y)__ from (0, 0) to (120, 100)... (That's the lower right quadrant)
 
 ```
 Physical ( 1,  0) -> Virtual X =  0  //  Provided value
@@ -805,9 +805,9 @@ Physical ( 3, 36) -> Virtual X =  1  //  Interpolated value
 ```
 _Output of [interpolate-surface program](https://github.com/lupyuen/interpolate-surface). From https://docs.google.com/spreadsheets/d/1G9kLS0Es6kwcMA3SC50w5-T-LBYi3NQeY98y7HOAovs/edit#gid=1436721555_
 
-The program will also produce smoothly-interpolated Virtual Y values for every single pixel of Physical (X, Y) in the lower right quadrant. (Need to edit `Cargo.toml` and select the feature `interpolate_y`)
+The program will also produce smoothly-interpolated CHIP-8 Virtual Y values for every single PineTime pixel of Physical (X, Y) in the lower right quadrant. (Need to edit `Cargo.toml` and select the feature `interpolate_y`)
 
-So mapping from Physical (X, Y) to Virtual (X, Y) is complete!
+So mapping from Physical (X, Y) on the curved PineTime display to Virtual (X, Y) on CHIP-8 is complete!
 
 # Validate the Square to Sphere Interpolation
 
