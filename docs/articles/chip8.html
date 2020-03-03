@@ -837,6 +837,9 @@ default =  [          # Select the conditional compiled features
 <p>Recall that we're using (X, Y) coordinates to interpolate a Z value. Which is shown above as the height of each point. (Like hilltops)</p>
 <p>Barycentic Interpolation (right) has an unusual kink, so it doesn't look like a smooth interpolation.</p>
 <p>Thus we picked Natural Neighbor Interpolation (left), which looks much smoother. This lets us verify visually that our pixels are indeed interpolated smoothly between the given points.</p>
+<p>The smooth result of the 3D Interpolation is obvious... Straight lines are gently curved on the PineTime display.  All this interpolated from only <strong>16 points</strong> in the lower right quadrant!</p>
+<p><img src="https://lupyuen.github.io/images/chip8-blinky-curve.jpg" alt="Blinky distorted on a curved surface, interpolated from 16 points in the lower right quadrant" /></p>
+<p><em>Blinky distorted on a curved surface, interpolated from 16 points in the lower right quadrant</em></p>
 <h1 id="map-physical-pixels-to-virtualpixels" class="section-header"><a href="#map-physical-pixels-to-virtualpixels">15 Map Physical Pixels to Virtual Pixels</a></h1>
 <p>TODO</p>
 

@@ -949,6 +949,12 @@ Barycentic Interpolation (right) has an unusual kink, so it doesn't look like a 
 
 Thus we picked Natural Neighbor Interpolation (left), which looks much smoother. This lets us verify visually that our pixels are indeed interpolated smoothly between the given points.
 
+The smooth result of the 3D Interpolation is obvious... Straight lines are gently curved on the PineTime display.  All this interpolated from only __16 points__ in the lower right quadrant!
+
+![Blinky distorted on a curved surface, interpolated from 16 points in the lower right quadrant](https://lupyuen.github.io/images/chip8-blinky-curve.jpg)
+
+_Blinky distorted on a curved surface, interpolated from 16 points in the lower right quadrant_
+
 # Map Physical Pixels to Virtual Pixels
 
 TODO
