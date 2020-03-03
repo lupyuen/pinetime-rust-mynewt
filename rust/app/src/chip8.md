@@ -687,19 +687,39 @@ _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor
 
 # Distort the CHIP-8 Rendering
 
+Remember we said earlier that every Virtual Pixel on CHIP-8 is rendered as a rectangular chunk of 15 Physical Pixels on the PineTime display. (Because we need to stretch the pixel to fill the PineTime display)
+
+_Not super efficient... But since we're blasting out 15 pixels anyway... Can we be more creative? What if we blast the 15 pixels in a curvy way like this..._
+
 ![Blinky distorted on a curved surface](https://lupyuen.github.io/images/chip8-blinky-curve.jpg)
 
 _Blinky distorted on a curved surface_
 
+This looks interesting... Almost "Organic", like a CRT display protruding from the PineTime screen.  So let's get adventurous! 
 
+_How shall we distort the CHIP-8 Emulator in a curvy way based on this rectangular grid..._
 
 ![Blinky without distortion](https://lupyuen.github.io/images/chip8-blinky.jpg)
 
 _Blinky without distortion_
 
+Mathematically we are mapping a __Square (the CHIP-8 output) to a Sphere (the curved rendering surface)__ like this...
+
 ![Distorting CHIP-8 on a curved surface](https://lupyuen.github.io/images/chip8-curve.jpg)
 
 _From https://stackoverflow.com/questions/18264703/mapping-a-2d-grid-onto-a-sphere_
+
+The obvious approach would be to crack open the Sine and Cosine Functions from our high school textbooks and work out the correct formula... But we shall do no such boring things here!
+
+Let's look at __3D Interpolation__ instead.  I have a strong hunch that...
+
+1. Calling `sin` and `cos` at every pixel rendering would be too taxing on our nRF52 microcontroller
+
+1. We have plenty of ROM on PineTime (64 KB). Perfect for simple __Lookup Tables__ that will map Virtual Pixel to Physical Pixels and vice versa.  
+
+1. How will the Lookup Tables work? Given a Virtual Pixel on CHIP-8, we need to find out the corresponding Physical Pixels on the curvy PineTime display. And the Lookup Tables will also tell us the Virtual Pixel that corresponds to each Physical Pixel. (This is a One Virtual Pixel to Multiple Physical Pixel mapping... Mathematically, `1:N`)
+
+1. The PineTime display is only 240x240... Precomputing and storing the Lookup Tables into ROM should be easy. Note that the mapping of Square to Sphere is Symmetric on the X and Y axes. So we only need to compute one quadrant of the mapping! (I chose the lower right quadrant: `X >= 0, Y >= 0`)
 
 # Map Physical Pixels to Virtual Pixels
 
