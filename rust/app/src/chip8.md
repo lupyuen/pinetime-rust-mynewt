@@ -685,11 +685,13 @@ syscfg.vals:
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/syscfg.yml_
 
-# Distort the CHIP-8 Rendering Surface
+# Distort the CHIP-8 Rendering
 
 ![Blinky distorted on a curved surface](https://lupyuen.github.io/images/chip8-blinky-curve.jpg)
 
 _Blinky distorted on a curved surface_
+
+
 
 ![Blinky without distortion](https://lupyuen.github.io/images/chip8-blinky.jpg)
 
