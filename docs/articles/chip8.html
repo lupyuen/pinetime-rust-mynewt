@@ -60,10 +60,12 @@
 <li><a href="#handle-touch-events">8 Handle Touch Events</a><ul></ul></li>
 <li><a href="#chip-8-emulator-task">9 CHIP-8 Emulator Task</a><ul></ul></li>
 <li><a href="#build-and-run-the-emulator">10 Build and Run the Emulator</a><ul></ul></li>
-<li><a href="#advanced-topic-distort-the-chip-8-rendering">11 Advanced Topic: Distort the CHIP-8 Rendering</a><ul></ul></li>
-<li><a href="#map-physical-pixels-to-virtualpixels">12 Map Physical Pixels to Virtual Pixels</a><ul></ul></li>
-<li><a href="#map-virtual-pixels-to-physicalpixels">13 Map Virtual Pixels to Physical Pixels</a><ul></ul></li>
-<li><a href="#iterate-curvedpixels">14 Iterate Curved Pixels</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/chip8-invaders.jpg" alt="Space Invaders running on CHIP-8 Emulator on PineTime Smart Watch" /></p>
+<li><a href="#distort-the-chip-8-rendering">11 Distort the CHIP-8 Rendering</a><ul></ul></li>
+<li><a href="#interpolate-the-square-to-sphere-mapping">12 Interpolate the Square to Sphere mapping</a><ul></ul></li>
+<li><a href="#validate-the-square-to-sphere-interpolation">13 Validate the Square to Sphere Interpolation</a><ul></ul></li>
+<li><a href="#map-physical-pixels-to-virtualpixels">14 Map Physical Pixels to Virtual Pixels</a><ul></ul></li>
+<li><a href="#map-virtual-pixels-to-physicalpixels">15 Map Virtual Pixels to Physical Pixels</a><ul></ul></li>
+<li><a href="#iterate-curvedpixels">16 Iterate Curved Pixels</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/chip8-invaders.jpg" alt="Space Invaders running on CHIP-8 Emulator on PineTime Smart Watch" /></p>
 <p><em>Space Invaders running on CHIP-8 Emulator on PineTime Smart Watch</em></p>
 <p><strong>UNDER CONSTRUCTION</strong></p>
 <p>TODO</p>
@@ -604,7 +606,7 @@ default =  [          # Select the conditional compiled features
     # OS_MAIN_STACK_SIZE: 4096  #  Large stack size: 16 KB
 </code></pre>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/syscfg.yml</em></p>
-<h1 id="advanced-topic-distort-the-chip-8-rendering" class="section-header"><a href="#advanced-topic-distort-the-chip-8-rendering">11 Advanced Topic: Distort the CHIP-8 Rendering</a></h1>
+<h1 id="distort-the-chip-8-rendering" class="section-header"><a href="#distort-the-chip-8-rendering">11 Distort the CHIP-8 Rendering</a></h1>
 <p>Remember we said earlier that every Virtual Pixel on CHIP-8 is rendered as a rectangular chunk of 15 Physical Pixels on the PineTime display. (Because we need to stretch the pixel to fill the PineTime display)</p>
 <p><em>Not super efficient... But since we're blasting out 15 pixels anyway... Can we be more creative? What if we blast the 15 pixels in a curvy way like this...</em></p>
 <p><img src="https://lupyuen.github.io/images/chip8-blinky-curve.jpg" alt="Blinky distorted on a curved surface" /></p>
@@ -612,7 +614,7 @@ default =  [          # Select the conditional compiled features
 <p>This looks interesting... Almost &quot;Organic&quot;, like a CRT display protruding from the PineTime screen.  So let's get adventurous! </p>
 <p><em>How shall we distort the CHIP-8 Emulator in a curvy way based on this rectangular grid...</em></p>
 <p><img src="https://lupyuen.github.io/images/chip8-blinky.jpg" alt="Blinky without distortion" /></p>
-<p><em>Blinky without distortion</em></p>
+<p><em>Blinky without distortion... See how the distorted version fills the entire display width nicely? That's the power of distortion!</em></p>
 <p>Mathematically we are mapping a <strong>Square (the CHIP-8 output) to a Sphere (the curved rendering surface)</strong> like this...</p>
 <p><img src="https://lupyuen.github.io/images/chip8-curve.jpg" alt="Distorting CHIP-8 on a curved surface" /></p>
 <p><em>From https://stackoverflow.com/questions/18264703/mapping-a-2d-grid-onto-a-sphere</em></p>
@@ -641,60 +643,86 @@ default =  [          # Select the conditional compiled features
 <p>Interpolating the pixels is probably a good idea for the long term... It lets us tweak the mapping manually by shifting the points. (Instead of figuring out complicated math formulae)</p>
 </li>
 </ol>
-<p><em>How shall we get the Interpolation Points? Let's copy them from the diagram!</em></p>
+<h1 id="interpolate-the-square-to-sphere-mapping" class="section-header"><a href="#interpolate-the-square-to-sphere-mapping">12 Interpolate the Square to Sphere mapping</a></h1>
+<p><em>How shall we get the Interpolation Points to map the Virtual Pixels (CHIP-8) to Physical Pixels (PineTime display)? Let's copy them literally from the <a href="https://stackoverflow.com/questions/18264703/mapping-a-2d-grid-onto-a-sphere_">Square to Sphere Interpolation Diagram</a>!</em></p>
 <p><img src="https://lupyuen.github.io/images/chip8-points.png" alt="Interpolation Points copied from diagram into spreadsheet" /></p>
 <p><em>Interpolation Points copied from diagram into spreadsheet. From https://docs.google.com/spreadsheets/d/1G9kLS0Es6kwcMA3SC50w5-T-LBYi3NQeY98y7HOAovs/edit#gid=0</em></p>
-<p>This produces 49 curved Intepolation Points (7 * 7) that we shall map into a rectangular grid for CHIP-8. As shown in the top left corner of the spreadsheet...</p>
+<p>This produces 49 curved Intepolation Points (7 * 7) that we shall map into a rectangular grid for CHIP-8. As shown in the top left corner of <a href="https://docs.google.com/spreadsheets/d/1G9kLS0Es6kwcMA3SC50w5-T-LBYi3NQeY98y7HOAovs/edit#gid=0">the spreadsheet</a>...</p>
 <ul>
 <li>
-<p><code>(586, 105)</code> on the curved surface, normalised to <code>(-99, -84)</code>, maps to normalised <code>(-32, -16)</code> on CHIP-8</p>
+<p><code>(586, 105)</code> on the curved PineTime surface, normalised to <code>(-99, -84)</code>, maps to normalised <code>(-32, -16)</code> on CHIP-8</p>
 </li>
 <li>
-<p><code>(618, 95)</code> on the curved surface, normalised to <code>(-65, -93)</code>, maps to normalised <code>(-21, -16)</code> on CHIP-8</p>
+<p><code>(618, 95)</code> on the curved PineTime surface, normalised to <code>(-65, -93)</code>, maps to normalised <code>(-21, -16)</code> on CHIP-8</p>
 </li>
 <li>
-<p><code>(574, 137)</code> on the curved surface, normalised to <code>(-112, -56)</code>, maps to normalised <code>(-32, -11)</code> on CHIP-8</p>
+<p><code>(574, 137)</code> on the curved PineTime surface, normalised to <code>(-112, -56)</code>, maps to normalised <code>(-32, -11)</code> on CHIP-8</p>
 </li>
 </ul>
 <p><em>We normalise Physical PineTime Pixels on the curved surface to fall within (-120, -100) to (120, 100)... And Virtual CHIP-8 Pixels within (-32, -16) to (32, 16)</em></p>
 <p>But since X and Y are Symmetric in the mapping, we'll consider only the lower right quadrant of the spreadsheet...</p>
 <ul>
 <li>
-<p>Normalised <code>(0, 0)</code> on the curved surface maps to normalised <code>(1, 0)</code> on CHIP-8</p>
+<p>Normalised <code>(1, 0)</code> on the curved PineTime surface maps to normalised <code>(0, 0)</code> on CHIP-8</p>
 </li>
 <li>
-<p>Normalised <code>(11, 0)</code> on the curved surface maps to normalised <code>(45, 0)</code> on CHIP-8</p>
+<p>Normalised <code>(45, 0)</code> on the curved PineTime surface maps to normalised <code>(11, 0)</code> on CHIP-8</p>
 </li>
 <li>
-<p>Normalised <code>(0, 5)</code> on the curved surface maps to normalised <code>(1, 36)</code> on CHIP-8</p>
+<p>Normalised <code>(1, 36)</code> on the curved PineTime surface maps to normalised <code>(0, 5)</code> on CHIP-8</p>
 </li>
 </ul>
-<p>We're now ready to interpolate the missing Physical and Virtual Pixels. We'll feed the above numbers to the <a href="%5Bhttps://crates.io/crates/spade%5D">[spade] crate</a> for interpolation, in two steps.</p>
-<p>We'll feed the numbers for Virtual (X, Y) → Physical X first...</p>
+<p>We're now ready to interpolate the missing Physical and Virtual Pixels. We'll feed the above numbers to the <strong><a href="%5Bhttps://crates.io/crates/spade%5D">[spade] crate</a></strong> for interpolation, in two steps.</p>
+<p>We'll feed the numbers for PineTime Physical (X, Y) → CHIP-8 Virtual X first...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;interpolate_x&quot;</span>)]</span>  <span class="comment">//  If interpolating X values...</span>
 <span class="kw">fn</span> <span class="ident">load_data</span>() <span class="op">-</span><span class="op">&gt;</span> [<span class="ident">Point3</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span>; <span class="number">16</span>] {
     [
         <span class="comment">//  Generated by https://docs.google.com/spreadsheets/d/1G9kLS0Es6kwcMA3SC50w5-T-LBYi3NQeY98y7HOAovs/edit#gid=1875321785</span>
-        <span class="ident">p</span>( <span class="number">1</span> <span class="kw">as</span> <span class="ident">f64</span>,  <span class="number">0</span> <span class="kw">as</span> <span class="ident">f64</span>,  <span class="number">0</span> <span class="kw">as</span> <span class="ident">f64</span>),  <span class="comment">//  Virtual ( 1,  0) -&gt; Physical X =  0</span>
-        <span class="ident">p</span>(<span class="number">45</span> <span class="kw">as</span> <span class="ident">f64</span>,  <span class="number">0</span> <span class="kw">as</span> <span class="ident">f64</span>, <span class="number">11</span> <span class="kw">as</span> <span class="ident">f64</span>),  <span class="comment">//  Virtual (45,  0) -&gt; Physical X = 11</span>
-        <span class="ident">p</span>( <span class="number">1</span> <span class="kw">as</span> <span class="ident">f64</span>, <span class="number">36</span> <span class="kw">as</span> <span class="ident">f64</span>,  <span class="number">0</span> <span class="kw">as</span> <span class="ident">f64</span>),  <span class="comment">//  Virtual ( 1, 36) -&gt; Physical X =  0</span>
+        <span class="ident">p</span>( <span class="number">1</span> <span class="kw">as</span> <span class="ident">f64</span>,  <span class="number">0</span> <span class="kw">as</span> <span class="ident">f64</span>,  <span class="number">0</span> <span class="kw">as</span> <span class="ident">f64</span>),  <span class="comment">//  Physical ( 1,  0) -&gt; Virtual X =  0</span>
+        <span class="ident">p</span>(<span class="number">45</span> <span class="kw">as</span> <span class="ident">f64</span>,  <span class="number">0</span> <span class="kw">as</span> <span class="ident">f64</span>, <span class="number">11</span> <span class="kw">as</span> <span class="ident">f64</span>),  <span class="comment">//  Physical (45,  0) -&gt; Virtual X = 11</span>
+        <span class="ident">p</span>( <span class="number">1</span> <span class="kw">as</span> <span class="ident">f64</span>, <span class="number">36</span> <span class="kw">as</span> <span class="ident">f64</span>,  <span class="number">0</span> <span class="kw">as</span> <span class="ident">f64</span>),  <span class="comment">//  Physical ( 1, 36) -&gt; Virtual X =  0</span>
         ...</pre></div>
 <p><em>From https://github.com/lupyuen/interpolate-surface/blob/master/src/delaunay_creation.rs</em></p>
-<p>Then Virtual (X, Y) → Physical Y...</p>
+<p>Then PineTime Physical (X, Y) → CHIP-8 Virtual Y...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;interpolate_y&quot;</span>)]</span>  <span class="comment">//  If interpolating Y values...</span>
 <span class="kw">fn</span> <span class="ident">load_data</span>() <span class="op">-</span><span class="op">&gt;</span> [<span class="ident">Point3</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span>; <span class="number">16</span>] {
     [
         <span class="comment">//  Generated by https://docs.google.com/spreadsheets/d/1G9kLS0Es6kwcMA3SC50w5-T-LBYi3NQeY98y7HOAovs/edit#gid=1875321785</span>
-        <span class="ident">p</span>( <span class="number">1</span> <span class="kw">as</span> <span class="ident">f64</span>,  <span class="number">0</span> <span class="kw">as</span> <span class="ident">f64</span>, <span class="number">0</span> <span class="kw">as</span> <span class="ident">f64</span>),  <span class="comment">//  Virtual ( 1,  0) -&gt; Physical X = 0</span>
-        <span class="ident">p</span>(<span class="number">45</span> <span class="kw">as</span> <span class="ident">f64</span>,  <span class="number">0</span> <span class="kw">as</span> <span class="ident">f64</span>, <span class="number">0</span> <span class="kw">as</span> <span class="ident">f64</span>),  <span class="comment">//  Virtual (45,  0) -&gt; Physical X = 0</span>
-        <span class="ident">p</span>( <span class="number">1</span> <span class="kw">as</span> <span class="ident">f64</span>, <span class="number">36</span> <span class="kw">as</span> <span class="ident">f64</span>, <span class="number">5</span> <span class="kw">as</span> <span class="ident">f64</span>),  <span class="comment">//  Virtual ( 1, 36) -&gt; Physical X = 5</span>
+        <span class="ident">p</span>( <span class="number">1</span> <span class="kw">as</span> <span class="ident">f64</span>,  <span class="number">0</span> <span class="kw">as</span> <span class="ident">f64</span>, <span class="number">0</span> <span class="kw">as</span> <span class="ident">f64</span>),  <span class="comment">//  Physical ( 1,  0) -&gt; Virtual Y = 0</span>
+        <span class="ident">p</span>(<span class="number">45</span> <span class="kw">as</span> <span class="ident">f64</span>,  <span class="number">0</span> <span class="kw">as</span> <span class="ident">f64</span>, <span class="number">0</span> <span class="kw">as</span> <span class="ident">f64</span>),  <span class="comment">//  Physical (45,  0) -&gt; Virtual Y = 0</span>
+        <span class="ident">p</span>( <span class="number">1</span> <span class="kw">as</span> <span class="ident">f64</span>, <span class="number">36</span> <span class="kw">as</span> <span class="ident">f64</span>, <span class="number">5</span> <span class="kw">as</span> <span class="ident">f64</span>),  <span class="comment">//  Physical ( 1, 36) -&gt; Virtual Y = 5</span>
         ...</pre></div>
 <p><em>From https://github.com/lupyuen/interpolate-surface/blob/master/src/delaunay_creation.rs</em></p>
-<h1 id="map-physical-pixels-to-virtualpixels" class="section-header"><a href="#map-physical-pixels-to-virtualpixels">12 Map Physical Pixels to Virtual Pixels</a></h1>
+<p>We'll use <strong><a href="https://stoeoef.gitbooks.io/spade-user-manual/content/interpolation.html">Natural Neighbor 3D Interpolation</a></strong> from the [spade] crate to interpolate the missing Virtual (X, Y) pixels, in two steps (Virtual X then Virtual Y).</p>
+<p><em>Why is this considered 3D Interpolation, not 2D Interpolation? Because we are mapping two numbers (Physical X = 1, Physical Y = 0) to a third number (Virtual X = 0)</em></p>
+<p>It sounds like a miracle, but the <a href="https://github.com/lupyuen/interpolate-surface">[spade] 3D Interpolation Program</a> will produce smoothly-interpolated Virtual X values for <strong>every single pixel of Physical (X, Y)</strong> from (0, 0) to (120, 100)... (That's the lower right quadrant)</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Physical</span> ( <span class="number">1</span>,  <span class="number">0</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Virtual</span> <span class="ident">X</span> <span class="op">=</span>  <span class="number">0</span>  <span class="comment">//  Provided value</span>
+<span class="ident">Physical</span> ( <span class="number">2</span>,  <span class="number">0</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Virtual</span> <span class="ident">X</span> <span class="op">=</span>  <span class="number">0</span>  <span class="comment">//  Interpolated value</span>
+<span class="ident">Physical</span> ( <span class="number">3</span>,  <span class="number">0</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Virtual</span> <span class="ident">X</span> <span class="op">=</span>  <span class="number">1</span>  <span class="comment">//  Interpolated value</span>
+...
+<span class="ident">Physical</span> (<span class="number">45</span>,  <span class="number">1</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Virtual</span> <span class="ident">X</span> <span class="op">=</span> <span class="number">11</span>  <span class="comment">//  Provided value</span>
+<span class="ident">Physical</span> (<span class="number">46</span>,  <span class="number">1</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Virtual</span> <span class="ident">X</span> <span class="op">=</span> <span class="number">11</span>  <span class="comment">//  Interpolated value</span>
+<span class="ident">Physical</span> (<span class="number">47</span>,  <span class="number">1</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Virtual</span> <span class="ident">X</span> <span class="op">=</span> <span class="number">11</span>  <span class="comment">//  Interpolated value</span>
+...
+<span class="ident">Physical</span> ( <span class="number">1</span>, <span class="number">36</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Virtual</span> <span class="ident">X</span> <span class="op">=</span>  <span class="number">0</span>  <span class="comment">//  Provided value</span>
+<span class="ident">Physical</span> ( <span class="number">2</span>, <span class="number">36</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Virtual</span> <span class="ident">X</span> <span class="op">=</span>  <span class="number">0</span>  <span class="comment">//  Interpolated value</span>
+<span class="ident">Physical</span> ( <span class="number">3</span>, <span class="number">36</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Virtual</span> <span class="ident">X</span> <span class="op">=</span>  <span class="number">1</span>  <span class="comment">//  Interpolated value</span>
+...</pre></div>
+<p><em>Output of <a href="https://github.com/lupyuen/interpolate-surface">interpolate-surface program</a>. From https://docs.google.com/spreadsheets/d/1G9kLS0Es6kwcMA3SC50w5-T-LBYi3NQeY98y7HOAovs/edit#gid=1436721555</em></p>
+<p>The program will also produce smoothly-interpolated Virtual Y values for every single pixel of Physical (X, Y) in the lower right quadrant. (Need to edit <code>Cargo.toml</code> and select the feature <code>interpolate_y</code>)</p>
+<p>So mapping from Physical (X, Y) to Virtual (X, Y) is complete!</p>
+<h1 id="validate-the-square-to-sphere-interpolation" class="section-header"><a href="#validate-the-square-to-sphere-interpolation">13 Validate the Square to Sphere Interpolation</a></h1>
+<p><img src="https://lupyuen.github.io/images/chip8-interpolate.png" alt="Natural Neighbor Interpolation vs Barycentic Interpolation in 3D perspective" /></p>
+<p><em>Natural Neighbor Interpolation vs Barycentic Interpolation in 3D perspective. From https://github.com/lupyuen/interpolate-surface</em></p>
+<p>Why did we choose Natural Neighbor Interpolation? (Even though I'm no expert at 3D Interpolation?)</p>
+<p>TODO</p>
+<h1 id="map-physical-pixels-to-virtualpixels" class="section-header"><a href="#map-physical-pixels-to-virtualpixels">14 Map Physical Pixels to Virtual Pixels</a></h1>
 <p>TODO</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -764,7 +792,7 @@ default =  [          # Select the conditional compiled features
     )
 }</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L556-L590</em></p>
-<h1 id="map-virtual-pixels-to-physicalpixels" class="section-header"><a href="#map-virtual-pixels-to-physicalpixels">13 Map Virtual Pixels to Physical Pixels</a></h1>
+<h1 id="map-virtual-pixels-to-physicalpixels" class="section-header"><a href="#map-virtual-pixels-to-physicalpixels">15 Map Virtual Pixels to Physical Pixels</a></h1>
 <p>TODO</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -852,7 +880,7 @@ default =  [          # Select the conditional compiled features
     <span class="ident">result</span>
 }</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L592-L643</em></p>
-<h1 id="iterate-curvedpixels" class="section-header"><a href="#iterate-curvedpixels">14 Iterate Curved Pixels</a></h1>
+<h1 id="iterate-curvedpixels" class="section-header"><a href="#iterate-curvedpixels">16 Iterate Curved Pixels</a></h1>
 <p>TODO</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
