@@ -66,7 +66,8 @@
 <li><a href="#validate-the-square-to-sphere-interpolation">14 Validate the Square to Sphere Interpolation</a><ul></ul></li>
 <li><a href="#map-physical-pixels-to-virtualpixels">15 Map Physical Pixels to Virtual Pixels</a><ul></ul></li>
 <li><a href="#map-virtual-pixels-to-physicalpixels">16 Map Virtual Pixels to Physical Pixels</a><ul></ul></li>
-<li><a href="#iterate-curvedpixels">17 Iterate Curved Pixels</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/chip8-invaders.jpg" alt="Space Invaders running on CHIP-8 Emulator on PineTime Smart Watch" /></p>
+<li><a href="#lookup-table-size">17 Lookup Table Size</a><ul></ul></li>
+<li><a href="#iterate-curvedpixels">18 Iterate Curved Pixels</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/chip8-invaders.jpg" alt="Space Invaders running on CHIP-8 Emulator on PineTime Smart Watch" /></p>
 <p><em>Space Invaders running on CHIP-8 Emulator on PineTime Smart Watch</em></p>
 <p><strong>UNDER CONSTRUCTION</strong></p>
 <p>TODO</p>
@@ -549,6 +550,7 @@
 <p>This doesn't found efficient for checking many keys... But it's probably OK for retro games.</p>
 <p><img src="https://lupyuen.github.io/images/chip8-invaders2.jpg" alt="Playing Space Invaders with 3 touch points: Left, Centre, Right" /></p>
 <p><em>Playing Space Invaders with 3 touch points: Left, Centre, Right</em></p>
+<p>▶️ <a href="https://youtu.be/tnimq5Rmjgs"><em>Watch the video</em></a></p>
 <h1 id="chip-8-emulator-task" class="section-header"><a href="#chip-8-emulator-task">9 CHIP-8 Emulator Task</a></h1>
 <p>TODO</p>
 
@@ -828,9 +830,11 @@ default =  [          # Select the conditional compiled features
     <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;]\n&quot;</span>);    
 }</pre></div>
 <p><em>From https://github.com/lupyuen/interpolate-surface/blob/master/src/main.rs#L244-L265</em></p>
+<p>We'll peek at the contents of Lookup Tables <code>PHYSICAL_TO_VIRTUAL_MAP</code> and <code>VIRTUAL_TO_PHYSICAL_MAP</code> in a while.</p>
 <h1 id="validate-the-square-to-sphere-interpolation" class="section-header"><a href="#validate-the-square-to-sphere-interpolation">14 Validate the Square to Sphere Interpolation</a></h1>
 <p><em>Why did we choose Natural Neighbor Interpolation? (Even though I'm no expert at 3D Interpolation?)</em></p>
 <p>Amazingly, the [spade] crate includes an awesome feature to visualise the 3D Interpolated points... in 3D! Run <a href="https://github.com/lupyuen/interpolate-surface"><code>interpolate_surface</code></a>, press and hold the Left Mouse Button to rotate the 3D view, press and hold the right Mouse Button to move the 3D view.</p>
+<p>▶️ <a href="https://youtu.be/IpXfkvenx3k"><em>Watch the video</em></a></p>
 <p>The <code>interpolate_surface</code> program includes <a href="https://stoeoef.gitbooks.io/spade-user-manual/content/interpolation.html">multiple 3D Interpolation methods</a>. Press <code>G</code> to switch 3D Interpolation methods.  Let's compare the first one that appears (Barycentic Interpolation at right) with the second one (Natural Neighbor Interpolation at left)...</p>
 <p><img src="https://lupyuen.github.io/images/chip8-interpolate.png" alt="Natural Neighbor Interpolation (left) vs Barycentic Interpolation (right) in 3D perspective" /></p>
 <p><em>Natural Neighbor Interpolation (left) vs Barycentic Interpolation (right) in 3D perspective. Zoom in to see details. From https://github.com/lupyuen/interpolate-surface</em></p>
@@ -841,7 +845,8 @@ default =  [          # Select the conditional compiled features
 <p><img src="https://lupyuen.github.io/images/chip8-blinky-curve.jpg" alt="Blinky distorted on a curved surface, interpolated from 16 points in the lower right quadrant" /></p>
 <p><em>Blinky distorted on a curved surface, interpolated from 16 points in the lower right quadrant</em></p>
 <h1 id="map-physical-pixels-to-virtualpixels" class="section-header"><a href="#map-physical-pixels-to-virtualpixels">15 Map Physical Pixels to Virtual Pixels</a></h1>
-<p>TODO</p>
+<p>Now that we have precomputed the Lookup Tables <code>PHYSICAL_TO_VIRTUAL_MAP</code> and <code>VIRTUAL_TO_PHYSICAL_MAP</code>, let's embed them into PineTime's Flash ROM.</p>
+<p>Here's how we embed <code>PHYSICAL_TO_VIRTUAL_MAP</code>, the array that maps every Physical Pixel to the corresponding Virtual Pixel...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// For Physical (x,y) Coordinates, return the corresponding Virtual (x,y) Coordinates.</span>
@@ -873,6 +878,9 @@ default =  [          # Select the conditional compiled features
     ],
 ...</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L645-L673</em></p>
+<p><code>PHYSICAL_TO_VIRTUAL_MAP</code> is the Lookup Table precomputed by the <code>generate_physical_to_virtual_map</code> function that we have seen earlier. This is a 2D array with 100 rows and 120 columns, covering the Physical Pixels in the lower right quadrant of the PineTime display.</p>
+<p>Each element of <code>PHYSICAL_TO_VIRTUAL_MAP</code> (indexed by Physical Row and Physical Column) is a tuple (Virtual X, Virtual Y), the coordinates of the mapped Virtual Pixel on CHIP-8.</p>
+<p><code>map_physical_to_virtual_normalised</code> is the function used to look up the <code>PHYSICAL_TO_VIRTUAL_MAP</code> table by Normalised Physical (X, Y) Coordinates.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// For Physical (x,y) Coordinates, return the corresponding Virtual (x,y) Coordinates.</span>
@@ -910,8 +918,10 @@ default =  [          # Select the conditional compiled features
     )
 }</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L556-L590</em></p>
+<p><code>map_physical_to_virtual</code> is the function that maps the Actual (Unnormalised) Physical (X, Y) Coordinates to the Virtual (X, Y) Coordinates.</p>
+<p>This function normalises the coordinates from the four quadrants of the screen into the lower right quadrant. Hence it flips and unflips the coordinates before and after calling <code>map_physical_to_virtual_normalised</code>. (Just like roti prata)</p>
 <h1 id="map-virtual-pixels-to-physicalpixels" class="section-header"><a href="#map-virtual-pixels-to-physicalpixels">16 Map Virtual Pixels to Physical Pixels</a></h1>
-<p>TODO</p>
+<p>Here's how we embed <code>VIRTUAL_TO_PHYSICAL_MAP</code>, the array that maps every Virtual Pixel to the corresponding Physical Bounding Box... (The box that contains all Physical Pixels that map to the same Virtual Pixel)</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// For each Virtual (x,y) Coordinate, return the Bounding Box (left, top, right, bottom) that encloses the corresponding Physical (x,y) Coordinates.</span>
@@ -943,6 +953,9 @@ default =  [          # Select the conditional compiled features
     ],
 ...</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L654-L782</em></p>
+<p><code>VIRTUAL_TO_PHYSICAL_MAP</code> is the Lookup Table precomputed by the <code>generate_virtual_to_physical_map</code> function that we have seen earlier. This is a 2D array with 16 rows and 32 columns, covering the Virtual Pixels in the lower right quadrant of the CHIP-8 Emulator.</p>
+<p>Each element of <code>VIRTUAL_TO_PHYSICAL_MAP</code> (indexed by Virtual Row and Virtual Column) is a tuple (Physical Left, Physical Top, Physical Right, Physical Bottom), the coordinates of the mapped Physical Bounding Box on the PineTime display.</p>
+<p><code>map_virtual_to_physical_normalised</code> is the function used to look up the <code>VIRTUAL_TO_PHYSICAL_MAP</code> table by Normalised Virtual (X, Y) Coordinates.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// For each Virtual (x,y) Coordinate, return the Bounding Box (left, top, right, bottom) that encloses the corresponding Physical (x,y) Coordinates.</span>
@@ -998,7 +1011,17 @@ default =  [          # Select the conditional compiled features
     <span class="ident">result</span>
 }</pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L592-L643</em></p>
-<h1 id="iterate-curvedpixels" class="section-header"><a href="#iterate-curvedpixels">17 Iterate Curved Pixels</a></h1>
+<p><code>map_virtual_to_physical</code> is the function that maps the Actual (Unnormalised) Virtual (X, Y) Coordinates to the Physical (Left, Top, Right, Bottom) Bounding Box.</p>
+<p>This function normalises the coordinates from the four quadrants of the screen into the lower right quadrant. Hence it flips and unflips the coordinates before and after calling <code>map_virtual_to_physical_normalised</code>. (Just like pizza)</p>
+<h1 id="lookup-table-size" class="section-header"><a href="#lookup-table-size">17 Lookup Table Size</a></h1>
+<p><em>Will this curved distortion for CHIP-8 bloat the PineTime firmware size? Will the Lookup Tables for the curved mapping fit comfortably into PineTime's Flash ROM (512 KB)?</em></p>
+<p><img src="https://lupyuen.github.io/images/chip8-size.png" alt="PineTime Firmware Size without distortion (left) and with curved distortion (right)" /></p>
+<p><em>PineTime Firmware Size without distortion (left) and with curved distortion (right)</em></p>
+<p>Amazingly... NO not much bloat, and YES the tables fit into ROM! Only <strong>27 KB</strong> of Flash ROM was needed to store the Lookup Tables! (No extra RAM needed)</p>
+<p>Take a look at the demo video... Rendering CHIP-8 on a curved surface doesn't seem to affect the game performance. Lookup Tables in ROM work really well for curved rendering!</p>
+<p><img src="https://lupyuen.github.io/images/chip8-blinky-curve.jpg" alt="Blinky distorted on a curved surface" /></p>
+<p>▶️ <a href="https://youtu.be/TlP-CQfDOwY"><em>Watch the video</em></a></p>
+<h1 id="iterate-curvedpixels" class="section-header"><a href="#iterate-curvedpixels">18 Iterate Curved Pixels</a></h1>
 <p>TODO</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">

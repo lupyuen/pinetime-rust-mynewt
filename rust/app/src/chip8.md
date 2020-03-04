@@ -619,6 +619,8 @@ This doesn't found efficient for checking many keys... But it's probably OK for 
 
 _Playing Space Invaders with 3 touch points: Left, Centre, Right_
 
+▶️ [_Watch the video_](https://youtu.be/tnimq5Rmjgs)
+
 # CHIP-8 Emulator Task
 
 TODO
@@ -931,11 +933,15 @@ fn generate_physical_to_virtual_map() {
 ```
 _From https://github.com/lupyuen/interpolate-surface/blob/master/src/main.rs#L244-L265_
 
+We'll peek at the contents of Lookup Tables `PHYSICAL_TO_VIRTUAL_MAP` and `VIRTUAL_TO_PHYSICAL_MAP` in a while.
+
 # Validate the Square to Sphere Interpolation
 
 _Why did we choose Natural Neighbor Interpolation? (Even though I'm no expert at 3D Interpolation?)_
 
 Amazingly, the [spade] crate includes an awesome feature to visualise the 3D Interpolated points... in 3D! Run [`interpolate_surface`](https://github.com/lupyuen/interpolate-surface), press and hold the Left Mouse Button to rotate the 3D view, press and hold the right Mouse Button to move the 3D view.
+
+▶️ [_Watch the video_](https://youtu.be/IpXfkvenx3k)
 
 The `interpolate_surface` program includes [multiple 3D Interpolation methods](https://stoeoef.gitbooks.io/spade-user-manual/content/interpolation.html). Press `G` to switch 3D Interpolation methods.  Let's compare the first one that appears (Barycentic Interpolation at right) with the second one (Natural Neighbor Interpolation at left)...
 
@@ -993,6 +999,12 @@ static PHYSICAL_TO_VIRTUAL_MAP: &[[(u8,u8); PHYSICAL_TO_VIRTUAL_MAP_WIDTH]; PHYS
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L645-L673_
 
+`PHYSICAL_TO_VIRTUAL_MAP` is the Lookup Table precomputed by the `generate_physical_to_virtual_map` function that we have seen earlier. This is a 2D array with 100 rows and 120 columns, covering the Physical Pixels in the lower right quadrant of the PineTime display.
+
+Each element of `PHYSICAL_TO_VIRTUAL_MAP` (indexed by Physical Row and Physical Column) is a tuple (Virtual X, Virtual Y), the coordinates of the mapped Virtual Pixel on CHIP-8.
+
+`map_physical_to_virtual_normalised` is the function used to look up the `PHYSICAL_TO_VIRTUAL_MAP` table by Normalised Physical (X, Y) Coordinates.
+
 ```rust
 /// For Physical (x,y) Coordinates, return the corresponding Virtual (x,y) Coordinates.
 /// Used by the CHIP-8 Emulator to decide which Virtual Pixel to fetch the colour value when rendering a Physical Pixel.
@@ -1031,9 +1043,11 @@ fn map_physical_to_virtual(x: u8, y: u8) -> (u8, u8) {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L556-L590_
 
-# Map Virtual Pixels to Physical Pixels
+`map_physical_to_virtual` is the function that maps the Actual (Unnormalised) Physical (X, Y) Coordinates to the Virtual (X, Y) Coordinates.
 
-TODO
+This function normalises the coordinates from the four quadrants of the screen into the lower right quadrant. Hence it flips and unflips the coordinates before and after calling `map_physical_to_virtual_normalised`. (Just like roti prata)
+
+# Map Virtual Pixels to Physical Pixels
 
 Here's how we embed `VIRTUAL_TO_PHYSICAL_MAP`, the array that maps every Virtual Pixel to the corresponding Physical Bounding Box... (The box that contains all Physical Pixels that map to the same Virtual Pixel)
 
@@ -1068,6 +1082,12 @@ static VIRTUAL_TO_PHYSICAL_MAP: &[[(u8,u8,u8,u8); VIRTUAL_TO_PHYSICAL_MAP_WIDTH]
 ...
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L654-L782_
+
+`VIRTUAL_TO_PHYSICAL_MAP` is the Lookup Table precomputed by the `generate_virtual_to_physical_map` function that we have seen earlier. This is a 2D array with 16 rows and 32 columns, covering the Virtual Pixels in the lower right quadrant of the CHIP-8 Emulator.
+
+Each element of `VIRTUAL_TO_PHYSICAL_MAP` (indexed by Virtual Row and Virtual Column) is a tuple (Physical Left, Physical Top, Physical Right, Physical Bottom), the coordinates of the mapped Physical Bounding Box on the PineTime display.
+
+`map_virtual_to_physical_normalised` is the function used to look up the `VIRTUAL_TO_PHYSICAL_MAP` table by Normalised Virtual (X, Y) Coordinates.
 
 ```rust
 /// For each Virtual (x,y) Coordinate, return the Bounding Box (left, top, right, bottom) that encloses the corresponding Physical (x,y) Coordinates.
@@ -1124,6 +1144,26 @@ fn map_virtual_to_physical(x: u8, y: u8) -> (u8, u8, u8, u8) {
 }
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L592-L643_
+
+`map_virtual_to_physical` is the function that maps the Actual (Unnormalised) Virtual (X, Y) Coordinates to the Physical (Left, Top, Right, Bottom) Bounding Box.
+
+This function normalises the coordinates from the four quadrants of the screen into the lower right quadrant. Hence it flips and unflips the coordinates before and after calling `map_virtual_to_physical_normalised`. (Just like pizza)
+
+# Lookup Table Size
+
+_Will this curved distortion for CHIP-8 bloat the PineTime firmware size? Will the Lookup Tables for the curved mapping fit comfortably into PineTime's Flash ROM (512 KB)?_
+
+![PineTime Firmware Size without distortion (left) and with curved distortion (right)](https://lupyuen.github.io/images/chip8-size.png)
+
+_PineTime Firmware Size without distortion (left) and with curved distortion (right)_
+
+Amazingly... NO not much bloat, and YES the tables fit into ROM! Only __27 KB__ of Flash ROM was needed to store the Lookup Tables! (No extra RAM needed)
+
+Take a look at the demo video... Rendering CHIP-8 on a curved surface doesn't seem to affect the game performance. Lookup Tables in ROM work really well for curved rendering!
+
+![Blinky distorted on a curved surface](https://lupyuen.github.io/images/chip8-blinky-curve.jpg)
+
+▶️ [_Watch the video_](https://youtu.be/TlP-CQfDOwY)
 
 # Iterate Curved Pixels
 
