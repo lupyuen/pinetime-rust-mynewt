@@ -621,6 +621,8 @@ _Playing Space Invaders with 3 touch points: Left, Centre, Right_
 
 ▶️ [_Watch the video_](https://youtu.be/tnimq5Rmjgs)
 
+▶️ [_抖音视频_](https://vt.tiktok.com/jdntsU/)
+
 # CHIP-8 Emulator Task
 
 TODO
@@ -943,6 +945,8 @@ Amazingly, the [spade] crate includes an awesome feature to visualise the 3D Int
 
 ▶️ [_Watch the video_](https://youtu.be/IpXfkvenx3k)
 
+▶️ [_抖音视频_](https://vt.tiktok.com/2WTTLL/)
+
 The `interpolate_surface` program includes [multiple 3D Interpolation methods](https://stoeoef.gitbooks.io/spade-user-manual/content/interpolation.html). Press `G` to switch 3D Interpolation methods.  Let's compare the first one that appears (Barycentic Interpolation at right) with the second one (Natural Neighbor Interpolation at left)...
 
 ![Natural Neighbor Interpolation (left) vs Barycentic Interpolation (right) in 3D perspective](https://lupyuen.github.io/images/chip8-interpolate.png)
@@ -1164,6 +1168,8 @@ Take a look at the demo video... Rendering CHIP-8 on a curved surface doesn't se
 ![Blinky distorted on a curved surface](https://lupyuen.github.io/images/chip8-blinky-curve.jpg)
 
 ▶️ [_Watch the video_](https://youtu.be/TlP-CQfDOwY)
+
+▶️ [_抖音视频_](https://vt.tiktok.com/2KHwVE/)
 
 # Iterate Curved Pixels
 
