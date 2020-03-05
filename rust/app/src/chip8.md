@@ -1,4 +1,4 @@
-# chip8.rs: CHIP-8 Game Emulator for PineTime Smart Watch with Rust
+# chip8.rs: CHIP-8 Game Emulator in Rust for PineTime Smart Watch
 
 ![Space Invaders running on CHIP-8 Emulator on PineTime Smart Watch](https://lupyuen.github.io/images/chip8-invaders.jpg)
 
@@ -293,6 +293,8 @@ const BLOCK_WIDTH:  usize = 32;
 const BLOCK_HEIGHT: usize = 5;  //  Letter height
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L27-L33_
+
+_(Hmmm there's something wrong with the math here...)_
 
 Here's how we break the rendering region into smaller blocks to be rendered by `render_block`...
 
@@ -1153,27 +1155,13 @@ _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/c
 
 This function normalises the coordinates from the four quadrants of the screen into the lower right quadrant. Hence it flips and unflips the coordinates before and after calling `map_virtual_to_physical_normalised`. (Just like pizza)
 
-# Lookup Table Size
-
-_Will this curved distortion for CHIP-8 bloat the PineTime firmware size? Will the Lookup Tables for the curved mapping fit comfortably into PineTime's Flash ROM (512 KB)?_
-
-![PineTime Firmware Size without distortion (left) and with curved distortion (right)](https://lupyuen.github.io/images/chip8-size.png)
-
-_PineTime Firmware Size without distortion (left) and with curved distortion (right)_
-
-Amazingly... NO not much bloat, and YES the tables fit into ROM! Only __27 KB__ of Flash ROM was needed to store the Lookup Tables! (No extra RAM needed)
-
-Take a look at the demo video... Rendering CHIP-8 on a curved surface doesn't seem to affect the game performance. Lookup Tables in ROM work really well for curved rendering!
-
-![Blinky distorted on a curved surface](https://lupyuen.github.io/images/chip8-blinky-curve.jpg)
-
-▶️ [_Watch the video_](https://youtu.be/TlP-CQfDOwY)
-
-▶️ [_抖音视频_](https://vt.tiktok.com/2KHwVE/)
-
 # Iterate Curved Pixels
 
-TODO
+_How shall we use the two Lookup Tables and their access functions `map_physical_to_virtual`, `map_virtual_to_physical`?_
+
+Remember `PixelIterator`, our Rust Iterator that returns a sequence of Physical Pixel Colours (16-bit) that will be rendered for a Physical Block of PineTime pixels?
+
+Here's the updated `PixelIterator` for rendering pixels on a curved surface...
 
 ```rust
 /// Implement the Iterator for Virtual Pixels in a Virtual Block
@@ -1219,3 +1207,53 @@ impl Iterator for PixelIterator {
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L457-L491_
 
+The new `PixelIterator` steps through each Physical PineTime Pixel in a block and calls `map_physical_to_virtual` to find the corresponding Virtual CHIP-8 Pixel and its colour.
+
+With curved distortion, a Virtual CHIP-8 Pixel no longer maps to a rectangular block of Physical PineTime Pixels... It actually maps to a curved block of Physical Pixels.
+
+To simplify the rendering, we'll just consider the Bounding Box of the Physical Pixels. Which may overlap partially with other Virtual Pixels... But the extra rendering should be fine.
+
+Here's how we get the Bounding Box of Physical Pixels for a Virtual Pixel...
+
+```rust
+/// Return Bounding Box of Physical Pixels (left, top, right, bottom) that correspond to the Virtual Pixels
+#[cfg(feature = "chip8_curve")]  //  If we are rendering CHIP8 Emulator as curved surface...
+fn get_bounding_box(virtual_left: u8, virtual_top: u8, virtual_right: u8, virtual_bottom: u8) -> (u8, u8, u8, u8) {
+    //  One Virtual Pixel may map to multiple Physical Pixels, so we lookup the Physical Bounding Box.
+    //  TODO: Handle wide and tall Bounding Boxes
+    let physical_left_top = map_virtual_to_physical(virtual_left, virtual_top);  //  Returns (left,top,right,bottom)
+    let physical_right_bottom = map_virtual_to_physical(virtual_right, virtual_bottom);
+
+    let left: u8 = physical_left_top.0;
+    let top: u8 = physical_left_top.1;
+    let right: u8 = physical_right_bottom.2.min(PHYSICAL_WIDTH as u8 - 1);
+    let bottom: u8 = physical_right_bottom.3.min(PHYSICAL_HEIGHT as u8 - 1);
+    assert!(left < PHYSICAL_WIDTH as u8 && top < PHYSICAL_HEIGHT as u8 && right < PHYSICAL_WIDTH as u8 && bottom < PHYSICAL_HEIGHT as u8, "overflow");
+    ( left, top, right, bottom )  //  Return the Physical Bounding Box
+}
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L523-L538_
+
+The above curved version of `get_bounding_box` is called by `render_region` to determine which Physical Pixels need to be redrawn whenever the CHIP-8 screen is updated.
+
+# Lookup Table Size
+
+_Will this curved distortion for CHIP-8 bloat the PineTime firmware size? Will the Lookup Tables for the curved mapping fit comfortably into PineTime's Flash ROM (512 KB)?_
+
+![PineTime Firmware Size without distortion (left) and with curved distortion (right)](https://lupyuen.github.io/images/chip8-size.png)
+
+_PineTime Firmware Size without distortion (left) and with curved distortion (right)_
+
+Amazingly... NO not much bloat, and YES the tables fit into ROM! Only __27 KB__ of Flash ROM was needed to store the Lookup Tables! (No extra RAM needed)
+
+Take a look at the demo video... Rendering CHIP-8 on a curved surface doesn't seem to affect the game performance. Lookup Tables in ROM work really well for curved rendering!
+
+![Blinky distorted on a curved surface](https://lupyuen.github.io/images/chip8-blinky-curve.jpg)
+
+▶️ [_Watch the video_](https://youtu.be/TlP-CQfDOwY)
+
+▶️ [_抖音视频_](https://vt.tiktok.com/2KHwVE/)
+
+# Further Reading
+
+[Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)

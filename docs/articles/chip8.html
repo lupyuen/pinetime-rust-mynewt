@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <title>chip8.rs: CHIP-8 Game Emulator for PineTime Smart Watch with Rust</title>
+    <title>chip8.rs: CHIP-8 Game Emulator in Rust for PineTime Smart Watch</title>
 
     
     <!-- Begin scripts/rustdoc-header.html: Header for Custom Markdown files processed by rustdoc, like chip8.md -->
@@ -48,7 +48,7 @@
     <!-- End scripts/rustdoc-before.html -->
     
 
-    <h1 class="title">chip8.rs: CHIP-8 Game Emulator for PineTime Smart Watch with Rust</h1>
+    <h1 class="title">chip8.rs: CHIP-8 Game Emulator in Rust for PineTime Smart Watch</h1>
     <nav id="TOC"><ul>
 <li><a href="#start-the-chip-8emulator">1 Start the CHIP-8 Emulator</a><ul></ul></li>
 <li><a href="#set-a-pixelcolour">2 Set a Pixel Colour</a><ul></ul></li>
@@ -66,8 +66,9 @@
 <li><a href="#validate-the-square-to-sphere-interpolation">14 Validate the Square to Sphere Interpolation</a><ul></ul></li>
 <li><a href="#map-physical-pixels-to-virtualpixels">15 Map Physical Pixels to Virtual Pixels</a><ul></ul></li>
 <li><a href="#map-virtual-pixels-to-physicalpixels">16 Map Virtual Pixels to Physical Pixels</a><ul></ul></li>
-<li><a href="#lookup-table-size">17 Lookup Table Size</a><ul></ul></li>
-<li><a href="#iterate-curvedpixels">18 Iterate Curved Pixels</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/chip8-invaders.jpg" alt="Space Invaders running on CHIP-8 Emulator on PineTime Smart Watch" /></p>
+<li><a href="#iterate-curvedpixels">17 Iterate Curved Pixels</a><ul></ul></li>
+<li><a href="#lookup-table-size">18 Lookup Table Size</a><ul></ul></li>
+<li><a href="#further-reading">19 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/chip8-invaders.jpg" alt="Space Invaders running on CHIP-8 Emulator on PineTime Smart Watch" /></p>
 <p><em>Space Invaders running on CHIP-8 Emulator on PineTime Smart Watch</em></p>
 <p><strong>UNDER CONSTRUCTION</strong></p>
 <p>TODO</p>
@@ -287,6 +288,7 @@
 <span class="kw">const</span> <span class="ident">BLOCK_WIDTH</span>:  <span class="ident">usize</span> <span class="op">=</span> <span class="number">32</span>;
 <span class="kw">const</span> <span class="ident">BLOCK_HEIGHT</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">5</span>;  <span class="comment">//  Letter height</span></pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L27-L33</em></p>
+<p><em>(Hmmm there's something wrong with the math here...)</em></p>
 <p>Here's how we break the rendering region into smaller blocks to be rendered by <code>render_block</code>...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -1015,17 +1017,10 @@ default =  [          # Select the conditional compiled features
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L592-L643</em></p>
 <p><code>map_virtual_to_physical</code> is the function that maps the Actual (Unnormalised) Virtual (X, Y) Coordinates to the Physical (Left, Top, Right, Bottom) Bounding Box.</p>
 <p>This function normalises the coordinates from the four quadrants of the screen into the lower right quadrant. Hence it flips and unflips the coordinates before and after calling <code>map_virtual_to_physical_normalised</code>. (Just like pizza)</p>
-<h1 id="lookup-table-size" class="section-header"><a href="#lookup-table-size">17 Lookup Table Size</a></h1>
-<p><em>Will this curved distortion for CHIP-8 bloat the PineTime firmware size? Will the Lookup Tables for the curved mapping fit comfortably into PineTime's Flash ROM (512 KB)?</em></p>
-<p><img src="https://lupyuen.github.io/images/chip8-size.png" alt="PineTime Firmware Size without distortion (left) and with curved distortion (right)" /></p>
-<p><em>PineTime Firmware Size without distortion (left) and with curved distortion (right)</em></p>
-<p>Amazingly... NO not much bloat, and YES the tables fit into ROM! Only <strong>27 KB</strong> of Flash ROM was needed to store the Lookup Tables! (No extra RAM needed)</p>
-<p>Take a look at the demo video... Rendering CHIP-8 on a curved surface doesn't seem to affect the game performance. Lookup Tables in ROM work really well for curved rendering!</p>
-<p><img src="https://lupyuen.github.io/images/chip8-blinky-curve.jpg" alt="Blinky distorted on a curved surface" /></p>
-<p>▶️ <a href="https://youtu.be/TlP-CQfDOwY"><em>Watch the video</em></a></p>
-<p>▶️ <a href="https://vt.tiktok.com/2KHwVE/"><em>抖音视频</em></a></p>
-<h1 id="iterate-curvedpixels" class="section-header"><a href="#iterate-curvedpixels">18 Iterate Curved Pixels</a></h1>
-<p>TODO</p>
+<h1 id="iterate-curvedpixels" class="section-header"><a href="#iterate-curvedpixels">17 Iterate Curved Pixels</a></h1>
+<p><em>How shall we use the two Lookup Tables and their access functions <code>map_physical_to_virtual</code>, <code>map_virtual_to_physical</code>?</em></p>
+<p>Remember <code>PixelIterator</code>, our Rust Iterator that returns a sequence of Physical Pixel Colours (16-bit) that will be rendered for a Physical Block of PineTime pixels?</p>
+<p>Here's the updated <code>PixelIterator</code> for rendering pixels on a curved surface...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// Implement the Iterator for Virtual Pixels in a Virtual Block</span>
@@ -1069,6 +1064,40 @@ default =  [          # Select the conditional compiled features
         <span class="kw">return</span> <span class="prelude-val">Some</span>(<span class="ident">color</span>);
     }    </pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L457-L491</em></p>
+<p>The new <code>PixelIterator</code> steps through each Physical PineTime Pixel in a block and calls <code>map_physical_to_virtual</code> to find the corresponding Virtual CHIP-8 Pixel and its colour.</p>
+<p>With curved distortion, a Virtual CHIP-8 Pixel no longer maps to a rectangular block of Physical PineTime Pixels... It actually maps to a curved block of Physical Pixels.</p>
+<p>To simplify the rendering, we'll just consider the Bounding Box of the Physical Pixels. Which may overlap partially with other Virtual Pixels... But the extra rendering should be fine.</p>
+<p>Here's how we get the Bounding Box of Physical Pixels for a Virtual Pixel...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Return Bounding Box of Physical Pixels (left, top, right, bottom) that correspond to the Virtual Pixels</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;chip8_curve&quot;</span>)]</span>  <span class="comment">//  If we are rendering CHIP8 Emulator as curved surface...</span>
+<span class="kw">fn</span> <span class="ident">get_bounding_box</span>(<span class="ident">virtual_left</span>: <span class="ident">u8</span>, <span class="ident">virtual_top</span>: <span class="ident">u8</span>, <span class="ident">virtual_right</span>: <span class="ident">u8</span>, <span class="ident">virtual_bottom</span>: <span class="ident">u8</span>) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">u8</span>, <span class="ident">u8</span>, <span class="ident">u8</span>, <span class="ident">u8</span>) {
+    <span class="comment">//  One Virtual Pixel may map to multiple Physical Pixels, so we lookup the Physical Bounding Box.</span>
+    <span class="comment">//  TODO: Handle wide and tall Bounding Boxes</span>
+    <span class="kw">let</span> <span class="ident">physical_left_top</span> <span class="op">=</span> <span class="ident">map_virtual_to_physical</span>(<span class="ident">virtual_left</span>, <span class="ident">virtual_top</span>);  <span class="comment">//  Returns (left,top,right,bottom)</span>
+    <span class="kw">let</span> <span class="ident">physical_right_bottom</span> <span class="op">=</span> <span class="ident">map_virtual_to_physical</span>(<span class="ident">virtual_right</span>, <span class="ident">virtual_bottom</span>);
+
+    <span class="kw">let</span> <span class="ident">left</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="ident">physical_left_top</span>.<span class="number">0</span>;
+    <span class="kw">let</span> <span class="ident">top</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="ident">physical_left_top</span>.<span class="number">1</span>;
+    <span class="kw">let</span> <span class="ident">right</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="ident">physical_right_bottom</span>.<span class="number">2</span>.<span class="ident">min</span>(<span class="ident">PHYSICAL_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">-</span> <span class="number">1</span>);
+    <span class="kw">let</span> <span class="ident">bottom</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="ident">physical_right_bottom</span>.<span class="number">3</span>.<span class="ident">min</span>(<span class="ident">PHYSICAL_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="op">-</span> <span class="number">1</span>);
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">left</span> <span class="op">&lt;</span> <span class="ident">PHYSICAL_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">top</span> <span class="op">&lt;</span> <span class="ident">PHYSICAL_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">right</span> <span class="op">&lt;</span> <span class="ident">PHYSICAL_WIDTH</span> <span class="kw">as</span> <span class="ident">u8</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="ident">bottom</span> <span class="op">&lt;</span> <span class="ident">PHYSICAL_HEIGHT</span> <span class="kw">as</span> <span class="ident">u8</span>, <span class="string">&quot;overflow&quot;</span>);
+    ( <span class="ident">left</span>, <span class="ident">top</span>, <span class="ident">right</span>, <span class="ident">bottom</span> )  <span class="comment">//  Return the Physical Bounding Box</span>
+}</pre></div>
+<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L523-L538</em></p>
+<p>The above curved version of <code>get_bounding_box</code> is called by <code>render_region</code> to determine which Physical Pixels need to be redrawn whenever the CHIP-8 screen is updated.</p>
+<h1 id="lookup-table-size" class="section-header"><a href="#lookup-table-size">18 Lookup Table Size</a></h1>
+<p><em>Will this curved distortion for CHIP-8 bloat the PineTime firmware size? Will the Lookup Tables for the curved mapping fit comfortably into PineTime's Flash ROM (512 KB)?</em></p>
+<p><img src="https://lupyuen.github.io/images/chip8-size.png" alt="PineTime Firmware Size without distortion (left) and with curved distortion (right)" /></p>
+<p><em>PineTime Firmware Size without distortion (left) and with curved distortion (right)</em></p>
+<p>Amazingly... NO not much bloat, and YES the tables fit into ROM! Only <strong>27 KB</strong> of Flash ROM was needed to store the Lookup Tables! (No extra RAM needed)</p>
+<p>Take a look at the demo video... Rendering CHIP-8 on a curved surface doesn't seem to affect the game performance. Lookup Tables in ROM work really well for curved rendering!</p>
+<p><img src="https://lupyuen.github.io/images/chip8-blinky-curve.jpg" alt="Blinky distorted on a curved surface" /></p>
+<p>▶️ <a href="https://youtu.be/TlP-CQfDOwY"><em>Watch the video</em></a></p>
+<p>▶️ <a href="https://vt.tiktok.com/2KHwVE/"><em>抖音视频</em></a></p>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">19 Further Reading</a></h1>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 
     
 </body>
