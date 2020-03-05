@@ -28,7 +28,6 @@
                     " scripts/nrf52/build-boot.sh && echo ✅ ◾ ️Done! "
                 ],
             },
-            "problemMatcher": [ "$gcc" ],
             "presentation": {
                 "clear": true
             }
@@ -63,7 +62,6 @@
                 "isDefault": true
             },
             "problemMatcher": [ 
-                "$gcc",
                 {
                     //  Problem matcher for GNU Linker, e.g. /Users/Luppy/mynewt/stm32bluepill-mynewt-sensor/apps/my_sensor_app/src/ATParser.h:82: undefined reference to `operator delete[](void*)'
                     "fileLocation": [ "absolute" ],
