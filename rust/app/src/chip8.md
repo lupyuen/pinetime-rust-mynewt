@@ -4,35 +4,11 @@
 
 _Space Invaders running on CHIP-8 Emulator on PineTime Smart Watch_
 
-__UNDER CONSTRUCTION__
+Running Retro Games with Rust is not that hard on [PineTime Smart Watch](https://wiki.pine64.org/index.php/PineTime). Here's how I ported a CHIP-8 Game Emulator to PineTime...
 
-TODO
+[More about CHIP-8](http://www.multigesture.net/articles/how-to-write-an-emulator-chip-8-interpreter/)
 
-More info about CHIP-8…
-
-http://www.multigesture.net/articles/how-to-write-an-emulator-chip-8-interpreter/
-
-Whole lot of games available here…
-
-https://github.com/dmatlack/chip8/tree/master/roms
-
-To test in web browser...
-
-http://mir3z.github.io/chip8-emu/
-
-I used an existing CHIP-8 Emulator for Rust…
-
-https://github.com/YushiOMOTE/libchip8
-
-The code I actually wrote is surprisingly little… (What took so long to get it right? Tracking down which Rust function was taking too much stack space)
-
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs
-
-Thinking of using the accelerometer to control the game… tilt your watch up / down / left / right to control the player…. will this be playable? Hmmm…
-
-I have some ideas how to optimise the rendering (e.g. batching of pixels into blocks). But this has been a really rewarding exercise on PineTime… All it takes is a few lines of Rust code to run games on PineTime! :-)
-
-How about we take some retro games and turn them into PineTime Watch Faces?
+_Are you keen to use a Retro Game as a PineTime Watch Face? [Lemme know!](https://twitter.com/MisterTechBlog)_
 
 # Start the CHIP-8 Emulator
 
@@ -67,6 +43,10 @@ Note the neat syntax used in Rust to load binary files into memory...
 ```
 
 `blinky.ch8` is a binary file that contains the program and data for the Blinky CHIP-8 game. By calling the `include_bytes!` macro, we load the entire binary file into memory as a Rust static memory object.
+
+[Here's a list of available CHIP-8 ROM files](https://github.com/dmatlack/chip8/tree/master/roms) that we may download into the [`rust/app/roms` folder](https://github.com/lupyuen/pinetime-rust-mynewt/tree/master/rust/app/roms) 
+
+To preview the CHIP-8 games in a web browser, [use this browser-based CHIP-8 Emulator](http://mir3z.github.io/chip8-emu/).
 
 How is `Hardware` used? We'll find out next...
 
