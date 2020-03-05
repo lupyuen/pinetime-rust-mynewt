@@ -627,7 +627,7 @@ _Playing Space Invaders with 3 touch points: Left, Centre, Right_
 
 # CHIP-8 Emulator Task
 
-TODO
+The CHIP-8 Emulator blocks and doesn't return when we call its `run` function. PineTime needs multitasking to refresh the display (via SPI) and to accept touchscreen input, so we need to start a Background Task for the emulator...
 
 ```rust
 /// Erase the PineTime display and start the CHIP-8 Emulator task
@@ -668,7 +668,13 @@ const CHIP8_TASK_STACK_SIZE: usize = 4096;  //  Must be 4096 and above because C
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L39-L66_
 
+Note that we're using [Apache Mynewt OS](https://mynewt.apache.org/) to manage multitasking on PineTime, so we need to use the Mynewt functions (like `task_init`) for scheduling and synchronising our tasks.
+
 # Build and Run the Emulator
+
+To build the CHIP-8 Emulator for PineTime, edit the Rust configuration file [`rust/app/Cargo.toml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml).
+
+Uncomment the feature `chip8_app` and comment out all other features, like this...
 
 ```yaml
 [features]
@@ -683,6 +689,12 @@ default =  [          # Select the conditional compiled features
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml_
 
+If you're using the curved rendering feature (explained in the next section), uncomment both `chip8_app` and `chip8_curve`.
+
+Edit the Mynewt configuration file [`apps/my_sensor_app/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/syscfg.yml).
+
+Set `OS_MAIN_STACK_SIZE` to `2048`...
+
 ```yaml
 syscfg.vals:
     # OS_MAIN_STACK_SIZE: 1024  #  Small stack size: 4 KB
@@ -690,6 +702,10 @@ syscfg.vals:
     # OS_MAIN_STACK_SIZE: 4096  #  Large stack size: 16 KB
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/syscfg.yml_
+
+This shrinks the default system stack size and allows us to allocate a larger stack that's needed for the emulator task.
+
+Then build the PineTime firmware according to [the instructions here](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md).
 
 # Distort the CHIP-8 Rendering
 

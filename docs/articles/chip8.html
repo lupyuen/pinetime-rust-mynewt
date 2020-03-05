@@ -555,7 +555,7 @@
 <p>▶️ <a href="https://youtu.be/tnimq5Rmjgs"><em>Watch the video</em></a></p>
 <p>▶️ <a href="https://vt.tiktok.com/jdntsU/"><em>抖音视频</em></a></p>
 <h1 id="chip-8-emulator-task" class="section-header"><a href="#chip-8-emulator-task">9 CHIP-8 Emulator Task</a></h1>
-<p>TODO</p>
+<p>The CHIP-8 Emulator blocks and doesn't return when we call its <code>run</code> function. PineTime needs multitasking to refresh the display (via SPI) and to accept touchscreen input, so we need to start a Background Task for the emulator...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// Erase the PineTime display and start the CHIP-8 Emulator task</span>
@@ -594,7 +594,10 @@
 <span class="doccomment">/// Size of the stack (in 4-byte units). Previously `OS_STACK_ALIGN(256)`  </span>
 <span class="kw">const</span> <span class="ident">CHIP8_TASK_STACK_SIZE</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">4096</span>;  <span class="comment">//  Must be 4096 and above because CHIP8 Emulator requires substantial stack space</span></pre></div>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.rs#L39-L66</em></p>
+<p>Note that we're using <a href="https://mynewt.apache.org/">Apache Mynewt OS</a> to manage multitasking on PineTime, so we need to use the Mynewt functions (like <code>task_init</code>) for scheduling and synchronising our tasks.</p>
 <h1 id="build-and-run-the-emulator" class="section-header"><a href="#build-and-run-the-emulator">10 Build and Run the Emulator</a></h1>
+<p>To build the CHIP-8 Emulator for PineTime, edit the Rust configuration file <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml"><code>rust/app/Cargo.toml</code></a>.</p>
+<p>Uncomment the feature <code>chip8_app</code> and comment out all other features, like this...</p>
 <pre><code class="language-yaml">[features]
 default =  [          # Select the conditional compiled features
     # &quot;display_app&quot;,  # Disable graphics display app
@@ -606,12 +609,17 @@ default =  [          # Select the conditional compiled features
 ]
 </code></pre>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml</em></p>
+<p>If you're using the curved rendering feature (explained in the next section), uncomment both <code>chip8_app</code> and <code>chip8_curve</code>.</p>
+<p>Edit the Mynewt configuration file <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/syscfg.yml"><code>apps/my_sensor_app/syscfg.yml</code></a>.</p>
+<p>Set <code>OS_MAIN_STACK_SIZE</code> to <code>2048</code>...</p>
 <pre><code class="language-yaml">syscfg.vals:
     # OS_MAIN_STACK_SIZE: 1024  #  Small stack size: 4 KB
     OS_MAIN_STACK_SIZE: 2048    #  Normal stack size: 8 KB
     # OS_MAIN_STACK_SIZE: 4096  #  Large stack size: 16 KB
 </code></pre>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/syscfg.yml</em></p>
+<p>This shrinks the default system stack size and allows us to allocate a larger stack that's needed for the emulator task.</p>
+<p>Then build the PineTime firmware according to <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">the instructions here</a>.</p>
 <h1 id="distort-the-chip-8-rendering" class="section-header"><a href="#distort-the-chip-8-rendering">11 Distort the CHIP-8 Rendering</a></h1>
 <p>Remember we said earlier that every Virtual Pixel on CHIP-8 is rendered as a rectangular chunk of 15 Physical Pixels on the PineTime display. (Because we need to stretch the pixel to fill the PineTime display)</p>
 <p><em>Not super efficient... But since we're blasting out 15 pixels anyway... Can we be more creative? What if we blast the 15 pixels in a curvy way like this...</em></p>
