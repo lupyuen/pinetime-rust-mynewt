@@ -28,11 +28,13 @@ if {$flash_protection != 1} {
 }
 echo "Flash is unprotected"
 
-# Load UICR flash region from a file to set APPROTECT to 0 (enable flash protection).
+# Set APPROTECT to 0 (enable flash protection). APPROTECT is at address 0x10001208
 echo "Enabling flash protection..."
-flash write_bank 1 scripts/nrf52-pi/nrf52-uicr-protect.bin 0x0
+flash fillw 0x10001208 0xFFFFFF00 0x01
 echo ""
 
 # Restart to update the flash protection.
 echo "**** Shut down and power off your Raspberry Pi. Wait 30 seconds then power on your Raspberry Pi. Run flash-protect.sh to check flash protection."
+echo ""
+reset
 exit
