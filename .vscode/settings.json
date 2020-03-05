@@ -1,3 +1,17 @@
 {
-    "cortex-debug.openocdPath": "openocd/bin/openocd"
+    //  Path of OpenOCD excecutable
+    "cortex-debug.openocdPath": "openocd/bin/openocd",
+    //  Exclude these files from VSCode change watcher because Raspberry Pi shows "too many files to be watched"
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/bin/**": true,
+        "**/logs/**": true,
+        "**/newt/**": true,
+        "**/openocd/**": true,
+        "**/target/**": true,
+        "**/targets/**": true,
+        "**/tmprustlib/**": true,
+        "**/rust.metadata.bin": true
+    }
 }
