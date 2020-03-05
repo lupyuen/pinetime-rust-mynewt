@@ -1,7 +1,7 @@
 {
     //  Path of OpenOCD excecutable
     "cortex-debug.openocdPath": "openocd/bin/openocd",
-    //  Exclude these files from VSCode change watcher because Raspberry Pi shows "too many files to be watched"
+    //  Exclude these files from VSCode change watcher because Raspberry Pi shows "unable to watch for file changes in this large workspace"
     "files.watcherExclude": {
         "**/.git/objects/**": true,
         "**/.git/subtree-cache/**": true,
@@ -12,6 +12,11 @@
         "**/target/**": true,
         "**/targets/**": true,
         "**/tmprustlib/**": true,
-        "**/rust.metadata.bin": true
-    }
+        "**/rust/druid-embedded/**": true,
+        "**/rust/kurbo-embedded/**": true,
+        "**/rust/piet-embedded/**": true,
+        "**/rust/st7735-lcd-batch-rs/**": true
+    },
+    //  Disable minimap
+    "editor.minimap.enabled": false
 }
