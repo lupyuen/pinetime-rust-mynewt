@@ -48,7 +48,7 @@ pub mod kernel {
     //  Mynewt Custom API. Export folder `libs` as Rust module `mynewt::libs`
 
     //  Import module `hal` for Embedded HAL functions but don't export it
-    //  Export `hal` types GPIO and SPI
+    //  Export `hal` types GPIO, SPI and I2C
 
     //  Export Non-Blocking SPI API
 
@@ -6752,12 +6752,12 @@ pub mod sys {
             let buf = msg.as_ptr();
             let len = msg.len() as u32;
             let hash = 0;
-            let addr = get_dispatch_address(hash);
+            let _addr = get_dispatch_address(hash);
             unsafe { console_buffer(buf, len); }
         }
         /// Return the Dispatch Address for the OS function whose function name hashed is `hash`
         #[cfg(feature = "dispatch")]
-        pub fn get_dispatch_address(hash: u32) -> u32 { 0 }
+        pub fn get_dispatch_address(_hash: u32) -> u32 { 0 }
         ///  Display message `msg` on the Arm Semihosting console (via OpenOCD).
         pub fn print_strn(msg: &crate::Strn) {
             unsafe { console_buffer(msg.as_ptr(), msg.len() as u32); }
@@ -11454,8 +11454,103 @@ pub mod libs {
     }
 }
 mod hal {
+    use crate::{hw::hal, kernel::os, result::*};
     use embedded_hal;
-    use crate::{result::*, hw::hal, kernel::os};
+    /// Rust Embedded HAL interface for Mynewt I2C
+    impl I2C {
+        /// Create a new I2C port
+        pub fn new() -> Self { I2C{i2c_num: 0, timeout: 1000,} }
+        /// Initiaise the I2C port
+        pub fn init(&mut self, i2c_num: u8,
+                    i2c_settings: *const hal::hal_i2c_settings,
+                    operation_timeout_in_ticks: u32) -> MynewtResult<()> {
+            let rc = unsafe { hal::hal_i2c_config(i2c_num, i2c_settings) };
+            check_i2c_return_code(rc)?;
+            let rc = unsafe { hal::hal_i2c_enable(i2c_num) };
+            check_i2c_return_code(rc)?;
+            self.i2c_num = i2c_num;
+            self.timeout = operation_timeout_in_ticks;
+            Ok(())
+        }
+    }
+    impl embedded_hal::blocking::i2c::Write for I2C {
+        fn write(&mut self, addr: u8, data: &[u8])
+         -> Result<(), Self::Error> {
+            let mut master_data =
+                hal::hal_i2c_master_data{address: addr,
+                                         len: data.len() as u16,
+                                         buffer: data.as_ptr() as *mut u8,};
+            let rc =
+                unsafe {
+                    hal::hal_i2c_master_write(self.i2c_num, &mut master_data,
+                                              self.timeout, 1)
+                };
+            check_i2c_return_code(rc)
+        }
+        type
+        Error
+        =
+        crate::result::MynewtError;
+    }
+    impl embedded_hal::blocking::i2c::Read for I2C {
+        fn read(&mut self, addr: u8, data: &mut [u8])
+         -> Result<(), Self::Error> {
+            let mut master_data =
+                hal::hal_i2c_master_data{address: addr,
+                                         len: data.len() as u16,
+                                         buffer: data.as_mut_ptr(),};
+            let rc =
+                unsafe {
+                    hal::hal_i2c_master_read(self.i2c_num, &mut master_data,
+                                             self.timeout, 1)
+                };
+            check_i2c_return_code(rc)
+        }
+        type
+        Error
+        =
+        crate::result::MynewtError;
+    }
+    impl embedded_hal::blocking::i2c::WriteRead for I2C {
+        fn write_read(&mut self, addr: u8, data_write: &[u8],
+                      data_read: &mut [u8]) -> Result<(), Self::Error> {
+            let mut master_data =
+                hal::hal_i2c_master_data{address: addr,
+                                         len: data_write.len() as u16,
+                                         buffer:
+                                             data_write.as_ptr() as *mut u8,};
+            let rc_write =
+                unsafe {
+                    hal::hal_i2c_master_write(self.i2c_num, &mut master_data,
+                                              self.timeout, 0)
+                };
+            master_data.len = data_read.len() as u16;
+            master_data.buffer = data_read.as_mut_ptr();
+            let rc_read =
+                unsafe {
+                    hal::hal_i2c_master_read(self.i2c_num, &mut master_data,
+                                             self.timeout, 1)
+                };
+            check_i2c_return_code(rc_write)?;
+            check_i2c_return_code(rc_read)
+        }
+        type
+        Error
+        =
+        crate::result::MynewtError;
+    }
+    fn check_i2c_return_code(rc: i32) -> crate::result::MynewtResult<()> {
+        type E = crate::result::MynewtError;
+        match rc as u32 {
+            0 => Ok(()),
+            hal::HAL_I2C_ERR_UNKNOWN => Err(E::HAL_I2C_ERR_UNKNOWN),
+            hal::HAL_I2C_ERR_INVAL => Err(E::HAL_I2C_ERR_INVAL),
+            hal::HAL_I2C_ERR_TIMEOUT => Err(E::HAL_I2C_ERR_TIMEOUT),
+            hal::HAL_I2C_ERR_ADDR_NACK => Err(E::HAL_I2C_ERR_ADDR_NACK),
+            hal::HAL_I2C_ERR_DATA_NACK => Err(E::HAL_I2C_ERR_DATA_NACK),
+            _ => Err(E::HAL_I2C_ERR_UNKNOWN),
+        }
+    }
     /// Rust Embedded HAL interface for Mynewt SPI
     impl SPI {
         /// Create a new SPI port
@@ -11673,6 +11768,13 @@ mod hal {
         /// Mynewt GPIO pin number for Chip Select
         cs_pin: i32,
     }
+    /// Rust Embedded HAL interface for Mynewt I2C
+    pub struct I2C {
+        /// Mynewt I2C port number
+        i2c_num: u8,
+        /// Operation timeout in ticks
+        timeout: u32,
+    }
     /// Rust Embedded HAL interface for Mynewt GPIO
     pub struct GPIO {
         /// Mynewt GPIO pin number
@@ -11682,7 +11784,7 @@ mod hal {
     pub struct Delay {
     }
 }
-pub use hal::{Delay, GPIO, SPI};
+pub use hal::{Delay, GPIO, SPI, I2C};
 pub mod spi {
     //! Experimental Non-Blocking SPI Transfer API. Uses a background task to send SPI requests sequentially.
     //! Request data is copied into Mbuf Queues before transmitting. 
@@ -11704,7 +11806,7 @@ pub mod spi {
     /// Max size of pending Command Bytes
     type PendingCmdSize = heapless::consts::U1;
     /// Max size of pending Data Bytes
-    type PendingDataSize = heapless::consts::U2048;
+    type PendingDataSize = heapless::consts::U8192;
     /// Pending SPI Command Byte to be written
     static mut PENDING_CMD: heapless::Vec<u8, PendingCmdSize> =
         heapless::Vec(heapless::i::Vec::new());
@@ -12071,7 +12173,12 @@ pub mod spi {
     /// Set pending request for non-blocking SPI write for Data Bytes. Returns without waiting for write to complete.
     pub fn spi_noblock_write_data(data: &[u8]) -> MynewtResult<()> {
         if !(unsafe { PENDING_CMD.len() } > 0) {
-            ::core::panicking::panic("assertion failed: unsafe { PENDING_CMD.len() } > 0")
+            ::core::panicking::panic("no cmd byte")
+        };
+        if !unsafe {
+                PENDING_DATA.len() + data.len() <= PENDING_DATA.capacity()
+            } {
+            ::core::panicking::panic("spi overflow")
         };
         unsafe { PENDING_DATA.extend_from_slice(data) }?;
         Ok(())
@@ -12382,6 +12489,11 @@ pub mod result {
         SYS_EREMOTEIO = os::SYS_EREMOTEIO,
         SYS_EDONE = os::SYS_EDONE,
         SYS_EPERUSER = os::SYS_EPERUSER,
+        HAL_I2C_ERR_UNKNOWN,
+        HAL_I2C_ERR_INVAL,
+        HAL_I2C_ERR_TIMEOUT,
+        HAL_I2C_ERR_ADDR_NACK,
+        HAL_I2C_ERR_DATA_NACK,
     }
     #[allow(non_camel_case_types)]
     impl ::core::marker::StructuralPartialEq for MynewtError { }

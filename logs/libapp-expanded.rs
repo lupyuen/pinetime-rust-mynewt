@@ -29,13 +29,15 @@
 #![feature(proc_macro_hygiene)]
 //  Allow Procedural Macros like `run!()`
 #![feature(specialization)]
+//  Allow Specialised Traits for druid UI library
+#![feature(exclusive_range_pattern)]
 #[prelude_import]
 use core::prelude::v1::*;
 #[macro_use]
 extern crate core;
 #[macro_use]
 extern crate compiler_builtins;
-//  Allow Specialised Traits for druid UI library
+//  Allow ranges like `0..128` in `match` statements
 
 //  Declare the libraries that contain macros
 extern crate cortex_m;
@@ -94,10 +96,7 @@ mod app_network {
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
 
-    //  Start Bluetooth Beacon.  TODO: Create a safe wrapper for starting Bluetooth LE.
-    //  extern { fn start_ble() -> i32; }
-    //  let rc = unsafe { start_ble() };
-    //  assert!(rc == 0, "BLE fail");
+    //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
 
     //  Start the display
 
@@ -685,14 +684,14 @@ mod touch_sensor {
         Ok(())
     }
 }
-#[cfg(feature = "chip8_app")]
-mod chip8 {
-    use embedded_graphics::{prelude::*, pixelcolor::Rgb565,
-                            primitives::{Rectangle}};
-    use mynewt::{result::*, sys::console, kernel::os};
+#[cfg(feature = "display_app")]
+mod display {
+    use embedded_graphics::{prelude::*, fonts, pixelcolor::Rgb565,
+                            primitives::{Circle, Rectangle}};
+    use mynewt::{result::*, sys::console};
     /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
-    pub fn on_start() -> MynewtResult<()> {
-        console::print("Rust CHIP8\n");
+    pub fn test_display() -> MynewtResult<()> {
+        console::print("Rust test display\n");
         console::flush();
         let background =
             Rectangle::<Rgb565>::new(Coord::new(0, 0),
@@ -700,77 +699,55 @@ mod chip8 {
                                                 239)).fill(Some(Rgb565::from((0x00,
                                                                               0x00,
                                                                               0x00))));
-        let chip8 = libchip8::Chip8::new(Hardware);
-        chip8.run(b"\x12%SPACE INVADERS 0.91 By David WINTER`\x00a\x00b\x08\xa3\xdd\xd0\x18q\x08\xf2\x1e1 \x12-p\x08a\x000@\x12-i\x05l\x15n\x00#\x91`\n\xf0\x15\xf0\x070\x00\x12K#\x91~\x01\x12Ef\x00h\x1ci\x00j\x04k\nl\x04m<n\x0f\x00\xe0#u#Q\xfd\x15`\x04\xe0\x9e\x12}#u8\x00x\xff#u`\x06\xe0\x9e\x12\x8b#u89x\x01#u6\x00\x12\x9f`\x05\xe0\x9e\x12\xe9f\x01e\x1b\x84\x80\xa3\xd9\xd4Q\xa3\xd9\xd4Qu\xff5\xff\x12\xadf\x00\x12\xe9\xd4Q?\x01\x12\xe9\xd4Qf\x00\x83@s\x03\x83\xb5b\xf8\x83\"b\x083\x00\x12\xc9#}\x82\x06C\x08\x12\xd33\x10\x12\xd5#}\x82\x063\x18\x12\xdd#}\x82\x06C \x12\xe73(\x12\xe9#}>\x00\x13\x07y\x06I\x18i\x00j\x04k\nl\x04}\xf4n\x0f\x00\xe0#Q#u\xfd\x15\x12o\xf7\x077\x00\x12o\xfd\x15#Q\x8b\xa4;\x12\x13\x1b|\x02j\xfc;\x02\x13#|\x02j\x04#Q<\x18\x12o\x00\xe0\xa4\xdd`\x14a\x08b\x0f\xd0\x1fp\x08\xf2\x1e0,\x133`\xff\xf0\x15\xf0\x070\x00\x13A\xf0\n\x00\xe0\xa7\x06\xfee\x12%\xa3\xc1\xf9\x1ea\x08#i\x81\x06#i\x81\x06#i\x81\x06#i{\xd0\x00\xee\x80\xe0\x80\x120\x00\xdb\xc6{\x0c\x00\xee\xa3\xd9`\x1c\xd8\x04\x00\xee#Q\x8e##Q`\x05\xf0\x18\xf0\x15\xf0\x070\x00\x13\x89\x00\xeej\x00\x8d\xe0k\x04\xe9\xa1\x12W\xa6\x0c\xfd\x1e\xf0e0\xff\x13\xafj\x00k\x04m\x01n\x01\x13\x97\xa5\n\xf0\x1e\xdb\xc6{\x08}\x01z\x01:\x07\x13\x97\x00\xee<~\xff\xff\x99\x99~\xff\xff$$\xe7~\xff<<~\xdb\x81B<~\xff\xdb\x108|\xfe\x00\x00\x7f\x00?\x00\x7f\x00\x00\x00\x01\x01\x01\x03\x03\x03\x03\x00\x00?        ?\x08\x08\xff\x00\x00\xfe\x00\xfc\x00\xfe\x00\x00\x00~BBbbbb\x00\x00\xff\x00\x00\x00\x00\x00\x00\x00\x00\xff\x00\x00\xff\x00}\x00A}\x05}}\x00\x00\xc2\xc2\xc6Dl(8\x00\x00\xff\x00\x00\x00\x00\x00\x00\x00\x00\xff\x00\x00\xff\x00\xf7\x10\x14\xf7\xf7\x04\x04\x00\x00|D\xfe\xc2\xc2\xc2\xc2\x00\x00\xff\x00\x00\x00\x00\x00\x00\x00\x00\xff\x00\x00\xff\x00\xef (\xe8\xe8//\x00\x00\xf9\x85\xc5\xc5\xc5\xc5\xf9\x00\x00\xff\x00\x00\x00\x00\x00\x00\x00\x00\xff\x00\x00\xff\x00\xbe\x00 0 \xbe\xbe\x00\x00\xf7\x04\xe7\x85\x85\x84\xf4\x00\x00\xff\x00\x00\x00\x00\x00\x00\x00\x00\xff\x00\x00\xff\x00\x00\x7f\x00?\x00\x7f\x00\x00\x00\xef(\xef\x00\xe0`o\x00\x00\xff\x00\x00\x00\x00\x00\x00\x00\x00\xff\x00\x00\xff\x00\x00\xfe\x00\xfc\x00\xfe\x00\x00\x00\xc0\x00\xc0\xc0\xc0\xc0\xc0\x00\x00\xfc\x04\x04\x04\x04\x04\x04\x04\x04\xfc\x10\x10\xff\xf9\x81\xb9\x8b\x9a\x9a\xfa\x00\xfa\x8a\x9a\x9a\x9b\x99\xf8\xe6%%\xf4444\x00\x17\x14476&\xc7\xdfPP\\\xd8\xd8\xdf\x00\xdf\x11\x1f\x12\x1b\x19\xd9|D\xfe\x86\x86\x86\xfc\x84\xfe\x82\x82\xfe\xfe\x80\xc0\xc0\xc0\xfe\xfc\x82\xc2\xc2\xc2\xfc\xfe\x80\xf8\xc0\xc0\xfe\xfe\x80\xf0\xc0\xc0\xc0\xfe\x80\xbe\x86\x86\xfe\x86\x86\xfe\x86\x86\x86\x10\x10\x10\x10\x10\x10\x18\x18\x18HHx\x9c\x90\xb0\xc0\xb0\x9c\x80\x80\xc0\xc0\xc0\xfe\xee\x92\x92\x86\x86\x86\xfe\x82\x86\x86\x86\x86|\x82\x86\x86\x86|\xfe\x82\xfe\xc0\xc0\xc0|\x82\xc2\xca\xc4z\xfe\x86\xfe\x90\x9c\x84\xfe\xc0\xfe\x02\x02\xfe\xfe\x100000\x82\x82\xc2\xc2\xc2\xfe\x82\x82\x82\xee8\x10\x86\x86\x96\x92\x92\xee\x82D88D\x82\x82\x82\xfe000\xfe\x02\x1e\xf0\x80\xfe\x00\x00\x00\x00\x06\x06\x00\x00\x00``\xc0\x00\x00\x00\x00\x00\x00\x18\x18\x18\x18\x00\x18|\xc6\x0c\x18\x00\x18\x00\x00\xfe\xfe\x00\x00\xfe\x82\x86\x86\x86\xfe\x08\x08\x08\x18\x18\x18\xfe\x02\xfe\xc0\xc0\xfe\xfe\x02\x1e\x06\x06\xfe\x84\xc4\xc4\xfe\x04\x04\xfe\x80\xfe\x06\x06\xfe\xc0\xc0\xc0\xfe\x82\xfe\xfe\x02\x02\x06\x06\x06|D\xfe\x86\x86\xfe\xfe\x82\xfe\x06\x06\x06D\xfeDD\xfeD\xa8\xa8\xa8\xa8\xa8\xa8\xa8lZ\x00\x0c\x18\xa80N~\x00\x12\x18fl\xa8ZfT$f\x00HH\x18\x12\xa8\x06\x90\xa8\x12\x00~0\x12\xa8\x840Nr\x18f\xa8\xa8\xa8\xa8\xa8\xa8\x90Tx\xa8Hxlr\xa8\x12\x18lrfT\x90\xa8r*\x18\xa80N~\x00\x12\x18fl\xa8rT\xa8Zf\x18~\x18Nr\xa8r*\x180f\xa80N~\x00l0TN\x9c\xa8\xa8\xa8\xa8\xa8\xa8\xa8HT~\x18\xa8\x90Txf\xa8l*0Z\xa8\x840r*\xa8\xd8\xa8\x00N\x12\xa8\xe4\xa2\xa8\x00N\x12\xa8l*TTr\xa8\x840r*\xa8\xde\x9c\xa8r*\x18\xa8\x0cTHZxr\x18f\xa8f\x18ZTfrl\xa8r*\x00r\xa8r*\x18\xa80N~\x00\x12\x18fl\xa8\x00f\x18\xa80N\x0cf\x18\x00l0N$\xa8r*\x180f\xa8\x1eTf\x0c\x18\x9c\xa8$TT\x12\xa8Bx\x0c<\xa8\xae\xa8\xa8\xa8\xa8\xa8\xa8\xa8\xff\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00");
-        console::print("CHIP8 done\n");
-        console::flush();
+        let circle =
+            Circle::<Rgb565>::new(Coord::new(40, 40),
+                                  40).fill(Some(Rgb565::from((0xff, 0x00,
+                                                              0xff))));
+        let square =
+            Rectangle::<Rgb565>::new(Coord::new(60, 60),
+                                     Coord::new(150,
+                                                150)).fill(Some(Rgb565::from((0x00,
+                                                                              0x00,
+                                                                              0xff))));
+        let text =
+            fonts::Font12x16::<Rgb565>::render_str("I AM PINETIME").stroke(Some(Rgb565::from((0x00,
+                                                                                              0x00,
+                                                                                              0x00)))).fill(Some(Rgb565::from((0xff,
+                                                                                                                               0xff,
+                                                                                                                               0x00)))).translate(Coord::new(20,
+                                                                                                                                                             16));
+        druid::draw_to_display(background);
+        druid::draw_to_display(circle);
+        druid::draw_to_display(square);
+        druid::draw_to_display(text);
         Ok(())
-    }
-    const SCREEN_WIDTH: usize = 64;
-    const SCREEN_HEIGHT: usize = 32;
-    const PIXEL_SIZE: i32 = 3;
-    static mut SCREEN_BUFFER: [u8; SCREEN_WIDTH * SCREEN_HEIGHT] =
-        [0; SCREEN_WIDTH * SCREEN_HEIGHT];
-    struct Hardware;
-    impl libchip8::Hardware for Hardware {
-        fn rand(&mut self) -> u8 { 123 }
-        fn key(&mut self, _key: u8) -> bool { false }
-        fn vram_set(&mut self, x: usize, y: usize, d: bool) {
-            console::print("set ");
-            console::printint(x as i32);
-            console::print(", ");
-            console::printint(y as i32);
-            console::print("\n");
-            console::flush();
-            let i = x + y * SCREEN_WIDTH;
-            unsafe { SCREEN_BUFFER[i] = if d { 1 } else { 0 } };
-            let x_scaled: i32 = x as i32 * PIXEL_SIZE;
-            let y_scaled: i32 = y as i32 * PIXEL_SIZE;
-            let color =
-                if d {
-                    Rgb565::from((0x00, 0x00, 0xff))
-                } else { Rgb565::from((0x00, 0x00, 0x00)) };
-            let pixel =
-                Rectangle::<Rgb565>::new(Coord::new(x_scaled, y_scaled),
-                                         Coord::new(x_scaled + PIXEL_SIZE - 1,
-                                                    y_scaled + PIXEL_SIZE -
-                                                        1)).fill(Some(color));
-            druid::draw_to_display(pixel);
-        }
-        fn vram_get(&mut self, x: usize, y: usize) -> bool {
-            let i = x + y * SCREEN_WIDTH;
-            unsafe { SCREEN_BUFFER[i] != 0 }
-        }
-        fn vram_setsize(&mut self, _size: (usize, usize)) { }
-        fn vram_size(&mut self) -> (usize, usize) {
-            (SCREEN_WIDTH, SCREEN_HEIGHT)
-        }
-        fn clock(&mut self) -> u64 {
-            os::os_time_get as u64 * 1000_u64 * 1000_u64
-        }
-        fn beep(&mut self) { }
-        fn sched(&mut self) -> bool { false }
-    }
-    pub fn handle_touch(_x: u16, _y: u16) {
-        console::print("CHIP8 touch not handled\n");
-        console::flush();
     }
 }
 use core::panic::PanicInfo;
 use cortex_m::asm::bkpt;
 use mynewt::{kernel::os, sys::console};
-#[cfg(feature = "chip8_app")]
-use chip8::handle_touch;
+#[cfg(not
+      (any
+       (feature = "ui_app", feature = "visual_app", feature = "chip8_app")))]
+pub fn handle_touch(_x: u16, _y: u16) {
+    console::print("touch not handled\n");
+    console::flush();
+}
 ///  Main program that initialises the sensor, network driver and starts reading and sending sensor data in the background.
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
 #[no_mangle]
 extern "C" fn main() -> ! {
     mynewt::sysinit();
+    extern {
+        fn start_ble() -> i32;
+    }
+    let rc = unsafe { start_ble() };
+    if !(rc == 0) { ::core::panicking::panic("BLE fail") };
     druid::start_display().expect("DSP fail");
-    touch_sensor::start_touch_sensor().expect("TCH fail");
 
-    #[cfg(feature = "chip8_app")]
-    chip8::on_start().expect("CHIP8 fail");
+    #[cfg(feature = "display_app")]
+    display::test_display().expect("DSP test fail");
+    touch_sensor::start_touch_sensor().expect("TCH fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }

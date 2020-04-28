@@ -43,6 +43,11 @@ pkg.deps:
 
 # Bluetooth LE
 pkg.deps.BLUETOOTH_LE:
+    - "@apache-mynewt-core/boot/split"
+    - "@mcuboot/boot/bootutil"
+    - "@apache-mynewt-core/mgmt/imgmgr"
+    - "@apache-mynewt-core/mgmt/newtmgr"
+    - "@apache-mynewt-core/mgmt/newtmgr/transport/ble"
     - "@apache-mynewt-nimble/nimble/host"
     - "@apache-mynewt-nimble/nimble/host/services/ans"
     - "@apache-mynewt-nimble/nimble/host/services/dis"
