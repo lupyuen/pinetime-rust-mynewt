@@ -16,12 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
+//  Based on https://github.com/apache/mynewt-nimble/blob/master/apps/bleprph/src/phy.c
 #include "os/mynewt.h"
 #include "bsp/bsp.h"
 #include "hal/hal_gpio.h"
 #include "host/ble_gap.h"
-#include "bleprph.h"
+#include "ble_prph.h"
 
 #if MYNEWT_VAL(BLEPRPH_LE_PHY_SUPPORT)
 

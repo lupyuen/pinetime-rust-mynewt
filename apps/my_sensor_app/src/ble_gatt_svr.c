@@ -16,14 +16,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
+//  Based on https://github.com/apache/mynewt-nimble/blob/master/apps/bleprph/src/gatt_svr.c
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
 #include "bsp/bsp.h"
 #include "host/ble_hs.h"
 #include "host/ble_uuid.h"
-#include "bleprph.h"
+#include "ble_prph.h"
 
 /**
  * The vendor specific security test service consists of two characteristics:

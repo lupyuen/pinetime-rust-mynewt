@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
+//  Based on https://github.com/apache/mynewt-nimble/blob/master/apps/bleprph/src/main.c
 #include <assert.h>
 #include <string.h>
 #include <stdio.h>
@@ -41,7 +41,7 @@
 #include "services/gap/ble_svc_gap.h"
 
 /* Application-specified header. */
-#include "bleprph.h"
+#include "ble_prph.h"
 
 static int bleprph_gap_event(struct ble_gap_event *event, void *arg);
 
@@ -300,19 +300,16 @@ bleprph_on_sync(void)
  * The main task for the project. This function initializes the packages,
  * then starts serving events from default event queue.
  *
- * @return int NOTE: this function should never return!
+ * @return int 0
  */
 int
-main(void)
+start_ble(void)
 {
 #if MYNEWT_VAL(BLE_SVC_DIS_FIRMWARE_REVISION_READ_PERM) >= 0
     struct image_version ver;
     static char ver_str[IMGMGR_NMGR_MAX_VER];
 #endif
     int rc;
-
-    /* Initialize OS */
-    sysinit();
 
     /* Initialize the NimBLE host configuration. */
     ble_hs_cfg.reset_cb = bleprph_on_reset;
@@ -324,7 +321,7 @@ main(void)
     assert(rc == 0);
 
     /* Set the default device name. */
-    rc = ble_svc_gap_device_name_set("nimble-bleprph");
+    rc = ble_svc_gap_device_name_set("pinetime");
     assert(rc == 0);
 
 #if MYNEWT_VAL(BLE_SVC_DIS_FIRMWARE_REVISION_READ_PERM) >= 0
@@ -352,12 +349,5 @@ main(void)
         }
     }
 #endif
-
-    /*
-     * As the last thing, process events from default event queue.
-     */
-    while (1) {
-        os_eventq_run(os_eventq_dflt_get());
-    }
     return 0;
 }

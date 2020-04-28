@@ -19,7 +19,7 @@
 //  Bluetooth LE Functions. Based on https://mynewt.apache.org/latest/tutorials/ble/ibeacon.html
 #include "sysinit/sysinit.h"
 
-#if MYNEWT_VAL(BLUETOOTH_LE)  //  If Bluetooth LE is enabled...
+#if MYNEWT_VAL(BLUETOOTH_LE_BEACON)  //  If Bluetooth LE Beacon is enabled...
 #include "os/os.h"
 #include "console/console.h"
 #include "host/ble_hs.h"
@@ -28,7 +28,7 @@ static void ble_app_on_sync(void);
 static void ble_app_set_addr(void);
 static void ble_app_advertise(void);
 
-int start_ble(void) {
+int start_ble_beacon(void) {
     //  Set the callback for starting Bluetooth LE.
     ble_hs_cfg.sync_cb = ble_app_on_sync;
     return 0;
@@ -76,10 +76,10 @@ static void ble_app_advertise(void) {
     assert(rc == 0);
 }
 
-#else //  If Bluetooth LE is disabled...
+#else //  If Bluetooth LE Beacon is disabled...
 
-int start_ble(void) {
+int start_ble_beacon(void) {
     //  Bluetooth LE not supported.
     return 0;
 }
-#endif  //  MYNEWT_VAL(BLUETOOTH_LE)
+#endif  //  MYNEWT_VAL(BLUETOOTH_LE_BEACON)

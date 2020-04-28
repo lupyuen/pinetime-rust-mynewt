@@ -16,8 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-#include "bleprph.h"
+//  Based on https://github.com/apache/mynewt-nimble/blob/master/apps/bleprph/src/misc.c
+#include "ble_prph.h"
 
 /**
  * Utility function to log an array of bytes.
