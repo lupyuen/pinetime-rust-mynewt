@@ -36,8 +36,8 @@
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE",
-                "OC_CLIENT",
-                "BLUETOOTH_LE"
+                "MYNEWT_VAL_OC_CLIENT=1",
+                "MYNEWT_VAL_BLUETOOTH_LE=1"
             ],
             "windowsSdkVersion": "10.0.10586.0",
             "compilerPath": "/usr/local/bin/arm-none-eabi-gcc",
