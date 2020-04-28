@@ -17,6 +17,9 @@
  * under the License.
  */
 //  Based on https://github.com/apache/mynewt-nimble/blob/master/apps/bleprph/src/misc.c
+#include "sysinit/sysinit.h"
+
+#if MYNEWT_VAL(BLUETOOTH_LE)  //  If Bluetooth LE is enabled...
 #include "ble_prph.h"
 
 /**
@@ -41,3 +44,4 @@ print_addr(const void *addr)
     MODLOG_DFLT(INFO, "%02x:%02x:%02x:%02x:%02x:%02x",
                 u8p[5], u8p[4], u8p[3], u8p[2], u8p[1], u8p[0]);
 }
+#endif  //  MYNEWT_VAL(BLUETOOTH_LE)

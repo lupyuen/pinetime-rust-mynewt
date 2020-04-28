@@ -17,6 +17,9 @@
  * under the License.
  */
 //  Based on https://github.com/apache/mynewt-nimble/blob/master/apps/bleprph/src/phy.c
+#include "sysinit/sysinit.h"
+
+#if MYNEWT_VAL(BLUETOOTH_LE)  //  If Bluetooth LE is enabled...
 #include "os/mynewt.h"
 #include "bsp/bsp.h"
 #include "hal/hal_gpio.h"
@@ -126,3 +129,4 @@ phy_update(uint8_t phy)
 }
 
 #endif
+#endif  //  MYNEWT_VAL(BLUETOOTH_LE)

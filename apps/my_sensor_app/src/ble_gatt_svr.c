@@ -17,6 +17,9 @@
  * under the License.
  */
 //  Based on https://github.com/apache/mynewt-nimble/blob/master/apps/bleprph/src/gatt_svr.c
+#include "sysinit/sysinit.h"
+
+#if MYNEWT_VAL(BLUETOOTH_LE)  //  If Bluetooth LE is enabled...
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
@@ -202,3 +205,4 @@ gatt_svr_init(void)
 
     return 0;
 }
+#endif  //  MYNEWT_VAL(BLUETOOTH_LE)
