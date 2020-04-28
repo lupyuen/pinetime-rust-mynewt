@@ -38,8 +38,8 @@ syscfg.defs:
     SENSOR_POLL_TIME:
         description: 'Poll the sensor every N milliseconds e.g. 10 * 1000'
         value:       UNDEFINED_SENSOR_POLL_TIME
-    BLUETOOTH_LE:
-        description: 'Enable Bluetooth LE functions'
+    BLUETOOTH_BEACON:
+        description: 'Enable Bluetooth Beacon functions'
         value:        0        
     BLUETOOTH_MESH:
         description: 'Enable Bluetooth Mesh functions'
@@ -114,9 +114,9 @@ syscfg.vals:
     COAP_URI:       '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"'
 
     ###########################################################################
-    # Bluetooth LE Settings
+    # Bluetooth Beacon Settings
 
-    BLUETOOTH_LE:   0  # Disable Bluetooth LE
+    BLUETOOTH_BEACON:   0  # Disable Bluetooth Beacon
 
     ###########################################################################
     # Bluetooth Mesh Settings

@@ -16,10 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-//  Bluetooth LE Functions. Based on https://mynewt.apache.org/latest/tutorials/ble/ibeacon.html
+//  Bluetooth Beacon Functions. Based on https://mynewt.apache.org/latest/tutorials/ble/ibeacon.html
 #include "sysinit/sysinit.h"
 
-#if MYNEWT_VAL(BLUETOOTH_LE_BEACON)  //  If Bluetooth LE Beacon is enabled...
+#if MYNEWT_VAL(BLUETOOTH_BEACON)  //  If Bluetooth Beacon is enabled...
 #include "os/os.h"
 #include "console/console.h"
 #include "host/ble_hs.h"
@@ -76,10 +76,10 @@ static void ble_app_advertise(void) {
     assert(rc == 0);
 }
 
-#else //  If Bluetooth LE Beacon is disabled...
+#else //  If Bluetooth Beacon is disabled...
 
 int start_ble_beacon(void) {
     //  Bluetooth LE not supported.
     return 0;
 }
-#endif  //  MYNEWT_VAL(BLUETOOTH_LE_BEACON)
+#endif  //  MYNEWT_VAL(BLUETOOTH_BEACON)
