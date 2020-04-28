@@ -16,7 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-//  Based on https://github.com/apache/mynewt-nimble/blob/master/apps/bleprph/src/main.c
+//  Bluetooth LE Functions (e.g. firmware upgrade). Based on https://github.com/apache/mynewt-nimble/blob/master/apps/bleprph/src/main.c
+#include "sysinit/sysinit.h"
+
+#if MYNEWT_VAL(BLUETOOTH_LE)  //  If Bluetooth LE is enabled...
 #include <assert.h>
 #include <string.h>
 #include <stdio.h>
@@ -351,3 +354,11 @@ start_ble(void)
 #endif
     return 0;
 }
+
+#else //  If Bluetooth LE is disabled...
+
+int start_ble(void) {
+    //  Bluetooth LE not supported.
+    return 0;
+}
+#endif  //  MYNEWT_VAL(BLUETOOTH_LE)

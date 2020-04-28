@@ -38,6 +38,9 @@ syscfg.defs:
     SENSOR_POLL_TIME:
         description: 'Poll the sensor every N milliseconds e.g. 10 * 1000'
         value:       UNDEFINED_SENSOR_POLL_TIME
+    BLUETOOTH_LE:
+        description: 'Enable Bluetooth LE functions'
+        value:        0        
     BLUETOOTH_BEACON:
         description: 'Enable Bluetooth Beacon functions'
         value:        0        
@@ -112,6 +115,38 @@ syscfg.vals:
 
     # CoAP URI e.g. v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8 (for thethings.io, the last part is the Thing Token)
     COAP_URI:       '"v2/things/IVRiBCcR6HPp_CcZIFfOZFxz_izni5xc_KO-kgSA2Y8"'
+
+    ###########################################################################
+    # Bluetooth LE Settings
+
+    BLUETOOTH_LE:       0  # Disable Bluetooth LE
+
+    # Disable central and observer roles.
+    BLE_ROLE_BROADCASTER: 1
+    BLE_ROLE_CENTRAL: 0
+    BLE_ROLE_OBSERVER: 0
+    BLE_ROLE_PERIPHERAL: 1
+
+    # Configure DIS
+    BLE_SVC_DIS_FIRMWARE_REVISION_READ_PERM: 1
+
+    # Log reboot messages to a flash circular buffer.
+    # REBOOT_LOG_FCB: 1
+    # LOG_FCB: 1
+    # CONFIG_FCB: 1
+
+    # Enable newtmgr commands.
+    STATS_NEWTMGR: 1
+    LOG_NEWTMGR: 1
+    CONFIG_NEWTMGR: 1
+
+    # OS main/default task
+    # OS_MAIN_STACK_SIZE: 468
+
+    # Lots of smaller mbufs are required for newtmgr using typical BLE ATT MTU
+    # values.
+    # MSYS_1_BLOCK_COUNT: 22
+    # MSYS_1_BLOCK_SIZE: 110
 
     ###########################################################################
     # Bluetooth Beacon Settings
