@@ -14,7 +14,74 @@ _What if we could flash any firmware to PineTime from our mobile phone... Withou
 
 _Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch_
 
-magic simple management protocol
+What's the magic behind this? It's the __Simple Management Protocol (SMP)__... By transmitting a bunch of SMP messages over Bluetooth Low Energy (LE), it's possible to send a file to PineTime and upgrade its firmware. (Assuming that our PineTime supports SMP)
+
+_What mobile app would we use for flashing PineTime over Bluetooth LE?_
+
+The Nordic nRF Connect mobile app for iOS and Android is all that we need for flashing PineTime. Here's how it looks when the app is connected to a PineTime that supports SMP...
+
+![nRF Connect mobile app for Firmware Upgrade](https://lupyuen.github.io/images/dfu-nrfconnect.png)
+
+_nRF Connect mobile app for Firmware Upgrade_
+
+See the `DFU` icon at the top right? That stands for __Direct Firmware Upgrade__.
+
+Tapping the `DFU` icon will let us select a downloaded firmware file for flashing our watch. It's really that easy!
+
+_What about PinePhone? Raspberry Pi?_
+
+PinePhone, Raspberry Pi and other Linux devices may use the open-source Newt Manager tool.  (I have tested Newt Manager on Raspberry Pi with PineTime)
+
+It runs on a command line, but it should be quite easy to wrap up in a graphical user interface.
+
+_What needs to be done on PineTime?_
+
+If you're developing firmware for PineTime, I strongly urge you to implement the SMP protocol in your firmware... It will make PineTime Owners a lot happier when updating their watch firmware!
+
+And give PineTime Owners an easy way to try out all the awesome platforms that the PineTime FOSS Community has to offer!
+
+We would also like Pine64 to ship PineTime with a FOSS firmware (created by the PineTime Community) that implements the SMP protocol. So PineTime owners can just unbox their watch and start flashing right away!
+
+In this article I'll walk you through the steps of implementing the SMP protocol in your PineTime firmware. I'll show you my implementation for Mynewt OS, which you may use for reference.
+
+# Simple Management Procotol (SMP) for Firmware Upgrade
+
+TODO
+
+The MCU Manager Simple Management Procotol (SMP) Bluetooth LE protocol is documented here:
+
+https://github.com/apache/mynewt-mcumgr
+
+https://github.com/apache/mynewt-mcumgr/blob/master/transport/smp-bluetooth.md
+
+Comparing the documented protocol with the iOS client for MCU Manager...
+
+https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Bluetooth/McuMgrBleTransport.swift
+
+```swift
+public static let SMP_SERVICE = CBUUID(string: "8D53DC1D-1DB7-4CD3-868B-8A527460AA84")
+public static let SMP_CHARACTERISTIC = CBUUID(string: "DA2E7828-FBCE-4E01-AE9E-261174997C48")
+```
+
+1. MCU Manager client (e.g. mobile phone) communicates with the device (e.g. PineTime) via Bluetooth LE Generic Attribute Profile (GATT). More about GATT: https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt
+
+1. MCU Manager client searches for a device that supports GATT Service ID `8D53DC1D-1DB7-4CD3-868B-8A527460AA84`
+
+1. MCU Manager client writes the firmware upgrade request to GATT Characteristic ID `DA2E7828-FBCE-4E01-AE9E-261174997C48`
+
+Additional Swift files to be analysed:
+
+https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/McuManager.swift
+
+https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Managers/ImageManager.swift
+
+https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Managers/DFU/FirmwareUpgradeManager.swift
+
+Also refer to the LightBlue app demo:
+
+https://mynewt.apache.org/latest/tutorials/ble/bleprph/bleprph-sections/bleprph-app.html
+
+See the Raspberry Pi Client Log below for the messages sent by Newt Manager tool to PineTime.
 
 # Firmware Upgrade via Bluetooth LE
 
@@ -70,44 +137,6 @@ The proposed solution is similar to the Bluetooth OTA Firmware Upgrade solution 
 
 https://docs.zephyrproject.org/latest/guides/device_mgmt/dfu.html#
 
-# MCU Manager Protocol
-
-TODO
-
-The MCU Manager Simple Management Procotol (SMP) Bluetooth LE protocol is documented here:
-
-https://github.com/apache/mynewt-mcumgr
-
-https://github.com/apache/mynewt-mcumgr/blob/master/transport/smp-bluetooth.md
-
-Comparing the documented protocol with the iOS client for MCU Manager...
-
-https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Bluetooth/McuMgrBleTransport.swift
-
-```swift
-public static let SMP_SERVICE = CBUUID(string: "8D53DC1D-1DB7-4CD3-868B-8A527460AA84")
-public static let SMP_CHARACTERISTIC = CBUUID(string: "DA2E7828-FBCE-4E01-AE9E-261174997C48")
-```
-
-1. MCU Manager client (e.g. mobile phone) communicates with the device (e.g. PineTime) via Bluetooth LE Generic Attribute Profile (GATT). More about GATT: https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt
-
-1. MCU Manager client searches for a device that supports GATT Service ID `8D53DC1D-1DB7-4CD3-868B-8A527460AA84`
-
-1. MCU Manager client writes the firmware upgrade request to GATT Characteristic ID `DA2E7828-FBCE-4E01-AE9E-261174997C48`
-
-Additional Swift files to be analysed:
-
-https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/McuManager.swift
-
-https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Managers/ImageManager.swift
-
-https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Managers/DFU/FirmwareUpgradeManager.swift
-
-Also refer to the LightBlue app demo:
-
-https://mynewt.apache.org/latest/tutorials/ble/bleprph/bleprph-sections/bleprph-app.html
-
-See the Raspberry Pi Client Log below for the messages sent by Newt Manager tool to PineTime.
 
 # PineTime Firmware
 
