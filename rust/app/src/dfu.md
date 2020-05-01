@@ -48,7 +48,7 @@ In this article I'll walk you through the steps of implementing the SMP protocol
 
 # Simple Management Procotol for Firmware Upgrade
 
-The open-source Simple Management Protocol (SMP) was originally created for flashing the firmware on devices running Mynewt and Zephyr operating systems.
+The open-source Simple Management Protocol (SMP) was originally created for flashing firmware on devices running Mynewt and Zephyr operating systems.
 
 TODO
 
