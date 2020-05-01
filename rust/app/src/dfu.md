@@ -38,7 +38,7 @@ It runs on a command line, but it should be easy to wrap up in a graphical user 
 
 _What needs to be done on PineTime?_
 
-If you're developing firmware for PineTime, I strongly urge you to implement the SMP protocol in your firmware... It will make PineTime Owners a lot happier when updating their watch firmware!
+If you're developing firmware for PineTime: Thanks for the great job! I strongly urge you to implement the SMP protocol in your firmware... It will make PineTime Owners a lot happier when updating their watch firmware!
 
 And we'll give PineTime Owners an easy way to try out all the awesome platforms that the PineTime FOSS Community has to offer!
 
@@ -46,7 +46,9 @@ We would like Pine64 to ship PineTime with a FOSS firmware (created by the PineT
 
 In this article I'll walk you through the steps of implementing the SMP protocol in your PineTime firmware. I'll show you my implementation for Mynewt OS, which you may use for reference.
 
-# Simple Management Procotol (SMP) for Firmware Upgrade
+# Simple Management Procotol for Firmware Upgrade
+
+The open-source Simple Management Protocol (SMP) was originally created for flashing the firmware on devices running Mynewt and Zephyr operating systems.
 
 TODO
 
