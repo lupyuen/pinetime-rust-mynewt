@@ -2,13 +2,13 @@
 
 ![Platforms in development for PineTime Smart Watch](https://lupyuen.github.io/images/dfu-platforms.png)
 
-_Platforms in development for PineTime Smart Watch_
-
 Thanks to the FOSS Community, PineTime Smart Watch has an incredible variety of FOSS operating systems in the works: FreeRTOS, MicroPython, Mynewt, RIOT, Rust RTFM, TinyGo, Tock, Zephyr, ...
 
 But these embedded platforms are accessible only by brave PineTime Owners who dare to pry open their watches very carefully... And connect a Raspberry Pi (or ST-Link) to the tiny delicate 4-pin SWD port inside (to flash the firmware).
 
-_What if we could flash any firmware to PineTime from our mobile phone... Without opening the watch? Something like this..._
+_What if we could flash any firmware to PineTime from our mobile phone... Without opening the watch?_
+
+Yes we can! Just download the firmware file into our phone and transmit it to our watch, like this...
 
 ![Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch](https://lupyuen.github.io/images/dfu-flow.png)
 
@@ -24,7 +24,7 @@ The Nordic nRF Connect mobile app for iOS and Android is all that we need for fl
 
 _nRF Connect mobile app for Firmware Upgrade_
 
-See the `DFU` icon at the top right? That stands for __Direct Firmware Upgrade__.
+See the circular `DFU` icon at the top right? That stands for __Direct Firmware Upgrade__.
 
 Tapping the `DFU` icon will let us select a downloaded firmware file for flashing our watch. It's really that easy!
 
@@ -32,15 +32,15 @@ _What about PinePhone? Raspberry Pi?_
 
 PinePhone, Raspberry Pi and other Linux devices may use the open-source Newt Manager tool.  (I have tested Newt Manager on Raspberry Pi with PineTime)
 
-It runs on a command line, but it should be quite easy to wrap up in a graphical user interface.
+It runs on a command line, but it should be easy to wrap up in a graphical user interface.
 
 _What needs to be done on PineTime?_
 
 If you're developing firmware for PineTime, I strongly urge you to implement the SMP protocol in your firmware... It will make PineTime Owners a lot happier when updating their watch firmware!
 
-And give PineTime Owners an easy way to try out all the awesome platforms that the PineTime FOSS Community has to offer!
+And we'll give PineTime Owners an easy way to try out all the awesome platforms that the PineTime FOSS Community has to offer!
 
-We would also like Pine64 to ship PineTime with a FOSS firmware (created by the PineTime Community) that implements the SMP protocol. So PineTime owners can just unbox their watch and start flashing right away!
+We would also like Pine64 to ship PineTime with a FOSS firmware (created by the PineTime Community) that implements the SMP protocol. So PineTime owners can just unbox their watch and start flashing right away.
 
 In this article I'll walk you through the steps of implementing the SMP protocol in your PineTime firmware. I'll show you my implementation for Mynewt OS, which you may use for reference.
 
