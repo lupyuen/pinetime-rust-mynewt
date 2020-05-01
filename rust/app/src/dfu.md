@@ -1,12 +1,20 @@
-# Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch
+# Firmware Upgrade over Bluetooth Low Energy on PineTime Smart Watch
 
 ![Platforms in development for PineTime Smart Watch](https://lupyuen.github.io/images/dfu-platforms.png)
 
 _Platforms in development for PineTime Smart Watch_
 
+Thanks to the FOSS Community, PineTime Smart Watch has an incredible variety of FOSS operating systems in the works: FreeRTOS, MicroPython, Mynewt, RIOT, Rust RTFM, TinyGo, Tock, Zephyr, ...
+
+But these embedded platforms are accessible only by brave PineTime Owners who dare to pry open their watches very carefully... And connect a Raspberry Pi (or ST-Link) to the tiny delicate 4-pin SWD port inside (to flash the firmware).
+
+_What if we could flash any firmware to PineTime from our mobile phone? Without opening the watch? Like this..._
+
 ![Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch](https://lupyuen.github.io/images/dfu-flow.png)
 
 _Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch_
+
+magic simple management protocol
 
 # Firmware Upgrade via Bluetooth LE
 
