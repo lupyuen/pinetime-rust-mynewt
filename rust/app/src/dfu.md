@@ -1,8 +1,8 @@
 # Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch
 
-![Embedded operating systems in development for PineTime Smart Watch](https://lupyuen.github.io/images/dfu-platforms.png)
+![Platforms in development for PineTime Smart Watch](https://lupyuen.github.io/images/dfu-platforms.png)
 
-_Embedded operating systems in development for PineTime Smart Watch_
+_Platforms in development for PineTime Smart Watch_
 
 ![Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch](https://lupyuen.github.io/images/dfu-flow.png)
 
