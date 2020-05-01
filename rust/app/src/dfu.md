@@ -8,7 +8,7 @@ Thanks to the FOSS Community, PineTime Smart Watch has an incredible variety of 
 
 But these embedded platforms are accessible only by brave PineTime Owners who dare to pry open their watches very carefully... And connect a Raspberry Pi (or ST-Link) to the tiny delicate 4-pin SWD port inside (to flash the firmware).
 
-_What if we could flash any firmware to PineTime from our mobile phone? Without opening the watch? Like this..._
+_What if we could flash any firmware to PineTime from our mobile phone... Without opening the watch? Something like this..._
 
 ![Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch](https://lupyuen.github.io/images/dfu-flow.png)
 
