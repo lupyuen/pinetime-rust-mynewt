@@ -86,7 +86,7 @@ For reference, the generic SMP protocol is [documented here](https://github.com/
 
 # Robust Firmware Update on PineTime with Rollback
 
-PineTime Smart Watch will be worn by people of all ages (maybe pets too)... Thus we shall _plan for failure_...
+PineTime Smart Watch will be worn by people of all ages (maybe pets too)... Thus we shall _plan for failure!_
 
 _What happens if the firmware gets corrupted or truncated while transmitting the firmware update over Bluetooth LE?_
 
@@ -108,6 +108,8 @@ We'll roll back the firmware to the previous version. Here's how it works...
 
 1. PineTime should start correctly with the old firmware with SMP service operational. We may perform the firmware upgrade again when the fixed new firmware is available.
 
+Thankfully most of this firmware update and rollback logic is built into the MCU Manager Library. We'll require another open-source component: The MCUBoot Bootloader.  More about MCUBoot in a while.
+
 Here's the proposed Flash ROM memory layout that will be adopted by all PineTime firmware, containing the Active and Standby Firmware Image slots...
 
 | PineTime Flash Area | ROM Address        | Size |
@@ -119,9 +121,7 @@ Here's the proposed Flash ROM memory layout that will be adopted by all PineTime
 | Scratch Area          | `0x0007 c000`  | 4 KB |
 | User File System      | `0x0007 d000`  | 12 KB |
 
-_Proposed Flash Memory Layout for PineTime. Derived from this [standard flash memory layout for nRF52832](https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml)._
-
-TODO
+_Proposed Flash Memory Layout for PineTime. Derived from this [prescribed flash memory layout for nRF52832](https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml)._
 
 # MCU Manager Library for Managing Firmware Images
 
