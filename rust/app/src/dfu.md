@@ -66,23 +66,23 @@ _SMP Firmware Upgrade over Bluetooth LE_
 
 1. Mobile App then queries PineTime for the GATT Characteristic ID `DA2E7828-FBCE-4E01-AE9E-261174997C48`. This is the GATT Characteristic ID for SMP.
 
-1. Mobile App uses the GATT Characteristic ID for SMP to transmit an encoded request to upgrade PineTime's firmware. In GATT lingo, we call this a "Write Request" to the GATT Characteristic for SMP.
+1. Mobile App uses the GATT Characteristic ID for SMP to transmit an encoded request to update PineTime's firmware. In GATT lingo, we call this sending a "Write Request" to the GATT Characteristic for SMP.
 
-1. PineTime performs the firmware upgrade using the firmware file that was embedded in the request
+1. PineTime performs the firmware update using the firmware file that was embedded in the request
 
-This flow becomes clearer when we look at the nRC Connect mobile app connected to PineTime. Observe how we connect to PineTime by the device name `pinetime`, also see the SMP Service and SMP Characteristic that appear within the device...
+This flow becomes clearer when we look at the nRC Connect mobile app connected to PineTime. Observe how we connect to PineTime by the device name `pinetime`, also note the SMP Service and SMP Characteristic that appear under PineTime...
 
 ![nRF Connect mobile app connected to PineTime's SMP Service](https://lupyuen.github.io/images/dfu-gattapp2.png)
 
 _nRF Connect mobile app connected to PineTime's SMP Service_
 
-The `DFU` icon at top right (Direct Firmware Upgrade) appears when the mobile app detects the presence of the SMP Service and Characteristic. Tapping the `DFU` icon will transmit a firmware upgrade request to PineTime.
+The circular `DFU` icon at top right (Direct Firmware Upgrade) appears when the mobile app detects the presence of the SMP Service and Characteristic. Tapping the `DFU` icon will transmit a firmware update request to PineTime.
 
 _How shall we implement the SMP protocol in PineTime firmware?_
 
 Fortunately there's an open-source library that implements the SMP protocol: the [__MCU Manager Library__](https://github.com/apache/mynewt-mcumgr). More about this in the next section.
 
-For reference, the SMP protocol is [documented here](https://github.com/apache/mynewt-mcumgr). The SMP protocol based on Bluetooth LE is [documented here](https://github.com/apache/mynewt-mcumgr/blob/master/transport/smp-bluetooth.md).
+For reference, the generic SMP protocol is [documented here](https://github.com/apache/mynewt-mcumgr). The SMP protocol based on Bluetooth LE is [documented here](https://github.com/apache/mynewt-mcumgr/blob/master/transport/smp-bluetooth.md).
 
 # MCU Manager Library and NimBLE Bluetooth Stack
 
