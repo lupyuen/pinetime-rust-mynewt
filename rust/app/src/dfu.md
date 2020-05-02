@@ -84,9 +84,7 @@ Fortunately there's an open-source library that implements the SMP protocol: the
 
 For reference, the generic SMP protocol is [documented here](https://github.com/apache/mynewt-mcumgr). The SMP protocol based on Bluetooth LE is [documented here](https://github.com/apache/mynewt-mcumgr/blob/master/transport/smp-bluetooth.md).
 
-# Robust Firmware Upgrades on PineTime
-
-Based on https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml
+# Robust Firmware Update with Rollback
 
 | PineTime Flash Area | ROM Address        | Size |
 | :---                  | :---              | ---:        |
@@ -97,7 +95,7 @@ Based on https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca1004
 | Scratch Area          | `0x0007 c000`  | 4 KB |
 | User File System      | `0x0007 d000`  | 12 KB |
 
-_Proposed Flash Memory Layout for PineTime_
+_Proposed Flash Memory Layout for PineTime. Derived from this [standard flash memory layout for nRF52832](https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml)._
 
 TODO
 
