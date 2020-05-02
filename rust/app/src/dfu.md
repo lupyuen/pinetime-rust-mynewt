@@ -70,7 +70,7 @@ _SMP Firmware Upgrade over Bluetooth LE_
 
 1. PineTime performs the firmware update using the firmware file that was embedded in the request
 
-This flow becomes clearer when we look at the nRC Connect mobile app connected to PineTime. Observe how we connect to PineTime by the device name `pinetime`, also note the SMP Service and SMP Characteristic that appear under PineTime...
+This flow becomes clearer when we look at the nRF Connect mobile app connected to PineTime. Observe how we connect to PineTime by the device name `pinetime`, also note the SMP Service and SMP Characteristic that appear under PineTime...
 
 ![nRF Connect mobile app connected to PineTime's SMP Service](https://lupyuen.github.io/images/dfu-gattapp3.png)
 
