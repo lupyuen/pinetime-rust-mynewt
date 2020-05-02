@@ -84,11 +84,17 @@ Fortunately there's an open-source library that implements the SMP protocol: the
 
 For reference, the generic SMP protocol is [documented here](https://github.com/apache/mynewt-mcumgr). The SMP protocol based on Bluetooth LE is [documented here](https://github.com/apache/mynewt-mcumgr/blob/master/transport/smp-bluetooth.md).
 
-# Robust Firmware Update with Rollback
+# Robust Firmware Update with Rollback on PineTime
 
-PineTime Smart Watch will be worn by people of all ages (maybe pets too)... Thus we should _plan for failure_...
+PineTime Smart Watch will be worn by people of all ages (maybe pets too)... Thus we shall _plan for failure_...
 
+_What happens if the firmware gets corrupted or truncated while transmitting the firmware update over Bluetooth LE?_
 
+We won't overwrite the existing firmware as we receive the new firmware.  We'll reserve a separate area in PineTime's Flash ROM for staging the new firmware before updating.
+
+_What happens if there's a bug in the new firmware that causes PineTime to crash?_
+
+We'll roll back the firmware to the previous version.
 
 | PineTime Flash Area | ROM Address        | Size |
 | :---                  | :---              | ---:        |
