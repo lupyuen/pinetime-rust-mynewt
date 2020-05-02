@@ -50,7 +50,7 @@
 
     <h1 class="title">Firmware Upgrade over Bluetooth Low Energy on PineTime Smart Watch</h1>
     <nav id="TOC"><ul>
-<li><a href="#simple-management-procotol-smp-for-firmware-upgrade">1 Simple Management Procotol (SMP) for Firmware Upgrade</a><ul></ul></li>
+<li><a href="#simple-management-procotol-for-firmware-upgrade">1 Simple Management Procotol for Firmware Upgrade</a><ul></ul></li>
 <li><a href="#firmware-upgrade-via-bluetooth-le">2 Firmware Upgrade via Bluetooth LE</a><ul></ul></li>
 <li><a href="#proposed-solution">3 Proposed Solution</a><ul></ul></li>
 <li><a href="#pinetime-firmware">4 PineTime Firmware</a><ul></ul></li>
@@ -85,11 +85,16 @@
 <p>PinePhone, Raspberry Pi and other Linux devices may use the open-source <a href="https://github.com/apache/mynewt-newtmgr">Newt Manager</a> tool.  (I have tested Newt Manager on Raspberry Pi with PineTime)</p>
 <p>It runs on a command line, but it should be easy to wrap up in a graphical user interface.</p>
 <p><em>What needs to be done on PineTime?</em></p>
-<p>If you're developing firmware for PineTime, I strongly urge you to implement the SMP protocol in your firmware... It will make PineTime Owners a lot happier when updating their watch firmware!</p>
+<p>If you're developing firmware for PineTime: Thanks for the great job! I strongly urge you to implement the SMP protocol in your firmware... It will make PineTime Owners a lot happier when updating their watch firmware!</p>
 <p>And we'll give PineTime Owners an easy way to try out all the awesome platforms that the PineTime FOSS Community has to offer!</p>
 <p>We would like Pine64 to ship PineTime with a FOSS firmware (created by the PineTime Community) that implements the SMP protocol. So PineTime owners can just unbox their watch and start flashing right away from their phones.</p>
 <p>In this article I'll walk you through the steps of implementing the SMP protocol in your PineTime firmware. I'll show you my implementation for Mynewt OS, which you may use for reference.</p>
-<h1 id="simple-management-procotol-smp-for-firmware-upgrade" class="section-header"><a href="#simple-management-procotol-smp-for-firmware-upgrade">1 Simple Management Procotol (SMP) for Firmware Upgrade</a></h1>
+<h1 id="simple-management-procotol-for-firmware-upgrade" class="section-header"><a href="#simple-management-procotol-for-firmware-upgrade">1 Simple Management Procotol for Firmware Upgrade</a></h1>
+<p>The open-source Simple Management Protocol (SMP) was originally created for flashing firmware on devices running Mynewt and Zephyr operating systems.</p>
+<p><img src="https://lupyuen.github.io/images/dfu-gatt.png" alt="Bluetooth LE Service for Firmware Upgrade" /></p>
+<p><em>Bluetooth LE Service for Firmware Upgrade</em></p>
+<p><img src="https://lupyuen.github.io/images/dfu-gattapp2.png" alt="nRF Connect mobile app for Firmware Upgrade" /></p>
+<p><em>nRF Connect mobile app for Firmware Upgrade</em></p>
 <p>TODO</p>
 <p>The MCU Manager Simple Management Procotol (SMP) Bluetooth LE protocol is documented here:</p>
 <p>https://github.com/apache/mynewt-mcumgr</p>

@@ -50,6 +50,14 @@ In this article I'll walk you through the steps of implementing the SMP protocol
 
 The open-source Simple Management Protocol (SMP) was originally created for flashing firmware on devices running Mynewt and Zephyr operating systems.
 
+![Bluetooth LE Service for Firmware Upgrade](https://lupyuen.github.io/images/dfu-gatt.png)
+
+_Bluetooth LE Service for Firmware Upgrade_
+
+![nRF Connect mobile app for Firmware Upgrade](https://lupyuen.github.io/images/dfu-gattapp2.png)
+
+_nRF Connect mobile app for Firmware Upgrade_
+
 TODO
 
 The MCU Manager Simple Management Procotol (SMP) Bluetooth LE protocol is documented here:
