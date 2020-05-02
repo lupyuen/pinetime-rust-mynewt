@@ -84,7 +84,26 @@ Fortunately there's an open-source library that implements the SMP protocol: the
 
 For reference, the generic SMP protocol is [documented here](https://github.com/apache/mynewt-mcumgr). The SMP protocol based on Bluetooth LE is [documented here](https://github.com/apache/mynewt-mcumgr/blob/master/transport/smp-bluetooth.md).
 
-# MCU Manager Library and NimBLE Bluetooth Stack
+# PineTime Flash Memory Layout
+
+Based on https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml
+
+| PineTime Flash Area | ROM Address        | Size |
+| :---                  | :---              | ---:        |
+| Bootloader (MCUBoot)  | `0x0000 0000`  | 16 KB |
+| Reboot Log            | `0x0000 4000`  | 16 KB |
+| Firmware Image 0      | `0x0000 8000`  | 232 KB |
+| Firmware Image 1      | `0x0004 2000`  | 232 KB |
+| Scratch Area          | `0x0007 c000`  | 4 KB |
+| User File System      | `0x0007 d000`  | 12 KB |
+
+TODO
+
+# MCU Manager Library for Managing Firmware Images
+
+TODO
+
+# NimBLE Bluetooth Stack
 
 TODO
 
