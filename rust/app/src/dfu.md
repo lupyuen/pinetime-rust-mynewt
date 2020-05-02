@@ -108,7 +108,7 @@ We'll roll back the firmware to the previous version. Here's how it works...
 
 1. PineTime should start correctly with the old firmware with SMP service operational. We may perform the firmware upgrade again when the fixed new firmware is available.
 
-Thankfully most of this firmware update and rollback logic is built into the MCU Manager Library. We'll require another open-source component: The MCUBoot Bootloader.  More about MCUBoot in a while.
+Thankfully most of this firmware update and rollback logic is built into the MCU Manager Library. For the swapping of firmware we'll use another open-source component: MCUBoot Bootloader.  More about MCUBoot in a while.
 
 Here's the proposed Flash ROM memory layout that will be adopted by all PineTime firmware, containing the Active and Standby Firmware Image slots...
 
