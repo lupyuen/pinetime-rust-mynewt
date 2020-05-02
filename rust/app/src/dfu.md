@@ -48,52 +48,45 @@ In this article I'll walk you through the steps of implementing the SMP protocol
 
 # Simple Management Procotol for Firmware Upgrade
 
-The open-source Simple Management Protocol (SMP) was originally created for flashing firmware on devices running Mynewt and Zephyr operating systems.
+The open-source Simple Management Protocol (SMP) was originally created for flashing firmware on devices running Mynewt and Zephyr operating systems.  SMP is based on the Bluetooth LE Generic Attribute (GATT) Profile. 
 
-![Bluetooth LE Service for Firmware Upgrade](https://lupyuen.github.io/images/dfu-gatt.png)
+GATT defines the standard way for a Bluetooth LE Client (like our mobile phone) to access a Bluetooth LE Service (like the firmware upgrade service on PineTime). [More about GATT](https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt)
 
-_Bluetooth LE Service for Firmware Upgrade_
+Here's how the SMP protocol works...
 
-![nRF Connect mobile app for Firmware Upgrade](https://lupyuen.github.io/images/dfu-gattapp2.png)
+![SMP Firmware Upgrade over Bluetooth LE](https://lupyuen.github.io/images/dfu-gatt.png)
 
-_nRF Connect mobile app for Firmware Upgrade_
+_SMP Firmware Upgrade over Bluetooth LE_
+
+1. PineTime broadcasts its name `pinetime` over Bluetooth LE to allow mobile phones to discover the smart watch
+
+1. Mobile App connects to PineTime via the advertised name `pinetime`
+
+1. Mobile App queries PineTime for a GATT Service that has ID `8D53DC1D-1DB7-4CD3-868B-8A527460AA84`. This is the GATT Service ID for SMP.
+
+1. Mobile App then queries PineTime for the GATT Characteristic ID `DA2E7828-FBCE-4E01-AE9E-261174997C48`. This is the GATT Characteristic ID for SMP.
+
+1. Mobile App uses the GATT Characteristic ID for SMP to transmit an encoded request to upgrade PineTime's firmware. In GATT lingo, we call this a "Write Request" to the GATT Characteristic for SMP.
+
+1. PineTime performs the firmware upgrade using the firmware file that was embedded in the request
+
+This flow becomes clearer when we look at the nRC Connect mobile app connected to PineTime. Observe how we connect to PineTime by the device name `pinetime`, also see the SMP Service and SMP Characteristic that appear within the device...
+
+![nRF Connect mobile app connected to PineTime's SMP Service](https://lupyuen.github.io/images/dfu-gattapp2.png)
+
+_nRF Connect mobile app connected to PineTime's SMP Service_
+
+The `DFU` icon at top right (Direct Firmware Upgrade) appears when the mobile app detects the presence of the SMP Service and Characteristic. Tapping the `DFU` icon will transmit a firmware upgrade request to PineTime.
+
+_How shall we implement the SMP protocol in PineTime firmware?_
+
+Fortunately there's an open-source library that implements the SMP protocol: the [__MCU Manager Library__](https://github.com/apache/mynewt-mcumgr). More about this in the next section.
+
+For reference, the SMP protocol is [documented here](https://github.com/apache/mynewt-mcumgr). The SMP protocol based on Bluetooth LE is [documented here](https://github.com/apache/mynewt-mcumgr/blob/master/transport/smp-bluetooth.md).
+
+# MCU Manager Library and NimBLE Bluetooth Stack
 
 TODO
-
-The MCU Manager Simple Management Procotol (SMP) Bluetooth LE protocol is documented here:
-
-https://github.com/apache/mynewt-mcumgr
-
-https://github.com/apache/mynewt-mcumgr/blob/master/transport/smp-bluetooth.md
-
-Comparing the documented protocol with the iOS client for MCU Manager...
-
-https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Bluetooth/McuMgrBleTransport.swift
-
-```swift
-public static let SMP_SERVICE = CBUUID(string: "8D53DC1D-1DB7-4CD3-868B-8A527460AA84")
-public static let SMP_CHARACTERISTIC = CBUUID(string: "DA2E7828-FBCE-4E01-AE9E-261174997C48")
-```
-
-1. MCU Manager client (e.g. mobile phone) communicates with the device (e.g. PineTime) via Bluetooth LE Generic Attribute Profile (GATT). More about GATT: https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt
-
-1. MCU Manager client searches for a device that supports GATT Service ID `8D53DC1D-1DB7-4CD3-868B-8A527460AA84`
-
-1. MCU Manager client writes the firmware upgrade request to GATT Characteristic ID `DA2E7828-FBCE-4E01-AE9E-261174997C48`
-
-Additional Swift files to be analysed:
-
-https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/McuManager.swift
-
-https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Managers/ImageManager.swift
-
-https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Managers/DFU/FirmwareUpgradeManager.swift
-
-Also refer to the LightBlue app demo:
-
-https://mynewt.apache.org/latest/tutorials/ble/bleprph/bleprph-sections/bleprph-app.html
-
-See the Raspberry Pi Client Log below for the messages sent by Newt Manager tool to PineTime.
 
 # Firmware Upgrade via Bluetooth LE
 
