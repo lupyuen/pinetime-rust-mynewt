@@ -92,8 +92,8 @@ Based on https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca1004
 | :---                  | :---              | ---:        |
 | Bootloader (MCUBoot)  | `0x0000 0000`  | 16 KB |
 | Reboot Log            | `0x0000 4000`  | 16 KB |
-| __Firmware Image 0__      | __`0x0000 8000`__  | __232 KB__ |
-| _Firmware Image 1_      | `0x0004 2000`  | _232 KB_ |
+| __Active Firmware Image__      | __`0x0000 8000`__  | __232 KB__ |
+| _Standby Firmware Image_      | `0x0004 2000`  | _232 KB_ |
 | Scratch Area          | `0x0007 c000`  | 4 KB |
 | User File System      | `0x0007 d000`  | 12 KB |
 
