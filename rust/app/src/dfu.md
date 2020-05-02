@@ -98,6 +98,18 @@ _What happens if there's a bug in the new firmware that causes PineTime to crash
 
 We'll roll back the firmware to the previous version. Here's how it works...
 
+1. PineTime stores two firmware images in Flash ROM: Active and Standby. PineTime boots from the Active Firmware Image. It activates the SMP service for firmware upgrade over Bluetooth LE.
+
+1. During firmware upgrade, PineTime writes the received firmware image into the Standby Firmware slot. PineTime checks that the firmware image has been received correctly, and reboots itself.
+
+1. On reboot, the bootloader (MCUBoot) swaps the Active and Standby Firmware images. The bootloader starts the Active Firmware Image (containing the new firmware)
+
+1. If the new firmware doesn't start properly, at the next reboot the bootloader swaps back the Active and Standby Firmware images. The bootloader starts the Active Firmware Image (now containing the old firmware)
+
+1. PineTime should start correctly with the old firmware with SMP service operational. We may perform the firmware upgrade again when the fixed new firmware is available.
+
+Here's the proposed Flash ROM memory layout that will be adopted by all PineTime firmware, containing the Active and Standby Firmware Image slots...
+
 | PineTime Flash Area | ROM Address        | Size |
 | :---                  | :---              | ---:        |
 | Bootloader (MCUBoot)  | `0x0000 0000`  | 16 KB |
