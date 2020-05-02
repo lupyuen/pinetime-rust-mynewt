@@ -86,6 +86,10 @@ For reference, the generic SMP protocol is [documented here](https://github.com/
 
 # Robust Firmware Update with Rollback
 
+PineTime Smart Watch will be used by people of all ages... Thus we should _plan for failure_...
+
+
+
 | PineTime Flash Area | ROM Address        | Size |
 | :---                  | :---              | ---:        |
 | Bootloader (MCUBoot)  | `0x0000 0000`  | 16 KB |
