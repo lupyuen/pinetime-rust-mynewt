@@ -86,7 +86,7 @@ For reference, the generic SMP protocol is [documented here](https://github.com/
 
 # Robust Firmware Update with Rollback
 
-PineTime Smart Watch will be used by people of all ages... Thus we should _plan for failure_...
+PineTime Smart Watch will be worn by people of all ages (maybe pets too)... Thus we should _plan for failure_...
 
 
 
