@@ -80,7 +80,7 @@ The circular `DFU` icon at top right (Direct Firmware Upgrade) appears when the 
 
 _How shall we implement the SMP protocol in PineTime firmware?_
 
-Fortunately there's an open-source library that implements the SMP protocol: the [__MCU Manager Library__](https://github.com/apache/mynewt-mcumgr). More about this in the next section.
+Fortunately there's an open-source library that implements the SMP protocol: the [__MCU Manager Library__](https://github.com/apache/mynewt-mcumgr). More about this in a while.
 
 For reference, the generic SMP protocol is [documented here](https://github.com/apache/mynewt-mcumgr). The SMP protocol based on Bluetooth LE is [documented here](https://github.com/apache/mynewt-mcumgr/blob/master/transport/smp-bluetooth.md).
 
@@ -90,11 +90,13 @@ PineTime Smart Watch will be worn by people of all ages (maybe pets too)... Thus
 
 _What happens if the firmware gets corrupted or truncated while transmitting the firmware update over Bluetooth LE?_
 
-We won't overwrite the existing firmware as we receive the new firmware.  We'll reserve a separate area in PineTime's Flash ROM for staging the new firmware before updating.
+We won't overwrite the existing firmware as we receive the new firmware.  We'll stage the new firmware in a separate area in PineTime's Flash ROM. 
 
-_What happens if there's a bug in the new firmware that causes PineTime to crash?_
+We'll overwrite the existing firmware only when we're absolutely sure that the new firmware has passed our integrity checks.
 
-We'll roll back the firmware to the previous version.
+_What happens if there's a bug in the new firmware that causes PineTime to crash during startup?_
+
+We'll roll back the firmware to the previous version. Here's how it works...
 
 | PineTime Flash Area | ROM Address        | Size |
 | :---                  | :---              | ---:        |
