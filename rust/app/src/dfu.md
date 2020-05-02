@@ -88,7 +88,7 @@ For reference, the generic SMP protocol is [documented here](https://github.com/
 
 PineTime Smart Watch will be worn by people of all ages (maybe pets too)... Thus we shall _plan for failure!_
 
-_What happens if the firmware gets corrupted or truncated while transmitting the firmware update over Bluetooth LE?_
+_What happens if the firmware gets corrupted or truncated while transmitting the firmware update over Bluetooth LE? Will PineTime get bricked?_
 
 We won't overwrite the existing firmware as we receive the new firmware.  We'll stage the new firmware in a separate area in PineTime's Flash ROM. 
 
@@ -98,36 +98,45 @@ _What happens if there's a bug in the new firmware that causes PineTime to crash
 
 We'll roll back the firmware to the previous version. Here's how it works...
 
-1. PineTime stores two firmware images in Flash ROM: Active and Standby. PineTime boots from the Active Firmware Image. It activates the SMP service for firmware upgrade over Bluetooth LE.
+![Firmware Update with Rollback on PineTime](https://lupyuen.github.io/images/dfu-rollback.png)
 
-1. During firmware upgrade, PineTime writes the received firmware image into the Standby Firmware slot. PineTime checks that the firmware image has been received correctly, and reboots itself.
+_Firmware Update with Rollback on PineTime_
+
+1. PineTime stores two firmware images in Flash ROM: __Active and Standby.__ PineTime boots from the Active Firmware Image. It activates the SMP service for firmware upgrade over Bluetooth LE.
+
+1. During firmware update, PineTime writes the received firmware image into the Standby Firmware slot. PineTime checks that the firmware image has been received correctly, and reboots itself.
 
 1. On reboot, the bootloader (MCUBoot) swaps the Active and Standby Firmware images. The bootloader starts the Active Firmware Image (containing the new firmware)
 
 1. If the new firmware doesn't start properly, at the next reboot the bootloader swaps back the Active and Standby Firmware images. The bootloader starts the Active Firmware Image (now containing the old firmware)
 
-1. PineTime should start correctly with the old firmware with SMP service operational. We may perform the firmware upgrade again when the fixed new firmware is available.
+1. PineTime should start correctly with the old firmware with SMP service operational. We may perform the firmware upgrade again when the new firmware is fixed.
 
-Thankfully most of this firmware update and rollback logic is built into the MCU Manager Library. For the swapping of firmware we'll use another open-source component: MCUBoot Bootloader.  More about MCUBoot in a while.
+Thankfully most of this firmware update and rollback logic is built into the [MCU Manager Library](https://github.com/apache/mynewt-mcumgr). For the swapping of firmware we'll use another open-source component: [__MCUBoot Bootloader__](https://juullabs-oss.github.io/mcuboot/).  More about MCUBoot in a while.
 
-Here's the proposed Flash ROM memory layout that will be adopted by all PineTime firmware, containing the Active and Standby Firmware Image slots...
+Here's the proposed __Flash ROM Layout__ that will be adopted by all PineTime firmware platforms, containing the Active and Standby Firmware Image slots...
 
 | PineTime Flash Area | ROM Address        | Size |
 | :---                  | :---              | ---:        |
 | Bootloader (MCUBoot)  | `0x0000 0000`  | 16 KB |
 | Reboot Log            | `0x0000 4000`  | 16 KB |
-| __Active Firmware Image__      | __`0x0000 8000`__  | __232 KB__ |
+| __Active Firmware Image__  &nbsp;&nbsp;&nbsp;&nbsp;    | __`0x0000 8000`__  | &nbsp;&nbsp;&nbsp; __232 KB__ |
 | _Standby Firmware Image_      | `0x0004 2000`  | _232 KB_ |
 | Scratch Area          | `0x0007 c000`  | 4 KB |
 | User File System      | `0x0007 d000`  | 12 KB |
+|<br>|||
 
-_Proposed Flash Memory Layout for PineTime. Derived from this [prescribed flash memory layout for nRF52832](https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml)._
+_Proposed Flash ROM Layout for PineTime. Derived from this [prescribed flash memory layout for nRF52832](https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml)._
 
 # MCU Manager Library for Managing Firmware Images
 
 TODO
 
 # NimBLE Bluetooth Stack
+
+TODO
+
+# MCUBoot Bootloader
 
 TODO
 
