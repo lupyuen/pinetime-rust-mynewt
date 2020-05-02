@@ -46,7 +46,7 @@ We would like Pine64 to ship PineTime with a FOSS firmware (created by the PineT
 
 In this article I'll walk you through the steps of implementing the SMP protocol in your PineTime firmware. I'll show you my implementation for Mynewt OS, which you may use for reference.
 
-# Simple Management Procotol for Firmware Upgrade
+# Simple Management Procotol for Firmware Update
 
 The open-source Simple Management Protocol (SMP) was originally created for flashing firmware on devices running Mynewt and Zephyr operating systems.  SMP is based on the Bluetooth LE Generic Attribute (GATT) Profile. 
 
@@ -72,7 +72,7 @@ _SMP Firmware Upgrade over Bluetooth LE_
 
 This flow becomes clearer when we look at the nRC Connect mobile app connected to PineTime. Observe how we connect to PineTime by the device name `pinetime`, also note the SMP Service and SMP Characteristic that appear under PineTime...
 
-![nRF Connect mobile app connected to PineTime's SMP Service](https://lupyuen.github.io/images/dfu-gattapp2.png)
+![nRF Connect mobile app connected to PineTime's SMP Service](https://lupyuen.github.io/images/dfu-gattapp3.png)
 
 _nRF Connect mobile app connected to PineTime's SMP Service_
 
