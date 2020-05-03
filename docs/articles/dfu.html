@@ -52,25 +52,26 @@
     <nav id="TOC"><ul>
 <li><a href="#simple-management-procotol-for-firmware-update">1 Simple Management Procotol for Firmware Update</a><ul></ul></li>
 <li><a href="#robust-firmware-update-on-pinetime-with-rollback">2 Robust Firmware Update on PineTime with Rollback</a><ul></ul></li>
-<li><a href="#mcu-manager-library-for-managing-firmware-images">3 MCU Manager Library for Managing Firmware Images</a><ul></ul></li>
-<li><a href="#nimble-bluetooth-stack">4 NimBLE Bluetooth Stack</a><ul></ul></li>
-<li><a href="#mcuboot-bootloader">5 MCUBoot Bootloader</a><ul></ul></li>
-<li><a href="#firmware-upgrade-via-bluetooth-le">6 Firmware Upgrade via Bluetooth LE</a><ul></ul></li>
-<li><a href="#proposed-solution">7 Proposed Solution</a><ul></ul></li>
-<li><a href="#pinetime-firmware">8 PineTime Firmware</a><ul></ul></li>
-<li><a href="#newt-manager-modules-used-in-pinetime-firmware">9 Newt Manager Modules used in PineTime Firmware</a><ul></ul></li>
-<li><a href="#porting-mcu-manager-library-to-other-pinetime-platforms">10 Porting MCU Manager Library to other PineTime platforms</a><ul></ul></li>
-<li><a href="#nrf-connect-client-for-ios-and-android">11 nRF Connect Client for iOS and Android</a><ul></ul></li>
-<li><a href="#raspberry-pi-client">12 Raspberry Pi Client</a><ul></ul></li>
-<li><a href="#pinephone-client">13 PinePhone Client</a><ul></ul></li>
-<li><a href="#android-client">14 Android Client</a><ul></ul></li>
-<li><a href="#ios-client">15 iOS Client</a><ul></ul></li>
-<li><a href="#flutter-client-for-ios-and-android">16 Flutter Client for iOS and Android</a><ul></ul></li>
-<li><a href="#implementing-mcuboot">17 Implementing MCUboot</a><ul></ul></li>
-<li><a href="#mcuboot-enhancements">18 MCUboot Enhancements</a><ul></ul></li>
-<li><a href="#other-pinetime-bluetooth-firmware-upgrade-solutions">19 Other PineTime Bluetooth Firmware Upgrade Solutions</a><ul></ul></li>
-<li><a href="#log-for-raspberry-pi-client">20 Log for Raspberry Pi Client</a><ul></ul></li>
-<li><a href="#further-reading">21 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/dfu-platforms.png" alt="Platforms in development for PineTime Smart Watch" /></p>
+<li><a href="#pinetime-flash-rom-layout">3 PineTime Flash ROM Layout</a><ul></ul></li>
+<li><a href="#mcu-manager-library-for-managing-firmware-images">4 MCU Manager Library for Managing Firmware Images</a><ul></ul></li>
+<li><a href="#nimble-bluetooth-stack">5 NimBLE Bluetooth Stack</a><ul></ul></li>
+<li><a href="#mcuboot-bootloader">6 MCUBoot Bootloader</a><ul></ul></li>
+<li><a href="#firmware-upgrade-via-bluetooth-le">7 Firmware Upgrade via Bluetooth LE</a><ul></ul></li>
+<li><a href="#proposed-solution">8 Proposed Solution</a><ul></ul></li>
+<li><a href="#pinetime-firmware">9 PineTime Firmware</a><ul></ul></li>
+<li><a href="#newt-manager-modules-used-in-pinetime-firmware">10 Newt Manager Modules used in PineTime Firmware</a><ul></ul></li>
+<li><a href="#porting-mcu-manager-library-to-other-pinetime-platforms">11 Porting MCU Manager Library to other PineTime platforms</a><ul></ul></li>
+<li><a href="#nrf-connect-client-for-ios-and-android">12 nRF Connect Client for iOS and Android</a><ul></ul></li>
+<li><a href="#raspberry-pi-client">13 Raspberry Pi Client</a><ul></ul></li>
+<li><a href="#pinephone-client">14 PinePhone Client</a><ul></ul></li>
+<li><a href="#android-client">15 Android Client</a><ul></ul></li>
+<li><a href="#ios-client">16 iOS Client</a><ul></ul></li>
+<li><a href="#flutter-client-for-ios-and-android">17 Flutter Client for iOS and Android</a><ul></ul></li>
+<li><a href="#implementing-mcuboot">18 Implementing MCUboot</a><ul></ul></li>
+<li><a href="#mcuboot-enhancements">19 MCUboot Enhancements</a><ul></ul></li>
+<li><a href="#other-pinetime-bluetooth-firmware-upgrade-solutions">20 Other PineTime Bluetooth Firmware Upgrade Solutions</a><ul></ul></li>
+<li><a href="#log-for-raspberry-pi-client">21 Log for Raspberry Pi Client</a><ul></ul></li>
+<li><a href="#further-reading">22 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/dfu-platforms.png" alt="Platforms in development for PineTime Smart Watch" /></p>
 <p>Thanks to the FOSS Community, <a href="https://wiki.pine64.org/index.php/PineTime">PineTime Smart Watch</a> has an incredible variety of FOSS operating systems in the works: <a href="https://github.com/JF002/Pinetime">FreeRTOS</a>, <a href="https://github.com/daniel-thompson/wasp-os">MicroPython</a>, <a href="https://github.com/lupyuen/pinetime-rust-mynewt">Mynewt</a>, <a href="https://github.com/bosmoment/PineTime-apps">RIOT</a>, Rust <a href="https://github.com/wose/xochron">RTFM</a> (<a href="https://github.com/dbrgn/pinetime-rtfm">another</a>), <a href="https://github.com/aykevl/go-smartwatch">TinyGo</a>, <a href="https://www.tockos.org/">Tock</a>, <a href="https://github.com/najnesnaj/pinetime-zephyr">Zephyr</a> (<a href="https://github.com/Dejvino/pinetime-hermes-firmware.git">another</a>), ...</p>
 <p>But these embedded platforms are accessible only by brave PineTime Owners who dare to pry open their watches very carefully... And connect a Raspberry Pi (or ST-Link) to the tiny delicate 4-pin SWD port recessed deep inside... Just to flash the PineTime firmware.</p>
 <p><em>What if we could flash any firmware to PineTime from our mobile phone... Without opening the watch?</em></p>
@@ -153,28 +154,54 @@
 </li>
 </ol>
 <p>Thankfully most of this firmware update and rollback logic is built into the <a href="https://github.com/apache/mynewt-mcumgr">MCU Manager Library</a>. For the swapping of firmware we'll use another open-source component: <a href="https://juullabs-oss.github.io/mcuboot/"><strong>MCUBoot Bootloader</strong></a>.  More about MCUBoot in a while.</p>
-<p>Here's the proposed <strong>Flash ROM Layout</strong> that will be adopted by all PineTime firmware platforms, containing the Active and Standby Firmware Image slots...</p>
-<table><thead><tr><th align="left">PineTime Flash Area</th><th align="left">ROM Address</th><th align="right">Size</th></tr></thead><tbody>
-<tr><td align="left">Bootloader (MCUBoot)</td><td align="left"><code>0x0000 0000</code></td><td align="right">16 KB</td></tr>
-<tr><td align="left">Reboot Log</td><td align="left"><code>0x0000 4000</code></td><td align="right">16 KB</td></tr>
-<tr><td align="left"><strong>Active Firmware Image</strong>      </td><td align="left"><strong><code>0x0000 8000</code></strong></td><td align="right">    <strong>232 KB</strong></td></tr>
-<tr><td align="left"><em>Standby Firmware Image</em></td><td align="left"><code>0x0004 2000</code></td><td align="right"><em>232 KB</em></td></tr>
-<tr><td align="left">Scratch Area</td><td align="left"><code>0x0007 c000</code></td><td align="right">4 KB</td></tr>
-<tr><td align="left">User File System</td><td align="left"><code>0x0007 d000</code></td><td align="right">12 KB</td></tr>
+<h1 id="pinetime-flash-rom-layout" class="section-header"><a href="#pinetime-flash-rom-layout">3 PineTime Flash ROM Layout</a></h1>
+<p>To support firmware update (with rollback) via Bluetooth LE, PineTime Firmware Developers would have to adopt a common layout for storing flash images in Flash ROM.</p>
+<p>Here's the proposed <strong>Flash ROM Layout</strong> that supports Active and Standby Firmware Images for firmware update and rollback...</p>
+<table><thead><tr><th align="left">     PineTime Flash Area</th><th align="left">ROM Address</th><th align="right">Size</th></tr></thead><tbody>
+<tr><td align="left">     Bootloader (MCUBoot)</td><td align="left"><code>0x0000 0000</code></td><td align="right">16 KB</td></tr>
+<tr><td align="left">     Reboot Log</td><td align="left"><code>0x0000 4000</code></td><td align="right">16 KB</td></tr>
+<tr><td align="left">     <strong>Active Firmware Image</strong>      </td><td align="left"><strong><code>0x0000 8000</code></strong></td><td align="right">    <strong>232 KB</strong></td></tr>
+<tr><td align="left">     <em>Standby Firmware Image</em></td><td align="left"><code>0x0004 2000</code></td><td align="right"><em>232 KB</em></td></tr>
+<tr><td align="left">     Scratch Area</td><td align="left"><code>0x0007 F000</code></td><td align="right">4 KB</td></tr>
+<tr><td align="left">     User File System</td><td align="left"><code>0x0007 D000</code></td><td align="right">12 KB</td></tr>
 <tr><td align="left"><br></td><td align="left"></td><td align="right"></td></tr>
 </tbody></table>
-<p><em>Proposed Flash ROM Layout for PineTime. Derived from this <a href="https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml">prescribed flash memory layout for nRF52832</a>.</em></p>
-<h1 id="mcu-manager-library-for-managing-firmware-images" class="section-header"><a href="#mcu-manager-library-for-managing-firmware-images">3 MCU Manager Library for Managing Firmware Images</a></h1>
+<p><em>Proposed Flash ROM Layout for PineTime. Derived from this <a href="https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml">flash memory layout for nRF52832</a>.</em></p>
+<ol>
+<li>
+<p><strong>Bootloader</strong>: Located at the start of PineTime's Flash ROM, the open-source MCUBoot Bootloader is the first thing that PineTime runs upon booting. </p>
+<p>For firmware update and rollback, the Bootloader swaps the Active and Standby Firmware Images. Then it jumps to the Active Firmware code.</p>
+</li>
+<li>
+<p><strong>Reboot Log</strong>: This is a log of debugging messages generated by the firmware upon starting. Useful for debugging startup failures.</p>
+</li>
+<li>
+<p><strong>Active Firmware Image</strong>: Contains PineTime firmware code that will be executed. The image starts with a Firmware Image Header (<code>0x20</code> bytes) followed by the Arm Cortex-M4 Interrupt Vector Table (<code>0xD8</code> bytes).</p>
+<p>Hence the executable firmware code begins at address <code>0x0000 80F8</code>. PineTime Firmware Developers should assume that their firmware code will be located at this address.</p>
+</li>
+<li>
+<p><strong>Standby Firmware Image</strong>: Staging area for receiving the new firmware over Bluetooth LE. During firmware update, the Bootloader swaps the Active and Standby Firmware Images, so that the new firmware becomes active.</p>
+<p>If the new firmware fails to start, the Bootloader swaps the old firmware back so that the old firmware becomes active.</p>
+</li>
+<li>
+<p><strong>Scratch Area</strong>: Temporary storage used by the Bootloader for swapping the Active and Standby Firmware Images.</p>
+</li>
+<li>
+<p><strong>User File System</strong>: PineTime Firmware Developers may store the user's settings here. The contents of this flash area are preserved during firmware updates.</p>
+</li>
+</ol>
+<p>Now we'll learn how the MCU Manager Library manages the Active and Standby Firmware Images to perform firmware updates.</p>
+<h1 id="mcu-manager-library-for-managing-firmware-images" class="section-header"><a href="#mcu-manager-library-for-managing-firmware-images">4 MCU Manager Library for Managing Firmware Images</a></h1>
 <p>TODO</p>
-<h1 id="nimble-bluetooth-stack" class="section-header"><a href="#nimble-bluetooth-stack">4 NimBLE Bluetooth Stack</a></h1>
+<h1 id="nimble-bluetooth-stack" class="section-header"><a href="#nimble-bluetooth-stack">5 NimBLE Bluetooth Stack</a></h1>
 <p>TODO</p>
-<h1 id="mcuboot-bootloader" class="section-header"><a href="#mcuboot-bootloader">5 MCUBoot Bootloader</a></h1>
+<h1 id="mcuboot-bootloader" class="section-header"><a href="#mcuboot-bootloader">6 MCUBoot Bootloader</a></h1>
 <p>TODO</p>
-<h1 id="firmware-upgrade-via-bluetooth-le" class="section-header"><a href="#firmware-upgrade-via-bluetooth-le">6 Firmware Upgrade via Bluetooth LE</a></h1>
+<h1 id="firmware-upgrade-via-bluetooth-le" class="section-header"><a href="#firmware-upgrade-via-bluetooth-le">7 Firmware Upgrade via Bluetooth LE</a></h1>
 <p>TODO</p>
 <p><strong>Objective:</strong> To allow firmware for PineTime Smart Watch to be upgraded Over-The-Air via Bluetooth LE from a mobile phone or a Linux desktop</p>
 <p><strong>Devices To Be Supported:</strong> iOS, Android, PinePhone, Raspberry Pi (includes Linux desktops)</p>
-<h1 id="proposed-solution" class="section-header"><a href="#proposed-solution">7 Proposed Solution</a></h1>
+<h1 id="proposed-solution" class="section-header"><a href="#proposed-solution">8 Proposed Solution</a></h1>
 <p>TODO</p>
 <p>We are exploring the OTA Firmware Update solution based on Apache NimBLE Bluetooth stack and Apache Mynewt OS, which are open source:</p>
 <p>https://mynewt.apache.org/latest/tutorials/devmgmt/ota_upgrade_nrf52.html</p>
@@ -197,7 +224,7 @@
 <p>The NimBLE Bluetooth stack is now supported on PineTime with the FreeRTOS, Mynewt, RIOT and Zephyr firmwares.</p>
 <p>The proposed solution is similar to the Bluetooth OTA Firmware Upgrade solution for Zephyr OS (based on MCU Manager):</p>
 <p>https://docs.zephyrproject.org/latest/guides/device_mgmt/dfu.html#</p>
-<h1 id="pinetime-firmware" class="section-header"><a href="#pinetime-firmware">8 PineTime Firmware</a></h1>
+<h1 id="pinetime-firmware" class="section-header"><a href="#pinetime-firmware">9 PineTime Firmware</a></h1>
 <p>TODO</p>
 <p>Now testing PineTime Mynewt firmware built with Newt Manager library, located at the <code>ota</code> branch of <code>/pinetime-rust-mynewt</code>:</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota</p>
@@ -208,7 +235,7 @@
 <p>PineTime now appears in nRF Connect with DFU enabled:</p>
 <p>https://twitter.com/MisterTechBlog/status/1255305379766042626?s=20</p>
 <p>Need to implement MCUboot for DFU to work.</p>
-<h1 id="newt-manager-modules-used-in-pinetime-firmware" class="section-header"><a href="#newt-manager-modules-used-in-pinetime-firmware">9 Newt Manager Modules used in PineTime Firmware</a></h1>
+<h1 id="newt-manager-modules-used-in-pinetime-firmware" class="section-header"><a href="#newt-manager-modules-used-in-pinetime-firmware">10 Newt Manager Modules used in PineTime Firmware</a></h1>
 <p>TODO</p>
 <p>The following modules were added to PineTime firmware to support Newt Manager:</p>
 <pre><code class="language-yaml"># Bluetooth LE
@@ -228,7 +255,7 @@ pkg.deps.BLUETOOTH_LE:
     - &quot;@apache-mynewt-nimble/nimble/transport&quot;
 </code></pre>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/pkg.yml</em></p>
-<h1 id="porting-mcu-manager-library-to-other-pinetime-platforms" class="section-header"><a href="#porting-mcu-manager-library-to-other-pinetime-platforms">10 Porting MCU Manager Library to other PineTime platforms</a></h1>
+<h1 id="porting-mcu-manager-library-to-other-pinetime-platforms" class="section-header"><a href="#porting-mcu-manager-library-to-other-pinetime-platforms">11 Porting MCU Manager Library to other PineTime platforms</a></h1>
 <p>TODO</p>
 <p>For upgrading firmware over Bluetooth, the MCU Manager Library is supported on Mynewt OS and Zephyr OS. How do we support MCU Manager on other PineTime platforms like FreeRTOS, RIOT, MicroPython, Rust RTFM and TinyGo?</p>
 <p>MCU Manager Library is documented here:</p>
@@ -274,13 +301,13 @@ int img_mgmt_impl_log_confirm(int status, const uint8_t *hash);
 <p>https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c</p>
 <p>And the Zephyr implementation of Image Management:</p>
 <p>https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/zephyr/src/zephyr_img_mgmt.c</p>
-<h1 id="nrf-connect-client-for-ios-and-android" class="section-header"><a href="#nrf-connect-client-for-ios-and-android">11 nRF Connect Client for iOS and Android</a></h1>
+<h1 id="nrf-connect-client-for-ios-and-android" class="section-header"><a href="#nrf-connect-client-for-ios-and-android">12 nRF Connect Client for iOS and Android</a></h1>
 <p>TODO</p>
 <p>The nRF Connect Client for iOS and Android works OK with Newt Manager Library on PineTime, connecting via Simple Management Protocol over Bluetooth LE:</p>
 <p>https://twitter.com/MisterTechBlog/status/1255305379766042626?s=20</p>
 <p>The DFU function is enabled in nRF Client, but PineTime needs MCUboot to be installed for firmware upgrading to work.</p>
 <p>More about nRF Connect: https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile</p>
-<h1 id="raspberry-pi-client" class="section-header"><a href="#raspberry-pi-client">12 Raspberry Pi Client</a></h1>
+<h1 id="raspberry-pi-client" class="section-header"><a href="#raspberry-pi-client">13 Raspberry Pi Client</a></h1>
 <p>TODO</p>
 <p>Newt Manager builds OK on Raspberry Pi 4 and works OK with PineTime.  See the log below.</p>
 <p>Now studying the Go code (with debug messages enabled) to understand the firmware upload process:</p>
@@ -288,15 +315,15 @@ int img_mgmt_impl_log_confirm(int status, const uint8_t *hash);
 <p>Also how to set the device date/time:</p>
 <p>https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_datetime.html</p>
 <p>And whether we can push notifications to the device.</p>
-<h1 id="pinephone-client" class="section-header"><a href="#pinephone-client">13 PinePhone Client</a></h1>
+<h1 id="pinephone-client" class="section-header"><a href="#pinephone-client">14 PinePhone Client</a></h1>
 <p>TODO</p>
 <p>Waiting for PinePhone to be delivered. Client will probably be based on Newt Manager or MCU Manager, since Go is supported on Ubuntu Touch.</p>
 <p>Will probably wrap the Go client in a Qt GUI app.  Or wrap with a Go GUI library: https://github.com/avelino/awesome-go#gui</p>
-<h1 id="android-client" class="section-header"><a href="#android-client">14 Android Client</a></h1>
+<h1 id="android-client" class="section-header"><a href="#android-client">15 Android Client</a></h1>
 <p>TODO</p>
 <p>Not started. Will explore this Android MCU Manager client for OTA Firmware Upgrade, coded in Java:</p>
 <p>https://github.com/JuulLabs-OSS/mcumgr-android</p>
-<h1 id="ios-client" class="section-header"><a href="#ios-client">15 iOS Client</a></h1>
+<h1 id="ios-client" class="section-header"><a href="#ios-client">16 iOS Client</a></h1>
 <p>TODO</p>
 <p>Not started. Will explore this iOS MCU Manager client for OTA Firmware Upgrade, coded in Swift:</p>
 <p>https://github.com/JuulLabs-OSS/mcumgr-ios</p>
@@ -306,7 +333,7 @@ int img_mgmt_impl_log_confirm(int status, const uint8_t *hash);
 <p>Refer to the iOS Core Bluetooth API:</p>
 <p>https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/AboutCoreBluetooth/Introduction.html#//apple_ref/doc/uid/TP40013257-CH1-SW1</p>
 <p>https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/PerformingCommonCentralRoleTasks/PerformingCommonCentralRoleTasks.html#//apple_ref/doc/uid/TP40013257-CH3-SW1</p>
-<h1 id="flutter-client-for-ios-and-android" class="section-header"><a href="#flutter-client-for-ios-and-android">16 Flutter Client for iOS and Android</a></h1>
+<h1 id="flutter-client-for-ios-and-android" class="section-header"><a href="#flutter-client-for-ios-and-android">17 Flutter Client for iOS and Android</a></h1>
 <p>TODO</p>
 <p>Alternatively, we may build iOS and Android clients for MCU Manager in Flutter based on this BLE library:</p>
 <p>https://github.com/pauldemarco/flutter_blue</p>
@@ -315,7 +342,7 @@ int img_mgmt_impl_log_confirm(int status, const uint8_t *hash);
 <p>https://github.com/pauldemarco/flutter_blue/tree/master/example/lib</p>
 <p>And adapting the iOS MCU Client code.</p>
 <p>The Flutter app for PineTime would the MCU Manager functions from scratch. The app would be a great reference to teach how to talk to BLE and GATT services from iOS and Android, even though it won't be a polished app.</p>
-<h1 id="implementing-mcuboot" class="section-header"><a href="#implementing-mcuboot">17 Implementing MCUboot</a></h1>
+<h1 id="implementing-mcuboot" class="section-header"><a href="#implementing-mcuboot">18 Implementing MCUboot</a></h1>
 <p>TODO</p>
 <p>MCUboot is not implemented in the Mynewt firmware for PineTime because it doesn't have an allocated slot in Flash ROM for storing the new firmware image. Refer to the Flash Memory Map:</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/hw/bsp/nrf52/bsp.yml</p>
@@ -323,7 +350,7 @@ int img_mgmt_impl_log_confirm(int status, const uint8_t *hash);
 <p>The Flash Memory Map needs to be fixed for MCUboot to work.  The flashing scripts depend on these flash addresses, so the scripts may have to be changed too.</p>
 <p>The Flash Memory Map should follow the Mynewt memory map for nRF52:</p>
 <p>https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml</p>
-<h1 id="mcuboot-enhancements" class="section-header"><a href="#mcuboot-enhancements">18 MCUboot Enhancements</a></h1>
+<h1 id="mcuboot-enhancements" class="section-header"><a href="#mcuboot-enhancements">19 MCUboot Enhancements</a></h1>
 <p>TODO</p>
 <p>MCUboot should detect button press upon startup. If the button is pressed, rollback the old firmware. This allows the user to roll back faulty firmware that does not respond to OTA Firmware Upgrade commands.</p>
 <p>The OTA Firmware Upgrade tool needs to ensure that the same firmware version doesn't get flashed twice.</p>
@@ -399,7 +426,7 @@ int img_mgmt_impl_log_confirm(int status, const uint8_t *hash);
 <span class="ident">objsize</span>
    <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
  <span class="number">205760</span>     <span class="number">904</span>   <span class="number">55224</span>  <span class="number">261888</span>   <span class="number">3ff00</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">elf</span></pre></div>
-<h1 id="other-pinetime-bluetooth-firmware-upgrade-solutions" class="section-header"><a href="#other-pinetime-bluetooth-firmware-upgrade-solutions">19 Other PineTime Bluetooth Firmware Upgrade Solutions</a></h1>
+<h1 id="other-pinetime-bluetooth-firmware-upgrade-solutions" class="section-header"><a href="#other-pinetime-bluetooth-firmware-upgrade-solutions">20 Other PineTime Bluetooth Firmware Upgrade Solutions</a></h1>
 <ol>
 <li>
 <p>Nordic SoftDevice includes a proprietary BLE DFU implementation: https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v15.0.0/lib_bootloader_dfu_process.html</p>
@@ -414,7 +441,7 @@ int img_mgmt_impl_log_confirm(int status, const uint8_t *hash);
 <p>DaFlasher for Android: https://github.com/atc1441/DaFlasherFiles</p>
 </li>
 </ol>
-<h1 id="log-for-raspberry-pi-client" class="section-header"><a href="#log-for-raspberry-pi-client">20 Log for Raspberry Pi Client</a></h1>
+<h1 id="log-for-raspberry-pi-client" class="section-header"><a href="#log-for-raspberry-pi-client">21 Log for Raspberry Pi Client</a></h1>
 <pre><code>
 $ cd ~/go
 $ mkdir -p src/mynewt.apache.org
@@ -462,7 +489,7 @@ Images:
     bootable: true
     flags: active confirmed
     hash: eab2886947a1df6f850463601f3dad409411d7ea21855eb0a70e965732258c92
-Split status: N/A (0)</code></pre><h1 id="further-reading" class="section-header"><a href="#further-reading">21 Further Reading</a></h1>
+Split status: N/A (0)</code></pre><h1 id="further-reading" class="section-header"><a href="#further-reading">22 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 
     
