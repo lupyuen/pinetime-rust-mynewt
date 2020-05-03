@@ -169,7 +169,7 @@
 <p><em>Proposed Flash ROM Layout for PineTime. Derived from this <a href="https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml">flash memory layout for nRF52832</a>.</em></p>
 <ol>
 <li>
-<p><strong>Bootloader</strong>: Located at the start of PineTime's Flash ROM, the open-source MCUBoot Bootloader is the first thing that PineTime runs upon booting. </p>
+<p><strong>Bootloader</strong>: Located at the start of PineTime's Flash ROM, the open-source <a href="https://juullabs-oss.github.io/mcuboot">MCUBoot Bootloader</a> is the first thing that PineTime runs upon booting. </p>
 <p>For firmware update and rollback, the Bootloader swaps the Active and Standby Firmware Images. Then it jumps to the Active Firmware code.</p>
 </li>
 <li>

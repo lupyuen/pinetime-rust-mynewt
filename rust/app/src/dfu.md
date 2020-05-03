@@ -132,7 +132,7 @@ Here's the proposed __Flash ROM Layout__ that supports Active and Standby Firmwa
 
 _Proposed Flash ROM Layout for PineTime. Derived from this [flash memory layout for nRF52832](https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml)._
 
-1. __Bootloader__: Located at the start of PineTime's Flash ROM, the open-source MCUBoot Bootloader is the first thing that PineTime runs upon booting. 
+1. __Bootloader__: Located at the start of PineTime's Flash ROM, the open-source [MCUBoot Bootloader](https://juullabs-oss.github.io/mcuboot) is the first thing that PineTime runs upon booting. 
 
     For firmware update and rollback, the Bootloader swaps the Active and Standby Firmware Images. Then it jumps to the Active Firmware code.
 
