@@ -154,11 +154,127 @@ Now we'll learn how the MCU Manager Library manages the Active and Standby Firmw
 
 # MCU Manager Library for Managing Firmware Images
 
-TODO
+```c
+/* Determine what actions to take as a result of this request. */
+rc = img_mgmt_impl_upload_inspect(&req, &action, &errstr);
+```
+
+```c
+/* Remember flash area ID and image size for subsequent upload requests. */
+g_img_mgmt_state.area_id = action.area_id;
+g_img_mgmt_state.size = action.size;
+```
+
+```c
+/* erase as we cross sector boundaries */
+if (img_mgmt_impl_erase_if_needed(req.off, action.write_bytes) != 0) {
+```
+
+```c
+rc = img_mgmt_impl_write_image_data(req.off, req.img_data, action.write_bytes, last);
+```
+
+From https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/src/img_mgmt.c#L364-L534
+
+
+Flash driver: https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c
+
+```c
+static int nrf52k_flash_read(const struct hal_flash *dev, uint32_t address,
+        void *dst, uint32_t num_bytes);
+static int nrf52k_flash_write(const struct hal_flash *dev, uint32_t address,
+        const void *src, uint32_t num_bytes);
+static int nrf52k_flash_erase_sector(const struct hal_flash *dev,
+        uint32_t sector_address);
+static int nrf52k_flash_sector_info(const struct hal_flash *dev, int idx,
+        uint32_t *address, uint32_t *sz);
+static int nrf52k_flash_init(const struct hal_flash *dev);
+```
+
+```c
+int
+img_mgmt_impl_write_image_data(unsigned int offset, const void *data,
+                               unsigned int num_bytes, bool last)
+{
+
+    rc = flash_area_open(FLASH_AREA_IMAGE_1, &fa);
+
+    /* Check if there any unerased target sectors, if not clean them. */
+        rc = flash_area_getnext_sector(fa->fa_id, &g_img_mgmt_state.sector_id,
+                                       &sector);
+        rc = flash_area_erase(&sector, 0, sector.fa_size);
+
+    rc = flash_area_write(fa, offset, data, num_bytes);
+    flash_area_close(fa);
+}
+```
+
+From https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c#L391-L435
+
+For upgrading firmware over Bluetooth, the MCU Manager Library is supported on Mynewt OS and Zephyr OS. How do we support MCU Manager on other PineTime platforms like FreeRTOS, RIOT, MicroPython, Rust RTFM and TinyGo?
+
+MCU Manager Library is documented here:
+
+https://github.com/apache/mynewt-mcumgr
+
+MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:
+
+https://github.com/apache/mynewt-mcumgr/tree/master/cmd
+
+We'll look at the Command Handler for Firmware Images:
+
+https://github.com/apache/mynewt-mcumgr/tree/master/cmd/img_mgmt
+
+The following Image Management interfaces need to be implemented on the PineTime platform:
+
+```c
+int img_mgmt_impl_erase_slot(void);
+int img_mgmt_impl_write_pending(int slot, bool permanent);
+int img_mgmt_impl_write_confirmed(void);
+int img_mgmt_impl_read(int slot, unsigned int offset, void *dst,
+                       unsigned int num_bytes);
+int img_mgmt_impl_write_image_data(unsigned int offset, const void *data,
+                                   unsigned int num_bytes, bool last);
+int img_mgmt_impl_swap_type(void);
+uint8_t img_mgmt_state_flags(int query_slot);
+int img_mgmt_impl_erase_image_data(unsigned int off, unsigned int num_bytes);
+int img_mgmt_impl_erase_if_needed(uint32_t off, uint32_t len);
+int img_mgmt_impl_upload_inspect(const struct img_mgmt_upload_req *req,
+                                 struct img_mgmt_upload_action *action,
+                                 const char **errstr);
+int img_mgmt_impl_log_upload_start(int status);
+int img_mgmt_impl_log_upload_done(int status, const uint8_t *hashp);
+int img_mgmt_impl_log_pending(int status, const uint8_t *hash);
+int img_mgmt_impl_log_confirm(int status, const uint8_t *hash);
+```
+_From https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/include/img_mgmt/img_mgmt_impl.h_
+
+For reference, see the Mynewt implementation of Image Management:
+
+https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c
+
+And the Zephyr implementation of Image Management:
+
+https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/zephyr/src/zephyr_img_mgmt.c
 
 # NimBLE Bluetooth Stack
 
 TODO
+
+MCU Manager runs on the Bluetooth LE transport based on the open-source NimBLE Bluetooth LE stack. The following NimBLE modules need to be ported to the PineTime platform:
+
+```
+- "@apache-mynewt-nimble/nimble/host"
+- "@apache-mynewt-nimble/nimble/host/services/ans"
+- "@apache-mynewt-nimble/nimble/host/services/dis"
+- "@apache-mynewt-nimble/nimble/host/services/gap"
+- "@apache-mynewt-nimble/nimble/host/services/gatt"
+- "@apache-mynewt-nimble/nimble/host/store/config"
+- "@apache-mynewt-nimble/nimble/host/util"
+- "@apache-mynewt-nimble/nimble/transport"
+```
+
+Refer to the NimBLE source code at https://github.com/apache/mynewt-nimble
 
 # MCUBoot Bootloader
 
@@ -265,71 +381,6 @@ pkg.deps.BLUETOOTH_LE:
     - "@apache-mynewt-nimble/nimble/transport"
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/pkg.yml_
-
-# Porting MCU Manager Library to other PineTime platforms
-
-TODO
-
-For upgrading firmware over Bluetooth, the MCU Manager Library is supported on Mynewt OS and Zephyr OS. How do we support MCU Manager on other PineTime platforms like FreeRTOS, RIOT, MicroPython, Rust RTFM and TinyGo?
-
-MCU Manager Library is documented here:
-
-https://github.com/apache/mynewt-mcumgr
-
-MCU Manager runs on the Bluetooth LE transport based on the open-source NimBLE Bluetooth LE stack. The following NimBLE modules need to be ported to the PineTime platform:
-
-```
-- "@apache-mynewt-nimble/nimble/host"
-- "@apache-mynewt-nimble/nimble/host/services/ans"
-- "@apache-mynewt-nimble/nimble/host/services/dis"
-- "@apache-mynewt-nimble/nimble/host/services/gap"
-- "@apache-mynewt-nimble/nimble/host/services/gatt"
-- "@apache-mynewt-nimble/nimble/host/store/config"
-- "@apache-mynewt-nimble/nimble/host/util"
-- "@apache-mynewt-nimble/nimble/transport"
-```
-
-Refer to the NimBLE source code at https://github.com/apache/mynewt-nimble
-
-MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:
-
-https://github.com/apache/mynewt-mcumgr/tree/master/cmd
-
-We'll look at the Command Handler for Firmware Images:
-
-https://github.com/apache/mynewt-mcumgr/tree/master/cmd/img_mgmt
-
-The following Image Management interfaces need to be implemented on the PineTime platform:
-
-```c
-int img_mgmt_impl_erase_slot(void);
-int img_mgmt_impl_write_pending(int slot, bool permanent);
-int img_mgmt_impl_write_confirmed(void);
-int img_mgmt_impl_read(int slot, unsigned int offset, void *dst,
-                       unsigned int num_bytes);
-int img_mgmt_impl_write_image_data(unsigned int offset, const void *data,
-                                   unsigned int num_bytes, bool last);
-int img_mgmt_impl_swap_type(void);
-uint8_t img_mgmt_state_flags(int query_slot);
-int img_mgmt_impl_erase_image_data(unsigned int off, unsigned int num_bytes);
-int img_mgmt_impl_erase_if_needed(uint32_t off, uint32_t len);
-int img_mgmt_impl_upload_inspect(const struct img_mgmt_upload_req *req,
-                                 struct img_mgmt_upload_action *action,
-                                 const char **errstr);
-int img_mgmt_impl_log_upload_start(int status);
-int img_mgmt_impl_log_upload_done(int status, const uint8_t *hashp);
-int img_mgmt_impl_log_pending(int status, const uint8_t *hash);
-int img_mgmt_impl_log_confirm(int status, const uint8_t *hash);
-```
-_From https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/include/img_mgmt/img_mgmt_impl.h_
-
-For reference, see the Mynewt implementation of Image Management:
-
-https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c
-
-And the Zephyr implementation of Image Management:
-
-https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/zephyr/src/zephyr_img_mgmt.c
 
 # nRF Connect Client for iOS and Android
 
