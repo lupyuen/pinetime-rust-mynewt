@@ -154,6 +154,10 @@ Now we'll learn how the MCU Manager Library manages the Active and Standby Firmw
 
 # MCU Manager Library for Managing Firmware Images
 
+![Firmware Update with MCU Manager](https://lupyuen.github.io/images/dfu-mcumgr.png)
+
+_Firmware Update with MCU Manager_
+
 ```c
 /* Determine what actions to take as a result of this request. */
 rc = img_mgmt_impl_upload_inspect(&req, &action, &errstr);
