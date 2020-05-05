@@ -222,21 +222,21 @@ int img_mgmt_impl_write_image_data(
 
 `img_mgmt_impl_write_image_data` writes the chunk of firmware in `data` to the Standby Firmware Image (Slot 1), at the target offset indicated by `offset`. 
 
-`num_bytes` is the number of bytes to write. `last` is true if this is the last chunk of firmware for the entire firmware update. The function returns 0 on success.
+`num_bytes` is the number of bytes in the chunk of firmware. `last` is true if this is the last chunk of firmware for the entire firmware update. The function returns 0 on success.
 
 According to the [reference implementation](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c#L391-L435), the function does the following...
 
-1. Call `flash_area_open( STANDBY_FIRMWARE_AREA, &fa)` to get a handle to the Standby Firmware Flash Area and store the handle in `fa`
+1. Call `flash_area_open( STANDBY_FIRMWARE_AREA, &fa)` to get a handle to the Standby Firmware Flash ROM Area and store the handle in `fa`
 
-1. For every Flash Sector that will be written:
+1. For every Flash ROM Sector that will be written:
 
-    Call `flash_area_getnext_sector( fa->fa_id, &sector_id, &sector)` to get the Flash Sector ID (`sector_id`) and Flash Sector details (`sector`)
+    Call `flash_area_getnext_sector( fa->fa_id, &sector_id, &sector)` to get the Flash ROM Sector ID (`sector_id`) and Flash ROM Sector details (`sector`)
 
-    Then erase the Flash Sector by calling `flash_area_erase( &sector, 0, sector.fa_size)`
+    Then erase the Flash ROM Sector by calling `flash_area_erase( &sector, 0, sector.fa_size)`
 
-1. Write the firmware data to the Standby Firmware Flash Area by calling `flash_area_write( fa, offset, data, num_bytes)`
+1. Write the firmware data to the Standby Firmware Flash ROM Area by calling `flash_area_write( fa, offset, data, num_bytes)`
 
-1. Close the Standby Firmware Flash Area by calling `flash_area_close(fa)`
+1. Close the Standby Firmware Flash ROM Area by calling `flash_area_close(fa)`
 
 For details on the parameters of the `flash_area_*` functions, refer to the function declarations in [`flash_map.h`](https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h)
 
@@ -255,9 +255,9 @@ Check out the reference implementation of
 
 For reference implementations of `flash_area_open` and `flash_area_erase`, check out [`nrf52k_flash_init`](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L217-L221) and [`nrf52k_flash_erase_sector`](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L181-L205) in [Mynewt's Flash Driver for nRF52](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c).
 
-`flash_area_close` is [currently unused](https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h#L80-L81).
+The reference implementation of `flash_area_getnext_sector` may be found in [`flash_map.c`](https://github.com/apache/mynewt-core/blob/master/sys/flash_map/src/flash_map.c#L193-L229). The function returns the Flash ROM Sector that corresponds to an address in the Standby Flash ROM Area, by walking through a list of Flash ROM Sectors.
 
-The reference implementation of `flash_area_getnext_sector` may be found in [`flash_map.c`](https://github.com/apache/mynewt-core/blob/master/sys/flash_map/src/flash_map.c#L193-L229)
+`flash_area_close` is [currently unused](https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h#L80-L81).
 
 # NimBLE Bluetooth Stack
 
