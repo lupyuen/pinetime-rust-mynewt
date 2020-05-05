@@ -196,6 +196,8 @@ PineTime Firmware Developers would need to implement these functions in C to ins
 
     Erase a sector in Flash ROM. Erasing the entire Flash ROM at one time can take significant time, causing Bluetooth disconnect or significant battery sag. That's why we will erase a sector immediately before writing it.
 
+    Refer to the reference implementation here: [`mynewt_img_mgmt.c`](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c#L481-L509)
+
 1. __Write Image:__ `img_mgmt_impl_write_image_data(offset, data, num_bytes, last)`
 
     Write the chunk of uploaded firmware to the Standby Firmware slot. We'll cover this function in the next section.
@@ -243,6 +245,8 @@ img_mgmt_impl_write_image_data(unsigned int offset, const void *data,
 ```
 
 From https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c#L391-L435
+
+flash_area_getnext_sector: https://github.com/apache/mynewt-core/blob/master/sys/flash_map/src/flash_map.c#L193-L229
 
 The functions that must be defined for working with the `flash_area`s are:
 

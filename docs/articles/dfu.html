@@ -233,6 +233,7 @@
 <li>
 <p><strong>Erase Image:</strong> <code>img_mgmt_impl_erase_if_needed(offset, num_bytes)</code></p>
 <p>Erase a sector in Flash ROM. Erasing the entire Flash ROM at one time can take significant time, causing Bluetooth disconnect or significant battery sag. That's why we will erase a sector immediately before writing it.</p>
+<p>Refer to the reference implementation here: <a href="https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c#L481-L509"><code>mynewt_img_mgmt.c</code></a></p>
 </li>
 <li>
 <p><strong>Write Image:</strong> <code>img_mgmt_impl_write_image_data(offset, data, num_bytes, last)</code></p>
@@ -275,6 +276,7 @@ img_mgmt_impl_write_image_data(unsigned int offset, const void *data,
 }
 </code></pre>
 <p>From https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c#L391-L435</p>
+<p>flash_area_getnext_sector: https://github.com/apache/mynewt-core/blob/master/sys/flash_map/src/flash_map.c#L193-L229</p>
 <p>The functions that must be defined for working with the <code>flash_area</code>s are:</p>
 <pre><code class="language-c">/*&lt; Opens the area for use. id is one of the `fa_id`s */
 int     flash_area_open(uint8_t id, const struct flash_area **);
