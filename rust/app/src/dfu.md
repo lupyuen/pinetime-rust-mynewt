@@ -152,11 +152,31 @@ _Proposed Flash ROM Layout for PineTime. Derived from this [flash memory layout 
 
 Now we'll learn how the MCU Manager Library manages the Active and Standby Firmware Images to perform firmware updates.
 
-# MCU Manager Library for Managing Firmware Images
+# MCU Manager Library for Firmware Updates
+
+Let's look at the MCU Manager Library and how it handles firmware updates...
 
 ![Firmware Update with MCU Manager](https://lupyuen.github.io/images/dfu-mcumgr.png)
 
 _Firmware Update with MCU Manager_
+
+1. Mobile App transmits an encoded Firmware Update Request by writing to the SMP Characteristic on PineTime's Bluetooth LE GATT interface
+
+1. The open-source __NimBLE Bluetooth LE__ networking stack interprets the GATT request and calls the __Command Handler for Image Management__, part of the MCU Manager Library. More about NimBLE stack in a while.
+
+1. Image Management Command Handler (in MCU Manager Library) inspects the Firmware Update Request, by calling `img_mgmt_impl_upload_inspect`
+
+1. Image Management Command Handler erases the Standby Firmware Image in PineTime's Flash ROM, by calling `img_mgmt_impl_erase_if_needed` for each block of ROM
+
+1. Then it writes the received firmware into the Standby Firmware slot, block by block, by calling `img_mgmt_impl_write_image_data`
+
+PineTime Firmware Developers would need to implement these functions to inspect, erase and write firmware images in Flash ROM...
+
+1. __Inspect Upload:__ `img_mgmt_impl_upload_inspect(&req, &action, &errstr)`
+
+1. __Erase Image:__ `img_mgmt_impl_erase_if_needed(offset, num_bytes)`
+
+1. __Write Image:__ `img_mgmt_impl_write_image_data(offset, data, num_bytes, last)`
 
 ```c
 /* Determine what actions to take as a result of this request. */
@@ -167,6 +187,7 @@ rc = img_mgmt_impl_upload_inspect(&req, &action, &errstr);
 /* Remember flash area ID and image size for subsequent upload requests. */
 g_img_mgmt_state.area_id = action.area_id;
 g_img_mgmt_state.size = action.size;
+action.write_bytes
 ```
 
 ```c
@@ -179,21 +200,6 @@ rc = img_mgmt_impl_write_image_data(req.off, req.img_data, action.write_bytes, l
 ```
 
 From https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/src/img_mgmt.c#L364-L534
-
-
-Flash driver: https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c
-
-```c
-static int nrf52k_flash_read(const struct hal_flash *dev, uint32_t address,
-        void *dst, uint32_t num_bytes);
-static int nrf52k_flash_write(const struct hal_flash *dev, uint32_t address,
-        const void *src, uint32_t num_bytes);
-static int nrf52k_flash_erase_sector(const struct hal_flash *dev,
-        uint32_t sector_address);
-static int nrf52k_flash_sector_info(const struct hal_flash *dev, int idx,
-        uint32_t *address, uint32_t *sz);
-static int nrf52k_flash_init(const struct hal_flash *dev);
-```
 
 ```c
 int
@@ -241,7 +247,21 @@ int     flash_area_id_to_image_slot(int area_id);
 
 From https://github.com/JuulLabs-OSS/mcuboot/blob/master/docs/PORTING.md
 
-For upgrading firmware over Bluetooth, the MCU Manager Library is supported on Mynewt OS and Zephyr OS. How do we support MCU Manager on other PineTime platforms like FreeRTOS, RIOT, MicroPython, Rust RTFM and TinyGo?
+Flash driver: https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c
+
+```c
+static int nrf52k_flash_read(const struct hal_flash *dev, uint32_t address,
+        void *dst, uint32_t num_bytes);
+static int nrf52k_flash_write(const struct hal_flash *dev, uint32_t address,
+        const void *src, uint32_t num_bytes);
+static int nrf52k_flash_erase_sector(const struct hal_flash *dev,
+        uint32_t sector_address);
+static int nrf52k_flash_sector_info(const struct hal_flash *dev, int idx,
+        uint32_t *address, uint32_t *sz);
+static int nrf52k_flash_init(const struct hal_flash *dev);
+```
+
+For upgrading firmware over Bluetooth, the MCU Manager Library is supported on Mynewt OS and Zephyr OS. 
 
 MCU Manager Library is documented here:
 
