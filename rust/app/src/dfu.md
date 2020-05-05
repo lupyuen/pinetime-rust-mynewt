@@ -246,6 +246,31 @@ img_mgmt_impl_write_image_data(unsigned int offset, const void *data,
 
 From https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c#L391-L435
 
+```c
+/*
+ * Start using flash area.
+ */
+int flash_area_open(uint8_t id, const struct flash_area **);
+
+/** nothing to do for now */
+#define flash_area_close(flash_area)
+
+/*
+ * Get-next interface for obtaining info about sectors.
+ * To start the get-next walk, call with *sec_id set to -1.
+ */
+int flash_area_getnext_sector(int id, int *sec_id, struct flash_area *ret);
+
+/*
+ * Read/write/erase. Offset is relative from beginning of flash area.
+ */
+int flash_area_write(const struct flash_area *, uint32_t off, const void *src,
+  uint32_t len);
+int flash_area_erase(const struct flash_area *, uint32_t off, uint32_t len);
+```
+
+From https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h
+
 flash_area_getnext_sector: https://github.com/apache/mynewt-core/blob/master/sys/flash_map/src/flash_map.c#L193-L229
 
 ```c
