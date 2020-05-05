@@ -238,7 +238,15 @@ According to the [reference implementation](https://github.com/apache/mynewt-mcu
 
 1. Close the Standby Firmware Flash Area by calling `flash_area_close(fa)`
 
-The `flash_area_*` functions are declared in [`flash_map.h`](https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h)
+For details on the parameters of the `flash_area_*` functions, refer to the function declarations in [`flash_map.h`](https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h)
+
+_How do we implement these functions and write to PineTime's Flash ROM?_
+
+Here's the [official documentation](https://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.0.pdf)...
+
+![Writing to Flash ROM on nRF52832](https://lupyuen.github.io/images/dfu-flash.png)
+
+_Writing to Flash ROM on nRF52832. From [Nordic nRF52832 Product Specification](https://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.0.pdf)_
 
 For reference implementations of `flash_area_open`, `flash_area_erase` and `flash_area_write`, check out [Mynewt's Flash Driver for nRF52](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c). Look for `nrf52k_flash_init`, `nrf52k_flash_erase_sector` and `nrf52k_flash_write`.
 
