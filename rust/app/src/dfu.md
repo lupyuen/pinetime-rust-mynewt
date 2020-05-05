@@ -154,7 +154,7 @@ Now we'll learn how the MCU Manager Library manages the Active and Standby Firmw
 
 # MCU Manager Library for Firmware Updates
 
-Let's look at the MCU Manager Library and how it handles firmware updates...
+Let's look at the [MCU Manager Library](https://github.com/apache/mynewt-mcumgr) (coded in C) and how it handles firmware updates...
 
 ![Firmware Update with MCU Manager](https://lupyuen.github.io/images/dfu-mcumgr.png)
 
@@ -162,21 +162,23 @@ _Firmware Update with MCU Manager_
 
 1. Mobile App transmits an encoded Firmware Update Request by writing to the SMP Characteristic on PineTime's Bluetooth LE GATT interface
 
-1. The open-source __NimBLE Bluetooth LE__ networking stack interprets the GATT request and calls the __Command Handler for Image Management__, part of the MCU Manager Library. More about NimBLE stack in a while.
+1. The open-source __NimBLE Bluetooth LE__ networking stack interprets the GATT request and calls the __Command Handler for Image Management__, part of the MCU Manager Library. More about NimBLE in a while.
 
 1. Image Management Command Handler (in MCU Manager Library) inspects the Firmware Update Request, by calling `img_mgmt_impl_upload_inspect`
 
-1. Image Management Command Handler erases the Standby Firmware Image in PineTime's Flash ROM, by calling `img_mgmt_impl_erase_if_needed` for each block of ROM
+1. Image Management Command Handler erases the Standby Firmware Image in PineTime's Flash ROM, by calling `img_mgmt_impl_erase_if_needed` (optional, depending on the build settings)
 
-1. Then it writes the received firmware into the Standby Firmware slot, block by block, by calling `img_mgmt_impl_write_image_data`
+1. Then it writes the received firmware into the Standby Firmware slot by calling `img_mgmt_impl_write_image_data`
 
-PineTime Firmware Developers would need to implement these functions to inspect, erase and write firmware images in Flash ROM...
+PineTime Firmware Developers would need to implement these functions in C to inspect, erase and write firmware images in Flash ROM...
 
 1. __Inspect Upload:__ `img_mgmt_impl_upload_inspect(&req, &action, &errstr)`
 
 1. __Erase Image:__ `img_mgmt_impl_erase_if_needed(offset, num_bytes)`
 
 1. __Write Image:__ `img_mgmt_impl_write_image_data(offset, data, num_bytes, last)`
+
+The usage of these functions [may be found here](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/src/img_mgmt.c#L364-L534).
 
 ```c
 /* Determine what actions to take as a result of this request. */
@@ -199,7 +201,7 @@ if (img_mgmt_impl_erase_if_needed(req.off, action.write_bytes) != 0) {
 rc = img_mgmt_impl_write_image_data(req.off, req.img_data, action.write_bytes, last);
 ```
 
-From https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/src/img_mgmt.c#L364-L534
+From 
 
 ```c
 int
