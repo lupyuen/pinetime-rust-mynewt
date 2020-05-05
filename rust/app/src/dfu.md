@@ -210,7 +210,7 @@ Note that the Active Firmware is stored in Slot 0 and the Standby Firmware is st
 
 # Write Firmware Image to Flash ROM
 
-In the previous section we have seen how the MCU Manager Library calls `img_mgmt_impl_write_image_data` to write a chunk of firmware to PineTime's Flash ROM. PineTime Firmware Developers would be required to implement this function in C, so let's look at the function's internals now...
+In the previous section we have seen how the MCU Manager Library calls `img_mgmt_impl_write_image_data` to write a chunk of firmware to PineTime's Flash ROM. PineTime Firmware Developers would be required to implement this function in C, so let's look inside the function...
 
 ```c
 int img_mgmt_impl_write_image_data(
@@ -220,210 +220,31 @@ int img_mgmt_impl_write_image_data(
     bool last);
 ```
 
-`img_mgmt_impl_write_image_data` writes the chunk of firmware in `data` to the Standby Firmware Image (Slot 1), at the destination offset indicated by `offset`. 
+`img_mgmt_impl_write_image_data` writes the chunk of firmware in `data` to the Standby Firmware Image (Slot 1), at the target offset indicated by `offset`. 
 
 `num_bytes` is the number of bytes to write. `last` is true if this is the last chunk of firmware for the entire firmware update. The function returns 0 on success.
 
 According to the [reference implementation](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c#L391-L435), the function performs the following steps...
 
-1. `flash_area_open(FLASH_AREA_IMAGE_1, &fa)`
+1. Call `flash_area_open( STANDBY_FIRMWARE_AREA, &fa)` to get a handle to the Standby Firmware Flash Area and store the handle in `fa`
 
-1. Check if there any unerased target sectors, if not clean them.  `flash_area_getnext_sector(fa->fa_id, &g_img_mgmt_state.sector_id, &sector)`
+1. For every Flash Sector that will be written:
 
-1. `flash_area_erase(&sector, 0, sector.fa_size)`
+    Call `flash_area_getnext_sector( fa->fa_id, &sector_id, &sector)` to get the Flash Sector ID (`sector_id`) and Flash Sector details (`sector`)
 
-1. `flash_area_write(fa, offset, data, num_bytes)`
+    Then erase the Flash Sector by calling `flash_area_erase( &sector, 0, sector.fa_size)`
 
-1. `flash_area_close(fa)`
+1. Write the firmware data to the Standby Firmware Flash Area by calling `flash_area_write( fa, offset, data, num_bytes)`
 
-TODO
+1. Close the Standby Firmware Flash Area by calling `flash_area_close(fa)`
 
-```c
-/**
- * @brief Writes the specified chunk of image data to slot 1.
- *
- * @param offset                The offset within slot 1 to write to.
- * @param data                  The image data to write.
- * @param num_bytes             The number of bytes to read.
- * @param last                  Whether this chunk is the end of the image:
- *                                  false=additional image chunks are
- *                                        forthcoming.
- *                                  true=last image chunk; flush unwritten data
- *                                       to disk.
- *
- * @return                      0 on success, MGMT_ERR_[...] code on failure.
- */
-int
-img_mgmt_impl_write_image_data(unsigned int offset, const void *data,
-                               unsigned int num_bytes, bool last)
-{
+The `flash_area_*` functions are declared in [`flash_map.h`](https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h)
 
-    rc = flash_area_open(FLASH_AREA_IMAGE_1, &fa);
+For reference implementations of `flash_area_open`, `flash_area_erase` and `flash_area_write`, check out [Mynewt's Flash Driver for nRF52](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c). Look for `nrf52k_flash_init`, `nrf52k_flash_erase_sector` and `nrf52k_flash_write`.
 
-    /* Check if there any unerased target sectors, if not clean them. */
-        rc = flash_area_getnext_sector(fa->fa_id, &g_img_mgmt_state.sector_id,
-                                       &sector);
-        rc = flash_area_erase(&sector, 0, sector.fa_size);
+`flash_area_close` is [currently unused](https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h#L80-L81).
 
-    rc = flash_area_write(fa, offset, data, num_bytes);
-    flash_area_close(fa);
-}
-```
-
-From 
-
-```c
-/*
- * Start using flash area.
- */
-int flash_area_open(uint8_t id, const struct flash_area **);
-
-/** nothing to do for now */
-#define flash_area_close(flash_area)
-
-/*
- * Get-next interface for obtaining info about sectors.
- * To start the get-next walk, call with *sec_id set to -1.
- */
-int flash_area_getnext_sector(int id, int *sec_id, struct flash_area *ret);
-
-/*
- * Read/write/erase. Offset is relative from beginning of flash area.
- */
-int flash_area_write(const struct flash_area *, uint32_t off, const void *src,
-  uint32_t len);
-int flash_area_erase(const struct flash_area *, uint32_t off, uint32_t len);
-```
-
-From https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h
-
-flash_area_getnext_sector: https://github.com/apache/mynewt-core/blob/master/sys/flash_map/src/flash_map.c#L193-L229
-
-```c
-int
-flash_area_getnext_sector(int id, int *sec_id, struct flash_area *ret)
-{
-    const struct flash_area *fa;
-    const struct hal_flash *hf;
-    uint32_t start;
-    uint32_t size;
-    int rc;
-    int i;
-
-    rc = flash_area_open(id, &fa);
-    if (rc) {
-        return rc;
-    }
-    if (!ret || *sec_id < -1) {
-        rc = SYS_EINVAL;
-        goto end;
-    }
-    hf = hal_bsp_flash_dev(fa->fa_device_id);
-    i = *sec_id + 1;
-    for (; i < hf->hf_sector_cnt; i++) {
-        hf->hf_itf->hff_sector_info(hf, i, &start, &size);
-        if (start >= fa->fa_off && start < fa->fa_off + fa->fa_size) {
-            ret->fa_id = id;
-            ret->fa_device_id = fa->fa_device_id;
-            ret->fa_off = start;
-            ret->fa_size = size;
-            *sec_id = i;
-            rc = 0;
-            goto end;
-        }
-    }
-    rc = SYS_ENOENT;
-end:
-    flash_area_close(fa);
-    return rc;
-}
-```
-
-The functions that must be defined for working with the `flash_area`s are:
-
-```c
-/*< Opens the area for use. id is one of the `fa_id`s */
-int     flash_area_open(uint8_t id, const struct flash_area **);
-void    flash_area_close(const struct flash_area *);
-/*< Reads `len` bytes of flash memory at `off` to the buffer at `dst` */
-int     flash_area_read(const struct flash_area *, uint32_t off, void *dst,
-                     uint32_t len);
-/*< Writes `len` bytes of flash memory at `off` from the buffer at `src` */
-int     flash_area_write(const struct flash_area *, uint32_t off,
-                     const void *src, uint32_t len);
-/*< Erases `len` bytes of flash memory at `off` */
-int     flash_area_erase(const struct flash_area *, uint32_t off, uint32_t len);
-/*< Returns this `flash_area`s alignment */
-uint8_t flash_area_align(const struct flash_area *);
-/*< Initializes an array of flash_area elements for the slot's sectors */
-int     flash_area_to_sectors(int idx, int *cnt, struct flash_area *ret);
-/*< Returns the `fa_id` for slot, where slot is 0 (primary) or 1 (secondary) */
-int     flash_area_id_from_image_slot(int slot);
-/*< Returns the slot, for the `fa_id` supplied */
-int     flash_area_id_to_image_slot(int area_id);
-```
-
-From https://github.com/JuulLabs-OSS/mcuboot/blob/master/docs/PORTING.md
-
-Flash driver: https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c
-
-```c
-static int nrf52k_flash_read(const struct hal_flash *dev, uint32_t address,
-        void *dst, uint32_t num_bytes);
-static int nrf52k_flash_write(const struct hal_flash *dev, uint32_t address,
-        const void *src, uint32_t num_bytes);
-static int nrf52k_flash_erase_sector(const struct hal_flash *dev,
-        uint32_t sector_address);
-static int nrf52k_flash_sector_info(const struct hal_flash *dev, int idx,
-        uint32_t *address, uint32_t *sz);
-static int nrf52k_flash_init(const struct hal_flash *dev);
-```
-
-For upgrading firmware over Bluetooth, the MCU Manager Library is supported on Mynewt OS and Zephyr OS. 
-
-MCU Manager Library is documented here:
-
-https://github.com/apache/mynewt-mcumgr
-
-MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:
-
-https://github.com/apache/mynewt-mcumgr/tree/master/cmd
-
-We'll look at the Command Handler for Firmware Images:
-
-https://github.com/apache/mynewt-mcumgr/tree/master/cmd/img_mgmt
-
-The following Image Management interfaces need to be implemented on the PineTime platform:
-
-```c
-int img_mgmt_impl_erase_slot(void);
-int img_mgmt_impl_write_pending(int slot, bool permanent);
-int img_mgmt_impl_write_confirmed(void);
-int img_mgmt_impl_read(int slot, unsigned int offset, void *dst,
-                       unsigned int num_bytes);
-int img_mgmt_impl_write_image_data(unsigned int offset, const void *data,
-                                   unsigned int num_bytes, bool last);
-int img_mgmt_impl_swap_type(void);
-uint8_t img_mgmt_state_flags(int query_slot);
-int img_mgmt_impl_erase_image_data(unsigned int off, unsigned int num_bytes);
-int img_mgmt_impl_erase_if_needed(uint32_t off, uint32_t len);
-int img_mgmt_impl_upload_inspect(const struct img_mgmt_upload_req *req,
-                                 struct img_mgmt_upload_action *action,
-                                 const char **errstr);
-int img_mgmt_impl_log_upload_start(int status);
-int img_mgmt_impl_log_upload_done(int status, const uint8_t *hashp);
-int img_mgmt_impl_log_pending(int status, const uint8_t *hash);
-int img_mgmt_impl_log_confirm(int status, const uint8_t *hash);
-```
-_From https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/include/img_mgmt/img_mgmt_impl.h_
-
-For reference, see the Mynewt implementation of Image Management:
-
-https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c
-
-And the Zephyr implementation of Image Management:
-
-https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/zephyr/src/zephyr_img_mgmt.c
+The reference implementation of `flash_area_getnext_sector` may be found in [`flash_map.c`](https://github.com/apache/mynewt-core/blob/master/sys/flash_map/src/flash_map.c#L193-L229)
 
 # NimBLE Bluetooth Stack
 
@@ -449,6 +270,18 @@ Refer to the NimBLE source code at https://github.com/apache/mynewt-nimble
 TODO
 
 # Other Command Handlers for MCU Manager
+
+TODO
+
+For upgrading firmware over Bluetooth, the MCU Manager Library is supported on Mynewt OS and Zephyr OS. 
+
+MCU Manager Library is documented here:
+
+https://github.com/apache/mynewt-mcumgr
+
+MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:
+
+https://github.com/apache/mynewt-mcumgr/tree/master/cmd
 
 # Firmware Upgrade via Bluetooth LE
 
