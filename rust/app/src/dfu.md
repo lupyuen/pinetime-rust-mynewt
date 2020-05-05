@@ -232,7 +232,7 @@ According to the [reference implementation](https://github.com/apache/mynewt-mcu
 
     Call `flash_area_getnext_sector( fa->fa_id, &sector_id, &sector)` to get the Flash ROM Sector ID (`sector_id`) and Flash ROM Sector details (`sector`)
 
-    Then erase the Flash ROM Sector by calling `flash_area_erase( &sector, 0, sector.fa_size)`
+    Then erase the Flash ROM Sector (setting all bits to `1`) by calling `flash_area_erase( &sector, 0, sector.fa_size)`
 
 1. Write the firmware data to the Standby Firmware Flash ROM Area by calling `flash_area_write( fa, offset, data, num_bytes)`
 
