@@ -251,7 +251,7 @@ _Writing to Flash ROM on nRF52832. From [Nordic nRF52832 Product Specification](
 If you're used to writing Flash ROM byte by byte on [STM32 Blue Pill](http://libopencm3.org/docs/latest/stm32f1/html/group__flash__file.html#gaf5077b5726c70fa9418db9d73182f89d) and other microcontrollers... Good News! Writing to PineTime's Flash ROM is almost as easy as writing to RAM.
 
 Check out the reference implementation of 
-`flash_area_write` in [Mynewt's Flash Driver for nRF52](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L109-L179)
+`flash_area_write` in [Mynewt's Flash Driver for nRF52](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L109-L179) under [`nrf52k_flash_write`](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L109-L179).
 
 For reference implementations of `flash_area_open` and `flash_area_erase`, check out [`nrf52k_flash_init`](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L217-L221) and [`nrf52k_flash_erase_sector`](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L181-L205) in [Mynewt's Flash Driver for nRF52](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c).
 
