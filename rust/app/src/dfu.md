@@ -210,6 +210,32 @@ Note that the Active Firmware is stored in Slot 0 and the Standby Firmware is st
 
 # Write Firmware Image to Flash ROM
 
+In the previous section we have seen how the MCU Manager Library calls `img_mgmt_impl_write_image_data` to write a chunk of firmware to PineTime's Flash ROM. PineTime Firmware Developers would be required to implement this function in C, so let's look at the function's internals now...
+
+```c
+int img_mgmt_impl_write_image_data(
+    unsigned int offset, 
+    const void *data,
+    unsigned int num_bytes, 
+    bool last);
+```
+
+`img_mgmt_impl_write_image_data` writes the chunk of firmware in `data` to the Standby Firmware Image (Slot 1), at the destination offset indicated by `offset`. 
+
+`num_bytes` is the number of bytes to write. `last` is true if this is the last chunk of firmware for the entire firmware update. The function returns 0 on success.
+
+According to the [reference implementation](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c#L391-L435), the function performs the following steps...
+
+1. `flash_area_open(FLASH_AREA_IMAGE_1, &fa)`
+
+1. Check if there any unerased target sectors, if not clean them.  `flash_area_getnext_sector(fa->fa_id, &g_img_mgmt_state.sector_id, &sector)`
+
+1. `flash_area_erase(&sector, 0, sector.fa_size)`
+
+1. `flash_area_write(fa, offset, data, num_bytes)`
+
+1. `flash_area_close(fa)`
+
 TODO
 
 ```c
@@ -244,7 +270,7 @@ img_mgmt_impl_write_image_data(unsigned int offset, const void *data,
 }
 ```
 
-From https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c#L391-L435
+From 
 
 ```c
 /*
@@ -421,6 +447,8 @@ Refer to the NimBLE source code at https://github.com/apache/mynewt-nimble
 # MCUBoot Bootloader
 
 TODO
+
+# Other Command Handlers for MCU Manager
 
 # Firmware Upgrade via Bluetooth LE
 
