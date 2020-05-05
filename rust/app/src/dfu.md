@@ -240,7 +240,7 @@ According to the [reference implementation](https://github.com/apache/mynewt-mcu
 
 For details on the parameters of the `flash_area_*` functions, refer to the function declarations in [`flash_map.h`](https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h)
 
-_How do we implement these functions and write to PineTime's Flash ROM?_
+_How shall we implement these functions and write to PineTime's Flash ROM?_
 
 Here's the [official documentation](https://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.0.pdf)...
 
