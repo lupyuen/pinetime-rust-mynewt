@@ -208,7 +208,7 @@ The complete list of C functions for Image Management to be implemented by PineT
 
 Note that the Active Firmware is stored in Slot 0 and the Standby Firmware is stored in Slot 1 (or the Spare Slot).
 
-# Write Firmware Image to Flash ROM
+# Write Firmware Image to PineTime's Flash ROM
 
 In the previous section we have seen how the MCU Manager Library calls `img_mgmt_impl_write_image_data` to write a chunk of firmware to PineTime's Flash ROM. PineTime Firmware Developers would be required to implement this function in C, so let's look inside the function...
 
@@ -248,14 +248,12 @@ Here's the [official documentation](https://infocenter.nordicsemi.com/pdf/nRF528
 
 _Writing to Flash ROM on nRF52832. From [Nordic nRF52832 Product Specification](https://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.0.pdf)_
 
+If you're used to writing Flash ROM byte by byte on [STM32 Blue Pill](http://libopencm3.org/docs/latest/stm32f1/html/group__flash__file.html#gaf5077b5726c70fa9418db9d73182f89d) and other microcontrollers... Good News! Writing to PineTime's Flash ROM is almost as easy as writing to RAM.
 
-http://libopencm3.org/docs/latest/stm32f1/html/group__flash__file.html#gaf5077b5726c70fa9418db9d73182f89d
+Check out the reference implementation of 
+`flash_area_write` in [Mynewt's Flash Driver for nRF52](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L109-L179)
 
-
-`flash_area_write`
-https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L109-L179
-
-For reference implementations of `flash_area_open`, `flash_area_erase` and `flash_area_write`, check out [Mynewt's Flash Driver for nRF52](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c). Look for `nrf52k_flash_init`, `nrf52k_flash_erase_sector` and `nrf52k_flash_write`.
+For reference implementations of `flash_area_open` and `flash_area_erase`, check out [`nrf52k_flash_init`](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L217-L221) and [`nrf52k_flash_erase_sector`](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L181-L205) in [Mynewt's Flash Driver for nRF52](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c).
 
 `flash_area_close` is [currently unused](https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h#L80-L81).
 
