@@ -208,7 +208,7 @@ The complete list of C functions for Image Management to be implemented by PineT
 
 Note that the Active Firmware is stored in Slot 0 and the Standby Firmware is stored in Slot 1 (or the Spare Slot).
 
-# Writing Firmware Images to Flash ROM
+# Write Firmware Images to Flash ROM
 
 TODO
 
@@ -247,6 +247,46 @@ img_mgmt_impl_write_image_data(unsigned int offset, const void *data,
 From https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c#L391-L435
 
 flash_area_getnext_sector: https://github.com/apache/mynewt-core/blob/master/sys/flash_map/src/flash_map.c#L193-L229
+
+```c
+int
+flash_area_getnext_sector(int id, int *sec_id, struct flash_area *ret)
+{
+    const struct flash_area *fa;
+    const struct hal_flash *hf;
+    uint32_t start;
+    uint32_t size;
+    int rc;
+    int i;
+
+    rc = flash_area_open(id, &fa);
+    if (rc) {
+        return rc;
+    }
+    if (!ret || *sec_id < -1) {
+        rc = SYS_EINVAL;
+        goto end;
+    }
+    hf = hal_bsp_flash_dev(fa->fa_device_id);
+    i = *sec_id + 1;
+    for (; i < hf->hf_sector_cnt; i++) {
+        hf->hf_itf->hff_sector_info(hf, i, &start, &size);
+        if (start >= fa->fa_off && start < fa->fa_off + fa->fa_size) {
+            ret->fa_id = id;
+            ret->fa_device_id = fa->fa_device_id;
+            ret->fa_off = start;
+            ret->fa_size = size;
+            *sec_id = i;
+            rc = 0;
+            goto end;
+        }
+    }
+    rc = SYS_ENOENT;
+end:
+    flash_area_close(fa);
+    return rc;
+}
+```
 
 The functions that must be defined for working with the `flash_area`s are:
 

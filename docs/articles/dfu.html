@@ -54,7 +54,7 @@
 <li><a href="#robust-firmware-update-on-pinetime-with-rollback">2 Robust Firmware Update on PineTime with Rollback</a><ul></ul></li>
 <li><a href="#pinetime-flash-rom-layout">3 PineTime Flash ROM Layout</a><ul></ul></li>
 <li><a href="#mcu-manager-library-for-firmware-updates">4 MCU Manager Library for Firmware Updates</a><ul></ul></li>
-<li><a href="#writing-firmware-images-to-flash-rom">5 Writing Firmware Images to Flash ROM</a><ul></ul></li>
+<li><a href="#write-firmware-images-to-flash-rom">5 Write Firmware Images to Flash ROM</a><ul></ul></li>
 <li><a href="#nimble-bluetooth-stack">6 NimBLE Bluetooth Stack</a><ul></ul></li>
 <li><a href="#mcuboot-bootloader">7 MCUBoot Bootloader</a><ul></ul></li>
 <li><a href="#firmware-upgrade-via-bluetooth-le">8 Firmware Upgrade via Bluetooth LE</a><ul></ul></li>
@@ -243,7 +243,7 @@
 <p>The usage of these functions may be found in <a href="https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/src/img_mgmt.c#L364-L534"><code>img_mgmt.c</code></a></p>
 <p>The complete list of C functions for Image Management to be implemented by PineTime Firmware Developers may be found here: <a href="https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/include/img_mgmt/img_mgmt_impl.h"><code>img_mgmt_impl.h</code></a></p>
 <p>Note that the Active Firmware is stored in Slot 0 and the Standby Firmware is stored in Slot 1 (or the Spare Slot).</p>
-<h1 id="writing-firmware-images-to-flash-rom" class="section-header"><a href="#writing-firmware-images-to-flash-rom">5 Writing Firmware Images to Flash ROM</a></h1>
+<h1 id="write-firmware-images-to-flash-rom" class="section-header"><a href="#write-firmware-images-to-flash-rom">5 Write Firmware Images to Flash ROM</a></h1>
 <p>TODO</p>
 <pre><code class="language-c">/**
  * @brief Writes the specified chunk of image data to slot 1.
@@ -277,6 +277,44 @@ img_mgmt_impl_write_image_data(unsigned int offset, const void *data,
 </code></pre>
 <p>From https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c#L391-L435</p>
 <p>flash_area_getnext_sector: https://github.com/apache/mynewt-core/blob/master/sys/flash_map/src/flash_map.c#L193-L229</p>
+<pre><code class="language-c">int
+flash_area_getnext_sector(int id, int *sec_id, struct flash_area *ret)
+{
+    const struct flash_area *fa;
+    const struct hal_flash *hf;
+    uint32_t start;
+    uint32_t size;
+    int rc;
+    int i;
+
+    rc = flash_area_open(id, &amp;fa);
+    if (rc) {
+        return rc;
+    }
+    if (!ret || *sec_id &lt; -1) {
+        rc = SYS_EINVAL;
+        goto end;
+    }
+    hf = hal_bsp_flash_dev(fa-&gt;fa_device_id);
+    i = *sec_id + 1;
+    for (; i &lt; hf-&gt;hf_sector_cnt; i++) {
+        hf-&gt;hf_itf-&gt;hff_sector_info(hf, i, &amp;start, &amp;size);
+        if (start &gt;= fa-&gt;fa_off &amp;&amp; start &lt; fa-&gt;fa_off + fa-&gt;fa_size) {
+            ret-&gt;fa_id = id;
+            ret-&gt;fa_device_id = fa-&gt;fa_device_id;
+            ret-&gt;fa_off = start;
+            ret-&gt;fa_size = size;
+            *sec_id = i;
+            rc = 0;
+            goto end;
+        }
+    }
+    rc = SYS_ENOENT;
+end:
+    flash_area_close(fa);
+    return rc;
+}
+</code></pre>
 <p>The functions that must be defined for working with the <code>flash_area</code>s are:</p>
 <pre><code class="language-c">/*&lt; Opens the area for use. id is one of the `fa_id`s */
 int     flash_area_open(uint8_t id, const struct flash_area **);
