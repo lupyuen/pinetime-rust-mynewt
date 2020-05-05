@@ -253,7 +253,7 @@ If you're used to writing Flash ROM byte by byte on [STM32 Blue Pill](http://lib
 Check out the reference implementation of 
 `flash_area_write` in [Mynewt's Flash Driver for nRF52](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L109-L179) under [`nrf52k_flash_write`](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L109-L179).
 
-PineTime's Flash Controller can only write `0` bits to the Flash ROM that has been erased to `1`. The Flash Controller can't write `1` bits 
+PineTime's Internal Flash Controller (nRF52832 NVMC) can only write `0` bits to the Flash ROM that has been erased to `1`. The Flash Controller can't write `1` bits 
 without first erasing the Flash ROM. That's why we call `flash_area_erase` before `flash_area_write`.
 
 For reference implementations of `flash_area_open` and `flash_area_erase`, check out [`nrf52k_flash_init`](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L217-L221) and [`nrf52k_flash_erase_sector`](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L181-L205) in [Mynewt's Flash Driver for nRF52](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c).
