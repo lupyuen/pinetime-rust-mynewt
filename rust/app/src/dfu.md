@@ -210,7 +210,7 @@ Note that the Active Firmware is stored in Slot 0 and the Standby Firmware is st
 
 # Write Firmware Image to PineTime's Flash ROM
 
-In the previous section we have seen how the MCU Manager Library calls `img_mgmt_impl_write_image_data` to write a chunk of firmware to PineTime's Flash ROM. PineTime Firmware Developers would be required to implement this function in C, so let's look inside the function...
+To update PineTime's firmware over Bluetooth LE, the MCU Manager Library calls `img_mgmt_impl_write_image_data` to write each chunk of received firmware to PineTime's Flash ROM. PineTime Firmware Developers would have to implement `img_mgmt_impl_write_image_data` in C, so let's look inside the function...
 
 ```c
 int img_mgmt_impl_write_image_data(
@@ -224,7 +224,7 @@ int img_mgmt_impl_write_image_data(
 
 `num_bytes` is the number of bytes to write. `last` is true if this is the last chunk of firmware for the entire firmware update. The function returns 0 on success.
 
-According to the [reference implementation](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c#L391-L435), the function performs the following steps...
+According to the [reference implementation](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c#L391-L435), the function does the following...
 
 1. Call `flash_area_open( STANDBY_FIRMWARE_AREA, &fa)` to get a handle to the Standby Firmware Flash Area and store the handle in `fa`
 
