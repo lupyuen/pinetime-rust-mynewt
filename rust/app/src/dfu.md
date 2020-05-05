@@ -178,7 +178,7 @@ PineTime Firmware Developers would need to implement these functions in C to ins
 
 1. __Write Image:__ `img_mgmt_impl_write_image_data(offset, data, num_bytes, last)`
 
-The usage of these functions [may be found here](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/src/img_mgmt.c#L364-L534).
+The usage of these functions may be found in [img_mgmt.c](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/src/img_mgmt.c#L364-L534)
 
 ```c
 /* Determine what actions to take as a result of this request. */
@@ -201,7 +201,13 @@ if (img_mgmt_impl_erase_if_needed(req.off, action.write_bytes) != 0) {
 rc = img_mgmt_impl_write_image_data(req.off, req.img_data, action.write_bytes, last);
 ```
 
-From 
+The complete list of C functions for Image Management to be implemented by PineTime Firmware Developers may be found here: [img_mgmt_impl.h](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/include/img_mgmt/img_mgmt_impl.h)
+
+Note that the Active Firmware is stored in Slot 0 and the Standby Firmware is stored in Slot 1 (or the Spare Slot).
+
+# Writing Firmware Images to Flash ROM
+
+TODO
 
 ```c
 int
