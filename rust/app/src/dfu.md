@@ -16,15 +16,15 @@ _Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch_
 
 What's the magic behind this? It's the __[Simple Management Protocol (SMP)](https://github.com/apache/mynewt-mcumgr)__
 
-By transmitting a bunch of SMP messages over Bluetooth Low Energy (LE), it's possible to send a file to PineTime and upgrade its firmware. (Assuming that our PineTime supports SMP)
+By transmitting a bunch of SMP messages over Bluetooth Low Energy (LE), it's possible to send a file to PineTime and update its firmware. (Assuming that our PineTime supports SMP)
 
 _What mobile app would we use for flashing PineTime over Bluetooth LE?_
 
 The [Nordic nRF Connect](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app for iOS and Android is all that we need for flashing PineTime. Here's how it looks when the app is connected to a PineTime that supports SMP...
 
-![nRF Connect mobile app for Firmware Upgrade](https://lupyuen.github.io/images/dfu-nrfconnect.png)
+![nRF Connect mobile app connected to PineTime for Firmware Update](https://lupyuen.github.io/images/dfu-nrfconnect.png)
 
-_nRF Connect mobile app connected to PineTime for Firmware Upgrade_
+_nRF Connect mobile app connected to PineTime for Firmware Update_
 
 See the circular `DFU` icon at the top right? That stands for __Direct Firmware Upgrade__.
 
@@ -130,7 +130,7 @@ Here's the proposed __Flash ROM Layout__ that supports Active and Standby Firmwa
 | &nbsp;&nbsp;&nbsp;&nbsp; User File System      | `0x0007 D000`  | 12 KB |
 |<br>|||
 
-_Proposed Flash ROM Layout for PineTime. Derived from this [flash memory layout for nRF52832](https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml)._
+_Proposed Flash ROM Layout for PineTime. Derived from this [Flash ROM layout for nRF52832](https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml)._
 
 1. __Bootloader__: Located at the start of PineTime's Flash ROM, the open-source [MCUBoot Bootloader](https://juullabs-oss.github.io/mcuboot) is the first thing that PineTime runs upon booting. 
 
@@ -152,7 +152,7 @@ _Proposed Flash ROM Layout for PineTime. Derived from this [flash memory layout 
 
 Now we'll learn how the MCU Manager Library manages the Active and Standby Firmware Images to perform firmware updates.
 
-# MCU Manager Library for Firmware Updates
+# MCU Manager Library for Firmware Update
 
 Let's look at the [MCU Manager Library](https://github.com/apache/mynewt-mcumgr) (coded in C) and how it handles firmware updates...
 
@@ -208,7 +208,7 @@ The complete list of C functions for Image Management to be implemented by PineT
 
 Note that the Active Firmware is stored in Slot 0 and the Standby Firmware is stored in Slot 1 (or the Spare Slot).
 
-# Write Firmware Images to Flash ROM
+# Write Firmware Image to Flash ROM
 
 TODO
 
