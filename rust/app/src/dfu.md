@@ -232,7 +232,7 @@ According to the [reference implementation](https://github.com/apache/mynewt-mcu
 
 1. For every Flash ROM Sector (4 KB each) that will be written:
 
-    Call `flash_area_getnext_sector( fa->fa_id, &sector_id, &sector)` to get the Flash ROM Sector ID (`sector_id`) and Flash ROM Sector Details (`sector`)
+    Call `flash_area_getnext_sector( fa->fa_id, &sector_id, &sector)` to get the Flash ROM Sector ID (`sector_id`, from 0 to 127) and Flash ROM Sector Details (`sector`)
 
     Then erase the Flash ROM Sector (set all bits to `1`) by calling `flash_area_erase( &sector, 0, sector.fa_size)`
 
