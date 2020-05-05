@@ -166,13 +166,27 @@ _Firmware Update with MCU Manager_
 
 1. Image Management Command Handler (in MCU Manager Library) inspects the Firmware Update Request, by calling `img_mgmt_impl_upload_inspect`
 
-1. Image Management Command Handler erases the Standby Firmware Image in PineTime's Flash ROM, by calling `img_mgmt_impl_erase_if_needed` (optional, depending on the build settings)
+1. Image Management Command Handler erases the Standby Firmware Image in PineTime's Flash ROM, by calling `img_mgmt_impl_erase_if_needed`
 
 1. Then it writes the received firmware into the Standby Firmware slot by calling `img_mgmt_impl_write_image_data`
 
 PineTime Firmware Developers would need to implement these functions in C to inspect, erase and write firmware images in Flash ROM...
 
 1. __Inspect Upload:__ `img_mgmt_impl_upload_inspect(&req, &action, &errstr)`
+
+    Inspects the Firmware Upload Request ([defined here](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/include/img_mgmt/img_mgmt.h#L75-L84)) in `req` and returns 0 if valid. 
+
+    .off = -1,
+    .size = -1,
+    .data_len = 0,
+    .data_sha_len = 0,
+    .upgrade = false,
+    
+    Sets `action` as follows: 
+
+    g_img_mgmt_state.area_id = action.area_id;
+    g_img_mgmt_state.size = action.size;
+    action.write_bytes
 
 1. __Erase Image:__ `img_mgmt_impl_erase_if_needed(offset, num_bytes)`
 
@@ -181,6 +195,20 @@ PineTime Firmware Developers would need to implement these functions in C to ins
 The usage of these functions may be found in [img_mgmt.c](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/src/img_mgmt.c#L364-L534)
 
 ```c
+/**
+ * Verifies an upload request and indicates the actions that should be taken
+ * during processing of the request.  This is a "read only" function in the
+ * sense that it doesn't write anything to flash and doesn't modify any global
+ * variables.
+ *
+ * @param req                   The upload request to inspect.
+ * @param action                On success, gets populated with information
+ *                                  about how to process the request.
+ *
+ * @return                      0 if processing should occur;
+ *                              A MGMT_ERR code if an error response should be
+ *                                  sent instead.
+ */
 /* Determine what actions to take as a result of this request. */
 rc = img_mgmt_impl_upload_inspect(&req, &action, &errstr);
 ```
@@ -193,6 +221,20 @@ action.write_bytes
 ```
 
 ```c
+/**
+ * Erases a flash sector as image upload crosses a sector boundary.
+ * Erasing the entire flash size at one time can take significant time,
+ *   causing a bluetooth disconnect or significant battery sag.
+ * Instead we will erase immediately prior to crossing a sector.
+ * We could check for empty to increase efficiency, but instead we always erase
+ *   for consistency and simplicity.
+ *
+ * @param off      Offset that is about to be written
+ * @param len      Number of bytes to be written
+ *
+ * @return         0 if success
+ *                 ERROR_CODE if could not erase sector
+ */
 /* erase as we cross sector boundaries */
 if (img_mgmt_impl_erase_if_needed(req.off, action.write_bytes) != 0) {
 ```
@@ -210,6 +252,20 @@ Note that the Active Firmware is stored in Slot 0 and the Standby Firmware is st
 TODO
 
 ```c
+/**
+ * @brief Writes the specified chunk of image data to slot 1.
+ *
+ * @param offset                The offset within slot 1 to write to.
+ * @param data                  The image data to write.
+ * @param num_bytes             The number of bytes to read.
+ * @param last                  Whether this chunk is the end of the image:
+ *                                  false=additional image chunks are
+ *                                        forthcoming.
+ *                                  true=last image chunk; flush unwritten data
+ *                                       to disk.
+ *
+ * @return                      0 on success, MGMT_ERR_[...] code on failure.
+ */
 int
 img_mgmt_impl_write_image_data(unsigned int offset, const void *data,
                                unsigned int num_bytes, bool last)
