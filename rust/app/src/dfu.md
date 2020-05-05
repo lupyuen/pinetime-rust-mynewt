@@ -156,94 +156,53 @@ Now we'll learn how the MCU Manager Library manages the Active and Standby Firmw
 
 Let's look at the [MCU Manager Library](https://github.com/apache/mynewt-mcumgr) (coded in C) and how it handles firmware updates...
 
-![Firmware Update with MCU Manager](https://lupyuen.github.io/images/dfu-mcumgr.png)
+![Firmware Update with MCU Manager Library](https://lupyuen.github.io/images/dfu-mcumgr.png)
 
-_Firmware Update with MCU Manager_
+_Firmware Update with MCU Manager Library_
 
-1. Mobile App transmits an encoded Firmware Update Request by writing to the SMP Characteristic on PineTime's Bluetooth LE GATT interface
+1. Mobile App transmits the new firmware to PineTime over Bluetooth LE in _mutiple chunks_. Mobile App writes each chunk of firmware as an __Image Upload Request__ to the SMP Characteristic on PineTime's GATT interface.
 
-1. The open-source __NimBLE Bluetooth LE__ networking stack interprets the GATT request and calls the __Command Handler for Image Management__, part of the MCU Manager Library. More about NimBLE in a while.
+1. The open-source __NimBLE Bluetooth LE__ networking stack interprets each Image Upload Request request and calls the __Command Handler for Image Management__, part of the MCU Manager Library. More about NimBLE in a while.
 
-1. Image Management Command Handler (in MCU Manager Library) inspects the Firmware Update Request, by calling `img_mgmt_impl_upload_inspect`
+1. Image Management Command Handler (in MCU Manager Library) inspects the Image Upload Request, by calling `img_mgmt_impl_upload_inspect`
 
 1. Image Management Command Handler erases the Standby Firmware Image in PineTime's Flash ROM, by calling `img_mgmt_impl_erase_if_needed`
 
-1. Then it writes the received firmware into the Standby Firmware slot by calling `img_mgmt_impl_write_image_data`
+1. Then it writes the received firmware chunk into the Standby Firmware slot by calling `img_mgmt_impl_write_image_data`
 
 PineTime Firmware Developers would need to implement these functions in C to inspect, erase and write firmware images in Flash ROM...
 
 1. __Inspect Upload:__ `img_mgmt_impl_upload_inspect(&req, &action, &errstr)`
 
-    Inspects the Firmware Upload Request ([defined here](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/include/img_mgmt/img_mgmt.h#L75-L84)) in `req` and returns 0 if valid. 
+    Inspects the Image Upload Request in `req` ([defined here](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/include/img_mgmt/img_mgmt.h#L75-L84)) and returns 0 if valid: 
 
-    .off = -1,
-    .size = -1,
-    .data_len = 0,
-    .data_sha_len = 0,
-    .upgrade = false,
+    `off`: Offset of this chunk. Starts at 0. <br>
+    `size`: Total size of the firmware image <br>
+    `data_len`: Size of this chunk <br>
+    `data_sha_len`: Size of the SHA hash <br>
+    `upgrade`: If true, the version number of the new firmware must be greater than the Active Firmware version in Flash ROM
     
-    Sets `action` as follows: 
+    The function also sets `action` ([defined here](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/include/img_mgmt/img_mgmt.h#L103-L115)) to specify how the Image Upload Request should be handled:
 
-    g_img_mgmt_state.area_id = action.area_id;
-    g_img_mgmt_state.size = action.size;
-    action.write_bytes
+    `size`: Total size of the firmware image <br>
+    `write_bytes`: Number of image bytes to write to flash for the chunk <br>
+    `area_id`: The flash area to write to <br>
+    `proceed`: Whether to process the request; false if offset is wrong. <br>
+    `erase`: Whether to erase the destination flash area.
+
+    Refer to the reference implementation here: [`mynewt_img_mgmt.c`](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c#L102-L252)
 
 1. __Erase Image:__ `img_mgmt_impl_erase_if_needed(offset, num_bytes)`
 
+    Erase a sector in Flash ROM. Erasing the entire Flash ROM at one time can take significant time, causing Bluetooth disconnect or significant battery sag. That's why we will erase a sector immediately before writing it.
+
 1. __Write Image:__ `img_mgmt_impl_write_image_data(offset, data, num_bytes, last)`
 
-The usage of these functions may be found in [img_mgmt.c](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/src/img_mgmt.c#L364-L534)
+    Write the chunk of uploaded firmware to the Standby Firmware slot. We'll cover this function in the next section.
 
-```c
-/**
- * Verifies an upload request and indicates the actions that should be taken
- * during processing of the request.  This is a "read only" function in the
- * sense that it doesn't write anything to flash and doesn't modify any global
- * variables.
- *
- * @param req                   The upload request to inspect.
- * @param action                On success, gets populated with information
- *                                  about how to process the request.
- *
- * @return                      0 if processing should occur;
- *                              A MGMT_ERR code if an error response should be
- *                                  sent instead.
- */
-/* Determine what actions to take as a result of this request. */
-rc = img_mgmt_impl_upload_inspect(&req, &action, &errstr);
-```
+The usage of these functions may be found in [`img_mgmt.c`](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/src/img_mgmt.c#L364-L534)
 
-```c
-/* Remember flash area ID and image size for subsequent upload requests. */
-g_img_mgmt_state.area_id = action.area_id;
-g_img_mgmt_state.size = action.size;
-action.write_bytes
-```
-
-```c
-/**
- * Erases a flash sector as image upload crosses a sector boundary.
- * Erasing the entire flash size at one time can take significant time,
- *   causing a bluetooth disconnect or significant battery sag.
- * Instead we will erase immediately prior to crossing a sector.
- * We could check for empty to increase efficiency, but instead we always erase
- *   for consistency and simplicity.
- *
- * @param off      Offset that is about to be written
- * @param len      Number of bytes to be written
- *
- * @return         0 if success
- *                 ERROR_CODE if could not erase sector
- */
-/* erase as we cross sector boundaries */
-if (img_mgmt_impl_erase_if_needed(req.off, action.write_bytes) != 0) {
-```
-
-```c
-rc = img_mgmt_impl_write_image_data(req.off, req.img_data, action.write_bytes, last);
-```
-
-The complete list of C functions for Image Management to be implemented by PineTime Firmware Developers may be found here: [img_mgmt_impl.h](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/include/img_mgmt/img_mgmt_impl.h)
+The complete list of C functions for Image Management to be implemented by PineTime Firmware Developers may be found here: [`img_mgmt_impl.h`](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/include/img_mgmt/img_mgmt_impl.h)
 
 Note that the Active Firmware is stored in Slot 0 and the Standby Firmware is stored in Slot 1 (or the Spare Slot).
 
