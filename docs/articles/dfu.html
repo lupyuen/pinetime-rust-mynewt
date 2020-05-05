@@ -53,25 +53,26 @@
 <li><a href="#simple-management-procotol-for-firmware-update">1 Simple Management Procotol for Firmware Update</a><ul></ul></li>
 <li><a href="#robust-firmware-update-on-pinetime-with-rollback">2 Robust Firmware Update on PineTime with Rollback</a><ul></ul></li>
 <li><a href="#pinetime-flash-rom-layout">3 PineTime Flash ROM Layout</a><ul></ul></li>
-<li><a href="#mcu-manager-library-for-firmware-updates">4 MCU Manager Library for Firmware Updates</a><ul></ul></li>
-<li><a href="#write-firmware-images-to-flash-rom">5 Write Firmware Images to Flash ROM</a><ul></ul></li>
+<li><a href="#mcu-manager-library-for-firmware-update">4 MCU Manager Library for Firmware Update</a><ul></ul></li>
+<li><a href="#write-firmware-image-to-pinetimes-flash-rom">5 Write Firmware Image to PineTime's Flash ROM</a><ul></ul></li>
 <li><a href="#nimble-bluetooth-stack">6 NimBLE Bluetooth Stack</a><ul></ul></li>
 <li><a href="#mcuboot-bootloader">7 MCUBoot Bootloader</a><ul></ul></li>
-<li><a href="#firmware-upgrade-via-bluetooth-le">8 Firmware Upgrade via Bluetooth LE</a><ul></ul></li>
-<li><a href="#proposed-solution">9 Proposed Solution</a><ul></ul></li>
-<li><a href="#pinetime-firmware">10 PineTime Firmware</a><ul></ul></li>
-<li><a href="#newt-manager-modules-used-in-pinetime-firmware">11 Newt Manager Modules used in PineTime Firmware</a><ul></ul></li>
-<li><a href="#nrf-connect-client-for-ios-and-android">12 nRF Connect Client for iOS and Android</a><ul></ul></li>
-<li><a href="#raspberry-pi-client">13 Raspberry Pi Client</a><ul></ul></li>
-<li><a href="#pinephone-client">14 PinePhone Client</a><ul></ul></li>
-<li><a href="#android-client">15 Android Client</a><ul></ul></li>
-<li><a href="#ios-client">16 iOS Client</a><ul></ul></li>
-<li><a href="#flutter-client-for-ios-and-android">17 Flutter Client for iOS and Android</a><ul></ul></li>
-<li><a href="#implementing-mcuboot">18 Implementing MCUboot</a><ul></ul></li>
-<li><a href="#mcuboot-enhancements">19 MCUboot Enhancements</a><ul></ul></li>
-<li><a href="#other-pinetime-bluetooth-firmware-upgrade-solutions">20 Other PineTime Bluetooth Firmware Upgrade Solutions</a><ul></ul></li>
-<li><a href="#log-for-raspberry-pi-client">21 Log for Raspberry Pi Client</a><ul></ul></li>
-<li><a href="#further-reading">22 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/dfu-platforms.png" alt="Platforms in development for PineTime Smart Watch" /></p>
+<li><a href="#other-command-handlers-for-mcu-manager">8 Other Command Handlers for MCU Manager</a><ul></ul></li>
+<li><a href="#firmware-upgrade-via-bluetooth-le">9 Firmware Upgrade via Bluetooth LE</a><ul></ul></li>
+<li><a href="#proposed-solution">10 Proposed Solution</a><ul></ul></li>
+<li><a href="#pinetime-firmware">11 PineTime Firmware</a><ul></ul></li>
+<li><a href="#newt-manager-modules-used-in-pinetime-firmware">12 Newt Manager Modules used in PineTime Firmware</a><ul></ul></li>
+<li><a href="#nrf-connect-client-for-ios-and-android">13 nRF Connect Client for iOS and Android</a><ul></ul></li>
+<li><a href="#raspberry-pi-client">14 Raspberry Pi Client</a><ul></ul></li>
+<li><a href="#pinephone-client">15 PinePhone Client</a><ul></ul></li>
+<li><a href="#android-client">16 Android Client</a><ul></ul></li>
+<li><a href="#ios-client">17 iOS Client</a><ul></ul></li>
+<li><a href="#flutter-client-for-ios-and-android">18 Flutter Client for iOS and Android</a><ul></ul></li>
+<li><a href="#implementing-mcuboot">19 Implementing MCUboot</a><ul></ul></li>
+<li><a href="#mcuboot-enhancements">20 MCUboot Enhancements</a><ul></ul></li>
+<li><a href="#other-pinetime-bluetooth-firmware-upgrade-solutions">21 Other PineTime Bluetooth Firmware Upgrade Solutions</a><ul></ul></li>
+<li><a href="#log-for-raspberry-pi-client">22 Log for Raspberry Pi Client</a><ul></ul></li>
+<li><a href="#further-reading">23 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/dfu-platforms.png" alt="Platforms in development for PineTime Smart Watch" /></p>
 <p>Thanks to the FOSS Community, <a href="https://wiki.pine64.org/index.php/PineTime">PineTime Smart Watch</a> has an incredible variety of FOSS operating systems in the works: <a href="https://github.com/JF002/Pinetime">FreeRTOS</a>, <a href="https://github.com/daniel-thompson/wasp-os">MicroPython</a>, <a href="https://github.com/lupyuen/pinetime-rust-mynewt">Mynewt</a>, <a href="https://github.com/bosmoment/PineTime-apps">RIOT</a>, Rust <a href="https://github.com/wose/xochron">RTFM</a> (<a href="https://github.com/dbrgn/pinetime-rtfm">another</a>), <a href="https://github.com/aykevl/go-smartwatch">TinyGo</a>, <a href="https://www.tockos.org/">Tock</a>, <a href="https://github.com/najnesnaj/pinetime-zephyr">Zephyr</a> (<a href="https://github.com/Dejvino/pinetime-hermes-firmware.git">another</a>), ...</p>
 <p>But these embedded platforms are accessible only by brave PineTime Owners who dare to pry open their watches very carefully... And connect a Raspberry Pi (or ST-Link) to the tiny delicate 4-pin SWD port recessed deep inside... Just to flash the PineTime firmware.</p>
 <p><em>What if we could flash any firmware to PineTime from our mobile phone... Without opening the watch?</em></p>
@@ -79,11 +80,11 @@
 <p><img src="https://lupyuen.github.io/images/dfu-flow.png" alt="Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch" /></p>
 <p><em>Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch</em></p>
 <p>What's the magic behind this? It's the <strong><a href="https://github.com/apache/mynewt-mcumgr">Simple Management Protocol (SMP)</a></strong></p>
-<p>By transmitting a bunch of SMP messages over Bluetooth Low Energy (LE), it's possible to send a file to PineTime and upgrade its firmware. (Assuming that our PineTime supports SMP)</p>
+<p>By transmitting a bunch of SMP messages over Bluetooth Low Energy (LE), it's possible to send a file to PineTime and update its firmware. (Assuming that our PineTime supports SMP)</p>
 <p><em>What mobile app would we use for flashing PineTime over Bluetooth LE?</em></p>
 <p>The <a href="https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile">Nordic nRF Connect</a> mobile app for iOS and Android is all that we need for flashing PineTime. Here's how it looks when the app is connected to a PineTime that supports SMP...</p>
-<p><img src="https://lupyuen.github.io/images/dfu-nrfconnect.png" alt="nRF Connect mobile app for Firmware Upgrade" /></p>
-<p><em>nRF Connect mobile app connected to PineTime for Firmware Upgrade</em></p>
+<p><img src="https://lupyuen.github.io/images/dfu-nrfconnect.png" alt="nRF Connect mobile app connected to PineTime for Firmware Update" /></p>
+<p><em>nRF Connect mobile app connected to PineTime for Firmware Update</em></p>
 <p>See the circular <code>DFU</code> icon at the top right? That stands for <strong>Direct Firmware Upgrade</strong>.</p>
 <p>Tapping the <code>DFU</code> icon will let us select a downloaded firmware file for flashing our watch. It's really that easy!</p>
 <p><em>What about PinePhone? Raspberry Pi?</em></p>
@@ -166,7 +167,7 @@
 <tr><td align="left">     User File System</td><td align="left"><code>0x0007 D000</code></td><td align="right">12 KB</td></tr>
 <tr><td align="left"><br></td><td align="left"></td><td align="right"></td></tr>
 </tbody></table>
-<p><em>Proposed Flash ROM Layout for PineTime. Derived from this <a href="https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml">flash memory layout for nRF52832</a>.</em></p>
+<p><em>Proposed Flash ROM Layout for PineTime. Derived from this <a href="https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml">Flash ROM layout for nRF52832</a>.</em></p>
 <ol>
 <li>
 <p><strong>Bootloader</strong>: Located at the start of PineTime's Flash ROM, the open-source <a href="https://juullabs-oss.github.io/mcuboot">MCUBoot Bootloader</a> is the first thing that PineTime runs upon booting. </p>
@@ -191,7 +192,7 @@
 </li>
 </ol>
 <p>Now we'll learn how the MCU Manager Library manages the Active and Standby Firmware Images to perform firmware updates.</p>
-<h1 id="mcu-manager-library-for-firmware-updates" class="section-header"><a href="#mcu-manager-library-for-firmware-updates">4 MCU Manager Library for Firmware Updates</a></h1>
+<h1 id="mcu-manager-library-for-firmware-update" class="section-header"><a href="#mcu-manager-library-for-firmware-update">4 MCU Manager Library for Firmware Update</a></h1>
 <p>Let's look at the <a href="https://github.com/apache/mynewt-mcumgr">MCU Manager Library</a> (coded in C) and how it handles firmware updates...</p>
 <p><img src="https://lupyuen.github.io/images/dfu-mcumgr.png" alt="Firmware Update with MCU Manager Library" /></p>
 <p><em>Firmware Update with MCU Manager Library</em></p>
@@ -243,143 +244,49 @@
 <p>The usage of these functions may be found in <a href="https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/src/img_mgmt.c#L364-L534"><code>img_mgmt.c</code></a></p>
 <p>The complete list of C functions for Image Management to be implemented by PineTime Firmware Developers may be found here: <a href="https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/include/img_mgmt/img_mgmt_impl.h"><code>img_mgmt_impl.h</code></a></p>
 <p>Note that the Active Firmware is stored in Slot 0 and the Standby Firmware is stored in Slot 1 (or the Spare Slot).</p>
-<h1 id="write-firmware-images-to-flash-rom" class="section-header"><a href="#write-firmware-images-to-flash-rom">5 Write Firmware Images to Flash ROM</a></h1>
-<p>TODO</p>
-<pre><code class="language-c">/**
- * @brief Writes the specified chunk of image data to slot 1.
- *
- * @param offset                The offset within slot 1 to write to.
- * @param data                  The image data to write.
- * @param num_bytes             The number of bytes to read.
- * @param last                  Whether this chunk is the end of the image:
- *                                  false=additional image chunks are
- *                                        forthcoming.
- *                                  true=last image chunk; flush unwritten data
- *                                       to disk.
- *
- * @return                      0 on success, MGMT_ERR_[...] code on failure.
- */
-int
-img_mgmt_impl_write_image_data(unsigned int offset, const void *data,
-                               unsigned int num_bytes, bool last)
-{
-
-    rc = flash_area_open(FLASH_AREA_IMAGE_1, &amp;fa);
-
-    /* Check if there any unerased target sectors, if not clean them. */
-        rc = flash_area_getnext_sector(fa-&gt;fa_id, &amp;g_img_mgmt_state.sector_id,
-                                       &amp;sector);
-        rc = flash_area_erase(&amp;sector, 0, sector.fa_size);
-
-    rc = flash_area_write(fa, offset, data, num_bytes);
-    flash_area_close(fa);
-}
+<h1 id="write-firmware-image-to-pinetimes-flash-rom" class="section-header"><a href="#write-firmware-image-to-pinetimes-flash-rom">5 Write Firmware Image to PineTime's Flash ROM</a></h1>
+<p>To update PineTime's firmware over Bluetooth LE, the MCU Manager Library calls <code>img_mgmt_impl_write_image_data</code> to write each chunk of received firmware to PineTime's Flash ROM. PineTime Firmware Developers would have to implement <code>img_mgmt_impl_write_image_data</code> in C, so let's look inside the function...</p>
+<pre><code class="language-c">int img_mgmt_impl_write_image_data(
+    unsigned int offset, 
+    const void *data,
+    unsigned int num_bytes, 
+    bool last);
 </code></pre>
-<p>From https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c#L391-L435</p>
-<p>flash_area_getnext_sector: https://github.com/apache/mynewt-core/blob/master/sys/flash_map/src/flash_map.c#L193-L229</p>
-<pre><code class="language-c">int
-flash_area_getnext_sector(int id, int *sec_id, struct flash_area *ret)
-{
-    const struct flash_area *fa;
-    const struct hal_flash *hf;
-    uint32_t start;
-    uint32_t size;
-    int rc;
-    int i;
-
-    rc = flash_area_open(id, &amp;fa);
-    if (rc) {
-        return rc;
-    }
-    if (!ret || *sec_id &lt; -1) {
-        rc = SYS_EINVAL;
-        goto end;
-    }
-    hf = hal_bsp_flash_dev(fa-&gt;fa_device_id);
-    i = *sec_id + 1;
-    for (; i &lt; hf-&gt;hf_sector_cnt; i++) {
-        hf-&gt;hf_itf-&gt;hff_sector_info(hf, i, &amp;start, &amp;size);
-        if (start &gt;= fa-&gt;fa_off &amp;&amp; start &lt; fa-&gt;fa_off + fa-&gt;fa_size) {
-            ret-&gt;fa_id = id;
-            ret-&gt;fa_device_id = fa-&gt;fa_device_id;
-            ret-&gt;fa_off = start;
-            ret-&gt;fa_size = size;
-            *sec_id = i;
-            rc = 0;
-            goto end;
-        }
-    }
-    rc = SYS_ENOENT;
-end:
-    flash_area_close(fa);
-    return rc;
-}
-</code></pre>
-<p>The functions that must be defined for working with the <code>flash_area</code>s are:</p>
-<pre><code class="language-c">/*&lt; Opens the area for use. id is one of the `fa_id`s */
-int     flash_area_open(uint8_t id, const struct flash_area **);
-void    flash_area_close(const struct flash_area *);
-/*&lt; Reads `len` bytes of flash memory at `off` to the buffer at `dst` */
-int     flash_area_read(const struct flash_area *, uint32_t off, void *dst,
-                     uint32_t len);
-/*&lt; Writes `len` bytes of flash memory at `off` from the buffer at `src` */
-int     flash_area_write(const struct flash_area *, uint32_t off,
-                     const void *src, uint32_t len);
-/*&lt; Erases `len` bytes of flash memory at `off` */
-int     flash_area_erase(const struct flash_area *, uint32_t off, uint32_t len);
-/*&lt; Returns this `flash_area`s alignment */
-uint8_t flash_area_align(const struct flash_area *);
-/*&lt; Initializes an array of flash_area elements for the slot's sectors */
-int     flash_area_to_sectors(int idx, int *cnt, struct flash_area *ret);
-/*&lt; Returns the `fa_id` for slot, where slot is 0 (primary) or 1 (secondary) */
-int     flash_area_id_from_image_slot(int slot);
-/*&lt; Returns the slot, for the `fa_id` supplied */
-int     flash_area_id_to_image_slot(int area_id);
-</code></pre>
-<p>From https://github.com/JuulLabs-OSS/mcuboot/blob/master/docs/PORTING.md</p>
-<p>Flash driver: https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c</p>
-<pre><code class="language-c">static int nrf52k_flash_read(const struct hal_flash *dev, uint32_t address,
-        void *dst, uint32_t num_bytes);
-static int nrf52k_flash_write(const struct hal_flash *dev, uint32_t address,
-        const void *src, uint32_t num_bytes);
-static int nrf52k_flash_erase_sector(const struct hal_flash *dev,
-        uint32_t sector_address);
-static int nrf52k_flash_sector_info(const struct hal_flash *dev, int idx,
-        uint32_t *address, uint32_t *sz);
-static int nrf52k_flash_init(const struct hal_flash *dev);
-</code></pre>
-<p>For upgrading firmware over Bluetooth, the MCU Manager Library is supported on Mynewt OS and Zephyr OS. </p>
-<p>MCU Manager Library is documented here:</p>
-<p>https://github.com/apache/mynewt-mcumgr</p>
-<p>MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:</p>
-<p>https://github.com/apache/mynewt-mcumgr/tree/master/cmd</p>
-<p>We'll look at the Command Handler for Firmware Images:</p>
-<p>https://github.com/apache/mynewt-mcumgr/tree/master/cmd/img_mgmt</p>
-<p>The following Image Management interfaces need to be implemented on the PineTime platform:</p>
-<pre><code class="language-c">int img_mgmt_impl_erase_slot(void);
-int img_mgmt_impl_write_pending(int slot, bool permanent);
-int img_mgmt_impl_write_confirmed(void);
-int img_mgmt_impl_read(int slot, unsigned int offset, void *dst,
-                       unsigned int num_bytes);
-int img_mgmt_impl_write_image_data(unsigned int offset, const void *data,
-                                   unsigned int num_bytes, bool last);
-int img_mgmt_impl_swap_type(void);
-uint8_t img_mgmt_state_flags(int query_slot);
-int img_mgmt_impl_erase_image_data(unsigned int off, unsigned int num_bytes);
-int img_mgmt_impl_erase_if_needed(uint32_t off, uint32_t len);
-int img_mgmt_impl_upload_inspect(const struct img_mgmt_upload_req *req,
-                                 struct img_mgmt_upload_action *action,
-                                 const char **errstr);
-int img_mgmt_impl_log_upload_start(int status);
-int img_mgmt_impl_log_upload_done(int status, const uint8_t *hashp);
-int img_mgmt_impl_log_pending(int status, const uint8_t *hash);
-int img_mgmt_impl_log_confirm(int status, const uint8_t *hash);
-</code></pre>
-<p><em>From https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/include/img_mgmt/img_mgmt_impl.h</em></p>
-<p>For reference, see the Mynewt implementation of Image Management:</p>
-<p>https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c</p>
-<p>And the Zephyr implementation of Image Management:</p>
-<p>https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/zephyr/src/zephyr_img_mgmt.c</p>
+<p><code>img_mgmt_impl_write_image_data</code> writes the chunk of firmware in <code>data</code> to the Standby Firmware Image (Slot 1), at the target offset indicated by <code>offset</code>. </p>
+<p><code>num_bytes</code> is the number of bytes in the chunk of firmware. <code>last</code> is true if this is the last chunk of firmware for the entire firmware update. The function returns 0 on success.</p>
+<p>According to the <a href="https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c#L391-L435">reference implementation</a>, the function does the following...</p>
+<ol>
+<li>
+<p>Call <code>flash_area_open( STANDBY_FIRMWARE_AREA, &amp;fa)</code> to get a handle to the Standby Firmware Flash ROM Area and store the handle in <code>fa</code></p>
+</li>
+<li>
+<p>PineTime's Flash ROM is accessed as <strong>Flash ROM Sectors</strong> when writing and erasing the Flash ROM. PineTime's 512 KB Flash ROM is divided into <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L73-L81">128 Sectors</a>, with <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L26">4 KB per Sector</a>.</p>
+</li>
+<li>
+<p>For every Flash ROM Sector (4 KB each) that will be written:</p>
+<p>Call <code>flash_area_getnext_sector( fa-&gt;fa_id, &amp;sector_id, &amp;sector)</code> to get the Flash ROM Sector ID (<code>sector_id</code>, from 0 to 127) and Flash ROM Sector Details (<code>sector</code>)</p>
+<p>Then erase the Flash ROM Sector (set all bits to <code>1</code>) by calling <code>flash_area_erase( &amp;sector, 0, sector.fa_size)</code></p>
+</li>
+<li>
+<p>Write the firmware data to the Standby Firmware Flash ROM  by calling <code>flash_area_write( fa, offset, data, num_bytes)</code></p>
+</li>
+<li>
+<p>Close the Standby Firmware Flash ROM Area by calling <code>flash_area_close(fa)</code></p>
+</li>
+</ol>
+<p>For details on the parameters of the <code>flash_area_*</code> functions, refer to the function declarations in <a href="https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h"><code>flash_map.h</code></a></p>
+<p><em>How shall we implement these functions and write to PineTime's Flash ROM?</em></p>
+<p>Here's the <a href="https://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.0.pdf">official documentation</a>...</p>
+<p><img src="https://lupyuen.github.io/images/dfu-flash.png" alt="Writing to Flash ROM on nRF52832" /></p>
+<p><em>Writing to Flash ROM on nRF52832. From <a href="https://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.0.pdf">Nordic nRF52832 Product Specification</a></em></p>
+<p>If you're used to writing Flash ROM byte by byte on <a href="http://libopencm3.org/docs/latest/stm32f1/html/group__flash__file.html#gaf5077b5726c70fa9418db9d73182f89d">STM32 Blue Pill</a> and other microcontrollers... Good News! Writing to PineTime's Flash ROM is almost as easy as writing to RAM.</p>
+<p>Check out the reference implementation of 
+<code>flash_area_write</code> in <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L109-L179">Mynewt's Flash Driver for nRF52</a> under <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L109-L179"><code>nrf52k_flash_write</code></a>.</p>
+<p>PineTime's Internal Flash Controller (<a href="https://infocenter.nordicsemi.com/index.jsp?topic=%2Fcom.nordic.infocenter.nrf52832.ps.v1.1%2Fnvmc.html">nRF52832 NVMC</a>) can only write <code>0</code> bits to the Flash ROM that has been erased to <code>1</code>. The Flash Controller can't write <code>1</code> bits 
+without first erasing the Flash ROM. That's why we call <code>flash_area_erase</code> before <code>flash_area_write</code>.</p>
+<p>For reference implementations of <code>flash_area_open</code> and <code>flash_area_erase</code>, check out <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L217-L221"><code>nrf52k_flash_init</code></a> and <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L181-L205"><code>nrf52k_flash_erase_sector</code></a> in <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c">Mynewt's Flash Driver for nRF52</a>.</p>
+<p>The reference implementation of <code>flash_area_getnext_sector</code> may be found in <a href="https://github.com/apache/mynewt-core/blob/master/sys/flash_map/src/flash_map.c#L193-L229"><code>flash_map.c</code></a>. The function returns the 4 KB Flash ROM Sector that corresponds to an address in the Standby Flash ROM Area, by walking through a list of Flash ROM Sectors.</p>
+<p><code>flash_area_close</code> is <a href="https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h#L80-L81">currently unused</a>.</p>
 <h1 id="nimble-bluetooth-stack" class="section-header"><a href="#nimble-bluetooth-stack">6 NimBLE Bluetooth Stack</a></h1>
 <p>TODO</p>
 <p>MCU Manager runs on the Bluetooth LE transport based on the open-source NimBLE Bluetooth LE stack. The following NimBLE modules need to be ported to the PineTime platform:</p>
@@ -396,11 +303,18 @@ int img_mgmt_impl_log_confirm(int status, const uint8_t *hash);
 <p>Refer to the NimBLE source code at https://github.com/apache/mynewt-nimble</p>
 <h1 id="mcuboot-bootloader" class="section-header"><a href="#mcuboot-bootloader">7 MCUBoot Bootloader</a></h1>
 <p>TODO</p>
-<h1 id="firmware-upgrade-via-bluetooth-le" class="section-header"><a href="#firmware-upgrade-via-bluetooth-le">8 Firmware Upgrade via Bluetooth LE</a></h1>
+<h1 id="other-command-handlers-for-mcu-manager" class="section-header"><a href="#other-command-handlers-for-mcu-manager">8 Other Command Handlers for MCU Manager</a></h1>
+<p>TODO</p>
+<p>For upgrading firmware over Bluetooth, the MCU Manager Library is supported on Mynewt OS and Zephyr OS. </p>
+<p>MCU Manager Library is documented here:</p>
+<p>https://github.com/apache/mynewt-mcumgr</p>
+<p>MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:</p>
+<p>https://github.com/apache/mynewt-mcumgr/tree/master/cmd</p>
+<h1 id="firmware-upgrade-via-bluetooth-le" class="section-header"><a href="#firmware-upgrade-via-bluetooth-le">9 Firmware Upgrade via Bluetooth LE</a></h1>
 <p>TODO</p>
 <p><strong>Objective:</strong> To allow firmware for PineTime Smart Watch to be upgraded Over-The-Air via Bluetooth LE from a mobile phone or a Linux desktop</p>
 <p><strong>Devices To Be Supported:</strong> iOS, Android, PinePhone, Raspberry Pi (includes Linux desktops)</p>
-<h1 id="proposed-solution" class="section-header"><a href="#proposed-solution">9 Proposed Solution</a></h1>
+<h1 id="proposed-solution" class="section-header"><a href="#proposed-solution">10 Proposed Solution</a></h1>
 <p>TODO</p>
 <p>We are exploring the OTA Firmware Update solution based on Apache NimBLE Bluetooth stack and Apache Mynewt OS, which are open source:</p>
 <p>https://mynewt.apache.org/latest/tutorials/devmgmt/ota_upgrade_nrf52.html</p>
@@ -423,7 +337,7 @@ int img_mgmt_impl_log_confirm(int status, const uint8_t *hash);
 <p>The NimBLE Bluetooth stack is now supported on PineTime with the FreeRTOS, Mynewt, RIOT and Zephyr firmwares.</p>
 <p>The proposed solution is similar to the Bluetooth OTA Firmware Upgrade solution for Zephyr OS (based on MCU Manager):</p>
 <p>https://docs.zephyrproject.org/latest/guides/device_mgmt/dfu.html#</p>
-<h1 id="pinetime-firmware" class="section-header"><a href="#pinetime-firmware">10 PineTime Firmware</a></h1>
+<h1 id="pinetime-firmware" class="section-header"><a href="#pinetime-firmware">11 PineTime Firmware</a></h1>
 <p>TODO</p>
 <p>Now testing PineTime Mynewt firmware built with Newt Manager library, located at the <code>ota</code> branch of <code>/pinetime-rust-mynewt</code>:</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota</p>
@@ -434,7 +348,7 @@ int img_mgmt_impl_log_confirm(int status, const uint8_t *hash);
 <p>PineTime now appears in nRF Connect with DFU enabled:</p>
 <p>https://twitter.com/MisterTechBlog/status/1255305379766042626?s=20</p>
 <p>Need to implement MCUboot for DFU to work.</p>
-<h1 id="newt-manager-modules-used-in-pinetime-firmware" class="section-header"><a href="#newt-manager-modules-used-in-pinetime-firmware">11 Newt Manager Modules used in PineTime Firmware</a></h1>
+<h1 id="newt-manager-modules-used-in-pinetime-firmware" class="section-header"><a href="#newt-manager-modules-used-in-pinetime-firmware">12 Newt Manager Modules used in PineTime Firmware</a></h1>
 <p>TODO</p>
 <p>The following modules were added to PineTime firmware to support Newt Manager:</p>
 <pre><code class="language-yaml"># Bluetooth LE
@@ -454,13 +368,13 @@ pkg.deps.BLUETOOTH_LE:
     - &quot;@apache-mynewt-nimble/nimble/transport&quot;
 </code></pre>
 <p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/pkg.yml</em></p>
-<h1 id="nrf-connect-client-for-ios-and-android" class="section-header"><a href="#nrf-connect-client-for-ios-and-android">12 nRF Connect Client for iOS and Android</a></h1>
+<h1 id="nrf-connect-client-for-ios-and-android" class="section-header"><a href="#nrf-connect-client-for-ios-and-android">13 nRF Connect Client for iOS and Android</a></h1>
 <p>TODO</p>
 <p>The nRF Connect Client for iOS and Android works OK with Newt Manager Library on PineTime, connecting via Simple Management Protocol over Bluetooth LE:</p>
 <p>https://twitter.com/MisterTechBlog/status/1255305379766042626?s=20</p>
 <p>The DFU function is enabled in nRF Client, but PineTime needs MCUboot to be installed for firmware upgrading to work.</p>
 <p>More about nRF Connect: https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile</p>
-<h1 id="raspberry-pi-client" class="section-header"><a href="#raspberry-pi-client">13 Raspberry Pi Client</a></h1>
+<h1 id="raspberry-pi-client" class="section-header"><a href="#raspberry-pi-client">14 Raspberry Pi Client</a></h1>
 <p>TODO</p>
 <p>Newt Manager builds OK on Raspberry Pi 4 and works OK with PineTime.  See the log below.</p>
 <p>Now studying the Go code (with debug messages enabled) to understand the firmware upload process:</p>
@@ -468,15 +382,15 @@ pkg.deps.BLUETOOTH_LE:
 <p>Also how to set the device date/time:</p>
 <p>https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_datetime.html</p>
 <p>And whether we can push notifications to the device.</p>
-<h1 id="pinephone-client" class="section-header"><a href="#pinephone-client">14 PinePhone Client</a></h1>
+<h1 id="pinephone-client" class="section-header"><a href="#pinephone-client">15 PinePhone Client</a></h1>
 <p>TODO</p>
 <p>Waiting for PinePhone to be delivered. Client will probably be based on Newt Manager or MCU Manager, since Go is supported on Ubuntu Touch.</p>
 <p>Will probably wrap the Go client in a Qt GUI app.  Or wrap with a Go GUI library: https://github.com/avelino/awesome-go#gui</p>
-<h1 id="android-client" class="section-header"><a href="#android-client">15 Android Client</a></h1>
+<h1 id="android-client" class="section-header"><a href="#android-client">16 Android Client</a></h1>
 <p>TODO</p>
 <p>Not started. Will explore this Android MCU Manager client for OTA Firmware Upgrade, coded in Java:</p>
 <p>https://github.com/JuulLabs-OSS/mcumgr-android</p>
-<h1 id="ios-client" class="section-header"><a href="#ios-client">16 iOS Client</a></h1>
+<h1 id="ios-client" class="section-header"><a href="#ios-client">17 iOS Client</a></h1>
 <p>TODO</p>
 <p>Not started. Will explore this iOS MCU Manager client for OTA Firmware Upgrade, coded in Swift:</p>
 <p>https://github.com/JuulLabs-OSS/mcumgr-ios</p>
@@ -486,7 +400,7 @@ pkg.deps.BLUETOOTH_LE:
 <p>Refer to the iOS Core Bluetooth API:</p>
 <p>https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/AboutCoreBluetooth/Introduction.html#//apple_ref/doc/uid/TP40013257-CH1-SW1</p>
 <p>https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/PerformingCommonCentralRoleTasks/PerformingCommonCentralRoleTasks.html#//apple_ref/doc/uid/TP40013257-CH3-SW1</p>
-<h1 id="flutter-client-for-ios-and-android" class="section-header"><a href="#flutter-client-for-ios-and-android">17 Flutter Client for iOS and Android</a></h1>
+<h1 id="flutter-client-for-ios-and-android" class="section-header"><a href="#flutter-client-for-ios-and-android">18 Flutter Client for iOS and Android</a></h1>
 <p>TODO</p>
 <p>Alternatively, we may build iOS and Android clients for MCU Manager in Flutter based on this BLE library:</p>
 <p>https://github.com/pauldemarco/flutter_blue</p>
@@ -495,7 +409,7 @@ pkg.deps.BLUETOOTH_LE:
 <p>https://github.com/pauldemarco/flutter_blue/tree/master/example/lib</p>
 <p>And adapting the iOS MCU Client code.</p>
 <p>The Flutter app for PineTime would the MCU Manager functions from scratch. The app would be a great reference to teach how to talk to BLE and GATT services from iOS and Android, even though it won't be a polished app.</p>
-<h1 id="implementing-mcuboot" class="section-header"><a href="#implementing-mcuboot">18 Implementing MCUboot</a></h1>
+<h1 id="implementing-mcuboot" class="section-header"><a href="#implementing-mcuboot">19 Implementing MCUboot</a></h1>
 <p>TODO</p>
 <p>MCUboot is not implemented in the Mynewt firmware for PineTime because it doesn't have an allocated slot in Flash ROM for storing the new firmware image. Refer to the Flash Memory Map:</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/hw/bsp/nrf52/bsp.yml</p>
@@ -503,7 +417,7 @@ pkg.deps.BLUETOOTH_LE:
 <p>The Flash Memory Map needs to be fixed for MCUboot to work.  The flashing scripts depend on these flash addresses, so the scripts may have to be changed too.</p>
 <p>The Flash Memory Map should follow the Mynewt memory map for nRF52:</p>
 <p>https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml</p>
-<h1 id="mcuboot-enhancements" class="section-header"><a href="#mcuboot-enhancements">19 MCUboot Enhancements</a></h1>
+<h1 id="mcuboot-enhancements" class="section-header"><a href="#mcuboot-enhancements">20 MCUboot Enhancements</a></h1>
 <p>TODO</p>
 <p>MCUboot should detect button press upon startup. If the button is pressed, rollback the old firmware. This allows the user to roll back faulty firmware that does not respond to OTA Firmware Upgrade commands.</p>
 <p>The OTA Firmware Upgrade tool needs to ensure that the same firmware version doesn't get flashed twice.</p>
@@ -579,7 +493,7 @@ pkg.deps.BLUETOOTH_LE:
 <span class="ident">objsize</span>
    <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
  <span class="number">205760</span>     <span class="number">904</span>   <span class="number">55224</span>  <span class="number">261888</span>   <span class="number">3ff00</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">elf</span></pre></div>
-<h1 id="other-pinetime-bluetooth-firmware-upgrade-solutions" class="section-header"><a href="#other-pinetime-bluetooth-firmware-upgrade-solutions">20 Other PineTime Bluetooth Firmware Upgrade Solutions</a></h1>
+<h1 id="other-pinetime-bluetooth-firmware-upgrade-solutions" class="section-header"><a href="#other-pinetime-bluetooth-firmware-upgrade-solutions">21 Other PineTime Bluetooth Firmware Upgrade Solutions</a></h1>
 <ol>
 <li>
 <p>Nordic SoftDevice includes a proprietary BLE DFU implementation: https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v15.0.0/lib_bootloader_dfu_process.html</p>
@@ -594,7 +508,7 @@ pkg.deps.BLUETOOTH_LE:
 <p>DaFlasher for Android: https://github.com/atc1441/DaFlasherFiles</p>
 </li>
 </ol>
-<h1 id="log-for-raspberry-pi-client" class="section-header"><a href="#log-for-raspberry-pi-client">21 Log for Raspberry Pi Client</a></h1>
+<h1 id="log-for-raspberry-pi-client" class="section-header"><a href="#log-for-raspberry-pi-client">22 Log for Raspberry Pi Client</a></h1>
 <pre><code>
 $ cd ~/go
 $ mkdir -p src/mynewt.apache.org
@@ -642,7 +556,7 @@ Images:
     bootable: true
     flags: active confirmed
     hash: eab2886947a1df6f850463601f3dad409411d7ea21855eb0a70e965732258c92
-Split status: N/A (0)</code></pre><h1 id="further-reading" class="section-header"><a href="#further-reading">22 Further Reading</a></h1>
+Split status: N/A (0)</code></pre><h1 id="further-reading" class="section-header"><a href="#further-reading">23 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 
     
