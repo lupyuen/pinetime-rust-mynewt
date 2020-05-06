@@ -289,7 +289,201 @@ The function returns the 4 KB Flash ROM Sector that corresponds to an address in
 
 # NimBLE Bluetooth Stack
 
-TODO
+Porting NimBLE: https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h
+
+From NimBLE for Mynewt: https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt/include/nimble/nimble_npl_os.h
+
+```c
+
+struct ble_npl_event {
+    struct os_event ev;
+};
+
+struct ble_npl_eventq {
+    struct os_eventq evq;
+};
+
+struct ble_npl_callout {
+    struct os_callout co;
+};
+
+struct ble_npl_mutex {
+    struct os_mutex mu;
+};
+
+struct ble_npl_sem {
+    struct os_sem sem;
+};
+
+/*
+ * Generic
+ */
+
+bool ble_npl_os_started(void);
+    return os_started();
+
+void *ble_npl_get_current_task_id(void);
+    return os_sched_get_current_task();
+
+/*
+ * Event queue
+ */
+
+void ble_npl_eventq_init(struct ble_npl_eventq *evq);
+    os_eventq_init(&evq->evq);
+
+struct ble_npl_event *ble_npl_eventq_get(struct ble_npl_eventq *evq,
+                                         ble_npl_time_t tmo);
+static inline struct ble_npl_event *
+ble_npl_eventq_get(struct ble_npl_eventq *evq, ble_npl_time_t tmo)
+{
+    struct os_event *ev;
+
+    if (tmo == BLE_NPL_TIME_FOREVER) {
+        ev = os_eventq_get(&evq->evq);
+    } else {
+        ev = os_eventq_poll((struct os_eventq **)&evq, 1, tmo);
+    }
+
+    return (struct ble_npl_event *)ev;
+}
+
+void ble_npl_eventq_put(struct ble_npl_eventq *evq, struct ble_npl_event *ev);
+    os_eventq_put(&evq->evq, &ev->ev);
+
+void ble_npl_eventq_remove(struct ble_npl_eventq *evq,
+                           struct ble_npl_event *ev);
+
+void ble_npl_event_init(struct ble_npl_event *ev, ble_npl_event_fn *fn,
+                        void *arg);
+static inline void
+ble_npl_event_init(struct ble_npl_event *ev, ble_npl_event_fn *fn,
+                   void *arg)
+{
+    memset(ev, 0, sizeof(*ev));
+    ev->ev.ev_queued = 0;
+    ev->ev.ev_cb = (os_event_fn *)fn;
+    ev->ev.ev_arg = arg;
+}
+
+bool ble_npl_event_is_queued(struct ble_npl_event *ev);
+    return ev->ev.ev_queued;
+
+void *ble_npl_event_get_arg(struct ble_npl_event *ev);
+    return ev->ev.ev_arg;
+
+void ble_npl_event_set_arg(struct ble_npl_event *ev, void *arg);
+static inline void
+ble_npl_event_set_arg(struct ble_npl_event *ev, void *arg)
+{
+    assert(ev->ev.ev_queued == 0);
+    ev->ev.ev_arg = arg;
+}
+
+bool ble_npl_eventq_is_empty(struct ble_npl_eventq *evq);
+    return STAILQ_EMPTY(&evq->evq.evq_list);
+
+void ble_npl_event_run(struct ble_npl_event *ev);
+    ev->ev.ev_cb(&ev->ev);
+
+/*
+ * Mutexes
+ */
+
+ble_npl_error_t ble_npl_mutex_init(struct ble_npl_mutex *mu);
+    return (ble_npl_error_t)os_mutex_init(&mu->mu);
+
+ble_npl_error_t ble_npl_mutex_pend(struct ble_npl_mutex *mu,
+                                   ble_npl_time_t timeout);
+    return (ble_npl_error_t)os_mutex_pend(&mu->mu, timeout);
+
+ble_npl_error_t ble_npl_mutex_release(struct ble_npl_mutex *mu);
+    return (ble_npl_error_t)os_mutex_release(&mu->mu);
+
+/*
+ * Semaphores
+ */
+
+ble_npl_error_t ble_npl_sem_init(struct ble_npl_sem *sem, uint16_t tokens);
+    return (ble_npl_error_t)os_sem_init(&sem->sem, tokens);
+
+ble_npl_error_t ble_npl_sem_pend(struct ble_npl_sem *sem,
+                                 ble_npl_time_t timeout);
+    return (ble_npl_error_t)os_sem_pend(&sem->sem, timeout);
+
+ble_npl_error_t ble_npl_sem_release(struct ble_npl_sem *sem);
+    return (ble_npl_error_t)os_sem_release(&sem->sem);
+
+uint16_t ble_npl_sem_get_count(struct ble_npl_sem *sem);
+    return os_sem_get_count(&sem->sem);
+
+/*
+ * Callouts
+ */
+
+void ble_npl_callout_init(struct ble_npl_callout *co, struct ble_npl_eventq *evq,
+                          ble_npl_event_fn *ev_cb, void *ev_arg);
+    os_callout_init(&co->co, &evq->evq, (os_event_fn *)ev_cb, ev_arg);
+
+ble_npl_error_t ble_npl_callout_reset(struct ble_npl_callout *co,
+                                      ble_npl_time_t ticks);
+    return (ble_npl_error_t)os_callout_reset(&co->co, ticks);
+
+void ble_npl_callout_stop(struct ble_npl_callout *co);
+    os_callout_stop(&co->co);
+
+bool ble_npl_callout_is_active(struct ble_npl_callout *co);
+    return os_callout_queued(&co->co);
+
+ble_npl_time_t ble_npl_callout_get_ticks(struct ble_npl_callout *co);
+    return co->co.c_ticks;
+
+ble_npl_time_t ble_npl_callout_remaining_ticks(struct ble_npl_callout *co,
+                                               ble_npl_time_t time);
+    return os_callout_remaining_ticks(&co->co, time);
+
+void ble_npl_callout_set_arg(struct ble_npl_callout *co,
+                             void *arg);
+    co->co.c_ev.ev_arg = arg;
+/*
+ * Time functions
+ */
+
+ble_npl_time_t ble_npl_time_get(void);
+    return os_time_get();
+
+ble_npl_error_t ble_npl_time_ms_to_ticks(uint32_t ms, ble_npl_time_t *out_ticks);
+    return (ble_npl_error_t)os_time_ms_to_ticks(ms, out_ticks);
+
+ble_npl_error_t ble_npl_time_ticks_to_ms(ble_npl_time_t ticks, uint32_t *out_ms);
+    return os_time_ticks_to_ms(ticks, out_ms);
+
+ble_npl_time_t ble_npl_time_ms_to_ticks32(uint32_t ms);
+    return os_time_ms_to_ticks32(ms);
+
+uint32_t ble_npl_time_ticks_to_ms32(ble_npl_time_t ticks);
+    return os_time_ticks_to_ms32(ticks);
+
+void ble_npl_time_delay(ble_npl_time_t ticks);
+    return os_time_delay(ticks);
+
+/*
+ * Hardware-specific
+ *
+ * These symbols should be most likely defined by application since they are
+ * specific to hardware, not to OS.
+ */
+
+void ble_npl_hw_set_isr(int irqn, void (*addr)(void));
+
+uint32_t ble_npl_hw_enter_critical(void);
+    return os_arch_save_sr();
+
+void ble_npl_hw_exit_critical(uint32_t ctx);
+    os_arch_restore_sr(ctx);
+
+bool ble_npl_hw_is_in_critical(void);
+```
 
 MCU Manager runs on the Bluetooth LE transport based on the open-source NimBLE Bluetooth LE stack. The following NimBLE modules need to be ported to the PineTime platform:
 
@@ -305,6 +499,12 @@ MCU Manager runs on the Bluetooth LE transport based on the open-source NimBLE B
 ```
 
 Refer to the NimBLE source code at https://github.com/apache/mynewt-nimble
+
+NimBLE for RIOT: https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/include/nimble/nimble_npl_os.h
+
+https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/npl_os_riot.c
+
+https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_isr.c
 
 # MCUBoot Bootloader
 
@@ -323,61 +523,6 @@ https://github.com/apache/mynewt-mcumgr
 MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:
 
 https://github.com/apache/mynewt-mcumgr/tree/master/cmd
-
-# Firmware Upgrade via Bluetooth LE
-
-TODO
-
-__Objective:__ To allow firmware for PineTime Smart Watch to be upgraded Over-The-Air via Bluetooth LE from a mobile phone or a Linux desktop
-
-__Devices To Be Supported:__ iOS, Android, PinePhone, Raspberry Pi (includes Linux desktops)
-
-# Proposed Solution
-
-TODO
-
-We are exploring the OTA Firmware Update solution based on Apache NimBLE Bluetooth stack and Apache Mynewt OS, which are open source:
-
-https://mynewt.apache.org/latest/tutorials/devmgmt/ota_upgrade_nrf52.html
-
-This solution uses the Newt Manager command-line tool, coded in Go and supported on Linux and macOS:
-
-https://github.com/apache/mynewt-newtmgr
-
-https://mynewt.apache.org/latest/newtmgr/index.html
-
-Or we may use the MCU Manager command-line tool, which is a thin wrapper over the Newt Manager command-line tool:
-
-https://github.com/apache/mynewt-mcumgr-cli
-
-For the firmware, the Newt Manager library (based on the NimBLE stack) needs to be embedded. The Newt Manager library receives the firmware image transmitted by the Newt Manager command-line tool:
-
-https://mynewt.apache.org/latest/tutorials/devmgmt/add_newtmgr.html
-
-https://mynewt.apache.org/latest/os/modules/devmgmt/newtmgr.html
-
-Or we may embed the MCU Manager library (also based on the NimBLE stack):
-
-https://github.com/apache/mynewt-mcumgr/blob/master/README-mynewt.md
-
-https://mynewt.apache.org/latest/os/modules/mcumgr/mcumgr.html
-
-(Newt Manager library vs MCU Manager library: newtmgr supports two wire formats - NMP (plain newtmgr protocol) and OMP (CoAP newtmgr protocol). mcumgr only supports NMP (called “Simple Management Procotol” in mcumgr))
-
-Upon reboot, the MCUboot bootloader swaps the firmware images.  If there is a problem, MCUbot restores the previous firmware image. MCUboot is supported on Mynewt, Zephyr and RIOT OS. More about MCUboot:
-
-https://juullabs-oss.github.io/mcuboot/
-
-The Newt Manager / MCU Manager library is probably portable to other firmware, like FreeRTOS and RIOT OS.  MCU Manager is already supported in Zephyr OS.
-
-PineTime should probably ship with a firmware image containing Newt Manager or MCU Manager so that we may upgrade PineTime to other firmware easily.
-
-The NimBLE Bluetooth stack is now supported on PineTime with the FreeRTOS, Mynewt, RIOT and Zephyr firmwares.
-
-The proposed solution is similar to the Bluetooth OTA Firmware Upgrade solution for Zephyr OS (based on MCU Manager):
-
-https://docs.zephyrproject.org/latest/guides/device_mgmt/dfu.html#
-
 
 # PineTime Firmware
 
@@ -426,18 +571,6 @@ pkg.deps.BLUETOOTH_LE:
 ```
 _From https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/pkg.yml_
 
-# nRF Connect Client for iOS and Android
-
-TODO
-
-The nRF Connect Client for iOS and Android works OK with Newt Manager Library on PineTime, connecting via Simple Management Protocol over Bluetooth LE:
-
-https://twitter.com/MisterTechBlog/status/1255305379766042626?s=20
-
-The DFU function is enabled in nRF Client, but PineTime needs MCUboot to be installed for firmware upgrading to work.
-
-More about nRF Connect: https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile
-
 # Raspberry Pi Client
 
 TODO
@@ -453,14 +586,6 @@ Also how to set the device date/time:
 https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_datetime.html
 
 And whether we can push notifications to the device.
-
-# PinePhone Client
-
-TODO
-
-Waiting for PinePhone to be delivered. Client will probably be based on Newt Manager or MCU Manager, since Go is supported on Ubuntu Touch.
-
-Will probably wrap the Go client in a Qt GUI app.  Or wrap with a Go GUI library: https://github.com/avelino/awesome-go#gui
 
 # Android Client
 
