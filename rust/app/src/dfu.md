@@ -293,9 +293,9 @@ The function returns the 4 KB Flash ROM Sector that corresponds to an address in
 
 To support firmware updates over Bluetooth LE, PineTime Firmware Developers would have to include NimBLE in their firmware. NimBLE takes care of the firmware update process by interpreting GATT Read/Write Requests, and forwarding the SMP Commands to the MCU Manager Library (which writes the new firmware into Flash ROM).
 
-![NimBLE Bluetooth LE Stack on PineTime](https://lupyuen.github.io/images/dfu-nimble.png)
+![NimBLE Networking Stack for Bluetooth LE on PineTime](https://lupyuen.github.io/images/dfu-nimble.png)
 
-_NimBLE Bluetooth LE Stack on PineTime_
+_NimBLE Networking Stack for Bluetooth LE on PineTime_
 
 NimBLE runs in the background handling Bluetooth LE packets, so it depends on the multitasking capabilities provided by the operating system embedded in the firmware. PineTime Firmware Developers would have to implement the following functions in C for use by NimBLE...
 
