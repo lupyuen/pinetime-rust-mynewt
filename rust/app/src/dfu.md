@@ -289,6 +289,17 @@ The function returns the 4 KB Flash ROM Sector that corresponds to an address in
 
 # NimBLE Bluetooth Stack
 
+GATT Read/Write Request
+-> Bluetooth Controller
+-> Interrupt Service Routine
+-> Bluetooth Controller
+
+Time
+Mutex
+Semaphore
+Callouts
+Event Queues
+
 Porting NimBLE: https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h
 
 From NimBLE for Mynewt: https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt/include/nimble/nimble_npl_os.h
