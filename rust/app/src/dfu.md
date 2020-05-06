@@ -305,7 +305,7 @@ NimBLE runs in the background handling Bluetooth LE packets, so it depends on th
 
 1. __Semaphore Functions:__ A Semaphore works like a Mutex but it's more flexible. Think of a Semaphore as a Ticket Queueing System for shared resources. [More about Semaphores](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html) 
 
-1. __Callout Functions:__ [More about Callouts](https://mynewt.apache.org/latest/os/core_os/callout/callout.html)
+1. __Callout Functions:__ High-priority tasks on PineTime shouldn't be allowed to run for a long time... We should be fair to lower priority tasks! With Callouts, a high-priority task (like the Interrupt Service Routine for Bluetooth) may defer some processing to be done later with lower priority. [More about Callouts](https://mynewt.apache.org/latest/os/core_os/callout/callout.html)
 
 1. __Event Queue Functions:__ [More about Event Queues](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html)
 
