@@ -297,26 +297,27 @@ To support firmware updates over Bluetooth LE, PineTime Firmware Developers woul
 
 _NimBLE Bluetooth LE Stack on PineTime_
 
-NimBLE runs in the background handling Bluetooth LE packets, so it depends on the multitasking capabilities provided by the operating system embedded in the firmware. PineTime Firmware Developers would have to implement the following multitasking functions in C for use by NimBLE...
+NimBLE runs in the background handling Bluetooth LE packets, so it depends on the multitasking capabilities provided by the operating system embedded in the firmware. PineTime Firmware Developers would have to implement the following functions in C for use by NimBLE...
 
-1. __Time Functions:__
+1. __Time Functions:__ Get the elapsed time since startup, in milliseconds and in ticks (1 tick equals 1 millisecond)
 
-1. __Mutex Functions:__
+1. __Mutex Functions:__ [More about Mutexes](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html)
 
-1. __Semaphore Functions:__
+1. __Semaphore Functions:__ [More about Semaphores](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html) 
 
-1. __Callout Functions:__
+1. __Callout Functions:__ [More about Callouts](https://mynewt.apache.org/latest/os/core_os/callout/callout.html)
 
-1. __Event Queue Functions:__
+1. __Event Queue Functions:__ [More about Event Queues](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html)
 
-Porting NimBLE: https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h
+The complete list of C functions to be implemented by PineTime Firmware Developers may be found here: [`nimble_npl.h`](https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h)
+
 
 From NimBLE for Mynewt: https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt/include/nimble/nimble_npl_os.h
 
 ```c
 
 Event Queue:
-https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html
+
 
 struct ble_npl_event {
     struct os_event ev;
@@ -329,7 +330,7 @@ struct ble_npl_eventq {
 https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq
 
 Callout:
-https://mynewt.apache.org/latest/os/core_os/callout/callout.html
+
 
 struct ble_npl_callout {
     struct os_callout co;
@@ -337,7 +338,6 @@ struct ble_npl_callout {
 https://mynewt.apache.org/latest/os/core_os/callout/callout.html#c.os_callout
 
 Mutex:
-https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html
 
 struct ble_npl_mutex {
     struct os_mutex mu;
@@ -345,7 +345,6 @@ struct ble_npl_mutex {
 https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html#c.os_mutex
 
 Semaphore:
-https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html
 
 struct ble_npl_sem {
     struct os_sem sem;
