@@ -257,36 +257,59 @@
 <p>According to the <a href="https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c#L391-L435">reference implementation</a>, the function does the following...</p>
 <ol>
 <li>
-<p>Call <code>flash_area_open( STANDBY_FIRMWARE_AREA, &amp;fa)</code> to get a handle to the Standby Firmware Flash ROM Area and store the handle in <code>fa</code></p>
-</li>
-<li>
 <p>PineTime's Flash ROM is accessed as <strong>Flash ROM Sectors</strong> when writing and erasing the Flash ROM. PineTime's 512 KB Flash ROM is divided into <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L73-L81">128 Sectors</a>, with <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L26">4 KB per Sector</a>.</p>
 </li>
 <li>
 <p>For every Flash ROM Sector (4 KB each) that will be written:</p>
-<p>Call <code>flash_area_getnext_sector( fa-&gt;fa_id, &amp;sector_id, &amp;sector)</code> to get the Flash ROM Sector ID (<code>sector_id</code>, from 0 to 127) and Flash ROM Sector Details (<code>sector</code>)</p>
+<p>Call <code>flash_area_getnext_sector( fa-&gt;fa_id, &amp;sector_id, &amp;sector)</code> to get the Flash ROM Sector ID (<code>sector_id</code>, from 0 to 127) and Flash ROM Sector Details (<code>sector</code>).</p>
+<p><code>fa</code> is the handle to the Standby Firmware ROM Area.</p>
 <p>Then erase the Flash ROM Sector (set all bits to <code>1</code>) by calling <code>flash_area_erase( &amp;sector, 0, sector.fa_size)</code></p>
 </li>
 <li>
 <p>Write the firmware data to the Standby Firmware Flash ROM  by calling <code>flash_area_write( fa, offset, data, num_bytes)</code></p>
 </li>
-<li>
-<p>Close the Standby Firmware Flash ROM Area by calling <code>flash_area_close(fa)</code></p>
-</li>
 </ol>
 <p>For details on the parameters of the <code>flash_area_*</code> functions, refer to the function declarations in <a href="https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h"><code>flash_map.h</code></a></p>
-<p><em>How shall we implement these functions and write to PineTime's Flash ROM?</em></p>
-<p>Here's the <a href="https://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.0.pdf">official documentation</a>...</p>
-<p><img src="https://lupyuen.github.io/images/dfu-flash.png" alt="Writing to Flash ROM on nRF52832" /></p>
+<p><em>Why do we erase PineTime's Flash ROM before writing?</em></p>
+<p>PineTime's Internal Flash Controller (<a href="https://infocenter.nordicsemi.com/index.jsp?topic=%2Fcom.nordic.infocenter.nrf52832.ps.v1.1%2Fnvmc.html">nRF52832 NVMC</a>) can only write <code>0</code> bits to Flash ROM. To write <code>1</code> bits, we erase the Flash ROM to set all bits to <code>1</code>, then write the <code>0</code> bits.</p>
+<p>That's why we call <code>flash_area_erase</code> before <code>flash_area_write</code>.</p>
+<p><em>How shall we implement <code>flash_area_erase</code> to erase PineTime's Flash ROM?</em></p>
+<p>According to the official documentation...</p>
+<p><img src="https://lupyuen.github.io/images/dfu-flash2.png" alt="Erasing Flash ROM on nRF52832" /></p>
+<p><em>Erasing Flash ROM on nRF52832. From <a href="https://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.0.pdf">Nordic nRF52832 Product Specification</a></em></p>
+<p>We should erase the Flash ROM like this...</p>
+<ol>
+<li>
+<p>Set the <code>CONFIG</code> Register to <code>EEN</code> (value <code>2</code>) to enable erase</p>
+</li>
+<li>
+<p>Set the <code>ERASEPAGE</code> Register to the address of the 4 KB Flash ROM Sector to be erased. (That's the address of the first word in the Flash ROM Sector)</p>
+</li>
+<li>
+<p>Set the <code>CONFIG</code> Register to <code>REN</code> (value <code>0</code>) to disable erase</p>
+</li>
+</ol>
+<p>For the reference implementation of <code>flash_area_erase</code>, check out <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L181-L205"><code>nrf52k_flash_erase_sector</code></a> in <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L181-L205">Mynewt's Flash Driver for nRF52</a>.</p>
+<p><em>How shall we implement <code>flash_area_write</code> to write to PineTime's Flash ROM?</em></p>
+<p><img src="https://lupyuen.github.io/images/dfu-flash1.png" alt="Writing to Flash ROM on nRF52832" /></p>
 <p><em>Writing to Flash ROM on nRF52832. From <a href="https://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.0.pdf">Nordic nRF52832 Product Specification</a></em></p>
-<p>If you're used to writing Flash ROM byte by byte on <a href="http://libopencm3.org/docs/latest/stm32f1/html/group__flash__file.html#gaf5077b5726c70fa9418db9d73182f89d">STM32 Blue Pill</a> and other microcontrollers... Good News! Writing to PineTime's Flash ROM is almost as easy as writing to RAM.</p>
-<p>Check out the reference implementation of 
-<code>flash_area_write</code> in <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L109-L179">Mynewt's Flash Driver for nRF52</a> under <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L109-L179"><code>nrf52k_flash_write</code></a>.</p>
-<p>PineTime's Internal Flash Controller (<a href="https://infocenter.nordicsemi.com/index.jsp?topic=%2Fcom.nordic.infocenter.nrf52832.ps.v1.1%2Fnvmc.html">nRF52832 NVMC</a>) can only write <code>0</code> bits to the Flash ROM that has been erased to <code>1</code>. The Flash Controller can't write <code>1</code> bits 
-without first erasing the Flash ROM. That's why we call <code>flash_area_erase</code> before <code>flash_area_write</code>.</p>
-<p>For reference implementations of <code>flash_area_open</code> and <code>flash_area_erase</code>, check out <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L217-L221"><code>nrf52k_flash_init</code></a> and <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L181-L205"><code>nrf52k_flash_erase_sector</code></a> in <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c">Mynewt's Flash Driver for nRF52</a>.</p>
-<p>The reference implementation of <code>flash_area_getnext_sector</code> may be found in <a href="https://github.com/apache/mynewt-core/blob/master/sys/flash_map/src/flash_map.c#L193-L229"><code>flash_map.c</code></a>. The function returns the 4 KB Flash ROM Sector that corresponds to an address in the Standby Flash ROM Area, by walking through a list of Flash ROM Sectors.</p>
-<p><code>flash_area_close</code> is <a href="https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h#L80-L81">currently unused</a>.</p>
+<p>We should write to the Flash ROM like this...</p>
+<ol>
+<li>
+<p>Set the <code>CONFIG</code> Register to <code>WEN</code> (value <code>1</code>) to enable writing</p>
+</li>
+<li>
+<p>Write the data (4 bytes at a time) to the target Flash ROM address</p>
+</li>
+<li>
+<p>Set the <code>CONFIG</code> Register to <code>REN</code> (value <code>0</code>) to disable writing</p>
+</li>
+</ol>
+<p>For the reference implementation of 
+<code>flash_area_write</code>, check out <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L109-L179"><code>nrf52k_flash_write</code></a> in <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L109-L179">Mynewt's Flash Driver for nRF52</a>.</p>
+<p><em>How shall we implement <code>flash_area_getnext_sector</code> to get the Flash ROM Sector?</em></p>
+<p>The reference implementation of <code>flash_area_getnext_sector</code> may be found in <a href="https://github.com/apache/mynewt-core/blob/master/sys/flash_map/src/flash_map.c#L193-L229"><code>flash_map.c</code></a>.</p>
+<p>The function returns the 4 KB Flash ROM Sector that corresponds to an address in the Standby Flash ROM Area, by walking through the list of Flash ROM Sectors.</p>
 <h1 id="nimble-bluetooth-stack" class="section-header"><a href="#nimble-bluetooth-stack">6 NimBLE Bluetooth Stack</a></h1>
 <p>TODO</p>
 <p>MCU Manager runs on the Bluetooth LE transport based on the open-source NimBLE Bluetooth LE stack. The following NimBLE modules need to be ported to the PineTime platform:</p>

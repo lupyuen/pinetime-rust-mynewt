@@ -226,43 +226,66 @@ int img_mgmt_impl_write_image_data(
 
 According to the [reference implementation](https://github.com/apache/mynewt-mcumgr/blob/master/cmd/img_mgmt/port/mynewt/src/mynewt_img_mgmt.c#L391-L435), the function does the following...
 
-1. Call `flash_area_open( STANDBY_FIRMWARE_AREA, &fa)` to get a handle to the Standby Firmware Flash ROM Area and store the handle in `fa`
-
 1. PineTime's Flash ROM is accessed as __Flash ROM Sectors__ when writing and erasing the Flash ROM. PineTime's 512 KB Flash ROM is divided into [128 Sectors](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L73-L81), with [4 KB per Sector](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L26).
 
 1. For every Flash ROM Sector (4 KB each) that will be written:
 
-    Call `flash_area_getnext_sector( fa->fa_id, &sector_id, &sector)` to get the Flash ROM Sector ID (`sector_id`, from 0 to 127) and Flash ROM Sector Details (`sector`)
+    Call `flash_area_getnext_sector( fa->fa_id, &sector_id, &sector)` to get the Flash ROM Sector ID (`sector_id`, from 0 to 127) and Flash ROM Sector Details (`sector`).
+
+    `fa` is the handle to the Standby Firmware ROM Area.
 
     Then erase the Flash ROM Sector (set all bits to `1`) by calling `flash_area_erase( &sector, 0, sector.fa_size)`
 
 1. Write the firmware data to the Standby Firmware Flash ROM  by calling `flash_area_write( fa, offset, data, num_bytes)`
 
-1. Close the Standby Firmware Flash ROM Area by calling `flash_area_close(fa)`
-
 For details on the parameters of the `flash_area_*` functions, refer to the function declarations in [`flash_map.h`](https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h)
 
-_How shall we implement these functions and write to PineTime's Flash ROM?_
+_Why do we erase PineTime's Flash ROM before writing?_
 
-Here's the [official documentation](https://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.0.pdf)...
+PineTime's Internal Flash Controller ([nRF52832 NVMC](https://infocenter.nordicsemi.com/index.jsp?topic=%2Fcom.nordic.infocenter.nrf52832.ps.v1.1%2Fnvmc.html)) can only write `0` bits to Flash ROM. To write `1` bits, we erase the Flash ROM to set all bits to `1`, then write the `0` bits.
 
-![Writing to Flash ROM on nRF52832](https://lupyuen.github.io/images/dfu-flash.png)
+That's why we call `flash_area_erase` before `flash_area_write`.
+
+_How shall we implement `flash_area_erase` to erase PineTime's Flash ROM?_
+
+According to the official documentation...
+
+![Erasing Flash ROM on nRF52832](https://lupyuen.github.io/images/dfu-flash2.png)
+
+_Erasing Flash ROM on nRF52832. From [Nordic nRF52832 Product Specification](https://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.0.pdf)_
+
+We should erase the Flash ROM like this...
+
+1. Set the `CONFIG` Register to `EEN` (value `2`) to enable erase
+
+1. Set the `ERASEPAGE` Register to the address of the 4 KB Flash ROM Sector to be erased. (That's the address of the first word in the Flash ROM Sector)
+
+1. Set the `CONFIG` Register to `REN` (value `0`) to disable erase
+
+For the reference implementation of `flash_area_erase`, check out [`nrf52k_flash_erase_sector`](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L181-L205) in [Mynewt's Flash Driver for nRF52](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L181-L205).
+
+_How shall we implement `flash_area_write` to write to PineTime's Flash ROM?_
+
+![Writing to Flash ROM on nRF52832](https://lupyuen.github.io/images/dfu-flash1.png)
 
 _Writing to Flash ROM on nRF52832. From [Nordic nRF52832 Product Specification](https://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.0.pdf)_
 
-If you're used to writing Flash ROM byte by byte on [STM32 Blue Pill](http://libopencm3.org/docs/latest/stm32f1/html/group__flash__file.html#gaf5077b5726c70fa9418db9d73182f89d) and other microcontrollers... Good News! Writing to PineTime's Flash ROM is almost as easy as writing to RAM.
+We should write to the Flash ROM like this...
 
-Check out the reference implementation of 
-`flash_area_write` in [Mynewt's Flash Driver for nRF52](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L109-L179) under [`nrf52k_flash_write`](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L109-L179).
+1. Set the `CONFIG` Register to `WEN` (value `1`) to enable writing
 
-PineTime's Internal Flash Controller ([nRF52832 NVMC](https://infocenter.nordicsemi.com/index.jsp?topic=%2Fcom.nordic.infocenter.nrf52832.ps.v1.1%2Fnvmc.html)) can only write `0` bits to the Flash ROM that has been erased to `1`. The Flash Controller can't write `1` bits 
-without first erasing the Flash ROM. That's why we call `flash_area_erase` before `flash_area_write`.
+1. Write the data (4 bytes at a time) to the target Flash ROM address
 
-For reference implementations of `flash_area_open` and `flash_area_erase`, check out [`nrf52k_flash_init`](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L217-L221) and [`nrf52k_flash_erase_sector`](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L181-L205) in [Mynewt's Flash Driver for nRF52](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c).
+1. Set the `CONFIG` Register to `REN` (value `0`) to disable writing
 
-The reference implementation of `flash_area_getnext_sector` may be found in [`flash_map.c`](https://github.com/apache/mynewt-core/blob/master/sys/flash_map/src/flash_map.c#L193-L229). The function returns the 4 KB Flash ROM Sector that corresponds to an address in the Standby Flash ROM Area, by walking through a list of Flash ROM Sectors.
+For the reference implementation of 
+`flash_area_write`, check out [`nrf52k_flash_write`](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L109-L179) in [Mynewt's Flash Driver for nRF52](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/src/hal_flash.c#L109-L179).
 
-`flash_area_close` is [currently unused](https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h#L80-L81).
+_How shall we implement `flash_area_getnext_sector` to get the Flash ROM Sector?_
+
+The reference implementation of `flash_area_getnext_sector` may be found in [`flash_map.c`](https://github.com/apache/mynewt-core/blob/master/sys/flash_map/src/flash_map.c#L193-L229).
+
+The function returns the 4 KB Flash ROM Sector that corresponds to an address in the Standby Flash ROM Area, by walking through the list of Flash ROM Sectors.
 
 # NimBLE Bluetooth Stack
 
