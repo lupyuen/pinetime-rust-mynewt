@@ -566,6 +566,8 @@ https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/npl_os_
 
 https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_isr.c
 
+NimBLE for FreeRTOS: https://github.com/apache/mynewt-nimble/tree/master/porting/npl/freertos
+
 # MCUBoot Bootloader
 
 TODO
