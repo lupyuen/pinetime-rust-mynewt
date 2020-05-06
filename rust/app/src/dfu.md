@@ -339,9 +339,12 @@ https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html#c.os_sem
 bool ble_npl_os_started(void);
     return os_started();
 https://github.com/apache/mynewt-core/blob/master/kernel/os/include/os/os.h#L70-L75
+https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L277-L299
+OS has started and ready to run first task
 
 void *ble_npl_get_current_task_id(void);
     return os_sched_get_current_task();
+https://mynewt.apache.org/latest/os/core_os/context_switch/context_switch.html#c.os_sched_get_current_task
 
 /*
  * Event queue
@@ -349,6 +352,7 @@ void *ble_npl_get_current_task_id(void);
 
 void ble_npl_eventq_init(struct ble_npl_eventq *evq);
     os_eventq_init(&evq->evq);
+https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html?highlight=os_eventq_init#c.os_eventq_init
 
 struct ble_npl_event *ble_npl_eventq_get(struct ble_npl_eventq *evq,
                                          ble_npl_time_t tmo);
@@ -365,12 +369,17 @@ ble_npl_eventq_get(struct ble_npl_eventq *evq, ble_npl_time_t tmo)
 
     return (struct ble_npl_event *)ev;
 }
+https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html?highlight=os_eventq_get#c.os_eventq_get
+
+https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_poll
 
 void ble_npl_eventq_put(struct ble_npl_eventq *evq, struct ble_npl_event *ev);
     os_eventq_put(&evq->evq, &ev->ev);
+https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_put
 
 void ble_npl_eventq_remove(struct ble_npl_eventq *evq,
                            struct ble_npl_event *ev);
+https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_remove
 
 void ble_npl_event_init(struct ble_npl_event *ev, ble_npl_event_fn *fn,
                         void *arg);
@@ -410,13 +419,16 @@ void ble_npl_event_run(struct ble_npl_event *ev);
 
 ble_npl_error_t ble_npl_mutex_init(struct ble_npl_mutex *mu);
     return (ble_npl_error_t)os_mutex_init(&mu->mu);
+https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_init#c.os_mutex_init
 
 ble_npl_error_t ble_npl_mutex_pend(struct ble_npl_mutex *mu,
                                    ble_npl_time_t timeout);
     return (ble_npl_error_t)os_mutex_pend(&mu->mu, timeout);
+https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_init#c.os_mutex_pend
 
 ble_npl_error_t ble_npl_mutex_release(struct ble_npl_mutex *mu);
     return (ble_npl_error_t)os_mutex_release(&mu->mu);
+https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_init#c.os_mutex_release
 
 /*
  * Semaphores
@@ -424,16 +436,20 @@ ble_npl_error_t ble_npl_mutex_release(struct ble_npl_mutex *mu);
 
 ble_npl_error_t ble_npl_sem_init(struct ble_npl_sem *sem, uint16_t tokens);
     return (ble_npl_error_t)os_sem_init(&sem->sem, tokens);
+https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_init
 
 ble_npl_error_t ble_npl_sem_pend(struct ble_npl_sem *sem,
                                  ble_npl_time_t timeout);
     return (ble_npl_error_t)os_sem_pend(&sem->sem, timeout);
+https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_pend
 
 ble_npl_error_t ble_npl_sem_release(struct ble_npl_sem *sem);
     return (ble_npl_error_t)os_sem_release(&sem->sem);
+https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_release
 
 uint16_t ble_npl_sem_get_count(struct ble_npl_sem *sem);
     return os_sem_get_count(&sem->sem);
+https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_get_count
 
 /*
  * Callouts
@@ -442,16 +458,20 @@ uint16_t ble_npl_sem_get_count(struct ble_npl_sem *sem);
 void ble_npl_callout_init(struct ble_npl_callout *co, struct ble_npl_eventq *evq,
                           ble_npl_event_fn *ev_cb, void *ev_arg);
     os_callout_init(&co->co, &evq->evq, (os_event_fn *)ev_cb, ev_arg);
+https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_init
 
 ble_npl_error_t ble_npl_callout_reset(struct ble_npl_callout *co,
                                       ble_npl_time_t ticks);
     return (ble_npl_error_t)os_callout_reset(&co->co, ticks);
+https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_reset
 
 void ble_npl_callout_stop(struct ble_npl_callout *co);
     os_callout_stop(&co->co);
+https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_stop
 
 bool ble_npl_callout_is_active(struct ble_npl_callout *co);
     return os_callout_queued(&co->co);
+https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_queued
 
 ble_npl_time_t ble_npl_callout_get_ticks(struct ble_npl_callout *co);
     return co->co.c_ticks;
@@ -459,6 +479,7 @@ ble_npl_time_t ble_npl_callout_get_ticks(struct ble_npl_callout *co);
 ble_npl_time_t ble_npl_callout_remaining_ticks(struct ble_npl_callout *co,
                                                ble_npl_time_t time);
     return os_callout_remaining_ticks(&co->co, time);
+https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_remaining_ticks
 
 void ble_npl_callout_set_arg(struct ble_npl_callout *co,
                              void *arg);
@@ -469,21 +490,27 @@ void ble_npl_callout_set_arg(struct ble_npl_callout *co,
 
 ble_npl_time_t ble_npl_time_get(void);
     return os_time_get();
+https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_get
 
 ble_npl_error_t ble_npl_time_ms_to_ticks(uint32_t ms, ble_npl_time_t *out_ticks);
     return (ble_npl_error_t)os_time_ms_to_ticks(ms, out_ticks);
+https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ms_to_ticks
 
 ble_npl_error_t ble_npl_time_ticks_to_ms(ble_npl_time_t ticks, uint32_t *out_ms);
     return os_time_ticks_to_ms(ticks, out_ms);
+https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ticks_to_ms
 
 ble_npl_time_t ble_npl_time_ms_to_ticks32(uint32_t ms);
     return os_time_ms_to_ticks32(ms);
+https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ms_to_ticks32
 
 uint32_t ble_npl_time_ticks_to_ms32(ble_npl_time_t ticks);
     return os_time_ticks_to_ms32(ticks);
+https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ticks_to_ms32
 
 void ble_npl_time_delay(ble_npl_time_t ticks);
     return os_time_delay(ticks);
+https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_delay
 
 /*
  * Hardware-specific
@@ -496,9 +523,13 @@ void ble_npl_hw_set_isr(int irqn, void (*addr)(void));
 
 uint32_t ble_npl_hw_enter_critical(void);
     return os_arch_save_sr();
+https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L126-L140
+__disable_irq
 
 void ble_npl_hw_exit_critical(uint32_t ctx);
     os_arch_restore_sr(ctx);
+https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L142-L152
+__enable_irq
 
 bool ble_npl_hw_is_in_critical(void);
 ```
