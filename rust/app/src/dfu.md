@@ -295,25 +295,42 @@ From NimBLE for Mynewt: https://github.com/apache/mynewt-nimble/blob/master/port
 
 ```c
 
+Event Queue:
+https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html
+
 struct ble_npl_event {
     struct os_event ev;
 };
+https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event
 
 struct ble_npl_eventq {
     struct os_eventq evq;
 };
+https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq
+
+Callout:
+https://mynewt.apache.org/latest/os/core_os/callout/callout.html
 
 struct ble_npl_callout {
     struct os_callout co;
 };
+https://mynewt.apache.org/latest/os/core_os/callout/callout.html#c.os_callout
+
+Mutex:
+https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html
 
 struct ble_npl_mutex {
     struct os_mutex mu;
 };
+https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html#c.os_mutex
+
+Semaphore:
+https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html
 
 struct ble_npl_sem {
     struct os_sem sem;
 };
+https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html#c.os_sem
 
 /*
  * Generic
@@ -321,6 +338,7 @@ struct ble_npl_sem {
 
 bool ble_npl_os_started(void);
     return os_started();
+https://github.com/apache/mynewt-core/blob/master/kernel/os/include/os/os.h#L70-L75
 
 void *ble_npl_get_current_task_id(void);
     return os_sched_get_current_task();
