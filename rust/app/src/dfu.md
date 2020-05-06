@@ -303,7 +303,7 @@ NimBLE runs in the background handling Bluetooth LE packets, so it depends on th
 
 1. __Mutex Functions:__ When multiple tasks run at the same time on PineTime, they may clash when accessing common resources (like the Bluetooth hardware). NimBLE uses a Mutex (Mutually Exclusive Lock) to prevent concurrent access to common resources. [More about Mutexes](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html)
 
-1. __Semaphore Functions:__ [More about Semaphores](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html) 
+1. __Semaphore Functions:__ A Semaphore works like a Mutex but it's more flexible. Think of a Semaphore as a Ticket Queueing System for shared resources. [More about Semaphores](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html) 
 
 1. __Callout Functions:__ [More about Callouts](https://mynewt.apache.org/latest/os/core_os/callout/callout.html)
 
