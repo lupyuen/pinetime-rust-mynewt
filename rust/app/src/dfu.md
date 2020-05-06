@@ -287,18 +287,27 @@ The reference implementation of `flash_area_getnext_sector` may be found in [`fl
 
 The function returns the 4 KB Flash ROM Sector that corresponds to an address in the Standby Flash ROM Area, by walking through the list of Flash ROM Sectors.
 
-# NimBLE Bluetooth Stack
+# NimBLE Stack for Bluetooth LE on PineTime
 
-GATT Read/Write Request
--> Bluetooth Controller
--> Interrupt Service Routine
--> Bluetooth Controller
+[NimBLE](https://github.com/apache/mynewt-nimble) is an open-source networking stack for Bluetooth LE, coded in C. NimBLE talks directly to the Bluetooth hardware controller on PineTime's nRF52 microcontroller.
 
-Time
-Mutex
-Semaphore
-Callouts
-Event Queues
+To support firmware updates over Bluetooth LE, PineTime Firmware Developers would have to include NimBLE in their firmware. NimBLE takes care of the firmware update process by interpreting GATT Read/Write Requests, and forwarding the SMP Commands to the MCU Manager Library (which writes the new firmware into Flash ROM).
+
+![NimBLE Bluetooth LE Stack on PineTime](https://lupyuen.github.io/images/dfu-nimble.png)
+
+_NimBLE Bluetooth LE Stack on PineTime_
+
+NimBLE runs in the background handling Bluetooth LE packets, so it depends on the multitasking capabilities provided by the operating system embedded in the firmware. PineTime Firmware Developers would have to implement the following multitasking functions in C for use by NimBLE...
+
+1. __Time Functions:__
+
+1. __Mutex Functions:__
+
+1. __Semaphore Functions:__
+
+1. __Callout Functions:__
+
+1. __Event Queue Functions:__
 
 Porting NimBLE: https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h
 
