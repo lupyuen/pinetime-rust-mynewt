@@ -568,6 +568,8 @@ https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_i
 
 NimBLE for FreeRTOS: https://github.com/apache/mynewt-nimble/tree/master/porting/npl/freertos
 
+NimBLE for MicroPython: https://github.com/micropython/micropython/tree/master/extmod/nimble
+
 # MCUBoot Bootloader
 
 TODO
