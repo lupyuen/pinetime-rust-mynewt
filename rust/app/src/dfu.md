@@ -299,6 +299,8 @@ _NimBLE Networking Stack for Bluetooth LE on PineTime_
 
 NimBLE runs in the background handling Bluetooth LE packets, so it depends on the multitasking capabilities provided by the operating system embedded in the firmware. PineTime Firmware Developers would have to implement the following functions in C for use by NimBLE...
 
+NimBLE Porting Layer
+
 1. __Time Functions:__ Get the elapsed time since startup, in milliseconds and in ticks (1 tick equals 1 millisecond)
 
 1. __Mutex Functions:__ When multiple tasks run at the same time on PineTime, they may clash when accessing common resources (like the Bluetooth hardware). NimBLE uses a Mutex (Mutually Exclusive Lock) to prevent concurrent access to common resources. [More about Mutexes](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html)
@@ -313,9 +315,39 @@ We'll see the list of functions at the end of this section.
 
 _What if our embedded operating system doesn't support Mutex / Semaphore / Callout / Event Queue?_
 
-It may be possible to emulate the missing functions using the multitasking features found in our operating system. Or we may implement them using simple counters and locks. Let's check out how NimBLE was implemented on various operating systems...
+It may be possible to emulate the missing functions using the multitasking features found in our operating system. Or we may implement them using simple counters and locks. 
 
-1. __RIOT__:
+Let's check out how NimBLE was implemented on various operating systems...
+
+1. __RIOT__: 
+
+```c
+struct ble_npl_event {
+    event_callback_t e;
+    void *arg;
+};
+
+struct ble_npl_eventq {
+    event_queue_t q;
+};
+
+struct ble_npl_callout {
+    xtimer_t timer;
+    uint64_t target_us;
+    struct ble_npl_event e;
+    event_queue_t *q;
+};
+
+struct ble_npl_mutex {
+    mutex_t mu;
+};
+
+struct ble_npl_sem {
+    sem_t sem;
+};
+```
+
+https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/include/nimble/nimble_npl_os.h#L43-L65
 
 NimBLE for RIOT: https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/include/nimble/nimble_npl_os.h
 
@@ -325,9 +357,69 @@ https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_i
 
 1. __FreeRTOS__:
 
+```c
+struct ble_npl_event {
+    bool queued;
+    ble_npl_event_fn *fn;
+    void *arg;
+};
+
+struct ble_npl_eventq {
+    QueueHandle_t q;
+};
+
+struct ble_npl_callout {
+    TimerHandle_t handle;
+    struct ble_npl_eventq *evq;
+    struct ble_npl_event ev;
+};
+
+struct ble_npl_mutex {
+    SemaphoreHandle_t handle;
+};
+
+struct ble_npl_sem {
+    SemaphoreHandle_t handle;
+};
+```
+
+https://github.com/apache/mynewt-nimble/blob/master/porting/npl/freertos/include/nimble/nimble_npl_os.h#L44-L66
+
 NimBLE for FreeRTOS: https://github.com/apache/mynewt-nimble/tree/master/porting/npl/freertos
 
 1. __MicroPython__:
+
+```c
+struct ble_npl_event {
+    ble_npl_event_fn *fn;
+    void *arg;
+    struct ble_npl_event *prev;
+    struct ble_npl_event *next;
+};
+
+struct ble_npl_eventq {
+    struct ble_npl_event *head;
+    struct ble_npl_eventq *nextq;
+};
+
+struct ble_npl_callout {
+    bool active;
+    uint32_t ticks;
+    struct ble_npl_eventq *evq;
+    struct ble_npl_event ev;
+    struct ble_npl_callout *nextc;
+};
+
+struct ble_npl_mutex {
+    volatile uint8_t locked;
+};
+
+struct ble_npl_sem {
+    volatile uint16_t count;
+};
+```
+
+https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/nimble_npl_os.h#L38-L64
 
 NimBLE for MicroPython: https://github.com/micropython/micropython/tree/master/extmod/nimble
 
