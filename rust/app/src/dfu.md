@@ -319,79 +319,11 @@ It may be possible to emulate the missing functions using the multitasking featu
 
 Let's check out how NimBLE Porting Layer was implemented on various operating systems...
 
-1. __RIOT__: Callouts are not supported in RIOT, so they are implemented with a combination of RIOT Timers and Event Queues. See [`riot/nimble_npl_os.h`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/include/nimble/nimble_npl_os.h#L43-L65) and [npl_os_riot.c](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/npl_os_riot.c) in the [NimBLE Porting Layer for RIOT](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot)
+1. __RIOT__: Callouts are not supported in RIOT, so they are implemented with a combination of RIOT Timers and Event Queues. See [`riot/nimble_npl_os.h`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/include/nimble/nimble_npl_os.h#L43-L65) and [`npl_os_riot.c`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/npl_os_riot.c) in the [NimBLE Porting Layer for RIOT](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot)
 
-1. __FreeRTOS__:
+1. __FreeRTOS__: Callouts are also implemented with Timers and Queues in FreeRTOS. Mutexes are implemented with FreeRTOS Semaphores. See [`freertos/nimble_npl_os.h`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/freertos/include/nimble/nimble_npl_os.h#L44-L66) in the [NimBLE Porting Layer for FreeRTOS](https://github.com/apache/mynewt-nimble/tree/master/porting/npl/freertos)
 
-```c
-struct ble_npl_event {
-    bool queued;
-    ble_npl_event_fn *fn;
-    void *arg;
-};
-
-struct ble_npl_eventq {
-    QueueHandle_t q;
-};
-
-struct ble_npl_callout {
-    TimerHandle_t handle;
-    struct ble_npl_eventq *evq;
-    struct ble_npl_event ev;
-};
-
-struct ble_npl_mutex {
-    SemaphoreHandle_t handle;
-};
-
-struct ble_npl_sem {
-    SemaphoreHandle_t handle;
-};
-```
-
-https://github.com/apache/mynewt-nimble/blob/master/porting/npl/freertos/include/nimble/nimble_npl_os.h#L44-L66
-
-NimBLE for FreeRTOS: https://github.com/apache/mynewt-nimble/tree/master/porting/npl/freertos
-
-1. __MicroPython__:
-
-```c
-struct ble_npl_event {
-    ble_npl_event_fn *fn;
-    void *arg;
-    struct ble_npl_event *prev;
-    struct ble_npl_event *next;
-};
-
-struct ble_npl_eventq {
-    struct ble_npl_event *head;
-    struct ble_npl_eventq *nextq;
-};
-
-struct ble_npl_callout {
-    bool active;
-    uint32_t ticks;
-    struct ble_npl_eventq *evq;
-    struct ble_npl_event ev;
-    struct ble_npl_callout *nextc;
-};
-
-struct ble_npl_mutex {
-    volatile uint8_t locked;
-};
-
-struct ble_npl_sem {
-    volatile uint16_t count;
-};
-```
-
-https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/nimble_npl_os.h#L38-L64
-
-NimBLE for MicroPython: https://github.com/micropython/micropython/tree/master/extmod/nimble
-
-https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/nimble_npl_os.h
-
-https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/npl_os.c
+1. __MicroPython__: Mutexes, Semaphores, Callouts and Event Queues don't exist in MicroPython, so they are implemented using simple counters and locks. See [`micropython/nimble_npl_os.h`](https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/nimble_npl_os.h#L38-L64) and [`npl_os.c`](https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/npl_os.c) in the [NimBLE Porting Layer for MicroPython](https://github.com/micropython/micropython/tree/master/extmod/nimble)
 
 _What is the Interrupt Service Routine in the diagram above?_
 
@@ -403,7 +335,6 @@ https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_i
 
 
 The complete list of C functions to be implemented by PineTime Firmware Developers may be found here: [`nimble_npl.h`](https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h)
-
 
 From NimBLE for Mynewt: https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt/include/nimble/nimble_npl_os.h
 
