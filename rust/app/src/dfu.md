@@ -517,28 +517,15 @@ See [os_time_ticks_to_ms32(ticks)](https://mynewt.apache.org/latest/os/core_os/t
 void ble_npl_time_delay(ble_npl_time_t ticks)
 See [os_time_delay(ticks)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_delay)
 
-/*
- * Hardware-specific
- *
- * These symbols should be most likely defined by application since they are
- * specific to hardware, not to OS.
- */
+## Hardware-Specific Functions
 
 | Function | Description | Documentation |
 |:--|:--|:--|
-| `void ble_npl_hw_set_isr(`<br>`int irqn, void (*addr)(void))` | Set the Interrupt Service Routine for interrupt `irqn` to `addr` | See the reference implementation of `ble_npl_hw_set_isr` for RIOT in [nrf5x_isr.c](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_isr.c) |
-
-uint32_t ble_npl_hw_enter_critical(void)
-See [os_arch_save_sr()](https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L126-L140
-__disable_irq
-
-void ble_npl_hw_exit_critical(uint32_t ctx)
-See [os_arch_restore_sr(ctx)](https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L142-L152)
-__enable_irq
-
-bool ble_npl_hw_is_in_critical(void)
-Returns true if interrupts are disabled
-
+| `void ble_npl_hw_set_isr(`<br>`int irqn, void (*addr)(void))` | Set the Interrupt Service Routine for interrupt `irqn` to `addr` | See the RIOT implementation `ble_npl_hw_set_isr` in [nrf5x_isr.c](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_isr.c) |
+| uint32_t ble_npl_hw_enter_critical() | Disable interrupts | See [os_arch_save_sr()](https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L126-L140) |
+| void ble_npl_hw_exit_critical(<br>
+uint32_t ctx) | Enable interrupts | See [os_arch_restore_sr(ctx)](https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L142-L152) |
+| bool ble_npl_hw_is_in_critical() | Returns true if interrupts are disabled | |
 
 The complete list of C functions to be implemented by PineTime Firmware Developers may be found here: [`nimble_npl.h`](https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h)
 
