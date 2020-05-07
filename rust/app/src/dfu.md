@@ -319,7 +319,7 @@ _What if our embedded operating system doesn't support Mutex / Semaphore / Callo
 
 It may be possible to emulate the missing functions using the multitasking features found in our operating system. Or we may implement them using simple counters and locks. 
 
-Let's check out how NimBLE Porting Layer was implemented on various operating systems...
+Let's check out how the NimBLE Porting Layer was implemented on various operating systems...
 
 1. __RIOT__: Callouts are not supported in RIOT, so they are implemented with a combination of RIOT Timers and Event Queues. See [`riot/nimble_npl_os.h`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/include/nimble/nimble_npl_os.h#L43-L65) and [`npl_os_riot.c`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/npl_os_riot.c) in the [NimBLE Porting Layer for RIOT](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot)
 
