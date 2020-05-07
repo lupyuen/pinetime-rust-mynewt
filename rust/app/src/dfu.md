@@ -317,11 +317,29 @@ It may be possible to emulate the missing functions using the multitasking featu
 
 1. __RIOT__:
 
+NimBLE for RIOT: https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/include/nimble/nimble_npl_os.h
+
+https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/npl_os_riot.c
+
+https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_isr.c
+
 1. __FreeRTOS__:
+
+NimBLE for FreeRTOS: https://github.com/apache/mynewt-nimble/tree/master/porting/npl/freertos
 
 1. __MicroPython__:
 
-_What is the Interupt Service Routine?_
+NimBLE for MicroPython: https://github.com/micropython/micropython/tree/master/extmod/nimble
+
+https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/nimble_npl_os.h
+
+https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/npl_os.c
+
+_What is the Interrupt Service Routine in the diagram above?_
+
+When PineTime receives a Bluetooth LE data packet, the Bluetooth hardware controller triggers an Interrupt. The Interrupt Service Routine is the function provided by NimBLE to handle that Interrupt.
+
+The Interrupt Service Routine forwards all received packets to the NimBLE background task for processing.
 
 The complete list of C functions to be implemented by PineTime Firmware Developers may be found here: [`nimble_npl.h`](https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h)
 
@@ -581,20 +599,6 @@ MCU Manager runs on the Bluetooth LE transport based on the open-source NimBLE B
 ```
 
 Refer to the NimBLE source code at https://github.com/apache/mynewt-nimble
-
-NimBLE for RIOT: https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/include/nimble/nimble_npl_os.h
-
-https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/npl_os_riot.c
-
-https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_isr.c
-
-NimBLE for FreeRTOS: https://github.com/apache/mynewt-nimble/tree/master/porting/npl/freertos
-
-NimBLE for MicroPython: https://github.com/micropython/micropython/tree/master/extmod/nimble
-
-https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/nimble_npl_os.h
-
-https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/npl_os.c
 
 # MCUBoot Bootloader
 
