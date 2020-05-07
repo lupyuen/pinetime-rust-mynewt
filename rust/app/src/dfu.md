@@ -451,7 +451,7 @@ _[Browse the NimBLE source code](https://github.com/apache/mynewt-nimble)_
 
 # MCUBoot Bootloader for PineTime
 
-We have covered two software components necessary for rolling out firmware updates over Bluetooth LE...
+We have covered two software components necessary for rolling out PineTime firmware updates over Bluetooth LE...
 
 1. __MCU Manager Library:__ Implements the Simple Management Protocol for updating firmware
 
