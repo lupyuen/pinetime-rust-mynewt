@@ -335,7 +335,7 @@ The Interrupt Service Routine forwards all received packets to the NimBLE backgr
 
 Here are the types and functions in the NimBLE Porting Layer that would be implemented by the PineTime Firmware Developer...
 
-## Types
+## NimBLE Types
 
 | Function | Description | Documentation |
 |:--|:--|:--|
@@ -363,7 +363,7 @@ See [os_sem](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.htm
 
 | `typedef ` <br> __`ble_npl_stime_t`__ | OS-specific signed type that represents elapsed time, like `int32_t` |
 
-## General Functions
+## NimBLE General Functions
 
 | Function | Description | Documentation |
 |:--|:--|:--|
@@ -374,7 +374,7 @@ See `os_started` in [os.h](https://github.com/apache/mynewt-core/blob/master/ker
 | `void *` <br> __`ble_npl_get_current_task_id()`__ | | 
 See [os_sched_get_current_task](https://mynewt.apache.org/latest/os/core_os/context_switch/context_switch.html#c.os_sched_get_current_task)
 
-## Event Queue Functions
+## NimBLE Event Queue Functions
 
 | Function | Description | Documentation |
 |:--|:--|:--|
@@ -443,7 +443,7 @@ STAILQ_EMPTY(&evq->evq.evq_list);
 See this note
 ev->ev.ev_cb(&ev->ev)
 
-## Mutex Functions
+## NimBLE Mutex Functions
 
 | Function | Description | Documentation |
 |:--|:--|:--|
@@ -456,7 +456,7 @@ See [os_mutex_pend(&mu->mu, timeout)](https://mynewt.apache.org/latest/os/core_o
 | `ble_npl_error_t ` <br> __`ble_npl_mutex_release(`__ <br> `struct ble_npl_mutex *mu)` |  |
 See [os_mutex_release(&mu->mu)](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_init#c.os_mutex_release)
 
-## Semaphore Functions
+## NimBLE Semaphore Functions
 
 | Function | Description | Documentation |
 |:--|:--|:--|
@@ -473,7 +473,7 @@ See [os_sem_release(&sem->sem)](https://mynewt.apache.org/latest/os/core_os/sema
 | `uint16_t ` <br> __`ble_npl_sem_get_count(`__ <br> `struct ble_npl_sem *sem)` |  |
 See [os_sem_get_count(&sem->sem)](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_get_count)
 
-## Callout Functions
+## NimBLE Callout Functions
 
 | Function | Description | Documentation |
 |:--|:--|:--|
@@ -500,7 +500,7 @@ See [os_callout_remaining_ticks(&co->co, time)](https://mynewt.apache.org/latest
 See this note
     co->co.c_ev.ev_arg = arg;
 
-## Time Functions
+## NimBLE Time Functions
 
 | Function | Description | Documentation |
 |:--|:--|:--|
@@ -522,7 +522,7 @@ See [os_time_ticks_to_ms32(ticks)](https://mynewt.apache.org/latest/os/core_os/t
 | `void` <br> __`ble_npl_time_delay(`__ <br> `ble_npl_time_t ticks)` |  |
 See [os_time_delay(ticks)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_delay)
 
-## Interrupt Functions
+## NimBLE Interrupt Functions
 
 | Function | Description | Documentation |
 |:--|:--|:--|
