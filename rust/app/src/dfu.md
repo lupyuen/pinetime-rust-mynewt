@@ -331,7 +331,6 @@ When PineTime receives a Bluetooth LE data packet, the Bluetooth hardware contro
 
 The Interrupt Service Routine forwards all received packets to the NimBLE background task for processing.
 
-```c
 struct ble_npl_event
 Contains the OS-specific Event Queue
 See [os_event](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event)
@@ -525,8 +524,9 @@ See [os_time_delay(ticks)](https://mynewt.apache.org/latest/os/core_os/time/os_t
  * specific to hardware, not to OS.
  */
 
-void ble_npl_hw_set_isr(int irqn, void (*addr)(void))
-See the reference implementation of `ble_npl_hw_set_isr` for RIOT in [nrf5x_isr.c](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_isr.c)
+| Function | Description | Documentation |
+|:--|:--|:--|
+| `void ble_npl_hw_set_isr(`<br>`int irqn, void (*addr)(void))` | Set the Interrupt Service Routine for interrupt `irqn` to `addr` | See the reference implementation of `ble_npl_hw_set_isr` for RIOT in [nrf5x_isr.c](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_isr.c) |
 
 uint32_t ble_npl_hw_enter_critical(void)
 See [os_arch_save_sr()](https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L126-L140
@@ -538,7 +538,6 @@ __enable_irq
 
 bool ble_npl_hw_is_in_critical(void)
 Returns true if interrupts are disabled
-```
 
 
 The complete list of C functions to be implemented by PineTime Firmware Developers may be found here: [`nimble_npl.h`](https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h)
