@@ -362,84 +362,85 @@ Here are the types and functions in the NimBLE Porting Layer that would be imple
 
 | Function | Description | Documentation |
 |:--|:--|:--|
-| `struct ` <br> __`ble_npl_mutex`__ | Contains the OS-specific Mutex | See [`os_mutex`](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html#c.os_mutex)
-| `struct ` <br> __`ble_npl_sem`__ | Contains the OS-specific Semaphore | See [`os_sem`](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html#c.os_sem)
-| `struct ` <br> __`ble_npl_callout`__ | Contains the OS-specific Callout | See [`os_callout`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html#c.os_callout)
-| `struct` <br> __`ble_npl_event`__ | Contains the OS-specific Event | See [`os_event`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event)
-| `struct ` <br> __`ble_npl_eventq`__ | Contains the OS-specific Event Queue | See [`os_eventq`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq)
-| `typedef ` <br> __`ble_npl_time_t`__ |OS-specific unsigned type that represents elapsed time, like `uint32_t` |
-| `typedef ` <br> __`ble_npl_stime_t`__ | OS-specific signed type that represents elapsed time, like `int32_t` |
+| `struct ` <br> __`ble_npl_mutex`__ <br><br> | Contains the OS-specific Mutex | See [`os_mutex`](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html#c.os_mutex)
+| `struct ` <br> __`ble_npl_sem`__ <br><br> | Contains the OS-specific Semaphore | See [`os_sem`](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html#c.os_sem)
+| `struct ` <br> __`ble_npl_callout`__ <br><br> | Contains the OS-specific Callout | See [`os_callout`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html#c.os_callout)
+| `struct` <br> __`ble_npl_event`__ <br><br> | Contains the OS-specific Event | See [`os_event`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event)
+| `struct ` <br> __`ble_npl_eventq`__ <br><br> | Contains the OS-specific Event Queue | See [`os_eventq`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq)
+| `typedef ` <br> __`ble_npl_time_t`__ <br><br> |OS-specific unsigned type that represents elapsed time, like `uint32_t` |
+| `typedef ` <br> __`ble_npl_stime_t`__ <br><br> | OS-specific signed type that represents elapsed time, like `int32_t` |
 
 ## NimBLE General Functions
 
 | Function | Description | Documentation |
 |:--|:--|:--|
-| `bool ` <br> __`ble_npl_os_started()`__ | Return true if OS has started and is ready to run tasks |See `os_started` in [`os.h`](https://github.com/apache/mynewt-core/blob/master/kernel/os/include/os/os.h#L70-L75) and [`os_arch_arm.c`](https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L277-L299)
-| `void *` <br> __`ble_npl_get_current_task_id()`__ | Returns the currently running task | See [`os_sched_get_current_task`](https://mynewt.apache.org/latest/os/core_os/context_switch/context_switch.html#c.os_sched_get_current_task)
+| `bool ` <br> __`ble_npl_os_started()`__ <br><br> | Return true if OS has started and is ready to run tasks |See `os_started` in [`os.h`](https://github.com/apache/mynewt-core/blob/master/kernel/os/include/os/os.h#L70-L75) and [`os_arch_arm.c`](https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L277-L299)
+| `void *` <br> __`ble_npl_get_current_task_id()`__ <br><br> | Returns the currently running task | See [`os_sched_get_current_task`](https://mynewt.apache.org/latest/os/core_os/context_switch/context_switch.html#c.os_sched_get_current_task)
 
 ## NimBLE Mutex Functions
 
 | Function | Description | Documentation |
 |:--|:--|:--|
-| `ble_npl_error_t ` <br> __`ble_npl_mutex_init(`__ <br> `struct ble_npl_mutex *mu)` | Create a Mutex and initialise it | See [`os_mutex_init(&mu->mu)`](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_init#c.os_mutex_init)
-| `ble_npl_error_t ` <br> __`ble_npl_mutex_pend(`__ <br> `struct ble_npl_mutex *mu,` <br> `ble_npl_time_t timeout)` | Wait for a Mutex | See [`os_mutex_pend(&mu->mu, timeout)`](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_pend#c.os_mutex_pend)
-| `ble_npl_error_t ` <br> __`ble_npl_mutex_release(`__ <br> `struct ble_npl_mutex *mu)` | Release a Mutex | See [`os_mutex_release(&mu->mu)`](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_release#c.os_mutex_release)
+| `ble_npl_error_t ` <br> __`ble_npl_mutex_init(`__ <br> `struct ble_npl_mutex *mu)` <br><br> | Create a Mutex and initialise it | See [`os_mutex_init(&mu->mu)`](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_init#c.os_mutex_init)
+| `ble_npl_error_t ` <br> __`ble_npl_mutex_pend(`__ <br> `struct ble_npl_mutex *mu,` <br> `ble_npl_time_t timeout)` <br><br> | Wait for a Mutex | See [`os_mutex_pend(&mu->mu, timeout)`](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_pend#c.os_mutex_pend)
+| `ble_npl_error_t ` <br> __`ble_npl_mutex_release(`__ <br> `struct ble_npl_mutex *mu)` <br><br> | Release a Mutex | See [`os_mutex_release(&mu->mu)`](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_release#c.os_mutex_release)
 
 ## NimBLE Semaphore Functions
 
 | Function | Description | Documentation |
 |:--|:--|:--|
-| `ble_npl_error_t ` <br> __`ble_npl_sem_init(`__ <br> `struct ble_npl_sem *sem, ` <br> `uint16_t tokens)` | Create a Semaphore and initialise it |See [`os_sem_init(&sem->sem, tokens`](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_init)
-| `ble_npl_error_t ` <br> __`ble_npl_sem_pend(`__ <br> `struct ble_npl_sem *sem,` <br> `ble_npl_time_t timeout)` | Wait for a Semaphore | See [`os_sem_pend(&sem->sem, timeout)`](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_pend#c.os_sem_pend)
-| `ble_npl_error_t ` <br> __`ble_npl_sem_release(`__ <br> `struct ble_npl_sem *sem)` | Release a Semaphore | See [`os_sem_release(&sem->sem)`](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_release#c.os_sem_release)
-| `uint16_t ` <br> __`ble_npl_sem_get_count(`__ <br> `struct ble_npl_sem *sem)` | Get the Semaphore's current count | See [`os_sem_get_count(&sem->sem)`](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_get_count#c.os_sem_get_count)
+| `ble_npl_error_t ` <br> __`ble_npl_sem_init(`__ <br> `struct ble_npl_sem *sem, ` <br> `uint16_t tokens)` <br><br> | Create a Semaphore and initialise it |See [`os_sem_init(&sem->sem, tokens`](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_init)
+| `ble_npl_error_t ` <br> __`ble_npl_sem_pend(`__ <br> `struct ble_npl_sem *sem,` <br> `ble_npl_time_t timeout)` <br><br> | Wait for a Semaphore | See [`os_sem_pend(&sem->sem, timeout)`](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_pend#c.os_sem_pend)
+| `ble_npl_error_t ` <br> __`ble_npl_sem_release(`__ <br> `struct ble_npl_sem *sem)` <br><br> | Release a Semaphore | See [`os_sem_release(&sem->sem)`](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_release#c.os_sem_release)
+| `uint16_t ` <br> __`ble_npl_sem_get_count(`__ <br> `struct ble_npl_sem *sem)` <br><br> | Get the Semaphore's current count | See [`os_sem_get_count(&sem->sem)`](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_get_count#c.os_sem_get_count)
 
 ## NimBLE Callout Functions
 
 | Function | Description | Documentation |
 |:--|:--|:--|
-| `void ` <br> __`ble_npl_callout_init(`__ <br> `struct ble_npl_callout *co, ` <br> `struct ble_npl_eventq *evq, ` <br> `ble_npl_event_fn *ev_cb, ` <br> `void *ev_arg)` | Create a Callout and initialise it | See [`os_callout_init(&co->co, &evq->evq, ev_cb, ev_arg)`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_init)
-| `ble_npl_error_t ` <br> __`ble_npl_callout_reset(`__ <br> `struct ble_npl_callout *co, ` <br> `ble_npl_time_t ticks)` | Reset the callout to fire off in `ticks` ticks | See [`os_callout_reset(&co->co, ticks)`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_reset#c.os_callout_reset)
-| `void ` <br> __`ble_npl_callout_stop(`__ <br> `struct ble_npl_callout *co)` | Stop the Callout from firing off, any pending events will be cleared | See [`os_callout_stop(&co->co)`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_stop#c.os_callout_stop)
-| `bool ` <br> __`ble_npl_callout_is_active(`__ <br> `struct ble_npl_callout *co)` | Returns whether the Callout is pending or not | See [`os_callout_queued(&co->co)`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_queued#c.os_callout_queued)
-| `ble_npl_time_t ` <br> __`ble_npl_callout_get_ticks(`__ <br> `struct ble_npl_callout *co)` | Number of ticks in the future to expire the Callout | See [`co->co.c_ticks`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=c_ticks#c.os_callout::c_ticks)
-| `ble_npl_time_t ` <br> __`ble_npl_callout_remaining_ticks(`__ <br> `struct ble_npl_callout *co, ` <br> `ble_npl_time_t time)` | Returns the number of ticks which remains till Callout | See [`os_callout_remaining_ticks(&co->co, time)`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_remaining_ticks#c.os_callout_remaining_ticks)
-| `void ` <br> __`ble_npl_callout_set_arg(`__ <br> `struct ble_npl_callout *co, ` <br> `void *arg)` | Set the argument that will be passed to the Callout callback | See [`co->co.c_ev.ev_arg`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_arg)
+| `void ` <br> __`ble_npl_callout_init(`__ <br> `struct ble_npl_callout *co, ` <br> `struct ble_npl_eventq *evq, ` <br> `ble_npl_event_fn *ev_cb, ` <br> `void *ev_arg)` <br><br> | Create a Callout and initialise it | See [`os_callout_init(&co->co, &evq->evq, ev_cb, ev_arg)`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_init)
+| `ble_npl_error_t ` <br> __`ble_npl_callout_reset(`__ <br> `struct ble_npl_callout *co, ` <br> `ble_npl_time_t ticks)` <br><br> | Reset the callout to fire off in `ticks` ticks | See [`os_callout_reset(&co->co, ticks)`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_reset#c.os_callout_reset)
+| `void ` <br> __`ble_npl_callout_stop(`__ <br> `struct ble_npl_callout *co)` <br><br> | Stop the Callout from firing off, any pending events will be cleared | See [`os_callout_stop(&co->co)`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_stop#c.os_callout_stop)
+| `bool ` <br> __`ble_npl_callout_is_active(`__ <br> `struct ble_npl_callout *co)` <br><br> | Returns whether the Callout is pending or not | See [`os_callout_queued(&co->co)`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_queued#c.os_callout_queued)
+| `ble_npl_time_t ` <br> __`ble_npl_callout_get_ticks(`__ <br> `struct ble_npl_callout *co)` <br><br> | Number of ticks in the future to expire the Callout | See [`co->co.c_ticks`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=c_ticks#c.os_callout::c_ticks)
+| `ble_npl_time_t ` <br> __`ble_npl_callout_remaining_ticks(`__ <br> `struct ble_npl_callout *co, ` <br> `ble_npl_time_t time)` <br><br> | Returns the number of ticks which remains till Callout | See [`os_callout_remaining_ticks(&co->co, time)`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_remaining_ticks#c.os_callout_remaining_ticks)
+| `void ` <br> __`ble_npl_callout_set_arg(`__ <br> `struct ble_npl_callout *co, ` <br> `void *arg)` <br><br> | Set the argument that will be passed to the Callout callback | See [`co->co.c_ev.ev_arg`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_arg)
 
 ## NimBLE Event Queue Functions
 
 | Function | Description | Documentation |
 |:--|:--|:--|
-| `void ` <br> __`ble_npl_eventq_init(`__ <br> `struct ble_npl_eventq *evq)` |  Create an Event Queue and initialise it | See [`os_eventq_init(&evq->evq)`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html?highlight=os_eventq_init#c.os_eventq_init)
-| `struct ble_npl_event *` <br> __`ble_npl_eventq_get(`__ <br> `struct ble_npl_eventq *evq, ` <br> `ble_npl_time_t tmo)` | Pull a single Event from an Event Queue | See [this note](https://gist.github.com/lupyuen/5da47d633315039e76262434a4faae46)
-| `void ` <br> __`ble_npl_eventq_put(`__ <br> `struct ble_npl_eventq *evq, ` <br> `struct ble_npl_event *ev)` | Put an Event on the Event Gueue | See [`os_eventq_put(&evq->evq, &ev->ev)`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_put)
-| `void ` <br> __`ble_npl_eventq_remove(`__ <br> `struct ble_npl_eventq *evq, ` <br> `struct ble_npl_event *ev)` | Remove an Event from the Event Queue | See [`os_eventq_remove`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_remove)
-| `void ` <br> __`ble_npl_event_init(`__ <br> `struct ble_npl_event *ev, ` <br> `ble_npl_event_fn *fn, ` <br> `void *arg)` | Create an Event and initialise it | See [this note](https://gist.github.com/lupyuen/5da47d633315039e76262434a4faae46)
-| `bool ` <br> __`ble_npl_event_is_queued(`__ <br> `struct ble_npl_event *ev)` | Return true if the Event is queued on an Event Queue | See [`ev->ev.ev_queued`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_queued)
-| `void *` <br> __`ble_npl_event_get_arg(`__ <br> `struct ble_npl_event *ev)` | Return the argument that will be passed to the Event Queue callback | See [`ev->ev.ev_arg`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_arg)
-| `void ` <br> __`ble_npl_event_set_arg(`__ <br> `struct ble_npl_event *ev, ` <br> `void *arg)` |  Set the argument that will be passed to the Event Queue callback | See [`ev->ev.ev_arg`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_arg)
-| `bool ` <br> __`ble_npl_eventq_is_empty(`__ <br> `struct ble_npl_eventq *evq)` | Return true if the Event Queue is empty |
-| `void ` <br> __`ble_npl_event_run(`__ <br> `struct ble_npl_event *ev)` | Execute the Event callback | See [`ev->ev.ev_cb(&ev->ev)`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_cb)
+| `void ` <br> __`ble_npl_eventq_init(`__ <br> `struct ble_npl_eventq *evq)` <br><br> |  Create an Event Queue and initialise it | See [`os_eventq_init(&evq->evq)`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html?highlight=os_eventq_init#c.os_eventq_init)
+| `struct ble_npl_event *` <br> __`ble_npl_eventq_get(`__ <br> `struct ble_npl_eventq *evq, ` <br> `ble_npl_time_t tmo)` <br><br> | Pull a single Event from an Event Queue | See [this note](https://gist.github.com/lupyuen/5da47d633315039e76262434a4faae46)
+| `void ` <br> __`ble_npl_eventq_put(`__ <br> `struct ble_npl_eventq *evq, ` <br> `struct ble_npl_event *ev)` <br><br> | Put an Event on the Event Gueue | See [`os_eventq_put(&evq->evq, &ev->ev)`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_put)
+| `void ` <br> __`ble_npl_eventq_remove(`__ <br> `struct ble_npl_eventq *evq, ` <br> `struct ble_npl_event *ev)` <br><br> | Remove an Event from the Event Queue | See [`os_eventq_remove`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_remove)
+| `void ` <br> __`ble_npl_event_init(`__ <br> `struct ble_npl_event *ev, ` <br> `ble_npl_event_fn *fn, ` <br> `void *arg)` <br><br> | Create an Event and initialise it | See [this note](https://gist.github.com/lupyuen/5da47d633315039e76262434a4faae46)
+| `bool ` <br> __`ble_npl_event_is_queued(`__ <br> `struct ble_npl_event *ev)` <br><br> | Return true if the Event is queued on an Event Queue | See [`ev->ev.ev_queued`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_queued)
+| `void *` <br> __`ble_npl_event_get_arg(`__ <br> `struct ble_npl_event *ev)` <br><br> | Return the argument that will be passed to the Event Queue callback | See [`ev->ev.ev_arg`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_arg)
+| `void ` <br> __`ble_npl_event_set_arg(`__ <br> `struct ble_npl_event *ev, ` <br> `void *arg)` <br><br> |  Set the argument that will be passed to the Event Queue callback | See [`ev->ev.ev_arg`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_arg)
+| `bool ` <br> __`ble_npl_eventq_is_empty(`__ <br> `struct ble_npl_eventq *evq)` <br><br> | Return true if the Event Queue is empty |
+| `void ` <br> __`ble_npl_event_run(`__ <br> `struct ble_npl_event *ev)` <br><br> | Execute the Event callback | See [`ev->ev.ev_cb(&ev->ev)`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_cb)
 
 ## NimBLE Time Functions
 
 | Function | Description | Documentation |
 |:--|:--|:--|
-| `ble_npl_time_t` <br> __`ble_npl_time_get()`__ | Get the current OS time in ticks | See [`os_time_get()`](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_get)
-| `ble_npl_error_t` <br> __`ble_npl_time_ms_to_ticks(`__ <br> `uint32_t ms, ` <br> `ble_npl_time_t *out_ticks)` | Converts milliseconds to OS ticks | See [`os_time_ms_to_ticks(ms, out_ticks)`](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ms_to_ticks#c.os_time_ms_to_ticks)
-| `ble_npl_error_t` <br> __`ble_npl_time_ticks_to_ms(`__ <br> `ble_npl_time_t ticks, ` <br> `uint32_t *out_ms)` | Converts OS ticks to milliseconds | See [`os_time_ticks_to_ms(ticks, out_ms)`](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ticks_to_ms#c.os_time_ticks_to_ms)
-| `ble_npl_time_t` <br> __`ble_npl_time_ms_to_ticks32(`__ <br> `uint32_t ms)` | Converts milliseconds to OS ticks | See [`os_time_ms_to_ticks32(ms)`](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ms_to_ticks32#c.os_time_ms_to_ticks32)
-| `uint32_t` <br> __`ble_npl_time_ticks_to_ms32(`__ <br> `ble_npl_time_t ticks)` | Converts OS ticks to milliseconds | See [`os_time_ticks_to_ms32(ticks)`](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ticks_to_ms32#c.os_time_ticks_to_ms32)
-| `void` <br> __`ble_npl_time_delay(`__ <br> `ble_npl_time_t ticks)` | Puts the current task to sleep for the specified number of os ticks | See [`os_time_delay(ticks)`](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_delay#c.os_time_delay)
+| `ble_npl_time_t` <br> __`ble_npl_time_get()`__ <br><br> | Get the current OS time in ticks | See [`os_time_get()`](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_get)
+| `ble_npl_error_t` <br> __`ble_npl_time_ms_to_ticks(`__ <br> `uint32_t ms, ` <br> `ble_npl_time_t *out_ticks)` <br><br> | Converts milliseconds to OS ticks | See [`os_time_ms_to_ticks(ms, out_ticks)`](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ms_to_ticks#c.os_time_ms_to_ticks)
+| `ble_npl_error_t` <br> __`ble_npl_time_ticks_to_ms(`__ <br> `ble_npl_time_t ticks, ` <br> `uint32_t *out_ms)` <br><br> | Converts OS ticks to milliseconds | See [`os_time_ticks_to_ms(ticks, out_ms)`](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ticks_to_ms#c.os_time_ticks_to_ms)
+| `ble_npl_time_t` <br> __`ble_npl_time_ms_to_ticks32(`__ <br> `uint32_t ms)` <br><br> | Converts milliseconds to OS ticks | See [`os_time_ms_to_ticks32(ms)`](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ms_to_ticks32#c.os_time_ms_to_ticks32)
+| `uint32_t` <br> __`ble_npl_time_ticks_to_ms32(`__ <br> `ble_npl_time_t ticks)` <br><br> | Converts OS ticks to milliseconds | See [`os_time_ticks_to_ms32(ticks)`](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ticks_to_ms32#c.os_time_ticks_to_ms32)
+| `void` <br> __`ble_npl_time_delay(`__ <br> `ble_npl_time_t ticks)` <br><br> | Puts the current task to sleep for the specified number of os ticks | See [`os_time_delay(ticks)`](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_delay#c.os_time_delay)
 
 ## NimBLE Interrupt Functions
 
 | Function | Description | Documentation |
 |:--|:--|:--|
-| `void ` <br> __`ble_npl_hw_set_isr(`__ <br>`int irqn, ` <br> `void (*addr)(void))` | Set the Interrupt Service Routine for interrupt `irqn` to `addr` | See the RIOT implementation of `ble_npl_hw_set_isr` in [`nrf5x_isr.c`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_isr.c) |
-| `uint32_t` <br> __`ble_npl_hw_enter_critical`__`()` | Disable interrupts | See [`os_arch_save_sr()`](https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L126-L140) |
-| `void` <br> __`ble_npl_hw_exit_critical(`__ <br> `uint32_t ctx)` | Enable interrupts | See [`os_arch_restore_sr(ctx)`](https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L142-L152) |
-| `bool` <br> __`ble_npl_hw_is_in_critical`__`()` | Returns true if interrupts are disabled | |
+| `void ` <br> __`ble_npl_hw_set_isr(`__ <br>`int irqn, ` <br> `void (*addr)(void))` <br><br> | Set the Interrupt Service Routine for interrupt `irqn` to `addr` | See the RIOT implementation of `ble_npl_hw_set_isr` in [`nrf5x_isr.c`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_isr.c) |
+| `uint32_t` <br> __`ble_npl_hw_enter_critical`__`()` <br><br> | Disable interrupts | See [`os_arch_save_sr()`](https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L126-L140) |
+| `void` <br> __`ble_npl_hw_exit_critical(`__ <br> `uint32_t ctx)` <br><br> | Enable interrupts | See [`os_arch_restore_sr(ctx)`](https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L142-L152) |
+| `bool` <br> __`ble_npl_hw_is_in_critical`__`()` <br><br> | Returns true if interrupts are disabled | |
+|<br>|
 
 The complete list of NimBLE Porting Library functions to be implemented by PineTime Firmware Developers may be found in [`nimble_npl.h`](https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h)
 

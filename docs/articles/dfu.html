@@ -55,24 +55,26 @@
 <li><a href="#pinetime-flash-rom-layout">3 PineTime Flash ROM Layout</a><ul></ul></li>
 <li><a href="#mcu-manager-library-for-firmware-update">4 MCU Manager Library for Firmware Update</a><ul></ul></li>
 <li><a href="#write-firmware-image-to-pinetimes-flash-rom">5 Write Firmware Image to PineTime's Flash ROM</a><ul></ul></li>
-<li><a href="#nimble-bluetooth-stack">6 NimBLE Bluetooth Stack</a><ul></ul></li>
+<li><a href="#nimble-stack-for-bluetooth-le-on-pinetime">6 NimBLE Stack for Bluetooth LE on PineTime</a><ul>
+<li><a href="#nimble-types">6.1 NimBLE Types</a><ul></ul></li>
+<li><a href="#nimble-general-functions">6.2 NimBLE General Functions</a><ul></ul></li>
+<li><a href="#nimble-mutex-functions">6.3 NimBLE Mutex Functions</a><ul></ul></li>
+<li><a href="#nimble-semaphore-functions">6.4 NimBLE Semaphore Functions</a><ul></ul></li>
+<li><a href="#nimble-callout-functions">6.5 NimBLE Callout Functions</a><ul></ul></li>
+<li><a href="#nimble-event-queue-functions">6.6 NimBLE Event Queue Functions</a><ul></ul></li>
+<li><a href="#nimble-time-functions">6.7 NimBLE Time Functions</a><ul></ul></li>
+<li><a href="#nimble-interrupt-functions">6.8 NimBLE Interrupt Functions</a><ul></ul></li></ul></li>
 <li><a href="#mcuboot-bootloader">7 MCUBoot Bootloader</a><ul></ul></li>
 <li><a href="#other-command-handlers-for-mcu-manager">8 Other Command Handlers for MCU Manager</a><ul></ul></li>
-<li><a href="#firmware-upgrade-via-bluetooth-le">9 Firmware Upgrade via Bluetooth LE</a><ul></ul></li>
-<li><a href="#proposed-solution">10 Proposed Solution</a><ul></ul></li>
-<li><a href="#pinetime-firmware">11 PineTime Firmware</a><ul></ul></li>
-<li><a href="#newt-manager-modules-used-in-pinetime-firmware">12 Newt Manager Modules used in PineTime Firmware</a><ul></ul></li>
-<li><a href="#nrf-connect-client-for-ios-and-android">13 nRF Connect Client for iOS and Android</a><ul></ul></li>
-<li><a href="#raspberry-pi-client">14 Raspberry Pi Client</a><ul></ul></li>
-<li><a href="#pinephone-client">15 PinePhone Client</a><ul></ul></li>
-<li><a href="#android-client">16 Android Client</a><ul></ul></li>
-<li><a href="#ios-client">17 iOS Client</a><ul></ul></li>
-<li><a href="#flutter-client-for-ios-and-android">18 Flutter Client for iOS and Android</a><ul></ul></li>
-<li><a href="#implementing-mcuboot">19 Implementing MCUboot</a><ul></ul></li>
-<li><a href="#mcuboot-enhancements">20 MCUboot Enhancements</a><ul></ul></li>
-<li><a href="#other-pinetime-bluetooth-firmware-upgrade-solutions">21 Other PineTime Bluetooth Firmware Upgrade Solutions</a><ul></ul></li>
-<li><a href="#log-for-raspberry-pi-client">22 Log for Raspberry Pi Client</a><ul></ul></li>
-<li><a href="#further-reading">23 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/dfu-platforms.png" alt="Platforms in development for PineTime Smart Watch" /></p>
+<li><a href="#pinetime-firmware">9 PineTime Firmware</a><ul></ul></li>
+<li><a href="#raspberry-pi-client">10 Raspberry Pi Client</a><ul></ul></li>
+<li><a href="#android-client">11 Android Client</a><ul></ul></li>
+<li><a href="#ios-client">12 iOS Client</a><ul></ul></li>
+<li><a href="#flutter-client-for-ios-and-android">13 Flutter Client for iOS and Android</a><ul></ul></li>
+<li><a href="#mcuboot-enhancements">14 MCUboot Enhancements</a><ul></ul></li>
+<li><a href="#other-pinetime-bluetooth-firmware-upgrade-solutions">15 Other PineTime Bluetooth Firmware Upgrade Solutions</a><ul></ul></li>
+<li><a href="#log-for-raspberry-pi-client">16 Log for Raspberry Pi Client</a><ul></ul></li>
+<li><a href="#further-reading">17 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/dfu-platforms.png" alt="Platforms in development for PineTime Smart Watch" /></p>
 <p>Thanks to the FOSS Community, <a href="https://wiki.pine64.org/index.php/PineTime">PineTime Smart Watch</a> has an incredible variety of FOSS operating systems in the works: <a href="https://github.com/JF002/Pinetime">FreeRTOS</a>, <a href="https://github.com/daniel-thompson/wasp-os">MicroPython</a>, <a href="https://github.com/lupyuen/pinetime-rust-mynewt">Mynewt</a>, <a href="https://github.com/bosmoment/PineTime-apps">RIOT</a>, Rust <a href="https://github.com/wose/xochron">RTFM</a> (<a href="https://github.com/dbrgn/pinetime-rtfm">another</a>), <a href="https://github.com/aykevl/go-smartwatch">TinyGo</a>, <a href="https://www.tockos.org/">Tock</a>, <a href="https://github.com/najnesnaj/pinetime-zephyr">Zephyr</a> (<a href="https://github.com/Dejvino/pinetime-hermes-firmware.git">another</a>), ...</p>
 <p>But these embedded platforms are accessible only by brave PineTime Owners who dare to pry open their watches very carefully... And connect a Raspberry Pi (or ST-Link) to the tiny delicate 4-pin SWD port recessed deep inside... Just to flash the PineTime firmware.</p>
 <p><em>What if we could flash any firmware to PineTime from our mobile phone... Without opening the watch?</em></p>
@@ -310,22 +312,135 @@
 <p><em>How shall we implement <code>flash_area_getnext_sector</code> to get the Flash ROM Sector?</em></p>
 <p>The reference implementation of <code>flash_area_getnext_sector</code> may be found in <a href="https://github.com/apache/mynewt-core/blob/master/sys/flash_map/src/flash_map.c#L193-L229"><code>flash_map.c</code></a>.</p>
 <p>The function returns the 4 KB Flash ROM Sector that corresponds to an address in the Standby Flash ROM Area, by walking through the list of Flash ROM Sectors.</p>
-<h1 id="nimble-bluetooth-stack" class="section-header"><a href="#nimble-bluetooth-stack">6 NimBLE Bluetooth Stack</a></h1>
-<p>TODO</p>
-<p>MCU Manager runs on the Bluetooth LE transport based on the open-source NimBLE Bluetooth LE stack. The following NimBLE modules need to be ported to the PineTime platform:</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="op">-</span> <span class="string">&quot;@apache-mynewt-nimble/nimble/host&quot;</span>
-<span class="op">-</span> <span class="string">&quot;@apache-mynewt-nimble/nimble/host/services/ans&quot;</span>
-<span class="op">-</span> <span class="string">&quot;@apache-mynewt-nimble/nimble/host/services/dis&quot;</span>
-<span class="op">-</span> <span class="string">&quot;@apache-mynewt-nimble/nimble/host/services/gap&quot;</span>
-<span class="op">-</span> <span class="string">&quot;@apache-mynewt-nimble/nimble/host/services/gatt&quot;</span>
-<span class="op">-</span> <span class="string">&quot;@apache-mynewt-nimble/nimble/host/store/config&quot;</span>
-<span class="op">-</span> <span class="string">&quot;@apache-mynewt-nimble/nimble/host/util&quot;</span>
-<span class="op">-</span> <span class="string">&quot;@apache-mynewt-nimble/nimble/transport&quot;</span></pre></div>
-<p>Refer to the NimBLE source code at https://github.com/apache/mynewt-nimble</p>
+<h1 id="nimble-stack-for-bluetooth-le-on-pinetime" class="section-header"><a href="#nimble-stack-for-bluetooth-le-on-pinetime">6 NimBLE Stack for Bluetooth LE on PineTime</a></h1>
+<p><a href="https://github.com/apache/mynewt-nimble">NimBLE</a> is an open-source networking stack for Bluetooth LE, coded in C. NimBLE talks directly to the Bluetooth hardware controller on PineTime's nRF52 microcontroller. NimBLE supports Nordic nRF51 and nRF52 microcontrollers</p>
+<p>To support firmware updates over Bluetooth LE, PineTime Firmware Developers would have to include NimBLE in their firmware. NimBLE takes care of the firmware update process by interpreting GATT Read/Write Requests, and forwarding the SMP Commands to the MCU Manager Library (which writes the new firmware into Flash ROM).</p>
+<p><img src="https://lupyuen.github.io/images/dfu-nimble.png" alt="NimBLE Networking Stack for Bluetooth LE on PineTime" /></p>
+<p><em>NimBLE Networking Stack for Bluetooth LE on PineTime</em></p>
+<p>NimBLE runs in the background handling Bluetooth LE packets, so it depends on the multitasking capabilities provided by the operating system embedded in the firmware. This adaptation of NimBLE to the operating system happens in the <strong>NimBLE Porting Layer</strong>. </p>
+<p>PineTime Firmware Developers would have to implement the NimBLE Porting Layer in C, covering these functions...</p>
+<ol>
+<li>
+<p><strong>Time Functions:</strong> Get the elapsed time since startup, in milliseconds and in ticks (1 tick equals 1 millisecond)</p>
+</li>
+<li>
+<p><strong>Mutex Functions:</strong> When multiple tasks run at the same time on PineTime, they may clash when accessing common resources (like the Bluetooth hardware). NimBLE uses a Mutex (Mutually Exclusive Lock) to prevent concurrent access to common resources. <a href="https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html">More about Mutexes</a></p>
+</li>
+<li>
+<p><strong>Semaphore Functions:</strong> A Semaphore works like a Mutex but it's more flexible. Think of a Semaphore as a Ticket Queueing System for shared resources. <a href="https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html">More about Semaphores</a> </p>
+</li>
+<li>
+<p><strong>Callout Functions:</strong> Callouts are deferred functions that will be executed after a specified time interval. <a href="https://mynewt.apache.org/latest/os/core_os/callout/callout.html">More about Callouts</a></p>
+</li>
+<li>
+<p><strong>Event Queue Functions:</strong> Event Queues allow a task to delegate processing steps (i.e. Events) to one or more queues and tasks. <a href="https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html">More about Event Queues</a></p>
+</li>
+<li>
+<p><strong>Interrupt Functions:</strong> For managing interrupts</p>
+</li>
+</ol>
+<p>We'll see the list of functions at the end of this section.</p>
+<p><em>What if our embedded operating system doesn't support Mutex / Semaphore / Callout / Event Queue?</em></p>
+<p>It may be possible to emulate the missing functions using the multitasking features found in our operating system. Or we may implement them using simple counters and locks. </p>
+<p>Let's check out how the NimBLE Porting Layer was implemented on various operating systems...</p>
+<ol>
+<li>
+<p><strong>RIOT</strong>: Callouts are not supported in RIOT, so they are implemented with a combination of RIOT Timers and Event Queues. See <a href="https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/include/nimble/nimble_npl_os.h#L43-L65"><code>riot/nimble_npl_os.h</code></a> and <a href="https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/npl_os_riot.c"><code>npl_os_riot.c</code></a> from the <a href="https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot">NimBLE Porting Layer for RIOT</a></p>
+</li>
+<li>
+<p><strong>FreeRTOS</strong>: Callouts are also implemented with Timers and Queues in FreeRTOS. Mutexes are implemented with FreeRTOS Semaphores. See <a href="https://github.com/apache/mynewt-nimble/blob/master/porting/npl/freertos/include/nimble/nimble_npl_os.h#L44-L66"><code>freertos/nimble_npl_os.h</code></a> from the <a href="https://github.com/apache/mynewt-nimble/tree/master/porting/npl/freertos">NimBLE Porting Layer for FreeRTOS</a></p>
+</li>
+<li>
+<p><strong>MicroPython</strong>: Mutexes, Semaphores, Callouts and Event Queues don't exist in MicroPython, so they are implemented using simple counters and locks. See <a href="https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/nimble_npl_os.h#L38-L64"><code>micropython/nimble_npl_os.h</code></a> and <a href="https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/npl_os.c"><code>npl_os.c</code></a> from the <a href="https://github.com/micropython/micropython/tree/master/extmod/nimble">NimBLE Porting Layer for MicroPython</a></p>
+</li>
+<li>
+<p><strong>Mynewt</strong>: NimBLE was created originally for Mynewt. Thus Mutexes, Semaphores, Callouts and Event Queues are used directly from Mynewt. See <a href="https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt/include/nimble/nimble_npl_os.h#L37-L60"><code>mynewt/nimble_npl_os.h</code></a> from the <a href="https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt">NimBLE Porting Layer for Mynewt</a></p>
+</li>
+</ol>
+<p>For porting NimBLE to Real Time Operating Systems, we may use <a href="https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot">NimBLE Porting Layer for RIOT</a> as the reference.</p>
+<p>Otherwise we may use the <a href="https://github.com/micropython/micropython/tree/master/extmod/nimble">NimBLE Porting Layer for MicroPython</a>.</p>
+<p><em>What is the Interrupt Service Routine in the diagram above?</em></p>
+<p>When PineTime receives a Bluetooth LE data packet, the Bluetooth hardware controller triggers an Interrupt. The <a href="https://en.wikipedia.org/wiki/Interrupt_handler">Interrupt Service Routine</a> is the function provided by NimBLE to handle that Interrupt.</p>
+<p>The Interrupt Service Routine forwards all received packets to the NimBLE background task for processing. We'll see in a while how NimBLE calls the NimBLE Porting Layer to set the Interrupt Service Routine.</p>
+<p><em>Why does NimBLE need Event Queues?</em></p>
+<p>The NimBLE Interrupt Service Routine runs at a higher priority than normal tasks (because handling interrupts needs to be super urgent). But it shouldn't hog the CPU and process the received Bluetooth packet immediately... That's wouldn't be fair to other tasks!</p>
+<p>Hence the NimBLE Interrupt Service Routine defers the processing of the received Bluetooth packet by adding it to an Event Queue. Another NimBLE task (running at normal priority) will pick up the Bluetooth packet and process it.</p>
+<p><em>How shall we start the NimBLE Stack and listen for firmware upgrade commands?</em></p>
+<p>PineTime Firmware Developers would have to call the C function <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_main.c#L300-L357"><code>start_ble()</code></a> defined in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_main.c#L300-L357"><code>ble_main.c</code></a></p>
+<p>This starts the NimBLE Stack to listen for SMP firmware upgrade commands transmitted over GATT.  The GATT command handlers for SMP are defined in  <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_prph.h"><code>ble_prph.h</code></a>, 
+<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_gatt_svr.c"><code>ble_gatt_svr.c</code></a>, 
+<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_misc.c"><code>ble_misc.c</code></a> and
+<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_phy.c"><code>ble_phy.c</code></a></p>
+<p>Here are the types and functions in the NimBLE Porting Layer that would be implemented by the PineTime Firmware Developer...</p>
+<h2 id="nimble-types" class="section-header"><a href="#nimble-types">6.1 NimBLE Types</a></h2><table><thead><tr><th align="left">Function</th><th align="left">Description</th><th align="left">Documentation</th></tr></thead><tbody>
+<tr><td align="left"><code>struct </code> <br> <strong><code>ble_npl_mutex</code></strong> <br><br></td><td align="left">Contains the OS-specific Mutex</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html#c.os_mutex"><code>os_mutex</code></a></td></tr>
+<tr><td align="left"><code>struct </code> <br> <strong><code>ble_npl_sem</code></strong> <br><br></td><td align="left">Contains the OS-specific Semaphore</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html#c.os_sem"><code>os_sem</code></a></td></tr>
+<tr><td align="left"><code>struct </code> <br> <strong><code>ble_npl_callout</code></strong> <br><br></td><td align="left">Contains the OS-specific Callout</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/callout/callout.html#c.os_callout"><code>os_callout</code></a></td></tr>
+<tr><td align="left"><code>struct</code> <br> <strong><code>ble_npl_event</code></strong> <br><br></td><td align="left">Contains the OS-specific Event</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event"><code>os_event</code></a></td></tr>
+<tr><td align="left"><code>struct </code> <br> <strong><code>ble_npl_eventq</code></strong> <br><br></td><td align="left">Contains the OS-specific Event Queue</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq"><code>os_eventq</code></a></td></tr>
+<tr><td align="left"><code>typedef </code> <br> <strong><code>ble_npl_time_t</code></strong> <br><br></td><td align="left">OS-specific unsigned type that represents elapsed time, like <code>uint32_t</code></td><td align="left"></td></tr>
+<tr><td align="left"><code>typedef </code> <br> <strong><code>ble_npl_stime_t</code></strong> <br><br></td><td align="left">OS-specific signed type that represents elapsed time, like <code>int32_t</code></td><td align="left"></td></tr>
+</tbody></table>
+<h2 id="nimble-general-functions" class="section-header"><a href="#nimble-general-functions">6.2 NimBLE General Functions</a></h2><table><thead><tr><th align="left">Function</th><th align="left">Description</th><th align="left">Documentation</th></tr></thead><tbody>
+<tr><td align="left"><code>bool </code> <br> <strong><code>ble_npl_os_started()</code></strong> <br><br></td><td align="left">Return true if OS has started and is ready to run tasks</td><td align="left">See <code>os_started</code> in <a href="https://github.com/apache/mynewt-core/blob/master/kernel/os/include/os/os.h#L70-L75"><code>os.h</code></a> and <a href="https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L277-L299"><code>os_arch_arm.c</code></a></td></tr>
+<tr><td align="left"><code>void *</code> <br> <strong><code>ble_npl_get_current_task_id()</code></strong> <br><br></td><td align="left">Returns the currently running task</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/context_switch/context_switch.html#c.os_sched_get_current_task"><code>os_sched_get_current_task</code></a></td></tr>
+</tbody></table>
+<h2 id="nimble-mutex-functions" class="section-header"><a href="#nimble-mutex-functions">6.3 NimBLE Mutex Functions</a></h2><table><thead><tr><th align="left">Function</th><th align="left">Description</th><th align="left">Documentation</th></tr></thead><tbody>
+<tr><td align="left"><code>ble_npl_error_t </code> <br> <strong><code>ble_npl_mutex_init(</code></strong> <br> <code>struct ble_npl_mutex *mu)</code> <br><br></td><td align="left">Create a Mutex and initialise it</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_init#c.os_mutex_init"><code>os_mutex_init(&amp;mu-&gt;mu)</code></a></td></tr>
+<tr><td align="left"><code>ble_npl_error_t </code> <br> <strong><code>ble_npl_mutex_pend(</code></strong> <br> <code>struct ble_npl_mutex *mu,</code> <br> <code>ble_npl_time_t timeout)</code> <br><br></td><td align="left">Wait for a Mutex</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_pend#c.os_mutex_pend"><code>os_mutex_pend(&amp;mu-&gt;mu, timeout)</code></a></td></tr>
+<tr><td align="left"><code>ble_npl_error_t </code> <br> <strong><code>ble_npl_mutex_release(</code></strong> <br> <code>struct ble_npl_mutex *mu)</code> <br><br></td><td align="left">Release a Mutex</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_release#c.os_mutex_release"><code>os_mutex_release(&amp;mu-&gt;mu)</code></a></td></tr>
+</tbody></table>
+<h2 id="nimble-semaphore-functions" class="section-header"><a href="#nimble-semaphore-functions">6.4 NimBLE Semaphore Functions</a></h2><table><thead><tr><th align="left">Function</th><th align="left">Description</th><th align="left">Documentation</th></tr></thead><tbody>
+<tr><td align="left"><code>ble_npl_error_t </code> <br> <strong><code>ble_npl_sem_init(</code></strong> <br> <code>struct ble_npl_sem *sem, </code> <br> <code>uint16_t tokens)</code> <br><br></td><td align="left">Create a Semaphore and initialise it</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_init"><code>os_sem_init(&amp;sem-&gt;sem, tokens</code></a></td></tr>
+<tr><td align="left"><code>ble_npl_error_t </code> <br> <strong><code>ble_npl_sem_pend(</code></strong> <br> <code>struct ble_npl_sem *sem,</code> <br> <code>ble_npl_time_t timeout)</code> <br><br></td><td align="left">Wait for a Semaphore</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_pend#c.os_sem_pend"><code>os_sem_pend(&amp;sem-&gt;sem, timeout)</code></a></td></tr>
+<tr><td align="left"><code>ble_npl_error_t </code> <br> <strong><code>ble_npl_sem_release(</code></strong> <br> <code>struct ble_npl_sem *sem)</code> <br><br></td><td align="left">Release a Semaphore</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_release#c.os_sem_release"><code>os_sem_release(&amp;sem-&gt;sem)</code></a></td></tr>
+<tr><td align="left"><code>uint16_t </code> <br> <strong><code>ble_npl_sem_get_count(</code></strong> <br> <code>struct ble_npl_sem *sem)</code> <br><br></td><td align="left">Get the Semaphore's current count</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_get_count#c.os_sem_get_count"><code>os_sem_get_count(&amp;sem-&gt;sem)</code></a></td></tr>
+</tbody></table>
+<h2 id="nimble-callout-functions" class="section-header"><a href="#nimble-callout-functions">6.5 NimBLE Callout Functions</a></h2><table><thead><tr><th align="left">Function</th><th align="left">Description</th><th align="left">Documentation</th></tr></thead><tbody>
+<tr><td align="left"><code>void </code> <br> <strong><code>ble_npl_callout_init(</code></strong> <br> <code>struct ble_npl_callout *co, </code> <br> <code>struct ble_npl_eventq *evq, </code> <br> <code>ble_npl_event_fn *ev_cb, </code> <br> <code>void *ev_arg)</code> <br><br></td><td align="left">Create a Callout and initialise it</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_init"><code>os_callout_init(&amp;co-&gt;co, &amp;evq-&gt;evq, ev_cb, ev_arg)</code></a></td></tr>
+<tr><td align="left"><code>ble_npl_error_t </code> <br> <strong><code>ble_npl_callout_reset(</code></strong> <br> <code>struct ble_npl_callout *co, </code> <br> <code>ble_npl_time_t ticks)</code> <br><br></td><td align="left">Reset the callout to fire off in <code>ticks</code> ticks</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_reset#c.os_callout_reset"><code>os_callout_reset(&amp;co-&gt;co, ticks)</code></a></td></tr>
+<tr><td align="left"><code>void </code> <br> <strong><code>ble_npl_callout_stop(</code></strong> <br> <code>struct ble_npl_callout *co)</code> <br><br></td><td align="left">Stop the Callout from firing off, any pending events will be cleared</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_stop#c.os_callout_stop"><code>os_callout_stop(&amp;co-&gt;co)</code></a></td></tr>
+<tr><td align="left"><code>bool </code> <br> <strong><code>ble_npl_callout_is_active(</code></strong> <br> <code>struct ble_npl_callout *co)</code> <br><br></td><td align="left">Returns whether the Callout is pending or not</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_queued#c.os_callout_queued"><code>os_callout_queued(&amp;co-&gt;co)</code></a></td></tr>
+<tr><td align="left"><code>ble_npl_time_t </code> <br> <strong><code>ble_npl_callout_get_ticks(</code></strong> <br> <code>struct ble_npl_callout *co)</code> <br><br></td><td align="left">Number of ticks in the future to expire the Callout</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=c_ticks#c.os_callout::c_ticks"><code>co-&gt;co.c_ticks</code></a></td></tr>
+<tr><td align="left"><code>ble_npl_time_t </code> <br> <strong><code>ble_npl_callout_remaining_ticks(</code></strong> <br> <code>struct ble_npl_callout *co, </code> <br> <code>ble_npl_time_t time)</code> <br><br></td><td align="left">Returns the number of ticks which remains till Callout</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_remaining_ticks#c.os_callout_remaining_ticks"><code>os_callout_remaining_ticks(&amp;co-&gt;co, time)</code></a></td></tr>
+<tr><td align="left"><code>void </code> <br> <strong><code>ble_npl_callout_set_arg(</code></strong> <br> <code>struct ble_npl_callout *co, </code> <br> <code>void *arg)</code> <br><br></td><td align="left">Set the argument that will be passed to the Callout callback</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_arg"><code>co-&gt;co.c_ev.ev_arg</code></a></td></tr>
+</tbody></table>
+<h2 id="nimble-event-queue-functions" class="section-header"><a href="#nimble-event-queue-functions">6.6 NimBLE Event Queue Functions</a></h2><table><thead><tr><th align="left">Function</th><th align="left">Description</th><th align="left">Documentation</th></tr></thead><tbody>
+<tr><td align="left"><code>void </code> <br> <strong><code>ble_npl_eventq_init(</code></strong> <br> <code>struct ble_npl_eventq *evq)</code> <br><br></td><td align="left">Create an Event Queue and initialise it</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html?highlight=os_eventq_init#c.os_eventq_init"><code>os_eventq_init(&amp;evq-&gt;evq)</code></a></td></tr>
+<tr><td align="left"><code>struct ble_npl_event *</code> <br> <strong><code>ble_npl_eventq_get(</code></strong> <br> <code>struct ble_npl_eventq *evq, </code> <br> <code>ble_npl_time_t tmo)</code> <br><br></td><td align="left">Pull a single Event from an Event Queue</td><td align="left">See <a href="https://gist.github.com/lupyuen/5da47d633315039e76262434a4faae46">this note</a></td></tr>
+<tr><td align="left"><code>void </code> <br> <strong><code>ble_npl_eventq_put(</code></strong> <br> <code>struct ble_npl_eventq *evq, </code> <br> <code>struct ble_npl_event *ev)</code> <br><br></td><td align="left">Put an Event on the Event Gueue</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_put"><code>os_eventq_put(&amp;evq-&gt;evq, &amp;ev-&gt;ev)</code></a></td></tr>
+<tr><td align="left"><code>void </code> <br> <strong><code>ble_npl_eventq_remove(</code></strong> <br> <code>struct ble_npl_eventq *evq, </code> <br> <code>struct ble_npl_event *ev)</code> <br><br></td><td align="left">Remove an Event from the Event Queue</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_remove"><code>os_eventq_remove</code></a></td></tr>
+<tr><td align="left"><code>void </code> <br> <strong><code>ble_npl_event_init(</code></strong> <br> <code>struct ble_npl_event *ev, </code> <br> <code>ble_npl_event_fn *fn, </code> <br> <code>void *arg)</code> <br><br></td><td align="left">Create an Event and initialise it</td><td align="left">See <a href="https://gist.github.com/lupyuen/5da47d633315039e76262434a4faae46">this note</a></td></tr>
+<tr><td align="left"><code>bool </code> <br> <strong><code>ble_npl_event_is_queued(</code></strong> <br> <code>struct ble_npl_event *ev)</code> <br><br></td><td align="left">Return true if the Event is queued on an Event Queue</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_queued"><code>ev-&gt;ev.ev_queued</code></a></td></tr>
+<tr><td align="left"><code>void *</code> <br> <strong><code>ble_npl_event_get_arg(</code></strong> <br> <code>struct ble_npl_event *ev)</code> <br><br></td><td align="left">Return the argument that will be passed to the Event Queue callback</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_arg"><code>ev-&gt;ev.ev_arg</code></a></td></tr>
+<tr><td align="left"><code>void </code> <br> <strong><code>ble_npl_event_set_arg(</code></strong> <br> <code>struct ble_npl_event *ev, </code> <br> <code>void *arg)</code> <br><br></td><td align="left">Set the argument that will be passed to the Event Queue callback</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_arg"><code>ev-&gt;ev.ev_arg</code></a></td></tr>
+<tr><td align="left"><code>bool </code> <br> <strong><code>ble_npl_eventq_is_empty(</code></strong> <br> <code>struct ble_npl_eventq *evq)</code> <br><br></td><td align="left">Return true if the Event Queue is empty</td><td align="left"></td></tr>
+<tr><td align="left"><code>void </code> <br> <strong><code>ble_npl_event_run(</code></strong> <br> <code>struct ble_npl_event *ev)</code> <br><br></td><td align="left">Execute the Event callback</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_cb"><code>ev-&gt;ev.ev_cb(&amp;ev-&gt;ev)</code></a></td></tr>
+</tbody></table>
+<h2 id="nimble-time-functions" class="section-header"><a href="#nimble-time-functions">6.7 NimBLE Time Functions</a></h2><table><thead><tr><th align="left">Function</th><th align="left">Description</th><th align="left">Documentation</th></tr></thead><tbody>
+<tr><td align="left"><code>ble_npl_time_t</code> <br> <strong><code>ble_npl_time_get()</code></strong> <br><br></td><td align="left">Get the current OS time in ticks</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_get"><code>os_time_get()</code></a></td></tr>
+<tr><td align="left"><code>ble_npl_error_t</code> <br> <strong><code>ble_npl_time_ms_to_ticks(</code></strong> <br> <code>uint32_t ms, </code> <br> <code>ble_npl_time_t *out_ticks)</code> <br><br></td><td align="left">Converts milliseconds to OS ticks</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ms_to_ticks#c.os_time_ms_to_ticks"><code>os_time_ms_to_ticks(ms, out_ticks)</code></a></td></tr>
+<tr><td align="left"><code>ble_npl_error_t</code> <br> <strong><code>ble_npl_time_ticks_to_ms(</code></strong> <br> <code>ble_npl_time_t ticks, </code> <br> <code>uint32_t *out_ms)</code> <br><br></td><td align="left">Converts OS ticks to milliseconds</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ticks_to_ms#c.os_time_ticks_to_ms"><code>os_time_ticks_to_ms(ticks, out_ms)</code></a></td></tr>
+<tr><td align="left"><code>ble_npl_time_t</code> <br> <strong><code>ble_npl_time_ms_to_ticks32(</code></strong> <br> <code>uint32_t ms)</code> <br><br></td><td align="left">Converts milliseconds to OS ticks</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ms_to_ticks32#c.os_time_ms_to_ticks32"><code>os_time_ms_to_ticks32(ms)</code></a></td></tr>
+<tr><td align="left"><code>uint32_t</code> <br> <strong><code>ble_npl_time_ticks_to_ms32(</code></strong> <br> <code>ble_npl_time_t ticks)</code> <br><br></td><td align="left">Converts OS ticks to milliseconds</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ticks_to_ms32#c.os_time_ticks_to_ms32"><code>os_time_ticks_to_ms32(ticks)</code></a></td></tr>
+<tr><td align="left"><code>void</code> <br> <strong><code>ble_npl_time_delay(</code></strong> <br> <code>ble_npl_time_t ticks)</code> <br><br></td><td align="left">Puts the current task to sleep for the specified number of os ticks</td><td align="left">See <a href="https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_delay#c.os_time_delay"><code>os_time_delay(ticks)</code></a></td></tr>
+</tbody></table>
+<h2 id="nimble-interrupt-functions" class="section-header"><a href="#nimble-interrupt-functions">6.8 NimBLE Interrupt Functions</a></h2><table><thead><tr><th align="left">Function</th><th align="left">Description</th><th align="left">Documentation</th></tr></thead><tbody>
+<tr><td align="left"><code>void </code> <br> <strong><code>ble_npl_hw_set_isr(</code></strong> <br><code>int irqn, </code> <br> <code>void (*addr)(void))</code> <br><br></td><td align="left">Set the Interrupt Service Routine for interrupt <code>irqn</code> to <code>addr</code></td><td align="left">See the RIOT implementation of <code>ble_npl_hw_set_isr</code> in <a href="https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_isr.c"><code>nrf5x_isr.c</code></a></td></tr>
+<tr><td align="left"><code>uint32_t</code> <br> <strong><code>ble_npl_hw_enter_critical</code></strong><code>()</code> <br><br></td><td align="left">Disable interrupts</td><td align="left">See <a href="https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L126-L140"><code>os_arch_save_sr()</code></a></td></tr>
+<tr><td align="left"><code>void</code> <br> <strong><code>ble_npl_hw_exit_critical(</code></strong> <br> <code>uint32_t ctx)</code> <br><br></td><td align="left">Enable interrupts</td><td align="left">See <a href="https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L142-L152"><code>os_arch_restore_sr(ctx)</code></a></td></tr>
+<tr><td align="left"><code>bool</code> <br> <strong><code>ble_npl_hw_is_in_critical</code></strong><code>()</code> <br><br></td><td align="left">Returns true if interrupts are disabled</td><td align="left"></td></tr>
+<tr><td align="left"><br></td><td align="left"></td><td align="left"></td></tr>
+</tbody></table>
+<p>The complete list of NimBLE Porting Library functions to be implemented by PineTime Firmware Developers may be found in <a href="https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h"><code>nimble_npl.h</code></a></p>
+<p>The documentation above was derived from <a href="https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt/include/nimble/nimble_npl_os.h"><code>mynewt/nimble_npl_os.h</code></a> from the <a href="https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt">NimBLE Porting Layer for Mynewt</a></p>
+<p><em><a href="https://github.com/apache/mynewt-nimble">Browse the NimBLE source code</a></em></p>
 <h1 id="mcuboot-bootloader" class="section-header"><a href="#mcuboot-bootloader">7 MCUBoot Bootloader</a></h1>
 <p>TODO</p>
+<p>MCUboot design: https://juullabs-oss.github.io/mcuboot/design.html</p>
+<p>Refer to the Flash Memory Map:</p>
+<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/hw/bsp/nrf52/bsp.yml</p>
+<p>mcuboot currently requires mbedtls, which does dynamic allocations. Might be interesting to try bearssl which works without any dynamic allocations</p>
 <h1 id="other-command-handlers-for-mcu-manager" class="section-header"><a href="#other-command-handlers-for-mcu-manager">8 Other Command Handlers for MCU Manager</a></h1>
 <p>TODO</p>
 <p>For upgrading firmware over Bluetooth, the MCU Manager Library is supported on Mynewt OS and Zephyr OS. </p>
@@ -333,34 +448,7 @@
 <p>https://github.com/apache/mynewt-mcumgr</p>
 <p>MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:</p>
 <p>https://github.com/apache/mynewt-mcumgr/tree/master/cmd</p>
-<h1 id="firmware-upgrade-via-bluetooth-le" class="section-header"><a href="#firmware-upgrade-via-bluetooth-le">9 Firmware Upgrade via Bluetooth LE</a></h1>
-<p>TODO</p>
-<p><strong>Objective:</strong> To allow firmware for PineTime Smart Watch to be upgraded Over-The-Air via Bluetooth LE from a mobile phone or a Linux desktop</p>
-<p><strong>Devices To Be Supported:</strong> iOS, Android, PinePhone, Raspberry Pi (includes Linux desktops)</p>
-<h1 id="proposed-solution" class="section-header"><a href="#proposed-solution">10 Proposed Solution</a></h1>
-<p>TODO</p>
-<p>We are exploring the OTA Firmware Update solution based on Apache NimBLE Bluetooth stack and Apache Mynewt OS, which are open source:</p>
-<p>https://mynewt.apache.org/latest/tutorials/devmgmt/ota_upgrade_nrf52.html</p>
-<p>This solution uses the Newt Manager command-line tool, coded in Go and supported on Linux and macOS:</p>
-<p>https://github.com/apache/mynewt-newtmgr</p>
-<p>https://mynewt.apache.org/latest/newtmgr/index.html</p>
-<p>Or we may use the MCU Manager command-line tool, which is a thin wrapper over the Newt Manager command-line tool:</p>
-<p>https://github.com/apache/mynewt-mcumgr-cli</p>
-<p>For the firmware, the Newt Manager library (based on the NimBLE stack) needs to be embedded. The Newt Manager library receives the firmware image transmitted by the Newt Manager command-line tool:</p>
-<p>https://mynewt.apache.org/latest/tutorials/devmgmt/add_newtmgr.html</p>
-<p>https://mynewt.apache.org/latest/os/modules/devmgmt/newtmgr.html</p>
-<p>Or we may embed the MCU Manager library (also based on the NimBLE stack):</p>
-<p>https://github.com/apache/mynewt-mcumgr/blob/master/README-mynewt.md</p>
-<p>https://mynewt.apache.org/latest/os/modules/mcumgr/mcumgr.html</p>
-<p>(Newt Manager library vs MCU Manager library: newtmgr supports two wire formats - NMP (plain newtmgr protocol) and OMP (CoAP newtmgr protocol). mcumgr only supports NMP (called “Simple Management Procotol” in mcumgr))</p>
-<p>Upon reboot, the MCUboot bootloader swaps the firmware images.  If there is a problem, MCUbot restores the previous firmware image. MCUboot is supported on Mynewt, Zephyr and RIOT OS. More about MCUboot:</p>
-<p>https://juullabs-oss.github.io/mcuboot/</p>
-<p>The Newt Manager / MCU Manager library is probably portable to other firmware, like FreeRTOS and RIOT OS.  MCU Manager is already supported in Zephyr OS.</p>
-<p>PineTime should probably ship with a firmware image containing Newt Manager or MCU Manager so that we may upgrade PineTime to other firmware easily.</p>
-<p>The NimBLE Bluetooth stack is now supported on PineTime with the FreeRTOS, Mynewt, RIOT and Zephyr firmwares.</p>
-<p>The proposed solution is similar to the Bluetooth OTA Firmware Upgrade solution for Zephyr OS (based on MCU Manager):</p>
-<p>https://docs.zephyrproject.org/latest/guides/device_mgmt/dfu.html#</p>
-<h1 id="pinetime-firmware" class="section-header"><a href="#pinetime-firmware">11 PineTime Firmware</a></h1>
+<h1 id="pinetime-firmware" class="section-header"><a href="#pinetime-firmware">9 PineTime Firmware</a></h1>
 <p>TODO</p>
 <p>Now testing PineTime Mynewt firmware built with Newt Manager library, located at the <code>ota</code> branch of <code>/pinetime-rust-mynewt</code>:</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota</p>
@@ -371,33 +459,7 @@
 <p>PineTime now appears in nRF Connect with DFU enabled:</p>
 <p>https://twitter.com/MisterTechBlog/status/1255305379766042626?s=20</p>
 <p>Need to implement MCUboot for DFU to work.</p>
-<h1 id="newt-manager-modules-used-in-pinetime-firmware" class="section-header"><a href="#newt-manager-modules-used-in-pinetime-firmware">12 Newt Manager Modules used in PineTime Firmware</a></h1>
-<p>TODO</p>
-<p>The following modules were added to PineTime firmware to support Newt Manager:</p>
-<pre><code class="language-yaml"># Bluetooth LE
-pkg.deps.BLUETOOTH_LE:
-    - &quot;@apache-mynewt-core/boot/split&quot;
-    - &quot;@mcuboot/boot/bootutil&quot;
-    - &quot;@apache-mynewt-core/mgmt/imgmgr&quot;
-    - &quot;@apache-mynewt-core/mgmt/newtmgr&quot;
-    - &quot;@apache-mynewt-core/mgmt/newtmgr/transport/ble&quot;
-    - &quot;@apache-mynewt-nimble/nimble/host&quot;
-    - &quot;@apache-mynewt-nimble/nimble/host/services/ans&quot;
-    - &quot;@apache-mynewt-nimble/nimble/host/services/dis&quot;
-    - &quot;@apache-mynewt-nimble/nimble/host/services/gap&quot;
-    - &quot;@apache-mynewt-nimble/nimble/host/services/gatt&quot;
-    - &quot;@apache-mynewt-nimble/nimble/host/store/config&quot;
-    - &quot;@apache-mynewt-nimble/nimble/host/util&quot;
-    - &quot;@apache-mynewt-nimble/nimble/transport&quot;
-</code></pre>
-<p><em>From https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/pkg.yml</em></p>
-<h1 id="nrf-connect-client-for-ios-and-android" class="section-header"><a href="#nrf-connect-client-for-ios-and-android">13 nRF Connect Client for iOS and Android</a></h1>
-<p>TODO</p>
-<p>The nRF Connect Client for iOS and Android works OK with Newt Manager Library on PineTime, connecting via Simple Management Protocol over Bluetooth LE:</p>
-<p>https://twitter.com/MisterTechBlog/status/1255305379766042626?s=20</p>
-<p>The DFU function is enabled in nRF Client, but PineTime needs MCUboot to be installed for firmware upgrading to work.</p>
-<p>More about nRF Connect: https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile</p>
-<h1 id="raspberry-pi-client" class="section-header"><a href="#raspberry-pi-client">14 Raspberry Pi Client</a></h1>
+<h1 id="raspberry-pi-client" class="section-header"><a href="#raspberry-pi-client">10 Raspberry Pi Client</a></h1>
 <p>TODO</p>
 <p>Newt Manager builds OK on Raspberry Pi 4 and works OK with PineTime.  See the log below.</p>
 <p>Now studying the Go code (with debug messages enabled) to understand the firmware upload process:</p>
@@ -405,15 +467,11 @@ pkg.deps.BLUETOOTH_LE:
 <p>Also how to set the device date/time:</p>
 <p>https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_datetime.html</p>
 <p>And whether we can push notifications to the device.</p>
-<h1 id="pinephone-client" class="section-header"><a href="#pinephone-client">15 PinePhone Client</a></h1>
-<p>TODO</p>
-<p>Waiting for PinePhone to be delivered. Client will probably be based on Newt Manager or MCU Manager, since Go is supported on Ubuntu Touch.</p>
-<p>Will probably wrap the Go client in a Qt GUI app.  Or wrap with a Go GUI library: https://github.com/avelino/awesome-go#gui</p>
-<h1 id="android-client" class="section-header"><a href="#android-client">16 Android Client</a></h1>
+<h1 id="android-client" class="section-header"><a href="#android-client">11 Android Client</a></h1>
 <p>TODO</p>
 <p>Not started. Will explore this Android MCU Manager client for OTA Firmware Upgrade, coded in Java:</p>
 <p>https://github.com/JuulLabs-OSS/mcumgr-android</p>
-<h1 id="ios-client" class="section-header"><a href="#ios-client">17 iOS Client</a></h1>
+<h1 id="ios-client" class="section-header"><a href="#ios-client">12 iOS Client</a></h1>
 <p>TODO</p>
 <p>Not started. Will explore this iOS MCU Manager client for OTA Firmware Upgrade, coded in Swift:</p>
 <p>https://github.com/JuulLabs-OSS/mcumgr-ios</p>
@@ -423,7 +481,7 @@ pkg.deps.BLUETOOTH_LE:
 <p>Refer to the iOS Core Bluetooth API:</p>
 <p>https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/AboutCoreBluetooth/Introduction.html#//apple_ref/doc/uid/TP40013257-CH1-SW1</p>
 <p>https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/PerformingCommonCentralRoleTasks/PerformingCommonCentralRoleTasks.html#//apple_ref/doc/uid/TP40013257-CH3-SW1</p>
-<h1 id="flutter-client-for-ios-and-android" class="section-header"><a href="#flutter-client-for-ios-and-android">18 Flutter Client for iOS and Android</a></h1>
+<h1 id="flutter-client-for-ios-and-android" class="section-header"><a href="#flutter-client-for-ios-and-android">13 Flutter Client for iOS and Android</a></h1>
 <p>TODO</p>
 <p>Alternatively, we may build iOS and Android clients for MCU Manager in Flutter based on this BLE library:</p>
 <p>https://github.com/pauldemarco/flutter_blue</p>
@@ -432,15 +490,7 @@ pkg.deps.BLUETOOTH_LE:
 <p>https://github.com/pauldemarco/flutter_blue/tree/master/example/lib</p>
 <p>And adapting the iOS MCU Client code.</p>
 <p>The Flutter app for PineTime would the MCU Manager functions from scratch. The app would be a great reference to teach how to talk to BLE and GATT services from iOS and Android, even though it won't be a polished app.</p>
-<h1 id="implementing-mcuboot" class="section-header"><a href="#implementing-mcuboot">19 Implementing MCUboot</a></h1>
-<p>TODO</p>
-<p>MCUboot is not implemented in the Mynewt firmware for PineTime because it doesn't have an allocated slot in Flash ROM for storing the new firmware image. Refer to the Flash Memory Map:</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/hw/bsp/nrf52/bsp.yml</p>
-<p>Note that <code>FLASH_AREA_IMAGE_1</code> and <code>FLASH_AREA_IMAGE_SCRATCH</code> are not usable. </p>
-<p>The Flash Memory Map needs to be fixed for MCUboot to work.  The flashing scripts depend on these flash addresses, so the scripts may have to be changed too.</p>
-<p>The Flash Memory Map should follow the Mynewt memory map for nRF52:</p>
-<p>https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml</p>
-<h1 id="mcuboot-enhancements" class="section-header"><a href="#mcuboot-enhancements">20 MCUboot Enhancements</a></h1>
+<h1 id="mcuboot-enhancements" class="section-header"><a href="#mcuboot-enhancements">14 MCUboot Enhancements</a></h1>
 <p>TODO</p>
 <p>MCUboot should detect button press upon startup. If the button is pressed, rollback the old firmware. This allows the user to roll back faulty firmware that does not respond to OTA Firmware Upgrade commands.</p>
 <p>The OTA Firmware Upgrade tool needs to ensure that the same firmware version doesn't get flashed twice.</p>
@@ -516,7 +566,7 @@ pkg.deps.BLUETOOTH_LE:
 <span class="ident">objsize</span>
    <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
  <span class="number">205760</span>     <span class="number">904</span>   <span class="number">55224</span>  <span class="number">261888</span>   <span class="number">3ff00</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">elf</span></pre></div>
-<h1 id="other-pinetime-bluetooth-firmware-upgrade-solutions" class="section-header"><a href="#other-pinetime-bluetooth-firmware-upgrade-solutions">21 Other PineTime Bluetooth Firmware Upgrade Solutions</a></h1>
+<h1 id="other-pinetime-bluetooth-firmware-upgrade-solutions" class="section-header"><a href="#other-pinetime-bluetooth-firmware-upgrade-solutions">15 Other PineTime Bluetooth Firmware Upgrade Solutions</a></h1>
 <ol>
 <li>
 <p>Nordic SoftDevice includes a proprietary BLE DFU implementation: https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v15.0.0/lib_bootloader_dfu_process.html</p>
@@ -531,7 +581,7 @@ pkg.deps.BLUETOOTH_LE:
 <p>DaFlasher for Android: https://github.com/atc1441/DaFlasherFiles</p>
 </li>
 </ol>
-<h1 id="log-for-raspberry-pi-client" class="section-header"><a href="#log-for-raspberry-pi-client">22 Log for Raspberry Pi Client</a></h1>
+<h1 id="log-for-raspberry-pi-client" class="section-header"><a href="#log-for-raspberry-pi-client">16 Log for Raspberry Pi Client</a></h1>
 <pre><code>
 $ cd ~/go
 $ mkdir -p src/mynewt.apache.org
@@ -579,7 +629,7 @@ Images:
     bootable: true
     flags: active confirmed
     hash: eab2886947a1df6f850463601f3dad409411d7ea21855eb0a70e965732258c92
-Split status: N/A (0)</code></pre><h1 id="further-reading" class="section-header"><a href="#further-reading">23 Further Reading</a></h1>
+Split status: N/A (0)</code></pre><h1 id="further-reading" class="section-header"><a href="#further-reading">17 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 
     
