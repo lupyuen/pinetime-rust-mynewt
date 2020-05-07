@@ -330,6 +330,9 @@ Let's check out how the NimBLE Porting Layer was implemented on various operatin
 1. __Mynewt__: NimBLE was created originally for Mynewt. Thus Mutexes, Semaphores, Callouts and Event Queues are used directly from Mynewt. See [`mynewt/nimble_npl_os.h`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt/include/nimble/nimble_npl_os.h#L37-L60) from the [NimBLE Porting Layer for Mynewt](
 https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt)
 
+For porting NimBLE to Real Time Operating Systems, we may use [NimBLE Porting Layer for RIOT](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot) as the reference.
+
+Otherwise we may use the [NimBLE Porting Layer for MicroPython](https://github.com/micropython/micropython/tree/master/extmod/nimble).
 
 _What is the Interrupt Service Routine in the diagram above?_
 
@@ -346,8 +349,8 @@ Here are the types and functions in the NimBLE Porting Layer that would be imple
 | `struct ` <br> __`ble_npl_mutex`__ | Contains the OS-specific Mutex | See [`os_mutex`](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html#c.os_mutex)
 | `struct ` <br> __`ble_npl_sem`__ | Contains the OS-specific Semaphore | See [`os_sem`](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html#c.os_sem)
 | `struct ` <br> __`ble_npl_callout`__ | Contains the OS-specific Callout | See [`os_callout`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html#c.os_callout)
-| `struct` <br> __`ble_npl_event`__ | Contains the OS-specific Event Queue | See [`os_event`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event)
-| `struct ` <br> __`ble_npl_eventq`__ | Contains the OS-specific Event | See [`os_eventq`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq)
+| `struct` <br> __`ble_npl_event`__ | Contains the OS-specific Event | See [`os_event`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event)
+| `struct ` <br> __`ble_npl_eventq`__ | Contains the OS-specific Event Queue | See [`os_eventq`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq)
 | `typedef ` <br> __`ble_npl_time_t`__ |OS-specific unsigned type that represents elapsed time, like `uint32_t` |
 | `typedef ` <br> __`ble_npl_stime_t`__ | OS-specific signed type that represents elapsed time, like `int32_t` |
 
