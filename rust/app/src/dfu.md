@@ -371,8 +371,7 @@ Here are the types and functions in the NimBLE Porting Layer that would be imple
 | Function | Description | Documentation |
 |:--|:--|:--|
 | `ble_npl_error_t ` <br> __`ble_npl_sem_init(`__ <br> `struct ble_npl_sem *sem, ` <br> `uint16_t tokens)` | Create a Semaphore and initialise it |See [`os_sem_init(&sem->sem, tokens`](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_init)
-| `ble_npl_error_t ` <br> __`ble_npl_sem_pend(`__ <br> `struct ble_npl_sem *sem,
-` <br> `ble_npl_time_t timeout)` | Wait for a Semaphore | See [`os_sem_pend(&sem->sem, timeout)`](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_pend#c.os_sem_pend)
+| `ble_npl_error_t ` <br> __`ble_npl_sem_pend(`__ <br> `struct ble_npl_sem *sem,` <br> `ble_npl_time_t timeout)` | Wait for a Semaphore | See [`os_sem_pend(&sem->sem, timeout)`](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_pend#c.os_sem_pend)
 | `ble_npl_error_t ` <br> __`ble_npl_sem_release(`__ <br> `struct ble_npl_sem *sem)` | Release a Semaphore | See [`os_sem_release(&sem->sem)`](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_release#c.os_sem_release)
 | `uint16_t ` <br> __`ble_npl_sem_get_count(`__ <br> `struct ble_npl_sem *sem)` | Get the Semaphore's current count | See [`os_sem_get_count(&sem->sem)`](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_get_count#c.os_sem_get_count)
 
@@ -385,8 +384,7 @@ Here are the types and functions in the NimBLE Porting Layer that would be imple
 | `void ` <br> __`ble_npl_callout_stop(`__ <br> `struct ble_npl_callout *co)` | Stop the Callout from firing off, any pending events will be cleared | See [`os_callout_stop(&co->co)`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_stop#c.os_callout_stop)
 | `bool ` <br> __`ble_npl_callout_is_active(`__ <br> `struct ble_npl_callout *co)` | Returns whether the Callout is pending or not | See [`os_callout_queued(&co->co)`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_queued#c.os_callout_queued)
 | `ble_npl_time_t ` <br> __`ble_npl_callout_get_ticks(`__ <br> `struct ble_npl_callout *co)` | Number of ticks in the future to expire the Callout | See [`co->co.c_ticks`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=c_ticks#c.os_callout::c_ticks)
-| `ble_npl_time_t ` <br> __`ble_npl_callout_remaining_ticks(`__ <br> `struct ble_npl_callout *co, ` <br> `ble_npl_time_t time)` | 
-Returns the number of ticks which remains till Callout | See [`os_callout_remaining_ticks(&co->co, time)`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_remaining_ticks#c.os_callout_remaining_ticks)
+| `ble_npl_time_t ` <br> __`ble_npl_callout_remaining_ticks(`__ <br> `struct ble_npl_callout *co, ` <br> `ble_npl_time_t time)` | Returns the number of ticks which remains till Callout | See [`os_callout_remaining_ticks(&co->co, time)`](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_remaining_ticks#c.os_callout_remaining_ticks)
 | `void ` <br> __`ble_npl_callout_set_arg(`__ <br> `struct ble_npl_callout *co, ` <br> `void *arg)` | Set the argument that will be passed to the Callout callback | See [`co->co.c_ev.ev_arg`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_arg)
 
 ## NimBLE Event Queue Functions
