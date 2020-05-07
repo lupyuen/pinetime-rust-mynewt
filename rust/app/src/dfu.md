@@ -309,7 +309,7 @@ PineTime Firmware Developers would have to implement the NimBLE Porting Layer in
 
 1. __Callout Functions:__ Callouts are deferred functions that will be executed after a specified time interval. [More about Callouts](https://mynewt.apache.org/latest/os/core_os/callout/callout.html)
 
-1. __Event Queue Functions:__ Event Queues allow a task to delegate processing steps (i.e. Events) to multiple queues and tasks. [More about Event Queues](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html)
+1. __Event Queue Functions:__ Event Queues allow a task to delegate processing steps (i.e. Events) to one or more queues and tasks. [More about Event Queues](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html)
 
 1. __Interrupt Functions:__ For managing interrupts
 
@@ -336,9 +336,15 @@ Otherwise we may use the [NimBLE Porting Layer for MicroPython](https://github.c
 
 _What is the Interrupt Service Routine in the diagram above?_
 
-When PineTime receives a Bluetooth LE data packet, the Bluetooth hardware controller triggers an Interrupt. The Interrupt Service Routine is the function provided by NimBLE to handle that Interrupt.
+When PineTime receives a Bluetooth LE data packet, the Bluetooth hardware controller triggers an Interrupt. The [Interrupt Service Routine](https://en.wikipedia.org/wiki/Interrupt_handler) is the function provided by NimBLE to handle that Interrupt.
 
 The Interrupt Service Routine forwards all received packets to the NimBLE background task for processing. We'll see in a while how NimBLE calls the NimBLE Porting Layer to set the Interrupt Service Routine.
+
+_Why does NimBLE need Event Queues?_
+
+The NimBLE Interrupt Service Routine runs at a higher priority than normal tasks (because handling interrupts needs to be super urgent). But it shouldn't hog the CPU and process the received Bluetooth packet immediately... That's wouldn't be fair to other tasks!
+
+Hence the NimBLE Interrupt Service Routine defers the processing of the received Bluetooth packet by adding it to an Event Queue. Another NimBLE task (running at normal priority) will pick up the Bluetooth packet and process it.
 
 Here are the types and functions in the NimBLE Porting Layer that would be implemented by the PineTime Firmware Developer...
 
