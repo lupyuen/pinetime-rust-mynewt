@@ -305,9 +305,23 @@ NimBLE runs in the background handling Bluetooth LE packets, so it depends on th
 
 1. __Semaphore Functions:__ A Semaphore works like a Mutex but it's more flexible. Think of a Semaphore as a Ticket Queueing System for shared resources. [More about Semaphores](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html) 
 
-1. __Callout Functions:__ High-priority tasks on PineTime shouldn't be allowed to run for a long time... We should be fair to lower priority tasks! With Callouts, a high-priority task (like the Interrupt Service Routine for Bluetooth) may defer some processing to be done later with lower priority. [More about Callouts](https://mynewt.apache.org/latest/os/core_os/callout/callout.html)
+1. __Callout Functions:__ Callouts are deferred functions that will be executed after a specified time interval. [More about Callouts](https://mynewt.apache.org/latest/os/core_os/callout/callout.html)
 
-1. __Event Queue Functions:__ Event Queues allow a task to delegate processing steps to multiple queues and tasks. Event Queues allow NimBLE to use PineTime's CPU at maximum capacity. [More about Event Queues](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html)
+1. __Event Queue Functions:__ Event Queues allow a task to delegate processing steps (i.e. Events) to multiple queues and tasks. [More about Event Queues](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html)
+
+We'll see the list of functions at the end of this section.
+
+_What if our embedded operating system doesn't support Mutex / Semaphore / Callout / Event Queue?_
+
+It may be possible to emulate the missing functions using the multitasking features found in our operating system. Or we may implement them using simple counters and locks. Let's check out how NimBLE was implemented on various operating systems...
+
+1. __RIOT__:
+
+1. __FreeRTOS__:
+
+1. __MicroPython__:
+
+_What is the Interupt Service Routine?_
 
 The complete list of C functions to be implemented by PineTime Firmware Developers may be found here: [`nimble_npl.h`](https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h)
 
