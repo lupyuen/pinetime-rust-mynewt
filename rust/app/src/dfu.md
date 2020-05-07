@@ -449,31 +449,26 @@ ev->ev.ev_cb(&ev->ev)
  * Mutexes
  */
 
-ble_npl_error_t ble_npl_mutex_init(struct ble_npl_mutex *mu);
-    return (ble_npl_error_t)os_mutex_init(&mu->mu);
-https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_init#c.os_mutex_init
+ble_npl_error_t ble_npl_mutex_init(struct ble_npl_mutex *mu)
+See [os_mutex_init(&mu->mu)](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_init#c.os_mutex_init)
 
 ble_npl_error_t ble_npl_mutex_pend(struct ble_npl_mutex *mu,
-                                   ble_npl_time_t timeout);
-    return (ble_npl_error_t)os_mutex_pend(&mu->mu, timeout);
-https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_init#c.os_mutex_pend
+                                   ble_npl_time_t timeout)
+See [os_mutex_pend(&mu->mu, timeout)](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_init#c.os_mutex_pend)
 
-ble_npl_error_t ble_npl_mutex_release(struct ble_npl_mutex *mu);
-    return (ble_npl_error_t)os_mutex_release(&mu->mu);
-https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_init#c.os_mutex_release
+ble_npl_error_t ble_npl_mutex_release(struct ble_npl_mutex *mu)
+See [os_mutex_release(&mu->mu)](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_init#c.os_mutex_release)
 
 /*
  * Semaphores
  */
 
-ble_npl_error_t ble_npl_sem_init(struct ble_npl_sem *sem, uint16_t tokens);
-    return (ble_npl_error_t)os_sem_init(&sem->sem, tokens);
-https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_init
+ble_npl_error_t ble_npl_sem_init(struct ble_npl_sem *sem, uint16_t tokens)
+See [os_sem_init(&sem->sem, tokens](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_init)
 
 ble_npl_error_t ble_npl_sem_pend(struct ble_npl_sem *sem,
-                                 ble_npl_time_t timeout);
-    return (ble_npl_error_t)os_sem_pend(&sem->sem, timeout);
-https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_pend
+                                 ble_npl_time_t timeout)
+See [os_sem_pend(&sem->sem, timeout)](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_pend)
 
 ble_npl_error_t ble_npl_sem_release(struct ble_npl_sem *sem);
     return (ble_npl_error_t)os_sem_release(&sem->sem);
