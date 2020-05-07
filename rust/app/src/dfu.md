@@ -436,6 +436,14 @@ _[Browse the NimBLE source code](https://github.com/apache/mynewt-nimble)_
 
 TODO
 
+MCUboot design: https://juullabs-oss.github.io/mcuboot/design.html
+
+Refer to the Flash Memory Map:
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/hw/bsp/nrf52/bsp.yml
+
+mcuboot currently requires mbedtls, which does dynamic allocations. Might be interesting to try bearssl which works without any dynamic allocations
+
 # Other Command Handlers for MCU Manager
 
 TODO
@@ -471,31 +479,6 @@ PineTime now appears in nRF Connect with DFU enabled:
 https://twitter.com/MisterTechBlog/status/1255305379766042626?s=20
 
 Need to implement MCUboot for DFU to work.
-
-# Newt Manager Modules used in PineTime Firmware
-
-TODO
-
-The following modules were added to PineTime firmware to support Newt Manager:
-
-```yaml
-# Bluetooth LE
-pkg.deps.BLUETOOTH_LE:
-    - "@apache-mynewt-core/boot/split"
-    - "@mcuboot/boot/bootutil"
-    - "@apache-mynewt-core/mgmt/imgmgr"
-    - "@apache-mynewt-core/mgmt/newtmgr"
-    - "@apache-mynewt-core/mgmt/newtmgr/transport/ble"
-    - "@apache-mynewt-nimble/nimble/host"
-    - "@apache-mynewt-nimble/nimble/host/services/ans"
-    - "@apache-mynewt-nimble/nimble/host/services/dis"
-    - "@apache-mynewt-nimble/nimble/host/services/gap"
-    - "@apache-mynewt-nimble/nimble/host/services/gatt"
-    - "@apache-mynewt-nimble/nimble/host/store/config"
-    - "@apache-mynewt-nimble/nimble/host/util"
-    - "@apache-mynewt-nimble/nimble/transport"
-```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/pkg.yml_
 
 # Raspberry Pi Client
 
@@ -558,22 +541,6 @@ https://github.com/pauldemarco/flutter_blue/tree/master/example/lib
 And adapting the iOS MCU Client code.
 
 The Flutter app for PineTime would the MCU Manager functions from scratch. The app would be a great reference to teach how to talk to BLE and GATT services from iOS and Android, even though it won't be a polished app.
-
-# Implementing MCUboot
-
-TODO
-
-MCUboot is not implemented in the Mynewt firmware for PineTime because it doesn't have an allocated slot in Flash ROM for storing the new firmware image. Refer to the Flash Memory Map:
-
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/hw/bsp/nrf52/bsp.yml
-
-Note that `FLASH_AREA_IMAGE_1` and `FLASH_AREA_IMAGE_SCRATCH` are not usable. 
-
-The Flash Memory Map needs to be fixed for MCUboot to work.  The flashing scripts depend on these flash addresses, so the scripts may have to be changed too.
-
-The Flash Memory Map should follow the Mynewt memory map for nRF52:
-
-https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml
 
 # MCUboot Enhancements
 
