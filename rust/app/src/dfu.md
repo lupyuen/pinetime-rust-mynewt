@@ -449,7 +449,15 @@ https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt)
 
 _[Browse the NimBLE source code](https://github.com/apache/mynewt-nimble)_
 
-# MCUBoot Bootloader
+# MCUBoot Bootloader for PineTime
+
+We have covered two software components necessary for rolling out firmware updates over Bluetooth LE...
+
+1. __MCU Manager Library:__ Implements the Simple Management Protocol for updating firmware
+
+1. __NimBLE Bluetooth Stack:__ Implements the Bluetooth LE network transport for communicating with mobile phones
+
+Now we'll cover the third and final component: [__MCUBoot Bootloader__](https://juullabs-oss.github.io/mcuboot).
 
 TODO
 
