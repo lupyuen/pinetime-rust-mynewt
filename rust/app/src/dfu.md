@@ -297,9 +297,9 @@ To support firmware updates over Bluetooth LE, PineTime Firmware Developers woul
 
 _NimBLE Networking Stack for Bluetooth LE on PineTime_
 
-NimBLE runs in the background handling Bluetooth LE packets, so it depends on the multitasking capabilities provided by the operating system embedded in the firmware. PineTime Firmware Developers would have to implement the following functions in C for use by NimBLE...
+NimBLE runs in the background handling Bluetooth LE packets, so it depends on the multitasking capabilities provided by the operating system embedded in the firmware. This adaptation of NimBLE to the operating system is done in the __NimBLE Porting Layer__. 
 
-NimBLE Porting Layer
+PineTime Firmware Developers would have to implement the NimBLE Porting Layer, which consists of these C functions...
 
 1. __Time Functions:__ Get the elapsed time since startup, in milliseconds and in ticks (1 tick equals 1 millisecond)
 
@@ -317,43 +317,9 @@ _What if our embedded operating system doesn't support Mutex / Semaphore / Callo
 
 It may be possible to emulate the missing functions using the multitasking features found in our operating system. Or we may implement them using simple counters and locks. 
 
-Let's check out how NimBLE was implemented on various operating systems...
+Let's check out how NimBLE Porting Layer was implemented on various operating systems...
 
-1. __RIOT__: 
-
-```c
-struct ble_npl_event {
-    event_callback_t e;
-    void *arg;
-};
-
-struct ble_npl_eventq {
-    event_queue_t q;
-};
-
-struct ble_npl_callout {
-    xtimer_t timer;
-    uint64_t target_us;
-    struct ble_npl_event e;
-    event_queue_t *q;
-};
-
-struct ble_npl_mutex {
-    mutex_t mu;
-};
-
-struct ble_npl_sem {
-    sem_t sem;
-};
-```
-
-https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/include/nimble/nimble_npl_os.h#L43-L65
-
-NimBLE for RIOT: https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/include/nimble/nimble_npl_os.h
-
-https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/npl_os_riot.c
-
-https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_isr.c
+1. __RIOT__: Callouts are not supported in RIOT, so they are implemented with a combination of RIOT Timers and Event Queues. See [`riot/nimble_npl_os.h`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/include/nimble/nimble_npl_os.h#L43-L65) and [npl_os_riot.c](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/npl_os_riot.c) in the [NimBLE Porting Layer for RIOT](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot)
 
 1. __FreeRTOS__:
 
@@ -432,6 +398,9 @@ _What is the Interrupt Service Routine in the diagram above?_
 When PineTime receives a Bluetooth LE data packet, the Bluetooth hardware controller triggers an Interrupt. The Interrupt Service Routine is the function provided by NimBLE to handle that Interrupt.
 
 The Interrupt Service Routine forwards all received packets to the NimBLE background task for processing.
+
+https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_isr.c
+
 
 The complete list of C functions to be implemented by PineTime Firmware Developers may be found here: [`nimble_npl.h`](https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h)
 
