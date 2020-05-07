@@ -321,17 +321,21 @@ It may be possible to emulate the missing functions using the multitasking featu
 
 Let's check out how the NimBLE Porting Layer was implemented on various operating systems...
 
-1. __RIOT__: Callouts are not supported in RIOT, so they are implemented with a combination of RIOT Timers and Event Queues. See [`riot/nimble_npl_os.h`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/include/nimble/nimble_npl_os.h#L43-L65) and [`npl_os_riot.c`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/npl_os_riot.c) in the [NimBLE Porting Layer for RIOT](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot)
+1. __RIOT__: Callouts are not supported in RIOT, so they are implemented with a combination of RIOT Timers and Event Queues. See [`riot/nimble_npl_os.h`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/include/nimble/nimble_npl_os.h#L43-L65) and [`npl_os_riot.c`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/npl_os_riot.c) from the [NimBLE Porting Layer for RIOT](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot)
 
-1. __FreeRTOS__: Callouts are also implemented with Timers and Queues in FreeRTOS. Mutexes are implemented with FreeRTOS Semaphores. See [`freertos/nimble_npl_os.h`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/freertos/include/nimble/nimble_npl_os.h#L44-L66) in the [NimBLE Porting Layer for FreeRTOS](https://github.com/apache/mynewt-nimble/tree/master/porting/npl/freertos)
+1. __FreeRTOS__: Callouts are also implemented with Timers and Queues in FreeRTOS. Mutexes are implemented with FreeRTOS Semaphores. See [`freertos/nimble_npl_os.h`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/freertos/include/nimble/nimble_npl_os.h#L44-L66) from the [NimBLE Porting Layer for FreeRTOS](https://github.com/apache/mynewt-nimble/tree/master/porting/npl/freertos)
 
-1. __MicroPython__: Mutexes, Semaphores, Callouts and Event Queues don't exist in MicroPython, so they are implemented using simple counters and locks. See [`micropython/nimble_npl_os.h`](https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/nimble_npl_os.h#L38-L64) and [`npl_os.c`](https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/npl_os.c) in the [NimBLE Porting Layer for MicroPython](https://github.com/micropython/micropython/tree/master/extmod/nimble)
+1. __MicroPython__: Mutexes, Semaphores, Callouts and Event Queues don't exist in MicroPython, so they are implemented using simple counters and locks. See [`micropython/nimble_npl_os.h`](https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/nimble_npl_os.h#L38-L64) and [`npl_os.c`](https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/npl_os.c) from the [NimBLE Porting Layer for MicroPython](https://github.com/micropython/micropython/tree/master/extmod/nimble)
+
+1. __Mynewt__: NimBLE was created based on Mynewt features. Thus Mutexes, Semaphores, Callouts and Event Queues are used directly from Mynewt. See [`mynewt/nimble_npl_os.h`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt/include/nimble/nimble_npl_os.h#L37-L60) from the [NimBLE Porting Layer for Mynewt](
+https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt)
+
 
 _What is the Interrupt Service Routine in the diagram above?_
 
 When PineTime receives a Bluetooth LE data packet, the Bluetooth hardware controller triggers an Interrupt. The Interrupt Service Routine is the function provided by NimBLE to handle that Interrupt.
 
-The Interrupt Service Routine forwards all received packets to the NimBLE background task for processing.
+The Interrupt Service Routine forwards all received packets to the NimBLE background task for processing. We'll see in a while how NimBLE calls the NimBLE Porting Layer to set the Interrupt Service Routine.
 
 Here are the types and functions in the NimBLE Porting Layer that would be implemented by the PineTime Firmware Developer...
 
@@ -381,42 +385,17 @@ See [os_sched_get_current_task](https://mynewt.apache.org/latest/os/core_os/cont
 | `void ` <br> __`ble_npl_eventq_init(`__ <br> `struct ble_npl_eventq *evq)` |  Create an Event Queue and initialise it |
 See [os_eventq_init(&evq->evq)](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html?highlight=os_eventq_init#c.os_eventq_init)
 
-| `struct ble_npl_event *` <br> __`ble_npl_eventq_get(`__ <br> `struct ble_npl_eventq *evq, ` <br> `ble_npl_time_t tmo)` |  |
-See this note                                         
-static inline struct ble_npl_event *
-ble_npl_eventq_get(struct ble_npl_eventq *evq, ble_npl_time_t tmo)
-{
-    struct os_event *ev;
+| `struct ble_npl_event *` <br> __`ble_npl_eventq_get(`__ <br> `struct ble_npl_eventq *evq, ` <br> `ble_npl_time_t tmo)` | Pull a single Event from an Event Queue |
+See [this note](https://gist.github.com/lupyuen/5da47d633315039e76262434a4faae46)
 
-    if (tmo == BLE_NPL_TIME_FOREVER) {
-        ev = os_eventq_get(&evq->evq);
-    } else {
-        ev = os_eventq_poll((struct os_eventq **)&evq, 1, tmo);
-    }
-
-    return (struct ble_npl_event *)ev;
-}
-https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html?highlight=os_eventq_get#c.os_eventq_get
-
-https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_poll
-
-| `void ` <br> __`ble_npl_eventq_put(`__ <br> `struct ble_npl_eventq *evq, ` <br> `struct ble_npl_event *ev)` | Put an event on the Event Gueue |
+| `void ` <br> __`ble_npl_eventq_put(`__ <br> `struct ble_npl_eventq *evq, ` <br> `struct ble_npl_event *ev)` | Put an Event on the Event Gueue |
 See [os_eventq_put(&evq->evq, &ev->ev)](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_put)
 
-| `void ` <br> __`ble_npl_eventq_remove(`__ <br> `struct ble_npl_eventq *evq, ` <br> `struct ble_npl_event *ev)` | Remove an event from the Event Queue |
+| `void ` <br> __`ble_npl_eventq_remove(`__ <br> `struct ble_npl_eventq *evq, ` <br> `struct ble_npl_event *ev)` | Remove an Event from the Event Queue |
 See [os_eventq_remove](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_remove)
 
 | `void ` <br> __`ble_npl_event_init(`__ <br> `struct ble_npl_event *ev, ` <br> `ble_npl_event_fn *fn, ` <br> `void *arg)` | Create an Event and initialise it |
-See this note
-static inline void
-ble_npl_event_init(struct ble_npl_event *ev, ble_npl_event_fn *fn,
-                   void *arg)
-{
-    memset(ev, 0, sizeof(*ev));
-    ev->ev.ev_queued = 0;
-    ev->ev.ev_cb = (os_event_fn *)fn;
-    ev->ev.ev_arg = arg;
-}
+See [this note](https://gist.github.com/lupyuen/5da47d633315039e76262434a4faae46)
 
 | `bool ` <br> __`ble_npl_event_is_queued(`__ <br> `struct ble_npl_event *ev)` | Return true if the Event is queued on an Event Queue |
 See [`ev->ev.ev_queued`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_queued)
@@ -493,19 +472,19 @@ See [co->co.c_ev.ev_arg](https://mynewt.apache.org/latest/os/core_os/event_queue
 |:--|:--|:--|
 | `ble_npl_time_t` <br> __`ble_npl_time_get()`__ | Get the current OS time in ticks | See [os_time_get()](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_get)
 
-| `ble_npl_error_t` <br> __`ble_npl_time_ms_to_ticks(`__ <br> `uint32_t ms, ` <br> `ble_npl_time_t *out_ticks)` |  |
+| `ble_npl_error_t` <br> __`ble_npl_time_ms_to_ticks(`__ <br> `uint32_t ms, ` <br> `ble_npl_time_t *out_ticks)` | Converts milliseconds to OS ticks |
 See [os_time_ms_to_ticks(ms, out_ticks)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ms_to_ticks#c.os_time_ms_to_ticks)
 
-| `ble_npl_error_t` <br> __`ble_npl_time_ticks_to_ms(`__ <br> `ble_npl_time_t ticks, ` <br> `uint32_t *out_ms)` |  |
+| `ble_npl_error_t` <br> __`ble_npl_time_ticks_to_ms(`__ <br> `ble_npl_time_t ticks, ` <br> `uint32_t *out_ms)` | Converts OS ticks to milliseconds |
 See [os_time_ticks_to_ms(ticks, out_ms)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ticks_to_ms#c.os_time_ticks_to_ms)
 
-| `ble_npl_time_t` <br> __`ble_npl_time_ms_to_ticks32(`__ <br> `uint32_t ms)` |  |
+| `ble_npl_time_t` <br> __`ble_npl_time_ms_to_ticks32(`__ <br> `uint32_t ms)` | Converts milliseconds to OS ticks |
 See [os_time_ms_to_ticks32(ms)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ms_to_ticks32#c.os_time_ms_to_ticks32)
 
-| `uint32_t` <br> __`ble_npl_time_ticks_to_ms32(`__ <br> `ble_npl_time_t ticks)` |  |
+| `uint32_t` <br> __`ble_npl_time_ticks_to_ms32(`__ <br> `ble_npl_time_t ticks)` | Converts OS ticks to milliseconds |
 See [os_time_ticks_to_ms32(ticks)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ticks_to_ms32#c.os_time_ticks_to_ms32)
 
-| `void` <br> __`ble_npl_time_delay(`__ <br> `ble_npl_time_t ticks)` |  |
+| `void` <br> __`ble_npl_time_delay(`__ <br> `ble_npl_time_t ticks)` | Puts the current task to sleep for the specified number of os ticks |
 See [os_time_delay(ticks)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_delay#c.os_time_delay)
 
 ## NimBLE Interrupt Functions
@@ -517,9 +496,10 @@ See [os_time_delay(ticks)](https://mynewt.apache.org/latest/os/core_os/time/os_t
 | `void` <br> __`ble_npl_hw_exit_critical(`__ <br> `uint32_t ctx)` | Enable interrupts | See [os_arch_restore_sr(ctx)](https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L142-L152) |
 | `bool` <br> __`ble_npl_hw_is_in_critical`__`()` | Returns true if interrupts are disabled | |
 
-The complete list of C functions to be implemented by PineTime Firmware Developers may be found here: [`nimble_npl.h`](https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h)
+The complete list of NimBLE Porting Library functions to be implemented by PineTime Firmware Developers may be found in [`nimble_npl.h`](https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h)
 
-From NimBLE for Mynewt: https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt/include/nimble/nimble_npl_os.h
+The documentation in the above tables were derived from [`mynewt/nimble_npl_os.h`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt/include/nimble/nimble_npl_os.h) from the [NimBLE Porting Layer for Mynewt](
+https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt)
 
 # MCUBoot Bootloader
 
