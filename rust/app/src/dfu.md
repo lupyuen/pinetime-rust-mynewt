@@ -340,65 +340,49 @@ From NimBLE for Mynewt: https://github.com/apache/mynewt-nimble/blob/master/port
 
 ```c
 
-Event Queue:
 
 
-struct ble_npl_event {
-    struct os_event ev;
-};
-https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event
+struct ble_npl_event
+Contains the OS-specific Event Queue
+See [os_event](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event)
 
-struct ble_npl_eventq {
-    struct os_eventq evq;
-};
-https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq
+struct ble_npl_eventq
+Contains the OS-specific Event
+See [os_eventq](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq)
 
-Callout:
+struct ble_npl_callout
+Contains the OS-specific Callout
+See [os_callout](https://mynewt.apache.org/latest/os/core_os/callout/callout.html#c.os_callout)
 
+struct ble_npl_mutex
+Contains the OS-specific Mutex
+See [os_mutex](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html#c.os_mutex)
 
-struct ble_npl_callout {
-    struct os_callout co;
-};
-https://mynewt.apache.org/latest/os/core_os/callout/callout.html#c.os_callout
-
-Mutex:
-
-struct ble_npl_mutex {
-    struct os_mutex mu;
-};
-https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html#c.os_mutex
-
-Semaphore:
-
-struct ble_npl_sem {
-    struct os_sem sem;
-};
-https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html#c.os_sem
+struct ble_npl_sem
+Contains the OS-specific Semaphore
+See [os_sem](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html#c.os_sem)
 
 /*
  * Generic
  */
 
-bool ble_npl_os_started(void);
-    return os_started();
-https://github.com/apache/mynewt-core/blob/master/kernel/os/include/os/os.h#L70-L75
-https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L277-L299
-OS has started and ready to run first task
+bool ble_npl_os_started(void)
+Return true if OS has started and is ready to run tasks
+See `os_started` in [os.h](https://github.com/apache/mynewt-core/blob/master/kernel/os/include/os/os.h#L70-L75) and [os_arch_arm.c](https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L277-L299)
 
-void *ble_npl_get_current_task_id(void);
-    return os_sched_get_current_task();
-https://mynewt.apache.org/latest/os/core_os/context_switch/context_switch.html#c.os_sched_get_current_task
+void *ble_npl_get_current_task_id(void)
+See [os_sched_get_current_task](https://mynewt.apache.org/latest/os/core_os/context_switch/context_switch.html#c.os_sched_get_current_task)
 
 /*
  * Event queue
  */
 
-void ble_npl_eventq_init(struct ble_npl_eventq *evq);
-    os_eventq_init(&evq->evq);
-https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html?highlight=os_eventq_init#c.os_eventq_init
+void ble_npl_eventq_init(struct ble_npl_eventq *evq)
+See [os_eventq_init(&evq->evq)](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html?highlight=os_eventq_init#c.os_eventq_init)
 
 struct ble_npl_event *ble_npl_eventq_get(struct ble_npl_eventq *evq,
-                                         ble_npl_time_t tmo);
+                                         ble_npl_time_t tmo)
+See this note                                         
 static inline struct ble_npl_event *
 ble_npl_eventq_get(struct ble_npl_eventq *evq, ble_npl_time_t tmo)
 {
@@ -416,16 +400,16 @@ https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html?highlig
 
 https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_poll
 
-void ble_npl_eventq_put(struct ble_npl_eventq *evq, struct ble_npl_event *ev);
-    os_eventq_put(&evq->evq, &ev->ev);
-https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_put
+void ble_npl_eventq_put(struct ble_npl_eventq *evq, struct ble_npl_event *ev)
+See [os_eventq_put(&evq->evq, &ev->ev)](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_put)
 
 void ble_npl_eventq_remove(struct ble_npl_eventq *evq,
-                           struct ble_npl_event *ev);
-https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_remove
+                           struct ble_npl_event *ev)
+See [os_eventq_remove](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_remove)
 
 void ble_npl_event_init(struct ble_npl_event *ev, ble_npl_event_fn *fn,
-                        void *arg);
+                        void *arg)
+See this note
 static inline void
 ble_npl_event_init(struct ble_npl_event *ev, ble_npl_event_fn *fn,
                    void *arg)
@@ -436,13 +420,16 @@ ble_npl_event_init(struct ble_npl_event *ev, ble_npl_event_fn *fn,
     ev->ev.ev_arg = arg;
 }
 
-bool ble_npl_event_is_queued(struct ble_npl_event *ev);
-    return ev->ev.ev_queued;
+bool ble_npl_event_is_queued(struct ble_npl_event *ev)
+See this note
+    ev->ev.ev_queued
 
-void *ble_npl_event_get_arg(struct ble_npl_event *ev);
-    return ev->ev.ev_arg;
+void *ble_npl_event_get_arg(struct ble_npl_event *ev)
+See this note
+    ev->ev.ev_arg
 
-void ble_npl_event_set_arg(struct ble_npl_event *ev, void *arg);
+void ble_npl_event_set_arg(struct ble_npl_event *ev, void *arg)
+See this note
 static inline void
 ble_npl_event_set_arg(struct ble_npl_event *ev, void *arg)
 {
@@ -450,11 +437,13 @@ ble_npl_event_set_arg(struct ble_npl_event *ev, void *arg)
     ev->ev.ev_arg = arg;
 }
 
-bool ble_npl_eventq_is_empty(struct ble_npl_eventq *evq);
-    return STAILQ_EMPTY(&evq->evq.evq_list);
+bool ble_npl_eventq_is_empty(struct ble_npl_eventq *evq)
+See this note
+STAILQ_EMPTY(&evq->evq.evq_list);
 
-void ble_npl_event_run(struct ble_npl_event *ev);
-    ev->ev.ev_cb(&ev->ev);
+void ble_npl_event_run(struct ble_npl_event *ev)
+See this note
+ev->ev.ev_cb(&ev->ev)
 
 /*
  * Mutexes
