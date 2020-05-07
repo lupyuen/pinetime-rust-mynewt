@@ -342,7 +342,7 @@ The Interrupt Service Routine forwards all received packets to the NimBLE backgr
 
 _Why does NimBLE need Event Queues?_
 
-The NimBLE Interrupt Service Routine runs at a higher priority than normal tasks (because handling interrupts needs to be super urgent). But it shouldn't hog the CPU and process the received Bluetooth packet immediately... That's wouldn't be fair to other tasks!
+The NimBLE Interrupt Service Routine runs at a higher priority than normal tasks (because handling interrupts needs to be super urgent). But it shouldn't hog the CPU and process the received Bluetooth packet immediately... That wouldn't be fair to other tasks!
 
 Hence the NimBLE Interrupt Service Routine defers the processing of the received Bluetooth packet by adding it to an Event Queue. Another NimBLE task (running at normal priority) will pick up the Bluetooth packet and process it.
 
