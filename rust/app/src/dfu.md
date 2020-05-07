@@ -578,6 +578,10 @@ NimBLE for FreeRTOS: https://github.com/apache/mynewt-nimble/tree/master/porting
 
 NimBLE for MicroPython: https://github.com/micropython/micropython/tree/master/extmod/nimble
 
+https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/nimble_npl_os.h
+
+https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/npl_os.c
+
 # MCUBoot Bootloader
 
 TODO
