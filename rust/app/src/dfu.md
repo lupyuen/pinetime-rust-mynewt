@@ -289,7 +289,7 @@ The function returns the 4 KB Flash ROM Sector that corresponds to an address in
 
 # NimBLE Stack for Bluetooth LE on PineTime
 
-[NimBLE](https://github.com/apache/mynewt-nimble) is an open-source networking stack for Bluetooth LE, coded in C. NimBLE talks directly to the Bluetooth hardware controller on PineTime's nRF52 microcontroller.
+[NimBLE](https://github.com/apache/mynewt-nimble) is an open-source networking stack for Bluetooth LE, coded in C. NimBLE talks directly to the Bluetooth hardware controller on PineTime's nRF52 microcontroller. (NimBLE supports Nordic nRF51 and nRF52 microcontrollers)
 
 To support firmware updates over Bluetooth LE, PineTime Firmware Developers would have to include NimBLE in their firmware. NimBLE takes care of the firmware update process by interpreting GATT Read/Write Requests, and forwarding the SMP Commands to the MCU Manager Library (which writes the new firmware into Flash ROM).
 
@@ -297,7 +297,7 @@ To support firmware updates over Bluetooth LE, PineTime Firmware Developers woul
 
 _NimBLE Networking Stack for Bluetooth LE on PineTime_
 
-NimBLE runs in the background handling Bluetooth LE packets, so it depends on the multitasking capabilities provided by the operating system embedded in the firmware. This adaptation of NimBLE to the operating system is done in the __NimBLE Porting Layer__. 
+NimBLE runs in the background handling Bluetooth LE packets, so it depends on the multitasking capabilities provided by the operating system embedded in the firmware. This adaptation of NimBLE to the operating system happens in the __NimBLE Porting Layer__. 
 
 PineTime Firmware Developers would have to implement the NimBLE Porting Layer, which consists of these C functions...
 
@@ -331,17 +331,7 @@ When PineTime receives a Bluetooth LE data packet, the Bluetooth hardware contro
 
 The Interrupt Service Routine forwards all received packets to the NimBLE background task for processing.
 
-https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_isr.c
-
-
-The complete list of C functions to be implemented by PineTime Firmware Developers may be found here: [`nimble_npl.h`](https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h)
-
-From NimBLE for Mynewt: https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt/include/nimble/nimble_npl_os.h
-
 ```c
-
-
-
 struct ble_npl_event
 Contains the OS-specific Event Queue
 See [os_event](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event)
@@ -470,74 +460,63 @@ ble_npl_error_t ble_npl_sem_pend(struct ble_npl_sem *sem,
                                  ble_npl_time_t timeout)
 See [os_sem_pend(&sem->sem, timeout)](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_pend)
 
-ble_npl_error_t ble_npl_sem_release(struct ble_npl_sem *sem);
-    return (ble_npl_error_t)os_sem_release(&sem->sem);
-https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_release
+ble_npl_error_t ble_npl_sem_release(struct ble_npl_sem *sem)
+See [os_sem_release(&sem->sem)](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_release)
 
-uint16_t ble_npl_sem_get_count(struct ble_npl_sem *sem);
-    return os_sem_get_count(&sem->sem);
-https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_get_count
+uint16_t ble_npl_sem_get_count(struct ble_npl_sem *sem)
+See [os_sem_get_count(&sem->sem)](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_get_count)
 
 /*
  * Callouts
  */
 
 void ble_npl_callout_init(struct ble_npl_callout *co, struct ble_npl_eventq *evq,
-                          ble_npl_event_fn *ev_cb, void *ev_arg);
-    os_callout_init(&co->co, &evq->evq, (os_event_fn *)ev_cb, ev_arg);
-https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_init
+                          ble_npl_event_fn *ev_cb, void *ev_arg)
+See [os_callout_init(&co->co, &evq->evq, ev_cb, ev_arg)](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_init)
 
 ble_npl_error_t ble_npl_callout_reset(struct ble_npl_callout *co,
-                                      ble_npl_time_t ticks);
-    return (ble_npl_error_t)os_callout_reset(&co->co, ticks);
-https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_reset
+                                      ble_npl_time_t ticks)
+See [os_callout_reset(&co->co, ticks)](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_reset)
 
-void ble_npl_callout_stop(struct ble_npl_callout *co);
-    os_callout_stop(&co->co);
-https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_stop
+void ble_npl_callout_stop(struct ble_npl_callout *co)
+See [os_callout_stop(&co->co)](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_stop)
 
-bool ble_npl_callout_is_active(struct ble_npl_callout *co);
-    return os_callout_queued(&co->co);
-https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_queued
+bool ble_npl_callout_is_active(struct ble_npl_callout *co)
+See [os_callout_queued(&co->co)](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_queued)
 
-ble_npl_time_t ble_npl_callout_get_ticks(struct ble_npl_callout *co);
-    return co->co.c_ticks;
+ble_npl_time_t ble_npl_callout_get_ticks(struct ble_npl_callout *co)
+See this note
+co->co.c_ticks
 
 ble_npl_time_t ble_npl_callout_remaining_ticks(struct ble_npl_callout *co,
-                                               ble_npl_time_t time);
-    return os_callout_remaining_ticks(&co->co, time);
-https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_remaining_ticks
+                                               ble_npl_time_t time)
+See [os_callout_remaining_ticks(&co->co, time)](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_remaining_ticks)
 
 void ble_npl_callout_set_arg(struct ble_npl_callout *co,
-                             void *arg);
+                             void *arg)
+See this note
     co->co.c_ev.ev_arg = arg;
 /*
  * Time functions
  */
 
-ble_npl_time_t ble_npl_time_get(void);
-    return os_time_get();
-https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_get
+ble_npl_time_t ble_npl_time_get(void)
+See [os_time_get()](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_get)
 
-ble_npl_error_t ble_npl_time_ms_to_ticks(uint32_t ms, ble_npl_time_t *out_ticks);
-    return (ble_npl_error_t)os_time_ms_to_ticks(ms, out_ticks);
-https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ms_to_ticks
+ble_npl_error_t ble_npl_time_ms_to_ticks(uint32_t ms, ble_npl_time_t *out_ticks)
+See [os_time_ms_to_ticks(ms, out_ticks)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ms_to_ticks)
 
-ble_npl_error_t ble_npl_time_ticks_to_ms(ble_npl_time_t ticks, uint32_t *out_ms);
-    return os_time_ticks_to_ms(ticks, out_ms);
-https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ticks_to_ms
+ble_npl_error_t ble_npl_time_ticks_to_ms(ble_npl_time_t ticks, uint32_t *out_ms)
+See [os_time_ticks_to_ms(ticks, out_ms)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ticks_to_ms)
 
-ble_npl_time_t ble_npl_time_ms_to_ticks32(uint32_t ms);
-    return os_time_ms_to_ticks32(ms);
-https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ms_to_ticks32
+ble_npl_time_t ble_npl_time_ms_to_ticks32(uint32_t ms)
+See [os_time_ms_to_ticks32(ms)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ms_to_ticks32)
 
-uint32_t ble_npl_time_ticks_to_ms32(ble_npl_time_t ticks);
-    return os_time_ticks_to_ms32(ticks);
-https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ticks_to_ms32
+uint32_t ble_npl_time_ticks_to_ms32(ble_npl_time_t ticks)
+See [os_time_ticks_to_ms32(ticks)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ticks_to_ms32)
 
-void ble_npl_time_delay(ble_npl_time_t ticks);
-    return os_time_delay(ticks);
-https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_delay
+void ble_npl_time_delay(ble_npl_time_t ticks)
+See [os_time_delay(ticks)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_delay)
 
 /*
  * Hardware-specific
@@ -546,35 +525,25 @@ https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_
  * specific to hardware, not to OS.
  */
 
-void ble_npl_hw_set_isr(int irqn, void (*addr)(void));
+void ble_npl_hw_set_isr(int irqn, void (*addr)(void))
+See the reference implementation of `ble_npl_hw_set_isr` for RIOT in [nrf5x_isr.c](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_isr.c)
 
-uint32_t ble_npl_hw_enter_critical(void);
-    return os_arch_save_sr();
-https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L126-L140
+uint32_t ble_npl_hw_enter_critical(void)
+See [os_arch_save_sr()](https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L126-L140
 __disable_irq
 
-void ble_npl_hw_exit_critical(uint32_t ctx);
-    os_arch_restore_sr(ctx);
-https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L142-L152
+void ble_npl_hw_exit_critical(uint32_t ctx)
+See [os_arch_restore_sr(ctx)](https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L142-L152)
 __enable_irq
 
-bool ble_npl_hw_is_in_critical(void);
+bool ble_npl_hw_is_in_critical(void)
+Returns true if interrupts are disabled
 ```
 
-MCU Manager runs on the Bluetooth LE transport based on the open-source NimBLE Bluetooth LE stack. The following NimBLE modules need to be ported to the PineTime platform:
 
-```
-- "@apache-mynewt-nimble/nimble/host"
-- "@apache-mynewt-nimble/nimble/host/services/ans"
-- "@apache-mynewt-nimble/nimble/host/services/dis"
-- "@apache-mynewt-nimble/nimble/host/services/gap"
-- "@apache-mynewt-nimble/nimble/host/services/gatt"
-- "@apache-mynewt-nimble/nimble/host/store/config"
-- "@apache-mynewt-nimble/nimble/host/util"
-- "@apache-mynewt-nimble/nimble/transport"
-```
+The complete list of C functions to be implemented by PineTime Firmware Developers may be found here: [`nimble_npl.h`](https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h)
 
-Refer to the NimBLE source code at https://github.com/apache/mynewt-nimble
+From NimBLE for Mynewt: https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt/include/nimble/nimble_npl_os.h
 
 # MCUBoot Bootloader
 
