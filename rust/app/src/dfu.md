@@ -340,23 +340,23 @@ Here are the types and functions in the NimBLE Porting Layer that would be imple
 | Function | Description | Documentation |
 |:--|:--|:--|
 | `struct` <br> __`ble_npl_event`__ | 
-Contains the OS-specific Event Queue
+Contains the OS-specific Event Queue |
 See [os_event](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event)
 
 | `struct ` <br> __`ble_npl_eventq`__ | 
-Contains the OS-specific Event
+Contains the OS-specific Event |
 See [os_eventq](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq)
 
 | `struct ` <br> __`ble_npl_callout`__ | 
-Contains the OS-specific Callout
+Contains the OS-specific Callout |
 See [os_callout](https://mynewt.apache.org/latest/os/core_os/callout/callout.html#c.os_callout)
 
 | `struct ` <br> __`ble_npl_mutex`__ | 
-Contains the OS-specific Mutex
+Contains the OS-specific Mutex |
 See [os_mutex](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html#c.os_mutex)
 
 | `struct ` <br> __`ble_npl_sem`__ | 
-Contains the OS-specific Semaphore
+Contains the OS-specific Semaphore |
 See [os_sem](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html#c.os_sem)
 
 | `typedef ` <br> __`ble_npl_time_t`__ | OS-specific unsigned type that represents elapsed time, like `uint32_t` |
@@ -368,20 +368,20 @@ See [os_sem](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.htm
 | Function | Description | Documentation |
 |:--|:--|:--|
 | `bool ` <br> __`ble_npl_os_started()`__ | 
-Return true if OS has started and is ready to run tasks
+Return true if OS has started and is ready to run tasks |
 See `os_started` in [os.h](https://github.com/apache/mynewt-core/blob/master/kernel/os/include/os/os.h#L70-L75) and [os_arch_arm.c](https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L277-L299)
 
-| `void *` <br> __`ble_npl_get_current_task_id()`__ | 
+| `void *` <br> __`ble_npl_get_current_task_id()`__ | | 
 See [os_sched_get_current_task](https://mynewt.apache.org/latest/os/core_os/context_switch/context_switch.html#c.os_sched_get_current_task)
 
 ## Event Queue Functions
 
 | Function | Description | Documentation |
 |:--|:--|:--|
-| `void ` <br> __`ble_npl_eventq_init(`__ <br> `struct ble_npl_eventq *evq)` | 
+| `void ` <br> __`ble_npl_eventq_init(`__ <br> `struct ble_npl_eventq *evq)` |  Create an Event Queue and initialise it |
 See [os_eventq_init(&evq->evq)](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html?highlight=os_eventq_init#c.os_eventq_init)
 
-| `struct ble_npl_event *` <br> __`ble_npl_eventq_get(`__ <br> `struct ble_npl_eventq *evq, ble_npl_time_t tmo)` | 
+| `struct ble_npl_event *` <br> __`ble_npl_eventq_get(`__ <br> `struct ble_npl_eventq *evq, ` <br> `ble_npl_time_t tmo)` |  |
 See this note                                         
 static inline struct ble_npl_event *
 ble_npl_eventq_get(struct ble_npl_eventq *evq, ble_npl_time_t tmo)
@@ -400,13 +400,13 @@ https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html?highlig
 
 https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_poll
 
-| `void ` <br> __`ble_npl_eventq_put(`__ <br> `struct ble_npl_eventq *evq, struct ble_npl_event *ev)` | 
+| `void ` <br> __`ble_npl_eventq_put(`__ <br> `struct ble_npl_eventq *evq, ` <br> `struct ble_npl_event *ev)` |  |
 See [os_eventq_put(&evq->evq, &ev->ev)](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_put)
 
-| `void ` <br> __`ble_npl_eventq_remove(`__ <br> `struct ble_npl_eventq *evq, struct ble_npl_event *ev)` | 
+| `void ` <br> __`ble_npl_eventq_remove(`__ <br> `struct ble_npl_eventq *evq, ` <br> `struct ble_npl_event *ev)` |  |
 See [os_eventq_remove](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_remove)
 
-| `void ` <br> __`ble_npl_event_init(`__ <br> `struct ble_npl_event *ev, ble_npl_event_fn *fn, void *arg)` | 
+| `void ` <br> __`ble_npl_event_init(`__ <br> `struct ble_npl_event *ev, ` <br> `ble_npl_event_fn *fn, ` <br> `void *arg)` | Create an Event and initialise it |
 See this note
 static inline void
 ble_npl_event_init(struct ble_npl_event *ev, ble_npl_event_fn *fn,
@@ -418,15 +418,15 @@ ble_npl_event_init(struct ble_npl_event *ev, ble_npl_event_fn *fn,
     ev->ev.ev_arg = arg;
 }
 
-| `bool ` <br> __`ble_npl_event_is_queued(`__ <br> `struct ble_npl_event *ev)` | 
+| `bool ` <br> __`ble_npl_event_is_queued(`__ <br> `struct ble_npl_event *ev)` |  |
 See this note
     ev->ev.ev_queued
 
-| `void *` <br> __`ble_npl_event_get_arg(`__ <br> `struct ble_npl_event *ev)` | 
+| `void *` <br> __`ble_npl_event_get_arg(`__ <br> `struct ble_npl_event *ev)` |  |
 See this note
     ev->ev.ev_arg
 
-| `void ` <br> __`ble_npl_event_set_arg(`__ <br> `struct ble_npl_event *ev, void *arg)` | 
+| `void ` <br> __`ble_npl_event_set_arg(`__ <br> `struct ble_npl_event *ev, ` <br> `void *arg)` |  |
 See this note
 static inline void
 ble_npl_event_set_arg(struct ble_npl_event *ev, void *arg)
@@ -435,11 +435,11 @@ ble_npl_event_set_arg(struct ble_npl_event *ev, void *arg)
     ev->ev.ev_arg = arg;
 }
 
-| `bool ` <br> __`ble_npl_eventq_is_empty(`__ <br> `struct ble_npl_eventq *evq)` | 
+| `bool ` <br> __`ble_npl_eventq_is_empty(`__ <br> `struct ble_npl_eventq *evq)` |  |
 See this note
 STAILQ_EMPTY(&evq->evq.evq_list);
 
-| `void ` <br> __`ble_npl_event_run(`__ <br> `struct ble_npl_event *ev)` | 
+| `void ` <br> __`ble_npl_event_run(`__ <br> `struct ble_npl_event *ev)` |  |
 See this note
 ev->ev.ev_cb(&ev->ev)
 
@@ -447,59 +447,56 @@ ev->ev.ev_cb(&ev->ev)
 
 | Function | Description | Documentation |
 |:--|:--|:--|
-| `ble_npl_error_t ` <br> __`ble_npl_mutex_init(`__ <br> `struct ble_npl_mutex *mu)` | 
+| `ble_npl_error_t ` <br> __`ble_npl_mutex_init(`__ <br> `struct ble_npl_mutex *mu)` | Create a Mutex and initialise it |
 See [os_mutex_init(&mu->mu)](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_init#c.os_mutex_init)
 
-| `ble_npl_error_t ` <br> __`ble_npl_mutex_pend(`__ <br> `struct ble_npl_mutex *mu,
-                                   ble_npl_time_t timeout)` | 
+| `ble_npl_error_t ` <br> __`ble_npl_mutex_pend(`__ <br> `struct ble_npl_mutex *mu,` <br> `ble_npl_time_t timeout)` |  |
 See [os_mutex_pend(&mu->mu, timeout)](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_init#c.os_mutex_pend)
 
-| `ble_npl_error_t ` <br> __`ble_npl_mutex_release(`__ <br> `struct ble_npl_mutex *mu)` | 
+| `ble_npl_error_t ` <br> __`ble_npl_mutex_release(`__ <br> `struct ble_npl_mutex *mu)` |  |
 See [os_mutex_release(&mu->mu)](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_init#c.os_mutex_release)
 
 ## Semaphore Functions
 
 | Function | Description | Documentation |
 |:--|:--|:--|
-| `ble_npl_error_t ` <br> __`ble_npl_sem_init(`__ <br> `struct ble_npl_sem *sem, uint16_t tokens)` | 
+| `ble_npl_error_t ` <br> __`ble_npl_sem_init(`__ <br> `struct ble_npl_sem *sem, ` <br> `uint16_t tokens)` | Create a Semaphore and initialise it |
 See [os_sem_init(&sem->sem, tokens](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_init)
 
 | `ble_npl_error_t ` <br> __`ble_npl_sem_pend(`__ <br> `struct ble_npl_sem *sem,
-                                 ble_npl_time_t timeout)` | 
+` <br> `ble_npl_time_t timeout)` |  |
 See [os_sem_pend(&sem->sem, timeout)](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_pend)
 
-| `ble_npl_error_t ` <br> __`ble_npl_sem_release(`__ <br> `struct ble_npl_sem *sem)` | 
+| `ble_npl_error_t ` <br> __`ble_npl_sem_release(`__ <br> `struct ble_npl_sem *sem)` |  |
 See [os_sem_release(&sem->sem)](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_release)
 
-| `uint16_t ` <br> __`ble_npl_sem_get_count(`__ <br> `struct ble_npl_sem *sem)` | 
+| `uint16_t ` <br> __`ble_npl_sem_get_count(`__ <br> `struct ble_npl_sem *sem)` |  |
 See [os_sem_get_count(&sem->sem)](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_get_count)
 
 ## Callout Functions
 
 | Function | Description | Documentation |
 |:--|:--|:--|
-| `void ` <br> __`ble_npl_callout_init(`__ <br> `struct ble_npl_callout *co, struct ble_npl_eventq *evq,
-                          ble_npl_event_fn *ev_cb, void *ev_arg)` | 
+| `void ` <br> __`ble_npl_callout_init(`__ <br> `struct ble_npl_callout *co, ` <br> `struct ble_npl_eventq *evq, ` <br> `ble_npl_event_fn *ev_cb, ` <br> `void *ev_arg)` | Create a Callout and initialise it |
 See [os_callout_init(&co->co, &evq->evq, ev_cb, ev_arg)](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_init)
 
-| `ble_npl_error_t ` <br> __`ble_npl_callout_reset(`__ <br> `struct ble_npl_callout *co,
-                                      ble_npl_time_t ticks)` | 
+| `ble_npl_error_t ` <br> __`ble_npl_callout_reset(`__ <br> `struct ble_npl_callout *co, ` <br> `ble_npl_time_t ticks)` |  |
 See [os_callout_reset(&co->co, ticks)](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_reset)
 
-| `void ` <br> __`ble_npl_callout_stop(`__ <br> `struct ble_npl_callout *co)` | 
+| `void ` <br> __`ble_npl_callout_stop(`__ <br> `struct ble_npl_callout *co)` |  |
 See [os_callout_stop(&co->co)](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_stop)
 
-| `bool ` <br> __`ble_npl_callout_is_active(`__ <br> `struct ble_npl_callout *co)` | 
+| `bool ` <br> __`ble_npl_callout_is_active(`__ <br> `struct ble_npl_callout *co)` |  |
 See [os_callout_queued(&co->co)](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_queued)
 
-| `ble_npl_time_t ` <br> __`ble_npl_callout_get_ticks(`__ <br> `struct ble_npl_callout *co)` | 
+| `ble_npl_time_t ` <br> __`ble_npl_callout_get_ticks(`__ <br> `struct ble_npl_callout *co)` |  |
 See this note
 co->co.c_ticks
 
-| `ble_npl_time_t ` <br> __`ble_npl_callout_remaining_ticks(`__ <br> `struct ble_npl_callout *co, ble_npl_time_t time)` | 
+| `ble_npl_time_t ` <br> __`ble_npl_callout_remaining_ticks(`__ <br> `struct ble_npl_callout *co, ` <br> `ble_npl_time_t time)` |  |
 See [os_callout_remaining_ticks(&co->co, time)](https://mynewt.apache.org/latest/os/core_os/callout/callout.html?highlight=os_callout_init#c.os_callout_remaining_ticks)
 
-| `void ` <br> __`ble_npl_callout_set_arg(`__ <br> `struct ble_npl_callout *co, void *arg)` | 
+| `void ` <br> __`ble_npl_callout_set_arg(`__ <br> `struct ble_npl_callout *co, ` <br> `void *arg)` |  |
 See this note
     co->co.c_ev.ev_arg = arg;
 
@@ -507,31 +504,31 @@ See this note
 
 | Function | Description | Documentation |
 |:--|:--|:--|
-| `ble_npl_time_t` <br> __`ble_npl_time_get()`__ | 
+| `ble_npl_time_t` <br> __`ble_npl_time_get()`__ | | 
 See [os_time_get()](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_get)
 
-| `ble_npl_error_t` <br> __`ble_npl_time_ms_to_ticks(`__ <br> `uint32_t ms, ble_npl_time_t *out_ticks)` | 
+| `ble_npl_error_t` <br> __`ble_npl_time_ms_to_ticks(`__ <br> `uint32_t ms, ` <br> `ble_npl_time_t *out_ticks)` |  |
 See [os_time_ms_to_ticks(ms, out_ticks)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ms_to_ticks)
 
-| `ble_npl_error_t` <br> __`ble_npl_time_ticks_to_ms(`__ <br> `ble_npl_time_t ticks, uint32_t *out_ms)` | 
+| `ble_npl_error_t` <br> __`ble_npl_time_ticks_to_ms(`__ <br> `ble_npl_time_t ticks, ` <br> `uint32_t *out_ms)` |  |
 See [os_time_ticks_to_ms(ticks, out_ms)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ticks_to_ms)
 
-| `ble_npl_time_t` <br> __`ble_npl_time_ms_to_ticks32(`__ <br> `uint32_t ms)` | 
+| `ble_npl_time_t` <br> __`ble_npl_time_ms_to_ticks32(`__ <br> `uint32_t ms)` |  |
 See [os_time_ms_to_ticks32(ms)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ms_to_ticks32)
 
-| `uint32_t` <br> __`ble_npl_time_ticks_to_ms32(`__ <br> `ble_npl_time_t ticks)` | 
+| `uint32_t` <br> __`ble_npl_time_ticks_to_ms32(`__ <br> `ble_npl_time_t ticks)` |  |
 See [os_time_ticks_to_ms32(ticks)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ticks_to_ms32)
 
-| `void` <br> __`ble_npl_time_delay(`__ <br> `ble_npl_time_t ticks)` | 
+| `void` <br> __`ble_npl_time_delay(`__ <br> `ble_npl_time_t ticks)` |  |
 See [os_time_delay(ticks)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_delay)
 
 ## Interrupt Functions
 
 | Function | Description | Documentation |
 |:--|:--|:--|
-| `void ` <br> __`ble_npl_hw_set_isr(`__ <br>`int irqn, void (*addr)(void))` | Set the Interrupt Service Routine for interrupt `irqn` to `addr` | See the RIOT implementation `ble_npl_hw_set_isr` in [nrf5x_isr.c](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_isr.c) |
+| `void ` <br> __`ble_npl_hw_set_isr(`__ <br>`int irqn, ` <br> `void (*addr)(void))` | Set the Interrupt Service Routine for interrupt `irqn` to `addr` | See the RIOT implementation `ble_npl_hw_set_isr` in [nrf5x_isr.c](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/riot/src/nrf5x_isr.c) |
 | `uint32_t` <br> __`ble_npl_hw_enter_critical`__`()` | Disable interrupts | See [os_arch_save_sr()](https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L126-L140) |
-| `void` <br> __`ble_npl_hw_exit_critical(`__ <br> `uint32_t ctx) | Enable interrupts | See [os_arch_restore_sr(ctx)](https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L142-L152) |
+| `void` <br> __`ble_npl_hw_exit_critical(`__ <br> `uint32_t ctx)` | Enable interrupts | See [os_arch_restore_sr(ctx)](https://github.com/apache/mynewt-core/blob/master/kernel/os/src/arch/cortex_m4/os_arch_arm.c#L142-L152) |
 | `bool` <br> __`ble_npl_hw_is_in_critical`__`()` | Returns true if interrupts are disabled | |
 
 The complete list of C functions to be implemented by PineTime Firmware Developers may be found here: [`nimble_npl.h`](https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h)
