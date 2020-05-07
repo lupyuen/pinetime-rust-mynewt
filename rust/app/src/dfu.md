@@ -289,7 +289,7 @@ The function returns the 4 KB Flash ROM Sector that corresponds to an address in
 
 # NimBLE Stack for Bluetooth LE on PineTime
 
-[NimBLE](https://github.com/apache/mynewt-nimble) is an open-source networking stack for Bluetooth LE, coded in C. NimBLE talks directly to the Bluetooth hardware controller on PineTime's nRF52 microcontroller. (NimBLE supports Nordic nRF51 and nRF52 microcontrollers)
+[NimBLE](https://github.com/apache/mynewt-nimble) is an open-source networking stack for Bluetooth LE, coded in C. NimBLE talks directly to the Bluetooth hardware controller on PineTime's nRF52 microcontroller. NimBLE supports Nordic nRF51 and nRF52 microcontrollers
 
 To support firmware updates over Bluetooth LE, PineTime Firmware Developers would have to include NimBLE in their firmware. NimBLE takes care of the firmware update process by interpreting GATT Read/Write Requests, and forwarding the SMP Commands to the MCU Manager Library (which writes the new firmware into Flash ROM).
 
@@ -299,7 +299,7 @@ _NimBLE Networking Stack for Bluetooth LE on PineTime_
 
 NimBLE runs in the background handling Bluetooth LE packets, so it depends on the multitasking capabilities provided by the operating system embedded in the firmware. This adaptation of NimBLE to the operating system happens in the __NimBLE Porting Layer__. 
 
-PineTime Firmware Developers would have to implement the NimBLE Porting Layer, which consists of these C functions...
+PineTime Firmware Developers would have to implement the NimBLE Porting Layer in C, covering these functions...
 
 1. __Time Functions:__ Get the elapsed time since startup, in milliseconds and in ticks (1 tick equals 1 millisecond)
 
@@ -327,7 +327,7 @@ Let's check out how the NimBLE Porting Layer was implemented on various operatin
 
 1. __MicroPython__: Mutexes, Semaphores, Callouts and Event Queues don't exist in MicroPython, so they are implemented using simple counters and locks. See [`micropython/nimble_npl_os.h`](https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/nimble_npl_os.h#L38-L64) and [`npl_os.c`](https://github.com/micropython/micropython/blob/master/extmod/nimble/nimble/npl_os.c) from the [NimBLE Porting Layer for MicroPython](https://github.com/micropython/micropython/tree/master/extmod/nimble)
 
-1. __Mynewt__: NimBLE was created based on Mynewt features. Thus Mutexes, Semaphores, Callouts and Event Queues are used directly from Mynewt. See [`mynewt/nimble_npl_os.h`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt/include/nimble/nimble_npl_os.h#L37-L60) from the [NimBLE Porting Layer for Mynewt](
+1. __Mynewt__: NimBLE was created originally for Mynewt. Thus Mutexes, Semaphores, Callouts and Event Queues are used directly from Mynewt. See [`mynewt/nimble_npl_os.h`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt/include/nimble/nimble_npl_os.h#L37-L60) from the [NimBLE Porting Layer for Mynewt](
 https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt)
 
 
@@ -424,8 +424,10 @@ Here are the types and functions in the NimBLE Porting Layer that would be imple
 
 The complete list of NimBLE Porting Library functions to be implemented by PineTime Firmware Developers may be found in [`nimble_npl.h`](https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h)
 
-The documentation in the above tables were derived from [`mynewt/nimble_npl_os.h`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt/include/nimble/nimble_npl_os.h) from the [NimBLE Porting Layer for Mynewt](
+The documentation above was derived from [`mynewt/nimble_npl_os.h`](https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt/include/nimble/nimble_npl_os.h) from the [NimBLE Porting Layer for Mynewt](
 https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt)
+
+_[Browse the NimBLE source code](https://github.com/apache/mynewt-nimble)_
 
 # MCUBoot Bootloader
 
