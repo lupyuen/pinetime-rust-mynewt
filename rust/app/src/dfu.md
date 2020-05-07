@@ -400,10 +400,10 @@ https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html?highlig
 
 https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_poll
 
-| `void ` <br> __`ble_npl_eventq_put(`__ <br> `struct ble_npl_eventq *evq, ` <br> `struct ble_npl_event *ev)` |  |
+| `void ` <br> __`ble_npl_eventq_put(`__ <br> `struct ble_npl_eventq *evq, ` <br> `struct ble_npl_event *ev)` | Put an event on the Event Gueue |
 See [os_eventq_put(&evq->evq, &ev->ev)](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_put)
 
-| `void ` <br> __`ble_npl_eventq_remove(`__ <br> `struct ble_npl_eventq *evq, ` <br> `struct ble_npl_event *ev)` |  |
+| `void ` <br> __`ble_npl_eventq_remove(`__ <br> `struct ble_npl_eventq *evq, ` <br> `struct ble_npl_event *ev)` | Remove an event from the Event Queue |
 See [os_eventq_remove](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_eventq_remove)
 
 | `void ` <br> __`ble_npl_event_init(`__ <br> `struct ble_npl_event *ev, ` <br> `ble_npl_event_fn *fn, ` <br> `void *arg)` | Create an Event and initialise it |
@@ -418,30 +418,18 @@ ble_npl_event_init(struct ble_npl_event *ev, ble_npl_event_fn *fn,
     ev->ev.ev_arg = arg;
 }
 
-| `bool ` <br> __`ble_npl_event_is_queued(`__ <br> `struct ble_npl_event *ev)` |  |
-See this note
-    ev->ev.ev_queued
+| `bool ` <br> __`ble_npl_event_is_queued(`__ <br> `struct ble_npl_event *ev)` | Return true if the Event is queued on an Event Queue |
+See [`ev->ev.ev_queued`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_queued)
+    
+| `void *` <br> __`ble_npl_event_get_arg(`__ <br> `struct ble_npl_event *ev)` | Return the argument that will be passed to the Event Queue callback |
+See [`ev->ev.ev_arg`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_arg)
 
-| `void *` <br> __`ble_npl_event_get_arg(`__ <br> `struct ble_npl_event *ev)` |  |
-See this note
-    ev->ev.ev_arg
+| `void ` <br> __`ble_npl_event_set_arg(`__ <br> `struct ble_npl_event *ev, ` <br> `void *arg)` |  Set the argument that will be passed to the Event Queue callback |
+See [`ev->ev.ev_arg`](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_arg)
 
-| `void ` <br> __`ble_npl_event_set_arg(`__ <br> `struct ble_npl_event *ev, ` <br> `void *arg)` |  |
-See this note
-static inline void
-ble_npl_event_set_arg(struct ble_npl_event *ev, void *arg)
-{
-    assert(ev->ev.ev_queued == 0);
-    ev->ev.ev_arg = arg;
-}
+| `bool ` <br> __`ble_npl_eventq_is_empty(`__ <br> `struct ble_npl_eventq *evq)` | Return true if the Event Queue is empty |
 
-| `bool ` <br> __`ble_npl_eventq_is_empty(`__ <br> `struct ble_npl_eventq *evq)` |  |
-See this note
-STAILQ_EMPTY(&evq->evq.evq_list);
-
-| `void ` <br> __`ble_npl_event_run(`__ <br> `struct ble_npl_event *ev)` |  |
-See this note
-ev->ev.ev_cb(&ev->ev)
+| `void ` <br> __`ble_npl_event_run(`__ <br> `struct ble_npl_event *ev)` | Execute the Event callback | See [ev->ev.ev_cb(&ev->ev)](https://mynewt.apache.org/latest/os/core_os/event_queue/event_queue.html#c.os_event::ev_cb)
 
 ## NimBLE Mutex Functions
 
