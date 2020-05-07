@@ -439,10 +439,10 @@ See [`ev->ev.ev_arg`](https://mynewt.apache.org/latest/os/core_os/event_queue/ev
 See [os_mutex_init(&mu->mu)](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_init#c.os_mutex_init)
 
 | `ble_npl_error_t ` <br> __`ble_npl_mutex_pend(`__ <br> `struct ble_npl_mutex *mu,` <br> `ble_npl_time_t timeout)` | Wait for a Mutex |
-See [os_mutex_pend(&mu->mu, timeout)](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_init#c.os_mutex_pend)
+See [os_mutex_pend(&mu->mu, timeout)](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_pend#c.os_mutex_pend)
 
 | `ble_npl_error_t ` <br> __`ble_npl_mutex_release(`__ <br> `struct ble_npl_mutex *mu)` | Release a Mutex |
-See [os_mutex_release(&mu->mu)](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_init#c.os_mutex_release)
+See [os_mutex_release(&mu->mu)](https://mynewt.apache.org/latest/os/core_os/mutex/mutex.html?highlight=os_mutex_release#c.os_mutex_release)
 
 ## NimBLE Semaphore Functions
 
@@ -453,13 +453,13 @@ See [os_sem_init(&sem->sem, tokens](https://mynewt.apache.org/latest/os/core_os/
 
 | `ble_npl_error_t ` <br> __`ble_npl_sem_pend(`__ <br> `struct ble_npl_sem *sem,
 ` <br> `ble_npl_time_t timeout)` | Wait for a Semaphore |
-See [os_sem_pend(&sem->sem, timeout)](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_pend)
+See [os_sem_pend(&sem->sem, timeout)](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_pend#c.os_sem_pend)
 
 | `ble_npl_error_t ` <br> __`ble_npl_sem_release(`__ <br> `struct ble_npl_sem *sem)` | Release a Semaphore |
-See [os_sem_release(&sem->sem)](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_release)
+See [os_sem_release(&sem->sem)](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_release#c.os_sem_release)
 
 | `uint16_t ` <br> __`ble_npl_sem_get_count(`__ <br> `struct ble_npl_sem *sem)` | Get the Semaphore's current count |
-See [os_sem_get_count(&sem->sem)](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_init#c.os_sem_get_count)
+See [os_sem_get_count(&sem->sem)](https://mynewt.apache.org/latest/os/core_os/semaphore/semaphore.html?highlight=os_sem_get_count#c.os_sem_get_count)
 
 ## NimBLE Callout Functions
 
@@ -491,23 +491,22 @@ See [co->co.c_ev.ev_arg](https://mynewt.apache.org/latest/os/core_os/event_queue
 
 | Function | Description | Documentation |
 |:--|:--|:--|
-| `ble_npl_time_t` <br> __`ble_npl_time_get()`__ | | 
-See [os_time_get()](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_get)
+| `ble_npl_time_t` <br> __`ble_npl_time_get()`__ | Get the current OS time in ticks | See [os_time_get()](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_get)
 
 | `ble_npl_error_t` <br> __`ble_npl_time_ms_to_ticks(`__ <br> `uint32_t ms, ` <br> `ble_npl_time_t *out_ticks)` |  |
-See [os_time_ms_to_ticks(ms, out_ticks)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ms_to_ticks)
+See [os_time_ms_to_ticks(ms, out_ticks)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ms_to_ticks#c.os_time_ms_to_ticks)
 
 | `ble_npl_error_t` <br> __`ble_npl_time_ticks_to_ms(`__ <br> `ble_npl_time_t ticks, ` <br> `uint32_t *out_ms)` |  |
-See [os_time_ticks_to_ms(ticks, out_ms)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ticks_to_ms)
+See [os_time_ticks_to_ms(ticks, out_ms)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ticks_to_ms#c.os_time_ticks_to_ms)
 
 | `ble_npl_time_t` <br> __`ble_npl_time_ms_to_ticks32(`__ <br> `uint32_t ms)` |  |
-See [os_time_ms_to_ticks32(ms)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ms_to_ticks32)
+See [os_time_ms_to_ticks32(ms)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ms_to_ticks32#c.os_time_ms_to_ticks32)
 
 | `uint32_t` <br> __`ble_npl_time_ticks_to_ms32(`__ <br> `ble_npl_time_t ticks)` |  |
-See [os_time_ticks_to_ms32(ticks)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_ticks_to_ms32)
+See [os_time_ticks_to_ms32(ticks)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_ticks_to_ms32#c.os_time_ticks_to_ms32)
 
 | `void` <br> __`ble_npl_time_delay(`__ <br> `ble_npl_time_t ticks)` |  |
-See [os_time_delay(ticks)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_get#c.os_time_delay)
+See [os_time_delay(ticks)](https://mynewt.apache.org/latest/os/core_os/time/os_time.html?highlight=os_time_delay#c.os_time_delay)
 
 ## NimBLE Interrupt Functions
 
