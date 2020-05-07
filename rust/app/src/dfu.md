@@ -346,6 +346,16 @@ The NimBLE Interrupt Service Routine runs at a higher priority than normal tasks
 
 Hence the NimBLE Interrupt Service Routine defers the processing of the received Bluetooth packet by adding it to an Event Queue. Another NimBLE task (running at normal priority) will pick up the Bluetooth packet and process it.
 
+_How shall we start the NimBLE Stack and listen for firmware upgrade commands?_
+
+PineTime Firmware Developers would have to call the C function [`start_ble()`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_main.c#L300-L357) defined in [`ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_main.c#L300-L357
+)
+
+This starts the NimBLE Stack to listen for SMP firmware upgrade commands transmitted over GATT.  The GATT command handlers for SMP are defined in  [`ble_prph.h`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_prph.h), 
+[`ble_gatt_svr.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_gatt_svr.c), 
+[`ble_misc.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_misc.c) and
+[`ble_phy.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_phy.c)
+
 Here are the types and functions in the NimBLE Porting Layer that would be implemented by the PineTime Firmware Developer...
 
 ## NimBLE Types
