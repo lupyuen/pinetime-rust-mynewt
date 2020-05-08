@@ -1,7 +1,7 @@
 # Bootloader Target Settings
 
 # Bootloader that will be targeted
-target.app:           "apps/boot_stub"
+target.app:           "@mcuboot/boot/mynewt"
 
 # Board Support Package (BSP) for the target
 target.bsp:           "hw/bsp/nrf52"
