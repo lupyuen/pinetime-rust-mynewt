@@ -1,6 +1,6 @@
 # Bootloader Target Settings
 
-# Bootloader that will be targeted
+# Bootloader will be based on MCUBoot. Select "apps/boot_stub" for the Stub Bootloader.
 target.app:           "@mcuboot/boot/mynewt"
 
 # Board Support Package (BSP) for the target
