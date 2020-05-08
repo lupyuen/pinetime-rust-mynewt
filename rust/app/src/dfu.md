@@ -465,8 +465,21 @@ MCUBoot plays a critical role in the firmware update process... During firmware 
 
 _Firmware Update with Rollback on PineTime_
 
+TODO: Firmware Header
+
+TODO: Firmware Trailer
+
 TODO: mark active firmware
 
+_When shall we mark the new firmware as OK?_
+
+When new firmware runs on PineTime, it shall display a message prompt to indicate that the new firmware is indeed running...
+
+_"Mynewt on PineTime has been updated to version 2.0.1"_
+
+When the user taps `OK`, the firmware shall write the OK status.
+
+This ensures that the new firmware is able to display messages and accept input properly.
 
 https://juullabs-oss.github.io/mcuboot/imgtool.html
 
