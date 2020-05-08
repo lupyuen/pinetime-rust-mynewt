@@ -482,6 +482,8 @@ $ repos/mcuboot/scripts/imgtool.py verify bin/targets/nrf52_my_sensor/app/apps/m
 Image was correctly validated
 Image version: 1.0.0+0
 
+$ repos/mcuboot/scripts/imgtool.py create --align 4 --version 2.0.1 --header-size 32 --slot-size ??? bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf my_sensor_app.img
+
 $ repos/mcuboot/scripts/imgtool.py --help                      
 Usage: imgtool.py [OPTIONS] COMMAND [ARGS]...
 
