@@ -457,9 +457,9 @@ We have covered two software components necessary for rolling out PineTime firmw
 
 1. __NimBLE Bluetooth Stack:__ Implements the Bluetooth LE network transport for communicating with mobile phones
 
-Now we'll cover the third and final open-source component: [__MCUBoot Bootloader__](https://juullabs-oss.github.io/mcuboot).  MCUBoot Bootloader (coded in C) is the first thing that runs when PineTime boots.
+Now we'll cover the third and final open-source component: [__MCUBoot Bootloader__](https://juullabs-oss.github.io/mcuboot).  When PineTime has been configured for firmware update, the MCUBoot Bootloader is the first thing that PineTime executes when booting.
 
-MCUBoot plays a critical role in the firmware update process... During firmware update, MCUBoot swaps the old and new firmware images (and swaps them back if the new firmware fails to start)
+MCUBoot (coded in C) plays a critical role in the firmware update process... During firmware update, MCUBoot swaps the old and new firmware images (and swaps them back if the new firmware fails to start)
 
 ![Firmware Update with Rollback on PineTime](https://lupyuen.github.io/images/dfu-rollback.png)
 
