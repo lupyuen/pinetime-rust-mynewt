@@ -465,7 +465,19 @@ MCUBoot (coded in C) plays a critical role in the firmware update process... Dur
 
 _Firmware Update with Rollback on PineTime_
 
+_What's inside the Firmware Image?_
+
+For flashing firmware over Bluetooth, PineTime Firmware Developers would have to generate Firmware Images with this layout that MCUBoot understands...
+
+TODO
+
+_What's inside the Image Header?_
+
+MCUBoot provides a script `imgtool.py` that generates the Image Header.
+
 TODO: Firmware Header
+
+_How does MCUBoot know if the new firmware is bad... And needs to be rolled back to the old firmware?_
 
 TODO: Firmware Trailer
 
