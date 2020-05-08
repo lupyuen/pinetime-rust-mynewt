@@ -459,17 +459,12 @@ We have covered two software components necessary for rolling out PineTime firmw
 
 Now we'll cover the third and final component: [__MCUBoot Bootloader__](https://juullabs-oss.github.io/mcuboot).
 
-TODO
+MCUBoot plays a critical role in the firmware upgrade process... It swaps the old and new firmware images during firmware upgrade (and swaps them back if the new firmware fails)
 
-https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.0.1
+<< pic >>
 
-https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/targets%2Fnrf52_boot
+mark active firmware
 
-https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fbuild-boot.sh
-
-https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.sh
-
-https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.ocd
 
 https://juullabs-oss.github.io/mcuboot/imgtool.html
 
@@ -497,14 +492,17 @@ https://juullabs-oss.github.io/mcuboot/design.html#integrity-check
 
 https://juullabs-oss.github.io/mcuboot/design.html#security
 
+_Do we need to build MCUBoot ourselves?_
 
-MCUboot design: https://juullabs-oss.github.io/mcuboot/design.html
+Good news for PineTime Firmware Developers: We don't need to build MCUBoot ourselves or link it with our firmware... Just use the __Common Build of MCUBoot Bootloader__ that I have prepared!
 
-Refer to the Flash Memory Map:
+[`pinetime-rust-mynewt/releases/tag/v4.0.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.0.1)
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/hw/bsp/nrf52/bsp.yml
+This build of MCUBoot assumes that the PineTime firmware follows the Flash ROM Map described earlier in this article. The MCUBoot image should be flashed to PineTime at address 0x0.
 
-mcuboot currently requires mbedtls, which does dynamic allocations. Might be interesting to try bearssl which works without any dynamic allocations
+Here are the build settings and build script for MCUBoot: [`targets/nrf52_boot`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/targets%2Fnrf52_boot), [`build-boot.sh`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fbuild-boot.sh)
+
+MCUBoot may be flashed to PineTime with these OpenOCD scripts: [`flash-boot.sh`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.sh), [`flash-boot.ocd`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.ocd)
 
 # Other Command Handlers for MCU Manager
 
