@@ -459,11 +459,13 @@ We have covered two software components necessary for rolling out PineTime firmw
 
 Now we'll cover the third and final component: [__MCUBoot Bootloader__](https://juullabs-oss.github.io/mcuboot).
 
-MCUBoot plays a critical role in the firmware upgrade process... It swaps the old and new firmware images during firmware upgrade (and swaps them back if the new firmware fails)
+MCUBoot plays a critical role in the firmware update process... During firmware update MCUBoot swaps the old and new firmware images (and swaps them back if the new firmware fails)
 
-<< pic >>
+![Firmware Update with Rollback on PineTime](https://lupyuen.github.io/images/dfu-rollback.png)
 
-mark active firmware
+_Firmware Update with Rollback on PineTime_
+
+TODO: mark active firmware
 
 
 https://juullabs-oss.github.io/mcuboot/imgtool.html
