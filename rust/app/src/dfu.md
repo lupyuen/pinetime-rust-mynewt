@@ -531,15 +531,13 @@ Here are the build settings and build script for MCUBoot: [`targets/nrf52_boot`]
 
 MCUBoot may be flashed to PineTime with these OpenOCD scripts: [`flash-boot.sh`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.sh), [`flash-boot.ocd`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.ocd)
 
-# Other Command Handlers for MCU Manager
+# Testing PineTime Firmware Update over Bluetooth LE
 
 TODO
 
-For upgrading firmware over Bluetooth, the MCU Manager Library is supported on Mynewt OS and Zephyr OS. 
+# Other Command Handlers for MCU Manager
 
-MCU Manager Library is documented here:
-
-https://github.com/apache/mynewt-mcumgr
+TODO
 
 MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:
 
