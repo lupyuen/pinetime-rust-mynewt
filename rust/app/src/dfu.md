@@ -475,6 +475,29 @@ _What's inside the Image Header?_
 
 MCUBoot provides a script `imgtool.py` that generates the Image Header.
 
+```bash
+$ pip3 install --user -r repos/mcuboot/scripts/requirements.txt 
+
+$ repos/mcuboot/scripts/imgtool.py verify bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img
+Image was correctly validated
+Image version: 1.0.0+0
+
+$ repos/mcuboot/scripts/imgtool.py --help                      
+Usage: imgtool.py [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  -h, --help  Show this message and exit.
+
+Commands:
+  create   Create a signed or unsigned image INFILE and OUTFILE are parsed...
+  getpriv  Dump private key from keypair
+  getpub   Dump public key from keypair
+  keygen   Generate pub/private keypair
+  sign     Create a signed or unsigned image INFILE and OUTFILE are parsed...
+  verify   Check that signed image can be verified by given key
+  version  Print imgtool version information
+```
+
 TODO: Firmware Header
 
 _How does MCUBoot know if the new firmware is bad... And needs to be rolled back to the old firmware?_
