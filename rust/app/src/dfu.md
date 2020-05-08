@@ -461,6 +461,43 @@ Now we'll cover the third and final component: [__MCUBoot Bootloader__](https://
 
 TODO
 
+https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.0.1
+
+https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/targets%2Fnrf52_boot
+
+https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fbuild-boot.sh
+
+https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.sh
+
+https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.ocd
+
+https://juullabs-oss.github.io/mcuboot/imgtool.html
+
+https://juullabs-oss.github.io/mcuboot/design.html
+
+https://juullabs-oss.github.io/mcuboot/design.html#image-format
+
+https://juullabs-oss.github.io/mcuboot/design.html#flash-map
+
+https://juullabs-oss.github.io/mcuboot/design.html#image-slots
+
+https://juullabs-oss.github.io/mcuboot/design.html#image-trailer
+
+https://juullabs-oss.github.io/mcuboot/design.html#image-trailers
+
+https://juullabs-oss.github.io/mcuboot/design.html#high-level-operation
+
+https://juullabs-oss.github.io/mcuboot/design.html#image-swapping
+
+https://juullabs-oss.github.io/mcuboot/design.html#swap-status
+
+https://juullabs-oss.github.io/mcuboot/design.html#reset-recovery
+
+https://juullabs-oss.github.io/mcuboot/design.html#integrity-check
+
+https://juullabs-oss.github.io/mcuboot/design.html#security
+
+
 MCUboot design: https://juullabs-oss.github.io/mcuboot/design.html
 
 Refer to the Flash Memory Map:
