@@ -463,8 +463,6 @@ MCUBoot (coded in C) plays a critical role in the firmware update process... Dur
 
 ![Firmware Update with Rollback on PineTime](https://lupyuen.github.io/images/dfu-rollback.png)
 
-_Firmware Update with Rollback on PineTime_
-
 _What's inside the Firmware Image?_
 
 For flashing firmware over Bluetooth, PineTime Firmware Developers would have to generate a Firmware Image File with this layout that MCUBoot understands...
@@ -474,6 +472,8 @@ For flashing firmware over Bluetooth, PineTime Firmware Developers would have to
 | `0x8000` | `0x0000` | 32 (`0x20`) | Image Header | 
 | `0x8020` | `0x0020` | 216 (`0xD8`) | Interrupt Vector Table | 
 | `0x80F8` | `0x00F8` | | Firmware Code and Data |
+
+Let's peek inside a Firmware Image File `my_sensor_app.img` with the command `od -A x -t x1 my_sensor_app.img`...
 
 ```bash
 $ od -A x -t x1 bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img | more
@@ -501,7 +501,7 @@ The Image Header consists of 32 bytes (`0x20`) in little endian byte order ([as 
 | `0x8004` | `0x0004` | 4 | `00  00  00  00`| `ih_load_addr`: <br> Must be `00 00 00 00`    
 | `0x8008` | `0x0008` | 2 | `20  00`| `ih_hdr_size`: <br> Size of image header, must be 32 (`0x20`)
 | `0x800A` | `0x000A` | 2 | `00  00`| `ih_protect_tlv_size`:  <br> Size of protected TLV area, in bytes. Usually `00 00`
-| `0x800C` | `0x000C` | 4 | `18  29  03  00`| `ih_img_size`: <br> Size of firmware image, in bytes. Does not include header. `0x032918` = 207,128 bytes
+| `0x800C` | `0x000C` | 4 | `18  29  03  00`| `ih_img_size`: <br> Size of firmware image, in bytes. Does not include header. In this example, `0x032918` = 207,128 bytes
 | `0x8010` | `0x0010` | 4 | `00  00  00  00`| `ih_flags`: <br> `IMAGE_F_[...]` flags, usually `00 00 00 00`
 | `0x8014` | `0x0014` | 1 | `01`| `ih_ver.iv_major`: <br> Major version number
 | `0x8015` | `0x0015` | 1 | `00`| `ih_ver.iv_minor`: <br> Minor version number
@@ -513,17 +513,52 @@ _How shall we generate a Firmware Image that contains the Image Header?_
 
 MCUBoot provides a script `imgtool.py` ([located here](https://github.com/JuulLabs-OSS/mcuboot/tree/master/scripts)) that generates the Firmware Image with Image Header.
 
-The script takes a __Firmware BIN File__ and produces the Firmware Image. More about Firmware BIN Files in a while.
+
+_How does MCUBoot know if the new firmware is bad... And needs to be rolled back to the old firmware?_
+
+PineTime Firmware Developers need to set the Firmware OK status when the new firmware is running fine. 
+
+During startup, MCUBoot checks the Firmware OK status. If the Firmware OK status is missing, it rolls back to the old firmware.
+
+More about the Firmware OK status later.
+
+_When shall we mark the new firmware as OK?_
+
+When new firmware runs on PineTime, it shall display a message prompt to indicate that the new firmware is indeed running...
+
+_"Mynewt on PineTime has been updated to version 2.0.1"_
+
+When the user taps `OK`, the firmware shall write the Firmware OK status.
+
+This ensures that the new firmware is able to start up, display messages and accept input properly.
+
+_Do we need to build MCUBoot ourselves?_
+
+Good news for PineTime Firmware Developers: We don't need to build MCUBoot ourselves or link it with our firmware... Just use the __Common Build of MCUBoot Bootloader__ that I have prepared!
+
+[`pinetime-rust-mynewt/releases/tag/v4.0.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.0.1)
+
+This build of MCUBoot assumes that the PineTime firmware follows the Flash ROM Map described earlier in this article. The MCUBoot image should be flashed to PineTime at address 0x0.
+
+Here are the build settings and build script for MCUBoot: [`targets/nrf52_boot`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/targets%2Fnrf52_boot), [`build-boot.sh`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fbuild-boot.sh)
+
+MCUBoot may be flashed to PineTime with these OpenOCD scripts: [`flash-boot.sh`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.sh), [`flash-boot.ocd`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.ocd)
+
+# Generate a PineTime Firmware Image File
+
+TODO
+
+The `imgtool.py` script in MCUBoot takes a __Firmware BIN File__ and produces the Firmware Image. More about Firmware BIN Files in a while.
 
 Here's how we generate the Firmware Image (`my_sensor_app.img`) from a Firmware BIN File (`my_sensor_app.elf.bin`)...
 
 ```bash
 # Install Python modules needed by imgtool.py
-pip3 install --user -r repos/mcuboot/scripts/requirements.txt 
+pip3 install --user -r mcuboot/scripts/requirements.txt 
 
 # Generate the Firmware Image (including Image Header) from the Firmware BIN file
 # Based on our Flash ROM Layout, the Firmware Image Slot Size is 232 KB (237,568 bytes)
-repos/mcuboot/scripts/imgtool.py create \
+mcuboot/scripts/imgtool.py create \
   --align 4 \
   --version 1.0.0 \
   --header-size 32 \
@@ -533,8 +568,7 @@ repos/mcuboot/scripts/imgtool.py create \
   my_sensor_app.img
 
 # Verify the Firmware Image
-repos/mcuboot/scripts/imgtool.py verify my_sensor_app.img
-
+mcuboot/scripts/imgtool.py verify my_sensor_app.img
 # Should show:
 # Image was correctly validated
 # Image version: 1.0.0+0
@@ -613,61 +647,11 @@ The Firmware BIN File ???
 
 `NOLOAD` means that the Image Header will NOT be written to the Image BIN File.
 
-_How does MCUBoot know if the new firmware is bad... And needs to be rolled back to the old firmware?_
+# Mark PineTime Firmware as OK
 
-TODO: Firmware Trailer
+TODO
 
-TODO: mark active firmware
-
-_When shall we mark the new firmware as OK?_
-
-When new firmware runs on PineTime, it shall display a message prompt to indicate that the new firmware is indeed running...
-
-_"Mynewt on PineTime has been updated to version 2.0.1"_
-
-When the user taps `OK`, the firmware shall write the OK status.
-
-This ensures that the new firmware is able to start up, display messages and accept input properly.
-
-https://juullabs-oss.github.io/mcuboot/imgtool.html
-
-https://juullabs-oss.github.io/mcuboot/design.html
-
-https://juullabs-oss.github.io/mcuboot/design.html#image-format
-
-https://juullabs-oss.github.io/mcuboot/design.html#flash-map
-
-https://juullabs-oss.github.io/mcuboot/design.html#image-slots
-
-https://juullabs-oss.github.io/mcuboot/design.html#image-trailer
-
-https://juullabs-oss.github.io/mcuboot/design.html#image-trailers
-
-https://juullabs-oss.github.io/mcuboot/design.html#high-level-operation
-
-https://juullabs-oss.github.io/mcuboot/design.html#image-swapping
-
-https://juullabs-oss.github.io/mcuboot/design.html#swap-status
-
-https://juullabs-oss.github.io/mcuboot/design.html#reset-recovery
-
-https://juullabs-oss.github.io/mcuboot/design.html#integrity-check
-
-https://juullabs-oss.github.io/mcuboot/design.html#security
-
-_Do we need to build MCUBoot ourselves?_
-
-Good news for PineTime Firmware Developers: We don't need to build MCUBoot ourselves or link it with our firmware... Just use the __Common Build of MCUBoot Bootloader__ that I have prepared!
-
-[`pinetime-rust-mynewt/releases/tag/v4.0.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.0.1)
-
-This build of MCUBoot assumes that the PineTime firmware follows the Flash ROM Map described earlier in this article. The MCUBoot image should be flashed to PineTime at address 0x0.
-
-Here are the build settings and build script for MCUBoot: [`targets/nrf52_boot`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/targets%2Fnrf52_boot), [`build-boot.sh`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fbuild-boot.sh)
-
-MCUBoot may be flashed to PineTime with these OpenOCD scripts: [`flash-boot.sh`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.sh), [`flash-boot.ocd`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.ocd)
-
-# Testing PineTime Firmware Update over Bluetooth LE
+# Test PineTime Firmware Update over Bluetooth LE
 
 TODO
 
@@ -776,6 +760,33 @@ The firmware must still implement a "Reset" or watchdog feature, or the user wil
 The PineTime Mynewt firmware size is 205 KB with Newt Manager Library included. This is quite close to the 232 KB size limit, assuming 2 firmware images plus scratch storage in PineTime's 512 KB ROM.
 
 MCUboot and MCU Manager should be enhanced to store the new and backup firmware images on PineTime's External SPI Flash (4 MB).
+
+
+https://juullabs-oss.github.io/mcuboot/imgtool.html
+
+https://juullabs-oss.github.io/mcuboot/design.html
+
+https://juullabs-oss.github.io/mcuboot/design.html#image-format
+
+https://juullabs-oss.github.io/mcuboot/design.html#flash-map
+
+https://juullabs-oss.github.io/mcuboot/design.html#image-slots
+
+https://juullabs-oss.github.io/mcuboot/design.html#image-trailer
+
+https://juullabs-oss.github.io/mcuboot/design.html#image-trailers
+
+https://juullabs-oss.github.io/mcuboot/design.html#high-level-operation
+
+https://juullabs-oss.github.io/mcuboot/design.html#image-swapping
+
+https://juullabs-oss.github.io/mcuboot/design.html#swap-status
+
+https://juullabs-oss.github.io/mcuboot/design.html#reset-recovery
+
+https://juullabs-oss.github.io/mcuboot/design.html#integrity-check
+
+https://juullabs-oss.github.io/mcuboot/design.html#security
 
 ```
 ----- Build Mynewt and link with Rust app
