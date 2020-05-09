@@ -659,9 +659,15 @@ That's why we use `NOLOAD` to drop the empty Image Header from the BIN file, and
 
 _Why not omit the Image Header from the Linker Script?_
 
-Because the firmware addresses would get messed up by the GCC Linker.
+Because the GCC Linker would compute the ROM addresses incorrectly. Let's look again at the dumps of the Firmware BIN and Image Files...
 
-???
+<< pic >>
+
+Both files point to the `Reset_Handler` function, the first function in our firmware.  The address of `Reset_Handler` is the same for both files: `0x80F8`
+
+But how did the GCC Linker allocate address `0x80F8`? The offset (`0xF8`) was computed based on the Image Header size (`0x20`) + the Interrupt Vector Table size (`0xD8`).
+
+Hence we had to insert an empty Image Header for GCC Linker to compute the correct ROM addresses.
 
 # Mark PineTime Firmware as OK
 
