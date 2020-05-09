@@ -473,46 +473,37 @@ TODO
 
 _What's inside the Image Header?_
 
+```c
 /** Image header.  All fields are in little endian byte order. */
 struct image_header {
-    3d  b8  f3  96
-    uint32_t ih_magic;
-    
-    00  00  00  00
-    uint32_t ih_load_addr;
-    
-    20  00
+    //  3d  b8  f3  96
+    uint32_t ih_magic;    
+    //  00  00  00  00
+    uint32_t ih_load_addr;    
+    //  20  00
     uint16_t ih_hdr_size;           /* Size of image header (bytes). */
-
-    00  00
+    //  00  00
     uint16_t ih_protect_tlv_size;   /* Size of protected TLV area (bytes). */
-
-    18  29  03  00
+    //  18  29  03  00
     uint32_t ih_img_size;           /* Does not include header. */ 0x032918 = 207128
-
-    00  00  00  00
+    //  00  00  00  00
     uint32_t ih_flags;              /* IMAGE_F_[...]. */
-
     // 01  00  00  00  00  00  00  00 
     // struct image_version ih_ver;
-
     struct image_version {
-    01
-    uint8_t iv_major;
-    
-    00
+    //  01
+    uint8_t iv_major;    
+    //  00
     uint8_t iv_minor;
-
-    00  00
+    //  00  00
     uint16_t iv_revision;
-
-    00  00  00  00
+    //  00  00  00  00
     uint32_t iv_build_num;
     };
-
-    00  00  00  00
+    //  00  00  00  00
     uint32_t _pad1;
 };
+```
 
 ```bash
 od -A x -t x1 bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img | more
