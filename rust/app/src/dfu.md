@@ -511,8 +511,9 @@ The Image Header consists of 32 bytes (`0x20`) in little endian byte order ([as 
 
 _How shall we generate a Firmware Image that contains the Image Header?_
 
-MCUBoot provides a script `imgtool.py` ([located here](https://github.com/JuulLabs-OSS/mcuboot/tree/master/scripts)) that generates the Firmware Image with Image Header.
+MCUBoot provides a script `imgtool.py` ([located here](https://github.com/JuulLabs-OSS/mcuboot/tree/master/scripts)) that generates a Firmware Image using the Firmware ELF File produced by the GCC Compiler.
 
+More about `imgtool.py` in the next section.
 
 _How does MCUBoot know if the new firmware is bad... And needs to be rolled back to the old firmware?_
 
