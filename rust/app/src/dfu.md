@@ -482,37 +482,18 @@ The Image Header consists of 32 bytes (`0x20`) in little endian byte order...
 | ROM Address | Offset in Image File | Size in bytes | Example | Contents |
 | :-- | :-- | --: | :-- | :-- |
 | `0x0000 8000` | `0x0000 0000` | 4 | `3d  b8  f3  96` | `ih_magic`: <br> Magic Number, <br> must be `3d  b8  f3  96` | 
+| `0x0000 8004` | `0x0000 0004` | 4 | `00  00  00  00`| `ih_load_addr`: <br> Must be `00 00 00 00`    
+| `0x0000 8008` | `0x0000 0008` | 2 | `20  00`| `ih_hdr_size`: <br> Size of image header, must be 32 (`0x20`)
+| `0x0000 800A` | `0x0000 000A` | 2 | `00  00`| `ih_protect_tlv_size`:  <br> Size of protected TLV area, in bytes
+| `0x0000 800C` | `0x0000 000C` | 4 | `18  29  03  00`| `ih_img_size`: <br> Size of firmware image, in bytes. Does not include header. `0x032918` = 207128 bytes
+| `0x0000 8010` | `0x0000 0010` | 4 | `00  00  00  00`| `ih_flags`: <br> `IMAGE_F_[...]` flags, usually `00 00 00 00`
+| `0x0000 8014` | `0x0000 0014` | 1 | `01`| `ih_ver.iv_major`: <br> Major version number
+| `0x0000 8015` | `0x0000 0015` | 1 | `00`| `ih_ver.iv_minor`: <br> Minor version number
+| `0x0000 8016` | `0x0000 0016` | 2 | `00  00`| `ih_ver.iv_revision`: <br> Revision number
+| `0x0000 8018` | `0x0000 0018` | 4 | `00  00  00  00`| `ih_ver.iv_build_num`: <br> Build number
+| `0x0000 801C` | `0x0000 001C` | 4 | `00  00  00  00`| `_pad1`: <br> Padding, must be `00 00 00 00`
 
-4 
-//  00  00  00  00
-ih_load_addr: <br> Must be `00 00 00 00`    
-2 
-//  20  00
-ih_hdr_size: <br> Size of image header, must be 32 (`0x20`)
-2 
-//  00  00
-ih_protect_tlv_size:  <br> Size of protected TLV area, in bytes
-4 
-//  18  29  03  00
-ih_img_size: <br> Size of firmware image, in bytes. Does not include header. `0x032918` = 207128 bytes
-4 
-//  00  00  00  00
-ih_flags: <br> `IMAGE_F_[...]` flags, usually set to `00 00 00 00`
-1 
-//  01
-ih_ver.iv_major: <br> Major version number
-1 
-//  00
-ih_ver.iv_minor: <br> Minor version number
-2 
-//  00  00
-ih_ver.iv_revision: <br> Revision number
-4 
-//  00  00  00  00
-ih_ver.iv_build_num: <br> Build number
-4 
-//  00  00  00  00
-_pad1: <br> Padding, must be `00 00 00 00`
+_Based on https://juullabs-oss.github.io/mcuboot/design.html_
 
 ```bash
 od -A x -t x1 bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img | more
