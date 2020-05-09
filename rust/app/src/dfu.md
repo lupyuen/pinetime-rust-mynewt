@@ -598,7 +598,7 @@ When GCC links our firmware with the above Linker Script, it produces a [Firmwar
 
 In the example above, `Reset_Handler` is the first function in our firmware. That's why it was allocated address `0x80f8`.
 
-_How shall we convert the Firmware ELF file to a Firmware BIN File?_
+_How shall we convert the Firmware ELF File to a Firmware BIN File?_
 
 To create the Firmware BIN File `my_sensor_app.elf.bin` from the Firmware ELF File `my_sensor_app.elf`, we run `arm-none-eabi-objcopy` ([documented here](http://web.mit.edu/gnu/doc/html/binutils_4.html))...
 
@@ -615,7 +615,7 @@ arm-none-eabi-objcopy \
 
 We use the `-R` option to remove unwanted ELF sections from the Firmware BIN File. The unwanted sections (like `.bss.core`) may be named differently for your embedded operating system.
 
-_How shall we convert the Firmware BIN file to a Firmware Image File?_
+_How shall we convert the Firmware BIN File to a Firmware Image File?_
 
 MCUBoot provides a script `imgtool.py` ([located here](https://github.com/JuulLabs-OSS/mcuboot/tree/master/scripts)) that takes a Firmware BIN File and produces the Firmware Image File.
 
@@ -655,7 +655,7 @@ The files are identical... Just that the Firmware BIN File doesn't have the Imag
 
 Thus when `imgtool.py` transforms the Firmware BIN File to a Firmware Image File... It's merely inserting the Image Header at the front of the BIN file!
 
-That's why we use `NOLOAD` to drop the empty Image Header from the BIN file, and let `imgtool.py` insert a proper Image Header into the file.
+That's why we use `NOLOAD` to drop the empty Image Header from the BIN file, and let `imgtool.py` insert a proper Image Header into the final firmware file.
 
 _Why not omit the Image Header from the Linker Script?_
 
