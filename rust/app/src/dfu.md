@@ -649,7 +649,7 @@ _In the above Linker Script, why is the Image Header (`.imghdr`) marked as `NOLO
 
 `NOLOAD` means that the Image Header will NOT be written to the Firmware BIN File. Let's compare the Firmware BIN and Firmware Image Files...
 
-<< pic >>
+![Firmware BIN vs Image File](https://lupyuen.github.io/images/dfu-image2.png)
 
 The files are identical... Just that the Firmware BIN File doesn't have the Image Header.
 
@@ -661,15 +661,15 @@ _Why not omit the Image Header from the Linker Script?_
 
 Because the GCC Linker would compute the ROM addresses incorrectly. Let's look again at the dumps of the Firmware BIN and Image Files...
 
-<< pic >>
+![Firmware BIN vs Image File: Reset_Handler](https://lupyuen.github.io/images/dfu-image3.png)
 
-Both files point to the `Reset_Handler` function, the first function in our firmware.  The address of `Reset_Handler` is the same for both files: `0x80F8`
+In both files, the Interrupt Vector Tables point to the `Reset_Handler` function, the first function in our firmware.  The addresses in both Interrupt Vector Tables are the same: `0x80F9`
 
-But how did the GCC Linker allocate address `0x80F8`? The offset (`0xF8`) was computed based on the Image Header size (`0x20`) + the Interrupt Vector Table size (`0xD8`).
+But how did the GCC Linker allocate ROM address `0x80F9` for `Reset_Handler`? The offset (`0xF9`) was computed based on Image Header size (`0x20`) + Interrupt Vector Table size (`0xD8`) + 1.
 
 Hence we had to insert an empty Image Header for GCC Linker to compute the correct ROM addresses.
 
-BTW that's not a bug: The Interrupt Vector Table uses address `0x80F9` to refer to function `Reset_Handler`, which is actually located at `0x80F8` (i.e. the address is off by 1). This is a known quirk of Interrupt Vector Tables on Arm CPUs.
+BTW that's not a typo: The Interrupt Vector Table uses address `0x80F9` to refer to function `Reset_Handler`, which is actually located at `0x80F8` (i.e. the address is off by 1). This is a known quirk of Interrupt Vector Tables on Arm CPUs.
 
 # Mark PineTime Firmware as OK
 
