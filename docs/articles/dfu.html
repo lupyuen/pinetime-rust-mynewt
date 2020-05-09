@@ -64,17 +64,20 @@
 <li><a href="#nimble-event-queue-functions">6.6 NimBLE Event Queue Functions</a><ul></ul></li>
 <li><a href="#nimble-time-functions">6.7 NimBLE Time Functions</a><ul></ul></li>
 <li><a href="#nimble-interrupt-functions">6.8 NimBLE Interrupt Functions</a><ul></ul></li></ul></li>
-<li><a href="#mcuboot-bootloader">7 MCUBoot Bootloader</a><ul></ul></li>
-<li><a href="#other-command-handlers-for-mcu-manager">8 Other Command Handlers for MCU Manager</a><ul></ul></li>
-<li><a href="#pinetime-firmware">9 PineTime Firmware</a><ul></ul></li>
-<li><a href="#raspberry-pi-client">10 Raspberry Pi Client</a><ul></ul></li>
-<li><a href="#android-client">11 Android Client</a><ul></ul></li>
-<li><a href="#ios-client">12 iOS Client</a><ul></ul></li>
-<li><a href="#flutter-client-for-ios-and-android">13 Flutter Client for iOS and Android</a><ul></ul></li>
-<li><a href="#mcuboot-enhancements">14 MCUboot Enhancements</a><ul></ul></li>
-<li><a href="#other-pinetime-bluetooth-firmware-upgrade-solutions">15 Other PineTime Bluetooth Firmware Upgrade Solutions</a><ul></ul></li>
-<li><a href="#log-for-raspberry-pi-client">16 Log for Raspberry Pi Client</a><ul></ul></li>
-<li><a href="#further-reading">17 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/dfu-platforms.png" alt="Platforms in development for PineTime Smart Watch" /></p>
+<li><a href="#mcuboot-bootloader-for-pinetime">7 MCUBoot Bootloader for PineTime</a><ul></ul></li>
+<li><a href="#generate-a-pinetime-firmware-image-file">8 Generate a PineTime Firmware Image File</a><ul></ul></li>
+<li><a href="#mark-pinetime-firmware-as-ok">9 Mark PineTime Firmware as OK</a><ul></ul></li>
+<li><a href="#test-pinetime-firmware-update-over-bluetooth-le">10 Test PineTime Firmware Update over Bluetooth LE</a><ul></ul></li>
+<li><a href="#other-command-handlers-for-mcu-manager">11 Other Command Handlers for MCU Manager</a><ul></ul></li>
+<li><a href="#pinetime-firmware">12 PineTime Firmware</a><ul></ul></li>
+<li><a href="#raspberry-pi-client">13 Raspberry Pi Client</a><ul></ul></li>
+<li><a href="#android-client">14 Android Client</a><ul></ul></li>
+<li><a href="#ios-client">15 iOS Client</a><ul></ul></li>
+<li><a href="#flutter-client-for-ios-and-android">16 Flutter Client for iOS and Android</a><ul></ul></li>
+<li><a href="#mcuboot-enhancements">17 MCUboot Enhancements</a><ul></ul></li>
+<li><a href="#other-pinetime-bluetooth-firmware-upgrade-solutions">18 Other PineTime Bluetooth Firmware Upgrade Solutions</a><ul></ul></li>
+<li><a href="#log-for-raspberry-pi-client">19 Log for Raspberry Pi Client</a><ul></ul></li>
+<li><a href="#further-reading">20 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/dfu-platforms.png" alt="Platforms in development for PineTime Smart Watch" /></p>
 <p>Thanks to the FOSS Community, <a href="https://wiki.pine64.org/index.php/PineTime">PineTime Smart Watch</a> has an incredible variety of FOSS operating systems in the works: <a href="https://github.com/JF002/Pinetime">FreeRTOS</a>, <a href="https://github.com/daniel-thompson/wasp-os">MicroPython</a>, <a href="https://github.com/lupyuen/pinetime-rust-mynewt">Mynewt</a>, <a href="https://github.com/bosmoment/PineTime-apps">RIOT</a>, Rust <a href="https://github.com/wose/xochron">RTFM</a> (<a href="https://github.com/dbrgn/pinetime-rtfm">another</a>), <a href="https://github.com/aykevl/go-smartwatch">TinyGo</a>, <a href="https://www.tockos.org/">Tock</a>, <a href="https://github.com/najnesnaj/pinetime-zephyr">Zephyr</a> (<a href="https://github.com/Dejvino/pinetime-hermes-firmware.git">another</a>), ...</p>
 <p>But these embedded platforms are accessible only by brave PineTime Owners who dare to pry open their watches very carefully... And connect a Raspberry Pi (or ST-Link) to the tiny delicate 4-pin SWD port recessed deep inside... Just to flash the PineTime firmware.</p>
 <p><em>What if we could flash any firmware to PineTime from our mobile phone... Without opening the watch?</em></p>
@@ -363,7 +366,7 @@
 <p>When PineTime receives a Bluetooth LE data packet, the Bluetooth hardware controller triggers an Interrupt. The <a href="https://en.wikipedia.org/wiki/Interrupt_handler">Interrupt Service Routine</a> is the function provided by NimBLE to handle that Interrupt.</p>
 <p>The Interrupt Service Routine forwards all received packets to the NimBLE background task for processing. We'll see in a while how NimBLE calls the NimBLE Porting Layer to set the Interrupt Service Routine.</p>
 <p><em>Why does NimBLE need Event Queues?</em></p>
-<p>The NimBLE Interrupt Service Routine runs at a higher priority than normal tasks (because handling interrupts needs to be super urgent). But it shouldn't hog the CPU and process the received Bluetooth packet immediately... That's wouldn't be fair to other tasks!</p>
+<p>The NimBLE Interrupt Service Routine runs at a higher priority than normal tasks (because handling interrupts needs to be super urgent). But it shouldn't hog the CPU and process the received Bluetooth packet immediately... That wouldn't be fair to other tasks!</p>
 <p>Hence the NimBLE Interrupt Service Routine defers the processing of the received Bluetooth packet by adding it to an Event Queue. Another NimBLE task (running at normal priority) will pick up the Bluetooth packet and process it.</p>
 <p><em>How shall we start the NimBLE Stack and listen for firmware upgrade commands?</em></p>
 <p>PineTime Firmware Developers would have to call the C function <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_main.c#L300-L357"><code>start_ble()</code></a> defined in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_main.c#L300-L357"><code>ble_main.c</code></a></p>
@@ -435,20 +438,163 @@
 <p>The complete list of NimBLE Porting Library functions to be implemented by PineTime Firmware Developers may be found in <a href="https://github.com/apache/mynewt-nimble/blob/master/nimble/include/nimble/nimble_npl.h"><code>nimble_npl.h</code></a></p>
 <p>The documentation above was derived from <a href="https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt/include/nimble/nimble_npl_os.h"><code>mynewt/nimble_npl_os.h</code></a> from the <a href="https://github.com/apache/mynewt-nimble/blob/master/porting/npl/mynewt">NimBLE Porting Layer for Mynewt</a></p>
 <p><em><a href="https://github.com/apache/mynewt-nimble">Browse the NimBLE source code</a></em></p>
-<h1 id="mcuboot-bootloader" class="section-header"><a href="#mcuboot-bootloader">7 MCUBoot Bootloader</a></h1>
+<h1 id="mcuboot-bootloader-for-pinetime" class="section-header"><a href="#mcuboot-bootloader-for-pinetime">7 MCUBoot Bootloader for PineTime</a></h1>
+<p>We have covered two software components necessary for rolling out PineTime firmware updates over Bluetooth LE...</p>
+<ol>
+<li>
+<p><strong>MCU Manager Library:</strong> Implements the Simple Management Protocol for updating firmware</p>
+</li>
+<li>
+<p><strong>NimBLE Bluetooth Stack:</strong> Implements the Bluetooth LE network transport for communicating with mobile phones</p>
+</li>
+</ol>
+<p>Now we'll cover the third and final open-source component: <a href="https://juullabs-oss.github.io/mcuboot"><strong>MCUBoot Bootloader</strong></a>.  When PineTime has been configured for firmware update, the MCUBoot Bootloader is the first thing that PineTime executes when booting.</p>
+<p>MCUBoot (coded in C) plays a critical role in the firmware update process... During firmware update, MCUBoot swaps the old and new firmware images (and swaps them back if the new firmware fails to start)</p>
+<p><img src="https://lupyuen.github.io/images/dfu-rollback.png" alt="Firmware Update with Rollback on PineTime" /></p>
+<p><em>What's inside the Firmware Image?</em></p>
+<p>For flashing firmware over Bluetooth, PineTime Firmware Developers would have to generate a Firmware Image File with this layout that MCUBoot understands...</p>
+<table><thead><tr><th align="left">ROM Address    </th><th align="left">Offset in Image File    </th><th align="right">Size in bytes    </th><th align="left">Contents</th></tr></thead><tbody>
+<tr><td align="left"><code>0x8000</code></td><td align="left"><code>0x0000</code></td><td align="right">32 (<code>0x20</code>)    </td><td align="left">Image Header</td></tr>
+<tr><td align="left"><code>0x8020</code></td><td align="left"><code>0x0020</code></td><td align="right">216 (<code>0xD8</code>)    </td><td align="left">Interrupt Vector Table</td></tr>
+<tr><td align="left"><code>0x80F8</code></td><td align="left"><code>0x00F8</code></td><td align="right"></td><td align="left">Firmware Code and Data</td></tr>
+<tr><td align="left"><br></td><td align="left"></td><td align="right"></td><td align="left"></td></tr>
+</tbody></table>
+<p>This layout looks clearer when we peek inside a Firmware Image File <code>my_sensor_app.img</code> with the command...</p>
+<pre><code class="language-bash">od -A x -t x1 my_sensor_app.img
+</code></pre>
+<p><img src="https://lupyuen.github.io/images/dfu-image.png" alt="Firmware Update Image for PineTime" /></p>
+<p><em>What's inside the Image Header?</em></p>
+<p>The Image Header consists of 32 bytes (<code>0x20</code>) in little endian byte order (<a href="https://juullabs-oss.github.io/mcuboot/design.html">as defined here</a>)...</p>
+<table><thead><tr><th align="left">ROM Address</th><th align="left">Offset in <br> Image File</th><th align="right">Size <br> (bytes)</th><th align="left">Example</th><th align="left">Contents</th></tr></thead><tbody>
+<tr><td align="left"><code>0x8000</code></td><td align="left"><code>0x0000</code></td><td align="right">4     </td><td align="left"><code>3d  b8  f3  96</code>     </td><td align="left"><code>ih_magic</code>: <br> Magic Number, <br> must be <code>3d  b8  f3  96</code> <br><br></td></tr>
+<tr><td align="left"><code>0x8004</code></td><td align="left"><code>0x0004</code></td><td align="right">4     </td><td align="left"><code>00  00  00  00</code></td><td align="left"><code>ih_load_addr</code>: <br> Must be <code>00 00 00 00</code> <br><br></td></tr>
+<tr><td align="left"><code>0x8008</code></td><td align="left"><code>0x0008</code></td><td align="right">2     </td><td align="left"><code>20  00</code></td><td align="left"><code>ih_hdr_size</code>: <br> Size of image header, must be 32 (<code>0x20</code>) <br><br></td></tr>
+<tr><td align="left"><code>0x800A</code></td><td align="left"><code>0x000A</code></td><td align="right">2     </td><td align="left"><code>00  00</code></td><td align="left"><code>ih_protect_tlv_size</code>:  <br> Size of protected TLV area, in bytes. <br> Usually <code>00 00</code> <br><br></td></tr>
+<tr><td align="left"><code>0x800C</code></td><td align="left"><code>0x000C</code></td><td align="right">4     </td><td align="left"><code>18  29  03  00</code></td><td align="left"><code>ih_img_size</code>: <br> Size of firmware image, in bytes. <br> Does not include header. <br> In this example, <code>0x032918</code> = 207,128 bytes <br><br></td></tr>
+<tr><td align="left"><code>0x8010</code></td><td align="left"><code>0x0010</code></td><td align="right">4     </td><td align="left"><code>00  00  00  00</code></td><td align="left"><code>ih_flags</code>: <br> <code>IMAGE_F_[...]</code> flags, <br> usually <code>00 00 00 00</code> <br><br></td></tr>
+<tr><td align="left"><code>0x8014</code></td><td align="left"><code>0x0014</code></td><td align="right">1     </td><td align="left"><code>01</code></td><td align="left"><code>ih_ver.iv_major</code>: <br> Major version number <br><br></td></tr>
+<tr><td align="left"><code>0x8015</code></td><td align="left"><code>0x0015</code></td><td align="right">1     </td><td align="left"><code>00</code></td><td align="left"><code>ih_ver.iv_minor</code>: <br> Minor version number <br><br></td></tr>
+<tr><td align="left"><code>0x8016</code></td><td align="left"><code>0x0016</code></td><td align="right">2     </td><td align="left"><code>00  00</code></td><td align="left"><code>ih_ver.iv_revision</code>: <br> Revision number <br><br></td></tr>
+<tr><td align="left"><code>0x8018</code></td><td align="left"><code>0x0018</code></td><td align="right">4     </td><td align="left"><code>00  00  00  00</code></td><td align="left"><code>ih_ver.iv_build_num</code>: <br> Build number <br><br></td></tr>
+<tr><td align="left"><code>0x801C</code></td><td align="left"><code>0x001C</code></td><td align="right">4     </td><td align="left"><code>00  00  00  00</code></td><td align="left"><code>_pad1</code>: <br> Padding, must be <code>00 00 00 00</code> <br><br></td></tr>
+</tbody></table>
+<p><em>How shall we generate a Firmware Image that contains the Image Header?</em></p>
+<p>MCUBoot provides a script <code>imgtool.py</code> (<a href="https://github.com/JuulLabs-OSS/mcuboot/tree/master/scripts">located here</a>) that generates a Firmware Image using the Firmware ELF File produced by the GCC Compiler.</p>
+<p>More about <code>imgtool.py</code> in the next section.</p>
+<p><em>How does MCUBoot know if the new firmware is bad... And needs to be rolled back to the old firmware?</em></p>
+<p>PineTime Firmware Developers need to set the <strong>Firmware OK</strong> status when the new firmware is running fine. </p>
+<p>During startup, MCUBoot checks the Firmware OK status. If the Firmware OK status is missing, it rolls back to the old firmware.</p>
+<p>More about the Firmware OK status later.</p>
+<p><em>When shall we mark the new firmware as OK?</em></p>
+<p>When new firmware runs on PineTime, it shall display a message prompt to indicate that the new firmware is indeed running...</p>
+<p><em>&quot;Mynewt on PineTime has been updated to version 2.0.1&quot;</em></p>
+<p>When the user taps <code>OK</code>, the firmware shall write the Firmware OK status.</p>
+<p>This ensures that the new firmware is able to start up, display messages and accept input properly.</p>
+<p><em>Do we need to build MCUBoot ourselves?</em></p>
+<p>Good news for PineTime Firmware Developers: We don't need to build MCUBoot ourselves or link it with our firmware... Just use the <strong>Common Build of MCUBoot Bootloader</strong> that I have prepared!</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.0.1"><code>pinetime-rust-mynewt/releases/tag/v4.0.1</code></a></p>
+<p>This build of MCUBoot assumes that the PineTime firmware follows the Flash ROM Map described earlier in this article. The MCUBoot image should be flashed to PineTime at address <code>0x0</code>.</p>
+<p>Here are the build settings and build script for MCUBoot: <a href="https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/targets%2Fnrf52_boot"><code>targets/nrf52_boot</code></a>, <a href="https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fbuild-boot.sh"><code>build-boot.sh</code></a></p>
+<p>MCUBoot may be flashed to PineTime with these OpenOCD scripts: <a href="https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.sh"><code>flash-boot.sh</code></a>, <a href="https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.ocd"><code>flash-boot.ocd</code></a></p>
+<h1 id="generate-a-pinetime-firmware-image-file" class="section-header"><a href="#generate-a-pinetime-firmware-image-file">8 Generate a PineTime Firmware Image File</a></h1>
 <p>TODO</p>
-<p>MCUboot design: https://juullabs-oss.github.io/mcuboot/design.html</p>
-<p>Refer to the Flash Memory Map:</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/hw/bsp/nrf52/bsp.yml</p>
-<p>mcuboot currently requires mbedtls, which does dynamic allocations. Might be interesting to try bearssl which works without any dynamic allocations</p>
-<h1 id="other-command-handlers-for-mcu-manager" class="section-header"><a href="#other-command-handlers-for-mcu-manager">8 Other Command Handlers for MCU Manager</a></h1>
+<p>The <code>imgtool.py</code> script in MCUBoot takes a <strong>Firmware BIN File</strong> and produces the Firmware Image. More about Firmware BIN Files in a while.</p>
+<p>Here's how we generate the Firmware Image (<code>my_sensor_app.img</code>) from a Firmware BIN File (<code>my_sensor_app.elf.bin</code>)...</p>
+<pre><code class="language-bash"># Install Python modules needed by imgtool.py
+pip3 install --user -r mcuboot/scripts/requirements.txt 
+
+# Generate the Firmware Image (including Image Header) from the Firmware BIN file
+# Based on our Flash ROM Layout, the Firmware Image Slot Size is 232 KB (237,568 bytes)
+mcuboot/scripts/imgtool.py create \
+  --align 4 \
+  --version 1.0.0 \
+  --header-size 32 \
+  --slot-size 237568 \
+  --pad-header \
+  my_sensor_app.elf.bin \
+  my_sensor_app.img
+
+# Verify the Firmware Image
+mcuboot/scripts/imgtool.py verify my_sensor_app.img
+# Should show:
+# Image was correctly validated
+# Image version: 1.0.0+0
+</code></pre>
+<p><em>How shall we generate the Firmware BIN File?</em></p>
+<p>The Firmware BIN File is generated in two steps...</p>
+<ol>
+<li>
+<p>Build the firmware with a special GCC Linker Script to create the Firmware ELF File with Image Header</p>
+</li>
+<li>
+<p>Convert the Firmware ELF File to BIN with <code>arm-none-eabi-objcopy</code></p>
+</li>
+</ol>
+<p>Here's how define the GCC Linker Script (refer to <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/nrf52.ld"><code>nrf52.ld</code></a>)...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">SECTIONS</span>
+{
+    .<span class="ident">imghdr</span> (<span class="ident">NOLOAD</span>):
+    {
+        . <span class="op">=</span> . <span class="op">+</span> <span class="ident">_imghdr_size</span>;
+    } <span class="op">&gt;</span> <span class="ident">FLASH</span>
+
+    <span class="ident">__text</span> <span class="op">=</span> .;
+
+    .<span class="ident">text</span> :
+    {
+        <span class="ident">__isr_vector_start</span> <span class="op">=</span> .;
+        <span class="ident">KEEP</span>(<span class="kw-2">*</span>(.<span class="ident">isr_vector</span>))
+        <span class="ident">__isr_vector_end</span> <span class="op">=</span> .;
+        <span class="kw-2">*</span>(.<span class="ident">text</span><span class="kw-2">*</span>)</pre></div>
+<p>Where <code>_imghdr_size</code> is defined as <code>0x20</code> (or 32 decimal) in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/hw/bsp/nrf52/nrf52xxaa.ld"><code>nrf52xxaa.ld</code></a></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">_imghdr_size</span> <span class="op">=</span> <span class="number">0x20</span>;</pre></div>
+<p>The above Linker Script says...</p>
+<ol>
+<li>
+<p>At the beginning of the Firmware Image, reserve 32 bytes (<code>_imghdr_size</code>) for the Image Header (<code>.imghdr</code>)</p>
+</li>
+<li>
+<p>Followed by the Text Section (<code>.text</code>), which contains the firmware code and data</p>
+</li>
+<li>
+<p>At the start of the Text Section, we have the standard Interrupt Vector Table (<code>.isr_vector</code>), which has 216 bytes (<code>0xD8</code>)</p>
+</li>
+</ol>
+<p>When GCC links our firmware with the above Linker Script, it produces a <strong>Firmware ELF File</strong> that has the following layout...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">/* Section   Address      Size */</span>
+.<span class="ident">imghdr</span>      <span class="number">0x8000</span>       <span class="number">0x20</span>
+.<span class="ident">text</span>        <span class="number">0x8020</span>    <span class="number">0x32578</span>
+ .<span class="ident">isr_vector</span> <span class="number">0x8020</span>       <span class="number">0xd8</span>
+             <span class="number">0x80f8</span> <span class="ident">Reset_Handler</span></pre></div>
+<p>In the example above, <code>Reset_Handler</code> is the first function in our firmware. That's why it was allocated address <code>0x80f8</code>.</p>
+<p>To create the Firmware BIN File (<code>my_sensor_app.elf.bin</code>) from the Firmware ELF File (<code>my_sensor_app.elf</code>), we run <code>arm-none-eabi-objcopy</code>...</p>
+
+<pre><code>arm-none-eabi-objcopy \
+    -R .bss \
+    -R .bss.core \
+    -R .bss.core.nz \
+    -O binary \
+    my_sensor_app.elf \
+    my_sensor_app.elf.bin</code></pre>
+<p>From bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.cmd</p>
+<p><em>In the above Linker Script, why is the Image Header (<code>.imghdr</code>) marked as <code>NOLOAD</code>?</em></p>
+<p>The Firmware BIN File ???</p>
+<p><code>NOLOAD</code> means that the Image Header will NOT be written to the Image BIN File.</p>
+<h1 id="mark-pinetime-firmware-as-ok" class="section-header"><a href="#mark-pinetime-firmware-as-ok">9 Mark PineTime Firmware as OK</a></h1>
 <p>TODO</p>
-<p>For upgrading firmware over Bluetooth, the MCU Manager Library is supported on Mynewt OS and Zephyr OS. </p>
-<p>MCU Manager Library is documented here:</p>
-<p>https://github.com/apache/mynewt-mcumgr</p>
+<h1 id="test-pinetime-firmware-update-over-bluetooth-le" class="section-header"><a href="#test-pinetime-firmware-update-over-bluetooth-le">10 Test PineTime Firmware Update over Bluetooth LE</a></h1>
+<p>TODO</p>
+<h1 id="other-command-handlers-for-mcu-manager" class="section-header"><a href="#other-command-handlers-for-mcu-manager">11 Other Command Handlers for MCU Manager</a></h1>
+<p>TODO</p>
 <p>MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:</p>
 <p>https://github.com/apache/mynewt-mcumgr/tree/master/cmd</p>
-<h1 id="pinetime-firmware" class="section-header"><a href="#pinetime-firmware">9 PineTime Firmware</a></h1>
+<h1 id="pinetime-firmware" class="section-header"><a href="#pinetime-firmware">12 PineTime Firmware</a></h1>
 <p>TODO</p>
 <p>Now testing PineTime Mynewt firmware built with Newt Manager library, located at the <code>ota</code> branch of <code>/pinetime-rust-mynewt</code>:</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota</p>
@@ -459,7 +605,7 @@
 <p>PineTime now appears in nRF Connect with DFU enabled:</p>
 <p>https://twitter.com/MisterTechBlog/status/1255305379766042626?s=20</p>
 <p>Need to implement MCUboot for DFU to work.</p>
-<h1 id="raspberry-pi-client" class="section-header"><a href="#raspberry-pi-client">10 Raspberry Pi Client</a></h1>
+<h1 id="raspberry-pi-client" class="section-header"><a href="#raspberry-pi-client">13 Raspberry Pi Client</a></h1>
 <p>TODO</p>
 <p>Newt Manager builds OK on Raspberry Pi 4 and works OK with PineTime.  See the log below.</p>
 <p>Now studying the Go code (with debug messages enabled) to understand the firmware upload process:</p>
@@ -467,11 +613,11 @@
 <p>Also how to set the device date/time:</p>
 <p>https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_datetime.html</p>
 <p>And whether we can push notifications to the device.</p>
-<h1 id="android-client" class="section-header"><a href="#android-client">11 Android Client</a></h1>
+<h1 id="android-client" class="section-header"><a href="#android-client">14 Android Client</a></h1>
 <p>TODO</p>
 <p>Not started. Will explore this Android MCU Manager client for OTA Firmware Upgrade, coded in Java:</p>
 <p>https://github.com/JuulLabs-OSS/mcumgr-android</p>
-<h1 id="ios-client" class="section-header"><a href="#ios-client">12 iOS Client</a></h1>
+<h1 id="ios-client" class="section-header"><a href="#ios-client">15 iOS Client</a></h1>
 <p>TODO</p>
 <p>Not started. Will explore this iOS MCU Manager client for OTA Firmware Upgrade, coded in Swift:</p>
 <p>https://github.com/JuulLabs-OSS/mcumgr-ios</p>
@@ -481,7 +627,7 @@
 <p>Refer to the iOS Core Bluetooth API:</p>
 <p>https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/AboutCoreBluetooth/Introduction.html#//apple_ref/doc/uid/TP40013257-CH1-SW1</p>
 <p>https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/PerformingCommonCentralRoleTasks/PerformingCommonCentralRoleTasks.html#//apple_ref/doc/uid/TP40013257-CH3-SW1</p>
-<h1 id="flutter-client-for-ios-and-android" class="section-header"><a href="#flutter-client-for-ios-and-android">13 Flutter Client for iOS and Android</a></h1>
+<h1 id="flutter-client-for-ios-and-android" class="section-header"><a href="#flutter-client-for-ios-and-android">16 Flutter Client for iOS and Android</a></h1>
 <p>TODO</p>
 <p>Alternatively, we may build iOS and Android clients for MCU Manager in Flutter based on this BLE library:</p>
 <p>https://github.com/pauldemarco/flutter_blue</p>
@@ -490,13 +636,26 @@
 <p>https://github.com/pauldemarco/flutter_blue/tree/master/example/lib</p>
 <p>And adapting the iOS MCU Client code.</p>
 <p>The Flutter app for PineTime would the MCU Manager functions from scratch. The app would be a great reference to teach how to talk to BLE and GATT services from iOS and Android, even though it won't be a polished app.</p>
-<h1 id="mcuboot-enhancements" class="section-header"><a href="#mcuboot-enhancements">14 MCUboot Enhancements</a></h1>
+<h1 id="mcuboot-enhancements" class="section-header"><a href="#mcuboot-enhancements">17 MCUboot Enhancements</a></h1>
 <p>TODO</p>
 <p>MCUboot should detect button press upon startup. If the button is pressed, rollback the old firmware. This allows the user to roll back faulty firmware that does not respond to OTA Firmware Upgrade commands.</p>
 <p>The OTA Firmware Upgrade tool needs to ensure that the same firmware version doesn't get flashed twice.</p>
 <p>The firmware must still implement a &quot;Reset&quot; or watchdog feature, or the user will have to wait for the battery to drain completely before running MCUboot.</p>
 <p>The PineTime Mynewt firmware size is 205 KB with Newt Manager Library included. This is quite close to the 232 KB size limit, assuming 2 firmware images plus scratch storage in PineTime's 512 KB ROM.</p>
 <p>MCUboot and MCU Manager should be enhanced to store the new and backup firmware images on PineTime's External SPI Flash (4 MB).</p>
+<p>https://juullabs-oss.github.io/mcuboot/imgtool.html</p>
+<p>https://juullabs-oss.github.io/mcuboot/design.html</p>
+<p>https://juullabs-oss.github.io/mcuboot/design.html#image-format</p>
+<p>https://juullabs-oss.github.io/mcuboot/design.html#flash-map</p>
+<p>https://juullabs-oss.github.io/mcuboot/design.html#image-slots</p>
+<p>https://juullabs-oss.github.io/mcuboot/design.html#image-trailer</p>
+<p>https://juullabs-oss.github.io/mcuboot/design.html#image-trailers</p>
+<p>https://juullabs-oss.github.io/mcuboot/design.html#high-level-operation</p>
+<p>https://juullabs-oss.github.io/mcuboot/design.html#image-swapping</p>
+<p>https://juullabs-oss.github.io/mcuboot/design.html#swap-status</p>
+<p>https://juullabs-oss.github.io/mcuboot/design.html#reset-recovery</p>
+<p>https://juullabs-oss.github.io/mcuboot/design.html#integrity-check</p>
+<p>https://juullabs-oss.github.io/mcuboot/design.html#security</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span> <span class="ident">Build</span> <span class="ident">Mynewt</span> <span class="ident">and</span> <span class="ident">link</span> <span class="ident">with</span> <span class="ident">Rust</span> <span class="ident">app</span>
@@ -566,7 +725,7 @@
 <span class="ident">objsize</span>
    <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
  <span class="number">205760</span>     <span class="number">904</span>   <span class="number">55224</span>  <span class="number">261888</span>   <span class="number">3ff00</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">elf</span></pre></div>
-<h1 id="other-pinetime-bluetooth-firmware-upgrade-solutions" class="section-header"><a href="#other-pinetime-bluetooth-firmware-upgrade-solutions">15 Other PineTime Bluetooth Firmware Upgrade Solutions</a></h1>
+<h1 id="other-pinetime-bluetooth-firmware-upgrade-solutions" class="section-header"><a href="#other-pinetime-bluetooth-firmware-upgrade-solutions">18 Other PineTime Bluetooth Firmware Upgrade Solutions</a></h1>
 <ol>
 <li>
 <p>Nordic SoftDevice includes a proprietary BLE DFU implementation: https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v15.0.0/lib_bootloader_dfu_process.html</p>
@@ -581,7 +740,7 @@
 <p>DaFlasher for Android: https://github.com/atc1441/DaFlasherFiles</p>
 </li>
 </ol>
-<h1 id="log-for-raspberry-pi-client" class="section-header"><a href="#log-for-raspberry-pi-client">16 Log for Raspberry Pi Client</a></h1>
+<h1 id="log-for-raspberry-pi-client" class="section-header"><a href="#log-for-raspberry-pi-client">19 Log for Raspberry Pi Client</a></h1>
 <pre><code>
 $ cd ~/go
 $ mkdir -p src/mynewt.apache.org
@@ -629,7 +788,7 @@ Images:
     bootable: true
     flags: active confirmed
     hash: eab2886947a1df6f850463601f3dad409411d7ea21855eb0a70e965732258c92
-Split status: N/A (0)</code></pre><h1 id="further-reading" class="section-header"><a href="#further-reading">17 Further Reading</a></h1>
+Split status: N/A (0)</code></pre><h1 id="further-reading" class="section-header"><a href="#further-reading">20 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 
     

@@ -467,13 +467,18 @@ _What's inside the Firmware Image?_
 
 For flashing firmware over Bluetooth, PineTime Firmware Developers would have to generate a Firmware Image File with this layout that MCUBoot understands...
 
-| ROM Address | Offset in Image File | Size in bytes | Contents |
+| ROM Address&nbsp;&nbsp;&nbsp;&nbsp; | Offset in Image File&nbsp;&nbsp;&nbsp;&nbsp; | Size in bytes&nbsp;&nbsp;&nbsp;&nbsp; | Contents |
 | :-- | :-- | --: | :-- |
-| `0x8000` | `0x0000` | 32 (`0x20`) | Image Header | 
-| `0x8020` | `0x0020` | 216 (`0xD8`) | Interrupt Vector Table | 
+| `0x8000` | `0x0000` | 32 (`0x20`)&nbsp;&nbsp;&nbsp;&nbsp; | Image Header | 
+| `0x8020` | `0x0020` | 216 (`0xD8`)&nbsp;&nbsp;&nbsp;&nbsp; | Interrupt Vector Table | 
 | `0x80F8` | `0x00F8` | | Firmware Code and Data |
+| <br> |
 
-This layout looks clearer when we peek inside a Firmware Image File `my_sensor_app.img` with the command `od -A x -t x1 my_sensor_app.img`...
+This layout looks clearer when we peek inside a Firmware Image File `my_sensor_app.img` with the command...
+
+```bash
+od -A x -t x1 my_sensor_app.img
+```
 
 ![Firmware Update Image for PineTime](https://lupyuen.github.io/images/dfu-image.png)
 
@@ -481,19 +486,19 @@ _What's inside the Image Header?_
 
 The Image Header consists of 32 bytes (`0x20`) in little endian byte order ([as defined here](https://juullabs-oss.github.io/mcuboot/design.html))...
 
-| ROM Address | Offset in Image File | Size in bytes | Example | Contents |
+| ROM Address | Offset in <br> Image File | Size <br> (bytes) | Example | Contents |
 | :-- | :-- | --: | :-- | :-- |
-| `0x8000` | `0x0000` | 4 | `3d  b8  f3  96` | `ih_magic`: <br> Magic Number, <br> must be `3d  b8  f3  96` | 
-| `0x8004` | `0x0004` | 4 | `00  00  00  00`| `ih_load_addr`: <br> Must be `00 00 00 00`    
-| `0x8008` | `0x0008` | 2 | `20  00`| `ih_hdr_size`: <br> Size of image header, must be 32 (`0x20`)
-| `0x800A` | `0x000A` | 2 | `00  00`| `ih_protect_tlv_size`:  <br> Size of protected TLV area, in bytes. Usually `00 00`
-| `0x800C` | `0x000C` | 4 | `18  29  03  00`| `ih_img_size`: <br> Size of firmware image, in bytes. Does not include header. In this example, `0x032918` = 207,128 bytes
-| `0x8010` | `0x0010` | 4 | `00  00  00  00`| `ih_flags`: <br> `IMAGE_F_[...]` flags, usually `00 00 00 00`
-| `0x8014` | `0x0014` | 1 | `01`| `ih_ver.iv_major`: <br> Major version number
-| `0x8015` | `0x0015` | 1 | `00`| `ih_ver.iv_minor`: <br> Minor version number
-| `0x8016` | `0x0016` | 2 | `00  00`| `ih_ver.iv_revision`: <br> Revision number
-| `0x8018` | `0x0018` | 4 | `00  00  00  00`| `ih_ver.iv_build_num`: <br> Build number
-| `0x801C` | `0x001C` | 4 | `00  00  00  00`| `_pad1`: <br> Padding, must be `00 00 00 00`
+| `0x8000` | `0x0000` | 4 &nbsp;&nbsp;&nbsp;&nbsp; | `3d  b8  f3  96` &nbsp;&nbsp;&nbsp;&nbsp; | `ih_magic`: <br> Magic Number, <br> must be `3d  b8  f3  96` <br><br> | 
+| `0x8004` | `0x0004` | 4 &nbsp;&nbsp;&nbsp;&nbsp; | `00  00  00  00`| `ih_load_addr`: <br> Must be `00 00 00 00` <br><br>   
+| `0x8008` | `0x0008` | 2 &nbsp;&nbsp;&nbsp;&nbsp; | `20  00`| `ih_hdr_size`: <br> Size of image header, must be 32 (`0x20`) <br><br>
+| `0x800A` | `0x000A` | 2 &nbsp;&nbsp;&nbsp;&nbsp; | `00  00`| `ih_protect_tlv_size`:  <br> Size of protected TLV area, in bytes. <br> Usually `00 00` <br><br>
+| `0x800C` | `0x000C` | 4 &nbsp;&nbsp;&nbsp;&nbsp; | `18  29  03  00`| `ih_img_size`: <br> Size of firmware image, in bytes. <br> Does not include header. <br> In this example, `0x032918` = 207,128 bytes <br><br>
+| `0x8010` | `0x0010` | 4 &nbsp;&nbsp;&nbsp;&nbsp; | `00  00  00  00`| `ih_flags`: <br> `IMAGE_F_[...]` flags, <br> usually `00 00 00 00` <br><br>
+| `0x8014` | `0x0014` | 1 &nbsp;&nbsp;&nbsp;&nbsp; | `01`| `ih_ver.iv_major`: <br> Major version number <br><br>
+| `0x8015` | `0x0015` | 1 &nbsp;&nbsp;&nbsp;&nbsp; | `00`| `ih_ver.iv_minor`: <br> Minor version number <br><br>
+| `0x8016` | `0x0016` | 2 &nbsp;&nbsp;&nbsp;&nbsp; | `00  00`| `ih_ver.iv_revision`: <br> Revision number <br><br>
+| `0x8018` | `0x0018` | 4 &nbsp;&nbsp;&nbsp;&nbsp; | `00  00  00  00`| `ih_ver.iv_build_num`: <br> Build number <br><br>
+| `0x801C` | `0x001C` | 4 &nbsp;&nbsp;&nbsp;&nbsp; | `00  00  00  00`| `_pad1`: <br> Padding, must be `00 00 00 00` <br><br>
 
 _How shall we generate a Firmware Image that contains the Image Header?_
 
