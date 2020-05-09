@@ -566,7 +566,7 @@ Commands:
   version  Print imgtool version information
 ```
 
-_How shall we generate a Firmware BIN?_
+_How shall we generate the Firmware BIN?_
 
 ```
 SECTIONS
