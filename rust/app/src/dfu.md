@@ -611,9 +611,9 @@ arm-none-eabi-objcopy \
     my_sensor_app.elf \
     my_sensor_app.elf.bin
 ```
-From bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.cmd
+(Refer to [`my_sensor_app.elf.cmd`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.0.1))
 
-We use the `-R` options to remove unwanted ELF sections from the Firmware BIN File. The unwanted sections (like `.bss.core`) may be named differently for your embedded operating system.
+We use the `-R` option to remove unwanted ELF sections from the Firmware BIN File. The unwanted sections (like `.bss.core`) may be named differently for your embedded operating system.
 
 _How shall we convert the Firmware BIN file to a Firmware Image File?_
 
