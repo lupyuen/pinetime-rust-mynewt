@@ -569,6 +569,26 @@ Commands:
 _How shall we generate the Firmware BIN?_
 
 ```
+                0x0000000000000020                _imghdr_size = 0x20
+
+.imghdr         0x0000000000008000       0x20
+                0x0000000000008020                . = (. + _imghdr_size)
+ *fill*         0x0000000000008000       0x20 
+                0x0000000000008020                __text = .
+
+.text           0x0000000000008020    0x32578
+                0x0000000000008020                __isr_vector_start = .
+ *(.isr_vector)
+ .isr_vector    0x0000000000008020       0xd8
+                0x0000000000008020                __isr_vector
+                0x00000000000080f8                __isr_vector_end = .
+ *(.text*)
+ .text          0x00000000000080f8       0x70
+                0x00000000000080f8                Reset_Handler
+```
+_From bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.map_
+
+```
 SECTIONS
 {
     .imghdr (NOLOAD):
