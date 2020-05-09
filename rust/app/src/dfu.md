@@ -540,7 +540,7 @@ MCUBoot may be flashed to PineTime with these OpenOCD scripts: [`flash-boot.sh`]
 
 To flash PineTime over Bluetooth LE, PineTime Firmware Developers would have to create a Firmware Image File that includes the Image Header (used by MCUBoot for swapping firmware images).
 
-Here are the steps that we have to follow to create the Firmware Image File...
+Here are the steps for creating the Firmware Image File...
 
 1. __Modify the GCC Linker Script__ for our firmware to include the Image Header
 
