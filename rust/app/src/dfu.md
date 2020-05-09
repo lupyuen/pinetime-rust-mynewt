@@ -488,7 +488,7 @@ struct image_header {
     uint16_t ih_protect_tlv_size;   /* Size of protected TLV area (bytes). */
 
     18  29  03  00
-    uint32_t ih_img_size;           /* Does not include header. */
+    uint32_t ih_img_size;           /* Does not include header. */ 0x032918 = 207128
 
     00  00  00  00
     uint32_t ih_flags;              /* IMAGE_F_[...]. */
@@ -544,19 +544,21 @@ od -A x -t x1 bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.i
 
 _How shall we generate a Firmware Image that contains the Image Header?_
 
-MCUBoot provides a script `imgtool.py` that generates the Firmware Image with Image Header.
+MCUBoot provides a script `imgtool.py` ([located here](https://github.com/JuulLabs-OSS/mcuboot/tree/master/scripts)) that generates the Firmware Image with Image Header.
 
 ```bash
 # Install Python modules needed by imgtool.py
 $ pip3 install --user -r repos/mcuboot/scripts/requirements.txt 
 
-# Generate the Firmware Image (including Image Header) from the Firmware ELF file
+# Generate the Firmware Image (including Image Header) from the Firmware BIN file
+# 232 * 1024 = 237568
 $ repos/mcuboot/scripts/imgtool.py create \
   --align 4 \
   --version 1.0.0 \
   --header-size 32 \
-  --slot-size ??? \
-  bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf \
+  --slot-size 237568 \
+  --pad-header \
+  bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.bin \
   my_sensor_app.img
 
 # Verify the Firmware Image
