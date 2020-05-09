@@ -65,7 +65,7 @@
 <li><a href="#nimble-time-functions">6.7 NimBLE Time Functions</a><ul></ul></li>
 <li><a href="#nimble-interrupt-functions">6.8 NimBLE Interrupt Functions</a><ul></ul></li></ul></li>
 <li><a href="#mcuboot-bootloader-for-pinetime">7 MCUBoot Bootloader for PineTime</a><ul></ul></li>
-<li><a href="#generate-a-pinetime-firmware-image-file">8 Generate a PineTime Firmware Image File</a><ul></ul></li>
+<li><a href="#generate-a-firmware-image-file-for-pinetime">8 Generate a Firmware Image File for PineTime</a><ul></ul></li>
 <li><a href="#mark-pinetime-firmware-as-ok">9 Mark PineTime Firmware as OK</a><ul></ul></li>
 <li><a href="#test-pinetime-firmware-update-over-bluetooth-le">10 Test PineTime Firmware Update over Bluetooth LE</a><ul></ul></li>
 <li><a href="#other-command-handlers-for-mcu-manager">11 Other Command Handlers for MCU Manager</a><ul></ul></li>
@@ -496,14 +496,86 @@
 <p>This build of MCUBoot assumes that the PineTime firmware follows the Flash ROM Map described earlier in this article. The MCUBoot image should be flashed to PineTime at address <code>0x0</code>.</p>
 <p>Here are the build settings and build script for MCUBoot: <a href="https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/targets%2Fnrf52_boot"><code>targets/nrf52_boot</code></a>, <a href="https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fbuild-boot.sh"><code>build-boot.sh</code></a></p>
 <p>MCUBoot may be flashed to PineTime with these OpenOCD scripts: <a href="https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.sh"><code>flash-boot.sh</code></a>, <a href="https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.ocd"><code>flash-boot.ocd</code></a></p>
-<h1 id="generate-a-pinetime-firmware-image-file" class="section-header"><a href="#generate-a-pinetime-firmware-image-file">8 Generate a PineTime Firmware Image File</a></h1>
-<p>TODO</p>
-<p>The <code>imgtool.py</code> script in MCUBoot takes a <strong>Firmware BIN File</strong> and produces the Firmware Image. More about Firmware BIN Files in a while.</p>
-<p>Here's how we generate the Firmware Image (<code>my_sensor_app.img</code>) from a Firmware BIN File (<code>my_sensor_app.elf.bin</code>)...</p>
+<h1 id="generate-a-firmware-image-file-for-pinetime" class="section-header"><a href="#generate-a-firmware-image-file-for-pinetime">8 Generate a Firmware Image File for PineTime</a></h1>
+<p>To flash PineTime over Bluetooth LE, PineTime Firmware Developers would have to create a Firmware Image File that includes the Image Header (used by MCUBoot for swapping firmware images).</p>
+<p>Here are the steps for creating the Firmware Image File...</p>
+<ol>
+<li>
+<p><strong>Modify the GCC Linker Script</strong> for our firmware to include the Image Header</p>
+</li>
+<li>
+<p>Build our firmware with the modified Linker Script to create a <strong>Firmware ELF File</strong></p>
+</li>
+<li>
+<p>Convert the ELF file to a <strong>Firmware BIN File</strong> with <code>arm-none-eabi-objcopy</code></p>
+</li>
+<li>
+<p>Convert the BIN file to a <strong>Firmware Image File</strong> with MCUBoot's <code>imgtool.py</code> script</p>
+</li>
+</ol>
+<p>Thus the flow goes like this...</p>
+<p>Build Firmware with Modified Linker Script -&gt; Firmware ELF File -&gt; Firmware BIN File -&gt; Firmware Image File</p>
+<p><em>How shall we modify the GCC Linker Script for our firmware to include the Image Header?</em></p>
+<p>For building our firmware, we'll modify our Linker Script like this (See <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/nrf52.ld"><code>nrf52.ld</code></a> and <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/hw/bsp/nrf52/nrf52xxaa.ld"><code>nrf52xxaa.ld</code></a>)</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">_imghdr_size</span> <span class="op">=</span> <span class="number">0x20</span>;
+
+<span class="ident">SECTIONS</span>
+{
+    .<span class="ident">imghdr</span> (<span class="ident">NOLOAD</span>):
+    {
+        . <span class="op">=</span> . <span class="op">+</span> <span class="ident">_imghdr_size</span>;
+    } <span class="op">&gt;</span> <span class="ident">FLASH</span>
+
+    <span class="ident">__text</span> <span class="op">=</span> .;
+
+    .<span class="ident">text</span> :
+    {
+        <span class="ident">__isr_vector_start</span> <span class="op">=</span> .;
+        <span class="ident">KEEP</span>(<span class="kw-2">*</span>(.<span class="ident">isr_vector</span>))
+        <span class="ident">__isr_vector_end</span> <span class="op">=</span> .;
+        <span class="kw-2">*</span>(.<span class="ident">text</span><span class="kw-2">*</span>)</pre></div>
+<p>This Linker Script says...</p>
+<ol>
+<li>
+<p>At the beginning of the Firmware Image, reserve 32 bytes (<code>_imghdr_size</code>) for the Image Header (<code>.imghdr</code>)</p>
+</li>
+<li>
+<p>After the Image Header, write the Text Section (<code>.text</code>) into the Firmware Image. The Text Section contains the firmware code and data.</p>
+</li>
+<li>
+<p>At the start of the Text Section, write out the standard Interrupt Vector Table (<code>.isr_vector</code>), which has 216 bytes (<code>0xD8</code>)</p>
+</li>
+</ol>
+<p>When GCC links our firmware with the above Linker Script, it produces a <a href="https://linuxhint.com/understanding_elf_file_format/">Firmware ELF File</a> that has the following layout...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">/* Section   Address      Size */</span>
+.<span class="ident">imghdr</span>      <span class="number">0x8000</span>       <span class="number">0x20</span>
+.<span class="ident">text</span>        <span class="number">0x8020</span>    <span class="number">0x32578</span>
+ .<span class="ident">isr_vector</span> <span class="number">0x8020</span>       <span class="number">0xd8</span>
+             <span class="number">0x80f8</span> <span class="ident">Reset_Handler</span></pre></div>
+<p>In the example above, <code>Reset_Handler</code> is the first function in our firmware. That's why it was allocated address <code>0x80f8</code>.</p>
+<p><em>How shall we convert the Firmware ELF File to a Firmware BIN File?</em></p>
+<p>To create the Firmware BIN File <code>my_sensor_app.elf.bin</code> from the Firmware ELF File <code>my_sensor_app.elf</code>, we run <code>arm-none-eabi-objcopy</code> (<a href="http://web.mit.edu/gnu/doc/html/binutils_4.html">documented here</a>)...</p>
+
+<pre><code>arm-none-eabi-objcopy \
+    -R .bss \
+    -R .bss.core \
+    -R .bss.core.nz \
+    -O binary \
+    my_sensor_app.elf \
+    my_sensor_app.elf.bin</code></pre>
+<p>(Refer to <a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.0.1"><code>my_sensor_app.elf.cmd</code></a>)</p>
+<p>We use the <code>-R</code> option to remove unwanted ELF sections from the Firmware BIN File. The unwanted sections (like <code>.bss.core</code>) may be named differently for your embedded operating system.</p>
+<p><em>How shall we convert the Firmware BIN File to a Firmware Image File?</em></p>
+<p>MCUBoot provides a script <code>imgtool.py</code> (<a href="https://github.com/JuulLabs-OSS/mcuboot/tree/master/scripts">located here</a>) that takes a Firmware BIN File and produces the Firmware Image File.</p>
+<p>Here's how we generate the Firmware Image File <code>my_sensor_app.img</code> from a Firmware BIN File <code>my_sensor_app.elf.bin</code>...</p>
 <pre><code class="language-bash"># Install Python modules needed by imgtool.py
 pip3 install --user -r mcuboot/scripts/requirements.txt 
 
-# Generate the Firmware Image (including Image Header) from the Firmware BIN file
+# Generate the Firmware Image File (including Image Header) from the Firmware BIN file
 # Based on our Flash ROM Layout, the Firmware Image Slot Size is 232 KB (237,568 bytes)
 mcuboot/scripts/imgtool.py create \
   --align 4 \
@@ -520,72 +592,20 @@ mcuboot/scripts/imgtool.py verify my_sensor_app.img
 # Image was correctly validated
 # Image version: 1.0.0+0
 </code></pre>
-<p><em>How shall we generate the Firmware BIN File?</em></p>
-<p>The Firmware BIN File is generated in two steps...</p>
-<ol>
-<li>
-<p>Build the firmware with a special GCC Linker Script to create the Firmware ELF File with Image Header</p>
-</li>
-<li>
-<p>Convert the Firmware ELF File to BIN with <code>arm-none-eabi-objcopy</code></p>
-</li>
-</ol>
-<p>Here's how define the GCC Linker Script (refer to <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/nrf52.ld"><code>nrf52.ld</code></a>)...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">SECTIONS</span>
-{
-    .<span class="ident">imghdr</span> (<span class="ident">NOLOAD</span>):
-    {
-        . <span class="op">=</span> . <span class="op">+</span> <span class="ident">_imghdr_size</span>;
-    } <span class="op">&gt;</span> <span class="ident">FLASH</span>
-
-    <span class="ident">__text</span> <span class="op">=</span> .;
-
-    .<span class="ident">text</span> :
-    {
-        <span class="ident">__isr_vector_start</span> <span class="op">=</span> .;
-        <span class="ident">KEEP</span>(<span class="kw-2">*</span>(.<span class="ident">isr_vector</span>))
-        <span class="ident">__isr_vector_end</span> <span class="op">=</span> .;
-        <span class="kw-2">*</span>(.<span class="ident">text</span><span class="kw-2">*</span>)</pre></div>
-<p>Where <code>_imghdr_size</code> is defined as <code>0x20</code> (or 32 decimal) in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/hw/bsp/nrf52/nrf52xxaa.ld"><code>nrf52xxaa.ld</code></a></p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">_imghdr_size</span> <span class="op">=</span> <span class="number">0x20</span>;</pre></div>
-<p>The above Linker Script says...</p>
-<ol>
-<li>
-<p>At the beginning of the Firmware Image, reserve 32 bytes (<code>_imghdr_size</code>) for the Image Header (<code>.imghdr</code>)</p>
-</li>
-<li>
-<p>Followed by the Text Section (<code>.text</code>), which contains the firmware code and data</p>
-</li>
-<li>
-<p>At the start of the Text Section, we have the standard Interrupt Vector Table (<code>.isr_vector</code>), which has 216 bytes (<code>0xD8</code>)</p>
-</li>
-</ol>
-<p>When GCC links our firmware with the above Linker Script, it produces a <strong>Firmware ELF File</strong> that has the following layout...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="comment">/* Section   Address      Size */</span>
-.<span class="ident">imghdr</span>      <span class="number">0x8000</span>       <span class="number">0x20</span>
-.<span class="ident">text</span>        <span class="number">0x8020</span>    <span class="number">0x32578</span>
- .<span class="ident">isr_vector</span> <span class="number">0x8020</span>       <span class="number">0xd8</span>
-             <span class="number">0x80f8</span> <span class="ident">Reset_Handler</span></pre></div>
-<p>In the example above, <code>Reset_Handler</code> is the first function in our firmware. That's why it was allocated address <code>0x80f8</code>.</p>
-<p>To create the Firmware BIN File (<code>my_sensor_app.elf.bin</code>) from the Firmware ELF File (<code>my_sensor_app.elf</code>), we run <code>arm-none-eabi-objcopy</code>...</p>
-
-<pre><code>arm-none-eabi-objcopy \
-    -R .bss \
-    -R .bss.core \
-    -R .bss.core.nz \
-    -O binary \
-    my_sensor_app.elf \
-    my_sensor_app.elf.bin</code></pre>
-<p>From bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.cmd</p>
+<p>This produces the Firmware Image File <code>my_sensor_app.img</code> that PineTime Owners may use to flash PineTime over Bluetooth LE.</p>
 <p><em>In the above Linker Script, why is the Image Header (<code>.imghdr</code>) marked as <code>NOLOAD</code>?</em></p>
-<p>The Firmware BIN File ???</p>
-<p><code>NOLOAD</code> means that the Image Header will NOT be written to the Image BIN File.</p>
+<p><code>NOLOAD</code> means that the Image Header will NOT be written to the Firmware BIN File. Let's compare the Firmware BIN and Firmware Image Files...</p>
+<p><img src="https://lupyuen.github.io/images/dfu-image2.png" alt="Firmware BIN vs Image File" /></p>
+<p>The files are identical... Just that the Firmware BIN File doesn't have the Image Header.</p>
+<p>Thus when <code>imgtool.py</code> transforms the Firmware BIN File to a Firmware Image File... It's merely inserting the Image Header at the front of the BIN file!</p>
+<p>That's why we use <code>NOLOAD</code> to drop the empty Image Header from the BIN file, and let <code>imgtool.py</code> insert a proper Image Header into the final firmware file.</p>
+<p><em>Why not omit the Image Header from the Linker Script?</em></p>
+<p>Because the GCC Linker would compute the ROM addresses incorrectly. Let's look again at the dumps of the Firmware BIN and Image Files...</p>
+<p><img src="https://lupyuen.github.io/images/dfu-image3.png" alt="Firmware BIN vs Image File: Reset_Handler" /></p>
+<p>In both files, the Interrupt Vector Tables point to the <code>Reset_Handler</code> function, the first function in our firmware.  The addresses in both Interrupt Vector Tables are the same: <code>0x80F9</code></p>
+<p>But how did the GCC Linker allocate ROM address <code>0x80F9</code> for <code>Reset_Handler</code>? The offset (<code>0xF9</code>) was computed based on Image Header size (<code>0x20</code>) + Interrupt Vector Table size (<code>0xD8</code>) + 1.</p>
+<p>Hence we had to insert an empty Image Header for GCC Linker to compute the correct ROM addresses.</p>
+<p>BTW that's not a typo: The Interrupt Vector Table uses address <code>0x80F9</code> to refer to function <code>Reset_Handler</code>, which is actually located at <code>0x80F8</code> (i.e. the address is off by 1). This is a known quirk of Interrupt Vector Tables on Arm CPUs.</p>
 <h1 id="mark-pinetime-firmware-as-ok" class="section-header"><a href="#mark-pinetime-firmware-as-ok">9 Mark PineTime Firmware as OK</a></h1>
 <p>TODO</p>
 <h1 id="test-pinetime-firmware-update-over-bluetooth-le" class="section-header"><a href="#test-pinetime-firmware-update-over-bluetooth-le">10 Test PineTime Firmware Update over Bluetooth LE</a></h1>
