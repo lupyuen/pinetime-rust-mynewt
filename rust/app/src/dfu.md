@@ -473,9 +473,9 @@ TODO
 
 _What's inside the Image Header?_
 
+The Image Header consists of 32 bytes (0x20) in little endian byte order...
+
 ```c
-/** Image header.  All fields are in little endian byte order. */
-struct image_header {
     //  3d  b8  f3  96
     uint32_t ih_magic;    
     //  00  00  00  00
@@ -488,21 +488,16 @@ struct image_header {
     uint32_t ih_img_size;           /* Does not include header. */ 0x032918 = 207128
     //  00  00  00  00
     uint32_t ih_flags;              /* IMAGE_F_[...]. */
-    // 01  00  00  00  00  00  00  00 
-    // struct image_version ih_ver;
-    struct image_version {
     //  01
-    uint8_t iv_major;    
+    uint8_t ih_ver.iv_major;    
     //  00
-    uint8_t iv_minor;
+    uint8_t ih_ver.iv_minor;
     //  00  00
-    uint16_t iv_revision;
+    uint16_t ih_ver.iv_revision;
     //  00  00  00  00
-    uint32_t iv_build_num;
-    };
+    uint32_t ih_ver.iv_build_num;
     //  00  00  00  00
     uint32_t _pad1;
-};
 ```
 
 ```bash
