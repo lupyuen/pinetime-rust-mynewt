@@ -473,23 +473,9 @@ For flashing firmware over Bluetooth, PineTime Firmware Developers would have to
 | `0x8020` | `0x0020` | 216 (`0xD8`) | Interrupt Vector Table | 
 | `0x80F8` | `0x00F8` | | Firmware Code and Data |
 
-Let's peek inside a Firmware Image File `my_sensor_app.img` with the command `od -A x -t x1 my_sensor_app.img`...
+This layout looks clearer when we peek inside a Firmware Image File `my_sensor_app.img` with the command `od -A x -t x1 my_sensor_app.img`...
 
-```bash
-$ od -A x -t x1 bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img | more
-0000000    3d  b8  f3  96  00  00  00  00  20  00  00  00  18  29  03  00
-0000010    00  00  00  00  01  00  00  00  00  00  00  00  00  00  00  00
-0000020    00  00  01  20  f9  80  00  00  55  81  00  00  57  81  00  00
-0000030    00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00
-0000040    00  00  00  00  00  00  00  00  00  00  00  00  e7  8d  01  00
-0000050    00  00  00  00  00  00  00  00  2d  8e  01  00  73  8e  01  00
-0000060    65  81  00  00  65  81  00  00  65  81  00  00  65  81  00  00
-*
-00000d0    65  81  00  00  65  81  00  00  00  00  00  00  00  00  00  00
-00000e0    65  81  00  00  65  81  00  00  65  81  00  00  65  81  00  00
-00000f0    65  81  00  00  65  81  00  00  4f  f0  00  00  0c  4a  0d  4b
-0000100    9a  42  bc  bf  42  f8  04  0b  fa  e7  0b  49  0b  4a  0c  4b
-```
+![Firmware Update Image for PineTime](https://lupyuen.github.io/images/dfu-image.png)
 
 _What's inside the Image Header?_
 
@@ -517,7 +503,7 @@ More about `imgtool.py` in the next section.
 
 _How does MCUBoot know if the new firmware is bad... And needs to be rolled back to the old firmware?_
 
-PineTime Firmware Developers need to set the Firmware OK status when the new firmware is running fine. 
+PineTime Firmware Developers need to set the __Firmware OK__ status when the new firmware is running fine. 
 
 During startup, MCUBoot checks the Firmware OK status. If the Firmware OK status is missing, it rolls back to the old firmware.
 
@@ -539,7 +525,7 @@ Good news for PineTime Firmware Developers: We don't need to build MCUBoot ourse
 
 [`pinetime-rust-mynewt/releases/tag/v4.0.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.0.1)
 
-This build of MCUBoot assumes that the PineTime firmware follows the Flash ROM Map described earlier in this article. The MCUBoot image should be flashed to PineTime at address 0x0.
+This build of MCUBoot assumes that the PineTime firmware follows the Flash ROM Map described earlier in this article. The MCUBoot image should be flashed to PineTime at address `0x0`.
 
 Here are the build settings and build script for MCUBoot: [`targets/nrf52_boot`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/targets%2Fnrf52_boot), [`build-boot.sh`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fbuild-boot.sh)
 
