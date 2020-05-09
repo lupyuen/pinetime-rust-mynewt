@@ -619,13 +619,13 @@ _How shall we convert the Firmware BIN file to a Firmware Image File?_
 
 MCUBoot provides a script `imgtool.py` ([located here](https://github.com/JuulLabs-OSS/mcuboot/tree/master/scripts)) that takes a Firmware BIN File and produces the Firmware Image File.
 
-Here's how we generate the Firmware Image `my_sensor_app.img` from a Firmware BIN File `my_sensor_app.elf.bin`...
+Here's how we generate the Firmware Image File `my_sensor_app.img` from a Firmware BIN File `my_sensor_app.elf.bin`...
 
 ```bash
 # Install Python modules needed by imgtool.py
 pip3 install --user -r mcuboot/scripts/requirements.txt 
 
-# Generate the Firmware Image (including Image Header) from the Firmware BIN file
+# Generate the Firmware Image File (including Image Header) from the Firmware BIN file
 # Based on our Flash ROM Layout, the Firmware Image Slot Size is 232 KB (237,568 bytes)
 mcuboot/scripts/imgtool.py create \
   --align 4 \
@@ -643,11 +643,25 @@ mcuboot/scripts/imgtool.py verify my_sensor_app.img
 # Image version: 1.0.0+0
 ```
 
+This produces the Firmware Image File `my_sensor_app.img` that PineTime Owners may use to flash PineTime over Bluetooth LE.
+
 _In the above Linker Script, why is the Image Header (`.imghdr`) marked as `NOLOAD`?_
 
-`NOLOAD` means that the Image Header will NOT be written to the Image BIN File.
+`NOLOAD` means that the Image Header will NOT be written to the Firmware BIN File. Let's compare the Firmware BIN and Firmware Image Files...
 
-The Firmware BIN File ???
+<< pic >>
+
+The files are identical... Just that the Firmware BIN File doesn't have the Image Header.
+
+Thus when `imgtool.py` transforms the Firmware BIN File to a Firmware Image File... It's merely inserting the Image Header at the front of the BIN file!
+
+That's why we use `NOLOAD` to drop the empty Image Header from the BIN file, and let `imgtool.py` insert a proper Image Header into the file.
+
+_Why not omit the Image Header from the Linker Script?_
+
+Because the firmware addresses would get messed up by the GCC Linker.
+
+???
 
 # Mark PineTime Firmware as OK
 
