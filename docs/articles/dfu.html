@@ -67,9 +67,9 @@
 <li><a href="#mcuboot-bootloader-for-pinetime">7 MCUBoot Bootloader for PineTime</a><ul></ul></li>
 <li><a href="#generate-a-firmware-image-file-for-pinetime">8 Generate a Firmware Image File for PineTime</a><ul></ul></li>
 <li><a href="#mark-pinetime-firmware-as-ok">9 Mark PineTime Firmware as OK</a><ul></ul></li>
-<li><a href="#test-pinetime-firmware-update-over-bluetooth-le">10 Test PineTime Firmware Update over Bluetooth LE</a><ul></ul></li>
-<li><a href="#other-command-handlers-for-mcu-manager">11 Other Command Handlers for MCU Manager</a><ul></ul></li>
-<li><a href="#pinetime-firmware">12 PineTime Firmware</a><ul></ul></li>
+<li><a href="#checklist-for-pinetime-firmware-developers">10 Checklist for PineTime Firmware Developers</a><ul></ul></li>
+<li><a href="#test-pinetime-firmware-update-over-bluetooth-le">11 Test PineTime Firmware Update over Bluetooth LE</a><ul></ul></li>
+<li><a href="#optional-other-command-handlers-for-mcu-manager">12 Optional: Other Command Handlers for MCU Manager</a><ul></ul></li>
 <li><a href="#raspberry-pi-client">13 Raspberry Pi Client</a><ul></ul></li>
 <li><a href="#android-client">14 Android Client</a><ul></ul></li>
 <li><a href="#ios-client">15 iOS Client</a><ul></ul></li>
@@ -614,13 +614,27 @@ mcuboot/scripts/imgtool.py verify my_sensor_app.img
 <p>BTW that's not a typo: The Interrupt Vector Table uses address <code>0x80F9</code> to refer to function <code>Reset_Handler</code>, which is actually located at <code>0x80F8</code> (i.e. the address is off by 1). This is a known quirk of Interrupt Vector Tables on Arm CPUs.</p>
 <h1 id="mark-pinetime-firmware-as-ok" class="section-header"><a href="#mark-pinetime-firmware-as-ok">9 Mark PineTime Firmware as OK</a></h1>
 <p>TODO</p>
-<h1 id="test-pinetime-firmware-update-over-bluetooth-le" class="section-header"><a href="#test-pinetime-firmware-update-over-bluetooth-le">10 Test PineTime Firmware Update over Bluetooth LE</a></h1>
+<h1 id="checklist-for-pinetime-firmware-developers" class="section-header"><a href="#checklist-for-pinetime-firmware-developers">10 Checklist for PineTime Firmware Developers</a></h1>
 <p>TODO</p>
-<h1 id="other-command-handlers-for-mcu-manager" class="section-header"><a href="#other-command-handlers-for-mcu-manager">11 Other Command Handlers for MCU Manager</a></h1>
-<p>TODO</p>
-<p>MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:</p>
-<p>https://github.com/apache/mynewt-mcumgr/tree/master/cmd</p>
-<h1 id="pinetime-firmware" class="section-header"><a href="#pinetime-firmware">12 PineTime Firmware</a></h1>
+<p>In summary, PineTime Firmware Developers would have to do the following to support firmware update over Bluetooth LE...</p>
+<ol>
+<li>
+<p>Adopt the standard Flash ROM Layout</p>
+</li>
+<li>
+<p>Port MCU Manager Library, including writing flash image to ROM</p>
+</li>
+<li>
+<p>Port NimBLE Bluetooth LE stack</p>
+</li>
+<li>
+<p>Generate firmware image containing MCUBoot Image Header</p>
+</li>
+<li>
+<p>Mark PineTime Firmware as OK</p>
+</li>
+</ol>
+<h1 id="test-pinetime-firmware-update-over-bluetooth-le" class="section-header"><a href="#test-pinetime-firmware-update-over-bluetooth-le">11 Test PineTime Firmware Update over Bluetooth LE</a></h1>
 <p>TODO</p>
 <p>Now testing PineTime Mynewt firmware built with Newt Manager library, located at the <code>ota</code> branch of <code>/pinetime-rust-mynewt</code>:</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota</p>
@@ -628,9 +642,10 @@ mcuboot/scripts/imgtool.py verify my_sensor_app.img
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota/apps/my_sensor_app/src</p>
 <p>The files were derived from the Mynewt <code>bleprph</code> sample:</p>
 <p>https://github.com/apache/mynewt-nimble/tree/master/apps/bleprph</p>
-<p>PineTime now appears in nRF Connect with DFU enabled:</p>
-<p>https://twitter.com/MisterTechBlog/status/1255305379766042626?s=20</p>
-<p>Need to implement MCUboot for DFU to work.</p>
+<h1 id="optional-other-command-handlers-for-mcu-manager" class="section-header"><a href="#optional-other-command-handlers-for-mcu-manager">12 Optional: Other Command Handlers for MCU Manager</a></h1>
+<p>TODO</p>
+<p>MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:</p>
+<p>https://github.com/apache/mynewt-mcumgr/tree/master/cmd</p>
 <h1 id="raspberry-pi-client" class="section-header"><a href="#raspberry-pi-client">13 Raspberry Pi Client</a></h1>
 <p>TODO</p>
 <p>Newt Manager builds OK on Raspberry Pi 4 and works OK with PineTime.  See the log below.</p>

@@ -681,19 +681,23 @@ BTW that's not a typo: The Interrupt Vector Table uses address `0x80F9` to refer
 
 TODO
 
+# Checklist for PineTime Firmware Developers
+
+TODO
+
+In summary, PineTime Firmware Developers would have to do the following to support firmware update over Bluetooth LE...
+
+1. Adopt the standard Flash ROM Layout
+
+1. Port MCU Manager Library, including writing flash image to ROM
+
+1. Port NimBLE Bluetooth LE stack
+
+1. Generate firmware image containing MCUBoot Image Header
+
+1. Mark PineTime Firmware as OK
+
 # Test PineTime Firmware Update over Bluetooth LE
-
-TODO
-
-# Other Command Handlers for MCU Manager
-
-TODO
-
-MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:
-
-https://github.com/apache/mynewt-mcumgr/tree/master/cmd
-
-# PineTime Firmware
 
 TODO
 
@@ -709,11 +713,13 @@ The files were derived from the Mynewt `bleprph` sample:
 
 https://github.com/apache/mynewt-nimble/tree/master/apps/bleprph
 
-PineTime now appears in nRF Connect with DFU enabled:
+# Optional: Other Command Handlers for MCU Manager
 
-https://twitter.com/MisterTechBlog/status/1255305379766042626?s=20
+TODO
 
-Need to implement MCUboot for DFU to work.
+MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:
+
+https://github.com/apache/mynewt-mcumgr/tree/master/cmd
 
 # Raspberry Pi Client
 
