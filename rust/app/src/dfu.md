@@ -556,7 +556,7 @@ Build Firmware with Modified Linker Script -> Firmware ELF File -> Firmware BIN 
 
 _How shall we modify the GCC Linker Script for our firmware to include the Image Header?_
 
-We shall modify the Linker Script like this (See [`nrf52.ld`](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/nrf52.ld) and [`nrf52xxaa.ld`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/hw/bsp/nrf52/nrf52xxaa.ld))
+For building our firmware, we'll modify our Linker Script like this (See [`nrf52.ld`](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/nrf52.ld) and [`nrf52xxaa.ld`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/hw/bsp/nrf52/nrf52xxaa.ld))
 
 ```
 _imghdr_size = 0x20;
@@ -582,11 +582,11 @@ This Linker Script says...
 
 1. At the beginning of the Firmware Image, reserve 32 bytes (`_imghdr_size`) for the Image Header (`.imghdr`)
 
-1. Then write into the Firmware Image the Text Section (`.text`), which contains the firmware code and data
+1. After the Image Header, write the Text Section (`.text`) into the Firmware Image. The Text Section contains the firmware code and data.
 
 1. At the start of the Text Section, write out the standard Interrupt Vector Table (`.isr_vector`), which has 216 bytes (`0xD8`)
 
-When GCC links our firmware with the above Linker Script, it produces a Firmware ELF File that has the following layout...
+When GCC links our firmware with the above Linker Script, it produces a [Firmware ELF File](https://linuxhint.com/understanding_elf_file_format/) that has the following layout...
 
 ```
 /* Section   Address      Size */
@@ -600,7 +600,7 @@ In the example above, `Reset_Handler` is the first function in our firmware. Tha
 
 _How shall we convert the Firmware ELF file to a Firmware BIN File?_
 
-To create the Firmware BIN File (`my_sensor_app.elf.bin`) from the Firmware ELF File (`my_sensor_app.elf`), we run `arm-none-eabi-objcopy`...
+To create the Firmware BIN File `my_sensor_app.elf.bin` from the Firmware ELF File `my_sensor_app.elf`, we run `arm-none-eabi-objcopy` ([documented here](http://web.mit.edu/gnu/doc/html/binutils_4.html))...
 
 ```
 arm-none-eabi-objcopy \
@@ -613,13 +613,13 @@ arm-none-eabi-objcopy \
 ```
 From bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.cmd
 
+We use the `-R` options to remove unwanted ELF sections from the Firmware BIN File. The unwanted sections (like `.bss.core`) may be named differently for your embedded operating system.
+
 _How shall we convert the Firmware BIN file to a Firmware Image File?_
 
-MCUBoot provides a script `imgtool.py` ([located here](https://github.com/JuulLabs-OSS/mcuboot/tree/master/scripts)) that generates a Firmware Image using the Firmware ELF File produced by the GCC Compiler.
+MCUBoot provides a script `imgtool.py` ([located here](https://github.com/JuulLabs-OSS/mcuboot/tree/master/scripts)) that takes a Firmware BIN File and produces the Firmware Image File.
 
-The `imgtool.py` script in MCUBoot takes a __Firmware BIN File__ and produces the Firmware Image. More about Firmware BIN Files in a while.
-
-Here's how we generate the Firmware Image (`my_sensor_app.img`) from a Firmware BIN File (`my_sensor_app.elf.bin`)...
+Here's how we generate the Firmware Image `my_sensor_app.img` from a Firmware BIN File `my_sensor_app.elf.bin`...
 
 ```bash
 # Install Python modules needed by imgtool.py
@@ -645,10 +645,9 @@ mcuboot/scripts/imgtool.py verify my_sensor_app.img
 
 _In the above Linker Script, why is the Image Header (`.imghdr`) marked as `NOLOAD`?_
 
-The Firmware BIN File ???
-
 `NOLOAD` means that the Image Header will NOT be written to the Image BIN File.
 
+The Firmware BIN File ???
 
 # Mark PineTime Firmware as OK
 
