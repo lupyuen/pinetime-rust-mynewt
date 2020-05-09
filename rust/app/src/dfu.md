@@ -473,27 +473,46 @@ TODO
 
 _What's inside the Image Header?_
 
-struct image_version {
-    uint8_t iv_major;
-    uint8_t iv_minor;
-    uint16_t iv_revision;
-    uint32_t iv_build_num;
-};
-
 /** Image header.  All fields are in little endian byte order. */
 struct image_header {
+    3d  b8  f3  96
     uint32_t ih_magic;
+    
+    00  00  00  00
     uint32_t ih_load_addr;
+    
+    20  00
     uint16_t ih_hdr_size;           /* Size of image header (bytes). */
+
+    00  00
     uint16_t ih_protect_tlv_size;   /* Size of protected TLV area (bytes). */
+
+    18  29  03  00
     uint32_t ih_img_size;           /* Does not include header. */
+
+    00  00  00  00
     uint32_t ih_flags;              /* IMAGE_F_[...]. */
-    struct image_version ih_ver;
+
+    // 01  00  00  00  00  00  00  00 
+    // struct image_version ih_ver;
+
+    struct image_version {
+    01
+    uint8_t iv_major;
+    
+    00
+    uint8_t iv_minor;
+
+    00  00
+    uint16_t iv_revision;
+
+    00  00  00  00
+    uint32_t iv_build_num;
+    };
+
+    00  00  00  00
     uint32_t _pad1;
 };
-
-0000000    3d  b8  f3  96  00  00  00  00  20  00  00  00  18  29  03  00
-0000010    00  00  00  00  01  00  00  00  00  00  00  00  00  00  00  00
 
 ```bash
 od -A x -t x1 bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img | more
@@ -523,22 +542,31 @@ od -A x -t x1 bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.i
 00001c0    02  4b  18  68  00  f0  01  00  70  47  00  bf  f0  ed  00  e0
 ```
 
-MCUBoot provides a script `imgtool.py` that generates the Image Header.
+_How shall we generate a Firmware Image that contains the Image Header?_
+
+MCUBoot provides a script `imgtool.py` that generates the Firmware Image with Image Header.
 
 ```bash
+# Install Python modules needed by imgtool.py
 $ pip3 install --user -r repos/mcuboot/scripts/requirements.txt 
 
-$ repos/mcuboot/scripts/imgtool.py verify bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img
+# Generate the Firmware Image (including Image Header) from the Firmware ELF file
+$ repos/mcuboot/scripts/imgtool.py create \
+  --align 4 \
+  --version 1.0.0 \
+  --header-size 32 \
+  --slot-size ??? \
+  bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf \
+  my_sensor_app.img
+
+# Verify the Firmware Image
+$ repos/mcuboot/scripts/imgtool.py verify my_sensor_app.img
 Image was correctly validated
 Image version: 1.0.0+0
 
-$ repos/mcuboot/scripts/imgtool.py create --align 4 --version 2.0.1 --header-size 32 --slot-size ??? bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf my_sensor_app.img
-
+# Other imgtool.py options
 $ repos/mcuboot/scripts/imgtool.py --help                      
 Usage: imgtool.py [OPTIONS] COMMAND [ARGS]...
-
-Options:
-  -h, --help  Show this message and exit.
 
 Commands:
   create   Create a signed or unsigned image INFILE and OUTFILE are parsed...
