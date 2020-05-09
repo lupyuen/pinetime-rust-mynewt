@@ -566,6 +566,16 @@ Commands:
   version  Print imgtool version information
 ```
 
+```
+arm-none-eabi-objcopy \
+    -R .bss \
+    -R .bss.core \
+    -R .bss.core.nz \
+    -O binary \
+    bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf \
+    bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.bin
+```
+
 TODO: Firmware Header
 
 _How does MCUBoot know if the new firmware is bad... And needs to be rolled back to the old firmware?_
