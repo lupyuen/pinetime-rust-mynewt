@@ -466,7 +466,7 @@
 <p><em>What's inside the Image Header?</em></p>
 <p>The Image Header consists of 32 bytes (<code>0x20</code>) in little endian byte order (<a href="https://juullabs-oss.github.io/mcuboot/design.html">as defined here</a>)...</p>
 <table><thead><tr><th align="left">ROM Address</th><th align="left">Offset in <br> Image File</th><th align="right">Size <br> (bytes)</th><th align="left">Example</th><th align="left">Contents</th></tr></thead><tbody>
-<tr><td align="left"><code>0x8000</code></td><td align="left"><code>0x0000</code></td><td align="right">4     </td><td align="left"><code>3d  b8  f3  96</code>     </td><td align="left"><code>ih_magic</code>: <br> Magic Number, <br> must be <code>3d  b8  f3  96</code> <br><br></td></tr>
+<tr><td align="left"><code>0x8000</code>   </td><td align="left"><code>0x0000</code>   </td><td align="right">4     </td><td align="left"><code>3d  b8  f3  96</code>     </td><td align="left"><code>ih_magic</code>: <br> Magic Number, <br> must be <code>3d  b8  f3  96</code> <br><br></td></tr>
 <tr><td align="left"><code>0x8004</code></td><td align="left"><code>0x0004</code></td><td align="right">4     </td><td align="left"><code>00  00  00  00</code></td><td align="left"><code>ih_load_addr</code>: <br> Must be <code>00 00 00 00</code> <br><br></td></tr>
 <tr><td align="left"><code>0x8008</code></td><td align="left"><code>0x0008</code></td><td align="right">2     </td><td align="left"><code>20  00</code></td><td align="left"><code>ih_hdr_size</code>: <br> Size of image header, must be 32 (<code>0x20</code>) <br><br></td></tr>
 <tr><td align="left"><code>0x800A</code></td><td align="left"><code>0x000A</code></td><td align="right">2     </td><td align="left"><code>00  00</code></td><td align="left"><code>ih_protect_tlv_size</code>:  <br> Size of protected TLV area, in bytes. <br> Usually <code>00 00</code> <br><br></td></tr>
@@ -521,6 +521,12 @@
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">_imghdr_size</span> <span class="op">=</span> <span class="number">0x20</span>;
 
+<span class="ident">MEMORY</span>
+{
+  <span class="ident">FLASH</span> (<span class="ident">rx</span>) : <span class="ident">ORIGIN</span> <span class="op">=</span> <span class="number">0x00008000</span>, <span class="ident">LENGTH</span> <span class="op">=</span> <span class="number">232K</span>
+  <span class="ident">RAM</span> (<span class="ident">rwx</span>)  : <span class="ident">ORIGIN</span> <span class="op">=</span> <span class="number">0x20000000</span>, <span class="ident">LENGTH</span> <span class="op">=</span> <span class="number">0x10000</span>
+}
+
 <span class="ident">SECTIONS</span>
 {
     .<span class="ident">imghdr</span> (<span class="ident">NOLOAD</span>):
@@ -539,7 +545,7 @@
 <p>This Linker Script says...</p>
 <ol>
 <li>
-<p>At the beginning of the Firmware Image, reserve 32 bytes (<code>_imghdr_size</code>) for the Image Header (<code>.imghdr</code>)</p>
+<p>At the beginning of the Firmware Image (<code>FLASH</code>), reserve 32 bytes (<code>_imghdr_size</code>) for the Image Header (<code>.imghdr</code>)</p>
 </li>
 <li>
 <p>After the Image Header, write the Text Section (<code>.text</code>) into the Firmware Image. The Text Section contains the firmware code and data.</p>
