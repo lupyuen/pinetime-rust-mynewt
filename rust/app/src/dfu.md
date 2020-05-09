@@ -473,6 +473,56 @@ TODO
 
 _What's inside the Image Header?_
 
+struct image_version {
+    uint8_t iv_major;
+    uint8_t iv_minor;
+    uint16_t iv_revision;
+    uint32_t iv_build_num;
+};
+
+/** Image header.  All fields are in little endian byte order. */
+struct image_header {
+    uint32_t ih_magic;
+    uint32_t ih_load_addr;
+    uint16_t ih_hdr_size;           /* Size of image header (bytes). */
+    uint16_t ih_protect_tlv_size;   /* Size of protected TLV area (bytes). */
+    uint32_t ih_img_size;           /* Does not include header. */
+    uint32_t ih_flags;              /* IMAGE_F_[...]. */
+    struct image_version ih_ver;
+    uint32_t _pad1;
+};
+
+0000000    3d  b8  f3  96  00  00  00  00  20  00  00  00  18  29  03  00
+0000010    00  00  00  00  01  00  00  00  00  00  00  00  00  00  00  00
+
+```bash
+od -A x -t x1 bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img | more
+0000000    3d  b8  f3  96  00  00  00  00  20  00  00  00  18  29  03  00
+0000010    00  00  00  00  01  00  00  00  00  00  00  00  00  00  00  00
+0000020    00  00  01  20  f9  80  00  00  55  81  00  00  57  81  00  00
+0000030    00  00  00  00  00  00  00  00  00  00  00  00  00  00  00  00
+0000040    00  00  00  00  00  00  00  00  00  00  00  00  e7  8d  01  00
+0000050    00  00  00  00  00  00  00  00  2d  8e  01  00  73  8e  01  00
+0000060    65  81  00  00  65  81  00  00  65  81  00  00  65  81  00  00
+*
+00000d0    65  81  00  00  65  81  00  00  00  00  00  00  00  00  00  00
+00000e0    65  81  00  00  65  81  00  00  65  81  00  00  65  81  00  00
+00000f0    65  81  00  00  65  81  00  00  4f  f0  00  00  0c  4a  0d  4b
+0000100    9a  42  bc  bf  42  f8  04  0b  fa  e7  0b  49  0b  4a  0c  4b
+0000110    9b  1a  03  dd  04  3b  c8  58  d0  50  fb  dc  09  48  0a  49
+0000120    00  f0  22  f8  09  48  80  47  00  f0  44  f8  08  48  00  47
+0000130    88  04  00  20  2c  db  00  20  b0  a5  03  00  d8  00  00  20
+0000140    60  04  00  20  30  db  00  20  50  fe  00  20  69  84  00  00
+0000150    3d  86  00  00  fe  e7  fe  e7  fe  e7  fe  e7  fe  e7  fe  e7
+0000160    fe  e7  fe  e7  fe  e7  00  bf  02  4b  18  60  59  60  98  60
+0000170    70  47  00  bf  d8  00  00  20  03  1e  09  db  0c  4a  90  68
+0000180    52  68  12  1a  9a  42  0f  db  03  44  09  4a  93  60  70  47
+0000190    07  4a  90  68  03  44  12  68  93  42  02  d3  04  4a  93  60
+00001a0    70  47  4f  f0  ff  30  70  47  4f  f0  ff  30  70  47  00  bf
+00001b0    d8  00  00  20  4f  f0  80  43  01  22  c3  f8  78  25  70  47
+00001c0    02  4b  18  68  00  f0  01  00  70  47  00  bf  f0  ed  00  e0
+```
+
 MCUBoot provides a script `imgtool.py` that generates the Image Header.
 
 ```bash
