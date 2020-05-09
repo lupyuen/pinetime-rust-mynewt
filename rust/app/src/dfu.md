@@ -669,6 +669,8 @@ But how did the GCC Linker allocate address `0x80F8`? The offset (`0xF8`) was co
 
 Hence we had to insert an empty Image Header for GCC Linker to compute the correct ROM addresses.
 
+BTW that's not a bug: The Interrupt Vector Table uses address `0x80F9` to refer to function `Reset_Handler`, which is actually located at `0x80F8` (i.e. the address is off by 1). This is a known quirk of Interrupt Vector Tables on Arm CPUs.
+
 # Mark PineTime Firmware as OK
 
 TODO
