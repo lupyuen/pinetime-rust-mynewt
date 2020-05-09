@@ -542,14 +542,29 @@ To flash PineTime over Bluetooth LE, PineTime Firmware Developers would have to 
 
 Here are the steps that we have to follow to create the Firmware Image File...
 
-1. Modify the GCC Linker Script for our firmware to include the Image Header
+1. __Modify the GCC Linker Script__ for our firmware to include the Image Header
 
-1. Build our firmware with the modified Linker Script to create a Firmware ELF File
+1. Build our firmware with the modified Linker Script to create a __Firmware ELF File__
 
-1. Convert the ELF file to a Firmware BIN File with `arm-none-eabi-objcopy`
+1. Convert the ELF file to a __Firmware BIN File__ with `arm-none-eabi-objcopy`
 
-1. Convert the BIN file to a Firmware Image File with MCUBoot's `imgtool.py` script
+1. Convert the BIN file to a __Firmware Image File__ with MCUBoot's `imgtool.py` script
 
+Thus the flow goes like this...
+
+Build Firmware with Modified Linker Script -> Firmware ELF File -> Firmware BIN File -> Firmware Image File
+
+_How shall we modify the GCC Linker Script for our firmware to include the Image Header?_
+
+???
+
+_How shall we convert the Firmware ELF file to a Firmware BIN File?_
+
+???
+
+_How shall we convert the Firmware BIN file to a Firmware Image File?_
+
+???
 
 MCUBoot provides a script `imgtool.py` ([located here](https://github.com/JuulLabs-OSS/mcuboot/tree/master/scripts)) that generates a Firmware Image using the Firmware ELF File produced by the GCC Compiler.
 
