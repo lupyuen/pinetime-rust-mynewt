@@ -471,9 +471,9 @@ For flashing firmware over Bluetooth, PineTime Firmware Developers would have to
 
 | ROM Address | Offset in Image File | Size in bytes | Contents |
 | :-- | :-- | --: | :-- |
-| `0x0000 8000` | `0x0000 0000` | 32 (`0x20`) | Image Header | 
-| `0x0000 8020` | `0x0000 0020` | 216 (`0xD8`) | Interrupt Vector Table | 
-| `0x0000 80F8` | `0x0000 00F8` | | Firmware Code and Data |
+| `0x8000` | `0x0000` | 32 (`0x20`) | Image Header | 
+| `0x8020` | `0x0020` | 216 (`0xD8`) | Interrupt Vector Table | 
+| `0x80F8` | `0x00F8` | | Firmware Code and Data |
 
 ```bash
 $ od -A x -t x1 bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img | more
@@ -497,67 +497,58 @@ The Image Header consists of 32 bytes (`0x20`) in little endian byte order ([as 
 
 | ROM Address | Offset in Image File | Size in bytes | Example | Contents |
 | :-- | :-- | --: | :-- | :-- |
-| `0x0000 8000` | `0x0000 0000` | 4 | `3d  b8  f3  96` | `ih_magic`: <br> Magic Number, <br> must be `3d  b8  f3  96` | 
-| `0x0000 8004` | `0x0000 0004` | 4 | `00  00  00  00`| `ih_load_addr`: <br> Must be `00 00 00 00`    
-| `0x0000 8008` | `0x0000 0008` | 2 | `20  00`| `ih_hdr_size`: <br> Size of image header, must be 32 (`0x20`)
-| `0x0000 800A` | `0x0000 000A` | 2 | `00  00`| `ih_protect_tlv_size`:  <br> Size of protected TLV area, in bytes
-| `0x0000 800C` | `0x0000 000C` | 4 | `18  29  03  00`| `ih_img_size`: <br> Size of firmware image, in bytes. Does not include header. `0x032918` = 207128 bytes
-| `0x0000 8010` | `0x0000 0010` | 4 | `00  00  00  00`| `ih_flags`: <br> `IMAGE_F_[...]` flags, usually `00 00 00 00`
-| `0x0000 8014` | `0x0000 0014` | 1 | `01`| `ih_ver.iv_major`: <br> Major version number
-| `0x0000 8015` | `0x0000 0015` | 1 | `00`| `ih_ver.iv_minor`: <br> Minor version number
-| `0x0000 8016` | `0x0000 0016` | 2 | `00  00`| `ih_ver.iv_revision`: <br> Revision number
-| `0x0000 8018` | `0x0000 0018` | 4 | `00  00  00  00`| `ih_ver.iv_build_num`: <br> Build number
-| `0x0000 801C` | `0x0000 001C` | 4 | `00  00  00  00`| `_pad1`: <br> Padding, must be `00 00 00 00`
+| `0x8000` | `0x0000` | 4 | `3d  b8  f3  96` | `ih_magic`: <br> Magic Number, <br> must be `3d  b8  f3  96` | 
+| `0x8004` | `0x0004` | 4 | `00  00  00  00`| `ih_load_addr`: <br> Must be `00 00 00 00`    
+| `0x8008` | `0x0008` | 2 | `20  00`| `ih_hdr_size`: <br> Size of image header, must be 32 (`0x20`)
+| `0x800A` | `0x000A` | 2 | `00  00`| `ih_protect_tlv_size`:  <br> Size of protected TLV area, in bytes. Usually `00 00`
+| `0x800C` | `0x000C` | 4 | `18  29  03  00`| `ih_img_size`: <br> Size of firmware image, in bytes. Does not include header. `0x032918` = 207,128 bytes
+| `0x8010` | `0x0010` | 4 | `00  00  00  00`| `ih_flags`: <br> `IMAGE_F_[...]` flags, usually `00 00 00 00`
+| `0x8014` | `0x0014` | 1 | `01`| `ih_ver.iv_major`: <br> Major version number
+| `0x8015` | `0x0015` | 1 | `00`| `ih_ver.iv_minor`: <br> Minor version number
+| `0x8016` | `0x0016` | 2 | `00  00`| `ih_ver.iv_revision`: <br> Revision number
+| `0x8018` | `0x0018` | 4 | `00  00  00  00`| `ih_ver.iv_build_num`: <br> Build number
+| `0x801C` | `0x001C` | 4 | `00  00  00  00`| `_pad1`: <br> Padding, must be `00 00 00 00`
 
 _How shall we generate a Firmware Image that contains the Image Header?_
 
 MCUBoot provides a script `imgtool.py` ([located here](https://github.com/JuulLabs-OSS/mcuboot/tree/master/scripts)) that generates the Firmware Image with Image Header.
 
+The script takes a __Firmware BIN File__ and produces the Firmware Image. More about Firmware BIN Files in a while.
+
+Here's how we generate the Firmware Image (`my_sensor_app.img`) from a Firmware BIN File (`my_sensor_app.elf.bin`)...
+
 ```bash
 # Install Python modules needed by imgtool.py
-$ pip3 install --user -r repos/mcuboot/scripts/requirements.txt 
+pip3 install --user -r repos/mcuboot/scripts/requirements.txt 
 
 # Generate the Firmware Image (including Image Header) from the Firmware BIN file
-# 232 * 1024 = 237568
-$ repos/mcuboot/scripts/imgtool.py create \
+# Based on our Flash ROM Layout, the Firmware Image Slot Size is 232 KB (237,568 bytes)
+repos/mcuboot/scripts/imgtool.py create \
   --align 4 \
   --version 1.0.0 \
   --header-size 32 \
   --slot-size 237568 \
   --pad-header \
-  bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.bin \
+  my_sensor_app.elf.bin \
   my_sensor_app.img
 
 # Verify the Firmware Image
-$ repos/mcuboot/scripts/imgtool.py verify my_sensor_app.img
-Image was correctly validated
-Image version: 1.0.0+0
+repos/mcuboot/scripts/imgtool.py verify my_sensor_app.img
 
-# Other imgtool.py options
-$ repos/mcuboot/scripts/imgtool.py --help                      
-Usage: imgtool.py [OPTIONS] COMMAND [ARGS]...
-
-Commands:
-  create   Create a signed or unsigned image INFILE and OUTFILE are parsed...
-  getpriv  Dump private key from keypair
-  getpub   Dump public key from keypair
-  keygen   Generate pub/private keypair
-  sign     Create a signed or unsigned image INFILE and OUTFILE are parsed...
-  verify   Check that signed image can be verified by given key
-  version  Print imgtool version information
+# Should show:
+# Image was correctly validated
+# Image version: 1.0.0+0
 ```
 
-_How shall we generate the Firmware BIN?_
+_How shall we generate the Firmware BIN File?_
 
-```
-.imghdr         0x0000000000008000       0x20
-                0x0000000000008020                . = (. + _imghdr_size)
+The Firmware BIN File is generated in two steps...
 
-.text           0x0000000000008020    0x32578
- .isr_vector    0x0000000000008020       0xd8
-                0x00000000000080f8                Reset_Handler
-```
-_From bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.map_
+1. Build the firmware with a special GCC Linker Script to create the Firmware ELF File with Image Header
+
+1. Convert the Firmware ELF File to BIN with `arm-none-eabi-objcopy`
+
+Here's how define the GCC Linker Script (refer to [`nrf52.ld`](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/nrf52.ld))...
 
 ```
 SECTIONS
@@ -576,12 +567,34 @@ SECTIONS
         __isr_vector_end = .;
         *(.text*)
 ```
-_From https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/nrf52.ld_
+
+Where `_imghdr_size` is defined as `0x20` (or 32 decimal) in [`nrf52xxaa.ld`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/hw/bsp/nrf52/nrf52xxaa.ld)
 
 ```
 _imghdr_size = 0x20;
 ```
-_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/hw/bsp/nrf52/nrf52xxaa.ld_
+
+The above Linker Script says...
+
+1. At the beginning of the Firmware Image, reserve 32 bytes (`_imghdr_size`) for the Image Header (`.imghdr`)
+
+1. Followed by the Text Section (`.text`), which contains the firmware code and data
+
+1. At the start of the Text Section, we have the standard Interrupt Vector Table (`.isr_vector`), which has 216 bytes (`0xD8`)
+
+When GCC links our firmware with the above Linker Script, it produces a __Firmware ELF File__ that has the following layout...
+
+```
+/* Section   Address      Size */
+.imghdr      0x8000       0x20
+.text        0x8020    0x32578
+ .isr_vector 0x8020       0xd8
+             0x80f8 Reset_Handler
+```
+
+In the example above, `Reset_Handler` is the first function in our firmware. That's why it was allocated address `0x80f8`.
+
+To create the Firmware BIN File (`my_sensor_app.elf.bin`) from the Firmware ELF File (`my_sensor_app.elf`), we run `arm-none-eabi-objcopy`...
 
 ```
 arm-none-eabi-objcopy \
@@ -589,10 +602,16 @@ arm-none-eabi-objcopy \
     -R .bss.core \
     -R .bss.core.nz \
     -O binary \
-    bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf \
-    bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.bin
+    my_sensor_app.elf \
+    my_sensor_app.elf.bin
 ```
 From bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.cmd
+
+_In the above Linker Script, why is the Image Header (`.imghdr`) marked as `NOLOAD`?_
+
+The Firmware BIN File ???
+
+`NOLOAD` means that the Image Header will NOT be written to the Image BIN File.
 
 _How does MCUBoot know if the new firmware is bad... And needs to be rolled back to the old firmware?_
 
