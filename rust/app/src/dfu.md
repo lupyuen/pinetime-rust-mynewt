@@ -536,9 +536,22 @@ Here are the build settings and build script for MCUBoot: [`targets/nrf52_boot`]
 
 MCUBoot may be flashed to PineTime with these OpenOCD scripts: [`flash-boot.sh`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.sh), [`flash-boot.ocd`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.ocd)
 
-# Generate a PineTime Firmware Image File
+# Generate a Firmware Image File for PineTime
 
-TODO
+To flash PineTime over Bluetooth LE, PineTime Firmware Developers would have to create a Firmware Image File that includes the Image Header (used by MCUBoot for swapping firmware images).
+
+Here are the steps that we have to follow to create the Firmware Image File...
+
+1. Modify the GCC Linker Script for our firmware to include the Image Header
+
+1. Build our firmware with the modified Linker Script to create a Firmware ELF File
+
+1. Convert the ELF file to a Firmware BIN File with `arm-none-eabi-objcopy`
+
+1. Convert the BIN file to a Firmware Image File with MCUBoot's `imgtool.py` script
+
+
+MCUBoot provides a script `imgtool.py` ([located here](https://github.com/JuulLabs-OSS/mcuboot/tree/master/scripts)) that generates a Firmware Image using the Firmware ELF File produced by the GCC Compiler.
 
 The `imgtool.py` script in MCUBoot takes a __Firmware BIN File__ and produces the Firmware Image. More about Firmware BIN Files in a while.
 
