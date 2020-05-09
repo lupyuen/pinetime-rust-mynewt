@@ -566,6 +566,32 @@ Commands:
   version  Print imgtool version information
 ```
 
+_How shall we generate a Firmware BIN?_
+
+```
+SECTIONS
+{
+    .imghdr (NOLOAD):
+    {
+        . = . + _imghdr_size;
+    } > FLASH
+
+    __text = .;
+
+    .text :
+    {
+        __isr_vector_start = .;
+        KEEP(*(.isr_vector))
+        __isr_vector_end = .;
+        *(.text*)
+```
+_From https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/nrf52.ld_
+
+```
+_imghdr_size = 0x20;
+```
+_From https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/hw/bsp/nrf52/nrf52xxaa.ld_
+
 ```
 arm-none-eabi-objcopy \
     -R .bss \
@@ -575,8 +601,7 @@ arm-none-eabi-objcopy \
     bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf \
     bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.bin
 ```
-
-TODO: Firmware Header
+From bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf.cmd
 
 _How does MCUBoot know if the new firmware is bad... And needs to be rolled back to the old firmware?_
 
