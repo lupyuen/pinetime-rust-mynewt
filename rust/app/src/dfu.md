@@ -691,6 +691,8 @@ When running the firmware image with the build of MCUBoot from the previous sect
 
 # Mark PineTime Firmware as OK
 
+During firmware update, after the new firmware has started, the 
+
 TODO
 
 /**
