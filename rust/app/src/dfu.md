@@ -689,25 +689,36 @@ When running the firmware image with the build of MCUBoot from the previous sect
 
 ![Running the sample firmware image](https://lupyuen.github.io/images/dfu-runimage.png)
 
-# Mark PineTime Firmware as OK
+# Mark PineTime Firmware As OK
 
-During firmware update, after the new firmware has started, the 
+MCUBoot Bootloader has a helpful feature that prevents PineTime from getting bricked during firmware update... When MCUBoot senses that the new firmware isn't running properly, MCUBoot rolls back PineTime to the old firmware.
 
-TODO
+_How does MCUBoot know whether the new firmware is OK?_
 
-/**
- * Marks the image in the primary slot as confirmed.  The system will continue
- * booting into the image in the primary slot until told to boot from a
- * different slot.
- *
- * @return                  0 on success; nonzero on failure.
- */
-int
-boot_set_confirmed(void)
+The new firmware is required to set the Firmware OK status in MCUBoot when it has started properly after a firmware update.  This needs to be implemented by the PineTime Firmware Developer.
 
-https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/include/bootutil/bootutil.h#L103
+_When shall we set the Firmware OK status?_
 
-https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/src/bootutil_misc.c#L718-L774
+Only when the new firmware is able to start up, display messages and accept input properly.  See the MCUBoot section on the user confirmation prompt that shall be implemented by PineTime Firmware Developers.
+
+_How shall we set the Firmware OK status?_
+
+Call the C function `boot_set_confirmed()` from the MCUBoot Library...
+
+```c
+//  Marks the image in the primary slot as confirmed.  The system will continue
+//  booting into the image in the primary slot until told to boot from a
+//  different slot. Returns 0 on success; nonzero on failure.
+int boot_set_confirmed(void)
+```
+
+See [`bootutil.h`](https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/include/bootutil/bootutil.h#L103) and [`bootutil_misc.c`](https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/src/bootutil_misc.c#L718-L774)
+
+`boot_set_confirmed()` is supported on Mynewt, RIOT and Zephyr.
+
+_Where is the Firmware OK status stored?_
+
+
 
 https://juullabs-oss.github.io/mcuboot/design.html#image-trailer
 
