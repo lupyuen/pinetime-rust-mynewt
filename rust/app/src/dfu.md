@@ -742,7 +742,7 @@ More about the [Image Trailer](https://juullabs-oss.github.io/mcuboot/design.htm
 
 _How do we inspect the Image OK status?_
 
-Run the Newt Manager on Raspberry Pi. In the log below, `image=0 slot=0 ... active confirmed` means that the Active Firmware (Slot 0) is OK...
+Use Newt Manager on Raspberry Pi. In the log below, `image=0 slot=0 ... active confirmed` means that the Active Firmware (Slot 0) is confirmed OK...
 
 ```bash
 # Build Newt Manager on Raspberry Pi
@@ -770,6 +770,8 @@ Images:
     hash: eab2886947a1df6f850463601f3dad409411d7ea21855eb0a70e965732258c92
 Split status: N/A (0)
 ```
+
+The complete Raspberry Pi log may be found at the end of the article.
 
 [More about the design of MCUBoot](https://juullabs-oss.github.io/mcuboot/design.html)
 
@@ -951,7 +953,11 @@ objsize
  205760     904   55224  261888   3ff00 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
 ```
 
-# Raspberry Pi Client
+# Android, iOS and Linux Companion Apps for PineTime
+
+TODO
+
+## Raspberry Pi Client
 
 TODO
 
@@ -967,7 +973,7 @@ https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_datetime.html
 
 And whether we can push notifications to the device.
 
-# Android Client
+## Android Client
 
 TODO
 
@@ -975,7 +981,7 @@ Not started. Will explore this Android MCU Manager client for OTA Firmware Upgra
 
 https://github.com/JuulLabs-OSS/mcumgr-android
 
-# iOS Client
+## iOS Client
 
 TODO
 
@@ -995,7 +1001,7 @@ https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/
 
 https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/PerformingCommonCentralRoleTasks/PerformingCommonCentralRoleTasks.html#//apple_ref/doc/uid/TP40013257-CH3-SW1
 
-# Flutter Client for iOS and Android
+## Flutter Client for iOS and Android
 
 TODO
 
@@ -1013,8 +1019,7 @@ And adapting the iOS MCU Client code.
 
 The Flutter app for PineTime would the MCU Manager functions from scratch. The app would be a great reference to teach how to talk to BLE and GATT services from iOS and Android, even though it won't be a polished app.
 
-
-# Other PineTime Bluetooth Firmware Upgrade Solutions
+# Other PineTime Firmware Update Solutions
 
 1. Nordic SoftDevice includes a proprietary BLE DFU implementation: https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v15.0.0/lib_bootloader_dfu_process.html
 
