@@ -845,7 +845,7 @@ Based on feedback from the PineTime Community, the following enhancements are pl
 
     MCUBoot shall access the External SPI Flash via Mynewt's driver for SPI Flash. See [`spiflash`](https://github.com/apache/mynewt-core/tree/master/hw/drivers/flash/spiflash)
 
-    PineTime Firmware Developers would also need to enhance the Image Management Command Handler (MCU Manager Library) to write firmware images to External SPI Flash.
+    PineTime Firmware Developers would also need to enhance the Image Management Command Handler (MCU Manager Library) to write firmware images to External SPI Flash (instead of Internal Flash).
 
 1. __Manual rollback of firmware images:__ We shall allow the PineTime Owner to roll back firmware images manually (in case the Owner decides that the new firmware isn't working properly).
 
@@ -855,9 +855,11 @@ Based on feedback from the PineTime Community, the following enhancements are pl
 
     PineTime Firmware Developers shall implement a Reboot or Watchdog feature, so that the Owner won't have to wait for the battery to drain completely before rolling back the firmware.
 
-1. __Allow flashing of firmware that doesn't implement firmware update__:
+1. __Allow flashing of firmware that doesn't implement firmware update__: Implementing the firmware update functionality may not be feasible for some types of PineTime firmware. Here's how we shall allow them to be flashed...
 
-other os
+    As long as the firmware adopts the proposed Flash ROM Layout, and includes the MCUBoot Image Header, we shall allow the firmware to be flashed via PineTime's factory-installed firmware (which could be based on FreeRTOS, Mynewt, RIOT, Zephyr, ...)
+
+    To upgrade the firmware, the PineTime Owner would have to rollback manually to the factory-installed firmware, then flash the upgraded firmware.
 
 1. __Bootloader Log__: Log MCUBoot messages to the Arm Semihosting Console when PineTime's SWD port is connected. Useful for troubleshooting the bootloader.
 
