@@ -721,6 +721,8 @@ MAGIC: The following 16 bytes, written in host-byte-order:
 
 const uint32_t boot_img_magic[4] = { 0xf395c277, 0x7fefd260, 0x0f505235, 0x8079b62c, };
 
+Mynewt, Zephyr, RIOT
+
 # Checklist for PineTime Firmware Developers
 
 TODO
