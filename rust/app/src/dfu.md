@@ -727,17 +727,19 @@ TODO
 
 In summary, PineTime Firmware Developers would have to do the following to support firmware updates over Bluetooth LE...
 
-1. Adopt the standard Flash ROM Layout in the firmware, by modifying the GCC Linker Script
+1. Adopt the __Standard Flash ROM Layout__ in the firmware, by modifying the GCC Linker Script
 
-1. Port MCU Manager Library to the firmware, including writing flash image to ROM
+1. Port __MCU Manager Library__ to the firmware, including writing flash image to Flash ROM
 
-1. Port NimBLE Bluetooth LE networking stack to the firmware
+1. Port __NimBLE Bluetooth LE networking stack__ to the firmware
 
-1. Generate a Firmware Image containing Image Header in MCUBoot format (with `arm-none-eabi-objcopy` and `imgtool.py`)
+1. Generate a __Firmware Image containing Image Header in MCUBoot format__ with `arm-none-eabi-objcopy` and `imgtool.py`
 
-1. When a new version of the firmware runs on PineTime, the firmware should show the version number in a message prompt
+1. When a new version of the firmware runs on PineTime, the firmware should __show the version number in a message prompt__
 
-1. When the user dismisses the message prompt, the firmware shall set the Firmware OK status
+1. When the user dismisses the message prompt, the firmware shall __set the Firmware OK status__
+
+__For Mynewt and Zephyr:__ Some of the steps in this article may not be necessary... Check the simpler instructions for Mynewt and Zephyr on the NimBLE, MCU Manager and MCUBoot websites.
 
 # Test PineTime Firmware Update over Bluetooth LE
 
