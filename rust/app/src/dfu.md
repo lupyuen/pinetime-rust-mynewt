@@ -787,18 +787,16 @@ PineTime also exposes [__Standard GATT Services__](https://www.bluetooth.com/spe
 1. __Generic Access__ (`0x1800`):
 Device Name (`pinetime`) and Appearance. [Specifications](https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_access.xml)
 
-1. __Generic Attribute__ (`0x1801`): 
+1. __Generic Attribute__ (`0x1801`): Notify the mobile app of any changes in PineTime's GATT Services.
 [Specifications](https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_attribute.xml)
 
-1. __Device Information__ (`0x180A`): Model Number and Firmware Revision.
+1. __Device Information__ (`0x180A`): Model Number (`Apache Mynewt NimBLE`) and Firmware Revision (`1.0.0`).
 [Specifications](https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.device_information.xml)
 
 1. __Alert Notification Service__	(`0x1811`): Alerts and Notifications.
 [Specifications](https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.alert_notification.xml)
 
-security test service
-59462f12-9543-9999-12c8-58b459a2712d
-https://github.com/apache/mynewt-nimble/blob/master/apps/btshell/src/gatt_svr.c#L67-L94
+The final GATT Service (`59462f12-9543-9999-12c8-58b459a2712d`) in the screen above is the __Security Test Service__, which is also optional. See [`gatt_svr.c`](https://github.com/apache/mynewt-nimble/blob/master/apps/btshell/src/gatt_svr.c#L67-L94)
 
 # Test PineTime Firmware Update over Bluetooth LE
 
