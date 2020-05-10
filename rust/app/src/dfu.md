@@ -689,6 +689,8 @@ When running the firmware image with the build of MCUBoot from the previous sect
 
 ![Running the sample firmware image](https://lupyuen.github.io/images/dfu-runimage.png)
 
+[More about `imgtool.py`](https://juullabs-oss.github.io/mcuboot/imgtool.html)
+
 # Mark PineTime Firmware As OK
 
 MCUBoot Bootloader has a helpful feature that prevents PineTime from getting bricked during firmware update... When MCUBoot senses that the new firmware isn't running properly, MCUBoot rolls back PineTime to the old firmware.
@@ -737,6 +739,39 @@ const uint32_t boot_img_magic[4] = {
 ```
 
 More about the [Image Trailer](https://juullabs-oss.github.io/mcuboot/design.html#image-trailer)
+
+_How do we inspect the Image OK status?_
+
+Run the Newt Manager on Raspberry Pi. In the log below, `image=0 slot=0 ... active confirmed` means that the Active Firmware (Slot 0) is OK...
+
+```bash
+# Build Newt Manager on Raspberry Pi
+$ cd ~/go
+$ mkdir -p src/mynewt.apache.org
+$ cd src/mynewt.apache.org/
+$ git clone https://github.com/apache/mynewt-newtmgr
+$ mv mynewt-newtmgr newtmgr
+$ cd newtmgr/newtmgr
+$ export GO111MODULE=on
+$ go build
+
+# Run Newt Manager on Raspberry Pi
+$ cd ~/go/src/mynewt.apache.org/newtmgr/newtmgr
+$ sudo ./newtmgr conn add mybleprph type=ble connstring="peer_name=pinetime"
+Connection profile mybleprph successfully added
+
+# List firmware images
+$ sudo ./newtmgr image list -c mybleprph --loglevel debug
+Images:
+ image=0 slot=0
+    version: 1.0.0
+    bootable: true
+    flags: active confirmed
+    hash: eab2886947a1df6f850463601f3dad409411d7ea21855eb0a70e965732258c92
+Split status: N/A (0)
+```
+
+[More about the design of MCUBoot](https://juullabs-oss.github.io/mcuboot/design.html)
 
 # Checklist for PineTime Firmware Developers
 
@@ -798,6 +833,36 @@ Device Name (`pinetime`) and Appearance. [Specifications](https://www.bluetooth.
 
 The final GATT Service (`59462f12-9543-9999-12c8-58b459a2712d`) in the screen above is the __Security Test Service__, which is also optional. See [`gatt_svr.c`](https://github.com/apache/mynewt-nimble/blob/master/apps/btshell/src/gatt_svr.c#L67-L94)
 
+# Upcoming Enhancements for PineTime Firmware Update over Bluetooth LE
+
+Based on feedback from the PineTime Community, the following enhancements are planned for the firmware update design...
+
+1. __Allow larger firmware images to be flashed:__ Based on the present Flash ROM Layout, the size of a firmware image may not exceed 232 KB. That's because we need to fit both Active and Standby Firmware Images into PineTime's 512 KB Flash ROM.
+
+    To support larger firmware images (up to 464 KB), we shall move the Standby Firmware Image to PineTime's External SPI Flash (4 MB). 
+
+1. __Store Standby Firmware Image in External SPI Flash__: MCUBoot shall be enhanced to swap firmware images across PineTime's Internal Flash ROM (512 KB) and External SPI Flash (4 MB).
+
+    MCUBoot shall access the External SPI Flash via Mynewt's driver for SPI Flash. See [`spiflash`](https://github.com/apache/mynewt-core/tree/master/hw/drivers/flash/spiflash)
+
+    PineTime Firmware Developers would also need to enhance the Image Management Command Handler (MCU Manager Library) to write firmware images to External SPI Flash.
+
+1. __Manual rollback of firmware images:__ We shall allow the PineTime Owner to roll back firmware images manually (in case the Owner decides that the new firmware isn't working properly).
+
+    To roll back the firmware manually when PineTime boots, press and hold the watch button for 5 seconds.
+
+    MCUBoot shall be enhanced to wait 5 seconds for the button press and to roll back the firmware.
+
+    PineTime Firmware Developers shall implement a Reboot or Watchdog feature, so that the Owner won't have to wait for the battery to drain completely before rolling back the firmware.
+
+1. __Allow flashing of firmware that doesn't implement firmware update__:
+
+other os
+
+1. __Bootloader Log__: Log MCUBoot messages to the Arm Semihosting Console when PineTime's SWD port is connected. Useful for troubleshooting the bootloader.
+
+1. Ensure that the same firmware version doesn't get flashed twice
+
 # Test PineTime Firmware Update over Bluetooth LE
 
 TODO
@@ -813,109 +878,6 @@ https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota/apps/my_sensor_app/src
 The files were derived from the Mynewt `bleprph` sample:
 
 https://github.com/apache/mynewt-nimble/tree/master/apps/bleprph
-
-# Raspberry Pi Client
-
-TODO
-
-Newt Manager builds OK on Raspberry Pi 4 and works OK with PineTime.  See the log below.
-
-Now studying the Go code (with debug messages enabled) to understand the firmware upload process:
-
-https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_image.html
-
-Also how to set the device date/time:
-
-https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_datetime.html
-
-And whether we can push notifications to the device.
-
-# Android Client
-
-TODO
-
-Not started. Will explore this Android MCU Manager client for OTA Firmware Upgrade, coded in Java:
-
-https://github.com/JuulLabs-OSS/mcumgr-android
-
-# iOS Client
-
-TODO
-
-Not started. Will explore this iOS MCU Manager client for OTA Firmware Upgrade, coded in Swift:
-
-https://github.com/JuulLabs-OSS/mcumgr-ios
-
-Among all MCU Manager clients, the Swift version is easiest to understand because it calls high-level BLE functions:
-
-https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Bluetooth/McuMgrBleTransport.swift
-
-Now using this code to understand the MCU Manager upload protocol.
-
-Refer to the iOS Core Bluetooth API:
-
-https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/AboutCoreBluetooth/Introduction.html#//apple_ref/doc/uid/TP40013257-CH1-SW1
-
-https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/PerformingCommonCentralRoleTasks/PerformingCommonCentralRoleTasks.html#//apple_ref/doc/uid/TP40013257-CH3-SW1
-
-# Flutter Client for iOS and Android
-
-TODO
-
-Alternatively, we may build iOS and Android clients for MCU Manager in Flutter based on this BLE library:
-
-https://github.com/pauldemarco/flutter_blue
-
-This allows us to maintain a single code base to target both iOS and Android clients.
-
-It looks feasible to build a Flutter client (coded in Dart) based on on this Dart BLE sample:
-
-https://github.com/pauldemarco/flutter_blue/tree/master/example/lib
-
-And adapting the iOS MCU Client code.
-
-The Flutter app for PineTime would the MCU Manager functions from scratch. The app would be a great reference to teach how to talk to BLE and GATT services from iOS and Android, even though it won't be a polished app.
-
-# MCUboot Enhancements
-
-TODO
-
-MCUboot should detect button press upon startup. If the button is pressed, rollback the old firmware. This allows the user to roll back faulty firmware that does not respond to OTA Firmware Upgrade commands.
-
-The OTA Firmware Upgrade tool needs to ensure that the same firmware version doesn't get flashed twice.
-
-The firmware must still implement a "Reset" or watchdog feature, or the user will have to wait for the battery to drain completely before running MCUboot.
-
-The PineTime Mynewt firmware size is 205 KB with Newt Manager Library included. This is quite close to the 232 KB size limit, assuming 2 firmware images plus scratch storage in PineTime's 512 KB ROM.
-
-MCUboot and MCU Manager should be enhanced to store the new and backup firmware images on PineTime's External SPI Flash (4 MB).
-
-
-https://juullabs-oss.github.io/mcuboot/imgtool.html
-
-https://juullabs-oss.github.io/mcuboot/design.html
-
-https://juullabs-oss.github.io/mcuboot/design.html#image-format
-
-https://juullabs-oss.github.io/mcuboot/design.html#flash-map
-
-https://juullabs-oss.github.io/mcuboot/design.html#image-slots
-
-https://juullabs-oss.github.io/mcuboot/design.html#image-trailer
-
-https://juullabs-oss.github.io/mcuboot/design.html#image-trailers
-
-https://juullabs-oss.github.io/mcuboot/design.html#high-level-operation
-
-https://juullabs-oss.github.io/mcuboot/design.html#image-swapping
-
-https://juullabs-oss.github.io/mcuboot/design.html#swap-status
-
-https://juullabs-oss.github.io/mcuboot/design.html#reset-recovery
-
-https://juullabs-oss.github.io/mcuboot/design.html#integrity-check
-
-https://juullabs-oss.github.io/mcuboot/design.html#security
 
 ```
 ----- Build Mynewt and link with Rust app
@@ -986,6 +948,69 @@ objsize
    text    data     bss     dec     hex filename
  205760     904   55224  261888   3ff00 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
 ```
+
+# Raspberry Pi Client
+
+TODO
+
+Newt Manager builds OK on Raspberry Pi 4 and works OK with PineTime.  See the log below.
+
+Now studying the Go code (with debug messages enabled) to understand the firmware upload process:
+
+https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_image.html
+
+Also how to set the device date/time:
+
+https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_datetime.html
+
+And whether we can push notifications to the device.
+
+# Android Client
+
+TODO
+
+Not started. Will explore this Android MCU Manager client for OTA Firmware Upgrade, coded in Java:
+
+https://github.com/JuulLabs-OSS/mcumgr-android
+
+# iOS Client
+
+TODO
+
+Not started. Will explore this iOS MCU Manager client for OTA Firmware Upgrade, coded in Swift:
+
+https://github.com/JuulLabs-OSS/mcumgr-ios
+
+Among all MCU Manager clients, the Swift version is easiest to understand because it calls high-level BLE functions:
+
+https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Bluetooth/McuMgrBleTransport.swift
+
+Now using this code to understand the MCU Manager upload protocol.
+
+Refer to the iOS Core Bluetooth API:
+
+https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/AboutCoreBluetooth/Introduction.html#//apple_ref/doc/uid/TP40013257-CH1-SW1
+
+https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/PerformingCommonCentralRoleTasks/PerformingCommonCentralRoleTasks.html#//apple_ref/doc/uid/TP40013257-CH3-SW1
+
+# Flutter Client for iOS and Android
+
+TODO
+
+Alternatively, we may build iOS and Android clients for MCU Manager in Flutter based on this BLE library:
+
+https://github.com/pauldemarco/flutter_blue
+
+This allows us to maintain a single code base to target both iOS and Android clients.
+
+It looks feasible to build a Flutter client (coded in Dart) based on on this Dart BLE sample:
+
+https://github.com/pauldemarco/flutter_blue/tree/master/example/lib
+
+And adapting the iOS MCU Client code.
+
+The Flutter app for PineTime would the MCU Manager functions from scratch. The app would be a great reference to teach how to talk to BLE and GATT services from iOS and Android, even though it won't be a polished app.
+
 
 # Other PineTime Bluetooth Firmware Upgrade Solutions
 
