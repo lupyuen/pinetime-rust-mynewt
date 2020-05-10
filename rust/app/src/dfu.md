@@ -766,46 +766,35 @@ Here are the GATT Services that appear when the nRF Connect mobile app is connec
 
 _GATT Services exposed by MCU Manager on PineTime_
 
-MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:
+Let's examine the GATT Services shown above...
 
-https://github.com/apache/mynewt-mcumgr/tree/master/cmd
+__Simple Management Protocol (SMP) Service__ is managed by the MCU Manager Library as [Command Handlers](https://github.com/apache/mynewt-mcumgr/tree/master/cmd)...
 
-fs_mgmt
-https://github.com/apache/mynewt-mcumgr/tree/master/cmd/fs_mgmt
+1. __Image Management:__ For querying and updating firmware images. This is the Command Handler that we have implemented to support firmware update on PineTime. See [`img_mgmt`](https://github.com/apache/mynewt-mcumgr/tree/master/cmd/img_mgmt)
 
-img_mgmt
-https://github.com/apache/mynewt-mcumgr/tree/master/cmd/img_mgmt
+1. __File System Management:__ For accessing the user file system in PineTime's Flash ROM. See [`fs_mgmt`](https://github.com/apache/mynewt-mcumgr/tree/master/cmd/fs_mgmt)
 
-log_mgmt
-https://github.com/apache/mynewt-mcumgr/tree/master/cmd/log_mgmt
+1. __Log Management:__ For browsing the debugging messages logged by the firmware. See [`log_mgmt`](https://github.com/apache/mynewt-mcumgr/tree/master/cmd/log_mgmt)
 
-os_mgmt
-https://github.com/apache/mynewt-mcumgr/tree/master/cmd/os_mgmt
+1. __OS Management:__ Execute Operating System functions. See [`os_mgmt`](https://github.com/apache/mynewt-mcumgr/tree/master/cmd/os_mgmt)
 
-stat_mgmt
-https://github.com/apache/mynewt-mcumgr/tree/master/cmd/stat_mgmt
+1. __Statistics Management:__ Runtime statistics useful for troubleshooting. See [`stat_mgmt`](https://github.com/apache/mynewt-mcumgr/tree/master/cmd/stat_mgmt)
 
-GATT Services
-https://www.bluetooth.com/specifications/gatt/services/
+PineTime Firmware Developers only need to implement the Image Management Command Handler to support firmware updates. The other Command Handlers are optional, though they may be useful for diagnostics and troubleshooting.
 
-0x1800
-Generic Access	
-https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_access.xml
-Device Name
+PineTime also exposes [__Standard GATT Services__](https://www.bluetooth.com/specifications/gatt/services/) that are defined in the Bluetooth LE Specifications...
 
-0x1801
-Generic Attribute
-https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_attribute.xml
+1. __Generic Access__ (`0x1800`):
+Device Name (`pinetime`) and Appearance. [Specifications](https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_access.xml)
 
-0x180A
-Device Information
-https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.device_information.xml
-Model Number
-Firmware Revision
+1. __Generic Attribute__ (`0x1801`): 
+[Specifications](https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_attribute.xml)
 
-0x1811
-Alert Notification Service	
-https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.alert_notification.xml
+1. __Device Information__ (`0x180A`): Model Number and Firmware Revision.
+[Specifications](https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.device_information.xml)
+
+1. __Alert Notification Service__	(`0x1811`): Alerts and Notifications.
+[Specifications](https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.alert_notification.xml)
 
 security test service
 59462f12-9543-9999-12c8-58b459a2712d
