@@ -716,7 +716,7 @@ int boot_set_confirmed(void)
 
 See [`bootutil.h`](https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/include/bootutil/bootutil.h#L103) and [`bootutil_misc.c`](https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/src/bootutil_misc.c#L718-L774)
 
-_Where is the Firmware OK status stored?_
+_Where is the Image OK status stored?_
 
 In the __Image Trailer__ located at the end of the Active Flash Slot.
 
@@ -782,6 +782,21 @@ MCU Manager includes Command Handlers for managing Firmware Images, File System,
 
 https://github.com/apache/mynewt-mcumgr/tree/master/cmd
 
+fs_mgmt
+https://github.com/apache/mynewt-mcumgr/tree/master/cmd/fs_mgmt
+
+img_mgmt
+https://github.com/apache/mynewt-mcumgr/tree/master/cmd/img_mgmt
+
+log_mgmt
+https://github.com/apache/mynewt-mcumgr/tree/master/cmd/log_mgmt
+
+os_mgmt
+https://github.com/apache/mynewt-mcumgr/tree/master/cmd/os_mgmt
+
+stat_mgmt
+https://github.com/apache/mynewt-mcumgr/tree/master/cmd/stat_mgmt
+
 GATT Services
 https://www.bluetooth.com/specifications/gatt/services/
 
@@ -789,7 +804,6 @@ https://www.bluetooth.com/specifications/gatt/services/
 Generic Access	
 https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_access.xml
 Device Name
-
 
 0x1801
 Generic Attribute

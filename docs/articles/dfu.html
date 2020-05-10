@@ -66,7 +66,7 @@
 <li><a href="#nimble-interrupt-functions">6.8 NimBLE Interrupt Functions</a><ul></ul></li></ul></li>
 <li><a href="#mcuboot-bootloader-for-pinetime">7 MCUBoot Bootloader for PineTime</a><ul></ul></li>
 <li><a href="#generate-a-firmware-image-file-for-pinetime">8 Generate a Firmware Image File for PineTime</a><ul></ul></li>
-<li><a href="#mark-pinetime-firmware-as-ok">9 Mark PineTime Firmware as OK</a><ul></ul></li>
+<li><a href="#mark-pinetime-firmware-as-ok">9 Mark PineTime Firmware As OK</a><ul></ul></li>
 <li><a href="#checklist-for-pinetime-firmware-developers">10 Checklist for PineTime Firmware Developers</a><ul></ul></li>
 <li><a href="#test-pinetime-firmware-update-over-bluetooth-le">11 Test PineTime Firmware Update over Bluetooth LE</a><ul></ul></li>
 <li><a href="#optional-other-command-handlers-for-mcu-manager">12 Optional: Other Command Handlers for MCU Manager</a><ul></ul></li>
@@ -82,7 +82,7 @@
 <p>But these embedded platforms are accessible only by brave PineTime Owners who dare to pry open their watches very carefully... And connect a Raspberry Pi (or ST-Link) to the tiny delicate 4-pin SWD port recessed deep inside... Just to flash the PineTime firmware.</p>
 <p><em>What if we could flash any firmware to PineTime from our mobile phone... Without opening the watch?</em></p>
 <p>Yes we can! Just download the firmware file into our phone and push it wirelessly to our watch, like this...</p>
-<p><img src="https://lupyuen.github.io/images/dfu-flow.png" alt="Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch" /></p>
+<p><img src="https://lupyuen.github.io/images/dfu-flow2.png" alt="Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch" /></p>
 <p><em>Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch</em></p>
 <p>What's the magic behind this? It's the <strong><a href="https://github.com/apache/mynewt-mcumgr">Simple Management Protocol (SMP)</a></strong></p>
 <p>By transmitting a bunch of SMP messages over Bluetooth Low Energy (LE), it's possible to send a file to PineTime and update its firmware. (Assuming that our PineTime supports SMP)</p>
@@ -620,51 +620,58 @@ mcuboot/scripts/imgtool.py verify my_sensor_app.img
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.0.1"><code>pinetime-rust-mynewt/releases/tag/v4.0.1</code></a></p>
 <p>When running the firmware image with the build of MCUBoot from the previous section, the following log will be shown...</p>
 <p><img src="https://lupyuen.github.io/images/dfu-runimage.png" alt="Running the sample firmware image" /></p>
-<h1 id="mark-pinetime-firmware-as-ok" class="section-header"><a href="#mark-pinetime-firmware-as-ok">9 Mark PineTime Firmware as OK</a></h1>
-<p>TODO</p>
-<p>/**</p>
-<ul>
-<li>Marks the image in the primary slot as confirmed.  The system will continue</li>
-<li>booting into the image in the primary slot until told to boot from a</li>
-<li>different slot.</li>
-<li></li>
-<li>@return                  0 on success; nonzero on failure.
-*/
-int
-boot_set_confirmed(void)</li>
-</ul>
-<p>https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/include/bootutil/bootutil.h#L103</p>
-<p>https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/src/bootutil_misc.c#L718-L774</p>
-<p>https://juullabs-oss.github.io/mcuboot/design.html#image-trailer</p>
-<p>Image Trailer</p>
-<p>For the bootloader to be able to determine the current state and what actions should be taken during the current boot operation, it uses metadata stored in the image flash areas. While swapping, some of this metadata is temporarily copied into and out of the scratch area.</p>
-<p>This metadata is located at the end of the image flash areas, and is called an image trailer. An image trailer has the following structure:</p>
-<p>Image OK: A single byte indicating whether the image in this slot has been confirmed as good by the user (0x01=confirmed; 0xff=not confirmed).</p>
-<p>MAGIC: The following 16 bytes, written in host-byte-order:</p>
-<p>const uint32_t boot_img_magic[4] = { 0xf395c277, 0x7fefd260, 0x0f505235, 0x8079b62c, };</p>
+<h1 id="mark-pinetime-firmware-as-ok" class="section-header"><a href="#mark-pinetime-firmware-as-ok">9 Mark PineTime Firmware As OK</a></h1>
+<p>MCUBoot Bootloader has a helpful feature that prevents PineTime from getting bricked during firmware update... When MCUBoot senses that the new firmware isn't running properly, MCUBoot rolls back PineTime to the old firmware.</p>
+<p><em>How does MCUBoot know whether the new firmware is OK?</em></p>
+<p>The new firmware is required to set the <strong>Image OK</strong> status in MCUBoot when it has started properly after a firmware update.  This needs to be implemented by the PineTime Firmware Developer.</p>
+<p><em>When shall we set the Image OK status?</em></p>
+<p>Only when the new firmware is able to start up, display messages and accept input properly.  See the MCUBoot section on the user confirmation prompt that shall be implemented by PineTime Firmware Developers.</p>
+<p><em>How shall we set the Image OK status?</em></p>
+<p>Call the C function <code>boot_set_confirmed()</code> from the MCUBoot Library...</p>
+<pre><code class="language-c">//  Marks the image in the primary slot as confirmed.  The system will continue
+//  booting into the image in the primary slot until told to boot from a
+//  different slot. Returns 0 on success; nonzero on failure.
+int boot_set_confirmed(void)
+</code></pre>
+<p><code>boot_set_confirmed()</code> is supported on Mynewt, RIOT and Zephyr.</p>
+<p>See <a href="https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/include/bootutil/bootutil.h#L103"><code>bootutil.h</code></a> and <a href="https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/src/bootutil_misc.c#L718-L774"><code>bootutil_misc.c</code></a></p>
+<p><em>Where is the Image OK status stored?</em></p>
+<p>In the <strong>Image Trailer</strong> located at the end of the Active Flash Slot.</p>
+<p>The Image OK field in the Image Trailer contains a single byte indicating whether the image in this slot has been confirmed as good by the user (<code>0x01</code> means confirmed; <code>0xff</code> means not confirmed).</p>
+<p><em>The Image Trailer is not part of the Firmware Image. How does it get written?</em></p>
+<p>During firmware update, MCUBoot writes the Image Trailer at the end of the Active Flash Slot.</p>
+<p>To check whether there is a valid Image Trailer, MCUBoot looks for the following 16 &quot;Magic&quot; bytes (in host-byte-order)...</p>
+<pre><code class="language-c">const uint32_t boot_img_magic[4] = { 
+  0xf395c277, 
+  0x7fefd260, 
+  0x0f505235, 
+  0x8079b62c };
+</code></pre>
+<p>More about the <a href="https://juullabs-oss.github.io/mcuboot/design.html#image-trailer">Image Trailer</a></p>
 <h1 id="checklist-for-pinetime-firmware-developers" class="section-header"><a href="#checklist-for-pinetime-firmware-developers">10 Checklist for PineTime Firmware Developers</a></h1>
 <p>TODO</p>
 <p>In summary, PineTime Firmware Developers would have to do the following to support firmware updates over Bluetooth LE...</p>
 <ol>
 <li>
-<p>Adopt the standard Flash ROM Layout in the firmware, by modifying the GCC Linker Script</p>
+<p>Adopt the <strong>Standard Flash ROM Layout</strong> in the firmware, by modifying the GCC Linker Script</p>
 </li>
 <li>
-<p>Port MCU Manager Library to the firmware, including writing flash image to ROM</p>
+<p>Port <strong>MCU Manager Library</strong> to the firmware, including writing flash image to Flash ROM</p>
 </li>
 <li>
-<p>Port NimBLE Bluetooth LE networking stack to the firmware</p>
+<p>Port <strong>NimBLE Bluetooth LE networking stack</strong> to the firmware</p>
 </li>
 <li>
-<p>Generate a Firmware Image containing Image Header in MCUBoot format (with <code>arm-none-eabi-objcopy</code> and <code>imgtool.py</code>)</p>
+<p>Generate a <strong>Firmware Image containing Image Header in MCUBoot format</strong> with <code>arm-none-eabi-objcopy</code> and <code>imgtool.py</code></p>
 </li>
 <li>
-<p>When a new version of the firmware runs on PineTime, the firmware should show the version number in a message prompt</p>
+<p>When a new version of the firmware runs on PineTime, the firmware should <strong>show the version number in a message prompt</strong></p>
 </li>
 <li>
-<p>When the user dismisses the message prompt, the firmware shall set the Firmware OK status</p>
+<p>When the user dismisses the message prompt, the firmware shall <strong>set the Image OK status</strong></p>
 </li>
 </ol>
+<p><strong>For Mynewt and Zephyr:</strong> Some of the steps in this article may not be necessary... Check the simpler instructions for Mynewt and Zephyr on the NimBLE, MCU Manager and MCUBoot websites.</p>
 <h1 id="test-pinetime-firmware-update-over-bluetooth-le" class="section-header"><a href="#test-pinetime-firmware-update-over-bluetooth-le">11 Test PineTime Firmware Update over Bluetooth LE</a></h1>
 <p>TODO</p>
 <p>Now testing PineTime Mynewt firmware built with Newt Manager library, located at the <code>ota</code> branch of <code>/pinetime-rust-mynewt</code>:</p>
@@ -677,6 +684,16 @@ boot_set_confirmed(void)</li>
 <p>TODO</p>
 <p>MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:</p>
 <p>https://github.com/apache/mynewt-mcumgr/tree/master/cmd</p>
+<p>fs_mgmt
+https://github.com/apache/mynewt-mcumgr/tree/master/cmd/fs_mgmt</p>
+<p>img_mgmt
+https://github.com/apache/mynewt-mcumgr/tree/master/cmd/img_mgmt</p>
+<p>log_mgmt
+https://github.com/apache/mynewt-mcumgr/tree/master/cmd/log_mgmt</p>
+<p>os_mgmt
+https://github.com/apache/mynewt-mcumgr/tree/master/cmd/os_mgmt</p>
+<p>stat_mgmt
+https://github.com/apache/mynewt-mcumgr/tree/master/cmd/stat_mgmt</p>
 <p>GATT Services
 https://www.bluetooth.com/specifications/gatt/services/</p>
 <p>0x1800
