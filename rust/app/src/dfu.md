@@ -712,15 +712,15 @@ Call the C function `boot_set_confirmed()` from the MCUBoot Library...
 int boot_set_confirmed(void)
 ```
 
-See [`bootutil.h`](https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/include/bootutil/bootutil.h#L103) and [`bootutil_misc.c`](https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/src/bootutil_misc.c#L718-L774)
-
 `boot_set_confirmed()` is supported on Mynewt, RIOT and Zephyr.
+
+See [`bootutil.h`](https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/include/bootutil/bootutil.h#L103) and [`bootutil_misc.c`](https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/src/bootutil_misc.c#L718-L774)
 
 _Where is the Firmware OK status stored?_
 
 In the __Image Trailer__ located at the end of the Active Flash Slot.
 
-The Image OK field contains a single byte indicating whether the image in this slot has been confirmed as good by the user (`0x01` means confirmed; `0xff` means not confirmed).
+The Image OK field in the Image Trailer contains a single byte indicating whether the image in this slot has been confirmed as good by the user (`0x01` means confirmed; `0xff` means not confirmed).
 
 _The Image Trailer is not part of the Firmware Image. How does it get written?_
 
