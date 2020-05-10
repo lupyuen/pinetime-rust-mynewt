@@ -488,7 +488,7 @@ The Image Header consists of 32 bytes (`0x20`) in little endian byte order ([as 
 
 | ROM Address | Offset in <br> Image File | Size <br> (bytes) | Example | Contents |
 | :-- | :-- | --: | :-- | :-- |
-| `0x8000` &nbsp;&nbsp; | `0x0000` &nbsp;&nbsp; | 4 &nbsp;&nbsp;&nbsp;&nbsp; | `3d  b8  f3  96` &nbsp;&nbsp;&nbsp;&nbsp; | `ih_magic`: <br> Magic Number, <br> must be `3d  b8  f3  96` <br><br> | 
+| `0x8000`&nbsp;&nbsp; | `0x0000`&nbsp;&nbsp; | 4 &nbsp;&nbsp;&nbsp;&nbsp; | `3d  b8  f3  96` &nbsp;&nbsp;&nbsp;&nbsp; | `ih_magic`: <br> Magic Number, <br> must be `3d  b8  f3  96` <br><br> | 
 | `0x8004` | `0x0004` | 4 &nbsp;&nbsp;&nbsp;&nbsp; | `00  00  00  00`| `ih_load_addr`: <br> Must be `00 00 00 00` <br><br>   
 | `0x8008` | `0x0008` | 2 &nbsp;&nbsp;&nbsp;&nbsp; | `20  00`| `ih_hdr_size`: <br> Size of image header, must be 32 (`0x20`) <br><br>
 | `0x800A` | `0x000A` | 2 &nbsp;&nbsp;&nbsp;&nbsp; | `00  00`| `ih_protect_tlv_size`:  <br> Size of protected TLV area, in bytes. <br> Usually `00 00` <br><br>
@@ -552,7 +552,7 @@ Here are the steps for creating the Firmware Image File...
 
 Thus the flow goes like this...
 
-Build Firmware with Modified Linker Script -> Firmware ELF File -> Firmware BIN File -> Firmware Image File
+![Generate a Firmware Image File for PineTime](https://lupyuen.github.io/images/dfu-imgtool.png)
 
 _How shall we modify the GCC Linker Script for our firmware to include the Image Header?_
 
@@ -564,7 +564,7 @@ _imghdr_size = 0x20;
 MEMORY
 {
   FLASH (rx) : ORIGIN = 0x00008000, LENGTH = 232K
-  RAM (rwx)  : ORIGIN = 0x20000000, LENGTH = 0x10000
+  RAM (rwx)  : ORIGIN = 0x20000000, LENGTH = 64K
 }
 
 SECTIONS
@@ -586,7 +586,9 @@ SECTIONS
 
 This Linker Script says...
 
-1. At the beginning of the Firmware Image (`FLASH`), reserve 32 bytes (`_imghdr_size`) for the Image Header (`.imghdr`)
+1. The usable Flash ROM (`FLASH`) starts at address `0x8000` with size 232 KB. RAM starts at address `0x2000 0000` with size 64 KB.
+
+1. At the beginning of the Firmware Image in Flash ROM (`FLASH`), reserve 32 bytes (`_imghdr_size`) for the Image Header (`.imghdr`)
 
 1. After the Image Header, write the Text Section (`.text`) into the Firmware Image. The Text Section contains the firmware code and data.
 

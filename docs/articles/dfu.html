@@ -466,7 +466,7 @@
 <p><em>What's inside the Image Header?</em></p>
 <p>The Image Header consists of 32 bytes (<code>0x20</code>) in little endian byte order (<a href="https://juullabs-oss.github.io/mcuboot/design.html">as defined here</a>)...</p>
 <table><thead><tr><th align="left">ROM Address</th><th align="left">Offset in <br> Image File</th><th align="right">Size <br> (bytes)</th><th align="left">Example</th><th align="left">Contents</th></tr></thead><tbody>
-<tr><td align="left"><code>0x8000</code>   </td><td align="left"><code>0x0000</code>   </td><td align="right">4     </td><td align="left"><code>3d  b8  f3  96</code>     </td><td align="left"><code>ih_magic</code>: <br> Magic Number, <br> must be <code>3d  b8  f3  96</code> <br><br></td></tr>
+<tr><td align="left"><code>0x8000</code>  </td><td align="left"><code>0x0000</code>  </td><td align="right">4     </td><td align="left"><code>3d  b8  f3  96</code>     </td><td align="left"><code>ih_magic</code>: <br> Magic Number, <br> must be <code>3d  b8  f3  96</code> <br><br></td></tr>
 <tr><td align="left"><code>0x8004</code></td><td align="left"><code>0x0004</code></td><td align="right">4     </td><td align="left"><code>00  00  00  00</code></td><td align="left"><code>ih_load_addr</code>: <br> Must be <code>00 00 00 00</code> <br><br></td></tr>
 <tr><td align="left"><code>0x8008</code></td><td align="left"><code>0x0008</code></td><td align="right">2     </td><td align="left"><code>20  00</code></td><td align="left"><code>ih_hdr_size</code>: <br> Size of image header, must be 32 (<code>0x20</code>) <br><br></td></tr>
 <tr><td align="left"><code>0x800A</code></td><td align="left"><code>0x000A</code></td><td align="right">2     </td><td align="left"><code>00  00</code></td><td align="left"><code>ih_protect_tlv_size</code>:  <br> Size of protected TLV area, in bytes. <br> Usually <code>00 00</code> <br><br></td></tr>
@@ -514,7 +514,7 @@
 </li>
 </ol>
 <p>Thus the flow goes like this...</p>
-<p>Build Firmware with Modified Linker Script -&gt; Firmware ELF File -&gt; Firmware BIN File -&gt; Firmware Image File</p>
+<p><img src="https://lupyuen.github.io/images/dfu-imgtool.png" alt="Generate a Firmware Image File for PineTime" /></p>
 <p><em>How shall we modify the GCC Linker Script for our firmware to include the Image Header?</em></p>
 <p>For building our firmware, we'll modify our Linker Script like this (See <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/nrf52.ld"><code>nrf52.ld</code></a> and <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/hw/bsp/nrf52/nrf52xxaa.ld"><code>nrf52xxaa.ld</code></a>)</p>
 
@@ -524,7 +524,7 @@
 <span class="ident">MEMORY</span>
 {
   <span class="ident">FLASH</span> (<span class="ident">rx</span>) : <span class="ident">ORIGIN</span> <span class="op">=</span> <span class="number">0x00008000</span>, <span class="ident">LENGTH</span> <span class="op">=</span> <span class="number">232K</span>
-  <span class="ident">RAM</span> (<span class="ident">rwx</span>)  : <span class="ident">ORIGIN</span> <span class="op">=</span> <span class="number">0x20000000</span>, <span class="ident">LENGTH</span> <span class="op">=</span> <span class="number">0x10000</span>
+  <span class="ident">RAM</span> (<span class="ident">rwx</span>)  : <span class="ident">ORIGIN</span> <span class="op">=</span> <span class="number">0x20000000</span>, <span class="ident">LENGTH</span> <span class="op">=</span> <span class="number">64K</span>
 }
 
 <span class="ident">SECTIONS</span>
@@ -545,7 +545,10 @@
 <p>This Linker Script says...</p>
 <ol>
 <li>
-<p>At the beginning of the Firmware Image (<code>FLASH</code>), reserve 32 bytes (<code>_imghdr_size</code>) for the Image Header (<code>.imghdr</code>)</p>
+<p>The usable Flash ROM (<code>FLASH</code>) starts at address <code>0x8000</code> with size 232 KB. RAM starts at address <code>0x2000 0000</code> with size 64 KB.</p>
+</li>
+<li>
+<p>At the beginning of the Firmware Image in Flash ROM (<code>FLASH</code>), reserve 32 bytes (<code>_imghdr_size</code>) for the Image Header (<code>.imghdr</code>)</p>
 </li>
 <li>
 <p>After the Image Header, write the Text Section (<code>.text</code>) into the Firmware Image. The Text Section contains the firmware code and data.</p>
