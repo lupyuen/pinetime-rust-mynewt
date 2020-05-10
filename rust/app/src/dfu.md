@@ -740,43 +740,31 @@ More about the [Image Trailer](https://juullabs-oss.github.io/mcuboot/design.htm
 
 # Checklist for PineTime Firmware Developers
 
-TODO
-
 In summary, PineTime Firmware Developers would have to do the following to support firmware updates over Bluetooth LE...
 
-1. Adopt the __Standard Flash ROM Layout__ in the firmware, by modifying the GCC Linker Script
+1. Adopt the __Standard Flash ROM Layout__ for building the firmware, by modifying the GCC Linker Script
 
-1. Port __MCU Manager Library__ to the firmware, including writing flash image to Flash ROM
+1. Port __MCU Manager Library__ to the firmware, including the functions for writing the flash image to Flash ROM
 
-1. Port __NimBLE Bluetooth LE networking stack__ to the firmware
+1. Port __NimBLE Bluetooth LE networking stack__ to the firmware by coding a NimBLE Porting Layer
 
 1. Generate a __Firmware Image containing Image Header in MCUBoot format__ with `arm-none-eabi-objcopy` and `imgtool.py`
 
-1. When a new version of the firmware runs on PineTime, the firmware should __show the version number in a message prompt__
+1. When a new version of the firmware starts on PineTime, the firmware shall __show the version number in a message prompt__
 
 1. When the user dismisses the message prompt, the firmware shall __set the Image OK status__
 
 __For Mynewt and Zephyr:__ Some of the steps in this article may not be necessary... Check the simpler instructions for Mynewt and Zephyr on the NimBLE, MCU Manager and MCUBoot websites.
 
-# Test PineTime Firmware Update over Bluetooth LE
+# Optional: Command Handlers for MCU Manager on PineTime
 
-TODO
+When PineTime is configured for firmware update over Bluetooth LE, additional GATT Services may be exposed by the MCU Manager Library.
 
-Now testing PineTime Mynewt firmware built with Newt Manager library, located at the `ota` branch of `/pinetime-rust-mynewt`:
+Here are the GATT Services that appear when the nRF Connect mobile app is connected to PineTime...
 
-https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota
+![GATT Services exposed by MCU Manager on PineTime](https://lupyuen.github.io/images/dfu-gattservices.jpg)
 
-The Newt Manager library files have been added here: (`ble_*.c` and `ble_*.h`)
-
-https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota/apps/my_sensor_app/src
-
-The files were derived from the Mynewt `bleprph` sample:
-
-https://github.com/apache/mynewt-nimble/tree/master/apps/bleprph
-
-# Optional: Other Command Handlers for MCU Manager
-
-TODO
+_GATT Services exposed by MCU Manager on PineTime_
 
 MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:
 
@@ -823,9 +811,21 @@ security test service
 59462f12-9543-9999-12c8-58b459a2712d
 https://github.com/apache/mynewt-nimble/blob/master/apps/btshell/src/gatt_svr.c#L67-L94
 
-![GATT Services exposed by MCU Manager on PineTime](https://lupyuen.github.io/images/dfu-gattservices.jpg)
+# Test PineTime Firmware Update over Bluetooth LE
 
-_GATT Services exposed by MCU Manager on PineTime_
+TODO
+
+Now testing PineTime Mynewt firmware built with Newt Manager library, located at the `ota` branch of `/pinetime-rust-mynewt`:
+
+https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota
+
+The Newt Manager library files have been added here: (`ble_*.c` and `ble_*.h`)
+
+https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota/apps/my_sensor_app/src
+
+The files were derived from the Mynewt `bleprph` sample:
+
+https://github.com/apache/mynewt-nimble/tree/master/apps/bleprph
 
 # Raspberry Pi Client
 
