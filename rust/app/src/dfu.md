@@ -10,7 +10,7 @@ _What if we could flash any firmware to PineTime from our mobile phone... Withou
 
 Yes we can! Just download the firmware file into our phone and push it wirelessly to our watch, like this...
 
-![Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch](https://lupyuen.github.io/images/dfu-flow.png)
+![Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch](https://lupyuen.github.io/images/dfu-flow2.png)
 
 _Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch_
 
