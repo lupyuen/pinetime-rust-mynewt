@@ -693,21 +693,51 @@ When running the firmware image with the build of MCUBoot from the previous sect
 
 TODO
 
+/**
+ * Marks the image in the primary slot as confirmed.  The system will continue
+ * booting into the image in the primary slot until told to boot from a
+ * different slot.
+ *
+ * @return                  0 on success; nonzero on failure.
+ */
+int
+boot_set_confirmed(void)
+
+https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/include/bootutil/bootutil.h#L103
+
+https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/src/bootutil_misc.c#L718-L774
+
+https://juullabs-oss.github.io/mcuboot/design.html#image-trailer
+
+Image Trailer
+
+For the bootloader to be able to determine the current state and what actions should be taken during the current boot operation, it uses metadata stored in the image flash areas. While swapping, some of this metadata is temporarily copied into and out of the scratch area.
+
+This metadata is located at the end of the image flash areas, and is called an image trailer. An image trailer has the following structure:
+
+Image OK: A single byte indicating whether the image in this slot has been confirmed as good by the user (0x01=confirmed; 0xff=not confirmed).
+
+MAGIC: The following 16 bytes, written in host-byte-order:
+
+const uint32_t boot_img_magic[4] = { 0xf395c277, 0x7fefd260, 0x0f505235, 0x8079b62c, };
+
 # Checklist for PineTime Firmware Developers
 
 TODO
 
-In summary, PineTime Firmware Developers would have to do the following to support firmware update over Bluetooth LE...
+In summary, PineTime Firmware Developers would have to do the following to support firmware updates over Bluetooth LE...
 
-1. Adopt the standard Flash ROM Layout
+1. Adopt the standard Flash ROM Layout in the firmware, by modifying the GCC Linker Script
 
-1. Port MCU Manager Library, including writing flash image to ROM
+1. Port MCU Manager Library to the firmware, including writing flash image to ROM
 
-1. Port NimBLE Bluetooth LE stack
+1. Port NimBLE Bluetooth LE networking stack to the firmware
 
-1. Generate firmware image containing MCUBoot Image Header
+1. Generate a Firmware Image containing Image Header in MCUBoot format (with `arm-none-eabi-objcopy` and `imgtool.py`)
 
-1. Mark PineTime Firmware as OK
+1. When a new version of the firmware runs on PineTime, the firmware should show the version number in a message prompt
+
+1. When the user dismisses the message prompt, the firmware shall set the Firmware OK status
 
 # Test PineTime Firmware Update over Bluetooth LE
 
