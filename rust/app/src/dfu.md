@@ -760,7 +760,7 @@ __For Mynewt and Zephyr:__ Some of the steps in this article may not be necessar
 
 When PineTime is configured for firmware update over Bluetooth LE, additional GATT Services may be exposed by the MCU Manager Library.
 
-Here are the GATT Services that appear when the nRF Connect mobile app is connected to PineTime...
+Here are the GATT Services that appear when the [Nordic nRF Connect](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app is connected to PineTime...
 
 ![GATT Services exposed by MCU Manager on PineTime](https://lupyuen.github.io/images/dfu-gattservices.jpg)
 
@@ -770,7 +770,7 @@ Let's examine the GATT Services shown above...
 
 __Simple Management Protocol (SMP) Service__ is managed by the MCU Manager Library as [Command Handlers](https://github.com/apache/mynewt-mcumgr/tree/master/cmd)...
 
-1. __Image Management:__ For querying and updating firmware images. This is the Command Handler that we have implemented to support firmware update on PineTime. See [`img_mgmt`](https://github.com/apache/mynewt-mcumgr/tree/master/cmd/img_mgmt)
+1. __Image Management:__ For querying and updating firmware images in PineTime's Flash ROM. This is the Command Handler that we have implemented to support firmware update on PineTime. See [`img_mgmt`](https://github.com/apache/mynewt-mcumgr/tree/master/cmd/img_mgmt)
 
 1. __File System Management:__ For accessing the user file system in PineTime's Flash ROM. See [`fs_mgmt`](https://github.com/apache/mynewt-mcumgr/tree/master/cmd/fs_mgmt)
 

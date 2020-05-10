@@ -68,8 +68,8 @@
 <li><a href="#generate-a-firmware-image-file-for-pinetime">8 Generate a Firmware Image File for PineTime</a><ul></ul></li>
 <li><a href="#mark-pinetime-firmware-as-ok">9 Mark PineTime Firmware As OK</a><ul></ul></li>
 <li><a href="#checklist-for-pinetime-firmware-developers">10 Checklist for PineTime Firmware Developers</a><ul></ul></li>
-<li><a href="#test-pinetime-firmware-update-over-bluetooth-le">11 Test PineTime Firmware Update over Bluetooth LE</a><ul></ul></li>
-<li><a href="#optional-other-command-handlers-for-mcu-manager">12 Optional: Other Command Handlers for MCU Manager</a><ul></ul></li>
+<li><a href="#optional-command-handlers-for-mcu-manager-on-pinetime">11 Optional: Command Handlers for MCU Manager on PineTime</a><ul></ul></li>
+<li><a href="#test-pinetime-firmware-update-over-bluetooth-le">12 Test PineTime Firmware Update over Bluetooth LE</a><ul></ul></li>
 <li><a href="#raspberry-pi-client">13 Raspberry Pi Client</a><ul></ul></li>
 <li><a href="#android-client">14 Android Client</a><ul></ul></li>
 <li><a href="#ios-client">15 iOS Client</a><ul></ul></li>
@@ -649,30 +649,74 @@ int boot_set_confirmed(void)
 </code></pre>
 <p>More about the <a href="https://juullabs-oss.github.io/mcuboot/design.html#image-trailer">Image Trailer</a></p>
 <h1 id="checklist-for-pinetime-firmware-developers" class="section-header"><a href="#checklist-for-pinetime-firmware-developers">10 Checklist for PineTime Firmware Developers</a></h1>
-<p>TODO</p>
 <p>In summary, PineTime Firmware Developers would have to do the following to support firmware updates over Bluetooth LE...</p>
 <ol>
 <li>
-<p>Adopt the <strong>Standard Flash ROM Layout</strong> in the firmware, by modifying the GCC Linker Script</p>
+<p>Adopt the <strong>Standard Flash ROM Layout</strong> for building the firmware, by modifying the GCC Linker Script</p>
 </li>
 <li>
-<p>Port <strong>MCU Manager Library</strong> to the firmware, including writing flash image to Flash ROM</p>
+<p>Port <strong>MCU Manager Library</strong> to the firmware, including the functions for writing the flash image to Flash ROM</p>
 </li>
 <li>
-<p>Port <strong>NimBLE Bluetooth LE networking stack</strong> to the firmware</p>
+<p>Port <strong>NimBLE Bluetooth LE networking stack</strong> to the firmware by coding a NimBLE Porting Layer</p>
 </li>
 <li>
 <p>Generate a <strong>Firmware Image containing Image Header in MCUBoot format</strong> with <code>arm-none-eabi-objcopy</code> and <code>imgtool.py</code></p>
 </li>
 <li>
-<p>When a new version of the firmware runs on PineTime, the firmware should <strong>show the version number in a message prompt</strong></p>
+<p>When a new version of the firmware starts on PineTime, the firmware shall <strong>show the version number in a message prompt</strong></p>
 </li>
 <li>
 <p>When the user dismisses the message prompt, the firmware shall <strong>set the Image OK status</strong></p>
 </li>
 </ol>
 <p><strong>For Mynewt and Zephyr:</strong> Some of the steps in this article may not be necessary... Check the simpler instructions for Mynewt and Zephyr on the NimBLE, MCU Manager and MCUBoot websites.</p>
-<h1 id="test-pinetime-firmware-update-over-bluetooth-le" class="section-header"><a href="#test-pinetime-firmware-update-over-bluetooth-le">11 Test PineTime Firmware Update over Bluetooth LE</a></h1>
+<h1 id="optional-command-handlers-for-mcu-manager-on-pinetime" class="section-header"><a href="#optional-command-handlers-for-mcu-manager-on-pinetime">11 Optional: Command Handlers for MCU Manager on PineTime</a></h1>
+<p>When PineTime is configured for firmware update over Bluetooth LE, additional GATT Services may be exposed by the MCU Manager Library.</p>
+<p>Here are the GATT Services that appear when the <a href="https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile">Nordic nRF Connect</a> mobile app is connected to PineTime...</p>
+<p><img src="https://lupyuen.github.io/images/dfu-gattservices.jpg" alt="GATT Services exposed by MCU Manager on PineTime" /></p>
+<p><em>GATT Services exposed by MCU Manager on PineTime</em></p>
+<p>Let's examine the GATT Services shown above...</p>
+<p><strong>Simple Management Protocol (SMP) Service</strong> is managed by the MCU Manager Library as <a href="https://github.com/apache/mynewt-mcumgr/tree/master/cmd">Command Handlers</a>...</p>
+<ol>
+<li>
+<p><strong>Image Management:</strong> For querying and updating firmware images in PineTime's Flash ROM. This is the Command Handler that we have implemented to support firmware update on PineTime. See <a href="https://github.com/apache/mynewt-mcumgr/tree/master/cmd/img_mgmt"><code>img_mgmt</code></a></p>
+</li>
+<li>
+<p><strong>File System Management:</strong> For accessing the user file system in PineTime's Flash ROM. See <a href="https://github.com/apache/mynewt-mcumgr/tree/master/cmd/fs_mgmt"><code>fs_mgmt</code></a></p>
+</li>
+<li>
+<p><strong>Log Management:</strong> For browsing the debugging messages logged by the firmware. See <a href="https://github.com/apache/mynewt-mcumgr/tree/master/cmd/log_mgmt"><code>log_mgmt</code></a></p>
+</li>
+<li>
+<p><strong>OS Management:</strong> Execute Operating System functions. See <a href="https://github.com/apache/mynewt-mcumgr/tree/master/cmd/os_mgmt"><code>os_mgmt</code></a></p>
+</li>
+<li>
+<p><strong>Statistics Management:</strong> Runtime statistics useful for troubleshooting. See <a href="https://github.com/apache/mynewt-mcumgr/tree/master/cmd/stat_mgmt"><code>stat_mgmt</code></a></p>
+</li>
+</ol>
+<p>PineTime Firmware Developers only need to implement the Image Management Command Handler to support firmware updates. The other Command Handlers are optional, though they may be useful for diagnostics and troubleshooting.</p>
+<p>PineTime also exposes <a href="https://www.bluetooth.com/specifications/gatt/services/"><strong>Standard GATT Services</strong></a> that are defined in the Bluetooth LE Specifications...</p>
+<ol>
+<li>
+<p><strong>Generic Access</strong> (<code>0x1800</code>):
+Device Name (<code>pinetime</code>) and Appearance. <a href="https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_access.xml">Specifications</a></p>
+</li>
+<li>
+<p><strong>Generic Attribute</strong> (<code>0x1801</code>): Notify the mobile app of any changes in PineTime's GATT Services.
+<a href="https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_attribute.xml">Specifications</a></p>
+</li>
+<li>
+<p><strong>Device Information</strong> (<code>0x180A</code>): Model Number (<code>Apache Mynewt NimBLE</code>) and Firmware Revision (<code>1.0.0</code>).
+<a href="https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.device_information.xml">Specifications</a></p>
+</li>
+<li>
+<p><strong>Alert Notification Service</strong>	(<code>0x1811</code>): Alerts and Notifications.
+<a href="https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.alert_notification.xml">Specifications</a></p>
+</li>
+</ol>
+<p>The final GATT Service (<code>59462f12-9543-9999-12c8-58b459a2712d</code>) in the screen above is the <strong>Security Test Service</strong>, which is also optional. See <a href="https://github.com/apache/mynewt-nimble/blob/master/apps/btshell/src/gatt_svr.c#L67-L94"><code>gatt_svr.c</code></a></p>
+<h1 id="test-pinetime-firmware-update-over-bluetooth-le" class="section-header"><a href="#test-pinetime-firmware-update-over-bluetooth-le">12 Test PineTime Firmware Update over Bluetooth LE</a></h1>
 <p>TODO</p>
 <p>Now testing PineTime Mynewt firmware built with Newt Manager library, located at the <code>ota</code> branch of <code>/pinetime-rust-mynewt</code>:</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota</p>
@@ -680,42 +724,6 @@ int boot_set_confirmed(void)
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota/apps/my_sensor_app/src</p>
 <p>The files were derived from the Mynewt <code>bleprph</code> sample:</p>
 <p>https://github.com/apache/mynewt-nimble/tree/master/apps/bleprph</p>
-<h1 id="optional-other-command-handlers-for-mcu-manager" class="section-header"><a href="#optional-other-command-handlers-for-mcu-manager">12 Optional: Other Command Handlers for MCU Manager</a></h1>
-<p>TODO</p>
-<p>MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:</p>
-<p>https://github.com/apache/mynewt-mcumgr/tree/master/cmd</p>
-<p>fs_mgmt
-https://github.com/apache/mynewt-mcumgr/tree/master/cmd/fs_mgmt</p>
-<p>img_mgmt
-https://github.com/apache/mynewt-mcumgr/tree/master/cmd/img_mgmt</p>
-<p>log_mgmt
-https://github.com/apache/mynewt-mcumgr/tree/master/cmd/log_mgmt</p>
-<p>os_mgmt
-https://github.com/apache/mynewt-mcumgr/tree/master/cmd/os_mgmt</p>
-<p>stat_mgmt
-https://github.com/apache/mynewt-mcumgr/tree/master/cmd/stat_mgmt</p>
-<p>GATT Services
-https://www.bluetooth.com/specifications/gatt/services/</p>
-<p>0x1800
-Generic Access	
-https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_access.xml
-Device Name</p>
-<p>0x1801
-Generic Attribute
-https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_attribute.xml</p>
-<p>0x180A
-Device Information
-https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.device_information.xml
-Model Number
-Firmware Revision</p>
-<p>0x1811
-Alert Notification Service	
-https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.alert_notification.xml</p>
-<p>security test service
-59462f12-9543-9999-12c8-58b459a2712d
-https://github.com/apache/mynewt-nimble/blob/master/apps/btshell/src/gatt_svr.c#L67-L94</p>
-<p><img src="https://lupyuen.github.io/images/dfu-gattservices.jpg" alt="GATT Services exposed by MCU Manager on PineTime" /></p>
-<p><em>GATT Services exposed by MCU Manager on PineTime</em></p>
 <h1 id="raspberry-pi-client" class="section-header"><a href="#raspberry-pi-client">13 Raspberry Pi Client</a></h1>
 <p>TODO</p>
 <p>Newt Manager builds OK on Raspberry Pi 4 and works OK with PineTime.  See the log below.</p>
