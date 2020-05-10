@@ -530,7 +530,7 @@ Good news for PineTime Firmware Developers: We don't need to build MCUBoot ourse
 
 [`pinetime-rust-mynewt/releases/tag/v4.0.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.0.1)
 
-This build of MCUBoot assumes that the PineTime firmware follows the Flash ROM Map described earlier in this article. The MCUBoot image should be flashed to PineTime at address `0x0`.
+This build of MCUBoot (`mynewt.elf.bin`) assumes that the PineTime firmware follows the Flash ROM Map described earlier in this article. The MCUBoot image should be flashed to PineTime at address `0x0`.
 
 Here are the build settings and build script for MCUBoot: [`targets/nrf52_boot`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/targets%2Fnrf52_boot), [`build-boot.sh`](https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fbuild-boot.sh)
 
@@ -667,7 +667,7 @@ That's why we use `NOLOAD` to drop the empty Image Header from the BIN file, and
 
 _Why not omit the Image Header from the Linker Script?_
 
-Because the GCC Linker would compute the ROM addresses incorrectly. Let's look again at the dumps of the Firmware BIN and Image Files...
+So that the GCC Linker can compute the ROM addresses correctly. Let's look again at the dumps of the Firmware BIN and Image Files...
 
 ![Firmware BIN vs Image File: Reset_Handler](https://lupyuen.github.io/images/dfu-image3.png)
 
@@ -678,6 +678,16 @@ But how did the GCC Linker allocate ROM address `0x80F9` for `Reset_Handler`? Th
 Hence we had to insert an empty Image Header for GCC Linker to compute the correct ROM addresses.
 
 BTW that's not a typo: The Interrupt Vector Table uses address `0x80F9` to refer to function `Reset_Handler`, which is actually located at `0x80F8` (i.e. the address is off by 1). This is a known quirk of Interrupt Vector Tables on Arm CPUs.
+
+_Are there sample Firmware ELF, BIN and Image Files available for inspection and testing?_
+
+Sample Firmware ELF (`my_sensor_app.elf`), BIN (`my_sensor_app.elf.bin`) and Image (`my_sensor_app.img`) Files may be found here...
+
+[`pinetime-rust-mynewt/releases/tag/v4.0.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.0.1)
+
+When running the firmware image with the build of MCUBoot from the previous section, the following log will be shown...
+
+![Running the sample firmware image](https://lupyuen.github.io/images/dfu-runimage.png)
 
 # Mark PineTime Firmware as OK
 

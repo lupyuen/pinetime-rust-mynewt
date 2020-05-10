@@ -493,7 +493,7 @@
 <p><em>Do we need to build MCUBoot ourselves?</em></p>
 <p>Good news for PineTime Firmware Developers: We don't need to build MCUBoot ourselves or link it with our firmware... Just use the <strong>Common Build of MCUBoot Bootloader</strong> that I have prepared!</p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.0.1"><code>pinetime-rust-mynewt/releases/tag/v4.0.1</code></a></p>
-<p>This build of MCUBoot assumes that the PineTime firmware follows the Flash ROM Map described earlier in this article. The MCUBoot image should be flashed to PineTime at address <code>0x0</code>.</p>
+<p>This build of MCUBoot (<code>mynewt.elf.bin</code>) assumes that the PineTime firmware follows the Flash ROM Map described earlier in this article. The MCUBoot image should be flashed to PineTime at address <code>0x0</code>.</p>
 <p>Here are the build settings and build script for MCUBoot: <a href="https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/targets%2Fnrf52_boot"><code>targets/nrf52_boot</code></a>, <a href="https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fbuild-boot.sh"><code>build-boot.sh</code></a></p>
 <p>MCUBoot may be flashed to PineTime with these OpenOCD scripts: <a href="https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.sh"><code>flash-boot.sh</code></a>, <a href="https://www.github.com/lupyuen/pinetime-rust-mynewt/tree/ota/scripts%2Fnrf52%2Fflash-boot.ocd"><code>flash-boot.ocd</code></a></p>
 <h1 id="generate-a-firmware-image-file-for-pinetime" class="section-header"><a href="#generate-a-firmware-image-file-for-pinetime">8 Generate a Firmware Image File for PineTime</a></h1>
@@ -609,12 +609,17 @@ mcuboot/scripts/imgtool.py verify my_sensor_app.img
 <p>Thus when <code>imgtool.py</code> transforms the Firmware BIN File to a Firmware Image File... It's merely inserting the Image Header at the front of the BIN file!</p>
 <p>That's why we use <code>NOLOAD</code> to drop the empty Image Header from the BIN file, and let <code>imgtool.py</code> insert a proper Image Header into the final firmware file.</p>
 <p><em>Why not omit the Image Header from the Linker Script?</em></p>
-<p>Because the GCC Linker would compute the ROM addresses incorrectly. Let's look again at the dumps of the Firmware BIN and Image Files...</p>
+<p>So that the GCC Linker can compute the ROM addresses correctly. Let's look again at the dumps of the Firmware BIN and Image Files...</p>
 <p><img src="https://lupyuen.github.io/images/dfu-image3.png" alt="Firmware BIN vs Image File: Reset_Handler" /></p>
 <p>In both files, the Interrupt Vector Tables point to the <code>Reset_Handler</code> function, the first function in our firmware.  The addresses in both Interrupt Vector Tables are the same: <code>0x80F9</code></p>
 <p>But how did the GCC Linker allocate ROM address <code>0x80F9</code> for <code>Reset_Handler</code>? The offset (<code>0xF9</code>) was computed based on Image Header size (<code>0x20</code>) + Interrupt Vector Table size (<code>0xD8</code>) + 1.</p>
 <p>Hence we had to insert an empty Image Header for GCC Linker to compute the correct ROM addresses.</p>
 <p>BTW that's not a typo: The Interrupt Vector Table uses address <code>0x80F9</code> to refer to function <code>Reset_Handler</code>, which is actually located at <code>0x80F8</code> (i.e. the address is off by 1). This is a known quirk of Interrupt Vector Tables on Arm CPUs.</p>
+<p><em>Are there sample Firmware ELF, BIN and Image Files available for inspection and testing?</em></p>
+<p>Sample Firmware ELF (<code>my_sensor_app.elf</code>), BIN (<code>my_sensor_app.elf.bin</code>) and Image (<code>my_sensor_app.img</code>) Files may be found here...</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.0.1"><code>pinetime-rust-mynewt/releases/tag/v4.0.1</code></a></p>
+<p>When running the firmware image with the build of MCUBoot from the previous section, the following log will be shown...</p>
+<p><img src="https://lupyuen.github.io/images/dfu-runimage.png" alt="Running the sample firmware image" /></p>
 <h1 id="mark-pinetime-firmware-as-ok" class="section-header"><a href="#mark-pinetime-firmware-as-ok">9 Mark PineTime Firmware as OK</a></h1>
 <p>TODO</p>
 <h1 id="checklist-for-pinetime-firmware-developers" class="section-header"><a href="#checklist-for-pinetime-firmware-developers">10 Checklist for PineTime Firmware Developers</a></h1>
