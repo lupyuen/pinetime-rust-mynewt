@@ -695,13 +695,13 @@ MCUBoot Bootloader has a helpful feature that prevents PineTime from getting bri
 
 _How does MCUBoot know whether the new firmware is OK?_
 
-The new firmware is required to set the Firmware OK status in MCUBoot when it has started properly after a firmware update.  This needs to be implemented by the PineTime Firmware Developer.
+The new firmware is required to set the __Image OK__ status in MCUBoot when it has started properly after a firmware update.  This needs to be implemented by the PineTime Firmware Developer.
 
-_When shall we set the Firmware OK status?_
+_When shall we set the Image OK status?_
 
 Only when the new firmware is able to start up, display messages and accept input properly.  See the MCUBoot section on the user confirmation prompt that shall be implemented by PineTime Firmware Developers.
 
-_How shall we set the Firmware OK status?_
+_How shall we set the Image OK status?_
 
 Call the C function `boot_set_confirmed()` from the MCUBoot Library...
 
@@ -718,23 +718,25 @@ See [`bootutil.h`](https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/boot
 
 _Where is the Firmware OK status stored?_
 
+In the __Image Trailer__ located at the end of the Active Flash Slot.
 
+The Image OK field contains a single byte indicating whether the image in this slot has been confirmed as good by the user (`0x01` means confirmed; `0xff` means not confirmed).
 
-https://juullabs-oss.github.io/mcuboot/design.html#image-trailer
+_The Image Trailer is not part of the Firmware Image. How does it get written?_
 
-Image Trailer
+During firmware update, MCUBoot writes the Image Trailer at the end of the Active Flash Slot.
 
-For the bootloader to be able to determine the current state and what actions should be taken during the current boot operation, it uses metadata stored in the image flash areas. While swapping, some of this metadata is temporarily copied into and out of the scratch area.
+To check whether there is a valid Image Trailer, MCUBoot looks for the following 16 "Magic" bytes (in host-byte-order)...
 
-This metadata is located at the end of the image flash areas, and is called an image trailer. An image trailer has the following structure:
+```c
+const uint32_t boot_img_magic[4] = { 
+  0xf395c277, 
+  0x7fefd260, 
+  0x0f505235, 
+  0x8079b62c };
+```
 
-Image OK: A single byte indicating whether the image in this slot has been confirmed as good by the user (0x01=confirmed; 0xff=not confirmed).
-
-MAGIC: The following 16 bytes, written in host-byte-order:
-
-const uint32_t boot_img_magic[4] = { 0xf395c277, 0x7fefd260, 0x0f505235, 0x8079b62c, };
-
-Mynewt, Zephyr, RIOT
+More about the [Image Trailer](https://juullabs-oss.github.io/mcuboot/design.html#image-trailer)
 
 # Checklist for PineTime Firmware Developers
 
@@ -752,7 +754,7 @@ In summary, PineTime Firmware Developers would have to do the following to suppo
 
 1. When a new version of the firmware runs on PineTime, the firmware should __show the version number in a message prompt__
 
-1. When the user dismisses the message prompt, the firmware shall __set the Firmware OK status__
+1. When the user dismisses the message prompt, the firmware shall __set the Image OK status__
 
 __For Mynewt and Zephyr:__ Some of the steps in this article may not be necessary... Check the simpler instructions for Mynewt and Zephyr on the NimBLE, MCU Manager and MCUBoot websites.
 
