@@ -2,7 +2,7 @@
 
 ![Platforms in development for PineTime Smart Watch](https://lupyuen.github.io/images/dfu-platforms.png)
 
-Thanks to the FOSS Community, [PineTime Smart Watch](https://wiki.pine64.org/index.php/PineTime) has an incredible variety of FOSS operating systems in the works: [FreeRTOS](https://github.com/JF002/Pinetime), [MicroPython](https://github.com/daniel-thompson/wasp-os), [Mynewt](https://github.com/lupyuen/pinetime-rust-mynewt), [RIOT](https://github.com/bosmoment/PineTime-apps), Rust [RTFM](https://github.com/wose/xochron) ([another](https://github.com/dbrgn/pinetime-rtfm)), [TinyGo](https://github.com/aykevl/go-smartwatch), [Tock](https://www.tockos.org/), [Zephyr](https://github.com/najnesnaj/pinetime-zephyr) ([another](https://github.com/Dejvino/pinetime-hermes-firmware.git)), ...
+Thanks to the FOSS Community, [PineTime Smart Watch](https://wiki.pine64.org/index.php/PineTime) has an incredible variety of FOSS operating systems in the works: [FreeRTOS](https://github.com/JF002/Pinetime), [MicroPython](https://github.com/daniel-thompson/wasp-os), [Mynewt](https://github.com/lupyuen/pinetime-rust-mynewt), [RIOT](https://github.com/bosmoment/PineTime-apps), Rust [RTFM](https://github.com/wose/xochron) ([another](https://github.com/dbrgn/pinetime-rtfm)), [TinyGo](https://github.com/aykevl/go-smartwatch), [Tock](https://www.tockos.org/), [Zephyr](https://github.com/najnesnaj/pinetime-zephyr) ([another](https://github.com/Dejvino/pinetime-hermes-firmware.git), [yet another](https://github.com/endian-albin/pinetime-hypnos)), ...
 
 But these embedded platforms are accessible only by brave PineTime Owners who dare to pry open their watches very carefully... And connect a Raspberry Pi (or ST-Link) to the tiny delicate 4-pin SWD port recessed deep inside... Just to flash the PineTime firmware.
 
@@ -762,6 +762,37 @@ TODO
 MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:
 
 https://github.com/apache/mynewt-mcumgr/tree/master/cmd
+
+GATT Services
+https://www.bluetooth.com/specifications/gatt/services/
+
+0x1800
+Generic Access	
+https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_access.xml
+Device Name
+
+
+0x1801
+Generic Attribute
+https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_attribute.xml
+
+0x180A
+Device Information
+https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.device_information.xml
+Model Number
+Firmware Revision
+
+0x1811
+Alert Notification Service	
+https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.alert_notification.xml
+
+security test service
+59462f12-9543-9999-12c8-58b459a2712d
+https://github.com/apache/mynewt-nimble/blob/master/apps/btshell/src/gatt_svr.c#L67-L94
+
+![GATT Services exposed by MCU Manager on PineTime](https://lupyuen.github.io/images/dfu-gattservices.jpg)
+
+_GATT Services exposed by MCU Manager on PineTime_
 
 # Raspberry Pi Client
 

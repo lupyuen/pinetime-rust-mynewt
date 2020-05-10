@@ -78,7 +78,7 @@
 <li><a href="#other-pinetime-bluetooth-firmware-upgrade-solutions">18 Other PineTime Bluetooth Firmware Upgrade Solutions</a><ul></ul></li>
 <li><a href="#log-for-raspberry-pi-client">19 Log for Raspberry Pi Client</a><ul></ul></li>
 <li><a href="#further-reading">20 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/dfu-platforms.png" alt="Platforms in development for PineTime Smart Watch" /></p>
-<p>Thanks to the FOSS Community, <a href="https://wiki.pine64.org/index.php/PineTime">PineTime Smart Watch</a> has an incredible variety of FOSS operating systems in the works: <a href="https://github.com/JF002/Pinetime">FreeRTOS</a>, <a href="https://github.com/daniel-thompson/wasp-os">MicroPython</a>, <a href="https://github.com/lupyuen/pinetime-rust-mynewt">Mynewt</a>, <a href="https://github.com/bosmoment/PineTime-apps">RIOT</a>, Rust <a href="https://github.com/wose/xochron">RTFM</a> (<a href="https://github.com/dbrgn/pinetime-rtfm">another</a>), <a href="https://github.com/aykevl/go-smartwatch">TinyGo</a>, <a href="https://www.tockos.org/">Tock</a>, <a href="https://github.com/najnesnaj/pinetime-zephyr">Zephyr</a> (<a href="https://github.com/Dejvino/pinetime-hermes-firmware.git">another</a>), ...</p>
+<p>Thanks to the FOSS Community, <a href="https://wiki.pine64.org/index.php/PineTime">PineTime Smart Watch</a> has an incredible variety of FOSS operating systems in the works: <a href="https://github.com/JF002/Pinetime">FreeRTOS</a>, <a href="https://github.com/daniel-thompson/wasp-os">MicroPython</a>, <a href="https://github.com/lupyuen/pinetime-rust-mynewt">Mynewt</a>, <a href="https://github.com/bosmoment/PineTime-apps">RIOT</a>, Rust <a href="https://github.com/wose/xochron">RTFM</a> (<a href="https://github.com/dbrgn/pinetime-rtfm">another</a>), <a href="https://github.com/aykevl/go-smartwatch">TinyGo</a>, <a href="https://www.tockos.org/">Tock</a>, <a href="https://github.com/najnesnaj/pinetime-zephyr">Zephyr</a> (<a href="https://github.com/Dejvino/pinetime-hermes-firmware.git">another</a>, <a href="https://github.com/endian-albin/pinetime-hypnos">yet another</a>), ...</p>
 <p>But these embedded platforms are accessible only by brave PineTime Owners who dare to pry open their watches very carefully... And connect a Raspberry Pi (or ST-Link) to the tiny delicate 4-pin SWD port recessed deep inside... Just to flash the PineTime firmware.</p>
 <p><em>What if we could flash any firmware to PineTime from our mobile phone... Without opening the watch?</em></p>
 <p>Yes we can! Just download the firmware file into our phone and push it wirelessly to our watch, like this...</p>
@@ -622,24 +622,47 @@ mcuboot/scripts/imgtool.py verify my_sensor_app.img
 <p><img src="https://lupyuen.github.io/images/dfu-runimage.png" alt="Running the sample firmware image" /></p>
 <h1 id="mark-pinetime-firmware-as-ok" class="section-header"><a href="#mark-pinetime-firmware-as-ok">9 Mark PineTime Firmware as OK</a></h1>
 <p>TODO</p>
+<p>/**</p>
+<ul>
+<li>Marks the image in the primary slot as confirmed.  The system will continue</li>
+<li>booting into the image in the primary slot until told to boot from a</li>
+<li>different slot.</li>
+<li></li>
+<li>@return                  0 on success; nonzero on failure.
+*/
+int
+boot_set_confirmed(void)</li>
+</ul>
+<p>https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/include/bootutil/bootutil.h#L103</p>
+<p>https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/src/bootutil_misc.c#L718-L774</p>
+<p>https://juullabs-oss.github.io/mcuboot/design.html#image-trailer</p>
+<p>Image Trailer</p>
+<p>For the bootloader to be able to determine the current state and what actions should be taken during the current boot operation, it uses metadata stored in the image flash areas. While swapping, some of this metadata is temporarily copied into and out of the scratch area.</p>
+<p>This metadata is located at the end of the image flash areas, and is called an image trailer. An image trailer has the following structure:</p>
+<p>Image OK: A single byte indicating whether the image in this slot has been confirmed as good by the user (0x01=confirmed; 0xff=not confirmed).</p>
+<p>MAGIC: The following 16 bytes, written in host-byte-order:</p>
+<p>const uint32_t boot_img_magic[4] = { 0xf395c277, 0x7fefd260, 0x0f505235, 0x8079b62c, };</p>
 <h1 id="checklist-for-pinetime-firmware-developers" class="section-header"><a href="#checklist-for-pinetime-firmware-developers">10 Checklist for PineTime Firmware Developers</a></h1>
 <p>TODO</p>
-<p>In summary, PineTime Firmware Developers would have to do the following to support firmware update over Bluetooth LE...</p>
+<p>In summary, PineTime Firmware Developers would have to do the following to support firmware updates over Bluetooth LE...</p>
 <ol>
 <li>
-<p>Adopt the standard Flash ROM Layout</p>
+<p>Adopt the standard Flash ROM Layout in the firmware, by modifying the GCC Linker Script</p>
 </li>
 <li>
-<p>Port MCU Manager Library, including writing flash image to ROM</p>
+<p>Port MCU Manager Library to the firmware, including writing flash image to ROM</p>
 </li>
 <li>
-<p>Port NimBLE Bluetooth LE stack</p>
+<p>Port NimBLE Bluetooth LE networking stack to the firmware</p>
 </li>
 <li>
-<p>Generate firmware image containing MCUBoot Image Header</p>
+<p>Generate a Firmware Image containing Image Header in MCUBoot format (with <code>arm-none-eabi-objcopy</code> and <code>imgtool.py</code>)</p>
 </li>
 <li>
-<p>Mark PineTime Firmware as OK</p>
+<p>When a new version of the firmware runs on PineTime, the firmware should show the version number in a message prompt</p>
+</li>
+<li>
+<p>When the user dismisses the message prompt, the firmware shall set the Firmware OK status</p>
 </li>
 </ol>
 <h1 id="test-pinetime-firmware-update-over-bluetooth-le" class="section-header"><a href="#test-pinetime-firmware-update-over-bluetooth-le">11 Test PineTime Firmware Update over Bluetooth LE</a></h1>
@@ -654,6 +677,28 @@ mcuboot/scripts/imgtool.py verify my_sensor_app.img
 <p>TODO</p>
 <p>MCU Manager includes Command Handlers for managing Firmware Images, File System, Logging, OS and Runtime Statistics:</p>
 <p>https://github.com/apache/mynewt-mcumgr/tree/master/cmd</p>
+<p>GATT Services
+https://www.bluetooth.com/specifications/gatt/services/</p>
+<p>0x1800
+Generic Access	
+https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_access.xml
+Device Name</p>
+<p>0x1801
+Generic Attribute
+https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_attribute.xml</p>
+<p>0x180A
+Device Information
+https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.device_information.xml
+Model Number
+Firmware Revision</p>
+<p>0x1811
+Alert Notification Service	
+https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.alert_notification.xml</p>
+<p>security test service
+59462f12-9543-9999-12c8-58b459a2712d
+https://github.com/apache/mynewt-nimble/blob/master/apps/btshell/src/gatt_svr.c#L67-L94</p>
+<p><img src="https://lupyuen.github.io/images/dfu-gattservices.jpg" alt="GATT Services exposed by MCU Manager on PineTime" /></p>
+<p><em>GATT Services exposed by MCU Manager on PineTime</em></p>
 <h1 id="raspberry-pi-client" class="section-header"><a href="#raspberry-pi-client">13 Raspberry Pi Client</a></h1>
 <p>TODO</p>
 <p>Newt Manager builds OK on Raspberry Pi 4 and works OK with PineTime.  See the log below.</p>
