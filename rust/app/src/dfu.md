@@ -621,6 +621,8 @@ arm-none-eabi-objcopy \
 ```
 (Refer to [`my_sensor_app.elf.cmd`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.0.1))
 
+`arm-none-eabi-objcopy` takes an ELF file compiled for Arm Cortex-M and copies the binary sections (code and data) to the BIN file. It strips away the ELF headers and other metadata that are not required at runtime.
+
 We use the `-R` option to remove unwanted ELF sections from the Firmware BIN File. The unwanted sections (like `.bss.core`) may be named differently for your embedded operating system.
 
 _How shall we convert the Firmware BIN File to a Firmware Image File?_
