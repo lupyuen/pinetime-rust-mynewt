@@ -805,7 +805,7 @@ _GATT Services exposed by MCU Manager on PineTime_
 
 Let's examine the GATT Services shown above...
 
-__Simple Management Protocol (SMP) Service__ is managed by the MCU Manager Library as [Command Handlers](https://github.com/apache/mynewt-mcumgr/tree/master/cmd)...
+__Simple Management Protocol (SMP) Service__ (`8D53DC1D-1DB7-4CD3-868B-8A527460AA84`) is managed by the MCU Manager Library as [Command Handlers](https://github.com/apache/mynewt-mcumgr/tree/master/cmd)...
 
 1. __Image Management:__ For querying and updating firmware images in PineTime's Flash ROM. This is the Command Handler that we have implemented to support firmware update on PineTime. See [`img_mgmt`](https://github.com/apache/mynewt-mcumgr/tree/master/cmd/img_mgmt)
 
@@ -867,7 +867,6 @@ Based on feedback from the PineTime Community, the following enhancements are pl
 
 1. Ensure that the same firmware version doesn't get flashed twice
 
-
 # Android, iOS and Linux Companion Apps for PineTime
 
 For flashing PineTime over Bluetooth LE, we would need to find a suitable app for our mobile phones. The mobile app shall also be used to sync the current date/time with PineTime, also to forward notifications for display on PineTime.
@@ -876,13 +875,13 @@ The [Nordic nRF Connect](https://www.nordicsemi.com/Software-and-tools/Developme
 
 Here's how we may build friendly apps for Android, iOS and Linux (e.g. PinePhone) mobile phones that will work with PineTime...
 
-## Android App
+## Android App for PineTime
 
 Firmware update on PineTime is based on the MCU Manager Library. We may use the __Android MCU Manager Library__ (coded in Java) to build the Android app.
 
 [Check out `mcumgr-android`](https://github.com/JuulLabs-OSS/mcumgr-android)
 
-## iOS App
+## iOS App for PineTime
 
 There is a similar libary for iOS: The __iOS MCU Manager Library__, coded in Swift.
 
@@ -892,7 +891,7 @@ The source code is helpful for learning how MCU Manager composes a Simple Manage
 
 [Check out `mcumgr-ios`](https://github.com/JuulLabs-OSS/mcumgr-ios)
 
-To see how a GATT Request for SMP is composed and transmitted, check out [`McuMgrBleTransport.swift`](https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Bluetooth/McuMgrBleTransport.swift)
+To see how a GATT Request for firmware update is composed and transmitted, check out [`FirmwareUpgradeManager`](https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Managers/DFU/FirmwareUpgradeManager.swift), [`ImageManager`](https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Managers/ImageManager.swift), [`McuManager`](https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/McuManager.swift) and [`McuMgrBleTransport`](https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Bluetooth/McuMgrBleTransport.swift)
 
 ## Flutter App for Android and iOS
 
@@ -910,7 +909,7 @@ For PinePhone and other Linux phones, we may reuse the code from the __Newt Mana
 
 Coded in Go, Newt Manager is the official command-line tool for performing all MCU Manager functions on PineTime, including firmware flashing and date/time synchronisation. See [`newtmgr_image`](https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_image.html) and [`newtmgr_datetime`](https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_datetime.html)
 
-More about [Newt Manager](https://mynewt.apache.org/latest/newtmgr/index.html)
+[More about Newt Manager](https://mynewt.apache.org/latest/newtmgr/index.html)
 
 Newt Manager on Raspberry Pi 4 (Raspbian and Ubuntu) has been successfully tested with PineTime...
 
@@ -926,9 +925,9 @@ _Developing a GTK app in Go with VSCode on 64-bit Ubuntu Desktop and Raspberry P
 
 See [`gotk3`](https://github.com/gotk3/gotk3) and the [sample GTK app](https://github.com/gotk3/gotk3-examples/tree/master/gtk-examples/stack)
 
-Here are the steps for building Newt Manager on Raspberry Pi 4 (Raspbian and Ubuntu) and connecting to PineTime.  (For Ubuntu, we will need to connect a USB Bluetooth dongle, since the onboard Bluetooth hardware is not supported)
+Here are the steps for building Newt Manager on Raspberry Pi 4 (Raspbian and Ubuntu) and connecting to PineTime.  For Ubuntu, we will need to connect a USB Bluetooth dongle, since the onboard Bluetooth hardware is not supported.
 
-```
+```bash
 # Build Newt Manager on Raspberry Pi
 $ cd ~/go
 $ mkdir -p src/mynewt.apache.org
