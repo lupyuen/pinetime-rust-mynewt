@@ -1,4 +1,4 @@
-# Firmware Upgrade over Bluetooth Low Energy on PineTime Smart Watch
+# Firmware Update over Bluetooth Low Energy on PineTime Smart Watch
 
 ![Platforms in development for PineTime Smart Watch](https://lupyuen.github.io/images/dfu-platforms.png)
 
@@ -10,9 +10,9 @@ _What if we could flash any firmware to PineTime from our mobile phone... Withou
 
 Yes we can! Just download the firmware file into our phone and push it wirelessly to our watch, like this...
 
-![Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch](https://lupyuen.github.io/images/dfu-flow2.png)
+![Firmware Update over Bluetooth Low Energy for PineTime Smart Watch](https://lupyuen.github.io/images/dfu-flow2.png)
 
-_Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch_
+_Firmware Update over Bluetooth Low Energy for PineTime Smart Watch_
 
 What's the magic behind this? It's the __[Simple Management Protocol (SMP)](https://github.com/apache/mynewt-mcumgr)__
 
@@ -50,13 +50,13 @@ In this article I'll walk you through the steps of implementing the SMP protocol
 
 The open-source Simple Management Protocol (SMP) was originally created for flashing firmware on devices running Mynewt and Zephyr operating systems.  SMP is based on the Bluetooth LE Generic Attribute (GATT) Profile. 
 
-GATT defines the standard way for a Bluetooth LE Client (like our mobile phone) to access a Bluetooth LE Service (like the firmware upgrade service on PineTime). [More about GATT](https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt)
+GATT defines the standard way for a Bluetooth LE Client (like our mobile phone) to access a Bluetooth LE Service (like the firmware update service on PineTime). [More about GATT](https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt)
 
 Here's how the SMP protocol works...
 
-![SMP Firmware Upgrade over Bluetooth LE](https://lupyuen.github.io/images/dfu-gatt.png)
+![SMP Firmware Update over Bluetooth LE](https://lupyuen.github.io/images/dfu-gatt.png)
 
-_SMP Firmware Upgrade over Bluetooth LE_
+_SMP Firmware Update over Bluetooth LE_
 
 1. PineTime broadcasts its name `pinetime` over Bluetooth LE to allow mobile phones to discover the smart watch
 
@@ -102,7 +102,7 @@ We'll roll back the firmware to the previous version. Here's how it works...
 
 _Firmware Update with Rollback on PineTime_
 
-1. PineTime stores two firmware images in Flash ROM: __Active and Standby.__ PineTime boots from the Active Firmware Image. It activates the SMP service for firmware upgrade over Bluetooth LE.
+1. PineTime stores two firmware images in Flash ROM: __Active and Standby.__ PineTime boots from the Active Firmware Image. It activates the SMP service for firmware update over Bluetooth LE.
 
 1. During firmware update, PineTime writes the received firmware image into the Standby Firmware slot. PineTime checks that the firmware image has been received correctly, and reboots itself.
 
@@ -110,7 +110,7 @@ _Firmware Update with Rollback on PineTime_
 
 1. If the new firmware doesn't start properly, at the next reboot the bootloader swaps back the Active and Standby Firmware images. The bootloader starts the Active Firmware Image (now containing the old firmware)
 
-1. PineTime should start correctly with the old firmware with SMP service operational. We may perform the firmware upgrade again when the new firmware is fixed.
+1. PineTime should start correctly with the old firmware with SMP service operational. We may perform the firmware update again when the new firmware is fixed.
 
 Thankfully most of this firmware update and rollback logic is built into the [MCU Manager Library](https://github.com/apache/mynewt-mcumgr). For the swapping of firmware we'll use another open-source component: [__MCUBoot Bootloader__](https://juullabs-oss.github.io/mcuboot/).  More about MCUBoot in a while.
 
@@ -346,12 +346,12 @@ The NimBLE Interrupt Service Routine runs at a higher priority than normal tasks
 
 Hence the NimBLE Interrupt Service Routine defers the processing of the received Bluetooth packet by adding it to an Event Queue. Another NimBLE task (running at normal priority) will pick up the Bluetooth packet and process it.
 
-_How shall we start the NimBLE Stack and listen for firmware upgrade commands?_
+_How shall we start the NimBLE Stack and listen for firmware update commands?_
 
 PineTime Firmware Developers would have to call the C function [`start_ble()`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_main.c#L300-L357) defined in [`ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_main.c#L300-L357
 )
 
-This starts the NimBLE Stack to listen for SMP firmware upgrade commands transmitted over GATT.  The GATT command handlers for SMP are defined in  [`ble_prph.h`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_prph.h), 
+This starts the NimBLE Stack to listen for SMP firmware update commands transmitted over GATT.  The GATT command handlers for SMP are defined in  [`ble_prph.h`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_prph.h), 
 [`ble_gatt_svr.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_gatt_svr.c), 
 [`ble_misc.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_misc.c) and
 [`ble_phy.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_phy.c)
@@ -952,7 +952,7 @@ Based on feedback from the PineTime Community, the following enhancements are pl
 
     As long as the firmware adopts the proposed Flash ROM Layout, and includes the MCUBoot Image Header, we shall allow the firmware to be flashed via PineTime's factory-installed firmware (which could be based on FreeRTOS, Mynewt, RIOT, Zephyr, ...)
 
-    To upgrade the firmware, the PineTime Owner would have to rollback manually to the factory-installed firmware, then flash the upgraded firmware.
+    To upgrade the firmware to a newer version, the PineTime Owner would have to rollback manually to the factory-installed firmware, then flash the upgraded firmware.
 
 1. __Bootloader Log__: Log MCUBoot messages to the Arm Semihosting Console when PineTime's SWD port is connected. Useful for troubleshooting the bootloader.
 
