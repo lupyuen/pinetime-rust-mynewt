@@ -1069,13 +1069,13 @@ objsize
 
 # Other PineTime Firmware Update Solutions
 
-1. Nordic SoftDevice includes a proprietary BLE DFU implementation: https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v15.0.0/lib_bootloader_dfu_process.html
+1. Nordic SoftDevice includes a proprietary Bluetooth LE DFU implementation. [More about SoftDevice](https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v15.0.0/lib_bootloader_dfu_process.html)
 
-1. wasp-os with Adafruit NRF52 Bootloader (based on Nordic SoftDevice): https://github.com/daniel-thompson/wasp-os
+1. wasp-os with Adafruit NRF52 Bootloader (based on Nordic SoftDevice). [More about wasp-os](https://github.com/daniel-thompson/wasp-os)
 
-1. Gadgetbridge for Android: https://gadgetbridge.org/
+1. [Gadgetbridge for Android](https://gadgetbridge.org/)
 
-1. DaFlasher for Android: https://github.com/atc1441/DaFlasherFiles
+1. [DaFlasher for Android](https://github.com/atc1441/DaFlasherFiles)
 
 # Further Reading
 
