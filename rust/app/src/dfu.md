@@ -793,7 +793,7 @@ In summary, PineTime Firmware Developers would have to do the following to suppo
 
 1. When the user dismisses the message prompt, the firmware shall __set the Image OK status__
 
-__For Mynewt and Zephyr:__ Some of the steps in this article may not be necessary... Check the simpler instructions for Mynewt and Zephyr on the NimBLE, MCU Manager and MCUBoot websites.
+__For Mynewt and Zephyr:__ Some of the steps in this article may not be necessary... Check the simpler porting instructions for Mynewt and Zephyr on the [NimBLE](https://github.com/apache/mynewt-nimble/), [MCU Manager](https://github.com/apache/mynewt-mcumgr) and [MCUBoot](https://github.com/JuulLabs-OSS/mcuboot) websites.
 
 # Optional: Command Handlers for MCU Manager on PineTime
 
@@ -927,7 +927,7 @@ objsize
 
 # Upcoming Enhancements for PineTime Firmware Update over Bluetooth LE
 
-Based on feedback from the PineTime Community, the following enhancements are planned for the firmware update design...
+Based on feedback from the PineTime Community, the following enhancements are planned for the implementation of firmware updates...
 
 1. __Allow larger firmware images to be flashed:__ Based on the present Flash ROM Layout, the size of a firmware image may not exceed 232 KB. That's because we need to fit both Active and Standby Firmware Images into PineTime's 512 KB Flash ROM.
 
@@ -935,9 +935,10 @@ Based on feedback from the PineTime Community, the following enhancements are pl
 
 1. __Store Standby Firmware Image in External SPI Flash__: MCUBoot shall be enhanced to swap firmware images across PineTime's Internal Flash ROM (512 KB) and External SPI Flash (4 MB).
 
-    MCUBoot shall access the External SPI Flash via Mynewt's driver for SPI Flash. See [`spiflash`](https://github.com/apache/mynewt-core/tree/master/hw/drivers/flash/spiflash)
+    MCUBoot shall access the External SPI Flash via Mynewt's driver for SPI Flash. [See `spiflash`](https://github.com/apache/mynewt-core/tree/master/hw/drivers/flash/spiflash)
 
-    PineTime Firmware Developers would also need to enhance the Image Management Command Handler (MCU Manager Library) to write firmware images to External SPI Flash (instead of Internal Flash).
+    PineTime Firmware Developers would also need to enhance the Image Management Command Handler (MCU Manager Library) to write firmware images to External SPI Flash (instead of Internal Flash). (Possibly based on Mynewt's [`spiflash` driver](https://github.com/apache/mynewt-core/tree/master/hw/drivers/flash/spiflash))
+
 
 1. __Manual rollback of firmware images:__ We shall allow the PineTime Owner to roll back firmware images manually (in case the Owner decides that the new firmware isn't working properly).
 
