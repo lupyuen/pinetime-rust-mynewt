@@ -872,7 +872,7 @@ Based on feedback from the PineTime Community, the following enhancements are pl
 
 For flashing PineTime over Bluetooth LE, we would need to find a suitable app for our mobile phones. The mobile app shall also be used to sync the current date/time with PineTime, also to forward notifications for display on PineTime.
 
-The [Nordic nRF Connect](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app works for flashing PineTime... But it seems too complicated for most PineTime Owners.
+The [Nordic nRF Connect](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app works fine for flashing PineTime... But it seems too complicated for most PineTime Owners.
 
 Here's how we may build friendly apps for Android, iOS and Linux (e.g. PinePhone) mobile phones that will work with PineTime...
 
@@ -886,7 +886,7 @@ Firmware update on PineTime is based on the MCU Manager Library. We may use the 
 
 There is a similar libary for iOS: The __iOS MCU Manager Library__, coded in Swift.
 
-Among all the MCU Manager clients, the iOS Swift version is easiest to understand because it calls high-level Bluetooth LE functions from the [iOS Core Bluetooth API](https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/AboutCoreBluetooth/Introduction.html#//apple_ref/doc/uid/TP40013257-CH1-SW1). 
+Among all the MCU Manager Libraries, the iOS Swift version is easiest to understand because it calls high-level Bluetooth LE functions from the [iOS Core Bluetooth API](https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/AboutCoreBluetooth/Introduction.html#//apple_ref/doc/uid/TP40013257-CH1-SW1). 
 
 The source code is helpful for learning how MCU Manager composes a Simple Management Protocol (SMP) request over GATT.
 
