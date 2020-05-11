@@ -742,7 +742,7 @@ More about the [Image Trailer](https://juullabs-oss.github.io/mcuboot/design.htm
 
 _How do we inspect the Image OK status?_
 
-Use Newt Manager on Raspberry Pi. In the log below, `image=0 slot=0 ... active confirmed` means that the Active Firmware (Slot 0) is confirmed OK...
+Use [Newt Manager](https://mynewt.apache.org/latest/os/modules/devmgmt/newtmgr.html) on Raspberry Pi. In the log below, `image=0 slot=0 ... active confirmed` means that the Active Firmware (Slot 0) is confirmed OK...
 
 ```bash
 # Build Newt Manager on Raspberry Pi
@@ -760,7 +760,7 @@ $ cd ~/go/src/mynewt.apache.org/newtmgr/newtmgr
 $ sudo ./newtmgr conn add mybleprph type=ble connstring="peer_name=pinetime"
 Connection profile mybleprph successfully added
 
-# List firmware images
+# Connect to PineTime and list firmware images
 $ sudo ./newtmgr image list -c mybleprph --loglevel debug
 Images:
  image=0 slot=0
@@ -771,7 +771,7 @@ Images:
 Split status: N/A (0)
 ```
 
-The complete Raspberry Pi log may be found at the end of the article.
+The complete Raspberry Pi log may be found near the end of the article.
 
 [More about the design of MCUBoot](https://juullabs-oss.github.io/mcuboot/design.html)
 
@@ -945,7 +945,7 @@ $ cd ~/go/src/mynewt.apache.org/newtmgr/newtmgr
 $ sudo ./newtmgr conn add mybleprph type=ble connstring="peer_name=pinetime"
 Connection profile mybleprph successfully added
 
-# List firmware images
+# Connect to PineTime and list firmware images
 $ sudo ./newtmgr image list -c mybleprph --loglevel debug
 DEBU[2020-04-29 08:23:56.54] Using connection profile: name=mybleprph type=ble connstring=peer_name=pinetime
 DEBU[2020-04-29 08:23:56.701] Connecting to peer
