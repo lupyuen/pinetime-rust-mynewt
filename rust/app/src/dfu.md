@@ -876,77 +876,57 @@ The [Nordic nRF Connect](https://www.nordicsemi.com/Software-and-tools/Developme
 
 Here's how we may build friendly apps for Android, iOS and Linux (e.g. PinePhone) mobile phones that will work with PineTime...
 
-## Android Client
+## Android App
 
-TODO
+Firmware update on PineTime is based on the MCU Manager Library. We may use the __Android MCU Manager Library__ (coded in Java) to build the Android app.
 
-Not started. Will explore this Android MCU Manager client for OTA Firmware Upgrade, coded in Java:
+[Check out `mcumgr-android`](https://github.com/JuulLabs-OSS/mcumgr-android)
 
-https://github.com/JuulLabs-OSS/mcumgr-android
+## iOS App
 
-## iOS Client
+There is a similar libary for iOS: The __iOS MCU Manager Library__, coded in Swift.
 
-TODO
+Among all the MCU Manager clients, the iOS Swift version is easiest to understand because it calls high-level Bluetooth LE functions from the [iOS Core Bluetooth API](https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/AboutCoreBluetooth/Introduction.html#//apple_ref/doc/uid/TP40013257-CH1-SW1). 
 
-Not started. Will explore this iOS MCU Manager client for OTA Firmware Upgrade, coded in Swift:
+The source code is helpful for learning how MCU Manager composes a Simple Management Protocol (SMP) request over GATT.
 
-https://github.com/JuulLabs-OSS/mcumgr-ios
+[Check out `mcumgr-ios`](https://github.com/JuulLabs-OSS/mcumgr-ios)
 
-Among all MCU Manager clients, the Swift version is easiest to understand because it calls high-level BLE functions:
+To see how a GATT Request for SMP is composed and transmitted, check out [`McuMgrBleTransport.swift`](https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Bluetooth/McuMgrBleTransport.swift)
 
-https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Bluetooth/McuMgrBleTransport.swift
+## Flutter App for Android and iOS
 
-Now using this code to understand the MCU Manager upload protocol.
+Alternatively, we may build the Android and iOS apps in [__Flutter__](https://flutter.dev) based on this Flutter library for Bluetooth LE: [`flutter_blue`](https://github.com/pauldemarco/flutter_blue)
 
-Refer to the iOS Core Bluetooth API:
+We will have to code ourselves the GATT Requests for SMP (using the iOS Swift code as reference). But there's a huge benefit: This approach allows us to maintain __a single code base (in Dart) to target both Android and iOS.__
 
-https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/AboutCoreBluetooth/Introduction.html#//apple_ref/doc/uid/TP40013257-CH1-SW1
+The Flutter app would also be a great reference for teaching how to talk to Bluetooth LE devices (like PineTime) and access GATT services, even though it won't look like a polished app.
 
-https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/PerformingCommonCentralRoleTasks/PerformingCommonCentralRoleTasks.html#//apple_ref/doc/uid/TP40013257-CH3-SW1
-
-## Flutter Client for iOS and Android
-
-TODO
-
-Alternatively, we may build iOS and Android clients for MCU Manager in Flutter based on this BLE library:
-
-https://github.com/pauldemarco/flutter_blue
-
-This allows us to maintain a single code base to target both iOS and Android clients.
-
-It looks feasible to build a Flutter client (coded in Dart) based on on this Dart BLE sample:
-
-https://github.com/pauldemarco/flutter_blue/tree/master/example/lib
-
-And adapting the iOS MCU Client code.
-
-The Flutter app for PineTime would the MCU Manager functions from scratch. The app would be a great reference to teach how to talk to BLE and GATT services from iOS and Android, even though it won't be a polished app.
+[Check out a sample Bluetooth LE app built with Flutter](https://github.com/pauldemarco/flutter_blue/tree/master/example/lib)
 
 ## Linux App for PineTime
 
-TODO
+For PinePhone and other Linux phones, we may reuse the code from the __Newt Manager__ command-line tool.
 
-Newt Manager builds OK on Raspberry Pi 4 and works OK with PineTime.  See the log below.
+Coded in Go, Newt Manager is the official command-line tool for performing all MCU Manager functions on PineTime, including firmware flashing and date/time synchronisation. See [`newtmgr_image`](https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_image.html) and [`newtmgr_datetime`](https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_datetime.html)
 
-For Ubuntu, we will need to connect a USB Bluetooth dongle.
+More about [Newt Manager](https://mynewt.apache.org/latest/newtmgr/index.html)
 
-Now studying the Go code (with debug messages enabled) to understand the firmware upload process:
-
-https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_image.html
-
-Also how to set the device date/time:
-
-https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_datetime.html
-
-And whether we can push notifications to the device.
+Newt Manager on Raspberry Pi 4 (Raspbian and Ubuntu) has been successfully tested with PineTime...
 
 ![Newt Manager on 64-bit Ubuntu Desktop and Raspberry Pi 4, connected to PineTime via Bluetooth LE](https://lupyuen.github.io/images/dfu-newtmgr.png)
 
 _Newt Manager on 64-bit Ubuntu Desktop and Raspberry Pi 4, connected to PineTime via Bluetooth LE_
 
+The Newt Manager code in Go should be easy to wrap up with the [GTK Library](https://www.gtk.org) in Go, to create a GUI app for PinePhone and other Linux phones...
+
 ![Developing a GTK app in Go with VSCode on 64-bit Ubuntu Desktop and Raspberry Pi 4](https://lupyuen.github.io/images/dfu-gtk.png)
 
 _Developing a GTK app in Go with VSCode on 64-bit Ubuntu Desktop and Raspberry Pi 4_
+
+See [`gotk3`](https://github.com/gotk3/gotk3) and the [sample GTK app](https://github.com/gotk3/gotk3-examples/tree/master/gtk-examples/stack)
+
+Here are the steps for building Newt Manager on Raspberry Pi 4 (Raspbian and Ubuntu) and connecting to PineTime.  (For Ubuntu, we will need to connect a USB Bluetooth dongle, since the onboard Bluetooth hardware is not supported)
 
 ```
 # Build Newt Manager on Raspberry Pi
