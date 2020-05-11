@@ -867,6 +867,139 @@ Based on feedback from the PineTime Community, the following enhancements are pl
 
 1. Ensure that the same firmware version doesn't get flashed twice
 
+
+# Android, iOS and Linux Companion Apps for PineTime
+
+For flashing PineTime over Bluetooth LE, we would need to find a suitable app for our mobile phones. The mobile app shall also be used to sync the current date/time with PineTime, also to forward notifications for display on PineTime.
+
+The [Nordic nRF Connect](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app works for flashing PineTime... But it seems too complicated for most PineTime Owners.
+
+Here's how we may build friendly apps for Android, iOS and Linux (e.g. PinePhone) mobile phones that will work with PineTime...
+
+## Android Client
+
+TODO
+
+Not started. Will explore this Android MCU Manager client for OTA Firmware Upgrade, coded in Java:
+
+https://github.com/JuulLabs-OSS/mcumgr-android
+
+## iOS Client
+
+TODO
+
+Not started. Will explore this iOS MCU Manager client for OTA Firmware Upgrade, coded in Swift:
+
+https://github.com/JuulLabs-OSS/mcumgr-ios
+
+Among all MCU Manager clients, the Swift version is easiest to understand because it calls high-level BLE functions:
+
+https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Bluetooth/McuMgrBleTransport.swift
+
+Now using this code to understand the MCU Manager upload protocol.
+
+Refer to the iOS Core Bluetooth API:
+
+https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/AboutCoreBluetooth/Introduction.html#//apple_ref/doc/uid/TP40013257-CH1-SW1
+
+https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/PerformingCommonCentralRoleTasks/PerformingCommonCentralRoleTasks.html#//apple_ref/doc/uid/TP40013257-CH3-SW1
+
+## Flutter Client for iOS and Android
+
+TODO
+
+Alternatively, we may build iOS and Android clients for MCU Manager in Flutter based on this BLE library:
+
+https://github.com/pauldemarco/flutter_blue
+
+This allows us to maintain a single code base to target both iOS and Android clients.
+
+It looks feasible to build a Flutter client (coded in Dart) based on on this Dart BLE sample:
+
+https://github.com/pauldemarco/flutter_blue/tree/master/example/lib
+
+And adapting the iOS MCU Client code.
+
+The Flutter app for PineTime would the MCU Manager functions from scratch. The app would be a great reference to teach how to talk to BLE and GATT services from iOS and Android, even though it won't be a polished app.
+
+## Linux App for PineTime
+
+TODO
+
+Newt Manager builds OK on Raspberry Pi 4 and works OK with PineTime.  See the log below.
+
+For Ubuntu, we will need to connect a USB Bluetooth dongle.
+
+Now studying the Go code (with debug messages enabled) to understand the firmware upload process:
+
+https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_image.html
+
+Also how to set the device date/time:
+
+https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_datetime.html
+
+And whether we can push notifications to the device.
+
+![Newt Manager on 64-bit Ubuntu Desktop and Raspberry Pi 4, connected to PineTime via Bluetooth LE](https://lupyuen.github.io/images/dfu-newtmgr.png)
+
+_Newt Manager on 64-bit Ubuntu Desktop and Raspberry Pi 4, connected to PineTime via Bluetooth LE_
+
+![Developing a GTK app in Go with VSCode on 64-bit Ubuntu Desktop and Raspberry Pi 4](https://lupyuen.github.io/images/dfu-gtk.png)
+
+_Developing a GTK app in Go with VSCode on 64-bit Ubuntu Desktop and Raspberry Pi 4_
+
+```
+# Build Newt Manager on Raspberry Pi
+$ cd ~/go
+$ mkdir -p src/mynewt.apache.org
+$ cd src/mynewt.apache.org/
+$ git clone https://github.com/apache/mynewt-newtmgr
+$ mv mynewt-newtmgr newtmgr
+$ cd newtmgr/newtmgr
+$ export GO111MODULE=on
+$ go build
+
+# Run Newt Manager on Raspberry Pi
+$ cd ~/go/src/mynewt.apache.org/newtmgr/newtmgr
+$ sudo ./newtmgr conn add mybleprph type=ble connstring="peer_name=pinetime"
+Connection profile mybleprph successfully added
+
+# List firmware images
+$ sudo ./newtmgr image list -c mybleprph --loglevel debug
+DEBU[2020-04-29 08:23:56.54] Using connection profile: name=mybleprph type=ble connstring=peer_name=pinetime
+DEBU[2020-04-29 08:23:56.701] Connecting to peer
+DEBU[2020-04-29 08:23:56.773] Exchanging MTU
+DEBU[2020-04-29 08:23:56.822] Connecting to peer
+DEBU[2020-04-29 08:23:56.907] Exchanging MTU
+DEBU[2020-04-29 08:23:56.922] Exchanged MTU; ATT MTU = 256
+DEBU[2020-04-29 08:23:56.922] Discovering profile
+DEBU[2020-04-29 08:23:57.176] Subscribing to NMP response characteristic
+DEBU[2020-04-29 08:23:57.191] {add-nmp-listener} [bll_sesn.go:392] seq=66
+DEBU[2020-04-29 08:23:57.191] Encoded &{NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:1 Seq:66 Id:0}}} to:
+00000000  a0                                                |.|
+DEBU[2020-04-29 08:23:57.191] Encoded:
+00000000  00 00 00 01 00 01 42 00  a0                       |......B..|
+DEBU[2020-04-29 08:23:57.191] Tx NMP request: 00000000  00 00 00 01 00 01 42 00  a0                       |......B..|
+DEBU[2020-04-29 08:23:57.213] rx nmp response: 00000000  01 00 00 86 00 01 42 00  bf 66 69 6d 61 67 65 73  |......B..fimages|
+00000010  9f bf 64 73 6c 6f 74 00  67 76 65 72 73 69 6f 6e  |..dslot.gversion|
+00000020  65 31 2e 30 2e 30 64 68  61 73 68 58 20 ea b2 88  |e1.0.0dhashX ...|
+00000030  69 47 a1 df 6f 85 04 63  60 1f 3d ad 40 94 11 d7  |iG..o..c`.=.@...|
+00000040  ea 21 85 5e b0 a7 0e 96  57 32 25 8c 92 68 62 6f  |.!.^....W2%..hbo|
+00000050  6f 74 61 62 6c 65 f5 67  70 65 6e 64 69 6e 67 f4  |otable.gpending.|
+00000060  69 63 6f 6e 66 69 72 6d  65 64 f5 66 61 63 74 69  |iconfirmed.facti|
+00000070  76 65 f5 69 70 65 72 6d  61 6e 65 6e 74 f4 ff ff  |ve.ipermanent...|
+00000080  6b 73 70 6c 69 74 53 74  61 74 75 73 00 ff        |ksplitStatus..|
+DEBU[2020-04-29 08:23:57.214] Received nmp rsp: &{NmpBase:{hdr:{Op:1 Flags:0 Len:134 Group:1 Seq:66 Id:0}} Rc:0 Images:[{NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:0 Seq:0 Id:0}} Image:0 Slot:0 Version:1.0.0 Hash:[234 178 136 105 71 161 223 111 133 4 99 96 31 61 173 64 148 17 215 234 33 133 94 176 167 14 150 87 50 37 140 146] Bootable:true Pending:false Confirmed:true Active:true Permanent:false}] SplitStatus:N/A}
+DEBU[2020-04-29 08:23:57.214] {remove-nmp-listener} [bll_sesn.go:392] seq=66
+Images:
+ image=0 slot=0
+    version: 1.0.0
+    bootable: true
+    flags: active confirmed
+    hash: eab2886947a1df6f850463601f3dad409411d7ea21855eb0a70e965732258c92
+Split status: N/A (0)
+```
+
 # Test PineTime Firmware Update over Bluetooth LE
 
 TODO
@@ -953,72 +1086,6 @@ objsize
  205760     904   55224  261888   3ff00 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
 ```
 
-# Android, iOS and Linux Companion Apps for PineTime
-
-TODO
-
-## Raspberry Pi Client
-
-TODO
-
-Newt Manager builds OK on Raspberry Pi 4 and works OK with PineTime.  See the log below.
-
-Now studying the Go code (with debug messages enabled) to understand the firmware upload process:
-
-https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_image.html
-
-Also how to set the device date/time:
-
-https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_datetime.html
-
-And whether we can push notifications to the device.
-
-## Android Client
-
-TODO
-
-Not started. Will explore this Android MCU Manager client for OTA Firmware Upgrade, coded in Java:
-
-https://github.com/JuulLabs-OSS/mcumgr-android
-
-## iOS Client
-
-TODO
-
-Not started. Will explore this iOS MCU Manager client for OTA Firmware Upgrade, coded in Swift:
-
-https://github.com/JuulLabs-OSS/mcumgr-ios
-
-Among all MCU Manager clients, the Swift version is easiest to understand because it calls high-level BLE functions:
-
-https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Bluetooth/McuMgrBleTransport.swift
-
-Now using this code to understand the MCU Manager upload protocol.
-
-Refer to the iOS Core Bluetooth API:
-
-https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/AboutCoreBluetooth/Introduction.html#//apple_ref/doc/uid/TP40013257-CH1-SW1
-
-https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/PerformingCommonCentralRoleTasks/PerformingCommonCentralRoleTasks.html#//apple_ref/doc/uid/TP40013257-CH3-SW1
-
-## Flutter Client for iOS and Android
-
-TODO
-
-Alternatively, we may build iOS and Android clients for MCU Manager in Flutter based on this BLE library:
-
-https://github.com/pauldemarco/flutter_blue
-
-This allows us to maintain a single code base to target both iOS and Android clients.
-
-It looks feasible to build a Flutter client (coded in Dart) based on on this Dart BLE sample:
-
-https://github.com/pauldemarco/flutter_blue/tree/master/example/lib
-
-And adapting the iOS MCU Client code.
-
-The Flutter app for PineTime would the MCU Manager functions from scratch. The app would be a great reference to teach how to talk to BLE and GATT services from iOS and Android, even though it won't be a polished app.
-
 # Other PineTime Firmware Update Solutions
 
 1. Nordic SoftDevice includes a proprietary BLE DFU implementation: https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v15.0.0/lib_bootloader_dfu_process.html
@@ -1028,62 +1095,6 @@ The Flutter app for PineTime would the MCU Manager functions from scratch. The a
 1. Gadgetbridge for Android: https://gadgetbridge.org/
 
 1. DaFlasher for Android: https://github.com/atc1441/DaFlasherFiles
-
-# Log for Raspberry Pi Client
-
-```
-# Build Newt Manager on Raspberry Pi
-
-$ cd ~/go
-$ mkdir -p src/mynewt.apache.org
-$ cd src/mynewt.apache.org/
-$ git clone https://github.com/apache/mynewt-newtmgr
-$ mv mynewt-newtmgr newtmgr
-$ cd newtmgr/newtmgr
-$ export GO111MODULE=on
-$ go build
-
-# Run Newt Manager on Raspberry Pi
-
-$ cd ~/go/src/mynewt.apache.org/newtmgr/newtmgr
-$ sudo ./newtmgr conn add mybleprph type=ble connstring="peer_name=pinetime"
-Connection profile mybleprph successfully added
-
-# List firmware images
-$ sudo ./newtmgr image list -c mybleprph --loglevel debug
-DEBU[2020-04-29 08:23:56.54] Using connection profile: name=mybleprph type=ble connstring=peer_name=pinetime
-DEBU[2020-04-29 08:23:56.701] Connecting to peer
-DEBU[2020-04-29 08:23:56.773] Exchanging MTU
-DEBU[2020-04-29 08:23:56.822] Connecting to peer
-DEBU[2020-04-29 08:23:56.907] Exchanging MTU
-DEBU[2020-04-29 08:23:56.922] Exchanged MTU; ATT MTU = 256
-DEBU[2020-04-29 08:23:56.922] Discovering profile
-DEBU[2020-04-29 08:23:57.176] Subscribing to NMP response characteristic
-DEBU[2020-04-29 08:23:57.191] {add-nmp-listener} [bll_sesn.go:392] seq=66
-DEBU[2020-04-29 08:23:57.191] Encoded &{NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:1 Seq:66 Id:0}}} to:
-00000000  a0                                                |.|
-DEBU[2020-04-29 08:23:57.191] Encoded:
-00000000  00 00 00 01 00 01 42 00  a0                       |......B..|
-DEBU[2020-04-29 08:23:57.191] Tx NMP request: 00000000  00 00 00 01 00 01 42 00  a0                       |......B..|
-DEBU[2020-04-29 08:23:57.213] rx nmp response: 00000000  01 00 00 86 00 01 42 00  bf 66 69 6d 61 67 65 73  |......B..fimages|
-00000010  9f bf 64 73 6c 6f 74 00  67 76 65 72 73 69 6f 6e  |..dslot.gversion|
-00000020  65 31 2e 30 2e 30 64 68  61 73 68 58 20 ea b2 88  |e1.0.0dhashX ...|
-00000030  69 47 a1 df 6f 85 04 63  60 1f 3d ad 40 94 11 d7  |iG..o..c`.=.@...|
-00000040  ea 21 85 5e b0 a7 0e 96  57 32 25 8c 92 68 62 6f  |.!.^....W2%..hbo|
-00000050  6f 74 61 62 6c 65 f5 67  70 65 6e 64 69 6e 67 f4  |otable.gpending.|
-00000060  69 63 6f 6e 66 69 72 6d  65 64 f5 66 61 63 74 69  |iconfirmed.facti|
-00000070  76 65 f5 69 70 65 72 6d  61 6e 65 6e 74 f4 ff ff  |ve.ipermanent...|
-00000080  6b 73 70 6c 69 74 53 74  61 74 75 73 00 ff        |ksplitStatus..|
-DEBU[2020-04-29 08:23:57.214] Received nmp rsp: &{NmpBase:{hdr:{Op:1 Flags:0 Len:134 Group:1 Seq:66 Id:0}} Rc:0 Images:[{NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:0 Seq:0 Id:0}} Image:0 Slot:0 Version:1.0.0 Hash:[234 178 136 105 71 161 223 111 133 4 99 96 31 61 173 64 148 17 215 234 33 133 94 176 167 14 150 87 50 37 140 146] Bootable:true Pending:false Confirmed:true Active:true Permanent:false}] SplitStatus:N/A}
-DEBU[2020-04-29 08:23:57.214] {remove-nmp-listener} [bll_sesn.go:392] seq=66
-Images:
- image=0 slot=0
-    version: 1.0.0
-    bootable: true
-    flags: active confirmed
-    hash: eab2886947a1df6f850463601f3dad409411d7ea21855eb0a70e965732258c92
-Split status: N/A (0)
-```
 
 # Further Reading
 
