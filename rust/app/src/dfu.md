@@ -837,6 +837,94 @@ Device Name (`pinetime`) and Appearance. [Specifications](https://www.bluetooth.
 
 The final GATT Service (`59462f12-9543-9999-12c8-58b459a2712d`) in the screen above is the __Security Test Service__, which is also optional. See [`gatt_svr.c`](https://github.com/apache/mynewt-nimble/blob/master/apps/btshell/src/gatt_svr.c#L67-L94)
 
+# Test PineTime Firmware Update over Bluetooth LE
+
+We are now testing PineTime firmware update on Mynewt+Rust with the `ota` branch of `pinetime-rust-mynewt`...
+
+[Browse `pinetime-rust-mynewt/ota` repository](https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota)
+
+This branch of `pinetime-rust-mynewt` has the Newt Manager Library (Mynewt's version of the MCU Manager Library) injected here: [`my_sensor_app/src`](https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota/apps/my_sensor_app/src)
+
+(Look for the files `ble_*.c` and `ble_*.h`)
+
+The source files were derived from the Mynewt `bleprph` sample. [See `bleprph`](https://github.com/apache/mynewt-nimble/tree/master/apps/bleprph)
+
+The Firmware ELF (`my_sensor_app.elf`), BIN (`my_sensor_app.elf.bin`) and Image (`my_sensor_app.img`) Files may be found here...
+
+[`pinetime-rust-mynewt/releases/tag/v4.0.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.0.1)
+
+The built Firmware Image is 201 KB in size. Here are the sizes of each library linked into the firmware...
+
+```
+----- Build Mynewt and link with Rust app
++ newt build nrf52_my_sensor
+Building target targets/nrf52_my_sensor
+Linking /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
+Target successfully built: targets/nrf52_my_sensor
++ newt size -v nrf52_my_sensor
+Size of Application Image: app
+Mem FLASH: 0x8000-0x7bc00
+Mem RAM: 0x20000000-0x20010000
+  FLASH     RAM 
+    740     330 *fill*
+   1018      98 apps_my_sensor_app.a
+   1810     112 boot_bootutil.a
+    438      26 boot_split.a
+   1180       0 crypto_mbedtls.a
+   2302       0 crypto_tinycrypt.a
+    401       0 encoding_base64.a
+   1622       0 encoding_cborattr.a
+   3002       0 encoding_tinycbor.a
+    440     444 hw_bsp_nrf52.a
+     52       0 hw_cmsis-core.a
+    706       1 hw_hal.a
+   7074     154 hw_mcu_nordic_nrf52xxx.a
+      2       0 hw_sensor_creator.a
+   1264     260 hw_sensor.a
+   8756   35712 kernel_os.a
+   3044      50 libc_baselibc.a
+     16       0 libs_mynewt_rust.a
+  57400    9582 libs_rust_app.a
+  12912       0 libs_rust_libcore.a
+    738      42 libs_semihosting_console.a
+     40       9 libs_sensor_coap.a
+    583      99 libs_sensor_network.a
+    677     212 libs_temp_stub.a
+   3428      72 mgmt_imgmgr.a
+    231      20 mgmt_mgmt.a
+    884     100 mgmt_newtmgr.a
+   1410      44 mgmt_newtmgr_nmgr_os.a
+    454     108 mgmt_newtmgr_transport_ble.a
+    405     388 net_oic.a
+  35496    2107 nimble_controller.a
+   4086    1203 nimble_drivers_nrf52.a
+  41721    2797 nimble_host.a
+    822     218 nimble_host_services_ans.a
+    241     112 nimble_host_services_dis.a
+    396     118 nimble_host_services_gap.a
+    204      62 nimble_host_services_gatt.a
+   1814     648 nimble_host_store_config.a
+    114       0 nimble_host_util.a
+    692    1096 nimble_transport_ram.a
+   1578      54 sys_config.a
+    634     128 sys_flash_map.a
+      2       0 sys_log_modlog.a
+    686      29 sys_mfg.a
+    839      51 sys_reboot.a
+    226      37 sys_sysdown.a
+     30       5 sys_sysinit.a
+   1746       0 time_datetime.a
+    120       0 util_mem.a
+    208       0 nrf52_my_sensor-sysinit-app.a
+    166       0 libg.a
+    968       0 libgcc.a
+Loading compiler /Users/Luppy/PineTime/pinetime-rust-mynewt/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
+
+objsize
+   text    data     bss     dec     hex filename
+ 205760     904   55224  261888   3ff00 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
+```
+
 # Upcoming Enhancements for PineTime Firmware Update over Bluetooth LE
 
 Based on feedback from the PineTime Community, the following enhancements are planned for the firmware update design...
@@ -981,92 +1069,6 @@ Images:
     flags: active confirmed
     hash: eab2886947a1df6f850463601f3dad409411d7ea21855eb0a70e965732258c92
 Split status: N/A (0)
-```
-
-# Test PineTime Firmware Update over Bluetooth LE
-
-TODO
-
-Now testing PineTime Mynewt firmware built with Newt Manager library, located at the `ota` branch of `/pinetime-rust-mynewt`:
-
-https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota
-
-The Newt Manager library files have been added here: (`ble_*.c` and `ble_*.h`)
-
-https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota/apps/my_sensor_app/src
-
-The files were derived from the Mynewt `bleprph` sample:
-
-https://github.com/apache/mynewt-nimble/tree/master/apps/bleprph
-
-```
------ Build Mynewt and link with Rust app
-+ newt build nrf52_my_sensor
-Building target targets/nrf52_my_sensor
-Linking /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
-Target successfully built: targets/nrf52_my_sensor
-+ newt size -v nrf52_my_sensor
-Size of Application Image: app
-Mem FLASH: 0x8000-0x7bc00
-Mem RAM: 0x20000000-0x20010000
-  FLASH     RAM 
-    740     330 *fill*
-   1018      98 apps_my_sensor_app.a
-   1810     112 boot_bootutil.a
-    438      26 boot_split.a
-   1180       0 crypto_mbedtls.a
-   2302       0 crypto_tinycrypt.a
-    401       0 encoding_base64.a
-   1622       0 encoding_cborattr.a
-   3002       0 encoding_tinycbor.a
-    440     444 hw_bsp_nrf52.a
-     52       0 hw_cmsis-core.a
-    706       1 hw_hal.a
-   7074     154 hw_mcu_nordic_nrf52xxx.a
-      2       0 hw_sensor_creator.a
-   1264     260 hw_sensor.a
-   8756   35712 kernel_os.a
-   3044      50 libc_baselibc.a
-     16       0 libs_mynewt_rust.a
-  57400    9582 libs_rust_app.a
-  12912       0 libs_rust_libcore.a
-    738      42 libs_semihosting_console.a
-     40       9 libs_sensor_coap.a
-    583      99 libs_sensor_network.a
-    677     212 libs_temp_stub.a
-   3428      72 mgmt_imgmgr.a
-    231      20 mgmt_mgmt.a
-    884     100 mgmt_newtmgr.a
-   1410      44 mgmt_newtmgr_nmgr_os.a
-    454     108 mgmt_newtmgr_transport_ble.a
-    405     388 net_oic.a
-  35496    2107 nimble_controller.a
-   4086    1203 nimble_drivers_nrf52.a
-  41721    2797 nimble_host.a
-    822     218 nimble_host_services_ans.a
-    241     112 nimble_host_services_dis.a
-    396     118 nimble_host_services_gap.a
-    204      62 nimble_host_services_gatt.a
-   1814     648 nimble_host_store_config.a
-    114       0 nimble_host_util.a
-    692    1096 nimble_transport_ram.a
-   1578      54 sys_config.a
-    634     128 sys_flash_map.a
-      2       0 sys_log_modlog.a
-    686      29 sys_mfg.a
-    839      51 sys_reboot.a
-    226      37 sys_sysdown.a
-     30       5 sys_sysinit.a
-   1746       0 time_datetime.a
-    120       0 util_mem.a
-    208       0 nrf52_my_sensor-sysinit-app.a
-    166       0 libg.a
-    968       0 libgcc.a
-Loading compiler /Users/Luppy/PineTime/pinetime-rust-mynewt/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
-
-objsize
-   text    data     bss     dec     hex filename
- 205760     904   55224  261888   3ff00 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
 ```
 
 # Other PineTime Firmware Update Solutions
