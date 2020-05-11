@@ -857,7 +857,7 @@ Based on feedback from the PineTime Community, the following enhancements are pl
 
     PineTime Firmware Developers shall implement a Reboot or Watchdog feature, so that the Owner won't have to wait for the battery to drain completely before rolling back the firmware.
 
-1. __Allow flashing of firmware that doesn't implement firmware update__: Implementing the firmware update functionality may not be feasible for some types of PineTime firmware. Here's how we shall allow them to be flashed...
+1. __Allow flashing of firmware that doesn't implement firmware update__: Implementing the firmware update functionality may not be feasible for some types of PineTime firmware. (Some firmware developers may get stuck at the NimBLE Porting Layer) Here's how we shall allow such firmware to be flashed...
 
     As long as the firmware adopts the proposed Flash ROM Layout, and includes the MCUBoot Image Header, we shall allow the firmware to be flashed via PineTime's factory-installed firmware (which could be based on FreeRTOS, Mynewt, RIOT, Zephyr, ...)
 
@@ -911,6 +911,8 @@ Coded in Go, Newt Manager is the official command-line tool for performing all M
 
 [More about Newt Manager](https://mynewt.apache.org/latest/newtmgr/index.html)
 
+[Source code for Newt Manager](https://github.com/apache/mynewt-newtmgr)
+
 Newt Manager on Raspberry Pi 4 (Raspbian and Ubuntu) has been successfully tested with PineTime...
 
 ![Newt Manager on 64-bit Ubuntu Desktop and Raspberry Pi 4, connected to PineTime via Bluetooth LE](https://lupyuen.github.io/images/dfu-newtmgr.png)
@@ -921,7 +923,7 @@ The Newt Manager code in Go should be easy to wrap up with the [GTK Library](htt
 
 ![Developing a GTK app in Go with VSCode on 64-bit Ubuntu Desktop and Raspberry Pi 4](https://lupyuen.github.io/images/dfu-gtk.png)
 
-_Developing a GTK app in Go with VSCode on 64-bit Ubuntu Desktop and Raspberry Pi 4_
+_Developing a GTK app in Go with VSCode on 64-bit Ubuntu Desktop and Raspberry Pi 4. The compiled file size was 16 MB (Arm64)._
 
 See [`gotk3`](https://github.com/gotk3/gotk3) and the [sample GTK app](https://github.com/gotk3/gotk3-examples/tree/master/gtk-examples/stack)
 
