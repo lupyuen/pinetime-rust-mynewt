@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <title>Firmware Upgrade over Bluetooth Low Energy on PineTime Smart Watch</title>
+    <title>Firmware Update over Bluetooth Low Energy on PineTime Smart Watch</title>
 
     
     <!-- Begin scripts/rustdoc-header.html: Header for Custom Markdown files processed by rustdoc, like chip8.md -->
@@ -48,7 +48,7 @@
     <!-- End scripts/rustdoc-before.html -->
     
 
-    <h1 class="title">Firmware Upgrade over Bluetooth Low Energy on PineTime Smart Watch</h1>
+    <h1 class="title">Firmware Update over Bluetooth Low Energy on PineTime Smart Watch</h1>
     <nav id="TOC"><ul>
 <li><a href="#simple-management-procotol-for-firmware-update">1 Simple Management Procotol for Firmware Update</a><ul></ul></li>
 <li><a href="#robust-firmware-update-on-pinetime-with-rollback">2 Robust Firmware Update on PineTime with Rollback</a><ul></ul></li>
@@ -82,8 +82,8 @@
 <p>But these embedded platforms are accessible only by brave PineTime Owners who dare to pry open their watches very carefully... And connect a Raspberry Pi (or ST-Link) to the tiny delicate 4-pin SWD port recessed deep inside... Just to flash the PineTime firmware.</p>
 <p><em>What if we could flash any firmware to PineTime from our mobile phone... Without opening the watch?</em></p>
 <p>Yes we can! Just download the firmware file into our phone and push it wirelessly to our watch, like this...</p>
-<p><img src="https://lupyuen.github.io/images/dfu-flow2.png" alt="Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch" /></p>
-<p><em>Firmware Upgrade over Bluetooth Low Energy for PineTime Smart Watch</em></p>
+<p><img src="https://lupyuen.github.io/images/dfu-flow2.png" alt="Firmware Update over Bluetooth Low Energy for PineTime Smart Watch" /></p>
+<p><em>Firmware Update over Bluetooth Low Energy for PineTime Smart Watch</em></p>
 <p>What's the magic behind this? It's the <strong><a href="https://github.com/apache/mynewt-mcumgr">Simple Management Protocol (SMP)</a></strong></p>
 <p>By transmitting a bunch of SMP messages over Bluetooth Low Energy (LE), it's possible to send a file to PineTime and update its firmware. (Assuming that our PineTime supports SMP)</p>
 <p><em>What mobile app would we use for flashing PineTime over Bluetooth LE?</em></p>
@@ -102,10 +102,10 @@
 <p>In this article I'll walk you through the steps of implementing the SMP protocol in your PineTime firmware. I'll show you my implementation for Mynewt OS, which you may use for reference.</p>
 <h1 id="simple-management-procotol-for-firmware-update" class="section-header"><a href="#simple-management-procotol-for-firmware-update">1 Simple Management Procotol for Firmware Update</a></h1>
 <p>The open-source Simple Management Protocol (SMP) was originally created for flashing firmware on devices running Mynewt and Zephyr operating systems.  SMP is based on the Bluetooth LE Generic Attribute (GATT) Profile. </p>
-<p>GATT defines the standard way for a Bluetooth LE Client (like our mobile phone) to access a Bluetooth LE Service (like the firmware upgrade service on PineTime). <a href="https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt">More about GATT</a></p>
+<p>GATT defines the standard way for a Bluetooth LE Client (like our mobile phone) to access a Bluetooth LE Service (like the firmware update service on PineTime). <a href="https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt">More about GATT</a></p>
 <p>Here's how the SMP protocol works...</p>
-<p><img src="https://lupyuen.github.io/images/dfu-gatt.png" alt="SMP Firmware Upgrade over Bluetooth LE" /></p>
-<p><em>SMP Firmware Upgrade over Bluetooth LE</em></p>
+<p><img src="https://lupyuen.github.io/images/dfu-gatt.png" alt="SMP Firmware Update over Bluetooth LE" /></p>
+<p><em>SMP Firmware Update over Bluetooth LE</em></p>
 <ol>
 <li>
 <p>PineTime broadcasts its name <code>pinetime</code> over Bluetooth LE to allow mobile phones to discover the smart watch</p>
@@ -144,7 +144,7 @@
 <p><em>Firmware Update with Rollback on PineTime</em></p>
 <ol>
 <li>
-<p>PineTime stores two firmware images in Flash ROM: <strong>Active and Standby.</strong> PineTime boots from the Active Firmware Image. It activates the SMP service for firmware upgrade over Bluetooth LE.</p>
+<p>PineTime stores two firmware images in Flash ROM: <strong>Active and Standby.</strong> PineTime boots from the Active Firmware Image. It activates the SMP service for firmware update over Bluetooth LE.</p>
 </li>
 <li>
 <p>During firmware update, PineTime writes the received firmware image into the Standby Firmware slot. PineTime checks that the firmware image has been received correctly, and reboots itself.</p>
@@ -156,7 +156,7 @@
 <p>If the new firmware doesn't start properly, at the next reboot the bootloader swaps back the Active and Standby Firmware images. The bootloader starts the Active Firmware Image (now containing the old firmware)</p>
 </li>
 <li>
-<p>PineTime should start correctly with the old firmware with SMP service operational. We may perform the firmware upgrade again when the new firmware is fixed.</p>
+<p>PineTime should start correctly with the old firmware with SMP service operational. We may perform the firmware update again when the new firmware is fixed.</p>
 </li>
 </ol>
 <p>Thankfully most of this firmware update and rollback logic is built into the <a href="https://github.com/apache/mynewt-mcumgr">MCU Manager Library</a>. For the swapping of firmware we'll use another open-source component: <a href="https://juullabs-oss.github.io/mcuboot/"><strong>MCUBoot Bootloader</strong></a>.  More about MCUBoot in a while.</p>
@@ -368,9 +368,9 @@
 <p><em>Why does NimBLE need Event Queues?</em></p>
 <p>The NimBLE Interrupt Service Routine runs at a higher priority than normal tasks (because handling interrupts needs to be super urgent). But it shouldn't hog the CPU and process the received Bluetooth packet immediately... That wouldn't be fair to other tasks!</p>
 <p>Hence the NimBLE Interrupt Service Routine defers the processing of the received Bluetooth packet by adding it to an Event Queue. Another NimBLE task (running at normal priority) will pick up the Bluetooth packet and process it.</p>
-<p><em>How shall we start the NimBLE Stack and listen for firmware upgrade commands?</em></p>
+<p><em>How shall we start the NimBLE Stack and listen for firmware update commands?</em></p>
 <p>PineTime Firmware Developers would have to call the C function <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_main.c#L300-L357"><code>start_ble()</code></a> defined in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_main.c#L300-L357"><code>ble_main.c</code></a></p>
-<p>This starts the NimBLE Stack to listen for SMP firmware upgrade commands transmitted over GATT.  The GATT command handlers for SMP are defined in  <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_prph.h"><code>ble_prph.h</code></a>, 
+<p>This starts the NimBLE Stack to listen for SMP firmware update commands transmitted over GATT.  The GATT command handlers for SMP are defined in  <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_prph.h"><code>ble_prph.h</code></a>, 
 <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_gatt_svr.c"><code>ble_gatt_svr.c</code></a>, 
 <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_misc.c"><code>ble_misc.c</code></a> and
 <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/apps/my_sensor_app/src/ble_phy.c"><code>ble_phy.c</code></a></p>
@@ -846,7 +846,7 @@ Device Name (<code>pinetime</code>) and Appearance. <a href="https://www.bluetoo
 <li>
 <p><strong>Allow flashing of firmware that doesn't implement firmware update</strong>: Implementing the firmware update functionality may not be feasible for some types of PineTime firmware. (Some firmware developers may get stuck at the NimBLE Porting Layer) Here's how we shall allow such firmware to be flashed...</p>
 <p>As long as the firmware adopts the proposed Flash ROM Layout, and includes the MCUBoot Image Header, we shall allow the firmware to be flashed via PineTime's factory-installed firmware (which could be based on FreeRTOS, Mynewt, RIOT, Zephyr, ...)</p>
-<p>To upgrade the firmware, the PineTime Owner would have to rollback manually to the factory-installed firmware, then flash the upgraded firmware.</p>
+<p>To upgrade the firmware to a newer version, the PineTime Owner would have to rollback manually to the factory-installed firmware, then flash the upgraded firmware.</p>
 </li>
 <li>
 <p><strong>Bootloader Log</strong>: Log MCUBoot messages to the Arm Semihosting Console when PineTime's SWD port is connected. Useful for troubleshooting the bootloader.</p>
