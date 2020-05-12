@@ -180,7 +180,6 @@ int flash_speed_test(int flash_dev, uint32_t addr, int sz, int move) {
 //  flash_speed <flash_id> <addr> <rd_sz>|range [move]
 //  range=0 for size mode, range=1 for range mode, move=1 for move
 int speed_cmd(int flash_dev, uint32_t addr, uint32_t sz, int range, int move) {
-    char *ep;
     int cnt, i;
     if (!range) {
         //  For size mode
@@ -210,5 +209,5 @@ int speed_cmd(int flash_dev, uint32_t addr, uint32_t sz, int range, int move) {
 
 int test_flash() {
     //  Dump sector map for internal flash ROM.
-    map_cmd(0);
+    return map_cmd(0);
 }
