@@ -340,6 +340,26 @@
 		]
 	},
 	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/drivers/flash/spiflash/syscfg.yml",
+		"bookmarks": [
+			{
+				"line": 63,
+				"column": 25,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/drivers/flash/spiflash/src/spiflash.c",
+		"bookmarks": [
+			{
+				"line": 88,
+				"column": 36,
+				"label": ""
+			}
+		]
+	},
+	{
 		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/bsp/black_vet6/src/hal_bsp.c",
 		"bookmarks": [
 			{
