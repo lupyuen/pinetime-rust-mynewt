@@ -39,6 +39,8 @@ static int flash_cli_cmd(const struct shell_cmd *cmd, int argc, char **argv,
     char tmp_buf[32];
     char pr_str[80];
     devid = 0;
+
+    //  devid = strtoul(argv[1], &eptr, 0);
     if (argc < 3) {
         do {
             hf = hal_bsp_flash_dev(devid);
@@ -73,6 +75,8 @@ static int flash_cli_cmd(const struct shell_cmd *cmd, int argc, char **argv,
         return 0;
     }
 
+    //  off = strtoul(argv[3], &eptr, 0);
+    //  sz = strtoul(argv[4], &eptr, 0);
     if (!strcmp(argv[2], "erase")) {
         console_printf(streamer, "Erase 0x%lx + %lx\n",
                 (long unsigned int) off, (long unsigned int) sz);
@@ -180,6 +184,9 @@ static int flash_speed_test_cli(const struct shell_cmd *cmd, int argc, char **ar
     uint32_t addr, sz;
     int move, cnt, i;
 
+    //  flash_dev = strtoul(argv[1], &ep, 10);
+    //  addr = strtoul(argv[2], &ep, 0);
+
     i = 1;  //  For range
     //  i = 0;  //  For size
     move = 1;
@@ -187,7 +194,7 @@ static int flash_speed_test_cli(const struct shell_cmd *cmd, int argc, char **ar
 
     if (i == 0) {
         //  For size
-        sz = strtoul(argv[3], &ep, 0);
+        //  sz = strtoul(argv[3], &ep, 0);
         console_printf(streamer,
           "Speed test, hal_flash_read(%d, 0x%x%s, %d)\n",
           flash_dev, (unsigned int)addr, move?"..":"", (unsigned int)sz);
