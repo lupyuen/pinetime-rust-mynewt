@@ -143,7 +143,7 @@ int flash_speed_test(int flash_dev, uint32_t addr, int sz, int move) {
     int cnt = 0, off = 0;
     void *data_buf;
 
-    data_buf = malloc(sz);
+    data_buf = malloc(sz); ////
     if (!data_buf) {
         return -1;
     }
@@ -173,7 +173,7 @@ int flash_speed_test(int flash_dev, uint32_t addr, int sz, int move) {
         end_time = os_time_get();
         cnt++;
     } while (end_time - start_time < 2 * OS_TICKS_PER_SEC);
-    free(data_buf);
+    free(data_buf); ////
     return cnt;
 }
 
@@ -208,6 +208,7 @@ int speed_cmd(int flash_dev, uint32_t addr, uint32_t sz, int range, int move) {
 }
 
 int test_flash() {
+    console_printf("Starting flash test...\n"); console_flush();
     //  Dump sector map for internal flash ROM.
     return map_cmd(0);
 }
