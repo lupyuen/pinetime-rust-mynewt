@@ -70,7 +70,7 @@
 		]
 	},
 	{
-		"path": "/Users/Luppy/PineTime/pinetime-rust-mynewt\\repos\\apache-mynewt-core\\hw\\bsp\\black_vet6\\src\\hal_bsp.c",
+		"path": "$ROOTPATH$\\repos\\apache-mynewt-core\\hw\\bsp\\black_vet6\\src\\hal_bsp.c",
 		"bookmarks": [
 			{
 				"line": 423,
@@ -80,7 +80,7 @@
 		]
 	},
 	{
-		"path": "/Users/Luppy/PineTime/pinetime-rust-mynewt\\hw\\bsp\\nrf52\\src\\hal_bsp.c",
+		"path": "$ROOTPATH$\\hw\\bsp\\nrf52\\src\\hal_bsp.c",
 		"bookmarks": [
 			{
 				"line": 47,
@@ -90,31 +90,11 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/test/spiflash_stress_test/src/spiflash_stress_test.c",
+		"path": "$ROOTPATH$\\apps\\my_sensor_app\\src\\flash_test.c",
 		"bookmarks": [
 			{
-				"line": 90,
-				"column": 12,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/test/flash_test/src/flash_test.c",
-		"bookmarks": [
-			{
-				"line": 192,
-				"column": 9,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/drivers/flash/spiflash/chips/syscfg.yml",
-		"bookmarks": [
-			{
-				"line": 307,
-				"column": 18,
+				"line": 135,
+				"column": 10,
 				"label": ""
 			}
 		]
