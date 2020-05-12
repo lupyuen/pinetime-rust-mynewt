@@ -67,6 +67,7 @@ syscfg.vals:
     SPIFLASH_SECTOR_SIZE:   4094    # 4 KB sector size
     SPIFLASH_PAGE_SIZE:     256     # TODO: Check page size
 
+    # Copied from https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml
     SPIFLASH_TBP1_TYPICAL:  20
     SPIFLASH_TBP1_MAXIMUM:  50
     SPIFLASH_TPP_TYPICAL:   700
