@@ -35,7 +35,7 @@ enum Command {
 };
 
 /// Dump the sector map for the flash device: 0 for internal flash ROM, 1 for external SPI flash
-static int dump_cmd(int devid) {
+static int map_cmd(int devid) {
     const struct hal_flash *hf;
     int sec_cnt, i, soff;
     char *eptr;
@@ -69,7 +69,6 @@ static int dump_cmd(int devid) {
     return 0;
 }
 
-//  flash [flash-id] -- dumps sector map
 //  flash <flash-id> read <offset> <size> -- reads bytes from flash
 //  flash <flash-id> write <offset> <size> -- writes incrementing data pattern 0-8 to flash
 //  flash <flash-id> erase <offset> <size> -- erases flash
@@ -184,22 +183,12 @@ int flash_speed_test(int flash_dev, uint32_t addr, int sz, int move) {
 }
 
 //  flash_speed <flash_id> <addr> <rd_sz>|range [move]
-static int flash_speed_test_cli() {
+//  range=0 for size mode, range=1 for range mode, move=1 for move
+static int speed_cmd(int flash_dev, uint32_t addr, uint32_t sz, int range, int move) {
     char *ep;
-    int flash_dev;
-    uint32_t addr, sz;
-    int move, cnt, i;
-
-    //  flash_dev = strtoul(argv[1], &ep, 10);
-    //  addr = strtoul(argv[2], &ep, 0);
-
-    i = 1;  //  For range
-    //  i = 0;  //  For size
-    move = 1;
-    //  move = 0;
-
-    if (i == 0) {
-        //  For size
+    int cnt, i;
+    if (!range) {
+        //  For size mode
         //  sz = strtoul(argv[3], &ep, 0);
         console_printf(
           "Speed test, hal_flash_read(%d, 0x%x%s, %d)\n",
@@ -207,7 +196,7 @@ static int flash_speed_test_cli() {
         cnt = flash_speed_test(flash_dev, addr, sz, move);
         console_printf("%d\n", cnt >> 1);
     } else {
-        //  For range
+        //  For range mode
         uint32_t sizes[] = {
             1, 2, 4, 8, 16, 24, 32, 48, 64, 96, 128, 192, 256
         };
