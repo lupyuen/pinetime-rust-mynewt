@@ -26,6 +26,7 @@
 #include <stdio.h>
 #include <string.h>
 
+/// Flash testing commands
 enum Command {
     READ_COMMAND = 1,
     WRITE_COMMAND,
@@ -139,7 +140,7 @@ int flash_cmd(enum Command cmd, int devid, uint32_t off, uint32_t sz) {
 #define MAX_SPEED_TEST_SIZE 1024  //  Max number of bytes for speed test
 static uint8_t data_buf[MAX_SPEED_TEST_SIZE];  //  Will read into this buffer for speed test
 
-//  Returns # of ops done within 2 seconds. sz must not exceed MAX_SPEED_TEST_SIZE;
+/// Returns # of ops done within 2 seconds. sz must not exceed MAX_SPEED_TEST_SIZE;
 int flash_speed_test(int flash_dev, uint32_t addr, int sz, int move) {
     int rc, start_time, end_time;
     int cnt = 0, off = 0;
@@ -173,20 +174,20 @@ int flash_speed_test(int flash_dev, uint32_t addr, int sz, int move) {
     return cnt;
 }
 
-//  flash_speed <flash_id> <addr> <rd_sz>|range [move]
-//  range=0 for size mode, range=1 for range mode, move=1 for move
+/// Test flash speed
+/// flash_speed <flash_id> <addr> <rd_sz>|range [move]
+/// range=0 for size mode, range=1 for range mode, move=1 for move
 int speed_cmd(int flash_dev, uint32_t addr, uint32_t sz, int range, int move) {
     int cnt, i;
     if (!range) {
-        //  For size mode
-        //  sz = strtoul(argv[3], &ep, 0);
+        //  For size mode:
         console_printf(
-          "Speed test, hal_flash_read(%d, 0x%x%s, %d)\n",
-          flash_dev, (unsigned int)addr, move?"..":"", (unsigned int)sz);
+            "Speed test, hal_flash_read(%d, 0x%x%s, %d)\n",
+            flash_dev, (unsigned int)addr, move?"..":"", (unsigned int)sz);
         cnt = flash_speed_test(flash_dev, addr, sz, move);
         console_printf("%d\n", cnt >> 1);
     } else {
-        //  For range mode
+        //  For range mode:
         uint32_t sizes[] = {
             1, 2, 4, 8, 16, 24, 32, 48, 64, 96, 128, 192, 256
         };
@@ -203,16 +204,17 @@ int speed_cmd(int flash_dev, uint32_t addr, uint32_t sz, int range, int move) {
     return 0;
 }
 
+/// Test internal flash ROM and external SPI flash
 int test_flash() {
-    console_printf("Starting flash test...\n"); console_flush();
+    console_printf("Testing flash...\n"); console_flush();
     if (
         ///////////////////////////////////////////////////
         //  Dump Sector Map
-        
+
         //  Dump sector map for internal flash ROM
         map_cmd(0) ||
 
-        //  Dump sector map for external flash ROM
+        //  Dump sector map for external SPI flash
         //  map_cmd(1) ||
 
         ///////////////////////////////////////////////////
@@ -229,10 +231,10 @@ int test_flash() {
         //  Write external SPI flash
         //  flash_cmd(WRITE_COMMAND, 1, 0x0, 32) ||
 
-        //  flash <flash-id> erase <offset> <size> -- erases flash
-
         ///////////////////////////////////////////////////
         //  Erase Flash
+        //  flash <flash-id> erase <offset> <size> -- erases flash
+
         //  Erase external SPI flash
         //  flash_cmd(ERASE_COMMAND, 1, 0x0, 32) ||
 
@@ -244,9 +246,19 @@ int test_flash() {
         //  Internal flash ROM, size mode, no move
         //  speed_cmd(0, 0x0, 32, 0, 0) ||
 
+        //  External SPI flash, size mode, no move
+        //  speed_cmd(1, 0x0, 32, 0, 0) ||
+
         //  Internal flash ROM, range mode, no move
         //  speed_cmd(0, 0x0, 0, 1, 0) ||
+
+        //  External SPI flash, range mode, no move
+        //  speed_cmd(1, 0x0, 0, 1, 0) ||
         0
-    ) { return -1; }  //  Tests failed
-    return 0;         //  Tests OK
+    ) { 
+        console_printf("Flash failed\n"); console_flush();
+        return -1;  //  Tests failed
+    }
+    console_printf("Flash OK\n"); console_flush();
+    return 0;  //  Tests OK
 }
