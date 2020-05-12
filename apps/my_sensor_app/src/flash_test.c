@@ -35,12 +35,9 @@ enum Command {
 };
 
 /// Dump the sector map for the flash device: 0 for internal flash ROM, 1 for external SPI flash
-static int map_cmd(int devid) {
+int map_cmd(int devid) {
     const struct hal_flash *hf;
-    int sec_cnt, i, soff;
-    char *eptr;
-    char tmp_buf[32];
-    char pr_str[80];
+    int sec_cnt, i;
     hf = hal_bsp_flash_dev(devid);
     if (!hf) {
         console_printf("Flash device not present\n");
@@ -72,15 +69,13 @@ static int map_cmd(int devid) {
 //  flash <flash-id> read <offset> <size> -- reads bytes from flash
 //  flash <flash-id> write <offset> <size> -- writes incrementing data pattern 0-8 to flash
 //  flash <flash-id> erase <offset> <size> -- erases flash
-static int flash_cmd(enum Command cmd, int devid, uint32_t off, uint32_t sz) {
+int flash_cmd(enum Command cmd, int devid, uint32_t off, uint32_t sz) {
     //  Previously defaults to off = 0, sz = 1
-    const struct hal_flash *hf;
     int sec_cnt, i, soff;
-    char *eptr;
     char tmp_buf[32];
     char pr_str[80];
     switch(cmd) {
-        ERASE_COMMAND: {
+        case ERASE_COMMAND: {
             console_printf("Erase 0x%lx + %lx\n",
                 (long unsigned int) off, (long unsigned int) sz);
             if (hal_flash_erase(devid, off, sz)) {
@@ -89,7 +84,7 @@ static int flash_cmd(enum Command cmd, int devid, uint32_t off, uint32_t sz) {
             console_printf("Done!\n");
             break;
         }
-        READ_COMMAND: {
+        case READ_COMMAND: {
             console_printf("Read 0x%lx + %lx\n",
                 (long unsigned int) off, (long unsigned int) sz);
             sz += off;
@@ -118,7 +113,7 @@ static int flash_cmd(enum Command cmd, int devid, uint32_t off, uint32_t sz) {
             }
             break;
         }
-        WRITE_COMMAND: {
+        case WRITE_COMMAND: {
             console_printf("Write 0x%lx + %lx\n",
                 (long unsigned int) off, (long unsigned int) sz);
             sz += off;
@@ -184,7 +179,7 @@ int flash_speed_test(int flash_dev, uint32_t addr, int sz, int move) {
 
 //  flash_speed <flash_id> <addr> <rd_sz>|range [move]
 //  range=0 for size mode, range=1 for range mode, move=1 for move
-static int speed_cmd(int flash_dev, uint32_t addr, uint32_t sz, int range, int move) {
+int speed_cmd(int flash_dev, uint32_t addr, uint32_t sz, int range, int move) {
     char *ep;
     int cnt, i;
     if (!range) {
