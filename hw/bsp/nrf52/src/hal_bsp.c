@@ -31,6 +31,10 @@
 #include "bsp/bsp.h"
 #include "defs/sections.h"
 
+#if MYNEWT_VAL(SPIFLASH)  //  If External SPI Flash exists...
+#include <spiflash/spiflash.h>
+#endif  //  MYNEWT_VAL(SPIFLASH)
+
 /*
  * What memory to include in coredump.
  */
@@ -41,17 +45,22 @@ static const struct hal_bsp_mem_dump dump_cfg[] = {
     }
 };
 
+/// Array of Flash Devices
+static const struct hal_flash *flash_devs[] = {
+    [0] = &nrf52k_flash_dev,  //  Internal Flash ROM
+#if MYNEWT_VAL(SPIFLASH)      //  If External SPI Flash exists...
+    [1] = &spiflash_dev.hal,  //  External SPI Flash
+#endif                        //  MYNEWT_VAL(SPIFLASH)
+};
+
+/// Return the Flash Device for the ID. 0 for Internal Flash ROM, 1 for External SPI Flash
 const struct hal_flash *
 hal_bsp_flash_dev(uint8_t id)
 {
-    /*
-     * Internal flash mapped to id 0.
-     */
-    if (id == 0) {
-        return &nrf52k_flash_dev;
+    if (id >= ARRAY_SIZE(flash_devs)) {
+        return NULL;
     }
-
-    return NULL;
+    return flash_devs[id];
 }
 
 const struct hal_bsp_mem_dump *

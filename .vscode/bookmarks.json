@@ -83,8 +83,8 @@
 		"path": "$ROOTPATH$\\hw\\bsp\\nrf52\\src\\hal_bsp.c",
 		"bookmarks": [
 			{
-				"line": 44,
-				"column": 13,
+				"line": 47,
+				"column": 16,
 				"label": ""
 			}
 		]
