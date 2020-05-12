@@ -52,6 +52,35 @@ syscfg.vals:
     NFC_PINS_AS_GPIO: 1
 
     ###########################################################################
+    # SPI Flash
+    # XTX XT25F32B 32 Mb (4 MB) SPI NOR Flash (similar to QuadSPI SPI NOR Flash like Macronix 32 Mb (4 MB) MX25L3233F)
+    # manufacturer (0x0b), device (0x15), memory type (0x40), density (0x16)
+
+    SPIFLASH:               1   # Enable SPI Flash
+    SPIFLASH_SPI_NUM:       0   # On SPI_0
+    SPIFLASH_SPI_CS_PIN:    5   # P0.05/AIN3: SPI-CE# (SPI-NOR)
+    SPIFLASH_BAUDRATE:      42000   # TODO: Check SPI speed
+    SPIFLASH_MANUFACTURER:  0x0B    # manufacturer (0x0b)
+    SPIFLASH_MEMORY_TYPE:   0x40    # memory type (0x40)
+    SPIFLASH_MEMORY_CAPACITY: 0x16  # density (2 ^ 0x16 = 32 Mb)
+    SPIFLASH_SECTOR_COUNT:  1024    # 1024 sectors of 4 KB each
+    SPIFLASH_SECTOR_SIZE:   4094    # 4 KB sector size
+    SPIFLASH_PAGE_SIZE:     256     # TODO: Check page size
+
+    SPIFLASH_TBP1_TYPICAL:  20
+    SPIFLASH_TBP1_MAXIMUM:  50
+    SPIFLASH_TPP_TYPICAL:   700
+    SPIFLASH_TPP_MAXIMUM:   3000
+    SPIFLASH_TSE_TYPICAL:   30000
+    SPIFLASH_TSE_MAXIMUM:   400000
+    SPIFLASH_TBE1_TYPICAL:  120000
+    SPIFLASH_TBE1_MAXIMUM:  800000
+    SPIFLASH_TBE2_TYPICAL:  150000
+    SPIFLASH_TBE2_MAXIMUM:  1000000
+    SPIFLASH_TCE_TYPICAL:   3000000
+    SPIFLASH_TCE_MAXIMUM:   10000000
+
+    ###########################################################################
     # Flash Regions
 
     CONFIG_FCB_FLASH_AREA: FLASH_AREA_NFFS
@@ -62,6 +91,9 @@ syscfg.vals:
     MCU_DCDC_ENABLED: 1
     MCU_LFCLK_SOURCE: LFXO
     BOOT_SERIAL_DETECT_PIN: 20
+
+    ###########################################################################
+    # Bluetooth
 
     # The module on the board has +/- 40 ppm crystal. A value of 5 is
     # for crystals in the range of 31 to 50 ppm.
