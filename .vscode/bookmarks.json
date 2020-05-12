@@ -70,7 +70,7 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$\\repos\\apache-mynewt-core\\hw\\bsp\\black_vet6\\src\\hal_bsp.c",
+		"path": "/Users/Luppy/PineTime/pinetime-rust-mynewt\\repos\\apache-mynewt-core\\hw\\bsp\\black_vet6\\src\\hal_bsp.c",
 		"bookmarks": [
 			{
 				"line": 423,
@@ -80,11 +80,31 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$\\hw\\bsp\\nrf52\\src\\hal_bsp.c",
+		"path": "/Users/Luppy/PineTime/pinetime-rust-mynewt\\hw\\bsp\\nrf52\\src\\hal_bsp.c",
 		"bookmarks": [
 			{
 				"line": 47,
 				"column": 16,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/test/spiflash_stress_test/src/spiflash_stress_test.c",
+		"bookmarks": [
+			{
+				"line": 90,
+				"column": 12,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/test/flash_test/src/flash_test.c",
+		"bookmarks": [
+			{
+				"line": 192,
+				"column": 9,
 				"label": ""
 			}
 		]
