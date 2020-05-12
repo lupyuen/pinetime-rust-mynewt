@@ -119,6 +119,11 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     chip8::on_start()
         .expect("CHIP8 fail");
 
+    //  Test External SPI Flash
+    extern { fn test_flash() -> i32; }
+    let rc = unsafe { test_flash() };
+    assert!(rc == 0, "FLASH fail");
+
     //  Main event loop
     loop {                            //  Loop forever...
         os::eventq_run(               //  Processing events...

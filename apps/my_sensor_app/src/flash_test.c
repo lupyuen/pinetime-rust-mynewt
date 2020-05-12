@@ -212,3 +212,8 @@ static int speed_cmd(int flash_dev, uint32_t addr, uint32_t sz, int range, int m
     }
     return 0;
 }
+
+int test_flash() {
+    //  Dump sector map for internal flash ROM.
+    map_cmd(0);
+}
