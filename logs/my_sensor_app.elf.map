@@ -22977,24 +22977,23 @@ END GROUP
  *(.rodata*)
  .rodata..Lanon.7dc1df06bf5852c2b9df88c81f7fa69c.0
                 0x00000000000357ae       0x12 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.gz0fksn1u8kmg17.rcgu.o)
- .rodata.cst8   0x00000000000357c0       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.gz0fksn1u8kmg17.rcgu.o)
+ .rodata..Lanon.7dc1df06bf5852c2b9df88c81f7fa69c.1
+                0x00000000000357c0        0xa /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.gz0fksn1u8kmg17.rcgu.o)
  .rodata..Lanon.7dc1df06bf5852c2b9df88c81f7fa69c.2
-                0x00000000000357e8       0x13 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.gz0fksn1u8kmg17.rcgu.o)
- *fill*         0x00000000000357fb        0x1 
+                0x00000000000357ca       0x13 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.gz0fksn1u8kmg17.rcgu.o)
+ *fill*         0x00000000000357dd        0x3 
  .rodata..Lanon.7dc1df06bf5852c2b9df88c81f7fa69c.3
-                0x00000000000357fc       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.gz0fksn1u8kmg17.rcgu.o)
+                0x00000000000357e0       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.gz0fksn1u8kmg17.rcgu.o)
+ .rodata.cst8   0x00000000000357f0       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.gz0fksn1u8kmg17.rcgu.o)
  .rodata..Lanon.7dc1df06bf5852c2b9df88c81f7fa69c.5
-                0x000000000003580c       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.gz0fksn1u8kmg17.rcgu.o)
- .rodata..Lanon.7dc1df06bf5852c2b9df88c81f7fa69c.6
-                0x000000000003581c        0xd /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.gz0fksn1u8kmg17.rcgu.o)
- *fill*         0x0000000000035829        0x3 
+                0x0000000000035818       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.gz0fksn1u8kmg17.rcgu.o)
  .rodata..Lanon.7dc1df06bf5852c2b9df88c81f7fa69c.7
-                0x000000000003582c       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.gz0fksn1u8kmg17.rcgu.o)
+                0x0000000000035828       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.gz0fksn1u8kmg17.rcgu.o)
+ .rodata..Lanon.7dc1df06bf5852c2b9df88c81f7fa69c.8
+                0x0000000000035838        0xd /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.gz0fksn1u8kmg17.rcgu.o)
+ *fill*         0x0000000000035845        0x3 
  .rodata..Lanon.7dc1df06bf5852c2b9df88c81f7fa69c.9
-                0x000000000003583c       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.gz0fksn1u8kmg17.rcgu.o)
- .rodata..Lanon.7dc1df06bf5852c2b9df88c81f7fa69c.10
-                0x000000000003584c        0xa /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.gz0fksn1u8kmg17.rcgu.o)
- *fill*         0x0000000000035856        0x2 
+                0x0000000000035848       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.gz0fksn1u8kmg17.rcgu.o)
  .rodata..Lanon.7dc1df06bf5852c2b9df88c81f7fa69c.11
                 0x0000000000035858       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.gz0fksn1u8kmg17.rcgu.o)
  .rodata..Lanon.7dc1df06bf5852c2b9df88c81f7fa69c.13

@@ -83,6 +83,11 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
     mynewt::sysinit();
 
+    //  Test External SPI Flash. Must run before starting the display, to avoid contention for SPI port.
+    extern { fn test_flash() -> i32; }
+    let rc = unsafe { test_flash() };
+    assert!(rc == 0, "FLASH fail");
+
     //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
     extern { fn start_ble() -> i32; }
     let rc = unsafe { start_ble() };
@@ -118,11 +123,6 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     #[cfg(feature = "chip8_app")]  //  If CHIP8 Emulator app is enabled...
     chip8::on_start()
         .expect("CHIP8 fail");
-
-    //  Test External SPI Flash
-    extern { fn test_flash() -> i32; }
-    let rc = unsafe { test_flash() };
-    assert!(rc == 0, "FLASH fail");
 
     //  Main event loop
     loop {                            //  Loop forever...
