@@ -27,11 +27,9 @@
 #include <string.h>
 
 enum Command {
-    MAP_COMMAND = 1,
-    READ_COMMAND,
+    READ_COMMAND = 1,
     WRITE_COMMAND,
     ERASE_COMMAND,
-    SPEED_COMMAND,
 };
 
 /// Dump the sector map for the flash device: 0 for internal flash ROM, 1 for external SPI flash
@@ -132,21 +130,20 @@ int flash_cmd(enum Command cmd, int devid, uint32_t off, uint32_t sz) {
             break;
         }
         default:
+            assert(false);  //  Unknown command
             break;
     }
     return 0;
 }
 
-//  Returns # of ops done within 2 seconds.
+#define MAX_SPEED_TEST_SIZE 1024  //  Max number of bytes for speed test
+static uint8_t data_buf[MAX_SPEED_TEST_SIZE];  //  Will read into this buffer for speed test
+
+//  Returns # of ops done within 2 seconds. sz must not exceed MAX_SPEED_TEST_SIZE;
 int flash_speed_test(int flash_dev, uint32_t addr, int sz, int move) {
     int rc, start_time, end_time;
     int cnt = 0, off = 0;
-    void *data_buf;
-
-    data_buf = malloc(sz); ////
-    if (!data_buf) {
-        return -1;
-    }
+    assert(sz <= MAX_SPEED_TEST_SIZE);  //  sz must not exceed MAX_SPEED_TEST_SIZE
     //  Catch start of a tick.
     start_time = os_time_get();
     while (1) {
@@ -173,7 +170,6 @@ int flash_speed_test(int flash_dev, uint32_t addr, int sz, int move) {
         end_time = os_time_get();
         cnt++;
     } while (end_time - start_time < 2 * OS_TICKS_PER_SEC);
-    free(data_buf); ////
     return cnt;
 }
 
@@ -209,6 +205,48 @@ int speed_cmd(int flash_dev, uint32_t addr, uint32_t sz, int range, int move) {
 
 int test_flash() {
     console_printf("Starting flash test...\n"); console_flush();
-    //  Dump sector map for internal flash ROM.
-    return map_cmd(0);
+    if (
+        ///////////////////////////////////////////////////
+        //  Dump Sector Map
+        
+        //  Dump sector map for internal flash ROM
+        map_cmd(0) ||
+
+        //  Dump sector map for external flash ROM
+        //  map_cmd(1) ||
+
+        ///////////////////////////////////////////////////
+        //  Read Flash
+        //  flash <flash-id> read <offset> <size> -- reads bytes from flash        
+
+        //  Read internal flash ROM
+        //  flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
+
+        ///////////////////////////////////////////////////
+        //  Write flash
+        //  flash <flash-id> write <offset> <size> -- writes incrementing data pattern 0-8 to flash
+
+        //  Write external SPI flash
+        //  flash_cmd(WRITE_COMMAND, 1, 0x0, 32) ||
+
+        //  flash <flash-id> erase <offset> <size> -- erases flash
+
+        ///////////////////////////////////////////////////
+        //  Erase Flash
+        //  Erase external SPI flash
+        //  flash_cmd(ERASE_COMMAND, 1, 0x0, 32) ||
+
+        ///////////////////////////////////////////////////
+        //  Test Flash Speed
+        //  flash_speed <flash_id> <addr> <rd_sz>|range [move]
+        //  range=0 for size mode, range=1 for range mode, move=1 for move
+
+        //  Internal flash ROM, size mode, no move
+        //  speed_cmd(0, 0x0, 32, 0, 0) ||
+
+        //  Internal flash ROM, range mode, no move
+        //  speed_cmd(0, 0x0, 0, 1, 0) ||
+        0
+    ) { return -1; }  //  Tests failed
+    return 0;         //  Tests OK
 }
