@@ -35,11 +35,12 @@ syscfg.vals:
 
     ###########################################################################
     # Default Pins for Peripherals
+    # Defined in http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf
 
-    # SPI port 0 connected to ST7789 display
-    SPI_0_MASTER_PIN_SCK:  2   # LCD_SCK (P0.02)	SPI clock
-    SPI_0_MASTER_PIN_MOSI: 3   # LCD_SDI (P0.03)	SPI MOSI
-    SPI_0_MASTER_PIN_MISO: 29  # Unused
+    # SPI port 0 connected to ST7789 display and XT25F32B flash
+    SPI_0_MASTER_PIN_SCK:  2  # P0.02/AIN0: SPI-SCK, LCD_SCK    SPI clock for display and flash
+    SPI_0_MASTER_PIN_MOSI: 3  # P0.03/AIN1: SPI-MOSI, LCD_SDI   SPI MOSI for display and flash
+    SPI_0_MASTER_PIN_MISO: 4  # P0.04/AIN2: SPI-MISO            SPI MISO for flash only
 
     # I2C port 1 connected to CST816S touch controller, BMA421 accelerometer, HRS3300 heart rate sensor 
     I2C_1_PIN_SCL: 7  # P0.07: BMA421-SCL, HRS3300-SCL, TP-SCLOUT
@@ -55,31 +56,32 @@ syscfg.vals:
     # SPI Flash
     # XTX XT25F32B 32 Mb (4 MB) SPI NOR Flash (similar to QuadSPI SPI NOR Flash like Macronix 32 Mb (4 MB) MX25L3233F)
     # manufacturer (0x0b), device (0x15), memory type (0x40), density (0x16)
+    # Settings below are documented at https://github.com/apache/mynewt-core/blob/master/hw/drivers/flash/spiflash/syscfg.yml
 
     SPIFLASH:               1   # Enable SPI Flash
-    SPIFLASH_SPI_NUM:       0   # On SPI_0
-    SPIFLASH_SPI_CS_PIN:    5   # P0.05/AIN3: SPI-CE# (SPI-NOR)
-    SPIFLASH_BAUDRATE:      42000   # TODO: Check SPI speed
-    SPIFLASH_MANUFACTURER:  0x0B    # manufacturer (0x0b)
-    SPIFLASH_MEMORY_TYPE:   0x40    # memory type (0x40)
-    SPIFLASH_MEMORY_CAPACITY: 0x16  # density (2 ^ 0x16 = 32 Mb)
-    SPIFLASH_SECTOR_COUNT:  1024    # 1024 sectors of 4 KB each
-    SPIFLASH_SECTOR_SIZE:   4094    # 4 KB sector size
-    SPIFLASH_PAGE_SIZE:     256     # TODO: Check page size
+    SPIFLASH_SPI_NUM:       0   # SPI Interface 0
+    SPIFLASH_SPI_CS_PIN:    5   # SPI interface CS pin: P0.05/AIN3, SPI-CE# (SPI-NOR)
+    SPIFLASH_BAUDRATE:      42000   # TODO Requested baudrate, value must be supported by SPI driver
+    SPIFLASH_MANUFACTURER:  0x0B    # Expected SpiFlash manufacturer as read by Read JEDEC ID command 9FH
+    SPIFLASH_MEMORY_TYPE:   0x40    # Expected SpiFlash memory type as read by Read JEDEC ID command 9FH
+    SPIFLASH_MEMORY_CAPACITY: 0x16  # Expected SpiFlash memory capactity as read by Read JEDEC ID command 9FH (2 ^ 0x16 = 32 Mb)
+    SPIFLASH_SECTOR_COUNT:  1024    # Number of sectors: 1024 sectors of 4 KB each
+    SPIFLASH_SECTOR_SIZE:   4094    # Number of bytes that can be erased at a time: 4 KB sector size
+    SPIFLASH_PAGE_SIZE:     256     # TODO Number of bytes that can be written at a time
 
     # Copied from https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml
-    SPIFLASH_TBP1_TYPICAL:  20
-    SPIFLASH_TBP1_MAXIMUM:  50
-    SPIFLASH_TPP_TYPICAL:   700
-    SPIFLASH_TPP_MAXIMUM:   3000
-    SPIFLASH_TSE_TYPICAL:   30000
-    SPIFLASH_TSE_MAXIMUM:   400000
-    SPIFLASH_TBE1_TYPICAL:  120000
-    SPIFLASH_TBE1_MAXIMUM:  800000
-    SPIFLASH_TBE2_TYPICAL:  150000
-    SPIFLASH_TBE2_MAXIMUM:  1000000
-    SPIFLASH_TCE_TYPICAL:   3000000
-    SPIFLASH_TCE_MAXIMUM:   10000000
+    SPIFLASH_TBP1_TYPICAL:  20      # Byte program time (first byte) (us)
+    SPIFLASH_TBP1_MAXIMUM:  50      # Maximum byte program time (first byte) (us)
+    SPIFLASH_TPP_TYPICAL:   700     # Page program time (us)
+    SPIFLASH_TPP_MAXIMUM:   3000    # Maximum page program time (us)
+    SPIFLASH_TSE_TYPICAL:   30000   # Sector erase time (4KB) (us)
+    SPIFLASH_TSE_MAXIMUM:   400000  # Maximum sector erase time (us)
+    SPIFLASH_TBE1_TYPICAL:  120000  # Block erase time (32KB) (us)
+    SPIFLASH_TBE1_MAXIMUM:  800000  # Maximum block erase time (32KB) (us)
+    SPIFLASH_TBE2_TYPICAL:  150000  # Block erase time (64KB) (us)
+    SPIFLASH_TBE2_MAXIMUM:  1000000 # Maximum block erase time (64KB) (us)
+    SPIFLASH_TCE_TYPICAL:   3000000 # Chip erase time (us)
+    SPIFLASH_TCE_MAXIMUM:   10000000 # Maximum chip erase time (us)
 
     ###########################################################################
     # Flash Regions

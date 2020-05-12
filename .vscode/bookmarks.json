@@ -108,5 +108,15 @@
 				"label": ""
 			}
 		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/drivers/flash/spiflash/chips/syscfg.yml",
+		"bookmarks": [
+			{
+				"line": 307,
+				"column": 18,
+				"label": ""
+			}
+		]
 	}
 ]
