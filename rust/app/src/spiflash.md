@@ -30,7 +30,7 @@ https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml
 
 TODO
 
-# Configure pins for SPI Port (`syscfg.yml`):
+# `syscfg.yml:` Configure pins for SPI Port
 
 TODO
 
@@ -59,7 +59,7 @@ syscfg.vals:
     ...
 ```
 
-# Configure flash interface (`syscfg.yml`):
+# `syscfg.yml:` Configure flash interface
 
 TODO
 
@@ -100,7 +100,7 @@ syscfg.vals:
     ...
 ```
 
-# Configure flash timings (`syscfg.yml`):
+# `syscfg.yml:` Configure flash timings
 
 TODO
 
@@ -125,7 +125,7 @@ syscfg.vals:
     ...
 ```
 
-# Include spiflash.h (`hal_bsp.c`):
+# `hal_bsp.c:` Include spiflash.h
 
 TODO
 
@@ -138,7 +138,7 @@ https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_b
 #endif  //  MYNEWT_VAL(SPIFLASH)
 ```
 
-# Define two flash devices (`hal_bsp.c`):
+# `hal_bsp.c:` Define two flash devices
 
 TODO
 
@@ -158,7 +158,7 @@ static const struct hal_flash *flash_devs[] = {
 };
 ```
 
-# Access flash devices by ID (`hal_bsp.c`):
+# `hal_bsp.c:` Access flash devices by ID
 
       0 for Internal Flash ROM,
       1 for External SPI Flash
@@ -178,7 +178,7 @@ hal_bsp_flash_dev(uint8_t id)
 }
 ```
 
-# Add `spiflash` driver (`pkg.yml`):
+# `pkg.yml:` Add `spiflash` driver
 
 https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml
 
