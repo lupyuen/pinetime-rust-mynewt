@@ -4,7 +4,7 @@
 
 There's one thing truly remarkable about the __Apache Mynewt__ embedded operating system... __Almost any feature can be switched on by editing a configuration file!__
 
-Today we'll learn to enable access to __SPI Flash Memory__ with Mynewt OS on PineTime Smart Watch... Just by editing two configuration files ([`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml) and [`pkg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml)), and making some minor code changes ([`hal_bsp.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c)).
+Today we'll learn to configure Mynewt OS to enable access to __SPI Flash Memory__ on [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime)... Just by editing two configuration files ([`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml) and [`pkg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml)), and making some minor code changes ([`hal_bsp.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c)).
 
 These steps will work for any Nordic nRF52 device, and probably STM32 devices too (see diagram above)...
 
@@ -30,7 +30,7 @@ The first configuration file we'll edit is `syscfg.yml` from the Board Support P
 
 [`hw/bsp/nrf52/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml)
 
-Let's add the PineTime SPI settings according to the PineTime Wiki: [PineTime Port Assignment](http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf)...
+Let's add the PineTime SPI settings according to the [PineTime Wiki](https://wiki.pine64.org/index.php/PineTime): [PineTime Port Assignment](http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf)...
 
 | nRF52 Pin | Function | Description |
 | :--- | :--- | :--- 
@@ -39,7 +39,7 @@ Let's add the PineTime SPI settings according to the PineTime Wiki: [PineTime Po
 | `P0.04` | `SPI-MISO` | SPI MISO (slave to master)
 | `P0.05` | `SPI-CE# (SPI-NOR)` | SPI Chip Select
 
-Here's how it looks in `syscfg.yml`...
+Here's how it looks in [`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml)...
 
 ```yaml
 syscfg.vals:
@@ -58,22 +58,18 @@ We'll add SPI Chip Select in a while.
 
 # `syscfg.yml:` Configure flash interface
 
-TODO
+Now we'll edit [`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml) to tell Mynewt how to access our Flash Memory...
 
-https://wiki.pine64.org/index.php/PineTime
+From the [PineTime Wiki](https://wiki.pine64.org/index.php/PineTime)...
 
 > __SPI Flash information:__ <br><br>
-XTX XT25F32B 32Mb (4MB) SPI NOR Flash <br><br>
-(data sheets for this part are hard to find but it acts similar to other QuadSPI SPI NOR Flash such as Macronix 32Mb (4MB) SPI NOR Flash) <br><br>
-IDs for XT25F32B are: __manufacturer (`0x0b`)__, device (`0x15`), __memory type (`0x40`)__, __density (`0x16`)__
+[XTX XT25F32B](https://www.elnec.com/en/device/XTX/XT25F32B+%28QuadSPI%29+%5BSOP8-200%5D/) 32 Mb (4 MB) SPI NOR Flash <br><br>
+Data sheets for this part are hard to find but it acts similar to other QuadSPI SPI NOR Flash such as [Macronix](https://www.macronix.com/Lists/Datasheet/Attachments/7426/MX25L3233F,%203V,%2032Mb,%20v1.6.pdf) 32 Mb (4 MB) SPI NOR Flash <br><br>
+IDs for XT25F32B are: __Manufacturer (`0x0b`)__, Device (`0x15`), __Memory Type (`0x40`)__, __Density (`0x16`)__
 
-device ID (`0x15`) is not used
+Confused about `MB` and `Mb`? `MB` stands for Mega Byte (roughly a million bytes), whereas `Mb` stands for Mega Bit (roughly a million bits). Divide `Mb` by 8 to get `MB`.
 
-https://www.elnec.com/en/device/XTX/XT25F32B+%28QuadSPI%29+%5BSOP8-200%5D/
-
-https://www.macronix.com/Lists/Datasheet/Attachments/7426/MX25L3233F,%203V,%2032Mb,%20v1.6.pdf
-
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml
+We don't have the datasheet for XT25F32B Flash Memory... But fortunately the JEDEC IDs for Manufacturer, Memory Type and Density (Capacity) are all that we need to fill in [`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml) like this...
 
 ```yaml
 syscfg.vals:
@@ -96,11 +92,15 @@ syscfg.vals:
     ...
 ```
 
+The JEDEC Device ID (`0x15`) is not used.
+
+`SPIFLASH_SECTOR_COUNT` and `SPIFLASH_SECTOR_SIZE` were copied from [Macronix MX25L3233F](https://www.macronix.com/Lists/Datasheet/Attachments/7426/MX25L3233F,%203V,%2032Mb,%20v1.6.pdf) since it's similar to our XT25F32B.
+
+`SPIFLASH_PAGE_SIZE` was copied from another Mynewt configuration: [`black_vet6`](https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml)
+
 # `syscfg.yml:` Configure flash timings
 
-TODO
-
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml
+Finally we edit [`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml) to tell Mynewt the timing characteristics of our Flash Memory...
 
 ```yaml
 syscfg.vals:
@@ -120,6 +120,10 @@ syscfg.vals:
     SPIFLASH_TCE_MAXIMUM:   10000000 # Maximum chip erase time (us)
     ...
 ```
+
+If we have the Flash Memory Datasheet, fill in the numbers from the datasheet.
+
+The above settings were copied from another Mynewt configuration: [`black_vet6`](https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml)
 
 # `hal_bsp.c:` Include `spiflash.h`
 
