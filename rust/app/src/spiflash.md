@@ -2,33 +2,27 @@
 
 ![Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)](https://lupyuen.github.io/images/spiflash-config.png)
 
-TODO
+There's one thing truly remarkable about the __Apache Mynewt__ embedded operating system... __Almost any feature can be switched on by editing a configuration file!__
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml
+Today we'll learn to enable access to __SPI Flash Memory__ with Mynewt OS on PineTime Smart Watch... Just by editing two configuration files ([`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml) and [`pkg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml)), and making some minor code changes ([`hal_bsp.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c)).
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c
+These steps will work for any Nordic nRF52 device, and probably STM32 devices too (see diagram above)...
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml
+1. __Configure pins for SPI Port__ in [`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml)
 
-1. Configure pins for SPI Port (`syscfg.yml`):
+1. __Configure flash interface__ in [`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml)
 
-1. Configure flash interface (`syscfg.yml`):
+1. __Configure flash timings__ in[`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml)
 
-1. Configure flash timings (`syscfg.yml`):
+1. __Include `spiflash.h`__ in [`hal_bsp.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c)
 
-1. Include spiflash.h (`hal_bsp.c`):
+1. __Define internal and external flash devices__ in [`hal_bsp.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c)
 
-1. Define two flash devices (`hal_bsp.c`):
-      Internal Flash ROM,
-      External SPI Flash
+1. __Access flash devices by ID__ in [`hal_bsp.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c)
 
-1. Access flash devices by ID (`hal_bsp.c`):
-      0 for Internal Flash ROM,
-      1 for External SPI Flash
+1. __Add `spiflash` driver__ in [`pkg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml)
 
-1. Add `spiflash` driver (`pkg.yml`):
-
-TODO
+Read on for the details...
 
 # `syscfg.yml:` Configure pins for SPI Port
 
@@ -142,9 +136,8 @@ https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_b
 
 TODO
 
-      Internal Flash ROM,
-      External SPI Flash
-
+Internal Flash ROM,
+External SPI Flash
 
 https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c
 
@@ -160,9 +153,8 @@ static const struct hal_flash *flash_devs[] = {
 
 # `hal_bsp.c:` Access flash devices by ID
 
-      0 for Internal Flash ROM,
-      1 for External SPI Flash
-
+0 for Internal Flash ROM,
+1 for External SPI Flash
 
 https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c
 
@@ -201,10 +193,10 @@ Based on https://github.com/apache/mynewt-core/blob/master/test/flash_test/src/f
         //  Dump Sector Map
 
         //  Dump sector map for internal flash ROM
-        //  map_cmd(0) ||
+        map_cmd(0) ||
 
         //  Dump sector map for external SPI flash
-        //  map_cmd(1) ||
+        map_cmd(1) ||
 
         ///////////////////////////////////////////////////
         //  Read Flash: Before erasing
@@ -318,80 +310,21 @@ Read 0x0 + 20
   0x0010: 0x11 0x12 0x13 0x14 0x15 0x16 0x17 0x18 
   0x0018: 0x19 0x1a 0x1b 0x1c 0x1d 0x1e 0x1f 0x20 
 Flash OK
-Rust test display
-*/
 
-/* Flash Sector Map:
-Testing flash...
+Flash Sector Map:
 Flash 0 at 0x0 size 0x80000 with 128 sectors, alignment req 1 bytes
-  0: 1000
-  1: 1000
-  2: 1000
-  3: 1000
-  4: 1000
-  5: 1000
-  6: 1000
-  7: 1000
-  8: 1000
-  9: 1000
-  10: 1000
-  11: 1000
-  12: 1000
-  13: 1000
-  14: 1000
-  15: 1000
-  16: 1000
-  17: 1000
-  18: 1000
-  19: 1000
-  20: 1000
-  21: 1000
-  22: 1000
-  23: 1000
-  24: 1000
-  25: 1000
-  26: 1000
-  27: 1000
-  28: 1000
-  29: 1000
-  30: 1000
-  31: 1000
-...  127: 1000
+  0:   1000
+  1:   1000
+  2:   1000
+  ...
+  127: 1000
 
 Flash 1 at 0x0 size 0x3ff800 with 1024 sectors, alignment req 1 bytes
-  0: ffe
-  1: ffe
-  2: ffe
-  3: ffe
-  4: ffe
-  5: ffe
-  6: ffe
-  7: ffe
-  8: ffe
-  9: ffe
-  10: ffe
-  11: ffe
-  12: ffe
-  13: ffe
-  14: ffe
-  15: ffe
-  16: ffe
-  17: ffe
-  18: ffe
-  19: ffe
-  20: ffe
-  21: ffe
-  22: ffe
-  23: ffe
-  24: ffe
-  25: ffe
-  26: ffe
-  27: ffe
-  28: ffe
-  29: ffe
-  30: ffe
-  31: ffe
-...  1023: ffe
+  0:    ffe
+  1:    ffe
+  2:    ffe
+  ...  
+  1023: ffe
 ```
 
 # SPI Flash Benchmark
@@ -399,6 +332,24 @@ Flash 1 at 0x0 size 0x3ff800 with 1024 sectors, alignment req 1 bytes
 TODO
 
 # Debugging with MCUBoot
+
+If we're using the MCUBoot Bootloader (like on PineTime), debugging and testing SPI Flash can be somewhat challenging.
+
+Remember that we added the SPI Flash Driver to the Board Support Package?
+
+The Board Support Package is used by _both_ the MCUBoot Bootloader as well as the Application Firmware. Which means that the SPI Flash Driver is loaded when MCUBoot starts.
+
+_What happens if the SPI Flash Driver is configured incorrectly?
+
+MCUBoot may crash... Before starting the Application Firmware! (This happened to me)
+
+Hence for debugging and testing SPI Flash, I strongly recommend switching the Bootloader to a simpler one that doesn't require any drivers: the Stub Bootloader.
+
+This will enable us to debug and test SPI Flash with our Application Firmware, before using it with MCUBoot.
+
+Also MCUBoot expects the Application Firmware to start with the MCUBoot Image Header. When the GDB debugger flashes the Firmware ELF File into ROM, the Image Header is empty. So MCUBoot won't work start the Application Firmware properly when the debugger is running. Switching MCUBoot to the Stub Bootloader will solve this.
+
+# Switching MCUBoot to Stub Bootloader
 
 TODO
 
