@@ -22,9 +22,6 @@ use embedded_hal::{
 pub fn test_display() -> MynewtResult<()> {
     console::print("Rust test display\n"); console::flush();
     
-    //  Test the backlight
-    test_backlight() ? ;
-
     //  Create black background
     let background = Rectangle::<Rgb565>
         ::new( Coord::new( 0, 0 ), Coord::new( 239, 239 ) )   //  Rectangle coordinates
@@ -53,6 +50,9 @@ pub fn test_display() -> MynewtResult<()> {
     druid::draw_to_display(square);
     druid::draw_to_display(text);    
 
+    //  Test the backlight
+    test_backlight() ? ;
+
     //  Return success to the caller
     Ok(())
 }
@@ -70,7 +70,7 @@ fn test_backlight() -> MynewtResult<()> {
     backlights[2].init(23) ? ;  //  High Backlight
 
     //  Define pulse patterns from slow to fast: From Low (0) to Mid (1) to High (2) and back
-    let slower_pulse = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1];  //  Slow pulse
+    let slower_pulse = [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1];  //  Slower pulse
     let slow_pulse = [0, 0, 0, 1, 1, 1, 2, 2, 2, 1, 1, 1];  //  Slow pulse
     let fast_pulse = [0, 0, 1, 1, 2, 2, 1, 1]; //  Fast pulse
     let faster_pulse = [0, 1, 2, 1];  //  Faster pulse
@@ -78,7 +78,7 @@ fn test_backlight() -> MynewtResult<()> {
 
     for _ in 0..10 {
         //  Pulse the backlight from Low to Mid to High and back, faster and faster
-        for _ in 0..2 {
+        for _ in 0..4 {
             flash_backlight(&mut backlights, &mut delay, 
                 &slower_pulse) ? ;
         }
@@ -94,7 +94,7 @@ fn test_backlight() -> MynewtResult<()> {
             flash_backlight(&mut backlights, &mut delay, 
                 &faster_pulse) ? ;
         }
-        for _ in 0..10 {
+        for _ in 0..20 {
             flash_backlight(&mut backlights, &mut delay, 
                 &fastest_pulse) ? ;
         }
