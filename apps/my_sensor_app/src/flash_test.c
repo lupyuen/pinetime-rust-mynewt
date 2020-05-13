@@ -212,10 +212,10 @@ int test_flash() {
         //  Dump Sector Map
 
         //  Dump sector map for internal flash ROM
-        map_cmd(0) ||
+        //  map_cmd(0) ||
 
         //  Dump sector map for external SPI flash
-        //  map_cmd(1) ||
+        map_cmd(1) ||
 
         ///////////////////////////////////////////////////
         //  Read Flash
@@ -262,3 +262,41 @@ int test_flash() {
     console_printf("Flash OK\n"); console_flush();
     return 0;  //  Tests OK
 }
+
+/*
+Testing flash...
+Flash 0 at 0x0 size 0x80000 with 128 sectors, alignment req 1 bytes
+  0: 1000
+  1: 1000
+  2: 1000
+  3: 1000
+  4: 1000
+  5: 1000
+  6: 1000
+  7: 1000
+  8: 1000
+  9: 1000
+  10: 1000
+  11: 1000
+  12: 1000
+  13: 1000
+  14: 1000
+  15: 1000
+  16: 1000
+  17: 1000
+  18: 1000
+  19: 1000
+  20: 1000
+  21: 1000
+  22: 1000
+  23: 1000
+  24: 1000
+  25: 1000
+  26: 1000
+  27: 1000
+  28: 1000
+  29: 1000
+  30: 1000
+  31: 1000
+...  127: 1000
+*/
