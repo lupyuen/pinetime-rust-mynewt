@@ -76,7 +76,7 @@ fn test_backlight() -> MynewtResult<()> {
     let faster_pulse = [0, 1, 2, 1];  //  Faster pulse
     let fastest_pulse = [0, 2];  //  Fastest pulse
 
-    for _ in 0..10 {
+    for _ in 0..50 {
         //  Pulse the backlight from Low to Mid to High and back, faster and faster
         for _ in 0..4 {
             flash_backlight(&mut backlights, &mut delay, 
