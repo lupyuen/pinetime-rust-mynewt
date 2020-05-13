@@ -42,7 +42,6 @@ https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.ym
 ```yaml
 syscfg.vals:
     ...
-    ###########################################################################
     # Default Pins for Peripherals
     # Defined in http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf
 
@@ -75,7 +74,6 @@ https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.ym
 ```yaml
 syscfg.vals:
     ...
-    ###########################################################################
     # SPI Flash
     # XTX XT25F32B 32 Mb (4 MB) SPI NOR Flash (similar to QuadSPI SPI NOR Flash like Macronix 32 Mb (4 MB) MX25L3233F)
     # manufacturer (0x0b), device (0x15), memory type (0x40), density (0x16)
@@ -189,76 +187,76 @@ https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src
 Based on https://github.com/apache/mynewt-core/blob/master/test/flash_test/src/flash_test.c
 
 ```c
-        ///////////////////////////////////////////////////
-        //  Dump Sector Map
+////////////////////
+//  Dump Sector Map
 
-        //  Dump sector map for internal flash ROM
-        map_cmd(0) ||
+//  Dump sector map for internal flash ROM
+map_cmd(0) ||
 
-        //  Dump sector map for external SPI flash
-        map_cmd(1) ||
+//  Dump sector map for external SPI flash
+map_cmd(1) ||
 
-        ///////////////////////////////////////////////////
-        //  Read Flash: Before erasing
-        //  flash <flash-id> read <offset> <size> -- reads bytes from flash        
+////////////////////////////////
+//  Read Flash: Before erasing
+//  flash <flash-id> read <offset> <size> -- reads bytes from flash        
 
-        //  Read internal flash ROM
-        flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
+//  Read internal flash ROM
+flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
 
-        //  Read external SPI flash
-        flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
+//  Read external SPI flash
+flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 
-        ///////////////////////////////////////////////////
-        //  Erase Flash: Sets all bits to 1
-        //  flash <flash-id> erase <offset> <size> -- erases flash
+/////////////////////////////////////
+//  Erase Flash: Set all bits to 1
+//  flash <flash-id> erase <offset> <size> -- erases flash
 
-        //  Erase external SPI flash
-        flash_cmd(ERASE_COMMAND, 1, 0x0, 32) ||
+//  Erase external SPI flash
+flash_cmd(ERASE_COMMAND, 1, 0x0, 32) ||
 
-        ///////////////////////////////////////////////////
-        //  Read Flash: Shows all bits set to 1
-        //  flash <flash-id> read <offset> <size> -- reads bytes from flash        
+////////////////////////////////////////
+//  Read Flash: Shows all bits set to 1
+//  flash <flash-id> read <offset> <size> -- reads bytes from flash        
 
-        //  Read internal flash ROM
-        flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
+//  Read internal flash ROM
+flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
 
-        //  Read external SPI flash
-        flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
+//  Read external SPI flash
+flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 
-        ///////////////////////////////////////////////////
-        //  Write Flash: Write 0x01, 0x02, 0x03, ... (Must erase before writing)
-        //  flash <flash-id> write <offset> <size> -- writes incrementing data pattern 0-8 to flash
+//////////////////////////////////////////////
+//  Write Flash: Write 0x01, 0x02, 0x03, ... (Must erase before writing)
+//  flash <flash-id> write <offset> <size> -- writes incrementing data pattern 0-8 to flash
 
-        //  Write external SPI flash
-        flash_cmd(WRITE_COMMAND, 1, 0x0, 32) ||
+//  Write external SPI flash
+flash_cmd(WRITE_COMMAND, 1, 0x0, 32) ||
 
-        ///////////////////////////////////////////////////
-        //  Read Flash: Shows 0x01, 0x02, 0x03, ...
-        //  flash <flash-id> read <offset> <size> -- reads bytes from flash        
+////////////////////////////////////////////
+//  Read Flash: Shows 0x01, 0x02, 0x03, ...
+//  flash <flash-id> read <offset> <size> -- reads bytes from flash        
 
-        //  Read internal flash ROM
-        flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
+//  Read internal flash ROM
+flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
 
-        //  Read external SPI flash
-        flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
+//  Read external SPI flash
+flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 
-        ///////////////////////////////////////////////////
-        //  Test Flash Speed
-        //  flash_speed <flash_id> <addr> <rd_sz>|range [move]
-        //  range=0 for size mode, range=1 for range mode, move=1 for move
+//////////////////////
+//  Test Flash Speed
+//  flash_speed <flash_id> <addr> <rd_sz>|range [move]
+//  range=0 for size mode, range=1 for range mode, move=1 for move
 
-        //  Internal flash ROM, size mode, no move
-        //  speed_cmd(0, 0x0, 32, 0, 0) ||
+//  Internal flash ROM, size mode, no move
+//  speed_cmd(0, 0x0, 32, 0, 0) ||
 
-        //  External SPI flash, size mode, no move
-        //  speed_cmd(1, 0x0, 32, 0, 0) ||
+//  External SPI flash, size mode, no move
+//  speed_cmd(1, 0x0, 32, 0, 0) ||
 
-        //  Internal flash ROM, range mode, no move
-        //  speed_cmd(0, 0x0, 0, 1, 0) ||
+//  Internal flash ROM, range mode, no move
+//  speed_cmd(0, 0x0, 0, 1, 0) ||
 
-        //  External SPI flash, range mode, no move
-        //  speed_cmd(1, 0x0, 0, 1, 0) ||
-        0
+//  External SPI flash, range mode, no move
+//  speed_cmd(1, 0x0, 0, 1, 0) ||
+0
 ```
 
 # SPI Flash Test Output
