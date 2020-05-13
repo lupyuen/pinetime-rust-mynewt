@@ -213,5 +213,15 @@
 				"label": ""
 			}
 		]
+	},
+	{
+		"path": "$ROOTPATH$/rust/mynewt/src/hal.rs",
+		"bookmarks": [
+			{
+				"line": 105,
+				"column": 36,
+				"label": ""
+			}
+		]
 	}
 ]

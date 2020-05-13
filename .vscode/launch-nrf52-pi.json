@@ -45,10 +45,11 @@
                 //  "stepi",                    //  Must step before setting PC
                 //  "set $pc = Reset_Handler",  //  Prepare to jump to the Application's Reset Handler
                 //  "stepi",                    //  Execute the Reset Handler
-                "break main",                   //  Break at main()
-                "break __assert_func",          //  Break for any C assert failures
-                "break os_default_irq",         //  Break for any Mynewt unhandled interrupts
-                "break core::panicking::panic"  //  Break for any Rust assert failures and panics
+                "break main",                        //  Break at main()
+                "break __assert_func",               //  Break for any C assert failures
+                "break os_default_irq",              //  Break for any Mynewt unhandled interrupts
+                "break core::panicking::panic",      //  Break for any Rust assert failures and panics
+                "break core::result::unwrap_failed"  //  Break for any Rust unwrap and expect failures
             ],
             "preRestartCommands": [
             ],
