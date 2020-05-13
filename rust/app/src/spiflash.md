@@ -26,6 +26,10 @@ These steps will work for any Nordic nRF52 device, and probably STM32 devices to
 
 Read on for the details...
 
+![`syscfg.yml`: Configuration for Board Support Package](https://lupyuen.github.io/images/spiflash-config1.png)
+
+_`syscfg.yml`: Configuration for Board Support Package_
+
 # `syscfg.yml:` Configure pins for SPI Port
 
 The first configuration file we'll edit is `syscfg.yml` from Mynewt's Board Support Package. For PineTime, this file is located at...
@@ -127,6 +131,10 @@ If we have the Flash Memory Datasheet, fill in the numbers from the datasheet.
 
 The above settings were copied from another Mynewt configuration: [`black_vet6`](https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml)
 
+![`hal_bsp.c`: Code for Board Support Package](https://lupyuen.github.io/images/spiflash-config2.png)
+
+_`hal_bsp.c`: Code for Board Support Package_ 
+
 # `hal_bsp.c:` Include `spiflash.h`
 
 TODO
@@ -177,6 +185,9 @@ hal_bsp_flash_dev(uint8_t id)
     return flash_devs[id];
 }
 ```
+![`pkg.yml`: Drivers for Board Support Package`](https://lupyuen.github.io/images/spiflash-config3.png)
+
+_`pkg.yml`: Drivers for Board Support Package_
 
 # `pkg.yml:` Add `spiflash` driver
 

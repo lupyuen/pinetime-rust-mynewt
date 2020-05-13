@@ -94,6 +94,8 @@
 </li>
 </ol>
 <p>Read on for the details...</p>
+<p><img src="https://lupyuen.github.io/images/spiflash-config1.png" alt="syscfg.yml: Configuration for Board Support Package" /></p>
+<p><em><code>syscfg.yml</code>: Configuration for Board Support Package</em></p>
 <h1 id="syscfgyml-configure-pins-for-spi-port" class="section-header"><a href="#syscfgyml-configure-pins-for-spi-port">1 <code>syscfg.yml:</code> Configure pins for SPI Port</a></h1>
 <p>The first configuration file we'll edit is <code>syscfg.yml</code> from Mynewt's Board Support Package. For PineTime, this file is located at...</p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml"><code>hw/bsp/nrf52/syscfg.yml</code></a></p>
@@ -171,6 +173,8 @@ IDs for XT25F32B are: <strong>Manufacturer (<code>0x0b</code>)</strong>, Device 
 </code></pre>
 <p>If we have the Flash Memory Datasheet, fill in the numbers from the datasheet.</p>
 <p>The above settings were copied from another Mynewt configuration: <a href="https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml"><code>black_vet6</code></a></p>
+<p><img src="https://lupyuen.github.io/images/spiflash-config2.png" alt="hal_bsp.c: Code for Board Support Package" /></p>
+<p><em><code>hal_bsp.c</code>: Code for Board Support Package</em> </p>
 <h1 id="hal_bspc-include-spiflashh" class="section-header"><a href="#hal_bspc-include-spiflashh">4 <code>hal_bsp.c:</code> Include <code>spiflash.h</code></a></h1>
 <p>TODO</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c</p>
@@ -205,6 +209,8 @@ hal_bsp_flash_dev(uint8_t id)
     return flash_devs[id];
 }
 </code></pre>
+<p><img src="https://lupyuen.github.io/images/spiflash-config3.png" alt="pkg.yml: Drivers for Board Support Package`" /></p>
+<p><em><code>pkg.yml</code>: Drivers for Board Support Package</em></p>
 <h1 id="pkgyml-add-spiflash-driver" class="section-header"><a href="#pkgyml-add-spiflash-driver">7 <code>pkg.yml:</code> Add <code>spiflash</code> driver</a></h1>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml</p>
 <pre><code class="language-yaml">pkg.deps:
