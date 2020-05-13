@@ -212,10 +212,10 @@ int test_flash() {
         //  Dump Sector Map
 
         //  Dump sector map for internal flash ROM
-        //  map_cmd(0) ||
+        map_cmd(0) ||
 
         //  Dump sector map for external SPI flash
-        map_cmd(1) ||
+        //  map_cmd(1) ||
 
         ///////////////////////////////////////////////////
         //  Read Flash
