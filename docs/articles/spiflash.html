@@ -55,8 +55,8 @@
 <li><a href="#syscfgyml-configure-pins-for-spi-port">1 <code>syscfg.yml:</code> Configure pins for SPI Port</a><ul></ul></li>
 <li><a href="#syscfgyml-configure-flash-interface">2 <code>syscfg.yml:</code> Configure flash interface</a><ul></ul></li>
 <li><a href="#syscfgyml-configure-flash-timings">3 <code>syscfg.yml:</code> Configure flash timings</a><ul></ul></li>
-<li><a href="#hal_bspc-include-spiflashh">4 <code>hal_bsp.c:</code> Include spiflash.h</a><ul></ul></li>
-<li><a href="#hal_bspc-define-two-flash-devices">5 <code>hal_bsp.c:</code> Define two flash devices</a><ul></ul></li>
+<li><a href="#hal_bspc-include-spiflashh">4 <code>hal_bsp.c:</code> Include <code>spiflash.h</code></a><ul></ul></li>
+<li><a href="#hal_bspc-define-internal-and-external-flash-devices">5 <code>hal_bsp.c:</code> Define internal and external flash devices</a><ul></ul></li>
 <li><a href="#hal_bspc-access-flash-devices-by-id">6 <code>hal_bsp.c:</code> Access flash devices by ID</a><ul></ul></li>
 <li><a href="#pkgyml-add-spiflash-driver">7 <code>pkg.yml:</code> Add <code>spiflash</code> driver</a><ul></ul></li>
 <li><a href="#test-spi-flash">8 Test SPI Flash</a><ul></ul></li>
@@ -67,7 +67,7 @@
 <li><a href="#inside-the-spi-flash-driver">13 Inside The SPI Flash Driver</a><ul></ul></li>
 <li><a href="#further-reading">14 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/spiflash-config.png" alt="Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)" /></p>
 <p>There's one thing truly remarkable about the <strong>Apache Mynewt</strong> embedded operating system... <strong>Almost any feature can be switched on by editing a configuration file!</strong></p>
-<p>Today we'll learn to enable access to <strong>SPI Flash Memory</strong> with Mynewt OS on PineTime Smart Watch... Just by editing two configuration files (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml"><code>syscfg.yml</code></a> and <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml"><code>pkg.yml</code></a>), and making some minor code changes (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c"><code>hal_bsp.c</code></a>).</p>
+<p>Today we'll learn to configure Mynewt OS to enable access to <strong>SPI Flash Memory</strong> on <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>... Just by editing two configuration files (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml"><code>syscfg.yml</code></a> and <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml"><code>pkg.yml</code></a>), and making some minor code changes (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c"><code>hal_bsp.c</code></a>).</p>
 <p>These steps will work for any Nordic nRF52 device, and probably STM32 devices too (see diagram above)...</p>
 <ol>
 <li>
@@ -89,22 +89,21 @@
 <p><strong>Access flash devices by ID</strong> in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c"><code>hal_bsp.c</code></a></p>
 </li>
 <li>
-<p><strong>Add <code>spiflash</code> driver</strong> in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml"><code>pkg.yml</code></a></p>
+<p><strong>Add <code>spiflash</code> driver</strong> to <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml"><code>pkg.yml</code></a></p>
 </li>
 </ol>
 <p>Read on for the details...</p>
 <h1 id="syscfgyml-configure-pins-for-spi-port" class="section-header"><a href="#syscfgyml-configure-pins-for-spi-port">1 <code>syscfg.yml:</code> Configure pins for SPI Port</a></h1>
-<p>TODO</p>
-<p>http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf</p>
-<ul>
-<li>P0.00/XL1 32.768KHz –XL1</li>
-<li>P0.01/XL2 32.768KHz –XL1</li>
-<li>P0.02/AIN0 SPI-SCK, LCD_SCK OUT</li>
-<li>P0.03/AIN1 SPI-MOSI, LCD_SDI OUT</li>
-<li>P0.04/AIN2 SPI-MISO IN</li>
-<li>P0.05/AIN3 SPI-CE# (SPI-NOR) OUT</li>
-</ul>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml</p>
+<p>The first configuration file we'll edit is <code>syscfg.yml</code> from the Board Support Package. For PineTime, this file is located at...</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml"><code>hw/bsp/nrf52/syscfg.yml</code></a></p>
+<p>Let's add the PineTime SPI settings according to the <a href="https://wiki.pine64.org/index.php/PineTime">PineTime Wiki</a>: <a href="http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf">PineTime Port Assignment</a>...</p>
+<table><thead><tr><th align="left">nRF52 Pin</th><th align="left">Function</th><th align="left">Description</th></tr></thead><tbody>
+<tr><td align="left"><code>P0.02</code></td><td align="left"><code>SPI-SCK, LCD_SCK</code></td><td align="left">SPI Clock</td></tr>
+<tr><td align="left"><code>P0.03</code></td><td align="left"><code>SPI-MOSI, LCD_SDI</code></td><td align="left">SPI MOSI (master to slave)</td></tr>
+<tr><td align="left"><code>P0.04</code></td><td align="left"><code>SPI-MISO</code></td><td align="left">SPI MISO (slave to master)</td></tr>
+<tr><td align="left"><code>P0.05</code></td><td align="left"><code>SPI-CE# (SPI-NOR)</code></td><td align="left">SPI Chip Select</td></tr>
+</tbody></table>
+<p>Here's how it looks in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml"><code>syscfg.yml</code></a>...</p>
 <pre><code class="language-yaml">syscfg.vals:
     ...
     # Default Pins for Peripherals
@@ -116,19 +115,18 @@
     SPI_0_MASTER_PIN_MISO: 4  # P0.04/AIN2: SPI-MISO            SPI MISO for flash only
     ...
 </code></pre>
+<p>We'll add SPI Chip Select in a while.</p>
 <h1 id="syscfgyml-configure-flash-interface" class="section-header"><a href="#syscfgyml-configure-flash-interface">2 <code>syscfg.yml:</code> Configure flash interface</a></h1>
-<p>TODO</p>
-<p>https://wiki.pine64.org/index.php/PineTime</p>
+<p>Now we'll edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml"><code>syscfg.yml</code></a> to tell Mynewt how to access our Flash Memory...</p>
+<p>From the <a href="https://wiki.pine64.org/index.php/PineTime">PineTime Wiki</a>...</p>
 <blockquote>
 <p><strong>SPI Flash information:</strong> <br><br>
-XTX XT25F32B 32Mb (4MB) SPI NOR Flash <br><br>
-(data sheets for this part are hard to find but it acts similar to other QuadSPI SPI NOR Flash such as Macronix 32Mb (4MB) SPI NOR Flash) <br><br>
-IDs for XT25F32B are: <strong>manufacturer (<code>0x0b</code>)</strong>, device (<code>0x15</code>), <strong>memory type (<code>0x40</code>)</strong>, <strong>density (<code>0x16</code>)</strong></p>
+<a href="https://www.elnec.com/en/device/XTX/XT25F32B+%28QuadSPI%29+%5BSOP8-200%5D/">XTX XT25F32B</a> 32 Mb (4 MB) SPI NOR Flash <br><br>
+Data sheets for this part are hard to find but it acts similar to other QuadSPI SPI NOR Flash such as <a href="https://www.macronix.com/Lists/Datasheet/Attachments/7426/MX25L3233F,%203V,%2032Mb,%20v1.6.pdf">Macronix</a> 32 Mb (4 MB) SPI NOR Flash <br><br>
+IDs for XT25F32B are: <strong>Manufacturer (<code>0x0b</code>)</strong>, Device (<code>0x15</code>), <strong>Memory Type (<code>0x40</code>)</strong>, <strong>Density (<code>0x16</code>)</strong></p>
 </blockquote>
-<p>device ID (<code>0x15</code>) is not used</p>
-<p>https://www.elnec.com/en/device/XTX/XT25F32B+%28QuadSPI%29+%5BSOP8-200%5D/</p>
-<p>https://www.macronix.com/Lists/Datasheet/Attachments/7426/MX25L3233F,%203V,%2032Mb,%20v1.6.pdf</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml</p>
+<p>Confused about <code>MB</code> and <code>Mb</code>? <code>MB</code> stands for Mega Byte (roughly a million bytes), whereas <code>Mb</code> stands for Mega Bit (roughly a million bits). Divide <code>Mb</code> by 8 to get <code>MB</code>.</p>
+<p>We don't have the datasheet for XT25F32B Flash Memory... But fortunately the JEDEC IDs for Manufacturer, Memory Type and Density (Capacity) are all that we need to fill in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml"><code>syscfg.yml</code></a> like this...</p>
 <pre><code class="language-yaml">syscfg.vals:
     ...
     # SPI Flash
@@ -148,9 +146,11 @@ IDs for XT25F32B are: <strong>manufacturer (<code>0x0b</code>)</strong>, device 
     SPIFLASH_PAGE_SIZE:     256     # TODO Number of bytes that can be written at a time
     ...
 </code></pre>
+<p>The JEDEC Device ID (<code>0x15</code>) is not used.</p>
+<p><code>SPIFLASH_SECTOR_COUNT</code> and <code>SPIFLASH_SECTOR_SIZE</code> were copied from <a href="https://www.macronix.com/Lists/Datasheet/Attachments/7426/MX25L3233F,%203V,%2032Mb,%20v1.6.pdf">Macronix MX25L3233F</a> since it's similar to our XT25F32B.</p>
+<p><code>SPIFLASH_PAGE_SIZE</code> was copied from another Mynewt configuration: <a href="https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml"><code>black_vet6</code></a></p>
 <h1 id="syscfgyml-configure-flash-timings" class="section-header"><a href="#syscfgyml-configure-flash-timings">3 <code>syscfg.yml:</code> Configure flash timings</a></h1>
-<p>TODO</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml</p>
+<p>Finally we edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml"><code>syscfg.yml</code></a> to tell Mynewt the timing characteristics of our Flash Memory...</p>
 <pre><code class="language-yaml">syscfg.vals:
     ...
     # Copied from https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml
@@ -168,14 +168,16 @@ IDs for XT25F32B are: <strong>manufacturer (<code>0x0b</code>)</strong>, device 
     SPIFLASH_TCE_MAXIMUM:   10000000 # Maximum chip erase time (us)
     ...
 </code></pre>
-<h1 id="hal_bspc-include-spiflashh" class="section-header"><a href="#hal_bspc-include-spiflashh">4 <code>hal_bsp.c:</code> Include spiflash.h</a></h1>
+<p>If we have the Flash Memory Datasheet, fill in the numbers from the datasheet.</p>
+<p>The above settings were copied from another Mynewt configuration: <a href="https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml"><code>black_vet6</code></a></p>
+<h1 id="hal_bspc-include-spiflashh" class="section-header"><a href="#hal_bspc-include-spiflashh">4 <code>hal_bsp.c:</code> Include <code>spiflash.h</code></a></h1>
 <p>TODO</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c</p>
 <pre><code class="language-c">#if MYNEWT_VAL(SPIFLASH)  //  If External SPI Flash exists...
 #include &lt;spiflash/spiflash.h&gt;
 #endif  //  MYNEWT_VAL(SPIFLASH)
 </code></pre>
-<h1 id="hal_bspc-define-two-flash-devices" class="section-header"><a href="#hal_bspc-define-two-flash-devices">5 <code>hal_bsp.c:</code> Define two flash devices</a></h1>
+<h1 id="hal_bspc-define-internal-and-external-flash-devices" class="section-header"><a href="#hal_bspc-define-internal-and-external-flash-devices">5 <code>hal_bsp.c:</code> Define internal and external flash devices</a></h1>
 <p>TODO</p>
 <p>Internal Flash ROM,
 External SPI Flash</p>
@@ -352,11 +354,11 @@ flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 <p>If we're using the MCUBoot Bootloader (like on PineTime), debugging and testing SPI Flash can be somewhat challenging.</p>
 <p>Remember that we added the SPI Flash Driver to the Board Support Package?</p>
 <p>The Board Support Package is used by <em>both</em> the MCUBoot Bootloader as well as the Application Firmware. Which means that the SPI Flash Driver is loaded when MCUBoot starts.</p>
-<p>_What happens if the SPI Flash Driver is configured incorrectly?</p>
+<p><em>What happens if the SPI Flash Driver is configured incorrectly?</em></p>
 <p>MCUBoot may crash... Before starting the Application Firmware! (This happened to me)</p>
 <p>Hence for debugging and testing SPI Flash, I strongly recommend switching the Bootloader to a simpler one that doesn't require any drivers: the Stub Bootloader.</p>
 <p>This will enable us to debug and test SPI Flash with our Application Firmware, before using it with MCUBoot.</p>
-<p>Also MCUBoot expects the Application Firmware to start with the MCUBoot Image Header. When the GDB debugger flashes the Firmware ELF File into ROM, the Image Header is empty. So MCUBoot won't work start the Application Firmware properly when the debugger is running. Switching MCUBoot to the Stub Bootloader will solve this.</p>
+<p>Also MCUBoot expects the Application Firmware Image to start with the MCUBoot Image Header. When the GDB debugger flashes the Firmware ELF File into ROM, the Image Header is empty. So MCUBoot won't work start the Application Firmware properly when the debugger is running. Switching MCUBoot to the Stub Bootloader will solve this.</p>
 <h1 id="switching-mcuboot-to-stub-bootloader" class="section-header"><a href="#switching-mcuboot-to-stub-bootloader">12 Switching MCUBoot to Stub Bootloader</a></h1>
 <p>TODO</p>
 <h1 id="inside-the-spi-flash-driver" class="section-header"><a href="#inside-the-spi-flash-driver">13 Inside The SPI Flash Driver</a></h1>
