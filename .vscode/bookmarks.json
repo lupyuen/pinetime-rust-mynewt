@@ -35,26 +35,6 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/bsp/hifive1/src/hal_bsp.c",
-		"bookmarks": [
-			{
-				"line": 91,
-				"column": 24,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/bsp/nucleo-f103rb/src/hal_bsp.c",
-		"bookmarks": [
-			{
-				"line": 176,
-				"column": 22,
-				"label": ""
-			}
-		]
-	},
-	{
 		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/bsp/black_vet6/syscfg.yml",
 		"bookmarks": [
 			{
@@ -120,6 +100,16 @@
 			{
 				"line": 307,
 				"column": 18,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/hw/bsp/nrf52/src/hal_bsp.c",
+		"bookmarks": [
+			{
+				"line": 48,
+				"column": 35,
 				"label": ""
 			}
 		]
