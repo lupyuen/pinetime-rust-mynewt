@@ -34,6 +34,15 @@ TODO
 
 TODO
 
+http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf
+
+- P0.00/XL1 32.768KHz –XL1
+- P0.01/XL2 32.768KHz –XL1
+- P0.02/AIN0 SPI-SCK, LCD_SCK OUT
+- P0.03/AIN1 SPI-MOSI, LCD_SDI OUT
+- P0.04/AIN2 SPI-MISO IN
+- P0.05/AIN3 SPI-CE# (SPI-NOR) OUT
+
 https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml
 
 ```yaml
@@ -53,6 +62,19 @@ syscfg.vals:
 # Configure flash interface (`syscfg.yml`):
 
 TODO
+
+https://wiki.pine64.org/index.php/PineTime
+
+> __SPI Flash information:__ <br><br>
+XTX XT25F32B 32Mb (4MB) SPI NOR Flash <br><br>
+(data sheets for this part are hard to find but it acts similar to other QuadSPI SPI NOR Flash such as Macronix 32Mb (4MB) SPI NOR Flash) <br><br>
+IDs for XT25F32B are: __manufacturer (`0x0b`)__, device (`0x15`), __memory type (`0x40`)__, __density (`0x16`)__
+
+device ID (`0x15`) is not used
+
+https://www.elnec.com/en/device/XTX/XT25F32B+%28QuadSPI%29+%5BSOP8-200%5D/
+
+https://www.macronix.com/Lists/Datasheet/Attachments/7426/MX25L3233F,%203V,%2032Mb,%20v1.6.pdf
 
 https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml
 
@@ -385,6 +407,9 @@ TODO
 TODO
 
 Based on https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml
+
+https://www.winbond.com/resource-files/w25q16jv%20spi%20revh%2004082019%20plus.pdf
+
 
 # Further Reading
 
