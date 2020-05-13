@@ -30,14 +30,14 @@ The first configuration file we'll edit is `syscfg.yml` from the Board Support P
 
 [`hw/bsp/nrf52/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml)
 
-Let's add the PineTime SPI settings according to this document: [PineTime Port Assignment](http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf)...
+Let's add the PineTime SPI settings according to the PineTime Wiki: [PineTime Port Assignment](http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf)...
 
 | nRF52 Pin | Function | Description |
 | :--- | :--- | :--- 
-| P0.02 | SPI-SCK, LCD_SCK | SPI Clock
-| P0.03 | SPI-MOSI, LCD_SDI | SPI MOSI (master to slave)
-| P0.04 | SPI-MISO | SPI MISO (slave to master)
-| P0.05 | SPI-CE# (SPI-NOR) | SPI Chip Select
+| `P0.02` | `SPI-SCK, LCD_SCK` | SPI Clock
+| `P0.03` | `SPI-MOSI, LCD_SDI` | SPI MOSI (master to slave)
+| `P0.04` | `SPI-MISO` | SPI MISO (slave to master)
+| `P0.05` | `SPI-CE# (SPI-NOR)` | SPI Chip Select
 
 Here's how it looks in `syscfg.yml`...
 
