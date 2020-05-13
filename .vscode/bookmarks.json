@@ -16,6 +16,11 @@
 				"line": 88,
 				"column": 36,
 				"label": ""
+			},
+			{
+				"line": 1428,
+				"column": 13,
+				"label": ""
 			}
 		]
 	},
@@ -145,6 +150,16 @@
 			{
 				"line": 371,
 				"column": 5,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/hal/src/hal_flash.c",
+		"bookmarks": [
+			{
+				"line": 31,
+				"column": 7,
 				"label": ""
 			}
 		]

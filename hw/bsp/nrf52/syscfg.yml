@@ -61,7 +61,7 @@ syscfg.vals:
     SPIFLASH:               1   # Enable SPI Flash
     SPIFLASH_SPI_NUM:       0   # SPI Interface 0
     SPIFLASH_SPI_CS_PIN:    5   # SPI interface CS pin: P0.05/AIN3, SPI-CE# (SPI-NOR)
-    SPIFLASH_BAUDRATE:      42000   # TODO Requested baudrate, value must be supported by SPI driver
+    SPIFLASH_BAUDRATE:      8000    # Requested baudrate, 8000 is the fastest baudrate supported by nRF52832
     SPIFLASH_MANUFACTURER:  0x0B    # Expected SpiFlash manufacturer as read by Read JEDEC ID command 9FH
     SPIFLASH_MEMORY_TYPE:   0x40    # Expected SpiFlash memory type as read by Read JEDEC ID command 9FH
     SPIFLASH_MEMORY_CAPACITY: 0x16  # Expected SpiFlash memory capactity as read by Read JEDEC ID command 9FH (2 ^ 0x16 = 32 Mb)
