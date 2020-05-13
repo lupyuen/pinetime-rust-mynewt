@@ -102,12 +102,19 @@ impl SPI {
     /// Initiaise the SPI port
     pub fn init(&mut self, spi_num: i32, cs_pin: i32, spi_settings: *mut hal::hal_spi_settings) 
         -> MynewtResult<()> {
+        //  Disable the SPI port in case External SPI Flash driver has already enabled it.
+        let rc = unsafe { hal::hal_spi_disable(spi_num) };
+        assert_eq!(rc, 0, "spi disable fail");
+
+        //  Configure the SPI port.
         let rc = unsafe { hal::hal_spi_config(spi_num, spi_settings) };
         assert_eq!(rc, 0, "spi config fail");
 
+        //  Enable the SPI port.
         let rc = unsafe { hal::hal_spi_enable(spi_num) };
         assert_eq!(rc, 0, "spi enable fail");
 
+        //  TODO: Set the CS Pin to high only when transmitting.
         let rc = unsafe { hal::hal_gpio_init_out(cs_pin, 1) };
         assert_eq!(rc, 0, "spi init fail");
         self.spi_num = spi_num;

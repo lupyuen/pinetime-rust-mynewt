@@ -145,11 +145,61 @@
 		]
 	},
 	{
+		"path": "$ROOTPATH$/hw/bsp/nrf52/pkg.yml",
+		"bookmarks": [
+			{
+				"line": 36,
+				"column": 27,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/scripts/build-app.sh",
+		"bookmarks": [
+			{
+				"line": 185,
+				"column": 4,
+				"label": ""
+			}
+		]
+	},
+	{
 		"path": "$ROOTPATH$/logs/mynewt.elf.lst",
 		"bookmarks": [
 			{
 				"line": 371,
 				"column": 5,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/targets/nrf52_boot/target.yml",
+		"bookmarks": [
+			{
+				"line": 4,
+				"column": 7,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/apps/boot_stub/syscfg.yml",
+		"bookmarks": [
+			{
+				"line": 24,
+				"column": 8,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/scripts/nrf52/flash-boot.ocd",
+		"bookmarks": [
+			{
+				"line": 27,
+				"column": 15,
 				"label": ""
 			}
 		]

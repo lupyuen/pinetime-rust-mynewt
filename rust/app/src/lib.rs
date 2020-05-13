@@ -83,7 +83,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
     mynewt::sysinit();
 
-    //  Test External SPI Flash. Must run before starting the display, to avoid contention for SPI port.
+    //  Test External SPI Flash. Must run before testing the display, to avoid contention for SPI port.
     extern { fn test_flash() -> i32; }
     let rc = unsafe { test_flash() };
     assert!(rc == 0, "FLASH fail");

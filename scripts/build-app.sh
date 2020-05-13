@@ -183,7 +183,7 @@ cp bin/targets/$mynewt_build_app/app/apps/my_sensor_app/my_sensor_app.elf.lst lo
 cp bin/targets/$mynewt_build_app/app/apps/my_sensor_app/my_sensor_app.elf.map logs
 
 #  Create the image
-scripts/nrf52/image-app.sh
+#  scripts/nrf52/image-app.sh
 
 #  Typical Mynewt build options:
 #  arm-none-eabi-gcc -DAPP_NAME=my_sensor_app -DAPP_my_sensor_app -DARCH_NAME=cortex_m4 -DARCH_cortex_m4 

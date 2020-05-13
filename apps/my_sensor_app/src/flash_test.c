@@ -33,10 +33,17 @@ enum Command {
     ERASE_COMMAND,
 };
 
+/// Names of the flash devices
+const char *flash_device_names[] = {
+    "Internal Flash ROM",
+    "External SPI Flash",
+};
+
 /// Dump the sector map for the flash device: 0 for internal flash ROM, 1 for external SPI flash
 int map_cmd(int devid) {
     const struct hal_flash *hf;
     int sec_cnt, i;
+    console_printf("Sector Map for %s...\n", flash_device_names[devid]); console_flush();
     hf = hal_bsp_flash_dev(devid);
     if (!hf) {
         console_printf("Flash device not present\n");
@@ -75,6 +82,7 @@ int flash_cmd(enum Command cmd, int devid, uint32_t off, uint32_t sz) {
     char pr_str[80];
     switch(cmd) {
         case ERASE_COMMAND: {
+            console_printf("Erase %s...\n", flash_device_names[devid]); console_flush();
             console_printf("Erase 0x%lx + %lx\n",
                 (long unsigned int) off, (long unsigned int) sz);
             if (hal_flash_erase(devid, off, sz)) {
@@ -84,6 +92,7 @@ int flash_cmd(enum Command cmd, int devid, uint32_t off, uint32_t sz) {
             break;
         }
         case READ_COMMAND: {
+            console_printf("Read %s...\n", flash_device_names[devid]); console_flush();
             console_printf("Read 0x%lx + %lx\n",
                 (long unsigned int) off, (long unsigned int) sz);
             sz += off;
@@ -98,14 +107,14 @@ int flash_cmd(enum Command cmd, int devid, uint32_t off, uint32_t sz) {
                     soff += snprintf(pr_str + soff, sizeof(pr_str) - soff,
                     "0x%02x ", tmp_buf[i] & 0xff);
                     if (i % 8 == 7) {
-                        console_printf("  0x%lx: %s\n",
+                        console_printf("  0x%04lx: %s\n",
                             (long unsigned int) off, pr_str);
                         soff = 0;
                         off += 8;
                     }
                 }
                 if (i % 8) {
-                    console_printf("  0x%lx: %s\n",
+                    console_printf("  0x%04lx: %s\n",
                         (long unsigned int) off, pr_str);
                     off += i;
                 }
@@ -113,6 +122,7 @@ int flash_cmd(enum Command cmd, int devid, uint32_t off, uint32_t sz) {
             break;
         }
         case WRITE_COMMAND: {
+            console_printf("Write %s...\n", flash_device_names[devid]); console_flush();
             console_printf("Write 0x%lx + %lx\n",
                 (long unsigned int) off, (long unsigned int) sz);
             sz += off;
@@ -179,6 +189,7 @@ int flash_speed_test(int flash_dev, uint32_t addr, int sz, int move) {
 /// range=0 for size mode, range=1 for range mode, move=1 for move
 int speed_cmd(int flash_dev, uint32_t addr, uint32_t sz, int range, int move) {
     int cnt, i;
+    console_printf("Speed Test for %s...\n", flash_device_names[flash_dev]); console_flush();
     if (!range) {
         //  For size mode:
         console_printf(
@@ -212,7 +223,7 @@ int test_flash() {
         //  Dump Sector Map
 
         //  Dump sector map for internal flash ROM
-        map_cmd(0) ||
+        //  map_cmd(0) ||
 
         //  Dump sector map for external SPI flash
         //  map_cmd(1) ||
@@ -222,14 +233,27 @@ int test_flash() {
         //  flash <flash-id> read <offset> <size> -- reads bytes from flash        
 
         //  Read internal flash ROM
-        //  flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
+        flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
+
+        //  Read external SPI flash
+        flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 
         ///////////////////////////////////////////////////
         //  Write flash
         //  flash <flash-id> write <offset> <size> -- writes incrementing data pattern 0-8 to flash
 
         //  Write external SPI flash
-        //  flash_cmd(WRITE_COMMAND, 1, 0x0, 32) ||
+        flash_cmd(WRITE_COMMAND, 1, 0x0, 32) ||
+
+        ///////////////////////////////////////////////////
+        //  Read Flash
+        //  flash <flash-id> read <offset> <size> -- reads bytes from flash        
+
+        //  Read internal flash ROM
+        flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
+
+        //  Read external SPI flash
+        flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 
         ///////////////////////////////////////////////////
         //  Erase Flash
@@ -299,4 +323,39 @@ Flash 0 at 0x0 size 0x80000 with 128 sectors, alignment req 1 bytes
   30: 1000
   31: 1000
 ...  127: 1000
+
+Flash 1 at 0x0 size 0x3ff800 with 1024 sectors, alignment req 1 bytes
+  0: ffe
+  1: ffe
+  2: ffe
+  3: ffe
+  4: ffe
+  5: ffe
+  6: ffe
+  7: ffe
+  8: ffe
+  9: ffe
+  10: ffe
+  11: ffe
+  12: ffe
+  13: ffe
+  14: ffe
+  15: ffe
+  16: ffe
+  17: ffe
+  18: ffe
+  19: ffe
+  20: ffe
+  21: ffe
+  22: ffe
+  23: ffe
+  24: ffe
+  25: ffe
+  26: ffe
+  27: ffe
+  28: ffe
+  29: ffe
+  30: ffe
+  31: ffe
+...  1023: ffe
 */
