@@ -213,5 +213,15 @@
 				"label": ""
 			}
 		]
+	},
+	{
+		"path": "$ROOTPATH$/hw/bsp/nrf52/syscfg.yml",
+		"bookmarks": [
+			{
+				"line": 60,
+				"column": 8,
+				"label": ""
+			}
+		]
 	}
 ]
