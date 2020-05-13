@@ -20,24 +20,26 @@ These steps will work for any Nordic nRF52 device, and probably STM32 devices to
 
 1. __Access flash devices by ID__ in [`hal_bsp.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c)
 
-1. __Add `spiflash` driver__ in [`pkg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml)
+1. __Add `spiflash` driver__ to [`pkg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml)
 
 Read on for the details...
 
 # `syscfg.yml:` Configure pins for SPI Port
 
-TODO
+The first configuration file we'll edit is `syscfg.yml` from the Board Support Package. For PineTime, this file is located at...
 
-http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf
+[`hw/bsp/nrf52/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml)
 
-- P0.00/XL1 32.768KHz –XL1
-- P0.01/XL2 32.768KHz –XL1
-- P0.02/AIN0 SPI-SCK, LCD_SCK OUT
-- P0.03/AIN1 SPI-MOSI, LCD_SDI OUT
-- P0.04/AIN2 SPI-MISO IN
-- P0.05/AIN3 SPI-CE# (SPI-NOR) OUT
+Let's add the PineTime SPI settings according to this document: [PineTime Port Assignment](http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf)...
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml
+| nRF52 Pin | Function | Description |
+| :--- | :--- | :--- 
+| P0.02 | SPI-SCK, LCD_SCK | SPI Clock
+| P0.03 | SPI-MOSI, LCD_SDI | SPI MOSI (master to slave)
+| P0.04 | SPI-MISO | SPI MISO (slave to master)
+| P0.05 | SPI-CE# (SPI-NOR) | SPI Chip Select
+
+Here's how it looks in `syscfg.yml`...
 
 ```yaml
 syscfg.vals:
@@ -51,6 +53,8 @@ syscfg.vals:
     SPI_0_MASTER_PIN_MISO: 4  # P0.04/AIN2: SPI-MISO            SPI MISO for flash only
     ...
 ```
+
+We'll add SPI Chip Select in a while.
 
 # `syscfg.yml:` Configure flash interface
 
@@ -117,7 +121,7 @@ syscfg.vals:
     ...
 ```
 
-# `hal_bsp.c:` Include spiflash.h
+# `hal_bsp.c:` Include `spiflash.h`
 
 TODO
 
@@ -130,7 +134,7 @@ https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_b
 #endif  //  MYNEWT_VAL(SPIFLASH)
 ```
 
-# `hal_bsp.c:` Define two flash devices
+# `hal_bsp.c:` Define internal and external flash devices
 
 TODO
 
@@ -337,7 +341,7 @@ Remember that we added the SPI Flash Driver to the Board Support Package?
 
 The Board Support Package is used by _both_ the MCUBoot Bootloader as well as the Application Firmware. Which means that the SPI Flash Driver is loaded when MCUBoot starts.
 
-_What happens if the SPI Flash Driver is configured incorrectly?
+_What happens if the SPI Flash Driver is configured incorrectly?_
 
 MCUBoot may crash... Before starting the Application Firmware! (This happened to me)
 
@@ -345,7 +349,7 @@ Hence for debugging and testing SPI Flash, I strongly recommend switching the Bo
 
 This will enable us to debug and test SPI Flash with our Application Firmware, before using it with MCUBoot.
 
-Also MCUBoot expects the Application Firmware to start with the MCUBoot Image Header. When the GDB debugger flashes the Firmware ELF File into ROM, the Image Header is empty. So MCUBoot won't work start the Application Firmware properly when the debugger is running. Switching MCUBoot to the Stub Bootloader will solve this.
+Also MCUBoot expects the Application Firmware Image to start with the MCUBoot Image Header. When the GDB debugger flashes the Firmware ELF File into ROM, the Image Header is empty. So MCUBoot won't work start the Application Firmware properly when the debugger is running. Switching MCUBoot to the Stub Bootloader will solve this.
 
 # Switching MCUBoot to Stub Bootloader
 
