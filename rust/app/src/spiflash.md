@@ -2,11 +2,13 @@
 
 ![Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)](https://lupyuen.github.io/images/spiflash-config.png)
 
-There's one thing truly remarkable about the __Apache Mynewt__ embedded operating system... __Almost any feature can be switched on by editing a configuration file!__
+[_Larger image here_](https://lupyuen.github.io/images/spiflash-config.png)
+
+There's one thing truly remarkable about the [__Apache Mynewt__](https://mynewt.apache.org/) embedded operating system... __Almost any feature may be switched on by editing a configuration file!__
 
 Today we'll learn to configure Mynewt OS to enable access to __SPI Flash Memory__ on [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime)... Just by editing two configuration files ([`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml) and [`pkg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml)), and making some minor code changes ([`hal_bsp.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c)).
 
-These steps will work for any Nordic nRF52 device, and probably STM32 devices too (see diagram above)...
+These steps will work for any Nordic nRF52 device, and probably STM32 devices too ([see diagram above](https://lupyuen.github.io/images/spiflash-config.png))...
 
 1. __Configure pins for SPI Port__ in [`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml)
 
@@ -26,18 +28,18 @@ Read on for the details...
 
 # `syscfg.yml:` Configure pins for SPI Port
 
-The first configuration file we'll edit is `syscfg.yml` from the Board Support Package. For PineTime, this file is located at...
+The first configuration file we'll edit is `syscfg.yml` from Mynewt's Board Support Package. For PineTime, this file is located at...
 
 [`hw/bsp/nrf52/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml)
 
 Let's add the PineTime SPI settings according to the [PineTime Wiki](https://wiki.pine64.org/index.php/PineTime): [PineTime Port Assignment](http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf)...
 
-| nRF52 Pin | Function | Description |
+| nRF52 Pin&nbsp;&nbsp;&nbsp;&nbsp; | Function | Description |
 | :--- | :--- | :--- 
 | `P0.02` | `SPI-SCK, LCD_SCK` | SPI Clock
-| `P0.03` | `SPI-MOSI, LCD_SDI` | SPI MOSI (master to slave)
+| `P0.03` | `SPI-MOSI, LCD_SDI`&nbsp;&nbsp;&nbsp;&nbsp; | SPI MOSI (master to slave)
 | `P0.04` | `SPI-MISO` | SPI MISO (slave to master)
-| `P0.05` | `SPI-CE# (SPI-NOR)` | SPI Chip Select
+| `P0.05` | `SPI-CE# (SPI-NOR)` | SPI Chip Select<br><br>
 
 Here's how it looks in [`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml)...
 
@@ -54,22 +56,22 @@ syscfg.vals:
     ...
 ```
 
-We'll add SPI Chip Select in a while.
+For pin numbers on nRF52, we may drop the `P0` prefix and write `P02.02` as `2`.
+
+We'll add SPI Chip Select (`Pin 5`) in a while.
 
 # `syscfg.yml:` Configure flash interface
 
-Now we'll edit [`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml) to tell Mynewt how to access our Flash Memory...
+Now we'll edit [`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml) to tell Mynewt how to access our Flash Memory.  From the [PineTime Wiki](https://wiki.pine64.org/index.php/PineTime)...
 
-From the [PineTime Wiki](https://wiki.pine64.org/index.php/PineTime)...
-
-> __SPI Flash information:__ <br><br>
+> __SPI Flash information:__ 
 [XTX XT25F32B](https://www.elnec.com/en/device/XTX/XT25F32B+%28QuadSPI%29+%5BSOP8-200%5D/) 32 Mb (4 MB) SPI NOR Flash <br><br>
 Data sheets for this part are hard to find but it acts similar to other QuadSPI SPI NOR Flash such as [Macronix](https://www.macronix.com/Lists/Datasheet/Attachments/7426/MX25L3233F,%203V,%2032Mb,%20v1.6.pdf) 32 Mb (4 MB) SPI NOR Flash <br><br>
 IDs for XT25F32B are: __Manufacturer (`0x0b`)__, Device (`0x15`), __Memory Type (`0x40`)__, __Density (`0x16`)__
 
 Confused about `MB` and `Mb`? `MB` stands for Mega Byte (roughly a million bytes), whereas `Mb` stands for Mega Bit (roughly a million bits). Divide `Mb` by 8 to get `MB`.
 
-We don't have the datasheet for XT25F32B Flash Memory... But fortunately the JEDEC IDs for Manufacturer, Memory Type and Density (Capacity) are all that we need to fill in [`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml) like this...
+We don't have the datasheet for [XT25F32B](https://www.elnec.com/en/device/XTX/XT25F32B+%28QuadSPI%29+%5BSOP8-200%5D/) Flash Memory... But fortunately the [JEDEC IDs](https://en.wikipedia.org/wiki/Common_Flash_Memory_Interface) for Manufacturer, Memory Type and Density (Capacity) are all that we need for [`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml)...
 
 ```yaml
 syscfg.vals:
