@@ -52,57 +52,61 @@
 
     <h1 class="title">Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)</h1>
     <nav id="TOC"><ul>
-<li><a href="#configure-pins-for-spi-port-syscfgyml">1 Configure pins for SPI Port (<code>syscfg.yml</code>):</a><ul></ul></li>
-<li><a href="#configure-flash-interface-syscfgyml">2 Configure flash interface (<code>syscfg.yml</code>):</a><ul></ul></li>
-<li><a href="#configure-flash-timings-syscfgyml">3 Configure flash timings (<code>syscfg.yml</code>):</a><ul></ul></li>
-<li><a href="#include-spiflashh-hal_bspc">4 Include spiflash.h (<code>hal_bsp.c</code>):</a><ul></ul></li>
-<li><a href="#define-two-flash-devices-hal_bspc">5 Define two flash devices (<code>hal_bsp.c</code>):</a><ul></ul></li>
-<li><a href="#access-flash-devices-by-id-hal_bspc">6 Access flash devices by ID (<code>hal_bsp.c</code>):</a><ul></ul></li>
-<li><a href="#add-spiflash-driver-pkgyml">7 Add <code>spiflash</code> driver (<code>pkg.yml</code>):</a><ul></ul></li>
+<li><a href="#syscfgyml-configure-pins-for-spi-port">1 <code>syscfg.yml:</code> Configure pins for SPI Port</a><ul></ul></li>
+<li><a href="#syscfgyml-configure-flash-interface">2 <code>syscfg.yml:</code> Configure flash interface</a><ul></ul></li>
+<li><a href="#syscfgyml-configure-flash-timings">3 <code>syscfg.yml:</code> Configure flash timings</a><ul></ul></li>
+<li><a href="#hal_bspc-include-spiflashh">4 <code>hal_bsp.c:</code> Include spiflash.h</a><ul></ul></li>
+<li><a href="#hal_bspc-define-two-flash-devices">5 <code>hal_bsp.c:</code> Define two flash devices</a><ul></ul></li>
+<li><a href="#hal_bspc-access-flash-devices-by-id">6 <code>hal_bsp.c:</code> Access flash devices by ID</a><ul></ul></li>
+<li><a href="#pkgyml-add-spiflash-driver">7 <code>pkg.yml:</code> Add <code>spiflash</code> driver</a><ul></ul></li>
 <li><a href="#test-spi-flash">8 Test SPI Flash</a><ul></ul></li>
 <li><a href="#spi-flash-test-output">9 SPI Flash Test Output</a><ul></ul></li>
 <li><a href="#spi-flash-benchmark">10 SPI Flash Benchmark</a><ul></ul></li>
 <li><a href="#debugging-with-mcuboot">11 Debugging with MCUBoot</a><ul></ul></li>
-<li><a href="#inside-the-spi-flash-driver">12 Inside The SPI Flash Driver</a><ul></ul></li>
-<li><a href="#further-reading">13 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/spiflash-config.png" alt="Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)" /></p>
-<p>TODO</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml</p>
+<li><a href="#switching-mcuboot-to-stub-bootloader">12 Switching MCUBoot to Stub Bootloader</a><ul></ul></li>
+<li><a href="#inside-the-spi-flash-driver">13 Inside The SPI Flash Driver</a><ul></ul></li>
+<li><a href="#further-reading">14 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/spiflash-config.png" alt="Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)" /></p>
+<p>There's one thing truly remarkable about the <strong>Apache Mynewt</strong> embedded operating system... <strong>Almost any feature can be switched on by editing a configuration file!</strong></p>
+<p>Today we'll learn to enable access to <strong>SPI Flash Memory</strong> with Mynewt OS on PineTime Smart Watch... Just by editing two configuration files (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml"><code>syscfg.yml</code></a> and <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml"><code>pkg.yml</code></a>), and making some minor code changes (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c"><code>hal_bsp.c</code></a>).</p>
+<p>These steps will work for any Nordic nRF52 device, and probably STM32 devices too (see diagram above)...</p>
 <ol>
 <li>
-<p>Configure pins for SPI Port (<code>syscfg.yml</code>):</p>
+<p><strong>Configure pins for SPI Port</strong> in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml"><code>syscfg.yml</code></a></p>
 </li>
 <li>
-<p>Configure flash interface (<code>syscfg.yml</code>):</p>
+<p><strong>Configure flash interface</strong> in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml"><code>syscfg.yml</code></a></p>
 </li>
 <li>
-<p>Configure flash timings (<code>syscfg.yml</code>):</p>
+<p><strong>Configure flash timings</strong> in<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml"><code>syscfg.yml</code></a></p>
 </li>
 <li>
-<p>Include spiflash.h (<code>hal_bsp.c</code>):</p>
+<p><strong>Include <code>spiflash.h</code></strong> in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c"><code>hal_bsp.c</code></a></p>
 </li>
 <li>
-<p>Define two flash devices (<code>hal_bsp.c</code>):
-Internal Flash ROM,
-External SPI Flash</p>
+<p><strong>Define internal and external flash devices</strong> in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c"><code>hal_bsp.c</code></a></p>
 </li>
 <li>
-<p>Access flash devices by ID (<code>hal_bsp.c</code>):
-0 for Internal Flash ROM,
-1 for External SPI Flash</p>
+<p><strong>Access flash devices by ID</strong> in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c"><code>hal_bsp.c</code></a></p>
 </li>
 <li>
-<p>Add <code>spiflash</code> driver (<code>pkg.yml</code>):</p>
+<p><strong>Add <code>spiflash</code> driver</strong> in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml"><code>pkg.yml</code></a></p>
 </li>
 </ol>
+<p>Read on for the details...</p>
+<h1 id="syscfgyml-configure-pins-for-spi-port" class="section-header"><a href="#syscfgyml-configure-pins-for-spi-port">1 <code>syscfg.yml:</code> Configure pins for SPI Port</a></h1>
 <p>TODO</p>
-<h1 id="configure-pins-for-spi-port-syscfgyml" class="section-header"><a href="#configure-pins-for-spi-port-syscfgyml">1 Configure pins for SPI Port (<code>syscfg.yml</code>):</a></h1>
-<p>TODO</p>
+<p>http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf</p>
+<ul>
+<li>P0.00/XL1 32.768KHz –XL1</li>
+<li>P0.01/XL2 32.768KHz –XL1</li>
+<li>P0.02/AIN0 SPI-SCK, LCD_SCK OUT</li>
+<li>P0.03/AIN1 SPI-MOSI, LCD_SDI OUT</li>
+<li>P0.04/AIN2 SPI-MISO IN</li>
+<li>P0.05/AIN3 SPI-CE# (SPI-NOR) OUT</li>
+</ul>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml</p>
 <pre><code class="language-yaml">syscfg.vals:
     ...
-    ###########################################################################
     # Default Pins for Peripherals
     # Defined in http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf
 
@@ -112,12 +116,21 @@ External SPI Flash</p>
     SPI_0_MASTER_PIN_MISO: 4  # P0.04/AIN2: SPI-MISO            SPI MISO for flash only
     ...
 </code></pre>
-<h1 id="configure-flash-interface-syscfgyml" class="section-header"><a href="#configure-flash-interface-syscfgyml">2 Configure flash interface (<code>syscfg.yml</code>):</a></h1>
+<h1 id="syscfgyml-configure-flash-interface" class="section-header"><a href="#syscfgyml-configure-flash-interface">2 <code>syscfg.yml:</code> Configure flash interface</a></h1>
 <p>TODO</p>
+<p>https://wiki.pine64.org/index.php/PineTime</p>
+<blockquote>
+<p><strong>SPI Flash information:</strong> <br><br>
+XTX XT25F32B 32Mb (4MB) SPI NOR Flash <br><br>
+(data sheets for this part are hard to find but it acts similar to other QuadSPI SPI NOR Flash such as Macronix 32Mb (4MB) SPI NOR Flash) <br><br>
+IDs for XT25F32B are: <strong>manufacturer (<code>0x0b</code>)</strong>, device (<code>0x15</code>), <strong>memory type (<code>0x40</code>)</strong>, <strong>density (<code>0x16</code>)</strong></p>
+</blockquote>
+<p>device ID (<code>0x15</code>) is not used</p>
+<p>https://www.elnec.com/en/device/XTX/XT25F32B+%28QuadSPI%29+%5BSOP8-200%5D/</p>
+<p>https://www.macronix.com/Lists/Datasheet/Attachments/7426/MX25L3233F,%203V,%2032Mb,%20v1.6.pdf</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml</p>
 <pre><code class="language-yaml">syscfg.vals:
     ...
-    ###########################################################################
     # SPI Flash
     # XTX XT25F32B 32 Mb (4 MB) SPI NOR Flash (similar to QuadSPI SPI NOR Flash like Macronix 32 Mb (4 MB) MX25L3233F)
     # manufacturer (0x0b), device (0x15), memory type (0x40), density (0x16)
@@ -135,7 +148,7 @@ External SPI Flash</p>
     SPIFLASH_PAGE_SIZE:     256     # TODO Number of bytes that can be written at a time
     ...
 </code></pre>
-<h1 id="configure-flash-timings-syscfgyml" class="section-header"><a href="#configure-flash-timings-syscfgyml">3 Configure flash timings (<code>syscfg.yml</code>):</a></h1>
+<h1 id="syscfgyml-configure-flash-timings" class="section-header"><a href="#syscfgyml-configure-flash-timings">3 <code>syscfg.yml:</code> Configure flash timings</a></h1>
 <p>TODO</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml</p>
 <pre><code class="language-yaml">syscfg.vals:
@@ -155,19 +168,17 @@ External SPI Flash</p>
     SPIFLASH_TCE_MAXIMUM:   10000000 # Maximum chip erase time (us)
     ...
 </code></pre>
-<h1 id="include-spiflashh-hal_bspc" class="section-header"><a href="#include-spiflashh-hal_bspc">4 Include spiflash.h (<code>hal_bsp.c</code>):</a></h1>
+<h1 id="hal_bspc-include-spiflashh" class="section-header"><a href="#hal_bspc-include-spiflashh">4 <code>hal_bsp.c:</code> Include spiflash.h</a></h1>
 <p>TODO</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c</p>
 <pre><code class="language-c">#if MYNEWT_VAL(SPIFLASH)  //  If External SPI Flash exists...
 #include &lt;spiflash/spiflash.h&gt;
 #endif  //  MYNEWT_VAL(SPIFLASH)
 </code></pre>
-<h1 id="define-two-flash-devices-hal_bspc" class="section-header"><a href="#define-two-flash-devices-hal_bspc">5 Define two flash devices (<code>hal_bsp.c</code>):</a></h1>
+<h1 id="hal_bspc-define-two-flash-devices" class="section-header"><a href="#hal_bspc-define-two-flash-devices">5 <code>hal_bsp.c:</code> Define two flash devices</a></h1>
 <p>TODO</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-  <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>,
-  <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span></pre></div>
+<p>Internal Flash ROM,
+External SPI Flash</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c</p>
 <pre><code class="language-c">/// Array of Flash Devices
 static const struct hal_flash *flash_devs[] = {
@@ -177,10 +188,9 @@ static const struct hal_flash *flash_devs[] = {
 #endif                        //  MYNEWT_VAL(SPIFLASH)
 };
 </code></pre>
-<h1 id="access-flash-devices-by-id-hal_bspc" class="section-header"><a href="#access-flash-devices-by-id-hal_bspc">6 Access flash devices by ID (<code>hal_bsp.c</code>):</a></h1>
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-  <span class="number">0</span> <span class="kw">for</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>,
-  <span class="number">1</span> <span class="kw">for</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span></pre></div>
+<h1 id="hal_bspc-access-flash-devices-by-id" class="section-header"><a href="#hal_bspc-access-flash-devices-by-id">6 <code>hal_bsp.c:</code> Access flash devices by ID</a></h1>
+<p>0 for Internal Flash ROM,
+1 for External SPI Flash</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c</p>
 <pre><code class="language-c">/// Return the Flash Device for the ID. 0 for Internal Flash ROM, 1 for External SPI Flash
 const struct hal_flash *
@@ -192,7 +202,7 @@ hal_bsp_flash_dev(uint8_t id)
     return flash_devs[id];
 }
 </code></pre>
-<h1 id="add-spiflash-driver-pkgyml" class="section-header"><a href="#add-spiflash-driver-pkgyml">7 Add <code>spiflash</code> driver (<code>pkg.yml</code>):</a></h1>
+<h1 id="pkgyml-add-spiflash-driver" class="section-header"><a href="#pkgyml-add-spiflash-driver">7 <code>pkg.yml:</code> Add <code>spiflash</code> driver</a></h1>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml</p>
 <pre><code class="language-yaml">pkg.deps:
     ...
@@ -202,205 +212,158 @@ hal_bsp_flash_dev(uint8_t id)
 <p>TODO</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c</p>
 <p>Based on https://github.com/apache/mynewt-core/blob/master/test/flash_test/src/flash_test.c</p>
-<pre><code class="language-c">        ///////////////////////////////////////////////////
-        //  Dump Sector Map
+<pre><code class="language-c">////////////////////
+//  Dump Sector Map
 
-        //  Dump sector map for internal flash ROM
-        //  map_cmd(0) ||
+//  Dump sector map for internal flash ROM
+map_cmd(0) ||
 
-        //  Dump sector map for external SPI flash
-        //  map_cmd(1) ||
+//  Dump sector map for external SPI flash
+map_cmd(1) ||
 
-        ///////////////////////////////////////////////////
-        //  Read Flash: Before erasing
-        //  flash &lt;flash-id&gt; read &lt;offset&gt; &lt;size&gt; -- reads bytes from flash        
+////////////////////////////////
+//  Read Flash: Before erasing
+//  flash &lt;flash-id&gt; read &lt;offset&gt; &lt;size&gt; -- reads bytes from flash        
 
-        //  Read internal flash ROM
-        flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
+//  Read internal flash ROM
+flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
 
-        //  Read external SPI flash
-        flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
+//  Read external SPI flash
+flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 
-        ///////////////////////////////////////////////////
-        //  Erase Flash: Sets all bits to 1
-        //  flash &lt;flash-id&gt; erase &lt;offset&gt; &lt;size&gt; -- erases flash
+/////////////////////////////////////
+//  Erase Flash: Set all bits to 1
+//  flash &lt;flash-id&gt; erase &lt;offset&gt; &lt;size&gt; -- erases flash
 
-        //  Erase external SPI flash
-        flash_cmd(ERASE_COMMAND, 1, 0x0, 32) ||
+//  Erase external SPI flash
+flash_cmd(ERASE_COMMAND, 1, 0x0, 32) ||
 
-        ///////////////////////////////////////////////////
-        //  Read Flash: Shows all bits set to 1
-        //  flash &lt;flash-id&gt; read &lt;offset&gt; &lt;size&gt; -- reads bytes from flash        
+////////////////////////////////////////
+//  Read Flash: Shows all bits set to 1
+//  flash &lt;flash-id&gt; read &lt;offset&gt; &lt;size&gt; -- reads bytes from flash        
 
-        //  Read internal flash ROM
-        flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
+//  Read internal flash ROM
+flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
 
-        //  Read external SPI flash
-        flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
+//  Read external SPI flash
+flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 
-        ///////////////////////////////////////////////////
-        //  Write Flash: Write 0x01, 0x02, 0x03, ... (Must erase before writing)
-        //  flash &lt;flash-id&gt; write &lt;offset&gt; &lt;size&gt; -- writes incrementing data pattern 0-8 to flash
+//////////////////////////////////////////////
+//  Write Flash: Write 0x01, 0x02, 0x03, ... (Must erase before writing)
+//  flash &lt;flash-id&gt; write &lt;offset&gt; &lt;size&gt; -- writes incrementing data pattern 0-8 to flash
 
-        //  Write external SPI flash
-        flash_cmd(WRITE_COMMAND, 1, 0x0, 32) ||
+//  Write external SPI flash
+flash_cmd(WRITE_COMMAND, 1, 0x0, 32) ||
 
-        ///////////////////////////////////////////////////
-        //  Read Flash: Shows 0x01, 0x02, 0x03, ...
-        //  flash &lt;flash-id&gt; read &lt;offset&gt; &lt;size&gt; -- reads bytes from flash        
+////////////////////////////////////////////
+//  Read Flash: Shows 0x01, 0x02, 0x03, ...
+//  flash &lt;flash-id&gt; read &lt;offset&gt; &lt;size&gt; -- reads bytes from flash        
 
-        //  Read internal flash ROM
-        flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
+//  Read internal flash ROM
+flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
 
-        //  Read external SPI flash
-        flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
+//  Read external SPI flash
+flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 
-        ///////////////////////////////////////////////////
-        //  Test Flash Speed
-        //  flash_speed &lt;flash_id&gt; &lt;addr&gt; &lt;rd_sz&gt;|range [move]
-        //  range=0 for size mode, range=1 for range mode, move=1 for move
+//////////////////////
+//  Test Flash Speed
+//  flash_speed &lt;flash_id&gt; &lt;addr&gt; &lt;rd_sz&gt;|range [move]
+//  range=0 for size mode, range=1 for range mode, move=1 for move
 
-        //  Internal flash ROM, size mode, no move
-        //  speed_cmd(0, 0x0, 32, 0, 0) ||
+//  Internal flash ROM, size mode, no move
+//  speed_cmd(0, 0x0, 32, 0, 0) ||
 
-        //  External SPI flash, size mode, no move
-        //  speed_cmd(1, 0x0, 32, 0, 0) ||
+//  External SPI flash, size mode, no move
+//  speed_cmd(1, 0x0, 32, 0, 0) ||
 
-        //  Internal flash ROM, range mode, no move
-        //  speed_cmd(0, 0x0, 0, 1, 0) ||
+//  Internal flash ROM, range mode, no move
+//  speed_cmd(0, 0x0, 0, 1, 0) ||
 
-        //  External SPI flash, range mode, no move
-        //  speed_cmd(1, 0x0, 0, 1, 0) ||
-        0
+//  External SPI flash, range mode, no move
+//  speed_cmd(1, 0x0, 0, 1, 0) ||
+0
 </code></pre>
 <h1 id="spi-flash-test-output" class="section-header"><a href="#spi-flash-test-output">9 SPI Flash Test Output</a></h1>
 <p>TODO</p>
 
-<pre><code>Testing flash...
-Read Internal Flash ROM...
-Read 0x0 + 20
-  0x0000: 0x00 0x00 0x01 0x20 0xd9 0x00 0x00 0x00 
-  0x0008: 0x35 0x01 0x00 0x00 0x37 0x01 0x00 0x00 
-  0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-  0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-Read External SPI Flash...
-Read 0x0 + 20
-  0x0000: 0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 
-  0x0008: 0x09 0x0a 0x0b 0x0c 0x0d 0x0e 0x0f 0x10 
-  0x0010: 0x11 0x12 0x13 0x14 0x15 0x16 0x17 0x18 
-  0x0018: 0x19 0x1a 0x1b 0x1c 0x1d 0x1e 0x1f 0x20 
-Erase External SPI Flash...
-Erase 0x0 + 20
-Done!
-Read Internal Flash ROM...
-Read 0x0 + 20
-  0x0000: 0x00 0x00 0x01 0x20 0xd9 0x00 0x00 0x00 
-  0x0008: 0x35 0x01 0x00 0x00 0x37 0x01 0x00 0x00 
-  0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-  0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-Read External SPI Flash...
-Read 0x0 + 20
-  0x0000: 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 
-  0x0008: 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 
-  0x0010: 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 
-  0x0018: 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 
-Write External SPI Flash...
-Write 0x0 + 20
-Done!
-Read Internal Flash ROM...
-Read 0x0 + 20
-  0x0000: 0x00 0x00 0x01 0x20 0xd9 0x00 0x00 0x00 
-  0x0008: 0x35 0x01 0x00 0x00 0x37 0x01 0x00 0x00 
-  0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-  0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-Read External SPI Flash...
-Read 0x0 + 20
-  0x0000: 0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 
-  0x0008: 0x09 0x0a 0x0b 0x0c 0x0d 0x0e 0x0f 0x10 
-  0x0010: 0x11 0x12 0x13 0x14 0x15 0x16 0x17 0x18 
-  0x0018: 0x19 0x1a 0x1b 0x1c 0x1d 0x1e 0x1f 0x20 
-Flash OK
-Rust test display
-*/
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Testing</span> <span class="ident">flash</span>...
+<span class="ident">Read</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
+<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
+  <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x01</span> <span class="number">0x20</span> <span class="number">0xd9</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0008</span>: <span class="number">0x35</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x37</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+<span class="ident">Read</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
+<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
+  <span class="number">0x0000</span>: <span class="number">0x01</span> <span class="number">0x02</span> <span class="number">0x03</span> <span class="number">0x04</span> <span class="number">0x05</span> <span class="number">0x06</span> <span class="number">0x07</span> <span class="number">0x08</span> 
+  <span class="number">0x0008</span>: <span class="number">0x09</span> <span class="number">0x0a</span> <span class="number">0x0b</span> <span class="number">0x0c</span> <span class="number">0x0d</span> <span class="number">0x0e</span> <span class="number">0x0f</span> <span class="number">0x10</span> 
+  <span class="number">0x0010</span>: <span class="number">0x11</span> <span class="number">0x12</span> <span class="number">0x13</span> <span class="number">0x14</span> <span class="number">0x15</span> <span class="number">0x16</span> <span class="number">0x17</span> <span class="number">0x18</span> 
+  <span class="number">0x0018</span>: <span class="number">0x19</span> <span class="number">0x1a</span> <span class="number">0x1b</span> <span class="number">0x1c</span> <span class="number">0x1d</span> <span class="number">0x1e</span> <span class="number">0x1f</span> <span class="number">0x20</span> 
+<span class="ident">Erase</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
+<span class="ident">Erase</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
+<span class="macro">Done</span><span class="macro">!</span>
+<span class="ident">Read</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
+<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
+  <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x01</span> <span class="number">0x20</span> <span class="number">0xd9</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0008</span>: <span class="number">0x35</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x37</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+<span class="ident">Read</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
+<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
+  <span class="number">0x0000</span>: <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> 
+  <span class="number">0x0008</span>: <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> 
+  <span class="number">0x0010</span>: <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> 
+  <span class="number">0x0018</span>: <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> 
+<span class="ident">Write</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
+<span class="ident">Write</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
+<span class="macro">Done</span><span class="macro">!</span>
+<span class="ident">Read</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
+<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
+  <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x01</span> <span class="number">0x20</span> <span class="number">0xd9</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0008</span>: <span class="number">0x35</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x37</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+<span class="ident">Read</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
+<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
+  <span class="number">0x0000</span>: <span class="number">0x01</span> <span class="number">0x02</span> <span class="number">0x03</span> <span class="number">0x04</span> <span class="number">0x05</span> <span class="number">0x06</span> <span class="number">0x07</span> <span class="number">0x08</span> 
+  <span class="number">0x0008</span>: <span class="number">0x09</span> <span class="number">0x0a</span> <span class="number">0x0b</span> <span class="number">0x0c</span> <span class="number">0x0d</span> <span class="number">0x0e</span> <span class="number">0x0f</span> <span class="number">0x10</span> 
+  <span class="number">0x0010</span>: <span class="number">0x11</span> <span class="number">0x12</span> <span class="number">0x13</span> <span class="number">0x14</span> <span class="number">0x15</span> <span class="number">0x16</span> <span class="number">0x17</span> <span class="number">0x18</span> 
+  <span class="number">0x0018</span>: <span class="number">0x19</span> <span class="number">0x1a</span> <span class="number">0x1b</span> <span class="number">0x1c</span> <span class="number">0x1d</span> <span class="number">0x1e</span> <span class="number">0x1f</span> <span class="number">0x20</span> 
+<span class="ident">Flash</span> <span class="ident">OK</span>
 
-/* Flash Sector Map:
-Testing flash...
-Flash 0 at 0x0 size 0x80000 with 128 sectors, alignment req 1 bytes
-  0: 1000
-  1: 1000
-  2: 1000
-  3: 1000
-  4: 1000
-  5: 1000
-  6: 1000
-  7: 1000
-  8: 1000
-  9: 1000
-  10: 1000
-  11: 1000
-  12: 1000
-  13: 1000
-  14: 1000
-  15: 1000
-  16: 1000
-  17: 1000
-  18: 1000
-  19: 1000
-  20: 1000
-  21: 1000
-  22: 1000
-  23: 1000
-  24: 1000
-  25: 1000
-  26: 1000
-  27: 1000
-  28: 1000
-  29: 1000
-  30: 1000
-  31: 1000
-...  127: 1000
+<span class="ident">Flash</span> <span class="ident">Sector</span> <span class="ident">Map</span>:
+<span class="ident">Flash</span> <span class="number">0</span> <span class="ident">at</span> <span class="number">0x0</span> <span class="ident">size</span> <span class="number">0x80000</span> <span class="ident">with</span> <span class="number">128</span> <span class="ident">sectors</span>, <span class="ident">alignment</span> <span class="ident">req</span> <span class="number">1</span> <span class="ident">bytes</span>
+  <span class="number">0</span>:   <span class="number">1000</span>
+  <span class="number">1</span>:   <span class="number">1000</span>
+  <span class="number">2</span>:   <span class="number">1000</span>
+  ...
+  <span class="number">127</span>: <span class="number">1000</span>
 
-Flash 1 at 0x0 size 0x3ff800 with 1024 sectors, alignment req 1 bytes
-  0: ffe
-  1: ffe
-  2: ffe
-  3: ffe
-  4: ffe
-  5: ffe
-  6: ffe
-  7: ffe
-  8: ffe
-  9: ffe
-  10: ffe
-  11: ffe
-  12: ffe
-  13: ffe
-  14: ffe
-  15: ffe
-  16: ffe
-  17: ffe
-  18: ffe
-  19: ffe
-  20: ffe
-  21: ffe
-  22: ffe
-  23: ffe
-  24: ffe
-  25: ffe
-  26: ffe
-  27: ffe
-  28: ffe
-  29: ffe
-  30: ffe
-  31: ffe
-...  1023: ffe</code></pre><h1 id="spi-flash-benchmark" class="section-header"><a href="#spi-flash-benchmark">10 SPI Flash Benchmark</a></h1>
+<span class="ident">Flash</span> <span class="number">1</span> <span class="ident">at</span> <span class="number">0x0</span> <span class="ident">size</span> <span class="number">0x3ff800</span> <span class="ident">with</span> <span class="number">1024</span> <span class="ident">sectors</span>, <span class="ident">alignment</span> <span class="ident">req</span> <span class="number">1</span> <span class="ident">bytes</span>
+  <span class="number">0</span>:    <span class="ident">ffe</span>
+  <span class="number">1</span>:    <span class="ident">ffe</span>
+  <span class="number">2</span>:    <span class="ident">ffe</span>
+  ...  
+  <span class="number">1023</span>: <span class="ident">ffe</span></pre></div>
+<h1 id="spi-flash-benchmark" class="section-header"><a href="#spi-flash-benchmark">10 SPI Flash Benchmark</a></h1>
 <p>TODO</p>
 <h1 id="debugging-with-mcuboot" class="section-header"><a href="#debugging-with-mcuboot">11 Debugging with MCUBoot</a></h1>
+<p>If we're using the MCUBoot Bootloader (like on PineTime), debugging and testing SPI Flash can be somewhat challenging.</p>
+<p>Remember that we added the SPI Flash Driver to the Board Support Package?</p>
+<p>The Board Support Package is used by <em>both</em> the MCUBoot Bootloader as well as the Application Firmware. Which means that the SPI Flash Driver is loaded when MCUBoot starts.</p>
+<p>_What happens if the SPI Flash Driver is configured incorrectly?</p>
+<p>MCUBoot may crash... Before starting the Application Firmware! (This happened to me)</p>
+<p>Hence for debugging and testing SPI Flash, I strongly recommend switching the Bootloader to a simpler one that doesn't require any drivers: the Stub Bootloader.</p>
+<p>This will enable us to debug and test SPI Flash with our Application Firmware, before using it with MCUBoot.</p>
+<p>Also MCUBoot expects the Application Firmware to start with the MCUBoot Image Header. When the GDB debugger flashes the Firmware ELF File into ROM, the Image Header is empty. So MCUBoot won't work start the Application Firmware properly when the debugger is running. Switching MCUBoot to the Stub Bootloader will solve this.</p>
+<h1 id="switching-mcuboot-to-stub-bootloader" class="section-header"><a href="#switching-mcuboot-to-stub-bootloader">12 Switching MCUBoot to Stub Bootloader</a></h1>
 <p>TODO</p>
-<h1 id="inside-the-spi-flash-driver" class="section-header"><a href="#inside-the-spi-flash-driver">12 Inside The SPI Flash Driver</a></h1>
+<h1 id="inside-the-spi-flash-driver" class="section-header"><a href="#inside-the-spi-flash-driver">13 Inside The SPI Flash Driver</a></h1>
 <p>TODO</p>
 <p>Based on https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml</p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">13 Further Reading</a></h1>
+<p>https://www.winbond.com/resource-files/w25q16jv%20spi%20revh%2004082019%20plus.pdf</p>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">14 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 
     
