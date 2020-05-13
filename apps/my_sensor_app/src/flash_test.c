@@ -239,7 +239,14 @@ int test_flash() {
         flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 
         ///////////////////////////////////////////////////
-        //  Write flash
+        //  Erase Flash: Must erase before writing
+        //  flash <flash-id> erase <offset> <size> -- erases flash
+
+        //  Erase external SPI flash
+        flash_cmd(ERASE_COMMAND, 1, 0x0, 32) ||
+
+        ///////////////////////////////////////////////////
+        //  Write Flash: Must erase before writing
         //  flash <flash-id> write <offset> <size> -- writes incrementing data pattern 0-8 to flash
 
         //  Write external SPI flash
@@ -254,13 +261,6 @@ int test_flash() {
 
         //  Read external SPI flash
         flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
-
-        ///////////////////////////////////////////////////
-        //  Erase Flash
-        //  flash <flash-id> erase <offset> <size> -- erases flash
-
-        //  Erase external SPI flash
-        //  flash_cmd(ERASE_COMMAND, 1, 0x0, 32) ||
 
         ///////////////////////////////////////////////////
         //  Test Flash Speed
