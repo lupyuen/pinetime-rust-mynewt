@@ -462,9 +462,13 @@ speed_cmd(1, 0x0, 0, 1, 0) ||
 
 # MCUBoot Bootloader with SPI Flash
 
-TODO
+[__MCUBoot__](https://juullabs-oss.github.io/mcuboot/) is an open-source Bootloader that supports Mynewt, [RIOT](https://www.riot-os.org) and [Zephyr](https://www.zephyrproject.org) operating systems... It's the first thing that will [run on PineTime when it boots](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu).
 
-[`hw/bsp/black_vet6/bsp.yml`](https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/bsp.yml)
+During firmware updates, MCUBoot stores the previous version of the firmware into Internal Flash ROM, and rolls back to the previous firmware if the new firmware doesn't start properly. 
+
+But on constrained devices like PineTime, this robustness will cost us... We might run out of space in Internal Flash ROM to store the old firmware!
+
+Fortunately MCUBoot on Mynewt works seamlessly with SPI Flash... Watch how the new firmware `FLASH_AREA_IMAGE_0` coexists with the old firmware `FLASH_AREA_IMAGE_1` in this Flash Memory Map for MCUBoot for Mynewt: [`hw/bsp/black_vet6/bsp.yml`](https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/bsp.yml)
 
 ```yaml
 bsp.flash_map:
@@ -502,6 +506,10 @@ bsp.flash_map:
             size: 32kB
 ```
 
+Note that the new firmware `FLASH_AREA_IMAGE_0` resides on __Flash Device 0 (Internal Flash ROM)__, while the old firmware `FLASH_AREA_IMAGE_1` resides on __Flash Device 1 (External SPI Flash)__.
+
+This means that we won't waste any previous space in Internal Flash ROM for storing the old firmware... MCUBoot automatically swaps the old firmware into External SPI Flash! Using MCUBoot Bootloader with SPI Flash is really that easy!
+
 # Debug SPI Flash with MCUBoot Bootloader
 
 If we're using the MCUBoot Bootloader (like on PineTime), debugging and testing SPI Flash can be somewhat challenging.
@@ -514,11 +522,15 @@ _What happens if the SPI Flash Driver is configured incorrectly?_
 
 MCUBoot may crash... Before starting the Application Firmware! (This happened to me)
 
-Hence for debugging and testing SPI Flash, I strongly recommend switching the Bootloader to a simpler one that doesn't require any drivers: the Stub Bootloader.
+Hence for debugging and testing SPI Flash, I strongly recommend switching the Bootloader to a simpler one that doesn't require any drivers: the [__Stub Bootloader__](https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/apps/boot_stub).
+
+The Stub Bootloader doesn't do anything... It simply jumps to the Application Firmware.
 
 This will enable us to debug and test SPI Flash with our Application Firmware, before using it with MCUBoot.
 
 Also MCUBoot expects the Application Firmware Image to start with the MCUBoot Image Header. When the GDB debugger flashes the Firmware ELF File into ROM, the Image Header is empty. So MCUBoot won't work start the Application Firmware properly when the debugger is running. Switching MCUBoot to the Stub Bootloader will solve this.
+
+[_Source code for Stub Bootloader_](https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/apps/boot_stub)
 
 # Switching MCUBoot to Stub Bootloader
 
@@ -535,6 +547,8 @@ https://www.winbond.com/resource-files/w25q16jv%20spi%20revh%2004082019%20plus.p
 # SPI Flash File System
 
 TODO
+
+LittleFS
 
 # Further Reading
 
