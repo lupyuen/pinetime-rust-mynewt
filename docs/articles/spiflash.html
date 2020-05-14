@@ -52,16 +52,22 @@
 
     <h1 class="title">Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)</h1>
     <nav id="TOC"><ul>
-<li><a href="#syscfgyml-configure-pins-for-spi-port">1 <code>syscfg.yml:</code> Configure pins for SPI Port</a><ul></ul></li>
+<li><a href="#syscfgyml-configure-pins-for-spi-port">1 <code>syscfg.yml:</code> Configure Pins for SPI Port</a><ul></ul></li>
 <li><a href="#syscfgyml-configure-flash-interface">2 <code>syscfg.yml:</code> Configure flash interface</a><ul></ul></li>
-<li><a href="#syscfgyml-configure-flash-timings">3 <code>syscfg.yml:</code> Configure flash timings</a><ul></ul></li>
+<li><a href="#syscfgyml-configure-flash-timings">3 <code>syscfg.yml:</code> Configure Flash Timings</a><ul></ul></li>
 <li><a href="#hal_bspc-include-spiflashh">4 <code>hal_bsp.c:</code> Include <code>spiflash.h</code></a><ul></ul></li>
-<li><a href="#hal_bspc-define-internal-and-external-flash-devices">5 <code>hal_bsp.c:</code> Define internal and external flash devices</a><ul></ul></li>
-<li><a href="#hal_bspc-access-flash-devices-by-id">6 <code>hal_bsp.c:</code> Access flash devices by ID</a><ul></ul></li>
+<li><a href="#hal_bspc-define-internal-and-external-flash-devices">5 <code>hal_bsp.c:</code> Define Internal and External Flash Devices</a><ul></ul></li>
+<li><a href="#hal_bspc-access-flash-devices-by-id">6 <code>hal_bsp.c:</code> Access Flash Devices by ID</a><ul></ul></li>
 <li><a href="#pkgyml-add-spiflash-driver">7 <code>pkg.yml:</code> Add <code>spiflash</code> driver</a><ul></ul></li>
-<li><a href="#test-spi-flash">8 Test SPI Flash</a><ul></ul></li>
-<li><a href="#spi-flash-test-output">9 SPI Flash Test Output</a><ul></ul></li>
-<li><a href="#spi-flash-benchmark">10 SPI Flash Benchmark</a><ul></ul></li>
+<li><a href="#test-spi-flash">8 Test SPI Flash</a><ul>
+<li><a href="#read-spi-flash">8.1 Read SPI Flash</a><ul></ul></li>
+<li><a href="#erase-spi-flash">8.2 Erase SPI Flash</a><ul></ul></li>
+<li><a href="#read-spi-flash-after-erasing">8.3 Read SPI Flash After Erasing</a><ul></ul></li>
+<li><a href="#write-spi-flash">8.4 Write SPI Flash</a><ul></ul></li>
+<li><a href="#read-spi-flash-after-writing">8.5 Read SPI Flash After Writing</a><ul></ul></li>
+<li><a href="#spi-flash-sector-map">8.6 SPI Flash Sector Map</a><ul></ul></li></ul></li>
+<li><a href="#spi-flash-benchmark">9 SPI Flash Benchmark</a><ul></ul></li>
+<li><a href="#flash-map">10 Flash Map</a><ul></ul></li>
 <li><a href="#debugging-with-mcuboot">11 Debugging with MCUBoot</a><ul></ul></li>
 <li><a href="#switching-mcuboot-to-stub-bootloader">12 Switching MCUBoot to Stub Bootloader</a><ul></ul></li>
 <li><a href="#inside-the-spi-flash-driver">13 Inside The SPI Flash Driver</a><ul></ul></li>
@@ -96,7 +102,7 @@
 <p>Read on for the details...</p>
 <p><img src="https://lupyuen.github.io/images/spiflash-config1.png" alt="syscfg.yml: Configuration for Board Support Package" /></p>
 <p><em><code>syscfg.yml</code>: Configuration for Board Support Package</em></p>
-<h1 id="syscfgyml-configure-pins-for-spi-port" class="section-header"><a href="#syscfgyml-configure-pins-for-spi-port">1 <code>syscfg.yml:</code> Configure pins for SPI Port</a></h1>
+<h1 id="syscfgyml-configure-pins-for-spi-port" class="section-header"><a href="#syscfgyml-configure-pins-for-spi-port">1 <code>syscfg.yml:</code> Configure Pins for SPI Port</a></h1>
 <p>The first configuration file we'll edit is <code>syscfg.yml</code> from Mynewt's Board Support Package. For PineTime, this file is located at...</p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml"><code>hw/bsp/nrf52/syscfg.yml</code></a></p>
 <p>Let's add the PineTime SPI settings according to the <a href="https://wiki.pine64.org/index.php/PineTime">PineTime Wiki</a>: <a href="http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf">PineTime Port Assignment</a>...</p>
@@ -152,7 +158,7 @@ IDs for XT25F32B are: <strong>Manufacturer (<code>0x0b</code>)</strong>, Device 
 <p>The JEDEC Device ID (<code>0x15</code>) is not used.</p>
 <p><code>SPIFLASH_SECTOR_COUNT</code> and <code>SPIFLASH_SECTOR_SIZE</code> were copied from <a href="https://www.macronix.com/Lists/Datasheet/Attachments/7426/MX25L3233F,%203V,%2032Mb,%20v1.6.pdf">Macronix MX25L3233F</a> since it's similar to our XT25F32B.</p>
 <p><code>SPIFLASH_PAGE_SIZE</code> was copied from another Mynewt configuration: <a href="https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml"><code>black_vet6</code></a></p>
-<h1 id="syscfgyml-configure-flash-timings" class="section-header"><a href="#syscfgyml-configure-flash-timings">3 <code>syscfg.yml:</code> Configure flash timings</a></h1>
+<h1 id="syscfgyml-configure-flash-timings" class="section-header"><a href="#syscfgyml-configure-flash-timings">3 <code>syscfg.yml:</code> Configure Flash Timings</a></h1>
 <p>Finally we edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml"><code>syscfg.yml</code></a> to tell Mynewt the timing characteristics of our Flash Memory...</p>
 <pre><code class="language-yaml">syscfg.vals:
     ...
@@ -176,17 +182,21 @@ IDs for XT25F32B are: <strong>Manufacturer (<code>0x0b</code>)</strong>, Device 
 <p><img src="https://lupyuen.github.io/images/spiflash-config2.png" alt="hal_bsp.c: Code for Board Support Package" /></p>
 <p><em><code>hal_bsp.c</code>: Code for Board Support Package</em> </p>
 <h1 id="hal_bspc-include-spiflashh" class="section-header"><a href="#hal_bspc-include-spiflashh">4 <code>hal_bsp.c:</code> Include <code>spiflash.h</code></a></h1>
-<p>TODO</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c</p>
+<p>After editing <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml"><code>syscfg.yml</code></a> in the Board Support Package, let's make some minor tweaks to the source code (<code>hal_bsp.c</code>) of the Board Support Package.</p>
+<p>For PineTime, the source file is located at...</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c"><code>hw/bsp/nrf52/src/hal_bsp.c</code></a></p>
+<p>First we insert the header file for the SPI Flash Driver into <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c"><code>hal_bsp.c</code></a> like this...</p>
 <pre><code class="language-c">#if MYNEWT_VAL(SPIFLASH)  //  If External SPI Flash exists...
 #include &lt;spiflash/spiflash.h&gt;
 #endif  //  MYNEWT_VAL(SPIFLASH)
 </code></pre>
-<h1 id="hal_bspc-define-internal-and-external-flash-devices" class="section-header"><a href="#hal_bspc-define-internal-and-external-flash-devices">5 <code>hal_bsp.c:</code> Define internal and external flash devices</a></h1>
-<p>TODO</p>
-<p>Internal Flash ROM,
-External SPI Flash</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c</p>
+<h1 id="hal_bspc-define-internal-and-external-flash-devices" class="section-header"><a href="#hal_bspc-define-internal-and-external-flash-devices">5 <code>hal_bsp.c:</code> Define Internal and External Flash Devices</a></h1>
+<p>Next we define two Mynewt Flash Devices...</p>
+<ul>
+<li><strong>Internal Flash ROM</strong> with Flash Device ID 0</li>
+<li><strong>External SPI Flash</strong> with Flash Device ID 1</li>
+</ul>
+<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c"><code>hal_bsp.c</code></a> and insert this block of code...</p>
 <pre><code class="language-c">/// Array of Flash Devices
 static const struct hal_flash *flash_devs[] = {
     [0] = &amp;nrf52k_flash_dev,  //  Internal Flash ROM
@@ -195,10 +205,10 @@ static const struct hal_flash *flash_devs[] = {
 #endif                        //  MYNEWT_VAL(SPIFLASH)
 };
 </code></pre>
-<h1 id="hal_bspc-access-flash-devices-by-id" class="section-header"><a href="#hal_bspc-access-flash-devices-by-id">6 <code>hal_bsp.c:</code> Access flash devices by ID</a></h1>
-<p>0 for Internal Flash ROM,
-1 for External SPI Flash</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c</p>
+<p>We'll use Flash Device ID 1 when accessing SPI Flash later.</p>
+<h1 id="hal_bspc-access-flash-devices-by-id" class="section-header"><a href="#hal_bspc-access-flash-devices-by-id">6 <code>hal_bsp.c:</code> Access Flash Devices by ID</a></h1>
+<p>Finally we edit the code to fetch the Flash Devices by the Flash Device ID.</p>
+<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c"><code>hal_bsp.c</code></a>. Look for the function <code>hal_bsp_flash_dev()</code> and replace the function by this code...</p>
 <pre><code class="language-c">/// Return the Flash Device for the ID. 0 for Internal Flash ROM, 1 for External SPI Flash
 const struct hal_flash *
 hal_bsp_flash_dev(uint8_t id)
@@ -209,91 +219,45 @@ hal_bsp_flash_dev(uint8_t id)
     return flash_devs[id];
 }
 </code></pre>
+<p>This function returns the Internal Flash ROM for ID 0, and External SPI Flash for ID 1.</p>
 <p><img src="https://lupyuen.github.io/images/spiflash-config3.png" alt="pkg.yml: Drivers for Board Support Package`" /></p>
 <p><em><code>pkg.yml</code>: Drivers for Board Support Package</em></p>
 <h1 id="pkgyml-add-spiflash-driver" class="section-header"><a href="#pkgyml-add-spiflash-driver">7 <code>pkg.yml:</code> Add <code>spiflash</code> driver</a></h1>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml</p>
+<p>The last file we'll edit is <code>pkg.yml</code> from the Board Support Package. For PineTime this file is located at...</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml"><code>hw/bsp/nrf52/pkg.yml</code></a></p>
+<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml"><code>pkg.yml</code></a>. Look for the <code>pkg.deps</code> section and add <code>spiflash</code> like this...</p>
 <pre><code class="language-yaml">pkg.deps:
     ...
     - &quot;@apache-mynewt-core/hw/drivers/flash/spiflash&quot;  # SPI Flash Driver
 </code></pre>
+<p>This starts up the SPI Flash Driver whenever Mynewt boots.  And we're done!</p>
+<p>Now let's write a simple program to read, write and erase the SPI Flash.</p>
 <h1 id="test-spi-flash" class="section-header"><a href="#test-spi-flash">8 Test SPI Flash</a></h1>
 <p>TODO</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a></p>
 <p>Based on https://github.com/apache/mynewt-core/blob/master/test/flash_test/src/flash_test.c</p>
-<pre><code class="language-c">////////////////////
-//  Dump Sector Map
-
-//  Dump sector map for internal flash ROM
-map_cmd(0) ||
-
-//  Dump sector map for external SPI flash
-map_cmd(1) ||
-
-////////////////////////////////
-//  Read Flash: Before erasing
-//  flash &lt;flash-id&gt; read &lt;offset&gt; &lt;size&gt; -- reads bytes from flash        
-
-//  Read internal flash ROM
-flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
-
-//  Read external SPI flash
-flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
-
-/////////////////////////////////////
-//  Erase Flash: Set all bits to 1
-//  flash &lt;flash-id&gt; erase &lt;offset&gt; &lt;size&gt; -- erases flash
-
-//  Erase external SPI flash
-flash_cmd(ERASE_COMMAND, 1, 0x0, 32) ||
-
-////////////////////////////////////////
-//  Read Flash: Shows all bits set to 1
-//  flash &lt;flash-id&gt; read &lt;offset&gt; &lt;size&gt; -- reads bytes from flash        
-
-//  Read internal flash ROM
-flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
-
-//  Read external SPI flash
-flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
-
-//////////////////////////////////////////////
-//  Write Flash: Write 0x01, 0x02, 0x03, ... (Must erase before writing)
-//  flash &lt;flash-id&gt; write &lt;offset&gt; &lt;size&gt; -- writes incrementing data pattern 0-8 to flash
-
-//  Write external SPI flash
-flash_cmd(WRITE_COMMAND, 1, 0x0, 32) ||
-
-////////////////////////////////////////////
-//  Read Flash: Shows 0x01, 0x02, 0x03, ...
-//  flash &lt;flash-id&gt; read &lt;offset&gt; &lt;size&gt; -- reads bytes from flash        
-
-//  Read internal flash ROM
-flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
-
-//  Read external SPI flash
-flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
-
-//////////////////////
-//  Test Flash Speed
-//  flash_speed &lt;flash_id&gt; &lt;addr&gt; &lt;rd_sz&gt;|range [move]
-//  range=0 for size mode, range=1 for range mode, move=1 for move
-
-//  Internal flash ROM, size mode, no move
-//  speed_cmd(0, 0x0, 32, 0, 0) ||
-
-//  External SPI flash, size mode, no move
-//  speed_cmd(1, 0x0, 32, 0, 0) ||
-
-//  Internal flash ROM, range mode, no move
-//  speed_cmd(0, 0x0, 0, 1, 0) ||
-
-//  External SPI flash, range mode, no move
-//  speed_cmd(1, 0x0, 0, 1, 0) ||
-0
-</code></pre>
-<h1 id="spi-flash-test-output" class="section-header"><a href="#spi-flash-test-output">9 SPI Flash Test Output</a></h1>
+<h2 id="read-spi-flash" class="section-header"><a href="#read-spi-flash">8.1 Read SPI Flash</a></h2>
 <p>TODO</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a></p>
+<pre><code class="language-c">/// Test internal flash ROM and external SPI flash
+int test_flash() {
+  //  Keep running tests until a test returns an error (non-zero result)
+  if (
+    ////////////////////////////////
+    //  Read Flash
+    //  &lt;flash-id&gt; &lt;offset&gt; &lt;size&gt;
+
+    //  Read internal flash ROM
+    flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
+
+    //  Read external SPI flash
+    flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
+    ...
+    0
+  ) { return -1; }  //  Tests failed
+    return 0;  //  Tests OK
+}
+</code></pre>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Testing</span> <span class="ident">flash</span>...
@@ -308,10 +272,37 @@ flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
   <span class="number">0x0000</span>: <span class="number">0x01</span> <span class="number">0x02</span> <span class="number">0x03</span> <span class="number">0x04</span> <span class="number">0x05</span> <span class="number">0x06</span> <span class="number">0x07</span> <span class="number">0x08</span> 
   <span class="number">0x0008</span>: <span class="number">0x09</span> <span class="number">0x0a</span> <span class="number">0x0b</span> <span class="number">0x0c</span> <span class="number">0x0d</span> <span class="number">0x0e</span> <span class="number">0x0f</span> <span class="number">0x10</span> 
   <span class="number">0x0010</span>: <span class="number">0x11</span> <span class="number">0x12</span> <span class="number">0x13</span> <span class="number">0x14</span> <span class="number">0x15</span> <span class="number">0x16</span> <span class="number">0x17</span> <span class="number">0x18</span> 
-  <span class="number">0x0018</span>: <span class="number">0x19</span> <span class="number">0x1a</span> <span class="number">0x1b</span> <span class="number">0x1c</span> <span class="number">0x1d</span> <span class="number">0x1e</span> <span class="number">0x1f</span> <span class="number">0x20</span> 
+  <span class="number">0x0018</span>: <span class="number">0x19</span> <span class="number">0x1a</span> <span class="number">0x1b</span> <span class="number">0x1c</span> <span class="number">0x1d</span> <span class="number">0x1e</span> <span class="number">0x1f</span> <span class="number">0x20</span> </pre></div>
+<h2 id="erase-spi-flash" class="section-header"><a href="#erase-spi-flash">8.2 Erase SPI Flash</a></h2>
+<p>TODO</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a></p>
+<pre><code class="language-c">/////////////////////////////////////
+//  Erase Flash: Set all bits to 1
+//  &lt;flash-id&gt; &lt;offset&gt; &lt;size&gt;
+
+//  Erase external SPI flash
+flash_cmd(ERASE_COMMAND, 1, 0x0, 32) ||
+</code></pre>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Erase</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
 <span class="ident">Erase</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
-<span class="macro">Done</span><span class="macro">!</span>
+<span class="macro">Done</span><span class="macro">!</span></pre></div>
+<h2 id="read-spi-flash-after-erasing" class="section-header"><a href="#read-spi-flash-after-erasing">8.3 Read SPI Flash After Erasing</a></h2>
+<p>TODO</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a></p>
+<pre><code class="language-c">////////////////////////////////////////
+//  Read Flash
+//  &lt;flash-id&gt; read &lt;offset&gt; &lt;size&gt;
+
+//  Read internal flash ROM
+flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
+
+//  Read external SPI flash
+flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
+</code></pre>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Read</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
 <span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
   <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x01</span> <span class="number">0x20</span> <span class="number">0xd9</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
@@ -323,10 +314,38 @@ flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
   <span class="number">0x0000</span>: <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> 
   <span class="number">0x0008</span>: <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> 
   <span class="number">0x0010</span>: <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> 
-  <span class="number">0x0018</span>: <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> 
+  <span class="number">0x0018</span>: <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> </pre></div>
+<h2 id="write-spi-flash" class="section-header"><a href="#write-spi-flash">8.4 Write SPI Flash</a></h2>
+<p>TODO</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a></p>
+<pre><code class="language-c">//////////////////////////////////////////////
+//  Write Flash: Write 0x01, 0x02, 0x03, ... 
+//  (Must erase before writing)
+//  &lt;flash-id&gt; &lt;offset&gt; &lt;size&gt;
+
+//  Write external SPI flash
+flash_cmd(WRITE_COMMAND, 1, 0x0, 32) ||
+</code></pre>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Write</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
 <span class="ident">Write</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
-<span class="macro">Done</span><span class="macro">!</span>
+<span class="macro">Done</span><span class="macro">!</span></pre></div>
+<h2 id="read-spi-flash-after-writing" class="section-header"><a href="#read-spi-flash-after-writing">8.5 Read SPI Flash After Writing</a></h2>
+<p>TODO</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a></p>
+<pre><code class="language-c">////////////////////////////////////////////
+//  Read Flash
+//  &lt;flash-id&gt; &lt;offset&gt; &lt;size&gt;
+
+//  Read internal flash ROM
+flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
+
+//  Read external SPI flash
+flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
+</code></pre>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Read</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
 <span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
   <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x01</span> <span class="number">0x20</span> <span class="number">0xd9</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
@@ -338,10 +357,23 @@ flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
   <span class="number">0x0000</span>: <span class="number">0x01</span> <span class="number">0x02</span> <span class="number">0x03</span> <span class="number">0x04</span> <span class="number">0x05</span> <span class="number">0x06</span> <span class="number">0x07</span> <span class="number">0x08</span> 
   <span class="number">0x0008</span>: <span class="number">0x09</span> <span class="number">0x0a</span> <span class="number">0x0b</span> <span class="number">0x0c</span> <span class="number">0x0d</span> <span class="number">0x0e</span> <span class="number">0x0f</span> <span class="number">0x10</span> 
   <span class="number">0x0010</span>: <span class="number">0x11</span> <span class="number">0x12</span> <span class="number">0x13</span> <span class="number">0x14</span> <span class="number">0x15</span> <span class="number">0x16</span> <span class="number">0x17</span> <span class="number">0x18</span> 
-  <span class="number">0x0018</span>: <span class="number">0x19</span> <span class="number">0x1a</span> <span class="number">0x1b</span> <span class="number">0x1c</span> <span class="number">0x1d</span> <span class="number">0x1e</span> <span class="number">0x1f</span> <span class="number">0x20</span> 
-<span class="ident">Flash</span> <span class="ident">OK</span>
+  <span class="number">0x0018</span>: <span class="number">0x19</span> <span class="number">0x1a</span> <span class="number">0x1b</span> <span class="number">0x1c</span> <span class="number">0x1d</span> <span class="number">0x1e</span> <span class="number">0x1f</span> <span class="number">0x20</span> </pre></div>
+<h2 id="spi-flash-sector-map" class="section-header"><a href="#spi-flash-sector-map">8.6 SPI Flash Sector Map</a></h2>
+<p>TODO</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a></p>
+<pre><code class="language-c">////////////////////
+//  Dump Sector Map
 
-<span class="ident">Flash</span> <span class="ident">Sector</span> <span class="ident">Map</span>:
+//  Dump sector map for internal flash ROM
+map_cmd(0) ||
+
+//  Dump sector map for external SPI flash
+map_cmd(1) ||
+
+</code></pre>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Sector</span> <span class="ident">Map</span> <span class="kw">for</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
 <span class="ident">Flash</span> <span class="number">0</span> <span class="ident">at</span> <span class="number">0x0</span> <span class="ident">size</span> <span class="number">0x80000</span> <span class="ident">with</span> <span class="number">128</span> <span class="ident">sectors</span>, <span class="ident">alignment</span> <span class="ident">req</span> <span class="number">1</span> <span class="ident">bytes</span>
   <span class="number">0</span>:   <span class="number">1000</span>
   <span class="number">1</span>:   <span class="number">1000</span>
@@ -349,13 +381,36 @@ flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
   ...
   <span class="number">127</span>: <span class="number">1000</span>
 
+<span class="ident">Sector</span> <span class="ident">Map</span> <span class="kw">for</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
 <span class="ident">Flash</span> <span class="number">1</span> <span class="ident">at</span> <span class="number">0x0</span> <span class="ident">size</span> <span class="number">0x3ff800</span> <span class="ident">with</span> <span class="number">1024</span> <span class="ident">sectors</span>, <span class="ident">alignment</span> <span class="ident">req</span> <span class="number">1</span> <span class="ident">bytes</span>
   <span class="number">0</span>:    <span class="ident">ffe</span>
   <span class="number">1</span>:    <span class="ident">ffe</span>
   <span class="number">2</span>:    <span class="ident">ffe</span>
   ...  
   <span class="number">1023</span>: <span class="ident">ffe</span></pre></div>
-<h1 id="spi-flash-benchmark" class="section-header"><a href="#spi-flash-benchmark">10 SPI Flash Benchmark</a></h1>
+<h1 id="spi-flash-benchmark" class="section-header"><a href="#spi-flash-benchmark">9 SPI Flash Benchmark</a></h1>
+<p>TODO</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a></p>
+<pre><code class="language-c">//////////////////////
+//  Test Flash Speed
+//  &lt;flash_id&gt; &lt;addr&gt; &lt;rd_sz&gt;|range [move]
+
+//  range=0 for size mode, range=1 for range mode, move=1 for move
+
+//  Internal flash ROM, size mode, no move
+//  speed_cmd(0, 0x0, 32, 0, 0) ||
+
+//  External SPI flash, size mode, no move
+//  speed_cmd(1, 0x0, 32, 0, 0) ||
+
+//  Internal flash ROM, range mode, no move
+//  speed_cmd(0, 0x0, 0, 1, 0) ||
+
+//  External SPI flash, range mode, no move
+//  speed_cmd(1, 0x0, 0, 1, 0) ||
+
+</code></pre>
+<h1 id="flash-map" class="section-header"><a href="#flash-map">10 Flash Map</a></h1>
 <p>TODO</p>
 <h1 id="debugging-with-mcuboot" class="section-header"><a href="#debugging-with-mcuboot">11 Debugging with MCUBoot</a></h1>
 <p>If we're using the MCUBoot Bootloader (like on PineTime), debugging and testing SPI Flash can be somewhat challenging.</p>
