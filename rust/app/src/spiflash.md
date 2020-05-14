@@ -584,13 +584,96 @@ https://www.winbond.com/resource-files/w25q16jv%20spi%20revh%2004082019%20plus.p
 
 # SPI Flash File System
 
-TODO
+We have seen [Mynewt's Flash HAL](https://mynewt.apache.org/latest/os/modules/hal/hal_flash/hal_flash.html) functions for reading, writing and erasing SPI Flash at the byte and sector level. That's too low-level for us firmware programmers.
 
-Files and Directories
+_Can we have files and directories in SPI Flash?_
 
-LittleFS
+Yes we can, with a Flash File System like [__littlefs__](https://github.com/ARMmbed/littlefs).
 
-https://github.com/ARMmbed/littlefs
+Earlier we saw this Flash Memory Map: [`hw/bsp/black_vet6/bsp.yml`](https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/bsp.yml)
+
+```yaml
+bsp.flash_map:
+    areas:
+        ...
+        FLASH_AREA_NFFS:
+            user_id: 1
+            device: 1
+            offset: 0x00040000
+            size: 32kB
+```
+
+`FLASH_AREA_NFFS` is a Flash Area that's available for use by the Application Firmware for storing application data. Note that it's located on Flash Device 1, which is the External SPI Flash.
+
+Mynewt will let us install a File System into the `FLASH_AREA_NFFS` Flash Area for storing our files and directories.
+
+Here's a simple example that updates a file named `boot_count` every time main runs. The program can be interrupted at any time without losing track of how many times it has been booted and without corrupting the filesystem (from [`littlefs/README.md`](https://github.com/ARMmbed/littlefs/blob/master/README.md))...
+
+```c
+#include "lfs.h"
+
+// variables used by the filesystem
+lfs_t lfs;
+lfs_file_t file;
+
+// configuration of the filesystem is provided by this struct
+const struct lfs_config cfg = {
+    // block device operations
+    .read  = user_provided_block_device_read,   //  TODO: Integrate with hal_flash_read()
+    .prog  = user_provided_block_device_prog,   //  TODO: Integrate with hal_flash_write()
+    .erase = user_provided_block_device_erase,  //  TODO: Integrate with hal_flash_erase()
+    .sync  = user_provided_block_device_sync,   //  TODO: Provide a dummy function
+
+    // block device configuration
+    .read_size = 16,
+    .prog_size = 16,
+    .block_size = 4096,
+    .block_count = 128,
+    .cache_size = 16,
+    .lookahead_size = 16,
+    .block_cycles = 500,
+};
+
+// entry point
+int test_littlefs(void) {
+    // mount the filesystem
+    int err = lfs_mount(&lfs, &cfg);
+
+    // reformat if we can't mount the filesystem
+    // this should only happen on the first boot
+    if (err) {
+        lfs_format(&lfs, &cfg);
+        lfs_mount(&lfs, &cfg);
+    }
+
+    // read current count
+    uint32_t boot_count = 0;
+    lfs_file_open(&lfs, &file, "boot_count", LFS_O_RDWR | LFS_O_CREAT);
+    lfs_file_read(&lfs, &file, &boot_count, sizeof(boot_count));
+
+    // update boot count
+    boot_count += 1;
+    lfs_file_rewind(&lfs, &file);
+    lfs_file_write(&lfs, &file, &boot_count, sizeof(boot_count));
+
+    // remember the storage is not updated until the file is closed successfully
+    lfs_file_close(&lfs, &file);
+
+    // release any resources we were using
+    lfs_unmount(&lfs);
+
+    // print the boot count
+    console_printf("boot_count: %d\n", boot_count); console_flush();
+}
+```
+
+`lfs_config` is documented here: [`lfs.h`](https://github.com/ARMmbed/littlefs/blob/master/lfs.h)
+
+[More about littlefs](https://github.com/ARMmbed/littlefs/blob/master/README.md)
+
+[Design of littlefs](https://github.com/ARMmbed/littlefs/blob/master/DESIGN.md)
+
+[Specification of littlefs](https://github.com/ARMmbed/littlefs/blob/master/SPEC.md)
 
 # Further Reading
 
