@@ -534,7 +534,7 @@ Also MCUBoot expects the Application Firmware Image to start with the MCUBoot Im
 
 # Switch MCUBoot to Stub Bootloader
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_boot/target.yml
+[`targets/nrf52_boot/target.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_boot/target.yml)
 
 ```
 target.app: "@mcuboot/boot/mynewt"  # Use MCUBoot, which doesn't support debugging
@@ -544,7 +544,7 @@ target.app: "@mcuboot/boot/mynewt"  # Use MCUBoot, which doesn't support debuggi
 target.app: "apps/boot_stub"  # Use Stub Bootloader, which supports debugging
 ```
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.ocd
+[`scripts/nrf52/flash-boot.ocd`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.ocd)
 
 ```
 # For MCUBoot (debugging not supported):
@@ -558,19 +558,17 @@ program bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf.bin verify 0x000
 
 Build Bootloader
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/build-boot.sh
+[`scripts/nrf52/build-boot.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/build-boot.sh)
 
 Flash Bootloader
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.sh
+[`scripts/nrf52/flash-boot.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.sh)
 
 # Inside the SPI Flash Driver
 
-TODO
+[`spiflash.h`](https://github.com/apache/mynewt-core/blob/master/hw/drivers/flash/spiflash/include/spiflash/spiflash.h)
 
-https://github.com/apache/mynewt-core/blob/master/hw/drivers/flash/spiflash/include/spiflash/spiflash.h
-
-https://github.com/apache/mynewt-core/blob/master/hw/drivers/flash/spiflash/src/spiflash.c
+[`spiflash.c`](https://github.com/apache/mynewt-core/blob/master/hw/drivers/flash/spiflash/src/spiflash.c)
 
 Based on https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml
 
