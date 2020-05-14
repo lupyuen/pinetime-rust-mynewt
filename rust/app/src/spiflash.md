@@ -93,7 +93,7 @@ syscfg.vals:
     SPIFLASH_MEMORY_TYPE:   0x40    # Expected SpiFlash memory type as read by Read JEDEC ID command 9FH
     SPIFLASH_MEMORY_CAPACITY: 0x16  # Expected SpiFlash memory capactity as read by Read JEDEC ID command 9FH (2 ^ 0x16 = 32 Mb)
     SPIFLASH_SECTOR_COUNT:  1024    # Number of sectors: 1024 sectors of 4 KB each
-    SPIFLASH_SECTOR_SIZE:   4094    # Number of bytes that can be erased at a time: 4 KB sector size
+    SPIFLASH_SECTOR_SIZE:   4094    # TODO Number of bytes that can be erased at a time: 4 KB sector size
     SPIFLASH_PAGE_SIZE:     256     # TODO Number of bytes that can be written at a time
     ...
 ```
@@ -170,7 +170,7 @@ static const struct hal_flash *flash_devs[] = {
 };
 ```
 
-We'll use Flash Device ID 1 when accessing SPI Flash later.
+Later we'll use Flash Device ID 1 when accessing SPI Flash.
 
 # `hal_bsp.c:` Access Flash Devices by ID
 
@@ -216,17 +216,31 @@ Now let's write a simple program to read, write and erase the SPI Flash.
 
 # Test SPI Flash
 
-TODO
+Here's the C code to test reading, writing and erasing SPI Flash on Mynewt: [`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c). The code was derived from [Mynewt's test code for Flash Devices](https://github.com/apache/mynewt-core/blob/master/test/flash_test/src/flash_test.c).
 
-[`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c)
+The test code calls Mynewt's Flash HAL (Hardware Adaptation Layer) to access the flash memory...
 
-Based on https://github.com/apache/mynewt-core/blob/master/test/flash_test/src/flash_test.c
+1. __Erase Flash__ `hal_flash_erase(id, offset, size)`
+
+    Erase internal / external flash memory at the `offset` address, for `size` bytes
+
+1. __Read Flash__ `hal_flash_read(id, offset, buf, sector_count)`
+
+    Read internal / external flash memory from the `offset` address into the `buf` buffer, for `sector_count` sectors. On PineTime, one sector contains 4 KB.
+
+1. __Write Flash__ `hal_flash_write(id, offset, buf, sector_count)`
+
+    Write internal / external flash memory from the `buf` buffer to the `offset` address, for `sector_count` sectors. On PineTime, one sector contains 4 KB.
+
+For the above functions, `id` is 0 for Internal Flash ROM, 1 for External SPI Flash.
+
+For easier testing, the above functions are wrapped inside the `flash_cmd()` function, which is also defined in [`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c)
+
+Let's call `flash_cmd()` to test the SPI Flash functions...
 
 ## Read SPI Flash
 
-TODO
-
-[`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c)
+Here's the test code in [`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c) to read Internal Flash ROM and External SPI Flash...
 
 ```c
 /// Test internal flash ROM and external SPI flash
@@ -249,6 +263,8 @@ int test_flash() {
 }
 ```
 
+This code reads 32 bytes, starting at offset 0, from both Internal Flash ROM and External SPI Flash. As expected, the data read are different for Internal Flash ROM and External SPI Flash...
+
 ```
 Testing flash...
 Read Internal Flash ROM...
@@ -264,11 +280,10 @@ Read 0x0 + 20
   0x0010: 0x11 0x12 0x13 0x14 0x15 0x16 0x17 0x18 
   0x0018: 0x19 0x1a 0x1b 0x1c 0x1d 0x1e 0x1f 0x20 
 ```
+
 ## Erase SPI Flash
 
-TODO
-
-[`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c)
+Next in [`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c) we erase the External SPI Flash...
 
 ```c
 /////////////////////////////////////
@@ -285,11 +300,7 @@ Erase 0x0 + 20
 Done!
 ```
 
-## Read SPI Flash After Erasing
-
-TODO
-
-[`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c)
+After erasing, let's read both Internal Flash ROM and External SPI Flash ([`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c))...
 
 ```c
 ////////////////////////////////////////
@@ -302,6 +313,8 @@ flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
 //  Read external SPI flash
 flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 ```
+
+Here are the contents...
 
 ```
 Read Internal Flash ROM...
@@ -318,11 +331,17 @@ Read 0x0 + 20
   0x0018: 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 
 ```
 
+_Why is SPI Flash wiped out with `0xff`?_
+
+That's what happens when we erase [NOR Flash Memory](https://en.wikipedia.org/wiki/Flash_memory#NOR_memories)... All bits get set to `1`.
+
+When we write to NOR Flash Memory, we may only flip `1` bits to `0`, not `0` to `1`.
+
+Hence before writing any data into NOR Flash Memory, we need to erase all bits to `1`. Then we write the data to flash, flipping some `1` bits to `0`.
+
 ## Write SPI Flash
 
-TODO
-
-[`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c)
+Now that SPI Flash has been flipped to `1`, let's write some data ([`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c))...
 
 ```c
 //////////////////////////////////////////////
@@ -334,17 +353,17 @@ TODO
 flash_cmd(WRITE_COMMAND, 1, 0x0, 32) ||
 ```
 
+This shows...
+
 ```
 Write External SPI Flash...
 Write 0x0 + 20
 Done!
 ```
 
-## Read SPI Flash After Writing
+`flash_cmd()` writes to SPI Flash the bytes `0x01`, `0x02`, `0x03`, ... 
 
-TODO
-
-[`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c)
+Let's read SPI Flash and check ([`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c))...
 
 ```c
 ////////////////////////////////////////////
@@ -357,6 +376,8 @@ flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
 //  Read external SPI flash
 flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 ```
+
+Here's the result...
 
 ```
 Read Internal Flash ROM...
@@ -373,11 +394,11 @@ Read 0x0 + 20
   0x0018: 0x19 0x1a 0x1b 0x1c 0x1d 0x1e 0x1f 0x20 
 ```
 
+Yep the flipping of bits from `1` to `0` worked!
+
 ## SPI Flash Sector Map
 
-TODO
-
-[`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c)
+To check whether SPI Flash is correctly configured, we may dump the Flash Sector Map like this ([`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c))...
 
 ```c
 ////////////////////
@@ -391,6 +412,8 @@ map_cmd(1) ||
 
 ```
 
+Here's the output...
+
 ```
 Sector Map for Internal Flash ROM...
 Flash 0 at 0x0 size 0x80000 with 128 sectors, alignment req 1 bytes
@@ -400,7 +423,7 @@ Flash 0 at 0x0 size 0x80000 with 128 sectors, alignment req 1 bytes
   ...
   127: 1000
 
-Sector Map for SPI Flash...
+Sector Map for External SPI Flash...
 Flash 1 at 0x0 size 0x3ff800 with 1024 sectors, alignment req 1 bytes
   0:    ffe
   1:    ffe
@@ -408,6 +431,8 @@ Flash 1 at 0x0 size 0x3ff800 with 1024 sectors, alignment req 1 bytes
   ...  
   1023: ffe
 ```
+
+This says that SPI Flash has been configured with 1024 sectors, each sector 4 KB in size.
 
 # SPI Flash Benchmark
 
@@ -419,28 +444,65 @@ TODO
 //////////////////////
 //  Test Flash Speed
 //  <flash_id> <addr> <rd_sz>|range [move]
-
 //  range=0 for size mode, range=1 for range mode, move=1 for move
 
 //  Internal flash ROM, size mode, no move
-//  speed_cmd(0, 0x0, 32, 0, 0) ||
+speed_cmd(0, 0x0, 32, 0, 0) ||
 
 //  External SPI flash, size mode, no move
-//  speed_cmd(1, 0x0, 32, 0, 0) ||
+speed_cmd(1, 0x0, 32, 0, 0) ||
 
 //  Internal flash ROM, range mode, no move
-//  speed_cmd(0, 0x0, 0, 1, 0) ||
+speed_cmd(0, 0x0, 0, 1, 0) ||
 
 //  External SPI flash, range mode, no move
-//  speed_cmd(1, 0x0, 0, 1, 0) ||
+speed_cmd(1, 0x0, 0, 1, 0) ||
 
 ```
 
-# Flash Map
+# MCUBoot Bootloader with SPI Flash
 
 TODO
 
-# Debugging with MCUBoot
+[`hw/bsp/black_vet6/bsp.yml`](https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/bsp.yml)
+
+```yaml
+bsp.flash_map:
+    areas:
+        # System areas.
+        FLASH_AREA_BOOTLOADER:
+            device: 0
+            offset: 0x08000000
+            size: 32kB
+        FLASH_AREA_IMAGE_0:
+            device: 0
+            offset: 0x08020000
+            size: 256kB
+        FLASH_AREA_IMAGE_SCRATCH:
+            device: 0
+            offset: 0x08060000
+            size: 128kB
+
+        # User areas.
+        FLASH_AREA_REBOOT_LOG:
+            user_id: 0
+            device: 0
+            offset: 0x08008000
+            size: 32kB
+
+        FLASH_AREA_IMAGE_1:
+            device: 1
+            offset: 0x00000000
+            size: 256kB
+
+        FLASH_AREA_NFFS:
+            user_id: 1
+            device: 1
+            offset: 0x00040000
+            size: 32kB
+```
+
+# Debug SPI Flash with MCUBoot Bootloader
 
 If we're using the MCUBoot Bootloader (like on PineTime), debugging and testing SPI Flash can be somewhat challenging.
 
@@ -470,6 +532,9 @@ Based on https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/sys
 
 https://www.winbond.com/resource-files/w25q16jv%20spi%20revh%2004082019%20plus.pdf
 
+# SPI Flash File System
+
+TODO
 
 # Further Reading
 
