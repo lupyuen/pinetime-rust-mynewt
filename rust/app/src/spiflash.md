@@ -452,6 +452,10 @@ speed_cmd(0, 0x0, 32, 0, 0) ||
 speed_cmd(1, 0x0, 32, 0, 0) ||
 ```
 
+The code repeatedly reads 32 bytes from Internal Flash ROM and External SPI Flash... And counts how many Read Operations were completed in 2 seconds.
+
+Here's the output...
+
 ```
 Speed Test for Internal Flash ROM...
 Speed test, hal_flash_read(0, 0x0, 32)
@@ -461,11 +465,15 @@ Speed test, hal_flash_read(1, 0x0, 32)
 16107
 ```
 
-Operations in 2 seconds
+That's 207,503 Read Operations Per 2 Seconds for Internal Flash ROM, and 16,107 Read Operations Per 2 Seconds for External SPI Flash.
+
+When we divide the numbers by 2, we get the Read Operations Per Second...
 
 | Size (Bytes) | Flash ROM Reads/Sec | SPI Flash Reads/Sec |
 | ---: | ---: | ---:
 | 32 | 103,751 | 8,053
+
+As expected, Internal Flash ROM is faster than External SPI Flash, roughly 13 times faster.
 
 ```c
 //  Internal flash ROM, range mode, no move
