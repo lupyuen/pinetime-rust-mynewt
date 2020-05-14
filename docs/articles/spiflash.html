@@ -150,7 +150,7 @@ IDs for XT25F32B are: <strong>Manufacturer (<code>0x0b</code>)</strong>, Device 
     SPIFLASH_MEMORY_TYPE:   0x40    # Expected SpiFlash memory type as read by Read JEDEC ID command 9FH
     SPIFLASH_MEMORY_CAPACITY: 0x16  # Expected SpiFlash memory capactity as read by Read JEDEC ID command 9FH (2 ^ 0x16 = 32 Mb)
     SPIFLASH_SECTOR_COUNT:  1024    # Number of sectors: 1024 sectors of 4 KB each
-    SPIFLASH_SECTOR_SIZE:   4094    # TODO Number of bytes that can be erased at a time: 4 KB sector size
+    SPIFLASH_SECTOR_SIZE:   4096    # Number of bytes that can be erased at a time: 4 KB sector size
     SPIFLASH_PAGE_SIZE:     256     # TODO Number of bytes that can be written at a time
     ...
 </code></pre>
@@ -393,19 +393,18 @@ map_cmd(1) ||
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Sector</span> <span class="ident">Map</span> <span class="kw">for</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
 <span class="ident">Flash</span> <span class="number">0</span> <span class="ident">at</span> <span class="number">0x0</span> <span class="ident">size</span> <span class="number">0x80000</span> <span class="ident">with</span> <span class="number">128</span> <span class="ident">sectors</span>, <span class="ident">alignment</span> <span class="ident">req</span> <span class="number">1</span> <span class="ident">bytes</span>
-  <span class="number">0</span>:   <span class="number">1000</span>
-  <span class="number">1</span>:   <span class="number">1000</span>
-  <span class="number">2</span>:   <span class="number">1000</span>
-  ...
-  <span class="number">127</span>: <span class="number">1000</span>
-
-<span class="ident">Sector</span> <span class="ident">Map</span> <span class="kw">for</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
-<span class="ident">Flash</span> <span class="number">1</span> <span class="ident">at</span> <span class="number">0x0</span> <span class="ident">size</span> <span class="number">0x3ff800</span> <span class="ident">with</span> <span class="number">1024</span> <span class="ident">sectors</span>, <span class="ident">alignment</span> <span class="ident">req</span> <span class="number">1</span> <span class="ident">bytes</span>
-  <span class="number">0</span>:    <span class="ident">ffe</span>
-  <span class="number">1</span>:    <span class="ident">ffe</span>
-  <span class="number">2</span>:    <span class="ident">ffe</span>
+  <span class="number">0</span>: <span class="number">1000</span>
+  <span class="number">1</span>: <span class="number">1000</span>
+  <span class="number">2</span>: <span class="number">1000</span>
   ...  
-  <span class="number">1023</span>: <span class="ident">ffe</span></pre></div>
+  <span class="number">127</span>: <span class="number">1000</span>
+<span class="ident">Sector</span> <span class="ident">Map</span> <span class="kw">for</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
+<span class="ident">Flash</span> <span class="number">1</span> <span class="ident">at</span> <span class="number">0x0</span> <span class="ident">size</span> <span class="number">0x400000</span> <span class="ident">with</span> <span class="number">1024</span> <span class="ident">sectors</span>, <span class="ident">alignment</span> <span class="ident">req</span> <span class="number">1</span> <span class="ident">bytes</span>
+  <span class="number">0</span>: <span class="number">1000</span>
+  <span class="number">1</span>: <span class="number">1000</span>
+  <span class="number">2</span>: <span class="number">1000</span>
+  ...  
+  <span class="number">1023</span>: <span class="number">1000</span></pre></div>
 <p>This says that SPI Flash has been configured with 1024 sectors, each sector 4 KB in size.</p>
 <h1 id="spi-flash-benchmark" class="section-header"><a href="#spi-flash-benchmark">9 SPI Flash Benchmark</a></h1>
 <p>TODO</p>
@@ -420,14 +419,54 @@ speed_cmd(0, 0x0, 32, 0, 0) ||
 
 //  External SPI flash, size mode, no move
 speed_cmd(1, 0x0, 32, 0, 0) ||
+</code></pre>
 
-//  Internal flash ROM, range mode, no move
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Speed</span> <span class="ident">Test</span> <span class="kw">for</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
+<span class="ident">Speed</span> <span class="ident">test</span>, <span class="ident">hal_flash_read</span>(<span class="number">0</span>, <span class="number">0x0</span>, <span class="number">32</span>)
+<span class="number">207503</span>
+<span class="ident">Speed</span> <span class="ident">Test</span> <span class="kw">for</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
+<span class="ident">Speed</span> <span class="ident">test</span>, <span class="ident">hal_flash_read</span>(<span class="number">1</span>, <span class="number">0x0</span>, <span class="number">32</span>)
+<span class="number">16107</span></pre></div>
+<p>Operations in 2 seconds</p>
+<pre><code class="language-c">//  Internal flash ROM, range mode, no move
 speed_cmd(0, 0x0, 0, 1, 0) ||
 
 //  External SPI flash, range mode, no move
 speed_cmd(1, 0x0, 0, 1, 0) ||
-
 </code></pre>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Speed</span> <span class="ident">Test</span> <span class="kw">for</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
+<span class="ident">Speed</span> <span class="ident">test</span>, <span class="ident">hal_flash_read</span>(<span class="number">0</span>, <span class="number">0x0</span>, <span class="ident">X</span>)
+  <span class="number">1</span> <span class="number">271962</span>
+  <span class="number">2</span> <span class="number">261931</span>
+  <span class="number">4</span> <span class="number">271962</span>
+  <span class="number">8</span> <span class="number">260862</span>
+ <span class="number">16</span> <span class="number">241174</span>
+ <span class="number">24</span> <span class="number">221913</span>
+ <span class="number">32</span> <span class="number">207503</span>
+ <span class="number">48</span> <span class="number">182082</span>
+ <span class="number">64</span> <span class="number">162210</span>
+ <span class="number">96</span> <span class="number">133148</span>
+<span class="number">128</span> <span class="number">112917</span>
+<span class="number">192</span> <span class="number">86600</span>
+<span class="number">256</span> <span class="number">70232</span>
+<span class="ident">Speed</span> <span class="ident">Test</span> <span class="kw">for</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
+<span class="ident">Speed</span> <span class="ident">test</span>, <span class="ident">hal_flash_read</span>(<span class="number">1</span>, <span class="number">0x0</span>, <span class="ident">X</span>)
+  <span class="number">1</span> <span class="number">44139</span>
+  <span class="number">2</span> <span class="number">42048</span>
+  <span class="number">4</span> <span class="number">37684</span>
+  <span class="number">8</span> <span class="number">31639</span>
+ <span class="number">16</span> <span class="number">23955</span>
+ <span class="number">24</span> <span class="number">19250</span>
+ <span class="number">32</span> <span class="number">16107</span>
+ <span class="number">48</span> <span class="number">12132</span>
+ <span class="number">64</span> <span class="number">9731</span>
+ <span class="number">96</span> <span class="number">6971</span>
+<span class="number">128</span> <span class="number">5431</span>
+<span class="number">192</span> <span class="number">3766</span>
+<span class="number">256</span> <span class="number">2883</span></pre></div>
 <h1 id="mcuboot-bootloader-with-spi-flash" class="section-header"><a href="#mcuboot-bootloader-with-spi-flash">10 MCUBoot Bootloader with SPI Flash</a></h1>
 <p><a href="https://juullabs-oss.github.io/mcuboot/"><strong>MCUBoot</strong></a> is an open-source Bootloader that supports Mynewt, <a href="https://www.riot-os.org">RIOT</a> and <a href="https://www.zephyrproject.org">Zephyr</a> operating systems... It's the first thing that will <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">run on PineTime when it boots</a>.</p>
 <p>During firmware updates, MCUBoot stores the previous version of the firmware into Internal Flash ROM, and rolls back to the previous firmware if the new firmware doesn't start properly. </p>

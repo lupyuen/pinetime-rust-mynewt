@@ -93,7 +93,7 @@ syscfg.vals:
     SPIFLASH_MEMORY_TYPE:   0x40    # Expected SpiFlash memory type as read by Read JEDEC ID command 9FH
     SPIFLASH_MEMORY_CAPACITY: 0x16  # Expected SpiFlash memory capactity as read by Read JEDEC ID command 9FH (2 ^ 0x16 = 32 Mb)
     SPIFLASH_SECTOR_COUNT:  1024    # Number of sectors: 1024 sectors of 4 KB each
-    SPIFLASH_SECTOR_SIZE:   4094    # TODO Number of bytes that can be erased at a time: 4 KB sector size
+    SPIFLASH_SECTOR_SIZE:   4096    # Number of bytes that can be erased at a time: 4 KB sector size
     SPIFLASH_PAGE_SIZE:     256     # TODO Number of bytes that can be written at a time
     ...
 ```
@@ -417,19 +417,18 @@ Here's the output...
 ```
 Sector Map for Internal Flash ROM...
 Flash 0 at 0x0 size 0x80000 with 128 sectors, alignment req 1 bytes
-  0:   1000
-  1:   1000
-  2:   1000
-  ...
-  127: 1000
-
-Sector Map for External SPI Flash...
-Flash 1 at 0x0 size 0x3ff800 with 1024 sectors, alignment req 1 bytes
-  0:    ffe
-  1:    ffe
-  2:    ffe
+  0: 1000
+  1: 1000
+  2: 1000
   ...  
-  1023: ffe
+  127: 1000
+Sector Map for External SPI Flash...
+Flash 1 at 0x0 size 0x400000 with 1024 sectors, alignment req 1 bytes
+  0: 1000
+  1: 1000
+  2: 1000
+  ...  
+  1023: 1000
 ```
 
 This says that SPI Flash has been configured with 1024 sectors, each sector 4 KB in size.
@@ -451,13 +450,58 @@ speed_cmd(0, 0x0, 32, 0, 0) ||
 
 //  External SPI flash, size mode, no move
 speed_cmd(1, 0x0, 32, 0, 0) ||
+```
 
+```
+Speed Test for Internal Flash ROM...
+Speed test, hal_flash_read(0, 0x0, 32)
+207503
+Speed Test for External SPI Flash...
+Speed test, hal_flash_read(1, 0x0, 32)
+16107
+```
+
+Operations in 2 seconds
+
+```c
 //  Internal flash ROM, range mode, no move
 speed_cmd(0, 0x0, 0, 1, 0) ||
 
 //  External SPI flash, range mode, no move
 speed_cmd(1, 0x0, 0, 1, 0) ||
+```
 
+```
+Speed Test for Internal Flash ROM...
+Speed test, hal_flash_read(0, 0x0, X)
+  1 271962
+  2 261931
+  4 271962
+  8 260862
+ 16 241174
+ 24 221913
+ 32 207503
+ 48 182082
+ 64 162210
+ 96 133148
+128 112917
+192 86600
+256 70232
+Speed Test for External SPI Flash...
+Speed test, hal_flash_read(1, 0x0, X)
+  1 44139
+  2 42048
+  4 37684
+  8 31639
+ 16 23955
+ 24 19250
+ 32 16107
+ 48 12132
+ 64 9731
+ 96 6971
+128 5431
+192 3766
+256 2883
 ```
 
 # MCUBoot Bootloader with SPI Flash
