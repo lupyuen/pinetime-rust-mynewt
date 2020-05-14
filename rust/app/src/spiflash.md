@@ -576,11 +576,11 @@ We have been using Mynewt's SPI Flash Driver: [`spiflash.h`](https://github.com/
 
 Remember the configuration we have set in [`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml) like `SPIFLASH_MANUFACTURER`, `SPIFLASH_MEMORY_TYPE`, `SPIFLASH_MEMORY_CAPACITY`?
 
-The flash driver uses these configuration settings to determine how to access our SPI flash memory.
+The flash driver uses these configuration settings to access our SPI flash memory. Everything in Mynewt's SPI Flash Driver is configured via `syscfg.yml`... Amazing!
 
-Based on https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml
+Mynewt's SPI Flash Driver seemed very mysterious... Until I stumbled upon this Board Support Package in Mynewt: [`black_vet6/syscfg.yml`](https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml)
 
-https://www.winbond.com/resource-files/w25q16jv%20spi%20revh%2004082019%20plus.pdf
+The configuration and code in this article were derived from that Board Support Package.
 
 # SPI Flash File System
 
@@ -607,7 +607,7 @@ bsp.flash_map:
 
 Mynewt will let us install a File System into the `FLASH_AREA_NFFS` Flash Area for storing our files and directories.
 
-Here's a simple example that updates a file named `boot_count` every time main runs. The program can be interrupted at any time without losing track of how many times it has been booted and without corrupting the filesystem (from [`littlefs/README.md`](https://github.com/ARMmbed/littlefs/blob/master/README.md))...
+Here's a simple example from [`littlefs/README.md`](https://github.com/ARMmbed/littlefs/blob/master/README.md) that updates a file named `boot_count` every time the program runs. The program can be interrupted at any time without losing track of how many times it has been booted and without corrupting the filesystem...
 
 ```c
 #include "lfs.h"
@@ -619,10 +619,10 @@ lfs_file_t file;
 // configuration of the filesystem is provided by this struct
 const struct lfs_config cfg = {
     // block device operations
-    .read  = user_provided_block_device_read,   //  TODO: Integrate with hal_flash_read()
-    .prog  = user_provided_block_device_prog,   //  TODO: Integrate with hal_flash_write()
-    .erase = user_provided_block_device_erase,  //  TODO: Integrate with hal_flash_erase()
-    .sync  = user_provided_block_device_sync,   //  TODO: Provide a dummy function
+    .read  = flash_read,   //  TODO: Implement with hal_flash_read()
+    .prog  = flash_prog,   //  TODO: Implement with hal_flash_write()
+    .erase = flash_erase,  //  TODO: Implement with hal_flash_erase()
+    .sync  = flash_sync,   //  TODO: Provide a sync function
 
     // block device configuration
     .read_size = 16,
@@ -667,7 +667,13 @@ int test_littlefs(void) {
 }
 ```
 
+The `lfs_config` struct points to functions that will be used by littlefs for reading, writing and erasing the flash device: `flash_read`, `flash_prog`, `flash_erase`.
+
+These functions may be implemented with similar functions defined in [Mynewt's Flash HAL](https://mynewt.apache.org/latest/os/modules/hal/hal_flash/hal_flash.html): `hal_flash_read`, `hal_flash_write`, `hal_flash_erase`.
+
 `lfs_config` is documented here: [`lfs.h`](https://github.com/ARMmbed/littlefs/blob/master/lfs.h)
+
+Note that Mynewt's Flash HAL uses absolute addresses (instead of addresses relative to the Flash Area) when accessing SPI Flash. We need to map Flash Area addresses in the Flash Map to absolute addresses using Mynewt's Flash Map functions: [`flash_map.h`](https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h)
 
 [More about littlefs](https://github.com/ARMmbed/littlefs/blob/master/README.md)
 

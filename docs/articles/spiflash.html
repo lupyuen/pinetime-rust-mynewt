@@ -67,8 +67,8 @@
 <li><a href="#spi-flash-benchmark">9 SPI Flash Benchmark</a><ul></ul></li>
 <li><a href="#mcuboot-bootloader-with-spi-flash">10 MCUBoot Bootloader with SPI Flash</a><ul></ul></li>
 <li><a href="#debug-spi-flash-with-mcuboot-bootloader">11 Debug SPI Flash with MCUBoot Bootloader</a><ul></ul></li>
-<li><a href="#switching-mcuboot-to-stub-bootloader">12 Switching MCUBoot to Stub Bootloader</a><ul></ul></li>
-<li><a href="#inside-the-spi-flash-driver">13 Inside The SPI Flash Driver</a><ul></ul></li>
+<li><a href="#switch-mcuboot-to-stub-bootloader">12 Switch MCUBoot to Stub Bootloader</a><ul></ul></li>
+<li><a href="#inside-the-spi-flash-driver">13 Inside the SPI Flash Driver</a><ul></ul></li>
 <li><a href="#spi-flash-file-system">14 SPI Flash File System</a><ul></ul></li>
 <li><a href="#further-reading">15 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/spiflash-config.png" alt="Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)" /></p>
 <p><a href="https://lupyuen.github.io/images/spiflash-config.png"><em>Larger image here</em></a></p>
@@ -480,17 +480,112 @@ speed_cmd(1, 0x0, 0, 1, 0) ||
 <p>This will enable us to debug and test SPI Flash with our Application Firmware, before using it with MCUBoot.</p>
 <p>Also MCUBoot expects the Application Firmware Image to start with the MCUBoot Image Header. When the GDB debugger flashes the Firmware ELF File into ROM, the Image Header is empty. So MCUBoot won't work start the Application Firmware properly when the debugger is running. Switching MCUBoot to the Stub Bootloader will solve this.</p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/apps/boot_stub"><em>Source code for Stub Bootloader</em></a></p>
-<h1 id="switching-mcuboot-to-stub-bootloader" class="section-header"><a href="#switching-mcuboot-to-stub-bootloader">12 Switching MCUBoot to Stub Bootloader</a></h1>
-<p>TODO</p>
-<h1 id="inside-the-spi-flash-driver" class="section-header"><a href="#inside-the-spi-flash-driver">13 Inside The SPI Flash Driver</a></h1>
-<p>TODO</p>
-<p>https://github.com/apache/mynewt-core/blob/master/hw/drivers/flash/spiflash/include/spiflash/spiflash.h</p>
-<p>https://github.com/apache/mynewt-core/blob/master/hw/drivers/flash/spiflash/src/spiflash.c</p>
-<p>Based on https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml</p>
-<p>https://www.winbond.com/resource-files/w25q16jv%20spi%20revh%2004082019%20plus.pdf</p>
+<h1 id="switch-mcuboot-to-stub-bootloader" class="section-header"><a href="#switch-mcuboot-to-stub-bootloader">12 Switch MCUBoot to Stub Bootloader</a></h1>
+<p>To switch the PineTime Bootloader from MCUBoot to the Stub Bootloader, edit the Bootloader Target Settings <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_boot/target.yml"><code>targets/nrf52_boot/target.yml</code></a>.</p>
+<p>Comment out this line (insert <code>#</code> at the beginning of the line)...</p>
+<pre><code class="language-yaml"># target.app: &quot;@mcuboot/boot/mynewt&quot;  # Use MCUBoot, which doesn't support debugging
+</code></pre>
+<p>And uncomment this line (remove <code>#</code> from the beginning of the line)...</p>
+<pre><code class="language-yaml">target.app: &quot;apps/boot_stub&quot;  # Use Stub Bootloader, which supports debugging
+</code></pre>
+<p>Then edit the Bootloader OpenOCD Script <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.ocd"><code>scripts/nrf52/flash-boot.ocd</code></a></p>
+<p>Comment out the <code>program</code> line below (insert <code>#</code> at the beginning of the line)...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+</pre></div>
+<p>And uncomment the <code>program</code> line below (remove <code>#</code> from the beginning of the line)...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">program</span> <span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_boot</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">boot_stub</span><span class="op">/</span><span class="ident">boot_stub</span>.<span class="ident">elf</span>.<span class="ident">bin</span> <span class="ident">verify</span> <span class="number">0x00000000</span></pre></div>
+<p>Build the Stub Bootloader by clicking <code>Terminal -&gt; Run Task -&gt; Build Bootloader</code>. Or run the Bootloader Build Script: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/build-boot.sh"><code>scripts/nrf52/build-boot.sh</code></a></p>
+<p>Flash the Stub Bootloader to PineTime by clicking <code>Terminal -&gt; Run Task -&gt; Flash Bootloader</code>. Or run the Bootloader Flash Script: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.sh"><code>scripts/nrf52/flash-boot.sh</code></a></p>
+<p>Our PineTime now boots with the Stub Bootloader... Ready for debugging!</p>
+<h1 id="inside-the-spi-flash-driver" class="section-header"><a href="#inside-the-spi-flash-driver">13 Inside the SPI Flash Driver</a></h1>
+<p>We have been using Mynewt's SPI Flash Driver: <a href="https://github.com/apache/mynewt-core/blob/master/hw/drivers/flash/spiflash/include/spiflash/spiflash.h"><code>spiflash.h</code></a> and <a href="https://github.com/apache/mynewt-core/blob/master/hw/drivers/flash/spiflash/src/spiflash.c"><code>spiflash.c</code></a></p>
+<p>Remember the configuration we have set in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml"><code>syscfg.yml</code></a> like <code>SPIFLASH_MANUFACTURER</code>, <code>SPIFLASH_MEMORY_TYPE</code>, <code>SPIFLASH_MEMORY_CAPACITY</code>?</p>
+<p>The flash driver uses these configuration settings to access our SPI flash memory. Everything in Mynewt's SPI Flash Driver is configured via <code>syscfg.yml</code>... Amazing!</p>
+<p>Mynewt's SPI Flash Driver seemed very mysterious... Until I stumbled upon this Board Support Package in Mynewt: <a href="https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml"><code>black_vet6/syscfg.yml</code></a></p>
+<p>The configuration and code in this article were derived from that Board Support Package.</p>
 <h1 id="spi-flash-file-system" class="section-header"><a href="#spi-flash-file-system">14 SPI Flash File System</a></h1>
-<p>TODO</p>
-<p>LittleFS</p>
+<p>We have seen <a href="https://mynewt.apache.org/latest/os/modules/hal/hal_flash/hal_flash.html">Mynewt's Flash HAL</a> functions for reading, writing and erasing SPI Flash at the byte and sector level. That's too low-level for us firmware programmers.</p>
+<p><em>Can we have files and directories in SPI Flash?</em></p>
+<p>Yes we can, with a Flash File System like <a href="https://github.com/ARMmbed/littlefs"><strong>littlefs</strong></a>.</p>
+<p>Earlier we saw this Flash Memory Map: <a href="https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/bsp.yml"><code>hw/bsp/black_vet6/bsp.yml</code></a></p>
+<pre><code class="language-yaml">bsp.flash_map:
+    areas:
+        ...
+        FLASH_AREA_NFFS:
+            user_id: 1
+            device: 1
+            offset: 0x00040000
+            size: 32kB
+</code></pre>
+<p><code>FLASH_AREA_NFFS</code> is a Flash Area that's available for use by the Application Firmware for storing application data. Note that it's located on Flash Device 1, which is the External SPI Flash.</p>
+<p>Mynewt will let us install a File System into the <code>FLASH_AREA_NFFS</code> Flash Area for storing our files and directories.</p>
+<p>Here's a simple example from <a href="https://github.com/ARMmbed/littlefs/blob/master/README.md"><code>littlefs/README.md</code></a> that updates a file named <code>boot_count</code> every time the program runs. The program can be interrupted at any time without losing track of how many times it has been booted and without corrupting the filesystem...</p>
+<pre><code class="language-c">#include &quot;lfs.h&quot;
+
+// variables used by the filesystem
+lfs_t lfs;
+lfs_file_t file;
+
+// configuration of the filesystem is provided by this struct
+const struct lfs_config cfg = {
+    // block device operations
+    .read  = flash_read,   //  TODO: Implement with hal_flash_read()
+    .prog  = flash_prog,   //  TODO: Implement with hal_flash_write()
+    .erase = flash_erase,  //  TODO: Implement with hal_flash_erase()
+    .sync  = flash_sync,   //  TODO: Provide a sync function
+
+    // block device configuration
+    .read_size = 16,
+    .prog_size = 16,
+    .block_size = 4096,
+    .block_count = 128,
+    .cache_size = 16,
+    .lookahead_size = 16,
+    .block_cycles = 500,
+};
+
+// entry point
+int test_littlefs(void) {
+    // mount the filesystem
+    int err = lfs_mount(&amp;lfs, &amp;cfg);
+
+    // reformat if we can't mount the filesystem
+    // this should only happen on the first boot
+    if (err) {
+        lfs_format(&amp;lfs, &amp;cfg);
+        lfs_mount(&amp;lfs, &amp;cfg);
+    }
+
+    // read current count
+    uint32_t boot_count = 0;
+    lfs_file_open(&amp;lfs, &amp;file, &quot;boot_count&quot;, LFS_O_RDWR | LFS_O_CREAT);
+    lfs_file_read(&amp;lfs, &amp;file, &amp;boot_count, sizeof(boot_count));
+
+    // update boot count
+    boot_count += 1;
+    lfs_file_rewind(&amp;lfs, &amp;file);
+    lfs_file_write(&amp;lfs, &amp;file, &amp;boot_count, sizeof(boot_count));
+
+    // remember the storage is not updated until the file is closed successfully
+    lfs_file_close(&amp;lfs, &amp;file);
+
+    // release any resources we were using
+    lfs_unmount(&amp;lfs);
+
+    // print the boot count
+    console_printf(&quot;boot_count: %d\n&quot;, boot_count); console_flush();
+}
+</code></pre>
+<p>The <code>lfs_config</code> struct points to functions that will be used by littlefs for reading, writing and erasing the flash device: <code>flash_read</code>, <code>flash_prog</code>, <code>flash_erase</code>.</p>
+<p>These functions may be implemented with similar functions defined in <a href="https://mynewt.apache.org/latest/os/modules/hal/hal_flash/hal_flash.html">Mynewt's Flash HAL</a>: <code>hal_flash_read</code>, <code>hal_flash_write</code>, <code>hal_flash_erase</code>.</p>
+<p><code>lfs_config</code> is documented here: <a href="https://github.com/ARMmbed/littlefs/blob/master/lfs.h"><code>lfs.h</code></a></p>
+<p>Note that Mynewt's Flash HAL uses absolute addresses (instead of addresses relative to the Flash Area) when accessing SPI Flash. We need to map Flash Area addresses in the Flash Map to absolute addresses using Mynewt's Flash Map functions: <a href="https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h"><code>flash_map.h</code></a></p>
+<p><a href="https://github.com/ARMmbed/littlefs/blob/master/README.md">More about littlefs</a></p>
+<p><a href="https://github.com/ARMmbed/littlefs/blob/master/DESIGN.md">Design of littlefs</a></p>
+<p><a href="https://github.com/ARMmbed/littlefs/blob/master/SPEC.md">Specification of littlefs</a></p>
 <h1 id="further-reading" class="section-header"><a href="#further-reading">15 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 
