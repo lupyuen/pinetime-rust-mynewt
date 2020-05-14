@@ -532,11 +532,39 @@ Also MCUBoot expects the Application Firmware Image to start with the MCUBoot Im
 
 [_Source code for Stub Bootloader_](https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/apps/boot_stub)
 
-# Switching MCUBoot to Stub Bootloader
+# Switch MCUBoot to Stub Bootloader
 
-TODO
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_boot/target.yml
 
-# Inside The SPI Flash Driver
+```
+target.app: "@mcuboot/boot/mynewt"  # Use MCUBoot, which doesn't support debugging
+```
+
+```
+target.app: "apps/boot_stub"  # Use Stub Bootloader, which supports debugging
+```
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.ocd
+
+```
+# For MCUBoot (debugging not supported):
+program bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin verify 0x00000000
+```
+
+```
+# For Stub Bootloader (supports debugging):
+program bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf.bin verify 0x00000000
+```
+
+Build Bootloader
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/build-boot.sh
+
+Flash Bootloader
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.sh
+
+# Inside the SPI Flash Driver
 
 TODO
 
@@ -552,7 +580,11 @@ https://www.winbond.com/resource-files/w25q16jv%20spi%20revh%2004082019%20plus.p
 
 TODO
 
+Files and Directories
+
 LittleFS
+
+https://github.com/ARMmbed/littlefs
 
 # Further Reading
 
