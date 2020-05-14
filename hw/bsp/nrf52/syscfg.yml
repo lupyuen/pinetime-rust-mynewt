@@ -66,7 +66,7 @@ syscfg.vals:
     SPIFLASH_MEMORY_TYPE:   0x40    # Expected SpiFlash memory type as read by Read JEDEC ID command 9FH
     SPIFLASH_MEMORY_CAPACITY: 0x16  # Expected SpiFlash memory capactity as read by Read JEDEC ID command 9FH (2 ^ 0x16 = 32 Mb)
     SPIFLASH_SECTOR_COUNT:  1024    # Number of sectors: 1024 sectors of 4 KB each
-    SPIFLASH_SECTOR_SIZE:   4094    # Number of bytes that can be erased at a time: 4 KB sector size
+    SPIFLASH_SECTOR_SIZE:   4096    # TODO Number of bytes that can be erased at a time: 4 KB sector size
     SPIFLASH_PAGE_SIZE:     256     # TODO Number of bytes that can be written at a time
 
     # Copied from https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml

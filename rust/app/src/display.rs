@@ -51,7 +51,7 @@ pub fn test_display() -> MynewtResult<()> {
     druid::draw_to_display(text);    
 
     //  Test the backlight
-    test_backlight() ? ;
+    //  test_backlight() ? ;
 
     //  Return success to the caller
     Ok(())
