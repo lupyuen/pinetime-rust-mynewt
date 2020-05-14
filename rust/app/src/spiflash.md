@@ -463,6 +463,10 @@ Speed test, hal_flash_read(1, 0x0, 32)
 
 Operations in 2 seconds
 
+| Size (Bytes) | Flash ROM Reads/Sec | SPI Flash Reads/Sec |
+| ---: | ---: | ---:
+| 32 | 103,751 | 8,053
+
 ```c
 //  Internal flash ROM, range mode, no move
 speed_cmd(0, 0x0, 0, 1, 0) ||
@@ -503,6 +507,22 @@ Speed test, hal_flash_read(1, 0x0, X)
 192 3766
 256 2883
 ```
+
+| Size (Bytes) | Flash ROM Reads/Sec | SPI Flash Reads/Sec |
+| ---: | ---: | ---:
+| 1 | 135,981 | 22,069
+| 2 | 130,965 | 21,024
+| 4 | 135,981 | 18,842
+| 8 | 130,431 | 15,819
+| 16 | 120,587 | 11,977
+| 24 | 110,956 | 9,625
+| 32 | 103,751 | 8,053
+| 48 | 91,041 | 6,066
+| 64 | 81,105 | 4,865
+| 96 | 66,574 | 3,485
+| 128 | 56,458 | 2,715
+| 192 | 43,300 | 1,883
+| 256 | 35,116 | 1,441
 
 # MCUBoot Bootloader with SPI Flash
 
