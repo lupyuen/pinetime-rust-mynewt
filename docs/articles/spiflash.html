@@ -495,7 +495,7 @@ speed_cmd(1, 0x0, 0, 1, 0) ||
 <tr><td align="right">256</td><td align="right">35,116</td><td align="right">1,441</td></tr>
 <tr><td align="right"><br></td><td align="right"></td><td align="right"></td></tr>
 </tbody></table>
-<p>Internal Flash ROM is still faster than External SPI Flash. For reads of 1 byte, Internal Flash ROM is faster by 6 times. But reads of 256 bytes, Internal Flash ROM is faster by 24 times!</p>
+<p>Internal Flash ROM is still faster than External SPI Flash. For reads of 1 byte, Internal Flash ROM is faster by 6 times. But for reads of 256 bytes, Internal Flash ROM is faster by 24 times!</p>
 <h1 id="mcuboot-bootloader-with-spi-flash" class="section-header"><a href="#mcuboot-bootloader-with-spi-flash">10 MCUBoot Bootloader with SPI Flash</a></h1>
 <p><a href="https://juullabs-oss.github.io/mcuboot/"><strong>MCUBoot</strong></a> is an open-source Bootloader that supports Mynewt, <a href="https://www.riot-os.org">RIOT</a> and <a href="https://www.zephyrproject.org">Zephyr</a> operating systems... It's the first thing that will <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">run on PineTime when it boots</a>.</p>
 <p>During firmware updates, MCUBoot stores the previous version of the firmware into Internal Flash ROM, and rolls back to the previous firmware if the new firmware doesn't start properly. </p>

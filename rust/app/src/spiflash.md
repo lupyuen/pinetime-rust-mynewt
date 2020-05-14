@@ -541,7 +541,7 @@ Divide the numbers by 2 to get Read Operations Per Second for various data sizes
 | 256 | 35,116 | 1,441
 | <br>
 
-Internal Flash ROM is still faster than External SPI Flash. For reads of 1 byte, Internal Flash ROM is faster by 6 times. But reads of 256 bytes, Internal Flash ROM is faster by 24 times!
+Internal Flash ROM is still faster than External SPI Flash. For reads of 1 byte, Internal Flash ROM is faster by 6 times. But for reads of 256 bytes, Internal Flash ROM is faster by 24 times!
 
 # MCUBoot Bootloader with SPI Flash
 
