@@ -431,7 +431,7 @@ Flash 1 at 0x0 size 0x400000 with 1024 sectors, alignment req 1 bytes
   1023: 1000
 ```
 
-This says that SPI Flash has been configured with 1024 sectors, each sector 4 KB in size.
+This says that SPI Flash has been configured with 1024 sectors, each sector 4 KB in size (`0x1000`).
 
 # SPI Flash Benchmark
 
@@ -475,6 +475,8 @@ When we divide the numbers by 2, we get the Read Operations Per Second...
 
 As expected, Internal Flash ROM is faster than External SPI Flash, roughly 13 times faster.
 
+Let's run the test speed on a range of data sizes, from 1 byte to 256 bytes...
+
 ```c
 //  Internal flash ROM, range mode, no move
 speed_cmd(0, 0x0, 0, 1, 0) ||
@@ -482,6 +484,8 @@ speed_cmd(0, 0x0, 0, 1, 0) ||
 //  External SPI flash, range mode, no move
 speed_cmd(1, 0x0, 0, 1, 0) ||
 ```
+
+Now we get a table of Read Operations Per 2 Seconds (second column), for data sizes ranging from 1 byte to 256 bytes (first column)...
 
 ```
 Speed Test for Internal Flash ROM...
@@ -516,6 +520,8 @@ Speed test, hal_flash_read(1, 0x0, X)
 256 2883
 ```
 
+Divide the numbers by 2 to get Read Operations Per Second for various data sizes...
+
 | Size (Bytes) | Flash ROM Reads/Sec | SPI Flash Reads/Sec |
 | ---: | ---: | ---:
 | 1 | 135,981 | 22,069
@@ -532,7 +538,7 @@ Speed test, hal_flash_read(1, 0x0, X)
 | 192 | 43,300 | 1,883
 | 256 | 35,116 | 1,441
 
-6x to 24x
+Internal Flash ROM is still faster than External SPI Flash. For reads of 1 byte, Internal Flash ROM is faster by 6 times. But reads of 256 bytes, Internal Flash ROM is faster by 24 times!
 
 # MCUBoot Bootloader with SPI Flash
 
