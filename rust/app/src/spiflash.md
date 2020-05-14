@@ -469,9 +469,10 @@ That's 207,503 Read Operations Per 2 Seconds for Internal Flash ROM, and 16,107 
 
 When we divide the numbers by 2, we get the Read Operations Per Second...
 
-| Size (Bytes) | Flash ROM Reads/Sec | SPI Flash Reads/Sec |
+| Size (Bytes) | Flash ROM<br>Reads/Sec | SPI Flash<br>Reads/Sec |
 | ---: | ---: | ---:
 | 32 | 103,751 | 8,053
+| <br>
 
 As expected, Internal Flash ROM is faster than External SPI Flash, roughly 13 times faster.
 
@@ -523,7 +524,7 @@ Speed test, hal_flash_read(1, 0x0, X)
 
 Divide the numbers by 2 to get Read Operations Per Second for various data sizes...
 
-| Size (Bytes) | Flash ROM Reads/Sec | SPI Flash Reads/Sec |
+| Size (Bytes) | Flash ROM<br>Reads/Sec | SPI Flash <br>Reads/Sec |
 | ---: | ---: | ---:
 | 1 | 135,981 | 22,069
 | 2 | 130,965 | 21,024
@@ -538,6 +539,7 @@ Divide the numbers by 2 to get Read Operations Per Second for various data sizes
 | 128 | 56,458 | 2,715
 | 192 | 43,300 | 1,883
 | 256 | 35,116 | 1,441
+| <br>
 
 Internal Flash ROM is still faster than External SPI Flash. For reads of 1 byte, Internal Flash ROM is faster by 6 times. But reads of 256 bytes, Internal Flash ROM is faster by 24 times!
 

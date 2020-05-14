@@ -405,10 +405,10 @@ map_cmd(1) ||
   <span class="number">2</span>: <span class="number">1000</span>
   ...  
   <span class="number">1023</span>: <span class="number">1000</span></pre></div>
-<p>This says that SPI Flash has been configured with 1024 sectors, each sector 4 KB in size.</p>
+<p>This says that SPI Flash has been configured with 1024 sectors, each sector 4 KB in size (<code>0x1000</code>).</p>
 <h1 id="spi-flash-benchmark" class="section-header"><a href="#spi-flash-benchmark">9 SPI Flash Benchmark</a></h1>
-<p>TODO</p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a></p>
+<p><em>How fast can we read SPI Flash? Compared with Internal Flash ROM?</em></p>
+<p>Let's run the flash speed tests found in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a>...</p>
 <pre><code class="language-c">//////////////////////
 //  Test Flash Speed
 //  &lt;flash_id&gt; &lt;addr&gt; &lt;rd_sz&gt;|range [move]
@@ -420,6 +420,8 @@ speed_cmd(0, 0x0, 32, 0, 0) ||
 //  External SPI flash, size mode, no move
 speed_cmd(1, 0x0, 32, 0, 0) ||
 </code></pre>
+<p>This code repeatedly reads 32 bytes from Internal Flash ROM and External SPI Flash... And counts how many Read Operations were completed in 2 seconds.</p>
+<p>Here's the output...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Speed</span> <span class="ident">Test</span> <span class="kw">for</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
@@ -428,13 +430,22 @@ speed_cmd(1, 0x0, 32, 0, 0) ||
 <span class="ident">Speed</span> <span class="ident">Test</span> <span class="kw">for</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
 <span class="ident">Speed</span> <span class="ident">test</span>, <span class="ident">hal_flash_read</span>(<span class="number">1</span>, <span class="number">0x0</span>, <span class="number">32</span>)
 <span class="number">16107</span></pre></div>
-<p>Operations in 2 seconds</p>
+<p>That's 207,503 Read Operations Per 2 Seconds for Internal Flash ROM, and 16,107 Read Operations Per 2 Seconds for External SPI Flash.</p>
+<p>When we divide the numbers by 2, we get the Read Operations Per Second...</p>
+<table><thead><tr><th align="right">Size (Bytes)</th><th align="right">Flash ROM<br>Reads/Sec</th><th align="right">SPI Flash<br>Reads/Sec</th></tr></thead><tbody>
+<tr><td align="right">32</td><td align="right">103,751</td><td align="right">8,053</td></tr>
+<tr><td align="right"><br></td><td align="right"></td><td align="right"></td></tr>
+</tbody></table>
+<p>As expected, Internal Flash ROM is faster than External SPI Flash, roughly 13 times faster.</p>
+<p>Let's run the test speed on a range of data sizes, from 1 byte to 256 bytes (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a>
+)...</p>
 <pre><code class="language-c">//  Internal flash ROM, range mode, no move
 speed_cmd(0, 0x0, 0, 1, 0) ||
 
 //  External SPI flash, range mode, no move
 speed_cmd(1, 0x0, 0, 1, 0) ||
 </code></pre>
+<p>Now we get a table of Read Operations Per 2 Seconds (second column), for data sizes ranging from 1 byte to 256 bytes (first column)...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Speed</span> <span class="ident">Test</span> <span class="kw">for</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
@@ -467,6 +478,24 @@ speed_cmd(1, 0x0, 0, 1, 0) ||
 <span class="number">128</span> <span class="number">5431</span>
 <span class="number">192</span> <span class="number">3766</span>
 <span class="number">256</span> <span class="number">2883</span></pre></div>
+<p>Divide the numbers by 2 to get Read Operations Per Second for various data sizes...</p>
+<table><thead><tr><th align="right">Size (Bytes)</th><th align="right">Flash ROM<br>Reads/Sec</th><th align="right">SPI Flash <br>Reads/Sec</th></tr></thead><tbody>
+<tr><td align="right">1</td><td align="right">135,981</td><td align="right">22,069</td></tr>
+<tr><td align="right">2</td><td align="right">130,965</td><td align="right">21,024</td></tr>
+<tr><td align="right">4</td><td align="right">135,981</td><td align="right">18,842</td></tr>
+<tr><td align="right">8</td><td align="right">130,431</td><td align="right">15,819</td></tr>
+<tr><td align="right">16</td><td align="right">120,587</td><td align="right">11,977</td></tr>
+<tr><td align="right">24</td><td align="right">110,956</td><td align="right">9,625</td></tr>
+<tr><td align="right">32</td><td align="right">103,751</td><td align="right">8,053</td></tr>
+<tr><td align="right">48</td><td align="right">91,041</td><td align="right">6,066</td></tr>
+<tr><td align="right">64</td><td align="right">81,105</td><td align="right">4,865</td></tr>
+<tr><td align="right">96</td><td align="right">66,574</td><td align="right">3,485</td></tr>
+<tr><td align="right">128</td><td align="right">56,458</td><td align="right">2,715</td></tr>
+<tr><td align="right">192</td><td align="right">43,300</td><td align="right">1,883</td></tr>
+<tr><td align="right">256</td><td align="right">35,116</td><td align="right">1,441</td></tr>
+<tr><td align="right"><br></td><td align="right"></td><td align="right"></td></tr>
+</tbody></table>
+<p>Internal Flash ROM is still faster than External SPI Flash. For reads of 1 byte, Internal Flash ROM is faster by 6 times. But reads of 256 bytes, Internal Flash ROM is faster by 24 times!</p>
 <h1 id="mcuboot-bootloader-with-spi-flash" class="section-header"><a href="#mcuboot-bootloader-with-spi-flash">10 MCUBoot Bootloader with SPI Flash</a></h1>
 <p><a href="https://juullabs-oss.github.io/mcuboot/"><strong>MCUBoot</strong></a> is an open-source Bootloader that supports Mynewt, <a href="https://www.riot-os.org">RIOT</a> and <a href="https://www.zephyrproject.org">Zephyr</a> operating systems... It's the first thing that will <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">run on PineTime when it boots</a>.</p>
 <p>During firmware updates, MCUBoot stores the previous version of the firmware into Internal Flash ROM, and rolls back to the previous firmware if the new firmware doesn't start properly. </p>
