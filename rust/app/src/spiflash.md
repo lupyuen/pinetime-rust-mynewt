@@ -540,6 +540,10 @@ TODO
 
 TODO
 
+https://github.com/apache/mynewt-core/blob/master/hw/drivers/flash/spiflash/include/spiflash/spiflash.h
+
+https://github.com/apache/mynewt-core/blob/master/hw/drivers/flash/spiflash/src/spiflash.c
+
 Based on https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml
 
 https://www.winbond.com/resource-files/w25q16jv%20spi%20revh%2004082019%20plus.pdf

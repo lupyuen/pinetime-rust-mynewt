@@ -429,8 +429,10 @@ speed_cmd(1, 0x0, 0, 1, 0) ||
 
 </code></pre>
 <h1 id="mcuboot-bootloader-with-spi-flash" class="section-header"><a href="#mcuboot-bootloader-with-spi-flash">10 MCUBoot Bootloader with SPI Flash</a></h1>
-<p>TODO</p>
-<p><a href="https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/bsp.yml"><code>hw/bsp/black_vet6/bsp.yml</code></a></p>
+<p><a href="https://juullabs-oss.github.io/mcuboot/"><strong>MCUBoot</strong></a> is an open-source Bootloader that supports Mynewt, <a href="https://www.riot-os.org">RIOT</a> and <a href="https://www.zephyrproject.org">Zephyr</a> operating systems... It's the first thing that will <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">run on PineTime when it boots</a>.</p>
+<p>During firmware updates, MCUBoot stores the previous version of the firmware into Internal Flash ROM, and rolls back to the previous firmware if the new firmware doesn't start properly. </p>
+<p>But on constrained devices like PineTime, this robustness will cost us... We might run out of space in Internal Flash ROM to store the old firmware!</p>
+<p>Fortunately MCUBoot on Mynewt works seamlessly with SPI Flash... Watch how the new firmware <code>FLASH_AREA_IMAGE_0</code> coexists with the old firmware <code>FLASH_AREA_IMAGE_1</code> in this Flash Memory Map for MCUBoot for Mynewt: <a href="https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/bsp.yml"><code>hw/bsp/black_vet6/bsp.yml</code></a></p>
 <pre><code class="language-yaml">bsp.flash_map:
     areas:
         # System areas.
@@ -465,23 +467,30 @@ speed_cmd(1, 0x0, 0, 1, 0) ||
             offset: 0x00040000
             size: 32kB
 </code></pre>
+<p>Note that the new firmware <code>FLASH_AREA_IMAGE_0</code> resides on <strong>Flash Device 0 (Internal Flash ROM)</strong>, while the old firmware <code>FLASH_AREA_IMAGE_1</code> resides on <strong>Flash Device 1 (External SPI Flash)</strong>.</p>
+<p>This means that we won't waste any previous space in Internal Flash ROM for storing the old firmware... MCUBoot automatically swaps the old firmware into External SPI Flash! Using MCUBoot Bootloader with SPI Flash is really that easy!</p>
 <h1 id="debug-spi-flash-with-mcuboot-bootloader" class="section-header"><a href="#debug-spi-flash-with-mcuboot-bootloader">11 Debug SPI Flash with MCUBoot Bootloader</a></h1>
 <p>If we're using the MCUBoot Bootloader (like on PineTime), debugging and testing SPI Flash can be somewhat challenging.</p>
 <p>Remember that we added the SPI Flash Driver to the Board Support Package?</p>
 <p>The Board Support Package is used by <em>both</em> the MCUBoot Bootloader as well as the Application Firmware. Which means that the SPI Flash Driver is loaded when MCUBoot starts.</p>
 <p><em>What happens if the SPI Flash Driver is configured incorrectly?</em></p>
 <p>MCUBoot may crash... Before starting the Application Firmware! (This happened to me)</p>
-<p>Hence for debugging and testing SPI Flash, I strongly recommend switching the Bootloader to a simpler one that doesn't require any drivers: the Stub Bootloader.</p>
+<p>Hence for debugging and testing SPI Flash, I strongly recommend switching the Bootloader to a simpler one that doesn't require any drivers: the <a href="https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/apps/boot_stub"><strong>Stub Bootloader</strong></a>.</p>
+<p>The Stub Bootloader doesn't do anything... It simply jumps to the Application Firmware.</p>
 <p>This will enable us to debug and test SPI Flash with our Application Firmware, before using it with MCUBoot.</p>
 <p>Also MCUBoot expects the Application Firmware Image to start with the MCUBoot Image Header. When the GDB debugger flashes the Firmware ELF File into ROM, the Image Header is empty. So MCUBoot won't work start the Application Firmware properly when the debugger is running. Switching MCUBoot to the Stub Bootloader will solve this.</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/apps/boot_stub"><em>Source code for Stub Bootloader</em></a></p>
 <h1 id="switching-mcuboot-to-stub-bootloader" class="section-header"><a href="#switching-mcuboot-to-stub-bootloader">12 Switching MCUBoot to Stub Bootloader</a></h1>
 <p>TODO</p>
 <h1 id="inside-the-spi-flash-driver" class="section-header"><a href="#inside-the-spi-flash-driver">13 Inside The SPI Flash Driver</a></h1>
 <p>TODO</p>
+<p>https://github.com/apache/mynewt-core/blob/master/hw/drivers/flash/spiflash/include/spiflash/spiflash.h</p>
+<p>https://github.com/apache/mynewt-core/blob/master/hw/drivers/flash/spiflash/src/spiflash.c</p>
 <p>Based on https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml</p>
 <p>https://www.winbond.com/resource-files/w25q16jv%20spi%20revh%2004082019%20plus.pdf</p>
 <h1 id="spi-flash-file-system" class="section-header"><a href="#spi-flash-file-system">14 SPI Flash File System</a></h1>
 <p>TODO</p>
+<p>LittleFS</p>
 <h1 id="further-reading" class="section-header"><a href="#further-reading">15 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 
