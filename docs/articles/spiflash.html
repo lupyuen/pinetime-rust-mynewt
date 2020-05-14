@@ -62,16 +62,15 @@
 <li><a href="#test-spi-flash">8 Test SPI Flash</a><ul>
 <li><a href="#read-spi-flash">8.1 Read SPI Flash</a><ul></ul></li>
 <li><a href="#erase-spi-flash">8.2 Erase SPI Flash</a><ul></ul></li>
-<li><a href="#read-spi-flash-after-erasing">8.3 Read SPI Flash After Erasing</a><ul></ul></li>
-<li><a href="#write-spi-flash">8.4 Write SPI Flash</a><ul></ul></li>
-<li><a href="#read-spi-flash-after-writing">8.5 Read SPI Flash After Writing</a><ul></ul></li>
-<li><a href="#spi-flash-sector-map">8.6 SPI Flash Sector Map</a><ul></ul></li></ul></li>
+<li><a href="#write-spi-flash">8.3 Write SPI Flash</a><ul></ul></li>
+<li><a href="#spi-flash-sector-map">8.4 SPI Flash Sector Map</a><ul></ul></li></ul></li>
 <li><a href="#spi-flash-benchmark">9 SPI Flash Benchmark</a><ul></ul></li>
-<li><a href="#flash-map">10 Flash Map</a><ul></ul></li>
-<li><a href="#debugging-with-mcuboot">11 Debugging with MCUBoot</a><ul></ul></li>
+<li><a href="#mcuboot-bootloader-with-spi-flash">10 MCUBoot Bootloader with SPI Flash</a><ul></ul></li>
+<li><a href="#debug-spi-flash-with-mcuboot-bootloader">11 Debug SPI Flash with MCUBoot Bootloader</a><ul></ul></li>
 <li><a href="#switching-mcuboot-to-stub-bootloader">12 Switching MCUBoot to Stub Bootloader</a><ul></ul></li>
 <li><a href="#inside-the-spi-flash-driver">13 Inside The SPI Flash Driver</a><ul></ul></li>
-<li><a href="#further-reading">14 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/spiflash-config.png" alt="Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)" /></p>
+<li><a href="#spi-flash-file-system">14 SPI Flash File System</a><ul></ul></li>
+<li><a href="#further-reading">15 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/spiflash-config.png" alt="Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)" /></p>
 <p><a href="https://lupyuen.github.io/images/spiflash-config.png"><em>Larger image here</em></a></p>
 <p>There's one thing truly remarkable about the <a href="https://mynewt.apache.org/"><strong>Apache Mynewt</strong></a> embedded operating system... <strong>Almost any feature may be switched on by editing a configuration file!</strong></p>
 <p>Today we'll learn to configure Mynewt OS to enable access to <strong>SPI Flash Memory</strong> on <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>... Just by editing two configuration files (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml"><code>syscfg.yml</code></a> and <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml"><code>pkg.yml</code></a>), and making some minor code changes (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c"><code>hal_bsp.c</code></a>).</p>
@@ -151,7 +150,7 @@ IDs for XT25F32B are: <strong>Manufacturer (<code>0x0b</code>)</strong>, Device 
     SPIFLASH_MEMORY_TYPE:   0x40    # Expected SpiFlash memory type as read by Read JEDEC ID command 9FH
     SPIFLASH_MEMORY_CAPACITY: 0x16  # Expected SpiFlash memory capactity as read by Read JEDEC ID command 9FH (2 ^ 0x16 = 32 Mb)
     SPIFLASH_SECTOR_COUNT:  1024    # Number of sectors: 1024 sectors of 4 KB each
-    SPIFLASH_SECTOR_SIZE:   4094    # Number of bytes that can be erased at a time: 4 KB sector size
+    SPIFLASH_SECTOR_SIZE:   4094    # TODO Number of bytes that can be erased at a time: 4 KB sector size
     SPIFLASH_PAGE_SIZE:     256     # TODO Number of bytes that can be written at a time
     ...
 </code></pre>
@@ -205,7 +204,7 @@ static const struct hal_flash *flash_devs[] = {
 #endif                        //  MYNEWT_VAL(SPIFLASH)
 };
 </code></pre>
-<p>We'll use Flash Device ID 1 when accessing SPI Flash later.</p>
+<p>Later we'll use Flash Device ID 1 when accessing SPI Flash.</p>
 <h1 id="hal_bspc-access-flash-devices-by-id" class="section-header"><a href="#hal_bspc-access-flash-devices-by-id">6 <code>hal_bsp.c:</code> Access Flash Devices by ID</a></h1>
 <p>Finally we edit the code to fetch the Flash Devices by the Flash Device ID.</p>
 <p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c"><code>hal_bsp.c</code></a>. Look for the function <code>hal_bsp_flash_dev()</code> and replace the function by this code...</p>
@@ -233,12 +232,27 @@ hal_bsp_flash_dev(uint8_t id)
 <p>This starts up the SPI Flash Driver whenever Mynewt boots.  And we're done!</p>
 <p>Now let's write a simple program to read, write and erase the SPI Flash.</p>
 <h1 id="test-spi-flash" class="section-header"><a href="#test-spi-flash">8 Test SPI Flash</a></h1>
-<p>TODO</p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a></p>
-<p>Based on https://github.com/apache/mynewt-core/blob/master/test/flash_test/src/flash_test.c</p>
+<p>Here's the C code to test reading, writing and erasing SPI Flash on Mynewt: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a>. The code was derived from <a href="https://github.com/apache/mynewt-core/blob/master/test/flash_test/src/flash_test.c">Mynewt's test code for Flash Devices</a>.</p>
+<p>The test code calls Mynewt's Flash HAL (Hardware Adaptation Layer) to access the flash memory...</p>
+<ol>
+<li>
+<p><strong>Erase Flash</strong> <code>hal_flash_erase(id, offset, size)</code></p>
+<p>Erase internal / external flash memory at the <code>offset</code> address, for <code>size</code> bytes</p>
+</li>
+<li>
+<p><strong>Read Flash</strong> <code>hal_flash_read(id, offset, buf, sector_count)</code></p>
+<p>Read internal / external flash memory from the <code>offset</code> address into the <code>buf</code> buffer, for <code>sector_count</code> sectors. On PineTime, one sector contains 4 KB.</p>
+</li>
+<li>
+<p><strong>Write Flash</strong> <code>hal_flash_write(id, offset, buf, sector_count)</code></p>
+<p>Write internal / external flash memory from the <code>buf</code> buffer to the <code>offset</code> address, for <code>sector_count</code> sectors. On PineTime, one sector contains 4 KB.</p>
+</li>
+</ol>
+<p>For the above functions, <code>id</code> is 0 for Internal Flash ROM, 1 for External SPI Flash.</p>
+<p>For easier testing, the above functions are wrapped inside the <code>flash_cmd()</code> function, which is also defined in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a></p>
+<p>Let's call <code>flash_cmd()</code> to test the SPI Flash functions...</p>
 <h2 id="read-spi-flash" class="section-header"><a href="#read-spi-flash">8.1 Read SPI Flash</a></h2>
-<p>TODO</p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a></p>
+<p>Here's the test code in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a> to read Internal Flash ROM and External SPI Flash...</p>
 <pre><code class="language-c">/// Test internal flash ROM and external SPI flash
 int test_flash() {
   //  Keep running tests until a test returns an error (non-zero result)
@@ -258,6 +272,7 @@ int test_flash() {
     return 0;  //  Tests OK
 }
 </code></pre>
+<p>This code reads 32 bytes, starting at offset 0, from both Internal Flash ROM and External SPI Flash. As expected, the flash memory contents are different for Internal Flash ROM and External SPI Flash...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Testing</span> <span class="ident">flash</span>...
@@ -274,8 +289,7 @@ int test_flash() {
   <span class="number">0x0010</span>: <span class="number">0x11</span> <span class="number">0x12</span> <span class="number">0x13</span> <span class="number">0x14</span> <span class="number">0x15</span> <span class="number">0x16</span> <span class="number">0x17</span> <span class="number">0x18</span> 
   <span class="number">0x0018</span>: <span class="number">0x19</span> <span class="number">0x1a</span> <span class="number">0x1b</span> <span class="number">0x1c</span> <span class="number">0x1d</span> <span class="number">0x1e</span> <span class="number">0x1f</span> <span class="number">0x20</span> </pre></div>
 <h2 id="erase-spi-flash" class="section-header"><a href="#erase-spi-flash">8.2 Erase SPI Flash</a></h2>
-<p>TODO</p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a></p>
+<p>Next in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a> we erase the External SPI Flash...</p>
 <pre><code class="language-c">/////////////////////////////////////
 //  Erase Flash: Set all bits to 1
 //  &lt;flash-id&gt; &lt;offset&gt; &lt;size&gt;
@@ -288,9 +302,7 @@ flash_cmd(ERASE_COMMAND, 1, 0x0, 32) ||
 <span class="ident">Erase</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
 <span class="ident">Erase</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
 <span class="macro">Done</span><span class="macro">!</span></pre></div>
-<h2 id="read-spi-flash-after-erasing" class="section-header"><a href="#read-spi-flash-after-erasing">8.3 Read SPI Flash After Erasing</a></h2>
-<p>TODO</p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a></p>
+<p>After erasing, let's read both Internal Flash ROM and External SPI Flash (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a>)...</p>
 <pre><code class="language-c">////////////////////////////////////////
 //  Read Flash
 //  &lt;flash-id&gt; read &lt;offset&gt; &lt;size&gt;
@@ -301,6 +313,7 @@ flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
 //  Read external SPI flash
 flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 </code></pre>
+<p>Here are the contents...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Read</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
@@ -315,9 +328,12 @@ flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
   <span class="number">0x0008</span>: <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> 
   <span class="number">0x0010</span>: <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> 
   <span class="number">0x0018</span>: <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> </pre></div>
-<h2 id="write-spi-flash" class="section-header"><a href="#write-spi-flash">8.4 Write SPI Flash</a></h2>
-<p>TODO</p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a></p>
+<p><em>Why was SPI Flash wiped out with <code>0xff</code>?</em></p>
+<p>That's expected when we erase <a href="https://en.wikipedia.org/wiki/Flash_memory#NOR_memories">NOR Flash Memory</a>... All bits will get set to <code>1</code>.</p>
+<p>When we write to NOR Flash Memory, we may only flip <code>1</code> bits to <code>0</code>, not <code>0</code> to <code>1</code>.</p>
+<p>Hence before writing any data into NOR Flash Memory, we need to erase all bits to <code>1</code>. Then we write the data to flash, flipping some <code>1</code> bits to <code>0</code>.</p>
+<h2 id="write-spi-flash" class="section-header"><a href="#write-spi-flash">8.3 Write SPI Flash</a></h2>
+<p>Now that SPI Flash has been flipped to <code>1</code>, let's write some data (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a>)...</p>
 <pre><code class="language-c">//////////////////////////////////////////////
 //  Write Flash: Write 0x01, 0x02, 0x03, ... 
 //  (Must erase before writing)
@@ -326,14 +342,14 @@ flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 //  Write external SPI flash
 flash_cmd(WRITE_COMMAND, 1, 0x0, 32) ||
 </code></pre>
+<p>This shows...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Write</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
 <span class="ident">Write</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
 <span class="macro">Done</span><span class="macro">!</span></pre></div>
-<h2 id="read-spi-flash-after-writing" class="section-header"><a href="#read-spi-flash-after-writing">8.5 Read SPI Flash After Writing</a></h2>
-<p>TODO</p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a></p>
+<p><code>flash_cmd()</code> writes to SPI Flash the bytes <code>0x01</code>, <code>0x02</code>, <code>0x03</code>, ... </p>
+<p>Let's read SPI Flash and check (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a>)...</p>
 <pre><code class="language-c">////////////////////////////////////////////
 //  Read Flash
 //  &lt;flash-id&gt; &lt;offset&gt; &lt;size&gt;
@@ -344,6 +360,7 @@ flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
 //  Read external SPI flash
 flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 </code></pre>
+<p>Here's the result...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Read</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
@@ -358,9 +375,9 @@ flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
   <span class="number">0x0008</span>: <span class="number">0x09</span> <span class="number">0x0a</span> <span class="number">0x0b</span> <span class="number">0x0c</span> <span class="number">0x0d</span> <span class="number">0x0e</span> <span class="number">0x0f</span> <span class="number">0x10</span> 
   <span class="number">0x0010</span>: <span class="number">0x11</span> <span class="number">0x12</span> <span class="number">0x13</span> <span class="number">0x14</span> <span class="number">0x15</span> <span class="number">0x16</span> <span class="number">0x17</span> <span class="number">0x18</span> 
   <span class="number">0x0018</span>: <span class="number">0x19</span> <span class="number">0x1a</span> <span class="number">0x1b</span> <span class="number">0x1c</span> <span class="number">0x1d</span> <span class="number">0x1e</span> <span class="number">0x1f</span> <span class="number">0x20</span> </pre></div>
-<h2 id="spi-flash-sector-map" class="section-header"><a href="#spi-flash-sector-map">8.6 SPI Flash Sector Map</a></h2>
-<p>TODO</p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a></p>
+<p>Yep the flipping of bits from <code>1</code> to <code>0</code> worked!</p>
+<h2 id="spi-flash-sector-map" class="section-header"><a href="#spi-flash-sector-map">8.4 SPI Flash Sector Map</a></h2>
+<p>To check whether SPI Flash is correctly configured, we may dump the Flash Sector Map like this (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a>)...</p>
 <pre><code class="language-c">////////////////////
 //  Dump Sector Map
 
@@ -371,6 +388,7 @@ map_cmd(0) ||
 map_cmd(1) ||
 
 </code></pre>
+<p>Here's the output...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Sector</span> <span class="ident">Map</span> <span class="kw">for</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
@@ -381,38 +399,73 @@ map_cmd(1) ||
   ...
   <span class="number">127</span>: <span class="number">1000</span>
 
-<span class="ident">Sector</span> <span class="ident">Map</span> <span class="kw">for</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
+<span class="ident">Sector</span> <span class="ident">Map</span> <span class="kw">for</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
 <span class="ident">Flash</span> <span class="number">1</span> <span class="ident">at</span> <span class="number">0x0</span> <span class="ident">size</span> <span class="number">0x3ff800</span> <span class="ident">with</span> <span class="number">1024</span> <span class="ident">sectors</span>, <span class="ident">alignment</span> <span class="ident">req</span> <span class="number">1</span> <span class="ident">bytes</span>
   <span class="number">0</span>:    <span class="ident">ffe</span>
   <span class="number">1</span>:    <span class="ident">ffe</span>
   <span class="number">2</span>:    <span class="ident">ffe</span>
   ...  
   <span class="number">1023</span>: <span class="ident">ffe</span></pre></div>
+<p>This says that SPI Flash has been configured with 1024 sectors, each sector 4 KB in size.</p>
 <h1 id="spi-flash-benchmark" class="section-header"><a href="#spi-flash-benchmark">9 SPI Flash Benchmark</a></h1>
 <p>TODO</p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a></p>
 <pre><code class="language-c">//////////////////////
 //  Test Flash Speed
 //  &lt;flash_id&gt; &lt;addr&gt; &lt;rd_sz&gt;|range [move]
-
 //  range=0 for size mode, range=1 for range mode, move=1 for move
 
 //  Internal flash ROM, size mode, no move
-//  speed_cmd(0, 0x0, 32, 0, 0) ||
+speed_cmd(0, 0x0, 32, 0, 0) ||
 
 //  External SPI flash, size mode, no move
-//  speed_cmd(1, 0x0, 32, 0, 0) ||
+speed_cmd(1, 0x0, 32, 0, 0) ||
 
 //  Internal flash ROM, range mode, no move
-//  speed_cmd(0, 0x0, 0, 1, 0) ||
+speed_cmd(0, 0x0, 0, 1, 0) ||
 
 //  External SPI flash, range mode, no move
-//  speed_cmd(1, 0x0, 0, 1, 0) ||
+speed_cmd(1, 0x0, 0, 1, 0) ||
 
 </code></pre>
-<h1 id="flash-map" class="section-header"><a href="#flash-map">10 Flash Map</a></h1>
+<h1 id="mcuboot-bootloader-with-spi-flash" class="section-header"><a href="#mcuboot-bootloader-with-spi-flash">10 MCUBoot Bootloader with SPI Flash</a></h1>
 <p>TODO</p>
-<h1 id="debugging-with-mcuboot" class="section-header"><a href="#debugging-with-mcuboot">11 Debugging with MCUBoot</a></h1>
+<p><a href="https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/bsp.yml"><code>hw/bsp/black_vet6/bsp.yml</code></a></p>
+<pre><code class="language-yaml">bsp.flash_map:
+    areas:
+        # System areas.
+        FLASH_AREA_BOOTLOADER:
+            device: 0
+            offset: 0x08000000
+            size: 32kB
+        FLASH_AREA_IMAGE_0:
+            device: 0
+            offset: 0x08020000
+            size: 256kB
+        FLASH_AREA_IMAGE_SCRATCH:
+            device: 0
+            offset: 0x08060000
+            size: 128kB
+
+        # User areas.
+        FLASH_AREA_REBOOT_LOG:
+            user_id: 0
+            device: 0
+            offset: 0x08008000
+            size: 32kB
+
+        FLASH_AREA_IMAGE_1:
+            device: 1
+            offset: 0x00000000
+            size: 256kB
+
+        FLASH_AREA_NFFS:
+            user_id: 1
+            device: 1
+            offset: 0x00040000
+            size: 32kB
+</code></pre>
+<h1 id="debug-spi-flash-with-mcuboot-bootloader" class="section-header"><a href="#debug-spi-flash-with-mcuboot-bootloader">11 Debug SPI Flash with MCUBoot Bootloader</a></h1>
 <p>If we're using the MCUBoot Bootloader (like on PineTime), debugging and testing SPI Flash can be somewhat challenging.</p>
 <p>Remember that we added the SPI Flash Driver to the Board Support Package?</p>
 <p>The Board Support Package is used by <em>both</em> the MCUBoot Bootloader as well as the Application Firmware. Which means that the SPI Flash Driver is loaded when MCUBoot starts.</p>
@@ -427,7 +480,9 @@ map_cmd(1) ||
 <p>TODO</p>
 <p>Based on https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml</p>
 <p>https://www.winbond.com/resource-files/w25q16jv%20spi%20revh%2004082019%20plus.pdf</p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">14 Further Reading</a></h1>
+<h1 id="spi-flash-file-system" class="section-header"><a href="#spi-flash-file-system">14 SPI Flash File System</a></h1>
+<p>TODO</p>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">15 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 
     

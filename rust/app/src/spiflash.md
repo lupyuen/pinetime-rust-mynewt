@@ -263,7 +263,7 @@ int test_flash() {
 }
 ```
 
-This code reads 32 bytes, starting at offset 0, from both Internal Flash ROM and External SPI Flash. As expected, the data read are different for Internal Flash ROM and External SPI Flash...
+This code reads 32 bytes, starting at offset 0, from both Internal Flash ROM and External SPI Flash. As expected, the flash memory contents are different for Internal Flash ROM and External SPI Flash...
 
 ```
 Testing flash...
@@ -331,9 +331,9 @@ Read 0x0 + 20
   0x0018: 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 
 ```
 
-_Why is SPI Flash wiped out with `0xff`?_
+_Why was SPI Flash wiped out with `0xff`?_
 
-That's what happens when we erase [NOR Flash Memory](https://en.wikipedia.org/wiki/Flash_memory#NOR_memories)... All bits get set to `1`.
+That's expected when we erase [NOR Flash Memory](https://en.wikipedia.org/wiki/Flash_memory#NOR_memories)... All bits will get set to `1`.
 
 When we write to NOR Flash Memory, we may only flip `1` bits to `0`, not `0` to `1`.
 
