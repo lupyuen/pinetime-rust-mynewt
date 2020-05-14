@@ -99,6 +99,8 @@ fn test_backlight() -> MynewtResult<()> {
                 &fastest_pulse) ? ;
         }
     }
+    //  Switch on the High backlight. Backlight is active when low.
+    backlights[2].set_low() ? ;
     Ok(())
 }
 
