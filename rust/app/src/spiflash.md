@@ -550,31 +550,33 @@ target.app: "apps/boot_stub"  # Use Stub Bootloader, which supports debugging
 
 Then edit the Bootloader OpenOCD Script [`scripts/nrf52/flash-boot.ocd`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.ocd)
 
-Comment out this `program` line (insert `#` at the beginning of the line)...
+Comment out the `program` line below (insert `#` at the beginning of the line)...
 
 ```
 # For MCUBoot (debugging not supported):
 # program bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin verify 0x00000000
 ```
 
-And uncomment this `program` line (remove `#` from the beginning of the line)...
+And uncomment the `program` line below (remove `#` from the beginning of the line)...
 
 ```
 # For Stub Bootloader (supports debugging):
 program bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf.bin verify 0x00000000
 ```
 
-Build the Stub Bootloader by clicking `Terminal -> Run Task -> Build Bootloader`. Or run the Bootloader Build Script [`scripts/nrf52/build-boot.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/build-boot.sh)
+Build the Stub Bootloader by clicking `Terminal -> Run Task -> Build Bootloader`. Or run the Bootloader Build Script: [`scripts/nrf52/build-boot.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/build-boot.sh)
 
-Flash the Stub Bootloader to PineTime by clicking `Terminal -> Run Task -> Flash Bootloader`. Or run the Bootloader Flash Script [`scripts/nrf52/flash-boot.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.sh)
+Flash the Stub Bootloader to PineTime by clicking `Terminal -> Run Task -> Flash Bootloader`. Or run the Bootloader Flash Script: [`scripts/nrf52/flash-boot.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.sh)
 
-Our PineTime is now ready for debugging!
+Our PineTime now boots with the Stub Bootloader... Ready for debugging!
 
 # Inside the SPI Flash Driver
 
-[`spiflash.h`](https://github.com/apache/mynewt-core/blob/master/hw/drivers/flash/spiflash/include/spiflash/spiflash.h)
+We have been using Mynewt's SPI Flash Driver: [`spiflash.h`](https://github.com/apache/mynewt-core/blob/master/hw/drivers/flash/spiflash/include/spiflash/spiflash.h) and [`spiflash.c`](https://github.com/apache/mynewt-core/blob/master/hw/drivers/flash/spiflash/src/spiflash.c)
 
-[`spiflash.c`](https://github.com/apache/mynewt-core/blob/master/hw/drivers/flash/spiflash/src/spiflash.c)
+Remember the configuration we have set in [`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml) like `SPIFLASH_MANUFACTURER`, `SPIFLASH_MEMORY_TYPE`, `SPIFLASH_MEMORY_CAPACITY`?
+
+The flash driver uses these configuration settings to determine how to access our SPI flash memory.
 
 Based on https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml
 
