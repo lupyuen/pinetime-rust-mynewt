@@ -222,15 +222,15 @@ The test code calls Mynewt's Flash HAL (Hardware Adaptation Layer) to access the
 
 1. __Erase Flash__ `hal_flash_erase(id, offset, size)`
 
-    Erase internal / external flash memory at the `offset` address, for `size` bytes
+    Erase internal / external flash memory at the `offset` address, for `size` bytes. [See `hal_flash_erase`](https://mynewt.apache.org/latest/os/modules/hal/hal_flash/hal_flash.html#c.hal_flash_erase)
 
 1. __Read Flash__ `hal_flash_read(id, offset, buf, sector_count)`
 
-    Read internal / external flash memory from the `offset` address into the `buf` buffer, for `sector_count` sectors. On PineTime, one sector contains 4 KB.
+    Read internal / external flash memory from the `offset` address into the `buf` buffer, for `sector_count` sectors. On PineTime, one sector contains 4 KB. [See `hal_flash_read`](https://mynewt.apache.org/latest/os/modules/hal/hal_flash/hal_flash.html#c.hal_flash_read)
 
 1. __Write Flash__ `hal_flash_write(id, offset, buf, sector_count)`
 
-    Write internal / external flash memory from the `buf` buffer to the `offset` address, for `sector_count` sectors. On PineTime, one sector contains 4 KB.
+    Write internal / external flash memory from the `buf` buffer to the `offset` address, for `sector_count` sectors. On PineTime, one sector contains 4 KB. [See `hal_flash_write`](https://mynewt.apache.org/latest/os/modules/hal/hal_flash/hal_flash.html#c.hal_flash_write)
 
 For the above functions, `id` is 0 for Internal Flash ROM, 1 for External SPI Flash.
 
