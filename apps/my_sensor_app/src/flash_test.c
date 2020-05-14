@@ -278,16 +278,16 @@ int test_flash() {
         //  range=0 for size mode, range=1 for range mode, move=1 for move
 
         //  Internal flash ROM, size mode, no move
-        speed_cmd(0, 0x0, 32, 0, 0) ||
+        //  speed_cmd(0, 0x0, 32, 0, 0) ||
 
         //  External SPI flash, size mode, no move
-        speed_cmd(1, 0x0, 32, 0, 0) ||
+        //  speed_cmd(1, 0x0, 32, 0, 0) ||
 
         //  Internal flash ROM, range mode, no move
-        speed_cmd(0, 0x0, 0, 1, 0) ||
+        //  speed_cmd(0, 0x0, 0, 1, 0) ||
 
         //  External SPI flash, range mode, no move
-        speed_cmd(1, 0x0, 0, 1, 0) ||
+        //  speed_cmd(1, 0x0, 0, 1, 0) ||
         0
     ) { 
         console_printf("Flash failed\n"); console_flush();
