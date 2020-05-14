@@ -524,6 +524,8 @@ Speed test, hal_flash_read(1, 0x0, X)
 | 192 | 43,300 | 1,883
 | 256 | 35,116 | 1,441
 
+6x to 24x
+
 # MCUBoot Bootloader with SPI Flash
 
 [__MCUBoot__](https://juullabs-oss.github.io/mcuboot/) is an open-source Bootloader that supports Mynewt, [RIOT](https://www.riot-os.org) and [Zephyr](https://www.zephyrproject.org) operating systems... It's the first thing that will [run on PineTime when it boots](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu).
