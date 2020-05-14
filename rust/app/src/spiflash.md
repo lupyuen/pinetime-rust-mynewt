@@ -30,7 +30,7 @@ Read on for the details...
 
 _`syscfg.yml`: Configuration for Board Support Package_
 
-# `syscfg.yml:` Configure pins for SPI Port
+# `syscfg.yml:` Configure Pins for SPI Port
 
 The first configuration file we'll edit is `syscfg.yml` from Mynewt's Board Support Package. For PineTime, this file is located at...
 
@@ -104,7 +104,7 @@ The JEDEC Device ID (`0x15`) is not used.
 
 `SPIFLASH_PAGE_SIZE` was copied from another Mynewt configuration: [`black_vet6`](https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml)
 
-# `syscfg.yml:` Configure flash timings
+# `syscfg.yml:` Configure Flash Timings
 
 Finally we edit [`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml) to tell Mynewt the timing characteristics of our Flash Memory...
 
@@ -362,6 +362,10 @@ Flash 1 at 0x0 size 0x3ff800 with 1024 sectors, alignment req 1 bytes
 ```
 
 # SPI Flash Benchmark
+
+TODO
+
+# Flash Map
 
 TODO
 
