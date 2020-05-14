@@ -534,35 +534,41 @@ Also MCUBoot expects the Application Firmware Image to start with the MCUBoot Im
 
 # Switch MCUBoot to Stub Bootloader
 
-[`targets/nrf52_boot/target.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_boot/target.yml)
+To switch the PineTime Bootloader from MCUBoot to the Stub Bootloader, edit the Bootloader Target Settings [`targets/nrf52_boot/target.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_boot/target.yml).
 
-```
-target.app: "@mcuboot/boot/mynewt"  # Use MCUBoot, which doesn't support debugging
+Comment out this line (insert `#` at the beginning of the line)...
+
+```yaml
+# target.app: "@mcuboot/boot/mynewt"  # Use MCUBoot, which doesn't support debugging
 ```
 
-```
+And uncomment this line (remove `#` from the beginning of the line)...
+
+```yaml
 target.app: "apps/boot_stub"  # Use Stub Bootloader, which supports debugging
 ```
 
-[`scripts/nrf52/flash-boot.ocd`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.ocd)
+Then edit the Bootloader OpenOCD Script [`scripts/nrf52/flash-boot.ocd`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.ocd)
+
+Comment out this `program` line (insert `#` at the beginning of the line)...
 
 ```
 # For MCUBoot (debugging not supported):
-program bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin verify 0x00000000
+# program bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin verify 0x00000000
 ```
+
+And uncomment this `program` line (remove `#` from the beginning of the line)...
 
 ```
 # For Stub Bootloader (supports debugging):
 program bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf.bin verify 0x00000000
 ```
 
-Build Bootloader
+Build the Stub Bootloader by clicking `Terminal -> Run Task -> Build Bootloader`. Or run the Bootloader Build Script [`scripts/nrf52/build-boot.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/build-boot.sh)
 
-[`scripts/nrf52/build-boot.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/build-boot.sh)
+Flash the Stub Bootloader to PineTime by clicking `Terminal -> Run Task -> Flash Bootloader`. Or run the Bootloader Flash Script [`scripts/nrf52/flash-boot.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.sh)
 
-Flash Bootloader
-
-[`scripts/nrf52/flash-boot.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.sh)
+Our PineTime is now ready for debugging!
 
 # Inside the SPI Flash Driver
 
