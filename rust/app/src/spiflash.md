@@ -218,86 +218,36 @@ Now let's write a simple program to read, write and erase the SPI Flash.
 
 TODO
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c
+[`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c)
 
 Based on https://github.com/apache/mynewt-core/blob/master/test/flash_test/src/flash_test.c
 
-```c
-////////////////////
-//  Dump Sector Map
-
-//  Dump sector map for internal flash ROM
-map_cmd(0) ||
-
-//  Dump sector map for external SPI flash
-map_cmd(1) ||
-
-////////////////////////////////
-//  Read Flash: Before erasing
-//  flash <flash-id> read <offset> <size> -- reads bytes from flash        
-
-//  Read internal flash ROM
-flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
-
-//  Read external SPI flash
-flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
-
-/////////////////////////////////////
-//  Erase Flash: Set all bits to 1
-//  flash <flash-id> erase <offset> <size> -- erases flash
-
-//  Erase external SPI flash
-flash_cmd(ERASE_COMMAND, 1, 0x0, 32) ||
-
-////////////////////////////////////////
-//  Read Flash: Shows all bits set to 1
-//  flash <flash-id> read <offset> <size> -- reads bytes from flash        
-
-//  Read internal flash ROM
-flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
-
-//  Read external SPI flash
-flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
-
-//////////////////////////////////////////////
-//  Write Flash: Write 0x01, 0x02, 0x03, ... (Must erase before writing)
-//  flash <flash-id> write <offset> <size> -- writes incrementing data pattern 0-8 to flash
-
-//  Write external SPI flash
-flash_cmd(WRITE_COMMAND, 1, 0x0, 32) ||
-
-////////////////////////////////////////////
-//  Read Flash: Shows 0x01, 0x02, 0x03, ...
-//  flash <flash-id> read <offset> <size> -- reads bytes from flash        
-
-//  Read internal flash ROM
-flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
-
-//  Read external SPI flash
-flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
-
-//////////////////////
-//  Test Flash Speed
-//  flash_speed <flash_id> <addr> <rd_sz>|range [move]
-//  range=0 for size mode, range=1 for range mode, move=1 for move
-
-//  Internal flash ROM, size mode, no move
-//  speed_cmd(0, 0x0, 32, 0, 0) ||
-
-//  External SPI flash, size mode, no move
-//  speed_cmd(1, 0x0, 32, 0, 0) ||
-
-//  Internal flash ROM, range mode, no move
-//  speed_cmd(0, 0x0, 0, 1, 0) ||
-
-//  External SPI flash, range mode, no move
-//  speed_cmd(1, 0x0, 0, 1, 0) ||
-0
-```
-
-# SPI Flash Test Output
+## Read SPI Flash
 
 TODO
+
+[`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c)
+
+```c
+/// Test internal flash ROM and external SPI flash
+int test_flash() {
+  //  Keep running tests until a test returns an error (non-zero result)
+  if (
+    ////////////////////////////////
+    //  Read Flash
+    //  <flash-id> <offset> <size>
+
+    //  Read internal flash ROM
+    flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
+
+    //  Read external SPI flash
+    flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
+    ...
+    0
+  ) { return -1; }  //  Tests failed
+    return 0;  //  Tests OK
+}
+```
 
 ```
 Testing flash...
@@ -313,9 +263,47 @@ Read 0x0 + 20
   0x0008: 0x09 0x0a 0x0b 0x0c 0x0d 0x0e 0x0f 0x10 
   0x0010: 0x11 0x12 0x13 0x14 0x15 0x16 0x17 0x18 
   0x0018: 0x19 0x1a 0x1b 0x1c 0x1d 0x1e 0x1f 0x20 
+```
+## Erase SPI Flash
+
+TODO
+
+[`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c)
+
+```c
+/////////////////////////////////////
+//  Erase Flash: Set all bits to 1
+//  <flash-id> <offset> <size>
+
+//  Erase external SPI flash
+flash_cmd(ERASE_COMMAND, 1, 0x0, 32) ||
+```
+
+```
 Erase External SPI Flash...
 Erase 0x0 + 20
 Done!
+```
+
+## Read SPI Flash After Erasing
+
+TODO
+
+[`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c)
+
+```c
+////////////////////////////////////////
+//  Read Flash
+//  <flash-id> read <offset> <size>
+
+//  Read internal flash ROM
+flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
+
+//  Read external SPI flash
+flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
+```
+
+```
 Read Internal Flash ROM...
 Read 0x0 + 20
   0x0000: 0x00 0x00 0x01 0x20 0xd9 0x00 0x00 0x00 
@@ -328,9 +316,49 @@ Read 0x0 + 20
   0x0008: 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 
   0x0010: 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 
   0x0018: 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 
+```
+
+## Write SPI Flash
+
+TODO
+
+[`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c)
+
+```c
+//////////////////////////////////////////////
+//  Write Flash: Write 0x01, 0x02, 0x03, ... 
+//  (Must erase before writing)
+//  <flash-id> <offset> <size>
+
+//  Write external SPI flash
+flash_cmd(WRITE_COMMAND, 1, 0x0, 32) ||
+```
+
+```
 Write External SPI Flash...
 Write 0x0 + 20
 Done!
+```
+
+## Read SPI Flash After Writing
+
+TODO
+
+[`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c)
+
+```c
+////////////////////////////////////////////
+//  Read Flash
+//  <flash-id> <offset> <size>
+
+//  Read internal flash ROM
+flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
+
+//  Read external SPI flash
+flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
+```
+
+```
 Read Internal Flash ROM...
 Read 0x0 + 20
   0x0000: 0x00 0x00 0x01 0x20 0xd9 0x00 0x00 0x00 
@@ -343,9 +371,28 @@ Read 0x0 + 20
   0x0008: 0x09 0x0a 0x0b 0x0c 0x0d 0x0e 0x0f 0x10 
   0x0010: 0x11 0x12 0x13 0x14 0x15 0x16 0x17 0x18 
   0x0018: 0x19 0x1a 0x1b 0x1c 0x1d 0x1e 0x1f 0x20 
-Flash OK
+```
 
-Flash Sector Map:
+## SPI Flash Sector Map
+
+TODO
+
+[`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c)
+
+```c
+////////////////////
+//  Dump Sector Map
+
+//  Dump sector map for internal flash ROM
+map_cmd(0) ||
+
+//  Dump sector map for external SPI flash
+map_cmd(1) ||
+
+```
+
+```
+Sector Map for Internal Flash ROM...
 Flash 0 at 0x0 size 0x80000 with 128 sectors, alignment req 1 bytes
   0:   1000
   1:   1000
@@ -353,6 +400,7 @@ Flash 0 at 0x0 size 0x80000 with 128 sectors, alignment req 1 bytes
   ...
   127: 1000
 
+Sector Map for SPI Flash...
 Flash 1 at 0x0 size 0x3ff800 with 1024 sectors, alignment req 1 bytes
   0:    ffe
   1:    ffe
@@ -364,6 +412,29 @@ Flash 1 at 0x0 size 0x3ff800 with 1024 sectors, alignment req 1 bytes
 # SPI Flash Benchmark
 
 TODO
+
+[`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c)
+
+```c
+//////////////////////
+//  Test Flash Speed
+//  <flash_id> <addr> <rd_sz>|range [move]
+
+//  range=0 for size mode, range=1 for range mode, move=1 for move
+
+//  Internal flash ROM, size mode, no move
+//  speed_cmd(0, 0x0, 32, 0, 0) ||
+
+//  External SPI flash, size mode, no move
+//  speed_cmd(1, 0x0, 32, 0, 0) ||
+
+//  Internal flash ROM, range mode, no move
+//  speed_cmd(0, 0x0, 0, 1, 0) ||
+
+//  External SPI flash, range mode, no move
+//  speed_cmd(1, 0x0, 0, 1, 0) ||
+
+```
 
 # Flash Map
 
