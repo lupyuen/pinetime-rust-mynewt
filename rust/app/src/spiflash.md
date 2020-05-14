@@ -137,10 +137,13 @@ _`hal_bsp.c`: Code for Board Support Package_
 
 # `hal_bsp.c:` Include `spiflash.h`
 
-TODO
+After editing [`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml) in the Board Support Package, let's make some minor tweaks to the source code (`hal_bsp.c`) of the Board Support Package.
 
+For PineTime, the source file is located at...
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c
+[`hw/bsp/nrf52/src/hal_bsp.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c)
+
+First we insert the header file for the SPI Flash Driver into [`hal_bsp.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c) like this...
 
 ```c
 #if MYNEWT_VAL(SPIFLASH)  //  If External SPI Flash exists...
@@ -148,14 +151,14 @@ https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_b
 #endif  //  MYNEWT_VAL(SPIFLASH)
 ```
 
-# `hal_bsp.c:` Define internal and external flash devices
+# `hal_bsp.c:` Define Internal and External Flash Devices
 
-TODO
+Next we define two Mynewt Flash Devices...
 
-Internal Flash ROM,
-External SPI Flash
+- __Internal Flash ROM__ with Flash Device ID 0
+- __External SPI Flash__ with Flash Device ID 1
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c
+Edit [`hal_bsp.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c) and insert this block of code...
 
 ```c
 /// Array of Flash Devices
@@ -167,12 +170,13 @@ static const struct hal_flash *flash_devs[] = {
 };
 ```
 
-# `hal_bsp.c:` Access flash devices by ID
+We'll use Flash Device ID 1 when accessing SPI Flash later.
 
-0 for Internal Flash ROM,
-1 for External SPI Flash
+# `hal_bsp.c:` Access Flash Devices by ID
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c
+Finally we edit the code to fetch the Flash Devices by the Flash Device ID.
+
+Edit [`hal_bsp.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c). Look for the function `hal_bsp_flash_dev()` and replace the function by this code...
 
 ```c
 /// Return the Flash Device for the ID. 0 for Internal Flash ROM, 1 for External SPI Flash
@@ -185,19 +189,30 @@ hal_bsp_flash_dev(uint8_t id)
     return flash_devs[id];
 }
 ```
+
+This function returns the Internal Flash ROM for ID 0, and External SPI Flash for ID 1.
+
 ![`pkg.yml`: Drivers for Board Support Package`](https://lupyuen.github.io/images/spiflash-config3.png)
 
 _`pkg.yml`: Drivers for Board Support Package_
 
 # `pkg.yml:` Add `spiflash` driver
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml
+The last file we'll edit is `pkg.yml` from the Board Support Package. For PineTime this file is located at...
+
+[`hw/bsp/nrf52/pkg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml)
+
+Edit [`pkg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml). Look for the `pkg.deps` section and add `spiflash` like this...
 
 ```yaml
 pkg.deps:
     ...
     - "@apache-mynewt-core/hw/drivers/flash/spiflash"  # SPI Flash Driver
 ```
+
+This starts up the SPI Flash Driver whenever Mynewt boots.  And we're done!
+
+Now let's write a simple program to read, write and erase the SPI Flash.
 
 # Test SPI Flash
 
