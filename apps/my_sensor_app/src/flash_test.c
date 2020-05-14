@@ -284,10 +284,10 @@ int test_flash() {
         speed_cmd(1, 0x0, 32, 0, 0) ||
 
         //  Internal flash ROM, range mode, no move
-        //  speed_cmd(0, 0x0, 0, 1, 0) ||
+        speed_cmd(0, 0x0, 0, 1, 0) ||
 
         //  External SPI flash, range mode, no move
-        //  speed_cmd(1, 0x0, 0, 1, 0) ||
+        speed_cmd(1, 0x0, 0, 1, 0) ||
         0
     ) { 
         console_printf("Flash failed\n"); console_flush();
@@ -414,6 +414,42 @@ Read 0x0 + 20
   0x0008: 0x09 0x0a 0x0b 0x0c 0x0d 0x0e 0x0f 0x10 
   0x0010: 0x11 0x12 0x13 0x14 0x15 0x16 0x17 0x18 
   0x0018: 0x19 0x1a 0x1b 0x1c 0x1d 0x1e 0x1f 0x20 
+Speed Test for Internal Flash ROM...
+Speed test, hal_flash_read(0, 0x0, 32)
+207503
+Speed Test for External SPI Flash...
+Speed test, hal_flash_read(1, 0x0, 32)
+16107
+Speed Test for Internal Flash ROM...
+Speed test, hal_flash_read(0, 0x0, X)
+  1 271962
+  2 261931
+  4 271962
+  8 260862
+ 16 241174
+ 24 221913
+ 32 207503
+ 48 182082
+ 64 162210
+ 96 133148
+128 112917
+192 86600
+256 70232
+Speed Test for External SPI Flash...
+Speed test, hal_flash_read(1, 0x0, X)
+  1 44139
+  2 42048
+  4 37684
+  8 31639
+ 16 23955
+ 24 19250
+ 32 16107
+ 48 12132
+ 64 9731
+ 96 6971
+128 5431
+192 3766
+256 2883
 Flash OK
 Rust test display
 */
