@@ -435,9 +435,9 @@ This says that SPI Flash has been configured with 1024 sectors, each sector 4 KB
 
 # SPI Flash Benchmark
 
-TODO
+_How fast can we read SPI Flash? Compared with Internal Flash ROM?_
 
-[`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c)
+Let's run the flash speed tests found in [`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c)...
 
 ```c
 //////////////////////
@@ -452,7 +452,7 @@ speed_cmd(0, 0x0, 32, 0, 0) ||
 speed_cmd(1, 0x0, 32, 0, 0) ||
 ```
 
-The code repeatedly reads 32 bytes from Internal Flash ROM and External SPI Flash... And counts how many Read Operations were completed in 2 seconds.
+This code repeatedly reads 32 bytes from Internal Flash ROM and External SPI Flash... And counts how many Read Operations were completed in 2 seconds.
 
 Here's the output...
 
@@ -475,7 +475,8 @@ When we divide the numbers by 2, we get the Read Operations Per Second...
 
 As expected, Internal Flash ROM is faster than External SPI Flash, roughly 13 times faster.
 
-Let's run the test speed on a range of data sizes, from 1 byte to 256 bytes...
+Let's run the test speed on a range of data sizes, from 1 byte to 256 bytes ([`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c)
+)...
 
 ```c
 //  Internal flash ROM, range mode, no move
