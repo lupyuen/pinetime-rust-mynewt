@@ -28,17 +28,27 @@
 #include <stdio.h>
 #include <string.h>
 
-//  From rust\piet-embedded\piet-embedded-graphics\src\display.rs
+//  GPIO Pins. From rust\piet-embedded\piet-embedded-graphics\src\display.rs
 #define DISPLAY_SPI   0  //  Mynewt SPI port 0
 #define DISPLAY_CS   25  //  LCD_CS (P0.25): Chip select
 #define DISPLAY_DC   18  //  LCD_RS (P0.18): Clock/data pin (CD)
 #define DISPLAY_RST  26  //  LCD_RESET (P0.26): Display reset
 #define DISPLAY_HIGH 23  //  LCD_BACKLIGHT_{LOW,MID,HIGH} (P0.14, 22, 23): Backlight (active low)
+#define BATCH_SIZE  256  //  Max number of SPI data bytes to be transmitted
 
+//  Screen Size
+#define ROW_COUNT 10 // 240
+#define COL_COUNT 240
+#define BYTES_PER_PIXEL 2
+
+//  ST7789 Colour Settings
 #define INVERTED 1  //  Display colours are inverted
 #define RGB      1  //  Display colours are RGB    
 
-//  From https://github.com/lupyuen/st7735-lcd-batch-rs/blob/master/src/instruction.rs
+//  Flash Device for Image
+#define FLASH_DEVICE 1  //  0 for Internal Flash ROM, 1 for External SPI Flash
+
+//  ST7789 Commands. From https://github.com/lupyuen/st7735-lcd-batch-rs/blob/master/src/instruction.rs
 #define NOP 0x00
 #define SWRESET 0x01
 #define RDDID 0x04
@@ -77,13 +87,14 @@
 #define GMCTRP1 0xE0
 #define GMCTRN1 0xE1
 
-//  From https://github.com/lupyuen/st7735-lcd-batch-rs/blob/master/src/lib.rs#L52-L58
+//  ST7789 Orientation. From https://github.com/lupyuen/st7735-lcd-batch-rs/blob/master/src/lib.rs#L52-L58
 #define Portrait 0x00
 #define Landscape 0x60
 #define PortraitSwapped 0xC0
 #define LandscapeSwapped 0xA0
 
 static int init_display(void);
+static int set_window(uint8_t left, uint8_t top, uint8_t right, uint8_t bottom);
 static int hard_reset(void);
 static int set_orientation(uint8_t orientation);
 static int write_command(uint8_t command, const uint8_t *params, uint16_t len);
@@ -91,7 +102,8 @@ static int write_data(const uint8_t *data, uint16_t len);
 static int transmit_spi(const uint8_t *data, uint16_t len);
 static void delay_ms(uint32_t ms);
 
-//  Screen Buffer: 240 * 240 * 2 / 1024 = 112.5 KB
+/// Buffer for reading flash and writing to display
+static uint8_t flash_buffer[BATCH_SIZE];
 
 /// Display an image from SPI Flash to ST7789 display controller. From https://github.com/lupyuen/pinetime-rust-mynewt/blob/main/logs/spi-non-blocking.log
 int display_image(void) {
@@ -99,6 +111,40 @@ int display_image(void) {
     int rc = init_display();  assert(rc == 0);
     rc = set_orientation(Landscape);  assert(rc == 0);
 
+    //  Render each row of pixels.
+    for (uint8_t row = 0; row < ROW_COUNT; row++) {
+        uint8_t top = row;
+        uint8_t bottom = row;
+        uint8_t left = 0;
+        //  Screen Buffer: 240 * 240 * 2 / 1024 = 112.5 KB
+        //  Render a batch of columns in that row.
+        for (;;) {
+            if (left >= COL_COUNT) { break; }
+
+            //  How many columns we will render in a batch.
+            uint16_t batch_columns = BATCH_SIZE / BYTES_PER_PIXEL;
+            uint16_t right = left + batch_columns - 1;
+            if (right >= COL_COUNT) { right = COL_COUNT - 1; }
+
+            //  How many bytes we will transmit.
+            uint16_t len = (right - left + 1) * BYTES_PER_PIXEL;
+
+            //  Read the bytes from flash memory.
+            uint32_t offset = ((top * COL_COUNT) + left) * BYTES_PER_PIXEL;
+            int rc = hal_flash_read(FLASH_DEVICE, offset, flash_buffer, len); assert(rc == 0);
+
+            //  Set the display window.
+            rc = set_window(left, top, right, bottom); assert(rc == 0);
+
+            //  Transmit the bytes.
+            rc = write_data(flash_buffer, len); 
+            assert(rc == 0);
+
+            left = right + 1;
+        }
+    }
+
+    /*
     //  Set Address Window Columns (CASET): st7735_lcd::draw() → set_pixel() → set_address_window()
     write_command(CASET, NULL, 0);
     static const uint8_t CASET1_PARA[] = { 0x00, 0x00, 0x00, 0x13 };
@@ -128,8 +174,26 @@ int display_image(void) {
     write_command(RAMWR, NULL, 0);
     static const uint8_t RAMWR2_PARA[] = { 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0 };
     write_data(RAMWR2_PARA, sizeof(RAMWR2_PARA));  //  40 bytes
+    */
 
     console_printf("Image displayed\n"); console_flush();
+    return 0;
+}
+
+/// Set the ST7789 display window to the coordinates (left, top), (right, bottom)
+static int set_window(uint8_t left, uint8_t top, uint8_t right, uint8_t bottom) {
+    assert(left < COL_COUNT && right < COL_COUNT && top < ROW_COUNT && bottom < ROW_COUNT);
+    assert(left <= right);
+    assert(top <= bottom);
+    //  Set Address Window Columns (CASET): st7735_lcd::draw() → set_pixel() → set_address_window()
+    int rc = write_command(CASET, NULL, 0); assert(rc == 0);
+    uint8_t col_para[4] = { 0x00, left, 0x00, right };
+    rc = write_data(col_para, 4); assert(rc == 0);
+
+    //  Set Address Window Rows (RASET): st7735_lcd::draw() → set_pixel() → set_address_window()
+    rc = write_command(RASET, NULL, 0); assert(rc == 0);
+    uint8_t row_para[4] = { 0x00, top, 0x00, bottom };
+    rc = write_data(row_para, 4); assert(rc == 0);
     return 0;
 }
 
