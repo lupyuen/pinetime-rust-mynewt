@@ -223,13 +223,13 @@ int test_flash() {
         //  Dump Sector Map
 
         //  Dump sector map for internal flash ROM
-        map_cmd(0) ||
+        //  map_cmd(0) ||
 
         //  Dump sector map for external SPI flash
-        map_cmd(1) ||
+        //  map_cmd(1) ||
 
         ///////////////////////////////////////////////////
-        //  Read Flash: Before erasing
+        //  Read Flash
         //  flash <flash-id> read <offset> <size> -- reads bytes from flash        
 
         //  Read internal flash ROM
@@ -239,38 +239,38 @@ int test_flash() {
         flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 
         ///////////////////////////////////////////////////
-        //  Erase Flash: Sets all bits to 1
+        //  Erase Flash: Set all bits to 1
         //  flash <flash-id> erase <offset> <size> -- erases flash
 
         //  Erase external SPI flash
-        flash_cmd(ERASE_COMMAND, 1, 0x0, 32) ||
+        //  flash_cmd(ERASE_COMMAND, 1, 0x0, 32) ||
 
         ///////////////////////////////////////////////////
-        //  Read Flash: Shows all bits set to 1
+        //  Read Flash After Erasing: Shows all bits set to 1
         //  flash <flash-id> read <offset> <size> -- reads bytes from flash        
 
         //  Read internal flash ROM
-        flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
+        //  flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
 
         //  Read external SPI flash
-        flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
+        //  flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 
         ///////////////////////////////////////////////////
-        //  Write Flash: Write 0x01, 0x02, 0x03, ... (Must erase before writing)
+        //  Write Flash After Erasing: Write 0x01, 0x02, 0x03, ... (Must erase before writing)
         //  flash <flash-id> write <offset> <size> -- writes incrementing data pattern 0-8 to flash
 
         //  Write external SPI flash
-        flash_cmd(WRITE_COMMAND, 1, 0x0, 32) ||
+        //  flash_cmd(WRITE_COMMAND, 1, 0x0, 32) ||
 
         ///////////////////////////////////////////////////
-        //  Read Flash: Shows 0x01, 0x02, 0x03, ...
+        //  Read Flash After Writing: Shows 0x01, 0x02, 0x03, ...
         //  flash <flash-id> read <offset> <size> -- reads bytes from flash        
 
         //  Read internal flash ROM
-        flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
+        //  flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
 
         //  Read external SPI flash
-        flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
+        //  flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 
         ///////////////////////////////////////////////////
         //  Test Flash Speed
