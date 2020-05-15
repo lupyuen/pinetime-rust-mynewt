@@ -102,32 +102,32 @@ int display_image(void) {
     //  Set Address Window Columns (CASET): st7735_lcd::draw() → set_pixel() → set_address_window()
     write_command(CASET, NULL, 0);
     static const uint8_t CASET1_PARA[] = { 0x00, 0x00, 0x00, 0x13 };
-    write_data(CASET1_PARA, sizeof(CASET1_PARA));
+    write_data(CASET1_PARA, sizeof(CASET1_PARA));  //  Col 0 to 19
 
     //  Set Address Window Rows (RASET): st7735_lcd::draw() → set_pixel() → set_address_window()
     write_command(RASET, NULL, 0);
     static const uint8_t RASET1_PARA[] = { 0x00, 0x00, 0x00, 0x00 };
-    write_data(RASET1_PARA, sizeof(RASET1_PARA));
+    write_data(RASET1_PARA, sizeof(RASET1_PARA));  //  Row 0 to 0
 
     //  Write Pixels (RAMWR): st7735_lcd::draw() → set_pixel()
     write_command(RAMWR, NULL, 0);
     static const uint8_t RAMWR1_PARA[] = { 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0 };
-    write_data(RAMWR1_PARA, sizeof(RAMWR1_PARA));
+    write_data(RAMWR1_PARA, sizeof(RAMWR1_PARA));  //  40 bytes
 
     //  Set Address Window Columns (CASET): st7735_lcd::draw() → set_pixel() → set_address_window()
     write_command(CASET, NULL, 0);
     static const uint8_t CASET2_PARA[] = { 0x00, 0x14, 0x00, 0x27 };
-    write_data(CASET2_PARA, sizeof(CASET2_PARA));
+    write_data(CASET2_PARA, sizeof(CASET2_PARA));  //  Col 20 to 39
 
     //  Set Address Window Rows (RASET): st7735_lcd::draw() → set_pixel() → set_address_window()
     write_command(RASET, NULL, 0);
     static const uint8_t RASET2_PARA[] = { 0x00, 0x00, 0x00, 0x00 };
-    write_data(RASET2_PARA, sizeof(RASET2_PARA));
+    write_data(RASET2_PARA, sizeof(RASET2_PARA));  //  Row 0 to 0
 
     //  Write Pixels (RAMWR): st7735_lcd::draw() → set_pixel()
     write_command(RAMWR, NULL, 0);
     static const uint8_t RAMWR2_PARA[] = { 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0 };
-    write_data(RAMWR2_PARA, sizeof(RAMWR2_PARA));
+    write_data(RAMWR2_PARA, sizeof(RAMWR2_PARA));  //  40 bytes
 
     console_printf("Image displayed\n"); console_flush();
     return 0;
