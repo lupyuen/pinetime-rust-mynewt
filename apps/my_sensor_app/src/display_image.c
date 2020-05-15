@@ -325,5 +325,25 @@ static int transmit_spi(const uint8_t *data, uint16_t len) {
 /// Sleep for the specified number of milliseconds
 static void delay_ms(uint32_t ms) {
     uint32_t delay_ticks = ms * OS_TICKS_PER_SEC / 1000;
+    //  TODO: os_time_delay() doesn't work in MCUBoot because the scheduler has not started
     os_time_delay(delay_ticks);
 }
+
+/*
+    ////
+    console_printf("Starting MCUBoot...\n"); console_flush();
+    //  The button on the side of the PineTime is disabled by default. To enable it, drive the button out pin (P0.15) high.
+    //  While enabled, the button in pin (P0.13) will be high when the button is pressed, and low when it is not pressed. 
+    #define PUSH_BUTTON_IN  13  //  P0.13: PUSH BUTTON_IN
+    #define PUSH_BUTTON_OUT 15  //  P0.15/TRACEDATA2: PUSH BUTTON_OUT
+    hal_gpio_init_out(PUSH_BUTTON_OUT, 1);  //  Enable the button
+    hal_gpio_init_in(PUSH_BUTTON_IN, HAL_GPIO_PULL_DOWN);  //  TODO: Or up / down
+    display_image();
+    console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
+    for (int i = 0; i < 10000000; i++) {
+        hal_gpio_read(PUSH_BUTTON_IN);
+    }
+    console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
+    console_printf("Booting...\n"); console_flush();
+    ////
+*/
