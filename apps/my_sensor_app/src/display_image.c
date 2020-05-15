@@ -91,6 +91,8 @@ static int write_data(const uint8_t *data, uint16_t len);
 static int transmit_spi(const uint8_t *data, uint16_t len);
 static void delay_ms(uint32_t ms);
 
+//  Screen Buffer: 240 * 240 * 2 / 1024 = 112.5 KB
+
 /// Display an image from SPI Flash to ST7789 display controller. From https://github.com/lupyuen/pinetime-rust-mynewt/blob/main/logs/spi-non-blocking.log
 int display_image(void) {
     console_printf("Displaying image...\n"); console_flush();
