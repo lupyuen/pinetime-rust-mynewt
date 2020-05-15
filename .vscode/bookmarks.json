@@ -283,5 +283,15 @@
 				"label": ""
 			}
 		]
+	},
+	{
+		"path": "$ROOTPATH$/rust/st7735-lcd-batch-rs/src/lib.rs",
+		"bookmarks": [
+			{
+				"line": 17,
+				"column": 13,
+				"label": ""
+			}
+		]
 	}
 ]
