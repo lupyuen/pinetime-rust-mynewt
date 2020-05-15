@@ -198,7 +198,7 @@
 		"path": "$ROOTPATH$/scripts/nrf52/flash-boot.ocd",
 		"bookmarks": [
 			{
-				"line": 27,
+				"line": 29,
 				"column": 15,
 				"label": ""
 			}

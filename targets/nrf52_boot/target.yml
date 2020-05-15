@@ -1,8 +1,8 @@
 # Bootloader Target Settings
 
 # Bootloader will be based on MCUBoot. Select "apps/boot_stub" for the Stub Bootloader.
-# target.app:           "@mcuboot/boot/mynewt"  # Use MCUBoot, which doesn't support debugging
-target.app:           "apps/boot_stub"  # Use Stub Bootloader, which supports debugging
+target.app:           "@mcuboot/boot/mynewt"  # Use MCUBoot, which doesn't support debugging
+# target.app:         "apps/boot_stub"  # Use Stub Bootloader, which supports debugging
 
 # Board Support Package (BSP) for the target
 target.bsp:           "hw/bsp/nrf52"
