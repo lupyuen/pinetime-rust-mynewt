@@ -96,6 +96,8 @@ mod app_network {
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
 
+    //  Test External SPI Flash. Must run before testing the display, to avoid contention for SPI port.
+
     //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
 
     //  Start the display
@@ -689,6 +691,8 @@ mod display {
     use embedded_graphics::{prelude::*, fonts, pixelcolor::Rgb565,
                             primitives::{Circle, Rectangle}};
     use mynewt::{result::*, sys::console};
+    use embedded_hal::{self, digital::v2::OutputPin,
+                       blocking::delay::DelayMs};
     /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
     pub fn test_display() -> MynewtResult<()> {
         console::print("Rust test display\n");
@@ -722,6 +726,52 @@ mod display {
         druid::draw_to_display(text);
         Ok(())
     }
+    /// Test backlight
+    fn test_backlight() -> MynewtResult<()> {
+        let mut delay = mynewt::Delay::new();
+        let mut backlights =
+            [mynewt::GPIO::new(), mynewt::GPIO::new(), mynewt::GPIO::new()];
+        backlights[0].init(14)?;
+        backlights[1].init(22)?;
+        backlights[2].init(23)?;
+        let slower_pulse =
+            [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1,
+             1, 1];
+        let slow_pulse = [0, 0, 0, 1, 1, 1, 2, 2, 2, 1, 1, 1];
+        let fast_pulse = [0, 0, 1, 1, 2, 2, 1, 1];
+        let faster_pulse = [0, 1, 2, 1];
+        let fastest_pulse = [0, 2];
+        for _ in 0..1 {
+            for _ in 0..4 {
+                flash_backlight(&mut backlights, &mut delay, &slower_pulse)?;
+            }
+            for _ in 0..4 {
+                flash_backlight(&mut backlights, &mut delay, &slow_pulse)?;
+            }
+            for _ in 0..6 {
+                flash_backlight(&mut backlights, &mut delay, &fast_pulse)?;
+            }
+            for _ in 0..8 {
+                flash_backlight(&mut backlights, &mut delay, &faster_pulse)?;
+            }
+            for _ in 0..20 {
+                flash_backlight(&mut backlights, &mut delay, &fastest_pulse)?;
+            }
+        }
+        backlights[2].set_low()?;
+        Ok(())
+    }
+    /// Flash backlight according to the pattern: 0=Low, 1=Mid, 2=High
+    fn flash_backlight(backlights: &mut [mynewt::GPIO; 3],
+                       delay: &mut mynewt::Delay, pattern: &[i32])
+     -> MynewtResult<()> {
+        for brightness in pattern {
+            backlights[*brightness as usize].set_low()?;
+            delay.delay_ms(10);
+            backlights[*brightness as usize].set_high()?;
+        }
+        Ok(())
+    }
 }
 use core::panic::PanicInfo;
 use cortex_m::asm::bkpt;
@@ -738,6 +788,11 @@ pub fn handle_touch(_x: u16, _y: u16) {
 #[no_mangle]
 extern "C" fn main() -> ! {
     mynewt::sysinit();
+    extern {
+        fn test_flash() -> i32;
+    }
+    let rc = unsafe { test_flash() };
+    if !(rc == 0) { ::core::panicking::panic("FLASH fail") };
     extern {
         fn start_ble() -> i32;
     }

@@ -11559,6 +11559,40 @@ mod hal {
         pub fn init(&mut self, spi_num: i32, cs_pin: i32,
                     spi_settings: *mut hal::hal_spi_settings)
          -> MynewtResult<()> {
+            let rc = unsafe { hal::hal_spi_disable(spi_num) };
+            {
+                match (&(rc), &(0)) {
+                    (left_val, right_val) => {
+                        if !(*left_val == *right_val) {
+                            ::core::panicking::panic_fmt(::core::fmt::Arguments::new_v1(&["assertion failed: `(left == right)`\n  left: `",
+                                                                                          "`,\n right: `",
+                                                                                          "`: "],
+                                                                                        &match (&&*left_val,
+                                                                                                &&*right_val,
+                                                                                                &::core::fmt::Arguments::new_v1(&["spi disable fail"],
+                                                                                                                                &match ()
+                                                                                                                                     {
+                                                                                                                                     ()
+                                                                                                                                     =>
+                                                                                                                                     [],
+                                                                                                                                 }))
+                                                                                             {
+                                                                                             (arg0,
+                                                                                              arg1,
+                                                                                              arg2)
+                                                                                             =>
+                                                                                             [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                           ::core::fmt::Debug::fmt),
+                                                                                              ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                           ::core::fmt::Debug::fmt),
+                                                                                              ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                                           ::core::fmt::Display::fmt)],
+                                                                                         }),
+                                                         ::core::panic::Location::caller())
+                        }
+                    }
+                }
+            };
             let rc = unsafe { hal::hal_spi_config(spi_num, spi_settings) };
             {
                 match (&(rc), &(0)) {

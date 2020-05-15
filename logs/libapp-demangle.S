@@ -1239,7 +1239,7 @@ app-2c84bd17359ee43e.2j1ba2thuuo0vuxg.rcgu.o:     file format elf32-littlearm
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 2j1ba2thuuo0vuxg
-000001b9 l       .debug_str	00000000 
+000001b4 l       .debug_str	00000000 
 0000048d l       .debug_str	00000000 
 00000488 l       .debug_str	00000000 
 000004bb l       .debug_str	00000000 
@@ -1256,14 +1256,16 @@ SYMBOL TABLE:
 00000379 l       .debug_str	00000000 
 0000036e l       .debug_str	00000000 
 0000036a l       .debug_str	00000000 
-000004b1 l       .debug_str	00000000 
 0000035c l       .debug_str	00000000 
 00000352 l       .debug_str	00000000 
+000004b1 l       .debug_str	00000000 
 00000341 l       .debug_str	00000000 
 0000033c l       .debug_str	00000000 
 00000323 l       .debug_str	00000000 
 00000317 l       .debug_str	00000000 
 0000030e l       .debug_str	00000000 
+0000030a l       .debug_str	00000000 
+00000303 l       .debug_str	00000000 
 0000049a l       .debug_str	00000000 
 00000000 l       .debug_str	00000000 
 00000041 l       .debug_str	00000000 
@@ -1306,8 +1308,8 @@ SYMBOL TABLE:
 0000018e l       .debug_str	00000000 
 00000194 l       .debug_str	00000000 
 000001a8 l       .debug_str	00000000 
-000001b4 l       .debug_str	00000000 
-0000030a l       .debug_str	00000000 
+000002f4 l       .debug_str	00000000 
+000001b9 l       .debug_str	00000000 
 000001c1 l       .debug_str	00000000 
 000001c8 l       .debug_str	00000000 
 000001cc l       .debug_str	00000000 
@@ -1342,27 +1344,27 @@ SYMBOL TABLE:
 000002e5 l       .debug_str	00000000 
 000002eb l       .debug_str	00000000 
 000002f1 l       .debug_str	00000000 
-000002f4 l       .debug_str	00000000 
-00000303 l       .debug_str	00000000 
 00000491 l       .debug_str	00000000 
 00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.0	00000012 .Lanon.20dbb438014a7c698031c58c53dad8e4.0
-00000000 l     O .rodata.cst8	00000008 .Lanon.20dbb438014a7c698031c58c53dad8e4.1
-00000018 l     O .rodata.cst8	00000008 .Lanon.20dbb438014a7c698031c58c53dad8e4.10
+00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.1	0000000a .Lanon.20dbb438014a7c698031c58c53dad8e4.1
+00000010 l     O .rodata.cst8	00000008 .Lanon.20dbb438014a7c698031c58c53dad8e4.10
 00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.11	00000010 .Lanon.20dbb438014a7c698031c58c53dad8e4.11
-00000020 l     O .rodata.cst8	00000008 .Lanon.20dbb438014a7c698031c58c53dad8e4.12
+00000018 l     O .rodata.cst8	00000008 .Lanon.20dbb438014a7c698031c58c53dad8e4.12
 00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.13	00000010 .Lanon.20dbb438014a7c698031c58c53dad8e4.13
-00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.14	00000006 .Lanon.20dbb438014a7c698031c58c53dad8e4.14
-00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.15	00000007 .Lanon.20dbb438014a7c698031c58c53dad8e4.15
-00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.16	00000003 .Lanon.20dbb438014a7c698031c58c53dad8e4.16
-00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.17	00000006 .Lanon.20dbb438014a7c698031c58c53dad8e4.17
-00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.18	00000001 .Lanon.20dbb438014a7c698031c58c53dad8e4.18
-00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.19	00000010 .Lanon.20dbb438014a7c698031c58c53dad8e4.19
+00000020 l     O .rodata.cst8	00000008 .Lanon.20dbb438014a7c698031c58c53dad8e4.14
+00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.15	00000010 .Lanon.20dbb438014a7c698031c58c53dad8e4.15
+00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.16	00000006 .Lanon.20dbb438014a7c698031c58c53dad8e4.16
+00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.17	00000007 .Lanon.20dbb438014a7c698031c58c53dad8e4.17
+00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.18	00000003 .Lanon.20dbb438014a7c698031c58c53dad8e4.18
+00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.19	00000006 .Lanon.20dbb438014a7c698031c58c53dad8e4.19
+00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.20	00000001 .Lanon.20dbb438014a7c698031c58c53dad8e4.20
+00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.21	00000010 .Lanon.20dbb438014a7c698031c58c53dad8e4.21
 00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.3	00000010 .Lanon.20dbb438014a7c698031c58c53dad8e4.3
-00000008 l     O .rodata.cst8	00000008 .Lanon.20dbb438014a7c698031c58c53dad8e4.4
+00000000 l     O .rodata.cst8	00000008 .Lanon.20dbb438014a7c698031c58c53dad8e4.4
 00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.5	00000010 .Lanon.20dbb438014a7c698031c58c53dad8e4.5
-00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.6	0000000d .Lanon.20dbb438014a7c698031c58c53dad8e4.6
+00000008 l     O .rodata.cst8	00000008 .Lanon.20dbb438014a7c698031c58c53dad8e4.6
 00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.7	00000010 .Lanon.20dbb438014a7c698031c58c53dad8e4.7
-00000010 l     O .rodata.cst8	00000008 .Lanon.20dbb438014a7c698031c58c53dad8e4.8
+00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.8	0000000d .Lanon.20dbb438014a7c698031c58c53dad8e4.8
 00000000 l     O .rodata..Lanon.20dbb438014a7c698031c58c53dad8e4.9	00000010 .Lanon.20dbb438014a7c698031c58c53dad8e4.9
 00000000 l    d  .text._ZN3app12handle_touch17hea6f2025bf0a039eE	00000000 .text._ZN3app12handle_touch17hea6f2025bf0a039eE
 00000000 l    d  .text.main	00000000 .text.main
@@ -1393,9 +1395,10 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 mynewt::kernel::os::eventq_run
 00000000         *UND*	00000000 mynewt::kernel::os::eventq_dflt_get
 00000000         *UND*	00000000 mynewt::sysinit
-00000000 g     F .text.main	000000e2 main
+00000000 g     F .text.main	0000010a main
 00000000 g     F .text.rust_begin_unwind	000000f8 rust_begin_unwind
 00000000         *UND*	00000000 start_ble
+00000000         *UND*	00000000 test_flash
 
 
 
@@ -1438,7 +1441,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:79
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
 #[no_mangle]                 //  Don't mangle the name "main"
 extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
-   0:	b088      	sub	sp, #32
+   0:	b08a      	sub	sp, #40	; 0x28
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:84
     //  Initialise the Mynewt packages and internal temperature sensor driver. Any startup
     //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
@@ -1446,126 +1449,149 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:84
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
     mynewt::sysinit();
    2:	f7ff fffe 	bl	0 <mynewt::sysinit>
-   6:	e7ff      	b.n	2 <start_ble+0x2>
+   6:	e7ff      	b.n	2 <test_flash+0x2>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:88
+
+    //  Test External SPI Flash. Must run before testing the display, to avoid contention for SPI port.
+    extern { fn test_flash() -> i32; }
+    let rc = unsafe { test_flash() };
+   8:	f7ff fffe 	bl	0 <test_flash>
+   c:	9006      	str	r0, [sp, #24]
+   e:	e7ff      	b.n	10 <main+0x10>
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:89
+    assert!(rc == 0, "FLASH fail");
+  10:	9806      	ldr	r0, [sp, #24]
+  12:	2800      	cmp	r0, #0
+  14:	d104      	bne.n	20 <main+0x20>
+  16:	e7ff      	b.n	18 <main+0x18>
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:93
 
     //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
     extern { fn start_ble() -> i32; }
     let rc = unsafe { start_ble() };
-   8:	f7ff fffe 	bl	0 <start_ble>
-   c:	9005      	str	r0, [sp, #20]
-   e:	e7ff      	b.n	10 <main+0x10>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:89
-    assert!(rc == 0, "BLE fail");
-  10:	9805      	ldr	r0, [sp, #20]
-  12:	2800      	cmp	r0, #0
-  14:	d104      	bne.n	20 <main+0x20>
-  16:	e7ff      	b.n	18 <main+0x18>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:92
-
-    //  Start the display
-    druid::start_display()
-  18:	f7ff fffe 	bl	0 <piet_embedded_graphics::display::start_display>
-  1c:	9004      	str	r0, [sp, #16]
+  18:	f7ff fffe 	bl	0 <start_ble>
+  1c:	9007      	str	r0, [sp, #28]
   1e:	e00b      	b.n	38 <main+0x38>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:89
-    assert!(rc == 0, "BLE fail");
+    assert!(rc == 0, "FLASH fail");
   20:	f240 0000 	movw	r0, #0
   24:	f2c0 0000 	movt	r0, #0
   28:	f240 0200 	movw	r2, #0
   2c:	f2c0 0200 	movt	r2, #0
-  30:	2108      	movs	r1, #8
+  30:	210a      	movs	r1, #10
   32:	f7ff fffe 	bl	0 <core::panicking::panic>
   36:	defe      	udf	#254	; 0xfe
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:92
-    druid::start_display()
-  38:	f240 0100 	movw	r1, #0
-  3c:	f2c0 0100 	movt	r1, #0
-  40:	f240 0300 	movw	r3, #0
-  44:	f2c0 0300 	movt	r3, #0
-  48:	2208      	movs	r2, #8
-  4a:	9804      	ldr	r0, [sp, #16]
-  4c:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
-  50:	e7ff      	b.n	2 <app::display::test_display+0x2>
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:94
+    assert!(rc == 0, "BLE fail");
+  38:	9807      	ldr	r0, [sp, #28]
+  3a:	2800      	cmp	r0, #0
+  3c:	d104      	bne.n	48 <main+0x48>
+  3e:	e7ff      	b.n	40 <main+0x40>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:97
+
+    //  Start the display
+    druid::start_display()
+  40:	f7ff fffe 	bl	0 <piet_embedded_graphics::display::start_display>
+  44:	9005      	str	r0, [sp, #20]
+  46:	e00b      	b.n	60 <main+0x60>
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:94
+    assert!(rc == 0, "BLE fail");
+  48:	f240 0000 	movw	r0, #0
+  4c:	f2c0 0000 	movt	r0, #0
+  50:	f240 0200 	movw	r2, #0
+  54:	f2c0 0200 	movt	r2, #0
+  58:	2108      	movs	r1, #8
+  5a:	f7ff fffe 	bl	0 <core::panicking::panic>
+  5e:	defe      	udf	#254	; 0xfe
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:97
+    druid::start_display()
+  60:	f240 0100 	movw	r1, #0
+  64:	f2c0 0100 	movt	r1, #0
+  68:	f240 0300 	movw	r3, #0
+  6c:	f2c0 0300 	movt	r3, #0
+  70:	2208      	movs	r2, #8
+  72:	9805      	ldr	r0, [sp, #20]
+  74:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
+  78:	e7ff      	b.n	2 <app::display::test_display+0x2>
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:102
         .expect("DSP fail");
 
     //  Test the display
     #[cfg(feature = "display_app")]  //  If graphics display app is enabled...
     display::test_display()
-  52:	f7ff fffe 	bl	0 <app::display::test_display>
-  56:	9003      	str	r0, [sp, #12]
-  58:	e7ff      	b.n	5a <main+0x5a>
-  5a:	f240 0100 	movw	r1, #0
-  5e:	f2c0 0100 	movt	r1, #0
-  62:	f240 0300 	movw	r3, #0
-  66:	f2c0 0300 	movt	r3, #0
-  6a:	220d      	movs	r2, #13
-  6c:	9803      	ldr	r0, [sp, #12]
-  6e:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
-  72:	e7ff      	b.n	2 <app::touch_sensor::start_touch_sensor+0x2>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:101
+  7a:	f7ff fffe 	bl	0 <app::display::test_display>
+  7e:	9004      	str	r0, [sp, #16]
+  80:	e7ff      	b.n	82 <main+0x82>
+  82:	f240 0100 	movw	r1, #0
+  86:	f2c0 0100 	movt	r1, #0
+  8a:	f240 0300 	movw	r3, #0
+  8e:	f2c0 0300 	movt	r3, #0
+  92:	220d      	movs	r2, #13
+  94:	9804      	ldr	r0, [sp, #16]
+  96:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
+  9a:	e7ff      	b.n	2 <app::touch_sensor::start_touch_sensor+0x2>
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:106
         .expect("DSP test fail");
 
     //  Start the touch sensor
     touch_sensor::start_touch_sensor()
-  74:	f7ff fffe 	bl	0 <app::touch_sensor::start_touch_sensor>
-  78:	9002      	str	r0, [sp, #8]
-  7a:	e7ff      	b.n	7c <main+0x7c>
-  7c:	f240 0100 	movw	r1, #0
-  80:	f2c0 0100 	movt	r1, #0
-  84:	f240 0300 	movw	r3, #0
-  88:	f2c0 0300 	movt	r3, #0
-  8c:	2208      	movs	r2, #8
-  8e:	9802      	ldr	r0, [sp, #8]
-  90:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
-  94:	e7ff      	b.n	96 <main+0x96>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:123
+  9c:	f7ff fffe 	bl	0 <app::touch_sensor::start_touch_sensor>
+  a0:	9003      	str	r0, [sp, #12]
+  a2:	e7ff      	b.n	a4 <main+0xa4>
+  a4:	f240 0100 	movw	r1, #0
+  a8:	f2c0 0100 	movt	r1, #0
+  ac:	f240 0300 	movw	r3, #0
+  b0:	f2c0 0300 	movt	r3, #0
+  b4:	2208      	movs	r2, #8
+  b6:	9803      	ldr	r0, [sp, #12]
+  b8:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
+  bc:	e7ff      	b.n	be <main+0xbe>
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:128
     #[cfg(feature = "chip8_app")]  //  If CHIP8 Emulator app is enabled...
     chip8::on_start()
         .expect("CHIP8 fail");
 
     //  Main event loop
     loop {                            //  Loop forever...
-  96:	e7ff      	b.n	98 <main+0x98>
-  98:	a806      	add	r0, sp, #24
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:125
+  be:	e7ff      	b.n	c0 <main+0xc0>
+  c0:	a808      	add	r0, sp, #32
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:130
         os::eventq_run(               //  Processing events...
             os::eventq_dflt_get()     //  From default event queue.
-  9a:	f7ff fffe 	bl	0 <mynewt::kernel::os::eventq_dflt_get>
-  9e:	e7ff      	b.n	1a <main+0x1a>
-  a0:	f240 0100 	movw	r1, #0
-  a4:	f2c0 0100 	movt	r1, #0
-  a8:	f240 0300 	movw	r3, #0
-  ac:	f2c0 0300 	movt	r3, #0
-  b0:	a806      	add	r0, sp, #24
-  b2:	2208      	movs	r2, #8
-  b4:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
-  b8:	9001      	str	r0, [sp, #4]
-  ba:	e7ff      	b.n	bc <main+0xbc>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:124
+  c2:	f7ff fffe 	bl	0 <mynewt::kernel::os::eventq_dflt_get>
+  c6:	e7ff      	b.n	1a <main+0x1a>
+  c8:	f240 0100 	movw	r1, #0
+  cc:	f2c0 0100 	movt	r1, #0
+  d0:	f240 0300 	movw	r3, #0
+  d4:	f2c0 0300 	movt	r3, #0
+  d8:	a808      	add	r0, sp, #32
+  da:	2208      	movs	r2, #8
+  dc:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
+  e0:	9002      	str	r0, [sp, #8]
+  e2:	e7ff      	b.n	e4 <main+0xe4>
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:129
         os::eventq_run(               //  Processing events...
-  bc:	9801      	ldr	r0, [sp, #4]
-  be:	f7ff fffe 	bl	0 <mynewt::kernel::os::eventq_run>
-  c2:	9000      	str	r0, [sp, #0]
-  c4:	e7ff      	b.n	c6 <main+0xc6>
-  c6:	f240 0100 	movw	r1, #0
-  ca:	f2c0 0100 	movt	r1, #0
-  ce:	f240 0300 	movw	r3, #0
-  d2:	f2c0 0300 	movt	r3, #0
-  d6:	2208      	movs	r2, #8
-  d8:	9800      	ldr	r0, [sp, #0]
-  da:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
-  de:	e7ff      	b.n	e0 <main+0xe0>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:123
+  e4:	9802      	ldr	r0, [sp, #8]
+  e6:	f7ff fffe 	bl	0 <mynewt::kernel::os::eventq_run>
+  ea:	9001      	str	r0, [sp, #4]
+  ec:	e7ff      	b.n	ee <main+0xee>
+  ee:	f240 0100 	movw	r1, #0
+  f2:	f2c0 0100 	movt	r1, #0
+  f6:	f240 0300 	movw	r3, #0
+  fa:	f2c0 0300 	movt	r3, #0
+  fe:	2208      	movs	r2, #8
+ 100:	9801      	ldr	r0, [sp, #4]
+ 102:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
+ 106:	e7ff      	b.n	108 <main+0x108>
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:128
     loop {                            //  Loop forever...
-  e0:	e7da      	b.n	98 <main+0x98>
+ 108:	e7da      	b.n	c0 <main+0xc0>
 
 Disassembly of section .text.rust_begin_unwind:
 
 00000000 <rust_begin_unwind>:
 rust_begin_unwind():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:134
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:139
     //  Never comes here
 }
 
@@ -1574,7 +1600,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:134
 fn panic(info: &PanicInfo) -> ! {
    0:	b08a      	sub	sp, #40	; 0x28
    2:	9004      	str	r0, [sp, #16]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:136
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:141
     //  Display the filename and line number to the Semihosting Console.
     console::print("panic ");
    4:	f240 0000 	movw	r0, #0
@@ -1582,7 +1608,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:136
    c:	2106      	movs	r1, #6
    e:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
   12:	e7ff      	b.n	14 <rust_begin_unwind+0x14>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:137
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:142
     if let Some(location) = info.location() {
   14:	9804      	ldr	r0, [sp, #16]
   16:	f7ff fffe 	bl	0 <core::panic::PanicInfo::location>
@@ -1592,7 +1618,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:137
   20:	2800      	cmp	r0, #0
   22:	d108      	bne.n	36 <rust_begin_unwind+0x36>
   24:	e7ff      	b.n	26 <rust_begin_unwind+0x26>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:144
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:149
         let line = location.line();
         console::print("at ");       console::buffer(&file);
         console::print(" line ");    console::printint(line as i32);
@@ -1604,24 +1630,24 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:144
   2e:	2107      	movs	r1, #7
   30:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
   34:	e031      	b.n	9a <rust_begin_unwind+0x9a>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:137
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:142
     if let Some(location) = info.location() {
   36:	9805      	ldr	r0, [sp, #20]
   38:	9006      	str	r0, [sp, #24]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:138
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:143
         let file = location.file();
   3a:	9806      	ldr	r0, [sp, #24]
   3c:	f7ff fffe 	bl	0 <core::panic::Location::file>
   40:	9108      	str	r1, [sp, #32]
   42:	9007      	str	r0, [sp, #28]
   44:	e7ff      	b.n	46 <rust_begin_unwind+0x46>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:139
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:144
         let line = location.line();
   46:	9806      	ldr	r0, [sp, #24]
   48:	f7ff fffe 	bl	0 <core::panic::Location::line>
   4c:	9009      	str	r0, [sp, #36]	; 0x24
   4e:	e7ff      	b.n	50 <rust_begin_unwind+0x50>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:140
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:145
         console::print("at ");       console::buffer(&file);
   50:	f240 0000 	movw	r0, #0
   54:	f2c0 0000 	movt	r0, #0
@@ -1632,7 +1658,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:140
   62:	9908      	ldr	r1, [sp, #32]
   64:	f7ff fffe 	bl	0 <mynewt::sys::console::buffer>
   68:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:141
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:146
         console::print(" line ");    console::printint(line as i32);
   6a:	f240 0000 	movw	r0, #0
   6e:	f2c0 0000 	movt	r0, #0
@@ -1642,7 +1668,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:141
   7a:	9809      	ldr	r0, [sp, #36]	; 0x24
   7c:	f7ff fffe 	bl	0 <mynewt::sys::console::printint>
   80:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:142
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:147
         console::print("\n");        console::flush();
   82:	f240 0000 	movw	r0, #0
   86:	f2c0 0000 	movt	r0, #0
@@ -1651,14 +1677,14 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:142
   90:	e7ff      	b.n	2 <mynewt::sys::console::flush+0x2>
   92:	f7ff fffe 	bl	0 <mynewt::sys::console::flush>
   96:	e7ff      	b.n	98 <rust_begin_unwind+0x98>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:137
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:142
     if let Some(location) = info.location() {
   98:	e003      	b.n	a2 <rust_begin_unwind+0xa2>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:144
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:149
         console::print("no loc\n");  console::flush();
   9a:	f7ff fffe 	bl	0 <mynewt::sys::console::flush>
   9e:	e7ff      	b.n	a0 <rust_begin_unwind+0xa0>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:137
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:142
     if let Some(location) = info.location() {
   a0:	e7ff      	b.n	a2 <rust_begin_unwind+0xa2>
 _ZN8cortex_m3asm4bkpt17heaf2dfb2ecf6f289E():
@@ -1671,12 +1697,12 @@ pub fn bkpt() {
         () => unsafe { asm!("bkpt" :::: "volatile") },
   a2:	be00      	bkpt	0x0000
 rust_begin_unwind():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:147
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:152
     }
     //  Pause in the debugger.
     bkpt();
   a4:	e7ff      	b.n	a6 <rust_begin_unwind+0xa6>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:149
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:154
     //  Display the payload.
     console::print(info.payload().downcast_ref::<&str>().unwrap());
   a6:	9804      	ldr	r0, [sp, #16]
@@ -1701,7 +1727,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:149
   d6:	6849      	ldr	r1, [r1, #4]
   d8:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
   dc:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:150
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:155
     console::print("\n");  console::flush();
   de:	f240 0000 	movw	r0, #0
   e2:	f2c0 0000 	movt	r0, #0
@@ -1710,7 +1736,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:150
   ec:	e7ff      	b.n	2 <mynewt::sys::console::flush+0x2>
   ee:	f7ff fffe 	bl	0 <mynewt::sys::console::flush>
   f2:	e7ff      	b.n	f4 <rust_begin_unwind+0xf4>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:152
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:157
     //  Loop forever so that device won't restart.
     loop {}
   f4:	e7ff      	b.n	f6 <rust_begin_unwind+0xf6>
@@ -1840,16 +1866,16 @@ Disassembly of section .text._ZN3app7display12test_display17ha63280ad8b026b33E:
 
 00000000 <app::display::test_display>:
 _ZN3app7display12test_display17ha63280ad8b026b33E():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:17
-    result::*,
-    sys::console,
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:22
+    digital::v2::OutputPin,
+    blocking::delay::DelayMs,
 };
 
 /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
 pub fn test_display() -> MynewtResult<()> {
    0:	b570      	push	{r4, r5, r6, lr}
    2:	f5ad 7d00 	sub.w	sp, sp, #512	; 0x200
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:18
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:23
     console::print("Rust test display\n"); console::flush();
    6:	f240 0000 	movw	r0, #0
    a:	f2c0 0000 	movt	r0, #0
@@ -1859,7 +1885,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:18
   16:	f7ff fffe 	bl	0 <mynewt::sys::console::flush>
   1a:	e7ff      	b.n	1c <app::display::test_display+0x1c>
   1c:	2000      	movs	r0, #0
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:22
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:27
     
     //  Create black background
     let background = Rectangle::<Rgb565>
@@ -1877,7 +1903,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:22
   36:	9012      	str	r0, [sp, #72]	; 0x48
   38:	9111      	str	r1, [sp, #68]	; 0x44
   3a:	e7ff      	b.n	3c <app::display::test_display+0x3c>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:21
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:26
     let background = Rectangle::<Rgb565>
   3c:	4668      	mov	r0, sp
   3e:	9911      	ldr	r1, [sp, #68]	; 0x44
@@ -1889,7 +1915,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:21
   4a:	f7ff fffe 	bl	0 <embedded_graphics::primitives::rectangle::Rectangle<C>::new>
   4e:	e7ff      	b.n	50 <app::display::test_display+0x50>
   50:	2000      	movs	r0, #0
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:23
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:28
         .fill( Some( Rgb565::from(( 0x00, 0x00, 0x00 )) ) );  //  Black
   52:	f88d 0098 	strb.w	r0, [sp, #152]	; 0x98
   56:	f88d 0099 	strb.w	r0, [sp, #153]	; 0x99
@@ -1904,7 +1930,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:23
   74:	f8ad 0096 	strh.w	r0, [sp, #150]	; 0x96
   78:	2101      	movs	r1, #1
   7a:	f8ad 1094 	strh.w	r1, [sp, #148]	; 0x94
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:21
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:26
     let background = Rectangle::<Rgb565>
   7e:	f8bd 3096 	ldrh.w	r3, [sp, #150]	; 0x96
   82:	f8bd 2094 	ldrh.w	r2, [sp, #148]	; 0x94
@@ -1913,7 +1939,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:21
   8a:	f7ff fffe 	bl	0 <<embedded_graphics::primitives::rectangle::Rectangle<C> as embedded_graphics::style::WithStyle<C>>::fill>
   8e:	e7ff      	b.n	90 <app::display::test_display+0x90>
   90:	2028      	movs	r0, #40	; 0x28
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:27
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:32
 
     //  Create circle
     let circle = Circle::<Rgb565>
@@ -1926,14 +1952,14 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:27
   9e:	e7ff      	b.n	a0 <app::display::test_display+0xa0>
   a0:	a82d      	add	r0, sp, #180	; 0xb4
   a2:	2328      	movs	r3, #40	; 0x28
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:26
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:31
     let circle = Circle::<Rgb565>
   a4:	990e      	ldr	r1, [sp, #56]	; 0x38
   a6:	9a0d      	ldr	r2, [sp, #52]	; 0x34
   a8:	f7ff fffe 	bl	0 <embedded_graphics::primitives::circle::Circle<C>::new>
   ac:	e7ff      	b.n	ae <app::display::test_display+0xae>
   ae:	20ff      	movs	r0, #255	; 0xff
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:28
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:33
         .fill( Some( Rgb565::from(( 0xff, 0x00, 0xff )) ) );  //  Magenta
   b0:	f88d 00d0 	strb.w	r0, [sp, #208]	; 0xd0
   b4:	2100      	movs	r1, #0
@@ -1949,7 +1975,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:28
   d4:	f8ad 00ce 	strh.w	r0, [sp, #206]	; 0xce
   d8:	2101      	movs	r1, #1
   da:	f8ad 10cc 	strh.w	r1, [sp, #204]	; 0xcc
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:26
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:31
     let circle = Circle::<Rgb565>
   de:	f8bd 30ce 	ldrh.w	r3, [sp, #206]	; 0xce
   e2:	f8bd 20cc 	ldrh.w	r2, [sp, #204]	; 0xcc
@@ -1958,7 +1984,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:26
   ea:	f7ff fffe 	bl	0 <<embedded_graphics::primitives::circle::Circle<C> as embedded_graphics::style::WithStyle<C>>::fill>
   ee:	e7ff      	b.n	f0 <app::display::test_display+0xf0>
   f0:	203c      	movs	r0, #60	; 0x3c
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:32
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:37
 
     //  Create square
     let square = Rectangle::<Rgb565>
@@ -1976,7 +2002,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:32
  10a:	9007      	str	r0, [sp, #28]
  10c:	9106      	str	r1, [sp, #24]
  10e:	e7ff      	b.n	110 <app::display::test_display+0x110>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:31
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:36
     let square = Rectangle::<Rgb565>
  110:	4668      	mov	r0, sp
  112:	9906      	ldr	r1, [sp, #24]
@@ -1988,7 +2014,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:31
  11e:	f7ff fffe 	bl	0 <embedded_graphics::primitives::rectangle::Rectangle<C>::new>
  122:	e7ff      	b.n	124 <app::display::test_display+0x124>
  124:	2000      	movs	r0, #0
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:33
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:38
         .fill( Some( Rgb565::from(( 0x00, 0x00, 0xff )) ) );  //  Blue
  126:	f88d 0110 	strb.w	r0, [sp, #272]	; 0x110
  12a:	f88d 0111 	strb.w	r0, [sp, #273]	; 0x111
@@ -2004,7 +2030,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:33
  14a:	f8ad 010e 	strh.w	r0, [sp, #270]	; 0x10e
  14e:	2101      	movs	r1, #1
  150:	f8ad 110c 	strh.w	r1, [sp, #268]	; 0x10c
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:31
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:36
     let square = Rectangle::<Rgb565>
  154:	f8bd 310e 	ldrh.w	r3, [sp, #270]	; 0x10e
  158:	f8bd 210c 	ldrh.w	r2, [sp, #268]	; 0x10c
@@ -2012,7 +2038,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:31
  15e:	a93c      	add	r1, sp, #240	; 0xf0
  160:	f7ff fffe 	bl	0 <<embedded_graphics::primitives::rectangle::Rectangle<C> as embedded_graphics::style::WithStyle<C>>::fill>
  164:	e7ff      	b.n	2 <app::display::test_display+0x2>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:36
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:41
 
     //  Create text
     let text = fonts::Font12x16::<Rgb565>
@@ -2023,7 +2049,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:36
  172:	f7ff fffe 	bl	0 <<embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::fonts::Font<C>>::render_str>
  176:	e7ff      	b.n	178 <app::display::test_display+0x178>
  178:	2000      	movs	r0, #0
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:38
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:43
         ::render_str("I AM PINETIME")                          //  Text to be rendered
         .stroke( Some( Rgb565::from(( 0x00, 0x00, 0x00 )) ) )  //  Black text
  17a:	f88d 0188 	strb.w	r0, [sp, #392]	; 0x188
@@ -2039,7 +2065,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:38
  19c:	f8ad 0186 	strh.w	r0, [sp, #390]	; 0x186
  1a0:	2101      	movs	r1, #1
  1a2:	f8ad 1184 	strh.w	r1, [sp, #388]	; 0x184
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:36
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:41
     let text = fonts::Font12x16::<Rgb565>
  1a6:	f8bd 3186 	ldrh.w	r3, [sp, #390]	; 0x186
  1aa:	f8bd 2184 	ldrh.w	r2, [sp, #388]	; 0x184
@@ -2048,7 +2074,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:36
  1b2:	f7ff fffe 	bl	0 <<embedded_graphics::fonts::font_builder::FontBuilder<C,Conf> as embedded_graphics::style::WithStyle<C>>::stroke>
  1b6:	e7ff      	b.n	1b8 <app::display::test_display+0x1b8>
  1b8:	20ff      	movs	r0, #255	; 0xff
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:39
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:44
         .fill(   Some( Rgb565::from(( 0xff, 0xff, 0x00 )) ) )  //  Yellow background
  1ba:	f88d 0190 	strb.w	r0, [sp, #400]	; 0x190
  1be:	f88d 0191 	strb.w	r0, [sp, #401]	; 0x191
@@ -2064,7 +2090,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:39
  1de:	f8ad 018e 	strh.w	r0, [sp, #398]	; 0x18e
  1e2:	2101      	movs	r1, #1
  1e4:	f8ad 118c 	strh.w	r1, [sp, #396]	; 0x18c
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:36
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:41
     let text = fonts::Font12x16::<Rgb565>
  1e8:	f8bd 318e 	ldrh.w	r3, [sp, #398]	; 0x18e
  1ec:	f8bd 218c 	ldrh.w	r2, [sp, #396]	; 0x18c
@@ -2074,7 +2100,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:36
  1f8:	e7ff      	b.n	1fa <app::display::test_display+0x1fa>
  1fa:	2014      	movs	r0, #20
  1fc:	2110      	movs	r1, #16
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:40
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:45
         .translate( Coord::new( 20, 16 ));                     //  Shift the text
  1fe:	f7ff fffe 	bl	0 <embedded_graphics::coord::internal_coord::Coord::new>
  202:	9002      	str	r0, [sp, #8]
@@ -2082,7 +2108,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:40
  206:	e7ff      	b.n	208 <app::display::test_display+0x208>
  208:	a845      	add	r0, sp, #276	; 0x114
  20a:	a94c      	add	r1, sp, #304	; 0x130
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:36
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:41
     let text = fonts::Font12x16::<Rgb565>
  20c:	9a02      	ldr	r2, [sp, #8]
  20e:	9b01      	ldr	r3, [sp, #4]
@@ -2090,7 +2116,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:36
  214:	e7ff      	b.n	216 <app::display::test_display+0x216>
  216:	a817      	add	r0, sp, #92	; 0x5c
  218:	a965      	add	r1, sp, #404	; 0x194
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:43
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:48
 
     //  Render background, circle, square and text to display
     druid::draw_to_display(background);
@@ -2104,7 +2130,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:43
  232:	e7ff      	b.n	234 <app::display::test_display+0x234>
  234:	a827      	add	r0, sp, #156	; 0x9c
  236:	a96c      	add	r1, sp, #432	; 0x1b0
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:44
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:49
     druid::draw_to_display(circle);
  238:	460a      	mov	r2, r1
  23a:	e890 5078 	ldmia.w	r0, {r3, r4, r5, r6, ip, lr}
@@ -2114,7 +2140,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:44
  248:	e7ff      	b.n	24a <app::display::test_display+0x24a>
  24a:	a835      	add	r0, sp, #212	; 0xd4
  24c:	a972      	add	r1, sp, #456	; 0x1c8
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:45
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:50
     druid::draw_to_display(square);
  24e:	460a      	mov	r2, r1
  250:	e8b0 5008 	ldmia.w	r0!, {r3, ip, lr}
@@ -2126,7 +2152,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:45
  266:	e7ff      	b.n	268 <app::display::test_display+0x268>
  268:	a845      	add	r0, sp, #276	; 0x114
  26a:	a979      	add	r1, sp, #484	; 0x1e4
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:46
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:51
     druid::draw_to_display(text);    
  26c:	460a      	mov	r2, r1
  26e:	e8b0 5008 	ldmia.w	r0!, {r3, ip, lr}
@@ -2137,10 +2163,13 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:46
  280:	f7ff fffe 	bl	0 <piet_embedded_graphics::display::draw_to_display>
  284:	e7ff      	b.n	286 <app::display::test_display+0x286>
  286:	2001      	movs	r0, #1
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:50
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:58
+    //  Test the backlight
+    //  test_backlight() ? ;
 
     //  Return success to the caller
     Ok(())
+}
  288:	f50d 7d00 	add.w	sp, sp, #512	; 0x200
  28c:	bd70      	pop	{r4, r5, r6, pc}
 
