@@ -22,8 +22,8 @@ syscfg.defs:
         value: 1
 
 syscfg.vals:
-    # SPIFLASH:             0  # Disable SPI Flash, because it may complicate debugging
-    SPIFLASH:               1  # Enable SPI Flash
+    SPIFLASH:               0  # Disable SPI Flash, because it may complicate debugging
+    # SPIFLASH:             1  # Enable SPI Flash
     SYSINIT_CONSTRAIN_INIT: 0
     OS_SCHEDULING:          0
     MSYS_1_BLOCK_COUNT:     0
