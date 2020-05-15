@@ -33,27 +33,6 @@
 //  Flash Device for Image
 #define FLASH_DEVICE 1  //  0 for Internal Flash ROM, 1 for External SPI Flash
 
-/// Write a converted graphic file to SPI Flash
-int write_image(void) {
-    console_printf("Writing image to flash...\n"); console_flush();
-    uint32_t offset = 0;
-    for (;;) {
-        if (offset >= sizeof(image_data)) { break; }
-        //  How many bytes we will write.
-        uint16_t len = BATCH_SIZE;
-        if (offset + len >= sizeof(image_data)) {
-            len = sizeof(image_data) - offset;
-        }        
-        //  Erase the bytes.
-        int rc = hal_flash_erase(FLASH_DEVICE, offset, len); assert(rc == 0);
-
-        //  Write the bytes.
-        int rc = hal_flash_read(FLASH_DEVICE, offset, &image_data[offset], len); assert(rc == 0);
-        offset += len;
-    }
-    console_printf("Image written to flash\n"); console_flush();
-    return 0;
-}
 
 //  Converted from PNG file by https://github.com/lupyuen/pinetime-graphic
 static const uint8_t image_data[] = {  //  Should be 115,200 bytes
@@ -7258,3 +7237,25 @@ static const uint8_t image_data[] = {  //  Should be 115,200 bytes
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
+
+/// Write a converted graphic file to SPI Flash
+int write_image(void) {
+    console_printf("Writing graphic to flash...\n"); console_flush();
+    uint32_t offset = 0;
+    for (;;) {
+        if (offset >= sizeof(image_data)) { break; }
+        //  How many bytes we will write.
+        uint16_t len = BATCH_SIZE;
+        if (offset + len >= sizeof(image_data)) {
+            len = sizeof(image_data) - offset;
+        }        
+        //  Erase the bytes.
+        int rc = hal_flash_erase(FLASH_DEVICE, offset, len); assert(rc == 0);
+
+        //  Write the bytes.
+        rc = hal_flash_read(FLASH_DEVICE, offset, (void *) &image_data[offset], len); assert(rc == 0);
+        offset += len;
+    }
+    console_printf("Graphic written to flash\n"); console_flush();
+    return 0;
+}
