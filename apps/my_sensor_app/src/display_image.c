@@ -37,7 +37,7 @@
 #define BATCH_SIZE  256  //  Max number of SPI data bytes to be transmitted
 
 //  Screen Size
-#define ROW_COUNT 20 // 240
+#define ROW_COUNT 240
 #define COL_COUNT 240
 #define BYTES_PER_PIXEL 2
 
