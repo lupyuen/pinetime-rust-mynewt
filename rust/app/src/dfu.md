@@ -958,6 +958,18 @@ Based on feedback from the PineTime Community, the following enhancements are pl
 
 1. __Bootloader Log__: Log MCUBoot messages to the Arm Semihosting Console when PineTime's SWD port is connected. Useful for troubleshooting the bootloader.
 
+    To enable Semihosting Console in `repos/mcuboot/boot/mynewt/src/main.c`...
+
+    ```c
+    void os_msys_init(void); ///
+
+    int main(void) {
+        hal_bsp_init();  //  Init Board Support Package
+        os_msys_init();  //  Create pool of MSYS buffers used by Semihosting Console
+        console_printf("Starting MCUBoot...\n");  //  Display a message
+        console_flush(); //  Flush the message
+    ```
+
 1. Ensure that the same firmware version doesn't get flashed twice
 
 # Android, iOS and Linux Companion Apps for PineTime
