@@ -8,4 +8,5 @@ target.app:           "@mcuboot/boot/mynewt"  # Use MCUBoot, which doesn't suppo
 target.bsp:           "hw/bsp/nrf52"
 
 # Build with debug support. Or select "optimized" to remove debug support.
-target.build_profile: debug
+# target.build_profile: debug    # For debugging
+target.build_profile: optimized  # For production

@@ -29,4 +29,4 @@ pkg.deps:
 
 #  C compiler flags
 pkg.cflags:
-    - -Os  #  Optimise for smallest size
+    # - -Os  #  Optimise for smallest size

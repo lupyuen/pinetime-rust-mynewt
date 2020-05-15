@@ -25,36 +25,6 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/bsp/black_vet6/src/hal_bsp.c",
-		"bookmarks": [
-			{
-				"line": 423,
-				"column": 11,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/bsp/black_vet6/syscfg.yml",
-		"bookmarks": [
-			{
-				"line": 140,
-				"column": 11,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/bsp/black_vet6/bsp.yml",
-		"bookmarks": [
-			{
-				"line": 58,
-				"column": 14,
-				"label": ""
-			}
-		]
-	},
-	{
 		"path": "/Users/Luppy/PineTime/pinetime-rust-mynewt\\repos\\apache-mynewt-core\\hw\\bsp\\black_vet6\\src\\hal_bsp.c",
 		"bookmarks": [
 			{
@@ -230,6 +200,86 @@
 			{
 				"line": 60,
 				"column": 8,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/hw/bsp/nrf52/bsp.yml",
+		"bookmarks": [
+			{
+				"line": 36,
+				"column": 26,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/mcuboot/boot/mynewt/pkg.yml",
+		"bookmarks": [
+			{
+				"line": 21,
+				"column": 8,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/mcuboot/boot/mynewt/syscfg.yml",
+		"bookmarks": [
+			{
+				"line": 18,
+				"column": 5,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/apps/my_sensor_app/pkg.yml",
+		"bookmarks": [
+			{
+				"line": 19,
+				"column": 29,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/apps/my_sensor_app/syscfg.yml",
+		"bookmarks": [
+			{
+				"line": 18,
+				"column": 14,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/mcuboot/boot/mynewt/src/main.c",
+		"bookmarks": [
+			{
+				"line": 213,
+				"column": 2,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/libs/semihosting_console/src/semihosting_console.c",
+		"bookmarks": [
+			{
+				"line": 136,
+				"column": 14,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/bin/targets/nrf52_boot/generated/include/syscfg/syscfg.h",
+		"bookmarks": [
+			{
+				"line": 14,
+				"column": 10,
 				"label": ""
 			}
 		]

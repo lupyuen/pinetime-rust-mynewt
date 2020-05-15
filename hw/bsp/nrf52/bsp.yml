@@ -42,7 +42,7 @@ bsp.flash_map:
         FLASH_AREA_BOOTLOADER:      # MCUBoot
             device: 0               # Internal Flash ROM
             offset: 0x00000000      # Start of Internal Flash ROM
-            size:   16kB
+            size:   24kB
         FLASH_AREA_IMAGE_0:         # Active Firmware Image
             device: 0               # Internal Flash ROM
             offset: 0x00008000
@@ -60,8 +60,8 @@ bsp.flash_map:
         FLASH_AREA_REBOOT_LOG:      # For logging debug messages during startup
             user_id: 0
             device:  0              # Internal Flash ROM
-            offset:  0x00004000
-            size:    16kB
+            offset:  0x00006000
+            size:    8kB
         FLASH_AREA_NFFS:            # For user files
             user_id: 1
             device:  1              # External SPI Flash
