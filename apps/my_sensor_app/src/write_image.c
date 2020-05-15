@@ -28,7 +28,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define BATCH_SIZE  256  //  Max number of data bytes to be written in a batch
+#define BATCH_SIZE  4096  //  Max number of data bytes to be written in a batch
 
 //  Flash Device for Image
 #define FLASH_DEVICE 1  //  0 for Internal Flash ROM, 1 for External SPI Flash
@@ -7253,7 +7253,7 @@ int write_image(void) {
         int rc = hal_flash_erase(FLASH_DEVICE, offset, len); assert(rc == 0);
 
         //  Write the bytes.
-        rc = hal_flash_read(FLASH_DEVICE, offset, (void *) &image_data[offset], len); assert(rc == 0);
+        rc = hal_flash_write(FLASH_DEVICE, offset, (void *) &image_data[offset], len); assert(rc == 0);
         offset += len;
     }
     console_printf("Graphic written to flash\n"); console_flush();

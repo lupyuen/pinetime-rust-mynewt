@@ -84,9 +84,9 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     mynewt::sysinit();
 
     //  Write graphic image to SPI Flash. Must run before testing the display, to avoid contention for SPI port.
-    extern { fn write_image() -> i32; }
-    let rc = unsafe { write_image() };
-    assert!(rc == 0, "IMG fail");
+    //  extern { fn write_image() -> i32; }
+    //  let rc = unsafe { write_image() };
+    //  assert!(rc == 0, "IMG fail");
     
     //  Display image from SPI Flash. Must run before testing the display, to avoid contention for SPI port.
     extern { fn display_image() -> i32; }
@@ -108,9 +108,11 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
         .expect("DSP fail");
 
     //  Test the display
+    /*
     #[cfg(feature = "display_app")]  //  If graphics display app is enabled...
     display::test_display()
         .expect("DSP test fail");
+    */
 
     //  Start the touch sensor
     touch_sensor::start_touch_sensor()
