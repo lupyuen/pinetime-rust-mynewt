@@ -91,10 +91,41 @@ static int write_data(const uint8_t *data, uint16_t len);
 static int transmit_spi(const uint8_t *data, uint16_t len);
 static void delay_ms(uint32_t ms);
 
-/// Display an image from SPI Flash to ST7789 display controller
+/// Display an image from SPI Flash to ST7789 display controller. From https://github.com/lupyuen/pinetime-rust-mynewt/blob/main/logs/spi-non-blocking.log
 int display_image(void) {
     int rc = init_display();  assert(rc == 0);
     rc = set_orientation(Landscape);  assert(rc == 0);
+
+    //  Set Address Window Columns (CASET): st7735_lcd::draw() → set_pixel() → set_address_window()
+    write_command(CASET, NULL, 0);
+    static const uint8_t CASET1_PARA[] = { 0x00, 0x00, 0x00, 0x13 };
+    write_data(CASET1_PARA, sizeof(CASET1_PARA));
+
+    //  Set Address Window Rows (RASET): st7735_lcd::draw() → set_pixel() → set_address_window()
+    write_command(RASET, NULL, 0);
+    static const uint8_t RASET1_PARA[] = { 0x00, 0x00, 0x00, 0x00 };
+    write_data(RASET1_PARA, sizeof(RASET1_PARA));
+
+    //  Write Pixels (RAMWR): st7735_lcd::draw() → set_pixel()
+    write_command(RAMWR, NULL, 0);
+    static const uint8_t RAMWR1_PARA[] = { 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0 };
+    write_data(RAMWR1_PARA, sizeof(RAMWR1_PARA));
+
+    //  Set Address Window Columns (CASET): st7735_lcd::draw() → set_pixel() → set_address_window()
+    write_command(CASET, NULL, 0);
+    static const uint8_t CASET2_PARA[] = { 0x00, 0x14, 0x00, 0x27 };
+    write_data(CASET2_PARA, sizeof(CASET2_PARA));
+
+    //  Set Address Window Rows (RASET): st7735_lcd::draw() → set_pixel() → set_address_window()
+    write_command(RASET, NULL, 0);
+    static const uint8_t RASET2_PARA[] = { 0x00, 0x00, 0x00, 0x00 };
+    write_data(RASET2_PARA, sizeof(RASET2_PARA));
+
+    //  Write Pixels (RAMWR): st7735_lcd::draw() → set_pixel()
+    write_command(RAMWR, NULL, 0);
+    static const uint8_t RAMWR2_PARA[] = { 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0 };
+    write_data(RAMWR2_PARA, sizeof(RAMWR2_PARA));
+
     return 0;
 }
 
@@ -169,16 +200,17 @@ static int hard_reset(void) {
     hal_gpio_write(DISPLAY_RST, 1);
     hal_gpio_write(DISPLAY_RST, 0);
     hal_gpio_write(DISPLAY_RST, 1);
+    return 0;
 }
 
 /// Set the display orientation
 static int set_orientation(uint8_t orientation) {
     if (RGB) {
-        uint8_t orientation_para = { orientation };
+        uint8_t orientation_para[1] = { orientation };
         int rc = write_command(MADCTL, orientation_para, 1);
         assert(rc == 0);
     } else {
-        uint8_t orientation_para = { orientation | 0x08 };
+        uint8_t orientation_para[1] = { orientation | 0x08 };
         int rc = write_command(MADCTL, orientation_para, 1);
         assert(rc == 0);
     }
@@ -211,7 +243,7 @@ static int transmit_spi(const uint8_t *data, uint16_t len) {
     hal_gpio_write(DISPLAY_CS, 0);
     //  Send the data
     int rc = hal_spi_txrx(DISPLAY_SPI, 
-        data,  //  TX Buffer
+        (void *) data,  //  TX Buffer
         NULL,  //  RX Buffer (don't receive)
         len);  //  Length
     assert(rc == 0);

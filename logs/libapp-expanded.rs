@@ -98,6 +98,8 @@ mod app_network {
 
     //  Test External SPI Flash. Must run before testing the display, to avoid contention for SPI port.
 
+    //  Display image. Must run before testing the display, to avoid contention for SPI port.
+
     //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
 
     //  Start the display
@@ -793,6 +795,11 @@ extern "C" fn main() -> ! {
     }
     let rc = unsafe { test_flash() };
     if !(rc == 0) { ::core::panicking::panic("FLASH fail") };
+    extern {
+        fn display_image() -> i32;
+    }
+    let rc = unsafe { display_image() };
+    if !(rc == 0) { ::core::panicking::panic("IMG fail") };
     extern {
         fn start_ble() -> i32;
     }
