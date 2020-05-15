@@ -77,17 +77,24 @@
 #define GMCTRP1 0xE0
 #define GMCTRN1 0xE1
 
+//  From https://github.com/lupyuen/st7735-lcd-batch-rs/blob/master/src/lib.rs#L52-L58
+#define Portrait 0x00
+#define Landscape 0x60
+#define PortraitSwapped 0xC0
+#define LandscapeSwapped 0xA0
+
 static int init_display(void);
 static int hard_reset(void);
-static int write_command(uint8_t command, uint8_t *params, uint16_t len);
-static int write_data(uint8_t *data, uint16_t len);
-static int transmit_spi(uint8_t *data, uint16_t len);
+static int set_orientation(uint8_t orientation);
+static int write_command(uint8_t command, const uint8_t *params, uint16_t len);
+static int write_data(const uint8_t *data, uint16_t len);
+static int transmit_spi(const uint8_t *data, uint16_t len);
 static void delay_ms(uint32_t ms);
 
 /// Display an image from SPI Flash to ST7789 display controller
 int display_image(void) {
-    int rc = init_display();
-    assert(rc == 0);
+    int rc = init_display();  assert(rc == 0);
+    rc = set_orientation(Landscape);  assert(rc == 0);
     return 0;
 }
 
@@ -162,6 +169,20 @@ static int hard_reset(void) {
     hal_gpio_write(DISPLAY_RST, 1);
     hal_gpio_write(DISPLAY_RST, 0);
     hal_gpio_write(DISPLAY_RST, 1);
+}
+
+/// Set the display orientation
+static int set_orientation(uint8_t orientation) {
+    if (RGB) {
+        uint8_t orientation_para = { orientation };
+        int rc = write_command(MADCTL, orientation_para, 1);
+        assert(rc == 0);
+    } else {
+        uint8_t orientation_para = { orientation | 0x08 };
+        int rc = write_command(MADCTL, orientation_para, 1);
+        assert(rc == 0);
+    }
+    return 0;
 }
 
 /// Transmit ST7789 command
