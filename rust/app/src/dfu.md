@@ -937,6 +937,8 @@ Based on feedback from the PineTime Community, the following enhancements are pl
 
     MCUBoot shall access the External SPI Flash via Mynewt's driver for SPI Flash. [See `spiflash`](https://github.com/apache/mynewt-core/tree/master/hw/drivers/flash/spiflash)
 
+    Check out my article ["Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash)
+
     PineTime Firmware Developers would also need to enhance the Image Management Command Handler (MCU Manager Library) to write firmware images to External SPI Flash (instead of Internal Flash). (Possibly based on Mynewt's [`spiflash` driver](https://github.com/apache/mynewt-core/tree/master/hw/drivers/flash/spiflash))
 
 
