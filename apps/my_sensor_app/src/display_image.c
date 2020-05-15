@@ -93,6 +93,7 @@ static void delay_ms(uint32_t ms);
 
 /// Display an image from SPI Flash to ST7789 display controller. From https://github.com/lupyuen/pinetime-rust-mynewt/blob/main/logs/spi-non-blocking.log
 int display_image(void) {
+    console_printf("Displaying image...\n"); console_flush();
     int rc = init_display();  assert(rc == 0);
     rc = set_orientation(Landscape);  assert(rc == 0);
 
@@ -126,6 +127,7 @@ int display_image(void) {
     static const uint8_t RAMWR2_PARA[] = { 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0, 0x87, 0xe0 };
     write_data(RAMWR2_PARA, sizeof(RAMWR2_PARA));
 
+    console_printf("Image displayed\n"); console_flush();
     return 0;
 }
 
