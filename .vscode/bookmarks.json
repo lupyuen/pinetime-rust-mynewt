@@ -205,6 +205,16 @@
 		]
 	},
 	{
+		"path": "$ROOTPATH$/targets/nrf52_boot/syscfg.yml",
+		"bookmarks": [
+			{
+				"line": 17,
+				"column": 15,
+				"label": ""
+			}
+		]
+	},
+	{
 		"path": "$ROOTPATH$/repos/mcuboot/boot/mynewt/pkg.yml",
 		"bookmarks": [
 			{
@@ -270,6 +280,16 @@
 			{
 				"line": 14,
 				"column": 10,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/mcuboot/boot/mynewt/mcuboot_config/syscfg.yml",
+		"bookmarks": [
+			{
+				"line": 18,
+				"column": 29,
 				"label": ""
 			}
 		]

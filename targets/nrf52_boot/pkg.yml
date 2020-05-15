@@ -29,4 +29,5 @@ pkg.deps:
 
 #  C compiler flags
 pkg.cflags:
+    - -DMCUBOOT_HAVE_LOGGING=1  #  So that sysinit() will be run, needed for displaying boot graphic
     # - -Os  #  Optimise for smallest size
