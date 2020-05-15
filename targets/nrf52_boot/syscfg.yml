@@ -31,7 +31,8 @@ syscfg.vals:
 
     ###########################################################################
     # Common Settings for minimal ROM size
-    
+
+    CONSOLE_COMPAT:           0  # Disable console input
     CONSOLE_RTT:              0  # Disable RTT Console
     CONSOLE_UART:             0  # Disable UART Console
     LOG_CLI:                  0  # Disable logging command-line interface
