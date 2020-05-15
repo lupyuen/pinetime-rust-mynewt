@@ -14,12 +14,35 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-#
+
 # MCUBoot Bootloader Settings
 
 syscfg.vals:
-    SPIFLASH:               1  # Enable SPI Flash
-    SYSINIT_CONSTRAIN_INIT: 0
-    OS_SCHEDULING:          0
-    MSYS_1_BLOCK_COUNT:     0
-    UART_0:                 0  # Disable UART port to reduce ROM size
+    OS_MAIN_STACK_SIZE:    1024  # Small stack size: 4 KB
+    MSYS_1_BLOCK_COUNT:      64  # Allocate extra MSYS buffers
+
+    ###########################################################################
+    # Hardware Settings
+
+    SPIFLASH:                 1  # Enable SPI Flash
+    SPI_0_MASTER:             1  # Enable SPI port 0 for ST7789 display and SPI Flash
+    I2C_1:                    0  # Disable I2C port 1 for CST816S touch controller, BMA421 accelerometer, HRS3300 heart rate sensor
+    UART_0:                   0  # Disable UART port to reduce ROM size
+
+    ###########################################################################
+    # Common Settings for minimal ROM size
+    
+    CONSOLE_RTT:              0  # Disable RTT Console
+    CONSOLE_UART:             0  # Disable UART Console
+    LOG_CLI:                  0  # Disable logging command-line interface
+    LOG_LEVEL:              255  # Disable logs
+    SENSOR_CLI:               0  # Disable sensor command-line interface
+    SENSOR_OIC:               0  # Disable sensor OIC functions
+    SHELL_CMD_HELP:           0  # Disable shell help
+    SHELL_OS_MODULE:          0  # Disable shell module
+    SHELL_TASK:               0  # Disable shell task
+    STATS_CLI:                0  # Disable statistics command-line interface
+    OS_SYSVIEW_TRACE_CALLOUT: 0  # Disable trace of callouts
+    OS_SYSVIEW_TRACE_EVENTQ:  0  # Disable trace of event queues
+    OS_SYSVIEW_TRACE_MUTEX:   0  # Disable trace of mutex
+    OS_SYSVIEW_TRACE_SEM:     0  # Disable trace of semaphores

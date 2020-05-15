@@ -236,7 +236,7 @@ syscfg.vals:
     ###########################################################################
     # Hardware Settings
 
-    SPI_0_MASTER:           1  # Enable SPI port 0 for ST7789 display
+    SPI_0_MASTER:           1  # Enable SPI port 0 for ST7789 display and SPI Flash
     I2C_1:                  1  # Enable I2C port 1 for CST816S touch controller, BMA421 accelerometer, HRS3300 heart rate sensor
 
     LOW_POWER:              0  # Disable low power support for STM32 Blue Pill
