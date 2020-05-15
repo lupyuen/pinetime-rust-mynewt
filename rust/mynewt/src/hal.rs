@@ -114,7 +114,7 @@ impl SPI {
         let rc = unsafe { hal::hal_spi_enable(spi_num) };
         assert_eq!(rc, 0, "spi enable fail");
 
-        //  TODO: Set the CS Pin to high only when transmitting.
+        //  Set the CS Pin to low only when transmitting.
         let rc = unsafe { hal::hal_gpio_init_out(cs_pin, 1) };
         assert_eq!(rc, 0, "spi init fail");
         self.spi_num = spi_num;
