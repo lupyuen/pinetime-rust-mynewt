@@ -178,12 +178,12 @@ newt build $mynewt_build_app
 newt size -v $mynewt_build_app
 set +x
 
+#  Create the image
+scripts/nrf52/image-app.sh
+
 #  Copy the disassembly and linker map to the logs folder.
 cp bin/targets/$mynewt_build_app/app/apps/my_sensor_app/my_sensor_app.elf.lst logs
 cp bin/targets/$mynewt_build_app/app/apps/my_sensor_app/my_sensor_app.elf.map logs
-
-#  Create the image
-#  scripts/nrf52/image-app.sh
 
 #  Typical Mynewt build options:
 #  arm-none-eabi-gcc -DAPP_NAME=my_sensor_app -DAPP_my_sensor_app -DARCH_NAME=cortex_m4 -DARCH_cortex_m4 

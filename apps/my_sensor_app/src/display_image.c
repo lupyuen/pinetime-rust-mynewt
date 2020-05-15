@@ -37,7 +37,7 @@
 #define BATCH_SIZE  256  //  Max number of SPI data bytes to be transmitted
 
 //  Screen Size
-#define ROW_COUNT 10 // 240
+#define ROW_COUNT 20 // 240
 #define COL_COUNT 240
 #define BYTES_PER_PIXEL 2
 
@@ -133,12 +133,14 @@ int display_image(void) {
             uint32_t offset = ((top * COL_COUNT) + left) * BYTES_PER_PIXEL;
             int rc = hal_flash_read(FLASH_DEVICE, offset, flash_buffer, len); assert(rc == 0);
 
+            //  console_printf("%lx: ", offset); console_dump(flash_buffer, len); console_printf("\n"); console_flush();
+
             //  Set the display window.
             rc = set_window(left, top, right, bottom); assert(rc == 0);
 
-            //  Transmit the bytes.
-            rc = write_data(flash_buffer, len); 
-            assert(rc == 0);
+            //  Write Pixels (RAMWR): st7735_lcd::draw() → set_pixel()
+            rc = write_command(RAMWR, NULL, 0); assert(rc == 0);
+            rc = write_data(flash_buffer, len); assert(rc == 0);
 
             left = right + 1;
         }

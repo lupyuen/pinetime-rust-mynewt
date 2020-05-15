@@ -125,16 +125,6 @@
 		]
 	},
 	{
-		"path": "$ROOTPATH$/scripts/build-app.sh",
-		"bookmarks": [
-			{
-				"line": 185,
-				"column": 4,
-				"label": ""
-			}
-		]
-	},
-	{
 		"path": "$ROOTPATH$/logs/mynewt.elf.lst",
 		"bookmarks": [
 			{
