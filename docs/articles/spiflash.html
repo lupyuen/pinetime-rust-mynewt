@@ -248,12 +248,12 @@ hal_bsp_flash_dev(uint8_t id)
 <p>Erase internal / external flash memory at the <code>offset</code> address, for <code>size</code> bytes. <a href="https://mynewt.apache.org/latest/os/modules/hal/hal_flash/hal_flash.html#c.hal_flash_erase">See <code>hal_flash_erase</code></a></p>
 </li>
 <li>
-<p><strong>Read Flash</strong> <code>hal_flash_read(id, offset, buf, sector_count)</code></p>
-<p>Read internal / external flash memory from the <code>offset</code> address into the <code>buf</code> buffer, for <code>sector_count</code> sectors. On PineTime, one sector contains 4 KB. <a href="https://mynewt.apache.org/latest/os/modules/hal/hal_flash/hal_flash.html#c.hal_flash_read">See <code>hal_flash_read</code></a></p>
+<p><strong>Read Flash</strong> <code>hal_flash_read(id, offset, buf, size)</code></p>
+<p>Read internal / external flash memory from the <code>offset</code> address into the <code>buf</code> buffer, for <code>size</code> bytes. <a href="https://mynewt.apache.org/latest/os/modules/hal/hal_flash/hal_flash.html#c.hal_flash_read">See <code>hal_flash_read</code></a></p>
 </li>
 <li>
-<p><strong>Write Flash</strong> <code>hal_flash_write(id, offset, buf, sector_count)</code></p>
-<p>Write internal / external flash memory from the <code>buf</code> buffer to the <code>offset</code> address, for <code>sector_count</code> sectors. On PineTime, one sector contains 4 KB. <a href="https://mynewt.apache.org/latest/os/modules/hal/hal_flash/hal_flash.html#c.hal_flash_write">See <code>hal_flash_write</code></a></p>
+<p><strong>Write Flash</strong> <code>hal_flash_write(id, offset, buf, size)</code></p>
+<p>Write internal / external flash memory from the <code>buf</code> buffer to the <code>offset</code> address, for <code>size</code> bytes. <a href="https://mynewt.apache.org/latest/os/modules/hal/hal_flash/hal_flash.html#c.hal_flash_write">See <code>hal_flash_write</code></a></p>
 </li>
 </ol>
 <p>For the above functions, <code>id</code> is 0 for Internal Flash ROM, 1 for External SPI Flash.</p>
