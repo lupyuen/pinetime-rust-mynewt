@@ -104,6 +104,18 @@ The JEDEC Device ID (`0x15`) is not used.
 
 `SPIFLASH_PAGE_SIZE` was copied from another Mynewt configuration: [`black_vet6`](https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/syscfg.yml)
 
+When setting `SPIFLASH` to 1, remember to enable the SPI Port in the Application Firmware and Bootloader by setting `SPI_0_MASTER` to 1...
+
+```yaml
+syscfg.vals:
+    OS_MAIN_STACK_SIZE:    1024  # Small stack size: 4 KB
+    MSYS_1_BLOCK_COUNT:      64  # Allocate extra MSYS buffers
+    SPIFLASH:                 1  # Enable SPI Flash
+    SPI_0_MASTER:             1  # Enable SPI port 0 for ST7789 display and SPI Flash
+```
+
+Refer to this [Application Firmware Configuration](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/syscfg.yml) and [MCUBoot Bootloader Configuration](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_boot/syscfg.yml)
+
 # `syscfg.yml:` Configure Flash Timings
 
 Finally we edit [`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml) to tell Mynewt the timing characteristics of our Flash Memory...
@@ -551,47 +563,58 @@ During firmware updates, MCUBoot stores the previous version of the firmware int
 
 But on constrained devices like PineTime, this robustness will cost us... We might run out of space in Internal Flash ROM to store the old firmware!
 
-Fortunately MCUBoot on Mynewt works seamlessly with SPI Flash... Watch how the new firmware `FLASH_AREA_IMAGE_0` coexists with the old firmware `FLASH_AREA_IMAGE_1` in this Flash Memory Map for MCUBoot for Mynewt: [`hw/bsp/black_vet6/bsp.yml`](https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/bsp.yml)
+Fortunately MCUBoot on Mynewt works seamlessly with SPI Flash... Watch how the new firmware `FLASH_AREA_IMAGE_0` coexists with the old firmware `FLASH_AREA_IMAGE_1` in PineTime's Flash Memory Map for MCUBoot: [`hw/bsp/nrf52/bsp.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/bsp.yml)
 
 ```yaml
+# Flash Memory Map for PineTime: Internal Flash ROM and External SPI Flash
 bsp.flash_map:
     areas:
         # System areas.
-        FLASH_AREA_BOOTLOADER:
-            device: 0
-            offset: 0x08000000
-            size: 32kB
-        FLASH_AREA_IMAGE_0:
-            device: 0
-            offset: 0x08020000
-            size: 256kB
-        FLASH_AREA_IMAGE_SCRATCH:
-            device: 0
-            offset: 0x08060000
-            size: 128kB
+        FLASH_AREA_BOOTLOADER:      # MCUBoot
+            device: 0               # Internal Flash ROM
+            offset: 0x00000000      # Start of Internal Flash ROM
+            size: 16kB
+        FLASH_AREA_IMAGE_0:         # Active Firmware Image
+            device: 0               # Internal Flash ROM
+            offset: 0x00008000
+            size: 464kB             # Max size of Firmware Image
+        FLASH_AREA_IMAGE_1:         # Standby Firmware Image
+            device: 1               # External SPI Flash
+            offset: 0x00000000      # Start of External SPI Flash
+            size: 464kB             # Max size of Firmware Image
+        FLASH_AREA_IMAGE_SCRATCH:   # Used by MCUBoot for swapping Active and Standby Firmware
+            device: 0               # Internal Flash ROM
+            offset: 0x0007c000
+            size: 4kB
 
         # User areas.
-        FLASH_AREA_REBOOT_LOG:
+        FLASH_AREA_REBOOT_LOG:      # For logging debug messages during startup
             user_id: 0
-            device: 0
-            offset: 0x08008000
-            size: 32kB
-
-        FLASH_AREA_IMAGE_1:
-            device: 1
-            offset: 0x00000000
-            size: 256kB
-
-        FLASH_AREA_NFFS:
+            device: 0               # Internal Flash ROM
+            offset: 0x00004000
+            size: 16kB
+        FLASH_AREA_NFFS:            # For user files
             user_id: 1
-            device: 1
-            offset: 0x00040000
-            size: 32kB
+            device: 1               # External SPI Flash
+            offset: 0x00074000
+            size: 3632kB
 ```
 
 Note that the new firmware `FLASH_AREA_IMAGE_0` resides on __Flash Device 0 (Internal Flash ROM)__, while the old firmware `FLASH_AREA_IMAGE_1` resides on __Flash Device 1 (External SPI Flash)__.
 
 This means that we won't waste any previous space in Internal Flash ROM for storing the old firmware... MCUBoot automatically swaps the old firmware into External SPI Flash! Using MCUBoot Bootloader with SPI Flash is really that easy!
+
+When using SPI Flash, remember to enable the SPI Port in the Application Firmware and Bootloader by setting `SPI_0_MASTER` to 1...
+
+```yaml
+syscfg.vals:
+    OS_MAIN_STACK_SIZE:    1024  # Small stack size: 4 KB
+    MSYS_1_BLOCK_COUNT:      64  # Allocate extra MSYS buffers
+    SPIFLASH:                 1  # Enable SPI Flash
+    SPI_0_MASTER:             1  # Enable SPI port 0 for ST7789 display and SPI Flash
+```
+
+Refer to this [MCUBoot Bootloader Configuration](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_boot/syscfg.yml)
 
 # Debug SPI Flash with MCUBoot Bootloader
 
@@ -673,17 +696,17 @@ _Can we have files and directories in SPI Flash?_
 
 Yes we can, with a Flash File System like [__littlefs__](https://github.com/ARMmbed/littlefs).
 
-Earlier we saw this Flash Memory Map: [`hw/bsp/black_vet6/bsp.yml`](https://github.com/apache/mynewt-core/blob/master/hw/bsp/black_vet6/bsp.yml)
+Earlier we saw the PineTime Flash Memory Map: [`hw/bsp/nrf52/bsp.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/bsp.yml)
 
 ```yaml
 bsp.flash_map:
     areas:
         ...
-        FLASH_AREA_NFFS:
+        FLASH_AREA_NFFS:            # For user files
             user_id: 1
-            device: 1
-            offset: 0x00040000
-            size: 32kB
+            device: 1               # External SPI Flash
+            offset: 0x00074000
+            size: 3632kB
 ```
 
 `FLASH_AREA_NFFS` is a Flash Area that's available for use by the Application Firmware for storing application data. Note that it's located on Flash Device 1, which is the External SPI Flash.
@@ -756,7 +779,7 @@ These functions may be implemented with similar functions defined in [Mynewt's F
 
 `lfs_config` is documented here: [`lfs.h`](https://github.com/ARMmbed/littlefs/blob/master/lfs.h)
 
-Note that Mynewt's Flash HAL uses absolute addresses (instead of addresses relative to the Flash Area) when accessing SPI Flash. We need to map Flash Area addresses in the Flash Map to absolute addresses using Mynewt's Flash Map functions: [`flash_map.h`](https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h)
+Note that Mynewt's Flash HAL uses absolute addresses (instead of addresses relative to the Flash Area) when accessing SPI Flash. We need to map Flash Area addresses to absolute addresses using Mynewt's Flash Memory Map functions: [`flash_map.h`](https://github.com/apache/mynewt-core/blob/master/sys/flash_map/include/flash_map/flash_map.h)
 
 [More about littlefs](https://github.com/ARMmbed/littlefs/blob/master/README.md)
 
