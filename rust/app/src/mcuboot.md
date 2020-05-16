@@ -1,6 +1,12 @@
 # MCUBoot Bootloader for PineTime Smart Watch (nRF52)
 
-![MCUBoot Bootloader for PineTime Smart Watch (nRF52)](https://lupyuen.github.io/images/mcuboot-photo2-small.jpg)
+![Enhanced MCUBoot Bootloader running on PineTime Smart Watch](https://lupyuen.github.io/images/mcuboot-photo2-small.jpg)
+
+_Enhanced MCUBoot Bootloader running on PineTime Smart Watch_
+
+[Watch video on Twitter](https://twitter.com/MisterTechBlog/status/1261568945728876544?s=20)
+
+[Watch video on Mastodon](https://qoto.org/@lupyuen/104177098953236703)
 
 # Updated Flash Memory Map for PineTime
 
