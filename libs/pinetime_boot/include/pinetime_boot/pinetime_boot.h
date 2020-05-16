@@ -34,6 +34,9 @@ int pinetime_boot_write_image(void);
 /// Display the image in SPI Flash to ST7789 display controller
 int pinetime_boot_display_image(void);
 
+/// Check whether the watch button is pressed
+void pinetime_boot_check_button(void);
+
 #ifdef __cplusplus
 }
 #endif

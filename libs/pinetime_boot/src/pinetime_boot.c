@@ -24,8 +24,6 @@
 #include <console/console.h>
 #include "pinetime_boot/pinetime_boot.h"
 
-//  The button on the side of the PineTime is disabled by default. To enable it, drive the button out pin (P0.15) high.
-//  While enabled, the button in pin (P0.13) will be high when the button is pressed, and low when it is not pressed. 
 #define PUSH_BUTTON_IN  13  //  P0.13: PUSH BUTTON_IN
 #define PUSH_BUTTON_OUT 15  //  P0.15/TRACEDATA2: PUSH BUTTON_OUT
 
@@ -33,19 +31,29 @@
 void pinetime_boot_init(void) {
     console_printf("Starting MCUBoot...\n"); console_flush();
 
-    //  Init the push button.
-    hal_gpio_init_out(PUSH_BUTTON_OUT, 1);  //  Enable the button
+    //  Init the push button. The button on the side of the PineTime is disabled by default. To enable it, drive the button out pin (P0.15) high.
+    //  While enabled, the button in pin (P0.13) will be high when the button is pressed, and low when it is not pressed. 
     hal_gpio_init_in(PUSH_BUTTON_IN, HAL_GPIO_PULL_DOWN);  //  TODO: Or up / down
+    hal_gpio_init_out(PUSH_BUTTON_OUT, 1);
+    hal_gpio_write(PUSH_BUTTON_OUT, 1);  //  Enable the button
 
     //  Display the image.
     pinetime_boot_display_image();
 
     //  Wait 5 seconds for button press.
     console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
-    for (int i = 0; i < 10000000; i++) {
-        hal_gpio_read(PUSH_BUTTON_IN);
+    for (int i = 0; i < 10; i++) {
+        pinetime_boot_check_button();
     }
     console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
 
+    //  TODO: If button is pressed and held for 5 seconds, rollback the firmware.
     console_printf("Booting...\n"); console_flush();
+}
+
+/// Check whether the watch button is pressed
+void pinetime_boot_check_button(void) {
+    for (int i = 0; i < 1000000; i++) {
+        hal_gpio_read(PUSH_BUTTON_IN);
+    }
 }

@@ -123,7 +123,7 @@
 		"path": "$ROOTPATH$\\libs\\pinetime_boot\\src\\pinetime_boot.c",
 		"bookmarks": [
 			{
-				"line": 32,
+				"line": 30,
 				"column": 11,
 				"label": ""
 			}

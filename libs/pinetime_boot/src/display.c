@@ -27,6 +27,7 @@
 #include <hal/hal_spi.h>
 #include <stdio.h>
 #include <string.h>
+#include "pinetime_boot/pinetime_boot.h"
 
 //  GPIO Pins. From rust\piet-embedded\piet-embedded-graphics\src\display.rs
 #define DISPLAY_SPI   0  //  Mynewt SPI port 0
@@ -325,7 +326,11 @@ static int transmit_spi(const uint8_t *data, uint16_t len) {
 
 /// Sleep for the specified number of milliseconds
 static void delay_ms(uint32_t ms) {
+#if MYNEWT_VAL(OS_SCHEDULING)  //  If Task Scheduler is enabled...
     uint32_t delay_ticks = ms * OS_TICKS_PER_SEC / 1000;
-    //  TODO: os_time_delay() doesn't work in MCUBoot because the scheduler has not started
     os_time_delay(delay_ticks);
+#else
+    //  os_time_delay() doesn't work in MCUBoot because the scheduler has not started
+    pinetime_boot_check_button();
+#endif  //  MYNEWT_VAL(OS_SCHEDULING)
 }
