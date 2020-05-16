@@ -28,6 +28,12 @@ extern "C" {  //  Expose the types and functions below to C functions.
 /// Init the display and render the boot graphic. Called by sysinit() during startup, defined in pkg.yml.
 void pinetime_boot_init(void);
 
+/// Write a converted graphic file to SPI Flash
+int pinetime_boot_write_image(void);
+
+/// Display the image in SPI Flash to ST7789 display controller
+int pinetime_boot_display_image(void);
+
 #ifdef __cplusplus
 }
 #endif

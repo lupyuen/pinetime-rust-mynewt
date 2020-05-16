@@ -45,6 +45,7 @@
                 "${workspaceFolder}/libs/esp8266/include",
                 "${workspaceFolder}/libs/hmac_prng/include",
                 "${workspaceFolder}/libs/nrf24l01/include",
+                "${workspaceFolder}/libs/pinetime_boot/include",
                 "${workspaceFolder}/libs/semihosting_console/include",
                 "${workspaceFolder}/libs/sensor_coap/include",
                 "${workspaceFolder}/libs/sensor_network/include"
@@ -57,6 +58,7 @@
                 "BSP_NAME=nrf52",
                 "BSP_nrf52",
                 "FLOAT_SUPPORT",
+                "MCUBOOT_HAVE_LOGGING=1",
                 "MYNEWT=1",
                 "SECURE=0",
                 "STM32F103xB",

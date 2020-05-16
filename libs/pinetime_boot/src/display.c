@@ -105,8 +105,9 @@ static void delay_ms(uint32_t ms);
 /// Buffer for reading flash and writing to display
 static uint8_t flash_buffer[BATCH_SIZE];
 
-/// Display an image from SPI Flash to ST7789 display controller. From https://github.com/lupyuen/pinetime-rust-mynewt/blob/main/logs/spi-non-blocking.log
-int display_image(void) {
+/// Display the image in SPI Flash to ST7789 display controller. 
+/// Derived from https://github.com/lupyuen/pinetime-rust-mynewt/blob/main/logs/spi-non-blocking.log
+int pinetime_boot_display_image(void) {
     console_printf("Displaying image...\n"); console_flush();
     int rc = init_display();  assert(rc == 0);
     rc = set_orientation(Landscape);  assert(rc == 0);
@@ -328,22 +329,3 @@ static void delay_ms(uint32_t ms) {
     //  TODO: os_time_delay() doesn't work in MCUBoot because the scheduler has not started
     os_time_delay(delay_ticks);
 }
-
-/*
-    ////
-    console_printf("Starting MCUBoot...\n"); console_flush();
-    //  The button on the side of the PineTime is disabled by default. To enable it, drive the button out pin (P0.15) high.
-    //  While enabled, the button in pin (P0.13) will be high when the button is pressed, and low when it is not pressed. 
-    #define PUSH_BUTTON_IN  13  //  P0.13: PUSH BUTTON_IN
-    #define PUSH_BUTTON_OUT 15  //  P0.15/TRACEDATA2: PUSH BUTTON_OUT
-    hal_gpio_init_out(PUSH_BUTTON_OUT, 1);  //  Enable the button
-    hal_gpio_init_in(PUSH_BUTTON_IN, HAL_GPIO_PULL_DOWN);  //  TODO: Or up / down
-    display_image();
-    console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
-    for (int i = 0; i < 10000000; i++) {
-        hal_gpio_read(PUSH_BUTTON_IN);
-    }
-    console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
-    console_printf("Booting...\n"); console_flush();
-    ////
-*/

@@ -26,6 +26,7 @@ pkg.homepage:
 # Package Dependencies: MCUBoot is dependent on these drivers and libraries.
 pkg.deps:
     - "libs/semihosting_console"  #  Semihosting Console
+    - "libs/pinetime_boot"        #  Render boot graphic and check for rollback
 
 #  C compiler flags
 pkg.cflags:
