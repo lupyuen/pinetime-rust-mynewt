@@ -58,7 +58,8 @@
 <li><a href="#write-boot-graphic-to-spi-flash-on-pinetime">4 Write Boot Graphic to SPI Flash on PineTime</a><ul></ul></li>
 <li><a href="#pinetime-boot-library">5 PineTime Boot Library</a><ul></ul></li>
 <li><a href="#manual-firmware-rollback-on-pinetime">6 Manual Firmware Rollback on PineTime</a><ul></ul></li>
-<li><a href="#further-reading">7 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/mcuboot-photo2-small.jpg" alt="Enhanced MCUBoot Bootloader running on PineTime Smart Watch" /></p>
+<li><a href="#test-mcuboot-on-pinetime">7 Test MCUBoot on PineTime</a><ul></ul></li>
+<li><a href="#further-reading">8 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/mcuboot-photo2-small.jpg" alt="Enhanced MCUBoot Bootloader running on PineTime Smart Watch" /></p>
 <p><em>Enhanced MCUBoot Bootloader running on PineTime Smart Watch</em></p>
 <p>Today we'll talk about the <strong>Enhanced MCUBoot Bootloader</strong> for <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>. </p>
 <p>Here's a sneak peek of the Enhanced MCUBoot Bootloader running on PineTime...</p>
@@ -92,7 +93,90 @@
 <p><em>(Because the data collected by our smart watches may be misused to harm us someday)</em></p>
 </li>
 </ol>
-<h1 id="updated-flash-memory-map-for-pinetime" class="section-header"><a href="#updated-flash-memory-map-for-pinetime">1 Updated Flash Memory Map for PineTime</a></h1><h1 id="st7789-display-controller-on-pinetime" class="section-header"><a href="#st7789-display-controller-on-pinetime">2 ST7789 Display Controller on PineTime</a></h1><h1 id="render-boot-graphic-from-spi-flash-on-pinetime" class="section-header"><a href="#render-boot-graphic-from-spi-flash-on-pinetime">3 Render Boot Graphic from SPI Flash on PineTime</a></h1><h1 id="write-boot-graphic-to-spi-flash-on-pinetime" class="section-header"><a href="#write-boot-graphic-to-spi-flash-on-pinetime">4 Write Boot Graphic to SPI Flash on PineTime</a></h1><h1 id="pinetime-boot-library" class="section-header"><a href="#pinetime-boot-library">5 PineTime Boot Library</a></h1><h1 id="manual-firmware-rollback-on-pinetime" class="section-header"><a href="#manual-firmware-rollback-on-pinetime">6 Manual Firmware Rollback on PineTime</a></h1><h1 id="further-reading" class="section-header"><a href="#further-reading">7 Further Reading</a></h1>
+<h1 id="updated-flash-memory-map-for-pinetime" class="section-header"><a href="#updated-flash-memory-map-for-pinetime">1 Updated Flash Memory Map for PineTime</a></h1>
+<p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">If you haven't read the earlier article on MCUBoot... Please do so now!</a></p>
+<p>Our earlier design for MCUBoot hit a showstopper... The Application Firmware size was limited to <strong>232 KB</strong>, which is too small acccording to PineTime Firmware Developers.</p>
+<p>With Enhanced MCUBoot, we can now support firmware twice that size... Up to <strong>464 KB</strong>!  (Remember that PineTime's Flash ROM is only 512 KB)</p>
+<p><em>How did we get so much ROM space?</em></p>
+<p>We moved the Standby Firmware Image from PineTime's Flash ROM (512 KB) to PineTime's SPI Flash (4 MB).</p>
+<p>During firmware update, the Standby Firmware slot is used as the staging area for the new firmware. On reboot, MCUBoot swaps the new firmware with the old firmware. If the new firmware doesn't start properly, MCUBoot swaps them back.</p>
+<p>Here's the updated Flash Memory Map for PineTime. Note that the Standby Firmware Image is now stored in Flash Device 1 (SPI Flash) instead of Flash Device 0 (Internal ROM): <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/bsp.yml"><code>hw/bsp/nrf52/bsp.yml</code></a></p>
+<pre><code class="language-yaml"># Flash Memory Map for PineTime: Internal Flash ROM and External SPI Flash
+bsp.flash_map:
+    areas:
+        # System areas.
+        FLASH_AREA_BOOTLOADER:       # MCUBoot
+            device:  0               # Internal Flash ROM
+            offset:  0x00000000      # Start of Internal Flash ROM
+            size:    24kB
+        FLASH_AREA_IMAGE_0:          # Active Firmware Image
+            device:  0               # Internal Flash ROM
+            offset:  0x00008000
+            size:    464kB           # Max size of Firmware Image
+        FLASH_AREA_IMAGE_1:          # Standby Firmware Image
+            device:  1               # External SPI Flash
+            offset:  0x00040000
+            size:    464kB           # Max size of Firmware Image
+        FLASH_AREA_IMAGE_SCRATCH:    # Used by MCUBoot for swapping Active and Standby Firmware
+            device:  0               # Internal Flash ROM
+            offset:  0x0007c000
+            size:    4kB
+
+        # User areas.
+        FLASH_AREA_REBOOT_LOG:       # For logging debug messages during startup
+            user_id: 0
+            device:  0               # Internal Flash ROM
+            offset:  0x00006000
+            size:    8kB
+        # FLASH_AREA_BOOTLOADER_ASSET: # Bootloader Assets, like Boot Graphic
+        #   user_id: 1
+        #   device:  1               # External SPI Flash
+        #   offset:  0x00000000      # Start of External SPI Flash
+        #   size:    256kB
+        FLASH_AREA_NFFS:             # For user files
+            user_id: 1
+            device:  1               # External SPI Flash
+            offset:  0x000b4000
+            size:    3376kB
+</code></pre>
+<p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash">More about PineTime's SPI Flash</a></p>
+<p>Here's the layout for <strong>PineTime's Flash ROM</strong>...</p>
+<table><thead><tr><th align="left">     Flash ROM Area</th><th align="left">Address</th><th align="right">Size</th></tr></thead><tbody>
+<tr><td align="left">     Bootloader (MCUBoot)</td><td align="left"><code>0x0000 0000</code></td><td align="right">24 KB</td></tr>
+<tr><td align="left">     Reboot Log</td><td align="left"><code>0x0000 6000</code></td><td align="right">8 KB</td></tr>
+<tr><td align="left">     <strong>Active Firmware Image</strong>      </td><td align="left"><strong><code>0x0000 8000</code></strong></td><td align="right">    <strong>464 KB</strong></td></tr>
+<tr><td align="left">     Scratch Area</td><td align="left"><code>0x0007 C000</code></td><td align="right">4 KB</td></tr>
+<tr><td align="left"><br></td><td align="left"></td><td align="right"></td></tr>
+</tbody></table>
+<p>And the layout for <strong>PineTime's SPI Flash</strong>...</p>
+<table><thead><tr><th align="left">     SPI Flash Area</th><th align="left">Address</th><th align="right">Size</th></tr></thead><tbody>
+<tr><td align="left">     Bootloader Assets</td><td align="left"><code>0x0000 0000</code></td><td align="right">256 KB</td></tr>
+<tr><td align="left">     <em>Standby Firmware Image</em>     </td><td align="left"><code>0x0004 0000</code></td><td align="right"><em>464 KB</em></td></tr>
+<tr><td align="left">     User File System</td><td align="left"><code>0x000B 4000</code></td><td align="right">     3,376 KB</td></tr>
+<tr><td align="left"><br></td><td align="left"></td><td align="right"></td></tr>
+</tbody></table>
+<p>The <strong>User File System</strong> has been bumped up to a whopping <strong>3.2 MB</strong> (from 12 KB).</p>
+<p>PineTime Watch Apps may store graphical assets and other app data in the User File System, once we install a Flash File System like littlefs.</p>
+<p><a href="https://github.com/ARMmbed/littlefs/blob/master/README.md">More about littlefs</a></p>
+<p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash">Supporting littlefs on PineTime</a></p>
+<p><em>Bootloader Assets (256 KB) is a new flash area in SPI Flash. What's inside?</em></p>
+<p>The Enhanced MCUBoot Bootloader now renders a Boot Graphic that's 112.5 KB in size. The Boot Graphic is stored in the <strong>Bootloader Assets</strong> flash area.</p>
+<p>Half of the Bootloader Assets area is unused. We expect to use the free space to store fonts and other graphical assets that will be rendered by Enhanced MCUBoot.</p>
+<p>Let's discover how PineTime's ST7789 Display Controller renders graphics...</p>
+<h1 id="st7789-display-controller-on-pinetime" class="section-header"><a href="#st7789-display-controller-on-pinetime">2 ST7789 Display Controller on PineTime</a></h1>
+<p>TODO</p>
+<h1 id="render-boot-graphic-from-spi-flash-on-pinetime" class="section-header"><a href="#render-boot-graphic-from-spi-flash-on-pinetime">3 Render Boot Graphic from SPI Flash on PineTime</a></h1>
+<p>TODO</p>
+<p>Will not crash</p>
+<h1 id="write-boot-graphic-to-spi-flash-on-pinetime" class="section-header"><a href="#write-boot-graphic-to-spi-flash-on-pinetime">4 Write Boot Graphic to SPI Flash on PineTime</a></h1>
+<p>TODO</p>
+<h1 id="pinetime-boot-library" class="section-header"><a href="#pinetime-boot-library">5 PineTime Boot Library</a></h1>
+<p>TODO</p>
+<h1 id="manual-firmware-rollback-on-pinetime" class="section-header"><a href="#manual-firmware-rollback-on-pinetime">6 Manual Firmware Rollback on PineTime</a></h1>
+<p>TODO</p>
+<h1 id="test-mcuboot-on-pinetime" class="section-header"><a href="#test-mcuboot-on-pinetime">7 Test MCUBoot on PineTime</a></h1>
+<p>TOOD</p>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">8 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 
     
