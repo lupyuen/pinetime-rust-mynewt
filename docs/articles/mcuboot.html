@@ -60,8 +60,37 @@
 <li><a href="#manual-firmware-rollback-on-pinetime">6 Manual Firmware Rollback on PineTime</a><ul></ul></li>
 <li><a href="#further-reading">7 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/mcuboot-photo2-small.jpg" alt="Enhanced MCUBoot Bootloader running on PineTime Smart Watch" /></p>
 <p><em>Enhanced MCUBoot Bootloader running on PineTime Smart Watch</em></p>
+<p>Today we'll talk about the <strong>Enhanced MCUBoot Bootloader</strong> for PineTime Smart Watch. Here's a sneak peek of the Enhanced MCUBoot Bootloader running on PineTime...</p>
 <p><a href="https://twitter.com/MisterTechBlog/status/1261568945728876544?s=20">Watch video on Twitter</a></p>
 <p><a href="https://qoto.org/@lupyuen/104177098953236703">Watch video on Mastodon</a></p>
+<p>We'll learn how the open-source MCUBoot Bootloader (<a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">covered in an earlier article</a>) has been enhanced to support...</p>
+<ol>
+<li>
+<p><strong>SPI Flash</strong> for storing the Standby Firmware Image</p>
+</li>
+<li>
+<p><strong>Rendering the Boot Graphic</strong> that's stored in SPI Flash </p>
+<p><em>(Because PineTime Owners should have the freedom to customise the way it looks!)</em></p>
+</li>
+<li>
+<p><strong>Manual Firmware Rollback</strong> when the watch button is pressed during startup</p>
+</li>
+</ol>
+<p><em>...Without making any code changes to MCUBoot! (Amazing!)</em></p>
+<p>We'll see that the enhancements to MCUBoot were done through configuration files, and by adding some new functions.</p>
+<p><em>Isn't it easier to fork MCUBoot and change the code?</em></p>
+<p>We shall always resist the temptation to modify MCUBoot code... Because MCUBoot is a <strong>Critical and Secure</strong> part of PineTime!</p>
+<ol>
+<li>
+<p>MCUBoot must <strong>not be allowed to crash or hang</strong> due to buggy code.</p>
+<p>MCUBoot is the first thing that runs when PineTime starts up. If MCUBoot crashes or hangs, PineTime Owners will have a bricked watch on their wrists.</p>
+</li>
+<li>
+<p>MCUBoot is designed to <strong>start firmware securely,</strong> protected by digital signatures.</p>
+<p>Although we don't secure PineTime firmware today, MCUBoot may someday be used to verify that our firmware hasn't been tampered with.</p>
+<p><em>(Because the data collected by our smart watches may be misused to harm us someday)</em></p>
+</li>
+</ol>
 <h1 id="updated-flash-memory-map-for-pinetime" class="section-header"><a href="#updated-flash-memory-map-for-pinetime">1 Updated Flash Memory Map for PineTime</a></h1><h1 id="st7789-display-controller-on-pinetime" class="section-header"><a href="#st7789-display-controller-on-pinetime">2 ST7789 Display Controller on PineTime</a></h1><h1 id="render-boot-graphic-from-spi-flash-on-pinetime" class="section-header"><a href="#render-boot-graphic-from-spi-flash-on-pinetime">3 Render Boot Graphic from SPI Flash on PineTime</a></h1><h1 id="write-boot-graphic-to-spi-flash-on-pinetime" class="section-header"><a href="#write-boot-graphic-to-spi-flash-on-pinetime">4 Write Boot Graphic to SPI Flash on PineTime</a></h1><h1 id="pinetime-boot-library" class="section-header"><a href="#pinetime-boot-library">5 PineTime Boot Library</a></h1><h1 id="manual-firmware-rollback-on-pinetime" class="section-header"><a href="#manual-firmware-rollback-on-pinetime">6 Manual Firmware Rollback on PineTime</a></h1><h1 id="further-reading" class="section-header"><a href="#further-reading">7 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 
