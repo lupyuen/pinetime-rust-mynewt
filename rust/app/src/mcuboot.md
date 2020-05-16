@@ -295,6 +295,12 @@ Will not crash
 
 No scheduler
 
+just copy
+
+no data structures
+
+no compression
+
 From [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c)
 
 ```c
