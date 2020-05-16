@@ -141,7 +141,13 @@ TODO
 
 TODO
 
+Fastest, simplest way possible
+
+At the expense of hardcoding
+
 Will not crash
+
+No scheduler
 
 # Write Boot Graphic to SPI Flash on PineTime
 
