@@ -51,7 +51,7 @@ void boot_custom_start(
 ) {
     //  Wait 5 seconds for button press.
     console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 100; i++) {
         pinetime_boot_check_button();
     }
     console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
