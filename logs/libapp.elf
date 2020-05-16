@@ -1408,7 +1408,7 @@ Section Headers:
   [55] .ARM.attributes   ARM_ATTRIBUTES  00000000 001457 00003a 00      0   0  1
   [56] .debug_frame      PROGBITS        00000000 001494 000058 00      0   0  4
   [57] .rel.debug_frame  REL             00000000 0028f8 000030 08     60  56  4
-  [58] .debug_line       PROGBITS        00000000 0014ec 000172 00      0   0  1
+  [58] .debug_line       PROGBITS        00000000 0014ec 000174 00      0   0  1
   [59] .rel.debug_line   REL             00000000 002928 000018 08     60  58  4
   [60] .symtab           SYMTAB          00000000 001660 000a50 10      1 141  4
 Key to Flags:
@@ -1758,7 +1758,7 @@ Relocation section '.rel.debug_line' at offset 0x2928 contains 3 entries:
  Offset     Info    Type                Sym. Value  Symbol's Name
 00000094  00008402 R_ARM_ABS32            00000000   .text._ZN3app12handle_touch17hea6f2025bf0a039eE
 000000b0  00008502 R_ARM_ABS32            00000000   .text.main
-00000101  00008602 R_ARM_ABS32            00000000   .text.rust_begin_unwind
+00000103  00008602 R_ARM_ABS32            00000000   .text.rust_begin_unwind
 
 Unwind section '.ARM.exidx.text._ZN3app12handle_touch17hea6f2025bf0a039eE' at offset 0x64 contains 1 entry:
 

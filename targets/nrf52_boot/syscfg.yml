@@ -18,6 +18,7 @@
 # MCUBoot Bootloader Settings
 
 syscfg.vals:
+    BOOT_CUSTOM_START:        1  # Use custom boot function boot_custom_start()
     OS_MAIN_STACK_SIZE:    1024  # Small stack size: 4 KB
     MSYS_1_BLOCK_COUNT:      64  # Allocate extra MSYS buffers
 

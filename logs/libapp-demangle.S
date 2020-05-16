@@ -1450,29 +1450,31 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:84
     mynewt::sysinit();
    2:	f7ff fffe 	bl	0 <mynewt::sysinit>
    6:	e7ff      	b.n	2 <test_flash+0x2>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:88
-
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:100
+    assert!(rc == 0, "IMG fail");
+    */
+    
     //  Test External SPI Flash. Must run before testing the display, to avoid contention for SPI port.
     extern { fn test_flash() -> i32; }
     let rc = unsafe { test_flash() };
    8:	f7ff fffe 	bl	0 <test_flash>
    c:	9006      	str	r0, [sp, #24]
    e:	e7ff      	b.n	10 <main+0x10>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:89
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:101
     assert!(rc == 0, "FLASH fail");
   10:	9806      	ldr	r0, [sp, #24]
   12:	2800      	cmp	r0, #0
   14:	d104      	bne.n	20 <main+0x20>
   16:	e7ff      	b.n	18 <main+0x18>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:93
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:105
 
-    //  Display image. Must run before testing the display, to avoid contention for SPI port.
-    extern { fn display_image() -> i32; }
-    let rc = unsafe { display_image() };
+    //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
+    extern { fn start_ble() -> i32; }
+    let rc = unsafe { start_ble() };
   18:	f7ff fffe 	bl	0 <start_ble>
   1c:	9007      	str	r0, [sp, #28]
   1e:	e00b      	b.n	38 <main+0x38>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:89
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:101
     assert!(rc == 0, "FLASH fail");
   20:	f240 0000 	movw	r0, #0
   24:	f2c0 0000 	movt	r0, #0
@@ -1481,21 +1483,21 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:89
   30:	210a      	movs	r1, #10
   32:	f7ff fffe 	bl	0 <core::panicking::panic>
   36:	defe      	udf	#254	; 0xfe
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:94
-    assert!(rc == 0, "IMG fail");
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:106
+    assert!(rc == 0, "BLE fail");
   38:	9807      	ldr	r0, [sp, #28]
   3a:	2800      	cmp	r0, #0
   3c:	d104      	bne.n	48 <main+0x48>
   3e:	e7ff      	b.n	40 <main+0x40>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:97
-    
-    //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
-    extern { fn start_ble() -> i32; }
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:109
+
+    //  Start the display
+    druid::start_display()
   40:	f7ff fffe 	bl	0 <piet_embedded_graphics::display::start_display>
   44:	9005      	str	r0, [sp, #20]
   46:	e00b      	b.n	60 <main+0x60>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:94
-    assert!(rc == 0, "IMG fail");
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:106
+    assert!(rc == 0, "BLE fail");
   48:	f240 0000 	movw	r0, #0
   4c:	f2c0 0000 	movt	r0, #0
   50:	f240 0200 	movw	r2, #0
@@ -1503,8 +1505,8 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:94
   58:	2108      	movs	r1, #8
   5a:	f7ff fffe 	bl	0 <core::panicking::panic>
   5e:	defe      	udf	#254	; 0xfe
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:97
-    extern { fn start_ble() -> i32; }
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:109
+    druid::start_display()
   60:	f240 0100 	movw	r1, #0
   64:	f2c0 0100 	movt	r1, #0
   68:	f240 0300 	movw	r3, #0
@@ -1513,12 +1515,12 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:97
   72:	9805      	ldr	r0, [sp, #20]
   74:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
   78:	e7ff      	b.n	2 <app::display::test_display+0x2>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:102
-    let rc = unsafe { start_ble() };
-    assert!(rc == 0, "BLE fail");
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:114
+        .expect("DSP fail");
 
-    //  Start the display
-    druid::start_display()
+    //  Test the display
+    #[cfg(feature = "display_app")]  //  If graphics display app is enabled...
+    display::test_display()
   7a:	f7ff fffe 	bl	0 <app::display::test_display>
   7e:	9004      	str	r0, [sp, #16]
   80:	e7ff      	b.n	82 <main+0x82>
@@ -1530,11 +1532,11 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:102
   94:	9804      	ldr	r0, [sp, #16]
   96:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
   9a:	e7ff      	b.n	2 <app::touch_sensor::start_touch_sensor+0x2>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:106
-        .expect("DSP fail");
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:118
+        .expect("DSP test fail");
 
-    //  Test the display
-    #[cfg(feature = "display_app")]  //  If graphics display app is enabled...
+    //  Start the touch sensor
+    touch_sensor::start_touch_sensor()
   9c:	f7ff fffe 	bl	0 <app::touch_sensor::start_touch_sensor>
   a0:	9003      	str	r0, [sp, #12]
   a2:	e7ff      	b.n	a4 <main+0xa4>
@@ -1546,18 +1548,18 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:106
   b6:	9803      	ldr	r0, [sp, #12]
   b8:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
   bc:	e7ff      	b.n	be <main+0xbe>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:128
-    #[cfg(feature = "visual_app")]  //  If Visual Rust app is enabled...
-    visual::on_start()
-        .expect("VIS fail");
-
-    //  Launch the CHIP8 Emulator app
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:140
     #[cfg(feature = "chip8_app")]  //  If CHIP8 Emulator app is enabled...
-  be:	e7ff      	b.n	c0 <main+0xc0>
-  c0:	a808      	add	r0, sp, #32
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:130
     chip8::on_start()
         .expect("CHIP8 fail");
+
+    //  Main event loop
+    loop {                            //  Loop forever...
+  be:	e7ff      	b.n	c0 <main+0xc0>
+  c0:	a808      	add	r0, sp, #32
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:142
+        os::eventq_run(               //  Processing events...
+            os::eventq_dflt_get()     //  From default event queue.
   c2:	f7ff fffe 	bl	0 <mynewt::kernel::os::eventq_dflt_get>
   c6:	e7ff      	b.n	1a <main+0x1a>
   c8:	f240 0100 	movw	r1, #0
@@ -1569,8 +1571,8 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:130
   dc:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
   e0:	9002      	str	r0, [sp, #8]
   e2:	e7ff      	b.n	e4 <main+0xe4>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:129
-    chip8::on_start()
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:141
+        os::eventq_run(               //  Processing events...
   e4:	9802      	ldr	r0, [sp, #8]
   e6:	f7ff fffe 	bl	0 <mynewt::kernel::os::eventq_run>
   ea:	9001      	str	r0, [sp, #4]
@@ -1583,33 +1585,33 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:129
  100:	9801      	ldr	r0, [sp, #4]
  102:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
  106:	e7ff      	b.n	108 <main+0x108>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:128
-    #[cfg(feature = "chip8_app")]  //  If CHIP8 Emulator app is enabled...
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:140
+    loop {                            //  Loop forever...
  108:	e7da      	b.n	c0 <main+0xc0>
 
 Disassembly of section .text.rust_begin_unwind:
 
 00000000 <rust_begin_unwind>:
 rust_begin_unwind():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:139
-        os::eventq_run(               //  Processing events...
-            os::eventq_dflt_get()     //  From default event queue.
-                .expect("GET fail")
-        ).expect("RUN fail");
-    }
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:151
     //  Never comes here
-   0:	b08a      	sub	sp, #40	; 0x28
-   2:	9004      	str	r0, [sp, #16]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:141
 }
 
+///  This function is called on panic, like an assertion failure. We display the filename and line number and pause in the debugger. From https://os.phil-opp.com/freestanding-rust-binary/
+#[panic_handler]
+fn panic(info: &PanicInfo) -> ! {
+   0:	b08a      	sub	sp, #40	; 0x28
+   2:	9004      	str	r0, [sp, #16]
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:153
+    //  Display the filename and line number to the Semihosting Console.
+    console::print("panic ");
    4:	f240 0000 	movw	r0, #0
    8:	f2c0 0000 	movt	r0, #0
    c:	2106      	movs	r1, #6
    e:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
   12:	e7ff      	b.n	14 <rust_begin_unwind+0x14>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:142
-///  This function is called on panic, like an assertion failure. We display the filename and line number and pause in the debugger. From https://os.phil-opp.com/freestanding-rust-binary/
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:154
+    if let Some(location) = info.location() {
   14:	9804      	ldr	r0, [sp, #16]
   16:	f7ff fffe 	bl	0 <core::panic::PanicInfo::location>
   1a:	9005      	str	r0, [sp, #20]
@@ -1618,37 +1620,37 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:142
   20:	2800      	cmp	r0, #0
   22:	d108      	bne.n	36 <rust_begin_unwind+0x36>
   24:	e7ff      	b.n	26 <rust_begin_unwind+0x26>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:149
-fn panic(info: &PanicInfo) -> ! {
-    //  Display the filename and line number to the Semihosting Console.
-    console::print("panic ");
-    if let Some(location) = info.location() {
-        let file = location.file();
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:161
         let line = location.line();
+        console::print("at ");       console::buffer(&file);
+        console::print(" line ");    console::printint(line as i32);
+        console::print("\n");        console::flush();
+    } else {
+        console::print("no loc\n");  console::flush();
   26:	f240 0000 	movw	r0, #0
   2a:	f2c0 0000 	movt	r0, #0
   2e:	2107      	movs	r1, #7
   30:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
   34:	e031      	b.n	9a <rust_begin_unwind+0x9a>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:142
-///  This function is called on panic, like an assertion failure. We display the filename and line number and pause in the debugger. From https://os.phil-opp.com/freestanding-rust-binary/
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:154
+    if let Some(location) = info.location() {
   36:	9805      	ldr	r0, [sp, #20]
   38:	9006      	str	r0, [sp, #24]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:143
-#[panic_handler]
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:155
+        let file = location.file();
   3a:	9806      	ldr	r0, [sp, #24]
   3c:	f7ff fffe 	bl	0 <core::panic::Location::file>
   40:	9108      	str	r1, [sp, #32]
   42:	9007      	str	r0, [sp, #28]
   44:	e7ff      	b.n	46 <rust_begin_unwind+0x46>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:144
-fn panic(info: &PanicInfo) -> ! {
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:156
+        let line = location.line();
   46:	9806      	ldr	r0, [sp, #24]
   48:	f7ff fffe 	bl	0 <core::panic::Location::line>
   4c:	9009      	str	r0, [sp, #36]	; 0x24
   4e:	e7ff      	b.n	50 <rust_begin_unwind+0x50>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:145
-    //  Display the filename and line number to the Semihosting Console.
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:157
+        console::print("at ");       console::buffer(&file);
   50:	f240 0000 	movw	r0, #0
   54:	f2c0 0000 	movt	r0, #0
   58:	2103      	movs	r1, #3
@@ -1658,8 +1660,8 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:145
   62:	9908      	ldr	r1, [sp, #32]
   64:	f7ff fffe 	bl	0 <mynewt::sys::console::buffer>
   68:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:146
-    console::print("panic ");
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:158
+        console::print(" line ");    console::printint(line as i32);
   6a:	f240 0000 	movw	r0, #0
   6e:	f2c0 0000 	movt	r0, #0
   72:	2106      	movs	r1, #6
@@ -1668,8 +1670,8 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:146
   7a:	9809      	ldr	r0, [sp, #36]	; 0x24
   7c:	f7ff fffe 	bl	0 <mynewt::sys::console::printint>
   80:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:147
-    if let Some(location) = info.location() {
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:159
+        console::print("\n");        console::flush();
   82:	f240 0000 	movw	r0, #0
   86:	f2c0 0000 	movt	r0, #0
   8a:	2101      	movs	r1, #1
@@ -1677,15 +1679,15 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:147
   90:	e7ff      	b.n	2 <mynewt::sys::console::flush+0x2>
   92:	f7ff fffe 	bl	0 <mynewt::sys::console::flush>
   96:	e7ff      	b.n	98 <rust_begin_unwind+0x98>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:142
-///  This function is called on panic, like an assertion failure. We display the filename and line number and pause in the debugger. From https://os.phil-opp.com/freestanding-rust-binary/
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:154
+    if let Some(location) = info.location() {
   98:	e003      	b.n	a2 <rust_begin_unwind+0xa2>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:149
-        let line = location.line();
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:161
+        console::print("no loc\n");  console::flush();
   9a:	f7ff fffe 	bl	0 <mynewt::sys::console::flush>
   9e:	e7ff      	b.n	a0 <rust_begin_unwind+0xa0>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:142
-///  This function is called on panic, like an assertion failure. We display the filename and line number and pause in the debugger. From https://os.phil-opp.com/freestanding-rust-binary/
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:154
+    if let Some(location) = info.location() {
   a0:	e7ff      	b.n	a2 <rust_begin_unwind+0xa2>
 _ZN8cortex_m3asm4bkpt17heaf2dfb2ecf6f289E():
 C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cortex-m-0.6.1\src/asm.rs:11
@@ -1697,14 +1699,14 @@ pub fn bkpt() {
         () => unsafe { asm!("bkpt" :::: "volatile") },
   a2:	be00      	bkpt	0x0000
 rust_begin_unwind():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:152
-        console::print("at ");       console::buffer(&file);
-        console::print(" line ");    console::printint(line as i32);
-        console::print("\n");        console::flush();
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:164
+    }
+    //  Pause in the debugger.
+    bkpt();
   a4:	e7ff      	b.n	a6 <rust_begin_unwind+0xa6>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:154
-    } else {
-        console::print("no loc\n");  console::flush();
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:166
+    //  Display the payload.
+    console::print(info.payload().downcast_ref::<&str>().unwrap());
   a6:	9804      	ldr	r0, [sp, #16]
   a8:	f7ff fffe 	bl	0 <core::panic::PanicInfo::payload>
   ac:	9003      	str	r0, [sp, #12]
@@ -1727,8 +1729,8 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:154
   d6:	6849      	ldr	r1, [r1, #4]
   d8:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
   dc:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:155
-    }
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:167
+    console::print("\n");  console::flush();
   de:	f240 0000 	movw	r0, #0
   e2:	f2c0 0000 	movt	r0, #0
   e6:	2101      	movs	r1, #1
@@ -1736,9 +1738,9 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:155
   ec:	e7ff      	b.n	2 <mynewt::sys::console::flush+0x2>
   ee:	f7ff fffe 	bl	0 <mynewt::sys::console::flush>
   f2:	e7ff      	b.n	f4 <rust_begin_unwind+0xf4>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:157
-    //  Pause in the debugger.
-    bkpt();
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:169
+    //  Loop forever so that device won't restart.
+    loop {}
   f4:	e7ff      	b.n	f6 <rust_begin_unwind+0xf6>
   f6:	e7fe      	b.n	f6 <rust_begin_unwind+0xf6>
 
@@ -7776,7 +7778,6 @@ _ZN4core3fmt9Arguments6new_v117h54cc51514445bde4E():
 /rustc/f43c34a134358471726f25fe5973b8c7e177c825/src/libcore/fmt/mod.rs:312
   34:	b006      	add	sp, #24
   36:	4770      	bx	lr
-arm-none-eabi-objdump: Warning: source file C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs is more recent than object file
 arm-none-eabi-objdump: lib.rmeta: File format not recognized
 arm-none-eabi-objdump: app-2c84bd17359ee43e.10zn9ae9k56vomcm.rcgu.bc.z: File format not recognized
 arm-none-eabi-objdump: app-2c84bd17359ee43e.1ky2n1yae87xdixz.rcgu.bc.z: File format not recognized

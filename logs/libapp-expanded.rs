@@ -96,9 +96,19 @@ mod app_network {
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
 
-    //  Test External SPI Flash. Must run before testing the display, to avoid contention for SPI port.
+    //  Write graphic image to SPI Flash. Must run before testing the display, to avoid contention for SPI port.
+    //  extern { fn write_image() -> i32; }
+    //  let rc = unsafe { write_image() };
+    //  assert!(rc == 0, "IMG fail");
 
-    //  Display image. Must run before testing the display, to avoid contention for SPI port.
+    //  Display image from SPI Flash. Must run before testing the display, to avoid contention for SPI port.
+    /*
+    extern { fn display_image() -> i32; }
+    let rc = unsafe { display_image() };
+    assert!(rc == 0, "IMG fail");
+    */
+
+    //  Test External SPI Flash. Must run before testing the display, to avoid contention for SPI port.
 
     //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
 
@@ -795,11 +805,6 @@ extern "C" fn main() -> ! {
     }
     let rc = unsafe { test_flash() };
     if !(rc == 0) { ::core::panicking::panic("FLASH fail") };
-    extern {
-        fn display_image() -> i32;
-    }
-    let rc = unsafe { display_image() };
-    if !(rc == 0) { ::core::panicking::panic("IMG fail") };
     extern {
         fn start_ble() -> i32;
     }
