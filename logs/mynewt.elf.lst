@@ -6683,14 +6683,14 @@ void pinetime_boot_check_button(void) {
     1e7a:	4810      	ldr	r0, [pc, #64]	; (1ebc <boot_custom_start+0x50>)
     1e7c:	f000 fa4a 	bl	2314 <console_printf>
     1e80:	f000 fa9e 	bl	23c0 <console_flush>
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 15; i++) {
     1e84:	2400      	movs	r4, #0
     1e86:	e002      	b.n	1e8e <boot_custom_start+0x22>
         pinetime_boot_check_button();
     1e88:	f7ff ffe2 	bl	1e50 <pinetime_boot_check_button>
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 15; i++) {
     1e8c:	3401      	adds	r4, #1
-    1e8e:	2c09      	cmp	r4, #9
+    1e8e:	2c0e      	cmp	r4, #14
     1e90:	ddfa      	ble.n	1e88 <boot_custom_start+0x1c>
     console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
     1e92:	200d      	movs	r0, #13
@@ -6748,10 +6748,10 @@ static int hard_reset(void) {
 /// Sleep for the specified number of milliseconds
 static void delay_ms(uint32_t ms) {
     1ee2:	b508      	push	{r3, lr}
-#if MYNEWT_VAL(OS_SCHEDULING)  //  If Task Scheduler is enabled...
+#if MYNEWT_VAL(OS_SCHEDULING)  //  If Task Scheduler is enabled (i.e. not MCUBoot)...
     uint32_t delay_ticks = ms * OS_TICKS_PER_SEC / 1000;
     os_time_delay(delay_ticks);
-#else
+#else  //  If Task Scheduler is disabled (i.e. MCUBoot)...
     //  os_time_delay() doesn't work in MCUBoot because the scheduler has not started
     pinetime_boot_check_button();
     1ee4:	f7ff ffb4 	bl	1e50 <pinetime_boot_check_button>
@@ -15539,9 +15539,9 @@ err:
 000057fc <sysflash_map_dflt>:
 	...
     5804:	6000 0000 0001 0000 8000 0000 4000 0007     .`...........@..
-    5814:	0102 0000 0000 0000 4000 0007 0003 0000     .........@......
+    5814:	0102 0000 0000 0004 4000 0007 0003 0000     .........@......
     5824:	c000 0007 1000 0000 0010 0000 6000 0000     .............`..
-    5834:	2000 0000 0111 0000 4000 0007 c000 0038     . .......@....8.
+    5834:	2000 0000 0111 0000 4000 000b c000 0034     . .......@....4.
 
 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf:     file format elf32-littlearm
 
