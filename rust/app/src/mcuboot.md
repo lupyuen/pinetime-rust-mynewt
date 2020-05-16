@@ -10,9 +10,11 @@ _Enhanced MCUBoot Bootloader running on PineTime Smart Watch_
 
 # Updated Flash Memory Map for PineTime
 
-# Rendering the Boot Graphic from SPI Flash on PineTime
+# ST7789 Display Controller on PineTime
 
-# Writing the Boot Graphic to SPI Flash on PineTime
+# Render Boot Graphic from SPI Flash on PineTime
+
+# Write Boot Graphic to SPI Flash on PineTime
 
 # PineTime Boot Library
 
