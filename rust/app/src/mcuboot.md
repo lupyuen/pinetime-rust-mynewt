@@ -4,7 +4,9 @@
 
 _Enhanced MCUBoot Bootloader running on PineTime Smart Watch_
 
-Today we'll talk about the __Enhanced MCUBoot Bootloader__ for PineTime Smart Watch. Here's a sneak peek of the Enhanced MCUBoot Bootloader running on PineTime...
+Today we'll talk about the __Enhanced MCUBoot Bootloader__ for [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime). 
+
+Here's a sneak peek of the Enhanced MCUBoot Bootloader running on PineTime...
 
 [Watch video on Twitter](https://twitter.com/MisterTechBlog/status/1261568945728876544?s=20)
 
