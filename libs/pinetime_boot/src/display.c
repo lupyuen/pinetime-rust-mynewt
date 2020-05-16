@@ -326,10 +326,10 @@ static int transmit_spi(const uint8_t *data, uint16_t len) {
 
 /// Sleep for the specified number of milliseconds
 static void delay_ms(uint32_t ms) {
-#if MYNEWT_VAL(OS_SCHEDULING)  //  If Task Scheduler is enabled...
+#if MYNEWT_VAL(OS_SCHEDULING)  //  If Task Scheduler is enabled (i.e. not MCUBoot)...
     uint32_t delay_ticks = ms * OS_TICKS_PER_SEC / 1000;
     os_time_delay(delay_ticks);
-#else
+#else  //  If Task Scheduler is disabled (i.e. MCUBoot)...
     //  os_time_delay() doesn't work in MCUBoot because the scheduler has not started
     pinetime_boot_check_button();
 #endif  //  MYNEWT_VAL(OS_SCHEDULING)

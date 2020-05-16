@@ -49,7 +49,7 @@ bsp.flash_map:
             size:   464kB           # Max size of Firmware Image
         FLASH_AREA_IMAGE_1:         # Standby Firmware Image
             device: 1               # External SPI Flash
-            offset: 0x00000000      # Start of External SPI Flash
+            offset: 0x00040000
             size:   464kB           # Max size of Firmware Image
         FLASH_AREA_IMAGE_SCRATCH:   # Used by MCUBoot for swapping Active and Standby Firmware
             device: 0               # Internal Flash ROM
@@ -62,8 +62,12 @@ bsp.flash_map:
             device:  0              # Internal Flash ROM
             offset:  0x00006000
             size:    8kB
+        FLASH_AREA_BOOTLOADER_ASSET: # Bootloader Assets, like Boot Graphic
+            device: 1               # External SPI Flash
+            offset: 0x00000000      # Start of External SPI Flash
+            size:   256kB
         FLASH_AREA_NFFS:            # For user files
             user_id: 1
             device:  1              # External SPI Flash
-            offset:  0x00074000
-            size:    3632kB
+            offset:  0x000b4000
+            size:    3376kB
