@@ -21,8 +21,6 @@
 #include <os/os.h>
 #include <hal/hal_bsp.h>
 #include <console/console.h>
-#include <tinycrypt/hmac_prng.h>
-#include <temp_stm32/temp_stm32.h>
 #include "pinetime_boot/pinetime_boot.h"
 
 static struct tc_hmac_prng_struct prng;  //  TinyCrypt HMAC PRNG.

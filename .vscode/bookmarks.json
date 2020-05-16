@@ -303,5 +303,15 @@
 				"label": ""
 			}
 		]
+	},
+	{
+		"path": "$ROOTPATH$/libs/pinetime_boot/src/pinetime_boot.c",
+		"bookmarks": [
+			{
+				"line": 31,
+				"column": 17,
+				"label": ""
+			}
+		]
 	}
 ]
