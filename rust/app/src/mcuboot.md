@@ -131,6 +131,8 @@ The Enhanced MCUBoot Bootloader now renders a Boot Graphic that's 112.5 KB in si
 
 Half of the Bootloader Assets area is unused. We expect to use the free space to store fonts and other graphical assets that will be rendered by Enhanced MCUBoot.
 
+The Bootloader Assets area doesn't use any Flash File System (like littlefs). We'll learn why in a while.
+
 Let's discover how PineTime's ST7789 Display Controller renders graphics...
 
 # Blasting Graphics to ST7789 Display Controller on PineTime
@@ -320,23 +322,9 @@ Now that we can draw a line, let's extend the code to render the entire Boot Gra
 
 # Render Boot Graphic from SPI Flash on PineTime
 
-TODO
+From [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c) we have seen the fastest, simplest functions to draw coloured lines with PineTime's ST7789 Display Controller.
 
-Fastest, simplest way possible
-
-At the expense of hardcoding
-
-Will not crash
-
-No scheduler
-
-just copy
-
-no data structures
-
-no compression
-
-From [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c)
+Now let's call these functions to render the Boot Graphic in [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c)...
 
 ```c
 #define BATCH_SIZE  256  //  Max number of SPI data bytes to be transmitted
@@ -360,9 +348,9 @@ int pinetime_boot_display_image(void) {
 
     //  Render each row of pixels.
     for (uint8_t row = 0; row < ROW_COUNT; row++) {
-        uint8_t top = row;
-        uint8_t bottom = row;
-        uint8_t left = 0;
+        uint8_t top = row;     //  Top row
+        uint8_t bottom = row;  //  Bottom row (same as top)
+        uint8_t left = 0;      //  Left column
         //  Screen Buffer: 240 * 240 * 2 / 1024 = 112.5 KB
         //  Render a batch of columns in that row.
         for (;;) {
@@ -383,7 +371,7 @@ int pinetime_boot_display_image(void) {
             //  Set the display window.
             set_window(left, top, right, bottom);
 
-            //  Write Pixels (RAMWR): st7735_lcd::draw() → set_pixel()
+            //  Write Pixels (RAMWR)
             write_command(RAMWR, NULL, 0);
             write_data(flash_buffer, len);
 
@@ -394,9 +382,16 @@ int pinetime_boot_display_image(void) {
     return 0;
 }
 ```
-From [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c)
 
-Set Window
+Note that we call `hal_flash_read()` like this to read `len` bytes starting at flash address `offset` from the SPI Flash into `flash_buffer`...
+
+```c
+hal_flash_read(FLASH_DEVICE, offset, flash_buffer, len);
+```
+
+Thus the function `pinetime_boot_display_image()` above keeps reading from SPI Flash (starting at address 0) and blasts everything to the Display Controller, row by row, 256 data bytes at a time.  It's blasting the entire Boot Graphic from SPI Flash to the Display Controller!
+
+Here's the `set_window()` function in [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c) that sets the display window coordinates...
 
 ```c
 /// Set the ST7789 display window to the coordinates (left, top), (right, bottom)
@@ -414,6 +409,30 @@ static int set_window(uint8_t left, uint8_t top, uint8_t right, uint8_t bottom) 
 }
 ```
 
+_Remember that Enhanced MCUBoot needs to render the Boot Graphic the __quickest and most reliable__ way possible?_
+
+We have accomplised that because...
+
+1. The rendering code is __highly predictable (or deterministic)__
+
+    The code doesn't depend on the contents of SPI Flash... It blindly blasts the bitmap data from SPI Flash to the Display Controller. Even if the SPI Flash contains garbage! (Which displays garbage, of course).
+
+    Thus the rendering code will always terminate (without hanging). And it won't cause MCUBoot to crash or hang.
+
+1. We don't compress the Boot Graphic. We don't use a Flash File System either
+
+    Because compression or file system bugs (or badly-formatted data) may cause MCUBoot to crash or hang
+
+1. There is __no conversion or decompression__ of bitmap data
+
+    Hence it's very fast (Watch the video again)
+
+1. We don't allow any __background processing__ in MCUBoot
+
+    No multitasking, no Bluetooth Stack. Just single-threaded code for maximum predictability.
+
+When writing code for 
+
 From [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c)
 
 Task Scheduler
@@ -421,13 +440,13 @@ Task Scheduler
 ```c
 /// Sleep for the specified number of milliseconds
 static void delay_ms(uint32_t ms) {
-#if MYNEWT_VAL(OS_SCHEDULING)  //  If Task Scheduler is enabled (i.e. not MCUBoot)...
-    uint32_t delay_ticks = ms * OS_TICKS_PER_SEC / 1000;
-    os_time_delay(delay_ticks);
-#else  //  If Task Scheduler is disabled (i.e. MCUBoot)...
-    //  os_time_delay() doesn't work in MCUBoot because the scheduler has not started
-    pinetime_boot_check_button();
-#endif  //  MYNEWT_VAL(OS_SCHEDULING)
+    #if MYNEWT_VAL(OS_SCHEDULING)  //  If Task Scheduler is enabled (i.e. not MCUBoot)...
+        uint32_t delay_ticks = ms * OS_TICKS_PER_SEC / 1000;
+        os_time_delay(delay_ticks);
+    #else  //  If Task Scheduler is disabled (i.e. MCUBoot)...
+        //  os_time_delay() doesn't work in MCUBoot because the Task Scheduler isn't started
+        pinetime_boot_check_button();
+    #endif  //  MYNEWT_VAL(OS_SCHEDULING)
 }
 ```
 
