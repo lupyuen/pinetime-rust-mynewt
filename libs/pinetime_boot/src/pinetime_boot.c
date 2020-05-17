@@ -60,7 +60,7 @@ void boot_custom_start(
     //  TODO: If button is pressed and held for 5 seconds, rollback the firmware.
     console_printf("Bootloader done\n"); console_flush();
 
-    //  Start the start the Application Firmware. Copied from MCUBoot main().
+    //  Start the Active Firmware Image. Copied from MCUBoot main().
     hal_system_start((void *)(
         flash_base + 
         rsp->br_image_off +
