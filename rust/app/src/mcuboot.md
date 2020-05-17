@@ -867,11 +867,13 @@ Flash OK
 Rust test display
 ```
 
-# More Enhancements for MCUBoot on PineTime
+# More Enhancements for PineTime Bootloader
 
 TODO
 
-Bitmap compression
+1. Bitmap Compression
+
+1. Why 256 KB for Bootloader Assets
 
 # Further Reading
 
