@@ -715,6 +715,7 @@ void pinetime_boot_check_button(void) {
 <p>If so, we roll back the firmware.</p>
 <h1 id="test-mcuboot-on-pinetime" class="section-header"><a href="#test-mcuboot-on-pinetime">8 Test MCUBoot on PineTime</a></h1>
 <p>TOOD</p>
+<p>Get the Enhanced MCUBoot and Application Firmware here:</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1</p>
 <ol>
 <li>
@@ -725,6 +726,21 @@ void pinetime_boot_check_button(void) {
 </li>
 <li>
 <p>pinetime-rust-mynewt.7z: Complete set of build files generated on macOS</p>
+</li>
+</ol>
+<p>Installation:</p>
+<ol>
+<li>
+<p>Bootloader (mynewt.bin) should be flashed at 0x0 in Flash ROM</p>
+</li>
+<li>
+<p>Firmware (e.g. my_sensor_app.bin, or your firmware) should be flashed at 0x4000 in SPI Flash</p>
+</li>
+<li>
+<p>Boot Graphic goes into SPI Flash at 0x0</p>
+</li>
+<li>
+<p>Simple tool that converts PNG into RGB565 format for flashing: https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot#write-boot-graphic-to-spi-flash-on-pinetime</p>
 </li>
 </ol>
 <p>Video demo:</p>

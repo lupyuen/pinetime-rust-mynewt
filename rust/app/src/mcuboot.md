@@ -790,6 +790,8 @@ If so, we roll back the firmware.
 
 TOOD
 
+Get the Enhanced MCUBoot and Application Firmware here:
+
 https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1
 
 1. mynewt.*: Enhanced Build of MCUBoot Bootloader 1.5.0, supports Boot Graphic and SPI Flash
@@ -797,6 +799,16 @@ https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1
 1. my_sensor_app.*: Application Firmware that supports firmware upgrade over Bluetooth.
 
 1. pinetime-rust-mynewt.7z: Complete set of build files generated on macOS
+
+Installation:
+
+1. Bootloader (mynewt.bin) should be flashed at 0x0 in Flash ROM
+
+1. Firmware (e.g. my_sensor_app.bin, or your firmware) should be flashed at 0x4000 in SPI Flash
+
+1. Boot Graphic goes into SPI Flash at 0x0
+
+1. Simple tool that converts PNG into RGB565 format for flashing: https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot#write-boot-graphic-to-spi-flash-on-pinetime
 
 Video demo:
 
