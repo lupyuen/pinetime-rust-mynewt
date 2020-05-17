@@ -539,7 +539,7 @@ int main(void) {
     //  By Default: Don't call sysinit() to initialise Mynewt drivers and libraries.
 #endif
 
-    //  MCUBoot does its work here. Swap Active and Standaby Firmware if required.
+    //  MCUBoot does its work here. Swaps Active and Standby Firmware if necessary.
     boot_go(&rsp);
     flash_device_base(rsp.br_flash_dev_id, &flash_base);
     //  MCUBoot has completed its work.
@@ -601,27 +601,25 @@ syscfg.vals:
 
 We have enabled the SPI port (`SPI_0_MASTER`) as well as the SPI Flash driver (`SPIFLASH`). 
 
-`MSYS_1_BLOCK_COUNT` needs to be set so that debugging messages from MCUBoot will appear on the Arm Semihosting Console (in OpenOCD).  Semihosting Console uses MSYS buffers for buffering debugging messages in RAM.
+`MSYS_1_BLOCK_COUNT` needs to be set so that debugging messages from MCUBoot will appear on the Arm Semihosting Console (in OpenOCD).  The Semihosting Console Library uses MSYS buffers for buffering debugging messages in RAM.
 
 Let's find out how the PineTime Boot Library `pinetime_boot` implements the MCUBoot custom hooks.
 
 # Extend MCUBoot with PineTime Boot Library
 
-TODO
+Previously we have enabled both hooks in PineTime's Enhanced MCUBoot...
 
-https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/libs/pinetime_boot
+1. `sysinit()`: Called by MCUBoot when it starts
+
+1. `boot_custom_start()`: Called by MCUBoot when it has completed its work
+
+Let's learn how both hooks are handled by the __PineTime Boot Library__: [`libs/pinetime_boot`](https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/libs/pinetime_boot)
 
 ## Handle MCUBoot `sysinit()` Hook
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/pkg.yml
+`sysinit()` is a special function that's automatically generated when we build the Bootloader and Application Firmware in Mynewt. 
 
-```yaml
-pkg.init:
-    # pinetime_boot should be initialised last, when SPI and Semihosting Console are up
-    pinetime_boot_init: 900  # Call pinetime_boot_init() to initialise and render boot graphic
-```
-
-bin/targets/nrf52_boot/generated/src/nrf52_boot-sysinit-app.c
+Here's the auto-generated `sysinit()` function for our Enhanced MCUBoot Bootloader: `bin/targets/nrf52_boot/generated/src/nrf52_boot-sysinit-app.c`
 
 ```c
 void sysinit_app(void) {
@@ -644,7 +642,54 @@ void sysinit_app(void) {
 }
 ```
 
+This function is called when our Bootloader starts. It initialises the Mynewt operating system, drivers and libraries.
+
+Note that `sysinit()` calls our custom function `pinetime_boot_init()` when the Bootloader starts.
+
+_How did we add `pinetime_boot_init()` to `sysinit()`?_
+
+
+
+_What's inside our `pinetime_boot_init()` function?_
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/pkg.yml
+
+```yaml
+pkg.init:
+    # pinetime_boot should be initialised last, when SPI and Semihosting Console are up
+    pinetime_boot_init: 900  # Call pinetime_boot_init() to initialise and render boot graphic
+```
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c
+
+```c
+/// Init the display and render the boot graphic. Called by sysinit() during startup, defined in pkg.yml.
+void pinetime_boot_init(void) {
+    ...
+    //  Display the Boot Graphic.
+    pinetime_boot_display_image();
+}
+```
+
 ## Handle MCUBoot `boot_custom_start()` Hook
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c
+
+```c
+/// Called by MCUBoot when it has completed its work.
+void boot_custom_start(
+    uintptr_t flash_base,
+    struct boot_rsp *rsp
+) {
+    ...
+    //  Start the start the Application Firmware. Copied from MCUBoot main().
+    hal_system_start((void *)(
+        flash_base + 
+        rsp->br_image_off +
+        rsp->br_hdr->ih_hdr_size
+    ));
+}
+```
 
 # Manual Firmware Rollback on PineTime
 
@@ -668,20 +713,27 @@ void pinetime_boot_init(void) {
     pinetime_boot_display_image();
 }
 
+/// Called by MCUBoot when it has completed its work.
 void boot_custom_start(
     uintptr_t flash_base,
     struct boot_rsp *rsp
 ) {
     //  Wait 5 seconds for button press.
+    console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
     for (int i = 0; i < 15; i++) {
         pinetime_boot_check_button();
     }
+    console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
 
     //  TODO: If button is pressed and held for 5 seconds, rollback the firmware.
+    console_printf("Bootloader done\n"); console_flush();
 
-    //  Start the start the Application Firmware.
-    hal_system_start((void *)(flash_base + rsp->br_image_off +
-                              rsp->br_hdr->ih_hdr_size));
+    //  Start the start the Application Firmware. Copied from MCUBoot main().
+    hal_system_start((void *)(
+        flash_base + 
+        rsp->br_image_off +
+        rsp->br_hdr->ih_hdr_size
+    ));
 }
 
 /// Check whether the watch button is pressed
@@ -703,6 +755,40 @@ https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1
 1. my_sensor_app.*: Application Firmware that supports firmware upgrade over Bluetooth.
 
 1. pinetime-rust-mynewt.7z: Complete set of build files generated on macOS
+
+```
++ newt size -v nrf52_boot
+Size of Application Image: app
+Mem FLASH: 0x0-0x6000
+Mem RAM: 0x20000000-0x20010000
+  FLASH     RAM 
+     90     229 *fill*
+   6863    5996 boot_bootutil.a
+    124       0 boot_mynewt.a
+     18       0 boot_mynewt_flash_map_backend.a
+   1180       0 crypto_mbedtls.a
+    392     444 hw_bsp_nrf52.a
+     52       0 hw_cmsis-core.a
+   1302      80 hw_drivers_flash_spiflash.a
+    662       1 hw_hal.a
+   4190      72 hw_mcu_nordic_nrf52xxx.a
+   2022   18776 kernel_os.a
+   1784      12 libc_baselibc.a
+   1312     256 libs_pinetime_boot.a
+    539      40 libs_semihosting_console.a
+    548     128 sys_flash_map.a
+      2       0 sys_log_modlog.a
+    666      29 sys_mfg.a
+     30       5 sys_sysinit.a
+     48       0 util_mem.a
+    100       0 nrf52_boot-sysinit-app.a
+    768       0 libgcc.a
+Loading compiler /Users/Luppy/PineTime/pinetime-rust-mynewt/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
+
+objsize
+   text    data     bss     dec     hex filename
+  22620     132   25504   48256    bc80 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
+```
 
 ```
 Starting Bootloader...
