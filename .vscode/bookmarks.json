@@ -303,5 +303,15 @@
 				"label": ""
 			}
 		]
+	},
+	{
+		"path": "$ROOTPATH$/bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c",
+		"bookmarks": [
+			{
+				"line": 39,
+				"column": 5,
+				"label": ""
+			}
+		]
 	}
 ]

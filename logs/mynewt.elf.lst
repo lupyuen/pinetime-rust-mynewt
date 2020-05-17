@@ -6667,6 +6667,7 @@ void pinetime_boot_check_button(void) {
     1e60:	429c      	cmp	r4, r3
     1e62:	ddf8      	ble.n	1e56 <pinetime_boot_check_button+0x6>
     }
+}
     1e64:	bd10      	pop	{r4, pc}
     1e66:	bf00      	nop
     1e68:	000f423f 	.word	0x000f423f
