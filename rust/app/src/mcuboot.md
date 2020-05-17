@@ -913,6 +913,12 @@ TODO
 
 1. Why 256 KB for Bootloader Assets
 
+1. Collaboration with [minodesign](https://twitter.com/minodesign)
+
+1. If you're a PineTime Owner, how would you show others that this watch is really yours? 
+
+    (It's a shame that all iPhones and Apple Watches look the same!)
+
 # Further Reading
 
 [Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
