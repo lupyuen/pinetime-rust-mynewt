@@ -647,7 +647,7 @@ void sysinit_app(void) {
 }
 ```
 
-This function is called when our Bootloader starts. It initialises the Mynewt operating system, drivers and libraries.
+`sysinit()` is aliased to `sysinit_app()`. This function is called when our Bootloader starts. It initialises the Mynewt operating system, drivers and libraries.
 
 Note that `sysinit()` calls our custom function `pinetime_boot_init()` when the Bootloader starts.
 
@@ -665,7 +665,7 @@ We configured `pinetime_boot_init()` to run at Stage 900, so that it will run af
 
 _What's inside our `pinetime_boot_init()` function?_
 
-We have configured `pinetime_boot_init()` to run when MCUBoot starts. Here's what it does: [`libs/pinetime_boot/src/pinetime_boot.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c)
+`pinetime_boot_init()` runs when MCUBoot starts. Here's what it does: [`libs/pinetime_boot/src/pinetime_boot.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c)
 
 ```c
 /// Init the display and render the boot graphic. Called by sysinit() during startup, defined in pkg.yml.
@@ -680,11 +680,13 @@ void pinetime_boot_init(void) {
 
 Earlier we have seen how `pinetime_boot_display_image()` blasts the Boot Graphic from SPI Flash to PineTime's Display Controller.
 
-Thus we have our Boot Graphic rendered when Enhanced MCUBoot starts!
+Thus our Boot Graphic is rendered when Enhanced MCUBoot starts!
 
 ## Handle MCUBoot `boot_custom_start()` Hook
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c
+`boot_custom_start()` is called by MCUBoot when it has completed its work (like swapping the Active and Standby Firmware Images).
+
+We define `boot_custom_start()` in our PineTime Boot Library like this: [`libs/pinetime_boot/src/pinetime_boot.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c)
 
 ```c
 /// Called by MCUBoot when it has completed its work.
@@ -701,6 +703,10 @@ void boot_custom_start(
     ));
 }
 ```
+
+`boot_custom_start()` calls `hal_system_start` to jump to the Active Firmware Image, since our Enhanced MCUBoot Bootloader has completed its work.
+
+In the next section we'll see that `boot_custom_start()` performs another function on PineTime: Rolling back the firmware when the watch button is pressed.
 
 # Manual Firmware Rollback on PineTime
 
