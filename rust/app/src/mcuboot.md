@@ -135,7 +135,7 @@ Let's discover how PineTime's ST7789 Display Controller renders graphics...
 
 # Blasting Graphics to ST7789 Display Controller on PineTime
 
-Watch how Enhanced MCUBoot renders the Boot Graphic (hand-drawn PineTime logo) on PineTime...
+Watch how Enhanced MCUBoot renders the Boot Graphic (hand-drawn PineTime logo) before starting the Application Firmware ("`I AM PINETIME`")...
 
 [Watch video on Twitter](https://twitter.com/MisterTechBlog/status/1261568945728876544?s=20)
 
@@ -153,7 +153,7 @@ Enhanced MCUBoot needs to render the Boot Graphic the __quickest and most reliab
 
     (_Which means we'll have to make assumptions and hard code certain things_)
 
-Let's read the code in Enhanced MCUBoot and understand how it renders the Boot Graphic quickly and reliably: `display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c)
+Let's read the code in Enhanced MCUBoot and understand how it renders the Boot Graphic quickly and reliably: [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c)
 
 ## Initialise The Display
 
@@ -306,7 +306,7 @@ Each pixel colour consists of two bytes (like `0x87` `0xe0`), encoded in the RGB
 
 [See ST7789 datasheet](https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf)
 
-<< pic >>
+![RGB565](https://lupyuen.github.io/images/mcuboot-rgb565.png)
 
 We call it RGB565 because it encodes 5 bits for Red, 6 bits for Green and 5 bits for Blue. Which adds up to 16 bits, or 2 bytes.
 
@@ -316,7 +316,7 @@ For more details on PineTime's ST7789 Display Controller, check out this article
 
 [Optimising PineTime’s Display Driver with Rust and Mynewt](https://medium.com/@ly.lee/optimising-pinetimes-display-driver-with-rust-and-mynewt-3ba269ea2f5c?source=friends_link&sk=4d2cbd2e6cd2343eed62d214814f7b81)
 
-Now that we can draw a line, let's use the code to render the entire Boot Graphic, line by line.
+Now that we can draw a line, let's extend the code to render the entire Boot Graphic, line by line.
 
 # Render Boot Graphic from SPI Flash on PineTime
 

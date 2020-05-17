@@ -53,7 +53,9 @@
     <h1 class="title">MCUBoot Bootloader for PineTime Smart Watch (nRF52)</h1>
     <nav id="TOC"><ul>
 <li><a href="#updated-flash-memory-map-for-pinetime">1 Updated Flash Memory Map for PineTime</a><ul></ul></li>
-<li><a href="#blasting-graphics-to-st7789-display-controller-on-pinetime">2 Blasting Graphics to ST7789 Display Controller on PineTime</a><ul></ul></li>
+<li><a href="#blasting-graphics-to-st7789-display-controller-on-pinetime">2 Blasting Graphics to ST7789 Display Controller on PineTime</a><ul>
+<li><a href="#initialise-the-display">2.1 Initialise The Display</a><ul></ul></li>
+<li><a href="#draw-a-line">2.2 Draw A Line</a><ul></ul></li></ul></li>
 <li><a href="#render-boot-graphic-from-spi-flash-on-pinetime">3 Render Boot Graphic from SPI Flash on PineTime</a><ul></ul></li>
 <li><a href="#write-boot-graphic-to-spi-flash-on-pinetime">4 Write Boot Graphic to SPI Flash on PineTime</a><ul></ul></li>
 <li><a href="#pinetime-boot-library">5 PineTime Boot Library</a><ul></ul></li>
@@ -164,15 +166,25 @@ bsp.flash_map:
 <p>Half of the Bootloader Assets area is unused. We expect to use the free space to store fonts and other graphical assets that will be rendered by Enhanced MCUBoot.</p>
 <p>Let's discover how PineTime's ST7789 Display Controller renders graphics...</p>
 <h1 id="blasting-graphics-to-st7789-display-controller-on-pinetime" class="section-header"><a href="#blasting-graphics-to-st7789-display-controller-on-pinetime">2 Blasting Graphics to ST7789 Display Controller on PineTime</a></h1>
-<p>TODO</p>
+<p>Watch how Enhanced MCUBoot renders the Boot Graphic (hand-drawn PineTime logo) before starting the Application Firmware (&quot;<code>I AM PINETIME</code>&quot;)...</p>
 <p><a href="https://twitter.com/MisterTechBlog/status/1261568945728876544?s=20">Watch video on Twitter</a></p>
 <p><a href="https://qoto.org/@lupyuen/104177098953236703">Watch video on Mastodon</a></p>
-<p>Fastest, simplest way possible</p>
-<p>At the expense of hardcoding</p>
-<p>Will not crash</p>
-<p>No scheduler</p>
-<p>From <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a></p>
-<p>Init</p>
+<p>Enhanced MCUBoot needs to render the Boot Graphic the <strong>quickest and most reliable</strong> way possible because...</p>
+<ol>
+<li>
+<p>PineTime Owners will see this every time PineTime powers on, so it must be quick</p>
+</li>
+<li>
+<p>The rendering must not crash MCUBoot, even when SPI Flash is corrupted</p>
+<p>(<em>Yes the Boot Graphic may look really awful, but PineTime must always boot!</em>)</p>
+</li>
+<li>
+<p>And the rendering needs to be done within the 24 KB of code space allocated to Enhanced MCUBoot</p>
+<p>(<em>Which means we'll have to make assumptions and hard code certain things</em>)</p>
+</li>
+</ol>
+<p>Let's read the code in Enhanced MCUBoot and understand how it renders the Boot Graphic quickly and reliably: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a></p>
+<h2 id="initialise-the-display" class="section-header"><a href="#initialise-the-display">2.1 Initialise The Display</a></h2>
 <pre><code class="language-c">#define DISPLAY_CS   25  //  GPIO Pin 25 for LCD_CS (P0.25): Chip select
 #define DISPLAY_DC   18  //  GPIO Pin 18 for LCD_RS (P0.18): Clock/data pin (CD)
 #define DISPLAY_RST  26  //  GPIO Pin 26 for LCD_RESET (P0.26): Display reset
@@ -186,8 +198,8 @@ static int init_display(void) {
     hal_gpio_init_out(DISPLAY_DC, 0);
     hal_gpio_init_out(DISPLAY_HIGH, 0);  //  Switch on backlight
 
-    hard_reset();
-    write_command(SWRESET, NULL, 0); delay_ms(200);
+    hard_reset();  //  Reset the display controller by toggling the Reset GPIO Pin
+    write_command(SWRESET, NULL, 0); delay_ms(200);  //  Write a command and delay for 200 milliseconds
     write_command(SLPOUT, NULL, 0); delay_ms(200);
 
     static const uint8_t FRMCTR1_PARA[] = { 0x01, 0x2C, 0x2D };
@@ -232,33 +244,8 @@ static int init_display(void) {
     return 0;
 }
 </code></pre>
-<p>Render</p>
-<p>From <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a></p>
-<pre><code class="language-c">    //  Set Address Window Columns (CASET)
-    write_command(CASET, NULL, 0);
-    static const uint8_t CASET2_PARA[] = { 
-        0x00, 0x14,    //  From Column 20
-        0x00, 0x27 };  //  To Column 39    
-    write_data(CASET2_PARA, sizeof(CASET2_PARA));
-
-    //  Set Address Window Rows (RASET)
-    write_command(RASET, NULL, 0);
-    static const uint8_t RASET2_PARA[] = { 
-        0x00, 0x00,    //  From Row 0
-        0x00, 0x00 };  //  To Row 0
-    write_data(RASET2_PARA, sizeof(RASET2_PARA));
-
-    //  Write Pixels (RAMWR)
-    write_command(RAMWR, NULL, 0);
-    static const uint8_t RAMWR2_PARA[] = {   //  40 bytes (20 pixels)
-        0x87, 0xe0,    //  First Pixel Colour: 0x87e0 = Green-yellow
-        0x87, 0xe0,    //  Second Pixel Colour
-        ..., 
-        0x87, 0xe0 };  //  20th Pixel Colour
-    write_data(RAMWR2_PARA, sizeof(RAMWR2_PARA));
-</code></pre>
-<p>Command and data modes</p>
-<p>From <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a></p>
+<p>Here's the code in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a> that initialises the <a href="https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf"><strong>Sitronix ST7789 Display Controller</strong></a> for PineTime's 240 x 240 Colour LCD Screen. </p>
+<p>At startup, the function above sends a bunch of commands and parameters to the ST7789 Display Controller via the SPI port. We send commands and data (parameters) to ST7789 in a peculiar way in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a>...</p>
 <pre><code class="language-c">#define DISPLAY_SPI   0  //  ST7789 connected to SPI port 0
 #define DISPLAY_DC   18  //  GPIO Pin 18 for LCD_RS (P0.18): Clock/data pin (CD)
 #define DISPLAY_CS   25  //  GPIO Pin 25 for LCD_CS (P0.25): Chip select
@@ -281,16 +268,63 @@ static int write_data(const uint8_t *data, uint16_t len) {
 /// Write to the SPI port
 static int transmit_spi(const uint8_t *data, uint16_t len) {    
     hal_gpio_write(DISPLAY_CS, 0);     //  Select the display controller    
-    int rc = hal_spi_txrx(DISPLAY_SPI, //  Send the data
-        (void *) data,                 //  TX Buffer
-        NULL,                          //  RX Buffer (don't receive)
+    int rc = hal_spi_txrx(DISPLAY_SPI, //  Send to SPI port...
+        (void *) data,                 //  Transmit Buffer
+        NULL,                          //  Receive Buffer (NULL means don't receive)
         len);                          //  Length
     hal_gpio_write(DISPLAY_CS, 1);     //  De-select the display controller    
     return 0;
 }
 </code></pre>
-<p>&quot;Optimising PineTime’s Display Driver with Rust and Mynewt&quot;</p>
-<p>https://medium.com/@ly.lee/optimising-pinetimes-display-driver-with-rust-and-mynewt-3ba269ea2f5c?source=friends_link&amp;sk=4d2cbd2e6cd2343eed62d214814f7b81</p>
+<p>We toggle GPIO Pin 18 (<code>DISPLAY_DC</code>) to tell ST7789 whether we are sending a Command Byte or a sequence of Data Bytes. So in this example...</p>
+<pre><code class="language-c">static const uint8_t FRMCTR1_PARA[] = { 0x01, 0x2C, 0x2D };
+write_command(FRMCTR1, FRMCTR1_PARA, sizeof(FRMCTR1_PARA));
+</code></pre>
+<ol>
+<li>
+<p>We set GPIO Pin 18 to <strong>Low</strong> to transmit the <code>FRMCTR1</code> <strong>Command Byte</strong> <code>0xB1</code></p>
+</li>
+<li>
+<p>Then set GPIO Pin 18 to <strong>High</strong> to transmit the <strong>Data Bytes</strong> <code>0x01</code>, <code>0x2C</code>, <code>0x2D</code></p>
+</li>
+</ol>
+<p>Yes it's unusual, cumbersome and limits SPI performance. It was probably done to force-fit a 4-Line Serial Interface into the 3-Line SPI Interface.</p>
+<p>Note: The above initialisation commands and parameters don't quite match up with the <a href="https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf">ST7789 datasheet</a>. That's because the code was originally written for the <a href="https://www.displayfuture.com/Display/datasheet/controller/ST7735.pdf">ST7735 Display Controller</a>. This should be fixed, but it works on PineTime for now.</p>
+<h2 id="draw-a-line" class="section-header"><a href="#draw-a-line">2.2 Draw A Line</a></h2>
+<p>Let's look at the code to draw a line: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a></p>
+<pre><code class="language-c">//  Set Address Window Columns (CASET)
+write_command(CASET, NULL, 0);
+static const uint8_t CASET2_PARA[] = { 
+    0x00, 0x14,    //  From Column 20
+    0x00, 0x27 };  //  To Column 39    
+write_data(CASET2_PARA, sizeof(CASET2_PARA));
+
+//  Set Address Window Rows (RASET)
+write_command(RASET, NULL, 0);
+static const uint8_t RASET2_PARA[] = { 
+    0x00, 0x00,    //  From Row 0
+    0x00, 0x00 };  //  To Row 0
+write_data(RASET2_PARA, sizeof(RASET2_PARA));
+
+//  Write Pixels (RAMWR)
+write_command(RAMWR, NULL, 0);
+static const uint8_t RAMWR2_PARA[] = {   //  40 bytes (20 pixels)
+    0x87, 0xe0,    //  First Pixel Colour: 0x87e0 in RGB565 = Green-yellow
+    0x87, 0xe0,    //  Second Pixel Colour
+    ..., 
+    0x87, 0xe0 };  //  20th Pixel Colour
+write_data(RAMWR2_PARA, sizeof(RAMWR2_PARA));
+</code></pre>
+<p>To render a bitmap on the display, we send the <code>CASET</code> and <code>RASET</code> commands to define the window coordinates of the bitmap: Left (Column 20), Right (Column 39), Top (Row 0), Bottom (Row 0).</p>
+<p>Then we send the <code>RAMWR</code> command followed by the pixel colours, row by row.  (Only 1 row of 20 pixels in the above example)</p>
+<p>Each pixel colour consists of two bytes (like <code>0x87</code> <code>0xe0</code>), encoded in the RGB565 format.</p>
+<p><a href="https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf">See ST7789 datasheet</a></p>
+<p><img src="https://lupyuen.github.io/images/mcuboot-rgb565.png" alt="RGB565" /></p>
+<p>We call it RGB565 because it encodes 5 bits for Red, 6 bits for Green and 5 bits for Blue. Which adds up to 16 bits, or 2 bytes.</p>
+<p><a href="https://stackoverflow.com/questions/25467682/rgb-565-why-6-bits-for-green-color">More about RGB565</a></p>
+<p>For more details on PineTime's ST7789 Display Controller, check out this article...</p>
+<p><a href="https://medium.com/@ly.lee/optimising-pinetimes-display-driver-with-rust-and-mynewt-3ba269ea2f5c?source=friends_link&amp;sk=4d2cbd2e6cd2343eed62d214814f7b81">Optimising PineTime’s Display Driver with Rust and Mynewt</a></p>
+<p>Now that we can draw a line, let's extend the code to render the entire Boot Graphic, line by line.</p>
 <h1 id="render-boot-graphic-from-spi-flash-on-pinetime" class="section-header"><a href="#render-boot-graphic-from-spi-flash-on-pinetime">3 Render Boot Graphic from SPI Flash on PineTime</a></h1>
 <p>TODO</p>
 <p>Fastest, simplest way possible</p>
@@ -389,6 +423,14 @@ static void delay_ms(uint32_t ms) {
 <p>TODO</p>
 <h1 id="pinetime-boot-library" class="section-header"><a href="#pinetime-boot-library">5 PineTime Boot Library</a></h1>
 <p>TODO</p>
+<ol>
+<li>
+<p>Start of MCUBoot</p>
+</li>
+<li>
+<p>End of MCUBoot</p>
+</li>
+</ol>
 <h1 id="manual-firmware-rollback-on-pinetime" class="section-header"><a href="#manual-firmware-rollback-on-pinetime">6 Manual Firmware Rollback on PineTime</a></h1>
 <p>TODO</p>
 <h1 id="test-mcuboot-on-pinetime" class="section-header"><a href="#test-mcuboot-on-pinetime">7 Test MCUBoot on PineTime</a></h1>
