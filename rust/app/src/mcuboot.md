@@ -704,7 +704,7 @@ void boot_custom_start(
 }
 ```
 
-`boot_custom_start()` calls `hal_system_start` to jump to the Active Firmware Image, since our Enhanced MCUBoot Bootloader has completed its work.
+`boot_custom_start()` calls `hal_system_start()` to jump to the Active Firmware Image, since our Enhanced MCUBoot Bootloader has completed its work.
 
 In the next section we'll see that `boot_custom_start()` performs another function on PineTime: Rolling back the firmware when the watch button is pressed.
 

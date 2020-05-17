@@ -170,6 +170,9 @@ bsp.flash_map:
 <p>The Enhanced MCUBoot Bootloader now renders a Boot Graphic that's 112.5 KB in size. The Boot Graphic is stored in the <strong>Bootloader Assets</strong> flash area.</p>
 <p>Half of the Bootloader Assets area is unused. We expect to use the free space to store fonts and other graphical assets that will be rendered by Enhanced MCUBoot.</p>
 <p>The Bootloader Assets area doesn't use any Flash File System (like littlefs). We'll learn why in a while.</p>
+<p><em>Why is Bootloader Assets commented out in the Flash Memory Map <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/bsp.yml"><code>hw/bsp/nrf52/bsp.yml</code></a>?</em></p>
+<p>The Mynewt build fails when it encounters a custom flash area (like Bootloader Assets) in the Flash Memory Map. So it has been commented out. </p>
+<p>But the SPI Flash space has been budgeted correctly, so that none of the other flash areas will overlap with Bootloader Assets.</p>
 <p>Let's discover how PineTime's ST7789 Display Controller renders graphics...</p>
 <h1 id="blasting-graphics-to-st7789-display-controller-on-pinetime" class="section-header"><a href="#blasting-graphics-to-st7789-display-controller-on-pinetime">2 Blasting Graphics to ST7789 Display Controller on PineTime</a></h1>
 <p>Watch how Enhanced MCUBoot renders the Boot Graphic (hand-drawn PineTime logo) before starting the Application Firmware (&quot;<code>I AM PINETIME</code>&quot;)...</p>
@@ -336,7 +339,7 @@ write_data(RAMWR2_PARA, sizeof(RAMWR2_PARA));
 <p>Now let's call these functions to render the Boot Graphic in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a>...</p>
 <pre><code class="language-c">#define BATCH_SIZE  256  //  Max number of SPI data bytes to be transmitted
 
-//  Screen Size
+//  Screen Buffer Size: 240 * 240 * 2 / 1024 = 112.5 KB
 #define ROW_COUNT 240
 #define COL_COUNT 240
 #define BYTES_PER_PIXEL 2
@@ -358,7 +361,6 @@ int pinetime_boot_display_image(void) {
         uint8_t top = row;     //  Top row
         uint8_t bottom = row;  //  Bottom row (same as top)
         uint8_t left = 0;      //  Left column
-        //  Screen Buffer: 240 * 240 * 2 / 1024 = 112.5 KB
         //  Render a batch of columns in that row.
         for (;;) {
             if (left &gt;= COL_COUNT) { break; }
@@ -516,7 +518,7 @@ int main(void) {
     //  By Default: Don't call sysinit() to initialise Mynewt drivers and libraries.
 #endif
 
-    //  MCUBoot does its work here. Swap Active and Standaby Firmware if required.
+    //  MCUBoot does its work here. Swaps Active and Standby Firmware if necessary.
     boot_go(&amp;rsp);
     flash_device_base(rsp.br_flash_dev_id, &amp;flash_base);
     //  MCUBoot has completed its work.
@@ -568,18 +570,22 @@ syscfg.vals:
     SPI_0_MASTER:             1  # Enable SPI port 0 for ST7789 display and SPI Flash
 </code></pre>
 <p>We have enabled the SPI port (<code>SPI_0_MASTER</code>) as well as the SPI Flash driver (<code>SPIFLASH</code>). </p>
-<p><code>MSYS_1_BLOCK_COUNT</code> needs to be set so that debugging messages from MCUBoot will appear on the Arm Semihosting Console (in OpenOCD).  Semihosting Console uses MSYS buffers for buffering debugging messages in RAM.</p>
+<p><code>MSYS_1_BLOCK_COUNT</code> needs to be set so that debugging messages from MCUBoot will appear on the Arm Semihosting Console (in OpenOCD).  The Semihosting Console Library uses MSYS buffers for buffering debugging messages in RAM.</p>
 <p>Let's find out how the PineTime Boot Library <code>pinetime_boot</code> implements the MCUBoot custom hooks.</p>
 <h1 id="extend-mcuboot-with-pinetime-boot-library" class="section-header"><a href="#extend-mcuboot-with-pinetime-boot-library">6 Extend MCUBoot with PineTime Boot Library</a></h1>
-<p>TODO</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/libs/pinetime_boot</p>
+<p>Previously we have enabled both hooks in PineTime's Enhanced MCUBoot...</p>
+<ol>
+<li>
+<p><code>sysinit()</code>: Called by MCUBoot when it starts</p>
+</li>
+<li>
+<p><code>boot_custom_start()</code>: Called by MCUBoot when it has completed its work</p>
+</li>
+</ol>
+<p>Let's learn how both hooks are handled by the <strong>PineTime Boot Library</strong>: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/libs/pinetime_boot"><code>libs/pinetime_boot</code></a></p>
 <h2 id="handle-mcuboot-sysinit-hook" class="section-header"><a href="#handle-mcuboot-sysinit-hook">6.1 Handle MCUBoot <code>sysinit()</code> Hook</a></h2>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/pkg.yml</p>
-<pre><code class="language-yaml">pkg.init:
-    # pinetime_boot should be initialised last, when SPI and Semihosting Console are up
-    pinetime_boot_init: 900  # Call pinetime_boot_init() to initialise and render boot graphic
-</code></pre>
-<p>bin/targets/nrf52_boot/generated/src/nrf52_boot-sysinit-app.c</p>
+<p><code>sysinit()</code> is a special function that's automatically generated when we build the Bootloader and Application Firmware in Mynewt. </p>
+<p>Here's the auto-generated <code>sysinit()</code> function for our Enhanced MCUBoot Bootloader: <code>bin/targets/nrf52_boot/generated/src/nrf52_boot-sysinit-app.c</code></p>
 <pre><code class="language-c">void sysinit_app(void) {
     //  Stage 0.0: os_pkg_init (kernel/os)
     os_pkg_init();
@@ -599,7 +605,47 @@ syscfg.vals:
     pinetime_boot_init();
 }
 </code></pre>
-<h2 id="handle-mcuboot-boot_custom_start-hook" class="section-header"><a href="#handle-mcuboot-boot_custom_start-hook">6.2 Handle MCUBoot <code>boot_custom_start()</code> Hook</a></h2><h1 id="manual-firmware-rollback-on-pinetime" class="section-header"><a href="#manual-firmware-rollback-on-pinetime">7 Manual Firmware Rollback on PineTime</a></h1>
+<p><code>sysinit()</code> is aliased to <code>sysinit_app()</code>. This function is called when our Bootloader starts. It initialises the Mynewt operating system, drivers and libraries.</p>
+<p>Note that <code>sysinit()</code> calls our custom function <code>pinetime_boot_init()</code> when the Bootloader starts.</p>
+<p><em>How did we add <code>pinetime_boot_init()</code> to <code>sysinit()</code>?</em></p>
+<p>By configuring the PineTime Boot Library like this: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/pkg.yml"><code>libs/pinetime_boot/pkg.yml</code></a></p>
+<pre><code class="language-yaml">pkg.init:
+    # pinetime_boot should be initialised last, when SPI and Semihosting Console are up
+    pinetime_boot_init: 900  # Call pinetime_boot_init() to initialise and render boot graphic
+</code></pre>
+<p>We configured <code>pinetime_boot_init()</code> to run at Stage 900, so that it will run after all drivers and libraries have been started (especially the SPI Flash Driver).</p>
+<p><em>What's inside our <code>pinetime_boot_init()</code> function?</em></p>
+<p><code>pinetime_boot_init()</code> runs when MCUBoot starts. Here's what it does: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c"><code>libs/pinetime_boot/src/pinetime_boot.c</code></a></p>
+<pre><code class="language-c">/// Init the display and render the boot graphic. Called by sysinit() during startup, defined in pkg.yml.
+void pinetime_boot_init(void) {
+    ...
+    //  Display the Boot Graphic.
+    pinetime_boot_display_image();
+}
+</code></pre>
+<p><code>pinetime_boot_init()</code> calls <code>pinetime_boot_display_image()</code> to display the Boot Graphic.</p>
+<p>Earlier we have seen how <code>pinetime_boot_display_image()</code> blasts the Boot Graphic from SPI Flash to PineTime's Display Controller.</p>
+<p>Thus our Boot Graphic is rendered when Enhanced MCUBoot starts!</p>
+<h2 id="handle-mcuboot-boot_custom_start-hook" class="section-header"><a href="#handle-mcuboot-boot_custom_start-hook">6.2 Handle MCUBoot <code>boot_custom_start()</code> Hook</a></h2>
+<p><code>boot_custom_start()</code> is called by MCUBoot when it has completed its work (like swapping the Active and Standby Firmware Images).</p>
+<p>We define <code>boot_custom_start()</code> in our PineTime Boot Library like this: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c"><code>libs/pinetime_boot/src/pinetime_boot.c</code></a></p>
+<pre><code class="language-c">/// Called by MCUBoot when it has completed its work.
+void boot_custom_start(
+    uintptr_t flash_base,
+    struct boot_rsp *rsp
+) {
+    ...
+    //  Start the start the Application Firmware. Copied from MCUBoot main().
+    hal_system_start((void *)(
+        flash_base + 
+        rsp-&gt;br_image_off +
+        rsp-&gt;br_hdr-&gt;ih_hdr_size
+    ));
+}
+</code></pre>
+<p><code>boot_custom_start()</code> calls <code>hal_system_start()</code> to jump to the Active Firmware Image, since our Enhanced MCUBoot Bootloader has completed its work.</p>
+<p>In the next section we'll see that <code>boot_custom_start()</code> performs another function on PineTime: Rolling back the firmware when the watch button is pressed.</p>
+<h1 id="manual-firmware-rollback-on-pinetime" class="section-header"><a href="#manual-firmware-rollback-on-pinetime">7 Manual Firmware Rollback on PineTime</a></h1>
 <p>TODO</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c</p>
 <pre><code class="language-c">#define PUSH_BUTTON_IN  13  //  P0.13: PUSH BUTTON_IN
@@ -617,20 +663,27 @@ void pinetime_boot_init(void) {
     pinetime_boot_display_image();
 }
 
+/// Called by MCUBoot when it has completed its work.
 void boot_custom_start(
     uintptr_t flash_base,
     struct boot_rsp *rsp
 ) {
     //  Wait 5 seconds for button press.
+    console_printf(&quot;Button: %d\n&quot;, hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
     for (int i = 0; i &lt; 15; i++) {
         pinetime_boot_check_button();
     }
+    console_printf(&quot;Button: %d\n&quot;, hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
 
     //  TODO: If button is pressed and held for 5 seconds, rollback the firmware.
+    console_printf(&quot;Bootloader done\n&quot;); console_flush();
 
-    //  Start the start the Application Firmware.
-    hal_system_start((void *)(flash_base + rsp-&gt;br_image_off +
-                              rsp-&gt;br_hdr-&gt;ih_hdr_size));
+    //  Start the start the Application Firmware. Copied from MCUBoot main().
+    hal_system_start((void *)(
+        flash_base + 
+        rsp-&gt;br_image_off +
+        rsp-&gt;br_hdr-&gt;ih_hdr_size
+    ));
 }
 
 /// Check whether the watch button is pressed
@@ -654,6 +707,39 @@ void pinetime_boot_check_button(void) {
 <p>pinetime-rust-mynewt.7z: Complete set of build files generated on macOS</p>
 </li>
 </ol>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="op">+</span> <span class="ident">newt</span> <span class="ident">size</span> <span class="op">-</span><span class="ident">v</span> <span class="ident">nrf52_boot</span>
+<span class="ident">Size</span> <span class="ident">of</span> <span class="ident">Application</span> <span class="ident">Image</span>: <span class="ident">app</span>
+<span class="ident">Mem</span> <span class="ident">FLASH</span>: <span class="number">0x0</span><span class="op">-</span><span class="number">0x6000</span>
+<span class="ident">Mem</span> <span class="ident">RAM</span>: <span class="number">0x20000000</span><span class="op">-</span><span class="number">0x20010000</span>
+  <span class="ident">FLASH</span>     <span class="ident">RAM</span> 
+     <span class="number">90</span>     <span class="number">229</span> <span class="kw-2">*</span><span class="ident">fill</span><span class="op">*</span>
+   <span class="number">6863</span>    <span class="number">5996</span> <span class="ident">boot_bootutil</span>.<span class="ident">a</span>
+    <span class="number">124</span>       <span class="number">0</span> <span class="ident">boot_mynewt</span>.<span class="ident">a</span>
+     <span class="number">18</span>       <span class="number">0</span> <span class="ident">boot_mynewt_flash_map_backend</span>.<span class="ident">a</span>
+   <span class="number">1180</span>       <span class="number">0</span> <span class="ident">crypto_mbedtls</span>.<span class="ident">a</span>
+    <span class="number">392</span>     <span class="number">444</span> <span class="ident">hw_bsp_nrf52</span>.<span class="ident">a</span>
+     <span class="number">52</span>       <span class="number">0</span> <span class="ident">hw_cmsis</span><span class="op">-</span><span class="ident">core</span>.<span class="ident">a</span>
+   <span class="number">1302</span>      <span class="number">80</span> <span class="ident">hw_drivers_flash_spiflash</span>.<span class="ident">a</span>
+    <span class="number">662</span>       <span class="number">1</span> <span class="ident">hw_hal</span>.<span class="ident">a</span>
+   <span class="number">4190</span>      <span class="number">72</span> <span class="ident">hw_mcu_nordic_nrf52xxx</span>.<span class="ident">a</span>
+   <span class="number">2022</span>   <span class="number">18776</span> <span class="ident">kernel_os</span>.<span class="ident">a</span>
+   <span class="number">1784</span>      <span class="number">12</span> <span class="ident">libc_baselibc</span>.<span class="ident">a</span>
+   <span class="number">1312</span>     <span class="number">256</span> <span class="ident">libs_pinetime_boot</span>.<span class="ident">a</span>
+    <span class="number">539</span>      <span class="number">40</span> <span class="ident">libs_semihosting_console</span>.<span class="ident">a</span>
+    <span class="number">548</span>     <span class="number">128</span> <span class="ident">sys_flash_map</span>.<span class="ident">a</span>
+      <span class="number">2</span>       <span class="number">0</span> <span class="ident">sys_log_modlog</span>.<span class="ident">a</span>
+    <span class="number">666</span>      <span class="number">29</span> <span class="ident">sys_mfg</span>.<span class="ident">a</span>
+     <span class="number">30</span>       <span class="number">5</span> <span class="ident">sys_sysinit</span>.<span class="ident">a</span>
+     <span class="number">48</span>       <span class="number">0</span> <span class="ident">util_mem</span>.<span class="ident">a</span>
+    <span class="number">100</span>       <span class="number">0</span> <span class="ident">nrf52_boot</span><span class="op">-</span><span class="ident">sysinit</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">a</span>
+    <span class="number">768</span>       <span class="number">0</span> <span class="ident">libgcc</span>.<span class="ident">a</span>
+<span class="ident">Loading</span> <span class="ident">compiler</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">repos</span><span class="op">/</span><span class="ident">apache</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">-</span><span class="ident">core</span><span class="op">/</span><span class="ident">compiler</span><span class="op">/</span><span class="ident">arm</span><span class="op">-</span><span class="ident">none</span><span class="op">-</span><span class="ident">eabi</span><span class="op">-</span><span class="ident">m4</span>, <span class="ident">buildProfile</span> <span class="ident">debug</span>
+
+<span class="ident">objsize</span>
+   <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
+  <span class="number">22620</span>     <span class="number">132</span>   <span class="number">25504</span>   <span class="number">48256</span>    <span class="ident">bc80</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_boot</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">boot</span><span class="op">/</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">mynewt</span>.<span class="ident">elf</span></pre></div>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Starting</span> <span class="ident">Bootloader</span>...
