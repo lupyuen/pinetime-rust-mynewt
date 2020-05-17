@@ -792,11 +792,11 @@ To test Enhanced MCUBoot Bootloader on PineTime, download the binaries here...
 
 [`pinetime-rust-mynewt/releases/tag/v4.1.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1)
 
-1. `mynewt.*`: Enhanced MCUBoot Bootloader (based on MCUBoot 1.5.0) that supports Boot Graphic and SPI Flash
+1. __`mynewt.*`: Enhanced MCUBoot Bootloader__ (based on MCUBoot 1.5.0) that supports Boot Graphic and SPI Flash
 
-1. `my_sensor_app.*`: Application Firmware (based on Mynewt+Rust) that supports firmware update over Bluetooth
+1. __`my_sensor_app.*`: Application Firmware__ (based on Mynewt+Rust) that supports firmware update over Bluetooth
 
-1. `pinetime-rust-mynewt.7z`: Complete set of Mynewt build files generated on macOS
+1. __`pinetime-rust-mynewt.7z`: Mynewt Build Files__ generated on macOS
 
 To install Enhanced MCUBoot Bootloader...
 
@@ -814,9 +814,9 @@ To install Enhanced MCUBoot Bootloader...
 
 We should see this on the PineTime screen...
 
-[Watch video on Twitter](https://twitter.com/MisterTechBlog/status/1261568945728876544?s=20)
+- [Watch video on Twitter](https://twitter.com/MisterTechBlog/status/1261568945728876544?s=20)
 
-[Watch video on Mastodon](https://qoto.org/@lupyuen/104177098953236703)
+- [Watch video on Mastodon](https://qoto.org/@lupyuen/104177098953236703)
 
 1. When PineTime is powered on, we see __white noise__ (snow) briefly as MCUBoot starts
 
