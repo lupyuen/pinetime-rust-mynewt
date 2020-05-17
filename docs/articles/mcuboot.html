@@ -451,15 +451,25 @@ static void delay_ms(uint32_t ms) {
 <p>We'll cover <code>pinetime_boot_check_button()</code> in a while.</p>
 <p>How shall we load a PNG graphic file to PineTime's SPI Flash as the Boot Graphic? We'll find out next.</p>
 <h1 id="write-boot-graphic-to-spi-flash-on-pinetime" class="section-header"><a href="#write-boot-graphic-to-spi-flash-on-pinetime">4 Write Boot Graphic to SPI Flash on PineTime</a></h1>
-<p>TODO</p>
+<p>We have built a Rust command-line tool that reads a PNG 24-bit RGB file (240 x 240 resolution), and converts it into ST7789's RGB565 format...</p>
 <p>https://github.com/lupyuen/pinetime-graphic</p>
-<p>https://github.com/lupyuen/pinetime-graphic/blob/master/src/main.rs</p>
+<p>To run the tool and convert a PNG file named <code>pinetime-graphic.png</code>...</p>
 <pre><code class="language-bash">git clone https://github.com/lupyuen/pinetime-graphic
 cd pinetime-graphic
 cargo build
 cargo run -v pinetime-graphic.png
 </code></pre>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/write.c</p>
+<p>The RGB565 values (115,200 bytes) will be dumped to the console like this...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,
+<span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,
+...
+<span class="number">0x05</span>, <span class="number">0xa3</span>, <span class="number">0x01</span>, <span class="number">0x20</span>, <span class="number">0x01</span>, <span class="number">0x20</span>, <span class="number">0x01</span>, <span class="number">0x20</span>, <span class="number">0x06</span>, <span class="number">0xe4</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>,
+<span class="number">0x05</span>, <span class="number">0xe3</span>, <span class="number">0x02</span>, <span class="number">0xc1</span>, <span class="number">0x02</span>, <span class="number">0xa1</span>, <span class="number">0x03</span>, <span class="number">0x62</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xc5</span>,
+...</pre></div>
+<p>Copy the converted RGB565 values and paste into <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/graphic.inc"><code>libs/pinetime_boot/src/graphic.inc</code></a>.</p>
+<p>Then run this code to load the converted RGB565 values into PineTime's SPI Flash: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/write.c"><code>libs/pinetime_boot/src/write.c</code></a></p>
 <pre><code class="language-c">#define BATCH_SIZE  4096  //  Max number of data bytes to be written in a batch
 #define FLASH_DEVICE 1    //  Flash Device: 0 for Flash ROM, 1 for SPI Flash
 
@@ -488,17 +498,6 @@ int pinetime_boot_write_image(void) {
     return 0;
 }
 </code></pre>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/graphic.inc</p>
-<p>115,200 bytes</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,
-<span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,
-...
-<span class="number">0x05</span>, <span class="number">0xa3</span>, <span class="number">0x01</span>, <span class="number">0x20</span>, <span class="number">0x01</span>, <span class="number">0x20</span>, <span class="number">0x01</span>, <span class="number">0x20</span>, <span class="number">0x06</span>, <span class="number">0xe4</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>,
-<span class="number">0x05</span>, <span class="number">0xe3</span>, <span class="number">0x02</span>, <span class="number">0xc1</span>, <span class="number">0x02</span>, <span class="number">0xa1</span>, <span class="number">0x03</span>, <span class="number">0x62</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xc5</span>,
-...</pre></div>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1</p>
 <h1 id="enable-custom-hooks-in-mcuboot" class="section-header"><a href="#enable-custom-hooks-in-mcuboot">5 Enable Custom Hooks in MCUBoot</a></h1>
 <p>Earlier we resolved never to modify MCUBoot code because the MCUBoot Bootloader is a Critical and Secure part of PineTime. </p>
 <p><em>How shall we add new functions to MCUBoot, like rendering the Boot Graphic?</em></p>
