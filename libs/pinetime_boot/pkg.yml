@@ -33,7 +33,7 @@ pkg.deps:
 # Mynewt consolidates the initialisation functions into sysinit()
 # and calls them according to the Stage number, highest number first.
 # Stage 500 is used by Sensor Creator so we use Stage 600 onwards.
-# Generated sysinit(): bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
+# Generated sysinit() for Bootloader: bin/targets/nrf52_boot/generated/src/nrf52_boot-sysinit-app.c
 
 pkg.init:
     # pinetime_boot should be initialised last, when SPI and Semihosting Console are up
