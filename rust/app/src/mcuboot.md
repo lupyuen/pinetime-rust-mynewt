@@ -524,9 +524,145 @@ Two spots to hook on to MCUBoot...
 
 1. End of MCUBoot
 
+https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/mynewt/src/main.c
+
+```c
+//  MCUBoot starts here.
+int main(void) {
+#if defined(MCUBOOT_HAVE_LOGGING)
+    //  Initialise Mynewt drivers and libraries.
+    sysinit();
+#endif  //  defined(MCUBOOT_HAVE_LOGGING)
+
+    //  Swap Active and Standaby Firmware, if required
+    boot_go(&rsp);
+    flash_device_base(rsp.br_flash_dev_id, &flash_base);
+
+#if MYNEWT_VAL(BOOT_CUSTOM_START)
+    //  Call custom boot function
+    boot_custom_start(flash_base, &rsp);  
+#else
+    hal_system_start((void *)(flash_base + rsp.br_image_off + rsp.br_hdr->ih_hdr_size));
+#endif  //  MYNEWT_VAL(BOOT_CUSTOM_START)
+    return 0;
+}
+```
+
+https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/targets/nrf52_boot
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_boot/pkg.yml
+
+```yaml
+# Package Dependencies: MCUBoot is dependent on these drivers and libraries.
+pkg.deps:
+    - "libs/semihosting_console"  #  Semihosting Console
+    - "libs/pinetime_boot"        #  Render boot graphic and check for rollback
+
+#  C compiler flags
+pkg.cflags:
+    - -DMCUBOOT_HAVE_LOGGING=1  #  So that sysinit() will be run, needed for displaying boot graphic
+```
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_boot/syscfg.yml
+
+```yaml
+# MCUBoot Bootloader Settings
+syscfg.vals:
+    BOOT_CUSTOM_START:        1  # Use custom boot function boot_custom_start()
+    OS_MAIN_STACK_SIZE:    1024  # Small stack size: 4 KB
+    MSYS_1_BLOCK_COUNT:      64  # Allocate MSYS buffers for Semihosting Console
+
+    ###########################################################################
+    # Hardware Settings
+
+    SPIFLASH:                 1  # Enable SPI Flash
+    SPI_0_MASTER:             1  # Enable SPI port 0 for ST7789 display and SPI Flash
+```
+
+https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/libs/pinetime_boot
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/pkg.yml
+
+```yaml
+pkg.init:
+    # pinetime_boot should be initialised last, when SPI and Semihosting Console are up
+    pinetime_boot_init: 900  # Call pinetime_boot_init() to initialise and render boot graphic
+```
+
+bin/targets/nrf52_boot/generated/src/nrf52_boot-sysinit-app.c
+
+```c
+void sysinit_app(void) {
+    //  Stage 0.0: os_pkg_init (kernel/os)
+    os_pkg_init();
+
+    //  Stage 2.0: flash_map_init (sys/flash_map)
+    flash_map_init();
+
+    //  Stage 20.0: console_pkg_init (libs/semihosting_console)
+    console_pkg_init();
+
+    //  Stage 100.0: mfg_init (sys/mfg)
+    mfg_init();
+    //  Stage 100.1: modlog_init (sys/log/modlog)
+    modlog_init();
+
+    //  Stage 900.0: pinetime_boot_init (libs/pinetime_boot)
+    pinetime_boot_init();
+}
+```
+
+
 # Manual Firmware Rollback on PineTime
 
 TODO
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c
+
+```c
+#define PUSH_BUTTON_IN  13  //  P0.13: PUSH BUTTON_IN
+#define PUSH_BUTTON_OUT 15  //  P0.15/TRACEDATA2: PUSH BUTTON_OUT
+
+/// Init the display and render the boot graphic. Called by sysinit() during startup, defined in pkg.yml.
+void pinetime_boot_init(void) {
+    console_printf("Starting Bootloader...\n"); console_flush();
+
+    //  Init the push button. The button on the side of the PineTime is disabled by default. To enable it, drive the button out pin (P0.15) high.
+    //  While enabled, the button in pin (P0.13) will be high when the button is pressed, and low when it is not pressed. 
+    hal_gpio_init_in(PUSH_BUTTON_IN, HAL_GPIO_PULL_DOWN);  //  TODO: Or up / down
+    hal_gpio_init_out(PUSH_BUTTON_OUT, 1);
+    hal_gpio_write(PUSH_BUTTON_OUT, 1);  //  Enable the button
+
+    //  Display the image.
+    pinetime_boot_display_image();
+    console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
+}
+
+void boot_custom_start(
+    uintptr_t flash_base,
+    struct boot_rsp *rsp
+) {
+    //  Wait 5 seconds for button press.
+    console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
+    for (int i = 0; i < 15; i++) {
+        pinetime_boot_check_button();
+    }
+    console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
+
+    //  TODO: If button is pressed and held for 5 seconds, rollback the firmware.
+    console_printf("Bootloader done\n"); console_flush();
+
+    hal_system_start((void *)(flash_base + rsp->br_image_off +
+                              rsp->br_hdr->ih_hdr_size));
+}
+
+/// Check whether the watch button is pressed
+void pinetime_boot_check_button(void) {
+    for (int i = 0; i < 1000000; i++) {
+        hal_gpio_read(PUSH_BUTTON_IN);
+    }
+}
+```
 
 # Test MCUBoot on PineTime
 
