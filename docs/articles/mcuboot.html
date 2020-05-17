@@ -164,6 +164,7 @@ bsp.flash_map:
 <p><em>Bootloader Assets (256 KB) is a new flash area in SPI Flash. What's inside?</em></p>
 <p>The Enhanced MCUBoot Bootloader now renders a Boot Graphic that's 112.5 KB in size. The Boot Graphic is stored in the <strong>Bootloader Assets</strong> flash area.</p>
 <p>Half of the Bootloader Assets area is unused. We expect to use the free space to store fonts and other graphical assets that will be rendered by Enhanced MCUBoot.</p>
+<p>The Bootloader Assets area doesn't use any Flash File System (like littlefs). We'll learn why in a while.</p>
 <p>Let's discover how PineTime's ST7789 Display Controller renders graphics...</p>
 <h1 id="blasting-graphics-to-st7789-display-controller-on-pinetime" class="section-header"><a href="#blasting-graphics-to-st7789-display-controller-on-pinetime">2 Blasting Graphics to ST7789 Display Controller on PineTime</a></h1>
 <p>Watch how Enhanced MCUBoot renders the Boot Graphic (hand-drawn PineTime logo) before starting the Application Firmware (&quot;<code>I AM PINETIME</code>&quot;)...</p>
@@ -326,15 +327,8 @@ write_data(RAMWR2_PARA, sizeof(RAMWR2_PARA));
 <p><a href="https://medium.com/@ly.lee/optimising-pinetimes-display-driver-with-rust-and-mynewt-3ba269ea2f5c?source=friends_link&amp;sk=4d2cbd2e6cd2343eed62d214814f7b81">Optimising PineTime’s Display Driver with Rust and Mynewt</a></p>
 <p>Now that we can draw a line, let's extend the code to render the entire Boot Graphic, line by line.</p>
 <h1 id="render-boot-graphic-from-spi-flash-on-pinetime" class="section-header"><a href="#render-boot-graphic-from-spi-flash-on-pinetime">3 Render Boot Graphic from SPI Flash on PineTime</a></h1>
-<p>TODO</p>
-<p>Fastest, simplest way possible</p>
-<p>At the expense of hardcoding</p>
-<p>Will not crash</p>
-<p>No scheduler</p>
-<p>just copy</p>
-<p>no data structures</p>
-<p>no compression</p>
-<p>From <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a></p>
+<p>From <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a> we have seen the fastest, simplest functions to draw coloured lines with PineTime's ST7789 Display Controller.</p>
+<p>Now let's call these functions to render the Boot Graphic in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a>...</p>
 <pre><code class="language-c">#define BATCH_SIZE  256  //  Max number of SPI data bytes to be transmitted
 
 //  Screen Size
@@ -356,9 +350,9 @@ int pinetime_boot_display_image(void) {
 
     //  Render each row of pixels.
     for (uint8_t row = 0; row &lt; ROW_COUNT; row++) {
-        uint8_t top = row;
-        uint8_t bottom = row;
-        uint8_t left = 0;
+        uint8_t top = row;     //  Top row
+        uint8_t bottom = row;  //  Bottom row (same as top)
+        uint8_t left = 0;      //  Left column
         //  Screen Buffer: 240 * 240 * 2 / 1024 = 112.5 KB
         //  Render a batch of columns in that row.
         for (;;) {
@@ -379,7 +373,7 @@ int pinetime_boot_display_image(void) {
             //  Set the display window.
             set_window(left, top, right, bottom);
 
-            //  Write Pixels (RAMWR): st7735_lcd::draw() → set_pixel()
+            //  Write Pixels (RAMWR)
             write_command(RAMWR, NULL, 0);
             write_data(flash_buffer, len);
 
@@ -390,8 +384,11 @@ int pinetime_boot_display_image(void) {
     return 0;
 }
 </code></pre>
-<p>From <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a></p>
-<p>Set Window</p>
+<p>Note that we call <code>hal_flash_read()</code> like this to read <code>len</code> bytes starting at flash address <code>offset</code> from the SPI Flash into <code>flash_buffer</code>...</p>
+<pre><code class="language-c">hal_flash_read(FLASH_DEVICE, offset, flash_buffer, len);
+</code></pre>
+<p>Thus the function <code>pinetime_boot_display_image()</code> above keeps reading from SPI Flash (starting at address 0) and blasts everything to the Display Controller, row by row, 256 data bytes at a time.  It's blasting the entire Boot Graphic from SPI Flash to the Display Controller!</p>
+<p>Here's the <code>set_window()</code> function in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a> that sets the display window coordinates...</p>
 <pre><code class="language-c">/// Set the ST7789 display window to the coordinates (left, top), (right, bottom)
 static int set_window(uint8_t left, uint8_t top, uint8_t right, uint8_t bottom) {
     //  Set Address Window Columns (CASET)
@@ -406,23 +403,94 @@ static int set_window(uint8_t left, uint8_t top, uint8_t right, uint8_t bottom) 
     return 0;
 }
 </code></pre>
-<p>From <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a></p>
-<p>Task Scheduler</p>
+<p><em>Remember that Enhanced MCUBoot needs to render the Boot Graphic the <strong>quickest and most reliable</strong> way possible?</em></p>
+<p>We have accomplished that because...</p>
+<ol>
+<li>
+<p>The rendering code is <strong>highly predictable (or deterministic)</strong></p>
+<p>The code doesn't depend on the contents of SPI Flash... It blindly blasts the bitmap data from SPI Flash to the Display Controller. Even if the SPI Flash contains garbage! (Which displays garbage, of course).</p>
+<p>Thus the rendering code will always terminate (without hanging). And it won't cause MCUBoot to crash or hang.</p>
+</li>
+<li>
+<p>We don't compress the Boot Graphic. We don't use a Flash File System either.</p>
+<p>Because compression or file system bugs (or badly-formatted data) may cause MCUBoot to crash or hang</p>
+</li>
+<li>
+<p>There is <strong>no conversion or decompression</strong> of bitmap data</p>
+<p>Hence it's very fast (Watch the video again)</p>
+</li>
+<li>
+<p>We don't allow any <strong>background processing</strong> in MCUBoot</p>
+<p>No multitasking, no Bluetooth Stack. Just single-threaded code for maximum predictability and reliability.</p>
+</li>
+</ol>
+<p>When adding functions to MCUBoot, we need to assume that multitasking (Task Scheduler) is disabled. Here's an example from <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a>...</p>
 <pre><code class="language-c">/// Sleep for the specified number of milliseconds
 static void delay_ms(uint32_t ms) {
-#if MYNEWT_VAL(OS_SCHEDULING)  //  If Task Scheduler is enabled (i.e. not MCUBoot)...
-    uint32_t delay_ticks = ms * OS_TICKS_PER_SEC / 1000;
-    os_time_delay(delay_ticks);
-#else  //  If Task Scheduler is disabled (i.e. MCUBoot)...
-    //  os_time_delay() doesn't work in MCUBoot because the scheduler has not started
-    pinetime_boot_check_button();
-#endif  //  MYNEWT_VAL(OS_SCHEDULING)
+    #if MYNEWT_VAL(OS_SCHEDULING)  //  If Task Scheduler is enabled (i.e. not MCUBoot)...
+        uint32_t delay_ticks = ms * OS_TICKS_PER_SEC / 1000;
+        os_time_delay(delay_ticks);
+    #else  //  If Task Scheduler is disabled (i.e. MCUBoot)...
+        //  os_time_delay() doesn't work in MCUBoot because the Task Scheduler isn't started
+        pinetime_boot_check_button();
+    #endif  //  MYNEWT_VAL(OS_SCHEDULING)
 }
 </code></pre>
+<p>Some system functions like <code>os_time_delay()</code> only work when the Task Scheduler is enabled. Since multitasking is disabled for MCUBoot, we'll have to use an alternative function like <code>pinetime_boot_check_button()</code>. </p>
+<p>We'll cover <code>pinetime_boot_check_button()</code> in a while.</p>
+<p>How shall we load a PNG graphic file to PineTime's SPI Flash as the Boot Graphic? We'll find out next.</p>
 <h1 id="write-boot-graphic-to-spi-flash-on-pinetime" class="section-header"><a href="#write-boot-graphic-to-spi-flash-on-pinetime">4 Write Boot Graphic to SPI Flash on PineTime</a></h1>
 <p>TODO</p>
+<p>https://github.com/lupyuen/pinetime-graphic</p>
+<p>https://github.com/lupyuen/pinetime-graphic/blob/master/src/main.rs</p>
+<pre><code class="language-bash">git clone https://github.com/lupyuen/pinetime-graphic
+cd pinetime-graphic
+cargo build
+cargo run -v pinetime-graphic.png
+</code></pre>
+<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/write.c</p>
+<pre><code class="language-c">#define BATCH_SIZE  4096  //  Max number of data bytes to be written in a batch
+#define FLASH_DEVICE 1    //  Flash Device: 0 for Flash ROM, 1 for SPI Flash
+
+//  Converted from PNG file by https://github.com/lupyuen/pinetime-graphic
+static const uint8_t image_data[] = {  //  Should be 115,200 bytes
+#include &quot;graphic.inc&quot;
+};
+
+/// Write a converted graphic file to SPI Flash
+int pinetime_boot_write_image(void) {
+    uint32_t offset = 0;
+    for (;;) {
+        if (offset &gt;= sizeof(image_data)) { break; }
+        //  How many bytes we will write.
+        uint16_t len = BATCH_SIZE;
+        if (offset + len &gt;= sizeof(image_data)) {
+            len = sizeof(image_data) - offset;
+        }        
+        //  Erase the bytes.
+        int rc = hal_flash_erase(FLASH_DEVICE, offset, len); assert(rc == 0);
+
+        //  Write the bytes.
+        rc = hal_flash_write(FLASH_DEVICE, offset, (void *) &amp;image_data[offset], len); assert(rc == 0);
+        offset += len;
+    }
+    return 0;
+}
+</code></pre>
+<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/graphic.inc</p>
+<p>115,200 bytes</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,
+<span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,
+...
+<span class="number">0x05</span>, <span class="number">0xa3</span>, <span class="number">0x01</span>, <span class="number">0x20</span>, <span class="number">0x01</span>, <span class="number">0x20</span>, <span class="number">0x01</span>, <span class="number">0x20</span>, <span class="number">0x06</span>, <span class="number">0xe4</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>,
+<span class="number">0x05</span>, <span class="number">0xe3</span>, <span class="number">0x02</span>, <span class="number">0xc1</span>, <span class="number">0x02</span>, <span class="number">0xa1</span>, <span class="number">0x03</span>, <span class="number">0x62</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xc5</span>,
+...</pre></div>
+<p>https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1</p>
 <h1 id="pinetime-boot-library" class="section-header"><a href="#pinetime-boot-library">5 PineTime Boot Library</a></h1>
 <p>TODO</p>
+<p>Two spots to hook on to MCUBoot...</p>
 <ol>
 <li>
 <p>Start of MCUBoot</p>
@@ -435,6 +503,49 @@ static void delay_ms(uint32_t ms) {
 <p>TODO</p>
 <h1 id="test-mcuboot-on-pinetime" class="section-header"><a href="#test-mcuboot-on-pinetime">7 Test MCUBoot on PineTime</a></h1>
 <p>TOOD</p>
+<p>https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1</p>
+<ol>
+<li>
+<p>mynewt.*: Enhanced Build of MCUBoot Bootloader 1.5.0, supports Boot Graphic and SPI Flash</p>
+</li>
+<li>
+<p>my_sensor_app.*: Application Firmware that supports firmware upgrade over Bluetooth.</p>
+</li>
+<li>
+<p>pinetime-rust-mynewt.7z: Complete set of build files generated on macOS</p>
+</li>
+</ol>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Starting</span> <span class="ident">Bootloader</span>...
+<span class="ident">Displaying</span> <span class="ident">image</span>...
+<span class="ident">Image</span> <span class="ident">displayed</span>
+<span class="ident">Button</span>: <span class="number">0</span>
+[<span class="ident">INF</span>] <span class="ident">Primary</span> <span class="ident">image</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">unset</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x3</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x3</span>
+[<span class="ident">INF</span>] <span class="ident">Scratch</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">unset</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x3</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x3</span>
+[<span class="ident">INF</span>] <span class="ident">Boot</span> <span class="ident">source</span>: <span class="ident">primary</span> <span class="ident">slot</span>
+[<span class="ident">INF</span>] <span class="ident">Swap</span> <span class="kw">type</span>: <span class="ident">none</span>
+<span class="ident">Button</span>: <span class="number">0</span>
+<span class="ident">Button</span>: <span class="number">0</span>
+<span class="ident">Bootloader</span> <span class="ident">done</span>
+<span class="ident">TMP</span> <span class="ident">create</span> <span class="ident">temp_stub_0</span>
+<span class="ident">NET</span> <span class="ident">hwid</span> <span class="number">4a</span> <span class="ident">f8</span> <span class="ident">cf</span> <span class="number">95</span> <span class="number">6a</span> <span class="ident">be</span> <span class="ident">c1</span> <span class="ident">f6</span> <span class="number">89</span> <span class="ident">ba</span> <span class="number">12</span> <span class="number">1a</span> 
+<span class="ident">NET</span> <span class="ident">standalone</span> <span class="ident">node</span> 
+<span class="ident">Testing</span> <span class="ident">flash</span>...
+<span class="ident">Read</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
+<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
+  <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x01</span> <span class="number">0x20</span> <span class="number">0xd9</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0008</span>: <span class="number">0x35</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x37</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+<span class="ident">Read</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
+<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
+  <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0008</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+<span class="ident">Flash</span> <span class="ident">OK</span>
+<span class="ident">Rust</span> <span class="ident">test</span> <span class="ident">display</span></pre></div>
 <h1 id="further-reading" class="section-header"><a href="#further-reading">8 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 

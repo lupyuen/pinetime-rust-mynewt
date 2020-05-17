@@ -411,7 +411,7 @@ static int set_window(uint8_t left, uint8_t top, uint8_t right, uint8_t bottom) 
 
 _Remember that Enhanced MCUBoot needs to render the Boot Graphic the __quickest and most reliable__ way possible?_
 
-We have accomplised that because...
+We have accomplished that because...
 
 1. The rendering code is __highly predictable (or deterministic)__
 
@@ -419,7 +419,7 @@ We have accomplised that because...
 
     Thus the rendering code will always terminate (without hanging). And it won't cause MCUBoot to crash or hang.
 
-1. We don't compress the Boot Graphic. We don't use a Flash File System either
+1. We don't compress the Boot Graphic. We don't use a Flash File System either.
 
     Because compression or file system bugs (or badly-formatted data) may cause MCUBoot to crash or hang
 
@@ -429,13 +429,9 @@ We have accomplised that because...
 
 1. We don't allow any __background processing__ in MCUBoot
 
-    No multitasking, no Bluetooth Stack. Just single-threaded code for maximum predictability.
+    No multitasking, no Bluetooth Stack. Just single-threaded code for maximum predictability and reliability.
 
-When writing code for 
-
-From [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c)
-
-Task Scheduler
+When adding functions to MCUBoot, we need to assume that multitasking (Task Scheduler) is disabled. Here's an example from [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c)...
 
 ```c
 /// Sleep for the specified number of milliseconds
@@ -450,13 +446,79 @@ static void delay_ms(uint32_t ms) {
 }
 ```
 
+Some system functions like `os_time_delay()` only work when the Task Scheduler is enabled. Since multitasking is disabled for MCUBoot, we'll have to use an alternative function like `pinetime_boot_check_button()`. 
+
+We'll cover `pinetime_boot_check_button()` in a while.
+
+How shall we load a PNG graphic file to PineTime's SPI Flash as the Boot Graphic? We'll find out next.
+
 # Write Boot Graphic to SPI Flash on PineTime
 
 TODO
 
+https://github.com/lupyuen/pinetime-graphic
+
+https://github.com/lupyuen/pinetime-graphic/blob/master/src/main.rs
+
+```bash
+git clone https://github.com/lupyuen/pinetime-graphic
+cd pinetime-graphic
+cargo build
+cargo run -v pinetime-graphic.png
+```
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/write.c
+
+```c
+#define BATCH_SIZE  4096  //  Max number of data bytes to be written in a batch
+#define FLASH_DEVICE 1    //  Flash Device: 0 for Flash ROM, 1 for SPI Flash
+
+//  Converted from PNG file by https://github.com/lupyuen/pinetime-graphic
+static const uint8_t image_data[] = {  //  Should be 115,200 bytes
+#include "graphic.inc"
+};
+
+/// Write a converted graphic file to SPI Flash
+int pinetime_boot_write_image(void) {
+    uint32_t offset = 0;
+    for (;;) {
+        if (offset >= sizeof(image_data)) { break; }
+        //  How many bytes we will write.
+        uint16_t len = BATCH_SIZE;
+        if (offset + len >= sizeof(image_data)) {
+            len = sizeof(image_data) - offset;
+        }        
+        //  Erase the bytes.
+        int rc = hal_flash_erase(FLASH_DEVICE, offset, len); assert(rc == 0);
+
+        //  Write the bytes.
+        rc = hal_flash_write(FLASH_DEVICE, offset, (void *) &image_data[offset], len); assert(rc == 0);
+        offset += len;
+    }
+    return 0;
+}
+```
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/graphic.inc
+
+115,200 bytes
+
+```
+0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+...
+0x05, 0xa3, 0x01, 0x20, 0x01, 0x20, 0x01, 0x20, 0x06, 0xe4, 0x07, 0xe5, 0x07, 0xe5, 0x07, 0xe5,
+0x05, 0xe3, 0x02, 0xc1, 0x02, 0xa1, 0x03, 0x62, 0x07, 0xe5, 0x07, 0xe5, 0x07, 0xe5, 0x07, 0xc5,
+...
+```
+
+https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1
+
 # PineTime Boot Library
 
 TODO
+
+Two spots to hook on to MCUBoot...
 
 1. Start of MCUBoot
 
@@ -469,6 +531,46 @@ TODO
 # Test MCUBoot on PineTime
 
 TOOD
+
+https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1
+
+1. mynewt.*: Enhanced Build of MCUBoot Bootloader 1.5.0, supports Boot Graphic and SPI Flash
+
+1. my_sensor_app.*: Application Firmware that supports firmware upgrade over Bluetooth.
+
+1. pinetime-rust-mynewt.7z: Complete set of build files generated on macOS
+
+```
+Starting Bootloader...
+Displaying image...
+Image displayed
+Button: 0
+[INF] Primary image: magic=unset, swap_type=0x1, copy_done=0x3, image_ok=0x3
+[INF] Scratch: magic=unset, swap_type=0x1, copy_done=0x3, image_ok=0x3
+[INF] Boot source: primary slot
+[INF] Swap type: none
+Button: 0
+Button: 0
+Bootloader done
+TMP create temp_stub_0
+NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
+NET standalone node 
+Testing flash...
+Read Internal Flash ROM...
+Read 0x0 + 20
+  0x0000: 0x00 0x00 0x01 0x20 0xd9 0x00 0x00 0x00 
+  0x0008: 0x35 0x01 0x00 0x00 0x37 0x01 0x00 0x00 
+  0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+  0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+Read External SPI Flash...
+Read 0x0 + 20
+  0x0000: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+  0x0008: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+  0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+  0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+Flash OK
+Rust test display
+```
 
 # Further Reading
 
