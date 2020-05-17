@@ -258,7 +258,7 @@
 		"path": "$ROOTPATH$/repos/mcuboot/boot/mynewt/src/main.c",
 		"bookmarks": [
 			{
-				"line": 214,
+				"line": 211,
 				"column": 2,
 				"label": ""
 			}
