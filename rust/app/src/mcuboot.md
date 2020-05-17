@@ -218,9 +218,9 @@ static int init_display(void) {
 }
 ```
 
-Here's the code that initialises the [__Sitronix ST7789 Display Controller__](https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf) for PineTime's 240 x 240 Colour LCD Screen. 
+Here's the code in [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c) that initialises the [__Sitronix ST7789 Display Controller__](https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf) for PineTime's 240 x 240 Colour LCD Screen. 
 
-At startup, the function above sends a bunch of commands and parameters to the ST7789 Display Controller via the SPI port. We send commands and data (parameters) to ST7789 in a special way: [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c)
+At startup, the function above sends a bunch of commands and parameters to the ST7789 Display Controller via the SPI port. We send commands and data (parameters) to ST7789 in a peculiar way in [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c)...
 
 ```c
 #define DISPLAY_SPI   0  //  ST7789 connected to SPI port 0
@@ -254,56 +254,69 @@ static int transmit_spi(const uint8_t *data, uint16_t len) {
 }
 ```
 
-We toggle GPIO Pin 18 (`DISPLAY_DC`) to tell ST7789 whether we are sending a Command Byte or Data Bytes. So in this example...
+We toggle GPIO Pin 18 (`DISPLAY_DC`) to tell ST7789 whether we are sending a Command Byte or a sequence of Data Bytes. So in this example...
 
 ```c
 static const uint8_t FRMCTR1_PARA[] = { 0x01, 0x2C, 0x2D };
 write_command(FRMCTR1, FRMCTR1_PARA, sizeof(FRMCTR1_PARA));
 ```
 
-1. We set GPIO Pin 18 to __Low__ to transmit the FRMCTR1 __Command Byte__ `0xB1`
+1. We set GPIO Pin 18 to __Low__ to transmit the `FRMCTR1` __Command Byte__ `0xB1`
 
 1. Then set GPIO Pin 18 to __High__ to transmit the __Data Bytes__ `0x01`, `0x2C`, `0x2D`
 
-Yes it's unusual, cumbersome and limits SPI performance. (It was probably done to force-fit a 4-Line Serial Interface into a 3-Line SPI Interface)
+Yes it's unusual, cumbersome and limits SPI performance. It was probably done to force-fit a 4-Line Serial Interface into the 3-Line SPI Interface.
 
-Note: The above initialisation commands and parameters don't quite match up with the [ST7789 datasheet](https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf). That's because the code was originally written for the [ST7735 Display Controller](https://www.displayfuture.com/Display/datasheet/controller/ST7735.pdf). This should probably be fixed, but it works on PineTime for now.
+Note: The above initialisation commands and parameters don't quite match up with the [ST7789 datasheet](https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf). That's because the code was originally written for the [ST7735 Display Controller](https://www.displayfuture.com/Display/datasheet/controller/ST7735.pdf). This should be fixed, but it works on PineTime for now.
 
 ## Draw A Line
 
-From [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c)
+Let's look at the code to draw a line: [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c)
 
 ```c
-    //  Set Address Window Columns (CASET)
-    write_command(CASET, NULL, 0);
-    static const uint8_t CASET2_PARA[] = { 
-        0x00, 0x14,    //  From Column 20
-        0x00, 0x27 };  //  To Column 39    
-    write_data(CASET2_PARA, sizeof(CASET2_PARA));
+//  Set Address Window Columns (CASET)
+write_command(CASET, NULL, 0);
+static const uint8_t CASET2_PARA[] = { 
+    0x00, 0x14,    //  From Column 20
+    0x00, 0x27 };  //  To Column 39    
+write_data(CASET2_PARA, sizeof(CASET2_PARA));
 
-    //  Set Address Window Rows (RASET)
-    write_command(RASET, NULL, 0);
-    static const uint8_t RASET2_PARA[] = { 
-        0x00, 0x00,    //  From Row 0
-        0x00, 0x00 };  //  To Row 0
-    write_data(RASET2_PARA, sizeof(RASET2_PARA));
+//  Set Address Window Rows (RASET)
+write_command(RASET, NULL, 0);
+static const uint8_t RASET2_PARA[] = { 
+    0x00, 0x00,    //  From Row 0
+    0x00, 0x00 };  //  To Row 0
+write_data(RASET2_PARA, sizeof(RASET2_PARA));
 
-    //  Write Pixels (RAMWR)
-    write_command(RAMWR, NULL, 0);
-    static const uint8_t RAMWR2_PARA[] = {   //  40 bytes (20 pixels)
-        0x87, 0xe0,    //  First Pixel Colour: 0x87e0 = Green-yellow
-        0x87, 0xe0,    //  Second Pixel Colour
-        ..., 
-        0x87, 0xe0 };  //  20th Pixel Colour
-    write_data(RAMWR2_PARA, sizeof(RAMWR2_PARA));
+//  Write Pixels (RAMWR)
+write_command(RAMWR, NULL, 0);
+static const uint8_t RAMWR2_PARA[] = {   //  40 bytes (20 pixels)
+    0x87, 0xe0,    //  First Pixel Colour: 0x87e0 in RGB565 = Green-yellow
+    0x87, 0xe0,    //  Second Pixel Colour
+    ..., 
+    0x87, 0xe0 };  //  20th Pixel Colour
+write_data(RAMWR2_PARA, sizeof(RAMWR2_PARA));
 ```
 
-Command and data modes
+To render a bitmap on the display, we send the `CASET` and `RASET` commands to define the window coordinates of the bitmap: Left (Column 20), Right (Column 39), Top (Row 0), Bottom (Row 0).
 
+Then we send the `RAMWR` command followed by the pixel colours, row by row.  (Only 1 row of 20 pixels in the above example)
 
-"Optimising PineTime’s Display Driver with Rust and Mynewt"
+Each pixel colour consists of two bytes (like `0x87` `0xe0`), encoded in the RGB565 format.
 
-https://medium.com/@ly.lee/optimising-pinetimes-display-driver-with-rust-and-mynewt-3ba269ea2f5c?source=friends_link&sk=4d2cbd2e6cd2343eed62d214814f7b81
+[See ST7789 datasheet](https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf)
+
+<< pic >>
+
+We call it RGB565 because it encodes 5 bits for Red, 6 bits for Green and 5 bits for Blue. Which adds up to 16 bits, or 2 bytes.
+
+[More about RGB565](https://stackoverflow.com/questions/25467682/rgb-565-why-6-bits-for-green-color)
+
+For more details on PineTime's ST7789 Display Controller, check out this article...
+
+[Optimising PineTime’s Display Driver with Rust and Mynewt](https://medium.com/@ly.lee/optimising-pinetimes-display-driver-with-rust-and-mynewt-3ba269ea2f5c?source=friends_link&sk=4d2cbd2e6cd2343eed62d214814f7b81)
+
+Now that we can draw a line, let's use the code to render the entire Boot Graphic, line by line.
 
 # Render Boot Graphic from SPI Flash on PineTime
 
