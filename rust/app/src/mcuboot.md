@@ -773,6 +773,22 @@ https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1
 
 1. pinetime-rust-mynewt.7z: Complete set of build files generated on macOS
 
+Video demo:
+
+1. at power on mcuboot starts. we see the snow
+
+1. mcboot renders the pinetime logo
+
+1. mcuboot waits 5 seconds for manual rollback (simulated for now)
+
+1. mcuboot starts the firmware. i think mynewt firmware resets the gpio or spi or something. causing the blank
+
+1. mynewt firmware (rust) turns on backlight. pinetime logo is shown
+
+1. mynewt firmware erases the screen very slowly
+
+1. mynewt firmware renders "I AM PINETIME"
+
 ```
 + newt size -v nrf52_boot
 Size of Application Image: app
