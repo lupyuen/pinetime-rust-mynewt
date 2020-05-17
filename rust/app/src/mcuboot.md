@@ -135,23 +135,27 @@ Let's discover how PineTime's ST7789 Display Controller renders graphics...
 
 # Blasting Graphics to ST7789 Display Controller on PineTime
 
-TODO
+Watch how Enhanced MCUBoot renders the Boot Graphic (hand-drawn PineTime logo) on PineTime...
 
 [Watch video on Twitter](https://twitter.com/MisterTechBlog/status/1261568945728876544?s=20)
 
 [Watch video on Mastodon](https://qoto.org/@lupyuen/104177098953236703)
 
-Fastest, simplest way possible
+Enhanced MCUBoot needs to render the Boot Graphic the __quickest and most reliable__ way possible because...
 
-At the expense of hardcoding
+1. PineTime Owners will see this every time PineTime powers on, so it must be quick
 
-Will not crash
+1. The rendering must not crash MCUBoot, even when SPI Flash is corrupted
 
-No scheduler
+    (_Yes the Boot Graphic may look really awful, but PineTime must always boot!_)
 
-From [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c)
+1.  And the rendering needs to be done within the 24 KB of code space allocated to Enhanced MCUBoot
 
-Init
+    (_Which means we'll have to make assumptions and hard code certain things_)
+
+Let's read the code in Enhanced MCUBoot and understand how it renders the Boot Graphic quickly and reliably: `display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c)
+
+## Initialise The Display
 
 ```c
 #define DISPLAY_CS   25  //  GPIO Pin 25 for LCD_CS (P0.25): Chip select
@@ -167,8 +171,8 @@ static int init_display(void) {
     hal_gpio_init_out(DISPLAY_DC, 0);
     hal_gpio_init_out(DISPLAY_HIGH, 0);  //  Switch on backlight
 
-    hard_reset();
-    write_command(SWRESET, NULL, 0); delay_ms(200);
+    hard_reset();  //  Reset the display controller by toggling the Reset GPIO Pin
+    write_command(SWRESET, NULL, 0); delay_ms(200);  //  Write a command and delay for 200 milliseconds
     write_command(SLPOUT, NULL, 0); delay_ms(200);
 
     static const uint8_t FRMCTR1_PARA[] = { 0x01, 0x2C, 0x2D };
@@ -214,7 +218,58 @@ static int init_display(void) {
 }
 ```
 
-Render
+Here's the code that initialises the [__Sitronix ST7789 Display Controller__](https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf) for PineTime's 240 x 240 Colour LCD Screen. 
+
+At startup, the function above sends a bunch of commands and parameters to the ST7789 Display Controller via the SPI port. We send commands and data (parameters) to ST7789 in a special way: [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c)
+
+```c
+#define DISPLAY_SPI   0  //  ST7789 connected to SPI port 0
+#define DISPLAY_DC   18  //  GPIO Pin 18 for LCD_RS (P0.18): Clock/data pin (CD)
+#define DISPLAY_CS   25  //  GPIO Pin 25 for LCD_CS (P0.25): Chip select
+
+/// Transmit ST7789 command
+static int write_command(uint8_t command, const uint8_t *params, uint16_t len) {
+    hal_gpio_write(DISPLAY_DC, 0);  //  Enter Command Mode
+    transmit_spi(&command, 1);
+    if (params != NULL && len > 0) { write_data(params, len); }
+    return 0;
+}
+
+/// Transmit ST7789 data
+static int write_data(const uint8_t *data, uint16_t len) {
+    hal_gpio_write(DISPLAY_DC, 1);  //  Enter Data Mode
+    transmit_spi(data, len);
+    return 0;
+}
+
+/// Write to the SPI port
+static int transmit_spi(const uint8_t *data, uint16_t len) {    
+    hal_gpio_write(DISPLAY_CS, 0);     //  Select the display controller    
+    int rc = hal_spi_txrx(DISPLAY_SPI, //  Send to SPI port...
+        (void *) data,                 //  Transmit Buffer
+        NULL,                          //  Receive Buffer (NULL means don't receive)
+        len);                          //  Length
+    hal_gpio_write(DISPLAY_CS, 1);     //  De-select the display controller    
+    return 0;
+}
+```
+
+We toggle GPIO Pin 18 (`DISPLAY_DC`) to tell ST7789 whether we are sending a Command Byte or Data Bytes. So in this example...
+
+```c
+static const uint8_t FRMCTR1_PARA[] = { 0x01, 0x2C, 0x2D };
+write_command(FRMCTR1, FRMCTR1_PARA, sizeof(FRMCTR1_PARA));
+```
+
+1. We set GPIO Pin 18 to __Low__ to transmit the FRMCTR1 __Command Byte__ `0xB1`
+
+1. Then set GPIO Pin 18 to __High__ to transmit the __Data Bytes__ `0x01`, `0x2C`, `0x2D`
+
+Yes it's unusual, cumbersome and limits SPI performance. (It was probably done to force-fit a 4-Line Serial Interface into a 3-Line SPI Interface)
+
+Note: The above initialisation commands and parameters don't quite match up with the [ST7789 datasheet](https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf). That's because the code was originally written for the [ST7735 Display Controller](https://www.displayfuture.com/Display/datasheet/controller/ST7735.pdf). This should probably be fixed, but it works on PineTime for now.
+
+## Draw A Line
 
 From [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c)
 
@@ -245,39 +300,6 @@ From [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/lib
 
 Command and data modes
 
-From [`display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c)
-
-```c
-#define DISPLAY_SPI   0  //  ST7789 connected to SPI port 0
-#define DISPLAY_DC   18  //  GPIO Pin 18 for LCD_RS (P0.18): Clock/data pin (CD)
-#define DISPLAY_CS   25  //  GPIO Pin 25 for LCD_CS (P0.25): Chip select
-
-/// Transmit ST7789 command
-static int write_command(uint8_t command, const uint8_t *params, uint16_t len) {
-    hal_gpio_write(DISPLAY_DC, 0);  //  Enter Command Mode
-    transmit_spi(&command, 1);
-    if (params != NULL && len > 0) { write_data(params, len); }
-    return 0;
-}
-
-/// Transmit ST7789 data
-static int write_data(const uint8_t *data, uint16_t len) {
-    hal_gpio_write(DISPLAY_DC, 1);  //  Enter Data Mode
-    transmit_spi(data, len);
-    return 0;
-}
-
-/// Write to the SPI port
-static int transmit_spi(const uint8_t *data, uint16_t len) {    
-    hal_gpio_write(DISPLAY_CS, 0);     //  Select the display controller    
-    int rc = hal_spi_txrx(DISPLAY_SPI, //  Send the data
-        (void *) data,                 //  TX Buffer
-        NULL,                          //  RX Buffer (don't receive)
-        len);                          //  Length
-    hal_gpio_write(DISPLAY_CS, 1);     //  De-select the display controller    
-    return 0;
-}
-```
 
 "Optimising PineTime’s Display Driver with Rust and Mynewt"
 
@@ -403,6 +425,10 @@ TODO
 # PineTime Boot Library
 
 TODO
+
+1. Start of MCUBoot
+
+1. End of MCUBoot
 
 # Manual Firmware Rollback on PineTime
 
