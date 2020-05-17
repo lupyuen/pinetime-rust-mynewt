@@ -58,10 +58,15 @@
 <li><a href="#draw-a-line">2.2 Draw A Line</a><ul></ul></li></ul></li>
 <li><a href="#render-boot-graphic-from-spi-flash-on-pinetime">3 Render Boot Graphic from SPI Flash on PineTime</a><ul></ul></li>
 <li><a href="#write-boot-graphic-to-spi-flash-on-pinetime">4 Write Boot Graphic to SPI Flash on PineTime</a><ul></ul></li>
-<li><a href="#pinetime-boot-library">5 PineTime Boot Library</a><ul></ul></li>
-<li><a href="#manual-firmware-rollback-on-pinetime">6 Manual Firmware Rollback on PineTime</a><ul></ul></li>
-<li><a href="#test-mcuboot-on-pinetime">7 Test MCUBoot on PineTime</a><ul></ul></li>
-<li><a href="#further-reading">8 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/mcuboot-photo2-small.jpg" alt="Enhanced MCUBoot Bootloader running on PineTime Smart Watch" /></p>
+<li><a href="#enable-custom-hooks-in-mcuboot">5 Enable Custom Hooks in MCUBoot</a><ul>
+<li><a href="#enable-sysinit-hook">5.1 Enable <code>sysinit()</code> Hook</a><ul></ul></li>
+<li><a href="#enable-boot_custom_start-hook">5.2 Enable <code>boot_custom_start()</code> Hook</a><ul></ul></li></ul></li>
+<li><a href="#extend-mcuboot-with-pinetime-boot-library">6 Extend MCUBoot with PineTime Boot Library</a><ul>
+<li><a href="#handle-mcuboot-sysinit-hook">6.1 Handle MCUBoot <code>sysinit()</code> Hook</a><ul></ul></li>
+<li><a href="#handle-mcuboot-boot_custom_start-hook">6.2 Handle MCUBoot <code>boot_custom_start()</code> Hook</a><ul></ul></li></ul></li>
+<li><a href="#manual-firmware-rollback-on-pinetime">7 Manual Firmware Rollback on PineTime</a><ul></ul></li>
+<li><a href="#test-mcuboot-on-pinetime">8 Test MCUBoot on PineTime</a><ul></ul></li>
+<li><a href="#further-reading">9 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/mcuboot-photo2-small.jpg" alt="Enhanced MCUBoot Bootloader running on PineTime Smart Watch" /></p>
 <p><em>Enhanced MCUBoot Bootloader running on PineTime Smart Watch</em></p>
 <p>Today we'll talk about the <strong>Enhanced MCUBoot Bootloader</strong> for <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>. </p>
 <p>Here's a sneak peek of the Enhanced MCUBoot Bootloader running on PineTime...</p>
@@ -488,20 +493,154 @@ int pinetime_boot_write_image(void) {
 <span class="number">0x05</span>, <span class="number">0xe3</span>, <span class="number">0x02</span>, <span class="number">0xc1</span>, <span class="number">0x02</span>, <span class="number">0xa1</span>, <span class="number">0x03</span>, <span class="number">0x62</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xc5</span>,
 ...</pre></div>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1</p>
-<h1 id="pinetime-boot-library" class="section-header"><a href="#pinetime-boot-library">5 PineTime Boot Library</a></h1>
-<p>TODO</p>
-<p>Two spots to hook on to MCUBoot...</p>
+<h1 id="enable-custom-hooks-in-mcuboot" class="section-header"><a href="#enable-custom-hooks-in-mcuboot">5 Enable Custom Hooks in MCUBoot</a></h1>
+<p>Earlier we resolved never to modify MCUBoot code because the MCUBoot Bootloader is a Critical and Secure part of PineTime. </p>
+<p><em>How shall we add new functions to MCUBoot, like rendering the Boot Graphic?</em></p>
+<p>Fortunately MCUBoot provides two spots for us to hook on additional functions...</p>
 <ol>
 <li>
-<p>Start of MCUBoot</p>
+<p><strong>Start of MCUBoot:</strong> MCUBoot calls our custom function via <strong><code>sysinit()</code></strong></p>
 </li>
 <li>
-<p>End of MCUBoot</p>
+<p><strong>End of MCUBoot:</strong> MCUBoot calls our custom function via <strong><code>boot_custom_start()</code></strong></p>
 </li>
 </ol>
-<h1 id="manual-firmware-rollback-on-pinetime" class="section-header"><a href="#manual-firmware-rollback-on-pinetime">6 Manual Firmware Rollback on PineTime</a></h1>
+<p>Here's how the hooks are implemented in the Mynewt version of MCUBoot: <a href="https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/mynewt/src/main.c"><code>mcuboot/boot/mynewt/src/main.c</code></a></p>
+<pre><code class="language-c">//  MCUBoot starts here.
+int main(void) {
+
+#if defined(MCUBOOT_HAVE_LOGGING)
+    //  Initialise Mynewt drivers and libraries.
+    sysinit();
+#else
+    //  By Default: Don't call sysinit() to initialise Mynewt drivers and libraries.
+#endif
+
+    //  MCUBoot does its work here. Swap Active and Standaby Firmware if required.
+    boot_go(&amp;rsp);
+    flash_device_base(rsp.br_flash_dev_id, &amp;flash_base);
+    //  MCUBoot has completed its work.
+
+#if MYNEWT_VAL(BOOT_CUSTOM_START)
+    //  Call custom boot function to start the Application Firmware
+    boot_custom_start(flash_base, &amp;rsp);  
+#else
+    //  By Default: Start the Application Firmware directly
+    hal_system_start((void *)(flash_base + rsp.br_image_off + rsp.br_hdr-&gt;ih_hdr_size));
+#endif
+
+    return 0;
+}
+</code></pre>
+<p>Let's enable both MCUBoot hooks in our Enhanced MCUBoot for PineTime: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/targets/nrf52_boot"><code>targets/nrf52_boot</code></a></p>
+<h2 id="enable-sysinit-hook" class="section-header"><a href="#enable-sysinit-hook">5.1 Enable <code>sysinit()</code> Hook</a></h2>
+<p>To enable the <code>sysinit()</code> hook when MCUBoot starts, we define <code>MCUBOOT_HAVE_LOGGING</code> in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_boot/pkg.yml"><code>targets/nrf52_boot/pkg.yml</code></a>...</p>
+<pre><code class="language-yaml"># Package Dependencies: MCUBoot is dependent on these drivers and libraries.
+pkg.deps:
+    - &quot;libs/semihosting_console&quot;  #  Semihosting Console
+    - &quot;libs/pinetime_boot&quot;        #  Render boot graphic and check for rollback
+
+#  C compiler flags
+pkg.cflags:
+    - -DMCUBOOT_HAVE_LOGGING=1  #  So that sysinit() will be run, needed for displaying boot graphic
+</code></pre>
+<p>We have added two libraries to MCUBoot...</p>
+<ol>
+<li>
+<p><strong><a href="https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/libs/semihosting_console"><code>semihosting_console</code> Library</a>:</strong> Display debugging messages from MCUBoot via the Arm Semihosting Console (in OpenOCD). </p>
+<p>The debugging messages are automatically disabled if PineTime's SWD Port is not connected.</p>
+</li>
+<li>
+<p><strong><a href="https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/libs/pinetime_boot"><code>pinetime_boot</code> Library</a>:</strong> Implements the Enhanced MCUBoot functions (like rendering the Boot Graphic).</p>
+<p>More about <code>pinetime_boot</code> in a while.</p>
+</li>
+</ol>
+<h2 id="enable-boot_custom_start-hook" class="section-header"><a href="#enable-boot_custom_start-hook">5.2 Enable <code>boot_custom_start()</code> Hook</a></h2>
+<p>To enable the <code>boot_custom_start()</code> hook when MCUBoot completes its processing, we set <code>BOOT_CUSTOM_START</code> to <code>1</code> in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_boot/syscfg.yml"><code>targets/nrf52_boot/syscfg.yml</code></a>...</p>
+<pre><code class="language-yaml"># MCUBoot Bootloader Settings
+syscfg.vals:
+    BOOT_CUSTOM_START:        1  # Use custom boot function boot_custom_start()
+    OS_MAIN_STACK_SIZE:    1024  # Small stack size: 4 KB
+    MSYS_1_BLOCK_COUNT:      64  # Allocate MSYS buffers for Semihosting Console
+
+    # Hardware Settings
+    SPIFLASH:                 1  # Enable SPI Flash
+    SPI_0_MASTER:             1  # Enable SPI port 0 for ST7789 display and SPI Flash
+</code></pre>
+<p>We have enabled the SPI port (<code>SPI_0_MASTER</code>) as well as the SPI Flash driver (<code>SPIFLASH</code>). </p>
+<p><code>MSYS_1_BLOCK_COUNT</code> needs to be set so that debugging messages from MCUBoot will appear on the Arm Semihosting Console (in OpenOCD).  Semihosting Console uses MSYS buffers for buffering debugging messages in RAM.</p>
+<p>Let's find out how the PineTime Boot Library <code>pinetime_boot</code> implements the MCUBoot custom hooks.</p>
+<h1 id="extend-mcuboot-with-pinetime-boot-library" class="section-header"><a href="#extend-mcuboot-with-pinetime-boot-library">6 Extend MCUBoot with PineTime Boot Library</a></h1>
 <p>TODO</p>
-<h1 id="test-mcuboot-on-pinetime" class="section-header"><a href="#test-mcuboot-on-pinetime">7 Test MCUBoot on PineTime</a></h1>
+<p>https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/libs/pinetime_boot</p>
+<h2 id="handle-mcuboot-sysinit-hook" class="section-header"><a href="#handle-mcuboot-sysinit-hook">6.1 Handle MCUBoot <code>sysinit()</code> Hook</a></h2>
+<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/pkg.yml</p>
+<pre><code class="language-yaml">pkg.init:
+    # pinetime_boot should be initialised last, when SPI and Semihosting Console are up
+    pinetime_boot_init: 900  # Call pinetime_boot_init() to initialise and render boot graphic
+</code></pre>
+<p>bin/targets/nrf52_boot/generated/src/nrf52_boot-sysinit-app.c</p>
+<pre><code class="language-c">void sysinit_app(void) {
+    //  Stage 0.0: os_pkg_init (kernel/os)
+    os_pkg_init();
+
+    //  Stage 2.0: flash_map_init (sys/flash_map)
+    flash_map_init();
+
+    //  Stage 20.0: console_pkg_init (libs/semihosting_console)
+    console_pkg_init();
+
+    //  Stage 100.0: mfg_init (sys/mfg)
+    mfg_init();
+    //  Stage 100.1: modlog_init (sys/log/modlog)
+    modlog_init();
+
+    //  Stage 900.0: pinetime_boot_init (libs/pinetime_boot)
+    pinetime_boot_init();
+}
+</code></pre>
+<h2 id="handle-mcuboot-boot_custom_start-hook" class="section-header"><a href="#handle-mcuboot-boot_custom_start-hook">6.2 Handle MCUBoot <code>boot_custom_start()</code> Hook</a></h2><h1 id="manual-firmware-rollback-on-pinetime" class="section-header"><a href="#manual-firmware-rollback-on-pinetime">7 Manual Firmware Rollback on PineTime</a></h1>
+<p>TODO</p>
+<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c</p>
+<pre><code class="language-c">#define PUSH_BUTTON_IN  13  //  P0.13: PUSH BUTTON_IN
+#define PUSH_BUTTON_OUT 15  //  P0.15/TRACEDATA2: PUSH BUTTON_OUT
+
+/// Init the display and render the boot graphic. Called by sysinit() during startup, defined in pkg.yml.
+void pinetime_boot_init(void) {
+    //  Init the push button. The button on the side of the PineTime is disabled by default. To enable it, drive the button out pin (P0.15) high.
+    //  While enabled, the button in pin (P0.13) will be high when the button is pressed, and low when it is not pressed. 
+    hal_gpio_init_in(PUSH_BUTTON_IN, HAL_GPIO_PULL_DOWN);  //  TODO: Doesn't seem to work
+    hal_gpio_init_out(PUSH_BUTTON_OUT, 1);
+    hal_gpio_write(PUSH_BUTTON_OUT, 1);  //  Enable the button
+
+    //  Display the image.
+    pinetime_boot_display_image();
+}
+
+void boot_custom_start(
+    uintptr_t flash_base,
+    struct boot_rsp *rsp
+) {
+    //  Wait 5 seconds for button press.
+    for (int i = 0; i &lt; 15; i++) {
+        pinetime_boot_check_button();
+    }
+
+    //  TODO: If button is pressed and held for 5 seconds, rollback the firmware.
+
+    //  Start the start the Application Firmware.
+    hal_system_start((void *)(flash_base + rsp-&gt;br_image_off +
+                              rsp-&gt;br_hdr-&gt;ih_hdr_size));
+}
+
+/// Check whether the watch button is pressed
+void pinetime_boot_check_button(void) {
+    for (int i = 0; i &lt; 1000000; i++) {
+        hal_gpio_read(PUSH_BUTTON_IN);  //  TODO: Doesn't seem to work
+    }
+}
+</code></pre>
+<h1 id="test-mcuboot-on-pinetime" class="section-header"><a href="#test-mcuboot-on-pinetime">8 Test MCUBoot on PineTime</a></h1>
 <p>TOOD</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1</p>
 <ol>
@@ -546,7 +685,7 @@ int pinetime_boot_write_image(void) {
   <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
 <span class="ident">Flash</span> <span class="ident">OK</span>
 <span class="ident">Rust</span> <span class="ident">test</span> <span class="ident">display</span></pre></div>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">8 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">9 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 
     

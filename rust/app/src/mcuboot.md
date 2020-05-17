@@ -603,6 +603,8 @@ We have enabled the SPI port (`SPI_0_MASTER`) as well as the SPI Flash driver (`
 
 `MSYS_1_BLOCK_COUNT` needs to be set so that debugging messages from MCUBoot will appear on the Arm Semihosting Console (in OpenOCD).  Semihosting Console uses MSYS buffers for buffering debugging messages in RAM.
 
+Let's find out how the PineTime Boot Library `pinetime_boot` implements the MCUBoot custom hooks.
+
 # Extend MCUBoot with PineTime Boot Library
 
 TODO
