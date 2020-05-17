@@ -96,6 +96,8 @@ bsp.flash_map:
             size:    3376kB
 ```
 
+TODO: Extend active firmware by 12 KB
+
 [More about PineTime's SPI Flash](https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash)
 
 Here's the layout for __PineTime's Flash ROM__...
@@ -108,6 +110,8 @@ Here's the layout for __PineTime's Flash ROM__...
 | &nbsp;&nbsp;&nbsp;&nbsp; Scratch Area          | `0x0007 C000`  | 4 KB |
 |<br>|||
 
+TODO: Extend active firmware by 12 KB
+
 And the layout for __PineTime's SPI Flash__...
 
 | &nbsp;&nbsp;&nbsp;&nbsp; SPI Flash Area | Address        | Size |
@@ -116,6 +120,8 @@ And the layout for __PineTime's SPI Flash__...
 | &nbsp;&nbsp;&nbsp;&nbsp; _Standby Firmware Image_ &nbsp;&nbsp;&nbsp;&nbsp; | `0x0004 0000`  | _464 KB_ |
 | &nbsp;&nbsp;&nbsp;&nbsp; User File System      | `0x000B 4000`  | &nbsp;&nbsp;&nbsp;&nbsp; 3,376 KB |
 |<br>|||
+
+TODO: Extend standby firmware by 12 KB
 
 The __User File System__ has been bumped up to a whopping __3.2 MB__ (from 12 KB).
 
@@ -695,7 +701,7 @@ void boot_custom_start(
     struct boot_rsp *rsp
 ) {
     ...
-    //  Start the start the Application Firmware. Copied from MCUBoot main().
+    //  Start the Active Firmware Image. Copied from MCUBoot main().
     hal_system_start((void *)(
         flash_base + 
         rsp->br_image_off +
@@ -710,9 +716,13 @@ In the next section we'll see that `boot_custom_start()` performs another functi
 
 # Manual Firmware Rollback on PineTime
 
-TODO
+To prevent PineTime from getting bricked during firmware update, MCUBoot will automatically roll back the new firmware (Active Firmware) to the older firmware (Standby Firmware) if the new firmware fails to start properly (or fails to set the Firmware OK flag).
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c
+_What if the PineTime Owner decides that the new firmware is not working properly, and wishes to roll back the firmware manually?_
+
+That's why we shall check for manual firmware rollback like this: If the Owner presses and holds the watch button for 5 seconds while the watch is booting up, the MCUBoot Bootloader shall roll back the firmware.
+
+The manual rollback logic will be implemented in [`libs/pinetime_boot/src/pinetime_boot.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c)...
 
 ```c
 #define PUSH_BUTTON_IN  13  //  P0.13: PUSH BUTTON_IN
@@ -722,7 +732,7 @@ https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src
 void pinetime_boot_init(void) {
     //  Init the push button. The button on the side of the PineTime is disabled by default. To enable it, drive the button out pin (P0.15) high.
     //  While enabled, the button in pin (P0.13) will be high when the button is pressed, and low when it is not pressed. 
-    hal_gpio_init_in(PUSH_BUTTON_IN, HAL_GPIO_PULL_DOWN);  //  TODO: Doesn't seem to work
+    hal_gpio_init_in(PUSH_BUTTON_IN, HAL_GPIO_PULL_DOWN);  //  TODO: Doesn't seem to detect button press
     hal_gpio_init_out(PUSH_BUTTON_OUT, 1);
     hal_gpio_write(PUSH_BUTTON_OUT, 1);  //  Enable the button
 
@@ -736,16 +746,13 @@ void boot_custom_start(
     struct boot_rsp *rsp
 ) {
     //  Wait 5 seconds for button press.
-    console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
     for (int i = 0; i < 15; i++) {
         pinetime_boot_check_button();
     }
-    console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
 
     //  TODO: If button is pressed and held for 5 seconds, rollback the firmware.
-    console_printf("Bootloader done\n"); console_flush();
 
-    //  Start the start the Application Firmware. Copied from MCUBoot main().
+    //  Start the Active Firmware Image. Copied from MCUBoot main().
     hal_system_start((void *)(
         flash_base + 
         rsp->br_image_off +
@@ -756,10 +763,17 @@ void boot_custom_start(
 /// Check whether the watch button is pressed
 void pinetime_boot_check_button(void) {
     for (int i = 0; i < 1000000; i++) {
-        hal_gpio_read(PUSH_BUTTON_IN);  //  TODO: Doesn't seem to work
+        //  TODO: Remember whether the button is pressed and held
+        hal_gpio_read(PUSH_BUTTON_IN);  //  TODO: Doesn't seem to detect button press
     }
 }
 ```
+
+In `pinetime_boot_init()`, which is called when the MCUBoot Bootloader starts, we initialise the GPIO Pins for the watch button. Then we let MCUBoot do its work.
+
+When MCUBoot has finished working, it calls `boot_custom_start()`. Here we wait 5 seconds and check whether the button has been pressed and held for 5 seconds.
+
+If so, we roll back the firmware.
 
 # Test MCUBoot on PineTime
 
@@ -854,6 +868,12 @@ Read 0x0 + 20
 Flash OK
 Rust test display
 ```
+
+# More Enhancements for MCUBoot on PineTime
+
+TODO
+
+Bitmap compression
 
 # Further Reading
 

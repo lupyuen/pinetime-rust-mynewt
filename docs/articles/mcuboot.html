@@ -66,7 +66,8 @@
 <li><a href="#handle-mcuboot-boot_custom_start-hook">6.2 Handle MCUBoot <code>boot_custom_start()</code> Hook</a><ul></ul></li></ul></li>
 <li><a href="#manual-firmware-rollback-on-pinetime">7 Manual Firmware Rollback on PineTime</a><ul></ul></li>
 <li><a href="#test-mcuboot-on-pinetime">8 Test MCUBoot on PineTime</a><ul></ul></li>
-<li><a href="#further-reading">9 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/mcuboot-photo2-small.jpg" alt="Enhanced MCUBoot Bootloader running on PineTime Smart Watch" /></p>
+<li><a href="#more-enhancements-for-mcuboot-on-pinetime">9 More Enhancements for MCUBoot on PineTime</a><ul></ul></li>
+<li><a href="#further-reading">10 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/mcuboot-photo2-small.jpg" alt="Enhanced MCUBoot Bootloader running on PineTime Smart Watch" /></p>
 <p><em>Enhanced MCUBoot Bootloader running on PineTime Smart Watch</em></p>
 <p>Today we'll talk about the <strong>Enhanced MCUBoot Bootloader</strong> for <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>. </p>
 <p>Here's a sneak peek of the Enhanced MCUBoot Bootloader running on PineTime...</p>
@@ -146,6 +147,7 @@ bsp.flash_map:
             offset:  0x000b4000
             size:    3376kB
 </code></pre>
+<p>TODO: Extend active firmware by 12 KB</p>
 <p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash">More about PineTime's SPI Flash</a></p>
 <p>Here's the layout for <strong>PineTime's Flash ROM</strong>...</p>
 <table><thead><tr><th align="left">     Flash ROM Area</th><th align="left">Address</th><th align="right">Size</th></tr></thead><tbody>
@@ -155,6 +157,7 @@ bsp.flash_map:
 <tr><td align="left">     Scratch Area</td><td align="left"><code>0x0007 C000</code></td><td align="right">4 KB</td></tr>
 <tr><td align="left"><br></td><td align="left"></td><td align="right"></td></tr>
 </tbody></table>
+<p>TODO: Extend active firmware by 12 KB</p>
 <p>And the layout for <strong>PineTime's SPI Flash</strong>...</p>
 <table><thead><tr><th align="left">     SPI Flash Area</th><th align="left">Address</th><th align="right">Size</th></tr></thead><tbody>
 <tr><td align="left">     Bootloader Assets</td><td align="left"><code>0x0000 0000</code></td><td align="right">256 KB</td></tr>
@@ -162,6 +165,7 @@ bsp.flash_map:
 <tr><td align="left">     User File System</td><td align="left"><code>0x000B 4000</code></td><td align="right">     3,376 KB</td></tr>
 <tr><td align="left"><br></td><td align="left"></td><td align="right"></td></tr>
 </tbody></table>
+<p>TODO: Extend standby firmware by 12 KB</p>
 <p>The <strong>User File System</strong> has been bumped up to a whopping <strong>3.2 MB</strong> (from 12 KB).</p>
 <p>PineTime Watch Apps may store graphical assets and other app data in the User File System, once we install a Flash File System like littlefs.</p>
 <p><a href="https://github.com/ARMmbed/littlefs/blob/master/README.md">More about littlefs</a></p>
@@ -635,7 +639,7 @@ void boot_custom_start(
     struct boot_rsp *rsp
 ) {
     ...
-    //  Start the start the Application Firmware. Copied from MCUBoot main().
+    //  Start the Active Firmware Image. Copied from MCUBoot main().
     hal_system_start((void *)(
         flash_base + 
         rsp-&gt;br_image_off +
@@ -646,8 +650,10 @@ void boot_custom_start(
 <p><code>boot_custom_start()</code> calls <code>hal_system_start()</code> to jump to the Active Firmware Image, since our Enhanced MCUBoot Bootloader has completed its work.</p>
 <p>In the next section we'll see that <code>boot_custom_start()</code> performs another function on PineTime: Rolling back the firmware when the watch button is pressed.</p>
 <h1 id="manual-firmware-rollback-on-pinetime" class="section-header"><a href="#manual-firmware-rollback-on-pinetime">7 Manual Firmware Rollback on PineTime</a></h1>
-<p>TODO</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c</p>
+<p>To prevent PineTime from getting bricked during firmware update, MCUBoot will automatically roll back the new firmware (Active Firmware) to the older firmware (Standby Firmware) if the new firmware fails to start properly (or fails to set the Firmware OK flag).</p>
+<p><em>What if the PineTime Owner decides that the new firmware is not working properly, and wishes to roll back the firmware manually?</em></p>
+<p>That's why we shall check for manual firmware rollback like this: If the Owner presses and holds the watch button for 5 seconds while the watch is booting up, the MCUBoot Bootloader shall roll back the firmware.</p>
+<p>The manual rollback logic will be implemented in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c"><code>libs/pinetime_boot/src/pinetime_boot.c</code></a>...</p>
 <pre><code class="language-c">#define PUSH_BUTTON_IN  13  //  P0.13: PUSH BUTTON_IN
 #define PUSH_BUTTON_OUT 15  //  P0.15/TRACEDATA2: PUSH BUTTON_OUT
 
@@ -655,7 +661,7 @@ void boot_custom_start(
 void pinetime_boot_init(void) {
     //  Init the push button. The button on the side of the PineTime is disabled by default. To enable it, drive the button out pin (P0.15) high.
     //  While enabled, the button in pin (P0.13) will be high when the button is pressed, and low when it is not pressed. 
-    hal_gpio_init_in(PUSH_BUTTON_IN, HAL_GPIO_PULL_DOWN);  //  TODO: Doesn't seem to work
+    hal_gpio_init_in(PUSH_BUTTON_IN, HAL_GPIO_PULL_DOWN);  //  TODO: Doesn't seem to detect button press
     hal_gpio_init_out(PUSH_BUTTON_OUT, 1);
     hal_gpio_write(PUSH_BUTTON_OUT, 1);  //  Enable the button
 
@@ -669,16 +675,13 @@ void boot_custom_start(
     struct boot_rsp *rsp
 ) {
     //  Wait 5 seconds for button press.
-    console_printf(&quot;Button: %d\n&quot;, hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
     for (int i = 0; i &lt; 15; i++) {
         pinetime_boot_check_button();
     }
-    console_printf(&quot;Button: %d\n&quot;, hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
 
     //  TODO: If button is pressed and held for 5 seconds, rollback the firmware.
-    console_printf(&quot;Bootloader done\n&quot;); console_flush();
 
-    //  Start the start the Application Firmware. Copied from MCUBoot main().
+    //  Start the Active Firmware Image. Copied from MCUBoot main().
     hal_system_start((void *)(
         flash_base + 
         rsp-&gt;br_image_off +
@@ -689,10 +692,14 @@ void boot_custom_start(
 /// Check whether the watch button is pressed
 void pinetime_boot_check_button(void) {
     for (int i = 0; i &lt; 1000000; i++) {
-        hal_gpio_read(PUSH_BUTTON_IN);  //  TODO: Doesn't seem to work
+        //  TODO: Remember whether the button is pressed and held
+        hal_gpio_read(PUSH_BUTTON_IN);  //  TODO: Doesn't seem to detect button press
     }
 }
 </code></pre>
+<p>In <code>pinetime_boot_init()</code>, which is called when the MCUBoot Bootloader starts, we initialise the GPIO Pins for the watch button. Then we let MCUBoot do its work.</p>
+<p>When MCUBoot has finished working, it calls <code>boot_custom_start()</code>. Here we wait 5 seconds and check whether the button has been pressed and held for 5 seconds.</p>
+<p>If so, we roll back the firmware.</p>
 <h1 id="test-mcuboot-on-pinetime" class="section-header"><a href="#test-mcuboot-on-pinetime">8 Test MCUBoot on PineTime</a></h1>
 <p>TOOD</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1</p>
@@ -705,6 +712,30 @@ void pinetime_boot_check_button(void) {
 </li>
 <li>
 <p>pinetime-rust-mynewt.7z: Complete set of build files generated on macOS</p>
+</li>
+</ol>
+<p>Video demo:</p>
+<ol>
+<li>
+<p>at power on mcuboot starts. we see the snow</p>
+</li>
+<li>
+<p>mcboot renders the pinetime logo</p>
+</li>
+<li>
+<p>mcuboot waits 5 seconds for manual rollback (simulated for now)</p>
+</li>
+<li>
+<p>mcuboot starts the firmware. i think mynewt firmware resets the gpio or spi or something. causing the blank</p>
+</li>
+<li>
+<p>mynewt firmware (rust) turns on backlight. pinetime logo is shown</p>
+</li>
+<li>
+<p>mynewt firmware erases the screen very slowly</p>
+</li>
+<li>
+<p>mynewt firmware renders &quot;I AM PINETIME&quot;</p>
 </li>
 </ol>
 
@@ -771,7 +802,10 @@ void pinetime_boot_check_button(void) {
   <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
 <span class="ident">Flash</span> <span class="ident">OK</span>
 <span class="ident">Rust</span> <span class="ident">test</span> <span class="ident">display</span></pre></div>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">9 Further Reading</a></h1>
+<h1 id="more-enhancements-for-mcuboot-on-pinetime" class="section-header"><a href="#more-enhancements-for-mcuboot-on-pinetime">9 More Enhancements for MCUBoot on PineTime</a></h1>
+<p>TODO</p>
+<p>Bitmap compression</p>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">10 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 
     
