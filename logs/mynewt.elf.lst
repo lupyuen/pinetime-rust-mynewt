@@ -30,9 +30,9 @@ Idx Name               Size      VMA       LMA       File off  Algn  Flags
   9 .ARM.attributes    0000002f  00000000  00000000  00020310  2**0  CONTENTS, READONLY
  10 .comment           0000007f  00000000  00000000  0002033f  2**0  CONTENTS, READONLY
  11 .svc_table         00000004  00000000  00000000  000203be  2**0  CONTENTS, READONLY
- 12 .debug_line        0001183f  00000000  00000000  000203c2  2**0  CONTENTS, READONLY, DEBUGGING
- 13 .debug_info        0002a0a0  00000000  00000000  00031c01  2**0  CONTENTS, READONLY, DEBUGGING
- 14 .debug_abbrev      00007631  00000000  00000000  0005bca1  2**0  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_line        00011840  00000000  00000000  000203c2  2**0  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_info        0002a0a0  00000000  00000000  00031c02  2**0  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_abbrev      00007631  00000000  00000000  0005bca2  2**0  CONTENTS, READONLY, DEBUGGING
  15 .debug_aranges     00001508  00000000  00000000  000632d8  2**3  CONTENTS, READONLY, DEBUGGING
  16 .debug_str         0000621d  00000000  00000000  000647e0  2**0  CONTENTS, READONLY, DEBUGGING
  17 .debug_loc         0000f72e  00000000  00000000  0006a9fd  2**0  CONTENTS, READONLY, DEBUGGING
@@ -1571,8 +1571,6 @@ int flash_device_base(uint8_t fd_id, uintptr_t *ret)
      5e0:	4770      	bx	lr
 
 000005e2 <main>:
-#include <hal/hal_gpio.h> ////
-void display_image(void); ////
 
 int
 main(void)
@@ -6619,7 +6617,7 @@ void pinetime_boot_init(void) {
 
     //  Init the push button. The button on the side of the PineTime is disabled by default. To enable it, drive the button out pin (P0.15) high.
     //  While enabled, the button in pin (P0.13) will be high when the button is pressed, and low when it is not pressed. 
-    hal_gpio_init_in(PUSH_BUTTON_IN, HAL_GPIO_PULL_DOWN);  //  TODO: Or up / down
+    hal_gpio_init_in(PUSH_BUTTON_IN, HAL_GPIO_PULL_DOWN);  //  TODO: Doesn't seem to work
     1e18:	2102      	movs	r1, #2
     1e1a:	200d      	movs	r0, #13
     1e1c:	f7fe ff6d 	bl	cfa <hal_gpio_init_in>
@@ -6648,8 +6646,8 @@ void pinetime_boot_init(void) {
     1e4c:	00005320 	.word	0x00005320
 
 00001e50 <pinetime_boot_check_button>:
-    hal_system_start((void *)(flash_base + rsp->br_image_off +
-                              rsp->br_hdr->ih_hdr_size));
+        rsp->br_hdr->ih_hdr_size
+    ));
 }
 
 /// Check whether the watch button is pressed
@@ -6658,7 +6656,7 @@ void pinetime_boot_check_button(void) {
     for (int i = 0; i < 1000000; i++) {
     1e52:	2400      	movs	r4, #0
     1e54:	e003      	b.n	1e5e <pinetime_boot_check_button+0xe>
-        hal_gpio_read(PUSH_BUTTON_IN);
+        hal_gpio_read(PUSH_BUTTON_IN);  //  TODO: Doesn't seem to work
     1e56:	200d      	movs	r0, #13
     1e58:	f7fe ff92 	bl	d80 <hal_gpio_read>
     for (int i = 0; i < 1000000; i++) {
@@ -6704,13 +6702,14 @@ void pinetime_boot_check_button(void) {
     1ea4:	4806      	ldr	r0, [pc, #24]	; (1ec0 <boot_custom_start+0x54>)
     1ea6:	f000 fa35 	bl	2314 <console_printf>
     1eaa:	f000 fa89 	bl	23c0 <console_flush>
-    hal_system_start((void *)(flash_base + rsp->br_image_off +
+        rsp->br_image_off +
     1eae:	68a8      	ldr	r0, [r5, #8]
+        flash_base + 
     1eb0:	4430      	add	r0, r6
-                              rsp->br_hdr->ih_hdr_size));
+        rsp->br_hdr->ih_hdr_size
     1eb2:	682b      	ldr	r3, [r5, #0]
     1eb4:	891b      	ldrh	r3, [r3, #8]
-    hal_system_start((void *)(flash_base + rsp->br_image_off +
+    hal_system_start((void *)(
     1eb6:	4418      	add	r0, r3
     1eb8:	f002 fa1f 	bl	42fa <hal_system_start>
     1ebc:	00005320 	.word	0x00005320

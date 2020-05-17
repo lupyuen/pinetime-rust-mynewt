@@ -45,6 +45,7 @@ void pinetime_boot_init(void) {
     console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
 }
 
+/// Called by MCUBoot when it has completed its work.
 void boot_custom_start(
     uintptr_t flash_base,
     struct boot_rsp *rsp
@@ -59,9 +60,12 @@ void boot_custom_start(
     //  TODO: If button is pressed and held for 5 seconds, rollback the firmware.
     console_printf("Bootloader done\n"); console_flush();
 
-    //  Start the start the Application Firmware.
-    hal_system_start((void *)(flash_base + rsp->br_image_off +
-                              rsp->br_hdr->ih_hdr_size));
+    //  Start the start the Application Firmware. Copied from MCUBoot main().
+    hal_system_start((void *)(
+        flash_base + 
+        rsp->br_image_off +
+        rsp->br_hdr->ih_hdr_size
+    ));
 }
 
 /// Check whether the watch button is pressed
