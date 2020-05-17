@@ -133,6 +133,12 @@ Half of the Bootloader Assets area is unused. We expect to use the free space to
 
 The Bootloader Assets area doesn't use any Flash File System (like littlefs). We'll learn why in a while.
 
+_Why is Bootloader Assets commented out in the Flash Memory Map [`hw/bsp/nrf52/bsp.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/bsp.yml)?_
+
+The Mynewt build fails when it encounters a custom flash area (like Bootloader Assets) in the Flash Memory Map. So it has been commented out. 
+
+But the SPI Flash space has been budgeted correctly, so that none of the other flash areas will overlap with Bootloader Assets.
+
 Let's discover how PineTime's ST7789 Display Controller renders graphics...
 
 # Blasting Graphics to ST7789 Display Controller on PineTime
@@ -329,7 +335,7 @@ Now let's call these functions to render the Boot Graphic in [`display.c`](https
 ```c
 #define BATCH_SIZE  256  //  Max number of SPI data bytes to be transmitted
 
-//  Screen Size
+//  Screen Buffer Size: 240 * 240 * 2 / 1024 = 112.5 KB
 #define ROW_COUNT 240
 #define COL_COUNT 240
 #define BYTES_PER_PIXEL 2
@@ -351,7 +357,6 @@ int pinetime_boot_display_image(void) {
         uint8_t top = row;     //  Top row
         uint8_t bottom = row;  //  Bottom row (same as top)
         uint8_t left = 0;      //  Left column
-        //  Screen Buffer: 240 * 240 * 2 / 1024 = 112.5 KB
         //  Render a batch of columns in that row.
         for (;;) {
             if (left >= COL_COUNT) { break; }
@@ -648,11 +653,7 @@ Note that `sysinit()` calls our custom function `pinetime_boot_init()` when the 
 
 _How did we add `pinetime_boot_init()` to `sysinit()`?_
 
-
-
-_What's inside our `pinetime_boot_init()` function?_
-
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/pkg.yml
+By configuring the PineTime Boot Library like this: [`libs/pinetime_boot/pkg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/pkg.yml)
 
 ```yaml
 pkg.init:
@@ -660,7 +661,11 @@ pkg.init:
     pinetime_boot_init: 900  # Call pinetime_boot_init() to initialise and render boot graphic
 ```
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c
+We configured `pinetime_boot_init()` to run at Stage 900, so that it will run after all drivers and libraries have been started (especially the SPI Flash Driver).
+
+_What's inside our `pinetime_boot_init()` function?_
+
+We have configured `pinetime_boot_init()` to run when MCUBoot starts. Here's what it does: [`libs/pinetime_boot/src/pinetime_boot.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c)
 
 ```c
 /// Init the display and render the boot graphic. Called by sysinit() during startup, defined in pkg.yml.
@@ -670,6 +675,12 @@ void pinetime_boot_init(void) {
     pinetime_boot_display_image();
 }
 ```
+
+`pinetime_boot_init()` calls `pinetime_boot_display_image()` to display the Boot Graphic.  
+
+Earlier we have seen how `pinetime_boot_display_image()` blasts the Boot Graphic from SPI Flash to PineTime's Display Controller.
+
+Thus we have our Boot Graphic rendered when Enhanced MCUBoot starts!
 
 ## Handle MCUBoot `boot_custom_start()` Hook
 
