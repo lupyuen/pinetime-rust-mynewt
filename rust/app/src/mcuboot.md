@@ -465,13 +465,14 @@ How shall we load a PNG graphic file to PineTime's SPI Flash as the Boot Graphic
 
 # Write Boot Graphic to SPI Flash on PineTime
 
-We have built a Rust command-line tool that reads a PNG 24-bit RGB file (240 x 240 resolution), and converts it into ST7789's RGB565 format...
+We have built a Rust desktop command-line tool that reads a PNG 24-bit RGB file (240 x 240 resolution), and converts it into ST7789's RGB565 format...
 
-https://github.com/lupyuen/pinetime-graphic
+[`github.com/lupyuen/pinetime-graphic`](https://github.com/lupyuen/pinetime-graphic)
 
 To run the tool and convert a PNG file named `pinetime-graphic.png`...
 
 ```bash
+# Assume Rust and cargo are already installed: https://rustup.rs
 git clone https://github.com/lupyuen/pinetime-graphic
 cd pinetime-graphic
 cargo build
@@ -491,7 +492,7 @@ The RGB565 values (115,200 bytes) will be dumped to the console like this...
 
 Copy the converted RGB565 values and paste into [`libs/pinetime_boot/src/graphic.inc`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/graphic.inc).
 
-Then run this code to load the converted RGB565 values into PineTime's SPI Flash: [`libs/pinetime_boot/src/write.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/write.c)
+Then run this code on PineTime to load the converted RGB565 values into PineTime's SPI Flash: [`libs/pinetime_boot/src/write.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/write.c)
 
 ```c
 #define BATCH_SIZE  4096  //  Max number of data bytes to be written in a batch
@@ -513,15 +514,27 @@ int pinetime_boot_write_image(void) {
             len = sizeof(image_data) - offset;
         }        
         //  Erase the bytes.
-        int rc = hal_flash_erase(FLASH_DEVICE, offset, len); assert(rc == 0);
+        int rc = hal_flash_erase(FLASH_DEVICE, offset, len); 
+        assert(rc == 0);
 
         //  Write the bytes.
-        rc = hal_flash_write(FLASH_DEVICE, offset, (void *) &image_data[offset], len); assert(rc == 0);
+        rc = hal_flash_write(FLASH_DEVICE, offset, (void *) &image_data[offset], len); 
+        assert(rc == 0);
         offset += len;
     }
     return 0;
 }
 ```
+
+`hal_flash_erase()` and  `hal_flash_write()` are defined as follows...
+
+1. `hal_flash_erase(id, offset, size)`
+
+    Erase internal / external flash memory at the `offset` address, for `size` bytes. [See `hal_flash_erase`](https://mynewt.apache.org/latest/os/modules/hal/hal_flash/hal_flash.html#c.hal_flash_erase)
+
+1. `hal_flash_write(id, offset, buf, size)`
+
+    Write internal / external flash memory from the `buf` buffer to the `offset` address, for `size` bytes. [See `hal_flash_write`](https://mynewt.apache.org/latest/os/modules/hal/hal_flash/hal_flash.html#c.hal_flash_write)
 
 # Enable Custom Hooks in MCUBoot
 
