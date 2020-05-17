@@ -786,45 +786,89 @@ When MCUBoot has finished working, it calls `boot_custom_start()`. Here we wait 
 
 If so, we roll back the firmware.
 
-# Test MCUBoot on PineTime
+# Test Enhanced MCUBoot Bootloader on PineTime
 
-TOOD
+To test Enhanced MCUBoot Bootloader on PineTime, download the binaries here...
 
-Get the Enhanced MCUBoot and Application Firmware here:
+[`pinetime-rust-mynewt/releases/tag/v4.1.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1)
 
-https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1
+1. `mynewt.*`: Enhanced MCUBoot Bootloader (based on MCUBoot 1.5.0) that supports Boot Graphic and SPI Flash
 
-1. mynewt.*: Enhanced Build of MCUBoot Bootloader 1.5.0, supports Boot Graphic and SPI Flash
+1. `my_sensor_app.*`: Application Firmware (based on Mynewt+Rust) that supports firmware update over Bluetooth
 
-1. my_sensor_app.*: Application Firmware that supports firmware upgrade over Bluetooth.
+1. `pinetime-rust-mynewt.7z`: Complete set of Mynewt build files generated on macOS
 
-1. pinetime-rust-mynewt.7z: Complete set of build files generated on macOS
+To install Enhanced MCUBoot Bootloader...
 
-Installation:
+1. Flash the __Enhanced MCUBoot Bootloader__ `mynewt.bin` to address `0x0` in Internal Flash ROM
 
-1. Bootloader (mynewt.bin) should be flashed at 0x0 in Flash ROM
+1. __Application Firmware Image__ (`my_sensor_app.img`, or your firmware image containing MCUBoot Image Header) should be flashed to address `0x8000` in Internal Flash ROM
 
-1. Firmware (e.g. my_sensor_app.bin, or your firmware) should be flashed at 0x4000 in SPI Flash
+1. During __Firmware Update,__ the new firmware image (`my_sensor_app.img`, or your firmware image containing MCUBoot Image Header) should be flashed to address `0x40000` in External SPI Flash
 
-1. Boot Graphic goes into SPI Flash at 0x0
+1. __Optional: Boot Graphic__ should be flashed to address `0x0` in External SPI Flash.
 
-1. Simple tool that converts PNG into RGB565 format for flashing: https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot#write-boot-graphic-to-spi-flash-on-pinetime
+    Boot Graphic should be in RGB565 format, 240 x 240 pixels, 2 bytes per pixel.
 
-Video demo:
+    Use this tool to convert a 240 x 240 PNG file to RGB565: [`github.com/lupyuen/pinetime-graphic`](https://github.com/lupyuen/pinetime-graphic)
 
-1. at power on mcuboot starts. we see the snow
+We should see this on the PineTime screen...
 
-1. mcboot renders the pinetime logo
+[Watch video on Twitter](https://twitter.com/MisterTechBlog/status/1261568945728876544?s=20)
 
-1. mcuboot waits 5 seconds for manual rollback (simulated for now)
+[Watch video on Mastodon](https://qoto.org/@lupyuen/104177098953236703)
 
-1. mcuboot starts the firmware. i think mynewt firmware resets the gpio or spi or something. causing the blank
+1. When PineTime is powered on, we see __white noise__ (snow) briefly as MCUBoot starts
 
-1. mynewt firmware (rust) turns on backlight. pinetime logo is shown
+1. MCUBoot renders the __hand-drawn PineTime logo__ in under 1 second
 
-1. mynewt firmware erases the screen very slowly
+1. MCUBoot waits 5 seconds for __Manual Firmware Rollback__ (simulated for now)
 
-1. mynewt firmware renders "I AM PINETIME"
+1. MCUBoot starts the __Application Firmware__
+
+1. Mynewt Application Firmware __resets the Backlight and Display Controller,__ causing the screen to blank (needs to be fixed)
+
+1. Mynewt Application Firmware __switches on the Backlight.__ The hand-drawn PineTime logo previously rendered is now visible.
+
+1. Mynewt Application Firmware __erases the screen very slowly__ via the Rust driver for ST7789 Display Controller
+
+1. Mynewt Application Firmware __renders some shapes__ and the message "`I AM PINETIME`"
+
+Here is the log that appears on Semihosting Console in OpenOCD...
+
+```
+Starting Bootloader...
+Displaying image...
+Image displayed
+Button: 0
+[INF] Primary image: magic=unset, swap_type=0x1, copy_done=0x3, image_ok=0x3
+[INF] Scratch: magic=unset, swap_type=0x1, copy_done=0x3, image_ok=0x3
+[INF] Boot source: primary slot
+[INF] Swap type: none
+Button: 0
+Button: 0
+Bootloader done
+TMP create temp_stub_0
+NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
+NET standalone node 
+Testing flash...
+Read Internal Flash ROM...
+Read 0x0 + 20
+  0x0000: 0x00 0x00 0x01 0x20 0xd9 0x00 0x00 0x00 
+  0x0008: 0x35 0x01 0x00 0x00 0x37 0x01 0x00 0x00 
+  0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+  0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+Read External SPI Flash...
+Read 0x0 + 20
+  0x0000: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+  0x0008: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+  0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+  0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+Flash OK
+Rust test display
+```
+
+The Enhanced MCUBoot Bootloader for PineTime is now __22 KB__ in size. Here are the sizes of each MCUBoot component...
 
 ```
 + newt size -v nrf52_boot
@@ -860,37 +904,6 @@ objsize
   22620     132   25504   48256    bc80 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
 ```
 
-```
-Starting Bootloader...
-Displaying image...
-Image displayed
-Button: 0
-[INF] Primary image: magic=unset, swap_type=0x1, copy_done=0x3, image_ok=0x3
-[INF] Scratch: magic=unset, swap_type=0x1, copy_done=0x3, image_ok=0x3
-[INF] Boot source: primary slot
-[INF] Swap type: none
-Button: 0
-Button: 0
-Bootloader done
-TMP create temp_stub_0
-NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
-NET standalone node 
-Testing flash...
-Read Internal Flash ROM...
-Read 0x0 + 20
-  0x0000: 0x00 0x00 0x01 0x20 0xd9 0x00 0x00 0x00 
-  0x0008: 0x35 0x01 0x00 0x00 0x37 0x01 0x00 0x00 
-  0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-  0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-Read External SPI Flash...
-Read 0x0 + 20
-  0x0000: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-  0x0008: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-  0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-  0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-Flash OK
-Rust test display
-```
 
 # More Enhancements for PineTime Bootloader
 

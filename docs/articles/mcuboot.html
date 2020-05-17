@@ -65,7 +65,7 @@
 <li><a href="#handle-mcuboot-sysinit-hook">6.1 Handle MCUBoot <code>sysinit()</code> Hook</a><ul></ul></li>
 <li><a href="#handle-mcuboot-boot_custom_start-hook">6.2 Handle MCUBoot <code>boot_custom_start()</code> Hook</a><ul></ul></li></ul></li>
 <li><a href="#manual-firmware-rollback-on-pinetime">7 Manual Firmware Rollback on PineTime</a><ul></ul></li>
-<li><a href="#test-mcuboot-on-pinetime">8 Test MCUBoot on PineTime</a><ul></ul></li>
+<li><a href="#test-enhanced-mcuboot-bootloader-on-pinetime">8 Test Enhanced MCUBoot Bootloader on PineTime</a><ul></ul></li>
 <li><a href="#more-enhancements-for-pinetime-bootloader">9 More Enhancements for PineTime Bootloader</a><ul></ul></li>
 <li><a href="#further-reading">10 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/mcuboot-photo2-small.jpg" alt="Enhanced MCUBoot Bootloader running on PineTime Smart Watch" /></p>
 <p><em>Enhanced MCUBoot Bootloader running on PineTime Smart Watch</em></p>
@@ -713,60 +713,99 @@ void pinetime_boot_check_button(void) {
 <p>In <code>pinetime_boot_init()</code>, which is called when the MCUBoot Bootloader starts, we initialise the GPIO Pins for the watch button. Then we let MCUBoot do its work.</p>
 <p>When MCUBoot has finished working, it calls <code>boot_custom_start()</code>. Here we wait 5 seconds and check whether the button has been pressed and held for 5 seconds.</p>
 <p>If so, we roll back the firmware.</p>
-<h1 id="test-mcuboot-on-pinetime" class="section-header"><a href="#test-mcuboot-on-pinetime">8 Test MCUBoot on PineTime</a></h1>
-<p>TOOD</p>
-<p>Get the Enhanced MCUBoot and Application Firmware here:</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1</p>
+<h1 id="test-enhanced-mcuboot-bootloader-on-pinetime" class="section-header"><a href="#test-enhanced-mcuboot-bootloader-on-pinetime">8 Test Enhanced MCUBoot Bootloader on PineTime</a></h1>
+<p>To test Enhanced MCUBoot Bootloader on PineTime, download the binaries here...</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1"><code>pinetime-rust-mynewt/releases/tag/v4.1.1</code></a></p>
 <ol>
 <li>
-<p>mynewt.*: Enhanced Build of MCUBoot Bootloader 1.5.0, supports Boot Graphic and SPI Flash</p>
+<p><code>mynewt.*</code>: Enhanced MCUBoot Bootloader (based on MCUBoot 1.5.0) that supports Boot Graphic and SPI Flash</p>
 </li>
 <li>
-<p>my_sensor_app.*: Application Firmware that supports firmware upgrade over Bluetooth.</p>
+<p><code>my_sensor_app.*</code>: Application Firmware (based on Mynewt+Rust) that supports firmware update over Bluetooth</p>
 </li>
 <li>
-<p>pinetime-rust-mynewt.7z: Complete set of build files generated on macOS</p>
+<p><code>pinetime-rust-mynewt.7z</code>: Complete set of Mynewt build files generated on macOS</p>
 </li>
 </ol>
-<p>Installation:</p>
+<p>To install Enhanced MCUBoot Bootloader...</p>
 <ol>
 <li>
-<p>Bootloader (mynewt.bin) should be flashed at 0x0 in Flash ROM</p>
+<p>Flash the <strong>Enhanced MCUBoot Bootloader</strong> <code>mynewt.bin</code> to address <code>0x0</code> in Internal Flash ROM</p>
 </li>
 <li>
-<p>Firmware (e.g. my_sensor_app.bin, or your firmware) should be flashed at 0x4000 in SPI Flash</p>
+<p><strong>Application Firmware Image</strong> (<code>my_sensor_app.img</code>, or your firmware image containing MCUBoot Image Header) should be flashed to address <code>0x8000</code> in Internal Flash ROM</p>
 </li>
 <li>
-<p>Boot Graphic goes into SPI Flash at 0x0</p>
+<p>During <strong>Firmware Update,</strong> the new firmware image (<code>my_sensor_app.img</code>, or your firmware image containing MCUBoot Image Header) should be flashed to address <code>0x40000</code> in External SPI Flash</p>
 </li>
 <li>
-<p>Simple tool that converts PNG into RGB565 format for flashing: https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot#write-boot-graphic-to-spi-flash-on-pinetime</p>
+<p><strong>Optional: Boot Graphic</strong> should be flashed to address <code>0x0</code> in External SPI Flash.</p>
+<p>Boot Graphic should be in RGB565 format, 240 x 240 pixels, 2 bytes per pixel.</p>
+<p>Use this tool to convert a 240 x 240 PNG file to RGB565: <a href="https://github.com/lupyuen/pinetime-graphic"><code>github.com/lupyuen/pinetime-graphic</code></a></p>
 </li>
 </ol>
-<p>Video demo:</p>
+<p>We should see this on the PineTime screen...</p>
+<p><a href="https://twitter.com/MisterTechBlog/status/1261568945728876544?s=20">Watch video on Twitter</a></p>
+<p><a href="https://qoto.org/@lupyuen/104177098953236703">Watch video on Mastodon</a></p>
 <ol>
 <li>
-<p>at power on mcuboot starts. we see the snow</p>
+<p>When PineTime is powered on, we see <strong>white noise</strong> (snow) briefly as MCUBoot starts</p>
 </li>
 <li>
-<p>mcboot renders the pinetime logo</p>
+<p>MCUBoot renders the <strong>hand-drawn PineTime logo</strong> in under 1 second</p>
 </li>
 <li>
-<p>mcuboot waits 5 seconds for manual rollback (simulated for now)</p>
+<p>MCUBoot waits 5 seconds for <strong>Manual Firmware Rollback</strong> (simulated for now)</p>
 </li>
 <li>
-<p>mcuboot starts the firmware. i think mynewt firmware resets the gpio or spi or something. causing the blank</p>
+<p>MCUBoot starts the <strong>Application Firmware</strong></p>
 </li>
 <li>
-<p>mynewt firmware (rust) turns on backlight. pinetime logo is shown</p>
+<p>Mynewt Application Firmware <strong>resets the Backlight and Display Controller,</strong> causing the screen to blank (needs to be fixed)</p>
 </li>
 <li>
-<p>mynewt firmware erases the screen very slowly</p>
+<p>Mynewt Application Firmware <strong>switches on the Backlight.</strong> The hand-drawn PineTime logo previously rendered is now visible.</p>
 </li>
 <li>
-<p>mynewt firmware renders &quot;I AM PINETIME&quot;</p>
+<p>Mynewt Application Firmware <strong>erases the screen very slowly</strong> via the Rust driver for ST7789 Display Controller</p>
+</li>
+<li>
+<p>Mynewt Application Firmware <strong>renders some shapes</strong> and the message &quot;<code>I AM PINETIME</code>&quot;</p>
 </li>
 </ol>
+<p>Here is the log that appears on Semihosting Console in OpenOCD...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Starting</span> <span class="ident">Bootloader</span>...
+<span class="ident">Displaying</span> <span class="ident">image</span>...
+<span class="ident">Image</span> <span class="ident">displayed</span>
+<span class="ident">Button</span>: <span class="number">0</span>
+[<span class="ident">INF</span>] <span class="ident">Primary</span> <span class="ident">image</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">unset</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x3</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x3</span>
+[<span class="ident">INF</span>] <span class="ident">Scratch</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">unset</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x3</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x3</span>
+[<span class="ident">INF</span>] <span class="ident">Boot</span> <span class="ident">source</span>: <span class="ident">primary</span> <span class="ident">slot</span>
+[<span class="ident">INF</span>] <span class="ident">Swap</span> <span class="kw">type</span>: <span class="ident">none</span>
+<span class="ident">Button</span>: <span class="number">0</span>
+<span class="ident">Button</span>: <span class="number">0</span>
+<span class="ident">Bootloader</span> <span class="ident">done</span>
+<span class="ident">TMP</span> <span class="ident">create</span> <span class="ident">temp_stub_0</span>
+<span class="ident">NET</span> <span class="ident">hwid</span> <span class="number">4a</span> <span class="ident">f8</span> <span class="ident">cf</span> <span class="number">95</span> <span class="number">6a</span> <span class="ident">be</span> <span class="ident">c1</span> <span class="ident">f6</span> <span class="number">89</span> <span class="ident">ba</span> <span class="number">12</span> <span class="number">1a</span> 
+<span class="ident">NET</span> <span class="ident">standalone</span> <span class="ident">node</span> 
+<span class="ident">Testing</span> <span class="ident">flash</span>...
+<span class="ident">Read</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
+<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
+  <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x01</span> <span class="number">0x20</span> <span class="number">0xd9</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0008</span>: <span class="number">0x35</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x37</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+<span class="ident">Read</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
+<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
+  <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0008</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+<span class="ident">Flash</span> <span class="ident">OK</span>
+<span class="ident">Rust</span> <span class="ident">test</span> <span class="ident">display</span></pre></div>
+<p>The Enhanced MCUBoot Bootloader for PineTime is now <strong>22 KB</strong> in size. Here are the sizes of each MCUBoot component...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="op">+</span> <span class="ident">newt</span> <span class="ident">size</span> <span class="op">-</span><span class="ident">v</span> <span class="ident">nrf52_boot</span>
@@ -800,37 +839,6 @@ void pinetime_boot_check_button(void) {
 <span class="ident">objsize</span>
    <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
   <span class="number">22620</span>     <span class="number">132</span>   <span class="number">25504</span>   <span class="number">48256</span>    <span class="ident">bc80</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_boot</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">boot</span><span class="op">/</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">mynewt</span>.<span class="ident">elf</span></pre></div>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Starting</span> <span class="ident">Bootloader</span>...
-<span class="ident">Displaying</span> <span class="ident">image</span>...
-<span class="ident">Image</span> <span class="ident">displayed</span>
-<span class="ident">Button</span>: <span class="number">0</span>
-[<span class="ident">INF</span>] <span class="ident">Primary</span> <span class="ident">image</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">unset</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x3</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x3</span>
-[<span class="ident">INF</span>] <span class="ident">Scratch</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">unset</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x3</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x3</span>
-[<span class="ident">INF</span>] <span class="ident">Boot</span> <span class="ident">source</span>: <span class="ident">primary</span> <span class="ident">slot</span>
-[<span class="ident">INF</span>] <span class="ident">Swap</span> <span class="kw">type</span>: <span class="ident">none</span>
-<span class="ident">Button</span>: <span class="number">0</span>
-<span class="ident">Button</span>: <span class="number">0</span>
-<span class="ident">Bootloader</span> <span class="ident">done</span>
-<span class="ident">TMP</span> <span class="ident">create</span> <span class="ident">temp_stub_0</span>
-<span class="ident">NET</span> <span class="ident">hwid</span> <span class="number">4a</span> <span class="ident">f8</span> <span class="ident">cf</span> <span class="number">95</span> <span class="number">6a</span> <span class="ident">be</span> <span class="ident">c1</span> <span class="ident">f6</span> <span class="number">89</span> <span class="ident">ba</span> <span class="number">12</span> <span class="number">1a</span> 
-<span class="ident">NET</span> <span class="ident">standalone</span> <span class="ident">node</span> 
-<span class="ident">Testing</span> <span class="ident">flash</span>...
-<span class="ident">Read</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
-<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
-  <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x01</span> <span class="number">0x20</span> <span class="number">0xd9</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0008</span>: <span class="number">0x35</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x37</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-<span class="ident">Read</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
-<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
-  <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0008</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-<span class="ident">Flash</span> <span class="ident">OK</span>
-<span class="ident">Rust</span> <span class="ident">test</span> <span class="ident">display</span></pre></div>
 <h1 id="more-enhancements-for-pinetime-bootloader" class="section-header"><a href="#more-enhancements-for-pinetime-bootloader">9 More Enhancements for PineTime Bootloader</a></h1>
 <p>TODO</p>
 <ol>
