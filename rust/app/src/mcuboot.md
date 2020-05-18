@@ -915,15 +915,17 @@ objsize
 
     The current version of Enhanced MCUBoot is focused on stability for easier testing. Meanwhile we'll look for a suitable bitmap compression module that performs efficiently on PineTime and doesn't crash when working on corrupted data.
 
-1. __Collaboration with [minodesign](https://twitter.com/minodesign):__ With PineTime we start with a blank slate for creating a FOSSy Smart Watch.  We're happy to collaborate with minodesign to design a Bootloader User Experience for PineTime that showcases the FOSS nature of PineTime. 
+1. __Collaboration with [minodesign](https://twitter.com/minodesign):__ With PineTime we start with a blank slate for creating a FOSSy Smart Watch. Since PineTime Owners will have full freedom to tweak their watches, we'll encounter interesting ownership questions like...
 
-    Together we'll tackle interesting UX questions like...
+    _When you're a PineTime Owner, how would you show others that this watch is really yours?_
 
-    _"When you're a PineTime Owner, how would you show others that this watch is really yours?"_
-
-    Do we show your handwriting when PineTime starts up? Or a photo?
+    _Do we show your handwriting when PineTime starts up? Or a photo?_
 
     (It's a shame that all iPhones and Apple Watches look the same!)
+
+    We're happy to collaborate with [minodesign](https://twitter.com/minodesign) to answer these questions. We'll start by designing a Bootloader User Experience that showcases the Free and Open Source nature of PineTime.
+
+1. __Onboarding of PineTime Firmware Developers:__
 
 Wasp-os
 
