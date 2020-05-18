@@ -23369,12 +23369,11 @@ END GROUP
  .rodata..Lanon.e6902f18e343b5ff914a1111befd53a2.0
                 0x00000000000367fd       0x12 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.4lwd5ip31jg2jkjw.rcgu.o)
  .rodata..Lanon.e6902f18e343b5ff914a1111befd53a2.1
-                0x000000000003680f        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.4lwd5ip31jg2jkjw.rcgu.o)
+                0x000000000003680f        0xd /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.4lwd5ip31jg2jkjw.rcgu.o)
  .rodata..Lanon.de97a9b4efc3e5031c4b05beef9e8420.0
-                0x000000000003681b       0x2b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.4v1crl5w7cnl6r5n.rcgu.o)
+                0x000000000003681c       0x2b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-5794a5f38fb92cc2.4v1crl5w7cnl6r5n.rcgu.o)
  .rodata..Lanon.36f0a3b5e156c8f0abe2638e288b50f7.2
-                0x0000000000036846       0x61 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(embedded_graphics-ae96e4a1b4030a44.embedded_graphics.94s3esdv-cgu.0.rcgu.o)
- *fill*         0x00000000000368a7        0x1 
+                0x0000000000036847       0x61 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(embedded_graphics-ae96e4a1b4030a44.embedded_graphics.94s3esdv-cgu.0.rcgu.o)
  .rodata..Lanon.36f0a3b5e156c8f0abe2638e288b50f7.3
                 0x00000000000368a8       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(embedded_graphics-ae96e4a1b4030a44.embedded_graphics.94s3esdv-cgu.0.rcgu.o)
  *fill*         0x00000000000368b8        0x8 
