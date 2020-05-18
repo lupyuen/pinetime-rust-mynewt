@@ -57,7 +57,7 @@ sudo ./newtmgr image list -c pinetime --loglevel debug
 # Since the uploaded image is currently the active image, we can confirm the image setup 
 # without specifying the image hash value in the command:
 
-# sudo ./newtmgr image confirm -c pinetime
+sudo ./newtmgr image confirm -c pinetime
 
 exit
 
