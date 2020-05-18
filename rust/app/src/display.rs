@@ -39,7 +39,7 @@ pub fn test_display() -> MynewtResult<()> {
 
     //  Create text
     let text = fonts::Font12x16::<Rgb565>
-        ::render_str("PINETIME 1.1")                           //  Text to be rendered
+        ::render_str("PINETIME 1.2")                           //  Text to be rendered
         .stroke( Some( Rgb565::from(( 0x00, 0x00, 0x00 )) ) )  //  Black text
         .fill(   Some( Rgb565::from(( 0xff, 0xff, 0x00 )) ) )  //  Yellow background
         .translate( Coord::new( 20, 16 ));                     //  Shift the text
