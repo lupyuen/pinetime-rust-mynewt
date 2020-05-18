@@ -917,21 +917,27 @@ objsize
 
 1. __Collaboration with [minodesign](https://twitter.com/minodesign):__ With PineTime we start with a blank slate for creating a FOSSy Smart Watch. Since PineTime Owners will have full freedom to tweak their watches, we'll encounter interesting ownership questions like...
 
-    _When you're a PineTime Owner, how would you show others that this watch is really yours?_
+    __When you're a PineTime Owner, how would you show others that this watch is really yours?__
 
     _Do we show your handwriting when PineTime starts up? Or a photo?_
 
-    (It's a shame that all iPhones and Apple Watches look the same!)
+    _(It's a shame that all iPhones and Apple Watches look the same!)_
 
-    We're happy to collaborate with [minodesign](https://twitter.com/minodesign) to answer these questions. We'll start by designing a Bootloader User Experience that showcases the Free and Open Source nature of PineTime.
+    We're happy to collaborate with [minodesign](https://twitter.com/minodesign) to tackle these difficult questions. 
+    
+    We'll start by designing a Bootloader User Experience that showcases the Free and Open Source nature of PineTime.
 
-1. __Onboarding of PineTime Firmware Developers:__
+1. __Onboarding of PineTime Firmware:__ Now that we have a stable Bootloader for PineTime that supports Wireless Firmware Updates, it's time to bring onboard all PineTime Firmware Developers!
 
-Wasp-os
+    The PineTime operating systems being tested now include [__FreeRTOS__](https://github.com/JF002/Pinetime), [__Mynewt + Rust__](https://github.com/lupyuen/pinetime-rust-mynewt), possibly others.
 
-If you're keen to help us solve these challenges, come join us!
+    __PineTime will be the very first gadget that lets you switch to a different operating system wirelessly... And switch back!__
 
-PineTime will be the very first gadget that lets you switch to a different operating system wirelessly... And switch back!
+    Some PineTime operating systems require more integration coding than others. I'll be helping to integrate [_wasp-os (MicroPython)__](https://github.com/daniel-thompson/wasp-os) with the NimBLE Bluetooth Stack.
+
+If you're keen to solve these challenges the open source way, come join us!
+
+Chat with us on Matrix / Discord / Telegram / IRC: [PineTime Community](https://wiki.pine64.org/index.php/PineTime#Community)
 
 # Further Reading
 
