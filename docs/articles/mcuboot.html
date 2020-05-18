@@ -725,6 +725,9 @@ void pinetime_boot_check_button(void) {
 <p><strong><code>my_sensor_app.*</code>: Application Firmware</strong> (based on Mynewt+Rust) that supports firmware update over Bluetooth</p>
 </li>
 <li>
+<p><strong><code>boot-graphic.bin</code>: Boot Graphic</strong> in RGB565 format (Hand-drawn PineTime Logo)</p>
+</li>
+<li>
 <p><strong><code>pinetime-rust-mynewt.7z</code>: Mynewt Build Files</strong> generated on macOS</p>
 </li>
 </ol>
@@ -740,8 +743,8 @@ void pinetime_boot_check_button(void) {
 <p>During <strong>Firmware Update,</strong> the new firmware image (<code>my_sensor_app.img</code>, or your firmware image containing MCUBoot Image Header) should be flashed to address <code>0x40000</code> in External SPI Flash</p>
 </li>
 <li>
-<p><strong>Optional: Boot Graphic</strong> should be flashed to address <code>0x0</code> in External SPI Flash.</p>
-<p>Boot Graphic should be in RGB565 format, 240 x 240 pixels, 2 bytes per pixel.</p>
+<p><strong>Optional: Boot Graphic</strong> <code>boot-graphic.bin</code> should be flashed to address <code>0x0</code> in External SPI Flash.</p>
+<p>Boot Graphic is in RGB565 format, 240 x 240 pixels, 2 bytes per pixel.</p>
 <p>Use this tool to convert a 240 x 240 PNG file to RGB565: <a href="https://github.com/lupyuen/pinetime-graphic"><code>github.com/lupyuen/pinetime-graphic</code></a></p>
 </li>
 </ol>
