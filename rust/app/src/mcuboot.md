@@ -919,6 +919,25 @@ TODO
 
     (It's a shame that all iPhones and Apple Watches look the same!)
 
+Reserving 112 KB of SPI Flash Memory for the Boot Graphic seems rather excessive. Surely we can compress the RGB555 bitmap and save space?
+
+Yes, we shall be compressing the Boot Graphic as an enhancement.
+
+The current version of Enhanced MCUBoot is focused on stability for easier testing. Meanwhile we'll look for a suitable compression module that performs quickly and doesn't crash when working on corrupted data.
+
+With PineTime we start with a blank slate for creating a FOSSy Smart Watch.
+
+Handwriting? Or a photo?
+
+We're happy to collaborate with minodesign to design a bootloader for PineTime
+That showcases the FOSS nature of PineTime
+
+Wasp-os
+
+If you're keen to help us solve these challenges, come join us!
+
+PineTime will be the very first gadget that lets you switch to a different operating system wirelessly... And switch back!
+
 # Further Reading
 
 [Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
