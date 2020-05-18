@@ -59,6 +59,9 @@ sudo ./newtmgr image list -c pinetime --loglevel debug
 
 sudo ./newtmgr image confirm -c pinetime
 
+# Connect to PineTime and list firmware images
+sudo ./newtmgr image list -c pinetime
+
 exit
 
 # Log
