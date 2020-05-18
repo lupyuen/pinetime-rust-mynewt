@@ -907,13 +907,21 @@ objsize
 
 # More Enhancements for PineTime Bootloader
 
-1. Why 256 KB for Bootloader Assets
-
 1. __Boot Graphic Compression:__ Reserving 112 KB of SPI Flash Memory for the Boot Graphic seems rather excessive. Surely we can compress the RGB555 bitmap and save space?
 
-    Yes, we shall be compressing the Boot Graphic as an enhancement.
+    Yes! We shall be compressing the Boot Graphic as an enhancement.
 
-    The current version of Enhanced MCUBoot is focused on stability for easier testing. Meanwhile we'll look for a suitable bitmap compression module that performs efficiently on PineTime and doesn't crash when working on corrupted data.
+    The current version of Enhanced MCUBoot is focused on __stability for easier testing,__ so no compression was used. 
+    
+    Meanwhile we'll look for a suitable bitmap compression module that performs efficiently on PineTime and doesn't crash when working on corrupted data.
+
+1. __Space for Bootloader Assets:__ 256 KB of SPI Flash Memory (4 MB) is reserved for Bootloader Assets (which includes the Boot Graphics)... Too much maybe?
+
+    Half of the space is now used by the uncompressed Boot Graphic. When we implement Boot Graphic Compression, we shall shrink the Bootloader Assets space.
+
+    _What about the other half of the Bootloader Assets space?_
+
+    The space may be used for storing graphical assets like icons, fonts, and animations.  How we'll actually use the space will depend on this exciting new open source collaboration...
 
 1. __Collaboration with [minodesign](https://twitter.com/minodesign):__ With PineTime we start with a blank slate for creating a FOSSy Smart Watch. Since PineTime Owners will have full freedom to tweak their watches, we'll encounter interesting ownership questions like...
 
@@ -925,15 +933,15 @@ objsize
 
     We're happy to collaborate with [minodesign](https://twitter.com/minodesign) to tackle these difficult questions. 
     
-    We'll start by designing a Bootloader User Experience that showcases the Free and Open Source nature of PineTime.
+    We'll start by creating a __Bootloader User Experience__ that showcases the Free and Open Source nature of PineTime. Stay tuned!
 
-1. __Onboarding of PineTime Firmware:__ Now that we have a stable Bootloader for PineTime that supports Wireless Firmware Updates, it's time to bring onboard all PineTime Firmware Developers!
+1. __Onboarding of PineTime Firmware:__ Now that we have a stable Bootloader for PineTime that supports __Wireless Firmware Updates__... Let's bring onboard all PineTime Firmware Developers!
 
-    The PineTime operating systems being tested now include [__FreeRTOS__](https://github.com/JF002/Pinetime), [__Mynewt + Rust__](https://github.com/lupyuen/pinetime-rust-mynewt), possibly others.
+    We are now testing various PineTime operating systems for Wireless Firmware Updates: [__FreeRTOS__](https://github.com/JF002/Pinetime), [__Mynewt + Rust__](https://github.com/lupyuen/pinetime-rust-mynewt), possibly others.
 
     __PineTime will be the very first gadget that lets you switch to a different operating system wirelessly... And switch back!__
 
-    Some PineTime operating systems require more integration coding than others. I'll be helping to integrate [_wasp-os (MicroPython)__](https://github.com/daniel-thompson/wasp-os) with the NimBLE Bluetooth Stack.
+    Some PineTime operating systems require more integration coding than others. I'll be helping to integrate [__wasp-os (MicroPython)__](https://github.com/daniel-thompson/wasp-os) with the NimBLE Bluetooth Stack.
 
 If you're keen to solve these challenges the open source way, come join us!
 

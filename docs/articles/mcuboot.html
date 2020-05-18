@@ -665,7 +665,7 @@ void boot_custom_start(
 <h1 id="manual-firmware-rollback-on-pinetime" class="section-header"><a href="#manual-firmware-rollback-on-pinetime">7 Manual Firmware Rollback on PineTime</a></h1>
 <p>To prevent PineTime from getting bricked during firmware update, MCUBoot will automatically roll back the new firmware (Active Firmware) to the older firmware (Standby Firmware) if the new firmware fails to start properly (or fails to set the Firmware OK flag).</p>
 <p><em>What if the PineTime Owner decides that the new firmware is not working properly, and wishes to roll back the firmware manually?</em></p>
-<p>That's why we shall check for manual firmware rollback like this: If the Owner presses and holds the watch button for 5 seconds while the watch is booting up, the MCUBoot Bootloader shall roll back the firmware.</p>
+<p>We shall check for Manual Firmware Rollback like this: If the Owner presses and holds the watch button for 5 seconds while the watch is booting up, the MCUBoot Bootloader shall roll back the firmware.</p>
 <p>The manual rollback logic will be implemented in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c"><code>libs/pinetime_boot/src/pinetime_boot.c</code></a>...</p>
 <pre><code class="language-c">#define PUSH_BUTTON_IN  13  //  P0.13: PUSH BUTTON_IN
 #define PUSH_BUTTON_OUT 15  //  P0.15/TRACEDATA2: PUSH BUTTON_OUT
@@ -846,22 +846,36 @@ void pinetime_boot_check_button(void) {
    <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
   <span class="number">22620</span>     <span class="number">132</span>   <span class="number">25504</span>   <span class="number">48256</span>    <span class="ident">bc80</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_boot</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">boot</span><span class="op">/</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">mynewt</span>.<span class="ident">elf</span></pre></div>
 <h1 id="more-enhancements-for-pinetime-bootloader" class="section-header"><a href="#more-enhancements-for-pinetime-bootloader">9 More Enhancements for PineTime Bootloader</a></h1>
-<p>TODO</p>
 <ol>
 <li>
-<p>Bitmap Compression</p>
+<p><strong>Boot Graphic Compression:</strong> Reserving 112 KB of SPI Flash Memory for the Boot Graphic seems rather excessive. Surely we can compress the RGB555 bitmap and save space?</p>
+<p>Yes! We shall be compressing the Boot Graphic as an enhancement.</p>
+<p>The current version of Enhanced MCUBoot is focused on <strong>stability for easier testing,</strong> so no compression was used. </p>
+<p>Meanwhile we'll look for a suitable bitmap compression module that performs efficiently on PineTime and doesn't crash when working on corrupted data.</p>
 </li>
 <li>
-<p>Why 256 KB for Bootloader Assets</p>
+<p><strong>Space for Bootloader Assets:</strong> 256 KB of SPI Flash Memory (4 MB) is reserved for Bootloader Assets (which includes the Boot Graphics)... Too much maybe?</p>
+<p>Half of the space is now used by the uncompressed Boot Graphic. When we implement Boot Graphic Compression, we shall shrink the Bootloader Assets space.</p>
+<p><em>What about the other half of the Bootloader Assets space?</em></p>
+<p>The space may be used for storing graphical assets like icons, fonts, and animations.  How we'll actually use the space will depend on this exciting new open source collaboration...</p>
 </li>
 <li>
-<p>Collaboration with <a href="https://twitter.com/minodesign">minodesign</a></p>
+<p><strong>Collaboration with <a href="https://twitter.com/minodesign">minodesign</a>:</strong> With PineTime we start with a blank slate for creating a FOSSy Smart Watch. Since PineTime Owners will have full freedom to tweak their watches, we'll encounter interesting ownership questions like...</p>
+<p><strong>When you're a PineTime Owner, how would you show others that this watch is really yours?</strong></p>
+<p><em>Do we show your handwriting when PineTime starts up? Or a photo?</em></p>
+<p><em>(It's a shame that all iPhones and Apple Watches look the same!)</em></p>
+<p>We're happy to collaborate with <a href="https://twitter.com/minodesign">minodesign</a> to tackle these difficult questions. </p>
+<p>We'll start by creating a <strong>Bootloader User Experience</strong> that showcases the Free and Open Source nature of PineTime. Stay tuned!</p>
 </li>
 <li>
-<p>If you're a PineTime Owner, how would you show others that this watch is really yours? </p>
-<p>(It's a shame that all iPhones and Apple Watches look the same!)</p>
+<p><strong>Onboarding of PineTime Firmware:</strong> Now that we have a stable Bootloader for PineTime that supports <strong>Wireless Firmware Updates</strong>... Let's bring onboard all PineTime Firmware Developers!</p>
+<p>We are now testing various PineTime operating systems for Wireless Firmware Updates: <a href="https://github.com/JF002/Pinetime"><strong>FreeRTOS</strong></a>, <a href="https://github.com/lupyuen/pinetime-rust-mynewt"><strong>Mynewt + Rust</strong></a>, possibly others.</p>
+<p><strong>PineTime will be the very first gadget that lets you switch to a different operating system wirelessly... And switch back!</strong></p>
+<p>Some PineTime operating systems require more integration coding than others. I'll be helping to integrate <a href="https://github.com/daniel-thompson/wasp-os"><strong>wasp-os (MicroPython)</strong></a> with the NimBLE Bluetooth Stack.</p>
 </li>
 </ol>
+<p>If you're keen to solve these challenges the open source way, come join us!</p>
+<p>Chat with us on Matrix / Discord / Telegram / IRC: <a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Community</a></p>
 <h1 id="further-reading" class="section-header"><a href="#further-reading">10 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 
