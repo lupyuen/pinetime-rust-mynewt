@@ -29,7 +29,7 @@ sudo ./newtmgr conn add pinetime type=ble connstring="peer_name=pinetime"
 sudo ./newtmgr image list -c pinetime --loglevel debug
 
 # Step 2: Uploading an Image to the Device
-# We upload the new image downloaded from https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2
+# We upload my_sensor_app_1.1.img (downloaded from https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2)
 
 # sudo ./newtmgr image upload -c pinetime \
 #    ~/my_sensor_app_1.1.img 
@@ -57,14 +57,16 @@ sudo ./newtmgr image list -c pinetime --loglevel debug
 # Since the uploaded image is currently the active image, we can confirm the image setup 
 # without specifying the image hash value in the command:
 
-sudo ./newtmgr image confirm -c pinetime
+# sudo ./newtmgr image confirm -c pinetime
 
 # Connect to PineTime and list firmware images
-sudo ./newtmgr image list -c pinetime
+# sudo ./newtmgr image list -c pinetime
 
 exit
 
 # Log
+
+# Upload image and set pending:
 
 + cd /home/ubuntu/go/src/mynewt.apache.org/newtmgr/newtmgr
 + sudo ./newtmgr conn add pinetime type=ble connstring=peer_name=pinetime
@@ -147,9 +149,9 @@ Images:
     hash: 66a23f4f8f5766b5150711eb8c7c4be326cebabef37429fd21879f6e0eacffe5
 Split status: N/A (0)
 
-Reboot PineTime...
+# Reboot PineTime...
 
-First update failed:
+# First update failed:
 
 Starting Bootloader...
 Displaying image...
@@ -190,7 +192,7 @@ Read 0x0 + 20
 Flash OK
 Rust test display
 
-Second update OK:
+# Second update OK:
 
 Starting Bootloader...
 Displaying image...
@@ -221,4 +223,24 @@ Read 0x0 + 20
   0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
 Flash OK
 Rust test display
+
+# Confirm image:
+
++ sudo ./newtmgr image confirm -c pinetime
+Error: 1
+
++ sudo ./newtmgr image list -c pinetime
+
+Images:
+ image=0 slot=0
+    version: 1.1.0
+    bootable: true
+    flags: active confirmed
+    hash: 66a23f4f8f5766b5150711eb8c7c4be326cebabef37429fd21879f6e0eacffe5
+ image=0 slot=1
+    version: 1.0.0
+    bootable: true
+    flags: 
+    hash: 703ebbf811458b1fad189e64e3a5e0f809cbe6bad883c76b3dd712791c822fb5
+Split status: N/A (0)
 
