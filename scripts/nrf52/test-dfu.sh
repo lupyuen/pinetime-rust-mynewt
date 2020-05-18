@@ -29,11 +29,12 @@ sudo ./newtmgr conn add pinetime type=ble connstring="peer_name=pinetime"
 sudo ./newtmgr image list -c pinetime --loglevel debug
 
 # Step 2: Uploading an Image to the Device
-# We upload the new image.
+# We upload the new image downloaded from https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2
 
 sudo ./newtmgr image upload -c pinetime \
     ~/my_sensor_app_1.1.img 
 
+# Connect to PineTime and list firmware images
 sudo ./newtmgr image list -c pinetime
 
 # Step 3: Testing the Image
@@ -43,8 +44,9 @@ sudo ./newtmgr image list -c pinetime
 # to the primary slot and runs the image.
 
 # sudo ./newtmgr image test -c pinetime \
-#     291ebc02a8c345911c96fdf4e7b9015a843697658fd6b5faa0eb257a23e93682
+#     66a23f4f8f5766b5150711eb8c7c4be326cebabef37429fd21879f6e0eacffe5
 
+# Connect to PineTime and list firmware images
 # sudo ./newtmgr image list -c pinetime
 
 # echo Reboot PineTime now
