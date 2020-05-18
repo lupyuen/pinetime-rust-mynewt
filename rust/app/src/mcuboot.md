@@ -796,6 +796,8 @@ To test Enhanced MCUBoot Bootloader on PineTime, download the binaries here...
 
 1. __`my_sensor_app.*`: Application Firmware__ (based on Mynewt+Rust) that supports firmware update over Bluetooth
 
+1. __`boot-graphic.bin`: Boot Graphic__ in RGB565 format (Hand-drawn PineTime Logo)
+
 1. __`pinetime-rust-mynewt.7z`: Mynewt Build Files__ generated on macOS
 
 To install Enhanced MCUBoot Bootloader...
@@ -806,9 +808,9 @@ To install Enhanced MCUBoot Bootloader...
 
 1. During __Firmware Update,__ the new firmware image (`my_sensor_app.img`, or your firmware image containing MCUBoot Image Header) should be flashed to address `0x40000` in External SPI Flash
 
-1. __Optional: Boot Graphic__ should be flashed to address `0x0` in External SPI Flash.
+1. __Optional: Boot Graphic__ `boot-graphic.bin` should be flashed to address `0x0` in External SPI Flash.
 
-    Boot Graphic should be in RGB565 format, 240 x 240 pixels, 2 bytes per pixel.
+    Boot Graphic is in RGB565 format, 240 x 240 pixels, 2 bytes per pixel.
 
     Use this tool to convert a 240 x 240 PNG file to RGB565: [`github.com/lupyuen/pinetime-graphic`](https://github.com/lupyuen/pinetime-graphic)
 
