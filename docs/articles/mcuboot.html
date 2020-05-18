@@ -10,6 +10,7 @@
     <!-- Begin scripts/rustdoc-header.html: Header for Custom Markdown files processed by rustdoc, like chip8.md -->
 <!-- TODO -->
 <meta property="og:image" content="https://lupyuen.github.io/images/mcuboot-photo2-small.jpg">
+<link rel="alternate" type="application/rss+xml" title="RSS Feed for lupyuen" href="/rss.xml" />
 <link rel="stylesheet" type="text/css" href="../normalize.css">
 <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
 <link rel="stylesheet" type="text/css" href="../dark.css">
@@ -147,7 +148,7 @@ bsp.flash_map:
             offset:  0x000b4000
             size:    3376kB
 </code></pre>
-<p>TODO: Extend active firmware by 12 KB</p>
+<p><em>TODO: Active and Standby Firmware Images should be extended by 12 KB. Scratch Area and User File System should be moved down by 12 KB</em></p>
 <p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash">More about PineTime's SPI Flash</a></p>
 <p>Here's the layout for <strong>PineTime's Flash ROM</strong>...</p>
 <table><thead><tr><th align="left">     Flash ROM Area</th><th align="left">Address</th><th align="right">Size</th></tr></thead><tbody>
@@ -157,7 +158,7 @@ bsp.flash_map:
 <tr><td align="left">     Scratch Area</td><td align="left"><code>0x0007 C000</code></td><td align="right">4 KB</td></tr>
 <tr><td align="left"><br></td><td align="left"></td><td align="right"></td></tr>
 </tbody></table>
-<p>TODO: Extend active firmware by 12 KB</p>
+<p><em>TODO: Active Firmware Image should be extended by 12 KB. Scratch Area should be moved down by 12 KB</em></p>
 <p>And the layout for <strong>PineTime's SPI Flash</strong>...</p>
 <table><thead><tr><th align="left">     SPI Flash Area</th><th align="left">Address</th><th align="right">Size</th></tr></thead><tbody>
 <tr><td align="left">     Bootloader Assets</td><td align="left"><code>0x0000 0000</code></td><td align="right">256 KB</td></tr>
@@ -165,7 +166,7 @@ bsp.flash_map:
 <tr><td align="left">     User File System</td><td align="left"><code>0x000B 4000</code></td><td align="right">     3,376 KB</td></tr>
 <tr><td align="left"><br></td><td align="left"></td><td align="right"></td></tr>
 </tbody></table>
-<p>TODO: Extend standby firmware by 12 KB</p>
+<p><em>TODO: Standby Firmware Image should be extended by 12 KB. User File System should be moved down by 12 KB</em></p>
 <p>The <strong>User File System</strong> has been bumped up to a whopping <strong>3.2 MB</strong> (from 12 KB).</p>
 <p>PineTime Watch Apps may store graphical assets and other app data in the User File System, once we install a Flash File System like littlefs.</p>
 <p><a href="https://github.com/ARMmbed/littlefs/blob/master/README.md">More about littlefs</a></p>
@@ -846,6 +847,7 @@ void pinetime_boot_check_button(void) {
    <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
   <span class="number">22620</span>     <span class="number">132</span>   <span class="number">25504</span>   <span class="number">48256</span>    <span class="ident">bc80</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_boot</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">boot</span><span class="op">/</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">mynewt</span>.<span class="ident">elf</span></pre></div>
 <h1 id="more-enhancements-for-pinetime-bootloader" class="section-header"><a href="#more-enhancements-for-pinetime-bootloader">9 More Enhancements for PineTime Bootloader</a></h1>
+<p>While writing this article, PineTime Firmware Developers have provided plenty of valuable feedback. Here are the proposed enhancements based on their feedback...</p>
 <ol>
 <li>
 <p><strong>Boot Graphic Compression:</strong> Reserving 112 KB of SPI Flash Memory for the Boot Graphic seems rather excessive. Surely we can compress the RGB555 bitmap and save space?</p>
@@ -878,6 +880,7 @@ void pinetime_boot_check_button(void) {
 <p>Chat with us on Matrix / Discord / Telegram / IRC: <a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Community</a></p>
 <h1 id="further-reading" class="section-header"><a href="#further-reading">10 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
+<p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
 
     
 </body>

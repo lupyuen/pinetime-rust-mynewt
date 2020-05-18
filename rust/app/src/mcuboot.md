@@ -96,7 +96,7 @@ bsp.flash_map:
             size:    3376kB
 ```
 
-TODO: Extend active firmware by 12 KB
+_TODO: Active and Standby Firmware Images should be extended by 12 KB. Scratch Area and User File System should be moved down by 12 KB_
 
 [More about PineTime's SPI Flash](https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash)
 
@@ -110,7 +110,7 @@ Here's the layout for __PineTime's Flash ROM__...
 | &nbsp;&nbsp;&nbsp;&nbsp; Scratch Area          | `0x0007 C000`  | 4 KB |
 |<br>|||
 
-TODO: Extend active firmware by 12 KB
+_TODO: Active Firmware Image should be extended by 12 KB. Scratch Area should be moved down by 12 KB_
 
 And the layout for __PineTime's SPI Flash__...
 
@@ -121,7 +121,7 @@ And the layout for __PineTime's SPI Flash__...
 | &nbsp;&nbsp;&nbsp;&nbsp; User File System      | `0x000B 4000`  | &nbsp;&nbsp;&nbsp;&nbsp; 3,376 KB |
 |<br>|||
 
-TODO: Extend standby firmware by 12 KB
+_TODO: Standby Firmware Image should be extended by 12 KB. User File System should be moved down by 12 KB_
 
 The __User File System__ has been bumped up to a whopping __3.2 MB__ (from 12 KB).
 
@@ -904,8 +904,9 @@ objsize
   22620     132   25504   48256    bc80 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
 ```
 
-
 # More Enhancements for PineTime Bootloader
+
+While writing this article, PineTime Firmware Developers have provided plenty of valuable feedback. Here are the proposed enhancements based on their feedback...
 
 1. __Boot Graphic Compression:__ Reserving 112 KB of SPI Flash Memory for the Boot Graphic seems rather excessive. Surely we can compress the RGB555 bitmap and save space?
 
@@ -950,3 +951,5 @@ Chat with us on Matrix / Discord / Telegram / IRC: [PineTime Community](https://
 # Further Reading
 
 [Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
+
+[RSS Feed](https://lupyuen.github.io/rss.xml)
