@@ -255,6 +255,16 @@
 		]
 	},
 	{
+		"path": "$ROOTPATH$/targets/nrf52_boot/pkg.yml",
+		"bookmarks": [
+			{
+				"line": 25,
+				"column": 18,
+				"label": ""
+			}
+		]
+	},
+	{
 		"path": "$ROOTPATH$/repos/mcuboot/boot/mynewt/src/main.c",
 		"bookmarks": [
 			{
@@ -285,6 +295,16 @@
 		]
 	},
 	{
+		"path": "$ROOTPATH$/repos/mcuboot/boot/bootutil/pkg.yml",
+		"bookmarks": [
+			{
+				"line": 19,
+				"column": 19,
+				"label": ""
+			}
+		]
+	},
+	{
 		"path": "$ROOTPATH$/repos/mcuboot/boot/mynewt/mcuboot_config/syscfg.yml",
 		"bookmarks": [
 			{
@@ -305,11 +325,61 @@
 		]
 	},
 	{
+		"path": "$ROOTPATH$/rust/app/src/lib.rs",
+		"bookmarks": [
+			{
+				"line": 78,
+				"column": 16,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/libs/pinetime_boot/src/pinetime_boot.c",
+		"bookmarks": [
+			{
+				"line": 33,
+				"column": 13,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/libs/pinetime_boot/src/display.c",
+		"bookmarks": [
+			{
+				"line": 110,
+				"column": 16,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/libs/pinetime_boot/src/write.c",
+		"bookmarks": [
+			{
+				"line": 42,
+				"column": 16,
+				"label": ""
+			}
+		]
+	},
+	{
 		"path": "$ROOTPATH$/bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c",
 		"bookmarks": [
 			{
 				"line": 39,
 				"column": 5,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/libs/pinetime_boot/pkg.yml",
+		"bookmarks": [
+			{
+				"line": 20,
+				"column": 4,
 				"label": ""
 			}
 		]
