@@ -731,7 +731,7 @@ To prevent PineTime from getting bricked during firmware update, MCUBoot will au
 
 _What if the PineTime Owner decides that the new firmware is not working properly, and wishes to roll back the firmware manually?_
 
-That's why we shall check for manual firmware rollback like this: If the Owner presses and holds the watch button for 5 seconds while the watch is booting up, the MCUBoot Bootloader shall roll back the firmware.
+We shall check for Manual Firmware Rollback like this: If the Owner presses and holds the watch button for 5 seconds while the watch is booting up, the MCUBoot Bootloader shall roll back the firmware.
 
 The manual rollback logic will be implemented in [`libs/pinetime_boot/src/pinetime_boot.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c)...
 
@@ -907,30 +907,23 @@ objsize
 
 # More Enhancements for PineTime Bootloader
 
-TODO
-
-1. Bitmap Compression
-
 1. Why 256 KB for Bootloader Assets
 
-1. Collaboration with [minodesign](https://twitter.com/minodesign)
+1. __Boot Graphic Compression:__ Reserving 112 KB of SPI Flash Memory for the Boot Graphic seems rather excessive. Surely we can compress the RGB555 bitmap and save space?
 
-1. If you're a PineTime Owner, how would you show others that this watch is really yours? 
+    Yes, we shall be compressing the Boot Graphic as an enhancement.
+
+    The current version of Enhanced MCUBoot is focused on stability for easier testing. Meanwhile we'll look for a suitable bitmap compression module that performs efficiently on PineTime and doesn't crash when working on corrupted data.
+
+1. __Collaboration with [minodesign](https://twitter.com/minodesign):__ With PineTime we start with a blank slate for creating a FOSSy Smart Watch.  We're happy to collaborate with minodesign to design a Bootloader User Experience for PineTime that showcases the FOSS nature of PineTime. 
+
+    Together we'll tackle interesting UX questions like...
+
+    _"When you're a PineTime Owner, how would you show others that this watch is really yours?"_
+
+    Do we show your handwriting when PineTime starts up? Or a photo?
 
     (It's a shame that all iPhones and Apple Watches look the same!)
-
-Reserving 112 KB of SPI Flash Memory for the Boot Graphic seems rather excessive. Surely we can compress the RGB555 bitmap and save space?
-
-Yes, we shall be compressing the Boot Graphic as an enhancement.
-
-The current version of Enhanced MCUBoot is focused on stability for easier testing. Meanwhile we'll look for a suitable compression module that performs quickly and doesn't crash when working on corrupted data.
-
-With PineTime we start with a blank slate for creating a FOSSy Smart Watch.
-
-Handwriting? Or a photo?
-
-We're happy to collaborate with minodesign to design a bootloader for PineTime
-That showcases the FOSS nature of PineTime
 
 Wasp-os
 
