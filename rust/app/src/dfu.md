@@ -2,6 +2,8 @@
 
 ![Platforms in development for PineTime Smart Watch](https://lupyuen.github.io/images/dfu-platforms.png)
 
+[ UPDATE: [Check out the followup article here](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot) ]
+
 Thanks to the FOSS Community, [PineTime Smart Watch](https://wiki.pine64.org/index.php/PineTime) has an incredible variety of FOSS operating systems in the works: [FreeRTOS](https://github.com/JF002/Pinetime), [MicroPython](https://github.com/daniel-thompson/wasp-os), [Mynewt](https://github.com/lupyuen/pinetime-rust-mynewt), [RIOT](https://github.com/bosmoment/PineTime-apps), Rust [RTFM](https://github.com/wose/xochron) ([another](https://github.com/dbrgn/pinetime-rtfm)), [TinyGo](https://github.com/aykevl/go-smartwatch), [Tock](https://www.tockos.org/), [Zephyr](https://github.com/najnesnaj/pinetime-zephyr) ([another](https://github.com/Dejvino/pinetime-hermes-firmware.git), [yet another](https://github.com/endian-albin/pinetime-hypnos)), ...
 
 But these embedded platforms are accessible only by brave PineTime Owners who dare to pry open their watches very carefully... And connect a Raspberry Pi (or ST-Link) to the tiny delicate 4-pin SWD port recessed deep inside... Just to flash the PineTime firmware.
@@ -115,6 +117,8 @@ _Firmware Update with Rollback on PineTime_
 Thankfully most of this firmware update and rollback logic is built into the [MCU Manager Library](https://github.com/apache/mynewt-mcumgr). For the swapping of firmware we'll use another open-source component: [__MCUBoot Bootloader__](https://juullabs-oss.github.io/mcuboot/).  More about MCUBoot in a while.
 
 # PineTime Flash ROM Layout
+
+[ UPDATE: [The Flash ROM Layout has been updated in the followup article](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot) ]
 
 To support firmware update (with rollback) via Bluetooth LE, PineTime Firmware Developers would have to adopt a common layout for storing flash images in Flash ROM.
 
@@ -927,6 +931,8 @@ objsize
 
 # Upcoming Enhancements for PineTime Firmware Update over Bluetooth LE
 
+[ UPDATE: [Check out the followup article here](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot) ]
+
 Based on feedback from the PineTime Community, the following enhancements are planned for the implementation of firmware updates...
 
 1. __Allow larger firmware images to be flashed:__ Based on the present Flash ROM Layout, the size of a firmware image may not exceed 232 KB. That's because we need to fit both Active and Standby Firmware Images into PineTime's 512 KB Flash ROM.
@@ -1097,5 +1103,7 @@ Split status: N/A (0)
 1. [DaFlasher for Android](https://github.com/atc1441/DaFlasherFiles)
 
 # Further Reading
+
+[ UPDATE: [Check out the followup article here](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot) ]
 
 [Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)

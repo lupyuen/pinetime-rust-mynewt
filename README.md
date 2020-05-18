@@ -43,9 +43,13 @@ This `master` branch contains the firmware source code for PineTime Smart Watch 
 
 1. [_Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash)
 
+1. [_MCUBoot Bootloader for PineTime Smart Watch (nRF52)_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot)
+
 1. [_My First Week As Embedded FOSS Advocate_](https://medium.com/@ly.lee/my-first-week-as-embedded-foss-advocate-106d625deae?source=friends_link&sk=4128d2bb8a7098658fafc462a1531d34)
 
 1. [_Rust Documentation_](https://lupyuen.github.io/pinetime-rust-mynewt/?1)
+
+[RSS Feed](https://lupyuen.github.io/rss.xml)
 
 The code structure is similar to the earlier article on nRF52...
 

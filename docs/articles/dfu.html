@@ -8,7 +8,9 @@
 
     
     <!-- Begin scripts/rustdoc-header.html: Header for Custom Markdown files processed by rustdoc, like chip8.md -->
+<!-- TODO -->
 <meta property="og:image" content="https://lupyuen.github.io/images/dfu-platforms.png">
+<link rel="alternate" type="application/rss+xml" title="RSS Feed for lupyuen" href="/rss.xml" />
 <link rel="stylesheet" type="text/css" href="../normalize.css">
 <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
 <link rel="stylesheet" type="text/css" href="../dark.css">
@@ -79,6 +81,7 @@
 <li><a href="#linux-app-for-pinetime">14.4 Linux App for PineTime</a><ul></ul></li></ul></li>
 <li><a href="#other-pinetime-firmware-update-solutions">15 Other PineTime Firmware Update Solutions</a><ul></ul></li>
 <li><a href="#further-reading">16 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/dfu-platforms.png" alt="Platforms in development for PineTime Smart Watch" /></p>
+<p>[ UPDATE: <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">Check out the followup article here</a> ]</p>
 <p>Thanks to the FOSS Community, <a href="https://wiki.pine64.org/index.php/PineTime">PineTime Smart Watch</a> has an incredible variety of FOSS operating systems in the works: <a href="https://github.com/JF002/Pinetime">FreeRTOS</a>, <a href="https://github.com/daniel-thompson/wasp-os">MicroPython</a>, <a href="https://github.com/lupyuen/pinetime-rust-mynewt">Mynewt</a>, <a href="https://github.com/bosmoment/PineTime-apps">RIOT</a>, Rust <a href="https://github.com/wose/xochron">RTFM</a> (<a href="https://github.com/dbrgn/pinetime-rtfm">another</a>), <a href="https://github.com/aykevl/go-smartwatch">TinyGo</a>, <a href="https://www.tockos.org/">Tock</a>, <a href="https://github.com/najnesnaj/pinetime-zephyr">Zephyr</a> (<a href="https://github.com/Dejvino/pinetime-hermes-firmware.git">another</a>, <a href="https://github.com/endian-albin/pinetime-hypnos">yet another</a>), ...</p>
 <p>But these embedded platforms are accessible only by brave PineTime Owners who dare to pry open their watches very carefully... And connect a Raspberry Pi (or ST-Link) to the tiny delicate 4-pin SWD port recessed deep inside... Just to flash the PineTime firmware.</p>
 <p><em>What if we could flash any firmware to PineTime from our mobile phone... Without opening the watch?</em></p>
@@ -162,6 +165,7 @@
 </ol>
 <p>Thankfully most of this firmware update and rollback logic is built into the <a href="https://github.com/apache/mynewt-mcumgr">MCU Manager Library</a>. For the swapping of firmware we'll use another open-source component: <a href="https://juullabs-oss.github.io/mcuboot/"><strong>MCUBoot Bootloader</strong></a>.  More about MCUBoot in a while.</p>
 <h1 id="pinetime-flash-rom-layout" class="section-header"><a href="#pinetime-flash-rom-layout">3 PineTime Flash ROM Layout</a></h1>
+<p>[ UPDATE: <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">The Flash ROM Layout has been updated in the followup article</a> ]</p>
 <p>To support firmware update (with rollback) via Bluetooth LE, PineTime Firmware Developers would have to adopt a common layout for storing flash images in Flash ROM.</p>
 <p>Here's the proposed <strong>Flash ROM Layout</strong> that supports Active and Standby Firmware Images for firmware update and rollback...</p>
 <table><thead><tr><th align="left">     PineTime Flash Area</th><th align="left">ROM Address</th><th align="right">Size</th></tr></thead><tbody>
@@ -827,6 +831,7 @@ Device Name (<code>pinetime</code>) and Appearance. <a href="https://www.bluetoo
    <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
  <span class="number">205760</span>     <span class="number">904</span>   <span class="number">55224</span>  <span class="number">261888</span>   <span class="number">3ff00</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">elf</span></pre></div>
 <h1 id="upcoming-enhancements-for-pinetime-firmware-update-over-bluetooth-le" class="section-header"><a href="#upcoming-enhancements-for-pinetime-firmware-update-over-bluetooth-le">13 Upcoming Enhancements for PineTime Firmware Update over Bluetooth LE</a></h1>
+<p>[ UPDATE: <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">Check out the followup article here</a> ]</p>
 <p>Based on feedback from the PineTime Community, the following enhancements are planned for the implementation of firmware updates...</p>
 <ol>
 <li>
@@ -852,6 +857,15 @@ Device Name (<code>pinetime</code>) and Appearance. <a href="https://www.bluetoo
 </li>
 <li>
 <p><strong>Bootloader Log</strong>: Log MCUBoot messages to the Arm Semihosting Console when PineTime's SWD port is connected. Useful for troubleshooting the bootloader.</p>
+<p>To enable Semihosting Console in <code>repos/mcuboot/boot/mynewt/src/main.c</code>...</p>
+<pre><code class="language-c">void os_msys_init(void); ///
+
+int main(void) {
+    hal_bsp_init();  //  Init Board Support Package
+    os_msys_init();  //  Create pool of MSYS buffers used by Semihosting Console
+    console_printf(&quot;Starting MCUBoot...\n&quot;);  //  Display a message
+    console_flush(); //  Flush the message
+</code></pre>
 </li>
 <li>
 <p>Ensure that the same firmware version doesn't get flashed twice</p>
@@ -954,6 +968,7 @@ Split status: N/A (0)
 </li>
 </ol>
 <h1 id="further-reading" class="section-header"><a href="#further-reading">16 Further Reading</a></h1>
+<p>[ UPDATE: <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">Check out the followup article here</a> ]</p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 
     
