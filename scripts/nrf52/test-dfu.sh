@@ -32,7 +32,7 @@ sudo ./newtmgr image list -c pinetime --loglevel debug
 # We upload the new image.
 
 sudo ./newtmgr image upload -c pinetime \
-    ~/Downloads/my_sensor_app_1.1.img 
+    ~/my_sensor_app_1.1.img 
 
 sudo ./newtmgr image list -c pinetime
 
