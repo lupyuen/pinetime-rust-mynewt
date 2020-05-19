@@ -10,6 +10,14 @@ _["Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)"](https://lupy
 
 We'll show step by step Wireless Firmware Update running on PineTime Smart Watch with nRF Connect App, MCUBoot Bootloader, NimBLE Bluetooth LE Stack and Apache Mynewt.
 
+Here's the test video...
+
+[Watch on YouTube](https://youtu.be/thLhGUl9-CU)
+
+[Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.3)
+
+Now let's learn exactly what happened in that video.
+
 # Test Firmware
 
 TODO
