@@ -62,22 +62,64 @@
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash">&quot;Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)&quot;</a></em></p>
 <p>We'll show step by step Wireless Firmware Update running on PineTime Smart Watch with nRF Connect App, MCUBoot Bootloader, NimBLE Bluetooth LE Stack and Apache Mynewt.</p>
-<p>Here's the test video...</p>
+<p>Here's the video of the Firmware Update...</p>
 <p><a href="https://youtu.be/thLhGUl9-CU">Watch on YouTube</a></p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.3">Download the video</a></p>
 <p>Now let's learn exactly what happened in that video.</p>
 <h1 id="test-firmware" class="section-header"><a href="#test-firmware">1 Test Firmware</a></h1>
 <p>TODO</p>
-<p>The firmware used for testing is located here...</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2</p>
-<p>Rename to .bin</p>
-<p>But I wont</p>
+<p>The PineTime firmware used for testing is located here...</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1"><code>pinetime-rust-mynewt/releases/tag/v4.1.1</code></a></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2"><code>pinetime-rust-mynewt/releases/tag/v4.1.2</code></a></p>
+<p>At the start of the test, here's where each file was flashed...</p>
+<table><thead><tr><th align="left">Firmware Component</th><th align="left">Binary File</th><th align="left">From</th><th align="left">Flash To</th><th align="left">At Address</th><th align="left">Remarks</th></tr></thead><tbody>
+<tr><td align="left">Enhanced MCUBoot Bootloader</td><td align="left"><code>mynewt.bin</code></td><td align="left"><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1"><code>v4.1.1</code></a></td><td align="left">Internal Flash ROM</td><td align="left"><code>0x0000 0000</code></td><td align="left"></td></tr>
+<tr><td align="left">Application Firmware Image v1.0.0</td><td align="left"><code>my_sensor_app.img</code></td><td align="left"><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1"><code>v4.1.1</code></a></td><td align="left">Internal Flash ROM</td><td align="left"><code>0x0000 8000</code></td><td align="left">Contains MCUBoot Image Header and Mynewt OS with Rust. Shows &quot;<code>I AM PINETIME</code>&quot;</td></tr>
+<tr><td align="left">Boot Graphic (Optional)</td><td align="left"><code>boot-graphic.bin</code></td><td align="left"><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1"><code>v4.1.1</code></a></td><td align="left">External SPI Flash</td><td align="left"><code>0x0000 0000</code></td><td align="left">Hand-drawn PineTime Logo in RGB565 format, 240 x 240 pixels, 2 bytes per pixel</td></tr>
+</tbody></table>
+<p>For the Boot Graphic: Use this tool to convert a 240 x 240 PNG file to RGB565...</p>
+<p><a href="https://github.com/lupyuen/pinetime-graphic"><code>github.com/lupyuen/pinetime-graphic</code></a></p>
+<p>During the test, one of the following files will be selected for Firmware Update...</p>
+<table><thead><tr><th align="left">Firmware Component</th><th align="left">Binary File</th><th align="left">From</th><th align="left">Flash To</th><th align="left">At Address</th><th align="left">Remarks</th></tr></thead><tbody>
+<tr><td align="left">Application Firmware Image v1.1.0</td><td align="left"><code>my_sensor_app_1.1.img</code></td><td align="left"><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2"><code>v4.1.2</code></a></td><td align="left">External SPI Flash</td><td align="left"><code>0x0004 0000</code></td><td align="left">Contains MCUBoot Image Header and Mynewt OS with Rust. Shows &quot;<code>PINETIME 1.1</code>&quot;</td></tr>
+<tr><td align="left">Application Firmware Image v1.2.0 (Alternative)</td><td align="left"><code>my_sensor_app_1.2.img</code></td><td align="left"><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2"><code>v4.1.2</code></a></td><td align="left">External SPI Flash</td><td align="left"><code>0x0004 0000</code></td><td align="left">Contains MCUBoot Image Header and Mynewt OS with Rust. Shows &quot;<code>PINETIME 1.2</code>&quot;</td></tr>
+</tbody></table>
+<p>We provide 2 versions of the new firmware for easier testing.</p>
+<p>To use the Firmware Image Files with the nRF Connect App, we need to rename the file extension from <code>.img</code> to <code>.bin</code> after downloading (e.g. <code>my_sensor_app_1.1.bin</code>)</p>
+<p>Note that <code>.bin</code> files exist in the <a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1"><code>v4.1.1</code></a> and <a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2"><code>v4.1.2</code></a> downloads, but these <code>.bin</code> files should not be used for Firmware Updates because they don't have the MCUBoot Image Header.</p>
+<p>So always download the <code>.img</code> files and then rename them to <code>.bin</code>.</p>
+<p>The <code>.img</code> files were created with the <code>imgtool.py</code> command-line tool <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">described here</a>.</p>
 <h1 id="test-video" class="section-header"><a href="#test-video">2 Test Video</a></h1>
 <p>TODO</p>
 <p>Here's the test video...</p>
 <p><a href="https://youtu.be/thLhGUl9-CU">Watch on YouTube</a></p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.3">Download the video</a></p>
+<ol>
+<li>
+<p>When PineTime is powered on, we see <strong>white noise</strong> (snow) briefly as MCUBoot starts</p>
+</li>
+<li>
+<p>MCUBoot renders the <strong>hand-drawn PineTime logo</strong> in under 1 second</p>
+</li>
+<li>
+<p>MCUBoot waits 5 seconds for <strong>Manual Firmware Rollback</strong> (simulated for now)</p>
+</li>
+<li>
+<p>MCUBoot starts the <strong>Application Firmware</strong></p>
+</li>
+<li>
+<p>Mynewt Application Firmware <strong>resets the Backlight and Display Controller,</strong> causing the screen to blank (needs to be fixed)</p>
+</li>
+<li>
+<p>Mynewt Application Firmware <strong>switches on the Backlight.</strong> The hand-drawn PineTime logo previously rendered is now visible.</p>
+</li>
+<li>
+<p>Mynewt Application Firmware <strong>erases the screen very slowly</strong> via the Rust driver for ST7789 Display Controller</p>
+</li>
+<li>
+<p>Mynewt Application Firmware <strong>renders some shapes</strong> and the message &quot;<code>I AM PINETIME</code>&quot;</p>
+</li>
+</ol>
 <h1 id="test-log" class="section-header"><a href="#test-log">3 Test Log</a></h1>
 <p>TODO</p>
 <p>Here's what happened in the video...</p>

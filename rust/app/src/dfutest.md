@@ -10,7 +10,7 @@ _["Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)"](https://lupy
 
 We'll show step by step Wireless Firmware Update running on PineTime Smart Watch with nRF Connect App, MCUBoot Bootloader, NimBLE Bluetooth LE Stack and Apache Mynewt.
 
-Here's the test video...
+Here's the video of the Firmware Update...
 
 [Watch on YouTube](https://youtu.be/thLhGUl9-CU)
 
@@ -22,15 +22,40 @@ Now let's learn exactly what happened in that video.
 
 TODO
 
-The firmware used for testing is located here...
+The PineTime firmware used for testing is located here...
 
-https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1
+[`pinetime-rust-mynewt/releases/tag/v4.1.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1)
 
-https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2
+[`pinetime-rust-mynewt/releases/tag/v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2)
 
-Rename to .bin
+At the start of the test, here's where each file was flashed...
 
-But I wont
+| Firmware Component | Binary File | From | Flash To | At Address | Remarks |
+| :--- |  :--- |  :--- |  :--- |  :--- | :--- |
+| Enhanced MCUBoot Bootloader | `mynewt.bin` | [`v4.1.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1) | Internal Flash ROM | `0x0000 0000` |
+| Application Firmware Image v1.0.0 | `my_sensor_app.img` | [`v4.1.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1) | Internal Flash ROM | `0x0000 8000` | Contains MCUBoot Image Header and Mynewt OS with Rust. Shows "`I AM PINETIME`"
+| Boot Graphic (Optional) | `boot-graphic.bin` | [`v4.1.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1) | External SPI Flash | `0x0000 0000` | Hand-drawn PineTime Logo in RGB565 format, 240 x 240 pixels, 2 bytes per pixel
+
+For the Boot Graphic: Use this tool to convert a 240 x 240 PNG file to RGB565...
+
+[`github.com/lupyuen/pinetime-graphic`](https://github.com/lupyuen/pinetime-graphic)
+
+During the test, one of the following files will be selected for Firmware Update...
+
+| Firmware Component | Binary File | From | Flash To | At Address | Remarks |
+| :--- |  :--- |  :--- |  :--- |  :--- | :--- |
+| Application Firmware Image v1.1.0 | `my_sensor_app_1.1.img` | [`v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2) | External SPI Flash | `0x0004 0000` | Contains MCUBoot Image Header and Mynewt OS with Rust. Shows "`PINETIME 1.1`"
+| Application Firmware Image v1.2.0 (Alternative) | `my_sensor_app_1.2.img` | [`v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2) | External SPI Flash | `0x0004 0000` | Contains MCUBoot Image Header and Mynewt OS with Rust. Shows "`PINETIME 1.2`"
+
+We provide 2 versions of the new firmware for easier testing.
+
+To use the Firmware Image Files with the nRF Connect App, we need to rename the file extension from `.img` to `.bin` after downloading (e.g. `my_sensor_app_1.1.bin`)
+
+Note that `.bin` files exist in the [`v4.1.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1) and [`v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2) downloads, but these `.bin` files should not be used for Firmware Updates because they don't have the MCUBoot Image Header.
+
+So always download the `.img` files and then rename them to `.bin`.
+
+The `.img` files were created with the `imgtool.py` command-line tool [described here](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu).
 
 # Test Video
 
@@ -41,6 +66,22 @@ Here's the test video...
 [Watch on YouTube](https://youtu.be/thLhGUl9-CU)
 
 [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.3)
+
+1. When PineTime is powered on, we see __white noise__ (snow) briefly as MCUBoot starts
+
+1. MCUBoot renders the __hand-drawn PineTime logo__ in under 1 second
+
+1. MCUBoot waits 5 seconds for __Manual Firmware Rollback__ (simulated for now)
+
+1. MCUBoot starts the __Application Firmware__
+
+1. Mynewt Application Firmware __resets the Backlight and Display Controller,__ causing the screen to blank (needs to be fixed)
+
+1. Mynewt Application Firmware __switches on the Backlight.__ The hand-drawn PineTime logo previously rendered is now visible.
+
+1. Mynewt Application Firmware __erases the screen very slowly__ via the Rust driver for ST7789 Display Controller
+
+1. Mynewt Application Firmware __renders some shapes__ and the message "`I AM PINETIME`"
 
 # Test Log
 
