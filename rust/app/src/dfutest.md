@@ -20,7 +20,7 @@ Now let's learn exactly what happened in that video.
 
 # Test Firmware for PineTime Firmware Update
 
-The PineTime firmware used for testing Firmware Update is located here...
+The PineTime firmware files used for testing Firmware Update are located here...
 
 [`pinetime-rust-mynewt/releases/tag/v4.1.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1)
 
