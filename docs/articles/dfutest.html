@@ -54,7 +54,7 @@
     <h1 class="title">Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)</h1>
     <nav id="TOC"><ul>
 <li><a href="#test-firmware-for-pinetime-firmware-update">1 Test Firmware for PineTime Firmware Update</a><ul></ul></li>
-<li><a href="#test-video">2 Test Video</a><ul></ul></li>
+<li><a href="#video-of-pinetime-firmware-update-test">2 Video of PineTime Firmware Update Test</a><ul></ul></li>
 <li><a href="#test-log">3 Test Log</a><ul></ul></li>
 <li><a href="#test-with-newt-mananger">4 Test with Newt Mananger</a><ul></ul></li>
 <li><a href="#further-reading">5 Further Reading</a><ul></ul></li></ul></nav><p>This is a continuation of the articles...</p>
@@ -70,12 +70,15 @@
 <p>The PineTime firmware files used for testing Firmware Update are located here...</p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1"><code>pinetime-rust-mynewt/releases/tag/v4.1.1</code></a></p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2"><code>pinetime-rust-mynewt/releases/tag/v4.1.2</code></a></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.4"><code>pinetime-rust-mynewt/releases/tag/v4.1.4</code></a></p>
 <p>Before the Firmware Update test, the following files were flashed manually to PineTime (via ST-Link or Raspberry Pi)...</p>
 <table><thead><tr><th align="left">Firmware Component</th><th align="left">Binary File</th><th align="left">From</th><th align="left">Flash To</th><th align="left">At Address</th><th align="left">Remarks</th></tr></thead><tbody>
-<tr><td align="left">Enhanced MCUBoot Bootloader</td><td align="left"><code>mynewt.bin</code></td><td align="left"><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1"><code>v4.1.1</code></a></td><td align="left">Internal Flash ROM</td><td align="left"><code>0x0000 0000</code></td><td align="left"></td></tr>
+<tr><td align="left">MCUBoot Bootloader for Semihosting</td><td align="left"><code>mynewt.elf.bin</code></td><td align="left"><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1"><code>v4.1.1</code></a></td><td align="left">Internal Flash ROM</td><td align="left"><code>0x0000 0000</code></td><td align="left">Use this bootloader if you're debugging with ST-Link or Raspberry Pi (Semihosting is enabled)</td></tr>
+<tr><td align="left">MCUBoot Bootloader for JLink</td><td align="left"><code>mynewt-nosemi.elf.bin</code></td><td align="left"><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.4"><code>v4.1.4</code></a></td><td align="left">Internal Flash ROM</td><td align="left"><code>0x0000 0000</code></td><td align="left">Use this bootloader if you're debugging with JLink (Semihosting is disabled)</td></tr>
 <tr><td align="left">Application Firmware Image v1.0.0</td><td align="left"><code>my_sensor_app.img</code></td><td align="left"><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1"><code>v4.1.1</code></a></td><td align="left">Internal Flash ROM</td><td align="left"><code>0x0000 8000</code></td><td align="left">Contains MCUBoot Image Header and Mynewt OS with Rust. Shows &quot;<code>I AM PINETIME</code>&quot;</td></tr>
 <tr><td align="left">Boot Graphic (Optional)</td><td align="left"><code>boot-graphic.bin</code></td><td align="left"><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1"><code>v4.1.1</code></a></td><td align="left">External SPI Flash</td><td align="left"><code>0x0000 0000</code></td><td align="left">Hand-drawn PineTime Logo in RGB565 format, 240 x 240 pixels, 2 bytes per pixel</td></tr>
 </tbody></table>
+<p>If MCUBoot Bootloader for Semihosting doesn't start on PineTime, try using MCUBoot Bootloader for JLink.</p>
 <p>For the Boot Graphic: Use this tool to convert a 240 x 240 PNG file to RGB565...</p>
 <p><a href="https://github.com/lupyuen/pinetime-graphic"><code>github.com/lupyuen/pinetime-graphic</code></a></p>
 <p>During the Firmware Update test, one of the following files will be selected in nRF Connect or Newt Manager for Firmware Update...</p>
@@ -88,40 +91,98 @@
 <p>Note that <code>.bin</code> files may be found in the <a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1"><code>v4.1.1</code></a> and <a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2"><code>v4.1.2</code></a> downloads, but these <code>.bin</code> files should not be used for Firmware Updates because they don't have the MCUBoot Image Header.</p>
 <p>So always download the <code>.img</code> files and then rename them to <code>.bin</code>.</p>
 <p>The <code>.img</code> files were created with the <code>imgtool.py</code> command-line tool <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">described here</a>.</p>
-<h1 id="test-video" class="section-header"><a href="#test-video">2 Test Video</a></h1>
+<h1 id="video-of-pinetime-firmware-update-test" class="section-header"><a href="#video-of-pinetime-firmware-update-test">2 Video of PineTime Firmware Update Test</a></h1>
 <p>TODO</p>
 <p>Here's the test video...</p>
+<ul>
+<li>
 <p><a href="https://youtu.be/thLhGUl9-CU">Watch on YouTube</a></p>
+</li>
+<li>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.3">Download the video</a></p>
+</li>
+</ul>
+<p>Step by step what's happening in the video, by timecode...</p>
+<ul>
+<li>
+<p><code>00:00</code> - PineTime is preloaded with:</p>
 <ol>
 <li>
-<p>When PineTime is powered on, we see <strong>white noise</strong> (snow) briefly as MCUBoot starts</p>
+<p>MCUBoot Bootloader for Semihosting</p>
 </li>
 <li>
-<p>MCUBoot renders the <strong>hand-drawn PineTime logo</strong> in under 1 second</p>
+<p>Application Firmware Image v1.0.0</p>
 </li>
 <li>
-<p>MCUBoot waits 5 seconds for <strong>Manual Firmware Rollback</strong> (simulated for now)</p>
-</li>
-<li>
-<p>MCUBoot starts the <strong>Application Firmware</strong></p>
-</li>
-<li>
-<p>Mynewt Application Firmware <strong>resets the Backlight and Display Controller,</strong> causing the screen to blank (needs to be fixed)</p>
-</li>
-<li>
-<p>Mynewt Application Firmware <strong>switches on the Backlight.</strong> The hand-drawn PineTime logo previously rendered is now visible.</p>
-</li>
-<li>
-<p>Mynewt Application Firmware <strong>erases the screen very slowly</strong> via the Rust driver for ST7789 Display Controller</p>
-</li>
-<li>
-<p>Mynewt Application Firmware <strong>renders some shapes</strong> and the message &quot;<code>I AM PINETIME</code>&quot;</p>
+<p>Boot Graphic</p>
 </li>
 </ol>
+<p>The Application Firmware is running, showing &quot;<code>I AM PINETIME</code>&quot;</p>
+<p>ST-Link debugger is connected, showing the debug log. Here are the messages generated by MCUBoot during booting...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+[<span class="ident">INF</span>] <span class="ident">Primary</span> <span class="ident">image</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">good</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x2</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x1</span>
+[<span class="ident">INF</span>] <span class="ident">Scratch</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">bad</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x2</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x2</span>
+[<span class="ident">INF</span>] <span class="ident">Boot</span> <span class="ident">source</span>: <span class="ident">none</span>
+[<span class="ident">INF</span>] <span class="ident">Swap</span> <span class="kw">type</span>: <span class="ident">perm</span></pre></div>
+<p><code>Swap type</code> is set to <code>perm</code> because we have just Confirmed the firmware via nRF Connect.</p>
+</li>
+<li>
+<p><code>00:03</code> - We start the <a href="https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile">Nordic nRF Connect</a> mobile app on an Android phone.</p>
+<p>We tap on <code>pinetime</code> and the <code>DFU</code> icon to start the Firmware Update</p>
+</li>
+<li>
+<p><code>00:12</code> - We select the firmware file to be flashed...</p>
+<p>Application Firmware Image v1.1.0 <br>
+<code>my_sensor_app_1.1.img</code> <br>
+Downloaded from <a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2"><code>v4.1.2</code></a> </p>
+<p>The file was renamed to <code>my_sensor_app_1.1.bin</code> after downloading, because nRF Connect only accepts <code>.bin</code> files.</p>
+<p>Wireless upload to PineTime begins. The new firmware will be staged in PineTime's External SPI Flash at address <code>0x0004 0000</code>.</p>
+</li>
+<li>
+<p><code>02:11</code> - Upload completed. PineTime attempts to reboot, but because we are running ST-Link, the reboot attempt was caught by the debugger. We restart the OpenOCD debugger to reboot PineTime manually.</p>
+</li>
+<li>
+<p><code>02:13</code> - PineTime reboots</p>
+</li>
+<li>
+<p><code>02:14</code> - MCUBoot renders the <strong>hand-drawn PineTime logo</strong> in under 1 second</p>
+</li>
+<li>
+<p><code>02:16</code> - MCUBoot starts swapping the new firmware (External SPI Flash) with the old firmware (Internal Flash ROM)</p>
+</li>
+<li>
+<p><code>02:18</code> - MCUBoot swapping completed. New firmware is now in Internal Flash ROM, old firmware is now in External SPI Flash.</p>
+<p>The message <code>Swap type: test</code> means that the swapping to new firmware has been completed successfully.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+[<span class="ident">INF</span>] <span class="ident">Primary</span> <span class="ident">image</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">good</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x3</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x1</span>
+[<span class="ident">INF</span>] <span class="ident">Scratch</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">bad</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x2</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x2</span>
+[<span class="ident">INF</span>] <span class="ident">Boot</span> <span class="ident">source</span>: <span class="ident">none</span>
+[<span class="ident">INF</span>] <span class="ident">Swap</span> <span class="kw">type</span>: <span class="ident">test</span></pre></div>
+</li>
+<li>
+<p><code>02:30</code> - MCUBoot waits 5 seconds for <strong>Manual Firmware Rollback</strong> (simulated for now)</p>
+</li>
+<li>
+<p><code>02:36</code> - MCUBoot starts the <strong>New Application Firmware</strong></p>
+</li>
+<li>
+<p><code>02:37</code> - Mynewt Application Firmware <strong>resets the Backlight and Display Controller,</strong> causing the screen to blank (needs to be fixed)</p>
+</li>
+<li>
+<p><code>02:43</code> - Mynewt Application Firmware <strong>switches on the Backlight.</strong> The hand-drawn PineTime logo previously rendered is now visible.</p>
+</li>
+<li>
+<p><code>02:46</code> - Mynewt Application Firmware <strong>erases the screen very slowly</strong> via the Rust driver for ST7789 Display Controller</p>
+</li>
+<li>
+<p><code>02:55</code> - Mynewt Application Firmware <strong>renders some shapes</strong> and the message &quot;<code>PINETIME 1.1</code>&quot;</p>
+</li>
+</ul>
 <h1 id="test-log" class="section-header"><a href="#test-log">3 Test Log</a></h1>
 <p>TODO</p>
-<p>Here's what happened in the video...</p>
+<p>Here's the complete log from the ST-Link OpenOCD debugger...</p>
 
 <pre><code>→ ./scripts/nrf52/flash-app.sh
 + source scripts/config.sh
