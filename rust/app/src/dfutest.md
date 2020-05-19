@@ -18,17 +18,15 @@ Here's the video of the Firmware Update...
 
 Now let's learn exactly what happened in that video.
 
-# Test Firmware
+# Test Firmware for PineTime Firmware Update
 
-TODO
-
-The PineTime firmware used for testing is located here...
+The PineTime firmware used for testing Firmware Update is located here...
 
 [`pinetime-rust-mynewt/releases/tag/v4.1.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1)
 
 [`pinetime-rust-mynewt/releases/tag/v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2)
 
-Before the test, the following files were flashed to PineTime...
+Before the Firmware Update test, the following files were flashed manually to PineTime (via ST-Link or Raspberry Pi)...
 
 | Firmware Component | Binary File | From | Flash To | At Address | Remarks |
 | :--- |  :--- |  :--- |  :--- |  :--- | :--- |
@@ -40,7 +38,7 @@ For the Boot Graphic: Use this tool to convert a 240 x 240 PNG file to RGB565...
 
 [`github.com/lupyuen/pinetime-graphic`](https://github.com/lupyuen/pinetime-graphic)
 
-During the test, one of the following files will be selected for Firmware Update...
+During the Firmware Update test, one of the following files will be selected in nRF Connect or Newt Manager for Firmware Update...
 
 | Firmware Component | Binary File | From | Flash To | At Address | Remarks |
 | :--- |  :--- |  :--- |  :--- |  :--- | :--- |
@@ -51,7 +49,7 @@ We provide 2 versions of the new firmware for easier testing.
 
 To use the Firmware Image Files with the nRF Connect App, we need to rename the file extension from `.img` to `.bin` after downloading (e.g. `my_sensor_app_1.1.bin`)
 
-Note that `.bin` files exist in the [`v4.1.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1) and [`v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2) downloads, but these `.bin` files should not be used for Firmware Updates because they don't have the MCUBoot Image Header.
+Note that `.bin` files may be found in the [`v4.1.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1) and [`v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2) downloads, but these `.bin` files should not be used for Firmware Updates because they don't have the MCUBoot Image Header.
 
 So always download the `.img` files and then rename them to `.bin`.
 
