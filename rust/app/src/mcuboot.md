@@ -788,6 +788,8 @@ If so, we roll back the firmware.
 
 # Test Enhanced MCUBoot Bootloader on PineTime
 
+[ UPDATE: [Check out the testing of Wireless Firmware Updates on PineTime](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest) ]
+
 To test Enhanced MCUBoot Bootloader on PineTime, download the binaries here...
 
 [`pinetime-rust-mynewt/releases/tag/v4.1.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1)
@@ -908,6 +910,8 @@ objsize
 
 # More Enhancements for PineTime Bootloader
 
+[ UPDATE: [Check out the testing of Wireless Firmware Updates on PineTime](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest) ]
+
 While writing this article, PineTime Firmware Developers have provided plenty of valuable feedback. Here are the proposed enhancements based on their feedback...
 
 1. __Boot Graphic Compression:__ Reserving 112 KB of SPI Flash Memory for the Boot Graphic seems rather excessive. Surely we can compress the RGB555 bitmap and save space?
@@ -951,6 +955,8 @@ If you're keen to solve these challenges the open source way, come join us!
 Chat with us on Matrix / Discord / Telegram / IRC: [PineTime Community](https://wiki.pine64.org/index.php/PineTime#Community)
 
 # Further Reading
+
+[ UPDATE: [Check out the testing of Wireless Firmware Updates on PineTime](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest) ]
 
 [Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
 
