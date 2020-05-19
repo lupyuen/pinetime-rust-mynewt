@@ -20,6 +20,10 @@ https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1
 
 https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2
 
+Rename to .bin
+
+But I wont
+
 # Test Video
 
 TODO
