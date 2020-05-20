@@ -4,7 +4,7 @@
 
 _Wireless Firmware Update In Action on PineTime Smart Watch_
 
-This is a continuation of the articles...
+We have implemented a __Wireless Firmware Update__ feature for [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) that's described here...
 
 _["MCUBoot Bootloader for PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot)_
 
@@ -12,15 +12,21 @@ _["Firmware Update over Bluetooth Low Energy on PineTime Smart Watch"](https://l
 
 _["Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash)_
 
-We'll show step by step Wireless Firmware Update running on PineTime Smart Watch with nRF Connect App, MCUBoot Bootloader, NimBLE Bluetooth LE Stack and Apache Mynewt.
+Now let's observe step-by-step the Wireless Firmware Update running on PineTime with __MCUBoot Bootloader, NimBLE Bluetooth LE Stack and Apache Mynewt.__
 
-Here's the video of the Firmware Update...
+Watch what happens in the PineTime Debug Log (captured with ST-Link Debugger and OpenOCD) as we perform Wireless Firmware Update in two ways...
 
-[Watch on YouTube](https://youtu.be/thLhGUl9-CU)
+1. With the [__Nordic nRF Connect__](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app
 
-[Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.3)
+1. With the [__Newt Manager__](http://mynewt.apache.org/latest/newtmgr/index.html) command-line tool
 
-Now let's learn exactly what happened in that video.
+Here's the video of the Firmware Update with nRF Connect...
+
+- [Watch on YouTube](https://youtu.be/thLhGUl9-CU)
+
+- [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.3)
+
+Read on to learn what happened inside PineTime during Firmware Update.
 
 # Test Firmware for PineTime Firmware Update
 
@@ -149,16 +155,16 @@ What happens step by step, by timecode...
     ```
     _From [`libs/pinetime_boot/display.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c#L112-L183)_
 
-    MCUBoot checks whether the watch button is pressed, for Manual Firmware Rollback
+    MCUBoot checks whether the watch button is pressed, for __Manual Firmware Rollback.__ (The checking of Manual Firmware Rollback is presently simulated, pending implementation)
 
     ```
     Button: 0
     ```
     _From [`libs/pinetime_boot/pinetime_boot.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c#L45)_
 
-- `02:16` - MCUBoot starts swapping the new firmware (External SPI Flash) with the old firmware (Internal Flash ROM)
+- `02:16` - __MCUBoot starts swapping__ the new firmware (External SPI Flash) with the old firmware (Internal Flash ROM)
 
-- `02:18` - MCUBoot swapping completed. New firmware is now in Internal Flash ROM, old firmware is now in External SPI Flash.
+- `02:18` - __MCUBoot swapping completed.__ New firmware is now in Internal Flash ROM, old firmware is now in External SPI Flash.
 
     The message `Swap type: test` means that the swapping to new firmware has been completed successfully.
 
@@ -170,7 +176,7 @@ What happens step by step, by timecode...
     ```
     _From [`mcuboot/main.c`](https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/mynewt/src/main.c#L239-L245)_
 
-- `02:30` - MCUBoot wait 5 seconds and checks whether the watch button is pressed, for __Manual Firmware Rollback__
+- `02:30` - MCUBoot waits 5 seconds and checks whether the watch button is pressed, for __Manual Firmware Rollback__ (Simulated)
 
     ```
     Button: 0
@@ -192,6 +198,7 @@ What happens step by step, by timecode...
     NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
     NET standalone node 
     ```
+    _From [`libs/temp_stub/creator.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/temp_stub/src/creator.c#L69-L70), [`libs/sensor_network/sensor_network.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/sensor_network/src/sensor_network.c#L369-L370)_
 
     Mynewt Application Firmware reads the Internal Flash ROM and External SPI Flash for testing 
 
@@ -233,6 +240,7 @@ Here's the PineTime log for the above test, captured from the ST-Link OpenOCD de
 ## Before PineTime Reboot
 
 ```
+# From PineTime Log
 Starting Bootloader...
 Displaying image...
 Image displayed
@@ -269,6 +277,7 @@ xPSR: 0x61000000 pc: 0x000081d8 psp: 0x20006a78, semihosting
 ## After PineTime Reboot
 
 ```
+# From PineTime Log
 Starting Bootloader...
 Displaying image...
 Image displayed
@@ -302,11 +311,13 @@ Rust test display
 
 # PineTime Firmware Update with Newt Mananger
 
-To understand the Firmware Update in detail, we'll use the Newt Manager command-line tool to reproduce each step of the Firmware Update.  The shell script may be found here: [`test-dfu.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/nrf52/test-dfu.sh)
+To understand the Firmware Update in detail, we'll use the [__Newt Manager__](http://mynewt.apache.org/latest/newtmgr/index.html) command-line tool to reproduce each step of the Firmware Update.  The shell script may be found here: [`test-dfu.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/nrf52/test-dfu.sh)
 
-For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Bluetooth Dongle (because the onboard Bluetooth adapter is not detected by Ubuntu)...
+For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Bluetooth Dongle (because the onboard Bluetooth adapter is not detected by Ubuntu).
 
 1. __Build Newt Manager__ on Raspberry Pi...
+
+    We'll build the Newt Manager tool, which is a Go program that works best on Linux. Source code for Newt Manager: [`mynewt-newtmgr`](https://github.com/apache/mynewt-newtmgr)
 
     ```bash
     # Build Newt Manager on Raspberry Pi
@@ -337,7 +348,9 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
 
 1. __Connect to PineTime and List Firmware Images__
 
-    Note that we're using the `--loglevel debug` option, which shows all Bluetooth packets...
+    Next we connect to PineTime over Bluetooth LE and list the firmware images stored in PineTime's Internal Flash ROM (Active Firmware) and External SPI Flash (Standby Firmware). 
+    
+    Note that we're using the `--loglevel debug` option, which shows all Bluetooth request and response packets.
 
     ```bash
     sudo ./newtmgr image list -c pinetime --loglevel debug
@@ -399,7 +412,6 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
     We list the firmware images again...
 
     ```bash
-    # Connect to PineTime and list firmware images
     sudo ./newtmgr image list -c pinetime
     ```
 
@@ -420,7 +432,7 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
     Split status: N/A (0)
     ```
 
-    The hash for the new firmware is `66a2...`. We'll use this in the next step.
+    The hash value for the new firmware is `66a2...`. We'll use this in the next step.
 
 1. __Set the New Firmware Image Status to Pending__ 
 
@@ -432,7 +444,7 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
        66a23f4f8f5766b5150711eb8c7c4be326cebabef37429fd21879f6e0eacffe5
     ```
 
-    Note that `66a2...` is the hash for the new firmware, obtained from the previous step.
+    Note that `66a2...` is the hash value for the new firmware, obtained from the previous step.
 
     ```
     Images:
@@ -456,6 +468,7 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
     We reboot PineTime to test the new firmware. Here's the PineTime debug log captured with ST-Link and OpenOCD...
 
     ```
+    # From PineTime Log
     Starting Bootloader...
     Displaying image...
     Image displayed
@@ -474,6 +487,7 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
     But somehow the new firmware failed to start (maybe because the ST-Link debugger was still attached).  PineTime rebooted by itself and showed this debug log...
 
     ```
+    # From PineTime Log
     Starting Bootloader...
     Displaying image...
     Image displayed
@@ -492,6 +506,7 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
     The old firmware is now in the Internal Flash ROM and begins running...
 
     ```
+    # From PineTime Log
     TMP create temp_stub_0
     NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
     NET standalone node 
@@ -514,6 +529,8 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
 
 1. __Set the New Firmware Image Status to Pending (Again)__ 
 
+    Let's retry the Firmware Update. We set the status for the new firmware to Pending...
+    
     ```bash
     # Set my_sensor_app_1.1.img to pending
     sudo ./newtmgr image test -c pinetime \
@@ -522,9 +539,10 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
 
 1. __Reboot PineTime (Again)__
 
-    This time the new firmware runs correctly...
+    After rebooting, the new firmware runs correctly...
 
     ```
+    # From PineTime Log
     Starting Bootloader...
     Displaying image...
     Image displayed
@@ -543,6 +561,7 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
     The new firmware runs OK...
 
     ```
+    # From PineTime Log
     TMP create temp_stub_0
     NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
     NET standalone node 
@@ -605,6 +624,7 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
     Finally we reboot PineTime and verify that the new firmware runs properly...
 
     ```
+    # From PineTime Log
     Starting Bootloader...
     Displaying image...
     Image displayed
