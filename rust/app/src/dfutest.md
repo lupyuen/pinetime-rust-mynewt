@@ -1,5 +1,9 @@
 # Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)
 
+![Wireless Firmware Update In Action on PineTime Smart Watch](https://lupyuen.github.io/images/dfutest-title.png)
+
+_Wireless Firmware Update In Action on PineTime Smart Watch_
+
 This is a continuation of the articles...
 
 _["MCUBoot Bootloader for PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot)_
