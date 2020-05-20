@@ -565,23 +565,24 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
 
 1. __Confirm the New Firmware Image__
 
-    Run the newtmgr image confirm command to confirm and make the uploaded image permanent. 
+    We run the `image confirm` command to confirm and make the uploaded image permanent. 
     Since the uploaded image is currently the active image, we can confirm the image setup 
-    without specifying the image hash value in the command:
+    without specifying the image hash value in the command...
 
     ```bash
     sudo ./newtmgr image confirm -c pinetime
-
-    # Connect to PineTime and list firmware images
-    sudo ./newtmgr image list -c pinetime
     ```
 
-    We'll see...
+    This command shows an error...
 
     ```
     + sudo ./newtmgr image confirm -c pinetime
     Error: 1
+    ```
 
+    But when we list the firmware images, the `flags` for the new firmware (Slot 0) are indeed set to `confirmed`.
+
+    ```
     + sudo ./newtmgr image list -c pinetime
     Images:
     image=0 slot=0
@@ -596,6 +597,8 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
         hash: 703ebbf811458b1fad189e64e3a5e0f809cbe6bad883c76b3dd712791c822fb5
     Split status: N/A (0)
     ```
+
+    The `flags` for the old firmware (in External SPI Flash) are set to empty.
 
 1. __Reboot PineTime to Verify Firmware Update__
 

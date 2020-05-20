@@ -545,20 +545,19 @@ sudo ./newtmgr image test -c pinetime \
 </li>
 <li>
 <p><strong>Confirm the New Firmware Image</strong></p>
-<p>Run the newtmgr image confirm command to confirm and make the uploaded image permanent. 
+<p>We run the <code>image confirm</code> command to confirm and make the uploaded image permanent. 
 Since the uploaded image is currently the active image, we can confirm the image setup 
-without specifying the image hash value in the command:</p>
+without specifying the image hash value in the command...</p>
 <pre><code class="language-bash">sudo ./newtmgr image confirm -c pinetime
-
-# Connect to PineTime and list firmware images
-sudo ./newtmgr image list -c pinetime
 </code></pre>
-<p>We'll see...</p>
+<p>This command shows an error...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="op">+</span> <span class="ident">sudo</span> .<span class="op">/</span><span class="ident">newtmgr</span> <span class="ident">image</span> <span class="ident">confirm</span> <span class="op">-</span><span class="ident">c</span> <span class="ident">pinetime</span>
-<span class="ident">Error</span>: <span class="number">1</span>
+<span class="ident">Error</span>: <span class="number">1</span></pre></div>
+<p>But when we list the firmware images, the <code>flags</code> for the new firmware (Slot 0) are indeed set to <code>confirmed</code>.</p>
 
+<div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="op">+</span> <span class="ident">sudo</span> .<span class="op">/</span><span class="ident">newtmgr</span> <span class="ident">image</span> <span class="ident">list</span> <span class="op">-</span><span class="ident">c</span> <span class="ident">pinetime</span>
 <span class="ident">Images</span>:
 <span class="ident">image</span><span class="op">=</span><span class="number">0</span> <span class="ident">slot</span><span class="op">=</span><span class="number">0</span>
@@ -572,6 +571,7 @@ sudo ./newtmgr image list -c pinetime
     <span class="ident">flags</span>: 
     <span class="ident">hash</span>: <span class="number">703ebbf811458b1fad189e64e3a5e0f809cbe6bad883c76b3dd712791c822fb5</span>
 <span class="ident">Split</span> <span class="ident">status</span>: <span class="ident">N</span><span class="op">/</span><span class="ident">A</span> (<span class="number">0</span>)</pre></div>
+<p>The <code>flags</code> for the old firmware (in External SPI Flash) are set to empty.</p>
 </li>
 <li>
 <p><strong>Reboot PineTime to Verify Firmware Update</strong></p>
