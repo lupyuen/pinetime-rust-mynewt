@@ -602,9 +602,9 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
 
 1. __Reboot PineTime to Verify Firmware Update__
 
-    ```
-    # Reboot:
+    Finally we reboot PineTime and verify that the new firmware runs properly...
 
+    ```
     Starting Bootloader...
     Displaying image...
     Image displayed
@@ -634,8 +634,9 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
     0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
     Flash OK
     Rust test display
-
     ```
+
+    Note that `Swap type` is `none`, which means that MCUBoot didn't swap any firmware images.
 
 The steps were derived from this Mynewt tutorial: [`ota_upgrade_nrf52.html`](https://mynewt.apache.org/latest/tutorials/devmgmt/ota_upgrade_nrf52.html)
 

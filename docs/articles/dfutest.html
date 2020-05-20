@@ -575,9 +575,9 @@ without specifying the image hash value in the command...</p>
 </li>
 <li>
 <p><strong>Reboot PineTime to Verify Firmware Update</strong></p>
+<p>Finally we reboot PineTime and verify that the new firmware runs properly...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-
 <span class="ident">Starting</span> <span class="ident">Bootloader</span>...
 <span class="ident">Displaying</span> <span class="ident">image</span>...
 <span class="ident">Image</span> <span class="ident">displayed</span>
@@ -606,8 +606,8 @@ without specifying the image hash value in the command...</p>
 <span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
 <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
 <span class="ident">Flash</span> <span class="ident">OK</span>
-<span class="ident">Rust</span> <span class="ident">test</span> <span class="ident">display</span>
-</pre></div>
+<span class="ident">Rust</span> <span class="ident">test</span> <span class="ident">display</span></pre></div>
+<p>Note that <code>Swap type</code> is <code>none</code>, which means that MCUBoot didn't swap any firmware images.</p>
 </li>
 </ol>
 <p>The steps were derived from this Mynewt tutorial: <a href="https://mynewt.apache.org/latest/tutorials/devmgmt/ota_upgrade_nrf52.html"><code>ota_upgrade_nrf52.html</code></a></p>
