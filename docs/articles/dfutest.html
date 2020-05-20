@@ -80,6 +80,7 @@
 <p><strong>Arm Semihosting Disabled:</strong> Files named <code>nosemi</code> should be selected if you're debugging with JLink. They will not display debugging messages via Arm Semihosting.</p>
 </li>
 </ol>
+<p>The Semihosting Build Options are defined here: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_boot/pkg.yml">Bootloader Options</a>, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_my_sensor/pkg.yml">Application Firmware Options</a></p>
 <p>Before the Firmware Update test, the following files were flashed manually to PineTime (via ST-Link or Raspberry Pi)...</p>
 <table><thead><tr><th align="left">Firmware Component</th><th align="left">Version</th><th align="left">Binary File</th><th align="left">From</th><th align="left">Flash To</th><th align="left">At Address</th><th align="left">Remarks</th></tr></thead><tbody>
 <tr><td align="left">MCUBoot Bootloader for Semihosting</td><td align="left">1.0.0</td><td align="left"><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.1/mynewt.elf.bin"><code>mynewt.elf.bin</code></a></td><td align="left"><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1"><code>v4.1.1</code></a></td><td align="left">Internal Flash ROM</td><td align="left"><code>0x0000 0000</code></td><td align="left">Use this bootloader if you're debugging with ST-Link or Raspberry Pi (Semihosting is enabled)</td></tr>

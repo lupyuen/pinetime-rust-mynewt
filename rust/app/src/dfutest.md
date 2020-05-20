@@ -34,6 +34,8 @@ We provide 2 versions of each firmware file to be flashed...
 
 1. __Arm Semihosting Disabled:__ Files named `nosemi` should be selected if you're debugging with JLink. They will not display debugging messages via Arm Semihosting.
 
+The Semihosting Build Options are defined here: [Bootloader Options](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_boot/pkg.yml), [Application Firmware Options](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_my_sensor/pkg.yml)
+
 Before the Firmware Update test, the following files were flashed manually to PineTime (via ST-Link or Raspberry Pi)...
 
 | Firmware Component | Version | Binary File | From | Flash To | At Address | Remarks |
