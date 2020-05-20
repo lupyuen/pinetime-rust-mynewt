@@ -321,9 +321,8 @@ Downloaded from <a href="https://github.com/lupyuen/pinetime-rust-mynewt/release
 <span class="ident">Flash</span> <span class="ident">OK</span>
 <span class="ident">Rust</span> <span class="ident">test</span> <span class="ident">display</span></pre></div>
 <h1 id="pinetime-firmware-update-with-newt-mananger" class="section-header"><a href="#pinetime-firmware-update-with-newt-mananger">4 PineTime Firmware Update with Newt Mananger</a></h1>
-<p>TODO</p>
 <p>To understand the Firmware Update in detail, we'll use the Newt Manager command-line tool to reproduce each step of the Firmware Update.  The shell script may be found here: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/nrf52/test-dfu.sh"><code>test-dfu.sh</code></a></p>
-<p>Here we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Bluetooth Dongle (because the onboard Bluetooth adapter is not detected by Ubuntu)...</p>
+<p>For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Bluetooth Dongle (because the onboard Bluetooth adapter is not detected by Ubuntu)...</p>
 <ol>
 <li>
 <p><strong>Build Newt Manager</strong> on Raspberry Pi...</p>
@@ -351,6 +350,7 @@ sudo ./newtmgr conn add pinetime type=ble connstring=&quot;peer_name=pinetime&qu
 </li>
 <li>
 <p><strong>Connect to PineTime and List Firmware Images</strong></p>
+<p>Note that we're using the <code>--loglevel debug</code> option, which shows all Bluetooth packets...</p>
 <pre><code class="language-bash">sudo ./newtmgr image list -c pinetime --loglevel debug
 </code></pre>
 <p>We'll see...</p>
@@ -386,24 +386,26 @@ sudo ./newtmgr conn add pinetime type=ble connstring=&quot;peer_name=pinetime&qu
     <span class="ident">flags</span>: <span class="ident">active</span> <span class="ident">confirmed</span>
     <span class="ident">hash</span>: <span class="number">703ebbf811458b1fad189e64e3a5e0f809cbe6bad883c76b3dd712791c822fb5</span>
 <span class="ident">Split</span> <span class="ident">status</span>: <span class="ident">N</span><span class="op">/</span><span class="ident">A</span> (<span class="number">0</span>)    </pre></div>
+<p>This shows that the Active Firmware Image (version 1.0.0) in Internal Flash ROM has been set as Confirmed, which means that the existing firmware is running OK.</p>
 </li>
 <li>
 <p><strong>Upload a Firmware Image to PineTime</strong></p>
-<p>We upload my_sensor_app_1.1.img (downloaded from https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2)</p>
+<p>We upload to PineTime version 1.1.0 of the firmware image: <code>my_sensor_app_1.1.img</code> (previously downloaded from <a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2"><code>pinetime-rust-mynewt/releases/tag/v4.1.2</code></a>)</p>
 <pre><code class="language-bash">sudo ./newtmgr image upload -c pinetime \
    ~/my_sensor_app_1.1.img 
-
-# Connect to PineTime and list firmware images
-sudo ./newtmgr image list -c pinetime
 </code></pre>
-<p>We'll see...</p>
+<p>The upload completes in 31 seconds for the 205 KB firmware file.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="op">+</span> <span class="ident">sudo</span> .<span class="op">/</span><span class="ident">newtmgr</span> <span class="ident">image</span> <span class="ident">upload</span> <span class="op">-</span><span class="ident">c</span> <span class="ident">pinetime</span> <span class="op">/</span><span class="ident">home</span><span class="op">/</span><span class="ident">ubuntu</span><span class="op">/</span><span class="ident">my_sensor_app_1</span>.<span class="number">1</span>.<span class="ident">img</span>
-<span class="number">205.27</span> <span class="ident">KiB</span> <span class="op">/</span> <span class="number">205.27</span> <span class="ident">KiB</span> [<span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span>] <span class="number">100.00</span><span class="op">%</span> <span class="number">6.47</span> <span class="ident">KiB</span><span class="op">/</span><span class="ident">s</span> <span class="number">31s</span>
-<span class="ident">Done</span>
+    <span class="number">205.27</span> <span class="ident">KiB</span> <span class="op">/</span> <span class="number">205.27</span> <span class="ident">KiB</span> [<span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span><span class="op">=</span>] <span class="number">100.00</span><span class="op">%</span> <span class="number">6.47</span> <span class="ident">KiB</span><span class="op">/</span><span class="ident">s</span> <span class="number">31s</span>
+<span class="ident">Done</span></pre></div>
+<p>We list the firmware images again...</p>
+<pre><code class="language-bash"># Connect to PineTime and list firmware images
+sudo ./newtmgr image list -c pinetime
+</code></pre>
+<p>The new firmware as been loaded to Slot 1 (External SPI Flash). Note that the <code>flags</code> are empty.</p>
 
-<span class="op">+</span> <span class="ident">sudo</span> .<span class="op">/</span><span class="ident">newtmgr</span> <span class="ident">image</span> <span class="ident">list</span> <span class="op">-</span><span class="ident">c</span> <span class="ident">pinetime</span>
+<div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Images</span>:
 <span class="ident">image</span><span class="op">=</span><span class="number">0</span> <span class="ident">slot</span><span class="op">=</span><span class="number">0</span>
     <span class="ident">version</span>: <span class="number">1.0</span>.<span class="number">0</span>
@@ -416,38 +418,18 @@ sudo ./newtmgr image list -c pinetime
     <span class="ident">flags</span>: 
     <span class="ident">hash</span>: <span class="number">66a23f4f8f5766b5150711eb8c7c4be326cebabef37429fd21879f6e0eacffe5</span>
 <span class="ident">Split</span> <span class="ident">status</span>: <span class="ident">N</span><span class="op">/</span><span class="ident">A</span> (<span class="number">0</span>)</pre></div>
+<p>The hash for the new firmware is <code>66a2...</code>. We'll use this in the next step.</p>
 </li>
 <li>
 <p><strong>Set the New Firmware Image Status to Pending</strong> </p>
-<p>The image is uploaded to the secondary slot but is not yet active. 
-We must run the newtmgr image test command to set the image status to pending 
-and reboot the device. When the device reboots, the bootloader copies this image 
-to the primary slot and runs the image.</p>
-<pre><code class="language-bash"># Set my_sensor_app_1.1.img to pending
-sudo ./newtmgr image test -c pinetime \
+<p>The new firmware has been uploaded to the External SPI Flash but is not yet active. 
+We run the <code>image test</code> command to set the firmware status to Pending so that it will be started after rebooting...</p>
+<pre><code class="language-bash">sudo ./newtmgr image test -c pinetime \
    66a23f4f8f5766b5150711eb8c7c4be326cebabef37429fd21879f6e0eacffe5
-
-# Connect to PineTime and list firmware images
-sudo ./newtmgr image list -c pinetime
 </code></pre>
-<p>We'll see...</p>
+<p>Note that <code>66a2...</code> is the hash for the new firmware, obtained from the previous step.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="op">+</span> <span class="ident">sudo</span> .<span class="op">/</span><span class="ident">newtmgr</span> <span class="ident">image</span> <span class="ident">test</span> <span class="op">-</span><span class="ident">c</span> <span class="ident">pinetime</span> <span class="number">66a23f4f8f5766b5150711eb8c7c4be326cebabef37429fd21879f6e0eacffe5</span>
-<span class="ident">Images</span>:
-<span class="ident">image</span><span class="op">=</span><span class="number">0</span> <span class="ident">slot</span><span class="op">=</span><span class="number">0</span>
-    <span class="ident">version</span>: <span class="number">1.0</span>.<span class="number">0</span>
-    <span class="ident">bootable</span>: <span class="bool-val">true</span>
-    <span class="ident">flags</span>: <span class="ident">active</span> <span class="ident">confirmed</span>
-    <span class="ident">hash</span>: <span class="number">703ebbf811458b1fad189e64e3a5e0f809cbe6bad883c76b3dd712791c822fb5</span>
-<span class="ident">image</span><span class="op">=</span><span class="number">0</span> <span class="ident">slot</span><span class="op">=</span><span class="number">1</span>
-    <span class="ident">version</span>: <span class="number">1.1</span>.<span class="number">0</span>
-    <span class="ident">bootable</span>: <span class="bool-val">true</span>
-    <span class="ident">flags</span>: <span class="ident">pending</span>
-    <span class="ident">hash</span>: <span class="number">66a23f4f8f5766b5150711eb8c7c4be326cebabef37429fd21879f6e0eacffe5</span>
-<span class="ident">Split</span> <span class="ident">status</span>: <span class="ident">N</span><span class="op">/</span><span class="ident">A</span> (<span class="number">0</span>)
-
-<span class="op">+</span> <span class="ident">sudo</span> .<span class="op">/</span><span class="ident">newtmgr</span> <span class="ident">image</span> <span class="ident">list</span> <span class="op">-</span><span class="ident">c</span> <span class="ident">pinetime</span>
 <span class="ident">Images</span>:
 <span class="ident">image</span><span class="op">=</span><span class="number">0</span> <span class="ident">slot</span><span class="op">=</span><span class="number">0</span>
     <span class="ident">version</span>: <span class="number">1.0</span>.<span class="number">0</span>
@@ -460,6 +442,7 @@ sudo ./newtmgr image list -c pinetime
     <span class="ident">flags</span>: <span class="ident">pending</span>
     <span class="ident">hash</span>: <span class="number">66a23f4f8f5766b5150711eb8c7c4be326cebabef37429fd21879f6e0eacffe5</span>
 <span class="ident">Split</span> <span class="ident">status</span>: <span class="ident">N</span><span class="op">/</span><span class="ident">A</span> (<span class="number">0</span>)</pre></div>
+<p>The <code>flags</code> for the new firmware is now set to <code>pending</code>. MCUBoot will swap the new firmware into Internal Flash ROM on reboot.</p>
 </li>
 <li>
 <p><strong>Reboot PineTime</strong></p>

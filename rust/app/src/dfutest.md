@@ -302,11 +302,9 @@ Rust test display
 
 # PineTime Firmware Update with Newt Mananger
 
-TODO
-
 To understand the Firmware Update in detail, we'll use the Newt Manager command-line tool to reproduce each step of the Firmware Update.  The shell script may be found here: [`test-dfu.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/nrf52/test-dfu.sh)
 
-Here we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Bluetooth Dongle (because the onboard Bluetooth adapter is not detected by Ubuntu)...
+For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Bluetooth Dongle (because the onboard Bluetooth adapter is not detected by Ubuntu)...
 
 1. __Build Newt Manager__ on Raspberry Pi...
 
@@ -338,6 +336,8 @@ Here we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Bluetooth Do
     ```
 
 1. __Connect to PineTime and List Firmware Images__
+
+    Note that we're using the `--loglevel debug` option, which shows all Bluetooth packets...
 
     ```bash
     sudo ./newtmgr image list -c pinetime --loglevel debug
@@ -378,26 +378,34 @@ Here we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Bluetooth Do
     Split status: N/A (0)    
     ```
 
+    This shows that the Active Firmware Image (version 1.0.0) in Internal Flash ROM has been set as Confirmed, which means that the existing firmware is running OK.
+
 1. __Upload a Firmware Image to PineTime__
 
-    We upload my_sensor_app_1.1.img (downloaded from https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2)
+    We upload to PineTime version 1.1.0 of the firmware image: `my_sensor_app_1.1.img` (previously downloaded from [`pinetime-rust-mynewt/releases/tag/v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2))
 
     ```bash
     sudo ./newtmgr image upload -c pinetime \
        ~/my_sensor_app_1.1.img 
+    ```
 
+    The upload completes in 31 seconds for the 205 KB firmware file.
+
+    ```
+        205.27 KiB / 205.27 KiB [=====================================================================] 100.00% 6.47 KiB/s 31s
+    Done
+    ```
+
+    We list the firmware images again...
+
+    ```bash
     # Connect to PineTime and list firmware images
     sudo ./newtmgr image list -c pinetime
     ```
 
-    We'll see...
+    The new firmware as been loaded to Slot 1 (External SPI Flash). Note that the `flags` are empty.
 
     ```
-    + sudo ./newtmgr image upload -c pinetime /home/ubuntu/my_sensor_app_1.1.img
-    205.27 KiB / 205.27 KiB [=====================================================================] 100.00% 6.47 KiB/s 31s
-    Done
-
-    + sudo ./newtmgr image list -c pinetime
     Images:
     image=0 slot=0
         version: 1.0.0
@@ -412,40 +420,21 @@ Here we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Bluetooth Do
     Split status: N/A (0)
     ```
 
+    The hash for the new firmware is `66a2...`. We'll use this in the next step.
+
 1. __Set the New Firmware Image Status to Pending__ 
 
-    The image is uploaded to the secondary slot but is not yet active. 
-    We must run the newtmgr image test command to set the image status to pending 
-    and reboot the device. When the device reboots, the bootloader copies this image 
-    to the primary slot and runs the image.
+    The new firmware has been uploaded to the External SPI Flash but is not yet active. 
+    We run the `image test` command to set the firmware status to Pending so that it will be started after rebooting...
 
     ```bash
-    # Set my_sensor_app_1.1.img to pending
     sudo ./newtmgr image test -c pinetime \
        66a23f4f8f5766b5150711eb8c7c4be326cebabef37429fd21879f6e0eacffe5
-
-    # Connect to PineTime and list firmware images
-    sudo ./newtmgr image list -c pinetime
     ```
 
-    We'll see...
+    Note that `66a2...` is the hash for the new firmware, obtained from the previous step.
 
     ```
-    + sudo ./newtmgr image test -c pinetime 66a23f4f8f5766b5150711eb8c7c4be326cebabef37429fd21879f6e0eacffe5
-    Images:
-    image=0 slot=0
-        version: 1.0.0
-        bootable: true
-        flags: active confirmed
-        hash: 703ebbf811458b1fad189e64e3a5e0f809cbe6bad883c76b3dd712791c822fb5
-    image=0 slot=1
-        version: 1.1.0
-        bootable: true
-        flags: pending
-        hash: 66a23f4f8f5766b5150711eb8c7c4be326cebabef37429fd21879f6e0eacffe5
-    Split status: N/A (0)
-
-    + sudo ./newtmgr image list -c pinetime
     Images:
     image=0 slot=0
         version: 1.0.0
@@ -459,6 +448,8 @@ Here we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Bluetooth Do
         hash: 66a23f4f8f5766b5150711eb8c7c4be326cebabef37429fd21879f6e0eacffe5
     Split status: N/A (0)
     ```
+
+    The `flags` for the new firmware is now set to `pending`. MCUBoot will swap the new firmware into Internal Flash ROM on reboot.
 
 1. __Reboot PineTime__
 
