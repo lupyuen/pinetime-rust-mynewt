@@ -83,7 +83,15 @@ Here's the video of the Wireless Firmware Upgrade from version 1.0.0 to 1.1.0...
 
 - [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.3)
 
-Step by step, by timecode...
+![Wireless Firmware Update In Action on PineTime Smart Watch](https://lupyuen.github.io/images/dfutest-title.png)
+
+__Left:__ PineTime Smart Watch
+
+__Centre:__ Debug Log from PineTime, captured with ST-Link debugger and OpenOCD
+
+__Right:__ Android Phone with [Nordic nRF Connect](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app
+
+What happens step by step, by timecode...
 
 - `00:00` - PineTime is preloaded with...
 
