@@ -55,7 +55,9 @@
     <nav id="TOC"><ul>
 <li><a href="#test-firmware-for-pinetime-firmware-update">1 Test Firmware for PineTime Firmware Update</a><ul></ul></li>
 <li><a href="#video-of-pinetime-firmware-update-test">2 Video of PineTime Firmware Update Test</a><ul></ul></li>
-<li><a href="#test-log">3 Test Log</a><ul></ul></li>
+<li><a href="#test-log-for-pinetime-firmware-update">3 Test Log for PineTime Firmware Update</a><ul>
+<li><a href="#before-pinetime-reboot">3.1 Before PineTime Reboot</a><ul></ul></li>
+<li><a href="#after-pinetime-reboot">3.2 After PineTime Reboot</a><ul></ul></li></ul></li>
 <li><a href="#test-with-newt-mananger">4 Test with Newt Mananger</a><ul></ul></li>
 <li><a href="#further-reading">5 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/dfutest-title.png" alt="Wireless Firmware Update In Action on PineTime Smart Watch" /></p>
 <p><em>Wireless Firmware Update In Action on PineTime Smart Watch</em></p>
@@ -248,123 +250,73 @@ Downloaded from <a href="https://github.com/lupyuen/pinetime-rust-mynewt/release
 <p><code>02:55</code> - Mynewt Application Firmware <strong>renders some shapes</strong> and the message &quot;<code>PINETIME 1.1</code>&quot;</p>
 </li>
 </ul>
-<h1 id="test-log" class="section-header"><a href="#test-log">3 Test Log</a></h1>
-<p>TODO</p>
-<p>Here's the complete log from the ST-Link OpenOCD debugger...</p>
-
-<pre><code>→ ./scripts/nrf52/flash-app.sh
-+ source scripts/config.sh
-++ swd_device=scripts/nrf52/swd-stlink.ocd
-+ openocd/bin/openocd -f scripts/nrf52/swd-stlink.ocd -f scripts/nrf52/flash-app.ocd
-GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-15-13:49)
-Licensed under GNU GPL v2
-For bug reports, read
-        http://openocd.org/doc/doxygen/bugs.html
-debug_level: 0
-adapter speed: 1000 kHz
-force hard breakpoints
-Stopping...
-target halted due to debug-request, current mode: Thread 
-xPSR: 0x61000000 pc: 0x000001c6 msp: 0x2000ffd8
-
-Flashing Application...
-***** DISABLED Flashing Application...
-
-Restarting...
-target halted due to debug-request, current mode: Thread 
-xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000
-Enabled ARM Semihosting to show debug output
-semihosting is enabled
-
-**** Done! Press Ctrl-C to exit...
-Starting Bootloader...
-Displaying image...
-Image displayed
-Button: 0
-[INF] Primary image: magic=good, swap_type=0x2, copy_done=0x1, image_ok=0x1
-[INF] Scratch: magic=bad, swap_type=0x1, copy_done=0x2, image_ok=0x2
-[INF] Boot source: none
-[INF] Swap type: perm
-Button: 0
-Button: 0
-Bootloader done
-TMP create temp_stub_0
-NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
-NET standalone node 
-Testing flash...
-Read Internal Flash ROM...
-Read 0x0 + 20
-  0x0000: 0x00 0x00 0x01 0x20 0xd9 0x00 0x00 0x00 
-  0x0008: 0x35 0x01 0x00 0x00 0x37 0x01 0x00 0x00 
-  0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-  0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-Read External SPI Flash...
-Read 0x0 + 20
-  0x0000: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-  0x0008: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-  0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-  0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-Flash OK
-Rust test display
-target halted due to breakpoint, current mode: Thread 
-xPSR: 0x61000000 pc: 0x000081d8 psp: 0x20006a78, semihosting
-^Cshutdown command invoked
-
-
-→ ./scripts/nrf52/flash-app.sh
-+ source scripts/config.sh
-++ swd_device=scripts/nrf52/swd-stlink.ocd
-+ openocd/bin/openocd -f scripts/nrf52/swd-stlink.ocd -f scripts/nrf52/flash-app.ocd
-GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-15-13:49)
-Licensed under GNU GPL v2
-For bug reports, read
-        http://openocd.org/doc/doxygen/bugs.html
-debug_level: 0
-adapter speed: 1000 kHz
-force hard breakpoints
-Stopping...
-target halted due to debug-request, current mode: Thread 
-xPSR: 0x61000000 pc: 0x000001ca msp: 0x2000ffd8
-
-Flashing Application...
-***** DISABLED Flashing Application...
-
-Restarting...
-target halted due to debug-request, current mode: Thread 
-xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000
-Enabled ARM Semihosting to show debug output
-semihosting is enabled
-
-**** Done! Press Ctrl-C to exit...
-Starting Bootloader...
-Displaying image...
-Image displayed
-Button: 0
-[INF] Primary image: magic=good, swap_type=0x3, copy_done=0x1, image_ok=0x1
-[INF] Scratch: magic=bad, swap_type=0x1, copy_done=0x2, image_ok=0x2
-[INF] Boot source: none
-[INF] Swap type: test
-Button: 0
-Button: 0
-Bootloader done
-TMP create temp_stub_0
-NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
-NET standalone node 
-Testing flash...
-Read Internal Flash ROM...
-Read 0x0 + 20
-  0x0000: 0x00 0x00 0x01 0x20 0xd9 0x00 0x00 0x00 
-  0x0008: 0x35 0x01 0x00 0x00 0x37 0x01 0x00 0x00 
-  0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-  0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-Read External SPI Flash...
-Read 0x0 + 20
-  0x0000: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-  0x0008: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-  0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-  0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
-Flash OK
-Rust test display</code></pre><h1 id="test-with-newt-mananger" class="section-header"><a href="#test-with-newt-mananger">4 Test with Newt Mananger</a></h1>
+<h1 id="test-log-for-pinetime-firmware-update" class="section-header"><a href="#test-log-for-pinetime-firmware-update">3 Test Log for PineTime Firmware Update</a></h1>
+<p>Here's the PineTime log for the above test, captured from the ST-Link OpenOCD debugger...</p>
+<h2 id="before-pinetime-reboot" class="section-header"><a href="#before-pinetime-reboot">3.1 Before PineTime Reboot</a></h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Starting</span> <span class="ident">Bootloader</span>...
+<span class="ident">Displaying</span> <span class="ident">image</span>...
+<span class="ident">Image</span> <span class="ident">displayed</span>
+<span class="ident">Button</span>: <span class="number">0</span>
+[<span class="ident">INF</span>] <span class="ident">Primary</span> <span class="ident">image</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">good</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x2</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x1</span>
+[<span class="ident">INF</span>] <span class="ident">Scratch</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">bad</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x2</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x2</span>
+[<span class="ident">INF</span>] <span class="ident">Boot</span> <span class="ident">source</span>: <span class="ident">none</span>
+[<span class="ident">INF</span>] <span class="ident">Swap</span> <span class="kw">type</span>: <span class="ident">perm</span>
+<span class="ident">Button</span>: <span class="number">0</span>
+<span class="ident">Button</span>: <span class="number">0</span>
+<span class="ident">Bootloader</span> <span class="ident">done</span>
+<span class="ident">TMP</span> <span class="ident">create</span> <span class="ident">temp_stub_0</span>
+<span class="ident">NET</span> <span class="ident">hwid</span> <span class="number">4a</span> <span class="ident">f8</span> <span class="ident">cf</span> <span class="number">95</span> <span class="number">6a</span> <span class="ident">be</span> <span class="ident">c1</span> <span class="ident">f6</span> <span class="number">89</span> <span class="ident">ba</span> <span class="number">12</span> <span class="number">1a</span> 
+<span class="ident">NET</span> <span class="ident">standalone</span> <span class="ident">node</span> 
+<span class="ident">Testing</span> <span class="ident">flash</span>...
+<span class="ident">Read</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
+<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
+  <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x01</span> <span class="number">0x20</span> <span class="number">0xd9</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0008</span>: <span class="number">0x35</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x37</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+<span class="ident">Read</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
+<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
+  <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0008</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+<span class="ident">Flash</span> <span class="ident">OK</span>
+<span class="ident">Rust</span> <span class="ident">test</span> <span class="ident">display</span>
+<span class="ident">target</span> <span class="ident">halted</span> <span class="ident">due</span> <span class="ident">to</span> <span class="ident">breakpoint</span>, <span class="ident">current</span> <span class="ident">mode</span>: <span class="ident">Thread</span> 
+<span class="ident">xPSR</span>: <span class="number">0x61000000</span> <span class="ident">pc</span>: <span class="number">0x000081d8</span> <span class="ident">psp</span>: <span class="number">0x20006a78</span>, <span class="ident">semihosting</span></pre></div>
+<h2 id="after-pinetime-reboot" class="section-header"><a href="#after-pinetime-reboot">3.2 After PineTime Reboot</a></h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Starting</span> <span class="ident">Bootloader</span>...
+<span class="ident">Displaying</span> <span class="ident">image</span>...
+<span class="ident">Image</span> <span class="ident">displayed</span>
+<span class="ident">Button</span>: <span class="number">0</span>
+[<span class="ident">INF</span>] <span class="ident">Primary</span> <span class="ident">image</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">good</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x3</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x1</span>
+[<span class="ident">INF</span>] <span class="ident">Scratch</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">bad</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x2</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x2</span>
+[<span class="ident">INF</span>] <span class="ident">Boot</span> <span class="ident">source</span>: <span class="ident">none</span>
+[<span class="ident">INF</span>] <span class="ident">Swap</span> <span class="kw">type</span>: <span class="ident">test</span>
+<span class="ident">Button</span>: <span class="number">0</span>
+<span class="ident">Button</span>: <span class="number">0</span>
+<span class="ident">Bootloader</span> <span class="ident">done</span>
+<span class="ident">TMP</span> <span class="ident">create</span> <span class="ident">temp_stub_0</span>
+<span class="ident">NET</span> <span class="ident">hwid</span> <span class="number">4a</span> <span class="ident">f8</span> <span class="ident">cf</span> <span class="number">95</span> <span class="number">6a</span> <span class="ident">be</span> <span class="ident">c1</span> <span class="ident">f6</span> <span class="number">89</span> <span class="ident">ba</span> <span class="number">12</span> <span class="number">1a</span> 
+<span class="ident">NET</span> <span class="ident">standalone</span> <span class="ident">node</span> 
+<span class="ident">Testing</span> <span class="ident">flash</span>...
+<span class="ident">Read</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
+<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
+  <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x01</span> <span class="number">0x20</span> <span class="number">0xd9</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0008</span>: <span class="number">0x35</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x37</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+<span class="ident">Read</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
+<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
+  <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0008</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+  <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
+<span class="ident">Flash</span> <span class="ident">OK</span>
+<span class="ident">Rust</span> <span class="ident">test</span> <span class="ident">display</span></pre></div>
+<h1 id="test-with-newt-mananger" class="section-header"><a href="#test-with-newt-mananger">4 Test with Newt Mananger</a></h1>
 <p>TODO</p>
 <p>To understand the Firmware Update in more detail, we'll use Newt Manager to retrace the steps...</p>
 <p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/nrf52/test-dfu.sh</p>

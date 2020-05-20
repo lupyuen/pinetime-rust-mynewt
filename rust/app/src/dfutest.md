@@ -218,39 +218,13 @@ Step by step, by timecode...
 
 - `02:55` - Mynewt Application Firmware __renders some shapes__ and the message "`PINETIME 1.1`"
 
-# Test Log
+# Test Log for PineTime Firmware Update
 
-TODO
+Here's the PineTime log for the above test, captured from the ST-Link OpenOCD debugger...
 
-Here's the complete log from the ST-Link OpenOCD debugger...
+## Before PineTime Reboot
 
 ```
-# Luppy at Luppys-MacBook-Pro.local in ~/PineTime/pinetime-rust-mynewt on git:ota2 ✖︎ [9:41:49]
-→ ./scripts/nrf52/flash-app.sh
-+ source scripts/config.sh
-++ swd_device=scripts/nrf52/swd-stlink.ocd
-+ openocd/bin/openocd -f scripts/nrf52/swd-stlink.ocd -f scripts/nrf52/flash-app.ocd
-GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-15-13:49)
-Licensed under GNU GPL v2
-For bug reports, read
-        http://openocd.org/doc/doxygen/bugs.html
-debug_level: 0
-adapter speed: 1000 kHz
-force hard breakpoints
-Stopping...
-target halted due to debug-request, current mode: Thread 
-xPSR: 0x61000000 pc: 0x000001c6 msp: 0x2000ffd8
-
-Flashing Application...
-***** DISABLED Flashing Application...
-
-Restarting...
-target halted due to debug-request, current mode: Thread 
-xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000
-Enabled ARM Semihosting to show debug output
-semihosting is enabled
-
-**** Done! Press Ctrl-C to exit...
 Starting Bootloader...
 Displaying image...
 Image displayed
@@ -282,35 +256,11 @@ Flash OK
 Rust test display
 target halted due to breakpoint, current mode: Thread 
 xPSR: 0x61000000 pc: 0x000081d8 psp: 0x20006a78, semihosting
-^Cshutdown command invoked
+```
 
+## After PineTime Reboot
 
-# Luppy at Luppys-MacBook-Pro.local in ~/PineTime/pinetime-rust-mynewt on git:ota2 ✖︎ [9:45:03]
-→ ./scripts/nrf52/flash-app.sh
-+ source scripts/config.sh
-++ swd_device=scripts/nrf52/swd-stlink.ocd
-+ openocd/bin/openocd -f scripts/nrf52/swd-stlink.ocd -f scripts/nrf52/flash-app.ocd
-GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-15-13:49)
-Licensed under GNU GPL v2
-For bug reports, read
-        http://openocd.org/doc/doxygen/bugs.html
-debug_level: 0
-adapter speed: 1000 kHz
-force hard breakpoints
-Stopping...
-target halted due to debug-request, current mode: Thread 
-xPSR: 0x61000000 pc: 0x000001ca msp: 0x2000ffd8
-
-Flashing Application...
-***** DISABLED Flashing Application...
-
-Restarting...
-target halted due to debug-request, current mode: Thread 
-xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000
-Enabled ARM Semihosting to show debug output
-semihosting is enabled
-
-**** Done! Press Ctrl-C to exit...
+```
 Starting Bootloader...
 Displaying image...
 Image displayed
