@@ -128,7 +128,7 @@
 		"path": "$ROOTPATH$/logs/mynewt.elf.lst",
 		"bookmarks": [
 			{
-				"line": 371,
+				"line": 990,
 				"column": 5,
 				"label": ""
 			}

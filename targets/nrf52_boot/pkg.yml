@@ -31,4 +31,5 @@ pkg.deps:
 #  C compiler flags
 pkg.cflags:
     - -DMCUBOOT_HAVE_LOGGING=1  #  So that sysinit() will be run, needed for displaying boot graphic
+    # - -DDISABLE_SEMIHOSTING   #  Uncomment to disable Arm Semihosting
     # - -Os  #  Optimise for smallest size
