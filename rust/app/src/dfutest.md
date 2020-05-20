@@ -452,11 +452,11 @@ Here we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Bluetooth Do
     Split status: N/A (0)
     ```
 
-1. __First PineTime Reboot__
+1. __Reboot PineTime__
+
+    We reboot PineTime to test the new firmware. Here's the PineTime debug log captured with ST-Link and OpenOCD...
 
     ```
-    # First update failed:
-
     Starting Bootloader...
     Displaying image...
     Image displayed
@@ -466,6 +466,15 @@ Here we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Bluetooth Do
     [INF] Boot source: primary slot
     [INF] Swap type: test
     Button: 0
+    ```
+
+    Note that `Swap type` is set to `test`, which means that MCUBoot has swapped in the new firmware from External SPI Flash into Internal Flash ROM.
+
+    The old firmware has been swapped out to External SPI Flash.
+
+    But somehow the new firmware failed to start (maybe because the ST-Link debugger was still attached).  PineTime rebooted by itself and showed this debug log...
+
+    ```
     Starting Bootloader...
     Displaying image...
     Image displayed
@@ -477,6 +486,13 @@ Here we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Bluetooth Do
     Button: 0
     Button: 0
     Bootloader done
+    ```
+
+    Note that `Swap type` is set to `revert`, which means that MCUBoot thinks the new firmware is faulty and has swapped the old firmware back.
+
+    The old firmware is now in the Internal Flash ROM and begins running...
+
+    ```
     TMP create temp_stub_0
     NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
     NET standalone node 
@@ -497,11 +513,19 @@ Here we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Bluetooth Do
     Rust test display
     ```
 
-1. __Second PineTime Reboot__
+1. __Set the New Firmware Image Status to Pending (Again)__ 
+
+    ```bash
+    # Set my_sensor_app_1.1.img to pending
+    sudo ./newtmgr image test -c pinetime \
+       66a23f4f8f5766b5150711eb8c7c4be326cebabef37429fd21879f6e0eacffe5
+    ```
+
+1. __Reboot PineTime (Again)__
+
+    This time the new firmware runs correctly...
 
     ```
-    # Second update OK:
-
     Starting Bootloader...
     Displaying image...
     Image displayed
@@ -513,6 +537,13 @@ Here we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Bluetooth Do
     Button: 0
     Button: 0
     Bootloader done
+    ```
+
+    `Swap type` has been set to `test`, which means that MCUBoot has swapped the new firmware into Internal Flash ROM.
+
+    The new firmware runs OK...
+
+    ```
     TMP create temp_stub_0
     NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
     NET standalone node 
@@ -568,7 +599,6 @@ Here we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Bluetooth Do
     ```
 
 1. __Reboot PineTime to Verify Firmware Update__
-
 
     ```
     # Reboot:
