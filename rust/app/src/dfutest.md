@@ -109,7 +109,7 @@ _How do we switch between the two Vector Tables?_
 
 We need to __Relocate the Vector Table.__ When the MCUBoot Bootloader is about to start the Application Firmware, it copies the firmware's Vector Table (from `0x8020`) to a page-aligned address in Internal Flash ROM: `0x7F00`
 
-Then MCUBoot sets the VTOR Register in the Arm CPU's System Control Block to point to the Relocated Vector Table: `0x7F00`
+Then MCUBoot sets the VTOR Register in the Arm CPU's System Control Block to point to the Relocated Vector Table: `0x7F00`. The code for Vector Table Relocation is here: [`libs/pinetime_boot/src/pinetime_boot.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c#L102-L132)
 
 Here is the updated MCUBoot Bootloader that correctly relocates the Interrupt Vector Table before starting the Application Firmware...
 
