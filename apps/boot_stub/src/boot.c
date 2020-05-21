@@ -42,6 +42,8 @@
 /// Contains addresses of flash sections. Defined in bin/targets/nrf52_boot/generated/src/nrf52_boot-sysflash.c
 extern const struct flash_area sysflash_map_dflt[];
 
+static void relocate_vector_table(void *vector_table, void *relocated_vector_table);
+
 /// This is a Stub Bootloader.  We jump straight into the application without doing any processing.
 /// This simple bootloader allows the application to take up more ROM space.
 /// And it allows debugging of application firmware that doesn't have a valid MCUBoot Image Header.
@@ -52,16 +54,22 @@ int main(void) {
     //  Previously: flash_map_init();
     //  Previously: rc = boot_go(&rsp);
 
-    //  img_start points to the nRF52 Vector Table for the app...
+    //  vector_table points to the Arm Vector Table for the appplication...
     //  First word contains initial MSP value (estack = end of RAM)
-    //  Second word contains address of entry point (Reset_Handler = 0x0800112d)
-    void *img_start = (void *) (
-        sysflash_map_dflt[1].fa_off  //  Offset of FLASH_AREA_IMAGE_0 (application image): 0x00008000
-        + 0x20                       //  Size of Mynewt image header
-    );  //  Equals 0x00008020 (__isr_vector)
+    //  Second word contains address of entry point (Reset_Handler)
+    void *vector_table = (void *) (
+        sysflash_map_dflt[1].fa_off  //  Offset of FLASH_AREA_IMAGE_0 (application image): 0x8000
+        + 0x20                       //  Size of MCUBoot image header
+    );                               //  Equals 0x8020 (__isr_vector)
 
-    //  Jump to Reset_Handler of the application. Uses first word and second word of img_start.
-    hal_system_start(img_start);
+    //  Relocate the application vector table to a 0x100 page boundary in ROM.
+    relocate_vector_table(  //  Relocate the vector table...
+        vector_table,       //  From the non-aligned application address (0x8020)
+        (void *) RELOCATED_VECTOR_TABLE  //  To the relocated address aligned to 0x100 page boundary
+    );
+
+    //  Jump to Reset_Handler of the application. Uses first word and second word of vector table at img_start.
+    hal_system_start(vector_table);
 
     //  Should never come here.
     return 0;
@@ -69,11 +77,10 @@ int main(void) {
 
 /// Relocate the Arm Vector Table from vector_table to relocated_vector_table.
 /// vector_table must be aligned to 0x100 page boundary.
-void relocate_vector_table(void *vector_table, void *relocated_vector_table) {
+static void relocate_vector_table(void *vector_table, void *relocated_vector_table) {
     uint32_t *current_location = (uint32_t *) vector_table;
     uint32_t *new_location     = (uint32_t *) relocated_vector_table;
     if (new_location == current_location) { return; }  //  No need to relocate
-
     //  Check whether we need to copy the vectors.
     int vector_diff = 0;  //  Non-zero if a vector is different
     for (int i = 0; i < NVIC_NUM_VECTORS; i++) {
@@ -82,7 +89,6 @@ void relocate_vector_table(void *vector_table, void *relocated_vector_table) {
             break;
         }
     }
-
     //  If we need to copy the vectors, erase the flash ROM and write the vectors.
     if (vector_diff) {
         hal_flash_erase(  //  Erase...
@@ -97,7 +103,6 @@ void relocate_vector_table(void *vector_table, void *relocated_vector_table) {
             0x100         //  Assume that we copy an entire page
         );  
     }
-
     //  Point VTOR Register in the System Control Block to the relocated vector table.
     *SCB_VTOR = (uint32_t) relocated_vector_table;
 }

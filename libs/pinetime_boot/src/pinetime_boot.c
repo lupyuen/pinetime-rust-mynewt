@@ -22,13 +22,25 @@
 #include <hal/hal_bsp.h>
 #include <hal/hal_gpio.h>
 #include <hal/hal_system.h>
+#include <hal/hal_flash.h>
 #include <console/console.h>
 #include "bootutil/image.h"
 #include <bootutil/bootutil.h>
 #include "pinetime_boot/pinetime_boot.h"
 
-#define PUSH_BUTTON_IN  13  //  P0.13: PUSH BUTTON_IN
-#define PUSH_BUTTON_OUT 15  //  P0.15/TRACEDATA2: PUSH BUTTON_OUT
+#define PUSH_BUTTON_IN  13  //  GPIO Pin P0.13: PUSH BUTTON_IN
+#define PUSH_BUTTON_OUT 15  //  GPIO Pin P0.15/TRACEDATA2: PUSH BUTTON_OUT
+
+/// Vector Table will be relocated here.
+#define RELOCATED_VECTOR_TABLE 0x7F00
+
+/// Number of entries in the Vector Table.
+#define NVIC_NUM_VECTORS (16 + 38)
+
+/// Address of the VTOR Register in the System Control Block.
+#define SCB_VTOR ((uint32_t *) 0xE000ED08)
+
+static void relocate_vector_table(void *vector_table, void *relocated_vector_table);
 
 /// Init the display and render the boot graphic. Called by sysinit() during startup, defined in pkg.yml.
 void pinetime_boot_init(void) {
@@ -42,7 +54,7 @@ void pinetime_boot_init(void) {
 
     //  Display the image.
     pinetime_boot_display_image();
-    console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
+    console_printf("Check button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
 }
 
 /// Called by MCUBoot when it has completed its work.
@@ -51,21 +63,33 @@ void boot_custom_start(
     struct boot_rsp *rsp
 ) {
     //  Wait 5 seconds for button press.
-    console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
+    console_printf("Waiting 5 seconds for button: %d...\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
     for (int i = 0; i < 15; i++) {
         pinetime_boot_check_button();
     }
-    console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
+    console_printf("Waited for button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
 
     //  TODO: If button is pressed and held for 5 seconds, rollback the firmware.
     console_printf("Bootloader done\n"); console_flush();
 
-    //  Start the Active Firmware Image. Copied from MCUBoot main().
-    hal_system_start((void *)(
-        flash_base + 
-        rsp->br_image_off +
-        rsp->br_hdr->ih_hdr_size
-    ));
+    //  vector_table points to the Arm Vector Table for the appplication...
+    //  First word contains initial MSP value (estack = end of RAM)
+    //  Second word contains address of entry point (Reset_Handler)
+    void *vector_table = (void *) (  //  Copied from MCUBoot main()
+        flash_base +                 //  0
+        rsp->br_image_off +          //  Offset of FLASH_AREA_IMAGE_0 (application image): 0x8000
+        rsp->br_hdr->ih_hdr_size     //  Size of MCUBoot image header (0x20)
+    );                               //  Equals 0x8020 (__isr_vector)
+    //  console_printf("vector_table=%lx, flash_base=%lx, image_off=%lx, hdr_size=%lx\n", (uint32_t) vector_table, (uint32_t) flash_base, (uint32_t) rsp->br_image_off, (uint32_t) rsp->br_hdr->ih_hdr_size); console_flush();
+
+    //  Relocate the application vector table to a 0x100 page boundary in ROM.
+    relocate_vector_table(  //  Relocate the vector table...
+        vector_table,       //  From the non-aligned application address (0x8020)
+        (void *) RELOCATED_VECTOR_TABLE  //  To the relocated address aligned to 0x100 page boundary
+    );
+
+    //  Start the Active Firmware Image at the Reset_Handler function.
+    hal_system_start(vector_table);
 }
 
 /// Check whether the watch button is pressed
@@ -73,6 +97,38 @@ void pinetime_boot_check_button(void) {
     for (int i = 0; i < 1000000; i++) {
         hal_gpio_read(PUSH_BUTTON_IN);  //  TODO: Doesn't seem to work
     }
+}
+
+/// Relocate the Arm Vector Table from vector_table to relocated_vector_table.
+/// vector_table must be aligned to 0x100 page boundary.
+static void relocate_vector_table(void *vector_table, void *relocated_vector_table) {
+    uint32_t *current_location = (uint32_t *) vector_table;
+    uint32_t *new_location     = (uint32_t *) relocated_vector_table;
+    if (new_location == current_location) { return; }  //  No need to relocate
+    //  Check whether we need to copy the vectors.
+    int vector_diff = 0;  //  Non-zero if a vector is different
+    for (int i = 0; i < NVIC_NUM_VECTORS; i++) {
+        if (new_location[i] != current_location[i]) {
+            vector_diff = 1;
+            break;
+        }
+    }
+    //  If we need to copy the vectors, erase the flash ROM and write the vectors.
+    if (vector_diff) {
+        hal_flash_erase(  //  Erase...
+            0,            //  Internal Flash ROM
+            (uint32_t) relocated_vector_table,  //  At the relocated address
+            0x100         //  Assume that we erase an entire page
+        );
+        hal_flash_write(  //  Write...
+            0,            //  Internal Flash ROM
+            (uint32_t) relocated_vector_table,  //  To the relocated address
+            vector_table, //  From the original address
+            0x100         //  Assume that we copy an entire page
+        );  
+    }
+    //  Point VTOR Register in the System Control Block to the relocated vector table.
+    *SCB_VTOR = (uint32_t) relocated_vector_table;
 }
 
 /* Log:
