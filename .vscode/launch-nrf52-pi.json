@@ -1,5 +1,5 @@
 {
-    //  VSCode Debugger Config for Cortex Debug Extension.  We use Cortex Debug because it shows more details, e.g. the STM32 Peripherals.
+    //  VSCode Debugger Config for Cortex Debug Extension.  We use Cortex Debug because it shows more details, e.g. the nRF52 Peripherals.
     "version": "0.2.0",
     "configurations": [
         {
@@ -10,14 +10,16 @@
             //  OpenOCD path is defined in workspace.code-workspace.
             "servertype": "openocd",
             "cwd": "${workspaceRoot}",
-            //  Application Executable to be flashed to Blue Pill before debugging.  Note that the Application ELF image does not contain a valid Image Header.  So we must bypass the Bootloader, shown below.
+            //  Application Executable to be flashed before debugging.  Note that the Application ELF image does not contain a valid Image Header, so we must install the Stub Bootloader.
             "executable": "bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf",
-            //  For Bootloader: "executable": "bin/targets/stm32l4_boot/app/apps/boot/boot.elf",
+            //  Uncomment one of these lines to debug MCUBoot or Stub Bootloader:
+            //  "executable": "bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf",
+            //  "executable": "bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf",
             "device": "nRF52832",
             //  Arm System View Description, from apache-mynewt-core/hw/mcu/nordic/src/ext/nrfx/mdk
             "svdFile": "scripts/nrf52/nrf52.svd",
             "configFiles": [ 
-                //  Tell OpenOCD to open the ST Link connection to STM32 MCU.
+                //  Tell OpenOCD to open the SPI connection to SWD Port on PineTime.
                 "scripts/nrf52-pi/swd-pi.ocd",
                 //  Tell OpenOCD to run our custom debug commands.
                 "scripts/nrf52/debug.ocd"
