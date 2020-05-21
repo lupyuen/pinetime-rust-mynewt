@@ -30,17 +30,23 @@
 #include <console/console.h>
 #include <sysflash/sysflash.h>
 
-#define BOOT_AREA_DESC_MAX  (256)
-#define AREA_DESC_MAX       (BOOT_AREA_DESC_MAX)
+/// Vector Table will be relocated here.
+#define RELOCATED_VECTOR_TABLE 0x7F00
 
-void *_estack;  //  End of stack, defined in Linker Script.
-extern const struct flash_area sysflash_map_dflt[];  //  Contains addresses of flash sections. Defined in bin/targets/bluepill_boot/generated/src/bluepill_boot-sysflash.c
+/// Number of entries in the Vector Table.
+#define NVIC_NUM_VECTORS (16 + 38)
 
-int
-main(void)
-{
-    //  This is a stub bootloader for Blue Pill.  We jump straight into the application.
-    //  This simple bootloader allows the application to take up more ROM space.
+/// Address of the VTOR Register in the System Control Block.
+#define SCB_VTOR ((uint32_t *) 0xE000ED08)
+
+/// Contains addresses of flash sections. Defined in bin/targets/nrf52_boot/generated/src/nrf52_boot-sysflash.c
+extern const struct flash_area sysflash_map_dflt[];
+
+/// This is a Stub Bootloader.  We jump straight into the application without doing any processing.
+/// This simple bootloader allows the application to take up more ROM space.
+/// And it allows debugging of application firmware that doesn't have a valid MCUBoot Image Header.
+int main(void) {
+    //  Init the Board Support Package.
     hal_bsp_init();
 
     //  Previously: flash_map_init();
@@ -59,4 +65,39 @@ main(void)
 
     //  Should never come here.
     return 0;
+}
+
+/// Relocate the Arm Vector Table from vector_table to relocated_vector_table.
+/// vector_table must be aligned to 0x100 page boundary.
+void relocate_vector_table(void *vector_table, void *relocated_vector_table) {
+    uint32_t *current_location = (uint32_t *) vector_table;
+    uint32_t *new_location     = (uint32_t *) relocated_vector_table;
+    if (new_location == current_location) { return; }  //  No need to relocate
+
+    //  Check whether we need to copy the vectors.
+    int vector_diff = 0;  //  Non-zero if a vector is different
+    for (int i = 0; i < NVIC_NUM_VECTORS; i++) {
+        if (new_location[i] != current_location[i]) {
+            vector_diff = 1;
+            break;
+        }
+    }
+
+    //  If we need to copy the vectors, erase the flash ROM and write the vectors.
+    if (vector_diff) {
+        hal_flash_erase(  //  Erase...
+            0,            //  Internal Flash ROM
+            (uint32_t) relocated_vector_table,  //  At the relocated address
+            0x100         //  Assume that we erase an entire page
+        );
+        hal_flash_write(  //  Write...
+            0,            //  Internal Flash ROM
+            (uint32_t) relocated_vector_table,  //  To the relocated address
+            vector_table, //  From the original address
+            0x100         //  Assume that we copy an entire page
+        );  
+    }
+
+    //  Point VTOR Register in the System Control Block to the relocated vector table.
+    *SCB_VTOR = (uint32_t) relocated_vector_table;
 }
