@@ -76,7 +76,7 @@ int main(void) {
 }
 
 /// Relocate the Arm Vector Table from vector_table to relocated_vector_table.
-/// vector_table must be aligned to 0x100 page boundary.
+/// relocated_vector_table must be aligned to 0x100 page boundary.
 static void relocate_vector_table(void *vector_table, void *relocated_vector_table) {
     uint32_t *current_location = (uint32_t *) vector_table;
     uint32_t *new_location     = (uint32_t *) relocated_vector_table;
