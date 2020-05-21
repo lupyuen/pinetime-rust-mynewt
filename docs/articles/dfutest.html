@@ -127,10 +127,28 @@
 <h1 id="update-relocate-the-interrupt-vector-table" class="section-header"><a href="#update-relocate-the-interrupt-vector-table">2 Update: Relocate the Interrupt Vector Table</a></h1>
 <p>[ Update: This section is new ]</p>
 <p>While testing <a href="https://github.com/JF002/Pinetime">FreeRTOS</a> with MCUBoot, we encountered a problem with the Interrupt Vector Table...</p>
-<p>TODO</p>
-<p>Here is the updated MCUBoot Bootloader that relocates the Interrupt Vector Table before starting the Application Firmware...</p>
+<p><em>What is the Interrupt Vector Table?</em></p>
+<p>It's a table of pointers to functions that will handle Interrupts (like from the Touch Controller) and Exceptions (like invalid memory access).</p>
+<p>Arm Cortex-M firmware must have this table located at the start of Internal Flash ROM (address <code>0x0</code>).</p>
+<p>With MCUBoot Bootloader, we will have two Vector Tables...</p>
+<ol>
+<li>
+<p><strong>Vector Table for MCUBoot:</strong> Used when the bootloader runs. Located at Flash ROM Address <code>0x0</code></p>
+</li>
+<li>
+<p><strong>Vector Table for Application Firmware:</strong> Used when the Application Firmware runs. Located at Flash ROM Address <code>0x8020</code></p>
+</li>
+</ol>
+<p><em>Will the two Vector Tables have conflicts?</em></p>
+<p>Yes, because most Application Firmware is written with the assumption that the Vector Table is at address <code>0x0</code>.</p>
+<p>Now that the Application Firmware Vector Table is located elsewhere at <code>0x8020</code>, we need to switch the Vector Tables correctly.</p>
+<p><em>How do we switch between the two Vector Tables?</em></p>
+<p>We need to <strong>Relocate the Vector Table.</strong> When the MCUBoot Bootloader is about to start the Application Firmware, it copies the firmware's Vector Table (from <code>0x8020</code>) to a page-aligned address in Internal Flash ROM: <code>0x7F00</code></p>
+<p>Then MCUBoot sets the VTOR Register in the Arm CPU's System Control Block to point to the Relocated Vector Table: <code>0x7F00</code></p>
+<p>Here is the updated MCUBoot Bootloader that correctly relocates the Interrupt Vector Table before starting the Application Firmware...</p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.7"><code>pinetime-rust-mynewt/releases/tag/v4.1.7</code></a></p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.5">More about the Interrupt Vector Table</a></p>
+<p><a href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0552a/BABIFJFG.html">Arm Documentation on Vector Table</a></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.5">More about the Vector Table</a></p>
 <h1 id="video-of-pinetime-firmware-update-test" class="section-header"><a href="#video-of-pinetime-firmware-update-test">3 Video of PineTime Firmware Update Test</a></h1>
 <p>Here's the video of the Wireless Firmware Upgrade from version 1.0.0 to 1.1.0...</p>
 <ul>

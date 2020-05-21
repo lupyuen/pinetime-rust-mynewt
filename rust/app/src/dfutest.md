@@ -87,13 +87,37 @@ The `.img` files were created with the `imgtool.py` command-line tool [described
 
 While testing [FreeRTOS](https://github.com/JF002/Pinetime) with MCUBoot, we encountered a problem with the Interrupt Vector Table...
 
-TODO
+_What is the Interrupt Vector Table?_
 
-Here is the updated MCUBoot Bootloader that relocates the Interrupt Vector Table before starting the Application Firmware...
+It's a table of pointers to functions that will handle Interrupts (like from the Touch Controller) and Exceptions (like invalid memory access).
+
+Arm Cortex-M firmware must have this table located at the start of Internal Flash ROM (address `0x0`).
+
+With MCUBoot Bootloader, we will have two Vector Tables...
+
+1. __Vector Table for MCUBoot:__ Used when the bootloader runs. Located at Flash ROM Address `0x0`
+
+1. __Vector Table for Application Firmware:__ Used when the Application Firmware runs. Located at Flash ROM Address `0x8020`
+
+_Will the two Vector Tables have conflicts?_
+
+Yes, because most Application Firmware is written with the assumption that the Vector Table is at address `0x0`.
+
+Now that the Application Firmware Vector Table is located elsewhere at `0x8020`, we need to switch the Vector Tables correctly.
+
+_How do we switch between the two Vector Tables?_
+
+We need to __Relocate the Vector Table.__ When the MCUBoot Bootloader is about to start the Application Firmware, it copies the firmware's Vector Table (from `0x8020`) to a page-aligned address in Internal Flash ROM: `0x7F00`
+
+Then MCUBoot sets the VTOR Register in the Arm CPU's System Control Block to point to the Relocated Vector Table: `0x7F00`
+
+Here is the updated MCUBoot Bootloader that correctly relocates the Interrupt Vector Table before starting the Application Firmware...
 
 [`pinetime-rust-mynewt/releases/tag/v4.1.7`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.7)
 
-[More about the Interrupt Vector Table](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.5)
+[Arm Documentation on Vector Table](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0552a/BABIFJFG.html)
+
+[More about the Vector Table](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.5)
 
 # Video of PineTime Firmware Update Test
 
