@@ -54,12 +54,13 @@
     <h1 class="title">Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)</h1>
     <nav id="TOC"><ul>
 <li><a href="#test-firmware-for-pinetime-firmware-update">1 Test Firmware for PineTime Firmware Update</a><ul></ul></li>
-<li><a href="#video-of-pinetime-firmware-update-test">2 Video of PineTime Firmware Update Test</a><ul></ul></li>
-<li><a href="#test-log-for-pinetime-firmware-update">3 Test Log for PineTime Firmware Update</a><ul>
-<li><a href="#before-pinetime-reboot">3.1 Before PineTime Reboot</a><ul></ul></li>
-<li><a href="#after-pinetime-reboot">3.2 After PineTime Reboot</a><ul></ul></li></ul></li>
-<li><a href="#pinetime-firmware-update-with-newt-mananger">4 PineTime Firmware Update with Newt Mananger</a><ul></ul></li>
-<li><a href="#further-reading">5 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/dfutest-title.png" alt="Wireless Firmware Update In Action on PineTime Smart Watch" /></p>
+<li><a href="#update-relocate-the-interrupt-vector-table">2 Update: Relocate the Interrupt Vector Table</a><ul></ul></li>
+<li><a href="#video-of-pinetime-firmware-update-test">3 Video of PineTime Firmware Update Test</a><ul></ul></li>
+<li><a href="#test-log-for-pinetime-firmware-update">4 Test Log for PineTime Firmware Update</a><ul>
+<li><a href="#before-pinetime-reboot">4.1 Before PineTime Reboot</a><ul></ul></li>
+<li><a href="#after-pinetime-reboot">4.2 After PineTime Reboot</a><ul></ul></li></ul></li>
+<li><a href="#pinetime-firmware-update-with-newt-mananger">5 PineTime Firmware Update with Newt Mananger</a><ul></ul></li>
+<li><a href="#further-reading">6 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/dfutest-title.png" alt="Wireless Firmware Update In Action on PineTime Smart Watch" /></p>
 <p><em>Wireless Firmware Update In Action on PineTime Smart Watch</em></p>
 <p>We have implemented a <strong>Wireless Firmware Update</strong> feature for <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a> that's described here...</p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
@@ -118,12 +119,19 @@
 <tr><td align="left">Application Firmware for Semihosting</td><td align="left">1.2.0</td><td align="left"><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.2/my_sensor_app_1.2.img"><code>my_sensor_app_1.2.img</code></a></td><td align="left"><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2"><code>v4.1.2</code></a></td><td align="left">External SPI Flash</td><td align="left"><code>0x0004 0000</code></td><td align="left">Contains MCUBoot Image Header and Mynewt OS with Rust. Shows &quot;<code>PINETIME 1.2</code>&quot; (Semihosting is enabled)</td></tr>
 <tr><td align="left">Application Firmware for JLink</td><td align="left">1.2.0</td><td align="left"><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.2/my_sensor_app_nosemi_1.2.img"><code>my_sensor_app_nosemi_1.2.img</code></a></td><td align="left"><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2"><code>v4.1.2</code></a></td><td align="left">External SPI Flash</td><td align="left"><code>0x0004 0000</code></td><td align="left">Contains MCUBoot Image Header and Mynewt OS with Rust. Shows &quot;<code>PINETIME 1.2</code>&quot; (Semihosting is disabled)</td></tr>
 </tbody></table>
-<p>We provide two versions of the new firmware for easier testing. The build version numbers were specified in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/image-app.sh"><code>scripts/nrf52/image-app.sh</code></a></p>
+<p>We provide two firmware versions (1.1.0 and 1.2.0) for easier testing. The build version numbers were specified in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/image-app.sh"><code>scripts/nrf52/image-app.sh</code></a></p>
 <p>To use the Firmware Image Files with the nRF Connect App, we need to rename the file extension from <code>.img</code> to <code>.bin</code> after downloading (e.g. <code>my_sensor_app_1.1.bin</code>)</p>
 <p>Note that <code>.bin</code> files may be found in the <a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1"><code>v4.1.1</code></a> and <a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2"><code>v4.1.2</code></a> downloads, but these <code>.bin</code> files should not be used for Firmware Updates because they don't have the MCUBoot Image Header.</p>
 <p>So always download the <code>.img</code> files and then rename them to <code>.bin</code>.</p>
 <p>The <code>.img</code> files were created with the <code>imgtool.py</code> command-line tool <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">described here</a>.</p>
-<h1 id="video-of-pinetime-firmware-update-test" class="section-header"><a href="#video-of-pinetime-firmware-update-test">2 Video of PineTime Firmware Update Test</a></h1>
+<h1 id="update-relocate-the-interrupt-vector-table" class="section-header"><a href="#update-relocate-the-interrupt-vector-table">2 Update: Relocate the Interrupt Vector Table</a></h1>
+<p>[ Update: This section is new ]</p>
+<p>While testing <a href="https://github.com/JF002/Pinetime">FreeRTOS</a> with MCUBoot, we encountered a problem with the Interrupt Vector Table...</p>
+<p>TODO</p>
+<p>Here is the updated MCUBoot Bootloader that relocates the Interrupt Vector Table before starting the Application Firmware...</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.7"><code>pinetime-rust-mynewt/releases/tag/v4.1.7</code></a></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.5">More about the Interrupt Vector Table</a></p>
+<h1 id="video-of-pinetime-firmware-update-test" class="section-header"><a href="#video-of-pinetime-firmware-update-test">3 Video of PineTime Firmware Update Test</a></h1>
 <p>Here's the video of the Wireless Firmware Upgrade from version 1.0.0 to 1.1.0...</p>
 <ul>
 <li>
@@ -272,9 +280,9 @@ Downloaded from <a href="https://github.com/lupyuen/pinetime-rust-mynewt/release
 <p><code>02:55</code> - Mynewt Application Firmware <strong>renders some shapes</strong> and the message &quot;<code>PINETIME 1.1</code>&quot;</p>
 </li>
 </ul>
-<h1 id="test-log-for-pinetime-firmware-update" class="section-header"><a href="#test-log-for-pinetime-firmware-update">3 Test Log for PineTime Firmware Update</a></h1>
+<h1 id="test-log-for-pinetime-firmware-update" class="section-header"><a href="#test-log-for-pinetime-firmware-update">4 Test Log for PineTime Firmware Update</a></h1>
 <p>Here's the PineTime log for the above test, captured from the ST-Link OpenOCD debugger...</p>
-<h2 id="before-pinetime-reboot" class="section-header"><a href="#before-pinetime-reboot">3.1 Before PineTime Reboot</a></h2>
+<h2 id="before-pinetime-reboot" class="section-header"><a href="#before-pinetime-reboot">4.1 Before PineTime Reboot</a></h2>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Starting</span> <span class="ident">Bootloader</span>...
 <span class="ident">Displaying</span> <span class="ident">image</span>...
@@ -307,7 +315,7 @@ Downloaded from <a href="https://github.com/lupyuen/pinetime-rust-mynewt/release
 <span class="ident">Rust</span> <span class="ident">test</span> <span class="ident">display</span>
 <span class="ident">target</span> <span class="ident">halted</span> <span class="ident">due</span> <span class="ident">to</span> <span class="ident">breakpoint</span>, <span class="ident">current</span> <span class="ident">mode</span>: <span class="ident">Thread</span> 
 <span class="ident">xPSR</span>: <span class="number">0x61000000</span> <span class="ident">pc</span>: <span class="number">0x000081d8</span> <span class="ident">psp</span>: <span class="number">0x20006a78</span>, <span class="ident">semihosting</span></pre></div>
-<h2 id="after-pinetime-reboot" class="section-header"><a href="#after-pinetime-reboot">3.2 After PineTime Reboot</a></h2>
+<h2 id="after-pinetime-reboot" class="section-header"><a href="#after-pinetime-reboot">4.2 After PineTime Reboot</a></h2>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Starting</span> <span class="ident">Bootloader</span>...
 <span class="ident">Displaying</span> <span class="ident">image</span>...
@@ -338,7 +346,7 @@ Downloaded from <a href="https://github.com/lupyuen/pinetime-rust-mynewt/release
   <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
 <span class="ident">Flash</span> <span class="ident">OK</span>
 <span class="ident">Rust</span> <span class="ident">test</span> <span class="ident">display</span></pre></div>
-<h1 id="pinetime-firmware-update-with-newt-mananger" class="section-header"><a href="#pinetime-firmware-update-with-newt-mananger">4 PineTime Firmware Update with Newt Mananger</a></h1>
+<h1 id="pinetime-firmware-update-with-newt-mananger" class="section-header"><a href="#pinetime-firmware-update-with-newt-mananger">5 PineTime Firmware Update with Newt Mananger</a></h1>
 <p>To understand the Firmware Update in detail, we'll use the <a href="http://mynewt.apache.org/latest/newtmgr/index.html"><strong>Newt Manager</strong></a> command-line tool to reproduce each step of the Firmware Update.  The shell script may be found here: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/nrf52/test-dfu.sh"><code>test-dfu.sh</code></a></p>
 <p>For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Bluetooth Dongle (because the onboard Bluetooth adapter is not detected by Ubuntu).</p>
 <ol>
@@ -631,7 +639,7 @@ without specifying the image hash value in the command...</p>
 </li>
 </ol>
 <p>The steps were derived from this Mynewt tutorial: <a href="https://mynewt.apache.org/latest/tutorials/devmgmt/ota_upgrade_nrf52.html"><code>ota_upgrade_nrf52.html</code></a></p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">5 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">6 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
 
