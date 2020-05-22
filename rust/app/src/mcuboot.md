@@ -96,7 +96,7 @@ bsp.flash_map:
             size:    3376kB
 ```
 
-_TODO: Active and Standby Firmware Images should be extended by 12 KB. Scratch Area and User File System should be moved down by 12 KB_
+_TODO: `0x7f00` to `0x7fff` is reserved for the relocated Vector Table. Active and Standby Firmware Images should be extended by 12 KB. Scratch Area and User File System should be moved down by 12 KB._
 
 [More about PineTime's SPI Flash](https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash)
 
@@ -110,7 +110,7 @@ Here's the layout for __PineTime's Flash ROM__...
 | &nbsp;&nbsp;&nbsp;&nbsp; Scratch Area          | `0x0007 C000`  | 4 KB |
 |<br>|||
 
-_TODO: Active Firmware Image should be extended by 12 KB. Scratch Area should be moved down by 12 KB_
+_TODO: `0x7f00` to `0x7fff` is reserved for the relocated Vector Table. Active Firmware Image should be extended by 12 KB. Scratch Area should be moved down by 12 KB_
 
 And the layout for __PineTime's SPI Flash__...
 

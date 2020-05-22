@@ -148,7 +148,7 @@ bsp.flash_map:
             offset:  0x000b4000
             size:    3376kB
 </code></pre>
-<p><em>TODO: Active and Standby Firmware Images should be extended by 12 KB. Scratch Area and User File System should be moved down by 12 KB</em></p>
+<p><em>TODO: <code>0x7f00</code> to <code>0x7fff</code> is reserved for the relocated Vector Table. Active and Standby Firmware Images should be extended by 12 KB. Scratch Area and User File System should be moved down by 12 KB.</em></p>
 <p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash">More about PineTime's SPI Flash</a></p>
 <p>Here's the layout for <strong>PineTime's Flash ROM</strong>...</p>
 <table><thead><tr><th align="left">     Flash ROM Area</th><th align="left">Address</th><th align="right">Size</th></tr></thead><tbody>
@@ -158,7 +158,7 @@ bsp.flash_map:
 <tr><td align="left">     Scratch Area</td><td align="left"><code>0x0007 C000</code></td><td align="right">4 KB</td></tr>
 <tr><td align="left"><br></td><td align="left"></td><td align="right"></td></tr>
 </tbody></table>
-<p><em>TODO: Active Firmware Image should be extended by 12 KB. Scratch Area should be moved down by 12 KB</em></p>
+<p><em>TODO: <code>0x7f00</code> to <code>0x7fff</code> is reserved for the relocated Vector Table. Active Firmware Image should be extended by 12 KB. Scratch Area should be moved down by 12 KB</em></p>
 <p>And the layout for <strong>PineTime's SPI Flash</strong>...</p>
 <table><thead><tr><th align="left">     SPI Flash Area</th><th align="left">Address</th><th align="right">Size</th></tr></thead><tbody>
 <tr><td align="left">     Bootloader Assets</td><td align="left"><code>0x0000 0000</code></td><td align="right">256 KB</td></tr>
