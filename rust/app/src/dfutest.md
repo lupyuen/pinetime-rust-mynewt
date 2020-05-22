@@ -758,6 +758,8 @@ The testing was done with the new version of MCUBoot that relocates the Vector T
 
 [`pinetime-rust-mynewt/releases/tag/v4.1.7`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.7)
 
+And this FreeRTOS firmware image: [`jf.bin`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.5/jf.bin)
+
 # Further Reading
 
 [Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
