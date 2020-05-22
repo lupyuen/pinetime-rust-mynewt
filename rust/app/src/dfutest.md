@@ -748,6 +748,22 @@ The steps were derived from this Mynewt tutorial: [`ota_upgrade_nrf52.html`](htt
 
     - [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.8/dfu-freertos-rotated.mp4)
 
+    Here's the PineTime log captured with ST-Link and OpenOCD...
+
+    ```
+    Starting Bootloader...
+    Displaying image...
+    Image displayed
+    Check button: 0
+    [INF] Primary image: magic=good, swap_type=0x4, copy_done=0x1, image_ok=0x1
+    [INF] Scratch: magic=bad, swap_type=0x1, copy_done=0x2, image_ok=0x2
+    [INF] Boot source: none
+    [INF] Swap type: test
+    Waiting 5 seconds for button: 0...
+    Waited for button: 0
+    Bootloader done    
+    ```
+
 1. And after rebooting, PineTime rolls back the firmware from FreeRTOS to Mynewt...
 
     - [Watch on YouTube](https://youtu.be/0FIYZ9tlI-Q)

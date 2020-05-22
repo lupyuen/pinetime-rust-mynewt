@@ -704,6 +704,20 @@ without specifying the image hash value in the command...</p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.8/dfu-freertos-rotated.mp4">Download the video</a></p>
 </li>
 </ul>
+<p>Here's the PineTime log captured with ST-Link and OpenOCD...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Starting</span> <span class="ident">Bootloader</span>...
+<span class="ident">Displaying</span> <span class="ident">image</span>...
+<span class="ident">Image</span> <span class="ident">displayed</span>
+<span class="ident">Check</span> <span class="ident">button</span>: <span class="number">0</span>
+[<span class="ident">INF</span>] <span class="ident">Primary</span> <span class="ident">image</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">good</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x4</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x1</span>
+[<span class="ident">INF</span>] <span class="ident">Scratch</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">bad</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x2</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x2</span>
+[<span class="ident">INF</span>] <span class="ident">Boot</span> <span class="ident">source</span>: <span class="ident">none</span>
+[<span class="ident">INF</span>] <span class="ident">Swap</span> <span class="kw">type</span>: <span class="ident">test</span>
+<span class="ident">Waiting</span> <span class="number">5</span> <span class="ident">seconds</span> <span class="kw">for</span> <span class="ident">button</span>: <span class="number">0</span>...
+<span class="ident">Waited</span> <span class="kw">for</span> <span class="ident">button</span>: <span class="number">0</span>
+<span class="ident">Bootloader</span> <span class="ident">done</span>    </pre></div>
 </li>
 <li>
 <p>And after rebooting, PineTime rolls back the firmware from FreeRTOS to Mynewt...</p>
