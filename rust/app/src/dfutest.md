@@ -111,6 +111,40 @@ We need to __Relocate the Vector Table.__ When the MCUBoot Bootloader is about t
 
 Then MCUBoot sets the VTOR Register in the Arm CPU's System Control Block to point to the Relocated Vector Table: `0x7F00`. The code for Vector Table Relocation is here: [`libs/pinetime_boot/src/pinetime_boot.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c#L102-L132)
 
+```c
+/// Relocate the Arm Vector Table from vector_table to relocated_vector_table.
+/// relocated_vector_table must be aligned to 0x100 page boundary.
+static void relocate_vector_table(void *vector_table, void *relocated_vector_table) {
+    uint32_t *current_location = (uint32_t *) vector_table;
+    uint32_t *new_location     = (uint32_t *) relocated_vector_table;
+    if (new_location == current_location) { return; }  //  No need to relocate
+    //  Check whether we need to copy the vectors.
+    int vector_diff = 0;  //  Non-zero if a vector is different
+    for (int i = 0; i < NVIC_NUM_VECTORS; i++) {
+        if (new_location[i] != current_location[i]) {
+            vector_diff = 1;
+            break;
+        }
+    }
+    //  If we need to copy the vectors, erase the flash ROM and write the vectors.
+    if (vector_diff) {
+        hal_flash_erase(  //  Erase...
+            0,            //  Internal Flash ROM
+            (uint32_t) relocated_vector_table,  //  At the relocated address
+            0x100         //  Assume that we erase an entire page
+        );
+        hal_flash_write(  //  Write...
+            0,            //  Internal Flash ROM
+            (uint32_t) relocated_vector_table,  //  To the relocated address
+            vector_table, //  From the original address
+            0x100         //  Assume that we copy an entire page
+        );  
+    }
+    //  Point VTOR Register in the System Control Block to the relocated vector table.
+    *SCB_VTOR = (uint32_t) relocated_vector_table;
+}
+```
+
 Here is the updated MCUBoot Bootloader that correctly relocates the Interrupt Vector Table before starting the Application Firmware...
 
 [`pinetime-rust-mynewt/releases/tag/v4.1.7`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.7)
@@ -701,6 +735,28 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
     Note that `Swap type` is `none`, which means that MCUBoot didn't swap any firmware images.
 
 The steps were derived from this Mynewt tutorial: [`ota_upgrade_nrf52.html`](https://mynewt.apache.org/latest/tutorials/devmgmt/ota_upgrade_nrf52.html)
+
+# Update: Test Firmware Update with FreeRTOS
+
+[ Update: This section is new ]
+
+[FreeRTOS](https://github.com/JF002/Pinetime) has been tested successfully with Firmware Update on PineTime...
+
+1. PineTime installed with Mynewt firmware can be updated wirelessly to FreeRTOS...
+
+    - [Watch on YouTube](https://youtu.be/OeHS3SEOB88)
+
+    - [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.8/dfu-freertos-rotated.mp4)
+
+1. And after rebooting, PineTime rolls back the firmware from FreeRTOS to Mynewt...
+
+    - [Watch on YouTube](https://youtu.be/0FIYZ9tlI-Q)
+
+    - [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.8/freertos-rollback-rotated.mp4)
+
+The testing was done with the new version of MCUBoot that relocates the Vector Table...
+
+[`pinetime-rust-mynewt/releases/tag/v4.1.7`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.7)
 
 # Further Reading
 

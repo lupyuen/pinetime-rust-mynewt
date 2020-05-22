@@ -60,7 +60,8 @@
 <li><a href="#before-pinetime-reboot">4.1 Before PineTime Reboot</a><ul></ul></li>
 <li><a href="#after-pinetime-reboot">4.2 After PineTime Reboot</a><ul></ul></li></ul></li>
 <li><a href="#pinetime-firmware-update-with-newt-mananger">5 PineTime Firmware Update with Newt Mananger</a><ul></ul></li>
-<li><a href="#further-reading">6 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/dfutest-title.png" alt="Wireless Firmware Update In Action on PineTime Smart Watch" /></p>
+<li><a href="#update-test-firmware-update-with-freertos">6 Update: Test Firmware Update with FreeRTOS</a><ul></ul></li>
+<li><a href="#further-reading">7 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/dfutest-title.png" alt="Wireless Firmware Update In Action on PineTime Smart Watch" /></p>
 <p><em>Wireless Firmware Update In Action on PineTime Smart Watch</em></p>
 <p>We have implemented a <strong>Wireless Firmware Update</strong> feature for <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a> that's described here...</p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
@@ -145,6 +146,38 @@
 <p><em>How do we switch between the two Vector Tables?</em></p>
 <p>We need to <strong>Relocate the Vector Table.</strong> When the MCUBoot Bootloader is about to start the Application Firmware, it copies the firmware's Vector Table (from <code>0x8020</code>) to a page-aligned address in Internal Flash ROM: <code>0x7F00</code></p>
 <p>Then MCUBoot sets the VTOR Register in the Arm CPU's System Control Block to point to the Relocated Vector Table: <code>0x7F00</code>. The code for Vector Table Relocation is here: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c#L102-L132"><code>libs/pinetime_boot/src/pinetime_boot.c</code></a></p>
+<pre><code class="language-c">/// Relocate the Arm Vector Table from vector_table to relocated_vector_table.
+/// relocated_vector_table must be aligned to 0x100 page boundary.
+static void relocate_vector_table(void *vector_table, void *relocated_vector_table) {
+    uint32_t *current_location = (uint32_t *) vector_table;
+    uint32_t *new_location     = (uint32_t *) relocated_vector_table;
+    if (new_location == current_location) { return; }  //  No need to relocate
+    //  Check whether we need to copy the vectors.
+    int vector_diff = 0;  //  Non-zero if a vector is different
+    for (int i = 0; i &lt; NVIC_NUM_VECTORS; i++) {
+        if (new_location[i] != current_location[i]) {
+            vector_diff = 1;
+            break;
+        }
+    }
+    //  If we need to copy the vectors, erase the flash ROM and write the vectors.
+    if (vector_diff) {
+        hal_flash_erase(  //  Erase...
+            0,            //  Internal Flash ROM
+            (uint32_t) relocated_vector_table,  //  At the relocated address
+            0x100         //  Assume that we erase an entire page
+        );
+        hal_flash_write(  //  Write...
+            0,            //  Internal Flash ROM
+            (uint32_t) relocated_vector_table,  //  To the relocated address
+            vector_table, //  From the original address
+            0x100         //  Assume that we copy an entire page
+        );  
+    }
+    //  Point VTOR Register in the System Control Block to the relocated vector table.
+    *SCB_VTOR = (uint32_t) relocated_vector_table;
+}
+</code></pre>
 <p>Here is the updated MCUBoot Bootloader that correctly relocates the Interrupt Vector Table before starting the Application Firmware...</p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.7"><code>pinetime-rust-mynewt/releases/tag/v4.1.7</code></a></p>
 <p><a href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0552a/BABIFJFG.html">Arm Documentation on Vector Table</a></p>
@@ -657,7 +690,36 @@ without specifying the image hash value in the command...</p>
 </li>
 </ol>
 <p>The steps were derived from this Mynewt tutorial: <a href="https://mynewt.apache.org/latest/tutorials/devmgmt/ota_upgrade_nrf52.html"><code>ota_upgrade_nrf52.html</code></a></p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">6 Further Reading</a></h1>
+<h1 id="update-test-firmware-update-with-freertos" class="section-header"><a href="#update-test-firmware-update-with-freertos">6 Update: Test Firmware Update with FreeRTOS</a></h1>
+<p>[ Update: This section is new ]</p>
+<p><a href="https://github.com/JF002/Pinetime">FreeRTOS</a> has been tested successfully with Firmware Update on PineTime...</p>
+<ol>
+<li>
+<p>PineTime installed with Mynewt firmware can be updated wirelessly to FreeRTOS...</p>
+<ul>
+<li>
+<p><a href="https://youtu.be/OeHS3SEOB88">Watch on YouTube</a></p>
+</li>
+<li>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.8/dfu-freertos-rotated.mp4">Download the video</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p>And after rebooting, PineTime rolls back the firmware from FreeRTOS to Mynewt...</p>
+<ul>
+<li>
+<p><a href="https://youtu.be/0FIYZ9tlI-Q">Watch on YouTube</a></p>
+</li>
+<li>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.8/freertos-rollback-rotated.mp4">Download the video</a></p>
+</li>
+</ul>
+</li>
+</ol>
+<p>The testing was done with the new version of MCUBoot that relocates the Vector Table...</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.7"><code>pinetime-rust-mynewt/releases/tag/v4.1.7</code></a></p>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">7 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
 
