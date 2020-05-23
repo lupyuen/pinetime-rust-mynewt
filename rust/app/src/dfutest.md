@@ -56,7 +56,7 @@ If MCUBoot Bootloader for Semihosting doesn't start on PineTime, try using MCUBo
 
 While testing Firmware Update, download and select one of the following Firmware Images in nRF Connect (or Newt Manager)...
 
-| Firmware Component | Version | Binary File | From | Flash To | At Address | Remarks |
+| Firmware Image | Version | Binary File | From | Flash To | At Address | Remarks |
 | :--- | :--- |  :--- |  :--- |  :--- |  :--- | :--- |
 | Mynewt Firmware for Semihosting | 1.1.0 | [`my_sensor_app_1.1.img`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.2/my_sensor_app_1.1.img) | [`v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2) | External SPI Flash | `0x0004 0000` | Contains MCUBoot Image Header and Mynewt OS with Rust. Shows "`PINETIME 1.1`" (Semihosting is enabled)
 | Mynewt Firmware for JLink | 1.1.0 | [`my_sensor_app_nosemi_1.1.img`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.2/my_sensor_app_nosemi_1.1.img) | [`v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2) | External SPI Flash | `0x0004 0000` | Contains MCUBoot Image Header and Mynewt OS with Rust. Shows "`PINETIME 1.1`" (Semihosting is disabled)
