@@ -30,13 +30,7 @@ Read on to learn what happens inside PineTime during Firmware Update.
 
 # Test Firmware for PineTime Firmware Update
 
-The PineTime firmware files used for testing Firmware Update are located here...
-
-[`pinetime-rust-mynewt/releases/tag/v4.1.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1)
-
-[`pinetime-rust-mynewt/releases/tag/v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2)
-
-[`pinetime-rust-mynewt/releases/tag/v4.1.4`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.4)
+The PineTime firmware files used for testing Firmware Update are documented in the table below.
 
 We provide 2 versions of each firmware file to be flashed...
 
@@ -46,32 +40,31 @@ We provide 2 versions of each firmware file to be flashed...
 
 The Semihosting Build Options are defined here: [Bootloader Options](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_boot/pkg.yml), [Application Firmware Options](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_my_sensor/pkg.yml)
 
-Before the Firmware Update test, the following files were flashed manually to PineTime (via ST-Link or Raspberry Pi)...
+Before testing Firmware Update, the MCUBoot Bootloader AND Mynewt Firmware should be flashed manually to PineTime (via ST-Link or Raspberry Pi). Select either the Semihosting version or the JLink version...
 
 | Firmware Component | Version | Binary File | From | Flash To | At Address | Remarks |
 | :--- | :--- |  :--- |  :--- |  :--- |  :--- | :--- |
-| MCUBoot Bootloader for Semihosting | 1.0.0 | [`mynewt.elf.bin`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.1/mynewt.elf.bin) | [`v4.1.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1) | Internal Flash ROM | `0x0000 0000` | Use this bootloader if you're debugging with ST-Link or Raspberry Pi (Semihosting is enabled)
-| MCUBoot Bootloader for JLink | 1.0.0 | [`mynewt-nosemi.elf.bin`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.4/mynewt_nosemi.elf.bin) | [`v4.1.4`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.4) | Internal Flash ROM | `0x0000 0000` | Use this bootloader if you're debugging with JLink (Semihosting is disabled)
-| Application Firmware for Semihosting | 1.0.0 | [`my_sensor_app.img`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.1/my_sensor_app.img) | [`v4.1.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1) | Internal Flash ROM | `0x0000 8000` | Contains MCUBoot Image Header and Mynewt OS with Rust. Shows "`I AM PINETIME`" (Semihosting is enabled)
-| Application Firmware for JLink | 1.0.0 | [`my_sensor_app_nosemi.img`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.4/my_sensor_app_nosemi.img) | [`v4.1.4`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.4) | Internal Flash ROM | `0x0000 8000` | Contains MCUBoot Image Header and Mynewt OS with Rust. Shows "`I AM PINETIME`" (Semihosting is disabled)
+| MCUBoot Bootloader for Semihosting | 1.0.0 | [`mynewt.elf.bin`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.7/mynewt.elf.bin) | [`v4.1.7`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.7) | Internal Flash ROM | `0x0000 0000` | Use this bootloader if you're debugging with ST-Link or Raspberry Pi (Semihosting is enabled)
+| MCUBoot Bootloader for JLink | 1.0.0 | [`mynewt-nosemi.elf.bin`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.7/mynewt_nosemi.elf.bin) | [`v4.1.7`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.7) | Internal Flash ROM | `0x0000 0000` | Use this bootloader if you're debugging with JLink (Semihosting is disabled)
+| Mynewt Firmware for Semihosting | 1.0.0 | [`my_sensor_app.img`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.1/my_sensor_app.img) | [`v4.1.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1) | Internal Flash ROM | `0x0000 8000` | Contains MCUBoot Image Header and Mynewt OS with Rust. Shows "`I AM PINETIME`" (Semihosting is enabled)
+| Mynewt Firmware for JLink | 1.0.0 | [`my_sensor_app_nosemi.img`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.4/my_sensor_app_nosemi.img) | [`v4.1.4`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.4) | Internal Flash ROM | `0x0000 8000` | Contains MCUBoot Image Header and Mynewt OS with Rust. Shows "`I AM PINETIME`" (Semihosting is disabled)
 | Boot Graphic (Optional) | 1.0.0 | [`boot-graphic.bin`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.1/boot-graphic.bin) | [`v4.1.1`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.1) | External SPI Flash | `0x0000 0000` | Hand-drawn PineTime Logo in RGB565 format, 240 x 240 pixels, 2 bytes per pixel
+
+[ Update: The above links have been updated with the new MCUBoot Bootloader that relocates the Vector Table ]
 
 If MCUBoot Bootloader for Semihosting doesn't start on PineTime, try using MCUBoot Bootloader for JLink.
 
-For the Boot Graphic: Use this tool to convert a 240 x 240 PNG file to RGB565...
-
-[`github.com/lupyuen/pinetime-graphic`](https://github.com/lupyuen/pinetime-graphic)
-
-During the Firmware Update test, one of the following files will be selected in nRF Connect or Newt Manager for Firmware Update...
+While testing Firmware Update, download and select one of the following Firmware Images in nRF Connect (or Newt Manager)...
 
 | Firmware Component | Version | Binary File | From | Flash To | At Address | Remarks |
 | :--- | :--- |  :--- |  :--- |  :--- |  :--- | :--- |
-| Application Firmware for Semihosting | 1.1.0 | [`my_sensor_app_1.1.img`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.2/my_sensor_app_1.1.img) | [`v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2) | External SPI Flash | `0x0004 0000` | Contains MCUBoot Image Header and Mynewt OS with Rust. Shows "`PINETIME 1.1`" (Semihosting is enabled)
-| Application Firmware for JLink | 1.1.0 | [`my_sensor_app_nosemi_1.1.img`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.2/my_sensor_app_nosemi_1.1.img) | [`v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2) | External SPI Flash | `0x0004 0000` | Contains MCUBoot Image Header and Mynewt OS with Rust. Shows "`PINETIME 1.1`" (Semihosting is disabled)
-| Application Firmware for Semihosting | 1.2.0 | [`my_sensor_app_1.2.img`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.2/my_sensor_app_1.2.img) | [`v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2) | External SPI Flash | `0x0004 0000` | Contains MCUBoot Image Header and Mynewt OS with Rust. Shows "`PINETIME 1.2`" (Semihosting is enabled)
-| Application Firmware for JLink | 1.2.0 | [`my_sensor_app_nosemi_1.2.img`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.2/my_sensor_app_nosemi_1.2.img) | [`v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2) | External SPI Flash | `0x0004 0000` | Contains MCUBoot Image Header and Mynewt OS with Rust. Shows "`PINETIME 1.2`" (Semihosting is disabled)
+| Mynewt Firmware for Semihosting | 1.1.0 | [`my_sensor_app_1.1.img`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.2/my_sensor_app_1.1.img) | [`v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2) | External SPI Flash | `0x0004 0000` | Contains MCUBoot Image Header and Mynewt OS with Rust. Shows "`PINETIME 1.1`" (Semihosting is enabled)
+| Mynewt Firmware for JLink | 1.1.0 | [`my_sensor_app_nosemi_1.1.img`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.2/my_sensor_app_nosemi_1.1.img) | [`v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2) | External SPI Flash | `0x0004 0000` | Contains MCUBoot Image Header and Mynewt OS with Rust. Shows "`PINETIME 1.1`" (Semihosting is disabled)
+| Mynewt Firmware for Semihosting | 1.2.0 | [`my_sensor_app_1.2.img`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.2/my_sensor_app_1.2.img) | [`v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2) | External SPI Flash | `0x0004 0000` | Contains MCUBoot Image Header and Mynewt OS with Rust. Shows "`PINETIME 1.2`" (Semihosting is enabled)
+| Mynewt Firmware for JLink | 1.2.0 | [`my_sensor_app_nosemi_1.2.img`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.2/my_sensor_app_nosemi_1.2.img) | [`v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2) | External SPI Flash | `0x0004 0000` | Contains MCUBoot Image Header and Mynewt OS with Rust. Shows "`PINETIME 1.2`" (Semihosting is disabled)
+| FreeRTOS Firmware |  | [`jf.bin`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.5/jf.bin) | [`v4.1.5`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.5) | External SPI Flash | `0x0004 0000` | Contains MCUBoot Image Header and [FreeRTOS](https://github.com/JF002/Pinetime). Shows a digital watch face (Semihosting is disabled)
 
-We provide two firmware versions (1.1.0 and 1.2.0) for easier testing. The build version numbers were specified in [`scripts/nrf52/image-app.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/image-app.sh)
+We provide two Mynewt firmware versions (1.1.0 and 1.2.0) for testing firmware swapping. The build version numbers were specified in [`scripts/nrf52/image-app.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/image-app.sh)
 
 To use the Firmware Image Files with the nRF Connect App, we need to rename the file extension from `.img` to `.bin` after downloading (e.g. `my_sensor_app_1.1.bin`)
 
@@ -80,6 +73,12 @@ Note that `.bin` files may be found in the [`v4.1.1`](https://github.com/lupyuen
 So always download the `.img` files and then rename them to `.bin`.
 
 The `.img` files were created with the `imgtool.py` command-line tool [described here](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu).
+
+_Can we customise the Boot Graphic?_
+
+Use this tool to convert a 240 x 240 PNG file to RGB565: [`github.com/lupyuen/pinetime-graphic`](https://github.com/lupyuen/pinetime-graphic)
+
+Unfortunately we don't have an easy way to flash the RGB565 Boot Graphic to External SPI Flash at address `0x0`. The flashing needs to be done in C like this: [`libs/pinetime_boot/write.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/write.c)
 
 # Update: Relocate the Interrupt Vector Table
 
