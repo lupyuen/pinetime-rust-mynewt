@@ -64,7 +64,7 @@ While testing Firmware Update, download and select one of the following Firmware
 | Mynewt Firmware for JLink | 1.2.0 | [`my_sensor_app`<br>`_nosemi`<br>`_1.2.img`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.2/my_sensor_app_nosemi_1.2.img) | [`v4.1.2`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.2) | External SPI Flash | `0x0004 0000` | Contains MCUBoot Image Header and Mynewt OS with Rust. Shows "`PINETIME 1.2`" (Semihosting is disabled)
 | FreeRTOS Firmware | 1.1.0 | [`jf.bin`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.5/jf.bin) | [`v4.1.5`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.1.5) | External SPI Flash | `0x0004 0000` | Contains MCUBoot Image Header and [FreeRTOS](https://github.com/JF002/Pinetime). Shows a digital watch face (Semihosting is disabled)
 
-We provide two Mynewt firmware versions (1.1.0 and 1.2.0) for testing firmware swapping. The build version numbers were specified in [`scripts/nrf52/image-app.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/image-app.sh)
+We provide two Mynewt firmware versions (1.1.0 and 1.2.0) for testing firmware swapping. The Mynewt firmware files were built from [`pinetime-rust-mynewt/ota2`](https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2) and the build version numbers were specified in [`scripts/nrf52/image-app.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/image-app.sh)
 
 To use the Firmware Image Files with the nRF Connect App, we need to rename the file extension from `.img` to `.bin` after downloading (e.g. `my_sensor_app_1.1.bin`)
 
