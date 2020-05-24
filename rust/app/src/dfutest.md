@@ -775,6 +775,12 @@ The testing was done with the new version of MCUBoot that relocates the Vector T
 
 And this FreeRTOS firmware image: [`jf.bin`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.5/jf.bin)
 
+With a newer build of FreeRTOS, we were able to switch wirelessly from FreeRTOS to Mynewt...
+
+[`twitter.com/codingfield/status/1264280065799368705`](https://twitter.com/codingfield/status/1264280065799368705?s=20)
+
+Hence we have successfully accomplished Two-Way Wireless Firmware Switching: From Mynewt to FreeRTOS and back.
+
 # Further Reading
 
 [Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
