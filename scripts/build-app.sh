@@ -183,7 +183,7 @@ $ar_cmd s $micropython_dest
 
 #  Run the Mynewt build, which will link with the Rust app, Rust libraries and libcore.
 #  For verbose build: newt build -v -p $mynewt_build_app
-echo ; echo "----- Build Mynewt and link with Rust app" 
+echo ; echo "----- Build Mynewt and link with Rust and MicroPython" 
 set -x
 newt build $mynewt_build_app
 
