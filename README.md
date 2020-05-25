@@ -19,7 +19,7 @@
 #
 -->
 
-# PineTime Smart Watch Firmware with Apache Mynewt and Embedded Rust and MicroPython
+# PineTime Smart Watch Firmware with Apache Mynewt, Embedded Rust and MicroPython
 
 This `micropython` branch contains the firmware source code for PineTime Smart Watch with Apache Mynewt, Embedded Rust, Wireless Firmware Updates and MicroPython based on these repos...
 
