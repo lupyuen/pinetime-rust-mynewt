@@ -73,8 +73,7 @@ use chip8::handle_touch;        //  Use the touch handler from the CHIP8 Emulato
 #[cfg(not(any(feature = "ui_app", feature = "visual_app", feature = "chip8_app")))]  //  If neither druid UI app nor Visual Rust app are enabled...
 pub fn handle_touch(_x: u16, _y: u16) { console::print("touch not handled\n"); console::flush(); }  //  Define a touch handler that does nothing
 
-///  Main program that initialises the sensor, network driver and starts reading and sending sensor data in the background.
-///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
+///  Rust Main Function main() will be called at Mynewt startup. It replaces the C version of the main() function.
 #[no_mangle]                 //  Don't mangle the name "main"
 extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
     //  Initialise the Mynewt packages and internal temperature sensor driver. Any startup
