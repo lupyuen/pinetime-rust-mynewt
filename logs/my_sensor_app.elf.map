@@ -859,7 +859,7 @@ ble_att_stats       0x0               /Users/Luppy/PineTime/pinetime-rust-mynewt
 ble_gattc_stats     0x0               /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_gattc.o)
 g_ble_ll_rnum_data  0xc               /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_rand.o)
 ble_ll_stats        0x0               /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll.o)
-micropython_heap    0x4000            /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/micropython/libs_micropython.a(main.o)
+micropython_heap    0x8000            /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/micropython/libs_micropython.a(main.o)
 g_os_last_ctx_sw_time
                     0x4               /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_sched.o)
 ble_hs_enabled_state
@@ -23271,7 +23271,7 @@ END GROUP
                 0x000000002000048c                . = ALIGN (0x4)
                 0x000000002000048c                __bssnz_end__ = .
 
-.bss            0x0000000020000490     0x948c load address 0x000000000005bff0
+.bss            0x0000000020000490     0xd48c load address 0x000000000005bff0
                 0x0000000020000490                . = ALIGN (0x4)
                 0x0000000020000490                __bss_start__ = .
  *(.bss*)
@@ -23680,129 +23680,129 @@ END GROUP
                 0x0000000020004b7c                g_os_task_list
  COMMON         0x0000000020004b84        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_time.o)
                 0x0000000020004b84                g_os_time
- COMMON         0x0000000020004b88     0x4000 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/micropython/libs_micropython.a(main.o)
+ COMMON         0x0000000020004b88     0x8000 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/micropython/libs_micropython.a(main.o)
                 0x0000000020004b88                micropython_heap
- COMMON         0x0000000020008b88      0x280 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/micropython/libs_micropython.a(mpstate.o)
-                0x0000000020008b88                mp_state_ctx
- COMMON         0x0000000020008e08        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/sysdown/sys_sysdown.a(sysdown.o)
-                0x0000000020008e08                sysdown_active
- *fill*         0x0000000020008e09        0x3 
- COMMON         0x0000000020008e0c        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_os_tick.o)
-                0x0000000020008e0c                g_hal_os_tick
- COMMON         0x0000000020008e18       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_spi.o)
-                0x0000000020008e18                nrf52_hal_spi0
- COMMON         0x0000000020008e40       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_timer.o)
-                0x0000000020008e40                nrf52_hal_timer5
- *fill*         0x0000000020008e5c        0x4 
- COMMON         0x0000000020008e60       0x70 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/sensor/hw_sensor.a(sensor.o)
-                0x0000000020008e60                sensor_mgr
-                0x0000000020008e94                st_up_osco
-                0x0000000020008eb8                sensor_base_ts
- COMMON         0x0000000020008ed0        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/imgmgr/mgmt_imgmgr.a(imgmgr.o)
-                0x0000000020008ed0                imgmgr_dfu_callbacks_fn
- COMMON         0x0000000020008ed4        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/newtmgr/mgmt_newtmgr.a(newtmgr.o)
-                0x0000000020008ed4                nmgr_evq
- COMMON         0x0000000020008ed8       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/newtmgr/transport/ble/mgmt_newtmgr_transport_ble.a(newtmgr_ble.o)
-                0x0000000020008ed8                ble_nt
-                0x0000000020008ef8                g_ble_nmgr_attr_handle
-                0x0000000020008efc                nmgr_ble_mq
- COMMON         0x0000000020008f14       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/net/oic/net_oic.a(adaptor.o)
-                0x0000000020008f14                oc_transports
- COMMON         0x0000000020008f34      0x122 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll.o)
-                0x0000000020008f34                g_ble_ll_task
-                0x0000000020008f84                g_dev_addr
-                0x0000000020008f8c                ble_ll_stats
-                0x0000000020008f8c                g_ble_ll_data
-                0x0000000020009050                g_random_addr
- *fill*         0x0000000020009056        0x2 
- COMMON         0x0000000020009058       0x84 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_adv.o)
-                0x0000000020009058                g_ble_ll_cur_adv_sm
-                0x000000002000905c                g_ble_ll_adv_sm
- *fill*         0x00000000200090dc        0x4 
- COMMON         0x00000000200090e0      0x1c8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_conn.o)
-                0x00000000200090e0                g_ble_ll_conn_active_list
-                0x00000000200090e4                g_ble_ll_conn_comp_ev
-                0x00000000200090e8                g_ble_ll_conn_cur_sm
-                0x00000000200090ec                g_ble_ll_conn_free_list
-                0x00000000200090ec                ble_ll_conn_stats
-                0x00000000200090f4                g_ble_ll_conn_params
-                0x000000002000910c                g_ble_ll_conn_create_sm
-                0x0000000020009110                g_ble_ll_conn_sm
- COMMON         0x00000000200092a8       0x2c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_rand.o)
-                0x00000000200092a8                g_ble_ll_rnum_data
-                0x00000000200092b4                g_ble_ll_rnum_buf
- COMMON         0x00000000200092d4       0xfc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_resolv.o)
-                0x00000000200092d4                g_ble_ll_resolv_list
-                0x00000000200093a8                g_ble_ll_resolv_data
- COMMON         0x00000000200093d0       0x50 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_scan.o)
-                0x00000000200093d0                g_ble_ll_scan_rsp_advs
- COMMON         0x0000000020009420       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_sched.o)
-                0x0000000020009420                g_ble_ll_sched_xtal_ticks
-                0x0000000020009424                g_ble_ll_sched_timer
-                0x000000002000943c                g_ble_ll_sched_offset_ticks
-                0x0000000020009440                g_ble_ll_sched_q
- COMMON         0x0000000020009448       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_whitelist.o)
-                0x0000000020009448                g_ble_ll_whitelist
- COMMON         0x0000000020009488       0x45 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/drivers/nrf52/nimble_drivers_nrf52.a(ble_hw.o)
-                0x0000000020009488                g_nrf_irk_list
-                0x00000000200094c8                g_ble_rng_isr_cb
-                0x00000000200094cc                g_nrf_num_irks
- *fill*         0x00000000200094cd        0x3 
- COMMON         0x00000000200094d0      0x161 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/drivers/nrf52/nimble_drivers_nrf52.a(ble_phy.o)
-                0x00000000200094d0                ble_phy_stats
-                0x00000000200094d0                g_nrf_encrypt_scratchpad
-                0x00000000200095dc                g_ble_phy_data
-                0x0000000020009610                g_nrf_ccm_data
- *fill*         0x0000000020009631        0x3 
- COMMON         0x0000000020009634       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs.o)
-                0x0000000020009634                ble_hs_max_client_configs
-                0x0000000020009636                ble_hs_max_attrs
-                0x0000000020009638                ble_hs_enabled_state
-                0x000000002000963a                ble_hs_max_services
-                0x000000002000963c                ble_hs_sync_state
-                0x0000000020009640                ble_hs_hci_ev_pool
-                0x000000002000965c                ble_hs_stats
- COMMON         0x000000002000965c        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs_hci.o)
-                0x000000002000965c                ble_hs_hci_avail_pkts
- *fill*         0x000000002000965e        0x2 
- COMMON         0x0000000020009660        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs_misc.o)
-                0x0000000020009660                ble_hs_misc_null_addr
- *fill*         0x0000000020009666        0x2 
- COMMON         0x0000000020009668       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_l2cap.o)
-                0x0000000020009668                ble_l2cap_chan_pool
-                0x0000000020009684                ble_l2cap_stats
- *fill*         0x0000000020009684        0x4 
- COMMON         0x0000000020009688      0x270 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/store/config/nimble_host_store_config.a(ble_store_config.o)
-                0x0000000020009688                ble_store_config_num_our_secs
-                0x0000000020009690                ble_store_config_our_secs
-                0x0000000020009780                ble_store_config_peer_secs
-                0x0000000020009870                ble_store_config_num_cccds
-                0x0000000020009874                ble_store_config_cccds
-                0x00000000200098f4                ble_store_config_num_peer_secs
- COMMON         0x00000000200098f8        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/config/sys_config.a(config.o)
-                0x00000000200098f8                conf_handlers
- COMMON         0x00000000200098fc        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/config/sys_config.a(config_store.o)
-                0x00000000200098fc                conf_save_dst
-                0x0000000020009900                conf_load_srcs
- COMMON         0x0000000020009904        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/flash_map/sys_flash_map.a(flash_map.o)
-                0x0000000020009904                flash_map_entries
-                0x0000000020009908                flash_map
- COMMON         0x000000002000990c        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/reboot/sys_reboot.a(log_reboot.o)
-                0x000000002000990c                reboot_cnt
- *fill*         0x000000002000990e        0x2 
- COMMON         0x0000000020009910        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
-                0x0000000020009910                boot_current_slot
- COMMON         0x0000000020009914        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libc/baselibc/libc_baselibc.a(srand48.o)
-                0x0000000020009914                __rand48_seed
-                0x000000002000991c                . = ALIGN (0x4)
- *fill*         0x000000002000991a        0x2 
-                0x000000002000991c                __bss_end__ = .
-                0x0000000020009920                . = ALIGN (0x8)
-                0x0000000020009920                __HeapBase = .
+ COMMON         0x000000002000cb88      0x280 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/micropython/libs_micropython.a(mpstate.o)
+                0x000000002000cb88                mp_state_ctx
+ COMMON         0x000000002000ce08        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/sysdown/sys_sysdown.a(sysdown.o)
+                0x000000002000ce08                sysdown_active
+ *fill*         0x000000002000ce09        0x3 
+ COMMON         0x000000002000ce0c        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_os_tick.o)
+                0x000000002000ce0c                g_hal_os_tick
+ COMMON         0x000000002000ce18       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_spi.o)
+                0x000000002000ce18                nrf52_hal_spi0
+ COMMON         0x000000002000ce40       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_timer.o)
+                0x000000002000ce40                nrf52_hal_timer5
+ *fill*         0x000000002000ce5c        0x4 
+ COMMON         0x000000002000ce60       0x70 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/sensor/hw_sensor.a(sensor.o)
+                0x000000002000ce60                sensor_mgr
+                0x000000002000ce94                st_up_osco
+                0x000000002000ceb8                sensor_base_ts
+ COMMON         0x000000002000ced0        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/imgmgr/mgmt_imgmgr.a(imgmgr.o)
+                0x000000002000ced0                imgmgr_dfu_callbacks_fn
+ COMMON         0x000000002000ced4        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/newtmgr/mgmt_newtmgr.a(newtmgr.o)
+                0x000000002000ced4                nmgr_evq
+ COMMON         0x000000002000ced8       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/newtmgr/transport/ble/mgmt_newtmgr_transport_ble.a(newtmgr_ble.o)
+                0x000000002000ced8                ble_nt
+                0x000000002000cef8                g_ble_nmgr_attr_handle
+                0x000000002000cefc                nmgr_ble_mq
+ COMMON         0x000000002000cf14       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/net/oic/net_oic.a(adaptor.o)
+                0x000000002000cf14                oc_transports
+ COMMON         0x000000002000cf34      0x122 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll.o)
+                0x000000002000cf34                g_ble_ll_task
+                0x000000002000cf84                g_dev_addr
+                0x000000002000cf8c                ble_ll_stats
+                0x000000002000cf8c                g_ble_ll_data
+                0x000000002000d050                g_random_addr
+ *fill*         0x000000002000d056        0x2 
+ COMMON         0x000000002000d058       0x84 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_adv.o)
+                0x000000002000d058                g_ble_ll_cur_adv_sm
+                0x000000002000d05c                g_ble_ll_adv_sm
+ *fill*         0x000000002000d0dc        0x4 
+ COMMON         0x000000002000d0e0      0x1c8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_conn.o)
+                0x000000002000d0e0                g_ble_ll_conn_active_list
+                0x000000002000d0e4                g_ble_ll_conn_comp_ev
+                0x000000002000d0e8                g_ble_ll_conn_cur_sm
+                0x000000002000d0ec                g_ble_ll_conn_free_list
+                0x000000002000d0ec                ble_ll_conn_stats
+                0x000000002000d0f4                g_ble_ll_conn_params
+                0x000000002000d10c                g_ble_ll_conn_create_sm
+                0x000000002000d110                g_ble_ll_conn_sm
+ COMMON         0x000000002000d2a8       0x2c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_rand.o)
+                0x000000002000d2a8                g_ble_ll_rnum_data
+                0x000000002000d2b4                g_ble_ll_rnum_buf
+ COMMON         0x000000002000d2d4       0xfc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_resolv.o)
+                0x000000002000d2d4                g_ble_ll_resolv_list
+                0x000000002000d3a8                g_ble_ll_resolv_data
+ COMMON         0x000000002000d3d0       0x50 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_scan.o)
+                0x000000002000d3d0                g_ble_ll_scan_rsp_advs
+ COMMON         0x000000002000d420       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_sched.o)
+                0x000000002000d420                g_ble_ll_sched_xtal_ticks
+                0x000000002000d424                g_ble_ll_sched_timer
+                0x000000002000d43c                g_ble_ll_sched_offset_ticks
+                0x000000002000d440                g_ble_ll_sched_q
+ COMMON         0x000000002000d448       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_whitelist.o)
+                0x000000002000d448                g_ble_ll_whitelist
+ COMMON         0x000000002000d488       0x45 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/drivers/nrf52/nimble_drivers_nrf52.a(ble_hw.o)
+                0x000000002000d488                g_nrf_irk_list
+                0x000000002000d4c8                g_ble_rng_isr_cb
+                0x000000002000d4cc                g_nrf_num_irks
+ *fill*         0x000000002000d4cd        0x3 
+ COMMON         0x000000002000d4d0      0x161 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/drivers/nrf52/nimble_drivers_nrf52.a(ble_phy.o)
+                0x000000002000d4d0                ble_phy_stats
+                0x000000002000d4d0                g_nrf_encrypt_scratchpad
+                0x000000002000d5dc                g_ble_phy_data
+                0x000000002000d610                g_nrf_ccm_data
+ *fill*         0x000000002000d631        0x3 
+ COMMON         0x000000002000d634       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs.o)
+                0x000000002000d634                ble_hs_max_client_configs
+                0x000000002000d636                ble_hs_max_attrs
+                0x000000002000d638                ble_hs_enabled_state
+                0x000000002000d63a                ble_hs_max_services
+                0x000000002000d63c                ble_hs_sync_state
+                0x000000002000d640                ble_hs_hci_ev_pool
+                0x000000002000d65c                ble_hs_stats
+ COMMON         0x000000002000d65c        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs_hci.o)
+                0x000000002000d65c                ble_hs_hci_avail_pkts
+ *fill*         0x000000002000d65e        0x2 
+ COMMON         0x000000002000d660        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs_misc.o)
+                0x000000002000d660                ble_hs_misc_null_addr
+ *fill*         0x000000002000d666        0x2 
+ COMMON         0x000000002000d668       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_l2cap.o)
+                0x000000002000d668                ble_l2cap_chan_pool
+                0x000000002000d684                ble_l2cap_stats
+ *fill*         0x000000002000d684        0x4 
+ COMMON         0x000000002000d688      0x270 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/store/config/nimble_host_store_config.a(ble_store_config.o)
+                0x000000002000d688                ble_store_config_num_our_secs
+                0x000000002000d690                ble_store_config_our_secs
+                0x000000002000d780                ble_store_config_peer_secs
+                0x000000002000d870                ble_store_config_num_cccds
+                0x000000002000d874                ble_store_config_cccds
+                0x000000002000d8f4                ble_store_config_num_peer_secs
+ COMMON         0x000000002000d8f8        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/config/sys_config.a(config.o)
+                0x000000002000d8f8                conf_handlers
+ COMMON         0x000000002000d8fc        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/config/sys_config.a(config_store.o)
+                0x000000002000d8fc                conf_save_dst
+                0x000000002000d900                conf_load_srcs
+ COMMON         0x000000002000d904        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+                0x000000002000d904                flash_map_entries
+                0x000000002000d908                flash_map
+ COMMON         0x000000002000d90c        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/reboot/sys_reboot.a(log_reboot.o)
+                0x000000002000d90c                reboot_cnt
+ *fill*         0x000000002000d90e        0x2 
+ COMMON         0x000000002000d910        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x000000002000d910                boot_current_slot
+ COMMON         0x000000002000d914        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libc/baselibc/libc_baselibc.a(srand48.o)
+                0x000000002000d914                __rand48_seed
+                0x000000002000d91c                . = ALIGN (0x4)
+ *fill*         0x000000002000d91a        0x2 
+                0x000000002000d91c                __bss_end__ = .
+                0x000000002000d920                . = ALIGN (0x8)
+                0x000000002000d920                __HeapBase = .
 
-.stack_dummy    0x0000000020009920      0x1b0 load address 0x000000000005bff0
+.stack_dummy    0x000000002000d920      0x1b0 load address 0x000000000005bff0
  *(.stack*)
- .stack         0x0000000020009920      0x1b0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
+ .stack         0x000000002000d920      0x1b0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
                 0x0000000020000000                _ram_start = ORIGIN (RAM)
                 0x0000000020010000                __StackTop = (ORIGIN (RAM) + LENGTH (RAM))
                 0x000000002000fe50                __StackLimit = (__StackTop - SIZEOF (.stack_dummy))
