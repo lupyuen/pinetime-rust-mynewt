@@ -24,7 +24,9 @@ _How shall we make it better?_
 
     Test drive
 
-1. Common App: Android, iOS and PinePhone?
+1. Companion App: Android, iOS and PinePhone?
+
+    For updating wasp-os firmware? And REPL?
 
     Raspberry Pi (with onboard Bluetooth)
 
@@ -65,31 +67,50 @@ Plenty of risks...
 This is an experiment
 
 Bare bones
+
 Display clock: SPI, GPIO
+
 And the challenges ahead
 
-Ecosystem
-Wireless firmware update
-Common Filesystem
-Common bootloader
-Common dfu
-Companion app
-Drive test
-Limited multitasking
-Semihosting console
-Rust
+# Porting nRF to Mynewt
+
+TODO
 
 # GPIO Driver
 
+TODO
+
 # SPI Driver
+
+TODO
 
 # I2C Driver
 
+TODO
+
 # Heap Memory
+
+TODO
 
 # Semihosting Console
 
+TODO
+
+# Task Scheduler
+
+TODO
+
+# VSCode Workspace
+
+TODO
+
+# Debug with VSCode and ST-Link
+
+TODO
+
 # Testing wasp-os and MicroPython with Mynewt
+
+TODO
 
 _["MCUBoot Bootloader for PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot)_
 
