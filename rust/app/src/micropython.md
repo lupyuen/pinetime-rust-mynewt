@@ -70,25 +70,19 @@ There are plenty of risks in running wasp-os and MicroPython on Mynewt instead o
 
 1. __MicroPython is Dynamic__
 
-    Flexible, easy-to-use memory management
-    Allocates objects from Heap Memory
-    Garbage collection
+    MicroPython allocates objects in Heap Memory. When Heap Memory runs low, the Garbage Collector sweeps the memory and reclaims space for new objects.
 
     Traditional embedded operating systems are engineered to be highly predictable and less flexible. Objects live in Static Memory and on the Stack, not in Heap Memory.
     
     _Embedded operating systems like Mynewt will get spooked by Dynamic Objects in MicroPython!_
 
-1. Heap memory
+    Heap Memory needs to be managed really carefully with Mynewt.
 
 1. Multitasking single stack
-
-1. Repl
 
 1. Wasp-os dependency
 
     https://github.com/micropython/micropython/tree/master/ports/nrf
-
-1. Task scheduler
 
 1. And most ominous of all: I have failed before!
 
