@@ -4,12 +4,69 @@
 
 _MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch_
 
-Wasp-os MicroPython
-Easy scripting
-Watch apps
+[wasp-os](https://wasp-os.readthedocs.io/en/latest/README.html), built with [MicroPython](https://micropython.org/), is highly popular with folks coding the [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) for the very first time...
+
+1. No easier way to create a Watch App!
+
+    Easy scripting
+
+    repl
+
+wasp-os works great on Bare Metal (i.e. PineTime hardware).
+
+_How shall we make it better?_
+
+1. Easier Installation
+
+    What if PineTime Owners can unbox their smart watch... 
+
+    Other FreeRTOS, Mynewt, ...
+
+    Test drive
+
+1. Common App: Android, iOS and PinePhone?
+
+    Raspberry Pi (with onboard Bluetooth)
+
+1. Simpler Firmware Debugging with Raspberry Pi, VSCode and Semihosting Console
+
+1. Preemptive Multitasking
+
+1. Best Buddies with other operating systems
+
+We could port NimBLE, MCUBoot and MCU Manager Library to MicroPython
+
+Or we could host wasp-os and MicroPython on Mynewt, which already includes NimBLE, MCUBoot and MCU Manager
 
 Zephyr
-Compare with nrf port
+
+https://github.com/micropython/micropython/tree/master/ports/zephyr
+
+_What could go wrong?_
+
+Plenty of risks...
+
+1. Dynamic language
+
+1. Heap memory
+
+1. Multitasking single stack
+
+1. Repl
+
+1. Wasp-os dependency
+
+    https://github.com/micropython/micropython/tree/master/ports/nrf
+
+1. Task scheduler
+
+1. Second attempt: https://github.com/lupyuen/bluepill-micropython
+
+This is an experiment
+
+Bare bones
+Display clock: SPI, GPIO
+And the challenges ahead
 
 Ecosystem
 Wireless firmware update
@@ -22,23 +79,17 @@ Limited multitasking
 Semihosting console
 Rust
 
-Dynamic language
-Heap memory
-Multitasking single stack
-Repl
-Wasp-os dependency
-Task scheduler
+# GPIO Driver
 
-Second attempt
-https://github.com/lupyuen/bluepill-micropython
+# SPI Driver
 
+# I2C Driver
 
-Bare bones
-Display clock
-And the challenges ahead
+# Heap Memory
 
+# Semihosting Console
 
-[__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) 
+# Testing wasp-os and MicroPython with Mynewt
 
 _["MCUBoot Bootloader for PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot)_
 
