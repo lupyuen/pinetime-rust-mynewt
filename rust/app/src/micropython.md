@@ -70,7 +70,13 @@ There are plenty of risks in running wasp-os and MicroPython on Mynewt instead o
 
 1. __MicroPython is Dynamic__
 
-    vs static and stack
+    Flexible, easy-to-use memory management
+    Allocates objects from Heap Memory
+    Garbage collection
+
+    Traditional embedded operating systems are engineered to be highly predictable and less flexible. Objects live in Static Memory and on the Stack, not in Heap Memory.
+    
+    _Embedded operating systems like Mynewt will get spooked by Dynamic Objects in MicroPython!_
 
 1. Heap memory
 
