@@ -22,41 +22,55 @@ Here's what I think...
 
     What if PineTime Owners can unbox their smart watches... And install wasp-os wirelessly through their phones? No more messy wiring to the SWD Port inside PineTime!
 
-    And we'll let PineTime Owners switch and test drive any operating system wirelessly: wasp-os, FreeRTOS, Mynewt, RIOT, ... Without opening their watches!
+    And we'll let PineTime Owners switch and test drive any operating system wirelessly: wasp-os, FreeRTOS, Mynewt, RIOT, Zephyr, ... Without opening their watches!
 
     We're getting ready a common bootloader and common firmware update mechanism that will be preloaded by Pine64 into PineTime watches... Would be terrific to have wasp-os and MicroPython on board!
 
-1. __Companion App: Android, iOS and PinePhone?__
+1. __PineTime Companion App for Android, iOS and PinePhone__
 
-    For updating wasp-os firmware? And REPL?
+    A common Companion App for PineTime that updates the firmware, uploads Watch Apps and lets you interact via the REPL command line... That works on Android, iOS and PinePhone!
 
-    Raspberry Pi (with onboard Bluetooth)
+    If you have a Raspberry Pi, the Companion App will run too! (Using Pi's onboard Bluetooth hardware)
 
-1. __Simpler Firmware Debugging__ with Raspberry Pi and VSCode
+    We're creating the Companion App now... And we hope to have wasp-os adopting the Simple Management Protocol that's used by Mynewt, RIOT, FreeRTOS and Zephyr.
 
-    Semihosting Console
+1. __Simpler Firmware Debugging with Raspberry Pi and VSCode__
+
+    For newbies who have mastered MicroPython programming on PineTime, perhaps they would like to dig deeper into the internals of wasp-os firmware, make some tweaks, experiment with the Bluetooth stack, ...
+
+    Let's make it easier for them to explore! Just connect a Raspberry Pi to PineTime's SWD Port (yep slightly messy) and step through the firmware code with the VSCode Debugger.
+
+    Or just study the helpful debugging messages that will be displayed in OpenOCD, thanks to the SWD Semihosting Console. (Shown in the photo above)
 
 1. __Preemptive Multitasking__
 
+    MicroPython comes with simple task management. Perhaps we should get ready to support Watch Apps that require full multitasking?
+
+    If we build a MicroPython Watch App that talks to other watches over Bluetooth Mesh... Surely we'll need some kind of background processing?
+
 1. __Best Buddies with other Operating Systems__
 
-    PineTime feels like a rowdy playground sometimes... Kids (i.e. PineTime Firmware) come and go as they please, messing up the sandbox (e.g. PineTime's SPI Flash) for the other players.
+    PineTime feels like a rowdy playground sometimes... Kids (i.e. various PineTime Firmware) come and go as they please, messing up the sandbox (e.g. PineTime's SPI Flash) for the other players.
 
-    Can we turn PineTime into a safer, happier playground for all?
+    Can we turn PineTime into a safer, happier playground for all? 
+    
+    Adopting a common filesystem (like littlefs) with fixed parameters (SPI Flash location) may help.
 
-We could port NimBLE, MCUBoot and MCU Manager Library to MicroPython
+We could port NimBLE, MCUBoot and MCU Manager Library to MicroPython. And add a sophisticated Task Scheduler.
 
-Or we could host wasp-os and MicroPython on Mynewt, which already includes NimBLE, MCUBoot and MCU Manager
+_Sounds daunting!_
 
-Zephyr
+Or we could host wasp-os and MicroPython on Mynewt, which already includes NimBLE, MCUBoot, MCU Manager and preemptive multitasking.
 
-https://github.com/micropython/micropython/tree/master/ports/zephyr
+Hosting MicroPython on another operating system isn't that new... It has been done with [Zephyr](https://github.com/micropython/micropython/tree/master/ports/zephyr), which is similar to Mynewt.
 
 _What could go wrong?_
 
-Plenty of risks...
+There are plenty of risks in running wasp-os and MicroPython on Mynewt instead of Bare Metal...
 
-1. Dynamic language
+1. __MicroPython is Dynamic__
+
+    vs static and stack
 
 1. Heap memory
 
@@ -76,7 +90,7 @@ Plenty of risks...
 
     Second attempt: https://github.com/lupyuen/bluepill-micropython
 
-This is an experiment
+This is an experimental assessment feasibility and it seems hopeful. Read on for the details.
 
 Bare bones
 
