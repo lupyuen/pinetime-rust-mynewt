@@ -6,35 +6,43 @@ _MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch_
 
 [wasp-os](https://wasp-os.readthedocs.io/en/latest/README.html), built with [MicroPython](https://micropython.org/), is highly popular with folks coding the [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) for the very first time...
 
-1. No easier way to create a Watch App!
+_Because there's no easier way to create a Watch App for PineTime!_
 
-    Easy scripting
+Just write a simple Python script, upload it wirelessly to wasp-os and watch it run!
 
-    repl
+And if the script doesn't work right? Just connect over Bluetooth and troubleshoot live with the REPL (Read-Eval-Print Loop) command line!
 
-wasp-os works great on Bare Metal (i.e. PineTime hardware).
+Today wasp-os works great on Bare Metal (i.e. PineTime hardware). It doesn't require an embedded operating system, because the underlying MicroPython runtime serves as a bare-bones operating system.
 
-_How shall we make it better?_
+_How shall we make wasp-os better?_
 
-1. Easier Installation
+Here's what I think...
 
-    What if PineTime Owners can unbox their smart watch... 
+1. __Easier Installation__
 
-    Other FreeRTOS, Mynewt, ...
+    What if PineTime Owners can unbox their smart watches... And install wasp-os wirelessly through their phones? No more messy wiring to the SWD Port inside PineTime!
 
-    Test drive
+    And we'll let PineTime Owners switch and test drive any operating system wirelessly: wasp-os, FreeRTOS, Mynewt, RIOT, ... Without opening their watches!
 
-1. Companion App: Android, iOS and PinePhone?
+    We're getting ready a common bootloader and common firmware update mechanism that will be preloaded by Pine64 into PineTime watches... Would be terrific to have wasp-os and MicroPython on board!
+
+1. __Companion App: Android, iOS and PinePhone?__
 
     For updating wasp-os firmware? And REPL?
 
     Raspberry Pi (with onboard Bluetooth)
 
-1. Simpler Firmware Debugging with Raspberry Pi, VSCode and Semihosting Console
+1. __Simpler Firmware Debugging__ with Raspberry Pi and VSCode
 
-1. Preemptive Multitasking
+    Semihosting Console
 
-1. Best Buddies with other operating systems
+1. __Preemptive Multitasking__
+
+1. __Best Buddies with other Operating Systems__
+
+    PineTime feels like a rowdy playground sometimes... Kids (i.e. PineTime Firmware) come and go as they please, messing up the sandbox (e.g. PineTime's SPI Flash) for the other players.
+
+    Can we turn PineTime into a safer, happier playground for all?
 
 We could port NimBLE, MCUBoot and MCU Manager Library to MicroPython
 
@@ -62,7 +70,11 @@ Plenty of risks...
 
 1. Task scheduler
 
-1. Second attempt: https://github.com/lupyuen/bluepill-micropython
+1. And most ominous of all: I have failed before!
+
+    But now I'm older, wiser and I have much better hardware (PineTime vs Blue Pill)
+
+    Second attempt: https://github.com/lupyuen/bluepill-micropython
 
 This is an experiment
 
