@@ -246,7 +246,7 @@
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " set -e -x ; rustdoc --output docs/articles --html-in-header scripts/rustdoc-header.html --html-before-content scripts/rustdoc-before.html rust/app/src/dfutest.md ; cargo doc --document-private-items ; echo ✅ ◾ ️Done! target/thumbv7m-none-eabi/doc "
+                    " set -e -x ; rustdoc --output docs/articles --html-in-header scripts/rustdoc-header.html --html-before-content scripts/rustdoc-before.html rust/app/src/micropython.md ; cargo doc --document-private-items ; echo ✅ ◾ ️Done! target/thumbv7m-none-eabi/doc "
                 ]
             },
             "linux": {
