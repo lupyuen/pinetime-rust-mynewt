@@ -120,7 +120,7 @@
 </li>
 </ol>
 <h1 id="host-micropython-and-wasp-os-on-mynewt" class="section-header"><a href="#host-micropython-and-wasp-os-on-mynewt">2 Host MicroPython and wasp-os on Mynewt</a></h1>
-<p>To make wasp-os truly awesome, we could add to MicroPython the following open source components...</p>
+<p>To make wasp-os truly awesome with interoperable firmware updates (and a common companion app), we could add to MicroPython the following open source components...</p>
 <ol>
 <li>
 <p><a href="https://github.com/apache/mynewt-nimble">NimBLE Bluetooth Networking Stack</a></p>
@@ -135,10 +135,9 @@
 <p>And a sophisticated Task Scheduler</p>
 </li>
 </ol>
-<p>Like this...</p>
 <p><img src="https://lupyuen.github.io/images/micropython-mynewt1.png" alt="MicroPython and wasp-os without Mynewt" /></p>
 <p><em>Looks daunting!</em></p>
-<p>Or we could host wasp-os and MicroPython on Mynewt, which already includes NimBLE, MCUBoot, MCU Manager and <a href="https://mynewt.apache.org/latest/os/core_os/mynewt_os.html">Preemptive Multitasking</a>...</p>
+<p>Or we could <strong>host wasp-os and MicroPython on Mynewt,</strong> which already includes NimBLE, MCUBoot, MCU Manager and <a href="https://mynewt.apache.org/latest/os/core_os/mynewt_os.html">Preemptive Multitasking</a>...</p>
 <p><img src="https://lupyuen.github.io/images/micropython-mynewt2.png" alt="MicroPython and wasp-os hosted on Mynewt" /></p>
 <p>That's the approach we'll explore. Hosting MicroPython on another operating system isn't new... It has been done with <a href="https://github.com/micropython/micropython/tree/master/ports/zephyr">Zephyr</a>, which is similar to Mynewt.</p>
 <p><em>What could go wrong?</em></p>
@@ -146,8 +145,8 @@
 <ol>
 <li>
 <p><strong>MicroPython is Dynamic, Mynewt is Not</strong></p>
-<p>MicroPython allocates objects in Heap Memory. When Heap Memory runs low, the Garbage Collector sweeps the memory and reclaims space for new objects.</p>
-<p>Traditional embedded operating systems are engineered to be highly predictable and less flexible. Objects live in Static Memory and Stack Memory, not in Heap Memory.</p>
+<p>MicroPython allocates objects dynamically in <strong>Heap Memory.</strong> When Heap Memory runs low, the Garbage Collector sweeps the memory and reclaims space for new objects.</p>
+<p>Traditional embedded operating systems are engineered to be highly predictable and less flexible. Objects live in <strong>Static Memory and Stack Memory,</strong> not in Heap Memory.</p>
 <p><em>Embedded operating systems like Mynewt will get spooked by Dynamic Objects in MicroPython!</em></p>
 <p>Heap Memory needs to be managed really carefully with Mynewt.</p>
 </li>
@@ -171,6 +170,8 @@
 <p>Here goes the experiment to assess whether it's really feasible to improve wasp-os by hosting it on top of Mynewt. </p>
 <p>Our objective is simple: To boot up wasp-os on Mynewt and render a watch face on PineTime.</p>
 <p>Read on for the details.</p>
+<p><img src="https://lupyuen.github.io/images/micropython-watch.jpg" alt="Objective Accomplished! wasp-os rendering a watch face with Mynewt on PineTime. At right is the ST-Link debugger" /></p>
+<p><em>Objective Accomplished! wasp-os rendering a watch face with Mynewt on PineTime. At right is the ST-Link debugger</em></p>
 <h1 id="porting-nrf-to-mynewt" class="section-header"><a href="#porting-nrf-to-mynewt">3 Porting nRF to Mynewt</a></h1>
 <p>TODO</p>
 <h1 id="gpio-driver" class="section-header"><a href="#gpio-driver">4 GPIO Driver</a></h1>

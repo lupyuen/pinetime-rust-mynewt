@@ -74,7 +74,7 @@ I'm now coding these enhancements in MicroPython...
 
 # Host MicroPython and wasp-os on Mynewt
 
-To make wasp-os truly awesome, we could add to MicroPython the following open source components...
+To make wasp-os truly awesome with interoperable firmware updates (and a common companion app), we could add to MicroPython the following open source components...
 
 1. [NimBLE Bluetooth Networking Stack](https://github.com/apache/mynewt-nimble)
 
@@ -84,13 +84,11 @@ To make wasp-os truly awesome, we could add to MicroPython the following open so
 
 1. And a sophisticated Task Scheduler
 
-Like this...
-
 ![MicroPython and wasp-os without Mynewt](https://lupyuen.github.io/images/micropython-mynewt1.png)
 
 _Looks daunting!_
 
-Or we could host wasp-os and MicroPython on Mynewt, which already includes NimBLE, MCUBoot, MCU Manager and [Preemptive Multitasking](https://mynewt.apache.org/latest/os/core_os/mynewt_os.html)...
+Or we could __host wasp-os and MicroPython on Mynewt,__ which already includes NimBLE, MCUBoot, MCU Manager and [Preemptive Multitasking](https://mynewt.apache.org/latest/os/core_os/mynewt_os.html)...
 
 ![MicroPython and wasp-os hosted on Mynewt](https://lupyuen.github.io/images/micropython-mynewt2.png)
 
@@ -102,9 +100,9 @@ There are plenty of risks in running wasp-os and MicroPython on Mynewt instead o
 
 1. __MicroPython is Dynamic, Mynewt is Not__
 
-    MicroPython allocates objects in Heap Memory. When Heap Memory runs low, the Garbage Collector sweeps the memory and reclaims space for new objects.
+    MicroPython allocates objects dynamically in __Heap Memory.__ When Heap Memory runs low, the Garbage Collector sweeps the memory and reclaims space for new objects.
 
-    Traditional embedded operating systems are engineered to be highly predictable and less flexible. Objects live in Static Memory and Stack Memory, not in Heap Memory.
+    Traditional embedded operating systems are engineered to be highly predictable and less flexible. Objects live in __Static Memory and Stack Memory,__ not in Heap Memory.
     
     _Embedded operating systems like Mynewt will get spooked by Dynamic Objects in MicroPython!_
 
@@ -135,6 +133,10 @@ Here goes the experiment to assess whether it's really feasible to improve wasp-
 Our objective is simple: To boot up wasp-os on Mynewt and render a watch face on PineTime.
 
 Read on for the details.
+
+![Objective Accomplished! wasp-os rendering a watch face with Mynewt on PineTime. At right is the ST-Link debugger](https://lupyuen.github.io/images/micropython-watch.jpg)
+
+_Objective Accomplished! wasp-os rendering a watch face with Mynewt on PineTime. At right is the ST-Link debugger_
 
 # Porting nRF to Mynewt
 
