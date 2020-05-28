@@ -14,6 +14,8 @@ And if the script doesn't work right? Just connect over Bluetooth and troublesho
 
 Today wasp-os works great on Bare Metal (i.e. PineTime hardware). It doesn't require an embedded operating system, because the underlying MicroPython runtime serves as a bare-bones operating system.
 
+![MicroPython and wasp-os on PineTime](https://lupyuen.github.io/images/micropython-mynewt0.png)
+
 # Better MicroPython and wasp-os on PineTime
 
 _How shall we make wasp-os better?_
