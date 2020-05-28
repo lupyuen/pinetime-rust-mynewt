@@ -74,7 +74,7 @@ I'm now coding these enhancements in MicroPython...
 
 # Host MicroPython and wasp-os on Mynewt
 
-To make wasp-os truly awesome, we could port to MicroPython the following open source components...
+To make wasp-os truly awesome, we could add to MicroPython the following open source components...
 
 1. [NimBLE Bluetooth Networking Stack](https://github.com/apache/mynewt-nimble)
 
@@ -82,17 +82,19 @@ To make wasp-os truly awesome, we could port to MicroPython the following open s
 
 1. [MCU Manager Library](https://github.com/apache/mynewt-mcumgr) for Simple Management Protocol
 
-And add a sophisticated Task Scheduler. Like this...
+1. And a sophisticated Task Scheduler
+
+Like this...
 
 ![MicroPython and wasp-os without Mynewt](https://lupyuen.github.io/images/micropython-mynewt1.png)
 
-_Sounds daunting!_
+_Looks daunting!_
 
 Or we could host wasp-os and MicroPython on Mynewt, which already includes NimBLE, MCUBoot, MCU Manager and [Preemptive Multitasking](https://mynewt.apache.org/latest/os/core_os/mynewt_os.html)...
 
 ![MicroPython and wasp-os hosted on Mynewt](https://lupyuen.github.io/images/micropython-mynewt2.png)
 
-Hosting MicroPython on another operating system isn't new... It has been done with [Zephyr](https://github.com/micropython/micropython/tree/master/ports/zephyr), which is similar to Mynewt.
+That's the approach we'll explore. Hosting MicroPython on another operating system isn't new... It has been done with [Zephyr](https://github.com/micropython/micropython/tree/master/ports/zephyr), which is similar to Mynewt.
 
 _What could go wrong?_
 
@@ -118,29 +120,21 @@ There are plenty of risks in running wasp-os and MicroPython on Mynewt instead o
 
 1. __wasp-os Complexity__
 
-    TODO
+    By inserting an embedded operating system (Mynewt) under MicroPython, it increases the complexity of the entire wasp-os firmware.
 
-    split maintainers
-
-    https://github.com/micropython/micropython/tree/master/ports/nrf
+    We'll have to manage this complexity very carefully: We shall make changes only to the MicroPython layer, not to the wasp-os layer.
 
 1. And most ominous of all: __I have failed before!__
 
-    TODO
+    My first hacking experience with MicroPython was on [STM32 Blue Pill](https://github.com/lupyuen/bluepill-micropython)... It failed miserably.
 
-    But now I'm older, wiser and I have much better hardware (PineTime vs Blue Pill)
+    But now I'm older, wiser and I have much better hardware (PineTime vs Blue Pill)... I might succeed!
 
-    Second attempt: https://github.com/lupyuen/bluepill-micropython
+Here goes the experiment to assess whether it's really feasible to improve wasp-os by hosting it on top of Mynewt. 
 
-TODO
+Our objective is simple: To boot up wasp-os on Mynewt and render a watch face on PineTime.
 
-This is an experimental assessment feasibility and it seems hopeful. Read on for the details.
-
-Bare bones
-
-Display clock: SPI, GPIO
-
-And the challenges ahead
+Read on for the details.
 
 # Porting nRF to Mynewt
 
