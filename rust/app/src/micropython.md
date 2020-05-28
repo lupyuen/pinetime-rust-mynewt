@@ -144,6 +144,42 @@ _Objective Accomplished! wasp-os rendering a watch face with Mynewt on PineTime.
 
 TODO
 
+wasp-os and MicroPython are highly modular and super easy to extend.
+
+https://github.com/daniel-thompson/wasp-os/tree/master/wasp
+
+## Ports
+
+https://github.com/micropython/micropython/tree/master/ports/nrf
+
+https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt
+
+https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c
+
+https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/mpconfigport.h
+
+## Boards
+
+https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/boards
+
+https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/boards/pinetime/mpconfigboard.h
+
+## Device
+
+https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/device
+
+## Drivers
+
+https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/drivers
+
+## Modules
+
+https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/modules
+
+https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/modules/machine
+
+GPIO, I2C, SPI
+
 # GPIO Driver
 
 TODO
