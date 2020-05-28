@@ -184,11 +184,21 @@ GPIO, I2C, SPI
 
 TODO
 
+https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/pin.c
+
 # SPI Driver
 
 TODO
 
+https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/spi.c
+
 # I2C Driver
+
+TODO
+
+https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/i2c.c
+
+# Bluetooth Driver
 
 TODO
 
