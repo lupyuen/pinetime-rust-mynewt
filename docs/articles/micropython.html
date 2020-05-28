@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Porting MicroPython and wasp-os to Mynewt on PineTime Smart Watch (nRF52)</title>
+
+    
+    <!-- Begin scripts/rustdoc-header.html: Header for Custom Markdown files processed by rustdoc, like chip8.md -->
+<!-- TODO -->
+<meta property="og:image" content="https://lupyuen.github.io/images/micropython-title.jpg">
+<link rel="alternate" type="application/rss+xml" title="RSS Feed for lupyuen" href="/rss.xml" />
+<link rel="stylesheet" type="text/css" href="../normalize.css">
+<link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
+<link rel="stylesheet" type="text/css" href="../dark.css">
+<link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle">
+<script src="../storage.js"></script><noscript>
+<link rel="stylesheet" href="../noscript.css"></noscript>
+<link rel="shortcut icon" href="../favicon.ico">
+<style type="text/css">
+    #crate-search {
+        background-image: url("../down-arrow.svg");
+    }
+    a {
+        color: #77d;
+    }
+</style>
+<!-- End scripts/rustdoc-header.html -->
+
+
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+        <!-- Begin scripts/rustdoc-before.html: Pre-HTML for Custom Markdown files processed by rustdoc, like chip8.md -->
+
+    <!-- Begin Theme Picker -->
+    <div class="theme-picker" style="left: 0"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg"
+        width="18" alt="Pick another theme!"></button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../theme.js"></script>
+    <!-- Theme Picker -->
+
+    <!-- End scripts/rustdoc-before.html -->
+    
+
+    <h1 class="title">Porting MicroPython and wasp-os to Mynewt on PineTime Smart Watch (nRF52)</h1>
+    <nav id="TOC"><ul>
+<li><a href="#porting-nrf-to-mynewt">1 Porting nRF to Mynewt</a><ul></ul></li>
+<li><a href="#gpio-driver">2 GPIO Driver</a><ul></ul></li>
+<li><a href="#spi-driver">3 SPI Driver</a><ul></ul></li>
+<li><a href="#i2c-driver">4 I2C Driver</a><ul></ul></li>
+<li><a href="#heap-memory">5 Heap Memory</a><ul></ul></li>
+<li><a href="#semihosting-console">6 Semihosting Console</a><ul></ul></li>
+<li><a href="#task-scheduler">7 Task Scheduler</a><ul></ul></li>
+<li><a href="#vscode-workspace">8 VSCode Workspace</a><ul></ul></li>
+<li><a href="#debug-with-vscode-and-st-link">9 Debug with VSCode and ST-Link</a><ul></ul></li>
+<li><a href="#testing-wasp-os-and-micropython-with-mynewt">10 Testing wasp-os and MicroPython with Mynewt</a><ul></ul></li>
+<li><a href="#further-reading">11 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/micropython-title.jpg" alt="MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch" /></p>
+<p><em>MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch</em></p>
+<p><a href="https://wasp-os.readthedocs.io/en/latest/README.html">wasp-os</a>, built with <a href="https://micropython.org/">MicroPython</a>, is highly popular with folks coding the <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a> for the very first time...</p>
+<p><em>Because there's no easier way to create a Watch App for PineTime!</em></p>
+<p>Just write a simple Python script, upload it wirelessly to wasp-os and watch it run!</p>
+<p>And if the script doesn't work right? Just connect over Bluetooth and troubleshoot live with the REPL (Read-Eval-Print Loop) command line!</p>
+<p>Today wasp-os works great on Bare Metal (i.e. PineTime hardware). It doesn't require an embedded operating system, because the underlying MicroPython runtime serves as a bare-bones operating system.</p>
+<p><em>How shall we make wasp-os better?</em></p>
+<p>Here's what I think...</p>
+<ol>
+<li>
+<p><strong>Easier Installation</strong></p>
+<p>What if PineTime Owners can unbox their smart watches... And install wasp-os wirelessly through their phones? No more messy wiring to the SWD Port inside PineTime!</p>
+<p>And we'll let PineTime Owners switch and test drive any operating system wirelessly: wasp-os, FreeRTOS, Mynewt, RIOT, Zephyr, ... Without opening their watches!</p>
+<p>We're getting ready a common bootloader and common firmware update mechanism that will be preloaded by Pine64 into PineTime watches... Would be terrific to have wasp-os and MicroPython on board!</p>
+</li>
+<li>
+<p><strong>PineTime Companion App for Android, iOS and PinePhone</strong></p>
+<p>A common Companion App for PineTime that updates the firmware, uploads Watch Apps and lets you interact via the REPL command line... That works on Android, iOS and PinePhone!</p>
+<p>If you have a Raspberry Pi, the Companion App will run too! (Using Pi's onboard Bluetooth hardware)</p>
+<p>We're creating the Companion App now... And we hope to have wasp-os adopting the Simple Management Protocol that's used by Mynewt, RIOT, FreeRTOS and Zephyr.</p>
+</li>
+<li>
+<p><strong>Simpler Firmware Debugging with Raspberry Pi and VSCode</strong></p>
+<p>For newbies who have mastered MicroPython programming on PineTime, perhaps they would like to dig deeper into the internals of wasp-os firmware, make some tweaks, experiment with the Bluetooth stack, ...</p>
+<p>Let's make it easier for them to explore! Just connect a Raspberry Pi to PineTime's SWD Port (yep slightly messy) and step through the firmware code with the VSCode Debugger.</p>
+<p>Or just study the helpful debugging messages that will be displayed in OpenOCD, thanks to the SWD Semihosting Console. (Shown in the photo above)</p>
+</li>
+<li>
+<p><strong>Preemptive Multitasking</strong></p>
+<p>MicroPython comes with simple task management. Perhaps we should get ready to support Watch Apps that require full multitasking?</p>
+<p>If we build a MicroPython Watch App that talks to other watches over Bluetooth Mesh... Surely we'll need some kind of background processing?</p>
+</li>
+<li>
+<p><strong>Best Buddies with other Operating Systems</strong></p>
+<p>PineTime feels like a rowdy playground sometimes... Kids (i.e. various PineTime Firmware) come and go as they please, messing up the sandbox (e.g. PineTime's SPI Flash) for the other players.</p>
+<p>Can we turn PineTime into a safer, happier playground for all? </p>
+<p>Adopting a common filesystem (like littlefs) with fixed parameters (SPI Flash location) may help.</p>
+<p><img src="https://lupyuen.github.io/images/micropython-scratch.png" alt="PineTime Bootloader's Boot Graphic (stored in SPI Flash) unintentionally scratched (top left) by the firmware" /></p>
+<p><em>PineTime Bootloader's Boot Graphic (stored in SPI Flash) unintentionally scratched (top left) by the firmware</em></p>
+</li>
+</ol>
+<p>We could port NimBLE, MCUBoot and MCU Manager Library to MicroPython. And add a sophisticated Task Scheduler.</p>
+<p><em>Sounds daunting!</em></p>
+<p>Or we could host wasp-os and MicroPython on Mynewt, which already includes NimBLE, MCUBoot, MCU Manager and preemptive multitasking.</p>
+<p>Hosting MicroPython on another operating system isn't that new... It has been done with <a href="https://github.com/micropython/micropython/tree/master/ports/zephyr">Zephyr</a>, which is similar to Mynewt.</p>
+<p><em>What could go wrong?</em></p>
+<p>There are plenty of risks in running wasp-os and MicroPython on Mynewt instead of Bare Metal...</p>
+<ol>
+<li>
+<p><strong>MicroPython is Dynamic, Mynewt is Not</strong></p>
+<p>MicroPython allocates objects in Heap Memory. When Heap Memory runs low, the Garbage Collector sweeps the memory and reclaims space for new objects.</p>
+<p>Traditional embedded operating systems are engineered to be highly predictable and less flexible. Objects live in Static Memory and Stack Memory, not in Heap Memory.</p>
+<p><em>Embedded operating systems like Mynewt will get spooked by Dynamic Objects in MicroPython!</em></p>
+<p>Heap Memory needs to be managed really carefully with Mynewt.</p>
+</li>
+<li>
+<p><strong>MicroPython is blissfully unaware of Multitasking</strong></p>
+<p>MicroPython runs mostly as a single task with a single stack. Easy peasy!</p>
+<p>Mynewt runs with multiple tasks and multiple stacks. Tasks communicate by passing Events.</p>
+<p>So it gets messy when we try to give MicroPython the illusion that it's running all alone by itself... MicroPython needs to share the CPU and RAM with Mynewt tasks now.</p>
+</li>
+<li>
+<p><strong>wasp-os Dependency</strong></p>
+<p>https://github.com/micropython/micropython/tree/master/ports/nrf</p>
+</li>
+<li>
+<p>And most ominous of all: <strong>I have failed before!</strong></p>
+<p>But now I'm older, wiser and I have much better hardware (PineTime vs Blue Pill)</p>
+<p>Second attempt: https://github.com/lupyuen/bluepill-micropython</p>
+</li>
+</ol>
+<p>This is an experimental assessment feasibility and it seems hopeful. Read on for the details.</p>
+<p>Bare bones</p>
+<p>Display clock: SPI, GPIO</p>
+<p>And the challenges ahead</p>
+<h1 id="porting-nrf-to-mynewt" class="section-header"><a href="#porting-nrf-to-mynewt">1 Porting nRF to Mynewt</a></h1>
+<p>TODO</p>
+<h1 id="gpio-driver" class="section-header"><a href="#gpio-driver">2 GPIO Driver</a></h1>
+<p>TODO</p>
+<h1 id="spi-driver" class="section-header"><a href="#spi-driver">3 SPI Driver</a></h1>
+<p>TODO</p>
+<h1 id="i2c-driver" class="section-header"><a href="#i2c-driver">4 I2C Driver</a></h1>
+<p>TODO</p>
+<h1 id="heap-memory" class="section-header"><a href="#heap-memory">5 Heap Memory</a></h1>
+<p>TODO</p>
+<h1 id="semihosting-console" class="section-header"><a href="#semihosting-console">6 Semihosting Console</a></h1>
+<p>TODO</p>
+<h1 id="task-scheduler" class="section-header"><a href="#task-scheduler">7 Task Scheduler</a></h1>
+<p>TODO</p>
+<h1 id="vscode-workspace" class="section-header"><a href="#vscode-workspace">8 VSCode Workspace</a></h1>
+<p>TODO</p>
+<h1 id="debug-with-vscode-and-st-link" class="section-header"><a href="#debug-with-vscode-and-st-link">9 Debug with VSCode and ST-Link</a></h1>
+<p>TODO</p>
+<h1 id="testing-wasp-os-and-micropython-with-mynewt" class="section-header"><a href="#testing-wasp-os-and-micropython-with-mynewt">10 Testing wasp-os and MicroPython with Mynewt</a></h1>
+<p>TODO</p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash">&quot;Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)&quot;</a></em></p>
+<p>WASP-OS’s documentation</p>
+<p>https://wasp-os.readthedocs.io/en/latest/</p>
+<p>Application Writer’s Guide</p>
+<p>https://wasp-os.readthedocs.io/en/latest/appguide.html</p>
+<p>Wasp-os Reference Manual</p>
+<p>https://wasp-os.readthedocs.io/en/latest/wasp.html</p>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">11 Further Reading</a></h1>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
+<p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
+
+    
+</body>
+</html>

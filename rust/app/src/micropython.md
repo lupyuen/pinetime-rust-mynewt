@@ -1,6 +1,6 @@
 # Porting MicroPython and wasp-os to Mynewt on PineTime Smart Watch (nRF52)
 
-![MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch](https://lupyuen.github.io/images/micropython-title.jpg])
+![MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch](https://lupyuen.github.io/images/micropython-title.jpg)
 
 _MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch_
 
@@ -55,6 +55,11 @@ Here's what I think...
     Can we turn PineTime into a safer, happier playground for all? 
     
     Adopting a common filesystem (like littlefs) with fixed parameters (SPI Flash location) may help.
+
+    ![PineTime Bootloader's Boot Graphic (stored in SPI Flash) unintentionally scratched (top left) by the firmware](https://lupyuen.github.io/images/micropython-scratch.png)
+
+    _PineTime Bootloader's Boot Graphic (stored in SPI Flash) unintentionally scratched (top left) by the firmware_
+
 
 We could port NimBLE, MCUBoot and MCU Manager Library to MicroPython. And add a sophisticated Task Scheduler.
 
