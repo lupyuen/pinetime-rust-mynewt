@@ -14,6 +14,8 @@ And if the script doesn't work right? Just connect over Bluetooth and troublesho
 
 Today wasp-os works great on Bare Metal (i.e. PineTime hardware). It doesn't require an embedded operating system, because the underlying MicroPython runtime serves as a bare-bones operating system.
 
+# Better wasp-os and MicroPython on PineTime
+
 _How shall we make wasp-os better?_
 
 Here's what I think...
@@ -24,7 +26,9 @@ Here's what I think...
 
     And we'll let PineTime Owners switch and test drive any operating system wirelessly: wasp-os, FreeRTOS, Mynewt, RIOT, Zephyr, ... Without opening their watches!
 
-    We're getting ready a common bootloader and common firmware update mechanism that will be preloaded by Pine64 into PineTime watches... Would be terrific to have wasp-os and MicroPython on board!
+    We're getting ready a [Common Bootloader](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot) and [Firmware Update mechanism](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu) that will be preloaded by Pine64 into PineTime watches... Would be terrific to have wasp-os and MicroPython on board!
+
+    More about this in a while.
 
 1. __PineTime Companion App for Android, iOS and PinePhone__
 
@@ -32,7 +36,9 @@ Here's what I think...
 
     If you have a Raspberry Pi, the Companion App will run too! (Using Pi's onboard Bluetooth hardware)
 
-    We're creating the Companion App now... And we hope to have wasp-os adopting the Simple Management Protocol that's used by Mynewt, RIOT, FreeRTOS and Zephyr.
+    We're creating the Companion App now... And we hope to have wasp-os adopting the [Simple Management Protocol](https://github.com/apache/mynewt-mcumgr) that's used by Mynewt, RIOT, FreeRTOS and Zephyr.
+
+    We have a solution for this... More about this later.
 
 1. __Simpler Firmware Debugging with Raspberry Pi and VSCode__
 
@@ -60,14 +66,25 @@ Here's what I think...
 
     _PineTime Bootloader's Boot Graphic (stored in SPI Flash) unintentionally scratched (top left) by the firmware_
 
+# wasp-os and MicroPython on Mynewt
 
-We could port NimBLE, MCUBoot and MCU Manager Library to MicroPython. And add a sophisticated Task Scheduler.
+TODO
+
+To make wasp-os truly awesome, we could port to MicroPython the following open source components...
+
+1. [NimBLE Bluetooth Networking Stack](https://github.com/apache/mynewt-nimble)
+
+1. [MCUBoot Bootloader](https://juullabs-oss.github.io/mcuboot/)
+
+1. [MCU Manager Library](https://github.com/apache/mynewt-mcumgr) for Simple Management Protocol
+
+And add a sophisticated Task Scheduler.
 
 _Sounds daunting!_
 
-Or we could host wasp-os and MicroPython on Mynewt, which already includes NimBLE, MCUBoot, MCU Manager and preemptive multitasking.
+Or we could host wasp-os and MicroPython on Mynewt, which already includes NimBLE, MCUBoot, MCU Manager and [Preemptive Multitasking](https://mynewt.apache.org/latest/os/core_os/mynewt_os.html).
 
-Hosting MicroPython on another operating system isn't that new... It has been done with [Zephyr](https://github.com/micropython/micropython/tree/master/ports/zephyr), which is similar to Mynewt.
+Hosting MicroPython on another operating system isn't new... It has been done with [Zephyr](https://github.com/micropython/micropython/tree/master/ports/zephyr), which is similar to Mynewt.
 
 _What could go wrong?_
 
@@ -91,15 +108,23 @@ There are plenty of risks in running wasp-os and MicroPython on Mynewt instead o
     
     So it gets messy when we try to give MicroPython the illusion that it's running all alone by itself... MicroPython needs to share the CPU and RAM with Mynewt tasks now.
 
-1. __wasp-os Dependency__
+1. __wasp-os Complexity__
+
+    TODO
+
+    split maintainers
 
     https://github.com/micropython/micropython/tree/master/ports/nrf
 
 1. And most ominous of all: __I have failed before!__
 
+    TODO
+
     But now I'm older, wiser and I have much better hardware (PineTime vs Blue Pill)
 
     Second attempt: https://github.com/lupyuen/bluepill-micropython
+
+TODO
 
 This is an experimental assessment feasibility and it seems hopeful. Read on for the details.
 
