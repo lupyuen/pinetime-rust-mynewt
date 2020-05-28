@@ -1,8 +1,8 @@
 # Porting MicroPython and wasp-os to Mynewt on PineTime Smart Watch (nRF52)
 
-![MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch](https://lupyuen.github.io/images/micropython-title.jpg)
+![MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor](https://lupyuen.github.io/images/micropython-title.jpg)
 
-_MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch_
+_MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor_
 
 [wasp-os](https://wasp-os.readthedocs.io/en/latest/README.html), built with [MicroPython](https://micropython.org/), is highly popular with folks coding the [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) for the very first time...
 
@@ -14,11 +14,11 @@ And if the script doesn't work right? Just connect over Bluetooth and troublesho
 
 Today wasp-os works great on Bare Metal (i.e. PineTime hardware). It doesn't require an embedded operating system, because the underlying MicroPython runtime serves as a bare-bones operating system.
 
-# Better wasp-os and MicroPython on PineTime
+# Better MicroPython and wasp-os on PineTime
 
 _How shall we make wasp-os better?_
 
-Here's what I think...
+I'm now coding these enhancements in MicroPython...
 
 1. __Easier Installation__
 
@@ -46,7 +46,13 @@ Here's what I think...
 
     Let's make it easier for them to explore! Just connect a Raspberry Pi to PineTime's SWD Port (yep slightly messy) and step through the firmware code with the VSCode Debugger.
 
-    Or just study the helpful debugging messages that will be displayed in OpenOCD, thanks to the SWD Semihosting Console. (Shown in the photo above)
+    Or just study the helpful debugging messages that will be displayed in OpenOCD, thanks to the SWD Semihosting Console. 
+    
+    Check out this video of wasp-os and MicroPython debug messages displayed on the Semihosting Console with OpenOCD and VSCode...
+
+    - Watch on YouTube
+
+    - Download the video
 
 1. __Preemptive Multitasking__
 
@@ -66,7 +72,7 @@ Here's what I think...
 
     _PineTime Bootloader's Boot Graphic (stored in SPI Flash) unintentionally scratched (top left) by the firmware_
 
-# wasp-os and MicroPython on Mynewt
+# Host MicroPython and wasp-os on Mynewt
 
 TODO
 
