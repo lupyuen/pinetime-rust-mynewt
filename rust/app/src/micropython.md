@@ -50,9 +50,9 @@ I'm now coding these enhancements in MicroPython...
     
     Check out this video of wasp-os and MicroPython debug messages displayed on the Semihosting Console with OpenOCD and VSCode...
 
-    - Watch on YouTube
+    - [Watch on YouTube](https://youtu.be/_mhxvYG9Qos)
 
-    - Download the video
+    - [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.0/micropython-semihosting-rotated.mp4)
 
 1. __Preemptive Multitasking__
 
