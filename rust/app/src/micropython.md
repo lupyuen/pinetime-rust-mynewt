@@ -4,7 +4,7 @@
 
 _MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor_
 
-[wasp-os](https://wasp-os.readthedocs.io/en/latest/README.html), built with [MicroPython](https://micropython.org/), is highly popular with folks coding the [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) for the very first time...
+[__wasp-os__](https://wasp-os.readthedocs.io/en/latest/README.html), built with [__MicroPython__](https://micropython.org/), is highly popular with folks coding [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) for the very first time...
 
 _Because there's no easier way to create a Watch App for PineTime!_
 
@@ -74,8 +74,6 @@ I'm now coding these enhancements in MicroPython...
 
 # Host MicroPython and wasp-os on Mynewt
 
-TODO
-
 To make wasp-os truly awesome, we could port to MicroPython the following open source components...
 
 1. [NimBLE Bluetooth Networking Stack](https://github.com/apache/mynewt-nimble)
@@ -84,11 +82,15 @@ To make wasp-os truly awesome, we could port to MicroPython the following open s
 
 1. [MCU Manager Library](https://github.com/apache/mynewt-mcumgr) for Simple Management Protocol
 
-And add a sophisticated Task Scheduler.
+And add a sophisticated Task Scheduler. Like this...
+
+![MicroPython and wasp-os without Mynewt](https://lupyuen.github.io/images/micropython-mynewt1.png)
 
 _Sounds daunting!_
 
-Or we could host wasp-os and MicroPython on Mynewt, which already includes NimBLE, MCUBoot, MCU Manager and [Preemptive Multitasking](https://mynewt.apache.org/latest/os/core_os/mynewt_os.html).
+Or we could host wasp-os and MicroPython on Mynewt, which already includes NimBLE, MCUBoot, MCU Manager and [Preemptive Multitasking](https://mynewt.apache.org/latest/os/core_os/mynewt_os.html)...
+
+![MicroPython and wasp-os hosted on Mynewt](https://lupyuen.github.io/images/micropython-mynewt2.png)
 
 Hosting MicroPython on another operating system isn't new... It has been done with [Zephyr](https://github.com/micropython/micropython/tree/master/ports/zephyr), which is similar to Mynewt.
 
