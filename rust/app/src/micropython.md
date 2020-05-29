@@ -228,7 +228,36 @@ TODO
 
 The GPIO Driver is essential for our demo... Because PineTime's Backlight is controlled by GPIO and PineTime's screen will be totally dark without the Backlight!
 
+https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/mphalport.h
+
+```c
+#define mp_hal_pin_high(p) \
+        hal_gpio_write(p->pin, 1)
+
+#define mp_hal_pin_low(p) \
+        hal_gpio_write(p->pin, 0)
+```
+
+```c
+#define mp_hal_pin_read(p) \
+        hal_gpio_read(p->pin)
+
+#define mp_hal_pin_open_drain(p) \
+        hal_gpio_init_in(p->pin, HAL_GPIO_PULL_NONE)
+```
+
+https://mynewt.apache.org/latest/os/modules/hal/hal_gpio/hal_gpio.html
+
 https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/pin.c
+
+```c
+STATIC mp_obj_t pin_irq(
+    size_t n_args, 
+    const mp_obj_t *pos_args, 
+    mp_map_t *kw_args) { ...
+```
+
+`hal_gpio_irq_init`(https://mynewt.apache.org/latest/os/modules/hal/hal_gpio/hal_gpio.html#c.hal_gpio_irq_init)
 
 # SPI Driver
 
@@ -236,7 +265,28 @@ TODO
 
 The GPIO Driver is essential for our demo... Because PineTime's Backlight is controlled by GPIO and PineTime's screen will be totally dark without the Backlight!
 
+No init
+
 https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/spi.c
+
+```c
+void spi_transfer(
+    const machine_hard_spi_obj_t * self, 
+    size_t len, 
+    const void * src, 
+    void * dest
+) {
+    int rc = hal_spi_txrx(
+        SPI_PORT, 
+        (void *) src,   //  TX Buffer
+        dest,           //  RX Buffer
+        len             //  Length
+    );
+    if (rc != 0) { mp_raise_ValueError("SPI TX failed"); }
+}
+```
+
+https://mynewt.apache.org/latest/os/modules/hal/hal_spi/hal_spi.html#c.hal_spi_txrx
 
 # I2C Driver
 
@@ -246,17 +296,96 @@ The GPIO Driver is essential for our demo... Because PineTime's Backlight is con
 
 https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/i2c.c
 
+```c
+mp_obj_t machine_hard_i2c_make_new(
+    const mp_obj_type_t *type, 
+    size_t n_args, 
+    size_t n_kw, 
+    const mp_obj_t *all_args
+) {
+    struct hal_i2c_settings settings = {
+        .frequency = 400,  //  Set to the highest I2C frequency 400 Kbps
+    };
+    int rc = hal_i2c_config(
+        I2C_PORT, 
+        &settings
+    );
+    if (rc != 0) { mp_raise_ValueError("I2C init failed"); }
+
+    const machine_hard_i2c_obj_t *self = &machine_hard_i2c_obj[I2C_PORT];
+    return MP_OBJ_FROM_PTR(self);
+}
+```
+
+https://mynewt.apache.org/latest/os/modules/hal/hal_i2c/hal_i2c.html#c.hal_i2c_config
+
+```c
+/// Return the number of bytes transferred, or in case of error, a negative MP error code.
+int machine_hard_i2c_transfer_single(
+    mp_obj_base_t *self_in, 
+    uint16_t addr, 
+    size_t len, 
+    uint8_t *buf, 
+    unsigned int flags
+) {
+    struct hal_i2c_master_data master_data = {
+        .address = addr,
+        .len = len,
+        .buffer = buf,
+    };
+    if (flags & MP_MACHINE_I2C_FLAG_READ) {  //  If reading from I2C...
+        int rc_read = hal_i2c_master_read(
+            I2C_PORT, 
+            &master_data, 
+            I2C_TIMEOUT, 
+            1          //  1 means this is the last I2C operation. So we can terminate after this.
+        );    
+        if (rc_read != 0) { return check_i2c_return_code(rc_read); }
+    } else {  //  If writing to I2C...
+        int rc_write = hal_i2c_master_write(
+            I2C_PORT, 
+            &master_data, 
+            I2C_TIMEOUT, 
+            1        //  1 means this is the last I2C operation. So we can terminate after this.
+        );
+        if (rc_write != 0) { return check_i2c_return_code(rc_write); }
+    }
+    return len;
+}
+```
+
+https://mynewt.apache.org/latest/os/modules/hal/hal_i2c/hal_i2c.html#c.hal_i2c_master_read
+
+https://mynewt.apache.org/latest/os/modules/hal/hal_i2c/hal_i2c.html#c.hal_i2c_master_write
+
 # Heap Memory
 
 TODO
+
+Mynewt config
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml
+
+```yaml
+syscfg.vals:
+    OS_MAIN_STACK_SIZE: 2048  #  8 KB. Previously 4096 (16 KB)
+
+    # For Bluetooth LE: Lots of smaller mbufs are required for newtmgr using typical BLE ATT MTU values.
+    MSYS_1_BLOCK_COUNT:   22  #  Defaults to 12. Previously 64
+    MSYS_1_BLOCK_SIZE:   110  #  Defaults to 292
+```
 
 # Semihosting Console
 
 TODO
 
+printf
+
 # Bluetooth Driver
 
 TODO
+
+UART
 
 # Task Scheduler
 
