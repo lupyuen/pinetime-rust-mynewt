@@ -146,6 +146,14 @@ TODO
 
 wasp-os and MicroPython are highly modular and super easy to extend.
 
+Embedded Operating systems are designed to run multiple HW platforms
+Spi register
+Wraps low level hardware code
+Into high level hardware independent functions
+Send chunkof spi
+
+Hal under ports
+
 https://github.com/daniel-thompson/wasp-os/tree/master/wasp
 
 ## Ports
