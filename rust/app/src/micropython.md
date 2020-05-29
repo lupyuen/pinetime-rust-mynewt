@@ -226,7 +226,7 @@ Let's study the code for the GPIO, SPI and I2C Drivers in the Mynewt Port for Mi
 
 TODO
 
-The GPIO Driver is essential for our demo... Because PineTime's Backlight is controlled by GPIO and PineTime's screen will be totally black without the Backlight!
+The GPIO Driver is essential for our demo... Because PineTime's Backlight is controlled by GPIO and PineTime's screen will be totally dark without the Backlight!
 
 https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/pin.c
 
@@ -234,11 +234,15 @@ https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine
 
 TODO
 
+The GPIO Driver is essential for our demo... Because PineTime's Backlight is controlled by GPIO and PineTime's screen will be totally dark without the Backlight!
+
 https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/spi.c
 
 # I2C Driver
 
 TODO
+
+The GPIO Driver is essential for our demo... Because PineTime's Backlight is controlled by GPIO and PineTime's screen will be totally dark without the Backlight!
 
 https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/i2c.c
 
