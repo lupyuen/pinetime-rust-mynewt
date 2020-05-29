@@ -170,25 +170,32 @@ Configuration:
 
 MicroPython features
 
-https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/mpconfigport.h
+[`mpconfigport.h`](https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/mpconfigport.h)
 
-https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/boards/pinetime/mpconfigboard.h
+[`boards/pinetime/mpconfigboard.h`](https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/boards/pinetime/mpconfigboard.h)
 
 Pins
-
-https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/boards/pinetime/pins.csv
+[`boards/pinetime/pins.csv`](https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/boards/pinetime/pins.csv)
 
 ## Peripheral Drivers: GPIO, I2C, SPI
 
-https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/modules
-
-https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/modules/machine
+[`modules/machine`](https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/modules/machine)
 
 GPIO, I2C, SPI
 
 ## Other Drivers
 
-https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/drivers
+[`modules`](https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/modules)
+
+ble
+med
+music
+random
+ubluepy
+uos
+utime
+
+[`drivers`](https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/drivers)
 
 bluetooth
 flash ROM
@@ -196,19 +203,23 @@ softpwm
 ticker
 wdt
 
-Start MicroPython:
+## Start MicroPython
 
-https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c
+Heap Memory defined here
+
+[`main.c`](https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c)
 
 ## Reset Handler, Vector Table and Linker Script
 
-https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/device
+[`device`](https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/device)
 
 Not used. Contains Reset Handler and Vector Table of handlers for interrupts and exceptions.
 
 Replaced by ???
 
-Linker Script: https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/boards
+Linker Script
+
+[`boards`](https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/boards)
 
 Not used. Replaced by ???
 
