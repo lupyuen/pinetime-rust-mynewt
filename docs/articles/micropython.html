@@ -57,17 +57,17 @@
 <li><a href="#host-micropython-and-wasp-os-on-mynewt">2 Host MicroPython and wasp-os on Mynewt</a><ul></ul></li>
 <li><a href="#hardware-abstraction-layer-for-pinetime">3 Hardware Abstraction Layer for PineTime</a><ul></ul></li>
 <li><a href="#mynewt-port-for-micropython">4 Mynewt Port for MicroPython</a><ul>
-<li><a href="#ports">4.1 Ports</a><ul></ul></li>
-<li><a href="#boards">4.2 Boards</a><ul></ul></li>
-<li><a href="#device">4.3 Device</a><ul></ul></li>
-<li><a href="#drivers">4.4 Drivers</a><ul></ul></li>
-<li><a href="#modules">4.5 Modules</a><ul></ul></li></ul></li>
+<li><a href="#configuration">4.1 Configuration</a><ul></ul></li>
+<li><a href="#peripheral-drivers-gpio-i2c-spi">4.2 Peripheral Drivers: GPIO, I2C, SPI</a><ul></ul></li>
+<li><a href="#other-drivers">4.3 Other Drivers</a><ul></ul></li>
+<li><a href="#start-micropython">4.4 Start MicroPython</a><ul></ul></li>
+<li><a href="#reset-handler-vector-table-and-linker-script">4.5 Reset Handler, Vector Table and Linker Script</a><ul></ul></li></ul></li>
 <li><a href="#gpio-driver">5 GPIO Driver</a><ul></ul></li>
 <li><a href="#spi-driver">6 SPI Driver</a><ul></ul></li>
 <li><a href="#i2c-driver">7 I2C Driver</a><ul></ul></li>
-<li><a href="#bluetooth-driver">8 Bluetooth Driver</a><ul></ul></li>
-<li><a href="#heap-memory">9 Heap Memory</a><ul></ul></li>
-<li><a href="#semihosting-console">10 Semihosting Console</a><ul></ul></li>
+<li><a href="#heap-memory">8 Heap Memory</a><ul></ul></li>
+<li><a href="#semihosting-console">9 Semihosting Console</a><ul></ul></li>
+<li><a href="#bluetooth-driver">10 Bluetooth Driver</a><ul></ul></li>
 <li><a href="#task-scheduler">11 Task Scheduler</a><ul></ul></li>
 <li><a href="#vscode-workspace">12 VSCode Workspace</a><ul></ul></li>
 <li><a href="#debug-with-vscode-and-st-link">13 Debug with VSCode and ST-Link</a><ul></ul></li>
@@ -184,7 +184,7 @@
 <p>Embedded operating systems (like Mynewt) are designed to run on multuple hardware platforms (like PineTime). That's why they include a <a href="https://mynewt.apache.org/latest/os/modules/hal/hal.html"><strong>Hardware Abstraction Layer</strong></a> that wraps low-level <strong>hardware-specific code</strong> (like writing to SPI registers) into high-level <strong>hardware-independent functions</strong> (like sending a chunk of data to the SPI port).</p>
 <p>The Hardware Abstraction Layer is used on PineTime like this...</p>
 <p><img src="https://lupyuen.github.io/images/micropython-hal.png?1" alt="Hardware Abstraction Layer in PineTime" /></p>
-<p>In MicroPython, the Hardware Abstraction Layers for various hardware platforms are located in the <strong>Ports</strong> folder...</p>
+<p>In MicroPython, the Hardware Abstraction Layers for various hardware platforms are located in the <strong>Ports</strong> folder, coded in C...</p>
 <ul>
 <li><strong>MicroPython Ports:</strong> <a href="https://github.com/micropython/micropython/tree/master/ports"><code>github.com/micropython/micropython/ports</code></a></li>
 </ul>
@@ -198,23 +198,71 @@
 </ul>
 <p>Let's look inside the Mynewt Port.</p>
 <h1 id="mynewt-port-for-micropython" class="section-header"><a href="#mynewt-port-for-micropython">4 Mynewt Port for MicroPython</a></h1>
-<p>TODO</p>
-<h2 id="ports" class="section-header"><a href="#ports">4.1 Ports</a></h2>
-<p>https://github.com/daniel-thompson/wasp-os/tree/master/wasp</p>
-<p>https://github.com/micropython/micropython/tree/master/ports/nrf</p>
-<p>https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c</p>
-<p>https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/mpconfigport.h</p>
-<h2 id="boards" class="section-header"><a href="#boards">4.2 Boards</a></h2>
-<p>https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/boards</p>
-<p>https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/boards/pinetime/mpconfigboard.h</p>
-<h2 id="device" class="section-header"><a href="#device">4.3 Device</a></h2>
-<p>https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/device</p>
-<h2 id="drivers" class="section-header"><a href="#drivers">4.4 Drivers</a></h2>
-<p>https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/drivers</p>
-<h2 id="modules" class="section-header"><a href="#modules">4.5 Modules</a></h2>
-<p>https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/modules</p>
-<p>https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/modules/machine</p>
-<p>GPIO, I2C, SPI</p>
+<p>Remember that a MicroPython Port works like a Hardware Abstraction Layer... It contains high-level functions for accessing the GPIO, SPI and I2C hardware interfaces.  Let's learn how the Mynewt Port of MicroPython implements these high-level functions in C.</p>
+<h2 id="configuration" class="section-header"><a href="#configuration">4.1 Configuration</a></h2>
+<p>Here are the configuration files for the Mynewt Port of MicroPython...</p>
+<ul>
+<li>
+<p><a href="https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/mpconfigport.h"><code>mpconfigport.h</code></a>: Configures MicroPython Runtime features, like REPL and code compilation</p>
+</li>
+<li>
+<p><a href="https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/boards/pinetime/mpconfigboard.h"><code>boards/pinetime/mpconfigboard.h</code></a>: Configures PineTime's Hardware features, like SPI</p>
+</li>
+<li>
+<p><a href="https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/boards/pinetime/pins.csv"><code>boards/pinetime/pins.csv</code></a>: Defines PineTime's Hardware Pins and their functions (GPIO, SPI, I2C)</p>
+</li>
+</ul>
+<h2 id="peripheral-drivers-gpio-i2c-spi" class="section-header"><a href="#peripheral-drivers-gpio-i2c-spi">4.2 Peripheral Drivers: GPIO, I2C, SPI</a></h2>
+<p>PineTime's nRF52 Microcontroller has onboard functions like GPIO, I2C, SPI, UART, Timers, ... We call them <strong>Peripherals</strong>.</p>
+<ul>
+<li>
+<p><a href="https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/modules/machine"><code>modules/machine</code></a> folder contains the driver code in C for the nRF52 Peripherals</p>
+</li>
+<li>
+<p>We have reprogrammed the GPIO, SPI and I2C Drivers to work with Mynewt's Hardware Abstraction Layer. More about this later.</p>
+</li>
+<li>
+<p>Peripheral Drivers from MicroPython that we haven't ported to Mynewt: Analog-to-Digital Converter, Pulse Width Modulation, Real Time Clock, Temperature Sensor, Timer, UART</p>
+</li>
+</ul>
+<h2 id="other-drivers" class="section-header"><a href="#other-drivers">4.3 Other Drivers</a></h2>
+<p>There are other MicroPython drivers for PineTime's nRF52 Microcontroller that we haven't ported to Mynewt yet. The drivers may be found in these folders...</p>
+<ul>
+<li>
+<p><a href="https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/modules"><code>modules</code></a>: Bluetooth LE, LED, Music, Random Number Generator, BluePy, OS, Time</p>
+</li>
+<li>
+<p><a href="https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/drivers"><code>drivers</code></a>: Bluetooth, Flash ROM, Soft PWM, Ticker, Watchdog</p>
+</li>
+</ul>
+<h2 id="start-micropython" class="section-header"><a href="#start-micropython">4.4 Start MicroPython</a></h2>
+<ul>
+<li>
+<p><a href="https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c"><code>main.c</code></a> contains the <code>start_micropython()</code> function that starts the MicroPython Runtime (including the REPL command line)</p>
+</li>
+<li>
+<p><code>start_micropython()</code> is called by Mynewt during startup</p>
+</li>
+<li>
+<p>Heap Memory for MicroPython is also defined in <a href="https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c"><code>main.c</code></a> as a Static Array. More about this later.</p>
+</li>
+</ul>
+<h2 id="reset-handler-vector-table-and-linker-script" class="section-header"><a href="#reset-handler-vector-table-and-linker-script">4.5 Reset Handler, Vector Table and Linker Script</a></h2>
+<p>Every PineTime Firmware requires a <strong>Reset Handler</strong> function to defined. It's the first function that's called when the firmware starts.</p>
+<p>The firmware should also contain a <strong>Vector Table</strong>, which is a list of pointers to functions that will handle interrupts and exceptions on PineTime.</p>
+<p>The <strong>Linker Script</strong> is used by the GCC Linker while building the firmware to determine the addresses in ROM and RAM for placing the firmware code and data.</p>
+<p>The Reset Handler, Vector Table and Linker Script are mandatory for every MicroPython Port (including the nRF Port). But for the Mynewt Port, they are not used because we'll be using the Reset Handler, Vector Table and Linker Script from Mynewt instead.</p>
+<ul>
+<li>
+<p><a href="https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/device"><code>device</code></a> folder contains the MicroPython Reset Handler and Vector Table</p>
+<p>They are not used in the Mynewt Port, we're using the Reset Handler and Vector Table from Mynewt: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/hw/bsp/nrf52/src/arch/cortex_m4/gcc_startup_nrf52.s"><code>hw/bsp/nrf52/src/arch/cortex_m4/gcc_startup_nrf52.s</code></a></p>
+</li>
+<li>
+<p><a href="https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/boards"><code>boards</code></a> folder contains the MicroPython Linker Script</p>
+<p>This Linker Script is not used in the Mynewt Port, we're using the Linker Script from Mynewt: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/hw/bsp/nrf52/nrf52xxaa.ld"><code>hw/bsp/nrf52/nrf52xxaa.ld</code></a></p>
+</li>
+</ul>
+<p>Let's study the code for the GPIO, SPI and I2C Drivers in the Mynewt Port for MicroPython... And understand how they call Mynewt's Hardware Abstraction Layer.</p>
 <h1 id="gpio-driver" class="section-header"><a href="#gpio-driver">5 GPIO Driver</a></h1>
 <p>TODO</p>
 <p>https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/pin.c</p>
@@ -224,11 +272,11 @@
 <h1 id="i2c-driver" class="section-header"><a href="#i2c-driver">7 I2C Driver</a></h1>
 <p>TODO</p>
 <p>https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/i2c.c</p>
-<h1 id="bluetooth-driver" class="section-header"><a href="#bluetooth-driver">8 Bluetooth Driver</a></h1>
+<h1 id="heap-memory" class="section-header"><a href="#heap-memory">8 Heap Memory</a></h1>
 <p>TODO</p>
-<h1 id="heap-memory" class="section-header"><a href="#heap-memory">9 Heap Memory</a></h1>
+<h1 id="semihosting-console" class="section-header"><a href="#semihosting-console">9 Semihosting Console</a></h1>
 <p>TODO</p>
-<h1 id="semihosting-console" class="section-header"><a href="#semihosting-console">10 Semihosting Console</a></h1>
+<h1 id="bluetooth-driver" class="section-header"><a href="#bluetooth-driver">10 Bluetooth Driver</a></h1>
 <p>TODO</p>
 <h1 id="task-scheduler" class="section-header"><a href="#task-scheduler">11 Task Scheduler</a></h1>
 <p>TODO</p>

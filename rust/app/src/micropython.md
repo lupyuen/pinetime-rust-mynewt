@@ -182,7 +182,7 @@ PineTime's nRF52 Microcontroller has onboard functions like GPIO, I2C, SPI, UART
 
 - [`modules/machine`](https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/modules/machine) folder contains the driver code in C for the nRF52 Peripherals
 
-    We have reprogrammed the GPIO, SPI and I2C Drivers to work with Mynewt's Hardware Abstraction Layer. More about this later.
+- We have reprogrammed the GPIO, SPI and I2C Drivers to work with Mynewt's Hardware Abstraction Layer. More about this later.
 
 - Peripheral Drivers from MicroPython that we haven't ported to Mynewt: Analog-to-Digital Converter, Pulse Width Modulation, Real Time Clock, Temperature Sensor, Timer, UART
 
@@ -196,29 +196,31 @@ There are other MicroPython drivers for PineTime's nRF52 Microcontroller that we
 
 ## Start MicroPython
 
-- [`main.c`](https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c) contains the `start_micropython()` function that starts the MicroPython Runtime
+- [`main.c`](https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c) contains the `start_micropython()` function that starts the MicroPython Runtime (including the REPL command line)
+
+- `start_micropython()` is called by Mynewt during startup
 
 - Heap Memory for MicroPython is also defined in [`main.c`](https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c) as a Static Array. More about this later.
 
 ## Reset Handler, Vector Table and Linker Script
 
-Every PineTime Firmware requires a Reset Handler function to defined. It's the first function that's called when the firmware starts.
+Every PineTime Firmware requires a __Reset Handler__ function to defined. It's the first function that's called when the firmware starts.
 
-The firmware should also contain a Vector Table, which is a list of pointers to functions that will handle interrupts and exceptions.
+The firmware should also contain a __Vector Table__, which is a list of pointers to functions that will handle interrupts and exceptions on PineTime.
 
-The Linker Script is used by the GCC Linker while building the firmware to determine the addresses in ROM and RAM for placing code and data.
+The __Linker Script__ is used by the GCC Linker while building the firmware to determine the addresses in ROM and RAM for placing the firmware code and data.
 
-The Reset Handler, Vector Table and Linker Script are usually mandatory for every MicroPython Port (including the nRF Port). But for the Mynewt Port, they are not used because we'll be using the Reset Handler, Vector Table and Linker Script from Mynewt instead.
+The Reset Handler, Vector Table and Linker Script are mandatory for every MicroPython Port (including the nRF Port). But for the Mynewt Port, they are not used because we'll be using the Reset Handler, Vector Table and Linker Script from Mynewt instead.
 
 - [`device`](https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/device) folder contains the MicroPython Reset Handler and Vector Table
 
-    They are not used in the Mynewt Port, we're using the Reset Handler and Vector Table from Mynewt:
+    They are not used in the Mynewt Port, we're using the Reset Handler and Vector Table from Mynewt: [`hw/bsp/nrf52/src/arch/cortex_m4/gcc_startup_nrf52.s`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/hw/bsp/nrf52/src/arch/cortex_m4/gcc_startup_nrf52.s)
 
 - [`boards`](https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/boards) folder contains the MicroPython Linker Script
 
-    This Linker Script is not used in the Mynewt Port, we're using the Linker Script from Mynewt:
+    This Linker Script is not used in the Mynewt Port, we're using the Linker Script from Mynewt: [`hw/bsp/nrf52/nrf52xxaa.ld`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/hw/bsp/nrf52/nrf52xxaa.ld)
 
-Let's study the code for the GPIO, SPI and I2C Drivers in the Mynewt Port for MicroPython.
+Let's study the code for the GPIO, SPI and I2C Drivers in the Mynewt Port for MicroPython... And understand how they call Mynewt's Hardware Abstraction Layer.
 
 # GPIO Driver
 
