@@ -188,7 +188,7 @@ GPIO, I2C, SPI
 [`modules`](https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/modules)
 
 ble
-med
+led
 music
 random
 ubluepy
