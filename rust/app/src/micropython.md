@@ -148,7 +148,7 @@ The Hardware Abstraction Layer is used on PineTime like this...
 
 ![Hardware Abstraction Layer in PineTime](https://lupyuen.github.io/images/micropython-hal.png?1)
 
-In MicroPython, the Hardware Abstraction Layers for various hardware platforms are located in the __Ports__ folder...
+In MicroPython, the Hardware Abstraction Layers for various hardware platforms are located in the __Ports__ folder, coded in C...
 
 - __MicroPython Ports:__ [`github.com/micropython/micropython/ports`](https://github.com/micropython/micropython/tree/master/ports)
 
@@ -164,31 +164,42 @@ Let's look inside the Mynewt Port.
 
 # Mynewt Port for MicroPython
 
-TODO
+Remember that a MicroPython Port works like a Hardware Abstraction Layer... It contains high-level functions for accessing the GPIO, SPI and I2C hardware interfaces.  Let's check how the Mynewt Port for MicroPython implements these high-level functions in C.
 
-## Ports
-
-https://github.com/daniel-thompson/wasp-os/tree/master/wasp
-
-https://github.com/micropython/micropython/tree/master/ports/nrf
-
-https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c
+Configuration:
 
 https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/mpconfigport.h
 
-## Boards
-
-https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/boards
-
 https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/boards/pinetime/mpconfigboard.h
+
+https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/boards/pinetime/pins.csv
 
 ## Device
 
 https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/device
 
+Not used. Contains Reset Handler and Vector Table of handlers for interrupts and exceptions.
+
+Replaced by ???
+
+Linker Script: https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/boards
+
+Not used. Replaced by ???
+
 ## Drivers
 
 https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/drivers
+
+bluetooth
+flash ROM
+softpwm
+ticker
+wdt
+
+Start MicroPython:
+
+https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c
+
 
 ## Modules
 
