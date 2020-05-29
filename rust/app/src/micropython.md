@@ -168,25 +168,25 @@ Remember that a MicroPython Port works like a Hardware Abstraction Layer... It c
 
 Configuration:
 
+MicroPython features
+
 https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/mpconfigport.h
 
 https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/boards/pinetime/mpconfigboard.h
 
+Pins
+
 https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/boards/pinetime/pins.csv
 
-## Device
+## Peripheral Drivers: GPIO, I2C, SPI
 
-https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/device
+https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/modules
 
-Not used. Contains Reset Handler and Vector Table of handlers for interrupts and exceptions.
+https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/modules/machine
 
-Replaced by ???
+GPIO, I2C, SPI
 
-Linker Script: https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/boards
-
-Not used. Replaced by ???
-
-## Drivers
+## Other Drivers
 
 https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/drivers
 
@@ -200,14 +200,17 @@ Start MicroPython:
 
 https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c
 
+## Reset Handler, Vector Table and Linker Script
 
-## Modules
+https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/device
 
-https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/modules
+Not used. Contains Reset Handler and Vector Table of handlers for interrupts and exceptions.
 
-https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/modules/machine
+Replaced by ???
 
-GPIO, I2C, SPI
+Linker Script: https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/boards
+
+Not used. Replaced by ???
 
 # GPIO Driver
 
