@@ -55,17 +55,24 @@
     <nav id="TOC"><ul>
 <li><a href="#better-micropython-and-wasp-os-on-pinetime">1 Better MicroPython and wasp-os on PineTime</a><ul></ul></li>
 <li><a href="#host-micropython-and-wasp-os-on-mynewt">2 Host MicroPython and wasp-os on Mynewt</a><ul></ul></li>
-<li><a href="#porting-nrf-to-mynewt">3 Porting nRF to Mynewt</a><ul></ul></li>
-<li><a href="#gpio-driver">4 GPIO Driver</a><ul></ul></li>
-<li><a href="#spi-driver">5 SPI Driver</a><ul></ul></li>
-<li><a href="#i2c-driver">6 I2C Driver</a><ul></ul></li>
-<li><a href="#heap-memory">7 Heap Memory</a><ul></ul></li>
-<li><a href="#semihosting-console">8 Semihosting Console</a><ul></ul></li>
-<li><a href="#task-scheduler">9 Task Scheduler</a><ul></ul></li>
-<li><a href="#vscode-workspace">10 VSCode Workspace</a><ul></ul></li>
-<li><a href="#debug-with-vscode-and-st-link">11 Debug with VSCode and ST-Link</a><ul></ul></li>
-<li><a href="#testing-wasp-os-and-micropython-with-mynewt">12 Testing wasp-os and MicroPython with Mynewt</a><ul></ul></li>
-<li><a href="#further-reading">13 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/micropython-title.jpg" alt="MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor" /></p>
+<li><a href="#hardware-abstraction-layer-for-pinetime">3 Hardware Abstraction Layer for PineTime</a><ul></ul></li>
+<li><a href="#mynewt-port-for-micropython">4 Mynewt Port for MicroPython</a><ul>
+<li><a href="#ports">4.1 Ports</a><ul></ul></li>
+<li><a href="#boards">4.2 Boards</a><ul></ul></li>
+<li><a href="#device">4.3 Device</a><ul></ul></li>
+<li><a href="#drivers">4.4 Drivers</a><ul></ul></li>
+<li><a href="#modules">4.5 Modules</a><ul></ul></li></ul></li>
+<li><a href="#gpio-driver">5 GPIO Driver</a><ul></ul></li>
+<li><a href="#spi-driver">6 SPI Driver</a><ul></ul></li>
+<li><a href="#i2c-driver">7 I2C Driver</a><ul></ul></li>
+<li><a href="#bluetooth-driver">8 Bluetooth Driver</a><ul></ul></li>
+<li><a href="#heap-memory">9 Heap Memory</a><ul></ul></li>
+<li><a href="#semihosting-console">10 Semihosting Console</a><ul></ul></li>
+<li><a href="#task-scheduler">11 Task Scheduler</a><ul></ul></li>
+<li><a href="#vscode-workspace">12 VSCode Workspace</a><ul></ul></li>
+<li><a href="#debug-with-vscode-and-st-link">13 Debug with VSCode and ST-Link</a><ul></ul></li>
+<li><a href="#testing-wasp-os-and-micropython-with-mynewt">14 Testing wasp-os and MicroPython with Mynewt</a><ul></ul></li>
+<li><a href="#further-reading">15 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/micropython-title.jpg" alt="MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor" /></p>
 <p><em>MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor</em></p>
 <p><a href="https://wasp-os.readthedocs.io/en/latest/README.html"><strong>wasp-os</strong></a>, built with <a href="https://micropython.org/"><strong>MicroPython</strong></a>, is highly popular with folks coding <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a> for the very first time...</p>
 <p><em>Because there's no easier way to create a Watch App for PineTime!</em></p>
@@ -173,25 +180,63 @@
 <p>Read on for the details.</p>
 <p><img src="https://lupyuen.github.io/images/micropython-watch.jpg" alt="Objective Accomplished! wasp-os rendering a watch face with Mynewt on PineTime. At right is the ST-Link debugger" /></p>
 <p><em>Objective Accomplished! wasp-os rendering a watch face with Mynewt on PineTime. At right is the ST-Link debugger</em></p>
-<h1 id="porting-nrf-to-mynewt" class="section-header"><a href="#porting-nrf-to-mynewt">3 Porting nRF to Mynewt</a></h1>
+<h1 id="hardware-abstraction-layer-for-pinetime" class="section-header"><a href="#hardware-abstraction-layer-for-pinetime">3 Hardware Abstraction Layer for PineTime</a></h1>
+<p>Embedded operating systems (like Mynewt) are designed to run on multuple hardware platforms (like PineTime). That's why they include a <a href="https://mynewt.apache.org/latest/os/modules/hal/hal.html"><strong>Hardware Abstraction Layer</strong></a> that wraps low-level <strong>hardware-specific code</strong> (like writing to SPI registers) into high-level <strong>hardware-independent functions</strong> (like sending a chunk of data to the SPI port).</p>
+<p>The Hardware Abstraction Layer is used on PineTime like this...</p>
+<p><img src="https://lupyuen.github.io/images/micropython-hal.png?1" alt="Hardware Abstraction Layer in PineTime" /></p>
+<p>In MicroPython, the Hardware Abstraction Layers for various hardware platforms are located in the <strong>Ports</strong> folder...</p>
+<ul>
+<li><strong>MicroPython Ports:</strong> <a href="https://github.com/micropython/micropython/tree/master/ports"><code>github.com/micropython/micropython/ports</code></a></li>
+</ul>
+<p>PineTime uses the <strong>nRF Port</strong>, which runs on nRF51 and nRF52 hardware...</p>
+<ul>
+<li><strong>MicroPython nRF Port:</strong> <a href="https://github.com/micropython/micropython/tree/master/ports/nrf"><code>ports/nrf</code></a></li>
+</ul>
+<p>For this experiment we cloned the nRF Port to create a new <strong>Mynewt Port</strong> that will run on Mynewt (instead of bare hardware)...</p>
+<ul>
+<li><strong>MicroPython Mynewt Port:</strong> <a href="https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt"><code>ports/mynewt</code></a></li>
+</ul>
+<p>Let's look inside the Mynewt Port.</p>
+<h1 id="mynewt-port-for-micropython" class="section-header"><a href="#mynewt-port-for-micropython">4 Mynewt Port for MicroPython</a></h1>
 <p>TODO</p>
-<h1 id="gpio-driver" class="section-header"><a href="#gpio-driver">4 GPIO Driver</a></h1>
+<h2 id="ports" class="section-header"><a href="#ports">4.1 Ports</a></h2>
+<p>https://github.com/daniel-thompson/wasp-os/tree/master/wasp</p>
+<p>https://github.com/micropython/micropython/tree/master/ports/nrf</p>
+<p>https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c</p>
+<p>https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/mpconfigport.h</p>
+<h2 id="boards" class="section-header"><a href="#boards">4.2 Boards</a></h2>
+<p>https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/boards</p>
+<p>https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/boards/pinetime/mpconfigboard.h</p>
+<h2 id="device" class="section-header"><a href="#device">4.3 Device</a></h2>
+<p>https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/device</p>
+<h2 id="drivers" class="section-header"><a href="#drivers">4.4 Drivers</a></h2>
+<p>https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/drivers</p>
+<h2 id="modules" class="section-header"><a href="#modules">4.5 Modules</a></h2>
+<p>https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/modules</p>
+<p>https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt/modules/machine</p>
+<p>GPIO, I2C, SPI</p>
+<h1 id="gpio-driver" class="section-header"><a href="#gpio-driver">5 GPIO Driver</a></h1>
 <p>TODO</p>
-<h1 id="spi-driver" class="section-header"><a href="#spi-driver">5 SPI Driver</a></h1>
+<p>https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/pin.c</p>
+<h1 id="spi-driver" class="section-header"><a href="#spi-driver">6 SPI Driver</a></h1>
 <p>TODO</p>
-<h1 id="i2c-driver" class="section-header"><a href="#i2c-driver">6 I2C Driver</a></h1>
+<p>https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/spi.c</p>
+<h1 id="i2c-driver" class="section-header"><a href="#i2c-driver">7 I2C Driver</a></h1>
 <p>TODO</p>
-<h1 id="heap-memory" class="section-header"><a href="#heap-memory">7 Heap Memory</a></h1>
+<p>https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/i2c.c</p>
+<h1 id="bluetooth-driver" class="section-header"><a href="#bluetooth-driver">8 Bluetooth Driver</a></h1>
 <p>TODO</p>
-<h1 id="semihosting-console" class="section-header"><a href="#semihosting-console">8 Semihosting Console</a></h1>
+<h1 id="heap-memory" class="section-header"><a href="#heap-memory">9 Heap Memory</a></h1>
 <p>TODO</p>
-<h1 id="task-scheduler" class="section-header"><a href="#task-scheduler">9 Task Scheduler</a></h1>
+<h1 id="semihosting-console" class="section-header"><a href="#semihosting-console">10 Semihosting Console</a></h1>
 <p>TODO</p>
-<h1 id="vscode-workspace" class="section-header"><a href="#vscode-workspace">10 VSCode Workspace</a></h1>
+<h1 id="task-scheduler" class="section-header"><a href="#task-scheduler">11 Task Scheduler</a></h1>
 <p>TODO</p>
-<h1 id="debug-with-vscode-and-st-link" class="section-header"><a href="#debug-with-vscode-and-st-link">11 Debug with VSCode and ST-Link</a></h1>
+<h1 id="vscode-workspace" class="section-header"><a href="#vscode-workspace">12 VSCode Workspace</a></h1>
 <p>TODO</p>
-<h1 id="testing-wasp-os-and-micropython-with-mynewt" class="section-header"><a href="#testing-wasp-os-and-micropython-with-mynewt">12 Testing wasp-os and MicroPython with Mynewt</a></h1>
+<h1 id="debug-with-vscode-and-st-link" class="section-header"><a href="#debug-with-vscode-and-st-link">13 Debug with VSCode and ST-Link</a></h1>
+<p>TODO</p>
+<h1 id="testing-wasp-os-and-micropython-with-mynewt" class="section-header"><a href="#testing-wasp-os-and-micropython-with-mynewt">14 Testing wasp-os and MicroPython with Mynewt</a></h1>
 <p>TODO</p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
@@ -202,7 +247,7 @@
 <p>https://wasp-os.readthedocs.io/en/latest/appguide.html</p>
 <p>Wasp-os Reference Manual</p>
 <p>https://wasp-os.readthedocs.io/en/latest/wasp.html</p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">13 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">15 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
 

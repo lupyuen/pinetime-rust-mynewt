@@ -140,27 +140,37 @@ Read on for the details.
 
 _Objective Accomplished! wasp-os rendering a watch face with Mynewt on PineTime. At right is the ST-Link debugger_
 
-# Porting nRF to Mynewt
+# Hardware Abstraction Layer for PineTime
+
+Embedded operating systems (like Mynewt) are designed to run on multuple hardware platforms (like PineTime). That's why they include a [__Hardware Abstraction Layer__](https://mynewt.apache.org/latest/os/modules/hal/hal.html) that wraps low-level __hardware-specific code__ (like writing to SPI registers) into high-level __hardware-independent functions__ (like sending a chunk of data to the SPI port).
+
+The Hardware Abstraction Layer is used on PineTime like this...
+
+![Hardware Abstraction Layer in PineTime](https://lupyuen.github.io/images/micropython-hal.png?1)
+
+In MicroPython, the Hardware Abstraction Layers for various hardware platforms are located in the __Ports__ folder...
+
+- __MicroPython Ports:__ [`github.com/micropython/micropython/ports`](https://github.com/micropython/micropython/tree/master/ports)
+
+PineTime uses the __nRF Port__, which runs on nRF51 and nRF52 hardware...
+
+- __MicroPython nRF Port:__ [`ports/nrf`](https://github.com/micropython/micropython/tree/master/ports/nrf)
+
+For this experiment we cloned the nRF Port to create a new __Mynewt Port__ that will run on Mynewt (instead of bare hardware)...
+
+- __MicroPython Mynewt Port:__ [`ports/mynewt`](https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt)
+
+Let's look inside the Mynewt Port.
+
+# Mynewt Port for MicroPython
 
 TODO
 
-wasp-os and MicroPython are highly modular and super easy to extend.
-
-Embedded Operating systems are designed to run multiple HW platforms
-Spi register
-Wraps low level hardware code
-Into high level hardware independent functions
-Send chunkof spi
-
-Hal under ports
+## Ports
 
 https://github.com/daniel-thompson/wasp-os/tree/master/wasp
 
-## Ports
-
 https://github.com/micropython/micropython/tree/master/ports/nrf
-
-https://github.com/AppKaki/micropython/tree/wasp-os/ports/mynewt
 
 https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c
 
