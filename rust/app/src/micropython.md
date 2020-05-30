@@ -303,7 +303,7 @@ Mynewt starts its SPI Driver automatically upon startup, according to the settin
 #   targets/nrf52_my_sensor/syscfg.yml will override the settings below.
 
 syscfg.vals:
-    SPI_0_MASTER:           1  # Enable SPI port 0 for ST7789 display and SPI Flash
+    SPI_0_MASTER: 1  # Enable SPI port 0 for ST7789 display and SPI Flash
 ```
 
 The pins for the SPI port are defined in [`hw/bsp/nrf52/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/hw/bsp/nrf52/syscfg.yml)
@@ -344,7 +344,7 @@ Whenever MicroPython calls `spi_transfer()` in our Mynewt Port to transmit and r
 
 _The SPI Driver in the Mynewt Port for MicroPython is now ready!_
 
-We'll see the SPI Driver in action when [wasp-os's ST7789 Driver](https://github.com/lupyuen/wasp-os/blob/master/wasp/drivers/st7789.py) calls our SPI Driver to render the watch face.
+We'll see the SPI Driver in action when wasp-os's ST7789 Driver calls our SPI Driver to render the watch face: [`wasp/drivers/st7789.py`](https://github.com/lupyuen/wasp-os/blob/master/wasp/drivers/st7789.py)
 
 Finally, I2C...
 
@@ -352,32 +352,9 @@ Finally, I2C...
 
 # I2C Driver
 
-TODO
+We won't be using the I2C Driver in the demo, because we won't be handling touch events from PineTime's Touch Controller.  But for completeness, here's how we ported MicroPython's I2C Driver to Mynewt...
 
-The GPIO Driver is essential for our demo... Because PineTime's Backlight is controlled by GPIO and PineTime's screen will be totally dark without the Backlight!
-
-[`hw/bsp/nrf52/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/hw/bsp/nrf52/syscfg.yml)
-
-```yaml
-syscfg.vals:
-    # Enable nRF52832 MCU
-    MCU_TARGET: nRF52832
-
-    ###########################################################################
-    # Default Pins for Peripherals
-    # Defined in http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf
-
-    # SPI port 0 connected to ST7789 display and XT25F32B flash
-    SPI_0_MASTER_PIN_SCK:  2  # P0.02/AIN0: SPI-SCK, LCD_SCK    SPI clock for display and flash
-    SPI_0_MASTER_PIN_MOSI: 3  # P0.03/AIN1: SPI-MOSI, LCD_SDI   SPI MOSI for display and flash
-    SPI_0_MASTER_PIN_MISO: 4  # P0.04/AIN2: SPI-MISO            SPI MISO for flash only
-
-    # I2C port 1 connected to CST816S touch controller, BMA421 accelerometer, HRS3300 heart rate sensor 
-    I2C_1_PIN_SCL: 7  # P0.07: BMA421-SCL, HRS3300-SCL, TP-SCLOUT
-    I2C_1_PIN_SDA: 6  # P0.06: BMA421-SDA, HRS3300-SDA, TP-SDAI/O
-```
-
-[`apps/my_sensor_app/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml)
+Mynewt starts the I2C port automatically upon startup because of the settings in [`apps/my_sensor_app/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml)
 
 ```yaml
 # System Configuration Setting Values:
@@ -385,66 +362,80 @@ syscfg.vals:
 #   targets/nrf52_my_sensor/syscfg.yml will override the settings below.
 
 syscfg.vals:
-    ###########################################################################
-    # Hardware Settings
-
-    SPI_0_MASTER:           1  # Enable SPI port 0 for ST7789 display and SPI Flash
-    I2C_1:                  1  # Enable I2C port 1 for CST816S touch controller, BMA421 accelerometer, HRS3300 heart rate sensor
+    I2C_1: 1  # Enable I2C port 1 for CST816S touch controller, BMA421 accelerometer, HRS3300 heart rate sensor
 ```
 
-https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/i2c.c
+The I2C pins are configured in [`hw/bsp/nrf52/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/hw/bsp/nrf52/syscfg.yml)
+
+```yaml
+syscfg.vals:
+    ###########################################################################
+    # Default Pins for Peripherals
+    # Defined in http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf
+
+    # I2C port 1 connected to CST816S touch controller, BMA421 accelerometer, HRS3300 heart rate sensor 
+    I2C_1_PIN_SCL: 7  # P0.07: BMA421-SCL, HRS3300-SCL, TP-SCLOUT
+    I2C_1_PIN_SDA: 6  # P0.06: BMA421-SDA, HRS3300-SDA, TP-SDAI/O
+```
+
+Note that the SPI and I2C ports are numbered globally in Mynewt... SPI goes to port 0 (`SPI_0`) and I2C goes to port 1 (`I2C_1`).  Thus we should never attempt to configure `SPI_1` or `I2C_0`.
+
+Here's how we configure the I2C frequency for MicroPython: [`modules/machine/i2c.c`](https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/i2c.c)
 
 ```c
+/// Called by MicroPython to initialise the I2C port
 mp_obj_t machine_hard_i2c_make_new(
-    const mp_obj_type_t *type, 
+    const mp_obj_type_t *type,
     size_t n_args, 
     size_t n_kw, 
     const mp_obj_t *all_args
 ) {
     struct hal_i2c_settings settings = {
-        .frequency = 400,  //  Set to the highest I2C frequency 400 Kbps
+        .frequency = 400,     //  Set to the highest I2C frequency: 400 Kbps
     };
-    int rc = hal_i2c_config(
-        I2C_PORT, 
+    int rc = hal_i2c_config(  //  Call Mynewt I2C HAL
+        I2C_PORT,             //  Mynewt I2C Port (hardcoded to 1)
         &settings
     );
     if (rc != 0) { mp_raise_ValueError("I2C init failed"); }
-
     const machine_hard_i2c_obj_t *self = &machine_hard_i2c_obj[I2C_PORT];
     return MP_OBJ_FROM_PTR(self);
 }
 ```
 
-https://mynewt.apache.org/latest/os/modules/hal/hal_i2c/hal_i2c.html#c.hal_i2c_config
+The code above calls [`hal_i2c_config()`](https://mynewt.apache.org/latest/os/modules/hal/hal_i2c/hal_i2c.html#c.hal_i2c_config) from Mynewt's I2C Hardware Abstraction Layer.
+
+Here's how we transmit and receive I2C packets for MicroPython: [`modules/machine/i2c.c`](https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/i2c.c)
 
 ```c
-/// Return the number of bytes transferred, or in case of error, a negative MP error code.
+/// Transmit or receive the buffer via I2C. Return the number of bytes transferred, or in case of error, a negative MP error code.
 int machine_hard_i2c_transfer_single(
-    mp_obj_base_t *self_in, 
-    uint16_t addr, 
-    size_t len, 
-    uint8_t *buf, 
-    unsigned int flags
+    mp_obj_base_t *self_in,  //  MicroPython instance of the I2C Driver (not used here)
+    uint16_t addr,           //  I2C target address
+    size_t len,              //  Number of bytes to transfer / receive
+    uint8_t *buf,            //  Buffer to transfer and receive
+    unsigned int flags       //  Whether this is a read or write operation
 ) {
+    //  Set the transmit/receive parameters
     struct hal_i2c_master_data master_data = {
         .address = addr,
         .len = len,
         .buffer = buf,
     };
-    if (flags & MP_MACHINE_I2C_FLAG_READ) {  //  If reading from I2C...
-        int rc_read = hal_i2c_master_read(
-            I2C_PORT, 
-            &master_data, 
-            I2C_TIMEOUT, 
-            1          //  1 means this is the last I2C operation. So we can terminate after this.
+    if (flags & MP_MACHINE_I2C_FLAG_READ) {   //  If reading from I2C...
+        int rc_read = hal_i2c_master_read(    //  Call Mynewt I2C HAL to receive data
+            I2C_PORT,                         //  Mynewt I2C Port (hardcoded to 1)
+            &master_data,                     //  Data will be received here
+            I2C_TIMEOUT,                      //  Timeout in milliseconds (1,000)
+            1  //  1 means this is the last I2C operation. So we can terminate after this.
         );    
         if (rc_read != 0) { return check_i2c_return_code(rc_read); }
-    } else {  //  If writing to I2C...
-        int rc_write = hal_i2c_master_write(
-            I2C_PORT, 
-            &master_data, 
-            I2C_TIMEOUT, 
-            1        //  1 means this is the last I2C operation. So we can terminate after this.
+    } else {                                  //  If writing to I2C...
+        int rc_write = hal_i2c_master_write(  //  Call Mynewt I2C HAL to transmit data
+            I2C_PORT,                         //  Mynewt I2C Port (hardcoded to 1)
+            &master_data,                     //  Data to be transmitted
+            I2C_TIMEOUT,                      //  Timeout in milliseconds (1,000)
+            1  //  1 means this is the last I2C operation. So we can terminate after this.
         );
         if (rc_write != 0) { return check_i2c_return_code(rc_write); }
     }
@@ -452,11 +443,11 @@ int machine_hard_i2c_transfer_single(
 }
 ```
 
-https://mynewt.apache.org/latest/os/modules/hal/hal_i2c/hal_i2c.html#c.hal_i2c_master_read
+The code above calls [`hal_i2c_master_read()`](https://mynewt.apache.org/latest/os/modules/hal/hal_i2c/hal_i2c.html#c.hal_i2c_master_read) and [`hal_i2c_master_write()`](https://mynewt.apache.org/latest/os/modules/hal/hal_i2c/hal_i2c.html#c.hal_i2c_master_write) from Mynewt's I2C Hardware Abstraction Layer.
 
-https://mynewt.apache.org/latest/os/modules/hal/hal_i2c/hal_i2c.html#c.hal_i2c_master_write
+_How is this I2C Driver used in wasp-os?_
 
-https://github.com/lupyuen/wasp-os/blob/master/wasp/drivers/cst816s.py
+Check out the driver for the CST816S Touch Controller: [`wasp/drivers/cst816s.py`](https://github.com/lupyuen/wasp-os/blob/master/wasp/drivers/cst816s.py)
 
 # Heap Memory
 
