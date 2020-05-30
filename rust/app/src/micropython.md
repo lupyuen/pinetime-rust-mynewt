@@ -295,9 +295,7 @@ PineTime's [Sitronix ST77889 Display Controller](https://wiki.pine64.org/images/
 
 Porting the SPI Driver really is really easy... No initialisation needed!
 
-Mynewt starts its SPI Driver automatically upon startup, according to the settings here...
-
-[`apps/my_sensor_app/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml)
+Mynewt starts its SPI Driver automatically upon startup, according to the settings in [`apps/my_sensor_app/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml)
 
 ```yaml
 # System Configuration Setting Values:
