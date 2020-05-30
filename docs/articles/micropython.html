@@ -263,21 +263,143 @@
 </li>
 </ul>
 <p>Let's study the code for the GPIO, SPI and I2C Drivers in the Mynewt Port for MicroPython... And understand how they call Mynewt's Hardware Abstraction Layer.</p>
+<p><img src="https://lupyuen.github.io/images/micropython-hal1.png" alt="GPIO Driver" /></p>
 <h1 id="gpio-driver" class="section-header"><a href="#gpio-driver">5 GPIO Driver</a></h1>
-<p>TODO</p>
-<p>https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/pin.c</p>
+<p>The GPIO Driver is essential for our demo... Because PineTime's Backlight is controlled by GPIO and PineTime's screen will be totally dark without the Backlight!</p>
+<p>Let's look at the current implementation of the GPIO Driver on MicroPython: <a href="https://github.com/micropython/micropython/blob/master/ports/nrf/mphalport.h"><code>ports/nrf/mphalport.h</code></a></p>
+<pre><code class="language-c">#define mp_hal_pin_high(p) \
+        nrf_gpio_pin_set(p-&gt;pin)
+
+#define mp_hal_pin_low(p) \     
+        nrf_gpio_pin_clear(p-&gt;pin)
+</code></pre>
+<p>To set a pin high or low, the GPIO Driver (from the nRF Port) calls the functions <code>nrf_gpio_pin_set()</code> and <code>nrf_gpio_pin_clear()</code>, which are provided by the <a href="https://infocenter.nordicsemi.com/topic/sdk_nrf5_v16.0.0/group__nrf__gpio__hal.html">Nordic nRF5 SDK</a></p>
+<p>Clearly this GPIO Driver (nRF Port) is directly manipulating the bare hardware of PineTime.</p>
+<p>Compare that with the Mynewt Port: <a href="https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/mphalport.h"><code>ports/mynewt/mphalport.h</code></a></p>
+<pre><code class="language-c">#define mp_hal_pin_high(p) \
+        hal_gpio_write(p-&gt;pin, 1)
+
+#define mp_hal_pin_low(p) \
+        hal_gpio_write(p-&gt;pin, 0)
+</code></pre>
+<p>This GPIO Driver calls the functions <code>hal_gpio_write()</code> and <code>hal_gpio_write()</code> provided by <a href="https://mynewt.apache.org/latest/os/modules/hal/hal_gpio/hal_gpio.html"><strong>Mynewt's Hardware Abstraction Layer</strong></a>.</p>
+<p>Thus we are no longer manipulating PineTime hardware directly... We are doing it through an embedded operating system (Mynewt).</p>
+<p>And we get to enjoy all the benefits of the embedded operating system! Multitasking, firmware updates, Bluetooth support, ...</p>
+<p>Here's how we configure and read a GPIO pin by calling <a href="https://mynewt.apache.org/latest/os/modules/hal/hal_gpio/hal_gpio.html">Mynewt's Hardware Abstraction Layer</a>... </p>
+<pre><code class="language-c">#define mp_hal_pin_read(p) \
+        hal_gpio_read(p-&gt;pin)
+
+#define mp_hal_pin_open_drain(p) \
+        hal_gpio_init_in(p-&gt;pin, HAL_GPIO_PULL_NONE)
+</code></pre>
+<p>With this simple reprogramming, we have done enough to switch on PineTime's Backlight for our experiment.</p>
+<p>Some GPIO functions have yet to be implemented, like in <a href="https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/pin.c"><code>modules/machine/pin.c</code></a>...</p>
+<pre><code class="language-c">STATIC mp_obj_t pin_irq(
+    size_t n_args, 
+    const mp_obj_t *pos_args, 
+    mp_map_t *kw_args) { ...
+</code></pre>
+<p><code>pin_irq()</code> is called by MicroPython to configure the interrupt that will be triggered when an input GPIO pin switches its state from high to low (or low to high). This will be useful for handling the pressing of PineTime's watch button, since it's connected to a GPIO pin.</p>
+<p>Eventually <code>pin_irq()</code> shall be reprogrammed to call the equivalent function in Mynewt: <a href="https://mynewt.apache.org/latest/os/modules/hal/hal_gpio/hal_gpio.html#c.hal_gpio_irq_init"><code>hal_gpio_irq_init()</code></a></p>
+<p><img src="https://lupyuen.github.io/images/micropython-hal2.png" alt="SPI Driver" /></p>
 <h1 id="spi-driver" class="section-header"><a href="#spi-driver">6 SPI Driver</a></h1>
 <p>TODO</p>
+<p>The GPIO Driver is essential for our demo... Because PineTime's Backlight is controlled by GPIO and PineTime's screen will be totally dark without the Backlight!</p>
+<p>No init</p>
 <p>https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/spi.c</p>
+<pre><code class="language-c">void spi_transfer(
+    const machine_hard_spi_obj_t * self, 
+    size_t len, 
+    const void * src, 
+    void * dest
+) {
+    int rc = hal_spi_txrx(
+        SPI_PORT, 
+        (void *) src,   //  TX Buffer
+        dest,           //  RX Buffer
+        len             //  Length
+    );
+    if (rc != 0) { mp_raise_ValueError(&quot;SPI TX failed&quot;); }
+}
+</code></pre>
+<p>https://mynewt.apache.org/latest/os/modules/hal/hal_spi/hal_spi.html#c.hal_spi_txrx</p>
+<p><img src="https://lupyuen.github.io/images/micropython-hal3.png" alt="I2C Driver" /></p>
 <h1 id="i2c-driver" class="section-header"><a href="#i2c-driver">7 I2C Driver</a></h1>
 <p>TODO</p>
+<p>The GPIO Driver is essential for our demo... Because PineTime's Backlight is controlled by GPIO and PineTime's screen will be totally dark without the Backlight!</p>
 <p>https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/i2c.c</p>
+<pre><code class="language-c">mp_obj_t machine_hard_i2c_make_new(
+    const mp_obj_type_t *type, 
+    size_t n_args, 
+    size_t n_kw, 
+    const mp_obj_t *all_args
+) {
+    struct hal_i2c_settings settings = {
+        .frequency = 400,  //  Set to the highest I2C frequency 400 Kbps
+    };
+    int rc = hal_i2c_config(
+        I2C_PORT, 
+        &amp;settings
+    );
+    if (rc != 0) { mp_raise_ValueError(&quot;I2C init failed&quot;); }
+
+    const machine_hard_i2c_obj_t *self = &amp;machine_hard_i2c_obj[I2C_PORT];
+    return MP_OBJ_FROM_PTR(self);
+}
+</code></pre>
+<p>https://mynewt.apache.org/latest/os/modules/hal/hal_i2c/hal_i2c.html#c.hal_i2c_config</p>
+<pre><code class="language-c">/// Return the number of bytes transferred, or in case of error, a negative MP error code.
+int machine_hard_i2c_transfer_single(
+    mp_obj_base_t *self_in, 
+    uint16_t addr, 
+    size_t len, 
+    uint8_t *buf, 
+    unsigned int flags
+) {
+    struct hal_i2c_master_data master_data = {
+        .address = addr,
+        .len = len,
+        .buffer = buf,
+    };
+    if (flags &amp; MP_MACHINE_I2C_FLAG_READ) {  //  If reading from I2C...
+        int rc_read = hal_i2c_master_read(
+            I2C_PORT, 
+            &amp;master_data, 
+            I2C_TIMEOUT, 
+            1          //  1 means this is the last I2C operation. So we can terminate after this.
+        );    
+        if (rc_read != 0) { return check_i2c_return_code(rc_read); }
+    } else {  //  If writing to I2C...
+        int rc_write = hal_i2c_master_write(
+            I2C_PORT, 
+            &amp;master_data, 
+            I2C_TIMEOUT, 
+            1        //  1 means this is the last I2C operation. So we can terminate after this.
+        );
+        if (rc_write != 0) { return check_i2c_return_code(rc_write); }
+    }
+    return len;
+}
+</code></pre>
+<p>https://mynewt.apache.org/latest/os/modules/hal/hal_i2c/hal_i2c.html#c.hal_i2c_master_read</p>
+<p>https://mynewt.apache.org/latest/os/modules/hal/hal_i2c/hal_i2c.html#c.hal_i2c_master_write</p>
 <h1 id="heap-memory" class="section-header"><a href="#heap-memory">8 Heap Memory</a></h1>
 <p>TODO</p>
+<p>Mynewt config</p>
+<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml</p>
+<pre><code class="language-yaml">syscfg.vals:
+    OS_MAIN_STACK_SIZE: 2048  #  8 KB. Previously 4096 (16 KB)
+
+    # For Bluetooth LE: Lots of smaller mbufs are required for newtmgr using typical BLE ATT MTU values.
+    MSYS_1_BLOCK_COUNT:   22  #  Defaults to 12. Previously 64
+    MSYS_1_BLOCK_SIZE:   110  #  Defaults to 292
+</code></pre>
 <h1 id="semihosting-console" class="section-header"><a href="#semihosting-console">9 Semihosting Console</a></h1>
 <p>TODO</p>
+<p>printf</p>
 <h1 id="bluetooth-driver" class="section-header"><a href="#bluetooth-driver">10 Bluetooth Driver</a></h1>
 <p>TODO</p>
+<p>UART</p>
 <h1 id="task-scheduler" class="section-header"><a href="#task-scheduler">11 Task Scheduler</a></h1>
 <p>TODO</p>
 <h1 id="vscode-workspace" class="section-header"><a href="#vscode-workspace">12 VSCode Workspace</a></h1>

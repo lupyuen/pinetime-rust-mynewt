@@ -222,13 +222,27 @@ The Reset Handler, Vector Table and Linker Script are mandatory for every MicroP
 
 Let's study the code for the GPIO, SPI and I2C Drivers in the Mynewt Port for MicroPython... And understand how they call Mynewt's Hardware Abstraction Layer.
 
-# GPIO Driver
+![GPIO Driver](https://lupyuen.github.io/images/micropython-hal1.png)
 
-TODO
+# GPIO Driver
 
 The GPIO Driver is essential for our demo... Because PineTime's Backlight is controlled by GPIO and PineTime's screen will be totally dark without the Backlight!
 
-https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/mphalport.h
+Let's look at the current implementation of the GPIO Driver on MicroPython: [`ports/nrf/mphalport.h`](https://github.com/micropython/micropython/blob/master/ports/nrf/mphalport.h)
+
+```c
+#define mp_hal_pin_high(p) \
+        nrf_gpio_pin_set(p->pin)
+
+#define mp_hal_pin_low(p) \     
+        nrf_gpio_pin_clear(p->pin)
+```
+
+To set a pin high or low, the GPIO Driver (from the nRF Port) calls the functions `nrf_gpio_pin_set()` and `nrf_gpio_pin_clear()`, which are provided by the [Nordic nRF5 SDK](https://infocenter.nordicsemi.com/topic/sdk_nrf5_v16.0.0/group__nrf__gpio__hal.html)
+
+Clearly this GPIO Driver (nRF Port) is directly manipulating the bare hardware of PineTime.
+
+Compare that with the Mynewt Port: [`ports/mynewt/mphalport.h`](https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/mphalport.h)
 
 ```c
 #define mp_hal_pin_high(p) \
@@ -238,6 +252,14 @@ https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/mphalport.h
         hal_gpio_write(p->pin, 0)
 ```
 
+This GPIO Driver calls the functions `hal_gpio_write()` and `hal_gpio_write()` provided by [__Mynewt's Hardware Abstraction Layer__](https://mynewt.apache.org/latest/os/modules/hal/hal_gpio/hal_gpio.html).
+
+Thus we are no longer manipulating PineTime hardware directly... We are doing it through an embedded operating system (Mynewt).  
+
+And we get to enjoy all the benefits of the embedded operating system! Multitasking, firmware updates, Bluetooth support, ...
+
+Here's how we configure and read a GPIO pin by calling [Mynewt's Hardware Abstraction Layer](https://mynewt.apache.org/latest/os/modules/hal/hal_gpio/hal_gpio.html)... 
+
 ```c
 #define mp_hal_pin_read(p) \
         hal_gpio_read(p->pin)
@@ -246,9 +268,9 @@ https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/mphalport.h
         hal_gpio_init_in(p->pin, HAL_GPIO_PULL_NONE)
 ```
 
-https://mynewt.apache.org/latest/os/modules/hal/hal_gpio/hal_gpio.html
+With this simple reprogramming, we have done enough to switch on PineTime's Backlight for our experiment.
 
-https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/pin.c
+Some GPIO functions have yet to be implemented, like in [`modules/machine/pin.c`](https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/pin.c)...
 
 ```c
 STATIC mp_obj_t pin_irq(
@@ -257,7 +279,11 @@ STATIC mp_obj_t pin_irq(
     mp_map_t *kw_args) { ...
 ```
 
-`hal_gpio_irq_init`(https://mynewt.apache.org/latest/os/modules/hal/hal_gpio/hal_gpio.html#c.hal_gpio_irq_init)
+`pin_irq()` is called by MicroPython to configure the interrupt that will be triggered when an input GPIO pin switches its state from high to low (or low to high). This will be useful for handling the pressing of PineTime's watch button, since it's connected to a GPIO pin.
+
+Eventually `pin_irq()` shall be reprogrammed to call the equivalent function in Mynewt: [`hal_gpio_irq_init()`](https://mynewt.apache.org/latest/os/modules/hal/hal_gpio/hal_gpio.html#c.hal_gpio_irq_init)
+
+![SPI Driver](https://lupyuen.github.io/images/micropython-hal2.png)
 
 # SPI Driver
 
@@ -287,6 +313,8 @@ void spi_transfer(
 ```
 
 https://mynewt.apache.org/latest/os/modules/hal/hal_spi/hal_spi.html#c.hal_spi_txrx
+
+![I2C Driver](https://lupyuen.github.io/images/micropython-hal3.png)
 
 # I2C Driver
 
