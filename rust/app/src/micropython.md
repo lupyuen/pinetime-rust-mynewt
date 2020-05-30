@@ -283,36 +283,72 @@ STATIC mp_obj_t pin_irq(
 
 Eventually `pin_irq()` shall be reprogrammed to call the equivalent function in Mynewt: [`hal_gpio_irq_init()`](https://mynewt.apache.org/latest/os/modules/hal/hal_gpio/hal_gpio.html#c.hal_gpio_irq_init)
 
+Moving on to SPI...
+
 ![SPI Driver](https://lupyuen.github.io/images/micropython-hal2.png)
 
 # SPI Driver
 
-TODO
+Now that we have reprogrammed the GPIO Driver from Bare Metal PineTime to Mynewt, let's do the same for the SPI Driver. 
 
-The GPIO Driver is essential for our demo... Because PineTime's Backlight is controlled by GPIO and PineTime's screen will be totally dark without the Backlight!
+PineTime's [Sitronix ST77889 Display Controller](https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf) is controlled via SPI, thus we shall port the SPI Driver to Mynewt render graphics.
 
-No init
+Porting the SPI Driver really is really easy... No initialisation needed!
 
-https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/spi.c
+Mynewt starts its SPI Driver automatically upon startup, according to the settings here...
+
+[`apps/my_sensor_app/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml)
+
+```yaml
+# System Configuration Setting Values:
+#   Below we override the driver and library settings. Settings defined in
+#   targets/nrf52_my_sensor/syscfg.yml will override the settings below.
+
+syscfg.vals:
+    SPI_0_MASTER:           1  # Enable SPI port 0 for ST7789 display and SPI Flash
+```
+
+The pins for the SPI port are defined in [`hw/bsp/nrf52/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/hw/bsp/nrf52/syscfg.yml)
+
+```yaml
+syscfg.vals:
+    ###########################################################################
+    # Default Pins for Peripherals
+    # Defined in http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf
+
+    # SPI port 0 connected to ST7789 display and XT25F32B flash
+    SPI_0_MASTER_PIN_SCK:  2  # P0.02/AIN0: SPI-SCK, LCD_SCK    SPI clock for display and flash
+    SPI_0_MASTER_PIN_MOSI: 3  # P0.03/AIN1: SPI-MOSI, LCD_SDI   SPI MOSI for display and flash
+    SPI_0_MASTER_PIN_MISO: 4  # P0.04/AIN2: SPI-MISO            SPI MISO for flash only
+```
+
+What about the MicroPython driver code? Only one SPI Driver function needs to be reprogrammed in [`modules/machine/spi.c`](https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/spi.c)
 
 ```c
+/// Called by MicroPython to transmit and receive a chunk of data over the SPI port
 void spi_transfer(
-    const machine_hard_spi_obj_t * self, 
-    size_t len, 
-    const void * src, 
-    void * dest
+    const machine_hard_spi_obj_t * self,  //  MicroPython instance of the SPI Driver (not used here)
+    size_t len,         //  Number of bytes to send / receive
+    const void * src,   //  Transmit Buffer
+    void * dest         //  Receive Buffer
 ) {
     int rc = hal_spi_txrx(
-        SPI_PORT, 
-        (void *) src,   //  TX Buffer
-        dest,           //  RX Buffer
+        SPI_PORT,       //  Mynewt SPI Port (hardcoded to 0)
+        (void *) src,   //  Transmit Buffer
+        dest,           //  Receive Buffer
         len             //  Length
     );
     if (rc != 0) { mp_raise_ValueError("SPI TX failed"); }
 }
 ```
 
-https://mynewt.apache.org/latest/os/modules/hal/hal_spi/hal_spi.html#c.hal_spi_txrx
+Whenever MicroPython calls `spi_transfer()` in our Mynewt Port to transmit and receive a chunk of data over SPI, we forward the call to [`hal_spi_txrx()`](https://mynewt.apache.org/latest/os/modules/hal/hal_spi/hal_spi.html#c.hal_spi_txrx). That's the equivalent SPI function in the Mynewt Hardware Abstraction Layer.
+
+_The SPI Driver in the Mynewt Port for MicroPython is now ready!_
+
+We'll see the SPI Driver in action when [wasp-os's ST7789 Driver](https://github.com/lupyuen/wasp-os/blob/master/wasp/drivers/st7789.py) calls our SPI Driver to render the watch face.
+
+Finally, the I2C Driver...
 
 ![I2C Driver](https://lupyuen.github.io/images/micropython-hal3.png)
 
@@ -321,6 +357,42 @@ https://mynewt.apache.org/latest/os/modules/hal/hal_spi/hal_spi.html#c.hal_spi_t
 TODO
 
 The GPIO Driver is essential for our demo... Because PineTime's Backlight is controlled by GPIO and PineTime's screen will be totally dark without the Backlight!
+
+[`hw/bsp/nrf52/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/hw/bsp/nrf52/syscfg.yml)
+
+```yaml
+syscfg.vals:
+    # Enable nRF52832 MCU
+    MCU_TARGET: nRF52832
+
+    ###########################################################################
+    # Default Pins for Peripherals
+    # Defined in http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf
+
+    # SPI port 0 connected to ST7789 display and XT25F32B flash
+    SPI_0_MASTER_PIN_SCK:  2  # P0.02/AIN0: SPI-SCK, LCD_SCK    SPI clock for display and flash
+    SPI_0_MASTER_PIN_MOSI: 3  # P0.03/AIN1: SPI-MOSI, LCD_SDI   SPI MOSI for display and flash
+    SPI_0_MASTER_PIN_MISO: 4  # P0.04/AIN2: SPI-MISO            SPI MISO for flash only
+
+    # I2C port 1 connected to CST816S touch controller, BMA421 accelerometer, HRS3300 heart rate sensor 
+    I2C_1_PIN_SCL: 7  # P0.07: BMA421-SCL, HRS3300-SCL, TP-SCLOUT
+    I2C_1_PIN_SDA: 6  # P0.06: BMA421-SDA, HRS3300-SDA, TP-SDAI/O
+```
+
+[`apps/my_sensor_app/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml)
+
+```yaml
+# System Configuration Setting Values:
+#   Below we override the driver and library settings. Settings defined in
+#   targets/nrf52_my_sensor/syscfg.yml will override the settings below.
+
+syscfg.vals:
+    ###########################################################################
+    # Hardware Settings
+
+    SPI_0_MASTER:           1  # Enable SPI port 0 for ST7789 display and SPI Flash
+    I2C_1:                  1  # Enable I2C port 1 for CST816S touch controller, BMA421 accelerometer, HRS3300 heart rate sensor
+```
 
 https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/i2c.c
 
@@ -386,6 +458,8 @@ https://mynewt.apache.org/latest/os/modules/hal/hal_i2c/hal_i2c.html#c.hal_i2c_m
 
 https://mynewt.apache.org/latest/os/modules/hal/hal_i2c/hal_i2c.html#c.hal_i2c_master_write
 
+https://github.com/lupyuen/wasp-os/blob/master/wasp/drivers/cst816s.py
+
 # Heap Memory
 
 TODO
@@ -418,6 +492,20 @@ UART
 # Task Scheduler
 
 TODO
+
+# Other Drivers
+
+https://github.com/lupyuen/wasp-os/tree/master/wasp/drivers
+
+SPI Flash
+
+battery
+
+nrf_rtc
+
+signal
+
+vibrator.py
 
 # VSCode Workspace
 
