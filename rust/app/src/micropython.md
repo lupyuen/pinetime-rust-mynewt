@@ -449,17 +449,35 @@ _How is this I2C Driver used in wasp-os?_
 
 Check out the driver for the CST816S Touch Controller: [`wasp/drivers/cst816s.py`](https://github.com/lupyuen/wasp-os/blob/master/wasp/drivers/cst816s.py)
 
-# Heap Memory
+# Heap Memory in MicroPython
 
-TODO
+_How is RAM used by MicroPython?_
+
+When MicroPython runs on Bare Metal (without an operating system), it uses three chunks of RAM to store objects...
+
+1. __Static Memory__: Contains C objects that are Global or Static
+
+1. __Stack Memory__: Contains C objects allocated on the stack inside function calls
+
+1. __Heap Memory__: Contains MicroPython objects allocated dynamically, just like calling `malloc()` in C
 
 ![RAM Usage with MicroPython](https://lupyuen.github.io/images/micropython-heap2.png)
 
+Note that the Heap Memory and Stack Memory are not fixed.  They are allowed to grow and shrink, as long as the combined size fits within RAM.
+
+That's why MicroPython performs Garbage Collection... Eventually when the Stack Memory gets too close to the Heap Memory, MicroPython needs to scan the Heap Memory and reclaim space for new objects.
+
+_What happens when we run MicroPython on a multitasking operating system like Mynewt?_
+
+With multitasking, all RAM needs to be carefully budgeted and partitioned like this...
+
 ![RAM Usage with Mynewt and MicroPython](https://lupyuen.github.io/images/micropython-heap.png)
 
-Mynewt config
+???
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml
+why no heap
+
+[`apps/my_sensor_app/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml)
 
 ```yaml
 syscfg.vals:
@@ -468,6 +486,73 @@ syscfg.vals:
     # For Bluetooth LE: Lots of smaller mbufs are required for newtmgr using typical BLE ATT MTU values.
     MSYS_1_BLOCK_COUNT:   22  #  Defaults to 12. Previously 64
     MSYS_1_BLOCK_SIZE:   110  #  Defaults to 292
+```
+
+```
++ newt size -v nrf52_my_sensor
+Size of Application Image: app
+Mem FLASH: 0x8000-0x7bc00
+Mem RAM: 0x20000000-0x20010000
+  FLASH     RAM 
+    800     324 *fill*
+   1018      98 apps_my_sensor_app.a
+   2268     116 boot_bootutil.a
+     18       0 boot_mynewt_flash_map_backend.a
+    438      26 boot_split.a
+   1180       0 crypto_mbedtls.a
+   2302       0 crypto_tinycrypt.a
+    401       0 encoding_base64.a
+   1622       0 encoding_cborattr.a
+   3002       0 encoding_tinycbor.a
+    452     444 hw_bsp_nrf52.a
+     52       0 hw_cmsis-core.a
+   1560      92 hw_drivers_flash_spiflash.a
+    706       1 hw_hal.a
+   6646      89 hw_mcu_nordic_nrf52xxx.a
+      2       0 hw_sensor_creator.a
+   1264     260 hw_sensor.a
+   8790   11296 kernel_os.a
+   3152      50 libc_baselibc.a
+ 214606   33557 libs_micropython.a
+     16       0 libs_mynewt_rust.a
+   1410       0 libs_rust_app.a
+   1014       0 libs_rust_libcore.a
+    738      42 libs_semihosting_console.a
+     40       9 libs_sensor_coap.a
+    583      99 libs_sensor_network.a
+    677     212 libs_temp_stub.a
+   3428      72 mgmt_imgmgr.a
+    231      20 mgmt_mgmt.a
+    884     100 mgmt_newtmgr.a
+   1410      44 mgmt_newtmgr_nmgr_os.a
+    454     108 mgmt_newtmgr_transport_ble.a
+    405     388 net_oic.a
+  35496    2107 nimble_controller.a
+   4086    1203 nimble_drivers_nrf52.a
+  41721    2797 nimble_host.a
+    822     218 nimble_host_services_ans.a
+    241     112 nimble_host_services_dis.a
+    396     118 nimble_host_services_gap.a
+    204      62 nimble_host_services_gatt.a
+   1814     648 nimble_host_store_config.a
+    114       0 nimble_host_util.a
+    692    1096 nimble_transport_ram.a
+   1578      54 sys_config.a
+    634     128 sys_flash_map.a
+      2       0 sys_log_modlog.a
+    686      29 sys_mfg.a
+    839      51 sys_reboot.a
+    226      37 sys_sysdown.a
+     30       5 sys_sysinit.a
+   1746       0 time_datetime.a
+    120       0 util_mem.a
+    208       0 nrf52_my_sensor-sysinit-app.a
+   2016       0 libgcc.a
+Loading compiler /Users/Luppy/PineTime/pinetime-rust-mynewt/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
+
+objsize
+   text    data     bss     dec     hex filename
+ 347992     984   54728  403704   628f8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
 ```
 
 # Bluetooth Driver
