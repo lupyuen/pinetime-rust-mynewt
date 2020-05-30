@@ -453,6 +453,10 @@ Check out the driver for the CST816S Touch Controller: [`wasp/drivers/cst816s.py
 
 TODO
 
+![RAM Usage with MicroPython](https://lupyuen.github.io/images/micropython-heap2.png)
+
+![RAM Usage with Mynewt and MicroPython](https://lupyuen.github.io/images/micropython-heap.png)
+
 Mynewt config
 
 https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml
@@ -466,12 +470,6 @@ syscfg.vals:
     MSYS_1_BLOCK_SIZE:   110  #  Defaults to 292
 ```
 
-# Semihosting Console
-
-TODO
-
-printf
-
 # Bluetooth Driver
 
 TODO
@@ -481,6 +479,12 @@ UART
 # Task Scheduler
 
 TODO
+
+# Semihosting Console
+
+TODO
+
+printf
 
 # Other Drivers
 
