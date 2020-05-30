@@ -459,13 +459,15 @@ When MicroPython runs on Bare Metal (without an operating system), it uses three
 
 1. __Stack Memory__: Contains C objects allocated on the stack inside function calls
 
-1. __Heap Memory__: Contains MicroPython objects allocated dynamically, just like calling `malloc()` in C
+1. __Heap Memory__: Contains MicroPython objects allocated dynamically, similar to calling `malloc()` in C
 
 ![RAM Usage with MicroPython](https://lupyuen.github.io/images/micropython-heap2.png)
 
 Note that the Heap Memory and Stack Memory are not fixed.  They are allowed to grow and shrink, as long as the combined size fits within RAM.
 
-That's why MicroPython performs Garbage Collection... Eventually when the Stack Memory gets too close to the Heap Memory, MicroPython needs to scan the Heap Memory and reclaim space for new objects.
+_What happens when Stack Memory gets too close to Heap Memory?_
+
+MicroPython performs Garbage Collection. It scans the Heap Memory and reclaims unused space for new objects.
 
 _What happens when we run MicroPython on a multitasking operating system like Mynewt?_
 
