@@ -306,7 +306,7 @@
 <p><img src="https://lupyuen.github.io/images/micropython-hal2.png" alt="SPI Driver" /></p>
 <h1 id="spi-driver" class="section-header"><a href="#spi-driver">6 SPI Driver</a></h1>
 <p>Now that we have reprogrammed the GPIO Driver from Bare Metal PineTime to Mynewt, let's do the same for the SPI Driver. </p>
-<p>PineTime's <a href="https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf">Sitronix ST77889 Display Controller</a> is controlled via SPI, thus we shall port the SPI Driver to Mynewt render graphics.</p>
+<p>PineTime's <a href="https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf">Sitronix ST77889 Display Controller</a> is controlled via SPI, thus we shall port the SPI Driver to Mynewt for rendering graphics.</p>
 <p>Porting the SPI Driver really is really easy... No initialisation needed!</p>
 <p>Mynewt starts its SPI Driver automatically upon startup, according to the settings here...</p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml"><code>apps/my_sensor_app/syscfg.yml</code></a></p>

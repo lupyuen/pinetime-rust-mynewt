@@ -291,7 +291,7 @@ Moving on to SPI...
 
 Now that we have reprogrammed the GPIO Driver from Bare Metal PineTime to Mynewt, let's do the same for the SPI Driver. 
 
-PineTime's [Sitronix ST77889 Display Controller](https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf) is controlled via SPI, thus we shall port the SPI Driver to Mynewt render graphics.
+PineTime's [Sitronix ST77889 Display Controller](https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf) is controlled via SPI, thus we shall port the SPI Driver to Mynewt for rendering graphics.
 
 Porting the SPI Driver really is really easy... No initialisation needed!
 
