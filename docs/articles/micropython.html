@@ -69,10 +69,11 @@
 <li><a href="#semihosting-console">9 Semihosting Console</a><ul></ul></li>
 <li><a href="#bluetooth-driver">10 Bluetooth Driver</a><ul></ul></li>
 <li><a href="#task-scheduler">11 Task Scheduler</a><ul></ul></li>
-<li><a href="#vscode-workspace">12 VSCode Workspace</a><ul></ul></li>
-<li><a href="#debug-with-vscode-and-st-link">13 Debug with VSCode and ST-Link</a><ul></ul></li>
-<li><a href="#testing-wasp-os-and-micropython-with-mynewt">14 Testing wasp-os and MicroPython with Mynewt</a><ul></ul></li>
-<li><a href="#further-reading">15 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/micropython-title.jpg" alt="MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor" /></p>
+<li><a href="#other-drivers-1">12 Other Drivers</a><ul></ul></li>
+<li><a href="#vscode-workspace">13 VSCode Workspace</a><ul></ul></li>
+<li><a href="#debug-with-vscode-and-st-link">14 Debug with VSCode and ST-Link</a><ul></ul></li>
+<li><a href="#testing-wasp-os-and-micropython-with-mynewt">15 Testing wasp-os and MicroPython with Mynewt</a><ul></ul></li>
+<li><a href="#further-reading">16 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/micropython-title.jpg" alt="MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor" /></p>
 <p><em>MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor</em></p>
 <p><a href="https://wasp-os.readthedocs.io/en/latest/README.html"><strong>wasp-os</strong></a>, built with <a href="https://micropython.org/"><strong>MicroPython</strong></a>, is highly popular with folks coding <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a> for the very first time...</p>
 <p><em>Because there's no easier way to create a Watch App for PineTime!</em></p>
@@ -301,32 +302,87 @@
 </code></pre>
 <p><code>pin_irq()</code> is called by MicroPython to configure the interrupt that will be triggered when an input GPIO pin switches its state from high to low (or low to high). This will be useful for handling the pressing of PineTime's watch button, since it's connected to a GPIO pin.</p>
 <p>Eventually <code>pin_irq()</code> shall be reprogrammed to call the equivalent function in Mynewt: <a href="https://mynewt.apache.org/latest/os/modules/hal/hal_gpio/hal_gpio.html#c.hal_gpio_irq_init"><code>hal_gpio_irq_init()</code></a></p>
+<p>Moving on to SPI...</p>
 <p><img src="https://lupyuen.github.io/images/micropython-hal2.png" alt="SPI Driver" /></p>
 <h1 id="spi-driver" class="section-header"><a href="#spi-driver">6 SPI Driver</a></h1>
-<p>TODO</p>
-<p>The GPIO Driver is essential for our demo... Because PineTime's Backlight is controlled by GPIO and PineTime's screen will be totally dark without the Backlight!</p>
-<p>No init</p>
-<p>https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/spi.c</p>
-<pre><code class="language-c">void spi_transfer(
-    const machine_hard_spi_obj_t * self, 
-    size_t len, 
-    const void * src, 
-    void * dest
+<p>Now that we have reprogrammed the GPIO Driver from Bare Metal PineTime to Mynewt, let's do the same for the SPI Driver. </p>
+<p>PineTime's <a href="https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf">Sitronix ST77889 Display Controller</a> is controlled via SPI, thus we shall port the SPI Driver to Mynewt render graphics.</p>
+<p>Porting the SPI Driver really is really easy... No initialisation needed!</p>
+<p>Mynewt starts its SPI Driver automatically upon startup, according to the settings here...</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml"><code>apps/my_sensor_app/syscfg.yml</code></a></p>
+<pre><code class="language-yaml"># System Configuration Setting Values:
+#   Below we override the driver and library settings. Settings defined in
+#   targets/nrf52_my_sensor/syscfg.yml will override the settings below.
+
+syscfg.vals:
+    SPI_0_MASTER:           1  # Enable SPI port 0 for ST7789 display and SPI Flash
+</code></pre>
+<p>The pins for the SPI port are defined in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/hw/bsp/nrf52/syscfg.yml"><code>hw/bsp/nrf52/syscfg.yml</code></a></p>
+<pre><code class="language-yaml">syscfg.vals:
+    ###########################################################################
+    # Default Pins for Peripherals
+    # Defined in http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf
+
+    # SPI port 0 connected to ST7789 display and XT25F32B flash
+    SPI_0_MASTER_PIN_SCK:  2  # P0.02/AIN0: SPI-SCK, LCD_SCK    SPI clock for display and flash
+    SPI_0_MASTER_PIN_MOSI: 3  # P0.03/AIN1: SPI-MOSI, LCD_SDI   SPI MOSI for display and flash
+    SPI_0_MASTER_PIN_MISO: 4  # P0.04/AIN2: SPI-MISO            SPI MISO for flash only
+</code></pre>
+<p>What about the MicroPython driver code? Only one SPI Driver function needs to be reprogrammed in <a href="https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/spi.c"><code>modules/machine/spi.c</code></a></p>
+<pre><code class="language-c">/// Called by MicroPython to transmit and receive a chunk of data over the SPI port
+void spi_transfer(
+    const machine_hard_spi_obj_t * self,  //  MicroPython instance of the SPI Driver (not used here)
+    size_t len,         //  Number of bytes to send / receive
+    const void * src,   //  Transmit Buffer
+    void * dest         //  Receive Buffer
 ) {
     int rc = hal_spi_txrx(
-        SPI_PORT, 
-        (void *) src,   //  TX Buffer
-        dest,           //  RX Buffer
+        SPI_PORT,       //  Mynewt SPI Port (hardcoded to 0)
+        (void *) src,   //  Transmit Buffer
+        dest,           //  Receive Buffer
         len             //  Length
     );
     if (rc != 0) { mp_raise_ValueError(&quot;SPI TX failed&quot;); }
 }
 </code></pre>
-<p>https://mynewt.apache.org/latest/os/modules/hal/hal_spi/hal_spi.html#c.hal_spi_txrx</p>
+<p>Whenever MicroPython calls <code>spi_transfer()</code> in our Mynewt Port to transmit and receive a chunk of data over SPI, we forward the call to <a href="https://mynewt.apache.org/latest/os/modules/hal/hal_spi/hal_spi.html#c.hal_spi_txrx"><code>hal_spi_txrx()</code></a>. That's the equivalent SPI function in the Mynewt Hardware Abstraction Layer.</p>
+<p><em>The SPI Driver in the Mynewt Port for MicroPython is now ready!</em></p>
+<p>We'll see the SPI Driver in action when <a href="https://github.com/lupyuen/wasp-os/blob/master/wasp/drivers/st7789.py">wasp-os's ST7789 Driver</a> calls our SPI Driver to render the watch face.</p>
+<p>Finally, I2C...</p>
 <p><img src="https://lupyuen.github.io/images/micropython-hal3.png" alt="I2C Driver" /></p>
 <h1 id="i2c-driver" class="section-header"><a href="#i2c-driver">7 I2C Driver</a></h1>
 <p>TODO</p>
 <p>The GPIO Driver is essential for our demo... Because PineTime's Backlight is controlled by GPIO and PineTime's screen will be totally dark without the Backlight!</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/hw/bsp/nrf52/syscfg.yml"><code>hw/bsp/nrf52/syscfg.yml</code></a></p>
+<pre><code class="language-yaml">syscfg.vals:
+    # Enable nRF52832 MCU
+    MCU_TARGET: nRF52832
+
+    ###########################################################################
+    # Default Pins for Peripherals
+    # Defined in http://files.pine64.org/doc/PineTime/PineTime%20Port%20Assignment%20rev1.0.pdf
+
+    # SPI port 0 connected to ST7789 display and XT25F32B flash
+    SPI_0_MASTER_PIN_SCK:  2  # P0.02/AIN0: SPI-SCK, LCD_SCK    SPI clock for display and flash
+    SPI_0_MASTER_PIN_MOSI: 3  # P0.03/AIN1: SPI-MOSI, LCD_SDI   SPI MOSI for display and flash
+    SPI_0_MASTER_PIN_MISO: 4  # P0.04/AIN2: SPI-MISO            SPI MISO for flash only
+
+    # I2C port 1 connected to CST816S touch controller, BMA421 accelerometer, HRS3300 heart rate sensor 
+    I2C_1_PIN_SCL: 7  # P0.07: BMA421-SCL, HRS3300-SCL, TP-SCLOUT
+    I2C_1_PIN_SDA: 6  # P0.06: BMA421-SDA, HRS3300-SDA, TP-SDAI/O
+</code></pre>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml"><code>apps/my_sensor_app/syscfg.yml</code></a></p>
+<pre><code class="language-yaml"># System Configuration Setting Values:
+#   Below we override the driver and library settings. Settings defined in
+#   targets/nrf52_my_sensor/syscfg.yml will override the settings below.
+
+syscfg.vals:
+    ###########################################################################
+    # Hardware Settings
+
+    SPI_0_MASTER:           1  # Enable SPI port 0 for ST7789 display and SPI Flash
+    I2C_1:                  1  # Enable I2C port 1 for CST816S touch controller, BMA421 accelerometer, HRS3300 heart rate sensor
+</code></pre>
 <p>https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/modules/machine/i2c.c</p>
 <pre><code class="language-c">mp_obj_t machine_hard_i2c_make_new(
     const mp_obj_type_t *type, 
@@ -383,6 +439,7 @@ int machine_hard_i2c_transfer_single(
 </code></pre>
 <p>https://mynewt.apache.org/latest/os/modules/hal/hal_i2c/hal_i2c.html#c.hal_i2c_master_read</p>
 <p>https://mynewt.apache.org/latest/os/modules/hal/hal_i2c/hal_i2c.html#c.hal_i2c_master_write</p>
+<p>https://github.com/lupyuen/wasp-os/blob/master/wasp/drivers/cst816s.py</p>
 <h1 id="heap-memory" class="section-header"><a href="#heap-memory">8 Heap Memory</a></h1>
 <p>TODO</p>
 <p>Mynewt config</p>
@@ -402,11 +459,18 @@ int machine_hard_i2c_transfer_single(
 <p>UART</p>
 <h1 id="task-scheduler" class="section-header"><a href="#task-scheduler">11 Task Scheduler</a></h1>
 <p>TODO</p>
-<h1 id="vscode-workspace" class="section-header"><a href="#vscode-workspace">12 VSCode Workspace</a></h1>
+<h1 id="other-drivers-1" class="section-header"><a href="#other-drivers-1">12 Other Drivers</a></h1>
+<p>https://github.com/lupyuen/wasp-os/tree/master/wasp/drivers</p>
+<p>SPI Flash</p>
+<p>battery</p>
+<p>nrf_rtc</p>
+<p>signal</p>
+<p>vibrator.py</p>
+<h1 id="vscode-workspace" class="section-header"><a href="#vscode-workspace">13 VSCode Workspace</a></h1>
 <p>TODO</p>
-<h1 id="debug-with-vscode-and-st-link" class="section-header"><a href="#debug-with-vscode-and-st-link">13 Debug with VSCode and ST-Link</a></h1>
+<h1 id="debug-with-vscode-and-st-link" class="section-header"><a href="#debug-with-vscode-and-st-link">14 Debug with VSCode and ST-Link</a></h1>
 <p>TODO</p>
-<h1 id="testing-wasp-os-and-micropython-with-mynewt" class="section-header"><a href="#testing-wasp-os-and-micropython-with-mynewt">14 Testing wasp-os and MicroPython with Mynewt</a></h1>
+<h1 id="testing-wasp-os-and-micropython-with-mynewt" class="section-header"><a href="#testing-wasp-os-and-micropython-with-mynewt">15 Testing wasp-os and MicroPython with Mynewt</a></h1>
 <p>TODO</p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
@@ -417,7 +481,7 @@ int machine_hard_i2c_transfer_single(
 <p>https://wasp-os.readthedocs.io/en/latest/appguide.html</p>
 <p>Wasp-os Reference Manual</p>
 <p>https://wasp-os.readthedocs.io/en/latest/wasp.html</p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">15 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">16 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
 

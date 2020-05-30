@@ -348,7 +348,7 @@ _The SPI Driver in the Mynewt Port for MicroPython is now ready!_
 
 We'll see the SPI Driver in action when [wasp-os's ST7789 Driver](https://github.com/lupyuen/wasp-os/blob/master/wasp/drivers/st7789.py) calls our SPI Driver to render the watch face.
 
-Finally, the I2C Driver...
+Finally, I2C...
 
 ![I2C Driver](https://lupyuen.github.io/images/micropython-hal3.png)
 
