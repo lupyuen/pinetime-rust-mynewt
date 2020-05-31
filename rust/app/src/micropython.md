@@ -698,7 +698,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
 
 `start_ble()` is defined in [`my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_main.c), which calls supporting Bluetooth LE functions in  [`ble_gatt_svr.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_gatt_svr.c), [`ble_misc.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_misc.c), [`ble_phy.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_phy.c) and [`ble_prph.h`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_prph.h)
 
-Then `main()` calls `start_micropython()` to start the MicroPython Runtime, including wasp-os.
+Then `main()` calls `start_micropython()` to start the MicroPython Runtime, including wasp-os. We have seen `start_micropython()` in [`ports/mynewt/main.c`](https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c)
 
 At the end of `main()` we see this: [`rust/app/src/lib.rs`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/rust/app/src/lib.rs)
 
