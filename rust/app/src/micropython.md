@@ -497,6 +497,33 @@ Let's find out how we allocated the Heap Memory in Mynewt.
 
 TODO
 
+https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c
+
+```c
+/// Heap space for MicroPython
+#define MICROPYTHON_HEAP_SIZE 32768
+uint8_t micropython_heap[MICROPYTHON_HEAP_SIZE];
+
+/// Start the MicroPython runtime
+int start_micropython(void) {
+    ...
+    // Set the top of the stack
+    void *stack_start = get_micropython_stack_start();
+    void *stack_end = get_micropython_stack_end();
+    mp_stack_set_top(stack_end);
+
+    // Stack limit not applicable to Mynewt, since stack and heap are in different regions
+    mp_stack_set_limit((char*)stack_end - (char*)stack_start);
+
+    // Initialise the Mynewt port
+    machine_init();
+
+    //  Allocate the MicroPython heap
+    void *heap_start = &micropython_heap[0];
+    void *heap_end = &micropython_heap[MICROPYTHON_HEAP_SIZE];
+    gc_init(heap_start, heap_end);
+```
+
 [`apps/my_sensor_app/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml)
 
 ```yaml
@@ -584,6 +611,43 @@ UART
 # Task Scheduler
 
 TODO
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/rust/app/src/lib.rs
+
+```rust
+///  Rust Main Function main() will be called at Mynewt startup. It replaces the C version of the main() function.
+#[no_mangle]                 //  Don't mangle the name "main"
+extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
+    //  Initialise the Mynewt packages and internal temperature sensor driver. Any startup
+    //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
+    //  sysinit().  Here are the startup functions consolidated by Mynewt:
+    //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
+    mynewt::sysinit();
+
+    //  Start Bluetooth LE, including over-the-air firmware upgrade
+    extern { fn start_ble() -> i32; }
+    let rc = unsafe { start_ble() };
+    assert!(rc == 0, "BLE fail");
+
+    //  Start MicroPython
+    extern { fn start_micropython() -> i32; }
+    let rc = unsafe { start_micropython() };
+    assert!(rc == 0, "MP fail");
+
+    //  OOPS: start_micropython() will never return,
+    //  because it's stuck in a REPL Loop. So the
+    //  Main Event Loop below will never run...
+
+    //  Main event loop
+    loop {                            //  Loop forever...
+        os::eventq_run(               //  Processing events...
+            os::eventq_dflt_get()     //  From default event queue.
+                .expect("GET fail")
+        ).expect("RUN fail");
+    }
+    //  Never comes here
+}
+```
 
 # Semihosting Console
 
