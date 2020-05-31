@@ -67,7 +67,7 @@
 <li><a href="#i2c-driver">7 I2C Driver</a><ul></ul></li>
 <li><a href="#heap-memory-in-micropython">8 Heap Memory in MicroPython</a><ul></ul></li>
 <li><a href="#heap-memory-in-mynewt">9 Heap Memory in Mynewt</a><ul></ul></li>
-<li><a href="#bluetooth-driver">10 Bluetooth Driver</a><ul></ul></li>
+<li><a href="#bluetooth-driver-for-mynewt">10 Bluetooth Driver for Mynewt</a><ul></ul></li>
 <li><a href="#task-scheduler">11 Task Scheduler</a><ul></ul></li>
 <li><a href="#testing-wasp-os-and-micropython-with-mynewt">12 Testing wasp-os and MicroPython with Mynewt</a><ul></ul></li>
 <li><a href="#debug-with-vscode-and-st-link">13 Debug with VSCode and ST-Link</a><ul></ul></li>
@@ -589,18 +589,95 @@ int start_micropython(void) {
 <span class="ident">objsize</span>
    <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
  <span class="number">347992</span>     <span class="number">984</span>   <span class="number">54728</span>  <span class="number">403704</span>   <span class="number">628f8</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">elf</span></pre></div>
-<h1 id="bluetooth-driver" class="section-header"><a href="#bluetooth-driver">10 Bluetooth Driver</a></h1>
-<p>TODO</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_main.c</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_gatt_svr.c</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_misc.c</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_phy.c</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_prph.h</p>
-<p>https://github.com/apache/mynewt-mcumgr</p>
-<p>UART</p>
+<h1 id="bluetooth-driver-for-mynewt" class="section-header"><a href="#bluetooth-driver-for-mynewt">10 Bluetooth Driver for Mynewt</a></h1>
+<p>Mynewt includes the open-source <a href="https://github.com/apache/mynewt-nimble">NimBLE Bluetooth LE networking stack</a>, so we won't be using the <a href="https://infocenter.nordicsemi.com/topic/ug_gsg_ses/UG/gsg/softdevices.html">Nordic SoftDevice</a> Bluetooth stack from the nRF Port of MicroPython.</p>
+<p>Let's flip NimBLE on and watch what happens. We'll add these NimBLE libraries to our firmware: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/pkg.yml"><code>apps/my_sensor_app/pkg.yml</code></a></p>
+<pre><code class="language-yaml"># Bluetooth LE
+pkg.deps.BLUETOOTH_LE:
+    - &quot;@apache-mynewt-core/boot/split&quot;
+    - &quot;@mcuboot/boot/bootutil&quot;
+    - &quot;@apache-mynewt-core/mgmt/imgmgr&quot;
+    - &quot;@apache-mynewt-core/mgmt/newtmgr&quot;
+    - &quot;@apache-mynewt-core/mgmt/newtmgr/transport/ble&quot;
+    - &quot;@apache-mynewt-nimble/nimble/host&quot;
+    - &quot;@apache-mynewt-nimble/nimble/host/services/ans&quot;
+    - &quot;@apache-mynewt-nimble/nimble/host/services/dis&quot;
+    - &quot;@apache-mynewt-nimble/nimble/host/services/gap&quot;
+    - &quot;@apache-mynewt-nimble/nimble/host/services/gatt&quot;
+    - &quot;@apache-mynewt-nimble/nimble/host/store/config&quot;
+    - &quot;@apache-mynewt-nimble/nimble/host/util&quot;
+    - &quot;@apache-mynewt-nimble/nimble/transport&quot;
+</code></pre>
+<p>Here are the libraries that we have added to our Mynewt + MicroPython firmware to support <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">Firmware Updates over Bluetooth LE</a>...</p>
+<ul>
+<li>
+<p><code>mcuboot</code> is the open-source <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">MCUBoot Bootloader</a> that we're using on PineTime. We include the <code>mcuboot</code> library so that PineTime Owners may query via Bluetooth LE the version number of the firmware that's installed.</p>
+</li>
+<li>
+<p><code>imgmgr</code> writes the received firmware image to SPI Flash during Firmware Update</p>
+</li>
+<li>
+<p><code>newtmgr</code> implements the <a href="https://github.com/apache/mynewt-mcumgr">MCU Manager</a>
+Simple Management Protocol for uploading firmware images over Bluetooth LE</p>
+</li>
+<li>
+<p><code>nimble</code> implements the Bluetooth LE Host and Transport functions (including GATT Services for Simple Management Protocol) by talking to the Bluetooth hardware on PineTime's nRF52 Microcontroller</p>
+</li>
+</ul>
+<p><em>How do we start the Bluetooth LE services on PineTime?</em></p>
+<p>In Mynewt's startup function <code>main()</code>, we call <code>start_ble()</code> to start the Bluetooth LE services: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/rust/app/src/lib.rs"><code>rust/app/src/lib.rs</code></a></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Rust Main Function main() will be called at Mynewt startup. </span>
+<span class="doccomment">/// It replaces the C version of the main() function.</span>
+<span class="attribute">#[<span class="ident">no_mangle</span>]</span>                 <span class="comment">//  Don&#39;t mangle the name &quot;main&quot;</span>
+<span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">main</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="op">!</span> {  <span class="comment">//  Declare extern &quot;C&quot; because it will be called by Mynewt</span>
+    <span class="comment">//  Initialise the Mynewt drivers. Any startup functions defined in pkg.yml </span>
+    <span class="comment">//  of our custom drivers and libraries will be called by sysinit().  </span>
+    <span class="comment">//  Here are the startup functions consolidated by Mynewt:</span>
+    <span class="comment">//  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c</span>
+    <span class="ident">mynewt</span>::<span class="ident">sysinit</span>();
+
+    <span class="comment">//  Start Bluetooth LE, including over-the-air firmware upgrade</span>
+    <span class="kw">extern</span> { <span class="kw">fn</span> <span class="ident">start_ble</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>; }
+    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">start_ble</span>() };
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span>, <span class="string">&quot;BLE fail&quot;</span>);
+
+    <span class="comment">//  Start MicroPython</span>
+    <span class="kw">extern</span> { <span class="kw">fn</span> <span class="ident">start_micropython</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>; }
+    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">start_micropython</span>() };
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span>, <span class="string">&quot;MP fail&quot;</span>);
+    ...</pre></div>
+<p><code>start_ble()</code> is defined in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_main.c"><code>my_sensor_app/src/ble_main.c</code></a>, which calls supporting Bluetooth LE functions in  <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_gatt_svr.c"><code>ble_gatt_svr.c</code></a>, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_misc.c"><code>ble_misc.c</code></a>, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_phy.c"><code>ble_phy.c</code></a> and <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_prph.h"><code>ble_prph.h</code></a></p>
+<p>Then <code>main()</code> calls <code>start_micropython()</code> to start the MicroPython Runtime, including wasp-os.</p>
+<p>At the end of <code>main()</code> we see this: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/rust/app/src/lib.rs"><code>rust/app/src/lib.rs</code></a></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">main</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="op">!</span> {
+    ...
+    <span class="comment">//  Main event loop</span>
+    <span class="kw">loop</span> {                            <span class="comment">//  Loop forever...</span>
+        <span class="ident">os</span>::<span class="ident">eventq_run</span>(               <span class="comment">//  Processing events...</span>
+            <span class="ident">os</span>::<span class="ident">eventq_dflt_get</span>()     <span class="comment">//  From default event queue.</span>
+                .<span class="ident">expect</span>(<span class="string">&quot;GET fail&quot;</span>)
+        ).<span class="ident">expect</span>(<span class="string">&quot;RUN fail&quot;</span>);
+    }</pre></div>
+<p>This is the <strong>Main Event Loop</strong> for Mynewt. It's critical because any Bluetooth LE packets received will be treated as Mynewt Events and will be handled in this loop.</p>
+<p><em>So does Bluetooth LE work?</em></p>
+<p>Sadly no! There's a conflict with the Task Scheduling in Mynewt and MicroPython. More about this in the next section.</p>
+<p><em>Wait a minute... The <code>main()</code> function is in Rust not C!</em></p>
+<p>Yep! We're using a <a href="https://medium.com/@ly.lee/debug-rust-mynewt-firmware-for-pinetime-on-raspberry-pi-4b9ac2d093a9?source=friends_link&amp;sk=edb508c31e43d3ec40ecd8554f3405f6">variant of Mynewt that supports Rust</a>!</p>
+<p>So technically we're calling: <strong>C (Mynewt) → Rust → MicroPython!</strong></p>
+<p><em>But won't Rust bloat our Mynewt + MicroPython firmware unnecessarily?</em></p>
+<p>Not at all! The Rust Application and Rust Core Library occupy only 2.4 KB of ROM, 0 KB of RAM! Amazing!</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+  <span class="ident">FLASH</span>     <span class="ident">RAM</span> 
+   <span class="number">1410</span>       <span class="number">0</span> <span class="ident">libs_rust_app</span>.<span class="ident">a</span>
+   <span class="number">1014</span>       <span class="number">0</span> <span class="ident">libs_rust_libcore</span>.<span class="ident">a</span></pre></div>
 <h1 id="task-scheduler" class="section-header"><a href="#task-scheduler">11 Task Scheduler</a></h1>
 <p>TODO</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/rust/app/src/lib.rs</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/rust/app/src/lib.rs"><code>rust/app/src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">///  Rust Main Function main() will be called at Mynewt startup. It replaces the C version of the main() function.</span>
@@ -647,6 +724,7 @@ int start_micropython(void) {
 <h1 id="vscode-workspace" class="section-header"><a href="#vscode-workspace">15 VSCode Workspace</a></h1>
 <p>TODO</p>
 <h1 id="other-drivers-1" class="section-header"><a href="#other-drivers-1">16 Other Drivers</a></h1>
+<p>UART</p>
 <p>https://github.com/lupyuen/wasp-os/tree/master/wasp/drivers</p>
 <p>SPI Flash</p>
 <p>battery</p>

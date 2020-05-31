@@ -634,29 +634,113 @@ objsize
  347992     984   54728  403704   628f8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
 ```
 
-# Bluetooth Driver
+# Bluetooth Driver for Mynewt
 
-TODO
+Mynewt includes the open-source [NimBLE Bluetooth LE networking stack](https://github.com/apache/mynewt-nimble), so we won't be using the [Nordic SoftDevice](https://infocenter.nordicsemi.com/topic/ug_gsg_ses/UG/gsg/softdevices.html) Bluetooth stack from the nRF Port of MicroPython.
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_main.c
+Let's flip NimBLE on and watch what happens. We'll add these NimBLE libraries to our firmware: [`apps/my_sensor_app/pkg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/pkg.yml)
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_gatt_svr.c
+```yaml
+# Bluetooth LE
+pkg.deps.BLUETOOTH_LE:
+    - "@apache-mynewt-core/boot/split"
+    - "@mcuboot/boot/bootutil"
+    - "@apache-mynewt-core/mgmt/imgmgr"
+    - "@apache-mynewt-core/mgmt/newtmgr"
+    - "@apache-mynewt-core/mgmt/newtmgr/transport/ble"
+    - "@apache-mynewt-nimble/nimble/host"
+    - "@apache-mynewt-nimble/nimble/host/services/ans"
+    - "@apache-mynewt-nimble/nimble/host/services/dis"
+    - "@apache-mynewt-nimble/nimble/host/services/gap"
+    - "@apache-mynewt-nimble/nimble/host/services/gatt"
+    - "@apache-mynewt-nimble/nimble/host/store/config"
+    - "@apache-mynewt-nimble/nimble/host/util"
+    - "@apache-mynewt-nimble/nimble/transport"
+```
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_misc.c
+Here are the libraries that we have added to our Mynewt + MicroPython firmware to support [Firmware Updates over Bluetooth LE](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu)...
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_phy.c
+- `mcuboot` is the open-source [MCUBoot Bootloader](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot) that we're using on PineTime. We include the `mcuboot` library so that PineTime Owners may query via Bluetooth LE the version number of the firmware that's installed.
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_prph.h
+- `imgmgr` writes the received firmware image to SPI Flash during Firmware Update
 
-https://github.com/apache/mynewt-mcumgr
+- `newtmgr` implements the [MCU Manager](https://github.com/apache/mynewt-mcumgr)
+ Simple Management Protocol for uploading firmware images over Bluetooth LE
 
-UART
+- `nimble` implements the Bluetooth LE Host and Transport functions (including GATT Services for Simple Management Protocol) by talking to the Bluetooth hardware on PineTime's nRF52 Microcontroller
+
+_How do we start the Bluetooth LE services on PineTime?_
+
+In Mynewt's startup function `main()`, we call `start_ble()` to start the Bluetooth LE services: [`rust/app/src/lib.rs`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/rust/app/src/lib.rs)
+
+```rust
+/// Rust Main Function main() will be called at Mynewt startup. 
+/// It replaces the C version of the main() function.
+#[no_mangle]                 //  Don't mangle the name "main"
+extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
+    //  Initialise the Mynewt drivers. Any startup functions defined in pkg.yml 
+    //  of our custom drivers and libraries will be called by sysinit().  
+    //  Here are the startup functions consolidated by Mynewt:
+    //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
+    mynewt::sysinit();
+
+    //  Start Bluetooth LE, including over-the-air firmware upgrade
+    extern { fn start_ble() -> i32; }
+    let rc = unsafe { start_ble() };
+    assert!(rc == 0, "BLE fail");
+
+    //  Start MicroPython
+    extern { fn start_micropython() -> i32; }
+    let rc = unsafe { start_micropython() };
+    assert!(rc == 0, "MP fail");
+    ...
+```
+
+`start_ble()` is defined in [`my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_main.c), which calls supporting Bluetooth LE functions in  [`ble_gatt_svr.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_gatt_svr.c), [`ble_misc.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_misc.c), [`ble_phy.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_phy.c) and [`ble_prph.h`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_prph.h)
+
+Then `main()` calls `start_micropython()` to start the MicroPython Runtime, including wasp-os.
+
+At the end of `main()` we see this: [`rust/app/src/lib.rs`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/rust/app/src/lib.rs)
+
+```rust
+extern "C" fn main() -> ! {
+    ...
+    //  Main event loop
+    loop {                            //  Loop forever...
+        os::eventq_run(               //  Processing events...
+            os::eventq_dflt_get()     //  From default event queue.
+                .expect("GET fail")
+        ).expect("RUN fail");
+    }
+```
+
+This is the __Main Event Loop__ for Mynewt. It's critical because any Bluetooth LE packets received will be treated as Mynewt Events and will be handled in this loop.
+
+_So does Bluetooth LE work?_
+
+Sadly no! There's a conflict with the Task Scheduling in Mynewt and MicroPython. More about this in the next section.
+
+_Wait a minute... The `main()` function is in Rust not C!_
+
+Yep! We're using a [variant of Mynewt that supports Rust](https://medium.com/@ly.lee/debug-rust-mynewt-firmware-for-pinetime-on-raspberry-pi-4b9ac2d093a9?source=friends_link&sk=edb508c31e43d3ec40ecd8554f3405f6)!
+
+So technically we're calling: __C (Mynewt) → Rust → MicroPython!__
+
+_But won't Rust bloat our Mynewt + MicroPython firmware unnecessarily?_
+
+Not at all! The Rust Application and Rust Core Library occupy only 2.4 KB of ROM, 0 KB of RAM! Amazing!
+
+```
+  FLASH     RAM 
+   1410       0 libs_rust_app.a
+   1014       0 libs_rust_libcore.a
+```
 
 # Task Scheduler
 
 TODO
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/rust/app/src/lib.rs
+[`rust/app/src/lib.rs`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/rust/app/src/lib.rs)
 
 ```rust
 ///  Rust Main Function main() will be called at Mynewt startup. It replaces the C version of the main() function.
@@ -716,6 +800,8 @@ printf
 TODO
 
 # Other Drivers
+
+UART
 
 https://github.com/lupyuen/wasp-os/tree/master/wasp/drivers
 
