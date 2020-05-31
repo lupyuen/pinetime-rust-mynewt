@@ -500,27 +500,27 @@ TODO
 https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c
 
 ```c
-/// Heap space for MicroPython
+/// Heap Memory for MicroPython
 #define MICROPYTHON_HEAP_SIZE 32768
 uint8_t micropython_heap[MICROPYTHON_HEAP_SIZE];
 
-/// Start the MicroPython runtime
+/// Called my Mynewt to start the MicroPython runtime
 int start_micropython(void) {
     ...
     // Set the top of the stack
     void *stack_start = get_micropython_stack_start();
-    void *stack_end = get_micropython_stack_end();
+    void *stack_end   = get_micropython_stack_end();
     mp_stack_set_top(stack_end);
 
     // Stack limit not applicable to Mynewt, since stack and heap are in different regions
-    mp_stack_set_limit((char*)stack_end - (char*)stack_start);
+    mp_stack_set_limit((char*) stack_end - (char*) stack_start);
 
     // Initialise the Mynewt port
     machine_init();
 
-    //  Allocate the MicroPython heap
+    //  Allocate the MicroPython heap memory
     void *heap_start = &micropython_heap[0];
-    void *heap_end = &micropython_heap[MICROPYTHON_HEAP_SIZE];
+    void *heap_end   = &micropython_heap[MICROPYTHON_HEAP_SIZE];
     gc_init(heap_start, heap_end);
 ```
 
@@ -534,6 +534,30 @@ syscfg.vals:
     MSYS_1_BLOCK_COUNT:   22  #  Defaults to 12. Previously 64
     MSYS_1_BLOCK_SIZE:   110  #  Defaults to 292
 ```
+
+_How much RAM and ROM are used by MicroPython on Mynewt?_
+
+According to the build output, the MicroPython takes up __33 KB of RAM__. That includes 32 KB of Heap Memory that we have allocated above.
+
+The compiled MicroPython Runtime code occupies __210 KB__ of Flash ROM.
+
+```
+  FLASH     RAM 
+ 214606   33557 libs_micropython.a
+```
+
+The MicroPython Runtime is compiled as a custom library in Mynewt, hence the name `libs_micropython.a`.
+
+The combined MicroPython + Mynewt firmware (including the NimBLE Bluetooth Stack) takes up __340 KB of Flash ROM, 53 KB of RAM__...
+
+```
+   text    data     bss
+ 347992     984   54728
+```
+
+So MicroPython occupies 62% of the firmware ROM, and 61% of the firmware RAM.
+
+Here are the sizes of all code modules in the MicroPython + Mynewt firmware...
 
 ```
 + newt size -v nrf52_my_sensor
@@ -606,6 +630,18 @@ objsize
 
 TODO
 
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_main.c
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_gatt_svr.c
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_misc.c
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_phy.c
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_prph.h
+
+https://github.com/apache/mynewt-mcumgr
+
 UART
 
 # Task Scheduler
@@ -649,11 +685,27 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
 }
 ```
 
+# Testing wasp-os and MicroPython with Mynewt
+
+TODO
+
+Build script
+
+Debug log
+
+# Debug with VSCode and ST-Link
+
+TODO
+
 # Semihosting Console
 
 TODO
 
 printf
+
+# VSCode Workspace
+
+TODO
 
 # Other Drivers
 
@@ -668,18 +720,6 @@ nrf_rtc
 signal
 
 vibrator.py
-
-# VSCode Workspace
-
-TODO
-
-# Debug with VSCode and ST-Link
-
-TODO
-
-# Testing wasp-os and MicroPython with Mynewt
-
-TODO
 
 _["MCUBoot Bootloader for PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot)_
 
