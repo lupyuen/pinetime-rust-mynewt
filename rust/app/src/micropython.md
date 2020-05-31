@@ -524,6 +524,8 @@ int start_micropython(void) {
 
 Note that the Stack Limit checking has been disabled, since we don't support grow-and-shrink Heap Memory with Mynewt.
 
+32 KB is not a lot of Heap Memory... But it's sufficient for wasp-os to render a watch face on PineTime (which has 64 KB RAM).
+
 The Stack Memory and Mbuf Memory sizes are defined in Mynewt: [`apps/my_sensor_app/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml)
 
 ```yaml
@@ -539,11 +541,11 @@ We reserved 8 KB of Stack Memory for Mynewt's Main Task, which also executes the
 
 For the Mbuf Memory we allocated 22 Mbufs of 110 bytes each (total 2,420 bytes).
 
-This Mbuf Memory setting was recommended because we'll be using MCU Manager (Simple Management Protocol) to upload firmware files during firmware update: [`apache-mynewt-nimble/apps/bleprph/syscfg.yml`](https://github.com/JuulLabs-OSS/mynewt-travis-ci/blob/master/newt_dump/proj/repos/apache-mynewt-nimble/apps/bleprph/syscfg.yml)
+This Mbuf Memory setting was recommended because we'll be using [MCU Manager](https://github.com/apache/mynewt-mcumgr) (Simple Management Protocol) to upload firmware files during firmware update. See [`apache-mynewt-nimble/apps/bleprph/syscfg.yml`](https://github.com/JuulLabs-OSS/mynewt-travis-ci/blob/master/newt_dump/proj/repos/apache-mynewt-nimble/apps/bleprph/syscfg.yml)
 
 _How much RAM and ROM are used by MicroPython on Mynewt?_
 
-According to the build output, the MicroPython takes up __33 KB of RAM__. That includes 32 KB of Heap Memory that we have allocated above.
+According to the build output, the MicroPython Runtime takes up __33 KB of RAM__. That includes 32 KB of Heap Memory that we have allocated above.
 
 The compiled MicroPython Runtime code occupies __210 KB__ of Flash ROM.
 
