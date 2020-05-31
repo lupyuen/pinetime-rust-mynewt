@@ -65,15 +65,16 @@
 <li><a href="#gpio-driver">5 GPIO Driver</a><ul></ul></li>
 <li><a href="#spi-driver">6 SPI Driver</a><ul></ul></li>
 <li><a href="#i2c-driver">7 I2C Driver</a><ul></ul></li>
-<li><a href="#heap-memory">8 Heap Memory</a><ul></ul></li>
-<li><a href="#semihosting-console">9 Semihosting Console</a><ul></ul></li>
+<li><a href="#heap-memory-in-micropython">8 Heap Memory in MicroPython</a><ul></ul></li>
+<li><a href="#heap-memory-in-mynewt">9 Heap Memory in Mynewt</a><ul></ul></li>
 <li><a href="#bluetooth-driver">10 Bluetooth Driver</a><ul></ul></li>
 <li><a href="#task-scheduler">11 Task Scheduler</a><ul></ul></li>
-<li><a href="#other-drivers-1">12 Other Drivers</a><ul></ul></li>
-<li><a href="#vscode-workspace">13 VSCode Workspace</a><ul></ul></li>
-<li><a href="#debug-with-vscode-and-st-link">14 Debug with VSCode and ST-Link</a><ul></ul></li>
-<li><a href="#testing-wasp-os-and-micropython-with-mynewt">15 Testing wasp-os and MicroPython with Mynewt</a><ul></ul></li>
-<li><a href="#further-reading">16 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/micropython-title.jpg" alt="MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor" /></p>
+<li><a href="#semihosting-console">12 Semihosting Console</a><ul></ul></li>
+<li><a href="#other-drivers-1">13 Other Drivers</a><ul></ul></li>
+<li><a href="#vscode-workspace">14 VSCode Workspace</a><ul></ul></li>
+<li><a href="#debug-with-vscode-and-st-link">15 Debug with VSCode and ST-Link</a><ul></ul></li>
+<li><a href="#testing-wasp-os-and-micropython-with-mynewt">16 Testing wasp-os and MicroPython with Mynewt</a><ul></ul></li>
+<li><a href="#further-reading">17 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/micropython-title.jpg" alt="MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor" /></p>
 <p><em>MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor</em></p>
 <p><a href="https://wasp-os.readthedocs.io/en/latest/README.html"><strong>wasp-os</strong></a>, built with <a href="https://micropython.org/"><strong>MicroPython</strong></a>, is highly popular with folks coding <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a> for the very first time...</p>
 <p><em>Because there's no easier way to create a Watch App for PineTime!</em></p>
@@ -429,10 +430,49 @@ int machine_hard_i2c_transfer_single(
 <p>The code above calls <a href="https://mynewt.apache.org/latest/os/modules/hal/hal_i2c/hal_i2c.html#c.hal_i2c_master_read"><code>hal_i2c_master_read()</code></a> and <a href="https://mynewt.apache.org/latest/os/modules/hal/hal_i2c/hal_i2c.html#c.hal_i2c_master_write"><code>hal_i2c_master_write()</code></a> from Mynewt's I2C Hardware Abstraction Layer.</p>
 <p><em>How is this I2C Driver used in wasp-os?</em></p>
 <p>Check out the driver for the CST816S Touch Controller: <a href="https://github.com/lupyuen/wasp-os/blob/master/wasp/drivers/cst816s.py"><code>wasp/drivers/cst816s.py</code></a></p>
-<h1 id="heap-memory" class="section-header"><a href="#heap-memory">8 Heap Memory</a></h1>
+<h1 id="heap-memory-in-micropython" class="section-header"><a href="#heap-memory-in-micropython">8 Heap Memory in MicroPython</a></h1>
+<p><em>How is RAM used by MicroPython?</em></p>
+<p>When MicroPython runs on Bare Metal (without an operating system), it uses three chunks of RAM to store objects...</p>
+<ol>
+<li>
+<p><strong>Static Memory</strong>: Contains C objects that are Global or Static</p>
+</li>
+<li>
+<p><strong>Stack Memory</strong>: Contains C objects allocated on the stack inside function calls</p>
+</li>
+<li>
+<p><strong>Heap Memory</strong>: Contains MicroPython objects allocated dynamically, similar to calling <code>malloc()</code> in C</p>
+</li>
+</ol>
+<p><img src="https://lupyuen.github.io/images/micropython-heap2.png" alt="RAM Usage with MicroPython" /></p>
+<p>Note that the Heap Memory and Stack Memory are not fixed.  They are allowed to grow and shrink, as long as the combined size fits within RAM.</p>
+<p><em>What happens when Stack Memory gets too close to Heap Memory?</em></p>
+<p>MicroPython performs Garbage Collection. It scans the Heap Memory and reclaims unused space for new objects.</p>
+<p><em>What happens when we run MicroPython on a multitasking operating system like Mynewt?</em></p>
+<p>With multitasking, all RAM needs to be carefully budgeted and partitioned like this...</p>
+<p><img src="https://lupyuen.github.io/images/micropython-heap.png" alt="RAM Usage with Mynewt and MicroPython" /></p>
+<ol>
+<li>
+<p><strong>Mbuf Memory</strong>: <a href="https://mynewt.apache.org/latest/os/core_os/mbuf/mbuf.html">Mbufs (Memory Buffers)</a> are used for Bluetooth LE networking and by the Semihosting Console in Mynewt. Mbufs are fixed-size blocks of 110 bytes that may be chained together to form larger objects.</p>
+<p><em>Why are Mbufs fixed size?</em> </p>
+<p>To prevent <a href="https://stackoverflow.com/questions/3770457/what-is-memory-fragmentation">fragmentation of the memory space</a>. Though coding with Mbufs is slightly more difficult.</p>
+</li>
+<li>
+<p><strong>Idle Task</strong>: With multitasking, there is no longer a common stack. Each task now requires its own Stack Memory. Even the Idle Task, which runs when no other tasks are running.</p>
+</li>
+<li>
+<p><strong>Main Task</strong>: This is the task that runs the MicroPython Runtime. The Stack Memory in the Main Task is used by MicroPython.</p>
+</li>
+<li>
+<p><strong>Bluetooth Task</strong>: This is the background task that handles Bluetooth LE packets. It requires its own Stack Memory too.</p>
+</li>
+</ol>
+<p>We no longer enjoy the grow-and-shink memory model that we have seen earlier... Every memory space must have a fixed size!</p>
+<p>That's why we often discourage the use of Heap Memory on embedded operating systems... We can't really be sure when we'll run out of Heap Memory!</p>
+<p>Let's find out how we allocated the Heap Memory in Mynewt.</p>
+<h1 id="heap-memory-in-mynewt" class="section-header"><a href="#heap-memory-in-mynewt">9 Heap Memory in Mynewt</a></h1>
 <p>TODO</p>
-<p>Mynewt config</p>
-<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml"><code>apps/my_sensor_app/syscfg.yml</code></a></p>
 <pre><code class="language-yaml">syscfg.vals:
     OS_MAIN_STACK_SIZE: 2048  #  8 KB. Previously 4096 (16 KB)
 
@@ -440,26 +480,92 @@ int machine_hard_i2c_transfer_single(
     MSYS_1_BLOCK_COUNT:   22  #  Defaults to 12. Previously 64
     MSYS_1_BLOCK_SIZE:   110  #  Defaults to 292
 </code></pre>
-<h1 id="semihosting-console" class="section-header"><a href="#semihosting-console">9 Semihosting Console</a></h1>
-<p>TODO</p>
-<p>printf</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="op">+</span> <span class="ident">newt</span> <span class="ident">size</span> <span class="op">-</span><span class="ident">v</span> <span class="ident">nrf52_my_sensor</span>
+<span class="ident">Size</span> <span class="ident">of</span> <span class="ident">Application</span> <span class="ident">Image</span>: <span class="ident">app</span>
+<span class="ident">Mem</span> <span class="ident">FLASH</span>: <span class="number">0x8000</span><span class="op">-</span><span class="number">0x7bc00</span>
+<span class="ident">Mem</span> <span class="ident">RAM</span>: <span class="number">0x20000000</span><span class="op">-</span><span class="number">0x20010000</span>
+  <span class="ident">FLASH</span>     <span class="ident">RAM</span> 
+    <span class="number">800</span>     <span class="number">324</span> <span class="kw-2">*</span><span class="ident">fill</span><span class="op">*</span>
+   <span class="number">1018</span>      <span class="number">98</span> <span class="ident">apps_my_sensor_app</span>.<span class="ident">a</span>
+   <span class="number">2268</span>     <span class="number">116</span> <span class="ident">boot_bootutil</span>.<span class="ident">a</span>
+     <span class="number">18</span>       <span class="number">0</span> <span class="ident">boot_mynewt_flash_map_backend</span>.<span class="ident">a</span>
+    <span class="number">438</span>      <span class="number">26</span> <span class="ident">boot_split</span>.<span class="ident">a</span>
+   <span class="number">1180</span>       <span class="number">0</span> <span class="ident">crypto_mbedtls</span>.<span class="ident">a</span>
+   <span class="number">2302</span>       <span class="number">0</span> <span class="ident">crypto_tinycrypt</span>.<span class="ident">a</span>
+    <span class="number">401</span>       <span class="number">0</span> <span class="ident">encoding_base64</span>.<span class="ident">a</span>
+   <span class="number">1622</span>       <span class="number">0</span> <span class="ident">encoding_cborattr</span>.<span class="ident">a</span>
+   <span class="number">3002</span>       <span class="number">0</span> <span class="ident">encoding_tinycbor</span>.<span class="ident">a</span>
+    <span class="number">452</span>     <span class="number">444</span> <span class="ident">hw_bsp_nrf52</span>.<span class="ident">a</span>
+     <span class="number">52</span>       <span class="number">0</span> <span class="ident">hw_cmsis</span><span class="op">-</span><span class="ident">core</span>.<span class="ident">a</span>
+   <span class="number">1560</span>      <span class="number">92</span> <span class="ident">hw_drivers_flash_spiflash</span>.<span class="ident">a</span>
+    <span class="number">706</span>       <span class="number">1</span> <span class="ident">hw_hal</span>.<span class="ident">a</span>
+   <span class="number">6646</span>      <span class="number">89</span> <span class="ident">hw_mcu_nordic_nrf52xxx</span>.<span class="ident">a</span>
+      <span class="number">2</span>       <span class="number">0</span> <span class="ident">hw_sensor_creator</span>.<span class="ident">a</span>
+   <span class="number">1264</span>     <span class="number">260</span> <span class="ident">hw_sensor</span>.<span class="ident">a</span>
+   <span class="number">8790</span>   <span class="number">11296</span> <span class="ident">kernel_os</span>.<span class="ident">a</span>
+   <span class="number">3152</span>      <span class="number">50</span> <span class="ident">libc_baselibc</span>.<span class="ident">a</span>
+ <span class="number">214606</span>   <span class="number">33557</span> <span class="ident">libs_micropython</span>.<span class="ident">a</span>
+     <span class="number">16</span>       <span class="number">0</span> <span class="ident">libs_mynewt_rust</span>.<span class="ident">a</span>
+   <span class="number">1410</span>       <span class="number">0</span> <span class="ident">libs_rust_app</span>.<span class="ident">a</span>
+   <span class="number">1014</span>       <span class="number">0</span> <span class="ident">libs_rust_libcore</span>.<span class="ident">a</span>
+    <span class="number">738</span>      <span class="number">42</span> <span class="ident">libs_semihosting_console</span>.<span class="ident">a</span>
+     <span class="number">40</span>       <span class="number">9</span> <span class="ident">libs_sensor_coap</span>.<span class="ident">a</span>
+    <span class="number">583</span>      <span class="number">99</span> <span class="ident">libs_sensor_network</span>.<span class="ident">a</span>
+    <span class="number">677</span>     <span class="number">212</span> <span class="ident">libs_temp_stub</span>.<span class="ident">a</span>
+   <span class="number">3428</span>      <span class="number">72</span> <span class="ident">mgmt_imgmgr</span>.<span class="ident">a</span>
+    <span class="number">231</span>      <span class="number">20</span> <span class="ident">mgmt_mgmt</span>.<span class="ident">a</span>
+    <span class="number">884</span>     <span class="number">100</span> <span class="ident">mgmt_newtmgr</span>.<span class="ident">a</span>
+   <span class="number">1410</span>      <span class="number">44</span> <span class="ident">mgmt_newtmgr_nmgr_os</span>.<span class="ident">a</span>
+    <span class="number">454</span>     <span class="number">108</span> <span class="ident">mgmt_newtmgr_transport_ble</span>.<span class="ident">a</span>
+    <span class="number">405</span>     <span class="number">388</span> <span class="ident">net_oic</span>.<span class="ident">a</span>
+  <span class="number">35496</span>    <span class="number">2107</span> <span class="ident">nimble_controller</span>.<span class="ident">a</span>
+   <span class="number">4086</span>    <span class="number">1203</span> <span class="ident">nimble_drivers_nrf52</span>.<span class="ident">a</span>
+  <span class="number">41721</span>    <span class="number">2797</span> <span class="ident">nimble_host</span>.<span class="ident">a</span>
+    <span class="number">822</span>     <span class="number">218</span> <span class="ident">nimble_host_services_ans</span>.<span class="ident">a</span>
+    <span class="number">241</span>     <span class="number">112</span> <span class="ident">nimble_host_services_dis</span>.<span class="ident">a</span>
+    <span class="number">396</span>     <span class="number">118</span> <span class="ident">nimble_host_services_gap</span>.<span class="ident">a</span>
+    <span class="number">204</span>      <span class="number">62</span> <span class="ident">nimble_host_services_gatt</span>.<span class="ident">a</span>
+   <span class="number">1814</span>     <span class="number">648</span> <span class="ident">nimble_host_store_config</span>.<span class="ident">a</span>
+    <span class="number">114</span>       <span class="number">0</span> <span class="ident">nimble_host_util</span>.<span class="ident">a</span>
+    <span class="number">692</span>    <span class="number">1096</span> <span class="ident">nimble_transport_ram</span>.<span class="ident">a</span>
+   <span class="number">1578</span>      <span class="number">54</span> <span class="ident">sys_config</span>.<span class="ident">a</span>
+    <span class="number">634</span>     <span class="number">128</span> <span class="ident">sys_flash_map</span>.<span class="ident">a</span>
+      <span class="number">2</span>       <span class="number">0</span> <span class="ident">sys_log_modlog</span>.<span class="ident">a</span>
+    <span class="number">686</span>      <span class="number">29</span> <span class="ident">sys_mfg</span>.<span class="ident">a</span>
+    <span class="number">839</span>      <span class="number">51</span> <span class="ident">sys_reboot</span>.<span class="ident">a</span>
+    <span class="number">226</span>      <span class="number">37</span> <span class="ident">sys_sysdown</span>.<span class="ident">a</span>
+     <span class="number">30</span>       <span class="number">5</span> <span class="ident">sys_sysinit</span>.<span class="ident">a</span>
+   <span class="number">1746</span>       <span class="number">0</span> <span class="ident">time_datetime</span>.<span class="ident">a</span>
+    <span class="number">120</span>       <span class="number">0</span> <span class="ident">util_mem</span>.<span class="ident">a</span>
+    <span class="number">208</span>       <span class="number">0</span> <span class="ident">nrf52_my_sensor</span><span class="op">-</span><span class="ident">sysinit</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">a</span>
+   <span class="number">2016</span>       <span class="number">0</span> <span class="ident">libgcc</span>.<span class="ident">a</span>
+<span class="ident">Loading</span> <span class="ident">compiler</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">repos</span><span class="op">/</span><span class="ident">apache</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">-</span><span class="ident">core</span><span class="op">/</span><span class="ident">compiler</span><span class="op">/</span><span class="ident">arm</span><span class="op">-</span><span class="ident">none</span><span class="op">-</span><span class="ident">eabi</span><span class="op">-</span><span class="ident">m4</span>, <span class="ident">buildProfile</span> <span class="ident">debug</span>
+
+<span class="ident">objsize</span>
+   <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
+ <span class="number">347992</span>     <span class="number">984</span>   <span class="number">54728</span>  <span class="number">403704</span>   <span class="number">628f8</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">elf</span></pre></div>
 <h1 id="bluetooth-driver" class="section-header"><a href="#bluetooth-driver">10 Bluetooth Driver</a></h1>
 <p>TODO</p>
 <p>UART</p>
 <h1 id="task-scheduler" class="section-header"><a href="#task-scheduler">11 Task Scheduler</a></h1>
 <p>TODO</p>
-<h1 id="other-drivers-1" class="section-header"><a href="#other-drivers-1">12 Other Drivers</a></h1>
+<h1 id="semihosting-console" class="section-header"><a href="#semihosting-console">12 Semihosting Console</a></h1>
+<p>TODO</p>
+<p>printf</p>
+<h1 id="other-drivers-1" class="section-header"><a href="#other-drivers-1">13 Other Drivers</a></h1>
 <p>https://github.com/lupyuen/wasp-os/tree/master/wasp/drivers</p>
 <p>SPI Flash</p>
 <p>battery</p>
 <p>nrf_rtc</p>
 <p>signal</p>
 <p>vibrator.py</p>
-<h1 id="vscode-workspace" class="section-header"><a href="#vscode-workspace">13 VSCode Workspace</a></h1>
+<h1 id="vscode-workspace" class="section-header"><a href="#vscode-workspace">14 VSCode Workspace</a></h1>
 <p>TODO</p>
-<h1 id="debug-with-vscode-and-st-link" class="section-header"><a href="#debug-with-vscode-and-st-link">14 Debug with VSCode and ST-Link</a></h1>
+<h1 id="debug-with-vscode-and-st-link" class="section-header"><a href="#debug-with-vscode-and-st-link">15 Debug with VSCode and ST-Link</a></h1>
 <p>TODO</p>
-<h1 id="testing-wasp-os-and-micropython-with-mynewt" class="section-header"><a href="#testing-wasp-os-and-micropython-with-mynewt">15 Testing wasp-os and MicroPython with Mynewt</a></h1>
+<h1 id="testing-wasp-os-and-micropython-with-mynewt" class="section-header"><a href="#testing-wasp-os-and-micropython-with-mynewt">16 Testing wasp-os and MicroPython with Mynewt</a></h1>
 <p>TODO</p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
@@ -470,7 +576,7 @@ int machine_hard_i2c_transfer_single(
 <p>https://wasp-os.readthedocs.io/en/latest/appguide.html</p>
 <p>Wasp-os Reference Manual</p>
 <p>https://wasp-os.readthedocs.io/en/latest/wasp.html</p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">16 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">17 Further Reading</a></h1>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
 

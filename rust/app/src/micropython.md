@@ -475,9 +475,27 @@ With multitasking, all RAM needs to be carefully budgeted and partitioned like t
 
 ![RAM Usage with Mynewt and MicroPython](https://lupyuen.github.io/images/micropython-heap.png)
 
-???
+1. __Mbuf Memory__: [Mbufs (Memory Buffers)](https://mynewt.apache.org/latest/os/core_os/mbuf/mbuf.html) are used for Bluetooth LE networking and by the Semihosting Console in Mynewt. Mbufs are fixed-size blocks of 110 bytes that may be chained together to form larger objects.
 
-why no heap
+    _Why are Mbufs fixed size?_ 
+    
+    To prevent [fragmentation of the memory space](https://stackoverflow.com/questions/3770457/what-is-memory-fragmentation). Though coding with Mbufs is slightly more difficult.
+
+1. __Idle Task__: With multitasking, there is no longer a common stack. Each task now requires its own Stack Memory. Even the Idle Task, which runs when no other tasks are running.
+
+1. __Main Task__: This is the task that runs the MicroPython Runtime. The Stack Memory in the Main Task is used by MicroPython.
+
+1. __Bluetooth Task__: This is the background task that handles Bluetooth LE packets. It requires its own Stack Memory too.
+
+We no longer enjoy the grow-and-shink memory model that we have seen earlier... Every memory space must have a fixed size!
+
+That's why we often discourage the use of Heap Memory on embedded operating systems... We can't really be sure when we'll run out of Heap Memory!
+
+Let's find out how we allocated the Heap Memory in Mynewt.
+
+# Heap Memory in Mynewt
+
+TODO
 
 [`apps/my_sensor_app/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml)
 
