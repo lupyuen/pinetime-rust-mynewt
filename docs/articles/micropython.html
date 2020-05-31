@@ -69,11 +69,11 @@
 <li><a href="#heap-memory-in-mynewt">9 Heap Memory in Mynewt</a><ul></ul></li>
 <li><a href="#bluetooth-driver">10 Bluetooth Driver</a><ul></ul></li>
 <li><a href="#task-scheduler">11 Task Scheduler</a><ul></ul></li>
-<li><a href="#semihosting-console">12 Semihosting Console</a><ul></ul></li>
-<li><a href="#other-drivers-1">13 Other Drivers</a><ul></ul></li>
-<li><a href="#vscode-workspace">14 VSCode Workspace</a><ul></ul></li>
-<li><a href="#debug-with-vscode-and-st-link">15 Debug with VSCode and ST-Link</a><ul></ul></li>
-<li><a href="#testing-wasp-os-and-micropython-with-mynewt">16 Testing wasp-os and MicroPython with Mynewt</a><ul></ul></li>
+<li><a href="#testing-wasp-os-and-micropython-with-mynewt">12 Testing wasp-os and MicroPython with Mynewt</a><ul></ul></li>
+<li><a href="#debug-with-vscode-and-st-link">13 Debug with VSCode and ST-Link</a><ul></ul></li>
+<li><a href="#semihosting-console">14 Semihosting Console</a><ul></ul></li>
+<li><a href="#vscode-workspace">15 VSCode Workspace</a><ul></ul></li>
+<li><a href="#other-drivers-1">16 Other Drivers</a><ul></ul></li>
 <li><a href="#further-reading">17 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/micropython-title.jpg" alt="MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor" /></p>
 <p><em>MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor</em></p>
 <p><a href="https://wasp-os.readthedocs.io/en/latest/README.html"><strong>wasp-os</strong></a>, built with <a href="https://micropython.org/"><strong>MicroPython</strong></a>, is highly popular with folks coding <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a> for the very first time...</p>
@@ -471,15 +471,57 @@ int machine_hard_i2c_transfer_single(
 <p>That's why we often discourage the use of Heap Memory on embedded operating systems... We can't really be sure when we'll run out of Heap Memory!</p>
 <p>Let's find out how we allocated the Heap Memory in Mynewt.</p>
 <h1 id="heap-memory-in-mynewt" class="section-header"><a href="#heap-memory-in-mynewt">9 Heap Memory in Mynewt</a></h1>
-<p>TODO</p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml"><code>apps/my_sensor_app/syscfg.yml</code></a></p>
+<p>For the Mynewt port of MicroPython, the Heap Memory is defined as a static array of 32 KB: <a href="https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c"><code>ports/mynewt/main.c</code></a></p>
+<pre><code class="language-c">/// Heap Memory for MicroPython
+#define MICROPYTHON_HEAP_SIZE 32768
+uint8_t micropython_heap[MICROPYTHON_HEAP_SIZE];
+
+/// Called my Mynewt to start the MicroPython runtime
+int start_micropython(void) {
+    ...
+    // Set the top of the stack
+    void *stack_start = get_micropython_stack_start();
+    void *stack_end   = get_micropython_stack_end();
+    mp_stack_set_top(stack_end);
+
+    // Stack limit not applicable to Mynewt, since stack and heap are in different regions
+    mp_stack_set_limit((char*) stack_end - (char*) stack_start);
+
+    // Initialise the Mynewt port
+    machine_init();
+
+    //  Allocate the MicroPython heap memory
+    void *heap_start = &amp;micropython_heap[0];
+    void *heap_end   = &amp;micropython_heap[MICROPYTHON_HEAP_SIZE];
+    gc_init(heap_start, heap_end);
+</code></pre>
+<p>Note that the Stack Limit checking has been disabled, since we don't support grow-and-shrink Heap Memory with Mynewt.</p>
+<p>The Stack Memory and Mbuf Memory sizes are defined in Mynewt: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml"><code>apps/my_sensor_app/syscfg.yml</code></a></p>
 <pre><code class="language-yaml">syscfg.vals:
-    OS_MAIN_STACK_SIZE: 2048  #  8 KB. Previously 4096 (16 KB)
+    OS_MAIN_STACK_SIZE: 2048  #  Main stack (includes MicroPython) is 8 KB. Previously 4096 (16 KB)
 
     # For Bluetooth LE: Lots of smaller mbufs are required for newtmgr using typical BLE ATT MTU values.
     MSYS_1_BLOCK_COUNT:   22  #  Defaults to 12. Previously 64
     MSYS_1_BLOCK_SIZE:   110  #  Defaults to 292
 </code></pre>
+<p>We reserved 8 KB of Stack Memory for Mynewt's Main Task, which also executes the MicroPython Runtime.</p>
+<p>For the Mbuf Memory we allocated 22 Mbufs of 110 bytes each (total 2,420 bytes).</p>
+<p>This Mbuf Memory setting was recommended because we'll be using MCU Manager (Simple Management Protocol) to upload firmware files during firmware update: <a href="https://github.com/JuulLabs-OSS/mynewt-travis-ci/blob/master/newt_dump/proj/repos/apache-mynewt-nimble/apps/bleprph/syscfg.yml"><code>apache-mynewt-nimble/apps/bleprph/syscfg.yml</code></a></p>
+<p><em>How much RAM and ROM are used by MicroPython on Mynewt?</em></p>
+<p>According to the build output, the MicroPython takes up <strong>33 KB of RAM</strong>. That includes 32 KB of Heap Memory that we have allocated above.</p>
+<p>The compiled MicroPython Runtime code occupies <strong>210 KB</strong> of Flash ROM.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+  <span class="ident">FLASH</span>     <span class="ident">RAM</span> 
+ <span class="number">214606</span>   <span class="number">33557</span> <span class="ident">libs_micropython</span>.<span class="ident">a</span></pre></div>
+<p>The MicroPython Runtime is compiled as a custom library in Mynewt, hence the name <code>libs_micropython.a</code>.</p>
+<p>The combined MicroPython + Mynewt firmware (including the NimBLE Bluetooth Stack) occupies <strong>340 KB of Flash ROM, 53 KB of RAM</strong>...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+   <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>
+ <span class="number">347992</span>     <span class="number">984</span>   <span class="number">54728</span></pre></div>
+<p>Hence MicroPython takes up 62% of the firmware ROM, 61% of the firmware RAM.</p>
+<p>Here are the ROM and RAM sizes of all code modules in the MicroPython + Mynewt firmware...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="op">+</span> <span class="ident">newt</span> <span class="ident">size</span> <span class="op">-</span><span class="ident">v</span> <span class="ident">nrf52_my_sensor</span>
@@ -548,25 +590,68 @@ int machine_hard_i2c_transfer_single(
  <span class="number">347992</span>     <span class="number">984</span>   <span class="number">54728</span>  <span class="number">403704</span>   <span class="number">628f8</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">elf</span></pre></div>
 <h1 id="bluetooth-driver" class="section-header"><a href="#bluetooth-driver">10 Bluetooth Driver</a></h1>
 <p>TODO</p>
+<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_main.c</p>
+<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_gatt_svr.c</p>
+<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_misc.c</p>
+<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_phy.c</p>
+<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_prph.h</p>
+<p>https://github.com/apache/mynewt-mcumgr</p>
 <p>UART</p>
 <h1 id="task-scheduler" class="section-header"><a href="#task-scheduler">11 Task Scheduler</a></h1>
 <p>TODO</p>
-<h1 id="semihosting-console" class="section-header"><a href="#semihosting-console">12 Semihosting Console</a></h1>
+<p>https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/rust/app/src/lib.rs</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">///  Rust Main Function main() will be called at Mynewt startup. It replaces the C version of the main() function.</span>
+<span class="attribute">#[<span class="ident">no_mangle</span>]</span>                 <span class="comment">//  Don&#39;t mangle the name &quot;main&quot;</span>
+<span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">main</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="op">!</span> {  <span class="comment">//  Declare extern &quot;C&quot; because it will be called by Mynewt</span>
+    <span class="comment">//  Initialise the Mynewt packages and internal temperature sensor driver. Any startup</span>
+    <span class="comment">//  functions defined in pkg.yml of our custom drivers and libraries will be called by </span>
+    <span class="comment">//  sysinit().  Here are the startup functions consolidated by Mynewt:</span>
+    <span class="comment">//  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c</span>
+    <span class="ident">mynewt</span>::<span class="ident">sysinit</span>();
+
+    <span class="comment">//  Start Bluetooth LE, including over-the-air firmware upgrade</span>
+    <span class="kw">extern</span> { <span class="kw">fn</span> <span class="ident">start_ble</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>; }
+    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">start_ble</span>() };
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span>, <span class="string">&quot;BLE fail&quot;</span>);
+
+    <span class="comment">//  Start MicroPython</span>
+    <span class="kw">extern</span> { <span class="kw">fn</span> <span class="ident">start_micropython</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>; }
+    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">start_micropython</span>() };
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span>, <span class="string">&quot;MP fail&quot;</span>);
+
+    <span class="comment">//  OOPS: start_micropython() will never return,</span>
+    <span class="comment">//  because it&#39;s stuck in a REPL Loop. So the</span>
+    <span class="comment">//  Main Event Loop below will never run...</span>
+
+    <span class="comment">//  Main event loop</span>
+    <span class="kw">loop</span> {                            <span class="comment">//  Loop forever...</span>
+        <span class="ident">os</span>::<span class="ident">eventq_run</span>(               <span class="comment">//  Processing events...</span>
+            <span class="ident">os</span>::<span class="ident">eventq_dflt_get</span>()     <span class="comment">//  From default event queue.</span>
+                .<span class="ident">expect</span>(<span class="string">&quot;GET fail&quot;</span>)
+        ).<span class="ident">expect</span>(<span class="string">&quot;RUN fail&quot;</span>);
+    }
+    <span class="comment">//  Never comes here</span>
+}</pre></div>
+<h1 id="testing-wasp-os-and-micropython-with-mynewt" class="section-header"><a href="#testing-wasp-os-and-micropython-with-mynewt">12 Testing wasp-os and MicroPython with Mynewt</a></h1>
+<p>TODO</p>
+<p>Build script</p>
+<p>Debug log</p>
+<h1 id="debug-with-vscode-and-st-link" class="section-header"><a href="#debug-with-vscode-and-st-link">13 Debug with VSCode and ST-Link</a></h1>
+<p>TODO</p>
+<h1 id="semihosting-console" class="section-header"><a href="#semihosting-console">14 Semihosting Console</a></h1>
 <p>TODO</p>
 <p>printf</p>
-<h1 id="other-drivers-1" class="section-header"><a href="#other-drivers-1">13 Other Drivers</a></h1>
+<h1 id="vscode-workspace" class="section-header"><a href="#vscode-workspace">15 VSCode Workspace</a></h1>
+<p>TODO</p>
+<h1 id="other-drivers-1" class="section-header"><a href="#other-drivers-1">16 Other Drivers</a></h1>
 <p>https://github.com/lupyuen/wasp-os/tree/master/wasp/drivers</p>
 <p>SPI Flash</p>
 <p>battery</p>
 <p>nrf_rtc</p>
 <p>signal</p>
 <p>vibrator.py</p>
-<h1 id="vscode-workspace" class="section-header"><a href="#vscode-workspace">14 VSCode Workspace</a></h1>
-<p>TODO</p>
-<h1 id="debug-with-vscode-and-st-link" class="section-header"><a href="#debug-with-vscode-and-st-link">15 Debug with VSCode and ST-Link</a></h1>
-<p>TODO</p>
-<h1 id="testing-wasp-os-and-micropython-with-mynewt" class="section-header"><a href="#testing-wasp-os-and-micropython-with-mynewt">16 Testing wasp-os and MicroPython with Mynewt</a></h1>
-<p>TODO</p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash">&quot;Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)&quot;</a></em></p>

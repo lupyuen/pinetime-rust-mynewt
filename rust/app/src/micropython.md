@@ -495,9 +495,7 @@ Let's find out how we allocated the Heap Memory in Mynewt.
 
 # Heap Memory in Mynewt
 
-TODO
-
-https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c
+For the Mynewt port of MicroPython, the Heap Memory is defined as a static array of 32 KB: [`ports/mynewt/main.c`](https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c)
 
 ```c
 /// Heap Memory for MicroPython
@@ -524,16 +522,24 @@ int start_micropython(void) {
     gc_init(heap_start, heap_end);
 ```
 
-[`apps/my_sensor_app/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml)
+Note that the Stack Limit checking has been disabled, since we don't support grow-and-shrink Heap Memory with Mynewt.
+
+The Stack Memory and Mbuf Memory sizes are defined in Mynewt: [`apps/my_sensor_app/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/syscfg.yml)
 
 ```yaml
 syscfg.vals:
-    OS_MAIN_STACK_SIZE: 2048  #  8 KB. Previously 4096 (16 KB)
+    OS_MAIN_STACK_SIZE: 2048  #  Main stack (includes MicroPython) is 8 KB. Previously 4096 (16 KB)
 
     # For Bluetooth LE: Lots of smaller mbufs are required for newtmgr using typical BLE ATT MTU values.
     MSYS_1_BLOCK_COUNT:   22  #  Defaults to 12. Previously 64
     MSYS_1_BLOCK_SIZE:   110  #  Defaults to 292
 ```
+
+We reserved 8 KB of Stack Memory for Mynewt's Main Task, which also executes the MicroPython Runtime.
+
+For the Mbuf Memory we allocated 22 Mbufs of 110 bytes each (total 2,420 bytes).
+
+This Mbuf Memory setting was recommended because we'll be using MCU Manager (Simple Management Protocol) to upload firmware files during firmware update: [`apache-mynewt-nimble/apps/bleprph/syscfg.yml`](https://github.com/JuulLabs-OSS/mynewt-travis-ci/blob/master/newt_dump/proj/repos/apache-mynewt-nimble/apps/bleprph/syscfg.yml)
 
 _How much RAM and ROM are used by MicroPython on Mynewt?_
 
@@ -548,16 +554,16 @@ The compiled MicroPython Runtime code occupies __210 KB__ of Flash ROM.
 
 The MicroPython Runtime is compiled as a custom library in Mynewt, hence the name `libs_micropython.a`.
 
-The combined MicroPython + Mynewt firmware (including the NimBLE Bluetooth Stack) takes up __340 KB of Flash ROM, 53 KB of RAM__...
+The combined MicroPython + Mynewt firmware (including the NimBLE Bluetooth Stack) occupies __340 KB of Flash ROM, 53 KB of RAM__...
 
 ```
    text    data     bss
  347992     984   54728
 ```
 
-So MicroPython occupies 62% of the firmware ROM, and 61% of the firmware RAM.
+Hence MicroPython takes up 62% of the firmware ROM, 61% of the firmware RAM.
 
-Here are the sizes of all code modules in the MicroPython + Mynewt firmware...
+Here are the ROM and RAM sizes of all code modules in the MicroPython + Mynewt firmware...
 
 ```
 + newt size -v nrf52_my_sensor
