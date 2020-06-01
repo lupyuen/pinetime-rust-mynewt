@@ -839,14 +839,54 @@ Follow these steps to build the Mynewt + MicroPython Firmware on Linux (includin
     git clone --recursive --branch micropython https://github.com/lupyuen/pinetime-rust-mynewt
     ```
 
+1. Update the MCUBoot version number. Edit 
+
+    https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/project.yml
+
+    Change...
+
+    ```yaml
+    repository.mcuboot:
+        type: github
+        vers: 1.5.0
+    ```
+
+    to...
+
+    ```yaml
+    repository.mcuboot:
+        type: github
+        vers: 1.3.1
+    ```
+
 1. Download the Mynewt source code...
 
     ```bash
     cd ~/pinetime/pinetime-rust-mynewt
-    newt install --force
+    newt install
     ```
 
-    Ignore the error `Error: Repository conflicts: Installation of repo "mcuboot" is blocked`
+    We should see...
+
+    ```
+    Downloading repository mynewt-core (commit: master) from https://github.com/apache/mynewt-core.git
+    Downloading repository mynewt-mcumgr (commit: master) from https://github.com/apache/mynewt-mcumgr.git
+    Downloading repository mynewt-nimble (commit: master) from https://github.com/apache/mynewt-nimble.git
+    Downloading repository mcuboot (commit: master) from https://github.com/JuulLabs-OSS/mcuboot.git
+    Making the following changes to the project:
+        install apache-mynewt-core (1.7.0)
+        install apache-mynewt-nimble (1.2.0)
+        install mcuboot (1.3.1)
+    apache-mynewt-core successfully installed version 1.7.0
+    apache-mynewt-nimble successfully installed version 1.2.0
+    Error: Error updating "mcuboot": error: The following untracked working tree files would be overwritten by checkout:
+            ext/mbedtls/include/mbedtls/check_config.h
+            ext/mbedtls/include/mbedtls/config.h
+    Please move or remove them before you switch branches.
+    Aborting
+    ```
+
+    Ignore the `mcuboot` error above and proceed to the next step.
 
 ## Build Mynewt
 
@@ -857,7 +897,18 @@ Follow these steps to build the Mynewt + MicroPython Firmware on Linux (includin
     scripts/build-app.sh
     ```
 
-    If you see the error `Undefined main`, run `scripts/build-app.sh` again. It should fix the error.
+    We should see...
+
+    ```
+    Linking my_sensor_app.elf
+    Error: ld: libc_baselibc.a(start.o): in function `_start':
+    start.c:39: undefined reference to `main'
+    collect2: error: ld returned 1 exit status
+    ```
+
+    Ignore the `undefined reference to main` error above and proceed to the next step.
+
+    ???
 
     ```
     error: legacy asm! syntax is no longer supported
@@ -878,11 +929,24 @@ export BUILD_VERBOSE=1
 make -j 1 BOARD=pinetime micropython
 ```
 
+We should see...
+
+```
+arm-none-eabi-size build-pinetime/micropython.a
+   text    data     bss     dec     hex filename
+      0       0       0       0       0 mpstate.o (ex build-pinetime/micropython.a)
+     32       0       0      32      20 nlr.o (ex build-pinetime/micropython.a)
+      0       0       0       0       0 nlrx86.o (ex build-pinetime/micropython.a)
+...
+   1041       0       0    1041     411 pins_gen.o (ex build-pinetime/micropython.a)
+```
+
 ## Build Mynewt Again
 
 1. Build the application...
 
     ```bash
+    cd ~/pinetime/pinetime-rust-mynewt
     scripts/build-app.sh
     ```
 
