@@ -801,16 +801,37 @@ Linux and macOS only, not Windows
 
 ![Build folders for Mynewt + MicroPython Firmware](https://lupyuen.github.io/images/micropython-folders.jpg)
 
-```bash
-# Install build tools
-sudo apt install gcc gcc-arm-none-eabi make python3
+1. Install build tools...
 
-# Download the source files to ~/pinetime
-mkdir ~/pinetime
-cd ~/pinetime
-git clone --recursive --branch master https://github.com/lupyuen/wasp-os
-git clone --recursive --branch micropython https://github.com/lupyuen/pinetime-rust-mynewt
-```
+    ```bash
+    sudo apt install gcc gcc-arm-none-eabi make python3
+    ```
+
+1. Download the source files to `~/pinetime`...
+
+
+    ```bash
+    mkdir ~/pinetime
+    cd ~/pinetime
+    git clone --recursive --branch master https://github.com/lupyuen/wasp-os
+    git clone --recursive --branch micropython https://github.com/lupyuen/pinetime-rust-mynewt
+    ```
+
+1. Install the `newt` build tool for Mynewt.  Refer to these scripts...
+
+    - [`scripts/install-version.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/install-version.sh): To set the version numbers
+
+    - [`scripts/install-pi.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/install-pi.sh): To build and install `newt`, look under `"Build newt in /tmp/mynewt"`
+
+1. Download the Mynewt source code with the `newt install` command:
+
+    ```bash
+    cd ~/pinetime/pinetime-rust-mynewt
+    newt install
+    ```
+
+    Ignore the error `Error: Error updating "mcuboot"`
+
 
 ## Build wasp-os and MicroPython
 
@@ -834,19 +855,6 @@ make -j 1 BOARD=pinetime micropython
    rustup update
    rustup target add thumbv7em-none-eabihf
    ```
-
-1. Install Arm toolchain `gcc-arm-none-eabi` and the `newt` build tool for Mynewt.  Refer to this script...
-
-    [`scripts/install-pi.sh`](scripts/install-pi.sh)
-
-1. [`repos`](repos) folder should contain the Mynewt source code. If your `repos` folder is empty, install the Mynewt source code with the `newt install` command:
-
-    ```bash
-    cd ~/pinetime/pinetime-rust-mynewt
-    newt install
-    ```
-
-    Ignore the error `Error: Error updating "mcuboot"`
 
 1. Build the application...
 
