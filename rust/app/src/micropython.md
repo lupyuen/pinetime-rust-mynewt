@@ -787,7 +787,7 @@ We have a conflict here between MicroPython and Mynewt and the way they handle t
 
 But for now, we have accomplished our objective of rendering a watch face on PineTime with wasp-os, MicroPython and Mynewt. Yay!
 
-In the next section we'll learn how to build the Mynewt + MicroPython firmware and flash it to PineTime.
+In the next section we'll learn to build the Mynewt + MicroPython firmware and flash it to PineTime.
 
 ![MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor](https://lupyuen.github.io/images/micropython-title.jpg)
 
