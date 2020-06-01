@@ -795,7 +795,7 @@ _MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugg
 
 # Build Mynewt + MicroPython Firmware
 
-Linux and macOS only, not Windows
+Follow these steps to build the Mynewt + MicroPython Firmware on Linux (including Raspberry Pi) and macOS...
 
 ## Install Build Tools
 
@@ -824,7 +824,7 @@ Linux and macOS only, not Windows
 
     - [`scripts/install-version.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/install-version.sh): To set the version numbers
 
-    - [`scripts/install-pi.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/install-pi.sh): To build and install `newt`, look under `"Build newt in /tmp/mynewt"`
+    - [`scripts/install-pi.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/install-pi.sh): To build and install `newt`, look under the section `"Build newt in /tmp/mynewt"`
 
 ## Dowload Source Files
 
@@ -853,6 +853,7 @@ Linux and macOS only, not Windows
 1. Build the application...
 
     ```bash
+    cd ~/pinetime/pinetime-rust-mynewt
     scripts/build-app.sh
     ```
 
@@ -867,7 +868,7 @@ export BUILD_VERBOSE=1
 make -j 1 BOARD=pinetime micropython
 ```
 
-## Build Mynewt
+## Build Mynewt Again
 
 1. Build the application...
 
