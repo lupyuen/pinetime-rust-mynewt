@@ -791,6 +791,8 @@ In the next section we'll learn how to build the Mynewt + MicroPython firmware a
 
 ![MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor](https://lupyuen.github.io/images/micropython-title.jpg)
 
+_MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor_
+
 # Build wasp-os and MicroPython with Mynewt
 
 TODO
