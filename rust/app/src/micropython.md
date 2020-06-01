@@ -839,11 +839,11 @@ Follow these steps to build the Mynewt + MicroPython Firmware on Linux (includin
     git clone --recursive --branch micropython https://github.com/lupyuen/pinetime-rust-mynewt
     ```
 
-1. Download the Mynewt source code with the `newt install` command:
+1. Download the Mynewt source code...
 
     ```bash
     cd ~/pinetime/pinetime-rust-mynewt
-    newt install
+    newt install --force
     ```
 
     Ignore the error `Error: Repository conflicts: Installation of repo "mcuboot" is blocked`
@@ -858,6 +858,16 @@ Follow these steps to build the Mynewt + MicroPython Firmware on Linux (includin
     ```
 
     If you see the error `Undefined main`, run `scripts/build-app.sh` again. It should fix the error.
+
+    ```
+    error: legacy asm! syntax is no longer supported
+    --> /home/ubuntu/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.2/src/asm.rs:11:24
+    |
+    11 |         () => unsafe { asm!("bkpt" :::: "volatile") },
+    |                        ----^^^^^^^^^^^^^^^^^^^^^^^^
+    |                        |
+    |                        help: replace with: `llvm_asm!`
+    ```
 
 ## Build wasp-os and MicroPython
 
