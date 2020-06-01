@@ -814,8 +814,9 @@ Follow these steps to build the Mynewt + MicroPython Firmware on Linux (includin
    Then execute...
 
    ```bash
+   # Latest nightly-2020-04-20 fails with asm error, so we use nightly-2020-02-16
    source $HOME/.cargo/env
-   rustup default nightly
+   rustup default nightly-2020-02-16
    rustup update
    rustup target add thumbv7em-none-eabihf
    ```
@@ -824,7 +825,7 @@ Follow these steps to build the Mynewt + MicroPython Firmware on Linux (includin
 
     - [`scripts/install-version.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/install-version.sh): To set the version numbers
 
-    - [`scripts/install-pi.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/install-pi.sh): To build and install `newt`, look under the section `"Build newt in /tmp/mynewt"`
+    - [`scripts/install-pi.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/install-pi.sh): To build and install `newt`, look under the section `"Build newt"`
 
 ## Dowload Source Files
 
@@ -906,19 +907,7 @@ Follow these steps to build the Mynewt + MicroPython Firmware on Linux (includin
     collect2: error: ld returned 1 exit status
     ```
 
-    Ignore the `undefined reference to main` error above and proceed to the next step.
-
-    ???
-
-    ```
-    error: legacy asm! syntax is no longer supported
-    --> /home/ubuntu/.cargo/registry/src/github.com-1ecc6299db9ec823/cortex-m-0.6.2/src/asm.rs:11:24
-    |
-    11 |         () => unsafe { asm!("bkpt" :::: "volatile") },
-    |                        ----^^^^^^^^^^^^^^^^^^^^^^^^
-    |                        |
-    |                        help: replace with: `llvm_asm!`
-    ```
+    Ignore the `Undefined reference to main` error above and proceed to the next step.
 
 ## Build wasp-os and MicroPython
 
@@ -939,6 +928,7 @@ arm-none-eabi-size build-pinetime/micropython.a
       0       0       0       0       0 nlrx86.o (ex build-pinetime/micropython.a)
 ...
    1041       0       0    1041     411 pins_gen.o (ex build-pinetime/micropython.a)
+make[1]: Leaving directory '/home/ubuntu/pinetime/wasp-os/micropython/ports/mynewt'   
 ```
 
 ## Build Mynewt + MicroPython Firmware
@@ -948,6 +938,17 @@ arm-none-eabi-size build-pinetime/micropython.a
     ```bash
     cd ~/pinetime/pinetime-rust-mynewt
     scripts/build-app.sh
+    ```
+
+    We should see...
+
+    ```
+    objsize
+    text    data     bss     dec     hex filename
+    346216     984   54720  401920   62200 /home/ubuntu/pinetime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
+    + set +x
+    + newt create-image nrf52_my_sensor 1.0.0
+    App image successfully generated: /home/ubuntu/pinetime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img    
     ```
 
     If you see the error `Undefined main`, run `scripts/build-app.sh` again. It should fix the error.
@@ -962,6 +963,8 @@ arm-none-eabi-size build-pinetime/micropython.a
 
 1. Flash the bootloader...
 
+    ???
+
     ```bash
     scripts/nrf52-pi/flash-boot.sh
     ```
@@ -975,20 +978,6 @@ arm-none-eabi-size build-pinetime/micropython.a
     ```
     
 1. You may need to edit the scripts to set the right path of OpenOCD. 
-
-1. Check these articles in case of problems...
-
-    - [_Visual Rust for PineTime Smart Watch_](https://marketplace.visualstudio.com/items?itemName=LeeLupYuen.visual-embedded-rust)
-
-    - [_Build and Flash Rust+Mynewt Firmware for PineTime Smart Watch_](https://medium.com/@ly.lee/build-and-flash-rust-mynewt-firmware-for-pinetime-smart-watch-5e14259c55?source=friends_link&sk=150b2a73b84144e5ef25b985e65aebe9)
-
-Build script
-
-Debug log
-
-Flash bootloader
-
-Flash app
 
 # Debug with VSCode and ST-Link
 
