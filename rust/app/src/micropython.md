@@ -797,18 +797,40 @@ _MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugg
 
 Linux and macOS only, not Windows
 
+## Install Build Tools
+
+1. Install GCC and Python build tools...
+
+    ```bash
+    sudo apt install gcc gcc-arm-none-eabi python3 make
+    ```
+
+1. Install `rustup` with support for nightly target `thumbv7em-none-eabihf`. 
+   
+   Follow the instructions at https://rustup.rs/
+   
+   Press Enter to select `1) Proceed with installation (default)`
+
+   Then execute...
+
+   ```bash
+   source $HOME/.cargo/env
+   rustup default nightly
+   rustup update
+   rustup target add thumbv7em-none-eabihf
+   ```
+
+1. Install the `newt` build tool for Mynewt.  Refer to these scripts...
+
+    - [`scripts/install-version.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/install-version.sh): To set the version numbers
+
+    - [`scripts/install-pi.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/install-pi.sh): To build and install `newt`, look under `"Build newt in /tmp/mynewt"`
+
 ## Dowload Source Files
 
 ![Build folders for Mynewt + MicroPython Firmware](https://lupyuen.github.io/images/micropython-folders.jpg)
 
-1. Install build tools...
-
-    ```bash
-    sudo apt install gcc gcc-arm-none-eabi make python3
-    ```
-
 1. Download the source files to `~/pinetime`...
-
 
     ```bash
     mkdir ~/pinetime
@@ -817,12 +839,6 @@ Linux and macOS only, not Windows
     git clone --recursive --branch micropython https://github.com/lupyuen/pinetime-rust-mynewt
     ```
 
-1. Install the `newt` build tool for Mynewt.  Refer to these scripts...
-
-    - [`scripts/install-version.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/install-version.sh): To set the version numbers
-
-    - [`scripts/install-pi.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/install-pi.sh): To build and install `newt`, look under `"Build newt in /tmp/mynewt"`
-
 1. Download the Mynewt source code with the `newt install` command:
 
     ```bash
@@ -830,8 +846,17 @@ Linux and macOS only, not Windows
     newt install
     ```
 
-    Ignore the error `Error: Error updating "mcuboot"`
+    Ignore the error `Error: Repository conflicts: Installation of repo "mcuboot" is blocked`
 
+## Build Mynewt
+
+1. Build the application...
+
+    ```bash
+    scripts/build-app.sh
+    ```
+
+    If you see the error `Undefined main`, run `scripts/build-app.sh` again. It should fix the error.
 
 ## Build wasp-os and MicroPython
 
@@ -843,18 +868,6 @@ make -j 1 BOARD=pinetime micropython
 ```
 
 ## Build Mynewt
-
-1. Install `rustup` with support for nightly target `thumbv7em-none-eabihf`. 
-   
-   Follow the instructions at https://rustup.rs/
-   
-   Then execute...
-
-   ```bash
-   rustup default nightly
-   rustup update
-   rustup target add thumbv7em-none-eabihf
-   ```
 
 1. Build the application...
 
