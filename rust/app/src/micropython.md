@@ -890,7 +890,7 @@ Follow these steps to build the Mynewt + MicroPython Firmware on Linux (includin
 
 ## Build Mynewt Firmware
 
-1. Build the application...
+1. Build the Mynewt firmware...
 
     ```bash
     cd ~/pinetime/pinetime-rust-mynewt
@@ -943,7 +943,7 @@ arm-none-eabi-size build-pinetime/micropython.a
 
 ## Build Mynewt + MicroPython Firmware
 
-1. Build the application...
+1. Build the Mynewt firmware again...
 
     ```bash
     cd ~/pinetime/pinetime-rust-mynewt
@@ -952,7 +952,7 @@ arm-none-eabi-size build-pinetime/micropython.a
 
     If you see the error `Undefined main`, run `scripts/build-app.sh` again. It should fix the error.
 
-1. Create the application firmware image...
+1. Create the Firmware Image...
 
     ```bash
     scripts/nrf52/image-app.sh
