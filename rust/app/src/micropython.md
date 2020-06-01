@@ -793,13 +793,13 @@ In the next section we'll learn to build the Mynewt + MicroPython firmware and f
 
 _MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor_
 
-# Build Mynewt + MicroPython Firmware
+# Build and Flash Mynewt + MicroPython Firmware
 
 Follow these steps to build the Mynewt + MicroPython Firmware on Linux (including Raspberry Pi) and macOS...
 
 ## Install Build Tools
 
-1. Install GCC and Python build tools of Linux (or the macOS equivalent)...
+1. Install GCC and Python build tools for Linux (or the macOS equivalent)...
 
     ```bash
     sudo apt install gcc gcc-arm-none-eabi python3 make
@@ -829,6 +829,8 @@ Follow these steps to build the Mynewt + MicroPython Firmware on Linux (includin
 
 ## Dowload Source Files
 
+We'll download the source files into these folders...
+
 ![Build folders for Mynewt + MicroPython Firmware](https://lupyuen.github.io/images/micropython-folders.jpg)
 
 1. Download the source files to `~/pinetime`...
@@ -840,9 +842,7 @@ Follow these steps to build the Mynewt + MicroPython Firmware on Linux (includin
     git clone --recursive --branch micropython https://github.com/lupyuen/pinetime-rust-mynewt
     ```
 
-1. Update the MCUBoot version number. Edit 
-
-    https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/project.yml
+1. Update the MCUBoot version number. Edit [`~/pinetime/pinetime-rust-mynewt/project.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/project.yml)
 
     Change...
 
@@ -891,7 +891,7 @@ Follow these steps to build the Mynewt + MicroPython Firmware on Linux (includin
 
 ## Build Mynewt Firmware
 
-Build the Mynewt firmware...
+Build the Mynewt firmware (and generate the `syscfg.h` config file)...
 
 ```bash
 cd ~/pinetime/pinetime-rust-mynewt
@@ -912,7 +912,6 @@ Ignore the `Undefined reference to main` error above and proceed to the next ste
 ## Build wasp-os and MicroPython
 
 ```bash
-# Build wasp-os and MicroPython
 cd ~/pinetime/wasp-os
 export BUILD_VERBOSE=1
 make -j 1 BOARD=pinetime micropython
@@ -928,7 +927,7 @@ arm-none-eabi-size build-pinetime/micropython.a
       0       0       0       0       0 nlrx86.o (ex build-pinetime/micropython.a)
 ...
    1041       0       0    1041     411 pins_gen.o (ex build-pinetime/micropython.a)
-make[1]: Leaving directory '/home/ubuntu/pinetime/wasp-os/micropython/ports/mynewt'   
+make[1]: Leaving directory 'pinetime/wasp-os/micropython/ports/mynewt'   
 ```
 
 ## Build Mynewt + MicroPython Firmware
@@ -945,10 +944,10 @@ make[1]: Leaving directory '/home/ubuntu/pinetime/wasp-os/micropython/ports/myne
     ```
     objsize
     text    data     bss     dec     hex filename
-    346216     984   54720  401920   62200 /home/ubuntu/pinetime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
+    346216     984   54720  401920   62200 pinetime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
     + set +x
     + newt create-image nrf52_my_sensor 1.0.0
-    App image successfully generated: /home/ubuntu/pinetime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img    
+    App image successfully generated: pinetime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img    
     ```
 
     If you see the error `Undefined main`, run `scripts/build-app.sh` again. It should fix the error.
@@ -957,6 +956,12 @@ make[1]: Leaving directory '/home/ubuntu/pinetime/wasp-os/micropython/ports/myne
 
     ```bash
     scripts/nrf52/image-app.sh
+    ```
+
+    We should see...
+
+    ```
+    App image successfully generated: pinetime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img    
     ```
 
 ## Select the OpenOCD Interface: ST-Link or Raspberry Pi SPI
@@ -979,18 +984,33 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 ## Flash MCUBoot Bootloader
 
-1. 
+1. Download the [MCUBoot Bootloader for PineTime](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot)...
 
-    https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/nrf52/flash-boot.sh
+    [`mynewt.elf.bin`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.7/mynewt.elf.bin)
 
-1.
+    For other versions of the bootloader, [see this article](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest)
 
-    https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/nrf52/flash-boot.ocd
+1.  Edit [`~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-boot.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/nrf52/flash-boot.sh)
 
+1.  Change `openocd/bin/openocd` to the path of our installed `openocd` (for ST-Link) or `openocd-spi` (for Raspberry Pi)...
+
+    ```bash
+    #  Flash the device
+    openocd/bin/openocd \
+        -f $swd_device \
+        -f scripts/nrf52/flash-boot.ocd
+    ```
+
+1.  Edit [`~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-boot.ocd`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/nrf52/flash-boot.ocd)
+
+1. Change `bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin` to the path of the downloaded `mynewt.elf.bin`
+
+    ```
+    # For MCUBoot (debugging not supported):
+    program bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin verify 0x00000000
+    ```
 
 1. Flash the bootloader...
-
-    ???
 
     ```bash
     scripts/nrf52/flash-boot.sh
@@ -998,19 +1018,30 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 ## Flash Mynewt + MicroPython Firmware
 
-1.
+1.  Edit [`~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-app.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/nrf52/flash-app.sh)
 
-    https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/nrf52/flash-app.sh
+1.  Change `openocd/bin/openocd` to the path of our installed `openocd` (for ST-Link) or `openocd-spi` (for Raspberry Pi)...
 
-1.
+    ```bash
+    #  Flash the device
+    openocd/bin/openocd \
+        -f $swd_device \
+        -f scripts/nrf52/flash-app.ocd
+    ```
 
-    https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/nrf52/flash-app.ocd
+1.  The path of the built firmware file is defined in [`~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-app.ocd`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/nrf52/flash-app.ocd). We shouldn't need to change this.
 
-1. Flash the application and run it...
+    ```
+    program bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img verify 0x00008000
+    ```
+
+1. Flash the application...
 
     ```bash
     scripts/nrf52/flash-app.sh
     ```
+
+1. PineTime reboots, starts wasp-os and renders the watch face
 
 ![Build Mynewt + MicroPython Firmware on Raspberry Pi](https://lupyuen.github.io/images/micropython-build.png)
 
