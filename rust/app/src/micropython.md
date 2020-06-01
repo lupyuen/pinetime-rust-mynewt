@@ -634,7 +634,7 @@ objsize
  347992     984   54728  403704   628f8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
 ```
 
-# Bluetooth Driver for Mynewt
+# NimBLE Bluetooth Stack
 
 Mynewt includes the open-source [NimBLE Bluetooth LE networking stack](https://github.com/apache/mynewt-nimble), so we won't be using the [Nordic SoftDevice](https://infocenter.nordicsemi.com/topic/ug_gsg_ses/UG/gsg/softdevices.html) Bluetooth stack from the nRF Port of MicroPython.
 
@@ -705,7 +705,7 @@ At the end of `main()` we see this: [`rust/app/src/lib.rs`](https://github.com/l
 ```rust
 extern "C" fn main() -> ! {
     ...
-    //  Main event loop
+    //  Mynewt Event Loop
     loop {                            //  Loop forever...
         os::eventq_run(               //  Processing events...
             os::eventq_dflt_get()     //  From default event queue.
@@ -714,7 +714,7 @@ extern "C" fn main() -> ! {
     }
 ```
 
-This is the __Main Event Loop__ for Mynewt. It's critical because any Bluetooth LE packets received will be treated as Mynewt Events and will be handled in this loop.
+This is the __Event Loop__ for Mynewt. It's critical because any Bluetooth LE packets received will be treated as Mynewt Events and will be handled in this loop.
 
 _So does Bluetooth LE work?_
 
@@ -736,11 +736,11 @@ Not at all! The Rust Application and Rust Core Library occupy only 2.4 KB of ROM
    1014       0 libs_rust_libcore.a
 ```
 
-# Task Scheduler
+# Task Scheduling: MicroPython vs Mynewt
 
-TODO
+We have just enabled the NimBLE Bluetooth Stack on our Mynewt + MicroPython firmware... But we can't scan our PineTime device on the [Nordic nRF Connect mobile app](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest). Why?
 
-[`rust/app/src/lib.rs`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/rust/app/src/lib.rs)
+Let's look again at the `main()` function: [`rust/app/src/lib.rs`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/rust/app/src/lib.rs)
 
 ```rust
 ///  Rust Main Function main() will be called at Mynewt startup. It replaces the C version of the main() function.
@@ -763,10 +763,10 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     assert!(rc == 0, "MP fail");
 
     //  OOPS: start_micropython() will never return,
-    //  because it's stuck in a REPL Loop. So the
-    //  Main Event Loop below will never run...
+    //  because it's stuck in a MicroPython Event Loop. So the
+    //  Mynewt Main Event Loop below will never run...
 
-    //  Main event loop
+    //  Mynewt Event Loop
     loop {                            //  Loop forever...
         os::eventq_run(               //  Processing events...
             os::eventq_dflt_get()     //  From default event queue.
@@ -777,7 +777,19 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
 }
 ```
 
-# Testing wasp-os and MicroPython with Mynewt
+We see the watch face rendered by MicroPython and wasp-os, so `start_micropython()` must be working.
+
+But there's a problem here... `start_micropython()` will be stuck in its own MicroPython Event Loop taking care of MicroPython tasks, so it never returns!
+
+As a result, the Mynewt Event Loop will never be executed. And we know that the Mynewt Event Loop is critical for handling Bluetooth packets. Thus Bluetooth fails!
+
+We have a conflict here between MicroPython and Mynewt and the way they handle tasks and events. We don't have a solution right now, but we'll probably need to modify the wasp-os / MicroPython Event Loop to handle Mynewt Events as well.
+
+But for now, we have accomplished our objective of rendering watch face on PineTime with wasp-os, MicroPython and Mynewt. We'll learn in the next section how to build the Mynewt + MicroPython firmware and flash it to PineTime.
+
+![MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor](https://lupyuen.github.io/images/micropython-title.jpg)
+
+# Build wasp-os and MicroPython with Mynewt
 
 TODO
 
