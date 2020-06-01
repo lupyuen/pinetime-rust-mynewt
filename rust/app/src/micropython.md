@@ -795,26 +795,97 @@ _MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugg
 
 # Build Mynewt + MicroPython Firmware
 
+Linux and macOS only, not Windows
+
+## Dowload Source Files
+
 ![Build folders for Mynewt + MicroPython Firmware](https://lupyuen.github.io/images/micropython-folders.jpg)
 
 ```bash
+# Download the source files to ~/pinetime
 mkdir ~/pinetime
 cd ~/pinetime
-git clone --recursive
-git clone --recursive
+git clone --recursive --branch master https://github.com/lupyuen/wasp-os
+git clone --recursive --branch micropython https://github.com/lupyuen/pinetime-rust-mynewt
+```
 
+## Build wasp-os and MicroPython
+
+```bash
+# Build wasp-os and MicroPython
 cd ~/pinetime/wasp-os
 export BUILD_VERBOSE=1
 make -j 1 BOARD=pinetime micropython
-
-cd ~/pinetime/pinetime-rust-mynewt
-scripts/nrf52/build-boot.sh
-scripts/build-app.sh
 ```
+
+## Build Mynewt
+
+1. Install `rustup` with support for nightly target `thumbv7em-none-eabihf`. 
+   
+   Follow the instructions at https://rustup.rs/
+   
+   Then execute...
+
+   ```bash
+   rustup default nightly
+   rustup update
+   rustup target add thumbv7em-none-eabihf
+   ```
+
+1. Install Arm toolchain `gcc-arm-none-eabi` and the `newt` build tool for Mynewt.  Refer to this script...
+
+    [`scripts/install-pi.sh`](scripts/install-pi.sh)
+
+1. [`repos`](repos) folder should contain the Mynewt source code. If your `repos` folder is empty, install the Mynewt source code with the `newt install` command:
+
+    ```bash
+    cd ~/pinetime/pinetime-rust-mynewt
+    newt install
+    ```
+
+    Ignore the error `Error: Error updating "mcuboot"`
+
+1. Build the application...
+
+    ```bash
+    scripts/build-app.sh
+    ```
+
+    If you see the error `Undefined main`, run `scripts/build-app.sh` again. It should fix the error.
+
+1. Create the application firmware image...
+
+    ```bash
+    scripts/nrf52/image-app.sh
+    ```
+
+1. Flash the bootloader...
+
+    ```bash
+    scripts/nrf52-pi/flash-boot.sh
+    ```
+
+1. Flash the application and run it...
+
+    ```bash
+    scripts/nrf52-pi/flash-app.sh
+    ```
+    
+1. You may need to edit the scripts to set the right path of OpenOCD. 
+
+1. Check these articles in case of problems...
+
+    - [_Visual Rust for PineTime Smart Watch_](https://marketplace.visualstudio.com/items?itemName=LeeLupYuen.visual-embedded-rust)
+
+    - [_Build and Flash Rust+Mynewt Firmware for PineTime Smart Watch_](https://medium.com/@ly.lee/build-and-flash-rust-mynewt-firmware-for-pinetime-smart-watch-5e14259c55?source=friends_link&sk=150b2a73b84144e5ef25b985e65aebe9)
 
 Build script
 
 Debug log
+
+Flash bootloader
+
+Flash app
 
 # Debug with VSCode and ST-Link
 
