@@ -802,6 +802,9 @@ Linux and macOS only, not Windows
 ![Build folders for Mynewt + MicroPython Firmware](https://lupyuen.github.io/images/micropython-folders.jpg)
 
 ```bash
+# Install build tools
+sudo apt install gcc gcc-arm-none-eabi make python3
+
 # Download the source files to ~/pinetime
 mkdir ~/pinetime
 cd ~/pinetime
