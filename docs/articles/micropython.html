@@ -716,7 +716,8 @@ Simple Management Protocol for uploading firmware images over Bluetooth LE</p>
 <p>But there's a problem here... <code>start_micropython()</code> will be stuck in its own MicroPython Event Loop taking care of MicroPython tasks, so it never returns!</p>
 <p>As a result, the Mynewt Event Loop will never be executed. And we know that the Mynewt Event Loop is critical for handling Bluetooth packets. Thus Bluetooth fails!</p>
 <p>We have a conflict here between MicroPython and Mynewt and the way they handle tasks and events. We don't have a solution right now, but we'll probably need to modify the wasp-os / MicroPython Event Loop to handle Mynewt Events as well.</p>
-<p>But for now, we have accomplished our objective of rendering watch face on PineTime with wasp-os, MicroPython and Mynewt. We'll learn in the next section how to build the Mynewt + MicroPython firmware and flash it to PineTime.</p>
+<p>But for now, we have accomplished our objective of rendering a watch face on PineTime with wasp-os, MicroPython and Mynewt. </p>
+<p>In the next section we'll learn how to build the Mynewt + MicroPython firmware and flash it to PineTime.</p>
 <p><img src="https://lupyuen.github.io/images/micropython-title.jpg" alt="MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor" /></p>
 <h1 id="build-wasp-os-and-micropython-with-mynewt" class="section-header"><a href="#build-wasp-os-and-micropython-with-mynewt">12 Build wasp-os and MicroPython with Mynewt</a></h1>
 <p>TODO</p>

@@ -785,7 +785,9 @@ As a result, the Mynewt Event Loop will never be executed. And we know that the 
 
 We have a conflict here between MicroPython and Mynewt and the way they handle tasks and events. We don't have a solution right now, but we'll probably need to modify the wasp-os / MicroPython Event Loop to handle Mynewt Events as well.
 
-But for now, we have accomplished our objective of rendering watch face on PineTime with wasp-os, MicroPython and Mynewt. We'll learn in the next section how to build the Mynewt + MicroPython firmware and flash it to PineTime.
+But for now, we have accomplished our objective of rendering a watch face on PineTime with wasp-os, MicroPython and Mynewt. 
+
+In the next section we'll learn how to build the Mynewt + MicroPython firmware and flash it to PineTime.
 
 ![MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor](https://lupyuen.github.io/images/micropython-title.jpg)
 
