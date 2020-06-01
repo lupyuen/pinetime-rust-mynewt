@@ -793,9 +793,24 @@ In the next section we'll learn to build the Mynewt + MicroPython firmware and f
 
 _MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor_
 
-# Build wasp-os and MicroPython with Mynewt
+# Build Mynewt + MicroPython Firmware
 
-TODO
+![Build folders for Mynewt + MicroPython Firmware](https://lupyuen.github.io/images/micropython-folders.jpg)
+
+```bash
+mkdir ~/pinetime
+cd ~/pinetime
+git clone --recursive
+git clone --recursive
+
+cd ~/pinetime/wasp-os
+export BUILD_VERBOSE=1
+make -j 1 BOARD=pinetime micropython
+
+cd ~/pinetime/pinetime-rust-mynewt
+scripts/nrf52/build-boot.sh
+scripts/build-app.sh
+```
 
 Build script
 
