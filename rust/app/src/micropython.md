@@ -888,7 +888,7 @@ Follow these steps to build the Mynewt + MicroPython Firmware on Linux (includin
 
     Ignore the `mcuboot` error above and proceed to the next step.
 
-## Build Mynewt
+## Build Mynewt Firmware
 
 1. Build the application...
 
@@ -941,7 +941,7 @@ arm-none-eabi-size build-pinetime/micropython.a
    1041       0       0    1041     411 pins_gen.o (ex build-pinetime/micropython.a)
 ```
 
-## Build Mynewt Again
+## Build Mynewt + MicroPython Firmware
 
 1. Build the application...
 
@@ -958,11 +958,15 @@ arm-none-eabi-size build-pinetime/micropython.a
     scripts/nrf52/image-app.sh
     ```
 
+## Flash MCUBoot Bootloader
+
 1. Flash the bootloader...
 
     ```bash
     scripts/nrf52-pi/flash-boot.sh
     ```
+
+## Flash Mynewt + MicroPython Firmware
 
 1. Flash the application and run it...
 
