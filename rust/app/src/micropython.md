@@ -799,7 +799,7 @@ Follow these steps to build the Mynewt + MicroPython Firmware on Linux (includin
 
 ## Install Build Tools
 
-1. Install GCC and Python build tools...
+1. Install GCC and Python build tools of Linux (or the macOS equivalent)...
 
     ```bash
     sudo apt install gcc gcc-arm-none-eabi python3 make
@@ -891,23 +891,23 @@ Follow these steps to build the Mynewt + MicroPython Firmware on Linux (includin
 
 ## Build Mynewt Firmware
 
-1. Build the Mynewt firmware...
+Build the Mynewt firmware...
 
-    ```bash
-    cd ~/pinetime/pinetime-rust-mynewt
-    scripts/build-app.sh
-    ```
+```bash
+cd ~/pinetime/pinetime-rust-mynewt
+scripts/build-app.sh
+```
 
-    We should see...
+We should see...
 
-    ```
-    Linking my_sensor_app.elf
-    Error: ld: libc_baselibc.a(start.o): in function `_start':
-    start.c:39: undefined reference to `main'
-    collect2: error: ld returned 1 exit status
-    ```
+```
+Linking my_sensor_app.elf
+Error: ld: libc_baselibc.a(start.o): in function `_start':
+start.c:39: undefined reference to `main'
+collect2: error: ld returned 1 exit status
+```
 
-    Ignore the `Undefined reference to main` error above and proceed to the next step.
+Ignore the `Undefined reference to main` error above and proceed to the next step.
 
 ## Build wasp-os and MicroPython
 
@@ -959,25 +959,60 @@ make[1]: Leaving directory '/home/ubuntu/pinetime/wasp-os/micropython/ports/myne
     scripts/nrf52/image-app.sh
     ```
 
+## Select the OpenOCD Interface: ST-Link or Raspberry Pi SPI
+
+Edit [`~/pinetime/pinetime-rust-mynewt/scripts/config.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/config.sh)
+
+If we're using ST-Link v2 for flashing PineTime, set `swd_device` as follows...
+
+```bash
+#  Select ST-Link v2 as SWD Programmer
+swd_device=scripts/nrf52/swd-stlink.ocd
+```
+
+If we're using [Raspberry Pi SPI](https://medium.com/@ly.lee/openocd-on-raspberry-pi-better-with-swd-on-spi-7dea9caeb590?source=friends_link&sk=df399bfd913d3e262447d28aa5af6b63) for flashing PineTime, set `swd_device` as follows...
+
+```bash
+#  Select Raspberry Pi as SWD Programmer
+swd_device=scripts/nrf52-pi/swd-pi.ocd
+```
+
 ## Flash MCUBoot Bootloader
+
+1. 
+
+    https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/nrf52/flash-boot.sh
+
+1.
+
+    https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/nrf52/flash-boot.ocd
+
 
 1. Flash the bootloader...
 
     ???
 
     ```bash
-    scripts/nrf52-pi/flash-boot.sh
+    scripts/nrf52/flash-boot.sh
     ```
 
 ## Flash Mynewt + MicroPython Firmware
 
+1.
+
+    https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/nrf52/flash-app.sh
+
+1.
+
+    https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/nrf52/flash-app.ocd
+
 1. Flash the application and run it...
 
     ```bash
-    scripts/nrf52-pi/flash-app.sh
+    scripts/nrf52/flash-app.sh
     ```
-    
-1. You may need to edit the scripts to set the right path of OpenOCD. 
+
+![Build Mynewt + MicroPython Firmware on Raspberry Pi](https://lupyuen.github.io/images/micropython-build.png)
 
 # Debug with VSCode and ST-Link
 
