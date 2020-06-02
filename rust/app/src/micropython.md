@@ -1049,17 +1049,19 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 TODO
 
+VSCode Workspace
+
 # Semihosting Console
 
 TODO
 
 printf
 
-# VSCode Workspace
-
 TODO
 
 # Other Drivers
+
+TODO
 
 UART
 
@@ -1075,25 +1077,19 @@ signal
 
 vibrator.py
 
+# Further Reading
+
+[wasp-os documentation](https://wasp-os.readthedocs.io/en/latest/)
+
+[wasp-os Application Writer’s Guide](https://wasp-os.readthedocs.io/en/latest/appguide.html)
+
+[wasp-os Reference Manual](https://wasp-os.readthedocs.io/en/latest/wasp.html)
+
 _["MCUBoot Bootloader for PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot)_
 
 _["Firmware Update over Bluetooth Low Energy on PineTime Smart Watch"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu)_
 
 _["Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash)_
-
-WASP-OS’s documentation
-
-https://wasp-os.readthedocs.io/en/latest/
-
-Application Writer’s Guide
-
-https://wasp-os.readthedocs.io/en/latest/appguide.html
-
-Wasp-os Reference Manual
-
-https://wasp-os.readthedocs.io/en/latest/wasp.html
-
-# Further Reading
 
 [Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
 
