@@ -78,10 +78,11 @@
 <li><a href="#select-the-openocd-interface-st-link-or-raspberry-pi-spi">12.6 Select the OpenOCD Interface: ST-Link or Raspberry Pi SPI</a><ul></ul></li>
 <li><a href="#flash-mcuboot-bootloader">12.7 Flash MCUBoot Bootloader</a><ul></ul></li>
 <li><a href="#flash-mynewt--micropython-firmware">12.8 Flash Mynewt + MicroPython Firmware</a><ul></ul></li></ul></li>
-<li><a href="#debug-with-vscode-and-st-link">13 Debug with VSCode and ST-Link</a><ul></ul></li>
-<li><a href="#semihosting-console">14 Semihosting Console</a><ul></ul></li>
-<li><a href="#other-drivers-1">15 Other Drivers</a><ul></ul></li>
-<li><a href="#further-reading">16 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/micropython-title.jpg" alt="MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor" /></p>
+<li><a href="#debug-log">13 Debug Log</a><ul></ul></li>
+<li><a href="#debug-with-vscode-and-st-link">14 Debug with VSCode and ST-Link</a><ul></ul></li>
+<li><a href="#semihosting-console">15 Semihosting Console</a><ul></ul></li>
+<li><a href="#other-drivers-1">16 Other Drivers</a><ul></ul></li>
+<li><a href="#further-reading">17 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/micropython-title.jpg" alt="MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor" /></p>
 <p><em>MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor</em></p>
 <p><a href="https://wasp-os.readthedocs.io/en/latest/README.html"><strong>wasp-os</strong></a>, built with <a href="https://micropython.org/"><strong>MicroPython</strong></a>, is highly popular with folks coding <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a> for the very first time...</p>
 <p><em>Because there's no easier way to create a Watch App for PineTime!</em></p>
@@ -937,14 +938,172 @@ openocd/bin/openocd \
 </li>
 </ol>
 <p><img src="https://lupyuen.github.io/images/micropython-build.png" alt="Build Mynewt + MicroPython Firmware on Raspberry Pi" /></p>
-<h1 id="debug-with-vscode-and-st-link" class="section-header"><a href="#debug-with-vscode-and-st-link">13 Debug with VSCode and ST-Link</a></h1>
+<h1 id="debug-log" class="section-header"><a href="#debug-log">13 Debug Log</a></h1>
+<p>Here's the debug log that appears in OpenOCD when we run <code>flash-app.sh</code>...</p>
+
+<pre><code>&gt; Executing task in folder pinetime-rust-mynewt: bash -c -l &#39; scripts/nrf52/flash-app.sh &amp;&amp; echo ✅ ◾ ️Done! &#39; &lt;
+
++ source scripts/config.sh
+++ swd_device=scripts/nrf52/swd-stlink.ocd
++ openocd/bin/openocd -f scripts/nrf52/swd-stlink.ocd -f scripts/nrf52/flash-app.ocd
+GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-15-13:49)
+Licensed under GNU GPL v2
+For bug reports, read
+        http://openocd.org/doc/doxygen/bugs.html
+debug_level: 0
+adapter speed: 1000 kHz
+force hard breakpoints
+Stopping...
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x61000000 pc: 0x000001c6 msp: 0x2000ffd8
+
+Flashing Application...
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000
+Enabled ARM Semihosting to show debug output
+semihosting is enabled
+** Programming Started **
+auto erase enabled
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000001e msp: 0x20010000, semihosting
+wrote 352256 bytes from file bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img in 8.465226s (40.637 KiB/s)
+** Programming Finished **
+** Verify Started **
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000002e msp: 0x20010000, semihosting
+verified 349048 bytes in 0.803118s (424.430 KiB/s)
+** Verified OK **
+
+Restarting...
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
+Enabled ARM Semihosting to show debug output
+semihosting is enabled
+
+**** Done! Press Ctrl-C to exit...
+Starting Bootloader...
+Displaying image...
+Image displayed
+Check button: 0
+[INF] Primary image: magic=good, swap_type=0x4, copy_done=0x1, image_ok=0x1
+[INF] Scratch: magic=bad, swap_type=0x1, copy_done=0x2, image_ok=0x2
+[INF] Boot source: none
+[INF] Swap type: none
+Waiting 5 seconds for button: 0...
+Waited for button: 0
+Bootloader done
+TMP create temp_stub_0
+NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
+NET standalone node 
+stack_start: 20000618
+stack_end: 20002618
+heap_start: 20004bfa
+heap_end: 2000cbfa
+TODO adc_init0
+TODO timer_init0
+TODO microbit_filesystem_init
+TODO machine_rtc_make_new
+TODO machine_rtc_start
+TODO machine_adc_make_new
+1 chips detected. Total flash size 4MiB.
+stack_end: 20002618
+gc_collect: sp=20001dc0, len=216
+stack_end: 20002618
+gc_collect: sp=20001f28, len=1bc
+TODO machine_adc_value_read
+TODO machine_adc_value_read
+Watch is running, use Ctrl-C to stop
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+stack_end: 20002618
+gc_collect: sp=20001f38, len=1b8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+Starting Bootloader...
+Displaying image...
+Image displayed
+Check button: 0
+[INF] Primary image: magic=good, swap_type=0x4, copy_done=0x1, image_ok=0x1
+[INF] Scratch: magic=bad, swap_type=0x1, copy_done=0x2, image_ok=0x2
+[INF] Boot source: none
+[INF] Swap type: none
+Waiting 5 seconds for button: 0...
+Waited for button: 0
+Bootloader done
+TMP create temp_stub_0
+NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
+NET standalone node 
+stack_start: 20000618
+stack_end: 20002618
+heap_start: 20004bfa
+heap_end: 2000cbfa
+TODO adc_init0
+TODO timer_init0
+TODO microbit_filesystem_init
+TODO machine_rtc_make_new
+TODO machine_rtc_start
+TODO machine_adc_make_new
+1 chips detected. Total flash size 4MiB.
+stack_end: 20002618
+gc_collect: sp=20001dc0, len=216
+stack_end: 20002618
+gc_collect: sp=20001f28, len=1bc
+TODO machine_adc_value_read
+TODO machine_adc_value_read
+Watch is running, use Ctrl-C to stop
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+stack_end: 20002618
+gc_collect: sp=20001f38, len=1b8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8</code></pre><h1 id="debug-with-vscode-and-st-link" class="section-header"><a href="#debug-with-vscode-and-st-link">14 Debug with VSCode and ST-Link</a></h1>
 <p>TODO</p>
 <p>VSCode Workspace</p>
-<h1 id="semihosting-console" class="section-header"><a href="#semihosting-console">14 Semihosting Console</a></h1>
+<h1 id="semihosting-console" class="section-header"><a href="#semihosting-console">15 Semihosting Console</a></h1>
 <p>TODO</p>
 <p>printf</p>
 <p>TODO</p>
-<h1 id="other-drivers-1" class="section-header"><a href="#other-drivers-1">15 Other Drivers</a></h1>
+<h1 id="other-drivers-1" class="section-header"><a href="#other-drivers-1">16 Other Drivers</a></h1>
 <p>TODO</p>
 <p>UART</p>
 <p>https://github.com/lupyuen/wasp-os/tree/master/wasp/drivers</p>
@@ -953,7 +1112,7 @@ openocd/bin/openocd \
 <p>nrf_rtc</p>
 <p>signal</p>
 <p>vibrator.py</p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">16 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">17 Further Reading</a></h1>
 <p><a href="https://wasp-os.readthedocs.io/en/latest/">wasp-os documentation</a></p>
 <p><a href="https://wasp-os.readthedocs.io/en/latest/appguide.html">wasp-os Application Writer’s Guide</a></p>
 <p><a href="https://wasp-os.readthedocs.io/en/latest/wasp.html">wasp-os Reference Manual</a></p>

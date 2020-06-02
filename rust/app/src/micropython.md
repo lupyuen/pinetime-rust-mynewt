@@ -1045,6 +1045,169 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 ![Build Mynewt + MicroPython Firmware on Raspberry Pi](https://lupyuen.github.io/images/micropython-build.png)
 
+# Debug Log
+
+Here's the debug log that appears in OpenOCD when we run `flash-app.sh`...
+
+```
+> Executing task in folder pinetime-rust-mynewt: bash -c -l ' scripts/nrf52/flash-app.sh && echo ✅ ◾ ️Done! ' <
+
++ source scripts/config.sh
+++ swd_device=scripts/nrf52/swd-stlink.ocd
++ openocd/bin/openocd -f scripts/nrf52/swd-stlink.ocd -f scripts/nrf52/flash-app.ocd
+GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-15-13:49)
+Licensed under GNU GPL v2
+For bug reports, read
+        http://openocd.org/doc/doxygen/bugs.html
+debug_level: 0
+adapter speed: 1000 kHz
+force hard breakpoints
+Stopping...
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x61000000 pc: 0x000001c6 msp: 0x2000ffd8
+
+Flashing Application...
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000
+Enabled ARM Semihosting to show debug output
+semihosting is enabled
+** Programming Started **
+auto erase enabled
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000001e msp: 0x20010000, semihosting
+wrote 352256 bytes from file bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img in 8.465226s (40.637 KiB/s)
+** Programming Finished **
+** Verify Started **
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000002e msp: 0x20010000, semihosting
+verified 349048 bytes in 0.803118s (424.430 KiB/s)
+** Verified OK **
+
+Restarting...
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
+Enabled ARM Semihosting to show debug output
+semihosting is enabled
+
+**** Done! Press Ctrl-C to exit...
+Starting Bootloader...
+Displaying image...
+Image displayed
+Check button: 0
+[INF] Primary image: magic=good, swap_type=0x4, copy_done=0x1, image_ok=0x1
+[INF] Scratch: magic=bad, swap_type=0x1, copy_done=0x2, image_ok=0x2
+[INF] Boot source: none
+[INF] Swap type: none
+Waiting 5 seconds for button: 0...
+Waited for button: 0
+Bootloader done
+TMP create temp_stub_0
+NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
+NET standalone node 
+stack_start: 20000618
+stack_end: 20002618
+heap_start: 20004bfa
+heap_end: 2000cbfa
+TODO adc_init0
+TODO timer_init0
+TODO microbit_filesystem_init
+TODO machine_rtc_make_new
+TODO machine_rtc_start
+TODO machine_adc_make_new
+1 chips detected. Total flash size 4MiB.
+stack_end: 20002618
+gc_collect: sp=20001dc0, len=216
+stack_end: 20002618
+gc_collect: sp=20001f28, len=1bc
+TODO machine_adc_value_read
+TODO machine_adc_value_read
+Watch is running, use Ctrl-C to stop
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+stack_end: 20002618
+gc_collect: sp=20001f38, len=1b8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+Starting Bootloader...
+Displaying image...
+Image displayed
+Check button: 0
+[INF] Primary image: magic=good, swap_type=0x4, copy_done=0x1, image_ok=0x1
+[INF] Scratch: magic=bad, swap_type=0x1, copy_done=0x2, image_ok=0x2
+[INF] Boot source: none
+[INF] Swap type: none
+Waiting 5 seconds for button: 0...
+Waited for button: 0
+Bootloader done
+TMP create temp_stub_0
+NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
+NET standalone node 
+stack_start: 20000618
+stack_end: 20002618
+heap_start: 20004bfa
+heap_end: 2000cbfa
+TODO adc_init0
+TODO timer_init0
+TODO microbit_filesystem_init
+TODO machine_rtc_make_new
+TODO machine_rtc_start
+TODO machine_adc_make_new
+1 chips detected. Total flash size 4MiB.
+stack_end: 20002618
+gc_collect: sp=20001dc0, len=216
+stack_end: 20002618
+gc_collect: sp=20001f28, len=1bc
+TODO machine_adc_value_read
+TODO machine_adc_value_read
+Watch is running, use Ctrl-C to stop
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+stack_end: 20002618
+gc_collect: sp=20001f38, len=1b8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+```
+
 # Debug with VSCode and ST-Link
 
 TODO
