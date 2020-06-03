@@ -46,6 +46,8 @@ Pixel 4 XL • 99031FFG • android-arm64 • Android 10 (API 29)
 
 # Download Source Code for Flutter App
 
+https://github.com/pauldemarco/flutter_blue
+
 https://github.com/pauldemarco/flutter_blue/tree/master/example
 
 ```bash
@@ -79,6 +81,12 @@ https://code.visualstudio.com/docs/editor/debugging
 
 - [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.1/flutter-debug.mov)
 
+
+Hot Reload
+
+https://flutter.dev/docs/development/tools/vs-code
+
+
 ![PineTime Smart Watch](https://lupyuen.github.io/images/micropython-title.jpg)
 
 _PineTime Smart Watch_
@@ -95,28 +103,31 @@ nRF Connect
 
 # Bluetooth LE Code
 
-Declarative UI
+I'm new to Flutter and Dart... And I find it absolutely amazing that a few lines of code can do so much!
 
-BLE code
+Our app is structured like this to scan Bluetooth LE devices and display them...
 
-https://github.com/lupyuen/flutter-blue-sample/blob/master/lib/main.dart#L67-L153
+<< pic >>
+
+Here's the code that implements the screen for scanning Bluetooth LE devices: [`lib/main.dart`](https://github.com/lupyuen/flutter-blue-sample/blob/master/lib/main.dart#L67-L153)
 
 ```dart
-//  Widget for finding devices
+//  Screen for finding devices
 class FindDevicesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //  Title screen
+      //  Title for the screen
       appBar: AppBar(
         title: Text('Find Devices'),
       ),
 
       body: RefreshIndicator(
-        //  Scan scanning for Bluetooth LE devices
+        //  Start scanning for Bluetooth LE devices
         onRefresh: () =>
             FlutterBlue.instance.startScan(timeout: Duration(seconds: 4)),
 
+        //  List of Bluetooth LE devices
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -128,7 +139,7 @@ class FindDevicesScreen extends StatelessWidget {
                 builder: (c, snapshot) => Column(
                   children: snapshot.data
                       .map(
-                        //  For each Bluetooth LE device found, add a ScanResultTile widget
+                        //  For each Bluetooth LE device, show the ScanResultTile widget when tapped
                         (r) => ScanResultTile(
                           result: r,
                           onTap: () => Navigator.of(context)
@@ -144,7 +155,7 @@ class FindDevicesScreen extends StatelessWidget {
             ...
 ```
 
-https://github.com/lupyuen/flutter-blue-sample/blob/master/lib/widgets.dart#L8-L121
+And here's the code that renders each Bluetooth LE device found: [`lib/widgets.dart`](https://github.com/lupyuen/flutter-blue-sample/blob/master/lib/widgets.dart#L8-L121)
 
 ```dart
 //  Widget for displaying a Bluetooth LE device
@@ -153,16 +164,20 @@ class ScanResultTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
+      //  Show the device name and signal strength
       title: _buildTitle(context),
       leading: Text(result.rssi.toString()),
+
+      //  Show the Connect button and call onTap when tapped
       trailing: RaisedButton(
         child: Text('CONNECT'),
         color: Colors.black,
         textColor: Colors.white,
         onPressed: (result.advertisementData.connectable) ? onTap : null,
       ),
+
+      //  Display the device's name, signal strength, manufacturer data, service UUIDs and service data
       children: <Widget>[
-        //  Display the device's name, signal strength, manufacturer data, service UUIDs and service data
         _buildAdvRow(
             context, 'Complete Local Name', result.advertisementData.localName),
         _buildAdvRow(context, 'Tx Power Level',
@@ -171,7 +186,7 @@ class ScanResultTile extends StatelessWidget {
             context,
             'Manufacturer Data',
             getNiceManufacturerData(
-                    result.advertisementData.manufacturerData) ??
+                result.advertisementData.manufacturerData) ??
                 'N/A'),
         _buildAdvRow(
             context,
@@ -187,7 +202,11 @@ class ScanResultTile extends StatelessWidget {
   ...
 ```
 
-# What's Next?
+Yes the code looks similar to JavaScript (because Dart is meant to [compile to JavaScript efficiently](https://dart.dev/faq#q-why-isnt-dart-more-like-haskell--smalltalk--python--scala--other-language)).
+
+But overall the User Interface code looks Declarative and Functional... A huge improvement over JavaScript and React Native!
+
+# What's Next
 
 Companion App
 

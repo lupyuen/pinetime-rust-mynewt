@@ -1208,13 +1208,15 @@ stack_end: 20002618
 gc_collect: sp=200022b8, len=d8
 ```
 
-# Debug with VSCode and ST-Link
+# Loose Ends
+
+Debug with VSCode and ST-Link
 
 TODO
 
 VSCode Workspace
 
-# Semihosting Console
+Semihosting Console
 
 TODO
 
@@ -1222,7 +1224,7 @@ printf
 
 TODO
 
-# Other Drivers
+Other Drivers
 
 TODO
 
@@ -1239,6 +1241,10 @@ nrf_rtc
 signal
 
 vibrator.py
+
+# What's Next
+
+TODO
 
 # Further Reading
 
