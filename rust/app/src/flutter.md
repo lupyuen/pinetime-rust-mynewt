@@ -352,7 +352,7 @@ I'll be using the code in this article to create the open source __PineTime Comp
 
 Flutter makes it really easy to maintain a single code base for Android and iOS... And `flutter_blue` makes Bluetooth LE coding so simple!
 
-If you're keen to help out, come chat with the PineTime FOSS Community (and me) on the PineTime Chatroom!
+If you're keen to help out, come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!
 
 [PineTime Chatroom on Matrix / Discord / Telegram / IRC](https://wiki.pine64.org/index.php/PineTime#Community)
 
