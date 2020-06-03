@@ -160,7 +160,7 @@ VSCode Debugger has many useful features for debugging Flutter apps. Here's what
 
 - __Source Code__: Shows the line of code for the exception or breakpoint
 
-- __Debug Toolbar__: Resume execution, step into functions, step over code, hot reload, restart execution... [More details here](https://code.visualstudio.com/docs/editor/debugging)
+- __Debug Toolbar__: Resume execution, step into functions, step over code, hot reload, restart execution... [More about debugging](https://code.visualstudio.com/docs/editor/debugging)
     
 See this article for more details on building Flutter apps with VSCode, including cool features like Hot Reload...
 
@@ -178,52 +178,59 @@ _PineTime Smart Watch_
 
 # Bluetooth LE Services
 
+Let's connect our Flutter app to a [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime)...
+
 - [Watch on YouTube](https://youtu.be/pt-BYs_7qOE)
 
 - [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.1/flutter-pinetime-rotated.mp4)
 
-GATT defines the standard way for a Bluetooth LE Client (like our Flutter app) to access a Bluetooth LE Service (like on the PineTime Smart Watch). [More about GATT](https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt)
+_So many Services and Characteristics... What are they?_
+
+When we access data and perform functions wirelessly on a Bluetooth LE device (like PineTime), we talk via a Bluetooth LE protocol known as the __Generic Attribute (GATT) Profile__. 
+
+GATT defines the standard way for a Bluetooth LE Client (like our Flutter app) to access a Bluetooth LE Service (like on the PineTime Smart Watch).  [More about GATT](https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt)
+
+Our Flutter app displays the GATT Services and GATT Characteristics supported by the Bluetooth LE device. Let's look at the [__Standard GATT Services__](https://www.bluetooth.com/specifications/gatt/services/) that are defined in the Bluetooth LE Specifications...
 
 ![Bluetooth LE Services on PineTime Smart Watch](https://lupyuen.github.io/images/flutter-services.png)
 
-Here are the GATT Services that appear when the [Nordic nRF Connect](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app is connected to PineTime...
-
-Let's examine the GATT Services shown above...
-
-PineTime also exposes [__Standard GATT Services__](https://www.bluetooth.com/specifications/gatt/services/) that are defined in the Bluetooth LE Specifications...
-
 1. __Generic Access__ (`0x1800`):
-Device Name (`pinetime`) and Appearance. [Specifications](https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_access.xml)
+This GATT Service contains two GATT Charactertistics: Device Name (`pinetime`) and Appearance. [Specifications](https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_access.xml)
 
-1. __Generic Attribute__ (`0x1801`): Notify the mobile app of any changes in PineTime's GATT Services.
+1. __Generic Attribute__ (`0x1801`): This GATT Services notifies our Flutter app of any changes in PineTime's GATT Services.
 [Specifications](https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_attribute.xml)
 
-1. __Device Information__ (`0x180A`): Model Number (`Apache Mynewt NimBLE`) and Firmware Revision (`1.0.0`).
+1. __Device Information__ (`0x180A`): Contains two GATT Charactertistics: Model Number (`Apache Mynewt NimBLE`) and Firmware Revision (`1.0.0`).
 [Specifications](https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.device_information.xml)
 
-1. __Alert Notification Service__	(`0x1811`): Alerts and Notifications.
+1. __Alert Notification Service__ (`0x1811`): For Alerts and Notifications.
 [Specifications](https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.alert_notification.xml)
 
+Some GATT Characteristics are shown as a list of numbers...
 
-__Simple Management Protocol (SMP) Service__ (`8D53DC1D-1DB7-4CD3-868B-8A527460AA84`) is managed by the MCU Manager Library as [Command Handlers](https://github.com/apache/mynewt-mcumgr/tree/master/cmd)...
+```
+    Device Name:
+    Characteristic 0x2A00
+    [112, 105, 110, ...]
+```
 
-1. __Image Management:__ For querying and updating firmware images in PineTime's Flash ROM. This is the Command Handler that we have implemented to support firmware update on PineTime. See [`img_mgmt`](https://github.com/apache/mynewt-mcumgr/tree/master/cmd/img_mgmt)
+The numbers are the ASCII codes for the text strings. We can see the actual strings in the Nordic nRF Connect app below.
 
-1. __File System Management:__ For accessing the user file system in PineTime's Flash ROM. See [`fs_mgmt`](https://github.com/apache/mynewt-mcumgr/tree/master/cmd/fs_mgmt)
+_How do we update firmware wirelessly on PineTime?_
 
-1. __Log Management:__ For browsing the debugging messages logged by the firmware. See [`log_mgmt`](https://github.com/apache/mynewt-mcumgr/tree/master/cmd/log_mgmt)
+There's a custom GATT Service and Characteristic for that!
 
-1. __OS Management:__ Execute Operating System functions. See [`os_mgmt`](https://github.com/apache/mynewt-mcumgr/tree/master/cmd/os_mgmt)
+__Simple Management Protocol__ (`8D53DC1D-1DB7-4CD3-868B-8A527460AA84`, shortened to `0xDC1D` above) is the GATT Service used by PineTime for updating the firmware.
 
-1. __Statistics Management:__ Runtime statistics useful for troubleshooting. See [`stat_mgmt`](https://github.com/apache/mynewt-mcumgr/tree/master/cmd/stat_mgmt)
+The GATT Service contains a single GATT Characteristic (`DA2E7828-FBCE-4E01-AE9E-261174997C48`, shortened to `0x7828` above). Our Flutter app may someday update PineTime's firmware by sending a Write Request to this GATT Characteristic (with the firmware file encoded in the request).
 
-PineTime Firmware Developers only need to implement the Image Management Command Handler to support firmware updates. The other Command Handlers are optional, though they may be useful for diagnostics and troubleshooting.
+[More about Wireless Firmware Update on PineTime](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu)
 
-The final GATT Service (`59462f12-9543-9999-12c8-58b459a2712d`) in the screen above is the __Security Test Service__, which is also optional. See [`gatt_svr.c`](https://github.com/apache/mynewt-nimble/blob/master/apps/btshell/src/gatt_svr.c#L67-L94)
+The final GATT Service (`59462f12-9543-9999-12c8-58b459a2712d`, shorted to `0x2F12` above) the __Security Test Service__. [More details](https://github.com/apache/mynewt-nimble/blob/master/apps/btshell/src/gatt_svr.c#L67-L94)
 
-![GATT Services exposed by MCU Manager on PineTime](https://lupyuen.github.io/images/dfu-gattservices.jpg)
+For comparison. here are the GATT Services that appear when the [Nordic nRF Connect](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app is connected to PineTime. So our Flutter app really works!
 
-_GATT Services exposed by MCU Manager on PineTime_
+![Nordic nRF Connect app connected to PineTime](https://lupyuen.github.io/images/dfu-gattservices.jpg)
 
 # Bluetooth LE Code
 
