@@ -307,7 +307,7 @@ class ScanResultTile extends StatelessWidget {
         onPressed: (result.advertisementData.connectable) ? onTap : null,
       ),
 
-      //  Display the device's name, signal strength, manufacturer data, service UUIDs and service data
+      //  Display the device's name, power level, manufacturer data, service UUIDs and service data
       children: <Widget>[
         _buildAdvRow(
             context, 'Complete Local Name', result.advertisementData.localName),
