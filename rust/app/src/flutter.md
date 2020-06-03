@@ -14,15 +14,17 @@ Bluetooth LE (Low Energy) apps are ridiculously easy to code with Flutter and Da
 
 # Download Flutter SDK
 
-![Flutter App with Bluetooth Low Energy running on a real Android phone, connected to VSCode Debugger](https://lupyuen.github.io/images/flutter-doctor1.png)
+![Flutter Tool](https://lupyuen.github.io/images/flutter-doctor1.png)
 
 # Install Flutter Tools
 
-![Flutter App with Bluetooth Low Energy running on a real Android phone, connected to VSCode Debugger](https://lupyuen.github.io/images/flutter-doctor2.png)
+![Flutter Doctor](https://lupyuen.github.io/images/flutter-doctor2.png)
+
+![Flutter Extension for VSCode](https://lupyuen.github.io/images/flutter-vscode.png)
 
 Connect Phone
 
-![Flutter App with Bluetooth Low Energy running on a real Android phone, connected to VSCode Debugger](https://lupyuen.github.io/images/flutter-doctor3.png)
+![Flutter Doctor After Fixes](https://lupyuen.github.io/images/flutter-doctor3.png)
 
 ```bash
 flutter -v devices
@@ -38,11 +40,21 @@ Pixel 4 XL • 99031FFG • android-arm64 • Android 10 (API 29)
 
 Connect Phone
 
-![Flutter App with Bluetooth Low Energy running on a real Android phone, connected to VSCode Debugger](https://lupyuen.github.io/images/flutter-debug.png)
+![Flutter App with VSCode Debugger](https://lupyuen.github.io/images/flutter-debug.png)
 
 Left to right
 
+https://code.visualstudio.com/docs/editor/debugging
+
+![PineTime Smart Watch](https://lupyuen.github.io/images/micropython-title.jpg)
+
+_PineTime Smart Watch_
+
 # Bluetooth LE Services
+
+![Scanning for Bluetooth LE devices](https://lupyuen.github.io/images/flutter-scan.png)
+
+![Bluetooth LE Services on PineTime Smart Watch](https://lupyuen.github.io/images/flutter-services.png)
 
 nRF Connect
 
