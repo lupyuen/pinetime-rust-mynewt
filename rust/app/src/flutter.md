@@ -14,6 +14,8 @@ With Flutter, Bluetooth LE (Low Energy) apps for Android AND iOS are ridiculousl
 
 # Download Flutter SDK
 
+Install VSCode
+
 Not Pi
 
 add path
@@ -96,6 +98,94 @@ nRF Connect
 Declarative UI
 
 BLE code
+
+https://github.com/lupyuen/flutter-blue-sample/blob/master/lib/main.dart#L67-L153
+
+```dart
+//  Widget for finding devices
+class FindDevicesScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      //  Title screen
+      appBar: AppBar(
+        title: Text('Find Devices'),
+      ),
+
+      body: RefreshIndicator(
+        //  Scan scanning for Bluetooth LE devices
+        onRefresh: () =>
+            FlutterBlue.instance.startScan(timeout: Duration(seconds: 4)),
+
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              ...
+              StreamBuilder<List<ScanResult>>(
+                stream: FlutterBlue.instance.scanResults,
+                initialData: [],
+
+                builder: (c, snapshot) => Column(
+                  children: snapshot.data
+                      .map(
+                        //  For each Bluetooth LE device found, add a ScanResultTile widget
+                        (r) => ScanResultTile(
+                          result: r,
+                          onTap: () => Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            r.device.connect();
+                            return DeviceScreen(device: r.device);
+                          })),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+            ...
+```
+
+https://github.com/lupyuen/flutter-blue-sample/blob/master/lib/widgets.dart#L8-L121
+
+```dart
+//  Widget for displaying a Bluetooth LE device
+class ScanResultTile extends StatelessWidget {
+  ...
+  @override
+  Widget build(BuildContext context) {
+    return ExpansionTile(
+      title: _buildTitle(context),
+      leading: Text(result.rssi.toString()),
+      trailing: RaisedButton(
+        child: Text('CONNECT'),
+        color: Colors.black,
+        textColor: Colors.white,
+        onPressed: (result.advertisementData.connectable) ? onTap : null,
+      ),
+      children: <Widget>[
+        //  Display the device's name, signal strength, manufacturer data, service UUIDs and service data
+        _buildAdvRow(
+            context, 'Complete Local Name', result.advertisementData.localName),
+        _buildAdvRow(context, 'Tx Power Level',
+            '${result.advertisementData.txPowerLevel ?? 'N/A'}'),
+        _buildAdvRow(
+            context,
+            'Manufacturer Data',
+            getNiceManufacturerData(
+                    result.advertisementData.manufacturerData) ??
+                'N/A'),
+        _buildAdvRow(
+            context,
+            'Service UUIDs',
+            (result.advertisementData.serviceUuids.isNotEmpty)
+                ? result.advertisementData.serviceUuids.join(', ').toUpperCase()
+                : 'N/A'),
+        _buildAdvRow(context, 'Service Data',
+            getNiceServiceData(result.advertisementData.serviceData) ?? 'N/A'),
+      ],
+    );
+  }
+  ...
+```
 
 # What's Next?
 
