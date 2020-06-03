@@ -150,23 +150,21 @@ VSCode Debugger has many useful features for debugging Flutter apps. Here's what
 
 [_Larger image_](https://lupyuen.github.io/images/flutter-debug.png)
 
-- __Dev Tools__:
+- __Dev Tools__: Shows the widgets rendered in our app
 
-- __Variables__:
+- __Variables__: Shows the local and global variables and their values
 
-- __Call Stack__:
+- __Call Stack__: Function calls leading to the exception or breakpoint
 
-- __Debug Console__:
+- __Debug Console__: Compilation, deployment and runtime messages
 
-- __Source Code__:
+- __Source Code__: Shows the line of code for the exception or breakpoint
 
-- __Debug Toolbar__:
+- __Debug Toolbar__: Resume execution, step into functions, step over code, hot reload, restart execution... [More details here](https://code.visualstudio.com/docs/editor/debugging)
+    
+See this article for more details on building Flutter apps with VSCode, including cool features like Hot Reload...
 
-    https://code.visualstudio.com/docs/editor/debugging
-
-Hot Reload
-
-https://flutter.dev/docs/development/tools/vs-code
+- [Flutter Development on VSCode](https://flutter.dev/docs/development/tools/vs-code)
 
 Here's a video of the steps for debugging a Flutter app with VSCode...
 
