@@ -333,11 +333,13 @@ class ScanResultTile extends StatelessWidget {
   ...
 ```
 
-Yes the code looks similar to JavaScript (because Dart is meant to [compile to JavaScript efficiently](https://dart.dev/faq#q-why-isnt-dart-more-like-haskell--smalltalk--python--scala--other-language)).
+Yes the code looks similar to JavaScript. (Because Dart was designed to [compile to JavaScript efficiently](https://dart.dev/faq#q-why-isnt-dart-more-like-haskell--smalltalk--python--scala--other-language))
 
-But overall the User Interface code looks Declarative and Functional... A huge improvement over JavaScript and React Native!
+But overall the user interface code looks Declarative and Functional... A huge improvement over JavaScript and React Native!
 
-https://github.com/lupyuen/flutter-blue-sample/blob/master/pubspec.yaml
+_How do we call the Bluetooth LE functions in our own Flutter app?_
+
+Just add the `flutter_blue` dependency like this: [`pubspec.yaml`](https://github.com/lupyuen/flutter-blue-sample/blob/master/pubspec.yaml)
 
 ```
 dependencies:
