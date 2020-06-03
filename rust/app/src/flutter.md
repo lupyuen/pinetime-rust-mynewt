@@ -216,7 +216,7 @@ Some GATT Characteristics are shown as a list of numbers...
 
 The numbers are the ASCII codes for the text strings. We can see the actual strings in the Nordic nRF Connect app below.
 
-_How do we update firmware wirelessly on PineTime?_
+_Can we do complex things with GATT? Like update the firmware wirelessly on PineTime?_
 
 There's a custom GATT Service and Characteristic for that!
 
@@ -348,9 +348,13 @@ dependencies:
 
 # What's Next
 
-Companion App
+I'll be using the code in this article to create the open source __PineTime Companion App__ for Android and iOS. So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications, chart our heart rate, ...
 
-If you're keen to help out, come chat with us on the PineTime Chatroom!
+Flutter makes it really easy to maintain a single code base for Android and iOS... And `flutter_blue` makes Bluetooth LE coding so simple!
+
+If you're keen to help out, come chat with the PineTime FOSS Community (and me) on the PineTime Chatroom!
+
+[PineTime Chatroom on Matrix / Discord / Telegram / IRC](https://wiki.pine64.org/index.php/PineTime#Community)
 
 # Further Reading
 
@@ -358,7 +362,7 @@ _["MCUBoot Bootloader for PineTime Smart Watch (nRF52)"](https://lupyuen.github.
 
 _["Firmware Update over Bluetooth Low Energy on PineTime Smart Watch"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu)_
 
-_["Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash)_
+_["Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest)_
 
 [Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
 
