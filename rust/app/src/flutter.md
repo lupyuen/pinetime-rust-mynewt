@@ -228,7 +228,7 @@ The GATT Service contains a single GATT Characteristic (`DA2E7828-FBCE-4E01-AE9E
 
 The final GATT Service (`59462f12-9543-9999-12c8-58b459a2712d`, shorted to `0x2F12` above) the __Security Test Service__. [More details](https://github.com/apache/mynewt-nimble/blob/master/apps/btshell/src/gatt_svr.c#L67-L94)
 
-For comparison. here are the GATT Services that appear when the [Nordic nRF Connect](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app is connected to PineTime. So our Flutter app really works!
+For comparison, here are the GATT Services that appear when the [Nordic nRF Connect](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app is connected to PineTime. So our Flutter app really works!
 
 ![Nordic nRF Connect app connected to PineTime](https://lupyuen.github.io/images/dfu-gattservices.jpg)
 

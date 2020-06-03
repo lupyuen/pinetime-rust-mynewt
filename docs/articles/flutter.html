@@ -290,7 +290,7 @@ This GATT Service contains two GATT Charactertistics: Device Name (<code>pinetim
 <p>The GATT Service contains a single GATT Characteristic (<code>DA2E7828-FBCE-4E01-AE9E-261174997C48</code>, shortened to <code>0x7828</code> above). Our Flutter app may someday update PineTime's firmware by sending a Write Request to this GATT Characteristic (with the firmware file encoded in the request).</p>
 <p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">More about Wireless Firmware Update on PineTime</a></p>
 <p>The final GATT Service (<code>59462f12-9543-9999-12c8-58b459a2712d</code>, shorted to <code>0x2F12</code> above) the <strong>Security Test Service</strong>. <a href="https://github.com/apache/mynewt-nimble/blob/master/apps/btshell/src/gatt_svr.c#L67-L94">More details</a></p>
-<p>For comparison. here are the GATT Services that appear when the <a href="https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile">Nordic nRF Connect</a> mobile app is connected to PineTime. So our Flutter app really works!</p>
+<p>For comparison, here are the GATT Services that appear when the <a href="https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile">Nordic nRF Connect</a> mobile app is connected to PineTime. So our Flutter app really works!</p>
 <p><img src="https://lupyuen.github.io/images/dfu-gattservices.jpg" alt="Nordic nRF Connect app connected to PineTime" /></p>
 <h1 id="bluetooth-le-code" class="section-header"><a href="#bluetooth-le-code">6 Bluetooth LE Code</a></h1>
 <p>I'm new to Flutter and Dart... And I find it absolutely amazing that a few lines of code can do so much!</p>
