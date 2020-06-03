@@ -4,7 +4,7 @@
 
 _Flutter App with Bluetooth Low Energy running on a real Android phone, connected to VSCode Debugger_
 
-Ready to create your very first _"Hello World"_ app with Flutter?
+Ready to create your very first _"Hello World"_ app with [__Flutter__](https://flutter.dev/)?
 
 Why not make a sophisticated app that says...
 
@@ -14,35 +14,85 @@ With Flutter, Bluetooth LE (Low Energy) apps for Android AND iOS are ridiculousl
 
 # Download Flutter SDK
 
-Install VSCode
+The Flutter SDK works on Windows, macOS and Linux (Intel, not Arm, so Raspberry Pi is no-go).
 
-Not Pi
+1. [Download the Flutter SDK](https://flutter.dev/docs/get-started/install)
 
-add path
+1. Unzip the Flutter SDK to our Home Directory. 
+
+1. Add `flutter/bin` to our PATH.
+
+    For macOS and Linux, we may edit `~/.bashrc` (or equivalent) and add this...
+
+    ```bash
+    export PATH="$PATH:$HOME/flutter/bin"
+    ```
+
+1. Open a new Command Prompt. Check the Flutter SDK by entering...
+
+    ```bash
+    flutter
+    ```
+
+    We should see this helpful message...
 
 ![Flutter Tool](https://lupyuen.github.io/images/flutter-doctor1.png)
 
 # Install Flutter Tools
 
-![Flutter Doctor](https://lupyuen.github.io/images/flutter-doctor2.png)
+1. [Download and install VSCode](https://code.visualstudio.com/)
 
-![Flutter Extension for VSCode](https://lupyuen.github.io/images/flutter-vscode.png)
+1. At the Command Prompt, enter...
 
-Connect Phone
+    ```bash
+    flutter doctor
+    ```
 
-![Connect phone to USB port](https://lupyuen.github.io/images/flutter-usb.jpg)
+    We will see something like this...
 
-![Flutter Doctor After Fixes](https://lupyuen.github.io/images/flutter-doctor3.png)
+    ![Flutter Doctor](https://lupyuen.github.io/images/flutter-doctor2.png)
 
-```bash
-flutter -v devices
-```
+1. Whoa that's a long list of complaints! But we shall fix only 3 things: __Android Toolchain__, __VSCode__ and __Connected Device__
 
-```
-List of devices attached
-99031FFG device usb:3376X product:coral model:Pixel_4_XL device:coral
-Pixel 4 XL • 99031FFG • android-arm64 • Android 10 (API 29)
-```
+1. __Android Toolchain__: Follow the instructions shown in your screen. 
+    
+    You may need to run `sdkmanager` and `flutter doctor --android-licenses`
+
+1. __VSCode__: Launch VSCode. Click `View → Extensions`
+    
+    Install the Flutter Extension for VSCode...
+
+    ![Flutter Extension for VSCode](https://lupyuen.github.io/images/flutter-vscode.png)
+
+1. __Connected Device__: Connect our Android phone (with debugging enabled) to the USB port...
+
+    ![Connect phone to USB port](https://lupyuen.github.io/images/flutter-usb.jpg)
+
+1. After connecting our Android phone, enter...
+
+    ```bash
+    flutter -v devices
+    ```
+
+    We should see our phone...
+
+    ```
+    List of devices attached
+    99031FFG device usb:3376X product:coral model:Pixel_4_XL device:coral
+    Pixel 4 XL • 99031FFG • android-arm64 • Android 10 (API 29)
+    ```
+
+1. Finally enter...
+
+    ```bash
+    flutter doctor
+    ```
+
+    We should see ticks for __Flutter__, __Android Toolchain__, __VSCode__ and __Connected Device__...
+
+    ![Flutter Doctor After Fixes](https://lupyuen.github.io/images/flutter-doctor3.png)
+
+1. We may ignore the other issues for now
 
 # Download Source Code for Flutter App
 
@@ -81,11 +131,11 @@ https://code.visualstudio.com/docs/editor/debugging
 
 - [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.1/flutter-debug.mov)
 
-
 Hot Reload
 
 https://flutter.dev/docs/development/tools/vs-code
 
+https://code.visualstudio.com/docs/editor/debugging
 
 ![PineTime Smart Watch](https://lupyuen.github.io/images/micropython-title.jpg)
 
@@ -97,9 +147,48 @@ _PineTime Smart Watch_
 
 - [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.1/flutter-pinetime-rotated.mp4)
 
+GATT defines the standard way for a Bluetooth LE Client (like our Flutter app) to access a Bluetooth LE Service (like on the PineTime Smart Watch). [More about GATT](https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt)
+
 ![Bluetooth LE Services on PineTime Smart Watch](https://lupyuen.github.io/images/flutter-services.png)
 
-nRF Connect
+Here are the GATT Services that appear when the [Nordic nRF Connect](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app is connected to PineTime...
+
+Let's examine the GATT Services shown above...
+
+PineTime also exposes [__Standard GATT Services__](https://www.bluetooth.com/specifications/gatt/services/) that are defined in the Bluetooth LE Specifications...
+
+1. __Generic Access__ (`0x1800`):
+Device Name (`pinetime`) and Appearance. [Specifications](https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_access.xml)
+
+1. __Generic Attribute__ (`0x1801`): Notify the mobile app of any changes in PineTime's GATT Services.
+[Specifications](https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.generic_attribute.xml)
+
+1. __Device Information__ (`0x180A`): Model Number (`Apache Mynewt NimBLE`) and Firmware Revision (`1.0.0`).
+[Specifications](https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.device_information.xml)
+
+1. __Alert Notification Service__	(`0x1811`): Alerts and Notifications.
+[Specifications](https://www.bluetooth.com/xml-viewer/?src=https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.alert_notification.xml)
+
+
+__Simple Management Protocol (SMP) Service__ (`8D53DC1D-1DB7-4CD3-868B-8A527460AA84`) is managed by the MCU Manager Library as [Command Handlers](https://github.com/apache/mynewt-mcumgr/tree/master/cmd)...
+
+1. __Image Management:__ For querying and updating firmware images in PineTime's Flash ROM. This is the Command Handler that we have implemented to support firmware update on PineTime. See [`img_mgmt`](https://github.com/apache/mynewt-mcumgr/tree/master/cmd/img_mgmt)
+
+1. __File System Management:__ For accessing the user file system in PineTime's Flash ROM. See [`fs_mgmt`](https://github.com/apache/mynewt-mcumgr/tree/master/cmd/fs_mgmt)
+
+1. __Log Management:__ For browsing the debugging messages logged by the firmware. See [`log_mgmt`](https://github.com/apache/mynewt-mcumgr/tree/master/cmd/log_mgmt)
+
+1. __OS Management:__ Execute Operating System functions. See [`os_mgmt`](https://github.com/apache/mynewt-mcumgr/tree/master/cmd/os_mgmt)
+
+1. __Statistics Management:__ Runtime statistics useful for troubleshooting. See [`stat_mgmt`](https://github.com/apache/mynewt-mcumgr/tree/master/cmd/stat_mgmt)
+
+PineTime Firmware Developers only need to implement the Image Management Command Handler to support firmware updates. The other Command Handlers are optional, though they may be useful for diagnostics and troubleshooting.
+
+The final GATT Service (`59462f12-9543-9999-12c8-58b459a2712d`) in the screen above is the __Security Test Service__, which is also optional. See [`gatt_svr.c`](https://github.com/apache/mynewt-nimble/blob/master/apps/btshell/src/gatt_svr.c#L67-L94)
+
+![GATT Services exposed by MCU Manager on PineTime](https://lupyuen.github.io/images/dfu-gattservices.jpg)
+
+_GATT Services exposed by MCU Manager on PineTime_
 
 # Bluetooth LE Code
 
@@ -209,6 +298,8 @@ But overall the User Interface code looks Declarative and Functional... A huge i
 # What's Next
 
 Companion App
+
+If you're keen to help out, come chat with us on the PineTime Chatroom!
 
 # Further Reading
 
