@@ -238,7 +238,7 @@ I'm new to Flutter and Dart... And I find it absolutely amazing that a few lines
 
 Our app is structured like this to scan Bluetooth LE devices and display them...
 
-<< pic >>
+![Our App Structure](https://lupyuen.github.io/images/flutter-structure.png)
 
 Here's the code that implements the screen for scanning Bluetooth LE devices: [`lib/main.dart`](https://github.com/lupyuen/flutter-blue-sample/blob/master/lib/main.dart#L67-L153)
 
