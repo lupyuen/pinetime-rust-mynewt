@@ -96,46 +96,83 @@ The Flutter SDK works on Windows, macOS and Linux (Intel, not Arm, so Raspberry 
 
 # Download Source Code for Flutter App
 
-https://github.com/pauldemarco/flutter_blue
+The source code for our Flutter app is located here...
 
-https://github.com/pauldemarco/flutter_blue/tree/master/example
+[`github.com/lupyuen/flutter-blue-sample`](https://github.com/lupyuen/flutter-blue-sample)
 
-```bash
-git clone https://github.com/lupyuen/flutter-blue-sample
-```
+Our app is derived from the [sample app](https://github.com/pauldemarco/flutter_blue/tree/master/example) that comes with the [`flutter_blue`](https://github.com/pauldemarco/flutter_blue) Bluetooth LE plugin for Flutter.
 
-Get Packages
+1. In VSCode, click `View → Command Palette`
 
+1. Enter `Git Clone`
 
-# Debug Flutter App
+1. Enter `https://github.com/lupyuen/flutter-blue-sample`
 
-Connect Phone
+1. Select a folder to download the source code
 
-![Flutter Device in VSCode](https://lupyuen.github.io/images/flutter-device.png)
+1. When prompted to open the cloned repository, click `Open`
 
-![Start Debugging in VSCode](https://lupyuen.github.io/images/flutter-debug1.png)
+1. When prompted get missing packages, click `Get Packages`
 
-![Select Debugger in VSCode](https://lupyuen.github.io/images/flutter-debug2.png)
-
-![Scanning for Bluetooth LE devices](https://lupyuen.github.io/images/flutter-scan.png)
-
-![Flutter App with VSCode Debugger](https://lupyuen.github.io/images/flutter-debug.png)
-
-[_Larger image_](https://lupyuen.github.io/images/flutter-debug.png)
-
-Left to right
-
-https://code.visualstudio.com/docs/editor/debugging
+Check this video for the steps to download the source code for our Flutter app...
 
 - [Watch on YouTube](https://youtu.be/QSrg9DgLwjk)
 
 - [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.1/flutter-debug.mov)
 
+# Debug Flutter App
+
+We're now ready to debug our Flutter app on a real Android phone!
+
+1. Check that our Android phone is connected to the USB port. We should see the phone in the VSCode status bar...
+
+    ![Flutter Device in VSCode](https://lupyuen.github.io/images/flutter-device.png)
+
+1. In VSCode, click `Run → Start Debugging`
+
+    ![Start Debugging in VSCode](https://lupyuen.github.io/images/flutter-debug1.png)
+
+1. Select the `Dart & Flutter` debugger
+
+    ![Select Debugger in VSCode](https://lupyuen.github.io/images/flutter-debug2.png)
+
+1. Wait for the Flutter app to be compiled and deployed to our phone (May take a minute for the first time)
+
+1. When the Flutter app starts, we'll be able to Scan, Connect, Reload and Expand devices over Bluetooth LE like this...
+
+![Scanning for Bluetooth LE devices](https://lupyuen.github.io/images/flutter-scan.png)
+
+And that's our very first Flutter app with Bluetooth LE!
+
+VSCode Debugger has many useful features for debugging Flutter apps. Here's what we see when we hit an unhandled exception in our Flutter app...
+
+![Flutter App with VSCode Debugger](https://lupyuen.github.io/images/flutter-debug.png)
+
+[_Larger image_](https://lupyuen.github.io/images/flutter-debug.png)
+
+- __Dev Tools__:
+
+- __Variables__:
+
+- __Call Stack__:
+
+- __Debug Console__:
+
+- __Source Code__:
+
+- __Debug Toolbar__:
+
+    https://code.visualstudio.com/docs/editor/debugging
+
 Hot Reload
 
 https://flutter.dev/docs/development/tools/vs-code
 
-https://code.visualstudio.com/docs/editor/debugging
+Here's a video of the steps for debugging a Flutter app with VSCode...
+
+- [Watch on YouTube](https://youtu.be/QSrg9DgLwjk)
+
+- [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.1/flutter-debug.mov)
 
 ![PineTime Smart Watch](https://lupyuen.github.io/images/micropython-title.jpg)
 
@@ -294,6 +331,13 @@ class ScanResultTile extends StatelessWidget {
 Yes the code looks similar to JavaScript (because Dart is meant to [compile to JavaScript efficiently](https://dart.dev/faq#q-why-isnt-dart-more-like-haskell--smalltalk--python--scala--other-language)).
 
 But overall the User Interface code looks Declarative and Functional... A huge improvement over JavaScript and React Native!
+
+https://github.com/lupyuen/flutter-blue-sample/blob/master/pubspec.yaml
+
+```
+dependencies:
+  flutter_blue: ^0.7.2
+```
 
 # What's Next
 
