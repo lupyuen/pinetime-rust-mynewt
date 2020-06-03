@@ -30,6 +30,8 @@ add path
 
 Connect Phone
 
+![Connect phone to USB port](https://lupyuen.github.io/images/flutter-usb.jpg)
+
 ![Flutter Doctor After Fixes](https://lupyuen.github.io/images/flutter-doctor3.png)
 
 ```bash
@@ -57,9 +59,7 @@ Get Packages
 
 Connect Phone
 
-![Connect phone to USB port](https://lupyuen.github.io/images/flutter-usb.jpg)
-
-![Flutter Devuce in VSCode](https://lupyuen.github.io/images/flutter-device.png)
+![Flutter Device in VSCode](https://lupyuen.github.io/images/flutter-device.png)
 
 ![Start Debugging in VSCode](https://lupyuen.github.io/images/flutter-debug1.png)
 
