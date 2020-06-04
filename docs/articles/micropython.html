@@ -89,10 +89,9 @@
 <li><a href="#flash-mcuboot-bootloader">12.7 Flash MCUBoot Bootloader</a><ul></ul></li>
 <li><a href="#flash-mynewt--micropython-firmware">12.8 Flash Mynewt + MicroPython Firmware</a><ul></ul></li></ul></li>
 <li><a href="#debug-log">13 Debug Log</a><ul></ul></li>
-<li><a href="#debug-with-vscode-and-st-link">14 Debug with VSCode and ST-Link</a><ul></ul></li>
-<li><a href="#semihosting-console">15 Semihosting Console</a><ul></ul></li>
-<li><a href="#other-drivers-1">16 Other Drivers</a><ul></ul></li>
-<li><a href="#further-reading">17 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/micropython-title.jpg" alt="MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor" /></p>
+<li><a href="#loose-ends">14 Loose Ends</a><ul></ul></li>
+<li><a href="#whats-next">15 What's Next</a><ul></ul></li>
+<li><a href="#further-reading">16 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/micropython-title.jpg" alt="MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor" /></p>
 <p><em>MicroPython and wasp-os hosted on Mynewt on PineTime Smart Watch. VSCode Debugger is shown on the monitor</em></p>
 <p><a href="https://wasp-os.readthedocs.io/en/latest/README.html"><strong>wasp-os</strong></a>, built with <a href="https://micropython.org/"><strong>MicroPython</strong></a>, is highly popular with folks coding <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a> for the very first time...</p>
 <p><em>Because there's no easier way to create a Watch App for PineTime!</em></p>
@@ -533,7 +532,7 @@ int start_micropython(void) {
 <div class="example-wrap"><pre class="rust rust-example-rendered">
   <span class="ident">FLASH</span>     <span class="ident">RAM</span> 
  <span class="number">214606</span>   <span class="number">33557</span> <span class="ident">libs_micropython</span>.<span class="ident">a</span></pre></div>
-<p>The MicroPython Runtime is compiled as a custom library in Mynewt, hence the name <code>libs_micropython.a</code>.</p>
+<p>The MicroPython Runtime is compiled as a custom library in Mynewt, hence the name <code>libs_micropython.a</code>. <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/build-app.sh#L164-L189">See the build script</a></p>
 <p>The combined MicroPython + Mynewt firmware (including the NimBLE Bluetooth Stack) occupies <strong>340 KB of Flash ROM, 53 KB of RAM</strong>...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -950,6 +949,7 @@ openocd/bin/openocd \
 <p><img src="https://lupyuen.github.io/images/micropython-build.png" alt="Build Mynewt + MicroPython Firmware on Raspberry Pi" /></p>
 <h1 id="debug-log" class="section-header"><a href="#debug-log">13 Debug Log</a></h1>
 <p>Here's the debug log that appears in OpenOCD when we run <code>flash-app.sh</code>...</p>
+<p>The firmware is flashed to PineTime via OpenOCD and ST-Link...</p>
 
 <pre><code>&gt; Executing task in folder pinetime-rust-mynewt: bash -c -l &#39; scripts/nrf52/flash-app.sh &amp;&amp; echo ✅ ◾ ️Done! &#39; &lt;
 
@@ -989,146 +989,170 @@ target halted due to debug-request, current mode: Thread
 xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
 Enabled ARM Semihosting to show debug output
 semihosting is enabled
+**** Done! Press Ctrl-C to exit...</code></pre>
+<p>PineTime reboots after flashing. The MCUBoot Booloader starts...</p>
 
-**** Done! Press Ctrl-C to exit...
-Starting Bootloader...
-Displaying image...
-Image displayed
-Check button: 0
-[INF] Primary image: magic=good, swap_type=0x4, copy_done=0x1, image_ok=0x1
-[INF] Scratch: magic=bad, swap_type=0x1, copy_done=0x2, image_ok=0x2
-[INF] Boot source: none
-[INF] Swap type: none
-Waiting 5 seconds for button: 0...
-Waited for button: 0
-Bootloader done
-TMP create temp_stub_0
-NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
-NET standalone node 
-stack_start: 20000618
-stack_end: 20002618
-heap_start: 20004bfa
-heap_end: 2000cbfa
-TODO adc_init0
-TODO timer_init0
-TODO microbit_filesystem_init
-TODO machine_rtc_make_new
-TODO machine_rtc_start
-TODO machine_adc_make_new
-1 chips detected. Total flash size 4MiB.
-stack_end: 20002618
-gc_collect: sp=20001dc0, len=216
-stack_end: 20002618
-gc_collect: sp=20001f28, len=1bc
-TODO machine_adc_value_read
-TODO machine_adc_value_read
-Watch is running, use Ctrl-C to stop
-TODO machine_adc_value_read
-stack_end: 20002618
-gc_collect: sp=200022b8, len=d8
-TODO machine_adc_value_read
-stack_end: 20002618
-gc_collect: sp=200022b8, len=d8
-TODO machine_adc_value_read
-stack_end: 20002618
-gc_collect: sp=200022b8, len=d8
-stack_end: 20002618
-gc_collect: sp=20001f38, len=1b8
-TODO machine_adc_value_read
-stack_end: 20002618
-gc_collect: sp=200022b8, len=d8
-TODO machine_adc_value_read
-stack_end: 20002618
-gc_collect: sp=200022b8, len=d8
-TODO machine_adc_value_read
-stack_end: 20002618
-gc_collect: sp=200022b8, len=d8
-TODO machine_adc_value_read
-stack_end: 20002618
-gc_collect: sp=200022b8, len=d8
-TODO machine_adc_value_read
-stack_end: 20002618
-gc_collect: sp=200022b8, len=d8
-Starting Bootloader...
-Displaying image...
-Image displayed
-Check button: 0
-[INF] Primary image: magic=good, swap_type=0x4, copy_done=0x1, image_ok=0x1
-[INF] Scratch: magic=bad, swap_type=0x1, copy_done=0x2, image_ok=0x2
-[INF] Boot source: none
-[INF] Swap type: none
-Waiting 5 seconds for button: 0...
-Waited for button: 0
-Bootloader done
-TMP create temp_stub_0
-NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
-NET standalone node 
-stack_start: 20000618
-stack_end: 20002618
-heap_start: 20004bfa
-heap_end: 2000cbfa
-TODO adc_init0
-TODO timer_init0
-TODO microbit_filesystem_init
-TODO machine_rtc_make_new
-TODO machine_rtc_start
-TODO machine_adc_make_new
-1 chips detected. Total flash size 4MiB.
-stack_end: 20002618
-gc_collect: sp=20001dc0, len=216
-stack_end: 20002618
-gc_collect: sp=20001f28, len=1bc
-TODO machine_adc_value_read
-TODO machine_adc_value_read
-Watch is running, use Ctrl-C to stop
-TODO machine_adc_value_read
-stack_end: 20002618
-gc_collect: sp=200022b8, len=d8
-TODO machine_adc_value_read
-stack_end: 20002618
-gc_collect: sp=200022b8, len=d8
-TODO machine_adc_value_read
-stack_end: 20002618
-gc_collect: sp=200022b8, len=d8
-stack_end: 20002618
-gc_collect: sp=20001f38, len=1b8
-TODO machine_adc_value_read
-stack_end: 20002618
-gc_collect: sp=200022b8, len=d8
-TODO machine_adc_value_read
-stack_end: 20002618
-gc_collect: sp=200022b8, len=d8
-TODO machine_adc_value_read
-stack_end: 20002618
-gc_collect: sp=200022b8, len=d8
-TODO machine_adc_value_read
-stack_end: 20002618
-gc_collect: sp=200022b8, len=d8
-TODO machine_adc_value_read
-stack_end: 20002618
-gc_collect: sp=200022b8, len=d8</code></pre><h1 id="debug-with-vscode-and-st-link" class="section-header"><a href="#debug-with-vscode-and-st-link">14 Debug with VSCode and ST-Link</a></h1>
-<p>TODO</p>
-<p>VSCode Workspace</p>
-<h1 id="semihosting-console" class="section-header"><a href="#semihosting-console">15 Semihosting Console</a></h1>
-<p>TODO</p>
-<p>printf</p>
-<p>TODO</p>
-<h1 id="other-drivers-1" class="section-header"><a href="#other-drivers-1">16 Other Drivers</a></h1>
-<p>TODO</p>
-<p>UART</p>
-<p>https://github.com/lupyuen/wasp-os/tree/master/wasp/drivers</p>
-<p>SPI Flash</p>
-<p>battery</p>
-<p>nrf_rtc</p>
-<p>signal</p>
-<p>vibrator.py</p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">17 Further Reading</a></h1>
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Starting</span> <span class="ident">Bootloader</span>...
+<span class="ident">Displaying</span> <span class="ident">image</span>...
+<span class="ident">Image</span> <span class="ident">displayed</span>
+<span class="ident">Check</span> <span class="ident">button</span>: <span class="number">0</span>
+[<span class="ident">INF</span>] <span class="ident">Primary</span> <span class="ident">image</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">good</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x4</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x1</span>
+[<span class="ident">INF</span>] <span class="ident">Scratch</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">bad</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x2</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x2</span>
+[<span class="ident">INF</span>] <span class="ident">Boot</span> <span class="ident">source</span>: <span class="ident">none</span>
+[<span class="ident">INF</span>] <span class="ident">Swap</span> <span class="kw">type</span>: <span class="ident">none</span>
+<span class="ident">Waiting</span> <span class="number">5</span> <span class="ident">seconds</span> <span class="kw">for</span> <span class="ident">button</span>: <span class="number">0</span>...
+<span class="ident">Waited</span> <span class="kw">for</span> <span class="ident">button</span>: <span class="number">0</span>
+<span class="ident">Bootloader</span> <span class="ident">done</span></pre></div>
+<p>Mynewt starts running...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">TMP</span> <span class="ident">create</span> <span class="ident">temp_stub_0</span>
+<span class="ident">NET</span> <span class="ident">hwid</span> <span class="number">4a</span> <span class="ident">f8</span> <span class="ident">cf</span> <span class="number">95</span> <span class="number">6a</span> <span class="ident">be</span> <span class="ident">c1</span> <span class="ident">f6</span> <span class="number">89</span> <span class="ident">ba</span> <span class="number">12</span> <span class="number">1a</span> 
+<span class="ident">NET</span> <span class="ident">standalone</span> <span class="ident">node</span> </pre></div>
+<p>MicroPython initialises the stack and heap...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">stack_start</span>: <span class="number">20000618</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">heap_start</span>: <span class="number">20004bfa</span>
+<span class="ident">heap_end</span>: <span class="number">2000cbfa</span>
+<span class="ident">TODO</span> <span class="ident">adc_init0</span>
+<span class="ident">TODO</span> <span class="ident">timer_init0</span>
+<span class="ident">TODO</span> <span class="ident">microbit_filesystem_init</span>
+<span class="ident">TODO</span> <span class="ident">machine_rtc_make_new</span>
+<span class="ident">TODO</span> <span class="ident">machine_rtc_start</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_make_new</span>
+<span class="number">1</span> <span class="ident">chips</span> <span class="ident">detected</span>. <span class="ident">Total</span> <span class="ident">flash</span> <span class="ident">size</span> <span class="number">4MiB</span>.
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">20001dc0</span>, <span class="ident">len</span><span class="op">=</span><span class="number">216</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">20001f28</span>, <span class="ident">len</span><span class="op">=</span><span class="number">1bc</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span></pre></div>
+<p>The ADC is probably used for reading the battery status.</p>
+<p>wasp-os starts the REPL loop and renders the watch face...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Watch</span> <span class="ident">is</span> <span class="ident">running</span>, <span class="kw">use</span> <span class="ident">Ctrl</span><span class="op">-</span><span class="ident">C</span> <span class="ident">to</span> <span class="ident">stop</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">20001f38</span>, <span class="ident">len</span><span class="op">=</span><span class="number">1b8</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span></pre></div>
+<p>After a while PineTime reboots, probably because of the Mynewt watchdog.</p>
+<p>And PineTime runs the same thing again and again...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Starting</span> <span class="ident">Bootloader</span>...
+<span class="ident">Displaying</span> <span class="ident">image</span>...
+<span class="ident">Image</span> <span class="ident">displayed</span>
+<span class="ident">Check</span> <span class="ident">button</span>: <span class="number">0</span>
+[<span class="ident">INF</span>] <span class="ident">Primary</span> <span class="ident">image</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">good</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x4</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x1</span>
+[<span class="ident">INF</span>] <span class="ident">Scratch</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">bad</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x2</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x2</span>
+[<span class="ident">INF</span>] <span class="ident">Boot</span> <span class="ident">source</span>: <span class="ident">none</span>
+[<span class="ident">INF</span>] <span class="ident">Swap</span> <span class="kw">type</span>: <span class="ident">none</span>
+<span class="ident">Waiting</span> <span class="number">5</span> <span class="ident">seconds</span> <span class="kw">for</span> <span class="ident">button</span>: <span class="number">0</span>...
+<span class="ident">Waited</span> <span class="kw">for</span> <span class="ident">button</span>: <span class="number">0</span>
+<span class="ident">Bootloader</span> <span class="ident">done</span>
+<span class="ident">TMP</span> <span class="ident">create</span> <span class="ident">temp_stub_0</span>
+<span class="ident">NET</span> <span class="ident">hwid</span> <span class="number">4a</span> <span class="ident">f8</span> <span class="ident">cf</span> <span class="number">95</span> <span class="number">6a</span> <span class="ident">be</span> <span class="ident">c1</span> <span class="ident">f6</span> <span class="number">89</span> <span class="ident">ba</span> <span class="number">12</span> <span class="number">1a</span> 
+<span class="ident">NET</span> <span class="ident">standalone</span> <span class="ident">node</span> 
+<span class="ident">stack_start</span>: <span class="number">20000618</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">heap_start</span>: <span class="number">20004bfa</span>
+<span class="ident">heap_end</span>: <span class="number">2000cbfa</span>
+<span class="ident">TODO</span> <span class="ident">adc_init0</span>
+<span class="ident">TODO</span> <span class="ident">timer_init0</span>
+<span class="ident">TODO</span> <span class="ident">microbit_filesystem_init</span>
+<span class="ident">TODO</span> <span class="ident">machine_rtc_make_new</span>
+<span class="ident">TODO</span> <span class="ident">machine_rtc_start</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_make_new</span>
+<span class="number">1</span> <span class="ident">chips</span> <span class="ident">detected</span>. <span class="ident">Total</span> <span class="ident">flash</span> <span class="ident">size</span> <span class="number">4MiB</span>.
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">20001dc0</span>, <span class="ident">len</span><span class="op">=</span><span class="number">216</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">20001f28</span>, <span class="ident">len</span><span class="op">=</span><span class="number">1bc</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
+<span class="ident">Watch</span> <span class="ident">is</span> <span class="ident">running</span>, <span class="kw">use</span> <span class="ident">Ctrl</span><span class="op">-</span><span class="ident">C</span> <span class="ident">to</span> <span class="ident">stop</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">20001f38</span>, <span class="ident">len</span><span class="op">=</span><span class="number">1b8</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
+<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
+<span class="ident">stack_end</span>: <span class="number">20002618</span>
+<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span></pre></div>
+<h1 id="loose-ends" class="section-header"><a href="#loose-ends">14 Loose Ends</a></h1>
+<p>This article is getting waaaaay too long, and I haven't covered all the topics yet. Drop me a note if you would like me to cover the following...</p>
+<ol>
+<li>
+<p>VSCode Workspace for wasp-os and MicroPython: The Build Task for wasp-os and MicroPython is defined here: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/.vscode/tasks.json"><code>.vscode/tasks.json</code></a></p>
+</li>
+<li>
+<p>Debugging wasp-os and MicroPython with VSCode and ST-Link</p>
+</li>
+<li>
+<p>How debug messages from wasp-os and MicroPython are routed to OpenOCD's Semihosting Console (i.e. replacing <code>printf</code> by <code>console_printf</code>)</p>
+</li>
+<li>
+<p>REPL Command Line: Will probably be implemented as a UART driver in MicroPython that talks to NimBLE</p>
+</li>
+<li>
+<p>Supporting the other wasp-os drivers in <a href="https://github.com/lupyuen/wasp-os/tree/master/wasp/drivers"><code>wasp-os/wasp/drivers</code></a>: SPI Flash, Battery, nRF Real Time Clock, Signal, Vibrator</p>
+</li>
+</ol>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">15 What's Next</a></h1>
+<p><em>Will we see wasp-os and MicroPython run on Mynewt someday?</em></p>
+<p>The work continues! We have a showstopper: Unable to handle Bluetooth packets due to conflicts with the Mynewt and the MicroPython task scheduler.</p>
+<p>I'll continue to experiment on wasp-os with guidance from <a href="https://github.com/daniel-thompson">Daniel</a> and keep this article updated!</p>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">16 Further Reading</a></h1>
 <p><a href="https://wasp-os.readthedocs.io/en/latest/">wasp-os documentation</a></p>
 <p><a href="https://wasp-os.readthedocs.io/en/latest/appguide.html">wasp-os Application Writer’s Guide</a></p>
 <p><a href="https://wasp-os.readthedocs.io/en/latest/wasp.html">wasp-os Reference Manual</a></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
-<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash">&quot;Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)&quot;</a></em></p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">&quot;Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)&quot;</a></em></p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
 

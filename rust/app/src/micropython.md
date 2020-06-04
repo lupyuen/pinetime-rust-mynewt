@@ -554,7 +554,7 @@ The compiled MicroPython Runtime code occupies __210 KB__ of Flash ROM.
  214606   33557 libs_micropython.a
 ```
 
-The MicroPython Runtime is compiled as a custom library in Mynewt, hence the name `libs_micropython.a`.
+The MicroPython Runtime is compiled as a custom library in Mynewt, hence the name `libs_micropython.a`. [See the build script](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/build-app.sh#L164-L189)
 
 The combined MicroPython + Mynewt firmware (including the NimBLE Bluetooth Stack) occupies __340 KB of Flash ROM, 53 KB of RAM__...
 
@@ -1049,6 +1049,8 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 Here's the debug log that appears in OpenOCD when we run `flash-app.sh`...
 
+The firmware is flashed to PineTime via OpenOCD and ST-Link...
+
 ```
 > Executing task in folder pinetime-rust-mynewt: bash -c -l ' scripts/nrf52/flash-app.sh && echo ✅ ◾ ️Done! ' <
 
@@ -1088,8 +1090,12 @@ target halted due to debug-request, current mode: Thread
 xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
 Enabled ARM Semihosting to show debug output
 semihosting is enabled
-
 **** Done! Press Ctrl-C to exit...
+```
+
+PineTime reboots after flashing. The MCUBoot Booloader starts...
+
+```
 Starting Bootloader...
 Displaying image...
 Image displayed
@@ -1101,9 +1107,19 @@ Check button: 0
 Waiting 5 seconds for button: 0...
 Waited for button: 0
 Bootloader done
+```
+
+Mynewt starts running...
+
+```
 TMP create temp_stub_0
 NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
 NET standalone node 
+```
+
+MicroPython initialises the stack and heap...
+
+```
 stack_start: 20000618
 stack_end: 20002618
 heap_start: 20004bfa
@@ -1121,6 +1137,13 @@ stack_end: 20002618
 gc_collect: sp=20001f28, len=1bc
 TODO machine_adc_value_read
 TODO machine_adc_value_read
+```
+
+The ADC is probably used for reading the battery status.
+
+wasp-os starts the REPL loop and renders the watch face...
+
+```
 Watch is running, use Ctrl-C to stop
 TODO machine_adc_value_read
 stack_end: 20002618
@@ -1148,6 +1171,13 @@ gc_collect: sp=200022b8, len=d8
 TODO machine_adc_value_read
 stack_end: 20002618
 gc_collect: sp=200022b8, len=d8
+```
+
+After a while PineTime reboots, probably because of the Mynewt watchdog.
+
+And PineTime runs the same thing again and again...
+
+```
 Starting Bootloader...
 Displaying image...
 Image displayed
@@ -1210,41 +1240,25 @@ gc_collect: sp=200022b8, len=d8
 
 # Loose Ends
 
-Debug with VSCode and ST-Link
+This article is getting waaaaay too long, and I haven't covered all the topics yet. Drop me a note if you would like me to cover the following...
 
-TODO
+1. VSCode Workspace for wasp-os and MicroPython: The Build Task for wasp-os and MicroPython is defined here: [`.vscode/tasks.json`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/.vscode/tasks.json)
 
-VSCode Workspace
+1. Debugging wasp-os and MicroPython with VSCode and ST-Link
 
-Semihosting Console
+1. How debug messages from wasp-os and MicroPython are routed to OpenOCD's Semihosting Console (i.e. replacing `printf` by `console_printf`)
 
-TODO
+1. REPL Command Line: Will probably be implemented as a UART driver in MicroPython that talks to NimBLE
 
-printf
-
-TODO
-
-Other Drivers
-
-TODO
-
-UART
-
-https://github.com/lupyuen/wasp-os/tree/master/wasp/drivers
-
-SPI Flash
-
-battery
-
-nrf_rtc
-
-signal
-
-vibrator.py
+1. Supporting the other wasp-os drivers in [`wasp-os/wasp/drivers`](https://github.com/lupyuen/wasp-os/tree/master/wasp/drivers): SPI Flash, Battery, nRF Real Time Clock, Signal, Vibrator
 
 # What's Next
 
-TODO
+_Will we see wasp-os and MicroPython run on Mynewt someday?_
+
+The work continues! We have a showstopper: Unable to handle Bluetooth packets due to conflicts with the Mynewt and the MicroPython task scheduler.
+
+I'll continue to experiment on wasp-os with guidance from [Daniel](https://github.com/daniel-thompson) and keep this article updated!
 
 # Further Reading
 
