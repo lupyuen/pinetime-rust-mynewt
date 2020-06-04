@@ -358,6 +358,26 @@ If you're keen to help out, come chat with the PineTime FOSS Community (and me) 
 
 [PineTime Chatroom on Matrix / Discord / Telegram / IRC](https://wiki.pine64.org/index.php/PineTime#Community)
 
+# Update: Flutter on iOS
+
+![Flutter Doctor Before Fixes](https://lupyuen.github.io/images/flutter-doctor3.png)
+
+![Flutter Doctor After Fixes](https://lupyuen.github.io/images/flutter-doctorios.png)
+
+![Flutter on iOS](https://lupyuen.github.io/images/flutter-deviceios.png)
+
+![Xcode Signing](https://lupyuen.github.io/images/flutter-sign.png)
+
+![Xcode Signing](https://lupyuen.github.io/images/flutter-sign2.png)
+
+![Trust iOS Developer](https://lupyuen.github.io/images/flutter-trust.png)
+
+![Flutter App on iOS](https://lupyuen.github.io/images/flutter-ios.jpg)
+
+- [Watch on YouTube](https://youtu.be/MTBEd8xRrpA)
+
+- [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.1/flutter-ios.mov)
+
 # Further Reading
 
 _["MCUBoot Bootloader for PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot)_
