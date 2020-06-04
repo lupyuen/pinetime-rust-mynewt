@@ -1258,7 +1258,7 @@ _Will we see wasp-os and MicroPython run on Mynewt someday?_
 
 The work continues! We have a showstopper: Unable to handle Bluetooth packets due to conflicts with the Mynewt and the MicroPython task scheduler.
 
-I'll continue to experiment on wasp-os with guidance from [Daniel](https://github.com/daniel-thompson) and keep this article updated!
+I'll continue to experiment on wasp-os with [guidance](https://forum.pine64.org/showthread.php?tid=9017&page=4) from [Daniel](https://github.com/daniel-thompson) and keep this article updated!
 
 # Further Reading
 
