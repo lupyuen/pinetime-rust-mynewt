@@ -94,6 +94,8 @@ The Flutter SDK works on Windows, macOS and Linux (Intel, not Arm, [so Raspberry
 
 1. We may ignore the other issues for now
 
+[ __Update:__ I have tested the Flutter app on iPhone and it works too. Will update this article shortly ]
+
 # Download Source Code for Flutter App
 
 The source code for our Flutter app is located here...
