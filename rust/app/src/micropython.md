@@ -38,7 +38,7 @@ I'm now coding these enhancements in MicroPython...
 
     If you have a Raspberry Pi, the Companion App will run too! (Using Pi's onboard Bluetooth hardware)
 
-    We're creating the Companion App now... And we hope to have wasp-os adopting the [Simple Management Protocol](https://github.com/apache/mynewt-mcumgr) that's used by Mynewt, RIOT, FreeRTOS and Zephyr.
+    [We're creating the Companion App now](https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter)... And we hope to have wasp-os adopting the [Simple Management Protocol](https://github.com/apache/mynewt-mcumgr) that's used by Mynewt, RIOT, FreeRTOS and Zephyr.
 
     We have a solution for this... More about this later.
 
