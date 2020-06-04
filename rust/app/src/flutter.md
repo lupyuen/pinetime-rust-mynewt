@@ -14,7 +14,7 @@ With Flutter, Bluetooth LE (Low Energy) apps for Android AND iOS are ridiculousl
 
 # Download Flutter SDK
 
-The Flutter SDK works on Windows, macOS and Linux (Intel, not Arm, so Raspberry Pi is no-go).
+The Flutter SDK works on Windows, macOS and Linux (Intel, not Arm, [so Raspberry Pi is no-go](https://twitter.com/MisterTechBlog/status/1267755390814453760?s=20)).
 
 1. [Download the Flutter SDK](https://flutter.dev/docs/get-started/install)
 
