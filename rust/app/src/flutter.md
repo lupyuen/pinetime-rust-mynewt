@@ -441,7 +441,7 @@ But overall the user interface code looks Declarative and Functional... A huge i
 
 _How do we call the Bluetooth LE functions in our own Flutter app?_
 
-Just add the `flutter_blue` dependency like this: [`pubspec.yaml`](https://github.com/lupyuen/flutter-blue-sample/blob/master/pubspec.yaml)
+Just add the [`flutter_blue`](https://github.com/pauldemarco/flutter_blue) plugin as a dependency like this: [`pubspec.yaml`](https://github.com/lupyuen/flutter-blue-sample/blob/master/pubspec.yaml)
 
 ```
 dependencies:
