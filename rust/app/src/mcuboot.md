@@ -1063,9 +1063,19 @@ Follow these steps to build the MCUBoot Bootloader on Linux (including Raspberry
         vers: 1.5.0
     ```
 
-1. git clone mcuboot 1.5.0
+1. Download version 1.5.0 of MCUBoot to `repos/mcuboot`
+
+    ```bash
+    cd ~/pinetime/pinetime-rust-mynewt/repos
+    rm -rf mcuboot
+    git clone --recursive --branch v1.5.0 https://github.com/lupyuen/pinetime-rust-mynewt
+    ```
+
+Why are we doing this? Because we are using a more recent version of MCUBoot (1.5.0), but that's not in sync with version 1.7.0 of Mynewt (which will cause `newt install` to fail). Hence we do this workaround to force Mynewt to build with the newer MCUBoot.
 
 ## Build MCUBoot Bootloader
+
+Build the MCUBoot Bootloader...
 
 ```bash
 cd ~/pinetime/pinetime-rust-mynewt
@@ -1126,11 +1136,13 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 ## Flash Application Firmware
 
-1. Download the [MCUBoot Bootloader for PineTime](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot)...
+1. Download one of the following Application Firmware Images...
 
-    [`mynewt.elf.bin`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.7/mynewt.elf.bin)
+    - Mynewt: [`my_sensor_app.img`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.1/my_sensor_app.img)
 
-    For other versions of the bootloader, [see this article](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest)
+    - FreeRTOS: [`jf.bin`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.5/jf.bin)
+
+    For other versions of the Application Firmware Image, [see this article](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest)
 
 1.  Edit [`~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-app.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-app.sh)
 
