@@ -52,7 +52,13 @@ The Flutter SDK works on Windows, macOS and Linux (Intel, not Arm, [so Raspberry
 
     ![Flutter Doctor](https://lupyuen.github.io/images/flutter-doctor2.png)
 
-1. Whoa that's a long list of complaints! But we shall fix only 3 things: __Android Toolchain__, __VSCode__ and __Connected Device__
+1. Whoa that's a long list of complaints! But we shall fix only 3 things: __Android Toolchain__ (or __Xcode for iOS__), __VSCode__ and __Connected Device__
+
+Let's fix them now...
+
+# Flutter for Android
+
+_(If you're building for iPhone, skip to the next section)_
 
 1. __Android Toolchain__: Follow the instructions shown in your screen. 
     
@@ -68,7 +74,11 @@ The Flutter SDK works on Windows, macOS and Linux (Intel, not Arm, [so Raspberry
 
     ![Connect phone to USB port](https://lupyuen.github.io/images/flutter-usb.jpg)
 
-1. After connecting our Android phone, enter...
+1. After connecting our Android phone, we should see the phone in the VSCode status bar...
+
+    ![Flutter Device in VSCode](https://lupyuen.github.io/images/flutter-device.png)
+
+1. At the Command Prompt, enter...
 
     ```bash
     flutter -v devices
@@ -94,7 +104,54 @@ The Flutter SDK works on Windows, macOS and Linux (Intel, not Arm, [so Raspberry
 
 1. We may ignore the other issues for now
 
-[ __Update:__ I have tested the Flutter app on iPhone and it works too. Will update this article shortly ]
+# Flutter for iOS
+
+_(If you're building for Android, skip to the next section)_
+
+Let's fix 3 things shown below: __Xcode__, __VSCode__ and __Connected Device__
+
+![Flutter Doctor](https://lupyuen.github.io/images/flutter-doctor2.png)
+
+1. __Xcode__: Follow the instructions shown in your screen. 
+
+    You may need to install Xcode, CocoaPods and run `xcodebuild`
+    
+1. __VSCode__: Launch VSCode. Click `View → Extensions`
+    
+    Install the Flutter Extension for VSCode...
+
+    ![Flutter Extension for VSCode](https://lupyuen.github.io/images/flutter-vscode.png)
+
+1. __Connected Device__: Connect our iPhone to the USB port.
+
+1. After connecting our iPhone, we should see the phone in the VSCode status bar...
+
+    ![Flutter on iOS](https://lupyuen.github.io/images/flutter-deviceios.png)
+
+1. At the Command Prompt, enter...
+
+    ```bash
+    flutter -v devices
+    ```
+
+    We should see our phone...
+
+    ```
+    1 connected device:
+    iPhone 6 Plus • ios • iOS 12.4.6
+    ```
+
+1. Finally enter...
+
+    ```bash
+    flutter doctor
+    ```
+
+    We should see ticks for __Flutter__, __Xcode__, __VSCode__ and __Connected Device__...
+
+    ![Flutter Doctor After Fixes](https://lupyuen.github.io/images/flutter-doctorios.png)
+
+1. We may ignore the other issues for now
 
 # Download Source Code for Flutter App
 
@@ -124,11 +181,7 @@ Check this video for the steps to download the source code for our Flutter app..
 
 # Debug Flutter App
 
-We're now ready to debug our Flutter app on a real Android phone!
-
-1. Check that our Android phone is connected to the USB port. We should see the phone in the VSCode status bar...
-
-    ![Flutter Device in VSCode](https://lupyuen.github.io/images/flutter-device.png)
+We're now ready to debug our Flutter app on a real Android or iOS phone!
 
 1. In VSCode, click `Run → Start Debugging`
 
@@ -139,6 +192,8 @@ We're now ready to debug our Flutter app on a real Android phone!
     ![Select Debugger in VSCode](https://lupyuen.github.io/images/flutter-debug2.png)
 
 1. Wait for the Flutter app to be compiled and deployed to our phone (May take a minute for the first time)
+
+1. For iOS: Check the next section for additional Xcode steps
 
 1. When the Flutter app starts, we'll be able to Scan, Connect, Reload and Expand devices over Bluetooth LE like this...
 
@@ -173,6 +228,51 @@ Here's a video of the steps for debugging a Flutter app with VSCode...
 - [Watch on YouTube](https://youtu.be/QSrg9DgLwjk)
 
 - [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.1/flutter-debug.mov)
+
+# Sign Flutter App for iOS
+
+_(Skip this section if you're building for Android)_
+
+This message appears when we debug our iOS app...
+
+![Xcode Signing](https://lupyuen.github.io/images/flutter-sign.png)
+
+Here's what we need to do for iOS...
+
+1. In VSCode, click `Terminal → New Terminal`
+
+1. At the Terminal prompt, enter...
+
+    ```bash
+    open ios/Runner.xcworkspace
+    ```
+
+    ![Open Xcode workspace](https://lupyuen.github.io/images/flutter-workspace.png)
+
+1. In Xcode, click `Runner → Targets Runner → Signing & Capabilities`
+
+    ![Xcode Signing](https://lupyuen.github.io/images/flutter-sign2.png)
+
+1. Set `Team` to our Apple Developer Account
+
+1. Set `Bundle Identifier` to a unique name
+
+1. On our iPhone, click `Settings → General → Device Management`
+
+1. Set the Trust Settings like this...
+
+    ![Trust iOS Developer](https://lupyuen.github.io/images/flutter-trust.png)
+
+We should be able to launch and debug our Flutter app using the instructions from the previous section...
+
+![Flutter App on iOS](https://lupyuen.github.io/images/flutter-ios.jpg)
+
+Here's a demo of our Flutter app on iPhone...
+
+- [Watch on YouTube](https://youtu.be/MTBEd8xRrpA)
+
+- [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.1/flutter-ios.mov)
+
 
 ![PineTime Smart Watch](https://lupyuen.github.io/images/micropython-title.jpg)
 
@@ -357,26 +457,6 @@ Flutter makes it really easy to maintain a single code base for Android and iOS.
 If you're keen to help out, come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!
 
 [PineTime Chatroom on Matrix / Discord / Telegram / IRC](https://wiki.pine64.org/index.php/PineTime#Community)
-
-# Update: Flutter on iOS
-
-![Flutter Doctor Before Fixes](https://lupyuen.github.io/images/flutter-doctor3.png)
-
-![Flutter Doctor After Fixes](https://lupyuen.github.io/images/flutter-doctorios.png)
-
-![Flutter on iOS](https://lupyuen.github.io/images/flutter-deviceios.png)
-
-![Xcode Signing](https://lupyuen.github.io/images/flutter-sign.png)
-
-![Xcode Signing](https://lupyuen.github.io/images/flutter-sign2.png)
-
-![Trust iOS Developer](https://lupyuen.github.io/images/flutter-trust.png)
-
-![Flutter App on iOS](https://lupyuen.github.io/images/flutter-ios.jpg)
-
-- [Watch on YouTube](https://youtu.be/MTBEd8xRrpA)
-
-- [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.1/flutter-ios.mov)
 
 # Further Reading
 

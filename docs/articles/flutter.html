@@ -65,12 +65,15 @@
     <nav id="TOC"><ul>
 <li><a href="#download-flutter-sdk">1 Download Flutter SDK</a><ul></ul></li>
 <li><a href="#install-flutter-tools">2 Install Flutter Tools</a><ul></ul></li>
-<li><a href="#download-source-code-for-flutter-app">3 Download Source Code for Flutter App</a><ul></ul></li>
-<li><a href="#debug-flutter-app">4 Debug Flutter App</a><ul></ul></li>
-<li><a href="#bluetooth-le-services">5 Bluetooth LE Services</a><ul></ul></li>
-<li><a href="#bluetooth-le-code">6 Bluetooth LE Code</a><ul></ul></li>
-<li><a href="#whats-next">7 What's Next</a><ul></ul></li>
-<li><a href="#further-reading">8 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/flutter-title.png" alt="Flutter App with Bluetooth Low Energy running on a real Android phone, connected to VSCode Debugger" /></p>
+<li><a href="#flutter-for-android">3 Flutter for Android</a><ul></ul></li>
+<li><a href="#flutter-for-ios">4 Flutter for iOS</a><ul></ul></li>
+<li><a href="#download-source-code-for-flutter-app">5 Download Source Code for Flutter App</a><ul></ul></li>
+<li><a href="#debug-flutter-app">6 Debug Flutter App</a><ul></ul></li>
+<li><a href="#sign-flutter-app-for-ios">7 Sign Flutter App for iOS</a><ul></ul></li>
+<li><a href="#bluetooth-le-services">8 Bluetooth LE Services</a><ul></ul></li>
+<li><a href="#bluetooth-le-code">9 Bluetooth LE Code</a><ul></ul></li>
+<li><a href="#whats-next">10 What's Next</a><ul></ul></li>
+<li><a href="#further-reading">11 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/flutter-title.png" alt="Flutter App with Bluetooth Low Energy running on a real Android phone, connected to VSCode Debugger" /></p>
 <p><em>Flutter App with Bluetooth Low Energy running on a real Android phone, connected to VSCode Debugger</em></p>
 <p>Ready to create your very first <em>&quot;Hello World&quot;</em> app with <a href="https://flutter.dev/"><strong>Flutter</strong></a>?</p>
 <p>Why not make a sophisticated app that says...</p>
@@ -112,8 +115,13 @@
 <p><img src="https://lupyuen.github.io/images/flutter-doctor2.png" alt="Flutter Doctor" /></p>
 </li>
 <li>
-<p>Whoa that's a long list of complaints! But we shall fix only 3 things: <strong>Android Toolchain</strong>, <strong>VSCode</strong> and <strong>Connected Device</strong></p>
+<p>Whoa that's a long list of complaints! But we shall fix only 3 things: <strong>Android Toolchain</strong> (or <strong>Xcode for iOS</strong>), <strong>VSCode</strong> and <strong>Connected Device</strong></p>
 </li>
+</ol>
+<p>Let's fix them now...</p>
+<h1 id="flutter-for-android" class="section-header"><a href="#flutter-for-android">3 Flutter for Android</a></h1>
+<p><em>(If you're building for iPhone, skip to the next section)</em></p>
+<ol>
 <li>
 <p><strong>Android Toolchain</strong>: Follow the instructions shown in your screen. </p>
 <p>You may need to run <code>sdkmanager</code> and <code>flutter doctor --android-licenses</code></p>
@@ -128,7 +136,11 @@
 <p><img src="https://lupyuen.github.io/images/flutter-usb.jpg" alt="Connect phone to USB port" /></p>
 </li>
 <li>
-<p>After connecting our Android phone, enter...</p>
+<p>After connecting our Android phone, we should see the phone in the VSCode status bar...</p>
+<p><img src="https://lupyuen.github.io/images/flutter-device.png" alt="Flutter Device in VSCode" /></p>
+</li>
+<li>
+<p>At the Command Prompt, enter...</p>
 <pre><code class="language-bash">flutter -v devices
 </code></pre>
 <p>We should see our phone...</p>
@@ -149,8 +161,49 @@
 <p>We may ignore the other issues for now</p>
 </li>
 </ol>
-<p>[ <strong>Update:</strong> I have tested the Flutter app on iPhone and it works too. Will update this article shortly ]</p>
-<h1 id="download-source-code-for-flutter-app" class="section-header"><a href="#download-source-code-for-flutter-app">3 Download Source Code for Flutter App</a></h1>
+<h1 id="flutter-for-ios" class="section-header"><a href="#flutter-for-ios">4 Flutter for iOS</a></h1>
+<p><em>(If you're building for Android, skip to the next section)</em></p>
+<p>Let's fix 3 things shown below: <strong>Xcode</strong>, <strong>VSCode</strong> and <strong>Connected Device</strong></p>
+<p><img src="https://lupyuen.github.io/images/flutter-doctor2.png" alt="Flutter Doctor" /></p>
+<ol>
+<li>
+<p><strong>Xcode</strong>: Follow the instructions shown in your screen. </p>
+<p>You may need to install Xcode, CocoaPods and run <code>xcodebuild</code></p>
+</li>
+<li>
+<p><strong>VSCode</strong>: Launch VSCode. Click <code>View → Extensions</code></p>
+<p>Install the Flutter Extension for VSCode...</p>
+<p><img src="https://lupyuen.github.io/images/flutter-vscode.png" alt="Flutter Extension for VSCode" /></p>
+</li>
+<li>
+<p><strong>Connected Device</strong>: Connect our iPhone to the USB port.</p>
+</li>
+<li>
+<p>After connecting our iPhone, we should see the phone in the VSCode status bar...</p>
+<p><img src="https://lupyuen.github.io/images/flutter-deviceios.png" alt="Flutter on iOS" /></p>
+</li>
+<li>
+<p>At the Command Prompt, enter...</p>
+<pre><code class="language-bash">flutter -v devices
+</code></pre>
+<p>We should see our phone...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="number">1</span> <span class="ident">connected</span> <span class="ident">device</span>:
+<span class="ident">iPhone</span> <span class="number">6</span> <span class="ident">Plus</span> • <span class="ident">ios</span> • <span class="ident">iOS</span> <span class="number">12.4</span>.<span class="number">6</span></pre></div>
+</li>
+<li>
+<p>Finally enter...</p>
+<pre><code class="language-bash">flutter doctor
+</code></pre>
+<p>We should see ticks for <strong>Flutter</strong>, <strong>Xcode</strong>, <strong>VSCode</strong> and <strong>Connected Device</strong>...</p>
+<p><img src="https://lupyuen.github.io/images/flutter-doctorios.png" alt="Flutter Doctor After Fixes" /></p>
+</li>
+<li>
+<p>We may ignore the other issues for now</p>
+</li>
+</ol>
+<h1 id="download-source-code-for-flutter-app" class="section-header"><a href="#download-source-code-for-flutter-app">5 Download Source Code for Flutter App</a></h1>
 <p>The source code for our Flutter app is located here...</p>
 <p><a href="https://github.com/lupyuen/flutter-blue-sample"><code>github.com/lupyuen/flutter-blue-sample</code></a></p>
 <p>Our app is derived from the <a href="https://github.com/pauldemarco/flutter_blue/tree/master/example">sample app</a> that comes with the <a href="https://github.com/pauldemarco/flutter_blue"><code>flutter_blue</code></a> Bluetooth LE plugin for Flutter.</p>
@@ -183,13 +236,9 @@
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.1/flutter-debug.mov">Download the video</a></p>
 </li>
 </ul>
-<h1 id="debug-flutter-app" class="section-header"><a href="#debug-flutter-app">4 Debug Flutter App</a></h1>
-<p>We're now ready to debug our Flutter app on a real Android phone!</p>
+<h1 id="debug-flutter-app" class="section-header"><a href="#debug-flutter-app">6 Debug Flutter App</a></h1>
+<p>We're now ready to debug our Flutter app on a real Android or iOS phone!</p>
 <ol>
-<li>
-<p>Check that our Android phone is connected to the USB port. We should see the phone in the VSCode status bar...</p>
-<p><img src="https://lupyuen.github.io/images/flutter-device.png" alt="Flutter Device in VSCode" /></p>
-</li>
 <li>
 <p>In VSCode, click <code>Run → Start Debugging</code></p>
 <p><img src="https://lupyuen.github.io/images/flutter-debug1.png" alt="Start Debugging in VSCode" /></p>
@@ -200,6 +249,9 @@
 </li>
 <li>
 <p>Wait for the Flutter app to be compiled and deployed to our phone (May take a minute for the first time)</p>
+</li>
+<li>
+<p>For iOS: Check the next section for additional Xcode steps</p>
 </li>
 <li>
 <p>When the Flutter app starts, we'll be able to Scan, Connect, Reload and Expand devices over Bluetooth LE like this...</p>
@@ -243,9 +295,53 @@
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.1/flutter-debug.mov">Download the video</a></p>
 </li>
 </ul>
+<h1 id="sign-flutter-app-for-ios" class="section-header"><a href="#sign-flutter-app-for-ios">7 Sign Flutter App for iOS</a></h1>
+<p><em>(Skip this section if you're building for Android)</em></p>
+<p>This message appears when we debug our iOS app...</p>
+<p><img src="https://lupyuen.github.io/images/flutter-sign.png" alt="Xcode Signing" /></p>
+<p>Here's what we need to do for iOS...</p>
+<ol>
+<li>
+<p>In VSCode, click <code>Terminal → New Terminal</code></p>
+</li>
+<li>
+<p>At the Terminal prompt, enter...</p>
+<pre><code class="language-bash">open ios/Runner.xcworkspace
+</code></pre>
+<p><img src="https://lupyuen.github.io/images/flutter-workspace.png" alt="Open Xcode workspace" /></p>
+</li>
+<li>
+<p>In Xcode, click <code>Runner → Targets Runner → Signing &amp; Capabilities</code></p>
+<p><img src="https://lupyuen.github.io/images/flutter-sign2.png" alt="Xcode Signing" /></p>
+</li>
+<li>
+<p>Set <code>Team</code> to our Apple Developer Account</p>
+</li>
+<li>
+<p>Set <code>Bundle Identifier</code> to a unique name</p>
+</li>
+<li>
+<p>On our iPhone, click <code>Settings → General → Device Management</code></p>
+</li>
+<li>
+<p>Set the Trust Settings like this...</p>
+<p><img src="https://lupyuen.github.io/images/flutter-trust.png" alt="Trust iOS Developer" /></p>
+</li>
+</ol>
+<p>We should be able to launch and debug our Flutter app using the instructions from the previous section...</p>
+<p><img src="https://lupyuen.github.io/images/flutter-ios.jpg" alt="Flutter App on iOS" /></p>
+<p>Here's a demo of our Flutter app on iPhone...</p>
+<ul>
+<li>
+<p><a href="https://youtu.be/MTBEd8xRrpA">Watch on YouTube</a></p>
+</li>
+<li>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.1/flutter-ios.mov">Download the video</a></p>
+</li>
+</ul>
 <p><img src="https://lupyuen.github.io/images/micropython-title.jpg" alt="PineTime Smart Watch" /></p>
 <p><em>PineTime Smart Watch</em></p>
-<h1 id="bluetooth-le-services" class="section-header"><a href="#bluetooth-le-services">5 Bluetooth LE Services</a></h1>
+<h1 id="bluetooth-le-services" class="section-header"><a href="#bluetooth-le-services">8 Bluetooth LE Services</a></h1>
 <p>Let's connect our Flutter app to a <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>...</p>
 <ul>
 <li>
@@ -293,7 +389,7 @@ This GATT Service contains two GATT Charactertistics: Device Name (<code>pinetim
 <p>The final GATT Service (<code>59462f12-9543-9999-12c8-58b459a2712d</code>, shorted to <code>0x2F12</code> above) is the <strong>Security Test Service</strong>. <a href="https://github.com/apache/mynewt-nimble/blob/master/apps/btshell/src/gatt_svr.c#L67-L94">More details</a></p>
 <p>For comparison, here are the GATT Services that appear when the <a href="https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile">Nordic nRF Connect</a> mobile app is connected to PineTime. So our Flutter app really works!</p>
 <p><img src="https://lupyuen.github.io/images/dfu-gattservices.jpg" alt="Nordic nRF Connect app connected to PineTime" /></p>
-<h1 id="bluetooth-le-code" class="section-header"><a href="#bluetooth-le-code">6 Bluetooth LE Code</a></h1>
+<h1 id="bluetooth-le-code" class="section-header"><a href="#bluetooth-le-code">9 Bluetooth LE Code</a></h1>
 <p>I'm new to Flutter and Dart... And I find it absolutely amazing that a few lines of code can do so much!</p>
 <p>Our app is structured like this to scan Bluetooth LE devices and display them...</p>
 <p><img src="https://lupyuen.github.io/images/flutter-structure.png" alt="Our App Structure" /></p>
@@ -392,12 +488,12 @@ class ScanResultTile extends StatelessWidget {
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">dependencies</span>:
   <span class="ident">flutter_blue</span>: <span class="op">^</span><span class="number">0.7</span>.<span class="number">2</span></pre></div>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">7 What's Next</a></h1>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">10 What's Next</a></h1>
 <p>I'll be using the code in this article to create the open source <strong>PineTime Companion App</strong> for Android and iOS. So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications, chart our heart rate, ...</p>
 <p>Flutter makes it really easy to maintain a single code base for Android and iOS... And <code>flutter_blue</code> makes Bluetooth LE coding so simple!</p>
 <p>If you're keen to help out, come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!</p>
 <p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Matrix / Discord / Telegram / IRC</a></p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">8 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">11 Further Reading</a></h1>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">&quot;Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)&quot;</a></em></p>
