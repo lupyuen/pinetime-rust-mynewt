@@ -1079,13 +1079,45 @@ Build the MCUBoot Bootloader...
 
 ```bash
 cd ~/pinetime/pinetime-rust-mynewt
-scripts/build-boot.sh
+scripts/nrf52/build-boot.sh
 ```
 
 We should see...
 
 ```
-????
+Linking pinetime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
+Target successfully built: targets/nrf52_boot
++ newt size -v nrf52_boot
+Size of Application Image: app
+Mem FLASH: 0x0-0x6000
+Mem RAM: 0x20000000-0x20010000
+  FLASH     RAM 
+     90     229 *fill*
+   6823    5996 boot_bootutil.a
+    124       0 boot_mynewt.a
+     18       0 boot_mynewt_flash_map_backend.a
+   1182       0 crypto_mbedtls.a
+    392     444 hw_bsp_nrf52.a
+     52       0 hw_cmsis-core.a
+   1280      80 hw_drivers_flash_spiflash.a
+    654       1 hw_hal.a
+   4192      72 hw_mcu_nordic_nrf52xxx.a
+   2006   18776 kernel_os.a
+   1930      12 libc_baselibc.a
+   1478     256 libs_pinetime_boot.a
+    529      40 libs_semihosting_console.a
+    544     128 sys_flash_map.a
+      2       0 sys_log_modlog.a
+    632      29 sys_mfg.a
+     30       5 sys_sysinit.a
+     48       0 util_mem.a
+    100       0 nrf52_boot-sysinit-app.a
+    756       0 libgcc.a
+Loading compiler pinetime/pinetime-rust-mynewt/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
+
+objsize
+   text    data     bss     dec     hex filename
+  22792     132   25504   48428    bd2c pinetime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
 ```
 
 ## Select the OpenOCD Interface: ST-Link or Raspberry Pi SPI

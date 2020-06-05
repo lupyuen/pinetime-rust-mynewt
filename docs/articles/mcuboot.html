@@ -7,9 +7,19 @@
     <title>MCUBoot Bootloader for PineTime Smart Watch (nRF52)</title>
 
     
-    <!-- Begin scripts/rustdoc-header.html: Header for Custom Markdown files processed by rustdoc, like chip8.md -->
-<!-- TODO -->
-<meta property="og:image" content="https://lupyuen.github.io/images/mcuboot-photo2-small.jpg">
+    <!-- Begin scripts/articles/*-header.html: Article Header for Custom Markdown files processed by rustdoc, like chip8.md -->
+<meta property="og:title" 
+    content="MCUBoot Bootloader for PineTime Smart Watch (nRF52)" 
+    data-rh="true">
+<meta property="og:description" 
+    content="Wireless Firmware Updates done right on PineTime Smart Watch... With the open source MCUBoot Bootloader from Apache Mynewt and Zephyr" 
+    data-rh="true">
+<meta property="og:image" 
+    content="https://lupyuen.github.io/images/mcuboot-photo2-small.jpg">
+<meta property="og:type" 
+    content="article" data-rh="true">
+<!-- End scripts/articles/*-header.html -->
+<!-- Begin scripts/rustdoc-header.html: Header for Custom Markdown files processed by rustdoc, like chip8.md -->
 <link rel="alternate" type="application/rss+xml" title="RSS Feed for lupyuen" href="/rss.xml" />
 <link rel="stylesheet" type="text/css" href="../normalize.css">
 <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
@@ -68,7 +78,14 @@
 <li><a href="#manual-firmware-rollback-on-pinetime">7 Manual Firmware Rollback on PineTime</a><ul></ul></li>
 <li><a href="#test-enhanced-mcuboot-bootloader-on-pinetime">8 Test Enhanced MCUBoot Bootloader on PineTime</a><ul></ul></li>
 <li><a href="#more-enhancements-for-pinetime-bootloader">9 More Enhancements for PineTime Bootloader</a><ul></ul></li>
-<li><a href="#further-reading">10 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/mcuboot-photo2-small.jpg" alt="Enhanced MCUBoot Bootloader running on PineTime Smart Watch" /></p>
+<li><a href="#build-and-flash-mcuboot-bootloader">10 Build and Flash MCUBoot Bootloader</a><ul>
+<li><a href="#install-build-tools">10.1 Install Build Tools</a><ul></ul></li>
+<li><a href="#download-source-files">10.2 Download Source Files</a><ul></ul></li>
+<li><a href="#build-mcuboot-bootloader">10.3 Build MCUBoot Bootloader</a><ul></ul></li>
+<li><a href="#select-the-openocd-interface-st-link-or-raspberry-pi-spi">10.4 Select the OpenOCD Interface: ST-Link or Raspberry Pi SPI</a><ul></ul></li>
+<li><a href="#flash-mcuboot-bootloader">10.5 Flash MCUBoot Bootloader</a><ul></ul></li>
+<li><a href="#flash-application-firmware">10.6 Flash Application Firmware</a><ul></ul></li></ul></li>
+<li><a href="#further-reading">11 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/mcuboot-photo2-small.jpg" alt="Enhanced MCUBoot Bootloader running on PineTime Smart Watch" /></p>
 <p><em>Enhanced MCUBoot Bootloader running on PineTime Smart Watch</em></p>
 <p>Today we'll talk about the <strong>Enhanced MCUBoot Bootloader</strong> for <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>. </p>
 <p>Here's a sneak peek of the Enhanced MCUBoot Bootloader running on PineTime...</p>
@@ -883,7 +900,231 @@ void pinetime_boot_check_button(void) {
 </ol>
 <p>If you're keen to solve these challenges the open source way, come join us!</p>
 <p>Chat with us on Matrix / Discord / Telegram / IRC: <a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Community</a></p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">10 Further Reading</a></h1>
+<h1 id="build-and-flash-mcuboot-bootloader" class="section-header"><a href="#build-and-flash-mcuboot-bootloader">10 Build and Flash MCUBoot Bootloader</a></h1>
+<p>Follow these steps to build the MCUBoot Bootloader on Linux (including Raspberry Pi) and macOS...</p>
+<h2 id="install-build-tools" class="section-header"><a href="#install-build-tools">10.1 Install Build Tools</a></h2>
+<ol>
+<li>
+<p>Install GCC and Python build tools for Linux (or the macOS equivalent)...</p>
+<pre><code class="language-bash">sudo apt install gcc gcc-arm-none-eabi python3 make
+</code></pre>
+</li>
+<li>
+<p>Install <code>rustup</code> with support for nightly target <code>thumbv7em-none-eabihf</code>. </p>
+<p>Follow the instructions at https://rustup.rs/</p>
+<p>Press Enter to select <code>1) Proceed with installation (default)</code></p>
+<p>Then execute...</p>
+<pre><code class="language-bash"># Latest nightly-2020-04-20 fails with asm error, so we use nightly-2020-02-16
+source $HOME/.cargo/env
+rustup default nightly-2020-02-16
+rustup update
+rustup target add thumbv7em-none-eabihf
+</code></pre>
+</li>
+<li>
+<p>Install the <code>newt</code> build tool for Mynewt.  Refer to these scripts...</p>
+<ul>
+<li>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/install-version.sh"><code>scripts/install-version.sh</code></a>: To set the version numbers</p>
+</li>
+<li>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/install-pi.sh"><code>scripts/install-pi.sh</code></a>: To build and install <code>newt</code>, look under the section <code>&quot;Build newt&quot;</code></p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="download-source-files" class="section-header"><a href="#download-source-files">10.2 Download Source Files</a></h2>
+<ol>
+<li>
+<p>Download the source files to <code>~/pinetime</code>...</p>
+<pre><code class="language-bash">mkdir ~/pinetime
+cd ~/pinetime
+git clone --recursive --branch ota2 https://github.com/lupyuen/pinetime-rust-mynewt
+</code></pre>
+</li>
+<li>
+<p>Update the MCUBoot version number to 1.3.1. Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/project.yml"><code>~/pinetime/pinetime-rust-mynewt/project.yml</code></a></p>
+<p>Change...</p>
+<pre><code class="language-yaml">repository.mcuboot:
+    type: github
+    vers: 1.5.0
+</code></pre>
+<p>to...</p>
+<pre><code class="language-yaml">repository.mcuboot:
+    type: github
+    vers: 1.3.1
+</code></pre>
+</li>
+<li>
+<p>Download the source code for Mynewt, NimBLE and MCUBoot...</p>
+<pre><code class="language-bash">cd ~/pinetime/pinetime-rust-mynewt
+newt install
+</code></pre>
+<p>We should see...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Downloading</span> <span class="ident">repository</span> <span class="ident">mynewt</span><span class="op">-</span><span class="ident">core</span> (<span class="ident">commit</span>: <span class="ident">master</span>) <span class="ident">from</span> <span class="ident">https</span>:<span class="comment">//github.com/apache/mynewt-core.git</span>
+<span class="ident">Downloading</span> <span class="ident">repository</span> <span class="ident">mynewt</span><span class="op">-</span><span class="ident">mcumgr</span> (<span class="ident">commit</span>: <span class="ident">master</span>) <span class="ident">from</span> <span class="ident">https</span>:<span class="comment">//github.com/apache/mynewt-mcumgr.git</span>
+<span class="ident">Downloading</span> <span class="ident">repository</span> <span class="ident">mynewt</span><span class="op">-</span><span class="ident">nimble</span> (<span class="ident">commit</span>: <span class="ident">master</span>) <span class="ident">from</span> <span class="ident">https</span>:<span class="comment">//github.com/apache/mynewt-nimble.git</span>
+<span class="ident">Downloading</span> <span class="ident">repository</span> <span class="ident">mcuboot</span> (<span class="ident">commit</span>: <span class="ident">master</span>) <span class="ident">from</span> <span class="ident">https</span>:<span class="comment">//github.com/JuulLabs-OSS/mcuboot.git</span>
+<span class="ident">Making</span> <span class="ident">the</span> <span class="ident">following</span> <span class="ident">changes</span> <span class="ident">to</span> <span class="ident">the</span> <span class="ident">project</span>:
+    <span class="ident">install</span> <span class="ident">apache</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">-</span><span class="ident">core</span> (<span class="number">1.7</span>.<span class="number">0</span>)
+    <span class="ident">install</span> <span class="ident">apache</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">-</span><span class="ident">nimble</span> (<span class="number">1.2</span>.<span class="number">0</span>)
+    <span class="ident">install</span> <span class="ident">mcuboot</span> (<span class="number">1.3</span>.<span class="number">1</span>)
+<span class="ident">apache</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">-</span><span class="ident">core</span> <span class="ident">successfully</span> <span class="ident">installed</span> <span class="ident">version</span> <span class="number">1.7</span>.<span class="number">0</span>
+<span class="ident">apache</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">-</span><span class="ident">nimble</span> <span class="ident">successfully</span> <span class="ident">installed</span> <span class="ident">version</span> <span class="number">1.2</span>.<span class="number">0</span>
+<span class="ident">Error</span>: <span class="ident">Error</span> <span class="ident">updating</span> <span class="string">&quot;mcuboot&quot;</span>: <span class="ident">error</span>: <span class="ident">The</span> <span class="ident">following</span> <span class="ident">untracked</span> <span class="ident">working</span> <span class="ident">tree</span> <span class="ident">files</span> <span class="ident">would</span> <span class="ident">be</span> <span class="ident">overwritten</span> <span class="ident">by</span> <span class="ident">checkout</span>:
+        <span class="ident">ext</span><span class="op">/</span><span class="ident">mbedtls</span><span class="op">/</span><span class="ident">include</span><span class="op">/</span><span class="ident">mbedtls</span><span class="op">/</span><span class="ident">check_config</span>.<span class="ident">h</span>
+        <span class="ident">ext</span><span class="op">/</span><span class="ident">mbedtls</span><span class="op">/</span><span class="ident">include</span><span class="op">/</span><span class="ident">mbedtls</span><span class="op">/</span><span class="ident">config</span>.<span class="ident">h</span>
+<span class="ident">Please</span> <span class="kw">move</span> <span class="ident">or</span> <span class="ident">remove</span> <span class="ident">them</span> <span class="ident">before</span> <span class="ident">you</span> <span class="ident">switch</span> <span class="ident">branches</span>.
+<span class="ident">Aborting</span></pre></div>
+<p>Ignore the <code>mcuboot</code> error above and proceed to the next step.</p>
+</li>
+<li>
+<p>Restore the MCUBoot version number to 1.5.0. Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/project.yml"><code>~/pinetime/pinetime-rust-mynewt/project.yml</code></a></p>
+<p>Change...</p>
+<pre><code class="language-yaml">repository.mcuboot:
+    type: github
+    vers: 1.3.1
+</code></pre>
+<p>to...</p>
+<pre><code class="language-yaml">repository.mcuboot:
+    type: github
+    vers: 1.5.0
+</code></pre>
+</li>
+<li>
+<p>Download version 1.5.0 of MCUBoot to <code>repos/mcuboot</code></p>
+<pre><code class="language-bash">cd ~/pinetime/pinetime-rust-mynewt/repos
+rm -rf mcuboot
+git clone --recursive --branch v1.5.0 https://github.com/JuulLabs-OSS/mcuboot
+</code></pre>
+</li>
+</ol>
+<p>Why are we doing this? Because we are using a more recent version of MCUBoot (1.5.0), but that's not in sync with the older Mynewt version (1.7.0). This will cause <code>newt install</code> to fail. Hence we do this workaround to force Mynewt to build with the newer MCUBoot.</p>
+<h2 id="build-mcuboot-bootloader" class="section-header"><a href="#build-mcuboot-bootloader">10.3 Build MCUBoot Bootloader</a></h2>
+<p>Build the MCUBoot Bootloader...</p>
+<pre><code class="language-bash">cd ~/pinetime/pinetime-rust-mynewt
+scripts/nrf52/build-boot.sh
+</code></pre>
+<p>We should see...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Linking</span> <span class="ident">pinetime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_boot</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">boot</span><span class="op">/</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">mynewt</span>.<span class="ident">elf</span>
+<span class="ident">Target</span> <span class="ident">successfully</span> <span class="ident">built</span>: <span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_boot</span>
+<span class="op">+</span> <span class="ident">newt</span> <span class="ident">size</span> <span class="op">-</span><span class="ident">v</span> <span class="ident">nrf52_boot</span>
+<span class="ident">Size</span> <span class="ident">of</span> <span class="ident">Application</span> <span class="ident">Image</span>: <span class="ident">app</span>
+<span class="ident">Mem</span> <span class="ident">FLASH</span>: <span class="number">0x0</span><span class="op">-</span><span class="number">0x6000</span>
+<span class="ident">Mem</span> <span class="ident">RAM</span>: <span class="number">0x20000000</span><span class="op">-</span><span class="number">0x20010000</span>
+  <span class="ident">FLASH</span>     <span class="ident">RAM</span> 
+     <span class="number">90</span>     <span class="number">229</span> <span class="kw-2">*</span><span class="ident">fill</span><span class="op">*</span>
+   <span class="number">6823</span>    <span class="number">5996</span> <span class="ident">boot_bootutil</span>.<span class="ident">a</span>
+    <span class="number">124</span>       <span class="number">0</span> <span class="ident">boot_mynewt</span>.<span class="ident">a</span>
+     <span class="number">18</span>       <span class="number">0</span> <span class="ident">boot_mynewt_flash_map_backend</span>.<span class="ident">a</span>
+   <span class="number">1182</span>       <span class="number">0</span> <span class="ident">crypto_mbedtls</span>.<span class="ident">a</span>
+    <span class="number">392</span>     <span class="number">444</span> <span class="ident">hw_bsp_nrf52</span>.<span class="ident">a</span>
+     <span class="number">52</span>       <span class="number">0</span> <span class="ident">hw_cmsis</span><span class="op">-</span><span class="ident">core</span>.<span class="ident">a</span>
+   <span class="number">1280</span>      <span class="number">80</span> <span class="ident">hw_drivers_flash_spiflash</span>.<span class="ident">a</span>
+    <span class="number">654</span>       <span class="number">1</span> <span class="ident">hw_hal</span>.<span class="ident">a</span>
+   <span class="number">4192</span>      <span class="number">72</span> <span class="ident">hw_mcu_nordic_nrf52xxx</span>.<span class="ident">a</span>
+   <span class="number">2006</span>   <span class="number">18776</span> <span class="ident">kernel_os</span>.<span class="ident">a</span>
+   <span class="number">1930</span>      <span class="number">12</span> <span class="ident">libc_baselibc</span>.<span class="ident">a</span>
+   <span class="number">1478</span>     <span class="number">256</span> <span class="ident">libs_pinetime_boot</span>.<span class="ident">a</span>
+    <span class="number">529</span>      <span class="number">40</span> <span class="ident">libs_semihosting_console</span>.<span class="ident">a</span>
+    <span class="number">544</span>     <span class="number">128</span> <span class="ident">sys_flash_map</span>.<span class="ident">a</span>
+      <span class="number">2</span>       <span class="number">0</span> <span class="ident">sys_log_modlog</span>.<span class="ident">a</span>
+    <span class="number">632</span>      <span class="number">29</span> <span class="ident">sys_mfg</span>.<span class="ident">a</span>
+     <span class="number">30</span>       <span class="number">5</span> <span class="ident">sys_sysinit</span>.<span class="ident">a</span>
+     <span class="number">48</span>       <span class="number">0</span> <span class="ident">util_mem</span>.<span class="ident">a</span>
+    <span class="number">100</span>       <span class="number">0</span> <span class="ident">nrf52_boot</span><span class="op">-</span><span class="ident">sysinit</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">a</span>
+    <span class="number">756</span>       <span class="number">0</span> <span class="ident">libgcc</span>.<span class="ident">a</span>
+<span class="ident">Loading</span> <span class="ident">compiler</span> <span class="ident">pinetime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">repos</span><span class="op">/</span><span class="ident">apache</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">-</span><span class="ident">core</span><span class="op">/</span><span class="ident">compiler</span><span class="op">/</span><span class="ident">arm</span><span class="op">-</span><span class="ident">none</span><span class="op">-</span><span class="ident">eabi</span><span class="op">-</span><span class="ident">m4</span>, <span class="ident">buildProfile</span> <span class="ident">debug</span>
+
+<span class="ident">objsize</span>
+   <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
+  <span class="number">22792</span>     <span class="number">132</span>   <span class="number">25504</span>   <span class="number">48428</span>    <span class="ident">bd2c</span> <span class="ident">pinetime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_boot</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">boot</span><span class="op">/</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">mynewt</span>.<span class="ident">elf</span></pre></div>
+<h2 id="select-the-openocd-interface-st-link-or-raspberry-pi-spi" class="section-header"><a href="#select-the-openocd-interface-st-link-or-raspberry-pi-spi">10.4 Select the OpenOCD Interface: ST-Link or Raspberry Pi SPI</a></h2>
+<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/config.sh"><code>~/pinetime/pinetime-rust-mynewt/scripts/config.sh</code></a></p>
+<p>If we're using ST-Link v2 for flashing PineTime, set <code>swd_device</code> as follows...</p>
+<pre><code class="language-bash">#  Select ST-Link v2 as SWD Programmer
+swd_device=scripts/nrf52/swd-stlink.ocd
+</code></pre>
+<p>If we're using <a href="https://medium.com/@ly.lee/openocd-on-raspberry-pi-better-with-swd-on-spi-7dea9caeb590?source=friends_link&amp;sk=df399bfd913d3e262447d28aa5af6b63">Raspberry Pi SPI</a> for flashing PineTime, set <code>swd_device</code> as follows...</p>
+<pre><code class="language-bash">#  Select Raspberry Pi as SWD Programmer
+swd_device=scripts/nrf52-pi/swd-pi.ocd
+</code></pre>
+<h2 id="flash-mcuboot-bootloader" class="section-header"><a href="#flash-mcuboot-bootloader">10.5 Flash MCUBoot Bootloader</a></h2>
+<ol>
+<li>
+<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.sh"><code>~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-boot.sh</code></a></p>
+</li>
+<li>
+<p>Change <code>openocd/bin/openocd</code> to the path of our installed <code>openocd</code> (for ST-Link) or <code>openocd-spi</code> (for Raspberry Pi)...</p>
+<pre><code class="language-bash">#  Flash the device
+openocd/bin/openocd \
+    -f $swd_device \
+    -f scripts/nrf52/flash-boot.ocd
+</code></pre>
+</li>
+<li>
+<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.ocd"><code>~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-boot.ocd</code></a></p>
+</li>
+<li>
+<p>The path of the built firmware file is defined in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.ocd"><code>~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-boot.ocd</code></a>. We shouldn't need to change this.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">program</span> <span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_boot</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">boot</span><span class="op">/</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">mynewt</span>.<span class="ident">elf</span>.<span class="ident">bin</span> <span class="ident">verify</span> <span class="number">0x00000000</span></pre></div>
+</li>
+<li>
+<p>Flash the bootloader...</p>
+<pre><code class="language-bash">scripts/nrf52/flash-boot.sh
+</code></pre>
+</li>
+</ol>
+<h2 id="flash-application-firmware" class="section-header"><a href="#flash-application-firmware">10.6 Flash Application Firmware</a></h2>
+<ol>
+<li>
+<p>Download one of the following Application Firmware Images...</p>
+<ul>
+<li>
+<p>Mynewt: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.1/my_sensor_app.img"><code>my_sensor_app.img</code></a></p>
+</li>
+<li>
+<p>FreeRTOS: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.5/jf.bin"><code>jf.bin</code></a></p>
+</li>
+</ul>
+<p>For other versions of the Application Firmware Image, <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">see this article</a></p>
+</li>
+<li>
+<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-app.sh"><code>~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-app.sh</code></a></p>
+</li>
+<li>
+<p>Change <code>openocd/bin/openocd</code> to the path of our installed <code>openocd</code> (for ST-Link) or <code>openocd-spi</code> (for Raspberry Pi)...</p>
+<pre><code class="language-bash">#  Flash the device
+openocd/bin/openocd \
+    -f $swd_device \
+    -f scripts/nrf52/flash-app.ocd
+</code></pre>
+</li>
+<li>
+<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-app.ocd"><code>~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-app.ocd</code></a></p>
+</li>
+<li>
+<p>Change <code>bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img</code> to the path of the downloaded Application Firmware Image File...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">program</span> <span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">img</span> <span class="ident">verify</span> <span class="number">0x00008000</span></pre></div>
+</li>
+<li>
+<p>Flash the application...</p>
+<pre><code class="language-bash">scripts/nrf52/flash-app.sh
+</code></pre>
+</li>
+<li>
+<p>PineTime reboots, starts MCUBoot and the Application Firmware</p>
+</li>
+</ol>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">11 Further Reading</a></h1>
 <p>[ UPDATE: <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">Check out the testing of Wireless Firmware Updates on PineTime</a> ]</p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
