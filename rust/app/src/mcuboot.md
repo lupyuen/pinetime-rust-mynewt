@@ -1016,7 +1016,7 @@ Follow these steps to build the MCUBoot Bootloader on Linux (including Raspberry
         vers: 1.3.1
     ```
 
-1. Download the Mynewt source code...
+1. Download the source code for Mynewt, NimBLE and MCUBoot...
 
     ```bash
     cd ~/pinetime/pinetime-rust-mynewt
@@ -1068,10 +1068,10 @@ Follow these steps to build the MCUBoot Bootloader on Linux (including Raspberry
     ```bash
     cd ~/pinetime/pinetime-rust-mynewt/repos
     rm -rf mcuboot
-    git clone --recursive --branch v1.5.0 https://github.com/lupyuen/pinetime-rust-mynewt
+    git clone --recursive --branch v1.5.0 https://github.com/JuulLabs-OSS/mcuboot
     ```
 
-Why are we doing this? Because we are using a more recent version of MCUBoot (1.5.0), but that's not in sync with version 1.7.0 of Mynewt (which will cause `newt install` to fail). Hence we do this workaround to force Mynewt to build with the newer MCUBoot.
+Why are we doing this? Because we are using a more recent version of MCUBoot (1.5.0), but that's not in sync with the older Mynewt version (1.7.0). This will cause `newt install` to fail. Hence we do this workaround to force Mynewt to build with the newer MCUBoot.
 
 ## Build MCUBoot Bootloader
 
@@ -1157,7 +1157,7 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 1.  Edit [`~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-app.ocd`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-app.ocd)
 
-1. Change `bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img` to the path of the downloaded Firmware Image File...
+1. Change `bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img` to the path of the downloaded Application Firmware Image File...
 
     ```
     program bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img verify 0x00008000
@@ -1169,7 +1169,7 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
     scripts/nrf52/flash-app.sh
     ```
 
-1. PineTime reboots, starts wasp-os and renders the watch face
+1. PineTime reboots, starts MCUBoot and the Application Firmware
 
 # Further Reading
 
