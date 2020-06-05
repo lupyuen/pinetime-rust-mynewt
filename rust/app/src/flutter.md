@@ -171,7 +171,7 @@ Our app is derived from the [sample app](https://github.com/pauldemarco/flutter_
 
 1. When prompted to open the cloned repository, click `Open`
 
-1. When prompted get missing packages, click `Get Packages`
+1. When prompted to get missing packages, click `Get Packages`
 
 Check this video for the steps to download the source code for our Flutter app...
 

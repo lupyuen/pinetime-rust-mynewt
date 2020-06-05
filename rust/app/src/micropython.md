@@ -827,7 +827,7 @@ Follow these steps to build the Mynewt + MicroPython Firmware on Linux (includin
 
     - [`scripts/install-pi.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/install-pi.sh): To build and install `newt`, look under the section `"Build newt"`
 
-## Dowload Source Files
+## Download Source Files
 
 We'll download the source files into these folders...
 

@@ -954,6 +954,211 @@ If you're keen to solve these challenges the open source way, come join us!
 
 Chat with us on Matrix / Discord / Telegram / IRC: [PineTime Community](https://wiki.pine64.org/index.php/PineTime#Community)
 
+# Build and Flash MCUBoot Bootloader
+
+Follow these steps to build the MCUBoot Bootloader on Linux (including Raspberry Pi) and macOS...
+
+## Install Build Tools
+
+1. Install GCC and Python build tools for Linux (or the macOS equivalent)...
+
+    ```bash
+    sudo apt install gcc gcc-arm-none-eabi python3 make
+    ```
+
+1. Install `rustup` with support for nightly target `thumbv7em-none-eabihf`. 
+   
+   Follow the instructions at https://rustup.rs/
+   
+   Press Enter to select `1) Proceed with installation (default)`
+
+   Then execute...
+
+   ```bash
+   # Latest nightly-2020-04-20 fails with asm error, so we use nightly-2020-02-16
+   source $HOME/.cargo/env
+   rustup default nightly-2020-02-16
+   rustup update
+   rustup target add thumbv7em-none-eabihf
+   ```
+
+1. Install the `newt` build tool for Mynewt.  Refer to these scripts...
+
+    - [`scripts/install-version.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/install-version.sh): To set the version numbers
+
+    - [`scripts/install-pi.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/install-pi.sh): To build and install `newt`, look under the section `"Build newt"`
+
+## Download Source Files
+
+1. Download the source files to `~/pinetime`...
+
+    ```bash
+    mkdir ~/pinetime
+    cd ~/pinetime
+    git clone --recursive --branch ota2 https://github.com/lupyuen/pinetime-rust-mynewt
+    ```
+
+1. Update the MCUBoot version number to 1.3.1. Edit [`~/pinetime/pinetime-rust-mynewt/project.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/project.yml)
+
+    Change...
+
+    ```yaml
+    repository.mcuboot:
+        type: github
+        vers: 1.5.0
+    ```
+
+    to...
+
+    ```yaml
+    repository.mcuboot:
+        type: github
+        vers: 1.3.1
+    ```
+
+1. Download the Mynewt source code...
+
+    ```bash
+    cd ~/pinetime/pinetime-rust-mynewt
+    newt install
+    ```
+
+    We should see...
+
+    ```
+    Downloading repository mynewt-core (commit: master) from https://github.com/apache/mynewt-core.git
+    Downloading repository mynewt-mcumgr (commit: master) from https://github.com/apache/mynewt-mcumgr.git
+    Downloading repository mynewt-nimble (commit: master) from https://github.com/apache/mynewt-nimble.git
+    Downloading repository mcuboot (commit: master) from https://github.com/JuulLabs-OSS/mcuboot.git
+    Making the following changes to the project:
+        install apache-mynewt-core (1.7.0)
+        install apache-mynewt-nimble (1.2.0)
+        install mcuboot (1.3.1)
+    apache-mynewt-core successfully installed version 1.7.0
+    apache-mynewt-nimble successfully installed version 1.2.0
+    Error: Error updating "mcuboot": error: The following untracked working tree files would be overwritten by checkout:
+            ext/mbedtls/include/mbedtls/check_config.h
+            ext/mbedtls/include/mbedtls/config.h
+    Please move or remove them before you switch branches.
+    Aborting
+    ```
+
+    Ignore the `mcuboot` error above and proceed to the next step.
+
+1. Restore the MCUBoot version number to 1.5.0. Edit [`~/pinetime/pinetime-rust-mynewt/project.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/project.yml)
+
+    Change...
+
+    ```yaml
+    repository.mcuboot:
+        type: github
+        vers: 1.3.1
+    ```
+
+    to...
+
+    ```yaml
+    repository.mcuboot:
+        type: github
+        vers: 1.5.0
+    ```
+
+1. git clone mcuboot 1.5.0
+
+## Build MCUBoot Bootloader
+
+```bash
+cd ~/pinetime/pinetime-rust-mynewt
+scripts/build-boot.sh
+```
+
+We should see...
+
+```
+????
+```
+
+## Select the OpenOCD Interface: ST-Link or Raspberry Pi SPI
+
+Edit [`~/pinetime/pinetime-rust-mynewt/scripts/config.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/config.sh)
+
+If we're using ST-Link v2 for flashing PineTime, set `swd_device` as follows...
+
+```bash
+#  Select ST-Link v2 as SWD Programmer
+swd_device=scripts/nrf52/swd-stlink.ocd
+```
+
+If we're using [Raspberry Pi SPI](https://medium.com/@ly.lee/openocd-on-raspberry-pi-better-with-swd-on-spi-7dea9caeb590?source=friends_link&sk=df399bfd913d3e262447d28aa5af6b63) for flashing PineTime, set `swd_device` as follows...
+
+```bash
+#  Select Raspberry Pi as SWD Programmer
+swd_device=scripts/nrf52-pi/swd-pi.ocd
+```
+
+## Flash MCUBoot Bootloader
+
+1.  Edit [`~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-boot.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.sh)
+
+1.  Change `openocd/bin/openocd` to the path of our installed `openocd` (for ST-Link) or `openocd-spi` (for Raspberry Pi)...
+
+    ```bash
+    #  Flash the device
+    openocd/bin/openocd \
+        -f $swd_device \
+        -f scripts/nrf52/flash-boot.ocd
+    ```
+
+1.  Edit [`~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-boot.ocd`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.ocd)
+
+1.  The path of the built firmware file is defined in [`~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-boot.ocd`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.ocd). We shouldn't need to change this.
+
+    ```
+    # For MCUBoot (debugging not supported):
+    program bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin verify 0x00000000
+    ```
+
+1. Flash the bootloader...
+
+    ```bash
+    scripts/nrf52/flash-boot.sh
+    ```
+
+## Flash Application Firmware
+
+1. Download the [MCUBoot Bootloader for PineTime](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot)...
+
+    [`mynewt.elf.bin`](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.1.7/mynewt.elf.bin)
+
+    For other versions of the bootloader, [see this article](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest)
+
+1.  Edit [`~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-app.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-app.sh)
+
+1.  Change `openocd/bin/openocd` to the path of our installed `openocd` (for ST-Link) or `openocd-spi` (for Raspberry Pi)...
+
+    ```bash
+    #  Flash the device
+    openocd/bin/openocd \
+        -f $swd_device \
+        -f scripts/nrf52/flash-app.ocd
+    ```
+
+1.  Edit [`~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-app.ocd`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-app.ocd)
+
+1. Change `bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img` to the path of the downloaded Firmware Image File...
+
+    ```
+    program bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img verify 0x00008000
+    ```
+
+1. Flash the application...
+
+    ```bash
+    scripts/nrf52/flash-app.sh
+    ```
+
+1. PineTime reboots, starts wasp-os and renders the watch face
+
 # Further Reading
 
 [ UPDATE: [Check out the testing of Wireless Firmware Updates on PineTime](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest) ]
