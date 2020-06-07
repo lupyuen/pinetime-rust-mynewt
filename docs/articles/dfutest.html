@@ -133,6 +133,7 @@
 <p>So always download the <code>.img</code> files and then rename them to <code>.bin</code>.</p>
 <p>The <code>.img</code> files were created with the <code>imgtool.py</code> command-line tool <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">described here</a>.</p>
 <p>Note that the Mynewt firmware files were built with the <a href="https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2"><code>ota2</code> branch of <code>pinetime-rust-mynewt</code></a> branch which supports MCUBoot (instead of the default <code>master</code> branch which uses the Stub Bootloader).</p>
+<p>The <code>ota2</code> branch has a conflict in the MCUBoot version numbers. <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot#download-source-files">Check this link</a> for the instructions to download MCUBoot version 1.5.0.</p>
 <p><em>Can we customise the Boot Graphic?</em></p>
 <p>Use this tool to convert a 240 x 240 PNG file to RGB565: <a href="https://github.com/lupyuen/pinetime-graphic"><code>github.com/lupyuen/pinetime-graphic</code></a></p>
 <p>Unfortunately we don't have an easy way to flash the RGB565 Boot Graphic to External SPI Flash at address <code>0x0</code>. The flashing needs to be done in C like this: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/write.c"><code>libs/pinetime_boot/write.c</code></a></p>

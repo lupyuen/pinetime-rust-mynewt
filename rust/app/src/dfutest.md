@@ -76,6 +76,8 @@ The `.img` files were created with the `imgtool.py` command-line tool [described
 
 Note that the Mynewt firmware files were built with the [`ota2` branch of `pinetime-rust-mynewt`](https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2) branch which supports MCUBoot (instead of the default `master` branch which uses the Stub Bootloader).
 
+The `ota2` branch has a conflict in the MCUBoot version numbers. [Check this link](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot#download-source-files) for the instructions to download MCUBoot version 1.5.0.
+
 _Can we customise the Boot Graphic?_
 
 Use this tool to convert a 240 x 240 PNG file to RGB565: [`github.com/lupyuen/pinetime-graphic`](https://github.com/lupyuen/pinetime-graphic)
