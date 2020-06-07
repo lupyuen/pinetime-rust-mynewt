@@ -74,6 +74,8 @@ So always download the `.img` files and then rename them to `.bin`.
 
 The `.img` files were created with the `imgtool.py` command-line tool [described here](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu).
 
+Note that the Mynewt firmware files were built with the [`ota2` branch of `pinetime-rust-mynewt`](https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2) branch which supports MCUBoot (instead of the default `master` branch which uses the Stub Bootloader).
+
 _Can we customise the Boot Graphic?_
 
 Use this tool to convert a 240 x 240 PNG file to RGB565: [`github.com/lupyuen/pinetime-graphic`](https://github.com/lupyuen/pinetime-graphic)

@@ -697,6 +697,18 @@ When running the firmware image with the build of MCUBoot from the previous sect
 
 [More about `imgtool.py`](https://juullabs-oss.github.io/mcuboot/imgtool.html)
 
+# Mark PineTime Firmware As Pending
+
+TODO
+
+https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/src/bootutil_misc.c#L645-L717
+
+that's the code for sending the pending flag
+its part of the mcuboot library
+that function sets the pending flag in the image trailer: https://juullabs-oss.github.io/mcuboot/design.html#image-trailer
+i.e. Swap Type = BOOT_SWAP_TYPE_TEST	
+once you set the Swap Type to BOOT_SWAP_TYPE_TEST, MCUBoot will swap in the new firmware
+
 # Mark PineTime Firmware As OK
 
 MCUBoot Bootloader has a helpful feature that prevents PineTime from getting bricked during firmware update... When MCUBoot senses that the new firmware isn't running properly, MCUBoot rolls back PineTime to the old firmware.
