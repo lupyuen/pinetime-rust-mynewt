@@ -62,12 +62,17 @@ void boot_custom_start(
     uintptr_t flash_base,
     struct boot_rsp *rsp
 ) {
+    uint8_t button_state = 0;
     //  Wait 5 seconds for button press.
-    console_printf("Waiting 5 seconds for button: %d...\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
-    for (int i = 0; i < 15; i++) {
-        pinetime_boot_check_button();
+    console_printf("Waiting 5 seconds for button...\n"); console_flush();
+    for (int i = 0; i < 64*5; i++) {
+        for(int delay = 0; delay < 100000; delay++);
+        if(hal_gpio_read(PUSH_BUTTON_IN) != 0) {
+            button_state = 1;
+            break;
+        }
     }
-    console_printf("Waited for button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
+    console_printf("Waited for button: %d\n", button_state); console_flush();
 
     //  TODO: If button is pressed and held for 5 seconds, rollback the firmware.
     console_printf("Bootloader done\n"); console_flush();
@@ -90,13 +95,6 @@ void boot_custom_start(
 
     //  Start the Active Firmware Image at the Reset_Handler function.
     hal_system_start(vector_table);
-}
-
-/// Check whether the watch button is pressed
-void pinetime_boot_check_button(void) {
-    for (int i = 0; i < 1000000; i++) {
-        hal_gpio_read(PUSH_BUTTON_IN);  //  TODO: Doesn't seem to work
-    }
 }
 
 /// Relocate the Arm Vector Table from vector_table to relocated_vector_table.
