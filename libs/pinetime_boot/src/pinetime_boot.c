@@ -97,13 +97,6 @@ void boot_custom_start(
     hal_system_start(vector_table);
 }
 
-/// Check whether the watch button is pressed
-void pinetime_boot_check_button(void) {
-    for (int i = 0; i < 1000000; i++) {
-        hal_gpio_read(PUSH_BUTTON_IN);  //  TODO: Doesn't seem to work
-    }
-}
-
 /// Relocate the Arm Vector Table from vector_table to relocated_vector_table.
 /// relocated_vector_table must be aligned to 0x100 page boundary.
 static void relocate_vector_table(void *vector_table, void *relocated_vector_table) {
