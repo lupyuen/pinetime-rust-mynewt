@@ -331,6 +331,6 @@ static void delay_ms(uint32_t ms) {
     os_time_delay(delay_ticks);
 #else  //  If Task Scheduler is disabled (i.e. MCUBoot)...
     //  os_time_delay() doesn't work in MCUBoot because the scheduler has not started
-    pinetime_boot_check_button();
+    //  TODO: check for pinetime button
 #endif  //  MYNEWT_VAL(OS_SCHEDULING)
 }
