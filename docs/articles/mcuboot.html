@@ -1125,6 +1125,15 @@ target halted due to debug-request, current mode: Thread
 xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
 
 **** Done!</code></pre></li>
+<li>
+<p>For ST-Link, check that the Adapter Speed is set to 1000 kHz. OpenOCD won't work at higher speeds.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">adapter</span> <span class="ident">speed</span>: <span class="number">1000</span> <span class="ident">kHz</span></pre></div>
+</li>
+<li>
+<p>If the flashing fails, check whether any <code>openocd</code> processes are running in the background, and kill them.</p>
+</li>
 </ol>
 <h2 id="flash-application-firmware" class="section-header"><a href="#flash-application-firmware">10.6 Flash Application Firmware</a></h2>
 <ol>
@@ -1199,11 +1208,15 @@ wrote 143360 bytes from file bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/
 target halted due to breakpoint, current mode: Thread 
 xPSR: 0x61000000 pc: 0x2000002e msp: 0x20010000, semihosting
 verified 139268 bytes in 0.363909s (373.731 KiB/s)
-** Verified OK **</code></pre>
+** Verified OK **</code></pre></li>
+<li>
 <p>For ST-Link, check that the Adapter Speed is set to 1000 kHz. OpenOCD won't work at higher speeds.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">adapter</span> <span class="ident">speed</span>: <span class="number">1000</span> <span class="ident">kHz</span></pre></div>
+</li>
+<li>
+<p>If the flashing fails, check whether any <code>openocd</code> processes are running in the background, and kill them.</p>
 </li>
 <li>
 <p>PineTime reboots (with the <code>reset init</code> OpenOCD Command)...</p>

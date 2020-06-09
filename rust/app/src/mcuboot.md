@@ -1212,6 +1212,14 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
     **** Done!
     ```
+    
+1.  For ST-Link, check that the Adapter Speed is set to 1000 kHz. OpenOCD won't work at higher speeds.
+
+    ```
+    adapter speed: 1000 kHz
+    ```
+
+1.  If the flashing fails, check whether any `openocd` processes are running in the background, and kill them.
 
 ## Flash Application Firmware
 
@@ -1285,11 +1293,13 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
     ** Verified OK **
     ```
 
-    For ST-Link, check that the Adapter Speed is set to 1000 kHz. OpenOCD won't work at higher speeds.
+1.  For ST-Link, check that the Adapter Speed is set to 1000 kHz. OpenOCD won't work at higher speeds.
 
     ```
     adapter speed: 1000 kHz
     ```
+
+1.  If the flashing fails, check whether any `openocd` processes are running in the background, and kill them.
 
 1. PineTime reboots (with the `reset init` OpenOCD Command)...
 
