@@ -960,6 +960,10 @@ Follow these steps to build the MCUBoot Bootloader on Linux (including Raspberry
 
 ## Install Build Tools
 
+1. For macOS: Install OpenOCD from [The xPack OpenOCD](https://xpack.github.io/openocd/). Older versions of OpenOCD are known to have problems flashing with ST-Link.
+
+    Download and unzip OpenOCD for macOS: [`gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz`](https://github.com/gnu-mcu-eclipse/openocd/releases/download/v0.10.0-11-20190118/gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz)
+
 1. Install GCC and Python build tools for Linux (or the macOS equivalent)...
 
     ```bash
@@ -1166,6 +1170,49 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
     scripts/nrf52/flash-boot.sh
     ```
 
+1. We should see...
+
+    ```
+    > Executing task in folder pinetime-rust-mynewt: bash -c -l ' scripts/nrf52/flash-boot.sh && echo ✅ ◾ ️Done! ' <
+
+    + source scripts/config.sh
+    ++ swd_device=scripts/nrf52/swd-stlink.ocd
+    + openocd/bin/openocd -f scripts/nrf52/swd-stlink.ocd -f scripts/nrf52/flash-boot.ocd
+    GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-15-13:49)
+    Licensed under GNU GPL v2
+    For bug reports, read
+            http://openocd.org/doc/doxygen/bugs.html
+    debug_level: 0
+    adapter speed: 1000 kHz
+    force hard breakpoints
+    Stopping...
+    target halted due to breakpoint, current mode: Thread 
+    xPSR: 0x21000000 pc: 0x000023a4 msp: 0x2000ff9c
+
+    Flashing Bootloader...
+    target halted due to debug-request, current mode: Thread 
+    xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000
+    Enabled ARM Semihosting to show debug output
+    semihosting is enabled
+    ** Programming Started **
+    auto erase enabled
+    target halted due to breakpoint, current mode: Thread 
+    xPSR: 0x61000000 pc: 0x2000001e msp: 0x20010000, semihosting
+    wrote 24576 bytes from file bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin in 0.729124s (32.916 KiB/s)
+    ** Programming Finished **
+    ** Verify Started **
+    target halted due to breakpoint, current mode: Thread 
+    xPSR: 0x61000000 pc: 0x2000002e msp: 0x20010000, semihosting
+    verified 22876 bytes in 0.114145s (195.715 KiB/s)
+    ** Verified OK **
+
+    Restarting...
+    target halted due to debug-request, current mode: Thread 
+    xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
+
+    **** Done!
+    ```
+
 ## Flash Application Firmware
 
 1. Download one of the following Application Firmware Images...
@@ -1201,7 +1248,83 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
     scripts/nrf52/flash-app.sh
     ```
 
-1. PineTime reboots, starts MCUBoot and the Application Firmware
+1. We should see...
+
+    ```
+    > Executing task in folder pinetime-rust-mynewt: bash -c -l ' scripts/nrf52/flash-app.sh && echo ✅ ◾ ️Done! ' <
+
+    + source scripts/config.sh
+    ++ swd_device=scripts/nrf52/swd-stlink.ocd
+    + openocd/bin/openocd -f scripts/nrf52/swd-stlink.ocd -f scripts/nrf52/flash-app.ocd
+    GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-15-13:49)
+    Licensed under GNU GPL v2
+    For bug reports, read
+            http://openocd.org/doc/doxygen/bugs.html
+    debug_level: 0
+    adapter speed: 1000 kHz
+    force hard breakpoints
+    Stopping...
+    target halted due to debug-request, current mode: Thread 
+    xPSR: 0x61000000 pc: 0x000001ca msp: 0x2000ffd8
+
+    Flashing Application...
+    target halted due to debug-request, current mode: Thread 
+    xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000
+    Enabled ARM Semihosting to show debug output
+    semihosting is enabled
+    ** Programming Started **
+    auto erase enabled
+    target halted due to breakpoint, current mode: Thread 
+    xPSR: 0x61000000 pc: 0x2000001e msp: 0x20010000, semihosting
+    wrote 143360 bytes from file bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img in 3.606276s (38.821 KiB/s)
+    ** Programming Finished **
+    ** Verify Started **
+    target halted due to breakpoint, current mode: Thread 
+    xPSR: 0x61000000 pc: 0x2000002e msp: 0x20010000, semihosting
+    verified 139268 bytes in 0.363909s (373.731 KiB/s)
+    ** Verified OK **
+    ```
+
+    For ST-Link, check that the Adapter Speed is set to 1000 kHz. OpenOCD won't work at higher speeds.
+
+    ```
+    adapter speed: 1000 kHz
+    ```
+
+1. PineTime reboots (with the `reset init` OpenOCD Command)...
+
+    ```
+    Restarting...
+    target halted due to debug-request, current mode: Thread 
+    xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
+    Enabled ARM Semihosting to show debug output
+    semihosting is enabled
+    ```
+
+1. PineTime starts MCUBoot Bootloader...
+
+    ```
+    **** Done! Press Ctrl-C to exit...
+    Starting Bootloader...
+    Displaying image...
+    Image displayed
+    Check button: 0
+    [INF] Primary image: magic=good, swap_type=0x4, copy_done=0x1, image_ok=0x1
+    [INF] Scratch: magic=bad, swap_type=0x1, copy_done=0x2, image_ok=0x2
+    [INF] Boot source: none
+    [INF] Swap type: none
+    Waiting 5 seconds for button...
+    Waited for button: 0
+    Bootloader done
+    ```
+
+1. Finally PineTime starts the Application Firmware...
+
+    ```
+    TMP create temp_stub_0
+    NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
+    NET standalone node 
+    ```
 
 # Further Reading
 

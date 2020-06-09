@@ -905,6 +905,10 @@ void pinetime_boot_check_button(void) {
 <h2 id="install-build-tools" class="section-header"><a href="#install-build-tools">10.1 Install Build Tools</a></h2>
 <ol>
 <li>
+<p>For macOS: Install OpenOCD from <a href="https://xpack.github.io/openocd/">The xPack OpenOCD</a>. Older versions of OpenOCD are known to have problems flashing with ST-Link.</p>
+<p>Download and unzip OpenOCD for macOS: <a href="https://github.com/gnu-mcu-eclipse/openocd/releases/download/v0.10.0-11-20190118/gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz"><code>gnu-mcu-eclipse-openocd-0.10.0-11-20190118-1134-macos.tgz</code></a></p>
+</li>
+<li>
 <p>Install GCC and Python build tools for Linux (or the macOS equivalent)...</p>
 <pre><code class="language-bash">sudo apt install gcc gcc-arm-none-eabi python3 make
 </code></pre>
@@ -1080,6 +1084,47 @@ openocd/bin/openocd \
 <pre><code class="language-bash">scripts/nrf52/flash-boot.sh
 </code></pre>
 </li>
+<li>
+<p>We should see...</p>
+
+<pre><code>&gt; Executing task in folder pinetime-rust-mynewt: bash -c -l &#39; scripts/nrf52/flash-boot.sh &amp;&amp; echo ✅ ◾ ️Done! &#39; &lt;
+
++ source scripts/config.sh
+++ swd_device=scripts/nrf52/swd-stlink.ocd
++ openocd/bin/openocd -f scripts/nrf52/swd-stlink.ocd -f scripts/nrf52/flash-boot.ocd
+GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-15-13:49)
+Licensed under GNU GPL v2
+For bug reports, read
+        http://openocd.org/doc/doxygen/bugs.html
+debug_level: 0
+adapter speed: 1000 kHz
+force hard breakpoints
+Stopping...
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x21000000 pc: 0x000023a4 msp: 0x2000ff9c
+
+Flashing Bootloader...
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000
+Enabled ARM Semihosting to show debug output
+semihosting is enabled
+** Programming Started **
+auto erase enabled
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000001e msp: 0x20010000, semihosting
+wrote 24576 bytes from file bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin in 0.729124s (32.916 KiB/s)
+** Programming Finished **
+** Verify Started **
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000002e msp: 0x20010000, semihosting
+verified 22876 bytes in 0.114145s (195.715 KiB/s)
+** Verified OK **
+
+Restarting...
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
+
+**** Done!</code></pre></li>
 </ol>
 <h2 id="flash-application-firmware" class="section-header"><a href="#flash-application-firmware">10.6 Flash Application Firmware</a></h2>
 <ol>
@@ -1121,7 +1166,79 @@ openocd/bin/openocd \
 </code></pre>
 </li>
 <li>
-<p>PineTime reboots, starts MCUBoot and the Application Firmware</p>
+<p>We should see...</p>
+
+<pre><code>&gt; Executing task in folder pinetime-rust-mynewt: bash -c -l &#39; scripts/nrf52/flash-app.sh &amp;&amp; echo ✅ ◾ ️Done! &#39; &lt;
+
++ source scripts/config.sh
+++ swd_device=scripts/nrf52/swd-stlink.ocd
++ openocd/bin/openocd -f scripts/nrf52/swd-stlink.ocd -f scripts/nrf52/flash-app.ocd
+GNU MCU Eclipse 64-bit Open On-Chip Debugger 0.10.0+dev-00462-gdd1d90111 (2019-01-15-13:49)
+Licensed under GNU GPL v2
+For bug reports, read
+        http://openocd.org/doc/doxygen/bugs.html
+debug_level: 0
+adapter speed: 1000 kHz
+force hard breakpoints
+Stopping...
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x61000000 pc: 0x000001ca msp: 0x2000ffd8
+
+Flashing Application...
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000
+Enabled ARM Semihosting to show debug output
+semihosting is enabled
+** Programming Started **
+auto erase enabled
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000001e msp: 0x20010000, semihosting
+wrote 143360 bytes from file bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img in 3.606276s (38.821 KiB/s)
+** Programming Finished **
+** Verify Started **
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000002e msp: 0x20010000, semihosting
+verified 139268 bytes in 0.363909s (373.731 KiB/s)
+** Verified OK **</code></pre>
+<p>For ST-Link, check that the Adapter Speed is set to 1000 kHz. OpenOCD won't work at higher speeds.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">adapter</span> <span class="ident">speed</span>: <span class="number">1000</span> <span class="ident">kHz</span></pre></div>
+</li>
+<li>
+<p>PineTime reboots (with the <code>reset init</code> OpenOCD Command)...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Restarting</span>...
+<span class="ident">target</span> <span class="ident">halted</span> <span class="ident">due</span> <span class="ident">to</span> <span class="ident">debug</span><span class="op">-</span><span class="ident">request</span>, <span class="ident">current</span> <span class="ident">mode</span>: <span class="ident">Thread</span> 
+<span class="ident">xPSR</span>: <span class="number">0x01000000</span> <span class="ident">pc</span>: <span class="number">0x000000d8</span> <span class="ident">msp</span>: <span class="number">0x20010000</span>, <span class="ident">semihosting</span>
+<span class="ident">Enabled</span> <span class="ident">ARM</span> <span class="ident">Semihosting</span> <span class="ident">to</span> <span class="ident">show</span> <span class="ident">debug</span> <span class="ident">output</span>
+<span class="ident">semihosting</span> <span class="ident">is</span> <span class="ident">enabled</span></pre></div>
+</li>
+<li>
+<p>PineTime starts MCUBoot Bootloader...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw-2">*</span><span class="kw-2">*</span><span class="kw-2">*</span><span class="op">*</span> <span class="macro">Done</span><span class="macro">!</span> <span class="ident">Press</span> <span class="ident">Ctrl</span><span class="op">-</span><span class="ident">C</span> <span class="ident">to</span> <span class="ident">exit</span>...
+<span class="ident">Starting</span> <span class="ident">Bootloader</span>...
+<span class="ident">Displaying</span> <span class="ident">image</span>...
+<span class="ident">Image</span> <span class="ident">displayed</span>
+<span class="ident">Check</span> <span class="ident">button</span>: <span class="number">0</span>
+[<span class="ident">INF</span>] <span class="ident">Primary</span> <span class="ident">image</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">good</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x4</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x1</span>
+[<span class="ident">INF</span>] <span class="ident">Scratch</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">bad</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x2</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x2</span>
+[<span class="ident">INF</span>] <span class="ident">Boot</span> <span class="ident">source</span>: <span class="ident">none</span>
+[<span class="ident">INF</span>] <span class="ident">Swap</span> <span class="kw">type</span>: <span class="ident">none</span>
+<span class="ident">Waiting</span> <span class="number">5</span> <span class="ident">seconds</span> <span class="kw">for</span> <span class="ident">button</span>...
+<span class="ident">Waited</span> <span class="kw">for</span> <span class="ident">button</span>: <span class="number">0</span>
+<span class="ident">Bootloader</span> <span class="ident">done</span></pre></div>
+</li>
+<li>
+<p>Finally PineTime starts the Application Firmware...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">TMP</span> <span class="ident">create</span> <span class="ident">temp_stub_0</span>
+<span class="ident">NET</span> <span class="ident">hwid</span> <span class="number">4a</span> <span class="ident">f8</span> <span class="ident">cf</span> <span class="number">95</span> <span class="number">6a</span> <span class="ident">be</span> <span class="ident">c1</span> <span class="ident">f6</span> <span class="number">89</span> <span class="ident">ba</span> <span class="number">12</span> <span class="number">1a</span> 
+<span class="ident">NET</span> <span class="ident">standalone</span> <span class="ident">node</span> </pre></div>
 </li>
 </ol>
 <h1 id="further-reading" class="section-header"><a href="#further-reading">11 Further Reading</a></h1>
