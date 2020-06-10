@@ -55,42 +55,45 @@ void pinetime_boot_init(void) {
     //  Display the image.
     pinetime_boot_display_image();
     console_printf("Check button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
+
+    uint8_t button_samples = 0;
+    //  Wait 5 seconds for button press.
+    console_printf("Waiting 5 seconds for button...\n"); console_flush();
+
+    for (int i = 0; i < 64*5; i++) {
+        for(int delay = 0; delay < 100000; delay++);
+        button_samples += hal_gpio_read(PUSH_BUTTON_IN);
+    }
+
+    if(button_samples > 1 /* TODO: this needs to be set higher to avoid accidental rollbacks */) {
+        console_printf("Flashing and resetting...\n"); console_flush();
+        boot_set_pending(0);
+        hal_system_reset();
+        return;
+    }
 }
 
 /// Called by MCUBoot when it has completed its work.
 void boot_custom_start(
-    uintptr_t flash_base,
-    struct boot_rsp *rsp
+        uintptr_t flash_base,
+        struct boot_rsp *rsp
 ) {
-    uint8_t button_state = 0;
-    //  Wait 5 seconds for button press.
-    console_printf("Waiting 5 seconds for button...\n"); console_flush();
-    for (int i = 0; i < 64*5; i++) {
-        for(int delay = 0; delay < 100000; delay++);
-        if(hal_gpio_read(PUSH_BUTTON_IN) != 0) {
-            button_state = 1;
-            break;
-        }
-    }
-    console_printf("Waited for button: %d\n", button_state); console_flush();
-
-    //  TODO: If button is pressed and held for 5 seconds, rollback the firmware.
     console_printf("Bootloader done\n"); console_flush();
 
     //  vector_table points to the Arm Vector Table for the appplication...
     //  First word contains initial MSP value (estack = end of RAM)
     //  Second word contains address of entry point (Reset_Handler)
     void *vector_table = (void *) (  //  Copied from MCUBoot main()
-        flash_base +                 //  0
-        rsp->br_image_off +          //  Offset of FLASH_AREA_IMAGE_0 (application image): 0x8000
-        rsp->br_hdr->ih_hdr_size     //  Size of MCUBoot image header (0x20)
+            flash_base +                 //  0
+            rsp->br_image_off +          //  Offset of FLASH_AREA_IMAGE_0 (application image): 0x8000
+            rsp->br_hdr->ih_hdr_size     //  Size of MCUBoot image header (0x20)
     );                               //  Equals 0x8020 (__isr_vector)
     //  console_printf("vector_table=%lx, flash_base=%lx, image_off=%lx, hdr_size=%lx\n", (uint32_t) vector_table, (uint32_t) flash_base, (uint32_t) rsp->br_image_off, (uint32_t) rsp->br_hdr->ih_hdr_size); console_flush();
 
     //  Relocate the application vector table to a 0x100 page boundary in ROM.
     relocate_vector_table(  //  Relocate the vector table...
-        vector_table,       //  From the non-aligned application address (0x8020)
-        (void *) RELOCATED_VECTOR_TABLE  //  To the relocated address aligned to 0x100 page boundary
+            vector_table,       //  From the non-aligned application address (0x8020)
+            (void *) RELOCATED_VECTOR_TABLE  //  To the relocated address aligned to 0x100 page boundary
     );
 
     //  Start the Active Firmware Image at the Reset_Handler function.
@@ -114,16 +117,16 @@ static void relocate_vector_table(void *vector_table, void *relocated_vector_tab
     //  If we need to copy the vectors, erase the flash ROM and write the vectors.
     if (vector_diff) {
         hal_flash_erase(  //  Erase...
-            0,            //  Internal Flash ROM
-            (uint32_t) relocated_vector_table,  //  At the relocated address
-            0x100         //  Assume that we erase an entire page
+                0,            //  Internal Flash ROM
+                (uint32_t) relocated_vector_table,  //  At the relocated address
+                0x100         //  Assume that we erase an entire page
         );
         hal_flash_write(  //  Write...
-            0,            //  Internal Flash ROM
-            (uint32_t) relocated_vector_table,  //  To the relocated address
-            vector_table, //  From the original address
-            0x100         //  Assume that we copy an entire page
-        );  
+                0,            //  Internal Flash ROM
+                (uint32_t) relocated_vector_table,  //  To the relocated address
+                vector_table, //  From the original address
+                0x100         //  Assume that we copy an entire page
+        );
     }
     //  Point VTOR Register in the System Control Block to the relocated vector table.
     *SCB_VTOR = (uint32_t) relocated_vector_table;
