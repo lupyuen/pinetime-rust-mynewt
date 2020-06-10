@@ -79,8 +79,8 @@ void pinetime_boot_init(void) {
 
 /// Called by MCUBoot when it has completed its work.
 void boot_custom_start(
-        uintptr_t flash_base,
-        struct boot_rsp *rsp
+    uintptr_t flash_base,
+    struct boot_rsp *rsp
 ) {
     console_printf("Bootloader done\n");
     console_flush();
