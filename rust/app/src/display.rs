@@ -46,8 +46,8 @@ pub fn test_display() -> MynewtResult<()> {
 
     //  Render background, circle, square and text to display
     //  druid::draw_to_display(background);
-    druid::draw_to_display(circle);
-    druid::draw_to_display(square);
+    //  druid::draw_to_display(circle);
+    //  druid::draw_to_display(square);
     druid::draw_to_display(text);    
 
     //  Test the backlight
