@@ -40,6 +40,92 @@ TODO
 
 TODO
 
+"Static Duck Typing"
+
+https://benhoyt.com/writings/go-intro/
+
+https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go
+
+```go
+const NMP_HDR_SIZE = 8
+
+/// SMP Header
+type NmpHdr struct {
+	Op    uint8  //  3 bits of opcode
+	Flags uint8
+	Len   uint16
+	Group uint16
+	Seq   uint8
+	Id    uint8
+}
+
+/// Return this SMP Header as a list of bytes
+func (hdr *NmpHdr) Bytes() []byte {
+	buf := make([]byte, 0, NMP_HDR_SIZE)
+
+	buf = append(buf, byte(hdr.Op))
+	buf = append(buf, byte(hdr.Flags))
+
+	u16b := make([]byte, 2)
+	binary.BigEndian.PutUint16(u16b, hdr.Len)
+	buf = append(buf, u16b...)
+
+	binary.BigEndian.PutUint16(u16b, hdr.Group)
+	buf = append(buf, u16b...)
+
+	buf = append(buf, byte(hdr.Seq))
+	buf = append(buf, byte(hdr.Id))
+
+	return buf
+}
+```
+
+https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart
+
+```dart
+const NMP_HDR_SIZE = 8;
+
+/// SMP Header
+class NmpHdr {
+  int Op;    //  uint8: 3 bits of opcode
+  int Flags; //  uint8
+  int Len;   //  uint16
+  int Group; //  uint16
+  int Seq;   //  uint8
+  int Id;    //  uint8
+  
+  /// Construct an SMP Header
+  NmpHdr(
+    this.Op,    //  uint8: 3 bits of opcode
+    this.Flags, //  uint8
+    this.Len,   //  uint16
+    this.Group, //  uint16
+    this.Seq,   //  uint8
+    this.Id     //  uint8
+  );
+  
+  /// Return this SMP Header as a list of bytes
+  typed.Uint8Buffer Bytes() {
+    var buf = typed.Uint8Buffer();
+    
+    buf.add(this.Op);
+    buf.add(this.Flags);
+
+    typed.Uint8Buffer u16b = binaryBigEndianPutUint16(this.Len);
+    buf.addAll(u16b);
+
+    u16b = binaryBigEndianPutUint16(this.Group);
+    buf.addAll(u16b);
+
+    buf.add(this.Seq);
+    buf.add(this.Id);
+    assert(buf.length == NMP_HDR_SIZE);
+
+    return buf;
+  }  
+}
+```
+
 # CBOR Encoding in Dart
 
 TODO
