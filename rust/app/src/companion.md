@@ -4,7 +4,7 @@ Can we take a __single code base__... And turn it into a mobile app for __Androi
 
 And code it in a __modern programming language__ with __Garbage Collection__... Without the scary C pointers?
 
-And talk Bluetooth Low Energy to other gadgets... Like [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime)?
+And talk __Bluetooth Low Energy__ to other gadgets... Like [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime)?
 
 __Yes we can!__ Based on the quick experiment described in this article.
 
