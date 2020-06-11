@@ -1,10 +1,16 @@
 # Convert Go to Flutter and Dart for PineTime Companion App
 
-![Flutter App with Bluetooth Low Energy running on a real Android phone, connected to VSCode Debugger](https://lupyuen.github.io/images/companion-title.png)
+![Flutter Companion App on a real Android phone, connected to PineTime Smart Watch](https://lupyuen.github.io/images/companion-title.png)
 
-_Flutter App with Bluetooth Low Energy running on a real Android phone, connected to VSCode Debugger_
+![Newt Manager showing response from PineTime Smart Watch](https://lupyuen.github.io/images/companion-newtmgr.png)
+
+![Flutter Companion App showing response from PineTime Smart Watch](https://lupyuen.github.io/images/companion-response.png)
+
+
 
 # What's Next
+
+TODO
 
 I'll be using the code in this article to create the open source __PineTime Companion App__ for Android and iOS. So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications, chart our heart rate, ...
 
