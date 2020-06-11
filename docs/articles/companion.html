@@ -63,17 +63,53 @@
 
     <h1 class="title">Convert Go to Flutter and Dart for PineTime Companion App</h1>
     <nav id="TOC"><ul>
-<li><a href="#whats-next">1 What's Next</a><ul></ul></li>
-<li><a href="#further-reading">2 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/companion-title.png" alt="Flutter Companion App on a real Android phone, connected to PineTime Smart Watch" /></p>
+<li><a href="#dive-deep-into-newt-manager-in-go">1 Dive Deep into Newt Manager in Go</a><ul></ul></li>
+<li><a href="#go-vs-dart-coding">2 Go vs Dart Coding</a><ul></ul></li>
+<li><a href="#convert-go-to-dart-line-by-line">3 Convert Go to Dart line by line</a><ul></ul></li>
+<li><a href="#cbor-encoding-in-dart">4 CBOR Encoding in Dart</a><ul></ul></li>
+<li><a href="#embed-dart-modules-in-flutter">5 Embed Dart modules in Flutter</a><ul></ul></li>
+<li><a href="#gatt-responses-and-notifications">6 GATT Responses and Notifications</a><ul></ul></li>
+<li><a href="#dart-extension-for-vscode">7 Dart Extension for VSCode</a><ul></ul></li>
+<li><a href="#install-dart-on-pinebook-pro">8 Install Dart on Pinebook Pro</a><ul></ul></li>
+<li><a href="#whats-next">9 What's Next</a><ul></ul></li>
+<li><a href="#further-reading">10 Further Reading</a><ul></ul></li></ul></nav><p>Can we take a <strong>single code base</strong>... And turn it into a mobile app for <strong>Android, iOS and Linux phones</strong> (like PinePhone)?</p>
+<p>And code it in a <strong>modern programming language</strong> with <strong>Garbage Collection</strong>... Without the scary C pointers?</p>
+<p>And talk Bluetooth Low Energy to other gadgets... Like <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>?</p>
+<p><strong>Yes we can!</strong> Based on the quick experiment described in this article.</p>
+<p>Read on to learn how we are building the <a href="https://github.com/lupyuen/pinetime-companion">Flutter Companion App</a> for PineTime Smart Watch... By doing a line-by-line conversion from Go (on Linux) to Flutter + Dart (on Android and iOS).</p>
+<p>The code is not 100% identical, but it will save the PineTime FOSS Community a lot of effort in maintaining the Android, iOS, Linux versions of the PineTime Companion App.</p>
+<p>I'll explain how this Linux Command Line App in Go...</p>
 <p><img src="https://lupyuen.github.io/images/companion-newtmgr.png" alt="Newt Manager showing response from PineTime Smart Watch" /></p>
+<p><em>(Which will eventually be dressed up with <a href="https://github.com/gotk3/gotk3"><code>gotk3</code></a>, the GTK3 library for Go)</em></p>
+<p>...Was converted line by line to this Flutter app for Android and iOS...</p>
 <p><img src="https://lupyuen.github.io/images/companion-response.png" alt="Flutter Companion App showing response from PineTime Smart Watch" /></p>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">1 What's Next</a></h1>
+<p><em>(The highlighted part shows the identical responses returned by PineTime to both apps over Bluetooth LE. So it really works!)</em></p>
+<p><img src="https://lupyuen.github.io/images/companion-title.png" alt="Flutter Companion App on a real Android phone, connected to PineTime Smart Watch" /></p>
+<h1 id="dive-deep-into-newt-manager-in-go" class="section-header"><a href="#dive-deep-into-newt-manager-in-go">1 Dive Deep into Newt Manager in Go</a></h1>
+<p>TODO</p>
+<p>Go tracing tools</p>
+<h1 id="go-vs-dart-coding" class="section-header"><a href="#go-vs-dart-coding">2 Go vs Dart Coding</a></h1>
+<p>TODO</p>
+<h1 id="convert-go-to-dart-line-by-line" class="section-header"><a href="#convert-go-to-dart-line-by-line">3 Convert Go to Dart line by line</a></h1>
+<p>TODO</p>
+<h1 id="cbor-encoding-in-dart" class="section-header"><a href="#cbor-encoding-in-dart">4 CBOR Encoding in Dart</a></h1>
+<p>TODO</p>
+<h1 id="embed-dart-modules-in-flutter" class="section-header"><a href="#embed-dart-modules-in-flutter">5 Embed Dart modules in Flutter</a></h1>
+<p>TODO</p>
+<p>https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter</p>
+<h1 id="gatt-responses-and-notifications" class="section-header"><a href="#gatt-responses-and-notifications">6 GATT Responses and Notifications</a></h1>
+<p>TODO</p>
+<h1 id="dart-extension-for-vscode" class="section-header"><a href="#dart-extension-for-vscode">7 Dart Extension for VSCode</a></h1>
+<p>TODO</p>
+<h1 id="install-dart-on-pinebook-pro" class="section-header"><a href="#install-dart-on-pinebook-pro">8 Install Dart on Pinebook Pro</a></h1>
+<p>TODO</p>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">9 What's Next</a></h1>
 <p>TODO</p>
 <p>I'll be using the code in this article to create the open source <strong>PineTime Companion App</strong> for Android and iOS. So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications, chart our heart rate, ...</p>
 <p>Flutter makes it really easy to maintain a single code base for Android and iOS... And <code>flutter_blue</code> makes Bluetooth LE coding so simple!</p>
 <p>If you're keen to help out, come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!</p>
 <p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Matrix / Discord / Telegram / IRC</a></p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">2 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">10 Further Reading</a></h1>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">&quot;Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)&quot;</a></em></p>

@@ -1,27 +1,30 @@
 # Convert Go to Flutter and Dart for PineTime Companion App
 
-![Flutter Companion App on a real Android phone, connected to PineTime Smart Watch](https://lupyuen.github.io/images/companion-title.png)
+Can we take a __single code base__... And turn it into a mobile app for __Android, iOS and Linux phones__ (like PinePhone)?
+
+And code it in a __modern programming language__ with __Garbage Collection__... Without the scary C pointers?
+
+And talk Bluetooth Low Energy to other gadgets... Like [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime)?
+
+__Yes we can!__ Based on the quick experiment described in this article.
+
+Read on to learn how we are building the [Flutter Companion App](https://github.com/lupyuen/pinetime-companion) for PineTime Smart Watch... By doing a line-by-line conversion from Go (on Linux) to Flutter + Dart (on Android and iOS).
+
+The code is not 100% identical, but it will save the PineTime FOSS Community a lot of effort in maintaining the Android, iOS, Linux versions of the PineTime Companion App.
+
+I'll explain how this Linux Command Line App in Go...
 
 ![Newt Manager showing response from PineTime Smart Watch](https://lupyuen.github.io/images/companion-newtmgr.png)
 
+_(Which will eventually be dressed up with [`gotk3`](https://github.com/gotk3/gotk3), the GTK3 library for Go)_
+
+...Was converted line by line to this Flutter app for Android and iOS...
+
 ![Flutter Companion App showing response from PineTime Smart Watch](https://lupyuen.github.io/images/companion-response.png)
 
-Can we take a __single code base__... And turn it into a mobile app for __Android, iOS and Linux phones__ (like PinePhone)?
+_(The highlighted part shows the identical responses returned by PineTime to both apps over Bluetooth LE. So it really works!)_
 
-BLE
-Flutter
-
-Yes it seems feasible based on the quick experiment described in this article!
-
-Line by line conversion
-
-Not 100% identical
-
-why?
-
-https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter
-
-https://github.com/lupyuen/pinetime-companion
+![Flutter Companion App on a real Android phone, connected to PineTime Smart Watch](https://lupyuen.github.io/images/companion-title.png)
 
 # Dive Deep into Newt Manager in Go
 
@@ -44,6 +47,8 @@ TODO
 # Embed Dart modules in Flutter
 
 TODO
+
+https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter
 
 # GATT Responses and Notifications
 
