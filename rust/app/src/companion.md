@@ -19,6 +19,16 @@ Not 100% identical
 
 why?
 
+https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter
+
+https://github.com/lupyuen/pinetime-companion
+
+# Dive Deep into Newt Manager in Go
+
+TODO
+
+Go tracing tools
+
 # Go vs Dart Coding
 
 TODO
