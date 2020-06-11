@@ -1336,6 +1336,54 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
     NET standalone node 
     ```
 
+1. Firmware tests internal and external flash memory...
+
+    ```
+    Testing flash...
+    Read Internal Flash ROM...
+    Read 0x0 + 20
+    0x0000: 0x00 0x00 0x01 0x20 0xd9 0x00 0x00 0x00 
+    0x0008: 0x35 0x01 0x00 0x00 0x37 0x01 0x00 0x00 
+    0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+    0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+    Read External SPI Flash...
+    Read 0x0 + 20
+    0x0000: 0x01 0x00 0x00 0x00 0xf0 0x0f 0xff 0xf7 
+    0x0008: 0x6c 0x69 0x74 0x74 0x6c 0x65 0x66 0x73 
+    0x0010: 0x2f 0xe0 0x00 0x10 0x00 0x00 0x02 0x00 
+    0x0018: 0x00 0x02 0x00 0x00 0x00 0x20 0x00 0x00 
+    Flash OK
+    ```
+
+1. When we connect with `newtmgr`, the Bluetooth LE events are shown...
+
+    ```
+    Starting BLE...
+    BLE started
+    Rust test display 1.0.0
+    Rust touch sensor
+    connection established; status=0 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=0 peer_ota_addr= peer_id_addr_type=0 peer_id_addr= conn_itvl=6 conn_latency=0 supervision_timeout=72 encrypted=0 authenticated=0 bonded=0
+
+    mtu update event; conn_handle=1 cid=4 mtu=256
+    subscribe event; conn_handle=1 attr_handle=30 reason=1 prevn=0 curn=1 previ=0 curi=0
+    subscribe event; conn_handle=1 attr_handle=30 reason=2 prevn=1 curn=0 previ=0 curi=0
+    disconnect; reason=531 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=0 peer_ota_addr= peer_id_addr_type=0 peer_id_addr= conn_itvl=6 conn_latency=0 supervision_timeout=72 encrypted=0 authenticated=0 bonded=0
+
+    connection established; status=0 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=0 peer_ota_addr= peer_id_addr_type=0 peer_id_addr= conn_itvl=6 conn_latency=0 supervision_timeout=72 encrypted=0 authenticated=0 bonded=0
+
+    mtu update event; conn_handle=1 cid=4 mtu=256
+    subscribe event; conn_handle=1 attr_handle=30 reason=1 prevn=0 curn=1 previ=0 curi=0
+    subscribe event; conn_handle=1 attr_handle=30 reason=2 prevn=1 curn=0 previ=0 curi=0
+    disconnect; reason=531 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=0 peer_ota_addr= peer_id_addr_type=0 peer_id_addr= conn_itvl=6 conn_latency=0 supervision_timeout=72 encrypted=0 authenticated=0 bonded=0
+
+    connection established; status=0 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=0 peer_ota_addr= peer_id_addr_type=0 peer_id_addr= conn_itvl=6 conn_latency=0 supervision_timeout=72 encrypted=0 authenticated=0 bonded=0
+
+    mtu update event; conn_handle=1 cid=4 mtu=256
+    subscribe event; conn_handle=1 attr_handle=30 reason=1 prevn=0 curn=1 previ=0 curi=0
+    subscribe event; conn_handle=1 attr_handle=30 reason=2 prevn=1 curn=0 previ=0 curi=0
+    disconnect; reason=531 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=0 peer_ota_addr= peer_id_addr_type=0 peer_id_addr= conn_itvl=6 conn_latency=0 supervision_timeout=72 encrypted=0 authenticated=0 bonded=0
+    ```
+
 # Further Reading
 
 [ UPDATE: [Check out the testing of Wireless Firmware Updates on PineTime](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest) ]
