@@ -136,6 +136,8 @@ TODO
 
 https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter
 
+https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart
+
 # Transmit GATT Requests in Flutter
 
 TODO
