@@ -8,9 +8,9 @@ And talk __Bluetooth Low Energy__ to other gadgets... Like [__PineTime Smart Wat
 
 __Yes we can!__ Based on the quick experiment described in this article.
 
-Read on to learn how we are building the [Flutter Companion App](https://github.com/lupyuen/pinetime-companion) for PineTime Smart Watch... By doing a line-by-line conversion from Go (on Linux) to Flutter + Dart (on Android and iOS).
+Read on to learn how we are building the [Flutter Companion App](https://github.com/lupyuen/pinetime-companion) for PineTime Smart Watch... By converting the Go code (on Linux) to Flutter + Dart (on Android and iOS), line by line. (It's actually not that hard!)
 
-The code is not 100% identical, but it will save the PineTime FOSS Community a lot of effort in maintaining the Android, iOS, Linux versions of the PineTime Companion App.
+The code is not 100% identical, but it will save the PineTime FOSS Community a lot of effort in maintaining the Android, iOS and Linux versions of the PineTime Companion App.
 
 I'll explain how this Linux Command Line App in Go...
 
