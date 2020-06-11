@@ -6,7 +6,46 @@
 
 ![Flutter Companion App showing response from PineTime Smart Watch](https://lupyuen.github.io/images/companion-response.png)
 
+Can we take a __single code base__... And turn it into a mobile app for __Android, iOS and Linux phones__ (like PinePhone)?
 
+BLE
+Flutter
+
+Yes it seems feasible based on the quick experiment described in this article!
+
+Line by line conversion
+
+Not 100% identical
+
+why?
+
+# Go vs Dart Coding
+
+TODO
+
+# Convert Go to Dart line by line
+
+TODO
+
+# CBOR Encoding in Dart
+
+TODO
+
+# Embed Dart modules in Flutter
+
+TODO
+
+# GATT Responses and Notifications
+
+TODO
+
+# Dart Extension for VSCode
+
+TODO
+
+# Install Dart on Pinebook Pro
+
+TODO
 
 # What's Next
 
