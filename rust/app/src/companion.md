@@ -87,25 +87,25 @@ const NMP_HDR_SIZE = 8;
 
 /// SMP Header
 class NmpHdr {
-  int Op;    //  uint8: 3 bits of opcode
-  int Flags; //  uint8
-  int Len;   //  uint16
-  int Group; //  uint16
-  int Seq;   //  uint8
-  int Id;    //  uint8
+  int Op;    //  Previously uint8
+  int Flags; //  Previously uint8
+  int Len;   //  Previously uint16
+  int Group; //  Previously uint16
+  int Seq;   //  Previously uint8
+  int Id;    //  Previously uint8
   
   /// Construct an SMP Header
   NmpHdr(
-    this.Op,    //  uint8: 3 bits of opcode
-    this.Flags, //  uint8
-    this.Len,   //  uint16
-    this.Group, //  uint16
-    this.Seq,   //  uint8
-    this.Id     //  uint8
+    this.Op,
+    this.Flags,
+    this.Len,
+    this.Group,
+    this.Seq,
+    this.Id
   );
   
   /// Return this SMP Header as a list of bytes
-  typed.Uint8Buffer Bytes() {
+  typed.Uint8Buffer Bytes() {  //  Previously returns []byte
     var buf = typed.Uint8Buffer();
     
     buf.add(this.Op);
