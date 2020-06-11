@@ -20,7 +20,7 @@ use embedded_hal::{
 
 /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
 pub fn test_display() -> MynewtResult<()> {
-    console::print("Rust test display\n"); console::flush();
+    console::print("Rust test display 1.0.0\n"); console::flush();
     
     //  Create black background
     let background = Rectangle::<Rgb565>
@@ -39,13 +39,13 @@ pub fn test_display() -> MynewtResult<()> {
 
     //  Create text
     let text = fonts::Font12x16::<Rgb565>
-        ::render_str("I AM PINETIME")                          //  Text to be rendered
+        ::render_str("PINETIME 1.0.0")                    //  Text to be rendered
         .stroke( Some( Rgb565::from(( 0x00, 0x00, 0x00 )) ) )  //  Black text
         .fill(   Some( Rgb565::from(( 0xff, 0xff, 0x00 )) ) )  //  Yellow background
         .translate( Coord::new( 20, 16 ));                     //  Shift the text
 
     //  Render background, circle, square and text to display
-    druid::draw_to_display(background);
+    //  druid::draw_to_display(background);
     druid::draw_to_display(circle);
     druid::draw_to_display(square);
     druid::draw_to_display(text);    
