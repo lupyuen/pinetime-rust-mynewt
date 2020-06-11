@@ -50,7 +50,11 @@ TODO
 
 https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter
 
-# GATT Responses and Notifications
+# Transmit GATT Requests in Flutter
+
+TODO
+
+# Handle GATT Responses and Notifications in Flutter
 
 TODO
 
@@ -58,7 +62,7 @@ TODO
 
 TODO
 
-# Install Dart on Pinebook Pro
+# Install Dart on Raspberry Pi and Pinebook Pro
 
 TODO
 
