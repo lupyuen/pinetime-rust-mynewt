@@ -353,11 +353,11 @@ Go uses ["Static Duck Typing"](https://benhoyt.com/writings/go-intro/) thus it's
 
 _The Go code in this article that connects to PineTime Smart Watch over Bluetooth LE... Where does it come from?_
 
-The Go code comes from Newt Manager, the Linux command line tool that updates PineTime's firmware over Bluetooth LE. Newt Manager implements the Simple Management Protocol for talking to PineTime's Firmware Update Service.
+The Go code comes from [__Newt Manager__](https://github.com/apache/mynewt-newtmgr), the Linux command line tool that updates PineTime's firmware over Bluetooth LE. Newt Manager implements the Simple Management Protocol for talking to PineTime's Firmware Update Service.
 
 _Newt Manager has over a hundred Go source files... Which source files should we convert to Dart?_
 
-https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr/newtmgr.go
+__Go Tracing__ can help! Let's enable Go Tracing like this: [`newtmgr.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr/newtmgr.go)
 
 ```go
 import "runtime/trace"
@@ -367,6 +367,10 @@ func main() {
   defer trace.Stop()
   ...
 ```
+
+This tells the Go Tracing Library to dump the traces to Standard Error.
+
+Then we run it like this...
 
 ```bash
 # Install graphviz for Go tracing
@@ -397,7 +401,7 @@ sudo ./newtmgr image list -c pinetime 2> trace.out
 go tool trace trace.out
 ```
 
-The Go trace web page appears, showing the following links...
+The Go Tracing web page appears, showing the following links...
 
 ```
 View trace
