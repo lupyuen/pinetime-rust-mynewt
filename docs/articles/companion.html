@@ -63,10 +63,10 @@
 
     <h1 class="title">Convert Go to Flutter and Dart for PineTime Companion App</h1>
     <nav id="TOC"><ul>
-<li><a href="#dive-deep-into-newt-manager-in-go">1 Dive Deep into Newt Manager in Go</a><ul></ul></li>
-<li><a href="#go-vs-dart-coding">2 Go vs Dart Coding</a><ul></ul></li>
-<li><a href="#convert-go-to-dart-line-by-line">3 Convert Go to Dart line by line</a><ul></ul></li>
-<li><a href="#cbor-encoding-in-dart">4 CBOR Encoding in Dart</a><ul></ul></li>
+<li><a href="#go-vs-dart-coding">1 Go vs Dart Coding</a><ul></ul></li>
+<li><a href="#convert-go-to-dart-line-by-line">2 Convert Go to Dart line by line</a><ul></ul></li>
+<li><a href="#cbor-encoding-in-dart">3 CBOR Encoding in Dart</a><ul></ul></li>
+<li><a href="#dive-deep-into-newt-manager-in-go">4 Dive Deep into Newt Manager in Go</a><ul></ul></li>
 <li><a href="#embed-dart-modules-in-flutter">5 Embed Dart modules in Flutter</a><ul></ul></li>
 <li><a href="#transmit-gatt-requests-in-flutter">6 Transmit GATT Requests in Flutter</a><ul></ul></li>
 <li><a href="#handle-gatt-responses-and-notifications-in-flutter">7 Handle GATT Responses and Notifications in Flutter</a><ul></ul></li>
@@ -86,18 +86,143 @@
 <p><img src="https://lupyuen.github.io/images/companion-response.png" alt="Flutter Companion App showing response from PineTime Smart Watch" /></p>
 <p><em>(The highlighted part shows the identical responses returned by PineTime to both apps over Bluetooth LE. So it really works!)</em></p>
 <p><img src="https://lupyuen.github.io/images/companion-title.png" alt="Flutter Companion App on a real Android phone, connected to PineTime Smart Watch" /></p>
-<h1 id="dive-deep-into-newt-manager-in-go" class="section-header"><a href="#dive-deep-into-newt-manager-in-go">1 Dive Deep into Newt Manager in Go</a></h1>
+<h1 id="go-vs-dart-coding" class="section-header"><a href="#go-vs-dart-coding">1 Go vs Dart Coding</a></h1>
+<p>Let's learn to convert this chunk of Go code from <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L36-L45"><code>nmxact/nmp/nmp.go</code></a>...</p>
+<pre><code class="language-go">//  In Go...
+const NMP_HDR_SIZE = 8
+
+/// SMP Header
+type NmpHdr struct {
+	Op    uint8  //  3 bits of opcode
+	Flags uint8
+	Len   uint16
+	Group uint16
+	Seq   uint8
+	Id    uint8
+}
+
+/// Return this SMP Header as a list of bytes
+func (hdr *NmpHdr) Bytes() []byte {
+	buf := make([]byte, 0, NMP_HDR_SIZE)
+
+	buf = append(buf, byte(hdr.Op))
+	buf = append(buf, byte(hdr.Flags))
+
+	u16b := make([]byte, 2)
+	binary.BigEndian.PutUint16(u16b, hdr.Len)
+	buf = append(buf, u16b...)
+
+	binary.BigEndian.PutUint16(u16b, hdr.Group)
+	buf = append(buf, u16b...)
+
+	buf = append(buf, byte(hdr.Seq))
+	buf = append(buf, byte(hdr.Id))
+
+	return buf
+}
+</code></pre>
+<p>...To Dart: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L27-L67"><code>newtmgr.dart</code></a></p>
+<pre><code class="language-dart">//  In Dart...
+const NMP_HDR_SIZE = 8;
+
+/// SMP Header
+class NmpHdr {
+  int Op;    //  Previously uint8
+  int Flags; //  Previously uint8
+  int Len;   //  Previously uint16
+  int Group; //  Previously uint16
+  int Seq;   //  Previously uint8
+  int Id;    //  Previously uint8
+  
+  /// Construct an SMP Header
+  NmpHdr(
+    this.Op,
+    this.Flags,
+    this.Len,
+    this.Group,
+    this.Seq,
+    this.Id
+  );
+  
+  /// Return this SMP Header as a list of bytes
+  typed.Uint8Buffer Bytes() {  //  Previously returns []byte
+    var buf = typed.Uint8Buffer();
+    
+    buf.add(this.Op);
+    buf.add(this.Flags);
+
+    typed.Uint8Buffer u16b = binaryBigEndianPutUint16(this.Len);
+    buf.addAll(u16b);
+
+    u16b = binaryBigEndianPutUint16(this.Group);
+    buf.addAll(u16b);
+
+    buf.add(this.Seq);
+    buf.add(this.Id);
+    assert(buf.length == NMP_HDR_SIZE);
+
+    return buf;
+  }  
+}
+</code></pre>
+<p><em>How shall we begin the code conversion from Go to Dart?</em></p>
+<ol>
+<li>
+<p><strong>Add the trailing semicolons (<code>;</code>)</strong></p>
+<p>Semicolons are optional in Go, but mandatory in Dart. So every line in Dart needs to terminate with a semicolon. Hence this code in Go...</p>
+<pre><code class="language-go">//  In Go...
+const NMP_HDR_SIZE = 8
+</code></pre>
+<p>Becomes this code in Dart...</p>
+<pre><code class="language-dart">//  In Dart...
+const NMP_HDR_SIZE = 8;
+</code></pre>
+</li>
+<li>
+<p><strong>Flip the names and types of variables</strong></p>
+<p>Go puts the variable name before the type name... Dart does it the other way around. Hence this code in Go...</p>
+<pre><code class="language-go">//  In Go...
+Op uint8
+</code></pre>
+<p>Becomes this code in Dart...</p>
+<pre><code class="language-dart">//  In Dart...
+int Op;
+</code></pre>
+</li>
+<li>
+<p>Dart doesn't have specific numeric types like <code>uint8</code> (unsigned 8-bit integer). So we use <code>int</code> to represent a byte.</p>
+<p>We write assertions in Dart to make sure that the <code>int</code> values are indeed bytes...</p>
+<pre><code class="language-dart">//  In Dart...
+assert(val &gt;= 0 &amp;&amp; val &lt;= 255);  //  val must be a byte
+</code></pre>
+</li>
+<li>
+<p>We rewrite Go byte arrays <code>[]byte</code> as the Dart type <code>typed.Uint8Buffer</code> (from the helper library <a href="https://pub.dev/packages/typed_data"><code>typed_data</code></a>)...</p>
+<pre><code class="language-go">/// In Go...
+/// Bytes() is a function that returns a byte array
+func (hdr *NmpHdr) Bytes() []byte {
+</code></pre>
+<p>Becomes this...</p>
+<pre><code class="language-dart">/// In Dart...
+/// Bytes() is a function that returns a byte array
+typed.Uint8Buffer Bytes() {
+</code></pre>
+</li>
+</ol>
+<p>Read on for more conversion steps.</p>
+<h1 id="convert-go-to-dart-line-by-line" class="section-header"><a href="#convert-go-to-dart-line-by-line">2 Convert Go to Dart line by line</a></h1>
+<p>TODO</p>
+<p>&quot;Static Duck Typing&quot;</p>
+<p>https://benhoyt.com/writings/go-intro/</p>
+<h1 id="cbor-encoding-in-dart" class="section-header"><a href="#cbor-encoding-in-dart">3 CBOR Encoding in Dart</a></h1>
+<p>TODO</p>
+<h1 id="dive-deep-into-newt-manager-in-go" class="section-header"><a href="#dive-deep-into-newt-manager-in-go">4 Dive Deep into Newt Manager in Go</a></h1>
 <p>TODO</p>
 <p>Go tracing tools</p>
-<h1 id="go-vs-dart-coding" class="section-header"><a href="#go-vs-dart-coding">2 Go vs Dart Coding</a></h1>
-<p>TODO</p>
-<h1 id="convert-go-to-dart-line-by-line" class="section-header"><a href="#convert-go-to-dart-line-by-line">3 Convert Go to Dart line by line</a></h1>
-<p>TODO</p>
-<h1 id="cbor-encoding-in-dart" class="section-header"><a href="#cbor-encoding-in-dart">4 CBOR Encoding in Dart</a></h1>
-<p>TODO</p>
 <h1 id="embed-dart-modules-in-flutter" class="section-header"><a href="#embed-dart-modules-in-flutter">5 Embed Dart modules in Flutter</a></h1>
 <p>TODO</p>
 <p>https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter</p>
+<p>https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart</p>
 <h1 id="transmit-gatt-requests-in-flutter" class="section-header"><a href="#transmit-gatt-requests-in-flutter">6 Transmit GATT Requests in Flutter</a></h1>
 <p>TODO</p>
 <h1 id="handle-gatt-responses-and-notifications-in-flutter" class="section-header"><a href="#handle-gatt-responses-and-notifications-in-flutter">7 Handle GATT Responses and Notifications in Flutter</a></h1>

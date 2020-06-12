@@ -26,27 +26,12 @@ _(The highlighted part shows the identical responses returned by PineTime to bot
 
 ![Flutter Companion App on a real Android phone, connected to PineTime Smart Watch](https://lupyuen.github.io/images/companion-title.png)
 
-# Dive Deep into Newt Manager in Go
-
-TODO
-
-Go tracing tools
-
 # Go vs Dart Coding
 
-TODO
-
-# Convert Go to Dart line by line
-
-TODO
-
-"Static Duck Typing"
-
-https://benhoyt.com/writings/go-intro/
-
-https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go
+Let's learn to convert this chunk of Go code from [`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L36-L45)...
 
 ```go
+//  In Go...
 const NMP_HDR_SIZE = 8
 
 /// SMP Header
@@ -80,9 +65,10 @@ func (hdr *NmpHdr) Bytes() []byte {
 }
 ```
 
-https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart
+...To Dart: [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L27-L67)
 
 ```dart
+//  In Dart...
 const NMP_HDR_SIZE = 8;
 
 /// SMP Header
@@ -126,9 +112,85 @@ class NmpHdr {
 }
 ```
 
+_How shall we begin the code conversion from Go to Dart?_
+
+1. __Add the trailing semicolons (`;`)__
+
+   Semicolons are optional in Go, but mandatory in Dart. So every line in Dart needs to terminate with a semicolon. Hence this code in Go...
+
+   ```go
+   //  In Go...
+   const NMP_HDR_SIZE = 8
+   ```
+
+   Becomes this code in Dart...
+
+   ```dart
+   //  In Dart...
+   const NMP_HDR_SIZE = 8;
+   ```
+
+1. __Flip the names and types of variables__
+
+   Go puts the variable name before the type name... Dart does it the other way around. Hence this code in Go...
+
+   ```go
+   //  In Go...
+   Op uint8
+   ```
+
+   Becomes this code in Dart...
+
+   ```dart
+   //  In Dart...
+   int Op;
+   ```
+
+1. Dart doesn't have specific numeric types like `uint8` (unsigned 8-bit integer). So we use `int` to represent a byte.
+
+    We write assertions in Dart to make sure that the `int` values are indeed bytes...
+
+    ```dart
+    //  In Dart...
+    assert(val >= 0 && val <= 255);  //  val must be a byte
+    ```
+
+1. We rewrite Go byte arrays `[]byte` as the Dart type `typed.Uint8Buffer` (from the helper library [`typed_data`](https://pub.dev/packages/typed_data))...
+
+    ```go
+    /// In Go...
+    /// Bytes() is a function that returns a byte array
+    func (hdr *NmpHdr) Bytes() []byte {
+    ```
+
+    Becomes this...
+
+    ```dart
+    /// In Dart...
+    /// Bytes() is a function that returns a byte array
+    typed.Uint8Buffer Bytes() {
+    ```
+
+Read on for more conversion steps.
+
+# Convert Go to Dart line by line
+
+TODO
+
+"Static Duck Typing"
+
+https://benhoyt.com/writings/go-intro/
+
+
 # CBOR Encoding in Dart
 
 TODO
+
+# Dive Deep into Newt Manager in Go
+
+TODO
+
+Go tracing tools
 
 # Embed Dart modules in Flutter
 
