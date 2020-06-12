@@ -347,6 +347,20 @@ It looks complicated, and yes we need to understand the Go code before convertin
 
 Go uses ["Static Duck Typing"](https://benhoyt.com/writings/go-intro/) thus it's not obvious whether a Go `struct` should be a Dart `class`, `abstract class` or `mixin`. But with a bit of practice... We'll get the hang of it!
 
+# Dive Deep into Newt Manager in Go
+
+TODO
+
+Go tracing tools
+
+enable tracing
+
+blocking sync
+
+delay
+
+highlight path
+
 # Convert Go to Dart line by line
 
 TODO
@@ -362,12 +376,6 @@ append
 TODO
 
 Attributes
-
-# Dive Deep into Newt Manager in Go
-
-TODO
-
-Go tracing tools
 
 # Embed Dart modules in Flutter
 
