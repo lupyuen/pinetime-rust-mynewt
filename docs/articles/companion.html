@@ -309,7 +309,7 @@ func (b *NmpBase) SetHdr(h *NmpHdr) {
 </code></pre>
 <p><code>NmpBase</code> appears to be a base class for Request and Response Messages.</p>
 <p>But if we look closely at the above code, <code>NmpBase</code> is actually a helper class for getting and setting the Message Header for Request and Response Messages.</p>
-<p>Helper classes are implemented in Dart as a <code>mixin</code>. Here's our <code>mixin</code> implementation of <code>NmpBase</code> in <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L95-L107"><code>newtmgr.dart</code></a>...</p>
+<p>Helper classes are implemented in Dart as a <a href="https://dart.dev/guides/language/language-tour#adding-features-to-a-class-mixins"><code>mixin</code></a>. Here's our <code>mixin</code> implementation of <code>NmpBase</code> in <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L95-L107"><code>newtmgr.dart</code></a>...</p>
 <pre><code class="language-dart">/// In Dart...
 /// SMP Message Helper
 mixin NmpBase {
