@@ -363,7 +363,7 @@ https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr/newtmgr.go
 import "runtime/trace"
 
 func main() {
-	trace.Start(os.Stderr)
+  trace.Start(os.Stderr)
   defer trace.Stop()
   ...
 ```
@@ -379,6 +379,8 @@ cd src/mynewt.apache.org/
 git clone https://github.com/lupyuen/mynewt-newtmgr
 mv mynewt-newtmgr newtmgr
 
+# TODO: Edit the source files to enable Go tracing
+
 # Build Newt Manager
 cd ~/go/src/mynewt.apache.org/newtmgr/newtmgr
 export GO111MODULE=on
@@ -391,22 +393,55 @@ sudo ./newtmgr conn add pinetime type=ble connstring="peer_name=pinetime" 2> /de
 # Run Newt Manager and list firmware images on PineTime
 sudo ./newtmgr image list -c pinetime 2> trace.out
 
-# Display the captured Go trace
+# Display the captured Go trace in a web browser
 go tool trace trace.out
 ```
 
+The Go trace web page appears, showing the following links...
+
+```
+View trace
+Goroutine analysis
+Network blocking profile (⬇)
+Synchronization blocking profile (⬇)
+Syscall blocking profile (⬇)
+Scheduler latency profile (⬇)
+User-defined tasks
+User-defined regions
+Minimum mutator utilization
+```
+
+Click `Synchronization Blocking Profile` to show a highly detailed graph of the function calls...
+
+???
+
+Now we know which Go functions were called to list firmware images on PineTime... But soooo many functions!
+
+Let's disregard
+bll
+
+xact
+
+???
+
 ```go
-import "runtime/trace"
+import (
+  "context"
+  "runtime/trace"
+  "time"
+)
 
 func BodyBytes(body interface{}) ([]byte, error) {
-	_, task := trace.NewTask(
+  _, task := trace.NewTask(
     context.Background(), 
     "nmxact/nmp/nmp.go/BodyBytes"
   )
-	time.Sleep(100 * time.Millisecond)
+  time.Sleep(100 * time.Millisecond)
   defer task.End()
   ...
 ```
+
+Click `User-Defined Tasks`
 
 # Convert Go to Dart line by line
 
