@@ -36,32 +36,32 @@ const NMP_HDR_SIZE = 8
 
 /// SMP Header
 type NmpHdr struct {
-	Op    uint8  //  3 bits of opcode
-	Flags uint8
-	Len   uint16
-	Group uint16
-	Seq   uint8
-	Id    uint8
+  Op    uint8  //  3 bits of opcode
+  Flags uint8
+  Len   uint16
+  Group uint16
+  Seq   uint8
+  Id    uint8
 }
 
 /// Return this SMP Header as a list of bytes
 func (hdr *NmpHdr) Bytes() []byte {
-	buf := make([]byte, 0, NMP_HDR_SIZE)
+  buf := make([]byte, 0, NMP_HDR_SIZE)
 
-	buf = append(buf, byte(hdr.Op))
-	buf = append(buf, byte(hdr.Flags))
+  buf = append(buf, byte(hdr.Op))
+  buf = append(buf, byte(hdr.Flags))
 
-	u16b := make([]byte, 2)
-	binary.BigEndian.PutUint16(u16b, hdr.Len)
-	buf = append(buf, u16b...)
+  u16b := make([]byte, 2)
+  binary.BigEndian.PutUint16(u16b, hdr.Len)
+  buf = append(buf, u16b...)
 
-	binary.BigEndian.PutUint16(u16b, hdr.Group)
-	buf = append(buf, u16b...)
+  binary.BigEndian.PutUint16(u16b, hdr.Group)
+  buf = append(buf, u16b...)
 
-	buf = append(buf, byte(hdr.Seq))
-	buf = append(buf, byte(hdr.Id))
+  buf = append(buf, byte(hdr.Seq))
+  buf = append(buf, byte(hdr.Id))
 
-	return buf
+  return buf
 }
 ```
 
@@ -171,24 +171,26 @@ _How shall we begin the code conversion from Go to Dart?_
     typed.Uint8Buffer Bytes() {
     ```
 
+Read on for more conversion steps.
+
+# Convert Go Structs and Methods to Dart
+
 These language overview docs are very helpful when converting Go to Dart...
 
 - [_"An intro to Go for non-Go developers"_](https://benhoyt.com/writings/go-intro/)
 
 - [_"A tour of the Dart language"_](https://dart.dev/guides/language/language-tour)
 
-I'm new to Dart and it looks like a mix of Java and JavaScript. But like Go (and unlike JavaScript), Dart is Statically Typed and has Type Inference.
+I'm new to Dart and it looks like a mix of Java and JavaScript. But like Go (and unlike JavaScript), Dart is Static Typed and has Type Inference.
 
-Read on for more conversion steps.
-
-# Convert Go Structs and Methods to Dart
+## Go Structs Become Dart Classes
 
 We rewrite Go `struct` as Dart `class`...
 
 ```go
 //  In Go...
 type NmpHdr struct {
-  Op    uint8
+  Op uint8
   ...
 }
 ```
@@ -202,15 +204,20 @@ class NmpHdr {
   ...
 }
 ```
+
+## Move Methods Inside Classes
 
 We move Go methods inside Dart classes...
 
 ```go
 //  In Go...
 type NmpHdr struct {
-  Op    uint8
+  Op uint8
   ...
 }
+
+//  Bytes() method for NmpHdr
+func (hdr *NmpHdr) Bytes() []byte { ...
 ```
 
 Becomes this...
@@ -220,11 +227,26 @@ Becomes this...
 class NmpHdr {
   int Op;
   ...
+  //  Bytes() method for NmpHdr
+  typed.Uint8Buffer Bytes() { ...
 }
 ```
 
+## Add Dart Constructors
 
-Constructors
+Go has implicit constructors for `structs`. We'll have to add Dart constructors like this...
+
+```dart
+//  In Dart...
+class NmpHdr {
+  int Op;
+
+  //  Constructor for NmpHdr
+  NmpHdr(
+    this.Op
+  );
+}
+```
 
 Interfaces
 
