@@ -274,9 +274,7 @@ abstract class NmpReq {
 
 # But Some Go Structs Become Dart Mixins
 
-TODO
-
-[`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L67-L79)
+In some cases, a Go `struct` should be converted to a Dart `mixin`. Consider this Go `struct` defined in [`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L67-L79)...
 
 ```go
 /// In Go...
@@ -296,7 +294,11 @@ func (b *NmpBase) SetHdr(h *NmpHdr) {
 }
 ```
 
-[`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L95-L107)
+`NmpBase` appears to be a base class for Request and Response Messages.
+
+But if we look closely at the above code, `NmpBase` is actually a helper class for getting and setting the Message Header for Request and Response Messages.  
+
+Helper classes are implemented in Dart as a `mixin`. Here's our `mixin` implementation in [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L95-L107)...
 
 ```dart
 /// In Dart...
@@ -316,7 +318,7 @@ mixin NmpBase {
 }
 ```
 
-[`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L345-L377)
+We use the `NmpBase mixin` like this ([`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L345-L377))...
 
 ```dart
 /// In Dart...
@@ -330,7 +332,7 @@ class ImageStateReadReq
   /// Get the SMP Request Message
   NmpMsg Msg() { return MsgFromReq(this); }
 
-  /// Encode the SMP Request fields to CBOR
+  /// Encode the SMP Request Message fields to CBOR
   void Encode(cbor.MapBuilder builder) {
       //  Encode an empty body
   }
