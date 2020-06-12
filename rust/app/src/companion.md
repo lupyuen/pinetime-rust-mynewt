@@ -347,9 +347,15 @@ It looks complicated, and yes we need to understand the Go code before convertin
 
 Go uses ["Static Duck Typing"](https://benhoyt.com/writings/go-intro/) thus it's not obvious whether a Go `struct` should be a Dart `class`, `abstract class` or `mixin`. But with a bit of practice... We'll get the hang of it!
 
+![Newt Manager with over 100 Go source files](https://lupyuen.github.io/images/companion-newtmgrsize.png)
+
 # Dive Deep into Go and Newt Manager
 
-TODO
+_The Go code in this article that connects to PineTime Smart Watch over Bluetooth LE... Where does it come from?_
+
+The Go code comes from Newt Manager, the Linux command line tool that updates PineTime's firmware over Bluetooth LE. Newt Manager implements the Simple Management Protocol for talking to PineTime's Firmware Update Service.
+
+_Newt Manager has over a hundred Go source files... Which source files should we convert to Dart?_
 
 https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr/newtmgr.go
 
@@ -363,26 +369,44 @@ func main() {
 ```
 
 ```bash
+# Install graphviz for Go tracing
+sudo apt install graphviz
+
+# Download Newt Manager
+cd ~/go
+mkdir -p src/mynewt.apache.org
+cd src/mynewt.apache.org/
+git clone https://github.com/lupyuen/mynewt-newtmgr
+mv mynewt-newtmgr newtmgr
+
+# Build Newt Manager
+cd ~/go/src/mynewt.apache.org/newtmgr/newtmgr
+export GO111MODULE=on
+go build
+
+# Run Newt Manager and add connection for PineTime
+cd ~/go/src/mynewt.apache.org/newtmgr/newtmgr
+sudo ./newtmgr conn add pinetime type=ble connstring="peer_name=pinetime" 2> /dev/null
+
+# Run Newt Manager and list firmware images on PineTime
 sudo ./newtmgr image list -c pinetime 2> trace.out
+
+# Display the captured Go trace
+go tool trace trace.out
 ```
 
 ```go
+import "runtime/trace"
+
 func BodyBytes(body interface{}) ([]byte, error) {
-	_, task := trace.NewTask(context.Background(), "nmxact/nmp/nmp.go/BodyBytes")
+	_, task := trace.NewTask(
+    context.Background(), 
+    "nmxact/nmp/nmp.go/BodyBytes"
+  )
 	time.Sleep(100 * time.Millisecond)
   defer task.End()
   ...
 ```
-
-Go tracing tools
-
-enable tracing
-
-blocking sync
-
-delay
-
-highlight path
 
 # Convert Go to Dart line by line
 
