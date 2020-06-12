@@ -413,7 +413,11 @@ Minimum mutator utilization
 
 Click `Synchronization Blocking Profile` to show a highly detailed graph of the function calls...
 
-???
+![Call Graph from Go Trace](https://lupyuen.github.io/images/companion-tracedelay.png)
+
+https://lupyuen.github.io/images/companion-tracedelay.pdf
+
+![Call Graph highlighting the code to be converted](https://lupyuen.github.io/images/companion-tracedelay2.png)
 
 Now we know which Go functions were called to list firmware images on PineTime... But soooo many functions!
 
@@ -442,6 +446,8 @@ func BodyBytes(body interface{}) ([]byte, error) {
 ```
 
 Click `User-Defined Tasks`
+
+![Go Trace for User Defined Tasks](https://lupyuen.github.io/images/companion-tracetasks.png)
 
 # Convert Go to Dart line by line
 
