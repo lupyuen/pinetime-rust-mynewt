@@ -347,9 +347,32 @@ It looks complicated, and yes we need to understand the Go code before convertin
 
 Go uses ["Static Duck Typing"](https://benhoyt.com/writings/go-intro/) thus it's not obvious whether a Go `struct` should be a Dart `class`, `abstract class` or `mixin`. But with a bit of practice... We'll get the hang of it!
 
-# Dive Deep into Newt Manager in Go
+# Dive Deep into Go and Newt Manager
 
 TODO
+
+https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr/newtmgr.go
+
+```go
+import "runtime/trace"
+
+func main() {
+	trace.Start(os.Stderr)
+  defer trace.Stop()
+  ...
+```
+
+```bash
+sudo ./newtmgr image list -c pinetime 2> trace.out
+```
+
+```go
+func BodyBytes(body interface{}) ([]byte, error) {
+	_, task := trace.NewTask(context.Background(), "nmxact/nmp/nmp.go/BodyBytes")
+	time.Sleep(100 * time.Millisecond)
+  defer task.End()
+  ...
+```
 
 Go tracing tools
 
