@@ -357,7 +357,7 @@ The Go code comes from [__Newt Manager__](https://github.com/apache/mynewt-newtm
 
 _Newt Manager has over a hundred Go source files... Which source files should we convert to Dart?_
 
-__Go Tracing__ can help! Let's enable Go Tracing like this: [`newtmgr.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr/newtmgr.go)
+[__Go Tracing__](https://blog.gopheracademy.com/advent-2017/go-execution-tracer/) can help! Let's enable Go Tracing like this: [`newtmgr.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr/newtmgr.go)
 
 ```go
 import "runtime/trace"
@@ -404,15 +404,15 @@ go tool trace trace.out
 The Go Tracing web page appears, showing the following links...
 
 ```
-View trace
-Goroutine analysis
-Network blocking profile (⬇)
-Synchronization blocking profile (⬇)
-Syscall blocking profile (⬇)
-Scheduler latency profile (⬇)
-User-defined tasks
-User-defined regions
-Minimum mutator utilization
+  View trace
+  Goroutine analysis
+  Network blocking profile (⬇)
+  Synchronization blocking profile (⬇)
+  Syscall blocking profile (⬇)
+  Scheduler latency profile (⬇)
+  User-defined tasks
+  User-defined regions
+  Minimum mutator utilization
 ```
 
 Click `Synchronization Blocking Profile` to show a [highly detailed graph of the Go function calls](https://lupyuen.github.io/images/companion-tracedelay.pdf)...
@@ -431,6 +431,8 @@ What's remaining is this `xact` trail of Go function calls...
 
 That's why we chose to convert code like `ImageStateReadCmd` to Dart... Because it was called when Newt Manager connected to PineTime to query its firmware images.
 
+Some functions (like `BodyBytes` below) may not appear in Go Tracing because they are invoked by Bluetooth callbacks. We may force them to appear in Go Tracing like this...
+
 ```go
 import (
   "context"
@@ -448,9 +450,13 @@ func BodyBytes(body interface{}) ([]byte, error) {
   ...
 ```
 
-Click `User-Defined Tasks`
+In the Go Tracing web page, click `User-Defined Tasks` to see the traces...
 
 ![Go Trace for User Defined Tasks](https://lupyuen.github.io/images/companion-tracetasks.png)
+
+_Why did we sleep 100 milliseconds during tracing?_
+
+So that we can look at the call duration in the above chart... And figure out which Go function is calling which other function.
 
 # Convert Go to Dart line by line
 
