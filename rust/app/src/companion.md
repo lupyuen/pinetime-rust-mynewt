@@ -173,7 +173,7 @@ _How shall we begin the code conversion from Go to Dart?_
 
 Read on for more conversion steps.
 
-# Convert Go Structs and Methods to Dart
+# Convert Go Structs, Methods and Interfaces to Dart
 
 These language overview docs are very helpful when converting Go to Dart...
 
@@ -268,19 +268,25 @@ abstract class NmpReq {
   void SetHdr(NmpHdr hdr);
 ```
 
-## But Some Go Structs Become Dart Mixins
+# But Some Go Structs Become Dart Mixins
+
+TODO
 
 https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L67-L79
 
 ```go
+/// In Go...
+/// SMP Base Message
 type NmpBase struct {
   hdr NmpHdr `codec:"-"`
 }
 
+/// Get the SMP Message Header
 func (b *NmpBase) Hdr() *NmpHdr {
   return &b.hdr
 }
 
+/// Set the SMP Message Header
 func (b *NmpBase) SetHdr(h *NmpHdr) {
   b.hdr = *h
 }
@@ -289,16 +295,40 @@ func (b *NmpBase) SetHdr(h *NmpHdr) {
 https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L95-L107
 
 ```dart
+/// In Dart...
 /// SMP Base Message
 mixin NmpBase {
   NmpHdr hdr;  //  Will not be encoded: `codec:"-"`
   
+  /// Get the SMP Message Header
   NmpHdr Hdr() {
     return hdr;
   }
   
+  /// Set the SMP Message Header
   void SetHdr(NmpHdr h) {
     hdr = h;
+  }
+}
+```
+
+https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L345-L377
+
+```dart
+/// In Dart...
+/// SMP Request to Read Image State
+class ImageStateReadReq 
+  with NmpBase       //  Mixin to get and set SMP Message Header
+  implements NmpReq  //  Interface for SMP Request Message  
+{
+  NmpBase base;      //  Will not be encoded: `codec:"-"`
+
+  /// Get the SMP Request Message
+  NmpMsg Msg() { return MsgFromReq(this); }
+
+  /// Encode the SMP Request fields to CBOR
+  void Encode(cbor.MapBuilder builder) {
+      //  Encode an empty body
   }
 }
 ```
