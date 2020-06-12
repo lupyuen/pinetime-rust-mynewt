@@ -387,6 +387,8 @@ https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart
 
 https://gist.github.com/lupyuen/1354b090a989a818b403685ecfa12d55
 
+https://bloclibrary.dev/#/flutterweathertutorial
+
 # Transmit GATT Requests in Flutter
 
 TODO
