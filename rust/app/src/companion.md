@@ -173,14 +173,31 @@ _How shall we begin the code conversion from Go to Dart?_
 
 Read on for more conversion steps.
 
-# Convert Go to Dart line by line
+# Convert Go Structs and Methods to Dart
 
 TODO
+
+Classes
+
+Methods
+
+Constructors
+
+Interfaces
+
+Mixins
 
 "Static Duck Typing"
 
 https://benhoyt.com/writings/go-intro/
 
+Interfaces are a little different from those in other languages like Java, where you have to say class MyThing implements ThatInterface explicitly. In Go, if you define all of an interface’s methods on a type, the type implicitly implements that interface, and you can use it wherever the interface is called for – no implements keyword in sight.
+
+Go’s approach has often been called “static duck typing”, and it’s a form of structural typing (TypeScript is another popular language that uses structural typing).
+
+# Convert Go to Dart line by line
+
+TODO
 
 # CBOR Encoding in Dart
 
