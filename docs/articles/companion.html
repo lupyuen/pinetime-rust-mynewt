@@ -70,9 +70,9 @@
 <li><a href="#add-dart-constructors">2.3 Add Dart Constructors</a><ul></ul></li>
 <li><a href="#go-interfaces-become-dart-abstract-classes">2.4 Go Interfaces Become Dart Abstract Classes</a><ul></ul></li></ul></li>
 <li><a href="#but-some-go-structs-become-dart-mixins">3 But Some Go Structs Become Dart Mixins</a><ul></ul></li>
-<li><a href="#convert-go-to-dart-line-by-line">4 Convert Go to Dart line by line</a><ul></ul></li>
-<li><a href="#cbor-encoding-in-dart">5 CBOR Encoding in Dart</a><ul></ul></li>
-<li><a href="#dive-deep-into-newt-manager-in-go">6 Dive Deep into Newt Manager in Go</a><ul></ul></li>
+<li><a href="#dive-deep-into-go-and-newt-manager">4 Dive Deep into Go and Newt Manager</a><ul></ul></li>
+<li><a href="#convert-go-to-dart-line-by-line">5 Convert Go to Dart line by line</a><ul></ul></li>
+<li><a href="#cbor-encoding-in-dart">6 CBOR Encoding in Dart</a><ul></ul></li>
 <li><a href="#embed-dart-modules-in-flutter">7 Embed Dart modules in Flutter</a><ul></ul></li>
 <li><a href="#transmit-gatt-requests-in-flutter">8 Transmit GATT Requests in Flutter</a><ul></ul></li>
 <li><a href="#handle-gatt-responses-and-notifications-in-flutter">9 Handle GATT Responses and Notifications in Flutter</a><ul></ul></li>
@@ -347,22 +347,101 @@ class ImageStateReadReq
 <p><img src="https://lupyuen.github.io/images/companion-class.png" alt="Message Class and Mixin for PineTime Companion App" /></p>
 <p>It looks complicated, and yes we need to understand the Go code before converting to Dart.</p>
 <p>Go uses <a href="https://benhoyt.com/writings/go-intro/">&quot;Static Duck Typing&quot;</a> thus it's not obvious whether a Go <code>struct</code> should be a Dart <code>class</code>, <code>abstract class</code> or <code>mixin</code>. But with a bit of practice... We'll get the hang of it!</p>
-<h1 id="convert-go-to-dart-line-by-line" class="section-header"><a href="#convert-go-to-dart-line-by-line">4 Convert Go to Dart line by line</a></h1>
+<p><img src="https://lupyuen.github.io/images/companion-newtmgrsize.png" alt="Newt Manager with over 100 Go source files" /></p>
+<h1 id="dive-deep-into-go-and-newt-manager" class="section-header"><a href="#dive-deep-into-go-and-newt-manager">4 Dive Deep into Go and Newt Manager</a></h1>
+<p><em>The Go code in this article that connects to PineTime Smart Watch over Bluetooth LE... Where does it come from?</em></p>
+<p>The Go code comes from <a href="https://github.com/apache/mynewt-newtmgr"><strong>Newt Manager</strong></a>, the Linux command line tool that updates PineTime's firmware over Bluetooth LE. Newt Manager implements the Simple Management Protocol for talking to PineTime's Firmware Update Service.</p>
+<p><em>Newt Manager has over a hundred Go source files... Which source files should we convert to Dart?</em></p>
+<p><a href="https://blog.gopheracademy.com/advent-2017/go-execution-tracer/"><strong>Go Tracing</strong></a> can help! Let's enable Go Tracing like this: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr/newtmgr.go"><code>newtmgr.go</code></a></p>
+<pre><code class="language-go">import &quot;runtime/trace&quot;
+
+func main() {
+  trace.Start(os.Stderr)
+  defer trace.Stop()
+  ...
+</code></pre>
+<p>This tells the Go Tracing Library to dump the traces to Standard Error.</p>
+<p>Here's how we run Newt Manager to transmit a command to PineTime (list firmware images) and capture the Go Tracing data...</p>
+<pre><code class="language-bash"># Install graphviz for Go tracing
+sudo apt install graphviz
+
+# Download Newt Manager
+cd ~/go
+mkdir -p src/mynewt.apache.org
+cd src/mynewt.apache.org/
+git clone https://github.com/lupyuen/mynewt-newtmgr
+mv mynewt-newtmgr newtmgr
+
+# TODO: Edit the source files to enable Go tracing
+
+# Build Newt Manager
+cd ~/go/src/mynewt.apache.org/newtmgr/newtmgr
+export GO111MODULE=on
+go build
+
+# Run Newt Manager and add connection for PineTime
+cd ~/go/src/mynewt.apache.org/newtmgr/newtmgr
+sudo ./newtmgr conn add pinetime type=ble connstring=&quot;peer_name=pinetime&quot; 2&gt; /dev/null
+
+# Run Newt Manager and list firmware images on PineTime
+sudo ./newtmgr image list -c pinetime 2&gt; trace.out
+
+# Display the captured Go trace in a web browser
+go tool trace trace.out
+</code></pre>
+<p>The Go Tracing web page appears, showing the following links...</p>
+
+<pre><code>  View trace
+  Goroutine analysis
+  Network blocking profile (⬇)
+  Synchronization blocking profile (⬇)
+  Syscall blocking profile (⬇)
+  Scheduler latency profile (⬇)
+  User-defined tasks
+  User-defined regions
+  Minimum mutator utilization</code></pre>
+<p>Click <code>Synchronization Blocking Profile</code> to show a <a href="https://lupyuen.github.io/images/companion-tracedelay.pdf">highly detailed graph of the Go function calls</a>...</p>
+<p><img src="https://lupyuen.github.io/images/companion-tracedelay.png" alt="Call Graph from Go Trace" /></p>
+<p><a href="https://lupyuen.github.io/images/companion-tracedelay.pdf"><em>PDF version</em></a></p>
+<p>Now we know which Go functions were called to list firmware images on PineTime... But soooo many functions!</p>
+<p>Let's eliminate the Go modules <code>bll</code>, <code>ble</code> and the stuff underneath... These Bluetooth LE functions are already implemented in Dart by <code>flutter_blue</code>.</p>
+<p>What's remaining is this <code>xact</code> trail of Go function calls...</p>
+<p><img src="https://lupyuen.github.io/images/companion-tracedelay2.png" alt="Call Graph highlighting the code to be converted" /></p>
+<p>That's why we chose to convert code like <code>ImageStateReadCmd</code> to Dart... Because it was called when Newt Manager connected to PineTime to query its firmware images.</p>
+<p>Some functions (like <code>BodyBytes</code> below) may not appear in Go Tracing because they are invoked by Bluetooth callbacks. We may force them to appear in Go Tracing like this...</p>
+<pre><code class="language-go">import (
+  &quot;context&quot;
+  &quot;runtime/trace&quot;
+  &quot;time&quot;
+)
+
+func BodyBytes(body interface{}) ([]byte, error) {
+  _, task := trace.NewTask(
+    context.Background(), 
+    &quot;nmxact/nmp/nmp.go/BodyBytes&quot;
+  )
+  time.Sleep(100 * time.Millisecond)
+  defer task.End()
+  ...
+</code></pre>
+<p>In the Go Tracing web page, click <code>User-Defined Tasks</code> to see the traces...</p>
+<p><img src="https://lupyuen.github.io/images/companion-tracetasks.png" alt="Go Trace for User Defined Tasks" /></p>
+<p><em>Why did we sleep 100 milliseconds during tracing?</em></p>
+<p>So that we can look at the call duration in the above chart... And figure out which Go function is calling which other function.</p>
+<h1 id="convert-go-to-dart-line-by-line" class="section-header"><a href="#convert-go-to-dart-line-by-line">5 Convert Go to Dart line by line</a></h1>
 <p>TODO</p>
 <p>var or final</p>
 <p>make</p>
 <p>append</p>
-<h1 id="cbor-encoding-in-dart" class="section-header"><a href="#cbor-encoding-in-dart">5 CBOR Encoding in Dart</a></h1>
+<h1 id="cbor-encoding-in-dart" class="section-header"><a href="#cbor-encoding-in-dart">6 CBOR Encoding in Dart</a></h1>
 <p>TODO</p>
 <p>Attributes</p>
-<h1 id="dive-deep-into-newt-manager-in-go" class="section-header"><a href="#dive-deep-into-newt-manager-in-go">6 Dive Deep into Newt Manager in Go</a></h1>
-<p>TODO</p>
-<p>Go tracing tools</p>
 <h1 id="embed-dart-modules-in-flutter" class="section-header"><a href="#embed-dart-modules-in-flutter">7 Embed Dart modules in Flutter</a></h1>
 <p>TODO</p>
 <p>https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter</p>
 <p>https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart</p>
 <p>https://gist.github.com/lupyuen/1354b090a989a818b403685ecfa12d55</p>
+<p>https://bloclibrary.dev/#/flutterweathertutorial</p>
 <h1 id="transmit-gatt-requests-in-flutter" class="section-header"><a href="#transmit-gatt-requests-in-flutter">8 Transmit GATT Requests in Flutter</a></h1>
 <p>TODO</p>
 <h1 id="handle-gatt-responses-and-notifications-in-flutter" class="section-header"><a href="#handle-gatt-responses-and-notifications-in-flutter">9 Handle GATT Responses and Notifications in Flutter</a></h1>
