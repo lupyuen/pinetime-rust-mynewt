@@ -248,7 +248,25 @@ class NmpHdr {
 }
 ```
 
-Interfaces
+## Go Interfaces Become Dart Abstract Classes
+
+We rewrite Go `interface` ([`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L53-L59))...
+
+```go
+//  In Go...
+type NmpReq interface {
+  Hdr() *NmpHdr
+  SetHdr(hdr *NmpHdr)
+```
+
+...As Dart `abstract class` ([`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L78-L86))
+
+```dart
+//  In Dart...
+abstract class NmpReq {
+  NmpHdr Hdr();
+  void SetHdr(NmpHdr hdr);
+```
 
 Mixins
 
@@ -264,9 +282,15 @@ Go’s approach has often been called “static duck typing”, and it’s a for
 
 TODO
 
+make
+
+append
+
 # CBOR Encoding in Dart
 
 TODO
+
+Attributes
 
 # Dive Deep into Newt Manager in Go
 
