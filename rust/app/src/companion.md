@@ -268,7 +268,40 @@ abstract class NmpReq {
   void SetHdr(NmpHdr hdr);
 ```
 
-Mixins
+## But Some Go Structs Become Dart Mixins
+
+https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L67-L79
+
+```go
+type NmpBase struct {
+  hdr NmpHdr `codec:"-"`
+}
+
+func (b *NmpBase) Hdr() *NmpHdr {
+  return &b.hdr
+}
+
+func (b *NmpBase) SetHdr(h *NmpHdr) {
+  b.hdr = *h
+}
+```
+
+https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L95-L107
+
+```dart
+/// SMP Base Message
+mixin NmpBase {
+  NmpHdr hdr;  //  Will not be encoded: `codec:"-"`
+  
+  NmpHdr Hdr() {
+    return hdr;
+  }
+  
+  void SetHdr(NmpHdr h) {
+    hdr = h;
+  }
+}
+```
 
 "Static Duck Typing"
 
