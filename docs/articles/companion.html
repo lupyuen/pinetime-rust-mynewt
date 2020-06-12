@@ -218,15 +218,15 @@ typed.Uint8Buffer Bytes() {
 <p>Read on for more conversion steps.</p>
 <h1 id="convert-go-structs-methods-and-interfaces-to-dart" class="section-header"><a href="#convert-go-structs-methods-and-interfaces-to-dart">2 Convert Go Structs, Methods and Interfaces to Dart</a></h1>
 <p>These language overview docs are very helpful when converting Go to Dart...</p>
-<ul>
+<ol>
 <li>
 <p><a href="https://benhoyt.com/writings/go-intro/"><em>&quot;An intro to Go for non-Go developers&quot;</em></a></p>
 </li>
 <li>
 <p><a href="https://dart.dev/guides/language/language-tour"><em>&quot;A tour of the Dart language&quot;</em></a></p>
 </li>
-</ul>
-<p>I'm new to Dart and it looks like a mix of Java and JavaScript. But like Go (and unlike JavaScript), Dart is Static Typed and has Type Inference.</p>
+</ol>
+<p>I'm new to Dart and it looks like a mix of Java and JavaScript. But like Go (and unlike JavaScript), Dart is Static Typed with Type Inference, which simplifies the code conversion.</p>
 <h2 id="go-structs-become-dart-classes" class="section-header"><a href="#go-structs-become-dart-classes">2.1 Go Structs Become Dart Classes</a></h2>
 <p>We rewrite Go <code>struct</code> as Dart <code>class</code>...</p>
 <pre><code class="language-go">//  In Go...

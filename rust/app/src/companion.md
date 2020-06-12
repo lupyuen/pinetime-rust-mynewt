@@ -177,11 +177,11 @@ Read on for more conversion steps.
 
 These language overview docs are very helpful when converting Go to Dart...
 
-- [_"An intro to Go for non-Go developers"_](https://benhoyt.com/writings/go-intro/)
+1. [_"An intro to Go for non-Go developers"_](https://benhoyt.com/writings/go-intro/)
 
-- [_"A tour of the Dart language"_](https://dart.dev/guides/language/language-tour)
+1. [_"A tour of the Dart language"_](https://dart.dev/guides/language/language-tour)
 
-I'm new to Dart and it looks like a mix of Java and JavaScript. But like Go (and unlike JavaScript), Dart is Static Typed and has Type Inference.
+I'm new to Dart and it looks like a mix of Java and JavaScript. But like Go (and unlike JavaScript), Dart is Static Typed with Type Inference, which simplifies the code conversion.
 
 ## Go Structs Become Dart Classes
 
