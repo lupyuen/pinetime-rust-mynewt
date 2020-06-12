@@ -411,13 +411,11 @@ User-defined regions
 Minimum mutator utilization
 ```
 
-Click `Synchronization Blocking Profile` to show a highly detailed graph of the function calls...
+Click `Synchronization Blocking Profile` to show a [highly detailed graph of the function calls](https://lupyuen.github.io/images/companion-tracedelay.pdf)...
 
 ![Call Graph from Go Trace](https://lupyuen.github.io/images/companion-tracedelay.png)
 
-https://lupyuen.github.io/images/companion-tracedelay.pdf
-
-![Call Graph highlighting the code to be converted](https://lupyuen.github.io/images/companion-tracedelay2.png)
+[_PDF version_](https://lupyuen.github.io/images/companion-tracedelay.pdf)
 
 Now we know which Go functions were called to list firmware images on PineTime... But soooo many functions!
 
@@ -425,6 +423,10 @@ Let's disregard
 bll
 
 xact
+
+Mark out this functional call trail...
+
+![Call Graph highlighting the code to be converted](https://lupyuen.github.io/images/companion-tracedelay2.png)
 
 ???
 
