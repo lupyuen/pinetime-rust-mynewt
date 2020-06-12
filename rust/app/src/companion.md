@@ -337,17 +337,21 @@ class ImageStateReadReq
 }
 ```
 
-"Static Duck Typing"
+_How are the Dart message classes and mixins connected?_
 
-https://benhoyt.com/writings/go-intro/
+Like this...
 
-Interfaces are a little different from those in other languages like Java, where you have to say class MyThing implements ThatInterface explicitly. In Go, if you define all of an interface’s methods on a type, the type implicitly implements that interface, and you can use it wherever the interface is called for – no implements keyword in sight.
+![Message Class and Mixin for PineTime Companion App](https://lupyuen.github.io/images/companion-class.png)
 
-Go’s approach has often been called “static duck typing”, and it’s a form of structural typing (TypeScript is another popular language that uses structural typing).
+It looks complicated, and yes we need to understand the Go code before converting to Dart.
+
+Go uses ["Static Duck Typing"](https://benhoyt.com/writings/go-intro/) thus it's not obvious whether a Go `struct` should be a Dart `class`, `abstract class` or `mixin`. But with a bit of practice... We'll get the hang of it!
 
 # Convert Go to Dart line by line
 
 TODO
+
+var or final
 
 make
 
