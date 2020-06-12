@@ -276,7 +276,7 @@ abstract class NmpReq {
 
 TODO
 
-https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L67-L79
+[`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L67-L79)
 
 ```go
 /// In Go...
@@ -296,7 +296,7 @@ func (b *NmpBase) SetHdr(h *NmpHdr) {
 }
 ```
 
-https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L95-L107
+[`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L95-L107)
 
 ```dart
 /// In Dart...
