@@ -1,5 +1,7 @@
 # Convert Go to Flutter and Dart for PineTime Companion App
 
+![Convert Go to Flutter and Dart for PineTime Companion App](https://lupyuen.github.io/images/companion-title.png)
+
 Can we take a __single code base__... And turn it into a mobile app for __Android, iOS and Linux phones__ (like PinePhone)?
 
 And code it in a __modern programming language__ with __Garbage Collection__... Without the scary C pointers?
@@ -23,8 +25,6 @@ _(Which will eventually be dressed up with [`gotk3`](https://github.com/gotk3/go
 ![Flutter Companion App showing response from PineTime Smart Watch](https://lupyuen.github.io/images/companion-response.png)
 
 _(The highlighted part shows the identical responses returned by PineTime to both apps over Bluetooth LE. So it really works!)_
-
-![Flutter Companion App on a real Android phone, connected to PineTime Smart Watch](https://lupyuen.github.io/images/companion-title.png)
 
 # Go vs Dart Coding
 
