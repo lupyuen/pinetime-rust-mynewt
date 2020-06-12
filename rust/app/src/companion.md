@@ -185,7 +185,7 @@ I'm new to Dart and it looks like a mix of Java and JavaScript. But like Go (and
 
 ## Go Structs Become Dart Classes
 
-We rewrite Go `struct` as Dart `class`...
+We rewrite a Go `struct` as a Dart `class`...
 
 ```go
 //  In Go...
@@ -248,9 +248,11 @@ class NmpHdr {
 }
 ```
 
+`NmpHdr` is the common Message Header that we'll be transmit to PineTime (and receive from PineTime) for all our Bluetooth LE messages.
+
 ## Go Interfaces Become Dart Abstract Classes
 
-We rewrite Go `interface` ([`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L53-L59))...
+We rewrite a Go `interface` ([`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L53-L59))...
 
 ```go
 //  In Go...
@@ -259,7 +261,7 @@ type NmpReq interface {
   SetHdr(hdr *NmpHdr)
 ```
 
-...As Dart `abstract class` ([`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L78-L86))
+...As a Dart `abstract class` ([`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L78-L86))
 
 ```dart
 //  In Dart...
@@ -267,6 +269,8 @@ abstract class NmpReq {
   NmpHdr Hdr();
   void SetHdr(NmpHdr hdr);
 ```
+
+`NmpReq` is the abstract base class for Request Messages that we'll be transmitting to PineTime over Bluetooth LE.
 
 # But Some Go Structs Become Dart Mixins
 

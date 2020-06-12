@@ -228,7 +228,7 @@ typed.Uint8Buffer Bytes() {
 </ol>
 <p>I'm new to Dart and it looks like a mix of Java and JavaScript. But like Go (and unlike JavaScript), Dart is Static Typed with Type Inference, which simplifies the code conversion.</p>
 <h2 id="go-structs-become-dart-classes" class="section-header"><a href="#go-structs-become-dart-classes">2.1 Go Structs Become Dart Classes</a></h2>
-<p>We rewrite Go <code>struct</code> as Dart <code>class</code>...</p>
+<p>We rewrite a Go <code>struct</code> as a Dart <code>class</code>...</p>
 <pre><code class="language-go">//  In Go...
 type NmpHdr struct {
   Op uint8
@@ -274,19 +274,21 @@ class NmpHdr {
   );
 }
 </code></pre>
+<p><code>NmpHdr</code> is the common Message Header that we'll be transmit to PineTime (and receive from PineTime) for all our Bluetooth LE messages.</p>
 <h2 id="go-interfaces-become-dart-abstract-classes" class="section-header"><a href="#go-interfaces-become-dart-abstract-classes">2.4 Go Interfaces Become Dart Abstract Classes</a></h2>
-<p>We rewrite Go <code>interface</code> (<a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L53-L59"><code>nmxact/nmp/nmp.go</code></a>)...</p>
+<p>We rewrite a Go <code>interface</code> (<a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L53-L59"><code>nmxact/nmp/nmp.go</code></a>)...</p>
 <pre><code class="language-go">//  In Go...
 type NmpReq interface {
   Hdr() *NmpHdr
   SetHdr(hdr *NmpHdr)
 </code></pre>
-<p>...As Dart <code>abstract class</code> (<a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L78-L86"><code>newtmgr.dart</code></a>)</p>
+<p>...As a Dart <code>abstract class</code> (<a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L78-L86"><code>newtmgr.dart</code></a>)</p>
 <pre><code class="language-dart">//  In Dart...
 abstract class NmpReq {
   NmpHdr Hdr();
   void SetHdr(NmpHdr hdr);
 </code></pre>
+<p><code>NmpReq</code> is the abstract base class for Request Messages that we'll be transmitting to PineTime over Bluetooth LE.</p>
 <h1 id="but-some-go-structs-become-dart-mixins" class="section-header"><a href="#but-some-go-structs-become-dart-mixins">3 But Some Go Structs Become Dart Mixins</a></h1>
 <p>TODO</p>
 <p>https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L67-L79</p>
