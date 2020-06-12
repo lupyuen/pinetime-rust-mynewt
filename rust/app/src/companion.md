@@ -370,7 +370,7 @@ func main() {
 
 This tells the Go Tracing Library to dump the traces to Standard Error.
 
-Then we run it like this...
+Here's how we run Newt Manager to transmit a command to PineTime (list firmware images) and capture the Go Tracing data...
 
 ```bash
 # Install graphviz for Go tracing
@@ -415,7 +415,7 @@ User-defined regions
 Minimum mutator utilization
 ```
 
-Click `Synchronization Blocking Profile` to show a [highly detailed graph of the function calls](https://lupyuen.github.io/images/companion-tracedelay.pdf)...
+Click `Synchronization Blocking Profile` to show a [highly detailed graph of the Go function calls](https://lupyuen.github.io/images/companion-tracedelay.pdf)...
 
 ![Call Graph from Go Trace](https://lupyuen.github.io/images/companion-tracedelay.png)
 
@@ -423,16 +423,13 @@ Click `Synchronization Blocking Profile` to show a [highly detailed graph of the
 
 Now we know which Go functions were called to list firmware images on PineTime... But soooo many functions!
 
-Let's disregard
-bll
+Let's eliminate the Go modules `bll`, `ble` and the stuff underneath... These Bluetooth LE functions are already implemented in Dart by `flutter_blue`.
 
-xact
-
-Mark out this functional call trail...
+What's remaining is this `xact` trail of Go function calls...
 
 ![Call Graph highlighting the code to be converted](https://lupyuen.github.io/images/companion-tracedelay2.png)
 
-???
+That's why we chose to convert code like `ImageStateReadCmd` to Dart... Because it was called when Newt Manager connected to PineTime to query its firmware images.
 
 ```go
 import (
