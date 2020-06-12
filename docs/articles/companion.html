@@ -325,14 +325,14 @@ mixin NmpBase {
   }
 }
 </code></pre>
-<p>https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L345-L377</p>
+<p><a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L345-L377"><code>newtmgr.dart</code></a></p>
 <pre><code class="language-dart">/// In Dart...
-/// SMP Request to Read Image State
+/// SMP Request Message to Read Image State
 class ImageStateReadReq 
   with NmpBase       //  Mixin to get and set SMP Message Header
   implements NmpReq  //  Interface for SMP Request Message  
 {
-  NmpBase base;      //  Will not be encoded: `codec:&quot;-&quot;`
+  NmpBase base;      //  Will not be encoded in CBOR. Previously `codec:&quot;-&quot;`
 
   /// Get the SMP Request Message
   NmpMsg Msg() { return MsgFromReq(this); }
