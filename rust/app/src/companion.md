@@ -298,11 +298,11 @@ func (b *NmpBase) SetHdr(h *NmpHdr) {
 
 But if we look closely at the above code, `NmpBase` is actually a helper class for getting and setting the Message Header for Request and Response Messages.  
 
-Helper classes are implemented in Dart as a `mixin`. Here's our `mixin` implementation in [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L95-L107)...
+Helper classes are implemented in Dart as a `mixin`. Here's our `mixin` implementation of `NmpBase` in [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L95-L107)...
 
 ```dart
 /// In Dart...
-/// SMP Base Message
+/// SMP Message Helper
 mixin NmpBase {
   NmpHdr hdr;  //  Will not be encoded: `codec:"-"`
   
@@ -318,7 +318,7 @@ mixin NmpBase {
 }
 ```
 
-We use the `NmpBase mixin` like this ([`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L345-L377))...
+We use our `NmpBase mixin` like this ([`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L345-L377))...
 
 ```dart
 /// In Dart...
@@ -327,8 +327,6 @@ class ImageStateReadReq
   with NmpBase       //  Mixin to get and set SMP Message Header
   implements NmpReq  //  Interface for SMP Request Message  
 {
-  NmpBase base;      //  Will not be encoded in CBOR. Previously `codec:"-"`
-
   /// Get the SMP Request Message
   NmpMsg Msg() { return MsgFromReq(this); }
 
