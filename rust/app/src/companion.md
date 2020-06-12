@@ -158,28 +158,71 @@ _How shall we begin the code conversion from Go to Dart?_
 1. We rewrite Go byte arrays `[]byte` as the Dart type `typed.Uint8Buffer` (from the helper library [`typed_data`](https://pub.dev/packages/typed_data))...
 
     ```go
-    /// In Go...
-    /// Bytes() is a function that returns a byte array
+    //  In Go...
+    //  Bytes() is a function that returns a byte array
     func (hdr *NmpHdr) Bytes() []byte {
     ```
 
     Becomes this...
 
     ```dart
-    /// In Dart...
-    /// Bytes() is a function that returns a byte array
+    //  In Dart...
+    //  Bytes() is a function that returns a byte array
     typed.Uint8Buffer Bytes() {
     ```
+
+These language overview docs are very helpful when converting Go to Dart...
+
+- [_"An intro to Go for non-Go developers"_](https://benhoyt.com/writings/go-intro/)
+
+- [_"A tour of the Dart language"_](https://dart.dev/guides/language/language-tour)
+
+I'm new to Dart and it looks like a mix of Java and JavaScript. But like Go (and unlike JavaScript), Dart is Statically Typed and has Type Inference.
 
 Read on for more conversion steps.
 
 # Convert Go Structs and Methods to Dart
 
-TODO
+We rewrite Go `struct` as Dart `class`...
 
-Classes
+```go
+//  In Go...
+type NmpHdr struct {
+  Op    uint8
+  ...
+}
+```
 
-Methods
+Becomes this...
+
+```dart
+//  In Dart...
+class NmpHdr {
+  int Op;
+  ...
+}
+```
+
+We move Go methods inside Dart classes...
+
+```go
+//  In Go...
+type NmpHdr struct {
+  Op    uint8
+  ...
+}
+```
+
+Becomes this...
+
+```dart
+//  In Dart...
+class NmpHdr {
+  int Op;
+  ...
+}
+```
+
 
 Constructors
 
