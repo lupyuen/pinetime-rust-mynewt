@@ -71,15 +71,16 @@
 <li><a href="#go-interfaces-become-dart-abstract-classes">2.4 Go Interfaces Become Dart Abstract Classes</a><ul></ul></li></ul></li>
 <li><a href="#but-some-go-structs-become-dart-mixins">3 But Some Go Structs Become Dart Mixins</a><ul></ul></li>
 <li><a href="#dive-deep-into-go-and-newt-manager">4 Dive Deep into Go and Newt Manager</a><ul></ul></li>
-<li><a href="#convert-go-to-dart-line-by-line">5 Convert Go to Dart line by line</a><ul></ul></li>
-<li><a href="#cbor-encoding-in-dart">6 CBOR Encoding in Dart</a><ul></ul></li>
-<li><a href="#embed-dart-modules-in-flutter">7 Embed Dart modules in Flutter</a><ul></ul></li>
-<li><a href="#transmit-gatt-requests-in-flutter">8 Transmit GATT Requests in Flutter</a><ul></ul></li>
-<li><a href="#handle-gatt-responses-and-notifications-in-flutter">9 Handle GATT Responses and Notifications in Flutter</a><ul></ul></li>
-<li><a href="#dart-extension-for-vscode">10 Dart Extension for VSCode</a><ul></ul></li>
-<li><a href="#install-dart-on-raspberry-pi-and-pinebook-pro">11 Install Dart on Raspberry Pi and Pinebook Pro</a><ul></ul></li>
-<li><a href="#whats-next">12 What's Next</a><ul></ul></li>
-<li><a href="#further-reading">13 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/companion-title.png" alt="Convert Go to Flutter and Dart for PineTime Companion App" /></p>
+<li><a href="#demo">5 Demo</a><ul></ul></li>
+<li><a href="#convert-go-to-dart-line-by-line">6 Convert Go to Dart line by line</a><ul></ul></li>
+<li><a href="#cbor-encoding-in-dart">7 CBOR Encoding in Dart</a><ul></ul></li>
+<li><a href="#embed-dart-modules-in-flutter">8 Embed Dart modules in Flutter</a><ul></ul></li>
+<li><a href="#transmit-gatt-requests-in-flutter">9 Transmit GATT Requests in Flutter</a><ul></ul></li>
+<li><a href="#handle-gatt-responses-and-notifications-in-flutter">10 Handle GATT Responses and Notifications in Flutter</a><ul></ul></li>
+<li><a href="#dart-extension-for-vscode">11 Dart Extension for VSCode</a><ul></ul></li>
+<li><a href="#install-dart-on-raspberry-pi-and-pinebook-pro">12 Install Dart on Raspberry Pi and Pinebook Pro</a><ul></ul></li>
+<li><a href="#whats-next">13 What's Next</a><ul></ul></li>
+<li><a href="#further-reading">14 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/companion-title.png" alt="Convert Go to Flutter and Dart for PineTime Companion App" /></p>
 <p>Can we take a <strong>single code base</strong>... And turn it into a mobile app for <strong>Android, iOS and Linux phones</strong> (like PinePhone)?</p>
 <p>And code it in a <strong>modern programming language</strong> with <strong>Garbage Collection</strong>... Without the scary C pointers?</p>
 <p>And talk <strong>Bluetooth Low Energy</strong> to other gadgets... Like <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>?</p>
@@ -428,35 +429,45 @@ func BodyBytes(body interface{}) ([]byte, error) {
 <p><img src="https://lupyuen.github.io/images/companion-tracetasks.png" alt="Go Trace for User Defined Tasks" /></p>
 <p><em>Why did we sleep 100 milliseconds during tracing?</em></p>
 <p>So that we can look at the call duration in the above chart... And figure out which Go function is calling which other function.</p>
-<h1 id="convert-go-to-dart-line-by-line" class="section-header"><a href="#convert-go-to-dart-line-by-line">5 Convert Go to Dart line by line</a></h1>
+<h1 id="demo" class="section-header"><a href="#demo">5 Demo</a></h1>
+<p>Here'a a video of our Flutter App sending a command over Bluetooth LE to query the firmware images loaded into PineTime...</p>
+<ul>
+<li>
+<p><a href="https://youtu.be/n396JA62NDk">Watch on YouTube</a></p>
+</li>
+<li>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.3/companion-query-firmware.mov">Download the video</a></p>
+</li>
+</ul>
+<h1 id="convert-go-to-dart-line-by-line" class="section-header"><a href="#convert-go-to-dart-line-by-line">6 Convert Go to Dart line by line</a></h1>
 <p>TODO</p>
 <p>var or final</p>
 <p>make</p>
 <p>append</p>
-<h1 id="cbor-encoding-in-dart" class="section-header"><a href="#cbor-encoding-in-dart">6 CBOR Encoding in Dart</a></h1>
+<h1 id="cbor-encoding-in-dart" class="section-header"><a href="#cbor-encoding-in-dart">7 CBOR Encoding in Dart</a></h1>
 <p>TODO</p>
 <p>Attributes</p>
-<h1 id="embed-dart-modules-in-flutter" class="section-header"><a href="#embed-dart-modules-in-flutter">7 Embed Dart modules in Flutter</a></h1>
+<h1 id="embed-dart-modules-in-flutter" class="section-header"><a href="#embed-dart-modules-in-flutter">8 Embed Dart modules in Flutter</a></h1>
 <p>TODO</p>
 <p>https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter</p>
 <p>https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart</p>
 <p>https://gist.github.com/lupyuen/1354b090a989a818b403685ecfa12d55</p>
 <p>https://bloclibrary.dev/#/flutterweathertutorial</p>
-<h1 id="transmit-gatt-requests-in-flutter" class="section-header"><a href="#transmit-gatt-requests-in-flutter">8 Transmit GATT Requests in Flutter</a></h1>
+<h1 id="transmit-gatt-requests-in-flutter" class="section-header"><a href="#transmit-gatt-requests-in-flutter">9 Transmit GATT Requests in Flutter</a></h1>
 <p>TODO</p>
-<h1 id="handle-gatt-responses-and-notifications-in-flutter" class="section-header"><a href="#handle-gatt-responses-and-notifications-in-flutter">9 Handle GATT Responses and Notifications in Flutter</a></h1>
+<h1 id="handle-gatt-responses-and-notifications-in-flutter" class="section-header"><a href="#handle-gatt-responses-and-notifications-in-flutter">10 Handle GATT Responses and Notifications in Flutter</a></h1>
 <p>TODO</p>
-<h1 id="dart-extension-for-vscode" class="section-header"><a href="#dart-extension-for-vscode">10 Dart Extension for VSCode</a></h1>
+<h1 id="dart-extension-for-vscode" class="section-header"><a href="#dart-extension-for-vscode">11 Dart Extension for VSCode</a></h1>
 <p>TODO</p>
-<h1 id="install-dart-on-raspberry-pi-and-pinebook-pro" class="section-header"><a href="#install-dart-on-raspberry-pi-and-pinebook-pro">11 Install Dart on Raspberry Pi and Pinebook Pro</a></h1>
+<h1 id="install-dart-on-raspberry-pi-and-pinebook-pro" class="section-header"><a href="#install-dart-on-raspberry-pi-and-pinebook-pro">12 Install Dart on Raspberry Pi and Pinebook Pro</a></h1>
 <p>TODO</p>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">12 What's Next</a></h1>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">13 What's Next</a></h1>
 <p>TODO</p>
 <p>I'll be using the code in this article to create the open source <strong>PineTime Companion App</strong> for Android and iOS. So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications, chart our heart rate, ...</p>
 <p>Flutter makes it really easy to maintain a single code base for Android and iOS... And <code>flutter_blue</code> makes Bluetooth LE coding so simple!</p>
 <p>If you're keen to help out, come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!</p>
 <p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Matrix / Discord / Telegram / IRC</a></p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">13 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">14 Further Reading</a></h1>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">&quot;Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)&quot;</a></em></p>

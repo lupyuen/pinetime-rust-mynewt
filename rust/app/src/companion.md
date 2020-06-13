@@ -458,6 +458,14 @@ _Why did we sleep 100 milliseconds during tracing?_
 
 So that we can look at the call duration in the above chart... And figure out which Go function is calling which other function.
 
+# Demo
+
+Here'a a video of our Flutter App sending a command over Bluetooth LE to query the firmware images loaded into PineTime...
+
+- [Watch on YouTube](https://youtu.be/n396JA62NDk)
+
+- [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.3/companion-query-firmware.mov)
+
 # Convert Go to Dart line by line
 
 TODO
