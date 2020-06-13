@@ -484,10 +484,24 @@ _Why is there a mix of ASCII text and binary data in the message?_
 
 That's because our Bluetooth LE messages are encoded in [__Concise Binary Object Representation (CBOR)__](https://en.wikipedia.org/wiki/CBOR)!
 
-CBOR is like a compact binary form of JSON. The above chunk of data decodes to this JSON...
+CBOR is like a compact binary form of JSON. The above chunk of data is equivalent to this human-readable JSON...
 
 ```json
-{"images":[{"slot":0,"version":"1.0.0","hash":[112,62,187,248,17,69,139,31,173,24,158,100,227,165,224,248,9,203,230,186,216,131,199,107,61,215,18,121,28,130,47,181],"bootable":true,"pending":false,"confirmed":true,"active":true,"permanent":false}],"splitStatus":0}
+{
+    "images": [
+        {
+            "slot": 0,
+            "version": "1.0.0",
+            "hash": [ 112, 62, 187, 248, 17, 69, 139, 31, 173, 24, 158, 100, 227, 165, 224, 248, 9, 203, 230, 186, 216, 131, 199, 107, 61, 215, 18, 121, 28, 130, 47, 181 ],
+            "bootable": true,
+            "pending": false,
+            "confirmed": true,
+            "active": true,
+            "permanent": false
+        }
+    ],
+    "splitStatus": 0
+}
 ```
 
 ```
