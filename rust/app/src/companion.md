@@ -464,6 +464,80 @@ _Why did we sleep 100 milliseconds during tracing?_
 
 So that we can look at the call duration in the above chart... And figure out which Go function is calling which other function.
 
+# CBOR Encoding in Dart
+
+TODO
+
+```
+DEBU[2020-05-19 04:46:14.519] Encoded &{NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:1 Seq:66 Id:0}}} to:
+00000000  a0                                                |.| 
+DEBU[2020-05-19 04:46:14.519] Encoded:
+00000000  00 00 00 01 00 01 42 00  a0                       |......B..| 
+DEBU[2020-05-19 04:46:14.519] Tx NMP request: 
+00000000  00 00 00 01 00 01 42 00  a0                       |......B..| 
+```
+
+```
+DEBU[2020-05-19 04:46:14.542] rx nmp response: 
+00000000  01 00 00 86 00 01 42 00  bf 66 69 6d 61 67 65 73  |......B..fimages|
+00000010  9f bf 64 73 6c 6f 74 00  67 76 65 72 73 69 6f 6e  |..dslot.gversion|
+00000020  65 31 2e 30 2e 30 64 68  61 73 68 58 20 70 3e bb  |e1.0.0dhashX p>.|
+00000030  f8 11 45 8b 1f ad 18 9e  64 e3 a5 e0 f8 09 cb e6  |..E.....d.......|
+00000040  ba d8 83 c7 6b 3d d7 12  79 1c 82 2f b5 68 62 6f  |....k=..y../.hbo|
+00000050  6f 74 61 62 6c 65 f5 67  70 65 6e 64 69 6e 67 f4  |otable.gpending.|
+00000060  69 63 6f 6e 66 69 72 6d  65 64 f5 66 61 63 74 69  |iconfirmed.facti|
+00000070  76 65 f5 69 70 65 72 6d  61 6e 65 6e 74 f4 ff ff  |ve.ipermanent...|
+00000080  6b 73 70 6c 69 74 53 74  61 74 75 73 00 ff        |ksplitStatus..| 
+DEBU[2020-05-19 04:46:14.542] Received nmp rsp: &{NmpBase:{hdr:{Op:1 Flags:0 Len:134 Group:1 Seq:66 Id:0}} Rc:0 Images:[{NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:0 Seq:0 Id:0}} Image:0 Slot:0 Version:1.0.0 Hash:[112 62 187 248 17 69 139 31 173 24 158 100 227 165 224 248 9 203 230 186 216 131 199 107 61 215 18 121 28 130 47 181] Bootable:true Pending:false Confirmed:true Active:true Permanent:false}] SplitStatus:N/A} 
+```
+
+Attributes
+
+Next we connect to PineTime over Bluetooth LE and list the firmware images stored in PineTime's Internal Flash ROM (Active Firmware) and External SPI Flash (Standby Firmware). 
+
+Note that we're using the `--loglevel debug` option, which shows all Bluetooth request and response packets.
+
+Make sure that Go Tracing is disabled, because the debug messages are logged to Standard Error and will interfere with Go Tracing.
+
+```bash
+sudo ./newtmgr image list -c pinetime --loglevel debug
+```
+
+We'll see...
+
+```
+DEBU[2020-05-19 04:46:13.693] Using connection profile: name=pinetime type=ble connstring=peer_name=pinetime 
+DEBU[2020-05-19 04:46:14.023] Connecting to peer                           
+DEBU[2020-05-19 04:46:14.244] Exchanging MTU                               
+DEBU[2020-05-19 04:46:14.256] Exchanged MTU; ATT MTU = 256                 
+DEBU[2020-05-19 04:46:14.256] Discovering profile                          
+DEBU[2020-05-19 04:46:14.503] Subscribing to NMP response characteristic   
+DEBU[2020-05-19 04:46:14.518] {add-nmp-listener} [bll_sesn.go:392] seq=66  
+DEBU[2020-05-19 04:46:14.519] Encoded &{NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:1 Seq:66 Id:0}}} to:
+00000000  a0                                                |.| 
+DEBU[2020-05-19 04:46:14.519] Encoded:
+00000000  00 00 00 01 00 01 42 00  a0                       |......B..| 
+DEBU[2020-05-19 04:46:14.519] Tx NMP request: 00000000  00 00 00 01 00 01 42 00  a0                       |......B..| 
+DEBU[2020-05-19 04:46:14.542] rx nmp response: 00000000  01 00 00 86 00 01 42 00  bf 66 69 6d 61 67 65 73  |......B..fimages|
+00000010  9f bf 64 73 6c 6f 74 00  67 76 65 72 73 69 6f 6e  |..dslot.gversion|
+00000020  65 31 2e 30 2e 30 64 68  61 73 68 58 20 70 3e bb  |e1.0.0dhashX p>.|
+00000030  f8 11 45 8b 1f ad 18 9e  64 e3 a5 e0 f8 09 cb e6  |..E.....d.......|
+00000040  ba d8 83 c7 6b 3d d7 12  79 1c 82 2f b5 68 62 6f  |....k=..y../.hbo|
+00000050  6f 74 61 62 6c 65 f5 67  70 65 6e 64 69 6e 67 f4  |otable.gpending.|
+00000060  69 63 6f 6e 66 69 72 6d  65 64 f5 66 61 63 74 69  |iconfirmed.facti|
+00000070  76 65 f5 69 70 65 72 6d  61 6e 65 6e 74 f4 ff ff  |ve.ipermanent...|
+00000080  6b 73 70 6c 69 74 53 74  61 74 75 73 00 ff        |ksplitStatus..| 
+DEBU[2020-05-19 04:46:14.542] Received nmp rsp: &{NmpBase:{hdr:{Op:1 Flags:0 Len:134 Group:1 Seq:66 Id:0}} Rc:0 Images:[{NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:0 Seq:0 Id:0}} Image:0 Slot:0 Version:1.0.0 Hash:[112 62 187 248 17 69 139 31 173 24 158 100 227 165 224 248 9 203 230 186 216 131 199 107 61 215 18 121 28 130 47 181] Bootable:true Pending:false Confirmed:true Active:true Permanent:false}] SplitStatus:N/A} 
+DEBU[2020-05-19 04:46:14.543] {remove-nmp-listener} [bll_sesn.go:392] seq=66 
+Images:
+image=0 slot=0
+    version: 1.0.0
+    bootable: true
+    flags: active confirmed
+    hash: 703ebbf811458b1fad189e64e3a5e0f809cbe6bad883c76b3dd712791c822fb5
+Split status: N/A (0)    
+```
+
 # Demo
 
 Here'a a video of our Flutter App sending a command over Bluetooth LE to query the firmware images loaded into PineTime...
@@ -481,12 +555,6 @@ var or final
 make
 
 append
-
-# CBOR Encoding in Dart
-
-TODO
-
-Attributes
 
 # Embed Dart modules in Flutter
 
