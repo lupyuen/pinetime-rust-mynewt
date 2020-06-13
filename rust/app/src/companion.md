@@ -173,6 +173,9 @@ _How shall we begin the code conversion from Go to Dart?_
 
     ```dart
     //  In Dart...
+    //  Import helper library for Byte Buffers. From https://pub.dev/packages/typed_data
+    import 'package:typed_data/typed_data.dart' as typed;
+
     //  Bytes() is a function that returns a byte array
     typed.Uint8Buffer Bytes() {
     ```
@@ -493,14 +496,76 @@ CBOR is like a compact binary form of JSON. The above chunk of data is equivalen
             "slot": 0,
             "version": "1.0.0",
             "hash": [ 112, 62, 187, 248, 17, 69, 139, 31, 173, 24, 158, 100, 227, 165, 224, 248, 9, 203, 230, 186, 216, 131, 199, 107, 61, 215, 18, 121, 28, 130, 47, 181 ],
-            "bootable": true,
-            "pending": false,
+            "bootable":  true,
+            "pending":   false,
             "confirmed": true,
-            "active": true,
+            "active":    true,
             "permanent": false
         }
     ],
     "splitStatus": 0
+}
+```
+
+https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L129-L144
+
+```go
+/// In Go...
+/// Encode SMP Request Body with CBOR and return the byte array
+func BodyBytes(body interface{}) ([]byte, error) {
+	data := make([]byte, 0)
+	enc := codec.NewEncoderBytes(&data, new(codec.CborHandle))
+	if err := enc.Encode(body); err != nil {
+		return nil, fmt.Errorf("Failed to encode message %s", err.Error())
+	}
+	log.Debugf("Encoded %+v to:\n%s", body, hex.Dump(data))
+	return data, nil
+}
+```
+
+https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L141-L176
+
+```dart
+//  In Dart...
+//  Import CBOR Encoder and Decoder library. From https://pub.dev/packages/cbor
+import 'package:cbor/cbor.dart' as cbor;
+
+/// Encode SMP Request Body with CBOR and return the byte array
+typed.Uint8Buffer BodyBytes(  //  Returns []byte
+  NmpReq body  //  Previously interface{}
+) {
+  //  Get our CBOR instance. Always do this, it correctly initialises the decoder.
+  final inst = cbor.Cbor();
+
+  //  Get our encoder and map builder
+  final encoder = inst.encoder;
+  final mapBuilder = cbor.MapBuilder.builder();
+
+  //  Encode the body as a CBOR map
+  body.Encode(mapBuilder);
+  final mapData = mapBuilder.getData();
+  encoder.addBuilderOutput(mapData);
+
+  //  Get the encoded body
+  final data = inst.output.getData();
+
+  //  Decode the encoded body and pretty print it
+  inst.decodeFromInput();
+  final hdr = body.Hdr();
+  print(
+    "Encoded {NmpBase:{hdr:{"
+    "Op:${ hdr.Op } "
+    "Flags:${ hdr.Flags } "
+    "Len:${ hdr.Len } "
+    "Group:${ hdr.Group } "
+    "Seq:${ hdr.Seq } "
+    "Id:${ hdr.Id }}}} "
+    "${ inst.decodedToJSON() } "
+    "to:\n${ hexDump(data) }"
+  );
+
+  //  Return the encoded data
+  return data;
 }
 ```
 
