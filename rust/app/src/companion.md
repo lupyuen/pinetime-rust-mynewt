@@ -597,14 +597,14 @@ class ImageStateReadReq
 ```
 
 ```dart
-builder.writeString('a');   // key
-builder.writeURI('a/ur1');  // value
+builder.writeString('a');   // Key
+builder.writeURI('a/ur1');  // Value
 
-builder.writeString('b');       // key
-builder.writeEpoch(1234567899); // value
+builder.writeString('b');       // Key
+builder.writeEpoch(1234567899); // Value
 
-builder.writeString('c');            // key
-builder.writeDateTime('19/04/2020'); // value
+builder.writeString('c');            // Key
+builder.writeDateTime('19/04/2020'); // Value
 ```
 
 ```
