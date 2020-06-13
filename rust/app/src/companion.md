@@ -576,6 +576,37 @@ typed.Uint8Buffer BodyBytes(  //  Previously returns []byte
 }
 ```
 
+Yep the Dart code for encoding CBOR looks longer than Go... And we're not done yet!
+
+https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L345-L376
+
+```dart
+class ImageStateReadReq 
+  with NmpBase       //  Get and set SMP Message Header
+  implements NmpReq  //  SMP Request Message  
+{
+  //  NmpBase base;  //  Will not be encoded: `codec:"-"`
+
+  NmpMsg Msg() { return MsgFromReq(this); }
+
+  /// Encode the SMP Request fields to CBOR
+  void Encode(cbor.MapBuilder builder) {
+      //  No parameters needed, so we encode an empty map: {}
+  }
+}
+```
+
+```dart
+builder.writeString('a');   // key
+builder.writeURI('a/ur1');  // value
+
+builder.writeString('b');       // key
+builder.writeEpoch(1234567899); // value
+
+builder.writeString('c');            // key
+builder.writeDateTime('19/04/2020'); // value
+```
+
 ```
 DEBU[2020-05-19 04:46:14.519] Encoded &{NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:1 Seq:66 Id:0}}} to:
 00000000  a0                                                |.| 
