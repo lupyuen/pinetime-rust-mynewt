@@ -466,7 +466,29 @@ So that we can look at the call duration in the above chart... And figure out wh
 
 # CBOR Encoding in Dart
 
-TODO
+There's something odd about the Bluetooth LE messages that we transmit to (and receive from) PineTime...
+
+```
+00000000                           bf 66 69 6d 61 67 65 73  |        .fimages|
+00000010  9f bf 64 73 6c 6f 74 00  67 76 65 72 73 69 6f 6e  |..dslot.gversion|
+00000020  65 31 2e 30 2e 30 64 68  61 73 68 58 20 70 3e bb  |e1.0.0dhashX p>.|
+00000030  f8 11 45 8b 1f ad 18 9e  64 e3 a5 e0 f8 09 cb e6  |..E.....d.......|
+00000040  ba d8 83 c7 6b 3d d7 12  79 1c 82 2f b5 68 62 6f  |....k=..y../.hbo|
+00000050  6f 74 61 62 6c 65 f5 67  70 65 6e 64 69 6e 67 f4  |otable.gpending.|
+00000060  69 63 6f 6e 66 69 72 6d  65 64 f5 66 61 63 74 69  |iconfirmed.facti|
+00000070  76 65 f5 69 70 65 72 6d  61 6e 65 6e 74 f4 ff ff  |ve.ipermanent...|
+00000080  6b 73 70 6c 69 74 53 74  61 74 75 73 00 ff        |ksplitStatus..| 
+```
+
+_Why is there a mix of ASCII text and binary data in the message?_
+
+That's because our Bluetooth LE messages are encoded in [__Concise Binary Object Representation (CBOR)__](https://en.wikipedia.org/wiki/CBOR)!
+
+CBOR is like a compact binary form of JSON. The above chunk of data decodes to this JSON...
+
+```json
+{"images":[{"slot":0,"version":"1.0.0","hash":[112,62,187,248,17,69,139,31,173,24,158,100,227,165,224,248,9,203,230,186,216,131,199,107,61,215,18,121,28,130,47,181],"bootable":true,"pending":false,"confirmed":true,"active":true,"permanent":false}],"splitStatus":0}
+```
 
 ```
 DEBU[2020-05-19 04:46:14.519] Encoded &{NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:1 Seq:66 Id:0}}} to:
