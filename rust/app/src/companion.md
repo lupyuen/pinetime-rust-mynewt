@@ -173,7 +173,7 @@ _How shall we begin the code conversion from Go to Dart?_
 
     ```dart
     //  In Dart...
-    //  Import helper library for Byte Buffers. From https://pub.dev/packages/typed_data
+    //  Import the helper library for Byte Buffers: https://pub.dev/packages/typed_data
     import 'package:typed_data/typed_data.dart' as typed;
 
     //  Bytes() is a function that returns a byte array
@@ -507,10 +507,15 @@ CBOR is like a compact binary form of JSON. The above chunk of data is equivalen
 }
 ```
 
+In Newt Manager (the Go code that runs on Linux), we encode a Go  `struct` into CBOR like this...
+
 https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L129-L144
 
 ```go
-/// In Go...
+//  In Go...
+//  Import the codec library for CBOR Encoding and Decoding
+import "github.com/ugorji/go/codec"
+    
 /// Encode SMP Request Body with CBOR and return the byte array
 func BodyBytes(body interface{}) ([]byte, error) {
 	data := make([]byte, 0)
@@ -523,16 +528,18 @@ func BodyBytes(body interface{}) ([]byte, error) {
 }
 ```
 
+Here's the equivalent code in Dart that encodes our Dart `class` into a Bluetooth LE message...
+
 https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L141-L176
 
 ```dart
 //  In Dart...
-//  Import CBOR Encoder and Decoder library. From https://pub.dev/packages/cbor
+//  Import the CBOR Encoder and Decoder library: https://pub.dev/packages/cbor
 import 'package:cbor/cbor.dart' as cbor;
 
 /// Encode SMP Request Body with CBOR and return the byte array
-typed.Uint8Buffer BodyBytes(  //  Returns []byte
-  NmpReq body  //  Previously interface{}
+typed.Uint8Buffer BodyBytes(  //  Previously returns []byte
+  NmpReq body                 //  Previously interface{}
 ) {
   //  Get our CBOR instance. Always do this, it correctly initialises the decoder.
   final inst = cbor.Cbor();
