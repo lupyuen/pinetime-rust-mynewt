@@ -513,7 +513,7 @@ https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L129-L14
 
 ```go
 //  In Go...
-//  Import the codec library for CBOR Encoding and Decoding
+//  Import the codec library for CBOR Encoding and Decoding: https://godoc.org/github.com/ugorji/go/codec
 import "github.com/ugorji/go/codec"
     
 /// Encode SMP Request Body with CBOR and return the byte array
@@ -585,8 +585,6 @@ class ImageStateReadReq
   with NmpBase       //  Get and set SMP Message Header
   implements NmpReq  //  SMP Request Message  
 {
-  //  NmpBase base;  //  Will not be encoded: `codec:"-"`
-
   NmpMsg Msg() { return MsgFromReq(this); }
 
   /// Encode the SMP Request fields to CBOR
@@ -606,6 +604,10 @@ builder.writeEpoch(1234567899); // Value
 builder.writeString('c');            // Key
 builder.writeDateTime('19/04/2020'); // Value
 ```
+
+go attribute
+
+https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go#L114-L119
 
 ```
 DEBU[2020-05-19 04:46:14.519] Encoded &{NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:1 Seq:66 Id:0}}} to:
