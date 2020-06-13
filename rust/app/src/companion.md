@@ -26,6 +26,12 @@ _(Which will eventually be dressed up with [`gotk3`](https://github.com/gotk3/go
 
 _(The highlighted part shows the identical responses returned by PineTime to both apps over Bluetooth LE. So it really works!)_
 
+Here'a the video demo...
+
+- [Watch on YouTube](https://youtu.be/n396JA62NDk)
+
+- [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.3/companion-query-firmware.mov)
+
 # Go vs Dart Coding
 
 Let's learn to convert this chunk of Go code from [`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L36-L45)...
