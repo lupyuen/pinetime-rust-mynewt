@@ -72,16 +72,15 @@
 <li><a href="#but-some-go-structs-become-dart-mixins">3 But Some Go Structs Become Dart Mixins</a><ul></ul></li>
 <li><a href="#dive-deep-into-go-and-newt-manager">4 Dive Deep into Go and Newt Manager</a><ul></ul></li>
 <li><a href="#cbor-encoding-in-dart">5 CBOR Encoding in Dart</a><ul></ul></li>
-<li><a href="#demo">6 Demo</a><ul></ul></li>
-<li><a href="#convert-go-to-dart-line-by-line">7 Convert Go to Dart line by line</a><ul></ul></li>
-<li><a href="#test-dart-modules-on-command-line">8 Test Dart modules on Command Line</a><ul></ul></li>
+<li><a href="#test-dart-code-on-command-line">6 Test Dart Code on Command Line</a><ul></ul></li>
+<li><a href="#demo">7 Demo</a><ul></ul></li>
+<li><a href="#convert-go-to-dart-line-by-line">8 Convert Go to Dart line by line</a><ul></ul></li>
 <li><a href="#embed-dart-modules-in-flutter">9 Embed Dart modules in Flutter</a><ul></ul></li>
 <li><a href="#transmit-gatt-requests-in-flutter">10 Transmit GATT Requests in Flutter</a><ul></ul></li>
 <li><a href="#handle-gatt-responses-and-notifications-in-flutter">11 Handle GATT Responses and Notifications in Flutter</a><ul></ul></li>
 <li><a href="#dart-extension-for-vscode">12 Dart Extension for VSCode</a><ul></ul></li>
-<li><a href="#install-dart-on-raspberry-pi-and-pinebook-pro">13 Install Dart on Raspberry Pi and Pinebook Pro</a><ul></ul></li>
-<li><a href="#whats-next">14 What's Next</a><ul></ul></li>
-<li><a href="#further-reading">15 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/companion-title.png" alt="Convert Go to Flutter and Dart for PineTime Companion App" /></p>
+<li><a href="#whats-next">13 What's Next</a><ul></ul></li>
+<li><a href="#further-reading">14 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/companion-title.png" alt="Convert Go to Flutter and Dart for PineTime Companion App" /></p>
 <p>Can we take a <strong>single code base</strong>... And turn it into a mobile app for <strong>Android, iOS and Linux phones</strong> (like PinePhone)?</p>
 <p>And code it in a <strong>modern programming language</strong> with <strong>Garbage Collection</strong>... Without the scary C pointers?</p>
 <p>And talk <strong>Bluetooth Low Energy</strong> to other gadgets... Like <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>?</p>
@@ -566,7 +565,77 @@ builder.writeString('hash');  //  Key
 builder.writeArray(&lt;int&gt;[112, 62, 187, 248, 17, 69, 139, 31, 173, 24, 158, 100, 227, 165, 224, 248, 9, 203, 230, 186, 216, 131, 199, 107, 61, 215, 18, 121, 28, 130, 47, 181]);  //  Byte Array Value
 </code></pre>
 <p>This field encoding code is missing from Go because the CBOR Encoder in Go uses Field Tags (like <code>codec:&quot;slot&quot;</code>). Check this for an example of CBOR field encoding in Go: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go#L97-L108"><code>nmxact/nmp/image.go</code></a></p>
-<h1 id="demo" class="section-header"><a href="#demo">6 Demo</a></h1>
+<h1 id="test-dart-code-on-command-line" class="section-header"><a href="#test-dart-code-on-command-line">6 Test Dart Code on Command Line</a></h1>
+<p>Now that we have the Dart code to create a CBOR request message for PineTime... Let's test it!</p>
+<p>Dart makes testing really easy because Dart programs can be run from the command line.</p>
+<p>First we add a <code>main()</code> function that creates a CBOR request message: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L646-L661"><code>newtmgr.dart</code></a></p>
+<pre><code class="language-dart">/// Our Dart program starts jere
+void main() {
+  //  Compose a CBOR request for PineTime
+  composeRequest();
+}
+
+/// Compose a request to query firmware images on PineTime
+typed.Uint8Buffer composeRequest() {
+  //  Create the SMP Request
+  final req = NewImageStateReadReq();
+
+  //  Encode the SMP Message with CBOR
+  final msg = req.Msg();
+  final data = EncodeNmpPlain(msg);
+  return data;
+}
+</code></pre>
+<p>Add the dependent libraries to <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/pubspec.yaml"><code>pubspec.yaml</code></a>...</p>
+<pre><code class="language-yaml">name: newtmgr
+
+dependencies:
+  cbor:       ^3.2.0  #  CBOR Encoder and Decoder. From https://pub.dev/packages/cbor
+  typed_data: ^1.1.6  #  Helpers for Byte Buffers. From https://pub.dev/packages/typed_data
+</code></pre>
+<p>Download the Dart SDK: <a href="https://dart.dev/get-dart"><code>dart.dev</code></a></p>
+<p>If we're using 32-bit ARMv7 (like Pinebook Pro or Raspberry Pi), browse to the <a href="https://dart.dev/tools/sdk/archive">Dart SDK Archive</a> and download the <strong>Linux ARMv7 Dart SDK</strong>.</p>
+<p>Unzip to <code>~/dartsdk</code>. Edit <code>~/.bashrc</code> (or equivalent) and add <code>dartsdk/bin</code> to <code>PATH</code>...</p>
+<pre><code class="language-bash">export PATH=$PATH:$HOME/dartsdk/bin
+</code></pre>
+<p>Compile and run our dart program...</p>
+<pre><code class="language-bash">pub get
+dart newtmgr.dart 
+</code></pre>
+<p>We'll see this...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Encoded</span> {<span class="ident">NmpBase</span>:{<span class="ident">hdr</span>:{<span class="ident">Op</span>:<span class="number">0</span> <span class="ident">Flags</span>:<span class="number">0</span> <span class="ident">Len</span>:<span class="number">0</span> <span class="ident">Group</span>:<span class="number">1</span> <span class="ident">Seq</span>:<span class="number">187</span> <span class="ident">Id</span>:<span class="number">0</span>}}} {} <span class="ident">to</span>:
+<span class="ident">a0</span>
+<span class="ident">Encoded</span>:
+<span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">01</span> <span class="number">00</span> <span class="number">01</span> <span class="ident">bb</span> <span class="number">00</span> <span class="ident">a0</span></pre></div>
+<p><em>How did we get the 9 bytes <code>00</code> ... <code>a0</code> for our PineTime request message?</em></p>
+<p><code>a0</code> is the CBOR Encoding for the empty Message Body <code>{}</code>. Yep CBOR needs only one byte to encode the two-byte JSON!</p>
+<p>The preceding 8 bytes <code>00 00 00 01 00 01 bb 00</code> are the Message Header, defined in <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L29-L37"><code>newtmgr.dart</code></a></p>
+<pre><code class="language-dart">/// SMP Message Header
+class NmpHdr {
+  int Op;    //  Previously int8, 3 bits of opcode
+  int Flags; //  Previously uint8
+  int Len;   //  Previously uint16
+  int Group; //  Previously uint16
+  int Seq;   //  Previously uint8
+  int Id;    //  Previously uint8
+</code></pre>
+<p>According to the <a href="https://github.com/apache/mynewt-mcumgr">Simple Managememt Protocol</a> definition from <a href="https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h"><code>mgmt.h</code></a>...</p>
+<table><thead><tr><th align="left">Header Field</th><th align="left">Value</th><th align="left">Description</th></tr></thead><tbody>
+<tr><td align="left"><code>Op</code></td><td align="left"><code>00</code></td><td align="left"><a href="https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h#L33-L37">Operation Code</a> (0 for Read Request)</td></tr>
+<tr><td align="left"><code>Flags</code></td><td align="left"><code>00</code></td><td align="left">Unused</td></tr>
+<tr><td align="left"><code>Len</code></td><td align="left"><code>00 01</code></td><td align="left">Length of Message Body</td></tr>
+<tr><td align="left"><code>Group</code></td><td align="left"><code>00 01</code></td><td align="left"><a href="https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h#L39-L53">Group ID</a> (1 for Image Management)</td></tr>
+<tr><td align="left"><code>Seq</code></td><td align="left"><code>bb</code></td><td align="left">Message Sequence Number (first number is random, subsequent numbers are sequential)</td></tr>
+<tr><td align="left"><code>Id</code></td><td align="left"><code>00</code></td><td align="left">Message ID (0 for Image Listing)</td></tr>
+</tbody></table>
+<p>Thus we have created a valid PineTime Request Message that will list the firmware images stored in PineTime.</p>
+<p>In a while we'll integrate this tested Dart code into our Flutter mobile app for Android and iOS. And watch happens when we send this Request Message to PineTime over Bluetooth LE!</p>
+<p><a href="(https://github.com/apache/mynewt-mcumgr)">More about Simple Management Protocol</a></p>
+<p><a href="https://github.com/apache/mynewt-mcumgr/blob/master/smp/include/smp/smp.h">SMP Message Format</a></p>
+<p>For more about Dart and Flutter testing, check the <a href="https://dart.dev/guides/testing">Dart Testing Guide</a></p>
+<h1 id="demo" class="section-header"><a href="#demo">7 Demo</a></h1>
 <p>Here'a a video of our Flutter App sending a command over Bluetooth LE to query the firmware images loaded into PineTime...</p>
 <ul>
 <li>
@@ -576,19 +645,11 @@ builder.writeArray(&lt;int&gt;[112, 62, 187, 248, 17, 69, 139, 31, 173, 24, 158,
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.3/companion-query-firmware.mov">Download the video</a></p>
 </li>
 </ul>
-<h1 id="convert-go-to-dart-line-by-line" class="section-header"><a href="#convert-go-to-dart-line-by-line">7 Convert Go to Dart line by line</a></h1>
+<h1 id="convert-go-to-dart-line-by-line" class="section-header"><a href="#convert-go-to-dart-line-by-line">8 Convert Go to Dart line by line</a></h1>
 <p>TODO</p>
 <p>var or final</p>
 <p>make</p>
 <p>append</p>
-<h1 id="test-dart-modules-on-command-line" class="section-header"><a href="#test-dart-modules-on-command-line">8 Test Dart modules on Command Line</a></h1>
-<p>TODO</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Encoded</span> {<span class="ident">NmpBase</span>:{<span class="ident">hdr</span>:{<span class="ident">Op</span>:<span class="number">0</span> <span class="ident">Flags</span>:<span class="number">0</span> <span class="ident">Len</span>:<span class="number">0</span> <span class="ident">Group</span>:<span class="number">1</span> <span class="ident">Seq</span>:<span class="number">187</span> <span class="ident">Id</span>:<span class="number">0</span>}}} {} <span class="ident">to</span>:
-<span class="ident">a0</span>
-<span class="ident">Encoded</span>:
-<span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">01</span> <span class="number">00</span> <span class="number">01</span> <span class="ident">bb</span> <span class="number">00</span> <span class="ident">a0</span></pre></div>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">DEBU</span>[<span class="number">2020</span><span class="op">-</span><span class="number">05</span><span class="op">-</span><span class="number">19</span> <span class="number">04</span>:<span class="number">46</span>:<span class="number">14.519</span>] <span class="ident">Encoded</span> <span class="kw-2">&amp;</span>{<span class="ident">NmpBase</span>:{<span class="ident">hdr</span>:{<span class="ident">Op</span>:<span class="number">0</span> <span class="ident">Flags</span>:<span class="number">0</span> <span class="ident">Len</span>:<span class="number">0</span> <span class="ident">Group</span>:<span class="number">1</span> <span class="ident">Seq</span>:<span class="number">66</span> <span class="ident">Id</span>:<span class="number">0</span>}}} <span class="ident">to</span>:
@@ -610,7 +671,6 @@ builder.writeArray(&lt;int&gt;[112, 62, 187, 248, 17, 69, 139, 31, 173, 24, 158,
 <span class="number">00000070</span>  <span class="number">76</span> <span class="number">65</span> <span class="ident">f5</span> <span class="number">69</span> <span class="number">70</span> <span class="number">65</span> <span class="number">72</span> <span class="number">6d</span>  <span class="number">61</span> <span class="number">6e</span> <span class="number">65</span> <span class="number">6e</span> <span class="number">74</span> <span class="ident">f4</span> <span class="ident">ff</span> <span class="ident">ff</span>  <span class="op">|</span><span class="ident">ve</span>.<span class="ident">ipermanent</span>...<span class="op">|</span>
 <span class="number">00000080</span>  <span class="number">6b</span> <span class="number">73</span> <span class="number">70</span> <span class="number">6c</span> <span class="number">69</span> <span class="number">74</span> <span class="number">53</span> <span class="number">74</span>  <span class="number">61</span> <span class="number">74</span> <span class="number">75</span> <span class="number">73</span> <span class="number">00</span> <span class="ident">ff</span>        <span class="op">|</span><span class="ident">ksplitStatus</span>..<span class="op">|</span> 
 <span class="ident">DEBU</span>[<span class="number">2020</span><span class="op">-</span><span class="number">05</span><span class="op">-</span><span class="number">19</span> <span class="number">04</span>:<span class="number">46</span>:<span class="number">14.542</span>] <span class="ident">Received</span> <span class="ident">nmp</span> <span class="ident">rsp</span>: <span class="kw-2">&amp;</span>{<span class="ident">NmpBase</span>:{<span class="ident">hdr</span>:{<span class="ident">Op</span>:<span class="number">1</span> <span class="ident">Flags</span>:<span class="number">0</span> <span class="ident">Len</span>:<span class="number">134</span> <span class="ident">Group</span>:<span class="number">1</span> <span class="ident">Seq</span>:<span class="number">66</span> <span class="ident">Id</span>:<span class="number">0</span>}} <span class="ident">Rc</span>:<span class="number">0</span> <span class="ident">Images</span>:[{<span class="ident">NmpBase</span>:{<span class="ident">hdr</span>:{<span class="ident">Op</span>:<span class="number">0</span> <span class="ident">Flags</span>:<span class="number">0</span> <span class="ident">Len</span>:<span class="number">0</span> <span class="ident">Group</span>:<span class="number">0</span> <span class="ident">Seq</span>:<span class="number">0</span> <span class="ident">Id</span>:<span class="number">0</span>}} <span class="ident">Image</span>:<span class="number">0</span> <span class="ident">Slot</span>:<span class="number">0</span> <span class="ident">Version</span>:<span class="number">1.0</span>.<span class="number">0</span> <span class="ident">Hash</span>:[<span class="number">112</span> <span class="number">62</span> <span class="number">187</span> <span class="number">248</span> <span class="number">17</span> <span class="number">69</span> <span class="number">139</span> <span class="number">31</span> <span class="number">173</span> <span class="number">24</span> <span class="number">158</span> <span class="number">100</span> <span class="number">227</span> <span class="number">165</span> <span class="number">224</span> <span class="number">248</span> <span class="number">9</span> <span class="number">203</span> <span class="number">230</span> <span class="number">186</span> <span class="number">216</span> <span class="number">131</span> <span class="number">199</span> <span class="number">107</span> <span class="number">61</span> <span class="number">215</span> <span class="number">18</span> <span class="number">121</span> <span class="number">28</span> <span class="number">130</span> <span class="number">47</span> <span class="number">181</span>] <span class="ident">Bootable</span>:<span class="bool-val">true</span> <span class="ident">Pending</span>:<span class="bool-val">false</span> <span class="ident">Confirmed</span>:<span class="bool-val">true</span> <span class="ident">Active</span>:<span class="bool-val">true</span> <span class="ident">Permanent</span>:<span class="bool-val">false</span>}] <span class="ident">SplitStatus</span>:<span class="ident">N</span><span class="op">/</span><span class="ident">A</span>} </pre></div>
-<p>Attributes</p>
 <p>Next we connect to PineTime over Bluetooth LE and list the firmware images stored in PineTime's Internal Flash ROM (Active Firmware) and External SPI Flash (Standby Firmware). </p>
 <p>Note that we're using the <code>--loglevel debug</code> option, which shows all Bluetooth request and response packets.</p>
 <p>Make sure that Go Tracing is disabled, because the debug messages are logged to Standard Error and will interfere with Go Tracing.</p>
@@ -661,15 +721,13 @@ builder.writeArray(&lt;int&gt;[112, 62, 187, 248, 17, 69, 139, 31, 173, 24, 158,
 <p>TODO</p>
 <h1 id="dart-extension-for-vscode" class="section-header"><a href="#dart-extension-for-vscode">12 Dart Extension for VSCode</a></h1>
 <p>TODO</p>
-<h1 id="install-dart-on-raspberry-pi-and-pinebook-pro" class="section-header"><a href="#install-dart-on-raspberry-pi-and-pinebook-pro">13 Install Dart on Raspberry Pi and Pinebook Pro</a></h1>
-<p>TODO</p>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">14 What's Next</a></h1>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">13 What's Next</a></h1>
 <p>TODO</p>
 <p>I'll be using the code in this article to create the open source <strong>PineTime Companion App</strong> for Android and iOS. So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications, chart our heart rate, ...</p>
 <p>Flutter makes it really easy to maintain a single code base for Android and iOS... And <code>flutter_blue</code> makes Bluetooth LE coding so simple!</p>
 <p>If you're keen to help out, come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!</p>
 <p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Matrix / Discord / Telegram / IRC</a></p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">15 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">14 Further Reading</a></h1>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">&quot;Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)&quot;</a></em></p>
