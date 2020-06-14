@@ -679,21 +679,21 @@ Encoded:
 00 00 00 01 00 01 bb 00 a0
 ```
 
-_How did we get the 9 bytes `00` ... `a0`?_
+_How did we get the 9 bytes `00` ... `a0` for our PineTime request message?_
 
-`a0` is the CBOR Encoding for the empty Message Body `{}`
+`a0` is the CBOR Encoding for the empty Message Body `{}`. Yep CBOR needs only one byte to encode the two-byte JSON!
 
 The preceding 8 bytes `00 00 00 01 00 01 bb 00` are the Message Header, defined in [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/main/newtmgr.dart#L29-L37)
 
 ```dart
 /// SMP Message Header
 class NmpHdr {
-  int Op;    //  uint8: 3 bits of opcode
-  int Flags; //  uint8
-  int Len;   //  uint16
-  int Group; //  uint16
-  int Seq;   //  uint8
-  int Id;    //  uint8
+  int Op;    //  Previously int8, 3 bits of opcode
+  int Flags; //  Previously uint8
+  int Len;   //  Previously uint16
+  int Group; //  Previously uint16
+  int Seq;   //  Previously uint8
+  int Id;    //  Previously uint8
 ```
 
 According to the [Simple Managememt Protocol](https://github.com/apache/mynewt-mcumgr) definition from [`mgmt.h`](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h
@@ -707,6 +707,10 @@ According to the [Simple Managememt Protocol](https://github.com/apache/mynewt-m
 | `Group` | `00 01` | [Group ID](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h#L39-L53) (1 for Image Management)
 | `Seq`   | `bb` | Message Sequence Number (first number is random, subsequent numbers are sequential)
 | `Id`    | `00` | Message ID (0 for Image Listing)
+
+Thus we have created a valid PineTime Request Message that will list the firmware images stored in PineTime.
+
+In a while we'll integrate this tested Dart code into our Flutter mobile app for Android and iOS.
 
 [More about Simple Management Protocol]((https://github.com/apache/mynewt-mcumgr))
 
