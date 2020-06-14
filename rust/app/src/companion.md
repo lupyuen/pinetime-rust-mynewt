@@ -643,7 +643,7 @@ typed.Uint8Buffer composeRequest() {
 }
 ```
 
-Add the dependent libraries to [`pubspec.yaml`](https://github.com/lupyuen/mynewt-newtmgr/blob/main/pubspec.yaml#L1-L6)...
+Add the dependent libraries to [`pubspec.yaml`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/pubspec.yaml)...
 
 ```yaml
 name: newtmgr
@@ -683,7 +683,7 @@ _How did we get the 9 bytes `00` ... `a0` for our PineTime request message?_
 
 `a0` is the CBOR Encoding for the empty Message Body `{}`. Yep CBOR needs only one byte to encode the two-byte JSON!
 
-The preceding 8 bytes `00 00 00 01 00 01 bb 00` are the Message Header, defined in [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/main/newtmgr.dart#L29-L37)
+The preceding 8 bytes `00 00 00 01 00 01 bb 00` are the Message Header, defined in [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L29-L37)
 
 ```dart
 /// SMP Message Header
