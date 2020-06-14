@@ -724,6 +724,12 @@ _["Your First Bluetooth Low Energy App with Flutter"](https://lupyuen.github.io/
 
 https://github.com/lupyuen/pinetime-companion
 
+from:
+https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart
+
+to:
+https://github.com/lupyuen/pinetime-companion/blob/master/lib/newtmgr.dart
+
 https://github.com/lupyuen/pinetime-companion/blob/master/lib/main.dart#L154-L197
 
 ```dart
@@ -765,6 +771,8 @@ class DeviceScreen extends StatelessWidget {
                   },
 ```
 
+![Characteristic Tile with Read, Write, Notify icons](https://lupyuen.github.io/images/companion-characteristic.png)
+
 https://github.com/lupyuen/pinetime-companion/blob/master/lib/main.dart#L154-L197
 
 ```dart
@@ -789,25 +797,17 @@ dependencies:
   typed_data:   ^1.1.6  #  Helpers for Byte Buffers. From https://pub.dev/packages/typed_data
 ```
 
-from:
-https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart
-
-to:
-https://github.com/lupyuen/pinetime-companion/blob/master/lib/newtmgr.dart
-
-https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart
-
-https://gist.github.com/lupyuen/1354b090a989a818b403685ecfa12d55
-
 https://bloclibrary.dev/#/flutterweathertutorial
 
-# Demo
+# Run Our Flutter App
 
 Here'a a video of our Flutter App sending a command over Bluetooth LE to query the firmware images loaded into PineTime...
 
 - [Watch on YouTube](https://youtu.be/n396JA62NDk)
 
 - [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.3/companion-query-firmware.mov)
+
+TODO: Why notify not read?
 
 # Convert Go to Dart line by line
 
