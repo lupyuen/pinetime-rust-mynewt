@@ -720,45 +720,73 @@ For more about Dart and Flutter testing, check the [Dart Testing Guide](https://
 
 # Add Dart Code to Flutter App
 
+_["Your First Bluetooth Low Energy App with Flutter"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter)_
 
-```dart
-import 'newtmgr.dart';
-```
+https://github.com/lupyuen/pinetime-companion
 
 https://github.com/lupyuen/pinetime-companion/blob/master/lib/main.dart#L154-L197
 
 ```dart
+/// Screen that displays GATT Services and Characteristics for a Bluetooth LE device
 class DeviceScreen extends StatelessWidget {
   ...
+  /// Return a list of widgets that renders the GATT Services and Characteristics
   List<Widget> _buildServiceTiles(List<BluetoothService> services) {
     return services
+        //  For each GATT Service...
         .map(
+          //  Render the GATT Service
           (s) => ServiceTile(
             service: s,
             characteristicTiles: s.characteristics
-                .map(
-                  (c) => CharacteristicTile(
-                    characteristic: c,
-                    onReadPressed: () => c.read(),
-                    onWritePressed: () async {
-                      await c.write(_getRequestBytes(), withoutResponse: true);
-                      ////TODO: await c.read();  //  Crashes with SMP
-                    },
-                    onNotificationPressed: () async {
-                      await c.setNotifyValue(!c.isNotifying);
-                      ////TODO: await c.read();  //  Crashes with SMP
-                    },
+              //  For each GATT Characteristic...
+              .map(
+                //  Render the GATT Characteristic and the Read, Write, Notify icons
+                (c) => CharacteristicTile(
+                  characteristic: c,
+
+                  /// When the Read icon is pressed: Read the GATT Characteristic
+                  onReadPressed: () => c.read(),
+
+                  /// When the Write icon is pressed...
+                  onWritePressed: () async {
+                    //  Write our PineTime Request Message to the GATT Characteristic
+                    await c.write(_getRequestBytes(), withoutResponse: true);
+                    //  Causes read not ready exception:
+                    //  await c.read();
+                  },
+
+                  /// When the Notify icon is pressed...
+                  onNotificationPressed: () async {
+                    //  Subcribe to notifications from the GATT Characteristic
+                    await c.setNotifyValue(!c.isNotifying);
+                    //  Causes read not ready exception:
+                    //  await c.read();
+                  },
 ```
 
 https://github.com/lupyuen/pinetime-companion/blob/master/lib/main.dart#L154-L197
 
 ```dart
+//  Import the Dart code for composing PineTime requests
+import 'newtmgr.dart';
+
+/// Screen that displays GATT Services and Characteristics for a Bluetooth LE device
 class DeviceScreen extends StatelessWidget {
   ...
+  /// Compose a PineTime Request Message and return the message bytes
   List<int> _getRequestBytes() {
     final data = composeRequest();
     return data;
   }
+```
+
+https://github.com/lupyuen/pinetime-companion/blob/14df42acb796de6a8f60ace1994d3d39c0f9fb5d/pubspec.yaml#L8-L12
+
+```yaml
+dependencies:
+  cbor:         ^3.2.0  #  CBOR Encoder and Decoder. From https://pub.dev/packages/cbor
+  typed_data:   ^1.1.6  #  Helpers for Byte Buffers. From https://pub.dev/packages/typed_data
 ```
 
 from:
@@ -766,14 +794,6 @@ https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart
 
 to:
 https://github.com/lupyuen/pinetime-companion/blob/master/lib/newtmgr.dart
-
-Read Icon 
-
-Write Icon
-
-Notify Icon
-
-https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter
 
 https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart
 
@@ -892,6 +912,8 @@ If you're keen to help out, come chat with the PineTime FOSS Community (and me) 
 [PineTime Chatroom on Matrix / Discord / Telegram / IRC](https://wiki.pine64.org/index.php/PineTime#Community)
 
 # Further Reading
+
+_["Your First Bluetooth Low Energy App with Flutter"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter)_
 
 _["MCUBoot Bootloader for PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot)_
 
