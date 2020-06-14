@@ -616,6 +616,71 @@ builder.writeArray(<int>[112, 62, 187, 248, 17, 69, 139, 31, 173, 24, 158, 100, 
 
 This field encoding code is missing from Go because the CBOR Encoder in Go uses Field Tags (like `codec:"slot"`). Check this for an example of CBOR field encoding in Go: [`nmxact/nmp/image.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go#L97-L108)
 
+# Test Dart Code on Command Line
+
+Now that we have the Dart code to create a CBOR request message for PineTime... Let's test it!
+
+Dart makes testing really easy because Dart programs can be run from the command line.
+
+First we add a `main()` function that creates a CBOR request message: [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L646-L661)
+
+```dart
+/// Our Dart program starts jere
+void main() {
+  //  Compose a CBOR request for PineTime
+  composeRequest();
+}
+
+/// Compose a request to query firmware images on PineTime
+typed.Uint8Buffer composeRequest() {
+  //  Create the SMP Request
+  final req = NewImageStateReadReq();
+
+  //  Encode the SMP Message with CBOR
+  final msg = req.Msg();
+  final data = EncodeNmpPlain(msg);
+  return data;
+}
+```
+
+Add the dependent libraries to [`pubspec.yaml`](https://github.com/lupyuen/mynewt-newtmgr/blob/main/pubspec.yaml#L1-L6)...
+
+```yaml
+name: newtmgr
+
+dependencies:
+  cbor:       ^3.2.0  #  CBOR Encoder and Decoder. From https://pub.dev/packages/cbor
+  typed_data: ^1.1.6  #  Helpers for Byte Buffers. From https://pub.dev/packages/typed_data
+```
+
+Download the Dart SDK: [`dart.dev`](https://dart.dev/get-dart)
+
+If we're using 32-bit ARMv7 (like Pinebook Pro or Raspberry Pi), browse to the [Dart SDK Archive](https://dart.dev/tools/sdk/archive) and download the __Linux ARMv7 Dart SDK__.
+
+Unzip to `~/dartsdk`. Edit `~/.bashrc` (or equivalent) and add `dartsdk/bin` to `PATH`...
+
+```bash
+export PATH=$PATH:$HOME/dartsdk/bin
+```
+
+Compile and run our dart program...
+
+```bash
+pub get
+dart newtmgr.dart 
+```
+
+We'll see this...
+
+```
+Encoded {NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:1 Seq:187 Id:0}}} {} to:
+a0
+Encoded:
+00 00 00 01 00 01 bb 00 a0
+```
+
+For more about Dart and Flutter testing, check the [Dart Testing Guide](https://dart.dev/guides/testing)
+
 # Demo
 
 Here'a a video of our Flutter App sending a command over Bluetooth LE to query the firmware images loaded into PineTime...
@@ -633,17 +698,6 @@ var or final
 make
 
 append
-
-# Test Dart modules on Command Line
-
-TODO
-
-```
-Encoded {NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:1 Seq:187 Id:0}}} {} to:
-a0
-Encoded:
-00 00 00 01 00 01 bb 00 a0
-```
 
 ```
 DEBU[2020-05-19 04:46:14.519] Encoded &{NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:1 Seq:66 Id:0}}} to:
@@ -667,8 +721,6 @@ DEBU[2020-05-19 04:46:14.542] rx nmp response:
 00000080  6b 73 70 6c 69 74 53 74  61 74 75 73 00 ff        |ksplitStatus..| 
 DEBU[2020-05-19 04:46:14.542] Received nmp rsp: &{NmpBase:{hdr:{Op:1 Flags:0 Len:134 Group:1 Seq:66 Id:0}} Rc:0 Images:[{NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:0 Seq:0 Id:0}} Image:0 Slot:0 Version:1.0.0 Hash:[112 62 187 248 17 69 139 31 173 24 158 100 227 165 224 248 9 203 230 186 216 131 199 107 61 215 18 121 28 130 47 181] Bootable:true Pending:false Confirmed:true Active:true Permanent:false}] SplitStatus:N/A} 
 ```
-
-Attributes
 
 Next we connect to PineTime over Bluetooth LE and list the firmware images stored in PineTime's Internal Flash ROM (Active Firmware) and External SPI Flash (Standby Firmware). 
 
@@ -742,6 +794,169 @@ TODO
 # Install Dart on Raspberry Pi and Pinebook Pro
 
 TODO
+
+For creating the PineTime Companion App for Android and iOS with Flutter.  See 
+
+1. https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu
+
+1. https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter
+
+The Bluetooth LE logic for PineTime is already coded in Go (newtmgr's Simple Management Protocol). So we'll port newtmgr from Go to Flutter / Dart.
+
+Porting of the List Images command from Go to Dart is complete: https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.1/cbor-encode.png
+
+Now merging into Flutter app: https://github.com/lupyuen/pinetime-companion
+
+Convert Go to Dart
+
+Now converting newtmgr implementation of Simple Management Protocol from Go to Dart...
+
+From Go: https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go
+
+To Dart: https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart
+
+Using the DartPad web app to convert Go to Dart for simple code: https://dartpad.dev/40308e0a5f47acba46ba62f4d8be2bf4
+
+See...
+
+1. https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.1/go-to-dart.png
+
+1. https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.1/dartpad.png
+
+Sample SMP request
+
+From https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest
+
+```
+DEBU[2020-05-19 04:46:13.693] Using connection profile: name=pinetime type=ble connstring=peer_name=pinetime 
+DEBU[2020-05-19 04:46:14.023] Connecting to peer                           
+DEBU[2020-05-19 04:46:14.244] Exchanging MTU                               
+DEBU[2020-05-19 04:46:14.256] Exchanged MTU; ATT MTU = 256                 
+DEBU[2020-05-19 04:46:14.256] Discovering profile                          
+DEBU[2020-05-19 04:46:14.503] Subscribing to NMP response characteristic   
+DEBU[2020-05-19 04:46:14.518] {add-nmp-listener} [bll_sesn.go:392] seq=66  
+DEBU[2020-05-19 04:46:14.519] Encoded &{NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:1 Seq:66 Id:0}}} to:
+00000000  a0                                                |.| 
+DEBU[2020-05-19 04:46:14.519] Encoded:
+00000000  00 00 00 01 00 01 42 00  a0                       |......B..| 
+DEBU[2020-05-19 04:46:14.519] Tx NMP request: 00000000  00 00 00 01 00 01 42 00  a0                       |......B..| 
+DEBU[2020-05-19 04:46:14.542] rx nmp response: 00000000  01 00 00 86 00 01 42 00  bf 66 69 6d 61 67 65 73  |......B..fimages|
+00000010  9f bf 64 73 6c 6f 74 00  67 76 65 72 73 69 6f 6e  |..dslot.gversion|
+00000020  65 31 2e 30 2e 30 64 68  61 73 68 58 20 70 3e bb  |e1.0.0dhashX p>.|
+00000030  f8 11 45 8b 1f ad 18 9e  64 e3 a5 e0 f8 09 cb e6  |..E.....d.......|
+00000040  ba d8 83 c7 6b 3d d7 12  79 1c 82 2f b5 68 62 6f  |....k=..y../.hbo|
+00000050  6f 74 61 62 6c 65 f5 67  70 65 6e 64 69 6e 67 f4  |otable.gpending.|
+00000060  69 63 6f 6e 66 69 72 6d  65 64 f5 66 61 63 74 69  |iconfirmed.facti|
+00000070  76 65 f5 69 70 65 72 6d  61 6e 65 6e 74 f4 ff ff  |ve.ipermanent...|
+00000080  6b 73 70 6c 69 74 53 74  61 74 75 73 00 ff        |ksplitStatus..| 
+DEBU[2020-05-19 04:46:14.542] Received nmp rsp: &{NmpBase:{hdr:{Op:1 Flags:0 Len:134 Group:1 Seq:66 Id:0}} Rc:0 Images:[{NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:0 Seq:0 Id:0}} Image:0 Slot:0 Version:1.0.0 Hash:[112 62 187 248 17 69 139 31 173 24 158 100 227 165 224 248 9 203 230 186 216 131 199 107 61 215 18 121 28 130 47 181] Bootable:true Pending:false Confirmed:true Active:true Permanent:false}] SplitStatus:N/A} 
+DEBU[2020-05-19 04:46:14.543] {remove-nmp-listener} [bll_sesn.go:392] seq=66 
+Images:
+image=0 slot=0
+    version: 1.0.0
+    bootable: true
+    flags: active confirmed
+    hash: 703ebbf811458b1fad189e64e3a5e0f809cbe6bad883c76b3dd712791c822fb5
+Split status: N/A (0)  
+```
+About Simple Management Protocol
+
+See https://github.com/apache/mynewt-mcumgr
+
+SMP Protocol Definition
+
+https://github.com/apache/mynewt-mcumgr/blob/master/smp/include/smp/smp.h
+
+```c
+/**
+ * @file
+ * @brief SMP - Simple Management Protocol.
+ *
+ * SMP is a basic protocol that sits on top of the mgmt layer.  SMP requests
+ * and responses have the following format:
+ *
+ *     [Offset 0]: Mgmt header
+ *     [Offset 8]: CBOR map of command-specific key-value pairs.
+ *
+ * SMP request packets may contain multiple concatenated requests.  Each
+ * request must start at an offset that is a multiple of 4, so padding should
+ * be inserted between requests as necessary.  Requests are processed
+ * sequentially from the start of the packet to the end.  Each response is sent
+ * individually in its own packet.  If a request elicits an error response,
+ * processing of the packet is aborted.
+ */
+```
+
+Mgmt Header Definition
+
+https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h
+
+```c
+/* MTU for newtmgr responses */
+#define MGMT_MAX_MTU            1024
+
+/** Opcodes; encoded in first byte of header. */
+#define MGMT_OP_READ            0
+#define MGMT_OP_READ_RSP        1
+#define MGMT_OP_WRITE           2
+#define MGMT_OP_WRITE_RSP       3
+
+/**
+ * The first 64 groups are reserved for system level mcumgr commands.
+ * Per-user commands are then defined after group 64.
+ */
+#define MGMT_GROUP_ID_OS        0
+#define MGMT_GROUP_ID_IMAGE     1
+#define MGMT_GROUP_ID_STAT      2
+#define MGMT_GROUP_ID_CONFIG    3
+#define MGMT_GROUP_ID_LOG       4
+#define MGMT_GROUP_ID_CRASH     5
+#define MGMT_GROUP_ID_SPLIT     6
+#define MGMT_GROUP_ID_RUN       7
+#define MGMT_GROUP_ID_FS        8
+#define MGMT_GROUP_ID_SHELL     9
+#define MGMT_GROUP_ID_PERUSER   64
+
+/**
+ * mcumgr error codes.
+ */
+#define MGMT_ERR_EOK            0
+#define MGMT_ERR_EUNKNOWN       1
+#define MGMT_ERR_ENOMEM         2
+#define MGMT_ERR_EINVAL         3
+#define MGMT_ERR_ETIMEOUT       4
+#define MGMT_ERR_ENOENT         5
+#define MGMT_ERR_EBADSTATE      6       /* Current state disallows command. */
+#define MGMT_ERR_EMSGSIZE       7       /* Response too large. */
+#define MGMT_ERR_ENOTSUP        8       /* Command not supported. */
+#define MGMT_ERR_ECORRUPT       9       /* Corrupt */
+#define MGMT_ERR_EPERUSER       256
+
+#define MGMT_HDR_SIZE           8
+
+/*
+ * MGMT event opcodes.
+ */
+#define MGMT_EVT_OP_CMD_RECV            0x01
+#define MGMT_EVT_OP_CMD_STATUS          0x02
+#define MGMT_EVT_OP_CMD_DONE            0x03
+
+struct mgmt_hdr {
+#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+    uint8_t  nh_op:3;           /* MGMT_OP_[...] */
+    uint8_t  _res1:5;
+#endif
+#if __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
+    uint8_t  _res1:5;
+    uint8_t  nh_op:3;           /* MGMT_OP_[...] */
+#endif
+    uint8_t  nh_flags;          /* Reserved for future flags */
+    uint16_t nh_len;            /* Length of the payload */
+    uint16_t nh_group;          /* MGMT_GROUP_ID_[...] */
+    uint8_t  nh_seq;            /* Sequence number */
+    uint8_t  nh_id;             /* Message ID within group */
+};
+```
 
 # What's Next
 
