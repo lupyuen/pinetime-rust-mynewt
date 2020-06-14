@@ -718,6 +718,69 @@ In a while we'll integrate this tested Dart code into our Flutter mobile app for
 
 For more about Dart and Flutter testing, check the [Dart Testing Guide](https://dart.dev/guides/testing)
 
+# Add Dart Code to Flutter App
+
+
+```dart
+import 'newtmgr.dart';
+```
+
+https://github.com/lupyuen/pinetime-companion/blob/master/lib/main.dart#L154-L197
+
+```dart
+class DeviceScreen extends StatelessWidget {
+  ...
+  List<Widget> _buildServiceTiles(List<BluetoothService> services) {
+    return services
+        .map(
+          (s) => ServiceTile(
+            service: s,
+            characteristicTiles: s.characteristics
+                .map(
+                  (c) => CharacteristicTile(
+                    characteristic: c,
+                    onReadPressed: () => c.read(),
+                    onWritePressed: () async {
+                      await c.write(_getRequestBytes(), withoutResponse: true);
+                      ////TODO: await c.read();  //  Crashes with SMP
+                    },
+                    onNotificationPressed: () async {
+                      await c.setNotifyValue(!c.isNotifying);
+                      ////TODO: await c.read();  //  Crashes with SMP
+                    },
+```
+
+https://github.com/lupyuen/pinetime-companion/blob/master/lib/main.dart#L154-L197
+
+```dart
+class DeviceScreen extends StatelessWidget {
+  ...
+  List<int> _getRequestBytes() {
+    final data = composeRequest();
+    return data;
+  }
+```
+
+from:
+https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart
+
+to:
+https://github.com/lupyuen/pinetime-companion/blob/master/lib/newtmgr.dart
+
+Read Icon 
+
+Write Icon
+
+Notify Icon
+
+https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter
+
+https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart
+
+https://gist.github.com/lupyuen/1354b090a989a818b403685ecfa12d55
+
+https://bloclibrary.dev/#/flutterweathertutorial
+
 # Demo
 
 Here'a a video of our Flutter App sending a command over Bluetooth LE to query the firmware images loaded into PineTime...
@@ -803,18 +866,6 @@ image=0 slot=0
     hash: 703ebbf811458b1fad189e64e3a5e0f809cbe6bad883c76b3dd712791c822fb5
 Split status: N/A (0)    
 ```
-
-# Embed Dart modules in Flutter
-
-TODO
-
-https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter
-
-https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart
-
-https://gist.github.com/lupyuen/1354b090a989a818b403685ecfa12d55
-
-https://bloclibrary.dev/#/flutterweathertutorial
 
 # Transmit GATT Requests in Flutter
 
