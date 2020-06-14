@@ -523,13 +523,13 @@ import "github.com/ugorji/go/codec"
     
 /// Encode SMP Request Body with CBOR and return the byte array
 func BodyBytes(body interface{}) ([]byte, error) {
-	data := make([]byte, 0)
-	enc := codec.NewEncoderBytes(&data, new(codec.CborHandle))
-	if err := enc.Encode(body); err != nil {
-		return nil, fmt.Errorf("Failed to encode message %s", err.Error())
-	}
-	log.Debugf("Encoded %+v to:\n%s", body, hex.Dump(data))
-	return data, nil
+    data := make([]byte, 0)
+    enc := codec.NewEncoderBytes(&data, new(codec.CborHandle))
+    if err := enc.Encode(body); err != nil {
+        return nil, fmt.Errorf("Failed to encode message %s", err.Error())
+    }
+    log.Debugf("Encoded %+v to:\n%s", body, hex.Dump(data))
+    return data, nil
 }
 ```
 
@@ -594,7 +594,7 @@ class ImageStateReadReq
 
   /// Encode the SMP Request fields to CBOR
   void Encode(cbor.MapBuilder builder) {
-      //  No message fields needed, so we encode an empty map: {}
+    //  No message fields needed, so we encode an empty map: {}
   }
 }
 ```

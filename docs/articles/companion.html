@@ -487,13 +487,13 @@ import &quot;github.com/ugorji/go/codec&quot;
     
 /// Encode SMP Request Body with CBOR and return the byte array
 func BodyBytes(body interface{}) ([]byte, error) {
-	data := make([]byte, 0)
-	enc := codec.NewEncoderBytes(&amp;data, new(codec.CborHandle))
-	if err := enc.Encode(body); err != nil {
-		return nil, fmt.Errorf(&quot;Failed to encode message %s&quot;, err.Error())
-	}
-	log.Debugf(&quot;Encoded %+v to:\n%s&quot;, body, hex.Dump(data))
-	return data, nil
+    data := make([]byte, 0)
+    enc := codec.NewEncoderBytes(&amp;data, new(codec.CborHandle))
+    if err := enc.Encode(body); err != nil {
+        return nil, fmt.Errorf(&quot;Failed to encode message %s&quot;, err.Error())
+    }
+    log.Debugf(&quot;Encoded %+v to:\n%s&quot;, body, hex.Dump(data))
+    return data, nil
 }
 </code></pre>
 <p>Here's the equivalent code in Dart that encodes our Dart <code>class</code> into a Bluetooth LE message: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L141-L176"><code>newtmgr.dart</code></a></p>
@@ -550,7 +550,7 @@ typed.Uint8Buffer BodyBytes(  //  Previously returns []byte
 
   /// Encode the SMP Request fields to CBOR
   void Encode(cbor.MapBuilder builder) {
-      //  No message fields needed, so we encode an empty map: {}
+    //  No message fields needed, so we encode an empty map: {}
   }
 }
 </code></pre>
