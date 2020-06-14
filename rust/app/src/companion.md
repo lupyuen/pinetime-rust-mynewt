@@ -679,6 +679,39 @@ Encoded:
 00 00 00 01 00 01 bb 00 a0
 ```
 
+_How did we get the 9 bytes `00` ... `a0`?_
+
+`a0` is the CBOR Encoding for the empty Message Body `{}`
+
+The preceding 8 bytes `00 00 00 01 00 01 bb 00` are the Message Header, defined in [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/main/newtmgr.dart#L29-L37)
+
+```dart
+/// SMP Message Header
+class NmpHdr {
+  int Op;    //  uint8: 3 bits of opcode
+  int Flags; //  uint8
+  int Len;   //  uint16
+  int Group; //  uint16
+  int Seq;   //  uint8
+  int Id;    //  uint8
+```
+
+According to the [Simple Managememt Protocol](https://github.com/apache/mynewt-mcumgr) definition from [`mgmt.h`](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h
+)...
+
+| Header Field | Value | Description
+| :--- | :--- | :--- 
+| `Op`    | `00`    | [Operation Code](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h#L33-L37) (0 for Read Request)
+| `Flags` | `00`    | Unused
+| `Len`   | `00 01` | Length of Message Body
+| `Group` | `00 01` | [Group ID](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h#L39-L53) (1 for Image Management)
+| `Seq`   | `bb` | Message Sequence Number (first number is random, subsequent numbers are sequential)
+| `Id`    | `00` | Message ID (0 for Image Listing)
+
+[More about Simple Management Protocol]((https://github.com/apache/mynewt-mcumgr))
+
+[SMP Message Format](https://github.com/apache/mynewt-mcumgr/blob/master/smp/include/smp/smp.h)
+
 For more about Dart and Flutter testing, check the [Dart Testing Guide](https://dart.dev/guides/testing)
 
 # Demo
@@ -858,104 +891,6 @@ image=0 slot=0
     flags: active confirmed
     hash: 703ebbf811458b1fad189e64e3a5e0f809cbe6bad883c76b3dd712791c822fb5
 Split status: N/A (0)  
-```
-About Simple Management Protocol
-
-See https://github.com/apache/mynewt-mcumgr
-
-SMP Protocol Definition
-
-https://github.com/apache/mynewt-mcumgr/blob/master/smp/include/smp/smp.h
-
-```c
-/**
- * @file
- * @brief SMP - Simple Management Protocol.
- *
- * SMP is a basic protocol that sits on top of the mgmt layer.  SMP requests
- * and responses have the following format:
- *
- *     [Offset 0]: Mgmt header
- *     [Offset 8]: CBOR map of command-specific key-value pairs.
- *
- * SMP request packets may contain multiple concatenated requests.  Each
- * request must start at an offset that is a multiple of 4, so padding should
- * be inserted between requests as necessary.  Requests are processed
- * sequentially from the start of the packet to the end.  Each response is sent
- * individually in its own packet.  If a request elicits an error response,
- * processing of the packet is aborted.
- */
-```
-
-Mgmt Header Definition
-
-https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h
-
-```c
-/* MTU for newtmgr responses */
-#define MGMT_MAX_MTU            1024
-
-/** Opcodes; encoded in first byte of header. */
-#define MGMT_OP_READ            0
-#define MGMT_OP_READ_RSP        1
-#define MGMT_OP_WRITE           2
-#define MGMT_OP_WRITE_RSP       3
-
-/**
- * The first 64 groups are reserved for system level mcumgr commands.
- * Per-user commands are then defined after group 64.
- */
-#define MGMT_GROUP_ID_OS        0
-#define MGMT_GROUP_ID_IMAGE     1
-#define MGMT_GROUP_ID_STAT      2
-#define MGMT_GROUP_ID_CONFIG    3
-#define MGMT_GROUP_ID_LOG       4
-#define MGMT_GROUP_ID_CRASH     5
-#define MGMT_GROUP_ID_SPLIT     6
-#define MGMT_GROUP_ID_RUN       7
-#define MGMT_GROUP_ID_FS        8
-#define MGMT_GROUP_ID_SHELL     9
-#define MGMT_GROUP_ID_PERUSER   64
-
-/**
- * mcumgr error codes.
- */
-#define MGMT_ERR_EOK            0
-#define MGMT_ERR_EUNKNOWN       1
-#define MGMT_ERR_ENOMEM         2
-#define MGMT_ERR_EINVAL         3
-#define MGMT_ERR_ETIMEOUT       4
-#define MGMT_ERR_ENOENT         5
-#define MGMT_ERR_EBADSTATE      6       /* Current state disallows command. */
-#define MGMT_ERR_EMSGSIZE       7       /* Response too large. */
-#define MGMT_ERR_ENOTSUP        8       /* Command not supported. */
-#define MGMT_ERR_ECORRUPT       9       /* Corrupt */
-#define MGMT_ERR_EPERUSER       256
-
-#define MGMT_HDR_SIZE           8
-
-/*
- * MGMT event opcodes.
- */
-#define MGMT_EVT_OP_CMD_RECV            0x01
-#define MGMT_EVT_OP_CMD_STATUS          0x02
-#define MGMT_EVT_OP_CMD_DONE            0x03
-
-struct mgmt_hdr {
-#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
-    uint8_t  nh_op:3;           /* MGMT_OP_[...] */
-    uint8_t  _res1:5;
-#endif
-#if __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
-    uint8_t  _res1:5;
-    uint8_t  nh_op:3;           /* MGMT_OP_[...] */
-#endif
-    uint8_t  nh_flags;          /* Reserved for future flags */
-    uint16_t nh_len;            /* Length of the payload */
-    uint16_t nh_group;          /* MGMT_GROUP_ID_[...] */
-    uint8_t  nh_seq;            /* Sequence number */
-    uint8_t  nh_id;             /* Message ID within group */
-};
 ```
 
 # What's Next
