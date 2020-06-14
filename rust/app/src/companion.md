@@ -507,9 +507,14 @@ CBOR is like a compact binary form of JSON. The above chunk of data is equivalen
 }
 ```
 
-In Newt Manager (the Go code that runs on Linux), we encode a Go  `struct` into CBOR like this...
+Comparing their sizes...
 
-https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L129-L144
+- __JSON__ is __264__ bytes
+- __CBOR__ is __134__ bytes
+
+CBOR is half the size of JSON! Wow!
+
+In Newt Manager (the Go code that runs on Linux), we encode a Go  `struct` into CBOR like this: [`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L129-L144)
 
 ```go
 //  In Go...
@@ -528,9 +533,7 @@ func BodyBytes(body interface{}) ([]byte, error) {
 }
 ```
 
-Here's the equivalent code in Dart that encodes our Dart `class` into a Bluetooth LE message...
-
-https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L141-L176
+Here's the equivalent code in Dart that encodes our Dart `class` into a Bluetooth LE message: [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L141-L176)
 
 ```dart
 //  In Dart...
@@ -578,36 +581,69 @@ typed.Uint8Buffer BodyBytes(  //  Previously returns []byte
 
 Yep the Dart code for encoding CBOR looks longer than Go... And we're not done yet!
 
-https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L345-L376
+For each specific type of message, we need to write Dart code to __encode each field of the message__.
+
+Here's the request message `ImageStateReadReq` that we'll be transmitting to PineTime (to query the firmware inside): [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L345-L376)
 
 ```dart
 class ImageStateReadReq 
   with NmpBase       //  Get and set SMP Message Header
   implements NmpReq  //  SMP Request Message  
 {
-  NmpMsg Msg() { return MsgFromReq(this); }
+  //  No message fields needed
 
   /// Encode the SMP Request fields to CBOR
   void Encode(cbor.MapBuilder builder) {
-      //  No parameters needed, so we encode an empty map: {}
+      //  No message fields needed, so we encode an empty map: {}
   }
 }
 ```
 
+`ImageStateReadReq` doesn't have any message fields, so the `Encode()` method is empty.  The message is encoded as an empty map: `{}`
+
+For other messages, the `Encode()` method will encode the message fields (key and value) like this...
+
 ```dart
-builder.writeString('a');   // Key
-builder.writeURI('a/ur1');  // Value
+builder.writeString('slot');  //  Key
+builder.writeInt(0);          //  Integer Value
 
-builder.writeString('b');       // Key
-builder.writeEpoch(1234567899); // Value
+builder.writeString('version');  //  Key
+builder.writeString('1.0.0');    //  String Value
 
-builder.writeString('c');            // Key
-builder.writeDateTime('19/04/2020'); // Value
+builder.writeString('hash');  //  Key
+builder.writeArray(<int>[112, 62, 187, 248, 17, 69, 139, 31, 173, 24, 158, 100, 227, 165, 224, 248, 9, 203, 230, 186, 216, 131, 199, 107, 61, 215, 18, 121, 28, 130, 47, 181]);  //  Byte Array Value
 ```
 
-go attribute
+This field encoding code is missing from Go because the CBOR Encoder in Go uses Field Tags (like `codec:"slot"`). Check this for an example of CBOR field encoding in Go: [`nmxact/nmp/image.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go#L97-L108)
 
-https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go#L114-L119
+# Demo
+
+Here'a a video of our Flutter App sending a command over Bluetooth LE to query the firmware images loaded into PineTime...
+
+- [Watch on YouTube](https://youtu.be/n396JA62NDk)
+
+- [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.3/companion-query-firmware.mov)
+
+# Convert Go to Dart line by line
+
+TODO
+
+var or final
+
+make
+
+append
+
+# Test Dart modules on Command Line
+
+TODO
+
+```
+Encoded {NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:1 Seq:187 Id:0}}} {} to:
+a0
+Encoded:
+00 00 00 01 00 01 bb 00 a0
+```
 
 ```
 DEBU[2020-05-19 04:46:14.519] Encoded &{NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:1 Seq:66 Id:0}}} to:
@@ -678,24 +714,6 @@ image=0 slot=0
     hash: 703ebbf811458b1fad189e64e3a5e0f809cbe6bad883c76b3dd712791c822fb5
 Split status: N/A (0)    
 ```
-
-# Demo
-
-Here'a a video of our Flutter App sending a command over Bluetooth LE to query the firmware images loaded into PineTime...
-
-- [Watch on YouTube](https://youtu.be/n396JA62NDk)
-
-- [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.3/companion-query-firmware.mov)
-
-# Convert Go to Dart line by line
-
-TODO
-
-var or final
-
-make
-
-append
 
 # Embed Dart modules in Flutter
 
