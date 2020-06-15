@@ -687,7 +687,8 @@ onWritePressed: () async {
   //  Write our PineTime Request Message to the GATT Characteristic
   await c.write(_getRequestBytes(), withoutResponse: true);
 </code></pre>
-<p>That's how we transmit requests to PineTime: We write to the GATT Characteristic that's defined by the Simple Management Protocol (Service <code>0xDC1D</code>, Characteristic <code>0x7828</code> in the screen above).</p>
+<p>That's how we transmit requests to PineTime: We write to the GATT Characteristic that's defined by the <a href="https://github.com/apache/mynewt-mcumgr">Simple Management Protocol</a>.</p>
+<p>(Simple Management Protocol is exposed by PineTime as Service <code>8D53DC1D-1DB7-4CD3-868B-8A527460AA84</code>, Characteristic <code>DA2E7828-FBCE-4E01-AE9E-261174997C48</code>, shortened to <code>0xDC1D</code> and <code>0x7828</code> respectively in the screen above)</p>
 <p>Tapping the Write icon will trigger our function <code>_getRequestBytes()</code> defined in <a href="https://github.com/lupyuen/pinetime-companion/blob/master/lib/main.dart#L154-L197"><code>main.dart</code></a></p>
 <pre><code class="language-dart">//  Import the Dart code for composing PineTime requests
 import 'newtmgr.dart';
