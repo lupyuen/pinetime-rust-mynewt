@@ -831,7 +831,13 @@ Here's the video of our Flutter App running on a real Android phone. The app sen
 
 - [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.3/companion-query-firmware.mov)
 
-_Why did we subscribe to GATT Notifications from PineTime? Why not just read the GATT Characteristic from PineTime?_
+Here's the response from PineTime...
+
+![Flutter Companion App showing response from PineTime Smart Watch](https://lupyuen.github.io/images/companion-response.png)
+
+The response is truncated because we haven't implemented response processing.
+
+_In the demo, why did we subscribe to GATT Notifications from PineTime? Why not just read the GATT Characteristic to get the response from PineTime?_
 
 That's how the [Simple Managememt Protocol](https://github.com/apache/mynewt-mcumgr) works...
 
@@ -841,7 +847,7 @@ That's how the [Simple Managememt Protocol](https://github.com/apache/mynewt-mcu
 
 This kind of Asynchronous Messaging is common for networking apps.
 
-_The response from PineTime appears truncated in our unfinished app. What does the response look like?_
+_The response from PineTime appears truncated in our unfinished app. What does the entire response look like?_
 
 The full response message from PineTime (returned via GATT Notification) looks like this...
 
@@ -857,20 +863,24 @@ The full response message from PineTime (returned via GATT Notification) looks l
 00000080  6b 73 70 6c 69 74 53 74  61 74 75 73 00 ff        |ksplitStatus..|
 ```
 
-The response message structure is similar to the request message we have seen earlier: 8 header bytes followed by the CBOR message body.
+The response message structure is similar to the request message we have seen earlier...
 
-Here's the message header according to the definition in [`mgmt.h`](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h)...
+- Message Header: 8 bytes, followed by...
+
+- Message Body: Encoded in [CBOR](https://en.wikipedia.org/wiki/CBOR)
+
+Here's the Message Header according to the definition in [`mgmt.h`](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h)...
 
 | Header Field | Value | Description
 | :--- | :--- | :--- 
-| `Op`    | `00`    | [Operation Code](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h#L33-L37) (0 for Read Request)
+| `Op`    | `01`    | [Operation Code](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h#L33-L37) (1 for Read Response)
 | `Flags` | `00`    | Unused
-| `Len`   | `00 01` | Length of Message Body
+| `Len`   | `00 86` | Length of Message Body
 | `Group` | `00 01` | [Group ID](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h#L39-L53) (1 for Image Management)
-| `Seq`   | `bb` | Message Sequence Number (first number is random, subsequent numbers are sequential)
+| `Seq`   | `42` | Message Sequence Number (should match the request message)
 | `Id`    | `00` | Message ID (0 for Image Listing)
 
-The message body in CBOR format decodes to...
+The message body (in CBOR format) decodes to this JSON...
 
 ```json
 {
@@ -889,6 +899,24 @@ The message body in CBOR format decodes to...
     "splitStatus": 0
 }
 ```
+
+This is a response from PineTime's firmware update service saying...
+
+1. I have one firmware image, stored in Slot 0 (Internal Flash ROM)
+
+1. The firmware version number is `1.0.0`
+
+1. This firmware is active and has been confirmed OK
+
+_Can PineTime store a second firmware image?_
+
+Yes in Slot 1, which is the Standby Firmware Slot in External SPI Flash. So the above response may contain up to two firmware images.
+
+Slot 1 is used for staging new firmware images during updates, also for rolling back to the old firmware if the new firmware doesn't work.
+
+_Why does PineTime's firmware update service return a hash?_
+
+The hash will be used in subsequent commands when updating firmware or to roll back the firmware.
 
 # Convert Go to Dart line by line
 
