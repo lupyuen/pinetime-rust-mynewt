@@ -824,7 +824,7 @@ Check out this Flutter App built with Bloc: [`flutterweathertutorial`](https://b
 
 # Run Our Flutter App
 
-Here'a a video of our Flutter App sending a command over Bluetooth LE to query the firmware images loaded into PineTime...
+Here's the video of our Flutter App sending a command over Bluetooth LE to query the firmware images loaded into PineTime...
 
 - [Watch on YouTube](https://youtu.be/n396JA62NDk)
 
