@@ -720,17 +720,17 @@ For more about Dart and Flutter testing, check the [Dart Testing Guide](https://
 
 # Add Dart Code to Flutter App
 
+Let's add our new Dart code (for composing PineTime request messages) to the Bluetooth LE Flutter App from our previous article...
+
 _["Your First Bluetooth Low Energy App with Flutter"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter)_
 
-https://github.com/lupyuen/pinetime-companion
+Here's the new repository for our integrated Flutter App:
 
-from:
-https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart
+[`github.com/lupyuen/pinetime-companion`](https://github.com/lupyuen/pinetime-companion)
 
-to:
-https://github.com/lupyuen/pinetime-companion/blob/master/lib/newtmgr.dart
+We take the Dart code from [`mynewt-newtmgr/newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart) and add it to the new repository at [`pinetime-companion//lib/newtmgr.dart`](https://github.com/lupyuen/pinetime-companion/blob/master/lib/newtmgr.dart)
 
-https://github.com/lupyuen/pinetime-companion/blob/master/lib/main.dart#L154-L197
+Let's find the right spot to inject our new code, to compose a PineTime request message and transmit to PineTime: [`main.dart`](https://github.com/lupyuen/pinetime-companion/blob/master/lib/main.dart#L154-L197)
 
 ```dart
 /// Screen that displays GATT Services and Characteristics for a Bluetooth LE device
@@ -771,9 +771,11 @@ class DeviceScreen extends StatelessWidget {
                   },
 ```
 
+The above code renders the GATT Services and Characteristics exposed by PineTime over Bluetooth LE...
+
 ![Characteristic Tile with Read, Write, Notify icons](https://lupyuen.github.io/images/companion-characteristic.png)
 
-https://github.com/lupyuen/pinetime-companion/blob/master/lib/main.dart#L154-L197
+In the code above we have set an event handler on the Write icon. Tapping the Write icon will trigger our function `_getRequestBytes()` defined in [`main.dart`](https://github.com/lupyuen/pinetime-companion/blob/master/lib/main.dart#L154-L197)
 
 ```dart
 //  Import the Dart code for composing PineTime requests
@@ -789,13 +791,17 @@ class DeviceScreen extends StatelessWidget {
   }
 ```
 
-https://github.com/lupyuen/pinetime-companion/blob/14df42acb796de6a8f60ace1994d3d39c0f9fb5d/pubspec.yaml#L8-L12
+We have seen `composeRequest()` in the previous section. This is our new function that composes a PineTime request message.
+
+We add the dependent Dart libraries to [`pubspec.yaml`](https://github.com/lupyuen/pinetime-companion/blob/14df42acb796de6a8f60ace1994d3d39c0f9fb5d/pubspec.yaml#L8-L12)...
 
 ```yaml
 dependencies:
   cbor:         ^3.2.0  #  CBOR Encoder and Decoder. From https://pub.dev/packages/cbor
   typed_data:   ^1.1.6  #  Helpers for Byte Buffers. From https://pub.dev/packages/typed_data
 ```
+
+And we're ready to run this on a real phone!
 
 https://bloclibrary.dev/#/flutterweathertutorial
 
