@@ -696,8 +696,7 @@ class NmpHdr {
   int Id;    //  Previously uint8
 ```
 
-According to the [Simple Managememt Protocol](https://github.com/apache/mynewt-mcumgr) definition from [`mgmt.h`](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h
-)...
+According to the [Simple Managememt Protocol](https://github.com/apache/mynewt-mcumgr) definition from [`mgmt.h`](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h)...
 
 | Header Field | Value | Description
 | :--- | :--- | :--- 
@@ -826,13 +825,70 @@ Check out this Flutter App built with Bloc: [`flutterweathertutorial`](https://b
 
 # Run Our Flutter App
 
-Here's the video of our Flutter App sending a command over Bluetooth LE to query the firmware images loaded into PineTime...
+Here's the video of our Flutter App running on a real Android phone. The app sends the `ImageStateReadReq` request to PineTime over Bluetooth LE to query the firmware images stored in PineTime...
 
 - [Watch on YouTube](https://youtu.be/n396JA62NDk)
 
 - [Download the video](https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.3/companion-query-firmware.mov)
 
-TODO: Why notify not read?
+_Why did we subscribe to GATT Notifications from PineTime? Why not just read the GATT Characteristic from PineTime?_
+
+That's how the [Simple Managememt Protocol](https://github.com/apache/mynewt-mcumgr) works...
+
+1. We send a request to PineTime by __writing to the GATT Characteristic__
+
+1. Response from PineTime will be __returned as a GATT Notification__
+
+This kind of Asynchronous Messaging is common for networking apps.
+
+_The response from PineTime appears truncated in our unfinished app. What does the response look like?_
+
+The full response message from PineTime (returned via GATT Notification) looks like this...
+
+```
+00000000  01 00 00 86 00 01 42 00  bf 66 69 6d 61 67 65 73  |......B..fimages|
+00000010  9f bf 64 73 6c 6f 74 00  67 76 65 72 73 69 6f 6e  |..dslot.gversion|
+00000020  65 31 2e 30 2e 30 64 68  61 73 68 58 20 70 3e bb  |e1.0.0dhashX p>.|
+00000030  f8 11 45 8b 1f ad 18 9e  64 e3 a5 e0 f8 09 cb e6  |..E.....d.......|
+00000040  ba d8 83 c7 6b 3d d7 12  79 1c 82 2f b5 68 62 6f  |....k=..y../.hbo|
+00000050  6f 74 61 62 6c 65 f5 67  70 65 6e 64 69 6e 67 f4  |otable.gpending.|
+00000060  69 63 6f 6e 66 69 72 6d  65 64 f5 66 61 63 74 69  |iconfirmed.facti|
+00000070  76 65 f5 69 70 65 72 6d  61 6e 65 6e 74 f4 ff ff  |ve.ipermanent...|
+00000080  6b 73 70 6c 69 74 53 74  61 74 75 73 00 ff        |ksplitStatus..|
+```
+
+The response message structure is similar to the request message we have seen earlier: 8 header bytes followed by the CBOR message body.
+
+Here's the message header according to the definition in [`mgmt.h`](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h)...
+
+| Header Field | Value | Description
+| :--- | :--- | :--- 
+| `Op`    | `00`    | [Operation Code](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h#L33-L37) (0 for Read Request)
+| `Flags` | `00`    | Unused
+| `Len`   | `00 01` | Length of Message Body
+| `Group` | `00 01` | [Group ID](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h#L39-L53) (1 for Image Management)
+| `Seq`   | `bb` | Message Sequence Number (first number is random, subsequent numbers are sequential)
+| `Id`    | `00` | Message ID (0 for Image Listing)
+
+The message body in CBOR format decodes to...
+
+```json
+{
+    "images": [
+        {
+            "slot": 0,
+            "version": "1.0.0",
+            "hash": [ 112, 62, 187, 248, 17, 69, 139, 31, 173, 24, 158, 100, 227, 165, 224, 248, 9, 203, 230, 186, 216, 131, 199, 107, 61, 215, 18, 121, 28, 130, 47, 181 ],
+            "bootable":  true,
+            "pending":   false,
+            "confirmed": true,
+            "active":    true,
+            "permanent": false
+        }
+    ],
+    "splitStatus": 0
+}
+```
 
 # Convert Go to Dart line by line
 
