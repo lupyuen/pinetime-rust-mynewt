@@ -928,6 +928,14 @@ TODO
 
 TODO
 
+1. Response Handling
+
+1. Handle more requests and responses
+
+1. Bloc Library
+
+1. Companion App for PinePhone
+
 I'll be using the code in this article to create the open source __PineTime Companion App__ for Android and iOS. So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications, chart our heart rate, ...
 
 Flutter makes it really easy to maintain a single code base for Android and iOS... And `flutter_blue` makes Bluetooth LE coding so simple!
