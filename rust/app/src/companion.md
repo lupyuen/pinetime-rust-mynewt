@@ -775,7 +775,18 @@ The above code renders the GATT Services and Characteristics exposed by PineTime
 
 ![Characteristic Tile with Read, Write, Notify icons](https://lupyuen.github.io/images/companion-characteristic.png)
 
-In the code above we have set an event handler on the Write icon. Tapping the Write icon will trigger our function `_getRequestBytes()` defined in [`main.dart`](https://github.com/lupyuen/pinetime-companion/blob/master/lib/main.dart#L154-L197)
+In the code above we have set an event handler on the Write icon to transmit our request message to PineTime... 
+
+```dart
+/// When the Write icon is pressed...
+onWritePressed: () async {
+  //  Write our PineTime Request Message to the GATT Characteristic
+  await c.write(_getRequestBytes(), withoutResponse: true);
+```
+
+That's how we transmit requests to PineTime: We write to the GATT Characteristic that's defined by the Simple Management Protocol (Service `0xDC1D`, Characteristic `0x7828` in the screen above).
+
+Tapping the Write icon will trigger our function `_getRequestBytes()` defined in [`main.dart`](https://github.com/lupyuen/pinetime-companion/blob/master/lib/main.dart#L154-L197)
 
 ```dart
 //  Import the Dart code for composing PineTime requests
