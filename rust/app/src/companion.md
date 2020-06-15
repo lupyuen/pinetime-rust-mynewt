@@ -803,7 +803,13 @@ dependencies:
 
 And we're ready to run this on a real phone!
 
-https://bloclibrary.dev/#/flutterweathertutorial
+_The Flutter code is getting harder to read... And we haven't handled the PineTime response messages yet! How shall we fix this?_
+
+We may use the [Bloc State Management Library](https://bloclibrary.dev/#/) to keep the code modular.
+
+Tapping the icons and handling responses from PineTime may be treated as a __stream of events__ that the Bloc framework will consume to transform the current state. (Think [React Redux](https://react-redux.js.org/))
+
+Check out this Flutter App built with Bloc: [`flutterweathertutorial`](https://bloclibrary.dev/#/flutterweathertutorial)
 
 # Run Our Flutter App
 

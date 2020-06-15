@@ -73,9 +73,9 @@
 <li><a href="#dive-deep-into-go-and-newt-manager">4 Dive Deep into Go and Newt Manager</a><ul></ul></li>
 <li><a href="#cbor-encoding-in-dart">5 CBOR Encoding in Dart</a><ul></ul></li>
 <li><a href="#test-dart-code-on-command-line">6 Test Dart Code on Command Line</a><ul></ul></li>
-<li><a href="#demo">7 Demo</a><ul></ul></li>
-<li><a href="#convert-go-to-dart-line-by-line">8 Convert Go to Dart line by line</a><ul></ul></li>
-<li><a href="#embed-dart-modules-in-flutter">9 Embed Dart modules in Flutter</a><ul></ul></li>
+<li><a href="#add-dart-code-to-flutter-app">7 Add Dart Code to Flutter App</a><ul></ul></li>
+<li><a href="#run-our-flutter-app">8 Run Our Flutter App</a><ul></ul></li>
+<li><a href="#convert-go-to-dart-line-by-line">9 Convert Go to Dart line by line</a><ul></ul></li>
 <li><a href="#transmit-gatt-requests-in-flutter">10 Transmit GATT Requests in Flutter</a><ul></ul></li>
 <li><a href="#handle-gatt-responses-and-notifications-in-flutter">11 Handle GATT Responses and Notifications in Flutter</a><ul></ul></li>
 <li><a href="#dart-extension-for-vscode">12 Dart Extension for VSCode</a><ul></ul></li>
@@ -635,7 +635,77 @@ class NmpHdr {
 <p><a href="(https://github.com/apache/mynewt-mcumgr)">More about Simple Management Protocol</a></p>
 <p><a href="https://github.com/apache/mynewt-mcumgr/blob/master/smp/include/smp/smp.h">SMP Message Format</a></p>
 <p>For more about Dart and Flutter testing, check the <a href="https://dart.dev/guides/testing">Dart Testing Guide</a></p>
-<h1 id="demo" class="section-header"><a href="#demo">7 Demo</a></h1>
+<h1 id="add-dart-code-to-flutter-app" class="section-header"><a href="#add-dart-code-to-flutter-app">7 Add Dart Code to Flutter App</a></h1>
+<p>Let's add our new Dart code (for composing PineTime request messages) to the Bluetooth LE Flutter App from our previous article...</p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter">&quot;Your First Bluetooth Low Energy App with Flutter&quot;</a></em></p>
+<p>Here's the new repository for our integrated Flutter App:</p>
+<p><a href="https://github.com/lupyuen/pinetime-companion"><code>github.com/lupyuen/pinetime-companion</code></a></p>
+<p>We take the Dart code from <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart"><code>mynewt-newtmgr/newtmgr.dart</code></a> and add it to the new repository at <a href="https://github.com/lupyuen/pinetime-companion/blob/master/lib/newtmgr.dart"><code>pinetime-companion//lib/newtmgr.dart</code></a></p>
+<p>Let's find the right spot to inject our new code, to compose a PineTime request message and transmit to PineTime: <a href="https://github.com/lupyuen/pinetime-companion/blob/master/lib/main.dart#L154-L197"><code>main.dart</code></a></p>
+<pre><code class="language-dart">/// Screen that displays GATT Services and Characteristics for a Bluetooth LE device
+class DeviceScreen extends StatelessWidget {
+  ...
+  /// Return a list of widgets that renders the GATT Services and Characteristics
+  List&lt;Widget&gt; _buildServiceTiles(List&lt;BluetoothService&gt; services) {
+    return services
+        //  For each GATT Service...
+        .map(
+          //  Render the GATT Service
+          (s) =&gt; ServiceTile(
+            service: s,
+            characteristicTiles: s.characteristics
+              //  For each GATT Characteristic...
+              .map(
+                //  Render the GATT Characteristic and the Read, Write, Notify icons
+                (c) =&gt; CharacteristicTile(
+                  characteristic: c,
+
+                  /// When the Read icon is pressed: Read the GATT Characteristic
+                  onReadPressed: () =&gt; c.read(),
+
+                  /// When the Write icon is pressed...
+                  onWritePressed: () async {
+                    //  Write our PineTime Request Message to the GATT Characteristic
+                    await c.write(_getRequestBytes(), withoutResponse: true);
+                    //  Causes read not ready exception:
+                    //  await c.read();
+                  },
+
+                  /// When the Notify icon is pressed...
+                  onNotificationPressed: () async {
+                    //  Subcribe to notifications from the GATT Characteristic
+                    await c.setNotifyValue(!c.isNotifying);
+                    //  Causes read not ready exception:
+                    //  await c.read();
+                  },
+</code></pre>
+<p>The above code renders the GATT Services and Characteristics exposed by PineTime over Bluetooth LE...</p>
+<p><img src="https://lupyuen.github.io/images/companion-characteristic.png" alt="Characteristic Tile with Read, Write, Notify icons" /></p>
+<p>In the code above we have set an event handler on the Write icon. Tapping the Write icon will trigger our function <code>_getRequestBytes()</code> defined in <a href="https://github.com/lupyuen/pinetime-companion/blob/master/lib/main.dart#L154-L197"><code>main.dart</code></a></p>
+<pre><code class="language-dart">//  Import the Dart code for composing PineTime requests
+import 'newtmgr.dart';
+
+/// Screen that displays GATT Services and Characteristics for a Bluetooth LE device
+class DeviceScreen extends StatelessWidget {
+  ...
+  /// Compose a PineTime Request Message and return the message bytes
+  List&lt;int&gt; _getRequestBytes() {
+    final data = composeRequest();
+    return data;
+  }
+</code></pre>
+<p>We have seen <code>composeRequest()</code> in the previous section. This is our new function that composes a PineTime request message.</p>
+<p>We add the dependent Dart libraries to <a href="https://github.com/lupyuen/pinetime-companion/blob/14df42acb796de6a8f60ace1994d3d39c0f9fb5d/pubspec.yaml#L8-L12"><code>pubspec.yaml</code></a>...</p>
+<pre><code class="language-yaml">dependencies:
+  cbor:         ^3.2.0  #  CBOR Encoder and Decoder. From https://pub.dev/packages/cbor
+  typed_data:   ^1.1.6  #  Helpers for Byte Buffers. From https://pub.dev/packages/typed_data
+</code></pre>
+<p>And we're ready to run this on a real phone!</p>
+<p><em>The Flutter code is getting harder to read... And we haven't handled the PineTime response messages yet! How shall we fix this?</em></p>
+<p>We may use the <a href="https://bloclibrary.dev/#/">Bloc State Management Library</a> to keep the code modular.</p>
+<p>Tapping the icons and handling responses from PineTime may be treated as a <strong>stream of events</strong> that the Bloc framework will consume to transform the current state. (Think <a href="https://react-redux.js.org/">React Redux</a>)</p>
+<p>Check out this Flutter App built with Bloc: <a href="https://bloclibrary.dev/#/flutterweathertutorial"><code>flutterweathertutorial</code></a></p>
+<h1 id="run-our-flutter-app" class="section-header"><a href="#run-our-flutter-app">8 Run Our Flutter App</a></h1>
 <p>Here'a a video of our Flutter App sending a command over Bluetooth LE to query the firmware images loaded into PineTime...</p>
 <ul>
 <li>
@@ -645,7 +715,8 @@ class NmpHdr {
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/download/v4.2.3/companion-query-firmware.mov">Download the video</a></p>
 </li>
 </ul>
-<h1 id="convert-go-to-dart-line-by-line" class="section-header"><a href="#convert-go-to-dart-line-by-line">8 Convert Go to Dart line by line</a></h1>
+<p>TODO: Why notify not read?</p>
+<h1 id="convert-go-to-dart-line-by-line" class="section-header"><a href="#convert-go-to-dart-line-by-line">9 Convert Go to Dart line by line</a></h1>
 <p>TODO</p>
 <p>var or final</p>
 <p>make</p>
@@ -709,12 +780,6 @@ class NmpHdr {
     <span class="ident">flags</span>: <span class="ident">active</span> <span class="ident">confirmed</span>
     <span class="ident">hash</span>: <span class="number">703ebbf811458b1fad189e64e3a5e0f809cbe6bad883c76b3dd712791c822fb5</span>
 <span class="ident">Split</span> <span class="ident">status</span>: <span class="ident">N</span><span class="op">/</span><span class="ident">A</span> (<span class="number">0</span>)    </pre></div>
-<h1 id="embed-dart-modules-in-flutter" class="section-header"><a href="#embed-dart-modules-in-flutter">9 Embed Dart modules in Flutter</a></h1>
-<p>TODO</p>
-<p>https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter</p>
-<p>https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart</p>
-<p>https://gist.github.com/lupyuen/1354b090a989a818b403685ecfa12d55</p>
-<p>https://bloclibrary.dev/#/flutterweathertutorial</p>
 <h1 id="transmit-gatt-requests-in-flutter" class="section-header"><a href="#transmit-gatt-requests-in-flutter">10 Transmit GATT Requests in Flutter</a></h1>
 <p>TODO</p>
 <h1 id="handle-gatt-responses-and-notifications-in-flutter" class="section-header"><a href="#handle-gatt-responses-and-notifications-in-flutter">11 Handle GATT Responses and Notifications in Flutter</a></h1>
@@ -728,6 +793,7 @@ class NmpHdr {
 <p>If you're keen to help out, come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!</p>
 <p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Matrix / Discord / Telegram / IRC</a></p>
 <h1 id="further-reading" class="section-header"><a href="#further-reading">14 Further Reading</a></h1>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter">&quot;Your First Bluetooth Low Energy App with Flutter&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">&quot;Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)&quot;</a></em></p>
