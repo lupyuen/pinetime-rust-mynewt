@@ -428,9 +428,8 @@ sudo apt install graphviz
 # sudo pacman -S graphviz
 
 # Download Newt Manager
-cd ~/go
-mkdir -p src/mynewt.apache.org
-cd src/mynewt.apache.org/
+mkdir -p ~/go/src/mynewt.apache.org
+cd ~/go/src/mynewt.apache.org/
 git clone https://github.com/lupyuen/mynewt-newtmgr
 mv mynewt-newtmgr newtmgr
 
