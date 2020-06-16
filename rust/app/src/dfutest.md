@@ -435,6 +435,12 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
     sudo ./newtmgr image list -c pinetime --loglevel debug
     ```
 
+    For Manjaro on Pinebook Pro (and other systems) we may need to specify the Bluetooth HCI interface with `--hci` like this...
+
+    ```bash
+    sudo ./newtmgr image list -c pinetime --loglevel debug --hci 1
+    ```
+
     We'll see...
 
     ```

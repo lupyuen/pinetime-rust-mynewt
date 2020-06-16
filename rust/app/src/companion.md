@@ -447,6 +447,9 @@ sudo ./newtmgr conn add pinetime type=ble connstring="peer_name=pinetime" 2> /de
 # Run Newt Manager and list firmware images on PineTime
 sudo ./newtmgr image list -c pinetime 2> trace.out
 
+# For Manjaro on Pinebook Pro (and other systems) we may need to specify the Bluetooth HCI interface with `--hci` like this...
+# sudo ./newtmgr image list -c pinetime --hci 1 2> trace.out
+
 # Display the captured Go trace in a web browser
 go tool trace trace.out
 ```
