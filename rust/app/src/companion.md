@@ -700,6 +700,8 @@ Unzip to `~/dartsdk`. Edit `~/.bashrc` (or equivalent) and add `dartsdk/bin` to 
 export PATH=$PATH:$HOME/dartsdk/bin
 ```
 
+If we're using VSCode: Install the [Dart Extension for VSCode](https://marketplace.visualstudio.com/items?itemName=Dart-Code.dart-code)
+
 Compile and run our dart program...
 
 ```bash
@@ -954,10 +956,6 @@ Slot 1 is used for staging new firmware images during updates, also for rolling 
 _Why does PineTime's firmware update service return a hash?_
 
 The hash will be used in subsequent commands when updating firmware or to roll back the firmware.
-
-# Dart Extension for VSCode
-
-TODO
 
 # What's Next
 
