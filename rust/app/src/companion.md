@@ -393,6 +393,8 @@ typed.Uint8Buffer u16b = binaryBigEndianPutUint16(this.Len);
 buf.addAll(u16b);
 ```
 
+Now let's probe deeper into the Go code and understand how it sends Bluetooth LE commands to PineTime.
+
 ![Newt Manager with over 100 Go source files](https://lupyuen.github.io/images/companion-newtmgrsize.png)
 
 # Dive Deep into Go and Newt Manager
