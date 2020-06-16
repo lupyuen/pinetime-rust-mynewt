@@ -970,6 +970,12 @@ Follow these steps to build the MCUBoot Bootloader on Linux (including Raspberry
     sudo apt install gcc gcc-arm-none-eabi python3 make
     ```
 
+    For Majaro and Arch Linux...
+
+    ```bash
+    sudo pacman -S arm-none-eabi-gcc
+    ```
+
 1. Install `rustup` with support for nightly target `thumbv7em-none-eabihf`. 
    
    Follow the instructions at https://rustup.rs/
