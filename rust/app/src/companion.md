@@ -356,29 +356,44 @@ It looks complicated, and yes we need to understand the Go code before convertin
 
 Go uses ["Static Duck Typing"](https://benhoyt.com/writings/go-intro/) thus it's not obvious whether a Go `struct` should be a Dart `class`, `abstract class` or `mixin`. But with a bit of practice... We'll get the hang of it!
 
-![Newt Manager with over 100 Go source files](https://lupyuen.github.io/images/companion-newtmgrsize.png)
+# Convert Go Arrays to Dart
 
-# Convert Go to Dart line by line
-
-[`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L111-L115)
+Let's convert this Go code that creates a byte array and appends some bytes: [`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L111-L115)
 
 ```go
-//  In Go...
+//  In Go: Create a byte array with max size NMP_HDR_SIZE
 buf := make([]byte, 0, NMP_HDR_SIZE)
+
+//  Append bytes to the array
 buf = append(buf, byte(hdr.Op))
 buf = append(buf, byte(hdr.Flags))
 ```
 
-[`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L48-L66)
+In Dart we use `typed.Uint8Buffer` to represent a byte buffer. It works like a Dart List, so we may call `add()` to add bytes: [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L48-L66)
 
 ```dart
-//  In Dart...
+//  In Dart: Create a byte buffer
 var buf = typed.Uint8Buffer();
+
+//  Append bytes to the byte buffer
 buf.add(this.Op);
 buf.add(this.Flags);
 ...
+//  Verify the buffer has size NMP_HDR_SIZE
 assert(buf.length == NMP_HDR_SIZE);
 ```
+
+To add a Dart List to another List, we call `addAll()`: [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L55-L57)
+
+```dart
+//  In Dart: Convert 16-bit length to a list of 2 bytes
+typed.Uint8Buffer u16b = binaryBigEndianPutUint16(this.Len);
+
+//  Append the 2 bytes to the byte buffer
+buf.addAll(u16b);
+```
+
+![Newt Manager with over 100 Go source files](https://lupyuen.github.io/images/companion-newtmgrsize.png)
 
 # Dive Deep into Go and Newt Manager
 
