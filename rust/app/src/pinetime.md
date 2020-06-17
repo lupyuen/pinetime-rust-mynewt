@@ -22,7 +22,11 @@ Advanced firmware coders will find __ST-Link V2__ more efficient for flashing an
 
 More about this in the PineTime wiki
 
-# Wireless Developer Experience is coming
+# Wireless developer tools are coming
+
+Today with wasp-os
+
+We'll bring that 
 
 TODO
 
