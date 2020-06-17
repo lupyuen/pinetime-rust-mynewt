@@ -20,23 +20,32 @@ I recommend using a __Raspberry Pi to remove Flash ROM protection__ from PineTim
 
 Advanced firmware coders will find __ST-Link V2__ more efficient for flashing and debugging the firmware. (Though ST-Link V2 can't be used for removing Flash ROM protection)
 
-More about this in the PineTime wiki
+[More about this in the PineTime Wiki](https://wiki.pine64.org/index.php/PineTime)
 
 # Wireless developer tools are coming
 
-Today with wasp-os
+Programming PineTime the wired way sounds tedious, but we're heading the wireless way...
 
-We'll bring that 
+After installing the wasp-os or Arduino firmware on PineTime (the wired way), we may update the wasp-os / Arduino firmware wirelessly over Bluetooth LE. wasp-os also exposes an REPL command line interface over Bluetooth LE.
 
-TODO
+The PineTime FOSS Community is now extending this wireless development concept to other types of PineTime firmware, like FreeRTOS, Mynewt and Zephyr.
 
-# Stacks
+We have ported to PineTime the open source MCUBoot Bootloader, and we have to hope to have it preloaded on PineTime watches soon. The new bootloader will let you switch firmware wirelessly (like from Mynewt to FreeRTOS) and try out all kinds of experimental firmware created by the PineTime FOSS Community.
 
-TODO
+With firmware updates over Bluetooth LE, PineTime programming will become so much easier!
+
+# PineTime Companion App
+
+Today we use a mix of mobile apps for firmware flashing and data syncing with PineTime, like nRF Connect (Android and iOS) and DaFlasher (Android only).
+
+The __PineTime Companion App__ is under development now. It will run on Android and iOS (via Flutter) and on Linux phones like PinePhone (via GOTK3).  It will probably run on Raspberry Pi and Pinebook Pro too!
+
+The Companion App will update PineTime firmware, sync the date/time, chart your heart rate, push your mobile notifications to PineTime, ... And let you control your smart home gadgets with PineTime!
 
 # What's Next
 
-TODO
+The PineTime FOSS Community has accomplished so much over the past 6 months because we're all __volunteers passionate about PineTime.__
 
-wiki
-community
+You're welcome to join us and make the open source PineTime software even better!
+
+[Come chat with us on Matrix, Discord, Telegram and IRC](https://wiki.pine64.org/index.php/PineTime#Community)
