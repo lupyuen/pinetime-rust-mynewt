@@ -26,7 +26,7 @@ _(Which will eventually be dressed up with [`gotk3`](https://github.com/gotk3/go
 
 _(The highlighted part shows the identical responses returned by PineTime to both apps over Bluetooth LE. So it really works!)_
 
-Here'a the video demo...
+Here's the video demo...
 
 - [Watch on YouTube](https://youtu.be/n396JA62NDk)
 
