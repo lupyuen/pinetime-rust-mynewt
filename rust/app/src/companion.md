@@ -966,19 +966,17 @@ The hash will be used in subsequent commands when updating firmware or to roll b
 
 # What's Next
 
-TODO
+The code in this article is part of the upcoming open source __PineTime Companion App__ for Android and iOS. So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications from our phone, chart our heart rate, ... Maybe even control our smart home gadgets! 
 
-1. Response Handling
+We'll be adding more code to the Flutter app...
 
-1. Handle more requests and responses
+1. __Response Handling:__ We shall handle response messages received from PineTime over Bluetooth LE (i.e. handle the GATT Notifications)
 
-1. Bloc Library
+1. __Handle Other PineTime Commands:__ Update firmware, sync date and time, show mobile notifications, ...
 
-1. Companion App for PinePhone
+1. __State Management with Bloc Library:__ We shall integrate the [Bloc State Management Library](https://bloclibrary.dev/#/) to keep the Flutter code modular and maintainable
 
-I'll be using the code in this article to create the open source __PineTime Companion App__ for Android and iOS. So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications, chart our heart rate, ...
-
-Flutter makes it really easy to maintain a single code base for Android and iOS... And `flutter_blue` makes Bluetooth LE coding so simple!
+1. __Companion App for Linux Phones (like PinePhone):__ We shall take the [Newt Manager](https://github.com/apache/mynewt-newtmgr) code in Go and wrap it into a GTK3 app, using the [`gotk3` library](https://github.com/gotk3/gotk3)
 
 If you're keen to help out, come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!
 

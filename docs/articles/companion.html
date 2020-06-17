@@ -834,23 +834,22 @@ class DeviceScreen extends StatelessWidget {
 <p><em>Why does PineTime's firmware update service return a hash?</em></p>
 <p>The hash will be used in subsequent commands when updating firmware or to roll back the firmware.</p>
 <h1 id="whats-next" class="section-header"><a href="#whats-next">10 What's Next</a></h1>
-<p>TODO</p>
+<p>The code in this article is part of the upcoming open source <strong>PineTime Companion App</strong> for Android and iOS. So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications from our phone, chart our heart rate, ... Maybe even control our smart home gadgets! </p>
+<p>We'll be adding more code to the Flutter app...</p>
 <ol>
 <li>
-<p>Response Handling</p>
+<p><strong>Response Handling:</strong> We shall handle response messages received from PineTime over Bluetooth LE (i.e. handle the GATT Notifications)</p>
 </li>
 <li>
-<p>Handle more requests and responses</p>
+<p><strong>Handle Other PineTime Commands:</strong> Update firmware, sync date and time, show mobile notifications, ...</p>
 </li>
 <li>
-<p>Bloc Library</p>
+<p><strong>State Management with Bloc Library:</strong> We shall integrate the <a href="https://bloclibrary.dev/#/">Bloc State Management Library</a> to keep the Flutter code modular and maintainable</p>
 </li>
 <li>
-<p>Companion App for PinePhone</p>
+<p><strong>Companion App for Linux Phones (like PinePhone):</strong> We shall take the <a href="https://github.com/apache/mynewt-newtmgr">Newt Manager</a> code in Go and wrap it into a GTK3 app, using the <a href="https://github.com/gotk3/gotk3"><code>gotk3</code> library</a></p>
 </li>
 </ol>
-<p>I'll be using the code in this article to create the open source <strong>PineTime Companion App</strong> for Android and iOS. So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications, chart our heart rate, ...</p>
-<p>Flutter makes it really easy to maintain a single code base for Android and iOS... And <code>flutter_blue</code> makes Bluetooth LE coding so simple!</p>
 <p>If you're keen to help out, come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!</p>
 <p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Matrix / Discord / Telegram / IRC</a></p>
 <h1 id="further-reading" class="section-header"><a href="#further-reading">11 Further Reading</a></h1>
