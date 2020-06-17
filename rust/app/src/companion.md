@@ -425,7 +425,7 @@ Here's how we run Newt Manager to transmit a command to PineTime (list firmware 
 sudo apt install graphviz
 
 # For Manjaro and Arch Linux:
-# sudo pacman -S graphviz
+# sudo pacman -S graphviz go
 
 # Download Newt Manager
 mkdir -p ~/go/src/mynewt.apache.org

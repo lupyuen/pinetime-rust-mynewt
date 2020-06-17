@@ -403,10 +403,12 @@ func main() {
 <pre><code class="language-bash"># Install graphviz for Go tracing
 sudo apt install graphviz
 
+# For Manjaro and Arch Linux:
+# sudo pacman -S graphviz go
+
 # Download Newt Manager
-cd ~/go
-mkdir -p src/mynewt.apache.org
-cd src/mynewt.apache.org/
+mkdir -p ~/go/src/mynewt.apache.org
+cd ~/go/src/mynewt.apache.org/
 git clone https://github.com/lupyuen/mynewt-newtmgr
 mv mynewt-newtmgr newtmgr
 
@@ -423,6 +425,9 @@ sudo ./newtmgr conn add pinetime type=ble connstring=&quot;peer_name=pinetime&qu
 
 # Run Newt Manager and list firmware images on PineTime
 sudo ./newtmgr image list -c pinetime 2&gt; trace.out
+
+# For Manjaro on Pinebook Pro (and other systems) we may need to specify the Bluetooth HCI interface with `--hci` like this...
+# sudo ./newtmgr image list -c pinetime --hci 1 2&gt; trace.out
 
 # Display the captured Go trace in a web browser
 go tool trace trace.out
