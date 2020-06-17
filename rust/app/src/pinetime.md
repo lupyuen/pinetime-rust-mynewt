@@ -22,25 +22,27 @@ Advanced firmware coders will find __ST-Link V2__ more efficient for flashing an
 
 [More about this in the PineTime Wiki](https://wiki.pine64.org/index.php/PineTime)
 
-# Wireless developer tools are coming
+# Wireless tools are coming
 
 Programming PineTime the wired way sounds tedious, but we're heading the wireless way...
 
-After installing the wasp-os or Arduino firmware on PineTime (the wired way), we may update the wasp-os / Arduino firmware wirelessly over Bluetooth LE. wasp-os also exposes an REPL command line interface over Bluetooth LE.
+After installing the wasp-os or Arduino firmware on PineTime (the wired way), we may update the wasp-os / Arduino firmware wirelessly over Bluetooth LE. (wasp-os also exposes the REPL interface wirelessly)
 
-The PineTime FOSS Community is now extending this wireless development concept to other types of PineTime firmware, like FreeRTOS, Mynewt and Zephyr.
+The PineTime FOSS Community is now extending this wireless capability to other types of PineTime firmware, like FreeRTOS, Mynewt and Zephyr.
 
-We have ported to PineTime the open source MCUBoot Bootloader, and we have to hope to have it preloaded on PineTime watches soon. The new bootloader will let you switch firmware wirelessly (like from Mynewt to FreeRTOS) and try out all kinds of experimental firmware created by the PineTime FOSS Community.
+We have ported to PineTime the open source __MCUBoot Bootloader__, and we have to hope to have it preloaded on PineTime watches soon. 
+
+The new bootloader will let you __switch firmware wirelessly__, like from Mynewt to FreeRTOS. Great for trying out all kinds of experimental firmware created by the PineTime FOSS Community!
 
 With firmware updates over Bluetooth LE, PineTime programming will become so much easier!
 
 # PineTime Companion App
 
-Today we use a mix of mobile apps for firmware flashing and data syncing with PineTime, like nRF Connect (Android and iOS) and DaFlasher (Android only).
+Today we use a mix of mobile apps for firmware flashing and data syncing with PineTime, like DaFlasher and nRF Connect.
 
 The __PineTime Companion App__ is under development now. It will run on Android and iOS (via Flutter) and on Linux phones like PinePhone (via GOTK3).  It will probably run on Raspberry Pi and Pinebook Pro too!
 
-The Companion App will update PineTime firmware, sync the date/time, chart your heart rate, push your mobile notifications to PineTime, ... And let you control your smart home gadgets with PineTime!
+The Companion App will update PineTime firmware, sync the date and time, chart your heart rate, push your mobile notifications to PineTime, ... And let you control your smart home gadgets with PineTime!
 
 # What's Next
 
