@@ -8,6 +8,14 @@ Pinebook Pro and Raspberry Pi
 Debian Mate and Manjaro Xfce
 Ubuntu Deskto 20.04 64-bit
 
+# Coding GTK3 with Go
+
+Why use Go to code GTK3 apps?
+
+```go
+
+```
+
 # Install Build Tools
 
 __1️⃣ For Manjaro and Arch Linux...__
@@ -34,7 +42,7 @@ Follow the instructions here to install the Go build tools:
 
 We'll be installing [__VSCodium__](https://github.com/VSCodium/vscodium), the community build of VSCode that doesn't have Microsoft branding and telemetry. VSCodium has better support for Arm Linux than VSCode.
 
-Note that VSCodium uses its own Extensions Marketplace, so that it doesn't violate Microsoft's terms of use.
+Note that VSCodium uses its own Extensions Marketplace, so that it doesn't violate Microsoft's terms of use. VSCodium Marketplace Extensions may be slightly different from the VSCode Marketplace.
 
 __1️⃣ For Manjaro and Arch Linux...__
 
@@ -50,38 +58,66 @@ Follow the instructions here to install VSCodium:
 
 [`github.com/VSCodium/vscodium`](https://github.com/VSCodium/vscodium)
 
-# Download Source Code
+# Download Source Code For Our App
 
-```bash
+Let's download the `gotk3` sample code...
 
-https://github.com/gotk3/gotk3-examples/blob/master/gtk-examples/stack/stack.go
+1. Launch VSCodium, click `View → Command Palette`
 
-Clone https://github.com/gotk3/gotk3-examples
+1. Enter `Git Clone`
 
-cd gtk-examples/stack
-go get github.com/gotk3/gotk3/gtk
-go build stack.go
+1. Enter `https://github.com/gotk3/gotk3-examples`
 
-ls -l
+1. Select a folder to download the source code
 
-./stack
+1. When prompted to open the cloned repository, click `Open`
 
+1. In the `Explorer → Workspace` pane at left, browse to `gtk-examples → stack`
 
-```
+1. Double-click on `stack.go`. This is the Go app that we shall be building.
+
+???
+
+# Build And Run Our App
+
+1. In VSCode, click `Terminal → New Terminal`
+
+1. At the Terminal prompt, enter...
+
+    ```bash
+    cd gtk-examples/stack
+    go get github.com/gotk3/gotk3/gtk
+    go build stack.go
+    ls -l
+    ```
+
+    ???
+
+    The `go get` command may take 10 minutes or longer to build the `gotk3` library... Be patient! This only needs to be done once.  Our CPU may hit 100% utilisation like this...
+
+    The `ls -l` command should show the compiled Go executable...
+
+    ???
+
+1. At the Terminal prompt, enter...
+
+    ```bash
+    ./stack
+    ```
+
+    This runs our newly-built GTK3 app...
+
+    ???
 
 # What's Next
 
-The code in this article is part of the upcoming open source __PineTime Companion App__ for Android and iOS. So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications from our phone, chart our heart rate, ... Maybe even control our smart home gadgets! 
+Glade UI Builder for GTK
 
-We'll be adding more code to the Flutter app...
+https://glade.gnome.org/
 
-1. __Response Handling:__ We shall handle response messages received from PineTime over Bluetooth LE (i.e. handle the GATT Notifications)
+Seems feasible to build https://github.com/mrccnt/gotk3-glade-example
 
-1. __Handle Other PineTime Commands:__ Update firmware, sync date and time, show mobile notifications, ...
-
-1. __State Management with Bloc Library:__ We shall integrate the [Bloc State Management Library](https://bloclibrary.dev/#/) to keep the Flutter code modular and maintainable
-
-1. __Companion App for Linux Phones (like PinePhone):__ We shall take the [Newt Manager](https://github.com/apache/mynewt-newtmgr) code in Go and wrap it into a GTK3 app, using the [`gotk3` library](https://github.com/gotk3/gotk3)
+The code in this article is part of the upcoming open source __PineTime Companion App__ for Linux phones (like PinePhone). So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications from our phone, chart our heart rate, ... Maybe even control our smart home gadgets! 
 
 If you're keen to help out, come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!
 
@@ -90,6 +126,8 @@ If you're keen to help out, come chat with the PineTime FOSS Community (and me) 
 # Further Reading
 
 _["Your First Bluetooth Low Energy App with Flutter"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter)_
+
+_["Convert Go to Flutter and Dart for PineTime Companion App"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion)_
 
 _["MCUBoot Bootloader for PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot)_
 
