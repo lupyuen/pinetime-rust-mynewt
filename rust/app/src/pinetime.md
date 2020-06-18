@@ -54,4 +54,6 @@ You're welcome to join us and make the open source PineTime software even better
 
 [Chat with us on Matrix, Discord, Telegram and IRC](https://wiki.pine64.org/index.php/PineTime#Community)
 
+[My PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
+
 [My RSS Feed](https://lupyuen.github.io/rss.xml)
