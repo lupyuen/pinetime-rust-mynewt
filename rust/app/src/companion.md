@@ -871,6 +871,14 @@ Check out this Flutter App built with Bloc: [`flutterweathertutorial`](https://b
 
 # Run Our Flutter App
 
+Build and run our [Flutter Companion App](https://github.com/lupyuen/pinetime-companion) with VSCode...
+
+[`github.com/lupyuen/pinetime-companion`](https://github.com/lupyuen/pinetime-companion) 
+
+The steps should be similar to the previous article...
+
+_["Your First Bluetooth Low Energy App with Flutter"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter)_
+
 Here's the video of our Flutter App running on a real Android phone. The app sends the `ImageStateReadReq` request to PineTime over Bluetooth LE to query the firmware images stored in PineTime...
 
 - [Watch on YouTube](https://youtu.be/n396JA62NDk)
