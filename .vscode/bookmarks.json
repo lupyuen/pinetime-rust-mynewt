@@ -348,7 +348,7 @@
 		"path": "$ROOTPATH$/libs/pinetime_boot/src/display.c",
 		"bookmarks": [
 			{
-				"line": 110,
+				"line": 111,
 				"column": 16,
 				"label": ""
 			}

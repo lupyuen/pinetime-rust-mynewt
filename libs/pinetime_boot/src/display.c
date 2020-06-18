@@ -36,6 +36,7 @@
 #define DISPLAY_RST  26  //  LCD_RESET (P0.26): Display reset
 #define DISPLAY_HIGH 23  //  LCD_BACKLIGHT_{LOW,MID,HIGH} (P0.14, 22, 23): Backlight (active low)
 #define BATCH_SIZE  256  //  Max number of SPI data bytes to be transmitted
+#define PUSH_BUTTON_IN  13  //  GPIO Pin P0.13: PUSH BUTTON_IN
 
 //  Screen Size
 #define ROW_COUNT 240
@@ -331,6 +332,10 @@ static void delay_ms(uint32_t ms) {
     os_time_delay(delay_ticks);
 #else  //  If Task Scheduler is disabled (i.e. MCUBoot)...
     //  os_time_delay() doesn't work in MCUBoot because the scheduler has not started
-    //  TODO: check for pinetime button
+    uint8_t button_samples = 0;
+    for (int i = 0; i < 64; i++) {
+        for (int delay = 0; delay < 100000; delay++) {}
+        button_samples += hal_gpio_read(PUSH_BUTTON_IN);
+    }
 #endif  //  MYNEWT_VAL(OS_SCHEDULING)
 }
