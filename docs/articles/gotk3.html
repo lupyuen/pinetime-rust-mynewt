@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Your First GTK App with Go and VSCodium</title>
+
+    
+    <!-- Begin scripts/articles/*-header.html: Article Header for Custom Markdown files processed by rustdoc, like chip8.md -->
+<meta property="og:title" 
+    content="Your First GTK3 App with Go and VSCodium" 
+    data-rh="true">
+<meta property="og:description" 
+    content="Creating desktop apps on Linux doesn't have to be hard... Let's build GTK3 apps in Go with the gotk3 library!"
+    data-rh="true">
+<meta property="og:image" 
+    content="https://lupyuen.github.io/images/companion-title.png">
+<meta property="og:type" 
+    content="article" data-rh="true">
+<!-- End scripts/articles/*-header.html -->
+<!-- Begin scripts/rustdoc-header.html: Header for Custom Markdown files processed by rustdoc, like chip8.md -->
+<link rel="alternate" type="application/rss+xml" title="RSS Feed for lupyuen" href="/rss.xml" />
+<link rel="stylesheet" type="text/css" href="../normalize.css">
+<link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
+<link rel="stylesheet" type="text/css" href="../dark.css">
+<link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle">
+<script src="../storage.js"></script><noscript>
+<link rel="stylesheet" href="../noscript.css"></noscript>
+<link rel="shortcut icon" href="../favicon.ico">
+<style type="text/css">
+    #crate-search {
+        background-image: url("../down-arrow.svg");
+    }
+    a {
+        color: #77d;
+    }
+</style>
+<!-- End scripts/rustdoc-header.html -->
+
+
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+        <!-- Begin scripts/rustdoc-before.html: Pre-HTML for Custom Markdown files processed by rustdoc, like chip8.md -->
+
+    <!-- Begin Theme Picker -->
+    <div class="theme-picker" style="left: 0"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg"
+        width="18" alt="Pick another theme!"></button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../theme.js"></script>
+    <!-- Theme Picker -->
+
+    <!-- End scripts/rustdoc-before.html -->
+    
+
+    <h1 class="title">Your First GTK App with Go and VSCodium</h1>
+    <nav id="TOC"><ul>
+<li><a href="#coding-gtk3-with-go">1 Coding GTK3 with Go</a><ul></ul></li>
+<li><a href="#install-build-tools">2 Install Build Tools</a><ul></ul></li>
+<li><a href="#install-vscodium">3 Install VSCodium</a><ul></ul></li>
+<li><a href="#download-source-code-for-our-app">4 Download Source Code For Our App</a><ul></ul></li>
+<li><a href="#build-and-run-our-app">5 Build And Run Our App</a><ul></ul></li>
+<li><a href="#whats-next">6 What's Next</a><ul></ul></li>
+<li><a href="#further-reading">7 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/gotk3-pinebook.png" alt="GTK3 Go App with VSCodium and Manjaro Xfce on Pinebook Pro" /></p>
+<p><em>GTK3 Go App with VSCodium and Manjaro Xfce on Pinebook Pro</em></p>
+<p>Creating desktop apps on Linux doesn't have to be hard... Let's build <strong><a href="https://www.gtk.org/">GTK+ 3</a> apps in <a href="https://golang.org/">Go</a></strong> with the <strong><a href="https://github.com/gotk3/gotk3"><code>gotk3</code></a></strong> library!</p>
+<p>Read on to find out how we install the GTK3 Go tools to build desktop apps on <strong>Manjaro, Arch Linux, Ubuntu and Debian</strong>.</p>
+<p>The steps have been tested on...</p>
+<ol>
+<li>
+<p><strong>Pinebook Pro</strong> with <strong>Manjaro Xfce</strong> (other flavours should work fine)</p>
+</li>
+<li>
+<p><strong>Pinebook Pro</strong> with <strong>Debian Mate</strong> (consider installing Manjaro Xfce for much better performance)</p>
+</li>
+<li>
+<p><strong>Raspberry Pi 4</strong> with <strong>Manjaro Xfce</strong> 64-bit (other flavours should work fine)</p>
+</li>
+<li>
+<p><strong>Raspberry Pi 4</strong> with <strong>Ubuntu Desktop</strong> 20.04 64-bit</p>
+</li>
+</ol>
+<p>They will probably work on Intel x64 distros of Linux too.</p>
+<p>(Sorry, Raspberry Pi with Raspbian refuses to install the GTK tools... So please use Manjaro or Ubuntu)</p>
+<p><img src="https://lupyuen.github.io/images/gotk3-ubuntupi.jpg" alt="GTK3 Go App with Ubuntu Desktop 20.04 64-bit on Raspberry Pi 4" /></p>
+<p><em>GTK3 Go App with Ubuntu Desktop 20.04 64-bit on Raspberry Pi 4 with 4 GB RAM</em></p>
+<h1 id="coding-gtk3-with-go" class="section-header"><a href="#coding-gtk3-with-go">1 Coding GTK3 with Go</a></h1>
+<p>We'll be creating this simple desktop GUI app...</p>
+<p><img src="https://lupyuen.github.io/images/gotk3-app.png" alt="GTK3 Go App" /></p>
+<p>With this Go code that calls the <code>gotk3</code> library...</p>
+<pre><code class="language-go">func newStackFull() gtk.IWidget {
+	// get a stack and its switcher.
+	stack, err := gtk.StackNew()
+	if err != nil {
+		log.Fatal(&quot;Unable to get text:&quot;, err)
+	}
+
+	sw, err := gtk.StackSwitcherNew()
+	if err != nil {
+		log.Fatal(&quot;Unable to get text:&quot;, err)
+	}
+	sw.SetStack(stack)
+
+	// Fill the stack with 3 pages.
+	boxText1 := newBoxText(&quot;Hello there!&quot;)
+	boxRadio := newBoxRadio(&quot;choice 1&quot;, &quot;choice 2&quot;, &quot;choice 3&quot;, &quot;choice 4&quot;)
+	boxText2 := newBoxText(&quot;third page&quot;)
+
+	stack.AddTitled(boxText1, &quot;key1&quot;, &quot;first page&quot;)
+	stack.AddTitled(boxRadio, &quot;key2&quot;, &quot;second page&quot;)
+	stack.AddTitled(boxText2, &quot;key3&quot;, &quot;third page&quot;)
+
+	// You can use icons for a switcher page (the page title will be visible as tooltip).
+	stack.ChildSetProperty(boxRadio, &quot;icon-name&quot;, &quot;list-add&quot;)
+
+	// Pack in a box.
+	box := setup_box(gtk.ORIENTATION_VERTICAL)
+	box.PackStart(sw, false, false, 0)
+	box.PackStart(stack, true, true, 0)
+	return box
+}
+</code></pre>
+<p>See the rest of the code here: <a href="https://github.com/gotk3/gotk3-examples/blob/master/gtk-examples/stack/stack.go"><code>gtk-examples/stack/stack.go</code></a></p>
+<p><em>Why use Go to code GTK apps?</em></p>
+<ol>
+<li>
+<p>Go looks so <strong>neat and tidy</strong> for writing GUI apps with GTK3!</p>
+</li>
+<li>
+<p>Go compiles to <strong>machine code</strong> so it's fast (<a href="https://benhoyt.com/writings/go-intro/">More details</a>)</p>
+</li>
+<li>
+<p>Go supports <strong>Garbage Collection</strong>, so no worries about scary C pointers</p>
+</li>
+</ol>
+<p><em>In the code above, why are type names omitted when we declare variables?</em></p>
+<p>Because Go is <strong>Static Typed</strong> and it inferences the types of variables based on their usage.</p>
+<p>No more runtime type errors! (The ones we see in JavaScript)</p>
+<h1 id="install-build-tools" class="section-header"><a href="#install-build-tools">2 Install Build Tools</a></h1>
+<p><strong>1️⃣ For Manjaro and Arch Linux...</strong></p>
+<p>At the command prompt enter...</p>
+<pre><code class="language-bash">sudo pacman -S gtk3 cairo glib2 go
+</code></pre>
+<p><strong>2️⃣ For Ubuntu and Debian...</strong></p>
+<p>At the command prompt enter...</p>
+<pre><code class="language-bash">sudo apt install libgtk-3-dev libcairo2-dev libglib2.0-dev
+</code></pre>
+<p>Follow the instructions here to install the Go build tools:</p>
+<p><a href="https://golang.org/doc/install"><code>golang.org/doc/install</code></a></p>
+<p><img src="https://lupyuen.github.io/images/gotk3-vscodium.png" alt="VSCodium on Manjaro Xfce installed via Arch User Repository" /></p>
+<p><em>VSCodium on Manjaro Xfce installed via Arch User Repository</em></p>
+<h1 id="install-vscodium" class="section-header"><a href="#install-vscodium">3 Install VSCodium</a></h1>
+<p>We'll be installing <a href="https://github.com/VSCodium/vscodium"><strong>VSCodium</strong></a>, the community build of VSCode that doesn't have Microsoft branding and telemetry. VSCodium has better support for Arm Linux than VSCode.</p>
+<p>Note that VSCodium uses its own Extensions Marketplace, so that it doesn't violate Microsoft's terms of use. VSCodium Marketplace Extensions may be slightly different from the VSCode Marketplace.</p>
+<p><strong>1️⃣ For Manjaro and Arch Linux...</strong></p>
+<p>Enable <strong>Arch User Repository (AUR)</strong> in the Arch Package Manager <code>pamac-manager</code>... </p>
+<p><a href="https://itsfoss.com/aur-arch-linux/"><em>&quot;How to Use AUR on Arch and Manjaro Linux?&quot;</em></a></p>
+<p>In the Package Manager, search for <code>vscodium-bin</code> and install it.</p>
+<p><strong>2️⃣ For Ubuntu and Debian...</strong></p>
+<p>Follow the instructions here to install VSCodium:</p>
+<p><a href="https://github.com/VSCodium/vscodium"><code>github.com/VSCodium/vscodium</code></a></p>
+<h1 id="download-source-code-for-our-app" class="section-header"><a href="#download-source-code-for-our-app">4 Download Source Code For Our App</a></h1>
+<p>Let's download the <code>gotk3</code> sample code...</p>
+<ol>
+<li>
+<p>Launch VSCodium, click <code>View → Command Palette</code></p>
+</li>
+<li>
+<p>Enter <code>Git Clone</code></p>
+</li>
+<li>
+<p>Enter <code>https://github.com/gotk3/gotk3-examples</code></p>
+</li>
+<li>
+<p>Select a folder to download the source code</p>
+</li>
+<li>
+<p>When prompted to open the cloned repository, click <code>Open</code></p>
+</li>
+<li>
+<p>In the <code>Explorer → Workspace</code> pane at left, browse to <code>gtk-examples → stack</code></p>
+</li>
+<li>
+<p>Double-click on <code>stack.go</code>. This is the Go app that we shall be building...</p>
+</li>
+</ol>
+<p><img src="https://lupyuen.github.io/images/gotk3-source.png" alt="Source code of our GTK3 Go app in VSCodium" /></p>
+<h1 id="build-and-run-our-app" class="section-header"><a href="#build-and-run-our-app">5 Build And Run Our App</a></h1>
+<ol>
+<li>
+<p>In VSCode, click <code>Terminal → New Terminal</code></p>
+</li>
+<li>
+<p>At the Terminal prompt, enter...</p>
+<pre><code class="language-bash">cd gtk-examples/stack
+go get github.com/gotk3/gotk3/gtk
+go build stack.go
+ls -l
+</code></pre>
+<p>The <code>go get</code> command may take 10 minutes or longer to build the <code>gotk3</code> library... Be patient! This only needs to be done once.</p>
+<p>The <code>ls -l</code> command should show the compiled Go executable named <code>stack</code>...</p>
+<p><img src="https://lupyuen.github.io/images/gotk3-build.png" alt="Our compiled GTK3 Go App" /></p>
+</li>
+<li>
+<p>At the Terminal prompt, enter...</p>
+<pre><code class="language-bash">./stack
+</code></pre>
+<p>This launches our newly-built GTK3 app...</p>
+<p><img src="https://lupyuen.github.io/images/gotk3-app.png" alt="Our GTK3 Go app" /></p>
+</li>
+</ol>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">6 What's Next</a></h1>
+<p>Check the <a href="https://pkg.go.dev/github.com/gotk3/gotk3/gtk?tab=doc"><code>gotk3</code> documentation</a> to explore all the GTK+ widgets available in Go: List Box, Notebook, File Chooser Dialog, ...</p>
+<p>If the Go code looks cumbersome, there's another option for coding GTK3 apps in Go: <a href="https://glade.gnome.org/"><strong>Glade UI Builder for GTK</strong></a></p>
+<p>The output from Glade may be integrated into a Go app with <code>gotk3</code> like this: <a href="https://github.com/mrccnt/gotk3-glade-example"><code>gotk3-glade-example</code></a></p>
+<p>The code in this article is part of the upcoming open source <strong>PineTime Companion App</strong> for Linux phones (like PinePhone). So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications from our phone, chart our heart rate, ... Maybe even control our smart home gadgets! </p>
+<p>If you're keen to help out, come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!</p>
+<p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Matrix / Discord / Telegram / IRC</a></p>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">7 Further Reading</a></h1>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter">&quot;Your First Bluetooth Low Energy App with Flutter&quot;</a></em></p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">&quot;Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)&quot;</a></em></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
+<p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
+
+    
+</body>
+</html>

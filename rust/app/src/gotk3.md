@@ -1,10 +1,14 @@
-# Your First GTK3 App with Go and VSCodium
+# Your First GTK App with Go and VSCodium
 
-![???](https://lupyuen.github.io/images/gotk3-title.png)
+![GTK3 Go App with VSCodium and Manjaro Xfce on Pinebook Pro](https://lupyuen.github.io/images/gotk3-pinebook.png)
 
-Creating desktop apps on Linux doesn't have to be hard... Just write __[GTK3](https://www.gtk.org/) apps in [Go](https://golang.org/)__ with the __[`gotk3`](https://github.com/gotk3/gotk3)__ library!
+_GTK3 Go App with VSCodium and Manjaro Xfce on Pinebook Pro_
 
-Read on to find out how we install the GTK3 Go tools and build apps on __Manjaro, Arch Linux, Ubuntu and Debian__.  The steps have been tested on...
+Creating desktop apps on Linux doesn't have to be hard... Let's build __[GTK+ 3](https://www.gtk.org/) apps in [Go](https://golang.org/)__ with the __[`gotk3`](https://github.com/gotk3/gotk3)__ library!
+
+Read on to find out how we install the GTK3 Go tools to build desktop apps on __Manjaro, Arch Linux, Ubuntu and Debian__.  
+
+The steps have been tested on...
 
 1. __Pinebook Pro__ with __Manjaro Xfce__ (other flavours should work fine)
 
@@ -14,13 +18,19 @@ Read on to find out how we install the GTK3 Go tools and build apps on __Manjaro
 
 1. __Raspberry Pi 4__ with __Ubuntu Desktop__ 20.04 64-bit
 
-(Sorry, Raspberry Pi with Raspbian refuses to install the GTK tools)
+They will probably work on Intel x64 distros of Linux too.
+
+(Sorry, Raspberry Pi with Raspbian refuses to install the GTK tools... So please use Manjaro or Ubuntu)
+
+![GTK3 Go App with Ubuntu Desktop 20.04 64-bit on Raspberry Pi 4](https://lupyuen.github.io/images/gotk3-ubuntupi.jpg)
+
+_GTK3 Go App with Ubuntu Desktop 20.04 64-bit on Raspberry Pi 4 with 4 GB RAM_
 
 # Coding GTK3 with Go
 
 We'll be creating this simple desktop GUI app...
 
-???
+![GTK3 Go App](https://lupyuen.github.io/images/gotk3-app.png)
 
 With this Go code that calls the `gotk3` library...
 
@@ -60,7 +70,7 @@ func newStackFull() gtk.IWidget {
 
 See the rest of the code here: [`gtk-examples/stack/stack.go`](https://github.com/gotk3/gotk3-examples/blob/master/gtk-examples/stack/stack.go)
 
-_Why use Go to code GTK3 apps?_
+_Why use Go to code GTK apps?_
 
 1. Go looks so __neat and tidy__ for writing GUI apps with GTK3!
 
@@ -95,6 +105,10 @@ sudo apt install libgtk-3-dev libcairo2-dev libglib2.0-dev
 Follow the instructions here to install the Go build tools:
 
 [`golang.org/doc/install`](https://golang.org/doc/install)
+
+![VSCodium on Manjaro Xfce installed via Arch User Repository](https://lupyuen.github.io/images/gotk3-vscodium.png)
+
+_VSCodium on Manjaro Xfce installed via Arch User Repository_
 
 # Install VSCodium
 
@@ -132,9 +146,9 @@ Let's download the `gotk3` sample code...
 
 1. In the `Explorer → Workspace` pane at left, browse to `gtk-examples → stack`
 
-1. Double-click on `stack.go`. This is the Go app that we shall be building.
+1. Double-click on `stack.go`. This is the Go app that we shall be building...
 
-???
+![Source code of our GTK3 Go app in VSCodium](https://lupyuen.github.io/images/gotk3-source.png)
 
 # Build And Run Our App
 
@@ -149,13 +163,11 @@ Let's download the `gotk3` sample code...
     ls -l
     ```
 
-    ???
+    The `go get` command may take 10 minutes or longer to build the `gotk3` library... Be patient! This only needs to be done once.
 
-    The `go get` command may take 10 minutes or longer to build the `gotk3` library... Be patient! This only needs to be done once.  Our CPU may hit 100% utilisation like this...
+    The `ls -l` command should show the compiled Go executable named `stack`...
 
-    The `ls -l` command should show the compiled Go executable...
-
-    ???
+    ![Our compiled GTK3 Go App](https://lupyuen.github.io/images/gotk3-build.png)
 
 1. At the Terminal prompt, enter...
 
@@ -163,11 +175,13 @@ Let's download the `gotk3` sample code...
     ./stack
     ```
 
-    This runs our newly-built GTK3 app...
+    This launches our newly-built GTK3 app...
 
-    ???
+    ![Our GTK3 Go app](https://lupyuen.github.io/images/gotk3-app.png)
 
 # What's Next
+
+Check the [`gotk3` documentation](https://pkg.go.dev/github.com/gotk3/gotk3/gtk?tab=doc) to explore all the GTK+ widgets available in Go: List Box, Notebook, File Chooser Dialog, ...
 
 If the Go code looks cumbersome, there's another option for coding GTK3 apps in Go: [__Glade UI Builder for GTK__](https://glade.gnome.org/)
 
