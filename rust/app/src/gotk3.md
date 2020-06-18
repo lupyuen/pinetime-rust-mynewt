@@ -94,6 +94,8 @@ At the command prompt enter...
 sudo pacman -S gtk3 cairo glib2 go
 ```
 
+Proceed to the next section _"Install VSCodium"_
+
 __2️⃣ For Ubuntu and Debian...__
 
 At the command prompt enter...
@@ -152,7 +154,7 @@ Let's download the `gotk3` sample code...
 
 # Build And Run Our App
 
-1. In VSCode, click `Terminal → New Terminal`
+1. In VSCodium, click `Terminal → New Terminal`
 
 1. At the Terminal prompt, enter...
 
