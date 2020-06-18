@@ -10,11 +10,59 @@ Ubuntu Deskto 20.04 64-bit
 
 # Coding GTK3 with Go
 
-Why use Go to code GTK3 apps?
+We'll be creating this simple desktop GUI app...
+
+By running this Go code that calls the `gotk3` library...
 
 ```go
+func newStackFull() gtk.IWidget {
+	// get a stack and its switcher.
+	stack, err := gtk.StackNew()
+	if err != nil {
+		log.Fatal("Unable to get text:", err)
+	}
 
+	sw, err := gtk.StackSwitcherNew()
+	if err != nil {
+		log.Fatal("Unable to get text:", err)
+	}
+	sw.SetStack(stack)
+
+	// Fill the stack with 3 pages.
+	boxText1 := newBoxText("Hello there!")
+	boxRadio := newBoxRadio("choice 1", "choice 2", "choice 3", "choice 4")
+	boxText2 := newBoxText("third page")
+
+	stack.AddTitled(boxText1, "key1", "first page")
+	stack.AddTitled(boxRadio, "key2", "second page")
+	stack.AddTitled(boxText2, "key3", "third page")
+
+	// You can use icons for a switcher page (the page title will be visible as tooltip).
+	stack.ChildSetProperty(boxRadio, "icon-name", "list-add")
+
+	// Pack in a box.
+	box := setup_box(gtk.ORIENTATION_VERTICAL)
+	box.PackStart(sw, false, false, 0)
+	box.PackStart(stack, true, true, 0)
+	return box
+}
 ```
+
+See the rest of the code here: [`gtk-examples/stack/stack.go`](https://github.com/gotk3/gotk3-examples/blob/master/gtk-examples/stack/stack.go)
+
+_Why use Go to code GTK3 apps?_
+
+1. Go looks so __neat and tidy__ for writing GUI apps with GTK3!
+
+1. Go compiles to __machine code__ so it's fast ([More details](https://benhoyt.com/writings/go-intro/))
+
+1. Go supports __Garbage Collection__, so no worries about scary C pointers
+
+_In the code above, why are type names omitted when we declare variables?_
+
+Because Go is __Static Typed__ and it inferences the types of variables based on their usage.
+
+No more runtime type errors! (The ones we see in JavaScript)
 
 # Install Build Tools
 
