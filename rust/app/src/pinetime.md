@@ -1,5 +1,7 @@
 # PineTime doesn't run Linux... But that's OK!
 
+![PineTime Smart Watch](https://lupyuen.github.io/images/pinetime-title.jpg)
+
 PineTime works great with open source embedded software platforms like __Arduino, FreeRTOS, RIOT, Mynewt, wasp-os, Zephyr,__ ... None of which are based on Linux!
 
 Think of PineTime as a supercharged BBC micro:bit (or Arduino Uno) that comes with Bluetooth LE, colour LCD display (240 x 240), touchscreen, heart rate sensor and accelerometer.

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>PineTime doesn&#39;t run Linux... But that&#39;s OK!</title>
+
+    
+    <!-- Begin scripts/articles/*-header.html: Article Header for Custom Markdown files processed by rustdoc, like chip8.md -->
+<meta property="og:title" 
+    content="PineTime doesn't run Linux... But that's OK!" 
+    data-rh="true">
+<meta property="og:description" 
+    content="Getting started with PineTime Smart Watch"
+    data-rh="true">
+<meta property="og:image" 
+    content="https://lupyuen.github.io/images/pinetime-title.jpg">
+<meta property="og:type" 
+    content="article" data-rh="true">
+<!-- End scripts/articles/*-header.html -->
+<!-- Begin scripts/rustdoc-header.html: Header for Custom Markdown files processed by rustdoc, like chip8.md -->
+<link rel="alternate" type="application/rss+xml" title="RSS Feed for lupyuen" href="/rss.xml" />
+<link rel="stylesheet" type="text/css" href="../normalize.css">
+<link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
+<link rel="stylesheet" type="text/css" href="../dark.css">
+<link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle">
+<script src="../storage.js"></script><noscript>
+<link rel="stylesheet" href="../noscript.css"></noscript>
+<link rel="shortcut icon" href="../favicon.ico">
+<style type="text/css">
+    #crate-search {
+        background-image: url("../down-arrow.svg");
+    }
+    a {
+        color: #77d;
+    }
+</style>
+<!-- End scripts/rustdoc-header.html -->
+
+
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+        <!-- Begin scripts/rustdoc-before.html: Pre-HTML for Custom Markdown files processed by rustdoc, like chip8.md -->
+
+    <!-- Begin Theme Picker -->
+    <div class="theme-picker" style="left: 0"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg"
+        width="18" alt="Pick another theme!"></button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../theme.js"></script>
+    <!-- Theme Picker -->
+
+    <!-- End scripts/rustdoc-before.html -->
+    
+
+    <h1 class="title">PineTime doesn&#39;t run Linux... But that&#39;s OK!</h1>
+    <nav id="TOC"><ul>
+<li><a href="#some-pinetime-wiring-needed">1 Some PineTime wiring needed</a><ul></ul></li>
+<li><a href="#wireless-tools-are-coming">2 Wireless tools are coming</a><ul></ul></li>
+<li><a href="#pinetime-companion-app">3 PineTime Companion App</a><ul></ul></li>
+<li><a href="#whats-next">4 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/pinetime-title.jpg" alt="PineTime Smart Watch" /></p>
+<p>PineTime works great with open source embedded software platforms like <strong>Arduino, FreeRTOS, RIOT, Mynewt, wasp-os, Zephyr,</strong> ... None of which are based on Linux!</p>
+<p>Think of PineTime as a supercharged BBC micro:bit (or Arduino Uno) that comes with Bluetooth LE, colour LCD display (240 x 240), touchscreen, heart rate sensor and accelerometer.</p>
+<p><strong>PineTime is incredibly hackable:</strong> Flash our own firmware, build our own watch faces, render graphics on the touchscreen, ... The PineTime FOSS Community is always happy to help you hack PineTime!</p>
+<p><strong>C is the most common language</strong> for coding PineTime. If you're familiar with Python, try coding PineTime with <strong>MicroPython on wasp-os.</strong></p>
+<p>If you're into cutting edge coding, check out <strong>Rust Embedded</strong> (and Real Time For the Masses) on PineTime.</p>
+<h1 id="some-pinetime-wiring-needed" class="section-header"><a href="#some-pinetime-wiring-needed">1 Some PineTime wiring needed</a></h1>
+<p>PineTime ships as a <strong>Developer Kit</strong>... Get ready to do some wiring!</p>
+<p>Some newbies find it tricky to connect to the SWD Port inside PineTime, please chat with us online for tips.</p>
+<p>I recommend using a <strong>Raspberry Pi to remove Flash ROM protection</strong> from PineTime (this step is mandatory), also to flash and debug the PineTime firmware.</p>
+<p>Advanced firmware coders will find <strong>ST-Link V2</strong> more efficient for flashing and debugging the firmware. (Though ST-Link V2 can't be used for removing Flash ROM protection)</p>
+<p><a href="https://wiki.pine64.org/index.php/PineTime">More about this in the PineTime Wiki</a></p>
+<h1 id="wireless-tools-are-coming" class="section-header"><a href="#wireless-tools-are-coming">2 Wireless tools are coming</a></h1>
+<p>Programming PineTime the wired way sounds tedious, but we're heading the wireless way...</p>
+<p>After installing the wasp-os or Arduino firmware on PineTime (the wired way), we may update the wasp-os / Arduino firmware wirelessly over Bluetooth LE. (wasp-os also exposes the REPL interface wirelessly)</p>
+<p>The PineTime FOSS Community is now extending this wireless capability to other types of PineTime firmware, like FreeRTOS, Mynewt and Zephyr.</p>
+<p>We have ported to PineTime the open source <strong>MCUBoot Bootloader</strong>, and we have to hope to have it preloaded on PineTime watches soon. </p>
+<p>The new bootloader will let you <strong>switch firmware wirelessly</strong>, like from Mynewt to FreeRTOS. Great for trying out all kinds of experimental firmware created by the PineTime FOSS Community!</p>
+<p>With firmware updates over Bluetooth LE, PineTime programming will become so much easier!</p>
+<h1 id="pinetime-companion-app" class="section-header"><a href="#pinetime-companion-app">3 PineTime Companion App</a></h1>
+<p>Today we use a mix of mobile apps for firmware flashing and data syncing with PineTime, like DaFlasher and nRF Connect.</p>
+<p>The open source <strong>PineTime Companion App</strong> is under development now. It will run on Android and iOS (via Flutter) and on Linux phones like PinePhone (via GOTK3).  It will probably run on Raspberry Pi and Pinebook Pro too!</p>
+<p>The Companion App will update PineTime firmware, sync the date and time, chart your heart rate, push your mobile notifications to PineTime, ... And let you control your smart home gadgets with PineTime!</p>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">4 What's Next</a></h1>
+<p>The PineTime FOSS Community has accomplished so much over the past 6 months because we're all <strong>volunteers passionate about PineTime.</strong></p>
+<p>You're welcome to join us and make the open source PineTime software even better!</p>
+<p><a href="https://wiki.pine64.org/index.php/PineTime#Community">Chat with us on Matrix, Discord, Telegram and IRC</a></p>
+
+    
+</body>
+</html>
