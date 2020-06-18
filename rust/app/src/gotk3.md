@@ -1,6 +1,6 @@
 # Your First GTK App with Go and VSCodium
 
-![GTK3 Go App with VSCodium and Manjaro Xfce on Pinebook Pro](https://lupyuen.github.io/images/gotk3-pinebook.png)
+![GTK+ 3 Go App with VSCodium and Manjaro Xfce on Pinebook Pro](https://lupyuen.github.io/images/gotk3-pinebook.png)
 
 _GTK+ 3 Go App with VSCodium and Manjaro Xfce on Pinebook Pro_
 
@@ -22,7 +22,7 @@ They will probably work on Intel x64 distros of Linux too.
 
 (Sorry, Raspberry Pi with Raspbian refuses to install the GTK tools... So please use Manjaro or Ubuntu)
 
-![GTK3 Go App with Ubuntu Desktop 20.04 64-bit on Raspberry Pi 4](https://lupyuen.github.io/images/gotk3-ubuntupi.jpg)
+![GTK+ 3 Go App with Ubuntu Desktop 20.04 64-bit on Raspberry Pi 4](https://lupyuen.github.io/images/gotk3-ubuntupi.jpg)
 
 _GTK+ 3 Go App with Ubuntu Desktop 20.04 64-bit on Raspberry Pi 4 with 4 GB RAM_
 
@@ -181,9 +181,9 @@ Let's download the `gotk3` sample code...
 
 # What's Next
 
-Check the [`gotk3` documentation](https://pkg.go.dev/github.com/gotk3/gotk3/gtk?tab=doc) to explore all the GTK+ widgets available in Go: List Box, Notebook, File Chooser Dialog, ...
+Check the [`gotk3` documentation](https://pkg.go.dev/github.com/gotk3/gotk3/gtk?tab=doc) to explore all the GTK widgets available in Go: List Box, Notebook, File Chooser Dialog, ...
 
-If the Go code looks cumbersome, there's another option for coding GTK3 apps in Go: [__Glade UI Builder for GTK__](https://glade.gnome.org/)
+If the Go code looks cumbersome, there's another option for coding GTK apps in Go: [__Glade UI Builder for GTK__](https://glade.gnome.org/)
 
 The output from Glade may be integrated into a Go app with `gotk3` like this: [`gotk3-glade-example`](https://github.com/mrccnt/gotk3-glade-example)
 
