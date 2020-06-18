@@ -2,11 +2,11 @@
 
 ![GTK3 Go App with VSCodium and Manjaro Xfce on Pinebook Pro](https://lupyuen.github.io/images/gotk3-pinebook.png)
 
-_GTK3 Go App with VSCodium and Manjaro Xfce on Pinebook Pro_
+_GTK+ 3 Go App with VSCodium and Manjaro Xfce on Pinebook Pro_
 
 Creating desktop apps on Linux doesn't have to be hard... Let's build __[GTK+ 3](https://www.gtk.org/) apps in [Go](https://golang.org/)__ with the __[`gotk3`](https://github.com/gotk3/gotk3)__ library!
 
-Read on to find out how we install the GTK3 Go tools to build desktop apps on __Manjaro, Arch Linux, Ubuntu and Debian__.  
+Read on to find out how we install the GTK+ 3 Go tools to build desktop apps on __Manjaro, Arch Linux, Ubuntu and Debian__.  
 
 The steps have been tested on...
 
@@ -24,9 +24,9 @@ They will probably work on Intel x64 distros of Linux too.
 
 ![GTK3 Go App with Ubuntu Desktop 20.04 64-bit on Raspberry Pi 4](https://lupyuen.github.io/images/gotk3-ubuntupi.jpg)
 
-_GTK3 Go App with Ubuntu Desktop 20.04 64-bit on Raspberry Pi 4 with 4 GB RAM_
+_GTK+ 3 Go App with Ubuntu Desktop 20.04 64-bit on Raspberry Pi 4 with 4 GB RAM_
 
-# Coding GTK3 with Go
+# Coding GTK with Go
 
 We'll be creating this simple desktop GUI app...
 
