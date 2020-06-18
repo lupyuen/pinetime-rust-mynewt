@@ -69,10 +69,10 @@
 <li><a href="#download-source-code-for-our-app">4 Download Source Code For Our App</a><ul></ul></li>
 <li><a href="#build-and-run-our-app">5 Build And Run Our App</a><ul></ul></li>
 <li><a href="#whats-next">6 What's Next</a><ul></ul></li>
-<li><a href="#further-reading">7 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/gotk3-pinebook.png" alt="GTK+ 3 Go App with VSCodium and Manjaro Xfce on Pinebook Pro" /></p>
-<p><em>GTK+ 3 Go App with VSCodium and Manjaro Xfce on Pinebook Pro</em></p>
-<p>Creating desktop apps on Linux doesn't have to be hard... Let's build <strong><a href="https://www.gtk.org/">GTK+ 3</a> apps in <a href="https://golang.org/">Go</a></strong> with the <strong><a href="https://github.com/gotk3/gotk3"><code>gotk3</code></a></strong> library!</p>
-<p>Read on to find out how we install the GTK+ 3 Go tools to build desktop apps on <strong>Manjaro, Arch Linux, Ubuntu and Debian</strong>.</p>
+<li><a href="#further-reading">7 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/gotk3-pinebook.png" alt="GTK+3 Go App with VSCodium and Manjaro Xfce on Pinebook Pro" /></p>
+<p><em>GTK+3 Go App with VSCodium and Manjaro Xfce on Pinebook Pro</em></p>
+<p>Creating desktop apps on Linux doesn't have to be hard... Let's build <strong><a href="https://www.gtk.org/">GTK+3</a> apps in <a href="https://golang.org/">Go</a></strong> with the <strong><a href="https://github.com/gotk3/gotk3"><code>gotk3</code></a></strong> library!</p>
+<p>Read on to find out how we install the GTK+3 Go tools to build desktop apps on <strong>Manjaro, Arch Linux, Ubuntu and Debian</strong>.</p>
 <p>The steps have been tested on...</p>
 <ol>
 <li>
@@ -90,8 +90,8 @@
 </ol>
 <p>They will probably work on Intel x64 distros of Linux too.</p>
 <p>(Sorry, Raspberry Pi with Raspbian refuses to install the GTK tools... So please use Manjaro or Ubuntu)</p>
-<p><img src="https://lupyuen.github.io/images/gotk3-ubuntupi.jpg" alt="GTK+ 3 Go App with Ubuntu Desktop 20.04 64-bit on Raspberry Pi 4" /></p>
-<p><em>GTK+ 3 Go App with Ubuntu Desktop 20.04 64-bit on Raspberry Pi 4 with 4 GB RAM</em></p>
+<p><img src="https://lupyuen.github.io/images/gotk3-ubuntupi.jpg" alt="GTK+3 Go App with Ubuntu Desktop 20.04 64-bit on Raspberry Pi 4" /></p>
+<p><em>GTK+3 Go App with Ubuntu Desktop 20.04 64-bit on Raspberry Pi 4 with 4 GB RAM</em></p>
 <h1 id="coding-gtk-with-go" class="section-header"><a href="#coding-gtk-with-go">1 Coding GTK with Go</a></h1>
 <p>We'll be creating this simple desktop GUI app...</p>
 <p><img src="https://lupyuen.github.io/images/gotk3-app.png" alt="GTK3 Go App" /></p>
@@ -132,7 +132,7 @@
 <p><em>Why use Go to code GTK apps?</em></p>
 <ol>
 <li>
-<p>Go looks so <strong>neat and tidy</strong> for writing GUI apps with GTK3!</p>
+<p>Go looks so <strong>neat and tidy</strong> for writing GUI apps with GTK!</p>
 </li>
 <li>
 <p>Go compiles to <strong>machine code</strong> so it's fast (<a href="https://benhoyt.com/writings/go-intro/">More details</a>)</p>
@@ -214,10 +214,13 @@ ls -l
 <p>At the Terminal prompt, enter...</p>
 <pre><code class="language-bash">./stack
 </code></pre>
-<p>This launches our newly-built GTK+ 3 Go app...</p>
+<p>This launches our newly-built GTK+3 Go app...</p>
 <p><img src="https://lupyuen.github.io/images/gotk3-app.png" alt="Our GTK3 Go app" /></p>
 </li>
 </ol>
+<p>And that's how we build GTK apps with Go!</p>
+<p><img src="https://lupyuen.github.io/images/gotk3-manjaropi.png" alt="GTK+3 Go App with VSCodium and Manjaro Xfce 64-bit on Raspberry Pi 4 with 4 GB RAM" /></p>
+<p><em>GTK+3 Go App with VSCodium and Manjaro Xfce 64-bit on Raspberry Pi 4 with 4 GB RAM</em></p>
 <h1 id="whats-next" class="section-header"><a href="#whats-next">6 What's Next</a></h1>
 <p>Check the <a href="https://pkg.go.dev/github.com/gotk3/gotk3/gtk?tab=doc"><code>gotk3</code> documentation</a> to explore all the GTK widgets available in Go: List Box, Notebook, File Chooser Dialog, ...</p>
 <p>If the Go code looks cumbersome, there's another option for coding GTK apps in Go: <a href="https://glade.gnome.org/"><strong>Glade UI Builder for GTK</strong></a></p>

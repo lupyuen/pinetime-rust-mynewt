@@ -1,12 +1,12 @@
 # Your First GTK App with Go and VSCodium
 
-![GTK+ 3 Go App with VSCodium and Manjaro Xfce on Pinebook Pro](https://lupyuen.github.io/images/gotk3-pinebook.png)
+![GTK+3 Go App with VSCodium and Manjaro Xfce on Pinebook Pro](https://lupyuen.github.io/images/gotk3-pinebook.png)
 
-_GTK+ 3 Go App with VSCodium and Manjaro Xfce on Pinebook Pro_
+_GTK+3 Go App with VSCodium and Manjaro Xfce on Pinebook Pro_
 
-Creating desktop apps on Linux doesn't have to be hard... Let's build __[GTK+ 3](https://www.gtk.org/) apps in [Go](https://golang.org/)__ with the __[`gotk3`](https://github.com/gotk3/gotk3)__ library!
+Creating desktop apps on Linux doesn't have to be hard... Let's build __[GTK+3](https://www.gtk.org/) apps in [Go](https://golang.org/)__ with the __[`gotk3`](https://github.com/gotk3/gotk3)__ library!
 
-Read on to find out how we install the GTK+ 3 Go tools to build desktop apps on __Manjaro, Arch Linux, Ubuntu and Debian__.  
+Read on to find out how we install the GTK+3 Go tools to build desktop apps on __Manjaro, Arch Linux, Ubuntu and Debian__.  
 
 The steps have been tested on...
 
@@ -22,9 +22,9 @@ They will probably work on Intel x64 distros of Linux too.
 
 (Sorry, Raspberry Pi with Raspbian refuses to install the GTK tools... So please use Manjaro or Ubuntu)
 
-![GTK+ 3 Go App with Ubuntu Desktop 20.04 64-bit on Raspberry Pi 4](https://lupyuen.github.io/images/gotk3-ubuntupi.jpg)
+![GTK+3 Go App with Ubuntu Desktop 20.04 64-bit on Raspberry Pi 4](https://lupyuen.github.io/images/gotk3-ubuntupi.jpg)
 
-_GTK+ 3 Go App with Ubuntu Desktop 20.04 64-bit on Raspberry Pi 4 with 4 GB RAM_
+_GTK+3 Go App with Ubuntu Desktop 20.04 64-bit on Raspberry Pi 4 with 4 GB RAM_
 
 # Coding GTK with Go
 
@@ -72,7 +72,7 @@ See the rest of the code here: [`gtk-examples/stack/stack.go`](https://github.co
 
 _Why use Go to code GTK apps?_
 
-1. Go looks so __neat and tidy__ for writing GUI apps with GTK3!
+1. Go looks so __neat and tidy__ for writing GUI apps with GTK!
 
 1. Go compiles to __machine code__ so it's fast ([More details](https://benhoyt.com/writings/go-intro/))
 
@@ -177,9 +177,15 @@ Let's download the `gotk3` sample code...
     ./stack
     ```
 
-    This launches our newly-built GTK+ 3 Go app...
+    This launches our newly-built GTK+3 Go app...
 
     ![Our GTK3 Go app](https://lupyuen.github.io/images/gotk3-app.png)
+
+And that's how we build GTK apps with Go!
+
+![GTK+3 Go App with VSCodium and Manjaro Xfce 64-bit on Raspberry Pi 4 with 4 GB RAM](https://lupyuen.github.io/images/gotk3-manjaropi.png)
+
+_GTK+3 Go App with VSCodium and Manjaro Xfce 64-bit on Raspberry Pi 4 with 4 GB RAM_
 
 # What's Next
 
