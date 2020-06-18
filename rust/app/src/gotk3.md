@@ -2,17 +2,27 @@
 
 ![???](https://lupyuen.github.io/images/gotk3-title.png)
 
-https://github.com/gotk3/gotk3
+Creating desktop apps on Linux doesn't have to be hard... Just write __[GTK3](https://www.gtk.org/) apps in [Go](https://golang.org/)__ with the __[`gotk3`](https://github.com/gotk3/gotk3)__ library!
 
-Pinebook Pro and Raspberry Pi
-Debian Mate and Manjaro Xfce
-Ubuntu Deskto 20.04 64-bit
+Read on to find out how we install the GTK3 Go tools and build apps on __Manjaro, Arch Linux, Ubuntu and Debian__.  The steps have been tested on...
+
+1. __Pinebook Pro__ with __Manjaro Xfce__ (other flavours should work fine)
+
+1. __Pinebook Pro__ with __Debian Mate__ (consider installing Manjaro Xfce for much better performance)
+
+1. __Raspberry Pi 4__ with __Manjaro Xfce__ 64-bit (other flavours should work fine)
+
+1. __Raspberry Pi 4__ with __Ubuntu Desktop__ 20.04 64-bit
+
+(Sorry, Raspberry Pi with Raspbian refuses to install the GTK tools)
 
 # Coding GTK3 with Go
 
 We'll be creating this simple desktop GUI app...
 
-By running this Go code that calls the `gotk3` library...
+???
+
+With this Go code that calls the `gotk3` library...
 
 ```go
 func newStackFull() gtk.IWidget {
@@ -159,11 +169,9 @@ Let's download the `gotk3` sample code...
 
 # What's Next
 
-Glade UI Builder for GTK
+If the Go code looks cumbersome, there's another option for coding GTK3 apps in Go: [__Glade UI Builder for GTK__](https://glade.gnome.org/)
 
-https://glade.gnome.org/
-
-Seems feasible to build https://github.com/mrccnt/gotk3-glade-example
+The output from Glade may be integrated into a Go app with `gotk3` like this: [`gotk3-glade-example`](https://github.com/mrccnt/gotk3-glade-example)
 
 The code in this article is part of the upcoming open source __PineTime Companion App__ for Linux phones (like PinePhone). So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications from our phone, chart our heart rate, ... Maybe even control our smart home gadgets! 
 
