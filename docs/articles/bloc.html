@@ -64,15 +64,39 @@
     <h1 class="title">Flutter State Management with Bloc for PineTime Companion App</h1>
     <nav id="TOC"><ul>
 <li><a href="#why-manage-state">1 Why Manage State?</a><ul></ul></li>
-<li><a href="#bluetooth-low-energy-callbacks">2 Bluetooth Low Energy Callbacks</a><ul></ul></li>
-<li><a href="#decode-cbor">3 Decode CBOR</a><ul></ul></li>
-<li><a href="#build-and-run-app">4 Build and Run App</a><ul></ul></li>
-<li><a href="#debug-log">5 Debug Log</a><ul></ul></li>
-<li><a href="#whats-next">6 What's Next</a><ul></ul></li>
-<li><a href="#further-reading">7 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/bloc-title.jpg" alt="PineTime Smart Watch with PineTime Companion App" /></p>
+<li><a href="#state-management-with-bloc-library">2 State Management with Bloc Library</a><ul></ul></li>
+<li><a href="#bluetooth-low-energy-callbacks">3 Bluetooth Low Energy Callbacks</a><ul></ul></li>
+<li><a href="#decode-cbor">4 Decode CBOR</a><ul></ul></li>
+<li><a href="#build-and-run-app">5 Build and Run App</a><ul></ul></li>
+<li><a href="#debug-log">6 Debug Log</a><ul></ul></li>
+<li><a href="#whats-next">7 What's Next</a><ul></ul></li>
+<li><a href="#further-reading">8 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/bloc-title.jpg" alt="PineTime Companion App running on an Android phone, fetching the firmware versions from PineTime Smart Watch wirelessly" /></p>
+<p><em>PineTime Companion App running on an Android phone, fetching the firmware versions from PineTime Smart Watch wirelessly</em></p>
+<p><a href="https://flutter.dev/"><strong>Flutter is awesome</strong></a> for creating mobile apps for Android and iOS... The programming language is modern <a href="https://dart.dev/"><strong>(Dart)</strong></a>, the debugging tools are excellent <a href="https://flutter.dev/docs/development/tools/vs-code"><strong>(VSCode and Dart DevTools)</strong></a>.</p>
+<p>That's why we have selected Flutter for creating the open source <strong><a href="https://github.com/lupyuen/pinetime-companion/tree/bloc">Android and iOS Companion App</a></strong> for <strong><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime">PineTime Smart Watch</a></strong>: For updating firmware, syncing date/time, pushing mobile notifications, controlling your smart home gadgets, ... and so much more!</p>
+<p>In the previous article <em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em> we have built a technical functional (barely human) app that sends Bluetooth Low Energy commands to PineTime. Today we'll recode the app so that it's more human-friendly.</p>
+<p>Read on to learn how we do this with the <strong><a href="https://bloclibrary.dev/">Bloc Library for State Management</a></strong>...</p>
 <h1 id="why-manage-state" class="section-header"><a href="#why-manage-state">1 Why Manage State?</a></h1>
-<p>(People familiar with React app will understand the need for State Management)</p>
-<h1 id="bluetooth-low-energy-callbacks" class="section-header"><a href="#bluetooth-low-energy-callbacks">2 Bluetooth Low Energy Callbacks</a></h1><h1 id="decode-cbor" class="section-header"><a href="#decode-cbor">3 Decode CBOR</a></h1><h1 id="build-and-run-app" class="section-header"><a href="#build-and-run-app">4 Build and Run App</a></h1>
+<p><em>It's easy to build a mobile app for Android and iOS with Flutter... What could go wrong?</em></p>
+<p>A mobile app is a simple thing... It just reacts to our tapping and updates the display...</p>
+<p><img src="https://lupyuen.github.io/images/bloc-state1.png" alt="Mobile app reacts to our tapping and updates the display" /></p>
+<p><em>Is it really so simple?</em></p>
+<p>Nope! Behind the scenes, the app could be calling some REST API on the web. Or talking to Bluetooth gadgets like PineTime...</p>
+<p><img src="https://lupyuen.github.io/images/bloc-state2.png" alt="Mobile app calls REST API and talks to Bluetooth gadgets" /></p>
+<p><em>What happens when the app loses track of its state?</em></p>
+<p>Things can become really complicated...</p>
+<p><img src="https://lupyuen.github.io/images/bloc-state3.png" alt="Mobile app gets complicated" /></p>
+<p>There's a good way to handle this messy state in Flutter apps... <strong>State Management with the Bloc Library</strong>! </p>
+<p>Read on to learn how.</p>
+<p><em>(If you're familiar with React Redux: Yep Bloc sounds a lot like React Redux, because they are both State Management Frameworks)</em></p>
+<h1 id="state-management-with-bloc-library" class="section-header"><a href="#state-management-with-bloc-library">2 State Management with Bloc Library</a></h1>
+<p>TODO</p>
+<h1 id="bluetooth-low-energy-callbacks" class="section-header"><a href="#bluetooth-low-energy-callbacks">3 Bluetooth Low Energy Callbacks</a></h1>
+<p>TODO</p>
+<h1 id="decode-cbor" class="section-header"><a href="#decode-cbor">4 Decode CBOR</a></h1>
+<p>TODO</p>
+<h1 id="build-and-run-app" class="section-header"><a href="#build-and-run-app">5 Build and Run App</a></h1>
+<p>TODO</p>
 <p>device.dart</p>
 <pre><code class="language-dart">IconButton(
     icon: Icon(Icons.search),
@@ -131,7 +155,9 @@
     }
   }
 </code></pre>
-<h1 id="debug-log" class="section-header"><a href="#debug-log">5 Debug Log</a></h1>
+<h1 id="debug-log" class="section-header"><a href="#debug-log">6 Debug Log</a></h1>
+<p>TODO </p>
+
 <pre><code>Launching lib/main.dart on Pixel 4 XL in debug mode...
 ✓ Built build/app/outputs/apk/debug/app-debug.apk.
 I/FlutterBluePlugin(20366): setup
@@ -216,7 +242,8 @@ I/flutter (20366): onTransition Transition { currentState: DeviceLoadInProgress,
 I/flutter (20366): onEvent DeviceChanged
 I/flutter (20366): onTransition Transition { currentState: ThemeState, event: DeviceChanged, nextState: ThemeState }
 Application finished.
-Exited (sigterm)</code></pre><h1 id="whats-next" class="section-header"><a href="#whats-next">6 What's Next</a></h1>
+Exited (sigterm)</code></pre><h1 id="whats-next" class="section-header"><a href="#whats-next">7 What's Next</a></h1>
+<p>TODO</p>
 <p>The code in this article is part of the upcoming open source <strong>PineTime Companion App</strong> for Android and iOS. So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications from our phone, chart our heart rate, ... Maybe even control our smart home gadgets! </p>
 <p>We'll be adding more code to the Flutter app...</p>
 <ol>
@@ -227,16 +254,13 @@ Exited (sigterm)</code></pre><h1 id="whats-next" class="section-header"><a href=
 <p><strong>Handle Other PineTime Commands:</strong> Update firmware, sync date and time, show mobile notifications, ...</p>
 </li>
 <li>
-<p><strong>State Management with Bloc Library:</strong> We shall integrate the <a href="https://bloclibrary.dev/#/">Bloc State Management Library</a> to keep the Flutter code modular and maintainable</p>
-</li>
-<li>
 <p><strong>Companion App for Linux Phones (like PinePhone):</strong> We shall take the <a href="https://github.com/apache/mynewt-newtmgr">Newt Manager</a> code in Go and wrap it into a GTK3 app, using the <a href="https://github.com/gotk3/gotk3"><code>gotk3</code> library</a>...</p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3">&quot;Your First GTK App with Go and VSCodium&quot;</a></em></p>
 </li>
 </ol>
 <p>If you're keen to help out, come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!</p>
 <p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Matrix / Discord / Telegram / IRC</a></p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">7 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">8 Further Reading</a></h1>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter">&quot;Your First Bluetooth Low Energy App with Flutter&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3">&quot;Your First GTK App with Go and VSCodium&quot;</a></em></p>

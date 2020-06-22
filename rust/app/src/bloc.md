@@ -6,7 +6,7 @@ _PineTime Companion App running on an Android phone, fetching the firmware versi
 
 [__Flutter is awesome__](https://flutter.dev/) for creating mobile apps for Android and iOS... The programming language is modern [__(Dart)__](https://dart.dev/), the debugging tools are excellent [__(VSCode and Dart DevTools)__](https://flutter.dev/docs/development/tools/vs-code).
 
-That's why we have selected Flutter for creating the __[Android and iOS Companion App](https://github.com/lupyuen/pinetime-companion/tree/bloc)__ for __[PineTime Smart Watch](https://wiki.pine64.org/index.php/PineTime)__: For updating firmware, syncing date/time, pushing mobile notifications, controlling your smart home gadgets, ... and so much more!
+That's why we have selected Flutter for creating the open source __[Android and iOS Companion App](https://github.com/lupyuen/pinetime-companion/tree/bloc)__ for __[PineTime Smart Watch](https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime)__: For updating firmware, syncing date/time, pushing mobile notifications, controlling your smart home gadgets, ... and so much more!
 
 In the previous article _["Convert Go to Flutter and Dart for PineTime Companion App"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion)_ we have built a technical functional (barely human) app that sends Bluetooth Low Energy commands to PineTime. Today we'll recode the app so that it's more human-friendly.
 
@@ -16,9 +16,31 @@ Read on to learn how we do this with the __[Bloc Library for State Management](h
 
 _It's easy to build a mobile app for Android and iOS with Flutter... What could go wrong?_
 
-There's a better way to handle this... State Management! Read on to learn how.
+A mobile app is a simple thing... It just reacts to our tapping and updates the display...
+
+![Mobile app reacts to our tapping and updates the display](https://lupyuen.github.io/images/bloc-state1.png)
+
+_Is it really so simple?_
+
+Nope! Behind the scenes, the app could be calling some REST API on the web. Or talking to Bluetooth gadgets like PineTime...
+
+![Mobile app calls REST API and talks to Bluetooth gadgets](https://lupyuen.github.io/images/bloc-state2.png)
+
+_What happens when the app loses track of its state?_
+
+Things can become really complicated...
+
+![Mobile app gets complicated](https://lupyuen.github.io/images/bloc-state3.png)
+
+There's a good way to handle this messy state in Flutter apps... __State Management with the Bloc Library__! 
+
+Read on to learn how.
 
 _(If you're familiar with React Redux: Yep Bloc sounds a lot like React Redux, because they are both State Management Frameworks)_
+
+# State Management with Bloc Library
+
+TODO
 
 # Bluetooth Low Energy Callbacks
 
@@ -30,7 +52,7 @@ TODO
 
 # Build and Run App
 
-TOD
+TODO
 
 device.dart
 
@@ -99,6 +121,8 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
 ```
 
 # Debug Log
+
+TODO 
 
 ```
 Launching lib/main.dart on Pixel 4 XL in debug mode...
@@ -190,6 +214,8 @@ Exited (sigterm)
 
 # What's Next
 
+TODO
+
 The code in this article is part of the upcoming open source __PineTime Companion App__ for Android and iOS. So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications from our phone, chart our heart rate, ... Maybe even control our smart home gadgets! 
 
 We'll be adding more code to the Flutter app...
@@ -198,10 +224,7 @@ We'll be adding more code to the Flutter app...
 
 1. __Handle Other PineTime Commands:__ Update firmware, sync date and time, show mobile notifications, ...
 
-1. __State Management with Bloc Library:__ We shall integrate the [Bloc State Management Library](https://bloclibrary.dev/#/) to keep the Flutter code modular and maintainable
-
 1. __Companion App for Linux Phones (like PinePhone):__ We shall take the [Newt Manager](https://github.com/apache/mynewt-newtmgr) code in Go and wrap it into a GTK3 app, using the [`gotk3` library](https://github.com/gotk3/gotk3)...
-
 
     _["Your First GTK App with Go and VSCodium"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3)_
 
