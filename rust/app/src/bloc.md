@@ -1,14 +1,14 @@
 # Flutter State Management with Bloc for PineTime Companion App
 
-![PineTime Companion App running on an Android phone fetching and displaying the firmware versions from PineTime Smart Watch](https://lupyuen.github.io/images/bloc-title.jpg)
+![PineTime Companion App running on an Android phone, fetching the firmware versions from PineTime Smart Watch wirelessly](https://lupyuen.github.io/images/bloc-title.jpg)
 
-_PineTime Companion App running on an Android phone fetching and displaying the firmware versions from PineTime Smart Watch_
+_PineTime Companion App running on an Android phone, fetching the firmware versions from PineTime Smart Watch wirelessly_
 
-Flutter is awesome for creating mobile apps for Android and iOS... The programming language is modern (Dart), the debugging tools are excellent (VSCode and Dart DevTools). 
+[__Flutter is awesome__](https://flutter.dev/) for creating mobile apps for Android and iOS... The programming language is modern [__(Dart)__](https://dart.dev/), the debugging tools are excellent [__(VSCode and Dart DevTools)__](https://flutter.dev/docs/development/tools/vs-code).
 
 That's why we have selected Flutter for creating the __[Android and iOS Companion App](https://github.com/lupyuen/pinetime-companion/tree/bloc)__ for __[PineTime Smart Watch](https://wiki.pine64.org/index.php/PineTime)__: For updating firmware, syncing date/time, pushing mobile notifications, controlling your smart home gadgets, ... and so much more!
 
-In the previous article _["Convert Go to Flutter and Dart for PineTime Companion App"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion)_ we have built a functional app that sends Bluetooth Low Energy commands to PineTime. Today we'll recode the app so that it's more human-friendly.
+In the previous article _["Convert Go to Flutter and Dart for PineTime Companion App"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion)_ we have built a technical functional (barely human) app that sends Bluetooth Low Energy commands to PineTime. Today we'll recode the app so that it's more human-friendly.
 
 Read on to learn how we do this with the __[Bloc Library for State Management](https://bloclibrary.dev/)__...
 
@@ -16,7 +16,7 @@ Read on to learn how we do this with the __[Bloc Library for State Management](h
 
 _It's easy to build a mobile app for Android and iOS with Flutter... What could go wrong?_
 
-
+There's a better way to handle this... State Management! Read on to learn how.
 
 _(If you're familiar with React Redux: Yep Bloc sounds a lot like React Redux, because they are both State Management Frameworks)_
 
