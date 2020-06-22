@@ -4,7 +4,11 @@
 
 # Why Manage State?
 
-(People familiar with React app will understand the need for State Management)
+_It's easy to build a mobile app... Right?_
+
+
+
+_(If you're familiar with React Redux: Yep Bloc sounds a lot like React Redux, because they are both State Management Frameworks)_
 
 # Bluetooth Low Energy Callbacks
 
