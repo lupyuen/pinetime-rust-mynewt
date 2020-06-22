@@ -6,9 +6,9 @@ _PineTime Companion App running on an Android phone, fetching the firmware versi
 
 [__Flutter is awesome__](https://flutter.dev/) for creating mobile apps for Android and iOS... The programming language is modern [__(Dart)__](https://dart.dev/), the debugging tools are excellent [__(VSCode and Dart DevTools)__](https://flutter.dev/docs/development/tools/vs-code).
 
-That's why we have selected Flutter for creating the open source __[Android and iOS Companion App](https://github.com/lupyuen/pinetime-companion/tree/bloc)__ for __[PineTime Smart Watch](https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime)__: For updating firmware, syncing date/time, pushing mobile notifications, controlling your smart home gadgets, ... and so much more!
+That's why we have selected Flutter for creating the open source __[Android and iOS Companion App](https://github.com/lupyuen/pinetime-companion/tree/bloc)__ for __[PineTime Smart Watch](https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime)__: For updating firmware, syncing date/time, pushing mobile notifications, controlling our smart home gadgets, ... and so much more!
 
-In the previous article _["Convert Go to Flutter and Dart for PineTime Companion App"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion)_ we have built a technical functional (barely human) app that sends Bluetooth Low Energy commands to PineTime. Today we'll recode the app so that it's more human-friendly.
+In the previous article _["Convert Go to Flutter and Dart for PineTime Companion App"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion)_ we have built a technically functional (but barely human) app that sends Bluetooth Low Energy commands to PineTime. Today we'll recode the app so that it's more human-friendly.
 
 Read on to learn how we do this with the __[Bloc Library for State Management](https://bloclibrary.dev/)__...
 
@@ -32,7 +32,7 @@ Things can become really complicated...
 
 ![Mobile app gets complicated](https://lupyuen.github.io/images/bloc-state3.png)
 
-There's a good way to handle this messy state in Flutter apps... __State Management with the Bloc Library__! 
+There's a good way to handle this messy state in Flutter apps... __[Bloc Library for State Management](https://bloclibrary.dev/)__! 
 
 Read on to learn how.
 
