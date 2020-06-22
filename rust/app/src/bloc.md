@@ -4,7 +4,7 @@
 
 # Why Manage State?
 
-_It's easy to build a mobile app... Right?_
+_It's easy to build a mobile app for Android and iOS with Flutter... What could go wrong?_
 
 
 
