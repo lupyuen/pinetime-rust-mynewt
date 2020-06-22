@@ -12,6 +12,72 @@
 
 # Debug Log
 
+device.dart
+
+```dart
+IconButton(
+    icon: Icon(Icons.search),
+    onPressed: () async {
+        final device = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            //  TODO: Browse Bluetooth LE devices
+            builder: (context) => FindDevice(),
+        ),
+        );
+        if (device != null) {
+        BlocProvider.of<DeviceBloc>(context)
+            .add(DeviceRequested(device: device));
+        }
+    },
+)
+```
+
+device_bloc.dart
+
+```dart
+class DeviceRequested extends DeviceEvent {
+  final BluetoothDevice device;
+
+  const DeviceRequested({@required this.device}) : assert(device != null);
+
+  @override
+  List<Object> get props => [device];
+}
+```
+
+```dart
+class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
+  final DeviceRepository deviceRepository;
+
+  DeviceBloc({@required this.deviceRepository})
+      : assert(deviceRepository != null);
+
+  @override
+  DeviceState get initialState => DeviceInitial();
+
+  @override
+  Stream<DeviceState> mapEventToState(DeviceEvent event) async* {
+    if (event is DeviceRequested) {
+      yield* _mapDeviceRequestedToState(event);
+    } else if (event is DeviceRefreshRequested) {
+      yield* _mapDeviceRefreshRequestedToState(event);
+    }
+  }
+
+  Stream<DeviceState> _mapDeviceRequestedToState(
+    DeviceRequested event,
+  ) async* {
+    yield DeviceLoadInProgress();
+    try {
+      final Device device = await deviceRepository.getDevice(event.device);
+      yield DeviceLoadSuccess(device: device);
+    } catch (_) {
+      yield DeviceLoadFailure();
+    }
+  }
+```
+
 # Further Reading
 
 _["Convert Go to Flutter and Dart for PineTime Companion App"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion)_
