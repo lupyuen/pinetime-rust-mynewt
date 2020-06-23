@@ -154,13 +154,15 @@ class _DeviceState extends State<Device> {
                     ...
 ```
 
+How did we get DeviceLoadSuccess?
+
 # State Transitions
 
 DeviceInitial (DeviceRequested) -> DeviceLoadInProgress
 
 DeviceLoadInProgress (DeviceRequested) -> DeviceLoadSuccess
 
-ThemeState (DeviceChanged) -> ThemeState
+??? ThemeState (DeviceChanged) -> ThemeState
 
 [`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
 
