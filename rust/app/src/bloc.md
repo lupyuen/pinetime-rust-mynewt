@@ -8,7 +8,13 @@ _PineTime Companion App running on an Android phone, fetching the firmware versi
 
 That's why we have selected Flutter for creating the open source __[Android and iOS Companion App](https://github.com/lupyuen/pinetime-companion/tree/bloc)__ for __[PineTime Smart Watch](https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime)__: For updating firmware, syncing date/time, pushing mobile notifications, controlling our smart home gadgets, ... and so much more!
 
-In the previous article _["Convert Go to Flutter and Dart for PineTime Companion App"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion)_ we have built a technically functional (but barely human) app that sends Bluetooth Low Energy commands to PineTime. Today we'll recode the app so that it's more human-friendly.
+In the previous article _["Convert Go to Flutter and Dart for PineTime Companion App"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion)_ we have built a technically functional (but barely human) app that sends Bluetooth Low Energy commands to PineTime. 
+
+Today we'll recode the app so that it's more human-friendly, like this...
+
+- [Watch on YouTube](https://youtu.be/VUYqcD8VGzE)
+
+- [Download the video](https://github.com/lupyuen/pinetime-companion/releases/download/v1.0.0/companion-version.mp4)
 
 Read on to learn how we do this with the __[Bloc Library for State Management](https://bloclibrary.dev/)__...
 
@@ -92,11 +98,15 @@ class DeviceFirmware extends StatelessWidget {
 }
 ```
 
-# Bluetooth Low Energy Callbacks
+# Send Bluetooth LE Request to PineTime
 
 TODO
 
-# Decode CBOR
+# Handle Bluetooth LE Response from PineTime
+
+TODO
+
+# Decode CBOR Response from PineTime
 
 TODO
 
