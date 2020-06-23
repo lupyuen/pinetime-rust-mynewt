@@ -121,7 +121,53 @@ class DeviceSummary extends StatelessWidget {
             );
 ```
 
-https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart
+[`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
+
+```dart
+class Device extends StatefulWidget {
+  @override
+  State<Device> createState() => _DeviceState();
+}
+
+class _DeviceState extends State<Device> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: ...,
+      body: 
+        ...
+        BlocConsumer<DeviceBloc, DeviceState>(
+
+          listener: (context, state) {
+            if (state is DeviceLoadSuccess) {
+              BlocProvider
+                .of<ThemeBloc>(context)
+                .add(
+                  DeviceChanged(
+                    condition: state.device.condition
+                  ),
+              );
+              ...
+            }
+          },
+
+          builder: (context, state) {
+            if (state is DeviceLoadSuccess) {
+              final device = state.device;
+
+              return BlocBuilder<ThemeBloc, ThemeState>(
+                builder: (context, themeState) {
+                  return 
+                    ...
+                    DeviceSummary(
+                      device: device,
+                    ),
+                    ...
+```
+
+AppBar
+
+[`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
 
 ```dart
 class Device extends StatefulWidget {
@@ -149,38 +195,33 @@ class _DeviceState extends State<Device> {
               );
 
               if (device != null) {
-                BlocProvider.of<DeviceBloc>(context)
-                    .add(DeviceRequested(device: device));
+                BlocProvider
+                  .of<DeviceBloc>(context)
+                  .add(
+                    DeviceRequested(
+                      device: device
+                    )
+                  );
               }
-            },
-          )
-        ],
-      ),
-      body: 
-        ...
-        BlocConsumer<DeviceBloc, DeviceState>(
+```
 
-          listener: (context, state) {
-            if (state is DeviceLoadSuccess) {
-              BlocProvider.of<ThemeBloc>(context).add(
-                DeviceChanged(condition: state.device.condition),
-              );
-              ...
-            }
-          },
+DeviceInitial (DeviceRequested) -> DeviceLoadInProgress
 
-          builder: (context, state) {
-            if (state is DeviceLoadSuccess) {
-              final device = state.device;
+DeviceLoadInProgress (DeviceRequested) -> DeviceLoadSuccess
 
-              return BlocBuilder<ThemeBloc, ThemeState>(
-                builder: (context, themeState) {
-                  return 
-                    ...
-                    DeviceSummary(
-                      device: device,
-                    ),
-                    ...
+ThemeState (DeviceChanged) -> ThemeState
+
+Transitions
+
+```
+I/flutter (20366): onEvent DeviceRequested
+I/flutter (20366): Fetching device...
+I/flutter (20366): onTransition Transition { currentState: DeviceInitial, event: DeviceRequested, nextState: DeviceLoadInProgress }
+...(Transmit Bluetooth LE Request to PineTime)...
+...(Receive Bluetooth LE Response from PineTime)...
+I/flutter (20366): onTransition Transition { currentState: DeviceLoadInProgress, event: DeviceRequested, nextState: DeviceLoadSuccess }
+I/flutter (20366): onEvent DeviceChanged
+I/flutter (20366): onTransition Transition { currentState: ThemeState, event: DeviceChanged, nextState: ThemeState }
 ```
 
 # Send Bluetooth LE Request to PineTime
