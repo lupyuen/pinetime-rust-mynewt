@@ -98,6 +98,91 @@ class DeviceFirmware extends StatelessWidget {
 }
 ```
 
+https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device_firmware.dart
+
+```dart
+/// Widget to display PineTime summary
+class DeviceSummary extends StatelessWidget {
+  /// Data Model that contains PineTime info and Bluetooth device
+  final model.Device device;
+
+  //  Render the PineTime summary
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ...
+        BlocBuilder<SettingsBloc, SettingsState>(
+          builder: (context, state) {
+            //  Construct a DeviceFirmware Widget to show the firmware versions
+            return DeviceFirmware(
+              activeFirmwareVersion: device.activeFirmwareVersion,
+              standbyFirmwareVersion: device.standbyFirmwareVersion,
+            );
+```
+
+https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart
+
+```dart
+class Device extends StatefulWidget {
+  @override
+  State<Device> createState() => _DeviceState();
+}
+
+class _DeviceState extends State<Device> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        actions: <Widget>[
+          ...
+          IconButton(
+            icon: Icon(Icons.search),
+
+            onPressed: () async {
+              final device = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  //  Browse Bluetooth LE devices
+                  builder: (context) => FindDevice(),
+                ),
+              );
+
+              if (device != null) {
+                BlocProvider.of<DeviceBloc>(context)
+                    .add(DeviceRequested(device: device));
+              }
+            },
+          )
+        ],
+      ),
+      body: 
+        ...
+        BlocConsumer<DeviceBloc, DeviceState>(
+
+          listener: (context, state) {
+            if (state is DeviceLoadSuccess) {
+              BlocProvider.of<ThemeBloc>(context).add(
+                DeviceChanged(condition: state.device.condition),
+              );
+              ...
+            }
+          },
+
+          builder: (context, state) {
+            if (state is DeviceLoadSuccess) {
+              final device = state.device;
+
+              return BlocBuilder<ThemeBloc, ThemeState>(
+                builder: (context, themeState) {
+                  return 
+                    ...
+                    DeviceSummary(
+                      device: device,
+                    ),
+                    ...
+```
+
 # Send Bluetooth LE Request to PineTime
 
 TODO
