@@ -139,14 +139,12 @@ class DeviceSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ...
-        BlocBuilder<SettingsBloc, SettingsState>(
-          builder: (context, state) {
-            //  Construct a DeviceFirmware Widget to show the firmware versions
-            return DeviceFirmware(
-              activeFirmwareVersion: device.activeFirmwareVersion,
-              standbyFirmwareVersion: device.standbyFirmwareVersion,
-            );
+        ...,
+        //  Construct a DeviceFirmware Widget to show the firmware versions
+        DeviceFirmware(
+          activeFirmwareVersion: device.activeFirmwareVersion,
+          standbyFirmwareVersion: device.standbyFirmwareVersion,
+        )
 ```
 
 _What's with the Data Model named `Device`?_

@@ -183,14 +183,12 @@ class DeviceSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ...
-        BlocBuilder&lt;SettingsBloc, SettingsState&gt;(
-          builder: (context, state) {
-            //  Construct a DeviceFirmware Widget to show the firmware versions
-            return DeviceFirmware(
-              activeFirmwareVersion: device.activeFirmwareVersion,
-              standbyFirmwareVersion: device.standbyFirmwareVersion,
-            );
+        ...,
+        //  Construct a DeviceFirmware Widget to show the firmware versions
+        DeviceFirmware(
+          activeFirmwareVersion: device.activeFirmwareVersion,
+          standbyFirmwareVersion: device.standbyFirmwareVersion,
+        )
 </code></pre>
 <p><em>What's with the Data Model named <code>Device</code>?</em></p>
 <pre><code class="language-dart">/// Data Model that contains PineTime info and Bluetooth device
