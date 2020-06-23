@@ -48,11 +48,13 @@ _(If you're familiar with React Redux: Yep Bloc sounds a lot like React Redux, b
 
 Let's look at three Flutter Widgets used by the PineTime Companion App...
 
-1. __Device Firmware Widget:__ Shows firmware version numbers
+1. __Device Firmware Widget (Stateless):__ Shows firmware version numbers
 
-1. __Device Summary Widget:__ Summarises the PineTime info
+1. __Device Summary Widget (Stateless):__ Summarises the PineTime info
 
-1. __Device Widget:__ The entire screen
+1. __Device Widget (Stateful):__ The entire PineTime Companion screen
+
+We'll learn why the widgets are Stateless / Stateful in a while.
 
 ## Device Firmware Widget
 
@@ -62,7 +64,7 @@ Our Flutter App talks to PineTime over Bluetooth LE (Low Energy) to fetch the fi
 
 _(PineTime contains two firmware images: Active and Standby. If the Active Firmware fails to start, PineTime rolls back to the Standby Firmware)_
 
-The `DeviceFirmware` Widget that displays the firmware version numbers is really simple: [`widgets/device_firmware.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device_firmware.dart)
+The __Device Firmware Widget__ that displays the firmware version numbers is really simple: [`widgets/device_firmware.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device_firmware.dart)
 
 ```dart
 /// Widget to display firmware versions fetched from PineTime
@@ -106,13 +108,23 @@ class DeviceFirmware extends StatelessWidget {
 }
 ```
 
+`DeviceFirmware` contains two fields `activeFirmwareVersion` and `standbyFirmwareVersion`, that store the version numbers of the Active and Standby Firmware on PineTime.
+
+`DeviceFirmware` is a __Stateless Widget__ because its State (`activeFirmwareVersion` and `standbyFirmwareVersion`) doesn't change.
+
+_What happens if PineTime gets updated with new firmware?_
+
+Our Flutter App shall create a new instance of `DeviceFirmware` with new values for `activeFirmwareVersion` and `standbyFirmwareVersion`.
+
+That's why the Device Firmware widget will never change its State... Though the widget may get replaced altogether.
+
 ## Device Summary Widget
 
-Summarises the PineTime info
+The Device Firmware widget we've seen is wrapped into a __Device Summary Widget__ like this...
 
 ![Device Summary Widget](https://lupyuen.github.io/images/bloc-widgets2.png)
 
-[`widgets/device_summary.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device_summary.dart)
+`DeviceSummary` is another __Stateless Widget__ (that doesn't change), defined in [`widgets/device_summary.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device_summary.dart)...
 
 ```dart
 /// Widget to display PineTime summary
@@ -137,19 +149,23 @@ class DeviceSummary extends StatelessWidget {
 
 ## Device Widget
 
-The entire screen
+The Device Summary Widget above is wrapped into a __Device Widget__ that renders the entire screen...
 
 ![Device Widget](https://lupyuen.github.io/images/bloc-widgets3.png)
 
-[`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
+Device Widget is a __Stateful Widget__ that has some interesting code inside: [`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
 
 ```dart
+/// Widget for the PineTime Companion screen
 class Device extends StatefulWidget {
+  /// Construct the Stateful Widget
   @override
   State<Device> createState() => _DeviceState();
 }
 
+/// Stateful Widget for the PineTime Companion screen
 class _DeviceState extends State<Device> {
+  /// Construct the Stateful Widget for the PineTime Companion screen
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -174,7 +190,11 @@ class _DeviceState extends State<Device> {
                     ...
 ```
 
-How did we get DeviceLoadSuccess?
+_Why is the Device Widget Stateful, unlike the other Widgets?_
+
+_How did we get DeviceLoadSuccess?_
+
+Find out...
 
 _(The code in this article was derived from the excellent [Weather App Tutorial from the Bloc Library](https://bloclibrary.dev/#/flutterweathertutorial))_
 
