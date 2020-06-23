@@ -166,6 +166,8 @@ The Data Model is a core concept in the Bloc Library. More about this later.
 
 ## Device Widget
 
+TODO
+
 The Device Summary Widget above is wrapped into a __Device Widget__ that renders the entire screen...
 
 ![Device Widget](https://lupyuen.github.io/images/bloc-widgets3.png)
@@ -209,9 +211,11 @@ class _DeviceState extends State<Device> {
 
 _Why is the Device Widget Stateful, unlike the other Widgets?_
 
+TODO
+
 _How did we get DeviceLoadSuccess?_
 
-Find out...
+TODO
 
 _(The code in this article was derived from the excellent [Weather App Tutorial from the Bloc Library](https://bloclibrary.dev/#/flutterweathertutorial))_
 

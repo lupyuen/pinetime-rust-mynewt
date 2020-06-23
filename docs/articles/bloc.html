@@ -64,17 +64,32 @@
     <h1 class="title">Flutter State Management with Bloc for PineTime Companion App</h1>
     <nav id="TOC"><ul>
 <li><a href="#why-manage-state">1 Why Manage State?</a><ul></ul></li>
-<li><a href="#state-management-with-bloc-library">2 State Management with Bloc Library</a><ul></ul></li>
-<li><a href="#bluetooth-low-energy-callbacks">3 Bluetooth Low Energy Callbacks</a><ul></ul></li>
-<li><a href="#decode-cbor">4 Decode CBOR</a><ul></ul></li>
-<li><a href="#build-and-run-app">5 Build and Run App</a><ul></ul></li>
-<li><a href="#debug-log">6 Debug Log</a><ul></ul></li>
-<li><a href="#whats-next">7 What's Next</a><ul></ul></li>
-<li><a href="#further-reading">8 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/bloc-title.jpg" alt="PineTime Companion App running on an Android phone, fetching the firmware versions from PineTime Smart Watch wirelessly" /></p>
+<li><a href="#flutter-widgets-for-pinetime">2 Flutter Widgets for PineTime</a><ul>
+<li><a href="#device-firmware-widget">2.1 Device Firmware Widget</a><ul></ul></li>
+<li><a href="#device-summary-widget">2.2 Device Summary Widget</a><ul></ul></li>
+<li><a href="#device-widget">2.3 Device Widget</a><ul></ul></li></ul></li>
+<li><a href="#pinetime-data-model">3 PineTime Data Model</a><ul></ul></li>
+<li><a href="#state-transitions">4 State Transitions</a><ul></ul></li>
+<li><a href="#send-bluetooth-le-request-to-pinetime">5 Send Bluetooth LE Request to PineTime</a><ul></ul></li>
+<li><a href="#handle-bluetooth-le-response-from-pinetime">6 Handle Bluetooth LE Response from PineTime</a><ul></ul></li>
+<li><a href="#decode-cbor-response-from-pinetime">7 Decode CBOR Response from PineTime</a><ul></ul></li>
+<li><a href="#build-and-run-app">8 Build and Run App</a><ul></ul></li>
+<li><a href="#debug-log">9 Debug Log</a><ul></ul></li>
+<li><a href="#whats-next">10 What's Next</a><ul></ul></li>
+<li><a href="#further-reading">11 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/bloc-title.jpg" alt="PineTime Companion App running on an Android phone, fetching the firmware versions from PineTime Smart Watch wirelessly" /></p>
 <p><em>PineTime Companion App running on an Android phone, fetching the firmware versions from PineTime Smart Watch wirelessly</em></p>
 <p><a href="https://flutter.dev/"><strong>Flutter is awesome</strong></a> for creating mobile apps for Android and iOS... The programming language is modern <a href="https://dart.dev/"><strong>(Dart)</strong></a>, the debugging tools are excellent <a href="https://flutter.dev/docs/development/tools/vs-code"><strong>(VSCode and Dart DevTools)</strong></a>.</p>
 <p>That's why we have selected Flutter for creating the open source <strong><a href="https://github.com/lupyuen/pinetime-companion/tree/bloc">Android and iOS Companion App</a></strong> for <strong><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime">PineTime Smart Watch</a></strong>: For updating firmware, syncing date/time, pushing mobile notifications, controlling our smart home gadgets, ... and so much more!</p>
-<p>In the previous article <em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em> we have built a technically functional (but barely human) app that sends Bluetooth Low Energy commands to PineTime. Today we'll recode the app so that it's more human-friendly.</p>
+<p>In the previous article <em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em> we have built a technically functional (but barely human) app that sends Bluetooth Low Energy commands to PineTime. </p>
+<p>Today we'll recode the app so that it's more human-friendly, like this...</p>
+<ul>
+<li>
+<p><a href="https://youtu.be/VUYqcD8VGzE">Watch on YouTube</a></p>
+</li>
+<li>
+<p><a href="https://github.com/lupyuen/pinetime-companion/releases/download/v1.0.0/companion-version.mp4">Download the video</a></p>
+</li>
+</ul>
 <p>Read on to learn how we do this with the <strong><a href="https://bloclibrary.dev/">Bloc Library for State Management</a></strong>...</p>
 <h1 id="why-manage-state" class="section-header"><a href="#why-manage-state">1 Why Manage State?</a></h1>
 <p><em>It's easy to build a mobile app for Android and iOS with Flutter... What could go wrong?</em></p>
@@ -89,33 +104,247 @@
 <p>There's a good way to handle this messy state in Flutter apps... <strong><a href="https://bloclibrary.dev/">Bloc Library for State Management</a></strong>! </p>
 <p>Read on to learn how.</p>
 <p><em>(If you're familiar with React Redux: Yep Bloc sounds a lot like React Redux, because they are both State Management Frameworks)</em></p>
-<h1 id="state-management-with-bloc-library" class="section-header"><a href="#state-management-with-bloc-library">2 State Management with Bloc Library</a></h1>
-<p>TODO</p>
-<h1 id="bluetooth-low-energy-callbacks" class="section-header"><a href="#bluetooth-low-energy-callbacks">3 Bluetooth Low Energy Callbacks</a></h1>
-<p>TODO</p>
-<h1 id="decode-cbor" class="section-header"><a href="#decode-cbor">4 Decode CBOR</a></h1>
-<p>TODO</p>
-<h1 id="build-and-run-app" class="section-header"><a href="#build-and-run-app">5 Build and Run App</a></h1>
-<p>TODO</p>
-<p>device.dart</p>
-<pre><code class="language-dart">IconButton(
-    icon: Icon(Icons.search),
-    onPressed: () async {
-        final device = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            //  TODO: Browse Bluetooth LE devices
-            builder: (context) =&gt; FindDevice(),
+<h1 id="flutter-widgets-for-pinetime" class="section-header"><a href="#flutter-widgets-for-pinetime">2 Flutter Widgets for PineTime</a></h1>
+<p>Our PineTime Companion App calls the <strong><a href="https://bloclibrary.dev/">Bloc Library</a></strong> to connect our Flutter Widgets with our application data and processing logic. </p>
+<p>Let's look at three Flutter Widgets that we have created for the app...</p>
+<ol>
+<li>
+<p><strong>Device Firmware Widget (Stateless):</strong> Shows firmware version numbers</p>
+</li>
+<li>
+<p><strong>Device Summary Widget (Stateless):</strong> Summarises the PineTime info</p>
+</li>
+<li>
+<p><strong>Device Widget (Stateful):</strong> The entire PineTime Companion screen</p>
+</li>
+</ol>
+<p>We'll learn why the widgets are Stateless / Stateful in a while.</p>
+<h2 id="device-firmware-widget" class="section-header"><a href="#device-firmware-widget">2.1 Device Firmware Widget</a></h2>
+<p>Our Flutter App talks to PineTime over Bluetooth LE (Low Energy) to fetch the firmware version numbers and display them. Here's how it looks...</p>
+<p><img src="https://lupyuen.github.io/images/bloc-widgets1.png" alt="Device Firmware Widget" /></p>
+<p><em>(PineTime contains two firmware images: Active and Standby. If the Active Firmware fails to start, PineTime rolls back to the Standby Firmware)</em></p>
+<p>The <strong>Device Firmware Widget</strong> that displays the firmware version numbers is really simple: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device_firmware.dart"><code>widgets/device_firmware.dart</code></a></p>
+<pre><code class="language-dart">/// Widget to display firmware versions fetched from PineTime
+class DeviceFirmware extends StatelessWidget {
+  final String activeFirmwareVersion;   //  Version number of firmware that's running on PineTime (e.g. '1.0.0')
+  final String standbyFirmwareVersion;  //  Version number of firmware that's in external flash memory (e.g. '1.1.0')
+
+  /// Construct the widget with the active and standby firmware version numbers
+  DeviceFirmware({
+    Key key,
+    this.activeFirmwareVersion,
+    this.standbyFirmwareVersion
+  }) : super(key: key);
+
+  /// Render the widget UI with two lines of text
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        //  Show active firmware version number
+        Text(
+          'Active Firmware: $activeFirmwareVersion',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w100,
+            color: Colors.white,
+          ),
         ),
-        );
-        if (device != null) {
-        BlocProvider.of&lt;DeviceBloc&gt;(context)
-            .add(DeviceRequested(device: device));
-        }
-    },
-)
+        //  Show standby firmware version number
+        Text(
+          'Standby Firmware: $standbyFirmwareVersion',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w100,
+            color: Colors.white,
+          ),
+        )
+      ],
+    );
+  }
+}
 </code></pre>
-<p>device_bloc.dart</p>
+<p><code>DeviceFirmware</code> contains two fields <code>activeFirmwareVersion</code> and <code>standbyFirmwareVersion</code>, that store the version numbers of the Active and Standby Firmware on PineTime.</p>
+<p><code>DeviceFirmware</code> is a <strong>Stateless Widget</strong> because its State (<code>activeFirmwareVersion</code> and <code>standbyFirmwareVersion</code>) doesn't change.</p>
+<p><em>What happens if PineTime gets updated with new firmware?</em></p>
+<p>Our Flutter App shall create a new instance of <code>DeviceFirmware</code> with new values for <code>activeFirmwareVersion</code> and <code>standbyFirmwareVersion</code>.</p>
+<p>That's why the Device Firmware widget will never change its State... Though the widget may get replaced altogether.</p>
+<h2 id="device-summary-widget" class="section-header"><a href="#device-summary-widget">2.2 Device Summary Widget</a></h2>
+<p>The Device Firmware widget we've seen is wrapped into a <strong>Device Summary Widget</strong> like this...</p>
+<p><img src="https://lupyuen.github.io/images/bloc-widgets2.png" alt="Device Summary Widget" /></p>
+<p><code>DeviceSummary</code> is defined in <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device_summary.dart"><code>widgets/device_summary.dart</code></a>...</p>
+<pre><code class="language-dart">/// Widget to display PineTime summary
+class DeviceSummary extends StatelessWidget {
+  /// Data Model that contains PineTime info and Bluetooth device
+  final model.Device device;
+
+  //  Render the PineTime summary
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ...
+        BlocBuilder&lt;SettingsBloc, SettingsState&gt;(
+          builder: (context, state) {
+            //  Construct a DeviceFirmware Widget to show the firmware versions
+            return DeviceFirmware(
+              activeFirmwareVersion: device.activeFirmwareVersion,
+              standbyFirmwareVersion: device.standbyFirmwareVersion,
+            );
+</code></pre>
+<p><em>What's with the Data Model named <code>Device</code>?</em></p>
+<pre><code class="language-dart">/// Data Model that contains PineTime info and Bluetooth device
+final model.Device device;
+</code></pre>
+<p>To render the Device Summary, this widget needs to know everything about our PineTime gadget... That's why the widget keeps a copy of the PineTime info inside the <strong>Data Model</strong> named <code>Device</code>.</p>
+<p>Note that the Device Summary Widget passes two fields from the <code>Device</code> Data Model to the Device Firmware Widget: <code>activeFirmwareVersion</code> and <code>standbyFirmwareVersion</code>.</p>
+<p><code>DeviceSummary</code> is another <strong>Stateless Widget</strong> that doesn't change its State (i.e. the <code>Device</code> Data Model). If the device info changes, our app creates a new <code>DeviceSummary</code> widget to replace the old one.</p>
+<p>The Data Model is a core concept in the Bloc Library. More about this later.</p>
+<h2 id="device-widget" class="section-header"><a href="#device-widget">2.3 Device Widget</a></h2>
+<p>TODO</p>
+<p>The Device Summary Widget above is wrapped into a <strong>Device Widget</strong> that renders the entire screen...</p>
+<p><img src="https://lupyuen.github.io/images/bloc-widgets3.png" alt="Device Widget" /></p>
+<p>Device Widget is a <strong>Stateful Widget</strong> that has some interesting code inside: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart"><code>widgets/device.dart</code></a></p>
+<pre><code class="language-dart">/// Widget for the PineTime Companion screen
+class Device extends StatefulWidget {
+  /// Construct the Stateful Widget
+  @override
+  State&lt;Device&gt; createState() =&gt; _DeviceState();
+}
+
+/// Stateful Widget for the PineTime Companion screen
+class _DeviceState extends State&lt;Device&gt; {
+  /// Construct the Stateful Widget for the PineTime Companion screen
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: ...,
+      body: 
+        ...
+        BlocConsumer&lt;DeviceBloc, DeviceState&gt;(
+
+          listener: ...,
+
+          builder: (context, state) {
+            if (state is DeviceLoadSuccess) {
+              final device = state.device;
+
+              return BlocBuilder&lt;ThemeBloc, ThemeState&gt;(
+                builder: (context, themeState) {
+                  return 
+                    ...
+                    DeviceSummary(
+                      device: device,
+                    ),
+                    ...
+</code></pre>
+<p><em>Why is the Device Widget Stateful, unlike the other Widgets?</em></p>
+<p>TODO</p>
+<p><em>How did we get DeviceLoadSuccess?</em></p>
+<p>TODO</p>
+<p><em>(The code in this article was derived from the excellent <a href="https://bloclibrary.dev/#/flutterweathertutorial">Weather App Tutorial from the Bloc Library</a>)</em></p>
+<h1 id="pinetime-data-model" class="section-header"><a href="#pinetime-data-model">3 PineTime Data Model</a></h1>
+<p>TODO</p>
+<p><a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/models/device.dart"><code>lib/models/device.dart</code></a></p>
+<pre><code class="language-dart">class Device extends Equatable {
+  final BluetoothDevice bluetoothDevice;
+  final String activeFirmwareVersion;
+  final String standbyFirmwareVersion;
+
+  const Device({
+    this.bluetoothDevice,
+    this.activeFirmwareVersion,
+    this.standbyFirmwareVersion
+  });
+
+  @override
+  List&lt;Object&gt; get props =&gt; [
+    bluetoothDevice,
+    activeFirmwareVersion,
+    standbyFirmwareVersion
+  ];
+}
+</code></pre>
+<h1 id="state-transitions" class="section-header"><a href="#state-transitions">4 State Transitions</a></h1>
+<p>TODO</p>
+<p>DeviceInitial (DeviceRequested) -&gt; DeviceLoadInProgress</p>
+<p>DeviceLoadInProgress (DeviceRequested) -&gt; DeviceLoadSuccess</p>
+<p>??? ThemeState (DeviceChanged) -&gt; ThemeState</p>
+<p><a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart"><code>widgets/device.dart</code></a></p>
+<pre><code class="language-dart">class Device extends StatefulWidget {
+  @override
+  State&lt;Device&gt; createState() =&gt; _DeviceState();
+}
+
+class _DeviceState extends State&lt;Device&gt; {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: ...,
+      body: 
+        ...
+        BlocConsumer&lt;DeviceBloc, DeviceState&gt;(
+
+          listener: (context, state) {
+            if (state is DeviceLoadSuccess) {
+              BlocProvider
+                .of&lt;ThemeBloc&gt;(context)
+                .add(
+                  DeviceChanged(
+                    condition: state.device.condition
+                  ),
+              );
+              ...
+            }
+            ...
+</code></pre>
+<p>Transitions:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onEvent</span> <span class="ident">DeviceRequested</span>
+<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">Fetching</span> <span class="ident">device</span>...
+<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onTransition</span> <span class="ident">Transition</span> { <span class="ident">currentState</span>: <span class="ident">DeviceInitial</span>, <span class="ident">event</span>: <span class="ident">DeviceRequested</span>, <span class="ident">nextState</span>: <span class="ident">DeviceLoadInProgress</span> }
+...(<span class="ident">Transmit</span> <span class="ident">Bluetooth</span> <span class="ident">LE</span> <span class="ident">Request</span> <span class="ident">to</span> <span class="ident">PineTime</span>)...
+...(<span class="ident">Receive</span> <span class="ident">Bluetooth</span> <span class="ident">LE</span> <span class="ident">Response</span> <span class="ident">from</span> <span class="ident">PineTime</span>)...
+<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onTransition</span> <span class="ident">Transition</span> { <span class="ident">currentState</span>: <span class="ident">DeviceLoadInProgress</span>, <span class="ident">event</span>: <span class="ident">DeviceRequested</span>, <span class="ident">nextState</span>: <span class="ident">DeviceLoadSuccess</span> }
+<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onEvent</span> <span class="ident">DeviceChanged</span>
+<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onTransition</span> <span class="ident">Transition</span> { <span class="ident">currentState</span>: <span class="ident">ThemeState</span>, <span class="ident">event</span>: <span class="ident">DeviceChanged</span>, <span class="ident">nextState</span>: <span class="ident">ThemeState</span> }</pre></div>
+<p>AppBar: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart"><code>widgets/device.dart</code></a></p>
+<pre><code class="language-dart">class Device extends StatefulWidget {
+  @override
+  State&lt;Device&gt; createState() =&gt; _DeviceState();
+}
+
+class _DeviceState extends State&lt;Device&gt; {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        actions: &lt;Widget&gt;[
+          ...
+          IconButton(
+            icon: Icon(Icons.search),
+
+            onPressed: () async {
+              final device = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  //  Browse Bluetooth LE devices
+                  builder: (context) =&gt; FindDevice(),
+                ),
+              );
+
+              if (device != null) {
+                BlocProvider
+                  .of&lt;DeviceBloc&gt;(context)
+                  .add(
+                    DeviceRequested(
+                      device: device
+                    )
+                  );
+              }
+</code></pre>
+<p><a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart"><code>blocs/device_bloc.dart</code></a></p>
 <pre><code class="language-dart">class DeviceRequested extends DeviceEvent {
   final BluetoothDevice device;
 
@@ -125,6 +354,8 @@
   List&lt;Object&gt; get props =&gt; [device];
 }
 </code></pre>
+<p>DeviceRequested -&gt; DeviceLoadSuccess</p>
+<p><a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart"><code>blocs/device_bloc.dart</code></a></p>
 <pre><code class="language-dart">class DeviceBloc extends Bloc&lt;DeviceEvent, DeviceState&gt; {
   final DeviceRepository deviceRepository;
 
@@ -155,7 +386,15 @@
     }
   }
 </code></pre>
-<h1 id="debug-log" class="section-header"><a href="#debug-log">6 Debug Log</a></h1>
+<h1 id="send-bluetooth-le-request-to-pinetime" class="section-header"><a href="#send-bluetooth-le-request-to-pinetime">5 Send Bluetooth LE Request to PineTime</a></h1>
+<p>TODO</p>
+<h1 id="handle-bluetooth-le-response-from-pinetime" class="section-header"><a href="#handle-bluetooth-le-response-from-pinetime">6 Handle Bluetooth LE Response from PineTime</a></h1>
+<p>TODO</p>
+<h1 id="decode-cbor-response-from-pinetime" class="section-header"><a href="#decode-cbor-response-from-pinetime">7 Decode CBOR Response from PineTime</a></h1>
+<p>TODO</p>
+<h1 id="build-and-run-app" class="section-header"><a href="#build-and-run-app">8 Build and Run App</a></h1>
+<p>TODO</p>
+<h1 id="debug-log" class="section-header"><a href="#debug-log">9 Debug Log</a></h1>
 <p>TODO </p>
 
 <pre><code>Launching lib/main.dart on Pixel 4 XL in debug mode...
@@ -242,7 +481,7 @@ I/flutter (20366): onTransition Transition { currentState: DeviceLoadInProgress,
 I/flutter (20366): onEvent DeviceChanged
 I/flutter (20366): onTransition Transition { currentState: ThemeState, event: DeviceChanged, nextState: ThemeState }
 Application finished.
-Exited (sigterm)</code></pre><h1 id="whats-next" class="section-header"><a href="#whats-next">7 What's Next</a></h1>
+Exited (sigterm)</code></pre><h1 id="whats-next" class="section-header"><a href="#whats-next">10 What's Next</a></h1>
 <p>TODO</p>
 <p>The code in this article is part of the upcoming open source <strong>PineTime Companion App</strong> for Android and iOS. So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications from our phone, chart our heart rate, ... Maybe even control our smart home gadgets! </p>
 <p>We'll be adding more code to the Flutter app...</p>
@@ -260,7 +499,7 @@ Exited (sigterm)</code></pre><h1 id="whats-next" class="section-header"><a href=
 </ol>
 <p>If you're keen to help out, come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!</p>
 <p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Matrix / Discord / Telegram / IRC</a></p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">8 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">11 Further Reading</a></h1>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter">&quot;Your First Bluetooth Low Energy App with Flutter&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3">&quot;Your First GTK App with Go and VSCodium&quot;</a></em></p>
