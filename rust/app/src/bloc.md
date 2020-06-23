@@ -46,7 +46,15 @@ _(If you're familiar with React Redux: Yep Bloc sounds a lot like React Redux, b
 
 # Flutter Widgets for PineTime
 
-_(The code in this article was derived from the excellent [Weather App Tutorial from the Bloc Library](https://bloclibrary.dev/#/flutterweathertutorial))_
+Let's look at three Flutter Widgets used by the PineTime Companion App...
+
+1. __Device Firmware Widget:__ Shows firmware version numbers
+
+1. __Device Summary Widget:__ Summarises the PineTime info
+
+1. __Device Widget:__ The entire screen
+
+## Device Firmware Widget
 
 Our Flutter App talks to PineTime over Bluetooth LE (Low Energy) to fetch the firmware version numbers and display them. Here's how it looks...
 
@@ -98,6 +106,10 @@ class DeviceFirmware extends StatelessWidget {
 }
 ```
 
+## Device Summary Widget
+
+Summarises the PineTime info
+
 ![Device Summary Widget](https://lupyuen.github.io/images/bloc-widgets2.png)
 
 [`widgets/device_summary.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device_summary.dart)
@@ -122,6 +134,10 @@ class DeviceSummary extends StatelessWidget {
               standbyFirmwareVersion: device.standbyFirmwareVersion,
             );
 ```
+
+## Device Widget
+
+The entire screen
 
 ![Device Widget](https://lupyuen.github.io/images/bloc-widgets3.png)
 
@@ -160,7 +176,38 @@ class _DeviceState extends State<Device> {
 
 How did we get DeviceLoadSuccess?
 
+_(The code in this article was derived from the excellent [Weather App Tutorial from the Bloc Library](https://bloclibrary.dev/#/flutterweathertutorial))_
+
+# PineTime Data Model
+
+TODO
+
+[`lib/models/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/models/device.dart)
+
+```dart
+class Device extends Equatable {
+  final BluetoothDevice bluetoothDevice;
+  final String activeFirmwareVersion;
+  final String standbyFirmwareVersion;
+
+  const Device({
+    this.bluetoothDevice,
+    this.activeFirmwareVersion,
+    this.standbyFirmwareVersion
+  });
+
+  @override
+  List<Object> get props => [
+    bluetoothDevice,
+    activeFirmwareVersion,
+    standbyFirmwareVersion
+  ];
+}
+```
+
 # State Transitions
+
+TODO
 
 DeviceInitial (DeviceRequested) -> DeviceLoadInProgress
 
