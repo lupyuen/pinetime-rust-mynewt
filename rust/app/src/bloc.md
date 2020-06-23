@@ -40,7 +40,57 @@ _(If you're familiar with React Redux: Yep Bloc sounds a lot like React Redux, b
 
 # State Management with Bloc Library
 
-TODO
+_(The code in this article was derived from the excellent [Weather App Tutorial from the Bloc Library](https://bloclibrary.dev/#/flutterweathertutorial))_
+
+Our Flutter App talks to PineTime over Bluetooth LE (Low Energy) to fetch the firmware version numbers and display them. Here's how it looks...
+
+???
+
+_(PineTime contains two firmware images: Active and Standby. If the Active Firmware fails to start, PineTime rolls back to the Standby Firmware)_
+
+The Flutter Widget that displays the firmware version numbers is really simple: [`widgets/device_firmware.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device_firmware.dart)
+
+```dart
+/// Widget to display firmware versions fetched from PineTime
+class DeviceFirmware extends StatelessWidget {
+  final String activeFirmwareVersion;   //  Version number of firmware that's running on PineTime (e.g. '1.0.0')
+  final String standbyFirmwareVersion;  //  Version number of firmware that's in external flash memory (e.g. '1.1.0')
+
+  /// Construct the widget with the active and standby firmware version numbers
+  DeviceFirmware({
+    Key key,
+    this.activeFirmwareVersion,
+    this.standbyFirmwareVersion
+  }) : super(key: key);
+
+  /// Render the widget UI with two lines of text
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        //  Show active firmware version number
+        Text(
+          'Active Firmware: $activeFirmwareVersion',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w100,
+            color: Colors.white,
+          ),
+        ),
+        //  Show standby firmware version number
+        Text(
+          'Standby Firmware: $standbyFirmwareVersion',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w100,
+            color: Colors.white,
+          ),
+        )
+      ],
+    );
+  }
+}
+```
 
 # Bluetooth Low Energy Callbacks
 
