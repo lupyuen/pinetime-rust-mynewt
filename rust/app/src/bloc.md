@@ -44,7 +44,7 @@ Read on to learn how.
 
 _(If you're familiar with React Redux: Yep Bloc sounds a lot like React Redux, because they are both State Management Frameworks)_
 
-# State Management with Bloc Library
+# Widgets
 
 _(The code in this article was derived from the excellent [Weather App Tutorial from the Bloc Library](https://bloclibrary.dev/#/flutterweathertutorial))_
 
@@ -138,18 +138,7 @@ class _DeviceState extends State<Device> {
         ...
         BlocConsumer<DeviceBloc, DeviceState>(
 
-          listener: (context, state) {
-            if (state is DeviceLoadSuccess) {
-              BlocProvider
-                .of<ThemeBloc>(context)
-                .add(
-                  DeviceChanged(
-                    condition: state.device.condition
-                  ),
-              );
-              ...
-            }
-          },
+          listener: ...,
 
           builder: (context, state) {
             if (state is DeviceLoadSuccess) {
@@ -165,9 +154,59 @@ class _DeviceState extends State<Device> {
                     ...
 ```
 
-AppBar
+# State Transitions
+
+DeviceInitial (DeviceRequested) -> DeviceLoadInProgress
+
+DeviceLoadInProgress (DeviceRequested) -> DeviceLoadSuccess
+
+ThemeState (DeviceChanged) -> ThemeState
 
 [`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
+
+```dart
+class Device extends StatefulWidget {
+  @override
+  State<Device> createState() => _DeviceState();
+}
+
+class _DeviceState extends State<Device> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: ...,
+      body: 
+        ...
+        BlocConsumer<DeviceBloc, DeviceState>(
+
+          listener: (context, state) {
+            if (state is DeviceLoadSuccess) {
+              BlocProvider
+                .of<ThemeBloc>(context)
+                .add(
+                  DeviceChanged(
+                    condition: state.device.condition
+                  ),
+              );
+              ...
+            }
+            ...
+```
+
+Transitions:
+
+```
+I/flutter (20366): onEvent DeviceRequested
+I/flutter (20366): Fetching device...
+I/flutter (20366): onTransition Transition { currentState: DeviceInitial, event: DeviceRequested, nextState: DeviceLoadInProgress }
+...(Transmit Bluetooth LE Request to PineTime)...
+...(Receive Bluetooth LE Response from PineTime)...
+I/flutter (20366): onTransition Transition { currentState: DeviceLoadInProgress, event: DeviceRequested, nextState: DeviceLoadSuccess }
+I/flutter (20366): onEvent DeviceChanged
+I/flutter (20366): onTransition Transition { currentState: ThemeState, event: DeviceChanged, nextState: ThemeState }
+```
+
+AppBar: [`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
 
 ```dart
 class Device extends StatefulWidget {
@@ -205,24 +244,6 @@ class _DeviceState extends State<Device> {
               }
 ```
 
-DeviceInitial (DeviceRequested) -> DeviceLoadInProgress
-
-DeviceLoadInProgress (DeviceRequested) -> DeviceLoadSuccess
-
-ThemeState (DeviceChanged) -> ThemeState
-
-Transitions
-
-```
-I/flutter (20366): onEvent DeviceRequested
-I/flutter (20366): Fetching device...
-I/flutter (20366): onTransition Transition { currentState: DeviceInitial, event: DeviceRequested, nextState: DeviceLoadInProgress }
-...(Transmit Bluetooth LE Request to PineTime)...
-...(Receive Bluetooth LE Response from PineTime)...
-I/flutter (20366): onTransition Transition { currentState: DeviceLoadInProgress, event: DeviceRequested, nextState: DeviceLoadSuccess }
-I/flutter (20366): onEvent DeviceChanged
-I/flutter (20366): onTransition Transition { currentState: ThemeState, event: DeviceChanged, nextState: ThemeState }
-```
 
 [`blocs/device_bloc.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart)
 
@@ -237,9 +258,9 @@ class DeviceRequested extends DeviceEvent {
 }
 ```
 
-[`blocs/device_bloc.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart)
+DeviceRequested -> DeviceLoadSuccess
 
-device_bloc.dart
+[`blocs/device_bloc.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart)
 
 ```dart
 class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
