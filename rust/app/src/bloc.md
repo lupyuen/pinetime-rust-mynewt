@@ -46,7 +46,7 @@ _(If you're familiar with React Redux: Yep Bloc sounds a lot like React Redux, b
 
 # Flutter Widgets for PineTime
 
-Let's look at three Flutter Widgets that we have created for the PineTime Companion App...
+As we dive into the Bloc Library for State Management, let's look at three Flutter Widgets that we have created for the PineTime Companion App...
 
 1. __Device Firmware Widget (Stateless):__ Shows firmware version numbers
 
