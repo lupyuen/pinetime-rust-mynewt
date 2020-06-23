@@ -46,7 +46,9 @@ _(If you're familiar with React Redux: Yep Bloc sounds a lot like React Redux, b
 
 # Flutter Widgets for PineTime
 
-As we dive into the Bloc Library for State Management, let's look at three Flutter Widgets that we have created for the PineTime Companion App...
+Our PineTime Companion App calls the __[Bloc Library](https://bloclibrary.dev/)__ to connect our Flutter Widgets with our application data and processing logic. 
+
+Let's look at three Flutter Widgets that we have created for the app...
 
 1. __Device Firmware Widget (Stateless):__ Shows firmware version numbers
 
@@ -124,7 +126,7 @@ The Device Firmware widget we've seen is wrapped into a __Device Summary Widget_
 
 ![Device Summary Widget](https://lupyuen.github.io/images/bloc-widgets2.png)
 
-`DeviceSummary` is another __Stateless Widget__ (that doesn't change), defined in [`widgets/device_summary.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device_summary.dart)...
+`DeviceSummary` is defined in [`widgets/device_summary.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device_summary.dart)...
 
 ```dart
 /// Widget to display PineTime summary
@@ -146,6 +148,21 @@ class DeviceSummary extends StatelessWidget {
               standbyFirmwareVersion: device.standbyFirmwareVersion,
             );
 ```
+
+_What's with the Data Model named `Device`?_
+
+```dart
+/// Data Model that contains PineTime info and Bluetooth device
+final model.Device device;
+```
+
+To render the Device Summary, this widget needs to know everything about our PineTime gadget... That's why the widget keeps a copy of the PineTime info inside the __Data Model__ named `Device`.
+
+Note that the Device Summary Widget passes two fields from the `Device` Data Model to the Device Firmware Widget: `activeFirmwareVersion` and `standbyFirmwareVersion`.
+
+`DeviceSummary` is another __Stateless Widget__ that doesn't change its State (i.e. the `Device` Data Model). If the device info changes, our app creates a new `DeviceSummary` widget to replace the old one.
+
+The Data Model is a core concept in the Bloc Library. More about this later.
 
 ## Device Widget
 
