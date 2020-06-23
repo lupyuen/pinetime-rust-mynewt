@@ -44,17 +44,17 @@ Read on to learn how.
 
 _(If you're familiar with React Redux: Yep Bloc sounds a lot like React Redux, because they are both State Management Frameworks)_
 
-# Widgets
+# Flutter Widgets for PineTime
 
 _(The code in this article was derived from the excellent [Weather App Tutorial from the Bloc Library](https://bloclibrary.dev/#/flutterweathertutorial))_
 
 Our Flutter App talks to PineTime over Bluetooth LE (Low Energy) to fetch the firmware version numbers and display them. Here's how it looks...
 
-???
+![Device Firmware Widget](https://lupyuen.github.io/images/bloc-widgets1.png)
 
 _(PineTime contains two firmware images: Active and Standby. If the Active Firmware fails to start, PineTime rolls back to the Standby Firmware)_
 
-The Flutter Widget that displays the firmware version numbers is really simple: [`widgets/device_firmware.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device_firmware.dart)
+The `DeviceFirmware` Widget that displays the firmware version numbers is really simple: [`widgets/device_firmware.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device_firmware.dart)
 
 ```dart
 /// Widget to display firmware versions fetched from PineTime
@@ -98,7 +98,9 @@ class DeviceFirmware extends StatelessWidget {
 }
 ```
 
-https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device_firmware.dart
+![Device Summary Widget](https://lupyuen.github.io/images/bloc-widgets2.png)
+
+[`widgets/device_summary.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device_summary.dart)
 
 ```dart
 /// Widget to display PineTime summary
@@ -120,6 +122,8 @@ class DeviceSummary extends StatelessWidget {
               standbyFirmwareVersion: device.standbyFirmwareVersion,
             );
 ```
+
+![Device Widget](https://lupyuen.github.io/images/bloc-widgets3.png)
 
 [`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
 
