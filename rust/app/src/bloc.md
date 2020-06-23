@@ -224,44 +224,7 @@ I/flutter (20366): onEvent DeviceChanged
 I/flutter (20366): onTransition Transition { currentState: ThemeState, event: DeviceChanged, nextState: ThemeState }
 ```
 
-# Send Bluetooth LE Request to PineTime
-
-TODO
-
-# Handle Bluetooth LE Response from PineTime
-
-TODO
-
-# Decode CBOR Response from PineTime
-
-TODO
-
-# Build and Run App
-
-TODO
-
-device.dart
-
-```dart
-IconButton(
-    icon: Icon(Icons.search),
-    onPressed: () async {
-        final device = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            //  TODO: Browse Bluetooth LE devices
-            builder: (context) => FindDevice(),
-        ),
-        );
-        if (device != null) {
-        BlocProvider.of<DeviceBloc>(context)
-            .add(DeviceRequested(device: device));
-        }
-    },
-)
-```
-
-device_bloc.dart
+[`blocs/device_bloc.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart)
 
 ```dart
 class DeviceRequested extends DeviceEvent {
@@ -273,6 +236,10 @@ class DeviceRequested extends DeviceEvent {
   List<Object> get props => [device];
 }
 ```
+
+[`blocs/device_bloc.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart)
+
+device_bloc.dart
 
 ```dart
 class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
@@ -305,6 +272,22 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
     }
   }
 ```
+
+# Send Bluetooth LE Request to PineTime
+
+TODO
+
+# Handle Bluetooth LE Response from PineTime
+
+TODO
+
+# Decode CBOR Response from PineTime
+
+TODO
+
+# Build and Run App
+
+TODO
 
 # Debug Log
 
