@@ -264,9 +264,9 @@ _(The code in this article was derived from the excellent [Weather App Tutorial 
 
 # PineTime Data Model
 
-TODO
+The Data Model is important in Bloc apps... It gets passed to widgets for rendering the user interface. 
 
-[`lib/models/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/models/device.dart)
+Let's look at the Data Model for our PineTime Device, as defined in [`lib/models/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/models/device.dart)...
 
 ```dart
 import 'package:equatable/equatable.dart';        //  Object Equality Helper from https://pub.dev/packages/equatable
@@ -294,6 +294,12 @@ class Device extends Equatable {
   ];
 }
 ```
+
+_What's `BluetoothDevice`?_
+
+https://github.com/pauldemarco/flutter_blue
+
+_["Convert Go to Flutter and Dart for PineTime Companion App"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion)_
 
 # State Transitions
 
