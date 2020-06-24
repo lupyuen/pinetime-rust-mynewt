@@ -267,13 +267,13 @@ builder: (context, state) {
         device: device,
       ),
 </code></pre>
-<p>The above <a href="https://pub.dev/documentation/flutter_bloc/latest/flutter_bloc/BlocConsumer/builder.html"><strong>Bloc Widget Builder</strong></a> (exposed by <a href="https://pub.dev/documentation/flutter_bloc/latest/flutter_bloc/BlocConsumer-class.html"><code>BlocConsumer&lt;DeviceBloc, DeviceState&gt;</code></a>) takes the updated <code>Device</code> Data Model from the new State, and creates a new the Device Summary Widget...</p>
+<p>The above <a href="https://pub.dev/documentation/flutter_bloc/latest/flutter_bloc/BlocConsumer/builder.html"><strong>Bloc Widget Builder</strong></a> (exposed by <a href="https://pub.dev/documentation/flutter_bloc/latest/flutter_bloc/BlocConsumer-class.html"><code>BlocConsumer&lt;DeviceBloc, DeviceState&gt;</code></a>) takes the updated <code>Device</code> Data Model from the new State, and creates a new Device Summary Widget...</p>
 <p><img src="https://lupyuen.github.io/images/bloc-builder.png" alt="Rebuilding the Device Summary Widget on state updates" /></p>
 <p>This explains why the Device Widget is Stateful while the Device Summary Widget (and Device Firmware Widget) is Stateless... Because Device Widget will replace the Device Summary Widget when there are updates.</p>
 <p><em>How do we trigger the <code>DeviceLoadSuccess</code> State?</em></p>
 <p>This State is triggered when we have loaded the device info from PineTime over Bluetooth LE.</p>
 <p>That's how widgets get updated in Bloc: The widget listens for State updates and rebuilds itself with a <a href="https://pub.dev/documentation/flutter_bloc/latest/flutter_bloc/BlocConsumer/builder.html">Bloc Widget Builder</a>.</p>
-<p>We'll see in a while how new States are generated in Bloc.</p>
+<p>We'll see in a while how the <code>DeviceLoadSuccess</code> State is generated in Bloc.</p>
 <p><em>(The code in this article was derived from the excellent <a href="https://bloclibrary.dev/#/flutterweathertutorial">Weather App Tutorial from the Bloc Library</a>)</em></p>
 <h1 id="pinetime-data-model" class="section-header"><a href="#pinetime-data-model">3 PineTime Data Model</a></h1>
 <p>TODO</p>

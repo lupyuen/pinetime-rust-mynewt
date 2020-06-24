@@ -246,7 +246,7 @@ builder: (context, state) {
       ),
 ```
 
-The above [__Bloc Widget Builder__](https://pub.dev/documentation/flutter_bloc/latest/flutter_bloc/BlocConsumer/builder.html) (exposed by [`BlocConsumer<DeviceBloc, DeviceState>`](https://pub.dev/documentation/flutter_bloc/latest/flutter_bloc/BlocConsumer-class.html)) takes the updated `Device` Data Model from the new State, and creates a new the Device Summary Widget...
+The above [__Bloc Widget Builder__](https://pub.dev/documentation/flutter_bloc/latest/flutter_bloc/BlocConsumer/builder.html) (exposed by [`BlocConsumer<DeviceBloc, DeviceState>`](https://pub.dev/documentation/flutter_bloc/latest/flutter_bloc/BlocConsumer-class.html)) takes the updated `Device` Data Model from the new State, and creates a new Device Summary Widget...
 
 ![Rebuilding the Device Summary Widget on state updates](https://lupyuen.github.io/images/bloc-builder.png)
 
@@ -258,7 +258,7 @@ This State is triggered when we have loaded the device info from PineTime over B
 
 That's how widgets get updated in Bloc: The widget listens for State updates and rebuilds itself with a [Bloc Widget Builder](https://pub.dev/documentation/flutter_bloc/latest/flutter_bloc/BlocConsumer/builder.html).  
 
-We'll see in a while how new States are generated in Bloc.
+We'll see in a while how the `DeviceLoadSuccess` State is generated in Bloc.
 
 _(The code in this article was derived from the excellent [Weather App Tutorial from the Bloc Library](https://bloclibrary.dev/#/flutterweathertutorial))_
 
