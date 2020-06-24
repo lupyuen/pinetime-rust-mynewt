@@ -246,7 +246,7 @@ builder: (context, state) {
       ),
 ```
 
-The above [__Bloc Widget Builder__](https://pub.dev/documentation/flutter_bloc/latest/flutter_bloc/BlocConsumer/builder.html) (exposed by [`BlocConsumer<DeviceBloc, DeviceState>`](https://pub.dev/documentation/flutter_bloc/latest/flutter_bloc/BlocConsumer-class.html)) takes the updated `Device` Data Model from the new State, and creates a new Device Summary Widget...
+The above [__Bloc Widget Builder__](https://bloclibrary.dev/#/flutterbloccoreconcepts?id=blocbuilder) (exposed by [`BlocConsumer`](https://bloclibrary.dev/#/flutterbloccoreconcepts?id=blocconsumer)) takes the updated `Device` Data Model from the new State, and creates a new Device Summary Widget...
 
 ![Rebuilding the Device Summary Widget on state updates](https://lupyuen.github.io/images/bloc-builder.png)
 
@@ -256,7 +256,7 @@ _How do we trigger the `DeviceLoadSuccess` State?_
 
 This State is triggered when we have loaded the device info from PineTime over Bluetooth LE.
 
-That's how widgets get updated in Bloc: The widget listens for State updates and rebuilds itself with a [Bloc Widget Builder](https://pub.dev/documentation/flutter_bloc/latest/flutter_bloc/BlocConsumer/builder.html).  
+That's how widgets get updated in Bloc: The widget listens for State updates and rebuilds itself with a [Bloc Widget Builder](https://bloclibrary.dev/#/flutterbloccoreconcepts?id=blocbuilder).  
 
 We'll see in a while how the `DeviceLoadSuccess` State is generated in Bloc.
 
@@ -345,11 +345,15 @@ class DeviceApiClient {
     await bluetoothDevice.connect();
 ```
 
-`DeviceApiClient` is the Data Repository class that we expose to the Flutter App for sending Bluetooth LE commands to PineTime.
+`DeviceApiClient` is the [__Data Repository__](https://bloclibrary.dev/#/architecture?id=repository) class that we expose to the Flutter App for sending Bluetooth LE commands to PineTime.
 
 _(Yes the name `DeviceApiClient` is rather odd... It shall be renamed!)_
 
-`fetchDevice()` is the method that sends the Bluetooth LE command to query PineTime's firmware images. The method returns a `Device` Data Model that contains the Active and Standby Firmware version numbers.
+`fetchDevice()` is the method that sends the Bluetooth LE command to query PineTime's firmware images
+
+The method returns a `Device` Data Model that contains the Active and Standby Firmware version numbers.
+
+`bluetoothDevice` is the Bluetooth interface returned by the [`flutter_blue` library for Bluetooth LE networking](https://github.com/pauldemarco/flutter_blue). (More about this later)
 
 _Why do we use `await` when connecting to PineTime?_
 
@@ -358,13 +362,34 @@ _Why do we use `await` when connecting to PineTime?_
   await bluetoothDevice.connect();
 ```
 
-That's the beauty of [__Asynchronous Programming__](https://dart.dev/codelabs/async-await) in Dart!
+Connecting to PineTime over Bluetooth LE may take a while... And we should wait for it to complete before proceeding.
+
+But we can't let the rest of the app freeze while waiting... What if the human taps the `Cancel` button!
+
+`await` is exactly what we need. It waits for the `connect()` method to complete before proceeding to the next step... While keeping the user interface responsive!
+
+That's the beauty of [__Asynchronous Programming__](https://dart.dev/codelabs/async-await) in Dart... No more Deeply Nested Callbacks and Promises! (Yep React Native gets really messy because of this)
 
 _Why is the `fetchDevice()` method declared `async`?_
 
 ```dart
   /// Connect to the PineTime device and query the firmare inside
   Future<Device> fetchDevice(BluetoothDevice bluetoothDevice) async {
+```
+
+To use `await` we need two things...
+
+1. Declare the method as `async` (like above)
+
+1. Instead of returning a plain `Device` object, the method now returns a `Future<Device>` (like above)
+
+Later we'll see that we may simply return a `Device` object as `Future<Device>`...
+
+```dart
+  //  Construct a Device object
+  final device = Device( ... );
+  //  Return it as Future<Device>
+  return device;
 ```
 
 ## Discover GATT Services
