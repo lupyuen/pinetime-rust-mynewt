@@ -325,8 +325,11 @@ class DeviceApiClient {
   Future<Device> fetchDevice(BluetoothDevice bluetoothDevice) async {
     //  Connect to PineTime
     await bluetoothDevice.connect();
-    var smpCharac;
+```
 
+_(Yes the name `DeviceApiClient` is rather odd... It shall be renamed!)_
+
+```dart
     //  Discover the services on PineTime
     List<BluetoothService> services = await bluetoothDevice.discoverServices();
     for (BluetoothService service in services) {
@@ -335,8 +338,11 @@ class DeviceApiClient {
         service.uuid.toByteArray(), 
         [0x8d,0x53,0xdc,0x1d,0x1d,0xb7,0x4c,0xd3,0x86,0x8b,0x8a,0x52,0x74,0x60,0xaa,0x84]
       )) { continue; }
+```
 
+```dart
       //  Look for Simple Mgmt Protocol Characteristic
+      var smpCharac;
       var characteristics = service.characteristics;
       for (BluetoothCharacteristic charac in characteristics) {
         if (!listEquals(
@@ -348,9 +354,6 @@ class DeviceApiClient {
         smpCharac = charac;
         break;
       }
-      //  Found the characteristic
-      if (smpCharac != null) { break; }
-    }
 ```
 
 ```dart
@@ -374,11 +377,10 @@ class DeviceApiClient {
     //  Transmit the query firmware request by writing to the SMP charactertistic
     await smpCharac.write(request, withoutResponse: true);
 
-    //  Response will be delivered via Bluetooth LE Notifications, handled above
-    final response2 = await completer.future;  //  Wait for the completer to complete
+    //  Response will be delivered via Bluetooth LE Notifications, handled above.
+    //  We wait for the completer to finish receiving the entire response.
+    final response2 = await completer.future;
 ```
-
-_(Yes the name is rather odd... It shall be renamed!)_
 
 # Handle Bluetooth LE Response from PineTime
 
@@ -442,8 +444,6 @@ class DeviceApiClient {
     body.addAll(response2.sublist(8));  //  Remove the 8-byte header
     final decodedBody = decodeCBOR(body);
 ```
-
-[`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
 
 ```dart
     //  Return the Device data model
