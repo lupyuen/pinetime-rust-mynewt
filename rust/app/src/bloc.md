@@ -325,13 +325,17 @@ Here are the steps...
 
 1. __Find the right GATT Characteristic__ exposed by PineTime
 
-1. __Send a Write Request__ to the GATT Characteristic
+1. __Transmit a Write Request__ to the GATT Characteristic
 
 1. __Receive the response__ via a GATT Notification
 
 1. __Decode the CBOR__ response
 
-Let's start by connecting to PineTime: [`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
+???
+
+## Connect to PineTime
+
+Let's start by connecting to PineTime over Bluetooth LE: [`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
 
 ```dart
 class DeviceApiClient {
@@ -341,9 +345,31 @@ class DeviceApiClient {
     await bluetoothDevice.connect();
 ```
 
-
+`DeviceApiClient` is the Data Repository class that we expose to the Flutter App for sending Bluetooth LE commands to PineTime.
 
 _(Yes the name `DeviceApiClient` is rather odd... It shall be renamed!)_
+
+`fetchDevice()` is the method that sends the Bluetooth LE command to query PineTime's firmware images. The method returns a `Device` Data Model that contains the Active and Standby Firmware version numbers.
+
+_Why do we use `await` when connecting to PineTime?_
+
+```dart
+  //  Connect to PineTime
+  await bluetoothDevice.connect();
+```
+
+That's the beauty of [__Asynchronous Programming__](https://dart.dev/codelabs/async-await) in Dart!
+
+_Why is the `fetchDevice()` method declared `async`?_
+
+```dart
+  /// Connect to the PineTime device and query the firmare inside
+  Future<Device> fetchDevice(BluetoothDevice bluetoothDevice) async {
+```
+
+## Discover GATT Services
+
+TODO
 
 ```dart
     //  Discover the services on PineTime
@@ -355,6 +381,10 @@ _(Yes the name `DeviceApiClient` is rather odd... It shall be renamed!)_
         [0x8d,0x53,0xdc,0x1d,0x1d,0xb7,0x4c,0xd3,0x86,0x8b,0x8a,0x52,0x74,0x60,0xaa,0x84]
       )) { continue; }
 ```
+
+## Find GATT Characteristic
+
+TODO
 
 ```dart
       //  Look for Simple Mgmt Protocol Characteristic
@@ -380,6 +410,10 @@ _(Yes the name `DeviceApiClient` is rather odd... It shall be renamed!)_
     }
 ```
 
+## Transmit Write Request to GATT Characteristic
+
+TODO
+
 ```dart
     //  Create a completer to wait for response from PineTime
     final completer = Completer<typed.Uint8Buffer>();
@@ -396,6 +430,8 @@ _(Yes the name `DeviceApiClient` is rather odd... It shall be renamed!)_
     //  Response will be delivered via Bluetooth LE Notifications, handled above.
     //  We wait for the completer to finish receiving the entire response.
     final response2 = await completer.future;
+
+    //  Omitted: Decode the CBOR response from PineTime
 ```
 
 # Handle Bluetooth LE Response from PineTime
