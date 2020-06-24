@@ -295,11 +295,23 @@ class Device extends Equatable {
 }
 ```
 
+The `Device` Data Model for PineTime contains two fields `activeFirmwareVersion` and `standbyFirmwareVersion`, that store the version numbers of the Active and Standby Firmware on PineTime. The two fields are rendered by the Device Firmware Widget that we have seen earlier.
+
 _What's `BluetoothDevice`?_
 
-https://github.com/pauldemarco/flutter_blue
+That's the Bluetooth Device that's returned by the [`flutter_blue` library for Bluetooth LE networking](https://github.com/pauldemarco/flutter_blue).
 
-_["Convert Go to Flutter and Dart for PineTime Companion App"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion)_
+In a while we'll see how our Flutter App stores `BluetoothDevice` stored into the `Device` Data Model. And how we use `BluetoothDevice` to send Bluetooth LE requests to PineTime.
+
+To recap, the `Device` Data Model contains everything we know about PineTime, and provides the means to access PineTime (through `BluetoothDevice`).
+
+_Why does `Device` inherit from the `Equatable` class?_
+
+[`Equatable`](https://pub.dev/packages/equatable) is a helper library that lets us compare two objects for equality.
+
+Two `Device` Data Models are deemed equivalent if the fields have identical values. This checking for equality is required by Bloc.
+
+Let's learn how our Flutter App constructs the `Device` Data Model and passes it to the Device Widget.
 
 # State Transitions
 

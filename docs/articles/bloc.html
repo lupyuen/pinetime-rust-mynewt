@@ -276,19 +276,25 @@ builder: (context, state) {
 <p>We'll see in a while how the <code>DeviceLoadSuccess</code> State is generated in Bloc.</p>
 <p><em>(The code in this article was derived from the excellent <a href="https://bloclibrary.dev/#/flutterweathertutorial">Weather App Tutorial from the Bloc Library</a>)</em></p>
 <h1 id="pinetime-data-model" class="section-header"><a href="#pinetime-data-model">3 PineTime Data Model</a></h1>
-<p>TODO</p>
-<p><a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/models/device.dart"><code>lib/models/device.dart</code></a></p>
-<pre><code class="language-dart">class Device extends Equatable {
-  final BluetoothDevice bluetoothDevice;
-  final String activeFirmwareVersion;
-  final String standbyFirmwareVersion;
+<p>The Data Model is important in Bloc apps... It gets passed to widgets for rendering the user interface. </p>
+<p>Let's look at the Data Model for our PineTime Device, as defined in <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/models/device.dart"><code>lib/models/device.dart</code></a>...</p>
+<pre><code class="language-dart">import 'package:equatable/equatable.dart';        //  Object Equality Helper from https://pub.dev/packages/equatable
+import 'package:flutter_blue/flutter_blue.dart';  //  Bluetooth LE API from https://github.com/pauldemarco/flutter_blue
 
+/// Data Model for PineTime Device
+class Device extends Equatable {
+  final BluetoothDevice bluetoothDevice;  //  Bluetooth device for connecting to PineTime
+  final String activeFirmwareVersion;     //  Version number of firmware that's running on PineTime (e.g. '1.0.0')
+  final String standbyFirmwareVersion;    //  Version number of firmware that's in external flash memory (e.g. '1.1.0')
+
+  /// Constructor for PineTime Device
   const Device({
     this.bluetoothDevice,
     this.activeFirmwareVersion,
     this.standbyFirmwareVersion
   });
 
+  /// Return the properties of PineTime Device
   @override
   List&lt;Object&gt; get props =&gt; [
     bluetoothDevice,
@@ -297,6 +303,15 @@ builder: (context, state) {
   ];
 }
 </code></pre>
+<p>The <code>Device</code> Data Model for PineTime contains two fields <code>activeFirmwareVersion</code> and <code>standbyFirmwareVersion</code>, that store the version numbers of the Active and Standby Firmware on PineTime. The two fields are rendered by the Device Firmware Widget that we have seen earlier.</p>
+<p><em>What's <code>BluetoothDevice</code>?</em></p>
+<p>That's the Bluetooth Device that's returned by the <a href="https://github.com/pauldemarco/flutter_blue"><code>flutter_blue</code> library for Bluetooth LE networking</a>.</p>
+<p>In a while we'll see how our Flutter App stores <code>BluetoothDevice</code> stored into the <code>Device</code> Data Model. And how we use <code>BluetoothDevice</code> to send Bluetooth LE requests to PineTime.</p>
+<p>To recap, the <code>Device</code> Data Model contains everything we know about PineTime, and provides the means to access PineTime (through <code>BluetoothDevice</code>).</p>
+<p><em>Why does <code>Device</code> inherit from the <code>Equatable</code> class?</em></p>
+<p><a href="https://pub.dev/packages/equatable"><code>Equatable</code></a> is a helper library that lets us compare two objects for equality.</p>
+<p>Two <code>Device</code> Data Models are deemed equivalent if the fields have identical values. This checking for equality is required by Bloc.</p>
+<p>Let's learn how our Flutter App constructs the <code>Device</code> Data Model and passes it to the Device Widget.</p>
 <h1 id="state-transitions" class="section-header"><a href="#state-transitions">4 State Transitions</a></h1>
 <p>TODO</p>
 <p>DeviceInitial (DeviceRequested) -&gt; DeviceLoadInProgress</p>
