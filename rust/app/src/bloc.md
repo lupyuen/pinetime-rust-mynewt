@@ -397,22 +397,39 @@ Let's move on to discover GATT Services and Characteristics exposed by PineTime.
 
 ## Discover GATT Services
 
-TODO
+[In the previous article](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion) we learnt about the [__Simple Management Protocol__](https://github.com/apache/mynewt-mcumgr) that's exposed by PineTime for querying and updating firmware. We'll be sending the query firmware command to PineTime through this protocol.
+
+The Simple Management Protocol is implemented over Bluetooth LE as a [GATT Service](https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt). Thus to query the firmware on PineTime, we need to discover the GATT Services exposed by PineTime: [`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
 
 ```dart
     //  Discover the services on PineTime
     List<BluetoothService> services = await bluetoothDevice.discoverServices();
+```
+
+`discoverServices()` talks to PineTine over Bluetooth LE and returns a list of GATT Services exposed by PineTime.
+
+We use `await` while discovering GATT Services, so that the app won't freeze while waiting for the Bluetooth LE response.
+
+The GATT Service for Simple Management Protocol has a UUID (unique ID) of `8D53DC1D-1DB7-4CD3-868B-8A527460AA84`...
+
+```dart
+    //  Look for Simple Mgmt Protocol Service
     for (BluetoothService service in services) {
-      //  Look for Simple Mgmt Protocol Service
       if (!listEquals(
         service.uuid.toByteArray(), 
         [0x8d,0x53,0xdc,0x1d,0x1d,0xb7,0x4c,0xd3,0x86,0x8b,0x8a,0x52,0x74,0x60,0xaa,0x84]
       )) { continue; }
 ```
 
+That's how we hunt for the GATT Service.
+
 ## Find GATT Characteristic
 
-TODO
+Next we hunt for the GATT Characteristic (within the GATT Service) for Simple Management Protocol.
+
+To transmit a command to PineTime, we shall write a request message ([in CBOR format](https://en.wikipedia.org/wiki/CBOR)) to the GATT Characteristic.
+
+Here's how we find the GATT Characteristic `DA2E7828-FBCE-4E01-AE9E-261174997C48` for the Simple Management Protocol: [`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
 
 ```dart
       //  Look for Simple Mgmt Protocol Characteristic
@@ -429,6 +446,8 @@ TODO
         break;
       }
 ```
+
+If we can't find the GATT Service or the GATT Characteristic, we throw an exception...
 
 ```dart
     //  If Simple Mgmt Protocol Service or Characteristic not found...

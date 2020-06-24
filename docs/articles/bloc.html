@@ -383,18 +383,26 @@ class Device extends Equatable {
 </code></pre>
 <p>Let's move on to discover GATT Services and Characteristics exposed by PineTime.</p>
 <h2 id="discover-gatt-services" class="section-header"><a href="#discover-gatt-services">4.2 Discover GATT Services</a></h2>
-<p>TODO</p>
+<p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">In the previous article</a> we learnt about the <a href="https://github.com/apache/mynewt-mcumgr"><strong>Simple Management Protocol</strong></a> that's exposed by PineTime for querying and updating firmware. We'll be sending the query firmware command to PineTime through this protocol.</p>
+<p>The Simple Management Protocol is implemented over Bluetooth LE as a <a href="https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt">GATT Service</a>. Thus to query the firmware on PineTime, we need to discover the GATT Services exposed by PineTime: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart"><code>repositories/device_api_client.dart</code></a></p>
 <pre><code class="language-dart">    //  Discover the services on PineTime
     List&lt;BluetoothService&gt; services = await bluetoothDevice.discoverServices();
+</code></pre>
+<p><code>discoverServices()</code> talks to PineTine over Bluetooth LE and returns a list of GATT Services exposed by PineTime.</p>
+<p>We use <code>await</code> while discovering GATT Services, so that the app won't freeze while waiting for the Bluetooth LE response.</p>
+<p>The GATT Service for Simple Management Protocol has a UUID (unique ID) of <code>8D53DC1D-1DB7-4CD3-868B-8A527460AA84</code>...</p>
+<pre><code class="language-dart">    //  Look for Simple Mgmt Protocol Service
     for (BluetoothService service in services) {
-      //  Look for Simple Mgmt Protocol Service
       if (!listEquals(
         service.uuid.toByteArray(), 
         [0x8d,0x53,0xdc,0x1d,0x1d,0xb7,0x4c,0xd3,0x86,0x8b,0x8a,0x52,0x74,0x60,0xaa,0x84]
       )) { continue; }
 </code></pre>
+<p>That's how we hunt for the GATT Service.</p>
 <h2 id="find-gatt-characteristic" class="section-header"><a href="#find-gatt-characteristic">4.3 Find GATT Characteristic</a></h2>
-<p>TODO</p>
+<p>Next we hunt for the GATT Characteristic (within the GATT Service) for Simple Management Protocol.</p>
+<p>To transmit a command to PineTime, we shall write a request message (<a href="https://en.wikipedia.org/wiki/CBOR">in CBOR format</a>) to the GATT Characteristic.</p>
+<p>Here's how we find the GATT Characteristic <code>DA2E7828-FBCE-4E01-AE9E-261174997C48</code> for the Simple Management Protocol: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart"><code>repositories/device_api_client.dart</code></a></p>
 <pre><code class="language-dart">      //  Look for Simple Mgmt Protocol Characteristic
       var smpCharac;
       var characteristics = service.characteristics;
@@ -409,6 +417,7 @@ class Device extends Equatable {
         break;
       }
 </code></pre>
+<p>If we can't find the GATT Service or the GATT Characteristic, we throw an exception...</p>
 <pre><code class="language-dart">    //  If Simple Mgmt Protocol Service or Characteristic not found...
     if (smpCharac == null) {
       bluetoothDevice.disconnect();
