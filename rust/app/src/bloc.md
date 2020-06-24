@@ -400,6 +400,9 @@ class DeviceApiClient {
 
     //  Handle responses from PineTime via Bluetooth LE Notifications    
     await smpCharac.setNotifyValue(true);
+```
+
+```dart
     smpCharac.value.listen((value) {
       //  Response bytes are passed to this callback function, chunk by chunk
       response.addAll(value);
@@ -414,9 +417,15 @@ class DeviceApiClient {
         completer.complete(response);
       }
     });
-    ...
-    //  Response will be delivered via Bluetooth LE Notifications, handled above
-    final response2 = await completer.future;  //  Wait for the completer to complete
+```
+
+```dart
+    //  Transmit the query firmware request by writing to the SMP charactertistic
+    await smpCharac.write(request, withoutResponse: true);
+
+    //  Response will be delivered via Bluetooth LE Notifications, handled above.
+    //  We wait for the completer to finish receiving the entire response.
+    final response2 = await completer.future;
 
     //  Omitted: Decode the CBOR response from PineTime
 ```
@@ -433,8 +442,9 @@ class DeviceApiClient {
   Future<Device> fetchDevice(BluetoothDevice bluetoothDevice) async {
     //  Omitted: Transmit request to PineTime over Bluetooth LE
     ...
-    //  Response will be delivered via Bluetooth LE Notifications, handled above
-    final response2 = await completer.future;  //  Wait for the completer to complete
+    //  Response will be delivered via Bluetooth LE Notifications, handled above.
+    //  We wait for the completer to finish receiving the entire response.
+    final response2 = await completer.future;
 
     //  Disconnect the device
     bluetoothDevice.disconnect();
