@@ -173,7 +173,7 @@ Device Widget is a __Stateful Widget__ that has some interesting code inside: [`
 ```dart
 /// Widget for the PineTime Companion screen
 class Device extends StatefulWidget {
-  /// Construct the Stateful Widget
+  /// Construct the Stateful Widget with an initial state
   @override
   State<Device> createState() => _DeviceState();
 }
@@ -210,6 +210,18 @@ class _DeviceState extends State<Device> {
                   device: device,
                 ),
                 ...
+```
+
+_Why do we need `createState()` in the Device Widget_
+
+Device Widget is a __Stateful Widget__, so it needs to be created with an initial state, like this...
+
+```dart
+/// Widget for the PineTime Companion screen
+class Device extends StatefulWidget {
+  /// Construct the Stateful Widget with an initial state
+  @override
+  State<Device> createState() => _DeviceState();
 ```
 
 _Why is the Device Widget Stateful, unlike the other Widgets?_
