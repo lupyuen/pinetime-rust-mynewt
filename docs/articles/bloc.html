@@ -426,23 +426,24 @@ if (smpCharac == null) {
 </code></pre>
 <h2 id="transmit-write-request-to-gatt-characteristic" class="section-header"><a href="#transmit-write-request-to-gatt-characteristic">4.4 Transmit Write Request to GATT Characteristic</a></h2>
 <p>TODO</p>
-<pre><code class="language-dart">    //  Create a completer to wait for response from PineTime
-    final completer = Completer&lt;typed.Uint8Buffer&gt;();
+<p><a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart"><code>repositories/device_api_client.dart</code></a></p>
+<pre><code class="language-dart">//  Create a completer to wait for response from PineTime
+final completer = Completer&lt;typed.Uint8Buffer&gt;();
 
-    //  Omitted: Handle responses from PineTime via Bluetooth LE Notifications
-    ...
+//  Omitted: Prepare to handle response from PineTime via Bluetooth LE Notifications
+...
+</code></pre>
+<pre><code class="language-dart">//  Compose the query firmware request (Simple Mgmt Protocol)
+final request = composeRequest();
+</code></pre>
+<pre><code class="language-dart">//  Transmit the query firmware request by writing to the SMP charactertistic
+await smpCharac.write(request, withoutResponse: true);
+</code></pre>
+<pre><code class="language-dart">//  Response will be delivered via Bluetooth LE Notifications, handled above.
+//  We wait for the completer to finish receiving the entire response.
+final response2 = await completer.future;
 
-    //  Compose the query firmware request (Simple Mgmt Protocol)
-    final request = composeRequest();
-
-    //  Transmit the query firmware request by writing to the SMP charactertistic
-    await smpCharac.write(request, withoutResponse: true);
-
-    //  Response will be delivered via Bluetooth LE Notifications, handled above.
-    //  We wait for the completer to finish receiving the entire response.
-    final response2 = await completer.future;
-
-    //  Omitted: Decode the CBOR response from PineTime
+//  Omitted: Decode the CBOR response from PineTime
 </code></pre>
 <h1 id="handle-bluetooth-le-response-from-pinetime" class="section-header"><a href="#handle-bluetooth-le-response-from-pinetime">5 Handle Bluetooth LE Response from PineTime</a></h1>
 <p>TODO</p>
