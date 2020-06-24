@@ -264,7 +264,7 @@ _(The code in this article was derived from the excellent [Weather App Tutorial 
 
 # PineTime Data Model
 
-The Data Model is important in Bloc apps... It gets passed to widgets for rendering the user interface. 
+The __Data Model__ is important in Bloc apps... It gets passed to widgets for rendering the user interface. 
 
 Let's look at the Data Model for our PineTime Device, as defined in [`lib/models/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/models/device.dart)...
 
@@ -295,13 +295,15 @@ class Device extends Equatable {
 }
 ```
 
-The `Device` Data Model for PineTime contains two fields `activeFirmwareVersion` and `standbyFirmwareVersion`, that store the version numbers of the Active and Standby Firmware on PineTime. The two fields are rendered by the Device Firmware Widget that we have seen earlier.
+The `Device` Data Model for PineTime contains two fields `activeFirmwareVersion` and `standbyFirmwareVersion`, that store the version numbers of the Active and Standby Firmware on PineTime. 
+
+The two fields are rendered by the Device Firmware Widget that we have seen earlier.
 
 _What's `BluetoothDevice`?_
 
 That's the Bluetooth Device that's returned by the [`flutter_blue` library for Bluetooth LE networking](https://github.com/pauldemarco/flutter_blue).
 
-In a while we'll see how our Flutter App stores `BluetoothDevice` stored into the `Device` Data Model. And how we use `BluetoothDevice` to send Bluetooth LE requests to PineTime.
+In a while we'll see how our Flutter App stores `BluetoothDevice` into the `Device` Data Model. And how our app calls `BluetoothDevice` to send Bluetooth LE requests to PineTime.
 
 To recap, the `Device` Data Model contains everything we know about PineTime, and provides the means to access PineTime (through `BluetoothDevice`).
 
