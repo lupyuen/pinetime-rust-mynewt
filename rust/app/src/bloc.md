@@ -269,17 +269,23 @@ TODO
 [`lib/models/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/models/device.dart)
 
 ```dart
-class Device extends Equatable {
-  final BluetoothDevice bluetoothDevice;
-  final String activeFirmwareVersion;
-  final String standbyFirmwareVersion;
+import 'package:equatable/equatable.dart';        //  Object Equality Helper from https://pub.dev/packages/equatable
+import 'package:flutter_blue/flutter_blue.dart';  //  Bluetooth LE API from https://github.com/pauldemarco/flutter_blue
 
+/// Data Model for PineTime Device
+class Device extends Equatable {
+  final BluetoothDevice bluetoothDevice;  //  Bluetooth device for connecting to PineTime
+  final String activeFirmwareVersion;     //  Version number of firmware that's running on PineTime (e.g. '1.0.0')
+  final String standbyFirmwareVersion;    //  Version number of firmware that's in external flash memory (e.g. '1.1.0')
+
+  /// Constructor for PineTime Device
   const Device({
     this.bluetoothDevice,
     this.activeFirmwareVersion,
     this.standbyFirmwareVersion
   });
 
+  /// Return the properties of PineTime Device
   @override
   List<Object> get props => [
     bluetoothDevice,
