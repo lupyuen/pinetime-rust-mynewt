@@ -435,13 +435,410 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
 
 TODO
 
+https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart
+
+```dart
+//  Client API for accessing Bluetooth LE device
+import 'dart:async';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_blue/flutter_blue.dart';
+import 'package:cbor/cbor.dart' as cbor;               //  CBOR Encoder and Decoder. From https://pub.dev/packages/cbor
+import 'package:typed_data/typed_data.dart' as typed;  //  Helpers for Byte Buffers. From https://pub.dev/packages/typed_data
+import '../models/models.dart';
+import '../newtmgr.dart';
+
+class DeviceApiClient {
+  /// Connect to the PineTime device and query the firmare inside
+  Future<Device> fetchDevice(BluetoothDevice bluetoothDevice) async {
+    print('Fetching device...\n');
+
+    //  Connect to PineTime
+    await bluetoothDevice.connect();
+    print('Device: ${ bluetoothDevice.toString() }\n');
+    var smpCharac;
+
+    //  Discover the services on PineTime
+    List<BluetoothService> services = await bluetoothDevice.discoverServices();
+    for (BluetoothService service in services) {
+      //  Look for Simple Mgmt Protocol Service
+      //  print('Service: ${ service.toString() }\n');  //  print('UUID: ${ service.uuid.toByteArray() }\n');
+      if (!listEquals(
+        service.uuid.toByteArray(), 
+        [0x8d,0x53,0xdc,0x1d,0x1d,0xb7,0x4c,0xd3,0x86,0x8b,0x8a,0x52,0x74,0x60,0xaa,0x84]
+      )) { continue; }
+
+      //  Look for Simple Mgmt Protocol Characteristic
+      var characteristics = service.characteristics;
+      for (BluetoothCharacteristic charac in characteristics) {
+        //  print('Charac: ${ charac.toString() }\n');  //  print('UUID: ${ charac.uuid.toByteArray() }\n');
+        if (!listEquals(
+          charac.uuid.toByteArray(),
+          [0xda,0x2e,0x78,0x28,0xfb,0xce,0x4e,0x01,0xae,0x9e,0x26,0x11,0x74,0x99,0x7c,0x48]
+        )) { continue; }
+
+        //  Found the characteristic
+        smpCharac = charac;
+        break;
+      }
+      //  Found the characteristic
+      if (smpCharac != null) { break; }
+    }
+
+    //  If Simple Mgmt Protocol Service or Characteristic not found...
+    if (smpCharac == null) {
+      bluetoothDevice.disconnect();
+      throw new Exception('Device doesn\'t support Simple Management Protocol. You may need to flash a suitable firmware.');
+    }
+
+    //  Read all descriptors
+    //  var descriptors = smpCharac.descriptors;
+    //  for (BluetoothDescriptor desc in descriptors) { print('Desc: ${ desc.toString() }\n'); }
+
+    //  Create a completer to wait for response from PineTime
+    final completer = Completer<typed.Uint8Buffer>();
+    final response = typed.Uint8Buffer();
+
+    //  Handle responses from PineTime via Bluetooth LE Notifications    
+    await smpCharac.setNotifyValue(true);
+    smpCharac.value.listen((value) {
+      //  Response bytes are passed to this callback function, chunk by chunk
+      print('Notify: ${ _dump(value) }\n');
+      response.addAll(value);
+
+      //  Get the expected message length
+      if (response.length < 4) { return; }           //  Length field not available
+      final len = (response[2] << 8) + response[3];  //  Length field in bytes 2 and 3
+      final responseLength = len + 8;  //  Response includes 8 bytes for header
+
+      //  If the received response length is already the expected response length, mark response as complete
+      if (response.length >= responseLength && !completer.isCompleted) {
+        print('Response Length: ${ response.length } vs $responseLength\n');
+        completer.complete(response);
+      }
+    });
+
+    //  Compose the query firmware request (Simple Mgmt Protocol)
+    final request = composeRequest();
+
+    //  Transmit the query firmware request by writing to the SMP charactertistic
+    await smpCharac.write(request, withoutResponse: true);
+
+    //  Response will be delivered via Bluetooth LE Notifications, handled above
+    final response2 = await completer.future;  //  Wait for the completer to complete
+
+    //  Disconnect the device
+    bluetoothDevice.disconnect();
+
+    //  Extract CBOR message body and decode it
+    final body = typed.Uint8Buffer();
+    body.addAll(response2.sublist(8));  //  Remove the 8-byte header
+    final decodedBody = decodeCBOR(body);
+    print('Decoded Response: $decodedBody\n');
+    final images = decodedBody[0]['images'] as List<dynamic>;
+
+    //  Return the device state
+    final device = Device(
+      condition: DeviceCondition.clear,
+      formattedCondition: 'Update Firmware',
+      minTemp: 0,
+      temp: 1,
+      maxTemp: 1,
+      locationId: 0,
+      lastUpdated: DateTime.now(),
+      location: '${ bluetoothDevice.name } ${ bluetoothDevice.id.toString() }',
+      bluetoothDevice: bluetoothDevice,
+      activeFirmwareVersion: (images.length >= 1) ? images[0]['version'] : '',
+      standbyFirmwareVersion: (images.length >= 2) ? images[1]['version'] : '',
+    );
+    return device;
+  }
+}
+
+/// Decode the CBOR message body
+List<dynamic> decodeCBOR(typed.Uint8Buffer payload) {
+  // Get our cbor instance. Always do this, it correctly initialises the decoder.
+  final inst = cbor.Cbor();
+
+  // Decode from the buffer
+  inst.decodeFromBuffer(payload);
+  print('Decoded CBOR:\n${ inst.decodedPrettyPrint() }');
+  print('${ inst.decodedToJSON() }\n');
+  return inst.getDecodedData();
+}
+```
+
 # Handle Bluetooth LE Response from PineTime
 
 TODO
 
+https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart
+
+```dart
+//  Client API for accessing Bluetooth LE device
+import 'dart:async';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_blue/flutter_blue.dart';
+import 'package:cbor/cbor.dart' as cbor;               //  CBOR Encoder and Decoder. From https://pub.dev/packages/cbor
+import 'package:typed_data/typed_data.dart' as typed;  //  Helpers for Byte Buffers. From https://pub.dev/packages/typed_data
+import '../models/models.dart';
+import '../newtmgr.dart';
+
+class DeviceApiClient {
+  /// Connect to the PineTime device and query the firmare inside
+  Future<Device> fetchDevice(BluetoothDevice bluetoothDevice) async {
+    print('Fetching device...\n');
+
+    //  Connect to PineTime
+    await bluetoothDevice.connect();
+    print('Device: ${ bluetoothDevice.toString() }\n');
+    var smpCharac;
+
+    //  Discover the services on PineTime
+    List<BluetoothService> services = await bluetoothDevice.discoverServices();
+    for (BluetoothService service in services) {
+      //  Look for Simple Mgmt Protocol Service
+      //  print('Service: ${ service.toString() }\n');  //  print('UUID: ${ service.uuid.toByteArray() }\n');
+      if (!listEquals(
+        service.uuid.toByteArray(), 
+        [0x8d,0x53,0xdc,0x1d,0x1d,0xb7,0x4c,0xd3,0x86,0x8b,0x8a,0x52,0x74,0x60,0xaa,0x84]
+      )) { continue; }
+
+      //  Look for Simple Mgmt Protocol Characteristic
+      var characteristics = service.characteristics;
+      for (BluetoothCharacteristic charac in characteristics) {
+        //  print('Charac: ${ charac.toString() }\n');  //  print('UUID: ${ charac.uuid.toByteArray() }\n');
+        if (!listEquals(
+          charac.uuid.toByteArray(),
+          [0xda,0x2e,0x78,0x28,0xfb,0xce,0x4e,0x01,0xae,0x9e,0x26,0x11,0x74,0x99,0x7c,0x48]
+        )) { continue; }
+
+        //  Found the characteristic
+        smpCharac = charac;
+        break;
+      }
+      //  Found the characteristic
+      if (smpCharac != null) { break; }
+    }
+
+    //  If Simple Mgmt Protocol Service or Characteristic not found...
+    if (smpCharac == null) {
+      bluetoothDevice.disconnect();
+      throw new Exception('Device doesn\'t support Simple Management Protocol. You may need to flash a suitable firmware.');
+    }
+
+    //  Read all descriptors
+    //  var descriptors = smpCharac.descriptors;
+    //  for (BluetoothDescriptor desc in descriptors) { print('Desc: ${ desc.toString() }\n'); }
+
+    //  Create a completer to wait for response from PineTime
+    final completer = Completer<typed.Uint8Buffer>();
+    final response = typed.Uint8Buffer();
+
+    //  Handle responses from PineTime via Bluetooth LE Notifications    
+    await smpCharac.setNotifyValue(true);
+    smpCharac.value.listen((value) {
+      //  Response bytes are passed to this callback function, chunk by chunk
+      print('Notify: ${ _dump(value) }\n');
+      response.addAll(value);
+
+      //  Get the expected message length
+      if (response.length < 4) { return; }           //  Length field not available
+      final len = (response[2] << 8) + response[3];  //  Length field in bytes 2 and 3
+      final responseLength = len + 8;  //  Response includes 8 bytes for header
+
+      //  If the received response length is already the expected response length, mark response as complete
+      if (response.length >= responseLength && !completer.isCompleted) {
+        print('Response Length: ${ response.length } vs $responseLength\n');
+        completer.complete(response);
+      }
+    });
+
+    //  Compose the query firmware request (Simple Mgmt Protocol)
+    final request = composeRequest();
+
+    //  Transmit the query firmware request by writing to the SMP charactertistic
+    await smpCharac.write(request, withoutResponse: true);
+
+    //  Response will be delivered via Bluetooth LE Notifications, handled above
+    final response2 = await completer.future;  //  Wait for the completer to complete
+
+    //  Disconnect the device
+    bluetoothDevice.disconnect();
+
+    //  Extract CBOR message body and decode it
+    final body = typed.Uint8Buffer();
+    body.addAll(response2.sublist(8));  //  Remove the 8-byte header
+    final decodedBody = decodeCBOR(body);
+    print('Decoded Response: $decodedBody\n');
+    final images = decodedBody[0]['images'] as List<dynamic>;
+
+    //  Return the device state
+    final device = Device(
+      condition: DeviceCondition.clear,
+      formattedCondition: 'Update Firmware',
+      minTemp: 0,
+      temp: 1,
+      maxTemp: 1,
+      locationId: 0,
+      lastUpdated: DateTime.now(),
+      location: '${ bluetoothDevice.name } ${ bluetoothDevice.id.toString() }',
+      bluetoothDevice: bluetoothDevice,
+      activeFirmwareVersion: (images.length >= 1) ? images[0]['version'] : '',
+      standbyFirmwareVersion: (images.length >= 2) ? images[1]['version'] : '',
+    );
+    return device;
+  }
+}
+
+/// Decode the CBOR message body
+List<dynamic> decodeCBOR(typed.Uint8Buffer payload) {
+  // Get our cbor instance. Always do this, it correctly initialises the decoder.
+  final inst = cbor.Cbor();
+
+  // Decode from the buffer
+  inst.decodeFromBuffer(payload);
+  print('Decoded CBOR:\n${ inst.decodedPrettyPrint() }');
+  print('${ inst.decodedToJSON() }\n');
+  return inst.getDecodedData();
+}
+```
+
 # Decode CBOR Response from PineTime
 
 TODO
+
+
+https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart
+
+```dart
+//  Client API for accessing Bluetooth LE device
+import 'dart:async';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_blue/flutter_blue.dart';
+import 'package:cbor/cbor.dart' as cbor;               //  CBOR Encoder and Decoder. From https://pub.dev/packages/cbor
+import 'package:typed_data/typed_data.dart' as typed;  //  Helpers for Byte Buffers. From https://pub.dev/packages/typed_data
+import '../models/models.dart';
+import '../newtmgr.dart';
+
+class DeviceApiClient {
+  /// Connect to the PineTime device and query the firmare inside
+  Future<Device> fetchDevice(BluetoothDevice bluetoothDevice) async {
+    print('Fetching device...\n');
+
+    //  Connect to PineTime
+    await bluetoothDevice.connect();
+    print('Device: ${ bluetoothDevice.toString() }\n');
+    var smpCharac;
+
+    //  Discover the services on PineTime
+    List<BluetoothService> services = await bluetoothDevice.discoverServices();
+    for (BluetoothService service in services) {
+      //  Look for Simple Mgmt Protocol Service
+      //  print('Service: ${ service.toString() }\n');  //  print('UUID: ${ service.uuid.toByteArray() }\n');
+      if (!listEquals(
+        service.uuid.toByteArray(), 
+        [0x8d,0x53,0xdc,0x1d,0x1d,0xb7,0x4c,0xd3,0x86,0x8b,0x8a,0x52,0x74,0x60,0xaa,0x84]
+      )) { continue; }
+
+      //  Look for Simple Mgmt Protocol Characteristic
+      var characteristics = service.characteristics;
+      for (BluetoothCharacteristic charac in characteristics) {
+        //  print('Charac: ${ charac.toString() }\n');  //  print('UUID: ${ charac.uuid.toByteArray() }\n');
+        if (!listEquals(
+          charac.uuid.toByteArray(),
+          [0xda,0x2e,0x78,0x28,0xfb,0xce,0x4e,0x01,0xae,0x9e,0x26,0x11,0x74,0x99,0x7c,0x48]
+        )) { continue; }
+
+        //  Found the characteristic
+        smpCharac = charac;
+        break;
+      }
+      //  Found the characteristic
+      if (smpCharac != null) { break; }
+    }
+
+    //  If Simple Mgmt Protocol Service or Characteristic not found...
+    if (smpCharac == null) {
+      bluetoothDevice.disconnect();
+      throw new Exception('Device doesn\'t support Simple Management Protocol. You may need to flash a suitable firmware.');
+    }
+
+    //  Read all descriptors
+    //  var descriptors = smpCharac.descriptors;
+    //  for (BluetoothDescriptor desc in descriptors) { print('Desc: ${ desc.toString() }\n'); }
+
+    //  Create a completer to wait for response from PineTime
+    final completer = Completer<typed.Uint8Buffer>();
+    final response = typed.Uint8Buffer();
+
+    //  Handle responses from PineTime via Bluetooth LE Notifications    
+    await smpCharac.setNotifyValue(true);
+    smpCharac.value.listen((value) {
+      //  Response bytes are passed to this callback function, chunk by chunk
+      print('Notify: ${ _dump(value) }\n');
+      response.addAll(value);
+
+      //  Get the expected message length
+      if (response.length < 4) { return; }           //  Length field not available
+      final len = (response[2] << 8) + response[3];  //  Length field in bytes 2 and 3
+      final responseLength = len + 8;  //  Response includes 8 bytes for header
+
+      //  If the received response length is already the expected response length, mark response as complete
+      if (response.length >= responseLength && !completer.isCompleted) {
+        print('Response Length: ${ response.length } vs $responseLength\n');
+        completer.complete(response);
+      }
+    });
+
+    //  Compose the query firmware request (Simple Mgmt Protocol)
+    final request = composeRequest();
+
+    //  Transmit the query firmware request by writing to the SMP charactertistic
+    await smpCharac.write(request, withoutResponse: true);
+
+    //  Response will be delivered via Bluetooth LE Notifications, handled above
+    final response2 = await completer.future;  //  Wait for the completer to complete
+
+    //  Disconnect the device
+    bluetoothDevice.disconnect();
+
+    //  Extract CBOR message body and decode it
+    final body = typed.Uint8Buffer();
+    body.addAll(response2.sublist(8));  //  Remove the 8-byte header
+    final decodedBody = decodeCBOR(body);
+    print('Decoded Response: $decodedBody\n');
+    final images = decodedBody[0]['images'] as List<dynamic>;
+
+    //  Return the device state
+    final device = Device(
+      condition: DeviceCondition.clear,
+      formattedCondition: 'Update Firmware',
+      minTemp: 0,
+      temp: 1,
+      maxTemp: 1,
+      locationId: 0,
+      lastUpdated: DateTime.now(),
+      location: '${ bluetoothDevice.name } ${ bluetoothDevice.id.toString() }',
+      bluetoothDevice: bluetoothDevice,
+      activeFirmwareVersion: (images.length >= 1) ? images[0]['version'] : '',
+      standbyFirmwareVersion: (images.length >= 2) ? images[1]['version'] : '',
+    );
+    return device;
+  }
+}
+
+/// Decode the CBOR message body
+List<dynamic> decodeCBOR(typed.Uint8Buffer payload) {
+  // Get our cbor instance. Always do this, it correctly initialises the decoder.
+  final inst = cbor.Cbor();
+
+  // Decode from the buffer
+  inst.decodeFromBuffer(payload);
+  print('Decoded CBOR:\n${ inst.decodedPrettyPrint() }');
+  print('${ inst.decodedToJSON() }\n');
+  return inst.getDecodedData();
+}
+```
 
 # Build and Run App
 
