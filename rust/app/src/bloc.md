@@ -461,30 +461,37 @@ if (smpCharac == null) {
 
 TODO
 
+[`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
+
 ```dart
-    //  Create a completer to wait for response from PineTime
-    final completer = Completer<typed.Uint8Buffer>();
+//  Create a completer to wait for response from PineTime
+final completer = Completer<typed.Uint8Buffer>();
 
-    //  Omitted: Handle responses from PineTime via Bluetooth LE Notifications
-    ...
+//  Omitted: Prepare to handle response from PineTime via Bluetooth LE Notifications
+...
+```
 
-    //  Compose the query firmware request (Simple Mgmt Protocol)
-    final request = composeRequest();
+```dart
+//  Compose the query firmware request (Simple Mgmt Protocol)
+final request = composeRequest();
+```
 
-    //  Transmit the query firmware request by writing to the SMP charactertistic
-    await smpCharac.write(request, withoutResponse: true);
+```dart
+//  Transmit the query firmware request by writing to the SMP charactertistic
+await smpCharac.write(request, withoutResponse: true);
+```
 
-    //  Response will be delivered via Bluetooth LE Notifications, handled above.
-    //  We wait for the completer to finish receiving the entire response.
-    final response2 = await completer.future;
+```dart
+//  Response will be delivered via Bluetooth LE Notifications, handled above.
+//  We wait for the completer to finish receiving the entire response.
+final response2 = await completer.future;
 
-    //  Omitted: Decode the CBOR response from PineTime
+//  Omitted: Decode the CBOR response from PineTime
 ```
 
 # Handle Bluetooth LE Response from PineTime
 
 TODO
-
 
 [`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
 
