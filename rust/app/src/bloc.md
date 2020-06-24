@@ -112,7 +112,7 @@ class DeviceFirmware extends StatelessWidget {
 
 `DeviceFirmware` contains two fields `activeFirmwareVersion` and `standbyFirmwareVersion`, that store the version numbers of the Active and Standby Firmware on PineTime.
 
-`DeviceFirmware` is a __Stateless Widget__ because its State (`activeFirmwareVersion` and `standbyFirmwareVersion`) doesn't change.
+`DeviceFirmware` is a [__Stateless Widget__](https://flutter.dev/docs/development/ui/interactive) because its State (`activeFirmwareVersion` and `standbyFirmwareVersion`) doesn't change.
 
 _What happens if PineTime gets updated with new firmware?_
 
@@ -183,9 +183,9 @@ class _DeviceState extends State<Device> {
   /// Render the PineTime Companion screen
   @override
   Widget build(BuildContext context) {
-    //  Render the screen with AppBar above, followed by the Body
+    //  Render the screen with Button Bar above, followed by the Body
     return Scaffold(
-      //  AppBar for the screen (omitted)
+      //  Button Bar for the screen (omitted)
       appBar: ...,
 
       //  Body for the screen
@@ -214,7 +214,7 @@ class _DeviceState extends State<Device> {
 
 _Why do we need `createState()` in the Device Widget_
 
-Device Widget is a __Stateful Widget__, so it needs to be created with an initial state, like this...
+Device Widget is a [__Stateful Widget__](https://flutter.dev/docs/development/ui/interactive), so it needs to be created with an initial state, like this...
 
 ```dart
 /// Widget for the PineTime Companion screen
@@ -246,11 +246,17 @@ builder: (context, state) {
       ),
 ```
 
+The above [__Bloc Widget Builder__](https://pub.dev/documentation/flutter_bloc/latest/flutter_bloc/BlocConsumer/builder.html) (exposed by [`BlocConsumer<DeviceBloc, DeviceState>`](https://pub.dev/documentation/flutter_bloc/latest/flutter_bloc/BlocConsumer-class.html)) takes the updated `Device` Data Model from the new State, and creates a new the Device Summary Widget...
+
+![Rebuilding the Device Summary Widget on state updates](https://lupyuen.github.io/images/bloc-builder.png)
+
+This explains why the Device Widget is Stateful while the Device Summary Widget (and Device Firmware Widget) is Stateless... Because Device Widget will replace the Device Summary Widget when there are updates.
+
 _How do we trigger the `DeviceLoadSuccess` State?_
 
 This State is triggered when we have loaded the device info from PineTime over Bluetooth LE.
 
-That's how widgets get updated in Bloc: The widget listens for State updates and rebuilds itself.  
+That's how widgets get updated in Bloc: The widget listens for State updates and rebuilds itself with a [Bloc Widget Builder](https://pub.dev/documentation/flutter_bloc/latest/flutter_bloc/BlocConsumer/builder.html).  
 
 We'll see in a while how new States are generated in Bloc.
 
