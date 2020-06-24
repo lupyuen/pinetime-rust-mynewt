@@ -383,13 +383,13 @@ class Device extends Equatable {
 </code></pre>
 <p>Let's move on to discover GATT Services and Characteristics exposed by PineTime.</p>
 <h2 id="discover-gatt-services" class="section-header"><a href="#discover-gatt-services">4.2 Discover GATT Services</a></h2>
-<p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">In the previous article</a> we learnt about the <a href="https://github.com/apache/mynewt-mcumgr"><strong>Simple Management Protocol</strong></a> that's exposed by PineTime for querying and updating firmware. We'll be sending the query firmware command to PineTime through this protocol.</p>
+<p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">In the previous article</a> we learnt about the <a href="https://github.com/apache/mynewt-mcumgr"><strong>Simple Management Protocol</strong></a> that's exposed by PineTime for querying and updating firmware. We'll be sending the Query Firmware Command to PineTime through this protocol.</p>
 <p>The Simple Management Protocol is implemented over Bluetooth LE as a <a href="https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt">GATT Service</a>. Thus to query the firmware on PineTime, we need to discover the GATT Services exposed by PineTime: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart"><code>repositories/device_api_client.dart</code></a></p>
 <pre><code class="language-dart">    //  Discover the services on PineTime
     List&lt;BluetoothService&gt; services = await bluetoothDevice.discoverServices();
 </code></pre>
 <p><code>discoverServices()</code> talks to PineTine over Bluetooth LE and returns a list of GATT Services exposed by PineTime.</p>
-<p>We use <code>await</code> while discovering GATT Services, so that the app won't freeze while waiting for the Bluetooth LE response.</p>
+<p>We use <code>await</code> to discover GATT Services, so that the app won't freeze while waiting for the Bluetooth LE response.</p>
 <p>The GATT Service for Simple Management Protocol has a UUID (unique ID) of <code>8D53DC1D-1DB7-4CD3-868B-8A527460AA84</code>...</p>
 <pre><code class="language-dart">    //  Look for Simple Mgmt Protocol Service
     for (BluetoothService service in services) {

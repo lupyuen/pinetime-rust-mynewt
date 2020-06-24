@@ -397,7 +397,7 @@ Let's move on to discover GATT Services and Characteristics exposed by PineTime.
 
 ## Discover GATT Services
 
-[In the previous article](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion) we learnt about the [__Simple Management Protocol__](https://github.com/apache/mynewt-mcumgr) that's exposed by PineTime for querying and updating firmware. We'll be sending the query firmware command to PineTime through this protocol.
+[In the previous article](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion) we learnt about the [__Simple Management Protocol__](https://github.com/apache/mynewt-mcumgr) that's exposed by PineTime for querying and updating firmware. We'll be sending the Query Firmware Command to PineTime through this protocol.
 
 The Simple Management Protocol is implemented over Bluetooth LE as a [GATT Service](https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt). Thus to query the firmware on PineTime, we need to discover the GATT Services exposed by PineTime: [`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
 
@@ -408,7 +408,7 @@ The Simple Management Protocol is implemented over Bluetooth LE as a [GATT Servi
 
 `discoverServices()` talks to PineTine over Bluetooth LE and returns a list of GATT Services exposed by PineTime.
 
-We use `await` while discovering GATT Services, so that the app won't freeze while waiting for the Bluetooth LE response.
+We use `await` to discover GATT Services, so that the app won't freeze while waiting for the Bluetooth LE response.
 
 The GATT Service for Simple Management Protocol has a UUID (unique ID) of `8D53DC1D-1DB7-4CD3-868B-8A527460AA84`...
 
