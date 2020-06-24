@@ -301,7 +301,7 @@ The two fields are rendered by the Device Firmware Widget that we have seen earl
 
 _What's `BluetoothDevice`?_
 
-That's the Bluetooth Device that's returned by the [`flutter_blue` library for Bluetooth LE networking](https://github.com/pauldemarco/flutter_blue).
+That's the Bluetooth Device returned by the [`flutter_blue` library for Bluetooth LE networking](https://github.com/pauldemarco/flutter_blue).
 
 In a while we'll see how our Flutter App stores `BluetoothDevice` into the `Device` Data Model. And how our app calls `BluetoothDevice` to send Bluetooth LE requests to PineTime.
 

@@ -306,7 +306,7 @@ class Device extends Equatable {
 <p>The <code>Device</code> Data Model for PineTime contains two fields <code>activeFirmwareVersion</code> and <code>standbyFirmwareVersion</code>, that store the version numbers of the Active and Standby Firmware on PineTime. </p>
 <p>The two fields are rendered by the Device Firmware Widget that we have seen earlier.</p>
 <p><em>What's <code>BluetoothDevice</code>?</em></p>
-<p>That's the Bluetooth Device that's returned by the <a href="https://github.com/pauldemarco/flutter_blue"><code>flutter_blue</code> library for Bluetooth LE networking</a>.</p>
+<p>That's the Bluetooth Device returned by the <a href="https://github.com/pauldemarco/flutter_blue"><code>flutter_blue</code> library for Bluetooth LE networking</a>.</p>
 <p>In a while we'll see how our Flutter App stores <code>BluetoothDevice</code> into the <code>Device</code> Data Model. And how our app calls <code>BluetoothDevice</code> to send Bluetooth LE requests to PineTime.</p>
 <p>To recap, the <code>Device</code> Data Model contains everything we know about PineTime, and provides the means to access PineTime (through <code>BluetoothDevice</code>).</p>
 <p><em>Why does <code>Device</code> inherit from the <code>Equatable</code> class?</em></p>
