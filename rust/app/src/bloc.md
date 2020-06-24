@@ -402,8 +402,8 @@ Let's move on to discover GATT Services and Characteristics exposed by PineTime.
 The Simple Management Protocol is implemented over Bluetooth LE as a [GATT Service](https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt). Thus to query the firmware on PineTime, we need to discover the GATT Services exposed by PineTime: [`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
 
 ```dart
-    //  Discover the services on PineTime
-    List<BluetoothService> services = await bluetoothDevice.discoverServices();
+//  Discover the services on PineTime
+List<BluetoothService> services = await bluetoothDevice.discoverServices();
 ```
 
 `discoverServices()` talks to PineTine over Bluetooth LE and returns a list of GATT Services exposed by PineTime.
@@ -413,12 +413,12 @@ We use `await` to discover GATT Services, so that the app won't freeze while wai
 The GATT Service for Simple Management Protocol has a UUID (unique ID) of `8D53DC1D-1DB7-4CD3-868B-8A527460AA84`...
 
 ```dart
-    //  Look for Simple Mgmt Protocol Service
-    for (BluetoothService service in services) {
-      if (!listEquals(
-        service.uuid.toByteArray(), 
-        [0x8d,0x53,0xdc,0x1d,0x1d,0xb7,0x4c,0xd3,0x86,0x8b,0x8a,0x52,0x74,0x60,0xaa,0x84]
-      )) { continue; }
+//  Look for Simple Mgmt Protocol Service
+for (BluetoothService service in services) {
+  if (!listEquals(
+    service.uuid.toByteArray(), 
+    [0x8d,0x53,0xdc,0x1d,0x1d,0xb7,0x4c,0xd3,0x86,0x8b,0x8a,0x52,0x74,0x60,0xaa,0x84]
+  )) { continue; }
 ```
 
 That's how we hunt for the GATT Service.
@@ -432,29 +432,29 @@ To transmit a command to PineTime, we shall write a request message ([in CBOR fo
 Here's how we find the GATT Characteristic `DA2E7828-FBCE-4E01-AE9E-261174997C48` for the Simple Management Protocol: [`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
 
 ```dart
-      //  Look for Simple Mgmt Protocol Characteristic
-      var smpCharac;
-      var characteristics = service.characteristics;
-      for (BluetoothCharacteristic charac in characteristics) {
-        if (!listEquals(
-          charac.uuid.toByteArray(),
-          [0xda,0x2e,0x78,0x28,0xfb,0xce,0x4e,0x01,0xae,0x9e,0x26,0x11,0x74,0x99,0x7c,0x48]
-        )) { continue; }
+//  Look for Simple Mgmt Protocol Characteristic
+var smpCharac;
+var characteristics = service.characteristics;
+for (BluetoothCharacteristic charac in characteristics) {
+  if (!listEquals(
+    charac.uuid.toByteArray(),
+    [0xda,0x2e,0x78,0x28,0xfb,0xce,0x4e,0x01,0xae,0x9e,0x26,0x11,0x74,0x99,0x7c,0x48]
+  )) { continue; }
 
-        //  Found the characteristic
-        smpCharac = charac;
-        break;
-      }
+  //  Found the characteristic
+  smpCharac = charac;
+  break;
+}
 ```
 
 If we can't find the GATT Service or the GATT Characteristic, we throw an exception...
 
 ```dart
-    //  If Simple Mgmt Protocol Service or Characteristic not found...
-    if (smpCharac == null) {
-      bluetoothDevice.disconnect();
-      throw new Exception('Device doesn\'t support Simple Management Protocol. You may need to flash a suitable firmware.');
-    }
+//  If Simple Mgmt Protocol Service or Characteristic not found...
+if (smpCharac == null) {
+  bluetoothDevice.disconnect();
+  throw new Exception('Device doesn\'t support Simple Management Protocol. You may need to flash a suitable firmware.');
+}
 ```
 
 ## Transmit Write Request to GATT Characteristic
