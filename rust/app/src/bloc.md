@@ -315,9 +315,23 @@ Two `Device` Data Models are deemed equivalent if the fields have identical valu
 
 # Send Bluetooth LE Request to PineTime
 
-TODO
+Sending a Bluetooth LE command to PineTime is remarkably simple, straightforward, top to bottom... Thanks to Dart's support for Asynchronous Programming!
 
-[`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
+Here are the steps...
+
+1. __Connect to PineTime__ over Bluetooth LE
+
+1. __Discover the GATT Services__ exposed by PineTime
+
+1. __Find the right GATT Characteristic__ exposed by PineTime
+
+1. __Send a Write Request__ to the GATT Characteristic
+
+1. __Receive the response__ via a GATT Notification
+
+1. __Decode the CBOR__ response
+
+Let's start by connecting to PineTime: [`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
 
 ```dart
 class DeviceApiClient {
@@ -326,6 +340,8 @@ class DeviceApiClient {
     //  Connect to PineTime
     await bluetoothDevice.connect();
 ```
+
+
 
 _(Yes the name `DeviceApiClient` is rather odd... It shall be renamed!)_
 
