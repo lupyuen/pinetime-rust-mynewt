@@ -69,7 +69,11 @@
 <li><a href="#device-summary-widget">2.2 Device Summary Widget</a><ul></ul></li>
 <li><a href="#device-widget">2.3 Device Widget</a><ul></ul></li></ul></li>
 <li><a href="#pinetime-data-model">3 PineTime Data Model</a><ul></ul></li>
-<li><a href="#send-bluetooth-le-request-to-pinetime">4 Send Bluetooth LE Request to PineTime</a><ul></ul></li>
+<li><a href="#send-bluetooth-le-request-to-pinetime">4 Send Bluetooth LE Request to PineTime</a><ul>
+<li><a href="#connect-to-pinetime">4.1 Connect to PineTime</a><ul></ul></li>
+<li><a href="#discover-gatt-services">4.2 Discover GATT Services</a><ul></ul></li>
+<li><a href="#find-gatt-characteristic">4.3 Find GATT Characteristic</a><ul></ul></li>
+<li><a href="#transmit-write-request-to-gatt-characteristic">4.4 Transmit Write Request to GATT Characteristic</a><ul></ul></li></ul></li>
 <li><a href="#handle-bluetooth-le-response-from-pinetime">5 Handle Bluetooth LE Response from PineTime</a><ul></ul></li>
 <li><a href="#decode-cbor-response-from-pinetime">6 Decode CBOR Response from PineTime</a><ul></ul></li>
 <li><a href="#state-transitions">7 State Transitions</a><ul></ul></li>
@@ -267,12 +271,12 @@ builder: (context, state) {
         device: device,
       ),
 </code></pre>
-<p>The above <a href="https://pub.dev/documentation/flutter_bloc/latest/flutter_bloc/BlocConsumer/builder.html"><strong>Bloc Widget Builder</strong></a> (exposed by <a href="https://pub.dev/documentation/flutter_bloc/latest/flutter_bloc/BlocConsumer-class.html"><code>BlocConsumer&lt;DeviceBloc, DeviceState&gt;</code></a>) takes the updated <code>Device</code> Data Model from the new State, and creates a new Device Summary Widget...</p>
+<p>The above <a href="https://bloclibrary.dev/#/flutterbloccoreconcepts?id=blocbuilder"><strong>Bloc Widget Builder</strong></a> (exposed by <a href="https://bloclibrary.dev/#/flutterbloccoreconcepts?id=blocconsumer"><code>BlocConsumer</code></a>) takes the updated <code>Device</code> Data Model from the new State, and creates a new Device Summary Widget...</p>
 <p><img src="https://lupyuen.github.io/images/bloc-builder.png" alt="Rebuilding the Device Summary Widget on state updates" /></p>
 <p>This explains why the Device Widget is Stateful while the Device Summary Widget (and Device Firmware Widget) is Stateless... Because Device Widget will replace the Device Summary Widget when there are updates.</p>
 <p><em>How do we trigger the <code>DeviceLoadSuccess</code> State?</em></p>
 <p>This State is triggered when we have loaded the device info from PineTime over Bluetooth LE.</p>
-<p>That's how widgets get updated in Bloc: The widget listens for State updates and rebuilds itself with a <a href="https://pub.dev/documentation/flutter_bloc/latest/flutter_bloc/BlocConsumer/builder.html">Bloc Widget Builder</a>.</p>
+<p>That's how widgets get updated in Bloc: The widget listens for State updates and rebuilds itself with a <a href="https://bloclibrary.dev/#/flutterbloccoreconcepts?id=blocbuilder">Bloc Widget Builder</a>.</p>
 <p>We'll see in a while how the <code>DeviceLoadSuccess</code> State is generated in Bloc.</p>
 <p><em>(The code in this article was derived from the excellent <a href="https://bloclibrary.dev/#/flutterweathertutorial">Weather App Tutorial from the Bloc Library</a>)</em></p>
 <h1 id="pinetime-data-model" class="section-header"><a href="#pinetime-data-model">3 PineTime Data Model</a></h1>
@@ -313,15 +317,73 @@ class Device extends Equatable {
 <p><a href="https://pub.dev/packages/equatable"><code>Equatable</code></a> is a helper library that lets us compare two objects for equality.</p>
 <p>Two <code>Device</code> Data Models are deemed equivalent if the fields have identical values. This checking for equality is required by Bloc.</p>
 <h1 id="send-bluetooth-le-request-to-pinetime" class="section-header"><a href="#send-bluetooth-le-request-to-pinetime">4 Send Bluetooth LE Request to PineTime</a></h1>
-<p>TODO</p>
-<p><a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart"><code>repositories/device_api_client.dart</code></a></p>
+<p>Sending a Bluetooth LE command to PineTime is remarkably simple, straightforward, top to bottom... Thanks to Dart's support for <a href="https://dart.dev/codelabs/async-await"><strong>Asynchronous Programming</strong></a>!</p>
+<p>Here are the steps...</p>
+<ol>
+<li>
+<p><strong>Connect to PineTime</strong> over Bluetooth LE</p>
+</li>
+<li>
+<p><strong>Discover the GATT Services</strong> exposed by PineTime</p>
+</li>
+<li>
+<p><strong>Find the right GATT Characteristic</strong> exposed by PineTime</p>
+</li>
+<li>
+<p><strong>Transmit a Write Request</strong> to the GATT Characteristic</p>
+</li>
+<li>
+<p><strong>Receive the response</strong> via a GATT Notification</p>
+</li>
+<li>
+<p><strong>Decode the CBOR</strong> response</p>
+</li>
+</ol>
+<p><img src="https://lupyuen.github.io/images/bloc-bluetooth.png" alt="Sending a Bluetooth LE command to PineTime" /></p>
+<h2 id="connect-to-pinetime" class="section-header"><a href="#connect-to-pinetime">4.1 Connect to PineTime</a></h2>
+<p>Let's start by connecting to PineTime over Bluetooth LE: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart"><code>repositories/device_api_client.dart</code></a></p>
 <pre><code class="language-dart">class DeviceApiClient {
   /// Connect to the PineTime device and query the firmare inside
   Future&lt;Device&gt; fetchDevice(BluetoothDevice bluetoothDevice) async {
     //  Connect to PineTime
     await bluetoothDevice.connect();
+    ...
 </code></pre>
+<p><code>DeviceApiClient</code> is the <a href="https://bloclibrary.dev/#/architecture?id=repository"><strong>Data Repository</strong></a> class that we expose to our Flutter App for sending Bluetooth LE commands to PineTime.</p>
 <p><em>(Yes the name <code>DeviceApiClient</code> is rather odd... It shall be renamed!)</em></p>
+<p><code>fetchDevice()</code> is the method that sends the Bluetooth LE command to query PineTime's firmware images.</p>
+<p>The method returns a <code>Device</code> Data Model that contains the Active and Standby Firmware version numbers.</p>
+<p><code>bluetoothDevice</code> is the Bluetooth interface returned by the <a href="https://github.com/pauldemarco/flutter_blue"><code>flutter_blue</code> library for Bluetooth LE networking</a>. (More about this later)</p>
+<p><em>Why do we use <code>await</code> when connecting to PineTime?</em></p>
+<pre><code class="language-dart">  //  Connect to PineTime
+  await bluetoothDevice.connect();
+</code></pre>
+<p>Connecting to PineTime over Bluetooth LE may take a while... And we should wait for it to complete before proceeding.</p>
+<p>But we can't let the rest of the app freeze while waiting... What if the human taps the <code>Cancel</code> button!</p>
+<p><code>await</code> is exactly what we need. It waits for the <code>connect()</code> method to complete before proceeding to the next step... While keeping the user interface responsive!</p>
+<p>That's the beauty of <a href="https://dart.dev/codelabs/async-await"><strong>Asynchronous Programming</strong></a> in Dart... No more Deeply Nested Callbacks and Promises! (Yep React Native gets really messy because of this)</p>
+<p><em>Why is the <code>fetchDevice()</code> method declared <code>async</code>?</em></p>
+<pre><code class="language-dart">  /// Connect to the PineTime device and query the firmare inside
+  Future&lt;Device&gt; fetchDevice(BluetoothDevice bluetoothDevice) async {
+</code></pre>
+<p>To use <code>await</code> we need two things...</p>
+<ol>
+<li>
+<p>Declare the method as <code>async</code> (like above)</p>
+</li>
+<li>
+<p>Instead of returning a plain <code>Device</code> object, the method now returns a <code>Future&lt;Device&gt;</code> (like above)</p>
+</li>
+</ol>
+<p>Later we'll see that we may simply return a <code>Device</code> object as <code>Future&lt;Device&gt;</code>...</p>
+<pre><code class="language-dart">  //  Construct a Device object
+  final device = Device( ... );
+  //  Return it as Future&lt;Device&gt;
+  return device;
+</code></pre>
+<p>Let's move on to discover GATT Services and Characteristics exposed by PineTime.</p>
+<h2 id="discover-gatt-services" class="section-header"><a href="#discover-gatt-services">4.2 Discover GATT Services</a></h2>
+<p>TODO</p>
 <pre><code class="language-dart">    //  Discover the services on PineTime
     List&lt;BluetoothService&gt; services = await bluetoothDevice.discoverServices();
     for (BluetoothService service in services) {
@@ -331,6 +393,8 @@ class Device extends Equatable {
         [0x8d,0x53,0xdc,0x1d,0x1d,0xb7,0x4c,0xd3,0x86,0x8b,0x8a,0x52,0x74,0x60,0xaa,0x84]
       )) { continue; }
 </code></pre>
+<h2 id="find-gatt-characteristic" class="section-header"><a href="#find-gatt-characteristic">4.3 Find GATT Characteristic</a></h2>
+<p>TODO</p>
 <pre><code class="language-dart">      //  Look for Simple Mgmt Protocol Characteristic
       var smpCharac;
       var characteristics = service.characteristics;
@@ -351,6 +415,8 @@ class Device extends Equatable {
       throw new Exception('Device doesn\'t support Simple Management Protocol. You may need to flash a suitable firmware.');
     }
 </code></pre>
+<h2 id="transmit-write-request-to-gatt-characteristic" class="section-header"><a href="#transmit-write-request-to-gatt-characteristic">4.4 Transmit Write Request to GATT Characteristic</a></h2>
+<p>TODO</p>
 <pre><code class="language-dart">    //  Create a completer to wait for response from PineTime
     final completer = Completer&lt;typed.Uint8Buffer&gt;();
 
@@ -366,6 +432,8 @@ class Device extends Equatable {
     //  Response will be delivered via Bluetooth LE Notifications, handled above.
     //  We wait for the completer to finish receiving the entire response.
     final response2 = await completer.future;
+
+    //  Omitted: Decode the CBOR response from PineTime
 </code></pre>
 <h1 id="handle-bluetooth-le-response-from-pinetime" class="section-header"><a href="#handle-bluetooth-le-response-from-pinetime">5 Handle Bluetooth LE Response from PineTime</a></h1>
 <p>TODO</p>
