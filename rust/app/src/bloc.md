@@ -493,7 +493,7 @@ final response2 = await completer.future;
 
 TODO
 
-Our story so far...
+Our story thus far...
 
 [`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
 
