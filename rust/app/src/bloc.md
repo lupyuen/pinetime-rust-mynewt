@@ -489,6 +489,8 @@ final response2 = await completer.future;
 //  Omitted: Decode the CBOR response from PineTime
 ```
 
+![Handle Bluetooth LE Response from PineTime](https://lupyuen.github.io/images/bloc-bluetooth2.png)
+
 # Handle Bluetooth LE Response from PineTime
 
 TODO
@@ -537,6 +539,8 @@ class DeviceApiClient {
 
     //  Omitted: Decode the CBOR response from PineTime
 ```
+
+![Decode CBOR Response from PineTime](https://lupyuen.github.io/images/bloc-bluetooth3.png)
 
 # Decode CBOR Response from PineTime
 
