@@ -331,7 +331,7 @@ Here are the steps...
 
 1. __Decode the CBOR__ response
 
-???
+![Sending a Bluetooth LE command to PineTime](https://lupyuen.github.io/images/bloc-bluetooth.png)
 
 ## Connect to PineTime
 
@@ -343,13 +343,14 @@ class DeviceApiClient {
   Future<Device> fetchDevice(BluetoothDevice bluetoothDevice) async {
     //  Connect to PineTime
     await bluetoothDevice.connect();
+    ...
 ```
 
-`DeviceApiClient` is the [__Data Repository__](https://bloclibrary.dev/#/architecture?id=repository) class that we expose to the Flutter App for sending Bluetooth LE commands to PineTime.
+`DeviceApiClient` is the [__Data Repository__](https://bloclibrary.dev/#/architecture?id=repository) class that we expose to our Flutter App for sending Bluetooth LE commands to PineTime.
 
 _(Yes the name `DeviceApiClient` is rather odd... It shall be renamed!)_
 
-`fetchDevice()` is the method that sends the Bluetooth LE command to query PineTime's firmware images
+`fetchDevice()` is the method that sends the Bluetooth LE command to query PineTime's firmware images.
 
 The method returns a `Device` Data Model that contains the Active and Standby Firmware version numbers.
 
@@ -391,6 +392,8 @@ Later we'll see that we may simply return a `Device` object as `Future<Device>`.
   //  Return it as Future<Device>
   return device;
 ```
+
+Let's move on to discover GATT Services and Characteristics exposed by PineTime.
 
 ## Discover GATT Services
 
