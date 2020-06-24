@@ -315,7 +315,7 @@ Two `Device` Data Models are deemed equivalent if the fields have identical valu
 
 # Send Bluetooth LE Request to PineTime
 
-Sending a Bluetooth LE command to PineTime is remarkably simple, straightforward, top to bottom... Thanks to Dart's support for Asynchronous Programming!
+Sending a Bluetooth LE command to PineTime is remarkably simple, straightforward, top to bottom... Thanks to Dart's support for [__Asynchronous Programming__](https://dart.dev/codelabs/async-await)!
 
 Here are the steps...
 
