@@ -168,7 +168,7 @@ The Device Summary Widget above is wrapped into a __Device Widget__ that renders
 
 ![Device Widget](https://lupyuen.github.io/images/bloc-widgets3.png)
 
-Device Widget is a __Stateful Widget__ that has some interesting code inside: [`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
+Device Widget is a [__Stateful Widget__]((https://flutter.dev/docs/development/ui/interactive)) that has some interesting code inside: [`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
 
 ```dart
 /// Widget for the PineTime Companion screen
@@ -212,7 +212,7 @@ class _DeviceState extends State<Device> {
                 ...
 ```
 
-_Why do we need `createState()` in the Device Widget_
+_Why do we need `createState()` in the Device Widget?_
 
 Device Widget is a [__Stateful Widget__](https://flutter.dev/docs/development/ui/interactive), so it needs to be created with an initial state, like this...
 

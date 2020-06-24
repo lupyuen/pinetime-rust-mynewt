@@ -201,7 +201,7 @@ final model.Device device;
 <h2 id="device-widget" class="section-header"><a href="#device-widget">2.3 Device Widget</a></h2>
 <p>The Device Summary Widget above is wrapped into a <strong>Device Widget</strong> that renders the entire screen...</p>
 <p><img src="https://lupyuen.github.io/images/bloc-widgets3.png" alt="Device Widget" /></p>
-<p>Device Widget is a <strong>Stateful Widget</strong> that has some interesting code inside: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart"><code>widgets/device.dart</code></a></p>
+<p>Device Widget is a <a href="(https://flutter.dev/docs/development/ui/interactive)"><strong>Stateful Widget</strong></a> that has some interesting code inside: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart"><code>widgets/device.dart</code></a></p>
 <pre><code class="language-dart">/// Widget for the PineTime Companion screen
 class Device extends StatefulWidget {
   /// Construct the Stateful Widget with an initial state
@@ -242,7 +242,7 @@ class _DeviceState extends State&lt;Device&gt; {
                 ),
                 ...
 </code></pre>
-<p><em>Why do we need <code>createState()</code> in the Device Widget</em></p>
+<p><em>Why do we need <code>createState()</code> in the Device Widget?</em></p>
 <p>Device Widget is a <a href="https://flutter.dev/docs/development/ui/interactive"><strong>Stateful Widget</strong></a>, so it needs to be created with an initial state, like this...</p>
 <pre><code class="language-dart">/// Widget for the PineTime Companion screen
 class Device extends StatefulWidget {
