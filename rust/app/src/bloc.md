@@ -579,14 +579,8 @@ When we have received the final chunk of response bytes, we call `Completer.comp
 This signals to `await` that the response is complete...
 
 ```dart
-    //  Earlier we have transmitted the Query Firmware request by writing to the SMP charactertistic
-    //  await smpCharac.write(request, withoutResponse: true);
-
-    //  Response will be delivered via Bluetooth LE Notifications, handled above.
-    //  We wait for the completer to finish receiving the entire response.
+    //  Wait for the completer to finish receiving the entire response
     final response2 = await completer.future;
-
-    //  Omitted: Decode the CBOR response from PineTime
 ```
 
 And that's how `await` and `Completer` work together to simplify Callback Functions!

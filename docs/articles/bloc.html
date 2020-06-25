@@ -508,14 +508,8 @@ await smpCharac.write(request, withoutResponse: true);
 <pre><code class="language-dart">    completer.complete(response);
 </code></pre>
 <p>This signals to <code>await</code> that the response is complete...</p>
-<pre><code class="language-dart">    //  Earlier we have transmitted the Query Firmware request by writing to the SMP charactertistic
-    //  await smpCharac.write(request, withoutResponse: true);
-
-    //  Response will be delivered via Bluetooth LE Notifications, handled above.
-    //  We wait for the completer to finish receiving the entire response.
+<pre><code class="language-dart">    //  Wait for the completer to finish receiving the entire response
     final response2 = await completer.future;
-
-    //  Omitted: Decode the CBOR response from PineTime
 </code></pre>
 <p>And that's how <code>await</code> and <code>Completer</code> work together to simplify Callback Functions!</p>
 <p><em>(If you're familiar with JavaScript: <code>Completer.complete()</code> is equivalent to <code>Promise.resolve()</code>)</em></p>
