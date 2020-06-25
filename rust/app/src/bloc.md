@@ -495,9 +495,25 @@ Let's move on to receive the Bluetooth LE response from PineTime and decode the 
 
 # Handle Bluetooth LE Response from PineTime
 
-TODO
-
 Our story thus far...
+
+1. We have connected to PineTime over Bluetooth LE
+
+1. We have discovered the GATT Service for the Simple Management Protocol
+
+1. We have located the GATT Characteristic for the Simple Management Protocol
+
+1. We have transmitted our Query Firmware Request Message to PineTime (by writing the message to the GATT Characteristic)
+
+Now let's get the response from PineTime in an interesting way...
+
+_Will PineTime return the response immediately after writing to the GATT Characteristic?_
+
+_Will PineTime let us read the response from the GATT Characteristic?_
+
+No and no. PineTime delivers the response via a __GATT Notification__. (Somewhat similar to Push Notifications on Android and iOS)
+
+The response is __asynchronous.__ Which is probably good for PineTime because it gives PineTime's Firmware more time to prepare and deliver the response.
 
 [`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
 
