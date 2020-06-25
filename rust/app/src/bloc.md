@@ -461,7 +461,7 @@ if (smpCharac == null) {
 
 Now that we have the GATT Characteristic for the Simple Management Protocol, let's talk to the characteristic to send PineTime our Query Firmware Command.
 
-First we compose a request message in CBOR that includes an 8-byte header...
+First we compose a request message in CBOR (that includes an 8-byte header)...
 
 [`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
 
@@ -470,9 +470,13 @@ First we compose a request message in CBOR that includes an 8-byte header...
 final request = composeRequest();
 ```
 
-`composeRequest()` has been documented in our previous article.
+`composeRequest()` has been documented [in our previous article](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion).  It sets `request` to a byte buffer that contains our request message for the Query Firmware Command...
 
-`request` is a byte buffer that contains our request message.
+```
+00 00 00 01 00 01 3f 00 a0
+```
+
+_(8 bytes for the SMP Message Header, 1 byte for the CBOR Message Body, total 9 bytes)_
 
 To transmit the request message to PineTime, we write to the GATT Characteristic for the Simple Management Protocol...
 
@@ -481,13 +485,13 @@ To transmit the request message to PineTime, we write to the GATT Characteristic
 await smpCharac.write(request, withoutResponse: true);
 ```
 
-Again we use `await` so that the app won't freeze while waiting for the write to complete.
+Again we use `await` so that the app won't freeze while waiting for the writing to complete.
 
-`withoutResponse` is set to `true` because we don't expect a synchronous response from the write operation... We expect the response to come from a GATT Notification. (More about this later)
+`withoutResponse` is set to `true` because we don't expect a synchronous response from the GATT Write operation... Instead we expect the response to be delivered via a GATT Notification. (More about this later)
 
 Yay we have completed 67% of the work needed to send a Bluetooth LE command to PineTime!
 
-Let's move on to receive the Bluetooth LE response from PineTime and decide it.
+Let's move on to receive the Bluetooth LE response from PineTime and decode the response.
 
 ![Handle Bluetooth LE Response from PineTime](https://lupyuen.github.io/images/bloc-bluetooth2.png)
 
