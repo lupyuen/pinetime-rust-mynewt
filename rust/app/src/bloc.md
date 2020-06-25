@@ -503,7 +503,7 @@ Our story thus far...
 
 1. We have located the GATT Characteristic for the Simple Management Protocol
 
-1. We have transmitted our Query Firmware Request Message to PineTime (by writing the message to the GATT Characteristic)
+1. We have transmitted our Query Firmware Request Message to PineTime... By writing the message to the GATT Characteristic
 
 Now let's get the response from PineTime in an interesting way...
 
@@ -511,9 +511,11 @@ _Will PineTime return the response immediately after writing to the GATT Charact
 
 _Will PineTime let us read the response from the GATT Characteristic?_
 
-No and no. PineTime delivers the response via a __GATT Notification__. (Somewhat similar to Push Notifications on Android and iOS)
+Surprisingly, no and no! 
 
-The response is __asynchronous.__ Which is probably good for PineTime because it gives PineTime's Firmware more time to prepare and deliver the response.
+PineTime delivers the response via a __GATT Notification__. (Somewhat similar to Push Notifications on Android and iOS)
+
+The response is __Asynchronous.__ Which is probably good for PineTime because it gives PineTime's Firmware more time to prepare and deliver the response. (Remember: PineTime isn't as powerful as a mobile phone)
 
 First we subscribe to GATT Notifications like this: [`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
 
@@ -536,11 +538,18 @@ class DeviceApiClient {
     final response = typed.Uint8Buffer();
 ```
 
+Next we create a `Completer` and a byte buffer to hold the response.
 
+_What's a `Completer`?_
+
+It's something that we may `await` while waiting for our response to be received. (Keep reading... It will make sense in a short while)
+
+_(If you're familiar with JavaScript: A `Completer` is equivalent to a `Promise`... `Completer.complete()` is equivalent to `Promise.resolve()`)_
 
 ```dart
+    //  Receive response bytes, chunk by chunk
     smpCharac.value.listen((value) {
-      //  Response bytes are passed to this callback function, chunk by chunk
+      //  Add the chunk to our response buffer
       response.addAll(value);
 
       //  Get the expected message length
