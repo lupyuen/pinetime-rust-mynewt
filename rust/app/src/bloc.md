@@ -681,9 +681,11 @@ The Response Message Body is encoded in [CBOR](https://en.wikipedia.org/wiki/CBO
 We decode the message body like this...
 
 ```dart
-    //  Extract CBOR message body and decode it
+    //  Extract the CBOR message body
     final body = typed.Uint8Buffer();
     body.addAll(response2.sublist(8));  //  Remove the 8-byte header
+
+    //  Decode the CBOR message body
     final decodedBody = decodeCBOR(body);
 ```
 
