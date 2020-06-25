@@ -461,9 +461,7 @@ if (smpCharac == null) {
 
 Now that we have the GATT Characteristic for the Simple Management Protocol, let's talk to the characteristic to send PineTime our Query Firmware Command.
 
-First we compose a request message in CBOR (that includes an 8-byte header)...
-
-[`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
+First we compose a request message in CBOR (that includes an 8-byte header): [`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
 
 ```dart
 //  Compose the query firmware request (Simple Mgmt Protocol)
