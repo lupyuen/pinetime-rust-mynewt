@@ -694,10 +694,10 @@ We decode the message body like this...
 ```dart
 /// Decode the CBOR message body
 List<dynamic> decodeCBOR(typed.Uint8Buffer payload) {
-  // Get our cbor instance. Always do this, it correctly initialises the decoder.
+  //  Get our CBOR instance. Always do this, it correctly initialises the decoder.
   final inst = cbor.Cbor();
 
-  // Decode from the buffer
+  //  Decode from the buffer
   inst.decodeFromBuffer(payload);
   return inst.getDecodedData();
 }

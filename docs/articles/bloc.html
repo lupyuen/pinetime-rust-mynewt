@@ -593,10 +593,10 @@ await smpCharac.write(request, withoutResponse: true);
 <p><code>decodeCBOR()</code> calls the <a href="https://pub.dev/packages/cbor">CBOR Library</a> to decode the CBOR data into JSON...</p>
 <pre><code class="language-dart">/// Decode the CBOR message body
 List&lt;dynamic&gt; decodeCBOR(typed.Uint8Buffer payload) {
-  // Get our cbor instance. Always do this, it correctly initialises the decoder.
+  //  Get our CBOR instance. Always do this, it correctly initialises the decoder.
   final inst = cbor.Cbor();
 
-  // Decode from the buffer
+  //  Decode from the buffer
   inst.decodeFromBuffer(payload);
   return inst.getDecodedData();
 }
