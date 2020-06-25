@@ -464,7 +464,7 @@ Now that we have the GATT Characteristic for the Simple Management Protocol, let
 First we compose a request message in CBOR (that includes an 8-byte header): [`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
 
 ```dart
-//  Compose the query firmware request (Simple Mgmt Protocol)
+//  Compose the Query Firmware request (Simple Mgmt Protocol)
 final request = composeRequest();
 ```
 
@@ -479,7 +479,7 @@ _(8 bytes for the SMP Message Header, 1 byte for the CBOR Message Body, total 9 
 To transmit the request message to PineTime, we write to the GATT Characteristic for the Simple Management Protocol...
 
 ```dart
-//  Transmit the query firmware request by writing to the SMP charactertistic
+//  Transmit the Query Firmware request by writing to the SMP charactertistic
 await smpCharac.write(request, withoutResponse: true);
 ```
 
@@ -515,20 +515,28 @@ No and no. PineTime delivers the response via a __GATT Notification__. (Somewhat
 
 The response is __asynchronous.__ Which is probably good for PineTime because it gives PineTime's Firmware more time to prepare and deliver the response.
 
-[`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
+First we subscribe to GATT Notifications like this: [`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
 
 ```dart
 class DeviceApiClient {
   /// Connect to the PineTime device and query the firmare inside
   Future<Device> fetchDevice(BluetoothDevice bluetoothDevice) async {
+    //  Omitted: Transmit the Query Firmware request by writing to the SMP charactertistic
     ...
-    //  Create a completer to wait for response from PineTime
-    final completer = Completer<typed.Uint8Buffer>();
-    final response = typed.Uint8Buffer();
-
-    //  Handle responses from PineTime via Bluetooth LE Notifications    
+    //  Subscribe to GATT Notifications from PineTime
     await smpCharac.setNotifyValue(true);
 ```
+
+`setNotifyValue(true)` tells PineTime that we would like to receive GATT Notifications from our GATT Characteristic (the one from Simple Management Protocol).
+
+```dart
+    //  Create a completer to wait for response from PineTime
+    final completer = Completer<typed.Uint8Buffer>();
+    //  Create a byte buffer for the response
+    final response = typed.Uint8Buffer();
+```
+
+
 
 ```dart
     smpCharac.value.listen((value) {
@@ -548,8 +556,8 @@ class DeviceApiClient {
 ```
 
 ```dart
-    //  Transmit the query firmware request by writing to the SMP charactertistic
-    await smpCharac.write(request, withoutResponse: true);
+    //  Earlier we have transmitted the Query Firmware request by writing to the SMP charactertistic
+    //  await smpCharac.write(request, withoutResponse: true);
 
     //  Response will be delivered via Bluetooth LE Notifications, handled above.
     //  We wait for the completer to finish receiving the entire response.
