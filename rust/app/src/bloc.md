@@ -313,6 +313,8 @@ _Why does `Device` inherit from the `Equatable` class?_
 
 Two `Device` Data Models are deemed equivalent if the fields have identical values. This checking for equality is required by Bloc.
 
+Let's find how out `BluetoothDevice` is used to fetch `activeFirmwareVersion` and `standbyFirmwareVersion` from PineTime.
+
 # Send Bluetooth LE Request to PineTime
 
 Sending a Bluetooth LE command to PineTime is remarkably simple, straightforward, top to bottom... Thanks to Dart's support for [__Asynchronous Programming__](https://dart.dev/codelabs/async-await)!
@@ -606,8 +608,9 @@ That's how we know when there are no more bytes to be received, and trigger `Com
 
 # Decode CBOR Response from PineTime
 
-TODO
+Finally we come to the last piece of the puzzle... How `BluetoothDevice` is used to fetch `activeFirmwareVersion` and `standbyFirmwareVersion` from PineTime.
 
+Earlier we have obtained a byte buffer `response2` that contains the response bytes: 
 [`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
 
 ```dart
@@ -616,43 +619,26 @@ class DeviceApiClient {
   Future<Device> fetchDevice(BluetoothDevice bluetoothDevice) async {
     //  Omitted: Transmit request to PineTime over Bluetooth LE
     ...
-    //  Response will be delivered via Bluetooth LE Notifications, handled above.
-    //  We wait for the completer to finish receiving the entire response.
+    //  Wait for the completer to finish receiving the entire response
     final response2 = await completer.future;
+```
 
-    //  Disconnect the device
+Before decoding `response2`, let's disconnect the Bluetooth LE connection to PineTime (and conserve battery power)...
+
+```dart
+    //  Disconnect the PineTime device
     bluetoothDevice.disconnect();
-
-    //  Extract CBOR message body and decode it
-    final body = typed.Uint8Buffer();
-    body.addAll(response2.sublist(8));  //  Remove the 8-byte header
-    final decodedBody = decodeCBOR(body);
 ```
 
-```dart
-    //  Return the Device data model
-    final images = decodedBody[0]['images'] as List<dynamic>;
-    final device = Device(
-      bluetoothDevice: bluetoothDevice,
-      activeFirmwareVersion: (images.length >= 1) ? images[0]['version'] : '',
-      standbyFirmwareVersion: (images.length >= 2) ? images[1]['version'] : '',
-    );
-    return device;
-```
+_What's inside `response2`?_
 
-[`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
+`response2` contains...
 
-```dart
-/// Decode the CBOR message body
-List<dynamic> decodeCBOR(typed.Uint8Buffer payload) {
-  // Get our cbor instance. Always do this, it correctly initialises the decoder.
-  final inst = cbor.Cbor();
+- __Response Message Header:__ 8 bytes, followed by...
 
-  // Decode from the buffer
-  inst.decodeFromBuffer(payload);
-  return inst.getDecodedData();
-}
-```
+- __Response Message Body:__ 244 bytes, encoded in [CBOR](https://en.wikipedia.org/wiki/CBOR)
+
+It looks like this...
 
 ```
 00000000  01 00 00 f4 00 01 3f 00  bf 66 69 6d 61 67 65 73  |.........fimages|
@@ -673,13 +659,9 @@ List<dynamic> decodeCBOR(typed.Uint8Buffer payload) {
 000000f0  70 6c 69 74 53 74 61 74  75 73 00 ff              |plitStatus..| 
 ```
 
-The response message contains...
+_What's in the Response Message Header?_
 
-- Message Header: 8 bytes, followed by...
-
-- Message Body: 244 bytes, encoded in [CBOR](https://en.wikipedia.org/wiki/CBOR)
-
-Here's the Message Header according to the definition in [`mgmt.h`](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h)...
+Let's decode the first 8 bytes above according to the Simple Management Protocol message header definition in [`mynewt-mcumgr/mgmt.h`](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h)...
 
 | Header Field | Value | Description
 | :--- | :--- | :--- 
@@ -690,7 +672,36 @@ Here's the Message Header according to the definition in [`mgmt.h`](https://gith
 | `Seq`   | `3f` | Message Sequence Number (should match the request message)
 | `Id`    | `00` | Message ID (0 for Image Listing)
 
-The message body (in CBOR format) decodes to this JSON...
+Yep, this confirms that we have received a response to our Query Firmware (Image Listing) Command.
+
+_What's all the mumbo jumbo in the Response Message Body?_
+
+The Response Message Body is encoded in [CBOR](https://en.wikipedia.org/wiki/CBOR), a compact binary form of JSON.
+
+We decode the message body like this...
+
+```dart
+    //  Extract CBOR message body and decode it
+    final body = typed.Uint8Buffer();
+    body.addAll(response2.sublist(8));  //  Remove the 8-byte header
+    final decodedBody = decodeCBOR(body);
+```
+
+`decodeCBOR()` calls the [CBOR Library](https://pub.dev/packages/cbor) to decode the CBOR data into JSON...
+
+```dart
+/// Decode the CBOR message body
+List<dynamic> decodeCBOR(typed.Uint8Buffer payload) {
+  // Get our cbor instance. Always do this, it correctly initialises the decoder.
+  final inst = cbor.Cbor();
+
+  // Decode from the buffer
+  inst.decodeFromBuffer(payload);
+  return inst.getDecodedData();
+}
+```
+
+The decoded JSON in `decodedBody` looks like this...
 
 ```json
 {
@@ -723,6 +734,23 @@ The message body (in CBOR format) decodes to this JSON...
     "splitStatus": 0
 }
 ```
+
+???
+
+```dart
+    //  Return the Device data model
+    final images = decodedBody[0]['images'] as List<dynamic>;
+    final device = Device(
+      bluetoothDevice: bluetoothDevice,
+      activeFirmwareVersion: (images.length >= 1) ? images[0]['version'] : '',
+      standbyFirmwareVersion: (images.length >= 2) ? images[1]['version'] : '',
+    );
+    return device;
+```
+
+[`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
+
+
 
 ```
 [luppy@pinebook pinetime-rust-mynewt]$     cd ~/go/src/mynewt.apache.org/newtmgr/newtmgr
