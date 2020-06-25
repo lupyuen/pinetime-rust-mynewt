@@ -73,7 +73,7 @@
 <li><a href="#connect-to-pinetime">4.1 Connect to PineTime</a><ul></ul></li>
 <li><a href="#discover-gatt-services">4.2 Discover GATT Services</a><ul></ul></li>
 <li><a href="#find-gatt-characteristic">4.3 Find GATT Characteristic</a><ul></ul></li>
-<li><a href="#transmit-write-request-to-gatt-characteristic">4.4 Transmit Write Request to GATT Characteristic</a><ul></ul></li></ul></li>
+<li><a href="#write-to-gatt-characteristic">4.4 Write to GATT Characteristic</a><ul></ul></li></ul></li>
 <li><a href="#handle-bluetooth-le-response-from-pinetime">5 Handle Bluetooth LE Response from PineTime</a><ul></ul></li>
 <li><a href="#decode-cbor-response-from-pinetime">6 Decode CBOR Response from PineTime</a><ul></ul></li>
 <li><a href="#state-transitions">7 State Transitions</a><ul></ul></li>
@@ -424,27 +424,26 @@ if (smpCharac == null) {
   throw new Exception('Device doesn\'t support Simple Management Protocol. You may need to flash a suitable firmware.');
 }
 </code></pre>
-<h2 id="transmit-write-request-to-gatt-characteristic" class="section-header"><a href="#transmit-write-request-to-gatt-characteristic">4.4 Transmit Write Request to GATT Characteristic</a></h2>
-<p>TODO</p>
+<h2 id="write-to-gatt-characteristic" class="section-header"><a href="#write-to-gatt-characteristic">4.4 Write to GATT Characteristic</a></h2>
+<p>Now that we have the GATT Characteristic for the Simple Management Protocol, let's talk to the characteristic to send PineTime our Query Firmware Command.</p>
+<p>First we compose a request message in CBOR (that includes an 8-byte header)...</p>
 <p><a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart"><code>repositories/device_api_client.dart</code></a></p>
-<pre><code class="language-dart">//  Create a completer to wait for response from PineTime
-final completer = Completer&lt;typed.Uint8Buffer&gt;();
-
-//  Omitted: Prepare to handle response from PineTime via Bluetooth LE Notifications
-...
-</code></pre>
 <pre><code class="language-dart">//  Compose the query firmware request (Simple Mgmt Protocol)
 final request = composeRequest();
 </code></pre>
+<p><code>composeRequest()</code> has been documented <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">in our previous article</a>.  It sets <code>request</code> to a byte buffer that contains our request message for the Query Firmware Command...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">01</span> <span class="number">00</span> <span class="number">01</span> <span class="number">3f</span> <span class="number">00</span> <span class="ident">a0</span></pre></div>
+<p><em>(8 bytes for the SMP Message Header, 1 byte for the CBOR Message Body, total 9 bytes)</em></p>
+<p>To transmit the request message to PineTime, we write to the GATT Characteristic for the Simple Management Protocol...</p>
 <pre><code class="language-dart">//  Transmit the query firmware request by writing to the SMP charactertistic
 await smpCharac.write(request, withoutResponse: true);
 </code></pre>
-<pre><code class="language-dart">//  Response will be delivered via Bluetooth LE Notifications, handled above.
-//  We wait for the completer to finish receiving the entire response.
-final response2 = await completer.future;
-
-//  Omitted: Decode the CBOR response from PineTime
-</code></pre>
+<p>Again we use <code>await</code> so that the app won't freeze while waiting for the writing to complete.</p>
+<p><code>withoutResponse</code> is set to <code>true</code> because we don't expect a synchronous response from the GATT Write operation... Instead we expect the response to be delivered via a GATT Notification. (More about this later)</p>
+<p>Yay we have completed 67% of the work needed to send a Bluetooth LE command to PineTime!</p>
+<p>Let's move on to receive the Bluetooth LE response from PineTime and decode the response.</p>
 <p><img src="https://lupyuen.github.io/images/bloc-bluetooth2.png" alt="Handle Bluetooth LE Response from PineTime" /></p>
 <h1 id="handle-bluetooth-le-response-from-pinetime" class="section-header"><a href="#handle-bluetooth-le-response-from-pinetime">5 Handle Bluetooth LE Response from PineTime</a></h1>
 <p>TODO</p>

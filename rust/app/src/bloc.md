@@ -457,7 +457,7 @@ if (smpCharac == null) {
 }
 ```
 
-## Transmit Write Request to GATT Characteristic
+## Write to GATT Characteristic
 
 Now that we have the GATT Characteristic for the Simple Management Protocol, let's talk to the characteristic to send PineTime our Query Firmware Command.
 
