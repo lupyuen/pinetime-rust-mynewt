@@ -459,35 +459,35 @@ if (smpCharac == null) {
 
 ## Transmit Write Request to GATT Characteristic
 
-TODO
+Now that we have the GATT Characteristic for the Simple Management Protocol, let's talk to the characteristic to send PineTime our Query Firmware Command.
+
+First we compose a request message in CBOR that includes an 8-byte header...
 
 [`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
-
-```dart
-//  Create a completer to wait for response from PineTime
-final completer = Completer<typed.Uint8Buffer>();
-
-//  Omitted: Prepare to handle response from PineTime via Bluetooth LE Notifications
-...
-```
 
 ```dart
 //  Compose the query firmware request (Simple Mgmt Protocol)
 final request = composeRequest();
 ```
 
+`composeRequest()` has been documented in our previous article.
+
+`request` is a byte buffer that contains our request message.
+
+To transmit the request message to PineTime, we write to the GATT Characteristic for the Simple Management Protocol...
+
 ```dart
 //  Transmit the query firmware request by writing to the SMP charactertistic
 await smpCharac.write(request, withoutResponse: true);
 ```
 
-```dart
-//  Response will be delivered via Bluetooth LE Notifications, handled above.
-//  We wait for the completer to finish receiving the entire response.
-final response2 = await completer.future;
+Again we use `await` so that the app won't freeze while waiting for the write to complete.
 
-//  Omitted: Decode the CBOR response from PineTime
-```
+`withoutResponse` is set to `true` because we don't expect a synchronous response from the write operation... We expect the response to come from a GATT Notification. (More about this later)
+
+Yay we have completed 67% of the work needed to send a Bluetooth LE command to PineTime!
+
+Let's move on to receive the Bluetooth LE response from PineTime and decide it.
 
 ![Handle Bluetooth LE Response from PineTime](https://lupyuen.github.io/images/bloc-bluetooth2.png)
 
