@@ -427,7 +427,7 @@ if (smpCharac == null) {
 <h2 id="write-to-gatt-characteristic" class="section-header"><a href="#write-to-gatt-characteristic">4.4 Write to GATT Characteristic</a></h2>
 <p>Now that we have the GATT Characteristic for the Simple Management Protocol, let's talk to the characteristic to send PineTime our Query Firmware Command.</p>
 <p>First we compose a request message in CBOR (that includes an 8-byte header): <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart"><code>repositories/device_api_client.dart</code></a></p>
-<pre><code class="language-dart">//  Compose the query firmware request (Simple Mgmt Protocol)
+<pre><code class="language-dart">//  Compose the Query Firmware request (Simple Mgmt Protocol)
 final request = composeRequest();
 </code></pre>
 <p><code>composeRequest()</code> has been documented <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">in our previous article</a>.  It sets <code>request</code> to a byte buffer that contains our request message for the Query Firmware Command...</p>
@@ -436,7 +436,7 @@ final request = composeRequest();
 <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">01</span> <span class="number">00</span> <span class="number">01</span> <span class="number">3f</span> <span class="number">00</span> <span class="ident">a0</span></pre></div>
 <p><em>(8 bytes for the SMP Message Header, 1 byte for the CBOR Message Body, total 9 bytes)</em></p>
 <p>To transmit the request message to PineTime, we write to the GATT Characteristic for the Simple Management Protocol...</p>
-<pre><code class="language-dart">//  Transmit the query firmware request by writing to the SMP charactertistic
+<pre><code class="language-dart">//  Transmit the Query Firmware request by writing to the SMP charactertistic
 await smpCharac.write(request, withoutResponse: true);
 </code></pre>
 <p>Again we use <code>await</code> so that the app won't freeze while waiting for the writing to complete.</p>
@@ -445,22 +445,51 @@ await smpCharac.write(request, withoutResponse: true);
 <p>Let's move on to receive the Bluetooth LE response from PineTime and decode the response.</p>
 <p><img src="https://lupyuen.github.io/images/bloc-bluetooth2.png" alt="Handle Bluetooth LE Response from PineTime" /></p>
 <h1 id="handle-bluetooth-le-response-from-pinetime" class="section-header"><a href="#handle-bluetooth-le-response-from-pinetime">5 Handle Bluetooth LE Response from PineTime</a></h1>
-<p>TODO</p>
 <p>Our story thus far...</p>
-<p><a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart"><code>repositories/device_api_client.dart</code></a></p>
+<ol>
+<li>
+<p>We have connected to PineTime over Bluetooth LE</p>
+</li>
+<li>
+<p>We have discovered the GATT Service for the Simple Management Protocol</p>
+</li>
+<li>
+<p>We have located the GATT Characteristic for the Simple Management Protocol</p>
+</li>
+<li>
+<p>We have transmitted our Query Firmware Request Message to PineTime... By writing the message to the GATT Characteristic</p>
+</li>
+</ol>
+<p>Now let's get the response from PineTime in an interesting way...</p>
+<p><em>Will PineTime return the response immediately after writing to the GATT Characteristic?</em></p>
+<p><em>Will PineTime let us read the response from the GATT Characteristic?</em></p>
+<p>Surprisingly, no and no! </p>
+<p>PineTime delivers the response via a <strong>GATT Notification</strong>. (Somewhat similar to Push Notifications on Android and iOS)</p>
+<p>The response is <strong>Asynchronous.</strong> Which is probably good for PineTime because it gives PineTime's Firmware more time to prepare and deliver the response. (Remember: PineTime isn't as powerful as a mobile phone)</p>
+<p>First we subscribe to GATT Notifications like this: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart"><code>repositories/device_api_client.dart</code></a></p>
 <pre><code class="language-dart">class DeviceApiClient {
   /// Connect to the PineTime device and query the firmare inside
   Future&lt;Device&gt; fetchDevice(BluetoothDevice bluetoothDevice) async {
+    //  Omitted: Transmit the Query Firmware request by writing to the SMP charactertistic
     ...
-    //  Create a completer to wait for response from PineTime
-    final completer = Completer&lt;typed.Uint8Buffer&gt;();
-    final response = typed.Uint8Buffer();
-
-    //  Handle responses from PineTime via Bluetooth LE Notifications    
+    //  Subscribe to GATT Notifications from PineTime
     await smpCharac.setNotifyValue(true);
 </code></pre>
-<pre><code class="language-dart">    smpCharac.value.listen((value) {
-      //  Response bytes are passed to this callback function, chunk by chunk
+<p><code>setNotifyValue(true)</code> tells PineTime that we would like to receive GATT Notifications from our GATT Characteristic (the one from Simple Management Protocol).</p>
+<pre><code class="language-dart">    //  Create a completer to wait for response from PineTime
+    final completer = Completer&lt;typed.Uint8Buffer&gt;();
+    //  Create a byte buffer for the response
+    final response = typed.Uint8Buffer();
+</code></pre>
+<p>Next we create a <code>Completer</code> and a byte buffer to hold the response.</p>
+<p><em>What's a <code>Completer</code>?</em></p>
+<p>It's something that we may <code>await</code> while waiting for our response to be received.</p>
+<p><em>(If you're familiar with JavaScript: A <code>Completer</code> is equivalent to a <code>Promise</code>)</em></p>
+<p><em>Why can't we just <code>await</code> the response without a <code>Completer</code>?</em></p>
+<p>The Bluetooth LE API is somewhat quirky: To receive response bytes we need to use a <strong>Callback Function</strong> like this...</p>
+<pre><code class="language-dart">    //  Receive response bytes, chunk by chunk
+    smpCharac.value.listen((value) {
+      //  Add the chunk to our response buffer
       response.addAll(value);
 
       //  Get the expected message length
@@ -474,8 +503,13 @@ await smpCharac.write(request, withoutResponse: true);
       }
     });
 </code></pre>
-<pre><code class="language-dart">    //  Transmit the query firmware request by writing to the SMP charactertistic
-    await smpCharac.write(request, withoutResponse: true);
+<p>The code in the above Callback Function will be called every time our Flutter App receives a chunk of GATT Notification bytes (<code>value</code>) from PineTime.  We append each chunk to our response buffer.</p>
+<p>When we have received the final chunk of response bytes, we call <code>Completer.complete()</code> like this...</p>
+<pre><code class="language-dart">    completer.complete(response);
+</code></pre>
+<p>This signals to <code>await</code> that the response is complete...</p>
+<pre><code class="language-dart">    //  Earlier we have transmitted the Query Firmware request by writing to the SMP charactertistic
+    //  await smpCharac.write(request, withoutResponse: true);
 
     //  Response will be delivered via Bluetooth LE Notifications, handled above.
     //  We wait for the completer to finish receiving the entire response.
@@ -483,6 +517,17 @@ await smpCharac.write(request, withoutResponse: true);
 
     //  Omitted: Decode the CBOR response from PineTime
 </code></pre>
+<p>And that's how <code>await</code> and <code>Completer</code> work together to simplify Callback Functions!</p>
+<p><em>(If you're familiar with JavaScript: <code>Completer.complete()</code> is equivalent to <code>Promise.resolve()</code>)</em></p>
+<p><em>How will we know when we have received the final chunk of response bytes?</em></p>
+<p>Earlier we saw this code for handling the response bytes...</p>
+<pre><code class="language-dart">    //  Get the expected message length
+    if (response.length &lt; 4) { return; }           //  Length field not available
+    final len = (response[2] &lt;&lt; 8) + response[3];  //  Length field in bytes 2 and 3
+    final responseLength = len + 8;  //  Response includes 8 bytes for header
+</code></pre>
+<p>The response message length is stored in bytes 2 and 3 of the response message.</p>
+<p>That's how we know when there are no more bytes to be received, and trigger <code>Completer.complete()</code>.</p>
 <p><img src="https://lupyuen.github.io/images/bloc-bluetooth3.png" alt="Decode CBOR Response from PineTime" /></p>
 <h1 id="decode-cbor-response-from-pinetime" class="section-header"><a href="#decode-cbor-response-from-pinetime">6 Decode CBOR Response from PineTime</a></h1>
 <p>TODO</p>

@@ -542,9 +542,13 @@ Next we create a `Completer` and a byte buffer to hold the response.
 
 _What's a `Completer`?_
 
-It's something that we may `await` while waiting for our response to be received. (Keep reading... It will make sense in a short while)
+It's something that we may `await` while waiting for our response to be received.
 
-_(If you're familiar with JavaScript: A `Completer` is equivalent to a `Promise`... `Completer.complete()` is equivalent to `Promise.resolve()`)_
+_(If you're familiar with JavaScript: A `Completer` is equivalent to a `Promise`)_
+
+_Why can't we just `await` the response without a `Completer`?_
+
+The Bluetooth LE API is somewhat quirky: To receive response bytes we need to use a __Callback Function__ like this...
 
 ```dart
     //  Receive response bytes, chunk by chunk
@@ -564,6 +568,16 @@ _(If you're familiar with JavaScript: A `Completer` is equivalent to a `Promise`
     });
 ```
 
+The code in the above Callback Function will be called every time our Flutter App receives a chunk of GATT Notification bytes (`value`) from PineTime.  We append each chunk to our response buffer.
+
+When we have received the final chunk of response bytes, we call `Completer.complete()` like this...
+
+```dart
+    completer.complete(response);
+```
+
+This signals to `await` that the response is complete...
+
 ```dart
     //  Earlier we have transmitted the Query Firmware request by writing to the SMP charactertistic
     //  await smpCharac.write(request, withoutResponse: true);
@@ -574,6 +588,25 @@ _(If you're familiar with JavaScript: A `Completer` is equivalent to a `Promise`
 
     //  Omitted: Decode the CBOR response from PineTime
 ```
+
+And that's how `await` and `Completer` work together to simplify Callback Functions!
+
+_(If you're familiar with JavaScript: `Completer.complete()` is equivalent to `Promise.resolve()`)_
+
+_How will we know when we have received the final chunk of response bytes?_
+
+Earlier we saw this code for handling the response bytes...
+
+```dart
+    //  Get the expected message length
+    if (response.length < 4) { return; }           //  Length field not available
+    final len = (response[2] << 8) + response[3];  //  Length field in bytes 2 and 3
+    final responseLength = len + 8;  //  Response includes 8 bytes for header
+```
+
+The response message length is stored in bytes 2 and 3 of the response message.
+
+That's how we know when there are no more bytes to be received, and trigger `Completer.complete()`.
 
 ![Decode CBOR Response from PineTime](https://lupyuen.github.io/images/bloc-bluetooth3.png)
 
