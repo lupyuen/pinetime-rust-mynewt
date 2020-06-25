@@ -655,6 +655,76 @@ List<dynamic> decodeCBOR(typed.Uint8Buffer payload) {
 ```
 
 ```
+00000000  01 00 00 f4 00 01 3f 00  bf 66 69 6d 61 67 65 73  |.........fimages|
+00000010  9f bf 64 73 6c 6f 74 00  67 76 65 72 73 69 6f 6e  |..dslot.gversion|
+00000020  65 31 2e 30 2e 30 64 68  61 73 68 58 20 ea bc 3a  |e1.0.0dhashX ..:|
+00000030  ce 74 a8 28 4c 6f 78 c2  bc ad 3a e1 8d 39 26 75  |.t.(Lox...:..9&u|
+00000040  c7 66 c5 1f 95 23 0f 13  39 3f 08 1c 5d 68 62 6f  |.f...#..9?..]hbo|
+00000050  6f 74 61 62 6c 65 f5 67  70 65 6e 64 69 6e 67 f4  |otable.gpending.|
+00000060  69 63 6f 6e 66 69 72 6d  65 64 f5 66 61 63 74 69  |iconfirmed.facti|
+00000070  76 65 f5 69 70 65 72 6d  61 6e 65 6e 74 f4 ff bf  |ve.ipermanent...|
+00000080  64 73 6c 6f 74 01 67 76  65 72 73 69 6f 6e 65 31  |dslot.gversione1|
+00000090  2e 31 2e 30 64 68 61 73  68 58 20 0d 78 49 f7 fe  |.1.0dhashX .xI..|
+000000a0  43 92 7a 87 d7 b4 d5 54  f8 43 08 82 33 d8 02 d5  |C.z....T.C..3...|
+000000b0  09 0c 20 da a1 e6 a7 77  72 99 6e 68 62 6f 6f 74  |.. ....wr.nhboot|
+000000c0  61 62 6c 65 f5 67 70 65  6e 64 69 6e 67 f4 69 63  |able.gpending.ic|
+000000d0  6f 6e 66 69 72 6d 65 64  f4 66 61 63 74 69 76 65  |onfirmed.factive|
+000000e0  f4 69 70 65 72 6d 61 6e  65 6e 74 f4 ff ff 6b 73  |.ipermanent...ks|
+000000f0  70 6c 69 74 53 74 61 74  75 73 00 ff              |plitStatus..| 
+```
+
+The response message contains...
+
+- Message Header: 8 bytes, followed by...
+
+- Message Body: 244 bytes, encoded in [CBOR](https://en.wikipedia.org/wiki/CBOR)
+
+Here's the Message Header according to the definition in [`mgmt.h`](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h)...
+
+| Header Field | Value | Description
+| :--- | :--- | :--- 
+| `Op`    | `01`    | [Operation Code](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h#L33-L37) (1 for Read Response)
+| `Flags` | `00`    | Unused
+| `Len`   | `00 f4` | Length of Message Body (244 bytes)
+| `Group` | `00 01` | [Group ID](https://github.com/apache/mynewt-mcumgr/blob/master/mgmt/include/mgmt/mgmt.h#L39-L53) (1 for Image Management)
+| `Seq`   | `3f` | Message Sequence Number (should match the request message)
+| `Id`    | `00` | Message ID (0 for Image Listing)
+
+The message body (in CBOR format) decodes to this JSON...
+
+```json
+{
+    "images": [
+        {
+            "slot": 0,
+            "version": "1.0.0",
+            "hash": [
+                234,188,58,206,116,168,40,76,111,120,194,188,173,58,225,141,57,38,117,199,102,197,31,149,35,15,19,57,63,8,28,93
+            ],
+            "bootable": true,
+            "pending": false,
+            "confirmed": true,
+            "active": true,
+            "permanent": false
+        },
+        {
+            "slot": 1,
+            "version": "1.1.0",
+            "hash": [
+                13,120,73,247,254,67,146,122,135,215,180,213,84,248,67,8,130,51,216,2,213,9,12,32,218,161,230,167,119,114,153,110
+            ],
+            "bootable": true,
+            "pending": false,
+            "confirmed": false,
+            "active": false,
+            "permanent": false
+        }
+    ],
+    "splitStatus": 0
+}
+```
+
+```
 [luppy@pinebook pinetime-rust-mynewt]$     cd ~/go/src/mynewt.apache.org/newtmgr/newtmgr
 [luppy@pinebook newtmgr]$     sudo ./newtmgr conn add pinetime type=ble connstring="peer_name=pinetime"
 [sudo] password for luppy: 
