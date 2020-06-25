@@ -735,75 +735,36 @@ The decoded JSON in `decodedBody` looks like this...
 }
 ```
 
-???
+_Is PineTime telling us what it's hiding?_
+
+Yes, our PineTime is keeping two firmware images...
+
+1. __Active Firmware:__ Version 1.0.0 (Slot 0, in Internal Flash ROM)
+
+1. __Standby Firmware:__ Version 1.1.0 (Slot 1, in External SPI Flash)
+
+Remember that PineTime always boots from the Active Firmware Image. The Standby Firmware Image is used when updating or rolling back the firmware.
+
+The hash values of the firmware images will be used later when we update the PineTime firmware.
+
+_How shall we extract the Active and Standby Firmware Versions from the JSON?_
+
+By accessing the Dynamic List like this...
 
 ```dart
-    //  Return the Device data model
+    //  Get the list of firmware images
     final images = decodedBody[0]['images'] as List<dynamic>;
+    //  Construct the Device Data Model with the firmware versions
     final device = Device(
-      bluetoothDevice: bluetoothDevice,
-      activeFirmwareVersion: (images.length >= 1) ? images[0]['version'] : '',
+      bluetoothDevice:        bluetoothDevice,
+      activeFirmwareVersion:  (images.length >= 1) ? images[0]['version'] : '',
       standbyFirmwareVersion: (images.length >= 2) ? images[1]['version'] : '',
     );
+    //  Return the Device Data Model
     return device;
 ```
 
-[`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
-
-
-
-```
-[luppy@pinebook pinetime-rust-mynewt]$     cd ~/go/src/mynewt.apache.org/newtmgr/newtmgr
-[luppy@pinebook newtmgr]$     sudo ./newtmgr conn add pinetime type=ble connstring="peer_name=pinetime"
-[sudo] password for luppy: 
-Connection profile pinetime successfully added
-[luppy@pinebook newtmgr]$     sudo ./newtmgr image list -c pinetime --loglevel debug --hci 1
-DEBU[2020-06-25 12:48:11.769] Using connection profile: name=pinetime type=ble connstring=peer_name=pinetime 
-DEBU[2020-06-25 12:48:12.61] Connecting to peer                           
-DEBU[2020-06-25 12:48:13.134] Exchanging MTU                               
-DEBU[2020-06-25 12:48:13.147] Exchanged MTU; ATT MTU = 256                 
-DEBU[2020-06-25 12:48:13.247] Discovering profile                          
-DEBU[2020-06-25 12:48:14.122] Subscribing to NMP response characteristic   
-DEBU[2020-06-25 12:48:15.241] {add-nmp-listener} [bll_sesn.go:415] seq=66  
-DEBU[2020-06-25 12:48:15.445] Encoded &{NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:1 Seq:66 Id:0}}} to:
-00000000  a0                                                |.| 
-DEBU[2020-06-25 12:48:15.546] Encoded:
-00000000  00 00 00 01 00 01 42 00  a0                       |......B..| 
-DEBU[2020-06-25 12:48:15.546] Tx NMP request: 00000000  00 00 00 01 00 01 42 00  a0                       |......B..| 
-DEBU[2020-06-25 12:48:15.915] rx nmp response: 00000000  01 00 00 f4 00 01 42 00  bf 66 69 6d 61 67 65 73  |......B..fimages|
-00000010  9f bf 64 73 6c 6f 74 00  67 76 65 72 73 69 6f 6e  |..dslot.gversion|
-00000020  65 31 2e 30 2e 30 64 68  61 73 68 58 20 ea bc 3a  |e1.0.0dhashX ..:|
-00000030  ce 74 a8 28 4c 6f 78 c2  bc ad 3a e1 8d 39 26 75  |.t.(Lox...:..9&u|
-00000040  c7 66 c5 1f 95 23 0f 13  39 3f 08 1c 5d 68 62 6f  |.f...#..9?..]hbo|
-00000050  6f 74 61 62 6c 65 f5 67  70 65 6e 64 69 6e 67 f4  |otable.gpending.|
-00000060  69 63 6f 6e 66 69 72 6d  65 64 f5 66 61 63 74 69  |iconfirmed.facti|
-00000070  76 65 f5 69 70 65 72 6d  61 6e 65 6e 74 f4 ff bf  |ve.ipermanent...|
-00000080  64 73 6c 6f 74 01 67 76  65 72 73 69 6f 6e 65 31  |dslot.gversione1|
-00000090  2e 31 2e 30 64 68 61 73  68 58 20 0d 78 49 f7 fe  |.1.0dhashX .xI..|
-000000a0  43 92 7a 87 d7 b4 d5 54  f8 43 08 82 33 d8 02 d5  |C.z....T.C..3...|
-000000b0  09 0c 20 da a1 e6 a7 77  72 99 6e 68 62 6f 6f 74  |.. ....wr.nhboot|
-000000c0  61 62 6c 65 f5 67 70 65  6e 64 69 6e 67 f4 69 63  |able.gpending.ic|
-000000d0  6f 6e 66 69 72 6d 65 64  f4 66 61 63 74 69 76 65  |onfirmed.factive|
-000000e0  f4 69 70 65 72 6d 61 6e  65 6e 74 f4 ff ff 6b 73  |.ipermanent...ks|
-000000f0  70 6c 69 74 53 74 61 74  75 73 00 ff              |plitStatus..| 
-DEBU[2020-06-25 12:48:16.118] Received nmp rsp: &{NmpBase:{hdr:{Op:1 Flags:0 Len:244 Group:1 Seq:66 Id:0}} Rc:0 Images:[{NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:0 Seq:0 Id:0}} Image:0 Slot:0 Version:1.0.0 Hash:[234 188 58 206 116 168 40 76 111 120 194 188 173 58 225 141 57 38 117 199 102 197 31 149 35 15 19 57 63 8 28 93] Bootable:true Pending:false Confirmed:true Active:true Permanent:false} {NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:0 Seq:0 Id:0}} Image:0 Slot:1 Version:1.1.0 Hash:[13 120 73 247 254 67 146 122 135 215 180 213 84 248 67 8 130 51 216 2 213 9 12 32 218 161 230 167 119 114 153 110] Bootable:true Pending:false Confirmed:false Active:false Permanent:false}] SplitStatus:N/A} 
-DEBU[2020-06-25 12:48:16.119] {remove-nmp-listener} [bll_sesn.go:415] seq=66 
-Images:
- image=0 slot=0
-    version: 1.0.0
-    bootable: true
-    flags: active confirmed
-    hash: eabc3ace74a8284c6f78c2bcad3ae18d392675c766c51f95230f13393f081c5d
- image=0 slot=1
-    version: 1.1.0
-    bootable: true
-    flags: 
-    hash: 0d7849f7fe43927a87d7b4d554f843088233d802d5090c20daa1e6a77772996e
-Split status: N/A (0)
-[luppy@pinebook newtmgr]$ 
-```
-
-Let's learn how our Flutter App constructs the `Device` Data Model and passes it to the Device Widget.
+And that's how we construct the `Device` Data Model with the Active and Standby Firmware Versions!
 
 # State Transitions
 
