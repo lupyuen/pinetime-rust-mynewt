@@ -756,17 +756,19 @@ By accessing the Dynamic List like this...
 ```dart
     //  Get the list of firmware images
     final images = decodedBody[0]['images'] as List<dynamic>;
+
     //  Construct the Device Data Model with the firmware versions
     final device = Device(
       bluetoothDevice:        bluetoothDevice,
       activeFirmwareVersion:  (images.length >= 1) ? images[0]['version'] : '',
       standbyFirmwareVersion: (images.length >= 2) ? images[1]['version'] : '',
     );
+
     //  Return the Device Data Model
     return device;
 ```
 
-And that's how we construct the `Device` Data Model with the Active and Standby Firmware Versions!
+And that's how we fetch the the Active and Standby Firmware Versions to construct the `Device` Data Model!
 
 # State Transitions
 

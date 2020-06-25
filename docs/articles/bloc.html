@@ -648,16 +648,18 @@ List&lt;dynamic&gt; decodeCBOR(typed.Uint8Buffer payload) {
 <p>By accessing the Dynamic List like this...</p>
 <pre><code class="language-dart">    //  Get the list of firmware images
     final images = decodedBody[0]['images'] as List&lt;dynamic&gt;;
+
     //  Construct the Device Data Model with the firmware versions
     final device = Device(
       bluetoothDevice:        bluetoothDevice,
       activeFirmwareVersion:  (images.length &gt;= 1) ? images[0]['version'] : '',
       standbyFirmwareVersion: (images.length &gt;= 2) ? images[1]['version'] : '',
     );
+
     //  Return the Device Data Model
     return device;
 </code></pre>
-<p>And that's how we construct the <code>Device</code> Data Model with the Active and Standby Firmware Versions!</p>
+<p>And that's how we fetch the the Active and Standby Firmware Versions to construct the <code>Device</code> Data Model!</p>
 <h1 id="state-transitions" class="section-header"><a href="#state-transitions">7 State Transitions</a></h1>
 <p>TODO</p>
 <p>DeviceInitial (DeviceRequested) -&gt; DeviceLoadInProgress</p>
