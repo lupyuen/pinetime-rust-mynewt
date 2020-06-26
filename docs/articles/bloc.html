@@ -76,7 +76,7 @@
 <li><a href="#write-to-gatt-characteristic">4.4 Write to GATT Characteristic</a><ul></ul></li></ul></li>
 <li><a href="#handle-bluetooth-le-response-from-pinetime">5 Handle Bluetooth LE Response from PineTime</a><ul></ul></li>
 <li><a href="#decode-cbor-response-from-pinetime">6 Decode CBOR Response from PineTime</a><ul></ul></li>
-<li><a href="#state-transitions">7 State Transitions</a><ul></ul></li>
+<li><a href="#bloc-business-logic-and-state-transitions">7 Bloc Business Logic and State Transitions</a><ul></ul></li>
 <li><a href="#build-and-run-app">8 Build and Run App</a><ul></ul></li>
 <li><a href="#whats-next">9 What's Next</a><ul></ul></li>
 <li><a href="#further-reading">10 Further Reading</a><ul></ul></li>
@@ -661,8 +661,10 @@ List&lt;dynamic&gt; decodeCBOR(typed.Uint8Buffer payload) {
     return device;
 </code></pre>
 <p>And that's how we fetch the the Active and Standby Firmware Versions to construct the <code>Device</code> Data Model!</p>
-<h1 id="state-transitions" class="section-header"><a href="#state-transitions">7 State Transitions</a></h1>
+<h1 id="bloc-business-logic-and-state-transitions" class="section-header"><a href="#bloc-business-logic-and-state-transitions">7 Bloc Business Logic and State Transitions</a></h1>
 <p>TODO</p>
+<p>Now back to Bloc State Management... The right way to manage this complex Flutter App is to use a Business Logic class, to drive the Transitions between the States of the app.</p>
+<p>Transitions:</p>
 <p>DeviceInitial (DeviceRequested) -&gt; DeviceLoadInProgress</p>
 <p>DeviceLoadInProgress (DeviceRequested) -&gt; DeviceLoadSuccess</p>
 <p>??? ThemeState (DeviceChanged) -&gt; ThemeState</p>
@@ -694,17 +696,6 @@ class _DeviceState extends State&lt;Device&gt; {
             }
             ...
 </code></pre>
-<p>Transitions:</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onEvent</span> <span class="ident">DeviceRequested</span>
-<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">Fetching</span> <span class="ident">device</span>...
-<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onTransition</span> <span class="ident">Transition</span> { <span class="ident">currentState</span>: <span class="ident">DeviceInitial</span>, <span class="ident">event</span>: <span class="ident">DeviceRequested</span>, <span class="ident">nextState</span>: <span class="ident">DeviceLoadInProgress</span> }
-...(<span class="ident">Transmit</span> <span class="ident">Bluetooth</span> <span class="ident">LE</span> <span class="ident">Request</span> <span class="ident">to</span> <span class="ident">PineTime</span>)...
-...(<span class="ident">Receive</span> <span class="ident">Bluetooth</span> <span class="ident">LE</span> <span class="ident">Response</span> <span class="ident">from</span> <span class="ident">PineTime</span>)...
-<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onTransition</span> <span class="ident">Transition</span> { <span class="ident">currentState</span>: <span class="ident">DeviceLoadInProgress</span>, <span class="ident">event</span>: <span class="ident">DeviceRequested</span>, <span class="ident">nextState</span>: <span class="ident">DeviceLoadSuccess</span> }
-<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onEvent</span> <span class="ident">DeviceChanged</span>
-<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onTransition</span> <span class="ident">Transition</span> { <span class="ident">currentState</span>: <span class="ident">ThemeState</span>, <span class="ident">event</span>: <span class="ident">DeviceChanged</span>, <span class="ident">nextState</span>: <span class="ident">ThemeState</span> }</pre></div>
 <p>AppBar: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart"><code>widgets/device.dart</code></a></p>
 <pre><code class="language-dart">class Device extends StatefulWidget {
   @override
@@ -782,6 +773,17 @@ class _DeviceState extends State&lt;Device&gt; {
     }
   }
 </code></pre>
+<p>Transitions:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onEvent</span> <span class="ident">DeviceRequested</span>
+<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">Fetching</span> <span class="ident">device</span>...
+<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onTransition</span> <span class="ident">Transition</span> { <span class="ident">currentState</span>: <span class="ident">DeviceInitial</span>, <span class="ident">event</span>: <span class="ident">DeviceRequested</span>, <span class="ident">nextState</span>: <span class="ident">DeviceLoadInProgress</span> }
+...(<span class="ident">Transmit</span> <span class="ident">Bluetooth</span> <span class="ident">LE</span> <span class="ident">Request</span> <span class="ident">to</span> <span class="ident">PineTime</span>)...
+...(<span class="ident">Receive</span> <span class="ident">Bluetooth</span> <span class="ident">LE</span> <span class="ident">Response</span> <span class="ident">from</span> <span class="ident">PineTime</span>)...
+<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onTransition</span> <span class="ident">Transition</span> { <span class="ident">currentState</span>: <span class="ident">DeviceLoadInProgress</span>, <span class="ident">event</span>: <span class="ident">DeviceRequested</span>, <span class="ident">nextState</span>: <span class="ident">DeviceLoadSuccess</span> }
+<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onEvent</span> <span class="ident">DeviceChanged</span>
+<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onTransition</span> <span class="ident">Transition</span> { <span class="ident">currentState</span>: <span class="ident">ThemeState</span>, <span class="ident">event</span>: <span class="ident">DeviceChanged</span>, <span class="ident">nextState</span>: <span class="ident">ThemeState</span> }</pre></div>
 <p><img src="https://lupyuen.github.io/images/bloc-ios.jpg" alt="PineTime Companion App on iPhone" /></p>
 <p><em>PineTime Companion App on iPhone</em></p>
 <h1 id="build-and-run-app" class="section-header"><a href="#build-and-run-app">8 Build and Run App</a></h1>

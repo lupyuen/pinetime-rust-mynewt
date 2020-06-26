@@ -770,9 +770,13 @@ By accessing the Dynamic List like this...
 
 And that's how we fetch the the Active and Standby Firmware Versions to construct the `Device` Data Model!
 
-# State Transitions
+# Bloc Business Logic and State Transitions
 
 TODO
+
+Now back to Bloc State Management... The right way to manage this complex Flutter App is to use a Business Logic class, to drive the Transitions between the States of the app.
+
+Transitions:
 
 DeviceInitial (DeviceRequested) -> DeviceLoadInProgress
 
@@ -809,19 +813,6 @@ class _DeviceState extends State<Device> {
               ...
             }
             ...
-```
-
-Transitions:
-
-```
-I/flutter (20366): onEvent DeviceRequested
-I/flutter (20366): Fetching device...
-I/flutter (20366): onTransition Transition { currentState: DeviceInitial, event: DeviceRequested, nextState: DeviceLoadInProgress }
-...(Transmit Bluetooth LE Request to PineTime)...
-...(Receive Bluetooth LE Response from PineTime)...
-I/flutter (20366): onTransition Transition { currentState: DeviceLoadInProgress, event: DeviceRequested, nextState: DeviceLoadSuccess }
-I/flutter (20366): onEvent DeviceChanged
-I/flutter (20366): onTransition Transition { currentState: ThemeState, event: DeviceChanged, nextState: ThemeState }
 ```
 
 AppBar: [`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
@@ -910,6 +901,19 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
       yield DeviceLoadFailure();
     }
   }
+```
+
+Transitions:
+
+```
+I/flutter (20366): onEvent DeviceRequested
+I/flutter (20366): Fetching device...
+I/flutter (20366): onTransition Transition { currentState: DeviceInitial, event: DeviceRequested, nextState: DeviceLoadInProgress }
+...(Transmit Bluetooth LE Request to PineTime)...
+...(Receive Bluetooth LE Response from PineTime)...
+I/flutter (20366): onTransition Transition { currentState: DeviceLoadInProgress, event: DeviceRequested, nextState: DeviceLoadSuccess }
+I/flutter (20366): onEvent DeviceChanged
+I/flutter (20366): onTransition Transition { currentState: ThemeState, event: DeviceChanged, nextState: ThemeState }
 ```
 
 ![PineTime Companion App on iPhone](https://lupyuen.github.io/images/bloc-ios.jpg)
