@@ -774,15 +774,17 @@ And that's how we fetch the the Active and Standby Firmware Versions to construc
 
 TODO
 
-Now back to Bloc State Management... The right way to manage this complex Flutter App is to use a Business Logic class, to drive the Transitions between the States of the app.
+Now back to Bloc State Management... The right way to manage this complex Flutter App is to use a __Business Logic Class (Bloc),__ to drive the __Event Transitions__ between the __States__ of the app.
 
-Transitions:
+![Business Logic driving Event Transitions between the States of the app](https://lupyuen.github.io/images/bloc-transitions1.png)
 
-DeviceInitial (DeviceRequested) -> DeviceLoadInProgress
+_How are the Events triggered?_
 
-DeviceLoadInProgress (DeviceRequested) -> DeviceLoadSuccess
+![Triggers of Event Transitions](https://lupyuen.github.io/images/bloc-transitions2.png)
 
-??? ThemeState (DeviceChanged) -> ThemeState
+_How are the Widgets updated?_
+
+![Updating of Widgets](https://lupyuen.github.io/images/bloc-transitions3.png)
 
 [`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
 
