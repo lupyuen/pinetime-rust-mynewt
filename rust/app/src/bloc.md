@@ -788,6 +788,8 @@ Each Device State corresponds to a screen in our Flutter App...
 
 In Bloc, a Flutter App changes its State (i.e. moves from one screen to the next), when an Event is triggered (like `DeviceRequested`)
 
+## Business Logic
+
 _How shall we code the States and Event Transitions in Bloc?_
 
 Like this: [`blocs/device_bloc.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart)
@@ -836,6 +838,8 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
 
 Let's inspect the above code...
 
+## Trigger Events
+
 _How are Events triggered in Bloc?_
 
 TODO
@@ -845,6 +849,8 @@ TODO
 TODO
 
 ![Triggers of Event Transitions](https://lupyuen.github.io/images/bloc-transitions3.png)
+
+## Update Widgets
 
 _How are Widgets updated in Bloc?_
 

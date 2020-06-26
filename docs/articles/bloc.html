@@ -76,7 +76,10 @@
 <li><a href="#write-to-gatt-characteristic">4.4 Write to GATT Characteristic</a><ul></ul></li></ul></li>
 <li><a href="#handle-bluetooth-le-response-from-pinetime">5 Handle Bluetooth LE Response from PineTime</a><ul></ul></li>
 <li><a href="#decode-cbor-response-from-pinetime">6 Decode CBOR Response from PineTime</a><ul></ul></li>
-<li><a href="#business-logic-states-and-events-in-bloc">7 Business Logic, States and Events in Bloc</a><ul></ul></li>
+<li><a href="#business-logic-states-and-events-in-bloc">7 Business Logic, States and Events in Bloc</a><ul>
+<li><a href="#business-logic">7.1 Business Logic</a><ul></ul></li>
+<li><a href="#trigger-events">7.2 Trigger Events</a><ul></ul></li>
+<li><a href="#update-widgets">7.3 Update Widgets</a><ul></ul></li></ul></li>
 <li><a href="#build-and-run-app">8 Build and Run App</a><ul></ul></li>
 <li><a href="#whats-next">9 What's Next</a><ul></ul></li>
 <li><a href="#further-reading">10 Further Reading</a><ul></ul></li>
@@ -678,6 +681,7 @@ List&lt;dynamic&gt; decodeCBOR(typed.Uint8Buffer payload) {
 </li>
 </ol>
 <p>In Bloc, a Flutter App changes its State (i.e. moves from one screen to the next), when an Event is triggered (like <code>DeviceRequested</code>)</p>
+<h2 id="business-logic" class="section-header"><a href="#business-logic">7.1 Business Logic</a></h2>
 <p><em>How shall we code the States and Event Transitions in Bloc?</em></p>
 <p>Like this: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart"><code>blocs/device_bloc.dart</code></a></p>
 <pre><code class="language-dart">/// Device Bloc that manages the Device States and Device Events
@@ -721,11 +725,13 @@ class DeviceBloc extends Bloc&lt;DeviceEvent, DeviceState&gt; {
   }
 </code></pre>
 <p>Let's inspect the above code...</p>
+<h2 id="trigger-events" class="section-header"><a href="#trigger-events">7.2 Trigger Events</a></h2>
 <p><em>How are Events triggered in Bloc?</em></p>
 <p>TODO</p>
 <p><img src="https://lupyuen.github.io/images/bloc-transitions2.png" alt="Triggers of Event Transitions" /></p>
 <p>TODO</p>
 <p><img src="https://lupyuen.github.io/images/bloc-transitions3.png" alt="Triggers of Event Transitions" /></p>
+<h2 id="update-widgets" class="section-header"><a href="#update-widgets">7.3 Update Widgets</a></h2>
 <p><em>How are Widgets updated in Bloc?</em></p>
 <p>TODO</p>
 <p><img src="https://lupyuen.github.io/images/bloc-transitions4.png" alt="Updating of Widgets" /></p>
