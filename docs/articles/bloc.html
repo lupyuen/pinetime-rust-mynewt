@@ -76,7 +76,7 @@
 <li><a href="#write-to-gatt-characteristic">4.4 Write to GATT Characteristic</a><ul></ul></li></ul></li>
 <li><a href="#handle-bluetooth-le-response-from-pinetime">5 Handle Bluetooth LE Response from PineTime</a><ul></ul></li>
 <li><a href="#decode-cbor-response-from-pinetime">6 Decode CBOR Response from PineTime</a><ul></ul></li>
-<li><a href="#bloc-business-logic-and-state-transitions">7 Bloc Business Logic and State Transitions</a><ul></ul></li>
+<li><a href="#business-logic-states-and-events-in-bloc">7 Business Logic, States and Events in Bloc</a><ul></ul></li>
 <li><a href="#build-and-run-app">8 Build and Run App</a><ul></ul></li>
 <li><a href="#whats-next">9 What's Next</a><ul></ul></li>
 <li><a href="#further-reading">10 Further Reading</a><ul></ul></li>
@@ -661,8 +661,7 @@ List&lt;dynamic&gt; decodeCBOR(typed.Uint8Buffer payload) {
     return device;
 </code></pre>
 <p>And that's how we fetch the the Active and Standby Firmware Versions to construct the <code>Device</code> Data Model!</p>
-<h1 id="bloc-business-logic-and-state-transitions" class="section-header"><a href="#bloc-business-logic-and-state-transitions">7 Bloc Business Logic and State Transitions</a></h1>
-<p>TODO</p>
+<h1 id="business-logic-states-and-events-in-bloc" class="section-header"><a href="#business-logic-states-and-events-in-bloc">7 Business Logic, States and Events in Bloc</a></h1>
 <p>Now back to Bloc State Management... The right way to manage this complex Flutter App is to use a <strong>Business Logic Class (Bloc),</strong> to drive the <strong>Event Transitions</strong> between the <strong>States</strong> of the app...</p>
 <p><img src="https://lupyuen.github.io/images/bloc-transitions1.png" alt="Business Logic driving Event Transitions between the States of the app" /></p>
 <p>A shown above, the Device Bloc manages three States (ovals) and two Events (arrows).</p>
@@ -713,9 +712,12 @@ class DeviceBloc extends Bloc&lt;DeviceEvent, DeviceState&gt; {
   }
 </code></pre>
 <p><em>How are the Events triggered?</em></p>
+<p>TODO</p>
 <p><img src="https://lupyuen.github.io/images/bloc-transitions2.png" alt="Triggers of Event Transitions" /></p>
+<p>TODO</p>
 <p><img src="https://lupyuen.github.io/images/bloc-transitions3.png" alt="Triggers of Event Transitions" /></p>
 <p><em>How are the Widgets updated?</em></p>
+<p>TODO</p>
 <p><img src="https://lupyuen.github.io/images/bloc-transitions4.png" alt="Updating of Widgets" /></p>
 <p><a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart"><code>widgets/device.dart</code></a></p>
 <pre><code class="language-dart">class Device extends StatefulWidget {

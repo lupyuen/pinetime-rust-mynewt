@@ -770,9 +770,7 @@ By accessing the Dynamic List like this...
 
 And that's how we fetch the the Active and Standby Firmware Versions to construct the `Device` Data Model!
 
-# Bloc Business Logic and State Transitions
-
-TODO
+# Business Logic, States and Events in Bloc
 
 Now back to Bloc State Management... The right way to manage this complex Flutter App is to use a __Business Logic Class (Bloc),__ to drive the __Event Transitions__ between the __States__ of the app...
 
@@ -829,11 +827,17 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
 
 _How are the Events triggered?_
 
+TODO
+
 ![Triggers of Event Transitions](https://lupyuen.github.io/images/bloc-transitions2.png)
+
+TODO
 
 ![Triggers of Event Transitions](https://lupyuen.github.io/images/bloc-transitions3.png)
 
 _How are the Widgets updated?_
+
+TODO
 
 ![Updating of Widgets](https://lupyuen.github.io/images/bloc-transitions4.png)
 
