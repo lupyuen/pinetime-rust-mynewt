@@ -774,9 +774,58 @@ And that's how we fetch the the Active and Standby Firmware Versions to construc
 
 TODO
 
-Now back to Bloc State Management... The right way to manage this complex Flutter App is to use a __Business Logic Class (Bloc),__ to drive the __Event Transitions__ between the __States__ of the app.
+Now back to Bloc State Management... The right way to manage this complex Flutter App is to use a __Business Logic Class (Bloc),__ to drive the __Event Transitions__ between the __States__ of the app...
 
 ![Business Logic driving Event Transitions between the States of the app](https://lupyuen.github.io/images/bloc-transitions1.png)
+
+A shown above, the Device Bloc manages three States (ovals) and two Events (arrows).
+
+Each State corresponds to a screen in our Flutter App...
+
+1. `DeviceInitial`: Initial screen of our app
+
+1. `DeviceLoadInProgress`: PineTime selection screen
+
+1. `DeviceLoadSuccess`: PineTime summary screen
+
+In Bloc, a Flutter App changes its State (i.e. moves from one screen to the next), when an Event is triggered (like `DeviceRequested`)
+
+_How shall we code the States and Event Transitions in Bloc?_
+
+Like this: [`blocs/device_bloc.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart)
+
+```dart
+/// Device Bloc that manages the Device States and Device Events
+class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
+  final DeviceRepository deviceRepository;
+
+  DeviceBloc({@required this.deviceRepository})
+      : assert(deviceRepository != null);
+
+  @override
+  DeviceState get initialState => DeviceInitial();
+
+  @override
+  Stream<DeviceState> mapEventToState(DeviceEvent event) async* {
+    if (event is DeviceRequested) {
+      yield* _mapDeviceRequestedToState(event);
+    } else if (event is DeviceRefreshRequested) {
+      yield* _mapDeviceRefreshRequestedToState(event);
+    }
+  }
+
+  Stream<DeviceState> _mapDeviceRequestedToState(
+    DeviceRequested event,
+  ) async* {
+    yield DeviceLoadInProgress();
+    try {
+      final Device device = await deviceRepository.getDevice(event.device);
+      yield DeviceLoadSuccess(device: device);
+    } catch (_) {
+      yield DeviceLoadFailure();
+    }
+  }
+```
 
 _How are the Events triggered?_
 
@@ -871,53 +920,30 @@ class DeviceRequested extends DeviceEvent {
 }
 ```
 
-DeviceRequested -> DeviceLoadSuccess
-
-[`blocs/device_bloc.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart)
-
-```dart
-class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
-  final DeviceRepository deviceRepository;
-
-  DeviceBloc({@required this.deviceRepository})
-      : assert(deviceRepository != null);
-
-  @override
-  DeviceState get initialState => DeviceInitial();
-
-  @override
-  Stream<DeviceState> mapEventToState(DeviceEvent event) async* {
-    if (event is DeviceRequested) {
-      yield* _mapDeviceRequestedToState(event);
-    } else if (event is DeviceRefreshRequested) {
-      yield* _mapDeviceRefreshRequestedToState(event);
-    }
-  }
-
-  Stream<DeviceState> _mapDeviceRequestedToState(
-    DeviceRequested event,
-  ) async* {
-    yield DeviceLoadInProgress();
-    try {
-      final Device device = await deviceRepository.getDevice(event.device);
-      yield DeviceLoadSuccess(device: device);
-    } catch (_) {
-      yield DeviceLoadFailure();
-    }
-  }
-```
-
 Transitions:
 
 ```
-I/flutter (20366): onEvent DeviceRequested
-I/flutter (20366): Fetching device...
-I/flutter (20366): onTransition Transition { currentState: DeviceInitial, event: DeviceRequested, nextState: DeviceLoadInProgress }
-...(Transmit Bluetooth LE Request to PineTime)...
-...(Receive Bluetooth LE Response from PineTime)...
-I/flutter (20366): onTransition Transition { currentState: DeviceLoadInProgress, event: DeviceRequested, nextState: DeviceLoadSuccess }
-I/flutter (20366): onEvent DeviceChanged
-I/flutter (20366): onTransition Transition { currentState: ThemeState, event: DeviceChanged, nextState: ThemeState }
+(...Search button pressed...)
+
+onEvent DeviceRequested
+Fetching device...
+onTransition Transition { 
+  currentState: DeviceInitial, 
+  event: DeviceRequested, 
+  nextState: DeviceLoadInProgress 
+}
+
+(...Transmit Bluetooth LE Request to PineTime...)
+(...Receive Bluetooth LE Response from PineTime...)
+
+onTransition Transition { 
+  currentState: DeviceLoadInProgress, 
+  event: DeviceRequested, 
+  nextState: DeviceLoadSuccess 
+}
+onEvent DeviceChanged
+
+(...Render DeviceSummary widget...)
 ```
 
 ![PineTime Companion App on iPhone](https://lupyuen.github.io/images/bloc-ios.jpg)

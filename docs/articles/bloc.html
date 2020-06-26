@@ -663,8 +663,55 @@ List&lt;dynamic&gt; decodeCBOR(typed.Uint8Buffer payload) {
 <p>And that's how we fetch the the Active and Standby Firmware Versions to construct the <code>Device</code> Data Model!</p>
 <h1 id="bloc-business-logic-and-state-transitions" class="section-header"><a href="#bloc-business-logic-and-state-transitions">7 Bloc Business Logic and State Transitions</a></h1>
 <p>TODO</p>
-<p>Now back to Bloc State Management... The right way to manage this complex Flutter App is to use a <strong>Business Logic Class (Bloc),</strong> to drive the <strong>Event Transitions</strong> between the <strong>States</strong> of the app.</p>
+<p>Now back to Bloc State Management... The right way to manage this complex Flutter App is to use a <strong>Business Logic Class (Bloc),</strong> to drive the <strong>Event Transitions</strong> between the <strong>States</strong> of the app...</p>
 <p><img src="https://lupyuen.github.io/images/bloc-transitions1.png" alt="Business Logic driving Event Transitions between the States of the app" /></p>
+<p>A shown above, the Device Bloc manages three States (ovals) and two Events (arrows).</p>
+<p>Each State corresponds to a screen in our Flutter App...</p>
+<ol>
+<li>
+<p><code>DeviceInitial</code>: Initial screen of our app</p>
+</li>
+<li>
+<p><code>DeviceLoadInProgress</code>: PineTime selection screen</p>
+</li>
+<li>
+<p><code>DeviceLoadSuccess</code>: PineTime summary screen</p>
+</li>
+</ol>
+<p>In Bloc, a Flutter App changes its State (i.e. moves from one screen to the next), when an Event is triggered (like <code>DeviceRequested</code>)</p>
+<p><em>How shall we code the States and Event Transitions in Bloc?</em></p>
+<p>Like this: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart"><code>blocs/device_bloc.dart</code></a></p>
+<pre><code class="language-dart">/// Device Bloc that manages the Device States and Device Events
+class DeviceBloc extends Bloc&lt;DeviceEvent, DeviceState&gt; {
+  final DeviceRepository deviceRepository;
+
+  DeviceBloc({@required this.deviceRepository})
+      : assert(deviceRepository != null);
+
+  @override
+  DeviceState get initialState =&gt; DeviceInitial();
+
+  @override
+  Stream&lt;DeviceState&gt; mapEventToState(DeviceEvent event) async* {
+    if (event is DeviceRequested) {
+      yield* _mapDeviceRequestedToState(event);
+    } else if (event is DeviceRefreshRequested) {
+      yield* _mapDeviceRefreshRequestedToState(event);
+    }
+  }
+
+  Stream&lt;DeviceState&gt; _mapDeviceRequestedToState(
+    DeviceRequested event,
+  ) async* {
+    yield DeviceLoadInProgress();
+    try {
+      final Device device = await deviceRepository.getDevice(event.device);
+      yield DeviceLoadSuccess(device: device);
+    } catch (_) {
+      yield DeviceLoadFailure();
+    }
+  }
+</code></pre>
 <p><em>How are the Events triggered?</em></p>
 <p><img src="https://lupyuen.github.io/images/bloc-transitions2.png" alt="Triggers of Event Transitions" /></p>
 <p><img src="https://lupyuen.github.io/images/bloc-transitions3.png" alt="Triggers of Event Transitions" /></p>
@@ -743,49 +790,30 @@ class _DeviceState extends State&lt;Device&gt; {
   List&lt;Object&gt; get props =&gt; [device];
 }
 </code></pre>
-<p>DeviceRequested -&gt; DeviceLoadSuccess</p>
-<p><a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart"><code>blocs/device_bloc.dart</code></a></p>
-<pre><code class="language-dart">class DeviceBloc extends Bloc&lt;DeviceEvent, DeviceState&gt; {
-  final DeviceRepository deviceRepository;
-
-  DeviceBloc({@required this.deviceRepository})
-      : assert(deviceRepository != null);
-
-  @override
-  DeviceState get initialState =&gt; DeviceInitial();
-
-  @override
-  Stream&lt;DeviceState&gt; mapEventToState(DeviceEvent event) async* {
-    if (event is DeviceRequested) {
-      yield* _mapDeviceRequestedToState(event);
-    } else if (event is DeviceRefreshRequested) {
-      yield* _mapDeviceRefreshRequestedToState(event);
-    }
-  }
-
-  Stream&lt;DeviceState&gt; _mapDeviceRequestedToState(
-    DeviceRequested event,
-  ) async* {
-    yield DeviceLoadInProgress();
-    try {
-      final Device device = await deviceRepository.getDevice(event.device);
-      yield DeviceLoadSuccess(device: device);
-    } catch (_) {
-      yield DeviceLoadFailure();
-    }
-  }
-</code></pre>
 <p>Transitions:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onEvent</span> <span class="ident">DeviceRequested</span>
-<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">Fetching</span> <span class="ident">device</span>...
-<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onTransition</span> <span class="ident">Transition</span> { <span class="ident">currentState</span>: <span class="ident">DeviceInitial</span>, <span class="ident">event</span>: <span class="ident">DeviceRequested</span>, <span class="ident">nextState</span>: <span class="ident">DeviceLoadInProgress</span> }
-...(<span class="ident">Transmit</span> <span class="ident">Bluetooth</span> <span class="ident">LE</span> <span class="ident">Request</span> <span class="ident">to</span> <span class="ident">PineTime</span>)...
-...(<span class="ident">Receive</span> <span class="ident">Bluetooth</span> <span class="ident">LE</span> <span class="ident">Response</span> <span class="ident">from</span> <span class="ident">PineTime</span>)...
-<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onTransition</span> <span class="ident">Transition</span> { <span class="ident">currentState</span>: <span class="ident">DeviceLoadInProgress</span>, <span class="ident">event</span>: <span class="ident">DeviceRequested</span>, <span class="ident">nextState</span>: <span class="ident">DeviceLoadSuccess</span> }
-<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onEvent</span> <span class="ident">DeviceChanged</span>
-<span class="ident">I</span><span class="op">/</span><span class="ident">flutter</span> (<span class="number">20366</span>): <span class="ident">onTransition</span> <span class="ident">Transition</span> { <span class="ident">currentState</span>: <span class="ident">ThemeState</span>, <span class="ident">event</span>: <span class="ident">DeviceChanged</span>, <span class="ident">nextState</span>: <span class="ident">ThemeState</span> }</pre></div>
+(...<span class="ident">Search</span> <span class="ident">button</span> <span class="ident">pressed</span>...)
+
+<span class="ident">onEvent</span> <span class="ident">DeviceRequested</span>
+<span class="ident">Fetching</span> <span class="ident">device</span>...
+<span class="ident">onTransition</span> <span class="ident">Transition</span> { 
+  <span class="ident">currentState</span>: <span class="ident">DeviceInitial</span>, 
+  <span class="ident">event</span>: <span class="ident">DeviceRequested</span>, 
+  <span class="ident">nextState</span>: <span class="ident">DeviceLoadInProgress</span> 
+}
+
+(...<span class="ident">Transmit</span> <span class="ident">Bluetooth</span> <span class="ident">LE</span> <span class="ident">Request</span> <span class="ident">to</span> <span class="ident">PineTime</span>...)
+(...<span class="ident">Receive</span> <span class="ident">Bluetooth</span> <span class="ident">LE</span> <span class="ident">Response</span> <span class="ident">from</span> <span class="ident">PineTime</span>...)
+
+<span class="ident">onTransition</span> <span class="ident">Transition</span> { 
+  <span class="ident">currentState</span>: <span class="ident">DeviceLoadInProgress</span>, 
+  <span class="ident">event</span>: <span class="ident">DeviceRequested</span>, 
+  <span class="ident">nextState</span>: <span class="ident">DeviceLoadSuccess</span> 
+}
+<span class="ident">onEvent</span> <span class="ident">DeviceChanged</span>
+
+(...<span class="ident">Render</span> <span class="ident">DeviceSummary</span> <span class="ident">widget</span>...)</pre></div>
 <p><img src="https://lupyuen.github.io/images/bloc-ios.jpg" alt="PineTime Companion App on iPhone" /></p>
 <p><em>PineTime Companion App on iPhone</em></p>
 <h1 id="build-and-run-app" class="section-header"><a href="#build-and-run-app">8 Build and Run App</a></h1>
