@@ -776,9 +776,9 @@ Now back to Bloc State Management... The right way to manage this complex Flutte
 
 ![Business Logic driving Event Transitions between the States of the app](https://lupyuen.github.io/images/bloc-transitions1.png)
 
-A shown above, the __Device Bloc__ contains the Business Logic that manages three States (ovals) and two Events (arrows).
+A shown above, the __Device Bloc__ contains the Business Logic that manages three __Device States__ (ovals) and two __Device Events__ (arrows).
 
-Each State corresponds to a screen in our Flutter App...
+Each Device State corresponds to a screen in our Flutter App...
 
 1. __`DeviceInitial`:__ Initial screen of our app
 
