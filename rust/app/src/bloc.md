@@ -780,11 +780,11 @@ A shown above, the Device Bloc manages three States (ovals) and two Events (arro
 
 Each State corresponds to a screen in our Flutter App...
 
-1. `DeviceInitial`: Initial screen of our app
+1. __`DeviceInitial`:__ Initial screen of our app
 
-1. `DeviceLoadInProgress`: PineTime selection screen
+1. __`DeviceLoadInProgress`:__ PineTime selection screen
 
-1. `DeviceLoadSuccess`: PineTime summary screen
+1. __`DeviceLoadSuccess`:__ PineTime summary screen
 
 In Bloc, a Flutter App changes its State (i.e. moves from one screen to the next), when an Event is triggered (like `DeviceRequested`)
 
