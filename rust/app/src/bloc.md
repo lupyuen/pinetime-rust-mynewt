@@ -795,29 +795,38 @@ Like this: [`blocs/device_bloc.dart`](https://github.com/lupyuen/pinetime-compan
 ```dart
 /// Device Bloc that manages the Device States and Device Events
 class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
+  /// Data Repository that will be used to fetch the data from PineTime
   final DeviceRepository deviceRepository;
 
+  /// Constructor for Device Bloc. Data Reposity is mandatory.
   DeviceBloc({@required this.deviceRepository})
       : assert(deviceRepository != null);
 
+  /// Return the initial Device State (which corresponds to the initial screen)
   @override
   DeviceState get initialState => DeviceInitial();
 
+  /// When a Device Event is triggered, move to a new Device State (and a new screen)
   @override
   Stream<DeviceState> mapEventToState(DeviceEvent event) async* {
     if (event is DeviceRequested) {
+      /// Handle the DeviceRequested Event by loading data from PineTime
       yield* _mapDeviceRequestedToState(event);
     } else if (event is DeviceRefreshRequested) {
       yield* _mapDeviceRefreshRequestedToState(event);
     }
   }
 
+  /// Handle the DeviceRequested Event by loading data from PineTime
   Stream<DeviceState> _mapDeviceRequestedToState(
     DeviceRequested event,
   ) async* {
+    //  Notify the Device Widget that we are loading data
     yield DeviceLoadInProgress();
     try {
+      //  Load data from PineTime over Bluetooth LE
       final Device device = await deviceRepository.getDevice(event.device);
+      //  Move to the DeviceLoadSuccess state, which renders the Device Summary Widget
       yield DeviceLoadSuccess(device: device);
     } catch (_) {
       yield DeviceLoadFailure();
@@ -825,7 +834,9 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
   }
 ```
 
-_How are the Events triggered?_
+Let's inspect the above code...
+
+_How are the Events triggered in Bloc?_
 
 TODO
 
@@ -835,7 +846,7 @@ TODO
 
 ![Triggers of Event Transitions](https://lupyuen.github.io/images/bloc-transitions3.png)
 
-_How are the Widgets updated?_
+_How are the Widgets updated in Bloc?_
 
 TODO
 
