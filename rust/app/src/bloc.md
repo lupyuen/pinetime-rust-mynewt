@@ -916,7 +916,11 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
 
 TODO
 
-# Debug Log
+![PineTime Companion App on iPhone](https://lupyuen.github.io/images/bloc-ios.jpg)
+
+_PineTime Companion App on iPhone_
+
+# Android Log
 
 TODO 
 
@@ -1005,6 +1009,92 @@ I/flutter (20366): onTransition Transition { currentState: DeviceLoadInProgress,
 I/flutter (20366): onEvent DeviceChanged
 I/flutter (20366): onTransition Transition { currentState: ThemeState, event: DeviceChanged, nextState: ThemeState }
 Application finished.
+Exited (sigterm)
+```
+
+# iOS Log
+
+TODO
+
+```
+Launching lib/main.dart on iPhone 6 Plus in debug mode...
+Warning: Missing build name (CFBundleShortVersionString).
+Warning: Missing build number (CFBundleVersion).
+Action Required: You must set a build name and number in the pubspec.yaml file version field before submitting to the App Store.
+Automatically signing iOS for device deployment using specified development team in Xcode project:
+Running pod install...                                              3.0s
+Xcode build done.                                           131.8s
+Installing and launching...                                        24.7s
+Connecting to VM Service at ws://localhost:1024/ws
+getConnectedDevices periphs size: 0
+getConnectedDevices periphs size: 0
+flutter: onEvent DeviceRequested
+flutter: Fetching device...
+flutter: onTransition Transition { currentState: DeviceInitial, event: DeviceRequested, nextState: DeviceLoadInProgress }
+didConnectPeripheral
+flutter: Device: BluetoothDevice{id: CED8A589-7B65-508A-F6B6-F0B3EFE3DFFC, name: pinetime, type: BluetoothDeviceType.le, isDiscoveringServices: false, _services: []
+didDiscoverServices
+Found service: 1811
+Found service: 180A
+Found service: 8D53DC1D-1DB7-4CD3-868B-8A527460AA84
+Found service: 59462F12-9543-9999-12C8-58B459A2712D
+didDiscoverCharacteristicsForService
+didDiscoverCharacteristicsForService
+didDiscoverCharacteristicsForService
+didDiscoverCharacteristicsForService
+didDiscoverDescriptorsForCharacteristic
+didDiscoverDescriptorsForCharacteristic
+didDiscoverDescriptorsForCharacteristic
+didDiscoverDescriptorsForCharacteristic
+didDiscoverDescriptorsForCharacteristic
+didDiscoverDescriptorsForCharacteristic
+didDiscoverDescriptorsForCharacteristic
+didDiscoverDescriptorsForCharacteristic
+didDiscoverDescriptorsForCharacteristic
+didDiscoverDescriptorsForCharacteristic
+peripheral uuid:CED8A589-7B65-508A-F6B6-F0B3EFE3DFFC
+service uuid:00001811-0000-1000-8000-00805f9b34fb
+uuid: 00002a47-0000-1000-8000-00805f9b34fb value: (null)
+uuid: 00002a46-0000-1000-8000-00805f9b34fb value: (null)
+uuid: 00002a48-0000-1000-8000-00805f9b34fb value: (null)
+uuid: 00002a45-0000-1000-8000-00805f9b34fb value: (null)
+uuid: 00002a44-0000-1000-8000-00805f9b34fb value: (null)
+peripheral uuid:CED8A589-7B65-508A-F6B6-F0B3EFE3DFFC
+service uuid:0000180a-0000-1000-8000-00805f9b34fb
+uuid: 00002a24-0000-1000-8000-00805f9b34fb value: (null)
+uuid: 00002a26-0000-1000-8000-00805f9b34fb value: (null)
+peripheral uuid:CED8A589-7B65-508A-F6B6-F0B3EFE3DFFC
+service uuid:8d53dc1d-1db7-4cd3-868b-8a527460aa84
+uuid: da2e7828-fbce-4e01-ae9e-261174997c48 value: (null)
+peripheral uuid:CED8A589-7B65-508A-F6B6-F0B3EFE3DFFC
+service uuid:59462f12-9543-9999-12c8-58b459a2712d
+uuid: 5c3a659e-897e-45e1-b016-007107c96df6 value: (null)
+uuid: 5c3a659e-897e-45e1-b016-007107c96df7 value: (null)
+didUpdateNotificationStateForCharacteristic
+uuid: da2e7828-fbce-4e01-ae9e-261174997c48 value: (null)
+flutter: Encoded {NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:1 Seq:18 Id:0}}} {} to:
+a0
+flutter: Encoded:
+00 00 00 01 00 01 12 00 a0
+flutter: Notify:
+didUpdateValueForCharacteristic CED8A589-7B65-508A-F6B6-F0B3EFE3DFFC
+uuid: da2e7828-fbce-4e01-ae9e-261174997c48 value: <010000f4 00011200 bf66696d 61676573 9fbf6473 6c6f7400 67766572 73696f6e 65312e30 2e306468 61736858 20eabc3a ce74a828 4c6f78c2 bcad3ae1 8d392675 c766c51f 95230f13 393f081c 5d68626f 6f746162 6c65f567 70656e64 696e67f4 69636f6e 6669726d 6564f566 61637469 7665f569 7065726d 616e656e 74f4ffbf 64736c6f 74016776 65727369 6f6e6531 2e312e30 64686173 6858200d 7849f7fe 43927a87 d7b4d554 f8430882 33d802d5 090c20da a1e6>
+uuid: da2e7828-fbce-4e01-ae9e-261174997c48 value: <010000f4 00011200 bf66696d 61676573 9fbf6473 6c6f7400 67766572 73696f6e 65312e30 2e306468 61736858 20eabc3a ce74a828 4c6f78c2 bcad3ae1 8d392675 c766c51f 95230f13 393f081c 5d68626f 6f746162 6c65f567 70656e64 696e67f4 69636f6e 6669726d 6564f566 61637469 7665f569 7065726d 616e656e 74f4ffbf 64736c6f 74016776 65727369 6f6e6531 2e312e30 64686173 6858200d 7849f7fe 43927a87 d7b4d554 f8430882 33d802d5 090c20da a1e6>
+didUpdateValueForCharacteristic CED8A589-7B65-508A-F6B6-F0B3EFE3DFFC
+uuid: da2e7828-fbce-4e01-ae9e-261174997c48 value: <a7777299 6e68626f 6f746162 6c65f567 70656e64 696e67f4 69636f6e 6669726d 6564f466 61637469 7665f469 7065726d 616e656e 74f4ffff 6b73706c 69745374 61747573 00ff>
+uuid: da2e7828-fbce-4e01-ae9e-261174997c48 value: <a7777299 6e68626f 6f746162 6c65f567 70656e64 696e67f4 69636f6e 6669726d 6564f466 61637469 7665f469 7065726d 616e656e 74f4ffff 6b73706c 69745374 61747573 00ff>
+flutter: Notify: 01 00 00 f4 00 01 12 00 bf 66 69 6d 61 67 65 73 9f bf 64 73 6c 6f 74 00 67 76 65 72 73 69 6f 6e 65 31 2e 30 2e 30 64 68 61 73 68 58 20 ea bc 3a ce 74 a8 28 4c 6f 78 c2 bc ad 3a e1 8d 39 26 75 c7 66 c5 1f 95 23 0f 13 39 3f 08 1c 5d 68 62 6f 6f 74 61 62 6c 65 f5 67 70 65 6e 64 69 6e 67 f4 69 63 6f 6e 66 69 72 6d 65 64 f5 66 61 63 74 69 76 65 f5 69 70 65 72 6d 61 6e 65 6e 74 f4 ff bf 64 73 6c 6f 74 01 67 76 65 72 73 69 6f 6e 65 31 2e 31 2e 30 64 68 61 73 68 58 20 0d 78 49 f7 fe 43 92 7a 87 d7 b4 d5 54 f8 43 08 82 33 d8 02 d5 09 0c 20 da a1 e6
+flutter: Notify: a7 77 72 99 6e 68 62 6f 6f 74 61 62 6c 65 f5 67 70 65 6e 64 69 6e 67 f4 69 63 6f 6e 66 69 72 6d 65 64 f4 66 61 63 74 69 76 65 f4 69 70 65 72 6d 61 6e 65 6e 74 f4 ff ff 6b 73 70 6c 69 74 53 74 61 74 75 73 00 ff
+flutter: Response Length: 252 vs 252
+didDisconnectPeripheral
+flutter: Decoded CBOR:
+Entry 0   : Value is => {images: [{slot: 0, version: 1.0.0, hash: [234, 188, 58, 206, 116, 168, 40, 76, 111, 120, 194, 188, 173, 58, 225, 141, 57, 38, 117, 199, 102, 197, 31, 149, 35, 15, 19, 57, 63, 8, 28, 93], bootable: true, pending: false, confirmed: true, active: true, permanent: false}, {slot: 1, version: 1.1.0, hash: [13, 120, 73, 247, 254, 67, 146, 122, 135, 215, 180, 213, 84, 248, 67, 8, 130, 51, 216, 2, 213, 9, 12, 32, 218, 161, 230, 167, 119, 114, 153, 110], bootable: true, pending: false, confirmed: false, active: false, permanent: false}], splitStatus: 0}
+flutter: {"images":[{"slot":0,"version":"1.0.0","hash":[234,188,58,206,116,168,40,76,111,120,194,188,173,58,225,141,57,38,117,199,102,197,31,149,35,15,19,57,63,8,28,93],"bootable":true,"pending":false,"confirmed":true,"active":true,"permanent":false},{"slot":1,"version":"1.1.0","hash":[13,120,73,247,254,67,146,122,135,215,180,213,84,248,67,8,130,51,216,2,213,9,12,32,218,161,230,167,119,114,153,110],"bootable":true,"pending":false,"confirmed":false,"active":false,"permanent":false}],"splitStatus":0}
+flutter: Decoded Response: [{images: [{slot: 0, version: 1.0.0, hash: [234, 188, 58, 206, 116, 168, 40, 76, 111, 120, 194, 188, 173, 58, 225, 141, 57, 38, 117, 199, 102, 197, 31, 149, 35, 15, 19, 57, 63, 8, 28, 93], bootable: true, pending: false, confirmed: true, active: true, permanent: false}, {slot: 1, version: 1.1.0, hash: [13, 120, 73, 247, 254, 67, 146, 122, 135, 215, 180, 213, 84, 248, 67, 8, 130, 51, 216, 2, 213, 9, 12, 32, 218, 161, 230, 167, 119, 114, 153, 110], bootable: true, pending: false, confirmed: false, active: false, permanent: false}], splitStatus: 0}]
+flutter: onTransition Transition { currentState: DeviceLoadInProgress, event: DeviceRequested, nextState: DeviceLoadSuccess }
+flutter: onEvent DeviceChanged
+flutter: onTransition Transition { currentState: ThemeState, event: DeviceChanged, nextState: ThemeState }
+Lost connection to device.
 Exited (sigterm)
 ```
 
