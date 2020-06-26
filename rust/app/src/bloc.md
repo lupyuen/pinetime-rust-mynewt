@@ -866,13 +866,70 @@ class DeviceRequested extends DeviceEvent {
 
 _How are Events triggered in Bloc?_
 
+Let's look at the first `DeviceRequested` Event. It moves the app from `DeviceInitial` State to `DeviceLoadInProgress` State...
+
+![DeviceRequested Event triggered upon pressing the Search Button](https://lupyuen.github.io/images/bloc-transitions2.png)
+
+The `DeviceRequested` Event is triggered when the human presses the __Search Button__ 🔍 (At top right of the screen)
+
+Here's the code for the Search Button that triggers the `DeviceRequested` Event: [`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
+
+```dart
+/// Implement the Stateful Widget for the PineTime Companion screen
+class _DeviceState extends State<Device> {
+  /// Render the PineTime Companion screen
+  @override
+  Widget build(BuildContext context) {
+    //  Render the screen with Button Bar above, followed by the Body
+    return Scaffold(
+      //  Button Bar for the screen
+      appBar: AppBar(
+        //  Buttons for the Button Bar
+        actions: <Widget>[
+          ...
+          //  Search Button
+          IconButton(
+            ...
+            //  When the Search Button is pressed...
+            onPressed: () async {
+              //  Navigate to a new screen...
+              final device = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  //  For browsing Bluetooth LE devices
+                  builder: (context) => FindDevice(),
+                ),
+              );
+
+              //  When the Bluetooth LE browser returns the PineTime Bluetooth Device...
+              if (device != null) {
+                BlocProvider
+                  .of<DeviceBloc>(context)
+                  //  Trigger the DeviceRequest Event...
+                  .add(
+                    //  With the PineTime Bluetooth Device inside
+                    DeviceRequested(
+                      device: device
+                    )
+                  );
+              }
+```
+
+`FindDevice()` shows the widget for browsing Bluetooth LE devices. `FindDevice()` is defined here: [`widgets/find_device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/find_device.dart)
+
+_What does `FindDevice()` return?_
+
+It returns the `flutter_blue` Bluetooth Device (i.e. PineTime) that was selected by the human.
+
+The Bluetooth Device shall be used in the next step for reading the firmware versions from PineTime.
+
+## Load Data
+
+_What happens after receiving the firmware versions from PineTime?_
+
 TODO
 
-![Triggers of Event Transitions](https://lupyuen.github.io/images/bloc-transitions2.png)
-
-TODO
-
-![Triggers of Event Transitions](https://lupyuen.github.io/images/bloc-transitions3.png)
+![DeviceRequested Event triggered after loading data from PineTime](https://lupyuen.github.io/images/bloc-transitions3.png)
 
 ## Update Widgets
 
@@ -913,43 +970,7 @@ class _DeviceState extends State<Device> {
             ...
 ```
 
-AppBar: [`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
 
-```dart
-class Device extends StatefulWidget {
-  @override
-  State<Device> createState() => _DeviceState();
-}
-
-class _DeviceState extends State<Device> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: <Widget>[
-          ...
-          IconButton(
-            icon: Icon(Icons.search),
-
-            onPressed: () async {
-              final device = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  //  Browse Bluetooth LE devices
-                  builder: (context) => FindDevice(),
-                ),
-              );
-
-              if (device != null) {
-                BlocProvider
-                  .of<DeviceBloc>(context)
-                  .add(
-                    DeviceRequested(
-                      device: device
-                    )
-                  );
-              }
-```
 
 Transitions:
 

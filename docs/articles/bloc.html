@@ -79,7 +79,8 @@
 <li><a href="#business-logic-states-and-events-in-bloc">7 Business Logic, States and Events in Bloc</a><ul>
 <li><a href="#business-logic">7.1 Business Logic</a><ul></ul></li>
 <li><a href="#trigger-events">7.2 Trigger Events</a><ul></ul></li>
-<li><a href="#update-widgets">7.3 Update Widgets</a><ul></ul></li></ul></li>
+<li><a href="#load-data">7.3 Load Data</a><ul></ul></li>
+<li><a href="#update-widgets">7.4 Update Widgets</a><ul></ul></li></ul></li>
 <li><a href="#build-and-run-app">8 Build and Run App</a><ul></ul></li>
 <li><a href="#whats-next">9 What's Next</a><ul></ul></li>
 <li><a href="#further-reading">10 Further Reading</a><ul></ul></li>
@@ -291,7 +292,7 @@ import 'package:flutter_blue/flutter_blue.dart';  //  Bluetooth LE API from http
 
 /// Data Model for PineTime Device
 class Device extends Equatable {
-  final BluetoothDevice bluetoothDevice;  //  Bluetooth device for connecting to PineTime
+  final BluetoothDevice bluetoothDevice;  //  Bluetooth device for connecting to PineTime, from flutter_blue library
   final String activeFirmwareVersion;     //  Version number of firmware that's running on PineTime (e.g. '1.0.0')
   final String standbyFirmwareVersion;    //  Version number of firmware that's in external flash memory (e.g. '1.1.0')
 
@@ -689,7 +690,7 @@ class DeviceBloc extends Bloc&lt;DeviceEvent, DeviceState&gt; {
   /// Data Repository that will be used to fetch data from PineTime
   final DeviceRepository deviceRepository;
 
-  /// Constructor for Device Bloc. Data Repository is mandatory.
+  /// Construct a Device Bloc. Data Repository is mandatory.
   DeviceBloc({@required this.deviceRepository})
       : assert(deviceRepository != null);
 
@@ -704,6 +705,7 @@ class DeviceBloc extends Bloc&lt;DeviceEvent, DeviceState&gt; {
       //  Handle the DeviceRequested Event by loading data from PineTime
       yield* _mapDeviceRequestedToState(event);
     } else if (event is DeviceRefreshRequested) {
+      //  Handle the Refresh button by updating the Device Widget
       yield* _mapDeviceRefreshRequestedToState(event);
     }
   }
@@ -717,21 +719,87 @@ class DeviceBloc extends Bloc&lt;DeviceEvent, DeviceState&gt; {
     try {
       //  Load data from PineTime over Bluetooth LE
       final Device device = await deviceRepository.getDevice(event.device);
-      //  Move to the DeviceLoadSuccess state, which renders the Device Summary Widget
+      //  Move to the DeviceLoadSuccess State, which renders the Device Summary Widget
       yield DeviceLoadSuccess(device: device);
     } catch (_) {
+      //  In case of error, move to the DeviceLoadFailure State
       yield DeviceLoadFailure();
     }
   }
 </code></pre>
 <p>Let's inspect the above code...</p>
 <h2 id="trigger-events" class="section-header"><a href="#trigger-events">7.2 Trigger Events</a></h2>
+<p><em>How are Events defined in Bloc?</em></p>
+<p>We define the <code>DeviceRequested</code> Event like so: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart"><code>blocs/device_bloc.dart</code></a></p>
+<pre><code class="language-dart">/// Device Requested Event that will shift the Device States
+class DeviceRequested extends DeviceEvent {
+  /// Bluetooth API for connecting to PineTime, from flutter_blue library
+  final BluetoothDevice device;
+
+  /// Construct a Device Requested Event. Bluetooth Device is mandatory.
+  const DeviceRequested({@required this.device}) : 
+    assert(device != null);
+
+  /// Return the properties of the Device Requested Event
+  @override
+  List&lt;Object&gt; get props =&gt; [
+    device
+  ];
+}
+</code></pre>
 <p><em>How are Events triggered in Bloc?</em></p>
+<p>Let's look at the first <code>DeviceRequested</code> Event. It moves the app from <code>DeviceInitial</code> State to <code>DeviceLoadInProgress</code> State...</p>
+<p><img src="https://lupyuen.github.io/images/bloc-transitions2.png" alt="DeviceRequested Event triggered upon pressing the Search Button" /></p>
+<p>The <code>DeviceRequested</code> Event is triggered when the human presses the <strong>Search Button</strong> 🔍 (At top right of the screen)</p>
+<p>Here's the code for the Search Button that triggers the <code>DeviceRequested</code> Event: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart"><code>widgets/device.dart</code></a></p>
+<pre><code class="language-dart">/// Implement the Stateful Widget for the PineTime Companion screen
+class _DeviceState extends State&lt;Device&gt; {
+  /// Render the PineTime Companion screen
+  @override
+  Widget build(BuildContext context) {
+    //  Render the screen with Button Bar above, followed by the Body
+    return Scaffold(
+      //  Button Bar for the screen
+      appBar: AppBar(
+        //  Buttons for the Button Bar
+        actions: &lt;Widget&gt;[
+          ...
+          //  Search Button
+          IconButton(
+            ...
+            //  When the Search Button is pressed...
+            onPressed: () async {
+              //  Navigate to a new screen...
+              final device = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  //  For browsing Bluetooth LE devices
+                  builder: (context) =&gt; FindDevice(),
+                ),
+              );
+
+              //  When the Bluetooth LE browser returns the PineTime Bluetooth Device...
+              if (device != null) {
+                BlocProvider
+                  .of&lt;DeviceBloc&gt;(context)
+                  //  Trigger the DeviceRequest Event...
+                  .add(
+                    //  With the PineTime Bluetooth Device inside
+                    DeviceRequested(
+                      device: device
+                    )
+                  );
+              }
+</code></pre>
+<p><code>FindDevice()</code> shows the widget for browsing Bluetooth LE devices. <code>FindDevice()</code> is defined here: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/find_device.dart"><code>widgets/find_device.dart</code></a></p>
+<p><em>What does <code>FindDevice()</code> return?</em></p>
+<p>It returns the <code>flutter_blue</code> Bluetooth Device (i.e. PineTime) that was selected by the human.</p>
+<p>The Bluetooth Device shall be used in the next step for reading the firmware versions from PineTime.</p>
+<h2 id="load-data" class="section-header"><a href="#load-data">7.3 Load Data</a></h2>
+<p><em>What happens after receiving the firmware versions from PineTime?</em></p>
 <p>TODO</p>
-<p><img src="https://lupyuen.github.io/images/bloc-transitions2.png" alt="Triggers of Event Transitions" /></p>
-<p>TODO</p>
-<p><img src="https://lupyuen.github.io/images/bloc-transitions3.png" alt="Triggers of Event Transitions" /></p>
-<h2 id="update-widgets" class="section-header"><a href="#update-widgets">7.3 Update Widgets</a></h2>
+<p><img src="https://lupyuen.github.io/images/bloc-transitions3.png" alt="DeviceRequested Event triggered after loading data from PineTime" /></p>
+<h2 id="update-widgets" class="section-header"><a href="#update-widgets">7.4 Update Widgets</a></h2>
 <p><em>How are Widgets updated in Bloc?</em></p>
 <p>TODO</p>
 <p><img src="https://lupyuen.github.io/images/bloc-transitions4.png" alt="Updating of Widgets" /></p>
@@ -762,51 +830,6 @@ class _DeviceState extends State&lt;Device&gt; {
               ...
             }
             ...
-</code></pre>
-<p>AppBar: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart"><code>widgets/device.dart</code></a></p>
-<pre><code class="language-dart">class Device extends StatefulWidget {
-  @override
-  State&lt;Device&gt; createState() =&gt; _DeviceState();
-}
-
-class _DeviceState extends State&lt;Device&gt; {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: &lt;Widget&gt;[
-          ...
-          IconButton(
-            icon: Icon(Icons.search),
-
-            onPressed: () async {
-              final device = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  //  Browse Bluetooth LE devices
-                  builder: (context) =&gt; FindDevice(),
-                ),
-              );
-
-              if (device != null) {
-                BlocProvider
-                  .of&lt;DeviceBloc&gt;(context)
-                  .add(
-                    DeviceRequested(
-                      device: device
-                    )
-                  );
-              }
-</code></pre>
-<p><a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart"><code>blocs/device_bloc.dart</code></a></p>
-<pre><code class="language-dart">class DeviceRequested extends DeviceEvent {
-  final BluetoothDevice device;
-
-  const DeviceRequested({@required this.device}) : assert(device != null);
-
-  @override
-  List&lt;Object&gt; get props =&gt; [device];
-}
 </code></pre>
 <p>Transitions:</p>
 
