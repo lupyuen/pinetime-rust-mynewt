@@ -782,9 +782,11 @@ _How are the Events triggered?_
 
 ![Triggers of Event Transitions](https://lupyuen.github.io/images/bloc-transitions2.png)
 
+![Triggers of Event Transitions](https://lupyuen.github.io/images/bloc-transitions3.png)
+
 _How are the Widgets updated?_
 
-![Updating of Widgets](https://lupyuen.github.io/images/bloc-transitions3.png)
+![Updating of Widgets](https://lupyuen.github.io/images/bloc-transitions4.png)
 
 [`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
 
