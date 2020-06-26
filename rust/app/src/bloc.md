@@ -800,7 +800,7 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
   /// Data Repository that will be used to fetch data from PineTime
   final DeviceRepository deviceRepository;
 
-  /// Constructor for Device Bloc. Data Repository is mandatory.
+  /// Construct a Device Bloc. Data Repository is mandatory.
   DeviceBloc({@required this.deviceRepository})
       : assert(deviceRepository != null);
 
