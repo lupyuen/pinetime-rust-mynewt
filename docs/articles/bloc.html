@@ -78,10 +78,10 @@
 <li><a href="#decode-cbor-response-from-pinetime">6 Decode CBOR Response from PineTime</a><ul></ul></li>
 <li><a href="#state-transitions">7 State Transitions</a><ul></ul></li>
 <li><a href="#build-and-run-app">8 Build and Run App</a><ul></ul></li>
-<li><a href="#android-log">9 Android Log</a><ul></ul></li>
-<li><a href="#ios-log">10 iOS Log</a><ul></ul></li>
-<li><a href="#whats-next">11 What's Next</a><ul></ul></li>
-<li><a href="#further-reading">12 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/bloc-title.jpg" alt="PineTime Companion App running on an Android phone, fetching the firmware versions from PineTime Smart Watch wirelessly" /></p>
+<li><a href="#whats-next">9 What's Next</a><ul></ul></li>
+<li><a href="#further-reading">10 Further Reading</a><ul></ul></li>
+<li><a href="#android-log">11 Android Log</a><ul></ul></li>
+<li><a href="#ios-log">12 iOS Log</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/bloc-title.jpg" alt="PineTime Companion App running on an Android phone, fetching the firmware versions from PineTime Smart Watch wirelessly" /></p>
 <p><em>PineTime Companion App running on an Android phone, fetching the firmware versions from PineTime Smart Watch wirelessly</em></p>
 <p><a href="https://flutter.dev/"><strong>Flutter is awesome</strong></a> for creating mobile apps for Android and iOS... The programming language is modern <a href="https://dart.dev/"><strong>(Dart)</strong></a>, the debugging tools are excellent <a href="https://flutter.dev/docs/development/tools/vs-code"><strong>(VSCode and Dart DevTools)</strong></a>.</p>
 <p>That's why we have selected Flutter for creating the open source <strong><a href="https://github.com/lupyuen/pinetime-companion/tree/bloc">Android and iOS Companion App</a></strong> for <strong><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime">PineTime Smart Watch</a></strong>: For updating firmware, syncing date/time, pushing mobile notifications, controlling our smart home gadgets, ... and so much more!</p>
@@ -786,7 +786,34 @@ class _DeviceState extends State&lt;Device&gt; {
 <p>TODO</p>
 <p><img src="https://lupyuen.github.io/images/bloc-ios.jpg" alt="PineTime Companion App on iPhone" /></p>
 <p><em>PineTime Companion App on iPhone</em></p>
-<h1 id="android-log" class="section-header"><a href="#android-log">9 Android Log</a></h1>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">9 What's Next</a></h1>
+<p>TODO</p>
+<p>The code in this article is part of the upcoming open source <strong>PineTime Companion App</strong> for Android and iOS. So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications from our phone, chart our heart rate, ... Maybe even control our smart home gadgets! </p>
+<p>We'll be adding more code to the Flutter app...</p>
+<ol>
+<li>
+<p><strong>Response Handling:</strong> We shall handle response messages received from PineTime over Bluetooth LE (i.e. handle the GATT Notifications)</p>
+</li>
+<li>
+<p><strong>Handle Other PineTime Commands:</strong> Update firmware, sync date and time, show mobile notifications, ...</p>
+</li>
+<li>
+<p><strong>Companion App for Linux Phones (like PinePhone):</strong> We shall take the <a href="https://github.com/apache/mynewt-newtmgr">Newt Manager</a> code in Go and wrap it into a GTK3 app, using the <a href="https://github.com/gotk3/gotk3"><code>gotk3</code> library</a>...</p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3">&quot;Your First GTK App with Go and VSCodium&quot;</a></em></p>
+</li>
+</ol>
+<p>If you're keen to help out, come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!</p>
+<p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Matrix / Discord / Telegram / IRC</a></p>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">10 Further Reading</a></h1>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter">&quot;Your First Bluetooth Low Energy App with Flutter&quot;</a></em></p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3">&quot;Your First GTK App with Go and VSCodium&quot;</a></em></p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">&quot;Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)&quot;</a></em></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
+<p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
+<h1 id="android-log" class="section-header"><a href="#android-log">11 Android Log</a></h1>
 <p>TODO </p>
 
 <pre><code>Launching lib/main.dart on Pixel 4 XL in debug mode...
@@ -873,7 +900,7 @@ I/flutter (20366): onTransition Transition { currentState: DeviceLoadInProgress,
 I/flutter (20366): onEvent DeviceChanged
 I/flutter (20366): onTransition Transition { currentState: ThemeState, event: DeviceChanged, nextState: ThemeState }
 Application finished.
-Exited (sigterm)</code></pre><h1 id="ios-log" class="section-header"><a href="#ios-log">10 iOS Log</a></h1>
+Exited (sigterm)</code></pre><h1 id="ios-log" class="section-header"><a href="#ios-log">12 iOS Log</a></h1>
 <p>TODO</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -956,33 +983,6 @@ Exited (sigterm)</code></pre><h1 id="ios-log" class="section-header"><a href="#i
 <span class="ident">flutter</span>: <span class="ident">onTransition</span> <span class="ident">Transition</span> { <span class="ident">currentState</span>: <span class="ident">ThemeState</span>, <span class="ident">event</span>: <span class="ident">DeviceChanged</span>, <span class="ident">nextState</span>: <span class="ident">ThemeState</span> }
 <span class="ident">Lost</span> <span class="ident">connection</span> <span class="ident">to</span> <span class="ident">device</span>.
 <span class="ident">Exited</span> (<span class="ident">sigterm</span>)</pre></div>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">11 What's Next</a></h1>
-<p>TODO</p>
-<p>The code in this article is part of the upcoming open source <strong>PineTime Companion App</strong> for Android and iOS. So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications from our phone, chart our heart rate, ... Maybe even control our smart home gadgets! </p>
-<p>We'll be adding more code to the Flutter app...</p>
-<ol>
-<li>
-<p><strong>Response Handling:</strong> We shall handle response messages received from PineTime over Bluetooth LE (i.e. handle the GATT Notifications)</p>
-</li>
-<li>
-<p><strong>Handle Other PineTime Commands:</strong> Update firmware, sync date and time, show mobile notifications, ...</p>
-</li>
-<li>
-<p><strong>Companion App for Linux Phones (like PinePhone):</strong> We shall take the <a href="https://github.com/apache/mynewt-newtmgr">Newt Manager</a> code in Go and wrap it into a GTK3 app, using the <a href="https://github.com/gotk3/gotk3"><code>gotk3</code> library</a>...</p>
-<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3">&quot;Your First GTK App with Go and VSCodium&quot;</a></em></p>
-</li>
-</ol>
-<p>If you're keen to help out, come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!</p>
-<p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Matrix / Discord / Telegram / IRC</a></p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">12 Further Reading</a></h1>
-<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
-<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter">&quot;Your First Bluetooth Low Energy App with Flutter&quot;</a></em></p>
-<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3">&quot;Your First GTK App with Go and VSCodium&quot;</a></em></p>
-<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
-<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
-<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">&quot;Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)&quot;</a></em></p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
-<p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
 
     
 </body>
