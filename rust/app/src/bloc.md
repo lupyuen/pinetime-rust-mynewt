@@ -274,7 +274,7 @@ import 'package:flutter_blue/flutter_blue.dart';  //  Bluetooth LE API from http
 
 /// Data Model for PineTime Device
 class Device extends Equatable {
-  final BluetoothDevice bluetoothDevice;  //  Bluetooth device for connecting to PineTime
+  final BluetoothDevice bluetoothDevice;  //  Bluetooth device for connecting to PineTime, from flutter_blue library
   final String activeFirmwareVersion;     //  Version number of firmware that's running on PineTime (e.g. '1.0.0')
   final String standbyFirmwareVersion;    //  Version number of firmware that's in external flash memory (e.g. '1.1.0')
 
@@ -815,6 +815,7 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
       //  Handle the DeviceRequested Event by loading data from PineTime
       yield* _mapDeviceRequestedToState(event);
     } else if (event is DeviceRefreshRequested) {
+      //  Handle the Refresh button by updating the Device Widget
       yield* _mapDeviceRefreshRequestedToState(event);
     }
   }
@@ -828,9 +829,10 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
     try {
       //  Load data from PineTime over Bluetooth LE
       final Device device = await deviceRepository.getDevice(event.device);
-      //  Move to the DeviceLoadSuccess state, which renders the Device Summary Widget
+      //  Move to the DeviceLoadSuccess State, which renders the Device Summary Widget
       yield DeviceLoadSuccess(device: device);
     } catch (_) {
+      //  In case of error, move to the DeviceLoadFailure State
       yield DeviceLoadFailure();
     }
   }
@@ -839,6 +841,28 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
 Let's inspect the above code...
 
 ## Trigger Events
+
+_How are Events defined in Bloc?_
+
+We define the `DeviceRequested` Event like so: [`blocs/device_bloc.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart)
+
+```dart
+/// Device Requested Event that will shift the Device States
+class DeviceRequested extends DeviceEvent {
+  /// Bluetooth API for connecting to PineTime, from flutter_blue library
+  final BluetoothDevice device;
+
+  /// Construct a Device Requested Event. Bluetooth Device is mandatory.
+  const DeviceRequested({@required this.device}) : 
+    assert(device != null);
+
+  /// Return the properties of the Device Requested Event
+  @override
+  List<Object> get props => [
+    device
+  ];
+}
+```
 
 _How are Events triggered in Bloc?_
 
@@ -925,20 +949,6 @@ class _DeviceState extends State<Device> {
                     )
                   );
               }
-```
-
-
-[`blocs/device_bloc.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart)
-
-```dart
-class DeviceRequested extends DeviceEvent {
-  final BluetoothDevice device;
-
-  const DeviceRequested({@required this.device}) : assert(device != null);
-
-  @override
-  List<Object> get props => [device];
-}
 ```
 
 Transitions:
