@@ -665,9 +665,9 @@ List&lt;dynamic&gt; decodeCBOR(typed.Uint8Buffer payload) {
 </code></pre>
 <p>And that's how we fetch the the Active and Standby Firmware Versions to construct the <code>Device</code> Data Model!</p>
 <h1 id="business-logic-states-and-events-in-bloc" class="section-header"><a href="#business-logic-states-and-events-in-bloc">7 Business Logic, States and Events in Bloc</a></h1>
-<p>Now back to Bloc State Management... The right way to manage our complex Flutter App is to use a <strong>Business Logic Class (Bloc),</strong> to drive the <strong>Event Transitions</strong> between the <strong>States</strong> of the app...</p>
+<p>Now back to State Management with Bloc... The right way to manage our complex Flutter App is to use a <strong>Business Logic Class (Bloc),</strong> to drive the <strong>Event Transitions</strong> between the <strong>States</strong> of the app...</p>
 <p><img src="https://lupyuen.github.io/images/bloc-transitions1.png" alt="Business Logic driving Event Transitions between the States of the app" /></p>
-<p>A shown above, the <strong>Device Bloc</strong> contains the Business Logic that manages three <strong>Device States</strong> (ovals) and two <strong>Device Events</strong> (arrows).</p>
+<p>A shown above, our <strong>Device Bloc</strong> contains the Business Logic that manages three <strong>Device States</strong> (ovals) and two <strong>Device Events</strong> (arrows).</p>
 <p>Each Device State corresponds to a screen in our Flutter App...</p>
 <ol>
 <li>
