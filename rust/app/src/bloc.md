@@ -912,14 +912,15 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
   }
 ```
 
-# Build and Run App
-
-TODO
-
 ![PineTime Companion App on iPhone](https://lupyuen.github.io/images/bloc-ios.jpg)
 
 _PineTime Companion App on iPhone_
 
+# Build and Run App
+
+TODO
+
+See _["Your First Bluetooth Low Energy App with Flutter"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter)_
 
 # What's Next
 
