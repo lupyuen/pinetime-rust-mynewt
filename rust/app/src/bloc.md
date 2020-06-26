@@ -795,10 +795,10 @@ Like this: [`blocs/device_bloc.dart`](https://github.com/lupyuen/pinetime-compan
 ```dart
 /// Device Bloc that manages the Device States and Device Events
 class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
-  /// Data Repository that will be used to fetch the data from PineTime
+  /// Data Repository that will be used to fetch data from PineTime
   final DeviceRepository deviceRepository;
 
-  /// Constructor for Device Bloc. Data Reposity is mandatory.
+  /// Constructor for Device Bloc. Data Repository is mandatory.
   DeviceBloc({@required this.deviceRepository})
       : assert(deviceRepository != null);
 
@@ -810,7 +810,7 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
   @override
   Stream<DeviceState> mapEventToState(DeviceEvent event) async* {
     if (event is DeviceRequested) {
-      /// Handle the DeviceRequested Event by loading data from PineTime
+      //  Handle the DeviceRequested Event by loading data from PineTime
       yield* _mapDeviceRequestedToState(event);
     } else if (event is DeviceRefreshRequested) {
       yield* _mapDeviceRefreshRequestedToState(event);
