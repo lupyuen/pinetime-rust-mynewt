@@ -772,7 +772,7 @@ And that's how we fetch the the Active and Standby Firmware Versions to construc
 
 # Business Logic, States and Events in Bloc
 
-Now back to Bloc State Management... The right way to manage this complex Flutter App is to use a __Business Logic Class (Bloc),__ to drive the __Event Transitions__ between the __States__ of the app...
+Now back to Bloc State Management... The right way to manage our complex Flutter App is to use a __Business Logic Class (Bloc),__ to drive the __Event Transitions__ between the __States__ of the app...
 
 ![Business Logic driving Event Transitions between the States of the app](https://lupyuen.github.io/images/bloc-transitions1.png)
 
