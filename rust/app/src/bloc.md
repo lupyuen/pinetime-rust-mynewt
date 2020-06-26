@@ -836,7 +836,7 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
 
 Let's inspect the above code...
 
-_How are the Events triggered in Bloc?_
+_How are Events triggered in Bloc?_
 
 TODO
 
@@ -846,7 +846,7 @@ TODO
 
 ![Triggers of Event Transitions](https://lupyuen.github.io/images/bloc-transitions3.png)
 
-_How are the Widgets updated in Bloc?_
+_How are Widgets updated in Bloc?_
 
 TODO
 
