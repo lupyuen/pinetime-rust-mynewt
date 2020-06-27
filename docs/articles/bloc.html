@@ -782,7 +782,7 @@ class _DeviceState extends State&lt;Device&gt; {
               if (device != null) {
                 BlocProvider
                   .of&lt;DeviceBloc&gt;(context)
-                  //  Trigger the DeviceRequest Event...
+                  //  Trigger the DeviceRequested Event...
                   .add(
                     //  With the PineTime Bluetooth Device inside
                     DeviceRequested(
@@ -801,7 +801,7 @@ class _DeviceState extends State&lt;Device&gt; {
 <pre><code class="language-dart">//  When Search Button has been pressed and Bluetooth Device has been selected...
 BlocProvider
   .of&lt;DeviceBloc&gt;(context)
-  //  Trigger the DeviceRequest Event...
+  //  Trigger the DeviceRequested Event...
   .add(
     //  With the PineTime Bluetooth Device inside
     DeviceRequested(
@@ -830,6 +830,7 @@ class DeviceBloc extends Bloc&lt;DeviceEvent, DeviceState&gt; {
 <p>Also note that instead of returning <code>Future&lt;DeviceState&gt;</code> (a single delayed Device State), we now return <code>Stream&lt;DeviceState&gt;</code> (a delayed sequence of Device States).</p>
 <p>And instead of using <code>yield</code>, we use <code>yield*</code> to return a delayed sequence of States.</p>
 <p><em>Why does <code>_mapDeviceRequestedToState()</code> return a delayed sequence of States, instead of a single State?</em></p>
+<p>Because it returns two States: <code>DeviceLoadInProgress</code> first, followed by <code>DeviceLoadSuccess</code> a short while later.</p>
 <p><code>_mapDeviceRequestedToState()</code> responds to the <code>DeviceRequested</code> Event by first returning the <code>DeviceLoadInProgress</code> State: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart"><code>blocs/device_bloc.dart</code></a></p>
 <pre><code class="language-dart">/// Handle the DeviceRequested Event by loading data from PineTime
 Stream&lt;DeviceState&gt; _mapDeviceRequestedToState(

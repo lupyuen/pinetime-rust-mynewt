@@ -905,7 +905,7 @@ class _DeviceState extends State<Device> {
               if (device != null) {
                 BlocProvider
                   .of<DeviceBloc>(context)
-                  //  Trigger the DeviceRequest Event...
+                  //  Trigger the DeviceRequested Event...
                   .add(
                     //  With the PineTime Bluetooth Device inside
                     DeviceRequested(
@@ -933,7 +933,7 @@ Earlier we have triggered the `DeviceRequested` Event upon pressing the Search B
 //  When Search Button has been pressed and Bluetooth Device has been selected...
 BlocProvider
   .of<DeviceBloc>(context)
-  //  Trigger the DeviceRequest Event...
+  //  Trigger the DeviceRequested Event...
   .add(
     //  With the PineTime Bluetooth Device inside
     DeviceRequested(
@@ -974,6 +974,8 @@ Also note that instead of returning `Future<DeviceState>` (a single delayed Devi
 And instead of using `yield`, we use `yield*` to return a delayed sequence of States.
 
 _Why does `_mapDeviceRequestedToState()` return a delayed sequence of States, instead of a single State?_
+
+Because it returns two States: `DeviceLoadInProgress` first, followed by `DeviceLoadSuccess` a short while later.
 
 `_mapDeviceRequestedToState()` responds to the `DeviceRequested` Event by first returning the `DeviceLoadInProgress` State: [`blocs/device_bloc.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart)
 
