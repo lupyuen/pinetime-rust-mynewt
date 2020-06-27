@@ -244,6 +244,7 @@ builder: (context, state) {
       DeviceSummary(
         device: device,
       ),
+      ...
 ```
 
 The above [__Bloc Widget Builder__](https://bloclibrary.dev/#/flutterbloccoreconcepts?id=blocbuilder) (exposed by [`BlocConsumer`](https://bloclibrary.dev/#/flutterbloccoreconcepts?id=blocconsumer)) takes the updated `Device` Data Model from the new State, and creates a new Device Summary Widget...
@@ -1036,7 +1037,7 @@ In the previous section we have loaded the `Device` Data Model from PineTime and
 
 ![Updating of Widgets](https://lupyuen.github.io/images/bloc-transitions4.png)
 
-The Device Widget listens for the `DeviceLoadSuccess` State with a [__`BlocConsumer`__](https://bloclibrary.dev/#/flutterbloccoreconcepts?id=blocconsumer) like so: [`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
+The Device Widget listens for the `DeviceLoadSuccess` State with a [__`BlocConsumer`__](https://bloclibrary.dev/#/flutterbloccoreconcepts?id=blocconsumer) and rebuilds itself like so: [`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
 
 ```dart
 /// Implement the Stateful Widget for the PineTime Companion screen
@@ -1054,22 +1055,32 @@ class _DeviceState extends State<Device> {
         ...
         //  Construct a BlocConsumer to listen for updates to the state and rebuild the widget
         BlocConsumer<DeviceBloc, DeviceState>(
+          //  Listen for updates to the state (omitted)
+          listener: ...
+
+          //  Rebuild the widget when the state is updated
           builder: (context, state) {
+            //  When we have loaded the device info...
             if (state is DeviceLoadSuccess) {
+              //  Get the device info from the new state
               final device = state.device;
 
-              return BlocBuilder<ThemeBloc, ThemeState>(
-                builder: (context, themeState) {
-                  return ...
-                    DeviceSummary(
-                      device: device,
-                    ),
-                    ...
+              //  Construct the Device Summary with the device info
+              return 
+                ...
+                DeviceSummary(
+                  device: device,
+                ),
+                ...
 ```
 
-## UI Themes
+## Multiple Blocs
 
-[`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
+TODO
+
+_Can we use multiple Blocs?_
+
+The Device Widget listens for the `DeviceLoadSuccess` State with a [__`BlocConsumer`__](https://bloclibrary.dev/#/flutterbloccoreconcepts?id=blocconsumer) like so: [`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
 
 ```dart
 /// Implement the Stateful Widget for the PineTime Companion screen
@@ -1099,10 +1110,7 @@ class _DeviceState extends State<Device> {
                   DeviceChanged(
                     condition: state.device.condition
                   ),
-              );
-              ...
-            }
-            ...
+                  ...
 ```
 
 When the Device Widget detects that the State has been updated to `DeviceLoadSuccess`, it triggers a `DeviceChanged` Event.
@@ -1132,6 +1140,8 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     return theme;
   }
 ```
+
+## Tracing States and Events
 
 _How do we verify that States and Events are working correctly in Bloc?_
 
