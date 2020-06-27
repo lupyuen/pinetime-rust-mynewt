@@ -684,7 +684,7 @@ List&lt;dynamic&gt; decodeCBOR(typed.Uint8Buffer payload) {
 <p>In Bloc, a Flutter App changes its State (i.e. moves from one screen to the next), when an Event is triggered (like <code>DeviceRequested</code>)</p>
 <h2 id="business-logic" class="section-header"><a href="#business-logic">7.1 Business Logic</a></h2>
 <p><em>How shall we code the States and Event Transitions in Bloc?</em></p>
-<p>Like this: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart"><code>blocs/device_bloc.dart</code></a></p>
+<p>With a Bloc Class like so: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart"><code>blocs/device_bloc.dart</code></a></p>
 <pre><code class="language-dart">/// Device Bloc that manages the Device States and Device Events
 class DeviceBloc extends Bloc&lt;DeviceEvent, DeviceState&gt; {
   /// Data Repository that will be used to fetch data from PineTime
@@ -727,7 +727,7 @@ class DeviceBloc extends Bloc&lt;DeviceEvent, DeviceState&gt; {
     }
   }
 </code></pre>
-<p>Let's inspect the above code...</p>
+<p><code>DeviceBloc</code> contains the Business Logic that interprets the triggered Events and drives the States in our app.  Let's inspect the code in <code>DeviceBloc</code>.</p>
 <h2 id="trigger-events" class="section-header"><a href="#trigger-events">7.2 Trigger Events</a></h2>
 <p><em>How are Events defined in Bloc?</em></p>
 <p>We define the <code>DeviceRequested</code> Event like so: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart"><code>blocs/device_bloc.dart</code></a></p>
@@ -796,20 +796,76 @@ class _DeviceState extends State&lt;Device&gt; {
 <p>It returns the <code>flutter_blue</code> Bluetooth Device (i.e. PineTime) that was selected by the human.</p>
 <p>The Bluetooth Device shall be used in the next step for reading the firmware versions from PineTime.</p>
 <h2 id="load-data" class="section-header"><a href="#load-data">7.3 Load Data</a></h2>
-<p><em>What happens after receiving the firmware versions from PineTime?</em></p>
-<p>TODO</p>
+<p>Loading data over the web or Bluetooth shouldn't cause our Flutter App to freeze. Bloc has a clever solution: We trigger an Event asynchronously to load data, so that our app remains responsive!</p>
+<p>Earlier we have triggered the <code>DeviceRequested</code> Event upon pressing the Search Button: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart"><code>widgets/device.dart</code></a></p>
+<pre><code class="language-dart">//  When Search Button has been pressed and Bluetooth Device has been selected...
+BlocProvider
+  .of&lt;DeviceBloc&gt;(context)
+  //  Trigger the DeviceRequest Event...
+  .add(
+    //  With the PineTime Bluetooth Device inside
+    DeviceRequested(
+      device: device
+    )
+  );
+</code></pre>
+<p>We handle the <code>DeviceRequested</code> Event in our Device Bloc (Business Logic) like so...</p>
 <p><img src="https://lupyuen.github.io/images/bloc-transitions3.png" alt="DeviceRequested Event triggered after loading data from PineTime" /></p>
+<p>Here's how we code this in <code>DeviceBloc</code>: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart"><code>blocs/device_bloc.dart</code></a></p>
+<pre><code class="language-dart">/// Device Bloc that manages the Device States and Device Events
+class DeviceBloc extends Bloc&lt;DeviceEvent, DeviceState&gt; {
+  ...
+  /// When a Device Event is triggered, move to a new Device State (and a new screen)
+  @override
+  Stream&lt;DeviceState&gt; mapEventToState(DeviceEvent event) async* {
+    if (event is DeviceRequested) {
+      //  Handle the DeviceRequested Event by loading data from PineTime
+      yield* _mapDeviceRequestedToState(event);
+      ...
+</code></pre>
+<p><code>mapEventToState()</code> delegates the handling of the <code>DeviceRequested</code> Event to the function <code>_mapDeviceRequestedToState()</code>, which we'll see in a while.</p>
+<p><em>Why is <code>mapEventToState()</code> marked as <code>async*</code> instead of <code>async</code>?</em></p>
+<p><code>mapEventToState()</code> responds to an Event by returning one State... Or a delayed sequence of States (which we'll see in <code>_mapDeviceRequestedToState()</code>).</p>
+<p>To return a delayed sequence of States, we declare the method as <code>async*</code>.</p>
+<p>Also note that instead of returning <code>Future&lt;DeviceState&gt;</code> (a single delayed Device State), we now return <code>Stream&lt;DeviceState&gt;</code> (a delayed sequence of Device States).</p>
+<p>And instead of using <code>yield</code>, we use <code>yield*</code> to return a delayed sequence of States.</p>
+<p><em>Why does <code>_mapDeviceRequestedToState()</code> return a delayed sequence of States, instead of a single State?</em></p>
+<p><code>_mapDeviceRequestedToState()</code> responds to the <code>DeviceRequested</code> Event by first returning the <code>DeviceLoadInProgress</code> State: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart"><code>blocs/device_bloc.dart</code></a></p>
+<pre><code class="language-dart">/// Handle the DeviceRequested Event by loading data from PineTime
+Stream&lt;DeviceState&gt; _mapDeviceRequestedToState(
+  DeviceRequested event,
+) async* {
+  //  Notify the Device Widget that we are loading data
+  yield DeviceLoadInProgress();
+  ...
+</code></pre>
+<p>When the Device Widget sees the <code>DeviceLoadInProgress</code> State, it renders a Loading Animation to keep the human entertained: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart"><code>widgets/device.dart</code></a></p>
+<pre><code class="language-dart">  //  If Device is loading, show the Loading Animation
+  builder: (context, state) {
+    if (state is DeviceLoadInProgress) {
+      return Center(child: CircularProgressIndicator());
+    }
+</code></pre>
+<p>Next <code>_mapDeviceRequestedToState()</code> performs the actual loading of data: <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/device_bloc.dart"><code>blocs/device_bloc.dart</code></a></p>
+<pre><code class="language-dart">  //  After notifying the Device Widget that we are loading data...
+  //  Load data from PineTime over Bluetooth LE
+  final Device device = await deviceRepository.getDevice(event.device);
+</code></pre>
+<p>It calls the Device Repository to fetch the firmware versions from PineTime over Bluetooth LE.</p>
+<p><code>getDevice()</code> (defined in <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_repository.dart"><code>repositories/device_repository.dart</code></a>) calls <code>fetchDevice()</code>.</p>
+<p>We have previously seen <code>fetchDevice()</code> in <a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart"><code>repositories/device_api_client.dart</code></a>... It talks to PineTime over Bluetooth LE to fetch the firmware versions.</p>
+<p>Finally <code>_mapDeviceRequestedToState()</code> returns the <code>DeviceLoadSuccess</code> State...</p>
+<pre><code class="language-dart">  //  Move to the DeviceLoadSuccess State, which renders the Device Summary Widget
+  yield DeviceLoadSuccess(device: device);
+</code></pre>
+<p>The <code>DeviceLoadSuccess</code> State contains a <code>Device</code> Data Model that has the firmware versions inside.</p>
+<p>Asynchronous data loading accomplished!</p>
 <h2 id="update-widgets" class="section-header"><a href="#update-widgets">7.4 Update Widgets</a></h2>
 <p><em>How are Widgets updated in Bloc?</em></p>
 <p>TODO</p>
 <p><img src="https://lupyuen.github.io/images/bloc-transitions4.png" alt="Updating of Widgets" /></p>
 <p><a href="https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart"><code>widgets/device.dart</code></a></p>
-<pre><code class="language-dart">class Device extends StatefulWidget {
-  @override
-  State&lt;Device&gt; createState() =&gt; _DeviceState();
-}
-
-class _DeviceState extends State&lt;Device&gt; {
+<pre><code class="language-dart">class _DeviceState extends State&lt;Device&gt; {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
