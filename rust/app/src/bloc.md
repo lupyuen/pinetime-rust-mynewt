@@ -903,6 +903,7 @@ class _DeviceState extends State<Device> {
 
               //  When the Bluetooth LE browser returns the PineTime Bluetooth Device...
               if (device != null) {
+                //  Get the Bloc that handles Device Events...
                 BlocProvider
                   .of<DeviceBloc>(context)
                   //  Trigger the DeviceRequested Event...
@@ -931,6 +932,7 @@ Earlier we have triggered the `DeviceRequested` Event upon pressing the Search B
 
 ```dart
 //  When Search Button has been pressed and Bluetooth Device has been selected...
+//  Get the Bloc that handles Device Events...
 BlocProvider
   .of<DeviceBloc>(context)
   //  Trigger the DeviceRequested Event...
@@ -1028,26 +1030,71 @@ Asynchronous data loading accomplished!
 
 _How are Widgets updated in Bloc?_
 
-TODO
+In Bloc, widgets listen for State updates and redraw themselves.
+
+In the previous section we have loaded the `Device` Data Model from PineTime and updated the State to `DeviceLoadSuccess`. Now let's listen for that State and re-render the Device Widget...
 
 ![Updating of Widgets](https://lupyuen.github.io/images/bloc-transitions4.png)
+
+The Device Widget listens for the `DeviceLoadSuccess` State with a [__`BlocConsumer`__](https://bloclibrary.dev/#/flutterbloccoreconcepts?id=blocconsumer) like so: [`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
+
+```dart
+/// Implement the Stateful Widget for the PineTime Companion screen
+class _DeviceState extends State<Device> {
+  /// Render the PineTime Companion screen
+  @override
+  Widget build(BuildContext context) {
+    //  Render the screen with Button Bar above, followed by the Body
+    return Scaffold(
+      //  Button Bar for the screen (omitted)
+      appBar: ...,
+
+      //  Body for the screen
+      body: 
+        ...
+        //  Construct a BlocConsumer to listen for updates to the state and rebuild the widget
+        BlocConsumer<DeviceBloc, DeviceState>(
+          builder: (context, state) {
+            if (state is DeviceLoadSuccess) {
+              final device = state.device;
+
+              return BlocBuilder<ThemeBloc, ThemeState>(
+                builder: (context, themeState) {
+                  return ...
+                    DeviceSummary(
+                      device: device,
+                    ),
+                    ...
+```
+
+## UI Themes
 
 [`widgets/device.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/widgets/device.dart)
 
 ```dart
+/// Implement the Stateful Widget for the PineTime Companion screen
 class _DeviceState extends State<Device> {
+  /// Render the PineTime Companion screen
   @override
   Widget build(BuildContext context) {
+    //  Render the screen with Button Bar above, followed by the Body
     return Scaffold(
+      //  Button Bar for the screen (omitted)
       appBar: ...,
+
+      //  Body for the screen
       body: 
         ...
+        //  Construct a BlocConsumer to listen for updates to the state and rebuild the widget
         BlocConsumer<DeviceBloc, DeviceState>(
-
+          //  Listen for updates to the state
           listener: (context, state) {
+            //  If the device has been loaded successfully...
             if (state is DeviceLoadSuccess) {
+              //  Get the Bloc that handles UI Theme Events...
               BlocProvider
                 .of<ThemeBloc>(context)
+                //  Trigger a DeviceChanged Event
                 .add(
                   DeviceChanged(
                     condition: state.device.condition
@@ -1058,9 +1105,35 @@ class _DeviceState extends State<Device> {
             ...
 ```
 
+When the Device Widget detects that the State has been updated to `DeviceLoadSuccess`, it triggers a `DeviceChanged` Event.
 
+`DeviceChanged` is a UI Theme Event, defined in [`blocs/theme_bloc.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/theme_bloc.dart). We handle UI Theme Events a little differently from Device Events... We now use `ThemeBloc` instead of `DeviceBloc`.
 
-Transitions:
+[`blocs/theme_bloc.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/blocs/theme_bloc.dart)
+
+```dart
+class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
+  @override
+  Stream<ThemeState> mapEventToState(ThemeEvent event) async* {
+    if (event is DeviceChanged) {
+      yield _mapDeviceConditionToTheme(event.condition);
+    }
+  }
+
+  /// Return the theme based on the current condition
+  ThemeState _mapDeviceConditionToTheme(DeviceCondition condition) {
+    ThemeState theme;
+    theme = ThemeState(
+      theme: ThemeData(
+        primaryColor: Colors.indigoAccent,
+      ),
+      color: Colors.indigo,
+    );
+    return theme;
+  }
+```
+
+_How do we verify that States and Events are working correctly in Bloc?_
 
 ```
 (...Search button pressed...)
