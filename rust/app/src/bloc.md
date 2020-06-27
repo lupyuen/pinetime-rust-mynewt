@@ -1228,9 +1228,14 @@ We're now ready to debug our PineTime Companion App on a real Android or iOS pho
 
 1. For iOS: Check the next section for additional Xcode steps
 
-1. When the Flutter app starts, we'll be able to connect to PineTime to retrieve and display the firmware versions.
+1. When the Flutter app starts, we'll be able to connect to PineTime to retrieve and display the firmware versions like this...
 
-Check the Sample Android and iOS Debug Logs at the end of this article.
+    - [Watch on YouTube](https://youtu.be/VUYqcD8VGzE)
+
+    - [Download the video](https://github.com/lupyuen/pinetime-companion/releases/download/v1.0.0/companion-version.mp4)
+
+
+Check the __Sample Android and iOS Debug Logs__ at the end of this article.
 
 VSCode Debugger has many useful features for debugging Flutter apps. Here's what we see when we hit an unhandled exception in our Flutter app...
 
@@ -1290,7 +1295,7 @@ Here's what we need to do for iOS...
 
 We should be able to launch and debug our Flutter app using the instructions from the previous section.
 
-Check the Sample iOS Debug Log at the end of this article.
+Check the __Sample iOS Debug Log__ at the end of this article.
 
 ![PineTime Companion App on iPhone](https://lupyuen.github.io/images/bloc-ios.jpg)
 
