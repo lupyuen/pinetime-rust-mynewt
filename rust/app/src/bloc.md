@@ -402,6 +402,8 @@ Let's move on to discover GATT Services and Characteristics exposed by PineTime.
 
 [In the previous article](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion) we learnt about the [__Simple Management Protocol__](https://github.com/apache/mynewt-mcumgr) that's exposed by PineTime for querying and updating firmware. We'll be sending the Query Firmware Command to PineTime through this protocol.
 
+_(Simple Management Protocol is supported today on [__Mynewt__](https://github.com/apache/mynewt-mcumgr/blob/master/README-mynewt.md) and [__Zephyr__](https://github.com/apache/mynewt-mcumgr/blob/master/README-zephyr.md) open source embedded operating systems)_
+
 The Simple Management Protocol is implemented over Bluetooth LE as a [GATT Service](https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt). Thus to query the firmware on PineTime, we need to discover the GATT Services exposed by PineTime: [`repositories/device_api_client.dart`](https://github.com/lupyuen/pinetime-companion/blob/bloc/lib/repositories/device_api_client.dart)
 
 ```dart
