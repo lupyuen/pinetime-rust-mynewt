@@ -1138,17 +1138,21 @@ class ThemeBloc extends Bloc&lt;ThemeEvent, ThemeState&gt; {
 <p><img src="https://lupyuen.github.io/images/bloc-ios.jpg" alt="PineTime Companion App on iPhone" /></p>
 <p><em>PineTime Companion App on iPhone</em></p>
 <h1 id="whats-next" class="section-header"><a href="#whats-next">9 What's Next</a></h1>
-<p>The code in this article is part of the upcoming open source <strong>PineTime Companion App</strong> for Android and iOS. So that we can flash our PineTime Smart Watches wirelessly, sync the date and time, show notifications from our phone, chart our heart rate, ... Maybe even control our smart home gadgets! </p>
-<p>We'll be adding more code to the Flutter app...</p>
+<p>The code in this article is part of the upcoming open source <a href="https://github.com/lupyuen/pinetime-companion"><strong>PineTime Companion App</strong></a> for Android and iOS. So that we can update the firmware on our PineTime Smart Watches wirelessly, sync the date and time, show notifications from our phone, chart our heart rate, ... Maybe even control our smart home gadgets! </p>
+<p>We'll be doing lots more coding...</p>
 <ol>
 <li>
-<p><strong>Handle Other PineTime Commands:</strong> Update firmware, sync date and time, show mobile notifications, ...</p>
+<p><strong>Handle Other PineTime Commands:</strong> Update firmware, sync date and time, show mobile notifications, control smart home gadgets (via IFTTT and MQTT), ...</p>
 <p>We shall do this by taking the <a href="https://github.com/apache/mynewt-newtmgr">Newt Manager</a> code in Go and converting it to Flutter and Dart, as explained here...</p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
 </li>
 <li>
 <p><strong>Companion App for Linux Phones (like PinePhone):</strong> We shall take the <a href="https://github.com/apache/mynewt-newtmgr">Newt Manager</a> code in Go and wrap it into a GTK3 app, using the <a href="https://github.com/gotk3/gotk3"><code>gotk3</code> library</a>...</p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3">&quot;Your First GTK App with Go and VSCodium&quot;</a></em></p>
+</li>
+<li>
+<p><strong>PineTime Firmware Support:</strong> Today our PineTime Companion App talks to Mynewt and Zephyr operating systems on PineTime. We hope to implement the same Bluetooth LE protocol (Simple Management Protocol) on other operating systems, so that they may also enjoy wireless firmware updates...</p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
 </li>
 </ol>
 <p><em>Why are we maintaining two code bases: Flutter (for Android and iOS) and Go (for Linux phones)?</em></p>
