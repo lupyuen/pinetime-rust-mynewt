@@ -773,6 +773,14 @@ By accessing the Dynamic List like this...
 
 And that's how we fetch the the Active and Standby Firmware Versions to construct the `Device` Data Model!
 
+_Besides fetching the firmware versions, what can else we do with Bluetooth LE commands?_
+
+Plenty! We may update PineTime's firmware over Bluetooth LE, sync the date and time, push mobile notifications, capture our heart rate and even control smart home gadgets!
+
+PineTime firmware exposes the [Simple Management Protocol](https://github.com/apache/mynewt-mcumgr) over Bluetooth LE. The protocol supports a [rich set of commands](https://github.com/apache/mynewt-mcumgr/tree/master/cmd) for updating PineTime firmware, accessing the PineTime Flash filesystem, debug logs, runtime statistics, ...
+
+We shall be adding these commands to the PineTime Companion App.
+
 # Business Logic, States and Events in Bloc
 
 Now back to State Management with Bloc... The right way to manage our complex Flutter App is to use a __Business Logic Class (Bloc),__ to drive the __Event Transitions__ between the __States__ of the app...

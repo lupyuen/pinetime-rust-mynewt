@@ -672,6 +672,10 @@ List&lt;dynamic&gt; decodeCBOR(typed.Uint8Buffer payload) {
     return device;
 </code></pre>
 <p>And that's how we fetch the the Active and Standby Firmware Versions to construct the <code>Device</code> Data Model!</p>
+<p><em>Besides fetching the firmware versions, what can else we do with Bluetooth LE commands?</em></p>
+<p>Plenty! We may update PineTime's firmware over Bluetooth LE, sync the date and time, push mobile notifications, capture our heart rate and even control smart home gadgets!</p>
+<p>PineTime firmware exposes the <a href="https://github.com/apache/mynewt-mcumgr">Simple Management Protocol</a> over Bluetooth LE. The protocol supports a <a href="https://github.com/apache/mynewt-mcumgr/tree/master/cmd">rich set of commands</a> for updating PineTime firmware, accessing the PineTime Flash filesystem, debug logs, runtime statistics, ...</p>
+<p>We shall be adding these commands to the PineTime Companion App.</p>
 <h1 id="business-logic-states-and-events-in-bloc" class="section-header"><a href="#business-logic-states-and-events-in-bloc">7 Business Logic, States and Events in Bloc</a></h1>
 <p>Now back to State Management with Bloc... The right way to manage our complex Flutter App is to use a <strong>Business Logic Class (Bloc),</strong> to drive the <strong>Event Transitions</strong> between the <strong>States</strong> of the app...</p>
 <p><img src="https://lupyuen.github.io/images/bloc-transitions1.png" alt="Business Logic driving Event Transitions between the States of the app" /></p>
