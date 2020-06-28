@@ -1142,17 +1142,21 @@ class ThemeBloc extends Bloc&lt;ThemeEvent, ThemeState&gt; {
 <p>We'll be adding more code to the Flutter app...</p>
 <ol>
 <li>
-<p><strong>Response Handling:</strong> We shall handle response messages received from PineTime over Bluetooth LE (i.e. handle the GATT Notifications)</p>
-</li>
-<li>
 <p><strong>Handle Other PineTime Commands:</strong> Update firmware, sync date and time, show mobile notifications, ...</p>
+<p>We shall do this by taking the <a href="https://github.com/apache/mynewt-newtmgr">Newt Manager</a> code in Go and converting it to Flutter and Dart, as explained here...</p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
 </li>
 <li>
 <p><strong>Companion App for Linux Phones (like PinePhone):</strong> We shall take the <a href="https://github.com/apache/mynewt-newtmgr">Newt Manager</a> code in Go and wrap it into a GTK3 app, using the <a href="https://github.com/gotk3/gotk3"><code>gotk3</code> library</a>...</p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3">&quot;Your First GTK App with Go and VSCodium&quot;</a></em></p>
 </li>
 </ol>
-<p>If you're keen to help out, come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!</p>
+<p><em>Why are we maintaining two code bases: Flutter (for Android and iOS) and Go (for Linux phones)?</em></p>
+<p>Because Flutter is probably the best way to build mobile apps... But it's not officially supported for Linux phones.  The <code>flutter_blue</code> plugin doesn't support Linux either.</p>
+<p>So we need to stick with Go for Linux phones.</p>
+<p>We're now exploring <a href="https://github.com/go-flutter-desktop/go-flutter"><strong><code>go-flutter</code></strong></a> for porting the Flutter App to Linux. And recode <code>flutter_blue</code> via FFI to a Linux Bluetooth LE library (in Go or C).</p>
+<p><em>(Maybe someday when Flutter is officially supported on Linux phones, we can scrap the Go version!)</em></p>
+<p>If you're keen to help out with the PineTime Companion App (or anything else in PineTime), <strong>come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!</strong></p>
 <p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Matrix / Discord / Telegram / IRC</a></p>
 <h1 id="further-reading" class="section-header"><a href="#further-reading">10 Further Reading</a></h1>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
