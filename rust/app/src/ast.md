@@ -153,31 +153,31 @@ Here is the code that converts a Go Type to Dart and CBOR: [`dart/convert.go`](h
 ```go
 // DartField represents a Go Struct Field converted to Dart and CBOR
 type DartField struct {
-	Name     string // "Len"
-	CborName string // "len"
-	GoType   string // "uint32"
-	DartType string // "int"
-	CborType string // "Int"
+  Name     string // "Len"
+  CborName string // "len"
+  GoType   string // "uint32"
+  DartType string // "int"
+  CborType string // "Int"
 }
 ```
 
 ```go
 // Convert a Go type to Dart type and CBOR type
 func convertType(typeName string) (string, string) {
-	switch typeName {
-	case "bool":
-		return "bool", "Bool"
-	case "uint8":
-		return "int", "Int"
-	case "uint16":
-		return "int", "Int"
-	case "uint32":
-		return "int", "Int"
-	case "[]byte":
-		return "typed.Uint8Buffer", "Array"
-	default:
-		return "UNKNOWN", "UNKNOWN"
-	}
+  switch typeName {
+  case "bool":
+    return "bool", "Bool"
+  case "uint8":
+    return "int", "Int"
+  case "uint16":
+    return "int", "Int"
+  case "uint32":
+    return "int", "Int"
+  case "[]byte":
+    return "typed.Uint8Buffer", "Array"
+  default:
+    return "UNKNOWN", "UNKNOWN"
+  }
 }
 ```
 
@@ -185,26 +185,26 @@ func convertType(typeName string) (string, string) {
 ```go
 // Convert a Go Struct Field to Dart
 func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
-	dartField := DartField{}
-	if len(astField.Names) > 0 {
-		dartField.Name = astField.Names[0].Name // "Len"
-	}
-	dartField.GoType = fmt.Sprintf("%v", astField.Type) // "uint32"
-	// Handle "&{181 <nil> byte}" as "[]byte"
-	if strings.HasPrefix(dartField.GoType, "&{") && strings.HasSuffix(dartField.GoType, " byte}") {
-		dartField.GoType = "[]byte"
-	}
-	dartField.DartType, dartField.CborType = convertType(dartField.GoType) // "int"
+  dartField := DartField{}
+  if len(astField.Names) > 0 {
+    dartField.Name = astField.Names[0].Name // "Len"
+  }
+  dartField.GoType = fmt.Sprintf("%v", astField.Type) // "uint32"
+  // Handle "&{181 <nil> byte}" as "[]byte"
+  if strings.HasPrefix(dartField.GoType, "&{") && strings.HasSuffix(dartField.GoType, " byte}") {
+    dartField.GoType = "[]byte"
+  }
+  dartField.DartType, dartField.CborType = convertType(dartField.GoType) // "int"
 
-	// Convert a Field Tag like `codec:"len,omitempty"`. CborName will be set to "len".
-	if astField.Tag != nil {
-		dartField.CborName = strings.Split(astField.Tag.Value, ",")[0]
-		dartField.CborName = strings.Replace(dartField.CborName, "codec:", "", 1)
-		dartField.CborName = strings.Replace(dartField.CborName, `"`, "", 2)
-		dartField.CborName = strings.Replace(dartField.CborName, "`", "", 2)
-	}
-	// fmt.Printf("field: %s,\tcbor: %s,\ttype: %s,\tdart: %s\n", dartField.Name, dartField.CborName, dartField.GoType, dartField.DartType)
-	return dartField
+  // Convert a Field Tag like `codec:"len,omitempty"`. CborName will be set to "len".
+  if astField.Tag != nil {
+    dartField.CborName = strings.Split(astField.Tag.Value, ",")[0]
+    dartField.CborName = strings.Replace(dartField.CborName, "codec:", "", 1)
+    dartField.CborName = strings.Replace(dartField.CborName, `"`, "", 2)
+    dartField.CborName = strings.Replace(dartField.CborName, "`", "", 2)
+  }
+  // fmt.Printf("field: %s,\tcbor: %s,\ttype: %s,\tdart: %s\n", dartField.Name, dartField.CborName, dartField.GoType, dartField.DartType)
+  return dartField
 }
 ```
 
@@ -315,13 +315,13 @@ func convertStruct(fileset *token.FileSet, decl *ast.GenDecl) {
 ```go
 // Convert Go Struct Fields to Dart
 func convertFields(fileset *token.FileSet, astFields []*ast.Field) {
-	for _, field := range astFields {
-		// ast.Print(fileset, field)
-		dartField := convertField(fileset, field)
-		if dartField.Name != "" {
-			fmt.Printf("  %s %s;\t//  %s: %s\n", dartField.DartType, dartField.Name, dartField.CborName, dartField.GoType)
-		}
-	}
+  for _, field := range astFields {
+    // ast.Print(fileset, field)
+    dartField := convertField(fileset, field)
+    if dartField.Name != "" {
+      fmt.Printf("  %s %s;\t//  %s: %s\n", dartField.DartType, dartField.Name, dartField.CborName, dartField.GoType)
+    }
+  }
 }
 ```
 
@@ -378,19 +378,19 @@ Here is the code that generates the CBOR Encoder for a Go Struct: [`dart/convert
 ```go
 // Generate the Dart CBOR Encoder function for the Go Struct Fields
 func generateCborEncoder(fileset *token.FileSet, astFields []*ast.Field) {
-	fmt.Println("  /// Encode the SMP Request fields to CBOR")
-	fmt.Println("  void Encode(cbor.MapBuilder builder) {")
-	for _, field := range astFields {
-		// ast.Print(fileset, field)
-		dartField := convertField(fileset, field)
-		if dartField.CborName != "-" { // Fields tagged `codec:"-"` will not be ended
-			// Encode the string key
-			fmt.Printf("    builder.writeString(\"%s\");\n", dartField.CborName)
-			// Encode the value
-			fmt.Printf("    builder.write%s(%s);\t// %s\n", dartField.CborType, dartField.Name, dartField.GoType)
-		}
-	}
-	fmt.Println("  }")
+  fmt.Println("  /// Encode the SMP Request fields to CBOR")
+  fmt.Println("  void Encode(cbor.MapBuilder builder) {")
+  for _, field := range astFields {
+    // ast.Print(fileset, field)
+    dartField := convertField(fileset, field)
+    if dartField.CborName != "-" { // Fields tagged `codec:"-"` will not be ended
+      // Encode the string key
+      fmt.Printf("    builder.writeString(\"%s\");\n", dartField.CborName)
+      // Encode the value
+      fmt.Printf("    builder.write%s(%s);\t// %s\n", dartField.CborType, dartField.Name, dartField.GoType)
+    }
+  }
+  fmt.Println("  }")
 }
 ```
 
