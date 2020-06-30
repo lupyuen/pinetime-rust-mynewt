@@ -4,6 +4,8 @@
 
 _Work-in-progress PineTime Companion App on iPhone, converted from Go to Flutter and Dart_
 
+TODO
+
 Let's learn how this Go code...
 
 [`nmxact/nmp/image.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go)
@@ -31,7 +33,7 @@ func NewImageUploadReq() *ImageUploadReq {
 
 Was automatically converted to this Dart code...
 
-[`nmxact/nmp/image.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go)
+[`dart/nmp/image.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/nmp/image.dart)
 
 ```dart
 //  Converted To Dart...
@@ -257,7 +259,7 @@ func NewImageUploadReq() *ImageUploadReq {
 }
 ```
 
-[`nmxact/nmp/image.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go)
+[`dart/nmp/image.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/nmp/image.dart)
 
 ```dart
 //  Converted To Dart...
