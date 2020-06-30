@@ -8,6 +8,8 @@ _Work-in-progress PineTime Companion App on iPhone, converted from Go to Flutter
 
 TODO
 
+Both languages were created at Google, yet so different
+
 Minimise errors in conversion
 
 Huge volume of code
