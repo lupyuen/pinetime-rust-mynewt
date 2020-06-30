@@ -107,7 +107,7 @@ But it became really tedious and mechanical...
     int Len;
     ```
 
-1. Functions also need to be flipped from this...
+1. Flip all Functions from this...
 
     ```go
     //  In Go...
@@ -149,7 +149,59 @@ Yes it can, with an __Abstract Syntax Tree__!
 
 # What's an Abstract Syntax Tree?
 
-TODO
+_Have you ever wondered... Why do we speak the way we speak?_
+
+_Why is this ok..._
+
+```
+    I EAT RICE
+```
+
+_But not this?_
+
+```
+    I RICE
+```
+
+Because there's a structure in everything that we say...
+
+![Syntax Tree for a sentence](https://lupyuen.github.io/images/ast-tree2.jpg)
+
+We call this tree-like structure the __Syntax Tree__ (though it looks more like a flying broomstick)
+
+_What's a Syntax Tree good for?_
+
+A Syntax Tree is useful for translating languages. To translate `I EAT RICE` to Chinese, we take each chunk of the tree ("subtree") and translate each chunk to Chinese...
+
+![Translating the Syntax Tree for a sentence](https://lupyuen.github.io/images/ast-tree.jpg)
+
+_Does this work for translating Programming Languages like Go and Dart?_
+
+Yes! Our Go program may also be structured as a Syntax Tree...
+
+???
+
+Making it easier to convert to Dart, subtree by subtree.
+
+_Why not just translate word by word?_
+
+Because the Surrounding Context matters!
+
+If we don't look at the surrounding text, translating `I EAT RICE` word for word produces this hilarious result...
+
+```
+    我吃米
+```
+
+Which sounds really weird because it means...
+
+```
+    I EAT UNCOOKED RICE
+```
+
+_(Unless we really meant to say "老鼠吃大米")_
+
+Now let's find out how to generate a Syntax Tree automatically for our Go code.
 
 # Generate an Abstract Syntax Tree
 
