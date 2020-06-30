@@ -144,31 +144,31 @@ ImageUploadReq NewImageUploadReq() {
 <p>Here is the code that generates an Abstract Syntax Tree given a block of Go code: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go"><code>dart/convert.go</code></a></p>
 <pre><code class="language-go">// Inspect the Abstract Syntax Tree of our Go code and convert to Dart
 func convertGoToDart() {
-	fmt.Printf(&quot;//  Go Code...\n%s\n&quot;, src)
-	fmt.Println(&quot;//  Converted To Dart...\n&quot;)
+  fmt.Printf(&quot;//  Go Code...\n%s\n&quot;, src)
+  fmt.Println(&quot;//  Converted To Dart...\n&quot;)
 
-	// Create the Abstract Syntax Tree by parsing src
-	fileset := token.NewFileSet()                            // Positions are relative to fileset
-	node, err := parser.ParseFile(fileset, &quot;src.go&quot;, src, 0) // Change src to nil to parse a file instead of string
-	if err != nil {
-		panic(err)
-	}
+  // Create the Abstract Syntax Tree by parsing src
+  fileset := token.NewFileSet()                            // Positions are relative to fileset
+  node, err := parser.ParseFile(fileset, &quot;src.go&quot;, src, 0) // Change src to nil to parse a file instead of string
+  if err != nil {
+    panic(err)
+  }
 
-	// Convert all Go Struct and Function Declarations
-	for _, decl := range node.Decls {
-		// ast.Print(fileset, decl)
-		switch decl := decl.(type) {
-		case *ast.GenDecl:
-			// Convert Go Struct to Dart
-			convertStruct(fileset, decl)
-		case *ast.FuncDecl:
-			// Convert Go Function to Dart
-			convertFunction(fileset, decl)
-		default:
-			fmt.Println(&quot;*** Unknown Decl:&quot;)
-			ast.Print(fileset, decl)
-		}
-	}
+  // Convert all Go Struct and Function Declarations
+  for _, decl := range node.Decls {
+    // ast.Print(fileset, decl)
+    switch decl := decl.(type) {
+    case *ast.GenDecl:
+      // Convert Go Struct to Dart
+      convertStruct(fileset, decl)
+    case *ast.FuncDecl:
+      // Convert Go Function to Dart
+      convertFunction(fileset, decl)
+    default:
+      fmt.Println(&quot;*** Unknown Decl:&quot;)
+      ast.Print(fileset, decl)
+    }
+  }
 }
 </code></pre>
 <h1 id="auto-convert-go-struct-to-dart" class="section-header"><a href="#auto-convert-go-struct-to-dart">4 Auto Convert Go Struct to Dart</a></h1>
@@ -222,57 +222,57 @@ class ImageUploadReq
 <p>Here is the code that converts a Go struct to Dart: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go"><code>dart/convert.go</code></a></p>
 <pre><code class="language-go">// Convert Go Struct to Dart
 func convertStruct(fileset *token.FileSet, decl *ast.GenDecl) {
-	// ast.Print(fileset, decl)
-	switch decl.Tok.String() {
-	case &quot;type&quot;:
-		// Convert a type declaration
-		for _, spec := range decl.Specs {
-			// ast.Print(fileset, spec)
-			switch spec := spec.(type) {
-			case *ast.TypeSpec:
-				// Get the struct name and output the Dart class
-				typeName := spec.Name.Name // &quot;NmpHdr&quot;
-				fmt.Printf(&quot;class %s &quot;, typeName)
+  // ast.Print(fileset, decl)
+  switch decl.Tok.String() {
+  case &quot;type&quot;:
+    // Convert a type declaration
+    for _, spec := range decl.Specs {
+      // ast.Print(fileset, spec)
+      switch spec := spec.(type) {
+      case *ast.TypeSpec:
+        // Get the struct name and output the Dart class
+        typeName := spec.Name.Name // &quot;NmpHdr&quot;
+        fmt.Printf(&quot;class %s &quot;, typeName)
 
-				// If this is a request message struct...
-				if strings.HasSuffix(typeName, &quot;Req&quot;) {
-					// Add the Dart mixin and interface classes
-					fmt.Println(&quot;&quot;)
-					fmt.Println(&quot;  with NmpBase       //  Get and set SMP Message Header&quot;)
-					fmt.Println(&quot;  implements NmpReq  //  SMP Request Message&quot;)
-				}
-				fmt.Println(&quot;{&quot;)
+        // If this is a request message struct...
+        if strings.HasSuffix(typeName, &quot;Req&quot;) {
+          // Add the Dart mixin and interface classes
+          fmt.Println(&quot;&quot;)
+          fmt.Println(&quot;  with NmpBase       //  Get and set SMP Message Header&quot;)
+          fmt.Println(&quot;  implements NmpReq  //  SMP Request Message&quot;)
+        }
+        fmt.Println(&quot;{&quot;)
 
-				switch structType := spec.Type.(type) {
-				case *ast.StructType: // &quot;struct {&quot;
-					// Convert the struct fields
-					fields := structType.Fields.List
-					convertFields(fileset, fields)
-					fmt.Println(&quot;&quot;)
+        switch structType := spec.Type.(type) {
+        case *ast.StructType: // &quot;struct {&quot;
+          // Convert the struct fields
+          fields := structType.Fields.List
+          convertFields(fileset, fields)
+          fmt.Println(&quot;&quot;)
 
-					// If this is a request message struct...
-					if strings.HasSuffix(typeName, &quot;Req&quot;) {
-						fmt.Println(&quot;  NmpMsg Msg() { return MsgFromReq(this); }\n&quot;)
-						// Generate CBOR encoder
-						generateCborEncoder(fileset, fields)
-					}
+          // If this is a request message struct...
+          if strings.HasSuffix(typeName, &quot;Req&quot;) {
+            fmt.Println(&quot;  NmpMsg Msg() { return MsgFromReq(this); }\n&quot;)
+            // Generate CBOR encoder
+            generateCborEncoder(fileset, fields)
+          }
 
-				default:
-					fmt.Println(&quot;*** Unknown Spec Type:&quot;)
-					ast.Print(fileset, spec.Type)
-				}
+        default:
+          fmt.Println(&quot;*** Unknown Spec Type:&quot;)
+          ast.Print(fileset, spec.Type)
+        }
 
-			default:
-				fmt.Println(&quot;*** Unknown Spec:&quot;)
-				ast.Print(fileset, spec)
-			}
-		}
-		fmt.Println(&quot;}\n&quot;)
+      default:
+        fmt.Println(&quot;*** Unknown Spec:&quot;)
+        ast.Print(fileset, spec)
+      }
+    }
+    fmt.Println(&quot;}\n&quot;)
 
-	default:
-		fmt.Println(&quot;*** Unknown Tok:&quot;)
-		ast.Print(fileset, decl.Tok)
-	}
+  default:
+    fmt.Println(&quot;*** Unknown Tok:&quot;)
+    ast.Print(fileset, decl.Tok)
+  }
 }
 </code></pre>
 <h1 id="auto-convert-go-function-to-dart" class="section-header"><a href="#auto-convert-go-function-to-dart">5 Auto Convert Go Function to Dart</a></h1>
@@ -298,46 +298,46 @@ ImageUploadReq NewImageUploadReq() {
 <p>Here is the code that converts a Go function to Dart: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go"><code>dart/convert.go</code></a></p>
 <pre><code class="language-go">// Convert Go Function to Dart
 func convertFunction(fileset *token.FileSet, decl *ast.FuncDecl) {
-	// ast.Print(fileset, decl)
-	name := decl.Name                                               // Function Name: &quot;NewImageUploadReq&quot;
-	returnType := fmt.Sprintf(&quot;%v&quot;, decl.Type.Results.List[0].Type) // Return Type: &quot;&amp;{40 ImageUploadReq}&quot;
+  // ast.Print(fileset, decl)
+  name := decl.Name                                               // Function Name: &quot;NewImageUploadReq&quot;
+  returnType := fmt.Sprintf(&quot;%v&quot;, decl.Type.Results.List[0].Type) // Return Type: &quot;&amp;{40 ImageUploadReq}&quot;
 
-	// Convert the return type &quot;&amp;{40 ImageUploadReq}&quot; to &quot;ImageUploadReq&quot;
-	if strings.HasPrefix(returnType, &quot;&amp;{&quot;) &amp;&amp; strings.HasSuffix(returnType, &quot;}&quot;) {
-		returnType = strings.Split(returnType, &quot; &quot;)[1]
-		returnType = strings.Replace(returnType, &quot;}&quot;, &quot;&quot;, 1)
-	}
-	// TODO: Convert function parameters
+  // Convert the return type &quot;&amp;{40 ImageUploadReq}&quot; to &quot;ImageUploadReq&quot;
+  if strings.HasPrefix(returnType, &quot;&amp;{&quot;) &amp;&amp; strings.HasSuffix(returnType, &quot;}&quot;) {
+    returnType = strings.Split(returnType, &quot; &quot;)[1]
+    returnType = strings.Replace(returnType, &quot;}&quot;, &quot;&quot;, 1)
+  }
+  // TODO: Convert function parameters
 
-	// Output function declaration
-	fmt.Printf(&quot;%s %s() {\n&quot;, returnType, name)
+  // Output function declaration
+  fmt.Printf(&quot;%s %s() {\n&quot;, returnType, name)
 
-	// Convert the statements in the body
-	body := decl.Body.List
-	for _, stmt := range body {
-		// ast.Print(fileset, stmt)
-		// Convert the statement to a string
-		var buf bytes.Buffer
-		if err := format.Node(&amp;buf, fileset, stmt); err != nil {
-			panic(err)
-		}
-		dartStmt := fmt.Sprintf(&quot;%s&quot;, buf.Bytes()) // &quot;r := &amp;ImageUploadReq{}&quot;
+  // Convert the statements in the body
+  body := decl.Body.List
+  for _, stmt := range body {
+    // ast.Print(fileset, stmt)
+    // Convert the statement to a string
+    var buf bytes.Buffer
+    if err := format.Node(&amp;buf, fileset, stmt); err != nil {
+      panic(err)
+    }
+    dartStmt := fmt.Sprintf(&quot;%s&quot;, buf.Bytes()) // &quot;r := &amp;ImageUploadReq{}&quot;
 
-		// Convert specific kinds of statements
-		switch stmt.(type) {
-		case *ast.AssignStmt:
-			// For Assignment Statement &quot;r := &amp;ImageUploadReq{}&quot;, rewrite to &quot;var r = ImageUploadReq()&quot;
-			dartStmt = strings.Replace(dartStmt, &quot;:=&quot;, &quot;=&quot;, 1)
-			dartStmt = strings.Replace(dartStmt, &quot;&amp;&quot;, &quot;&quot;, 1)
-			dartStmt = strings.Replace(dartStmt, &quot;{}&quot;, &quot;()&quot;, 1)
-			dartStmt = &quot;var &quot; + dartStmt
-		}
+    // Convert specific kinds of statements
+    switch stmt.(type) {
+    case *ast.AssignStmt:
+      // For Assignment Statement &quot;r := &amp;ImageUploadReq{}&quot;, rewrite to &quot;var r = ImageUploadReq()&quot;
+      dartStmt = strings.Replace(dartStmt, &quot;:=&quot;, &quot;=&quot;, 1)
+      dartStmt = strings.Replace(dartStmt, &quot;&amp;&quot;, &quot;&quot;, 1)
+      dartStmt = strings.Replace(dartStmt, &quot;{}&quot;, &quot;()&quot;, 1)
+      dartStmt = &quot;var &quot; + dartStmt
+    }
 
-		// Terminate every statement with semicolon
-		fmt.Printf(&quot;  %s;\n&quot;, dartStmt)
-	}
-	// End of function
-	fmt.Println(&quot;}\n&quot;)
+    // Terminate every statement with semicolon
+    fmt.Printf(&quot;  %s;\n&quot;, dartStmt)
+  }
+  // End of function
+  fmt.Println(&quot;}\n&quot;)
 }
 </code></pre>
 <h1 id="test-auto-conversion" class="section-header"><a href="#test-auto-conversion">6 Test Auto Conversion</a></h1>
