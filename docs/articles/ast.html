@@ -64,16 +64,17 @@
     <h1 class="title">Auto Convert Go to Dart with an Abstract Syntax Tree</h1>
     <nav id="TOC"><ul>
 <li><a href="#why-auto-convert-go-to-dart">1 Why Auto Convert Go to Dart?</a><ul></ul></li>
-<li><a href="#manual-conversion-gets-tiring">2 Manual Conversion Gets Tiring</a><ul></ul></li>
-<li><a href="#generate-abstract-syntax-tree">3 Generate Abstract Syntax Tree</a><ul></ul></li>
-<li><a href="#walk-the-abstract-syntax-tree">4 Walk the Abstract Syntax Tree</a><ul></ul></li>
-<li><a href="#auto-convert-go-type-to-dart">5 Auto Convert Go Type to Dart</a><ul></ul></li>
-<li><a href="#auto-convert-go-struct-to-dart">6 Auto Convert Go Struct to Dart</a><ul></ul></li>
-<li><a href="#auto-generate-cbor-encoder">7 Auto Generate CBOR Encoder</a><ul></ul></li>
-<li><a href="#auto-convert-go-function-to-dart">8 Auto Convert Go Function to Dart</a><ul></ul></li>
-<li><a href="#test-auto-conversion">9 Test Auto Conversion</a><ul></ul></li>
-<li><a href="#whats-next">10 What's Next</a><ul></ul></li>
-<li><a href="#further-reading">11 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/bloc-ios.jpg" alt="Work-in-progress PineTime Companion App on iPhone, converted from Go to Flutter and Dart" /></p>
+<li><a href="#manual-conversion-from-go-to-dart-gets-really-tiring">2 Manual Conversion From Go To Dart Gets Really Tiring</a><ul></ul></li>
+<li><a href="#whats-an-abstract-syntax-tree">3 What's an Abstract Syntax Tree?</a><ul></ul></li>
+<li><a href="#generate-an-abstract-syntax-tree">4 Generate an Abstract Syntax Tree</a><ul></ul></li>
+<li><a href="#walk-the-abstract-syntax-tree">5 Walk the Abstract Syntax Tree</a><ul></ul></li>
+<li><a href="#auto-convert-go-type-to-dart">6 Auto Convert Go Type to Dart</a><ul></ul></li>
+<li><a href="#auto-convert-go-struct-to-dart">7 Auto Convert Go Struct to Dart</a><ul></ul></li>
+<li><a href="#auto-generate-cbor-encoder">8 Auto Generate CBOR Encoder</a><ul></ul></li>
+<li><a href="#auto-convert-go-function-to-dart">9 Auto Convert Go Function to Dart</a><ul></ul></li>
+<li><a href="#test-auto-conversion">10 Test Auto Conversion</a><ul></ul></li>
+<li><a href="#whats-next">11 What's Next</a><ul></ul></li>
+<li><a href="#further-reading">12 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/bloc-ios.jpg" alt="Work-in-progress PineTime Companion App on iPhone, converted from Go to Flutter and Dart" /></p>
 <p><em>Work-in-progress PineTime Companion App on iPhone, converted from Go to Flutter and Dart</em></p>
 <p>TODO</p>
 <p>Let's learn how this Go code...</p>
@@ -138,11 +139,58 @@ ImageUploadReq NewImageUploadReq() {
 <p>Huge volume of code</p>
 <p>Consistency of conversion</p>
 <p>Easy cross reference</p>
-<h1 id="manual-conversion-gets-tiring" class="section-header"><a href="#manual-conversion-gets-tiring">2 Manual Conversion Gets Tiring</a></h1>
+<h1 id="manual-conversion-from-go-to-dart-gets-really-tiring" class="section-header"><a href="#manual-conversion-from-go-to-dart-gets-really-tiring">2 Manual Conversion From Go To Dart Gets Really Tiring</a></h1>
+<p>Earlier we attempted a manual code conversion from Go to Dart...</p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
+<p>But it became really tedious and mechanical...</p>
+<ol>
+<li>
+<p>Add a Semicolon (<code>;</code>) to every line</p>
+</li>
+<li>
+<p>Flip the Names and Types, so this Go code...</p>
+<pre><code class="language-go">//  In Go...
+Len uint32
+</code></pre>
+<p>Becomes this code in Dart...</p>
+<pre><code class="language-dart">//  In Dart...
+int Len;
+</code></pre>
+</li>
+<li>
+<p>Functions also need to be flipped from this...</p>
+<pre><code class="language-go">//  In Go...
+func NewImageUploadReq() *ImageUploadReq { ...
+</code></pre>
+<p>To this...</p>
+<pre><code class="language-dart">//  In Dart...
+ImageUploadReq NewImageUploadReq() { ...
+</code></pre>
+</li>
+<li>
+<p>It's easy to encode Go Structs into CBOR / JSON...</p>
+<pre><code class="language-go">//  In Go...
+type ImageUploadReq struct {
+  //  Struct Field &quot;Len&quot; will be encoded as key &quot;len&quot; in CBOR
+  Len uint32 `codec:&quot;len,omitempty&quot;`
+</code></pre>
+<p>But encoding a Dart Class into CBOR / JSON is cumbersome and error-prone...</p>
+<pre><code class="language-dart">//  In Dart...
+class ImageUploadReq  {
+  int Len;
+  ...
+  void Encode(cbor.MapBuilder builder) {
+    //  Class Field &quot;Len&quot; will be encoded as key &quot;len&quot; in CBOR
+    builder.writeString(&quot;len&quot;);
+    builder.writeInt(Len);
+</code></pre>
+</li>
+</ol>
+<p><em>Surely a computer can do this tedious and mechanical conversion from Go to Dart?</em></p>
+<p>Yes it can, with an <strong>Abstract Syntax Tree</strong>!</p>
+<h1 id="whats-an-abstract-syntax-tree" class="section-header"><a href="#whats-an-abstract-syntax-tree">3 What's an Abstract Syntax Tree?</a></h1>
 <p>TODO</p>
-<p>Semicolons</p>
-<p>Name Type -&gt; Type Name</p>
-<h1 id="generate-abstract-syntax-tree" class="section-header"><a href="#generate-abstract-syntax-tree">3 Generate Abstract Syntax Tree</a></h1>
+<h1 id="generate-an-abstract-syntax-tree" class="section-header"><a href="#generate-an-abstract-syntax-tree">4 Generate an Abstract Syntax Tree</a></h1>
 <p>TODO</p>
 <p>Here is the code that generates an Abstract Syntax Tree given a block of Go code: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go"><code>dart/convert.go</code></a></p>
 <pre><code class="language-go">// Inspect the Abstract Syntax Tree of our Go code and convert to Dart
@@ -160,7 +208,7 @@ func convertGoToDart() {
 }
 </code></pre>
 <p>Why use Abstract Syntax Tree not LLVM?</p>
-<h1 id="walk-the-abstract-syntax-tree" class="section-header"><a href="#walk-the-abstract-syntax-tree">4 Walk the Abstract Syntax Tree</a></h1>
+<h1 id="walk-the-abstract-syntax-tree" class="section-header"><a href="#walk-the-abstract-syntax-tree">5 Walk the Abstract Syntax Tree</a></h1>
 <p>TODO</p>
 <p>Here is the code that walks an Abstract Syntax Tree and converts each chunk of Go code: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go"><code>dart/convert.go</code></a></p>
 <pre><code class="language-go">// Inspect the Abstract Syntax Tree of our Go code and convert to Dart
@@ -184,7 +232,7 @@ func convertGoToDart() {
   }
 }
 </code></pre>
-<h1 id="auto-convert-go-type-to-dart" class="section-header"><a href="#auto-convert-go-type-to-dart">5 Auto Convert Go Type to Dart</a></h1>
+<h1 id="auto-convert-go-type-to-dart" class="section-header"><a href="#auto-convert-go-type-to-dart">6 Auto Convert Go Type to Dart</a></h1>
 <p>TODO</p>
 <p>Here is the code that converts a Go Type to Dart and CBOR: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go"><code>dart/convert.go</code></a></p>
 <pre><code class="language-go">// DartField represents a Go Struct Field converted to Dart and CBOR
@@ -238,7 +286,7 @@ func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
   return dartField
 }
 </code></pre>
-<h1 id="auto-convert-go-struct-to-dart" class="section-header"><a href="#auto-convert-go-struct-to-dart">6 Auto Convert Go Struct to Dart</a></h1>
+<h1 id="auto-convert-go-struct-to-dart" class="section-header"><a href="#auto-convert-go-struct-to-dart">7 Auto Convert Go Struct to Dart</a></h1>
 <p>TODO</p>
 <p><a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go"><code>nmxact/nmp/image.go</code></a></p>
 <pre><code class="language-go">//  Convert From Go...
@@ -343,7 +391,7 @@ func convertFields(fileset *token.FileSet, astFields []*ast.Field) {
   }
 }
 </code></pre>
-<h1 id="auto-generate-cbor-encoder" class="section-header"><a href="#auto-generate-cbor-encoder">7 Auto Generate CBOR Encoder</a></h1>
+<h1 id="auto-generate-cbor-encoder" class="section-header"><a href="#auto-generate-cbor-encoder">8 Auto Generate CBOR Encoder</a></h1>
 <p>TODO</p>
 <p><a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go"><code>nmxact/nmp/image.go</code></a></p>
 <pre><code class="language-go">//  Convert From Go...
@@ -401,7 +449,7 @@ func generateCborEncoder(fileset *token.FileSet, astFields []*ast.Field) {
   fmt.Println(&quot;  }&quot;)
 }
 </code></pre>
-<h1 id="auto-convert-go-function-to-dart" class="section-header"><a href="#auto-convert-go-function-to-dart">8 Auto Convert Go Function to Dart</a></h1>
+<h1 id="auto-convert-go-function-to-dart" class="section-header"><a href="#auto-convert-go-function-to-dart">9 Auto Convert Go Function to Dart</a></h1>
 <p>TODO</p>
 <p><a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go"><code>nmxact/nmp/image.go</code></a></p>
 <pre><code class="language-go">//  Convert From Go...
@@ -466,7 +514,7 @@ func convertFunction(fileset *token.FileSet, decl *ast.FuncDecl) {
   fmt.Println(&quot;}\n&quot;)
 }
 </code></pre>
-<h1 id="test-auto-conversion" class="section-header"><a href="#test-auto-conversion">9 Test Auto Conversion</a></h1>
+<h1 id="test-auto-conversion" class="section-header"><a href="#test-auto-conversion">10 Test Auto Conversion</a></h1>
 <p>TODO</p>
 
 <pre><code>&gt; Executing task: /usr/local/go/bin/go run dart/convert.go &lt;
@@ -527,7 +575,7 @@ ImageUploadReq NewImageUploadReq() {
   var r = ImageUploadReq();
   fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD);
   return r;
-}</code></pre><h1 id="whats-next" class="section-header"><a href="#whats-next">10 What's Next</a></h1>
+}</code></pre><h1 id="whats-next" class="section-header"><a href="#whats-next">11 What's Next</a></h1>
 <p>TODO</p>
 <p>The code in this article is part of the upcoming open source <a href="https://github.com/lupyuen/pinetime-companion"><strong>PineTime Companion App</strong></a> for Android and iOS. So that we can update the firmware on our PineTime Smart Watches wirelessly, sync the date and time, show notifications from our phone, chart our heart rate, ... Maybe even control our smart home gadgets! </p>
 <p>We'll be doing lots more coding...</p>
@@ -553,7 +601,7 @@ ImageUploadReq NewImageUploadReq() {
 <p><em>(Maybe someday when Flutter is officially supported on Linux phones, we can scrap the Go version!)</em></p>
 <p>If you're keen to help out with the PineTime Companion App (or anything else in PineTime), <strong>come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!</strong></p>
 <p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Matrix / Discord / Telegram / IRC</a></p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">11 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">12 Further Reading</a></h1>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/bloc">&quot;Flutter State Management with Bloc for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter">&quot;Your First Bluetooth Low Energy App with Flutter&quot;</a></em></p>

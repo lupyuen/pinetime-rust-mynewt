@@ -83,15 +83,75 @@ Consistency of conversion
 
 Easy cross reference
 
-# Manual Conversion Gets Tiring
+# Manual Conversion From Go To Dart Gets Really Tiring
+
+Earlier we attempted a manual code conversion from Go to Dart...
+
+_["Convert Go to Flutter and Dart for PineTime Companion App"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion)_
+
+But it became really tedious and mechanical...
+
+1. Add a Semicolon (`;`) to every line
+
+1. Flip the Names and Types, so this Go code...
+
+    ```go
+    //  In Go...
+    Len uint32
+    ```
+
+    Becomes this code in Dart...
+
+    ```dart
+    //  In Dart...
+    int Len;
+    ```
+
+1. Functions also need to be flipped from this...
+
+    ```go
+    //  In Go...
+    func NewImageUploadReq() *ImageUploadReq { ...
+    ```
+
+    To this...
+
+    ```dart
+    //  In Dart...
+    ImageUploadReq NewImageUploadReq() { ...
+    ```
+
+1. It's easy to encode Go Structs into CBOR / JSON...
+
+    ```go
+    //  In Go...
+    type ImageUploadReq struct {
+      //  Struct Field "Len" will be encoded as key "len" in CBOR
+      Len uint32 `codec:"len,omitempty"`
+    ```
+
+    But encoding a Dart Class into CBOR / JSON is cumbersome and error-prone...
+
+    ```dart
+    //  In Dart...
+    class ImageUploadReq  {
+      int Len;
+      ...
+      void Encode(cbor.MapBuilder builder) {
+        //  Class Field "Len" will be encoded as key "len" in CBOR
+        builder.writeString("len");
+        builder.writeInt(Len);
+    ```
+
+_Surely a computer can do this tedious and mechanical conversion from Go to Dart?_
+
+Yes it can, with an __Abstract Syntax Tree__!
+
+# What's an Abstract Syntax Tree?
 
 TODO
 
-Semicolons
-
-Name Type -> Type Name
-
-# Generate Abstract Syntax Tree
+# Generate an Abstract Syntax Tree
 
 TODO
 
