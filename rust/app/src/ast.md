@@ -24,6 +24,68 @@ TODO
 
 TODO
 
+```
+> Executing task: /usr/local/go/bin/go run dart/convert.go <
+
+//  Go Code...
+
+package main
+
+type ImageUploadReq struct {
+        NmpBase  `codec:"-"`
+        ImageNum uint8  `codec:"image"`
+        Off      uint32 `codec:"off"`
+        Len      uint32 `codec:"len,omitempty"`
+        DataSha  []byte `codec:"sha,omitempty"`
+        Upgrade  bool   `codec:"upgrade,omitempty"`
+        Data     []byte `codec:"data"`
+}
+
+func NewImageUploadReq() *ImageUploadReq {
+        r := &ImageUploadReq{}
+        fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD)
+        return r
+}
+
+//  Converted To Dart...
+
+class ImageUploadReq 
+  with NmpBase       //  Get and set SMP Message Header
+  implements NmpReq  //  SMP Request Message
+{
+  int ImageNum; //  image: uint8
+  int Off;      //  off: uint32
+  int Len;      //  len: uint32
+  typed.Uint8Buffer DataSha;    //  sha: []byte
+  bool Upgrade; //  upgrade: bool
+  typed.Uint8Buffer Data;       //  data: []byte
+
+  NmpMsg Msg() { return MsgFromReq(this); }
+
+  /// Encode the SMP Request fields to CBOR
+  void Encode(cbor.MapBuilder builder) {
+    builder.writeString("image");
+    builder.writeInt(ImageNum); // uint8
+    builder.writeString("off");
+    builder.writeInt(Off);      // uint32
+    builder.writeString("len");
+    builder.writeInt(Len);      // uint32
+    builder.writeString("sha");
+    builder.writeArray(DataSha);        // []byte
+    builder.writeString("upgrade");
+    builder.writeBool(Upgrade); // bool
+    builder.writeString("data");
+    builder.writeArray(Data);   // []byte
+  }
+}
+
+ImageUploadReq NewImageUploadReq() {
+  var r = ImageUploadReq();
+  fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD);
+  return r;
+}
+```
+
 # What's Next
 
 The code in this article is part of the upcoming open source [__PineTime Companion App__](https://github.com/lupyuen/pinetime-companion) for Android and iOS. So that we can update the firmware on our PineTime Smart Watches wirelessly, sync the date and time, show notifications from our phone, chart our heart rate, ... Maybe even control our smart home gadgets! 

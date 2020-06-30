@@ -81,7 +81,66 @@
 <p>TODO</p>
 <h1 id="test-auto-conversion" class="section-header"><a href="#test-auto-conversion">5 Test Auto Conversion</a></h1>
 <p>TODO</p>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">6 What's Next</a></h1>
+
+<pre><code>&gt; Executing task: /usr/local/go/bin/go run dart/convert.go &lt;
+
+//  Go Code...
+
+package main
+
+type ImageUploadReq struct {
+        NmpBase  `codec:&quot;-&quot;`
+        ImageNum uint8  `codec:&quot;image&quot;`
+        Off      uint32 `codec:&quot;off&quot;`
+        Len      uint32 `codec:&quot;len,omitempty&quot;`
+        DataSha  []byte `codec:&quot;sha,omitempty&quot;`
+        Upgrade  bool   `codec:&quot;upgrade,omitempty&quot;`
+        Data     []byte `codec:&quot;data&quot;`
+}
+
+func NewImageUploadReq() *ImageUploadReq {
+        r := &amp;ImageUploadReq{}
+        fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD)
+        return r
+}
+
+//  Converted To Dart...
+
+class ImageUploadReq 
+  with NmpBase       //  Get and set SMP Message Header
+  implements NmpReq  //  SMP Request Message
+{
+  int ImageNum; //  image: uint8
+  int Off;      //  off: uint32
+  int Len;      //  len: uint32
+  typed.Uint8Buffer DataSha;    //  sha: []byte
+  bool Upgrade; //  upgrade: bool
+  typed.Uint8Buffer Data;       //  data: []byte
+
+  NmpMsg Msg() { return MsgFromReq(this); }
+
+  /// Encode the SMP Request fields to CBOR
+  void Encode(cbor.MapBuilder builder) {
+    builder.writeString(&quot;image&quot;);
+    builder.writeInt(ImageNum); // uint8
+    builder.writeString(&quot;off&quot;);
+    builder.writeInt(Off);      // uint32
+    builder.writeString(&quot;len&quot;);
+    builder.writeInt(Len);      // uint32
+    builder.writeString(&quot;sha&quot;);
+    builder.writeArray(DataSha);        // []byte
+    builder.writeString(&quot;upgrade&quot;);
+    builder.writeBool(Upgrade); // bool
+    builder.writeString(&quot;data&quot;);
+    builder.writeArray(Data);   // []byte
+  }
+}
+
+ImageUploadReq NewImageUploadReq() {
+  var r = ImageUploadReq();
+  fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD);
+  return r;
+}</code></pre><h1 id="whats-next" class="section-header"><a href="#whats-next">6 What's Next</a></h1>
 <p>The code in this article is part of the upcoming open source <a href="https://github.com/lupyuen/pinetime-companion"><strong>PineTime Companion App</strong></a> for Android and iOS. So that we can update the firmware on our PineTime Smart Watches wirelessly, sync the date and time, show notifications from our phone, chart our heart rate, ... Maybe even control our smart home gadgets! </p>
 <p>We'll be doing lots more coding...</p>
 <ol>
