@@ -103,13 +103,29 @@ func convertGoToDart() {
   fmt.Printf("//  Go Code...\n%s\n", src)
   fmt.Println("//  Converted To Dart...\n")
 
-  // Create the Abstract Syntax Tree by parsing src
+  // Create the Abstract Syntax Tree by parsing Go code
   fileset := token.NewFileSet()                            // Positions are relative to fileset
   node, err := parser.ParseFile(fileset, "src.go", src, 0) // Change src to nil to parse a file instead of string
   if err != nil {
     panic(err)
   }
+  ...
+}
+```
 
+Why use Abstract Syntax Tree not LLVM?
+
+# Walk the Abstract Syntax Tree
+
+TODO
+
+Here is the code that walks an Abstract Syntax Tree and converts each chunk of Go code: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go)
+
+```go
+// Inspect the Abstract Syntax Tree of our Go code and convert to Dart
+func convertGoToDart() {
+  // Omitted: Create the Abstract Syntax Tree by parsing Go code
+  ...
   // Convert all Go Struct and Function Declarations
   for _, decl := range node.Decls {
     // ast.Print(fileset, decl)
@@ -125,6 +141,70 @@ func convertGoToDart() {
       ast.Print(fileset, decl)
     }
   }
+}
+```
+
+# Auto Convert Go Type to Dart
+
+TODO
+
+Here is the code that converts a Go Type to Dart and CBOR: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go)
+
+```go
+// DartField represents a Go Struct Field converted to Dart and CBOR
+type DartField struct {
+	Name     string // "Len"
+	CborName string // "len"
+	GoType   string // "uint32"
+	DartType string // "int"
+	CborType string // "Int"
+}
+```
+
+```go
+// Convert a Go type to Dart type and CBOR type
+func convertType(typeName string) (string, string) {
+	switch typeName {
+	case "bool":
+		return "bool", "Bool"
+	case "uint8":
+		return "int", "Int"
+	case "uint16":
+		return "int", "Int"
+	case "uint32":
+		return "int", "Int"
+	case "[]byte":
+		return "typed.Uint8Buffer", "Array"
+	default:
+		return "UNKNOWN", "UNKNOWN"
+	}
+}
+```
+
+
+```go
+// Convert a Go Struct Field to Dart
+func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
+	dartField := DartField{}
+	if len(astField.Names) > 0 {
+		dartField.Name = astField.Names[0].Name // "Len"
+	}
+	dartField.GoType = fmt.Sprintf("%v", astField.Type) // "uint32"
+	// Handle "&{181 <nil> byte}" as "[]byte"
+	if strings.HasPrefix(dartField.GoType, "&{") && strings.HasSuffix(dartField.GoType, " byte}") {
+		dartField.GoType = "[]byte"
+	}
+	dartField.DartType, dartField.CborType = convertType(dartField.GoType) // "int"
+
+	// Convert a Field Tag like `codec:"len,omitempty"`. CborName will be set to "len".
+	if astField.Tag != nil {
+		dartField.CborName = strings.Split(astField.Tag.Value, ",")[0]
+		dartField.CborName = strings.Replace(dartField.CborName, "codec:", "", 1)
+		dartField.CborName = strings.Replace(dartField.CborName, `"`, "", 2)
+		dartField.CborName = strings.Replace(dartField.CborName, "`", "", 2)
+	}
+	// fmt.Printf("field: %s,\tcbor: %s,\ttype: %s,\tdart: %s\n", dartField.Name, dartField.CborName, dartField.GoType, dartField.DartType)
+	return dartField
 }
 ```
 
@@ -168,23 +248,12 @@ class ImageUploadReq
 
   /// Encode the SMP Request fields to CBOR
   void Encode(cbor.MapBuilder builder) {
-    builder.writeString("image");
-    builder.writeInt(ImageNum); // uint8
-    builder.writeString("off");
-    builder.writeInt(Off);      // uint32
-    builder.writeString("len");
-    builder.writeInt(Len);      // uint32
-    builder.writeString("sha");
-    builder.writeArray(DataSha);// []byte
-    builder.writeString("upgrade");
-    builder.writeBool(Upgrade); // bool
-    builder.writeString("data");
-    builder.writeArray(Data);   // []byte
+    //  ...Omitted...
   }
 }
 ```
 
-Here is the code that converts a Go struct to Dart: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go)
+Here is the code that converts a Go Struct to Dart: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go)
 
 ```go
 // Convert Go Struct to Dart
@@ -240,6 +309,88 @@ func convertStruct(fileset *token.FileSet, decl *ast.GenDecl) {
     fmt.Println("*** Unknown Tok:")
     ast.Print(fileset, decl.Tok)
   }
+}
+```
+
+```go
+// Convert Go Struct Fields to Dart
+func convertFields(fileset *token.FileSet, astFields []*ast.Field) {
+	for _, field := range astFields {
+		// ast.Print(fileset, field)
+		dartField := convertField(fileset, field)
+		if dartField.Name != "" {
+			fmt.Printf("  %s %s;\t//  %s: %s\n", dartField.DartType, dartField.Name, dartField.CborName, dartField.GoType)
+		}
+	}
+}
+```
+
+# Auto Generate CBOR Encoder
+
+TODO
+
+[`nmxact/nmp/image.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go)
+
+```go
+//  Convert From Go...
+//  Go Struct
+type ImageUploadReq struct {
+  NmpBase  `codec:"-"`
+  ImageNum uint8  `codec:"image"`
+  Off      uint32 `codec:"off"`
+  Len      uint32 `codec:"len,omitempty"`
+  DataSha  []byte `codec:"sha,omitempty"`
+  Upgrade  bool   `codec:"upgrade,omitempty"`
+  Data     []byte `codec:"data"`
+}
+```
+
+[`dart/nmp/image.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/nmp/image.dart)
+
+```dart
+//  Converted To Dart...
+//  Converted Dart Class
+class ImageUploadReq 
+  with NmpBase       //  Get and set SMP Message Header
+  implements NmpReq  //  SMP Request Message
+{
+  ...
+  /// Encode the SMP Request fields to CBOR
+  void Encode(cbor.MapBuilder builder) {
+    builder.writeString("image");
+    builder.writeInt(ImageNum); // uint8
+    builder.writeString("off");
+    builder.writeInt(Off);      // uint32
+    builder.writeString("len");
+    builder.writeInt(Len);      // uint32
+    builder.writeString("sha");
+    builder.writeArray(DataSha);// []byte
+    builder.writeString("upgrade");
+    builder.writeBool(Upgrade); // bool
+    builder.writeString("data");
+    builder.writeArray(Data);   // []byte
+  }
+}
+```
+
+Here is the code that generates the CBOR Encoder for a Go Struct: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go)
+
+```go
+// Generate the Dart CBOR Encoder function for the Go Struct Fields
+func generateCborEncoder(fileset *token.FileSet, astFields []*ast.Field) {
+	fmt.Println("  /// Encode the SMP Request fields to CBOR")
+	fmt.Println("  void Encode(cbor.MapBuilder builder) {")
+	for _, field := range astFields {
+		// ast.Print(fileset, field)
+		dartField := convertField(fileset, field)
+		if dartField.CborName != "-" { // Fields tagged `codec:"-"` will not be ended
+			// Encode the string key
+			fmt.Printf("    builder.writeString(\"%s\");\n", dartField.CborName)
+			// Encode the value
+			fmt.Printf("    builder.write%s(%s);\t// %s\n", dartField.CborType, dartField.Name, dartField.GoType)
+		}
+	}
+	fmt.Println("  }")
 }
 ```
 
@@ -386,6 +537,8 @@ ImageUploadReq NewImageUploadReq() {
 ```
 
 # What's Next
+
+TODO
 
 The code in this article is part of the upcoming open source [__PineTime Companion App__](https://github.com/lupyuen/pinetime-companion) for Android and iOS. So that we can update the firmware on our PineTime Smart Watches wirelessly, sync the date and time, show notifications from our phone, chart our heart rate, ... Maybe even control our smart home gadgets! 
 
