@@ -65,12 +65,68 @@
     <nav id="TOC"><ul>
 <li><a href="#why-auto-convert-go-to-dart">1 Why Auto Convert Go to Dart?</a><ul></ul></li>
 <li><a href="#manual-conversion-gets-tiring">2 Manual Conversion Gets Tiring</a><ul></ul></li>
-<li><a href="#auto-convert-go-struct-to-dart">3 Auto Convert Go Struct to Dart</a><ul></ul></li>
-<li><a href="#auto-convert-go-function-to-dart">4 Auto Convert Go Function to Dart</a><ul></ul></li>
-<li><a href="#test-auto-conversion">5 Test Auto Conversion</a><ul></ul></li>
-<li><a href="#whats-next">6 What's Next</a><ul></ul></li>
-<li><a href="#further-reading">7 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/bloc-ios.jpg" alt="Work-in-progress PineTime Companion App on iPhone, converted from Go to Flutter and Dart" /></p>
+<li><a href="#generate-abstract-syntax-tree">3 Generate Abstract Syntax Tree</a><ul></ul></li>
+<li><a href="#auto-convert-go-struct-to-dart">4 Auto Convert Go Struct to Dart</a><ul></ul></li>
+<li><a href="#auto-convert-go-function-to-dart">5 Auto Convert Go Function to Dart</a><ul></ul></li>
+<li><a href="#test-auto-conversion">6 Test Auto Conversion</a><ul></ul></li>
+<li><a href="#whats-next">7 What's Next</a><ul></ul></li>
+<li><a href="#further-reading">8 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/bloc-ios.jpg" alt="Work-in-progress PineTime Companion App on iPhone, converted from Go to Flutter and Dart" /></p>
 <p><em>Work-in-progress PineTime Companion App on iPhone, converted from Go to Flutter and Dart</em></p>
+<p>Let's learn how this Go code...</p>
+<p><a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go"><code>nmxact/nmp/image.go</code></a></p>
+<pre><code class="language-go">//  Convert From Go...
+//  Go Struct
+type ImageUploadReq struct {
+  NmpBase  `codec:&quot;-&quot;`
+  ImageNum uint8  `codec:&quot;image&quot;`
+  Off      uint32 `codec:&quot;off&quot;`
+  Len      uint32 `codec:&quot;len,omitempty&quot;`
+  DataSha  []byte `codec:&quot;sha,omitempty&quot;`
+  Upgrade  bool   `codec:&quot;upgrade,omitempty&quot;`
+  Data     []byte `codec:&quot;data&quot;`
+}
+
+//  Go Function
+func NewImageUploadReq() *ImageUploadReq {
+  r := &amp;ImageUploadReq{}
+  fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD)
+  return r
+}
+</code></pre>
+<p>Was automatically converted to this Dart code...</p>
+<p><a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go"><code>nmxact/nmp/image.go</code></a></p>
+<pre><code class="language-dart">//  Converted To Dart...
+//  Converted Dart Class
+class ImageUploadReq 
+  with NmpBase       //  Get and set SMP Message Header
+  implements NmpReq  //  SMP Request Message
+{
+  int ImageNum; //  image: uint8
+  int Off;      //  off: uint32
+  int Len;      //  len: uint32
+  typed.Uint8Buffer DataSha;  //  sha: []byte
+  bool Upgrade;               //  upgrade: bool
+  typed.Uint8Buffer Data;     //  data: []byte
+
+  NmpMsg Msg() { return MsgFromReq(this); }
+
+  /// Encode the SMP Request fields to CBOR
+  void Encode(cbor.MapBuilder builder) {
+    builder.writeString(&quot;image&quot;);
+    builder.writeInt(ImageNum); // uint8
+    //  ...Omitted...
+    builder.writeString(&quot;data&quot;);
+    builder.writeArray(Data);   // []byte
+  }
+}
+
+//  Converted Dart Function
+ImageUploadReq NewImageUploadReq() {
+  var r = ImageUploadReq();
+  fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD);
+  return r;
+}
+</code></pre>
 <h1 id="why-auto-convert-go-to-dart" class="section-header"><a href="#why-auto-convert-go-to-dart">1 Why Auto Convert Go to Dart?</a></h1>
 <p>TODO</p>
 <p>Both languages were created at Google, yet so different</p>
@@ -82,12 +138,208 @@
 <p>TODO</p>
 <p>Semicolons</p>
 <p>Name Type -&gt; Type Name</p>
-<h1 id="auto-convert-go-struct-to-dart" class="section-header"><a href="#auto-convert-go-struct-to-dart">3 Auto Convert Go Struct to Dart</a></h1>
+<h1 id="generate-abstract-syntax-tree" class="section-header"><a href="#generate-abstract-syntax-tree">3 Generate Abstract Syntax Tree</a></h1>
 <p>TODO</p>
-<p>https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go</p>
-<h1 id="auto-convert-go-function-to-dart" class="section-header"><a href="#auto-convert-go-function-to-dart">4 Auto Convert Go Function to Dart</a></h1>
+<p>Here is the code that generates an Abstract Syntax Tree given a block of Go code: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go"><code>dart/convert.go</code></a></p>
+<pre><code class="language-go">// Inspect the Abstract Syntax Tree of our Go code and convert to Dart
+func convertGoToDart() {
+	fmt.Printf(&quot;//  Go Code...\n%s\n&quot;, src)
+	fmt.Println(&quot;//  Converted To Dart...\n&quot;)
+
+	// Create the Abstract Syntax Tree by parsing src
+	fileset := token.NewFileSet()                            // Positions are relative to fileset
+	node, err := parser.ParseFile(fileset, &quot;src.go&quot;, src, 0) // Change src to nil to parse a file instead of string
+	if err != nil {
+		panic(err)
+	}
+
+	// Convert all Go Struct and Function Declarations
+	for _, decl := range node.Decls {
+		// ast.Print(fileset, decl)
+		switch decl := decl.(type) {
+		case *ast.GenDecl:
+			// Convert Go Struct to Dart
+			convertStruct(fileset, decl)
+		case *ast.FuncDecl:
+			// Convert Go Function to Dart
+			convertFunction(fileset, decl)
+		default:
+			fmt.Println(&quot;*** Unknown Decl:&quot;)
+			ast.Print(fileset, decl)
+		}
+	}
+}
+</code></pre>
+<h1 id="auto-convert-go-struct-to-dart" class="section-header"><a href="#auto-convert-go-struct-to-dart">4 Auto Convert Go Struct to Dart</a></h1>
 <p>TODO</p>
-<h1 id="test-auto-conversion" class="section-header"><a href="#test-auto-conversion">5 Test Auto Conversion</a></h1>
+<p><a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go"><code>nmxact/nmp/image.go</code></a></p>
+<pre><code class="language-go">//  Convert From Go...
+//  Go Struct
+type ImageUploadReq struct {
+  NmpBase  `codec:&quot;-&quot;`
+  ImageNum uint8  `codec:&quot;image&quot;`
+  Off      uint32 `codec:&quot;off&quot;`
+  Len      uint32 `codec:&quot;len,omitempty&quot;`
+  DataSha  []byte `codec:&quot;sha,omitempty&quot;`
+  Upgrade  bool   `codec:&quot;upgrade,omitempty&quot;`
+  Data     []byte `codec:&quot;data&quot;`
+}
+</code></pre>
+<p><a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/nmp/image.dart"><code>dart/nmp/image.dart</code></a></p>
+<pre><code class="language-dart">//  Converted To Dart...
+//  Converted Dart Class
+class ImageUploadReq 
+  with NmpBase       //  Get and set SMP Message Header
+  implements NmpReq  //  SMP Request Message
+{
+  int ImageNum; //  image: uint8
+  int Off;      //  off: uint32
+  int Len;      //  len: uint32
+  typed.Uint8Buffer DataSha;  //  sha: []byte
+  bool Upgrade;               //  upgrade: bool
+  typed.Uint8Buffer Data;     //  data: []byte
+
+  NmpMsg Msg() { return MsgFromReq(this); }
+
+  /// Encode the SMP Request fields to CBOR
+  void Encode(cbor.MapBuilder builder) {
+    builder.writeString(&quot;image&quot;);
+    builder.writeInt(ImageNum); // uint8
+    builder.writeString(&quot;off&quot;);
+    builder.writeInt(Off);      // uint32
+    builder.writeString(&quot;len&quot;);
+    builder.writeInt(Len);      // uint32
+    builder.writeString(&quot;sha&quot;);
+    builder.writeArray(DataSha);// []byte
+    builder.writeString(&quot;upgrade&quot;);
+    builder.writeBool(Upgrade); // bool
+    builder.writeString(&quot;data&quot;);
+    builder.writeArray(Data);   // []byte
+  }
+}
+</code></pre>
+<p>Here is the code that converts a Go struct to Dart: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go"><code>dart/convert.go</code></a></p>
+<pre><code class="language-go">// Convert Go Struct to Dart
+func convertStruct(fileset *token.FileSet, decl *ast.GenDecl) {
+	// ast.Print(fileset, decl)
+	switch decl.Tok.String() {
+	case &quot;type&quot;:
+		// Convert a type declaration
+		for _, spec := range decl.Specs {
+			// ast.Print(fileset, spec)
+			switch spec := spec.(type) {
+			case *ast.TypeSpec:
+				// Get the struct name and output the Dart class
+				typeName := spec.Name.Name // &quot;NmpHdr&quot;
+				fmt.Printf(&quot;class %s &quot;, typeName)
+
+				// If this is a request message struct...
+				if strings.HasSuffix(typeName, &quot;Req&quot;) {
+					// Add the Dart mixin and interface classes
+					fmt.Println(&quot;&quot;)
+					fmt.Println(&quot;  with NmpBase       //  Get and set SMP Message Header&quot;)
+					fmt.Println(&quot;  implements NmpReq  //  SMP Request Message&quot;)
+				}
+				fmt.Println(&quot;{&quot;)
+
+				switch structType := spec.Type.(type) {
+				case *ast.StructType: // &quot;struct {&quot;
+					// Convert the struct fields
+					fields := structType.Fields.List
+					convertFields(fileset, fields)
+					fmt.Println(&quot;&quot;)
+
+					// If this is a request message struct...
+					if strings.HasSuffix(typeName, &quot;Req&quot;) {
+						fmt.Println(&quot;  NmpMsg Msg() { return MsgFromReq(this); }\n&quot;)
+						// Generate CBOR encoder
+						generateCborEncoder(fileset, fields)
+					}
+
+				default:
+					fmt.Println(&quot;*** Unknown Spec Type:&quot;)
+					ast.Print(fileset, spec.Type)
+				}
+
+			default:
+				fmt.Println(&quot;*** Unknown Spec:&quot;)
+				ast.Print(fileset, spec)
+			}
+		}
+		fmt.Println(&quot;}\n&quot;)
+
+	default:
+		fmt.Println(&quot;*** Unknown Tok:&quot;)
+		ast.Print(fileset, decl.Tok)
+	}
+}
+</code></pre>
+<h1 id="auto-convert-go-function-to-dart" class="section-header"><a href="#auto-convert-go-function-to-dart">5 Auto Convert Go Function to Dart</a></h1>
+<p>TODO</p>
+<p><a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go"><code>nmxact/nmp/image.go</code></a></p>
+<pre><code class="language-go">//  Convert From Go...
+//  Go Function
+func NewImageUploadReq() *ImageUploadReq {
+  r := &amp;ImageUploadReq{}
+  fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD)
+  return r
+}
+</code></pre>
+<p><a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go"><code>nmxact/nmp/image.go</code></a></p>
+<pre><code class="language-dart">//  Converted To Dart...
+//  Converted Dart Function
+ImageUploadReq NewImageUploadReq() {
+  var r = ImageUploadReq();
+  fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD);
+  return r;
+}
+</code></pre>
+<p>Here is the code that converts a Go function to Dart: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go"><code>dart/convert.go</code></a></p>
+<pre><code class="language-go">// Convert Go Function to Dart
+func convertFunction(fileset *token.FileSet, decl *ast.FuncDecl) {
+	// ast.Print(fileset, decl)
+	name := decl.Name                                               // Function Name: &quot;NewImageUploadReq&quot;
+	returnType := fmt.Sprintf(&quot;%v&quot;, decl.Type.Results.List[0].Type) // Return Type: &quot;&amp;{40 ImageUploadReq}&quot;
+
+	// Convert the return type &quot;&amp;{40 ImageUploadReq}&quot; to &quot;ImageUploadReq&quot;
+	if strings.HasPrefix(returnType, &quot;&amp;{&quot;) &amp;&amp; strings.HasSuffix(returnType, &quot;}&quot;) {
+		returnType = strings.Split(returnType, &quot; &quot;)[1]
+		returnType = strings.Replace(returnType, &quot;}&quot;, &quot;&quot;, 1)
+	}
+	// TODO: Convert function parameters
+
+	// Output function declaration
+	fmt.Printf(&quot;%s %s() {\n&quot;, returnType, name)
+
+	// Convert the statements in the body
+	body := decl.Body.List
+	for _, stmt := range body {
+		// ast.Print(fileset, stmt)
+		// Convert the statement to a string
+		var buf bytes.Buffer
+		if err := format.Node(&amp;buf, fileset, stmt); err != nil {
+			panic(err)
+		}
+		dartStmt := fmt.Sprintf(&quot;%s&quot;, buf.Bytes()) // &quot;r := &amp;ImageUploadReq{}&quot;
+
+		// Convert specific kinds of statements
+		switch stmt.(type) {
+		case *ast.AssignStmt:
+			// For Assignment Statement &quot;r := &amp;ImageUploadReq{}&quot;, rewrite to &quot;var r = ImageUploadReq()&quot;
+			dartStmt = strings.Replace(dartStmt, &quot;:=&quot;, &quot;=&quot;, 1)
+			dartStmt = strings.Replace(dartStmt, &quot;&amp;&quot;, &quot;&quot;, 1)
+			dartStmt = strings.Replace(dartStmt, &quot;{}&quot;, &quot;()&quot;, 1)
+			dartStmt = &quot;var &quot; + dartStmt
+		}
+
+		// Terminate every statement with semicolon
+		fmt.Printf(&quot;  %s;\n&quot;, dartStmt)
+	}
+	// End of function
+	fmt.Println(&quot;}\n&quot;)
+}
+</code></pre>
+<h1 id="test-auto-conversion" class="section-header"><a href="#test-auto-conversion">6 Test Auto Conversion</a></h1>
 <p>TODO</p>
 
 <pre><code>&gt; Executing task: /usr/local/go/bin/go run dart/convert.go &lt;
@@ -148,7 +400,7 @@ ImageUploadReq NewImageUploadReq() {
   var r = ImageUploadReq();
   fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD);
   return r;
-}</code></pre><h1 id="whats-next" class="section-header"><a href="#whats-next">6 What's Next</a></h1>
+}</code></pre><h1 id="whats-next" class="section-header"><a href="#whats-next">7 What's Next</a></h1>
 <p>The code in this article is part of the upcoming open source <a href="https://github.com/lupyuen/pinetime-companion"><strong>PineTime Companion App</strong></a> for Android and iOS. So that we can update the firmware on our PineTime Smart Watches wirelessly, sync the date and time, show notifications from our phone, chart our heart rate, ... Maybe even control our smart home gadgets! </p>
 <p>We'll be doing lots more coding...</p>
 <ol>
@@ -173,7 +425,7 @@ ImageUploadReq NewImageUploadReq() {
 <p><em>(Maybe someday when Flutter is officially supported on Linux phones, we can scrap the Go version!)</em></p>
 <p>If you're keen to help out with the PineTime Companion App (or anything else in PineTime), <strong>come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!</strong></p>
 <p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Matrix / Discord / Telegram / IRC</a></p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">7 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">8 Further Reading</a></h1>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/bloc">&quot;Flutter State Management with Bloc for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter">&quot;Your First Bluetooth Low Energy App with Flutter&quot;</a></em></p>

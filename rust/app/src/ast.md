@@ -4,6 +4,69 @@
 
 _Work-in-progress PineTime Companion App on iPhone, converted from Go to Flutter and Dart_
 
+Let's learn how this Go code...
+
+[`nmxact/nmp/image.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go)
+
+```go
+//  Convert From Go...
+//  Go Struct
+type ImageUploadReq struct {
+  NmpBase  `codec:"-"`
+  ImageNum uint8  `codec:"image"`
+  Off      uint32 `codec:"off"`
+  Len      uint32 `codec:"len,omitempty"`
+  DataSha  []byte `codec:"sha,omitempty"`
+  Upgrade  bool   `codec:"upgrade,omitempty"`
+  Data     []byte `codec:"data"`
+}
+
+//  Go Function
+func NewImageUploadReq() *ImageUploadReq {
+  r := &ImageUploadReq{}
+  fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD)
+  return r
+}
+```
+
+Was automatically converted to this Dart code...
+
+[`nmxact/nmp/image.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go)
+
+```dart
+//  Converted To Dart...
+//  Converted Dart Class
+class ImageUploadReq 
+  with NmpBase       //  Get and set SMP Message Header
+  implements NmpReq  //  SMP Request Message
+{
+  int ImageNum; //  image: uint8
+  int Off;      //  off: uint32
+  int Len;      //  len: uint32
+  typed.Uint8Buffer DataSha;  //  sha: []byte
+  bool Upgrade;               //  upgrade: bool
+  typed.Uint8Buffer Data;     //  data: []byte
+
+  NmpMsg Msg() { return MsgFromReq(this); }
+
+  /// Encode the SMP Request fields to CBOR
+  void Encode(cbor.MapBuilder builder) {
+    builder.writeString("image");
+    builder.writeInt(ImageNum); // uint8
+    //  ...Omitted...
+    builder.writeString("data");
+    builder.writeArray(Data);   // []byte
+  }
+}
+
+//  Converted Dart Function
+ImageUploadReq NewImageUploadReq() {
+  var r = ImageUploadReq();
+  fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD);
+  return r;
+}
+```
+
 # Why Auto Convert Go to Dart?
 
 TODO
@@ -26,15 +89,233 @@ Semicolons
 
 Name Type -> Type Name
 
+# Generate Abstract Syntax Tree
+
+TODO
+
+Here is the code that generates an Abstract Syntax Tree given a block of Go code: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go)
+
+```go
+// Inspect the Abstract Syntax Tree of our Go code and convert to Dart
+func convertGoToDart() {
+	fmt.Printf("//  Go Code...\n%s\n", src)
+	fmt.Println("//  Converted To Dart...\n")
+
+	// Create the Abstract Syntax Tree by parsing src
+	fileset := token.NewFileSet()                            // Positions are relative to fileset
+	node, err := parser.ParseFile(fileset, "src.go", src, 0) // Change src to nil to parse a file instead of string
+	if err != nil {
+		panic(err)
+	}
+
+	// Convert all Go Struct and Function Declarations
+	for _, decl := range node.Decls {
+		// ast.Print(fileset, decl)
+		switch decl := decl.(type) {
+		case *ast.GenDecl:
+			// Convert Go Struct to Dart
+			convertStruct(fileset, decl)
+		case *ast.FuncDecl:
+			// Convert Go Function to Dart
+			convertFunction(fileset, decl)
+		default:
+			fmt.Println("*** Unknown Decl:")
+			ast.Print(fileset, decl)
+		}
+	}
+}
+```
+
 # Auto Convert Go Struct to Dart
 
 TODO
 
-https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go
+[`nmxact/nmp/image.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go)
+
+```go
+//  Convert From Go...
+//  Go Struct
+type ImageUploadReq struct {
+  NmpBase  `codec:"-"`
+  ImageNum uint8  `codec:"image"`
+  Off      uint32 `codec:"off"`
+  Len      uint32 `codec:"len,omitempty"`
+  DataSha  []byte `codec:"sha,omitempty"`
+  Upgrade  bool   `codec:"upgrade,omitempty"`
+  Data     []byte `codec:"data"`
+}
+```
+
+[`dart/nmp/image.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/nmp/image.dart)
+
+```dart
+//  Converted To Dart...
+//  Converted Dart Class
+class ImageUploadReq 
+  with NmpBase       //  Get and set SMP Message Header
+  implements NmpReq  //  SMP Request Message
+{
+  int ImageNum; //  image: uint8
+  int Off;      //  off: uint32
+  int Len;      //  len: uint32
+  typed.Uint8Buffer DataSha;  //  sha: []byte
+  bool Upgrade;               //  upgrade: bool
+  typed.Uint8Buffer Data;     //  data: []byte
+
+  NmpMsg Msg() { return MsgFromReq(this); }
+
+  /// Encode the SMP Request fields to CBOR
+  void Encode(cbor.MapBuilder builder) {
+    builder.writeString("image");
+    builder.writeInt(ImageNum); // uint8
+    builder.writeString("off");
+    builder.writeInt(Off);      // uint32
+    builder.writeString("len");
+    builder.writeInt(Len);      // uint32
+    builder.writeString("sha");
+    builder.writeArray(DataSha);// []byte
+    builder.writeString("upgrade");
+    builder.writeBool(Upgrade); // bool
+    builder.writeString("data");
+    builder.writeArray(Data);   // []byte
+  }
+}
+```
+
+Here is the code that converts a Go struct to Dart: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go)
+
+```go
+// Convert Go Struct to Dart
+func convertStruct(fileset *token.FileSet, decl *ast.GenDecl) {
+	// ast.Print(fileset, decl)
+	switch decl.Tok.String() {
+	case "type":
+		// Convert a type declaration
+		for _, spec := range decl.Specs {
+			// ast.Print(fileset, spec)
+			switch spec := spec.(type) {
+			case *ast.TypeSpec:
+				// Get the struct name and output the Dart class
+				typeName := spec.Name.Name // "NmpHdr"
+				fmt.Printf("class %s ", typeName)
+
+				// If this is a request message struct...
+				if strings.HasSuffix(typeName, "Req") {
+					// Add the Dart mixin and interface classes
+					fmt.Println("")
+					fmt.Println("  with NmpBase       //  Get and set SMP Message Header")
+					fmt.Println("  implements NmpReq  //  SMP Request Message")
+				}
+				fmt.Println("{")
+
+				switch structType := spec.Type.(type) {
+				case *ast.StructType: // "struct {"
+					// Convert the struct fields
+					fields := structType.Fields.List
+					convertFields(fileset, fields)
+					fmt.Println("")
+
+					// If this is a request message struct...
+					if strings.HasSuffix(typeName, "Req") {
+						fmt.Println("  NmpMsg Msg() { return MsgFromReq(this); }\n")
+						// Generate CBOR encoder
+						generateCborEncoder(fileset, fields)
+					}
+
+				default:
+					fmt.Println("*** Unknown Spec Type:")
+					ast.Print(fileset, spec.Type)
+				}
+
+			default:
+				fmt.Println("*** Unknown Spec:")
+				ast.Print(fileset, spec)
+			}
+		}
+		fmt.Println("}\n")
+
+	default:
+		fmt.Println("*** Unknown Tok:")
+		ast.Print(fileset, decl.Tok)
+	}
+}
+```
 
 # Auto Convert Go Function to Dart
 
 TODO
+
+[`nmxact/nmp/image.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go)
+
+```go
+//  Convert From Go...
+//  Go Function
+func NewImageUploadReq() *ImageUploadReq {
+  r := &ImageUploadReq{}
+  fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD)
+  return r
+}
+```
+
+[`nmxact/nmp/image.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go)
+
+```dart
+//  Converted To Dart...
+//  Converted Dart Function
+ImageUploadReq NewImageUploadReq() {
+  var r = ImageUploadReq();
+  fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD);
+  return r;
+}
+```
+
+Here is the code that converts a Go function to Dart: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go)
+
+```go
+// Convert Go Function to Dart
+func convertFunction(fileset *token.FileSet, decl *ast.FuncDecl) {
+	// ast.Print(fileset, decl)
+	name := decl.Name                                               // Function Name: "NewImageUploadReq"
+	returnType := fmt.Sprintf("%v", decl.Type.Results.List[0].Type) // Return Type: "&{40 ImageUploadReq}"
+
+	// Convert the return type "&{40 ImageUploadReq}" to "ImageUploadReq"
+	if strings.HasPrefix(returnType, "&{") && strings.HasSuffix(returnType, "}") {
+		returnType = strings.Split(returnType, " ")[1]
+		returnType = strings.Replace(returnType, "}", "", 1)
+	}
+	// TODO: Convert function parameters
+
+	// Output function declaration
+	fmt.Printf("%s %s() {\n", returnType, name)
+
+	// Convert the statements in the body
+	body := decl.Body.List
+	for _, stmt := range body {
+		// ast.Print(fileset, stmt)
+		// Convert the statement to a string
+		var buf bytes.Buffer
+		if err := format.Node(&buf, fileset, stmt); err != nil {
+			panic(err)
+		}
+		dartStmt := fmt.Sprintf("%s", buf.Bytes()) // "r := &ImageUploadReq{}"
+
+		// Convert specific kinds of statements
+		switch stmt.(type) {
+		case *ast.AssignStmt:
+			// For Assignment Statement "r := &ImageUploadReq{}", rewrite to "var r = ImageUploadReq()"
+			dartStmt = strings.Replace(dartStmt, ":=", "=", 1)
+			dartStmt = strings.Replace(dartStmt, "&", "", 1)
+			dartStmt = strings.Replace(dartStmt, "{}", "()", 1)
+			dartStmt = "var " + dartStmt
+		}
+
+		// Terminate every statement with semicolon
+		fmt.Printf("  %s;\n", dartStmt)
+	}
+	// End of function
+	fmt.Println("}\n")
+}
+```
 
 # Test Auto Conversion
 
