@@ -8,13 +8,27 @@ _Work-in-progress PineTime Companion App on iPhone, converted from Go to Flutter
 
 TODO
 
+Minimise errors in conversion
+
+Huge volume of code
+
+Consistency of conversion
+
+Easy cross reference
+
 # Manual Conversion Gets Tiring
 
 TODO
 
+Semicolons
+
+Name Type -> Type Name
+
 # Auto Convert Go Struct to Dart
 
 TODO
+
+https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go
 
 # Auto Convert Go Function to Dart
 
