@@ -34,7 +34,7 @@ Here's the video demo...
 
 # Go vs Dart Coding
 
-Let's learn to convert this chunk of Go code from [`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L36-L45)...
+Let's learn to convert this chunk of Go code from [`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/companion/nmxact/nmp/nmp.go#L36-L45)...
 
 ```go
 //  In Go...
@@ -71,7 +71,7 @@ func (hdr *NmpHdr) Bytes() []byte {
 }
 ```
 
-...To Dart: [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L27-L67)
+...To Dart: [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/companion/newtmgr.dart#L27-L67)
 
 ```dart
 //  In Dart...
@@ -261,7 +261,7 @@ class NmpHdr {
 
 ## Go Interfaces Become Dart Abstract Classes
 
-We rewrite a Go `interface` ([`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L53-L59))...
+We rewrite a Go `interface` ([`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/companion/nmxact/nmp/nmp.go#L53-L59))...
 
 ```go
 //  In Go...
@@ -270,7 +270,7 @@ type NmpReq interface {
   SetHdr(hdr *NmpHdr)
 ```
 
-...As a Dart `abstract class` ([`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L78-L86))
+...As a Dart `abstract class` ([`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/companion/newtmgr.dart#L78-L86))
 
 ```dart
 //  In Dart...
@@ -283,7 +283,7 @@ abstract class NmpReq {
 
 # But Some Go Structs Become Dart Mixins
 
-In some cases, a Go `struct` should be converted to a Dart `mixin`. Consider this Go `struct` defined in [`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L67-L79)...
+In some cases, a Go `struct` should be converted to a Dart `mixin`. Consider this Go `struct` defined in [`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/companion/nmxact/nmp/nmp.go#L67-L79)...
 
 ```go
 /// In Go...
@@ -307,7 +307,7 @@ func (b *NmpBase) SetHdr(h *NmpHdr) {
 
 But if we look closely at the above code, `NmpBase` is actually a helper class for getting and setting the Message Header for Request and Response Messages.  
 
-Helper classes are implemented in Dart as a [`mixin`](https://dart.dev/guides/language/language-tour#adding-features-to-a-class-mixins). Here's our `mixin` implementation of `NmpBase` in [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L95-L107)...
+Helper classes are implemented in Dart as a [`mixin`](https://dart.dev/guides/language/language-tour#adding-features-to-a-class-mixins). Here's our `mixin` implementation of `NmpBase` in [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/companion/newtmgr.dart#L95-L107)...
 
 ```dart
 /// In Dart...
@@ -327,7 +327,7 @@ mixin NmpBase {
 }
 ```
 
-We use our `NmpBase mixin` like this ([`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L345-L377))...
+We use our `NmpBase mixin` like this ([`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/companion/newtmgr.dart#L345-L377))...
 
 ```dart
 /// In Dart...
@@ -358,7 +358,7 @@ Go uses ["Static Duck Typing"](https://benhoyt.com/writings/go-intro/) thus it's
 
 # Convert Go Arrays to Dart
 
-Let's convert this Go code that creates a byte array and appends some bytes: [`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L111-L115)
+Let's convert this Go code that creates a byte array and appends some bytes: [`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/companion/nmxact/nmp/nmp.go#L111-L115)
 
 ```go
 //  In Go: Create a byte array with max size NMP_HDR_SIZE
@@ -369,7 +369,7 @@ buf = append(buf, byte(hdr.Op))
 buf = append(buf, byte(hdr.Flags))
 ```
 
-In Dart we use `typed.Uint8Buffer` to represent a byte buffer. It works like a Dart List, so we may call `add()` to add bytes: [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L48-L66)
+In Dart we use `typed.Uint8Buffer` to represent a byte buffer. It works like a Dart List, so we may call `add()` to add bytes: [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/companion/newtmgr.dart#L48-L66)
 
 ```dart
 //  In Dart: Create a byte buffer
@@ -383,7 +383,7 @@ buf.add(this.Flags);
 assert(buf.length == NMP_HDR_SIZE);
 ```
 
-To add a Dart List to another List, we call `addAll()`: [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L55-L57)
+To add a Dart List to another List, we call `addAll()`: [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/companion/newtmgr.dart#L55-L57)
 
 ```dart
 //  In Dart: Convert 16-bit length to a list of 2 bytes
@@ -405,7 +405,7 @@ The Go code comes from [__Newt Manager__](https://github.com/apache/mynewt-newtm
 
 _Newt Manager has over a hundred Go source files... Which source files should we convert to Dart?_
 
-[__Go Tracing__](https://blog.gopheracademy.com/advent-2017/go-execution-tracer/) can help! Let's enable Go Tracing like this: [`newtmgr.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr/newtmgr.go)
+[__Go Tracing__](https://blog.gopheracademy.com/advent-2017/go-execution-tracer/) can help! Let's enable Go Tracing like this: [`newtmgr.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/companion/newtmgr/newtmgr.go)
 
 ```go
 import "runtime/trace"
@@ -558,7 +558,7 @@ Comparing their sizes...
 
 CBOR is half the size of JSON! Wow!
 
-In Newt Manager (the Go code that runs on Linux), we encode a Go  `struct` into CBOR like this: [`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/nmp.go#L129-L144)
+In Newt Manager (the Go code that runs on Linux), we encode a Go  `struct` into CBOR like this: [`nmxact/nmp/nmp.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/companion/nmxact/nmp/nmp.go#L129-L144)
 
 ```go
 //  In Go...
@@ -577,7 +577,7 @@ func BodyBytes(body interface{}) ([]byte, error) {
 }
 ```
 
-Here's the equivalent code in Dart that encodes our Dart `class` into a Bluetooth LE message: [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L141-L176)
+Here's the equivalent code in Dart that encodes our Dart `class` into a Bluetooth LE message: [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/companion/newtmgr.dart#L141-L176)
 
 ```dart
 //  In Dart...
@@ -627,7 +627,7 @@ Yep the Dart code for encoding CBOR looks longer than Go... And we're not done y
 
 For each specific type of message, we need to write Dart code to __encode each field of the message__.
 
-Here's the request message `ImageStateReadReq` that we'll be transmitting to PineTime (to query the firmware inside): [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L345-L376)
+Here's the request message `ImageStateReadReq` that we'll be transmitting to PineTime (to query the firmware inside): [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/companion/newtmgr.dart#L345-L376)
 
 ```dart
 class ImageStateReadReq 
@@ -658,7 +658,7 @@ builder.writeString('hash');  //  Key
 builder.writeArray(<int>[112, 62, 187, 248, 17, 69, 139, 31, 173, 24, 158, 100, 227, 165, 224, 248, 9, 203, 230, 186, 216, 131, 199, 107, 61, 215, 18, 121, 28, 130, 47, 181]);  //  Byte Array Value
 ```
 
-This field encoding code is missing from Go because the CBOR Encoder in Go uses Field Tags (like `codec:"slot"`). Check this for an example of CBOR field encoding in Go: [`nmxact/nmp/image.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go#L97-L108)
+This field encoding code is missing from Go because the CBOR Encoder in Go uses Field Tags (like `codec:"slot"`). Check this for an example of CBOR field encoding in Go: [`nmxact/nmp/image.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/companion/nmxact/nmp/image.go#L97-L108)
 
 # Test Dart Code on Command Line
 
@@ -666,7 +666,7 @@ Now that we have the Dart code to create a CBOR request message for PineTime... 
 
 Dart makes testing really easy because Dart programs can be run from the command line.
 
-First we add a `main()` function that creates a CBOR request message: [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L646-L661)
+First we add a `main()` function that creates a CBOR request message: [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/companion/newtmgr.dart#L646-L661)
 
 ```dart
 /// Our Dart program starts jere
@@ -687,7 +687,7 @@ typed.Uint8Buffer composeRequest() {
 }
 ```
 
-Add the dependent libraries to [`pubspec.yaml`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/pubspec.yaml)...
+Add the dependent libraries to [`pubspec.yaml`](https://github.com/lupyuen/mynewt-newtmgr/blob/companion/pubspec.yaml)...
 
 ```yaml
 name: newtmgr
@@ -729,7 +729,7 @@ _How did we get the 9 bytes `00` ... `a0` for our PineTime request message?_
 
 `a0` is the CBOR Encoding for the empty Message Body `{}`. Yep CBOR needs only one byte to encode the two-byte JSON!
 
-The preceding 8 bytes `00 00 00 01 00 01 bb 00` are the Message Header, defined in [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart#L29-L37)
+The preceding 8 bytes `00 00 00 01 00 01 bb 00` are the Message Header, defined in [`newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/companion/newtmgr.dart#L29-L37)
 
 ```dart
 /// SMP Message Header
@@ -773,9 +773,9 @@ Here's the new repository for our integrated Flutter App:
 
 [`github.com/lupyuen/pinetime-companion`](https://github.com/lupyuen/pinetime-companion)
 
-We take the Dart code from [`mynewt-newtmgr/newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/newtmgr.dart) and add it to the new repository at [`pinetime-companion//lib/newtmgr.dart`](https://github.com/lupyuen/pinetime-companion/blob/master/lib/newtmgr.dart)
+We take the Dart code from [`mynewt-newtmgr/newtmgr.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/companion/newtmgr.dart) and add it to the new repository at [`pinetime-companion/lib/newtmgr.dart`](https://github.com/lupyuen/pinetime-companion/blob/companion/lib/newtmgr.dart)
 
-Let's find the right spot to inject our new code, to compose a PineTime request message and transmit to PineTime: [`main.dart`](https://github.com/lupyuen/pinetime-companion/blob/master/lib/main.dart#L154-L197)
+Let's find the right spot to inject our new code, to compose a PineTime request message and transmit to PineTime: [`main.dart`](https://github.com/lupyuen/pinetime-companion/blob/companion/lib/main.dart#L154-L197)
 
 ```dart
 /// Screen that displays GATT Services and Characteristics for a Bluetooth LE device
@@ -833,7 +833,7 @@ That's how we transmit requests to PineTime: We write to the GATT Characteristic
 
 (Simple Management Protocol is exposed by PineTime as Service `8D53DC1D-1DB7-4CD3-868B-8A527460AA84`, Characteristic `DA2E7828-FBCE-4E01-AE9E-261174997C48`, shortened to `0xDC1D` and `0x7828` respectively in the screen above)
 
-Tapping the Write icon will trigger our function `_getRequestBytes()` defined in [`main.dart`](https://github.com/lupyuen/pinetime-companion/blob/master/lib/main.dart#L154-L197)
+Tapping the Write icon will trigger our function `_getRequestBytes()` defined in [`main.dart`](https://github.com/lupyuen/pinetime-companion/blob/companion/lib/main.dart#L154-L197)
 
 ```dart
 //  Import the Dart code for composing PineTime requests
