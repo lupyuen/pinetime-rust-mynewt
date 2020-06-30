@@ -246,7 +246,7 @@
                 "command": "bash",
                 "args": [
                     "-c", "-l",
-                    " article=companion ; set -e -x ; cat scripts/articles/$article-header.html scripts/rustdoc-header.html >article-rustdoc-header.html ; rustdoc --output docs/articles --html-in-header article-rustdoc-header.html --html-before-content scripts/rustdoc-before.html rust/app/src/$article.md ; cargo doc --document-private-items ; echo ✅ ◾ ️Done! target/thumbv7m-none-eabi/doc "
+                    " article=ast ; set -e -x ; cat scripts/articles/$article-header.html scripts/rustdoc-header.html >article-rustdoc-header.html ; rustdoc --output docs/articles --html-in-header article-rustdoc-header.html --html-before-content scripts/rustdoc-before.html rust/app/src/$article.md ; cargo doc --document-private-items ; echo ✅ ◾ ️Done! target/thumbv7m-none-eabi/doc "
                 ]
             },
             "linux": {
