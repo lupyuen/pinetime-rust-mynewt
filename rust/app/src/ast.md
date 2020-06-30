@@ -292,7 +292,11 @@ func convertStruct(fileset *token.FileSet, decl *ast.GenDecl) {
             // Generate CBOR encoder
             generateCborEncoder(fileset, fields)
           }
+```
 
+Code conversion is fuzzy and somewhat unreliable, so we always put checks to ensure that we are interpreting the code correctly...
+
+```go
         default:
           fmt.Println("*** Unknown Spec Type:")
           ast.Print(fileset, spec.Type)
