@@ -283,9 +283,9 @@ Here's how we walk an Abstract Syntax Tree and convert each chunk of Go code in 
 ```go
 // Inspect the Abstract Syntax Tree of our Go code and convert to Dart
 func convertGoToDart() {
-  // Omitted: Create the Abstract Syntax Tree by parsing Go code
+  // Omitted: Create the Abstract Syntax Tree in "node" by parsing Go code
   ...
-  // Convert all Go Struct and Function Declarations in node
+  // Convert all Go Struct and Function Declarations in "node"
   for _, decl := range node.Decls {
     // What kind of subtree is this?
     switch decl := decl.(type) {
