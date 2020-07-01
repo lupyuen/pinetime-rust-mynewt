@@ -296,6 +296,16 @@ func convertGoToDart() {
 }
 ```
 
+Recall that `node` contains a Go Struct and a Go Function...
+
+```go
+type ImageUploadReq struct { ... }
+
+func NewImageUploadReq() *ImageUploadReq { ... }
+```
+
+The `ast` library parses both as Declarations.
+
 TODO
 
 # Auto Convert Go Type to Dart
