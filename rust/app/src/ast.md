@@ -69,20 +69,6 @@ ImageUploadReq NewImageUploadReq() {
 }
 ```
 
-# Why Auto Convert Go to Dart?
-
-TODO
-
-Both languages were created at Google, yet so different
-
-Minimise errors in conversion
-
-Huge volume of code
-
-Consistency of conversion
-
-Easy cross reference
-
 # Manual Conversion From Go To Dart Gets Really Tiring
 
 Earlier we attempted a manual code conversion from Go to Dart...
@@ -648,7 +634,9 @@ TODO
 
 ```
 > Executing task: /usr/local/go/bin/go run dart/convert.go <
+```
 
+```go
 //  Go Code...
 
 package main
@@ -668,7 +656,9 @@ func NewImageUploadReq() *ImageUploadReq {
         fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD)
         return r
 }
+```
 
+```dart
 //  Converted To Dart...
 
 class ImageUploadReq 
@@ -707,6 +697,20 @@ ImageUploadReq NewImageUploadReq() {
   return r;
 }
 ```
+
+# Why Auto Convert Go to Dart?
+
+TODO
+
+Both languages were created at Google, yet so different
+
+Minimise errors in conversion
+
+Huge volume of code
+
+Consistency of conversion
+
+Easy cross reference
 
 # What's Next
 
