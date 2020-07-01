@@ -241,7 +241,7 @@ type ImageUploadReq struct {
   NmpBase  ` + bt + `codec:"-"` + bt + `
   ImageNum uint8  ` + bt + `codec:"image"` + bt + `
   Off      uint32 ` + bt + `codec:"off"` + bt + `
-  ...
+  // ...Omitted...
 }
 
 func NewImageUploadReq() *ImageUploadReq {
@@ -251,7 +251,7 @@ func NewImageUploadReq() *ImageUploadReq {
 }
 ```
 
-The `ParseFile()` method parses the Go code in `src` and returns the Abstract Syntax Tree in `node`
+The `ParseFile()` method above parses the Go code in `src` and returns the Abstract Syntax Tree in `node`...
 
 ```go
 node, err := parser.ParseFile(fileset, "src.go", src, 0)
@@ -265,36 +265,49 @@ _Why did we call `NewFileSet()`?_
 fileset := token.NewFileSet()
 ```
 
+This creates a `FileSet` object that tracks the filename, line number and column number of our Go code in the Abstract Syntax Tree.
 
-
+`FileSet` is useful for flagging the Go code that fails with our automatic conversion.
+![Syntax Tree for a Go Struct](https://lupyuen.github.io/images/ast-go.png)
 # Walk the Abstract Syntax Tree
 
-TODO
+Now that we have the Abstract Syntax Tree in `node`, let's [walk the tree!](https://en.wikipedia.org/wiki/Tree_traversal)
 
-Here is the code that walks an Abstract Syntax Tree and converts each chunk of Go code: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go)
+_(Caution: Never walk under a Durian Tree!)_
+
+Here's how we walk an Abstract Syntax Tree and convert each chunk of Go code in the tree: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go#L76-L103)
 
 ```go
 // Inspect the Abstract Syntax Tree of our Go code and convert to Dart
 func convertGoToDart() {
   // Omitted: Create the Abstract Syntax Tree by parsing Go code
   ...
-  // Convert all Go Struct and Function Declarations
+  // Convert all Go Struct and Function Declarations in node
   for _, decl := range node.Decls {
-    // ast.Print(fileset, decl)
+    // What kind of subtree is this?
     switch decl := decl.(type) {
+
+    // If it's a Generic Declaration...
     case *ast.GenDecl:
-      // Convert Go Struct to Dart
+      // Convert the Go Struct to Dart
       convertStruct(fileset, decl)
+
+    // If it's a Function Declaration...
     case *ast.FuncDecl:
-      // Convert Go Function to Dart
+      // Convert the Go Function to Dart
       convertFunction(fileset, decl)
+
+    // Not sure!
     default:
+      // Flag the code location using the fileset
       fmt.Println("*** Unknown Decl:")
       ast.Print(fileset, decl)
     }
   }
 }
 ```
+
+TODO
 
 # Auto Convert Go Type to Dart
 
