@@ -4,7 +4,11 @@
 
 _Work-in-progress PineTime Companion App on iPhone, converted from Go to Flutter and Dart_
 
-TODO
+We're now building with [__Flutter__](https://flutter.dev/) the open source __[Android and iOS Companion App](https://github.com/lupyuen/pinetime-companion)__ for __[PineTime Smart Watch](https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime)__: For updating firmware, syncing date/time, pushing mobile notifications, controlling our smart home gadgets, ... and so much more!
+
+There's a problem: The code to do all this is available in Go... But Flutter runs on another language: Dart!
+
+Today we shall experiment with __converting Go code to Dart automatically.__ The conversion may not be perfect, but it will be very helpful for building the PineTime Companion App!
 
 Let's learn how this Go code...
 
