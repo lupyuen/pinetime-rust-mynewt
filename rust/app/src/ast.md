@@ -234,6 +234,13 @@ type ImageUploadReq struct {
   ImageNum uint8  ` + bt + `codec:"image"` + bt + `
   Off      uint32 ` + bt + `codec:"off"` + bt + `
   ...
+}
+
+func NewImageUploadReq() *ImageUploadReq {
+  r := &ImageUploadReq{}
+  fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD)
+  return r
+}
 ```
 
 Why use Abstract Syntax Tree not LLVM?
