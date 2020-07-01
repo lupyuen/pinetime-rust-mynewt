@@ -249,6 +249,7 @@ func NewImageUploadReq() *ImageUploadReq {
   fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD)
   return r
 }
+`
 ```
 
 The `ParseFile()` method above parses the Go code in `src` and returns the Abstract Syntax Tree in `node`...
@@ -265,7 +266,7 @@ _Why did we call `NewFileSet()`?_
 fileset := token.NewFileSet()
 ```
 
-This creates a `FileSet` object that tracks the filename, line number and column number of our Go code in the Abstract Syntax Tree.
+This creates a [`FileSet` object](https://golang.org/pkg/go/token/#FileSet) that tracks the filename, line number and column number of our Go code in the Abstract Syntax Tree.
 
 `FileSet` is useful for flagging the Go code that fails with our automatic conversion.
 

@@ -259,6 +259,7 @@ func NewImageUploadReq() *ImageUploadReq {
   fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD)
   return r
 }
+`
 </code></pre>
 <p>The <code>ParseFile()</code> method above parses the Go code in <code>src</code> and returns the Abstract Syntax Tree in <code>node</code>...</p>
 <pre><code class="language-go">node, err := parser.ParseFile(fileset, &quot;src.go&quot;, src, 0)
@@ -267,7 +268,7 @@ func NewImageUploadReq() *ImageUploadReq {
 <p><em>Why did we call <code>NewFileSet()</code>?</em></p>
 <pre><code class="language-go">fileset := token.NewFileSet()
 </code></pre>
-<p>This creates a <code>FileSet</code> object that tracks the filename, line number and column number of our Go code in the Abstract Syntax Tree.</p>
+<p>This creates a <a href="https://golang.org/pkg/go/token/#FileSet"><code>FileSet</code> object</a> that tracks the filename, line number and column number of our Go code in the Abstract Syntax Tree.</p>
 <p><code>FileSet</code> is useful for flagging the Go code that fails with our automatic conversion.</p>
 <p><img src="https://lupyuen.github.io/images/ast-go2.png" alt="Walking the Abstract Syntax Tree" /></p>
 <h1 id="walk-the-abstract-syntax-tree" class="section-header"><a href="#walk-the-abstract-syntax-tree">5 Walk the Abstract Syntax Tree</a></h1>
