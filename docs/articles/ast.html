@@ -79,8 +79,7 @@
 <p>We're now building with <a href="https://flutter.dev/"><strong>Flutter</strong></a> the open source <strong><a href="https://github.com/lupyuen/pinetime-companion">Android and iOS Companion App</a></strong> for <strong><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime">PineTime Smart Watch</a></strong>: For updating firmware, syncing date/time, pushing mobile notifications, controlling our smart home gadgets, ... and so much more!</p>
 <p>There's a problem: The code to do all this is available in Go... But Flutter runs on another language: Dart!</p>
 <p>Today we shall experiment with <strong>converting Go code to Dart automatically.</strong> The conversion may not be perfect, but it will be very helpful for building the PineTime Companion App!</p>
-<p>Let's learn how this Go code...</p>
-<p><a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go"><code>nmxact/nmp/image.go</code></a></p>
+<p>Read on to learn how this Go code: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go"><code>nmxact/nmp/image.go</code></a></p>
 <pre><code class="language-go">//  Convert From Go...
 //  Go Struct
 type ImageUploadReq struct {
@@ -100,8 +99,7 @@ func NewImageUploadReq() *ImageUploadReq {
   return r
 }
 </code></pre>
-<p>Was automatically converted to this Dart code...</p>
-<p><a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/nmp/image.dart"><code>dart/nmp/image.dart</code></a></p>
+<p>Was automatically converted to this Dart code: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/nmp/image.dart"><code>dart/nmp/image.dart</code></a></p>
 <pre><code class="language-dart">//  Converted To Dart...
 //  Converted Dart Class
 class ImageUploadReq 

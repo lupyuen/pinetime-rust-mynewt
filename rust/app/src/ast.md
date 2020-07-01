@@ -10,9 +10,7 @@ There's a problem: The code to do all this is available in Go... But Flutter run
 
 Today we shall experiment with __converting Go code to Dart automatically.__ The conversion may not be perfect, but it will be very helpful for building the PineTime Companion App!
 
-Let's learn how this Go code...
-
-[`nmxact/nmp/image.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go)
+Read on to learn how this Go code: [`nmxact/nmp/image.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go)
 
 ```go
 //  Convert From Go...
@@ -35,9 +33,7 @@ func NewImageUploadReq() *ImageUploadReq {
 }
 ```
 
-Was automatically converted to this Dart code...
-
-[`dart/nmp/image.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/nmp/image.dart)
+Was automatically converted to this Dart code: [`dart/nmp/image.dart`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/nmp/image.dart)
 
 ```dart
 //  Converted To Dart...
