@@ -158,7 +158,7 @@ int Len;
 </code></pre>
 </li>
 <li>
-<p>Functions also need to be flipped from this...</p>
+<p>Flip all Functions from this...</p>
 <pre><code class="language-go">//  In Go...
 func NewImageUploadReq() *ImageUploadReq { ...
 </code></pre>
@@ -189,18 +189,45 @@ class ImageUploadReq  {
 <p><em>Surely a computer can do this tedious and mechanical conversion from Go to Dart?</em></p>
 <p>Yes it can, with an <strong>Abstract Syntax Tree</strong>!</p>
 <h1 id="whats-an-abstract-syntax-tree" class="section-header"><a href="#whats-an-abstract-syntax-tree">3 What's an Abstract Syntax Tree?</a></h1>
-<p>TODO</p>
+<p><em>Have you ever wondered... Why do we speak the way we speak?</em></p>
+<p><em>Why is this ok...</em></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+    <span class="ident">I</span> <span class="ident">EAT</span> <span class="ident">RICE</span></pre></div>
+<p><em>But not this?</em></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+    <span class="ident">I</span> <span class="ident">RICE</span></pre></div>
+<p>Because there's a structure in everything that we say...</p>
+<p><img src="https://lupyuen.github.io/images/ast-tree2.jpg" alt="Syntax Tree for a sentence" /></p>
+<p>We call this tree-like structure the <strong>Syntax Tree</strong> (though it looks more like a flying broomstick)</p>
+<p><em>What's a Syntax Tree good for?</em></p>
+<p>A Syntax Tree is useful for translating languages. To translate <code>I EAT RICE</code> to Chinese, we take each chunk of the tree (&quot;subtree&quot;) and translate each chunk to Chinese...</p>
+<p><img src="https://lupyuen.github.io/images/ast-tree.jpg" alt="Translating the Syntax Tree for a sentence" /></p>
+<p><em>Does this work for translating Programming Languages like Go and Dart?</em></p>
+<p>Yes! Our Go program may also be structured as a Syntax Tree...</p>
+<p><img src="https://lupyuen.github.io/images/ast-go.png" alt="Syntax Tree for a Go Struct" /></p>
+<p>And we may translate the Syntax Tree to Dart the same way, subtree by subtree.</p>
+<p><em>Why not just translate word by word?</em></p>
+<p>Because the Surrounding Context matters!</p>
+<p>If we don't look at the surrounding text, translating <code>I EAT RICE</code> word for word produces this hilarious result...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+    <span class="ident">我吃米</span></pre></div>
+<p>Which sounds really weird because it means...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+    <span class="ident">I</span> <span class="ident">EAT</span> <span class="ident">UNCOOKED</span> <span class="ident">RICE</span></pre></div>
+<p><em>(Unless we really meant to say &quot;老鼠吃大米&quot;)</em></p>
+<p>Let's find out how to generate a Syntax Tree automatically for our Go code.</p>
 <h1 id="generate-an-abstract-syntax-tree" class="section-header"><a href="#generate-an-abstract-syntax-tree">4 Generate an Abstract Syntax Tree</a></h1>
 <p>TODO</p>
 <p>Here is the code that generates an Abstract Syntax Tree given a block of Go code: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go"><code>dart/convert.go</code></a></p>
 <pre><code class="language-go">// Inspect the Abstract Syntax Tree of our Go code and convert to Dart
 func convertGoToDart() {
-  fmt.Printf(&quot;//  Go Code...\n%s\n&quot;, src)
-  fmt.Println(&quot;//  Converted To Dart...\n&quot;)
-
-  // Create the Abstract Syntax Tree by parsing Go code
+  // Create the Abstract Syntax Tree by parsing the Go code in &quot;src&quot;
   fileset := token.NewFileSet()                            // Positions are relative to fileset
-  node, err := parser.ParseFile(fileset, &quot;src.go&quot;, src, 0) // Change src to nil to parse a file instead of string
+  node, err := parser.ParseFile(fileset, &quot;src.go&quot;, src, 0) // Change &quot;src&quot; to &quot;nil&quot; to parse the file &quot;src.go&quot; instead of string
   if err != nil {
     panic(err)
   }

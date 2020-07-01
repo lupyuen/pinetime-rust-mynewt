@@ -179,9 +179,9 @@ _Does this work for translating Programming Languages like Go and Dart?_
 
 Yes! Our Go program may also be structured as a Syntax Tree...
 
-???
+![Syntax Tree for a Go Struct](https://lupyuen.github.io/images/ast-go.png)
 
-Making it easier to convert to Dart, subtree by subtree.
+And we may translate the Syntax Tree to Dart the same way, subtree by subtree.
 
 _Why not just translate word by word?_
 
@@ -201,7 +201,7 @@ Which sounds really weird because it means...
 
 _(Unless we really meant to say "老鼠吃大米")_
 
-Now let's find out how to generate a Syntax Tree automatically for our Go code.
+Let's find out how to generate a Syntax Tree automatically for our Go code.
 
 # Generate an Abstract Syntax Tree
 
@@ -212,12 +212,9 @@ Here is the code that generates an Abstract Syntax Tree given a block of Go code
 ```go
 // Inspect the Abstract Syntax Tree of our Go code and convert to Dart
 func convertGoToDart() {
-  fmt.Printf("//  Go Code...\n%s\n", src)
-  fmt.Println("//  Converted To Dart...\n")
-
-  // Create the Abstract Syntax Tree by parsing Go code
+  // Create the Abstract Syntax Tree by parsing the Go code in "src"
   fileset := token.NewFileSet()                            // Positions are relative to fileset
-  node, err := parser.ParseFile(fileset, "src.go", src, 0) // Change src to nil to parse a file instead of string
+  node, err := parser.ParseFile(fileset, "src.go", src, 0) // Change "src" to "nil" to parse the file "src.go" instead of string
   if err != nil {
     panic(err)
   }
