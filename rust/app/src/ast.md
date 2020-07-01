@@ -210,11 +210,19 @@ TODO
 Here is the code that generates an Abstract Syntax Tree given a block of Go code: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go)
 
 ```go
+import (
+  "go/ast"
+  "go/format"
+  "go/parser"
+  "go/token"
+)
+
 // Inspect the Abstract Syntax Tree of our Go code and convert to Dart
 func convertGoToDart() {
   // Create the Abstract Syntax Tree by parsing the Go code in "src"
-  fileset := token.NewFileSet()                            // Positions are relative to fileset
-  node, err := parser.ParseFile(fileset, "src.go", src, 0) // Change "src" to "nil" to parse the file "src.go" instead of string
+  fileset := token.NewFileSet() // Positions are relative to fileset
+  // Change "src" to "nil" to parse the file "src.go" instead of the string
+  node, err := parser.ParseFile(fileset, "src.go", src, 0)
   if err != nil {
     panic(err)
   }
@@ -222,7 +230,7 @@ func convertGoToDart() {
 }
 ```
 
-`src` is a string that contains our Go source code that will be converted to Dart...
+`src` is a string that contains our Go source code (that will be converted to Dart)...
 
 ```go
 // Go code to be converted to Dart. "package" is mandatory. "bt" means backtick "`"
