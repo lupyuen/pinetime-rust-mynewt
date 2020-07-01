@@ -221,44 +221,88 @@ class ImageUploadReq  {
 <p><em>(Unless we really meant to say &quot;老鼠吃大米&quot;)</em></p>
 <p>Let's find out how to generate a Syntax Tree automatically for our Go code.</p>
 <h1 id="generate-an-abstract-syntax-tree" class="section-header"><a href="#generate-an-abstract-syntax-tree">4 Generate an Abstract Syntax Tree</a></h1>
-<p>TODO</p>
-<p>Here is the code that generates an Abstract Syntax Tree given a block of Go code: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go"><code>dart/convert.go</code></a></p>
-<pre><code class="language-go">// Inspect the Abstract Syntax Tree of our Go code and convert to Dart
+<p>Go provides the <a href="https://golang.org/pkg/go/ast/"><code>ast</code> library</a> for parsing Go code into an Abstract Syntax Tree.</p>
+<p>Here's how we call <code>ast</code> to generate an Abstract Syntax Tree for a block of Go code: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go#L76-L103"><code>dart/convert.go</code></a></p>
+<pre><code class="language-go">import (
+  &quot;go/ast&quot;
+  &quot;go/format&quot;
+  &quot;go/parser&quot;
+  &quot;go/token&quot;
+)
+
+// Inspect the Abstract Syntax Tree of our Go code and convert to Dart
 func convertGoToDart() {
   // Create the Abstract Syntax Tree by parsing the Go code in &quot;src&quot;
-  fileset := token.NewFileSet()                            // Positions are relative to fileset
-  node, err := parser.ParseFile(fileset, &quot;src.go&quot;, src, 0) // Change &quot;src&quot; to &quot;nil&quot; to parse the file &quot;src.go&quot; instead of string
+  fileset := token.NewFileSet() // Positions are relative to fileset
+  // Change &quot;src&quot; to &quot;nil&quot; to parse the file &quot;src.go&quot; instead of the string
+  node, err := parser.ParseFile(fileset, &quot;src.go&quot;, src, 0)
   if err != nil {
     panic(err)
   }
   ...
 }
 </code></pre>
-<p>Why use Abstract Syntax Tree not LLVM?</p>
+<p><code>src</code> is a string that contains our Go source code (that will be converted to Dart)...</p>
+<pre><code class="language-go">// Go code to be converted to Dart. &quot;package&quot; is mandatory. &quot;bt&quot; means backtick &quot;`&quot;
+const src = `
+package main
+
+type ImageUploadReq struct {
+  NmpBase  ` + bt + `codec:&quot;-&quot;` + bt + `
+  ImageNum uint8  ` + bt + `codec:&quot;image&quot;` + bt + `
+  Off      uint32 ` + bt + `codec:&quot;off&quot;` + bt + `
+  // ...Omitted...
+}
+
+func NewImageUploadReq() *ImageUploadReq {
+  r := &amp;ImageUploadReq{}
+  fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD)
+  return r
+}
+</code></pre>
+<p>The <code>ParseFile()</code> method above parses the Go code in <code>src</code> and returns the Abstract Syntax Tree in <code>node</code>...</p>
+<pre><code class="language-go">node, err := parser.ParseFile(fileset, &quot;src.go&quot;, src, 0)
+</code></pre>
+<p>We'll inspect <code>node</code> in the next section.</p>
+<p><em>Why did we call <code>NewFileSet()</code>?</em></p>
+<pre><code class="language-go">fileset := token.NewFileSet()
+</code></pre>
+<p>This creates a <code>FileSet</code> object that tracks the filename, line number and column number of our Go code in the Abstract Syntax Tree.</p>
+<p><code>FileSet</code> is useful for flagging the Go code that fails with our automatic conversion.</p>
+<p><img src="https://lupyuen.github.io/images/ast-go2.png" alt="Walking the Abstract Syntax Tree" /></p>
 <h1 id="walk-the-abstract-syntax-tree" class="section-header"><a href="#walk-the-abstract-syntax-tree">5 Walk the Abstract Syntax Tree</a></h1>
-<p>TODO</p>
-<p>Here is the code that walks an Abstract Syntax Tree and converts each chunk of Go code: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go"><code>dart/convert.go</code></a></p>
+<p>Now that we have the Abstract Syntax Tree in <code>node</code>, let's <a href="https://en.wikipedia.org/wiki/Tree_traversal">walk the tree!</a></p>
+<p><em>(Caution: Never walk under a Durian Tree!)</em></p>
+<p>Here's how we walk an Abstract Syntax Tree and convert each chunk of Go code in the tree: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go#L76-L103"><code>dart/convert.go</code></a></p>
 <pre><code class="language-go">// Inspect the Abstract Syntax Tree of our Go code and convert to Dart
 func convertGoToDart() {
   // Omitted: Create the Abstract Syntax Tree by parsing Go code
   ...
-  // Convert all Go Struct and Function Declarations
+  // Convert all Go Struct and Function Declarations in node
   for _, decl := range node.Decls {
-    // ast.Print(fileset, decl)
+    // What kind of subtree is this?
     switch decl := decl.(type) {
+
+    // If it's a Generic Declaration...
     case *ast.GenDecl:
-      // Convert Go Struct to Dart
+      // Convert the Go Struct to Dart
       convertStruct(fileset, decl)
+
+    // If it's a Function Declaration...
     case *ast.FuncDecl:
-      // Convert Go Function to Dart
+      // Convert the Go Function to Dart
       convertFunction(fileset, decl)
+
+    // Not sure!
     default:
+      // Flag the code location using the fileset
       fmt.Println(&quot;*** Unknown Decl:&quot;)
       ast.Print(fileset, decl)
     }
   }
 }
 </code></pre>
+<p>TODO</p>
 <h1 id="auto-convert-go-type-to-dart" class="section-header"><a href="#auto-convert-go-type-to-dart">6 Auto Convert Go Type to Dart</a></h1>
 <p>TODO</p>
 <p>Here is the code that converts a Go Type to Dart and CBOR: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go"><code>dart/convert.go</code></a></p>
