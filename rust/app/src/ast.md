@@ -222,6 +222,20 @@ func convertGoToDart() {
 }
 ```
 
+`src` is a string that contains our Go source code that will be converted to Dart...
+
+```go
+// Go code to be converted to Dart. "package" is mandatory. "bt" means backtick "`"
+const src = `
+package main
+
+type ImageUploadReq struct {
+  NmpBase  ` + bt + `codec:"-"` + bt + `
+  ImageNum uint8  ` + bt + `codec:"image"` + bt + `
+  Off      uint32 ` + bt + `codec:"off"` + bt + `
+  ...
+```
+
 Why use Abstract Syntax Tree not LLVM?
 
 # Walk the Abstract Syntax Tree
