@@ -230,7 +230,7 @@ func convertGoToDart() {
 }
 ```
 
-`src` is a string that contains our Go source code (that will be converted to Dart)...
+`src` is a string that contains our Go source code (that will be converted to Dart): [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go#L16-L35)...
 
 ```go
 // Go code to be converted to Dart. "package" is mandatory. "bt" means backtick "`"
