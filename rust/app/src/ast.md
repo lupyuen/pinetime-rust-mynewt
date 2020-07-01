@@ -268,7 +268,9 @@ fileset := token.NewFileSet()
 This creates a `FileSet` object that tracks the filename, line number and column number of our Go code in the Abstract Syntax Tree.
 
 `FileSet` is useful for flagging the Go code that fails with our automatic conversion.
-![Syntax Tree for a Go Struct](https://lupyuen.github.io/images/ast-go.png)
+
+![Walking the Abstract Syntax Tree](https://lupyuen.github.io/images/ast-go2.png)
+
 # Walk the Abstract Syntax Tree
 
 Now that we have the Abstract Syntax Tree in `node`, let's [walk the tree!](https://en.wikipedia.org/wiki/Tree_traversal)
