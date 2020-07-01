@@ -205,9 +205,9 @@ Let's find out how to generate a Syntax Tree automatically for our Go code.
 
 # Generate an Abstract Syntax Tree
 
-TODO
+Go provides the [`ast` library](https://golang.org/pkg/go/ast/) for parsing Go code into an Abstract Syntax Tree.
 
-Here is the code that generates an Abstract Syntax Tree given a block of Go code: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go)
+Here's how we call `ast` to generate an Abstract Syntax Tree for a block of Go code: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go#L76-L103)
 
 ```go
 import (
@@ -251,7 +251,21 @@ func NewImageUploadReq() *ImageUploadReq {
 }
 ```
 
-Why use Abstract Syntax Tree not LLVM?
+The `ParseFile()` method parses the Go code in `src` and returns the Abstract Syntax Tree in `node`
+
+```go
+node, err := parser.ParseFile(fileset, "src.go", src, 0)
+```
+
+We'll inspect `node` in the next section.
+
+_Why did we call `NewFileSet()`?_
+
+```go
+fileset := token.NewFileSet()
+```
+
+
 
 # Walk the Abstract Syntax Tree
 
