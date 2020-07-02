@@ -360,24 +360,17 @@ Go has specific numeric types like `uint8` (unsigned 8-bit integer), but Dart on
 | `uint32` | `int` | `Int`
 | `[]byte` | `typed.Uint8Buffer` | `Array`
 
-We use `Uint8Buffer` from the [`typed_data` library](https://pub.dev/packages/typed_data) to represent byte buffers (like Bluetooth messages).
+We use `Uint8Buffer` from the [`typed_data` Dart Library](https://pub.dev/packages/typed_data) to represent byte buffers (like Bluetooth messages).
 
 _What's the CBOR Type?_
 
+Our PineTime Smart Watch firmware exposes the [Simple Management Protocol](https://github.com/apache/mynewt-mcumgr) over Bluetooth LE. The protocol supports a [rich set of commands](https://github.com/apache/mynewt-mcumgr/tree/master/cmd) for updating PineTime firmware, accessing the PineTime Flash filesystem, debug logs, runtime statistics, ...
 
+The Simple Management Protocol uses [CBOR](https://en.wikipedia.org/wiki/CBOR) to encode the Bluetooth LE messages. (Think of CBOR as a compact, binary form of JSON)
 
-Here is the code that converts a Go Type to Dart and CBOR: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go)
+Thus each Go Type also needs to be encoded as a CBOR Type. We'll be encoding CBOR messages with the [`cbor` Dart Library](https://pub.dev/packages/cbor).
 
-```go
-// DartField represents a Go Struct Field converted to Dart and CBOR
-type DartField struct {
-  Name     string // "Len"
-  CborName string // "len"
-  GoType   string // "uint32"
-  DartType string // "int"
-  CborType string // "Int"
-}
-```
+Here is the code that converts a Go Type to Dart and CBOR: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go#L265-L281)
 
 ```go
 // Convert a Go type to Dart type and CBOR type
@@ -396,6 +389,19 @@ func convertType(typeName string) (string, string) {
   default:
     return "UNKNOWN", "UNKNOWN"
   }
+}
+```
+
+For convenience, we create a `DartField` Struct that stores the converted types: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go#L204-L211)
+
+```go
+// DartField represents a Go Struct Field converted to Dart and CBOR
+type DartField struct {
+  Name     string // e.g. "Len"
+  CborName string // e.g. "len"
+  GoType   string // e.g. "uint32"
+  DartType string // e.g. "int"
+  CborType string // e.g. "Int"
 }
 ```
 
