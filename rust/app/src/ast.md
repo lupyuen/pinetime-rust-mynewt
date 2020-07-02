@@ -406,6 +406,8 @@ type DartField struct {
 }
 ```
 
+We'll use `DartField` in the next section.
+
 # Auto Convert Go Field to Dart
 
 TODO
