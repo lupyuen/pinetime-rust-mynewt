@@ -296,7 +296,7 @@ func convertGoToDart() {
 }
 ```
 
-Recall that `node` contains a Go Struct and a Go Function...
+Let's study the code above. Recall that `node` contains a Go Struct and a Go Function...
 
 ```go
 //  Go Struct parsed as Generic Declaration (GenDecl)
@@ -340,13 +340,31 @@ case *ast.FuncDecl:
 
 Then we call...
 
-1. __`convertStruct()`__ to convert Go Structs (`GenDecl`)
+1. __`convertStruct()`__ to convert a Go Struct (parsed as `GenDecl`)
 
-1. __`convertFunction()`__ to convert Go Functions (`FuncDecl`)
+1. __`convertFunction()`__ to convert a Go Function (parsed as `FuncDecl`)
+
+We'll see `convertStruct()` and `convertFunction()` in a while. First let's learn how Go types are converted to Dart.
 
 # Auto Convert Go Type to Dart
 
-TODO
+Now we'll map Go Types to Dart Types, which is needed for converting Go Structs and Functions. 
+
+Go has specific numeric types like `uint8` (unsigned 8-bit integer), but Dart only has a single integer type: `int`. Here's how we map the types...
+
+| Go Type | Dart Type | CBOR Type 
+| :-- | :-- | :-- | :--
+| `bool` | `bool` | `Bool`
+| `uint8` | `int` | `Int`
+| `uint16` | `int` | `Int`
+| `uint32` | `int` | `Int`
+| `[]byte` | `typed.Uint8Buffer` | `Array`
+
+We use `Uint8Buffer` from the [`typed_data` library](https://pub.dev/packages/typed_data) to represent byte buffers (like Bluetooth messages).
+
+_What's the CBOR Type?_
+
+
 
 Here is the code that converts a Go Type to Dart and CBOR: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go)
 
