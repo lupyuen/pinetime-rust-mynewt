@@ -299,14 +299,50 @@ func convertGoToDart() {
 Recall that `node` contains a Go Struct and a Go Function...
 
 ```go
+//  Go Struct parsed as Generic Declaration (GenDecl)
 type ImageUploadReq struct { ... }
 
+//  Go Function parsed as Function Declaration (FuncDecl)
 func NewImageUploadReq() *ImageUploadReq { ... }
 ```
 
-The `ast` library parses both as Declarations.
+The `ast` library parses both as __Declarations__...
 
-TODO
+1. __Generic Declaration (`GenDecl`)__: Go Struct
+
+1. __Function Declaration (`FuncDecl`)__: Go Function
+
+Declarations are parked under the `Decls` property of our `node`. 
+
+Hence we iterate over all `Decls` like so...
+
+```go
+// "Decls" contains all Go Struct and Function Declarations in "node"
+for _, decl := range node.Decls { ...
+```
+
+Next we inspect the type of the Declaration in `decl`...
+
+```go
+// What kind of subtree is this?
+switch decl := decl.(type) {
+
+// If it's a Generic Declaration...
+case *ast.GenDecl:
+  // Convert the Go Struct to Dart
+  convertStruct(fileset, decl)
+
+// If it's a Function Declaration...
+case *ast.FuncDecl:
+  // Convert the Go Function to Dart
+  convertFunction(fileset, decl)
+```
+
+Then we call...
+
+1. __`convertStruct()`__ to convert Go Structs (`GenDecl`)
+
+1. __`convertFunction()`__ to convert Go Functions (`FuncDecl`)
 
 # Auto Convert Go Type to Dart
 
@@ -345,6 +381,9 @@ func convertType(typeName string) (string, string) {
 }
 ```
 
+# Auto Convert Go Field to Dart
+
+TODO
 
 ```go
 // Convert a Go Struct Field to Dart
@@ -652,19 +691,19 @@ TODO
 package main
 
 type ImageUploadReq struct {
-        NmpBase  `codec:"-"`
-        ImageNum uint8  `codec:"image"`
-        Off      uint32 `codec:"off"`
-        Len      uint32 `codec:"len,omitempty"`
-        DataSha  []byte `codec:"sha,omitempty"`
-        Upgrade  bool   `codec:"upgrade,omitempty"`
-        Data     []byte `codec:"data"`
+  NmpBase  `codec:"-"`
+  ImageNum uint8  `codec:"image"`
+  Off      uint32 `codec:"off"`
+  Len      uint32 `codec:"len,omitempty"`
+  DataSha  []byte `codec:"sha,omitempty"`
+  Upgrade  bool   `codec:"upgrade,omitempty"`
+  Data     []byte `codec:"data"`
 }
 
 func NewImageUploadReq() *ImageUploadReq {
-        r := &ImageUploadReq{}
-        fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD)
-        return r
+  r := &ImageUploadReq{}
+  fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD)
+  return r
 }
 ```
 

@@ -70,13 +70,14 @@
 <li><a href="#generate-an-abstract-syntax-tree">3 Generate an Abstract Syntax Tree</a><ul></ul></li>
 <li><a href="#walk-the-abstract-syntax-tree">4 Walk the Abstract Syntax Tree</a><ul></ul></li>
 <li><a href="#auto-convert-go-type-to-dart">5 Auto Convert Go Type to Dart</a><ul></ul></li>
-<li><a href="#auto-convert-go-struct-to-dart">6 Auto Convert Go Struct to Dart</a><ul></ul></li>
-<li><a href="#auto-generate-cbor-encoder">7 Auto Generate CBOR Encoder</a><ul></ul></li>
-<li><a href="#auto-convert-go-function-to-dart">8 Auto Convert Go Function to Dart</a><ul></ul></li>
-<li><a href="#test-auto-conversion">9 Test Auto Conversion</a><ul></ul></li>
-<li><a href="#why-auto-convert-go-to-dart">10 Why Auto Convert Go to Dart?</a><ul></ul></li>
-<li><a href="#whats-next">11 What's Next</a><ul></ul></li>
-<li><a href="#further-reading">12 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/bloc-ios.jpg" alt="Work-in-progress PineTime Companion App on iPhone, converted from Go to Flutter and Dart" /></p>
+<li><a href="#auto-convert-go-field-to-dart">6 Auto Convert Go Field to Dart</a><ul></ul></li>
+<li><a href="#auto-convert-go-struct-to-dart">7 Auto Convert Go Struct to Dart</a><ul></ul></li>
+<li><a href="#auto-generate-cbor-encoder">8 Auto Generate CBOR Encoder</a><ul></ul></li>
+<li><a href="#auto-convert-go-function-to-dart">9 Auto Convert Go Function to Dart</a><ul></ul></li>
+<li><a href="#test-auto-conversion">10 Test Auto Conversion</a><ul></ul></li>
+<li><a href="#why-auto-convert-go-to-dart">11 Why Auto Convert Go to Dart?</a><ul></ul></li>
+<li><a href="#whats-next">12 What's Next</a><ul></ul></li>
+<li><a href="#further-reading">13 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/bloc-ios.jpg" alt="Work-in-progress PineTime Companion App on iPhone, converted from Go to Flutter and Dart" /></p>
 <p><em>Work-in-progress PineTime Companion App on iPhone, converted from Go to Flutter and Dart</em></p>
 <p>We're now building with <a href="https://flutter.dev/"><strong>Flutter</strong></a> the open source <strong><a href="https://github.com/lupyuen/pinetime-companion">Android and iOS Companion App</a></strong> for <strong><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime">PineTime Smart Watch</a></strong>: For updating firmware, syncing date/time, pushing mobile notifications, controlling our smart home gadgets, ... and so much more!</p>
 <p>There's a problem: The code to do all this is available in Go... But Flutter runs on another language: Dart!</p>
@@ -298,7 +299,50 @@ func convertGoToDart() {
   }
 }
 </code></pre>
-<p>TODO</p>
+<p>Recall that <code>node</code> contains a Go Struct and a Go Function...</p>
+<pre><code class="language-go">//  Go Struct parsed as Generic Declaration (GenDecl)
+type ImageUploadReq struct { ... }
+
+//  Go Function parsed as Function Declaration (FuncDecl)
+func NewImageUploadReq() *ImageUploadReq { ... }
+</code></pre>
+<p>The <code>ast</code> library parses both as <strong>Declarations</strong>...</p>
+<ol>
+<li>
+<p><strong>Generic Declaration (<code>GenDecl</code>)</strong>: Go Struct</p>
+</li>
+<li>
+<p><strong>Function Declaration (<code>FuncDecl</code>)</strong>: Go Function</p>
+</li>
+</ol>
+<p>Declarations are parked under the <code>Decls</code> property of our <code>node</code>. </p>
+<p>Hence we iterate over all <code>Decls</code> like so...</p>
+<pre><code class="language-go">// &quot;Decls&quot; contains all Go Struct and Function Declarations in &quot;node&quot;
+for _, decl := range node.Decls { ...
+</code></pre>
+<p>Next we inspect the type of the Declaration in <code>decl</code>...</p>
+<pre><code class="language-go">// What kind of subtree is this?
+switch decl := decl.(type) {
+
+// If it's a Generic Declaration...
+case *ast.GenDecl:
+  // Convert the Go Struct to Dart
+  convertStruct(fileset, decl)
+
+// If it's a Function Declaration...
+case *ast.FuncDecl:
+  // Convert the Go Function to Dart
+  convertFunction(fileset, decl)
+</code></pre>
+<p>Then we call...</p>
+<ol>
+<li>
+<p><strong><code>convertStruct()</code></strong> to convert Go Structs (<code>GenDecl</code>)</p>
+</li>
+<li>
+<p><strong><code>convertFunction()</code></strong> to convert Go Functions (<code>FuncDecl</code>)</p>
+</li>
+</ol>
 <h1 id="auto-convert-go-type-to-dart" class="section-header"><a href="#auto-convert-go-type-to-dart">5 Auto Convert Go Type to Dart</a></h1>
 <p>TODO</p>
 <p>Here is the code that converts a Go Type to Dart and CBOR: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go"><code>dart/convert.go</code></a></p>
@@ -329,6 +373,8 @@ func convertType(typeName string) (string, string) {
   }
 }
 </code></pre>
+<h1 id="auto-convert-go-field-to-dart" class="section-header"><a href="#auto-convert-go-field-to-dart">6 Auto Convert Go Field to Dart</a></h1>
+<p>TODO</p>
 <pre><code class="language-go">// Convert a Go Struct Field to Dart
 func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
   dartField := DartField{}
@@ -353,7 +399,7 @@ func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
   return dartField
 }
 </code></pre>
-<h1 id="auto-convert-go-struct-to-dart" class="section-header"><a href="#auto-convert-go-struct-to-dart">6 Auto Convert Go Struct to Dart</a></h1>
+<h1 id="auto-convert-go-struct-to-dart" class="section-header"><a href="#auto-convert-go-struct-to-dart">7 Auto Convert Go Struct to Dart</a></h1>
 <p>TODO</p>
 <p><a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go"><code>nmxact/nmp/image.go</code></a></p>
 <pre><code class="language-go">//  Convert From Go...
@@ -458,7 +504,7 @@ func convertFields(fileset *token.FileSet, astFields []*ast.Field) {
   }
 }
 </code></pre>
-<h1 id="auto-generate-cbor-encoder" class="section-header"><a href="#auto-generate-cbor-encoder">7 Auto Generate CBOR Encoder</a></h1>
+<h1 id="auto-generate-cbor-encoder" class="section-header"><a href="#auto-generate-cbor-encoder">8 Auto Generate CBOR Encoder</a></h1>
 <p>TODO</p>
 <p><a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go"><code>nmxact/nmp/image.go</code></a></p>
 <pre><code class="language-go">//  Convert From Go...
@@ -516,7 +562,7 @@ func generateCborEncoder(fileset *token.FileSet, astFields []*ast.Field) {
   fmt.Println(&quot;  }&quot;)
 }
 </code></pre>
-<h1 id="auto-convert-go-function-to-dart" class="section-header"><a href="#auto-convert-go-function-to-dart">8 Auto Convert Go Function to Dart</a></h1>
+<h1 id="auto-convert-go-function-to-dart" class="section-header"><a href="#auto-convert-go-function-to-dart">9 Auto Convert Go Function to Dart</a></h1>
 <p>TODO</p>
 <p><a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go"><code>nmxact/nmp/image.go</code></a></p>
 <pre><code class="language-go">//  Convert From Go...
@@ -581,7 +627,7 @@ func convertFunction(fileset *token.FileSet, decl *ast.FuncDecl) {
   fmt.Println(&quot;}\n&quot;)
 }
 </code></pre>
-<h1 id="test-auto-conversion" class="section-header"><a href="#test-auto-conversion">9 Test Auto Conversion</a></h1>
+<h1 id="test-auto-conversion" class="section-header"><a href="#test-auto-conversion">10 Test Auto Conversion</a></h1>
 <p>TODO</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -591,19 +637,19 @@ func convertFunction(fileset *token.FileSet, decl *ast.FuncDecl) {
 package main
 
 type ImageUploadReq struct {
-        NmpBase  `codec:&quot;-&quot;`
-        ImageNum uint8  `codec:&quot;image&quot;`
-        Off      uint32 `codec:&quot;off&quot;`
-        Len      uint32 `codec:&quot;len,omitempty&quot;`
-        DataSha  []byte `codec:&quot;sha,omitempty&quot;`
-        Upgrade  bool   `codec:&quot;upgrade,omitempty&quot;`
-        Data     []byte `codec:&quot;data&quot;`
+  NmpBase  `codec:&quot;-&quot;`
+  ImageNum uint8  `codec:&quot;image&quot;`
+  Off      uint32 `codec:&quot;off&quot;`
+  Len      uint32 `codec:&quot;len,omitempty&quot;`
+  DataSha  []byte `codec:&quot;sha,omitempty&quot;`
+  Upgrade  bool   `codec:&quot;upgrade,omitempty&quot;`
+  Data     []byte `codec:&quot;data&quot;`
 }
 
 func NewImageUploadReq() *ImageUploadReq {
-        r := &amp;ImageUploadReq{}
-        fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD)
-        return r
+  r := &amp;ImageUploadReq{}
+  fillNmpReq(r, NMP_OP_WRITE, NMP_GROUP_IMAGE, NMP_ID_IMAGE_UPLOAD)
+  return r
 }
 </code></pre>
 <pre><code class="language-dart">//  Converted To Dart...
@@ -644,14 +690,14 @@ ImageUploadReq NewImageUploadReq() {
   return r;
 }
 </code></pre>
-<h1 id="why-auto-convert-go-to-dart" class="section-header"><a href="#why-auto-convert-go-to-dart">10 Why Auto Convert Go to Dart?</a></h1>
+<h1 id="why-auto-convert-go-to-dart" class="section-header"><a href="#why-auto-convert-go-to-dart">11 Why Auto Convert Go to Dart?</a></h1>
 <p>TODO</p>
 <p>Both languages were created at Google, yet so different</p>
 <p>Minimise errors in conversion</p>
 <p>Huge volume of code</p>
 <p>Consistency of conversion</p>
 <p>Easy cross reference</p>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">11 What's Next</a></h1>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">12 What's Next</a></h1>
 <p>TODO</p>
 <p>The code in this article is part of the upcoming open source <a href="https://github.com/lupyuen/pinetime-companion"><strong>PineTime Companion App</strong></a> for Android and iOS. So that we can update the firmware on our PineTime Smart Watches wirelessly, sync the date and time, show notifications from our phone, chart our heart rate, ... Maybe even control our smart home gadgets! </p>
 <p>We'll be doing lots more coding...</p>
@@ -677,7 +723,7 @@ ImageUploadReq NewImageUploadReq() {
 <p><em>(Maybe someday when Flutter is officially supported on Linux phones, we can scrap the Go version!)</em></p>
 <p>If you're keen to help out with the PineTime Companion App (or anything else in PineTime), <strong>come chat with the PineTime FOSS Community (and me) in the PineTime Chatroom!</strong></p>
 <p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Matrix / Discord / Telegram / IRC</a></p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">12 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">13 Further Reading</a></h1>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/bloc">&quot;Flutter State Management with Bloc for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter">&quot;Your First Bluetooth Low Energy App with Flutter&quot;</a></em></p>
