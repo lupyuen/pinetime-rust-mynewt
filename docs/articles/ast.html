@@ -347,18 +347,18 @@ case *ast.FuncDecl:
 <h1 id="auto-convert-go-type-to-dart" class="section-header"><a href="#auto-convert-go-type-to-dart">5 Auto Convert Go Type to Dart</a></h1>
 <p>Now we'll map Go Types to Dart Types, which is needed for converting Go Structs and Functions. </p>
 <p>Go has specific numeric types like <code>uint8</code> (unsigned 8-bit integer), but Dart only has a single integer type: <code>int</code>. Here's how we map the types...</p>
-<p>| Go Type | Dart Type | CBOR Type 
-| :-- | :-- | :-- | :--
-| <code>bool</code> | <code>bool</code> | <code>Bool</code>
-| <code>uint8</code> | <code>int</code> | <code>Int</code>
-| <code>uint16</code> | <code>int</code> | <code>Int</code>
-| <code>uint32</code> | <code>int</code> | <code>Int</code>
-| <code>[]byte</code> | <code>typed.Uint8Buffer</code> | <code>Array</code></p>
+<p>| Go Type | Dart Type | CBOR Type |
+| :--- | :--- | :--- | :--- |
+| <code>bool</code> | <code>bool</code> | <code>Bool</code> |
+| <code>uint8</code> | <code>int</code> | <code>Int</code> |
+| <code>uint16</code> | <code>int</code> | <code>Int</code> |
+| <code>uint32</code> | <code>int</code> | <code>Int</code> |
+| <code>[]byte</code> | <code>typed.Uint8Buffer</code> | <code>Array</code> |</p>
 <p>We use <code>Uint8Buffer</code> from the <a href="https://pub.dev/packages/typed_data"><code>typed_data</code> Dart Library</a> to represent byte buffers (like Bluetooth messages).</p>
 <p><em>What's the CBOR Type?</em></p>
 <p>Our PineTime Smart Watch firmware exposes the <a href="https://github.com/apache/mynewt-mcumgr">Simple Management Protocol</a> over Bluetooth LE. The protocol supports a <a href="https://github.com/apache/mynewt-mcumgr/tree/master/cmd">rich set of commands</a> for updating PineTime firmware, accessing the PineTime Flash filesystem, debug logs, runtime statistics, ...</p>
 <p>The Simple Management Protocol uses <a href="https://en.wikipedia.org/wiki/CBOR">CBOR</a> to encode the Bluetooth LE messages. (Think of CBOR as a compact, binary form of JSON)</p>
-<p>Thus each Go Type also needs to be encoded as a CBOR Type. We'll be encoding CBOR messages with the <a href="https://pub.dev/packages/cbor"><code>cbor</code> Dart Library</a>.</p>
+<p>Thus each Go Type also needs to be converted as a CBOR Type. We'll be encoding CBOR messages with the <a href="https://pub.dev/packages/cbor"><code>cbor</code> Dart Library</a>.</p>
 <p>Here is the code that converts a Go Type to Dart and CBOR: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go#L265-L281"><code>dart/convert.go</code></a></p>
 <pre><code class="language-go">// Convert a Go type to Dart type and CBOR type
 func convertType(typeName string) (string, string) {
@@ -394,14 +394,14 @@ type DartField struct {
 func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
   dartField := DartField{}
   if len(astField.Names) &gt; 0 {
-    dartField.Name = astField.Names[0].Name // &quot;Len&quot;
+    dartField.Name = astField.Names[0].Name // e.g. &quot;Len&quot;
   }
-  dartField.GoType = fmt.Sprintf(&quot;%v&quot;, astField.Type) // &quot;uint32&quot;
+  dartField.GoType = fmt.Sprintf(&quot;%v&quot;, astField.Type) // e.g. &quot;uint32&quot;
   // Handle &quot;&amp;{181 &lt;nil&gt; byte}&quot; as &quot;[]byte&quot;
   if strings.HasPrefix(dartField.GoType, &quot;&amp;{&quot;) &amp;&amp; strings.HasSuffix(dartField.GoType, &quot; byte}&quot;) {
     dartField.GoType = &quot;[]byte&quot;
   }
-  dartField.DartType, dartField.CborType = convertType(dartField.GoType) // &quot;int&quot;
+  dartField.DartType, dartField.CborType = convertType(dartField.GoType) // e.g. &quot;int&quot;
 
   // Convert a Field Tag like `codec:&quot;len,omitempty&quot;`. CborName will be set to &quot;len&quot;.
   if astField.Tag != nil {
@@ -410,7 +410,6 @@ func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
     dartField.CborName = strings.Replace(dartField.CborName, `&quot;`, &quot;&quot;, 2)
     dartField.CborName = strings.Replace(dartField.CborName, &quot;`&quot;, &quot;&quot;, 2)
   }
-  // fmt.Printf(&quot;field: %s,\tcbor: %s,\ttype: %s,\tdart: %s\n&quot;, dartField.Name, dartField.CborName, dartField.GoType, dartField.DartType)
   return dartField
 }
 </code></pre>

@@ -352,13 +352,13 @@ Now we'll map Go Types to Dart Types, which is needed for converting Go Structs 
 
 Go has specific numeric types like `uint8` (unsigned 8-bit integer), but Dart only has a single integer type: `int`. Here's how we map the types...
 
-| Go Type | Dart Type | CBOR Type 
-| :-- | :-- | :-- | :--
-| `bool` | `bool` | `Bool`
-| `uint8` | `int` | `Int`
-| `uint16` | `int` | `Int`
-| `uint32` | `int` | `Int`
-| `[]byte` | `typed.Uint8Buffer` | `Array`
+| Go Type | Dart Type | CBOR Type |
+| :--- | :--- | :--- | :--- |
+| `bool` | `bool` | `Bool` |
+| `uint8` | `int` | `Int` |
+| `uint16` | `int` | `Int` |
+| `uint32` | `int` | `Int` |
+| `[]byte` | `typed.Uint8Buffer` | `Array` |
 
 We use `Uint8Buffer` from the [`typed_data` Dart Library](https://pub.dev/packages/typed_data) to represent byte buffers (like Bluetooth messages).
 
@@ -368,7 +368,7 @@ Our PineTime Smart Watch firmware exposes the [Simple Management Protocol](https
 
 The Simple Management Protocol uses [CBOR](https://en.wikipedia.org/wiki/CBOR) to encode the Bluetooth LE messages. (Think of CBOR as a compact, binary form of JSON)
 
-Thus each Go Type also needs to be encoded as a CBOR Type. We'll be encoding CBOR messages with the [`cbor` Dart Library](https://pub.dev/packages/cbor).
+Thus each Go Type also needs to be converted as a CBOR Type. We'll be encoding CBOR messages with the [`cbor` Dart Library](https://pub.dev/packages/cbor).
 
 Here is the code that converts a Go Type to Dart and CBOR: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go#L265-L281)
 
@@ -414,14 +414,14 @@ TODO
 func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
   dartField := DartField{}
   if len(astField.Names) > 0 {
-    dartField.Name = astField.Names[0].Name // "Len"
+    dartField.Name = astField.Names[0].Name // e.g. "Len"
   }
-  dartField.GoType = fmt.Sprintf("%v", astField.Type) // "uint32"
+  dartField.GoType = fmt.Sprintf("%v", astField.Type) // e.g. "uint32"
   // Handle "&{181 <nil> byte}" as "[]byte"
   if strings.HasPrefix(dartField.GoType, "&{") && strings.HasSuffix(dartField.GoType, " byte}") {
     dartField.GoType = "[]byte"
   }
-  dartField.DartType, dartField.CborType = convertType(dartField.GoType) // "int"
+  dartField.DartType, dartField.CborType = convertType(dartField.GoType) // e.g. "int"
 
   // Convert a Field Tag like `codec:"len,omitempty"`. CborName will be set to "len".
   if astField.Tag != nil {
@@ -430,7 +430,6 @@ func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
     dartField.CborName = strings.Replace(dartField.CborName, `"`, "", 2)
     dartField.CborName = strings.Replace(dartField.CborName, "`", "", 2)
   }
-  // fmt.Printf("field: %s,\tcbor: %s,\ttype: %s,\tdart: %s\n", dartField.Name, dartField.CborName, dartField.GoType, dartField.DartType)
   return dartField
 }
 ```
