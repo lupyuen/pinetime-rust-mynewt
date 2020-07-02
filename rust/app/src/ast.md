@@ -353,12 +353,13 @@ Now we'll map Go Types to Dart Types, which is needed for converting Go Structs 
 Go has specific numeric types like `uint8` (unsigned 8-bit integer), but Dart only has a single integer type: `int`. Here's how we map the types...
 
 | Go Type | Dart Type | CBOR Type |
-| :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- |
 | `bool` | `bool` | `Bool` |
 | `uint8` | `int` | `Int` |
 | `uint16` | `int` | `Int` |
 | `uint32` | `int` | `Int` |
 | `[]byte` | `typed.Uint8Buffer` | `Array` |
+
 
 We use `Uint8Buffer` from the [`typed_data` Dart Library](https://pub.dev/packages/typed_data) to represent byte buffers (like Bluetooth messages).
 

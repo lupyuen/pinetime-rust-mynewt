@@ -347,13 +347,13 @@ case *ast.FuncDecl:
 <h1 id="auto-convert-go-type-to-dart" class="section-header"><a href="#auto-convert-go-type-to-dart">5 Auto Convert Go Type to Dart</a></h1>
 <p>Now we'll map Go Types to Dart Types, which is needed for converting Go Structs and Functions. </p>
 <p>Go has specific numeric types like <code>uint8</code> (unsigned 8-bit integer), but Dart only has a single integer type: <code>int</code>. Here's how we map the types...</p>
-<p>| Go Type | Dart Type | CBOR Type |
-| :--- | :--- | :--- | :--- |
-| <code>bool</code> | <code>bool</code> | <code>Bool</code> |
-| <code>uint8</code> | <code>int</code> | <code>Int</code> |
-| <code>uint16</code> | <code>int</code> | <code>Int</code> |
-| <code>uint32</code> | <code>int</code> | <code>Int</code> |
-| <code>[]byte</code> | <code>typed.Uint8Buffer</code> | <code>Array</code> |</p>
+<table><thead><tr><th align="left">Go Type</th><th align="left">Dart Type</th><th align="left">CBOR Type</th></tr></thead><tbody>
+<tr><td align="left"><code>bool</code></td><td align="left"><code>bool</code></td><td align="left"><code>Bool</code></td></tr>
+<tr><td align="left"><code>uint8</code></td><td align="left"><code>int</code></td><td align="left"><code>Int</code></td></tr>
+<tr><td align="left"><code>uint16</code></td><td align="left"><code>int</code></td><td align="left"><code>Int</code></td></tr>
+<tr><td align="left"><code>uint32</code></td><td align="left"><code>int</code></td><td align="left"><code>Int</code></td></tr>
+<tr><td align="left"><code>[]byte</code></td><td align="left"><code>typed.Uint8Buffer</code></td><td align="left"><code>Array</code></td></tr>
+</tbody></table>
 <p>We use <code>Uint8Buffer</code> from the <a href="https://pub.dev/packages/typed_data"><code>typed_data</code> Dart Library</a> to represent byte buffers (like Bluetooth messages).</p>
 <p><em>What's the CBOR Type?</em></p>
 <p>Our PineTime Smart Watch firmware exposes the <a href="https://github.com/apache/mynewt-mcumgr">Simple Management Protocol</a> over Bluetooth LE. The protocol supports a <a href="https://github.com/apache/mynewt-mcumgr/tree/master/cmd">rich set of commands</a> for updating PineTime firmware, accessing the PineTime Flash filesystem, debug logs, runtime statistics, ...</p>
