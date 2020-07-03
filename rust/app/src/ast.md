@@ -308,13 +308,13 @@ func NewImageUploadReq() *ImageUploadReq { ... }
 
 The `ast` library parses both as __Declarations__...
 
-1. __Generic Declaration (`GenDecl`)__: Go Struct
+1. __Generic Declaration (`GenDecl`)__: Declaration for a Go Struct
 
-1. __Function Declaration (`FuncDecl`)__: Go Function
+1. __Function Declaration (`FuncDecl`)__: Declaration for a Go Function
 
 Declarations are parked under the `Decls` property of our `node`. 
 
-Hence we iterate over all `Decls` like so...
+Hence we convert Go Structs and Functions by iterating over all `Decls` like so...
 
 ```go
 // "Decls" contains all Go Struct and Function Declarations in "node"
