@@ -415,15 +415,23 @@ TODO
 ```go
 // Convert a Go Struct Field to Dart
 func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
+  // Create a new DartField
   dartField := DartField{}
+
+  // If this field has a name...
   if len(astField.Names) > 0 {
+    // Set the name
     dartField.Name = astField.Names[0].Name // e.g. "Len"
   }
+
+  // Set the field type
   dartField.GoType = fmt.Sprintf("%v", astField.Type) // e.g. "uint32"
-  // Handle "&{181 <nil> byte}" as "[]byte"
+  // Handle field type "&{181 <nil> byte}" as "[]byte"
   if strings.HasPrefix(dartField.GoType, "&{") && strings.HasSuffix(dartField.GoType, " byte}") {
     dartField.GoType = "[]byte"
   }
+
+  // Convert the Go type to Dart and CBOR
   dartField.DartType, dartField.CborType = convertType(dartField.GoType) // e.g. "int"
 
   // Convert a Field Tag like `codec:"len,omitempty"`. CborName will be set to "len".
@@ -433,6 +441,8 @@ func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
     dartField.CborName = strings.Replace(dartField.CborName, `"`, "", 2)
     dartField.CborName = strings.Replace(dartField.CborName, "`", "", 2)
   }
+
+  // Return the convert DartField
   return dartField
 }
 ```
