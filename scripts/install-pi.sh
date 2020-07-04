@@ -63,7 +63,11 @@ cp $HOME/openocd-spi/src/openocd $HOME/pinetime-rust-mynewt/openocd/bin/openocd
 set +x; echo; echo "----- Installing go..."; set -x 
 golangpath=/usr/lib/go-1.13.6/bin
 if [ ! -e $golangpath/go ]; then
-    wget https://dl.google.com/go/go1.13.6.linux-armv6l.tar.gz
+    if [[ $(uname -m) == aarch64 ]];then
+        wget https://dl.google.com/go/go1.13.6.linux-arm64.tar.gz
+    else
+        wget https://dl.google.com/go/go1.13.6.linux-armv6l.tar.gz
+    fi
     tar xf go*.tar.gz
     sudo mv go /usr/lib/go-1.13.6
     rm go*.tar.gz
