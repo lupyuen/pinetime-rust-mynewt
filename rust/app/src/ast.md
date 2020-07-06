@@ -431,7 +431,7 @@ type ImageUploadReq struct {
 And returns a `DartField` like so...
 
 ```dart
-// In Dart: Field "Len" converted from Go to Dart
+// In Dart: When we convert the above "Len" field Go to Dart...
 type DartField struct {
   Name     string // Contains "Len"
   CborName string // Conatins "len"
@@ -441,10 +441,10 @@ type DartField struct {
 }
 ```
 
-TODO
+First step of the Field Conversion: Set the Field Name in `DartField` (if it has one)...
 
 ```go
-// Convert a Go Struct Field astField to Dart
+// Convert the Go Struct Field "astField" to Dart
 func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
   ...
   // If this field has a name...
@@ -454,19 +454,39 @@ func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
   }
 ```
 
+Next we set the Go Type in `DartField`...
+
 ```go
   // Set the field type
   dartField.GoType = fmt.Sprintf("%v", astField.Type) // e.g. "uint32"
-  // Handle field type "&{181 <nil> byte}" as "[]byte"
-  if strings.HasPrefix(dartField.GoType, "&{") && strings.HasSuffix(dartField.GoType, " byte}") {
+```
+
+This works for simple Go Types like `uint32`. But the code above converts array types like `[]byte` to something weird like...
+
+```
+  &{181 <nil> byte}
+```
+
+We fix this by rewriting anything that matches `&{...byte}` to `[]byte`...
+
+```go
+  // Handle converted Go Type "&{181 <nil> byte}" as "[]byte"
+  if strings.HasPrefix(dartField.GoType, "&{") 
+    && strings.HasSuffix(dartField.GoType, " byte}") {
     dartField.GoType = "[]byte"
   }
 ```
 
+Remember the function `convertType()` we have created in the last section?
+
+Here's how we call `convertType()` to convert the Go Type to Dart and CBOR Types...
+
 ```go
-  // Convert the Go type to Dart and CBOR
-  dartField.DartType, dartField.CborType = convertType(dartField.GoType) // e.g. "int"
+  // Convert the Go Type to Dart and CBOR
+  dartField.DartType, dartField.CborType = convertType(dartField.GoType) // e.g. "int" and "Int"
 ```
+
+
 
 ```go
   // Convert a Field Tag like `codec:"len,omitempty"`. CborName will be set to "len".
