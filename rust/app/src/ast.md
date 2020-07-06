@@ -482,8 +482,8 @@ Remember the function `convertType()` we have created in the last section?
 Here's how we call `convertType()` to convert the Go Type to Dart and CBOR Types...
 
 ```go
-  // Convert the Go Type to Dart and CBOR
-  dartField.DartType, dartField.CborType = convertType(dartField.GoType) // e.g. "int" and "Int"
+  // Convert the Go Type (like "uint32") to Dart and CBOR ("int" and "Int")
+  dartField.DartType, dartField.CborType = convertType(dartField.GoType)
 ```
 
 
