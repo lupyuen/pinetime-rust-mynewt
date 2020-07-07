@@ -70,7 +70,10 @@
 <li><a href="#generate-an-abstract-syntax-tree">3 Generate an Abstract Syntax Tree</a><ul></ul></li>
 <li><a href="#walk-the-abstract-syntax-tree">4 Walk the Abstract Syntax Tree</a><ul></ul></li>
 <li><a href="#auto-convert-go-type-to-dart">5 Auto Convert Go Type to Dart</a><ul></ul></li>
-<li><a href="#auto-convert-go-field-to-dart">6 Auto Convert Go Field to Dart</a><ul></ul></li>
+<li><a href="#auto-convert-go-field-to-dart">6 Auto Convert Go Field to Dart</a><ul>
+<li><a href="#field-name">6.1 Field Name</a><ul></ul></li>
+<li><a href="#field-type">6.2 Field Type</a><ul></ul></li>
+<li><a href="#field-tag">6.3 Field Tag</a><ul></ul></li></ul></li>
 <li><a href="#auto-convert-go-struct-to-dart">7 Auto Convert Go Struct to Dart</a><ul></ul></li>
 <li><a href="#auto-generate-cbor-encoder">8 Auto Generate CBOR Encoder</a><ul></ul></li>
 <li><a href="#auto-convert-go-function-to-dart">9 Auto Convert Go Function to Dart</a><ul></ul></li>
@@ -403,7 +406,7 @@ type ImageUploadReq struct {
   Len uint32 `codec:&quot;len,omitempty&quot;`
 </code></pre>
 <p>And returns a <code>DartField</code> like so...</p>
-<pre><code class="language-dart">// In Dart: Field &quot;Len&quot; converted from Go to Dart
+<pre><code class="language-dart">// In Dart: When we convert the above &quot;Len&quot; field from Go to Dart...
 type DartField struct {
   Name     string // Contains &quot;Len&quot;
   CborName string // Conatins &quot;len&quot;
@@ -412,8 +415,23 @@ type DartField struct {
   CborType string // Contains &quot;Int&quot;
 }
 </code></pre>
-<p>TODO</p>
-<pre><code class="language-go">// Convert a Go Struct Field astField to Dart
+<p>The <code>ast</code> library parses each field of our Go Struct as an <code>ast.Field</code>...</p>
+<p><img src="https://lupyuen.github.io/images/ast-go3.png" alt="Go Struct Field parsed as ast.Field" /></p>
+<p>Let's convert each component of <code>ast.Field</code>...</p>
+<ol>
+<li>
+<p><code>Names</code>: Name of the Struct Field</p>
+</li>
+<li>
+<p><code>Type</code>: Type of the Struct Field</p>
+</li>
+<li>
+<p><code>Tag</code>: Field Tag, which includes the CBOR Name</p>
+</li>
+</ol>
+<h2 id="field-name" class="section-header"><a href="#field-name">6.1 Field Name</a></h2>
+<p>First step of the Field Conversion: Copy the Field Name from <code>ast.Field.Names</code> to <code>DartField</code> (if it has one): <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go#L241-L263"><code>dart/convert.go</code></a></p>
+<pre><code class="language-go">// Convert the Go Struct Field &quot;astField&quot; to Dart
 func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
   ...
   // If this field has a name...
@@ -422,16 +440,37 @@ func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
     dartField.Name = astField.Names[0].Name // e.g. &quot;Len&quot;
   }
 </code></pre>
+<p><em>Why did we specify <code>Names[0]</code>?</em></p>
+<p>Because each row of the Struct Declaration can have <a href="https://www.golang-book.com/books/intro/9">multiple names</a>...</p>
+<pre><code class="language-go">type Circle struct {
+  x, y, r float64
+}
+</code></pre>
+<p>We'll assume there's only one name per row.</p>
+<h2 id="field-type" class="section-header"><a href="#field-type">6.2 Field Type</a></h2>
+<p>Next we translate the Go Type from <code>ast.Field.Type</code> to <code>DartField</code>: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go#L241-L263"><code>dart/convert.go</code></a></p>
 <pre><code class="language-go">  // Set the field type
   dartField.GoType = fmt.Sprintf(&quot;%v&quot;, astField.Type) // e.g. &quot;uint32&quot;
-  // Handle field type &quot;&amp;{181 &lt;nil&gt; byte}&quot; as &quot;[]byte&quot;
-  if strings.HasPrefix(dartField.GoType, &quot;&amp;{&quot;) &amp;&amp; strings.HasSuffix(dartField.GoType, &quot; byte}&quot;) {
+</code></pre>
+<p>This works for simple Go Types like <code>uint32</code>. But the code above converts array types like <code>[]byte</code> to something weird like...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+  <span class="kw-2">&amp;</span>{<span class="number">181</span> <span class="op">&lt;</span><span class="ident">nil</span><span class="op">&gt;</span> <span class="ident">byte</span>}</pre></div>
+<p>We fix this by rewriting anything that matches <code>&amp;{...byte}</code> to <code>[]byte</code>...</p>
+<pre><code class="language-go">  // Handle converted Go Type &quot;&amp;{181 &lt;nil&gt; byte}&quot; as &quot;[]byte&quot;
+  if strings.HasPrefix(dartField.GoType, &quot;&amp;{&quot;) 
+    &amp;&amp; strings.HasSuffix(dartField.GoType, &quot; byte}&quot;) {
     dartField.GoType = &quot;[]byte&quot;
   }
 </code></pre>
-<pre><code class="language-go">  // Convert the Go type to Dart and CBOR
-  dartField.DartType, dartField.CborType = convertType(dartField.GoType) // e.g. &quot;int&quot;
+<p>Remember the function <code>convertType()</code> we have created in the last section?</p>
+<p>Here's how we call <code>convertType()</code> to convert the Go Type to Dart and CBOR Types...</p>
+<pre><code class="language-go">  // Convert the Go Type (like &quot;uint32&quot;) to Dart and CBOR (&quot;int&quot; and &quot;Int&quot;)
+  dartField.DartType, dartField.CborType = convertType(dartField.GoType)
 </code></pre>
+<p>This sets the Dart Type and CBOR Type in <code>DartField</code>.</p>
+<h2 id="field-tag" class="section-header"><a href="#field-tag">6.3 Field Tag</a></h2>
+<p>Finally we copy the CBOR Name from <code>ast.Field.Tag</code> to <code>DartField</code>: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go#L241-L263"><code>dart/convert.go</code></a></p>
 <pre><code class="language-go">  // Convert a Field Tag like `codec:&quot;len,omitempty&quot;`. CborName will be set to &quot;len&quot;.
   if astField.Tag != nil {
     dartField.CborName = strings.Split(astField.Tag.Value, &quot;,&quot;)[0]
@@ -440,6 +479,7 @@ func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
     dartField.CborName = strings.Replace(dartField.CborName, &quot;`&quot;, &quot;&quot;, 2)
   }
 </code></pre>
+<p>TODO</p>
 <pre><code class="language-go">// Convert a Go Struct Field astField to Dart
 func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
   ...

@@ -441,7 +441,21 @@ type DartField struct {
 }
 ```
 
-First step of the Field Conversion: Set the Field Name in `DartField` (if it has one)...
+The `ast` library parses each field of our Go Struct as an `ast.Field`...
+
+![Go Struct Field parsed as ast.Field](https://lupyuen.github.io/images/ast-go3.png)
+
+Let's convert each component of `ast.Field`...
+
+1. `Names`: Name of the Struct Field
+
+1. `Type`: Type of the Struct Field
+
+1. `Tag`: Field Tag, which includes the CBOR Name
+
+## Field Name
+
+First step of the Field Conversion: Copy the Field Name from `ast.Field.Names` to `DartField` (if it has one): [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go#L241-L263)
 
 ```go
 // Convert the Go Struct Field "astField" to Dart
@@ -454,7 +468,21 @@ func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
   }
 ```
 
-Next we set the Go Type in `DartField`...
+_Why did we specify `Names[0]`?_
+
+Because each row of the Struct Declaration can have [multiple names](https://www.golang-book.com/books/intro/9)...
+
+```go
+type Circle struct {
+  x, y, r float64
+}
+```
+
+We'll assume there's only one name per row.
+
+## Field Type
+
+Next we translate the Go Type from `ast.Field.Type` to `DartField`: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go#L241-L263)
 
 ```go
   // Set the field type
@@ -486,7 +514,11 @@ Here's how we call `convertType()` to convert the Go Type to Dart and CBOR Types
   dartField.DartType, dartField.CborType = convertType(dartField.GoType)
 ```
 
+This sets the Dart Type and CBOR Type in `DartField`.
 
+## Field Tag
+
+Finally we copy the CBOR Name from `ast.Field.Tag` to `DartField`: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go#L241-L263)
 
 ```go
   // Convert a Field Tag like `codec:"len,omitempty"`. CborName will be set to "len".
@@ -497,6 +529,8 @@ Here's how we call `convertType()` to convert the Go Type to Dart and CBOR Types
     dartField.CborName = strings.Replace(dartField.CborName, "`", "", 2)
   }
 ```
+
+TODO
 
 ```go
 // Convert a Go Struct Field astField to Dart
