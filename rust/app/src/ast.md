@@ -565,11 +565,11 @@ func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
 }
 ```
 
-That's how we auto convert a Go Struct Field to Dart!
+That's how we auto convert a Go Struct Field to Dart with `convertField()`!
 
 # Auto Convert Go Struct to Dart
 
-TODO
+Now that we can call `convertField()` to convert a Go Struct Field, let's convert an entire Go Struct...
 
 [`nmxact/nmp/image.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go)
 
