@@ -500,44 +500,11 @@ func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
   return dartField
 }
 </code></pre>
-<p>That's how we auto convert a Go Struct Field to Dart!</p>
+<p>That's how we auto convert a Go Struct Field to Dart with <code>convertField()</code>!</p>
 <h1 id="auto-convert-go-struct-to-dart" class="section-header"><a href="#auto-convert-go-struct-to-dart">7 Auto Convert Go Struct to Dart</a></h1>
+<p>Now that we have <code>convertField()</code> to convert a single field of a Go Struct, let's convert an entire Go Struct...</p>
+<p><img src="https://lupyuen.github.io/images/ast-go5.png" alt="Go Struct encoded by ast library" /></p>
 <p>TODO</p>
-<p><a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go"><code>nmxact/nmp/image.go</code></a></p>
-<pre><code class="language-go">//  Convert From Go...
-//  Go Struct
-type ImageUploadReq struct {
-  NmpBase  `codec:&quot;-&quot;`
-  ImageNum uint8  `codec:&quot;image&quot;`
-  Off      uint32 `codec:&quot;off&quot;`
-  Len      uint32 `codec:&quot;len,omitempty&quot;`
-  DataSha  []byte `codec:&quot;sha,omitempty&quot;`
-  Upgrade  bool   `codec:&quot;upgrade,omitempty&quot;`
-  Data     []byte `codec:&quot;data&quot;`
-}
-</code></pre>
-<p><a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/nmp/image.dart"><code>dart/nmp/image.dart</code></a></p>
-<pre><code class="language-dart">//  Converted To Dart...
-//  Converted Dart Class
-class ImageUploadReq 
-  with NmpBase       //  Get and set SMP Message Header
-  implements NmpReq  //  SMP Request Message
-{
-  int ImageNum; //  image: uint8
-  int Off;      //  off: uint32
-  int Len;      //  len: uint32
-  typed.Uint8Buffer DataSha;  //  sha: []byte
-  bool Upgrade;               //  upgrade: bool
-  typed.Uint8Buffer Data;     //  data: []byte
-
-  NmpMsg Msg() { return MsgFromReq(this); }
-
-  /// Encode the SMP Request fields to CBOR
-  void Encode(cbor.MapBuilder builder) {
-    //  ...Omitted...
-  }
-}
-</code></pre>
 <p>Here is the code that converts a Go Struct to Dart: <a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go"><code>dart/convert.go</code></a></p>
 <pre><code class="language-go">// Convert Go Struct to Dart
 func convertStruct(fileset *token.FileSet, decl *ast.GenDecl) {
@@ -546,8 +513,8 @@ func convertStruct(fileset *token.FileSet, decl *ast.GenDecl) {
   case &quot;type&quot;:
     // Convert a type declaration
     for _, spec := range decl.Specs {
-      // ast.Print(fileset, spec)
-      switch spec := spec.(type) {
+</code></pre>
+<pre><code class="language-go">      switch spec := spec.(type) {
       case *ast.TypeSpec:
         // Get the struct name and output the Dart class
         typeName := spec.Name.Name // &quot;NmpHdr&quot;
@@ -561,8 +528,8 @@ func convertStruct(fileset *token.FileSet, decl *ast.GenDecl) {
           fmt.Println(&quot;  implements NmpReq  //  SMP Request Message&quot;)
         }
         fmt.Println(&quot;{&quot;)
-
-        switch structType := spec.Type.(type) {
+</code></pre>
+<pre><code class="language-go">        switch structType := spec.Type.(type) {
         case *ast.StructType: // &quot;struct {&quot;
           // Convert the struct fields
           fields := structType.Fields.List
@@ -603,6 +570,41 @@ func convertFields(fileset *token.FileSet, astFields []*ast.Field) {
     if dartField.Name != &quot;&quot; {
       fmt.Printf(&quot;  %s %s;\t//  %s: %s\n&quot;, dartField.DartType, dartField.Name, dartField.CborName, dartField.GoType)
     }
+  }
+}
+</code></pre>
+<p><a href="https://github.com/lupyuen/mynewt-newtmgr/blob/master/nmxact/nmp/image.go"><code>nmxact/nmp/image.go</code></a></p>
+<pre><code class="language-go">//  Convert From Go...
+//  Go Struct
+type ImageUploadReq struct {
+  NmpBase  `codec:&quot;-&quot;`
+  ImageNum uint8  `codec:&quot;image&quot;`
+  Off      uint32 `codec:&quot;off&quot;`
+  Len      uint32 `codec:&quot;len,omitempty&quot;`
+  DataSha  []byte `codec:&quot;sha,omitempty&quot;`
+  Upgrade  bool   `codec:&quot;upgrade,omitempty&quot;`
+  Data     []byte `codec:&quot;data&quot;`
+}
+</code></pre>
+<p><a href="https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/nmp/image.dart"><code>dart/nmp/image.dart</code></a></p>
+<pre><code class="language-dart">//  Converted To Dart...
+//  Converted Dart Class
+class ImageUploadReq 
+  with NmpBase       //  Get and set SMP Message Header
+  implements NmpReq  //  SMP Request Message
+{
+  int ImageNum; //  image: uint8
+  int Off;      //  off: uint32
+  int Len;      //  len: uint32
+  typed.Uint8Buffer DataSha;  //  sha: []byte
+  bool Upgrade;               //  upgrade: bool
+  typed.Uint8Buffer Data;     //  data: []byte
+
+  NmpMsg Msg() { return MsgFromReq(this); }
+
+  /// Encode the SMP Request fields to CBOR
+  void Encode(cbor.MapBuilder builder) {
+    //  ...Omitted...
   }
 }
 </code></pre>

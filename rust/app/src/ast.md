@@ -569,7 +569,11 @@ That's how we auto convert a Go Struct Field to Dart with `convertField()`!
 
 # Auto Convert Go Struct to Dart
 
-Now that we can call `convertField()` to convert a Go Struct Field, let's convert an entire Go Struct...
+Now that we have `convertField()` to convert a single field of a Go Struct, let's convert an entire Go Struct...
+
+![Go Struct encoded by ast library](https://lupyuen.github.io/images/ast-go5.png)
+
+TODO
 
 Here is the code that converts a Go Struct to Dart: [`dart/convert.go`](https://github.com/lupyuen/mynewt-newtmgr/blob/ast/dart/convert.go)
 
@@ -581,7 +585,9 @@ func convertStruct(fileset *token.FileSet, decl *ast.GenDecl) {
   case "type":
     // Convert a type declaration
     for _, spec := range decl.Specs {
-      // ast.Print(fileset, spec)
+```
+
+```go
       switch spec := spec.(type) {
       case *ast.TypeSpec:
         // Get the struct name and output the Dart class
@@ -596,7 +602,9 @@ func convertStruct(fileset *token.FileSet, decl *ast.GenDecl) {
           fmt.Println("  implements NmpReq  //  SMP Request Message")
         }
         fmt.Println("{")
+```
 
+```go
         switch structType := spec.Type.(type) {
         case *ast.StructType: // "struct {"
           // Convert the struct fields
