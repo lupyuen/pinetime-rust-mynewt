@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Wayland and LVGL on PinePhone with Ubuntu Touch</title>
+
+    
+    <!-- Begin scripts/articles/*-header.html: Article Header for Custom Markdown files processed by rustdoc, like chip8.md -->
+<meta property="og:title" 
+    content="Wayland and LVGL on PinePhone with Ubuntu Touch" 
+    data-rh="true">
+<meta property="og:description" 
+    content="Learn how we code apps on PinePhone with Wayland EGL, OpenGL ES and LVGL" 
+    data-rh="true">
+<meta property="og:image" 
+    content="https://lupyuen.github.io/images/wayland-title-small.jpg">
+<meta property="og:type" 
+    content="article" data-rh="true">
+<!-- End scripts/articles/*-header.html -->
+<!-- Begin scripts/rustdoc-header.html: Header for Custom Markdown files processed by rustdoc, like chip8.md -->
+<link rel="alternate" type="application/rss+xml" title="RSS Feed for lupyuen" href="/rss.xml" />
+<link rel="stylesheet" type="text/css" href="../normalize.css">
+<link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
+<link rel="stylesheet" type="text/css" href="../dark.css">
+<link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle">
+<link rel="stylesheet" type="text/css" href="../prism.css">
+<script src="../storage.js"></script><noscript>
+<link rel="stylesheet" href="../noscript.css"></noscript>
+<link rel="shortcut icon" href="../favicon.ico">
+<style type="text/css">
+    #crate-search {
+        background-image: url("../down-arrow.svg");
+    }
+    a {
+        color: #77d;
+    }
+</style>
+<!-- End scripts/rustdoc-header.html -->
+
+
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+        <!-- Begin scripts/rustdoc-before.html: Pre-HTML for Custom Markdown files processed by rustdoc, like chip8.md -->
+
+    <!-- Begin Theme Picker -->
+    <div class="theme-picker" style="left: 0"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg"
+        width="18" alt="Pick another theme!"></button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../theme.js"></script>
+    <script src="../prism.js"></script>
+    <!-- Theme Picker -->
+
+    <!-- End scripts/rustdoc-before.html -->
+    
+
+    <h1 class="title">Wayland and LVGL on PinePhone with Ubuntu Touch</h1>
+    <nav id="TOC"><ul>
+<li><a href="#wayland-vs-x11">1 Wayland vs X11</a><ul></ul></li>
+<li><a href="#wayland-on-ubuntu-touch">2 Wayland on Ubuntu Touch</a><ul></ul></li>
+<li><a href="#wayland-egl-and-opengl-es">3 Wayland EGL and OpenGL ES</a><ul></ul></li>
+<li><a href="#port-lvgl-to-wayland">4 Port LVGL to Wayland</a><ul></ul></li>
+<li><a href="#overcome-apparmor-on-ubuntu-touch">5 Overcome AppArmor on Ubuntu Touch</a><ul></ul></li>
+<li><a href="#further-reading">6 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/wayland-title.jpg" alt="Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch" /></p>
+<p><em>Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch</em></p>
+<p><strong>We ❤️ Old Underwear...</strong></p>
+<p>They feel comfy, they fit our contours. Nevermind the holes and the old stains 🤢</p>
+<p><strong>X11 is like Old Underwear.</strong> It's been around for 30 years... Yet we still use it inspite of its feature gaps and wonky quirks.</p>
+<p><strong>PinePhone on Ubuntu Touch feels like... New Underwear.</strong></p>
+<p>It runs Linux but it has none of the legacy X11 code. Because it's optimised for a great mobile experience with <strong>Wayland.</strong></p>
+<p>But New Underwear feels uncomfortable. So today we'll learn Wayland and understand how apps are built with Wayland.</p>
+<p>Hopefully someday we'll move on to newer, simpler app frameworks (like LVGL and Flutter) as we discard our Old Underwear: X11, SDL, GTK, Qt, ...</p>
+<h1 id="wayland-vs-x11" class="section-header"><a href="#wayland-vs-x11">1 Wayland vs X11</a></h1>
+<p>I lied about Wayland being New Underwear... It's not really that New!</p>
+<p>TODO</p>
+<h1 id="wayland-on-ubuntu-touch" class="section-header"><a href="#wayland-on-ubuntu-touch">2 Wayland on Ubuntu Touch</a></h1>
+<p>TODO</p>
+<h1 id="wayland-egl-and-opengl-es" class="section-header"><a href="#wayland-egl-and-opengl-es">3 Wayland EGL and OpenGL ES</a></h1>
+<p>TODO</p>
+<h1 id="port-lvgl-to-wayland" class="section-header"><a href="#port-lvgl-to-wayland">4 Port LVGL to Wayland</a></h1>
+<p>TODO</p>
+<h1 id="overcome-apparmor-on-ubuntu-touch" class="section-header"><a href="#overcome-apparmor-on-ubuntu-touch">5 Overcome AppArmor on Ubuntu Touch</a></h1>
+<p>TODO</p>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">6 Further Reading</a></h1>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/bloc">&quot;Flutter State Management with Bloc for PineTime Companion App&quot;</a></em></p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter">&quot;Your First Bluetooth Low Energy App with Flutter&quot;</a></em></p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3">&quot;Your First GTK App with Go and VSCodium&quot;</a></em></p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
+<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">&quot;Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)&quot;</a></em></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
+<p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
+
+    
+</body>
+</html>
