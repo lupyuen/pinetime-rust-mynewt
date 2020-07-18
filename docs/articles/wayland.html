@@ -69,8 +69,9 @@
 <li><a href="#wayland-on-ubuntu-touch">2 Wayland on Ubuntu Touch</a><ul></ul></li>
 <li><a href="#wayland-egl-and-opengl-es">3 Wayland EGL and OpenGL ES</a><ul></ul></li>
 <li><a href="#port-lvgl-to-wayland">4 Port LVGL to Wayland</a><ul></ul></li>
-<li><a href="#overcome-apparmor-on-ubuntu-touch">5 Overcome AppArmor on Ubuntu Touch</a><ul></ul></li>
-<li><a href="#further-reading">6 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/wayland-title.jpg" alt="Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch" /></p>
+<li><a href="#overcome-apparmor-security-on-ubuntu-touch">5 Overcome AppArmor Security on Ubuntu Touch</a><ul></ul></li>
+<li><a href="#what-i-like-about-ubuntu-touch-on-pinephone">6 What I like about Ubuntu Touch on PinePhone</a><ul></ul></li>
+<li><a href="#further-reading">7 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/wayland-title.jpg" alt="Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch" /></p>
 <p><em>Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch</em></p>
 <p><strong>We ❤️ Old Underwear...</strong></p>
 <p>They feel comfy, they fit our contours. Nevermind the holes and the old stains 🤢</p>
@@ -80,17 +81,48 @@
 <p>But New Underwear feels uncomfortable. So today we'll learn Wayland and understand how apps are built with Wayland.</p>
 <p>Hopefully someday we'll move on to newer, simpler app frameworks (like LVGL and Flutter) as we discard our Old Underwear: X11, SDL, GTK, Qt, ...</p>
 <h1 id="wayland-vs-x11" class="section-header"><a href="#wayland-vs-x11">1 Wayland vs X11</a></h1>
-<p>I lied about Wayland being New Underwear... It's not really that New!</p>
 <p>TODO</p>
+<p>Why so complex? So many hops?</p>
+<p>Because X11 was designed for Distributed Computing Systems.</p>
+<p>In 1990 I was doing this at UIUC Systems Research Group...</p>
+<p>Things are a lot simpler now, lemme explain...</p>
 <h1 id="wayland-on-ubuntu-touch" class="section-header"><a href="#wayland-on-ubuntu-touch">2 Wayland on Ubuntu Touch</a></h1>
 <p>TODO</p>
+<p>I lied about Wayland being New Underwear... It's not really that New!</p>
+<p>Now much simpler</p>
+<p>No window decorations</p>
+<p>No windows in fact</p>
+<p>Everything runs fullscreen</p>
 <h1 id="wayland-egl-and-opengl-es" class="section-header"><a href="#wayland-egl-and-opengl-es">3 Wayland EGL and OpenGL ES</a></h1>
 <p>TODO</p>
+<p>Yes the opengl we use for games</p>
+<p>And still used today for webgl</p>
+<p>Geo location map: https://youtu.be/DNBk9hnPkTY</p>
+<p>Since it can handle 3d, why not 2d?</p>
+<p>GPU Scaling</p>
 <h1 id="port-lvgl-to-wayland" class="section-header"><a href="#port-lvgl-to-wayland">4 Port LVGL to Wayland</a></h1>
 <p>TODO</p>
-<h1 id="overcome-apparmor-on-ubuntu-touch" class="section-header"><a href="#overcome-apparmor-on-ubuntu-touch">5 Overcome AppArmor on Ubuntu Touch</a></h1>
+<p>SDL, GTK, Qt are complex because they handle X11 legacy stuff</p>
+<p>SDL and GTK will work on Wayland... but needs X11 compatibilty!</p>
+<p>Rust wrapper for lvgl</p>
+<h1 id="overcome-apparmor-security-on-ubuntu-touch" class="section-header"><a href="#overcome-apparmor-security-on-ubuntu-touch">5 Overcome AppArmor Security on Ubuntu Touch</a></h1>
 <p>TODO</p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">6 Further Reading</a></h1>
+<p>Why AppArmor?</p>
+<h1 id="what-i-like-about-ubuntu-touch-on-pinephone" class="section-header"><a href="#what-i-like-about-ubuntu-touch-on-pinephone">6 What I like about Ubuntu Touch on PinePhone</a></h1>
+<p>TODO</p>
+<p>AppArmor is good, because iOS and Android have similar apps security</p>
+<p>Read-only file system is good (system files are read-only by default, user files are read-write). Helps to prevent security holes. (Even PineTime has a read-only Flash ROM)</p>
+<p>Why is Qt supported on Ubuntu Touch and not GTK? Because building a Linux mobile app requires mobile-friendly widgets.</p>
+<p>I think Qt has more mobile-friendly widgets, even through the internal plumbing is way too complicated.</p>
+<p>When I get GTK running on Ubuntu Touch, I will face the same problem with widgets. And I have to make GTK widgets look and feel consistent with Qt / Ubuntu Touch widgets.</p>
+<p>Older kernel base in Ubuntu Touch... I don't do kernel hacking much so it doesn't matter to me.</p>
+<p>I think for mobiles we only need to support a few common chipsets, so an older kernel is probably fine.</p>
+<p>That explains why Raspberry Pi 4 isn't supported by Ubuntu Touch... The hardware is just too new.</p>
+<p>The issues I'm struggling with now... Wayland, GTK3, ... are actually really old stuff. Updating the kernel won't help.</p>
+<p>Ubuntu Touch is pure Wayland, none of the legacy X11 stuff. Xwayland is not even there (unless you use the Libertine containers ugh).</p>
+<p>The pure Wayland environment causes GTK to break, because GTK assumes some minimal X11 support (i.e. Xwayland).</p>
+<p>So Ubuntu Touch is not really that bad for PinePhone... It's just painful for building non-Qt apps. 🙂</p>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">7 Further Reading</a></h1>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/bloc">&quot;Flutter State Management with Bloc for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter">&quot;Your First Bluetooth Low Energy App with Flutter&quot;</a></em></p>

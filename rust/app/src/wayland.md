@@ -20,25 +20,87 @@ Hopefully someday we'll move on to newer, simpler app frameworks (like LVGL and 
 
 # Wayland vs X11
 
-I lied about Wayland being New Underwear... It's not really that New!
-
 TODO
+
+Why so complex? So many hops?
+
+Because X11 was designed for Distributed Computing Systems.
+
+In 1990 I was doing this at UIUC Systems Research Group...
+
+Things are a lot simpler now, lemme explain...
 
 # Wayland on Ubuntu Touch
 
 TODO
 
+I lied about Wayland being New Underwear... It's not really that New!
+
+Now much simpler
+
+No window decorations
+
+No windows in fact
+
+Everything runs fullscreen
+
 # Wayland EGL and OpenGL ES
 
 TODO
+
+Yes the opengl we use for games
+
+And still used today for webgl
+
+Geo location map: https://youtu.be/DNBk9hnPkTY
+
+Since it can handle 3d, why not 2d?
+
+GPU Scaling
 
 # Port LVGL to Wayland
 
 TODO
 
-# Overcome AppArmor on Ubuntu Touch
+SDL, GTK, Qt are complex because they handle X11 legacy stuff
+
+SDL and GTK will work on Wayland... but needs X11 compatibilty!
+
+Rust wrapper for lvgl
+
+# Overcome AppArmor Security on Ubuntu Touch
 
 TODO
+
+Why AppArmor?
+
+# What I like about Ubuntu Touch on PinePhone
+
+TODO
+
+AppArmor is good, because iOS and Android have similar apps security
+
+Read-only file system is good (system files are read-only by default, user files are read-write). Helps to prevent security holes. (Even PineTime has a read-only Flash ROM)
+
+Why is Qt supported on Ubuntu Touch and not GTK? Because building a Linux mobile app requires mobile-friendly widgets.
+
+I think Qt has more mobile-friendly widgets, even through the internal plumbing is way too complicated.
+
+When I get GTK running on Ubuntu Touch, I will face the same problem with widgets. And I have to make GTK widgets look and feel consistent with Qt / Ubuntu Touch widgets.
+
+Older kernel base in Ubuntu Touch... I don't do kernel hacking much so it doesn't matter to me.
+
+I think for mobiles we only need to support a few common chipsets, so an older kernel is probably fine.
+
+That explains why Raspberry Pi 4 isn't supported by Ubuntu Touch... The hardware is just too new.
+
+The issues I'm struggling with now... Wayland, GTK3, ... are actually really old stuff. Updating the kernel won't help.
+
+Ubuntu Touch is pure Wayland, none of the legacy X11 stuff. Xwayland is not even there (unless you use the Libertine containers ugh).
+
+The pure Wayland environment causes GTK to break, because GTK assumes some minimal X11 support (i.e. Xwayland).
+
+So Ubuntu Touch is not really that bad for PinePhone... It's just painful for building non-Qt apps. 🙂
 
 # Further Reading
 
