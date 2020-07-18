@@ -82,7 +82,9 @@ If you are building from this repository from scratch instead of the Released Pa
    Then execute...
 
    ```bash
-   rustup default nightly
+   # Latest nightly-2020-04-20 fails with asm error, so we use nightly-2020-02-16
+   source $HOME/.cargo/env
+   rustup default nightly-2020-02-16
    rustup update
    rustup target add thumbv7em-none-eabihf
    ```
