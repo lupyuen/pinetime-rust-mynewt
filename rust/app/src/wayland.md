@@ -18,6 +18,12 @@ But New Underwear feels uncomfortable. So today we'll learn Wayland and understa
 
 Hopefully someday we'll move on to newer, simpler app frameworks (like LVGL and Flutter) as we discard our Old Underwear: X11, SDL, GTK, Qt, ...
 
+The source code for this article may be found here...
+
+https://github.com/lupyuen/lvgl-wayland
+
+https://github.com/lupyuen/pinephone-mir
+
 # Wayland vs X11
 
 TODO
