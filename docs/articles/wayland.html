@@ -65,7 +65,7 @@
 
     <h1 class="title">Wayland and LVGL on PinePhone with Ubuntu Touch</h1>
     <nav id="TOC"><ul>
-<li><a href="#wayland-vs-x11">1 Wayland vs X11</a><ul></ul></li>
+<li><a href="#how-x11-works">1 How X11 works</a><ul></ul></li>
 <li><a href="#wayland-on-ubuntu-touch">2 Wayland on Ubuntu Touch</a><ul></ul></li>
 <li><a href="#wayland-egl-and-opengl-es">3 Wayland EGL and OpenGL ES</a><ul></ul></li>
 <li><a href="#port-lvgl-to-wayland">4 Port LVGL to Wayland</a><ul></ul></li>
@@ -81,16 +81,50 @@
 <p>But New Underwear feels uncomfortable. So today we'll learn Wayland and understand how apps are built with Wayland.</p>
 <p>Hopefully someday we'll move on to newer, simpler app frameworks (like <a href="https://lvgl.io/">LVGL</a> and Flutter) as we discard our Old Underwear: X11, SDL, GTK, Qt, ...</p>
 <p>The source code for this article may be found here...</p>
-<p>https://github.com/lupyuen/lvgl-wayland</p>
-<p>https://github.com/lupyuen/pinephone-mir</p>
-<h1 id="wayland-vs-x11" class="section-header"><a href="#wayland-vs-x11">1 Wayland vs X11</a></h1>
-<p>TODO</p>
-<p>Why so complex? So many hops?</p>
+<ul>
+<li>
+<p><a href="https://github.com/lupyuen/lvgl-wayland"><code>github.com/lupyuen/lvgl-wayland</code></a></p>
+</li>
+<li>
+<p><a href="https://github.com/lupyuen/pinephone-mir"><code>github.com/lupyuen/pinephone-mir</code></a></p>
+</li>
+</ul>
+<h1 id="how-x11-works" class="section-header"><a href="#how-x11-works">1 How X11 works</a></h1>
+<p><a href="https://en.wikipedia.org/wiki/X_Window_System">X11</a> is the Graphical Display Service that runs on most Linux desktops and notebooks.</p>
+<p>Let's hunt for the X11 Service on Pinebook Pro...</p>
+<p><img src="https://lupyuen.github.io/images/wayland-pinebook.png" alt="X11 Service on Pinebook Pro" /></p>
+<p>That's the X11 Service... A 2.2 MB executable named <code>Xorg</code>. </p>
+<p>The X11 Service controls the rendering of Linux apps (as well as the keyboard and mouse input) like this...</p>
+<p><img src="https://lupyuen.github.io/images/wayland-x11.png" alt="X11 Architecture" /></p>
+<p>(Adapted from <a href="https://wayland.freedesktop.org/architecture.html">&quot;Wayland Architecture&quot;</a>)</p>
+<ol>
+<li>
+<p>At the top we have the Linux programs running on our Linux machine: <strong>Terminal, Editor, Web Browser</strong>.</p>
+<p>Each program renders its graphical display and transmits the raw graphics to the X11 Service (via a local TCP socket).</p>
+</li>
+<li>
+<p>X11 Service forwards the rendered graphics to the <a href="https://en.wikipedia.org/wiki/Compositing_window_manager"><strong>Window Manager / Compositor</strong></a>.</p>
+<p>The Window Manager / Compositor is provided by the <strong>Desktop Environment</strong>: Xfce, KDE, Gnome, ...</p>
+</li>
+<li>
+<p>The Window Manager / Compositor wraps the rendered graphics into Display Windows and <strong>&quot;decorates&quot;</strong> them with scrollbars, title bar and minimise / maximise / close buttons.</p>
+<p>The Window Manager / Compositor then draws the Display Windows into a <strong>Screen Buffer</strong> according to their screen coordinates.</p>
+</li>
+<li>
+<p>The Screen Buffer is rendered to our screen by the X11 Service, talking to the <strong>Linux Display Driver</strong>.</p>
+</li>
+<li>
+<p>Any keyboard and mouse input is captured by the X11 Service, and forwarded to the programs.</p>
+</li>
+</ol>
+<p><em>Why so complex? So many hops?</em></p>
 <p>Because X11 was designed for Distributed Computing Systems.</p>
-<p>In 1990 I was doing this at UIUC Systems Research Group...</p>
-<p>Things are a lot simpler now, lemme explain...</p>
+<p>Here's what I did at <a href="http://srg.cs.illinois.edu/">UIUC Systems Research Group</a> way back in 1990 (30 years ago!)...</p>
+<p>TODO</p>
+<p>Thankfully things are a lot simpler now, lemme explain...</p>
 <h1 id="wayland-on-ubuntu-touch" class="section-header"><a href="#wayland-on-ubuntu-touch">2 Wayland on Ubuntu Touch</a></h1>
 <p>TODO</p>
+<p>Adapted from the <a href="https://wayland.freedesktop.org/architecture.html">&quot;Wayland Architecture&quot;</a> document...</p>
 <p>I lied about Wayland being New Underwear... It's not really that New!</p>
 <p>Now much simpler</p>
 <p>No window decorations</p>

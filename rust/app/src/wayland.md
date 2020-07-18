@@ -20,25 +20,57 @@ Hopefully someday we'll move on to newer, simpler app frameworks (like [LVGL](ht
 
 The source code for this article may be found here...
 
-https://github.com/lupyuen/lvgl-wayland
+- [`github.com/lupyuen/lvgl-wayland`](https://github.com/lupyuen/lvgl-wayland)
 
-https://github.com/lupyuen/pinephone-mir
+- [`github.com/lupyuen/pinephone-mir`](https://github.com/lupyuen/pinephone-mir)
 
-# Wayland vs X11
+# How X11 works
 
-TODO
+[X11](https://en.wikipedia.org/wiki/X_Window_System) is the Graphical Display Service that runs on most Linux desktops and notebooks.
 
-Why so complex? So many hops?
+Let's hunt for the X11 Service on Pinebook Pro...
+
+![X11 Service on Pinebook Pro](https://lupyuen.github.io/images/wayland-pinebook.png)
+
+That's the X11 Service... A 2.2 MB executable named `Xorg`. 
+
+The X11 Service controls the rendering of Linux apps (as well as the keyboard and mouse input) like this...
+
+![X11 Architecture](https://lupyuen.github.io/images/wayland-x11.png)
+
+(Adapted from ["Wayland Architecture"](https://wayland.freedesktop.org/architecture.html))
+
+1. At the top we have the Linux programs running on our Linux machine: __Terminal, Editor, Web Browser__.
+
+    Each program renders its graphical display and transmits the raw graphics to the X11 Service (via a local TCP socket).
+
+1. X11 Service forwards the rendered graphics to the [__Window Manager / Compositor__](https://en.wikipedia.org/wiki/Compositing_window_manager).
+
+    The Window Manager / Compositor is provided by the __Desktop Environment__: Xfce, KDE, Gnome, ...
+
+1. The Window Manager / Compositor wraps the rendered graphics into Display Windows and __"decorates"__ them with scrollbars, title bar and minimise / maximise / close buttons.
+
+    The Window Manager / Compositor then draws the Display Windows into a __Screen Buffer__ according to their screen coordinates.
+
+1. The Screen Buffer is rendered to our screen by the X11 Service, talking to the __Linux Display Driver__.
+
+1. Any keyboard and mouse input is captured by the X11 Service, and forwarded to the programs.
+
+_Why so complex? So many hops?_
 
 Because X11 was designed for Distributed Computing Systems.
 
-In 1990 I was doing this at UIUC Systems Research Group...
+Here's what I did at [UIUC Systems Research Group](http://srg.cs.illinois.edu/) way back in 1990 (30 years ago!)...
 
-Things are a lot simpler now, lemme explain...
+TODO
+
+Thankfully things are a lot simpler now, lemme explain...
 
 # Wayland on Ubuntu Touch
 
 TODO
+
+Adapted from the ["Wayland Architecture"](https://wayland.freedesktop.org/architecture.html) document...
 
 I lied about Wayland being New Underwear... It's not really that New!
 
