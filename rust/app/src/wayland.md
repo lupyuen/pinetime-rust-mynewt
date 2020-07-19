@@ -118,6 +118,12 @@ SDL, GTK, Qt are complex because they handle X11 legacy stuff
 
 SDL and GTK will work on Wayland... but needs X11 compatibilty!
 
+I applaud the maintainers of x11, gtk, qt, sdl because every new release needs to support so many legacy features. Kudos!
+
+What if we could start from scratch, drop the legacy stuff, and build a ui toolkit for Wayland and opengl?
+
+Lvgl is that experiment that we're undertaking today
+
 Rust wrapper for lvgl
 
 # Overcome AppArmor Security on Ubuntu Touch
@@ -199,6 +205,38 @@ Copy the log to our machine like this...
 ```bash
 scp -i ~/.ssh/pinebook_rsa phablet@192.168.1.10:/home/phablet/.cache/upstart/u
 ```
+
+# Wayland Gotchas
+
+TODO
+
+GPU on X11:
+
+https://qoto.org/@lupyuen/104541068127168291
+
+GNOME and GTK on Wayland:
+
+https://mastodon.social/@ebassi/104511735257435944
+
+UBports on Mir:
+
+https://twitter.com/UBports/status/1282935946711904257?s=09
+
+https://twitter.com/UBports/status/1282934927806398464?s=09
+
+https://twitter.com/UBports/status/1282936886311428096?s=09
+
+Wayland on Xfce:
+
+https://twitter.com/XfceNation/status/1284842929895301120?s=09
+
+https://twitter.com/XfceNation/status/1284854254092513285?s=09
+
+Mir / Lomiri / Unity8's complicated history:
+
+https://www.phoronix.com/scan.php?page=news_item&px=Mir-2019-Kicking
+
+https://www.phoronix.com/scan.php?page=news_item&px=Unity-8-Renamed-To-Lomiri
 
 # What I like about Ubuntu Touch on PinePhone
 
