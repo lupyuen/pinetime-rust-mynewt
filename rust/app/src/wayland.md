@@ -4,7 +4,7 @@
 
 _Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch_
 
-__We ❤️ Old Underwear...__
+__We ❤️ &nbsp; Old Underwear...__
 
 They feel comfy, they fit our contours. Nevermind the holes and the old stains 🤢
 
@@ -158,7 +158,7 @@ We'll connect to PinePhone at the IP adddress indicated by `inet addr`.
 
 Tap on `Ctrl-C` to stop the `ping`.
 
-TODO: How to install SSH key on PinePhone
+TODO: How to install SSH key and the above script on PinePhone via SD card or Bluetooth
 
 When we press PinePhone's power button to switch off PinePhone, we'll see ths amusing message...
 
