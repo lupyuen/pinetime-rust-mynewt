@@ -70,17 +70,17 @@ Thankfully things are a lot simpler now, lemme explain...
 
 TODO
 
-Adapted from the ["Wayland Architecture"](https://wayland.freedesktop.org/architecture.html) document...
+_Do we need overlapping or tiled windows on PinePhone?_
+
+_Do we need to need to decorate PinePhone windows with a title bar and minimise / maximise / close buttons?_
+
+_Do we even need any windows on PinePhone?_
+
+No! Because each PinePhone app takes control of the entire screen!
 
 I lied about Wayland being New Underwear... It's not really that New!
 
-Now much simpler
-
-No window decorations
-
-No windows in fact
-
-Everything runs fullscreen
+Adapted from the ["Wayland Architecture"](https://wayland.freedesktop.org/architecture.html) document...
 
 # Wayland EGL and OpenGL ES
 
@@ -111,6 +111,58 @@ Rust wrapper for lvgl
 TODO
 
 Why AppArmor?
+
+# Start SSH on PinePhone
+
+To start SSH on PinePhone, open the Terminal app.
+
+Create a file named `a`...
+
+```bash
+nano a
+```
+
+Type this script into the `a` file...
+
+```bash
+#!/bin/sh
+# Script to start SSH service and show IP address
+
+# Start SSH service
+sudo service ssh start
+
+# Show IP address
+ifconfig | \
+    grep -v "127.0.0.1" | \
+    grep "inet addr:"
+
+# Ping repeatedly to keep WiFi alive
+ping google.com
+```
+
+Save the file and exit `nano`.
+
+When we're ready do coding on PinePhone, enter this at the command line...
+
+```bash
+. a 
+```
+
+(There's a space between "`.`" and "`a`")
+
+The script starts the SSH Service and displays the IP address for PinePhone...
+
+![Starting SSH Service on PinePhone](https://lupyuen.github.io/images/wayland-ssh.jpg)
+
+We'll connect to PinePhone at the IP adddress indicated by `inet addr`. 
+
+Tap on `Ctrl-C` to stop the `ping`.
+
+TODO: How to install SSH key on PinePhone
+
+When we press PinePhone's power button to switch off PinePhone, we'll see ths amusing message...
+
+![Powering off PinePhone](https://lupyuen.github.io/images/wayland-halt.jpg)
 
 # What I like about Ubuntu Touch on PinePhone
 

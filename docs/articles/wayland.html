@@ -70,8 +70,9 @@
 <li><a href="#wayland-egl-and-opengl-es">3 Wayland EGL and OpenGL ES</a><ul></ul></li>
 <li><a href="#port-lvgl-to-wayland">4 Port LVGL to Wayland</a><ul></ul></li>
 <li><a href="#overcome-apparmor-security-on-ubuntu-touch">5 Overcome AppArmor Security on Ubuntu Touch</a><ul></ul></li>
-<li><a href="#what-i-like-about-ubuntu-touch-on-pinephone">6 What I like about Ubuntu Touch on PinePhone</a><ul></ul></li>
-<li><a href="#further-reading">7 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/wayland-title.jpg" alt="Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch" /></p>
+<li><a href="#start-ssh-on-pinephone">6 Start SSH on PinePhone</a><ul></ul></li>
+<li><a href="#what-i-like-about-ubuntu-touch-on-pinephone">7 What I like about Ubuntu Touch on PinePhone</a><ul></ul></li>
+<li><a href="#further-reading">8 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/wayland-title.jpg" alt="Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch" /></p>
 <p><em>Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch</em></p>
 <p><strong>We ❤️ Old Underwear...</strong></p>
 <p>They feel comfy, they fit our contours. Nevermind the holes and the old stains 🤢</p>
@@ -124,12 +125,12 @@
 <p>Thankfully things are a lot simpler now, lemme explain...</p>
 <h1 id="wayland-on-ubuntu-touch" class="section-header"><a href="#wayland-on-ubuntu-touch">2 Wayland on Ubuntu Touch</a></h1>
 <p>TODO</p>
-<p>Adapted from the <a href="https://wayland.freedesktop.org/architecture.html">&quot;Wayland Architecture&quot;</a> document...</p>
+<p><em>Do we need overlapping or tiled windows on PinePhone?</em></p>
+<p><em>Do we need to need to decorate PinePhone windows with a title bar and minimise / maximise / close buttons?</em></p>
+<p><em>Do we even need any windows on PinePhone?</em></p>
+<p>No! Because each PinePhone app takes control of the entire screen!</p>
 <p>I lied about Wayland being New Underwear... It's not really that New!</p>
-<p>Now much simpler</p>
-<p>No window decorations</p>
-<p>No windows in fact</p>
-<p>Everything runs fullscreen</p>
+<p>Adapted from the <a href="https://wayland.freedesktop.org/architecture.html">&quot;Wayland Architecture&quot;</a> document...</p>
 <h1 id="wayland-egl-and-opengl-es" class="section-header"><a href="#wayland-egl-and-opengl-es">3 Wayland EGL and OpenGL ES</a></h1>
 <p>TODO</p>
 <p>Yes the opengl we use for games</p>
@@ -145,7 +146,39 @@
 <h1 id="overcome-apparmor-security-on-ubuntu-touch" class="section-header"><a href="#overcome-apparmor-security-on-ubuntu-touch">5 Overcome AppArmor Security on Ubuntu Touch</a></h1>
 <p>TODO</p>
 <p>Why AppArmor?</p>
-<h1 id="what-i-like-about-ubuntu-touch-on-pinephone" class="section-header"><a href="#what-i-like-about-ubuntu-touch-on-pinephone">6 What I like about Ubuntu Touch on PinePhone</a></h1>
+<h1 id="start-ssh-on-pinephone" class="section-header"><a href="#start-ssh-on-pinephone">6 Start SSH on PinePhone</a></h1>
+<p>To start SSH on PinePhone, open the Terminal app.</p>
+<p>Create a file named <code>a</code>...</p>
+<pre><code class="language-bash">nano a
+</code></pre>
+<p>Type this script into the <code>a</code> file...</p>
+<pre><code class="language-bash">#!/bin/sh
+# Script to start SSH service and show IP address
+
+# Start SSH service
+sudo service ssh start
+
+# Show IP address
+ifconfig | \
+    grep -v &quot;127.0.0.1&quot; | \
+    grep &quot;inet addr:&quot;
+
+# Ping repeatedly to keep WiFi alive
+ping google.com
+</code></pre>
+<p>Save the file and exit <code>nano</code>.</p>
+<p>When we're ready do coding on PinePhone, enter this at the command line...</p>
+<pre><code class="language-bash">. a 
+</code></pre>
+<p>(There's a space between &quot;<code>.</code>&quot; and &quot;<code>a</code>&quot;)</p>
+<p>The script starts the SSH Service and displays the IP address for PinePhone...</p>
+<p><img src="https://lupyuen.github.io/images/wayland-ssh.jpg" alt="Starting SSH Service on PinePhone" /></p>
+<p>We'll connect to PinePhone at the IP adddress indicated by <code>inet addr</code>. </p>
+<p>Tap on <code>Ctrl-C</code> to stop the <code>ping</code>.</p>
+<p>TODO: How to install SSH key on PinePhone</p>
+<p>When we press PinePhone's power button to switch off PinePhone, we'll see ths amusing message...</p>
+<p><img src="https://lupyuen.github.io/images/wayland-halt.jpg" alt="Powering off PinePhone" /></p>
+<h1 id="what-i-like-about-ubuntu-touch-on-pinephone" class="section-header"><a href="#what-i-like-about-ubuntu-touch-on-pinephone">7 What I like about Ubuntu Touch on PinePhone</a></h1>
 <p>TODO</p>
 <p>AppArmor is good, because iOS and Android have similar apps security</p>
 <p>Read-only file system is good (system files are read-only by default, user files are read-write). Helps to prevent security holes. (Even PineTime has a read-only Flash ROM)</p>
@@ -159,7 +192,7 @@
 <p>Ubuntu Touch is pure Wayland, none of the legacy X11 stuff. Xwayland is not even there (unless you use the Libertine containers ugh).</p>
 <p>The pure Wayland environment causes GTK to break, because GTK assumes some minimal X11 support (i.e. Xwayland).</p>
 <p>So Ubuntu Touch is not really that bad for PinePhone... It's just painful for building non-Qt apps. 🙂</p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">7 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">8 Further Reading</a></h1>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/bloc">&quot;Flutter State Management with Bloc for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter">&quot;Your First Bluetooth Low Energy App with Flutter&quot;</a></em></p>
