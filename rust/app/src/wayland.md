@@ -142,6 +142,8 @@ ping google.com
 
 Save the file and exit `nano`.
 
+TODO: How to install the script on PinePhone via SD card or Bluetooth
+
 When we're ready do coding on PinePhone, enter this at the command line...
 
 ```bash
@@ -158,9 +160,9 @@ We'll connect to PinePhone at the IP adddress indicated by `inet addr`.
 
 Tap on `Ctrl-C` to stop the `ping`.
 
-TODO: How to install SSH key and the above script on PinePhone via SD card or Bluetooth
+TODO: How to install SSH key on PinePhone via SD card or Bluetooth
 
-When we press PinePhone's power button to switch off PinePhone, we'll see ths amusing message...
+When we press PinePhone's power button to switch off PinePhone, we'll see ths amusing message from olden times...
 
 ![Powering off PinePhone](https://lupyuen.github.io/images/wayland-halt.jpg)
 
