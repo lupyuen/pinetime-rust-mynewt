@@ -86,11 +86,11 @@ That's the Wayland Compositor... A __262 KB__ executable named `unity-system-com
 
 _Compare that with the 2.2 MB X11 Server on Pinebook Pro!_
 
-Here's how the Wayland Compositor controls apps and manages touchscreen input on PinePhone...
+Here's how the Wayland Compositor controls apps and manages touchscreen input on PinePhone with Ubuntu Touch...
 
 TODO
 
-Adapted from the ["Wayland Architecture"](https://wayland.freedesktop.org/architecture.html) document...
+(Adapted from ["Wayland Architecture"](https://wayland.freedesktop.org/architecture.html) and ["EGL API"](https://en.wikipedia.org/wiki/EGL_(API)))
 
 I lied about Wayland being New Underwear... It's not really that New!
 
