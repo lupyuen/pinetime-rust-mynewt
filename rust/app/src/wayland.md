@@ -32,7 +32,7 @@ Let's hunt for the X11 Service on Pinebook Pro...
 
 ![X11 Service on Pinebook Pro](https://lupyuen.github.io/images/wayland-pinebook.png)
 
-That's the X11 Service... A 2.2 MB executable named `Xorg`. 
+That's the X11 Service... A __2.2 MB__ executable named __`Xorg`__. 
 
 The X11 Service controls the rendering of Linux apps (as well as the keyboard and mouse input) like this...
 
@@ -68,8 +68,6 @@ Thankfully things are a lot simpler now, lemme explain...
 
 # Wayland on Ubuntu Touch
 
-TODO
-
 _Do we need overlapping or tiled windows on PinePhone?_
 
 _Do we need to need to decorate PinePhone windows with a title bar and minimise / maximise / close buttons?_
@@ -78,9 +76,25 @@ _Do we even need any windows on PinePhone?_
 
 No! Because each PinePhone app takes control of the entire screen!
 
-I lied about Wayland being New Underwear... It's not really that New!
+PinePhone uses a simpler Graphical Display Service: the [__Wayland Compositor__](https://en.wikipedia.org/wiki/Wayland_(display_server_protocol)#Wayland_compositors).
+
+Let's hunt for the Wayland Compositor on PinePhone...
+
+![Wayland Compositor on PinePhone](https://lupyuen.github.io/images/wayland-compositor.png)
+
+That's the Wayland Compositor... A __262 KB__ executable named `unity-system-compositor`. 
+
+_Compare that with the 2.2 MB X11 Server on Pinebook Pro!_
+
+Here's how the Wayland Compositor controls apps and manages touchscreen input on PinePhone...
+
+TODO
 
 Adapted from the ["Wayland Architecture"](https://wayland.freedesktop.org/architecture.html) document...
+
+I lied about Wayland being New Underwear... It's not really that New!
+
+TODO
 
 # Wayland EGL and OpenGL ES
 
@@ -165,6 +179,26 @@ TODO: How to install SSH key on PinePhone via SD card or Bluetooth
 When we press PinePhone's power button to switch off PinePhone, we'll see ths amusing message from olden times...
 
 ![Powering off PinePhone](https://lupyuen.github.io/images/wayland-halt.jpg)
+
+# Build LVGL on PinePhone
+
+TODO
+
+# Run LVGL on PinePhone
+
+TODO
+
+Mir Server Log may be found on PinePhone here...
+
+```
+/home/phablet/.cache/upstart/unity8.log
+```
+
+Copy the log to our machine like this...
+
+```bash
+scp -i ~/.ssh/pinebook_rsa phablet@192.168.1.10:/home/phablet/.cache/upstart/u
+```
 
 # What I like about Ubuntu Touch on PinePhone
 
