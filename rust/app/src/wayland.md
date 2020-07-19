@@ -56,13 +56,13 @@ The X11 Service controls the rendering of Linux apps (as well as the keyboard an
 
 1. Any keyboard and mouse input is captured by the X11 Service, and forwarded to the programs.
 
-_Why so complex? So many hops?_
+_Why is X11 so complex? So many hops?_
 
 Because X11 was designed for Distributed Computing Systems.
 
-Here's what I did at [UIUC Systems Research Group](http://srg.cs.illinois.edu/) way back in 1990 (30 years ago!)...
+Here's how I used (abused?) X11R4 at [UIUC Systems Research Group](http://srg.cs.illinois.edu/) way back in 1990 (30 years ago!)...
 
-TODO
+![Distributed X11 System](https://lupyuen.github.io/images/wayland-uiuc.png)
 
 Thankfully things are a lot simpler now, lemme explain...
 
