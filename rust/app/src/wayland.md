@@ -228,9 +228,11 @@ Copy the log to our machine like this...
 scp -i ~/.ssh/pinebook_rsa phablet@192.168.1.10:/home/phablet/.cache/upstart/u
 ```
 
-# Build and Test Wayland PinePhone Apps on Pinebook Pro
+![PinePhone Wayland App tested on Pinebook Pro](https://lupyuen.github.io/images/wayland-weston.png)
 
-Here's how we can build and test Wayland PinePhone Apps (Ubuntu Touch) on Pinebook Pro...
+# Build and Test PinePhone Wayland Apps on Pinebook Pro
+
+Here's how we can build and test PinePhone Wayland Apps on Pinebook Pro...
 
 ```bash
 # Create a symbolic link for the OpenGL ES2 shared library that will be used for the Wayland build
@@ -240,16 +242,12 @@ sudo ln -s /usr/lib/libGLESv2.so /usr/lib/aarch64-linux-gnu/mesa-egl/libGLESv2.s
 # Build the Wayland executable
 make
 
-# Start the Wayland Compositor on Pinebook Pro with the PinePhone dimensions
+# Start the Weston Wayland Compositor on Pinebook Pro with the PinePhone screen dimensions
 weston --width=720 --height=1398 &
 
 # Run the Wayland executable
 wayland/lvgl
 ```
-
-We'll see this...
-
-
 
 # Wayland Gotchas
 

@@ -74,9 +74,10 @@
 <li><a href="#start-ssh-on-pinephone">7 Start SSH on PinePhone</a><ul></ul></li>
 <li><a href="#build-lvgl-on-pinephone">8 Build LVGL on PinePhone</a><ul></ul></li>
 <li><a href="#run-lvgl-on-pinephone">9 Run LVGL on PinePhone</a><ul></ul></li>
-<li><a href="#wayland-gotchas">10 Wayland Gotchas</a><ul></ul></li>
-<li><a href="#what-i-like-about-ubuntu-touch-on-pinephone">11 What I like about Ubuntu Touch on PinePhone</a><ul></ul></li>
-<li><a href="#further-reading">12 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/wayland-title.jpg" alt="Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch" /></p>
+<li><a href="#build-and-test-pinephone-wayland-apps-on-pinebook-pro">10 Build and Test PinePhone Wayland Apps on Pinebook Pro</a><ul></ul></li>
+<li><a href="#wayland-gotchas">11 Wayland Gotchas</a><ul></ul></li>
+<li><a href="#what-i-like-about-ubuntu-touch-on-pinephone">12 What I like about Ubuntu Touch on PinePhone</a><ul></ul></li>
+<li><a href="#further-reading">13 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/wayland-title.jpg" alt="Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch" /></p>
 <p><em>Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch</em></p>
 <p><strong>We ❤️   Old Underwear...</strong></p>
 <p>They feel comfy, they fit our contours. Nevermind the holes and the old stains 🤢</p>
@@ -227,7 +228,23 @@ ping google.com
 <p>Copy the log to our machine like this...</p>
 <pre><code class="language-bash">scp -i ~/.ssh/pinebook_rsa phablet@192.168.1.10:/home/phablet/.cache/upstart/u
 </code></pre>
-<h1 id="wayland-gotchas" class="section-header"><a href="#wayland-gotchas">10 Wayland Gotchas</a></h1>
+<p><img src="https://lupyuen.github.io/images/wayland-weston.png" alt="PinePhone Wayland App tested on Pinebook Pro" /></p>
+<h1 id="build-and-test-pinephone-wayland-apps-on-pinebook-pro" class="section-header"><a href="#build-and-test-pinephone-wayland-apps-on-pinebook-pro">10 Build and Test PinePhone Wayland Apps on Pinebook Pro</a></h1>
+<p>Here's how we can build and test PinePhone Wayland Apps on Pinebook Pro...</p>
+<pre><code class="language-bash"># Create a symbolic link for the OpenGL ES2 shared library that will be used for the Wayland build
+sudo mkdir -p /usr/lib/aarch64-linux-gnu/mesa-egl/
+sudo ln -s /usr/lib/libGLESv2.so /usr/lib/aarch64-linux-gnu/mesa-egl/libGLESv2.so.2
+
+# Build the Wayland executable
+make
+
+# Start the Weston Wayland Compositor on Pinebook Pro with the PinePhone screen dimensions
+weston --width=720 --height=1398 &amp;
+
+# Run the Wayland executable
+wayland/lvgl
+</code></pre>
+<h1 id="wayland-gotchas" class="section-header"><a href="#wayland-gotchas">11 Wayland Gotchas</a></h1>
 <p>TODO</p>
 <p>GPU on X11:</p>
 <p>https://qoto.org/@lupyuen/104541068127168291</p>
@@ -243,7 +260,7 @@ ping google.com
 <p>Mir / Lomiri / Unity8's complicated history:</p>
 <p>https://www.phoronix.com/scan.php?page=news_item&amp;px=Mir-2019-Kicking</p>
 <p>https://www.phoronix.com/scan.php?page=news_item&amp;px=Unity-8-Renamed-To-Lomiri</p>
-<h1 id="what-i-like-about-ubuntu-touch-on-pinephone" class="section-header"><a href="#what-i-like-about-ubuntu-touch-on-pinephone">11 What I like about Ubuntu Touch on PinePhone</a></h1>
+<h1 id="what-i-like-about-ubuntu-touch-on-pinephone" class="section-header"><a href="#what-i-like-about-ubuntu-touch-on-pinephone">12 What I like about Ubuntu Touch on PinePhone</a></h1>
 <p>TODO</p>
 <p>AppArmor is good, because iOS and Android have similar apps security</p>
 <p>Read-only file system is good (system files are read-only by default, user files are read-write). Helps to prevent security holes. (Even PineTime has a read-only Flash ROM)</p>
@@ -257,7 +274,7 @@ ping google.com
 <p>Ubuntu Touch is pure Wayland, none of the legacy X11 stuff. Xwayland is not even there (unless you use the Libertine containers ugh).</p>
 <p>The pure Wayland environment causes GTK to break, because GTK assumes some minimal X11 support (i.e. Xwayland).</p>
 <p>So Ubuntu Touch is not really that bad for PinePhone... It's just painful for building non-Qt apps. 🙂</p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">12 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">13 Further Reading</a></h1>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/bloc">&quot;Flutter State Management with Bloc for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter">&quot;Your First Bluetooth Low Energy App with Flutter&quot;</a></em></p>
