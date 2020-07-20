@@ -116,6 +116,8 @@ Wayland was first released in 2008 ([11 years ago](https://en.wikipedia.org/wiki
 
 Read on to learn how to render our own OpenGL graphics with Wayland and Ubuntu Touch on PinePhone.
 
+![Rendering yellow rectangle with Wayland and OpenGL on PinePhone](https://lupyuen.github.io/images/wayland-egl.jpg)
+
 # Wayland EGL and OpenGL ES
 
 TODO
@@ -123,6 +125,12 @@ TODO
 Since it can handle 3d, why not 2d?
 
 GPU Scaling
+
+![Rendering a simple texture with Wayland and OpenGL on PinePhone](https://lupyuen.github.io/images/wayland-egl2.jpg)
+
+# Render OpenGL Texture
+
+TODO
 
 # Port LVGL to Wayland
 

@@ -68,14 +68,15 @@
 <li><a href="#how-x11-works">1 How X11 works</a><ul></ul></li>
 <li><a href="#wayland-on-ubuntu-touch">2 Wayland on Ubuntu Touch</a><ul></ul></li>
 <li><a href="#wayland-egl-and-opengl-es">3 Wayland EGL and OpenGL ES</a><ul></ul></li>
-<li><a href="#port-lvgl-to-wayland">4 Port LVGL to Wayland</a><ul></ul></li>
-<li><a href="#overcome-apparmor-security-on-ubuntu-touch">5 Overcome AppArmor Security on Ubuntu Touch</a><ul></ul></li>
-<li><a href="#start-ssh-on-pinephone">6 Start SSH on PinePhone</a><ul></ul></li>
-<li><a href="#build-lvgl-on-pinephone">7 Build LVGL on PinePhone</a><ul></ul></li>
-<li><a href="#run-lvgl-on-pinephone">8 Run LVGL on PinePhone</a><ul></ul></li>
-<li><a href="#wayland-gotchas">9 Wayland Gotchas</a><ul></ul></li>
-<li><a href="#what-i-like-about-ubuntu-touch-on-pinephone">10 What I like about Ubuntu Touch on PinePhone</a><ul></ul></li>
-<li><a href="#further-reading">11 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/wayland-title.jpg" alt="Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch" /></p>
+<li><a href="#render-opengl-texture">4 Render OpenGL Texture</a><ul></ul></li>
+<li><a href="#port-lvgl-to-wayland">5 Port LVGL to Wayland</a><ul></ul></li>
+<li><a href="#overcome-apparmor-security-on-ubuntu-touch">6 Overcome AppArmor Security on Ubuntu Touch</a><ul></ul></li>
+<li><a href="#start-ssh-on-pinephone">7 Start SSH on PinePhone</a><ul></ul></li>
+<li><a href="#build-lvgl-on-pinephone">8 Build LVGL on PinePhone</a><ul></ul></li>
+<li><a href="#run-lvgl-on-pinephone">9 Run LVGL on PinePhone</a><ul></ul></li>
+<li><a href="#wayland-gotchas">10 Wayland Gotchas</a><ul></ul></li>
+<li><a href="#what-i-like-about-ubuntu-touch-on-pinephone">11 What I like about Ubuntu Touch on PinePhone</a><ul></ul></li>
+<li><a href="#further-reading">12 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/wayland-title.jpg" alt="Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch" /></p>
 <p><em>Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch</em></p>
 <p><strong>We ❤️   Old Underwear...</strong></p>
 <p>They feel comfy, they fit our contours. Nevermind the holes and the old stains 🤢</p>
@@ -163,11 +164,15 @@
 <p>Yes! And I lied about Wayland being New Underwear... Wayland is not really that New!</p>
 <p>Wayland was first released in 2008 (<a href="https://en.wikipedia.org/wiki/Wayland_(display_server_protocol)">11 years ago</a>)... Yet it was designed around OpenGL and GPUs, the same tech that powers our beautiful games today. (<a href="https://youtu.be/DNBk9hnPkTY">And websites too</a>)</p>
 <p>Read on to learn how to render our own OpenGL graphics with Wayland and Ubuntu Touch on PinePhone.</p>
+<p><img src="https://lupyuen.github.io/images/wayland-egl.jpg" alt="Rendering yellow rectangle with Wayland and OpenGL on PinePhone" /></p>
 <h1 id="wayland-egl-and-opengl-es" class="section-header"><a href="#wayland-egl-and-opengl-es">3 Wayland EGL and OpenGL ES</a></h1>
 <p>TODO</p>
 <p>Since it can handle 3d, why not 2d?</p>
 <p>GPU Scaling</p>
-<h1 id="port-lvgl-to-wayland" class="section-header"><a href="#port-lvgl-to-wayland">4 Port LVGL to Wayland</a></h1>
+<p><img src="https://lupyuen.github.io/images/wayland-egl2.jpg" alt="Rendering a simple texture with Wayland and OpenGL on PinePhone" /></p>
+<h1 id="render-opengl-texture" class="section-header"><a href="#render-opengl-texture">4 Render OpenGL Texture</a></h1>
+<p>TODO</p>
+<h1 id="port-lvgl-to-wayland" class="section-header"><a href="#port-lvgl-to-wayland">5 Port LVGL to Wayland</a></h1>
 <p>TODO</p>
 <p>SDL, GTK, Qt are complex because they handle X11 legacy stuff</p>
 <p>SDL and GTK will work on Wayland... but needs X11 compatibilty!</p>
@@ -175,10 +180,10 @@
 <p>What if we could start from scratch, drop the legacy stuff, and build a ui toolkit for Wayland and opengl?</p>
 <p>Lvgl is that experiment that we're undertaking today</p>
 <p>Rust wrapper for lvgl</p>
-<h1 id="overcome-apparmor-security-on-ubuntu-touch" class="section-header"><a href="#overcome-apparmor-security-on-ubuntu-touch">5 Overcome AppArmor Security on Ubuntu Touch</a></h1>
+<h1 id="overcome-apparmor-security-on-ubuntu-touch" class="section-header"><a href="#overcome-apparmor-security-on-ubuntu-touch">6 Overcome AppArmor Security on Ubuntu Touch</a></h1>
 <p>TODO</p>
 <p>Why AppArmor?</p>
-<h1 id="start-ssh-on-pinephone" class="section-header"><a href="#start-ssh-on-pinephone">6 Start SSH on PinePhone</a></h1>
+<h1 id="start-ssh-on-pinephone" class="section-header"><a href="#start-ssh-on-pinephone">7 Start SSH on PinePhone</a></h1>
 <p>To start SSH on PinePhone, open the Terminal app.</p>
 <p>Create a file named <code>a</code>...</p>
 <pre><code class="language-bash">nano a
@@ -211,9 +216,9 @@ ping google.com
 <p>TODO: How to install SSH key on PinePhone via SD card or Bluetooth</p>
 <p>When we press PinePhone's power button to switch off PinePhone, we'll see ths amusing message from olden times...</p>
 <p><img src="https://lupyuen.github.io/images/wayland-halt.jpg" alt="Powering off PinePhone" /></p>
-<h1 id="build-lvgl-on-pinephone" class="section-header"><a href="#build-lvgl-on-pinephone">7 Build LVGL on PinePhone</a></h1>
+<h1 id="build-lvgl-on-pinephone" class="section-header"><a href="#build-lvgl-on-pinephone">8 Build LVGL on PinePhone</a></h1>
 <p>TODO</p>
-<h1 id="run-lvgl-on-pinephone" class="section-header"><a href="#run-lvgl-on-pinephone">8 Run LVGL on PinePhone</a></h1>
+<h1 id="run-lvgl-on-pinephone" class="section-header"><a href="#run-lvgl-on-pinephone">9 Run LVGL on PinePhone</a></h1>
 <p>TODO</p>
 <p>Mir Server Log may be found on PinePhone here...</p>
 
@@ -222,7 +227,7 @@ ping google.com
 <p>Copy the log to our machine like this...</p>
 <pre><code class="language-bash">scp -i ~/.ssh/pinebook_rsa phablet@192.168.1.10:/home/phablet/.cache/upstart/u
 </code></pre>
-<h1 id="wayland-gotchas" class="section-header"><a href="#wayland-gotchas">9 Wayland Gotchas</a></h1>
+<h1 id="wayland-gotchas" class="section-header"><a href="#wayland-gotchas">10 Wayland Gotchas</a></h1>
 <p>TODO</p>
 <p>GPU on X11:</p>
 <p>https://qoto.org/@lupyuen/104541068127168291</p>
@@ -238,7 +243,7 @@ ping google.com
 <p>Mir / Lomiri / Unity8's complicated history:</p>
 <p>https://www.phoronix.com/scan.php?page=news_item&amp;px=Mir-2019-Kicking</p>
 <p>https://www.phoronix.com/scan.php?page=news_item&amp;px=Unity-8-Renamed-To-Lomiri</p>
-<h1 id="what-i-like-about-ubuntu-touch-on-pinephone" class="section-header"><a href="#what-i-like-about-ubuntu-touch-on-pinephone">10 What I like about Ubuntu Touch on PinePhone</a></h1>
+<h1 id="what-i-like-about-ubuntu-touch-on-pinephone" class="section-header"><a href="#what-i-like-about-ubuntu-touch-on-pinephone">11 What I like about Ubuntu Touch on PinePhone</a></h1>
 <p>TODO</p>
 <p>AppArmor is good, because iOS and Android have similar apps security</p>
 <p>Read-only file system is good (system files are read-only by default, user files are read-write). Helps to prevent security holes. (Even PineTime has a read-only Flash ROM)</p>
@@ -252,7 +257,7 @@ ping google.com
 <p>Ubuntu Touch is pure Wayland, none of the legacy X11 stuff. Xwayland is not even there (unless you use the Libertine containers ugh).</p>
 <p>The pure Wayland environment causes GTK to break, because GTK assumes some minimal X11 support (i.e. Xwayland).</p>
 <p>So Ubuntu Touch is not really that bad for PinePhone... It's just painful for building non-Qt apps. 🙂</p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">11 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">12 Further Reading</a></h1>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/bloc">&quot;Flutter State Management with Bloc for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter">&quot;Your First Bluetooth Low Energy App with Flutter&quot;</a></em></p>
