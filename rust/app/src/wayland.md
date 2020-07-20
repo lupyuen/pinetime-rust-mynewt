@@ -54,7 +54,7 @@ The X11 Service controls the rendering of Linux apps (as well as the keyboard an
 
 1. The Screen Buffer is rendered to our screen by the X11 Service, talking to the __Linux Display Driver__.
 
-1. Any keyboard and mouse input is captured by the X11 Service, and forwarded to the programs.
+1. Any __keyboard and mouse input__ is captured by the X11 Service, and forwarded to the programs.
 
 _Why is X11 so complex? So many hops?_
 
@@ -86,25 +86,39 @@ That's the Wayland Compositor... A __262 KB__ executable named `unity-system-com
 
 _Compare that with the 2.2 MB X11 Server on Pinebook Pro!_
 
-Here's how the Wayland Compositor controls apps and manages touchscreen input on PinePhone with Ubuntu Touch...
+Here's how the Wayland Compositor controls apps and touchscreen input on PinePhone with Ubuntu Touch...
 
-TODO
+![Wayland Architecture](https://lupyuen.github.io/images/wayland-arch.png)
 
 (Adapted from ["Wayland Architecture"](https://wayland.freedesktop.org/architecture.html) and ["EGL API"](https://en.wikipedia.org/wiki/EGL_(API)))
 
-I lied about Wayland being New Underwear... It's not really that New!
+1. At the top we have the apps running on our phone: __Terminal, Editor, Web Browser__.
 
-TODO
+    Since each app runs fullscreen, only the active app will be rendered.
+
+    When then app starts, it queries the __Wayland Compositor__ for the graphical display interfaces available. (They talk via a [Linux socket file](https://en.wikipedia.org/wiki/Unix_file_types#Socket): `/run/user/32011/wayland-0`)
+
+1. Wayland Compositor returns the [__EGL Interface__](https://en.wikipedia.org/wiki/EGL_(API)) to the app.
+
+1. App calls the EGL Interface to [__render OpenGL graphics__](https://en.wikipedia.org/wiki/OpenGL) directly to the __Linux Display Driver__.
+
+1. Linux Display Driver forwards the OpenGL rendering commands to the [__GPU to update the screen__](https://en.wikipedia.org/wiki/Graphics_processing_unit).
+
+1. Any __touchscreen input__ is captured by the Wayland Compositor, and forwarded to the active app.
+
+Wayland looks so much simpler and faster than X11!
+
+_Wayland is designed for OpenGL and GPUs?_
+
+Yes! And I lied about Wayland being New Underwear... Wayland is not really that New!
+
+Wayland was first released in 2008 ([11 years ago](https://en.wikipedia.org/wiki/Wayland_(display_server_protocol)))... Yet it was designed around OpenGL and GPUs, the same tech that powers our beautiful games today. ([And websites too](https://youtu.be/DNBk9hnPkTY))
+
+Read on to learn how to render our own OpenGL graphics with Wayland and Ubuntu Touch on PinePhone.
 
 # Wayland EGL and OpenGL ES
 
 TODO
-
-Yes the opengl we use for games
-
-And still used today for webgl
-
-Geo location map: https://youtu.be/DNBk9hnPkTY
 
 Since it can handle 3d, why not 2d?
 

@@ -118,7 +118,7 @@
 <p>The Screen Buffer is rendered to our screen by the X11 Service, talking to the <strong>Linux Display Driver</strong>.</p>
 </li>
 <li>
-<p>Any keyboard and mouse input is captured by the X11 Service, and forwarded to the programs.</p>
+<p>Any <strong>keyboard and mouse input</strong> is captured by the X11 Service, and forwarded to the programs.</p>
 </li>
 </ol>
 <p><em>Why is X11 so complex? So many hops?</em></p>
@@ -136,16 +136,35 @@
 <p><img src="https://lupyuen.github.io/images/wayland-compositor.png" alt="Wayland Compositor on PinePhone" /></p>
 <p>That's the Wayland Compositor... A <strong>262 KB</strong> executable named <code>unity-system-compositor</code>. </p>
 <p><em>Compare that with the 2.2 MB X11 Server on Pinebook Pro!</em></p>
-<p>Here's how the Wayland Compositor controls apps and manages touchscreen input on PinePhone with Ubuntu Touch...</p>
-<p>TODO</p>
+<p>Here's how the Wayland Compositor controls apps and touchscreen input on PinePhone with Ubuntu Touch...</p>
+<p><img src="https://lupyuen.github.io/images/wayland-arch.png" alt="Wayland Architecture" /></p>
 <p>(Adapted from <a href="https://wayland.freedesktop.org/architecture.html">&quot;Wayland Architecture&quot;</a> and <a href="https://en.wikipedia.org/wiki/EGL_(API)">&quot;EGL API&quot;</a>)</p>
-<p>I lied about Wayland being New Underwear... It's not really that New!</p>
-<p>TODO</p>
+<ol>
+<li>
+<p>At the top we have the apps running on our phone: <strong>Terminal, Editor, Web Browser</strong>.</p>
+<p>Since each app runs fullscreen, only the active app will be rendered.</p>
+<p>When then app starts, it queries the <strong>Wayland Compositor</strong> for the graphical display interfaces available. (They talk via a <a href="https://en.wikipedia.org/wiki/Unix_file_types#Socket">Linux socket file</a>: <code>/run/user/32011/wayland-0</code>)</p>
+</li>
+<li>
+<p>Wayland Compositor returns the <a href="https://en.wikipedia.org/wiki/EGL_(API)"><strong>EGL Interface</strong></a> to the app.</p>
+</li>
+<li>
+<p>App calls the EGL Interface to <a href="https://en.wikipedia.org/wiki/OpenGL"><strong>render OpenGL graphics</strong></a> directly to the <strong>Linux Display Driver</strong>.</p>
+</li>
+<li>
+<p>Linux Display Driver forwards the OpenGL rendering commands to the <a href="https://en.wikipedia.org/wiki/Graphics_processing_unit"><strong>GPU to update the screen</strong></a>.</p>
+</li>
+<li>
+<p>Any <strong>touchscreen input</strong> is captured by the Wayland Compositor, and forwarded to the active app.</p>
+</li>
+</ol>
+<p>Wayland looks so much simpler and faster than X11!</p>
+<p><em>Wayland is designed for OpenGL and GPUs?</em></p>
+<p>Yes! And I lied about Wayland being New Underwear... Wayland is not really that New!</p>
+<p>Wayland was first released in 2008 (<a href="https://en.wikipedia.org/wiki/Wayland_(display_server_protocol)">11 years ago</a>)... Yet it was designed around OpenGL and GPUs, the same tech that powers our beautiful games today. (<a href="https://youtu.be/DNBk9hnPkTY">And websites too</a>)</p>
+<p>Read on to learn how to render our own OpenGL graphics with Wayland and Ubuntu Touch on PinePhone.</p>
 <h1 id="wayland-egl-and-opengl-es" class="section-header"><a href="#wayland-egl-and-opengl-es">3 Wayland EGL and OpenGL ES</a></h1>
 <p>TODO</p>
-<p>Yes the opengl we use for games</p>
-<p>And still used today for webgl</p>
-<p>Geo location map: https://youtu.be/DNBk9hnPkTY</p>
 <p>Since it can handle 3d, why not 2d?</p>
 <p>GPU Scaling</p>
 <h1 id="port-lvgl-to-wayland" class="section-header"><a href="#port-lvgl-to-wayland">4 Port LVGL to Wayland</a></h1>
