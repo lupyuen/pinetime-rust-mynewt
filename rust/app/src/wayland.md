@@ -228,6 +228,19 @@ Copy the log to our machine like this...
 scp -i ~/.ssh/pinebook_rsa phablet@192.168.1.10:/home/phablet/.cache/upstart/u
 ```
 
+# Wayland on Pinebook Pro
+
+TODO
+
+```bash
+sudo mkdir -p /usr/lib/aarch64-linux-gnu/mesa-egl/
+sudo ln -s /usr/lib/libGLESv2.so /usr/lib/aarch64-linux-gnu/mesa-egl/libGLESv2.so.2
+./egl.sh
+
+weston
+./egl
+```
+
 # Wayland Gotchas
 
 TODO
