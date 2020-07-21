@@ -589,6 +589,105 @@ _Rendering a simple texture with Wayland and OpenGL on PinePhone_
 
 TODO
 
+https://github.com/lupyuen/pinephone-mir/blob/master/egl2.c#L51-L67
+
+```c
+/// Render the OpenGL ES2 display
+static void render_display() {
+    puts("Rendering display...");
+
+    //  Create the texture context
+    static ESContext esContext;
+    esInitContext ( &esContext );
+    esContext.width = WIDTH;
+    esContext.height = HEIGHT;
+
+    //   Draw the texture
+    Init(&esContext);
+    Draw(&esContext);
+
+    //  Render now
+    glFlush();
+}
+```
+
+https://github.com/lupyuen/pinephone-mir/blob/master/texture.c#L30-L64
+
+```c
+// Create a simple 2x2 texture image with four different colors
+GLuint CreateSimpleTexture2D() {
+    // Texture object handle
+    GLuint textureId;
+
+    // 2x2 Image, 3 bytes per pixel (R, G, B)
+    GLubyte pixels[4 * 3] = {
+        255, 0, 0,  // Red
+        0, 255, 0,  // Green
+        0, 0, 255,  // Blue
+        255, 255, 0 // Yellow
+    };
+
+    // Use tightly packed data
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+    // Generate a texture object
+    glGenTextures(1, &textureId);
+
+    // Bind the texture object
+    glBindTexture(GL_TEXTURE_2D, textureId);
+
+    // Load the texture
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_UNSIGNED_BYTE, pixels);
+
+    // Set the filtering mode
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    return textureId;
+}
+```
+
+OpenGL ES 2.0 Programming Guide
+
+http://www.opengles-book.com/es2/index.html
+
+https://github.com/danginsburg/opengles-book-samples
+
+https://github.com/lupyuen/pinephone-mir/blob/master/texture.c#L66-L93
+
+```c
+// Initialize the shader and program object
+int Init(ESContext *esContext)
+{
+    esContext->userData = malloc(sizeof(UserData));
+    UserData *userData = esContext->userData;
+    GLbyte vShaderStr[] =
+        "attribute vec4 a_position;   \n"
+        "attribute vec2 a_texCoord;   \n"
+        "varying vec2 v_texCoord;     \n"
+        "void main()                  \n"
+        "{                            \n"
+        "   gl_Position = a_position; \n"
+        "   v_texCoord = a_texCoord;  \n"
+        "}                            \n";
+
+    GLbyte fShaderStr[] =
+        "precision mediump float;                            \n"
+        "varying vec2 v_texCoord;                            \n"
+        "uniform sampler2D s_texture;                        \n"
+        "void main()                                         \n"
+        "{                                                   \n"
+        "  gl_FragColor = texture2D( s_texture, v_texCoord );\n"
+        "}                                                   \n";
+
+    // Load the shaders and get a linked program object
+    userData->programObject = esLoadProgram(vShaderStr, fShaderStr);
+    ...
+```
+
+`esLoadProgram()` is defined in
+
+https://github.com/lupyuen/pinephone-mir/blob/master/shader.c
+
 The OpenGL Texture code in this article was adapted from https://github.com/danginsburg/opengles-book-samples
 
 # Port LVGL to Wayland
