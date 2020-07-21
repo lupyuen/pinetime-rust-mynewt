@@ -230,25 +230,25 @@ static void create_window(void) {
 <p><em>EGL vs OpenGL... What's the difference?</em></p>
 <p>In Wayland, EGL is the Enabler for OpenGL. </p>
 <p>Wayland only understands EGL and it will gladly hand us EGL objects... But it's up to us to transform EGL into OpenGL for rendering.</p>
-<p>In the code above, we take a Wayland Surface <code>surface</code> and transform it into an EGL Window <code>egl_window</code>...</p>
-<pre><code class="language-c">    //  Create an EGL Window from a Wayland Surface 
-    egl_window = wl_egl_window_create(surface, WIDTH, HEIGHT);
+<p>Thus in the code above, we take a Wayland Surface <code>surface</code> and transform it into an EGL Window <code>egl_window</code>...</p>
+<pre><code class="language-c">//  Create an EGL Window from a Wayland Surface 
+egl_window = wl_egl_window_create(surface, WIDTH, HEIGHT);
 </code></pre>
 <p>Then we create an OpenGL Window Surface <code>egl_surface</code> from that EGL Window...</p>
-<pre><code class="language-c">    //  Create an OpenGL Window Surface for rendering
-    egl_surface = eglCreateWindowSurface(egl_display, egl_conf,
-        egl_window, NULL);
+<pre><code class="language-c">//  Create an OpenGL Window Surface for rendering
+egl_surface = eglCreateWindowSurface(egl_display, egl_conf,
+    egl_window, NULL);
 </code></pre>
 <p>And we begin the OpenGL rendering...</p>
-<pre><code class="language-c">    //  Set the current rendering surface
-    EGLBoolean madeCurrent = eglMakeCurrent(egl_display, egl_surface,
-        egl_surface, egl_context);
+<pre><code class="language-c">//  Set the current rendering surface
+EGLBoolean madeCurrent = eglMakeCurrent(egl_display, egl_surface,
+    egl_surface, egl_context);
 
-    //  Render the display
-    render_display();
+//  Render the display
+render_display();
 
-    //  Swap the display buffers to make the display visible
-    eglSwapBuffers(egl_display, egl_surface);
+//  Swap the display buffers to make the display visible
+eglSwapBuffers(egl_display, egl_surface);
 </code></pre>
 <p>Here's how we create a Wayland Region for OpenGL rendering: <a href="https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L103-L112"><code>pinephone-mir/egl.c</code></a></p>
 <pre><code class="language-c">static struct wl_region *region;  //  Wayland Region

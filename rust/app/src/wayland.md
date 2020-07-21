@@ -192,33 +192,33 @@ In Wayland, EGL is the Enabler for OpenGL.
 
 Wayland only understands EGL and it will gladly hand us EGL objects... But it's up to us to transform EGL into OpenGL for rendering.
 
-In the code above, we take a Wayland Surface `surface` and transform it into an EGL Window `egl_window`...
+Thus in the code above, we take a Wayland Surface `surface` and transform it into an EGL Window `egl_window`...
 
 ```c
-    //  Create an EGL Window from a Wayland Surface 
-    egl_window = wl_egl_window_create(surface, WIDTH, HEIGHT);
+//  Create an EGL Window from a Wayland Surface 
+egl_window = wl_egl_window_create(surface, WIDTH, HEIGHT);
 ```
 
 Then we create an OpenGL Window Surface `egl_surface` from that EGL Window...
 
 ```c
-    //  Create an OpenGL Window Surface for rendering
-    egl_surface = eglCreateWindowSurface(egl_display, egl_conf,
-        egl_window, NULL);
+//  Create an OpenGL Window Surface for rendering
+egl_surface = eglCreateWindowSurface(egl_display, egl_conf,
+    egl_window, NULL);
 ```
 
 And we begin the OpenGL rendering...
 
 ```c
-    //  Set the current rendering surface
-    EGLBoolean madeCurrent = eglMakeCurrent(egl_display, egl_surface,
-        egl_surface, egl_context);
+//  Set the current rendering surface
+EGLBoolean madeCurrent = eglMakeCurrent(egl_display, egl_surface,
+    egl_surface, egl_context);
 
-    //  Render the display
-    render_display();
+//  Render the display
+render_display();
 
-    //  Swap the display buffers to make the display visible
-    eglSwapBuffers(egl_display, egl_surface);
+//  Swap the display buffers to make the display visible
+eglSwapBuffers(egl_display, egl_surface);
 ```
 
 Here's how we create a Wayland Region for OpenGL rendering: [`pinephone-mir/egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L103-L112)
