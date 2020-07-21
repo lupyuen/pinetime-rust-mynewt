@@ -154,6 +154,10 @@ Two things to note...
 Before calling `render_display()`, we fetch the OpenGL Window Surface from Wayland like so: [`pinephone-mir/egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L167-L189)
 
 ```c
+/// Dimensions of the OpenGL region to be rendered
+static int WIDTH  = 480;
+static int HEIGHT = 360;
+
 static struct wl_egl_window *egl_window;  //  Wayland EGL Window
 static EGLSurface egl_surface;            //  EGL Surface
 
@@ -222,9 +226,6 @@ eglSwapBuffers(egl_display, egl_surface);
 Here's how we create a Wayland Region for OpenGL rendering: [`pinephone-mir/egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L103-L112)
 
 ```c
-/// Dimensions of the OpenGL region to be rendered
-static int WIDTH  = 480;
-static int HEIGHT = 360;
 static struct wl_region *region;  //  Wayland Region
 
 /// Create an opaque region for OpenGL rendering
