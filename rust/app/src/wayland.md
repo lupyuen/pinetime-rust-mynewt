@@ -517,6 +517,8 @@ What happens inside `get_server_references()`?
     display = wl_display_connect(NULL);
     ```
 
+    Remember that all functions named `wl_...` come from the Wayland Library.
+
 1.  To do any actual work with the Wayland Service, we need to fetch the Interfaces for the Wayland Compositor and Wayland Shell.
 
     __Wayland Interfaces__ are defined in the __Wayland Registry__...
