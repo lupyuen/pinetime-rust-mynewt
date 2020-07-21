@@ -360,7 +360,7 @@ int main(int argc, char **argv) {
     //  Create the EGL Context for rendering OpenGL graphics
     init_egl();
 
-    //  Create the OpenGL Window and render OpenGL graphics
+    //  Create the EGL Window and render OpenGL graphics
     create_window();
 
     //  Handle all Wayland Events in the Event Loop
@@ -405,7 +405,7 @@ wl_shell_surface_set_toplevel(shell_surface);
 create_opaque_region();
 //  Create the EGL Context for rendering OpenGL graphics
 init_egl();
-//  Create the OpenGL Window and render OpenGL graphics
+//  Create the EGL Window and render OpenGL graphics
 create_window();
 </code></pre>
 </li>
@@ -426,7 +426,7 @@ wl_display_disconnect(display);
 <h1 id="build-and-test-wayland-app" class="section-header"><a href="#build-and-test-wayland-app">5 Build and Test Wayland App</a></h1>
 <p>TODO</p>
 <p>Building a Wayland app is refreshingly simple (if you're used to GDK, Qt and SDL).</p>
-<p>Here'a how we build the app in <code>egl.c</code> on a Linux machine (that has the Wayland, MESA EGL and OpenGL ES2 libraries installed)...</p>
+<p>Here'a how we build the app in <a href="https://github.com/lupyuen/pinephone-mir/blob/master/egl.c"><code>egl.c</code></a> on a Linux machine (that has the Wayland, MESA EGL and OpenGL ES2 libraries installed)...</p>
 <pre><code class="language-bash"># Build the Wayland EGL app
 gcc \
     -g \
