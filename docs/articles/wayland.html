@@ -440,7 +440,7 @@ gcc \
     -lEGL \
     -lGLESv2
 </code></pre>
-<p>Run the <code>egl</code> app on our Linux machine like so..</p>
+<p>This produces the executable app <code>egl</code>. Run the <code>egl</code> app on our Linux machine like so...</p>
 <pre><code class="language-bash"># Install Weston Wayland Compositor...
 # For Arch Linux and Manjaro:
 sudo pacman -S weston
@@ -459,28 +459,29 @@ weston --width=720 --height=1398 &amp;
 <p><img src="https://lupyuen.github.io/images/wayland-westonegl.png" alt="EGL App running with Wayland Weston Compositor on Pinebook Pro" /></p>
 <p>We learn in a while how to build and run the app on PinePhone.</p>
 <h1 id="fetch-wayland-interfaces" class="section-header"><a href="#fetch-wayland-interfaces">6 Fetch Wayland Interfaces</a></h1>
-<p>TODO</p>
-<p><a href="https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L194-L251"><code>pinephone-mir/egl.c</code></a></p>
+<p>Earlier we used the Wayland Compositor and the Wayland Shell in our app...</p>
+<ol>
+<li>
+<p><strong>Wayland Compositor</strong> (<code>compositor</code>): Manages the screen buffer used by apps</p>
+</li>
+<li>
+<p><strong>Wayland Shell</strong> (<code>shell</code>): Manages the app windows</p>
+</li>
+</ol>
+<p>Here's how we fetch the two interfaces from Wayland: <a href="https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L194-L251"><code>pinephone-mir/egl.c</code></a></p>
 <pre><code class="language-c">/// Wayland Interfaces
 static struct wl_display       *display;       //  Wayland Display
 static struct wl_compositor    *compositor;    //  Wayland Compositor
 static struct wl_shell         *shell;         //  Wayland Shell
 
-/// Callbacks for interfaces returned by Wayland Service
-static const struct wl_registry_listener registry_listener = {
-    global_registry_handler,
-    global_registry_remover
-};
-
 /// Connect to Wayland Service and fetch the interfaces for Wayland Compositor and Wayland Shell
 static void get_server_references(void) {
-    puts(&quot;Getting server references...&quot;);
+    //  Connect to the Wayland Service
     display = wl_display_connect(NULL);
     if (display == NULL) {
         fprintf(stderr, &quot;Failed to connect to display\n&quot;);
         exit(1);
     }
-    puts(&quot;Connected to display&quot;);
 
     //  Get the Wayland Registry
     struct wl_registry *registry = wl_display_get_registry(display);
@@ -497,6 +498,44 @@ static void get_server_references(void) {
     assert(compositor != NULL);  //  Failed to get Wayland Compositor
     assert(shell != NULL);       //  Failed to get Wayland Shell
 }
+</code></pre>
+<p>What happens inside <code>get_server_references()</code>?</p>
+<ol>
+<li>
+<p>The Wayland Compositor runs as a Linux Service that listens on a <a href="https://en.wikipedia.org/wiki/Unix_file_types#Socket">Linux Socket File</a>: <code>/run/user/32011/wayland-0</code> for PinePhone on Ubuntu Touch.</p>
+<p>We connect to the <strong>Wayland Service</strong> like so...</p>
+<pre><code class="language-c">//  Connect to the Wayland Service
+display = wl_display_connect(NULL);
+</code></pre>
+</li>
+<li>
+<p>To do any actual work with the Wayland Service, we need to fetch the Interfaces for the Wayland Compositor and Wayland Shell.</p>
+<p><strong>Wayland Interfaces</strong> are defined in the <strong>Wayland Registry</strong>...</p>
+<pre><code class="language-c">//  Get the Wayland Registry
+struct wl_registry *registry = wl_display_get_registry(display);
+</code></pre>
+</li>
+<li>
+<p>To fetch the Compositor and Shell from the Wayland Registry, we add a <strong>Registry Listener</strong> (more about this later)...</p>
+<pre><code class="language-c">//  Add Registry Callbacks to handle interfaces returned by Wayland Service
+wl_registry_add_listener(registry, &amp;registry_listener, NULL);
+</code></pre>
+</li>
+<li>
+<p>Now we <strong>dispatch the Registry request</strong> to the Wayland Service. (Remember that the Wayland Service operates on Linux Socket Messages)</p>
+<pre><code class="language-c">//  Wait for Registry Callbacks to fetch Wayland Interfaces
+wl_display_dispatch(display);
+wl_display_roundtrip(display);
+</code></pre>
+</li>
+</ol>
+<p>And we'll get the <code>compositor</code> and <code>shell</code> objects populated from the Wayland Registry!</p>
+<p>If you're curious, the Registry Listener works like this: <a href="https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L194-L251"><code>pinephone-mir/egl.c</code></a></p>
+<pre><code class="language-c">/// Callbacks for interfaces returned by Wayland Service
+static const struct wl_registry_listener registry_listener = {
+    global_registry_handler,
+    global_registry_remover
+};
 
 /// Callback for interfaces returned by Wayland Service
 static void global_registry_handler(void *data, struct wl_registry *registry, uint32_t id,
@@ -515,12 +554,9 @@ static void global_registry_handler(void *data, struct wl_registry *registry, ui
             1);                         //  Interface Version
     }
 }
-
-/// Callback for removed interfaces
-static void global_registry_remover(void *data, struct wl_registry *registry, uint32_t id) {
-    printf(&quot;Removed interface id %d\n&quot;, id);
-}
 </code></pre>
+<p><code>global_registry_handler()</code> is the Callback Function that will be triggered for every interface in the Wayland Registry. </p>
+<p>The Wayland Service for Ubuntu Touch <code>unity-system-compositor</code> returns a whole bunch of interesting Wayland Interfaces (like <code>qt_windowmanager</code>). But we'll use the Compositor Interface <code>wl_compositor</code> and Shell Interface <code>wl_compositor</code> today.</p>
 <p>Now let's render a simple texture with Wayland and OpenGL...</p>
 <p><img src="https://lupyuen.github.io/images/wayland-egl2.jpg" alt="Rendering a simple texture with Wayland and OpenGL on PinePhone" /></p>
 <p><em>Rendering a simple texture with Wayland and OpenGL on PinePhone</em></p>
