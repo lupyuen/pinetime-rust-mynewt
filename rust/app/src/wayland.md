@@ -118,6 +118,8 @@ Read on to learn how to render our own OpenGL graphics with Wayland and Ubuntu T
 
 ![Rendering yellow rectangle with Wayland and OpenGL on PinePhone](https://lupyuen.github.io/images/wayland-egl.jpg)
 
+_Rendering yellow rectangle with Wayland and OpenGL on PinePhone_
+
 # Render OpenGL Graphics with Wayland
 
 https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L44-L60
@@ -384,6 +386,8 @@ static void global_registry_remover(void *data, struct wl_registry *registry, ui
 Now let's render a simple texture with Wayland and OpenGL...
 
 ![Rendering a simple texture with Wayland and OpenGL on PinePhone](https://lupyuen.github.io/images/wayland-egl2.jpg)
+
+_Rendering a simple texture with Wayland and OpenGL on PinePhone_
 
 # Render OpenGL Texture with Wayland
 
