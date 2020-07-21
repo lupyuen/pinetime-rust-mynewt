@@ -127,8 +127,6 @@ Here's the function that calls OpenGL to render the yellow box above: [`pinephon
 ```c
 /// Render the OpenGL ES2 display
 static void render_display() {
-    puts("Rendering display...");
-
     //  Fill the rectangular region with yellow
     glClearColor(
         1.0,  //  Red
@@ -149,7 +147,7 @@ Two things to note...
 
 1. PinePhone supports a popular subset of OpenGL, known as [__OpenGL for Embedded Systems__](https://en.wikipedia.org/wiki/OpenGL_ES) Version 2.0.
 
-    OpenGL ES is optimised for Embedded Devices. OpenGL ES is used by many mobile and console games today.
+    OpenGL ES is optimised for Embedded Devices. It's used by many mobile and console games today.
 
 1. To render OpenGL ES graphics, we need to get the OpenGL ES Context and Window Surface from Wayland
 
@@ -211,7 +209,7 @@ And we begin the OpenGL rendering...
 
 ```c
 //  Set the current rendering surface
-EGLBoolean madeCurrent = eglMakeCurrent(egl_display, egl_surface,
+eglMakeCurrent(egl_display, egl_surface,
     egl_surface, egl_context);
 
 //  Render the display
