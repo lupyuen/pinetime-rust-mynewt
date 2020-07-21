@@ -372,6 +372,8 @@ gcc \
     -lGLESv2
 ```
 
+Run the `egl` app on our Linux machine like this..
+
 ```bash
 # Start the Weston Wayland Compositor on our computer with the PinePhone screen dimensions
 weston --width=720 --height=1398 &
