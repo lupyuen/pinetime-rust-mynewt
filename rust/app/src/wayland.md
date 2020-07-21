@@ -161,7 +161,7 @@ static int HEIGHT = 360;
 static struct wl_egl_window *egl_window;  //  Wayland EGL Window
 static EGLSurface egl_surface;            //  EGL Surface
 
-/// Create the OpenGL window and render it
+//  Create the EGL Window and render OpenGL graphics
 static void create_window(void) {
     //  Create an EGL Window from a Wayland Surface 
     egl_window = wl_egl_window_create(surface, WIDTH, HEIGHT);
@@ -228,7 +228,7 @@ Here's how we create a Wayland Region for OpenGL rendering: [`pinephone-mir/egl.
 ```c
 static struct wl_region *region;  //  Wayland Region
 
-/// Create an opaque region for OpenGL rendering
+//  Create the Wayland Region for rendering OpenGL graphics
 static void create_opaque_region(void) {
     //  Create a Wayland Region
     region = wl_compositor_create_region(compositor);
@@ -258,7 +258,7 @@ static EGLDisplay egl_display;  //  EGL Display
 static EGLConfig  egl_conf;     //  EGL Configuration
 static EGLContext egl_context;  //  EGL Context
 
-/// Init the EGL Interface
+//  Create the EGL Context for rendering OpenGL graphics
 static void init_egl(void) {
     //  Attributes for our EGL Display
     EGLint config_attribs[] = {
@@ -307,12 +307,11 @@ static void init_egl(void) {
 }
 ```
 
+[More about EGL](https://jan.newmarch.name/Wayland/EGL/)
 
-[More details here](https://jan.newmarch.name/Wayland/EGL/)
+The above code in `init_egl()` creates the EGL Context. 
 
-TODO
-
-[`pinephone-mir/egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L64-L98)
+We call `init_egl()` in our Main Function like so: [`pinephone-mir/egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L64-L98)
 
 ```c
 /// Wayland Interfaces
@@ -323,24 +322,25 @@ static struct wl_shell_surface *shell_surface; //  Wayland Shell Surface
 int main(int argc, char **argv) {
     //  Get interfaces for Wayland Compositor and Wayland Shell
     get_server_references();
+    assert(display != NULL);     //  Failed to get Wayland Display
     assert(compositor != NULL);  //  Failed to get Wayland Compositor
     assert(shell != NULL);       //  Failed to get Wayland Shell
 
-    //  Create a Wayland Surface for rendering
+    //  Create a Wayland Surface for rendering our app
     surface = wl_compositor_create_surface(compositor);
     assert(surface != NULL);  //  Failed to create Wayland Surface
 
-    //  Get the Wayland Shell Surface for rendering
+    //  Get the Wayland Shell Surface for rendering our app window
     shell_surface = wl_shell_get_shell_surface(shell, surface);
     assert(shell_surface != NULL);
 
     //  Set the Shell Surface as top level
     wl_shell_surface_set_toplevel(shell_surface);
 
-    //  Create an opaque region for rendering
+    //  Create the Wayland Region for rendering OpenGL graphics
     create_opaque_region();
 
-    //  Init Wayland EGL
+    //  Create the EGL Context for rendering OpenGL graphics
     init_egl();
 
     //  Create the OpenGL Window and render OpenGL graphics
@@ -355,11 +355,74 @@ int main(int argc, char **argv) {
 }
 ```
 
+The `main()` function in all Wayland apps follow the same steps...
+
+1.  Fetch the __Wayland Compositor__ and __Wayland Shell__ from the __Wayland Registry__...
+
+    ```c
+    //  Get interfaces for Wayland Compositor and Wayland Shell
+    get_server_references();
+    ```
+
+    We'll talk about `get_server_references()` and the Wayland Registry in a while.
+
+1.  Every Wayland App needs a __Wayland Surface__ (screen buffer) for displaying the app...
+
+    ```c
+    //  Create a Wayland Surface for rendering our app
+    surface = wl_compositor_create_surface(compositor);
+    ```
+
+1.  Create a __Wayland Shell Surface__ (app window) for rendering our app...
+
+    ```c
+    //  Get the Wayland Shell Surface for rendering our app window
+    shell_surface = wl_shell_get_shell_surface(shell, surface);
+    ```
+
+1.  Set the Shell Surface as the __Top Level__ window for our app...
+
+    ```c
+    //  Set the Shell Surface as top level
+    wl_shell_surface_set_toplevel(shell_surface);
+    ```
+
+1.  This part is specific to OpenGL apps...
+
+    Earlier we have seen `create_opaque_region()`, `init_egl()` and `create_window()`. We call them to create the Wayland Region, EGL Context and EGL Window, and to render the OpenGL graphics.
+
+    ```c
+    //  Create the Wayland Region for rendering OpenGL graphics
+    create_opaque_region();
+    //  Create the EGL Context for rendering OpenGL graphics
+    init_egl();
+    //  Create the OpenGL Window and render OpenGL graphics
+    create_window();
+    ```
+
+1.  Every Wayland App needs to have an __Event Loop__ for handling Wayland Events...
+
+    ```c
+    //  Handle all Wayland Events in the Event Loop
+    while (wl_display_dispatch(display) != -1) {}
+    ```
+
+1.  When our app terminates, we disconnect the Wayland Display...
+
+    ```c
+    //  Disconnect from the Wayland Display
+    wl_display_disconnect(display);
+    ```
+
+Now let's build and test the app on our Linux development machine. (We'll run it on PinePhone later)
+
+# Build and Test Wayland App
+
 TODO
 
 Building a Wayland app is refreshingly simple (if you're used to GDK, Qt and SDL).
 
-Here'a how we build the app in `egl.c` on a Linux machine (that has the Wayland, EGL and OpenGL ES2 libraries installed)...
+Here'a how we build the app in `egl.c` on a Linux machine (that has the Wayland, MESA EGL and OpenGL ES2 libraries installed)...
 
 ```bash
 # Build the Wayland EGL app
@@ -376,7 +439,7 @@ gcc \
     -lGLESv2
 ```
 
-Run the `egl` app on our Linux machine like this..
+Run the `egl` app on our Linux machine like so..
 
 ```bash
 # Start the Weston Wayland Compositor on our computer with the PinePhone screen dimensions
@@ -386,7 +449,9 @@ weston --width=720 --height=1398 &
 ./egl
 ```
 
-And we'll see this...
+This uses the [__Weston Compositor__](https://github.com/wayland-project/weston), the reference implementation of the Wayland Compositor that runs on X11.
+
+We'll see this Inception-like window within a window...
 
 ![EGL App running with Wayland Weston Compositor on Pinebook Pro](https://lupyuen.github.io/images/wayland-westonegl.png)
 
