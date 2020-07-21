@@ -67,17 +67,18 @@
     <nav id="TOC"><ul>
 <li><a href="#how-x11-works">1 How X11 works</a><ul></ul></li>
 <li><a href="#wayland-on-ubuntu-touch">2 Wayland on Ubuntu Touch</a><ul></ul></li>
-<li><a href="#wayland-egl-and-opengl-es">3 Wayland EGL and OpenGL ES</a><ul></ul></li>
-<li><a href="#render-opengl-texture">4 Render OpenGL Texture</a><ul></ul></li>
-<li><a href="#port-lvgl-to-wayland">5 Port LVGL to Wayland</a><ul></ul></li>
-<li><a href="#overcome-apparmor-security-on-ubuntu-touch">6 Overcome AppArmor Security on Ubuntu Touch</a><ul></ul></li>
-<li><a href="#start-ssh-on-pinephone">7 Start SSH on PinePhone</a><ul></ul></li>
-<li><a href="#build-lvgl-on-pinephone">8 Build LVGL on PinePhone</a><ul></ul></li>
-<li><a href="#run-lvgl-on-pinephone">9 Run LVGL on PinePhone</a><ul></ul></li>
-<li><a href="#build-and-test-pinephone-wayland-apps-on-pinebook-pro">10 Build and Test PinePhone Wayland Apps on Pinebook Pro</a><ul></ul></li>
-<li><a href="#wayland-gotchas">11 Wayland Gotchas</a><ul></ul></li>
-<li><a href="#what-i-like-about-ubuntu-touch-on-pinephone">12 What I like about Ubuntu Touch on PinePhone</a><ul></ul></li>
-<li><a href="#further-reading">13 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/wayland-title.jpg" alt="Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch" /></p>
+<li><a href="#render-opengl-graphics-with-wayland">3 Render OpenGL Graphics with Wayland</a><ul></ul></li>
+<li><a href="#fetch-wayland-interfaces">4 Fetch Wayland Interfaces</a><ul></ul></li>
+<li><a href="#render-opengl-texture-with-wayland">5 Render OpenGL Texture with Wayland</a><ul></ul></li>
+<li><a href="#port-lvgl-to-wayland">6 Port LVGL to Wayland</a><ul></ul></li>
+<li><a href="#overcome-apparmor-security-on-ubuntu-touch">7 Overcome AppArmor Security on Ubuntu Touch</a><ul></ul></li>
+<li><a href="#start-ssh-on-pinephone">8 Start SSH on PinePhone</a><ul></ul></li>
+<li><a href="#build-lvgl-on-pinephone">9 Build LVGL on PinePhone</a><ul></ul></li>
+<li><a href="#run-lvgl-on-pinephone">10 Run LVGL on PinePhone</a><ul></ul></li>
+<li><a href="#build-and-test-pinephone-wayland-apps-on-pinebook-pro">11 Build and Test PinePhone Wayland Apps on Pinebook Pro</a><ul></ul></li>
+<li><a href="#wayland-gotchas">12 Wayland Gotchas</a><ul></ul></li>
+<li><a href="#what-i-like-about-ubuntu-touch-on-pinephone">13 What I like about Ubuntu Touch on PinePhone</a><ul></ul></li>
+<li><a href="#further-reading">14 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/wayland-title.jpg" alt="Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch" /></p>
 <p><em>Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch</em></p>
 <p><strong>We ❤️   Old Underwear...</strong></p>
 <p>They feel comfy, they fit our contours. Nevermind the holes and the old stains 🤢</p>
@@ -164,16 +165,248 @@
 <p><em>Wayland is designed for OpenGL and GPUs?</em></p>
 <p>Yes! And I lied about Wayland being New Underwear... Wayland is not really that New!</p>
 <p>Wayland was first released in 2008 (<a href="https://en.wikipedia.org/wiki/Wayland_(display_server_protocol)">11 years ago</a>)... Yet it was designed around OpenGL and GPUs, the same tech that powers our beautiful games today. (<a href="https://youtu.be/DNBk9hnPkTY">And websites too</a>)</p>
-<p>Read on to learn how to render our own OpenGL graphics with Wayland and Ubuntu Touch on PinePhone.</p>
+<p>Read on to learn how to render our own OpenGL graphics with Wayland and Ubuntu Touch on PinePhone...</p>
 <p><img src="https://lupyuen.github.io/images/wayland-egl.jpg" alt="Rendering yellow rectangle with Wayland and OpenGL on PinePhone" /></p>
-<h1 id="wayland-egl-and-opengl-es" class="section-header"><a href="#wayland-egl-and-opengl-es">3 Wayland EGL and OpenGL ES</a></h1>
-<p>TODO</p>
-<p>Since it can handle 3d, why not 2d?</p>
-<p>GPU Scaling</p>
+<h1 id="render-opengl-graphics-with-wayland" class="section-header"><a href="#render-opengl-graphics-with-wayland">3 Render OpenGL Graphics with Wayland</a></h1>
+<p>https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L44-L60</p>
+<pre><code class="language-c">/// Render the OpenGL ES2 display
+static void render_display() {
+    puts(&quot;Rendering display...&quot;);
+
+    //  Fill the rectangular region with yellow
+    glClearColor(
+        1.0,  //  Red
+        1.0,  //  Green
+        0.0,  //  Blue
+        1.0   //  Alpha
+    );
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // Render now
+    glFlush();
+}
+</code></pre>
+<p>https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L103-L112</p>
+<pre><code class="language-c">/// Create an opaque region for OpenGL rendering
+static void create_opaque_region(void) {
+    puts(&quot;Creating opaque region...&quot;);
+    region = wl_compositor_create_region(compositor);
+    assert(region != NULL);  //  Failed to create EGL Region
+
+    wl_region_add(region, 0, 0, WIDTH, HEIGHT);
+    wl_surface_set_opaque_region(surface, region);
+}
+</code></pre>
+<p>https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L113-L165</p>
+<pre><code class="language-c">/// Init the EGL Interface
+static void init_egl(void) {
+    puts(&quot;Init EGL...&quot;);
+
+    //  Attributes for our EGL Display
+    EGLint config_attribs[] = {
+        EGL_SURFACE_TYPE,    EGL_WINDOW_BIT,
+        EGL_RED_SIZE,        8,
+        EGL_GREEN_SIZE,      8,
+        EGL_BLUE_SIZE,       8,
+        EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
+        EGL_NONE
+    };
+    static const EGLint context_attribs[] = {
+        EGL_CONTEXT_CLIENT_VERSION, 2,
+        EGL_NONE
+    };
+
+    //  Get the EGL Display
+    egl_display = eglGetDisplay((EGLNativeDisplayType) display);
+    assert(egl_display != EGL_NO_DISPLAY);  //  Failed to get EGL Display
+
+    //  Init the EGL Display
+    EGLint major, minor;
+    EGLBoolean egl_init = eglInitialize(egl_display, &amp;major, &amp;minor);
+    assert(egl_init);  //  Failed to init EGL Display
+    printf(&quot;EGL major: %d, minor %d\n&quot;, major, minor);
+
+    //  Get the EGL Configurations
+    EGLint count, n;
+    eglGetConfigs(egl_display, NULL, 0, &amp;count);
+    printf(&quot;EGL has %d configs\n&quot;, count);
+    EGLConfig *configs = calloc(count, sizeof *configs);
+    eglChooseConfig(egl_display, config_attribs,
+        configs, count, &amp;n);
+
+    //  Choose the first EGL Configuration
+    for (int i = 0; i &lt; n; i++) {
+        EGLint size;
+        eglGetConfigAttrib(egl_display, configs[i], EGL_BUFFER_SIZE, &amp;size);
+        printf(&quot;Buffer size for config %d is %d\n&quot;, i, size);
+        eglGetConfigAttrib(egl_display, configs[i], EGL_RED_SIZE, &amp;size);
+        printf(&quot;Red size for config %d is %d\n&quot;, i, size);
+        egl_conf = configs[i];
+        break;
+    }
+    assert(egl_conf != NULL);  //  Failed to get EGL Configuration
+
+    //  Create the EGL Context based on the EGL Display and Configuration
+    egl_context = eglCreateContext(egl_display, egl_conf,
+        EGL_NO_CONTEXT, context_attribs);
+    assert(egl_context != NULL);  //  Failed to create EGL Context
+}
+</code></pre>
+<p>https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L167-L189</p>
+<pre><code class="language-c">/// Create the OpenGL window and render it
+static void create_window(void) {
+    //  Create an OpenGL Window
+    egl_window = wl_egl_window_create(surface, WIDTH, HEIGHT);
+    assert(egl_window != EGL_NO_SURFACE);  //  Failed to create OpenGL Window
+
+    //  Create an OpenGL Window Surface for rendering
+    egl_surface = eglCreateWindowSurface(egl_display, egl_conf,
+        egl_window, NULL);
+    assert(egl_surface != NULL);  //  Failed to create OpenGL Window Surface
+
+    //  Set the current rendering surface
+    EGLBoolean madeCurrent = eglMakeCurrent(egl_display, egl_surface,
+        egl_surface, egl_context);
+    assert(madeCurrent);  //  Failed to set rendering surface
+
+    //  Render the display
+    render_display();
+
+    //  Swap the display buffers to make the display visible
+    EGLBoolean swappedBuffers = eglSwapBuffers(egl_display, egl_surface);
+    assert(swappedBuffers);  //  Failed to swap display buffers
+}
+</code></pre>
+<p>https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L64-L98</p>
+<pre><code class="language-c">/// Connect to Wayland Compositor and render OpenGL graphics
+int main(int argc, char **argv) {
+    //  Get interfaces for Wayland Compositor and Wayland Shell
+    get_server_references();
+    assert(compositor != NULL);  //  Failed to get Wayland Compositor
+    assert(shell != NULL);       //  Failed to get Wayland Shell
+
+    //  Create a Wayland Surface for rendering
+    surface = wl_compositor_create_surface(compositor);
+    assert(surface != NULL);  //  Failed to create Wayland Surface
+
+    //  Get the Wayland Shell Surface for rendering
+    shell_surface = wl_shell_get_shell_surface(shell, surface);
+    assert(shell_surface != NULL);
+
+    //  Set the Shell Surface as top level
+    wl_shell_surface_set_toplevel(shell_surface);
+
+    //  Create an opaque region for rendering
+    create_opaque_region();
+
+    //  Init Wayland EGL
+    init_egl();
+
+    //  Create the OpenGL Window and render OpenGL graphics
+    create_window();
+
+    //  Handle all Wayland Events in the Event Loop
+    while (wl_display_dispatch(display) != -1) {}
+
+    //  Disconnect from the Wayland Display
+    wl_display_disconnect(display);
+    puts(&quot;Disconnected from display&quot;);
+    return 0;
+}
+</code></pre>
+<p>Building a Wayland app is refreshingly simple (if you're used to GDK, Qt and SDL).</p>
+<p>Here'a how we build the app in <code>egl.c</code> on a Linux machine (that has the Wayland, EGL and OpenGL ES2 libraries installed)...</p>
+<pre><code class="language-bash"># Build the Wayland EGL app
+gcc \
+    -g \
+    -o egl \
+    egl.c \
+    -Wl,-Map=egl.map \
+    -L/usr/lib/aarch64-linux-gnu/mesa-egl \
+    -lwayland-client \
+    -lwayland-server \
+    -lwayland-egl \
+    -lEGL \
+    -lGLESv2
+</code></pre>
+<pre><code class="language-bash"># Start the Weston Wayland Compositor on our computer with the PinePhone screen dimensions
+weston --width=720 --height=1398 &amp;
+
+# Run the Wayland EGL app
+./egl
+</code></pre>
+<p>And we'll see this...</p>
+<p><img src="https://lupyuen.github.io/images/wayland-westonegl.png" alt="EGL App running with Wayland Weston Compositor on Pinebook Pro" /></p>
+<p>We learn in a while how to build and run the app on PinePhone.</p>
+<p>The Wayland EGL code in this article was adapted from https://jan.newmarch.name/Wayland/EGL/ </p>
+<h1 id="fetch-wayland-interfaces" class="section-header"><a href="#fetch-wayland-interfaces">4 Fetch Wayland Interfaces</a></h1>
+<p>https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L194-L251</p>
+<pre><code class="language-c">/// Wayland Interfaces
+static struct wl_display       *display;       //  Wayland Display
+static struct wl_compositor    *compositor;    //  Wayland Compositor
+static struct wl_shell         *shell;         //  Wayland Shell
+
+/// Callbacks for interfaces returned by Wayland Service
+static const struct wl_registry_listener registry_listener = {
+    global_registry_handler,
+    global_registry_remover
+};
+
+/// Connect to Wayland Service and fetch the interfaces for Wayland Compositor and Wayland Shell
+static void get_server_references(void) {
+    puts(&quot;Getting server references...&quot;);
+    display = wl_display_connect(NULL);
+    if (display == NULL) {
+        fprintf(stderr, &quot;Failed to connect to display\n&quot;);
+        exit(1);
+    }
+    puts(&quot;Connected to display&quot;);
+
+    //  Get the Wayland Registry
+    struct wl_registry *registry = wl_display_get_registry(display);
+    assert(registry != NULL);  //  Failed to get Wayland Registry
+
+    //  Add Registry Callbacks to handle interfaces returned by Wayland Service
+    wl_registry_add_listener(registry, &amp;registry_listener, NULL);
+
+    //  Wait for Registry Callbacks to fetch Wayland Interfaces
+    wl_display_dispatch(display);
+    wl_display_roundtrip(display);
+
+    //  We should have received interfaces for Wayland Compositor and Wayland Shell
+    assert(compositor != NULL);  //  Failed to get Wayland Compositor
+    assert(shell != NULL);       //  Failed to get Wayland Shell
+}
+
+/// Callback for interfaces returned by Wayland Service
+static void global_registry_handler(void *data, struct wl_registry *registry, uint32_t id,
+    const char *interface, uint32_t version) {
+    printf(&quot;Got interface %s id %d\n&quot;, interface, id);
+
+    if (strcmp(interface, &quot;wl_compositor&quot;) == 0) {
+        //  Bind to Wayland Compositor Interface
+        compositor = wl_registry_bind(registry, id,
+            &amp;wl_compositor_interface,   //  Interface Type
+            1);                         //  Interface Version
+    } else if (strcmp(interface, &quot;wl_shell&quot;) == 0){
+        //  Bind to Wayland Shell Interface
+        shell = wl_registry_bind(registry, id,
+            &amp;wl_shell_interface,        //  Interface Type
+            1);                         //  Interface Version
+    }
+}
+
+/// Callback for removed interfaces
+static void global_registry_remover(void *data, struct wl_registry *registry, uint32_t id) {
+    printf(&quot;Removed interface id %d\n&quot;, id);
+}
+</code></pre>
+<p>Now let's render a simple texture with Wayland and OpenGL...</p>
 <p><img src="https://lupyuen.github.io/images/wayland-egl2.jpg" alt="Rendering a simple texture with Wayland and OpenGL on PinePhone" /></p>
-<h1 id="render-opengl-texture" class="section-header"><a href="#render-opengl-texture">4 Render OpenGL Texture</a></h1>
+<h1 id="render-opengl-texture-with-wayland" class="section-header"><a href="#render-opengl-texture-with-wayland">5 Render OpenGL Texture with Wayland</a></h1>
 <p>TODO</p>
-<h1 id="port-lvgl-to-wayland" class="section-header"><a href="#port-lvgl-to-wayland">5 Port LVGL to Wayland</a></h1>
+<p>The OpenGL Texture code in this article was adapted from https://github.com/danginsburg/opengles-book-samples</p>
+<h1 id="port-lvgl-to-wayland" class="section-header"><a href="#port-lvgl-to-wayland">6 Port LVGL to Wayland</a></h1>
 <p>TODO</p>
 <p>SDL, GTK, Qt are complex because they handle X11 legacy stuff</p>
 <p>SDL and GTK will work on Wayland... but needs X11 compatibilty!</p>
@@ -181,10 +414,10 @@
 <p>What if we could start from scratch, drop the legacy stuff, and build a ui toolkit for Wayland and opengl?</p>
 <p>Lvgl is that experiment that we're undertaking today</p>
 <p>Rust wrapper for lvgl</p>
-<h1 id="overcome-apparmor-security-on-ubuntu-touch" class="section-header"><a href="#overcome-apparmor-security-on-ubuntu-touch">6 Overcome AppArmor Security on Ubuntu Touch</a></h1>
+<h1 id="overcome-apparmor-security-on-ubuntu-touch" class="section-header"><a href="#overcome-apparmor-security-on-ubuntu-touch">7 Overcome AppArmor Security on Ubuntu Touch</a></h1>
 <p>TODO</p>
 <p>Why AppArmor?</p>
-<h1 id="start-ssh-on-pinephone" class="section-header"><a href="#start-ssh-on-pinephone">7 Start SSH on PinePhone</a></h1>
+<h1 id="start-ssh-on-pinephone" class="section-header"><a href="#start-ssh-on-pinephone">8 Start SSH on PinePhone</a></h1>
 <p>To start SSH on PinePhone, open the Terminal app.</p>
 <p>Create a file named <code>a</code>...</p>
 <pre><code class="language-bash">nano a
@@ -217,9 +450,9 @@ ping google.com
 <p>TODO: How to install SSH key on PinePhone via SD card or Bluetooth</p>
 <p>When we press PinePhone's power button to switch off PinePhone, we'll see ths amusing message from olden times...</p>
 <p><img src="https://lupyuen.github.io/images/wayland-halt.jpg" alt="Powering off PinePhone" /></p>
-<h1 id="build-lvgl-on-pinephone" class="section-header"><a href="#build-lvgl-on-pinephone">8 Build LVGL on PinePhone</a></h1>
+<h1 id="build-lvgl-on-pinephone" class="section-header"><a href="#build-lvgl-on-pinephone">9 Build LVGL on PinePhone</a></h1>
 <p>TODO</p>
-<h1 id="run-lvgl-on-pinephone" class="section-header"><a href="#run-lvgl-on-pinephone">9 Run LVGL on PinePhone</a></h1>
+<h1 id="run-lvgl-on-pinephone" class="section-header"><a href="#run-lvgl-on-pinephone">10 Run LVGL on PinePhone</a></h1>
 <p>TODO</p>
 <p>Mir Server Log may be found on PinePhone here...</p>
 
@@ -229,7 +462,7 @@ ping google.com
 <pre><code class="language-bash">scp -i ~/.ssh/pinebook_rsa phablet@192.168.1.10:/home/phablet/.cache/upstart/u
 </code></pre>
 <p><img src="https://lupyuen.github.io/images/wayland-weston.png" alt="PinePhone Wayland App tested on Pinebook Pro" /></p>
-<h1 id="build-and-test-pinephone-wayland-apps-on-pinebook-pro" class="section-header"><a href="#build-and-test-pinephone-wayland-apps-on-pinebook-pro">10 Build and Test PinePhone Wayland Apps on Pinebook Pro</a></h1>
+<h1 id="build-and-test-pinephone-wayland-apps-on-pinebook-pro" class="section-header"><a href="#build-and-test-pinephone-wayland-apps-on-pinebook-pro">11 Build and Test PinePhone Wayland Apps on Pinebook Pro</a></h1>
 <p>Here's how we can build and test PinePhone Wayland Apps on Pinebook Pro...</p>
 <pre><code class="language-bash"># Create a symbolic link for the OpenGL ES2 shared library that will be used for the Wayland build
 sudo mkdir -p /usr/lib/aarch64-linux-gnu/mesa-egl/
@@ -244,7 +477,7 @@ weston --width=720 --height=1398 &amp;
 # Run the Wayland executable
 wayland/lvgl
 </code></pre>
-<h1 id="wayland-gotchas" class="section-header"><a href="#wayland-gotchas">11 Wayland Gotchas</a></h1>
+<h1 id="wayland-gotchas" class="section-header"><a href="#wayland-gotchas">12 Wayland Gotchas</a></h1>
 <p>TODO</p>
 <p>GPU on X11:</p>
 <p>https://qoto.org/@lupyuen/104541068127168291</p>
@@ -260,7 +493,7 @@ wayland/lvgl
 <p>Mir / Lomiri / Unity8's complicated history:</p>
 <p>https://www.phoronix.com/scan.php?page=news_item&amp;px=Mir-2019-Kicking</p>
 <p>https://www.phoronix.com/scan.php?page=news_item&amp;px=Unity-8-Renamed-To-Lomiri</p>
-<h1 id="what-i-like-about-ubuntu-touch-on-pinephone" class="section-header"><a href="#what-i-like-about-ubuntu-touch-on-pinephone">12 What I like about Ubuntu Touch on PinePhone</a></h1>
+<h1 id="what-i-like-about-ubuntu-touch-on-pinephone" class="section-header"><a href="#what-i-like-about-ubuntu-touch-on-pinephone">13 What I like about Ubuntu Touch on PinePhone</a></h1>
 <p>TODO</p>
 <p>AppArmor is good, because iOS and Android have similar apps security</p>
 <p>Read-only file system is good (system files are read-only by default, user files are read-write). Helps to prevent security holes. (Even PineTime has a read-only Flash ROM)</p>
@@ -274,7 +507,7 @@ wayland/lvgl
 <p>Ubuntu Touch is pure Wayland, none of the legacy X11 stuff. Xwayland is not even there (unless you use the Libertine containers ugh).</p>
 <p>The pure Wayland environment causes GTK to break, because GTK assumes some minimal X11 support (i.e. Xwayland).</p>
 <p>So Ubuntu Touch is not really that bad for PinePhone... It's just painful for building non-Qt apps. 🙂</p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">13 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">14 Further Reading</a></h1>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/bloc">&quot;Flutter State Management with Bloc for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter">&quot;Your First Bluetooth Low Energy App with Flutter&quot;</a></em></p>
