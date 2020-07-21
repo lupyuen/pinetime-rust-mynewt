@@ -247,7 +247,7 @@ The Wayland EGL code in this article was adapted from that document.
 
 # Get EGL Context
 
-We've see earlier in `create_window()` that we need an __EGL Context__ `egl_context` for rendering OpenGL graphics.
+Earlier in `create_window()` we called an __EGL Context__ `egl_context` to render OpenGL graphics.
 
 Here's how we get the EGL Context: [`pinephone-mir/egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L113-L165)
 
