@@ -116,13 +116,13 @@ Wayland was first released in 2008 ([11 years ago](https://en.wikipedia.org/wiki
 
 Read on to learn how to render our own OpenGL graphics with Wayland and Ubuntu Touch on PinePhone...
 
-![Rendering yellow rectangle with Wayland and OpenGL on PinePhone](https://lupyuen.github.io/images/wayland-egl.jpg)
+![Rendering a yellow rectangle with Wayland and OpenGL on PinePhone](https://lupyuen.github.io/images/wayland-egl.jpg)
 
-_Rendering yellow rectangle with Wayland and OpenGL on PinePhone_
+_Rendering a yellow rectangle with Wayland and OpenGL on PinePhone_
 
 # Render OpenGL Graphics with Wayland
 
-https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L44-L60
+Here's the function that calls OpenGL to render the yellow box above: [`pinephone-mir/egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L44-L60)
 
 ```c
 /// Render the OpenGL ES2 display
@@ -143,7 +143,17 @@ static void render_display() {
 }
 ```
 
-https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L167-L189
+`render_display()` looks exactly like normal OpenGL, and it works on PinePhone with Wayland! (Thanks to Ubuntu Touch)
+
+Two things to note...
+
+1. PinePhone supports a popular subset of OpenGL, known as [__OpenGL for Embedded Systems__](https://en.wikipedia.org/wiki/OpenGL_ES) Version 2.0.
+
+    OpenGL ES is optimised for Embedded Devices. OpenGL ES is used by many mobile and console games today.
+
+1. To render OpenGL ES graphics, we need to get the OpenGL ES Context and Window Surface from Wayland
+
+Before calling `render_display()`, we fetch the OpenGL Window Surface from Wayland like so: [`pinephone-mir/egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L167-L189)
 
 ```c
 static struct wl_egl_window *egl_window;  //  Wayland EGL Window
@@ -151,7 +161,7 @@ static EGLSurface egl_surface;            //  EGL Surface
 
 /// Create the OpenGL window and render it
 static void create_window(void) {
-    //  Create an OpenGL Window
+    //  Create an EGL Window from a Wayland Surface 
     egl_window = wl_egl_window_create(surface, WIDTH, HEIGHT);
     assert(egl_window != EGL_NO_SURFACE);  //  Failed to create OpenGL Window
 
@@ -174,7 +184,46 @@ static void create_window(void) {
 }
 ```
 
-https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L103-L112
+Functions named `wl_egl_...` are provided by the Wayland EGL Interface.  Functions named `egl...` come from the cross-platform [Mesa 3D Graphics Library](https://docs.mesa3d.org/egl.html#:~:text=The%20main%20library%20(%20libEGL%20)%20is,directly%20dispatched%20to%20the%20drivers.).
+
+_EGL vs OpenGL... What's the difference?_
+
+In Wayland, EGL is the Enabler for OpenGL. 
+
+Wayland only understands EGL and it will gladly hand us EGL objects... But it's up to us to transform EGL into OpenGL for rendering.
+
+In the code above, we take a Wayland Surface `surface` and transform it into an EGL Window `egl_window`...
+
+```c
+    //  Create an EGL Window from a Wayland Surface 
+    egl_window = wl_egl_window_create(surface, WIDTH, HEIGHT);
+```
+
+Then we create an OpenGL Window Surface `egl_surface` from that EGL Window...
+
+```c
+    //  Create an OpenGL Window Surface for rendering
+    egl_surface = eglCreateWindowSurface(egl_display, egl_conf,
+        egl_window, NULL);
+```
+
+And we begin the OpenGL rendering...
+
+```c
+    //  Set the current rendering surface
+    EGLBoolean madeCurrent = eglMakeCurrent(egl_display, egl_surface,
+        egl_surface, egl_context);
+
+    //  Render the display
+    render_display();
+
+    //  Swap the display buffers to make the display visible
+    eglSwapBuffers(egl_display, egl_surface);
+```
+
+TODO
+
+[`pinephone-mir/egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L103-L112)
 
 ```c
 static struct wl_region *region;  //  Wayland Region
@@ -182,6 +231,7 @@ static struct wl_region *region;  //  Wayland Region
 /// Create an opaque region for OpenGL rendering
 static void create_opaque_region(void) {
     puts("Creating opaque region...");
+
     region = wl_compositor_create_region(compositor);
     assert(region != NULL);  //  Failed to create EGL Region
 
@@ -190,7 +240,10 @@ static void create_opaque_region(void) {
 }
 ```
 
-https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L113-L165
+Here's how we get the OpenGL Context...
+
+[`pinephone-mir/egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L113-L165)
+
 ```c
 /// Wayland EGL Interfaces for OpenGL Rendering
 static EGLDisplay egl_display;  //  EGL Display
@@ -252,7 +305,9 @@ static void init_egl(void) {
 }
 ```
 
-https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L64-L98
+To learn more about EGL, check out ["Programming Wayland Clients"](https://jan.newmarch.name/Wayland/EGL/)
+
+[`pinephone-mir/egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L64-L98)
 
 ```c
 /// Wayland Interfaces
@@ -333,7 +388,8 @@ The Wayland EGL code in this article was adapted from https://jan.newmarch.name/
 
 # Fetch Wayland Interfaces
 
-https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L194-L251
+[`pinephone-mir/egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L194-L251
+)
 
 ```c
 /// Wayland Interfaces
