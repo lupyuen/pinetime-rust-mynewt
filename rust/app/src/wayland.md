@@ -519,7 +519,7 @@ What happens inside `get_server_references()`?
 
     Remember that all functions named `wl_...` come from the Wayland Library.
 
-1.  To do any actual work with the Wayland Service, we need to fetch the Interfaces for the Wayland Compositor and Wayland Shell.
+1.  To work with the Wayland Service, we fetch the Interfaces for the Wayland Compositor and Wayland Shell.
 
     __Wayland Interfaces__ are defined in the __Wayland Registry__...
 
@@ -535,7 +535,7 @@ What happens inside `get_server_references()`?
     wl_registry_add_listener(registry, &registry_listener, NULL);
     ```
 
-1.  Now we __dispatch the Registry request__ to the Wayland Service. (Remember that the Wayland Service operates on Linux Socket Messages)
+1.  Now we __dispatch the Registry Listener request__ to the Wayland Service. (Remember that the Wayland Service operates on Linux Socket Messages)
 
     ```c
     //  Wait for Registry Callbacks to fetch Wayland Interfaces
@@ -575,7 +575,9 @@ static void global_registry_handler(void *data, struct wl_registry *registry, ui
 
 `global_registry_handler()` is the Callback Function that will be triggered for every interface in the Wayland Registry. 
 
-The Wayland Service for Ubuntu Touch `unity-system-compositor` returns a whole bunch of interesting Wayland Interfaces (like `qt_windowmanager`). But we'll use the Compositor Interface `wl_compositor` and Shell Interface `wl_compositor` today.
+The Wayland Service for Ubuntu Touch `unity-system-compositor` returns a whole bunch of interesting Wayland Interfaces (like `qt_windowmanager`). 
+
+But today we'll bind to the Compositor Interface named `wl_compositor` and Shell Interface named `wl_shell`.
 
 Now let's render a simple texture with Wayland and OpenGL...
 

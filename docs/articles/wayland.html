@@ -510,7 +510,7 @@ display = wl_display_connect(NULL);
 <p>Remember that all functions named <code>wl_...</code> come from the Wayland Library.</p>
 </li>
 <li>
-<p>To do any actual work with the Wayland Service, we need to fetch the Interfaces for the Wayland Compositor and Wayland Shell.</p>
+<p>To work with the Wayland Service, we fetch the Interfaces for the Wayland Compositor and Wayland Shell.</p>
 <p><strong>Wayland Interfaces</strong> are defined in the <strong>Wayland Registry</strong>...</p>
 <pre><code class="language-c">//  Get the Wayland Registry
 struct wl_registry *registry = wl_display_get_registry(display);
@@ -523,7 +523,7 @@ wl_registry_add_listener(registry, &amp;registry_listener, NULL);
 </code></pre>
 </li>
 <li>
-<p>Now we <strong>dispatch the Registry request</strong> to the Wayland Service. (Remember that the Wayland Service operates on Linux Socket Messages)</p>
+<p>Now we <strong>dispatch the Registry Listener request</strong> to the Wayland Service. (Remember that the Wayland Service operates on Linux Socket Messages)</p>
 <pre><code class="language-c">//  Wait for Registry Callbacks to fetch Wayland Interfaces
 wl_display_dispatch(display);
 wl_display_roundtrip(display);
@@ -557,7 +557,8 @@ static void global_registry_handler(void *data, struct wl_registry *registry, ui
 }
 </code></pre>
 <p><code>global_registry_handler()</code> is the Callback Function that will be triggered for every interface in the Wayland Registry. </p>
-<p>The Wayland Service for Ubuntu Touch <code>unity-system-compositor</code> returns a whole bunch of interesting Wayland Interfaces (like <code>qt_windowmanager</code>). But we'll use the Compositor Interface <code>wl_compositor</code> and Shell Interface <code>wl_compositor</code> today.</p>
+<p>The Wayland Service for Ubuntu Touch <code>unity-system-compositor</code> returns a whole bunch of interesting Wayland Interfaces (like <code>qt_windowmanager</code>). </p>
+<p>But today we'll bind to the Compositor Interface named <code>wl_compositor</code> and Shell Interface named <code>wl_shell</code>.</p>
 <p>Now let's render a simple texture with Wayland and OpenGL...</p>
 <p><img src="https://lupyuen.github.io/images/wayland-egl2.jpg" alt="Rendering a simple texture with Wayland and OpenGL on PinePhone" /></p>
 <p><em>Rendering a simple texture with Wayland and OpenGL on PinePhone</em></p>
