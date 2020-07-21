@@ -400,7 +400,7 @@ The `main()` function in all Wayland apps follow the same steps...
     create_window();
     ```
 
-1.  Every Wayland App needs to have an __Event Loop__ for handling Wayland Events...
+1.  Every Wayland App needs an __Event Loop__ for handling Wayland Events...
 
     ```c
     //  Handle all Wayland Events in the Event Loop
@@ -418,11 +418,11 @@ Now let's build and test the app on our Linux development machine. (We'll run it
 
 # Build and Test Wayland App
 
-TODO
+Now that we have created a [simple Wayland app](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c) that renders OpenGL graphics... Let's build it!
 
 Building a Wayland app is refreshingly simple (if you're used to GDK, Qt and SDL).
 
-Here'a how we build the app in [`egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c) on a Linux machine (that has the Wayland, MESA EGL and OpenGL ES2 libraries installed)...
+Here'a how we build the Wayland app in [`egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c) on a Linux machine (that has Wayland, MESA EGL and OpenGL ES2 libraries installed)...
 
 ```bash
 # Build the Wayland EGL app
@@ -442,6 +442,13 @@ gcc \
 Run the `egl` app on our Linux machine like so..
 
 ```bash
+# Install Weston Wayland Compositor...
+# For Arch Linux and Manjaro:
+sudo pacman -S weston
+
+# For Other Distros:
+# Check https://github.com/wayland-project/weston
+
 # Start the Weston Wayland Compositor on our computer with the PinePhone screen dimensions
 weston --width=720 --height=1398 &
 

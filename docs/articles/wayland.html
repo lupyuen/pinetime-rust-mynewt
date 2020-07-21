@@ -410,7 +410,7 @@ create_window();
 </code></pre>
 </li>
 <li>
-<p>Every Wayland App needs to have an <strong>Event Loop</strong> for handling Wayland Events...</p>
+<p>Every Wayland App needs an <strong>Event Loop</strong> for handling Wayland Events...</p>
 <pre><code class="language-c">//  Handle all Wayland Events in the Event Loop
 while (wl_display_dispatch(display) != -1) {}
 </code></pre>
@@ -424,9 +424,9 @@ wl_display_disconnect(display);
 </ol>
 <p>Now let's build and test the app on our Linux development machine. (We'll run it on PinePhone later)</p>
 <h1 id="build-and-test-wayland-app" class="section-header"><a href="#build-and-test-wayland-app">5 Build and Test Wayland App</a></h1>
-<p>TODO</p>
+<p>Now that we have created a <a href="https://github.com/lupyuen/pinephone-mir/blob/master/egl.c">simple Wayland app</a> that renders OpenGL graphics... Let's build it!</p>
 <p>Building a Wayland app is refreshingly simple (if you're used to GDK, Qt and SDL).</p>
-<p>Here'a how we build the app in <a href="https://github.com/lupyuen/pinephone-mir/blob/master/egl.c"><code>egl.c</code></a> on a Linux machine (that has the Wayland, MESA EGL and OpenGL ES2 libraries installed)...</p>
+<p>Here'a how we build the Wayland app in <a href="https://github.com/lupyuen/pinephone-mir/blob/master/egl.c"><code>egl.c</code></a> on a Linux machine (that has Wayland, MESA EGL and OpenGL ES2 libraries installed)...</p>
 <pre><code class="language-bash"># Build the Wayland EGL app
 gcc \
     -g \
@@ -441,7 +441,14 @@ gcc \
     -lGLESv2
 </code></pre>
 <p>Run the <code>egl</code> app on our Linux machine like so..</p>
-<pre><code class="language-bash"># Start the Weston Wayland Compositor on our computer with the PinePhone screen dimensions
+<pre><code class="language-bash"># Install Weston Wayland Compositor...
+# For Arch Linux and Manjaro:
+sudo pacman -S weston
+
+# For Other Distros:
+# Check https://github.com/wayland-project/weston
+
+# Start the Weston Wayland Compositor on our computer with the PinePhone screen dimensions
 weston --width=720 --height=1398 &amp;
 
 # Run the Wayland EGL app
