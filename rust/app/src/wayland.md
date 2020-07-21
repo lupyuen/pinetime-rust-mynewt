@@ -245,7 +245,7 @@ To learn more about EGL, check out ["Programming Wayland Clients"](https://jan.n
 
 The Wayland EGL code in this article was adapted from that document.
 
-# Get EGL Context
+# Get EGL Context from Wayland
 
 Earlier in `create_window()` we called an __EGL Context__ `egl_context` to render OpenGL graphics.
 
