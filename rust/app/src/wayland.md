@@ -143,9 +143,42 @@ static void render_display() {
 }
 ```
 
+https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L167-L189
+
+```c
+static struct wl_egl_window *egl_window;  //  Wayland EGL Window
+static EGLSurface egl_surface;            //  EGL Surface
+
+/// Create the OpenGL window and render it
+static void create_window(void) {
+    //  Create an OpenGL Window
+    egl_window = wl_egl_window_create(surface, WIDTH, HEIGHT);
+    assert(egl_window != EGL_NO_SURFACE);  //  Failed to create OpenGL Window
+
+    //  Create an OpenGL Window Surface for rendering
+    egl_surface = eglCreateWindowSurface(egl_display, egl_conf,
+        egl_window, NULL);
+    assert(egl_surface != NULL);  //  Failed to create OpenGL Window Surface
+
+    //  Set the current rendering surface
+    EGLBoolean madeCurrent = eglMakeCurrent(egl_display, egl_surface,
+        egl_surface, egl_context);
+    assert(madeCurrent);  //  Failed to set rendering surface
+
+    //  Render the display
+    render_display();
+
+    //  Swap the display buffers to make the display visible
+    EGLBoolean swappedBuffers = eglSwapBuffers(egl_display, egl_surface);
+    assert(swappedBuffers);  //  Failed to swap display buffers
+}
+```
+
 https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L103-L112
 
 ```c
+static struct wl_region *region;  //  Wayland Region
+
 /// Create an opaque region for OpenGL rendering
 static void create_opaque_region(void) {
     puts("Creating opaque region...");
@@ -159,6 +192,11 @@ static void create_opaque_region(void) {
 
 https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L113-L165
 ```c
+/// Wayland EGL Interfaces for OpenGL Rendering
+static EGLDisplay egl_display;  //  EGL Display
+static EGLConfig  egl_conf;     //  EGL Configuration
+static EGLContext egl_context;  //  EGL Context
+
 /// Init the EGL Interface
 static void init_egl(void) {
     puts("Init EGL...");
@@ -214,37 +252,13 @@ static void init_egl(void) {
 }
 ```
 
-https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L167-L189
-
-```c
-/// Create the OpenGL window and render it
-static void create_window(void) {
-    //  Create an OpenGL Window
-    egl_window = wl_egl_window_create(surface, WIDTH, HEIGHT);
-    assert(egl_window != EGL_NO_SURFACE);  //  Failed to create OpenGL Window
-
-    //  Create an OpenGL Window Surface for rendering
-    egl_surface = eglCreateWindowSurface(egl_display, egl_conf,
-        egl_window, NULL);
-    assert(egl_surface != NULL);  //  Failed to create OpenGL Window Surface
-
-    //  Set the current rendering surface
-    EGLBoolean madeCurrent = eglMakeCurrent(egl_display, egl_surface,
-        egl_surface, egl_context);
-    assert(madeCurrent);  //  Failed to set rendering surface
-
-    //  Render the display
-    render_display();
-
-    //  Swap the display buffers to make the display visible
-    EGLBoolean swappedBuffers = eglSwapBuffers(egl_display, egl_surface);
-    assert(swappedBuffers);  //  Failed to swap display buffers
-}
-```
-
 https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L64-L98
 
 ```c
+/// Wayland Interfaces
+static struct wl_surface       *surface;       //  Wayland Surface
+static struct wl_shell_surface *shell_surface; //  Wayland Shell Surface
+
 /// Connect to Wayland Compositor and render OpenGL graphics
 int main(int argc, char **argv) {
     //  Get interfaces for Wayland Compositor and Wayland Shell
