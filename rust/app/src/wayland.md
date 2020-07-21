@@ -114,17 +114,40 @@ Yes! And I lied about Wayland being New Underwear... Wayland is not really that 
 
 Wayland was first released in 2008 ([11 years ago](https://en.wikipedia.org/wiki/Wayland_(display_server_protocol)))... Yet it was designed around OpenGL and GPUs, the same tech that powers our beautiful games today. ([And websites too](https://youtu.be/DNBk9hnPkTY))
 
-Read on to learn how to render our own OpenGL graphics with Wayland and Ubuntu Touch on PinePhone.
+Read on to learn how to render our own OpenGL graphics with Wayland and Ubuntu Touch on PinePhone...
 
 ![Rendering yellow rectangle with Wayland and OpenGL on PinePhone](https://lupyuen.github.io/images/wayland-egl.jpg)
 
 # Wayland EGL and OpenGL ES
 
-TODO
+```bash
+# Build the EGL app
+gcc \
+    -g \
+    -o egl \
+    egl.c \
+    -Wl,-Map=egl.map \
+    -L/usr/lib/aarch64-linux-gnu/mesa-egl \
+    -lwayland-client \
+    -lwayland-server \
+    -lwayland-egl \
+    -lEGL \
+    -lGLESv2
+```
 
-Since it can handle 3d, why not 2d?
+```bash
+# Start the Weston Wayland Compositor on our computer with the PinePhone screen dimensions
+weston --width=720 --height=1398 &
 
-GPU Scaling
+# Run the EGL app
+./egl
+```
+
+And we'll see this...
+
+wayland-westonegl.png
+
+Now let's render a simple texture with Wayland and OpenGL...
 
 ![Rendering a simple texture with Wayland and OpenGL on PinePhone](https://lupyuen.github.io/images/wayland-egl2.jpg)
 
