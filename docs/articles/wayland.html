@@ -250,8 +250,7 @@ static void create_window(void) {
     //  Swap the display buffers to make the display visible
     eglSwapBuffers(egl_display, egl_surface);
 </code></pre>
-<p>TODO</p>
-<p><a href="https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L103-L112"><code>pinephone-mir/egl.c</code></a></p>
+<p>Here's how we create a Wayland Region for OpenGL rendering: <a href="https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L103-L112"><code>pinephone-mir/egl.c</code></a></p>
 <pre><code class="language-c">static struct wl_region *region;  //  Wayland Region
 
 /// Create an opaque region for OpenGL rendering
@@ -265,6 +264,7 @@ static void create_opaque_region(void) {
     wl_surface_set_opaque_region(surface, region);
 }
 </code></pre>
+<p>TODO</p>
 <p>Here's how we get the OpenGL Context...</p>
 <p><a href="https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L113-L165"><code>pinephone-mir/egl.c</code></a></p>
 <pre><code class="language-c">/// Wayland EGL Interfaces for OpenGL Rendering
@@ -327,6 +327,7 @@ static void init_egl(void) {
 }
 </code></pre>
 <p>To learn more about EGL, check out <a href="https://jan.newmarch.name/Wayland/EGL/">&quot;Programming Wayland Clients&quot;</a></p>
+<p>TODO</p>
 <p><a href="https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L64-L98"><code>pinephone-mir/egl.c</code></a></p>
 <pre><code class="language-c">/// Wayland Interfaces
 static struct wl_surface       *surface;       //  Wayland Surface
@@ -368,6 +369,7 @@ int main(int argc, char **argv) {
     return 0;
 }
 </code></pre>
+<p>TODO</p>
 <p>Building a Wayland app is refreshingly simple (if you're used to GDK, Qt and SDL).</p>
 <p>Here'a how we build the app in <code>egl.c</code> on a Linux machine (that has the Wayland, EGL and OpenGL ES2 libraries installed)...</p>
 <pre><code class="language-bash"># Build the Wayland EGL app

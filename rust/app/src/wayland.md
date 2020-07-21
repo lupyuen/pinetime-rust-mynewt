@@ -221,9 +221,7 @@ And we begin the OpenGL rendering...
     eglSwapBuffers(egl_display, egl_surface);
 ```
 
-TODO
-
-[`pinephone-mir/egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L103-L112)
+Here's how we create a Wayland Region for OpenGL rendering: [`pinephone-mir/egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L103-L112)
 
 ```c
 static struct wl_region *region;  //  Wayland Region
@@ -239,6 +237,8 @@ static void create_opaque_region(void) {
     wl_surface_set_opaque_region(surface, region);
 }
 ```
+
+TODO
 
 Here's how we get the OpenGL Context...
 
@@ -307,6 +307,8 @@ static void init_egl(void) {
 
 To learn more about EGL, check out ["Programming Wayland Clients"](https://jan.newmarch.name/Wayland/EGL/)
 
+TODO
+
 [`pinephone-mir/egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L64-L98)
 
 ```c
@@ -350,6 +352,8 @@ int main(int argc, char **argv) {
     return 0;
 }
 ```
+
+TODO
 
 Building a Wayland app is refreshingly simple (if you're used to GDK, Qt and SDL).
 
