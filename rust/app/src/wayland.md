@@ -149,7 +149,7 @@ Two things to note...
 
     OpenGL ES is optimised for Embedded Devices. It's used by many mobile and console games today.
 
-1. To render OpenGL ES graphics, we need to get the OpenGL ES Context and Window Surface from Wayland
+1. To render OpenGL ES graphics, we need to get the __OpenGL ES Context__ and __Window Surface__ from Wayland
 
 Before calling `render_display()`, we fetch the OpenGL Window Surface from Wayland like so: [`pinephone-mir/egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L167-L189)
 
@@ -222,25 +222,34 @@ eglSwapBuffers(egl_display, egl_surface);
 Here's how we create a Wayland Region for OpenGL rendering: [`pinephone-mir/egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L103-L112)
 
 ```c
+/// Dimensions of the OpenGL region to be rendered
+static int WIDTH  = 480;
+static int HEIGHT = 360;
 static struct wl_region *region;  //  Wayland Region
 
 /// Create an opaque region for OpenGL rendering
 static void create_opaque_region(void) {
-    puts("Creating opaque region...");
-
+    //  Create a Wayland Region
     region = wl_compositor_create_region(compositor);
     assert(region != NULL);  //  Failed to create EGL Region
 
+    //  Set the dimensions of the Wayland Region
     wl_region_add(region, 0, 0, WIDTH, HEIGHT);
+
+    //  Add the Region to the Wayland Surface
     wl_surface_set_opaque_region(surface, region);
 }
 ```
 
-TODO
+To learn more about EGL, check out ["Programming Wayland Clients"](https://jan.newmarch.name/Wayland/EGL/)
 
-Here's how we get the OpenGL Context...
+The Wayland EGL code in this article was adapted from that document.
 
-[`pinephone-mir/egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L113-L165)
+# Get EGL Context
+
+We've see earlier in `create_window()` that we need an __EGL Context__ `egl_context` for rendering OpenGL graphics.
+
+Here's how we get the EGL Context: [`pinephone-mir/egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c#L113-L165)
 
 ```c
 /// Wayland EGL Interfaces for OpenGL Rendering
@@ -250,8 +259,6 @@ static EGLContext egl_context;  //  EGL Context
 
 /// Init the EGL Interface
 static void init_egl(void) {
-    puts("Init EGL...");
-
     //  Attributes for our EGL Display
     EGLint config_attribs[] = {
         EGL_SURFACE_TYPE,    EGL_WINDOW_BIT,
@@ -274,12 +281,10 @@ static void init_egl(void) {
     EGLint major, minor;
     EGLBoolean egl_init = eglInitialize(egl_display, &major, &minor);
     assert(egl_init);  //  Failed to init EGL Display
-    printf("EGL major: %d, minor %d\n", major, minor);
 
     //  Get the EGL Configurations
     EGLint count, n;
     eglGetConfigs(egl_display, NULL, 0, &count);
-    printf("EGL has %d configs\n", count);
     EGLConfig *configs = calloc(count, sizeof *configs);
     eglChooseConfig(egl_display, config_attribs,
         configs, count, &n);
@@ -288,9 +293,7 @@ static void init_egl(void) {
     for (int i = 0; i < n; i++) {
         EGLint size;
         eglGetConfigAttrib(egl_display, configs[i], EGL_BUFFER_SIZE, &size);
-        printf("Buffer size for config %d is %d\n", i, size);
         eglGetConfigAttrib(egl_display, configs[i], EGL_RED_SIZE, &size);
-        printf("Red size for config %d is %d\n", i, size);
         egl_conf = configs[i];
         break;
     }
@@ -303,7 +306,8 @@ static void init_egl(void) {
 }
 ```
 
-To learn more about EGL, check out ["Programming Wayland Clients"](https://jan.newmarch.name/Wayland/EGL/)
+
+[More details here](https://jan.newmarch.name/Wayland/EGL/)
 
 TODO
 
@@ -346,7 +350,6 @@ int main(int argc, char **argv) {
 
     //  Disconnect from the Wayland Display
     wl_display_disconnect(display);
-    puts("Disconnected from display");
     return 0;
 }
 ```
@@ -387,8 +390,6 @@ And we'll see this...
 ![EGL App running with Wayland Weston Compositor on Pinebook Pro](https://lupyuen.github.io/images/wayland-westonegl.png)
 
 We learn in a while how to build and run the app on PinePhone.
-
-The Wayland EGL code in this article was adapted from https://jan.newmarch.name/Wayland/EGL/ 
 
 # Fetch Wayland Interfaces
 
