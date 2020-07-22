@@ -601,7 +601,7 @@ GLubyte pixels[4 * 3] = {
 };
 ```
 
-We render the bitmap as an __OpenGL Texture__ like so: [`pinephone-mir/texture.c`](https://github.com/lupyuen/pinephone-mir/blob/master/texture.c#L30-L64)
+We render the bitmap by creating an __OpenGL Texture__: [`pinephone-mir/texture.c`](https://github.com/lupyuen/pinephone-mir/blob/master/texture.c#L30-L64)
 
 ```c
 // Create a simple 2x2 texture image with four different colors
@@ -636,7 +636,7 @@ GLuint CreateSimpleTexture2D() {
 }
 ```
 
-(Probably not the most efficient way to render a bitmap... But let's try this and test drive PinePhone's GPU!)
+(Not the most efficient way to render a bitmap... But let's try this and test drive PinePhone's GPU!)
 
 This is the usual way we create an OpenGL Texture, as explained in ["OpenGL® ES 3.0 Programming Guide"](http://www.opengles-book.com/).
 

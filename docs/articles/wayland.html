@@ -573,7 +573,7 @@ GLubyte pixels[4 * 3] = {
     255, 255, 0 // Yellow
 };
 </code></pre>
-<p>We render the bitmap as an <strong>OpenGL Texture</strong> like so: <a href="https://github.com/lupyuen/pinephone-mir/blob/master/texture.c#L30-L64"><code>pinephone-mir/texture.c</code></a></p>
+<p>We render the bitmap by creating an <strong>OpenGL Texture</strong>: <a href="https://github.com/lupyuen/pinephone-mir/blob/master/texture.c#L30-L64"><code>pinephone-mir/texture.c</code></a></p>
 <pre><code class="language-c">// Create a simple 2x2 texture image with four different colors
 GLuint CreateSimpleTexture2D() {
     // Texture object handle
@@ -605,7 +605,7 @@ GLuint CreateSimpleTexture2D() {
     return textureId;
 }
 </code></pre>
-<p>(Probably not the most efficient way to render a bitmap... But let's try this and test drive PinePhone's GPU!)</p>
+<p>(Not the most efficient way to render a bitmap... But let's try this and test drive PinePhone's GPU!)</p>
 <p>This is the usual way we create an OpenGL Texture, as explained in <a href="http://www.opengles-book.com/">&quot;OpenGL® ES 3.0 Programming Guide&quot;</a>.</p>
 <p>Here comes the tricky part... Before rendering the OpenGL Texture, we need to program the <strong>GPU Shaders</strong> on PinePhone with a C-like language: <a href="https://github.com/lupyuen/pinephone-mir/blob/master/texture.c#L66-L93"><code>pinephone-mir/texture.c</code></a></p>
 <pre><code class="language-c">// Initialize the shader and program object
