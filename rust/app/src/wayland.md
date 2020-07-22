@@ -579,39 +579,29 @@ The Wayland Service for Ubuntu Touch `unity-system-compositor` returns a whole b
 
 But today we'll bind to the Compositor Interface named `wl_compositor` and Shell Interface named `wl_shell`.
 
-Now let's render a simple texture with Wayland and OpenGL...
+And that's how we render a yellow rectangle with Wayland and OpenGL!
 
-![Rendering a simple texture with Wayland and OpenGL on PinePhone](https://lupyuen.github.io/images/wayland-egl2.jpg)
+Let's move on to something more interesting: Rendering a simple bitmap texture...
 
-_Rendering a simple texture with Wayland and OpenGL on PinePhone_
+![Rendering a simple bitmap texture with Wayland and OpenGL on PinePhone](https://lupyuen.github.io/images/wayland-egl2.jpg)
 
-# Render OpenGL Texture with Wayland
+_Rendering a simple bitmap texture with Wayland and OpenGL on PinePhone_
 
-TODO
+# Render OpenGL Bitmap Texture with Wayland
 
-https://github.com/lupyuen/pinephone-mir/blob/master/egl2.c#L51-L67
+The four boxes we see above are rendered from a magnified __2-pixel by 2-pixel bitmap__: [`pinephone-mir/texture.c`](https://github.com/lupyuen/pinephone-mir/blob/master/texture.c#L30-L64)
 
 ```c
-/// Render the OpenGL ES2 display
-static void render_display() {
-    puts("Rendering display...");
-
-    //  Create the texture context
-    static ESContext esContext;
-    esInitContext ( &esContext );
-    esContext.width = WIDTH;
-    esContext.height = HEIGHT;
-
-    //   Draw the texture
-    Init(&esContext);
-    Draw(&esContext);
-
-    //  Render now
-    glFlush();
-}
+// 2x2 Image, 3 bytes per pixel (R, G, B)
+GLubyte pixels[4 * 3] = {
+    255, 0, 0,  // Red
+    0, 255, 0,  // Green
+    0, 0, 255,  // Blue
+    255, 255, 0 // Yellow
+};
 ```
 
-https://github.com/lupyuen/pinephone-mir/blob/master/texture.c#L30-L64
+We render the bitmap as an __OpenGL Texture__ like so: [`pinephone-mir/texture.c`](https://github.com/lupyuen/pinephone-mir/blob/master/texture.c#L30-L64)
 
 ```c
 // Create a simple 2x2 texture image with four different colors
@@ -646,18 +636,15 @@ GLuint CreateSimpleTexture2D() {
 }
 ```
 
-OpenGL ES 2.0 Programming Guide
+(Probably not the most efficient way to render a bitmap... But let's try this and test drive PinePhone's GPU!)
 
-http://www.opengles-book.com/es2/index.html
+This is the usual way we create an OpenGL Texture, as explained in ["OpenGL® ES 3.0 Programming Guide"](http://www.opengles-book.com/).
 
-https://github.com/danginsburg/opengles-book-samples
-
-https://github.com/lupyuen/pinephone-mir/blob/master/texture.c#L66-L93
+Here comes the tricky part... Before rendering the OpenGL Texture, we need to program the __GPU Shaders__ on PinePhone with a C-like language: [`pinephone-mir/texture.c`](https://github.com/lupyuen/pinephone-mir/blob/master/texture.c#L66-L93)
 
 ```c
 // Initialize the shader and program object
-int Init(ESContext *esContext)
-{
+int Init(ESContext *esContext) {
     esContext->userData = malloc(sizeof(UserData));
     UserData *userData = esContext->userData;
     GLbyte vShaderStr[] =
@@ -684,11 +671,62 @@ int Init(ESContext *esContext)
     ...
 ```
 
-`esLoadProgram()` is defined in
+(Yep a C program within a C program... Inception!)
 
-https://github.com/lupyuen/pinephone-mir/blob/master/shader.c
+`esLoadProgram()` is defined in [`pinephone-mir/shader.c`](https://github.com/lupyuen/pinephone-mir/blob/master/shader.c)
 
-The OpenGL Texture code in this article was adapted from https://github.com/danginsburg/opengles-book-samples
+We're now talking to PinePhone's GPU, which is so low-level that it understand only Triangles, not Rectangles.
+
+Hence to render the OpenGL Texture, we map the Rectangular Texture onto two Triangles and render them: [`pinephone-mir/texture.c`](https://github.com/lupyuen/pinephone-mir/blob/master/texture.c#L109-L130)
+
+```c
+// Draw a triangle using the shader pair created in Init()
+void Draw(ESContext *esContext) {
+    GLfloat vVertices[] = {
+        -0.5f,   0.5f,  0.0f,  // Position 0
+         0.0f,   0.0f,         // TexCoord 0
+        -0.5f,  -0.5f,  0.0f,  // Position 1
+         0.0f,   1.0f,         // TexCoord 1
+         0.5f,  -0.5f,  0.0f,  // Position 2
+         1.0f,   1.0f,         // TexCoord 2
+         0.5f,   0.5f,  0.0f,  // Position 3
+         1.0f,   0.0f          // TexCoord 3
+    };
+    GLushort indices[] = {
+        0, 1, 2,  //  First Triangle
+        0, 2, 3   //  Second Triangle
+    };
+    ...
+    //  Draw the 6 vertices as 2 triangles
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
+}
+```
+
+(Yes the math is starting to hurt... But that's the end of it!)
+
+Finally we connect the above code to render the four colour boxes on PinePhone, thanks to Wayland and OpenGL: [pinephone-mir/egl2.c](https://github.com/lupyuen/pinephone-mir/blob/master/egl2.c#L51-L67)
+
+```c
+/// Render the OpenGL ES2 display
+static void render_display() {
+    //  Create the texture context
+    static ESContext esContext;
+    esInitContext ( &esContext );
+    esContext.width  = WIDTH;
+    esContext.height = HEIGHT;
+
+    //  Draw the texture
+    Init(&esContext);
+    Draw(&esContext);
+
+    //  Render now
+    glFlush();
+}
+```
+
+And that's [our Wayland App](https://github.com/lupyuen/pinephone-mir/blob/master/egl2.c) that renders a simple OpenGL Bitmap Texture!
+
+The OpenGL Texture code in this article was adapted from ["OpenGL® ES 2.0 Programming Guide"](https://github.com/danginsburg/opengles-book-samples)
 
 # Port LVGL to Wayland
 
