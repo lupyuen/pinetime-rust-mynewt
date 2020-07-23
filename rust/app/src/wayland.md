@@ -766,9 +766,55 @@ When we press PinePhone's power button to switch off PinePhone, we'll see ths am
 
 ![Powering off PinePhone](https://lupyuen.github.io/images/wayland-halt.jpg)
 
-# Build LVGL on PinePhone
+# Copy Files from MicroSD Card on PinePhone
 
-TODO
+It's useful to transfer files to PinePhone via MicroSD Card, like SSH Keys and the SSH Script `a` above.
+
+(Sadly PinePhone on Ubuntu Touch doesn't allow receiving files over Bluetooth)
+
+The MicroSD card on PinePhone doesn't appear in the File Manager unless we mount it.
+
+Open the Command Prompt on PinePhone and enter the following...
+
+```bash
+ls -l /dev/disk/by-label
+```
+
+We should see something like this...
+
+```
+lrwxrwxrwx 1 root root 15 Jul 23 22:24 BOOT_MNJRO -> ../../mmcblk0p1
+lrwxrwxrwx 1 root root 15 Jul 23 22:24 cache -> ../../mmcblk2p8
+lrwxrwxrwx 1 root root 15 Jul 23 22:24 ROOT_MNJRO -> ../../mmcblk0p2
+lrwxrwxrwx 1 root root 16 Jul 23 22:24 userdata -> ../../mmcblk2p10
+```
+
+
+
+```bash
+mkdir /tmp/sdcard
+sudo mount /dev/mmcblk0p2 /tmp/sdcard
+ls -l /tmp/sdcard
+```
+
+phablet@ubuntu-phablet:~$ cat /tmp/sdcard/tmp/a
+#!/bin/sh
+# Script to start SSH service and show IP address
+
+# Start SSH service
+sudo service ssh start
+
+# Show IP address
+ifconfig | \
+    grep -v "127.0.0.1" | \
+    grep "inet addr:"
+
+# Ping repeatedly to keep WiFi alive
+ping google.com
+phablet@ubuntu-phablet:~$ cp /tmp/sdcard/tmp/a aa
+phablet@ubuntu-phablet:~$ more aa
+
+```
 
 # Run LVGL on PinePhone
 
