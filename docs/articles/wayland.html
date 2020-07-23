@@ -71,16 +71,19 @@
 <li><a href="#get-egl-context-from-wayland">4 Get EGL Context from Wayland</a><ul></ul></li>
 <li><a href="#build-and-test-wayland-app">5 Build and Test Wayland App</a><ul></ul></li>
 <li><a href="#fetch-wayland-interfaces">6 Fetch Wayland Interfaces</a><ul></ul></li>
-<li><a href="#render-opengl-texture-with-wayland">7 Render OpenGL Texture with Wayland</a><ul></ul></li>
-<li><a href="#port-lvgl-to-wayland">8 Port LVGL to Wayland</a><ul></ul></li>
-<li><a href="#overcome-apparmor-security-on-ubuntu-touch">9 Overcome AppArmor Security on Ubuntu Touch</a><ul></ul></li>
-<li><a href="#start-ssh-on-pinephone">10 Start SSH on PinePhone</a><ul></ul></li>
-<li><a href="#build-lvgl-on-pinephone">11 Build LVGL on PinePhone</a><ul></ul></li>
-<li><a href="#run-lvgl-on-pinephone">12 Run LVGL on PinePhone</a><ul></ul></li>
-<li><a href="#build-and-test-pinephone-wayland-apps-on-pinebook-pro">13 Build and Test PinePhone Wayland Apps on Pinebook Pro</a><ul></ul></li>
-<li><a href="#wayland-gotchas">14 Wayland Gotchas</a><ul></ul></li>
-<li><a href="#what-i-like-about-ubuntu-touch-on-pinephone">15 What I like about Ubuntu Touch on PinePhone</a><ul></ul></li>
-<li><a href="#further-reading">16 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/wayland-title.jpg" alt="Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch" /></p>
+<li><a href="#render-opengl-bitmap-texture-with-wayland">7 Render OpenGL Bitmap Texture with Wayland</a><ul></ul></li>
+<li><a href="#lvgl-toolkit-for-graphical-user-interfaces">8 LVGL Toolkit for Graphical User Interfaces</a><ul></ul></li>
+<li><a href="#port-lvgl-to-wayland">9 Port LVGL to Wayland</a><ul></ul></li>
+<li><a href="#build-lvgl-on-pinephone-with-ubuntu-touch">10 Build LVGL on PinePhone with Ubuntu Touch</a><ul></ul></li>
+<li><a href="#run-lvgl-on-pinephone-with-ubuntu-touch">11 Run LVGL on PinePhone with Ubuntu Touch</a><ul></ul></li>
+<li><a href="#overcome-apparmor-security-on-ubuntu-touch">12 Overcome AppArmor Security on Ubuntu Touch</a><ul></ul></li>
+<li><a href="#start-ssh-on-pinephone">13 Start SSH on PinePhone</a><ul></ul></li>
+<li><a href="#build-lvgl-on-pinephone">14 Build LVGL on PinePhone</a><ul></ul></li>
+<li><a href="#run-lvgl-on-pinephone">15 Run LVGL on PinePhone</a><ul></ul></li>
+<li><a href="#build-and-test-pinephone-wayland-apps-on-pinebook-pro">16 Build and Test PinePhone Wayland Apps on Pinebook Pro</a><ul></ul></li>
+<li><a href="#wayland-gotchas">17 Wayland Gotchas</a><ul></ul></li>
+<li><a href="#what-i-like-about-ubuntu-touch-on-pinephone">18 What I like about Ubuntu Touch on PinePhone</a><ul></ul></li>
+<li><a href="#further-reading">19 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/wayland-title.jpg" alt="Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch" /></p>
 <p><em>Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch</em></p>
 <p><strong>We ❤️   Old Underwear...</strong></p>
 <p>They feel comfy, they fit our contours. Nevermind the holes and the old stains 🤢</p>
@@ -559,31 +562,21 @@ static void global_registry_handler(void *data, struct wl_registry *registry, ui
 <p><code>global_registry_handler()</code> is the Callback Function that will be triggered for every interface in the Wayland Registry. </p>
 <p>The Wayland Service for Ubuntu Touch <code>unity-system-compositor</code> returns a whole bunch of interesting Wayland Interfaces (like <code>qt_windowmanager</code>). </p>
 <p>But today we'll bind to the Compositor Interface named <code>wl_compositor</code> and Shell Interface named <code>wl_shell</code>.</p>
-<p>Now let's render a simple texture with Wayland and OpenGL...</p>
-<p><img src="https://lupyuen.github.io/images/wayland-egl2.jpg" alt="Rendering a simple texture with Wayland and OpenGL on PinePhone" /></p>
-<p><em>Rendering a simple texture with Wayland and OpenGL on PinePhone</em></p>
-<h1 id="render-opengl-texture-with-wayland" class="section-header"><a href="#render-opengl-texture-with-wayland">7 Render OpenGL Texture with Wayland</a></h1>
-<p>TODO</p>
-<p>https://github.com/lupyuen/pinephone-mir/blob/master/egl2.c#L51-L67</p>
-<pre><code class="language-c">/// Render the OpenGL ES2 display
-static void render_display() {
-    puts(&quot;Rendering display...&quot;);
-
-    //  Create the texture context
-    static ESContext esContext;
-    esInitContext ( &amp;esContext );
-    esContext.width = WIDTH;
-    esContext.height = HEIGHT;
-
-    //   Draw the texture
-    Init(&amp;esContext);
-    Draw(&amp;esContext);
-
-    //  Render now
-    glFlush();
-}
+<p>And that's how we render a yellow rectangle with Wayland and OpenGL!</p>
+<p>Let's move on to something more interesting: Rendering a simple bitmap texture...</p>
+<p><img src="https://lupyuen.github.io/images/wayland-egl2.jpg" alt="Rendering a simple bitmap texture with Wayland and OpenGL on PinePhone" /></p>
+<p><em>Rendering a simple bitmap texture with Wayland and OpenGL on PinePhone</em></p>
+<h1 id="render-opengl-bitmap-texture-with-wayland" class="section-header"><a href="#render-opengl-bitmap-texture-with-wayland">7 Render OpenGL Bitmap Texture with Wayland</a></h1>
+<p>The four boxes we see above are rendered from a magnified <strong>2-pixel by 2-pixel bitmap</strong>: <a href="https://github.com/lupyuen/pinephone-mir/blob/master/texture.c#L30-L64"><code>pinephone-mir/texture.c</code></a></p>
+<pre><code class="language-c">// 2x2 Image, 3 bytes per pixel (R, G, B)
+GLubyte pixels[4 * 3] = {
+    255, 0, 0,  // Red
+    0, 255, 0,  // Green
+    0, 0, 255,  // Blue
+    255, 255, 0 // Yellow
+};
 </code></pre>
-<p>https://github.com/lupyuen/pinephone-mir/blob/master/texture.c#L30-L64</p>
+<p>We render the bitmap by creating an <strong>OpenGL Texture</strong>: <a href="https://github.com/lupyuen/pinephone-mir/blob/master/texture.c#L30-L64"><code>pinephone-mir/texture.c</code></a></p>
 <pre><code class="language-c">// Create a simple 2x2 texture image with four different colors
 GLuint CreateSimpleTexture2D() {
     // Texture object handle
@@ -615,13 +608,11 @@ GLuint CreateSimpleTexture2D() {
     return textureId;
 }
 </code></pre>
-<p>OpenGL ES 2.0 Programming Guide</p>
-<p>http://www.opengles-book.com/es2/index.html</p>
-<p>https://github.com/danginsburg/opengles-book-samples</p>
-<p>https://github.com/lupyuen/pinephone-mir/blob/master/texture.c#L66-L93</p>
+<p>(Not the most efficient way to render a bitmap... But let's try this and test drive PinePhone's GPU!)</p>
+<p>This is the usual way we create an OpenGL Texture, as explained in <a href="http://www.opengles-book.com/">&quot;OpenGL® ES 3.0 Programming Guide&quot;</a>.</p>
+<p>Here comes the tricky part... Before rendering the OpenGL Texture, we need to program the <strong>GPU Shaders</strong> on PinePhone with a C-like language: <a href="https://github.com/lupyuen/pinephone-mir/blob/master/texture.c#L66-L93"><code>pinephone-mir/texture.c</code></a></p>
 <pre><code class="language-c">// Initialize the shader and program object
-int Init(ESContext *esContext)
-{
+int Init(ESContext *esContext) {
     esContext-&gt;userData = malloc(sizeof(UserData));
     UserData *userData = esContext-&gt;userData;
     GLbyte vShaderStr[] =
@@ -647,26 +638,278 @@ int Init(ESContext *esContext)
     userData-&gt;programObject = esLoadProgram(vShaderStr, fShaderStr);
     ...
 </code></pre>
-<p><code>esLoadProgram()</code> is defined in</p>
-<p>https://github.com/lupyuen/pinephone-mir/blob/master/shader.c</p>
-<p>The OpenGL Texture code in this article was adapted from https://github.com/danginsburg/opengles-book-samples</p>
-<h1 id="port-lvgl-to-wayland" class="section-header"><a href="#port-lvgl-to-wayland">8 Port LVGL to Wayland</a></h1>
+<p>(Yep a C program within a C program... Inception!)</p>
+<p><code>esLoadProgram()</code> is defined in <a href="https://github.com/lupyuen/pinephone-mir/blob/master/shader.c"><code>pinephone-mir/shader.c</code></a></p>
+<p>We're now talking to PinePhone's GPU, which is so low-level that it understand only Triangles, not Rectangles.</p>
+<p>Hence to render the OpenGL Texture, we map the Rectangular Texture onto two Triangles and render them: <a href="https://github.com/lupyuen/pinephone-mir/blob/master/texture.c#L109-L130"><code>pinephone-mir/texture.c</code></a></p>
+<pre><code class="language-c">// Draw a triangle using the shader pair created in Init()
+void Draw(ESContext *esContext) {
+    GLfloat vVertices[] = {
+        -0.5f,   0.5f,  0.0f,  // Position 0
+         0.0f,   0.0f,         // TexCoord 0
+        -0.5f,  -0.5f,  0.0f,  // Position 1
+         0.0f,   1.0f,         // TexCoord 1
+         0.5f,  -0.5f,  0.0f,  // Position 2
+         1.0f,   1.0f,         // TexCoord 2
+         0.5f,   0.5f,  0.0f,  // Position 3
+         1.0f,   0.0f          // TexCoord 3
+    };
+    GLushort indices[] = {
+        0, 1, 2,  //  First Triangle
+        0, 2, 3   //  Second Triangle
+    };
+    ...
+    //  Draw the 6 vertices as 2 triangles
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, indices);
+}
+</code></pre>
+<p>(Yes the math is starting to hurt... But that's the end of it!)</p>
+<p>Finally we connect the above code to render the four colour boxes on PinePhone, thanks to Wayland and OpenGL: <a href="https://github.com/lupyuen/pinephone-mir/blob/master/egl2.c#L51-L67">pinephone-mir/egl2.c</a></p>
+<pre><code class="language-c">/// Render the OpenGL ES2 display
+static void render_display() {
+    //  Create the texture context
+    static ESContext esContext;
+    esInitContext ( &amp;esContext );
+    esContext.width  = WIDTH;
+    esContext.height = HEIGHT;
+
+    //  Draw the texture
+    Init(&amp;esContext);
+    Draw(&amp;esContext);
+
+    //  Render now
+    glFlush();
+}
+</code></pre>
+<p>And that's <a href="https://github.com/lupyuen/pinephone-mir/blob/master/egl2.c">our Wayland App</a> that renders a simple OpenGL Bitmap Texture!</p>
+<p>The OpenGL Texture code in this article was adapted from <a href="https://github.com/danginsburg/opengles-book-samples">&quot;OpenGL® ES 2.0 Programming Guide&quot;</a></p>
+<p>Let's head on towards greatness and something really useful: Graphical User Interfaces...</p>
+<p><img src="https://lupyuen.github.io/images/wayland-button.jpg" alt="Button rendered with LVGL and Wayland on PinePhone" /></p>
+<p><em>Button rendered with LVGL and Wayland on PinePhone</em></p>
+<h1 id="lvgl-toolkit-for-graphical-user-interfaces" class="section-header"><a href="#lvgl-toolkit-for-graphical-user-interfaces">8 LVGL Toolkit for Graphical User Interfaces</a></h1>
+<p>Now that we can render bitmaps on PinePhone, let's think...</p>
+<p><em>How would we render a simple Graphical User Interface (GUI) on PinePhone, like the button above?</em></p>
+<p>Why don't we use a simple GUI Toolkit like <a href="https://lvgl.io/"><strong>LVGL</strong></a>? (Formerly LittleVGL)</p>
+<p>Here's how we call the LVGL library to render that button: <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lvgl.c#L54-L64"><code>lvgl-wayland/wayland/lvgl.c</code></a></p>
+<pre><code class="language-c">#include &quot;../lvgl.h&quot;
+
+/// Render a Button Widget and a Label Widget
+static void render_widgets(void) {
+    lv_obj_t * btn = lv_btn_create(lv_scr_act(), NULL);     //  Add a button the current screen
+    lv_obj_set_pos(btn, 10, 10);                            //  Set its position
+    lv_obj_set_size(btn, 120, 50);                          //  Set its size
+
+    lv_obj_t * label = lv_label_create(btn, NULL);          //  Add a label to the button
+    lv_label_set_text(label, &quot;Button&quot;);                     //  Set the labels text
+}
+</code></pre>
+<p><em>Easy peasy!</em></p>
+<p>LVGL is a simple C toolkit designed for Embedded Devices, so it needs <strong>very little memory and processing power</strong>.  LVGL is <strong>self-contained</strong>... Fonts and icons are bundled into the LVGL library.</p>
+<p>It's used on <a href="https://github.com/JF002/Pinetime"><strong>PineTime Smart Watch</strong></a> to render watch faces.</p>
+<p><em>LVGL doesn't run on Wayland yet... But we'll fix that!</em></p>
+<p>Remember how we rendered a simple 2-pixel by 2-pixel bitmap by creating an OpenGL Texture with <code>CreateSimpleTexture2D()</code>?</p>
+<p>Let's extend that bitmap to cover the entire PinePhone screen: 720 pixels by 1398 pixels.</p>
+<p>And we create the OpenGL Texture for the entire PinePhone screen like so: <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/texture.c#L38-L72"><code>lvgl-wayland/wayland/texture.c</code></a></p>
+<pre><code class="language-c">///  PinePhone Screen Resolution, defined in lv_conf.h
+#define LV_HOR_RES_MAX          (720)
+#define LV_VER_RES_MAX          (1398)
+#define LV_SCALE_RES            1
+
+///  Screen buffer 
+#define BYTES_PER_PIXEL 3
+GLubyte pixels[LV_HOR_RES_MAX * LV_VER_RES_MAX * BYTES_PER_PIXEL];
+
+/// Create an OpenGL Texture for the screen buffer
+GLuint CreateTexture(void) {
+    GLuint texId;
+    glGenTextures ( 1, &amp;texId );
+    glBindTexture ( GL_TEXTURE_2D, texId );
+
+    glTexImage2D (
+        GL_TEXTURE_2D, 
+        0,  //  Level
+        GL_RGB, 
+        LV_HOR_RES_MAX,  //  Width
+        LV_VER_RES_MAX,  //  Height 
+        0,  //  Format 
+        GL_RGB, 
+        GL_UNSIGNED_BYTE, 
+        pixels 
+    );
+    glTexParameteri ( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+    glTexParameteri ( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+    glTexParameteri ( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
+    glTexParameteri ( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
+    return texId;
+}
+</code></pre>
+<p><code>pixels</code> is the screen buffer that will contain the pixels for our rendered UI controls, like our button.</p>
+<p>We'll tell LVGL to render into <code>pixels</code> like so: <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/texture.c#L38-L72"><code>lvgl-wayland/wayland/texture.c</code></a></p>
+<pre><code class="language-c">/// Set the colour of a pixel in the screen buffer
+void put_px(uint16_t x, uint16_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+    assert(x &gt;= 0); assert(x &lt; LV_HOR_RES_MAX);
+    assert(y &gt;= 0); assert(y &lt; LV_VER_RES_MAX);
+    int i = (y * LV_HOR_RES_MAX * BYTES_PER_PIXEL) + (x * BYTES_PER_PIXEL);
+    pixels[i++] = r;  //  Red
+    pixels[i++] = g;  //  Green
+    pixels[i++] = b;  //  Blue
+}
+</code></pre>
+<p>(Simplistic, not efficient though)</p>
+<p>We'll render the OpenGL Texture the same way as before: <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lvgl.c#L65-L93"><code>lvgl-wayland/wayland/lvgl.c</code></a></p>
+<pre><code class="language-c">/// Render the OpenGL ES2 display
+static void render_display() {
+    //  This part is new...
+
+    //  Init the LVGL display
+    lv_init();
+    lv_port_disp_init();
+
+    //  Create the LVGL widgets: Button and label
+    render_widgets();
+
+    //  Render the LVGL widgets
+    lv_task_handler();
+
+    //  This part is the same as before...
+
+    //  Create the texture context
+    static ESContext esContext;
+    esInitContext ( &amp;esContext );
+    esContext.width  = WIDTH;
+    esContext.height = HEIGHT;
+
+    //   Draw the texture
+    Init(&amp;esContext);
+    Draw(&amp;esContext);
+
+    //  Render now
+    glFlush();
+}
+</code></pre>
+<p>But now we have injected the calls to the LVGL library...</p>
+<ol>
+<li>
+<p><a href="https://docs.lvgl.io/latest/en/html/widgets/obj.html?highlight=lv_init#_CPPv47lv_initv"><strong><code>lv_init()</code></strong></a>: Initialise the LVGL library</p>
+</li>
+<li>
+<p><a href="https://github.com/lupyuen/lvgl-wayland/blob/72b0273d6c609ecb51142ee400f545116ca0ecd9/wayland/lv_port_disp.c#L48-L126"><strong><code>lv_port_disp_init()</code></strong></a>: Initialise our display</p>
+</li>
+<li>
+<p><a href="https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lvgl.c#L54-L64"><strong><code>render_widgets()</code></strong></a>: Calls the LVGL library to create two UI controls: a Button and a Label</p>
+</li>
+<li>
+<p><a href="https://docs.lvgl.io/latest/en/html/porting/task-handler.html?highlight=lv_task_handler"><strong><code>lv_task_handler()</code></strong></a>: Let LVGL render the UI controls into our screen buffer</p>
+</li>
+</ol>
+<p>Now let's tweak the LVGL library to render UI controls into our screen buffer <code>pixels</code></p>
+<h1 id="port-lvgl-to-wayland" class="section-header"><a href="#port-lvgl-to-wayland">9 Port LVGL to Wayland</a></h1>
+<p>Porting LVGL to Wayland and Ubuntu Touch is straightforward.</p>
+<p>According to the <a href="https://docs.lvgl.io/latest/en/html/porting/display.html">LVGL Porting Doc</a>, we need to code a Flush Callback Function <code>disp_flush()</code> that will be called by LVGL to render UI controls to the screen buffer.</p>
+<p>Here's our implementation for Wayland: <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lv_port_disp.c#L142-L167"><code>lvgl-wayland/wayland/lv_port_disp.c</code></a></p>
+<pre><code class="language-c">//  Flush the content of the internal buffer to the specific area on the display
+//  You can use DMA or any hardware acceleration to do this operation in the background but
+//  'lv_disp_flush_ready()' has to be called when finished.
+static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p) {
+    //  The most simple case (but also the slowest) to put all pixels to the screen one-by-one
+    for(int32_t y = area-&gt;y1; y &lt;= area-&gt;y2; y++) {
+        for(int32_t x = area-&gt;x1; x &lt;= area-&gt;x2; x++) {
+            //  Put a pixel to the screen buffer
+            put_px(x, y, 
+                color_p-&gt;ch.red, 
+                color_p-&gt;ch.green, 
+                color_p-&gt;ch.blue, 
+                0xff);
+            color_p++;
+        }
+    }
+    //  Inform the graphics library that we are ready with the flushing
+    lv_disp_flush_ready(disp_drv);
+}
+</code></pre>
+<p>We've seen earlier that <code>put_px()</code> draws pixels in the simplest way possible.  Eventually we should use PinePhone's GPU for rendering LVGL controls, by implementing the <a href="https://docs.lvgl.io/latest/en/html/porting/display.html#display-driver">LVGL GPU Callbacks</a>.</p>
+<p>Light and Dark Themes are provided by LVGL. To select the default theme just edit <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/lv_conf.h#L444-L446"><code>lvgl-wayland/lv_conf.h</code></a></p>
+<p>Here's Dark Theme...</p>
+<pre><code class="language-c">//  For Dark Theme...
+#define LV_THEME_DEFAULT_FLAG LV_THEME_MATERIAL_FLAG_DARK
+</code></pre>
+<p><img src="https://lupyuen.github.io/images/wayland-dark.jpg" alt="LVGL Dark Theme with Wayland on PinePhone" /></p>
+<p>And Light Theme...</p>
+<pre><code class="language-c">//  For Light Theme...
+#define LV_THEME_DEFAULT_FLAG LV_THEME_MATERIAL_FLAG_LIGHT
+</code></pre>
+<p><img src="https://lupyuen.github.io/images/wayland-light.jpg" alt="LVGL Light Theme with Wayland on PinePhone" /></p>
+<p>The screens above were rendered by updating one line in <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lvgl.c#L65-L76"><code>lvgl-wayland/wayland/lvgl.c</code></a>...</p>
+<pre><code class="language-c">/// Render the OpenGL ES2 display
+static void render_display() {
+    //  Init the LVGL display
+    lv_init();
+    lv_port_disp_init();
+
+    //  Create the LVGL widgets
+    lv_demo_widgets();  //  Previously render_widgets()
+</code></pre>
+<p><code>lv_demo_widgets()</code> comes from <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/demo/lv_demo_widgets.c"><code>lvgl-wayland/demo/lv_demo_widgets.c</code></a></p>
+<p><em>What about Touch Input in LVGL for Ubuntu Touch?</em></p>
+<p>We haven't handled Touch Input yet... Lemme know if you're keen to help!</p>
+<p><em>Do we really have to code LVGL Apps for PinePhone in C?</em></p>
+<p>Rust is supported too! </p>
+<p>We may write LVGL Apps for PinePhone in Rust by calling the <a href="https://github.com/rafaelcaricio/lvgl-rs"><strong><code>lvgl-rs</code> Rust Wrapper for LVGL</strong></a> by <a href="https://github.com/rafaelcaricio"><strong>Rafael Carício</strong></a>.</p>
+<p>(Fun Fact: <code>lvgl-rs</code> was <a href="https://lupyuen.github.io/PineTime-apps/articles/watch_face">originally created</a> for PineTime Smart Watch... Today it's used by <a href="https://twitter.com/rafaelcaricio/status/1271886471260184577?s=20">Rust on PlayStation Portable</a> too!)</p>
+<p><img src="https://lupyuen.github.io/images/wayland-size.jpg" alt="Size of LVGL Demo App on PinePhone with Ubuntu Touch" /></p>
+<p><em>How small is LVGL on PinePhone with Ubuntu Touch?</em></p>
+<p><strong>1.5 MB</strong> for the Light / Dark Theme LVGL Demo App above.</p>
+<p>Not that big, considering that the font, icons and debugging symbols are bundled inside.</p>
+<p><em>How does LVGL compare with Qt, GTK and SDL on PinePhone with Ubuntu Touch?</em></p>
+<p>Qt is the only officially supported App Toolkit on Ubuntu Touch. </p>
+<p>GTK and SDL are supposed to work on Wayland... But I couldn't get them to work on Ubuntu Touch. </p>
+<p>(Probably because legacy X11 compatibility is missing from Ubuntu Touch, i.e. XWayland)</p>
+<p>I applaud the maintainers of X11, Qt, GTK and SDL because every new release needs to support so many legacy features. Kudos!</p>
+<p>But what if we could start from scratch, drop the legacy stuff, and build a simpler UI toolkit for Wayland?</p>
+<p><em>LVGL is the experiment that we're undertaking today!</em></p>
+<h1 id="build-lvgl-on-pinephone-with-ubuntu-touch" class="section-header"><a href="#build-lvgl-on-pinephone-with-ubuntu-touch">10 Build LVGL on PinePhone with Ubuntu Touch</a></h1>
 <p>TODO</p>
-<p>SDL, GTK, Qt are complex because they handle X11 legacy stuff</p>
-<p>SDL and GTK will work on Wayland... but needs X11 compatibilty!</p>
-<p>I applaud the maintainers of x11, gtk, qt, sdl because every new release needs to support so many legacy features. Kudos!</p>
-<p>What if we could start from scratch, drop the legacy stuff, and build a ui toolkit for Wayland and opengl?</p>
-<p>Lvgl is that experiment that we're undertaking today</p>
-<p>Rust wrapper for lvgl</p>
-<h1 id="overcome-apparmor-security-on-ubuntu-touch" class="section-header"><a href="#overcome-apparmor-security-on-ubuntu-touch">9 Overcome AppArmor Security on Ubuntu Touch</a></h1>
+<p>Connect to PinePhone over SSH and run these commands...</p>
+<pre><code class="language-bash"># Make system folders writeable
+sudo mount -o remount,rw /
+
+# Install GDB debugger and GLES2 library
+sudo apt install gdb
+sudo apt install libgles2-mesa-dev
+
+# Download the source code
+cd ~
+git clone https://github.com/lupyuen/lvgl-wayland
+cd lvgl-wayland
+
+# Build the app
+make
+</code></pre>
+<h1 id="run-lvgl-on-pinephone-with-ubuntu-touch" class="section-header"><a href="#run-lvgl-on-pinephone-with-ubuntu-touch">11 Run LVGL on PinePhone with Ubuntu Touch</a></h1>
+<p>TODO</p>
+<p>Connect to PinePhone over SSH and run these commands...</p>
+<pre><code class="language-bash">cd lvgl-wayland
+./wayland/lvgl.sh
+</code></pre>
+<p>Press <code>Ctrl-C</code> to stop the log display.</p>
+<p>The log file is located at...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="op">/</span><span class="ident">home</span><span class="op">/</span><span class="ident">phablet</span><span class="op">/</span>.<span class="ident">cache</span><span class="op">/</span><span class="ident">upstart</span><span class="op">/</span><span class="ident">application</span><span class="op">-</span><span class="ident">click</span><span class="op">-</span><span class="ident">com</span>.<span class="ident">ubuntu</span>.<span class="ident">filemanager_filemanager_0</span>.<span class="number">7.5</span>.<span class="ident">log</span></pre></div>
+<p>The log for the Wayland Compositor <code>unity-system-compositor</code> may be useful for troubleshooting...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="op">/</span><span class="ident">home</span><span class="op">/</span><span class="ident">phablet</span><span class="op">/</span>.<span class="ident">cache</span><span class="op">/</span><span class="ident">upstart</span><span class="op">/</span><span class="ident">unity8</span>.<span class="ident">log</span></pre></div>
+<h1 id="overcome-apparmor-security-on-ubuntu-touch" class="section-header"><a href="#overcome-apparmor-security-on-ubuntu-touch">12 Overcome AppArmor Security on Ubuntu Touch</a></h1>
 <p>TODO</p>
 <p>Why AppArmor?</p>
-<h1 id="start-ssh-on-pinephone" class="section-header"><a href="#start-ssh-on-pinephone">10 Start SSH on PinePhone</a></h1>
+<h1 id="start-ssh-on-pinephone" class="section-header"><a href="#start-ssh-on-pinephone">13 Start SSH on PinePhone</a></h1>
 <p>To start SSH on PinePhone, open the Terminal app.</p>
 <p>Create a file named <code>a</code>...</p>
 <pre><code class="language-bash">nano a
 </code></pre>
 <p>Type this script into the <code>a</code> file...</p>
+<p>https://github.com/lupyuen/lvgl-wayland/blob/master/a</p>
 <pre><code class="language-bash">#!/bin/sh
 # Script to start SSH service and show IP address
 
@@ -694,9 +937,9 @@ ping google.com
 <p>TODO: How to install SSH key on PinePhone via SD card or Bluetooth</p>
 <p>When we press PinePhone's power button to switch off PinePhone, we'll see ths amusing message from olden times...</p>
 <p><img src="https://lupyuen.github.io/images/wayland-halt.jpg" alt="Powering off PinePhone" /></p>
-<h1 id="build-lvgl-on-pinephone" class="section-header"><a href="#build-lvgl-on-pinephone">11 Build LVGL on PinePhone</a></h1>
+<h1 id="build-lvgl-on-pinephone" class="section-header"><a href="#build-lvgl-on-pinephone">14 Build LVGL on PinePhone</a></h1>
 <p>TODO</p>
-<h1 id="run-lvgl-on-pinephone" class="section-header"><a href="#run-lvgl-on-pinephone">12 Run LVGL on PinePhone</a></h1>
+<h1 id="run-lvgl-on-pinephone" class="section-header"><a href="#run-lvgl-on-pinephone">15 Run LVGL on PinePhone</a></h1>
 <p>TODO</p>
 <p>Mir Server Log may be found on PinePhone here...</p>
 
@@ -706,13 +949,9 @@ ping google.com
 <pre><code class="language-bash">scp -i ~/.ssh/pinebook_rsa phablet@192.168.1.10:/home/phablet/.cache/upstart/u
 </code></pre>
 <p><img src="https://lupyuen.github.io/images/wayland-weston.png" alt="PinePhone Wayland App tested on Pinebook Pro" /></p>
-<h1 id="build-and-test-pinephone-wayland-apps-on-pinebook-pro" class="section-header"><a href="#build-and-test-pinephone-wayland-apps-on-pinebook-pro">13 Build and Test PinePhone Wayland Apps on Pinebook Pro</a></h1>
+<h1 id="build-and-test-pinephone-wayland-apps-on-pinebook-pro" class="section-header"><a href="#build-and-test-pinephone-wayland-apps-on-pinebook-pro">16 Build and Test PinePhone Wayland Apps on Pinebook Pro</a></h1>
 <p>Here's how we can build and test PinePhone Wayland Apps on Pinebook Pro...</p>
-<pre><code class="language-bash"># Create a symbolic link for the OpenGL ES2 shared library that will be used for the Wayland build
-sudo mkdir -p /usr/lib/aarch64-linux-gnu/mesa-egl/
-sudo ln -s /usr/lib/libGLESv2.so /usr/lib/aarch64-linux-gnu/mesa-egl/libGLESv2.so.2
-
-# Build the Wayland executable
+<pre><code class="language-bash"># Build the Wayland executable
 make
 
 # Start the Weston Wayland Compositor on Pinebook Pro with the PinePhone screen dimensions
@@ -721,7 +960,7 @@ weston --width=720 --height=1398 &amp;
 # Run the Wayland executable
 wayland/lvgl
 </code></pre>
-<h1 id="wayland-gotchas" class="section-header"><a href="#wayland-gotchas">14 Wayland Gotchas</a></h1>
+<h1 id="wayland-gotchas" class="section-header"><a href="#wayland-gotchas">17 Wayland Gotchas</a></h1>
 <p>TODO</p>
 <p>GPU on X11:</p>
 <p>https://qoto.org/@lupyuen/104541068127168291</p>
@@ -737,7 +976,7 @@ wayland/lvgl
 <p>Mir / Lomiri / Unity8's complicated history:</p>
 <p>https://www.phoronix.com/scan.php?page=news_item&amp;px=Mir-2019-Kicking</p>
 <p>https://www.phoronix.com/scan.php?page=news_item&amp;px=Unity-8-Renamed-To-Lomiri</p>
-<h1 id="what-i-like-about-ubuntu-touch-on-pinephone" class="section-header"><a href="#what-i-like-about-ubuntu-touch-on-pinephone">15 What I like about Ubuntu Touch on PinePhone</a></h1>
+<h1 id="what-i-like-about-ubuntu-touch-on-pinephone" class="section-header"><a href="#what-i-like-about-ubuntu-touch-on-pinephone">18 What I like about Ubuntu Touch on PinePhone</a></h1>
 <p>TODO</p>
 <p>AppArmor is good, because iOS and Android have similar apps security</p>
 <p>Read-only file system is good (system files are read-only by default, user files are read-write). Helps to prevent security holes. (Even PineTime has a read-only Flash ROM)</p>
@@ -751,7 +990,7 @@ wayland/lvgl
 <p>Ubuntu Touch is pure Wayland, none of the legacy X11 stuff. Xwayland is not even there (unless you use the Libertine containers ugh).</p>
 <p>The pure Wayland environment causes GTK to break, because GTK assumes some minimal X11 support (i.e. Xwayland).</p>
 <p>So Ubuntu Touch is not really that bad for PinePhone... It's just painful for building non-Qt apps. 🙂</p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">16 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">19 Further Reading</a></h1>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/bloc">&quot;Flutter State Management with Bloc for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter">&quot;Your First Bluetooth Low Energy App with Flutter&quot;</a></em></p>
