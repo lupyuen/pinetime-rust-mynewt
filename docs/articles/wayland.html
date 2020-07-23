@@ -78,7 +78,7 @@
 <li><a href="#run-lvgl-on-pinephone-with-ubuntu-touch">11 Run LVGL on PinePhone with Ubuntu Touch</a><ul></ul></li>
 <li><a href="#overcome-apparmor-security-on-ubuntu-touch">12 Overcome AppArmor Security on Ubuntu Touch</a><ul></ul></li>
 <li><a href="#start-ssh-on-pinephone">13 Start SSH on PinePhone</a><ul></ul></li>
-<li><a href="#build-lvgl-on-pinephone">14 Build LVGL on PinePhone</a><ul></ul></li>
+<li><a href="#copy-files-from-microsd-card-on-pinephone">14 Copy Files from MicroSD Card on PinePhone</a><ul></ul></li>
 <li><a href="#run-lvgl-on-pinephone">15 Run LVGL on PinePhone</a><ul></ul></li>
 <li><a href="#build-and-test-pinephone-wayland-apps-on-pinebook-pro">16 Build and Test PinePhone Wayland Apps on Pinebook Pro</a><ul></ul></li>
 <li><a href="#wayland-gotchas">17 Wayland Gotchas</a><ul></ul></li>
@@ -909,7 +909,6 @@ make
 <pre><code class="language-bash">nano a
 </code></pre>
 <p>Type this script into the <code>a</code> file...</p>
-<p>https://github.com/lupyuen/lvgl-wayland/blob/master/a</p>
 <pre><code class="language-bash">#!/bin/sh
 # Script to start SSH service and show IP address
 
@@ -924,21 +923,49 @@ ifconfig | \
 # Ping repeatedly to keep WiFi alive
 ping google.com
 </code></pre>
+<p>(Or download the file from <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/a"><code>lvgl-wayland/a</code></a></p>
 <p>Save the file and exit <code>nano</code>.</p>
-<p>TODO: How to install the script on PinePhone via SD card or Bluetooth</p>
+<p>(We may also copy the file <code>a</code> via a MicroSD Card. Check the next section for instructions.)</p>
 <p>When we're ready do coding on PinePhone, enter this at the command line...</p>
 <pre><code class="language-bash">. a 
 </code></pre>
 <p>(There's a space between &quot;<code>.</code>&quot; and &quot;<code>a</code>&quot;)</p>
 <p>The script starts the SSH Service and displays the IP address for PinePhone...</p>
 <p><img src="https://lupyuen.github.io/images/wayland-ssh.jpg" alt="Starting SSH Service on PinePhone" /></p>
-<p>We'll connect to PinePhone at the IP adddress indicated by <code>inet addr</code>. </p>
+<p>From our computer, we'll connect to PinePhone at the IP adddress indicated by <code>inet addr</code>, say <code>192.168.1.160</code>...</p>
+<pre><code class="language-bash">ssh -i ~/.ssh/pinebook_rsa phablet@192.168.1.160
+</code></pre>
 <p>Tap on <code>Ctrl-C</code> to stop the <code>ping</code>.</p>
-<p>TODO: How to install SSH key on PinePhone via SD card or Bluetooth</p>
+<p>(We may copy the SSH Key to PinePhone via a MicroSD Card. Check the next section for instructions.)</p>
 <p>When we press PinePhone's power button to switch off PinePhone, we'll see ths amusing message from olden times...</p>
 <p><img src="https://lupyuen.github.io/images/wayland-halt.jpg" alt="Powering off PinePhone" /></p>
-<h1 id="build-lvgl-on-pinephone" class="section-header"><a href="#build-lvgl-on-pinephone">14 Build LVGL on PinePhone</a></h1>
-<p>TODO</p>
+<p>If typing on a touch keyboard is not your thing, try copying the files from a MicroSD card...</p>
+<p><img src="https://lupyuen.github.io/images/wayland-sd.jpg" alt="MicroSD Card in PinePhone" /></p>
+<h1 id="copy-files-from-microsd-card-on-pinephone" class="section-header"><a href="#copy-files-from-microsd-card-on-pinephone">14 Copy Files from MicroSD Card on PinePhone</a></h1>
+<p>It's useful to transfer files to PinePhone via MicroSD Card, like SSH Keys and the SSH Script <code>a</code> above.</p>
+<p>(Sadly PinePhone on Ubuntu Touch doesn't allow receiving files over Bluetooth)</p>
+<p>The MicroSD card on PinePhone doesn't appear in the File Manager unless we mount it.</p>
+<p>Open the Command Prompt on PinePhone and enter the following...</p>
+<pre><code class="language-bash">ls -l /dev/disk/by-label
+</code></pre>
+<p>We should see something like this...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">lrwxrwxrwx</span> <span class="number">1</span> <span class="ident">root</span> <span class="ident">root</span> <span class="number">15</span> <span class="ident">Jul</span> <span class="number">23</span> <span class="number">22</span>:<span class="number">24</span> <span class="ident">BOOT_MNJRO</span> <span class="op">-</span><span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span><span class="ident">mmcblk0p1</span>
+<span class="ident">lrwxrwxrwx</span> <span class="number">1</span> <span class="ident">root</span> <span class="ident">root</span> <span class="number">15</span> <span class="ident">Jul</span> <span class="number">23</span> <span class="number">22</span>:<span class="number">24</span> <span class="ident">cache</span> <span class="op">-</span><span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span><span class="ident">mmcblk2p8</span>
+<span class="ident">lrwxrwxrwx</span> <span class="number">1</span> <span class="ident">root</span> <span class="ident">root</span> <span class="number">15</span> <span class="ident">Jul</span> <span class="number">23</span> <span class="number">22</span>:<span class="number">24</span> <span class="ident">ROOT_MNJRO</span> <span class="op">-</span><span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span><span class="ident">mmcblk0p2</span>
+<span class="ident">lrwxrwxrwx</span> <span class="number">1</span> <span class="ident">root</span> <span class="ident">root</span> <span class="number">16</span> <span class="ident">Jul</span> <span class="number">23</span> <span class="number">22</span>:<span class="number">24</span> <span class="ident">userdata</span> <span class="op">-</span><span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span><span class="ident">mmcblk2p10</span></pre></div>
+<p>These are the Partition Labels on our MicroSD Card. </p>
+<p>Let's say we wish to mount the MicroSD Card parition <code>ROOT_MNJRO</code>, which links to <code>/dev/mmcblk0p2</code></p>
+<pre><code class="language-bash">mkdir /tmp/sdcard
+sudo mount /dev/mmcblk0p2 /tmp/sdcard
+ls -l /tmp/sdcard
+</code></pre>
+<p>We should see the contents of our MicroSD Card.</p>
+<p>The MicroSD Card will now appear in File Manager as <code>/tmp/sdcard</code>, ready for us to copy the files.</p>
+<p>Or just copy files from the Command Line like so...</p>
+<pre><code class="language-bash">cp /tmp/sdcard/a ~
+</code></pre>
 <h1 id="run-lvgl-on-pinephone" class="section-header"><a href="#run-lvgl-on-pinephone">15 Run LVGL on PinePhone</a></h1>
 <p>TODO</p>
 <p>Mir Server Log may be found on PinePhone here...</p>

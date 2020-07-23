@@ -1038,8 +1038,6 @@ nano a
 
 Type this script into the `a` file...
 
-https://github.com/lupyuen/lvgl-wayland/blob/master/a
-
 ```bash
 #!/bin/sh
 # Script to start SSH service and show IP address
@@ -1056,9 +1054,11 @@ ifconfig | \
 ping google.com
 ```
 
+(Or download the file from [`lvgl-wayland/a`](https://github.com/lupyuen/lvgl-wayland/blob/master/a)
+
 Save the file and exit `nano`.
 
-TODO: How to install the script on PinePhone via SD card or Bluetooth
+(We may also copy the file `a` via a MicroSD Card. Check the next section for instructions.)
 
 When we're ready do coding on PinePhone, enter this at the command line...
 
@@ -1072,15 +1072,23 @@ The script starts the SSH Service and displays the IP address for PinePhone...
 
 ![Starting SSH Service on PinePhone](https://lupyuen.github.io/images/wayland-ssh.jpg)
 
-We'll connect to PinePhone at the IP adddress indicated by `inet addr`. 
+From our computer, we'll connect to PinePhone at the IP adddress indicated by `inet addr`, say `192.168.1.160`...
+
+```bash
+ssh -i ~/.ssh/pinebook_rsa phablet@192.168.1.160
+```
 
 Tap on `Ctrl-C` to stop the `ping`.
 
-TODO: How to install SSH key on PinePhone via SD card or Bluetooth
+(We may copy the SSH Key to PinePhone via a MicroSD Card. Check the next section for instructions.)
 
 When we press PinePhone's power button to switch off PinePhone, we'll see ths amusing message from olden times...
 
 ![Powering off PinePhone](https://lupyuen.github.io/images/wayland-halt.jpg)
+
+If typing on a touch keyboard is not your thing, try copying the files from a MicroSD card...
+
+![MicroSD Card in PinePhone](https://lupyuen.github.io/images/wayland-sd.jpg)
 
 # Copy Files from MicroSD Card on PinePhone
 
@@ -1105,7 +1113,9 @@ lrwxrwxrwx 1 root root 15 Jul 23 22:24 ROOT_MNJRO -> ../../mmcblk0p2
 lrwxrwxrwx 1 root root 16 Jul 23 22:24 userdata -> ../../mmcblk2p10
 ```
 
+These are the Partition Labels on our MicroSD Card. 
 
+Let's say we wish to mount the MicroSD Card parition `ROOT_MNJRO`, which links to `/dev/mmcblk0p2`
 
 ```bash
 mkdir /tmp/sdcard
@@ -1113,23 +1123,14 @@ sudo mount /dev/mmcblk0p2 /tmp/sdcard
 ls -l /tmp/sdcard
 ```
 
-phablet@ubuntu-phablet:~$ cat /tmp/sdcard/tmp/a
-#!/bin/sh
-# Script to start SSH service and show IP address
+We should see the contents of our MicroSD Card.
 
-# Start SSH service
-sudo service ssh start
+The MicroSD Card will now appear in File Manager as `/tmp/sdcard`, ready for us to copy the files.
 
-# Show IP address
-ifconfig | \
-    grep -v "127.0.0.1" | \
-    grep "inet addr:"
+Or just copy files from the Command Line like so...
 
-# Ping repeatedly to keep WiFi alive
-ping google.com
-phablet@ubuntu-phablet:~$ cp /tmp/sdcard/tmp/a aa
-phablet@ubuntu-phablet:~$ more aa
-
+```bash
+cp /tmp/sdcard/a ~
 ```
 
 # Run LVGL on PinePhone
