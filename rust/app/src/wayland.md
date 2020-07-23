@@ -882,7 +882,7 @@ Here's Dark Theme...
 #define LV_THEME_DEFAULT_FLAG               LV_THEME_MATERIAL_FLAG_DARK
 ```
 
-TODO
+![LVGL Dark Theme with Wayland on PinePhone](https://lupyuen.github.io/images/wayland-dark.jpg)
 
 And here's Light Theme...
 
