@@ -805,12 +805,12 @@ static void render_display() {
 <p>Light and Dark Themes are provided by LVGL. To select the default theme just edit <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/lv_conf.h#L444-L446"><code>lvgl-wayland/lv_conf.h</code></a></p>
 <p>Here's Dark Theme...</p>
 <pre><code class="language-c">//  For Dark Theme...
-#define LV_THEME_DEFAULT_FLAG               LV_THEME_MATERIAL_FLAG_DARK
+#define LV_THEME_DEFAULT_FLAG LV_THEME_MATERIAL_FLAG_DARK
 </code></pre>
 <p><img src="https://lupyuen.github.io/images/wayland-dark.jpg" alt="LVGL Dark Theme with Wayland on PinePhone" /></p>
 <p>And here's Light Theme...</p>
 <pre><code class="language-c">//  For Light Theme...
-#define LV_THEME_DEFAULT_FLAG               LV_THEME_MATERIAL_FLAG_LIGHT
+#define LV_THEME_DEFAULT_FLAG LV_THEME_MATERIAL_FLAG_LIGHT
 </code></pre>
 <p><img src="https://lupyuen.github.io/images/wayland-light.jpg" alt="LVGL Light Theme with Wayland on PinePhone" /></p>
 <p>TODO</p>

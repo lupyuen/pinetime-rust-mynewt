@@ -879,7 +879,7 @@ Here's Dark Theme...
 
 ```c
 //  For Dark Theme...
-#define LV_THEME_DEFAULT_FLAG               LV_THEME_MATERIAL_FLAG_DARK
+#define LV_THEME_DEFAULT_FLAG LV_THEME_MATERIAL_FLAG_DARK
 ```
 
 ![LVGL Dark Theme with Wayland on PinePhone](https://lupyuen.github.io/images/wayland-dark.jpg)
@@ -888,7 +888,7 @@ And here's Light Theme...
 
 ```c
 //  For Light Theme...
-#define LV_THEME_DEFAULT_FLAG               LV_THEME_MATERIAL_FLAG_LIGHT
+#define LV_THEME_DEFAULT_FLAG LV_THEME_MATERIAL_FLAG_LIGHT
 ```
 
 ![LVGL Light Theme with Wayland on PinePhone](https://lupyuen.github.io/images/wayland-light.jpg)
