@@ -728,6 +728,144 @@ And that's [our Wayland App](https://github.com/lupyuen/pinephone-mir/blob/maste
 
 The OpenGL Texture code in this article was adapted from ["OpenGL® ES 2.0 Programming Guide"](https://github.com/danginsburg/opengles-book-samples)
 
+
+![Button rendered with LVGL and Wayland on PinePhone](https://lupyuen.github.io/images/wayland-button.jpg)
+
+_Button rendered with LVGL and Wayland on PinePhone_
+
+# LVGL Toolkit for Graphical User Interfaces
+
+Since we can render bitmaps on PinePhone now, let's think this...
+
+_How would we render a simple Graphical User Interface (GUI) on PinePhone, like the button above?_
+
+Why don't we use a simple GUI Toolkit like [__LVGL__](https://lvgl.io/)? (Formerly LittleVGL)
+
+Here's how we call the LVGL library to render that button: [`lvgl-wayland/wayland/lvgl.c`](https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lvgl.c#L54-L64)
+
+```c
+#include "../lvgl.h"
+
+/// Render a Button Widget and a Label Widget
+static void render_widgets(void) {
+    lv_obj_t * btn = lv_btn_create(lv_scr_act(), NULL);     //  Add a button the current screen
+    lv_obj_set_pos(btn, 10, 10);                            //  Set its position
+    lv_obj_set_size(btn, 120, 50);                          //  Set its size
+
+    lv_obj_t * label = lv_label_create(btn, NULL);          //  Add a label to the button
+    lv_label_set_text(label, "Button");                     //  Set the labels text
+}
+```
+
+Easy peasy! LVGL is a simple C toolkit designed for Embedded Devices, so it needs very little memory and processing power.  It's used on [__PineTime Smart Watch__](https://github.com/JF002/Pinetime) to render watch faces.
+
+LVGL doesn't run on Wayland yet... But we'll fix that!
+
+Remember how we rendered a simple 2-pixel by 2-pixel bitmap by creating an OpenGL Texture with `CreateSimpleTexture2D()`?
+
+Let's now extend that bitmap to cover the entire PinePhone screen: 720 pixels by 1398 pixels.
+
+And we create the OpenGL Texture for the entire PinePhone screen like so: [`lvgl-wayland/wayland/texture.c`](https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/texture.c#L38-L72)
+
+```c
+///  PinePhone Screen Resolution, defined in lv_conf.h
+#define LV_HOR_RES_MAX          (720)
+#define LV_VER_RES_MAX          (1398)
+#define LV_SCALE_RES            1
+
+///  Screen buffer 
+#define BYTES_PER_PIXEL 3
+GLubyte pixels[LV_HOR_RES_MAX * LV_VER_RES_MAX * BYTES_PER_PIXEL];
+
+/// Create an OpenGL Texture for the screen buffer
+GLuint CreateTexture(void) {
+    GLuint texId;
+    glGenTextures ( 1, &texId );
+    glBindTexture ( GL_TEXTURE_2D, texId );
+
+    glTexImage2D (
+        GL_TEXTURE_2D, 
+        0,  //  Level
+        GL_RGB, 
+        LV_HOR_RES_MAX,  //  Width
+        LV_VER_RES_MAX,  //  Height 
+        0,  //  Format 
+        GL_RGB, 
+        GL_UNSIGNED_BYTE, 
+        pixels 
+    );
+    glTexParameteri ( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+    glTexParameteri ( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+    glTexParameteri ( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
+    glTexParameteri ( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
+    return texId;
+}
+```
+
+`pixels` is the screen buffer that will contain the pixels for our rendered UI controls, like our button.
+
+We'll tell LVGL to render into `pixels` like so: [`lvgl-wayland/wayland/texture.c`](https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/texture.c#L38-L72)
+
+```c
+/// Set the colour of a pixel in the screen buffer
+void put_px(uint16_t x, uint16_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+    assert(x >= 0); assert(x < LV_HOR_RES_MAX);
+    assert(y >= 0); assert(y < LV_VER_RES_MAX);
+    int i = (y * LV_HOR_RES_MAX * BYTES_PER_PIXEL) + (x * BYTES_PER_PIXEL);
+    pixels[i++] = r;  //  Red
+    pixels[i++] = g;  //  Green
+    pixels[i++] = b;  //  Blue
+}
+```
+
+(Simplistic, not efficient though)
+
+We'll render the OpenGL Texture the same way as before: [`lvgl-wayland/wayland/lvgl.c`](https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lvgl.c#L65-L93)
+
+```c
+/// Render the OpenGL ES2 display
+static void render_display() {
+    //  This part is new...
+
+    //  Init the LVGL display
+    lv_init();
+    lv_port_disp_init();
+
+    //  Create the LVGL widgets: Button and label
+    render_widgets();
+
+    //  Render the LVGL widgets
+    lv_task_handler();
+
+    //  This part is the same as before...
+
+    //  Create the texture context
+    static ESContext esContext;
+    esInitContext ( &esContext );
+    esContext.width  = WIDTH;
+    esContext.height = HEIGHT;
+
+    //   Draw the texture
+    Init(&esContext);
+    Draw(&esContext);
+
+    //  Render now
+    glFlush();
+}
+```
+
+But now we have injected the calls to the LVGL library...
+
+1. [__`lv_init()`__](https://docs.lvgl.io/latest/en/html/widgets/obj.html?highlight=lv_init#_CPPv47lv_initv): Initialise the LVGL library
+
+1. [__`lv_port_disp_init()`__](https://github.com/lupyuen/lvgl-wayland/blob/72b0273d6c609ecb51142ee400f545116ca0ecd9/wayland/lv_port_disp.c#L48-L126): Initialise our display
+
+1. [__`render_widgets()`__](https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lvgl.c#L54-L64): Calls the LVGL library to create two UI controls: a Button and a Label
+
+1. [__`lv_task_handler()`__](https://docs.lvgl.io/latest/en/html/porting/task-handler.html?highlight=lv_task_handler): Let LVGL render the UI controls into our screen buffer
+
+Now let's tweak the LVGL library to render UI controls into our screen buffer `pixels`
+
 # Port LVGL to Wayland
 
 TODO
