@@ -960,13 +960,15 @@ _How does LVGL compare with Qt, GTK and SDL on PinePhone with Ubuntu Touch?_
 
 Qt is the only officially supported App Toolkit on Ubuntu Touch. 
 
-GTK and SDL are supposed to work on Wayland... But I couldn't get them to work on Ubuntu Touch. (Probably because X11 compatibility is missing from Ubuntu Touch, i.e. XWayland)
+GTK and SDL are supposed to work on Wayland... But I couldn't get them to work on Ubuntu Touch. 
+
+(Probably because legacy X11 compatibility is missing from Ubuntu Touch, i.e. XWayland)
 
 I applaud the maintainers of X11, Qt, GTK and SDL because every new release needs to support so many legacy features. Kudos!
 
 But what if we could start from scratch, drop the legacy stuff, and build a simpler UI toolkit for Wayland?
 
-LVGL is the experiment that we're undertaking today!
+_LVGL is the experiment that we're undertaking today!_
 
 # Build LVGL on PinePhone with Ubuntu Touch
 
