@@ -873,29 +873,11 @@ Now let's tweak the LVGL library to render UI controls into our screen buffer `p
 
 # Port LVGL to Wayland
 
-Light and Dark Themes are provided by LVGL. To select the default theme just edit [`lvgl-wayland/lv_conf.h`](https://github.com/lupyuen/lvgl-wayland/blob/master/lv_conf.h#L444-L446)
+Porting LVGL to Wayland and Ubuntu Touch is straightforward.
 
-Here's Dark Theme...
+According to the [LVGL Porting Doc](https://docs.lvgl.io/latest/en/html/porting/display.html), we need to code a Flush Callback Function `disp_flush()` that will be called by LVGL to render UI controls to the screen buffer.
 
-```c
-//  For Dark Theme...
-#define LV_THEME_DEFAULT_FLAG LV_THEME_MATERIAL_FLAG_DARK
-```
-
-![LVGL Dark Theme with Wayland on PinePhone](https://lupyuen.github.io/images/wayland-dark.jpg)
-
-And Light Theme...
-
-```c
-//  For Light Theme...
-#define LV_THEME_DEFAULT_FLAG LV_THEME_MATERIAL_FLAG_LIGHT
-```
-
-![LVGL Light Theme with Wayland on PinePhone](https://lupyuen.github.io/images/wayland-light.jpg)
-
-TODO
-
-https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lv_port_disp.c#L142-L167
+Here's our implementation for Wayland: [`lvgl-wayland/wayland/lv_port_disp.c`](https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lv_port_disp.c#L142-L167)
 
 ```c
 //  Flush the content of the internal buffer to the specific area on the display
@@ -918,25 +900,77 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
     lv_disp_flush_ready(disp_drv);
 }
 ```
-LVGL Porting Doc:
 
-https://docs.lvgl.io/latest/en/html/porting/index.html
+We've seen earlier that `put_px()` draws pixels in the simplest way possible.  Eventually we should use PinePhone's GPU for rendering LVGL controls, by implementing the [LVGL GPU Callbacks](https://docs.lvgl.io/latest/en/html/porting/display.html#display-driver).
 
-LVGL with GPU:
+Light and Dark Themes are provided by LVGL. To select the default theme just edit [`lvgl-wayland/lv_conf.h`](https://github.com/lupyuen/lvgl-wayland/blob/master/lv_conf.h#L444-L446)
 
-https://docs.lvgl.io/latest/en/html/porting/display.html#display-driver
+Here's Dark Theme...
 
-Rust wrapper for lvgl
+```c
+//  For Dark Theme...
+#define LV_THEME_DEFAULT_FLAG LV_THEME_MATERIAL_FLAG_DARK
+```
 
-SDL, GTK, Qt are complex because they handle X11 legacy stuff
+![LVGL Dark Theme with Wayland on PinePhone](https://lupyuen.github.io/images/wayland-dark.jpg)
 
-SDL and GTK will work on Wayland... but needs X11 compatibilty!
+And Light Theme...
 
-I applaud the maintainers of x11, gtk, qt, sdl because every new release needs to support so many legacy features. Kudos!
+```c
+//  For Light Theme...
+#define LV_THEME_DEFAULT_FLAG LV_THEME_MATERIAL_FLAG_LIGHT
+```
 
-What if we could start from scratch, drop the legacy stuff, and build a ui toolkit for Wayland and opengl?
+![LVGL Light Theme with Wayland on PinePhone](https://lupyuen.github.io/images/wayland-light.jpg)
 
-Lvgl is that experiment that we're undertaking today
+The screens above were rendered by updating one line in [`lvgl-wayland/wayland/lvgl.c`](https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lvgl.c#L65-L76)...
+
+```c
+/// Render the OpenGL ES2 display
+static void render_display() {
+    //  Init the LVGL display
+    lv_init();
+    lv_port_disp_init();
+
+    //  Create the LVGL widgets
+    lv_demo_widgets();  //  Previously render_widgets()
+```
+
+_What about Touch Input?_
+
+We haven't handled Touch Input yet... Lemme know if you're keen to help!
+
+_Do we really have to code LVGL Apps for PinePhone in C?_
+
+Rust is supported too! 
+
+We may write LVGL Apps for PinePhone in Rust by calling the [__`lvgl-rs` Rust Wrapper for LVGL__](https://github.com/rafaelcaricio/lvgl-rs) by [__Rafael Carício__](https://github.com/rafaelcaricio).
+
+(Fun Fact: `lvgl-rs` was [originally created](https://lupyuen.github.io/PineTime-apps/articles/watch_face) for PineTime Smart Watch... Today it's used by [Rust on PlayStation Portable](https://twitter.com/rafaelcaricio/status/1271886471260184577?s=20) too!)
+
+![Size of LVGL Demo App on PinePhone with Ubuntu Touch](https://lupyuen.github.io/images/wayland-size.jpg)
+
+_How small is LVGL on PinePhone with Ubuntu Touch?_
+
+__1.5 MB__ for the Light / Dark Theme LVGL Demo App above.
+
+Not that big, considering that the font, icons and debugging symbols are bundled inside.
+
+_How does LVGL compare with Qt, GTK and SDL on PinePhone with Ubuntu Touch?_
+
+Qt is the only officially supported App Toolkit on Ubuntu Touch. 
+
+GTK and SDL are supposed to work on Wayland... But I couldn't get them to work on Ubuntu Touch. (Probably because X11 compatibility is missing from Ubuntu Touch, i.e. XWayland)
+
+I applaud the maintainers of X11, Qt, GTK and SDL because every new release needs to support so many legacy features. Kudos!
+
+But what if we could start from scratch, drop the legacy stuff, and build a simpler UI toolkit for Wayland?
+
+LVGL is the experiment that we're undertaking today!
+
+# Build LVGL on PinePhone with Ubuntu Touch
+
+TODO
 
 # Overcome AppArmor Security on Ubuntu Touch
 
