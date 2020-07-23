@@ -974,6 +974,50 @@ _LVGL is the experiment that we're undertaking today!_
 
 TODO
 
+Connect to PinePhone over SSH and run these commands...
+
+```bash
+# Make system folders writeable
+sudo mount -o remount,rw /
+
+# Install GDB debugger and GLES2 library
+sudo apt install gdb
+sudo apt install libgles2-mesa-dev
+
+# Download the source code
+cd ~
+git clone https://github.com/lupyuen/lvgl-wayland
+cd lvgl-wayland
+
+# Build the app
+make
+```
+
+# Run LVGL on PinePhone with Ubuntu Touch
+
+TODO
+
+Connect to PinePhone over SSH and run these commands...
+
+```bash
+cd lvgl-wayland
+./wayland/lvgl.sh
+```
+
+Press `Ctrl-C` to stop the log display.
+
+The log file is located at...
+
+```
+/home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
+```
+
+The log for the Wayland Compositor `unity-system-compositor` may be useful for troubleshooting...
+
+```
+/home/phablet/.cache/upstart/unity8.log
+```
+
 # Overcome AppArmor Security on Ubuntu Touch
 
 TODO
@@ -991,6 +1035,8 @@ nano a
 ```
 
 Type this script into the `a` file...
+
+https://github.com/lupyuen/lvgl-wayland/blob/master/a
 
 ```bash
 #!/bin/sh
@@ -1061,10 +1107,6 @@ scp -i ~/.ssh/pinebook_rsa phablet@192.168.1.10:/home/phablet/.cache/upstart/u
 Here's how we can build and test PinePhone Wayland Apps on Pinebook Pro...
 
 ```bash
-# Create a symbolic link for the OpenGL ES2 shared library that will be used for the Wayland build
-sudo mkdir -p /usr/lib/aarch64-linux-gnu/mesa-egl/
-sudo ln -s /usr/lib/libGLESv2.so /usr/lib/aarch64-linux-gnu/mesa-egl/libGLESv2.so.2
-
 # Build the Wayland executable
 make
 
