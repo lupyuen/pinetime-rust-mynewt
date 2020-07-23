@@ -906,6 +906,17 @@ LVGL with GPU:
 
 https://docs.lvgl.io/latest/en/html/porting/display.html#display-driver
 
+Light and Dark Themes are provided by LVGL. Just edit 
+
+https://github.com/lupyuen/lvgl-wayland/blob/master/lv_conf.h#L444-L446
+
+```c
+//  For Dark Theme...
+#define LV_THEME_DEFAULT_FLAG               LV_THEME_MATERIAL_FLAG_DARK
+//  For Light Theme...
+#define LV_THEME_DEFAULT_FLAG               LV_THEME_MATERIAL_FLAG_LIGHT
+```
+
 SDL, GTK, Qt are complex because they handle X11 legacy stuff
 
 SDL and GTK will work on Wayland... but needs X11 compatibilty!

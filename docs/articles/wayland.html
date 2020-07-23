@@ -828,6 +828,13 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
 <p>https://docs.lvgl.io/latest/en/html/porting/index.html</p>
 <p>LVGL with GPU:</p>
 <p>https://docs.lvgl.io/latest/en/html/porting/display.html#display-driver</p>
+<p>Light and Dark Themes are provided by LVGL. Just edit </p>
+<p>https://github.com/lupyuen/lvgl-wayland/blob/master/lv_conf.h#L444-L446</p>
+<pre><code class="language-c">//  For Dark Theme...
+#define LV_THEME_DEFAULT_FLAG               LV_THEME_MATERIAL_FLAG_DARK
+//  For Light Theme...
+#define LV_THEME_DEFAULT_FLAG               LV_THEME_MATERIAL_FLAG_LIGHT
+</code></pre>
 <p>SDL, GTK, Qt are complex because they handle X11 legacy stuff</p>
 <p>SDL and GTK will work on Wayland... but needs X11 compatibilty!</p>
 <p>I applaud the maintainers of x11, gtk, qt, sdl because every new release needs to support so many legacy features. Kudos!</p>
