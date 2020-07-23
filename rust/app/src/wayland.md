@@ -875,6 +875,37 @@ Now let's tweak the LVGL library to render UI controls into our screen buffer `p
 
 TODO
 
+https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lv_port_disp.c#L142-L167
+
+```c
+//  Flush the content of the internal buffer to the specific area on the display
+//  You can use DMA or any hardware acceleration to do this operation in the background but
+//  'lv_disp_flush_ready()' has to be called when finished.
+static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p) {
+    //  The most simple case (but also the slowest) to put all pixels to the screen one-by-one
+    for(int32_t y = area->y1; y <= area->y2; y++) {
+        for(int32_t x = area->x1; x <= area->x2; x++) {
+            //  Put a pixel to the screen buffer
+            put_px(x, y, 
+                color_p->ch.red, 
+                color_p->ch.green, 
+                color_p->ch.blue, 
+                0xff);
+            color_p++;
+        }
+    }
+    //  Inform the graphics library that we are ready with the flushing
+    lv_disp_flush_ready(disp_drv);
+}
+```
+LVGL Porting Doc:
+
+https://docs.lvgl.io/latest/en/html/porting/index.html
+
+LVGL with GPU:
+
+https://docs.lvgl.io/latest/en/html/porting/display.html#display-driver
+
 SDL, GTK, Qt are complex because they handle X11 legacy stuff
 
 SDL and GTK will work on Wayland... but needs X11 compatibilty!
