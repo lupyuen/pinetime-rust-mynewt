@@ -873,6 +873,26 @@ Now let's tweak the LVGL library to render UI controls into our screen buffer `p
 
 # Port LVGL to Wayland
 
+Light and Dark Themes are provided by LVGL. To select the default theme just edit [`lvgl-wayland/lv_conf.h`](https://github.com/lupyuen/lvgl-wayland/blob/master/lv_conf.h#L444-L446)
+
+Here's Dark Theme...
+
+```c
+//  For Dark Theme...
+#define LV_THEME_DEFAULT_FLAG               LV_THEME_MATERIAL_FLAG_DARK
+```
+
+TODO
+
+And here's Light Theme...
+
+```c
+//  For Light Theme...
+#define LV_THEME_DEFAULT_FLAG               LV_THEME_MATERIAL_FLAG_LIGHT
+```
+
+![LVGL Light Theme with Wayland on PinePhone](https://lupyuen.github.io/images/wayland-light.jpg)
+
 TODO
 
 https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lv_port_disp.c#L142-L167
@@ -906,16 +926,7 @@ LVGL with GPU:
 
 https://docs.lvgl.io/latest/en/html/porting/display.html#display-driver
 
-Light and Dark Themes are provided by LVGL. Just edit 
-
-https://github.com/lupyuen/lvgl-wayland/blob/master/lv_conf.h#L444-L446
-
-```c
-//  For Dark Theme...
-#define LV_THEME_DEFAULT_FLAG               LV_THEME_MATERIAL_FLAG_DARK
-//  For Light Theme...
-#define LV_THEME_DEFAULT_FLAG               LV_THEME_MATERIAL_FLAG_LIGHT
-```
+Rust wrapper for lvgl
 
 SDL, GTK, Qt are complex because they handle X11 legacy stuff
 
@@ -926,8 +937,6 @@ I applaud the maintainers of x11, gtk, qt, sdl because every new release needs t
 What if we could start from scratch, drop the legacy stuff, and build a ui toolkit for Wayland and opengl?
 
 Lvgl is that experiment that we're undertaking today
-
-Rust wrapper for lvgl
 
 # Overcome AppArmor Security on Ubuntu Touch
 
