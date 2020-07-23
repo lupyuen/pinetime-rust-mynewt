@@ -936,7 +936,7 @@ static void render_display() {
     lv_demo_widgets();  //  Previously render_widgets()
 ```
 
-_What about Touch Input?_
+_What about Touch Input in LVGL for Ubuntu Touch?_
 
 We haven't handled Touch Input yet... Lemme know if you're keen to help!
 
