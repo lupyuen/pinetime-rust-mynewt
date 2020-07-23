@@ -728,6 +728,7 @@ And that's [our Wayland App](https://github.com/lupyuen/pinephone-mir/blob/maste
 
 The OpenGL Texture code in this article was adapted from ["OpenGL® ES 2.0 Programming Guide"](https://github.com/danginsburg/opengles-book-samples)
 
+Let's head on towards greatness and something really useful: Graphical User Interfaces...
 
 ![Button rendered with LVGL and Wayland on PinePhone](https://lupyuen.github.io/images/wayland-button.jpg)
 
@@ -735,7 +736,7 @@ _Button rendered with LVGL and Wayland on PinePhone_
 
 # LVGL Toolkit for Graphical User Interfaces
 
-Since we can render bitmaps on PinePhone now, let's think this...
+Now that we can render bitmaps on PinePhone, let's think...
 
 _How would we render a simple Graphical User Interface (GUI) on PinePhone, like the button above?_
 
@@ -757,13 +758,17 @@ static void render_widgets(void) {
 }
 ```
 
-Easy peasy! LVGL is a simple C toolkit designed for Embedded Devices, so it needs very little memory and processing power.  It's used on [__PineTime Smart Watch__](https://github.com/JF002/Pinetime) to render watch faces.
+_Easy peasy!_
 
-LVGL doesn't run on Wayland yet... But we'll fix that!
+LVGL is a simple C toolkit designed for Embedded Devices, so it needs __very little memory and processing power__.  LVGL is __self-contained__... Fonts and icons are bundled into the LVGL library.
+
+It's used on [__PineTime Smart Watch__](https://github.com/JF002/Pinetime) to render watch faces.
+
+_LVGL doesn't run on Wayland yet... But we'll fix that!_
 
 Remember how we rendered a simple 2-pixel by 2-pixel bitmap by creating an OpenGL Texture with `CreateSimpleTexture2D()`?
 
-Let's now extend that bitmap to cover the entire PinePhone screen: 720 pixels by 1398 pixels.
+Let's extend that bitmap to cover the entire PinePhone screen: 720 pixels by 1398 pixels.
 
 And we create the OpenGL Texture for the entire PinePhone screen like so: [`lvgl-wayland/wayland/texture.c`](https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/texture.c#L38-L72)
 
