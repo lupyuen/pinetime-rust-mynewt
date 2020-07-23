@@ -75,11 +75,11 @@
 <li><a href="#lvgl-toolkit-for-graphical-user-interfaces">8 LVGL Toolkit for Graphical User Interfaces</a><ul></ul></li>
 <li><a href="#port-lvgl-to-wayland">9 Port LVGL to Wayland</a><ul></ul></li>
 <li><a href="#build-lvgl-on-pinephone-with-ubuntu-touch">10 Build LVGL on PinePhone with Ubuntu Touch</a><ul></ul></li>
-<li><a href="#run-lvgl-on-pinephone-with-ubuntu-touch">11 Run LVGL on PinePhone with Ubuntu Touch</a><ul></ul></li>
-<li><a href="#overcome-apparmor-security-on-ubuntu-touch">12 Overcome AppArmor Security on Ubuntu Touch</a><ul></ul></li>
-<li><a href="#start-ssh-on-pinephone">13 Start SSH on PinePhone</a><ul></ul></li>
-<li><a href="#copy-files-from-microsd-card-on-pinephone">14 Copy Files from MicroSD Card on PinePhone</a><ul></ul></li>
-<li><a href="#run-lvgl-on-pinephone">15 Run LVGL on PinePhone</a><ul></ul></li>
+<li><a href="#inject-lvgl-into-file-manager-app">11 Inject LVGL into File Manager App</a><ul></ul></li>
+<li><a href="#run-lvgl-on-pinephone-with-ubuntu-touch">12 Run LVGL on PinePhone with Ubuntu Touch</a><ul></ul></li>
+<li><a href="#overcome-apparmor-security-on-ubuntu-touch">13 Overcome AppArmor Security on Ubuntu Touch</a><ul></ul></li>
+<li><a href="#start-ssh-on-pinephone">14 Start SSH on PinePhone</a><ul></ul></li>
+<li><a href="#copy-files-from-microsd-card-on-pinephone">15 Copy Files from MicroSD Card on PinePhone</a><ul></ul></li>
 <li><a href="#build-and-test-pinephone-wayland-apps-on-pinebook-pro">16 Build and Test PinePhone Wayland Apps on Pinebook Pro</a><ul></ul></li>
 <li><a href="#wayland-gotchas">17 Wayland Gotchas</a><ul></ul></li>
 <li><a href="#what-i-like-about-ubuntu-touch-on-pinephone">18 What I like about Ubuntu Touch on PinePhone</a><ul></ul></li>
@@ -870,12 +870,11 @@ static void render_display() {
 <h1 id="build-lvgl-on-pinephone-with-ubuntu-touch" class="section-header"><a href="#build-lvgl-on-pinephone-with-ubuntu-touch">10 Build LVGL on PinePhone with Ubuntu Touch</a></h1>
 <p>TODO</p>
 <p>Connect to PinePhone over SSH and run these commands...</p>
-<pre><code class="language-bash"># Make system folders writeable
+<pre><code class="language-bash"># Make system folders writeable before installing any packages
 sudo mount -o remount,rw /
 
-# Install GDB debugger and GLES2 library
-sudo apt install gdb
-sudo apt install libgles2-mesa-dev
+# Install dev tools and GLES2 library
+sudo apt install git gcc gdb libgles2-mesa-dev
 
 # Download the source code
 cd ~
@@ -885,14 +884,48 @@ cd lvgl-wayland
 # Build the app
 make
 </code></pre>
-<h1 id="run-lvgl-on-pinephone-with-ubuntu-touch" class="section-header"><a href="#run-lvgl-on-pinephone-with-ubuntu-touch">11 Run LVGL on PinePhone with Ubuntu Touch</a></h1>
+<p>(If we haven't enabled SSH on PinePhone, look for the &quot;Start SSH on PinePhone&quot; instructions below)</p>
+<p>This creates the executable <code>wayland/lvgl</code></p>
+<h1 id="inject-lvgl-into-file-manager-app" class="section-header"><a href="#inject-lvgl-into-file-manager-app">11 Inject LVGL into File Manager App</a></h1>
+<p>For rapid testing, we shall replace the File Manager app by our <code>lvgl</code> app because File Manager has no AppArmor restrictions (Unconfined).</p>
+<p>Connect to PinePhone over SSH and run these commands...</p>
+<pre><code class="language-bash"># Make system folders writeable and go to File Manager folder
+sudo mount -o remount,rw /
+cd /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager
+
+# Back up the desktop file
+sudo cp com.ubuntu.filemanager.desktop com.ubuntu.filemanager.desktop.old
+sudo nano com.ubuntu.filemanager.desktop 
+</code></pre>
+<p>Change the <code>Exec</code> line from...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Exec</span><span class="op">=</span><span class="ident">filemanager</span></pre></div>
+<p>To...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Exec</span><span class="op">=</span>.<span class="op">/</span><span class="ident">run</span>.<span class="ident">sh</span></pre></div>
+<p>Save and exit <code>nano</code></p>
+<p>Check that <code>~/lvgl-wayland/wayland/run.sh</code> contains the following...</p>
+<pre><code class="language-bash"># Log Wayland messages
+export WAYLAND_DEBUG=1
+
+# Run lvgl app
+./lvgl
+</code></pre>
+<h1 id="run-lvgl-on-pinephone-with-ubuntu-touch" class="section-header"><a href="#run-lvgl-on-pinephone-with-ubuntu-touch">12 Run LVGL on PinePhone with Ubuntu Touch</a></h1>
 <p>TODO</p>
 <p>Connect to PinePhone over SSH and run these commands...</p>
-<pre><code class="language-bash">cd lvgl-wayland
+<pre><code class="language-bash">cd ~/lvgl-wayland
 ./wayland/lvgl.sh
 </code></pre>
+<p>In a few seconds we should see the message...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw-2">*</span><span class="kw-2">*</span><span class="op">*</span> <span class="ident">Tap</span> <span class="ident">on</span> <span class="ident">File</span> <span class="ident">Manager</span> <span class="ident">icon</span> <span class="ident">on</span> <span class="ident">PinePhone</span></pre></div>
+<p>Go ahead and tap on the File Manager icon on PinePhone. Our LVGL App shall run instead of the File Manager.</p>
 <p>Press <code>Ctrl-C</code> to stop the log display.</p>
-<p>The log file is located at...</p>
+<p>The log file for the app is located at...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="op">/</span><span class="ident">home</span><span class="op">/</span><span class="ident">phablet</span><span class="op">/</span>.<span class="ident">cache</span><span class="op">/</span><span class="ident">upstart</span><span class="op">/</span><span class="ident">application</span><span class="op">-</span><span class="ident">click</span><span class="op">-</span><span class="ident">com</span>.<span class="ident">ubuntu</span>.<span class="ident">filemanager_filemanager_0</span>.<span class="number">7.5</span>.<span class="ident">log</span></pre></div>
@@ -900,10 +933,40 @@ make
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="op">/</span><span class="ident">home</span><span class="op">/</span><span class="ident">phablet</span><span class="op">/</span>.<span class="ident">cache</span><span class="op">/</span><span class="ident">upstart</span><span class="op">/</span><span class="ident">unity8</span>.<span class="ident">log</span></pre></div>
-<h1 id="overcome-apparmor-security-on-ubuntu-touch" class="section-header"><a href="#overcome-apparmor-security-on-ubuntu-touch">12 Overcome AppArmor Security on Ubuntu Touch</a></h1>
+<p>Copy the log files to our machine like this...</p>
+<pre><code class="language-bash">scp -i ~/.ssh/pinebook_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log .
+scp -i ~/.ssh/pinebook_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/unity8.log .
+</code></pre>
+<h1 id="overcome-apparmor-security-on-ubuntu-touch" class="section-header"><a href="#overcome-apparmor-security-on-ubuntu-touch">13 Overcome AppArmor Security on Ubuntu Touch</a></h1>
 <p>TODO</p>
-<p>Why AppArmor?</p>
-<h1 id="start-ssh-on-pinephone" class="section-header"><a href="#start-ssh-on-pinephone">13 Start SSH on PinePhone</a></h1>
+<p>https://github.com/lupyuen/lvgl-wayland/wayland/lvgl.sh</p>
+<pre><code class="language-bash"># Kill the app if it's already running
+pkill lvgl
+
+# Make system folders writeable
+sudo mount -o remount,rw /
+
+# Copy app to File Manager folder
+cd wayland
+sudo cp lvgl /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager
+sudo chown clickpkg:clickpkg /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager/lvgl
+ls -l /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager/lvgl
+
+# Copy run script to File Manager folder
+# TODO: Check that run.sh contains &quot;./lvgl&quot;
+sudo cp run.sh /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager
+
+# Start the File Manager
+echo &quot;*** Tap on File Manager icon on PinePhone&quot;
+
+# Monitor the log file
+echo &gt;/home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
+tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
+
+# Press Ctrl-C to stop. To kill the app:
+# pkill lvgl
+</code></pre>
+<h1 id="start-ssh-on-pinephone" class="section-header"><a href="#start-ssh-on-pinephone">14 Start SSH on PinePhone</a></h1>
 <p>To start SSH on PinePhone, open the Terminal app.</p>
 <p>Create a file named <code>a</code>...</p>
 <pre><code class="language-bash">nano a
@@ -941,11 +1004,11 @@ ping google.com
 <p><img src="https://lupyuen.github.io/images/wayland-halt.jpg" alt="Powering off PinePhone" /></p>
 <p>If typing on a touch keyboard is not your thing, try copying the files from a MicroSD card...</p>
 <p><img src="https://lupyuen.github.io/images/wayland-sd.jpg" alt="MicroSD Card in PinePhone" /></p>
-<h1 id="copy-files-from-microsd-card-on-pinephone" class="section-header"><a href="#copy-files-from-microsd-card-on-pinephone">14 Copy Files from MicroSD Card on PinePhone</a></h1>
+<h1 id="copy-files-from-microsd-card-on-pinephone" class="section-header"><a href="#copy-files-from-microsd-card-on-pinephone">15 Copy Files from MicroSD Card on PinePhone</a></h1>
 <p>It's useful to transfer files to PinePhone via MicroSD Card, like SSH Keys and the SSH Script <code>a</code> above.</p>
 <p>(Sadly PinePhone on Ubuntu Touch doesn't allow receiving files over Bluetooth)</p>
 <p>The MicroSD card on PinePhone doesn't appear in the File Manager unless we mount it.</p>
-<p>Open the Command Prompt on PinePhone and enter the following...</p>
+<p>Tap the Terminal icon on PinePhone and enter the following...</p>
 <pre><code class="language-bash">ls -l /dev/disk/by-label
 </code></pre>
 <p>We should see something like this...</p>
@@ -965,15 +1028,6 @@ ls -l /tmp/sdcard
 <p>The MicroSD Card will now appear in File Manager as <code>/tmp/sdcard</code>, ready for us to copy the files.</p>
 <p>Or just copy files from the Command Line like so...</p>
 <pre><code class="language-bash">cp /tmp/sdcard/a ~
-</code></pre>
-<h1 id="run-lvgl-on-pinephone" class="section-header"><a href="#run-lvgl-on-pinephone">15 Run LVGL on PinePhone</a></h1>
-<p>TODO</p>
-<p>Mir Server Log may be found on PinePhone here...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="op">/</span><span class="ident">home</span><span class="op">/</span><span class="ident">phablet</span><span class="op">/</span>.<span class="ident">cache</span><span class="op">/</span><span class="ident">upstart</span><span class="op">/</span><span class="ident">unity8</span>.<span class="ident">log</span></pre></div>
-<p>Copy the log to our machine like this...</p>
-<pre><code class="language-bash">scp -i ~/.ssh/pinebook_rsa phablet@192.168.1.10:/home/phablet/.cache/upstart/u
 </code></pre>
 <p><img src="https://lupyuen.github.io/images/wayland-weston.png" alt="PinePhone Wayland App tested on Pinebook Pro" /></p>
 <h1 id="build-and-test-pinephone-wayland-apps-on-pinebook-pro" class="section-header"><a href="#build-and-test-pinephone-wayland-apps-on-pinebook-pro">16 Build and Test PinePhone Wayland Apps on Pinebook Pro</a></h1>
