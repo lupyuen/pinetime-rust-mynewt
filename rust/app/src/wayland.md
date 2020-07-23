@@ -979,12 +979,11 @@ TODO
 Connect to PinePhone over SSH and run these commands...
 
 ```bash
-# Make system folders writeable
+# Make system folders writeable before installing any packages
 sudo mount -o remount,rw /
 
-# Install GDB debugger and GLES2 library
-sudo apt install gdb
-sudo apt install libgles2-mesa-dev
+# Install dev tools and GLES2 library
+sudo apt install git gcc gdb libgles2-mesa-dev
 
 # Download the source code
 cd ~
@@ -995,6 +994,50 @@ cd lvgl-wayland
 make
 ```
 
+(If we haven't enabled SSH on PinePhone, look for the "Start SSH on PinePhone" instructions below)
+
+This creates the executable `wayland/lvgl`
+
+# Inject LVGL into File Manager App
+
+For rapid testing, we shall replace the File Manager app by our `lvgl` app because File Manager has no AppArmor restrictions (Unconfined).
+
+Connect to PinePhone over SSH and run these commands...
+
+```bash
+# Make system folders writeable and go to File Manager folder
+sudo mount -o remount,rw /
+cd /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager
+
+# Back up the desktop file
+sudo cp com.ubuntu.filemanager.desktop com.ubuntu.filemanager.desktop.old
+sudo nano com.ubuntu.filemanager.desktop 
+```
+
+Change the `Exec` line from...
+
+```
+Exec=filemanager
+```
+
+To...
+
+```
+Exec=./run.sh
+```
+
+Save and exit `nano`
+
+Check that `~/lvgl-wayland/wayland/run.sh` contains the following...
+
+```bash
+# Log Wayland messages
+export WAYLAND_DEBUG=1
+
+# Run lvgl app
+./lvgl
+```
+
 # Run LVGL on PinePhone with Ubuntu Touch
 
 TODO
@@ -1002,13 +1045,21 @@ TODO
 Connect to PinePhone over SSH and run these commands...
 
 ```bash
-cd lvgl-wayland
+cd ~/lvgl-wayland
 ./wayland/lvgl.sh
 ```
 
+In a few seconds we should see the message...
+
+```
+*** Tap on File Manager icon on PinePhone
+```
+
+Go ahead and tap on the File Manager icon on PinePhone. Our LVGL App shall run instead of the File Manager.
+
 Press `Ctrl-C` to stop the log display.
 
-The log file is located at...
+The log file for the app is located at...
 
 ```
 /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
@@ -1020,11 +1071,46 @@ The log for the Wayland Compositor `unity-system-compositor` may be useful for t
 /home/phablet/.cache/upstart/unity8.log
 ```
 
+Copy the log files to our machine like this...
+
+```bash
+scp -i ~/.ssh/pinebook_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log .
+scp -i ~/.ssh/pinebook_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/unity8.log .
+```
+
 # Overcome AppArmor Security on Ubuntu Touch
 
 TODO
 
-Why AppArmor?
+https://github.com/lupyuen/lvgl-wayland/wayland/lvgl.sh
+
+```bash
+# Kill the app if it's already running
+pkill lvgl
+
+# Make system folders writeable
+sudo mount -o remount,rw /
+
+# Copy app to File Manager folder
+cd wayland
+sudo cp lvgl /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager
+sudo chown clickpkg:clickpkg /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager/lvgl
+ls -l /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager/lvgl
+
+# Copy run script to File Manager folder
+# TODO: Check that run.sh contains "./lvgl"
+sudo cp run.sh /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager
+
+# Start the File Manager
+echo "*** Tap on File Manager icon on PinePhone"
+
+# Monitor the log file
+echo >/home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
+tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
+
+# Press Ctrl-C to stop. To kill the app:
+# pkill lvgl
+```
 
 # Start SSH on PinePhone
 
@@ -1098,7 +1184,7 @@ It's useful to transfer files to PinePhone via MicroSD Card, like SSH Keys and t
 
 The MicroSD card on PinePhone doesn't appear in the File Manager unless we mount it.
 
-Open the Command Prompt on PinePhone and enter the following...
+Tap the Terminal icon on PinePhone and enter the following...
 
 ```bash
 ls -l /dev/disk/by-label
@@ -1131,22 +1217,6 @@ Or just copy files from the Command Line like so...
 
 ```bash
 cp /tmp/sdcard/a ~
-```
-
-# Run LVGL on PinePhone
-
-TODO
-
-Mir Server Log may be found on PinePhone here...
-
-```
-/home/phablet/.cache/upstart/unity8.log
-```
-
-Copy the log to our machine like this...
-
-```bash
-scp -i ~/.ssh/pinebook_rsa phablet@192.168.1.10:/home/phablet/.cache/upstart/u
 ```
 
 ![PinePhone Wayland App tested on Pinebook Pro](https://lupyuen.github.io/images/wayland-weston.png)
