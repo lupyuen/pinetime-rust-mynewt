@@ -1224,6 +1224,10 @@ _Why can't we run `lvgl` from the Terminal Command Line?_
 
 TODO
 
+_Why did we choose the File Manager app instead of another app like Camera?_
+
+TODO
+
 # Configure SSH on PinePhone
 
 __First Thing__ to do when we get our new PinePhone: Open the PinePhone Back Cover and __Remove the Battery Insulation Sticker!__
