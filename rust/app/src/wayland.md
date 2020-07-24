@@ -1176,7 +1176,7 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
 
 # Configure SSH on PinePhone
 
-__First Thing__ to do when we get our new PinePhone: __Remove the Battery Insulation Sticker!__
+__First Thing__ to do when we get our new PinePhone: Open the PinePhone Back Cover and __Remove the Battery Insulation Sticker!__
 
 (Can't believe I missed that!)
 
