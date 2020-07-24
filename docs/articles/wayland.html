@@ -1040,18 +1040,23 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
 </li>
 </ol>
 <p><em>Why can't we run <code>lvgl</code> from the Terminal Command Line?</em></p>
-<p>TODO</p>
-<p>Because Wayland checks the Process ID.</p>
+<p>Because Ubuntu Touch's Wayland Service stops unauthorized processes from grabbing the Compositor...</p>
+<p><img src="https://lupyuen.github.io/images/wayland-security.jpg" alt="Stopped by Wayland Security" /></p>
+<p>We see this in the Wayland Compositor log: <code>/home/phablet/.cache/upstart/unity8.log</code></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">ApplicationManager</span> <span class="ident">REJECTED</span> <span class="ident">connection</span> <span class="ident">from</span> <span class="ident">app</span> <span class="ident">with</span> <span class="ident">pid</span> <span class="number">6710</span> <span class="kw">as</span> <span class="ident">it</span> <span class="ident">was</span> <span class="ident">not</span> <span class="ident">launched</span> <span class="ident">by</span> <span class="ident">upstart</span>, <span class="ident">and</span> <span class="ident">no</span> <span class="ident">desktop_file_hint</span> <span class="ident">is</span> <span class="ident">specified</span></pre></div>
+<p>That's why we need to inject <code>lvgl</code> into File Manager... So that Wayland thinks that the File Manager is grabbing the Compositor.</p>
 <p><em>Why did we choose the File Manager app instead of another app like Camera?</em></p>
-<p>TODO</p>
-<p>https://gitlab.com/ubports/apps/filemanager-app/-/blob/master/filemanager.apparmor</p>
+<p>Because File Manager has Unconfined AppArmor Permissions... It can do anything! (But still restricted by the <code>clickpkg</code> user permissions)</p>
+<p>Look at the <a href="http://docs.ubports.com/en/latest/appdev/platform/apparmor.html">AppArmor Policy</a> for the File Manager App: <a href="https://gitlab.com/ubports/apps/filemanager-app/-/blob/master/filemanager.apparmor"><code>filemanager.apparmor</code></a></p>
 <pre><code class="language-json">{
     &quot;policy_version&quot;: 16.04,
     &quot;template&quot;: &quot;unconfined&quot;,
     &quot;policy_groups&quot;: []
 }
 </code></pre>
-<p>https://gitlab.com/ubports/apps/camera-app/-/blob/master/camera.apparmor</p>
+<p>Compare this with the AppArmor Policy for the Camera App: <a href="https://gitlab.com/ubports/apps/camera-app/-/blob/master/camera.apparmor"><code>camera.apparmor</code></a></p>
 <pre><code class="language-json">{
     &quot;policy_groups&quot;: [
         &quot;picture_files&quot;,
@@ -1071,6 +1076,9 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
     ]
 }
 </code></pre>
+<p>The AppArmor Policy says that the Camera App may only access selected features (like recording audio and video). And it's only allowed to read specific paths (like <code>/dev/disk/by-label</code>).</p>
+<p><code>strace</code> won't work with the AppArmor Policy for Camera App. </p>
+<p>So for tracing our app with <code>strace</code>, we &quot;borrow&quot; the Unconfined AppArmor Policy for File Manager.</p>
 <h1 id="configure-ssh-on-pinephone" class="section-header"><a href="#configure-ssh-on-pinephone">14 Configure SSH on PinePhone</a></h1>
 <p><strong>First Thing</strong> to do when we get our new PinePhone: Open the PinePhone Back Cover and <strong>Remove the Battery Insulation Sticker!</strong></p>
 <p>(Can't believe I missed that!)</p>

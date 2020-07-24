@@ -1222,15 +1222,23 @@ To understand Wayland, AppArmor and Ubuntu Touch Security, let's look inside the
 
 _Why can't we run `lvgl` from the Terminal Command Line?_
 
-TODO
+Because Ubuntu Touch's Wayland Service stops unauthorized processes from grabbing the Compositor...
 
-Because Wayland checks the Process ID.
+![Stopped by Wayland Security](https://lupyuen.github.io/images/wayland-security.jpg)
+
+We see this in the Wayland Compositor log: `/home/phablet/.cache/upstart/unity8.log`
+
+```
+ApplicationManager REJECTED connection from app with pid 6710 as it was not launched by upstart, and no desktop_file_hint is specified
+```
+
+That's why we need to inject `lvgl` into File Manager... So that Wayland thinks that the File Manager is grabbing the Compositor.
 
 _Why did we choose the File Manager app instead of another app like Camera?_
 
-TODO
+Because File Manager has Unconfined AppArmor Permissions... It can do anything! (But still restricted by the `clickpkg` user permissions)
 
-https://gitlab.com/ubports/apps/filemanager-app/-/blob/master/filemanager.apparmor
+Look at the [AppArmor Policy](http://docs.ubports.com/en/latest/appdev/platform/apparmor.html) for the File Manager App: [`filemanager.apparmor`](https://gitlab.com/ubports/apps/filemanager-app/-/blob/master/filemanager.apparmor)
 
 ```json
 {
@@ -1240,7 +1248,7 @@ https://gitlab.com/ubports/apps/filemanager-app/-/blob/master/filemanager.apparm
 }
 ```
 
-https://gitlab.com/ubports/apps/camera-app/-/blob/master/camera.apparmor
+Compare this with the AppArmor Policy for the Camera App: [`camera.apparmor`](https://gitlab.com/ubports/apps/camera-app/-/blob/master/camera.apparmor)
 
 ```json
 {
@@ -1262,6 +1270,12 @@ https://gitlab.com/ubports/apps/camera-app/-/blob/master/camera.apparmor
     ]
 }
 ```
+
+The AppArmor Policy says that the Camera App may only access selected features (like recording audio and video). And it's only allowed to read specific paths (like `/dev/disk/by-label`).
+
+`strace` won't work with the AppArmor Policy for Camera App. 
+
+So for tracing our app with `strace`, we "borrow" the Unconfined AppArmor Policy for File Manager.
 
 # Configure SSH on PinePhone
 
