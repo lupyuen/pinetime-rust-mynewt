@@ -1128,17 +1128,33 @@ Here's how...
     ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
     ```
 
-1.  When prompted `Enter a file in which to save the key`, press Enter.
+1.  When prompted...
 
-    This stores the new SSH Key in the "`.ssh`" folder in our Home Directory.
+    ```
+    Enter a file in which to save the key
+    ```
+    
+    Press Enter. This stores the new SSH Key in the "`.ssh`" folder in our Home Directory.
 
-1.  When prompted `Enter a file in which to save the key`, enter `pinephone_rsa`
+1.  When prompted...
+
+    ```
+    Enter a file in which to save the key
+    ```
+    
+    Enter...
+    
+    ```
+    pinephone_rsa
+    ```
 
     We'll create an SSH Key Pair named `pinephone_rsa` (Private Key) and `pinephone_rsa.pub` (Public Key)
 
-1.  When prompted `Enter passphrase`, press Enter.
+1.  When prompted...
 
-    We won't need a passphrase unless our PinePhone needs to be super-secure.
+    `Enter passphrase`
+    
+    Press Enter. We won't need a passphrase unless our PinePhone needs to be super-secure.
 
 This creates an SSH Key Pair in the "`.ssh`" folder in our Home Directory...
 
