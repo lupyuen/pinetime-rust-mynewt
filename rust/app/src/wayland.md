@@ -1134,7 +1134,7 @@ Here's how...
     Enter a file in which to save the key
     ```
     
-    Press Enter. This stores the new SSH Key in the "`.ssh`" folder in our Home Directory.
+    Press `Enter`. This stores the new SSH Key in the `.ssh` folder in our Home Directory.
 
 1.  When prompted...
 
@@ -1152,11 +1152,13 @@ Here's how...
 
 1.  When prompted...
 
-    `Enter passphrase`
+    ```
+    Enter passphrase
+    ```
     
-    Press Enter. We won't need a passphrase unless our PinePhone needs to be super-secure.
+    Press `Enter`. We won't need a passphrase unless our PinePhone needs to be super-secure.
 
-This creates an SSH Key Pair in the "`.ssh`" folder in our Home Directory...
+This creates an SSH Key Pair in the `.ssh` folder in our Home Directory...
 
 - `pinephone_rsa` contains the Private Key. Never give the Private Key to others!
 
@@ -1167,7 +1169,7 @@ This creates an SSH Key Pair in the "`.ssh`" folder in our Home Directory...
 
 ## Install SSH Keys
 
-1.  Copy `pinephone_rsa.pub` from the "`.ssh`" folder in our Home Directory to a MicroSD Card.
+1.  Copy `pinephone_rsa.pub` from the `.ssh` folder in our Home Directory to a MicroSD Card.
 
 1.  Insert the MicroSD Card into PinePhone. Copy `pinephone_rsa.pub` to our Home Directory on PinePhone.
 

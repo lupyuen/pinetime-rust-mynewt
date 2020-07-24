@@ -985,7 +985,7 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Enter</span> <span class="ident">a</span> <span class="ident">file</span> <span class="kw">in</span> <span class="ident">which</span> <span class="ident">to</span> <span class="ident">save</span> <span class="ident">the</span> <span class="ident">key</span></pre></div>
-<p>Press Enter. This stores the new SSH Key in the &quot;<code>.ssh</code>&quot; folder in our Home Directory.</p>
+<p>Press <code>Enter</code>. This stores the new SSH Key in the <code>.ssh</code> folder in our Home Directory.</p>
 </li>
 <li>
 <p>When prompted...</p>
@@ -1000,11 +1000,13 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
 </li>
 <li>
 <p>When prompted...</p>
-<p><code>Enter passphrase</code></p>
-<p>Press Enter. We won't need a passphrase unless our PinePhone needs to be super-secure.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Enter</span> <span class="ident">passphrase</span></pre></div>
+<p>Press <code>Enter</code>. We won't need a passphrase unless our PinePhone needs to be super-secure.</p>
 </li>
 </ol>
-<p>This creates an SSH Key Pair in the &quot;<code>.ssh</code>&quot; folder in our Home Directory...</p>
+<p>This creates an SSH Key Pair in the <code>.ssh</code> folder in our Home Directory...</p>
 <ul>
 <li>
 <p><code>pinephone_rsa</code> contains the Private Key. Never give the Private Key to others!</p>
@@ -1017,7 +1019,7 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
 <h2 id="install-ssh-keys" class="section-header"><a href="#install-ssh-keys">14.2 Install SSH Keys</a></h2>
 <ol>
 <li>
-<p>Copy <code>pinephone_rsa.pub</code> from the &quot;<code>.ssh</code>&quot; folder in our Home Directory to a MicroSD Card.</p>
+<p>Copy <code>pinephone_rsa.pub</code> from the <code>.ssh</code> folder in our Home Directory to a MicroSD Card.</p>
 </li>
 <li>
 <p>Insert the MicroSD Card into PinePhone. Copy <code>pinephone_rsa.pub</code> to our Home Directory on PinePhone.</p>
