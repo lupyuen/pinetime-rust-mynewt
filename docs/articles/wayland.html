@@ -1139,11 +1139,12 @@ ping google.com
 <span class="ident">lrwxrwxrwx</span> <span class="number">1</span> <span class="ident">root</span> <span class="ident">root</span> <span class="number">15</span> <span class="ident">Jul</span> <span class="number">23</span> <span class="number">22</span>:<span class="number">24</span> <span class="ident">ROOT_MNJRO</span> <span class="op">-</span><span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span><span class="ident">mmcblk0p2</span>
 <span class="ident">lrwxrwxrwx</span> <span class="number">1</span> <span class="ident">root</span> <span class="ident">root</span> <span class="number">16</span> <span class="ident">Jul</span> <span class="number">23</span> <span class="number">22</span>:<span class="number">24</span> <span class="ident">userdata</span> <span class="op">-</span><span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span><span class="ident">mmcblk2p10</span></pre></div>
 <p>These are the Partition Labels on our MicroSD Card. </p>
-<p>Let's say we wish to mount the MicroSD Card partition <code>ROOT_MNJRO</code>, which links to <code>/dev/mmcblk0p2</code></p>
+<p>Let's say we wish to mount the MicroSD Card partition <code>ROOT_MNJRO</code>, which links to <code>/dev/mmcblk0p2</code>...</p>
 <pre><code class="language-bash">mkdir /tmp/sdcard
 sudo mount /dev/mmcblk0p2 /tmp/sdcard
 ls -l /tmp/sdcard
 </code></pre>
+<p>(If we don't see our Patition Label, try mounting the numbered partitions anyway: <code>/dev/mmcblk0p1</code>, <code>p2</code>, <code>p3</code>, ...)</p>
 <p>We should see the contents of our MicroSD Card.</p>
 <p>The MicroSD Card will now appear in File Manager as <code>/tmp/sdcard</code>, ready for us to copy the files.</p>
 <p>Or just copy files from the Command Line like so...</p>

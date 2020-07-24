@@ -1352,13 +1352,15 @@ lrwxrwxrwx 1 root root 16 Jul 23 22:24 userdata -> ../../mmcblk2p10
 
 These are the Partition Labels on our MicroSD Card. 
 
-Let's say we wish to mount the MicroSD Card partition `ROOT_MNJRO`, which links to `/dev/mmcblk0p2`
+Let's say we wish to mount the MicroSD Card partition `ROOT_MNJRO`, which links to `/dev/mmcblk0p2`...
 
 ```bash
 mkdir /tmp/sdcard
 sudo mount /dev/mmcblk0p2 /tmp/sdcard
 ls -l /tmp/sdcard
 ```
+
+(If we don't see our Patition Label, try mounting the numbered partitions anyway: `/dev/mmcblk0p1`, `p2`, `p3`, ...)
 
 We should see the contents of our MicroSD Card.
 
