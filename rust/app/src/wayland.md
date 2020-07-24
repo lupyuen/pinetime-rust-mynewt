@@ -974,8 +974,6 @@ _LVGL is the experiment that we're undertaking today!_
 
 # Build LVGL on PinePhone with Ubuntu Touch
 
-TODO
-
 Connect to PinePhone over SSH and run these commands...
 
 ```bash
@@ -983,7 +981,7 @@ Connect to PinePhone over SSH and run these commands...
 sudo mount -o remount,rw /
 
 # Install dev tools and GLES2 library
-sudo apt install git gcc gdb libgles2-mesa-dev
+sudo apt install gcc gdb git make libgles2-mesa-dev
 
 # Download the source code
 cd ~
@@ -994,7 +992,7 @@ cd lvgl-wayland
 make
 ```
 
-(If we haven't enabled SSH on PinePhone, look for the "Start SSH on PinePhone" instructions below)
+(If we haven't enabled SSH on PinePhone, check the "Configure SSH on PinePhone" instructions below)
 
 This creates the executable `wayland/lvgl`
 
@@ -1074,8 +1072,8 @@ The log for the Wayland Compositor `unity-system-compositor` may be useful for t
 Copy the log files to our machine like this...
 
 ```bash
-scp -i ~/.ssh/pinebook_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log .
-scp -i ~/.ssh/pinebook_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/unity8.log .
+scp -i ~/.ssh/pinephone_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log .
+scp -i ~/.ssh/pinephone_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/unity8.log .
 ```
 
 # Overcome AppArmor Security on Ubuntu Touch
@@ -1112,9 +1110,84 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
 # pkill lvgl
 ```
 
-# Start SSH on PinePhone
+# Configure SSH on PinePhone
 
-To start SSH on PinePhone, open the Terminal app.
+__First Thing__ to do when we get our new PinePhone: __Remove the Battery Insulation Sticker!__
+
+(Can't believe I missed that!)
+
+__Second Thing__: Protect the SSH Service on PinePhone with __SSH Keys__. And start the SSH Service only when necessary.
+
+Here's how...
+
+## Generate SSH Keys
+
+1.  On our Computer (not PinePhone), open a Command Prompt. Enter this (and fill in our email)...
+
+    ```bash
+    ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+    ```
+
+1.  When prompted `Enter a file in which to save the key`, press Enter.
+
+    This stores the new SSH Key in the "`.ssh`" folder in our Home Directory.
+
+1.  When prompted `Enter a file in which to save the key`, enter `pinephone_rsa`
+
+    We'll create an SSH Key Pair named `pinephone_rsa` (Private Key) and `pinephone_rsa.pub` (Public Key)
+
+1.  When prompted `Enter passphrase`, press Enter.
+
+    We won't need a passphrase unless our PinePhone needs to be super-secure.
+
+This creates an SSH Key Pair in the "`.ssh`" folder in our Home Directory...
+
+- `pinephone_rsa` contains the Private Key. Never give the Private Key to others!
+
+- `pinephone_rsa.pub` contains the Public Key. We'll copy this to PinePhone now.
+
+([Adapted from this doc](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key
+))
+
+## Install SSH Keys
+
+1.  Copy `pinephone_rsa.pub` from the "`.ssh`" folder in our Home Directory to a MicroSD Card.
+
+1.  Insert the MicroSD Card into PinePhone. Copy `pinephone_rsa.pub` to our Home Directory on PinePhone.
+
+    (Check the section "Copy Files from MicroSD Card on PinePhone" below)
+
+1.  Tap the Terminal icon on PinePhone. Enter...
+
+    ```bash
+    # Go to home directory
+    cd
+
+    # If .ssh folder doesn't exist, create it
+    mkdir .ssh
+    chmod 700 .ssh
+
+    # Set public key as the authorized key
+    cp pinephone_rsa.pub .ssh/authorized_keys
+    chmod 600 .ssh/authorized_keys
+
+    # Show the SSH files
+    ls -la ~/.ssh
+    ```
+
+    We should see this...
+
+    ```
+    drwx------  2 phablet phablet 4096 Jul  7 20:06 .
+    drwxr-xr-x 28 phablet phablet 4096 Jul 24 11:38 ..
+    -rw-------  1 phablet phablet  743 Jul  7 20:08 authorized_keys
+    ```
+
+    Check that the permissions (`rw`) and owner (`phablet`) are correct.
+
+## Start SSH Service
+
+To start the SSH Service on PinePhone, open the Terminal app.
 
 Create a file named `a`...
 
@@ -1140,13 +1213,11 @@ ifconfig | \
 ping google.com
 ```
 
-(Or download the file from [`lvgl-wayland/a`](https://github.com/lupyuen/lvgl-wayland/blob/master/a)
-
 Save the file and exit `nano`.
 
-(We may also copy the file `a` via a MicroSD Card. Check the next section for instructions.)
+(Or download the file from [`lvgl-wayland/a`](https://github.com/lupyuen/lvgl-wayland/blob/master/a) and copy via a MicroSD Card. Check the next section for instructions.)
 
-When we're ready do coding on PinePhone, enter this at the command line...
+When we're ready do coding on PinePhone, enter this at the Terminal command line...
 
 ```bash
 . a 
@@ -1158,15 +1229,13 @@ The script starts the SSH Service and displays the IP address for PinePhone...
 
 ![Starting SSH Service on PinePhone](https://lupyuen.github.io/images/wayland-ssh.jpg)
 
-From our computer, we'll connect to PinePhone at the IP adddress indicated by `inet addr`, say `192.168.1.160`...
+From our Computer, we'll connect to PinePhone at the IP adddress indicated by `inet addr`, say `192.168.1.160`...
 
 ```bash
-ssh -i ~/.ssh/pinebook_rsa phablet@192.168.1.160
+ssh -i ~/.ssh/pinephone_rsa phablet@192.168.1.160
 ```
 
-Tap on `Ctrl-C` to stop the `ping`.
-
-(We may copy the SSH Key to PinePhone via a MicroSD Card. Check the next section for instructions.)
+And that's how we access PinePhone via SSH!
 
 When we press PinePhone's power button to switch off PinePhone, we'll see ths amusing message from olden times...
 
@@ -1201,7 +1270,7 @@ lrwxrwxrwx 1 root root 16 Jul 23 22:24 userdata -> ../../mmcblk2p10
 
 These are the Partition Labels on our MicroSD Card. 
 
-Let's say we wish to mount the MicroSD Card parition `ROOT_MNJRO`, which links to `/dev/mmcblk0p2`
+Let's say we wish to mount the MicroSD Card partition `ROOT_MNJRO`, which links to `/dev/mmcblk0p2`
 
 ```bash
 mkdir /tmp/sdcard

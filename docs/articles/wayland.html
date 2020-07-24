@@ -78,7 +78,10 @@
 <li><a href="#inject-lvgl-into-file-manager-app">11 Inject LVGL into File Manager App</a><ul></ul></li>
 <li><a href="#run-lvgl-on-pinephone-with-ubuntu-touch">12 Run LVGL on PinePhone with Ubuntu Touch</a><ul></ul></li>
 <li><a href="#overcome-apparmor-security-on-ubuntu-touch">13 Overcome AppArmor Security on Ubuntu Touch</a><ul></ul></li>
-<li><a href="#start-ssh-on-pinephone">14 Start SSH on PinePhone</a><ul></ul></li>
+<li><a href="#configure-ssh-on-pinephone">14 Configure SSH on PinePhone</a><ul>
+<li><a href="#generate-ssh-keys">14.1 Generate SSH Keys</a><ul></ul></li>
+<li><a href="#install-ssh-keys">14.2 Install SSH Keys</a><ul></ul></li>
+<li><a href="#start-ssh-service">14.3 Start SSH Service</a><ul></ul></li></ul></li>
 <li><a href="#copy-files-from-microsd-card-on-pinephone">15 Copy Files from MicroSD Card on PinePhone</a><ul></ul></li>
 <li><a href="#build-and-test-pinephone-wayland-apps-on-pinebook-pro">16 Build and Test PinePhone Wayland Apps on Pinebook Pro</a><ul></ul></li>
 <li><a href="#wayland-gotchas">17 Wayland Gotchas</a><ul></ul></li>
@@ -868,13 +871,12 @@ static void render_display() {
 <p>But what if we could start from scratch, drop the legacy stuff, and build a simpler UI toolkit for Wayland?</p>
 <p><em>LVGL is the experiment that we're undertaking today!</em></p>
 <h1 id="build-lvgl-on-pinephone-with-ubuntu-touch" class="section-header"><a href="#build-lvgl-on-pinephone-with-ubuntu-touch">10 Build LVGL on PinePhone with Ubuntu Touch</a></h1>
-<p>TODO</p>
 <p>Connect to PinePhone over SSH and run these commands...</p>
 <pre><code class="language-bash"># Make system folders writeable before installing any packages
 sudo mount -o remount,rw /
 
 # Install dev tools and GLES2 library
-sudo apt install git gcc gdb libgles2-mesa-dev
+sudo apt install gcc gdb git make libgles2-mesa-dev
 
 # Download the source code
 cd ~
@@ -884,7 +886,7 @@ cd lvgl-wayland
 # Build the app
 make
 </code></pre>
-<p>(If we haven't enabled SSH on PinePhone, look for the &quot;Start SSH on PinePhone&quot; instructions below)</p>
+<p>(If we haven't enabled SSH on PinePhone, check the &quot;Configure SSH on PinePhone&quot; instructions below)</p>
 <p>This creates the executable <code>wayland/lvgl</code></p>
 <h1 id="inject-lvgl-into-file-manager-app" class="section-header"><a href="#inject-lvgl-into-file-manager-app">11 Inject LVGL into File Manager App</a></h1>
 <p>For rapid testing, we shall replace the File Manager app by our <code>lvgl</code> app because File Manager has no AppArmor restrictions (Unconfined).</p>
@@ -934,8 +936,8 @@ export WAYLAND_DEBUG=1
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="op">/</span><span class="ident">home</span><span class="op">/</span><span class="ident">phablet</span><span class="op">/</span>.<span class="ident">cache</span><span class="op">/</span><span class="ident">upstart</span><span class="op">/</span><span class="ident">unity8</span>.<span class="ident">log</span></pre></div>
 <p>Copy the log files to our machine like this...</p>
-<pre><code class="language-bash">scp -i ~/.ssh/pinebook_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log .
-scp -i ~/.ssh/pinebook_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/unity8.log .
+<pre><code class="language-bash">scp -i ~/.ssh/pinephone_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log .
+scp -i ~/.ssh/pinephone_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/unity8.log .
 </code></pre>
 <h1 id="overcome-apparmor-security-on-ubuntu-touch" class="section-header"><a href="#overcome-apparmor-security-on-ubuntu-touch">13 Overcome AppArmor Security on Ubuntu Touch</a></h1>
 <p>TODO</p>
@@ -966,8 +968,77 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
 # Press Ctrl-C to stop. To kill the app:
 # pkill lvgl
 </code></pre>
-<h1 id="start-ssh-on-pinephone" class="section-header"><a href="#start-ssh-on-pinephone">14 Start SSH on PinePhone</a></h1>
-<p>To start SSH on PinePhone, open the Terminal app.</p>
+<h1 id="configure-ssh-on-pinephone" class="section-header"><a href="#configure-ssh-on-pinephone">14 Configure SSH on PinePhone</a></h1>
+<p><strong>First Thing</strong> to do when we get our new PinePhone: <strong>Remove the Battery Insulation Sticker!</strong></p>
+<p>(Can't believe I missed that!)</p>
+<p><strong>Second Thing</strong>: Protect the SSH Service on PinePhone with <strong>SSH Keys</strong>. And start the SSH Service only when necessary.</p>
+<p>Here's how...</p>
+<h2 id="generate-ssh-keys" class="section-header"><a href="#generate-ssh-keys">14.1 Generate SSH Keys</a></h2>
+<ol>
+<li>
+<p>On our Computer (not PinePhone), open a Command Prompt. Enter this (and fill in our email)...</p>
+<pre><code class="language-bash">ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;
+</code></pre>
+</li>
+<li>
+<p>When prompted <code>Enter a file in which to save the key</code>, press Enter.</p>
+<p>This stores the new SSH Key in the &quot;<code>.ssh</code>&quot; folder in our Home Directory.</p>
+</li>
+<li>
+<p>When prompted <code>Enter a file in which to save the key</code>, enter <code>pinephone_rsa</code></p>
+<p>We'll create an SSH Key Pair named <code>pinephone_rsa</code> (Private Key) and <code>pinephone_rsa.pub</code> (Public Key)</p>
+</li>
+<li>
+<p>When prompted <code>Enter passphrase</code>, press Enter.</p>
+<p>We won't need a passphrase unless our PinePhone needs to be super-secure.</p>
+</li>
+</ol>
+<p>This creates an SSH Key Pair in the &quot;<code>.ssh</code>&quot; folder in our Home Directory...</p>
+<ul>
+<li>
+<p><code>pinephone_rsa</code> contains the Private Key. Never give the Private Key to others!</p>
+</li>
+<li>
+<p><code>pinephone_rsa.pub</code> contains the Public Key. We'll copy this to PinePhone now.</p>
+</li>
+</ul>
+<p>(<a href="https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key">Adapted from this doc</a>)</p>
+<h2 id="install-ssh-keys" class="section-header"><a href="#install-ssh-keys">14.2 Install SSH Keys</a></h2>
+<ol>
+<li>
+<p>Copy <code>pinephone_rsa.pub</code> from the &quot;<code>.ssh</code>&quot; folder in our Home Directory to a MicroSD Card.</p>
+</li>
+<li>
+<p>Insert the MicroSD Card into PinePhone. Copy <code>pinephone_rsa.pub</code> to our Home Directory on PinePhone.</p>
+<p>(Check the section &quot;Copy Files from MicroSD Card on PinePhone&quot; below)</p>
+</li>
+<li>
+<p>Tap the Terminal icon on PinePhone. Enter...</p>
+<pre><code class="language-bash"># Go to home directory
+cd
+
+# If .ssh folder doesn't exist, create it
+mkdir .ssh
+chmod 700 .ssh
+
+# Set public key as the authorized key
+cp pinephone_rsa.pub .ssh/authorized_keys
+chmod 600 .ssh/authorized_keys
+
+# Show the SSH files
+ls -la ~/.ssh
+</code></pre>
+<p>We should see this...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">drwx</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>  <span class="number">2</span> <span class="ident">phablet</span> <span class="ident">phablet</span> <span class="number">4096</span> <span class="ident">Jul</span>  <span class="number">7</span> <span class="number">20</span>:<span class="number">06</span> .
+<span class="ident">drwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span> <span class="number">28</span> <span class="ident">phablet</span> <span class="ident">phablet</span> <span class="number">4096</span> <span class="ident">Jul</span> <span class="number">24</span> <span class="number">11</span>:<span class="number">38</span> ..
+<span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>  <span class="number">1</span> <span class="ident">phablet</span> <span class="ident">phablet</span>  <span class="number">743</span> <span class="ident">Jul</span>  <span class="number">7</span> <span class="number">20</span>:<span class="number">08</span> <span class="ident">authorized_keys</span></pre></div>
+<p>Check that the permissions (<code>rw</code>) and owner (<code>phablet</code>) are correct.</p>
+</li>
+</ol>
+<h2 id="start-ssh-service" class="section-header"><a href="#start-ssh-service">14.3 Start SSH Service</a></h2>
+<p>To start the SSH Service on PinePhone, open the Terminal app.</p>
 <p>Create a file named <code>a</code>...</p>
 <pre><code class="language-bash">nano a
 </code></pre>
@@ -986,20 +1057,18 @@ ifconfig | \
 # Ping repeatedly to keep WiFi alive
 ping google.com
 </code></pre>
-<p>(Or download the file from <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/a"><code>lvgl-wayland/a</code></a></p>
 <p>Save the file and exit <code>nano</code>.</p>
-<p>(We may also copy the file <code>a</code> via a MicroSD Card. Check the next section for instructions.)</p>
-<p>When we're ready do coding on PinePhone, enter this at the command line...</p>
+<p>(Or download the file from <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/a"><code>lvgl-wayland/a</code></a> and copy via a MicroSD Card. Check the next section for instructions.)</p>
+<p>When we're ready do coding on PinePhone, enter this at the Terminal command line...</p>
 <pre><code class="language-bash">. a 
 </code></pre>
 <p>(There's a space between &quot;<code>.</code>&quot; and &quot;<code>a</code>&quot;)</p>
 <p>The script starts the SSH Service and displays the IP address for PinePhone...</p>
 <p><img src="https://lupyuen.github.io/images/wayland-ssh.jpg" alt="Starting SSH Service on PinePhone" /></p>
-<p>From our computer, we'll connect to PinePhone at the IP adddress indicated by <code>inet addr</code>, say <code>192.168.1.160</code>...</p>
-<pre><code class="language-bash">ssh -i ~/.ssh/pinebook_rsa phablet@192.168.1.160
+<p>From our Computer, we'll connect to PinePhone at the IP adddress indicated by <code>inet addr</code>, say <code>192.168.1.160</code>...</p>
+<pre><code class="language-bash">ssh -i ~/.ssh/pinephone_rsa phablet@192.168.1.160
 </code></pre>
-<p>Tap on <code>Ctrl-C</code> to stop the <code>ping</code>.</p>
-<p>(We may copy the SSH Key to PinePhone via a MicroSD Card. Check the next section for instructions.)</p>
+<p>And that's how we access PinePhone via SSH!</p>
 <p>When we press PinePhone's power button to switch off PinePhone, we'll see ths amusing message from olden times...</p>
 <p><img src="https://lupyuen.github.io/images/wayland-halt.jpg" alt="Powering off PinePhone" /></p>
 <p>If typing on a touch keyboard is not your thing, try copying the files from a MicroSD card...</p>
@@ -1019,7 +1088,7 @@ ping google.com
 <span class="ident">lrwxrwxrwx</span> <span class="number">1</span> <span class="ident">root</span> <span class="ident">root</span> <span class="number">15</span> <span class="ident">Jul</span> <span class="number">23</span> <span class="number">22</span>:<span class="number">24</span> <span class="ident">ROOT_MNJRO</span> <span class="op">-</span><span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span><span class="ident">mmcblk0p2</span>
 <span class="ident">lrwxrwxrwx</span> <span class="number">1</span> <span class="ident">root</span> <span class="ident">root</span> <span class="number">16</span> <span class="ident">Jul</span> <span class="number">23</span> <span class="number">22</span>:<span class="number">24</span> <span class="ident">userdata</span> <span class="op">-</span><span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span><span class="ident">mmcblk2p10</span></pre></div>
 <p>These are the Partition Labels on our MicroSD Card. </p>
-<p>Let's say we wish to mount the MicroSD Card parition <code>ROOT_MNJRO</code>, which links to <code>/dev/mmcblk0p2</code></p>
+<p>Let's say we wish to mount the MicroSD Card partition <code>ROOT_MNJRO</code>, which links to <code>/dev/mmcblk0p2</code></p>
 <pre><code class="language-bash">mkdir /tmp/sdcard
 sudo mount /dev/mmcblk0p2 /tmp/sdcard
 ls -l /tmp/sdcard
