@@ -1094,24 +1094,32 @@ Is for tracing the `lvgl` app with `strace`. It shows __everything__ done by the
 
 # Run LVGL on PinePhone with Ubuntu Touch
 
-TODO
+Finally we're ready to run our `lvgl` app! 
 
-Connect to PinePhone over SSH and run these commands...
+Connect to PinePhone over SSH and enter these commands...
 
 ```bash
 cd ~/lvgl-wayland
 ./wayland/lvgl.sh
 ```
 
-In a few seconds we should see the message...
+The script [`lvgl.sh`](https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lvgl.sh) copies [`run.sh`](https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/run.sh) from `~/lvgl-wayland/wayland` to the Click Package Folder for File Manager...
+
+```
+/usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager
+```
+
+In a few seconds we'll see the message...
 
 ```
 *** Tap on File Manager icon on PinePhone
 ```
 
-Go ahead and tap on the File Manager icon on PinePhone. Our LVGL App shall run instead of the File Manager.
+Go ahead and tap the File Manager icon on PinePhone. 
 
-Press `Ctrl-C` to stop the log display.
+Our LVGL App shall run instead of the File Manager.
+
+In the SSH console, press `Ctrl-C` to stop the log display.
 
 The log file for the app is located at...
 

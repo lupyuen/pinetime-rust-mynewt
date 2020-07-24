@@ -949,17 +949,22 @@ gdb \
 <p>Is for tracing the <code>lvgl</code> app with <code>strace</code>. It shows <strong>everything</strong> done by the app.</p>
 <p><a href="https://github.com/lupyuen/pinephone-mir/blob/090630777782a5f4b283af84c747b9ad6c703e22/logs/filemanager-strace.log#L724">Check out this <code>strace</code> log for the File Manager on Ubuntu Touch</a></p>
 <h1 id="run-lvgl-on-pinephone-with-ubuntu-touch" class="section-header"><a href="#run-lvgl-on-pinephone-with-ubuntu-touch">12 Run LVGL on PinePhone with Ubuntu Touch</a></h1>
-<p>TODO</p>
-<p>Connect to PinePhone over SSH and run these commands...</p>
+<p>Finally we're ready to run our <code>lvgl</code> app! </p>
+<p>Connect to PinePhone over SSH and enter these commands...</p>
 <pre><code class="language-bash">cd ~/lvgl-wayland
 ./wayland/lvgl.sh
 </code></pre>
-<p>In a few seconds we should see the message...</p>
+<p>The script <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lvgl.sh"><code>lvgl.sh</code></a> copies <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/run.sh"><code>run.sh</code></a> from <code>~/lvgl-wayland/wayland</code> to the Click Package Folder for File Manager...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="op">/</span><span class="ident">usr</span><span class="op">/</span><span class="ident">share</span><span class="op">/</span><span class="ident">click</span><span class="op">/</span><span class="ident">preinstalled</span><span class="op">/</span>.<span class="ident">click</span><span class="op">/</span><span class="ident">users</span><span class="op">/</span>@<span class="ident">all</span><span class="op">/</span><span class="ident">com</span>.<span class="ident">ubuntu</span>.<span class="ident">filemanager</span></pre></div>
+<p>In a few seconds we'll see the message...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw-2">*</span><span class="kw-2">*</span><span class="op">*</span> <span class="ident">Tap</span> <span class="ident">on</span> <span class="ident">File</span> <span class="ident">Manager</span> <span class="ident">icon</span> <span class="ident">on</span> <span class="ident">PinePhone</span></pre></div>
-<p>Go ahead and tap on the File Manager icon on PinePhone. Our LVGL App shall run instead of the File Manager.</p>
-<p>Press <code>Ctrl-C</code> to stop the log display.</p>
+<p>Go ahead and tap the File Manager icon on PinePhone. </p>
+<p>Our LVGL App shall run instead of the File Manager.</p>
+<p>In the SSH console, press <code>Ctrl-C</code> to stop the log display.</p>
 <p>The log file for the app is located at...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
