@@ -1008,25 +1008,39 @@ sudo cp run.sh /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filema
 <li>
 <p><em>What's this folder <code>/usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager</code>?</em></p>
 <p>This is the <a href="http://docs.ubports.com/en/latest/appdev/platform/click.html#security-and-app-isolation"><strong>Click Package</strong></a> folder for File Manager.</p>
-<p>TODO</p>
+<p>Ubuntu Touch Apps (like File Manager) are packaged as Click Packages for installation on our phones.</p>
+<p>When the app is installed, Ubuntu Touch extracts the Click Package into a folder under <code>/usr/share/click</code>.</p>
+<p>Inside the Click Package folder we'll find the executables, libraries and data files that are needed for running the app.</p>
+<p>The folder also contains a <code>.desktop</code> file. (Earlier we've seen <code>com.ubuntu.filemanager.desktop</code> for File Manager) This file tells Ubuntu Touch how to launch the app.</p>
 </li>
 <li>
 <p><em>Does the app run as our user account <code>phablet</code>?</em></p>
-<p>Nope.</p>
-<p>TODO</p>
+<p>Nope. For security, Ubuntu Touch Apps run under an account with restricted privileges: <code>clickpkg</code></p>
+<p>This account has no access to our <code>phablet</code> files. That's why we copy the <code>lvgl</code> app and <code>run.sh</code> script to Click Package folder, which is accessible by <code>clickpkg</code></p>
+<p>We set the ownership of <code>lvgl</code> and <code>run.sh</code> to <code>clickpkg</code> so that it can execute the files...</p>
 <pre><code class="language-bash"># Set ownership on the app and the run script
 sudo chown clickpkg:clickpkg /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager/lvgl
 sudo chown clickpkg:clickpkg /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager/run.sh
 </code></pre>
+</li>
+<li>
+<p>Our <code>lvgl</code> app and <code>run.sh</code> script have been staged in the Click Package folder.</p>
+<p>We ask the human to tap the File Manager icon...</p>
 <pre><code class="language-bash"># Start the File Manager
 echo &quot;*** Tap on File Manager icon on PinePhone&quot;
 </code></pre>
+</li>
+<li>
+<p>As our <code>lvgl</code> app runs, it logs debugging messages to Standard Output and Standard Error.</p>
+<p>The messages are captured in this log file...</p>
 <pre><code class="language-bash"># Monitor the log file
 echo &gt;/home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
 tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
 </code></pre>
 </li>
 </ol>
+<p><em>Why can't we run <code>lvgl</code> from the Terminal Command Line?</em></p>
+<p>TODO</p>
 <h1 id="configure-ssh-on-pinephone" class="section-header"><a href="#configure-ssh-on-pinephone">14 Configure SSH on PinePhone</a></h1>
 <p><strong>First Thing</strong> to do when we get our new PinePhone: Open the PinePhone Back Cover and <strong>Remove the Battery Insulation Sticker!</strong></p>
 <p>(Can't believe I missed that!)</p>

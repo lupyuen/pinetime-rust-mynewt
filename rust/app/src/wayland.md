@@ -1179,13 +1179,21 @@ To understand Wayland, AppArmor and Ubuntu Touch Security, let's look inside the
 
     This is the [__Click Package__](http://docs.ubports.com/en/latest/appdev/platform/click.html#security-and-app-isolation) folder for File Manager.
 
-    TODO
+    Ubuntu Touch Apps (like File Manager) are packaged as Click Packages for installation on our phones.
+
+    When the app is installed, Ubuntu Touch extracts the Click Package into a folder under `/usr/share/click`.
+
+    Inside the Click Package folder we'll find the executables, libraries and data files that are needed for running the app.
+
+    The folder also contains a `.desktop` file. (Earlier we've seen `com.ubuntu.filemanager.desktop` for File Manager) This file tells Ubuntu Touch how to launch the app.
 
 1.  _Does the app run as our user account `phablet`?_
 
-    Nope.
+    Nope. For security, Ubuntu Touch Apps run under an account with restricted privileges: `clickpkg`
 
-    TODO
+    This account has no access to our `phablet` files. That's why we copy the `lvgl` app and `run.sh` script to Click Package folder, which is accessible by `clickpkg`
+
+    We set the ownership of `lvgl` and `run.sh` to `clickpkg` so that it can execute the files...
 
     ```bash
     # Set ownership on the app and the run script
@@ -1193,16 +1201,28 @@ To understand Wayland, AppArmor and Ubuntu Touch Security, let's look inside the
     sudo chown clickpkg:clickpkg /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager/run.sh
     ```
 
+1.  Our `lvgl` app and `run.sh` script have been staged in the Click Package folder.
+
+    We ask the human to tap the File Manager icon...
+
     ```bash
     # Start the File Manager
     echo "*** Tap on File Manager icon on PinePhone"
     ```
+
+1.  As our `lvgl` app runs, it logs debugging messages to Standard Output and Standard Error.
+
+    The messages are captured in this log file...
 
     ```bash
     # Monitor the log file
     echo >/home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
     tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
     ```
+
+_Why can't we run `lvgl` from the Terminal Command Line?_
+
+TODO
 
 # Configure SSH on PinePhone
 
