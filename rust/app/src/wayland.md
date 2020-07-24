@@ -1370,6 +1370,12 @@ Or just copy files from the Command Line like so...
 cp /tmp/sdcard/a ~
 ```
 
+When we're done, unmount our MicroSD Card...
+
+```bash
+sudo umount /tmp/sdcard
+```
+
 ![PinePhone Wayland App tested on Pinebook Pro](https://lupyuen.github.io/images/wayland-weston.png)
 
 # Build and Test PinePhone Wayland Apps on Pinebook Pro
