@@ -909,7 +909,7 @@ sudo cp com.ubuntu.filemanager.desktop com.ubuntu.filemanager.desktop.old
 # Edit the desktop file
 sudo nano com.ubuntu.filemanager.desktop 
 </code></pre>
-<p>We're now altering the behaviour of File Manager, by tampering with the <a href="https://click.readthedocs.io/en/latest/"><strong>Click Package</strong></a> settings for File Manager.</p>
+<p>We're now altering the behaviour of File Manager, by tampering with the <a href="http://docs.ubports.com/en/latest/appdev/platform/click.html#security-and-app-isolation"><strong>Click Package</strong></a> settings for File Manager.</p>
 <p>(Why are we tampering with a Click Package? We'll learn in a while)</p>
 <p>Change the <code>Exec</code> line from...</p>
 
@@ -978,34 +978,55 @@ gdb \
 scp -i ~/.ssh/pinephone_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/unity8.log .
 </code></pre>
 <h1 id="overcome-apparmor-security-on-ubuntu-touch" class="section-header"><a href="#overcome-apparmor-security-on-ubuntu-touch">13 Overcome AppArmor Security on Ubuntu Touch</a></h1>
-<p>TODO</p>
-<p>https://github.com/lupyuen/lvgl-wayland/wayland/lvgl.sh</p>
+<p>To understand Wayland, AppArmor and Ubuntu Touch Security, let's look inside the script <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lvgl.sh"><code>lvgl.sh</code></a> and understand how it launches our <code>lvgl</code>app...</p>
+<ol>
+<li>
+<p>Our <code>lvgl</code> app doesn't have a close button, so let's terminate the app if it's already running...</p>
 <pre><code class="language-bash"># Kill the app if it's already running
 pkill lvgl
-
-# Make system folders writeable
+</code></pre>
+</li>
+<li>
+<p>In Ubuntu Touch, <strong>User Directories</strong> (like our Home Directory) are writeable by default.</p>
+<p><strong>System Directories</strong> (like <code>/usr/share</code>) are mounted with read-only access, to prevent tampering of system files. (Think malware)</p>
+<p>Since we're Superuser, we may remount System Directories with read-write access...</p>
+<pre><code class="language-bash"># Make system folders writeable
 sudo mount -o remount,rw /
-
-# Copy app to File Manager folder
+</code></pre>
+</li>
+<li>
+<p><em>Why do we need read-write access?</em></p>
+<p>Because we'll be copying our app <code>lvgl</code> and the script <code>run.sh</code> to a System Directory...</p>
+<pre><code class="language-bash"># Copy app to File Manager folder
 cd wayland
 sudo cp lvgl /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager
-sudo chown clickpkg:clickpkg /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager/lvgl
-ls -l /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager/lvgl
 
 # Copy run script to File Manager folder
-# TODO: Check that run.sh contains &quot;./lvgl&quot;
 sudo cp run.sh /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager
-
-# Start the File Manager
+</code></pre>
+</li>
+<li>
+<p><em>What's this folder <code>/usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager</code>?</em></p>
+<p>This is the <a href="http://docs.ubports.com/en/latest/appdev/platform/click.html#security-and-app-isolation"><strong>Click Package</strong></a> folder for File Manager.</p>
+<p>TODO</p>
+</li>
+<li>
+<p><em>Does the app run as our user account <code>phablet</code>?</em></p>
+<p>Nope.</p>
+<p>TODO</p>
+<pre><code class="language-bash"># Set ownership on the app and the run script
+sudo chown clickpkg:clickpkg /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager/lvgl
+sudo chown clickpkg:clickpkg /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager/run.sh
+</code></pre>
+<pre><code class="language-bash"># Start the File Manager
 echo &quot;*** Tap on File Manager icon on PinePhone&quot;
-
-# Monitor the log file
+</code></pre>
+<pre><code class="language-bash"># Monitor the log file
 echo &gt;/home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
 tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
-
-# Press Ctrl-C to stop. To kill the app:
-# pkill lvgl
 </code></pre>
+</li>
+</ol>
 <h1 id="configure-ssh-on-pinephone" class="section-header"><a href="#configure-ssh-on-pinephone">14 Configure SSH on PinePhone</a></h1>
 <p><strong>First Thing</strong> to do when we get our new PinePhone: Open the PinePhone Back Cover and <strong>Remove the Battery Insulation Sticker!</strong></p>
 <p>(Can't believe I missed that!)</p>

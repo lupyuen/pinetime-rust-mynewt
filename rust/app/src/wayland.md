@@ -1030,7 +1030,7 @@ sudo cp com.ubuntu.filemanager.desktop com.ubuntu.filemanager.desktop.old
 sudo nano com.ubuntu.filemanager.desktop 
 ```
 
-We're now altering the behaviour of File Manager, by tampering with the [__Click Package__](https://click.readthedocs.io/en/latest/) settings for File Manager.
+We're now altering the behaviour of File Manager, by tampering with the [__Click Package__](http://docs.ubports.com/en/latest/appdev/platform/click.html#security-and-app-isolation) settings for File Manager.
 
 (Why are we tampering with a Click Package? We'll learn in a while)
 
@@ -1142,37 +1142,67 @@ scp -i ~/.ssh/pinephone_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/u
 
 # Overcome AppArmor Security on Ubuntu Touch
 
-TODO
+To understand Wayland, AppArmor and Ubuntu Touch Security, let's look inside the script [`lvgl.sh`](https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lvgl.sh) and understand how it launches our `lvgl`app...
 
-https://github.com/lupyuen/lvgl-wayland/wayland/lvgl.sh
+1.  Our `lvgl` app doesn't have a close button, so let's terminate the app if it's already running...
 
-```bash
-# Kill the app if it's already running
-pkill lvgl
+    ```bash
+    # Kill the app if it's already running
+    pkill lvgl
+    ```
 
-# Make system folders writeable
-sudo mount -o remount,rw /
+1.  In Ubuntu Touch, __User Directories__ (like our Home Directory) are writeable by default.
 
-# Copy app to File Manager folder
-cd wayland
-sudo cp lvgl /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager
-sudo chown clickpkg:clickpkg /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager/lvgl
-ls -l /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager/lvgl
+    __System Directories__ (like `/usr/share`) are mounted with read-only access, to prevent tampering of system files. (Think malware)
 
-# Copy run script to File Manager folder
-# TODO: Check that run.sh contains "./lvgl"
-sudo cp run.sh /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager
+    Since we're Superuser, we may remount System Directories with read-write access...
 
-# Start the File Manager
-echo "*** Tap on File Manager icon on PinePhone"
+    ```bash
+    # Make system folders writeable
+    sudo mount -o remount,rw /
+    ```
 
-# Monitor the log file
-echo >/home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
-tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
+1.  _Why do we need read-write access?_
 
-# Press Ctrl-C to stop. To kill the app:
-# pkill lvgl
-```
+    Because we'll be copying our app `lvgl` and the script `run.sh` to a System Directory...
+
+    ```bash
+    # Copy app to File Manager folder
+    cd wayland
+    sudo cp lvgl /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager
+
+    # Copy run script to File Manager folder
+    sudo cp run.sh /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager
+    ```
+
+1. _What's this folder `/usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager`?_
+
+    This is the [__Click Package__](http://docs.ubports.com/en/latest/appdev/platform/click.html#security-and-app-isolation) folder for File Manager.
+
+    TODO
+
+1.  _Does the app run as our user account `phablet`?_
+
+    Nope.
+
+    TODO
+
+    ```bash
+    # Set ownership on the app and the run script
+    sudo chown clickpkg:clickpkg /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager/lvgl
+    sudo chown clickpkg:clickpkg /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager/run.sh
+    ```
+
+    ```bash
+    # Start the File Manager
+    echo "*** Tap on File Manager icon on PinePhone"
+    ```
+
+    ```bash
+    # Monitor the log file
+    echo >/home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
+    tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
+    ```
 
 # Configure SSH on PinePhone
 
