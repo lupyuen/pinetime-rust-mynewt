@@ -1016,7 +1016,7 @@ sudo cp run.sh /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filema
 <li>
 <p><em>Does the app run as our user account <code>phablet</code>?</em></p>
 <p>Nope. For security, Ubuntu Touch Apps run under an account with restricted privileges: <code>clickpkg</code></p>
-<p>This account has no access to our <code>phablet</code> files. That's why we copy the <code>lvgl</code> app and <code>run.sh</code> script to Click Package folder, which is accessible by <code>clickpkg</code></p>
+<p>This account has no access to our <code>phablet</code> files. That's why we copy the <code>lvgl</code> app and <code>run.sh</code> script to the Click Package folder, which is accessible by <code>clickpkg</code></p>
 <p>We set the ownership of <code>lvgl</code> and <code>run.sh</code> to <code>clickpkg</code> so that it can execute the files...</p>
 <pre><code class="language-bash"># Set ownership on the app and the run script
 sudo chown clickpkg:clickpkg /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager/lvgl
@@ -1031,7 +1031,7 @@ echo &quot;*** Tap on File Manager icon on PinePhone&quot;
 </code></pre>
 </li>
 <li>
-<p>As our <code>lvgl</code> app runs, it logs debugging messages to Standard Output and Standard Error.</p>
+<p>Ubuntu Touch launches our <code>lvgl</code> app. As our app runs, it logs debugging messages to Standard Output and Standard Error.</p>
 <p>The messages are captured in this log file...</p>
 <pre><code class="language-bash"># Monitor the log file
 echo &gt;/home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
@@ -1039,7 +1039,7 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
 </code></pre>
 </li>
 </ol>
-<p><em>Why can't we run <code>lvgl</code> from the Terminal Command Line?</em></p>
+<p><em>Why can't we run our <code>lvgl</code> app from the Terminal Command Line?</em></p>
 <p>Because Ubuntu Touch's Wayland Service stops unauthorized processes from grabbing the Compositor...</p>
 <p><img src="https://lupyuen.github.io/images/wayland-security.jpg" alt="Stopped by Wayland Security" /></p>
 <p>We see this in the Wayland Compositor log: <code>/home/phablet/.cache/upstart/unity8.log</code></p>
@@ -1048,7 +1048,8 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
 <span class="ident">ApplicationManager</span> <span class="ident">REJECTED</span> <span class="ident">connection</span> <span class="ident">from</span> <span class="ident">app</span> <span class="ident">with</span> <span class="ident">pid</span> <span class="number">6710</span> <span class="kw">as</span> <span class="ident">it</span> <span class="ident">was</span> <span class="ident">not</span> <span class="ident">launched</span> <span class="ident">by</span> <span class="ident">upstart</span>, <span class="ident">and</span> <span class="ident">no</span> <span class="ident">desktop_file_hint</span> <span class="ident">is</span> <span class="ident">specified</span></pre></div>
 <p>That's why we need to inject <code>lvgl</code> into File Manager... So that Wayland thinks that the File Manager is grabbing the Compositor.</p>
 <p><em>Why did we choose the File Manager app instead of another app like Camera?</em></p>
-<p>Because File Manager has Unconfined AppArmor Permissions... It can do anything! (But still restricted by the <code>clickpkg</code> user permissions)</p>
+<p>Because File Manager has Unconfined AppArmor Permissions... It can do anything! </p>
+<p>(But still restricted by the <code>clickpkg</code> user permissions)</p>
 <p>Look at the <a href="http://docs.ubports.com/en/latest/appdev/platform/apparmor.html">AppArmor Policy</a> for the File Manager App: <a href="https://gitlab.com/ubports/apps/filemanager-app/-/blob/master/filemanager.apparmor"><code>filemanager.apparmor</code></a></p>
 <pre><code class="language-json">{
     &quot;policy_version&quot;: 16.04,

@@ -1191,7 +1191,7 @@ To understand Wayland, AppArmor and Ubuntu Touch Security, let's look inside the
 
     Nope. For security, Ubuntu Touch Apps run under an account with restricted privileges: `clickpkg`
 
-    This account has no access to our `phablet` files. That's why we copy the `lvgl` app and `run.sh` script to Click Package folder, which is accessible by `clickpkg`
+    This account has no access to our `phablet` files. That's why we copy the `lvgl` app and `run.sh` script to the Click Package folder, which is accessible by `clickpkg`
 
     We set the ownership of `lvgl` and `run.sh` to `clickpkg` so that it can execute the files...
 
@@ -1210,7 +1210,7 @@ To understand Wayland, AppArmor and Ubuntu Touch Security, let's look inside the
     echo "*** Tap on File Manager icon on PinePhone"
     ```
 
-1.  As our `lvgl` app runs, it logs debugging messages to Standard Output and Standard Error.
+1.  Ubuntu Touch launches our `lvgl` app. As our app runs, it logs debugging messages to Standard Output and Standard Error.
 
     The messages are captured in this log file...
 
@@ -1220,7 +1220,7 @@ To understand Wayland, AppArmor and Ubuntu Touch Security, let's look inside the
     tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
     ```
 
-_Why can't we run `lvgl` from the Terminal Command Line?_
+_Why can't we run our `lvgl` app from the Terminal Command Line?_
 
 Because Ubuntu Touch's Wayland Service stops unauthorized processes from grabbing the Compositor...
 
@@ -1236,7 +1236,9 @@ That's why we need to inject `lvgl` into File Manager... So that Wayland thinks 
 
 _Why did we choose the File Manager app instead of another app like Camera?_
 
-Because File Manager has Unconfined AppArmor Permissions... It can do anything! (But still restricted by the `clickpkg` user permissions)
+Because File Manager has Unconfined AppArmor Permissions... It can do anything! 
+
+(But still restricted by the `clickpkg` user permissions)
 
 Look at the [AppArmor Policy](http://docs.ubports.com/en/latest/appdev/platform/apparmor.html) for the File Manager App: [`filemanager.apparmor`](https://gitlab.com/ubports/apps/filemanager-app/-/blob/master/filemanager.apparmor)
 
