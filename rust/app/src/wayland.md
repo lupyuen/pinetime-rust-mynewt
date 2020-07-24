@@ -1375,7 +1375,9 @@ When we press PinePhone's power button to switch off PinePhone, we'll see ths am
 
 If typing on a touch keyboard is not your thing, try copying the files from a MicroSD card...
 
-![MicroSD Card in PinePhone](https://lupyuen.github.io/images/wayland-sd.jpg)
+![How we insert a MicroSD Card into PinePhone at night](https://lupyuen.github.io/images/wayland-sd.jpg)
+
+_How we insert a MicroSD Card into PinePhone at night_
 
 # Copy Files from MicroSD Card on PinePhone
 
