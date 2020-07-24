@@ -1041,8 +1041,36 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
 </ol>
 <p><em>Why can't we run <code>lvgl</code> from the Terminal Command Line?</em></p>
 <p>TODO</p>
+<p>Because Wayland checks the Process ID.</p>
 <p><em>Why did we choose the File Manager app instead of another app like Camera?</em></p>
 <p>TODO</p>
+<p>https://gitlab.com/ubports/apps/filemanager-app/-/blob/master/filemanager.apparmor</p>
+<pre><code class="language-json">{
+    &quot;policy_version&quot;: 16.04,
+    &quot;template&quot;: &quot;unconfined&quot;,
+    &quot;policy_groups&quot;: []
+}
+</code></pre>
+<p>https://gitlab.com/ubports/apps/camera-app/-/blob/master/camera.apparmor</p>
+<pre><code class="language-json">{
+    &quot;policy_groups&quot;: [
+        &quot;picture_files&quot;,
+        &quot;video_files&quot;,
+        &quot;camera&quot;,
+        &quot;audio&quot;,
+        &quot;video&quot;,
+        &quot;usermetrics&quot;,
+        &quot;content_exchange&quot;,
+        &quot;content_exchange_source&quot;,
+        &quot;location&quot;
+    ],
+    &quot;policy_version&quot;: 16.04,
+    &quot;read_path&quot;: [
+        &quot;@{PROC}/*/mounts&quot;,
+        &quot;/dev/disk/by-label/&quot;
+    ]
+}
+</code></pre>
 <h1 id="configure-ssh-on-pinephone" class="section-header"><a href="#configure-ssh-on-pinephone">14 Configure SSH on PinePhone</a></h1>
 <p><strong>First Thing</strong> to do when we get our new PinePhone: Open the PinePhone Back Cover and <strong>Remove the Battery Insulation Sticker!</strong></p>
 <p>(Can't believe I missed that!)</p>

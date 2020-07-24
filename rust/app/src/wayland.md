@@ -1224,9 +1224,44 @@ _Why can't we run `lvgl` from the Terminal Command Line?_
 
 TODO
 
+Because Wayland checks the Process ID.
+
 _Why did we choose the File Manager app instead of another app like Camera?_
 
 TODO
+
+https://gitlab.com/ubports/apps/filemanager-app/-/blob/master/filemanager.apparmor
+
+```json
+{
+    "policy_version": 16.04,
+    "template": "unconfined",
+    "policy_groups": []
+}
+```
+
+https://gitlab.com/ubports/apps/camera-app/-/blob/master/camera.apparmor
+
+```json
+{
+    "policy_groups": [
+        "picture_files",
+        "video_files",
+        "camera",
+        "audio",
+        "video",
+        "usermetrics",
+        "content_exchange",
+        "content_exchange_source",
+        "location"
+    ],
+    "policy_version": 16.04,
+    "read_path": [
+        "@{PROC}/*/mounts",
+        "/dev/disk/by-label/"
+    ]
+}
+```
 
 # Configure SSH on PinePhone
 
