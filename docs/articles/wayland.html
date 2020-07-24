@@ -871,7 +871,9 @@ static void render_display() {
 <p>But what if we could start from scratch, drop the legacy stuff, and build a simpler UI toolkit for Wayland?</p>
 <p><em>LVGL is the experiment that we're undertaking today!</em></p>
 <h1 id="build-lvgl-on-pinephone-with-ubuntu-touch" class="section-header"><a href="#build-lvgl-on-pinephone-with-ubuntu-touch">10 Build LVGL on PinePhone with Ubuntu Touch</a></h1>
-<p>Connect to PinePhone over SSH and run these commands...</p>
+<p>Follow these steps to build LVGL on PinePhone over SSH.</p>
+<p>(If we haven't enabled SSH on PinePhone, check the &quot;Configure SSH on PinePhone&quot; instructions below)</p>
+<p>Connect to PinePhone over SSH and enter these commands...</p>
 <pre><code class="language-bash"># Make system folders writeable before installing any packages
 sudo mount -o remount,rw /
 
@@ -886,19 +888,29 @@ cd lvgl-wayland
 # Build the app
 make
 </code></pre>
-<p>(If we haven't enabled SSH on PinePhone, check the &quot;Configure SSH on PinePhone&quot; instructions below)</p>
-<p>This creates the executable <code>wayland/lvgl</code></p>
+<p>This creates the executable <code>~/lvgl-wayland/wayland/lvgl</code></p>
+<p><em>Can we just run <code>lvgl</code> from the Terminal Command Line?</em></p>
+<p>Nope! Because Wayland and Ubuntu Touch are super-secure, thanks to <a href="https://en.wikipedia.org/wiki/AppArmor#:%7E:text=AppArmor%20(%22Application%20Armor%22),execute%20files%20on%20matching%20paths."><strong>AppArmor</strong></a>.</p>
+<p>But there's a way to trick AppArmor into allowing <code>lvgl</code> to be launched (since we are Superuser). </p>
+<p>Read on to learn how...</p>
+<p><img src="https://lupyuen.github.io/images/wayland-apparmor.jpg" alt="Fighting AppArmor Security... Permission Denied!" /></p>
+<p><em>Fighting AppArmor Security... Permission Denied!</em></p>
 <h1 id="inject-lvgl-into-file-manager-app" class="section-header"><a href="#inject-lvgl-into-file-manager-app">11 Inject LVGL into File Manager App</a></h1>
-<p>For rapid testing, we shall replace the File Manager app by our <code>lvgl</code> app because File Manager has no AppArmor restrictions (Unconfined).</p>
-<p>Connect to PinePhone over SSH and run these commands...</p>
-<pre><code class="language-bash"># Make system folders writeable and go to File Manager folder
+<p>For rapid testing (and to work around AppArmor), we shall replace the <strong>File Manager</strong> app by our <code>lvgl</code> app because <strong>File Manager has no AppArmor restrictions</strong> (Unconfined).</p>
+<p>(More about AppArmor in a while)</p>
+<p>Connect to PinePhone over SSH and enter these commands...</p>
+<pre><code class="language-bash"># Make system folders writeable and go to File Manager Click Package folder
 sudo mount -o remount,rw /
 cd /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager
 
-# Back up the desktop file
+# Back up the desktop file. Restore this desktop file to go back to the normal File Manager
 sudo cp com.ubuntu.filemanager.desktop com.ubuntu.filemanager.desktop.old
+
+# Edit the desktop file
 sudo nano com.ubuntu.filemanager.desktop 
 </code></pre>
+<p>We're now altering the behaviour of File Manager, by tampering with the <a href="https://click.readthedocs.io/en/latest/"><strong>Click Package</strong></a> settings for File Manager.</p>
+<p>(Why are we tampering with a Click Package? We'll learn in a while)</p>
 <p>Change the <code>Exec</code> line from...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -908,13 +920,34 @@ sudo nano com.ubuntu.filemanager.desktop
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Exec</span><span class="op">=</span>.<span class="op">/</span><span class="ident">run</span>.<span class="ident">sh</span></pre></div>
 <p>Save and exit <code>nano</code></p>
-<p>Check that <code>~/lvgl-wayland/wayland/run.sh</code> contains the following...</p>
+<p>We have modded the File Manager icon so that it now launches <code>run.sh</code> instead of the usual <code>filemanager</code> executable.</p>
+<p>(It's like switching the executable for a Windows Explorer Shortcut)</p>
+<p>We'll be installing <code>run.sh</code> later with a script: <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lvgl.sh"><code>lvgl.sh</code></a></p>
+<p>In the meantime, check that <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/run.sh"><code>run.sh</code></a> (located at <code>~/lvgl-wayland/wayland</code>) contains the following...</p>
 <pre><code class="language-bash"># Log Wayland messages
 export WAYLAND_DEBUG=1
 
 # Run lvgl app
 ./lvgl
 </code></pre>
+<p>If we see this...</p>
+<pre><code class="language-bash"># Debug lvgl app
+gdb \
+    -ex=&quot;r&quot; \
+    -ex=&quot;bt&quot; \
+    -ex=&quot;frame&quot; \
+    --args ./lvgl
+</code></pre>
+<p>It means that the <code>lvgl</code> app will be started with the <code>gdb</code> debugger.</p>
+<p>If it crashes with a bad C pointer, the <code>gdb</code> debugger will show a helpful stack trace.</p>
+<p>And this...</p>
+<pre><code class="language-bash"># Run lvgl app with strace
+./strace \
+   -s 1024 \
+   ./lvgl
+</code></pre>
+<p>Is for tracing the <code>lvgl</code> app with <code>strace</code>. It shows <strong>everything</strong> done by the app.</p>
+<p><a href="https://github.com/lupyuen/pinephone-mir/blob/090630777782a5f4b283af84c747b9ad6c703e22/logs/filemanager-strace.log#L724">Check out this <code>strace</code> log for the File Manager on Ubuntu Touch</a></p>
 <h1 id="run-lvgl-on-pinephone-with-ubuntu-touch" class="section-header"><a href="#run-lvgl-on-pinephone-with-ubuntu-touch">12 Run LVGL on PinePhone with Ubuntu Touch</a></h1>
 <p>TODO</p>
 <p>Connect to PinePhone over SSH and run these commands...</p>
