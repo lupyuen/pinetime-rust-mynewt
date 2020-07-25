@@ -416,7 +416,7 @@ The `main()` function in all Wayland apps follow the same steps...
 
 Now let's build and test the app on our Linux development machine. (We'll run it on PinePhone later)
 
-# Build and Test Wayland App
+# Build and Test Wayland App on Linux
 
 Now that we have created a [simple Wayland app](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c) that renders OpenGL graphics... Let's build it!
 
@@ -1140,6 +1140,8 @@ scp -i ~/.ssh/pinephone_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/a
 scp -i ~/.ssh/pinephone_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/unity8.log .
 ```
 
+[Check out the sample logs](https://github.com/lupyuen/lvgl-wayland/blob/master/logs)
+
 # Overcome AppArmor Security on Ubuntu Touch
 
 To understand Wayland, AppArmor and Ubuntu Touch Security, let's look inside the script [`lvgl.sh`](https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lvgl.sh) and discover how it launches our `lvgl` app...
@@ -1229,7 +1231,8 @@ Because Ubuntu Touch's Wayland Service stops unauthorized processes from grabbin
 We see this in the Wayland Compositor log: `/home/phablet/.cache/upstart/unity8.log`
 
 ```
-ApplicationManager REJECTED connection from app with pid 6710 as it was not launched by upstart, and no desktop_file_hint is specified
+ApplicationManager REJECTED connection from app with pid 6710 
+as it was not launched by upstart, and no desktop_file_hint is specified
 ```
 
 That's why we need to inject `lvgl` into File Manager... So that Wayland thinks that the File Manager is grabbing the Compositor.
@@ -1278,6 +1281,38 @@ The AppArmor Policy says that the Camera App may only access selected features (
 `strace` won't work with the AppArmor Policy for Camera App. 
 
 So for tracing our app with `strace`, we "borrow" the Unconfined AppArmor Policy for File Manager.
+
+To troubleshoot problems with AppArmor, check the system log in `/var/log/syslog`
+
+[Check out my `syslog`](https://github.com/lupyuen/lvgl-wayland/blob/master/logs/syslog)
+
+![LVGL App on Pinebook Pro](https://lupyuen.github.io/images/wayland-weston.png)
+
+# Build and Test LVGL App on Linux
+
+Our LVGL App works on Linux machines like Pinebook Pro...
+
+```bash
+# Download the source code
+git clone https://github.com/lupyuen/lvgl-wayland
+cd lvgl-wayland
+
+# Build the lvgl executable
+make
+
+# Install Weston Wayland Compositor...
+# For Arch Linux and Manjaro:
+sudo pacman -S weston
+
+# For Other Distros:
+# Check https://github.com/wayland-project/weston
+
+# Start the Weston Wayland Compositor with the PinePhone screen dimensions
+weston --width=720 --height=1398 &
+
+# Run the lvgl executable
+./wayland/lvgl
+```
 
 # Configure SSH on PinePhone
 
@@ -1483,23 +1518,6 @@ When we're done, unmount our MicroSD Card...
 
 ```bash
 sudo umount /tmp/sdcard
-```
-
-![PinePhone Wayland App tested on Pinebook Pro](https://lupyuen.github.io/images/wayland-weston.png)
-
-# Build and Test PinePhone Wayland Apps on Pinebook Pro
-
-Here's how we can build and test PinePhone Wayland Apps on Pinebook Pro...
-
-```bash
-# Build the Wayland executable
-make
-
-# Start the Weston Wayland Compositor on Pinebook Pro with the PinePhone screen dimensions
-weston --width=720 --height=1398 &
-
-# Run the Wayland executable
-wayland/lvgl
 ```
 
 # Wayland Gotchas
