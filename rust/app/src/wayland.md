@@ -1314,6 +1314,90 @@ weston --width=720 --height=1398 &
 ./wayland/lvgl
 ```
 
+# What I like about Ubuntu Touch on PinePhone
+
+My thoughts about Ubuntu Touch on PinePhone...
+
+1. __AppArmor is good__, because iOS and Android have similar apps security
+
+1. __Read-only file system is good__ (system files are read-only by default, user files are read-write). Helps to prevent security holes. (Even PineTime has a read-only Flash ROM)
+
+1. __Why is Qt supported on Ubuntu Touch and not GTK?__ Because building a Linux mobile app requires mobile-friendly widgets. 
+
+    I think Qt has more mobile-friendly widgets, even through the internal plumbing is way too complicated. 
+    
+    When I get GTK running on Ubuntu Touch, I will face the same problem with widgets. And I have to make GTK widgets look and feel consistent with Qt / Ubuntu Touch widgets.
+
+1. __Older kernel base__ in Ubuntu Touch... I don't do kernel hacking much so it doesn't matter to me. 
+
+    I think for mobiles we only need to support a few common chipsets, so an older kernel is probably fine. 
+    
+    That explains why Raspberry Pi 4 isn't supported by Ubuntu Touch... The hardware is just too new.
+
+1. The issues I'm struggling with now... Wayland, GTK3, ... are actually really old stuff. Updating the kernel won't help.
+
+1. __Ubuntu Touch is pure Wayland__, none of the legacy X11 stuff. Xwayland is not even there (unless you use the Libertine containers ugh). 
+
+    The pure Wayland environment causes GTK to break, because GTK assumes some minimal X11 support (i.e. Xwayland).
+
+1. So Ubuntu Touch is not really that bad for PinePhone... It's just painful for building non-Qt apps. 🙂
+
+After [posting my thoughts](https://twitter.com/UBports/status/1282934927806398464), the UBports, GNOME and Xfce Community responded with encouraging and insightful notes...
+
+TODO
+
+UBports on Mir:
+
+https://twitter.com/UBports/status/1282935946711904257?s=09
+
+https://twitter.com/UBports/status/1282934927806398464?s=09
+
+https://twitter.com/UBports/status/1282936886311428096?s=09
+
+GNOME and GTK on Wayland:
+
+https://mastodon.social/@ebassi/104511735257435944
+
+Wayland on Xfce:
+
+https://twitter.com/XfceNation/status/1284842929895301120?s=09
+
+https://twitter.com/XfceNation/status/1284854254092513285?s=09
+
+Mir / Lomiri / Unity8's complicated history:
+
+https://www.phoronix.com/scan.php?page=news_item&px=Mir-2019-Kicking
+
+https://www.phoronix.com/scan.php?page=news_item&px=Unity-8-Renamed-To-Lomiri
+
+GPU on X11:
+
+https://qoto.org/@lupyuen/104541068127168291
+
+# What's Next?
+
+TODO
+
+# Further Reading
+
+_["Flutter State Management with Bloc for PineTime Companion App"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/bloc)_
+
+_["Convert Go to Flutter and Dart for PineTime Companion App"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion)_
+
+_["Your First Bluetooth Low Energy App with Flutter"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter)_
+
+_["Your First GTK App with Go and VSCodium"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3)_
+
+_["MCUBoot Bootloader for PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot)_
+
+_["Firmware Update over Bluetooth Low Energy on PineTime Smart Watch"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu)_
+
+_["Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest)_
+
+[Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
+
+[RSS Feed](https://lupyuen.github.io/rss.xml)
+
 # Configure SSH on PinePhone
 
 __First Thing__ to do when we get our new PinePhone: Open the PinePhone Back Cover and __Remove the Battery Insulation Sticker!__
@@ -1519,83 +1603,3 @@ When we're done, unmount our MicroSD Card...
 ```bash
 sudo umount /tmp/sdcard
 ```
-
-# Wayland Gotchas
-
-TODO
-
-GPU on X11:
-
-https://qoto.org/@lupyuen/104541068127168291
-
-GNOME and GTK on Wayland:
-
-https://mastodon.social/@ebassi/104511735257435944
-
-UBports on Mir:
-
-https://twitter.com/UBports/status/1282935946711904257?s=09
-
-https://twitter.com/UBports/status/1282934927806398464?s=09
-
-https://twitter.com/UBports/status/1282936886311428096?s=09
-
-Wayland on Xfce:
-
-https://twitter.com/XfceNation/status/1284842929895301120?s=09
-
-https://twitter.com/XfceNation/status/1284854254092513285?s=09
-
-Mir / Lomiri / Unity8's complicated history:
-
-https://www.phoronix.com/scan.php?page=news_item&px=Mir-2019-Kicking
-
-https://www.phoronix.com/scan.php?page=news_item&px=Unity-8-Renamed-To-Lomiri
-
-# What I like about Ubuntu Touch on PinePhone
-
-TODO
-
-AppArmor is good, because iOS and Android have similar apps security
-
-Read-only file system is good (system files are read-only by default, user files are read-write). Helps to prevent security holes. (Even PineTime has a read-only Flash ROM)
-
-Why is Qt supported on Ubuntu Touch and not GTK? Because building a Linux mobile app requires mobile-friendly widgets.
-
-I think Qt has more mobile-friendly widgets, even through the internal plumbing is way too complicated.
-
-When I get GTK running on Ubuntu Touch, I will face the same problem with widgets. And I have to make GTK widgets look and feel consistent with Qt / Ubuntu Touch widgets.
-
-Older kernel base in Ubuntu Touch... I don't do kernel hacking much so it doesn't matter to me.
-
-I think for mobiles we only need to support a few common chipsets, so an older kernel is probably fine.
-
-That explains why Raspberry Pi 4 isn't supported by Ubuntu Touch... The hardware is just too new.
-
-The issues I'm struggling with now... Wayland, GTK3, ... are actually really old stuff. Updating the kernel won't help.
-
-Ubuntu Touch is pure Wayland, none of the legacy X11 stuff. Xwayland is not even there (unless you use the Libertine containers ugh).
-
-The pure Wayland environment causes GTK to break, because GTK assumes some minimal X11 support (i.e. Xwayland).
-
-So Ubuntu Touch is not really that bad for PinePhone... It's just painful for building non-Qt apps. 🙂
-
-# Further Reading
-
-_["Flutter State Management with Bloc for PineTime Companion App"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/bloc)_
-
-_["Convert Go to Flutter and Dart for PineTime Companion App"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion)_
-
-_["Your First Bluetooth Low Energy App with Flutter"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter)_
-
-_["Your First GTK App with Go and VSCodium"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3)_
-
-_["MCUBoot Bootloader for PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot)_
-
-_["Firmware Update over Bluetooth Low Energy on PineTime Smart Watch"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu)_
-
-_["Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest)_
-
-[Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
-
-[RSS Feed](https://lupyuen.github.io/rss.xml)
