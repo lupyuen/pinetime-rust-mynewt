@@ -1328,6 +1328,8 @@ My thoughts about Ubuntu Touch on PinePhone...
     
     When I get GTK running on Ubuntu Touch, I will face the same problem with widgets. And I have to make GTK widgets look and feel consistent with Qt / Ubuntu Touch widgets.
 
+    That's why I decided to move away from GTK and focus on a simpler widget framework with LVGL.
+
 1. __Older kernel base__ in Ubuntu Touch... I don't do kernel hacking much so it doesn't matter to me. 
 
     I think for mobiles we only need to support a few common chipsets, so an older kernel is probably fine. 
@@ -1339,6 +1341,8 @@ My thoughts about Ubuntu Touch on PinePhone...
 1. __Ubuntu Touch is pure Wayland__, none of the legacy X11 stuff. Xwayland is not even there (unless you use the Libertine containers ugh). 
 
     The pure Wayland environment causes GTK to break, because GTK assumes some minimal X11 support (i.e. Xwayland).
+
+    It's better to start from scratch with a toolkit that's not based on X11, like LVGL.
 
 1. So Ubuntu Touch is not really that bad for PinePhone... It's just painful for building non-Qt apps. 🙂
 
