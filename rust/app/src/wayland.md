@@ -10,7 +10,7 @@ They feel comfy, they fit our contours. Nevermind the holes and the old stains ð
 
 __X11 is like Old Underwear.__ It's been around for 30 years... Yet we still use it in spite of its feature gaps and wonky quirks.
 
-__PinePhone on Ubuntu Touch feels like... New Underwear.__
+[__PinePhone on Ubuntu Touch feels like... New Underwear.__](https://wiki.pine64.org/PinePhone)
 
 It runs Linux but it has none of the legacy X11 code. Because it's optimised for a great mobile experience with __Wayland.__
 
