@@ -1320,39 +1320,35 @@ While attempting to port the [PineTime Companion App to PinePhone with GTK](http
 
 After [posting my thoughts](https://twitter.com/UBports/status/1282934927806398464), the UBports, GNOME and Xfce Community responded with encouraging and insightful notes...
 
-TODO
+## UBports on Ubuntu Touch, Wayland and Mir
 
-UBports on Mir:
+- [Ubuntu Touch supports Wayland only on non-Android devices](https://twitter.com/UBports/status/1282936886311428096?s=09) like PinePhone
 
-https://twitter.com/UBports/status/1282935946711904257?s=09
+- [Ubuntu Touch uses older kernels on Android devices](https://twitter.com/UBports/status/1282934927806398464?s=09), only because that's the only way to run on those devices. PinePhone uses a newer kernel.
 
-https://twitter.com/UBports/status/1282934927806398464?s=09
+- [UBports is fixing that with Halium9](https://twitter.com/UBports/status/1282936886311428096), a Hardware Abstraction Layer based on parts of AOSP 9 and other hardware enablement components
 
-https://twitter.com/UBports/status/1282936886311428096?s=09
+[Read about Unity8 / Mir / Lomiri's complicated history](https://www.phoronix.com/scan.php?page=news_item&px=Mir-2019-Kicking)
 
-GNOME and GTK on Wayland:
+[Another article](https://www.phoronix.com/scan.php?page=news_item&px=Unity-8-Renamed-To-Lomiri)
 
-https://mastodon.social/@ebassi/104511735257435944
+## GNOME and GTK on Wayland
 
-Wayland on Xfce:
+- [GNOME Shell developers are working into making X11 completely optional](https://mastodon.social/@ebassi/104511735257435944)
 
-https://twitter.com/XfceNation/status/1284842929895301120?s=09
+- GTK can already be built without X11 backend
 
-https://twitter.com/XfceNation/status/1284854254092513285?s=09
+## Wayland on Xfce
 
-Mir / Lomiri / Unity8's complicated history:
+- [Proprietary Nvidia graphics drivers didn't have Wayland support out of the box](https://twitter.com/XfceNation/status/1284842929895301120?s=09) as they wanted to use EGLStreams rather than GBM. So Nvidia did the work to get GNOME and KDE to support EGLStreams.
 
-https://www.phoronix.com/scan.php?page=news_item&px=Mir-2019-Kicking
-
-https://www.phoronix.com/scan.php?page=news_item&px=Unity-8-Renamed-To-Lomiri
-
-GPU on X11:
-
-https://qoto.org/@lupyuen/104541068127168291
+- [Only GNOME and KDE have Wayland support and the support isn't feature complete compared to X11](https://twitter.com/XfceNation/status/1284854254092513285?s=09), which is why most distros with GNOME and KDE editions still do not default to Wayland
 
 # What's Next?
 
 TODO
+
+Wayland feels like New Underwear
 
 # Further Reading
 

@@ -78,7 +78,10 @@
 <li><a href="#inject-lvgl-into-file-manager-app">11 Inject LVGL into File Manager App</a><ul></ul></li>
 <li><a href="#run-lvgl-on-pinephone-with-ubuntu-touch">12 Run LVGL on PinePhone with Ubuntu Touch</a><ul></ul></li>
 <li><a href="#overcome-apparmor-security-on-ubuntu-touch">13 Overcome AppArmor Security on Ubuntu Touch</a><ul></ul></li>
-<li><a href="#what-i-like-about-ubuntu-touch-on-pinephone">14 What I like about Ubuntu Touch on PinePhone</a><ul></ul></li>
+<li><a href="#what-i-like-about-ubuntu-touch-on-pinephone">14 What I like about Ubuntu Touch on PinePhone</a><ul>
+<li><a href="#ubports-on-ubuntu-touch-wayland-and-mir">14.1 UBports on Ubuntu Touch, Wayland and Mir</a><ul></ul></li>
+<li><a href="#gnome-and-gtk-on-wayland">14.2 GNOME and GTK on Wayland</a><ul></ul></li>
+<li><a href="#wayland-on-xfce">14.3 Wayland on Xfce</a><ul></ul></li></ul></li>
 <li><a href="#whats-next">15 What's Next?</a><ul></ul></li>
 <li><a href="#further-reading">16 Further Reading</a><ul></ul></li>
 <li><a href="#configure-ssh-on-pinephone">17 Configure SSH on PinePhone</a><ul>
@@ -1117,23 +1120,41 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
 </li>
 </ol>
 <p>After <a href="https://twitter.com/UBports/status/1282934927806398464">posting my thoughts</a>, the UBports, GNOME and Xfce Community responded with encouraging and insightful notes...</p>
-<p>TODO</p>
-<p>UBports on Mir:</p>
-<p>https://twitter.com/UBports/status/1282935946711904257?s=09</p>
-<p>https://twitter.com/UBports/status/1282934927806398464?s=09</p>
-<p>https://twitter.com/UBports/status/1282936886311428096?s=09</p>
-<p>GNOME and GTK on Wayland:</p>
-<p>https://mastodon.social/@ebassi/104511735257435944</p>
-<p>Wayland on Xfce:</p>
-<p>https://twitter.com/XfceNation/status/1284842929895301120?s=09</p>
-<p>https://twitter.com/XfceNation/status/1284854254092513285?s=09</p>
-<p>Mir / Lomiri / Unity8's complicated history:</p>
-<p>https://www.phoronix.com/scan.php?page=news_item&amp;px=Mir-2019-Kicking</p>
-<p>https://www.phoronix.com/scan.php?page=news_item&amp;px=Unity-8-Renamed-To-Lomiri</p>
-<p>GPU on X11:</p>
-<p>https://qoto.org/@lupyuen/104541068127168291</p>
+<h2 id="ubports-on-ubuntu-touch-wayland-and-mir" class="section-header"><a href="#ubports-on-ubuntu-touch-wayland-and-mir">14.1 UBports on Ubuntu Touch, Wayland and Mir</a></h2>
+<ul>
+<li>
+<p><a href="https://twitter.com/UBports/status/1282936886311428096?s=09">Ubuntu Touch supports Wayland only on non-Android devices</a> like PinePhone</p>
+</li>
+<li>
+<p><a href="https://twitter.com/UBports/status/1282934927806398464?s=09">Ubuntu Touch uses older kernels on Android devices</a>, only because that's the only way to run on those devices. PinePhone uses a newer kernel.</p>
+</li>
+<li>
+<p><a href="https://twitter.com/UBports/status/1282936886311428096">UBports is fixing that with Halium9</a>, a Hardware Abstraction Layer based on parts of AOSP 9 and other hardware enablement components</p>
+</li>
+</ul>
+<p><a href="https://www.phoronix.com/scan.php?page=news_item&amp;px=Mir-2019-Kicking">Read about Unity8 / Mir / Lomiri's complicated history</a></p>
+<p><a href="https://www.phoronix.com/scan.php?page=news_item&amp;px=Unity-8-Renamed-To-Lomiri">Another article</a></p>
+<h2 id="gnome-and-gtk-on-wayland" class="section-header"><a href="#gnome-and-gtk-on-wayland">14.2 GNOME and GTK on Wayland</a></h2>
+<ul>
+<li>
+<p><a href="https://mastodon.social/@ebassi/104511735257435944">GNOME Shell developers are working into making X11 completely optional</a></p>
+</li>
+<li>
+<p>GTK can already be built without X11 backend</p>
+</li>
+</ul>
+<h2 id="wayland-on-xfce" class="section-header"><a href="#wayland-on-xfce">14.3 Wayland on Xfce</a></h2>
+<ul>
+<li>
+<p><a href="https://twitter.com/XfceNation/status/1284842929895301120?s=09">Proprietary Nvidia graphics drivers didn't have Wayland support out of the box</a> as they wanted to use EGLStreams rather than GBM. So Nvidia did the work to get GNOME and KDE to support EGLStreams.</p>
+</li>
+<li>
+<p><a href="https://twitter.com/XfceNation/status/1284854254092513285?s=09">Only GNOME and KDE have Wayland support and the support isn't feature complete compared to X11</a>, which is why most distros with GNOME and KDE editions still do not default to Wayland</p>
+</li>
+</ul>
 <h1 id="whats-next" class="section-header"><a href="#whats-next">15 What's Next?</a></h1>
 <p>TODO</p>
+<p>Wayland feels like New Underwear</p>
 <h1 id="further-reading" class="section-header"><a href="#further-reading">16 Further Reading</a></h1>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/bloc">&quot;Flutter State Management with Bloc for PineTime Companion App&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
