@@ -1354,7 +1354,7 @@ If you're keen to help make __LVGL the Newer, Simpler App Toolkit__ on Wayland, 
 
 # Configure SSH on PinePhone
 
-__First Thing__ to do when we get our new PinePhone: Open the PinePhone Back Cover and __Remove the Battery Insulation Sticker!__
+__First Thing__ to do when we get our new PinePhone: Open the PinePhone Back Cover and [__Remove the Battery Insulation Sticker!__](https://twitter.com/RealDanct12/status/1286969529516453888?s=20)
 
 (Can't believe I missed that!)
 
