@@ -69,7 +69,7 @@
 <li><a href="#wayland-on-ubuntu-touch">2 Wayland on Ubuntu Touch</a><ul></ul></li>
 <li><a href="#render-opengl-graphics-with-wayland">3 Render OpenGL Graphics with Wayland</a><ul></ul></li>
 <li><a href="#get-egl-context-from-wayland">4 Get EGL Context from Wayland</a><ul></ul></li>
-<li><a href="#build-and-test-wayland-app">5 Build and Test Wayland App</a><ul></ul></li>
+<li><a href="#build-and-test-wayland-app-on-linux">5 Build and Test Wayland App on Linux</a><ul></ul></li>
 <li><a href="#fetch-wayland-interfaces">6 Fetch Wayland Interfaces</a><ul></ul></li>
 <li><a href="#render-opengl-bitmap-texture-with-wayland">7 Render OpenGL Bitmap Texture with Wayland</a><ul></ul></li>
 <li><a href="#lvgl-toolkit-for-graphical-user-interfaces">8 LVGL Toolkit for Graphical User Interfaces</a><ul></ul></li>
@@ -78,12 +78,12 @@
 <li><a href="#inject-lvgl-into-file-manager-app">11 Inject LVGL into File Manager App</a><ul></ul></li>
 <li><a href="#run-lvgl-on-pinephone-with-ubuntu-touch">12 Run LVGL on PinePhone with Ubuntu Touch</a><ul></ul></li>
 <li><a href="#overcome-apparmor-security-on-ubuntu-touch">13 Overcome AppArmor Security on Ubuntu Touch</a><ul></ul></li>
-<li><a href="#configure-ssh-on-pinephone">14 Configure SSH on PinePhone</a><ul>
-<li><a href="#generate-ssh-keys">14.1 Generate SSH Keys</a><ul></ul></li>
-<li><a href="#install-ssh-keys">14.2 Install SSH Keys</a><ul></ul></li>
-<li><a href="#start-ssh-service">14.3 Start SSH Service</a><ul></ul></li></ul></li>
-<li><a href="#copy-files-from-microsd-card-on-pinephone">15 Copy Files from MicroSD Card on PinePhone</a><ul></ul></li>
-<li><a href="#build-and-test-pinephone-wayland-apps-on-pinebook-pro">16 Build and Test PinePhone Wayland Apps on Pinebook Pro</a><ul></ul></li>
+<li><a href="#build-and-test-lvgl-app-on-linux">14 Build and Test LVGL App on Linux</a><ul></ul></li>
+<li><a href="#configure-ssh-on-pinephone">15 Configure SSH on PinePhone</a><ul>
+<li><a href="#generate-ssh-keys">15.1 Generate SSH Keys</a><ul></ul></li>
+<li><a href="#install-ssh-keys">15.2 Install SSH Keys</a><ul></ul></li>
+<li><a href="#start-ssh-service">15.3 Start SSH Service</a><ul></ul></li></ul></li>
+<li><a href="#copy-files-from-microsd-card-on-pinephone">16 Copy Files from MicroSD Card on PinePhone</a><ul></ul></li>
 <li><a href="#wayland-gotchas">17 Wayland Gotchas</a><ul></ul></li>
 <li><a href="#what-i-like-about-ubuntu-touch-on-pinephone">18 What I like about Ubuntu Touch on PinePhone</a><ul></ul></li>
 <li><a href="#further-reading">19 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/wayland-title.jpg" alt="Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch" /></p>
@@ -429,7 +429,7 @@ wl_display_disconnect(display);
 </li>
 </ol>
 <p>Now let's build and test the app on our Linux development machine. (We'll run it on PinePhone later)</p>
-<h1 id="build-and-test-wayland-app" class="section-header"><a href="#build-and-test-wayland-app">5 Build and Test Wayland App</a></h1>
+<h1 id="build-and-test-wayland-app-on-linux" class="section-header"><a href="#build-and-test-wayland-app-on-linux">5 Build and Test Wayland App on Linux</a></h1>
 <p>Now that we have created a <a href="https://github.com/lupyuen/pinephone-mir/blob/master/egl.c">simple Wayland app</a> that renders OpenGL graphics... Let's build it!</p>
 <p>Building a Wayland app is refreshingly simple (if you're used to GDK, Qt and SDL).</p>
 <p>Here'a how we build the Wayland app in <a href="https://github.com/lupyuen/pinephone-mir/blob/master/egl.c"><code>egl.c</code></a> on a Linux machine (that has Wayland, MESA EGL and OpenGL ES2 libraries installed)...</p>
@@ -977,6 +977,7 @@ gdb \
 <pre><code class="language-bash">scp -i ~/.ssh/pinephone_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log .
 scp -i ~/.ssh/pinephone_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/unity8.log .
 </code></pre>
+<p><a href="https://github.com/lupyuen/lvgl-wayland/blob/master/logs">Check out the sample logs</a></p>
 <h1 id="overcome-apparmor-security-on-ubuntu-touch" class="section-header"><a href="#overcome-apparmor-security-on-ubuntu-touch">13 Overcome AppArmor Security on Ubuntu Touch</a></h1>
 <p>To understand Wayland, AppArmor and Ubuntu Touch Security, let's look inside the script <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lvgl.sh"><code>lvgl.sh</code></a> and discover how it launches our <code>lvgl</code> app...</p>
 <ol>
@@ -1045,7 +1046,8 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
 <p>We see this in the Wayland Compositor log: <code>/home/phablet/.cache/upstart/unity8.log</code></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">ApplicationManager</span> <span class="ident">REJECTED</span> <span class="ident">connection</span> <span class="ident">from</span> <span class="ident">app</span> <span class="ident">with</span> <span class="ident">pid</span> <span class="number">6710</span> <span class="kw">as</span> <span class="ident">it</span> <span class="ident">was</span> <span class="ident">not</span> <span class="ident">launched</span> <span class="ident">by</span> <span class="ident">upstart</span>, <span class="ident">and</span> <span class="ident">no</span> <span class="ident">desktop_file_hint</span> <span class="ident">is</span> <span class="ident">specified</span></pre></div>
+<span class="ident">ApplicationManager</span> <span class="ident">REJECTED</span> <span class="ident">connection</span> <span class="ident">from</span> <span class="ident">app</span> <span class="ident">with</span> <span class="ident">pid</span> <span class="number">6710</span> 
+<span class="kw">as</span> <span class="ident">it</span> <span class="ident">was</span> <span class="ident">not</span> <span class="ident">launched</span> <span class="ident">by</span> <span class="ident">upstart</span>, <span class="ident">and</span> <span class="ident">no</span> <span class="ident">desktop_file_hint</span> <span class="ident">is</span> <span class="ident">specified</span></pre></div>
 <p>That's why we need to inject <code>lvgl</code> into File Manager... So that Wayland thinks that the File Manager is grabbing the Compositor.</p>
 <p><em>Why did we choose the File Manager app instead of another app like Camera?</em></p>
 <p>Because File Manager has Unconfined AppArmor Permissions... It can do anything! </p>
@@ -1080,12 +1082,37 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
 <p>The AppArmor Policy says that the Camera App may only access selected features (like recording audio and video). And it's only allowed to read specific paths (like <code>/dev/disk/by-label</code>).</p>
 <p><code>strace</code> won't work with the AppArmor Policy for Camera App. </p>
 <p>So for tracing our app with <code>strace</code>, we &quot;borrow&quot; the Unconfined AppArmor Policy for File Manager.</p>
-<h1 id="configure-ssh-on-pinephone" class="section-header"><a href="#configure-ssh-on-pinephone">14 Configure SSH on PinePhone</a></h1>
+<p>To troubleshoot problems with AppArmor, check the system log in <code>/var/log/syslog</code></p>
+<p><a href="https://github.com/lupyuen/lvgl-wayland/blob/master/logs/syslog">Check out my <code>syslog</code></a></p>
+<p><img src="https://lupyuen.github.io/images/wayland-weston.png" alt="LVGL App on Pinebook Pro" /></p>
+<h1 id="build-and-test-lvgl-app-on-linux" class="section-header"><a href="#build-and-test-lvgl-app-on-linux">14 Build and Test LVGL App on Linux</a></h1>
+<p>Our LVGL App works on Linux machines like Pinebook Pro...</p>
+<pre><code class="language-bash"># Download the source code
+git clone https://github.com/lupyuen/lvgl-wayland
+cd lvgl-wayland
+
+# Build the lvgl executable
+make
+
+# Install Weston Wayland Compositor...
+# For Arch Linux and Manjaro:
+sudo pacman -S weston
+
+# For Other Distros:
+# Check https://github.com/wayland-project/weston
+
+# Start the Weston Wayland Compositor with the PinePhone screen dimensions
+weston --width=720 --height=1398 &amp;
+
+# Run the lvgl executable
+./wayland/lvgl
+</code></pre>
+<h1 id="configure-ssh-on-pinephone" class="section-header"><a href="#configure-ssh-on-pinephone">15 Configure SSH on PinePhone</a></h1>
 <p><strong>First Thing</strong> to do when we get our new PinePhone: Open the PinePhone Back Cover and <strong>Remove the Battery Insulation Sticker!</strong></p>
 <p>(Can't believe I missed that!)</p>
 <p><strong>Second Thing</strong>: Protect the SSH Service on PinePhone with <strong>SSH Keys</strong>. And start the SSH Service only when necessary.</p>
 <p>Here's how...</p>
-<h2 id="generate-ssh-keys" class="section-header"><a href="#generate-ssh-keys">14.1 Generate SSH Keys</a></h2>
+<h2 id="generate-ssh-keys" class="section-header"><a href="#generate-ssh-keys">15.1 Generate SSH Keys</a></h2>
 <ol>
 <li>
 <p>On our Computer (not PinePhone), open a Command Prompt. Enter this (and fill in our email)...</p>
@@ -1128,7 +1155,7 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
 </li>
 </ul>
 <p>(<a href="https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key">Adapted from this doc</a>)</p>
-<h2 id="install-ssh-keys" class="section-header"><a href="#install-ssh-keys">14.2 Install SSH Keys</a></h2>
+<h2 id="install-ssh-keys" class="section-header"><a href="#install-ssh-keys">15.2 Install SSH Keys</a></h2>
 <ol>
 <li>
 <p>Copy <code>pinephone_rsa.pub</code> from the <code>.ssh</code> folder in our Home Directory to a MicroSD Card.</p>
@@ -1162,7 +1189,7 @@ ls -la ~/.ssh
 <p>Check that the permissions (<code>rw</code>) and owner (<code>phablet</code>) are correct.</p>
 </li>
 </ol>
-<h2 id="start-ssh-service" class="section-header"><a href="#start-ssh-service">14.3 Start SSH Service</a></h2>
+<h2 id="start-ssh-service" class="section-header"><a href="#start-ssh-service">15.3 Start SSH Service</a></h2>
 <p>To start the SSH Service on PinePhone, open the Terminal app.</p>
 <p>Create a file named <code>a</code>...</p>
 <pre><code class="language-bash">nano a
@@ -1199,7 +1226,7 @@ ping google.com
 <p>If typing on a touch keyboard is not your thing, try copying the files from a MicroSD card...</p>
 <p><img src="https://lupyuen.github.io/images/wayland-sd.jpg" alt="How we insert a MicroSD Card into PinePhone at night" /></p>
 <p><em>How we insert a MicroSD Card into PinePhone at night</em></p>
-<h1 id="copy-files-from-microsd-card-on-pinephone" class="section-header"><a href="#copy-files-from-microsd-card-on-pinephone">15 Copy Files from MicroSD Card on PinePhone</a></h1>
+<h1 id="copy-files-from-microsd-card-on-pinephone" class="section-header"><a href="#copy-files-from-microsd-card-on-pinephone">16 Copy Files from MicroSD Card on PinePhone</a></h1>
 <p>It's useful to transfer files to PinePhone via MicroSD Card, like SSH Keys and the SSH Script <code>a</code> above.</p>
 <p>(Sadly PinePhone on Ubuntu Touch doesn't allow receiving files over Bluetooth)</p>
 <p>The MicroSD card on PinePhone doesn't appear in the File Manager unless we mount it.</p>
@@ -1227,18 +1254,6 @@ ls -l /tmp/sdcard
 </code></pre>
 <p>When we're done, unmount our MicroSD Card...</p>
 <pre><code class="language-bash">sudo umount /tmp/sdcard
-</code></pre>
-<p><img src="https://lupyuen.github.io/images/wayland-weston.png" alt="PinePhone Wayland App tested on Pinebook Pro" /></p>
-<h1 id="build-and-test-pinephone-wayland-apps-on-pinebook-pro" class="section-header"><a href="#build-and-test-pinephone-wayland-apps-on-pinebook-pro">16 Build and Test PinePhone Wayland Apps on Pinebook Pro</a></h1>
-<p>Here's how we can build and test PinePhone Wayland Apps on Pinebook Pro...</p>
-<pre><code class="language-bash"># Build the Wayland executable
-make
-
-# Start the Weston Wayland Compositor on Pinebook Pro with the PinePhone screen dimensions
-weston --width=720 --height=1398 &amp;
-
-# Run the Wayland executable
-wayland/lvgl
 </code></pre>
 <h1 id="wayland-gotchas" class="section-header"><a href="#wayland-gotchas">17 Wayland Gotchas</a></h1>
 <p>TODO</p>
