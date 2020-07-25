@@ -1346,29 +1346,11 @@ After [posting my thoughts](https://twitter.com/UBports/status/12829349278063984
 
 # What's Next?
 
-TODO
+Wayland feels like New Underwear... And it needs a New App Toolkit like LVGL to make us comfortable.
 
-Wayland feels like New Underwear
+If you're keen to help make __LVGL the Newer, Simpler App Toolkit__ on Wayland, Ubuntu Touch and PinePhone, [please lemme know](https://github.com/lupyuen)! 😀
 
-# Further Reading
-
-_["Flutter State Management with Bloc for PineTime Companion App"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/bloc)_
-
-_["Convert Go to Flutter and Dart for PineTime Companion App"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion)_
-
-_["Your First Bluetooth Low Energy App with Flutter"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter)_
-
-_["Your First GTK App with Go and VSCodium"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3)_
-
-_["MCUBoot Bootloader for PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot)_
-
-_["Firmware Update over Bluetooth Low Energy on PineTime Smart Watch"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu)_
-
-_["Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest)_
-
-[Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
-
-[RSS Feed](https://lupyuen.github.io/rss.xml)
+[Check out my RSS Feed](https://lupyuen.github.io/rss.xml)
 
 # Configure SSH on PinePhone
 

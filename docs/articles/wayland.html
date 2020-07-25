@@ -12,7 +12,7 @@
     content="Wayland and LVGL on PinePhone with Ubuntu Touch" 
     data-rh="true">
 <meta property="og:description" 
-    content="Learn how we code apps on PinePhone with Wayland EGL, OpenGL ES and LVGL" 
+    content="Learn about Wayland and Ubuntu Touch on PinePhone... And how we build PinePhone Apps with LVGL" 
     data-rh="true">
 <meta property="og:image" 
     content="https://lupyuen.github.io/images/wayland-title-small.jpg">
@@ -83,13 +83,12 @@
 <li><a href="#gnome-and-gtk-on-wayland">14.2 GNOME and GTK on Wayland</a><ul></ul></li>
 <li><a href="#wayland-on-xfce">14.3 Wayland on Xfce</a><ul></ul></li></ul></li>
 <li><a href="#whats-next">15 What's Next?</a><ul></ul></li>
-<li><a href="#further-reading">16 Further Reading</a><ul></ul></li>
-<li><a href="#configure-ssh-on-pinephone">17 Configure SSH on PinePhone</a><ul>
-<li><a href="#generate-ssh-keys">17.1 Generate SSH Keys</a><ul></ul></li>
-<li><a href="#install-ssh-keys">17.2 Install SSH Keys</a><ul></ul></li>
-<li><a href="#start-ssh-service">17.3 Start SSH Service</a><ul></ul></li></ul></li>
-<li><a href="#copy-files-from-microsd-card-on-pinephone">18 Copy Files from MicroSD Card on PinePhone</a><ul></ul></li>
-<li><a href="#build-and-test-lvgl-app-on-linux">19 Build and Test LVGL App on Linux</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/wayland-title.jpg" alt="Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch" /></p>
+<li><a href="#configure-ssh-on-pinephone">16 Configure SSH on PinePhone</a><ul>
+<li><a href="#generate-ssh-keys">16.1 Generate SSH Keys</a><ul></ul></li>
+<li><a href="#install-ssh-keys">16.2 Install SSH Keys</a><ul></ul></li>
+<li><a href="#start-ssh-service">16.3 Start SSH Service</a><ul></ul></li></ul></li>
+<li><a href="#copy-files-from-microsd-card-on-pinephone">17 Copy Files from MicroSD Card on PinePhone</a><ul></ul></li>
+<li><a href="#build-and-test-lvgl-app-on-linux">18 Build and Test LVGL App on Linux</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/wayland-title.jpg" alt="Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch" /></p>
 <p><em>Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch</em></p>
 <p><strong>We ❤️   Old Underwear...</strong></p>
 <p>They feel comfy, they fit our contours. Nevermind the holes and the old stains 🤢</p>
@@ -1153,24 +1152,15 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
 </li>
 </ul>
 <h1 id="whats-next" class="section-header"><a href="#whats-next">15 What's Next?</a></h1>
-<p>TODO</p>
-<p>Wayland feels like New Underwear</p>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">16 Further Reading</a></h1>
-<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/bloc">&quot;Flutter State Management with Bloc for PineTime Companion App&quot;</a></em></p>
-<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion">&quot;Convert Go to Flutter and Dart for PineTime Companion App&quot;</a></em></p>
-<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter">&quot;Your First Bluetooth Low Energy App with Flutter&quot;</a></em></p>
-<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3">&quot;Your First GTK App with Go and VSCodium&quot;</a></em></p>
-<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
-<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
-<p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">&quot;Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)&quot;</a></em></p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
-<p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
-<h1 id="configure-ssh-on-pinephone" class="section-header"><a href="#configure-ssh-on-pinephone">17 Configure SSH on PinePhone</a></h1>
+<p>Wayland feels like New Underwear... And it needs a New App Toolkit like LVGL to make us comfortable.</p>
+<p>If you're keen to help make <strong>LVGL the Newer, Simpler App Toolkit</strong> on Wayland, Ubuntu Touch and PinePhone, <a href="https://github.com/lupyuen">please lemme know</a>! 😀</p>
+<p><a href="https://lupyuen.github.io/rss.xml">Check out my RSS Feed</a></p>
+<h1 id="configure-ssh-on-pinephone" class="section-header"><a href="#configure-ssh-on-pinephone">16 Configure SSH on PinePhone</a></h1>
 <p><strong>First Thing</strong> to do when we get our new PinePhone: Open the PinePhone Back Cover and <strong>Remove the Battery Insulation Sticker!</strong></p>
 <p>(Can't believe I missed that!)</p>
 <p><strong>Second Thing</strong>: Protect the SSH Service on PinePhone with <strong>SSH Keys</strong>. And start the SSH Service only when necessary.</p>
 <p>Here's how...</p>
-<h2 id="generate-ssh-keys" class="section-header"><a href="#generate-ssh-keys">17.1 Generate SSH Keys</a></h2>
+<h2 id="generate-ssh-keys" class="section-header"><a href="#generate-ssh-keys">16.1 Generate SSH Keys</a></h2>
 <ol>
 <li>
 <p>On our Computer (not PinePhone), open a Command Prompt. Enter this (and fill in our email)...</p>
@@ -1213,7 +1203,7 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
 </li>
 </ul>
 <p>(<a href="https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key">Adapted from this doc</a>)</p>
-<h2 id="install-ssh-keys" class="section-header"><a href="#install-ssh-keys">17.2 Install SSH Keys</a></h2>
+<h2 id="install-ssh-keys" class="section-header"><a href="#install-ssh-keys">16.2 Install SSH Keys</a></h2>
 <ol>
 <li>
 <p>Copy <code>pinephone_rsa.pub</code> from the <code>.ssh</code> folder in our Home Directory to a MicroSD Card.</p>
@@ -1247,7 +1237,7 @@ ls -la ~/.ssh
 <p>Check that the permissions (<code>rw</code>) and owner (<code>phablet</code>) are correct.</p>
 </li>
 </ol>
-<h2 id="start-ssh-service" class="section-header"><a href="#start-ssh-service">17.3 Start SSH Service</a></h2>
+<h2 id="start-ssh-service" class="section-header"><a href="#start-ssh-service">16.3 Start SSH Service</a></h2>
 <p>To start the SSH Service on PinePhone, open the Terminal app.</p>
 <p>Create a file named <code>a</code>...</p>
 <pre><code class="language-bash">nano a
@@ -1284,7 +1274,7 @@ ping google.com
 <p>If typing on a touch keyboard is not your thing, try copying the files from a MicroSD card...</p>
 <p><img src="https://lupyuen.github.io/images/wayland-sd.jpg" alt="How we insert a MicroSD Card into PinePhone at night" /></p>
 <p><em>How we insert a MicroSD Card into PinePhone at night</em></p>
-<h1 id="copy-files-from-microsd-card-on-pinephone" class="section-header"><a href="#copy-files-from-microsd-card-on-pinephone">18 Copy Files from MicroSD Card on PinePhone</a></h1>
+<h1 id="copy-files-from-microsd-card-on-pinephone" class="section-header"><a href="#copy-files-from-microsd-card-on-pinephone">17 Copy Files from MicroSD Card on PinePhone</a></h1>
 <p>It's useful to transfer files to PinePhone via MicroSD Card, like SSH Keys and the SSH Script <code>a</code> above.</p>
 <p>(Sadly PinePhone on Ubuntu Touch doesn't allow receiving files over Bluetooth)</p>
 <p>The MicroSD card on PinePhone doesn't appear in the File Manager unless we mount it.</p>
@@ -1314,7 +1304,7 @@ ls -l /tmp/sdcard
 <pre><code class="language-bash">sudo umount /tmp/sdcard
 </code></pre>
 <p><img src="https://lupyuen.github.io/images/wayland-weston.png" alt="LVGL App on Pinebook Pro" /></p>
-<h1 id="build-and-test-lvgl-app-on-linux" class="section-header"><a href="#build-and-test-lvgl-app-on-linux">19 Build and Test LVGL App on Linux</a></h1>
+<h1 id="build-and-test-lvgl-app-on-linux" class="section-header"><a href="#build-and-test-lvgl-app-on-linux">18 Build and Test LVGL App on Linux</a></h1>
 <p>Our LVGL App works on Linux machines like Pinebook Pro...</p>
 <pre><code class="language-bash"># Download the source code
 git clone https://github.com/lupyuen/lvgl-wayland
