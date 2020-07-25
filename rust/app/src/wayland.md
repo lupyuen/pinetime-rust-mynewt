@@ -355,7 +355,7 @@ int main(int argc, char **argv) {
 }
 ```
 
-The `main()` function in all Wayland apps follow the same steps...
+In all Wayland apps, the `main()` function follows the same steps...
 
 1.  Fetch the __Wayland Compositor__ and __Wayland Shell__ from the __Wayland Registry__...
 
@@ -1288,7 +1288,7 @@ To troubleshoot problems with AppArmor, check the system log in `/var/log/syslog
 
 # What I like about Ubuntu Touch on PinePhone
 
-While attempting to port the [PineTime Companion App to PinePhone with GTK](https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3) (and failing miserably), I had these thoughts...
+While attempting to port the [PineTime Companion App](https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3) to PinePhone with GTK ([and failing miserably](https://github.com/lupyuen/pinephone-mir#wayland-messages-for-gtk-app)), I had these thoughts...
 
 1. __AppArmor is good__, because iOS and Android have similar apps security
 
