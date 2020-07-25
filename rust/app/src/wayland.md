@@ -422,7 +422,7 @@ Now that we have created a [simple Wayland app](https://github.com/lupyuen/pinep
 
 Building a Wayland app is refreshingly simple (if you're used to GDK, Qt and SDL).
 
-Here'a how we build the Wayland app in [`egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c) on a Linux machine (that has Wayland, MESA EGL and OpenGL ES2 libraries installed)...
+Here's how we build the Wayland app in [`egl.c`](https://github.com/lupyuen/pinephone-mir/blob/master/egl.c) on a Linux machine (that has Wayland, MESA EGL and OpenGL ES2 libraries installed)...
 
 ```bash
 # Build the Wayland EGL app
