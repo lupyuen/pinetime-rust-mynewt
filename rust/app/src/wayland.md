@@ -1286,37 +1286,9 @@ To troubleshoot problems with AppArmor, check the system log in `/var/log/syslog
 
 [Check out my `syslog`](https://github.com/lupyuen/lvgl-wayland/blob/master/logs/syslog)
 
-![LVGL App on Pinebook Pro](https://lupyuen.github.io/images/wayland-weston.png)
-
-# Build and Test LVGL App on Linux
-
-Our LVGL App works on Linux machines like Pinebook Pro...
-
-```bash
-# Download the source code
-git clone https://github.com/lupyuen/lvgl-wayland
-cd lvgl-wayland
-
-# Build the lvgl executable
-make
-
-# Install Weston Wayland Compositor...
-# For Arch Linux and Manjaro:
-sudo pacman -S weston
-
-# For Other Distros:
-# Check https://github.com/wayland-project/weston
-
-# Start the Weston Wayland Compositor with the PinePhone screen dimensions
-weston --width=720 --height=1398 &
-
-# Run the lvgl executable
-./wayland/lvgl
-```
-
 # What I like about Ubuntu Touch on PinePhone
 
-My thoughts about Ubuntu Touch on PinePhone...
+While attempting to port the [PineTime Companion App to PinePhone with GTK](https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3) (and failing miserably), I had these thoughts...
 
 1. __AppArmor is good__, because iOS and Android have similar apps security
 
@@ -1606,4 +1578,32 @@ When we're done, unmount our MicroSD Card...
 
 ```bash
 sudo umount /tmp/sdcard
+```
+
+![LVGL App on Pinebook Pro](https://lupyuen.github.io/images/wayland-weston.png)
+
+# Build and Test LVGL App on Linux
+
+Our LVGL App works on Linux machines like Pinebook Pro...
+
+```bash
+# Download the source code
+git clone https://github.com/lupyuen/lvgl-wayland
+cd lvgl-wayland
+
+# Build the lvgl executable
+make
+
+# Install Weston Wayland Compositor...
+# For Arch Linux and Manjaro:
+sudo pacman -S weston
+
+# For Other Distros:
+# Check https://github.com/wayland-project/weston
+
+# Start the Weston Wayland Compositor with the PinePhone screen dimensions
+weston --width=720 --height=1398 &
+
+# Run the lvgl executable
+./wayland/lvgl
 ```
