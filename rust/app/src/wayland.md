@@ -8,7 +8,7 @@ __We ❤️ &nbsp; Old Underwear...__
 
 They feel comfy, they fit our contours. Nevermind the holes and the old stains 🤢
 
-__X11 is like Old Underwear.__ It's been around for 30 years... Yet we still use it inspite of its feature gaps and wonky quirks.
+__X11 is like Old Underwear.__ It's been around for 30 years... Yet we still use it in spite of its feature gaps and wonky quirks.
 
 __PinePhone on Ubuntu Touch feels like... New Underwear.__
 
