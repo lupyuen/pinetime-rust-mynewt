@@ -170,6 +170,18 @@ Let's check the result of our Firmware Build in the Cloud...
 
 TODO
 
+If we see this...
+
+```
+/home/runner/work/Pinetime/Pinetime/src/drivers/TwiMaster.cpp:1:10: fatal error: sdk/integration/nrfx/nrfx_log.h: No such file or directory
+ #include <sdk/integration/nrfx/nrfx_log.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make[3]: *** [src/CMakeFiles/pinetime-app.dir/drivers/TwiMaster.cpp.o] Error 1
+```
+
+Here's the fix...
+
 # Test Our Firmware
 
 TODO
