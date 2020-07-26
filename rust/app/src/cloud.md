@@ -40,15 +40,19 @@ _(Feels like a Microwave!)_
 
 We'll make PineTime Programming as enjoyable as Fortnite... But less violent... And in 3D!
 
-# The Steps
+# Create A GitHub Fork
 
-1.  Create a free GitHub Account if we haven't got one: 
+_(Nope no spoon!)_
+
+1.  __Create a free GitHub Account__ if we haven't got one...
 
     ▶️ &nbsp; [`github.com`](https://github.com/)
 
-1.  Browse to the GitHub Repository for the FreeRTOS PineTime Firmware...
+1.  __Browse to the GitHub Repository__ for the PineTime Firmware...
 
     ▶️ &nbsp; [`github.com/JF002/Pinetime`](https://github.com/JF002/Pinetime)
+
+    Here's the complete Source Code for the FreeRTOS PineTime Firmware.
 
 1.  Click the `Fork` button at top right...
 
@@ -64,11 +68,27 @@ We'll make PineTime Programming as enjoyable as Fortnite... But less violent... 
     https://github.com/ACCOUNT_NAME/Pinetime
     ```
 
-1.  The Fork contains our own copy of the entire Source Code for the PineTime Firmware... Ready for us to make any updates!
+1.  The Fork contains __our own copy__ of the entire Source Code for the PineTime Firmware... Ready for us to make any updates!
 
-    GitHub helpfully tracks to our Fork, so that one day we may submit a __Pull Request__ to sync our updates (only the useful ones) back to the original PineTime Repository.
+    GitHub helpfully __tracks updates to our Fork,__ so that one day we may submit a __Pull Request__ to sync our updates (only the useful ones) back to the original PineTime Repository.
+
+    And we may also __Pull Updates__ from the original PineTime Repository and apply them to our Fork.
 
     That's how Open Source projects are maintained!
+
+Read on to learn how we add GitHub Actions to our Fork to build the firmware automagically...
+
+# Add GitHub Actions
+
+TODO
+
+# Build Our Firmware
+
+TODO
+
+# Test Our Firmware
+
+TODO
 
 # How It Works
 

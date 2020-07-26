@@ -65,9 +65,12 @@
 
     <h1 class="title">Build PineTime Firmware in the Cloud with GitHub Actions</h1>
     <nav id="TOC"><ul>
-<li><a href="#the-steps">1 The Steps</a><ul></ul></li>
-<li><a href="#how-it-works">2 How It Works</a><ul></ul></li>
-<li><a href="#whats-next">3 What's Next?</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/cloud-title.jpg" alt="PineTime Firmware Programming vs Fortnite" /></p>
+<li><a href="#create-a-github-fork">1 Create A GitHub Fork</a><ul></ul></li>
+<li><a href="#add-github-actions">2 Add GitHub Actions</a><ul></ul></li>
+<li><a href="#build-our-firmware">3 Build Our Firmware</a><ul></ul></li>
+<li><a href="#test-our-firmware">4 Test Our Firmware</a><ul></ul></li>
+<li><a href="#how-it-works">5 How It Works</a><ul></ul></li>
+<li><a href="#whats-next">6 What's Next?</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/cloud-title.jpg" alt="PineTime Firmware Programming vs Fortnite" /></p>
 <p>Programming the firmware of our gadgets (like <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>) has always been cumbersome...</p>
 <ol>
 <li>
@@ -97,16 +100,53 @@
 <p><strong>Check in our updated source files</strong> to GitHub</p>
 </li>
 <li>
-<p>Wait <strong>2 minutes</strong></p>
+<p>Wait <strong>2 Minutes</strong></p>
 </li>
 <li>
-<p>Out comes a <strong>new Firmware Image</strong> for testing on PineTime!</p>
+<p>Out comes a piping-hot <strong>New Firmware Image</strong> for testing on PineTime!</p>
 </li>
 </ol>
-<p>We'll make PineTime Programming as enjoyable as Fortnite... But less violent and in 3D!</p>
-<h1 id="the-steps" class="section-header"><a href="#the-steps">1 The Steps</a></h1>
+<p><em>(Feels like a Microwave!)</em></p>
+<p>We'll make PineTime Programming as enjoyable as Fortnite... But less violent... And in 3D!</p>
+<h1 id="create-a-github-fork" class="section-header"><a href="#create-a-github-fork">1 Create A GitHub Fork</a></h1>
+<p><em>(Nope no spoon!)</em></p>
+<ol>
+<li>
+<p><strong>Create a free GitHub Account</strong> if we haven't got one...</p>
+<p>▶️   <a href="https://github.com/"><code>github.com</code></a></p>
+</li>
+<li>
+<p><strong>Browse to the GitHub Repository</strong> for the PineTime Firmware...</p>
+<p>▶️   <a href="https://github.com/JF002/Pinetime"><code>github.com/JF002/Pinetime</code></a></p>
+<p>Here's the complete Source Code for the FreeRTOS PineTime Firmware.</p>
+</li>
+<li>
+<p>Click the <code>Fork</code> button at top right...</p>
+<p><img src="https://lupyuen.github.io/images/cloud-fork.png" alt="Create a fork" /></p>
+</li>
+<li>
+<p>This creates a <strong>Fork</strong> of the PineTime Repository under our GitHub Account...</p>
+<p><img src="https://lupyuen.github.io/images/cloud-fork2.png" alt="Created the fork" /></p>
+<p>The URL looks like this...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">https</span>:<span class="comment">//github.com/ACCOUNT_NAME/Pinetime</span></pre></div>
+</li>
+<li>
+<p>The Fork contains <strong>our own copy</strong> of the entire Source Code for the PineTime Firmware... Ready for us to make any updates!</p>
+<p>GitHub helpfully <strong>tracks updates to our Fork,</strong> so that one day we may submit a <strong>Pull Request</strong> to sync our updates (only the useful ones) back to the original PineTime Repository.</p>
+<p>And we may also <strong>Pull Updates</strong> from the original PineTime Repository and apply them to our Fork.</p>
+<p>That's how Open Source projects are maintained!</p>
+</li>
+</ol>
+<p>Read on to learn how we add GitHub Actions to our Fork to build the firmware automagically...</p>
+<h1 id="add-github-actions" class="section-header"><a href="#add-github-actions">2 Add GitHub Actions</a></h1>
 <p>TODO</p>
-<h1 id="how-it-works" class="section-header"><a href="#how-it-works">2 How It Works</a></h1>
+<h1 id="build-our-firmware" class="section-header"><a href="#build-our-firmware">3 Build Our Firmware</a></h1>
+<p>TODO</p>
+<h1 id="test-our-firmware" class="section-header"><a href="#test-our-firmware">4 Test Our Firmware</a></h1>
+<p>TODO</p>
+<h1 id="how-it-works" class="section-header"><a href="#how-it-works">5 How It Works</a></h1>
 <p>TODO</p>
 <p>https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/c-cpp.yml</p>
 <pre><code class="language-yaml"># GitHub Action to build FreeRTOS Firmware for PineTime Smart Watch
@@ -205,7 +245,7 @@ Bluetooth flashing</p>
 <p>and replicate on your own pc</p>
 <p>and with actual logs to compare the results</p>
 <p>so its super educational yay!</p>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">3 What's Next?</a></h1>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">6 What's Next?</a></h1>
 <p><a href="https://lupyuen.github.io/rss.xml">Check out my RSS Feed</a></p>
 
     
