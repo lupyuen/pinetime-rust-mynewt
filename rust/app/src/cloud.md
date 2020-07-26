@@ -2,6 +2,28 @@
 
 ![](https://lupyuen.github.io/images/cloud-title.png)
 
+Firmware programming has always been cumbersome...
+
+1. Get a proper computer (Windows tends to be problematic)
+
+1. Install the tools and libraries to cross-compile our firmware
+
+1. If the build fails, tweak the build scripts (It's probably just Windows)
+
+1. If the build still fails... We're stuck!
+
+Nowhere as fun as a game like Fortnite!
+
+_Can Firmware Programming be as fun as Fortnite?_
+
+Well Fortnite runs in the Cloud on massive servers...
+
+What if we could build our firmware in the Cloud?
+
+In under 2 minutes?!
+
+# Cut
+
 Firmware programming has always been tedious and not fun
 
 Fortnite runs in the Cloud on massive servers...
