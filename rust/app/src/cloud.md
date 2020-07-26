@@ -1,8 +1,6 @@
-# Wayland and LVGL on PinePhone with Ubuntu Touch
+# Build PineTime Firmware in the Cloud with GitHub Actions
 
-![Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch](https://lupyuen.github.io/images/wayland-title.jpg)
-
-_Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch_
+![](https://lupyuen.github.io/images/cloud-title.png)
 
 __We ❤️ &nbsp; Old Underwear...__
 
