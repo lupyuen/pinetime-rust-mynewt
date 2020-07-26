@@ -1,16 +1,16 @@
 # Build PineTime Firmware in the Cloud with GitHub Actions
 
-![](https://lupyuen.github.io/images/cloud-title.png)
+![PineTime Firmware Programming vs Fortnite](https://lupyuen.github.io/images/cloud-title.jpg)
 
-Programming the firmware of our gadgets (like PineTime Smart Watch) has always been cumbersome...
+Programming the firmware of our gadgets (like [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime)) has always been cumbersome...
 
-1. Get a proper computer (Windows tends to be problematic)
+1. Get a proper computer _(Windows tends to be problematic)_
 
-1. Install the tools and libraries to cross-compile our firmware
+1. Install the right tools and libraries to cross-compile our firmware _(Depends on our operating system)_
 
-1. If the build fails, tweak the build scripts (It's probably just Windows)
+1. If the build fails, tweak the build scripts _(It's probably just Windows)_
 
-1. If the build still fails... We're stuck!
+1. If the build still fails... __We're stuck!__ _(Good Luck!)_
 
 Nowhere as fun as a game like Fortnite!
 
@@ -18,21 +18,120 @@ _Can Firmware Programming be as fun as Fortnite?_
 
 Well Fortnite runs in the Cloud on massive servers...
 
-What if we could build our firmware in the Cloud?
+_Can we build our firmware in the Cloud?_
 
-In under 2 minutes?!
+_In under 2 minutes?_
 
-# Cut
+_Without any computer setup!_
 
-Firmware programming has always been tedious and not fun
+Yes we can!
 
-Fortnite runs in the Cloud on massive servers...
-What if we could build our firmware in the Cloud?
-In under 2 minutes?
+Today we'll learn [__GitHub Actions__](https://github.com/features/actions) for building [__FreeRTOS Firmware__](https://github.com/JF002/Pinetime) for [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) in the GitHub Cloud.
 
-Just as enjoyable as Fortnite
-Less violent
-And in 3D real life with our real fingers instead of 2D
+It's __Fully Automated__...
+
+1. __Check in our updated source files__ to GitHub
+
+1. Wait __2 minutes__
+
+1. Out comes a __new Firmware Image__ for testing on PineTime!
+
+We'll make PineTime Programming as enjoyable as Fortnite... But less violent and in 3D!
+
+# The Steps
+
+TODO
+
+# How It Works
+
+TODO
+
+https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/c-cpp.yml
+
+```yaml
+# GitHub Action to build FreeRTOS Firmware for PineTime Smart Watch
+# Based on https://github.com/lupyuen/pinetime-lab/blob/master/doc/buildAndProgram.md
+
+name: C/C++ CI
+
+# Run this workflow on every push and pull request on "master" branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# Steps to be run for the workflow
+jobs:
+  build:
+
+    # Run these steps on Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install cmake
+      uses: lukka/get-cmake@v3.18.0
+
+    - name: Check cache for Embedded Arm Toolchain arm-none-eabi-gcc
+      id:   cache-toolchain
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-toolchain
+      with:
+        path: ${{ runner.temp }}/arm-none-eabi
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+
+    - name: Install Embedded Arm Toolchain arm-none-eabi-gcc
+      if:   steps.cache-toolchain.outputs.cache-hit != 'true'  # Install toolchain if not found in cache
+      uses: fiam/arm-none-eabi-gcc@v1.0.2
+      with:
+        # GNU Embedded Toolchain for Arm release name, in the V-YYYY-qZ format (e.g. "9-2019-q4")
+        release: 8-2019-q3
+        # Directory to unpack GCC to. Defaults to a temporary directory.
+        directory: ${{ runner.temp }}/arm-none-eabi
+
+    - name: Check cache for nRF5 SDK
+      id:   cache-nrf5sdk
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-nrf5sdk
+      with:
+        path: ${{ runner.temp }}/nrf5_sdk
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+          
+    - name: Install nRF5 SDK
+      if:   steps.cache-nrf5sdk.outputs.cache-hit != 'true'  # Install SDK if not found in cache
+      run:  cd ${{ runner.temp }} && curl https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/nRF5_SDK_15.3.0_59ac345.zip -o nrf5_sdk.zip && unzip nrf5_sdk.zip && mv nRF5_SDK_15.3.0_59ac345 nrf5_sdk
+
+    - name: Checkout source files
+      uses: actions/checkout@v2
+
+    - name: Show files
+      run:  set ; pwd ; ls -l
+
+    - name: CMake
+      run:  mkdir -p build && cd build && cmake -DARM_NONE_EABI_TOOLCHAIN_PATH=${{ runner.temp }}/arm-none-eabi -DNRF5_SDK_PATH=${{ runner.temp }}/nrf5_sdk -DUSE_OPENOCD=1 ../
+      
+    - name: Make
+      # For debugging builds, remove option "-j" for clearer output. Add "--trace" to see details.
+      run:  cd build && make -j pinetime-app
+      
+    - name: Find output
+      run:  find . -name pinetime-app.out
+
+    - name: Upload built firmware
+      uses: actions/upload-artifact@v2
+      with:
+        # Artifact name (optional)
+        name: pinetime-app.out
+        # A file, directory or wildcard pattern that describes what to upload
+        path: build/src/pinetime-app.out
+      
+# Embedded Arm Toolchain and nRF5 SDK will only be cached if the build succeeds.
+# So make sure that the first build always succeeds, e.g. comment out the "Make" step.
+```
 
 Future
 Bluetooth flashing

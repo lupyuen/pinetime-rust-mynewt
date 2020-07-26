@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Build PineTime Firmware in the Cloud with GitHub Actions</title>
+
+    
+    <!-- Begin scripts/articles/*-header.html: Article Header for Custom Markdown files processed by rustdoc, like chip8.md -->
+<meta property="og:title" 
+    content="Build PineTime Firmware in the Cloud with GitHub Actions" 
+    data-rh="true">
+<meta property="og:description" 
+    content="Learn to build PineTime Firmware in the Cloud... No computer needed!" 
+    data-rh="true">
+<meta property="og:image" 
+    content="https://lupyuen.github.io/images/cloud-title-small.jpg">
+<meta property="og:type" 
+    content="article" data-rh="true">
+<!-- End scripts/articles/*-header.html -->
+<!-- Begin scripts/rustdoc-header.html: Header for Custom Markdown files processed by rustdoc, like chip8.md -->
+<link rel="alternate" type="application/rss+xml" title="RSS Feed for lupyuen" href="/rss.xml" />
+<link rel="stylesheet" type="text/css" href="../normalize.css">
+<link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
+<link rel="stylesheet" type="text/css" href="../dark.css">
+<link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle">
+<link rel="stylesheet" type="text/css" href="../prism.css">
+<script src="../storage.js"></script><noscript>
+<link rel="stylesheet" href="../noscript.css"></noscript>
+<link rel="shortcut icon" href="../favicon.ico">
+<style type="text/css">
+    #crate-search {
+        background-image: url("../down-arrow.svg");
+    }
+    a {
+        color: #77d;
+    }
+</style>
+<!-- End scripts/rustdoc-header.html -->
+
+
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+        <!-- Begin scripts/rustdoc-before.html: Pre-HTML for Custom Markdown files processed by rustdoc, like chip8.md -->
+
+    <!-- Begin Theme Picker -->
+    <div class="theme-picker" style="left: 0"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg"
+        width="18" alt="Pick another theme!"></button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../theme.js"></script>
+    <script src="../prism.js"></script>
+    <!-- Theme Picker -->
+
+    <!-- End scripts/rustdoc-before.html -->
+    
+
+    <h1 class="title">Build PineTime Firmware in the Cloud with GitHub Actions</h1>
+    <nav id="TOC"><ul>
+<li><a href="#the-steps">1 The Steps</a><ul></ul></li>
+<li><a href="#how-it-works">2 How It Works</a><ul></ul></li>
+<li><a href="#whats-next">3 What's Next?</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/cloud-title.jpg" alt="PineTime Firmware Programming vs Fortnite" /></p>
+<p>Programming the firmware of our gadgets (like <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>) has always been cumbersome...</p>
+<ol>
+<li>
+<p>Get a proper computer <em>(Windows tends to be problematic)</em></p>
+</li>
+<li>
+<p>Install the right tools and libraries to cross-compile our firmware <em>(Depends on our operating system)</em></p>
+</li>
+<li>
+<p>If the build fails, tweak the build scripts <em>(It's probably just Windows)</em></p>
+</li>
+<li>
+<p>If the build still fails... <strong>We're stuck!</strong> <em>(Good Luck!)</em></p>
+</li>
+</ol>
+<p>Nowhere as fun as a game like Fortnite!</p>
+<p><em>Can Firmware Programming be as fun as Fortnite?</em></p>
+<p>Well Fortnite runs in the Cloud on massive servers...</p>
+<p><em>Can we build our firmware in the Cloud?</em></p>
+<p><em>In under 2 minutes?</em></p>
+<p><em>Without any computer setup!</em></p>
+<p>Yes we can!</p>
+<p>Today we'll learn <a href="https://github.com/features/actions"><strong>GitHub Actions</strong></a> for building <a href="https://github.com/JF002/Pinetime"><strong>FreeRTOS Firmware</strong></a> for <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a> in the GitHub Cloud.</p>
+<p>It's <strong>Fully Automated</strong>...</p>
+<ol>
+<li>
+<p><strong>Check in our updated source files</strong> to GitHub</p>
+</li>
+<li>
+<p>Wait <strong>2 minutes</strong></p>
+</li>
+<li>
+<p>Out comes a <strong>new Firmware Image</strong> for testing on PineTime!</p>
+</li>
+</ol>
+<p>We'll make PineTime Programming as enjoyable as Fortnite... But less violent and in 3D!</p>
+<h1 id="the-steps" class="section-header"><a href="#the-steps">1 The Steps</a></h1>
+<p>TODO</p>
+<h1 id="how-it-works" class="section-header"><a href="#how-it-works">2 How It Works</a></h1>
+<p>TODO</p>
+<p>https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/c-cpp.yml</p>
+<pre><code class="language-yaml"># GitHub Action to build FreeRTOS Firmware for PineTime Smart Watch
+# Based on https://github.com/lupyuen/pinetime-lab/blob/master/doc/buildAndProgram.md
+
+name: C/C++ CI
+
+# Run this workflow on every push and pull request on &quot;master&quot; branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# Steps to be run for the workflow
+jobs:
+  build:
+
+    # Run these steps on Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install cmake
+      uses: lukka/get-cmake@v3.18.0
+
+    - name: Check cache for Embedded Arm Toolchain arm-none-eabi-gcc
+      id:   cache-toolchain
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-toolchain
+      with:
+        path: ${{ runner.temp }}/arm-none-eabi
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+
+    - name: Install Embedded Arm Toolchain arm-none-eabi-gcc
+      if:   steps.cache-toolchain.outputs.cache-hit != 'true'  # Install toolchain if not found in cache
+      uses: fiam/arm-none-eabi-gcc@v1.0.2
+      with:
+        # GNU Embedded Toolchain for Arm release name, in the V-YYYY-qZ format (e.g. &quot;9-2019-q4&quot;)
+        release: 8-2019-q3
+        # Directory to unpack GCC to. Defaults to a temporary directory.
+        directory: ${{ runner.temp }}/arm-none-eabi
+
+    - name: Check cache for nRF5 SDK
+      id:   cache-nrf5sdk
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-nrf5sdk
+      with:
+        path: ${{ runner.temp }}/nrf5_sdk
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+          
+    - name: Install nRF5 SDK
+      if:   steps.cache-nrf5sdk.outputs.cache-hit != 'true'  # Install SDK if not found in cache
+      run:  cd ${{ runner.temp }} &amp;&amp; curl https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/nRF5_SDK_15.3.0_59ac345.zip -o nrf5_sdk.zip &amp;&amp; unzip nrf5_sdk.zip &amp;&amp; mv nRF5_SDK_15.3.0_59ac345 nrf5_sdk
+
+    - name: Checkout source files
+      uses: actions/checkout@v2
+
+    - name: Show files
+      run:  set ; pwd ; ls -l
+
+    - name: CMake
+      run:  mkdir -p build &amp;&amp; cd build &amp;&amp; cmake -DARM_NONE_EABI_TOOLCHAIN_PATH=${{ runner.temp }}/arm-none-eabi -DNRF5_SDK_PATH=${{ runner.temp }}/nrf5_sdk -DUSE_OPENOCD=1 ../
+      
+    - name: Make
+      # For debugging builds, remove option &quot;-j&quot; for clearer output. Add &quot;--trace&quot; to see details.
+      run:  cd build &amp;&amp; make -j pinetime-app
+      
+    - name: Find output
+      run:  find . -name pinetime-app.out
+
+    - name: Upload built firmware
+      uses: actions/upload-artifact@v2
+      with:
+        # Artifact name (optional)
+        name: pinetime-app.out
+        # A file, directory or wildcard pattern that describes what to upload
+        path: build/src/pinetime-app.out
+      
+# Embedded Arm Toolchain and nRF5 SDK will only be cached if the build succeeds.
+# So make sure that the first build always succeeds, e.g. comment out the &quot;Make&quot; step.
+</code></pre>
+<p>Future
+Bluetooth flashing</p>
+<p>FYI our plans for putting in Continuous Integration with GitHub Actions</p>
+<p>so whenever we check in changes to the source code, it will auto build the firmware</p>
+<p>there will probably be 2 versions of this Continuous Integration...</p>
+<p>(1) For maintaining the central PineTime firmware</p>
+<p>(2) For newbies to build their PineTime firmware automatically in the cloud, without any software to be installed on their PCs</p>
+<p>This is super cool, that makes so much so simple, no hassle with finding the right version of every software!</p>
+<p>but of course there will be folks who dont like to build things in a cloud </p>
+<p>but the good news that you can see exactly what steps we use to build firmware in the cloud</p>
+<p>and replicate on your own pc</p>
+<p>and with actual logs to compare the results</p>
+<p>so its super educational yay!</p>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">3 What's Next?</a></h1>
+<p><a href="https://lupyuen.github.io/rss.xml">Check out my RSS Feed</a></p>
+
+    
+</body>
+</html>
