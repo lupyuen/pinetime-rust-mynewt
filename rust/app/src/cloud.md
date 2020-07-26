@@ -170,6 +170,8 @@ Let's check the result of our Firmware Build in the Cloud...
 
 TODO
 
+1.  Click `Actions`
+
 If we see this...
 
 ```

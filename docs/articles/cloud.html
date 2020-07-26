@@ -176,15 +176,73 @@
 <p><img src="https://lupyuen.github.io/images/cloud-actions6.png" alt="GitHub Actions" /></p>
 </li>
 </ol>
+<p>We have just created a <strong>Workflow</strong>... An automated job that will be run by GitHub whenever we update our source files.</p>
+<p>If we ever need to edit the Workflow, just browse to this URL...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">https</span>:<span class="comment">//github.com/ACCOUNT_NAME/Pinetime/blob/master/.github/workflows/main.yml</span></pre></div>
+<p>(Change <code>ACCOUNT_NAME</code> to our GitHub Account Name)</p>
 <p>Let's change a PineTime source file... And trigger our very first PineTime Firmware Build in the Cloud!</p>
 <h1 id="update-our-firmware-source-file" class="section-header"><a href="#update-our-firmware-source-file">3 Update Our Firmware Source File</a></h1>
-<p>TODO</p>
+<ol>
+<li>
+<p>Browse to this URL...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">https</span>:<span class="comment">//github.com/ACCOUNT_NAME/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp</span></pre></div>
+<p>(Change <code>ACCOUNT_NAME</code> to our GitHub Account Name)</p>
+</li>
+<li>
+<p>Click the <code>Edit</code> icon at the right...</p>
+<p><img src="https://lupyuen.github.io/images/cloud-edit.png" alt="Edit Source File" /></p>
+</li>
+<li>
+<p>Look for the line with <code>&quot;BPM&quot;</code> (line 71)...</p>
+<p><img src="https://lupyuen.github.io/images/cloud-edit2.png" alt="Edit Source File" /></p>
+</li>
+<li>
+<p><code>BPM</code> is the text that's displayed on the PineTime Watch Face.</p>
+<p>Change <code>BPM</code> to our own short message, like <code>LOVE</code>...</p>
+<p><img src="https://lupyuen.github.io/images/cloud-edit3.png" alt="Edit Source File" /></p>
+</li>
+<li>
+<p>Scroll to the bottom of the page.</p>
+<p>Click <code>Commit Changes</code></p>
+<p><img src="https://lupyuen.github.io/images/cloud-edit4.png" alt="Edit Source File" /></p>
+</li>
+</ol>
 <p>Guess what?</p>
 <p>We have just triggered <strong>Our Very First PineTime Firmware Build In The Cloud!</strong></p>
 <p>(Because the Firmware Build is triggered by any file update)</p>
 <p>Let's check the result of our Firmware Build in the Cloud...</p>
 <h1 id="our-first-firmware-build" class="section-header"><a href="#our-first-firmware-build">4 Our First Firmware Build</a></h1>
 <p>TODO</p>
+<ol>
+<li>Click <code>Actions</code></li>
+</ol>
+<p>If we see this...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="op">/</span><span class="ident">home</span><span class="op">/</span><span class="ident">runner</span><span class="op">/</span><span class="ident">work</span><span class="op">/</span><span class="ident">Pinetime</span><span class="op">/</span><span class="ident">Pinetime</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">drivers</span><span class="op">/</span><span class="ident">TwiMaster</span>.<span class="ident">cpp</span>:<span class="number">1</span>:<span class="number">10</span>: <span class="ident">fatal</span> <span class="ident">error</span>: <span class="ident">sdk</span><span class="op">/</span><span class="ident">integration</span><span class="op">/</span><span class="ident">nrfx</span><span class="op">/</span><span class="ident">nrfx_log</span>.<span class="ident">h</span>: <span class="ident">No</span> <span class="ident">such</span> <span class="ident">file</span> <span class="ident">or</span> <span class="ident">directory</span>
+ #<span class="ident">include</span> <span class="op">&lt;</span><span class="ident">sdk</span><span class="op">/</span><span class="ident">integration</span><span class="op">/</span><span class="ident">nrfx</span><span class="op">/</span><span class="ident">nrfx_log</span>.<span class="ident">h</span><span class="op">&gt;</span>
+          <span class="op">^</span>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<span class="ident">compilation</span> <span class="ident">terminated</span>.
+<span class="ident">make</span>[<span class="number">3</span>]: <span class="kw-2">*</span><span class="kw-2">*</span><span class="op">*</span> [<span class="ident">src</span><span class="op">/</span><span class="ident">CMakeFiles</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">dir</span><span class="op">/</span><span class="ident">drivers</span><span class="op">/</span><span class="ident">TwiMaster</span>.<span class="ident">cpp</span>.<span class="ident">o</span>] <span class="ident">Error</span> <span class="number">1</span></pre></div>
+<p>Browse to...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">https</span>:<span class="comment">//github.com/ACCOUNT_NAME/Pinetime/blob/master/src/drivers/TwiMaster.cpp</span></pre></div>
+<p>(Change <code>ACCOUNT_NAME</code> to our GitHub Account Name)</p>
+<p>Change the first two lines...</p>
+<pre><code class="language-c">#include &lt;sdk/integration/nrfx/nrfx_log.h&gt;
+#include &lt;sdk/modules/nrfx/hal/nrf_gpio.h&gt;
+</code></pre>
+<p>To...</p>
+<pre><code class="language-c">#include &lt;nrfx_log.h&gt;
+#include &lt;nrf_gpio.h&gt;
+</code></pre>
+<p>Click <code>Commit Changes</code> to save the file.</p>
+<p>This triggers a new Firmware Build, which should succeed now.</p>
 <h1 id="test-our-firmware" class="section-header"><a href="#test-our-firmware">5 Test Our Firmware</a></h1>
 <p>TODO</p>
 <p>If you could... With your kind permission... Please post to Twitter and/or Mastodon a pic of your PineTime with the new firmware.</p>
@@ -263,8 +321,9 @@ jobs:
       run:  mkdir -p build &amp;&amp; cd build &amp;&amp; cmake -DARM_NONE_EABI_TOOLCHAIN_PATH=${{ runner.temp }}/arm-none-eabi -DNRF5_SDK_PATH=${{ runner.temp }}/nrf5_sdk -DUSE_OPENOCD=1 ../
       
     - name: Make
-      # For debugging builds, remove option &quot;-j&quot; for clearer output. Add &quot;--trace&quot; to see details.
-      run:  cd build &amp;&amp; make -j pinetime-app
+      # For Debugging Builds: Remove &quot;make&quot; option &quot;-j&quot; for clearer output. Add &quot;--trace&quot; to see details.
+      # For Faster Builds: Add &quot;make&quot; option &quot;-j&quot;
+      run:  cd build &amp;&amp; make pinetime-app
       
     - name: Find output
       run:  find . -name pinetime-app.out
