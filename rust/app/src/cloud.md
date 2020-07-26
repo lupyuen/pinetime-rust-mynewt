@@ -80,7 +80,17 @@ Read on to learn how we add GitHub Actions to our Fork to build the firmware aut
 
 # Add GitHub Actions
 
-TODO
+1.  In our Fork on GitHub, click `Actions`
+
+1.  Click `Skip this and set up a workflow yourself`
+
+1.  GitHub brings us to a page to edit `.github/workflows/main.yml`
+
+1.  Open a new web browser tab. Browse this page...
+
+    [`github.com/pinetime-lab/master/.github/workflows/main.yml`](https://raw.githubusercontent.com/lupyuen/pinetime-lab/master/.github/workflows/main.yml)
+    
+1.  Copy the contents of this page. Paste into the earlier page: `.github/workflows/main.yml`
 
 # Build Our Firmware
 
