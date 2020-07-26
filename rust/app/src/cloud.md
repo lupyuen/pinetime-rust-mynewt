@@ -180,7 +180,31 @@ compilation terminated.
 make[3]: *** [src/CMakeFiles/pinetime-app.dir/drivers/TwiMaster.cpp.o] Error 1
 ```
 
-Here's the fix...
+Browse to...
+
+```
+https://github.com/ACCOUNT_NAME/Pinetime/blob/master/src/drivers/TwiMaster.cpp
+```
+
+(Change `ACCOUNT_NAME` to our GitHub Account Name)
+
+Change the first two lines...
+
+```c
+#include <sdk/integration/nrfx/nrfx_log.h>
+#include <sdk/modules/nrfx/hal/nrf_gpio.h>
+```
+
+To...
+
+```c
+#include <nrfx_log.h>
+#include <nrf_gpio.h>
+```
+
+Commit `Commit Changes`
+
+This triggers a new Firmware Build, which should succeed now.
 
 # Test Our Firmware
 
