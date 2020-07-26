@@ -2,7 +2,7 @@
 
 ![](https://lupyuen.github.io/images/cloud-title.png)
 
-Firmware programming has always been cumbersome...
+Programming the firmware of our gadgets (like PineTime Smart Watch) has always been cumbersome...
 
 1. Get a proper computer (Windows tends to be problematic)
 
