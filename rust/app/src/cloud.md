@@ -116,11 +116,47 @@ Read on to learn how we add GitHub Actions to our Fork to build the firmware aut
 
     ![GitHub Actions](https://lupyuen.github.io/images/cloud-actions6.png)
 
+We have just created a __Workflow__... An automated job that will be run by GitHub whenever we update our source files.
+
+If we ever need to edit the Workflow, just browse to this URL...
+
+```
+https://github.com/ACCOUNT_NAME/Pinetime/blob/master/.github/workflows/main.yml
+```
+
+(Change `ACCOUNT_NAME` to our GitHub Account Name)
+
 Let's change a PineTime source file... And trigger our very first PineTime Firmware Build in the Cloud!
 
 # Update Our Firmware Source File
 
-TODO
+1.  Browse to this URL...
+
+    ```
+    https://github.com/ACCOUNT_NAME/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp
+    ```
+
+    (Change `ACCOUNT_NAME` to our GitHub Account Name)
+
+1.  Click the `Edit` icon at the right...
+
+    ![Edit Source File](https://lupyuen.github.io/images/cloud-edit.png)
+
+1.  Look for the line with `"BPM"` (line 71)...
+
+    ![Edit Source File](https://lupyuen.github.io/images/cloud-edit2.png)
+
+1.  `BPM` is the text that's displayed on the PineTime Watch Face.
+
+    Change `BPM` to your own short message, like `LOVE`...
+
+    ![Edit Source File](https://lupyuen.github.io/images/cloud-edit3.png)
+
+1.  Scroll to the bottom of the page.
+
+    Click `Commit Changes`
+
+    ![Edit Source File](https://lupyuen.github.io/images/cloud-edit4.png)
 
 Guess what?
 
