@@ -202,7 +202,7 @@ To...
 #include <nrf_gpio.h>
 ```
 
-Commit `Commit Changes`
+Click `Commit Changes` to save the file.
 
 This triggers a new Firmware Build, which should succeed now.
 
