@@ -32,15 +32,43 @@ It's __Fully Automated__...
 
 1. __Check in our updated source files__ to GitHub
 
-1. Wait __2 minutes__
+1. Wait __2 Minutes__
 
-1. Out comes a __new Firmware Image__ for testing on PineTime!
+1. Out comes a piping-hot __New Firmware Image__ for testing on PineTime!
 
-We'll make PineTime Programming as enjoyable as Fortnite... But less violent and in 3D!
+_(Feels like a Microwave!)_
+
+We'll make PineTime Programming as enjoyable as Fortnite... But less violent... And in 3D!
 
 # The Steps
 
-TODO
+1.  Create a free GitHub Account if we haven't got one: 
+
+    ▶️ &nbsp; [`github.com`](https://github.com/)
+
+1.  Browse to the GitHub Repository for the FreeRTOS PineTime Firmware...
+
+    ▶️ &nbsp; [`github.com/JF002/Pinetime`](https://github.com/JF002/Pinetime)
+
+1.  Click the `Fork` button at top right...
+
+    ![Create a fork](https://lupyuen.github.io/images/cloud-fork.png)
+
+1.  This creates a __Fork__ of the PineTime Repository under our GitHub Account...
+
+    ![Created the fork](https://lupyuen.github.io/images/cloud-fork2.png)
+
+    The URL looks like this...
+    
+    ```
+    https://github.com/ACCOUNT_NAME/Pinetime
+    ```
+
+1.  The Fork contains our own copy of the entire Source Code for the PineTime Firmware... Ready for us to make any updates!
+
+    GitHub helpfully tracks to our Fork, so that one day we may submit a __Pull Request__ to sync our updates (only the useful ones) back to the original PineTime Repository.
+
+    That's how Open Source projects are maintained!
 
 # How It Works
 
