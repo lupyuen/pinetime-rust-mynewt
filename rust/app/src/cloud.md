@@ -96,7 +96,13 @@ Read on to learn how we add GitHub Actions to our Fork to build the firmware aut
 
     Paste the contents into the earlier page: `.github/workflows/main.yml`
 
-# Build Our Firmware
+1.  Click `Start Commit` at the bottom of the page
+
+# Our First Firmware Build
+
+TODO
+
+# Rebuild Our Firmware
 
 TODO
 
