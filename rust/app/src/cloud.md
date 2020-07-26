@@ -90,7 +90,7 @@ Read on to learn how we add GitHub Actions to our Fork to build the firmware aut
 
     Browse to this page...
 
-    [`github.com/pinetime-lab/master/.github/workflows/main.yml`](https://raw.githubusercontent.com/lupyuen/pinetime-lab/master/.github/workflows/main.yml)
+    [`github.com/pinetime-lab/.github/workflows/main.yml`](https://raw.githubusercontent.com/lupyuen/pinetime-lab/master/.github/workflows/main.yml)
     
 1.  Copy the contents of this page. 
 
@@ -112,22 +112,27 @@ Tag the post with `#PineTime` so we know that building PineTime Firmware in the 
 
 TODO
 
-https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main-cpp.yml
+https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml
 
 ```yaml
-# GitHub Action to build FreeRTOS Firmware for PineTime Smart Watch
-# Based on https://github.com/lupyuen/pinetime-lab/blob/master/doc/buildAndProgram.md
+# GitHub Actions Workflow to build FreeRTOS Firmware for PineTime Smart Watch
+# Based on https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md
 
-name: C/C++ CI
+# Name of this Workflow
+name: Build PineTime Firmware
 
-# Run this workflow on every push and pull request on "master" branch
+# When to run this Workflow...
 on:
+
+  # Run this Workflow when files are updated (Pushed) in the "master" Branch
   push:
     branches: [ master ]
+    
+  # Also run this Workflow when a Pull Request is created or updated in the "master" Branch
   pull_request:
     branches: [ master ]
 
-# Steps to be run for the workflow
+# Steps to run for the Workflow
 jobs:
   build:
 
