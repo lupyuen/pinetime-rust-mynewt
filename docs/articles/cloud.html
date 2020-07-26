@@ -67,10 +67,11 @@
     <nav id="TOC"><ul>
 <li><a href="#create-a-github-fork">1 Create A GitHub Fork</a><ul></ul></li>
 <li><a href="#add-github-actions">2 Add GitHub Actions</a><ul></ul></li>
-<li><a href="#build-our-firmware">3 Build Our Firmware</a><ul></ul></li>
-<li><a href="#test-our-firmware">4 Test Our Firmware</a><ul></ul></li>
-<li><a href="#how-it-works">5 How It Works</a><ul></ul></li>
-<li><a href="#whats-next">6 What's Next?</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/cloud-title.jpg" alt="PineTime Firmware Programming vs Fortnite" /></p>
+<li><a href="#update-our-firmware-source-file">3 Update Our Firmware Source File</a><ul></ul></li>
+<li><a href="#our-first-firmware-build">4 Our First Firmware Build</a><ul></ul></li>
+<li><a href="#test-our-firmware">5 Test Our Firmware</a><ul></ul></li>
+<li><a href="#how-it-works">6 How It Works</a><ul></ul></li>
+<li><a href="#whats-next">7 What's Next?</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/cloud-title.jpg" alt="PineTime Firmware Programming vs Fortnite" /></p>
 <p>Programming the firmware of our gadgets (like <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>) has always been cumbersome...</p>
 <ol>
 <li>
@@ -141,27 +142,73 @@
 </ol>
 <p>Read on to learn how we add GitHub Actions to our Fork to build the firmware automagically...</p>
 <h1 id="add-github-actions" class="section-header"><a href="#add-github-actions">2 Add GitHub Actions</a></h1>
+<ol>
+<li>
+<p>In our Fork on GitHub, click <code>Actions</code></p>
+<p><img src="https://lupyuen.github.io/images/cloud-actions.png" alt="GitHub Actions" /></p>
+</li>
+<li>
+<p>Click <code>Skip this and set up a workflow yourself</code></p>
+<p><img src="https://lupyuen.github.io/images/cloud-actions2.png" alt="GitHub Actions" /></p>
+</li>
+<li>
+<p>GitHub brings us to a page to edit <code>.github/workflows/main.yml</code></p>
+<p><img src="https://lupyuen.github.io/images/cloud-actions3.png" alt="GitHub Actions" /></p>
+</li>
+<li>
+<p>Open a new web browser tab. </p>
+<p>Browse to this page...</p>
+<p><a href="https://raw.githubusercontent.com/lupyuen/pinetime-lab/master/.github/workflows/main.yml"><code>github.com/pinetime-lab/.github/workflows/main.yml</code></a></p>
+</li>
+<li>
+<p>Copy the contents of this page. </p>
+<p>Paste the contents into the earlier page: <code>.github/workflows/main.yml</code></p>
+<p><img src="https://lupyuen.github.io/images/cloud-actions4.png" alt="GitHub Actions" /></p>
+</li>
+<li>
+<p>Scroll to the bottom of the page.</p>
+<p>Click <code>Start Commit</code></p>
+<p><img src="https://lupyuen.github.io/images/cloud-actions5.png" alt="GitHub Actions" /></p>
+</li>
+<li>
+<p>Click <code>Commit New File</code></p>
+<p><img src="https://lupyuen.github.io/images/cloud-actions6.png" alt="GitHub Actions" /></p>
+</li>
+</ol>
+<p>Let's change a PineTime source file... And trigger our very first PineTime Firmware Build in the Cloud!</p>
+<h1 id="update-our-firmware-source-file" class="section-header"><a href="#update-our-firmware-source-file">3 Update Our Firmware Source File</a></h1>
 <p>TODO</p>
-<h1 id="build-our-firmware" class="section-header"><a href="#build-our-firmware">3 Build Our Firmware</a></h1>
+<p>Guess what?</p>
+<p>We have just triggered <strong>Our Very First PineTime Firmware Build In The Cloud!</strong></p>
+<p>(Because the Firmware Build is triggered by any file update)</p>
+<p>Let's check the result of our Firmware Build in the Cloud...</p>
+<h1 id="our-first-firmware-build" class="section-header"><a href="#our-first-firmware-build">4 Our First Firmware Build</a></h1>
 <p>TODO</p>
-<h1 id="test-our-firmware" class="section-header"><a href="#test-our-firmware">4 Test Our Firmware</a></h1>
+<h1 id="test-our-firmware" class="section-header"><a href="#test-our-firmware">5 Test Our Firmware</a></h1>
 <p>TODO</p>
-<h1 id="how-it-works" class="section-header"><a href="#how-it-works">5 How It Works</a></h1>
+<p>If you could... With your kind permission... Please post to Twitter and/or Mastodon a pic of your PineTime with the new firmware.</p>
+<p>Tag the post with <code>#PineTime</code> so we know that building PineTime Firmware in the Cloud works OK for you. Thanks! :-)</p>
+<h1 id="how-it-works" class="section-header"><a href="#how-it-works">6 How It Works</a></h1>
 <p>TODO</p>
-<p>https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/c-cpp.yml</p>
-<pre><code class="language-yaml"># GitHub Action to build FreeRTOS Firmware for PineTime Smart Watch
-# Based on https://github.com/lupyuen/pinetime-lab/blob/master/doc/buildAndProgram.md
+<p>https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml</p>
+<pre><code class="language-yaml"># GitHub Actions Workflow to build FreeRTOS Firmware for PineTime Smart Watch
+# Based on https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md
 
-name: C/C++ CI
+# Name of this Workflow
+name: Build PineTime Firmware
 
-# Run this workflow on every push and pull request on &quot;master&quot; branch
+# When to run this Workflow...
 on:
+
+  # Run this Workflow when files are updated (Pushed) in the &quot;master&quot; Branch
   push:
     branches: [ master ]
+    
+  # Also run this Workflow when a Pull Request is created or updated in the &quot;master&quot; Branch
   pull_request:
     branches: [ master ]
 
-# Steps to be run for the workflow
+# Steps to run for the Workflow
 jobs:
   build:
 
@@ -245,7 +292,7 @@ Bluetooth flashing</p>
 <p>and replicate on your own pc</p>
 <p>and with actual logs to compare the results</p>
 <p>so its super educational yay!</p>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">6 What's Next?</a></h1>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">7 What's Next?</a></h1>
 <p><a href="https://lupyuen.github.io/rss.xml">Check out my RSS Feed</a></p>
 
     

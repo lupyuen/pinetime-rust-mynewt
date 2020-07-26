@@ -82,9 +82,15 @@ Read on to learn how we add GitHub Actions to our Fork to build the firmware aut
 
 1.  In our Fork on GitHub, click `Actions`
 
+    ![GitHub Actions](https://lupyuen.github.io/images/cloud-actions.png)
+
 1.  Click `Skip this and set up a workflow yourself`
 
+    ![GitHub Actions](https://lupyuen.github.io/images/cloud-actions2.png)
+
 1.  GitHub brings us to a page to edit `.github/workflows/main.yml`
+
+    ![GitHub Actions](https://lupyuen.github.io/images/cloud-actions3.png)
 
 1.  Open a new web browser tab. 
 
@@ -96,13 +102,33 @@ Read on to learn how we add GitHub Actions to our Fork to build the firmware aut
 
     Paste the contents into the earlier page: `.github/workflows/main.yml`
 
-1.  Click `Start Commit` at the bottom of the page
+    ![GitHub Actions](https://lupyuen.github.io/images/cloud-actions4.png)
 
-# Our First Firmware Build
+1.  Scroll to the bottom of the page.
+
+    Click `Start Commit`
+
+    ![GitHub Actions](https://lupyuen.github.io/images/cloud-actions5.png)
+
+1.  Click `Commit New File`
+
+    ![GitHub Actions](https://lupyuen.github.io/images/cloud-actions6.png)
+
+Let's change a PineTime source file... And trigger our very first PineTime Firmware Build in the Cloud!
+
+# Update Our Firmware Source File
 
 TODO
 
-# Rebuild Our Firmware
+Guess what?
+
+We have just triggered __Our Very First PineTime Firmware Build In The Cloud!__
+
+(Because the Firmware Build is triggered by any file update)
+
+Let's check the result of our Firmware Build in the Cloud...
+
+# Our First Firmware Build
 
 TODO
 
