@@ -90,6 +90,10 @@ TODO
 
 TODO
 
+If you could... With your kind permission... Please post to Twitter and/or Mastodon a pic of your PineTime with the new firmware.
+
+Tag the post with `#PineTime` so we know that building PineTime Firmware in the Cloud works OK for you. Thanks! :-)
+
 # How It Works
 
 TODO
