@@ -65,11 +65,11 @@
 
     <h1 class="title">Build PineTime Firmware in the Cloud with GitHub Actions</h1>
     <nav id="TOC"><ul>
-<li><a href="#create-a-github-fork">1 Create A GitHub Fork</a><ul></ul></li>
-<li><a href="#add-github-actions">2 Add GitHub Actions</a><ul></ul></li>
-<li><a href="#update-our-pinetime-source-file">3 Update Our PineTime Source File</a><ul></ul></li>
+<li><a href="#create-a-fork-of-pinetime-source-files">1 Create a Fork of PineTime Source Files</a><ul></ul></li>
+<li><a href="#add-github-actions-to-our-fork">2 Add GitHub Actions to our Fork</a><ul></ul></li>
+<li><a href="#modify-a-pinetime-source-file">3 Modify a PineTime Source File</a><ul></ul></li>
 <li><a href="#our-first-pinetime-firmware-build">4 Our First PineTime Firmware Build</a><ul></ul></li>
-<li><a href="#test-our-firmware">5 Test Our Firmware</a><ul></ul></li>
+<li><a href="#download-and-test-our-pinetime-firmware">5 Download and Test Our PineTime Firmware</a><ul></ul></li>
 <li><a href="#how-it-works">6 How It Works</a><ul></ul></li>
 <li><a href="#whats-next">7 What's Next?</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/cloud-title.jpg" alt="PineTime Firmware Programming vs Fortnite" /></p>
 <p>Programming the firmware of our gadgets (like <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>) has always been cumbersome...</p>
@@ -109,7 +109,7 @@
 </ol>
 <p><em>(Feels like a Microwave!)</em></p>
 <p>We'll make PineTime Programming as enjoyable as Fortnite... But less violent... And in 3D!</p>
-<h1 id="create-a-github-fork" class="section-header"><a href="#create-a-github-fork">1 Create A GitHub Fork</a></h1>
+<h1 id="create-a-fork-of-pinetime-source-files" class="section-header"><a href="#create-a-fork-of-pinetime-source-files">1 Create a Fork of PineTime Source Files</a></h1>
 <p><em>(Nope no spoon!)</em></p>
 <ol>
 <li>
@@ -141,7 +141,7 @@
 </li>
 </ol>
 <p>Read on to learn how we add GitHub Actions to our Fork to build the firmware automagically...</p>
-<h1 id="add-github-actions" class="section-header"><a href="#add-github-actions">2 Add GitHub Actions</a></h1>
+<h1 id="add-github-actions-to-our-fork" class="section-header"><a href="#add-github-actions-to-our-fork">2 Add GitHub Actions to our Fork</a></h1>
 <ol>
 <li>
 <p>In our Fork on GitHub, click <code>Actions</code></p>
@@ -183,7 +183,7 @@
 <span class="ident">https</span>:<span class="comment">//github.com/ACCOUNT_NAME/Pinetime/blob/master/.github/workflows/main.yml</span></pre></div>
 <p>(Change <code>ACCOUNT_NAME</code> to our GitHub Account Name)</p>
 <p>Let's change a PineTime source file... And trigger our very first PineTime Firmware Build in the Cloud!</p>
-<h1 id="update-our-pinetime-source-file" class="section-header"><a href="#update-our-pinetime-source-file">3 Update Our PineTime Source File</a></h1>
+<h1 id="modify-a-pinetime-source-file" class="section-header"><a href="#modify-a-pinetime-source-file">3 Modify a PineTime Source File</a></h1>
 <ol>
 <li>
 <p>Browse to this URL...</p>
@@ -259,9 +259,28 @@
 </code></pre>
 <p>Click <code>Commit Changes</code> to save the file.</p>
 <p>This triggers a new Firmware Build, which should succeed now.</p>
-<h1 id="test-our-firmware" class="section-header"><a href="#test-our-firmware">5 Test Our Firmware</a></h1>
+<h1 id="download-and-test-our-pinetime-firmware" class="section-header"><a href="#download-and-test-our-pinetime-firmware">5 Download and Test Our PineTime Firmware</a></h1>
 <p>Now let's download and flash the new firmware to PineTime!</p>
-<p>TODO</p>
+<ol>
+<li>
+<p>Click <code>Artifacts</code> at the top.</p>
+<p>Click <code>pinetime-app.out</code></p>
+<p><img src="https://lupyuen.github.io/images/cloud-artifact.png" alt="Build Artifact" /></p>
+</li>
+<li>
+<p>Our web browser will download a ZIP file.</p>
+<p>Extract the PineTime Firmware Image inside: <code>pinetime-app.out</code></p>
+</li>
+<li>
+<p>Flash <code>pinetime-app.out</code> to our PineTime with OpenOCD:</p>
+<p><strong>File Format:</strong> ELF</p>
+<p><strong>Flash Address:</strong> <code>0x0</code></p>
+</li>
+</ol>
+<p><em>Why is the firmware 6.4 MB in size when the build log shows that the cross-compiler output (<code>text</code>) is 238 KB?</em></p>
+<p>Because <code>pinetime-app.out</code> is an <a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format"><strong>ELF File</strong></a>. It contains the firmware image as well as the debugging symbols.</p>
+<p>(Useful for a debugger like GDB)</p>
+<p><em>I have a request...</em></p>
 <p>If you could... With your kind permission... Please post to Twitter and/or Mastodon a pic of your PineTime with the new firmware.</p>
 <p>Tag the post with <code>#PineTime</code> so we know that building PineTime Firmware in the Cloud works OK for you. Thanks! :-)</p>
 <h1 id="how-it-works" class="section-header"><a href="#how-it-works">6 How It Works</a></h1>

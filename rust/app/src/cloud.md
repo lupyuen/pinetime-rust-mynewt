@@ -40,7 +40,7 @@ _(Feels like a Microwave!)_
 
 We'll make PineTime Programming as enjoyable as Fortnite... But less violent... And in 3D!
 
-# Create A GitHub Fork
+# Create a Fork of PineTime Source Files
 
 _(Nope no spoon!)_
 
@@ -78,7 +78,7 @@ _(Nope no spoon!)_
 
 Read on to learn how we add GitHub Actions to our Fork to build the firmware automagically...
 
-# Add GitHub Actions
+# Add GitHub Actions to our Fork
 
 1.  In our Fork on GitHub, click `Actions`
 
@@ -128,7 +128,7 @@ https://github.com/ACCOUNT_NAME/Pinetime/blob/master/.github/workflows/main.yml
 
 Let's change a PineTime source file... And trigger our very first PineTime Firmware Build in the Cloud!
 
-# Update Our PineTime Source File
+# Modify a PineTime Source File
 
 1.  Browse to this URL...
 
@@ -224,11 +224,33 @@ Click `Commit Changes` to save the file.
 
 This triggers a new Firmware Build, which should succeed now.
 
-# Test Our Firmware
+# Download and Test Our PineTime Firmware
 
 Now let's download and flash the new firmware to PineTime!
 
-TODO
+1.  Click `Artifacts` at the top.
+
+    Click `pinetime-app.out`
+
+    ![Build Artifact](https://lupyuen.github.io/images/cloud-artifact.png)
+
+1.  Our web browser will download a ZIP file.
+
+    Extract the PineTime Firmware Image inside: `pinetime-app.out`
+
+1.  Flash `pinetime-app.out` to our PineTime with OpenOCD:
+
+    __File Format:__ ELF
+
+    __Flash Address:__ `0x0`
+
+_Why is the firmware 6.4 MB in size when the build log shows that the cross-compiler output (`text`) is 238 KB?_
+
+Because `pinetime-app.out` is an [__ELF File__](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format). It contains the firmware image as well as the debugging symbols.
+
+(Useful for a debugger like GDB)
+
+_I have a request..._
 
 If you could... With your kind permission... Please post to Twitter and/or Mastodon a pic of your PineTime with the new firmware.
 
