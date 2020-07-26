@@ -148,7 +148,7 @@ Let's change a PineTime source file... And trigger our very first PineTime Firmw
 
 1.  `BPM` is the text that's displayed on the PineTime Watch Face.
 
-    Change `BPM` to your own short message, like `LOVE`...
+    Change `BPM` to our own short message, like `LOVE`...
 
     ![Edit Source File](https://lupyuen.github.io/images/cloud-edit3.png)
 
