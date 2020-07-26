@@ -74,7 +74,7 @@ _(Nope no spoon!)_
 
     And we may also __Pull Updates__ from the original PineTime Repository and apply them to our Fork.
 
-    That's how Open Source projects are maintained!
+    That's how we maintain Open Source Projects!
 
 Read on to learn how we add GitHub Actions to our Fork to build the firmware automagically...
 
@@ -98,9 +98,11 @@ Read on to learn how we add GitHub Actions to our Fork to build the firmware aut
 
     [`github.com/pinetime-lab/.github/workflows/main.yml`](https://raw.githubusercontent.com/lupyuen/pinetime-lab/master/.github/workflows/main.yml)
     
-1.  Copy the contents of this page. 
+    Copy the contents of this page. 
 
-    Paste the contents into the earlier page: `.github/workflows/main.yml`
+1.  Switch back to the earlier page: `.github/workflows/main.yml`
+
+    Paste and overwrite the contents of the file...
 
     ![GitHub Actions](https://lupyuen.github.io/images/cloud-actions4.png)
 
