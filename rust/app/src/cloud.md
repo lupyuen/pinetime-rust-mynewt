@@ -460,13 +460,38 @@ TODO
 
 ## Install nRF5 SDK
 
+_Can we download and install packages into the GitHub Virtual Machine without using a GitHub Action?_
+
+Yes we can via the Ubuntu command line...
+
 ```yaml
     - name: Install nRF5 SDK
       if:   steps.cache-nrf5sdk.outputs.cache-hit != 'true'  # Install SDK if not found in cache
       run:  cd ${{ runner.temp }} && curl https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/nRF5_SDK_15.3.0_59ac345.zip -o nrf5_sdk.zip && unzip nrf5_sdk.zip && mv nRF5_SDK_15.3.0_59ac345 nrf5_sdk
 ```
 
-TODO
+This expands to...
+
+```bash
+cd /home/runner/work/_temp
+curl \
+  https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/nRF5_SDK_15.3.0_59ac345.zip \
+  -o nrf5_sdk.zip
+unzip nrf5_sdk.zip
+mv nRF5_SDK_15.3.0_59ac345 nrf5_sdk
+```
+
+Here we call `curl` to download the [nRF5 SDK](https://www.nordicsemi.com/Software-and-tools/Software/nRF5-SDK) by Nordic Semiconduction.
+
+We unpack the SDK into `/home/runner/work/_temp/nrf5_sdk`, which is cached by the previous step.
+
+```yaml
+      if:   steps.cache-nrf5sdk.outputs.cache-hit != 'true'  # Install SDK if not found in cache
+```
+
+Again, GitHub shall download the SDK only if the cache couldn't be found.
+
+GitHub will remove any cache entries that have not been accessed in over 7 days.
 
 ## Checkout Source Files
 
