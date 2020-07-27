@@ -612,7 +612,7 @@ Add the `-j` option like so...
 
 This runs a parallel build with multiple processes. It shaves about 30 seconds off the build time.
 
-We don't recommend adding `-j` for normal builds because it makes it harder to spot the compiler error.
+We don't recommend adding `-j` for normal builds because it becomes harder to spot the compiler error.
 
 ## Find Output
 
@@ -633,7 +633,7 @@ This is a 6.4 MB ELF file that contains the PineTime Firmware Image as well as t
 
 ## Upload Built Firmware
 
-GitHub will wipe out our entire Virtual Machine and the files inside (like [Langoliers](https://monster.fandom.com/wiki/Langolier#:~:text=The%20Langoliers%20are%20creatures%20in,would%20appear%20to%20be%20time.))... So we need to save the PineTime Firmware File `pinetime-app.out`.
+GitHub will wipe out our entire Virtual Machine and the files inside (like Langoliers)... So we need to save the PineTime Firmware File `pinetime-app.out`
 
 ```yaml
     - name: Upload built firmware

@@ -542,7 +542,7 @@ cmake \
       run:  cd build &amp;&amp; make -j pinetime-app
 </code></pre>
 <p>This runs a parallel build with multiple processes. It shaves about 30 seconds off the build time.</p>
-<p>We don't recommend adding <code>-j</code> for normal builds because it makes it harder to spot the compiler error.</p>
+<p>We don't recommend adding <code>-j</code> for normal builds because it becomes harder to spot the compiler error.</p>
 <h2 id="find-output" class="section-header"><a href="#find-output">6.10 Find Output</a></h2>
 <p>Let's hunt for the generated PineTime Firmware File <code>pinetime-app.out</code> </p>
 <pre><code class="language-yaml">    - name: Find output
@@ -554,7 +554,7 @@ cmake \
   <span class="number">1324860</span>   <span class="number">6504</span> <span class="op">-</span><span class="ident">rwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>    <span class="number">6740720</span> <span class="ident">Jul</span> <span class="number">27</span> <span class="number">07</span>:<span class="number">56</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">out</span></pre></div>
 <p>This is a 6.4 MB ELF file that contains the PineTime Firmware Image as well as the debugging symbols.</p>
 <h2 id="upload-built-firmware" class="section-header"><a href="#upload-built-firmware">6.11 Upload Built Firmware</a></h2>
-<p>GitHub will wipe out our entire Virtual Machine and the files inside (like <a href="https://monster.fandom.com/wiki/Langolier#:%7E:text=The%20Langoliers%20are%20creatures%20in,would%20appear%20to%20be%20time.">Langoliers</a>)... So we need to save the PineTime Firmware File <code>pinetime-app.out</code>.</p>
+<p>GitHub will wipe out our entire Virtual Machine and the files inside (like Langoliers)... So we need to save the PineTime Firmware File <code>pinetime-app.out</code></p>
 <pre><code class="language-yaml">    - name: Upload built firmware
       uses: actions/upload-artifact@v2
       with:
