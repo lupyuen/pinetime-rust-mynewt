@@ -248,7 +248,7 @@ Now let's download and flash the new firmware to PineTime!
 
     __Flash Address:__ `0x0`
 
-TODO: How to flash firmware with xPack OpenOCD
+(We'll have more instructions on flashing PineTime Firmware with xPack OpenOCD... Check back again later!)
 
 _Why is the firmware 6.4 MB in size when the build log shows that the cross-compiler output (`text`) is 238 KB?_
 
@@ -668,29 +668,33 @@ Subsequent builds will be a lot faster with the caching.
 
 And that's how we build PineTime Firmware in the Cloud!
 
+# Other Options
+
+1.  _Can we edit files without using GitHub?_
+
+    We recommend [__VSCode__](https://code.visualstudio.com/) or [__VSCodium__](https://vscodium.com/) for editing files with [Git Version Control](https://code.visualstudio.com/docs/editor/versioncontrol). (Which works with GitHub files)
+
+    Remember to [Commit any updated files](https://code.visualstudio.com/docs/editor/versioncontrol#_commit) and [Push the Commits](https://code.visualstudio.com/docs/editor/versioncontrol#_remotes) to the `master` Branch to trigger the firmware build.
+
+1.  _Can we build the firmware on our own computers?_
+
+    Follow the instructions in [the firmware building doc](https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md).
+
+    To troubleshoot the build, compare with [my build logs](https://github.com/lupyuen/pinetime-lab/actions?query=workflow%3A%22Build+PineTime+Firmware%22).
+
+1.  _Can we flash the firmware files to PineTime over Bluetooth with the nRF Connect mobile app?_
+
+    We shall soon update the build steps to generate firmware files for flashing over Bluetooth.
+
+    Stay tuned!
+
 # What's Next?
 
 TODO
 
-editing without the cloud
-
-building without the cloud
-
-Future Bluetooth flashing
-
 FYI our plans for putting in Continuous Integration with GitHub Actions
 
 For maintaining the central PineTime firmware
-
-This is super cool, that makes so much so simple, no hassle with finding the right version of every software!
-
-we can see exactly what steps we use to build firmware in the cloud
-
-and replicate on our own pc
-
-and with actual logs to compare the results
-
-so its super educational yay!
 
 [Check out my RSS Feed](https://lupyuen.github.io/rss.xml)
 
