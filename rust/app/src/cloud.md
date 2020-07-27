@@ -268,8 +268,6 @@ _PineTime shows some LOVE_
 
 Let's look at the GitHub Actions Workflow we used for building PineTime Firmware: [`.github/workflows/main.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml)
 
-TODO
-
 ```yaml
 # GitHub Actions Workflow to build FreeRTOS Firmware for PineTime Smart Watch
 # Based on https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md
@@ -289,6 +287,16 @@ on:
     branches: [ master ]
 ```
 
+Here we see the conditions that will trigger our Workflow...
+
+1. When files are __updated (or Pushed)__ in the `master` Branch
+
+1. When a __Pull Request is created or updated__ in the `master` Branch
+
+[More details](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request)
+
+Next we specify which Operating System GitHub should use to execute the Workflow Steps...
+
 ```yaml
 # Steps to run for the Workflow
 jobs:
@@ -301,12 +309,20 @@ jobs:
       ...
 ```
 
+We're using Ubuntu, but GitHub supports Windows and macOS as well.
+
+[More details](https://docs.github.com/en/actions/reference/virtual-environments-for-github-hosted-runners)
+
+After that we specify the steps to be executed for our Workflow...
+
 ## Install `cmake`
 
 ```yaml
     - name: Install cmake
       uses: lukka/get-cmake@v3.18.0
 ```
+
+TODO
 
 ## Check cache for Embedded Arm Toolchain
 
@@ -322,6 +338,8 @@ jobs:
         restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
 ```
 
+TODO
+
 ## Install Embedded Arm Toolchain
 
 ```yaml
@@ -334,6 +352,8 @@ jobs:
         # Directory to unpack GCC to. Defaults to a temporary directory.
         directory: ${{ runner.temp }}/arm-none-eabi
 ```
+
+TODO
 
 ## Check cache for nRF5 SDK
 
@@ -349,6 +369,8 @@ jobs:
         restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
 ```
 
+TODO
+
 ## Install nRF5 SDK
 
 ```yaml
@@ -357,12 +379,16 @@ jobs:
       run:  cd ${{ runner.temp }} && curl https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/nRF5_SDK_15.3.0_59ac345.zip -o nrf5_sdk.zip && unzip nrf5_sdk.zip && mv nRF5_SDK_15.3.0_59ac345 nrf5_sdk
 ```
 
+TODO
+
 ## Checkout source files
 
 ```yaml
     - name: Checkout source files
       uses: actions/checkout@v2
 ```
+
+TODO
 
 ## Show files
 
@@ -371,12 +397,16 @@ jobs:
       run:  set ; pwd ; ls -l
 ```
 
+TODO
+
 ## CMake
 
 ```yaml
     - name: CMake
       run:  mkdir -p build && cd build && cmake -DARM_NONE_EABI_TOOLCHAIN_PATH=${{ runner.temp }}/arm-none-eabi -DNRF5_SDK_PATH=${{ runner.temp }}/nrf5_sdk -DUSE_OPENOCD=1 ../
 ```
+
+TODO
 
 ## Make
 
@@ -387,12 +417,16 @@ jobs:
       run:  cd build && make pinetime-app
 ```
 
+TODO
+
 ## Find output
 
 ```yaml
     - name: Find output
       run:  find . -name pinetime-app.out
 ```
+
+TODO
 
 ## Upload built firmware
 
@@ -405,7 +439,9 @@ jobs:
         # A file, directory or wildcard pattern that describes what to upload
         path: build/src/pinetime-app.out
 ```
-      
+
+TODO
+
 ```yaml
 # Embedded Arm Toolchain and nRF5 SDK will only be cached if the build succeeds.
 # So make sure that the first build always succeeds, e.g. comment out the "Make" step.
@@ -415,6 +451,10 @@ jobs:
 
 TODO
 
+editing without the cloud
+
+building without the cloud
+
 Future Bluetooth flashing
 
 FYI our plans for putting in Continuous Integration with GitHub Actions
@@ -422,8 +462,6 @@ FYI our plans for putting in Continuous Integration with GitHub Actions
 For maintaining the central PineTime firmware
 
 This is super cool, that makes so much so simple, no hassle with finding the right version of every software!
-
-building without the cloud
 
 you can see exactly what steps we use to build firmware in the cloud
 
