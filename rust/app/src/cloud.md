@@ -692,7 +692,7 @@ And that's how we build PineTime Firmware in the Cloud!
 
 1.  _Can we flash the firmware files to PineTime over Bluetooth with the nRF Connect mobile app?_
 
-    We shall soon update the build steps to generate firmware files for flashing over Bluetooth.
+    We're now [updating the build steps](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main2.yml) to [generate firmware files](https://github.com/JF002/Pinetime/blob/master/bootloader/README.md) for flashing over Bluetooth.
 
     Stay tuned!
 
@@ -700,17 +700,17 @@ And that's how we build PineTime Firmware in the Cloud!
 
 The PineTime Community shall extend this Build Firmware Workflow into a centralised system for maintaining the [__PineTime Community Firmware__](https://github.com/JF002/Pinetime) that will be preloaded at the PineTime Factory.
 
-The centralised [Continuous Integration](https://docs.github.com/en/actions/building-and-testing-code-with-continuous-integration/about-continuous-integration) system is helpful because...
+The centralised [__Continuous Integration__](https://docs.github.com/en/actions/building-and-testing-code-with-continuous-integration/about-continuous-integration) system is helpful because...
 
 1.  It compiles the PineTime Community Firmware source code whenever there are updates.
 
     And instantly catches any bad code that can't be compiled.
 
-1.  It can run [Automated Tests](https://medium.com/@ly.lee/stm32-blue-pill-unit-testing-with-qemu-blue-pill-emulator-9d88002a68b2?source=friends_link&sk=9a9389cdea5828cb48713f963c8f7615) in the Cloud after building the PineTime Community Firmware.
+1.  It can run [__Automated Tests__](https://medium.com/@ly.lee/stm32-blue-pill-unit-testing-with-qemu-blue-pill-emulator-9d88002a68b2?source=friends_link&sk=9a9389cdea5828cb48713f963c8f7615) in the Cloud after building the PineTime Community Firmware.
 
     So we will know rightaway if the firmware won't boot on an emulated PineTime. (Hopefully)
 
-1.  And it can publish New Firmware Releases for the PineTime Community to download... If the Automated Tests pass.
+1.  And it can publish __New Firmware Releases__ for the PineTime Community to download... If the Automated Tests pass.
 
 We have a lot to do, please chat with us if you're keen to help...
 
