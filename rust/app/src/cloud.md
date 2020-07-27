@@ -344,6 +344,12 @@ That's a GitHub Action provided by the community for [installing `cmake`](https:
 
 ## Check cache for Embedded Arm Toolchain
 
+Our Ubuntu Virtual Machine is based on the Intel x64 platform... But we're building firmware for PineTime, which is based on Arm Cortex-M4.
+
+To do that, we need to install a cross-compiler: __Embedded Arm Toolchain__ `arm-none-eabi-gcc`
+
+We'll install this in the next step, but first we check whether the toolchain is in our cache...
+
 ```yaml
     - name: Check cache for Embedded Arm Toolchain arm-none-eabi-gcc
       id:   cache-toolchain
@@ -356,7 +362,21 @@ That's a GitHub Action provided by the community for [installing `cmake`](https:
         restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
 ```
 
+_Why cache the Embedded Arm Toolchain?_
+
+The Embedded Arm Toolchain is a huge 102 MB download (compressed).
+
+Every time GitHub starts building our firmware, it creates a fresh new empty Virtual Machine.
+
+(So that our firmware builds may be reproduced consistently... And for security too)
+
+So GitHub will take roughly a minute to download and unpack the toolchain... Unless we cache it.
+
+The [`cache@v2`](https://docs.github.com/en/actions/configuring-and-managing-workflows/caching-dependencies-to-speed-up-workflows) GitHub Action lets us cache the toolchain for future builds.
+
 TODO
+
+/home/runner/work/_temp/arm-none-eabi
 
 ## Install Embedded Arm Toolchain
 
@@ -372,6 +392,8 @@ TODO
 ```
 
 TODO
+
+https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2019q3/RC1.1/gcc-arm-none-eabi-8-2019-q3-update-linux.tar.bz2
 
 ## Check cache for nRF5 SDK
 
@@ -422,6 +444,18 @@ TODO
 ```yaml
     - name: CMake
       run:  mkdir -p build && cd build && cmake -DARM_NONE_EABI_TOOLCHAIN_PATH=${{ runner.temp }}/arm-none-eabi -DNRF5_SDK_PATH=${{ runner.temp }}/nrf5_sdk -DUSE_OPENOCD=1 ../
+```
+
+This expands to...
+
+```bash
+mkdir -p build
+cd build
+cmake \
+  -DARM_NONE_EABI_TOOLCHAIN_PATH=/home/runner/work/_temp/arm-none-eabi \
+  -DNRF5_SDK_PATH=/home/runner/work/_temp/nrf5_sdk \
+  -DUSE_OPENOCD=1 \
+  ../
 ```
 
 TODO

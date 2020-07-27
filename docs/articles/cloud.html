@@ -356,6 +356,9 @@ jobs:
 <p>That's a GitHub Action provided by the community for <a href="https://github.com/marketplace/actions/get-cmake">installing <code>cmake</code></a></p>
 <p><a href="https://github.com/marketplace?type=actions">Browse the available GitHub Actions</a></p>
 <h2 id="check-cache-for-embedded-arm-toolchain" class="section-header"><a href="#check-cache-for-embedded-arm-toolchain">6.2 Check cache for Embedded Arm Toolchain</a></h2>
+<p>Our Ubuntu Virtual Machine is based on the Intel x64 platform... But we're building firmware for PineTime, which is based on Arm Cortex-M4.</p>
+<p>To do that, we need to install a cross-compiler: <strong>Embedded Arm Toolchain</strong> <code>arm-none-eabi-gcc</code></p>
+<p>We'll install this in the next step, but first we check whether the toolchain is in our cache...</p>
 <pre><code class="language-yaml">    - name: Check cache for Embedded Arm Toolchain arm-none-eabi-gcc
       id:   cache-toolchain
       uses: actions/cache@v2
@@ -366,7 +369,14 @@ jobs:
         key:  ${{ runner.os }}-build-${{ env.cache-name }}
         restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
 </code></pre>
+<p><em>Why cache the Embedded Arm Toolchain?</em></p>
+<p>The Embedded Arm Toolchain is a huge 102 MB download (compressed).</p>
+<p>Every time GitHub starts building our firmware, it creates a fresh new empty Virtual Machine.</p>
+<p>(So that our firmware builds may be reproduced consistently... And for security too)</p>
+<p>So GitHub will take roughly a minute to download and unpack the toolchain... Unless we cache it.</p>
+<p>The <a href="https://docs.github.com/en/actions/configuring-and-managing-workflows/caching-dependencies-to-speed-up-workflows"><code>cache@v2</code></a> GitHub Action lets us cache the toolchain for future builds.</p>
 <p>TODO</p>
+<p>/home/runner/work/_temp/arm-none-eabi</p>
 <h2 id="install-embedded-arm-toolchain" class="section-header"><a href="#install-embedded-arm-toolchain">6.3 Install Embedded Arm Toolchain</a></h2>
 <pre><code class="language-yaml">    - name: Install Embedded Arm Toolchain arm-none-eabi-gcc
       if:   steps.cache-toolchain.outputs.cache-hit != 'true'  # Install toolchain if not found in cache
@@ -378,6 +388,7 @@ jobs:
         directory: ${{ runner.temp }}/arm-none-eabi
 </code></pre>
 <p>TODO</p>
+<p>https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2019q3/RC1.1/gcc-arm-none-eabi-8-2019-q3-update-linux.tar.bz2</p>
 <h2 id="check-cache-for-nrf5-sdk" class="section-header"><a href="#check-cache-for-nrf5-sdk">6.4 Check cache for nRF5 SDK</a></h2>
 <pre><code class="language-yaml">    - name: Check cache for nRF5 SDK
       id:   cache-nrf5sdk
@@ -409,6 +420,15 @@ jobs:
 <h2 id="cmake" class="section-header"><a href="#cmake">6.8 CMake</a></h2>
 <pre><code class="language-yaml">    - name: CMake
       run:  mkdir -p build &amp;&amp; cd build &amp;&amp; cmake -DARM_NONE_EABI_TOOLCHAIN_PATH=${{ runner.temp }}/arm-none-eabi -DNRF5_SDK_PATH=${{ runner.temp }}/nrf5_sdk -DUSE_OPENOCD=1 ../
+</code></pre>
+<p>This expands to...</p>
+<pre><code class="language-bash">mkdir -p build
+cd build
+cmake \
+  -DARM_NONE_EABI_TOOLCHAIN_PATH=/home/runner/work/_temp/arm-none-eabi \
+  -DNRF5_SDK_PATH=/home/runner/work/_temp/nrf5_sdk \
+  -DUSE_OPENOCD=1 \
+  ../
 </code></pre>
 <p>TODO</p>
 <h2 id="make" class="section-header"><a href="#make">6.9 Make</a></h2>
