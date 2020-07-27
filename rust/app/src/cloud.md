@@ -668,6 +668,8 @@ Subsequent builds will be a lot faster with the caching.
 
 And that's how we build PineTime Firmware in the Cloud!
 
+[GitHub Actions Workflow Syntax](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)
+
 # Other Options
 
 1.  _Can we edit our files in GitHub without using the web browser?_
@@ -682,6 +684,12 @@ And that's how we build PineTime Firmware in the Cloud!
 
     To troubleshoot the build, compare with [my build logs](https://github.com/lupyuen/pinetime-lab/actions?query=workflow%3A%22Build+PineTime+Firmware%22).
 
+1.  _What if we don't wish to make our repos public?_
+
+    Only public repos get GitHub Actions for free... But there's an alternative:
+
+    [Self-Hosted Runners for GitHub Actions](https://docs.github.com/en/actions/hosting-your-own-runners)
+
 1.  _Can we flash the firmware files to PineTime over Bluetooth with the nRF Connect mobile app?_
 
     We shall soon update the build steps to generate firmware files for flashing over Bluetooth.
@@ -690,11 +698,25 @@ And that's how we build PineTime Firmware in the Cloud!
 
 # What's Next?
 
-TODO
+The PineTime Community shall extend this Build Firmware Workflow into a centralised system for maintaining the [__PineTime Community Firmware__](https://github.com/JF002/Pinetime) that will be preloaded at the PineTime Factory.
 
-FYI our plans for putting in Continuous Integration with GitHub Actions
+The centralised [Continuous Integration](https://docs.github.com/en/actions/building-and-testing-code-with-continuous-integration/about-continuous-integration) system is helpful because...
 
-For maintaining the central PineTime firmware
+1.  It compiles the PineTime Community Firmware source code whenever there are updates.
+
+    And instantly catches any bad code that can't be compiled.
+
+1.  It can run [Automated Tests](https://medium.com/@ly.lee/stm32-blue-pill-unit-testing-with-qemu-blue-pill-emulator-9d88002a68b2?source=friends_link&sk=9a9389cdea5828cb48713f963c8f7615) in the Cloud after building the PineTime Community Firmware.
+
+    So we will know rightaway if the firmware won't boot on an emulated PineTime. (Hopefully)
+
+1.  And it can publish New Firmware Releases for the PineTime Community to download... If the Automated Tests pass.
+
+We have a lot to do, please chat with us if you're keen to help...
+
+[PineTime Chatroom on Discord / Matrix / Telegram / IRC](https://wiki.pine64.org/index.php/PineTime#Community)
+
+And remember to enjoy your PineTime :-)
 
 [Check out my RSS Feed](https://lupyuen.github.io/rss.xml)
 

@@ -12,7 +12,7 @@
     content="Build PineTime Firmware in the Cloud with GitHub Actions" 
     data-rh="true">
 <meta property="og:description" 
-    content="Learn to build PineTime Firmware in the Cloud... No computer needed!" 
+    content="Learn to build PineTime Smart Watch Firmware in the Cloud... No computer needed!" 
     data-rh="true">
 <meta property="og:image" 
     content="https://lupyuen.github.io/images/cloud-title-small.jpg">
@@ -576,6 +576,7 @@ cmake \
 <p>Therefore it's good to tweak the Workflow to make sure that the first build always succeeds... Like commenting out the <code>make</code> section.</p>
 <p>Subsequent builds will be a lot faster with the caching.</p>
 <p>And that's how we build PineTime Firmware in the Cloud!</p>
+<p><a href="https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions">GitHub Actions Workflow Syntax</a></p>
 <h1 id="other-options" class="section-header"><a href="#other-options">7 Other Options</a></h1>
 <ol>
 <li>
@@ -589,15 +590,35 @@ cmake \
 <p>To troubleshoot the build, compare with <a href="https://github.com/lupyuen/pinetime-lab/actions?query=workflow%3A%22Build+PineTime+Firmware%22">my build logs</a>.</p>
 </li>
 <li>
+<p><em>What if we don't wish to make our repos public?</em></p>
+<p>Only public repos get GitHub Actions for free... But there's an alternative:</p>
+<p><a href="https://docs.github.com/en/actions/hosting-your-own-runners">Self-Hosted Runners for GitHub Actions</a></p>
+</li>
+<li>
 <p><em>Can we flash the firmware files to PineTime over Bluetooth with the nRF Connect mobile app?</em></p>
 <p>We shall soon update the build steps to generate firmware files for flashing over Bluetooth.</p>
 <p>Stay tuned!</p>
 </li>
 </ol>
 <h1 id="whats-next" class="section-header"><a href="#whats-next">8 What's Next?</a></h1>
-<p>TODO</p>
-<p>FYI our plans for putting in Continuous Integration with GitHub Actions</p>
-<p>For maintaining the central PineTime firmware</p>
+<p>The PineTime Community shall extend this Build Firmware Workflow into a centralised system for maintaining the <a href="https://github.com/JF002/Pinetime"><strong>PineTime Community Firmware</strong></a> that will be preloaded at the PineTime Factory.</p>
+<p>The centralised <a href="https://docs.github.com/en/actions/building-and-testing-code-with-continuous-integration/about-continuous-integration">Continuous Integration</a> system is helpful because...</p>
+<ol>
+<li>
+<p>It compiles the PineTime Community Firmware source code whenever there are updates.</p>
+<p>And instantly catches any bad code that can't be compiled.</p>
+</li>
+<li>
+<p>It can run <a href="https://medium.com/@ly.lee/stm32-blue-pill-unit-testing-with-qemu-blue-pill-emulator-9d88002a68b2?source=friends_link&amp;sk=9a9389cdea5828cb48713f963c8f7615">Automated Tests</a> in the Cloud after building the PineTime Community Firmware.</p>
+<p>So we will know rightaway if the firmware won't boot on an emulated PineTime. (Hopefully)</p>
+</li>
+<li>
+<p>And it can publish New Firmware Releases for the PineTime Community to download... If the Automated Tests pass.</p>
+</li>
+</ol>
+<p>We have a lot to do, please chat with us if you're keen to help...</p>
+<p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Discord / Matrix / Telegram / IRC</a></p>
+<p>And remember to enjoy your PineTime :-)</p>
 <p><a href="https://lupyuen.github.io/rss.xml">Check out my RSS Feed</a></p>
 <h1 id="environment-variables" class="section-header"><a href="#environment-variables">9 Environment Variables</a></h1>
 <p>This step in our GitHub Actions Workflow...</p>
