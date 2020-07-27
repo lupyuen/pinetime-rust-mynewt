@@ -246,6 +246,8 @@ Now let's download and flash the new firmware to PineTime!
 
     __Flash Address:__ `0x0`
 
+TODO: How to flash firmware with xPack OpenOCD
+
 _Why is the firmware 6.4 MB in size when the build log shows that the cross-compiler output (`text`) is 238 KB?_
 
 Because `pinetime-app.out` is an [__ELF File__](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format). It contains the firmware image as well as the debugging symbols.
@@ -264,9 +266,9 @@ _PineTime shows some LOVE_
 
 # How It Works
 
-TODO
-
 Let's look at the GitHub Actions Workflow we used for building PineTime Firmware: [`.github/workflows/main.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml)
+
+TODO
 
 ```yaml
 # GitHub Actions Workflow to build FreeRTOS Firmware for PineTime Smart Watch
@@ -285,7 +287,9 @@ on:
   # Also run this Workflow when a Pull Request is created or updated in the "master" Branch
   pull_request:
     branches: [ master ]
+```
 
+```yaml
 # Steps to run for the Workflow
 jobs:
   build:
@@ -294,9 +298,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      ...
+```
+
+## Install `cmake`
+
+```yaml
     - name: Install cmake
       uses: lukka/get-cmake@v3.18.0
+```
 
+## Check cache for Embedded Arm Toolchain
+
+```yaml
     - name: Check cache for Embedded Arm Toolchain arm-none-eabi-gcc
       id:   cache-toolchain
       uses: actions/cache@v2
@@ -306,7 +320,11 @@ jobs:
         path: ${{ runner.temp }}/arm-none-eabi
         key:  ${{ runner.os }}-build-${{ env.cache-name }}
         restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+```
 
+## Install Embedded Arm Toolchain
+
+```yaml
     - name: Install Embedded Arm Toolchain arm-none-eabi-gcc
       if:   steps.cache-toolchain.outputs.cache-hit != 'true'  # Install toolchain if not found in cache
       uses: fiam/arm-none-eabi-gcc@v1.0.2
@@ -315,7 +333,11 @@ jobs:
         release: 8-2019-q3
         # Directory to unpack GCC to. Defaults to a temporary directory.
         directory: ${{ runner.temp }}/arm-none-eabi
+```
 
+## Check cache for nRF5 SDK
+
+```yaml
     - name: Check cache for nRF5 SDK
       id:   cache-nrf5sdk
       uses: actions/cache@v2
@@ -325,28 +347,56 @@ jobs:
         path: ${{ runner.temp }}/nrf5_sdk
         key:  ${{ runner.os }}-build-${{ env.cache-name }}
         restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
-          
+```
+
+## Install nRF5 SDK
+
+```yaml
     - name: Install nRF5 SDK
       if:   steps.cache-nrf5sdk.outputs.cache-hit != 'true'  # Install SDK if not found in cache
       run:  cd ${{ runner.temp }} && curl https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/nRF5_SDK_15.3.0_59ac345.zip -o nrf5_sdk.zip && unzip nrf5_sdk.zip && mv nRF5_SDK_15.3.0_59ac345 nrf5_sdk
+```
 
+## Checkout source files
+
+```yaml
     - name: Checkout source files
       uses: actions/checkout@v2
+```
 
+## Show files
+
+```yaml
     - name: Show files
       run:  set ; pwd ; ls -l
+```
 
+## CMake
+
+```yaml
     - name: CMake
       run:  mkdir -p build && cd build && cmake -DARM_NONE_EABI_TOOLCHAIN_PATH=${{ runner.temp }}/arm-none-eabi -DNRF5_SDK_PATH=${{ runner.temp }}/nrf5_sdk -DUSE_OPENOCD=1 ../
-      
+```
+
+## Make
+
+```yaml
     - name: Make
       # For Debugging Builds: Remove "make" option "-j" for clearer output. Add "--trace" to see details.
       # For Faster Builds: Add "make" option "-j"
       run:  cd build && make pinetime-app
-      
+```
+
+## Find output
+
+```yaml
     - name: Find output
       run:  find . -name pinetime-app.out
+```
 
+## Upload built firmware
+
+```yaml
     - name: Upload built firmware
       uses: actions/upload-artifact@v2
       with:
@@ -354,7 +404,9 @@ jobs:
         name: pinetime-app.out
         # A file, directory or wildcard pattern that describes what to upload
         path: build/src/pinetime-app.out
+```
       
+```yaml
 # Embedded Arm Toolchain and nRF5 SDK will only be cached if the build succeeds.
 # So make sure that the first build always succeeds, e.g. comment out the "Make" step.
 ```

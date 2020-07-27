@@ -70,7 +70,18 @@
 <li><a href="#modify-the-pinetime-source-code">3 Modify the PineTime Source Code</a><ul></ul></li>
 <li><a href="#our-first-pinetime-firmware-build">4 Our First PineTime Firmware Build</a><ul></ul></li>
 <li><a href="#download-and-test-our-pinetime-firmware">5 Download and Test Our PineTime Firmware</a><ul></ul></li>
-<li><a href="#how-it-works">6 How It Works</a><ul></ul></li>
+<li><a href="#how-it-works">6 How It Works</a><ul>
+<li><a href="#install-cmake">6.1 Install <code>cmake</code></a><ul></ul></li>
+<li><a href="#check-cache-for-embedded-arm-toolchain">6.2 Check cache for Embedded Arm Toolchain</a><ul></ul></li>
+<li><a href="#install-embedded-arm-toolchain">6.3 Install Embedded Arm Toolchain</a><ul></ul></li>
+<li><a href="#check-cache-for-nrf5-sdk">6.4 Check cache for nRF5 SDK</a><ul></ul></li>
+<li><a href="#install-nrf5-sdk">6.5 Install nRF5 SDK</a><ul></ul></li>
+<li><a href="#checkout-source-files">6.6 Checkout source files</a><ul></ul></li>
+<li><a href="#show-files">6.7 Show files</a><ul></ul></li>
+<li><a href="#cmake">6.8 CMake</a><ul></ul></li>
+<li><a href="#make">6.9 Make</a><ul></ul></li>
+<li><a href="#find-output">6.10 Find output</a><ul></ul></li>
+<li><a href="#upload-built-firmware">6.11 Upload built firmware</a><ul></ul></li></ul></li>
 <li><a href="#whats-next">7 What's Next?</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/cloud-title.jpg" alt="PineTime Firmware Programming vs Fortnite" /></p>
 <p>Programming the firmware of our gadgets (like <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>) has always been cumbersome...</p>
 <ol>
@@ -278,6 +289,7 @@
 <p><strong>Flash Address:</strong> <code>0x0</code></p>
 </li>
 </ol>
+<p>TODO: How to flash firmware with xPack OpenOCD</p>
 <p><em>Why is the firmware 6.4 MB in size when the build log shows that the cross-compiler output (<code>text</code>) is 238 KB?</em></p>
 <p>Because <code>pinetime-app.out</code> is an <a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format"><strong>ELF File</strong></a>. It contains the firmware image as well as the debugging symbols.</p>
 <p>(Useful for a debugger like GDB)</p>
@@ -287,8 +299,8 @@
 <p><img src="https://lupyuen.github.io/images/cloud-love.jpg" alt="PineTime shows some LOVE" /></p>
 <p><em>PineTime shows some LOVE</em></p>
 <h1 id="how-it-works" class="section-header"><a href="#how-it-works">6 How It Works</a></h1>
-<p>TODO</p>
 <p>Let's look at the GitHub Actions Workflow we used for building PineTime Firmware: <a href="https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml"><code>.github/workflows/main.yml</code></a></p>
+<p>TODO</p>
 <pre><code class="language-yaml"># GitHub Actions Workflow to build FreeRTOS Firmware for PineTime Smart Watch
 # Based on https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md
 
@@ -305,8 +317,8 @@ on:
   # Also run this Workflow when a Pull Request is created or updated in the &quot;master&quot; Branch
   pull_request:
     branches: [ master ]
-
-# Steps to run for the Workflow
+</code></pre>
+<pre><code class="language-yaml"># Steps to run for the Workflow
 jobs:
   build:
 
@@ -314,10 +326,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Install cmake
+      ...
+</code></pre>
+<h2 id="install-cmake" class="section-header"><a href="#install-cmake">6.1 Install <code>cmake</code></a></h2>
+<pre><code class="language-yaml">    - name: Install cmake
       uses: lukka/get-cmake@v3.18.0
-
-    - name: Check cache for Embedded Arm Toolchain arm-none-eabi-gcc
+</code></pre>
+<h2 id="check-cache-for-embedded-arm-toolchain" class="section-header"><a href="#check-cache-for-embedded-arm-toolchain">6.2 Check cache for Embedded Arm Toolchain</a></h2>
+<pre><code class="language-yaml">    - name: Check cache for Embedded Arm Toolchain arm-none-eabi-gcc
       id:   cache-toolchain
       uses: actions/cache@v2
       env:
@@ -326,8 +342,9 @@ jobs:
         path: ${{ runner.temp }}/arm-none-eabi
         key:  ${{ runner.os }}-build-${{ env.cache-name }}
         restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
-
-    - name: Install Embedded Arm Toolchain arm-none-eabi-gcc
+</code></pre>
+<h2 id="install-embedded-arm-toolchain" class="section-header"><a href="#install-embedded-arm-toolchain">6.3 Install Embedded Arm Toolchain</a></h2>
+<pre><code class="language-yaml">    - name: Install Embedded Arm Toolchain arm-none-eabi-gcc
       if:   steps.cache-toolchain.outputs.cache-hit != 'true'  # Install toolchain if not found in cache
       uses: fiam/arm-none-eabi-gcc@v1.0.2
       with:
@@ -335,8 +352,9 @@ jobs:
         release: 8-2019-q3
         # Directory to unpack GCC to. Defaults to a temporary directory.
         directory: ${{ runner.temp }}/arm-none-eabi
-
-    - name: Check cache for nRF5 SDK
+</code></pre>
+<h2 id="check-cache-for-nrf5-sdk" class="section-header"><a href="#check-cache-for-nrf5-sdk">6.4 Check cache for nRF5 SDK</a></h2>
+<pre><code class="language-yaml">    - name: Check cache for nRF5 SDK
       id:   cache-nrf5sdk
       uses: actions/cache@v2
       env:
@@ -345,37 +363,44 @@ jobs:
         path: ${{ runner.temp }}/nrf5_sdk
         key:  ${{ runner.os }}-build-${{ env.cache-name }}
         restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
-          
-    - name: Install nRF5 SDK
+</code></pre>
+<h2 id="install-nrf5-sdk" class="section-header"><a href="#install-nrf5-sdk">6.5 Install nRF5 SDK</a></h2>
+<pre><code class="language-yaml">    - name: Install nRF5 SDK
       if:   steps.cache-nrf5sdk.outputs.cache-hit != 'true'  # Install SDK if not found in cache
       run:  cd ${{ runner.temp }} &amp;&amp; curl https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/nRF5_SDK_15.3.0_59ac345.zip -o nrf5_sdk.zip &amp;&amp; unzip nrf5_sdk.zip &amp;&amp; mv nRF5_SDK_15.3.0_59ac345 nrf5_sdk
-
-    - name: Checkout source files
+</code></pre>
+<h2 id="checkout-source-files" class="section-header"><a href="#checkout-source-files">6.6 Checkout source files</a></h2>
+<pre><code class="language-yaml">    - name: Checkout source files
       uses: actions/checkout@v2
-
-    - name: Show files
+</code></pre>
+<h2 id="show-files" class="section-header"><a href="#show-files">6.7 Show files</a></h2>
+<pre><code class="language-yaml">    - name: Show files
       run:  set ; pwd ; ls -l
-
-    - name: CMake
+</code></pre>
+<h2 id="cmake" class="section-header"><a href="#cmake">6.8 CMake</a></h2>
+<pre><code class="language-yaml">    - name: CMake
       run:  mkdir -p build &amp;&amp; cd build &amp;&amp; cmake -DARM_NONE_EABI_TOOLCHAIN_PATH=${{ runner.temp }}/arm-none-eabi -DNRF5_SDK_PATH=${{ runner.temp }}/nrf5_sdk -DUSE_OPENOCD=1 ../
-      
-    - name: Make
+</code></pre>
+<h2 id="make" class="section-header"><a href="#make">6.9 Make</a></h2>
+<pre><code class="language-yaml">    - name: Make
       # For Debugging Builds: Remove &quot;make&quot; option &quot;-j&quot; for clearer output. Add &quot;--trace&quot; to see details.
       # For Faster Builds: Add &quot;make&quot; option &quot;-j&quot;
       run:  cd build &amp;&amp; make pinetime-app
-      
-    - name: Find output
+</code></pre>
+<h2 id="find-output" class="section-header"><a href="#find-output">6.10 Find output</a></h2>
+<pre><code class="language-yaml">    - name: Find output
       run:  find . -name pinetime-app.out
-
-    - name: Upload built firmware
+</code></pre>
+<h2 id="upload-built-firmware" class="section-header"><a href="#upload-built-firmware">6.11 Upload built firmware</a></h2>
+<pre><code class="language-yaml">    - name: Upload built firmware
       uses: actions/upload-artifact@v2
       with:
         # Artifact name (optional)
         name: pinetime-app.out
         # A file, directory or wildcard pattern that describes what to upload
         path: build/src/pinetime-app.out
-      
-# Embedded Arm Toolchain and nRF5 SDK will only be cached if the build succeeds.
+</code></pre>
+<pre><code class="language-yaml"># Embedded Arm Toolchain and nRF5 SDK will only be cached if the build succeeds.
 # So make sure that the first build always succeeds, e.g. comment out the &quot;Make&quot; step.
 </code></pre>
 <h1 id="whats-next" class="section-header"><a href="#whats-next">7 What's Next?</a></h1>
