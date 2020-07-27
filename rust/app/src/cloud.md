@@ -226,6 +226,8 @@ Click `Commit Changes` to save the file.
 
 This triggers a new Firmware Build, which should succeed now.
 
+[Check out my build logs](https://github.com/lupyuen/pinetime-lab/actions?query=workflow%3A%22Build+PineTime+Firmware%22)
+
 # Download and Test Our PineTime Firmware
 
 Now let's download and flash the new firmware to PineTime!
