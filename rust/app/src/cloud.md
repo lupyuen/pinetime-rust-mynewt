@@ -238,7 +238,7 @@ Now let's download and flash the new firmware to PineTime!
 
     Extract the PineTime Firmware Image inside: `pinetime-app.out`
 
-1.  Flash `pinetime-app.out` to our PineTime with OpenOCD:
+1.  Flash `pinetime-app.out` to our PineTime with [__xPack OpenOCD__](https://xpack.github.io/openocd/)
 
     __File Format:__ ELF
 
@@ -255,6 +255,10 @@ _I have a request..._
 If you could... With your kind permission... Please post to Twitter and/or Mastodon a pic of your PineTime with the new firmware.
 
 Tag the post with `#PineTime` so we know that building PineTime Firmware in the Cloud works OK for you. Thanks! :-)
+
+![PineTime shows some LOVE](https://lupyuen.github.io/images/cloud-love.jpg)
+
+_PineTime shows some LOVE_
 
 # How It Works
 
