@@ -670,7 +670,7 @@ And that's how we build PineTime Firmware in the Cloud!
 
 # Other Options
 
-1.  _Can we edit files without using GitHub?_
+1.  _Can we edit our files in GitHub without using the web browser?_
 
     We recommend [__VSCode__](https://code.visualstudio.com/) or [__VSCodium__](https://vscodium.com/) for editing files with [Git Version Control](https://code.visualstudio.com/docs/editor/versioncontrol). (Which works with GitHub files)
 
