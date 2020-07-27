@@ -67,7 +67,7 @@
     <nav id="TOC"><ul>
 <li><a href="#create-a-fork-of-pinetime-source-files">1 Create a Fork of PineTime Source Files</a><ul></ul></li>
 <li><a href="#add-github-actions-to-our-fork">2 Add GitHub Actions to our Fork</a><ul></ul></li>
-<li><a href="#modify-a-pinetime-source-file">3 Modify a PineTime Source File</a><ul></ul></li>
+<li><a href="#modify-the-pinetime-source-code">3 Modify the PineTime Source Code</a><ul></ul></li>
 <li><a href="#our-first-pinetime-firmware-build">4 Our First PineTime Firmware Build</a><ul></ul></li>
 <li><a href="#download-and-test-our-pinetime-firmware">5 Download and Test Our PineTime Firmware</a><ul></ul></li>
 <li><a href="#how-it-works">6 How It Works</a><ul></ul></li>
@@ -183,7 +183,8 @@
 <span class="ident">https</span>:<span class="comment">//github.com/ACCOUNT_NAME/Pinetime/blob/master/.github/workflows/main.yml</span></pre></div>
 <p>(Change <code>ACCOUNT_NAME</code> to our GitHub Account Name)</p>
 <p>Let's change a PineTime source file... And trigger our very first PineTime Firmware Build in the Cloud!</p>
-<h1 id="modify-a-pinetime-source-file" class="section-header"><a href="#modify-a-pinetime-source-file">3 Modify a PineTime Source File</a></h1>
+<h1 id="modify-the-pinetime-source-code" class="section-header"><a href="#modify-the-pinetime-source-code">3 Modify the PineTime Source Code</a></h1>
+<p>We shall modify the source code so that the PineTime Watch Face shows our own special message...</p>
 <ol>
 <li>
 <p>Browse to this URL...</p>
@@ -287,7 +288,7 @@
 <p><em>PineTime shows some LOVE</em></p>
 <h1 id="how-it-works" class="section-header"><a href="#how-it-works">6 How It Works</a></h1>
 <p>TODO</p>
-<p>https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml</p>
+<p>Let's look at the GitHub Actions Workflow we used for building PineTime Firmware: <a href="https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml"><code>.github/workflows/main.yml</code></a></p>
 <pre><code class="language-yaml"># GitHub Actions Workflow to build FreeRTOS Firmware for PineTime Smart Watch
 # Based on https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md
 
@@ -377,20 +378,17 @@ jobs:
 # Embedded Arm Toolchain and nRF5 SDK will only be cached if the build succeeds.
 # So make sure that the first build always succeeds, e.g. comment out the &quot;Make&quot; step.
 </code></pre>
-<p>Future
-Bluetooth flashing</p>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">7 What's Next?</a></h1>
+<p>TODO</p>
+<p>Future Bluetooth flashing</p>
 <p>FYI our plans for putting in Continuous Integration with GitHub Actions</p>
-<p>so whenever we check in changes to the source code, it will auto build the firmware</p>
-<p>there will probably be 2 versions of this Continuous Integration...</p>
-<p>(1) For maintaining the central PineTime firmware</p>
-<p>(2) For newbies to build their PineTime firmware automatically in the cloud, without any software to be installed on their PCs</p>
+<p>For maintaining the central PineTime firmware</p>
 <p>This is super cool, that makes so much so simple, no hassle with finding the right version of every software!</p>
-<p>but of course there will be folks who dont like to build things in a cloud </p>
-<p>but the good news that you can see exactly what steps we use to build firmware in the cloud</p>
+<p>building without the cloud</p>
+<p>you can see exactly what steps we use to build firmware in the cloud</p>
 <p>and replicate on your own pc</p>
 <p>and with actual logs to compare the results</p>
 <p>so its super educational yay!</p>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">7 What's Next?</a></h1>
 <p><a href="https://lupyuen.github.io/rss.xml">Check out my RSS Feed</a></p>
 
     

@@ -128,7 +128,9 @@ https://github.com/ACCOUNT_NAME/Pinetime/blob/master/.github/workflows/main.yml
 
 Let's change a PineTime source file... And trigger our very first PineTime Firmware Build in the Cloud!
 
-# Modify a PineTime Source File
+# Modify the PineTime Source Code
+
+We shall modify the source code so that the PineTime Watch Face shows our own special message...
 
 1.  Browse to this URL...
 
@@ -264,7 +266,7 @@ _PineTime shows some LOVE_
 
 TODO
 
-https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml
+Let's look at the GitHub Actions Workflow we used for building PineTime Firmware: [`.github/workflows/main.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml)
 
 ```yaml
 # GitHub Actions Workflow to build FreeRTOS Firmware for PineTime Smart Watch
@@ -357,35 +359,26 @@ jobs:
 # So make sure that the first build always succeeds, e.g. comment out the "Make" step.
 ```
 
-Future
-Bluetooth flashing
+# What's Next?
+
+TODO
+
+Future Bluetooth flashing
 
 FYI our plans for putting in Continuous Integration with GitHub Actions
 
-so whenever we check in changes to the source code, it will auto build the firmware
-
-there will probably be 2 versions of this Continuous Integration...
-
-
-(1) For maintaining the central PineTime firmware
-
-
-(2) For newbies to build their PineTime firmware automatically in the cloud, without any software to be installed on their PCs
-
+For maintaining the central PineTime firmware
 
 This is super cool, that makes so much so simple, no hassle with finding the right version of every software!
 
-but of course there will be folks who dont like to build things in a cloud 
+building without the cloud
 
-but the good news that you can see exactly what steps we use to build firmware in the cloud
+you can see exactly what steps we use to build firmware in the cloud
 
 and replicate on your own pc
 
 and with actual logs to compare the results
 
 so its super educational yay!
-
-
-# What's Next?
 
 [Check out my RSS Feed](https://lupyuen.github.io/rss.xml)
