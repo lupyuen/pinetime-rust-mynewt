@@ -106,9 +106,7 @@ Read on to learn how we add GitHub Actions to our Fork to build the firmware aut
 
     ![GitHub Actions](https://lupyuen.github.io/images/cloud-actions4.png)
 
-1.  Scroll to the bottom of the page.
-
-    Click `Start Commit`
+1.  Click `Start Commit` at the right or bottom of the page...
 
     ![GitHub Actions](https://lupyuen.github.io/images/cloud-actions5.png)
 
@@ -169,6 +167,8 @@ We have just triggered __Our Very First PineTime Firmware Build In The Cloud!__
 Let's check the result of our Firmware Build in the Cloud...
 
 # Our First PineTime Firmware Build
+
+(Sorry our first build may fail with an error in `TwiMaster.cpp`... More about this in a while)
 
 1.  Click `Actions` at the top.
 
