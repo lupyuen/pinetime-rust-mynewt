@@ -616,7 +616,7 @@ We don't recommend adding `-j` for normal builds because it makes it harder to s
 
 ## Find Output
 
-Let's hunt for the PineTime Firmware File `pinetime-app.out` 
+Let's hunt for the generated PineTime Firmware File `pinetime-app.out` 
 
 ```yaml
     - name: Find output
@@ -633,7 +633,7 @@ This is a 6.4 MB ELF file that contains the PineTime Firmware Image as well as t
 
 ## Upload Built Firmware
 
-TODO
+GitHub will wipe out our entire Virtual Machine and the files inside (like [Langoliers](https://monster.fandom.com/wiki/Langolier#:~:text=The%20Langoliers%20are%20creatures%20in,would%20appear%20to%20be%20time.))... So we need to save the PineTime Firmware File `pinetime-app.out`.
 
 ```yaml
     - name: Upload built firmware
@@ -645,12 +645,26 @@ TODO
         path: build/src/pinetime-app.out
 ```
 
-The [`actions/upload-artifact`](https://docs.github.com/en/actions/configuring-and-managing-workflows/persisting-workflow-data-using-artifacts) GitHub Action
+The [`actions/upload-artifact`](https://docs.github.com/en/actions/configuring-and-managing-workflows/persisting-workflow-data-using-artifacts) GitHub Action saves the PineTime Firmware File `build/src/pinetime-app.out` as a Artifact for us to download.
+
+## Caching At The End
+
+Here's a tip about the caches we have created for the Embedded Arm Toolchain and the nRF5 SDK...
 
 ```yaml
 # Embedded Arm Toolchain and nRF5 SDK will only be cached if the build succeeds.
 # So make sure that the first build always succeeds, e.g. comment out the "Make" step.
 ```
+
+__The files get cached only if the build succeeds__
+
+If the first few builds fail (say due to coding errors), the files will never get cached. And restarting the build becomes painfully slow.
+
+Therefore it's good to tweak the Workflow to make sure that the first build always succeeds... Like commenting out the `make` section.
+
+Subsequent builds will be a lot faster with the caching.
+
+And that's how we build PineTime Firmware in the Cloud!
 
 # What's Next?
 
@@ -668,9 +682,9 @@ For maintaining the central PineTime firmware
 
 This is super cool, that makes so much so simple, no hassle with finding the right version of every software!
 
-you can see exactly what steps we use to build firmware in the cloud
+we can see exactly what steps we use to build firmware in the cloud
 
-and replicate on your own pc
+and replicate on our own pc
 
 and with actual logs to compare the results
 

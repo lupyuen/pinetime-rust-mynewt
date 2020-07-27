@@ -81,7 +81,8 @@
 <li><a href="#cmake">6.8 CMake</a><ul></ul></li>
 <li><a href="#make">6.9 Make</a><ul></ul></li>
 <li><a href="#find-output">6.10 Find Output</a><ul></ul></li>
-<li><a href="#upload-built-firmware">6.11 Upload Built Firmware</a><ul></ul></li></ul></li>
+<li><a href="#upload-built-firmware">6.11 Upload Built Firmware</a><ul></ul></li>
+<li><a href="#caching-at-the-end">6.12 Caching At The End</a><ul></ul></li></ul></li>
 <li><a href="#whats-next">7 What's Next?</a><ul></ul></li>
 <li><a href="#environment-variables">8 Environment Variables</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/cloud-title.jpg" alt="PineTime Firmware Programming vs Fortnite" /></p>
 <p>Programming the firmware of our gadgets (like <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>) has always been cumbersome...</p>
@@ -543,7 +544,7 @@ cmake \
 <p>This runs a parallel build with multiple processes. It shaves about 30 seconds off the build time.</p>
 <p>We don't recommend adding <code>-j</code> for normal builds because it makes it harder to spot the compiler error.</p>
 <h2 id="find-output" class="section-header"><a href="#find-output">6.10 Find Output</a></h2>
-<p>Let's hunt for the PineTime Firmware File <code>pinetime-app.out</code> </p>
+<p>Let's hunt for the generated PineTime Firmware File <code>pinetime-app.out</code> </p>
 <pre><code class="language-yaml">    - name: Find output
       run:  find . -name pinetime-app.out -ls
 </code></pre>
@@ -553,7 +554,7 @@ cmake \
   <span class="number">1324860</span>   <span class="number">6504</span> <span class="op">-</span><span class="ident">rwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>    <span class="number">6740720</span> <span class="ident">Jul</span> <span class="number">27</span> <span class="number">07</span>:<span class="number">56</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">out</span></pre></div>
 <p>This is a 6.4 MB ELF file that contains the PineTime Firmware Image as well as the debugging symbols.</p>
 <h2 id="upload-built-firmware" class="section-header"><a href="#upload-built-firmware">6.11 Upload Built Firmware</a></h2>
-<p>TODO</p>
+<p>GitHub will wipe out our entire Virtual Machine and the files inside (like <a href="https://monster.fandom.com/wiki/Langolier#:%7E:text=The%20Langoliers%20are%20creatures%20in,would%20appear%20to%20be%20time.">Langoliers</a>)... So we need to save the PineTime Firmware File <code>pinetime-app.out</code>.</p>
 <pre><code class="language-yaml">    - name: Upload built firmware
       uses: actions/upload-artifact@v2
       with:
@@ -562,10 +563,17 @@ cmake \
         # A file, directory or wildcard pattern that describes what to upload
         path: build/src/pinetime-app.out
 </code></pre>
-<p>The <a href="https://docs.github.com/en/actions/configuring-and-managing-workflows/persisting-workflow-data-using-artifacts"><code>actions/upload-artifact</code></a> GitHub Action</p>
+<p>The <a href="https://docs.github.com/en/actions/configuring-and-managing-workflows/persisting-workflow-data-using-artifacts"><code>actions/upload-artifact</code></a> GitHub Action saves the PineTime Firmware File <code>build/src/pinetime-app.out</code> as a Artifact for us to download.</p>
+<h2 id="caching-at-the-end" class="section-header"><a href="#caching-at-the-end">6.12 Caching At The End</a></h2>
+<p>Here's a tip about the caches we have created for the Embedded Arm Toolchain and the nRF5 SDK...</p>
 <pre><code class="language-yaml"># Embedded Arm Toolchain and nRF5 SDK will only be cached if the build succeeds.
 # So make sure that the first build always succeeds, e.g. comment out the &quot;Make&quot; step.
 </code></pre>
+<p><strong>The files get cached only if the build succeeds</strong></p>
+<p>If the first few builds fail (say due to coding errors), the files will never get cached. And restarting the build becomes painfully slow.</p>
+<p>Therefore it's good to tweak the Workflow to make sure that the first build always succeeds... Like commenting out the <code>make</code> section.</p>
+<p>Subsequent builds will be a lot faster with the caching.</p>
+<p>And that's how we build PineTime Firmware in the Cloud!</p>
 <h1 id="whats-next" class="section-header"><a href="#whats-next">7 What's Next?</a></h1>
 <p>TODO</p>
 <p>editing without the cloud</p>
@@ -574,8 +582,8 @@ cmake \
 <p>FYI our plans for putting in Continuous Integration with GitHub Actions</p>
 <p>For maintaining the central PineTime firmware</p>
 <p>This is super cool, that makes so much so simple, no hassle with finding the right version of every software!</p>
-<p>you can see exactly what steps we use to build firmware in the cloud</p>
-<p>and replicate on your own pc</p>
+<p>we can see exactly what steps we use to build firmware in the cloud</p>
+<p>and replicate on our own pc</p>
 <p>and with actual logs to compare the results</p>
 <p>so its super educational yay!</p>
 <p><a href="https://lupyuen.github.io/rss.xml">Check out my RSS Feed</a></p>
