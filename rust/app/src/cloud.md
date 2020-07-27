@@ -410,7 +410,7 @@ This means...
 
     (We'll download the toolchain to this folder in the next step)
 
-- The unique key for our toolchain cache shall be `Linux-build-cache-toolchain`
+- The unique cache key for our toolchain cache shall be `Linux-build-cache-toolchain`
 
 - In future builds, GitHub shall attempt to restore the cache for `Linux-build-cache-toolchain` into our toolchain folder `/home/runner/work/_temp/arm-none-eabi`
 
@@ -444,6 +444,12 @@ Huge downloads and reinstallation averted... So neat!
 
 ## Check Cache for nRF5 SDK
 
+Next we download the [nRF5 SDK](https://www.nordicsemi.com/Software-and-tools/Software/nRF5-SDK) by Nordic Semiconductor.
+
+The SDK is needed for building PineTime Firmware because PineTime is based on the [nRF52832 Microcontroller](https://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.0.pdf).
+
+Before downloading and unpacking the SDK into `/home/runner/work/_temp/nrf5_sdk`, we check whether the cache exists for the unique cache key `Linux-build-cache-nrf5sdk`...
+
 ```yaml
     - name: Check cache for nRF5 SDK
       id:   cache-nrf5sdk
@@ -455,8 +461,6 @@ Huge downloads and reinstallation averted... So neat!
         key:  ${{ runner.os }}-build-${{ env.cache-name }}
         restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
 ```
-
-TODO
 
 ## Install nRF5 SDK
 
@@ -495,23 +499,51 @@ GitHub will remove any cache entries that have not been accessed in over 7 days.
 
 ## Checkout Source Files
 
+Now we fetch a complete set of source files from our Fork...
+
 ```yaml
     - name: Checkout source files
       uses: actions/checkout@v2
 ```
 
-TODO
+The [`actions/checkout`](https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow#using-the-checkout-action) GitHub Action copies the source files into `/home/runner/work/Pinetime/Pinetime`
 
 ## Show Files
+
+Let's take a peek at the environment variables and the files that have been checked out...
 
 ```yaml
     - name: Show files
       run:  set ; pwd ; ls -l
 ```
 
-TODO
+The current directory `pwd` is shown as...
+
+```
+/home/runner/work/Pinetime/Pinetime
+```
+
+The list of files and folders in that directory...
+
+```
+total 48
+-rw-r--r--  1 runner docker 2194 Jul 26 14:39 CMakeLists.txt
+-rw-r--r--  1 runner docker 5079 Jul 26 14:39 README.md
+drwxr-xr-x  3 runner docker 4096 Jul 26 14:39 bootloader
+drwxr-xr-x  3 runner docker 4096 Jul 26 14:39 cmake-nRF5x
+drwxr-xr-x  3 runner docker 4096 Jul 26 14:39 doc
+-rw-r--r--  1 runner docker 2952 Jul 26 14:39 gcc_nrf52-mcuboot.ld
+-rw-r--r--  1 runner docker 2952 Jul 26 14:39 gcc_nrf52.ld
+drwxr-xr-x  4 runner docker 4096 Jul 26 14:39 images
+-rw-r--r--  1 runner docker 4475 Jul 26 14:39 nrf_common.ld
+drwxr-xr-x 10 runner docker 4096 Jul 26 14:39 src
+```
+
+Check the section "Environment Variables" below for the complete list of environment variables.
 
 ## CMake
+
+Now that we have `cmake` installed and the complete set of source files, let's start building the firmware...
 
 ```yaml
     - name: CMake
@@ -530,9 +562,13 @@ cmake \
   ../
 ```
 
-TODO
+We call `cmake` passing the locations of the Embedded Arm Toolchain and the nRF5 SDK. 
+
+This is exactly as prescribed by [the build doc](https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md).
 
 ## Make
+
+`cmake` generates regular [Makefiles](https://en.wikipedia.org/wiki/Makefile#:~:text=A%20makefile%20is%20a%20file,to%20generate%20a%20target%2Fgoal.). We run `make` to compile our source files based on the Makefiles...
 
 ```yaml
     - name: Make
@@ -541,18 +577,63 @@ TODO
       run:  cd build && make pinetime-app
 ```
 
-TODO
+This generates the PineTime Firmware File `pinetime-app.out`, as shown in the log...
+
+```
+[100%] Linking CXX executable pinetime-app.out
+post build steps for pinetime-app
+  text	   data	    bss	    dec	    hex	filename
+238012	    772	  35784	 274568	  43088	pinetime-app.out
+```
+
+This says...
+
+- Firmware will occupy 233 KB of Flash ROM for compiled machine code and data (`text`, `data`)
+
+- Firmware will need 34 KB of RAM for storing global static variables (`bss`)
+
+_If the build fails, can we see the complete list of options passed to the cross-compiler?_
+
+Add the `--trace` option like so...
+
+```yaml
+      # For Debugging Builds: Add "--trace" to see details.
+      run:  cd build && make --trace pinetime-app
+```
+
+_The log shows that the `make` step takes 2 minutes to execute. Can we compile faster?_
+
+Add the `-j` option like so...
+
+```yaml
+      # For Faster Builds: Add "make" option "-j"
+      run:  cd build && make -j pinetime-app
+```
+
+This runs a parallel build with multiple processes. It shaves about 30 seconds off the build time.
+
+We don't recommend adding `-j` for normal builds because it makes it harder to spot the compiler error.
 
 ## Find Output
 
+Let's hunt for the PineTime Firmware File `pinetime-app.out` 
+
 ```yaml
     - name: Find output
-      run:  find . -name pinetime-app.out
+      run:  find . -name pinetime-app.out -ls
 ```
 
-TODO
+The log shows this...
+
+```
+  1324860   6504 -rwxr-xr-x   1 runner   docker    6740720 Jul 27 07:56 ./build/src/pinetime-app.out
+```
+
+This is a 6.4 MB ELF file that contains the PineTime Firmware Image as well as the debugging symbols.
 
 ## Upload Built Firmware
+
+TODO
 
 ```yaml
     - name: Upload built firmware
@@ -564,7 +645,7 @@ TODO
         path: build/src/pinetime-app.out
 ```
 
-TODO
+The [`actions/upload-artifact`](https://docs.github.com/en/actions/configuring-and-managing-workflows/persisting-workflow-data-using-artifacts) GitHub Action
 
 ```yaml
 # Embedded Arm Toolchain and nRF5 SDK will only be cached if the build succeeds.
@@ -596,3 +677,118 @@ and with actual logs to compare the results
 so its super educational yay!
 
 [Check out my RSS Feed](https://lupyuen.github.io/rss.xml)
+
+# Environment Variables
+
+This step in our GitHub Actions Workflow...
+
+```yaml
+    - name: Show files
+      run:  set ; pwd ; ls -l
+```
+
+Shows these environment variables...
+
+```bash
+AGENT_TOOLSDIRECTORY=/opt/hostedtoolcache
+ANDROID_HOME=/usr/local/lib/android/sdk
+ANDROID_SDK_ROOT=/usr/local/lib/android/sdk
+ANT_HOME=/usr/share/ant
+AZURE_EXTENSION_DIR=/opt/az/azcliextensions
+BASH=/bin/bash
+lquote:extquote:force_fignore:hostcomplete:interactive_comments:progcomp:p
+BASH_ALIASES=()
+BASH_ARGC=()
+BASH_ARGV=()
+BASH_CMDS=()
+BASH_LINENO=([0]="0")
+BASH_SOURCE=([0]="/home/runner/work/_temp/a3bba1d.sh")
+BASH_VERSINFO=([0]="4" [1]="4" [2]="20" [3]="1" [4]="release" [5]
+BASH_VERSION='4.4.20(1)-release'
+BOOST_ROOT_1_69_0=/opt/hostedtoolcache/boost/1.69.0/x64
+BOOST_ROOT_1_72_0=/opt/hostedtoolcache/boost/1.72.0/x64
+CHROMEWEBDRIVER=/usr/local/share/chrome_driver
+CHROME_BIN=/usr/bin/google-chrome
+CI=true
+CONDA=/usr/share/miniconda
+DEBIAN_FRONTEND=noninteractive
+DEPLOYMENT_BASEPATH=/opt/runner
+DIRSTACK=()
+DOTNET_NOLOGO='"1"'
+DOTNET_SKIP_FIRST_TIME_EXPERIENCE='"1"'
+EUID=1001
+GECKOWEBDRIVER=/usr/local/share/gecko_driver
+GITHUB_ACTION=run2
+GITHUB_ACTIONS=true
+GITHUB_ACTOR=lupyuen
+GITHUB_API_URL=https://api.github.com
+GITHUB_BASE_REF=
+GITHUB_EVENT_NAME=push
+GITHUB_EVENT_PATH=/home/runner/work/_temp/_github_workflow/event.json
+GITHUB_GRAPHQL_URL=https://api.github.com/graphql
+GITHUB_HEAD_REF=
+GITHUB_JOB=build
+GITHUB_REF=refs/heads/master
+GITHUB_REPOSITORY=AppKaki/Pinetime
+GITHUB_REPOSITORY_OWNER=AppKaki
+GITHUB_RUN_ID=183212738
+GITHUB_RUN_NUMBER=2
+GITHUB_SERVER_URL=https://github.com
+GITHUB_SHA=bce10a451e6cef08c30b1d6ac297e1f50cf57bf3
+GITHUB_WORKFLOW='Build PineTime Firmware'
+GITHUB_WORKSPACE=/home/runner/work/Pinetime/Pinetime
+GOROOT=/opt/hostedtoolcache/go/1.14.4/x64
+GOROOT_1_11_X64=/opt/hostedtoolcache/go/1.11.13/x64
+GOROOT_1_12_X64=/opt/hostedtoolcache/go/1.12.17/x64
+GOROOT_1_13_X64=/opt/hostedtoolcache/go/1.13.12/x64
+GOROOT_1_14_X64=/opt/hostedtoolcache/go/1.14.4/x64
+GRADLE_HOME=/usr/share/gradle
+GROUPS=()
+HOME=/home/runner
+HOMEBREW_CELLAR='"/home/linuxbrew/.linuxbrew/Cellar"'
+HOMEBREW_PREFIX='"/home/linuxbrew/.linuxbrew"'
+HOMEBREW_REPOSITORY='"/home/linuxbrew/.linuxbrew/Homebrew"'
+HOSTNAME=fv-az20
+HOSTTYPE=x86_64
+IFS=$' \t\n'
+INVOCATION_ID=cc632305776e4c49848d4644a457d167
+ImageOS=ubuntu18
+ImageVersion=20200717.1
+JAVA_HOME=/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64
+JAVA_HOME_11_X64=/usr/lib/jvm/adoptopenjdk-11-hotspot-amd64
+JAVA_HOME_12_X64=/usr/lib/jvm/adoptopenjdk-12-hotspot-amd64
+JAVA_HOME_7_X64=/usr/lib/jvm/zulu-7-azure-amd64
+JAVA_HOME_8_X64=/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64
+JOURNAL_STREAM=9:31251
+LANG=C.UTF-8
+LEIN_HOME=/usr/local/lib/lein
+LEIN_JAR=/usr/local/lib/lein/self-installs/leiningen-2.9.4-standalone.jar
+M2_HOME=/usr/share/apache-maven-3.6.3
+MACHTYPE=x86_64-pc-linux-gnu
+OPTERR=1
+OPTIND=1
+OSTYPE=linux-gnu
+PATH=/home/runner/work/_temp/arm-none-eabi/bin:/home/runner/work/_temp/-x86_64/bin/:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/in:/home/runner/.config/composer/vendor/bin:/home/runner/.dotnet/tools://local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+PERFLOG_LOCATION_SETTING=RUNNER_PERFLOG
+POWERSHELL_DISTRIBUTION_CHANNEL=GitHub-Actions-ubuntu18
+PPID=2451
+PS4='+ '
+PWD=/home/runner/work/Pinetime/Pinetime
+RUNNER_OS=Linux
+RUNNER_PERFLOG=/home/runner/perflog
+RUNNER_TEMP=/home/runner/work/_temp
+RUNNER_TOOL_CACHE=/opt/hostedtoolcache
+RUNNER_TRACKING_ID=github_3a45354c-437f-42c1-b8fb-cff7fa3cf2a0
+RUNNER_USER=runner
+RUNNER_WORKSPACE=/home/runner/work/Pinetime
+SELENIUM_JAR_PATH=/usr/share/java/selenium-server-standalone.jar
+SHELL=/bin/bash
+SHELLOPTS=braceexpand:errexit:hashall:interactive-comments
+SHLVL=1
+SWIFT_PATH=/usr/share/swift/usr/bin
+TERM=dumb
+UID=1001
+USER=runner
+VCPKG_INSTALLATION_ROOT=/usr/local/share/vcpkg
+_=/bin/bash
+```
