@@ -338,14 +338,23 @@ jobs:
     steps:
       ...
 </code></pre>
+<p>This asks GitHub to allocate a free Virtual Machine to build our firmware, based on Ubuntu 18.04.</p>
 <p>We're using Ubuntu, but GitHub supports Windows and macOS as well.</p>
 <p><a href="https://docs.github.com/en/actions/reference/virtual-environments-for-github-hosted-runners">More details</a></p>
 <p>After that we specify the steps to be executed for our Workflow...</p>
 <h2 id="install-cmake" class="section-header"><a href="#install-cmake">6.1 Install <code>cmake</code></a></h2>
+<p>The steps for building PineTime Firmware are based on <a href="https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md">this doc</a>.</p>
+<p>We use a popular tool called <a href="https://cmake.org/"><code>cmake</code></a>. (It's like an evolved <code>make</code>)</p>
+<p>Here's how we install <code>cmake</code>...</p>
 <pre><code class="language-yaml">    - name: Install cmake
       uses: lukka/get-cmake@v3.18.0
 </code></pre>
-<p>TODO</p>
+<p><em>Why do we need to install build tools like <code>cmake</code>?</em></p>
+<p>Because GitHub only provides bare bones Ubuntu with simple command-line tools like <code>make</code>.</p>
+<p>For special tools like <code>cmake</code>, we'll have to install ourselves.</p>
+<p><em>What's <code>get-cmake</code>?</em></p>
+<p>That's a GitHub Action provided by the community for <a href="https://github.com/marketplace/actions/get-cmake">installing <code>cmake</code></a></p>
+<p><a href="https://github.com/marketplace?type=actions">Browse the available GitHub Actions</a></p>
 <h2 id="check-cache-for-embedded-arm-toolchain" class="section-header"><a href="#check-cache-for-embedded-arm-toolchain">6.2 Check cache for Embedded Arm Toolchain</a></h2>
 <pre><code class="language-yaml">    - name: Check cache for Embedded Arm Toolchain arm-none-eabi-gcc
       id:   cache-toolchain

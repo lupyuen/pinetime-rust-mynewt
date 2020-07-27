@@ -309,6 +309,8 @@ jobs:
       ...
 ```
 
+This asks GitHub to allocate a free Virtual Machine to build our firmware, based on Ubuntu 18.04.
+
 We're using Ubuntu, but GitHub supports Windows and macOS as well.
 
 [More details](https://docs.github.com/en/actions/reference/virtual-environments-for-github-hosted-runners)
@@ -317,12 +319,28 @@ After that we specify the steps to be executed for our Workflow...
 
 ## Install `cmake`
 
+The steps for building PineTime Firmware are based on [this doc](https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md).
+
+We use a popular tool called [`cmake`](https://cmake.org/). (It's like an evolved `make`)
+
+Here's how we install `cmake`...
+
 ```yaml
     - name: Install cmake
       uses: lukka/get-cmake@v3.18.0
 ```
 
-TODO
+_Why do we need to install build tools like `cmake`?_
+
+Because GitHub only provides bare bones Ubuntu with simple command-line tools like `make`.
+
+For special tools like `cmake`, we'll have to install ourselves.
+
+_What's `get-cmake`?_
+
+That's a GitHub Action provided by the community for [installing `cmake`](https://github.com/marketplace/actions/get-cmake)
+
+[Browse the available GitHub Actions](https://github.com/marketplace?type=actions)
 
 ## Check cache for Embedded Arm Toolchain
 
