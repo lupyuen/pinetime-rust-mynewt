@@ -309,7 +309,7 @@ jobs:
       ...
 ```
 
-This asks GitHub to allocate a free Virtual Machine to build our firmware, based on Ubuntu 18.04.
+This asks GitHub to allocate a free Virtual Machine (Docker Container) to build our firmware, based on Ubuntu 18.04.
 
 We're using Ubuntu, but GitHub supports Windows and macOS as well.
 
