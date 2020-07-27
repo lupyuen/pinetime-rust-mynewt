@@ -342,11 +342,11 @@ That's a GitHub Action provided by the community for [installing `cmake`](https:
 
 [Browse the available GitHub Actions](https://github.com/marketplace?type=actions)
 
-## Check cache for Embedded Arm Toolchain
+## Check Cache for Embedded Arm Toolchain
 
-Our Ubuntu Virtual Machine is based on the Intel x64 platform... But we're building firmware for PineTime, which is based on Arm Cortex-M4.
+Our Ubuntu Virtual Machine in the GitHub Cloud is based on the Intel x64 platform... But we're building firmware for PineTime, which is based on Arm Cortex-M4.
 
-To do that, we need to install a cross-compiler: __Embedded Arm Toolchain__ `arm-none-eabi-gcc`
+To do that, we need to install a cross-compiler: [__Embedded Arm Toolchain__](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm) `arm-none-eabi-gcc`
 
 We'll install this in the next step, but first we check whether the toolchain is in our cache...
 
@@ -364,21 +364,59 @@ We'll install this in the next step, but first we check whether the toolchain is
 
 _Why cache the Embedded Arm Toolchain?_
 
-The Embedded Arm Toolchain is a huge 102 MB download (compressed).
+The [Embedded Arm Toolchain](https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2019q3/RC1.1/gcc-arm-none-eabi-8-2019-q3-update-linux.tar.bz2) is a huge 102 MB download (compressed).
 
-Every time GitHub starts building our firmware, it creates a fresh new empty Virtual Machine.
+Every time GitHub builds our firmware, it creates a fresh new empty Virtual Machine.
 
 (So that our firmware builds may be reproduced consistently... And for security too)
 
-So GitHub will take roughly a minute to download and unpack the toolchain... Unless we cache it.
+GitHub will take roughly a minute to download and unpack the toolchain... Unless we cache it.
 
-The [`cache@v2`](https://docs.github.com/en/actions/configuring-and-managing-workflows/caching-dependencies-to-speed-up-workflows) GitHub Action lets us cache the toolchain for future builds.
+```yaml
+    - name: Check cache for Embedded Arm Toolchain arm-none-eabi-gcc
+      id:   cache-toolchain
+      uses: actions/cache@v2
+```
 
-TODO
+The [`actions/cache`](https://docs.github.com/en/actions/configuring-and-managing-workflows/caching-dependencies-to-speed-up-workflows) GitHub Action lets us cache the toolchain for future builds.
 
-/home/runner/work/_temp/arm-none-eabi
+We can have multiple caches. Here's our cache for the toolchain...
+
+```yaml
+      env:
+        cache-name: cache-toolchain
+```
+
+Next we tell GitHub what to cache...
+
+```yaml
+      with:
+        path: ${{ runner.temp }}/arm-none-eabi
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+```
+
+Given these build settings...
+
+```bash
+runner.temp    = /home/runner/work/_temp
+runner.os      = Linux
+env.cache-name = cache-toolchain
+```
+
+This means...
+
+-  GitHub shall cache the temporary toolchain folder `/home/runner/work/_temp/arm-none-eabi`
+
+    (We'll download the toolchain to this folder in the next step)
+
+- The unique key for our toolchain cache shall be `Linux-build-cache-toolchain`
+
+- In future builds, GitHub shall attempt to restore the cache for `Linux-build-cache-toolchain` into our toolchain folder `/home/runner/work/_temp/arm-none-eabi`
 
 ## Install Embedded Arm Toolchain
+
+Now we download and unpack the Embedded Arm Toolchain into the temporary toolchain folder `/home/runner/work/_temp/arm-none-eabi`...
 
 ```yaml
     - name: Install Embedded Arm Toolchain arm-none-eabi-gcc
@@ -391,11 +429,20 @@ TODO
         directory: ${{ runner.temp }}/arm-none-eabi
 ```
 
-TODO
+We use the community GitHub Action [`fiam/arm-none-eabi-gcc`](https://github.com/marketplace/actions/arm-none-eabi-gcc) to do this. So easy!
 
-https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2019q3/RC1.1/gcc-arm-none-eabi-8-2019-q3-update-linux.tar.bz2
+_Why is there a condition for the step?_
 
-## Check cache for nRF5 SDK
+```yaml
+      # Install toolchain if not found in cache
+      if:   steps.cache-toolchain.outputs.cache-hit != 'true'
+```
+
+This says that GitHub shall download the toolchain only if the previous step `cache-toolchain` couldn't find an existing cache for the toolchain.
+
+Huge downloads and reinstallation averted... So neat!
+
+## Check Cache for nRF5 SDK
 
 ```yaml
     - name: Check cache for nRF5 SDK
@@ -421,7 +468,7 @@ TODO
 
 TODO
 
-## Checkout source files
+## Checkout Source Files
 
 ```yaml
     - name: Checkout source files
@@ -430,7 +477,7 @@ TODO
 
 TODO
 
-## Show files
+## Show Files
 
 ```yaml
     - name: Show files
@@ -471,7 +518,7 @@ TODO
 
 TODO
 
-## Find output
+## Find Output
 
 ```yaml
     - name: Find output
@@ -480,7 +527,7 @@ TODO
 
 TODO
 
-## Upload built firmware
+## Upload Built Firmware
 
 ```yaml
     - name: Upload built firmware

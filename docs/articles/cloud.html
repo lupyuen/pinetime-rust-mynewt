@@ -72,16 +72,16 @@
 <li><a href="#download-and-test-our-pinetime-firmware">5 Download and Test Our PineTime Firmware</a><ul></ul></li>
 <li><a href="#how-it-works">6 How It Works</a><ul>
 <li><a href="#install-cmake">6.1 Install <code>cmake</code></a><ul></ul></li>
-<li><a href="#check-cache-for-embedded-arm-toolchain">6.2 Check cache for Embedded Arm Toolchain</a><ul></ul></li>
+<li><a href="#check-cache-for-embedded-arm-toolchain">6.2 Check Cache for Embedded Arm Toolchain</a><ul></ul></li>
 <li><a href="#install-embedded-arm-toolchain">6.3 Install Embedded Arm Toolchain</a><ul></ul></li>
-<li><a href="#check-cache-for-nrf5-sdk">6.4 Check cache for nRF5 SDK</a><ul></ul></li>
+<li><a href="#check-cache-for-nrf5-sdk">6.4 Check Cache for nRF5 SDK</a><ul></ul></li>
 <li><a href="#install-nrf5-sdk">6.5 Install nRF5 SDK</a><ul></ul></li>
-<li><a href="#checkout-source-files">6.6 Checkout source files</a><ul></ul></li>
-<li><a href="#show-files">6.7 Show files</a><ul></ul></li>
+<li><a href="#checkout-source-files">6.6 Checkout Source Files</a><ul></ul></li>
+<li><a href="#show-files">6.7 Show Files</a><ul></ul></li>
 <li><a href="#cmake">6.8 CMake</a><ul></ul></li>
 <li><a href="#make">6.9 Make</a><ul></ul></li>
-<li><a href="#find-output">6.10 Find output</a><ul></ul></li>
-<li><a href="#upload-built-firmware">6.11 Upload built firmware</a><ul></ul></li></ul></li>
+<li><a href="#find-output">6.10 Find Output</a><ul></ul></li>
+<li><a href="#upload-built-firmware">6.11 Upload Built Firmware</a><ul></ul></li></ul></li>
 <li><a href="#whats-next">7 What's Next?</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/cloud-title.jpg" alt="PineTime Firmware Programming vs Fortnite" /></p>
 <p>Programming the firmware of our gadgets (like <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>) has always been cumbersome...</p>
 <ol>
@@ -355,9 +355,9 @@ jobs:
 <p><em>What's <code>get-cmake</code>?</em></p>
 <p>That's a GitHub Action provided by the community for <a href="https://github.com/marketplace/actions/get-cmake">installing <code>cmake</code></a></p>
 <p><a href="https://github.com/marketplace?type=actions">Browse the available GitHub Actions</a></p>
-<h2 id="check-cache-for-embedded-arm-toolchain" class="section-header"><a href="#check-cache-for-embedded-arm-toolchain">6.2 Check cache for Embedded Arm Toolchain</a></h2>
-<p>Our Ubuntu Virtual Machine is based on the Intel x64 platform... But we're building firmware for PineTime, which is based on Arm Cortex-M4.</p>
-<p>To do that, we need to install a cross-compiler: <strong>Embedded Arm Toolchain</strong> <code>arm-none-eabi-gcc</code></p>
+<h2 id="check-cache-for-embedded-arm-toolchain" class="section-header"><a href="#check-cache-for-embedded-arm-toolchain">6.2 Check Cache for Embedded Arm Toolchain</a></h2>
+<p>Our Ubuntu Virtual Machine in the GitHub Cloud is based on the Intel x64 platform... But we're building firmware for PineTime, which is based on Arm Cortex-M4.</p>
+<p>To do that, we need to install a cross-compiler: <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm"><strong>Embedded Arm Toolchain</strong></a> <code>arm-none-eabi-gcc</code></p>
 <p>We'll install this in the next step, but first we check whether the toolchain is in our cache...</p>
 <pre><code class="language-yaml">    - name: Check cache for Embedded Arm Toolchain arm-none-eabi-gcc
       id:   cache-toolchain
@@ -370,14 +370,45 @@ jobs:
         restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
 </code></pre>
 <p><em>Why cache the Embedded Arm Toolchain?</em></p>
-<p>The Embedded Arm Toolchain is a huge 102 MB download (compressed).</p>
-<p>Every time GitHub starts building our firmware, it creates a fresh new empty Virtual Machine.</p>
+<p>The <a href="https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2019q3/RC1.1/gcc-arm-none-eabi-8-2019-q3-update-linux.tar.bz2">Embedded Arm Toolchain</a> is a huge 102 MB download (compressed).</p>
+<p>Every time GitHub builds our firmware, it creates a fresh new empty Virtual Machine.</p>
 <p>(So that our firmware builds may be reproduced consistently... And for security too)</p>
-<p>So GitHub will take roughly a minute to download and unpack the toolchain... Unless we cache it.</p>
-<p>The <a href="https://docs.github.com/en/actions/configuring-and-managing-workflows/caching-dependencies-to-speed-up-workflows"><code>cache@v2</code></a> GitHub Action lets us cache the toolchain for future builds.</p>
-<p>TODO</p>
-<p>/home/runner/work/_temp/arm-none-eabi</p>
+<p>GitHub will take roughly a minute to download and unpack the toolchain... Unless we cache it.</p>
+<pre><code class="language-yaml">    - name: Check cache for Embedded Arm Toolchain arm-none-eabi-gcc
+      id:   cache-toolchain
+      uses: actions/cache@v2
+</code></pre>
+<p>The <a href="https://docs.github.com/en/actions/configuring-and-managing-workflows/caching-dependencies-to-speed-up-workflows"><code>actions/cache</code></a> GitHub Action lets us cache the toolchain for future builds.</p>
+<p>We can have multiple caches. Here's our cache for the toolchain...</p>
+<pre><code class="language-yaml">      env:
+        cache-name: cache-toolchain
+</code></pre>
+<p>Next we tell GitHub what to cache...</p>
+<pre><code class="language-yaml">      with:
+        path: ${{ runner.temp }}/arm-none-eabi
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+</code></pre>
+<p>Given these build settings...</p>
+<pre><code class="language-bash">runner.temp    = /home/runner/work/_temp
+runner.os      = Linux
+env.cache-name = cache-toolchain
+</code></pre>
+<p>This means...</p>
+<ul>
+<li>
+<p>GitHub shall cache the temporary toolchain folder <code>/home/runner/work/_temp/arm-none-eabi</code></p>
+<p>(We'll download the toolchain to this folder in the next step)</p>
+</li>
+<li>
+<p>The unique key for our toolchain cache shall be <code>Linux-build-cache-toolchain</code></p>
+</li>
+<li>
+<p>In future builds, GitHub shall attempt to restore the cache for <code>Linux-build-cache-toolchain</code> into our toolchain folder <code>/home/runner/work/_temp/arm-none-eabi</code></p>
+</li>
+</ul>
 <h2 id="install-embedded-arm-toolchain" class="section-header"><a href="#install-embedded-arm-toolchain">6.3 Install Embedded Arm Toolchain</a></h2>
+<p>Now we download and unpack the Embedded Arm Toolchain into the temporary toolchain folder <code>/home/runner/work/_temp/arm-none-eabi</code>...</p>
 <pre><code class="language-yaml">    - name: Install Embedded Arm Toolchain arm-none-eabi-gcc
       if:   steps.cache-toolchain.outputs.cache-hit != 'true'  # Install toolchain if not found in cache
       uses: fiam/arm-none-eabi-gcc@v1.0.2
@@ -387,9 +418,14 @@ jobs:
         # Directory to unpack GCC to. Defaults to a temporary directory.
         directory: ${{ runner.temp }}/arm-none-eabi
 </code></pre>
-<p>TODO</p>
-<p>https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2019q3/RC1.1/gcc-arm-none-eabi-8-2019-q3-update-linux.tar.bz2</p>
-<h2 id="check-cache-for-nrf5-sdk" class="section-header"><a href="#check-cache-for-nrf5-sdk">6.4 Check cache for nRF5 SDK</a></h2>
+<p>We use the community GitHub Action <a href="https://github.com/marketplace/actions/arm-none-eabi-gcc"><code>fiam/arm-none-eabi-gcc</code></a> to do this. So easy!</p>
+<p><em>Why is there a condition for the step?</em></p>
+<pre><code class="language-yaml">      # Install toolchain if not found in cache
+      if:   steps.cache-toolchain.outputs.cache-hit != 'true'
+</code></pre>
+<p>This says that GitHub shall download the toolchain only if the previous step <code>cache-toolchain</code> couldn't find an existing cache for the toolchain.</p>
+<p>Huge downloads and reinstallation averted... So neat!</p>
+<h2 id="check-cache-for-nrf5-sdk" class="section-header"><a href="#check-cache-for-nrf5-sdk">6.4 Check Cache for nRF5 SDK</a></h2>
 <pre><code class="language-yaml">    - name: Check cache for nRF5 SDK
       id:   cache-nrf5sdk
       uses: actions/cache@v2
@@ -407,12 +443,12 @@ jobs:
       run:  cd ${{ runner.temp }} &amp;&amp; curl https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/nRF5_SDK_15.3.0_59ac345.zip -o nrf5_sdk.zip &amp;&amp; unzip nrf5_sdk.zip &amp;&amp; mv nRF5_SDK_15.3.0_59ac345 nrf5_sdk
 </code></pre>
 <p>TODO</p>
-<h2 id="checkout-source-files" class="section-header"><a href="#checkout-source-files">6.6 Checkout source files</a></h2>
+<h2 id="checkout-source-files" class="section-header"><a href="#checkout-source-files">6.6 Checkout Source Files</a></h2>
 <pre><code class="language-yaml">    - name: Checkout source files
       uses: actions/checkout@v2
 </code></pre>
 <p>TODO</p>
-<h2 id="show-files" class="section-header"><a href="#show-files">6.7 Show files</a></h2>
+<h2 id="show-files" class="section-header"><a href="#show-files">6.7 Show Files</a></h2>
 <pre><code class="language-yaml">    - name: Show files
       run:  set ; pwd ; ls -l
 </code></pre>
@@ -438,12 +474,12 @@ cmake \
       run:  cd build &amp;&amp; make pinetime-app
 </code></pre>
 <p>TODO</p>
-<h2 id="find-output" class="section-header"><a href="#find-output">6.10 Find output</a></h2>
+<h2 id="find-output" class="section-header"><a href="#find-output">6.10 Find Output</a></h2>
 <pre><code class="language-yaml">    - name: Find output
       run:  find . -name pinetime-app.out
 </code></pre>
 <p>TODO</p>
-<h2 id="upload-built-firmware" class="section-header"><a href="#upload-built-firmware">6.11 Upload built firmware</a></h2>
+<h2 id="upload-built-firmware" class="section-header"><a href="#upload-built-firmware">6.11 Upload Built Firmware</a></h2>
 <pre><code class="language-yaml">    - name: Upload built firmware
       uses: actions/upload-artifact@v2
       with:
