@@ -462,7 +462,7 @@ TODO
 
 _Can we download and install packages into the GitHub Virtual Machine without using a GitHub Action?_
 
-Yes we can via the Ubuntu command line...
+Yes we can, through the Ubuntu command line...
 
 ```yaml
     - name: Install nRF5 SDK
@@ -481,7 +481,7 @@ unzip nrf5_sdk.zip
 mv nRF5_SDK_15.3.0_59ac345 nrf5_sdk
 ```
 
-Here we call `curl` to download the [nRF5 SDK](https://www.nordicsemi.com/Software-and-tools/Software/nRF5-SDK) by Nordic Semiconduction.
+Here we call `curl` to download the [nRF5 SDK](https://www.nordicsemi.com/Software-and-tools/Software/nRF5-SDK) by Nordic Semiconductor.
 
 We unpack the SDK into `/home/runner/work/_temp/nrf5_sdk`, which is cached by the previous step.
 

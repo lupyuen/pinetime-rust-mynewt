@@ -439,7 +439,7 @@ env.cache-name = cache-toolchain
 <p>TODO</p>
 <h2 id="install-nrf5-sdk" class="section-header"><a href="#install-nrf5-sdk">6.5 Install nRF5 SDK</a></h2>
 <p><em>Can we download and install packages into the GitHub Virtual Machine without using a GitHub Action?</em></p>
-<p>Yes we can via the Ubuntu command line...</p>
+<p>Yes we can, through the Ubuntu command line...</p>
 <pre><code class="language-yaml">    - name: Install nRF5 SDK
       if:   steps.cache-nrf5sdk.outputs.cache-hit != 'true'  # Install SDK if not found in cache
       run:  cd ${{ runner.temp }} &amp;&amp; curl https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/nRF5_SDK_15.3.0_59ac345.zip -o nrf5_sdk.zip &amp;&amp; unzip nrf5_sdk.zip &amp;&amp; mv nRF5_SDK_15.3.0_59ac345 nrf5_sdk
@@ -452,7 +452,7 @@ curl \
 unzip nrf5_sdk.zip
 mv nRF5_SDK_15.3.0_59ac345 nrf5_sdk
 </code></pre>
-<p>Here we call <code>curl</code> to download the <a href="https://www.nordicsemi.com/Software-and-tools/Software/nRF5-SDK">nRF5 SDK</a> by Nordic Semiconduction.</p>
+<p>Here we call <code>curl</code> to download the <a href="https://www.nordicsemi.com/Software-and-tools/Software/nRF5-SDK">nRF5 SDK</a> by Nordic Semiconductor.</p>
 <p>We unpack the SDK into <code>/home/runner/work/_temp/nrf5_sdk</code>, which is cached by the previous step.</p>
 <pre><code class="language-yaml">      if:   steps.cache-nrf5sdk.outputs.cache-hit != 'true'  # Install SDK if not found in cache
 </code></pre>
