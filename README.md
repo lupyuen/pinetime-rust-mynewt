@@ -21,7 +21,7 @@
 
 # PineTime Smart Watch Firmware with Apache Mynewt and Embedded Rust
 
-This `ota2` branch contains the firmware source code for PineTime Smart Watch with Apache Mynewt and Embedded Rust, with Wireless Firmware Updates. Refer to the articles...
+This `cloud` branch builds firmware in the GitHub Cloud with GitHub Actions. The branch contains the firmware source code for PineTime Smart Watch with Apache Mynewt and Embedded Rust, with Wireless Firmware Updates. Refer to the articles...
 
 1. [_Visual Rust for PineTime Smart Watch_](https://marketplace.visualstudio.com/items?itemName=LeeLupYuen.visual-embedded-rust)
 
