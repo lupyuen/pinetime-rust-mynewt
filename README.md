@@ -23,7 +23,7 @@
 
 This `cloud` branch __builds firmware in the GitHub Cloud__ with __GitHub Actions.__
 
-The branch contains the firmware source code for PineTime Smart Watch with Apache Mynewt and Embedded Rust, with Wireless Firmware Updates. 
+The branch contains the firmware source code for __PineTime Smart Watch__ with __Apache Mynewt__ and __Embedded Rust__, with __Wireless Firmware Updates__. 
 
 Refer to the articles...
 
