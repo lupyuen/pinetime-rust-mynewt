@@ -18,7 +18,7 @@
 # under the License.
 #
 -->
-
+ 
 # PineTime Smart Watch Firmware with Apache Mynewt and Embedded Rust
 
 This `cloud` branch __builds firmware in the GitHub Cloud__ with __GitHub Actions.__
