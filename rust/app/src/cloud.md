@@ -246,6 +246,10 @@ Now let's download and flash the new firmware to PineTime!
 
 1.  Tap on the first row that appears: `Update Clock.cpp`
 
+    Tap `Sign In For Full Log View` at top right.
+
+    Sign in with our GitHub Account.
+
 1.  Tap `Artifacts` at the top.
 
     Tap `pinetime-mcuboot-app-dfu.zip`
