@@ -27,7 +27,7 @@ jobs:
     #########################################################################################
     # Download and Cache Dependencies
 
-    - name: rust-toolchain
+    - name: Install Rust Toolchain thumbv7em-none-eabihf
       uses: actions-rs/toolchain@v1.0.6
       with:
         # Rust toolchain name.
@@ -50,6 +50,8 @@ jobs:
         # profile: # optional
         # Comma-separated list of components to be additionally installed for a new toolchain
         # components: # optional
+    
+    # TODO: Cache Rust Toolchain
     
     - name: Check cache for Embedded Arm Toolchain arm-none-eabi-gcc
       id:   cache-toolchain
