@@ -9,11 +9,11 @@ on:
 
   # Run this Workflow when files are updated (Pushed) in this Branch
   push:
-    branches: [ cloud ]
+    branches: [ master ]
     
   # Also run this Workflow when a Pull Request is created or updated in this Branch
   pull_request:
-    branches: [ cloud ]
+    branches: [ master ]
 
 # Steps to run for the Workflow
 jobs:
