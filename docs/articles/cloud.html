@@ -289,11 +289,27 @@
 </li>
 <li>
 <p>Flash <code>pinetime-app.out</code> to our PineTime with <a href="https://xpack.github.io/openocd/"><strong>xPack OpenOCD</strong></a></p>
+<ul>
+<li>
 <p><strong>File Format:</strong> ELF</p>
+</li>
+<li>
 <p><strong>Flash Address:</strong> <code>0x0</code></p>
 </li>
+</ul>
+</li>
+<li>
+<p>Or flash with <a href="https://github.com/lupyuen/pinetime-updater/blob/master/README.md"><strong>PineTime Updater</strong></a>...</p>
+<ul>
+<li>
+<p>Select <code>Downloaded File</code> and <code>pinetime-app.out</code></p>
+</li>
+<li>
+<p>Flash to address <code>0x0</code></p>
+</li>
+</ul>
+</li>
 </ol>
-<p>(We'll have more instructions on flashing PineTime Firmware with xPack OpenOCD... Check back again later!)</p>
 <p><em>Why is the firmware 6.4 MB in size when the build log shows that the cross-compiler output (<code>text</code>) is 238 KB?</em></p>
 <p>Because <code>pinetime-app.out</code> is an <a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format"><strong>ELF File</strong></a>. It contains the firmware image as well as the debugging symbols.</p>
 <p>(Useful for a debugger like GDB)</p>
@@ -597,6 +613,7 @@ cmake \
 <li>
 <p><em>Can we flash the firmware files to PineTime over Bluetooth with the nRF Connect mobile app?</em></p>
 <p>We're now <a href="https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main2.yml">updating the build steps</a> to <a href="https://github.com/JF002/Pinetime/blob/master/bootloader/README.md">generate firmware files</a> for flashing over Bluetooth.</p>
+<p><a href="https://youtu.be/_U8oQqzW8Ck">&quot;Build PineTime Firmware in the GitHub Cloud... Flash to PineTime over Bluetooth&quot;</a></p>
 <p>Stay tuned!</p>
 </li>
 </ol>

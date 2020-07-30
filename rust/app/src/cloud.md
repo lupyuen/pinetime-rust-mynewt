@@ -244,11 +244,15 @@ Now let's download and flash the new firmware to PineTime!
 
 1.  Flash `pinetime-app.out` to our PineTime with [__xPack OpenOCD__](https://xpack.github.io/openocd/)
 
-    __File Format:__ ELF
+    -  __File Format:__ ELF
 
-    __Flash Address:__ `0x0`
+    -  __Flash Address:__ `0x0`
 
-(We'll have more instructions on flashing PineTime Firmware with xPack OpenOCD... Check back again later!)
+1.  Or flash with [__PineTime Updater__](https://github.com/lupyuen/pinetime-updater/blob/master/README.md)...
+
+    -  Select `Downloaded File` and `pinetime-app.out`
+
+    -  Flash to address `0x0`
 
 _Why is the firmware 6.4 MB in size when the build log shows that the cross-compiler output (`text`) is 238 KB?_
 
@@ -694,7 +698,11 @@ And that's how we build PineTime Firmware in the Cloud!
 
     We're now [updating the build steps](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main2.yml) to [generate firmware files](https://github.com/JF002/Pinetime/blob/master/bootloader/README.md) for flashing over Bluetooth.
 
+    ["Build PineTime Firmware in the GitHub Cloud... Flash to PineTime over Bluetooth"](https://youtu.be/_U8oQqzW8Ck)
+
     Stay tuned!
+
+
 
 # What's Next?
 
