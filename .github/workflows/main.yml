@@ -111,7 +111,7 @@ jobs:
 
     - name: Build Bootloader
       run:  |
-            ./scripts/build-boot.sh        
+            ./scripts/nrf52/build-boot.sh        
 
     - name: Upload Bootloader
       uses: actions/upload-artifact@v2
