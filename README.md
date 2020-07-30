@@ -23,6 +23,10 @@
 
 This `cloud` branch __builds firmware in the GitHub Cloud__ with __GitHub Actions.__
 
+GitHub Actions Workflow is at...
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/.github/workflows/main.yml
+
 The branch contains the firmware source code for __PineTime Smart Watch__ with __Apache Mynewt__ and __Embedded Rust__, with __Wireless Firmware Updates__. 
 
 Refer to the articles...
