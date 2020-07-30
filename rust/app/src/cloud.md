@@ -232,43 +232,73 @@ This triggers a new Firmware Build, which should succeed now.
 
 Now let's download and flash the new firmware to PineTime!
 
-1.  Click `Artifacts` at the top.
+(We assume that our PineTime has been [flashed with the latest firmware](https://github.com/lupyuen/pinetime-updater/blob/master/README.md) that supports wireless firmware updates)
 
-    Click `pinetime-app.out`
+1.  On our Android Phone, launch the Web Browser.
 
-    ![Build Artifact](https://lupyuen.github.io/images/cloud-artifact.png)
+    Browse to this URL to see GitHub Actions for our Fork...
 
-1.  Our web browser will download a ZIP file.
+    ```
+    https://github.com/ACCOUNT_NAME/Pinetime/actions
+    ```
 
-    Extract the PineTime Firmware Image inside: `pinetime-app.out`
+    (Change `ACCOUNT_NAME` to our GitHub Account Name)
 
-1.  Flash `pinetime-app.out` to our PineTime with [__xPack OpenOCD__](https://xpack.github.io/openocd/)
+1.  Tap on the first row that appears: `Update Clock.cpp`
 
-    -  __File Format:__ ELF
+1.  Tap `Artifacts` at the top.
 
-    -  __Flash Address:__ `0x0`
+    Tap `pinetime-mcuboot-app-dfu.zip`
 
-1.  Or flash with [__PineTime Updater__](https://github.com/lupyuen/pinetime-updater/blob/master/README.md)...
+    When the file has been downloaded, tap `Open`
 
-    -  Select `Downloaded File` and `pinetime-app.out`
+    ![Build Artifact](https://lupyuen.github.io/images/cloud-dfu.jpg)
 
-    -  Flash to address `0x0`
+    The file should appear under `Downloads` like above.
 
-_Why is the firmware 6.4 MB in size when the build log shows that the cross-compiler output (`text`) is 238 KB?_
+1.  Launch the [nRF Connect](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app.
 
-Because `pinetime-app.out` is an [__ELF File__](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format). It contains the firmware image as well as the debugging symbols.
+    Scan for devices and look for `Pinetime-JF`
 
-(Useful for a debugger like GDB)
+    Tap `Connect`
+
+    ![Build Artifact](https://lupyuen.github.io/images/cloud-dfu2.jpg)
+
+    Tap on the `DFU` circular icon at the top right.
+
+    DFU means __Device Firmware Update__. We'll be uploading the __DFU Package__ `pinetime-mcuboot-app-dfu.zip` to update the firmware on PineTime.
+
+1.  For File Type, select `Distribution Packet (ZIP)` and tap `OK`
+
+    ![Build Artifact](https://lupyuen.github.io/images/cloud-dfu3.jpg)
+
+    In the Search Box, enter `dfu`
+
+    Our downloaded file `pinetime-mcuboot-app-dfu.zip` should appear.
+
+    Tap on `pinetime-mcuboot-app-dfu.zip`
+
+1.  The nRF Connect app begins transmitting the file to PineTime over Bluetooth LE.
+
+    ![Build Artifact](https://lupyuen.github.io/images/cloud-dfu4.jpg)
+
+    When it's done, it shows `Disconnecting`
+
+1.  PineTime restarts with the new firmware and shows our message!
+
+![PineTime shows some LOVE](https://lupyuen.github.io/images/cloud-love.jpg)
+
+[Watch the video on YouTube](https://youtu.be/_U8oQqzW8Ck)
+
+_Will this work on iPhone?_
+
+Yes, with the iPhone version of the [nRF Connect](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app.
 
 _I have a request..._
 
 If you could... With your kind permission... Please post to Twitter and/or Mastodon a pic of your PineTime with the new firmware.
 
 Tag the post with `#PineTime` so we know that building PineTime Firmware in the Cloud works OK for you. Thanks! :-)
-
-![PineTime shows some LOVE](https://lupyuen.github.io/images/cloud-love.jpg)
-
-_PineTime shows some LOVE_
 
 # How It Works
 
@@ -694,15 +724,23 @@ And that's how we build PineTime Firmware in the Cloud!
 
     [Self-Hosted Runners for GitHub Actions](https://docs.github.com/en/actions/hosting-your-own-runners)
 
-1.  _Can we flash the firmware files to PineTime over Bluetooth with the nRF Connect mobile app?_
+1.  _What's in the artifact `pinetime-app.out`?_
 
-    We're now [updating the build steps](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main2.yml) to [generate firmware files](https://github.com/JF002/Pinetime/blob/master/bootloader/README.md) for flashing over Bluetooth.
+    TODO
 
-    ["Build PineTime Firmware in the GitHub Cloud... Flash to PineTime over Bluetooth"](https://youtu.be/_U8oQqzW8Ck)
+    Extract the PineTime Firmware Image inside: `pinetime-app.out`
 
-    Stay tuned!
+    Flash with [__PineTime Updater__](https://github.com/lupyuen/pinetime-updater/blob/master/README.md)...
 
+    -  Select `Downloaded File` and `pinetime-app.out`
 
+    -  Flash to address `0x0`
+
+1.  _Why is the firmware 6.4 MB in size when the build log shows that the cross-compiler output (`text`) is 238 KB?_
+
+    Because `pinetime-app.out` is an [__ELF File__](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format). It contains the firmware image as well as the debugging symbols.
+
+    (Useful for a debugger like GDB)
 
 # What's Next?
 
