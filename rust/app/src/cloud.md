@@ -676,6 +676,12 @@ We don't recommend adding `-j` for normal builds because it becomes harder to sp
 
 ## Create Firmware Image
 
+PineTime uses the [__MCUBoot Bootloader__](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot) to do nifty tricks... Like rolling back the PineTime firmware to the previous version if the new one fails to start.
+
+To do this the MCUBoot Bootloader needs our firmware to be formatted in a way that it understands.
+
+We call the format the __MCUBoot Firmware Image__...
+
 ```yaml
     - name: Create firmware image
       run:  |
@@ -691,7 +697,11 @@ Which expands to...
   /home/runner/work/_temp/mcuboot/scripts/imgtool.py verify build/src/pinetime-mcuboot-app-img.bin
 ```
 
+TODO
+
 ## Create DFU Package
+
+TODO
 
 ```yaml
     - name: Create DFU package
@@ -716,6 +726,8 @@ Which expands to...
 
 ## Upload DFU Package
 
+GitHub will wipe out our entire Virtual Machine and the files inside (like Langoliers)... So we need to save the PineTime DFU Package `pinetime-mcuboot-app-dfu.zip`
+
 ```
 Archive:  build/src/pinetime-mcuboot-app-dfu.zip
  Length   Method    Size  Cmpr    Date    Time   CRC-32   Name
@@ -727,6 +739,8 @@ Archive:  build/src/pinetime-mcuboot-app-dfu.zip
   239368           239368   0%                            3 files
 ```
 
+TODO: Repackage
+
 ```yaml
     - name: Upload DFU package
       uses: actions/upload-artifact@v2
@@ -735,15 +749,17 @@ Archive:  build/src/pinetime-mcuboot-app-dfu.zip
         path: build/src/pinetime-mcuboot-app-dfu/*
 ```
 
+The [`actions/upload-artifact`](https://docs.github.com/en/actions/configuring-and-managing-workflows/persisting-workflow-data-using-artifacts) GitHub Action saves the PineTime DFU Package `pinetime-mcuboot-app-dfu.zip` as an __Artifact__ for us to download and flash to PineTime.
+
 ## Make Standalone Firmware `pinetime-app`
 
-`cmake` generates regular [Makefiles](https://en.wikipedia.org/wiki/Makefile#:~:text=A%20makefile%20is%20a%20file,to%20generate%20a%20target%2Fgoal.). We run `make` to compile our source files based on the Makefiles...
+TODO
 
 ```yaml
-    - name: Make
-      # For Debugging Builds: Remove "make" option "-j" for clearer output. Add "--trace" to see details.
-      # For Faster Builds: Add "make" option "-j"
-      run:  cd build && make pinetime-app
+    - name: Make pinetime-app
+      run:  |
+        cd build
+        make pinetime-app
 ```
 
 This generates the PineTime Firmware File `pinetime-app.out`, as shown in the log...
@@ -755,38 +771,45 @@ post build steps for pinetime-app
 238012	    772	  35784	 274568	  43088	pinetime-app.out
 ```
 
+## Upload Standalone Firmware
+
+TODO
+
+```yaml
+    - name: Upload standalone firmware
+      uses: actions/upload-artifact@v2
+      with:
+        name: pinetime-app.out
+        path: build/src/pinetime-app.out
+```
+
 ## Find Output
 
-Let's hunt for the generated PineTime Firmware File `pinetime-app.out` 
+Let's hunt for the generated PineTime Firmware Files...
 
 ```yaml
     - name: Find output
-      run:  find . -name pinetime-app.out -ls
+      run:  |
+        find . -name "pinetime-app.*" -ls
+        find . -name "pinetime-mcuboot-app.*" -ls
 ```
 
 The log shows this...
 
 ```
-  1324860   6504 -rwxr-xr-x   1 runner   docker    6740720 Jul 27 07:56 ./build/src/pinetime-app.out
+  1327374    656 -rw-r--r--   1 runner   docker     671691 Jul 30 06:50 ./build/src/pinetime-app.hex
+  1327372   6504 -rwxr-xr-x   1 runner   docker    6740720 Jul 30 06:50 ./build/src/pinetime-app.out
+  1326257      4 drwxr-xr-x  11 runner   docker       4096 Jul 30 06:48 ./build/src/CMakeFiles/pinetime-app.dir
+  1327371   5004 -rw-r--r--   1 runner   docker    5122576 Jul 30 06:50 ./build/src/pinetime-app.map
+  1327373    236 -rwxr-xr-x   1 runner   docker     238784 Jul 30 06:50 ./build/src/pinetime-app.bin
+  1326403      4 drwxr-xr-x  11 runner   docker       4096 Jul 30 06:45 ./build/src/CMakeFiles/pinetime-mcuboot-app.dir
+  1326990    236 -rwxr-xr-x   1 runner   docker     238784 Jul 30 06:47 ./build/src/pinetime-mcuboot-app.bin
+  1326989   6504 -rwxr-xr-x   1 runner   docker    6740728 Jul 30 06:47 ./build/src/pinetime-mcuboot-app.out
+  1326988   5304 -rw-r--r--   1 runner   docker    5427760 Jul 30 06:47 ./build/src/pinetime-mcuboot-app.map
+  1326991    656 -rw-r--r--   1 runner   docker     671708 Jul 30 06:47 ./build/src/pinetime-mcuboot-app.hex
 ```
 
-This is a 6.4 MB ELF file that contains the PineTime Firmware Image as well as the debugging symbols.
-
-## Upload Built Firmware
-
-GitHub will wipe out our entire Virtual Machine and the files inside (like Langoliers)... So we need to save the PineTime Firmware File `pinetime-app.out`
-
-```yaml
-    - name: Upload built firmware
-      uses: actions/upload-artifact@v2
-      with:
-        # Artifact name (optional)
-        name: pinetime-app.out
-        # A file, directory or wildcard pattern that describes what to upload
-        path: build/src/pinetime-app.out
-```
-
-The [`actions/upload-artifact`](https://docs.github.com/en/actions/configuring-and-managing-workflows/persisting-workflow-data-using-artifacts) GitHub Action saves the PineTime Firmware File `build/src/pinetime-app.out` as a Artifact for us to download.
+TODO
 
 ## Caching At The End
 
