@@ -288,7 +288,7 @@ Now let's download and flash the new firmware to PineTime!
 
     When it's done, it shows `Disconnecting`
 
-1.  PineTime restarts with the new firmware and shows our message!
+1.  PineTime restarts with the new firmware and shows our message "LOVE"!
 
 ![PineTime shows some LOVE](https://lupyuen.github.io/images/cloud-love.jpg)
 
@@ -511,7 +511,11 @@ Yes we can, through the Ubuntu command line...
 ```yaml
     - name: Install nRF5 SDK
       if:   steps.cache-nrf5sdk.outputs.cache-hit != 'true'  # Install SDK if not found in cache
-      run:  cd ${{ runner.temp }} && curl https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/nRF5_SDK_15.3.0_59ac345.zip -o nrf5_sdk.zip && unzip nrf5_sdk.zip && mv nRF5_SDK_15.3.0_59ac345 nrf5_sdk
+      run:  |
+        cd ${{ runner.temp }}
+        curl https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/nRF5_SDK_15.3.0_59ac345.zip -o nrf5_sdk.zip
+        unzip nrf5_sdk.zip
+        mv nRF5_SDK_15.3.0_59ac345 nrf5_sdk
 ```
 
 This expands to...
@@ -536,6 +540,24 @@ We unpack the SDK into `/home/runner/work/_temp/nrf5_sdk`, which is cached by th
 Again, GitHub shall download the SDK only if the cache couldn't be found.
 
 GitHub will remove any cache entries that have not been accessed in over 7 days.
+
+## Install Adafruit `nrfutil` Library
+
+We install the Adafruit `nrfutil` Library to create the DFU Package for flashing over Bluetooth LE...
+
+```yaml
+    - name: Install adafruit-nrfutil
+      run:  |
+        pip3 install --user wheel
+        pip3 install --user setuptools
+        pip3 install --user adafruit-nrfutil
+```
+
+Yes `pip3` is available for installing Python 3 packages.
+
+But in the GitHub Ubuntu environment, the installed Python packages are not accessible via the default `PATH`
+
+In a while we'll see that they are accessible via `~/.local/bin/...`
 
 ## Checkout Source Files
 
@@ -606,7 +628,114 @@ We call `cmake` passing the locations of the Embedded Arm Toolchain and the nRF5
 
 This is exactly as prescribed by [the build doc](https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md).
 
-## Make
+## Make DFU Firmware `pinetime-mcuboot-app`
+
+```yaml
+    - name: Make pinetime-mcuboot-app
+      run:  |
+        cd build
+        make pinetime-mcuboot-app
+```
+
+This generates the PineTime Firmware File `pinetime-mcuboot-app.out`, as shown in the log...
+
+```
+[100%] Linking CXX executable pinetime-mcuboot-app.out
+post build steps for pinetime-mcuboot-app
+   text	   data	    bss	    dec	    hex	filename
+ 238012	    772	  35784	 274568	  43088	pinetime-mcuboot-app.out
+```
+
+This says...
+
+- Firmware will occupy 233 KB of Flash ROM for compiled machine code and data (`text`, `data`)
+
+- Firmware will need 34 KB of RAM for storing global static variables (`bss`)
+
+_If the build fails, can we see the complete list of options passed to the cross-compiler?_
+
+Add the `--trace` option like so...
+
+```bash
+# For Debugging Builds: Add "--trace" to see details.
+make --trace pinetime-mcuboot-app
+```
+
+_The log shows that the `make` step takes 2.5 minutes to execute. Can we compile faster?_
+
+Add the `-j` option like so...
+
+```bash
+# For Faster Builds: Add "make" option "-j"
+make -j pinetime-mcuboot-app
+```
+
+This runs a parallel build with multiple processes. It shaves about 30 seconds off the build time.
+
+We don't recommend adding `-j` for normal builds because it becomes harder to spot the compiler error.
+
+## Create Firmware Image
+
+```yaml
+    - name: Create firmware image
+      run:  |
+        ${{ runner.temp }}/mcuboot/scripts/imgtool.py create --align 4 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header build/src/pinetime-mcuboot-app.bin build/src/pinetime-mcuboot-app-img.bin
+        ${{ runner.temp }}/mcuboot/scripts/imgtool.py verify build/src/pinetime-mcuboot-app-img.bin
+```
+
+Which expands to...
+
+```bash
+  /home/runner/work/_temp/mcuboot/scripts/imgtool.py create --align 4 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header build/src/pinetime-mcuboot-app.bin build/src/pinetime-mcuboot-app-img.bin
+
+  /home/runner/work/_temp/mcuboot/scripts/imgtool.py verify build/src/pinetime-mcuboot-app-img.bin
+```
+
+## Create DFU Package
+
+```yaml
+    - name: Create DFU package
+      run:  |
+        ~/.local/bin/adafruit-nrfutil dfu genpkg --dev-type 0x0052 --application build/src/pinetime-mcuboot-app-img.bin build/src/pinetime-mcuboot-app-dfu.zip
+        unzip -v build/src/pinetime-mcuboot-app-dfu.zip
+        # Unzip the package because Upload Artifact will zip up the files
+        unzip build/src/pinetime-mcuboot-app-dfu.zip -d build/src/pinetime-mcuboot-app-dfu
+```
+
+Which expands to...
+
+```bash
+  ~/.local/bin/adafruit-nrfutil dfu genpkg --dev-type 0x0052 --application build/src/pinetime-mcuboot-app-img.bin build/src/pinetime-mcuboot-app-dfu.zip
+
+  # Display the contents of the package
+  unzip -v build/src/pinetime-mcuboot-app-dfu.zip
+
+  # Unzip the package because Upload Artifact will zip up the files
+  unzip build/src/pinetime-mcuboot-app-dfu.zip -d build/src/pinetime-mcuboot-app-dfu
+```
+
+## Upload DFU Package
+
+```
+Archive:  build/src/pinetime-mcuboot-app-dfu.zip
+ Length   Method    Size  Cmpr    Date    Time   CRC-32   Name
+--------  ------  ------- ---- ---------- ----- --------  ----
+      14  Stored       14   0% 2020-07-30 06:47 8cf6f003  pinetime-mcuboot-app-img.dat
+     498  Stored      498   0% 2020-07-30 06:47 b0b12660  manifest.json
+  238856  Stored   238856   0% 2020-07-30 06:47 ded98812  pinetime-mcuboot-app-img.bin
+--------          -------  ---                            -------
+  239368           239368   0%                            3 files
+```
+
+```yaml
+    - name: Upload DFU package
+      uses: actions/upload-artifact@v2
+      with:
+        name: pinetime-mcuboot-app-dfu.zip
+        path: build/src/pinetime-mcuboot-app-dfu/*
+```
+
+## Make Standalone Firmware `pinetime-app`
 
 `cmake` generates regular [Makefiles](https://en.wikipedia.org/wiki/Makefile#:~:text=A%20makefile%20is%20a%20file,to%20generate%20a%20target%2Fgoal.). We run `make` to compile our source files based on the Makefiles...
 
@@ -625,34 +754,6 @@ post build steps for pinetime-app
   text	   data	    bss	    dec	    hex	filename
 238012	    772	  35784	 274568	  43088	pinetime-app.out
 ```
-
-This says...
-
-- Firmware will occupy 233 KB of Flash ROM for compiled machine code and data (`text`, `data`)
-
-- Firmware will need 34 KB of RAM for storing global static variables (`bss`)
-
-_If the build fails, can we see the complete list of options passed to the cross-compiler?_
-
-Add the `--trace` option like so...
-
-```yaml
-      # For Debugging Builds: Add "--trace" to see details.
-      run:  cd build && make --trace pinetime-app
-```
-
-_The log shows that the `make` step takes 2 minutes to execute. Can we compile faster?_
-
-Add the `-j` option like so...
-
-```yaml
-      # For Faster Builds: Add "make" option "-j"
-      run:  cd build && make -j pinetime-app
-```
-
-This runs a parallel build with multiple processes. It shaves about 30 seconds off the build time.
-
-We don't recommend adding `-j` for normal builds because it becomes harder to spot the compiler error.
 
 ## Find Output
 
