@@ -25,7 +25,10 @@ jobs:
     steps:
         
     #########################################################################################
-    # Download and Cache Dependencies
+    # Checkout
+      
+    - name: Checkout source files
+      uses: actions/checkout@v2
 
     - name: Check cache for newt
       id:   cache-newt
@@ -40,12 +43,7 @@ jobs:
     - name: Install newt
       if:   steps.cache-newt.outputs.cache-hit != 'true'  # Install newt if not found in cache
       run:  |
-        # TODO: source scripts/install-version.sh
-        #  Versions to install
-        mynewt_version=mynewt_1_7_0_tag
-        nimble_version=nimble_1_2_0_tag
-        mcuboot_version=v1.3.1
-
+        source scripts/install-version.sh
         cd ${{ runner.temp }}
         git clone --branch $mynewt_version https://github.com/apache/mynewt-newt/
         cd mynewt-newt/
@@ -54,6 +52,29 @@ jobs:
 
         export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt
         newt version
+
+    - name: Download Mynewt source files
+      run:  |
+        export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt
+        # Ignore Error: Error updating "mcuboot": error: The following untracked working tree files would be overwritten by checkout:
+        # ext/mbedtls/include/mbedtls/check_config.h
+        # ext/mbedtls/include/mbedtls/config.h
+        newt install -v -f || ls -l repos
+
+        #  Overwrite MCUBoot with newer version
+        source scripts/install-version.sh
+        cd repos
+        # git clone --branch $mynewt_version https://github.com/apache/mynewt-core
+        # git clone --branch $nimble_version https://github.com/apache/mynewt-nimble
+        git clone --branch $mcuboot_version https://github.com/JuulLabs-OSS/mcuboot
+
+    # TODO: Cache Mynewt source files
+
+    - name: Show files
+      run:  set ; pwd ; ls -l
+      
+    #########################################################################################
+    # Download and Cache Dependencies
 
     - name: Check cache for Rust Toolchain thumbv7em-none-eabihf
       id:   cache-rust
@@ -125,41 +146,15 @@ jobs:
         cd ${{ runner.temp }}
         git clone --branch v1.5.0 https://github.com/JuulLabs-OSS/mcuboot
 
-    - name: Install imgtool dependencies
-      run:  pip3 install --user -r ${{ runner.temp }}/mcuboot/scripts/requirements.txt
+    # - name: Install imgtool dependencies
+    #   run:  pip3 install --user -r ${{ runner.temp }}/mcuboot/scripts/requirements.txt
 
-    - name: Install adafruit-nrfutil
-      run:  |
-        pip3 install --user wheel
-        pip3 install --user setuptools
-        pip3 install --user adafruit-nrfutil
+    # - name: Install adafruit-nrfutil
+    #   run:  |
+    #     pip3 install --user wheel
+    #     pip3 install --user setuptools
+    #     pip3 install --user adafruit-nrfutil
         
-    #########################################################################################
-    # Checkout
-      
-    - name: Checkout source files
-      uses: actions/checkout@v2
-
-    - name: Download Mynewt source files
-      run:  |
-        export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt
-        # Ignore Error: Error updating "mcuboot": error: The following untracked working tree files would be overwritten by checkout:
-        # ext/mbedtls/include/mbedtls/check_config.h
-        # ext/mbedtls/include/mbedtls/config.h
-        newt install -v -f ; ls -l repos
-
-        #  Overwrite MCUBoot with newer version
-        source scripts/install-version.sh
-        cd repos
-        # git clone --branch $mynewt_version https://github.com/apache/mynewt-core
-        # git clone --branch $nimble_version https://github.com/apache/mynewt-nimble
-        git clone --branch $mcuboot_version https://github.com/JuulLabs-OSS/mcuboot
-
-    # TODO: Cache Mynewt source files
-
-    - name: Show files
-      run:  set ; pwd ; ls -l
-
     #########################################################################################
     # Build and Upload MCUBoot Bootloader
 
