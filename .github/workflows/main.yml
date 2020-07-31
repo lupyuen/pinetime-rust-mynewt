@@ -161,7 +161,7 @@ jobs:
 
     - name: Build Bootloader
       run:  |
-        export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt
+        export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt:${{ runner.temp }}/arm-none-eabi/bin
         ./scripts/nrf52/build-boot.sh
 
     # - name: Upload Bootloader
@@ -175,7 +175,7 @@ jobs:
 
     - name: Build Application Firmware
       run:  |
-        export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt
+        export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt:${{ runner.temp }}/arm-none-eabi/bin
         ./scripts/build-app.sh
 
     # - name: Upload Application Firmware
