@@ -304,6 +304,10 @@ If you could... With your kind permission... Please post to Twitter and/or Masto
 
 Tag the post with `#PineTime` so we know that building PineTime Firmware in the Cloud works OK for you. Thanks! :-)
 
+If you're stuck, please chat with us in the PineTime Chatroom...
+
+[PineTime Chatroom on Discord / Matrix / Telegram / IRC](https://wiki.pine64.org/index.php/PineTime#Community)
+
 # Set PineTime Date and Time with nRF Connect
 
 To set the date and time on PineTime, we use the [nRF Connect](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app...
@@ -318,7 +322,77 @@ To set the date and time on PineTime, we use the [nRF Connect](https://www.nordi
 
 PineTime should automatically sync the date and time.
 
+This works only Android, not iPhone. If you can help fix this, please chat with us in the PineTime Chatroom...
+
+[PineTime Chatroom on Discord / Matrix / Telegram / IRC](https://wiki.pine64.org/index.php/PineTime#Community)
+
+# Other Options
+
+1.  _Can we edit our files in GitHub without using the web browser?_
+
+    We recommend [__VSCode__](https://code.visualstudio.com/) or [__VSCodium__](https://vscodium.com/) for editing files with [Git Version Control](https://code.visualstudio.com/docs/editor/versioncontrol). (Which works with GitHub files)
+
+    Remember to [Commit any updated files](https://code.visualstudio.com/docs/editor/versioncontrol#_commit) and [Push the Commits](https://code.visualstudio.com/docs/editor/versioncontrol#_remotes) to the `master` Branch to trigger the firmware build.
+
+1.  _Can we build the firmware on our own computers?_
+
+    Follow the instructions in [the firmware building doc](https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md) and the [DFU packaging doc](https://github.com/JF002/Pinetime/blob/master/bootloader/README.md).
+
+    To troubleshoot the build, compare with [my build logs](https://github.com/lupyuen/pinetime-lab/actions?query=workflow%3A%22Build+PineTime+Firmware%22).
+
+1.  _What if we don't wish to make our repos public?_
+
+    Only public repos get GitHub Actions for free... But there's an alternative:
+
+    [Self-Hosted Runners for GitHub Actions](https://docs.github.com/en/actions/hosting-your-own-runners)
+
+1.  _What's in the artifact `pinetime-app.out`?_
+
+    This is the __Standalone PineTime Firmware__... It's self-contained firmware that works without the MCUBoot Bootloader. Which makes it simpler for GDB debugging.
+
+1.  _How do we flash `pinetime-app.out`?_
+
+    Download the artifact `pinetime-app.out` from GitHub Actions.
+
+    We'll get a ZIP file. Extract the PineTime Firmware Image inside: `pinetime-app.out`
+
+    Flash with [__PineTime Updater__](https://github.com/lupyuen/pinetime-updater/blob/master/README.md)...
+
+    -  Select `Downloaded File` and `pinetime-app.out`
+
+    -  Flash to address `0x0`
+
+1.  _Is it really necessary to build the Standalone Firmware `pinetime-app.out`?_
+
+    Nope. To speed up the build, we may comment out the "Make `pinetime-app`" and "Upload Standalone Firmware" steps in the GitHub Actions Workflow.
+
+# What's Next?
+
+The PineTime Community shall extend this Build Firmware Workflow into a centralised system for maintaining the [__PineTime Community Firmware__](https://github.com/JF002/Pinetime) that will be preloaded at the PineTime Factory.
+
+The centralised [__Continuous Integration__](https://docs.github.com/en/actions/building-and-testing-code-with-continuous-integration/about-continuous-integration) system is helpful because...
+
+1.  It compiles the PineTime Community Firmware source code whenever there are updates.
+
+    And instantly catches any bad code that can't be compiled.
+
+1.  It can run [__Automated Tests__](https://medium.com/@ly.lee/stm32-blue-pill-unit-testing-with-qemu-blue-pill-emulator-9d88002a68b2?source=friends_link&sk=9a9389cdea5828cb48713f963c8f7615) in the Cloud after building the PineTime Community Firmware.
+
+    So we will know rightaway if the firmware won't boot on an emulated PineTime. (Hopefully)
+
+1.  And it can publish __New Firmware Releases__ for the PineTime Community to download... If the Automated Tests pass.
+
+We have a lot to do, please chat with us if you're keen to help...
+
+[PineTime Chatroom on Discord / Matrix / Telegram / IRC](https://wiki.pine64.org/index.php/PineTime#Community)
+
+And remember to enjoy your PineTime :-)
+
+[Check out my RSS Feed](https://lupyuen.github.io/rss.xml)
+
 # How It Works
+
+(Warning: The topics below are deeply technical... If you're keen please read on!)
 
 Let's look at the GitHub Actions Workflow we used for building PineTime Firmware: [`.github/workflows/main.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml)
 
@@ -860,70 +934,6 @@ Subsequent builds will be a lot faster with the caching.
 And that's how we build PineTime Firmware in the Cloud!
 
 [GitHub Actions Workflow Syntax](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)
-
-# Other Options
-
-1.  _Can we edit our files in GitHub without using the web browser?_
-
-    We recommend [__VSCode__](https://code.visualstudio.com/) or [__VSCodium__](https://vscodium.com/) for editing files with [Git Version Control](https://code.visualstudio.com/docs/editor/versioncontrol). (Which works with GitHub files)
-
-    Remember to [Commit any updated files](https://code.visualstudio.com/docs/editor/versioncontrol#_commit) and [Push the Commits](https://code.visualstudio.com/docs/editor/versioncontrol#_remotes) to the `master` Branch to trigger the firmware build.
-
-1.  _Can we build the firmware on our own computers?_
-
-    Follow the instructions in [the firmware building doc](https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md) and the [DFU packaging doc](https://github.com/JF002/Pinetime/blob/master/bootloader/README.md).
-
-    To troubleshoot the build, compare with [my build logs](https://github.com/lupyuen/pinetime-lab/actions?query=workflow%3A%22Build+PineTime+Firmware%22).
-
-1.  _What if we don't wish to make our repos public?_
-
-    Only public repos get GitHub Actions for free... But there's an alternative:
-
-    [Self-Hosted Runners for GitHub Actions](https://docs.github.com/en/actions/hosting-your-own-runners)
-
-1.  _What's in the artifact `pinetime-app.out`?_
-
-    This is the __Standalone PineTime Firmware__... It's self-contained firmware that works without the MCUBoot Bootloader. Which makes it simpler for GDB debugging.
-
-1.  _How do we flash `pinetime-app.out`?_
-
-    Download the artifact `pinetime-app.out` from GitHub Actions.
-
-    We'll get a ZIP file. Extract the PineTime Firmware Image inside: `pinetime-app.out`
-
-    Flash with [__PineTime Updater__](https://github.com/lupyuen/pinetime-updater/blob/master/README.md)...
-
-    -  Select `Downloaded File` and `pinetime-app.out`
-
-    -  Flash to address `0x0`
-
-1.  _Is it really necessary to build the Standalone Firmware `pinetime-app.out`?_
-
-    Nope. To speed up the build, we may comment out the "Make `pinetime-app`" and "Upload Standalone Firmware" steps in the GitHub Actions Workflow.
-
-# What's Next?
-
-The PineTime Community shall extend this Build Firmware Workflow into a centralised system for maintaining the [__PineTime Community Firmware__](https://github.com/JF002/Pinetime) that will be preloaded at the PineTime Factory.
-
-The centralised [__Continuous Integration__](https://docs.github.com/en/actions/building-and-testing-code-with-continuous-integration/about-continuous-integration) system is helpful because...
-
-1.  It compiles the PineTime Community Firmware source code whenever there are updates.
-
-    And instantly catches any bad code that can't be compiled.
-
-1.  It can run [__Automated Tests__](https://medium.com/@ly.lee/stm32-blue-pill-unit-testing-with-qemu-blue-pill-emulator-9d88002a68b2?source=friends_link&sk=9a9389cdea5828cb48713f963c8f7615) in the Cloud after building the PineTime Community Firmware.
-
-    So we will know rightaway if the firmware won't boot on an emulated PineTime. (Hopefully)
-
-1.  And it can publish __New Firmware Releases__ for the PineTime Community to download... If the Automated Tests pass.
-
-We have a lot to do, please chat with us if you're keen to help...
-
-[PineTime Chatroom on Discord / Matrix / Telegram / IRC](https://wiki.pine64.org/index.php/PineTime#Community)
-
-And remember to enjoy your PineTime :-)
-
-[Check out my RSS Feed](https://lupyuen.github.io/rss.xml)
 
 # Environment Variables
 
