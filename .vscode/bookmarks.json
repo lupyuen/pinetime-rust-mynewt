@@ -1,236 +1,21 @@
 [
 	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/drivers/flash/spiflash/syscfg.yml",
-		"bookmarks": [
-			{
-				"line": 63,
-				"column": 25,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/drivers/flash/spiflash/src/spiflash.c",
-		"bookmarks": [
-			{
-				"line": 88,
-				"column": 36,
-				"label": ""
-			},
-			{
-				"line": 1428,
-				"column": 13,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "/Users/Luppy/PineTime/pinetime-rust-mynewt\\repos\\apache-mynewt-core\\hw\\bsp\\black_vet6\\src\\hal_bsp.c",
-		"bookmarks": [
-			{
-				"line": 423,
-				"column": 36,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "/Users/Luppy/PineTime/pinetime-rust-mynewt\\hw\\bsp\\nrf52\\src\\hal_bsp.c",
-		"bookmarks": [
-			{
-				"line": 47,
-				"column": 16,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/test/spiflash_stress_test/src/spiflash_stress_test.c",
-		"bookmarks": [
-			{
-				"line": 90,
-				"column": 12,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/test/flash_test/src/flash_test.c",
-		"bookmarks": [
-			{
-				"line": 192,
-				"column": 9,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/apps/my_sensor_app/src/flash_test.c",
-		"bookmarks": [
-			{
-				"line": 218,
-				"column": 8,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/drivers/flash/spiflash/chips/syscfg.yml",
-		"bookmarks": [
-			{
-				"line": 307,
-				"column": 18,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/hw/bsp/nrf52/src/hal_bsp.c",
-		"bookmarks": [
-			{
-				"line": 48,
-				"column": 35,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/bin/targets/nrf52_my_sensor/generated/include/syscfg/syscfg.h",
-		"bookmarks": [
-			{
-				"line": 14,
-				"column": 13,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/bsp/black_vet6/pkg.yml",
-		"bookmarks": [
-			{
-				"line": 38,
-				"column": 16,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/hw/bsp/nrf52/pkg.yml",
-		"bookmarks": [
-			{
-				"line": 36,
-				"column": 27,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/logs/mynewt.elf.lst",
-		"bookmarks": [
-			{
-				"line": 990,
-				"column": 5,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/targets/nrf52_boot/target.yml",
-		"bookmarks": [
-			{
-				"line": 4,
-				"column": 7,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/apps/boot_stub/syscfg.yml",
-		"bookmarks": [
-			{
-				"line": 24,
-				"column": 8,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/scripts/nrf52/flash-boot.ocd",
-		"bookmarks": [
-			{
-				"line": 29,
-				"column": 15,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/hal/src/hal_flash.c",
-		"bookmarks": [
-			{
-				"line": 31,
-				"column": 7,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/rust/mynewt/src/hal.rs",
-		"bookmarks": [
-			{
-				"line": 105,
-				"column": 36,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/hw/bsp/nrf52/syscfg.yml",
-		"bookmarks": [
-			{
-				"line": 60,
-				"column": 8,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/hw/bsp/nrf52/bsp.yml",
-		"bookmarks": [
-			{
-				"line": 36,
-				"column": 26,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/targets/nrf52_boot/syscfg.yml",
-		"bookmarks": [
-			{
-				"line": 17,
-				"column": 15,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/repos/mcuboot/boot/mynewt/pkg.yml",
+		"path": "$ROOTPATH$/bin/targets/bluepill_my_sensor/generated/src/bluepill_my_sensor-sysinit-app.c",
 		"bookmarks": [
 			{
 				"line": 21,
-				"column": 8,
-				"label": ""
+				"column": 11,
+				"label": "sysinit"
 			}
 		]
 	},
 	{
-		"path": "$ROOTPATH$/repos/mcuboot/boot/mynewt/syscfg.yml",
+		"path": "$ROOTPATH$/targets/bluepill_my_sensor/syscfg.yml",
 		"bookmarks": [
 			{
 				"line": 18,
-				"column": 5,
-				"label": ""
+				"column": 3,
+				"label": "syscfg bluepill"
 			}
 		]
 	},
@@ -238,38 +23,23 @@
 		"path": "$ROOTPATH$/apps/my_sensor_app/pkg.yml",
 		"bookmarks": [
 			{
-				"line": 19,
-				"column": 29,
-				"label": ""
+				"line": 71,
+				"column": 5,
+				"label": "pkg"
 			}
 		]
 	},
 	{
-		"path": "$ROOTPATH$/apps/my_sensor_app/syscfg.yml",
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/sensor/creator/src/sensor_creator.c",
 		"bookmarks": [
 			{
-				"line": 18,
-				"column": 14,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/targets/nrf52_boot/pkg.yml",
-		"bookmarks": [
+				"line": 199,
+				"column": 37,
+				"label": "sensor creator"
+			},
 			{
-				"line": 25,
-				"column": 18,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/repos/mcuboot/boot/mynewt/src/main.c",
-		"bookmarks": [
-			{
-				"line": 211,
-				"column": 2,
+				"line": 459,
+				"column": 12,
 				"label": ""
 			}
 		]
@@ -278,108 +48,283 @@
 		"path": "$ROOTPATH$/libs/semihosting_console/src/semihosting_console.c",
 		"bookmarks": [
 			{
-				"line": 136,
-				"column": 14,
+				"line": 21,
+				"column": 11,
+				"label": "semihosting console"
+			}
+		]
+	},
+	{
+		"path": "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor\\bin\\targets\\bluepill_my_sensor\\generated\\src\\bluepill_my_sensor-sysinit-app.c",
+		"bookmarks": [
+			{
+				"line": 1,
+				"column": 18,
+				"label": "sysinit"
+			}
+		]
+	},
+	{
+		"path": "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor\\apps\\my_sensor_app\\syscfg.yml",
+		"bookmarks": [
+			{
+				"line": 0,
+				"column": 13,
+				"label": "syscfg"
+			}
+		]
+	},
+	{
+		"path": "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor\\targets\\bluepill_my_sensor\\syscfg.yml",
+		"bookmarks": [
+			{
+				"line": 0,
+				"column": 3,
+				"label": "syscfg target"
+			}
+		]
+	},
+	{
+		"path": "/Users/Luppy/mynewt/stm32bluepill-mynewt-sensor\\bin\\targets\\bluepill_my_sensor\\generated\\include\\syscfg\\syscfg.h",
+		"bookmarks": [
+			{
+				"line": 4,
+				"column": 15,
+				"label": "syscfg generated"
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/drivers/sensors/bme280/src/bme280.c",
+		"bookmarks": [
+			{
+				"line": 694,
+				"column": 9,
 				"label": ""
 			}
 		]
 	},
 	{
-		"path": "$ROOTPATH$/bin/targets/nrf52_boot/generated/include/syscfg/syscfg.h",
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/net/oic/src/api/oc_rep.c",
 		"bookmarks": [
 			{
-				"line": 14,
-				"column": 10,
+				"line": 143,
+				"column": 12,
 				"label": ""
 			}
 		]
 	},
 	{
-		"path": "$ROOTPATH$/repos/mcuboot/boot/bootutil/pkg.yml",
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/net/oic/src/messaging/coap/coap.c",
 		"bookmarks": [
 			{
-				"line": 19,
+				"line": 339,
 				"column": 19,
 				"label": ""
 			}
 		]
 	},
 	{
-		"path": "$ROOTPATH$/repos/mcuboot/boot/mynewt/mcuboot_config/syscfg.yml",
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/encoding/tinycbor/src/cborencoder.c",
 		"bookmarks": [
 			{
-				"line": 18,
-				"column": 29,
+				"line": 241,
+				"column": 17,
 				"label": ""
 			}
 		]
 	},
 	{
-		"path": "$ROOTPATH$/rust/st7735-lcd-batch-rs/src/lib.rs",
+		"path": "$ROOTPATH$/scripts/gen-bindings.sh",
 		"bookmarks": [
 			{
-				"line": 17,
-				"column": 13,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/rust/app/src/lib.rs",
-		"bookmarks": [
-			{
-				"line": 78,
-				"column": 16,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/libs/pinetime_boot/src/pinetime_boot.c",
-		"bookmarks": [
-			{
-				"line": 45,
-				"column": 13,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/libs/pinetime_boot/src/display.c",
-		"bookmarks": [
-			{
-				"line": 111,
-				"column": 16,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/libs/pinetime_boot/src/write.c",
-		"bookmarks": [
-			{
-				"line": 42,
-				"column": 16,
-				"label": ""
-			}
-		]
-	},
-	{
-		"path": "$ROOTPATH$/bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c",
-		"bookmarks": [
-			{
-				"line": 39,
+				"line": 1,
 				"column": 5,
 				"label": ""
 			}
 		]
 	},
 	{
-		"path": "$ROOTPATH$/libs/pinetime_boot/pkg.yml",
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/sensor/src/sensor.c",
 		"bookmarks": [
 			{
-				"line": 20,
-				"column": 4,
+				"line": 237,
+				"column": 15,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/kernel/os/src/os_callout.c",
+		"bookmarks": [
+			{
+				"line": 123,
+				"column": 7,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/kernel/os/src/os.c",
+		"bookmarks": [
+			{
+				"line": 140,
+				"column": 14,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/mcu/nordic/nrf52xxx/src/hal_os_tick.c",
+		"bookmarks": [
+			{
+				"line": 139,
+				"column": 9,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/kernel/os/src/os_time.c",
+		"bookmarks": [
+			{
+				"line": 26,
+				"column": 15,
+				"label": ""
+			},
+			{
+				"line": 85,
+				"column": 11,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rtc.c",
+		"bookmarks": [
+			{
+				"line": 165,
+				"column": 13,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/mcu/stm/stm32f1xx/src/ext/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c",
+		"bookmarks": [
+			{
+				"line": 64,
+				"column": 15,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal_uart.c",
+		"bookmarks": [
+			{
+				"line": 2,
+				"column": 15,
+				"label": ""
+			},
+			{
+				"line": 3179,
+				"column": 22,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/mcu/stm/stm32_common/src/hal_uart.c",
+		"bookmarks": [
+			{
+				"line": 469,
+				"column": 20,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-core/hw/mcu/stm/stm32l4xx/src/ext/Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l476xx.h",
+		"bookmarks": [
+			{
+				"line": 967,
+				"column": 10,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/hw/bsp/stm32l4/bsp.yml",
+		"bookmarks": [
+			{
+				"line": 19,
+				"column": 14,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/apps/my_sensor_app/src/device_composition.c",
+		"bookmarks": [
+			{
+				"line": 288,
+				"column": 16,
+				"label": ""
+			},
+			{
+				"line": 2548,
+				"column": 42,
+				"label": ""
+			},
+			{
+				"line": 2697,
+				"column": 34,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/apps/my_sensor_app/src/app_gpio.c",
+		"bookmarks": [
+			{
+				"line": 74,
+				"column": 10,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/apps/my_sensor_app/src/publisher.c",
+		"bookmarks": [
+			{
+				"line": 63,
+				"column": 18,
+				"label": ""
+			},
+			{
+				"line": 68,
+				"column": 7,
+				"label": ""
+			},
+			{
+				"line": 76,
+				"column": 21,
+				"label": ""
+			},
+			{
+				"line": 99,
+				"column": 29,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$/repos/apache-mynewt-nimble/apps/blemesh_models_example_2/src/publisher.c",
+		"bookmarks": [
+			{
+				"line": 63,
+				"column": 16,
 				"label": ""
 			}
 		]

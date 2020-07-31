@@ -149,16 +149,16 @@ jobs:
     #########################################################################################
     # Build and Upload MCUBoot Bootloader
 
-    # - name: Build Bootloader
-    #   run:  |
-    #     export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt:${{ runner.temp }}/arm-none-eabi/bin
-    #     ./scripts/nrf52/build-boot.sh
+    - name: Build Bootloader
+      run:  |
+        export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt:${{ runner.temp }}/arm-none-eabi/bin
+        ./scripts/nrf52/build-boot.sh
 
-    # - name: Upload Bootloader
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: boot_stub.elf
-    #     path: bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf
+    - name: Upload Bootloader
+      uses: actions/upload-artifact@v2
+      with:
+        name: mynewt.elf
+        path: bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
 
     #########################################################################################
     # Build and Upload Rust+Mynewt Application Firmware
@@ -179,7 +179,7 @@ jobs:
 
     - name: Find output
       run:  |
-        #  find bin/targets/nrf52_boot/app/apps/boot_stub -name "boot_stub.*" -ls
+        find bin/targets/nrf52_boot/app/boot/mynewt -name "mynewt.*" -ls
         find bin/targets/nrf52_my_sensor/app/apps/my_sensor_app -name "my_sensor_app.*" -ls
       
 # Embedded Arm Toolchain will only be cached if the build succeeds.

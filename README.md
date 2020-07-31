@@ -21,7 +21,7 @@
 
 # PineTime Smart Watch Firmware with Apache Mynewt and Embedded Rust
 
-This `ota2` branch contains the firmware source code for PineTime Smart Watch with Apache Mynewt and Embedded Rust, with Wireless Firmware Updates. Refer to the articles...
+This `master` branch contains the firmware source code for PineTime Smart Watch with Apache Mynewt and Embedded Rust, with Wireless Firmware Updates. Refer to the articles...
 
 1. [_PineTime doesn't run Linux... But that's OK!_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime)
 
@@ -112,8 +112,8 @@ If you are building from this repository from scratch instead of the Released Pa
    ```bash
    # Latest nightly-2020-04-20 fails with asm error, so we use nightly-2020-02-16
    source $HOME/.cargo/env
-   rustup default nightly-2020-02-16
    rustup update
+   rustup default nightly
    rustup target add thumbv7em-none-eabihf
    ```
 
@@ -470,6 +470,28 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
     NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
     NET standalone node 
     ```
+
+# PineTime Updater
+
+Alternatively, flash the following two files to PineTime with [__PineTime Updater__](https://github.com/lupyuen/pinetime-updater)...
+
+1.  __MCUBoot Bootloader__
+
+    File: `bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf`
+
+    Address: `0x0`
+
+1.  __Rust+Mynewt Firmware__
+
+    File: `bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf`
+
+    Address: `0x8000`
+
+# Automated Build with GitHub Actions
+
+This bootloader and firmware are built automatically in the GitHub Cloud by the following GitHub Actions Workflow...
+
+[`.github/workflows/main.yml`](.github/workflows/main.yml)
 
 # Installation, Build, Flash and Debug Logs
 
