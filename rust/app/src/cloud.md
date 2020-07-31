@@ -775,7 +775,7 @@ PineTime uses the [__MCUBoot Bootloader__](https://lupyuen.github.io/pinetime-ru
 
 To do this the MCUBoot Bootloader needs our firmware to be formatted in a way that it understands.
 
-We call this format the __MCUBoot Firmware Image__...
+We call this format the __MCUBoot Firmware Image__. We create the Firmware Image like so...
 
 ```yaml
     - name: Create firmware image
@@ -784,7 +784,7 @@ We call this format the __MCUBoot Firmware Image__...
         ${{ runner.temp }}/mcuboot/scripts/imgtool.py verify build/src/pinetime-mcuboot-app-img.bin
 ```
 
-Which expands to...
+The above expands to...
 
 ```bash
   /home/runner/work/_temp/mcuboot/scripts/imgtool.py create --align 4 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header build/src/pinetime-mcuboot-app.bin build/src/pinetime-mcuboot-app-img.bin
@@ -813,7 +813,7 @@ We wrap up the Firmware Image (from the previous step) into a DFU Package by cal
         unzip build/src/pinetime-mcuboot-app-dfu.zip -d build/src/pinetime-mcuboot-app-dfu
 ```
 
-Which expands to...
+The above expands to...
 
 ```bash
   ~/.local/bin/adafruit-nrfutil dfu genpkg --dev-type 0x0052 --application build/src/pinetime-mcuboot-app-img.bin build/src/pinetime-mcuboot-app-dfu.zip
@@ -825,7 +825,9 @@ Which expands to...
   unzip build/src/pinetime-mcuboot-app-dfu.zip -d build/src/pinetime-mcuboot-app-dfu
 ```
 
-This creates the DFU Package `pinetime-mcuboot-app-dfu.zip` which contains these files...
+This creates the DFU Package `pinetime-mcuboot-app-dfu.zip`.
+
+The DFU Package contains 3 files...
 
 ```
 Archive:  build/src/pinetime-mcuboot-app-dfu.zip

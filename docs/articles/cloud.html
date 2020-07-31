@@ -682,13 +682,13 @@ make -j pinetime-mcuboot-app
 <h2 id="create-firmware-image" class="section-header"><a href="#create-firmware-image">9.11 Create Firmware Image</a></h2>
 <p>PineTime uses the <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot"><strong>MCUBoot Bootloader</strong></a> to do nifty tricks... Like rolling back the PineTime firmware to the previous version if the new one fails to start.</p>
 <p>To do this the MCUBoot Bootloader needs our firmware to be formatted in a way that it understands.</p>
-<p>We call this format the <strong>MCUBoot Firmware Image</strong>...</p>
+<p>We call this format the <strong>MCUBoot Firmware Image</strong>. We create the Firmware Image like so...</p>
 <pre><code class="language-yaml">    - name: Create firmware image
       run:  |
         ${{ runner.temp }}/mcuboot/scripts/imgtool.py create --align 4 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header build/src/pinetime-mcuboot-app.bin build/src/pinetime-mcuboot-app-img.bin
         ${{ runner.temp }}/mcuboot/scripts/imgtool.py verify build/src/pinetime-mcuboot-app-img.bin
 </code></pre>
-<p>Which expands to...</p>
+<p>The above expands to...</p>
 <pre><code class="language-bash">  /home/runner/work/_temp/mcuboot/scripts/imgtool.py create --align 4 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header build/src/pinetime-mcuboot-app.bin build/src/pinetime-mcuboot-app-img.bin
 
   /home/runner/work/_temp/mcuboot/scripts/imgtool.py verify build/src/pinetime-mcuboot-app-img.bin
@@ -706,7 +706,7 @@ make -j pinetime-mcuboot-app
         # Unzip the package because Upload Artifact will zip up the files
         unzip build/src/pinetime-mcuboot-app-dfu.zip -d build/src/pinetime-mcuboot-app-dfu
 </code></pre>
-<p>Which expands to...</p>
+<p>The above expands to...</p>
 <pre><code class="language-bash">  ~/.local/bin/adafruit-nrfutil dfu genpkg --dev-type 0x0052 --application build/src/pinetime-mcuboot-app-img.bin build/src/pinetime-mcuboot-app-dfu.zip
 
   # Display the contents of the package
@@ -715,7 +715,8 @@ make -j pinetime-mcuboot-app
   # Unzip the package because Upload Artifact will zip up the files
   unzip build/src/pinetime-mcuboot-app-dfu.zip -d build/src/pinetime-mcuboot-app-dfu
 </code></pre>
-<p>This creates the DFU Package <code>pinetime-mcuboot-app-dfu.zip</code> which contains these files...</p>
+<p>This creates the DFU Package <code>pinetime-mcuboot-app-dfu.zip</code>.</p>
+<p>The DFU Package contains 3 files...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Archive</span>:  <span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span><span class="op">-</span><span class="ident">dfu</span>.<span class="ident">zip</span>
