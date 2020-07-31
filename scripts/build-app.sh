@@ -22,7 +22,7 @@ rust_build_profile=debug
 app_build=$PWD/bin/targets/$mynewt_build_app/app/apps/my_sensor_app/my_sensor_app.elf
 
 #  Location of the compiled Rust app and external libraries.  The Rust compiler generates a *.rlib archive for the Rust app and each external Rust library here.
-rust_build_dir=$PWD/target/$rust_build_target/$rust_build_profile/deps
+rust_build_dir=$PWD/target/$rust_build_target/$rust_build_profile
 
 #  Location of the libs/rust_app stub library built by Mynewt.  We will replace this stub by the Rust app and external libraries.
 rust_app_dir=$PWD/bin/targets/$mynewt_build_app/app/libs/rust_app
@@ -73,7 +73,7 @@ if [ -e $app_build ]; then
 fi
 
 #  Delete the compiled Rust app to force the Rust build to relink the Rust app.  Sometimes there are multiple copies of the compiled app, this deletes all copies.
-rust_app_build=$rust_build_dir/libapp*.rlib
+rust_app_build=$rust_build_dir/libapp.a
 for f in $rust_app_build
 do
     if [ -e $f ]; then
@@ -106,8 +106,8 @@ if [ ! -d tmprustlib ]; then
 fi
 pushd tmprustlib >/dev/null
 
-#  Extract the object (*.o) files in the compiled Rust output (*.rlib).
-rust_build=$rust_build_dir/*.rlib
+#  Extract the object (*.o) files in the compiled Rust output.
+rust_build=$rust_build_dir/libapp.a
 for f in $rust_build
 do
     if [ -e $f ]; then
