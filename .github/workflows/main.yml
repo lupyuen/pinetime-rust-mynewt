@@ -1,0 +1,144 @@
+# GitHub Actions Workflow to build Rust+Mynewt Firmware for PineTime Smart Watch
+# See https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud
+
+# Name of this Workflow
+name: Build PineTime Firmware
+
+# When to run this Workflow...
+on:
+
+  # Run this Workflow when files are updated (Pushed) in this Branch
+  push:
+    branches: [ master ]
+    
+  # Also run this Workflow when a Pull Request is created or updated in this Branch
+  pull_request:
+    branches: [ master ]
+
+# Steps to run for the Workflow
+jobs:
+  build:
+
+    # Run these steps on Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+        
+    #########################################################################################
+    # Download and Cache Dependencies
+
+    - name: Install Rust Toolchain thumbv7em-none-eabihf
+      uses: actions-rs/toolchain@v1.0.6
+      with:
+        # Rust toolchain name.
+        # See https://github.com/rust-lang/rustup.rs#toolchain-specification
+        # If this is not given, the action will try and install the version specified in the `rust-toolchain` file.
+
+        # Latest nightly-2020-04-20 fails with asm error, so we use nightly-2020-02-16
+        # rustup default nightly-2020-02-16
+        toolchain: nightly-2020-02-16  # optional
+
+        # Target triple to install for this toolchain
+        # rustup target add thumbv7em-none-eabihf
+        target: thumbv7em-none-eabihf  # optional
+
+        # Set installed toolchain as default
+        # default: # optional
+        # Set installed toolchain as an override for a directory
+        # override: # optional
+        # Name of the group of components to be installed for a new toolchain
+        # profile: # optional
+        # Comma-separated list of components to be additionally installed for a new toolchain
+        # components: # optional
+    
+    # TODO: Cache Rust Toolchain
+    
+    - name: Check cache for Embedded Arm Toolchain arm-none-eabi-gcc
+      id:   cache-toolchain
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-toolchain
+      with:
+        path: ${{ runner.temp }}/arm-none-eabi
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+
+    - name: Install Embedded Arm Toolchain arm-none-eabi-gcc
+      if:   steps.cache-toolchain.outputs.cache-hit != 'true'  # Install toolchain if not found in cache
+      uses: fiam/arm-none-eabi-gcc@v1.0.2
+      with:
+        # GNU Embedded Toolchain for Arm release name, in the V-YYYY-qZ format (e.g. "9-2019-q4")
+        release: 8-2019-q3
+        # Directory to unpack GCC to. Defaults to a temporary directory.
+        directory: ${{ runner.temp }}/arm-none-eabi
+
+    - name: Check cache for MCUBoot
+      id:   cache-mcuboot
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-mcuboot
+      with:
+        path: ${{ runner.temp }}/mcuboot
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+
+    - name: Install MCUBoot
+      if:   steps.cache-mcuboot.outputs.cache-hit != 'true'  # Install MCUBoot if not found in cache
+      run:  |
+        cd ${{ runner.temp }}
+        git clone --branch v1.5.0 https://github.com/JuulLabs-OSS/mcuboot
+
+    - name: Install imgtool dependencies
+      run:  pip3 install --user -r ${{ runner.temp }}/mcuboot/scripts/requirements.txt
+
+    - name: Install adafruit-nrfutil
+      run:  |
+        pip3 install --user wheel
+        pip3 install --user setuptools
+        pip3 install --user adafruit-nrfutil
+        
+    #########################################################################################
+    # Checkout
+      
+    - name: Checkout source files
+      uses: actions/checkout@v2
+
+    - name: Show files
+      run:  set ; pwd ; ls -l
+
+    #########################################################################################
+    # Build and Upload MCUBoot Bootloader
+
+    - name: Build Bootloader
+      run:  |
+            ./scripts/nrf52/build-boot.sh        
+
+    - name: Upload Bootloader
+      uses: actions/upload-artifact@v2
+      with:
+        name: TODO
+        path: TODO
+
+    #########################################################################################
+    # Build and Upload Rust+Mynewt Application Firmware
+
+    - name: Build Application Firmware
+      run:  |
+            ./scripts/build-app.sh        
+
+    - name: Upload Application Firmware
+      uses: actions/upload-artifact@v2
+      with:
+        name: TODO
+        path: TODO
+
+    #########################################################################################
+    # Finish
+
+    - name: Find output
+      run:  |
+        find . -name "TODO.*" -ls
+        find . -name "TODO.*" -ls
+      
+# Embedded Arm Toolchain will only be cached if the build succeeds.
+# So make sure that the first build always succeeds, e.g. comment out the "Build" step.
