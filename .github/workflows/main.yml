@@ -99,7 +99,7 @@ jobs:
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
     
     - name: Install Rust Toolchain thumbv7em-none-eabihf
-      if:   steps.cache-rust.outputs.cache-hit != 'true'  # Install Rust toolchain if not found in cache
+      # if:   steps.cache-rust.outputs.cache-hit != 'true'  # Install Rust toolchain if not found in cache
       uses: actions-rs/toolchain@v1.0.6
       with:
         # Rust toolchain name.
@@ -173,13 +173,13 @@ jobs:
     - name: Build Bootloader
       run:  |
         export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt:${{ runner.temp }}/arm-none-eabi/bin
-        ./scripts/nrf52/build-boot.sh
+        # ./scripts/nrf52/build-boot.sh
 
     # - name: Upload Bootloader
     #   uses: actions/upload-artifact@v2
     #   with:
-    #     name: TODO
-    #     path: TODO
+    #     name: boot_stub.elf
+    #     path: bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf
 
     #########################################################################################
     # Build and Upload Rust+Mynewt Application Firmware
@@ -187,7 +187,7 @@ jobs:
     - name: Build Application Firmware
       run:  |
         export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt:${{ runner.temp }}/arm-none-eabi/bin
-        ./scripts/build-app.sh
+        # ./scripts/build-app.sh
 
     # - name: Upload Application Firmware
     #   uses: actions/upload-artifact@v2
