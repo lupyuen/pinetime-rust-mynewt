@@ -27,6 +27,25 @@ jobs:
     #########################################################################################
     # Download and Cache Dependencies
 
+    - name: Install newt
+      run:  |
+        # TODO: source scripts/install-version.sh
+        #  Versions to install
+        mynewt_version=mynewt_1_7_0_tag
+        nimble_version=nimble_1_2_0_tag
+        mcuboot_version=v1.3.1
+
+        cd ${{ runner.temp }}
+        git clone --branch $mynewt_version https://github.com/apache/mynewt-newt/
+        cd mynewt-newt/
+        ./build.sh
+        newt/newt version
+        
+        export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt
+        newt version
+
+    # TODO: Cache newt
+
     - name: Install Rust Toolchain thumbv7em-none-eabihf
       uses: actions-rs/toolchain@v1.0.6
       with:
