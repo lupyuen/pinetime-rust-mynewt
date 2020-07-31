@@ -51,7 +51,6 @@ jobs:
         cd mynewt-newt/
         ./build.sh
         newt/newt version
-
         export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt
         newt version
 
