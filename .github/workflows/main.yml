@@ -149,10 +149,10 @@ jobs:
     #########################################################################################
     # Build and Upload MCUBoot Bootloader
 
-    - name: Build Bootloader
-      run:  |
-        export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt:${{ runner.temp }}/arm-none-eabi/bin
-        # ./scripts/nrf52/build-boot.sh
+    # - name: Build Bootloader
+    #   run:  |
+    #     export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt:${{ runner.temp }}/arm-none-eabi/bin
+    #     ./scripts/nrf52/build-boot.sh
 
     # - name: Upload Bootloader
     #   uses: actions/upload-artifact@v2
@@ -167,13 +167,13 @@ jobs:
       run:  |
         #  Build twice to fix "undefined reference to main"
         export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt:${{ runner.temp }}/arm-none-eabi/bin
-        ./scripts/build-app.sh || ./scripts/build-app.sh || ./scripts/build-app.sh
+        ./scripts/build-app.sh
 
-    # - name: Upload Application Firmware
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: TODO
-    #     path: TODO
+    - name: Upload Application Firmware
+      uses: actions/upload-artifact@v2
+      with:
+        name: my_sensor_app.elf
+        path: bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
 
     #########################################################################################
     # Finish
