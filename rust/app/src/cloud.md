@@ -775,7 +775,7 @@ PineTime uses the [__MCUBoot Bootloader__](https://lupyuen.github.io/pinetime-ru
 
 To do this the MCUBoot Bootloader needs our firmware to be formatted in a way that it understands.
 
-We call the format the __MCUBoot Firmware Image__...
+We call this format the __MCUBoot Firmware Image__...
 
 ```yaml
     - name: Create firmware image

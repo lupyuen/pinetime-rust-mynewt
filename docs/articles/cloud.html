@@ -682,7 +682,7 @@ make -j pinetime-mcuboot-app
 <h2 id="create-firmware-image" class="section-header"><a href="#create-firmware-image">9.11 Create Firmware Image</a></h2>
 <p>PineTime uses the <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot"><strong>MCUBoot Bootloader</strong></a> to do nifty tricks... Like rolling back the PineTime firmware to the previous version if the new one fails to start.</p>
 <p>To do this the MCUBoot Bootloader needs our firmware to be formatted in a way that it understands.</p>
-<p>We call the format the <strong>MCUBoot Firmware Image</strong>...</p>
+<p>We call this format the <strong>MCUBoot Firmware Image</strong>...</p>
 <pre><code class="language-yaml">    - name: Create firmware image
       run:  |
         ${{ runner.temp }}/mcuboot/scripts/imgtool.py create --align 4 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header build/src/pinetime-mcuboot-app.bin build/src/pinetime-mcuboot-app-img.bin
