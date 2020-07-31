@@ -149,7 +149,7 @@ jobs:
     - name: Build Bootloader
       run:  |
         export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt
-        # ./scripts/nrf52/build-boot.sh        
+        ./scripts/nrf52/build-boot.sh
 
     # - name: Upload Bootloader
     #   uses: actions/upload-artifact@v2
@@ -163,7 +163,7 @@ jobs:
     - name: Build Application Firmware
       run:  |
         export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt
-        # ./scripts/build-app.sh        
+        ./scripts/build-app.sh
 
     # - name: Upload Application Firmware
     #   uses: actions/upload-artifact@v2
