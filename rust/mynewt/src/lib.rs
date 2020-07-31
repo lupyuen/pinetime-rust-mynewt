@@ -2,7 +2,6 @@
 //! Also includes safe versions of Mynewt APIs created specially for Rust.
 
 #![no_std]                        //  Don't link with standard Rust library, which is not compatible with embedded systems
-#![feature(const_transmute)]      //  Allow `transmute` for initialising Mynewt structs
 #![feature(trace_macros)]         //  Enable tracing of macros
 #![feature(proc_macro_hygiene)]   //  Allow proc macros to be unhygienic
 
