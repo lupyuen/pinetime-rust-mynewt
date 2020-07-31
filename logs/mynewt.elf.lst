@@ -1,6 +1,6 @@
 
-/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf:     file format elf32-littlearm
-/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
+/Users/Luppy/PineTime/master-pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf:     file format elf32-littlearm
+/Users/Luppy/PineTime/master-pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
 architecture: arm, flags 0x00000112:
 EXEC_P, HAS_SYMS, D_PAGED
 start address 0x000000d9
@@ -34,10 +34,10 @@ Idx Name               Size      VMA       LMA       File off  Algn  Flags
  13 .debug_info        0002a1e1  00000000  00000000  00031c17  2**0  CONTENTS, READONLY, DEBUGGING
  14 .debug_abbrev      0000766b  00000000  00000000  0005bdf8  2**0  CONTENTS, READONLY, DEBUGGING
  15 .debug_aranges     00001508  00000000  00000000  00063468  2**3  CONTENTS, READONLY, DEBUGGING
- 16 .debug_str         0000624a  00000000  00000000  00064970  2**0  CONTENTS, READONLY, DEBUGGING
- 17 .debug_loc         0000f84c  00000000  00000000  0006abba  2**0  CONTENTS, READONLY, DEBUGGING
- 18 .debug_ranges      00001308  00000000  00000000  0007a406  2**0  CONTENTS, READONLY, DEBUGGING
- 19 .debug_frame       00003670  00000000  00000000  0007b710  2**2  CONTENTS, READONLY, DEBUGGING
+ 16 .debug_str         00006251  00000000  00000000  00064970  2**0  CONTENTS, READONLY, DEBUGGING
+ 17 .debug_loc         0000f84c  00000000  00000000  0006abc1  2**0  CONTENTS, READONLY, DEBUGGING
+ 18 .debug_ranges      00001308  00000000  00000000  0007a40d  2**0  CONTENTS, READONLY, DEBUGGING
+ 19 .debug_frame       00003670  00000000  00000000  0007b718  2**2  CONTENTS, READONLY, DEBUGGING
 SYMBOL TABLE:
 00000000 l    d  .text	00000000 .text
 00005998 l    d  .ARM.extab	00000000 .ARM.extab
@@ -1608,10 +1608,10 @@ main(void)
      608:	f001 ffaa 	bl	2560 <sysinit_end>
     console_blocking_mode();
      60c:	f001 fea1 	bl	2352 <console_blocking_mode>
-    console_printf("Button: %d\n", hal_gpio_read(PUSH_BUTTON_IN)); console_flush();
-    console_printf("Booting...\n"); console_flush();
-    */
-    ////
+#endif
+#else
+    flash_map_init();
+#endif
 
     rc = boot_go(&rsp);
      610:	a801      	add	r0, sp, #4
@@ -15734,8 +15734,8 @@ err:
     5978:	c000 0007 1000 0000 0010 0000 6000 0000     .............`..
     5988:	2000 0000 0111 0000 4000 000b c000 0034     . .......@....4.
 
-/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf:     file format elf32-littlearm
+/Users/Luppy/PineTime/master-pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf:     file format elf32-littlearm
 
 arm-none-eabi-objdump: section '.rodata' mentioned in a -j option, but not found in any input file
    text	   data	    bss	    dec	    hex	filename
-  22960	    132	  25504	  48596	   bdd4	/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
+  22960	    132	  25504	  48596	   bdd4	/Users/Luppy/PineTime/master-pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
