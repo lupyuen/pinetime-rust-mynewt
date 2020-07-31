@@ -140,6 +140,16 @@ jobs:
     - name: Checkout source files
       uses: actions/checkout@v2
 
+    - name: Download Mynewt source files
+      run:  |
+        source scripts/install-version.sh
+        cd repos
+        git clone --branch $mynewt_version https://github.com/apache/mynewt-core
+        git clone --branch $nimble_version https://github.com/apache/mynewt-nimble
+        git clone --branch $mcuboot_version https://github.com/JuulLabs-OSS/mcuboot
+
+    # TODO: Cache Mynewt source files
+
     - name: Show files
       run:  set ; pwd ; ls -l
 
