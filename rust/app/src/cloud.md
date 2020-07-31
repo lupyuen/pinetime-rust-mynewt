@@ -487,7 +487,7 @@ Huge downloads and reinstallation averted... So neat!
 
 _What software is preinstalled on the GitHub Virtual Machine?_
 
-[Here is the list](https://github.com/actions/virtual-environments/blob/ubuntu18/20200726.1/images/linux/Ubuntu1804-README.md)
+[Check out the preinstalled software on Ubuntu 18.04 for GitHub Actions](https://github.com/actions/virtual-environments/blob/ubuntu18/20200726.1/images/linux/Ubuntu1804-README.md)
 
 ## Check Cache for nRF5 SDK
 
