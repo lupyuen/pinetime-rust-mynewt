@@ -800,7 +800,9 @@ This is prescribed by the [DFU packaging doc](https://github.com/JF002/Pinetime/
 
 ## Create DFU Package
 
-TODO
+We'll be using the nRF Connect mobile app to transmit a DFU Package to update PineTime's firmware.
+
+We wrap up the Firmware Image (from the previous step) into a DFU Package by calling `adafruit-nrfutil `...
 
 ```yaml
     - name: Create DFU package
@@ -823,9 +825,7 @@ Which expands to...
   unzip build/src/pinetime-mcuboot-app-dfu.zip -d build/src/pinetime-mcuboot-app-dfu
 ```
 
-## Upload DFU Package
-
-GitHub will wipe out our entire Virtual Machine and the files inside (like Langoliers)... So we need to save the PineTime DFU Package `pinetime-mcuboot-app-dfu.zip`
+This creates the DFU Package `pinetime-mcuboot-app-dfu.zip` which contains these files...
 
 ```
 Archive:  build/src/pinetime-mcuboot-app-dfu.zip
@@ -838,7 +838,21 @@ Archive:  build/src/pinetime-mcuboot-app-dfu.zip
   239368           239368   0%                            3 files
 ```
 
-TODO: Repackage
+_Why did we unzip the DFU Package?_
+
+Let's say we didn't unzip the DFU Package... And we pass `pinetime-mcuboot-app-dfu.zip` to GitHub Actions to store as an Arfitact for downloading.
+
+GitHub Actions __always__ zips up artifacts for downloading... And we'll end up with a DFU Package that's __zipped twice!__
+
+nRF Connect doesn't like double-zipped DFU Packages.
+
+So to work around this issue, we unzip the DFU Package and pass the 3 files inside to be stored as an Artifact.
+
+GitHub Actions will gladly zip up the 3 files to create our DFU Package.
+
+## Upload DFU Package
+
+GitHub will wipe out our entire Virtual Machine and the files inside (like Langoliers)... So we need to save the PineTime DFU Package `pinetime-mcuboot-app-dfu.zip`
 
 ```yaml
     - name: Upload DFU package
@@ -849,6 +863,14 @@ TODO: Repackage
 ```
 
 The [`actions/upload-artifact`](https://docs.github.com/en/actions/configuring-and-managing-workflows/persisting-workflow-data-using-artifacts) GitHub Action saves the PineTime DFU Package `pinetime-mcuboot-app-dfu.zip` as an __Artifact__ for us to download and flash to PineTime.
+
+Remember that this path contains 3 files...
+
+```
+        path: build/src/pinetime-mcuboot-app-dfu/*
+```
+
+So this step will zip up the 3 files to create our DFU Package `pinetime-mcuboot-app-dfu.zip`
 
 ## Make Standalone Firmware `pinetime-app`
 

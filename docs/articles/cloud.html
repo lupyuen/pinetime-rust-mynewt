@@ -694,9 +694,11 @@ make -j pinetime-mcuboot-app
   /home/runner/work/_temp/mcuboot/scripts/imgtool.py verify build/src/pinetime-mcuboot-app-img.bin
 </code></pre>
 <p>This is prescribed by the <a href="https://github.com/JF002/Pinetime/blob/master/bootloader/README.md">DFU packaging doc</a>.</p>
-<p>TODO</p>
+<p><code>imgtool</code> comes from the MCUBoot Bootloader, as explained here...</p>
+<p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></p>
 <h2 id="create-dfu-package" class="section-header"><a href="#create-dfu-package">9.12 Create DFU Package</a></h2>
-<p>TODO</p>
+<p>We'll be using the nRF Connect mobile app to transmit a DFU Package to update PineTime's firmware.</p>
+<p>We wrap up the Firmware Image (from the previous step) into a DFU Package by calling <code>adafruit-nrfutil </code>...</p>
 <pre><code class="language-yaml">    - name: Create DFU package
       run:  |
         ~/.local/bin/adafruit-nrfutil dfu genpkg --dev-type 0x0052 --application build/src/pinetime-mcuboot-app-img.bin build/src/pinetime-mcuboot-app-dfu.zip
@@ -713,8 +715,7 @@ make -j pinetime-mcuboot-app
   # Unzip the package because Upload Artifact will zip up the files
   unzip build/src/pinetime-mcuboot-app-dfu.zip -d build/src/pinetime-mcuboot-app-dfu
 </code></pre>
-<h2 id="upload-dfu-package" class="section-header"><a href="#upload-dfu-package">9.13 Upload DFU Package</a></h2>
-<p>GitHub will wipe out our entire Virtual Machine and the files inside (like Langoliers)... So we need to save the PineTime DFU Package <code>pinetime-mcuboot-app-dfu.zip</code></p>
+<p>This creates the DFU Package <code>pinetime-mcuboot-app-dfu.zip</code> which contains these files...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Archive</span>:  <span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span><span class="op">-</span><span class="ident">dfu</span>.<span class="ident">zip</span>
@@ -725,7 +726,14 @@ make -j pinetime-mcuboot-app
   <span class="number">238856</span>  <span class="ident">Stored</span>   <span class="number">238856</span>   <span class="number">0</span><span class="op">%</span> <span class="number">2020</span><span class="op">-</span><span class="number">07</span><span class="op">-</span><span class="number">30</span> <span class="number">06</span>:<span class="number">47</span> <span class="ident">ded98812</span>  <span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span><span class="op">-</span><span class="ident">img</span>.<span class="ident">bin</span>
 <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>          <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>  <span class="op">-</span><span class="op">-</span><span class="op">-</span>                            <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>
   <span class="number">239368</span>           <span class="number">239368</span>   <span class="number">0</span><span class="op">%</span>                            <span class="number">3</span> <span class="ident">files</span></pre></div>
-<p>TODO: Repackage</p>
+<p><em>Why did we unzip the DFU Package?</em></p>
+<p>Let's say we didn't unzip the DFU Package... And we pass <code>pinetime-mcuboot-app-dfu.zip</code> to GitHub Actions to store as an Arfitact for downloading.</p>
+<p>GitHub Actions <strong>always</strong> zips up artifacts for downloading... And we'll end up with a DFU Package that's <strong>zipped twice!</strong></p>
+<p>nRF Connect doesn't like double-zipped DFU Packages.</p>
+<p>So to work around this issue, we unzip the DFU Package and pass the 3 files inside to be stored as an Artifact.</p>
+<p>GitHub Actions will gladly zip up the 3 files to create our DFU Package.</p>
+<h2 id="upload-dfu-package" class="section-header"><a href="#upload-dfu-package">9.13 Upload DFU Package</a></h2>
+<p>GitHub will wipe out our entire Virtual Machine and the files inside (like Langoliers)... So we need to save the PineTime DFU Package <code>pinetime-mcuboot-app-dfu.zip</code></p>
 <pre><code class="language-yaml">    - name: Upload DFU package
       uses: actions/upload-artifact@v2
       with:
@@ -733,6 +741,10 @@ make -j pinetime-mcuboot-app
         path: build/src/pinetime-mcuboot-app-dfu/*
 </code></pre>
 <p>The <a href="https://docs.github.com/en/actions/configuring-and-managing-workflows/persisting-workflow-data-using-artifacts"><code>actions/upload-artifact</code></a> GitHub Action saves the PineTime DFU Package <code>pinetime-mcuboot-app-dfu.zip</code> as an <strong>Artifact</strong> for us to download and flash to PineTime.</p>
+<p>Remember that this path contains 3 files...</p>
+
+<pre><code>        path: build/src/pinetime-mcuboot-app-dfu/*</code></pre>
+<p>So this step will zip up the 3 files to create our DFU Package <code>pinetime-mcuboot-app-dfu.zip</code></p>
 <h2 id="make-standalone-firmware-pinetime-app" class="section-header"><a href="#make-standalone-firmware-pinetime-app">9.14 Make Standalone Firmware <code>pinetime-app</code></a></h2>
 <p>Our Workflow also creates the <strong>Standalone PineTime Firmware</strong>... It's self-contained firmware that runs without the MCUBoot Bootloader. Which makes it simpler for GDB debugging.</p>
 <pre><code class="language-yaml">    - name: Make pinetime-app
