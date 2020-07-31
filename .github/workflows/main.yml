@@ -180,7 +180,7 @@ jobs:
 
     - name: Find output
       run:  |
-        find bin/targets/nrf52_boot/app/apps/boot_stub -name "boot_stub.*" -ls
+        #  find bin/targets/nrf52_boot/app/apps/boot_stub -name "boot_stub.*" -ls
         find bin/targets/nrf52_my_sensor/app/apps/my_sensor_app -name "my_sensor_app.*" -ls
       
 # Embedded Arm Toolchain will only be cached if the build succeeds.
