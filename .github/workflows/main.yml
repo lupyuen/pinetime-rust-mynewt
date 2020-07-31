@@ -27,7 +27,18 @@ jobs:
     #########################################################################################
     # Download and Cache Dependencies
 
+    - name: Check cache for newt
+      id:   cache-newt
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-newt
+      with:
+        path: ${{ runner.temp }}/mynewt-newt
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+
     - name: Install newt
+      if:   steps.cache-newt.outputs.cache-hit != 'true'  # Install newt if not found in cache
       run:  |
         # TODO: source scripts/install-version.sh
         #  Versions to install
@@ -40,13 +51,22 @@ jobs:
         cd mynewt-newt/
         ./build.sh
         newt/newt version
-        
+
         export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt
         newt version
 
-    # TODO: Cache newt
-
+    - name: Check cache for Rust Toolchain thumbv7em-none-eabihf
+      id:   cache-rust
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.cargo/registry
+          ~/.cargo/git
+          target
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+    
     - name: Install Rust Toolchain thumbv7em-none-eabihf
+      if:   steps.cache-rust.outputs.cache-hit != 'true'  # Install Rust toolchain if not found in cache
       uses: actions-rs/toolchain@v1.0.6
       with:
         # Rust toolchain name.
@@ -69,8 +89,6 @@ jobs:
         # profile: # optional
         # Comma-separated list of components to be additionally installed for a new toolchain
         # components: # optional
-    
-    # TODO: Cache Rust Toolchain
     
     - name: Check cache for Embedded Arm Toolchain arm-none-eabi-gcc
       id:   cache-toolchain
@@ -130,26 +148,28 @@ jobs:
 
     - name: Build Bootloader
       run:  |
-            ./scripts/nrf52/build-boot.sh        
+        export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt
+        # ./scripts/nrf52/build-boot.sh        
 
-    - name: Upload Bootloader
-      uses: actions/upload-artifact@v2
-      with:
-        name: TODO
-        path: TODO
+    # - name: Upload Bootloader
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: TODO
+    #     path: TODO
 
     #########################################################################################
     # Build and Upload Rust+Mynewt Application Firmware
 
     - name: Build Application Firmware
       run:  |
-            ./scripts/build-app.sh        
+        export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt
+        # ./scripts/build-app.sh        
 
-    - name: Upload Application Firmware
-      uses: actions/upload-artifact@v2
-      with:
-        name: TODO
-        path: TODO
+    # - name: Upload Application Firmware
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: TODO
+    #     path: TODO
 
     #########################################################################################
     # Finish
