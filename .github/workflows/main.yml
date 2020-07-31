@@ -167,7 +167,7 @@ jobs:
       run:  |
         #  Build twice to fix "undefined reference to main"
         export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt:${{ runner.temp }}/arm-none-eabi/bin
-        ./scripts/build-app.sh || ./scripts/build-app.sh
+        ./scripts/build-app.sh || ./scripts/build-app.sh || ./scripts/build-app.sh
 
     # - name: Upload Application Firmware
     #   uses: actions/upload-artifact@v2
