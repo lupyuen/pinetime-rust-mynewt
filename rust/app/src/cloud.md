@@ -304,6 +304,20 @@ If you could... With your kind permission... Please post to Twitter and/or Masto
 
 Tag the post with `#PineTime` so we know that building PineTime Firmware in the Cloud works OK for you. Thanks! :-)
 
+# Set PineTime Date and Time with nRF Connect
+
+To set the date and time on PineTime, we use the [nRF Connect](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app...
+
+1. In nRF Connect, browse for the `Pinetime-JF` device and tap `Connect`
+
+1. Tap on `Menu` → `Configure GATT Server` → `Add Service`
+
+1. Set `Server Configuration` to `Current Time Service`
+
+1. Tap `OK`
+
+PineTime should automatically sync the date and time.
+
 # How It Works
 
 Let's look at the GitHub Actions Workflow we used for building PineTime Firmware: [`.github/workflows/main.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml)
