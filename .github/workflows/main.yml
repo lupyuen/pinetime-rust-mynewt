@@ -88,46 +88,21 @@ jobs:
     #########################################################################################
     # Download and Cache Dependencies
 
-    - name: Fetch cache for Rust Toolchain
-      id:   cache-rust
-      uses: actions/cache@v2
-      with:
-        path: |
-          ~/.cargo/registry
-          ~/.cargo/git
-          target
-        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+    # - name: Fetch cache for Rust Toolchain
+    #   id:   cache-rust
+    #   uses: actions/cache@v2
+    #   with:
+    #     path: |
+    #       ~/.cargo/registry
+    #       ~/.cargo/git
+    #       target
+    #     key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
     - name: Install Rust Target thumbv7em-none-eabihf
       run:  |
         # Latest nightly-2020-04-20 fails with asm error, so we use nightly-2020-02-16
-        rustup default nightly-2020-02-16
+        # rustup default nightly-2020-02-16
         rustup target add thumbv7em-none-eabihf
-    
-    # - name: Install Rust Toolchain thumbv7em-none-eabihf
-    #   # if:   steps.cache-rust.outputs.cache-hit != 'true'  # Install Rust toolchain if not found in cache
-    #   uses: actions-rs/toolchain@v1.0.6
-    #   with:
-    #     # Rust toolchain name.
-    #     # See https://github.com/rust-lang/rustup.rs#toolchain-specification
-    #     # If this is not given, the action will try and install the version specified in the `rust-toolchain` file.
-
-    #     # Latest nightly-2020-04-20 fails with asm error, so we use nightly-2020-02-16
-    #     # rustup default nightly-2020-02-16
-    #     toolchain: nightly-2020-02-16  # optional
-
-    #     # Target triple to install for this toolchain
-    #     # rustup target add thumbv7em-none-eabihf
-    #     target: thumbv7em-none-eabihf  # optional
-
-    #     # Set installed toolchain as default
-    #     # default: # optional
-    #     # Set installed toolchain as an override for a directory
-    #     # override: # optional
-    #     # Name of the group of components to be installed for a new toolchain
-    #     # profile: # optional
-    #     # Comma-separated list of components to be additionally installed for a new toolchain
-    #     # components: # optional
     
     - name: Check cache for Embedded Arm Toolchain arm-none-eabi-gcc
       id:   cache-toolchain
