@@ -143,6 +143,7 @@ jobs:
     - name: Download Mynewt source files
       run:  |
         source scripts/install-version.sh
+        mkdir repos
         cd repos
         git clone --branch $mynewt_version https://github.com/apache/mynewt-core
         git clone --branch $nimble_version https://github.com/apache/mynewt-nimble

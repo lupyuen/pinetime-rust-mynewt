@@ -485,6 +485,10 @@ This says that GitHub shall download the toolchain only if the previous step `ca
 
 Huge downloads and reinstallation averted... So neat!
 
+_What software is preinstalled on the GitHub Virtual Machine?_
+
+[Here is the list](https://github.com/actions/virtual-environments/blob/ubuntu18/20200726.1/images/linux/Ubuntu1804-README.md)
+
 ## Check Cache for nRF5 SDK
 
 Next we download the [nRF5 SDK](https://www.nordicsemi.com/Software-and-tools/Software/nRF5-SDK) by Nordic Semiconductor.
