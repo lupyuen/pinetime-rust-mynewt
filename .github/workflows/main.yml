@@ -100,8 +100,7 @@ jobs:
 
     - name: Install Rust Target thumbv7em-none-eabihf
       run:  |
-        # Latest nightly-2020-04-20 fails with asm error, so we use nightly-2020-02-16
-        # rustup default nightly-2020-02-16
+        rustup default nightly
         rustup target add thumbv7em-none-eabihf
     
     - name: Check cache for Embedded Arm Toolchain arm-none-eabi-gcc
