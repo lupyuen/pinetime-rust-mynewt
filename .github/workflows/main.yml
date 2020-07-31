@@ -177,7 +177,7 @@ jobs:
     - name: Create Application Firmware Image
       run:  |
         export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt:${{ runner.temp }}/arm-none-eabi/bin
-        newt create-image nrf52_my_sensor 1.0.0
+        ./scripts/nrf52/image-app.sh
 
     - name: Upload Application Firmware Image
       uses: actions/upload-artifact@v2
