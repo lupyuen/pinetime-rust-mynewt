@@ -160,6 +160,12 @@ jobs:
         name: mynewt.elf
         path: bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
 
+    - name: Upload Bootloader Outputs
+      uses: actions/upload-artifact@v2
+      with:
+        name: mynewt.zip
+        path: bin/targets/nrf52_boot/app/boot/mynewt/mynewt.*
+
     #########################################################################################
     # Build and Upload Rust+Mynewt Application Firmware
 
@@ -184,6 +190,12 @@ jobs:
       with:
         name: my_sensor_app.img
         path: bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img
+
+    - name: Upload Application Firmware Outputs
+      uses: actions/upload-artifact@v2
+      with:
+        name: my_sensor_app.zip
+        path: bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.*
 
     #########################################################################################
     # Finish

@@ -794,7 +794,9 @@ Which expands to...
 
 This is prescribed by the [DFU packaging doc](https://github.com/JF002/Pinetime/blob/master/bootloader/README.md).
 
-TODO
+`imgtool` comes from the MCUBoot Bootloader, as explained here...
+
+["Firmware Update over Bluetooth Low Energy on PineTime Smart Watch"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu)
 
 ## Create DFU Package
 
