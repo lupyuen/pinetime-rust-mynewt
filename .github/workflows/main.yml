@@ -143,14 +143,17 @@ jobs:
     - name: Download Mynewt source files
       run:  |
         export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt
-        newt install -v -f
+        # Ignore Error: Error updating "mcuboot": error: The following untracked working tree files would be overwritten by checkout:
+        # ext/mbedtls/include/mbedtls/check_config.h
+        # ext/mbedtls/include/mbedtls/config.h
+        newt install -v -f ; ls -l repos
 
-        # source scripts/install-version.sh
-        # mkdir repos
-        # cd repos
+        #  Overwrite MCUBoot with newer version
+        source scripts/install-version.sh
+        cd repos
         # git clone --branch $mynewt_version https://github.com/apache/mynewt-core
         # git clone --branch $nimble_version https://github.com/apache/mynewt-nimble
-        # git clone --branch $mcuboot_version https://github.com/JuulLabs-OSS/mcuboot
+        git clone --branch $mcuboot_version https://github.com/JuulLabs-OSS/mcuboot
 
     # TODO: Cache Mynewt source files
 
