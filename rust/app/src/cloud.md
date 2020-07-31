@@ -310,7 +310,9 @@ Let's look at the GitHub Actions Workflow we used for building PineTime Firmware
 
 ```yaml
 # GitHub Actions Workflow to build FreeRTOS Firmware for PineTime Smart Watch
+# See https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud
 # Based on https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md
+# and https://github.com/JF002/Pinetime/blob/master/bootloader/README.md
 
 # Name of this Workflow
 name: Build PineTime Firmware
@@ -359,7 +361,8 @@ After that we specify the steps to be executed for our Workflow...
 
 ## Install `cmake`
 
-The steps for building PineTime Firmware are based on [this doc](https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md).
+The steps for building PineTime Firmware are based on [the firmware building doc](https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md) and the [DFU packaging doc](https://github.com/JF002/Pinetime/blob/master/bootloader/README.md).
+
 
 We use a popular tool called [`cmake`](https://cmake.org/). (It's like an evolved `make`)
 
@@ -697,6 +700,8 @@ Which expands to...
   /home/runner/work/_temp/mcuboot/scripts/imgtool.py verify build/src/pinetime-mcuboot-app-img.bin
 ```
 
+This is prescribed by the [DFU packaging doc](https://github.com/JF002/Pinetime/blob/master/bootloader/README.md).
+
 TODO
 
 ## Create DFU Package
@@ -753,7 +758,7 @@ The [`actions/upload-artifact`](https://docs.github.com/en/actions/configuring-a
 
 ## Make Standalone Firmware `pinetime-app`
 
-TODO
+Our Workflow also creates the __Standalone PineTime Firmware__... It's self-contained firmware that runs without the MCUBoot Bootloader. Which makes it simpler for GDB debugging.
 
 ```yaml
     - name: Make pinetime-app
@@ -773,7 +778,7 @@ post build steps for pinetime-app
 
 ## Upload Standalone Firmware
 
-TODO
+This step uploads the Standalone Firmware as an Artifact for us to download...
 
 ```yaml
     - name: Upload standalone firmware
@@ -783,9 +788,17 @@ TODO
         path: build/src/pinetime-app.out
 ```
 
+To flash the Standalone Firmware to PineTime, check the instructions below.
+
+_Why is the `pinetime-app.out` firmware 6.4 MB in size when the build log shows that the cross-compiler output (`text`) is 233 KB?_
+
+Because `pinetime-app.out` is an [__ELF File__](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format). It contains the firmware image as well as the debugging symbols.
+
+(Useful for a debugger like GDB)
+
 ## Find Output
 
-Let's hunt for the generated PineTime Firmware Files...
+For curiosity, let's discover what other outputs are generated during the PineTime Firmware Build...
 
 ```yaml
     - name: Find output
@@ -794,7 +807,7 @@ Let's hunt for the generated PineTime Firmware Files...
         find . -name "pinetime-mcuboot-app.*" -ls
 ```
 
-The log shows this...
+Some of these files may be useful for troubleshooting our firmware (like the Linker Maps `*.map`)...
 
 ```
   1327374    656 -rw-r--r--   1 runner   docker     671691 Jul 30 06:50 ./build/src/pinetime-app.hex
@@ -808,8 +821,6 @@ The log shows this...
   1326988   5304 -rw-r--r--   1 runner   docker    5427760 Jul 30 06:47 ./build/src/pinetime-mcuboot-app.map
   1326991    656 -rw-r--r--   1 runner   docker     671708 Jul 30 06:47 ./build/src/pinetime-mcuboot-app.hex
 ```
-
-TODO
 
 ## Caching At The End
 
@@ -842,7 +853,7 @@ And that's how we build PineTime Firmware in the Cloud!
 
 1.  _Can we build the firmware on our own computers?_
 
-    Follow the instructions in [the firmware building doc](https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md).
+    Follow the instructions in [the firmware building doc](https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md) and the [DFU packaging doc](https://github.com/JF002/Pinetime/blob/master/bootloader/README.md).
 
     To troubleshoot the build, compare with [my build logs](https://github.com/lupyuen/pinetime-lab/actions?query=workflow%3A%22Build+PineTime+Firmware%22).
 
@@ -854,9 +865,13 @@ And that's how we build PineTime Firmware in the Cloud!
 
 1.  _What's in the artifact `pinetime-app.out`?_
 
-    TODO
+    This is the __Standalone PineTime Firmware__... It's self-contained firmware that works without the MCUBoot Bootloader. Which makes it simpler for GDB debugging.
 
-    Extract the PineTime Firmware Image inside: `pinetime-app.out`
+1.  _How do we flash `pinetime-app.out`?_
+
+    Download the artifact `pinetime-app.out` from GitHub Actions.
+
+    We'll get a ZIP file. Extract the PineTime Firmware Image inside: `pinetime-app.out`
 
     Flash with [__PineTime Updater__](https://github.com/lupyuen/pinetime-updater/blob/master/README.md)...
 
@@ -864,11 +879,9 @@ And that's how we build PineTime Firmware in the Cloud!
 
     -  Flash to address `0x0`
 
-1.  _Why is the firmware 6.4 MB in size when the build log shows that the cross-compiler output (`text`) is 238 KB?_
+1.  _Is it really necessary to build the Standalone Firmware `pinetime-app.out`?_
 
-    Because `pinetime-app.out` is an [__ELF File__](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format). It contains the firmware image as well as the debugging symbols.
-
-    (Useful for a debugger like GDB)
+    Nope. To speed up the build, we may comment out the "Make `pinetime-app`" and "Upload Standalone Firmware" steps in the GitHub Actions Workflow.
 
 # What's Next?
 
