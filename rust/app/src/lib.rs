@@ -82,10 +82,27 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
     mynewt::sysinit();
 
-    //  Start Bluetooth Beacon.  TODO: Create a safe wrapper for starting Bluetooth LE.
-    //  extern { fn start_ble() -> i32; }
-    //  let rc = unsafe { start_ble() };
-    //  assert!(rc == 0, "BLE fail");
+    //  Write graphic image to SPI Flash. Must run before testing the display, to avoid contention for SPI port.
+    //  extern { fn write_image() -> i32; }
+    //  let rc = unsafe { write_image() };
+    //  assert!(rc == 0, "IMG fail");
+    
+    //  Display image from SPI Flash. Must run before testing the display, to avoid contention for SPI port.
+    /*
+    extern { fn display_image() -> i32; }
+    let rc = unsafe { display_image() };
+    assert!(rc == 0, "IMG fail");
+    */
+    
+    //  Test External SPI Flash. Must run before testing the display, to avoid contention for SPI port.
+    extern { fn test_flash() -> i32; }
+    let rc = unsafe { test_flash() };
+    assert!(rc == 0, "FLASH fail");
+
+    //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
+    extern { fn start_ble() -> i32; }
+    let rc = unsafe { start_ble() };
+    assert!(rc == 0, "BLE fail");
 
     //  Start the display
     druid::start_display()

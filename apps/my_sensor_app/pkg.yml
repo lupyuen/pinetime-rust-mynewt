@@ -39,10 +39,26 @@ pkg.deps:
 
 # Optional Dependencies: Application is dependent on these optional drivers and libraries.
 #   "pkg.deps.xxx" refers to packages that should be included only if option "xxx" is
-#   enabled in targets/bluepill_my_sensor/syscfg.yml or apps/my_sensor_app/syscfg.yml
+#   enabled in targets/nrf52_my_sensor/syscfg.yml or apps/my_sensor_app/syscfg.yml
 
 # Bluetooth LE
 pkg.deps.BLUETOOTH_LE:
+    - "@apache-mynewt-core/boot/split"
+    - "@mcuboot/boot/bootutil"
+    - "@apache-mynewt-core/mgmt/imgmgr"
+    - "@apache-mynewt-core/mgmt/newtmgr"
+    - "@apache-mynewt-core/mgmt/newtmgr/transport/ble"
+    - "@apache-mynewt-nimble/nimble/host"
+    - "@apache-mynewt-nimble/nimble/host/services/ans"
+    - "@apache-mynewt-nimble/nimble/host/services/dis"
+    - "@apache-mynewt-nimble/nimble/host/services/gap"
+    - "@apache-mynewt-nimble/nimble/host/services/gatt"
+    - "@apache-mynewt-nimble/nimble/host/store/config"
+    - "@apache-mynewt-nimble/nimble/host/util"
+    - "@apache-mynewt-nimble/nimble/transport"
+
+# Bluetooth Beacon
+pkg.deps.BLUETOOTH_BEACON:
     - "@apache-mynewt-nimble/nimble/controller"
     - "@apache-mynewt-nimble/nimble/host"
     - "@apache-mynewt-nimble/nimble/host/store/config"

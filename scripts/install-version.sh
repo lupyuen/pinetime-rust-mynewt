@@ -4,5 +4,5 @@
 #  Versions to install
 mynewt_version=mynewt_1_7_0_tag
 nimble_version=nimble_1_2_0_tag
-mcuboot_version=v1.3.1
+mcuboot_version=v1.5.0
 openocd_version=master

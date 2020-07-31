@@ -1,10 +1,12 @@
 # Bootloader Target Settings
 
-# Bootloader that will be targeted
-target.app:           "apps/boot_stub"
+# Bootloader will be based on MCUBoot. Select "apps/boot_stub" for the Stub Bootloader.
+target.app:           "@mcuboot/boot/mynewt"  # Use MCUBoot, which doesn't support debugging
+# target.app:         "apps/boot_stub"  # Use Stub Bootloader, which supports debugging
 
 # Board Support Package (BSP) for the target
 target.bsp:           "hw/bsp/nrf52"
 
 # Build with debug support. Or select "optimized" to remove debug support.
-target.build_profile: debug
+target.build_profile: debug        # For debugging
+# target.build_profile: optimized  # For production

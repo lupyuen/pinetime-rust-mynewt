@@ -39,8 +39,10 @@ Rust TMP poll
 //  Initialise Display: st7735_lcd::init()
 spi cmd 01 
 spi data 
+//  Delay 200 ms
 spi cmd 11 
 spi data 
+//  Delay 200 ms
 spi cmd b1 
 spi data 01 2c 2d 
 spi cmd b2 
@@ -69,6 +71,7 @@ spi cmd 3a
 spi data 05 
 spi cmd 29 
 spi data 
+//  Delay 200 ms
 //  Set Orientation: st7735_lcd::set_orientation()
 spi cmd 36 
 spi data 60 

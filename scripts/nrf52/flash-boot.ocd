@@ -21,9 +21,15 @@ reset
 halt
 echo ""
 
-# Bootloader address must sync with hw/bsp/nrf52/bsp.yml
+# Bootloader address must sync with hw/bsp/nrf52/bsp.yml. For Stub Bootloader, select "bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf.bin"
 echo "Flashing Bootloader..."
-program bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf.bin verify 0x00000000
+
+# For MCUBoot (debugging not supported):
+program bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin verify 0x00000000
+
+# For Stub Bootloader (supports debugging):
+# program bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf.bin verify 0x00000000
+
 echo ""
 
 # Restart the device and stop.

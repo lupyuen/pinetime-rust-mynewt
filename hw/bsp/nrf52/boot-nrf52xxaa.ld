@@ -15,9 +15,10 @@
  * the new terms are clearly indicated on the first page of each file where
  * they apply.
  */
+/* TODO: Sync with hw/bsp/nrf52/bsp.yml */
 MEMORY
 {
-  FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 0x4000
+  FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 0x6000
   RAM (rwx) : ORIGIN = 0x20000000, LENGTH = 0x10000
 }
 

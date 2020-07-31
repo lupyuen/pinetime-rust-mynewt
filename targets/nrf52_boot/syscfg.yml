@@ -1,0 +1,50 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
+# MCUBoot Bootloader Settings
+
+syscfg.vals:
+    BOOT_CUSTOM_START:        1  # Use custom boot function boot_custom_start()
+    OS_MAIN_STACK_SIZE:    1024  # Small stack size: 4 KB
+    MSYS_1_BLOCK_COUNT:      64  # Allocate MSYS buffers for Semihosting Console
+
+    ###########################################################################
+    # Hardware Settings
+
+    SPIFLASH:                 1  # Enable SPI Flash
+    SPI_0_MASTER:             1  # Enable SPI port 0 for ST7789 display and SPI Flash
+    I2C_1:                    0  # Disable I2C port 1 for CST816S touch controller, BMA421 accelerometer, HRS3300 heart rate sensor
+    UART_0:                   0  # Disable UART port to reduce ROM size
+
+    ###########################################################################
+    # Common Settings for minimal ROM size
+
+    CONSOLE_COMPAT:           0  # Disable console input
+    CONSOLE_RTT:              0  # Disable RTT Console
+    CONSOLE_UART:             0  # Disable UART Console
+    LOG_CLI:                  0  # Disable logging command-line interface
+    LOG_LEVEL:              255  # Disable logs
+    SENSOR_CLI:               0  # Disable sensor command-line interface
+    SENSOR_OIC:               0  # Disable sensor OIC functions
+    SHELL_CMD_HELP:           0  # Disable shell help
+    SHELL_OS_MODULE:          0  # Disable shell module
+    SHELL_TASK:               0  # Disable shell task
+    STATS_CLI:                0  # Disable statistics command-line interface
+    OS_SYSVIEW_TRACE_CALLOUT: 0  # Disable trace of callouts
+    OS_SYSVIEW_TRACE_EVENTQ:  0  # Disable trace of event queues
+    OS_SYSVIEW_TRACE_MUTEX:   0  # Disable trace of mutex
+    OS_SYSVIEW_TRACE_SEM:     0  # Disable trace of semaphores

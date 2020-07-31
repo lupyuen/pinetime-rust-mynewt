@@ -34,35 +34,41 @@ bsp.debugscript: "hw/bsp/nrf52/nrf52_debug.sh"
 bsp.downloadscript.WINDOWS.OVERWRITE: "hw/bsp/nrf52/nrf52_download.cmd"
 bsp.debugscript.WINDOWS.OVERWRITE: "hw/bsp/nrf52/nrf52_debug.cmd"
 
+# Flash Memory Map for PineTime: Internal Flash ROM and External SPI Flash
 # TODO: These values must sync with scripts/nrf52/flash-boot.ocd, scripts/nrf52/flash-app.ocd, hw/bsp/nrf52/boot-nrf52xxaa.ld, hw/bsp/nrf52/nrf52xxaa.ld
 bsp.flash_map:
     areas:
         # System areas.
-        FLASH_AREA_BOOTLOADER:
-            device: 0
-            offset: 0x00000000
-            size: 16kB
-        FLASH_AREA_IMAGE_0:
-            device: 0
-            offset: 0x00008000
-            size: 463kB           #  Previously 232kB
-        FLASH_AREA_IMAGE_1:       #  Flash Image 1 disabled
-            device: 0
-            offset: 0x0007bc00    #  Previously 0x00042000
-            size: 1kB             #  Previously 232kB
-        FLASH_AREA_IMAGE_SCRATCH:
-            device: 0
-            offset: 0x0007c000
-            size: 4kB
+        FLASH_AREA_BOOTLOADER:       # MCUBoot
+            device:  0               # Internal Flash ROM
+            offset:  0x00000000      # Start of Internal Flash ROM
+            size:    24kB
+        FLASH_AREA_IMAGE_0:          # Active Firmware Image
+            device:  0               # Internal Flash ROM
+            offset:  0x00008000
+            size:    464kB           # Max size of Firmware Image
+        FLASH_AREA_IMAGE_1:          # Standby Firmware Image
+            device:  1               # External SPI Flash
+            offset:  0x00040000
+            size:    464kB           # Max size of Firmware Image
+        FLASH_AREA_IMAGE_SCRATCH:    # Used by MCUBoot for swapping Active and Standby Firmware
+            device:  0               # Internal Flash ROM
+            offset:  0x0007c000
+            size:    4kB
 
         # User areas.
-        FLASH_AREA_REBOOT_LOG:
+        FLASH_AREA_REBOOT_LOG:       # For logging debug messages during startup
             user_id: 0
-            device: 0
-            offset: 0x00004000
-            size: 16kB
-        FLASH_AREA_NFFS:
+            device:  0               # Internal Flash ROM
+            offset:  0x00006000
+            size:    8kB
+        # FLASH_AREA_BOOTLOADER_ASSET: # Bootloader Assets, like Boot Graphic
+        #   user_id: 1
+        #   device:  1               # External SPI Flash
+        #   offset:  0x00000000      # Start of External SPI Flash
+        #   size:    256kB
+        FLASH_AREA_NFFS:             # For user files
             user_id: 1
-            device: 0
-            offset: 0x0007d000
-            size: 12kB
+            device:  1               # External SPI Flash
+            offset:  0x000b4000
+            size:    3376kB
