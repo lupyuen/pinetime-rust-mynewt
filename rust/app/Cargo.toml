@@ -29,6 +29,7 @@ libchip8 = "0.1.2"
 name       = "app"  # Output will be named `libapp.rlib`
 test       = false
 bench      = false
+crate-type = ["staticlib"]
 
 # Optional features
 [features]
