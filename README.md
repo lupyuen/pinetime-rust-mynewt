@@ -25,8 +25,6 @@ This `master` branch contains the firmware source code for PineTime Smart Watch 
 
 1. [_PineTime doesn't run Linux... But that's OK!_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime)
 
-1. [_PineTime doesn't run Linux... But that's OK!_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime)
-
 1. [_Visual Rust for PineTime Smart Watch_](https://marketplace.visualstudio.com/items?itemName=LeeLupYuen.visual-embedded-rust)
 
 1. [_Build and Flash Rust+Mynewt Firmware for PineTime Smart Watch_](https://medium.com/@ly.lee/build-and-flash-rust-mynewt-firmware-for-pinetime-smart-watch-5e14259c55?source=friends_link&sk=150b2a73b84144e5ef25b985e65aebe9)
@@ -74,6 +72,20 @@ This `master` branch contains the firmware source code for PineTime Smart Watch 
 The code structure is similar to the earlier article on nRF52...
 
 [_Coding nRF52 with Rust and Apache Mynewt on Visual Studio Code_](https://medium.com/@ly.lee/coding-nrf52-with-rust-and-apache-mynewt-on-visual-studio-code-9521bcba6004?source=friends_link&sk=bb4e2523b922d0870259ab3fa696c7da)
+
+# Automated Build with GitHub Actions
+
+The MCUBoot Bootloader and Rust+Mynewt Firmware are __built automatically__ in the GitHub Cloud. 
+
+Just fork this repo, update the source code and the built firmware will be available for download under __"Actions"__.
+
+The Automated Build is performed according to the following __GitHub Actions Workflow__...
+
+[`.github/workflows/main.yml`](.github/workflows/main.yml)
+
+The Worklow is similar to the one described in this article...
+
+[_Build PineTime Firmware in the Cloud with GitHub Actions_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud)
 
 # Build Instructions
 
@@ -486,12 +498,6 @@ Alternatively, flash the following two files to PineTime with [__PineTime Update
     File: `bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf`
 
     Address: `0x8000`
-
-# Automated Build with GitHub Actions
-
-This bootloader and firmware are built automatically in the GitHub Cloud by the following GitHub Actions Workflow...
-
-[`.github/workflows/main.yml`](.github/workflows/main.yml)
 
 # Installation, Build, Flash and Debug Logs
 
