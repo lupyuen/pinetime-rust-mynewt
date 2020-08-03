@@ -68,7 +68,8 @@
 <li><a href="#some-pinetime-wiring-needed">1 Some PineTime wiring needed</a><ul></ul></li>
 <li><a href="#wireless-tools-are-coming">2 Wireless tools are coming</a><ul></ul></li>
 <li><a href="#pinetime-companion-app">3 PineTime Companion App</a><ul></ul></li>
-<li><a href="#whats-next">4 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/pinetime-title.jpg" alt="PineTime Smart Watch" /></p>
+<li><a href="#building-pinetime-firmware-in-the-cloud">4 Building PineTime Firmware in the Cloud</a><ul></ul></li>
+<li><a href="#whats-next">5 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/pinetime-title.jpg" alt="PineTime Smart Watch" /></p>
 <blockquote>
 <p><strong>Update 13 Jul 2020:</strong> 1️⃣   We are getting ready to factory-preload PineTime with open source FreeRTOS firmware (<a href="https://github.com/JF002/Pinetime">ported by JF002</a>) and MCUBoot Bootloader (<a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">ported by lupyuen</a>)... 2️⃣   PineTime Owners may use the <a href="https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile">nRF Connect</a> mobile app (Android / iOS) to update PineTime's firmware and sync PineTime's date/time... 3️⃣   PineTime will be shipped without Flash ROM protection... 4️⃣   We no longer need a Raspberry Pi to remove Flash ROM protection, but I recommend getting an ST-Link v2 (<a href="https://www.aliexpress.com/wholesale?catId=0&amp;initiative_id=SB_20180924134644&amp;SearchText=st-link+v2&amp;switch_new_app=y">or compatible</a>) for flashing via SWD... 5️⃣   <a href="https://store.pine64.org/product/pinetime-dev-kit/">Get your PineTime Dev Kit today!</a></p>
 </blockquote>
@@ -82,7 +83,7 @@
 <p>Some newbies find it tricky to connect to the SWD Port inside PineTime, please chat with us online for tips.</p>
 <p>I recommend using a <strong>Raspberry Pi to remove Flash ROM protection</strong> from PineTime (this step is mandatory), also to flash and debug the PineTime firmware.</p>
 <p>Advanced firmware coders will find <strong>ST-Link V2</strong> more efficient for flashing and debugging the firmware. (Though ST-Link V2 can't be used for removing Flash ROM protection)</p>
-<p><a href="https://wiki.pine64.org/index.php/PineTime">More about this in the PineTime Wiki</a></p>
+<p><a href="https://github.com/lupyuen/pinetime-updater/blob/master/README.md">Check out the PineTime Updater for wired flashing</a></p>
 <h1 id="wireless-tools-are-coming" class="section-header"><a href="#wireless-tools-are-coming">2 Wireless tools are coming</a></h1>
 <p>Programming PineTime the wired way sounds tedious, but we're heading the wireless way...</p>
 <p>After installing the wasp-os or Arduino firmware on PineTime (the wired way), we may update the wasp-os / Arduino firmware wirelessly over Bluetooth LE. (wasp-os also exposes the REPL interface wirelessly)</p>
@@ -92,12 +93,46 @@
 <p>With firmware updates over Bluetooth LE, PineTime programming will become so much easier!</p>
 <h1 id="pinetime-companion-app" class="section-header"><a href="#pinetime-companion-app">3 PineTime Companion App</a></h1>
 <p>Today we use a mix of mobile apps for firmware flashing and data syncing with PineTime, like DaFlasher and nRF Connect.</p>
-<p>The open source <strong>PineTime Companion App</strong> is under development now. It will run on Android and iOS (via Flutter) and on Linux phones like PinePhone (via GOTK3).  It will probably run on Raspberry Pi and Pinebook Pro too!</p>
+<p>The open source <strong>PineTime Companion App</strong> is under development now. It will run on Android and iOS (via Flutter) and on Linux phones like PinePhone (via Wayland and LVGL).  It will probably run on Raspberry Pi and Pinebook Pro too!</p>
 <p>The Companion App will update PineTime firmware, sync the date and time, chart your heart rate, push your mobile notifications to PineTime, ... And let you control your smart home gadgets with PineTime!</p>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">4 What's Next</a></h1>
+<p><a href="https://github.com/lupyuen/pinetime-companion/">Check out the PineTime Companion App</a></p>
+<h1 id="building-pinetime-firmware-in-the-cloud" class="section-header"><a href="#building-pinetime-firmware-in-the-cloud">4 Building PineTime Firmware in the Cloud</a></h1>
+<p>Programming the firmware of our gadgets (like PineTime Smart Watch) has always been cumbersome...</p>
+<ol>
+<li>
+<p>Get a proper computer (Windows tends to be problematic)</p>
+</li>
+<li>
+<p>Install the right tools and libraries to cross-compile our firmware (Depends on our operating system)</p>
+</li>
+<li>
+<p>If the build fails, tweak the build scripts (It's probably just Windows)</p>
+</li>
+<li>
+<p>If the build still fails... We're stuck!</p>
+</li>
+</ol>
+<p>Now we have a new way to build firmware in the Cloud with GitHub Actions...</p>
+<ol>
+<li>
+<p>Create a fork of the PineTime source code repository in GitHub</p>
+</li>
+<li>
+<p>Check in our updated source files to GitHub</p>
+</li>
+<li>
+<p>Wait 2 Minutes</p>
+</li>
+<li>
+<p>Out comes a piping-hot New Firmware Image for testing on PineTime!</p>
+</li>
+</ol>
+<p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud">Check out GitHub Actions for PineTime</a></p>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">5 What's Next</a></h1>
 <p>The PineTime FOSS Community has accomplished so much over the past 6 months because we're all <strong>volunteers passionate about PineTime.</strong></p>
 <p>You're welcome to join us and make the open source PineTime software even better!</p>
 <p><a href="https://wiki.pine64.org/index.php/PineTime#Community">Chat with us on Matrix, Discord, Telegram and IRC</a></p>
+<p><a href="https://wiki.pine64.org/index.php/PineTime">PineTime Wiki</a></p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">My PineTime articles</a></p>
 <p><a href="https://lupyuen.github.io/rss.xml">My RSS Feed</a></p>
 

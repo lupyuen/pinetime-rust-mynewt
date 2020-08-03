@@ -24,7 +24,7 @@ I recommend using a __Raspberry Pi to remove Flash ROM protection__ from PineTim
 
 Advanced firmware coders will find __ST-Link V2__ more efficient for flashing and debugging the firmware. (Though ST-Link V2 can't be used for removing Flash ROM protection)
 
-[More about this in the PineTime Wiki](https://wiki.pine64.org/index.php/PineTime)
+[Check out the PineTime Updater for wired flashing](https://github.com/lupyuen/pinetime-updater/blob/master/README.md)
 
 # Wireless tools are coming
 
@@ -44,9 +44,35 @@ With firmware updates over Bluetooth LE, PineTime programming will become so muc
 
 Today we use a mix of mobile apps for firmware flashing and data syncing with PineTime, like DaFlasher and nRF Connect.
 
-The open source __PineTime Companion App__ is under development now. It will run on Android and iOS (via Flutter) and on Linux phones like PinePhone (via GOTK3).  It will probably run on Raspberry Pi and Pinebook Pro too!
+The open source __PineTime Companion App__ is under development now. It will run on Android and iOS (via Flutter) and on Linux phones like PinePhone (via Wayland and LVGL).  It will probably run on Raspberry Pi and Pinebook Pro too!
 
 The Companion App will update PineTime firmware, sync the date and time, chart your heart rate, push your mobile notifications to PineTime, ... And let you control your smart home gadgets with PineTime!
+
+[Check out the PineTime Companion App](https://github.com/lupyuen/pinetime-companion/)
+
+# Building PineTime Firmware in the Cloud
+
+Programming the firmware of our gadgets (like PineTime Smart Watch) has always been cumbersome...
+
+1. Get a proper computer (Windows tends to be problematic)
+
+1. Install the right tools and libraries to cross-compile our firmware (Depends on our operating system)
+
+1. If the build fails, tweak the build scripts (It's probably just Windows)
+
+1. If the build still fails... We're stuck!
+
+Now we have a new way to build firmware in the Cloud with GitHub Actions...
+
+1. Create a fork of the PineTime source code repository in GitHub
+
+1. Check in our updated source files to GitHub
+
+1. Wait 2 Minutes
+
+1. Out comes a piping-hot New Firmware Image for testing on PineTime!
+
+[Check out GitHub Actions for PineTime](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud)
 
 # What's Next
 
@@ -55,6 +81,8 @@ The PineTime FOSS Community has accomplished so much over the past 6 months beca
 You're welcome to join us and make the open source PineTime software even better!
 
 [Chat with us on Matrix, Discord, Telegram and IRC](https://wiki.pine64.org/index.php/PineTime#Community)
+
+[PineTime Wiki](https://wiki.pine64.org/index.php/PineTime)
 
 [My PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
 
