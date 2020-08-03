@@ -50,7 +50,7 @@ The Companion App will update PineTime firmware, sync the date and time, chart y
 
 [Check out the PineTime Companion App](https://github.com/lupyuen/pinetime-companion/)
 
-# Building PineTime Firmware in the Cloud
+# Build PineTime Firmware in the Cloud
 
 Programming the firmware of our gadgets (like PineTime Smart Watch) has always been cumbersome...
 
@@ -72,7 +72,57 @@ Now we have a new way to build firmware in the Cloud with GitHub Actions...
 
 1. Out comes a piping-hot New Firmware Image for testing on PineTime!
 
+This makes coding a lot simpler for newcomers!
+
 [Check out GitHub Actions for PineTime](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud)
+
+# Programming with PineTime
+
+Assuming that we know C++, the easiest way to start coding is to look at the existing PineTime code and tweak it!
+
+1.  Follow the instructions in this article...
+
+    ["Build PineTime Firmware in the Cloud with GitHub Actions"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud)
+
+1.  Go ahead and create a Fork of the PineTime Source Code in GitHub, as explained in the doc...
+
+    ["Create a Fork"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#create-a-fork-of-pinetime-source-files)
+
+1.  Add the `main.yml` file, like the doc says...
+
+    ["Add GitHub Actions"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#add-github-actions-to-our-fork)
+
+1.  According to the doc we'll edit a C++ source file: [`Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp)
+
+    When we change the message to `"LOVE"`, we're actually changing the PineTime Watch Face, modifying the way it operates...
+
+    ["Modify the Source Code"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#modify-the-pinetime-source-code)
+
+1.  Study the C++ code inside [`Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp)
+
+    Ponder, meditate and understand how the Watch Face is rendered.
+
+    All functions and objects named `lv_...` come from the [__LVGL Library__](https://lvgl.io/)
+
+    We call the LVGL Library to render Widgets on the Watch Face, like Buttons and Labels.
+
+    [LVGL Documentation](https://docs.lvgl.io/v7/en/html/get-started/quick-overview.html#learn-the-basics)
+
+1.  When we're ready, make some changes to the source code in `Clock.cpp` to create our own PineTime Watch Face.
+
+    GitHub will automatically recompile the firmware.
+
+    We'll find the results of the compilation under the `Actions` section of our GitHub Fork.
+
+    ["Our Firmware Build"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#our-first-pinetime-firmware-build)
+
+This runs all in the Cloud, so we don't even need a PineTime to create our own Watch Face!
+
+(But of course we'll need a PineTime to actually see our custom PineTime Watch Face 😀)
+
+![PineTime with a Custom Watch Face: LOVE](https://lupyuen.github.io/images/cloud-love.jpg)
+
+_PineTime with a Custom Watch Face: LOVE_
 
 # What's Next
 
