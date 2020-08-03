@@ -78,7 +78,9 @@ This makes coding a lot simpler for newcomers!
 
 # Programming with PineTime
 
-Assuming that we know C++, the easiest way to start coding is to look at the existing PineTime code and tweak it!
+Assuming that we know C++, the easiest way to start coding is to look at the existing PineTime code and tweak it.
+
+All we need... Is a Web Browser!
 
 1.  Follow the instructions in this article...
 
