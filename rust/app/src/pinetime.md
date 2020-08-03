@@ -112,7 +112,7 @@ Assuming that we know C++, the easiest way to start coding is to look at the exi
 
     GitHub will automatically recompile the firmware.
 
-    We'll find the results of the compilation under the `Actions` section of our GitHub Fork.
+    We'll find the results of the compilation under the `Actions` section of our GitHub Fork...
 
     ["Our Firmware Build"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#our-first-pinetime-firmware-build)
 
