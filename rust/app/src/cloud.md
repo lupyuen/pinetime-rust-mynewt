@@ -366,6 +366,10 @@ This works only Android, not iPhone. If you can help fix this, please chat with 
 
     Nope. To speed up the build, we may comment out the "Make `pinetime-app`" and "Upload Standalone Firmware" steps in the GitHub Actions Workflow.
 
+1.  _Can GitHub Actions build other flavours of PineTime Firmware?_
+
+    Yes! GitHub Actions can build [__RIOT__](https://github.com/lupyuen/pinetime-rust-riot/blob/master/.github/workflows/main.yml), [__Mynewt__](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/.github/workflows/main.yml) and [__wasp-os__](https://github.com/daniel-thompson/wasp-os/pull/53) firmware for PineTime.
+
 # What's Next?
 
 The PineTime Community shall extend this Build Firmware Workflow into a centralised system for maintaining the [__PineTime Community Firmware__](https://github.com/JF002/Pinetime) that will be preloaded at the PineTime Factory.
