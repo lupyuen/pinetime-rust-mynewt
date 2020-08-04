@@ -26,7 +26,7 @@ _Without any computer setup!_
 
 Yes we can!
 
-Today we'll learn [__GitHub Actions__](https://github.com/features/actions) for building [__FreeRTOS Firmware__](https://github.com/JF002/Pinetime) for [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) in the GitHub Cloud.
+Today we'll learn [__GitHub Actions__](https://github.com/features/actions) for building [__InfiniTime Firmware__](https://github.com/JF002/Pinetime) for [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) in the GitHub Cloud.
 
 It's __Fully Automated__...
 
@@ -52,7 +52,7 @@ _(Nope no spoon!)_
 
     ▶️ &nbsp; [`github.com/JF002/Pinetime`](https://github.com/JF002/Pinetime)
 
-    Here's the complete Source Code for the FreeRTOS PineTime Firmware.
+    Here's the complete Source Code for the InfiniTime Firmware (based on FreeRTOS).
 
 1.  Click the `Fork` button at top right...
 
