@@ -120,7 +120,7 @@ All we need... Is a Web Browser!
 
 This runs all in the Cloud, so we don't even need a PineTime to create our own Watch Face!
 
-(But of course we'll need a PineTime to actually see our custom PineTime Watch Face 😀)
+(But of course we'll need a PineTime to actually see our [Custom PineTime Watch Face](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware) 😀)
 
 ![PineTime with a Custom Watch Face: LOVE](https://lupyuen.github.io/images/cloud-love.jpg)
 
