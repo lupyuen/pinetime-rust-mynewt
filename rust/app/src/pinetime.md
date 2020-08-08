@@ -26,6 +26,8 @@ Advanced firmware coders will find __ST-Link V2__ more efficient for flashing an
 
 [Check out the PineTime Updater for wired flashing](https://github.com/lupyuen/pinetime-updater/blob/master/README.md)
 
+[Check out the Pogo Pins that we're testing](https://youtu.be/K5GgUlv-1SI)
+
 # Wireless tools are coming
 
 Programming PineTime the wired way sounds tedious, but we're heading the wireless way...
@@ -39,6 +41,8 @@ We have ported to PineTime the open source __MCUBoot Bootloader__, and we have t
 The new bootloader will let you __switch firmware wirelessly__, like from Mynewt to FreeRTOS. Great for trying out all kinds of experimental firmware created by the PineTime FOSS Community!
 
 With firmware updates over Bluetooth LE, PineTime programming will become so much easier!
+
+[Check out Wireless Firmware Updates for PineTime](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware)
 
 # PineTime Companion App
 
