@@ -77,6 +77,27 @@ void pinetime_boot_init(void) {
     }
 }
 
+void setup_watchdog() {
+  NRF_WDT->CONFIG &= ~(WDT_CONFIG_SLEEP_Msk << WDT_CONFIG_SLEEP_Pos);
+  NRF_WDT->CONFIG |= (WDT_CONFIG_HALT_Run << WDT_CONFIG_SLEEP_Pos);
+
+  NRF_WDT->CONFIG &= ~(WDT_CONFIG_HALT_Msk << WDT_CONFIG_HALT_Pos);
+  NRF_WDT->CONFIG |= (WDT_CONFIG_HALT_Pause << WDT_CONFIG_HALT_Pos);
+
+  /* timeout (s) = (CRV + 1) / 32768 */
+  const int timeoutSeconds = 7; // 7 seconds
+  uint32_t crv = (((timeoutSeconds*1000u) << 15u) / 1000) - 1;
+  NRF_WDT->CRV = crv;
+
+  /* Enable reload requests */
+  NRF_WDT->RREN = (WDT_RREN_RR0_Enabled << WDT_RREN_RR0_Pos);
+  
+  /* Start */
+  NRF_WDT->TASKS_START = 1;
+}
+
+
+
 /// Called by MCUBoot when it has completed its work.
 void boot_custom_start(
     uintptr_t flash_base,
@@ -101,6 +122,8 @@ void boot_custom_start(
         (void *) RELOCATED_VECTOR_TABLE  //  To the relocated address aligned to 0x100 page boundary
     );
 
+    setup_watchdog();
+    
     //  Start the Active Firmware Image at the Reset_Handler function.
     hal_system_start(vector_table);
 }
