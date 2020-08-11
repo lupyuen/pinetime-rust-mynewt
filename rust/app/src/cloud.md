@@ -358,9 +358,9 @@ This works only Android, not iPhone. If you can help fix this, please chat with 
 
     Flash with [__PineTime Updater__](https://github.com/lupyuen/pinetime-updater/blob/master/README.md)...
 
-    -  Select `Latest Bootloader` to flash the latest bootloader
+    -  Run `./run.sh`. Select `Latest Bootloader` to flash the latest bootloader
 
-    -  Then select `Downloaded File` and `pinetime-app.out`
+    -  Then run `./run.sh` again. Select `Downloaded File` and `pinetime-app.out`
 
     -  Flash to address `0x0`
 
