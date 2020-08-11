@@ -8,6 +8,8 @@ Programming the firmware of our gadgets (like [__PineTime Smart Watch__](https:/
 
 Today we'll learn [__GitHub Actions__](https://github.com/features/actions) for building [__InfiniTime Firmware__](https://github.com/JF002/Pinetime) for [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) in the GitHub Cloud.
 
+![PineTime Logo Loader](https://lupyuen.github.io/images/logo-loader.jpg)
+
 # Logo Loader
 
 TODO
