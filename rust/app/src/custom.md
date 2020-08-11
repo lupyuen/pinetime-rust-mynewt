@@ -2,13 +2,17 @@
 
 # Logo Loader
 
+GitLab: https://gitlab.com/lupyuen/pinetime-logo-loader/-/blob/master/.gitlab-ci.yml
+
+GitHub: https://github.com/lupyuen/pinetime-logo-loader/blob/master/.github/workflows/main.yml
+
 # Custom Firmware
 
 GitLab Web IDE
 
 Languages
 
-Loadable Apps: WebAssembly, Sandbox
+Loadable Apps: WebAssembly, Sandbox, wasp-os
 
 Security
 
