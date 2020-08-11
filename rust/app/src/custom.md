@@ -14,6 +14,12 @@ Today we'll learn [__GitHub Actions__](https://github.com/features/actions) for 
 
 TODO
 
+1. Upload a PNG file named `pinetime-graphic.png` (240 x 240 resolution, 24-bit colour)
+
+1. This triggers the GitLab (or GitHub) Workflow to build the Logo Loader Firmware
+
+1. Flash the Logo Loader Firmware to save the logo to External SPI Flash
+
 We'll explain the GitLab version: https://gitlab.com/lupyuen/pinetime-logo-loader/-/blob/master/.gitlab-ci.yml
 
 If you're on GitHub, there is a similar GitHub version: https://github.com/lupyuen/pinetime-logo-loader/blob/master/.github/workflows/main.yml
@@ -172,6 +178,8 @@ build:
 # Custom Firmware
 
 TODO
+
+We have just created one-of-a-kind firmware for PineTime... Unlike any other firmware!
 
 Rust in the cloud
 
