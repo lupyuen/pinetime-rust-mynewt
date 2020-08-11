@@ -12,126 +12,149 @@ GitHub: https://github.com/lupyuen/pinetime-logo-loader/blob/master/.github/work
 
 # Official language image. Look for the different tagged releases at: https://hub.docker.com/r/library/rust/tags/
 image: "rust:latest"
+```
 
+```yaml
 build:
   stage: build
+```
 
-  #########################################################################################
+```yaml
   # Checkout
 
   variables:
     # Clone submodules recursively
     GIT_SUBMODULE_STRATEGY: recursive
+```
 
-  #########################################################################################
+```yaml
   # Download and Cache Dependencies
 
   before_script:
     # Show files
     - set ; pwd ; ls -l
+```
 
+```yaml
     # Install Go
     - pushd /tmp    
     - wget -qO- https://golang.org/dl/go1.14.7.linux-amd64.tar.gz | tar -xz
     - popd
     - export PATH=$PATH:/tmp/go/bin
     - go version
+```
 
+```yaml
     # Install newt
     - source scripts/install-version.sh
     - pushd /tmp
     - git clone --branch $mynewt_version https://github.com/apache/mynewt-newt/
     - cd mynewt-newt/
     - ./build.sh
-    - newt/newt version
+```
+
+```yaml
     - popd
     - export PATH=$PATH:/tmp/mynewt-newt/newt
     - newt version
+```
 
+```yaml
     # Download Mynewt source files
     # Ignore Error: Error updating "mcuboot": error: The following untracked working tree files would be overwritten by checkout:
     # ext/mbedtls/include/mbedtls/check_config.h
     # ext/mbedtls/include/mbedtls/config.h
     - export PATH=$PATH:/tmp/mynewt-newt/newt
     - newt install -v -f || ls -l repos
+```
+
+```yaml
     #  Overwrite MCUBoot with newer version
     - source scripts/install-version.sh
     - pushd repos
     - rm -rf mcuboot
     - git clone --branch $mcuboot_version https://github.com/JuulLabs-OSS/mcuboot
-    # git clone --branch $mynewt_version https://github.com/apache/mynewt-core
-    # git clone --branch $nimble_version https://github.com/apache/mynewt-nimble
     - popd
+```
 
+```yaml
     # Install Rust Target thumbv7em-none-eabihf
     - rustup default nightly
     - rustup target add thumbv7em-none-eabihf
+```
 
+```yaml
     # Install Embedded Arm Toolchain arm-none-eabi-gcc
     - pushd /tmp
     - wget -qO- https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2019q3/RC1.1/gcc-arm-none-eabi-8-2019-q3-update-linux.tar.bz2 | tar -xj
     - popd
     - export PATH=$PATH:/tmp/gcc-arm-none-eabi-8-2019-q3-update/bin
     - arm-none-eabi-gcc --version
+```
 
-    #########################################################################################
+```yaml
     # Convert Logo
 
     # Convert Logo from PNG to C
     # Run pinetime-graphic in the temp folder to avoid Cargo.toml and .cargo conflicts
     - cp -r pinetime-graphic /tmp
+```
+
+```yaml
     - cp pinetime-graphic.png /tmp/pinetime-graphic
+```
+
+```yaml
     # Convert the graphic from PNG to C 
     - pushd /tmp/pinetime-graphic
     - rustup default nightly
     - export RUST_BACKTRACE=1
+```
+
+```yaml
     - export TERM=vt100
+```
+
+```yaml
     - cargo run -q pinetime-graphic.png >$CI_PROJECT_DIR/apps/my_sensor_app/src/write_graphic.inc
     - popd
+```
 
-  #########################################################################################
+```yaml
   # Build Rust+Mynewt Application Firmware
 
   script:
     # Set PATH
     - export PATH=$PATH:/tmp/go/bin:/tmp/mynewt-newt/newt:/tmp/gcc-arm-none-eabi-8-2019-q3-update/bin
+```
 
+```yaml
     # Build Application Firmware
     - ./scripts/build-app.sh
+```
 
+```yaml
     # Create Application Firmware Image
     - ./scripts/nrf52/image-app.sh
+```
     
+```yaml
     # Copy the Application Firmware Image to top level for uploading
     - cp bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img .
+```
 
-  #########################################################################################
+```yaml
   # Upload Application Firmware
 
   artifacts:
     paths:
       # Application Firmware Image for flashing
       - my_sensor_app.img
+```
+
+```yaml
       # Other Application Firmware Outputs
       - bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.*
-
-  #########################################################################################
-  # Cache Outputs
-
-  cache:
-    paths:
-      - "*.o"
-      - /tmp/go
-      - /tmp/mynewt-newt
-      - /tmp/gcc-arm-none-eabi-8-2019-q3-update
-
-#########################################################################################
-# Run Tests
-
-test:
-  stage: test
-  script:
-    - echo "Done!"
 ```
 
 # Custom Firmware
