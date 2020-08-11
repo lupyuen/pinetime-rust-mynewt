@@ -25,6 +25,7 @@
 <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
 <link rel="stylesheet" type="text/css" href="../dark.css">
 <link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle">
+<link rel="stylesheet" type="text/css" href="../prism.css">
 <script src="../storage.js"></script><noscript>
 <link rel="stylesheet" href="../noscript.css"></noscript>
 <link rel="shortcut icon" href="../favicon.ico">
@@ -56,6 +57,7 @@
         <div id="theme-choices"></div>
     </div>
     <script src="../theme.js"></script>
+    <script src="../prism.js"></script>
     <!-- Theme Picker -->
 
     <!-- End scripts/rustdoc-before.html -->
@@ -126,7 +128,7 @@
 <p><em>How did we get so much ROM space?</em></p>
 <p>We moved the Standby Firmware Image from PineTime's Flash ROM (512 KB) to PineTime's SPI Flash (4 MB).</p>
 <p>During firmware update, the Standby Firmware slot is used as the staging area for the new firmware. On reboot, MCUBoot swaps the new firmware with the old firmware. If the new firmware doesn't start properly, MCUBoot swaps them back.</p>
-<p>Here's the updated Flash Memory Map for PineTime. Note that the Standby Firmware Image is now stored in Flash Device 1 (SPI Flash) instead of Flash Device 0 (Internal ROM): <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/bsp.yml"><code>hw/bsp/nrf52/bsp.yml</code></a></p>
+<p>Here's the updated Flash Memory Map for PineTime. Note that the Standby Firmware Image is now stored in Flash Device 1 (SPI Flash) instead of Flash Device 0 (Internal ROM): <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/hw/bsp/nrf52/bsp.yml"><code>hw/bsp/nrf52/bsp.yml</code></a></p>
 <pre><code class="language-yaml"># Flash Memory Map for PineTime: Internal Flash ROM and External SPI Flash
 bsp.flash_map:
     areas:
@@ -192,7 +194,7 @@ bsp.flash_map:
 <p>The Enhanced MCUBoot Bootloader now renders a Boot Graphic that's 112.5 KB in size. The Boot Graphic is stored in the <strong>Bootloader Assets</strong> flash area.</p>
 <p>Half of the Bootloader Assets area is unused. We expect to use the free space to store fonts and other graphical assets that will be rendered by Enhanced MCUBoot.</p>
 <p>The Bootloader Assets area doesn't use any Flash File System (like littlefs). We'll learn why in a while.</p>
-<p><em>Why is Bootloader Assets commented out in the Flash Memory Map <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/bsp.yml"><code>hw/bsp/nrf52/bsp.yml</code></a>?</em></p>
+<p><em>Why is Bootloader Assets commented out in the Flash Memory Map <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/hw/bsp/nrf52/bsp.yml"><code>hw/bsp/nrf52/bsp.yml</code></a>?</em></p>
 <p>The Mynewt build fails when it encounters a custom flash area (like Bootloader Assets) in the Flash Memory Map. So it has been commented out. </p>
 <p>But the SPI Flash space has been budgeted correctly, so that none of the other flash areas will overlap with Bootloader Assets.</p>
 <p>Let's discover how PineTime's ST7789 Display Controller renders graphics...</p>
@@ -214,7 +216,7 @@ bsp.flash_map:
 <p>(<em>Which means we'll have to make assumptions and hard code certain things</em>)</p>
 </li>
 </ol>
-<p>Let's read the code in Enhanced MCUBoot and understand how it renders the Boot Graphic quickly and reliably: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a></p>
+<p>Let's read the code in Enhanced MCUBoot and understand how it renders the Boot Graphic quickly and reliably: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/display.c"><code>display.c</code></a></p>
 <h2 id="initialise-the-display" class="section-header"><a href="#initialise-the-display">2.1 Initialise The Display</a></h2>
 <pre><code class="language-c">#define DISPLAY_CS   25  //  GPIO Pin 25 for LCD_CS (P0.25): Chip select
 #define DISPLAY_DC   18  //  GPIO Pin 18 for LCD_RS (P0.18): Clock/data pin (CD)
@@ -275,8 +277,8 @@ static int init_display(void) {
     return 0;
 }
 </code></pre>
-<p>Here's the code in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a> that initialises the <a href="https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf"><strong>Sitronix ST7789 Display Controller</strong></a> for PineTime's 240 x 240 Colour LCD Screen. </p>
-<p>At startup, the function above sends a bunch of commands and parameters to the ST7789 Display Controller via the SPI port. We send commands and data (parameters) to ST7789 in a peculiar way in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a>...</p>
+<p>Here's the code in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/display.c"><code>display.c</code></a> that initialises the <a href="https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf"><strong>Sitronix ST7789 Display Controller</strong></a> for PineTime's 240 x 240 Colour LCD Screen. </p>
+<p>At startup, the function above sends a bunch of commands and parameters to the ST7789 Display Controller via the SPI port. We send commands and data (parameters) to ST7789 in a peculiar way in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/display.c"><code>display.c</code></a>...</p>
 <pre><code class="language-c">#define DISPLAY_SPI   0  //  ST7789 connected to SPI port 0
 #define DISPLAY_DC   18  //  GPIO Pin 18 for LCD_RS (P0.18): Clock/data pin (CD)
 #define DISPLAY_CS   25  //  GPIO Pin 25 for LCD_CS (P0.25): Chip select
@@ -322,7 +324,7 @@ write_command(FRMCTR1, FRMCTR1_PARA, sizeof(FRMCTR1_PARA));
 <p>Yes it's unusual, cumbersome and limits SPI performance. It was probably done to force-fit a 4-Line Serial Interface into the 3-Line SPI Interface.</p>
 <p>Note: The above initialisation commands and parameters don't quite match up with the <a href="https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf">ST7789 datasheet</a>. That's because the code was originally written for the <a href="https://www.displayfuture.com/Display/datasheet/controller/ST7735.pdf">ST7735 Display Controller</a>. This should be fixed, but it works on PineTime for now.</p>
 <h2 id="draw-a-line" class="section-header"><a href="#draw-a-line">2.2 Draw A Line</a></h2>
-<p>Let's look at the code to draw a line: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a></p>
+<p>Let's look at the code to draw a line: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/display.c"><code>display.c</code></a></p>
 <pre><code class="language-c">//  Set Address Window Columns (CASET)
 write_command(CASET, NULL, 0);
 static const uint8_t CASET2_PARA[] = { 
@@ -357,8 +359,8 @@ write_data(RAMWR2_PARA, sizeof(RAMWR2_PARA));
 <p><a href="https://medium.com/@ly.lee/optimising-pinetimes-display-driver-with-rust-and-mynewt-3ba269ea2f5c?source=friends_link&amp;sk=4d2cbd2e6cd2343eed62d214814f7b81">Optimising PineTime’s Display Driver with Rust and Mynewt</a></p>
 <p>Now that we can draw a line, let's extend the code to render the entire Boot Graphic, line by line.</p>
 <h1 id="render-boot-graphic-from-spi-flash-on-pinetime" class="section-header"><a href="#render-boot-graphic-from-spi-flash-on-pinetime">3 Render Boot Graphic from SPI Flash on PineTime</a></h1>
-<p>From <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a> we have seen the fastest, simplest functions to draw coloured lines with PineTime's ST7789 Display Controller.</p>
-<p>Now let's call these functions to render the Boot Graphic in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a>...</p>
+<p>From <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/display.c"><code>display.c</code></a> we have seen the fastest, simplest functions to draw coloured lines with PineTime's ST7789 Display Controller.</p>
+<p>Now let's call these functions to render the Boot Graphic in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/display.c"><code>display.c</code></a>...</p>
 <pre><code class="language-c">#define BATCH_SIZE  256  //  Max number of SPI data bytes to be transmitted
 
 //  Screen Buffer Size: 240 * 240 * 2 / 1024 = 112.5 KB
@@ -417,7 +419,7 @@ int pinetime_boot_display_image(void) {
 <pre><code class="language-c">hal_flash_read(FLASH_DEVICE, offset, flash_buffer, len);
 </code></pre>
 <p>Thus the function <code>pinetime_boot_display_image()</code> above keeps reading from SPI Flash (starting at address 0) and blasts everything to the Display Controller, row by row, 256 data bytes at a time.  It's blasting the entire Boot Graphic from SPI Flash to the Display Controller!</p>
-<p>Here's the <code>set_window()</code> function in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a> that sets the display window coordinates...</p>
+<p>Here's the <code>set_window()</code> function in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/display.c"><code>display.c</code></a> that sets the display window coordinates...</p>
 <pre><code class="language-c">/// Set the ST7789 display window to the coordinates (left, top), (right, bottom)
 static int set_window(uint8_t left, uint8_t top, uint8_t right, uint8_t bottom) {
     //  Set Address Window Columns (CASET)
@@ -453,7 +455,7 @@ static int set_window(uint8_t left, uint8_t top, uint8_t right, uint8_t bottom) 
 <p>No multitasking, no Bluetooth Stack. Just single-threaded code for maximum predictability and reliability.</p>
 </li>
 </ol>
-<p>When adding functions to MCUBoot, we need to assume that multitasking (Task Scheduler) is disabled. Here's an example from <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/display.c"><code>display.c</code></a>...</p>
+<p>When adding functions to MCUBoot, we need to assume that multitasking (Task Scheduler) is disabled. Here's an example from <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/display.c"><code>display.c</code></a>...</p>
 <pre><code class="language-c">/// Sleep for the specified number of milliseconds
 static void delay_ms(uint32_t ms) {
     #if MYNEWT_VAL(OS_SCHEDULING)  //  If Task Scheduler is enabled (i.e. not MCUBoot)...
@@ -487,8 +489,8 @@ cargo run -v pinetime-graphic.png
 <span class="number">0x05</span>, <span class="number">0xa3</span>, <span class="number">0x01</span>, <span class="number">0x20</span>, <span class="number">0x01</span>, <span class="number">0x20</span>, <span class="number">0x01</span>, <span class="number">0x20</span>, <span class="number">0x06</span>, <span class="number">0xe4</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>,
 <span class="number">0x05</span>, <span class="number">0xe3</span>, <span class="number">0x02</span>, <span class="number">0xc1</span>, <span class="number">0x02</span>, <span class="number">0xa1</span>, <span class="number">0x03</span>, <span class="number">0x62</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xc5</span>,
 ...</pre></div>
-<p>Copy the converted RGB565 values and paste into <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/graphic.inc"><code>libs/pinetime_boot/src/graphic.inc</code></a>.</p>
-<p>Then run this code on PineTime to load the converted RGB565 values into PineTime's SPI Flash: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/write.c"><code>libs/pinetime_boot/src/write.c</code></a></p>
+<p>Copy the converted RGB565 values and paste into <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/graphic.inc"><code>libs/pinetime_boot/src/graphic.inc</code></a>.</p>
+<p>Then run this code on PineTime to load the converted RGB565 values into PineTime's SPI Flash: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/write.c"><code>libs/pinetime_boot/src/write.c</code></a></p>
 <pre><code class="language-c">#define BATCH_SIZE  4096  //  Max number of data bytes to be written in a batch
 #define FLASH_DEVICE 1    //  Flash Device: 0 for Flash ROM, 1 for SPI Flash
 
@@ -569,9 +571,9 @@ int main(void) {
     return 0;
 }
 </code></pre>
-<p>Let's enable both MCUBoot hooks in our Enhanced MCUBoot for PineTime: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/targets/nrf52_boot"><code>targets/nrf52_boot</code></a></p>
+<p>Let's enable both MCUBoot hooks in our Enhanced MCUBoot for PineTime: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/tree/master/targets/nrf52_boot"><code>targets/nrf52_boot</code></a></p>
 <h2 id="enable-sysinit-hook" class="section-header"><a href="#enable-sysinit-hook">5.1 Enable <code>sysinit()</code> Hook</a></h2>
-<p>To enable the <code>sysinit()</code> hook when MCUBoot starts, we define <code>MCUBOOT_HAVE_LOGGING</code> in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_boot/pkg.yml"><code>targets/nrf52_boot/pkg.yml</code></a>...</p>
+<p>To enable the <code>sysinit()</code> hook when MCUBoot starts, we define <code>MCUBOOT_HAVE_LOGGING</code> in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/targets/nrf52_boot/pkg.yml"><code>targets/nrf52_boot/pkg.yml</code></a>...</p>
 <pre><code class="language-yaml"># Package Dependencies: MCUBoot is dependent on these drivers and libraries.
 pkg.deps:
     - &quot;libs/semihosting_console&quot;  #  Semihosting Console
@@ -584,16 +586,16 @@ pkg.cflags:
 <p>We have added two libraries to MCUBoot...</p>
 <ol>
 <li>
-<p><strong><a href="https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/libs/semihosting_console"><code>semihosting_console</code> Library</a>:</strong> Display debugging messages from MCUBoot via the Arm Semihosting Console (in OpenOCD). </p>
+<p><strong><a href="https://github.com/lupyuen/pinetime-rust-mynewt/tree/master/libs/semihosting_console"><code>semihosting_console</code> Library</a>:</strong> Display debugging messages from MCUBoot via the Arm Semihosting Console (in OpenOCD). </p>
 <p>The debugging messages are automatically disabled if PineTime's SWD Port is not connected.</p>
 </li>
 <li>
-<p><strong><a href="https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/libs/pinetime_boot"><code>pinetime_boot</code> Library</a>:</strong> Implements the Enhanced MCUBoot functions (like rendering the Boot Graphic).</p>
+<p><strong><a href="https://github.com/lupyuen/pinetime-rust-mynewt/tree/master/libs/pinetime_boot"><code>pinetime_boot</code> Library</a>:</strong> Implements the Enhanced MCUBoot functions (like rendering the Boot Graphic).</p>
 <p>More about <code>pinetime_boot</code> in a while.</p>
 </li>
 </ol>
 <h2 id="enable-boot_custom_start-hook" class="section-header"><a href="#enable-boot_custom_start-hook">5.2 Enable <code>boot_custom_start()</code> Hook</a></h2>
-<p>To enable the <code>boot_custom_start()</code> hook when MCUBoot completes its processing, we set <code>BOOT_CUSTOM_START</code> to <code>1</code> in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/targets/nrf52_boot/syscfg.yml"><code>targets/nrf52_boot/syscfg.yml</code></a>...</p>
+<p>To enable the <code>boot_custom_start()</code> hook when MCUBoot completes its processing, we set <code>BOOT_CUSTOM_START</code> to <code>1</code> in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/targets/nrf52_boot/syscfg.yml"><code>targets/nrf52_boot/syscfg.yml</code></a>...</p>
 <pre><code class="language-yaml"># MCUBoot Bootloader Settings
 syscfg.vals:
     BOOT_CUSTOM_START:        1  # Use custom boot function boot_custom_start()
@@ -617,7 +619,7 @@ syscfg.vals:
 <p><code>boot_custom_start()</code>: Called by MCUBoot when it has completed its work</p>
 </li>
 </ol>
-<p>Let's learn how both hooks are handled by the <strong>PineTime Boot Library</strong>: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota2/libs/pinetime_boot"><code>libs/pinetime_boot</code></a></p>
+<p>Let's learn how both hooks are handled by the <strong>PineTime Boot Library</strong>: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/tree/master/libs/pinetime_boot"><code>libs/pinetime_boot</code></a></p>
 <h2 id="handle-mcuboot-sysinit-hook" class="section-header"><a href="#handle-mcuboot-sysinit-hook">6.1 Handle MCUBoot <code>sysinit()</code> Hook</a></h2>
 <p><code>sysinit()</code> is a special function that's automatically generated when we build the Bootloader and Application Firmware in Mynewt. </p>
 <p>Here's the auto-generated <code>sysinit()</code> function for our Enhanced MCUBoot Bootloader: <code>bin/targets/nrf52_boot/generated/src/nrf52_boot-sysinit-app.c</code></p>
@@ -643,14 +645,14 @@ syscfg.vals:
 <p><code>sysinit()</code> is aliased to <code>sysinit_app()</code>. This function is called when our Bootloader starts. It initialises the Mynewt operating system, drivers and libraries.</p>
 <p>Note that <code>sysinit()</code> calls our custom function <code>pinetime_boot_init()</code> when the Bootloader starts.</p>
 <p><em>How did we add <code>pinetime_boot_init()</code> to <code>sysinit()</code>?</em></p>
-<p>By configuring the PineTime Boot Library like this: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/pkg.yml"><code>libs/pinetime_boot/pkg.yml</code></a></p>
+<p>By configuring the PineTime Boot Library like this: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/pkg.yml"><code>libs/pinetime_boot/pkg.yml</code></a></p>
 <pre><code class="language-yaml">pkg.init:
     # pinetime_boot should be initialised last, when SPI and Semihosting Console are up
     pinetime_boot_init: 900  # Call pinetime_boot_init() to initialise and render boot graphic
 </code></pre>
 <p>We configured <code>pinetime_boot_init()</code> to run at Stage 900, so that it will run after all drivers and libraries have been started (especially the SPI Flash Driver).</p>
 <p><em>What's inside our <code>pinetime_boot_init()</code> function?</em></p>
-<p><code>pinetime_boot_init()</code> runs when MCUBoot starts. Here's what it does: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c"><code>libs/pinetime_boot/src/pinetime_boot.c</code></a></p>
+<p><code>pinetime_boot_init()</code> runs when MCUBoot starts. Here's what it does: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/pinetime_boot.c"><code>libs/pinetime_boot/src/pinetime_boot.c</code></a></p>
 <pre><code class="language-c">/// Init the display and render the boot graphic. Called by sysinit() during startup, defined in pkg.yml.
 void pinetime_boot_init(void) {
     ...
@@ -663,7 +665,7 @@ void pinetime_boot_init(void) {
 <p>Thus our Boot Graphic is rendered when Enhanced MCUBoot starts!</p>
 <h2 id="handle-mcuboot-boot_custom_start-hook" class="section-header"><a href="#handle-mcuboot-boot_custom_start-hook">6.2 Handle MCUBoot <code>boot_custom_start()</code> Hook</a></h2>
 <p><code>boot_custom_start()</code> is called by MCUBoot when it has completed its work (like swapping the Active and Standby Firmware Images).</p>
-<p>We define <code>boot_custom_start()</code> in our PineTime Boot Library like this: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c"><code>libs/pinetime_boot/src/pinetime_boot.c</code></a></p>
+<p>We define <code>boot_custom_start()</code> in our PineTime Boot Library like this: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/pinetime_boot.c"><code>libs/pinetime_boot/src/pinetime_boot.c</code></a></p>
 <pre><code class="language-c">/// Called by MCUBoot when it has completed its work.
 void boot_custom_start(
     uintptr_t flash_base,
@@ -684,7 +686,7 @@ void boot_custom_start(
 <p>To prevent PineTime from getting bricked during firmware update, MCUBoot will automatically roll back the new firmware (Active Firmware) to the older firmware (Standby Firmware) if the new firmware fails to start properly (or fails to set the Firmware OK flag).</p>
 <p><em>What if the PineTime Owner decides that the new firmware is not working properly, and wishes to roll back the firmware manually?</em></p>
 <p>We shall check for Manual Firmware Rollback like this: If the Owner presses and holds the watch button for 5 seconds while the watch is booting up, the MCUBoot Bootloader shall roll back the firmware.</p>
-<p>The manual rollback logic will be implemented in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c"><code>libs/pinetime_boot/src/pinetime_boot.c</code></a>...</p>
+<p>The manual rollback logic will be implemented in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/pinetime_boot.c"><code>libs/pinetime_boot/src/pinetime_boot.c</code></a>...</p>
 <pre><code class="language-c">#define PUSH_BUTTON_IN  13  //  P0.13: PUSH BUTTON_IN
 #define PUSH_BUTTON_OUT 15  //  P0.15/TRACEDATA2: PUSH BUTTON_OUT
 
@@ -912,6 +914,9 @@ void pinetime_boot_check_button(void) {
 <p>Install GCC and Python build tools for Linux (or the macOS equivalent)...</p>
 <pre><code class="language-bash">sudo apt install gcc gcc-arm-none-eabi python3 make
 </code></pre>
+<p>For Majaro and Arch Linux...</p>
+<pre><code class="language-bash">sudo pacman -S arm-none-eabi-gcc
+</code></pre>
 </li>
 <li>
 <p>Install <code>rustup</code> with support for nightly target <code>thumbv7em-none-eabihf</code>. </p>
@@ -929,10 +934,10 @@ rustup target add thumbv7em-none-eabihf
 <p>Install the <code>newt</code> build tool for Mynewt.  Refer to these scripts...</p>
 <ul>
 <li>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/install-version.sh"><code>scripts/install-version.sh</code></a>: To set the version numbers</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/install-version.sh"><code>scripts/install-version.sh</code></a>: To set the version numbers</p>
 </li>
 <li>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/install-pi.sh"><code>scripts/install-pi.sh</code></a>: To build and install <code>newt</code>, look under the section <code>&quot;Build newt&quot;</code></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/install-pi.sh"><code>scripts/install-pi.sh</code></a>: To build and install <code>newt</code>, look under the section <code>&quot;Build newt&quot;</code></p>
 </li>
 </ul>
 </li>
@@ -943,11 +948,11 @@ rustup target add thumbv7em-none-eabihf
 <p>Download the source files to <code>~/pinetime</code>...</p>
 <pre><code class="language-bash">mkdir ~/pinetime
 cd ~/pinetime
-git clone --recursive --branch ota2 https://github.com/lupyuen/pinetime-rust-mynewt
+git clone --recursive --branch master https://github.com/lupyuen/pinetime-rust-mynewt
 </code></pre>
 </li>
 <li>
-<p>Update the MCUBoot version number to 1.3.1. Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/project.yml"><code>~/pinetime/pinetime-rust-mynewt/project.yml</code></a></p>
+<p>Update the MCUBoot version number to 1.3.1. Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/project.yml"><code>~/pinetime/pinetime-rust-mynewt/project.yml</code></a></p>
 <p>Change...</p>
 <pre><code class="language-yaml">repository.mcuboot:
     type: github
@@ -985,7 +990,7 @@ newt install
 <p>Ignore the <code>mcuboot</code> error above and proceed to the next step.</p>
 </li>
 <li>
-<p>Restore the MCUBoot version number to 1.5.0. Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/project.yml"><code>~/pinetime/pinetime-rust-mynewt/project.yml</code></a></p>
+<p>Restore the MCUBoot version number to 1.5.0. Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/project.yml"><code>~/pinetime/pinetime-rust-mynewt/project.yml</code></a></p>
 <p>Change...</p>
 <pre><code class="language-yaml">repository.mcuboot:
     type: github
@@ -1048,7 +1053,7 @@ scripts/nrf52/build-boot.sh
    <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
   <span class="number">22792</span>     <span class="number">132</span>   <span class="number">25504</span>   <span class="number">48428</span>    <span class="ident">bd2c</span> <span class="ident">pinetime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_boot</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">boot</span><span class="op">/</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">mynewt</span>.<span class="ident">elf</span></pre></div>
 <h2 id="select-the-openocd-interface-st-link-or-raspberry-pi-spi" class="section-header"><a href="#select-the-openocd-interface-st-link-or-raspberry-pi-spi">10.4 Select the OpenOCD Interface: ST-Link or Raspberry Pi SPI</a></h2>
-<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/config.sh"><code>~/pinetime/pinetime-rust-mynewt/scripts/config.sh</code></a></p>
+<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/config.sh"><code>~/pinetime/pinetime-rust-mynewt/scripts/config.sh</code></a></p>
 <p>If we're using ST-Link v2 for flashing PineTime, set <code>swd_device</code> as follows...</p>
 <pre><code class="language-bash">#  Select ST-Link v2 as SWD Programmer
 swd_device=scripts/nrf52/swd-stlink.ocd
@@ -1060,7 +1065,7 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 <h2 id="flash-mcuboot-bootloader" class="section-header"><a href="#flash-mcuboot-bootloader">10.5 Flash MCUBoot Bootloader</a></h2>
 <ol>
 <li>
-<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.sh"><code>~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-boot.sh</code></a></p>
+<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/nrf52/flash-boot.sh"><code>~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-boot.sh</code></a></p>
 </li>
 <li>
 <p>Change <code>openocd/bin/openocd</code> to the path of our installed <code>openocd</code> (for ST-Link) or <code>openocd-spi</code> (for Raspberry Pi)...</p>
@@ -1071,10 +1076,10 @@ openocd/bin/openocd \
 </code></pre>
 </li>
 <li>
-<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.ocd"><code>~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-boot.ocd</code></a></p>
+<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/nrf52/flash-boot.ocd"><code>~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-boot.ocd</code></a></p>
 </li>
 <li>
-<p>The path of the built firmware file is defined in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.ocd"><code>~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-boot.ocd</code></a>. We shouldn't need to change this.</p>
+<p>The path of the built firmware file is defined in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/nrf52/flash-boot.ocd"><code>~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-boot.ocd</code></a>. We shouldn't need to change this.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">program</span> <span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_boot</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">boot</span><span class="op">/</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">mynewt</span>.<span class="ident">elf</span>.<span class="ident">bin</span> <span class="ident">verify</span> <span class="number">0x00000000</span></pre></div>
@@ -1134,6 +1139,20 @@ xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
 <li>
 <p>If the flashing fails, check whether any <code>openocd</code> processes are running in the background, and kill them.</p>
 </li>
+<li>
+<p>Alternatively, use <a href="https://github.com/lupyuen/pinetime-updater/blob/master/README.md"><strong>PineTime Updater</strong></a> to flash the bootloader...</p>
+<ul>
+<li>
+<p>Select <code>Downloaded File</code></p>
+</li>
+<li>
+<p>Select the file <code>bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin</code></p>
+</li>
+<li>
+<p>Enter address <code>0x0</code></p>
+</li>
+</ul>
+</li>
 </ol>
 <h2 id="flash-application-firmware" class="section-header"><a href="#flash-application-firmware">10.6 Flash Application Firmware</a></h2>
 <ol>
@@ -1150,7 +1169,7 @@ xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
 <p>For other versions of the Application Firmware Image, <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">see this article</a></p>
 </li>
 <li>
-<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-app.sh"><code>~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-app.sh</code></a></p>
+<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/nrf52/flash-app.sh"><code>~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-app.sh</code></a></p>
 </li>
 <li>
 <p>Change <code>openocd/bin/openocd</code> to the path of our installed <code>openocd</code> (for ST-Link) or <code>openocd-spi</code> (for Raspberry Pi)...</p>
@@ -1161,7 +1180,7 @@ openocd/bin/openocd \
 </code></pre>
 </li>
 <li>
-<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-app.ocd"><code>~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-app.ocd</code></a></p>
+<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/nrf52/flash-app.ocd"><code>~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-app.ocd</code></a></p>
 </li>
 <li>
 <p>Change <code>bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img</code> to the path of the downloaded Application Firmware Image File...</p>
@@ -1300,6 +1319,20 @@ verified 139268 bytes in 0.363909s (373.731 KiB/s)
 <span class="ident">subscribe</span> <span class="ident">event</span>; <span class="ident">conn_handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">attr_handle</span><span class="op">=</span><span class="number">30</span> <span class="ident">reason</span><span class="op">=</span><span class="number">1</span> <span class="ident">prevn</span><span class="op">=</span><span class="number">0</span> <span class="ident">curn</span><span class="op">=</span><span class="number">1</span> <span class="ident">previ</span><span class="op">=</span><span class="number">0</span> <span class="ident">curi</span><span class="op">=</span><span class="number">0</span>
 <span class="ident">subscribe</span> <span class="ident">event</span>; <span class="ident">conn_handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">attr_handle</span><span class="op">=</span><span class="number">30</span> <span class="ident">reason</span><span class="op">=</span><span class="number">2</span> <span class="ident">prevn</span><span class="op">=</span><span class="number">1</span> <span class="ident">curn</span><span class="op">=</span><span class="number">0</span> <span class="ident">previ</span><span class="op">=</span><span class="number">0</span> <span class="ident">curi</span><span class="op">=</span><span class="number">0</span>
 <span class="ident">disconnect</span>; <span class="ident">reason</span><span class="op">=</span><span class="number">531</span> <span class="ident">handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr</span><span class="op">=</span> <span class="ident">our_id_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_id_addr</span><span class="op">=</span> <span class="ident">peer_ota_addr_type</span><span class="op">=</span><span class="number">0</span> <span class="ident">peer_ota_addr</span><span class="op">=</span> <span class="ident">peer_id_addr_type</span><span class="op">=</span><span class="number">0</span> <span class="ident">peer_id_addr</span><span class="op">=</span> <span class="ident">conn_itvl</span><span class="op">=</span><span class="number">6</span> <span class="ident">conn_latency</span><span class="op">=</span><span class="number">0</span> <span class="ident">supervision_timeout</span><span class="op">=</span><span class="number">72</span> <span class="ident">encrypted</span><span class="op">=</span><span class="number">0</span> <span class="ident">authenticated</span><span class="op">=</span><span class="number">0</span> <span class="ident">bonded</span><span class="op">=</span><span class="number">0</span></pre></div>
+</li>
+<li>
+<p>Alternatively, use <a href="https://github.com/lupyuen/pinetime-updater/blob/master/README.md"><strong>PineTime Updater</strong></a> to flash the Application Firmware...</p>
+<ul>
+<li>
+<p>Select <code>Downloaded File</code></p>
+</li>
+<li>
+<p>Enter the path of the downloaded Application Firmware Image File</p>
+</li>
+<li>
+<p>Enter address <code>0x8000</code></p>
+</li>
+</ul>
 </li>
 </ol>
 <h1 id="further-reading" class="section-header"><a href="#further-reading">11 Further Reading</a></h1>
