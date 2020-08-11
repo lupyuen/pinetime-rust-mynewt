@@ -1,14 +1,26 @@
-# Official language image. Look for the different tagged releases at:
-# https://hub.docker.com/r/library/rust/tags/
+# GitLab CI to build Rust+Mynewt Firmware for PineTime Smart Watch
+# Based on https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/.github/workflows/main.yml
+
+# Official language image. Look for the different tagged releases at: https://hub.docker.com/r/library/rust/tags/
 image: "rust:latest"
 
 build:
   stage: build
+
+  #########################################################################################
+  # Checkout
+
   variables:
     # Clone submodules recursively
     GIT_SUBMODULE_STRATEGY: recursive
 
+  #########################################################################################
+  # Download and Cache Dependencies
+
   before_script:
+    # Show files
+    - set ; pwd ; ls -l
+
     # Install Go
     - pushd /tmp    
     - wget -qO- https://golang.org/dl/go1.14.7.linux-amd64.tar.gz | tar -xz
@@ -42,11 +54,6 @@ build:
     # git clone --branch $nimble_version https://github.com/apache/mynewt-nimble
     - popd
 
-    # Show files
-    - set ; pwd ; ls -l
-
-    #########################################################################################
-    # Download and Cache Dependencies
     # Install Rust Target thumbv7em-none-eabihf
     - rustup default nightly
     - rustup target add thumbv7em-none-eabihf
@@ -58,15 +65,32 @@ build:
     - export PATH=$PATH:/tmp/gcc-arm-none-eabi-8-2019-q3-update/bin
     - arm-none-eabi-gcc --version
 
-  script: |
-    export PATH=$PATH:/tmp/go/bin:/tmp/mynewt-newt/newt:/tmp/gcc-arm-none-eabi-8-2019-q3-update/bin
-    ./scripts/build-app.sh
+  #########################################################################################
+  # Build Bootloader and Rust+Mynewt Application Firmware
+
+  script:
+    # Set PATH
+    - export PATH=$PATH:/tmp/go/bin:/tmp/mynewt-newt/newt:/tmp/gcc-arm-none-eabi-8-2019-q3-update/bin
+
+    # Build Bootloader
+    - ./scripts/nrf52/build-boot.sh
+
+    # Build Application Firmware
+    - ./scripts/build-app.sh
+
+    # Create Application Firmware Image
+    - ./scripts/nrf52/image-app.sh
+
+  #########################################################################################
+  # Upload Bootloader and Application Firmware
 
   artifacts:
     paths:
       - bin
 
-  # Cache outputs to reduce the build time
+  #########################################################################################
+  # Cache Outputs
+
   cache:
     paths:
       - "*.o"
@@ -74,7 +98,9 @@ build:
       - /tmp/mynewt-newt
       - /tmp/gcc-arm-none-eabi-8-2019-q3-update
 
-# run tests using the binary built before
+#########################################################################################
+# Run Tests
+
 test:
   stage: test
   script:
