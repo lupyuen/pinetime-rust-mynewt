@@ -1,5 +1,23 @@
 # Your Very Own PineTime Firmware... Built by GitLab and GitHub
 
+# Logo Loader
+
+# Custom Firmware
+
+GitLab Web IDE
+
+Languages
+
+Loadable Apps: WebAssembly, Sandbox
+
+Security
+
+apt / npm style repos
+
+Optimisation
+
+Updates
+
 ![PineTime Firmware Programming vs Fortnite](https://lupyuen.github.io/images/cloud-title.jpg)
 
 Programming the firmware of our gadgets (like [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime)) has always been cumbersome...
