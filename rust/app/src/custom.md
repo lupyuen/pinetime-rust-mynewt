@@ -2,9 +2,9 @@
 
 # Logo Loader
 
-GitLab: https://gitlab.com/lupyuen/pinetime-logo-loader/-/blob/master/.gitlab-ci.yml
+We'll explain the GitLab version: https://gitlab.com/lupyuen/pinetime-logo-loader/-/blob/master/.gitlab-ci.yml
 
-GitHub: https://github.com/lupyuen/pinetime-logo-loader/blob/master/.github/workflows/main.yml
+If you're on GitHub, there is a similar GitHub version: https://github.com/lupyuen/pinetime-logo-loader/blob/master/.github/workflows/main.yml
 
 ```yaml
 # GitLab CI to build Rust+Mynewt Firmware for PineTime Smart Watch
