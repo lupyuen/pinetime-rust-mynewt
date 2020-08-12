@@ -7,14 +7,25 @@
     <title>Firmware Update over Bluetooth Low Energy on PineTime Smart Watch</title>
 
     
-    <!-- Begin scripts/rustdoc-header.html: Header for Custom Markdown files processed by rustdoc, like chip8.md -->
-<!-- TODO -->
-<meta property="og:image" content="https://lupyuen.github.io/images/dfu-platforms.png">
+    <!-- Begin scripts/articles/*-header.html: Article Header for Custom Markdown files processed by rustdoc, like chip8.md -->
+<meta property="og:title" 
+    content="Firmware Update over Bluetooth Low Energy on PineTime Smart Watch" 
+    data-rh="true">
+<meta property="og:description" 
+    content="Flash any firmware to PineTime from our mobile phone... Without opening the watch!" 
+    data-rh="true">
+<meta property="og:image" 
+    content="https://lupyuen.github.io/images/dfu-platforms.png">
+<meta property="og:type" 
+    content="article" data-rh="true">
+<!-- End scripts/articles/*-header.html -->
+<!-- Begin scripts/rustdoc-header.html: Header for Custom Markdown files processed by rustdoc, like chip8.md -->
 <link rel="alternate" type="application/rss+xml" title="RSS Feed for lupyuen" href="/rss.xml" />
 <link rel="stylesheet" type="text/css" href="../normalize.css">
 <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
 <link rel="stylesheet" type="text/css" href="../dark.css">
 <link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle">
+<link rel="stylesheet" type="text/css" href="../prism.css">
 <script src="../storage.js"></script><noscript>
 <link rel="stylesheet" href="../noscript.css"></noscript>
 <link rel="shortcut icon" href="../favicon.ico">
@@ -46,6 +57,7 @@
         <div id="theme-choices"></div>
     </div>
     <script src="../theme.js"></script>
+    <script src="../prism.js"></script>
     <!-- Theme Picker -->
 
     <!-- End scripts/rustdoc-before.html -->
@@ -69,18 +81,19 @@
 <li><a href="#nimble-interrupt-functions">6.8 NimBLE Interrupt Functions</a><ul></ul></li></ul></li>
 <li><a href="#mcuboot-bootloader-for-pinetime">7 MCUBoot Bootloader for PineTime</a><ul></ul></li>
 <li><a href="#generate-a-firmware-image-file-for-pinetime">8 Generate a Firmware Image File for PineTime</a><ul></ul></li>
-<li><a href="#mark-pinetime-firmware-as-ok">9 Mark PineTime Firmware As OK</a><ul></ul></li>
-<li><a href="#checklist-for-pinetime-firmware-developers">10 Checklist for PineTime Firmware Developers</a><ul></ul></li>
-<li><a href="#optional-command-handlers-for-mcu-manager-on-pinetime">11 Optional: Command Handlers for MCU Manager on PineTime</a><ul></ul></li>
-<li><a href="#test-pinetime-firmware-update-over-bluetooth-le">12 Test PineTime Firmware Update over Bluetooth LE</a><ul></ul></li>
-<li><a href="#upcoming-enhancements-for-pinetime-firmware-update-over-bluetooth-le">13 Upcoming Enhancements for PineTime Firmware Update over Bluetooth LE</a><ul></ul></li>
-<li><a href="#android-ios-and-linux-companion-apps-for-pinetime">14 Android, iOS and Linux Companion Apps for PineTime</a><ul>
-<li><a href="#android-app-for-pinetime">14.1 Android App for PineTime</a><ul></ul></li>
-<li><a href="#ios-app-for-pinetime">14.2 iOS App for PineTime</a><ul></ul></li>
-<li><a href="#flutter-app-for-android-and-ios">14.3 Flutter App for Android and iOS</a><ul></ul></li>
-<li><a href="#linux-app-for-pinetime">14.4 Linux App for PineTime</a><ul></ul></li></ul></li>
-<li><a href="#other-pinetime-firmware-update-solutions">15 Other PineTime Firmware Update Solutions</a><ul></ul></li>
-<li><a href="#further-reading">16 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/dfu-platforms.png" alt="Platforms in development for PineTime Smart Watch" /></p>
+<li><a href="#mark-pinetime-firmware-as-pending">9 Mark PineTime Firmware As Pending</a><ul></ul></li>
+<li><a href="#mark-pinetime-firmware-as-ok">10 Mark PineTime Firmware As OK</a><ul></ul></li>
+<li><a href="#checklist-for-pinetime-firmware-developers">11 Checklist for PineTime Firmware Developers</a><ul></ul></li>
+<li><a href="#optional-command-handlers-for-mcu-manager-on-pinetime">12 Optional: Command Handlers for MCU Manager on PineTime</a><ul></ul></li>
+<li><a href="#test-pinetime-firmware-update-over-bluetooth-le">13 Test PineTime Firmware Update over Bluetooth LE</a><ul></ul></li>
+<li><a href="#upcoming-enhancements-for-pinetime-firmware-update-over-bluetooth-le">14 Upcoming Enhancements for PineTime Firmware Update over Bluetooth LE</a><ul></ul></li>
+<li><a href="#android-ios-and-linux-companion-apps-for-pinetime">15 Android, iOS and Linux Companion Apps for PineTime</a><ul>
+<li><a href="#android-app-for-pinetime">15.1 Android App for PineTime</a><ul></ul></li>
+<li><a href="#ios-app-for-pinetime">15.2 iOS App for PineTime</a><ul></ul></li>
+<li><a href="#flutter-app-for-android-and-ios">15.3 Flutter App for Android and iOS</a><ul></ul></li>
+<li><a href="#linux-app-for-pinetime">15.4 Linux App for PineTime</a><ul></ul></li></ul></li>
+<li><a href="#other-pinetime-firmware-update-solutions">16 Other PineTime Firmware Update Solutions</a><ul></ul></li>
+<li><a href="#further-reading">17 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/dfu-platforms.png" alt="Platforms in development for PineTime Smart Watch" /></p>
 <p>[ UPDATE: <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">Check out the followup article here</a> ]</p>
 <p>Thanks to the FOSS Community, <a href="https://wiki.pine64.org/index.php/PineTime">PineTime Smart Watch</a> has an incredible variety of FOSS operating systems in the works: <a href="https://github.com/JF002/Pinetime">FreeRTOS</a>, <a href="https://github.com/daniel-thompson/wasp-os">MicroPython</a>, <a href="https://github.com/lupyuen/pinetime-rust-mynewt">Mynewt</a>, <a href="https://github.com/bosmoment/PineTime-apps">RIOT</a>, Rust <a href="https://github.com/wose/xochron">RTFM</a> (<a href="https://github.com/dbrgn/pinetime-rtfm">another</a>), <a href="https://github.com/aykevl/go-smartwatch">TinyGo</a>, <a href="https://www.tockos.org/">Tock</a>, <a href="https://github.com/najnesnaj/pinetime-zephyr">Zephyr</a> (<a href="https://github.com/Dejvino/pinetime-hermes-firmware.git">another</a>, <a href="https://github.com/endian-albin/pinetime-hypnos">yet another</a>), ...</p>
 <p>But these embedded platforms are accessible only by brave PineTime Owners who dare to pry open their watches very carefully... And connect a Raspberry Pi (or ST-Link) to the tiny delicate 4-pin SWD port recessed deep inside... Just to flash the PineTime firmware.</p>
@@ -627,7 +640,15 @@ mcuboot/scripts/imgtool.py verify my_sensor_app.img
 <p>When running the firmware image with the build of MCUBoot from the previous section, the following log will be shown...</p>
 <p><img src="https://lupyuen.github.io/images/dfu-runimage.png" alt="Running the sample firmware image" /></p>
 <p><a href="https://juullabs-oss.github.io/mcuboot/imgtool.html">More about <code>imgtool.py</code></a></p>
-<h1 id="mark-pinetime-firmware-as-ok" class="section-header"><a href="#mark-pinetime-firmware-as-ok">9 Mark PineTime Firmware As OK</a></h1>
+<h1 id="mark-pinetime-firmware-as-pending" class="section-header"><a href="#mark-pinetime-firmware-as-pending">9 Mark PineTime Firmware As Pending</a></h1>
+<p>TODO</p>
+<p>https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/src/bootutil_misc.c#L645-L717</p>
+<p>that's the code for sending the pending flag
+its part of the mcuboot library
+that function sets the pending flag in the image trailer: https://juullabs-oss.github.io/mcuboot/design.html#image-trailer
+i.e. Swap Type = BOOT_SWAP_TYPE_TEST	
+once you set the Swap Type to BOOT_SWAP_TYPE_TEST, MCUBoot will swap in the new firmware</p>
+<h1 id="mark-pinetime-firmware-as-ok" class="section-header"><a href="#mark-pinetime-firmware-as-ok">10 Mark PineTime Firmware As OK</a></h1>
 <p>MCUBoot Bootloader has a helpful feature that prevents PineTime from getting bricked during firmware update... When MCUBoot senses that the new firmware isn't running properly, MCUBoot rolls back PineTime to the old firmware.</p>
 <p><em>How does MCUBoot know whether the new firmware is OK?</em></p>
 <p>The new firmware is required to set the <strong>Image OK</strong> status in MCUBoot when it has started properly after a firmware update.  This needs to be implemented by the PineTime Firmware Developer.</p>
@@ -684,7 +705,7 @@ Split status: N/A (0)
 </code></pre>
 <p>The complete Raspberry Pi log may be found near the end of the article.</p>
 <p><a href="https://juullabs-oss.github.io/mcuboot/design.html">More about the design of MCUBoot</a></p>
-<h1 id="checklist-for-pinetime-firmware-developers" class="section-header"><a href="#checklist-for-pinetime-firmware-developers">10 Checklist for PineTime Firmware Developers</a></h1>
+<h1 id="checklist-for-pinetime-firmware-developers" class="section-header"><a href="#checklist-for-pinetime-firmware-developers">11 Checklist for PineTime Firmware Developers</a></h1>
 <p>In summary, PineTime Firmware Developers would have to do the following to support firmware updates over Bluetooth LE...</p>
 <ol>
 <li>
@@ -707,7 +728,7 @@ Split status: N/A (0)
 </li>
 </ol>
 <p><strong>For Mynewt and Zephyr:</strong> Some of the steps in this article may not be necessary... Check the simpler porting instructions for Mynewt and Zephyr on the <a href="https://github.com/apache/mynewt-nimble/">NimBLE</a>, <a href="https://github.com/apache/mynewt-mcumgr">MCU Manager</a> and <a href="https://github.com/JuulLabs-OSS/mcuboot">MCUBoot</a> websites.</p>
-<h1 id="optional-command-handlers-for-mcu-manager-on-pinetime" class="section-header"><a href="#optional-command-handlers-for-mcu-manager-on-pinetime">11 Optional: Command Handlers for MCU Manager on PineTime</a></h1>
+<h1 id="optional-command-handlers-for-mcu-manager-on-pinetime" class="section-header"><a href="#optional-command-handlers-for-mcu-manager-on-pinetime">12 Optional: Command Handlers for MCU Manager on PineTime</a></h1>
 <p>When PineTime is configured for firmware update over Bluetooth LE, additional GATT Services may be exposed by the MCU Manager Library.</p>
 <p>Here are the GATT Services that appear when the <a href="https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile">Nordic nRF Connect</a> mobile app is connected to PineTime...</p>
 <p><img src="https://lupyuen.github.io/images/dfu-gattservices.jpg" alt="GATT Services exposed by MCU Manager on PineTime" /></p>
@@ -752,7 +773,7 @@ Device Name (<code>pinetime</code>) and Appearance. <a href="https://www.bluetoo
 </li>
 </ol>
 <p>The final GATT Service (<code>59462f12-9543-9999-12c8-58b459a2712d</code>) in the screen above is the <strong>Security Test Service</strong>, which is also optional. See <a href="https://github.com/apache/mynewt-nimble/blob/master/apps/btshell/src/gatt_svr.c#L67-L94"><code>gatt_svr.c</code></a></p>
-<h1 id="test-pinetime-firmware-update-over-bluetooth-le" class="section-header"><a href="#test-pinetime-firmware-update-over-bluetooth-le">12 Test PineTime Firmware Update over Bluetooth LE</a></h1>
+<h1 id="test-pinetime-firmware-update-over-bluetooth-le" class="section-header"><a href="#test-pinetime-firmware-update-over-bluetooth-le">13 Test PineTime Firmware Update over Bluetooth LE</a></h1>
 <p>We are now testing PineTime firmware update on Mynewt+Rust with the <code>ota</code> branch of <code>pinetime-rust-mynewt</code>...</p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota">Browse <code>pinetime-rust-mynewt/ota</code> repository</a></p>
 <p>This branch of <code>pinetime-rust-mynewt</code> has the Newt Manager Library (Mynewt's version of the MCU Manager Library) injected here: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/tree/ota/apps/my_sensor_app/src"><code>my_sensor_app/src</code></a></p>
@@ -830,7 +851,7 @@ Device Name (<code>pinetime</code>) and Appearance. <a href="https://www.bluetoo
 <span class="ident">objsize</span>
    <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
  <span class="number">205760</span>     <span class="number">904</span>   <span class="number">55224</span>  <span class="number">261888</span>   <span class="number">3ff00</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">elf</span></pre></div>
-<h1 id="upcoming-enhancements-for-pinetime-firmware-update-over-bluetooth-le" class="section-header"><a href="#upcoming-enhancements-for-pinetime-firmware-update-over-bluetooth-le">13 Upcoming Enhancements for PineTime Firmware Update over Bluetooth LE</a></h1>
+<h1 id="upcoming-enhancements-for-pinetime-firmware-update-over-bluetooth-le" class="section-header"><a href="#upcoming-enhancements-for-pinetime-firmware-update-over-bluetooth-le">14 Upcoming Enhancements for PineTime Firmware Update over Bluetooth LE</a></h1>
 <p>[ UPDATE: <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">Check out the followup article here</a> ]</p>
 <p>Based on feedback from the PineTime Community, the following enhancements are planned for the implementation of firmware updates...</p>
 <ol>
@@ -871,25 +892,25 @@ int main(void) {
 <p>Ensure that the same firmware version doesn't get flashed twice</p>
 </li>
 </ol>
-<h1 id="android-ios-and-linux-companion-apps-for-pinetime" class="section-header"><a href="#android-ios-and-linux-companion-apps-for-pinetime">14 Android, iOS and Linux Companion Apps for PineTime</a></h1>
+<h1 id="android-ios-and-linux-companion-apps-for-pinetime" class="section-header"><a href="#android-ios-and-linux-companion-apps-for-pinetime">15 Android, iOS and Linux Companion Apps for PineTime</a></h1>
 <p>For flashing PineTime over Bluetooth LE, we would need to find a suitable app for our mobile phones. The mobile app shall also be used to sync the current date/time with PineTime, also to forward notifications for display on PineTime.</p>
 <p>The <a href="https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile">Nordic nRF Connect</a> mobile app works fine for flashing PineTime... But it seems too complicated for most PineTime Owners.</p>
 <p>Here's how we may build friendly apps for Android, iOS and Linux (e.g. PinePhone) mobile phones that will work with PineTime...</p>
-<h2 id="android-app-for-pinetime" class="section-header"><a href="#android-app-for-pinetime">14.1 Android App for PineTime</a></h2>
+<h2 id="android-app-for-pinetime" class="section-header"><a href="#android-app-for-pinetime">15.1 Android App for PineTime</a></h2>
 <p>Firmware update on PineTime is based on the MCU Manager Library. We may use the <strong>Android MCU Manager Library</strong> (coded in Java) to build the Android app.</p>
 <p><a href="https://github.com/JuulLabs-OSS/mcumgr-android">Check out <code>mcumgr-android</code></a></p>
-<h2 id="ios-app-for-pinetime" class="section-header"><a href="#ios-app-for-pinetime">14.2 iOS App for PineTime</a></h2>
+<h2 id="ios-app-for-pinetime" class="section-header"><a href="#ios-app-for-pinetime">15.2 iOS App for PineTime</a></h2>
 <p>There is a similar libary for iOS: The <strong>iOS MCU Manager Library</strong>, coded in Swift.</p>
 <p>Among all the MCU Manager Libraries, the iOS Swift version is easiest to understand because it calls high-level Bluetooth LE functions from the <a href="https://developer.apple.com/library/archive/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/AboutCoreBluetooth/Introduction.html#//apple_ref/doc/uid/TP40013257-CH1-SW1">iOS Core Bluetooth API</a>. </p>
 <p>The source code is helpful for learning how MCU Manager composes a Simple Management Protocol (SMP) request over GATT.</p>
 <p><a href="https://github.com/JuulLabs-OSS/mcumgr-ios">Check out <code>mcumgr-ios</code></a></p>
 <p>To see how a GATT Request for firmware update is composed and transmitted, check out <a href="https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Managers/DFU/FirmwareUpgradeManager.swift"><code>FirmwareUpgradeManager</code></a>, <a href="https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Managers/ImageManager.swift"><code>ImageManager</code></a>, <a href="https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/McuManager.swift"><code>McuManager</code></a> and <a href="https://github.com/JuulLabs-OSS/mcumgr-ios/blob/master/Source/Bluetooth/McuMgrBleTransport.swift"><code>McuMgrBleTransport</code></a></p>
-<h2 id="flutter-app-for-android-and-ios" class="section-header"><a href="#flutter-app-for-android-and-ios">14.3 Flutter App for Android and iOS</a></h2>
+<h2 id="flutter-app-for-android-and-ios" class="section-header"><a href="#flutter-app-for-android-and-ios">15.3 Flutter App for Android and iOS</a></h2>
 <p>Alternatively, we may build the Android and iOS apps in <a href="https://flutter.dev"><strong>Flutter</strong></a> based on this Flutter library for Bluetooth LE: <a href="https://github.com/pauldemarco/flutter_blue"><code>flutter_blue</code></a></p>
 <p>We will have to code ourselves the GATT Requests for SMP (using the iOS Swift code as reference). But there's a huge benefit: This approach allows us to maintain <strong>a single code base (in Dart) to target both Android and iOS.</strong></p>
 <p>The Flutter app would also be a great reference for teaching how to talk to Bluetooth LE devices (like PineTime) and access GATT services, even though it won't look like a polished app.</p>
 <p><a href="https://github.com/pauldemarco/flutter_blue/tree/master/example/lib">Check out a sample Bluetooth LE app built with Flutter</a></p>
-<h2 id="linux-app-for-pinetime" class="section-header"><a href="#linux-app-for-pinetime">14.4 Linux App for PineTime</a></h2>
+<h2 id="linux-app-for-pinetime" class="section-header"><a href="#linux-app-for-pinetime">15.4 Linux App for PineTime</a></h2>
 <p>For PinePhone and other Linux phones, we may reuse the code from the <strong>Newt Manager</strong> command-line tool.</p>
 <p>Coded in Go, Newt Manager is the official command-line tool for performing all MCU Manager functions on PineTime, including firmware flashing and date/time synchronisation. See <a href="https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_image.html"><code>newtmgr_image</code></a> and <a href="https://mynewt.apache.org/latest/newtmgr/command_list/newtmgr_datetime.html"><code>newtmgr_datetime</code></a></p>
 <p><a href="https://mynewt.apache.org/latest/newtmgr/index.html">More about Newt Manager</a></p>
@@ -952,7 +973,7 @@ Images:
     hash: eab2886947a1df6f850463601f3dad409411d7ea21855eb0a70e965732258c92
 Split status: N/A (0)
 </code></pre>
-<h1 id="other-pinetime-firmware-update-solutions" class="section-header"><a href="#other-pinetime-firmware-update-solutions">15 Other PineTime Firmware Update Solutions</a></h1>
+<h1 id="other-pinetime-firmware-update-solutions" class="section-header"><a href="#other-pinetime-firmware-update-solutions">16 Other PineTime Firmware Update Solutions</a></h1>
 <ol>
 <li>
 <p>Nordic SoftDevice includes a proprietary Bluetooth LE DFU implementation. <a href="https://infocenter.nordicsemi.com/topic/com.nordic.infocenter.sdk5.v15.0.0/lib_bootloader_dfu_process.html">More about SoftDevice</a></p>
@@ -967,7 +988,7 @@ Split status: N/A (0)
 <p><a href="https://github.com/atc1441/DaFlasherFiles">DaFlasher for Android</a></p>
 </li>
 </ol>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">16 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">17 Further Reading</a></h1>
 <p>[ UPDATE: <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">Check out the followup article here</a> ]</p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 
