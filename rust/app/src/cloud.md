@@ -166,6 +166,8 @@ We have just triggered __Our Very First PineTime Firmware Build In The Cloud!__
 
 Let's check the result of our Firmware Build in the Cloud...
 
+[Check out this article to learn more about Clock.cpp](https://wiki.pine64.org/index.php?title=PineTime_Custom_Watchface_Tutorial)
+
 # Our First PineTime Firmware Build
 
 (Sorry our first build may fail with an error in `TwiMaster.cpp`... More about this in a while)
