@@ -128,7 +128,7 @@ All we need... Is a Web Browser!
 
 1.  Finally we flash our Watch Face to PineTime over Bluetooth...
 
-    ["Test Our PineTime Fimware"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware) 😀)
+    ["Test Our PineTime Fimware"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware)
 
 This runs all in the Cloud, so we don't even need a PineTime to create our own Watch Face!
 
