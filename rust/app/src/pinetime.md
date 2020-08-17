@@ -122,13 +122,19 @@ All we need... Is a Web Browser!
 
     ["Our Firmware Build"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#our-first-pinetime-firmware-build)
 
+1.  We'll soon we able to preview PineTime Watch Faces in a web browser (Check later for updates)...
+
+    ["PineTime Watch Face Simulator"](https://github.com/AppKaki/lvgl-wasm/blob/master/README.md)
+
+1.  Finally we flash our Watch Face to PineTime over Bluetooth...
+
+    ["Test Our PineTime Fimware"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware) 😀)
+
 This runs all in the Cloud, so we don't even need a PineTime to create our own Watch Face!
 
-(But of course we'll need a PineTime to actually see our [Custom PineTime Watch Face](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware) 😀)
+![Custom PineTime Watch Face created in C++ by SravanSenthiln1: PineTime Watch Face Simulator vs Real PineTime](https://lupyuen.github.io/images/pinetime-simulator.png)
 
-![PineTime with a Custom Watch Face: LOVE](https://lupyuen.github.io/images/cloud-love.jpg)
-
-_PineTime with a Custom Watch Face: LOVE_
+_Custom PineTime Watch Face created in C++ by [SravanSenthiln1](https://twitter.com/SravanSenthiln1): PineTime Watch Face Simulator vs Real PineTime_
 
 # What's Next
 
