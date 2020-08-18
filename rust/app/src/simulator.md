@@ -6,7 +6,13 @@ _Custom PineTime Watch Face created in C++ by [SravanSenthiln1](https://twitter.
 
 TODO
 
-Today we'll learn [__GitHub Actions__](https://github.com/features/actions) for building [__InfiniTime Simulator__](https://github.com/JF002/Pinetime) for [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) in the GitHub Cloud.
+__Simulate PineTime Watch Face__ in Web Browser (with WebAssembly), for easier development of custom watch faces
+
+- [Online Demo](https://appkaki.github.io/lvgl-wasm/lvgl.html)
+
+- [Watch Face Source Code in C++](clock/Clock.cpp)
+
+Today we'll learn [__GitHub Actions__](https://github.com/features/actions) for building the PineTime Web Simulator for [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) in the GitHub Cloud.
 
 # Create a Fork of PineTime Source Files
 
@@ -195,6 +201,8 @@ Let's check the result of our Simulator Build...
     (Change `ACCOUNT_NAME` to our GitHub Account Name)
 
     ![Custom PineTime Watch Face created in C++ by SravanSenthiln1: PineTime Watch Face Simulator vs Real PineTime](https://lupyuen.github.io/images/pinetime-simulator.png)
+
+    [View the Source Code for the Custom Watch Face](https://github.com/AppKaki/lvgl-wasm/blob/master/clock/Clock2.cpp)
 
 1.  If we are happy with the Watch Face, we may __flash the built firmware__ to PineTime over Bluetooth. See ["Test Our PineTime Fimware"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware)
 
