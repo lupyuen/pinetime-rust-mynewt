@@ -74,22 +74,34 @@
 <li><a href="#other-options">7 Other Options</a><ul></ul></li>
 <li><a href="#whats-next">8 What's Next?</a><ul></ul></li>
 <li><a href="#how-it-works">9 How It Works</a><ul>
-<li><a href="#check-cache-for-embedded-arm-toolchain">9.1 Check Cache for Embedded Arm Toolchain</a><ul></ul></li>
-<li><a href="#install-embedded-arm-toolchain">9.2 Install Embedded Arm Toolchain</a><ul></ul></li>
-<li><a href="#check-cache-for-nrf5-sdk">9.3 Check Cache for nRF5 SDK</a><ul></ul></li>
-<li><a href="#install-nrf5-sdk">9.4 Install nRF5 SDK</a><ul></ul></li>
-<li><a href="#install-adafruit-nrfutil-library">9.5 Install Adafruit <code>nrfutil</code> Library</a><ul></ul></li>
-<li><a href="#checkout-source-files">9.6 Checkout Source Files</a><ul></ul></li>
-<li><a href="#show-files">9.7 Show Files</a><ul></ul></li>
-<li><a href="#cmake">9.8 CMake</a><ul></ul></li>
-<li><a href="#make-dfu-firmware-pinetime-mcuboot-app">9.9 Make DFU Firmware <code>pinetime-mcuboot-app</code></a><ul></ul></li>
-<li><a href="#create-firmware-image">9.10 Create Firmware Image</a><ul></ul></li>
-<li><a href="#create-dfu-package">9.11 Create DFU Package</a><ul></ul></li>
-<li><a href="#upload-dfu-package">9.12 Upload DFU Package</a><ul></ul></li>
-<li><a href="#make-standalone-firmware-pinetime-app">9.13 Make Standalone Firmware <code>pinetime-app</code></a><ul></ul></li>
-<li><a href="#upload-standalone-firmware">9.14 Upload Standalone Firmware</a><ul></ul></li>
-<li><a href="#find-output">9.15 Find Output</a><ul></ul></li>
-<li><a href="#caching-at-the-end">9.16 Caching At The End</a><ul></ul></li></ul></li>
+<li><a href="#checkout-source-files">9.1 Checkout Source Files</a><ul></ul></li>
+<li><a href="#check-cache-for-emscripten">9.2 Check Cache for emscripten</a><ul></ul></li>
+<li><a href="#install-emscripten">9.3 Install emscripten</a><ul></ul></li>
+<li><a href="#check-cache-for-wabt">9.4 Check Cache for wabt</a><ul></ul></li>
+<li><a href="#install-wabt">9.5 Install wabt</a><ul></ul></li>
+<li><a href="#checkout-lvgl-for-webassembly">9.6 Checkout LVGL for WebAssembly</a><ul></ul></li>
+<li><a href="#copy-watch-face-clockcpp-to-lvgl-for-webassembly">9.7 Copy Watch Face Clock.cpp to LVGL for WebAssembly</a><ul></ul></li>
+<li><a href="#build-lvgl-for-webassembly">9.8 Build LVGL for WebAssembly</a><ul></ul></li>
+<li><a href="#show-files">9.9 Show Files</a><ul></ul></li>
+<li><a href="#copy-webassembly-to-github-pages">9.10 Copy WebAssembly to GitHub Pages</a><ul></ul></li>
+<li><a href="#commit-github-pages">9.11 Commit GitHub Pages</a><ul></ul></li>
+<li><a href="#upload-outputs">9.12 Upload Outputs</a><ul></ul></li>
+<li><a href="#check-cache-for-embedded-arm-toolchain">9.13 Check Cache for Embedded Arm Toolchain</a><ul></ul></li>
+<li><a href="#install-embedded-arm-toolchain">9.14 Install Embedded Arm Toolchain</a><ul></ul></li>
+<li><a href="#check-cache-for-nrf5-sdk">9.15 Check Cache for nRF5 SDK</a><ul></ul></li>
+<li><a href="#install-nrf5-sdk">9.16 Install nRF5 SDK</a><ul></ul></li>
+<li><a href="#install-adafruit-nrfutil-library">9.17 Install Adafruit <code>nrfutil</code> Library</a><ul></ul></li>
+<li><a href="#checkout-source-files-1">9.18 Checkout Source Files</a><ul></ul></li>
+<li><a href="#show-files-1">9.19 Show Files</a><ul></ul></li>
+<li><a href="#cmake">9.20 CMake</a><ul></ul></li>
+<li><a href="#make-dfu-firmware-pinetime-mcuboot-app">9.21 Make DFU Firmware <code>pinetime-mcuboot-app</code></a><ul></ul></li>
+<li><a href="#create-firmware-image">9.22 Create Firmware Image</a><ul></ul></li>
+<li><a href="#create-dfu-package">9.23 Create DFU Package</a><ul></ul></li>
+<li><a href="#upload-dfu-package">9.24 Upload DFU Package</a><ul></ul></li>
+<li><a href="#make-standalone-firmware-pinetime-app">9.25 Make Standalone Firmware <code>pinetime-app</code></a><ul></ul></li>
+<li><a href="#upload-standalone-firmware">9.26 Upload Standalone Firmware</a><ul></ul></li>
+<li><a href="#find-output">9.27 Find Output</a><ul></ul></li>
+<li><a href="#caching-at-the-end">9.28 Caching At The End</a><ul></ul></li></ul></li>
 <li><a href="#environment-variables">10 Environment Variables</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/pinetime-simulator.png" alt="Custom PineTime Watch Face created in C++ by SravanSenthiln1: PineTime Watch Face Simulator vs Real PineTime" /></p>
 <p><em>Custom PineTime Watch Face created in C++ by <a href="https://twitter.com/SravanSenthiln1">SravanSenthiln1</a>: PineTime Watch Face Simulator vs Real PineTime</em></p>
 <p>TODO</p>
@@ -136,7 +148,7 @@
 <p>Scroll down the <code>Settings</code> page (<code>Options</code> tab) and look for <strong>GitHub Pages</strong></p>
 </li>
 <li>
-<p>Set <code>Branch</code> to <code>master</code> branch</p>
+<p>Set <code>Branch</code> to <code>master</code></p>
 <p>Set the folder to <code>docs</code></p>
 <p>Click <code>Save</code></p>
 <p><img src="https://lupyuen.github.io/images/simulator-pages.png" alt="GitHub Pages" /></p>
@@ -361,153 +373,6 @@
 <h1 id="how-it-works" class="section-header"><a href="#how-it-works">9 How It Works</a></h1>
 <p>(Warning: The topics below are deeply technical... If you're keen please read on!)</p>
 <p>Let's look at the GitHub Actions Workflow we used for previewing PineTime Watch Faces: <a href="https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/simulate.yml"><code>.github/workflows/simulate.yml</code></a></p>
-<pre><code class="language-yaml">    steps:
-    - uses: actions/checkout@v2
-
-    # Uncomment the next 2 steps to support Rust WebAssembly
-    # - name: Fetch cache for Rust Toolchain
-    #   id:   cache-rust
-    #   uses: actions/cache@v2
-    #   with:
-    #     path: |
-    #       ~/.cargo/registry
-    #       ~/.cargo/git
-    #       target
-    #     key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-    # - name: Install Rust Toolchain for emscripten
-    #   run:  |
-    #     rustup default nightly
-    #     rustup target add wasm32-unknown-emscripten
-
-    - name: Check cache for emscripten
-      id:   cache-emsdk
-      uses: actions/cache@v2
-      env:
-        cache-name: cache-emsdk
-      with:
-        path: /tmp/emsdk
-        key:  ${{ runner.os }}-build-${{ env.cache-name }}
-        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
-
-    - name: Install emscripten
-      if:   steps.cache-emsdk.outputs.cache-hit != 'true'  # Install emscripten if not found in cache
-      run:  |
-        # Based on https://emscripten.org/docs/getting_started/downloads.html
-        cd /tmp
-
-        # Get the emsdk repo
-        git clone https://github.com/emscripten-core/emsdk.git
-
-        # Enter that directory
-        cd emsdk
-
-        # Download and install the latest SDK tools.
-        ./emsdk install latest
-
-        # Make the &quot;latest&quot; SDK &quot;active&quot; for the current user. (writes .emscripten file)
-        ./emsdk activate latest
-
-        # Activate PATH and other environment variables in the current terminal
-        source ./emsdk_env.sh
-
-        # Show version
-        emcc --version
-        emcc --version        
-
-    - name: Check cache for wabt
-      id:   cache-wabt
-      uses: actions/cache@v2
-      env:
-        cache-name: cache-wabt
-      with:
-        path: /tmp/wabt
-        key:  ${{ runner.os }}-build-${{ env.cache-name }}
-        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
-
-    - name: Install wabt
-      if:   steps.cache-wabt.outputs.cache-hit != 'true'  # Install wabt if not found in cache
-      run:  |
-        cd /tmp
-        git clone --recursive https://github.com/WebAssembly/wabt
-        cd wabt
-        mkdir build
-        cd build
-        cmake ..
-        cmake --build .
-
-    - name: Checkout LVGL for WebAssembly
-      run:  |
-        cd /tmp
-        git clone https://github.com/AppKaki/lvgl-wasm
-        
-    - name: Copy Watch Face Clock.cpp to LVGL for WebAssembly
-      run:  |
-        cp src/DisplayApp/Screens/Clock.cpp /tmp/lvgl-wasm/clock
-
-    - name: Build LVGL for WebAssembly
-      run:  |
-        # Add emscripten and wabt to the PATH
-        source /tmp/emsdk/emsdk_env.sh
-        export PATH=$PATH:/tmp/wabt/build
-
-        # Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
-        cd /tmp/lvgl-wasm
-        wasm/lvgl.sh
-
-    - name: Show files
-      run:  set ; pwd ; ls -l /tmp/lvgl-wasm
-
-    - name: Copy WebAssembly to GitHub Pages
-      run:  |
-        if [ ! -d docs ]; then
-          mkdir docs
-        fi
-        export src=/tmp/lvgl-wasm
-        export docs=$src/docs
-        export wasm=$src/wasm
-        cp \
-          $docs/index.md \
-          $docs/lvgl.html \
-          $wasm/*.html \
-          $wasm/*.js \
-          $wasm/*.wasm \
-          $wasm/*.txt \
-          docs
-
-    - name: Commit GitHub Pages
-      uses: EndBug/add-and-commit@v4.4.0
-      with:
-        # Arguments for the git add command
-        add: docs
-        # The name of the user that will be displayed as the author of the commit
-        # author_name: # optional
-        # The email of the user that will be displayed as the author of the commit
-        # author_email: # optional
-        # The directory where your repository is located. You should use actions/checkout first to set it up
-        # cwd: # optional, default is .
-        # Whether to use the force option on git add, in order to bypass eventual gitignores
-        # force: # optional, default is false
-        # Whether to use the signoff option on git commit
-        # signoff: # optional, default is false
-        # The message for the commit
-        # message: # optional, default is Commit from GitHub Actions
-        # Name of the branch to use, if different from the one that triggered the workflow
-        # ref: # optional
-        # Arguments for the git rm command
-        # remove: # optional, default is 
-        # The name of the tag to add to the new commit
-        # tag: # optional, default is 
-
-    - name: Upload Outputs
-      uses: actions/upload-artifact@v2
-      with:
-        name: wasm
-        path: |
-          /tmp/lvgl-wasm/wasm/*.html
-          /tmp/lvgl-wasm/wasm/*.js
-          /tmp/lvgl-wasm/wasm/*.wasm
-          /tmp/lvgl-wasm/wasm/*.txt
-</code></pre>
 <p>TODO</p>
 <pre><code class="language-yaml"># GitHub Actions Workflow to build PineTime Watch Face Simulator with LVGL and WebAssembly
 # See https://github.com/AppKaki/lvgl-wasm/blob/master/README.md 
@@ -552,7 +417,144 @@ jobs:
 <p>We're using Ubuntu, but GitHub supports Windows and macOS as well.</p>
 <p><a href="https://docs.github.com/en/actions/reference/virtual-environments-for-github-hosted-runners">More details</a></p>
 <p>After that we specify the steps to be executed for our Workflow...</p>
-<h2 id="check-cache-for-embedded-arm-toolchain" class="section-header"><a href="#check-cache-for-embedded-arm-toolchain">9.1 Check Cache for Embedded Arm Toolchain</a></h2>
+<h2 id="checkout-source-files" class="section-header"><a href="#checkout-source-files">9.1 Checkout Source Files</a></h2>
+<pre><code class="language-yaml">    steps:
+    - uses: actions/checkout@v2
+</code></pre>
+<p>TODO</p>
+<h2 id="check-cache-for-emscripten" class="section-header"><a href="#check-cache-for-emscripten">9.2 Check Cache for emscripten</a></h2>
+<pre><code class="language-yaml">    - name: Check cache for emscripten
+      id:   cache-emsdk
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-emsdk
+      with:
+        path: /tmp/emsdk
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+</code></pre>
+<p>TODO</p>
+<h2 id="install-emscripten" class="section-header"><a href="#install-emscripten">9.3 Install emscripten</a></h2>
+<pre><code class="language-yaml">    - name: Install emscripten
+      if:   steps.cache-emsdk.outputs.cache-hit != 'true'  # Install emscripten if not found in cache
+      run:  |
+        # Based on https://emscripten.org/docs/getting_started/downloads.html
+        cd /tmp
+
+        # Get the emsdk repo
+        git clone https://github.com/emscripten-core/emsdk.git
+
+        # Enter that directory
+        cd emsdk
+
+        # Download and install the latest SDK tools.
+        ./emsdk install latest
+
+        # Make the &quot;latest&quot; SDK &quot;active&quot; for the current user. (writes .emscripten file)
+        ./emsdk activate latest
+
+        # Activate PATH and other environment variables in the current terminal
+        source ./emsdk_env.sh
+
+        # Show version
+        emcc --version
+        emcc --version        
+</code></pre>
+<p>TODO</p>
+<h2 id="check-cache-for-wabt" class="section-header"><a href="#check-cache-for-wabt">9.4 Check Cache for wabt</a></h2>
+<pre><code class="language-yaml">    - name: Check cache for wabt
+      id:   cache-wabt
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-wabt
+      with:
+        path: /tmp/wabt
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+</code></pre>
+<p>TODO</p>
+<h2 id="install-wabt" class="section-header"><a href="#install-wabt">9.5 Install wabt</a></h2>
+<pre><code class="language-yaml">    - name: Install wabt
+      if:   steps.cache-wabt.outputs.cache-hit != 'true'  # Install wabt if not found in cache
+      run:  |
+        cd /tmp
+        git clone --recursive https://github.com/WebAssembly/wabt
+        cd wabt
+        mkdir build
+        cd build
+        cmake ..
+        cmake --build .
+</code></pre>
+<p>TODO</p>
+<h2 id="checkout-lvgl-for-webassembly" class="section-header"><a href="#checkout-lvgl-for-webassembly">9.6 Checkout LVGL for WebAssembly</a></h2>
+<pre><code class="language-yaml">    - name: Checkout LVGL for WebAssembly
+      run:  |
+        cd /tmp
+        git clone https://github.com/AppKaki/lvgl-wasm
+</code></pre>
+<p>TODO</p>
+<h2 id="copy-watch-face-clockcpp-to-lvgl-for-webassembly" class="section-header"><a href="#copy-watch-face-clockcpp-to-lvgl-for-webassembly">9.7 Copy Watch Face Clock.cpp to LVGL for WebAssembly</a></h2>
+<pre><code class="language-yaml">    - name: Copy Watch Face Clock.cpp to LVGL for WebAssembly
+      run:  |
+        cp src/DisplayApp/Screens/Clock.cpp /tmp/lvgl-wasm/clock
+</code></pre>
+<p>TODO</p>
+<h2 id="build-lvgl-for-webassembly" class="section-header"><a href="#build-lvgl-for-webassembly">9.8 Build LVGL for WebAssembly</a></h2>
+<pre><code class="language-yaml">    - name: Build LVGL for WebAssembly
+      run:  |
+        # Add emscripten and wabt to the PATH
+        source /tmp/emsdk/emsdk_env.sh
+        export PATH=$PATH:/tmp/wabt/build
+
+        # Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
+        cd /tmp/lvgl-wasm
+        wasm/lvgl.sh
+</code></pre>
+<p>TODO</p>
+<h2 id="show-files" class="section-header"><a href="#show-files">9.9 Show Files</a></h2>
+<pre><code class="language-yaml">    - name: Show files
+      run:  set ; pwd ; ls -l /tmp/lvgl-wasm
+</code></pre>
+<p>TODO</p>
+<h2 id="copy-webassembly-to-github-pages" class="section-header"><a href="#copy-webassembly-to-github-pages">9.10 Copy WebAssembly to GitHub Pages</a></h2>
+<pre><code class="language-yaml">    - name: Copy WebAssembly to GitHub Pages
+      run:  |
+        if [ ! -d docs ]; then
+          mkdir docs
+        fi
+        export src=/tmp/lvgl-wasm
+        export docs=$src/docs
+        export wasm=$src/wasm
+        cp \
+          $docs/index.md \
+          $docs/lvgl.html \
+          $wasm/*.html \
+          $wasm/*.js \
+          $wasm/*.wasm \
+          $wasm/*.txt \
+          docs
+</code></pre>
+<p>TODO</p>
+<h2 id="commit-github-pages" class="section-header"><a href="#commit-github-pages">9.11 Commit GitHub Pages</a></h2>
+<pre><code class="language-yaml">    - name: Commit GitHub Pages
+      uses: EndBug/add-and-commit@v4.4.0
+      with:
+        add: docs
+</code></pre>
+<p>TODO</p>
+<h2 id="upload-outputs" class="section-header"><a href="#upload-outputs">9.12 Upload Outputs</a></h2>
+<pre><code class="language-yaml">    - name: Upload Outputs
+      uses: actions/upload-artifact@v2
+      with:
+        name: wasm
+        path: |
+          /tmp/lvgl-wasm/wasm/*.html
+          /tmp/lvgl-wasm/wasm/*.js
+          /tmp/lvgl-wasm/wasm/*.wasm
+          /tmp/lvgl-wasm/wasm/*.txt
+</code></pre>
+<p>TODO</p>
+<h2 id="check-cache-for-embedded-arm-toolchain" class="section-header"><a href="#check-cache-for-embedded-arm-toolchain">9.13 Check Cache for Embedded Arm Toolchain</a></h2>
 <p>Our Ubuntu Virtual Machine in the GitHub Cloud is based on the Intel x64 platform... But we're building firmware for PineTime, which is based on Arm Cortex-M4.</p>
 <p>To do that, we need to install a cross-compiler: <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm"><strong>Embedded Arm Toolchain</strong></a> <code>arm-none-eabi-gcc</code></p>
 <p>We'll install this in the next step, but first we check whether the toolchain is in our cache...</p>
@@ -604,7 +606,7 @@ env.cache-name = cache-toolchain
 <p>In future builds, GitHub shall attempt to restore the cache for <code>Linux-build-cache-toolchain</code> into our toolchain folder <code>/home/runner/work/_temp/arm-none-eabi</code></p>
 </li>
 </ul>
-<h2 id="install-embedded-arm-toolchain" class="section-header"><a href="#install-embedded-arm-toolchain">9.2 Install Embedded Arm Toolchain</a></h2>
+<h2 id="install-embedded-arm-toolchain" class="section-header"><a href="#install-embedded-arm-toolchain">9.14 Install Embedded Arm Toolchain</a></h2>
 <p>Now we download and unpack the Embedded Arm Toolchain into the temporary toolchain folder <code>/home/runner/work/_temp/arm-none-eabi</code>...</p>
 <pre><code class="language-yaml">    - name: Install Embedded Arm Toolchain arm-none-eabi-gcc
       if:   steps.cache-toolchain.outputs.cache-hit != 'true'  # Install toolchain if not found in cache
@@ -624,7 +626,7 @@ env.cache-name = cache-toolchain
 <p>Huge downloads and reinstallation averted... So neat!</p>
 <p><em>What software is preinstalled on the GitHub Virtual Machine?</em></p>
 <p><a href="https://github.com/actions/virtual-environments/blob/ubuntu18/20200726.1/images/linux/Ubuntu1804-README.md">Check out the preinstalled software on Ubuntu 18.04 for GitHub Actions</a></p>
-<h2 id="check-cache-for-nrf5-sdk" class="section-header"><a href="#check-cache-for-nrf5-sdk">9.3 Check Cache for nRF5 SDK</a></h2>
+<h2 id="check-cache-for-nrf5-sdk" class="section-header"><a href="#check-cache-for-nrf5-sdk">9.15 Check Cache for nRF5 SDK</a></h2>
 <p>Next we download the <a href="https://www.nordicsemi.com/Software-and-tools/Software/nRF5-SDK">nRF5 SDK</a> by Nordic Semiconductor.</p>
 <p>The SDK is needed for building PineTime Firmware because PineTime is based on the <a href="https://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.0.pdf">nRF52832 Microcontroller</a>.</p>
 <p>Before downloading and unpacking the SDK into <code>/home/runner/work/_temp/nrf5_sdk</code>, we check whether the cache exists for the unique cache key <code>Linux-build-cache-nrf5sdk</code>...</p>
@@ -638,7 +640,7 @@ env.cache-name = cache-toolchain
         key:  ${{ runner.os }}-build-${{ env.cache-name }}
         restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
 </code></pre>
-<h2 id="install-nrf5-sdk" class="section-header"><a href="#install-nrf5-sdk">9.4 Install nRF5 SDK</a></h2>
+<h2 id="install-nrf5-sdk" class="section-header"><a href="#install-nrf5-sdk">9.16 Install nRF5 SDK</a></h2>
 <p><em>Can we download and install packages into the GitHub Virtual Machine without using a GitHub Action?</em></p>
 <p>Yes we can, through the Ubuntu command line...</p>
 <pre><code class="language-yaml">    - name: Install nRF5 SDK
@@ -663,7 +665,7 @@ mv nRF5_SDK_15.3.0_59ac345 nrf5_sdk
 </code></pre>
 <p>Again, GitHub shall download the SDK only if the cache couldn't be found.</p>
 <p>GitHub will remove any cache entries that have not been accessed in over 7 days.</p>
-<h2 id="install-adafruit-nrfutil-library" class="section-header"><a href="#install-adafruit-nrfutil-library">9.5 Install Adafruit <code>nrfutil</code> Library</a></h2>
+<h2 id="install-adafruit-nrfutil-library" class="section-header"><a href="#install-adafruit-nrfutil-library">9.17 Install Adafruit <code>nrfutil</code> Library</a></h2>
 <p>We install the Adafruit <code>nrfutil</code> Library to create the DFU Package for flashing over Bluetooth LE...</p>
 <pre><code class="language-yaml">    - name: Install adafruit-nrfutil
       run:  |
@@ -674,13 +676,13 @@ mv nRF5_SDK_15.3.0_59ac345 nrf5_sdk
 <p>Yes <code>pip3</code> is available for installing Python 3 packages.</p>
 <p>But in the GitHub Ubuntu environment, the installed Python packages are not accessible via the default <code>PATH</code></p>
 <p>In a while we'll see that they are accessible via <code>~/.local/bin/...</code></p>
-<h2 id="checkout-source-files" class="section-header"><a href="#checkout-source-files">9.6 Checkout Source Files</a></h2>
+<h2 id="checkout-source-files-1" class="section-header"><a href="#checkout-source-files-1">9.18 Checkout Source Files</a></h2>
 <p>Now we fetch a complete set of source files from our Fork...</p>
 <pre><code class="language-yaml">    - name: Checkout source files
       uses: actions/checkout@v2
 </code></pre>
 <p>The <a href="https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow#using-the-checkout-action"><code>actions/checkout</code></a> GitHub Action copies the source files into <code>/home/runner/work/Pinetime/Pinetime</code></p>
-<h2 id="show-files" class="section-header"><a href="#show-files">9.7 Show Files</a></h2>
+<h2 id="show-files-1" class="section-header"><a href="#show-files-1">9.19 Show Files</a></h2>
 <p>Let's take a peek at the environment variables and the files that have been checked out...</p>
 <pre><code class="language-yaml">    - name: Show files
       run:  set ; pwd ; ls -l
@@ -704,7 +706,7 @@ mv nRF5_SDK_15.3.0_59ac345 nrf5_sdk
 <span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>  <span class="number">1</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">4475</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">nrf_common</span>.<span class="ident">ld</span>
 <span class="ident">drwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span> <span class="number">10</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">4096</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">src</span></pre></div>
 <p>Check the section &quot;Environment Variables&quot; below for the complete list of environment variables.</p>
-<h2 id="cmake" class="section-header"><a href="#cmake">9.8 CMake</a></h2>
+<h2 id="cmake" class="section-header"><a href="#cmake">9.20 CMake</a></h2>
 <p>Now that we have <code>cmake</code> installed and the complete set of source files, let's start building the firmware...</p>
 <pre><code class="language-yaml">    - name: CMake
       run:  mkdir -p build &amp;&amp; cd build &amp;&amp; cmake -DARM_NONE_EABI_TOOLCHAIN_PATH=${{ runner.temp }}/arm-none-eabi -DNRF5_SDK_PATH=${{ runner.temp }}/nrf5_sdk -DUSE_OPENOCD=1 ../
@@ -720,7 +722,7 @@ cmake \
 </code></pre>
 <p>We call <code>cmake</code> passing the locations of the Embedded Arm Toolchain and the nRF5 SDK. </p>
 <p>This is exactly as prescribed by <a href="https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md">the build doc</a>.</p>
-<h2 id="make-dfu-firmware-pinetime-mcuboot-app" class="section-header"><a href="#make-dfu-firmware-pinetime-mcuboot-app">9.9 Make DFU Firmware <code>pinetime-mcuboot-app</code></a></h2>
+<h2 id="make-dfu-firmware-pinetime-mcuboot-app" class="section-header"><a href="#make-dfu-firmware-pinetime-mcuboot-app">9.21 Make DFU Firmware <code>pinetime-mcuboot-app</code></a></h2>
 <pre><code class="language-yaml">    - name: Make pinetime-mcuboot-app
       run:  |
         cd build
@@ -754,7 +756,7 @@ make -j pinetime-mcuboot-app
 </code></pre>
 <p>This runs a parallel build with multiple processes. It shaves about 30 seconds off the build time.</p>
 <p>We don't recommend adding <code>-j</code> for normal builds because it becomes harder to spot the compiler error.</p>
-<h2 id="create-firmware-image" class="section-header"><a href="#create-firmware-image">9.10 Create Firmware Image</a></h2>
+<h2 id="create-firmware-image" class="section-header"><a href="#create-firmware-image">9.22 Create Firmware Image</a></h2>
 <p>PineTime uses the <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot"><strong>MCUBoot Bootloader</strong></a> to do nifty tricks... Like rolling back the PineTime firmware to the previous version if the new one fails to start.</p>
 <p>To do this the MCUBoot Bootloader needs our firmware to be formatted in a way that it understands.</p>
 <p>We call this format the <strong>MCUBoot Firmware Image</strong>. We create the Firmware Image like so...</p>
@@ -771,7 +773,7 @@ make -j pinetime-mcuboot-app
 <p>This is prescribed by the <a href="https://github.com/JF002/Pinetime/blob/master/bootloader/README.md">DFU packaging doc</a>.</p>
 <p><code>imgtool</code> comes from the MCUBoot Bootloader, as explained here...</p>
 <p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></p>
-<h2 id="create-dfu-package" class="section-header"><a href="#create-dfu-package">9.11 Create DFU Package</a></h2>
+<h2 id="create-dfu-package" class="section-header"><a href="#create-dfu-package">9.23 Create DFU Package</a></h2>
 <p>We'll be using the nRF Connect mobile app to transmit a DFU Package to update PineTime's firmware.</p>
 <p>We wrap up the Firmware Image (from the previous step) into a DFU Package by calling <code>adafruit-nrfutil </code>...</p>
 <pre><code class="language-yaml">    - name: Create DFU package
@@ -808,7 +810,7 @@ make -j pinetime-mcuboot-app
 <p>nRF Connect doesn't like double-zipped DFU Packages.</p>
 <p>So to work around this issue, we unzip the DFU Package and pass the 3 files inside to be stored as an Artifact.</p>
 <p>GitHub Actions will gladly zip up the 3 files to create our DFU Package.</p>
-<h2 id="upload-dfu-package" class="section-header"><a href="#upload-dfu-package">9.12 Upload DFU Package</a></h2>
+<h2 id="upload-dfu-package" class="section-header"><a href="#upload-dfu-package">9.24 Upload DFU Package</a></h2>
 <p>GitHub will wipe out our entire Virtual Machine and the files inside (like Langoliers)... So we need to save the PineTime DFU Package <code>pinetime-mcuboot-app-dfu.zip</code></p>
 <pre><code class="language-yaml">    - name: Upload DFU package
       uses: actions/upload-artifact@v2
@@ -821,7 +823,7 @@ make -j pinetime-mcuboot-app
 
 <pre><code>        path: build/src/pinetime-mcuboot-app-dfu/*</code></pre>
 <p>So this step will zip up the 3 files to create our DFU Package <code>pinetime-mcuboot-app-dfu.zip</code></p>
-<h2 id="make-standalone-firmware-pinetime-app" class="section-header"><a href="#make-standalone-firmware-pinetime-app">9.13 Make Standalone Firmware <code>pinetime-app</code></a></h2>
+<h2 id="make-standalone-firmware-pinetime-app" class="section-header"><a href="#make-standalone-firmware-pinetime-app">9.25 Make Standalone Firmware <code>pinetime-app</code></a></h2>
 <p>Our Workflow also creates the <strong>Standalone PineTime Firmware</strong>... It's self-contained firmware that runs without the MCUBoot Bootloader. Which makes it simpler for GDB debugging.</p>
 <pre><code class="language-yaml">    - name: Make pinetime-app
       run:  |
@@ -835,7 +837,7 @@ make -j pinetime-mcuboot-app
 <span class="ident">post</span> <span class="ident">build</span> <span class="ident">steps</span> <span class="kw">for</span> <span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>
   <span class="ident">text</span>	   <span class="ident">data</span>	    <span class="ident">bss</span>	    <span class="ident">dec</span>	    <span class="ident">hex</span>	<span class="ident">filename</span>
 <span class="number">238012</span>	    <span class="number">772</span>	  <span class="number">35784</span>	 <span class="number">274568</span>	  <span class="number">43088</span>	<span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">out</span></pre></div>
-<h2 id="upload-standalone-firmware" class="section-header"><a href="#upload-standalone-firmware">9.14 Upload Standalone Firmware</a></h2>
+<h2 id="upload-standalone-firmware" class="section-header"><a href="#upload-standalone-firmware">9.26 Upload Standalone Firmware</a></h2>
 <p>This step uploads the Standalone Firmware as an Artifact for us to download...</p>
 <pre><code class="language-yaml">    - name: Upload standalone firmware
       uses: actions/upload-artifact@v2
@@ -847,7 +849,7 @@ make -j pinetime-mcuboot-app
 <p><em>Why is the <code>pinetime-app.out</code> firmware 6.4 MB in size when the build log shows that the cross-compiler output (<code>text</code>) is 233 KB?</em></p>
 <p>Because <code>pinetime-app.out</code> is an <a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format"><strong>ELF File</strong></a>. It contains the firmware image as well as the debugging symbols.</p>
 <p>(Useful for a debugger like GDB)</p>
-<h2 id="find-output" class="section-header"><a href="#find-output">9.15 Find Output</a></h2>
+<h2 id="find-output" class="section-header"><a href="#find-output">9.27 Find Output</a></h2>
 <p>For curiosity, let's discover what other outputs are generated during the PineTime Firmware Build...</p>
 <pre><code class="language-yaml">    - name: Find output
       run:  |
@@ -867,7 +869,7 @@ make -j pinetime-mcuboot-app
   <span class="number">1326989</span>   <span class="number">6504</span> <span class="op">-</span><span class="ident">rwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>    <span class="number">6740728</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">47</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">out</span>
   <span class="number">1326988</span>   <span class="number">5304</span> <span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>    <span class="number">5427760</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">47</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">map</span>
   <span class="number">1326991</span>    <span class="number">656</span> <span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>     <span class="number">671708</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">47</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">hex</span></pre></div>
-<h2 id="caching-at-the-end" class="section-header"><a href="#caching-at-the-end">9.16 Caching At The End</a></h2>
+<h2 id="caching-at-the-end" class="section-header"><a href="#caching-at-the-end">9.28 Caching At The End</a></h2>
 <p>Here's a tip about the caches we have created for the Embedded Arm Toolchain and the nRF5 SDK...</p>
 <pre><code class="language-yaml"># Embedded Arm Toolchain and nRF5 SDK will only be cached if the build succeeds.
 # So make sure that the first build always succeeds, e.g. comment out the &quot;Make&quot; step.
@@ -879,6 +881,7 @@ make -j pinetime-mcuboot-app
 <p>And that's how we build PineTime Firmware in the Cloud!</p>
 <p><a href="https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions">GitHub Actions Workflow Syntax</a></p>
 <h1 id="environment-variables" class="section-header"><a href="#environment-variables">10 Environment Variables</a></h1>
+<p>TODO</p>
 <p>This step in our GitHub Actions Workflow...</p>
 <pre><code class="language-yaml">    - name: Show files
       run:  set ; pwd ; ls -l

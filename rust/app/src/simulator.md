@@ -54,7 +54,7 @@ Read on to learn how we add GitHub Actions to our Fork to preview our Custom Wat
 
 1.  Scroll down the `Settings` page (`Options` tab) and look for __GitHub Pages__
 
-1.  Set `Branch` to `master` branch
+1.  Set `Branch` to `master`
 
     Set the folder to `docs`
 
@@ -320,155 +320,6 @@ And remember to enjoy your PineTime :-)
 
 Let's look at the GitHub Actions Workflow we used for previewing PineTime Watch Faces: [`.github/workflows/simulate.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/simulate.yml)
 
-```yaml
-    steps:
-    - uses: actions/checkout@v2
-
-    # Uncomment the next 2 steps to support Rust WebAssembly
-    # - name: Fetch cache for Rust Toolchain
-    #   id:   cache-rust
-    #   uses: actions/cache@v2
-    #   with:
-    #     path: |
-    #       ~/.cargo/registry
-    #       ~/.cargo/git
-    #       target
-    #     key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-    # - name: Install Rust Toolchain for emscripten
-    #   run:  |
-    #     rustup default nightly
-    #     rustup target add wasm32-unknown-emscripten
-
-    - name: Check cache for emscripten
-      id:   cache-emsdk
-      uses: actions/cache@v2
-      env:
-        cache-name: cache-emsdk
-      with:
-        path: /tmp/emsdk
-        key:  ${{ runner.os }}-build-${{ env.cache-name }}
-        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
-
-    - name: Install emscripten
-      if:   steps.cache-emsdk.outputs.cache-hit != 'true'  # Install emscripten if not found in cache
-      run:  |
-        # Based on https://emscripten.org/docs/getting_started/downloads.html
-        cd /tmp
-
-        # Get the emsdk repo
-        git clone https://github.com/emscripten-core/emsdk.git
-
-        # Enter that directory
-        cd emsdk
-
-        # Download and install the latest SDK tools.
-        ./emsdk install latest
-
-        # Make the "latest" SDK "active" for the current user. (writes .emscripten file)
-        ./emsdk activate latest
-
-        # Activate PATH and other environment variables in the current terminal
-        source ./emsdk_env.sh
-
-        # Show version
-        emcc --version
-        emcc --version        
-
-    - name: Check cache for wabt
-      id:   cache-wabt
-      uses: actions/cache@v2
-      env:
-        cache-name: cache-wabt
-      with:
-        path: /tmp/wabt
-        key:  ${{ runner.os }}-build-${{ env.cache-name }}
-        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
-
-    - name: Install wabt
-      if:   steps.cache-wabt.outputs.cache-hit != 'true'  # Install wabt if not found in cache
-      run:  |
-        cd /tmp
-        git clone --recursive https://github.com/WebAssembly/wabt
-        cd wabt
-        mkdir build
-        cd build
-        cmake ..
-        cmake --build .
-
-    - name: Checkout LVGL for WebAssembly
-      run:  |
-        cd /tmp
-        git clone https://github.com/AppKaki/lvgl-wasm
-        
-    - name: Copy Watch Face Clock.cpp to LVGL for WebAssembly
-      run:  |
-        cp src/DisplayApp/Screens/Clock.cpp /tmp/lvgl-wasm/clock
-
-    - name: Build LVGL for WebAssembly
-      run:  |
-        # Add emscripten and wabt to the PATH
-        source /tmp/emsdk/emsdk_env.sh
-        export PATH=$PATH:/tmp/wabt/build
-
-        # Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
-        cd /tmp/lvgl-wasm
-        wasm/lvgl.sh
-
-    - name: Show files
-      run:  set ; pwd ; ls -l /tmp/lvgl-wasm
-
-    - name: Copy WebAssembly to GitHub Pages
-      run:  |
-        if [ ! -d docs ]; then
-          mkdir docs
-        fi
-        export src=/tmp/lvgl-wasm
-        export docs=$src/docs
-        export wasm=$src/wasm
-        cp \
-          $docs/index.md \
-          $docs/lvgl.html \
-          $wasm/*.html \
-          $wasm/*.js \
-          $wasm/*.wasm \
-          $wasm/*.txt \
-          docs
-
-    - name: Commit GitHub Pages
-      uses: EndBug/add-and-commit@v4.4.0
-      with:
-        # Arguments for the git add command
-        add: docs
-        # The name of the user that will be displayed as the author of the commit
-        # author_name: # optional
-        # The email of the user that will be displayed as the author of the commit
-        # author_email: # optional
-        # The directory where your repository is located. You should use actions/checkout first to set it up
-        # cwd: # optional, default is .
-        # Whether to use the force option on git add, in order to bypass eventual gitignores
-        # force: # optional, default is false
-        # Whether to use the signoff option on git commit
-        # signoff: # optional, default is false
-        # The message for the commit
-        # message: # optional, default is Commit from GitHub Actions
-        # Name of the branch to use, if different from the one that triggered the workflow
-        # ref: # optional
-        # Arguments for the git rm command
-        # remove: # optional, default is 
-        # The name of the tag to add to the new commit
-        # tag: # optional, default is 
-
-    - name: Upload Outputs
-      uses: actions/upload-artifact@v2
-      with:
-        name: wasm
-        path: |
-          /tmp/lvgl-wasm/wasm/*.html
-          /tmp/lvgl-wasm/wasm/*.js
-          /tmp/lvgl-wasm/wasm/*.wasm
-          /tmp/lvgl-wasm/wasm/*.txt
-```
-
 TODO
 
 ```yaml
@@ -520,6 +371,191 @@ We're using Ubuntu, but GitHub supports Windows and macOS as well.
 [More details](https://docs.github.com/en/actions/reference/virtual-environments-for-github-hosted-runners)
 
 After that we specify the steps to be executed for our Workflow...
+
+## Checkout Source Files
+
+```yaml
+    steps:
+    - uses: actions/checkout@v2
+```
+
+TODO
+
+## Check Cache for emscripten
+
+```yaml
+    - name: Check cache for emscripten
+      id:   cache-emsdk
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-emsdk
+      with:
+        path: /tmp/emsdk
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+```
+
+TODO
+
+## Install emscripten
+
+```yaml
+    - name: Install emscripten
+      if:   steps.cache-emsdk.outputs.cache-hit != 'true'  # Install emscripten if not found in cache
+      run:  |
+        # Based on https://emscripten.org/docs/getting_started/downloads.html
+        cd /tmp
+
+        # Get the emsdk repo
+        git clone https://github.com/emscripten-core/emsdk.git
+
+        # Enter that directory
+        cd emsdk
+
+        # Download and install the latest SDK tools.
+        ./emsdk install latest
+
+        # Make the "latest" SDK "active" for the current user. (writes .emscripten file)
+        ./emsdk activate latest
+
+        # Activate PATH and other environment variables in the current terminal
+        source ./emsdk_env.sh
+
+        # Show version
+        emcc --version
+        emcc --version        
+```
+
+TODO
+
+## Check Cache for wabt
+
+```yaml
+    - name: Check cache for wabt
+      id:   cache-wabt
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-wabt
+      with:
+        path: /tmp/wabt
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+```
+
+TODO
+
+## Install wabt
+
+```yaml
+    - name: Install wabt
+      if:   steps.cache-wabt.outputs.cache-hit != 'true'  # Install wabt if not found in cache
+      run:  |
+        cd /tmp
+        git clone --recursive https://github.com/WebAssembly/wabt
+        cd wabt
+        mkdir build
+        cd build
+        cmake ..
+        cmake --build .
+```
+
+TODO
+
+## Checkout LVGL for WebAssembly
+
+```yaml
+    - name: Checkout LVGL for WebAssembly
+      run:  |
+        cd /tmp
+        git clone https://github.com/AppKaki/lvgl-wasm
+```
+
+TODO
+
+## Copy Watch Face Clock.cpp to LVGL for WebAssembly
+
+```yaml
+    - name: Copy Watch Face Clock.cpp to LVGL for WebAssembly
+      run:  |
+        cp src/DisplayApp/Screens/Clock.cpp /tmp/lvgl-wasm/clock
+```
+
+TODO
+
+## Build LVGL for WebAssembly
+
+```yaml
+    - name: Build LVGL for WebAssembly
+      run:  |
+        # Add emscripten and wabt to the PATH
+        source /tmp/emsdk/emsdk_env.sh
+        export PATH=$PATH:/tmp/wabt/build
+
+        # Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
+        cd /tmp/lvgl-wasm
+        wasm/lvgl.sh
+```
+
+TODO
+
+## Show Files
+
+```yaml
+    - name: Show files
+      run:  set ; pwd ; ls -l /tmp/lvgl-wasm
+```
+
+TODO
+
+## Copy WebAssembly to GitHub Pages
+
+```yaml
+    - name: Copy WebAssembly to GitHub Pages
+      run:  |
+        if [ ! -d docs ]; then
+          mkdir docs
+        fi
+        export src=/tmp/lvgl-wasm
+        export docs=$src/docs
+        export wasm=$src/wasm
+        cp \
+          $docs/index.md \
+          $docs/lvgl.html \
+          $wasm/*.html \
+          $wasm/*.js \
+          $wasm/*.wasm \
+          $wasm/*.txt \
+          docs
+```
+
+TODO
+
+## Commit GitHub Pages
+
+```yaml
+    - name: Commit GitHub Pages
+      uses: EndBug/add-and-commit@v4.4.0
+      with:
+        add: docs
+```
+
+TODO
+
+## Upload Outputs
+
+```yaml
+    - name: Upload Outputs
+      uses: actions/upload-artifact@v2
+      with:
+        name: wasm
+        path: |
+          /tmp/lvgl-wasm/wasm/*.html
+          /tmp/lvgl-wasm/wasm/*.js
+          /tmp/lvgl-wasm/wasm/*.wasm
+          /tmp/lvgl-wasm/wasm/*.txt
+```
+
+TODO
 
 ## Check Cache for Embedded Arm Toolchain
 
@@ -1010,6 +1046,8 @@ And that's how we build PineTime Firmware in the Cloud!
 [GitHub Actions Workflow Syntax](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)
 
 # Environment Variables
+
+TODO
 
 This step in our GitHub Actions Workflow...
 
