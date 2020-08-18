@@ -4,15 +4,15 @@
 
 _Custom PineTime Watch Face created in C++ by [SravanSenthiln1](https://twitter.com/SravanSenthiln1): PineTime Watch Face Simulator vs Real PineTime_
 
-TODO
-
-__Simulate PineTime Watch Face__ in Web Browser (with WebAssembly), for easier development of custom watch faces
+Now we can build and preview Watch Faces for [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) in the Web Browser, thanks to WebAssembly...
 
 - [Online Demo](https://appkaki.github.io/lvgl-wasm/lvgl.html)
 
 - [Watch Face Source Code in C++](clock/Clock.cpp)
 
-Today we'll learn [__GitHub Actions__](https://github.com/features/actions) for building the PineTime Web Simulator for [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) in the GitHub Cloud.
+__All we need is a Web Browser__... Even a Web Browser on mobile phones will do!
+
+Let's learn how...
 
 # Create a Fork of PineTime Source Files
 
@@ -322,12 +322,12 @@ After that we specify the steps to be executed for our Workflow...
 
 ## Checkout Source Files
 
+First we check out the source files from our Fork of InfiniTime...
+
 ```yaml
     steps:
     - uses: actions/checkout@v2
 ```
-
-TODO
 
 ## Check Cache for emscripten
 

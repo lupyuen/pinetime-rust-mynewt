@@ -89,8 +89,7 @@
 <li><a href="#caching-at-the-end">9.13 Caching At The End</a><ul></ul></li></ul></li>
 <li><a href="#environment-variables">10 Environment Variables</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/pinetime-simulator.png" alt="Custom PineTime Watch Face created in C++ by SravanSenthiln1: PineTime Watch Face Simulator vs Real PineTime" /></p>
 <p><em>Custom PineTime Watch Face created in C++ by <a href="https://twitter.com/SravanSenthiln1">SravanSenthiln1</a>: PineTime Watch Face Simulator vs Real PineTime</em></p>
-<p>TODO</p>
-<p><strong>Simulate PineTime Watch Face</strong> in Web Browser (with WebAssembly), for easier development of custom watch faces</p>
+<p>Now we can build and preview Watch Faces for <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a> in the Web Browser, thanks to WebAssembly...</p>
 <ul>
 <li>
 <p><a href="https://appkaki.github.io/lvgl-wasm/lvgl.html">Online Demo</a></p>
@@ -99,7 +98,8 @@
 <p><a href="clock/Clock.cpp">Watch Face Source Code in C++</a></p>
 </li>
 </ul>
-<p>Today we'll learn <a href="https://github.com/features/actions"><strong>GitHub Actions</strong></a> for building the PineTime Web Simulator for <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a> in the GitHub Cloud.</p>
+<p><strong>All we need is a Web Browser</strong>... Even a Web Browser on mobile phones will do!</p>
+<p>Let's learn how...</p>
 <h1 id="create-a-fork-of-pinetime-source-files" class="section-header"><a href="#create-a-fork-of-pinetime-source-files">1 Create a Fork of PineTime Source Files</a></h1>
 <p><em>(Nope no knife!)</em></p>
 <ol>
@@ -362,10 +362,10 @@ jobs:
 <p><a href="https://docs.github.com/en/actions/reference/virtual-environments-for-github-hosted-runners">More details</a></p>
 <p>After that we specify the steps to be executed for our Workflow...</p>
 <h2 id="checkout-source-files" class="section-header"><a href="#checkout-source-files">9.1 Checkout Source Files</a></h2>
+<p>First we check out the source files from our Fork of InfiniTime...</p>
 <pre><code class="language-yaml">    steps:
     - uses: actions/checkout@v2
 </code></pre>
-<p>TODO</p>
 <h2 id="check-cache-for-emscripten" class="section-header"><a href="#check-cache-for-emscripten">9.2 Check Cache for emscripten</a></h2>
 <pre><code class="language-yaml">    - name: Check cache for emscripten
       id:   cache-emsdk
