@@ -6,26 +6,6 @@ _Custom PineTime Watch Face created in C++ by [SravanSenthiln1](https://twitter.
 
 TODO
 
-1.  We __fork the [PineTime InfiniTime Firmware](https://github.com/JF002/Pinetime) repo__ in GitHub (or GitLab): [`github.com/JF002/Pinetime`](https://github.com/JF002/Pinetime)
-
-1.  Enable __GitHub Pages (or GitLab Pages)__ publishing for `master` branch, `docs` folder
-
-1.  Add the __GitHub Actions Workflow (or GitLab CD)__: [`.github/workflows/simulate.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/simulate.yml)
-
-1.  Enable the workflow
-
-1.  We __edit [`DisplayApp/Screens/Clock.cpp`](https://github.com/JF002/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp)__ in the web browser via GitHub (or GitLab Web IDE)
-
-1.  Which triggers a __PineTime Firmware Build__ in GitHub Actions (or GitLab CD), assuming [`.github/workflows/main.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml) has been installed
-
-1.  Which also builds the __PineTime Watch Face Simulator__ in WebAssembly
-
-1.  And then __pushes the generated WebAssembly files__ to GitHub Pages (or GitLab Pages)
-
-1.  We __preview the PineTime Watch Face__ through the Simulator in a web browser: `https://YOUR_ACCOUNT.github.io/Pinetime` (See [Online Demo](https://appkaki.github.io/lvgl-wasm/lvgl.html))
-
-1.  We if are happy with the Watch Face, we __flash the built firmware__ to PineTime over Bluetooth. See ["Test Our PineTime Fimware"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware)
-
 # Create a Fork of PineTime Source Files
 
 _(Nope no knife!)_
@@ -62,11 +42,27 @@ _(Nope no knife!)_
 
     That's how we maintain Open Source Projects!
 
-Read on to learn how we add GitHub Actions to our Fork to build the firmware automagically...
+Read on to learn how we add GitHub Actions to our Fork to preview our Custom Watch Face automagically...
+
+# Enable GitHub Pages
+
+1.  In our Fork on GitHub, click `...` and `Settings` at top right
+
+    ![GitHub Settings](https://lupyuen.github.io/images/simulator-settings.png)
+
+1.  Scroll down the `Settings` page (`Options` tab) and look for __GitHub Pages__
+
+1.  Set `Branch` to `master` branch
+
+    Set the folder to `docs`
+
+    Click `Save`
+
+    ![GitHub Pages](https://lupyuen.github.io/images/simulator-pages.png)
 
 # Add GitHub Actions to our Fork
 
-1.  In our Fork on GitHub, click `Actions`
+1.  In our Fork on GitHub, click `Actions` at the top bar
 
     ![GitHub Actions](https://lupyuen.github.io/images/cloud-actions.png)
 
@@ -78,15 +74,19 @@ Read on to learn how we add GitHub Actions to our Fork to build the firmware aut
 
     ![GitHub Actions](https://lupyuen.github.io/images/cloud-actions3.png)
 
+1.  Change `main.yml` to `simulate.yml`
+
+    ![Rename to main.yml to simulate.yml Pages](https://lupyuen.github.io/images/simulator-rename.png)
+
 1.  Open a new web browser tab. 
 
     Browse to this page...
 
-    [`github.com/pinetime-lab/.github/workflows/main.yml`](https://raw.githubusercontent.com/lupyuen/pinetime-lab/master/.github/workflows/main.yml)
+    [`github.com/pinetime-lab/.github/workflows/simulate.yml`](https://raw.githubusercontent.com/lupyuen/pinetime-lab/master/.github/workflows/simulate.yml)
     
     Copy the contents of this page. 
 
-1.  Switch back to the earlier page: `.github/workflows/main.yml`
+1.  Switch back to the earlier page: `.github/workflows/simulate.yml`
 
     Paste and overwrite the contents of the file...
 
@@ -105,7 +105,7 @@ We have just created a __Workflow__... An automated job that will be run by GitH
 If we ever need to edit the Workflow, just browse to this URL...
 
 ```
-https://github.com/ACCOUNT_NAME/Pinetime/blob/master/.github/workflows/main.yml
+https://github.com/ACCOUNT_NAME/Pinetime/blob/master/.github/workflows/simulate.yml
 ```
 
 (Change `ACCOUNT_NAME` to our GitHub Account Name)
@@ -146,15 +146,15 @@ We shall modify the source code so that the PineTime Watch Face shows our own sp
 
 Guess what?
 
-We have just triggered __Our Very First PineTime Firmware Build In The Cloud!__
+We have just triggered __Our Very First PineTime Simulator Build In The Cloud!__
 
-(Because the Firmware Build is triggered by any file update)
+(Because the Simulator Build is triggered by any file update)
 
 Let's check the result of our Firmware Build in the Cloud...
 
 [Check out this article to learn more about Clock.cpp](https://wiki.pine64.org/index.php?title=PineTime_Custom_Watchface_Tutorial)
 
-# Our First PineTime Firmware Build
+# Our First PineTime Simulator Build
 
 (Sorry our first build may fail with an error in `TwiMaster.cpp`... More about this in a while)
 
@@ -212,109 +212,39 @@ To...
 
 Click `Commit Changes` to save the file.
 
-This triggers a new Firmware Build, which should succeed now.
+This triggers a new Simulator Build, which should succeed now.
 
 [Check out my build logs](https://github.com/lupyuen/pinetime-lab/actions?query=workflow%3A%22Build+PineTime+Firmware%22)
 
-# Download and Test Our PineTime Firmware
+# Preview our PineTime Watch Face
 
-Now let's download and flash the new firmware to PineTime!
+1.  On our computer or mobile phone, launch the Web Browser.
 
-(We assume that our PineTime has been [flashed with the latest firmware](https://github.com/lupyuen/pinetime-updater/blob/master/README.md) that supports wireless firmware updates)
-
-1.  On our Android Phone, launch the Web Browser.
-
-    Browse to this URL to see GitHub Actions for our Fork...
+1.  Browse to this URL to see PineTime Simulator for our Fork...
 
     ```
-    https://github.com/ACCOUNT_NAME/Pinetime/actions
+    https://ACCOUNT_NAME.github.io/Pinetime
     ```
 
     (Change `ACCOUNT_NAME` to our GitHub Account Name)
 
-1.  Tap on the first row that appears: `Update Clock.cpp`
+1.  We if are happy with the Watch Face, we can __flash the built firmware__ to PineTime over Bluetooth. See ["Test Our PineTime Fimware"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware)
 
-    Tap `Sign In For Full Log View` at top right.
-
-    Sign in with our GitHub Account.
-
-1.  Tap `Artifacts` at the top.
-
-    Tap `pinetime-mcuboot-app-dfu.zip`
-
-    When the file has been downloaded, tap `Open`
-
-    ![Build Artifact](https://lupyuen.github.io/images/cloud-dfu.jpg)
-
-    The file should appear under `Downloads` like above.
-
-1.  Launch the [nRF Connect](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app.
-
-    Scan for devices and look for `Pinetime-JF`
-
-    Tap `Connect`
-
-    ![Build Artifact](https://lupyuen.github.io/images/cloud-dfu2.jpg)
-
-    Tap on the `DFU` circular icon at the top right.
-
-    DFU means __Device Firmware Update__. We'll be uploading the __DFU Package__ `pinetime-mcuboot-app-dfu.zip` to update the firmware on PineTime.
-
-1.  For File Type, select `Distribution Packet (ZIP)` and tap `OK`
-
-    ![Build Artifact](https://lupyuen.github.io/images/cloud-dfu3.jpg)
-
-    In the Search Box, enter `dfu`
-
-    Our downloaded file `pinetime-mcuboot-app-dfu.zip` should appear.
-
-    Tap on `pinetime-mcuboot-app-dfu.zip`
-
-1.  The nRF Connect app begins transmitting the file to PineTime over Bluetooth LE.
-
-    ![Build Artifact](https://lupyuen.github.io/images/cloud-dfu4.jpg)
-
-    When it's done, it shows `Disconnecting`
-
-1.  PineTime restarts with the new firmware and shows our message "LOVE"!
-
-![PineTime shows some LOVE](https://lupyuen.github.io/images/cloud-love.jpg)
-
-[Watch the video on YouTube](https://youtu.be/_U8oQqzW8Ck)
-
-_Will this work on iPhone?_
-
-Yes, with the iPhone version of the [nRF Connect](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app.
+    We will need to install the GitHub Actions Workflow for building the PineTime Firmware: [`.github/workflows/main.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml)
 
 _I have a request..._
 
-If you could... With your kind permission... Please post to Twitter and/or Mastodon a pic of your PineTime with the new firmware.
+If you could... With your kind permission... Please post to Twitter and/or Mastodon a pic of your PineTime Simulator with the new Watch Face.
 
-Tag the post with `#PineTime` so we know that building PineTime Firmware in the Cloud works OK for you. Thanks! :-)
+Tag the post with `#PineTime` so we know that simulating PineTime Firmware in the Cloud works OK for you. Thanks! :-)
 
 If you're stuck, please chat with us in the PineTime Chatroom...
 
 [PineTime Chatroom on Discord / Matrix / Telegram / IRC](https://wiki.pine64.org/index.php/PineTime#Community)
 
-# Set PineTime Date and Time with nRF Connect
-
-To set the date and time on PineTime, we use the [nRF Connect](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app...
-
-1. In nRF Connect, browse for the `Pinetime-JF` device and tap `Connect`
-
-1. Tap on `Menu` → `Configure GATT Server` → `Add Service`
-
-1. Set `Server Configuration` to `Current Time Service`
-
-1. Tap `OK`
-
-PineTime should automatically sync the date and time.
-
-This works only Android, not iPhone. If you can help fix this, please chat with us in the PineTime Chatroom...
-
-[PineTime Chatroom on Discord / Matrix / Telegram / IRC](https://wiki.pine64.org/index.php/PineTime#Community)
-
 # Other Options
+
+TODO
 
 1.  _Can we edit our files in GitHub without using the web browser?_
 
@@ -362,19 +292,17 @@ This works only Android, not iPhone. If you can help fix this, please chat with 
 
 # What's Next?
 
-The PineTime Community shall extend this Build Firmware Workflow into a centralised system for maintaining the [__PineTime Community Firmware__](https://github.com/JF002/Pinetime) that will be preloaded at the PineTime Factory.
+TODO
 
-The centralised [__Continuous Integration__](https://docs.github.com/en/actions/building-and-testing-code-with-continuous-integration/about-continuous-integration) system is helpful because...
+1. __Show date and time__, current and selected
 
-1.  It compiles the PineTime Community Firmware source code whenever there are updates.
+1. __Accept Touch Input__ for LVGL
 
-    And instantly catches any bad code that can't be compiled.
+1. __Convert `Clock.cpp` from C++ to Rust__ with [`lvgl-rs`](https://github.com/rafaelcaricio/lvgl-rs)
 
-1.  It can run [__Automated Tests__](https://medium.com/@ly.lee/stm32-blue-pill-unit-testing-with-qemu-blue-pill-emulator-9d88002a68b2?source=friends_link&sk=9a9389cdea5828cb48713f963c8f7615) in the Cloud after building the PineTime Community Firmware.
+1. Allow PineTime Watch Faces to be __built online in Rust with online preview__
 
-    So we will know rightaway if the firmware won't boot on an emulated PineTime. (Hopefully)
-
-1.  And it can publish __New Firmware Releases__ for the PineTime Community to download... If the Automated Tests pass.
+    Like with WebAssembly Studio: https://webassembly.studio/
 
 We have a lot to do, please chat with us if you're keen to help...
 
@@ -391,13 +319,163 @@ And remember to enjoy your PineTime :-)
 Let's look at the GitHub Actions Workflow we used for previewing PineTime Watch Faces: [`.github/workflows/simulate.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/simulate.yml)
 
 ```yaml
-# GitHub Actions Workflow to build FreeRTOS Firmware for PineTime Smart Watch
-# See https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud
-# Based on https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md
-# and https://github.com/JF002/Pinetime/blob/master/bootloader/README.md
+    steps:
+    - uses: actions/checkout@v2
+
+    # Uncomment the next 2 steps to support Rust WebAssembly
+    # - name: Fetch cache for Rust Toolchain
+    #   id:   cache-rust
+    #   uses: actions/cache@v2
+    #   with:
+    #     path: |
+    #       ~/.cargo/registry
+    #       ~/.cargo/git
+    #       target
+    #     key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+    # - name: Install Rust Toolchain for emscripten
+    #   run:  |
+    #     rustup default nightly
+    #     rustup target add wasm32-unknown-emscripten
+
+    - name: Check cache for emscripten
+      id:   cache-emsdk
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-emsdk
+      with:
+        path: /tmp/emsdk
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+
+    - name: Install emscripten
+      if:   steps.cache-emsdk.outputs.cache-hit != 'true'  # Install emscripten if not found in cache
+      run:  |
+        # Based on https://emscripten.org/docs/getting_started/downloads.html
+        cd /tmp
+
+        # Get the emsdk repo
+        git clone https://github.com/emscripten-core/emsdk.git
+
+        # Enter that directory
+        cd emsdk
+
+        # Download and install the latest SDK tools.
+        ./emsdk install latest
+
+        # Make the "latest" SDK "active" for the current user. (writes .emscripten file)
+        ./emsdk activate latest
+
+        # Activate PATH and other environment variables in the current terminal
+        source ./emsdk_env.sh
+
+        # Show version
+        emcc --version
+        emcc --version        
+
+    - name: Check cache for wabt
+      id:   cache-wabt
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-wabt
+      with:
+        path: /tmp/wabt
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+
+    - name: Install wabt
+      if:   steps.cache-wabt.outputs.cache-hit != 'true'  # Install wabt if not found in cache
+      run:  |
+        cd /tmp
+        git clone --recursive https://github.com/WebAssembly/wabt
+        cd wabt
+        mkdir build
+        cd build
+        cmake ..
+        cmake --build .
+
+    - name: Checkout LVGL for WebAssembly
+      run:  |
+        cd /tmp
+        git clone https://github.com/AppKaki/lvgl-wasm
+        
+    - name: Copy Watch Face Clock.cpp to LVGL for WebAssembly
+      run:  |
+        cp src/DisplayApp/Screens/Clock.cpp /tmp/lvgl-wasm/clock
+
+    - name: Build LVGL for WebAssembly
+      run:  |
+        # Add emscripten and wabt to the PATH
+        source /tmp/emsdk/emsdk_env.sh
+        export PATH=$PATH:/tmp/wabt/build
+
+        # Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
+        cd /tmp/lvgl-wasm
+        wasm/lvgl.sh
+
+    - name: Show files
+      run:  set ; pwd ; ls -l /tmp/lvgl-wasm
+
+    - name: Copy WebAssembly to GitHub Pages
+      run:  |
+        if [ ! -d docs ]; then
+          mkdir docs
+        fi
+        export src=/tmp/lvgl-wasm
+        export docs=$src/docs
+        export wasm=$src/wasm
+        cp \
+          $docs/index.md \
+          $docs/lvgl.html \
+          $wasm/*.html \
+          $wasm/*.js \
+          $wasm/*.wasm \
+          $wasm/*.txt \
+          docs
+
+    - name: Commit GitHub Pages
+      uses: EndBug/add-and-commit@v4.4.0
+      with:
+        # Arguments for the git add command
+        add: docs
+        # The name of the user that will be displayed as the author of the commit
+        # author_name: # optional
+        # The email of the user that will be displayed as the author of the commit
+        # author_email: # optional
+        # The directory where your repository is located. You should use actions/checkout first to set it up
+        # cwd: # optional, default is .
+        # Whether to use the force option on git add, in order to bypass eventual gitignores
+        # force: # optional, default is false
+        # Whether to use the signoff option on git commit
+        # signoff: # optional, default is false
+        # The message for the commit
+        # message: # optional, default is Commit from GitHub Actions
+        # Name of the branch to use, if different from the one that triggered the workflow
+        # ref: # optional
+        # Arguments for the git rm command
+        # remove: # optional, default is 
+        # The name of the tag to add to the new commit
+        # tag: # optional, default is 
+
+    - name: Upload Outputs
+      uses: actions/upload-artifact@v2
+      with:
+        name: wasm
+        path: |
+          /tmp/lvgl-wasm/wasm/*.html
+          /tmp/lvgl-wasm/wasm/*.js
+          /tmp/lvgl-wasm/wasm/*.wasm
+          /tmp/lvgl-wasm/wasm/*.txt
+```
+
+TODO
+
+```yaml
+# GitHub Actions Workflow to build PineTime Watch Face Simulator with LVGL and WebAssembly
+# See https://github.com/AppKaki/lvgl-wasm/blob/master/README.md 
+# and https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud
 
 # Name of this Workflow
-name: Build PineTime Firmware
+name: Simulate PineTime Firmware
 
 # When to run this Workflow...
 on:
@@ -440,32 +518,6 @@ We're using Ubuntu, but GitHub supports Windows and macOS as well.
 [More details](https://docs.github.com/en/actions/reference/virtual-environments-for-github-hosted-runners)
 
 After that we specify the steps to be executed for our Workflow...
-
-## Install `cmake`
-
-The steps for building PineTime Firmware are based on [the firmware building doc](https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md) and the [DFU packaging doc](https://github.com/JF002/Pinetime/blob/master/bootloader/README.md).
-
-
-We use a popular tool called [`cmake`](https://cmake.org/). (It's like an evolved `make`)
-
-Here's how we install `cmake`...
-
-```yaml
-    - name: Install cmake
-      uses: lukka/get-cmake@v3.18.0
-```
-
-_Why do we need to install build tools like `cmake`?_
-
-Because GitHub only provides bare bones Ubuntu with simple command-line tools like `make`.
-
-For special tools like `cmake`, we'll have to install ourselves.
-
-_What's `get-cmake`?_
-
-That's a GitHub Action provided by the community for [installing `cmake`](https://github.com/marketplace/actions/get-cmake)
-
-[Browse the available GitHub Actions](https://github.com/marketplace?type=actions)
 
 ## Check Cache for Embedded Arm Toolchain
 

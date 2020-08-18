@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Build PineTime Firmware in the Cloud with GitHub Actions</title>
+
+    
+    <!-- Begin scripts/articles/*-header.html: Article Header for Custom Markdown files processed by rustdoc, like chip8.md -->
+<meta property="og:title" 
+    content="Preview PineTime Watch Faces in your Web Browser with WebAssembly" 
+    data-rh="true">
+<meta property="og:description" 
+    content="Preview PineTime Watch Faces in your Web Browser with WebAssembly" 
+    data-rh="true">
+<meta property="og:image" 
+    content="https://lupyuen.github.io/images/pinetime-simulator.png">
+<meta property="og:type" 
+    content="article" data-rh="true">
+<!-- End scripts/articles/*-header.html -->
+<!-- Begin scripts/rustdoc-header.html: Header for Custom Markdown files processed by rustdoc, like chip8.md -->
+<link rel="alternate" type="application/rss+xml" title="RSS Feed for lupyuen" href="/rss.xml" />
+<link rel="stylesheet" type="text/css" href="../normalize.css">
+<link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
+<link rel="stylesheet" type="text/css" href="../dark.css">
+<link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle">
+<link rel="stylesheet" type="text/css" href="../prism.css">
+<script src="../storage.js"></script><noscript>
+<link rel="stylesheet" href="../noscript.css"></noscript>
+<link rel="shortcut icon" href="../favicon.ico">
+<style type="text/css">
+    #crate-search {
+        background-image: url("../down-arrow.svg");
+    }
+    a {
+        color: #77d;
+    }
+</style>
+<!-- End scripts/rustdoc-header.html -->
+
+
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+        <!-- Begin scripts/rustdoc-before.html: Pre-HTML for Custom Markdown files processed by rustdoc, like chip8.md -->
+
+    <!-- Begin Theme Picker -->
+    <div class="theme-picker" style="left: 0"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg"
+        width="18" alt="Pick another theme!"></button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../theme.js"></script>
+    <script src="../prism.js"></script>
+    <!-- Theme Picker -->
+
+    <!-- End scripts/rustdoc-before.html -->
+    
+
+    <h1 class="title">Build PineTime Firmware in the Cloud with GitHub Actions</h1>
+    <nav id="TOC"><ul>
+<li><a href="#create-a-fork-of-pinetime-source-files">1 Create a Fork of PineTime Source Files</a><ul></ul></li>
+<li><a href="#enable-github-pages">2 Enable GitHub Pages</a><ul></ul></li>
+<li><a href="#add-github-actions-to-our-fork">3 Add GitHub Actions to our Fork</a><ul></ul></li>
+<li><a href="#modify-the-pinetime-source-code">4 Modify the PineTime Source Code</a><ul></ul></li>
+<li><a href="#our-first-pinetime-simulator-build">5 Our First PineTime Simulator Build</a><ul></ul></li>
+<li><a href="#preview-our-pinetime-watch-face">6 Preview our PineTime Watch Face</a><ul></ul></li>
+<li><a href="#other-options">7 Other Options</a><ul></ul></li>
+<li><a href="#whats-next">8 What's Next?</a><ul></ul></li>
+<li><a href="#how-it-works">9 How It Works</a><ul>
+<li><a href="#check-cache-for-embedded-arm-toolchain">9.1 Check Cache for Embedded Arm Toolchain</a><ul></ul></li>
+<li><a href="#install-embedded-arm-toolchain">9.2 Install Embedded Arm Toolchain</a><ul></ul></li>
+<li><a href="#check-cache-for-nrf5-sdk">9.3 Check Cache for nRF5 SDK</a><ul></ul></li>
+<li><a href="#install-nrf5-sdk">9.4 Install nRF5 SDK</a><ul></ul></li>
+<li><a href="#install-adafruit-nrfutil-library">9.5 Install Adafruit <code>nrfutil</code> Library</a><ul></ul></li>
+<li><a href="#checkout-source-files">9.6 Checkout Source Files</a><ul></ul></li>
+<li><a href="#show-files">9.7 Show Files</a><ul></ul></li>
+<li><a href="#cmake">9.8 CMake</a><ul></ul></li>
+<li><a href="#make-dfu-firmware-pinetime-mcuboot-app">9.9 Make DFU Firmware <code>pinetime-mcuboot-app</code></a><ul></ul></li>
+<li><a href="#create-firmware-image">9.10 Create Firmware Image</a><ul></ul></li>
+<li><a href="#create-dfu-package">9.11 Create DFU Package</a><ul></ul></li>
+<li><a href="#upload-dfu-package">9.12 Upload DFU Package</a><ul></ul></li>
+<li><a href="#make-standalone-firmware-pinetime-app">9.13 Make Standalone Firmware <code>pinetime-app</code></a><ul></ul></li>
+<li><a href="#upload-standalone-firmware">9.14 Upload Standalone Firmware</a><ul></ul></li>
+<li><a href="#find-output">9.15 Find Output</a><ul></ul></li>
+<li><a href="#caching-at-the-end">9.16 Caching At The End</a><ul></ul></li></ul></li>
+<li><a href="#environment-variables">10 Environment Variables</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/pinetime-simulator.png" alt="Custom PineTime Watch Face created in C++ by SravanSenthiln1: PineTime Watch Face Simulator vs Real PineTime" /></p>
+<p><em>Custom PineTime Watch Face created in C++ by <a href="https://twitter.com/SravanSenthiln1">SravanSenthiln1</a>: PineTime Watch Face Simulator vs Real PineTime</em></p>
+<p>TODO</p>
+<h1 id="create-a-fork-of-pinetime-source-files" class="section-header"><a href="#create-a-fork-of-pinetime-source-files">1 Create a Fork of PineTime Source Files</a></h1>
+<p><em>(Nope no knife!)</em></p>
+<ol>
+<li>
+<p><strong>Create a free GitHub Account</strong> if we haven't got one...</p>
+<p>▶️   <a href="https://github.com/"><code>github.com</code></a></p>
+</li>
+<li>
+<p><strong>Browse to the GitHub Repository</strong> for the PineTime Firmware...</p>
+<p>▶️   <a href="https://github.com/JF002/Pinetime"><code>github.com/JF002/Pinetime</code></a></p>
+<p>Here's the complete Source Code for the InfiniTime Firmware (based on FreeRTOS).</p>
+</li>
+<li>
+<p>Click the <code>Fork</code> button at top right...</p>
+<p><img src="https://lupyuen.github.io/images/cloud-fork.png" alt="Create a fork" /></p>
+</li>
+<li>
+<p>This creates a <strong>Fork</strong> of the PineTime Repository under our GitHub Account...</p>
+<p><img src="https://lupyuen.github.io/images/cloud-fork2.png" alt="Created the fork" /></p>
+<p>The URL looks like this...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">https</span>:<span class="comment">//github.com/ACCOUNT_NAME/Pinetime</span></pre></div>
+</li>
+<li>
+<p>The Fork contains <strong>our own copy</strong> of the entire Source Code for the PineTime Firmware... Ready for us to make any updates!</p>
+<p>GitHub helpfully <strong>tracks updates to our Fork,</strong> so that one day we may submit a <strong>Pull Request</strong> to sync our updates (only the useful ones) back to the original PineTime Repository.</p>
+<p>And we may also <strong>Pull Updates</strong> from the original PineTime Repository and apply them to our Fork.</p>
+<p>That's how we maintain Open Source Projects!</p>
+</li>
+</ol>
+<p>Read on to learn how we add GitHub Actions to our Fork to preview our Custom Watch Face automagically...</p>
+<h1 id="enable-github-pages" class="section-header"><a href="#enable-github-pages">2 Enable GitHub Pages</a></h1>
+<ol>
+<li>
+<p>In our Fork on GitHub, click <code>...</code> and <code>Settings</code> at top right</p>
+<p><img src="https://lupyuen.github.io/images/simulator-settings.png" alt="GitHub Settings" /></p>
+</li>
+<li>
+<p>Scroll down the <code>Settings</code> page (<code>Options</code> tab) and look for <strong>GitHub Pages</strong></p>
+</li>
+<li>
+<p>Set <code>Branch</code> to <code>master</code> branch</p>
+<p>Set the folder to <code>docs</code></p>
+<p>Click <code>Save</code></p>
+<p><img src="https://lupyuen.github.io/images/simulator-pages.png" alt="GitHub Pages" /></p>
+</li>
+</ol>
+<h1 id="add-github-actions-to-our-fork" class="section-header"><a href="#add-github-actions-to-our-fork">3 Add GitHub Actions to our Fork</a></h1>
+<ol>
+<li>
+<p>In our Fork on GitHub, click <code>Actions</code> at the top bar</p>
+<p><img src="https://lupyuen.github.io/images/cloud-actions.png" alt="GitHub Actions" /></p>
+</li>
+<li>
+<p>Click <code>Skip this and set up a workflow yourself</code></p>
+<p><img src="https://lupyuen.github.io/images/cloud-actions2.png" alt="GitHub Actions" /></p>
+</li>
+<li>
+<p>GitHub brings us to a page to edit <code>.github/workflows/main.yml</code></p>
+<p><img src="https://lupyuen.github.io/images/cloud-actions3.png" alt="GitHub Actions" /></p>
+</li>
+<li>
+<p>Change <code>main.yml</code> to <code>simulate.yml</code></p>
+<p><img src="https://lupyuen.github.io/images/simulator-rename.png" alt="Rename to main.yml to simulate.yml Pages" /></p>
+</li>
+<li>
+<p>Open a new web browser tab. </p>
+<p>Browse to this page...</p>
+<p><a href="https://raw.githubusercontent.com/lupyuen/pinetime-lab/master/.github/workflows/simulate.yml"><code>github.com/pinetime-lab/.github/workflows/simulate.yml</code></a></p>
+<p>Copy the contents of this page. </p>
+</li>
+<li>
+<p>Switch back to the earlier page: <code>.github/workflows/simulate.yml</code></p>
+<p>Paste and overwrite the contents of the file...</p>
+<p><img src="https://lupyuen.github.io/images/cloud-actions4.png" alt="GitHub Actions" /></p>
+</li>
+<li>
+<p>Click <code>Start Commit</code> at the right or bottom of the page...</p>
+<p><img src="https://lupyuen.github.io/images/cloud-actions5.png" alt="GitHub Actions" /></p>
+</li>
+<li>
+<p>Click <code>Commit New File</code></p>
+<p><img src="https://lupyuen.github.io/images/cloud-actions6.png" alt="GitHub Actions" /></p>
+</li>
+</ol>
+<p>We have just created a <strong>Workflow</strong>... An automated job that will be run by GitHub whenever we update our source files.</p>
+<p>If we ever need to edit the Workflow, just browse to this URL...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">https</span>:<span class="comment">//github.com/ACCOUNT_NAME/Pinetime/blob/master/.github/workflows/simulate.yml</span></pre></div>
+<p>(Change <code>ACCOUNT_NAME</code> to our GitHub Account Name)</p>
+<p>Let's change a PineTime source file... And trigger our very first PineTime Firmware Build in the Cloud!</p>
+<h1 id="modify-the-pinetime-source-code" class="section-header"><a href="#modify-the-pinetime-source-code">4 Modify the PineTime Source Code</a></h1>
+<p>We shall modify the source code so that the PineTime Watch Face shows our own special message...</p>
+<ol>
+<li>
+<p>Browse to this URL...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">https</span>:<span class="comment">//github.com/ACCOUNT_NAME/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp</span></pre></div>
+<p>(Change <code>ACCOUNT_NAME</code> to our GitHub Account Name)</p>
+</li>
+<li>
+<p>Click the <code>Edit</code> icon at the right...</p>
+<p><img src="https://lupyuen.github.io/images/cloud-edit.png" alt="Edit Source File" /></p>
+</li>
+<li>
+<p>Look for the line with <code>&quot;BPM&quot;</code> (line 71)...</p>
+<p><img src="https://lupyuen.github.io/images/cloud-edit2.png" alt="Edit Source File" /></p>
+</li>
+<li>
+<p><code>BPM</code> is the text that's displayed on the PineTime Watch Face.</p>
+<p>Change <code>BPM</code> to our own short message, like <code>LOVE</code>...</p>
+<p><img src="https://lupyuen.github.io/images/cloud-edit3.png" alt="Edit Source File" /></p>
+</li>
+<li>
+<p>Scroll to the bottom of the page.</p>
+<p>Click <code>Commit Changes</code></p>
+<p><img src="https://lupyuen.github.io/images/cloud-edit4.png" alt="Edit Source File" /></p>
+</li>
+</ol>
+<p>Guess what?</p>
+<p>We have just triggered <strong>Our Very First PineTime Simulator Build In The Cloud!</strong></p>
+<p>(Because the Simulator Build is triggered by any file update)</p>
+<p>Let's check the result of our Firmware Build in the Cloud...</p>
+<p><a href="https://wiki.pine64.org/index.php?title=PineTime_Custom_Watchface_Tutorial">Check out this article to learn more about Clock.cpp</a></p>
+<h1 id="our-first-pinetime-simulator-build" class="section-header"><a href="#our-first-pinetime-simulator-build">5 Our First PineTime Simulator Build</a></h1>
+<p>(Sorry our first build may fail with an error in <code>TwiMaster.cpp</code>... More about this in a while)</p>
+<ol>
+<li>
+<p>Click <code>Actions</code> at the top.</p>
+<p>Click the first row that appears: <code>Update Clock.cpp</code></p>
+<p><img src="https://lupyuen.github.io/images/cloud-result.png" alt="Build Result" /></p>
+</li>
+<li>
+<p>Click <code>build</code> at left...</p>
+<p><img src="https://lupyuen.github.io/images/cloud-result2.png" alt="Build Result" /></p>
+</li>
+<li>
+<p>We'll see each step of the firmware building process...</p>
+<p><img src="https://lupyuen.github.io/images/cloud-result3.png" alt="Build Result" /></p>
+</li>
+<li>
+<p>Click <code>Make</code></p>
+<p>This shows the messages that were generated by the cross-compiler...</p>
+<p><img src="https://lupyuen.github.io/images/cloud-result4.png" alt="Build Result" /></p>
+</li>
+</ol>
+<p>If we see this error...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="op">/</span><span class="ident">home</span><span class="op">/</span><span class="ident">runner</span><span class="op">/</span><span class="ident">work</span><span class="op">/</span><span class="ident">Pinetime</span><span class="op">/</span><span class="ident">Pinetime</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">drivers</span><span class="op">/</span><span class="ident">TwiMaster</span>.<span class="ident">cpp</span>:<span class="number">1</span>:<span class="number">10</span>: <span class="ident">fatal</span> <span class="ident">error</span>: <span class="ident">sdk</span><span class="op">/</span><span class="ident">integration</span><span class="op">/</span><span class="ident">nrfx</span><span class="op">/</span><span class="ident">nrfx_log</span>.<span class="ident">h</span>: <span class="ident">No</span> <span class="ident">such</span> <span class="ident">file</span> <span class="ident">or</span> <span class="ident">directory</span>
+ #<span class="ident">include</span> <span class="op">&lt;</span><span class="ident">sdk</span><span class="op">/</span><span class="ident">integration</span><span class="op">/</span><span class="ident">nrfx</span><span class="op">/</span><span class="ident">nrfx_log</span>.<span class="ident">h</span><span class="op">&gt;</span>
+          <span class="op">^</span>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<span class="ident">compilation</span> <span class="ident">terminated</span>.
+<span class="ident">make</span>[<span class="number">3</span>]: <span class="kw-2">*</span><span class="kw-2">*</span><span class="op">*</span> [<span class="ident">src</span><span class="op">/</span><span class="ident">CMakeFiles</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">dir</span><span class="op">/</span><span class="ident">drivers</span><span class="op">/</span><span class="ident">TwiMaster</span>.<span class="ident">cpp</span>.<span class="ident">o</span>] <span class="ident">Error</span> <span class="number">1</span></pre></div>
+<p>Browse to...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">https</span>:<span class="comment">//github.com/ACCOUNT_NAME/Pinetime/blob/master/src/drivers/TwiMaster.cpp</span></pre></div>
+<p>(Change <code>ACCOUNT_NAME</code> to our GitHub Account Name)</p>
+<p>Edit the first two lines...</p>
+<pre><code class="language-c">#include &lt;sdk/integration/nrfx/nrfx_log.h&gt;
+#include &lt;sdk/modules/nrfx/hal/nrf_gpio.h&gt;
+</code></pre>
+<p>To...</p>
+<pre><code class="language-c">#include &lt;nrfx_log.h&gt;
+#include &lt;nrf_gpio.h&gt;
+</code></pre>
+<p>Click <code>Commit Changes</code> to save the file.</p>
+<p>This triggers a new Simulator Build, which should succeed now.</p>
+<p><a href="https://github.com/lupyuen/pinetime-lab/actions?query=workflow%3A%22Build+PineTime+Firmware%22">Check out my build logs</a></p>
+<h1 id="preview-our-pinetime-watch-face" class="section-header"><a href="#preview-our-pinetime-watch-face">6 Preview our PineTime Watch Face</a></h1>
+<ol>
+<li>
+<p>On our computer or mobile phone, launch the Web Browser.</p>
+</li>
+<li>
+<p>Browse to this URL to see PineTime Simulator for our Fork...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">https</span>:<span class="comment">//ACCOUNT_NAME.github.io/Pinetime</span></pre></div>
+<p>(Change <code>ACCOUNT_NAME</code> to our GitHub Account Name)</p>
+</li>
+<li>
+<p>We if are happy with the Watch Face, we can <strong>flash the built firmware</strong> to PineTime over Bluetooth. See <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware">&quot;Test Our PineTime Fimware&quot;</a></p>
+<p>We will need to install the GitHub Actions Workflow for building the PineTime Firmware: <a href="https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml"><code>.github/workflows/main.yml</code></a></p>
+</li>
+</ol>
+<p><em>I have a request...</em></p>
+<p>If you could... With your kind permission... Please post to Twitter and/or Mastodon a pic of your PineTime Simulator with the new Watch Face.</p>
+<p>Tag the post with <code>#PineTime</code> so we know that simulating PineTime Firmware in the Cloud works OK for you. Thanks! :-)</p>
+<p>If you're stuck, please chat with us in the PineTime Chatroom...</p>
+<p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Discord / Matrix / Telegram / IRC</a></p>
+<h1 id="other-options" class="section-header"><a href="#other-options">7 Other Options</a></h1>
+<p>TODO</p>
+<ol>
+<li>
+<p><em>Can we edit our files in GitHub without using the web browser?</em></p>
+<p>We recommend <a href="https://code.visualstudio.com/"><strong>VSCode</strong></a> or <a href="https://vscodium.com/"><strong>VSCodium</strong></a> for editing files with <a href="https://code.visualstudio.com/docs/editor/versioncontrol">Git Version Control</a>. (Which works with GitHub files)</p>
+<p>Remember to <a href="https://code.visualstudio.com/docs/editor/versioncontrol#_commit">Commit any updated files</a> and <a href="https://code.visualstudio.com/docs/editor/versioncontrol#_remotes">Push the Commits</a> to the <code>master</code> Branch to trigger the firmware build.</p>
+</li>
+<li>
+<p><em>Can we build the firmware on our own computers?</em></p>
+<p>Follow the instructions in <a href="https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md">the firmware building doc</a> and the <a href="https://github.com/JF002/Pinetime/blob/master/bootloader/README.md">DFU packaging doc</a>.</p>
+<p>To troubleshoot the build, compare with <a href="https://github.com/lupyuen/pinetime-lab/actions?query=workflow%3A%22Build+PineTime+Firmware%22">my build logs</a>.</p>
+</li>
+<li>
+<p><em>What if we don't wish to make our repos public?</em></p>
+<p>Only public repos get GitHub Actions for free... But there's an alternative:</p>
+<p><a href="https://docs.github.com/en/actions/hosting-your-own-runners">Self-Hosted Runners for GitHub Actions</a></p>
+</li>
+<li>
+<p><em>What's in the artifact <code>pinetime-app.out</code>?</em></p>
+<p>This is the <strong>Standalone PineTime Firmware</strong>... It's self-contained firmware that works without the MCUBoot Bootloader. Which makes it simpler for GDB debugging.</p>
+</li>
+<li>
+<p><em>How do we flash <code>pinetime-app.out</code>?</em></p>
+<p>Download the artifact <code>pinetime-app.out</code> from GitHub Actions.</p>
+<p>We'll get a ZIP file. Extract the PineTime Firmware Image inside: <code>pinetime-app.out</code></p>
+<p>Flash with <a href="https://github.com/lupyuen/pinetime-updater/blob/master/README.md"><strong>PineTime Updater</strong></a>...</p>
+<ul>
+<li>
+<p>Run <code>./run.sh</code>. Select <code>Latest Bootloader</code> to flash the latest bootloader</p>
+</li>
+<li>
+<p>Then run <code>./run.sh</code> again. Select <code>Downloaded File</code> and <code>pinetime-app.out</code></p>
+</li>
+<li>
+<p>Flash to address <code>0x0</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p><em>Is it really necessary to build the Standalone Firmware <code>pinetime-app.out</code>?</em></p>
+<p>Nope. To speed up the build, we may comment out the &quot;Make <code>pinetime-app</code>&quot; and &quot;Upload Standalone Firmware&quot; steps in the GitHub Actions Workflow.</p>
+</li>
+<li>
+<p><em>Can GitHub Actions build other flavours of PineTime Firmware?</em></p>
+<p>Yes! GitHub Actions can build <a href="https://github.com/lupyuen/pinetime-rust-riot/blob/master/.github/workflows/main.yml"><strong>RIOT</strong></a>, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/.github/workflows/main.yml"><strong>Mynewt</strong></a> and <a href="https://github.com/daniel-thompson/wasp-os/pull/53"><strong>wasp-os</strong></a> firmware for PineTime.</p>
+</li>
+</ol>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">8 What's Next?</a></h1>
+<p>TODO</p>
+<ol>
+<li>
+<p><strong>Show date and time</strong>, current and selected</p>
+</li>
+<li>
+<p><strong>Accept Touch Input</strong> for LVGL</p>
+</li>
+<li>
+<p><strong>Convert <code>Clock.cpp</code> from C++ to Rust</strong> with <a href="https://github.com/rafaelcaricio/lvgl-rs"><code>lvgl-rs</code></a></p>
+</li>
+<li>
+<p>Allow PineTime Watch Faces to be <strong>built online in Rust with online preview</strong></p>
+<p>Like with WebAssembly Studio: https://webassembly.studio/</p>
+</li>
+</ol>
+<p>We have a lot to do, please chat with us if you're keen to help...</p>
+<p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Discord / Matrix / Telegram / IRC</a></p>
+<p>And remember to enjoy your PineTime :-)</p>
+<p><a href="https://lupyuen.github.io/rss.xml">Check out my RSS Feed</a></p>
+<h1 id="how-it-works" class="section-header"><a href="#how-it-works">9 How It Works</a></h1>
+<p>(Warning: The topics below are deeply technical... If you're keen please read on!)</p>
+<p>Let's look at the GitHub Actions Workflow we used for previewing PineTime Watch Faces: <a href="https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/simulate.yml"><code>.github/workflows/simulate.yml</code></a></p>
+<pre><code class="language-yaml">    steps:
+    - uses: actions/checkout@v2
+
+    # Uncomment the next 2 steps to support Rust WebAssembly
+    # - name: Fetch cache for Rust Toolchain
+    #   id:   cache-rust
+    #   uses: actions/cache@v2
+    #   with:
+    #     path: |
+    #       ~/.cargo/registry
+    #       ~/.cargo/git
+    #       target
+    #     key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+    # - name: Install Rust Toolchain for emscripten
+    #   run:  |
+    #     rustup default nightly
+    #     rustup target add wasm32-unknown-emscripten
+
+    - name: Check cache for emscripten
+      id:   cache-emsdk
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-emsdk
+      with:
+        path: /tmp/emsdk
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+
+    - name: Install emscripten
+      if:   steps.cache-emsdk.outputs.cache-hit != 'true'  # Install emscripten if not found in cache
+      run:  |
+        # Based on https://emscripten.org/docs/getting_started/downloads.html
+        cd /tmp
+
+        # Get the emsdk repo
+        git clone https://github.com/emscripten-core/emsdk.git
+
+        # Enter that directory
+        cd emsdk
+
+        # Download and install the latest SDK tools.
+        ./emsdk install latest
+
+        # Make the &quot;latest&quot; SDK &quot;active&quot; for the current user. (writes .emscripten file)
+        ./emsdk activate latest
+
+        # Activate PATH and other environment variables in the current terminal
+        source ./emsdk_env.sh
+
+        # Show version
+        emcc --version
+        emcc --version        
+
+    - name: Check cache for wabt
+      id:   cache-wabt
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-wabt
+      with:
+        path: /tmp/wabt
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+
+    - name: Install wabt
+      if:   steps.cache-wabt.outputs.cache-hit != 'true'  # Install wabt if not found in cache
+      run:  |
+        cd /tmp
+        git clone --recursive https://github.com/WebAssembly/wabt
+        cd wabt
+        mkdir build
+        cd build
+        cmake ..
+        cmake --build .
+
+    - name: Checkout LVGL for WebAssembly
+      run:  |
+        cd /tmp
+        git clone https://github.com/AppKaki/lvgl-wasm
+        
+    - name: Copy Watch Face Clock.cpp to LVGL for WebAssembly
+      run:  |
+        cp src/DisplayApp/Screens/Clock.cpp /tmp/lvgl-wasm/clock
+
+    - name: Build LVGL for WebAssembly
+      run:  |
+        # Add emscripten and wabt to the PATH
+        source /tmp/emsdk/emsdk_env.sh
+        export PATH=$PATH:/tmp/wabt/build
+
+        # Build LVGL app: wasm/lvgl.html, lvgl.js, lvgl.wasm
+        cd /tmp/lvgl-wasm
+        wasm/lvgl.sh
+
+    - name: Show files
+      run:  set ; pwd ; ls -l /tmp/lvgl-wasm
+
+    - name: Copy WebAssembly to GitHub Pages
+      run:  |
+        if [ ! -d docs ]; then
+          mkdir docs
+        fi
+        export src=/tmp/lvgl-wasm
+        export docs=$src/docs
+        export wasm=$src/wasm
+        cp \
+          $docs/index.md \
+          $docs/lvgl.html \
+          $wasm/*.html \
+          $wasm/*.js \
+          $wasm/*.wasm \
+          $wasm/*.txt \
+          docs
+
+    - name: Commit GitHub Pages
+      uses: EndBug/add-and-commit@v4.4.0
+      with:
+        # Arguments for the git add command
+        add: docs
+        # The name of the user that will be displayed as the author of the commit
+        # author_name: # optional
+        # The email of the user that will be displayed as the author of the commit
+        # author_email: # optional
+        # The directory where your repository is located. You should use actions/checkout first to set it up
+        # cwd: # optional, default is .
+        # Whether to use the force option on git add, in order to bypass eventual gitignores
+        # force: # optional, default is false
+        # Whether to use the signoff option on git commit
+        # signoff: # optional, default is false
+        # The message for the commit
+        # message: # optional, default is Commit from GitHub Actions
+        # Name of the branch to use, if different from the one that triggered the workflow
+        # ref: # optional
+        # Arguments for the git rm command
+        # remove: # optional, default is 
+        # The name of the tag to add to the new commit
+        # tag: # optional, default is 
+
+    - name: Upload Outputs
+      uses: actions/upload-artifact@v2
+      with:
+        name: wasm
+        path: |
+          /tmp/lvgl-wasm/wasm/*.html
+          /tmp/lvgl-wasm/wasm/*.js
+          /tmp/lvgl-wasm/wasm/*.wasm
+          /tmp/lvgl-wasm/wasm/*.txt
+</code></pre>
+<p>TODO</p>
+<pre><code class="language-yaml"># GitHub Actions Workflow to build PineTime Watch Face Simulator with LVGL and WebAssembly
+# See https://github.com/AppKaki/lvgl-wasm/blob/master/README.md 
+# and https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud
+
+# Name of this Workflow
+name: Simulate PineTime Firmware
+
+# When to run this Workflow...
+on:
+
+  # Run this Workflow when files are updated (Pushed) in the &quot;master&quot; Branch
+  push:
+    branches: [ master ]
+    
+  # Also run this Workflow when a Pull Request is created or updated in the &quot;master&quot; Branch
+  pull_request:
+    branches: [ master ]
+</code></pre>
+<p>Here we see the conditions that will trigger our Workflow...</p>
+<ol>
+<li>
+<p>When files are <strong>updated (or Pushed)</strong> in the <code>master</code> Branch</p>
+</li>
+<li>
+<p>When a <strong>Pull Request is created or updated</strong> in the <code>master</code> Branch</p>
+</li>
+</ol>
+<p><a href="https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request">More details</a></p>
+<p>Next we specify which Operating System GitHub should use to execute the Workflow Steps...</p>
+<pre><code class="language-yaml"># Steps to run for the Workflow
+jobs:
+  build:
+
+    # Run these steps on Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+      ...
+</code></pre>
+<p>This asks GitHub to allocate a free Virtual Machine (Docker Container) to build our firmware, based on Ubuntu 18.04.</p>
+<p>We're using Ubuntu, but GitHub supports Windows and macOS as well.</p>
+<p><a href="https://docs.github.com/en/actions/reference/virtual-environments-for-github-hosted-runners">More details</a></p>
+<p>After that we specify the steps to be executed for our Workflow...</p>
+<h2 id="check-cache-for-embedded-arm-toolchain" class="section-header"><a href="#check-cache-for-embedded-arm-toolchain">9.1 Check Cache for Embedded Arm Toolchain</a></h2>
+<p>Our Ubuntu Virtual Machine in the GitHub Cloud is based on the Intel x64 platform... But we're building firmware for PineTime, which is based on Arm Cortex-M4.</p>
+<p>To do that, we need to install a cross-compiler: <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm"><strong>Embedded Arm Toolchain</strong></a> <code>arm-none-eabi-gcc</code></p>
+<p>We'll install this in the next step, but first we check whether the toolchain is in our cache...</p>
+<pre><code class="language-yaml">    - name: Check cache for Embedded Arm Toolchain arm-none-eabi-gcc
+      id:   cache-toolchain
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-toolchain
+      with:
+        path: ${{ runner.temp }}/arm-none-eabi
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+</code></pre>
+<p><em>Why cache the Embedded Arm Toolchain?</em></p>
+<p>The <a href="https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2019q3/RC1.1/gcc-arm-none-eabi-8-2019-q3-update-linux.tar.bz2">Embedded Arm Toolchain</a> is a huge 102 MB download (compressed).</p>
+<p>Every time GitHub builds our firmware, it creates a fresh new empty Virtual Machine.</p>
+<p>(So that our firmware builds may be reproduced consistently... And for security too)</p>
+<p>GitHub will take roughly a minute to download and unpack the toolchain... Unless we cache it.</p>
+<pre><code class="language-yaml">    - name: Check cache for Embedded Arm Toolchain arm-none-eabi-gcc
+      id:   cache-toolchain
+      uses: actions/cache@v2
+</code></pre>
+<p>The <a href="https://docs.github.com/en/actions/configuring-and-managing-workflows/caching-dependencies-to-speed-up-workflows"><code>actions/cache</code></a> GitHub Action lets us cache the toolchain for future builds.</p>
+<p>We can have multiple caches. Here's our cache for the toolchain...</p>
+<pre><code class="language-yaml">      env:
+        cache-name: cache-toolchain
+</code></pre>
+<p>Next we tell GitHub what to cache...</p>
+<pre><code class="language-yaml">      with:
+        path: ${{ runner.temp }}/arm-none-eabi
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+</code></pre>
+<p>Given these build settings...</p>
+<pre><code class="language-bash">runner.temp    = /home/runner/work/_temp
+runner.os      = Linux
+env.cache-name = cache-toolchain
+</code></pre>
+<p>This means...</p>
+<ul>
+<li>
+<p>GitHub shall cache the temporary toolchain folder <code>/home/runner/work/_temp/arm-none-eabi</code></p>
+<p>(We'll download the toolchain to this folder in the next step)</p>
+</li>
+<li>
+<p>The unique cache key for our toolchain cache shall be <code>Linux-build-cache-toolchain</code></p>
+</li>
+<li>
+<p>In future builds, GitHub shall attempt to restore the cache for <code>Linux-build-cache-toolchain</code> into our toolchain folder <code>/home/runner/work/_temp/arm-none-eabi</code></p>
+</li>
+</ul>
+<h2 id="install-embedded-arm-toolchain" class="section-header"><a href="#install-embedded-arm-toolchain">9.2 Install Embedded Arm Toolchain</a></h2>
+<p>Now we download and unpack the Embedded Arm Toolchain into the temporary toolchain folder <code>/home/runner/work/_temp/arm-none-eabi</code>...</p>
+<pre><code class="language-yaml">    - name: Install Embedded Arm Toolchain arm-none-eabi-gcc
+      if:   steps.cache-toolchain.outputs.cache-hit != 'true'  # Install toolchain if not found in cache
+      uses: fiam/arm-none-eabi-gcc@v1.0.2
+      with:
+        # GNU Embedded Toolchain for Arm release name, in the V-YYYY-qZ format (e.g. &quot;9-2019-q4&quot;)
+        release: 8-2019-q3
+        # Directory to unpack GCC to. Defaults to a temporary directory.
+        directory: ${{ runner.temp }}/arm-none-eabi
+</code></pre>
+<p>We use the community GitHub Action <a href="https://github.com/marketplace/actions/arm-none-eabi-gcc"><code>fiam/arm-none-eabi-gcc</code></a> to do this. So easy!</p>
+<p><em>Why is there a condition for the step?</em></p>
+<pre><code class="language-yaml">      # Install toolchain if not found in cache
+      if:   steps.cache-toolchain.outputs.cache-hit != 'true'
+</code></pre>
+<p>This says that GitHub shall download the toolchain only if the previous step <code>cache-toolchain</code> couldn't find an existing cache for the toolchain.</p>
+<p>Huge downloads and reinstallation averted... So neat!</p>
+<p><em>What software is preinstalled on the GitHub Virtual Machine?</em></p>
+<p><a href="https://github.com/actions/virtual-environments/blob/ubuntu18/20200726.1/images/linux/Ubuntu1804-README.md">Check out the preinstalled software on Ubuntu 18.04 for GitHub Actions</a></p>
+<h2 id="check-cache-for-nrf5-sdk" class="section-header"><a href="#check-cache-for-nrf5-sdk">9.3 Check Cache for nRF5 SDK</a></h2>
+<p>Next we download the <a href="https://www.nordicsemi.com/Software-and-tools/Software/nRF5-SDK">nRF5 SDK</a> by Nordic Semiconductor.</p>
+<p>The SDK is needed for building PineTime Firmware because PineTime is based on the <a href="https://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.0.pdf">nRF52832 Microcontroller</a>.</p>
+<p>Before downloading and unpacking the SDK into <code>/home/runner/work/_temp/nrf5_sdk</code>, we check whether the cache exists for the unique cache key <code>Linux-build-cache-nrf5sdk</code>...</p>
+<pre><code class="language-yaml">    - name: Check cache for nRF5 SDK
+      id:   cache-nrf5sdk
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-nrf5sdk
+      with:
+        path: ${{ runner.temp }}/nrf5_sdk
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+</code></pre>
+<h2 id="install-nrf5-sdk" class="section-header"><a href="#install-nrf5-sdk">9.4 Install nRF5 SDK</a></h2>
+<p><em>Can we download and install packages into the GitHub Virtual Machine without using a GitHub Action?</em></p>
+<p>Yes we can, through the Ubuntu command line...</p>
+<pre><code class="language-yaml">    - name: Install nRF5 SDK
+      if:   steps.cache-nrf5sdk.outputs.cache-hit != 'true'  # Install SDK if not found in cache
+      run:  |
+        cd ${{ runner.temp }}
+        curl https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/nRF5_SDK_15.3.0_59ac345.zip -o nrf5_sdk.zip
+        unzip nrf5_sdk.zip
+        mv nRF5_SDK_15.3.0_59ac345 nrf5_sdk
+</code></pre>
+<p>This expands to...</p>
+<pre><code class="language-bash">cd /home/runner/work/_temp
+curl \
+  https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/nRF5_SDK_15.3.0_59ac345.zip \
+  -o nrf5_sdk.zip
+unzip nrf5_sdk.zip
+mv nRF5_SDK_15.3.0_59ac345 nrf5_sdk
+</code></pre>
+<p>Here we call <code>curl</code> to download the <a href="https://www.nordicsemi.com/Software-and-tools/Software/nRF5-SDK">nRF5 SDK</a> by Nordic Semiconductor.</p>
+<p>We unpack the SDK into <code>/home/runner/work/_temp/nrf5_sdk</code>, which is cached by the previous step.</p>
+<pre><code class="language-yaml">      if:   steps.cache-nrf5sdk.outputs.cache-hit != 'true'  # Install SDK if not found in cache
+</code></pre>
+<p>Again, GitHub shall download the SDK only if the cache couldn't be found.</p>
+<p>GitHub will remove any cache entries that have not been accessed in over 7 days.</p>
+<h2 id="install-adafruit-nrfutil-library" class="section-header"><a href="#install-adafruit-nrfutil-library">9.5 Install Adafruit <code>nrfutil</code> Library</a></h2>
+<p>We install the Adafruit <code>nrfutil</code> Library to create the DFU Package for flashing over Bluetooth LE...</p>
+<pre><code class="language-yaml">    - name: Install adafruit-nrfutil
+      run:  |
+        pip3 install --user wheel
+        pip3 install --user setuptools
+        pip3 install --user adafruit-nrfutil
+</code></pre>
+<p>Yes <code>pip3</code> is available for installing Python 3 packages.</p>
+<p>But in the GitHub Ubuntu environment, the installed Python packages are not accessible via the default <code>PATH</code></p>
+<p>In a while we'll see that they are accessible via <code>~/.local/bin/...</code></p>
+<h2 id="checkout-source-files" class="section-header"><a href="#checkout-source-files">9.6 Checkout Source Files</a></h2>
+<p>Now we fetch a complete set of source files from our Fork...</p>
+<pre><code class="language-yaml">    - name: Checkout source files
+      uses: actions/checkout@v2
+</code></pre>
+<p>The <a href="https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow#using-the-checkout-action"><code>actions/checkout</code></a> GitHub Action copies the source files into <code>/home/runner/work/Pinetime/Pinetime</code></p>
+<h2 id="show-files" class="section-header"><a href="#show-files">9.7 Show Files</a></h2>
+<p>Let's take a peek at the environment variables and the files that have been checked out...</p>
+<pre><code class="language-yaml">    - name: Show files
+      run:  set ; pwd ; ls -l
+</code></pre>
+<p>The current directory <code>pwd</code> is shown as...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="op">/</span><span class="ident">home</span><span class="op">/</span><span class="ident">runner</span><span class="op">/</span><span class="ident">work</span><span class="op">/</span><span class="ident">Pinetime</span><span class="op">/</span><span class="ident">Pinetime</span></pre></div>
+<p>The list of files and folders in that directory...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">total</span> <span class="number">48</span>
+<span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>  <span class="number">1</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">2194</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">CMakeLists</span>.<span class="ident">txt</span>
+<span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>  <span class="number">1</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">5079</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">README</span>.<span class="ident">md</span>
+<span class="ident">drwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>  <span class="number">3</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">4096</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">bootloader</span>
+<span class="ident">drwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>  <span class="number">3</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">4096</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">cmake</span><span class="op">-</span><span class="ident">nRF5x</span>
+<span class="ident">drwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>  <span class="number">3</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">4096</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">doc</span>
+<span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>  <span class="number">1</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">2952</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">gcc_nrf52</span><span class="op">-</span><span class="ident">mcuboot</span>.<span class="ident">ld</span>
+<span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>  <span class="number">1</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">2952</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">gcc_nrf52</span>.<span class="ident">ld</span>
+<span class="ident">drwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>  <span class="number">4</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">4096</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">images</span>
+<span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>  <span class="number">1</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">4475</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">nrf_common</span>.<span class="ident">ld</span>
+<span class="ident">drwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span> <span class="number">10</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">4096</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">src</span></pre></div>
+<p>Check the section &quot;Environment Variables&quot; below for the complete list of environment variables.</p>
+<h2 id="cmake" class="section-header"><a href="#cmake">9.8 CMake</a></h2>
+<p>Now that we have <code>cmake</code> installed and the complete set of source files, let's start building the firmware...</p>
+<pre><code class="language-yaml">    - name: CMake
+      run:  mkdir -p build &amp;&amp; cd build &amp;&amp; cmake -DARM_NONE_EABI_TOOLCHAIN_PATH=${{ runner.temp }}/arm-none-eabi -DNRF5_SDK_PATH=${{ runner.temp }}/nrf5_sdk -DUSE_OPENOCD=1 ../
+</code></pre>
+<p>This expands to...</p>
+<pre><code class="language-bash">mkdir -p build
+cd build
+cmake \
+  -DARM_NONE_EABI_TOOLCHAIN_PATH=/home/runner/work/_temp/arm-none-eabi \
+  -DNRF5_SDK_PATH=/home/runner/work/_temp/nrf5_sdk \
+  -DUSE_OPENOCD=1 \
+  ../
+</code></pre>
+<p>We call <code>cmake</code> passing the locations of the Embedded Arm Toolchain and the nRF5 SDK. </p>
+<p>This is exactly as prescribed by <a href="https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md">the build doc</a>.</p>
+<h2 id="make-dfu-firmware-pinetime-mcuboot-app" class="section-header"><a href="#make-dfu-firmware-pinetime-mcuboot-app">9.9 Make DFU Firmware <code>pinetime-mcuboot-app</code></a></h2>
+<pre><code class="language-yaml">    - name: Make pinetime-mcuboot-app
+      run:  |
+        cd build
+        make pinetime-mcuboot-app
+</code></pre>
+<p>This generates the PineTime Firmware File <code>pinetime-mcuboot-app.out</code>, as shown in the log...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+[<span class="number">100</span><span class="op">%</span>] <span class="ident">Linking</span> <span class="ident">CXX</span> <span class="ident">executable</span> <span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">out</span>
+<span class="ident">post</span> <span class="ident">build</span> <span class="ident">steps</span> <span class="kw">for</span> <span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span>
+   <span class="ident">text</span>	   <span class="ident">data</span>	    <span class="ident">bss</span>	    <span class="ident">dec</span>	    <span class="ident">hex</span>	<span class="ident">filename</span>
+ <span class="number">238012</span>	    <span class="number">772</span>	  <span class="number">35784</span>	 <span class="number">274568</span>	  <span class="number">43088</span>	<span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">out</span></pre></div>
+<p>This says...</p>
+<ul>
+<li>
+<p>Firmware will occupy 233 KB of Flash ROM for compiled machine code and data (<code>text</code>, <code>data</code>)</p>
+</li>
+<li>
+<p>Firmware will need 34 KB of RAM for storing global static variables (<code>bss</code>)</p>
+</li>
+</ul>
+<p><em>If the build fails, can we see the complete list of options passed to the cross-compiler?</em></p>
+<p>Add the <code>--trace</code> option like so...</p>
+<pre><code class="language-bash"># For Debugging Builds: Add &quot;--trace&quot; to see details.
+make --trace pinetime-mcuboot-app
+</code></pre>
+<p><em>The log shows that the <code>make</code> step takes 2.5 minutes to execute. Can we compile faster?</em></p>
+<p>Add the <code>-j</code> option like so...</p>
+<pre><code class="language-bash"># For Faster Builds: Add &quot;make&quot; option &quot;-j&quot;
+make -j pinetime-mcuboot-app
+</code></pre>
+<p>This runs a parallel build with multiple processes. It shaves about 30 seconds off the build time.</p>
+<p>We don't recommend adding <code>-j</code> for normal builds because it becomes harder to spot the compiler error.</p>
+<h2 id="create-firmware-image" class="section-header"><a href="#create-firmware-image">9.10 Create Firmware Image</a></h2>
+<p>PineTime uses the <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot"><strong>MCUBoot Bootloader</strong></a> to do nifty tricks... Like rolling back the PineTime firmware to the previous version if the new one fails to start.</p>
+<p>To do this the MCUBoot Bootloader needs our firmware to be formatted in a way that it understands.</p>
+<p>We call this format the <strong>MCUBoot Firmware Image</strong>. We create the Firmware Image like so...</p>
+<pre><code class="language-yaml">    - name: Create firmware image
+      run:  |
+        ${{ runner.temp }}/mcuboot/scripts/imgtool.py create --align 4 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header build/src/pinetime-mcuboot-app.bin build/src/pinetime-mcuboot-app-img.bin
+        ${{ runner.temp }}/mcuboot/scripts/imgtool.py verify build/src/pinetime-mcuboot-app-img.bin
+</code></pre>
+<p>The above expands to...</p>
+<pre><code class="language-bash">  /home/runner/work/_temp/mcuboot/scripts/imgtool.py create --align 4 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header build/src/pinetime-mcuboot-app.bin build/src/pinetime-mcuboot-app-img.bin
+
+  /home/runner/work/_temp/mcuboot/scripts/imgtool.py verify build/src/pinetime-mcuboot-app-img.bin
+</code></pre>
+<p>This is prescribed by the <a href="https://github.com/JF002/Pinetime/blob/master/bootloader/README.md">DFU packaging doc</a>.</p>
+<p><code>imgtool</code> comes from the MCUBoot Bootloader, as explained here...</p>
+<p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></p>
+<h2 id="create-dfu-package" class="section-header"><a href="#create-dfu-package">9.11 Create DFU Package</a></h2>
+<p>We'll be using the nRF Connect mobile app to transmit a DFU Package to update PineTime's firmware.</p>
+<p>We wrap up the Firmware Image (from the previous step) into a DFU Package by calling <code>adafruit-nrfutil </code>...</p>
+<pre><code class="language-yaml">    - name: Create DFU package
+      run:  |
+        ~/.local/bin/adafruit-nrfutil dfu genpkg --dev-type 0x0052 --application build/src/pinetime-mcuboot-app-img.bin build/src/pinetime-mcuboot-app-dfu.zip
+        unzip -v build/src/pinetime-mcuboot-app-dfu.zip
+        # Unzip the package because Upload Artifact will zip up the files
+        unzip build/src/pinetime-mcuboot-app-dfu.zip -d build/src/pinetime-mcuboot-app-dfu
+</code></pre>
+<p>The above expands to...</p>
+<pre><code class="language-bash">  ~/.local/bin/adafruit-nrfutil dfu genpkg --dev-type 0x0052 --application build/src/pinetime-mcuboot-app-img.bin build/src/pinetime-mcuboot-app-dfu.zip
+
+  # Display the contents of the package
+  unzip -v build/src/pinetime-mcuboot-app-dfu.zip
+
+  # Unzip the package because Upload Artifact will zip up the files
+  unzip build/src/pinetime-mcuboot-app-dfu.zip -d build/src/pinetime-mcuboot-app-dfu
+</code></pre>
+<p>This creates the DFU Package <code>pinetime-mcuboot-app-dfu.zip</code>.</p>
+<p>The DFU Package contains 3 files...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">Archive</span>:  <span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span><span class="op">-</span><span class="ident">dfu</span>.<span class="ident">zip</span>
+ <span class="ident">Length</span>   <span class="ident">Method</span>    <span class="ident">Size</span>  <span class="ident">Cmpr</span>    <span class="ident">Date</span>    <span class="ident">Time</span>   <span class="ident">CRC</span><span class="op">-</span><span class="number">32</span>   <span class="ident">Name</span>
+<span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>  <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>  <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span> <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span> <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span> <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span> <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>  <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>
+      <span class="number">14</span>  <span class="ident">Stored</span>       <span class="number">14</span>   <span class="number">0</span><span class="op">%</span> <span class="number">2020</span><span class="op">-</span><span class="number">07</span><span class="op">-</span><span class="number">30</span> <span class="number">06</span>:<span class="number">47</span> <span class="number">8cf6f003</span>  <span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span><span class="op">-</span><span class="ident">img</span>.<span class="ident">dat</span>
+     <span class="number">498</span>  <span class="ident">Stored</span>      <span class="number">498</span>   <span class="number">0</span><span class="op">%</span> <span class="number">2020</span><span class="op">-</span><span class="number">07</span><span class="op">-</span><span class="number">30</span> <span class="number">06</span>:<span class="number">47</span> <span class="ident">b0b12660</span>  <span class="ident">manifest</span>.<span class="ident">json</span>
+  <span class="number">238856</span>  <span class="ident">Stored</span>   <span class="number">238856</span>   <span class="number">0</span><span class="op">%</span> <span class="number">2020</span><span class="op">-</span><span class="number">07</span><span class="op">-</span><span class="number">30</span> <span class="number">06</span>:<span class="number">47</span> <span class="ident">ded98812</span>  <span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span><span class="op">-</span><span class="ident">img</span>.<span class="ident">bin</span>
+<span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>          <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>  <span class="op">-</span><span class="op">-</span><span class="op">-</span>                            <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>
+  <span class="number">239368</span>           <span class="number">239368</span>   <span class="number">0</span><span class="op">%</span>                            <span class="number">3</span> <span class="ident">files</span></pre></div>
+<p><em>Why did we unzip the DFU Package?</em></p>
+<p>Let's say we didn't unzip the DFU Package... And we pass <code>pinetime-mcuboot-app-dfu.zip</code> to GitHub Actions to store as an Arfitact for downloading.</p>
+<p>GitHub Actions <strong>always</strong> zips up artifacts for downloading... And we'll end up with a DFU Package that's <strong>zipped twice!</strong></p>
+<p>nRF Connect doesn't like double-zipped DFU Packages.</p>
+<p>So to work around this issue, we unzip the DFU Package and pass the 3 files inside to be stored as an Artifact.</p>
+<p>GitHub Actions will gladly zip up the 3 files to create our DFU Package.</p>
+<h2 id="upload-dfu-package" class="section-header"><a href="#upload-dfu-package">9.12 Upload DFU Package</a></h2>
+<p>GitHub will wipe out our entire Virtual Machine and the files inside (like Langoliers)... So we need to save the PineTime DFU Package <code>pinetime-mcuboot-app-dfu.zip</code></p>
+<pre><code class="language-yaml">    - name: Upload DFU package
+      uses: actions/upload-artifact@v2
+      with:
+        name: pinetime-mcuboot-app-dfu.zip
+        path: build/src/pinetime-mcuboot-app-dfu/*
+</code></pre>
+<p>The <a href="https://docs.github.com/en/actions/configuring-and-managing-workflows/persisting-workflow-data-using-artifacts"><code>actions/upload-artifact</code></a> GitHub Action saves the PineTime DFU Package <code>pinetime-mcuboot-app-dfu.zip</code> as an <strong>Artifact</strong> for us to download and flash to PineTime.</p>
+<p>Remember that this path contains 3 files...</p>
+
+<pre><code>        path: build/src/pinetime-mcuboot-app-dfu/*</code></pre>
+<p>So this step will zip up the 3 files to create our DFU Package <code>pinetime-mcuboot-app-dfu.zip</code></p>
+<h2 id="make-standalone-firmware-pinetime-app" class="section-header"><a href="#make-standalone-firmware-pinetime-app">9.13 Make Standalone Firmware <code>pinetime-app</code></a></h2>
+<p>Our Workflow also creates the <strong>Standalone PineTime Firmware</strong>... It's self-contained firmware that runs without the MCUBoot Bootloader. Which makes it simpler for GDB debugging.</p>
+<pre><code class="language-yaml">    - name: Make pinetime-app
+      run:  |
+        cd build
+        make pinetime-app
+</code></pre>
+<p>This generates the PineTime Firmware File <code>pinetime-app.out</code>, as shown in the log...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+[<span class="number">100</span><span class="op">%</span>] <span class="ident">Linking</span> <span class="ident">CXX</span> <span class="ident">executable</span> <span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">out</span>
+<span class="ident">post</span> <span class="ident">build</span> <span class="ident">steps</span> <span class="kw">for</span> <span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>
+  <span class="ident">text</span>	   <span class="ident">data</span>	    <span class="ident">bss</span>	    <span class="ident">dec</span>	    <span class="ident">hex</span>	<span class="ident">filename</span>
+<span class="number">238012</span>	    <span class="number">772</span>	  <span class="number">35784</span>	 <span class="number">274568</span>	  <span class="number">43088</span>	<span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">out</span></pre></div>
+<h2 id="upload-standalone-firmware" class="section-header"><a href="#upload-standalone-firmware">9.14 Upload Standalone Firmware</a></h2>
+<p>This step uploads the Standalone Firmware as an Artifact for us to download...</p>
+<pre><code class="language-yaml">    - name: Upload standalone firmware
+      uses: actions/upload-artifact@v2
+      with:
+        name: pinetime-app.out
+        path: build/src/pinetime-app.out
+</code></pre>
+<p>To flash the Standalone Firmware to PineTime, check the instructions below.</p>
+<p><em>Why is the <code>pinetime-app.out</code> firmware 6.4 MB in size when the build log shows that the cross-compiler output (<code>text</code>) is 233 KB?</em></p>
+<p>Because <code>pinetime-app.out</code> is an <a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format"><strong>ELF File</strong></a>. It contains the firmware image as well as the debugging symbols.</p>
+<p>(Useful for a debugger like GDB)</p>
+<h2 id="find-output" class="section-header"><a href="#find-output">9.15 Find Output</a></h2>
+<p>For curiosity, let's discover what other outputs are generated during the PineTime Firmware Build...</p>
+<pre><code class="language-yaml">    - name: Find output
+      run:  |
+        find . -name &quot;pinetime-app.*&quot; -ls
+        find . -name &quot;pinetime-mcuboot-app.*&quot; -ls
+</code></pre>
+<p>Some of these files may be useful for troubleshooting our firmware (like the Linker Maps <code>*.map</code>)...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+  <span class="number">1327374</span>    <span class="number">656</span> <span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>     <span class="number">671691</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">50</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">hex</span>
+  <span class="number">1327372</span>   <span class="number">6504</span> <span class="op">-</span><span class="ident">rwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>    <span class="number">6740720</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">50</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">out</span>
+  <span class="number">1326257</span>      <span class="number">4</span> <span class="ident">drwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>  <span class="number">11</span> <span class="ident">runner</span>   <span class="ident">docker</span>       <span class="number">4096</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">48</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">CMakeFiles</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">dir</span>
+  <span class="number">1327371</span>   <span class="number">5004</span> <span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>    <span class="number">5122576</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">50</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">map</span>
+  <span class="number">1327373</span>    <span class="number">236</span> <span class="op">-</span><span class="ident">rwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>     <span class="number">238784</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">50</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">bin</span>
+  <span class="number">1326403</span>      <span class="number">4</span> <span class="ident">drwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>  <span class="number">11</span> <span class="ident">runner</span>   <span class="ident">docker</span>       <span class="number">4096</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">45</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">CMakeFiles</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">dir</span>
+  <span class="number">1326990</span>    <span class="number">236</span> <span class="op">-</span><span class="ident">rwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>     <span class="number">238784</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">47</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">bin</span>
+  <span class="number">1326989</span>   <span class="number">6504</span> <span class="op">-</span><span class="ident">rwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>    <span class="number">6740728</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">47</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">out</span>
+  <span class="number">1326988</span>   <span class="number">5304</span> <span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>    <span class="number">5427760</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">47</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">map</span>
+  <span class="number">1326991</span>    <span class="number">656</span> <span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>     <span class="number">671708</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">47</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">hex</span></pre></div>
+<h2 id="caching-at-the-end" class="section-header"><a href="#caching-at-the-end">9.16 Caching At The End</a></h2>
+<p>Here's a tip about the caches we have created for the Embedded Arm Toolchain and the nRF5 SDK...</p>
+<pre><code class="language-yaml"># Embedded Arm Toolchain and nRF5 SDK will only be cached if the build succeeds.
+# So make sure that the first build always succeeds, e.g. comment out the &quot;Make&quot; step.
+</code></pre>
+<p><strong>The files get cached only if the build succeeds</strong></p>
+<p>If the first few builds fail (say due to coding errors), the files will never get cached. And restarting the build becomes painfully slow.</p>
+<p>Therefore it's good to tweak the Workflow to make sure that the first build always succeeds... Like commenting out the <code>make</code> section.</p>
+<p>Subsequent builds will be a lot faster with the caching.</p>
+<p>And that's how we build PineTime Firmware in the Cloud!</p>
+<p><a href="https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions">GitHub Actions Workflow Syntax</a></p>
+<h1 id="environment-variables" class="section-header"><a href="#environment-variables">10 Environment Variables</a></h1>
+<p>This step in our GitHub Actions Workflow...</p>
+<pre><code class="language-yaml">    - name: Show files
+      run:  set ; pwd ; ls -l
+</code></pre>
+<p>Shows these environment variables...</p>
+<pre><code class="language-bash">AGENT_TOOLSDIRECTORY=/opt/hostedtoolcache
+ANDROID_HOME=/usr/local/lib/android/sdk
+ANDROID_SDK_ROOT=/usr/local/lib/android/sdk
+ANT_HOME=/usr/share/ant
+AZURE_EXTENSION_DIR=/opt/az/azcliextensions
+BASH=/bin/bash
+lquote:extquote:force_fignore:hostcomplete:interactive_comments:progcomp:p
+BASH_ALIASES=()
+BASH_ARGC=()
+BASH_ARGV=()
+BASH_CMDS=()
+BASH_LINENO=([0]=&quot;0&quot;)
+BASH_SOURCE=([0]=&quot;/home/runner/work/_temp/a3bba1d.sh&quot;)
+BASH_VERSINFO=([0]=&quot;4&quot; [1]=&quot;4&quot; [2]=&quot;20&quot; [3]=&quot;1&quot; [4]=&quot;release&quot; [5]
+BASH_VERSION='4.4.20(1)-release'
+BOOST_ROOT_1_69_0=/opt/hostedtoolcache/boost/1.69.0/x64
+BOOST_ROOT_1_72_0=/opt/hostedtoolcache/boost/1.72.0/x64
+CHROMEWEBDRIVER=/usr/local/share/chrome_driver
+CHROME_BIN=/usr/bin/google-chrome
+CI=true
+CONDA=/usr/share/miniconda
+DEBIAN_FRONTEND=noninteractive
+DEPLOYMENT_BASEPATH=/opt/runner
+DIRSTACK=()
+DOTNET_NOLOGO='&quot;1&quot;'
+DOTNET_SKIP_FIRST_TIME_EXPERIENCE='&quot;1&quot;'
+EUID=1001
+GECKOWEBDRIVER=/usr/local/share/gecko_driver
+GITHUB_ACTION=run2
+GITHUB_ACTIONS=true
+GITHUB_ACTOR=lupyuen
+GITHUB_API_URL=https://api.github.com
+GITHUB_BASE_REF=
+GITHUB_EVENT_NAME=push
+GITHUB_EVENT_PATH=/home/runner/work/_temp/_github_workflow/event.json
+GITHUB_GRAPHQL_URL=https://api.github.com/graphql
+GITHUB_HEAD_REF=
+GITHUB_JOB=build
+GITHUB_REF=refs/heads/master
+GITHUB_REPOSITORY=AppKaki/Pinetime
+GITHUB_REPOSITORY_OWNER=AppKaki
+GITHUB_RUN_ID=183212738
+GITHUB_RUN_NUMBER=2
+GITHUB_SERVER_URL=https://github.com
+GITHUB_SHA=bce10a451e6cef08c30b1d6ac297e1f50cf57bf3
+GITHUB_WORKFLOW='Build PineTime Firmware'
+GITHUB_WORKSPACE=/home/runner/work/Pinetime/Pinetime
+GOROOT=/opt/hostedtoolcache/go/1.14.4/x64
+GOROOT_1_11_X64=/opt/hostedtoolcache/go/1.11.13/x64
+GOROOT_1_12_X64=/opt/hostedtoolcache/go/1.12.17/x64
+GOROOT_1_13_X64=/opt/hostedtoolcache/go/1.13.12/x64
+GOROOT_1_14_X64=/opt/hostedtoolcache/go/1.14.4/x64
+GRADLE_HOME=/usr/share/gradle
+GROUPS=()
+HOME=/home/runner
+HOMEBREW_CELLAR='&quot;/home/linuxbrew/.linuxbrew/Cellar&quot;'
+HOMEBREW_PREFIX='&quot;/home/linuxbrew/.linuxbrew&quot;'
+HOMEBREW_REPOSITORY='&quot;/home/linuxbrew/.linuxbrew/Homebrew&quot;'
+HOSTNAME=fv-az20
+HOSTTYPE=x86_64
+IFS=$' \t\n'
+INVOCATION_ID=cc632305776e4c49848d4644a457d167
+ImageOS=ubuntu18
+ImageVersion=20200717.1
+JAVA_HOME=/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64
+JAVA_HOME_11_X64=/usr/lib/jvm/adoptopenjdk-11-hotspot-amd64
+JAVA_HOME_12_X64=/usr/lib/jvm/adoptopenjdk-12-hotspot-amd64
+JAVA_HOME_7_X64=/usr/lib/jvm/zulu-7-azure-amd64
+JAVA_HOME_8_X64=/usr/lib/jvm/adoptopenjdk-8-hotspot-amd64
+JOURNAL_STREAM=9:31251
+LANG=C.UTF-8
+LEIN_HOME=/usr/local/lib/lein
+LEIN_JAR=/usr/local/lib/lein/self-installs/leiningen-2.9.4-standalone.jar
+M2_HOME=/usr/share/apache-maven-3.6.3
+MACHTYPE=x86_64-pc-linux-gnu
+OPTERR=1
+OPTIND=1
+OSTYPE=linux-gnu
+PATH=/home/runner/work/_temp/arm-none-eabi/bin:/home/runner/work/_temp/-x86_64/bin/:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/in:/home/runner/.config/composer/vendor/bin:/home/runner/.dotnet/tools://local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+PERFLOG_LOCATION_SETTING=RUNNER_PERFLOG
+POWERSHELL_DISTRIBUTION_CHANNEL=GitHub-Actions-ubuntu18
+PPID=2451
+PS4='+ '
+PWD=/home/runner/work/Pinetime/Pinetime
+RUNNER_OS=Linux
+RUNNER_PERFLOG=/home/runner/perflog
+RUNNER_TEMP=/home/runner/work/_temp
+RUNNER_TOOL_CACHE=/opt/hostedtoolcache
+RUNNER_TRACKING_ID=github_3a45354c-437f-42c1-b8fb-cff7fa3cf2a0
+RUNNER_USER=runner
+RUNNER_WORKSPACE=/home/runner/work/Pinetime
+SELENIUM_JAR_PATH=/usr/share/java/selenium-server-standalone.jar
+SHELL=/bin/bash
+SHELLOPTS=braceexpand:errexit:hashall:interactive-comments
+SHLVL=1
+SWIFT_PATH=/usr/share/swift/usr/bin
+TERM=dumb
+UID=1001
+USER=runner
+VCPKG_INSTALLATION_ROOT=/usr/local/share/vcpkg
+_=/bin/bash
+</code></pre>
+
+    
+</body>
+</html>
