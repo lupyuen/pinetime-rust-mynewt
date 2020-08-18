@@ -192,7 +192,7 @@
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">https</span>:<span class="comment">//github.com/ACCOUNT_NAME/Pinetime/blob/master/.github/workflows/simulate.yml</span></pre></div>
 <p>(Change <code>ACCOUNT_NAME</code> to our GitHub Account Name)</p>
-<p>Let's change a PineTime source file... And trigger our very first PineTime Firmware Build in the Cloud!</p>
+<p>Let's change a PineTime source file... And trigger our very first PineTime Simulator Build in the Cloud!</p>
 <h1 id="modify-the-pinetime-source-code" class="section-header"><a href="#modify-the-pinetime-source-code">4 Modify the PineTime Source Code</a></h1>
 <p>We shall modify the source code so that the PineTime Watch Face shows our own special message...</p>
 <ol>
@@ -266,7 +266,7 @@
 </li>
 <li>
 <p>If we are happy with the Watch Face, we may <strong>flash the built firmware</strong> to PineTime over Bluetooth. See <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware">&quot;Test Our PineTime Fimware&quot;</a></p>
-<p>We will need to install the GitHub Actions Workflow for building the PineTime Firmware: <a href="https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml"><code>.github/workflows/main.yml</code></a></p>
+<p>We will need to install the GitHub Actions Workflow for building the PineTime Firmware: <a href="https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml"><code>.github/workflows/main.yml</code></a>. See <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#add-github-actions-to-our-fork">&quot;Add GitHub Actions&quot;</a></p>
 </li>
 </ol>
 <p><em>I have a request...</em></p>
@@ -283,7 +283,7 @@
 <p>After building the simulator, we need to Pull from our Fork to fetch the updated WebAssembly files in the <code>docs</code> folder.</p>
 </li>
 <li>
-<p><em>Can we build the firmware on our own computers?</em></p>
+<p><em>Can we build the simulator on our own computers?</em></p>
 <p>Follow the instructions in <a href="https://github.com/AppKaki/lvgl-wasm/blob/master/README.md">LVGL WebAssembly doc</a>.</p>
 <p>To troubleshoot the build, compare with <a href="https://github.com/lupyuen/pinetime-lab/actions?query=workflow%3A%22Simulate+PineTime+Firmware%22">my build logs</a>.</p>
 </li>
@@ -317,7 +317,6 @@
 <h1 id="how-it-works" class="section-header"><a href="#how-it-works">9 How It Works</a></h1>
 <p>(Warning: The topics below are deeply technical... If you're keen please read on!)</p>
 <p>Let's look at the GitHub Actions Workflow we used for previewing PineTime Watch Faces: <a href="https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/simulate.yml"><code>.github/workflows/simulate.yml</code></a></p>
-<p>TODO</p>
 <pre><code class="language-yaml"># GitHub Actions Workflow to build PineTime Watch Face Simulator with LVGL and WebAssembly
 # See https://github.com/AppKaki/lvgl-wasm/blob/master/README.md 
 # and https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud
@@ -573,7 +572,7 @@ env.cache-name = cache-emsdk
 <p>If the first few builds fail (say due to coding errors), the files will never get cached. And restarting the build becomes painfully slow.</p>
 <p>Therefore it's good to tweak the Workflow to make sure that the first build always succeeds... Like commenting out the <code>make</code> section.</p>
 <p>Subsequent builds will be a lot faster with the caching.</p>
-<p>And that's how we build PineTime Firmware in the Cloud!</p>
+<p>And that's how we build PineTime Simulator in the Cloud!</p>
 <p><a href="https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions">GitHub Actions Workflow Syntax</a></p>
 <h1 id="environment-variables" class="section-header"><a href="#environment-variables">10 Environment Variables</a></h1>
 <p>TODO</p>

@@ -118,7 +118,7 @@ https://github.com/ACCOUNT_NAME/Pinetime/blob/master/.github/workflows/simulate.
 
 (Change `ACCOUNT_NAME` to our GitHub Account Name)
 
-Let's change a PineTime source file... And trigger our very first PineTime Firmware Build in the Cloud!
+Let's change a PineTime source file... And trigger our very first PineTime Simulator Build in the Cloud!
 
 # Modify the PineTime Source Code
 
@@ -206,7 +206,7 @@ Let's check the result of our Simulator Build...
 
 1.  If we are happy with the Watch Face, we may __flash the built firmware__ to PineTime over Bluetooth. See ["Test Our PineTime Fimware"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware)
 
-    We will need to install the GitHub Actions Workflow for building the PineTime Firmware: [`.github/workflows/main.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml)
+    We will need to install the GitHub Actions Workflow for building the PineTime Firmware: [`.github/workflows/main.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml). See ["Add GitHub Actions"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#add-github-actions-to-our-fork)
 
 _I have a request..._
 
@@ -228,7 +228,7 @@ If you're stuck, please chat with us in the PineTime Chatroom...
 
     After building the simulator, we need to Pull from our Fork to fetch the updated WebAssembly files in the `docs` folder.
 
-1.  _Can we build the firmware on our own computers?_
+1.  _Can we build the simulator on our own computers?_
 
     Follow the instructions in [LVGL WebAssembly doc](https://github.com/AppKaki/lvgl-wasm/blob/master/README.md).
 
@@ -267,8 +267,6 @@ And remember to enjoy your PineTime :-)
 (Warning: The topics below are deeply technical... If you're keen please read on!)
 
 Let's look at the GitHub Actions Workflow we used for previewing PineTime Watch Faces: [`.github/workflows/simulate.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/simulate.yml)
-
-TODO
 
 ```yaml
 # GitHub Actions Workflow to build PineTime Watch Face Simulator with LVGL and WebAssembly
@@ -616,7 +614,7 @@ Therefore it's good to tweak the Workflow to make sure that the first build alwa
 
 Subsequent builds will be a lot faster with the caching.
 
-And that's how we build PineTime Firmware in the Cloud!
+And that's how we build PineTime Simulator in the Cloud!
 
 [GitHub Actions Workflow Syntax](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions)
 
