@@ -6,6 +6,8 @@ _Custom PineTime Watch Face created in C++ by [SravanSenthiln1](https://twitter.
 
 TODO
 
+Today we'll learn [__GitHub Actions__](https://github.com/features/actions) for building [__InfiniTime Simulator__](https://github.com/JF002/Pinetime) for [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) in the GitHub Cloud.
+
 # Create a Fork of PineTime Source Files
 
 _(Nope no knife!)_
