@@ -485,7 +485,15 @@ Then we install wabt in `/tmp/wabt`...
 
 ## Checkout LVGL for WebAssembly
 
+Now it gets interesting...
 
+PineTime Web Simulator runs in a Web Browser based on WebAssembly (somewhat similar to Java Applets). [More about WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly/existing_C_to_wasm)
+
+`Clock.cpp` is our C++ class that contains the Watch Face code. `Clock.cpp` calls functions from two providers...
+
+1. LVGL UI Toolkit Library
+
+1. InfiniTime Operating System, based on FreeRTOS
 
 ```yaml
     - name: Checkout LVGL for WebAssembly

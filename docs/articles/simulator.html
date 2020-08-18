@@ -480,6 +480,17 @@ env.cache-name = cache-emsdk
         cmake --build .
 </code></pre>
 <h2 id="checkout-lvgl-for-webassembly" class="section-header"><a href="#checkout-lvgl-for-webassembly">9.6 Checkout LVGL for WebAssembly</a></h2>
+<p>Now it gets interesting...</p>
+<p>PineTime Web Simulator runs in a Web Browser based on WebAssembly (somewhat similar to Java Applets). <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/existing_C_to_wasm">More about WebAssembly</a></p>
+<p><code>Clock.cpp</code> is our C++ class that contains the Watch Face code. <code>Clock.cpp</code> calls functions from two providers...</p>
+<ol>
+<li>
+<p>LVGL UI Toolkit Library</p>
+</li>
+<li>
+<p>InfiniTime Operating System, based on FreeRTOS</p>
+</li>
+</ol>
 <pre><code class="language-yaml">    - name: Checkout LVGL for WebAssembly
       run:  |
         cd /tmp
