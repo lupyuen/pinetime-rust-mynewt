@@ -275,17 +275,17 @@
 <p>If you're stuck, please chat with us in the PineTime Chatroom...</p>
 <p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Discord / Matrix / Telegram / IRC</a></p>
 <h1 id="other-options" class="section-header"><a href="#other-options">7 Other Options</a></h1>
-<p>TODO</p>
 <ol>
 <li>
 <p><em>Can we edit our files in GitHub without using the web browser?</em></p>
 <p>We recommend <a href="https://code.visualstudio.com/"><strong>VSCode</strong></a> or <a href="https://vscodium.com/"><strong>VSCodium</strong></a> for editing files with <a href="https://code.visualstudio.com/docs/editor/versioncontrol">Git Version Control</a>. (Which works with GitHub files)</p>
-<p>Remember to <a href="https://code.visualstudio.com/docs/editor/versioncontrol#_commit">Commit any updated files</a> and <a href="https://code.visualstudio.com/docs/editor/versioncontrol#_remotes">Push the Commits</a> to the <code>master</code> Branch to trigger the firmware build.</p>
+<p>Remember to <a href="https://code.visualstudio.com/docs/editor/versioncontrol#_commit">Commit any updated files</a> and <a href="https://code.visualstudio.com/docs/editor/versioncontrol#_remotes">Push the Commits</a> to the <code>master</code> Branch to trigger the simulator build.</p>
+<p>After building the simulator, we need to Pull from our Fork to fetch the updated WebAssembly files in the <code>docs</code> folder.</p>
 </li>
 <li>
 <p><em>Can we build the firmware on our own computers?</em></p>
-<p>Follow the instructions in <a href="https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md">the firmware building doc</a> and the <a href="https://github.com/JF002/Pinetime/blob/master/bootloader/README.md">DFU packaging doc</a>.</p>
-<p>To troubleshoot the build, compare with <a href="https://github.com/lupyuen/pinetime-lab/actions?query=workflow%3A%22Build+PineTime+Firmware%22">my build logs</a>.</p>
+<p>Follow the instructions in <a href="https://github.com/AppKaki/lvgl-wasm/blob/master/README.md">LVGL WebAssembly doc</a>.</p>
+<p>To troubleshoot the build, compare with <a href="https://github.com/lupyuen/pinetime-lab/actions?query=workflow%3A%22Simulate+PineTime+Firmware%22">my build logs</a>.</p>
 </li>
 <li>
 <p><em>What if we don't wish to make our repos public?</em></p>
@@ -294,7 +294,7 @@
 </li>
 </ol>
 <h1 id="whats-next" class="section-header"><a href="#whats-next">8 What's Next?</a></h1>
-<p>TODO</p>
+<p>Here's what we'll be implementing next...</p>
 <ol>
 <li>
 <p><strong>Show date and time</strong>, current and selected</p>
@@ -362,11 +362,15 @@ jobs:
 <p><a href="https://docs.github.com/en/actions/reference/virtual-environments-for-github-hosted-runners">More details</a></p>
 <p>After that we specify the steps to be executed for our Workflow...</p>
 <h2 id="checkout-source-files" class="section-header"><a href="#checkout-source-files">9.1 Checkout Source Files</a></h2>
-<p>First we check out the source files from our Fork of InfiniTime...</p>
+<p>First we fetch a complete set of source files from our Fork...</p>
 <pre><code class="language-yaml">    steps:
     - uses: actions/checkout@v2
 </code></pre>
+<p>The <a href="https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow#using-the-checkout-action"><code>actions/checkout</code></a> GitHub Action copies the source files into <code>/home/runner/work/Pinetime/Pinetime</code></p>
 <h2 id="check-cache-for-emscripten" class="section-header"><a href="#check-cache-for-emscripten">9.2 Check Cache for emscripten</a></h2>
+<p>Our Ubuntu Virtual Machine in the GitHub Cloud is based on the Intel x64 platform... But we're compiling our C and C++ program to WebAssembly.</p>
+<p>To do that, we need to install the <a href="https://emscripten.org/index.html"><strong>emscripten WebAssembly Compiler</strong></a></p>
+<p>We'll install this in the next step, but first we check whether emscripten is in our cache...</p>
 <pre><code class="language-yaml">    - name: Check cache for emscripten
       id:   cache-emsdk
       uses: actions/cache@v2
@@ -377,8 +381,45 @@ jobs:
         key:  ${{ runner.os }}-build-${{ env.cache-name }}
         restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
 </code></pre>
-<p>TODO</p>
+<p><em>Why cache the Embedded Arm Toolchain?</em></p>
+<p>emscripten is a huge 90 MB download (compressed).</p>
+<p>Every time GitHub builds our firmware, it creates a fresh new empty Virtual Machine.</p>
+<p>(So that our firmware builds may be reproduced consistently... And for security too)</p>
+<p>GitHub will take roughly 30 seconds to download and unpack emscripten... Unless we cache it.</p>
+<pre><code class="language-yaml">    - name: Check cache for emscripten
+      id:   cache-emsdk
+      uses: actions/cache@v2
+</code></pre>
+<p>The <a href="https://docs.github.com/en/actions/configuring-and-managing-workflows/caching-dependencies-to-speed-up-workflows"><code>actions/cache</code></a> GitHub Action lets us cache emscripten for future builds.</p>
+<p>We can have multiple caches. Here's our cache for emscripten...</p>
+<pre><code class="language-yaml">      env:
+        cache-name: cache-emsdk
+</code></pre>
+<p>Next we tell GitHub what to cache...</p>
+<pre><code class="language-yaml">      with:
+        path: /tmp/emsdk
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+</code></pre>
+<p>Given these build settings...</p>
+<pre><code class="language-bash">runner.os      = Linux
+env.cache-name = cache-emsdk
+</code></pre>
+<p>This means...</p>
+<ul>
+<li>
+<p>GitHub shall cache the temporary emscripten folder <code>/tmp/emsdk</code></p>
+<p>(We'll download emscripten to this folder in the next step)</p>
+</li>
+<li>
+<p>The unique cache key for our toolchain cache shall be <code>Linux-build-cache-emsdk</code></p>
+</li>
+<li>
+<p>In future builds, GitHub shall attempt to restore the cache for <code>Linux-build-cache-emsdk</code> into our emscripten folder <code>/tmp/emsdk</code></p>
+</li>
+</ul>
 <h2 id="install-emscripten" class="section-header"><a href="#install-emscripten">9.3 Install emscripten</a></h2>
+<p>Now we download and unpack emscripten into the temporary folder <code>/tmp/emsdk</code>...</p>
 <pre><code class="language-yaml">    - name: Install emscripten
       if:   steps.cache-emsdk.outputs.cache-hit != 'true'  # Install emscripten if not found in cache
       run:  |
@@ -404,8 +445,17 @@ jobs:
         emcc --version
         emcc --version        
 </code></pre>
-<p>TODO</p>
+<p><em>Why is there a condition for the step?</em></p>
+<pre><code class="language-yaml">      # Install emscripten if not found in cache
+      if:   steps.cache-emsdk.outputs.cache-hit != 'true'  
+</code></pre>
+<p>This says that GitHub shall download emscripten only if the previous step <code>cache-emsdk</code> couldn't find an existing cache for emscripten.</p>
+<p>Huge downloads and reinstallation averted... So neat!</p>
+<p><em>What software is preinstalled on the GitHub Virtual Machine?</em></p>
+<p><a href="https://github.com/actions/virtual-environments/blob/ubuntu18/20200726.1/images/linux/Ubuntu1804-README.md">Check out the preinstalled software on Ubuntu 18.04 for GitHub Actions</a></p>
 <h2 id="check-cache-for-wabt" class="section-header"><a href="#check-cache-for-wabt">9.4 Check Cache for wabt</a></h2>
+<p>Now that we have installed and cached emscripten, let's do the same for <a href="https://github.com/WebAssembly/wabt">wabt, the WebAssembly Binary Toolkit</a></p>
+<p>First we check the cache for wabt...</p>
 <pre><code class="language-yaml">    - name: Check cache for wabt
       id:   cache-wabt
       uses: actions/cache@v2
@@ -416,8 +466,8 @@ jobs:
         key:  ${{ runner.os }}-build-${{ env.cache-name }}
         restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
 </code></pre>
-<p>TODO</p>
 <h2 id="install-wabt" class="section-header"><a href="#install-wabt">9.5 Install wabt</a></h2>
+<p>Then we install wabt in <code>/tmp/wabt</code>...</p>
 <pre><code class="language-yaml">    - name: Install wabt
       if:   steps.cache-wabt.outputs.cache-hit != 'true'  # Install wabt if not found in cache
       run:  |
@@ -429,7 +479,6 @@ jobs:
         cmake ..
         cmake --build .
 </code></pre>
-<p>TODO</p>
 <h2 id="checkout-lvgl-for-webassembly" class="section-header"><a href="#checkout-lvgl-for-webassembly">9.6 Checkout LVGL for WebAssembly</a></h2>
 <pre><code class="language-yaml">    - name: Checkout LVGL for WebAssembly
       run:  |
@@ -456,10 +505,15 @@ jobs:
 </code></pre>
 <p>TODO</p>
 <h2 id="show-files" class="section-header"><a href="#show-files">9.9 Show Files</a></h2>
+<p>Let's take a peek at the environment variables and the files that have been checked out...</p>
 <pre><code class="language-yaml">    - name: Show files
       run:  set ; pwd ; ls -l /tmp/lvgl-wasm
 </code></pre>
-<p>TODO</p>
+<p>The current directory <code>pwd</code> is shown as...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="op">/</span><span class="ident">home</span><span class="op">/</span><span class="ident">runner</span><span class="op">/</span><span class="ident">work</span><span class="op">/</span><span class="ident">Pinetime</span><span class="op">/</span><span class="ident">Pinetime</span></pre></div>
+<p>Check the section &quot;Environment Variables&quot; below for the complete list of environment variables.</p>
 <h2 id="copy-webassembly-to-github-pages" class="section-header"><a href="#copy-webassembly-to-github-pages">9.10 Copy WebAssembly to GitHub Pages</a></h2>
 <pre><code class="language-yaml">    - name: Copy WebAssembly to GitHub Pages
       run:  |

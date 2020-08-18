@@ -220,19 +220,19 @@ If you're stuck, please chat with us in the PineTime Chatroom...
 
 # Other Options
 
-TODO
-
 1.  _Can we edit our files in GitHub without using the web browser?_
 
     We recommend [__VSCode__](https://code.visualstudio.com/) or [__VSCodium__](https://vscodium.com/) for editing files with [Git Version Control](https://code.visualstudio.com/docs/editor/versioncontrol). (Which works with GitHub files)
 
-    Remember to [Commit any updated files](https://code.visualstudio.com/docs/editor/versioncontrol#_commit) and [Push the Commits](https://code.visualstudio.com/docs/editor/versioncontrol#_remotes) to the `master` Branch to trigger the firmware build.
+    Remember to [Commit any updated files](https://code.visualstudio.com/docs/editor/versioncontrol#_commit) and [Push the Commits](https://code.visualstudio.com/docs/editor/versioncontrol#_remotes) to the `master` Branch to trigger the simulator build.
+
+    After building the simulator, we need to Pull from our Fork to fetch the updated WebAssembly files in the `docs` folder.
 
 1.  _Can we build the firmware on our own computers?_
 
-    Follow the instructions in [the firmware building doc](https://github.com/JF002/Pinetime/blob/master/doc/buildAndProgram.md) and the [DFU packaging doc](https://github.com/JF002/Pinetime/blob/master/bootloader/README.md).
+    Follow the instructions in [LVGL WebAssembly doc](https://github.com/AppKaki/lvgl-wasm/blob/master/README.md).
 
-    To troubleshoot the build, compare with [my build logs](https://github.com/lupyuen/pinetime-lab/actions?query=workflow%3A%22Build+PineTime+Firmware%22).
+    To troubleshoot the build, compare with [my build logs](https://github.com/lupyuen/pinetime-lab/actions?query=workflow%3A%22Simulate+PineTime+Firmware%22).
 
 1.  _What if we don't wish to make our repos public?_
 
@@ -242,7 +242,7 @@ TODO
 
 # What's Next?
 
-TODO
+Here's what we'll be implementing next...
 
 1. __Show date and time__, current and selected
 
@@ -322,14 +322,22 @@ After that we specify the steps to be executed for our Workflow...
 
 ## Checkout Source Files
 
-First we check out the source files from our Fork of InfiniTime...
+First we fetch a complete set of source files from our Fork...
 
 ```yaml
     steps:
     - uses: actions/checkout@v2
 ```
 
+The [`actions/checkout`](https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow#using-the-checkout-action) GitHub Action copies the source files into `/home/runner/work/Pinetime/Pinetime`
+
 ## Check Cache for emscripten
+
+Our Ubuntu Virtual Machine in the GitHub Cloud is based on the Intel x64 platform... But we're compiling our C and C++ program to WebAssembly.
+
+To do that, we need to install the [__emscripten WebAssembly Compiler__](https://emscripten.org/index.html)
+
+We'll install this in the next step, but first we check whether emscripten is in our cache...
 
 ```yaml
     - name: Check cache for emscripten
@@ -343,9 +351,60 @@ First we check out the source files from our Fork of InfiniTime...
         restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
 ```
 
-TODO
+_Why cache the Embedded Arm Toolchain?_
+
+emscripten is a huge 90 MB download (compressed).
+
+Every time GitHub builds our firmware, it creates a fresh new empty Virtual Machine.
+
+(So that our firmware builds may be reproduced consistently... And for security too)
+
+GitHub will take roughly 30 seconds to download and unpack emscripten... Unless we cache it.
+
+```yaml
+    - name: Check cache for emscripten
+      id:   cache-emsdk
+      uses: actions/cache@v2
+```
+
+The [`actions/cache`](https://docs.github.com/en/actions/configuring-and-managing-workflows/caching-dependencies-to-speed-up-workflows) GitHub Action lets us cache emscripten for future builds.
+
+We can have multiple caches. Here's our cache for emscripten...
+
+```yaml
+      env:
+        cache-name: cache-emsdk
+```
+
+Next we tell GitHub what to cache...
+
+```yaml
+      with:
+        path: /tmp/emsdk
+        key:  ${{ runner.os }}-build-${{ env.cache-name }}
+        restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+```
+
+Given these build settings...
+
+```bash
+runner.os      = Linux
+env.cache-name = cache-emsdk
+```
+
+This means...
+
+-  GitHub shall cache the temporary emscripten folder `/tmp/emsdk`
+
+    (We'll download emscripten to this folder in the next step)
+
+- The unique cache key for our toolchain cache shall be `Linux-build-cache-emsdk`
+
+- In future builds, GitHub shall attempt to restore the cache for `Linux-build-cache-emsdk` into our emscripten folder `/tmp/emsdk`
 
 ## Install emscripten
+
+Now we download and unpack emscripten into the temporary folder `/tmp/emsdk`...
 
 ```yaml
     - name: Install emscripten
@@ -374,9 +433,26 @@ TODO
         emcc --version        
 ```
 
-TODO
+_Why is there a condition for the step?_
+
+```yaml
+      # Install emscripten if not found in cache
+      if:   steps.cache-emsdk.outputs.cache-hit != 'true'  
+```
+
+This says that GitHub shall download emscripten only if the previous step `cache-emsdk` couldn't find an existing cache for emscripten.
+
+Huge downloads and reinstallation averted... So neat!
+
+_What software is preinstalled on the GitHub Virtual Machine?_
+
+[Check out the preinstalled software on Ubuntu 18.04 for GitHub Actions](https://github.com/actions/virtual-environments/blob/ubuntu18/20200726.1/images/linux/Ubuntu1804-README.md)
 
 ## Check Cache for wabt
+
+Now that we have installed and cached emscripten, let's do the same for [wabt, the WebAssembly Binary Toolkit](https://github.com/WebAssembly/wabt)
+
+First we check the cache for wabt...
 
 ```yaml
     - name: Check cache for wabt
@@ -390,9 +466,9 @@ TODO
         restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
 ```
 
-TODO
-
 ## Install wabt
+
+Then we install wabt in `/tmp/wabt`...
 
 ```yaml
     - name: Install wabt
@@ -407,9 +483,9 @@ TODO
         cmake --build .
 ```
 
-TODO
-
 ## Checkout LVGL for WebAssembly
+
+
 
 ```yaml
     - name: Checkout LVGL for WebAssembly
@@ -448,12 +524,20 @@ TODO
 
 ## Show Files
 
+Let's take a peek at the environment variables and the files that have been checked out...
+
 ```yaml
     - name: Show files
       run:  set ; pwd ; ls -l /tmp/lvgl-wasm
 ```
 
-TODO
+The current directory `pwd` is shown as...
+
+```
+/home/runner/work/Pinetime/Pinetime
+```
+
+Check the section "Environment Variables" below for the complete list of environment variables.
 
 ## Copy WebAssembly to GitHub Pages
 
