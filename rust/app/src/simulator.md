@@ -1,4 +1,4 @@
-# Build PineTime Firmware in the Cloud with GitHub Actions
+# Preview PineTime Watch Faces in your Web Browser with WebAssembly
 
 ![Custom PineTime Watch Face created in C++ by SravanSenthiln1: PineTime Watch Face Simulator vs Real PineTime](https://lupyuen.github.io/images/pinetime-simulator.png)
 
