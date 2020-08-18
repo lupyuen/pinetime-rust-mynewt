@@ -231,7 +231,7 @@
 <p>Guess what?</p>
 <p>We have just triggered <strong>Our Very First PineTime Simulator Build In The Cloud!</strong></p>
 <p>(Because the Simulator Build is triggered by any file update)</p>
-<p>Let's check the result of our Firmware Build in the Cloud...</p>
+<p>Let's check the result of our Simulator Build...</p>
 <p><a href="https://wiki.pine64.org/index.php?title=PineTime_Custom_Watchface_Tutorial">Check out this article to learn more about Clock.cpp</a></p>
 <h1 id="our-first-pinetime-simulator-build" class="section-header"><a href="#our-first-pinetime-simulator-build">5 Our First PineTime Simulator Build</a></h1>
 <ol>
@@ -246,7 +246,7 @@
 <p><img src="https://lupyuen.github.io/images/simulator-result2.png" alt="Build Result" /></p>
 </li>
 <li>
-<p>We'll see each step of the firmware building process...</p>
+<p>We'll see each step of the simulator building process...</p>
 <p><img src="https://lupyuen.github.io/images/simulator-result3.png" alt="Build Result" /></p>
 </li>
 <li>
@@ -296,35 +296,6 @@
 <p><em>What if we don't wish to make our repos public?</em></p>
 <p>Only public repos get GitHub Actions for free... But there's an alternative:</p>
 <p><a href="https://docs.github.com/en/actions/hosting-your-own-runners">Self-Hosted Runners for GitHub Actions</a></p>
-</li>
-<li>
-<p><em>What's in the artifact <code>pinetime-app.out</code>?</em></p>
-<p>This is the <strong>Standalone PineTime Firmware</strong>... It's self-contained firmware that works without the MCUBoot Bootloader. Which makes it simpler for GDB debugging.</p>
-</li>
-<li>
-<p><em>How do we flash <code>pinetime-app.out</code>?</em></p>
-<p>Download the artifact <code>pinetime-app.out</code> from GitHub Actions.</p>
-<p>We'll get a ZIP file. Extract the PineTime Firmware Image inside: <code>pinetime-app.out</code></p>
-<p>Flash with <a href="https://github.com/lupyuen/pinetime-updater/blob/master/README.md"><strong>PineTime Updater</strong></a>...</p>
-<ul>
-<li>
-<p>Run <code>./run.sh</code>. Select <code>Latest Bootloader</code> to flash the latest bootloader</p>
-</li>
-<li>
-<p>Then run <code>./run.sh</code> again. Select <code>Downloaded File</code> and <code>pinetime-app.out</code></p>
-</li>
-<li>
-<p>Flash to address <code>0x0</code></p>
-</li>
-</ul>
-</li>
-<li>
-<p><em>Is it really necessary to build the Standalone Firmware <code>pinetime-app.out</code>?</em></p>
-<p>Nope. To speed up the build, we may comment out the &quot;Make <code>pinetime-app</code>&quot; and &quot;Upload Standalone Firmware&quot; steps in the GitHub Actions Workflow.</p>
-</li>
-<li>
-<p><em>Can GitHub Actions build other flavours of PineTime Firmware?</em></p>
-<p>Yes! GitHub Actions can build <a href="https://github.com/lupyuen/pinetime-rust-riot/blob/master/.github/workflows/main.yml"><strong>RIOT</strong></a>, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/.github/workflows/main.yml"><strong>Mynewt</strong></a> and <a href="https://github.com/daniel-thompson/wasp-os/pull/53"><strong>wasp-os</strong></a> firmware for PineTime.</p>
 </li>
 </ol>
 <h1 id="whats-next" class="section-header"><a href="#whats-next">8 What's Next?</a></h1>

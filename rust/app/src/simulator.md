@@ -152,7 +152,7 @@ We have just triggered __Our Very First PineTime Simulator Build In The Cloud!__
 
 (Because the Simulator Build is triggered by any file update)
 
-Let's check the result of our Firmware Build in the Cloud...
+Let's check the result of our Simulator Build...
 
 [Check out this article to learn more about Clock.cpp](https://wiki.pine64.org/index.php?title=PineTime_Custom_Watchface_Tutorial)
 
@@ -170,7 +170,7 @@ Let's check the result of our Firmware Build in the Cloud...
 
     ![Build Result](https://lupyuen.github.io/images/simulator-result2.png)
 
-1.  We'll see each step of the firmware building process...
+1.  We'll see each step of the simulator building process...
 
     ![Build Result](https://lupyuen.github.io/images/simulator-result3.png)
 
@@ -231,32 +231,6 @@ TODO
     Only public repos get GitHub Actions for free... But there's an alternative:
 
     [Self-Hosted Runners for GitHub Actions](https://docs.github.com/en/actions/hosting-your-own-runners)
-
-1.  _What's in the artifact `pinetime-app.out`?_
-
-    This is the __Standalone PineTime Firmware__... It's self-contained firmware that works without the MCUBoot Bootloader. Which makes it simpler for GDB debugging.
-
-1.  _How do we flash `pinetime-app.out`?_
-
-    Download the artifact `pinetime-app.out` from GitHub Actions.
-
-    We'll get a ZIP file. Extract the PineTime Firmware Image inside: `pinetime-app.out`
-
-    Flash with [__PineTime Updater__](https://github.com/lupyuen/pinetime-updater/blob/master/README.md)...
-
-    -  Run `./run.sh`. Select `Latest Bootloader` to flash the latest bootloader
-
-    -  Then run `./run.sh` again. Select `Downloaded File` and `pinetime-app.out`
-
-    -  Flash to address `0x0`
-
-1.  _Is it really necessary to build the Standalone Firmware `pinetime-app.out`?_
-
-    Nope. To speed up the build, we may comment out the "Make `pinetime-app`" and "Upload Standalone Firmware" steps in the GitHub Actions Workflow.
-
-1.  _Can GitHub Actions build other flavours of PineTime Firmware?_
-
-    Yes! GitHub Actions can build [__RIOT__](https://github.com/lupyuen/pinetime-rust-riot/blob/master/.github/workflows/main.yml), [__Mynewt__](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/.github/workflows/main.yml) and [__wasp-os__](https://github.com/daniel-thompson/wasp-os/pull/53) firmware for PineTime.
 
 # What's Next?
 
