@@ -488,15 +488,7 @@ Then we install wabt in `/tmp/wabt`...
 
 ## Checkout LVGL for WebAssembly
 
-Now it gets interesting...
-
-PineTime Web Simulator runs in a Web Browser based on WebAssembly (somewhat similar to Java Applets). [More about WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts)
-
-`Clock.cpp` is our C++ class that contains the Watch Face code. `Clock.cpp` calls functions from two providers...
-
-1. LVGL UI Toolkit Library
-
-1. InfiniTime Operating System, based on FreeRTOS
+Now it gets interesting. We fetch the source code from `lvgl-wasm`...
 
 ```yaml
     - name: Checkout LVGL for WebAssembly
@@ -504,6 +496,26 @@ PineTime Web Simulator runs in a Web Browser based on WebAssembly (somewhat simi
         cd /tmp
         git clone https://github.com/AppKaki/lvgl-wasm
 ```
+
+And save it to `/tmp/lvgl-wasm`
+
+_What's `lvgl-wasm`?_
+
+PineTime Web Simulator runs in a Web Browser based on WebAssembly (somewhat similar to Java Applets). [More about WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts)
+
+`Clock.cpp` is our C++ class that contains the Watch Face code. `Clock.cpp` calls functions from two providers...
+
+1. [LVGL UI Toolkit Library](https://docs.lvgl.io/latest/en/html/index.html)
+
+1. [InfiniTime Operating System](https://github.com/JF002/Pinetime) based on FreeRTOS
+
+We have a version of LVGL compiled for WebAssembly... It's inside `lvgl-wasm`...
+
+[github.com/AppKaki/lvgl-wasm](https://github.com/AppKaki/lvgl-wasm)
+
+So we'll be compiling `lvgl-wasm` to WebAssembly together with our Watch Face code.
+
+_What about the InfiniTime Operating System?_
 
 TODO
 

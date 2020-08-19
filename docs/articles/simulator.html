@@ -483,22 +483,28 @@ env.cache-name = cache-emsdk
         cmake --build .
 </code></pre>
 <h2 id="checkout-lvgl-for-webassembly" class="section-header"><a href="#checkout-lvgl-for-webassembly">9.6 Checkout LVGL for WebAssembly</a></h2>
-<p>Now it gets interesting...</p>
-<p>PineTime Web Simulator runs in a Web Browser based on WebAssembly (somewhat similar to Java Applets). <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts">More about WebAssembly</a></p>
-<p><code>Clock.cpp</code> is our C++ class that contains the Watch Face code. <code>Clock.cpp</code> calls functions from two providers...</p>
-<ol>
-<li>
-<p>LVGL UI Toolkit Library</p>
-</li>
-<li>
-<p>InfiniTime Operating System, based on FreeRTOS</p>
-</li>
-</ol>
+<p>Now it gets interesting. We fetch the source code from <code>lvgl-wasm</code>...</p>
 <pre><code class="language-yaml">    - name: Checkout LVGL for WebAssembly
       run:  |
         cd /tmp
         git clone https://github.com/AppKaki/lvgl-wasm
 </code></pre>
+<p>And save it to <code>/tmp/lvgl-wasm</code></p>
+<p><em>What's <code>lvgl-wasm</code>?</em></p>
+<p>PineTime Web Simulator runs in a Web Browser based on WebAssembly (somewhat similar to Java Applets). <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts">More about WebAssembly</a></p>
+<p><code>Clock.cpp</code> is our C++ class that contains the Watch Face code. <code>Clock.cpp</code> calls functions from two providers...</p>
+<ol>
+<li>
+<p><a href="https://docs.lvgl.io/latest/en/html/index.html">LVGL UI Toolkit Library</a></p>
+</li>
+<li>
+<p><a href="https://github.com/JF002/Pinetime">InfiniTime Operating System</a> based on FreeRTOS</p>
+</li>
+</ol>
+<p>We have a version of LVGL compiled for WebAssembly... It's inside <code>lvgl-wasm</code>...</p>
+<p><a href="https://github.com/AppKaki/lvgl-wasm">github.com/AppKaki/lvgl-wasm</a></p>
+<p>So we'll be compiling <code>lvgl-wasm</code> to WebAssembly together with our Watch Face code.</p>
+<p><em>What about the InfiniTime Operating System?</em></p>
 <p>TODO</p>
 <h2 id="copy-watch-face-clockcpp-to-lvgl-for-webassembly" class="section-header"><a href="#copy-watch-face-clockcpp-to-lvgl-for-webassembly">9.7 Copy Watch Face Clock.cpp to LVGL for WebAssembly</a></h2>
 <pre><code class="language-yaml">    - name: Copy Watch Face Clock.cpp to LVGL for WebAssembly
