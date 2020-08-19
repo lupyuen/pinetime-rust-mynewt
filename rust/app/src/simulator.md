@@ -255,9 +255,7 @@ Here's what we'll be implementing next...
 
 1. __Convert `Clock.cpp` from C++ to Rust__ with [`lvgl-rs`](https://github.com/rafaelcaricio/lvgl-rs)
 
-1. Allow PineTime Watch Faces to be __built online in Rust with online preview__
-
-    Like with WebAssembly Studio: https://webassembly.studio/
+1. Allow PineTime Watch Faces to be __built online in Rust with online preview__. Similar to [WebAssembly Studio](https://webassembly.studio/)
 
 We have a lot to do, please chat with us if you're keen to help...
 
