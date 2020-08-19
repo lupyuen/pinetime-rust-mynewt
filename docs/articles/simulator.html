@@ -82,10 +82,10 @@
 <li><a href="#checkout-lvgl-for-webassembly">9.6 Checkout LVGL for WebAssembly</a><ul></ul></li>
 <li><a href="#copy-watch-face-clockcpp-to-lvgl-for-webassembly">9.7 Copy Watch Face Clock.cpp to LVGL for WebAssembly</a><ul></ul></li>
 <li><a href="#build-lvgl-for-webassembly">9.8 Build LVGL for WebAssembly</a><ul></ul></li>
-<li><a href="#show-files">9.9 Show Files</a><ul></ul></li>
-<li><a href="#copy-webassembly-to-github-pages">9.10 Copy WebAssembly to GitHub Pages</a><ul></ul></li>
-<li><a href="#commit-github-pages">9.11 Commit GitHub Pages</a><ul></ul></li>
-<li><a href="#upload-outputs">9.12 Upload Outputs</a><ul></ul></li>
+<li><a href="#copy-webassembly-to-github-pages">9.9 Copy WebAssembly to GitHub Pages</a><ul></ul></li>
+<li><a href="#commit-github-pages">9.10 Commit GitHub Pages</a><ul></ul></li>
+<li><a href="#upload-outputs">9.11 Upload Outputs</a><ul></ul></li>
+<li><a href="#show-files">9.12 Show Files</a><ul></ul></li>
 <li><a href="#caching-at-the-end">9.13 Caching At The End</a><ul></ul></li></ul></li>
 <li><a href="#environment-variables">10 Environment Variables</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/pinetime-simulator.png" alt="Custom PineTime Watch Face created in C++ by SravanSenthiln1: PineTime Watch Face Simulator vs Real PineTime" /></p>
 <p><em>Custom PineTime Watch Face created in C++ by <a href="https://twitter.com/SravanSenthiln1">SravanSenthiln1</a>: PineTime Watch Face Simulator vs Real PineTime</em></p>
@@ -529,26 +529,17 @@ env.cache-name = cache-emsdk
 <p>The script calls emscripten to generate three files in <code>/tmp/lvgl-wasm/wasm/</code>...</p>
 <ul>
 <li>
-<p><code>lvgl.wasm</code>: WebAssembly Executable Code, containing our Watch Face, LVGL and the InfiniTime Sandbox</p>
+<p><code>lvgl.wasm</code>: WebAssembly Executable Code, containing our Watch Face, LVGL and the InfiniTime Sandbox. <a href="https://github.com/lupyuen/pinetime-lab/blob/master/docs/lvgl.wasm">Sample File</a></p>
 </li>
 <li>
-<p><code>lvgl.js</code>: Provides the JavaScript glue that's needed to load <code>lvgl.wasm</code> and run it in a Web Browser</p>
+<p><code>lvgl.js</code>: Provides the JavaScript glue that's needed to load <code>lvgl.wasm</code> and run it in a Web Browser. <a href="https://github.com/lupyuen/pinetime-lab/blob/master/docs/lvgl.js">Sample File</a></p>
 </li>
 <li>
-<p><code>lvgl.html</code>: The HTML file that calls <code>lvgl.js</code> to render the user interface. We won't be using this file, since we have a custom version of <code>lvgl.html</code></p>
+<p><code>lvgl.html</code>: The HTML file that calls <code>lvgl.js</code> to render the user interface.</p>
+<p>We won't be using this file, because we have a <a href="https://github.com/lupyuen/pinetime-lab/blob/master/docs/lvgl.html">custom version of <code>lvgl.html</code></a></p>
 </li>
 </ul>
-<h2 id="show-files" class="section-header"><a href="#show-files">9.9 Show Files</a></h2>
-<p>Let's take a peek at the environment variables and the files that have been checked out...</p>
-<pre><code class="language-yaml">    - name: Show files
-      run:  set ; pwd ; ls -l /tmp/lvgl-wasm
-</code></pre>
-<p>The current directory <code>pwd</code> is shown as...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="op">/</span><span class="ident">home</span><span class="op">/</span><span class="ident">runner</span><span class="op">/</span><span class="ident">work</span><span class="op">/</span><span class="ident">Pinetime</span><span class="op">/</span><span class="ident">Pinetime</span></pre></div>
-<p>Check the section &quot;Environment Variables&quot; below for the complete list of environment variables.</p>
-<h2 id="copy-webassembly-to-github-pages" class="section-header"><a href="#copy-webassembly-to-github-pages">9.10 Copy WebAssembly to GitHub Pages</a></h2>
+<h2 id="copy-webassembly-to-github-pages" class="section-header"><a href="#copy-webassembly-to-github-pages">9.9 Copy WebAssembly to GitHub Pages</a></h2>
 <pre><code class="language-yaml">    - name: Copy WebAssembly to GitHub Pages
       run:  |
         if [ ! -d docs ]; then
@@ -567,14 +558,14 @@ env.cache-name = cache-emsdk
           docs
 </code></pre>
 <p>TODO</p>
-<h2 id="commit-github-pages" class="section-header"><a href="#commit-github-pages">9.11 Commit GitHub Pages</a></h2>
+<h2 id="commit-github-pages" class="section-header"><a href="#commit-github-pages">9.10 Commit GitHub Pages</a></h2>
 <pre><code class="language-yaml">    - name: Commit GitHub Pages
       uses: EndBug/add-and-commit@v4.4.0
       with:
         add: docs
 </code></pre>
 <p>TODO</p>
-<h2 id="upload-outputs" class="section-header"><a href="#upload-outputs">9.12 Upload Outputs</a></h2>
+<h2 id="upload-outputs" class="section-header"><a href="#upload-outputs">9.11 Upload Outputs</a></h2>
 <pre><code class="language-yaml">    - name: Upload Outputs
       uses: actions/upload-artifact@v2
       with:
@@ -585,6 +576,17 @@ env.cache-name = cache-emsdk
           /tmp/lvgl-wasm/wasm/*.wasm
           /tmp/lvgl-wasm/wasm/*.txt
 </code></pre>
+<p>TODO</p>
+<h2 id="show-files" class="section-header"><a href="#show-files">9.12 Show Files</a></h2>
+<p>Let's take a peek at the environment variables and the files that have been checked out...</p>
+<pre><code class="language-yaml">    - name: Show files
+      run:  set ; pwd ; ls -l /tmp/lvgl-wasm
+</code></pre>
+<p>The current directory <code>pwd</code> is shown as...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="op">/</span><span class="ident">home</span><span class="op">/</span><span class="ident">runner</span><span class="op">/</span><span class="ident">work</span><span class="op">/</span><span class="ident">Pinetime</span><span class="op">/</span><span class="ident">Pinetime</span></pre></div>
+<p>Check the section &quot;Environment Variables&quot; below for the complete list of environment variables.</p>
 <p>TODO</p>
 <h2 id="caching-at-the-end" class="section-header"><a href="#caching-at-the-end">9.13 Caching At The End</a></h2>
 <p>TODO</p>

@@ -551,28 +551,13 @@ Now that the Watch Face code is inside `lvgl-wasm`, let's build the project with
 
 The script calls emscripten to generate three files in `/tmp/lvgl-wasm/wasm/`...
 
-- `lvgl.wasm`: WebAssembly Executable Code, containing our Watch Face, LVGL and the InfiniTime Sandbox
+- `lvgl.wasm`: WebAssembly Executable Code, containing our Watch Face, LVGL and the InfiniTime Sandbox. [Sample File](https://github.com/lupyuen/pinetime-lab/blob/master/docs/lvgl.wasm)
 
-- `lvgl.js`: Provides the JavaScript glue that's needed to load `lvgl.wasm` and run it in a Web Browser
+- `lvgl.js`: Provides the JavaScript glue that's needed to load `lvgl.wasm` and run it in a Web Browser. [Sample File](https://github.com/lupyuen/pinetime-lab/blob/master/docs/lvgl.js)
 
-- `lvgl.html`: The HTML file that calls `lvgl.js` to render the user interface. We won't be using this file, since we have a custom version of `lvgl.html`
+- `lvgl.html`: The HTML file that calls `lvgl.js` to render the user interface.
 
-## Show Files
-
-Let's take a peek at the environment variables and the files that have been checked out...
-
-```yaml
-    - name: Show files
-      run:  set ; pwd ; ls -l /tmp/lvgl-wasm
-```
-
-The current directory `pwd` is shown as...
-
-```
-/home/runner/work/Pinetime/Pinetime
-```
-
-Check the section "Environment Variables" below for the complete list of environment variables.
+    We won't be using this file, because we have a [custom version of `lvgl.html`](https://github.com/lupyuen/pinetime-lab/blob/master/docs/lvgl.html)
 
 ## Copy WebAssembly to GitHub Pages
 
@@ -621,6 +606,25 @@ TODO
           /tmp/lvgl-wasm/wasm/*.wasm
           /tmp/lvgl-wasm/wasm/*.txt
 ```
+
+TODO
+
+## Show Files
+
+Let's take a peek at the environment variables and the files that have been checked out...
+
+```yaml
+    - name: Show files
+      run:  set ; pwd ; ls -l /tmp/lvgl-wasm
+```
+
+The current directory `pwd` is shown as...
+
+```
+/home/runner/work/Pinetime/Pinetime
+```
+
+Check the section "Environment Variables" below for the complete list of environment variables.
 
 TODO
 
