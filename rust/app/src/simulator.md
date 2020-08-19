@@ -6,9 +6,9 @@ _Custom PineTime Watch Face created in C++ by [SravanSenthiln1](https://twitter.
 
 Now we can build and preview Watch Faces for [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) in the Web Browser, thanks to WebAssembly...
 
-- [Online Demo](https://appkaki.github.io/lvgl-wasm/lvgl.html)
+- [Online Demo](https://lupyuen.github.io/pinetime-lab/lvgl.html)
 
-- [Watch Face Source Code in C++](clock/Clock.cpp)
+- [Watch Face Source Code in C++](https://github.com/lupyuen/pinetime-lab/blob/master/src/DisplayApp/Screens/Clock.cpp)
 
 __All we need is a Web Browser__... Even a Web Browser on mobile phones will do!
 
@@ -561,6 +561,8 @@ The script calls emscripten to generate three files in `/tmp/lvgl-wasm/wasm/`...
 
 ## Copy WebAssembly to GitHub Pages
 
+Next we copy the WebAssembly files to the `docs` folder, which will be hosted on GitHub Pages...
+
 ```yaml
     - name: Copy WebAssembly to GitHub Pages
       run:  |
@@ -580,9 +582,9 @@ The script calls emscripten to generate three files in `/tmp/lvgl-wasm/wasm/`...
           docs
 ```
 
-TODO
-
 ## Commit GitHub Pages
+
+Finally we Commit the changed files in `docs` back to the Fork so that GitHub Pages will be updated...
 
 ```yaml
     - name: Commit GitHub Pages
@@ -591,9 +593,11 @@ TODO
         add: docs
 ```
 
-TODO
+[More about `add-and-commit`](https://github.com/EndBug/add-and-commit)
 
 ## Upload Outputs
+
+For troubleshooting, we publish the generated WebAssembly files as an Artifact `wasm`...
 
 ```yaml
     - name: Upload Outputs
@@ -606,8 +610,6 @@ TODO
           /tmp/lvgl-wasm/wasm/*.wasm
           /tmp/lvgl-wasm/wasm/*.txt
 ```
-
-TODO
 
 ## Show Files
 
@@ -626,24 +628,15 @@ The current directory `pwd` is shown as...
 
 Check the section "Environment Variables" below for the complete list of environment variables.
 
-TODO
-
 ## Caching At The End
 
-TODO
-
-Here's a tip about the caches we have created for the Embedded Arm Toolchain and the nRF5 SDK...
-
-```yaml
-# Embedded Arm Toolchain and nRF5 SDK will only be cached if the build succeeds.
-# So make sure that the first build always succeeds, e.g. comment out the "Make" step.
-```
+Here's a tip about the caches we have created for emscripten and wabt...
 
 __The files get cached only if the build succeeds__
 
 If the first few builds fail (say due to coding errors), the files will never get cached. And restarting the build becomes painfully slow.
 
-Therefore it's good to tweak the Workflow to make sure that the first build always succeeds... Like commenting out the `make` section.
+Therefore it's good to tweak the Workflow to make sure that the first build always succeeds... Like commenting out the actions from `Build LVGL for WebAssembly` onwards.
 
 Subsequent builds will be a lot faster with the caching.
 
@@ -659,7 +652,7 @@ This step in our GitHub Actions Workflow...
 
 ```yaml
     - name: Show files
-      run:  set ; pwd ; ls -l
+      run:  set ; pwd ; ls -l /tmp/lvgl-wasm
 ```
 
 Shows these environment variables...
