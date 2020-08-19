@@ -482,7 +482,7 @@ env.cache-name = cache-emsdk
         cmake --build .
 </code></pre>
 <h2 id="checkout-lvgl-for-webassembly" class="section-header"><a href="#checkout-lvgl-for-webassembly">9.6 Checkout LVGL for WebAssembly</a></h2>
-<p>Now it gets interesting. We fetch the source code from <code>lvgl-wasm</code>...</p>
+<p>Now it gets interesting. Here we fetch the source code from <code>lvgl-wasm</code>...</p>
 <pre><code class="language-yaml">    - name: Checkout LVGL for WebAssembly
       run:  |
         cd /tmp
@@ -501,17 +501,20 @@ env.cache-name = cache-emsdk
 </li>
 </ol>
 <p>We have a version of LVGL compiled for WebAssembly... It's inside <code>lvgl-wasm</code>...</p>
-<p><a href="https://github.com/AppKaki/lvgl-wasm">github.com/AppKaki/lvgl-wasm</a></p>
+<p><a href="https://github.com/AppKaki/lvgl-wasm"><code>github.com/AppKaki/lvgl-wasm</code></a></p>
 <p>So we'll be compiling <code>lvgl-wasm</code> to WebAssembly together with our Watch Face code.</p>
 <p><em>What about the InfiniTime Operating System?</em></p>
-<p>TODO</p>
+<p>Our PineTime Web Simulator doesn't support all functions provided by InfiniTime... <code>lvgl-wasm</code> simulates the minimal set of InfiniTime functions needed for rendering Watch Faces. (FreeRTOS is not supported by the Simulator)</p>
+<p>Hence <code>lvgl-wasm</code> works like a <strong>Sandbox</strong>. We'll learn more details in the <a href="https://github.com/AppKaki/lvgl-wasm"><code>lvgl-wasm</code> documentation</a></p>
 <h2 id="copy-watch-face-clockcpp-to-lvgl-for-webassembly" class="section-header"><a href="#copy-watch-face-clockcpp-to-lvgl-for-webassembly">9.7 Copy Watch Face Clock.cpp to LVGL for WebAssembly</a></h2>
+<p>Remember that <code>lvgl-wasm</code> is just a Sandbox for simulating Watch Faces... It needs the actual Watch Face code.</p>
+<p>Here's how we copy the Watch Face code in <code>Clock.cpp</code> to <code>lvgl-wasm</code>...</p>
 <pre><code class="language-yaml">    - name: Copy Watch Face Clock.cpp to LVGL for WebAssembly
       run:  |
         cp src/DisplayApp/Screens/Clock.cpp /tmp/lvgl-wasm/clock
 </code></pre>
-<p>TODO</p>
 <h2 id="build-lvgl-for-webassembly" class="section-header"><a href="#build-lvgl-for-webassembly">9.8 Build LVGL for WebAssembly</a></h2>
+<p>Now that the Watch Face code is inside <code>lvgl-wasm</code>, let's build the project with emscripten...</p>
 <pre><code class="language-yaml">    - name: Build LVGL for WebAssembly
       run:  |
         # Add emscripten and wabt to the PATH
@@ -522,7 +525,19 @@ env.cache-name = cache-emsdk
         cd /tmp/lvgl-wasm
         wasm/lvgl.sh
 </code></pre>
-<p>TODO</p>
+<p><code>lvgl.sh</code> shall be explained in the <a href="https://github.com/AppKaki/lvgl-wasm"><code>lvgl-wasm</code> documentation</a></p>
+<p>The script calls emscripten to generate three files in <code>/tmp/lvgl-wasm/wasm/</code>...</p>
+<ul>
+<li>
+<p><code>lvgl.wasm</code>: WebAssembly Executable Code, containing our Watch Face, LVGL and the InfiniTime Sandbox</p>
+</li>
+<li>
+<p><code>lvgl.js</code>: Provides the JavaScript glue that's needed to load <code>lvgl.wasm</code> and run it in a Web Browser</p>
+</li>
+<li>
+<p><code>lvgl.html</code>: The HTML file that calls <code>lvgl.js</code> to render the user interface. We won't be using this file, since we have a custom version of <code>lvgl.html</code></p>
+</li>
+</ul>
 <h2 id="show-files" class="section-header"><a href="#show-files">9.9 Show Files</a></h2>
 <p>Let's take a peek at the environment variables and the files that have been checked out...</p>
 <pre><code class="language-yaml">    - name: Show files

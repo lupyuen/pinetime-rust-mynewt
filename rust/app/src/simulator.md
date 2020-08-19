@@ -486,7 +486,7 @@ Then we install wabt in `/tmp/wabt`...
 
 ## Checkout LVGL for WebAssembly
 
-Now it gets interesting. We fetch the source code from `lvgl-wasm`...
+Now it gets interesting. Here we fetch the source code from `lvgl-wasm`...
 
 ```yaml
     - name: Checkout LVGL for WebAssembly
@@ -509,15 +509,21 @@ PineTime Web Simulator runs in a Web Browser based on WebAssembly (somewhat simi
 
 We have a version of LVGL compiled for WebAssembly... It's inside `lvgl-wasm`...
 
-[github.com/AppKaki/lvgl-wasm](https://github.com/AppKaki/lvgl-wasm)
+[`github.com/AppKaki/lvgl-wasm`](https://github.com/AppKaki/lvgl-wasm)
 
 So we'll be compiling `lvgl-wasm` to WebAssembly together with our Watch Face code.
 
 _What about the InfiniTime Operating System?_
 
-TODO
+Our PineTime Web Simulator doesn't support all functions provided by InfiniTime... `lvgl-wasm` simulates the minimal set of InfiniTime functions needed for rendering Watch Faces. (FreeRTOS is not supported by the Simulator)
+
+Hence `lvgl-wasm` works like a __Sandbox__. We'll learn more details in the [`lvgl-wasm` documentation](https://github.com/AppKaki/lvgl-wasm)
 
 ## Copy Watch Face Clock.cpp to LVGL for WebAssembly
+
+Remember that `lvgl-wasm` is just a Sandbox for simulating Watch Faces... It needs the actual Watch Face code.
+
+Here's how we copy the Watch Face code in `Clock.cpp` to `lvgl-wasm`...
 
 ```yaml
     - name: Copy Watch Face Clock.cpp to LVGL for WebAssembly
@@ -525,9 +531,9 @@ TODO
         cp src/DisplayApp/Screens/Clock.cpp /tmp/lvgl-wasm/clock
 ```
 
-TODO
-
 ## Build LVGL for WebAssembly
+
+Now that the Watch Face code is inside `lvgl-wasm`, let's build the project with emscripten...
 
 ```yaml
     - name: Build LVGL for WebAssembly
@@ -541,7 +547,15 @@ TODO
         wasm/lvgl.sh
 ```
 
-TODO
+`lvgl.sh` shall be explained in the [`lvgl-wasm` documentation](https://github.com/AppKaki/lvgl-wasm)
+
+The script calls emscripten to generate three files in `/tmp/lvgl-wasm/wasm/`...
+
+- `lvgl.wasm`: WebAssembly Executable Code, containing our Watch Face, LVGL and the InfiniTime Sandbox
+
+- `lvgl.js`: Provides the JavaScript glue that's needed to load `lvgl.wasm` and run it in a Web Browser
+
+- `lvgl.html`: The HTML file that calls `lvgl.js` to render the user interface. We won't be using this file, since we have a custom version of `lvgl.html`
 
 ## Show Files
 
