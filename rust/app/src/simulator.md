@@ -90,7 +90,7 @@ Read on to learn how we add GitHub Actions to our Fork to preview our Custom Wat
 
     Browse to this page...
 
-    [`github.com/pinetime-lab/.github/workflows/simulate.yml`](https://raw.githubusercontent.com/lupyuen/pinetime-lab/master/.github/workflows/simulate.yml)
+    [`github.com/lupyuen/pinetime-lab/.github/workflows/simulate.yml`](https://raw.githubusercontent.com/lupyuen/pinetime-lab/master/.github/workflows/simulate.yml)
     
     Copy the contents of this page. 
 
@@ -200,13 +200,18 @@ Let's check the result of our Simulator Build...
 
     (Change `ACCOUNT_NAME` to our GitHub Account Name)
 
+    ![PineTime Watch Face Simulator](https://lupyuen.github.io/images/simulator-love.png)
+
+1.  If we are happy with the Watch Face, we may __flash the built firmware__ to PineTime over Bluetooth. See ["Test Our PineTime Fimware"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware)
+
+    We will need to install the GitHub Actions Workflow for building the PineTime Firmware: [`.github/workflows/main.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml). See ["Add GitHub Actions for PineTime Firmware"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#add-github-actions-to-our-fork)
+
+1.  Get Creative with Watch Faces! [Find out how to add our own Bitmaps to Watch Faces](https://wiki.pine64.org/index.php?title=PineTime_Custom_Watchface_Tutorial)
+
     ![Custom PineTime Watch Face created in C++ by SravanSenthiln1: PineTime Watch Face Simulator vs Real PineTime](https://lupyuen.github.io/images/pinetime-simulator.png)
 
     [View the Source Code for the Custom Watch Face](https://github.com/AppKaki/lvgl-wasm/blob/master/clock/Clock2.cpp)
 
-1.  If we are happy with the Watch Face, we may __flash the built firmware__ to PineTime over Bluetooth. See ["Test Our PineTime Fimware"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#download-and-test-our-pinetime-firmware)
-
-    We will need to install the GitHub Actions Workflow for building the PineTime Firmware: [`.github/workflows/main.yml`](https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml). See ["Add GitHub Actions"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud#add-github-actions-to-our-fork)
 
 _I have a request..._
 
