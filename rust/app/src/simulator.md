@@ -223,6 +223,10 @@ If you're stuck, please chat with us in the PineTime Chatroom...
 
 [PineTime Chatroom on Discord / Matrix / Telegram / IRC](https://wiki.pine64.org/index.php/PineTime#Community)
 
+![Custom PineTime Watch Face by SravanSenthiln1](https://lupyuen.github.io/images/simulator-morning.jpg)
+
+_Custom PineTime Watch Face by [SravanSenthiln1](https://twitter.com/SravanSenthiln1)_
+
 # Other Options
 
 1.  _Can we edit our files in GitHub without using the web browser?_
