@@ -253,8 +253,6 @@ _Custom PineTime Watch Face by [SravanSenthiln1](https://twitter.com/SravanSenth
 
 Here's what we'll be implementing next...
 
-1. __Show date and time__, current and selected
-
 1. __Accept Touch Input__ for LVGL
 
 1. __Convert `Clock.cpp` from C++ to Rust__ with [`lvgl-rs`](https://github.com/rafaelcaricio/lvgl-rs)
