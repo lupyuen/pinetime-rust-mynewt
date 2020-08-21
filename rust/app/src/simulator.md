@@ -263,9 +263,11 @@ _Custom PineTime Watch Face by [SravanSenthiln1](https://twitter.com/SravanSenth
 
 Here's what we'll be implementing next...
 
-1. __Accept Touch Input__ for LVGL
+1.  __Accept Touch Input__ for LVGL
 
-1. __Convert `Clock.cpp` from C++ to Rust__ with [`lvgl-rs`](https://github.com/rafaelcaricio/lvgl-rs)
+1.  __Convert `Clock.cpp` from C++ to Rust__ with [`lvgl-rs`](https://github.com/rafaelcaricio/lvgl-rs)
+
+    [Check out the `rust` branch of `lvgl-asm`](https://github.com/AppKaki/lvgl-wasm/blob/rust/README.md)
 
 1. Allow PineTime Watch Faces to be __built online in Rust with online preview__. Similar to [WebAssembly Studio](https://webassembly.studio/)
 
