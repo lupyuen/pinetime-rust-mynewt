@@ -178,18 +178,24 @@
 </ol>
 <p>Thankfully most of this firmware update and rollback logic is built into the <a href="https://github.com/apache/mynewt-mcumgr">MCU Manager Library</a>. For the swapping of firmware we'll use another open-source component: <a href="https://juullabs-oss.github.io/mcuboot/"><strong>MCUBoot Bootloader</strong></a>.  More about MCUBoot in a while.</p>
 <h1 id="pinetime-flash-rom-layout" class="section-header"><a href="#pinetime-flash-rom-layout">3 PineTime Flash ROM Layout</a></h1>
-<p>[ UPDATE: <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">The Flash ROM Layout has been updated in the followup article</a> ]</p>
 <p>To support firmware update (with rollback) via Bluetooth LE, PineTime Firmware Developers would have to adopt a common layout for storing flash images in Flash ROM.</p>
 <p>Here's the proposed <strong>Flash ROM Layout</strong> that supports Active and Standby Firmware Images for firmware update and rollback...</p>
-<table><thead><tr><th align="left">     PineTime Flash Area</th><th align="left">ROM Address</th><th align="right">Size</th></tr></thead><tbody>
-<tr><td align="left">     Bootloader (MCUBoot)</td><td align="left"><code>0x0000 0000</code></td><td align="right">16 KB</td></tr>
-<tr><td align="left">     Reboot Log</td><td align="left"><code>0x0000 4000</code></td><td align="right">16 KB</td></tr>
-<tr><td align="left">     <strong>Active Firmware Image</strong>      </td><td align="left"><strong><code>0x0000 8000</code></strong></td><td align="right">    <strong>232 KB</strong></td></tr>
-<tr><td align="left">     <em>Standby Firmware Image</em></td><td align="left"><code>0x0004 2000</code></td><td align="right"><em>232 KB</em></td></tr>
-<tr><td align="left">     Scratch Area</td><td align="left"><code>0x0007 F000</code></td><td align="right">4 KB</td></tr>
-<tr><td align="left">     User File System</td><td align="left"><code>0x0007 D000</code></td><td align="right">12 KB</td></tr>
+<table><thead><tr><th align="left">     Flash ROM Area</th><th align="left">Address</th><th align="right">Size</th></tr></thead><tbody>
+<tr><td align="left">     Bootloader (MCUBoot)</td><td align="left"><code>0x0000 0000</code></td><td align="right">24 KB</td></tr>
+<tr><td align="left">     Reboot Log</td><td align="left"><code>0x0000 6000</code></td><td align="right">8 KB</td></tr>
+<tr><td align="left">     <strong>Active Firmware Image</strong>      </td><td align="left"><strong><code>0x0000 8000</code></strong></td><td align="right">    <strong>464 KB</strong></td></tr>
+<tr><td align="left">     Scratch Area</td><td align="left"><code>0x0007 C000</code></td><td align="right">4 KB</td></tr>
 <tr><td align="left"><br></td><td align="left"></td><td align="right"></td></tr>
 </tbody></table>
+<p><em>TODO: <code>0x7f00</code> to <code>0x7fff</code> is reserved for the relocated Vector Table. Active Firmware Image should be extended by 12 KB. Scratch Area should be moved down by 12 KB</em></p>
+<p>And the layout for <strong>PineTime's SPI Flash</strong>...</p>
+<table><thead><tr><th align="left">     SPI Flash Area</th><th align="left">Address</th><th align="right">Size</th></tr></thead><tbody>
+<tr><td align="left">     Bootloader Assets</td><td align="left"><code>0x0000 0000</code></td><td align="right">256 KB</td></tr>
+<tr><td align="left">     <em>Standby Firmware Image</em>     </td><td align="left"><code>0x0004 0000</code></td><td align="right"><em>464 KB</em></td></tr>
+<tr><td align="left">     User File System</td><td align="left"><code>0x000B 4000</code></td><td align="right">     3,376 KB</td></tr>
+<tr><td align="left"><br></td><td align="left"></td><td align="right"></td></tr>
+</tbody></table>
+<p><em>TODO: Standby Firmware Image should be extended by 12 KB. User File System should be moved down by 12 KB</em></p>
 <p><em>Proposed Flash ROM Layout for PineTime. Derived from this <a href="https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml">Flash ROM layout for nRF52832</a>.</em></p>
 <ol>
 <li>
@@ -215,6 +221,7 @@
 </li>
 </ol>
 <p>Now we'll learn how the MCU Manager Library manages the Active and Standby Firmware Images to perform firmware updates.</p>
+<p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">More details on the Flash ROM Layout</a></p>
 <h1 id="mcu-manager-library-for-firmware-update" class="section-header"><a href="#mcu-manager-library-for-firmware-update">4 MCU Manager Library for Firmware Update</a></h1>
 <p>Let's look at the <a href="https://github.com/apache/mynewt-mcumgr">MCU Manager Library</a> (coded in C) and how it handles firmware updates...</p>
 <p><img src="https://lupyuen.github.io/images/dfu-mcumgr.png" alt="Firmware Update with MCU Manager Library" /></p>
@@ -541,7 +548,7 @@
 
 <span class="ident">MEMORY</span>
 {
-  <span class="ident">FLASH</span> (<span class="ident">rx</span>) : <span class="ident">ORIGIN</span> <span class="op">=</span> <span class="number">0x00008000</span>, <span class="ident">LENGTH</span> <span class="op">=</span> <span class="number">232K</span>
+  <span class="ident">FLASH</span> (<span class="ident">rx</span>) : <span class="ident">ORIGIN</span> <span class="op">=</span> <span class="number">0x00008000</span>, <span class="ident">LENGTH</span> <span class="op">=</span> <span class="number">464K</span>
   <span class="ident">RAM</span> (<span class="ident">rwx</span>)  : <span class="ident">ORIGIN</span> <span class="op">=</span> <span class="number">0x20000000</span>, <span class="ident">LENGTH</span> <span class="op">=</span> <span class="number">64K</span>
 }
 
@@ -563,7 +570,7 @@
 <p>This Linker Script says...</p>
 <ol>
 <li>
-<p>The usable Flash ROM (<code>FLASH</code>) starts at address <code>0x8000</code> with size 232 KB. RAM starts at address <code>0x2000 0000</code> with size 64 KB.</p>
+<p>The usable Flash ROM (<code>FLASH</code>) starts at address <code>0x8000</code> with size 464 KB. RAM starts at address <code>0x2000 0000</code> with size 64 KB.</p>
 </li>
 <li>
 <p>At the beginning of the Firmware Image in Flash ROM (<code>FLASH</code>), reserve 32 bytes (<code>_imghdr_size</code>) for the Image Header (<code>.imghdr</code>)</p>
@@ -604,12 +611,12 @@
 pip3 install --user -r mcuboot/scripts/requirements.txt 
 
 # Generate the Firmware Image File (including Image Header) from the Firmware BIN file
-# Based on our Flash ROM Layout, the Firmware Image Slot Size is 232 KB (237,568 bytes)
+# Based on our updated Flash ROM Layout, the Firmware Image Slot Size is 464 KB (475,136 bytes)
 mcuboot/scripts/imgtool.py create \
   --align 4 \
   --version 1.0.0 \
   --header-size 32 \
-  --slot-size 237568 \
+  --slot-size 475136 \
   --pad-header \
   my_sensor_app.elf.bin \
   my_sensor_app.img
@@ -641,13 +648,12 @@ mcuboot/scripts/imgtool.py verify my_sensor_app.img
 <p><img src="https://lupyuen.github.io/images/dfu-runimage.png" alt="Running the sample firmware image" /></p>
 <p><a href="https://juullabs-oss.github.io/mcuboot/imgtool.html">More about <code>imgtool.py</code></a></p>
 <h1 id="mark-pinetime-firmware-as-pending" class="section-header"><a href="#mark-pinetime-firmware-as-pending">9 Mark PineTime Firmware As Pending</a></h1>
-<p>TODO</p>
-<p>https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/src/bootutil_misc.c#L645-L717</p>
-<p>that's the code for sending the pending flag
-its part of the mcuboot library
-that function sets the pending flag in the image trailer: https://juullabs-oss.github.io/mcuboot/design.html#image-trailer
-i.e. Swap Type = BOOT_SWAP_TYPE_TEST	
-once you set the Swap Type to BOOT_SWAP_TYPE_TEST, MCUBoot will swap in the new firmware</p>
+<p>We need to set the Firmware Status to Pending so that MCUBoot will swap the firmware from External SPI Flash to Internal Flash ROM.</p>
+<p>Here is the function <code>boot_set_pending</code> from the MCUBoot Library for setting the Firmware Status to Pending...</p>
+<p><a href="https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/src/bootutil_misc.c#L645-L717"><code>mcuboot/boot/bootutil/src/bootutil_misc.c</code></a></p>
+<p>The function sets the pending flag in the image trailer...</p>
+<p><a href="https://juullabs-oss.github.io/mcuboot/design.html#image-trailer">MCUBoot Image Trailer</a></p>
+<p>Once we set the Swap Type to <code>BOOT_SWAP_TYPE_TEST</code>, MCUBoot will swap in the new firmware.</p>
 <h1 id="mark-pinetime-firmware-as-ok" class="section-header"><a href="#mark-pinetime-firmware-as-ok">10 Mark PineTime Firmware As OK</a></h1>
 <p>MCUBoot Bootloader has a helpful feature that prevents PineTime from getting bricked during firmware update... When MCUBoot senses that the new firmware isn't running properly, MCUBoot rolls back PineTime to the old firmware.</p>
 <p><em>How does MCUBoot know whether the new firmware is OK?</em></p>
