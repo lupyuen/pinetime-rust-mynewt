@@ -1344,6 +1344,34 @@ After [posting my thoughts](https://twitter.com/UBports/status/12829349278063984
 
 - [Only GNOME and KDE have Wayland support and the support isn't feature complete compared to X11](https://twitter.com/XfceNation/status/1284854254092513285?s=09), which is why most distros with GNOME and KDE editions still do not default to Wayland
 
+# Touch Input for LVGL on Wayland
+
+I'm sorry the port of LVGL on Wayland to PinePhone is incomplete, and I am now working on other PineTime Smart Watch projects.
+
+The Touch Input needs to be ported for LVGL like this...
+
+- [LVGL Input Device Interface](https://docs.lvgl.io/latest/en/html/porting/indev.html)
+
+The LVGL Input Driver needs to be implemented with Wayland (without X) like this...
+
+- [Programming Wayland Clients - Input](https://jan.newmarch.name/Wayland/Input/)
+
+- [The Wayland Protocol - Seats: Handling input](https://wayland-book.com/seat.html)
+
+Also please take care of the LVGL Tick Interface. We need to call `lv_tick_inc()` periodically or our LVGL Display Driver won't flush when calling `lv_task_handler()`...
+
+- [LVGL Tick Interface](https://docs.lvgl.io/latest/en/html/porting/tick.html)
+
+I noticed this behaviour so I called `lv_tick_inc(100)` before `lv_task_handler()`...
+
+- [`github.com/AppKaki/lvgl-wasm/wasm/lvgl.c`](https://github.com/AppKaki/lvgl-wasm/blob/master/wasm/lvgl.c#L81-L88)
+
+That's the code I used for my latest project, a WebAssembly LVGL Simulator for PineTime Smart Watch...
+
+- [`lvgl-wasm`: PineTime Watch Face Simulator with LVGL ported to WebAssembly](https://github.com/AppKaki/lvgl-wasm/blob/master/README.md)
+
+- [Preview PineTime Watch Faces in your Web Browser with WebAssembly](https://lupyuen.github.io/pinetime-rust-mynewt/articles/simulator)
+
 # What's Next?
 
 Wayland feels like New Underwear... And it needs a New App Toolkit like LVGL to make us comfortable.
