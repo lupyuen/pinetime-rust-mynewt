@@ -4,6 +4,9 @@
 set -e  #  Exit when any command fails.
 set -x  #  Echo all commands.
 
+#  Show the Arm Toolchain version.
+arm-none-eabi-gcc --version
+
 #  Build the bootloader.
 newt build nrf52_boot
 
