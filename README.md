@@ -220,7 +220,15 @@ If you are building from this repository from scratch instead of the Released Pa
     git clone --recursive --branch v1.5.0 https://github.com/JuulLabs-OSS/mcuboot
     ```
 
-Why are we doing this? Because we are using a more recent version of MCUBoot (1.5.0), but that's not in sync with the older Mynewt version (1.7.0). This will cause `newt install` to fail. Hence we do this workaround to force Mynewt to build with the newer MCUBoot.
+    Why are we doing this? Because we are using a more recent version of MCUBoot (1.5.0), but that's not in sync with the older Mynewt version (1.7.0). This will cause `newt install` to fail. Hence we do this workaround to force Mynewt to build with the newer MCUBoot.
+
+1. Copy the unzipped OpenOCD from [The xPack OpenOCD](https://xpack.github.io/openocd/) to the folder...
+
+    ```
+    pinetime-rust-mynewt/openocd
+    ```
+
+    The `openocd` executable should be located at `pinetime-rust-mynewt/openocd/bin/openocd`
 
 ## Build MCUBoot Bootloader
 
