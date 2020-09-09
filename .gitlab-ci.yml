@@ -62,7 +62,7 @@ build:
     - pushd /tmp
     - wget -qO- https://developer.arm.com/-/media/Files/downloads/gnu-rm/9-2020q2/gcc-arm-none-eabi-9-2020-q2-update-x86_64-linux.tar.bz2 | tar -xj                
     - popd
-    - export PATH=$PATH:/tmp/gcc-arm-none-eabi-8-2019-q3-update/bin
+    - export PATH=$PATH:/tmp/gcc-arm-none-eabi-9-2020-q2-update/bin
     - arm-none-eabi-gcc --version
 
   #########################################################################################
@@ -70,7 +70,7 @@ build:
 
   script:
     # Set PATH
-    - export PATH=$PATH:/tmp/go/bin:/tmp/mynewt-newt/newt:/tmp/gcc-arm-none-eabi-8-2019-q3-update/bin
+    - export PATH=$PATH:/tmp/go/bin:/tmp/mynewt-newt/newt:/tmp/gcc-arm-none-eabi-9-2020-q2-update/bin
 
     # Build Bootloader
     - ./scripts/nrf52/build-boot.sh
@@ -96,7 +96,7 @@ build:
       - "*.o"
       - /tmp/go
       - /tmp/mynewt-newt
-      - /tmp/gcc-arm-none-eabi-8-2019-q3-update
+      - /tmp/gcc-arm-none-eabi-9-2020-q2-update
 
 #########################################################################################
 # Run Tests
