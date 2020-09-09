@@ -106,7 +106,7 @@ jobs:
       id:   cache-toolchain
       uses: actions/cache@v2
       env:
-        cache-name: cache-toolchain
+        cache-name: cache-toolchain-9-2020-q2
       with:
         path: ${{ runner.temp }}/arm-none-eabi
         key:  ${{ runner.os }}-build-${{ env.cache-name }}
