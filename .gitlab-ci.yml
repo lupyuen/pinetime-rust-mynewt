@@ -60,7 +60,7 @@ build:
 
     # Install Embedded Arm Toolchain arm-none-eabi-gcc
     - pushd /tmp
-    - wget -qO- https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2019q3/RC1.1/gcc-arm-none-eabi-8-2019-q3-update-linux.tar.bz2 | tar -xj
+    - wget -qO- https://developer.arm.com/-/media/Files/downloads/gnu-rm/9-2020q2/gcc-arm-none-eabi-9-2020-q2-update-x86_64-linux.tar.bz2 | tar -xj                
     - popd
     - export PATH=$PATH:/tmp/gcc-arm-none-eabi-8-2019-q3-update/bin
     - arm-none-eabi-gcc --version
