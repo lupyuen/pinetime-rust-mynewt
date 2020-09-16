@@ -31,10 +31,17 @@ static const uint8_t backlights[] = {
 };
 
 /// Define pulse patterns from slow to fast: From Low (0) to Mid (1) to High (2) and back
-static const uint8_t slower_pulse[]  = {0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1};  //  Slower pulse
-static const uint8_t slow_pulse[]    = {0, 0, 0, 1, 1, 1, 2, 2, 2, 1, 1, 1};  //  Slow pulse
-static const uint8_t fast_pulse[]    = {0, 0, 1, 1, 2, 2, 1, 1}; //  Fast pulse
-static const uint8_t faster_pulse[]  = {0, 1, 2, 1};  //  Faster pulse
+static const uint8_t slower_pulse[]  = {
+    1, 1, 1, 1, 1, 1, 
+    0, 0, 0, 0, 0, 0, 
+    1, 1, 1, 1, 1, 1, 
+    2, 2, 2, 2, 2, 2,
+    2, 2, 2, 2, 2, 2,
+    2, 2, 2, 2, 2, 2,
+};  //  Slower pulse
+static const uint8_t slow_pulse[]    = {1, 1, 1, 0, 0, 0, 1, 1, 1, 2, 2, 2};  //  Slow pulse
+static const uint8_t fast_pulse[]    = {1, 1, 0, 0, 1, 1, 2, 2}; //  Fast pulse
+static const uint8_t faster_pulse[]  = {1, 0, 1, 2};  //  Faster pulse
 static const uint8_t fastest_pulse[] = {0, 2};  //  Fastest pulse
 
 static void blink_pattern(const uint8_t pattern[], int length);
@@ -42,13 +49,17 @@ static void delay_ms(uint32_t ms);
 
 /// Blink the backlight with a pattern for the number of repetitions
 void blink_backlight(int pattern_id, int repetitions) {
-    switch (pattern_id) {
-        case 0:  blink_pattern(slower_pulse,  sizeof(slower_pulse));  break;
-        case 1:  blink_pattern(slow_pulse,    sizeof(slow_pulse));    break;
-        case 2:  blink_pattern(fast_pulse,    sizeof(fast_pulse));    break;
-        case 3:  blink_pattern(faster_pulse,  sizeof(faster_pulse));  break;
-        default: blink_pattern(fastest_pulse, sizeof(fastest_pulse)); break;
+    for (int i = 0; i < repetitions; i++) {
+        switch (pattern_id) {
+            case 0:  blink_pattern(slower_pulse,  sizeof(slower_pulse));  break;
+            case 1:  blink_pattern(slow_pulse,    sizeof(slow_pulse));    break;
+            case 2:  blink_pattern(fast_pulse,    sizeof(fast_pulse));    break;
+            case 3:  blink_pattern(faster_pulse,  sizeof(faster_pulse));  break;
+            default: blink_pattern(fastest_pulse, sizeof(fastest_pulse)); break;
+        }
     }
+    //  Always end with high backlight
+    hal_gpio_init_out(backlights[2], 0);
 }
 
 /// Blink backlight according to the pattern: 0=Low, 1=Mid, 2=High
@@ -57,12 +68,13 @@ static void blink_pattern(const uint8_t pattern[], int length) {
         //  Switch on the Low, Mid or High backlight. Backlight is active when low.
         uint8_t gpio = backlights[i];
         hal_gpio_init_out(gpio, 0);
+        hal_gpio_write(gpio, 0);
 
         //  Pause a short while.
         delay_ms(10);
 
         //  Switch off the Low, Mid or High backlight.
-        hal_gpio_init_out(gpio, 1);
+        hal_gpio_write(gpio, 1);
     }
 }
 
@@ -74,7 +86,7 @@ static void delay_ms(uint32_t ms) {
 #else  //  If Task Scheduler is disabled (i.e. MCUBoot)...
     //  os_time_delay() doesn't work in MCUBoot because the scheduler has not started
     uint8_t button_samples = 0;
-    for (int i = 0; i < 64; i++) {
+    for (int i = 0; i < ms * 2; i++) {
         for (int delay = 0; delay < 100000; delay++) {}
         button_samples += hal_gpio_read(PUSH_BUTTON_IN);
     }
