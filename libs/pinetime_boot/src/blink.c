@@ -36,8 +36,6 @@ static const uint8_t slower_pulse[]  = {
     0, 0, 0, 0, 0, 0, 
     1, 1, 1, 1, 1, 1, 
     2, 2, 2, 2, 2, 2,
-    2, 2, 2, 2, 2, 2,
-    2, 2, 2, 2, 2, 2,
 };  //  Slower pulse
 static const uint8_t slow_pulse[]    = {1, 1, 1, 0, 0, 0, 1, 1, 1, 2, 2, 2};  //  Slow pulse
 static const uint8_t fast_pulse[]    = {1, 1, 0, 0, 1, 1, 2, 2}; //  Fast pulse
@@ -46,6 +44,15 @@ static const uint8_t fastest_pulse[] = {0, 2};  //  Fastest pulse
 
 static void blink_pattern(const uint8_t pattern[], int length);
 static void delay_ms(uint32_t ms);
+
+/// Init the backlights
+void init_backlight(void) {
+    for (int i = 0; i < sizeof(backlights); i++) {
+        uint8_t gpio = backlights[i];
+        //  Switch to off
+        hal_gpio_init_out(gpio, 1);
+    }
+}
 
 /// Blink the backlight with a pattern for the number of repetitions
 void blink_backlight(int pattern_id, int repetitions) {
@@ -59,21 +66,21 @@ void blink_backlight(int pattern_id, int repetitions) {
         }
     }
     //  Always end with high backlight
-    hal_gpio_init_out(backlights[2], 0);
+    hal_gpio_write(backlights[2], 0);
 }
 
 /// Blink backlight according to the pattern: 0=Low, 1=Mid, 2=High
 static void blink_pattern(const uint8_t pattern[], int length) {
     for (int i = 0; i < length; i++) {
-        //  Switch on the Low, Mid or High backlight. Backlight is active when low.
-        uint8_t gpio = backlights[i];
-        hal_gpio_init_out(gpio, 0);
+        //  Switch on the Low, Mid or High backlight. Backlight is active when low
+        uint8_t level = pattern[i];
+        uint8_t gpio = backlights[level];
         hal_gpio_write(gpio, 0);
 
-        //  Pause a short while.
+        //  Pause a short while
         delay_ms(10);
 
-        //  Switch off the Low, Mid or High backlight.
+        //  Switch off the Low, Mid or High backlight
         hal_gpio_write(gpio, 1);
     }
 }
@@ -86,7 +93,7 @@ static void delay_ms(uint32_t ms) {
 #else  //  If Task Scheduler is disabled (i.e. MCUBoot)...
     //  os_time_delay() doesn't work in MCUBoot because the scheduler has not started
     uint8_t button_samples = 0;
-    for (int i = 0; i < ms * 2; i++) {
+    for (int i = 0; i < ms * 4; i++) {
         for (int delay = 0; delay < 100000; delay++) {}
         button_samples += hal_gpio_read(PUSH_BUTTON_IN);
     }

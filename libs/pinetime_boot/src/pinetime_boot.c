@@ -40,12 +40,13 @@
 /// Address of the VTOR Register in the System Control Block.
 #define SCB_VTOR ((uint32_t *) 0xE000ED08)
 
+void init_backlight(void);  //  Defined in blink.c
 void blink_backlight(int pattern_id, int repetitions);  //  Defined in blink.c
 static void relocate_vector_table(void *vector_table, void *relocated_vector_table);
 
 /// Init the display and render the boot graphic. Called by sysinit() during startup, defined in pkg.yml.
 void pinetime_boot_init(void) {
-    blink_backlight(0, 1);
+    init_backlight();
     console_printf("Starting Bootloader...\n");
     console_flush();
 
@@ -54,13 +55,13 @@ void pinetime_boot_init(void) {
     hal_gpio_init_in(PUSH_BUTTON_IN, HAL_GPIO_PULL_DOWN);  //  TODO: Doesn't seem to work
     hal_gpio_init_out(PUSH_BUTTON_OUT, 1);
     hal_gpio_write(PUSH_BUTTON_OUT, 1);  //  Enable the button
-    blink_backlight(0, 1);
+    ////blink_backlight(0, 1);
 
     //  Display the image.
     pinetime_boot_display_image();
     console_printf("Check button: %d\n", hal_gpio_read(PUSH_BUTTON_IN));
     console_flush();
-    blink_backlight(0, 1);
+    blink_backlight(0, 5);
 
     uint8_t button_samples = 0;
     //  Wait 5 seconds for button press.
@@ -71,13 +72,14 @@ void pinetime_boot_init(void) {
         for (int delay = 0; delay < 100000; delay++);
         button_samples += hal_gpio_read(PUSH_BUTTON_IN);
     }
+    ////blink_backlight(0, 1);
 
     if (button_samples > 1 /* TODO: this needs to be set higher to avoid accidental rollbacks */) {
         console_printf("Flashing and resetting...\n");
         console_flush();
-        blink_backlight(0, 1);
+        ////blink_backlight(0, 1);
         boot_set_pending(0);
-        blink_backlight(0, 1);
+        ////blink_backlight(0, 1);
         hal_system_reset();
         return;
     }
@@ -109,7 +111,7 @@ void boot_custom_start(
     uintptr_t flash_base,
     struct boot_rsp *rsp
 ) {
-    blink_backlight(0, 1);
+    ////blink_backlight(0, 1);
     console_printf("Bootloader done\n");
     console_flush();
 
@@ -128,10 +130,9 @@ void boot_custom_start(
         vector_table,       //  From the non-aligned application address (0x8020)
         (void *) RELOCATED_VECTOR_TABLE  //  To the relocated address aligned to 0x100 page boundary
     );
-    blink_backlight(0, 1);
+    ////blink_backlight(0, 1);
 
     setup_watchdog();
-    blink_backlight(0, 1);
     
     //  Start the Active Firmware Image at the Reset_Handler function.
     hal_system_start(vector_table);

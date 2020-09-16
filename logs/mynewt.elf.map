@@ -87,7 +87,7 @@ Archive member included to satisfy reference by file (symbol)
 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
                               /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/boot_mynewt.a(main.o) (boot_custom_start)
 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
-                              /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o) (blink_backlight)
+                              /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o) (init_backlight)
 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
                               /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o) (pinetime_boot_display_image)
 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
@@ -1359,7 +1359,7 @@ END GROUP
                 0x0000000000000000                . = (. + _imghdr_size)
                 0x0000000000000000                __text = .
 
-.text           0x0000000000000000     0x5d1c
+.text           0x0000000000000000     0x5cf4
                 0x0000000000000000                __isr_vector_start = .
  *(.isr_vector)
  .isr_vector    0x0000000000000000       0xd8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
@@ -1727,396 +1727,399 @@ END GROUP
  .text.relocate_vector_table
                 0x0000000000001d14       0x50 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
  .text.pinetime_boot_init
-                0x0000000000001d64       0xc0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
+                0x0000000000001d64       0xa4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
                 0x0000000000001d64                pinetime_boot_init
  .text.setup_watchdog
-                0x0000000000001e24       0x48 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
-                0x0000000000001e24                setup_watchdog
+                0x0000000000001e08       0x48 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
+                0x0000000000001e08                setup_watchdog
  .text.boot_custom_start
-                0x0000000000001e6c       0x4c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
-                0x0000000000001e6c                boot_custom_start
+                0x0000000000001e50       0x34 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
+                0x0000000000001e50                boot_custom_start
  .text.delay_ms
-                0x0000000000001eb8       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
+                0x0000000000001e84       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
  .text.blink_pattern
-                0x0000000000001ee0       0x38 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
+                0x0000000000001eac       0x34 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
+ .text.init_backlight
+                0x0000000000001ee0       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
+                0x0000000000001ee0                init_backlight
  .text.blink_backlight
-                0x0000000000001f18       0x7c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
-                0x0000000000001f18                blink_backlight
+                0x0000000000001efc       0x7c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
+                0x0000000000001efc                blink_backlight
  .text.hard_reset
-                0x0000000000001f94       0x1e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- *fill*         0x0000000000001fb2        0x2 
+                0x0000000000001f78       0x1e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ *fill*         0x0000000000001f96        0x2 
  .text.delay_ms
-                0x0000000000001fb4       0x24 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+                0x0000000000001f98       0x24 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
  .text.transmit_spi
-                0x0000000000001fd8       0x42 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+                0x0000000000001fbc       0x42 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
  .text.write_data
-                0x000000000000201a       0x1a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+                0x0000000000001ffe       0x1a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
  .text.write_command
-                0x0000000000002034       0x5e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- *fill*         0x0000000000002092        0x2 
+                0x0000000000002018       0x5e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ *fill*         0x0000000000002076        0x2 
  .text.init_display
-                0x0000000000002094      0x16c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+                0x0000000000002078      0x16c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
  .text.set_orientation
-                0x0000000000002200       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+                0x00000000000021e4       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
  .text.set_window
-                0x0000000000002230      0x110 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+                0x0000000000002214      0x110 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
  .text.pinetime_boot_display_image
-                0x0000000000002340      0x114 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
-                0x0000000000002340                pinetime_boot_display_image
+                0x0000000000002324      0x114 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+                0x0000000000002324                pinetime_boot_display_image
  .text.console_write
-                0x0000000000002454       0x1e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
-                0x0000000000002454                console_write
+                0x0000000000002438       0x1e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
+                0x0000000000002438                console_write
  .text.console_blocking_mode
-                0x0000000000002472        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
-                0x0000000000002472                console_blocking_mode
- *fill*         0x000000000000247a        0x2 
+                0x0000000000002456        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
+                0x0000000000002456                console_blocking_mode
+ *fill*         0x000000000000245e        0x2 
  .text.console_pkg_init
-                0x000000000000247c       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
-                0x000000000000247c                console_pkg_init
+                0x0000000000002460       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
+                0x0000000000002460                console_pkg_init
  .text.console_printf
-                0x00000000000024bc       0x48 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
-                0x00000000000024bc                console_printf
+                0x00000000000024a0       0x48 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
+                0x00000000000024a0                console_printf
  .text.console_flush
-                0x0000000000002504       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
-                0x0000000000002504                console_flush
+                0x00000000000024e8       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
+                0x00000000000024e8                console_flush
  .text.disable_buffer
-                0x0000000000002540        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
-                0x0000000000002540                disable_buffer
+                0x0000000000002524        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
+                0x0000000000002524                disable_buffer
  .text.console_out_nolock
-                0x0000000000002548       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
-                0x0000000000002548                console_out_nolock
+                0x000000000000252c       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
+                0x000000000000252c                console_out_nolock
  .text.semihosting_console_init
-                0x0000000000002570        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
-                0x0000000000002570                semihosting_console_init
+                0x0000000000002554        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
+                0x0000000000002554                semihosting_console_init
  .text.console_get_ticks
-                0x0000000000002574        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(ticks.o)
-                0x0000000000002574                console_get_ticks
+                0x0000000000002558        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(ticks.o)
+                0x0000000000002558                console_get_ticks
  .text.sysinit_dflt_panic_cb
-                0x0000000000002580        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
- *fill*         0x0000000000002586        0x2 
+                0x0000000000002564        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
+ *fill*         0x000000000000256a        0x2 
  .text.sysinit_start
-                0x0000000000002588        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
-                0x0000000000002588                sysinit_start
+                0x000000000000256c        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
+                0x000000000000256c                sysinit_start
  .text.sysinit_end
-                0x0000000000002594        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
-                0x0000000000002594                sysinit_end
+                0x0000000000002578        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
+                0x0000000000002578                sysinit_end
  .text.mem_init_mbuf_pool
-                0x00000000000025a0       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/util/mem/util_mem.a(mem.o)
-                0x00000000000025a0                mem_init_mbuf_pool
+                0x0000000000002584       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/util/mem/util_mem.a(mem.o)
+                0x0000000000002584                mem_init_mbuf_pool
  .text.sysinit_app
-                0x00000000000025d0       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysinit-app.o)
-                0x00000000000025d0                sysinit_app
+                0x00000000000025b4       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysinit-app.o)
+                0x00000000000025b4                sysinit_app
  .text.boot_flag_decode
-                0x00000000000025ec        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x00000000000025d0        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
  .text.boot_magic_decode
-                0x00000000000025f8       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x00000000000025dc       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
  .text.boot_find_status
-                0x0000000000002610       0x60 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x00000000000025f4       0x60 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
  .text.boot_write_trailer
-                0x0000000000002670       0x6a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x0000000000002654       0x6a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
  .text.boot_write_trailer_flag
-                0x00000000000026da       0x16 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x00000000000026be       0x16 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
  .text.boot_magic_compatible_check
-                0x00000000000026f0       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
-                0x00000000000026f0                boot_magic_compatible_check
+                0x00000000000026d4       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x00000000000026d4                boot_magic_compatible_check
  .text.boot_status_sz
-                0x0000000000002710        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
-                0x0000000000002710                boot_status_sz
+                0x00000000000026f4        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x00000000000026f4                boot_status_sz
  .text.boot_trailer_sz
-                0x0000000000002718        0xa /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
-                0x0000000000002718                boot_trailer_sz
+                0x00000000000026fc        0xa /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x00000000000026fc                boot_trailer_sz
  .text.boot_status_entries
-                0x0000000000002722       0x1e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
-                0x0000000000002722                boot_status_entries
+                0x0000000000002706       0x1e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x0000000000002706                boot_status_entries
  .text.boot_status_off
-                0x0000000000002740       0x2a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
-                0x0000000000002740                boot_status_off
+                0x0000000000002724       0x2a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x0000000000002724                boot_status_off
  .text.boot_swap_info_off
-                0x000000000000276a        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
-                0x000000000000276a                boot_swap_info_off
+                0x000000000000274e        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x000000000000274e                boot_swap_info_off
  .text.boot_read_swap_state
-                0x0000000000002770       0xc0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
-                0x0000000000002770                boot_read_swap_state
+                0x0000000000002754       0xc0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x0000000000002754                boot_read_swap_state
  .text.boot_read_swap_state_by_id
-                0x0000000000002830       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
-                0x0000000000002830                boot_read_swap_state_by_id
+                0x0000000000002814       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x0000000000002814                boot_read_swap_state_by_id
  .text.boot_read_swap_size
-                0x0000000000002850       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
-                0x0000000000002850                boot_read_swap_size
+                0x0000000000002834       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x0000000000002834                boot_read_swap_size
  .text.boot_write_magic
-                0x0000000000002880       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
-                0x0000000000002880                boot_write_magic
+                0x0000000000002864       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x0000000000002864                boot_write_magic
  .text.boot_write_copy_done
-                0x00000000000028a0        0xe /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
-                0x00000000000028a0                boot_write_copy_done
+                0x0000000000002884        0xe /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x0000000000002884                boot_write_copy_done
  .text.boot_write_image_ok
-                0x00000000000028ae        0xe /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
-                0x00000000000028ae                boot_write_image_ok
+                0x0000000000002892        0xe /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x0000000000002892                boot_write_image_ok
  .text.boot_write_swap_info
-                0x00000000000028bc       0x54 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
-                0x00000000000028bc                boot_write_swap_info
+                0x00000000000028a0       0x54 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x00000000000028a0                boot_write_swap_info
  .text.boot_write_swap_size
-                0x0000000000002910       0x22 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
-                0x0000000000002910                boot_write_swap_size
- *fill*         0x0000000000002932        0x2 
+                0x00000000000028f4       0x22 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x00000000000028f4                boot_write_swap_size
+ *fill*         0x0000000000002916        0x2 
  .text.boot_swap_type_multi
-                0x0000000000002934       0xd8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
-                0x0000000000002934                boot_swap_type_multi
+                0x0000000000002918       0xd8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x0000000000002918                boot_swap_type_multi
  .text.boot_set_pending
-                0x0000000000002a0c       0x92 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
-                0x0000000000002a0c                boot_set_pending
- *fill*         0x0000000000002a9e        0x2 
+                0x00000000000029f0       0x92 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x00000000000029f0                boot_set_pending
+ *fill*         0x0000000000002a82        0x2 
  .text.boot_is_header_valid
-                0x0000000000002aa0       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x0000000000002a84       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
  .text.boot_write_sz
-                0x0000000000002ae0       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x0000000000002ac4       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
  .text.boot_read_image_size
-                0x0000000000002afc       0x9c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x0000000000002ae0       0x9c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
  .text.boot_check_header_erased
-                0x0000000000002b98       0x54 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x0000000000002b7c       0x54 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
  .text.boot_initialize_area
-                0x0000000000002bec       0x48 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x0000000000002bd0       0x48 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
  .text.boot_read_sectors
-                0x0000000000002c34       0x3a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
- *fill*         0x0000000000002c6e        0x2 
+                0x0000000000002c18       0x3a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+ *fill*         0x0000000000002c52        0x2 
  .text.boot_image_check
-                0x0000000000002c70       0x34 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x0000000000002c54       0x34 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
  .text.boot_validate_slot
-                0x0000000000002ca4       0x98 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x0000000000002c88       0x98 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
  .text.boot_validated_swap_type
-                0x0000000000002d3c       0x38 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x0000000000002d20       0x38 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
  .text.boot_read_image_headers
-                0x0000000000002d74       0x36 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x0000000000002d58       0x36 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
  .text.boot_status_reset
-                0x0000000000002daa       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
-                0x0000000000002daa                boot_status_reset
+                0x0000000000002d8e       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x0000000000002d8e                boot_status_reset
  .text.boot_status_is_reset
-                0x0000000000002dbe       0x22 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
-                0x0000000000002dbe                boot_status_is_reset
+                0x0000000000002da2       0x22 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x0000000000002da2                boot_status_is_reset
  .text.boot_swap_image
-                0x0000000000002de0       0xb4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x0000000000002dc4       0xb4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
  .text.boot_complete_partial_swap
-                0x0000000000002e94       0x94 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x0000000000002e78       0x94 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
  .text.boot_perform_update
-                0x0000000000002f28       0x60 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x0000000000002f0c       0x60 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
  .text.boot_prepare_image_for_update
-                0x0000000000002f88       0xf4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x0000000000002f6c       0xf4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
  .text.boot_write_status
-                0x000000000000307c       0x68 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
-                0x000000000000307c                boot_write_status
+                0x0000000000003060       0x68 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x0000000000003060                boot_write_status
  .text.boot_erase_region
-                0x00000000000030e4        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
-                0x00000000000030e4                boot_erase_region
+                0x00000000000030c8        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x00000000000030c8                boot_erase_region
  .text.boot_copy_region
-                0x00000000000030ec       0x58 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
-                0x00000000000030ec                boot_copy_region
+                0x00000000000030d0       0x58 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x00000000000030d0                boot_copy_region
  .text.context_boot_go
-                0x0000000000003144      0x160 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
-                0x0000000000003144                context_boot_go
- .text.boot_go  0x00000000000032a4       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
-                0x00000000000032a4                boot_go
+                0x0000000000003128      0x160 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x0000000000003128                context_boot_go
+ .text.boot_go  0x0000000000003288       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x0000000000003288                boot_go
  .text.swap_erase_trailer_sectors
-                0x00000000000032b4       0x8c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
-                0x00000000000032b4                swap_erase_trailer_sectors
+                0x0000000000003298       0x8c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
+                0x0000000000003298                swap_erase_trailer_sectors
  .text.swap_status_init
-                0x0000000000003340       0xb2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
-                0x0000000000003340                swap_status_init
+                0x0000000000003324       0xb2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
+                0x0000000000003324                swap_status_init
  .text.swap_read_status
-                0x00000000000033f2       0x84 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
-                0x00000000000033f2                swap_read_status
+                0x00000000000033d6       0x84 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
+                0x00000000000033d6                swap_read_status
  .text.swap_set_copy_done
-                0x0000000000003476       0x1e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
-                0x0000000000003476                swap_set_copy_done
+                0x000000000000345a       0x1e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
+                0x000000000000345a                swap_set_copy_done
  .text.swap_set_image_ok
-                0x0000000000003494       0x3a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
-                0x0000000000003494                swap_set_image_ok
+                0x0000000000003478       0x3a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
+                0x0000000000003478                swap_set_image_ok
  .text.boot_copy_sz
-                0x00000000000034ce       0x2e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
+                0x00000000000034b2       0x2e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
  .text.boot_swap_sectors
-                0x00000000000034fc      0x3f2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
+                0x00000000000034e0      0x3f2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
  .text.boot_read_image_header
-                0x00000000000038ee       0x34 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
-                0x00000000000038ee                boot_read_image_header
- *fill*         0x0000000000003922        0x2 
+                0x00000000000038d2       0x34 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
+                0x00000000000038d2                boot_read_image_header
+ *fill*         0x0000000000003906        0x2 
  .text.swap_read_status_bytes
-                0x0000000000003924       0xc4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
-                0x0000000000003924                swap_read_status_bytes
+                0x0000000000003908       0xc4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
+                0x0000000000003908                swap_read_status_bytes
  .text.boot_status_internal_off
-                0x00000000000039e8       0x1a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
-                0x00000000000039e8                boot_status_internal_off
- *fill*         0x0000000000003a02        0x2 
+                0x00000000000039cc       0x1a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
+                0x00000000000039cc                boot_status_internal_off
+ *fill*         0x00000000000039e6        0x2 
  .text.boot_slots_compatible
-                0x0000000000003a04      0x100 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
-                0x0000000000003a04                boot_slots_compatible
+                0x00000000000039e8      0x100 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
+                0x00000000000039e8                boot_slots_compatible
  .text.swap_status_source
-                0x0000000000003b04      0x14c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
-                0x0000000000003b04                swap_status_source
+                0x0000000000003ae8      0x14c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
+                0x0000000000003ae8                swap_status_source
  .text.swap_run
-                0x0000000000003c50       0x7e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
-                0x0000000000003c50                swap_run
+                0x0000000000003c34       0x7e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
+                0x0000000000003c34                swap_run
  .text.bootutil_img_hash
-                0x0000000000003cce       0x7e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(image_validate.o)
+                0x0000000000003cb2       0x7e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(image_validate.o)
  .text.bootutil_img_validate
-                0x0000000000003d4c       0xba /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(image_validate.o)
-                0x0000000000003d4c                bootutil_img_validate
+                0x0000000000003d30       0xba /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(image_validate.o)
+                0x0000000000003d30                bootutil_img_validate
  .text.bootutil_tlv_iter_begin
-                0x0000000000003e06       0xca /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(tlv.o)
-                0x0000000000003e06                bootutil_tlv_iter_begin
+                0x0000000000003dea       0xca /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(tlv.o)
+                0x0000000000003dea                bootutil_tlv_iter_begin
  .text.bootutil_tlv_iter_next
-                0x0000000000003ed0       0xb8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(tlv.o)
-                0x0000000000003ed0                bootutil_tlv_iter_next
+                0x0000000000003eb4       0xb8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(tlv.o)
+                0x0000000000003eb4                bootutil_tlv_iter_next
  .text.flash_area_id_from_multi_image_slot
-                0x0000000000003f88       0x12 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/flash_map_backend/boot_mynewt_flash_map_backend.a(flash_map_extended.o)
-                0x0000000000003f88                flash_area_id_from_multi_image_slot
+                0x0000000000003f6c       0x12 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/flash_map_backend/boot_mynewt_flash_map_backend.a(flash_map_extended.o)
+                0x0000000000003f6c                flash_area_id_from_multi_image_slot
  .text.mbedtls_sha256_init
-                0x0000000000003f9a        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
-                0x0000000000003f9a                mbedtls_sha256_init
- *fill*         0x0000000000003fa6        0x2 
+                0x0000000000003f7e        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
+                0x0000000000003f7e                mbedtls_sha256_init
+ *fill*         0x0000000000003f8a        0x2 
  .text.mbedtls_sha256_starts_ret
-                0x0000000000003fa8       0xa4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
-                0x0000000000003fa8                mbedtls_sha256_starts_ret
+                0x0000000000003f8c       0xa4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
+                0x0000000000003f8c                mbedtls_sha256_starts_ret
  .text.mbedtls_internal_sha256_process
-                0x000000000000404c      0x128 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
-                0x000000000000404c                mbedtls_internal_sha256_process
+                0x0000000000004030      0x128 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
+                0x0000000000004030                mbedtls_internal_sha256_process
  .text.mbedtls_sha256_update_ret
-                0x0000000000004174       0x86 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
-                0x0000000000004174                mbedtls_sha256_update_ret
+                0x0000000000004158       0x86 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
+                0x0000000000004158                mbedtls_sha256_update_ret
  .text.mbedtls_sha256_finish_ret
-                0x00000000000041fa      0x13e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
-                0x00000000000041fa                mbedtls_sha256_finish_ret
+                0x00000000000041de      0x13e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
+                0x00000000000041de                mbedtls_sha256_finish_ret
  .text.hal_flash_check_addr
-                0x0000000000004338       0x1e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
+                0x000000000000431c       0x1e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
  .text.hal_flash_init
-                0x0000000000004356       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
-                0x0000000000004356                hal_flash_init
+                0x000000000000433a       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
+                0x000000000000433a                hal_flash_init
  .text.hal_flash_align
-                0x000000000000437e       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
-                0x000000000000437e                hal_flash_align
+                0x0000000000004362       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
+                0x0000000000004362                hal_flash_align
  .text.hal_flash_erased_val
-                0x000000000000438e       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
-                0x000000000000438e                hal_flash_erased_val
+                0x0000000000004372       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
+                0x0000000000004372                hal_flash_erased_val
  .text.hal_flash_read
-                0x000000000000439e       0x54 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
-                0x000000000000439e                hal_flash_read
- *fill*         0x00000000000043f2        0x2 
+                0x0000000000004382       0x54 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
+                0x0000000000004382                hal_flash_read
+ *fill*         0x00000000000043d6        0x2 
  .text.hal_flash_write
-                0x00000000000043f4       0x74 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
-                0x00000000000043f4                hal_flash_write
+                0x00000000000043d8       0x74 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
+                0x00000000000043d8                hal_flash_write
  .text.hal_flash_erase
-                0x0000000000004468       0xd8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
-                0x0000000000004468                hal_flash_erase
+                0x000000000000444c       0xd8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
+                0x000000000000444c                hal_flash_erase
  .text.hal_flash_is_erased
-                0x0000000000004540       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
-                0x0000000000004540                hal_flash_is_erased
+                0x0000000000004524       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
+                0x0000000000004524                hal_flash_is_erased
  .text.hal_flash_isempty
-                0x0000000000004570       0x62 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
-                0x0000000000004570                hal_flash_isempty
+                0x0000000000004554       0x62 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
+                0x0000000000004554                hal_flash_isempty
  .text.hal_system_start
-                0x00000000000045d2        0xa /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system_start.o)
-                0x00000000000045d2                hal_system_start
- .text.fwrite   0x00000000000045dc       0x1e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
-                0x00000000000045dc                fwrite
- *fill*         0x00000000000045fa        0x2 
- .text.puts     0x00000000000045fc       0x34 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
-                0x00000000000045fc                puts
+                0x00000000000045b6        0xa /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system_start.o)
+                0x00000000000045b6                hal_system_start
+ .text.fwrite   0x00000000000045c0       0x1e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
+                0x00000000000045c0                fwrite
+ *fill*         0x00000000000045de        0x2 
+ .text.puts     0x00000000000045e0       0x34 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
+                0x00000000000045e0                puts
  .text.stdin_read
-                0x0000000000004630        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
+                0x0000000000004614        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
  .text.stdout_write
-                0x0000000000004634       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
- .text.ui2a     0x0000000000004644       0xec /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
- .text.i2a      0x0000000000004730       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
- .text.a2d      0x0000000000004750       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
- .text.a2i      0x0000000000004780       0x36 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
- .text.putf     0x00000000000047b6       0x2a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
- .text.putchw   0x00000000000047e0      0x11c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
- .text.intarg   0x00000000000048fc       0x64 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
+                0x0000000000004618       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
+ .text.ui2a     0x0000000000004628       0xec /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
+ .text.i2a      0x0000000000004714       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
+ .text.a2d      0x0000000000004734       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
+ .text.a2i      0x0000000000004764       0x36 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
+ .text.putf     0x000000000000479a       0x2a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
+ .text.putchw   0x00000000000047c4      0x11c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
+ .text.intarg   0x00000000000048e0       0x64 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
  .text.tfp_format
-                0x0000000000004960      0x298 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
-                0x0000000000004960                tfp_format
+                0x0000000000004944      0x298 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
+                0x0000000000004944                tfp_format
  .text.vfprintf
-                0x0000000000004bf8        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
-                0x0000000000004bf8                vfprintf
- .text.printf   0x0000000000004c00       0x24 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
-                0x0000000000004c00                printf
- .text.vprintf  0x0000000000004c24       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(vprintf.o)
-                0x0000000000004c24                vprintf
+                0x0000000000004bdc        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
+                0x0000000000004bdc                vfprintf
+ .text.printf   0x0000000000004be4       0x24 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
+                0x0000000000004be4                printf
+ .text.vprintf  0x0000000000004c08       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(vprintf.o)
+                0x0000000000004c08                vprintf
  .text.flash_area_find_idx
-                0x0000000000004c38       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+                0x0000000000004c1c       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
  .text.flash_map_area_overlaps
-                0x0000000000004c74       0x58 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+                0x0000000000004c58       0x58 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
  .text.flash_map_add_new_dflt_areas
-                0x0000000000004ccc       0x7c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+                0x0000000000004cb0       0x7c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
  .text.flash_map_read_mfg
-                0x0000000000004d48       0x78 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+                0x0000000000004d2c       0x78 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
  .text.flash_area_open
-                0x0000000000004dc0       0x34 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
-                0x0000000000004dc0                flash_area_open
+                0x0000000000004da4       0x34 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+                0x0000000000004da4                flash_area_open
  .text.flash_area_to_sectors
-                0x0000000000004df4       0x7c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
-                0x0000000000004df4                flash_area_to_sectors
+                0x0000000000004dd8       0x7c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+                0x0000000000004dd8                flash_area_to_sectors
  .text.flash_area_read
-                0x0000000000004e70       0x26 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
-                0x0000000000004e70                flash_area_read
+                0x0000000000004e54       0x26 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+                0x0000000000004e54                flash_area_read
  .text.flash_area_write
-                0x0000000000004e96       0x26 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
-                0x0000000000004e96                flash_area_write
+                0x0000000000004e7a       0x26 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+                0x0000000000004e7a                flash_area_write
  .text.flash_area_erase
-                0x0000000000004ebc       0x26 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
-                0x0000000000004ebc                flash_area_erase
+                0x0000000000004ea0       0x26 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+                0x0000000000004ea0                flash_area_erase
  .text.flash_area_align
-                0x0000000000004ee2        0xa /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
-                0x0000000000004ee2                flash_area_align
+                0x0000000000004ec6        0xa /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+                0x0000000000004ec6                flash_area_align
  .text.flash_area_erased_val
-                0x0000000000004eec        0xa /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
-                0x0000000000004eec                flash_area_erased_val
+                0x0000000000004ed0        0xa /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+                0x0000000000004ed0                flash_area_erased_val
  .text.flash_area_read_is_empty
-                0x0000000000004ef6        0xe /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
-                0x0000000000004ef6                flash_area_read_is_empty
+                0x0000000000004eda        0xe /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+                0x0000000000004eda                flash_area_read_is_empty
  .text.flash_map_init
-                0x0000000000004f04       0x68 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
-                0x0000000000004f04                flash_map_init
+                0x0000000000004ee8       0x68 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+                0x0000000000004ee8                flash_map_init
  .text.modlog_init
-                0x0000000000004f6c        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/log/modlog/sys_log_modlog.a(modlog.o)
-                0x0000000000004f6c                modlog_init
- *fill*         0x0000000000004f6e        0x2 
+                0x0000000000004f50        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/log/modlog/sys_log_modlog.a(modlog.o)
+                0x0000000000004f50                modlog_init
+ *fill*         0x0000000000004f52        0x2 
  .text.mfg_seek_next_aux
-                0x0000000000004f70       0x94 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
+                0x0000000000004f54       0x94 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
  .text.mfg_read_mmr
-                0x0000000000005004       0x70 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
+                0x0000000000004fe8       0x70 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
  .text.mfg_read_next_mmr
-                0x0000000000005074       0x54 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
+                0x0000000000005058       0x54 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
  .text.mfg_open_flash_area
-                0x00000000000050c8       0x44 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
+                0x00000000000050ac       0x44 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
  .text.mfg_read_tlv_body
-                0x000000000000510c       0x44 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
+                0x00000000000050f0       0x44 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
  .text.mfg_seek_next
-                0x0000000000005150       0x12 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
-                0x0000000000005150                mfg_seek_next
+                0x0000000000005134       0x12 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
+                0x0000000000005134                mfg_seek_next
  .text.mfg_seek_next_with_type
-                0x0000000000005162       0x1a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
-                0x0000000000005162                mfg_seek_next_with_type
+                0x0000000000005146       0x1a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
+                0x0000000000005146                mfg_seek_next_with_type
  .text.mfg_read_tlv_flash_area
-                0x000000000000517c        0xa /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
-                0x000000000000517c                mfg_read_tlv_flash_area
+                0x0000000000005160        0xa /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
+                0x0000000000005160                mfg_read_tlv_flash_area
  .text.mfg_read_tlv_mmr_ref
-                0x0000000000005186        0xa /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
-                0x0000000000005186                mfg_read_tlv_mmr_ref
+                0x000000000000516a        0xa /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
+                0x000000000000516a                mfg_read_tlv_mmr_ref
  .text.mfg_init
-                0x0000000000005190       0x24 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
-                0x0000000000005190                mfg_init
+                0x0000000000005174       0x24 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
+                0x0000000000005174                mfg_init
  .text.mfg_open
-                0x00000000000051b4       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
-                0x00000000000051b4                mfg_open
+                0x0000000000005198       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
+                0x0000000000005198                mfg_open
  .text.mfg_read_mmr_refs
-                0x00000000000051c4       0x4e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
- *fill*         0x0000000000005212        0x2 
- .text          0x0000000000005214       0x30 /usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/libgcc.a(_aeabi_uldivmod.o)
-                0x0000000000005214                __aeabi_uldivmod
- .text          0x0000000000005244      0x2cc /usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/libgcc.a(_udivmoddi4.o)
-                0x0000000000005244                __udivmoddi4
- .text          0x0000000000005510        0x4 /usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/libgcc.a(_dvmd_tls.o)
-                0x0000000000005510                __aeabi_ldiv0
-                0x0000000000005510                __aeabi_idiv0
+                0x00000000000051a8       0x4e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
+ *fill*         0x00000000000051f6        0x2 
+ .text          0x00000000000051f8       0x30 /usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/libgcc.a(_aeabi_uldivmod.o)
+                0x00000000000051f8                __aeabi_uldivmod
+ .text          0x0000000000005228      0x2cc /usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/libgcc.a(_udivmoddi4.o)
+                0x0000000000005228                __udivmoddi4
+ .text          0x00000000000054f4        0x4 /usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/libgcc.a(_dvmd_tls.o)
+                0x00000000000054f4                __aeabi_ldiv0
+                0x00000000000054f4                __aeabi_idiv0
  *(.init)
  *(.fini)
  *crtbegin.o(.ctors)
@@ -2131,170 +2134,170 @@ END GROUP
  *(.dtors)
  *(.rodata*)
  .rodata.flash_devs
-                0x0000000000005514        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(hal_bsp.o)
+                0x00000000000054f8        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(hal_bsp.o)
  .rodata.spiflash_characteristics
-                0x000000000000551c       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/drivers/flash/spiflash/hw_drivers_flash_spiflash.a(spiflash.o)
+                0x0000000000005500       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/drivers/flash/spiflash/hw_drivers_flash_spiflash.a(spiflash.o)
  .rodata.spiflash_flash_funcs
-                0x000000000000554c       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/drivers/flash/spiflash/hw_drivers_flash_spiflash.a(spiflash.o)
+                0x0000000000005530       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/drivers/flash/spiflash/hw_drivers_flash_spiflash.a(spiflash.o)
  .rodata.nrf52k_flash_dev
-                0x0000000000005568       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_flash.o)
-                0x0000000000005568                nrf52k_flash_dev
+                0x000000000000554c       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_flash.o)
+                0x000000000000554c                nrf52k_flash_dev
  .rodata.nrf52k_flash_funcs
-                0x0000000000005580       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_flash.o)
+                0x0000000000005564       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_flash.o)
  .rodata.nrf52_hal_spis
-                0x000000000000559c       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_spi.o)
+                0x0000000000005580       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_spi.o)
  .rodata.os_bsp_spi0m_cfg
-                0x00000000000055ac        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_periph.o)
+                0x0000000000005590        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_periph.o)
  .rodata.nrf52_hal_timers
-                0x00000000000055b0       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_timer.o)
+                0x0000000000005594       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_timer.o)
  .rodata.__assert_func.str1.4
-                0x00000000000055c8       0x27 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/kernel/os/kernel_os.a(os_fault.o)
- *fill*         0x00000000000055ef        0x1 
+                0x00000000000055ac       0x27 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/kernel/os/kernel_os.a(os_fault.o)
+ *fill*         0x00000000000055d3        0x1 
  .rodata.os_default_irq.str1.4
-                0x00000000000055f0      0x148 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/kernel/os/kernel_os.a(os_fault.o)
+                0x00000000000055d4      0x148 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/kernel/os/kernel_os.a(os_fault.o)
  .rodata.os_msys_init.str1.4
-                0x0000000000005738        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/kernel/os/kernel_os.a(os_msys.o)
- *fill*         0x000000000000573f        0x1 
+                0x000000000000571c        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/kernel/os/kernel_os.a(os_msys.o)
+ *fill*         0x0000000000005723        0x1 
  .rodata.boot_custom_start.str1.4
-                0x0000000000005740       0x11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
- *fill*         0x0000000000005751        0x3 
+                0x0000000000005724       0x11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
+ *fill*         0x0000000000005735        0x3 
  .rodata.pinetime_boot_init.str1.4
-                0x0000000000005754       0x6b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
- *fill*         0x00000000000057bf        0x1 
+                0x0000000000005738       0x6b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
+ *fill*         0x00000000000057a3        0x1 
  .rodata.backlights
-                0x00000000000057c0        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
- *fill*         0x00000000000057c3        0x1 
+                0x00000000000057a4        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
+ *fill*         0x00000000000057a7        0x1 
  .rodata.fast_pulse
-                0x00000000000057c4        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
+                0x00000000000057a8        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
  .rodata.faster_pulse
-                0x00000000000057cc        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
+                0x00000000000057b0        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
  .rodata.fastest_pulse
-                0x00000000000057d0        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
- *fill*         0x00000000000057d2        0x2 
+                0x00000000000057b4        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
+ *fill*         0x00000000000057b6        0x2 
  .rodata.slow_pulse
-                0x00000000000057d4        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
+                0x00000000000057b8        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
  .rodata.slower_pulse
-                0x00000000000057e0       0x24 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
+                0x00000000000057c4       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
  .rodata.COLMOD_PARA.8090
-                0x0000000000005804        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- *fill*         0x0000000000005805        0x3 
+                0x00000000000057dc        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ *fill*         0x00000000000057dd        0x3 
  .rodata.FRMCTR1_PARA.8078
-                0x0000000000005808        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- *fill*         0x000000000000580b        0x1 
+                0x00000000000057e0        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ *fill*         0x00000000000057e3        0x1 
  .rodata.FRMCTR2_PARA.8079
-                0x000000000000580c        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- *fill*         0x000000000000580f        0x1 
+                0x00000000000057e4        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ *fill*         0x00000000000057e7        0x1 
  .rodata.FRMCTR3_PARA.8080
-                0x0000000000005810        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- *fill*         0x0000000000005816        0x2 
+                0x00000000000057e8        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ *fill*         0x00000000000057ee        0x2 
  .rodata.INVCTR_PARA.8081
-                0x0000000000005818        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- *fill*         0x0000000000005819        0x3 
+                0x00000000000057f0        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ *fill*         0x00000000000057f1        0x3 
  .rodata.MADCTL1_PARA.8088
-                0x000000000000581c        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- *fill*         0x000000000000581d        0x3 
+                0x00000000000057f4        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ *fill*         0x00000000000057f5        0x3 
  .rodata.PWCTR1_PARA.8082
-                0x0000000000005820        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- *fill*         0x0000000000005823        0x1 
+                0x00000000000057f8        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ *fill*         0x00000000000057fb        0x1 
  .rodata.PWCTR2_PARA.8083
-                0x0000000000005824        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- *fill*         0x0000000000005825        0x3 
+                0x00000000000057fc        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ *fill*         0x00000000000057fd        0x3 
  .rodata.PWCTR3_PARA.8084
-                0x0000000000005828        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- *fill*         0x000000000000582a        0x2 
+                0x0000000000005800        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ *fill*         0x0000000000005802        0x2 
  .rodata.PWCTR4_PARA.8085
-                0x000000000000582c        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- *fill*         0x000000000000582e        0x2 
+                0x0000000000005804        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ *fill*         0x0000000000005806        0x2 
  .rodata.PWCTR5_PARA.8086
-                0x0000000000005830        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- *fill*         0x0000000000005832        0x2 
+                0x0000000000005808        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ *fill*         0x000000000000580a        0x2 
  .rodata.VMCTR1_PARA.8087
-                0x0000000000005834        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- *fill*         0x0000000000005835        0x3 
+                0x000000000000580c        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ *fill*         0x000000000000580d        0x3 
  .rodata.pinetime_boot_display_image.str1.4
-                0x0000000000005838       0x29 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- *fill*         0x0000000000005861        0x3 
+                0x0000000000005810       0x29 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ *fill*         0x0000000000005839        0x3 
  .rodata.console_printf.str1.4
-                0x0000000000005864        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
- *fill*         0x000000000000586b        0x1 
- .rodata        0x000000000000586c        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
- *fill*         0x000000000000586e        0x2 
+                0x000000000000583c        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
+ *fill*         0x0000000000005843        0x1 
+ .rodata        0x0000000000005844        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+ *fill*         0x0000000000005846        0x2 
  .rodata.boot_img_magic
-                0x0000000000005870       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
-                0x0000000000005870                boot_img_magic
+                0x0000000000005848       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x0000000000005848                boot_img_magic
  .rodata.boot_swap_tables
-                0x0000000000005880       0x12 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
- *fill*         0x0000000000005892        0x2 
+                0x0000000000005858       0x12 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+ *fill*         0x000000000000586a        0x2 
  .rodata.boot_swap_type_multi.str1.4
-                0x0000000000005894       0x5a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
- *fill*         0x00000000000058ee        0x2 
+                0x000000000000586c       0x5a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+ *fill*         0x00000000000058c6        0x2 
  .rodata.boot_complete_partial_swap.str1.4
-                0x00000000000058f0        0xd /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
- *fill*         0x00000000000058fd        0x3 
+                0x00000000000058c8        0xd /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+ *fill*         0x00000000000058d5        0x3 
  .rodata.boot_prepare_image_for_update.str1.4
-                0x0000000000005900       0xa0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x00000000000058d8       0xa0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
  .rodata.boot_validate_slot.str1.4
-                0x00000000000059a0       0x3e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
- *fill*         0x00000000000059de        0x2 
+                0x0000000000005978       0x3e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+ *fill*         0x00000000000059b6        0x2 
  .rodata.context_boot_go.str1.4
-                0x00000000000059e0       0x27 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
- *fill*         0x0000000000005a07        0x1 
+                0x00000000000059b8       0x27 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+ *fill*         0x00000000000059df        0x1 
  .rodata.boot_slots_compatible.str1.4
-                0x0000000000005a08       0xd3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
- *fill*         0x0000000000005adb        0x1 
+                0x00000000000059e0       0xd3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
+ *fill*         0x0000000000005ab3        0x1 
  .rodata.boot_status_tables
-                0x0000000000005adc       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
+                0x0000000000005ab4       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
  .rodata.swap_read_status_bytes.str1.4
-                0x0000000000005aec       0x24 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
+                0x0000000000005ac4       0x24 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
  .rodata.swap_status_source.str1.4
-                0x0000000000005b10       0xc0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
+                0x0000000000005ae8       0xc0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
                                          0xd4 (size before relaxing)
- .rodata.K      0x0000000000005bd0      0x100 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
+ .rodata.K      0x0000000000005ba8      0x100 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
  .rodata.puts.str1.4
-                0x0000000000005cd0       0xc0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
+                0x0000000000005ca8       0xc0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
                                           0x2 (size before relaxing)
  .rodata.stdout
-                0x0000000000005cd0        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
-                0x0000000000005cd0                stdout
+                0x0000000000005ca8        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
+                0x0000000000005ca8                stdout
  .rodata.sysflash_map_dflt
-                0x0000000000005cd4       0x48 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysflash.o)
-                0x0000000000005cd4                sysflash_map_dflt
+                0x0000000000005cac       0x48 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysflash.o)
+                0x0000000000005cac                sysflash_map_dflt
  *(.eh_frame*)
-                0x0000000000005d90                . = ALIGN (0x4)
+                0x0000000000005d68                . = ALIGN (0x4)
 
-.glue_7         0x0000000000005d1c        0x0
- .glue_7        0x0000000000005d1c        0x0 linker stubs
+.glue_7         0x0000000000005cf4        0x0
+ .glue_7        0x0000000000005cf4        0x0 linker stubs
 
-.glue_7t        0x0000000000005d1c        0x0
- .glue_7t       0x0000000000005d1c        0x0 linker stubs
+.glue_7t        0x0000000000005cf4        0x0
+ .glue_7t       0x0000000000005cf4        0x0 linker stubs
 
-.vfp11_veneer   0x0000000000005d1c        0x0
- .vfp11_veneer  0x0000000000005d1c        0x0 linker stubs
+.vfp11_veneer   0x0000000000005cf4        0x0
+ .vfp11_veneer  0x0000000000005cf4        0x0 linker stubs
 
-.v4_bx          0x0000000000005d1c        0x0
- .v4_bx         0x0000000000005d1c        0x0 linker stubs
+.v4_bx          0x0000000000005cf4        0x0
+ .v4_bx         0x0000000000005cf4        0x0 linker stubs
 
-.iplt           0x0000000000005d1c        0x0
- .iplt          0x0000000000005d1c        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
+.iplt           0x0000000000005cf4        0x0
+ .iplt          0x0000000000005cf4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
 
-.ARM.extab      0x0000000000005d1c        0x0
+.ARM.extab      0x0000000000005cf4        0x0
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0000000000005d1c                . = ALIGN (0x4)
-                0x0000000000005d1c                __exidx_start = .
+                0x0000000000005cf4                . = ALIGN (0x4)
+                0x0000000000005cf4                __exidx_start = .
 
-.ARM.exidx      0x0000000000005d1c       0x18
+.ARM.exidx      0x0000000000005cf4       0x18
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
- .ARM.exidx     0x0000000000005d1c        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
- .ARM.exidx     0x0000000000005d24       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/kernel/os/kernel_os.a(HAL_CM4.o)
+ .ARM.exidx     0x0000000000005cf4        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
+ .ARM.exidx     0x0000000000005cfc       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/kernel/os/kernel_os.a(HAL_CM4.o)
                                          0x30 (size before relaxing)
- .ARM.exidx     0x0000000000005d34        0x0 /usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/libgcc.a(_udivmoddi4.o)
+ .ARM.exidx     0x0000000000005d0c        0x0 /usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/libgcc.a(_udivmoddi4.o)
                                           0x8 (size before relaxing)
-                0x0000000000005d34                . = ALIGN (0x4)
-                0x0000000000005d34                __exidx_end = .
-                0x0000000000005d34                __etext = .
+                0x0000000000005d0c                . = ALIGN (0x4)
+                0x0000000000005d0c                __exidx_end = .
+                0x0000000000005d0c                __etext = .
 
-.rel.dyn        0x0000000000005d34        0x0
- .rel.iplt      0x0000000000005d34        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
+.rel.dyn        0x0000000000005d0c        0x0
+ .rel.iplt      0x0000000000005d0c        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
 
 .vector_relocation
                 0x0000000020000000       0xd8
@@ -2309,7 +2312,7 @@ END GROUP
  *(.rtt)
                 0x00000000200000d8                . = ALIGN (0x4)
 
-.data           0x00000000200000d8       0x84 load address 0x0000000000005d34
+.data           0x00000000200000d8       0x84 load address 0x0000000000005d0c
                 0x00000000200000d8                __data_start__ = .
  *(vtable)
  *(.data*)
@@ -2356,17 +2359,17 @@ END GROUP
                 0x000000002000015c                . = ALIGN (0x4)
                 0x000000002000015c                __data_end__ = .
 
-.igot.plt       0x000000002000015c        0x0 load address 0x0000000000005db8
+.igot.plt       0x000000002000015c        0x0 load address 0x0000000000005d90
  .igot.plt      0x000000002000015c        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
 
-.bssnz          0x000000002000015c        0x0 load address 0x0000000000005db8
+.bssnz          0x000000002000015c        0x0 load address 0x0000000000005d90
                 0x000000002000015c                . = ALIGN (0x4)
                 0x000000002000015c                __bssnz_start__ = .
  *(.bss.core.nz*)
                 0x000000002000015c                . = ALIGN (0x4)
                 0x000000002000015c                __bssnz_end__ = .
 
-.bss            0x000000002000015c     0x62c4 load address 0x0000000000005db8
+.bss            0x000000002000015c     0x62c4 load address 0x0000000000005d90
                 0x000000002000015c                . = ALIGN (0x4)
                 0x000000002000015c                __bss_start__ = .
  *(.bss*)
@@ -2449,7 +2452,7 @@ END GROUP
                 0x0000000020006420                . = ALIGN (0x8)
                 0x0000000020006420                __HeapBase = .
 
-.stack_dummy    0x0000000020006420      0x1b0 load address 0x0000000000005db8
+.stack_dummy    0x0000000020006420      0x1b0 load address 0x0000000000005d90
  *(.stack*)
  .stack         0x0000000020006420      0x1b0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
                 0x0000000020000000                _ram_start = ORIGIN (RAM)
@@ -2661,7 +2664,7 @@ OUTPUT(/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boo
                 0x0000000000000000                SVC_Count
                 0x0000000000000000                SVC_Table
 
-.debug_line     0x0000000000000000    0x1457b
+.debug_line     0x0000000000000000    0x14597
  .debug_line    0x0000000000000000       0x99 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
  .debug_line    0x0000000000000099       0x68 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(sbrk.o)
  .debug_line    0x0000000000000101      0x2bb /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system.o)
@@ -2695,36 +2698,36 @@ OUTPUT(/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boo
  .debug_line    0x000000000000aa6d       0xd3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(memcpy.o)
  .debug_line    0x000000000000ab40      0x223 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(memset.o)
  .debug_line    0x000000000000ad63       0xcf /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(strlen.o)
- .debug_line    0x000000000000ae32      0x64a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
- .debug_line    0x000000000000b47c      0x547 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
- .debug_line    0x000000000000b9c3      0x875 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- .debug_line    0x000000000000c238      0x6d3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
- .debug_line    0x000000000000c90b      0x4fe /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
- .debug_line    0x000000000000ce09      0x6a4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
- .debug_line    0x000000000000d4ad      0x4ec /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(ticks.o)
- .debug_line    0x000000000000d999      0x4e3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
- .debug_line    0x000000000000de7c      0x5e9 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/util/mem/util_mem.a(mem.o)
- .debug_line    0x000000000000e465       0x74 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysinit-app.o)
- .debug_line    0x000000000000e4d9      0x720 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
- .debug_line    0x000000000000ebf9      0x9c4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
- .debug_line    0x000000000000f5bd      0x5a4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
- .debug_line    0x000000000000fb61      0x990 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
- .debug_line    0x00000000000104f1      0x5c9 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(image_validate.o)
- .debug_line    0x0000000000010aba      0x273 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(tlv.o)
- .debug_line    0x0000000000010d2d      0x1e3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/flash_map_backend/boot_mynewt_flash_map_backend.a(flash_map_extended.o)
- .debug_line    0x0000000000010f10      0x694 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
- .debug_line    0x00000000000115a4      0x735 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
- .debug_line    0x0000000000011cd9      0x25b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system_start.o)
- .debug_line    0x0000000000011f34      0x3c2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
- .debug_line    0x00000000000122f6      0x4ea /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
- .debug_line    0x00000000000127e0      0x6cb /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
- .debug_line    0x0000000000012eab      0x121 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(vprintf.o)
- .debug_line    0x0000000000012fcc      0x873 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
- .debug_line    0x000000000001383f      0x4a5 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/log/modlog/sys_log_modlog.a(modlog.o)
- .debug_line    0x0000000000013ce4      0x6e9 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
- .debug_line    0x00000000000143cd      0x1ae /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysflash.o)
+ .debug_line    0x000000000000ae32      0x644 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
+ .debug_line    0x000000000000b476      0x569 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
+ .debug_line    0x000000000000b9df      0x875 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ .debug_line    0x000000000000c254      0x6d3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
+ .debug_line    0x000000000000c927      0x4fe /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
+ .debug_line    0x000000000000ce25      0x6a4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
+ .debug_line    0x000000000000d4c9      0x4ec /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(ticks.o)
+ .debug_line    0x000000000000d9b5      0x4e3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
+ .debug_line    0x000000000000de98      0x5e9 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/util/mem/util_mem.a(mem.o)
+ .debug_line    0x000000000000e481       0x74 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysinit-app.o)
+ .debug_line    0x000000000000e4f5      0x720 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+ .debug_line    0x000000000000ec15      0x9c4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+ .debug_line    0x000000000000f5d9      0x5a4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
+ .debug_line    0x000000000000fb7d      0x990 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
+ .debug_line    0x000000000001050d      0x5c9 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(image_validate.o)
+ .debug_line    0x0000000000010ad6      0x273 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(tlv.o)
+ .debug_line    0x0000000000010d49      0x1e3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/flash_map_backend/boot_mynewt_flash_map_backend.a(flash_map_extended.o)
+ .debug_line    0x0000000000010f2c      0x694 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
+ .debug_line    0x00000000000115c0      0x735 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
+ .debug_line    0x0000000000011cf5      0x25b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system_start.o)
+ .debug_line    0x0000000000011f50      0x3c2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
+ .debug_line    0x0000000000012312      0x4ea /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
+ .debug_line    0x00000000000127fc      0x6cb /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
+ .debug_line    0x0000000000012ec7      0x121 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(vprintf.o)
+ .debug_line    0x0000000000012fe8      0x873 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+ .debug_line    0x000000000001385b      0x4a5 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/log/modlog/sys_log_modlog.a(modlog.o)
+ .debug_line    0x0000000000013d00      0x6e9 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
+ .debug_line    0x00000000000143e9      0x1ae /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysflash.o)
 
-.debug_info     0x0000000000000000    0x2cc2d
+.debug_info     0x0000000000000000    0x2cbf4
  .debug_info    0x0000000000000000       0x26 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
  .debug_info    0x0000000000000026      0x112 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(sbrk.o)
  .debug_info    0x0000000000000138      0x8ea /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system.o)
@@ -2758,34 +2761,34 @@ OUTPUT(/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boo
  .debug_info    0x0000000000018b93       0xf4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(memcpy.o)
  .debug_info    0x0000000000018c87      0x123 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(memset.o)
  .debug_info    0x0000000000018daa       0x94 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(strlen.o)
- .debug_info    0x0000000000018e3e      0xcf8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
- .debug_info    0x0000000000019b36      0x933 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
- .debug_info    0x000000000001a469     0x155b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- .debug_info    0x000000000001b9c4      0xbc5 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
- .debug_info    0x000000000001c589      0x707 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
- .debug_info    0x000000000001cc90      0xe99 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
- .debug_info    0x000000000001db29      0x670 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(ticks.o)
- .debug_info    0x000000000001e199      0x6f7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
- .debug_info    0x000000000001e890      0xf11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/util/mem/util_mem.a(mem.o)
- .debug_info    0x000000000001f7a1       0xb4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysinit-app.o)
- .debug_info    0x000000000001f855     0x130a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
- .debug_info    0x0000000000020b5f     0x1e20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
- .debug_info    0x000000000002297f      0xc1b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
- .debug_info    0x000000000002359a     0x193a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
- .debug_info    0x0000000000024ed4      0xd62 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(image_validate.o)
- .debug_info    0x0000000000025c36      0x42f /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(tlv.o)
- .debug_info    0x0000000000026065      0x1a0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/flash_map_backend/boot_mynewt_flash_map_backend.a(flash_map_extended.o)
- .debug_info    0x0000000000026205      0xd39 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
- .debug_info    0x0000000000026f3e     0x104a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
- .debug_info    0x0000000000027f88      0x2f3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system_start.o)
- .debug_info    0x000000000002827b      0x8d5 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
- .debug_info    0x0000000000028b50      0x712 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
- .debug_info    0x0000000000029262     0x106b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
- .debug_info    0x000000000002a2cd      0x1b0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(vprintf.o)
- .debug_info    0x000000000002a47d     0x12fe /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
- .debug_info    0x000000000002b77b      0x619 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/log/modlog/sys_log_modlog.a(modlog.o)
- .debug_info    0x000000000002bd94      0xd5c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
- .debug_info    0x000000000002caf0      0x13d /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysflash.o)
+ .debug_info    0x0000000000018e3e      0xc64 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
+ .debug_info    0x0000000000019aa2      0x98e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
+ .debug_info    0x000000000001a430     0x155b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ .debug_info    0x000000000001b98b      0xbc5 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
+ .debug_info    0x000000000001c550      0x707 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
+ .debug_info    0x000000000001cc57      0xe99 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
+ .debug_info    0x000000000001daf0      0x670 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(ticks.o)
+ .debug_info    0x000000000001e160      0x6f7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
+ .debug_info    0x000000000001e857      0xf11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/util/mem/util_mem.a(mem.o)
+ .debug_info    0x000000000001f768       0xb4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysinit-app.o)
+ .debug_info    0x000000000001f81c     0x130a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+ .debug_info    0x0000000000020b26     0x1e20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+ .debug_info    0x0000000000022946      0xc1b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
+ .debug_info    0x0000000000023561     0x193a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
+ .debug_info    0x0000000000024e9b      0xd62 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(image_validate.o)
+ .debug_info    0x0000000000025bfd      0x42f /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(tlv.o)
+ .debug_info    0x000000000002602c      0x1a0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/flash_map_backend/boot_mynewt_flash_map_backend.a(flash_map_extended.o)
+ .debug_info    0x00000000000261cc      0xd39 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
+ .debug_info    0x0000000000026f05     0x104a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
+ .debug_info    0x0000000000027f4f      0x2f3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system_start.o)
+ .debug_info    0x0000000000028242      0x8d5 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
+ .debug_info    0x0000000000028b17      0x712 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
+ .debug_info    0x0000000000029229     0x106b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
+ .debug_info    0x000000000002a294      0x1b0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(vprintf.o)
+ .debug_info    0x000000000002a444     0x12fe /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+ .debug_info    0x000000000002b742      0x619 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/log/modlog/sys_log_modlog.a(modlog.o)
+ .debug_info    0x000000000002bd5b      0xd5c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
+ .debug_info    0x000000000002cab7      0x13d /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysflash.o)
 
 .debug_abbrev   0x0000000000000000     0x7f51
  .debug_abbrev  0x0000000000000000       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
@@ -2850,7 +2853,7 @@ OUTPUT(/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boo
  .debug_abbrev  0x0000000000007c04      0x2bc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
  .debug_abbrev  0x0000000000007ec0       0x91 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysflash.o)
 
-.debug_aranges  0x0000000000000000     0x1550
+.debug_aranges  0x0000000000000000     0x1558
  .debug_aranges
                 0x0000000000000000       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
  .debug_aranges
@@ -2920,61 +2923,61 @@ OUTPUT(/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boo
  .debug_aranges
                 0x0000000000000b28       0x38 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
  .debug_aranges
-                0x0000000000000b60       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
+                0x0000000000000b60       0x38 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
  .debug_aranges
-                0x0000000000000b90       0x60 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+                0x0000000000000b98       0x60 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
  .debug_aranges
-                0x0000000000000bf0       0x98 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
+                0x0000000000000bf8       0x98 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
  .debug_aranges
-                0x0000000000000c88       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
+                0x0000000000000c90       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
  .debug_aranges
-                0x0000000000000ca8       0xa0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
+                0x0000000000000cb0       0xa0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
  .debug_aranges
-                0x0000000000000d48       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(ticks.o)
+                0x0000000000000d50       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(ticks.o)
  .debug_aranges
-                0x0000000000000d78       0x38 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
+                0x0000000000000d80       0x38 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
  .debug_aranges
-                0x0000000000000db0       0x58 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/util/mem/util_mem.a(mem.o)
+                0x0000000000000db8       0x58 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/util/mem/util_mem.a(mem.o)
  .debug_aranges
-                0x0000000000000e08       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysinit-app.o)
+                0x0000000000000e10       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysinit-app.o)
  .debug_aranges
-                0x0000000000000e28       0xd0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x0000000000000e30       0xd0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
  .debug_aranges
-                0x0000000000000ef8       0xd0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+                0x0000000000000f00       0xd0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
  .debug_aranges
-                0x0000000000000fc8       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
+                0x0000000000000fd0       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
  .debug_aranges
-                0x0000000000001008       0x58 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
+                0x0000000000001010       0x58 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
  .debug_aranges
-                0x0000000000001060       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(image_validate.o)
+                0x0000000000001068       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(image_validate.o)
  .debug_aranges
-                0x0000000000001088       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(tlv.o)
+                0x0000000000001090       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(tlv.o)
  .debug_aranges
-                0x00000000000010b0       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/flash_map_backend/boot_mynewt_flash_map_backend.a(flash_map_extended.o)
+                0x00000000000010b8       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/flash_map_backend/boot_mynewt_flash_map_backend.a(flash_map_extended.o)
  .debug_aranges
-                0x00000000000010d8       0x80 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
+                0x00000000000010e0       0x80 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
  .debug_aranges
-                0x0000000000001158       0x88 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
+                0x0000000000001160       0x88 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
  .debug_aranges
-                0x00000000000011e0       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system_start.o)
+                0x00000000000011e8       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system_start.o)
  .debug_aranges
-                0x0000000000001208      0x120 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
+                0x0000000000001210      0x120 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
  .debug_aranges
-                0x0000000000001328       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
+                0x0000000000001330       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
  .debug_aranges
-                0x0000000000001350       0x80 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
+                0x0000000000001358       0x80 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
  .debug_aranges
-                0x00000000000013d0       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(vprintf.o)
+                0x00000000000013d8       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(vprintf.o)
  .debug_aranges
-                0x00000000000013f0       0xa8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+                0x00000000000013f8       0xa8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
  .debug_aranges
-                0x0000000000001498       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/log/modlog/sys_log_modlog.a(modlog.o)
+                0x00000000000014a0       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/log/modlog/sys_log_modlog.a(modlog.o)
  .debug_aranges
-                0x00000000000014b8       0x80 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
+                0x00000000000014c0       0x80 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
  .debug_aranges
-                0x0000000000001538       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysflash.o)
+                0x0000000000001540       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysflash.o)
 
-.debug_str      0x0000000000000000     0x641f
+.debug_str      0x0000000000000000     0x642e
  .debug_str     0x0000000000000000       0x6d /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
  .debug_str     0x000000000000006d      0x156 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(sbrk.o)
                                         0x1c5 (size before relaxing)
@@ -3040,64 +3043,64 @@ OUTPUT(/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boo
                                         0x202 (size before relaxing)
  .debug_str     0x0000000000004302       0x3b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(strlen.o)
                                         0x156 (size before relaxing)
- .debug_str     0x000000000000433d      0x11c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
-                                        0x933 (size before relaxing)
- .debug_str     0x0000000000004459       0xa2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
-                                        0x67a (size before relaxing)
- .debug_str     0x00000000000044fb      0x175 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ .debug_str     0x000000000000433d      0x12b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
+                                        0x942 (size before relaxing)
+ .debug_str     0x0000000000004468       0xa2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
+                                        0x68f (size before relaxing)
+ .debug_str     0x000000000000450a      0x175 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
                                         0x830 (size before relaxing)
- .debug_str     0x0000000000004670      0x1e4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
+ .debug_str     0x000000000000467f      0x1e4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
                                         0x975 (size before relaxing)
- .debug_str     0x0000000000004854       0x6d /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
+ .debug_str     0x0000000000004863       0x6d /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
                                         0x654 (size before relaxing)
- .debug_str     0x00000000000048c1      0x151 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
+ .debug_str     0x00000000000048d0      0x151 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
                                         0x933 (size before relaxing)
- .debug_str     0x0000000000004a12       0x51 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(ticks.o)
+ .debug_str     0x0000000000004a21       0x51 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(ticks.o)
                                         0x61b (size before relaxing)
- .debug_str     0x0000000000004a63       0x60 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
+ .debug_str     0x0000000000004a72       0x60 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
                                         0x61c (size before relaxing)
- .debug_str     0x0000000000004ac3       0xe7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/util/mem/util_mem.a(mem.o)
+ .debug_str     0x0000000000004ad2       0xe7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/util/mem/util_mem.a(mem.o)
                                         0x947 (size before relaxing)
- .debug_str     0x0000000000004baa       0x62 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysinit-app.o)
+ .debug_str     0x0000000000004bb9       0x62 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysinit-app.o)
                                         0x186 (size before relaxing)
- .debug_str     0x0000000000004c0c      0x3e2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+ .debug_str     0x0000000000004c1b      0x3e2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
                                         0x7a3 (size before relaxing)
- .debug_str     0x0000000000004fee      0x4a8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+ .debug_str     0x0000000000004ffd      0x4a8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
                                         0x9e9 (size before relaxing)
- .debug_str     0x0000000000005496       0xe7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
+ .debug_str     0x00000000000054a5       0xe7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
                                         0x6af (size before relaxing)
- .debug_str     0x000000000000557d      0x262 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
+ .debug_str     0x000000000000558c      0x262 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
                                         0x975 (size before relaxing)
- .debug_str     0x00000000000057df      0x224 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(image_validate.o)
+ .debug_str     0x00000000000057ee      0x224 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(image_validate.o)
                                         0x8bb (size before relaxing)
- .debug_str     0x0000000000005a03       0x44 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(tlv.o)
+ .debug_str     0x0000000000005a12       0x44 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(tlv.o)
                                         0x3a3 (size before relaxing)
- .debug_str     0x0000000000005a47       0x67 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/flash_map_backend/boot_mynewt_flash_map_backend.a(flash_map_extended.o)
+ .debug_str     0x0000000000005a56       0x67 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/flash_map_backend/boot_mynewt_flash_map_backend.a(flash_map_extended.o)
                                         0x2ab (size before relaxing)
- .debug_str     0x0000000000005aae      0x133 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
+ .debug_str     0x0000000000005abd      0x133 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
                                         0x78c (size before relaxing)
- .debug_str     0x0000000000005be1      0x134 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
+ .debug_str     0x0000000000005bf0      0x134 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
                                         0x831 (size before relaxing)
- .debug_str     0x0000000000005d15       0x6d /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system_start.o)
+ .debug_str     0x0000000000005d24       0x6d /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system_start.o)
                                         0x2fd (size before relaxing)
- .debug_str     0x0000000000005d82      0x123 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
+ .debug_str     0x0000000000005d91      0x123 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
                                         0x2e0 (size before relaxing)
- .debug_str     0x0000000000005ea5       0x5b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
+ .debug_str     0x0000000000005eb4       0x5b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
                                         0x628 (size before relaxing)
- .debug_str     0x0000000000005f00       0xa5 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
+ .debug_str     0x0000000000005f0f       0xa5 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
                                         0x6c9 (size before relaxing)
- .debug_str     0x0000000000005fa5       0x35 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(vprintf.o)
+ .debug_str     0x0000000000005fb4       0x35 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(vprintf.o)
                                         0x1ca (size before relaxing)
- .debug_str     0x0000000000005fda      0x285 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+ .debug_str     0x0000000000005fe9      0x285 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
                                         0xac5 (size before relaxing)
- .debug_str     0x000000000000625f       0x35 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/log/modlog/sys_log_modlog.a(modlog.o)
+ .debug_str     0x000000000000626e       0x35 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/log/modlog/sys_log_modlog.a(modlog.o)
                                         0x5bd (size before relaxing)
- .debug_str     0x0000000000006294      0x150 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
+ .debug_str     0x00000000000062a3      0x150 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
                                         0x814 (size before relaxing)
- .debug_str     0x00000000000063e4       0x3b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysflash.o)
+ .debug_str     0x00000000000063f3       0x3b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysflash.o)
                                         0x242 (size before relaxing)
 
-.debug_loc      0x0000000000000000     0xfd15
+.debug_loc      0x0000000000000000     0xfd89
  .debug_loc     0x0000000000000000       0x8d /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(sbrk.o)
  .debug_loc     0x000000000000008d       0x13 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(start.o)
  .debug_loc     0x00000000000000a0       0x6b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/boot_mynewt.a(main.o)
@@ -3127,31 +3130,31 @@ OUTPUT(/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boo
  .debug_loc     0x0000000000008120       0x39 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(memset.o)
  .debug_loc     0x0000000000008159       0x3f /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(strlen.o)
  .debug_loc     0x0000000000008198      0x152 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
- .debug_loc     0x00000000000082ea      0x168 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
- .debug_loc     0x0000000000008452      0x5ee /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- .debug_loc     0x0000000000008a40      0x114 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
- .debug_loc     0x0000000000008b54       0x51 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
- .debug_loc     0x0000000000008ba5      0x37e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
- .debug_loc     0x0000000000008f23       0x84 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
- .debug_loc     0x0000000000008fa7      0x6b4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/util/mem/util_mem.a(mem.o)
- .debug_loc     0x000000000000965b      0x987 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
- .debug_loc     0x0000000000009fe2     0x10ed /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
- .debug_loc     0x000000000000b0cf      0x3fd /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
- .debug_loc     0x000000000000b4cc      0xe6b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
- .debug_loc     0x000000000000c337      0x44d /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(image_validate.o)
- .debug_loc     0x000000000000c784      0x2fb /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(tlv.o)
- .debug_loc     0x000000000000ca7f       0xa6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/flash_map_backend/boot_mynewt_flash_map_backend.a(flash_map_extended.o)
- .debug_loc     0x000000000000cb25      0x5f1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
- .debug_loc     0x000000000000d116      0x803 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
- .debug_loc     0x000000000000d919       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system_start.o)
- .debug_loc     0x000000000000d959      0x772 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
- .debug_loc     0x000000000000e0cb       0x8c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
- .debug_loc     0x000000000000e157      0xb72 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
- .debug_loc     0x000000000000ecc9       0x3f /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(vprintf.o)
- .debug_loc     0x000000000000ed08      0xae1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
- .debug_loc     0x000000000000f7e9      0x52c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
+ .debug_loc     0x00000000000082ea      0x1dc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
+ .debug_loc     0x00000000000084c6      0x5ee /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ .debug_loc     0x0000000000008ab4      0x114 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
+ .debug_loc     0x0000000000008bc8       0x51 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
+ .debug_loc     0x0000000000008c19      0x37e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
+ .debug_loc     0x0000000000008f97       0x84 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
+ .debug_loc     0x000000000000901b      0x6b4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/util/mem/util_mem.a(mem.o)
+ .debug_loc     0x00000000000096cf      0x987 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+ .debug_loc     0x000000000000a056     0x10ed /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+ .debug_loc     0x000000000000b143      0x3fd /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
+ .debug_loc     0x000000000000b540      0xe6b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
+ .debug_loc     0x000000000000c3ab      0x44d /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(image_validate.o)
+ .debug_loc     0x000000000000c7f8      0x2fb /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(tlv.o)
+ .debug_loc     0x000000000000caf3       0xa6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/flash_map_backend/boot_mynewt_flash_map_backend.a(flash_map_extended.o)
+ .debug_loc     0x000000000000cb99      0x5f1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
+ .debug_loc     0x000000000000d18a      0x803 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
+ .debug_loc     0x000000000000d98d       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system_start.o)
+ .debug_loc     0x000000000000d9cd      0x772 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
+ .debug_loc     0x000000000000e13f       0x8c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
+ .debug_loc     0x000000000000e1cb      0xb72 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
+ .debug_loc     0x000000000000ed3d       0x3f /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(vprintf.o)
+ .debug_loc     0x000000000000ed7c      0xae1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+ .debug_loc     0x000000000000f85d      0x52c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
 
-.debug_ranges   0x0000000000000000     0x1358
+.debug_ranges   0x0000000000000000     0x1360
  .debug_ranges  0x0000000000000000       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(sbrk.o)
  .debug_ranges  0x0000000000000018       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system.o)
  .debug_ranges  0x0000000000000040       0x58 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(system_nrf52.o)
@@ -3184,34 +3187,34 @@ OUTPUT(/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boo
  .debug_ranges  0x00000000000009b0       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(memset.o)
  .debug_ranges  0x00000000000009c0       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(strlen.o)
  .debug_ranges  0x00000000000009d0       0x70 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
- .debug_ranges  0x0000000000000a40       0x38 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
- .debug_ranges  0x0000000000000a78       0xb0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- .debug_ranges  0x0000000000000b28       0x88 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
- .debug_ranges  0x0000000000000bb0       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
- .debug_ranges  0x0000000000000bc0       0xa8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
- .debug_ranges  0x0000000000000c68       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(ticks.o)
- .debug_ranges  0x0000000000000c88       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
- .debug_ranges  0x0000000000000cb0       0x48 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/util/mem/util_mem.a(mem.o)
- .debug_ranges  0x0000000000000cf8       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysinit-app.o)
- .debug_ranges  0x0000000000000d08       0xc0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
- .debug_ranges  0x0000000000000dc8       0xf8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
- .debug_ranges  0x0000000000000ec0       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
- .debug_ranges  0x0000000000000ef0       0x48 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
- .debug_ranges  0x0000000000000f38       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(image_validate.o)
- .debug_ranges  0x0000000000000f50       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(tlv.o)
- .debug_ranges  0x0000000000000f68       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/flash_map_backend/boot_mynewt_flash_map_backend.a(flash_map_extended.o)
- .debug_ranges  0x0000000000000f80       0x70 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
- .debug_ranges  0x0000000000000ff0       0x78 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
- .debug_ranges  0x0000000000001068       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system_start.o)
- .debug_ranges  0x0000000000001080      0x110 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
- .debug_ranges  0x0000000000001190       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
- .debug_ranges  0x00000000000011a8       0x88 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
- .debug_ranges  0x0000000000001230       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(vprintf.o)
- .debug_ranges  0x0000000000001240       0x98 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
- .debug_ranges  0x00000000000012d8       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/log/modlog/sys_log_modlog.a(modlog.o)
- .debug_ranges  0x00000000000012e8       0x70 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
+ .debug_ranges  0x0000000000000a40       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
+ .debug_ranges  0x0000000000000a80       0xb0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ .debug_ranges  0x0000000000000b30       0x88 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
+ .debug_ranges  0x0000000000000bb8       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
+ .debug_ranges  0x0000000000000bc8       0xa8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
+ .debug_ranges  0x0000000000000c70       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(ticks.o)
+ .debug_ranges  0x0000000000000c90       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
+ .debug_ranges  0x0000000000000cb8       0x48 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/util/mem/util_mem.a(mem.o)
+ .debug_ranges  0x0000000000000d00       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysinit-app.o)
+ .debug_ranges  0x0000000000000d10       0xc0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+ .debug_ranges  0x0000000000000dd0       0xf8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+ .debug_ranges  0x0000000000000ec8       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
+ .debug_ranges  0x0000000000000ef8       0x48 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
+ .debug_ranges  0x0000000000000f40       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(image_validate.o)
+ .debug_ranges  0x0000000000000f58       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(tlv.o)
+ .debug_ranges  0x0000000000000f70       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/flash_map_backend/boot_mynewt_flash_map_backend.a(flash_map_extended.o)
+ .debug_ranges  0x0000000000000f88       0x70 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
+ .debug_ranges  0x0000000000000ff8       0x78 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
+ .debug_ranges  0x0000000000001070       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system_start.o)
+ .debug_ranges  0x0000000000001088      0x110 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
+ .debug_ranges  0x0000000000001198       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
+ .debug_ranges  0x00000000000011b0       0x88 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
+ .debug_ranges  0x0000000000001238       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(vprintf.o)
+ .debug_ranges  0x0000000000001248       0x98 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+ .debug_ranges  0x00000000000012e0       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/log/modlog/sys_log_modlog.a(modlog.o)
+ .debug_ranges  0x00000000000012f0       0x70 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
 
-.debug_frame    0x0000000000000000     0x36e0
+.debug_frame    0x0000000000000000     0x36fc
  .debug_frame   0x0000000000000000       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/bsp/nrf52/hw_bsp_nrf52.a(sbrk.o)
  .debug_frame   0x0000000000000030       0x58 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system.o)
  .debug_frame   0x0000000000000088       0xb8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(system_nrf52.o)
@@ -3244,31 +3247,31 @@ OUTPUT(/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boo
  .debug_frame   0x0000000000001ae8       0x2c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(memset.o)
  .debug_frame   0x0000000000001b14       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(strlen.o)
  .debug_frame   0x0000000000001b34       0x7c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(pinetime_boot.o)
- .debug_frame   0x0000000000001bb0       0x64 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
- .debug_frame   0x0000000000001c14      0x11c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
- .debug_frame   0x0000000000001d30      0x154 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
- .debug_frame   0x0000000000001e84       0x44 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
- .debug_frame   0x0000000000001ec8      0x18c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
- .debug_frame   0x0000000000002054       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(ticks.o)
- .debug_frame   0x0000000000002094       0x58 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
- .debug_frame   0x00000000000020ec      0x118 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/util/mem/util_mem.a(mem.o)
- .debug_frame   0x0000000000002204       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysinit-app.o)
- .debug_frame   0x000000000000222c      0x284 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
- .debug_frame   0x00000000000024b0      0x2d8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
- .debug_frame   0x0000000000002788       0xbc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
- .debug_frame   0x0000000000002844      0x130 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
- .debug_frame   0x0000000000002974       0x60 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(image_validate.o)
- .debug_frame   0x00000000000029d4       0x78 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(tlv.o)
- .debug_frame   0x0000000000002a4c       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/flash_map_backend/boot_mynewt_flash_map_backend.a(flash_map_extended.o)
- .debug_frame   0x0000000000002a7c      0x178 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
- .debug_frame   0x0000000000002bf4      0x1a4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
- .debug_frame   0x0000000000002d98       0x38 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system_start.o)
- .debug_frame   0x0000000000002dd0      0x2c0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
- .debug_frame   0x0000000000003090       0x38 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
- .debug_frame   0x00000000000030c8      0x1cc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
- .debug_frame   0x0000000000003294       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(vprintf.o)
- .debug_frame   0x00000000000032bc      0x230 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
- .debug_frame   0x00000000000034ec       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/log/modlog/sys_log_modlog.a(modlog.o)
- .debug_frame   0x000000000000350c      0x174 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
- .debug_frame   0x0000000000003680       0x2c /usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/libgcc.a(_aeabi_uldivmod.o)
- .debug_frame   0x00000000000036ac       0x34 /usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/libgcc.a(_udivmoddi4.o)
+ .debug_frame   0x0000000000001bb0       0x80 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(blink.o)
+ .debug_frame   0x0000000000001c30      0x11c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/pinetime_boot/libs_pinetime_boot.a(display.o)
+ .debug_frame   0x0000000000001d4c      0x154 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console.o)
+ .debug_frame   0x0000000000001ea0       0x44 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
+ .debug_frame   0x0000000000001ee4      0x18c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
+ .debug_frame   0x0000000000002070       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libs/semihosting_console/libs_semihosting_console.a(ticks.o)
+ .debug_frame   0x00000000000020b0       0x58 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/sysinit/sys_sysinit.a(sysinit.o)
+ .debug_frame   0x0000000000002108      0x118 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/util/mem/util_mem.a(mem.o)
+ .debug_frame   0x0000000000002220       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/generated/bin/nrf52_boot-sysinit-app.a(nrf52_boot-sysinit-app.o)
+ .debug_frame   0x0000000000002248      0x284 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+ .debug_frame   0x00000000000024cc      0x2d8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(loader.o)
+ .debug_frame   0x00000000000027a4       0xbc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_misc.o)
+ .debug_frame   0x0000000000002860      0x130 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(swap_scratch.o)
+ .debug_frame   0x0000000000002990       0x60 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(image_validate.o)
+ .debug_frame   0x00000000000029f0       0x78 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/bootutil/boot_bootutil.a(tlv.o)
+ .debug_frame   0x0000000000002a68       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/flash_map_backend/boot_mynewt_flash_map_backend.a(flash_map_extended.o)
+ .debug_frame   0x0000000000002a98      0x178 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/crypto/mbedtls/crypto_mbedtls.a(sha256.o)
+ .debug_frame   0x0000000000002c10      0x1a4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/hal/hw_hal.a(hal_flash.o)
+ .debug_frame   0x0000000000002db4       0x38 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system_start.o)
+ .debug_frame   0x0000000000002dec      0x2c0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(inline.o)
+ .debug_frame   0x00000000000030ac       0x38 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(mynewt.o)
+ .debug_frame   0x00000000000030e4      0x1cc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(tinyprintf.o)
+ .debug_frame   0x00000000000032b0       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/libc/baselibc/libc_baselibc.a(vprintf.o)
+ .debug_frame   0x00000000000032d8      0x230 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/flash_map/sys_flash_map.a(flash_map.o)
+ .debug_frame   0x0000000000003508       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/log/modlog/sys_log_modlog.a(modlog.o)
+ .debug_frame   0x0000000000003528      0x174 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/sys/mfg/sys_mfg.a(mfg.o)
+ .debug_frame   0x000000000000369c       0x2c /usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/libgcc.a(_aeabi_uldivmod.o)
+ .debug_frame   0x00000000000036c8       0x34 /usr/local/Cellar/arm-none-eabi-gcc/7-2018-q2-update/gcc/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7e-m/libgcc.a(_udivmoddi4.o)
