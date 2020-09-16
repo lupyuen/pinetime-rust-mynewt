@@ -36,11 +36,27 @@ static const uint8_t slower_pulse[]  = {
     0, 0, 0, 0, 0, 0, 
     1, 1, 1, 1, 1, 1, 
     2, 2, 2, 2, 2, 2,
+    2, 2, 2, 2, 2, 2,
+    2, 2, 2, 2, 2, 2,
 };  //  Slower pulse
-static const uint8_t slow_pulse[]    = {1, 1, 1, 0, 0, 0, 1, 1, 1, 2, 2, 2};  //  Slow pulse
-static const uint8_t fast_pulse[]    = {1, 1, 0, 0, 1, 1, 2, 2}; //  Fast pulse
-static const uint8_t faster_pulse[]  = {1, 0, 1, 2};  //  Faster pulse
-static const uint8_t fastest_pulse[] = {0, 2};  //  Fastest pulse
+static const uint8_t slow_pulse[]    = {
+    1, 1, 1, 
+    0, 0, 0, 
+    1, 1, 1, 
+    2, 2, 2,
+    2, 2, 2,
+    2, 2, 2,
+};  //  Slow pulse
+static const uint8_t fast_pulse[]    = {
+    1, 1, 
+    0, 0, 
+    1, 1, 
+    2, 2,
+    2, 2,
+    2, 2,
+}; //  Fast pulse
+static const uint8_t faster_pulse[]  = {1, 0, 1, 2, 2, 2};  //  Faster pulse
+static const uint8_t fastest_pulse[] = {0, 2, 2};  //  Fastest pulse
 
 static void blink_pattern(const uint8_t pattern[], int length);
 static void delay_ms(uint32_t ms);
@@ -49,8 +65,14 @@ static void delay_ms(uint32_t ms);
 void init_backlight(void) {
     for (int b = 0; b < sizeof(backlights); b++) {
         uint8_t gpio = backlights[b];
-        //  Switch to off
-        hal_gpio_init_out(gpio, 1);
+        //  If High backlight...
+        if (b == 2) {
+            //  Switch to on
+            hal_gpio_init_out(gpio, 0);
+        } else {
+            //  Switch to off
+            hal_gpio_init_out(gpio, 1);
+        }
     }
 }
 
