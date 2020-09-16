@@ -78,6 +78,12 @@ void init_backlight(void) {
 
 /// Blink the backlight with a pattern for the number of repetitions
 void blink_backlight(int pattern_id, int repetitions) {
+    //  Init the backlight the first time
+    static int first_blink = 1;
+    if (first_blink) {
+        first_blink = 0;
+        init_backlight();
+    }
     for (int i = 0; i < repetitions; i++) {
         switch (pattern_id) {
             case 0:  blink_pattern(slower_pulse,  sizeof(slower_pulse));  break;

@@ -46,7 +46,7 @@ static void relocate_vector_table(void *vector_table, void *relocated_vector_tab
 
 /// Init the display and render the boot graphic. Called by sysinit() during startup, defined in pkg.yml.
 void pinetime_boot_init(void) {
-    init_backlight();
+    blink_backlight(1, 2);
     console_printf("Starting Bootloader...\n");
     console_flush();
 
