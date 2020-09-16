@@ -47,8 +47,8 @@ static void delay_ms(uint32_t ms);
 
 /// Init the backlights
 void init_backlight(void) {
-    for (int i = 0; i < sizeof(backlights); i++) {
-        uint8_t gpio = backlights[i];
+    for (int b = 0; b < sizeof(backlights); b++) {
+        uint8_t gpio = backlights[b];
         //  Switch to off
         hal_gpio_init_out(gpio, 1);
     }
@@ -65,8 +65,6 @@ void blink_backlight(int pattern_id, int repetitions) {
             default: blink_pattern(fastest_pulse, sizeof(fastest_pulse)); break;
         }
     }
-    //  Always end with high backlight
-    hal_gpio_write(backlights[2], 0);
 }
 
 /// Blink backlight according to the pattern: 0=Low, 1=Mid, 2=High
@@ -74,13 +72,26 @@ static void blink_pattern(const uint8_t pattern[], int length) {
     for (int i = 0; i < length; i++) {
         //  Switch on the Low, Mid or High backlight. Backlight is active when low
         uint8_t level = pattern[i];
-        uint8_t gpio = backlights[level];
-        hal_gpio_write(gpio, 0);
+        for (int b = 0; b < sizeof(backlights); b++) {
+            uint8_t gpio = backlights[b];
+            //  If the Low / Mid / High level matches...
+            if (b == level) {                
+                //  Switch to on
+                hal_gpio_write(gpio, 0);
+            } else {
+                //  Switch to off
+                hal_gpio_write(gpio, 1);
+            }
+        }
+
+        //uint8_t gpio = backlights[level];
+        //hal_gpio_write(gpio, 0);
 
         //  Pause a short while
         delay_ms(10);
 
         //  Switch off the Low, Mid or High backlight
+        uint8_t gpio = backlights[level];
         hal_gpio_write(gpio, 1);
     }
 }
@@ -93,7 +104,7 @@ static void delay_ms(uint32_t ms) {
 #else  //  If Task Scheduler is disabled (i.e. MCUBoot)...
     //  os_time_delay() doesn't work in MCUBoot because the scheduler has not started
     uint8_t button_samples = 0;
-    for (int i = 0; i < ms * 4; i++) {
+    for (int i = 0; i < ms; i++) {
         for (int delay = 0; delay < 100000; delay++) {}
         button_samples += hal_gpio_read(PUSH_BUTTON_IN);
     }
