@@ -126,15 +126,10 @@ static void blink_pattern(const uint8_t pattern[], int length) {
 
 /// Sleep for the specified number of milliseconds
 static void delay_ms(uint32_t ms) {
-#if MYNEWT_VAL(OS_SCHEDULING)  //  If Task Scheduler is enabled (i.e. not MCUBoot)...
-    uint32_t delay_ticks = ms * OS_TICKS_PER_SEC / 1000;
-    os_time_delay(delay_ticks);
-#else  //  If Task Scheduler is disabled (i.e. MCUBoot)...
     //  os_time_delay() doesn't work in MCUBoot because the scheduler has not started
     uint8_t button_samples = 0;
     for (int i = 0; i < ms; i++) {
         for (int delay = 0; delay < 100000; delay++) {}
         button_samples += hal_gpio_read(PUSH_BUTTON_IN);
     }
-#endif  //  MYNEWT_VAL(OS_SCHEDULING)
 }
