@@ -106,7 +106,7 @@ void blink_backlight(int pattern_id, int repetitions);  ////  Defined in blink.c
 void
 hal_bsp_init(void)
 {
-    blink_backlight(4, 4);////
+    blink_backlight(3, 4);////
     /* Make sure system clocks have started */
     hal_system_clock_start();
 
