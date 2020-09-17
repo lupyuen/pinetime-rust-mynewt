@@ -38,5 +38,4 @@ reset init
 resume
 echo ""
 
-echo "**** Done!"
-####exit
+echo "**** Done! Press Ctrl-C to exit..."
