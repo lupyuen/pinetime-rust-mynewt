@@ -170,6 +170,15 @@ static void relocate_vector_table(void *vector_table, void *relocated_vector_tab
     *SCB_VTOR = (uint32_t) relocated_vector_table;
 }
 
+/// In case of hard fault (e.g. assertion failure), reboot.
+/// Assetion failure may be due to SPI Bus corruption, which causes SPI Flash access to fail in spiflash_identify() in repos/apache-mynewt-core/hw/drivers/flash/spiflash/src/spiflash.c
+void HardFault_Handler() {
+    //  Blink the screen quickly 4 times
+    blink_backlight(4, 4);
+    //  Then reboot, which fixes the SPI Bus
+    NVIC_SystemReset();
+}
+
 /* Log:
 Starting Bootloader...
 Displaying image...

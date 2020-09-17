@@ -101,12 +101,9 @@ hal_bsp_get_nvic_priority(int irq_num, uint32_t pri)
     return cfg_pri;
 }
 
-void blink_backlight(int pattern_id, int repetitions);  ////  Defined in blink.c
-
 void
 hal_bsp_init(void)
 {
-    blink_backlight(3, 4);////
     /* Make sure system clocks have started */
     hal_system_clock_start();
 
