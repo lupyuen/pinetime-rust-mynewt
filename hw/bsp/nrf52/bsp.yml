@@ -42,7 +42,7 @@ bsp.flash_map:
         FLASH_AREA_BOOTLOADER:       # MCUBoot
             device:  0               # Internal Flash ROM
             offset:  0x00000000      # Start of Internal Flash ROM
-            size:    28kB            # TODO: Increased from 24kB
+            size:    28kB
         FLASH_AREA_IMAGE_0:          # Active Firmware Image
             device:  0               # Internal Flash ROM
             offset:  0x00008000
@@ -60,8 +60,8 @@ bsp.flash_map:
         FLASH_AREA_REBOOT_LOG:       # For logging debug messages during startup
             user_id: 0
             device:  0               # Internal Flash ROM
-            offset:  0x00007000      # TODO: Moved from 0x6000. 0x7f00-0x7fff contains the relocated vector table.
-            size:    4kB             # TODO: Reduced from 8kB
+            offset:  0x00007000      # Note: 0x7f00-0x7fff contains the relocated vector table
+            size:    4kB
         # FLASH_AREA_BOOTLOADER_ASSET: # Bootloader Assets, like Boot Graphic
         #   user_id: 1
         #   device:  1               # External SPI Flash

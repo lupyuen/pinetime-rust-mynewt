@@ -45,13 +45,12 @@ static void relocate_vector_table(void *vector_table, void *relocated_vector_tab
 
 /// Init the display and render the boot graphic. Called by sysinit() during startup, defined in pkg.yml.
 void pinetime_boot_init(void) {
-    blink_backlight(1, 1);
     console_printf("Starting Bootloader...\n");
     console_flush();
 
     //  Init the push button. The button on the side of the PineTime is disabled by default. To enable it, drive the button out pin (P0.15) high.
     //  While enabled, the button in pin (P0.13) will be high when the button is pressed, and low when it is not pressed. 
-    hal_gpio_init_in(PUSH_BUTTON_IN, HAL_GPIO_PULL_DOWN);  //  TODO: Doesn't seem to work
+    hal_gpio_init_in(PUSH_BUTTON_IN, HAL_GPIO_PULL_DOWN);
     hal_gpio_init_out(PUSH_BUTTON_OUT, 1);
     hal_gpio_write(PUSH_BUTTON_OUT, 1);  //  Enable the button
     blink_backlight(1, 1);
@@ -73,7 +72,8 @@ void pinetime_boot_init(void) {
     }
     blink_backlight(1, 2);
 
-    if (button_samples > 1 /* TODO: this needs to be set higher to avoid accidental rollbacks */) {
+    //  Sample count must high enough to avoid accidental rollbacks
+    if (button_samples > 64) {  //  20% of total samples
         console_printf("Flashing and resetting...\n");
         console_flush();
 
