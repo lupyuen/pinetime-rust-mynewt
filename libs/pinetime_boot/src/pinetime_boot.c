@@ -45,8 +45,7 @@ static void relocate_vector_table(void *vector_table, void *relocated_vector_tab
 
 /// Init the display and render the boot graphic. Called by sysinit() during startup, defined in pkg.yml.
 void pinetime_boot_init(void) {
-    console_printf("Starting Bootloader...\n");
-    console_flush();
+    console_printf("Starting Bootloader...\n");  console_flush();
 
     //  Init the push button. The button on the side of the PineTime is disabled by default. To enable it, drive the button out pin (P0.15) high.
     //  While enabled, the button in pin (P0.13) will be high when the button is pressed, and low when it is not pressed. 
@@ -57,29 +56,28 @@ void pinetime_boot_init(void) {
 
     //  Display the image.
     pinetime_boot_display_image();
-    console_printf("Check button: %d\n", hal_gpio_read(PUSH_BUTTON_IN));
-    console_flush();
-    //  blink_backlight(1, 1);
+    console_printf("Check button: %d\n", hal_gpio_read(PUSH_BUTTON_IN));  console_flush();
+    //  blink_backlight(2, 1);
 
-    uint8_t button_samples = 0;
     //  Wait 5 seconds for button press.
-    console_printf("Waiting 5 seconds for button...\n");
-    console_flush();
-
+    uint32_t button_samples = 0;
+    console_printf("Waiting 5 seconds for button...\n");  console_flush();
     for (int i = 0; i < 64 * 5; i++) {
-        for (int delay = 0; delay < 100000; delay++);
-        button_samples += hal_gpio_read(PUSH_BUTTON_IN);
+        for (int delay = 0; delay < 40000; delay++) {
+            button_samples += hal_gpio_read(PUSH_BUTTON_IN);
+        }
     }
-    //  blink_backlight(1, 2);
+    console_printf("Waited 5 seconds\n");  console_flush();
 
-    //  Sample count must high enough to avoid accidental rollbacks
+    //  Check whether button is pressed and held. Sample count must high enough to avoid accidental rollbacks.
     if (button_samples > 64) {  //  20% of total samples
-        console_printf("Flashing and resetting...\n");
-        console_flush();
+        console_printf("Flashing and resetting...\n");  console_flush();
 
+        //  Mark the previous firmware for rollback and blink slowly 4 times.
         boot_set_pending(0);
-        //  blink_backlight(1, 2);
+        blink_backlight(2, 4);
 
+        //  Restart for MCUBoot to rollback the firmware.
         hal_system_reset();
         return;
     }
@@ -112,8 +110,7 @@ void boot_custom_start(
     struct boot_rsp *rsp
 ) {
     //  blink_backlight(2, 2);
-    console_printf("Bootloader done\n");
-    console_flush();
+    console_printf("Bootloader done\n");  console_flush();
 
     //  vector_table points to the Arm Vector Table for the appplication...
     //  First word contains initial MSP value (estack = end of RAM)
