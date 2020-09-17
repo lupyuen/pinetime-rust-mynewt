@@ -40,13 +40,12 @@
 /// Address of the VTOR Register in the System Control Block.
 #define SCB_VTOR ((uint32_t *) 0xE000ED08)
 
-void init_backlight(void);  //  Defined in blink.c
 void blink_backlight(int pattern_id, int repetitions);  //  Defined in blink.c
 static void relocate_vector_table(void *vector_table, void *relocated_vector_table);
 
 /// Init the display and render the boot graphic. Called by sysinit() during startup, defined in pkg.yml.
 void pinetime_boot_init(void) {
-    blink_backlight(1, 2);
+    blink_backlight(1, 1);
     console_printf("Starting Bootloader...\n");
     console_flush();
 
@@ -55,13 +54,13 @@ void pinetime_boot_init(void) {
     hal_gpio_init_in(PUSH_BUTTON_IN, HAL_GPIO_PULL_DOWN);  //  TODO: Doesn't seem to work
     hal_gpio_init_out(PUSH_BUTTON_OUT, 1);
     hal_gpio_write(PUSH_BUTTON_OUT, 1);  //  Enable the button
-    blink_backlight(1, 2);
+    blink_backlight(1, 1);
 
     //  Display the image.
     pinetime_boot_display_image();
     console_printf("Check button: %d\n", hal_gpio_read(PUSH_BUTTON_IN));
     console_flush();
-    blink_backlight(1, 2);
+    blink_backlight(1, 1);
 
     uint8_t button_samples = 0;
     //  Wait 5 seconds for button press.

@@ -62,7 +62,7 @@ static void blink_pattern(const uint8_t pattern[], int length);
 static void delay_ms(uint32_t ms);
 
 /// Init the backlights
-void init_backlight(void) {
+static void init_backlight(void) {
     for (int b = 0; b < sizeof(backlights); b++) {
         uint8_t gpio = backlights[b];
         //  If High backlight...
