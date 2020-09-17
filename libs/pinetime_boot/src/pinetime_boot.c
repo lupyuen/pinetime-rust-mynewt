@@ -53,13 +53,13 @@ void pinetime_boot_init(void) {
     hal_gpio_init_in(PUSH_BUTTON_IN, HAL_GPIO_PULL_DOWN);
     hal_gpio_init_out(PUSH_BUTTON_OUT, 1);
     hal_gpio_write(PUSH_BUTTON_OUT, 1);  //  Enable the button
-    blink_backlight(1, 1);
+    //  blink_backlight(1, 1);
 
     //  Display the image.
     pinetime_boot_display_image();
     console_printf("Check button: %d\n", hal_gpio_read(PUSH_BUTTON_IN));
     console_flush();
-    blink_backlight(1, 1);
+    //  blink_backlight(1, 1);
 
     uint8_t button_samples = 0;
     //  Wait 5 seconds for button press.
@@ -70,7 +70,7 @@ void pinetime_boot_init(void) {
         for (int delay = 0; delay < 100000; delay++);
         button_samples += hal_gpio_read(PUSH_BUTTON_IN);
     }
-    blink_backlight(1, 2);
+    //  blink_backlight(1, 2);
 
     //  Sample count must high enough to avoid accidental rollbacks
     if (button_samples > 64) {  //  20% of total samples
@@ -78,7 +78,7 @@ void pinetime_boot_init(void) {
         console_flush();
 
         boot_set_pending(0);
-        blink_backlight(1, 2);
+        //  blink_backlight(1, 2);
 
         hal_system_reset();
         return;
@@ -111,7 +111,7 @@ void boot_custom_start(
     uintptr_t flash_base,
     struct boot_rsp *rsp
 ) {
-    blink_backlight(2, 2);
+    //  blink_backlight(2, 2);
     console_printf("Bootloader done\n");
     console_flush();
 
@@ -130,7 +130,7 @@ void boot_custom_start(
         vector_table,       //  From the non-aligned application address (0x8020)
         (void *) RELOCATED_VECTOR_TABLE  //  To the relocated address aligned to 0x100 page boundary
     );
-    blink_backlight(3, 4);
+    //  blink_backlight(3, 4);
 
     setup_watchdog();
     
