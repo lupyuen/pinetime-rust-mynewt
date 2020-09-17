@@ -18,7 +18,8 @@
 /* TODO: Sync with hw/bsp/nrf52/bsp.yml */
 MEMORY
 {
-  FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 0x6000
+  /* TODO: Increased from 0x6000 to 0x7000 */
+  FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 0x7000
   RAM (rwx) : ORIGIN = 0x20000000, LENGTH = 0x10000
 }
 
