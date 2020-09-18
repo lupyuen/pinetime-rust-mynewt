@@ -21,6 +21,7 @@ syscfg.vals:
     BOOT_CUSTOM_START:        1  # Use custom boot function boot_custom_start()
     OS_MAIN_STACK_SIZE:    1024  # Small stack size: 4 KB
     MSYS_1_BLOCK_COUNT:      64  # Allocate MSYS buffers for Semihosting Console
+    HAL_ENABLE_SOFTWARE_BREAKPOINTS: 0 # In case of assertion failure, don't breakpoint. Must be set to 0 so that bootloader will reboot and won't hang in case of assertion failures.
 
     ###########################################################################
     # Hardware Settings

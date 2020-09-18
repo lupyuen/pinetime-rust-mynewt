@@ -32,10 +32,10 @@ program bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin verify 0x00000000
 
 echo ""
 
-# Restart the device and stop.
+# Restart the device and start the bootloader.
 echo "Restarting..."
-reset halt
+reset init
+resume
 echo ""
 
-echo "**** Done!"
-exit
+echo "**** Done! Press Ctrl-C to exit..."

@@ -40,38 +40,44 @@
 /// Address of the VTOR Register in the System Control Block.
 #define SCB_VTOR ((uint32_t *) 0xE000ED08)
 
+void blink_backlight(int pattern_id, int repetitions);  //  Defined in blink.c
 static void relocate_vector_table(void *vector_table, void *relocated_vector_table);
 
 /// Init the display and render the boot graphic. Called by sysinit() during startup, defined in pkg.yml.
 void pinetime_boot_init(void) {
-    console_printf("Starting Bootloader...\n");
-    console_flush();
+    console_printf("Starting Bootloader...\n");  console_flush();
 
     //  Init the push button. The button on the side of the PineTime is disabled by default. To enable it, drive the button out pin (P0.15) high.
     //  While enabled, the button in pin (P0.13) will be high when the button is pressed, and low when it is not pressed. 
-    hal_gpio_init_in(PUSH_BUTTON_IN, HAL_GPIO_PULL_DOWN);  //  TODO: Doesn't seem to work
+    hal_gpio_init_in(PUSH_BUTTON_IN, HAL_GPIO_PULL_DOWN);
     hal_gpio_init_out(PUSH_BUTTON_OUT, 1);
     hal_gpio_write(PUSH_BUTTON_OUT, 1);  //  Enable the button
+    //  blink_backlight(1, 1);
 
     //  Display the image.
     pinetime_boot_display_image();
-    console_printf("Check button: %d\n", hal_gpio_read(PUSH_BUTTON_IN));
-    console_flush();
+    console_printf("Check button: %d\n", hal_gpio_read(PUSH_BUTTON_IN));  console_flush();
+    //  blink_backlight(2, 1);
 
-    uint8_t button_samples = 0;
     //  Wait 5 seconds for button press.
-    console_printf("Waiting 5 seconds for button...\n");
-    console_flush();
-
+    uint32_t button_samples = 0;
+    console_printf("Waiting 5 seconds for button...\n");  console_flush();
     for (int i = 0; i < 64 * 5; i++) {
-        for (int delay = 0; delay < 100000; delay++);
-        button_samples += hal_gpio_read(PUSH_BUTTON_IN);
+        for (int delay = 0; delay < 40000; delay++) {
+            button_samples += hal_gpio_read(PUSH_BUTTON_IN);
+        }
     }
+    console_printf("Waited 5 seconds\n");  console_flush();
 
-    if (button_samples > 1 /* TODO: this needs to be set higher to avoid accidental rollbacks */) {
-        console_printf("Flashing and resetting...\n");
-        console_flush();
+    //  Check whether button is pressed and held. Sample count must high enough to avoid accidental rollbacks.
+    if (button_samples > 64) {  //  20% of total samples
+        console_printf("Flashing and resetting...\n");  console_flush();
+
+        //  Mark the previous firmware for rollback and blink slowly 4 times.
         boot_set_pending(0);
+        blink_backlight(2, 4);
+
+        //  Restart for MCUBoot to rollback the firmware.
         hal_system_reset();
         return;
     }
@@ -103,8 +109,8 @@ void boot_custom_start(
     uintptr_t flash_base,
     struct boot_rsp *rsp
 ) {
-    console_printf("Bootloader done\n");
-    console_flush();
+    //  blink_backlight(2, 2);
+    console_printf("Bootloader done\n");  console_flush();
 
     //  vector_table points to the Arm Vector Table for the appplication...
     //  First word contains initial MSP value (estack = end of RAM)
@@ -121,6 +127,7 @@ void boot_custom_start(
         vector_table,       //  From the non-aligned application address (0x8020)
         (void *) RELOCATED_VECTOR_TABLE  //  To the relocated address aligned to 0x100 page boundary
     );
+    //  blink_backlight(3, 4);
 
     setup_watchdog();
     
@@ -158,6 +165,27 @@ static void relocate_vector_table(void *vector_table, void *relocated_vector_tab
     }
     //  Point VTOR Register in the System Control Block to the relocated vector table.
     *SCB_VTOR = (uint32_t) relocated_vector_table;
+}
+
+/// Blink 4 times and reboot
+static void blink_and_restart() {
+    //  Blink the screen quickly 4 times
+    blink_backlight(4, 4);
+    //  Then reboot, which fixes the SPI Bus
+    NVIC_SystemReset();
+}
+
+/// In case of Non-Maskable Interrupt (e.g. assertion failure), blink 4 times and reboot.
+/// Assertion failure may be due to SPI Bus corruption, which causes SPI Flash access to fail in spiflash_identify() in repos/apache-mynewt-core/hw/drivers/flash/spiflash/src/spiflash.c
+void NMI_Handler() {
+    //  Blink and restart
+    blink_and_restart();
+}
+
+/// In case of Hard Fault, blink 4 times and reboot
+void HardFault_Handler() {
+    //  Blink and restart
+    blink_and_restart();
 }
 
 /* Log:
