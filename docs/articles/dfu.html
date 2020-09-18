@@ -181,8 +181,8 @@
 <p>To support firmware update (with rollback) via Bluetooth LE, PineTime Firmware Developers would have to adopt a common layout for storing flash images in Flash ROM.</p>
 <p>Here's the proposed <strong>Flash ROM Layout</strong> that supports Active and Standby Firmware Images for firmware update and rollback...</p>
 <table><thead><tr><th align="left">     Flash ROM Area</th><th align="left">Address</th><th align="right">Size</th></tr></thead><tbody>
-<tr><td align="left">     Bootloader (MCUBoot)</td><td align="left"><code>0x0000 0000</code></td><td align="right">24 KB</td></tr>
-<tr><td align="left">     Reboot Log</td><td align="left"><code>0x0000 6000</code></td><td align="right">8 KB</td></tr>
+<tr><td align="left">     Bootloader (MCUBoot)</td><td align="left"><code>0x0000 0000</code></td><td align="right">28 KB</td></tr>
+<tr><td align="left">     Reboot Log</td><td align="left"><code>0x0000 7000</code></td><td align="right">4 KB</td></tr>
 <tr><td align="left">     <strong>Active Firmware Image</strong>      </td><td align="left"><strong><code>0x0000 8000</code></strong></td><td align="right">    <strong>464 KB</strong></td></tr>
 <tr><td align="left">     Scratch Area</td><td align="left"><code>0x0007 C000</code></td><td align="right">4 KB</td></tr>
 <tr><td align="left"><br></td><td align="left"></td><td align="right"></td></tr>

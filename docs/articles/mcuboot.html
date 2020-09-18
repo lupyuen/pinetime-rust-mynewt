@@ -136,7 +136,7 @@ bsp.flash_map:
         FLASH_AREA_BOOTLOADER:       # MCUBoot
             device:  0               # Internal Flash ROM
             offset:  0x00000000      # Start of Internal Flash ROM
-            size:    24kB
+            size:    28kB
         FLASH_AREA_IMAGE_0:          # Active Firmware Image
             device:  0               # Internal Flash ROM
             offset:  0x00008000
@@ -154,8 +154,8 @@ bsp.flash_map:
         FLASH_AREA_REBOOT_LOG:       # For logging debug messages during startup
             user_id: 0
             device:  0               # Internal Flash ROM
-            offset:  0x00006000
-            size:    8kB
+            offset:  0x00007000      # Note: 0x7f00-0x7fff contains the relocated vector table
+            size:    4kB
         # FLASH_AREA_BOOTLOADER_ASSET: # Bootloader Assets, like Boot Graphic
         #   user_id: 1
         #   device:  1               # External SPI Flash
@@ -171,8 +171,8 @@ bsp.flash_map:
 <p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash">More about PineTime's SPI Flash</a></p>
 <p>Here's the layout for <strong>PineTime's Flash ROM</strong>...</p>
 <table><thead><tr><th align="left">     Flash ROM Area</th><th align="left">Address</th><th align="right">Size</th></tr></thead><tbody>
-<tr><td align="left">     Bootloader (MCUBoot)</td><td align="left"><code>0x0000 0000</code></td><td align="right">24 KB</td></tr>
-<tr><td align="left">     Reboot Log</td><td align="left"><code>0x0000 6000</code></td><td align="right">8 KB</td></tr>
+<tr><td align="left">     Bootloader (MCUBoot)</td><td align="left"><code>0x0000 0000</code></td><td align="right">28 KB</td></tr>
+<tr><td align="left">     Reboot Log</td><td align="left"><code>0x0000 7000</code></td><td align="right">4 KB</td></tr>
 <tr><td align="left">     <strong>Active Firmware Image</strong>      </td><td align="left"><strong><code>0x0000 8000</code></strong></td><td align="right">    <strong>464 KB</strong></td></tr>
 <tr><td align="left">     Scratch Area</td><td align="left"><code>0x0007 C000</code></td><td align="right">4 KB</td></tr>
 <tr><td align="left"><br></td><td align="left"></td><td align="right"></td></tr>

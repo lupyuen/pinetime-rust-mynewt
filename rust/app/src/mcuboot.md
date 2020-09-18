@@ -64,7 +64,7 @@ bsp.flash_map:
         FLASH_AREA_BOOTLOADER:       # MCUBoot
             device:  0               # Internal Flash ROM
             offset:  0x00000000      # Start of Internal Flash ROM
-            size:    24kB
+            size:    28kB
         FLASH_AREA_IMAGE_0:          # Active Firmware Image
             device:  0               # Internal Flash ROM
             offset:  0x00008000
@@ -82,8 +82,8 @@ bsp.flash_map:
         FLASH_AREA_REBOOT_LOG:       # For logging debug messages during startup
             user_id: 0
             device:  0               # Internal Flash ROM
-            offset:  0x00006000
-            size:    8kB
+            offset:  0x00007000      # Note: 0x7f00-0x7fff contains the relocated vector table
+            size:    4kB
         # FLASH_AREA_BOOTLOADER_ASSET: # Bootloader Assets, like Boot Graphic
         #   user_id: 1
         #   device:  1               # External SPI Flash
@@ -104,8 +104,8 @@ Here's the layout for __PineTime's Flash ROM__...
 
 | &nbsp;&nbsp;&nbsp;&nbsp; Flash ROM Area | Address        | Size |
 | :---                  | :---              | ---:        |
-| &nbsp;&nbsp;&nbsp;&nbsp; Bootloader (MCUBoot)  | `0x0000 0000`  | 24 KB |
-| &nbsp;&nbsp;&nbsp;&nbsp; Reboot Log            | `0x0000 6000`  | 8 KB |
+| &nbsp;&nbsp;&nbsp;&nbsp; Bootloader (MCUBoot)  | `0x0000 0000`  | 28 KB |
+| &nbsp;&nbsp;&nbsp;&nbsp; Reboot Log            | `0x0000 7000`  | 4 KB |
 | &nbsp;&nbsp;&nbsp;&nbsp; __Active Firmware Image__  &nbsp;&nbsp;&nbsp;&nbsp;    | __`0x0000 8000`__  | &nbsp;&nbsp;&nbsp; __464 KB__ |
 | &nbsp;&nbsp;&nbsp;&nbsp; Scratch Area          | `0x0007 C000`  | 4 KB |
 |<br>|||
