@@ -11,9 +11,9 @@
             "servertype": "openocd",
             "cwd": "${workspaceRoot}",
             //  Application Executable to be flashed before debugging.  Note that the Application ELF image does not contain a valid Image Header, so we must install the Stub Bootloader.
-            ////"executable": "bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf",
+            "executable": "bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf",
             //  Uncomment one of these lines to debug MCUBoot or Stub Bootloader:
-            "executable": "bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf",
+            //  "executable": "bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf",
             //  "executable": "bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf",
             "device": "nRF52832",
             //  Arm System View Description, from apache-mynewt-core/hw/mcu/nordic/src/ext/nrfx/mdk
