@@ -32,7 +32,7 @@ pkg.deps:
     - "@apache-mynewt-core/hw/sensor"          #  Sensor Library
     - "@apache-mynewt-core/hw/sensor/creator"  #  Sensor Creator
     - "@apache-mynewt-core/libc/baselibc"      #  Baselibc, the tiny version of standard C library
-    - "libs/pinetime_lvgl_mynewt"              #  LVGL Library for UI widgets and touch input
+    ####- "libs/pinetime_lvgl_mynewt"              #  LVGL Library for UI widgets and touch input
     #  Inject the Rust build into the Mynewt build
     - "libs/mynewt_rust"   #  Rust interop layer for Mynewt
     - "libs/rust_app"      #  Rust Application Stub. Will be replaced by Rust application and external Rust libraries.
