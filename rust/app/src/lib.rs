@@ -105,35 +105,35 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     assert!(rc == 0, "BLE fail");
 
     //  Start the display
-    druid::start_display()
-        .expect("DSP fail");
+    //  druid::start_display()
+    //      .expect("DSP fail");
 
     //  Test the display
-    #[cfg(feature = "display_app")]  //  If graphics display app is enabled...
-    display::test_display()
-        .expect("DSP test fail");
+    //  #[cfg(feature = "display_app")]  //  If graphics display app is enabled...
+    //  display::test_display()
+    //      .expect("DSP test fail");
 
     //  Start the touch sensor
-    touch_sensor::start_touch_sensor()
-        .expect("TCH fail");
+    //  touch_sensor::start_touch_sensor()
+    //      .expect("TCH fail");
 
     //  Test the touch sensor
     //  touch_sensor::test()
     //      .expect("TCH test fail");
 
     //  Launch the druid UI app
-    #[cfg(feature = "ui_app")]  //  If druid UI app is enabled...
-    ui::launch();
+    //  #[cfg(feature = "ui_app")]  //  If druid UI app is enabled...
+    //  ui::launch();
 
     //  Launch the Visual Rust app
-    #[cfg(feature = "visual_app")]  //  If Visual Rust app is enabled...
-    visual::on_start()
-        .expect("VIS fail");
+    //  #[cfg(feature = "visual_app")]  //  If Visual Rust app is enabled...
+    //  visual::on_start()
+    //      .expect("VIS fail");
 
     //  Launch the CHIP8 Emulator app
-    #[cfg(feature = "chip8_app")]  //  If CHIP8 Emulator app is enabled...
-    chip8::on_start()
-        .expect("CHIP8 fail");
+    //  #[cfg(feature = "chip8_app")]  //  If CHIP8 Emulator app is enabled...
+    //  chip8::on_start()
+    //      .expect("CHIP8 fail");
 
     //  Main event loop
     loop {                            //  Loop forever...
