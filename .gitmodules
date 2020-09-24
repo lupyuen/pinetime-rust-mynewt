@@ -10,3 +10,6 @@
 [submodule "rust/kurbo-embedded"]
 	path = rust/kurbo-embedded
 	url = https://github.com/lupyuen/kurbo-embedded
+[submodule "libs/pinetime_lvgl_mynewt"]
+	path = libs/pinetime_lvgl_mynewt
+	url = https://gitlab.com/lupyuen/pinetime_lvgl_mynewt
