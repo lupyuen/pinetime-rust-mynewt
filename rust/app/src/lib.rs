@@ -111,23 +111,18 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     unsafe { hal_watchdog_tickle() };
 
     //  Render LVGL widgets for testing.
-    /*
     extern { fn pinetime_lvgl_mynewt_test() -> i32; }
     let rc = unsafe { pinetime_lvgl_mynewt_test() };
     assert!(rc == 0, "LVGL test fail");
-    */
 
-    //  Render LVGL display 24 times.
-    /*
-    for i in 0..24 {
-        extern { fn pinetime_lvgl_mynewt_render() -> i32; }
-        let rc = unsafe { pinetime_lvgl_mynewt_render() };
-        assert!(rc == 0, "LVGL render fail");    
-        //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
-        unsafe { hal_watchdog_tickle() };
-    }
-    */
-    
+    //  Render LVGL display.
+    extern { fn pinetime_lvgl_mynewt_render() -> i32; }
+    let rc = unsafe { pinetime_lvgl_mynewt_render() };
+    assert!(rc == 0, "LVGL render fail");    
+
+    //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
+    unsafe { hal_watchdog_tickle() };
+
     //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
     extern { fn start_ble() -> i32; }
     let rc = unsafe { start_ble() };
@@ -175,7 +170,14 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
             os::eventq_dflt_get()     //  From default event queue.
                 .expect("GET fail")
         ).expect("RUN fail");
-        //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
+
+        //  TODO: Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
+        unsafe { hal_watchdog_tickle() };
+
+        let rc = unsafe { pinetime_lvgl_mynewt_render() };
+        assert!(rc == 0, "LVGL render fail");    
+
+        //  TODO: Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
         unsafe { hal_watchdog_tickle() };
     }
     //  Never comes here
