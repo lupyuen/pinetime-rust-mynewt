@@ -104,6 +104,18 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     let rc = unsafe { start_ble() };
     assert!(rc == 0, "BLE fail");
 
+    //  Render LVGL widgets for testing.
+    extern { fn pinetime_lvgl_mynewt_test() -> i32; }
+    let rc = unsafe { pinetime_lvgl_mynewt_test() };
+    assert!(rc == 0, "LVGL test fail");
+
+    //  Render LVGL display.
+    extern { fn pinetime_lvgl_mynewt_render() -> i32; }
+    let rc = unsafe { pinetime_lvgl_mynewt_render() };
+    assert!(rc == 0, "LVGL render fail");
+    
+    //  Should not start the Rust drivers for display controller and touch controller, since LVGL handles display and touch
+
     //  Start the display
     //  druid::start_display()
     //      .expect("DSP fail");
