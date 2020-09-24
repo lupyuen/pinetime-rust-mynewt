@@ -101,6 +101,11 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     assert!(rc == 0, "FLASH fail");
     */
 
+    //  TODO: Set the watchdog time.
+    extern { fn hal_watchdog_init(expire_msecs: u32) -> i32; }
+    let rc = unsafe { hal_watchdog_init(5 * 60 * 1000) };
+    assert!(rc == 0, "WATCHDOG fail");
+
     //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
     extern { fn hal_watchdog_tickle(); }
     unsafe { hal_watchdog_tickle() };
@@ -128,7 +133,10 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     let rc = unsafe { start_ble() };
     assert!(rc == 0, "BLE fail");
 
-    //  Should not start the Rust drivers for display controller and touch controller, since LVGL handles display and touch
+    //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
+    unsafe { hal_watchdog_tickle() };
+
+    //  Should not start the Rust driver for display controller, since LVGL handles display
 
     //  Start the display
     //  druid::start_display()
