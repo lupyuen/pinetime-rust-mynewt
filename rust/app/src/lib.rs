@@ -101,6 +101,10 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     assert!(rc == 0, "FLASH fail");
     */
 
+    //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
+    extern { fn hal_watchdog_tickle(); }
+    unsafe { hal_watchdog_tickle() };
+
     //  Render LVGL widgets for testing.
     /*
     extern { fn pinetime_lvgl_mynewt_test() -> i32; }
@@ -114,6 +118,8 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
         extern { fn pinetime_lvgl_mynewt_render() -> i32; }
         let rc = unsafe { pinetime_lvgl_mynewt_render() };
         assert!(rc == 0, "LVGL render fail");    
+        //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
+        unsafe { hal_watchdog_tickle() };
     }
     */
     
@@ -161,6 +167,8 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
             os::eventq_dflt_get()     //  From default event queue.
                 .expect("GET fail")
         ).expect("RUN fail");
+        //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
+        unsafe { hal_watchdog_tickle() };
     }
     //  Never comes here
 }
