@@ -4189,7 +4189,7 @@ END GROUP
  *fill*         0x0000000000008000       0x20 
                 0x0000000000008020                __text = .
 
-.text           0x0000000000008020    0x3bc4c
+.text           0x0000000000008020    0x3bc7c
                 0x0000000000008020                __isr_vector_start = .
  *(.isr_vector)
  .isr_vector    0x0000000000008020       0xd8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
@@ -4198,11 +4198,11 @@ END GROUP
  *(.text*)
  .text          0x00000000000080f8       0x70 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
                 0x00000000000080f8                Reset_Handler
-                0x0000000000008154                NMI_Handler
-                0x0000000000008156                HardFault_Handler
                 0x0000000000008158                MemoryManagement_Handler
                 0x000000000000815a                BusFault_Handler
                 0x000000000000815c                UsageFault_Handler
+                0x0000000000008164                GPIOTE_IRQHandler
+                0x0000000000008164                PWM1_IRQHandler
                 0x0000000000008164                POWER_CLOCK_IRQHandler
                 0x0000000000008164                RADIO_IRQHandler
                 0x0000000000008164                PDM_IRQHandler
@@ -4238,8 +4238,6 @@ END GROUP
                 0x0000000000008164                RTC0_IRQHandler
                 0x0000000000008164                SWI0_EGU0_IRQHandler
                 0x0000000000008164                SWI2_EGU2_IRQHandler
-                0x0000000000008164                GPIOTE_IRQHandler
-                0x0000000000008164                PWM1_IRQHandler
  .text._sbrkInit
                 0x0000000000008168       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(sbrk.o)
                 0x0000000000008168                _sbrkInit
@@ -9932,69 +9930,77 @@ END GROUP
  .text.ull_to_s
                 0x000000000003e6e4       0x70 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/util/util.a(mcumgr_util.o)
                 0x000000000003e6e4                ull_to_s
+ .text.blink_and_restart
+                0x000000000003e754       0x24 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
+ .text.NMI_Handler
+                0x000000000003e778        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
+                0x000000000003e778                NMI_Handler
+ .text.HardFault_Handler
+                0x000000000003e77e        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
+                0x000000000003e77e                HardFault_Handler
  .text.__wrap_coap_receive
-                0x000000000003e754       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
-                0x000000000003e754                __wrap_coap_receive
- .text._fini    0x000000000003e768        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
-                0x000000000003e768                _fini
+                0x000000000003e784       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
+                0x000000000003e784                __wrap_coap_receive
+ .text._fini    0x000000000003e798        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
+                0x000000000003e798                _fini
  .text.valid_attr_type
-                0x000000000003e76a       0x84 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
+                0x000000000003e79a       0x84 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
  .text.cbor_target_address
-                0x000000000003e7ee       0x5e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
+                0x000000000003e81e       0x5e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
  .text.cbor_read_array
-                0x000000000003e84c      0x234 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
-                0x000000000003e84c                cbor_read_array
+                0x000000000003e87c      0x234 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
+                0x000000000003e87c                cbor_read_array
  .text.cbor_internal_read_object
-                0x000000000003ea80      0x3c0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
+                0x000000000003eab0      0x3c0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
  .text.cbor_read_object
-                0x000000000003ee40        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
-                0x000000000003ee40                cbor_read_object
+                0x000000000003ee70        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
+                0x000000000003ee70                cbor_read_object
  .text.cbor_buf_writer
-                0x000000000003ee4c       0x2c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
-                0x000000000003ee4c                cbor_buf_writer
+                0x000000000003ee7c       0x2c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
+                0x000000000003ee7c                cbor_buf_writer
  .text.cbor_buf_writer_init
-                0x000000000003ee78       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
-                0x000000000003ee78                cbor_buf_writer_init
+                0x000000000003eea8       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
+                0x000000000003eea8                cbor_buf_writer_init
  .text.cbor_buf_writer_buffer_size
-                0x000000000003ee8c        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
-                0x000000000003ee8c                cbor_buf_writer_buffer_size
+                0x000000000003eebc        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
+                0x000000000003eebc                cbor_buf_writer_buffer_size
  .text.cbor_mbuf_reader_cpy
-                0x000000000003ee92       0x1e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
+                0x000000000003eec2       0x1e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
  .text.cbor_mbuf_reader_get8
-                0x000000000003eeb0       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
+                0x000000000003eee0       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
  .text.cbor_mbuf_reader_cmp
-                0x000000000003eecc       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
+                0x000000000003eefc       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
  .text.cbor_mbuf_reader_get64
-                0x000000000003eee4       0x1e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
+                0x000000000003ef14       0x1e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
  .text.cbor_mbuf_reader_get32
-                0x000000000003ef02       0x1a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
+                0x000000000003ef32       0x1a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
  .text.cbor_mbuf_reader_get16
-                0x000000000003ef1c       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
+                0x000000000003ef4c       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
  .text.cbor_mbuf_reader_init
-                0x000000000003ef3c       0x58 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
-                0x000000000003ef3c                cbor_mbuf_reader_init
+                0x000000000003ef6c       0x58 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
+                0x000000000003ef6c                cbor_mbuf_reader_init
  .text.cbor_mbuf_writer
-                0x000000000003ef94       0x22 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_writer.o)
-                0x000000000003ef94                cbor_mbuf_writer
- *fill*         0x000000000003efb6        0x2 
+                0x000000000003efc4       0x22 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_writer.o)
+                0x000000000003efc4                cbor_mbuf_writer
+ *fill*         0x000000000003efe6        0x2 
  .text.cbor_mbuf_writer_init
-                0x000000000003efb8       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_writer.o)
-                0x000000000003efb8                cbor_mbuf_writer_init
+                0x000000000003efe8       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_writer.o)
+                0x000000000003efe8                cbor_mbuf_writer_init
  .text.nrf52_clock_hfxo_request
-                0x000000000003efc8       0x44 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_clock.o)
-                0x000000000003efc8                nrf52_clock_hfxo_request
+                0x000000000003eff8       0x44 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_clock.o)
+                0x000000000003eff8                nrf52_clock_hfxo_request
  .text.nrf52_clock_hfxo_release
-                0x000000000003f00c       0x44 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_clock.o)
-                0x000000000003f00c                nrf52_clock_hfxo_release
+                0x000000000003f03c       0x44 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_clock.o)
+                0x000000000003f03c                nrf52_clock_hfxo_release
  .text.hal_bsp_hw_id_len
-                0x000000000003f050        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_hw_id.o)
-                0x000000000003f050                hal_bsp_hw_id_len
+                0x000000000003f080        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_hw_id.o)
+                0x000000000003f080                hal_bsp_hw_id_len
  .text.hal_bsp_hw_id
-                0x000000000003f054       0x34 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_hw_id.o)
-                0x000000000003f054                hal_bsp_hw_id
+                0x000000000003f084       0x34 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_hw_id.o)
+                0x000000000003f084                hal_bsp_hw_id
  .text.os_error_to_sys
-                0x000000000003f088       0x42 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_error.o)
-                0x000000000003f088                os_error_to_sys
+                0x000000000003f0b8       0x42 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_error.o)
+                0x000000000003f0b8                os_error_to_sys
  *(.init)
  *(.fini)
  *crtbegin.o(.ctors)
@@ -10008,659 +10014,659 @@ END GROUP
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
  *(.rodata*)
- *fill*         0x000000000003f0ca        0x2 
+ *fill*         0x000000000003f0fa        0x2 
  .rodata..Lanon.07192b547bda60a69362a7a088f5c816.12
-                0x000000000003f0cc       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x000000000003f0fc       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
  .rodata..Lanon.d15b7621e837f2a0ef9952a4c9ba4181.12
-                0x000000000003f0dc        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x000000000003f10c        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
  .rodata..Lanon.d15b7621e837f2a0ef9952a4c9ba4181.179
-                0x000000000003f0dc       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
- .rodata..Lanon.d15b7621e837f2a0ef9952a4c9ba4181.178
-                0x000000000003f0ec       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
- .rodata..Lanon.d15b7621e837f2a0ef9952a4c9ba4181.177
-                0x000000000003f0fc        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
- .rodata..L__unnamed_2
-                0x000000000003f0fe        0xd /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
- *fill*         0x000000000003f10b        0x1 
- .rodata..L__unnamed_3
                 0x000000000003f10c       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+ .rodata..Lanon.d15b7621e837f2a0ef9952a4c9ba4181.178
+                0x000000000003f11c       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+ .rodata..Lanon.d15b7621e837f2a0ef9952a4c9ba4181.177
+                0x000000000003f12c        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+ .rodata..L__unnamed_2
+                0x000000000003f12e        0xd /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+ *fill*         0x000000000003f13b        0x1 
+ .rodata..L__unnamed_3
+                0x000000000003f13c       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
  .rodata..L__unnamed_4
-                0x000000000003f11c        0xe /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
- *fill*         0x000000000003f12a        0x2 
+                0x000000000003f14c        0xe /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+ *fill*         0x000000000003f15a        0x2 
  .rodata..L__unnamed_5
-                0x000000000003f12c       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
- .rodata.cst16  0x000000000003f13c       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x000000000003f15c       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+ .rodata.cst16  0x000000000003f16c       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
  .rodata..L__unnamed_7
-                0x000000000003f14c       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
- .rodata.cst8   0x000000000003f15c       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x000000000003f17c       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+ .rodata.cst8   0x000000000003f18c       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
  .rodata..L__unnamed_9
-                0x000000000003f174       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
- .rodata..L__unnamed_11
-                0x000000000003f184       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
- .rodata..L__unnamed_13
-                0x000000000003f194       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
- .rodata..L__unnamed_14
                 0x000000000003f1a4       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+ .rodata..L__unnamed_11
+                0x000000000003f1b4       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+ .rodata..L__unnamed_13
+                0x000000000003f1c4       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+ .rodata..L__unnamed_14
+                0x000000000003f1d4       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
  .rodata..L__unnamed_22
-                0x000000000003f1b4       0x13 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
- *fill*         0x000000000003f1c7        0x1 
+                0x000000000003f1e4       0x13 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+ *fill*         0x000000000003f1f7        0x1 
  .rodata..L__unnamed_1
-                0x000000000003f1c8       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x000000000003f1f8       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
  .rodata..L__unnamed_15
-                0x000000000003f1d8        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x000000000003f208        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
  .rodata..L__unnamed_16
-                0x000000000003f1de        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x000000000003f20e        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
  .rodata..L__unnamed_17
-                0x000000000003f1e5        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x000000000003f215        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
  .rodata..L__unnamed_18
-                0x000000000003f1e8        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x000000000003f218        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
  .rodata..L__unnamed_19
-                0x000000000003f1ee        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
- *fill*         0x000000000003f1ef        0x1 
+                0x000000000003f21e        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+ *fill*         0x000000000003f21f        0x1 
  .rodata..L__unnamed_20
-                0x000000000003f1f0       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x000000000003f220       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
  .rodata..L__unnamed_21
-                0x000000000003f200       0x2b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x000000000003f230       0x2b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
  .rodata.console_printint.str1.4
-                0x000000000003f22b        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
+                0x000000000003f25b        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/semihosting_console/libs_semihosting_console.a(semihosting_console.o)
                                           0x3 (size before relaxing)
- *fill*         0x000000000003f22b        0x1 
+ *fill*         0x000000000003f25b        0x1 
  .rodata.console_printf.str1.4
-                0x000000000003f22c        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
- *fill*         0x000000000003f233        0x1 
- .rodata        0x000000000003f234        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_main.o)
+                0x000000000003f25c        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/semihosting_console/libs_semihosting_console.a(console_fmt.o)
+ *fill*         0x000000000003f263        0x1 
+ .rodata        0x000000000003f264        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_main.o)
  .rodata.bleprph_advertise.str1.4
-                0x000000000003f238       0x79 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_main.o)
- *fill*         0x000000000003f2b1        0x3 
+                0x000000000003f268       0x79 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_main.o)
+ *fill*         0x000000000003f2e1        0x3 
  .rodata.bleprph_gap_event.str1.4
-                0x000000000003f2b4      0x138 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_main.o)
+                0x000000000003f2e4      0x138 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_main.o)
                                         0x13c (size before relaxing)
  .rodata.bleprph_on_reset.str1.4
-                0x000000000003f3ec       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_main.o)
+                0x000000000003f41c       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_main.o)
  .rodata.bleprph_print_conn_desc.str1.4
-                0x000000000003f408       0xfe /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_main.o)
- *fill*         0x000000000003f506        0x2 
+                0x000000000003f438       0xfe /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_main.o)
+ *fill*         0x000000000003f536        0x2 
  .rodata.start_ble.str1.4
-                0x000000000003f508       0x2d /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_main.o)
- *fill*         0x000000000003f535        0x3 
+                0x000000000003f538       0x2d /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_main.o)
+ *fill*         0x000000000003f565        0x3 
  .rodata.gatt_svr_chr_sec_test_rand_uuid
-                0x000000000003f538       0x11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_gatt_svr.o)
- *fill*         0x000000000003f549        0x3 
+                0x000000000003f568       0x11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_gatt_svr.o)
+ *fill*         0x000000000003f579        0x3 
  .rodata.gatt_svr_chr_sec_test_static_uuid
-                0x000000000003f54c       0x11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_gatt_svr.o)
- *fill*         0x000000000003f55d        0x3 
+                0x000000000003f57c       0x11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_gatt_svr.o)
+ *fill*         0x000000000003f58d        0x3 
  .rodata.gatt_svr_svc_sec_test_uuid
-                0x000000000003f560       0x11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_gatt_svr.o)
- *fill*         0x000000000003f571        0x3 
+                0x000000000003f590       0x11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_gatt_svr.o)
+ *fill*         0x000000000003f5a1        0x3 
  .rodata.gatt_svr_svcs
-                0x000000000003f574       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_gatt_svr.o)
+                0x000000000003f5a4       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(ble_gatt_svr.o)
  .rodata.__assert_func.str1.4
-                0x000000000003f594       0x27 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_fault.o)
- *fill*         0x000000000003f5bb        0x1 
+                0x000000000003f5c4       0x27 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_fault.o)
+ *fill*         0x000000000003f5eb        0x1 
  .rodata.os_default_irq.str1.4
-                0x000000000003f5bc      0x148 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_fault.o)
+                0x000000000003f5ec      0x148 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_fault.o)
  .rodata.os_init.str1.4
-                0x000000000003f704        0x5 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os.o)
- *fill*         0x000000000003f709        0x3 
+                0x000000000003f734        0x5 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os.o)
+ *fill*         0x000000000003f739        0x3 
  .rodata.os_init_idle_task.str1.4
-                0x000000000003f70c        0x5 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os.o)
- *fill*         0x000000000003f711        0x3 
+                0x000000000003f73c        0x5 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os.o)
+ *fill*         0x000000000003f741        0x3 
  .rodata.os_msys_init.str1.4
-                0x000000000003f714        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_msys.o)
- *fill*         0x000000000003f71b        0x1 
+                0x000000000003f744        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_msys.o)
+ *fill*         0x000000000003f74b        0x1 
  .rodata.MemFile_methods
-                0x000000000003f71c        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libc/baselibc/libc_baselibc.a(memfile.o)
-                0x000000000003f71c                MemFile_methods
+                0x000000000003f74c        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libc/baselibc/libc_baselibc.a(memfile.o)
+                0x000000000003f74c                MemFile_methods
  .rodata.stdout
-                0x000000000003f724        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libc/baselibc/libc_baselibc.a(mynewt.o)
-                0x000000000003f724                stdout
+                0x000000000003f754        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libc/baselibc/libc_baselibc.a(mynewt.o)
+                0x000000000003f754                stdout
  .rodata.pinetime_lvgl_mynewt_init.str1.4
-                0x000000000003f728        0xe /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lvgl.o)
- *fill*         0x000000000003f736        0x2 
+                0x000000000003f758        0xe /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lvgl.o)
+ *fill*         0x000000000003f766        0x2 
  .rodata.pinetime_lvgl_mynewt_render.str1.4
-                0x000000000003f738       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lvgl.o)
+                0x000000000003f768       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lvgl.o)
  .rodata.pinetime_lvgl_mynewt_test.str1.4
-                0x000000000003f750       0x24 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lvgl.o)
- .rodata        0x000000000003f774        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_obj.o)
- *fill*         0x000000000003f776        0x2 
+                0x000000000003f780       0x24 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lvgl.o)
+ .rodata        0x000000000003f7a4        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_obj.o)
+ *fill*         0x000000000003f7a6        0x2 
  .rodata.lv_obj_signal.str1.4
-                0x000000000003f778        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_obj.o)
- *fill*         0x000000000003f77f        0x1 
- .rodata        0x000000000003f780        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_draw_img.o)
- *fill*         0x000000000003f782        0x2 
+                0x000000000003f7a8        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_obj.o)
+ *fill*         0x000000000003f7af        0x1 
+ .rodata        0x000000000003f7b0        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_draw_img.o)
+ *fill*         0x000000000003f7b2        0x2 
  .rodata.lv_draw_img.str1.4
-                0x000000000003f784        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_draw_img.o)
+                0x000000000003f7b4        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_draw_img.o)
  .rodata._lv_bpp1_opa_table
-                0x000000000003f78c        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_draw_label.o)
-                0x000000000003f78c                _lv_bpp1_opa_table
- *fill*         0x000000000003f78e        0x2 
+                0x000000000003f7bc        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_draw_label.o)
+                0x000000000003f7bc                _lv_bpp1_opa_table
+ *fill*         0x000000000003f7be        0x2 
  .rodata._lv_bpp2_opa_table
-                0x000000000003f790        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_draw_label.o)
-                0x000000000003f790                _lv_bpp2_opa_table
+                0x000000000003f7c0        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_draw_label.o)
+                0x000000000003f7c0                _lv_bpp2_opa_table
  .rodata._lv_bpp4_opa_table
-                0x000000000003f794       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_draw_label.o)
-                0x000000000003f794                _lv_bpp4_opa_table
+                0x000000000003f7c4       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_draw_label.o)
+                0x000000000003f7c4                _lv_bpp4_opa_table
  .rodata._lv_bpp8_opa_table
-                0x000000000003f7a4      0x100 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_draw_label.o)
-                0x000000000003f7a4                _lv_bpp8_opa_table
+                0x000000000003f7d4      0x100 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_draw_label.o)
+                0x000000000003f7d4                _lv_bpp8_opa_table
  .rodata.wcorr.9591
-                0x000000000003f8a4       0x21 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_draw_line.o)
- *fill*         0x000000000003f8c5        0x3 
- .rodata        0x000000000003f8c8        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_draw_rect.o)
- *fill*         0x000000000003f8ca        0x2 
- .rodata        0x000000000003f8cc       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_img_buf.o)
- .rodata        0x000000000003f8e0       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_img_decoder.o)
- .rodata.cmaps  0x000000000003f8f4       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_font_montserrat_14.o)
+                0x000000000003f8d4       0x21 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_draw_line.o)
+ *fill*         0x000000000003f8f5        0x3 
+ .rodata        0x000000000003f8f8        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_draw_rect.o)
+ *fill*         0x000000000003f8fa        0x2 
+ .rodata        0x000000000003f8fc       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_img_buf.o)
+ .rodata        0x000000000003f910       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_img_decoder.o)
+ .rodata.cmaps  0x000000000003f924       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_font_montserrat_14.o)
  .rodata.glyph_dsc
-                0x000000000003f91c      0x4d8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_font_montserrat_14.o)
+                0x000000000003f94c      0x4d8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_font_montserrat_14.o)
  .rodata.gylph_bitmap
-                0x000000000003fdf4     0x219a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_font_montserrat_14.o)
- *fill*         0x0000000000041f8e        0x2 
+                0x000000000003fe24     0x219a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_font_montserrat_14.o)
+ *fill*         0x0000000000041fbe        0x2 
  .rodata.kern_class_values
-                0x0000000000041f90      0xbad /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_font_montserrat_14.o)
- *fill*         0x0000000000042b3d        0x3 
+                0x0000000000041fc0      0xbad /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_font_montserrat_14.o)
+ *fill*         0x0000000000042b6d        0x3 
  .rodata.kern_classes
-                0x0000000000042b40       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_font_montserrat_14.o)
+                0x0000000000042b70       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_font_montserrat_14.o)
  .rodata.kern_left_class_mapping
-                0x0000000000042b50       0x9b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_font_montserrat_14.o)
- *fill*         0x0000000000042beb        0x1 
+                0x0000000000042b80       0x9b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_font_montserrat_14.o)
+ *fill*         0x0000000000042c1b        0x1 
  .rodata.kern_right_class_mapping
-                0x0000000000042bec       0x9b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_font_montserrat_14.o)
- *fill*         0x0000000000042c87        0x1 
+                0x0000000000042c1c       0x9b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_font_montserrat_14.o)
+ *fill*         0x0000000000042cb7        0x1 
  .rodata.unicode_list_1
-                0x0000000000042c88       0x76 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_font_montserrat_14.o)
- *fill*         0x0000000000042cfe        0x2 
- .rodata        0x0000000000042d00        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_hal_disp.o)
- *fill*         0x0000000000042d02        0x2 
+                0x0000000000042cb8       0x76 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_font_montserrat_14.o)
+ *fill*         0x0000000000042d2e        0x2 
+ .rodata        0x0000000000042d30        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_hal_disp.o)
+ *fill*         0x0000000000042d32        0x2 
  .rodata.lv_anim_path_def
-                0x0000000000042d04        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_anim.o)
-                0x0000000000042d04                lv_anim_path_def
+                0x0000000000042d34        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_anim.o)
+                0x0000000000042d34                lv_anim_path_def
  .rodata.sin0_90_table
-                0x0000000000042d0c       0xb6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_math.o)
- *fill*         0x0000000000042dc2        0x2 
+                0x0000000000042d3c       0xb6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_math.o)
+ *fill*         0x0000000000042df2        0x2 
  .rodata.lv_txt_get_next_word.str1.4
-                0x0000000000042dc4        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_txt.o)
- .rodata        0x0000000000042dcc        0xa /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_theme_material.o)
- *fill*         0x0000000000042dd6        0x2 
+                0x0000000000042df4        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_txt.o)
+ .rodata        0x0000000000042dfc        0xa /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_theme_material.o)
+ *fill*         0x0000000000042e06        0x2 
  .rodata.checkbox_init.str1.4
-                0x0000000000042dd8        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_theme_material.o)
+                0x0000000000042e08        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_theme_material.o)
  .rodata.lv_btn_signal.str1.4
-                0x0000000000042ddc        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_btn.o)
- *fill*         0x0000000000042de3        0x1 
+                0x0000000000042e0c        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_btn.o)
+ *fill*         0x0000000000042e13        0x1 
  .rodata.lv_cont_signal.str1.4
-                0x0000000000042de4        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_cont.o)
+                0x0000000000042e14        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_cont.o)
  .rodata.lv_label_create.str1.4
-                0x0000000000042dec        0x5 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_label.o)
- *fill*         0x0000000000042df1        0x3 
- .rodata.lv_label_signal.str1.4
-                0x0000000000042df4        0x9 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_label.o)
- *fill*         0x0000000000042dfd        0x3 
- .rodata.COLMOD_PARA.15949
-                0x0000000000042e00        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
- *fill*         0x0000000000042e01        0x3 
- .rodata.FRMCTR1_PARA.15937
-                0x0000000000042e04        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
- *fill*         0x0000000000042e07        0x1 
- .rodata.FRMCTR2_PARA.15938
-                0x0000000000042e08        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
- *fill*         0x0000000000042e0b        0x1 
- .rodata.FRMCTR3_PARA.15939
-                0x0000000000042e0c        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
- *fill*         0x0000000000042e12        0x2 
- .rodata.INVCTR_PARA.15940
-                0x0000000000042e14        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
- *fill*         0x0000000000042e15        0x3 
- .rodata.MADCTL1_PARA.15947
-                0x0000000000042e18        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
- *fill*         0x0000000000042e19        0x3 
- .rodata.PWCTR1_PARA.15941
-                0x0000000000042e1c        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
- *fill*         0x0000000000042e1f        0x1 
- .rodata.PWCTR2_PARA.15942
-                0x0000000000042e20        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
+                0x0000000000042e1c        0x5 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_label.o)
  *fill*         0x0000000000042e21        0x3 
- .rodata.PWCTR3_PARA.15943
-                0x0000000000042e24        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
- *fill*         0x0000000000042e26        0x2 
- .rodata.PWCTR4_PARA.15944
-                0x0000000000042e28        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
- *fill*         0x0000000000042e2a        0x2 
- .rodata.PWCTR5_PARA.15945
-                0x0000000000042e2c        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
- *fill*         0x0000000000042e2e        0x2 
- .rodata.VMCTR1_PARA.15946
+ .rodata.lv_label_signal.str1.4
+                0x0000000000042e24        0x9 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_label.o)
+ *fill*         0x0000000000042e2d        0x3 
+ .rodata.COLMOD_PARA.15949
                 0x0000000000042e30        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
  *fill*         0x0000000000042e31        0x3 
+ .rodata.FRMCTR1_PARA.15937
+                0x0000000000042e34        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
+ *fill*         0x0000000000042e37        0x1 
+ .rodata.FRMCTR2_PARA.15938
+                0x0000000000042e38        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
+ *fill*         0x0000000000042e3b        0x1 
+ .rodata.FRMCTR3_PARA.15939
+                0x0000000000042e3c        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
+ *fill*         0x0000000000042e42        0x2 
+ .rodata.INVCTR_PARA.15940
+                0x0000000000042e44        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
+ *fill*         0x0000000000042e45        0x3 
+ .rodata.MADCTL1_PARA.15947
+                0x0000000000042e48        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
+ *fill*         0x0000000000042e49        0x3 
+ .rodata.PWCTR1_PARA.15941
+                0x0000000000042e4c        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
+ *fill*         0x0000000000042e4f        0x1 
+ .rodata.PWCTR2_PARA.15942
+                0x0000000000042e50        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
+ *fill*         0x0000000000042e51        0x3 
+ .rodata.PWCTR3_PARA.15943
+                0x0000000000042e54        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
+ *fill*         0x0000000000042e56        0x2 
+ .rodata.PWCTR4_PARA.15944
+                0x0000000000042e58        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
+ *fill*         0x0000000000042e5a        0x2 
+ .rodata.PWCTR5_PARA.15945
+                0x0000000000042e5c        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
+ *fill*         0x0000000000042e5e        0x2 
+ .rodata.VMCTR1_PARA.15946
+                0x0000000000042e60        0x1 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(display.o)
+ *fill*         0x0000000000042e61        0x3 
  .rodata.disp_flush.str1.4
-                0x0000000000042e34       0x38 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_port_disp.o)
- .rodata        0x0000000000042e6c        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_color.o)
- *fill*         0x0000000000042e6e        0x2 
+                0x0000000000042e64       0x38 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_port_disp.o)
+ .rodata        0x0000000000042e9c        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/pinetime_lvgl_mynewt/libs_pinetime_lvgl_mynewt.a(lv_color.o)
+ *fill*         0x0000000000042e9e        0x2 
  .rodata.imgr_erase_state.str1.4
-                0x0000000000042e70        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/imgmgr/mgmt_imgmgr.a(imgmgr.o)
- *fill*         0x0000000000042e73        0x1 
+                0x0000000000042ea0        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/imgmgr/mgmt_imgmgr.a(imgmgr.o)
+ *fill*         0x0000000000042ea3        0x1 
  .rodata.imgr_mgmt_handlers
-                0x0000000000042e74       0x38 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/imgmgr/mgmt_imgmgr.a(imgmgr.o)
+                0x0000000000042ea4       0x38 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/imgmgr/mgmt_imgmgr.a(imgmgr.o)
  .rodata.imgr_ver_str.str1.4
-                0x0000000000042eac       0x19 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/imgmgr/mgmt_imgmgr.a(imgmgr_util.o)
+                0x0000000000042edc       0x19 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/imgmgr/mgmt_imgmgr.a(imgmgr_util.o)
  .rodata.mgmt_write_rsp_status.str1.4
-                0x0000000000042ec5        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/mgmt.a(mgmt.o)
- *fill*         0x0000000000042ec5        0x3 
+                0x0000000000042ef5        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/mgmt.a(mgmt.o)
+ *fill*         0x0000000000042ef5        0x3 
  .rodata.ble_gap_init.str1.4
-                0x0000000000042ec8        0xf /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_gap.o)
- *fill*         0x0000000000042ed7        0x1 
- .rodata        0x0000000000042ed8        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_gattc.o)
+                0x0000000000042ef8        0xf /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_gap.o)
+ *fill*         0x0000000000042f07        0x1 
+ .rodata        0x0000000000042f08        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_gattc.o)
  .rodata.ble_gattc_err_dispatch
-                0x0000000000042ee4       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_gattc.o)
+                0x0000000000042f14       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_gattc.o)
  .rodata.ble_gattc_init.str1.4
-                0x0000000000042f20       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_gattc.o)
+                0x0000000000042f50       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_gattc.o)
  .rodata.ble_gattc_resume_dispatch
-                0x0000000000042f34       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_gattc.o)
+                0x0000000000042f64       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_gattc.o)
  .rodata.ble_gattc_tmo_dispatch
-                0x0000000000042f70       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_gattc.o)
- .rodata        0x0000000000042fac        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_gatts.o)
+                0x0000000000042fa0       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_gattc.o)
+ .rodata        0x0000000000042fdc        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_gatts.o)
  .rodata.ble_gatts_start.str1.4
-                0x0000000000042fb0       0x17 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_gatts.o)
- *fill*         0x0000000000042fc7        0x1 
+                0x0000000000042fe0       0x17 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_gatts.o)
+ *fill*         0x0000000000042ff7        0x1 
  .rodata.ble_hs_init.str1.4
-                0x0000000000042fc8       0x13 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs.o)
- *fill*         0x0000000000042fdb        0x1 
+                0x0000000000042ff8       0x13 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs.o)
+ *fill*         0x000000000004300b        0x1 
  .rodata.ble_hs_conn_init.str1.4
-                0x0000000000042fdc       0x11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs_conn.o)
- *fill*         0x0000000000042fed        0x3 
+                0x000000000004300c       0x11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs_conn.o)
+ *fill*         0x000000000004301d        0x3 
  .rodata.ble_hs_hci_init.str1.4
-                0x0000000000042ff0       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs_hci.o)
+                0x0000000000043020       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs_hci.o)
  .rodata.ble_hs_hci_evt_dispatch
-                0x0000000000043000       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs_hci_evt.o)
+                0x0000000000043030       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs_hci_evt.o)
  .rodata.ble_hs_hci_evt_le_dispatch
-                0x0000000000043030       0x64 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs_hci_evt.o)
+                0x0000000000043060       0x64 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs_hci_evt.o)
  .rodata.priv_addr_types.12672
-                0x0000000000043094        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs_id.o)
- *fill*         0x0000000000043096        0x2 
+                0x00000000000430c4        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs_id.o)
+ *fill*         0x00000000000430c6        0x2 
  .rodata.pub_addr_types.12671
-                0x0000000000043098        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs_id.o)
- *fill*         0x000000000004309a        0x2 
+                0x00000000000430c8        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs_id.o)
+ *fill*         0x00000000000430ca        0x2 
  .rodata.ble_hs_pvcy_default_irk
-                0x000000000004309c       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs_pvcy.o)
-                0x000000000004309c                ble_hs_pvcy_default_irk
+                0x00000000000430cc       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_hs_pvcy.o)
+                0x00000000000430cc                ble_hs_pvcy_default_irk
  .rodata.ble_l2cap_init.str1.4
-                0x00000000000430ac       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_l2cap.o)
+                0x00000000000430dc       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_l2cap.o)
  .rodata.ble_l2cap_sig_dispatch
-                0x00000000000430c0       0x6c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_l2cap_sig.o)
+                0x00000000000430f0       0x6c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_l2cap_sig.o)
  .rodata.ble_l2cap_sig_init.str1.4
-                0x000000000004312c       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_l2cap_sig.o)
+                0x000000000004315c       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_l2cap_sig.o)
  .rodata.ble_sm_dispatch
-                0x0000000000043144       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_sm.o)
+                0x0000000000043174       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_sm.o)
  .rodata.ble_sm_init.str1.4
-                0x0000000000043180       0x11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_sm.o)
- *fill*         0x0000000000043191        0x3 
+                0x00000000000431b0       0x11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_sm.o)
+ *fill*         0x00000000000431c1        0x3 
  .rodata.ble_sm_state_dispatch
-                0x0000000000043194       0x2c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_sm.o)
+                0x00000000000431c4       0x2c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_sm.o)
  .rodata.ble_sm_lgcy_init_ioa
-                0x00000000000431c0       0x19 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_sm_lgcy.o)
- *fill*         0x00000000000431d9        0x3 
+                0x00000000000431f0       0x19 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_sm_lgcy.o)
+ *fill*         0x0000000000043209        0x3 
  .rodata.ble_sm_lgcy_resp_ioa
-                0x00000000000431dc       0x19 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_sm_lgcy.o)
- *fill*         0x00000000000431f5        0x3 
+                0x000000000004320c       0x19 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_sm_lgcy.o)
+ *fill*         0x0000000000043225        0x3 
  .rodata.ble_uuid_base
-                0x00000000000431f8       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_uuid.o)
+                0x0000000000043228       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_uuid.o)
  .rodata.ble_uuid_to_str.str1.4
-                0x0000000000043208       0x55 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_uuid.o)
- *fill*         0x000000000004325d        0x3 
+                0x0000000000043238       0x55 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_uuid.o)
+ *fill*         0x000000000004328d        0x3 
  .rodata.ble_att_rx_dispatch
-                0x0000000000043260       0xd8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_att.o)
+                0x0000000000043290       0xd8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_att.o)
  .rodata.ble_att_svr_init.str1.4
-                0x0000000000043338       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_att_svr.o)
+                0x0000000000043368       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_att_svr.o)
  .rodata.ble_att_svr_start.str1.4
-                0x0000000000043354       0x17 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_att_svr.o)
- *fill*         0x000000000004336b        0x1 
+                0x0000000000043384       0x17 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/nimble_host.a(ble_att_svr.o)
+ *fill*         0x000000000004339b        0x1 
  .rodata.ble_svc_dis_defs
-                0x000000000004336c       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/services/dis/nimble_host_services_dis.a(ble_svc_dis.o)
+                0x000000000004339c       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/services/dis/nimble_host_services_dis.a(ble_svc_dis.o)
  .rodata.str1.4
-                0x000000000004338c       0x15 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/services/dis/nimble_host_services_dis.a(ble_svc_dis.o)
- *fill*         0x00000000000433a1        0x3 
+                0x00000000000433bc       0x15 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/services/dis/nimble_host_services_dis.a(ble_svc_dis.o)
+ *fill*         0x00000000000433d1        0x3 
  .rodata.ble_svc_gap_defs
-                0x00000000000433a4       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/services/gap/nimble_host_services_gap.a(ble_svc_gap.o)
+                0x00000000000433d4       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/services/gap/nimble_host_services_gap.a(ble_svc_gap.o)
  .rodata.ble_hci_ram_init.str1.4
-                0x00000000000433c4       0x48 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/transport/ram/nimble_transport_ram.a(ble_hci_ram.o)
+                0x00000000000433f4       0x48 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/transport/ram/nimble_transport_ram.a(ble_hci_ram.o)
  .rodata.conf_parse_name.str1.4
-                0x000000000004340c        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/config/sys_config.a(config.o)
- *fill*         0x000000000004340e        0x2 
+                0x000000000004343c        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/config/sys_config.a(config.o)
+ *fill*         0x000000000004343e        0x2 
  .rodata.conf_str_from_value.str1.4
-                0x0000000000043410        0xd /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/config/sys_config.a(config.o)
- *fill*         0x000000000004341d        0x3 
+                0x0000000000043440        0xd /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/config/sys_config.a(config.o)
+ *fill*         0x000000000004344d        0x3 
  .rodata.sysflash_map_dflt
-                0x0000000000043420       0x48 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/generated/bin/nrf52_my_sensor-sysinit-app.a(nrf52_my_sensor-sysflash.o)
-                0x0000000000043420                sysflash_map_dflt
+                0x0000000000043450       0x48 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/generated/bin/nrf52_my_sensor-sysinit-app.a(nrf52_my_sensor-sysflash.o)
+                0x0000000000043450                sysflash_map_dflt
  .rodata.boot_img_magic
-                0x0000000000043468       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
-                0x0000000000043468                boot_img_magic
+                0x0000000000043498       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+                0x0000000000043498                boot_img_magic
  .rodata.boot_swap_tables
-                0x0000000000043478       0x12 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
- *fill*         0x000000000004348a        0x2 
+                0x00000000000434a8       0x12 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/boot/bootutil/boot_bootutil.a(bootutil_misc.o)
+ *fill*         0x00000000000434ba        0x2 
  .rodata.__compound_literal.0
-                0x000000000004348c       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/boot/split/boot_split.a(split.o)
+                0x00000000000434bc       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/boot/split/boot_split.a(split.o)
  .rodata.split_app_init.str1.4
-                0x00000000000434ac        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/boot/split/boot_split.a(split.o)
- *fill*         0x00000000000434b2        0x2 
+                0x00000000000434dc        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/boot/split/boot_split.a(split.o)
+ *fill*         0x00000000000434e2        0x2 
  .rodata.str1.4
-                0x00000000000434b4        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/boot/split/boot_split.a(split.o)
+                0x00000000000434e4        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/boot/split/boot_split.a(split.o)
  .rodata.img_mgmt_erase.str1.4
-                0x00000000000434bb        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/cmd_img_mgmt.a(img_mgmt.o)
- *fill*         0x00000000000434bb        0x1 
+                0x00000000000434eb        0x3 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/cmd_img_mgmt.a(img_mgmt.o)
+ *fill*         0x00000000000434eb        0x1 
  .rodata.img_mgmt_handlers
-                0x00000000000434bc       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/cmd_img_mgmt.a(img_mgmt.o)
+                0x00000000000434ec       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/cmd_img_mgmt.a(img_mgmt.o)
  .rodata.img_mgmt_upload.str1.4
-                0x00000000000434ec       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/cmd_img_mgmt.a(img_mgmt.o)
+                0x000000000004351c       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/cmd_img_mgmt.a(img_mgmt.o)
  .rodata.img_mgmt_upload_good_rsp.str1.4
-                0x0000000000043504        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/cmd_img_mgmt.a(img_mgmt.o)
+                0x0000000000043534        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/cmd_img_mgmt.a(img_mgmt.o)
  .rodata.img_mgmt_state_read.str1.4
-                0x0000000000043508       0x60 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/cmd_img_mgmt.a(img_mgmt_state.o)
+                0x0000000000043538       0x60 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/cmd_img_mgmt.a(img_mgmt_state.o)
  .rodata.img_mgmt_state_write.str1.4
-                0x0000000000043568        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/cmd_img_mgmt.a(img_mgmt_state.o)
+                0x0000000000043598        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/cmd_img_mgmt.a(img_mgmt_state.o)
  .rodata.img_mgmt_impl_log_confirm.str1.4
-                0x0000000000043570        0x5 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/port/mynewt/cmd_img_mgmt_port_mynewt.a(mynewt_img_mgmt_log.o)
- *fill*         0x0000000000043575        0x3 
+                0x00000000000435a0        0x5 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/port/mynewt/cmd_img_mgmt_port_mynewt.a(mynewt_img_mgmt_log.o)
+ *fill*         0x00000000000435a5        0x3 
  .rodata.img_mgmt_impl_log_pending.str1.4
-                0x0000000000043578        0x5 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/port/mynewt/cmd_img_mgmt_port_mynewt.a(mynewt_img_mgmt_log.o)
- *fill*         0x000000000004357d        0x3 
+                0x00000000000435a8        0x5 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/port/mynewt/cmd_img_mgmt_port_mynewt.a(mynewt_img_mgmt_log.o)
+ *fill*         0x00000000000435ad        0x3 
  .rodata.img_mgmt_impl_log_upload_done.str1.4
-                0x0000000000043580        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/port/mynewt/cmd_img_mgmt_port_mynewt.a(mynewt_img_mgmt_log.o)
- *fill*         0x0000000000043587        0x1 
+                0x00000000000435b0        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/port/mynewt/cmd_img_mgmt_port_mynewt.a(mynewt_img_mgmt_log.o)
+ *fill*         0x00000000000435b7        0x1 
  .rodata.img_mgmt_impl_log_upload_start.str1.4
-                0x0000000000043588        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/port/mynewt/cmd_img_mgmt_port_mynewt.a(mynewt_img_mgmt_log.o)
+                0x00000000000435b8        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/img_mgmt/port/mynewt/cmd_img_mgmt_port_mynewt.a(mynewt_img_mgmt_log.o)
  .rodata.os_mgmt_echo.str1.4
-                0x0000000000043590        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/os_mgmt/cmd_os_mgmt.a(os_mgmt.o)
+                0x00000000000435c0        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/os_mgmt/cmd_os_mgmt.a(os_mgmt.o)
                                           0x6 (size before relaxing)
- *fill*         0x0000000000043592        0x2 
+ *fill*         0x00000000000435c2        0x2 
  .rodata.os_mgmt_group_handlers
-                0x0000000000043594       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/os_mgmt/cmd_os_mgmt.a(os_mgmt.o)
+                0x00000000000435c4       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/os_mgmt/cmd_os_mgmt.a(os_mgmt.o)
  .rodata.os_mgmt_taskstat_encode_one.str1.4
-                0x00000000000435c4       0x51 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/os_mgmt/cmd_os_mgmt.a(os_mgmt.o)
- *fill*         0x0000000000043615        0x3 
+                0x00000000000435f4       0x51 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/os_mgmt/cmd_os_mgmt.a(os_mgmt.o)
+ *fill*         0x0000000000043645        0x3 
  .rodata.os_mgmt_taskstat_read.str1.4
-                0x0000000000043618        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/os_mgmt/cmd_os_mgmt.a(os_mgmt.o)
- *fill*         0x000000000004361e        0x2 
- .rodata        0x0000000000043620       0x2c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/crypto/tinycrypt/crypto_tinycrypt.a(aes_encrypt.o)
- .rodata.sbox   0x000000000004364c      0x100 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/crypto/tinycrypt/crypto_tinycrypt.a(aes_encrypt.o)
+                0x0000000000043648        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cmd/os_mgmt/cmd_os_mgmt.a(os_mgmt.o)
+ *fill*         0x000000000004364e        0x2 
+ .rodata        0x0000000000043650       0x2c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/crypto/tinycrypt/crypto_tinycrypt.a(aes_encrypt.o)
+ .rodata.sbox   0x000000000004367c      0x100 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/crypto/tinycrypt/crypto_tinycrypt.a(aes_encrypt.o)
  .rodata.base64_chars
-                0x000000000004374c       0x41 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/base64/encoding_base64.a(base64.o)
- *fill*         0x000000000004378d        0x3 
+                0x000000000004377c       0x41 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/base64/encoding_base64.a(base64.o)
+ *fill*         0x00000000000437bd        0x3 
  .rodata.flash_devs
-                0x0000000000043790        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(hal_bsp.o)
+                0x00000000000437c0        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(hal_bsp.o)
  .rodata.spiflash_characteristics
-                0x0000000000043798       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/drivers/flash/spiflash/hw_drivers_flash_spiflash.a(spiflash.o)
+                0x00000000000437c8       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/drivers/flash/spiflash/hw_drivers_flash_spiflash.a(spiflash.o)
  .rodata.spiflash_flash_funcs
-                0x00000000000437c8       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/drivers/flash/spiflash/hw_drivers_flash_spiflash.a(spiflash.o)
+                0x00000000000437f8       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/drivers/flash/spiflash/hw_drivers_flash_spiflash.a(spiflash.o)
  .rodata.nrf52k_flash_dev
-                0x00000000000437e4       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_flash.o)
-                0x00000000000437e4                nrf52k_flash_dev
+                0x0000000000043814       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_flash.o)
+                0x0000000000043814                nrf52k_flash_dev
  .rodata.nrf52k_flash_funcs
-                0x00000000000437fc       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_flash.o)
+                0x000000000004382c       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_flash.o)
  .rodata.nrf52_hal_spis
-                0x0000000000043818       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_spi.o)
+                0x0000000000043848       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_spi.o)
  .rodata.hal_i2c1_cfg
-                0x0000000000043828        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_periph.o)
+                0x0000000000043858        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_periph.o)
  .rodata.os_bsp_spi0m_cfg
-                0x0000000000043834        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_periph.o)
+                0x0000000000043864        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_periph.o)
  .rodata.nrf52_hal_i2cs
-                0x0000000000043838        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_i2c.o)
+                0x0000000000043868        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_i2c.o)
  .rodata.nrf52_hal_timers
-                0x0000000000043840       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_timer.o)
+                0x0000000000043870       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_timer.o)
  .rodata.sensor_mgr_init.str1.4
-                0x0000000000043858       0x12 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/sensor/hw_sensor.a(sensor.o)
- *fill*         0x000000000004386a        0x2 
+                0x0000000000043888       0x12 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/sensor/hw_sensor.a(sensor.o)
+ *fill*         0x000000000004389a        0x2 
  .rodata.COLLECTOR_NODE_HW_ID
-                0x000000000004386c        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/sensor_network/libs_sensor_network.a(sensor_network.o)
+                0x000000000004389c        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/sensor_network/libs_sensor_network.a(sensor_network.o)
  .rodata.SENSOR_NODE_HW_IDS
-                0x0000000000043878       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/sensor_network/libs_sensor_network.a(sensor_network.o)
+                0x00000000000438a8       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/sensor_network/libs_sensor_network.a(sensor_network.o)
  .rodata.get_hardware_id.str1.4
-                0x00000000000438b4        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/sensor_network/libs_sensor_network.a(sensor_network.o)
+                0x00000000000438e4        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/sensor_network/libs_sensor_network.a(sensor_network.o)
                                           0xa (size before relaxing)
  .rodata.sensor_network_init.str1.4
-                0x00000000000438bc       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/sensor_network/libs_sensor_network.a(sensor_network.o)
+                0x00000000000438ec       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/sensor_network/libs_sensor_network.a(sensor_network.o)
  .rodata.sensor_network_register_transport.str1.4
-                0x00000000000438fc       0x11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/sensor_network/libs_sensor_network.a(sensor_network.o)
- *fill*         0x000000000004390d        0x3 
+                0x000000000004392c       0x11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/sensor_network/libs_sensor_network.a(sensor_network.o)
+ *fill*         0x000000000004393d        0x3 
  .rodata.sensor_node_addresses
-                0x0000000000043910       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/sensor_network/libs_sensor_network.a(sensor_network.o)
+                0x0000000000043940       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/sensor_network/libs_sensor_network.a(sensor_network.o)
  .rodata.config_device.str1.4
-                0x0000000000043938        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/temp_stub/libs_temp_stub.a(creator.o)
+                0x0000000000043968        0xc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/temp_stub/libs_temp_stub.a(creator.o)
  .rodata.temp_stub_create.str1.4
-                0x0000000000043944        0xf /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/temp_stub/libs_temp_stub.a(creator.o)
- *fill*         0x0000000000043953        0x1 
+                0x0000000000043974        0xf /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/temp_stub/libs_temp_stub.a(creator.o)
+ *fill*         0x0000000000043983        0x1 
  .rodata.g_temp_stub_sensor_driver
-                0x0000000000043954       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/temp_stub/libs_temp_stub.a(temp_stub.o)
+                0x0000000000043984       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/temp_stub/libs_temp_stub.a(temp_stub.o)
  .rodata.temp_stub_get_raw_temperature.str1.4
-                0x000000000004397c       0x16 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/temp_stub/libs_temp_stub.a(temp_stub.o)
- *fill*         0x0000000000043992        0x2 
+                0x00000000000439ac       0x16 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/temp_stub/libs_temp_stub.a(temp_stub.o)
+ *fill*         0x00000000000439c2        0x2 
  .rodata.g_smp_cbor_cfg
-                0x0000000000043994       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/smp/mgmt_smp.a(smp.o)
-                0x0000000000043994                g_smp_cbor_cfg
+                0x00000000000439c4       0x1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/smp/mgmt_smp.a(smp.o)
+                0x00000000000439c4                g_smp_cbor_cfg
  .rodata.gatt_svr_chr_smp
-                0x00000000000439b0       0x11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/smp/transport/ble/mgmt_smp_transport_ble.a(smp_ble.o)
- *fill*         0x00000000000439c1        0x3 
+                0x00000000000439e0       0x11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/smp/transport/ble/mgmt_smp_transport_ble.a(smp_ble.o)
+ *fill*         0x00000000000439f1        0x3 
  .rodata.gatt_svr_svc_smp
-                0x00000000000439c4       0x11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/smp/transport/ble/mgmt_smp_transport_ble.a(smp_ble.o)
- *fill*         0x00000000000439d5        0x3 
+                0x00000000000439f4       0x11 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/smp/transport/ble/mgmt_smp_transport_ble.a(smp_ble.o)
+ *fill*         0x0000000000043a05        0x3 
  .rodata.gatt_svr_svcs
-                0x00000000000439d8       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/smp/transport/ble/mgmt_smp_transport_ble.a(smp_ble.o)
+                0x0000000000043a08       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/mgmt/smp/transport/ble/mgmt_smp_transport_ble.a(smp_ble.o)
  .rodata.oc_ri_mem_init.str1.4
-                0x00000000000439f8        0xa /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/net/oic/net_oic.a(oc_ri.o)
- *fill*         0x0000000000043a02        0x2 
+                0x0000000000043a28        0xa /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/net/oic/net_oic.a(oc_ri.o)
+ *fill*         0x0000000000043a32        0x2 
  .rodata.oc_rep_init.str1.4
-                0x0000000000043a04        0x9 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/net/oic/net_oic.a(oc_rep.o)
- *fill*         0x0000000000043a0d        0x3 
+                0x0000000000043a34        0x9 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/net/oic/net_oic.a(oc_rep.o)
+ *fill*         0x0000000000043a3d        0x3 
  .rodata.ble_ll_init.str1.4
-                0x0000000000043a10        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll.o)
- *fill*         0x0000000000043a17        0x1 
+                0x0000000000043a40        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll.o)
+ *fill*         0x0000000000043a47        0x1 
  .rodata.g_ble_ll_pdu_header_tx_time
-                0x0000000000043a18        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll.o)
+                0x0000000000043a48        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll.o)
  .rodata.g_ble_ll_ctrl_pkt_lengths
-                0x0000000000043a20       0x23 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_ctrl.o)
-                0x0000000000043a20                g_ble_ll_ctrl_pkt_lengths
- *fill*         0x0000000000043a43        0x1 
+                0x0000000000043a50       0x23 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_ctrl.o)
+                0x0000000000043a50                g_ble_ll_ctrl_pkt_lengths
+ *fill*         0x0000000000043a73        0x1 
  .rodata.ble_ll_scan_init.str1.4
-                0x0000000000043a44       0x15 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_scan.o)
- *fill*         0x0000000000043a59        0x3 
- .rodata.g_ble_ll_supp_cmds
-                0x0000000000043a5c       0x2d /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_supp_cmd.o)
-                0x0000000000043a5c                g_ble_ll_supp_cmds
+                0x0000000000043a74       0x15 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_scan.o)
  *fill*         0x0000000000043a89        0x3 
+ .rodata.g_ble_ll_supp_cmds
+                0x0000000000043a8c       0x2d /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_supp_cmd.o)
+                0x0000000000043a8c                g_ble_ll_supp_cmds
+ *fill*         0x0000000000043ab9        0x3 
  .rodata.g_ble_sca_ppm_tbl
-                0x0000000000043a8c       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_utils.o)
+                0x0000000000043abc       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/controller/nimble_controller.a(ble_ll_utils.o)
  .rodata.g_ble_phy_chan_freq
-                0x0000000000043a9c       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/drivers/nrf52/nimble_drivers_nrf52.a(ble_phy.o)
+                0x0000000000043acc       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/drivers/nrf52/nimble_drivers_nrf52.a(ble_phy.o)
  .rodata.g_ble_phy_t_rxaddrdelay
-                0x0000000000043ac4        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/drivers/nrf52/nimble_drivers_nrf52.a(ble_phy.o)
+                0x0000000000043af4        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/drivers/nrf52/nimble_drivers_nrf52.a(ble_phy.o)
  .rodata.g_ble_phy_t_rxenddelay
-                0x0000000000043ac8        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/drivers/nrf52/nimble_drivers_nrf52.a(ble_phy.o)
+                0x0000000000043af8        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/drivers/nrf52/nimble_drivers_nrf52.a(ble_phy.o)
  .rodata.g_ble_phy_t_txdelay
-                0x0000000000043acc        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/drivers/nrf52/nimble_drivers_nrf52.a(ble_phy.o)
+                0x0000000000043afc        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/drivers/nrf52/nimble_drivers_nrf52.a(ble_phy.o)
  .rodata.g_ble_phy_t_txenddelay
-                0x0000000000043ad0        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/drivers/nrf52/nimble_drivers_nrf52.a(ble_phy.o)
+                0x0000000000043b00        0x4 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/drivers/nrf52/nimble_drivers_nrf52.a(ble_phy.o)
  .rodata.ble_svc_ans_defs
-                0x0000000000043ad4       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/services/ans/nimble_host_services_ans.a(ble_svc_ans.o)
+                0x0000000000043b04       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/services/ans/nimble_host_services_ans.a(ble_svc_ans.o)
  .rodata.ble_svc_gatt_defs
-                0x0000000000043af4       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/services/gatt/nimble_host_services_gatt.a(ble_svc_gatt.o)
+                0x0000000000043b24       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/services/gatt/nimble_host_services_gatt.a(ble_svc_gatt.o)
  .rodata.ble_store_config_conf_export.str1.4
-                0x0000000000043b14       0x2c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/store/config/nimble_host_store_config.a(ble_store_config_conf.o)
+                0x0000000000043b44       0x2c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/store/config/nimble_host_store_config.a(ble_store_config_conf.o)
  .rodata.ble_store_config_conf_set.str1.4
-                0x0000000000043b40       0x19 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/store/config/nimble_host_store_config.a(ble_store_config_conf.o)
- *fill*         0x0000000000043b59        0x3 
+                0x0000000000043b70       0x19 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/store/config/nimble_host_store_config.a(ble_store_config_conf.o)
+ *fill*         0x0000000000043b89        0x3 
  .rodata.str1.4
-                0x0000000000043b5c        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/store/config/nimble_host_store_config.a(ble_store_config_conf.o)
- *fill*         0x0000000000043b63        0x1 
+                0x0000000000043b8c        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/nimble/host/store/config/nimble_host_store_config.a(ble_store_config_conf.o)
+ *fill*         0x0000000000043b93        0x1 
  .rodata.log_reboot.str1.4
-                0x0000000000043b64        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/reboot/sys_reboot.a(log_reboot.o)
- *fill*         0x0000000000043b66        0x2 
+                0x0000000000043b94        0x2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/reboot/sys_reboot.a(log_reboot.o)
+ *fill*         0x0000000000043b96        0x2 
  .rodata.log_reboot_reason_str.str1.4
-                0x0000000000043b68       0x67 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/reboot/sys_reboot.a(log_reboot.o)
- *fill*         0x0000000000043bcf        0x1 
+                0x0000000000043b98       0x67 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/reboot/sys_reboot.a(log_reboot.o)
+ *fill*         0x0000000000043bff        0x1 
  .rodata.log_reboot_write.str1.4
-                0x0000000000043bd0       0x34 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/reboot/sys_reboot.a(log_reboot.o)
+                0x0000000000043c00       0x34 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/reboot/sys_reboot.a(log_reboot.o)
                                          0x6c (size before relaxing)
  .rodata.reboot_conf_export.str1.4
-                0x0000000000043c04       0x23 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/reboot/sys_reboot.a(log_reboot.o)
- *fill*         0x0000000000043c27        0x1 
+                0x0000000000043c34       0x23 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/reboot/sys_reboot.a(log_reboot.o)
+ *fill*         0x0000000000043c57        0x1 
  .rodata.reboot_conf_get.str1.4
-                0x0000000000043c28       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/reboot/sys_reboot.a(log_reboot.o)
+                0x0000000000043c58       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/reboot/sys_reboot.a(log_reboot.o)
  .rodata.str1.4
-                0x0000000000043c3c        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/reboot/sys_reboot.a(log_reboot.o)
- *fill*         0x0000000000043c43        0x1 
+                0x0000000000043c6c        0x7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/reboot/sys_reboot.a(log_reboot.o)
+ *fill*         0x0000000000043c73        0x1 
  .rodata.scfg_handler_export.str1.4
-                0x0000000000043c44        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/util/scfg/util_scfg.a(scfg.o)
- *fill*         0x0000000000043c4a        0x2 
+                0x0000000000043c74        0x6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/util/scfg/util_scfg.a(scfg.o)
+ *fill*         0x0000000000043c7a        0x2 
  .rodata.__wrap_coap_receive.str1.4
-                0x0000000000043c4c       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
+                0x0000000000043c7c       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
                                          0x1e (size before relaxing)
  *(.eh_frame*)
-                0x0000000000043c6c                . = ALIGN (0x4)
+                0x0000000000043c9c                . = ALIGN (0x4)
 
-.glue_7         0x0000000000043c6c        0x0
- .glue_7        0x0000000000043c6c        0x0 linker stubs
+.glue_7         0x0000000000043c9c        0x0
+ .glue_7        0x0000000000043c9c        0x0 linker stubs
 
-.glue_7t        0x0000000000043c6c        0x0
- .glue_7t       0x0000000000043c6c        0x0 linker stubs
+.glue_7t        0x0000000000043c9c        0x0
+ .glue_7t       0x0000000000043c9c        0x0 linker stubs
 
-.vfp11_veneer   0x0000000000043c6c        0x0
- .vfp11_veneer  0x0000000000043c6c        0x0 linker stubs
+.vfp11_veneer   0x0000000000043c9c        0x0
+ .vfp11_veneer  0x0000000000043c9c        0x0 linker stubs
 
-.v4_bx          0x0000000000043c6c        0x0
- .v4_bx         0x0000000000043c6c        0x0 linker stubs
+.v4_bx          0x0000000000043c9c        0x0
+ .v4_bx         0x0000000000043c9c        0x0 linker stubs
 
-.iplt           0x0000000000043c6c        0x0
- .iplt          0x0000000000043c6c        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
+.iplt           0x0000000000043c9c        0x0
+ .iplt          0x0000000000043c9c        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
 
-.ARM.extab      0x0000000000043c6c        0x0
+.ARM.extab      0x0000000000043c9c        0x0
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0000000000043c6c                . = ALIGN (0x4)
-                0x0000000000043c6c                __exidx_start = .
+                0x0000000000043c9c                . = ALIGN (0x4)
+                0x0000000000043c9c                __exidx_start = .
 
-.ARM.exidx      0x0000000000043c6c       0x18
+.ARM.exidx      0x0000000000043c9c       0x18
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
- .ARM.exidx     0x0000000000043c6c        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
+ .ARM.exidx     0x0000000000043c9c        0x8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
  .ARM.exidx.text._ZN4core3ptr13drop_in_place17hbc0c1fc2aa8b6ff3E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN4core3str21_$LT$impl$u20$str$GT$3len17he841da45b9c69883E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN4core3str21_$LT$impl$u20$str$GT$6as_ptr17h022c0f523ccad626E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN4core6result19Result$LT$T$C$E$GT$6expect17h56061f5b534d43a3E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN6mynewt3sys7console5print17h7763e54cd0d26396E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN6mynewt3sys7console20get_dispatch_address17h77ed9d6357c846ceE
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN6mynewt3sys7console6buffer17h35108561f938a421E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN6mynewt3sys7console8printint17hbf799f23e9896db3E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN6mynewt3sys7console5flush17h8491f76cc7401f62E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN6mynewt7sysinit17h1b1620554f4add73E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN64_$LT$mynewt..result..MynewtError$u20$as$u20$core..fmt..Debug$GT$3fmt17h331d487878438b91E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN6mynewt6kernel2os10eventq_run17h315affb69d21582dE
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN6mynewt6kernel2os15eventq_dflt_get17hee2ec5f38871c7e2E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN4core9panicking5panic17h692a68e116a8c946E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN4core9panicking9panic_fmt17h1abf46b1849e1e64E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN4core3ptr13drop_in_place17h00770497a4e91b46E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN36_$LT$T$u20$as$u20$core..any..Any$GT$7type_id17hed9a745734db4e1eE
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN4core3fmt9Formatter3pad17h30a0701a50ac9df4E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h7fbf59b3963cac8fE
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN4core6option18expect_none_failed17h6759d4401d28ac1fE
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa4813af48620bbbE
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN4core5panic9PanicInfo8location17h6e90b1f5ec8cea30E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN4core5panic8Location4file17hfc9aa9a4958c9c3aE
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN4core5panic8Location4line17h81a396f742303977E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17ha89a753dca6cd9f4E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text.main
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN4core6result19Result$LT$T$C$E$GT$6expect17h8475276e04d22ec4E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN4core3ptr13drop_in_place17h6ae1af1416118836E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text.rust_begin_unwind
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN54_$LT$dyn$u20$core..any..Any$u2b$core..marker..Send$GT$12downcast_ref17h0816bf0a0366a198E
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN4core6option15Option$LT$T$GT$6unwrap17h2738ac118120fc1fE
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN31_$LT$dyn$u20$core..any..Any$GT$12downcast_ref17hc90ab95f8fe9867cE
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN31_$LT$dyn$u20$core..any..Any$GT$2is17h78f536f6529d6acdE
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN4core3any6TypeId2of17h678dcf5e90be79cdE
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN58_$LT$core..any..TypeId$u20$as$u20$core..cmp..PartialEq$GT$2eq17hea2831b1242142eeE
-                0x0000000000043c74        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
+                0x0000000000043ca4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(app-e7aa8b7eecb1c8d3.mynewt-2171e96827bf12c2.41zlgfyhb9r73787.rcgu.o.rcgu.o)
                                           0x8 (size before relaxing)
- .ARM.exidx     0x0000000000043c74       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(HAL_CM4.o)
+ .ARM.exidx     0x0000000000043ca4       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(HAL_CM4.o)
                                          0x30 (size before relaxing)
  .ARM.exidx.text.__aeabi_uldivmod
-                0x0000000000043c84        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(compiler_builtins-7064ec948caca4e9.compiler_builtins.28t0v07i-cgu.10.rcgu.o)
+                0x0000000000043cb4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(compiler_builtins-7064ec948caca4e9.compiler_builtins.28t0v07i-cgu.10.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text.__udivmoddi4
-                0x0000000000043c84        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(compiler_builtins-7064ec948caca4e9.compiler_builtins.28t0v07i-cgu.98.rcgu.o)
+                0x0000000000043cb4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(compiler_builtins-7064ec948caca4e9.compiler_builtins.28t0v07i-cgu.98.rcgu.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._ZN17compiler_builtins3int4udiv12__udivmoddi417hb19392486b58714dE
-                0x0000000000043c84        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(compiler_builtins-7064ec948caca4e9.compiler_builtins.28t0v07i-cgu.120.rcgu.o)
+                0x0000000000043cb4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/libs/rust_app/libs_rust_app.a(compiler_builtins-7064ec948caca4e9.compiler_builtins.28t0v07i-cgu.120.rcgu.o)
                                           0x8 (size before relaxing)
-                0x0000000000043c84                . = ALIGN (0x4)
-                0x0000000000043c84                __exidx_end = .
-                0x0000000000043c84                __etext = .
+                0x0000000000043cb4                . = ALIGN (0x4)
+                0x0000000000043cb4                __exidx_end = .
+                0x0000000000043cb4                __etext = .
 
-.rel.dyn        0x0000000000043c84        0x0
- .rel.iplt      0x0000000000043c84        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
+.rel.dyn        0x0000000000043cb4        0x0
+ .rel.iplt      0x0000000000043cb4        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
 
 .vector_relocation
                 0x0000000020000000       0xd8
@@ -10675,7 +10681,7 @@ END GROUP
  *(.rtt)
                 0x00000000200000d8                . = ALIGN (0x4)
 
-.data           0x00000000200000d8      0x440 load address 0x0000000000043c84
+.data           0x00000000200000d8      0x440 load address 0x0000000000043cb4
                 0x00000000200000d8                __data_start__ = .
  *(vtable)
  *(.data*)
@@ -10834,10 +10840,10 @@ END GROUP
                 0x0000000020000518                . = ALIGN (0x4)
                 0x0000000020000518                __data_end__ = .
 
-.igot.plt       0x0000000020000518        0x0 load address 0x00000000000440c4
+.igot.plt       0x0000000020000518        0x0 load address 0x00000000000440f4
  .igot.plt      0x0000000020000518        0x0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
 
-.bssnz          0x0000000020000518       0x24 load address 0x00000000000440c4
+.bssnz          0x0000000020000518       0x24 load address 0x00000000000440f4
                 0x0000000020000518                . = ALIGN (0x4)
                 0x0000000020000518                __bssnz_start__ = .
  *(.bss.core.nz*)
@@ -10845,7 +10851,7 @@ END GROUP
                 0x000000002000053c                . = ALIGN (0x4)
                 0x000000002000053c                __bssnz_end__ = .
 
-.bss            0x0000000020000540     0xb628 load address 0x00000000000440c4
+.bss            0x0000000020000540     0xb628 load address 0x00000000000440f4
                 0x0000000020000540                . = ALIGN (0x4)
                 0x0000000020000540                __bss_start__ = .
  *(.bss*)
@@ -11596,7 +11602,7 @@ END GROUP
                 0x000000002000bb68                . = ALIGN (0x8)
                 0x000000002000bb68                __HeapBase = .
 
-.stack_dummy    0x000000002000bb68      0x1b0 load address 0x00000000000440c4
+.stack_dummy    0x000000002000bb68      0x1b0 load address 0x00000000000440f4
  *(.stack*)
  .stack         0x000000002000bb68      0x1b0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
                 0x0000000020000000                _ram_start = ORIGIN (RAM)
@@ -12317,7 +12323,7 @@ OUTPUT(/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/ap
                 0x0000000000000000                SVC_Count
                 0x0000000000000000                SVC_Table
 
-.debug_line     0x0000000000000000    0x65cbe
+.debug_line     0x0000000000000000    0x65d15
  .debug_line    0x0000000000000000       0x99 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
  .debug_line    0x0000000000000099       0x68 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(sbrk.o)
  .debug_line    0x0000000000000101      0x2bb /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system.o)
@@ -12540,16 +12546,16 @@ OUTPUT(/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/ap
  .debug_line    0x0000000000062465      0x90f /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/reboot/sys_reboot.a(log_reboot.o)
  .debug_line    0x0000000000062d74      0x721 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/util/scfg/util_scfg.a(scfg.o)
  .debug_line    0x0000000000063495       0xb2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/util/util.a(mcumgr_util.o)
- .debug_line    0x0000000000063547      0x4fa /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
- .debug_line    0x0000000000063a41      0xb0a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
- .debug_line    0x000000000006454b      0x301 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
- .debug_line    0x000000000006484c      0x65d /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
- .debug_line    0x0000000000064ea9      0x546 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_writer.o)
- .debug_line    0x00000000000653ef      0x637 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_clock.o)
- .debug_line    0x0000000000065a26      0x1ef /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_hw_id.o)
- .debug_line    0x0000000000065c15       0xa9 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_error.o)
+ .debug_line    0x0000000000063547      0x551 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
+ .debug_line    0x0000000000063a98      0xb0a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
+ .debug_line    0x00000000000645a2      0x301 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
+ .debug_line    0x00000000000648a3      0x65d /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
+ .debug_line    0x0000000000064f00      0x546 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_writer.o)
+ .debug_line    0x0000000000065446      0x637 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_clock.o)
+ .debug_line    0x0000000000065a7d      0x1ef /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_hw_id.o)
+ .debug_line    0x0000000000065c6c       0xa9 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_error.o)
 
-.debug_info     0x0000000000000000   0x152b63
+.debug_info     0x0000000000000000   0x152da2
  .debug_info    0x0000000000000000       0x26 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
  .debug_info    0x0000000000000026      0x112 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(sbrk.o)
  .debug_info    0x0000000000000138      0x8ea /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system.o)
@@ -12772,16 +12778,16 @@ OUTPUT(/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/ap
  .debug_info    0x000000000014a282     0x1ae8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/reboot/sys_reboot.a(log_reboot.o)
  .debug_info    0x000000000014bd6a     0x1052 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/util/scfg/util_scfg.a(scfg.o)
  .debug_info    0x000000000014cdbc      0x131 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/util/util.a(mcumgr_util.o)
- .debug_info    0x000000000014ceed      0x6d6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
- .debug_info    0x000000000014d5c3     0x2a1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
- .debug_info    0x000000000014ffdf      0x49c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
- .debug_info    0x000000000015047b      0xd46 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
- .debug_info    0x00000000001511c1      0x9cb /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_writer.o)
- .debug_info    0x0000000000151b8c      0xa43 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_clock.o)
- .debug_info    0x00000000001525cf      0x4cc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_hw_id.o)
- .debug_info    0x0000000000152a9b       0xc8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_error.o)
+ .debug_info    0x000000000014ceed      0x915 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
+ .debug_info    0x000000000014d802     0x2a1c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
+ .debug_info    0x000000000015021e      0x49c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
+ .debug_info    0x00000000001506ba      0xd46 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
+ .debug_info    0x0000000000151400      0x9cb /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_writer.o)
+ .debug_info    0x0000000000151dcb      0xa43 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_clock.o)
+ .debug_info    0x000000000015280e      0x4cc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_hw_id.o)
+ .debug_info    0x0000000000152cda       0xc8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_error.o)
 
-.debug_abbrev   0x0000000000000000    0x25721
+.debug_abbrev   0x0000000000000000    0x257d1
  .debug_abbrev  0x0000000000000000       0x14 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
  .debug_abbrev  0x0000000000000014       0xb9 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(sbrk.o)
  .debug_abbrev  0x00000000000000cd      0x1f6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system.o)
@@ -13004,16 +13010,16 @@ OUTPUT(/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/ap
  .debug_abbrev  0x0000000000024081      0x3b9 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/reboot/sys_reboot.a(log_reboot.o)
  .debug_abbrev  0x000000000002443a      0x27f /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/util/scfg/util_scfg.a(scfg.o)
  .debug_abbrev  0x00000000000246b9       0xb2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/util/util.a(mcumgr_util.o)
- .debug_abbrev  0x000000000002476b      0x1ab /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
- .debug_abbrev  0x0000000000024916      0x417 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
- .debug_abbrev  0x0000000000024d2d      0x1f0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
- .debug_abbrev  0x0000000000024f1d      0x1ee /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
- .debug_abbrev  0x000000000002510b      0x1d7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_writer.o)
- .debug_abbrev  0x00000000000252e2      0x224 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_clock.o)
- .debug_abbrev  0x0000000000025506      0x19d /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_hw_id.o)
- .debug_abbrev  0x00000000000256a3       0x7e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_error.o)
+ .debug_abbrev  0x000000000002476b      0x25b /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
+ .debug_abbrev  0x00000000000249c6      0x417 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
+ .debug_abbrev  0x0000000000024ddd      0x1f0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
+ .debug_abbrev  0x0000000000024fcd      0x1ee /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
+ .debug_abbrev  0x00000000000251bb      0x1d7 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_writer.o)
+ .debug_abbrev  0x0000000000025392      0x224 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_clock.o)
+ .debug_abbrev  0x00000000000255b6      0x19d /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_hw_id.o)
+ .debug_abbrev  0x0000000000025753       0x7e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_error.o)
 
-.debug_aranges  0x0000000000000000     0x7340
+.debug_aranges  0x0000000000000000     0x7358
  .debug_aranges
                 0x0000000000000000       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
  .debug_aranges
@@ -13459,23 +13465,23 @@ OUTPUT(/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/ap
  .debug_aranges
                 0x0000000000007150       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/util/util.a(mcumgr_util.o)
  .debug_aranges
-                0x0000000000007178       0x38 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
+                0x0000000000007178       0x50 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
  .debug_aranges
-                0x00000000000071b0       0x78 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
+                0x00000000000071c8       0x78 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
  .debug_aranges
-                0x0000000000007228       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
+                0x0000000000007240       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
  .debug_aranges
-                0x0000000000007258       0x50 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
+                0x0000000000007270       0x50 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
  .debug_aranges
-                0x00000000000072a8       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_writer.o)
+                0x00000000000072c0       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_writer.o)
  .debug_aranges
-                0x00000000000072d0       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_clock.o)
+                0x00000000000072e8       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_clock.o)
  .debug_aranges
-                0x00000000000072f8       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_hw_id.o)
+                0x0000000000007310       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_hw_id.o)
  .debug_aranges
-                0x0000000000007320       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_error.o)
+                0x0000000000007338       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_error.o)
 
-.debug_str      0x0000000000000000    0x2f1ec
+.debug_str      0x0000000000000000    0x2f21c
  .debug_str     0x0000000000000000       0x6d /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(gcc_startup_nrf52.o)
  .debug_str     0x000000000000006d      0x179 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(sbrk.o)
                                         0x1e8 (size before relaxing)
@@ -13919,21 +13925,21 @@ OUTPUT(/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/ap
                                         0xa32 (size before relaxing)
  .debug_str     0x000000000002ecbe       0x3e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/util/util.a(mcumgr_util.o)
                                         0x1a1 (size before relaxing)
- .debug_str     0x000000000002ecfc       0x72 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
-                                        0x66e (size before relaxing)
- .debug_str     0x000000000002ed6e      0x23e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
+ .debug_str     0x000000000002ecfc       0xa2 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
+                                        0x715 (size before relaxing)
+ .debug_str     0x000000000002ed9e      0x23e /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
                                        0x14a0 (size before relaxing)
- .debug_str     0x000000000002efac       0x5a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
+ .debug_str     0x000000000002efdc       0x5a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
                                         0x5dc (size before relaxing)
- .debug_str     0x000000000002f006       0xd6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
+ .debug_str     0x000000000002f036       0xd6 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
                                         0x8fe (size before relaxing)
- .debug_str     0x000000000002f0dc       0x42 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_writer.o)
+ .debug_str     0x000000000002f10c       0x42 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_writer.o)
                                         0x9eb (size before relaxing)
- .debug_str     0x000000000002f11e       0x5a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_clock.o)
+ .debug_str     0x000000000002f14e       0x5a /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_clock.o)
                                         0x854 (size before relaxing)
- .debug_str     0x000000000002f178       0x42 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_hw_id.o)
+ .debug_str     0x000000000002f1a8       0x42 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_hw_id.o)
                                         0x379 (size before relaxing)
- .debug_str     0x000000000002f1ba       0x32 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_error.o)
+ .debug_str     0x000000000002f1ea       0x32 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_error.o)
                                         0x209 (size before relaxing)
 
 .debug_loc      0x0000000000000000    0x8271a
@@ -14140,7 +14146,7 @@ OUTPUT(/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/ap
  .debug_loc     0x0000000000082551       0xf9 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_hw_id.o)
  .debug_loc     0x000000000008264a       0xd0 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_error.o)
 
-.debug_ranges   0x0000000000000000     0x8f48
+.debug_ranges   0x0000000000000000     0x8f60
  .debug_ranges  0x0000000000000000       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(sbrk.o)
  .debug_ranges  0x0000000000000018       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system.o)
  .debug_ranges  0x0000000000000040       0x58 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(system_nrf52.o)
@@ -14356,16 +14362,16 @@ OUTPUT(/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/ap
  .debug_ranges  0x0000000000008b28       0x58 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/reboot/sys_reboot.a(log_reboot.o)
  .debug_ranges  0x0000000000008b80       0x58 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/util/scfg/util_scfg.a(scfg.o)
  .debug_ranges  0x0000000000008bd8       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/util/util.a(mcumgr_util.o)
- .debug_ranges  0x0000000000008bf0       0x28 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
- .debug_ranges  0x0000000000008c18      0x278 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
- .debug_ranges  0x0000000000008e90       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
- .debug_ranges  0x0000000000008eb0       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
- .debug_ranges  0x0000000000008ef0       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_writer.o)
- .debug_ranges  0x0000000000008f08       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_clock.o)
- .debug_ranges  0x0000000000008f20       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_hw_id.o)
- .debug_ranges  0x0000000000008f38       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_error.o)
+ .debug_ranges  0x0000000000008bf0       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
+ .debug_ranges  0x0000000000008c30      0x278 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
+ .debug_ranges  0x0000000000008ea8       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
+ .debug_ranges  0x0000000000008ec8       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
+ .debug_ranges  0x0000000000008f08       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_writer.o)
+ .debug_ranges  0x0000000000008f20       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_clock.o)
+ .debug_ranges  0x0000000000008f38       0x18 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_hw_id.o)
+ .debug_ranges  0x0000000000008f50       0x10 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_error.o)
 
-.debug_frame    0x0000000000000000    0x1489c
+.debug_frame    0x0000000000000000    0x148dc
  .debug_frame   0x0000000000000000       0x30 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/bsp/nrf52/hw_bsp_nrf52.a(sbrk.o)
  .debug_frame   0x0000000000000030       0x58 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(hal_system.o)
  .debug_frame   0x0000000000000088       0xb8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(system_nrf52.o)
@@ -14582,14 +14588,14 @@ OUTPUT(/Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/ap
  .debug_frame   0x00000000000141b0      0x158 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/sys/reboot/sys_reboot.a(log_reboot.o)
  .debug_frame   0x0000000000014308      0x148 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/util/scfg/util_scfg.a(scfg.o)
  .debug_frame   0x0000000000014450       0x4c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/util/util.a(mcumgr_util.o)
- .debug_frame   0x000000000001449c       0x58 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
- .debug_frame   0x00000000000144f4      0x1a8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
- .debug_frame   0x000000000001469c       0x4c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
- .debug_frame   0x00000000000146e8       0xdc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
- .debug_frame   0x00000000000147c4       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_writer.o)
- .debug_frame   0x0000000000014800       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_clock.o)
- .debug_frame   0x0000000000014840       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_hw_id.o)
- .debug_frame   0x000000000001487c       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_error.o)
+ .debug_frame   0x000000000001449c       0x98 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/apps_my_sensor_app.a(support.o)
+ .debug_frame   0x0000000000014534      0x1a8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/cborattr/cborattr.a(cborattr.o)
+ .debug_frame   0x00000000000146dc       0x4c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_buf_writer.o)
+ .debug_frame   0x0000000000014728       0xdc /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_reader.o)
+ .debug_frame   0x0000000000014804       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/encoding/tinycbor/encoding_tinycbor.a(cbor_mbuf_writer.o)
+ .debug_frame   0x0000000000014840       0x40 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_clock.o)
+ .debug_frame   0x0000000000014880       0x3c /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/hw/mcu/nordic/nrf52xxx/hw_mcu_nordic_nrf52xxx.a(nrf52_hw_id.o)
+ .debug_frame   0x00000000000148bc       0x20 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/kernel/os/kernel_os.a(os_error.o)
 
 .debug_pubnames
                 0x0000000000000000     0x148a

@@ -103,7 +103,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
 
     //  TODO: Set the watchdog time.
     extern { fn hal_watchdog_init(expire_msecs: u32) -> i32; }
-    let rc = unsafe { hal_watchdog_init(5 * 60 * 1000) };
+    let rc = unsafe { hal_watchdog_init(44739242) };
     assert!(rc == 0, "WATCHDOG fail");
 
     //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
