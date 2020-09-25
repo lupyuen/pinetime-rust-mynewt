@@ -17,7 +17,7 @@ set launch_config=launch-nrf52.json
 @set app_build=%cd%\bin\targets\%mynewt_build_app%\app\apps\my_sensor_app\my_sensor_app.elf
 
 ::  Location of the compiled Rust app and external libraries.  The Rust compiler generates a *.rlib archive for the Rust app and each external Rust library here.
-@set rust_build_dir=%cd%\target\%rust_build_target%\%rust_build_profile%\deps
+@set rust_build_dir=%cd%\target\%rust_build_target%\%rust_build_profile%
 
 ::  Location of the libs\rust_app stub library built by Mynewt.  We will replace this stub by the Rust app and external libraries.
 @set rust_app_dir=%cd%\bin\targets\%mynewt_build_app%\app\libs\rust_app
@@ -64,7 +64,7 @@ set launch_config=launch-nrf52.json
 )
 
 ::  Delete the compiled Rust app to force the Rust build to relink the Rust app.  Sometimes there are multiple copies of the compiled app, this deletes all copies.
-@for %%f in (%rust_build_dir%\libapp*.rlib) do @del %%f
+@for %%f in (%rust_build_dir%\libapp.a) do @del %%f
 
 ::  Expand Rust macros for troubleshooting: logs/libmynewt-expanded.rs and libapp-expanded.rs
 @pushd rust\mynewt && cargo rustc %rust_build_options% -- -Z unstable-options --pretty expanded > ..\..\logs\libmynewt-expanded.rs && popd
@@ -93,7 +93,7 @@ cargo build %rust_build_options%
 @if errorlevel 1 goto :EOF
 
 ::  Extract the object (*.o) files in the compiled Rust output (*.rlib).
-@for %%f in (%rust_build_dir%\*.rlib) do @%ar_cmd% x %%f
+@for %%f in (%rust_build_dir%\libapp.a) do @%ar_cmd% x %%f
 @if errorlevel 1 goto :EOF
 
 ::  Archive the object (*.o) files into rustlib.a.
@@ -156,6 +156,9 @@ newt\newt.exe build %mynewt_build_app%
 ::  Display the image size.
 newt\newt.exe size -v %mynewt_build_app%
 @if errorlevel 1 goto :EOF
+
+::  Create the image
+scripts\nrf52\image-app.cmd
 
 ::  Copy the disassembly and linker map to the logs folder.
 @copy bin\targets\%mynewt_build_app%\app\apps\my_sensor_app\my_sensor_app.elf.lst logs >nul:
