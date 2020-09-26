@@ -25,11 +25,12 @@
 /// Render a watch face. Called by main() in rust/app/src/lib.rs
 int create_watch_face(void) {
     console_printf("Create watch face...\n"); console_flush();
-    lv_obj_t *btn = lv_btn_create(lv_scr_act(), NULL);     //  Add a button the current screen
-    lv_obj_set_pos(btn, 10, 10);                           //  Set its position
-    lv_obj_set_size(btn, 120, 50);                         //  Set its size
 
-    lv_obj_t *label = lv_label_create(btn, NULL);          //  Add a label to the button
-    lv_label_set_text(label, "Watch Face");                //  Set the label text
+    lv_obj_t *label = lv_label_create(lv_scr_act(), NULL);          //  Add a label to the button
+    lv_label_set_recolor(label, true);                         // Allow for text recolor
+    lv_label_set_text(label, "#6f6f6f LVGL7#");                //  Set the label text
+    lv_label_set_align(label, LV_LABEL_ALIGN_CENTER);         // Position in center
+    
     return 0;
+
 }
