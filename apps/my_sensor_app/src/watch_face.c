@@ -20,9 +20,9 @@
 #include <assert.h>
 #include <os/os.h>
 #include <console/console.h>
-#include <pinetime_lvgl_mynewt/pinetime_lvgl_mynewt.h>
+#include <pinetime_lvgl_mynewt/pinetime_lvgl_mynewt.h>  //  This includes "lvgl.h"
 
-/// Render a watch face
+/// Render a watch face. Called by main() in rust/app/src/lib.rs
 int create_watch_face(void) {
     console_printf("Create watch face...\n"); console_flush();
     lv_obj_t *btn = lv_btn_create(lv_scr_act(), NULL);     //  Add a button the current screen
