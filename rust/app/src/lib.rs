@@ -101,22 +101,22 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     assert!(rc == 0, "FLASH fail");
     */
 
-    //  TODO: Set the watchdog time.
-    extern { fn hal_watchdog_init(expire_msecs: u32) -> i32; }
-    let rc = unsafe { hal_watchdog_init(44739242) };
-    assert!(rc == 0, "WATCHDOG fail");
-
     //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
     extern { fn hal_watchdog_tickle(); }
     unsafe { hal_watchdog_tickle() };
 
+    //  Render LVGL watch face.
+    extern { fn create_watch_face() -> i32; }  //  Defined in apps/my_sensor_app/src/watch_face.c
+    let rc = unsafe { create_watch_face() };
+    assert!(rc == 0, "Watch Face fail");
+
     //  Render LVGL widgets for testing.
-    extern { fn pinetime_lvgl_mynewt_test() -> i32; }
-    let rc = unsafe { pinetime_lvgl_mynewt_test() };
-    assert!(rc == 0, "LVGL test fail");
+    //  extern { fn pinetime_lvgl_mynewt_test() -> i32; }  //  Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
+    //  let rc = unsafe { pinetime_lvgl_mynewt_test() };
+    //  assert!(rc == 0, "LVGL test fail");
 
     //  Render LVGL display.
-    extern { fn pinetime_lvgl_mynewt_render() -> i32; }
+    extern { fn pinetime_lvgl_mynewt_render() -> i32; }  //  Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
     let rc = unsafe { pinetime_lvgl_mynewt_render() };
     assert!(rc == 0, "LVGL render fail");    
 

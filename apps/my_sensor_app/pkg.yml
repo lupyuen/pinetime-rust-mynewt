@@ -127,8 +127,10 @@ pkg.deps.SEMIHOSTING_CONSOLE:
 
 #  C compiler flags
 pkg.cflags:
-    - -DFLOAT_SUPPORT         #  For encoding floats in CoAP messages
-#   - -Os                     #  Optimise for smallest size
+    - -DLV_CONF_INCLUDE_SIMPLE         #  Compile with libs/pinetime_lvgl_mynewt/lv_conf.h
+    - -Ilibs/pinetime_lvgl_mynewt
+    - -DFLOAT_SUPPORT                  #  For encoding floats in CoAP messages
+#   - -Os                              #  Optimise for smallest size, but makes debugging harder
 
 #  To test expansion of macros, enable both options below.  Expanded source code will appear at "bin" folder,
 #  like bin\targets\bluepill_my_sensor\app\libs\remote_sensor\libs\remote_sensor\src\remote_sensor.o
