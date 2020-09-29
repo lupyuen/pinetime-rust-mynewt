@@ -904,7 +904,7 @@ void pinetime_boot_check_button(void) {
 <p>If you're keen to solve these challenges the open source way, come join us!</p>
 <p>Chat with us on Matrix / Discord / Telegram / IRC: <a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Community</a></p>
 <h1 id="bootloader-watchdog" class="section-header"><a href="#bootloader-watchdog">10 Bootloader Watchdog</a></h1>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v5.0.4">PineTime MCUBoot Bootloader v5.0.4 (17 Sep 2020)</a> and later releases will activate the nRF52 Watchdog. The Watchdog needs to be tickled every 7 seconds or the PineTime will forcibly reboot.</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v5.0.4">PineTime MCUBoot Bootloader v5.0.4 (17 Sep 2020)</a> and later releases will activate the nRF52 Watchdog. The Watchdog needs to be <strong>tickled every 7 seconds or PineTime will forcibly reboot.</strong></p>
 <p>This is needed in case the firmware is stuck in a loop or having peripheral issues (like SPI Bus Corruption).</p>
 <p>The Watchdog is activated in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/pinetime_boot.c#L86-L103"><code>libs/pinetime_boot/src/pinetime_boot.c</code></a>...</p>
 <pre><code class="language-c">void setup_watchdog() {

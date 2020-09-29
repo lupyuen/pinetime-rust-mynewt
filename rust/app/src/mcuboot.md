@@ -956,7 +956,7 @@ Chat with us on Matrix / Discord / Telegram / IRC: [PineTime Community](https://
 
 # Bootloader Watchdog
 
-[PineTime MCUBoot Bootloader v5.0.4 (17 Sep 2020)](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v5.0.4) and later releases will activate the nRF52 Watchdog. The Watchdog needs to be tickled every 7 seconds or the PineTime will forcibly reboot.
+[PineTime MCUBoot Bootloader v5.0.4 (17 Sep 2020)](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v5.0.4) and later releases will activate the nRF52 Watchdog. The Watchdog needs to be __tickled every 7 seconds or PineTime will forcibly reboot.__
 
 This is needed in case the firmware is stuck in a loop or having peripheral issues (like SPI Bus Corruption).
 
