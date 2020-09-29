@@ -80,14 +80,15 @@
 <li><a href="#manual-firmware-rollback-on-pinetime">7 Manual Firmware Rollback on PineTime</a><ul></ul></li>
 <li><a href="#test-enhanced-mcuboot-bootloader-on-pinetime">8 Test Enhanced MCUBoot Bootloader on PineTime</a><ul></ul></li>
 <li><a href="#more-enhancements-for-pinetime-bootloader">9 More Enhancements for PineTime Bootloader</a><ul></ul></li>
-<li><a href="#build-and-flash-mcuboot-bootloader">10 Build and Flash MCUBoot Bootloader</a><ul>
-<li><a href="#install-build-tools">10.1 Install Build Tools</a><ul></ul></li>
-<li><a href="#download-source-files">10.2 Download Source Files</a><ul></ul></li>
-<li><a href="#build-mcuboot-bootloader">10.3 Build MCUBoot Bootloader</a><ul></ul></li>
-<li><a href="#select-the-openocd-interface-st-link-or-raspberry-pi-spi">10.4 Select the OpenOCD Interface: ST-Link or Raspberry Pi SPI</a><ul></ul></li>
-<li><a href="#flash-mcuboot-bootloader">10.5 Flash MCUBoot Bootloader</a><ul></ul></li>
-<li><a href="#flash-application-firmware">10.6 Flash Application Firmware</a><ul></ul></li></ul></li>
-<li><a href="#further-reading">11 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/mcuboot-photo2-small.jpg" alt="Enhanced MCUBoot Bootloader running on PineTime Smart Watch" /></p>
+<li><a href="#bootloader-watchdog">10 Bootloader Watchdog</a><ul></ul></li>
+<li><a href="#build-and-flash-mcuboot-bootloader">11 Build and Flash MCUBoot Bootloader</a><ul>
+<li><a href="#install-build-tools">11.1 Install Build Tools</a><ul></ul></li>
+<li><a href="#download-source-files">11.2 Download Source Files</a><ul></ul></li>
+<li><a href="#build-mcuboot-bootloader">11.3 Build MCUBoot Bootloader</a><ul></ul></li>
+<li><a href="#select-the-openocd-interface-st-link-or-raspberry-pi-spi">11.4 Select the OpenOCD Interface: ST-Link or Raspberry Pi SPI</a><ul></ul></li>
+<li><a href="#flash-mcuboot-bootloader">11.5 Flash MCUBoot Bootloader</a><ul></ul></li>
+<li><a href="#flash-application-firmware">11.6 Flash Application Firmware</a><ul></ul></li></ul></li>
+<li><a href="#further-reading">12 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/mcuboot-photo2-small.jpg" alt="Enhanced MCUBoot Bootloader running on PineTime Smart Watch" /></p>
 <p><em>Enhanced MCUBoot Bootloader running on PineTime Smart Watch</em></p>
 <p>Today we'll talk about the <strong>Enhanced MCUBoot Bootloader</strong> for <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>. </p>
 <p>Here's a sneak peek of the Enhanced MCUBoot Bootloader running on PineTime...</p>
@@ -902,9 +903,66 @@ void pinetime_boot_check_button(void) {
 </ol>
 <p>If you're keen to solve these challenges the open source way, come join us!</p>
 <p>Chat with us on Matrix / Discord / Telegram / IRC: <a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Community</a></p>
-<h1 id="build-and-flash-mcuboot-bootloader" class="section-header"><a href="#build-and-flash-mcuboot-bootloader">10 Build and Flash MCUBoot Bootloader</a></h1>
+<h1 id="bootloader-watchdog" class="section-header"><a href="#bootloader-watchdog">10 Bootloader Watchdog</a></h1>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v5.0.4">PineTime MCUBoot Bootloader v5.0.4 (17 Sep 2020)</a> and later releases will activate the nRF52 Watchdog. The Watchdog needs to be tickled every 7 seconds or the PineTime will forcibly reboot.</p>
+<p>This is needed in case the firmware is stuck in a loop or having peripheral issues (like SPI Bus Corruption).</p>
+<p>The Watchdog is activated in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/pinetime_boot.c#L86-L103"><code>libs/pinetime_boot/src/pinetime_boot.c</code></a>...</p>
+<pre><code class="language-c">void setup_watchdog() {
+  NRF_WDT-&gt;CONFIG &amp;= ~(WDT_CONFIG_SLEEP_Msk &lt;&lt; WDT_CONFIG_SLEEP_Pos);
+  NRF_WDT-&gt;CONFIG |= (WDT_CONFIG_HALT_Run &lt;&lt; WDT_CONFIG_SLEEP_Pos);
+
+  NRF_WDT-&gt;CONFIG &amp;= ~(WDT_CONFIG_HALT_Msk &lt;&lt; WDT_CONFIG_HALT_Pos);
+  NRF_WDT-&gt;CONFIG |= (WDT_CONFIG_HALT_Pause &lt;&lt; WDT_CONFIG_HALT_Pos);
+
+  /* timeout (s) = (CRV + 1) / 32768 */
+  const int timeoutSeconds = 7; // 7 seconds
+  uint32_t crv = (((timeoutSeconds*1000u) &lt;&lt; 15u) / 1000) - 1;
+  NRF_WDT-&gt;CRV = crv;
+
+  /* Enable reload requests */
+  NRF_WDT-&gt;RREN = (WDT_RREN_RR0_Enabled &lt;&lt; WDT_RREN_RR0_Pos);
+  
+  /* Start */
+  NRF_WDT-&gt;TASKS_START = 1;
+}
+</code></pre>
+<p>For Application Firmware created with Mynewt, we may set <code>SANITY_INTERVAL</code> to <code>5000</code> to tickle the Watchdog automatically every 5 seconds: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/lvgl/apps/my_sensor_app/syscfg.yml#L119-L127"><code>apps/my_sensor_app/syscfg.yml</code></a></p>
+<pre><code class="language-yaml">syscfg.vals:
+    # The default PineTime bootloader will setup a 7 second watchdog
+    SANITY_INTERVAL: 5000  #  Tickle the watchdog every 5 seconds, that the watchdog won't trigger a reboot
+</code></pre>
+<p>To simulate the Watchdog with Mynewt Application Firmware, set <code>WATCHDOG_INTERVAL</code> to <code>7000</code>: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/lvgl/apps/my_sensor_app/syscfg.yml#L119-L127"><code>apps/my_sensor_app/syscfg.yml</code></a></p>
+<pre><code class="language-yaml">syscfg.vals:
+    WATCHDOG_INTERVAL: 7000  #  If watchdog is not set, set it to 7 seconds
+</code></pre>
+<p>Note that once the Watchdog is activated (by the Bootloader or Application Firmware), <strong>the Watchdog may not be disabled or changed to a different timeout value.</strong></p>
+<p>In the PineTime MCUBoot Bootloader we also override the default Mynewt <strong>Non-Maskable Interrupt Handler</strong>, which is triggered by an Assertion Failure (e.g. due to SPI Bus Corruption). </p>
+<p>In our custom Non-Maskable Interrupt Handler (and <strong>Hard Fault Handler</strong>), the Bootloader blinks 4 times quickly and reboots: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/pinetime_boot.c#L170-L183"><code>libs/pinetime_boot/src/pinetime_boot.c</code></a></p>
+<pre><code class="language-c">/// Blink 4 times and reboot
+static void blink_and_restart() {
+    //  Blink the screen quickly 4 times
+    blink_backlight(4, 4);
+    //  Then reboot, which fixes the SPI Bus
+    NVIC_SystemReset();
+}
+
+/// In case of Non-Maskable Interrupt (e.g. assertion failure), blink 4 times and reboot.
+/// Assertion failure may be due to SPI Bus corruption, which causes SPI Flash access to fail in spiflash_identify() in repos/apache-mynewt-core/hw/drivers/flash/spiflash/src/spiflash.c
+void NMI_Handler() {
+    //  Blink and restart
+    blink_and_restart();
+}
+
+/// In case of Hard Fault, blink 4 times and reboot
+void HardFault_Handler() {
+    //  Blink and restart
+    blink_and_restart();
+}
+</code></pre>
+<p>The default Mynewt Non-Maskable Interrupt Handler and Hard Fault Handler will loop infinitely, and would have hung our Bootloader.</p>
+<h1 id="build-and-flash-mcuboot-bootloader" class="section-header"><a href="#build-and-flash-mcuboot-bootloader">11 Build and Flash MCUBoot Bootloader</a></h1>
 <p>Follow these steps to build the MCUBoot Bootloader on Linux (including Raspberry Pi) and macOS...</p>
-<h2 id="install-build-tools" class="section-header"><a href="#install-build-tools">10.1 Install Build Tools</a></h2>
+<h2 id="install-build-tools" class="section-header"><a href="#install-build-tools">11.1 Install Build Tools</a></h2>
 <ol>
 <li>
 <p>For macOS: Install OpenOCD from <a href="https://xpack.github.io/openocd/">The xPack OpenOCD</a>. Older versions of OpenOCD are known to have problems flashing with ST-Link.</p>
@@ -942,7 +1000,7 @@ rustup target add thumbv7em-none-eabihf
 </ul>
 </li>
 </ol>
-<h2 id="download-source-files" class="section-header"><a href="#download-source-files">10.2 Download Source Files</a></h2>
+<h2 id="download-source-files" class="section-header"><a href="#download-source-files">11.2 Download Source Files</a></h2>
 <ol>
 <li>
 <p>Download the source files to <code>~/pinetime</code>...</p>
@@ -1011,7 +1069,7 @@ git clone --recursive --branch v1.5.0 https://github.com/JuulLabs-OSS/mcuboot
 </li>
 </ol>
 <p>Why are we doing this? Because we are using a more recent version of MCUBoot (1.5.0), but that's not in sync with the older Mynewt version (1.7.0). This will cause <code>newt install</code> to fail. Hence we do this workaround to force Mynewt to build with the newer MCUBoot.</p>
-<h2 id="build-mcuboot-bootloader" class="section-header"><a href="#build-mcuboot-bootloader">10.3 Build MCUBoot Bootloader</a></h2>
+<h2 id="build-mcuboot-bootloader" class="section-header"><a href="#build-mcuboot-bootloader">11.3 Build MCUBoot Bootloader</a></h2>
 <p>Build the MCUBoot Bootloader...</p>
 <pre><code class="language-bash">cd ~/pinetime/pinetime-rust-mynewt
 scripts/nrf52/build-boot.sh
@@ -1052,7 +1110,7 @@ scripts/nrf52/build-boot.sh
 <span class="ident">objsize</span>
    <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
   <span class="number">22792</span>     <span class="number">132</span>   <span class="number">25504</span>   <span class="number">48428</span>    <span class="ident">bd2c</span> <span class="ident">pinetime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_boot</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">boot</span><span class="op">/</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">mynewt</span>.<span class="ident">elf</span></pre></div>
-<h2 id="select-the-openocd-interface-st-link-or-raspberry-pi-spi" class="section-header"><a href="#select-the-openocd-interface-st-link-or-raspberry-pi-spi">10.4 Select the OpenOCD Interface: ST-Link or Raspberry Pi SPI</a></h2>
+<h2 id="select-the-openocd-interface-st-link-or-raspberry-pi-spi" class="section-header"><a href="#select-the-openocd-interface-st-link-or-raspberry-pi-spi">11.4 Select the OpenOCD Interface: ST-Link or Raspberry Pi SPI</a></h2>
 <p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/config.sh"><code>~/pinetime/pinetime-rust-mynewt/scripts/config.sh</code></a></p>
 <p>If we're using ST-Link v2 for flashing PineTime, set <code>swd_device</code> as follows...</p>
 <pre><code class="language-bash">#  Select ST-Link v2 as SWD Programmer
@@ -1062,7 +1120,7 @@ swd_device=scripts/nrf52/swd-stlink.ocd
 <pre><code class="language-bash">#  Select Raspberry Pi as SWD Programmer
 swd_device=scripts/nrf52-pi/swd-pi.ocd
 </code></pre>
-<h2 id="flash-mcuboot-bootloader" class="section-header"><a href="#flash-mcuboot-bootloader">10.5 Flash MCUBoot Bootloader</a></h2>
+<h2 id="flash-mcuboot-bootloader" class="section-header"><a href="#flash-mcuboot-bootloader">11.5 Flash MCUBoot Bootloader</a></h2>
 <ol>
 <li>
 <p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/nrf52/flash-boot.sh"><code>~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-boot.sh</code></a></p>
@@ -1154,7 +1212,7 @@ xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
 </ul>
 </li>
 </ol>
-<h2 id="flash-application-firmware" class="section-header"><a href="#flash-application-firmware">10.6 Flash Application Firmware</a></h2>
+<h2 id="flash-application-firmware" class="section-header"><a href="#flash-application-firmware">11.6 Flash Application Firmware</a></h2>
 <ol>
 <li>
 <p>Download one of the following Application Firmware Images...</p>
@@ -1335,7 +1393,7 @@ verified 139268 bytes in 0.363909s (373.731 KiB/s)
 </ul>
 </li>
 </ol>
-<h1 id="further-reading" class="section-header"><a href="#further-reading">11 Further Reading</a></h1>
+<h1 id="further-reading" class="section-header"><a href="#further-reading">12 Further Reading</a></h1>
 <p>[ UPDATE: <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">Check out the testing of Wireless Firmware Updates on PineTime</a> ]</p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>

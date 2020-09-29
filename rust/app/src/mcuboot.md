@@ -954,6 +954,81 @@ If you're keen to solve these challenges the open source way, come join us!
 
 Chat with us on Matrix / Discord / Telegram / IRC: [PineTime Community](https://wiki.pine64.org/index.php/PineTime#Community)
 
+# Bootloader Watchdog
+
+[PineTime MCUBoot Bootloader v5.0.4 (17 Sep 2020)](https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v5.0.4) and later releases will activate the nRF52 Watchdog. The Watchdog needs to be tickled every 7 seconds or the PineTime will forcibly reboot.
+
+This is needed in case the firmware is stuck in a loop or having peripheral issues (like SPI Bus Corruption).
+
+The Watchdog is activated in [`libs/pinetime_boot/src/pinetime_boot.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/pinetime_boot.c#L86-L103)...
+
+```c
+void setup_watchdog() {
+  NRF_WDT->CONFIG &= ~(WDT_CONFIG_SLEEP_Msk << WDT_CONFIG_SLEEP_Pos);
+  NRF_WDT->CONFIG |= (WDT_CONFIG_HALT_Run << WDT_CONFIG_SLEEP_Pos);
+
+  NRF_WDT->CONFIG &= ~(WDT_CONFIG_HALT_Msk << WDT_CONFIG_HALT_Pos);
+  NRF_WDT->CONFIG |= (WDT_CONFIG_HALT_Pause << WDT_CONFIG_HALT_Pos);
+
+  /* timeout (s) = (CRV + 1) / 32768 */
+  const int timeoutSeconds = 7; // 7 seconds
+  uint32_t crv = (((timeoutSeconds*1000u) << 15u) / 1000) - 1;
+  NRF_WDT->CRV = crv;
+
+  /* Enable reload requests */
+  NRF_WDT->RREN = (WDT_RREN_RR0_Enabled << WDT_RREN_RR0_Pos);
+  
+  /* Start */
+  NRF_WDT->TASKS_START = 1;
+}
+```
+
+For Application Firmware created with Mynewt, we may set `SANITY_INTERVAL` to `5000` to tickle the Watchdog automatically every 5 seconds: [`apps/my_sensor_app/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/lvgl/apps/my_sensor_app/syscfg.yml#L119-L127)
+
+```yaml
+syscfg.vals:
+    # The default PineTime bootloader will setup a 7 second watchdog
+    SANITY_INTERVAL: 5000  #  Tickle the watchdog every 5 seconds, that the watchdog won't trigger a reboot
+```
+
+To simulate the Watchdog with Mynewt Application Firmware, set `WATCHDOG_INTERVAL` to `7000`: [`apps/my_sensor_app/syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/lvgl/apps/my_sensor_app/syscfg.yml#L119-L127)
+
+```yaml
+syscfg.vals:
+    WATCHDOG_INTERVAL: 7000  #  If watchdog is not set, set it to 7 seconds
+```
+
+Note that once the Watchdog is activated (by the Bootloader or Application Firmware), __the Watchdog may not be disabled or changed to a different timeout value.__
+
+In the PineTime MCUBoot Bootloader we also override the default Mynewt __Non-Maskable Interrupt Handler__, which is triggered by an Assertion Failure (e.g. due to SPI Bus Corruption). 
+
+In our custom Non-Maskable Interrupt Handler (and __Hard Fault Handler__), the Bootloader blinks 4 times quickly and reboots: [`libs/pinetime_boot/src/pinetime_boot.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/pinetime_boot.c#L170-L183)
+
+```c
+/// Blink 4 times and reboot
+static void blink_and_restart() {
+    //  Blink the screen quickly 4 times
+    blink_backlight(4, 4);
+    //  Then reboot, which fixes the SPI Bus
+    NVIC_SystemReset();
+}
+
+/// In case of Non-Maskable Interrupt (e.g. assertion failure), blink 4 times and reboot.
+/// Assertion failure may be due to SPI Bus corruption, which causes SPI Flash access to fail in spiflash_identify() in repos/apache-mynewt-core/hw/drivers/flash/spiflash/src/spiflash.c
+void NMI_Handler() {
+    //  Blink and restart
+    blink_and_restart();
+}
+
+/// In case of Hard Fault, blink 4 times and reboot
+void HardFault_Handler() {
+    //  Blink and restart
+    blink_and_restart();
+}
+```
+
+The default Mynewt Non-Maskable Interrupt Handler and Hard Fault Handler will loop infinitely, and would have hung our Bootloader.
+
 # Build and Flash MCUBoot Bootloader
 
 Follow these steps to build the MCUBoot Bootloader on Linux (including Raspberry Pi) and macOS...
