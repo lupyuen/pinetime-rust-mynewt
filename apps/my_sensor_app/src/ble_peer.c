@@ -676,7 +676,7 @@ blepeer_delete(uint16_t conn_handle)
         return BLE_HS_ENOTCONN;
     }
 
-    SLIST_REMOVE(&peers, peer, peer, next);
+    SLIST_REMOVE(&peers, peer, blepeer, next);
 
     while ((svc = SLIST_FIRST(&peer->svcs)) != NULL) {
         SLIST_REMOVE_HEAD(&peer->svcs, next);
