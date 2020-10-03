@@ -558,14 +558,14 @@ SYMBOL TABLE:
 000076b2 l       .debug_str	00000000 
 0000767e l       .debug_str	00000000 
 00007672 l       .debug_str	00000000 
-00007ef1 l       .debug_str	00000000 
 00007475 l       .debug_str	00000000 
+00007ef1 l       .debug_str	00000000 
 00007ec2 l       .debug_str	00000000 
-000074f8 l       .debug_str	00000000 
 00007355 l       .debug_str	00000000 
+000074f8 l       .debug_str	00000000 
 000074c5 l       .debug_str	00000000 
-00006b47 l       .debug_str	00000000 
 000072b8 l       .debug_str	00000000 
+00006b47 l       .debug_str	00000000 
 00006b15 l       .debug_str	00000000 
 00006ada l       .debug_str	00000000 
 00006ac2 l       .debug_str	00000000 
@@ -579,60 +579,59 @@ SYMBOL TABLE:
 0000679b l       .debug_str	00000000 
 00006793 l       .debug_str	00000000 
 0000678b l       .debug_str	00000000 
-00006783 l       .debug_str	00000000 
 00007072 l       .debug_str	00000000 
+00006783 l       .debug_str	00000000 
 0000677c l       .debug_str	00000000 
-00006777 l       .debug_str	00000000 
 0000724a l       .debug_str	00000000 
+00006777 l       .debug_str	00000000 
 00006729 l       .debug_str	00000000 
-000066d0 l       .debug_str	00000000 
 00007215 l       .debug_str	00000000 
+000066d0 l       .debug_str	00000000 
 000080d7 l       .debug_str	00000000 
-00008091 l       .debug_str	00000000 
 00007209 l       .debug_str	00000000 
+00008091 l       .debug_str	00000000 
 00006c5f l       .debug_str	00000000 
 000066c7 l       .debug_str	00000000 
-000066c4 l       .debug_str	00000000 
 000071db l       .debug_str	00000000 
-000066c1 l       .debug_str	00000000 
+000066c4 l       .debug_str	00000000 
 000071cb l       .debug_str	00000000 
-000066be l       .debug_str	00000000 
+000066c1 l       .debug_str	00000000 
 00007199 l       .debug_str	00000000 
+000066be l       .debug_str	00000000 
 000066ca l       .debug_str	00000000 
 000066b6 l       .debug_str	00000000 
-000066af l       .debug_str	00000000 
 00006f66 l       .debug_str	00000000 
+000066af l       .debug_str	00000000 
 00006663 l       .debug_str	00000000 
-0000660c l       .debug_str	00000000 
 00006f34 l       .debug_str	00000000 
+0000660c l       .debug_str	00000000 
 000065d4 l       .debug_str	00000000 
-0000659c l       .debug_str	00000000 
 0000740a l       .debug_str	00000000 
+0000659c l       .debug_str	00000000 
 00006548 l       .debug_str	00000000 
-000064e9 l       .debug_str	00000000 
 00007395 l       .debug_str	00000000 
+000064e9 l       .debug_str	00000000 
 000064b1 l       .debug_str	00000000 
 00006479 l       .debug_str	00000000 
 00006425 l       .debug_str	00000000 
-000063c6 l       .debug_str	00000000 
 00007359 l       .debug_str	00000000 
+000063c6 l       .debug_str	00000000 
 0000638e l       .debug_str	00000000 
-00006382 l       .debug_str	00000000 
 000072a7 l       .debug_str	00000000 
+00006382 l       .debug_str	00000000 
 0000634a l       .debug_str	00000000 
 0000633e l       .debug_str	00000000 
 0000633a l       .debug_str	00000000 
-000062e6 l       .debug_str	00000000 
 0000725d l       .debug_str	00000000 
-00006287 l       .debug_str	00000000 
+000062e6 l       .debug_str	00000000 
 00007002 l       .debug_str	00000000 
-00006268 l       .debug_str	00000000 
+00006287 l       .debug_str	00000000 
 00006ffd l       .debug_str	00000000 
-00006276 l       .debug_str	00000000 
+00006268 l       .debug_str	00000000 
 00006f93 l       .debug_str	00000000 
-00006270 l       .debug_str	00000000 
+00006276 l       .debug_str	00000000 
 00006de0 l       .debug_str	00000000 
-0000626b l       .debug_str	00000000 
+00006270 l       .debug_str	00000000 
 00006d9a l       .debug_str	00000000 
 00006d94 l       .debug_str	00000000 
 00006d56 l       .debug_str	00000000 
@@ -1016,7 +1015,7 @@ SYMBOL TABLE:
 0000787e l       .debug_str	00000000 
 000078bf l       .debug_str	00000000 
 00008115 l       .debug_str	00000000 
-0000627e l       .debug_str	00000000 
+0000626b l       .debug_str	00000000 
 00002972 l       .debug_str	00000000 
 00007906 l       .debug_str	00000000 
 0000793a l       .debug_str	00000000 
@@ -1387,18 +1386,18 @@ SYMBOL TABLE:
 000061bb l       .debug_str	00000000 
 00006215 l       .debug_str	00000000 
 00006264 l       .debug_str	00000000 
+0000627e l       .debug_str	00000000 
 00006cc3 l       .debug_str	00000000 
 00000000 l     O .rodata..L__unnamed_1	00000010 .L__unnamed_1
 00000010 l     O .rodata.cst8	00000008 .L__unnamed_10
 00000000 l     O .rodata..L__unnamed_11	00000010 .L__unnamed_11
-00000000 l     O .rodata..L__unnamed_12	00000010 .L__unnamed_12
-00000000 l     O .rodata..L__unnamed_13	00000006 .L__unnamed_13
-00000000 l     O .rodata..L__unnamed_14	00000007 .L__unnamed_14
-00000000 l     O .rodata..L__unnamed_15	00000003 .L__unnamed_15
-00000000 l     O .rodata..L__unnamed_16	00000006 .L__unnamed_16
-00000000 l     O .rodata..L__unnamed_17	00000001 .L__unnamed_17
-00000000 l     O .rodata..L__unnamed_18	00000010 .L__unnamed_18
-00000000 l     O .rodata..L__unnamed_19	0000002b .L__unnamed_19
+00000000 l     O .rodata..L__unnamed_12	00000006 .L__unnamed_12
+00000000 l     O .rodata..L__unnamed_13	00000007 .L__unnamed_13
+00000000 l     O .rodata..L__unnamed_14	00000003 .L__unnamed_14
+00000000 l     O .rodata..L__unnamed_15	00000006 .L__unnamed_15
+00000000 l     O .rodata..L__unnamed_16	00000001 .L__unnamed_16
+00000000 l     O .rodata..L__unnamed_17	00000010 .L__unnamed_17
+00000000 l     O .rodata..L__unnamed_18	0000002b .L__unnamed_18
 00000000 l     O .rodata..L__unnamed_2	0000000f .L__unnamed_2
 00000000 l     O .rodata..L__unnamed_3	00000010 .L__unnamed_3
 00000000 l     O .rodata.cst16	00000010 .L__unnamed_4
@@ -1483,7 +1482,7 @@ SYMBOL TABLE:
 00000000 l    d  .text._ZN4core5panic8Location4line17hf222805c60dd871cE	00000000 .text._ZN4core5panic8Location4line17hf222805c60dd871cE
 00000000 l    d  .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h115b9deeb1986c0cE	00000000 .text._ZN4core5slice29_$LT$impl$u20$$u5b$T$u5d$$GT$3len17h115b9deeb1986c0cE
 00000000 l    d  .rodata..Lanon.7e6d8ad8fdb3e79463f0b75033855372.2	00000000 .rodata..Lanon.7e6d8ad8fdb3e79463f0b75033855372.2
-00000000 l    d  .rodata..L__unnamed_20	00000000 .rodata..L__unnamed_20
+00000000 l    d  .rodata..L__unnamed_19	00000000 .rodata..L__unnamed_19
 00000000 l    d  .rodata..L__unnamed_1	00000000 .rodata..L__unnamed_1
 00000000 l    d  .rodata..Lanon.dac81d0acc7b86e9cf31991c5a4de004.12	00000000 .rodata..Lanon.dac81d0acc7b86e9cf31991c5a4de004.12
 00000000 l    d  .rodata..Lanon.dac81d0acc7b86e9cf31991c5a4de004.177	00000000 .rodata..Lanon.dac81d0acc7b86e9cf31991c5a4de004.177
@@ -1499,7 +1498,7 @@ SYMBOL TABLE:
 00000000         *UND*	00000000 console_printint
 00000000         *UND*	00000000 create_watch_face
 00000000         *UND*	00000000 hal_watchdog_tickle
-00000000 g     F .text.main	000000f2 main
+00000000 g     F .text.main	000000c6 main
 00000000         *UND*	00000000 os_eventq_dflt_get
 00000000         *UND*	00000000 os_eventq_run
 00000000         *UND*	00000000 pinetime_lvgl_mynewt_render
@@ -1915,7 +1914,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:110
     extern { fn create_watch_face() -> i32; }  //  Defined in apps/my_sensor_app/src/watch_face.c
     let rc = unsafe { create_watch_face() };
    e:	f7ff fffe 	bl	0 <create_watch_face>
-  12:	9004      	str	r0, [sp, #16]
+  12:	9005      	str	r0, [sp, #20]
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:111
     assert!(rc == 0, "Watch Face fail");
   14:	2800      	cmp	r0, #0
@@ -1929,7 +1928,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:120
     extern { fn pinetime_lvgl_mynewt_render() -> i32; }  //  Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
     let rc = unsafe { pinetime_lvgl_mynewt_render() };
   1a:	f7ff fffe 	bl	0 <pinetime_lvgl_mynewt_render>
-  1e:	9005      	str	r0, [sp, #20]
+  1e:	9006      	str	r0, [sp, #24]
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:121
     assert!(rc == 0, "LVGL render fail");    
   20:	2800      	cmp	r0, #0
@@ -1955,7 +1954,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:128
     extern { fn start_ble() -> i32; }
     let rc = unsafe { start_ble() };
   42:	f7ff fffe 	bl	0 <start_ble>
-  46:	9006      	str	r0, [sp, #24]
+  46:	9007      	str	r0, [sp, #28]
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:129
     assert!(rc == 0, "BLE fail");
   48:	2800      	cmp	r0, #0
@@ -1992,21 +1991,21 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:129
   7c:	2108      	movs	r1, #8
   7e:	f7ff fffe 	bl	0 <main>
   82:	defe      	udf	#254	; 0xfe
-  84:	a802      	add	r0, sp, #8
+  84:	a803      	add	r0, sp, #12
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:170
         os::eventq_run(               //  Processing events...
             os::eventq_dflt_get()     //  From default event queue.
-  86:	9001      	str	r0, [sp, #4]
+  86:	9002      	str	r0, [sp, #8]
   88:	f7ff fffe 	bl	0 <main>
   8c:	f240 0100 	movw	r1, #0
   90:	f2c0 0100 	movt	r1, #0
   94:	f240 0300 	movw	r3, #0
   98:	f2c0 0300 	movt	r3, #0
   9c:	2008      	movs	r0, #8
-  9e:	9a01      	ldr	r2, [sp, #4]
-  a0:	9000      	str	r0, [sp, #0]
+  9e:	9a02      	ldr	r2, [sp, #8]
+  a0:	9001      	str	r0, [sp, #4]
   a2:	4610      	mov	r0, r2
-  a4:	9a00      	ldr	r2, [sp, #0]
+  a4:	9a01      	ldr	r2, [sp, #4]
   a6:	f7ff fffe 	bl	0 <main>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:169
         os::eventq_run(               //  Processing events...
@@ -2015,42 +2014,11 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:169
   b2:	f2c0 0100 	movt	r1, #0
   b6:	f240 0300 	movw	r3, #0
   ba:	f2c0 0300 	movt	r3, #0
-  be:	9a00      	ldr	r2, [sp, #0]
+  be:	9a01      	ldr	r2, [sp, #4]
   c0:	f7ff fffe 	bl	0 <main>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:175
-                .expect("GET fail")
-        ).expect("RUN fail");
-
-        //  TODO: Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
-        unsafe { hal_watchdog_tickle() };
-  c4:	f7ff fffe 	bl	0 <hal_watchdog_tickle>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:177
-
-        let rc = unsafe { pinetime_lvgl_mynewt_render() };
-  c8:	f7ff fffe 	bl	0 <pinetime_lvgl_mynewt_render>
-  cc:	9007      	str	r0, [sp, #28]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:178
-        assert!(rc == 0, "LVGL render fail");    
-  ce:	2800      	cmp	r0, #0
-  d0:	d103      	bne.n	da <main+0xda>
-  d2:	e7ff      	b.n	d4 <main+0xd4>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:181
-
-        //  TODO: Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
-        unsafe { hal_watchdog_tickle() };
-  d4:	f7ff fffe 	bl	0 <hal_watchdog_tickle>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:168
     loop {                            //  Loop forever...
-  d8:	e7d4      	b.n	ffffffac <.L__unnamed_10+0xffffff9c>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:178
-        assert!(rc == 0, "LVGL render fail");    
-  da:	f240 0000 	movw	r0, #0
-  de:	f2c0 0000 	movt	r0, #0
-  e2:	f240 0200 	movw	r2, #0
-  e6:	f2c0 0200 	movt	r2, #0
-  ea:	2110      	movs	r1, #16
-  ec:	f7ff fffe 	bl	0 <main>
-  f0:	defe      	udf	#254	; 0xfe
+  c4:	e7de      	b.n	84 <main+0x84>
 
 Disassembly of section .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17h42b33c4a6be9f9b2E:
 
@@ -2113,7 +2081,7 @@ Disassembly of section .text.rust_begin_unwind:
 
 00000000 <rust_begin_unwind>:
 rust_begin_unwind():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:188
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:179
     //  Never comes here
 }
 
@@ -2124,7 +2092,7 @@ fn panic(info: &PanicInfo) -> ! {
    2:	466f      	mov	r7, sp
    4:	b08a      	sub	sp, #40	; 0x28
    6:	9007      	str	r0, [sp, #28]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:190
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:181
     //  Display the filename and line number to the Semihosting Console.
     console::print("panic ");
    8:	f240 0100 	movw	r1, #0
@@ -2134,7 +2102,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:190
   14:	4608      	mov	r0, r1
   16:	4611      	mov	r1, r2
   18:	f7ff fffe 	bl	0 <rust_begin_unwind>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:191
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:182
     if let Some(location) = info.location() {
   1c:	9803      	ldr	r0, [sp, #12]
   1e:	f7ff fffe 	bl	0 <rust_begin_unwind>
@@ -2143,7 +2111,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:191
   26:	2800      	cmp	r0, #0
   28:	d10a      	bne.n	40 <rust_begin_unwind+0x40>
   2a:	e7ff      	b.n	2c <rust_begin_unwind+0x2c>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:198
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:189
         let line = location.line();
         console::print("at ");       console::buffer(&file);
         console::print(" line ");    console::printint(line as i32);
@@ -2155,23 +2123,23 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:198
   34:	2107      	movs	r1, #7
   36:	f7ff fffe 	bl	0 <rust_begin_unwind>
   3a:	f7ff fffe 	bl	0 <rust_begin_unwind>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:191
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:182
     if let Some(location) = info.location() {
   3e:	e02c      	b.n	9a <rust_begin_unwind+0x9a>
   40:	9804      	ldr	r0, [sp, #16]
   42:	9008      	str	r0, [sp, #32]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:192
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:183
         let file = location.file();
   44:	9002      	str	r0, [sp, #8]
   46:	f7ff fffe 	bl	0 <rust_begin_unwind>
   4a:	9106      	str	r1, [sp, #24]
   4c:	9005      	str	r0, [sp, #20]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:193
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:184
         let line = location.line();
   4e:	9802      	ldr	r0, [sp, #8]
   50:	f7ff fffe 	bl	0 <rust_begin_unwind>
   54:	9009      	str	r0, [sp, #36]	; 0x24
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:194
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:185
         console::print("at ");       console::buffer(&file);
   56:	f240 0100 	movw	r1, #0
   5a:	f2c0 0100 	movt	r1, #0
@@ -2183,7 +2151,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:194
   6a:	9805      	ldr	r0, [sp, #20]
   6c:	9906      	ldr	r1, [sp, #24]
   6e:	f7ff fffe 	bl	0 <rust_begin_unwind>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:195
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:186
         console::print(" line ");    console::printint(line as i32);
   72:	f240 0000 	movw	r0, #0
   76:	f2c0 0000 	movt	r0, #0
@@ -2191,14 +2159,14 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:195
   7c:	f7ff fffe 	bl	0 <rust_begin_unwind>
   80:	9801      	ldr	r0, [sp, #4]
   82:	f7ff fffe 	bl	0 <rust_begin_unwind>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:196
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:187
         console::print("\n");        console::flush();
   86:	f240 0000 	movw	r0, #0
   8a:	f2c0 0000 	movt	r0, #0
   8e:	2101      	movs	r1, #1
   90:	f7ff fffe 	bl	0 <rust_begin_unwind>
   94:	f7ff fffe 	bl	0 <rust_begin_unwind>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:191
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:182
     if let Some(location) = info.location() {
   98:	e7ff      	b.n	9a <rust_begin_unwind+0x9a>
 _ZN8cortex_m3asm4bkpt17hff797d6e11766976E():
@@ -2211,7 +2179,7 @@ pub fn bkpt() {
         () => unsafe { llvm_asm!("bkpt" :::: "volatile") },
   9a:	be00      	bkpt	0x0000
 rust_begin_unwind():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:203
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:194
     }
     //  Pause in the debugger.
     bkpt();
@@ -2229,14 +2197,14 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:203
   b8:	4608      	mov	r0, r1
   ba:	9900      	ldr	r1, [sp, #0]
   bc:	f7ff fffe 	bl	0 <rust_begin_unwind>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:204
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:195
     console::print("\n");  console::flush();
   c0:	f240 0000 	movw	r0, #0
   c4:	f2c0 0000 	movt	r0, #0
   c8:	2101      	movs	r1, #1
   ca:	f7ff fffe 	bl	0 <rust_begin_unwind>
   ce:	f7ff fffe 	bl	0 <rust_begin_unwind>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:206
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:197
     //  Loop forever so that device won't restart.
     loop {}
   d2:	e7ff      	b.n	d4 <rust_begin_unwind+0xd4>
@@ -7025,14 +6993,14 @@ _ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt1
 _ZN17compiler_builtins3int6addsub16__rust_u128_subo17h1e3d2c3ff22ecb5aE():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/int/addsub.rs:132
   5e:	e9c0 4100 	strd	r4, r1, [r0]
-_ZN17compiler_builtins3int6addsub4Subo4subo17h7b048631b3396470E():
+_ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt17hdf751ff6fbf5edf4E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   62:	eb73 0101 	sbcs.w	r1, r3, r1
   66:	eb78 0105 	sbcs.w	r1, r8, r5
 _ZN17compiler_builtins3int6addsub16__rust_u128_subo17h1e3d2c3ff22ecb5aE():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/int/addsub.rs:132
   6a:	e9c0 5e02 	strd	r5, lr, [r0, #8]
-_ZN17compiler_builtins3int6addsub4Subo4subo17h7b048631b3396470E():
+_ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt17hdf751ff6fbf5edf4E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   6e:	eb7c 010e 	sbcs.w	r1, ip, lr
   72:	bf38      	it	cc
@@ -14878,7 +14846,7 @@ _ZN17compiler_builtins3int4sdiv3Div3div17h9b145e34fb16bf32E():
 _ZN46_$LT$i64$u20$as$u20$core..ops..bit..BitXor$GT$6bitxor17h9f5f5cce5bb4775cE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/bit.rs:351
   28:	4061      	eors	r1, r4
-_ZN51_$LT$i64$u20$as$u20$compiler_builtins..int..Int$GT$12wrapping_sub17h07923e108ccced18E():
+_ZN4core3num21_$LT$impl$u20$i64$GT$12wrapping_sub17hc1ea7ebcd259f0b8E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/int_macros.rs:1032
   2a:	1b00      	subs	r0, r0, r4
   2c:	41a1      	sbcs	r1, r4
@@ -14952,14 +14920,14 @@ __multi3():
    4:	e92d 0b00 	stmdb	sp!, {r8, r9, fp}
    8:	f8d7 c008 	ldr.w	ip, [r7, #8]
    c:	68fd      	ldr	r5, [r7, #12]
-_ZN51_$LT$i64$u20$as$u20$compiler_builtins..int..Int$GT$12wrapping_mul17he592f9428cd4de1eE():
+_ZN4core3num21_$LT$impl$u20$i64$GT$12wrapping_mul17hd85fd0f11258ae09E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/int_macros.rs:1055
    e:	fbac 4e02 	umull	r4, lr, ip, r2
   12:	fb0c e303 	mla	r3, ip, r3, lr
 _ZN4core3num21_$LT$impl$u20$u64$GT$12wrapping_mul17h3ab99b802c4b1299E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:944
   16:	fba5 8e00 	umull	r8, lr, r5, r0
-_ZN51_$LT$i64$u20$as$u20$compiler_builtins..int..Int$GT$12wrapping_mul17he592f9428cd4de1eE():
+_ZN4core3num21_$LT$impl$u20$i64$GT$12wrapping_mul17hd85fd0f11258ae09E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/int_macros.rs:1055
   1a:	fb05 3202 	mla	r2, r5, r2, r3
 _ZN51_$LT$i64$u20$as$u20$core..ops..arith..AddAssign$GT$10add_assign17h78e8115044a6487dE():
@@ -18777,7 +18745,7 @@ Disassembly of section .text._ZN17compiler_builtins5float6extend13__extendsfdf21
 _ZN46_$LT$u32$u20$as$u20$core..ops..bit..BitAnd$GT$6bitand17h0d21bf3c3314d30dE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/bit.rs:158
    0:	f020 4200 	bic.w	r2, r0, #2147483648	; 0x80000000
-_ZN51_$LT$u32$u20$as$u20$compiler_builtins..int..Int$GT$12wrapping_sub17h1e049eca522a20b5E():
+_ZN4core3num21_$LT$impl$u20$u32$GT$12wrapping_sub17h57a4102f47cf3239E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:920
    4:	f5a2 0100 	sub.w	r1, r2, #8388608	; 0x800000
 _ZN17compiler_builtins5float6extend6extend17h8485c584851c0b04E():
@@ -22043,7 +22011,7 @@ _ZN17compiler_builtins5float3cmp3cmp17h9a1c16d6d8852321E():
   18:	d900      	bls.n	1c <compiler_builtins::float::cmp::__aeabi_fcmpge+0x1c>
 _ZN17compiler_builtins5float3cmp14__aeabi_fcmpge17h55827ef1d74ed612E():
   1a:	4770      	bx	lr
-_ZN45_$LT$u32$u20$as$u20$core..ops..bit..BitOr$GT$5bitor17hfeb4b461398fb2f6E():
+_ZN17compiler_builtins5float3cmp3cmp17h9a1c16d6d8852321E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/bit.rs:253
   1c:	ea52 0003 	orrs.w	r0, r2, r3
   20:	bf04      	itt	eq
@@ -22066,7 +22034,7 @@ _ZN4core3cmp5impls55_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$i32$GT$2lt17
 _ZN17compiler_builtins5float3cmp14__aeabi_fcmpge17h55827ef1d74ed612E():
   38:	4770      	bx	lr
   3a:	2000      	movs	r0, #0
-_ZN4core3cmp5impls55_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$i32$GT$2gt17h358ec1ed0a330201E():
+_ZN17compiler_builtins5float3cmp3cmp17h9a1c16d6d8852321E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   3c:	458c      	cmp	ip, r1
   3e:	bfd8      	it	le

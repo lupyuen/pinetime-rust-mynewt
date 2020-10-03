@@ -164,7 +164,7 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //  chip8::on_start()
     //      .expect("CHIP8 fail");
 
-    //  Main event loop
+    //  Main event loop. Don't add anything to the event loop because Bluetooth LE is extremely time sensitive.
     loop {                            //  Loop forever...
         os::eventq_run(               //  Processing events...
             os::eventq_dflt_get()     //  From default event queue.
