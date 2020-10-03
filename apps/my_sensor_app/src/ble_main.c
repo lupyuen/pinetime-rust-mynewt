@@ -58,24 +58,74 @@ static int bleprph_gap_event(struct ble_gap_event *event, void *arg);
 //  #define MODLOG_DFLT_ERROR(...)
 //  #define MODLOG_DFLT_FLUSH()
 
-
 ///////////////////////////////////////////////////////////////////////////////
 //  Time Sync. Based on https://github.com/apache/mynewt-nimble/blob/master/apps/blecent/src/main.c
 
-//  Application callback.  Called when the read of the GATT characteristic has completed.
-static int
-blecent_on_read(uint16_t conn_handle,
-                const struct ble_gatt_error *error,
-                struct ble_gatt_attr *attr,
-                void *arg) {
-    MODLOG_DFLT_INFO("Read complete; status=%d conn_handle=%d", error->status,
-                conn_handle);
+//  When a BLE connection is established, we connect to the GATT Current Time Service of the BLE Peer
+//  Based on https://github.com/apache/mynewt-nimble/blob/master/apps/blecent/src/main.c
+
+//  TODO: Read GATT Attribute for Current Time Service in BLE Client
+
+//  TODO: Read the current time from the Current Time Service of the BLE Client
+
+//  TODO: Set the Mynewt system time from the current time
+
+//  TODO: Update the current time periodically            
+
+//  Called when service discovery of the specified peer has completed.
+static void blecent_on_disc_complete(const struct peer *peer, int status, void *arg) {
+    if (status != 0) {
+        //  Service discovery failed
+        MODLOG_DFLT_ERROR("Error: Service discovery failed; status=%d conn_handle=%d\n", status, peer->conn_handle);
+        //  ble_gap_terminate(peer->conn_handle, BLE_ERR_REM_USER_CONN_TERM);
+        return;
+    }
+
+    //  Service discovery has completed successfully.  Now we have a complete list of services, characteristics, and descriptors that the peer supports.
+    MODLOG_DFLT_INFO("Service discovery complete; status=%d conn_handle=%d\n", status, peer->conn_handle);
+
+    //  Read the GATT Characteristics from the peer
+    blecent_read(peer);
+}
+
+//  Read the GATT Characteristics from the peer
+static void blecent_read(const struct peer *peer) {
+    const struct peer_chr *chr;
+    const struct peer_dsc *dsc;
+    uint8_t value[2];
+    int rc;
+
+    //  Read the characteristic
+    chr = peer_chr_find_uuid(
+        peer,
+        BLE_UUID16_DECLARE(BLECENT_SVC_ALERT_UUID),  //  TODO
+        BLE_UUID16_DECLARE(BLECENT_CHR_SUP_NEW_ALERT_CAT_UUID)  //  TODO
+    );
+    if (chr == NULL) {
+        MODLOG_DFLT_ERROR("Error: Peer doesn't support the CTS characteristic\n");
+        goto err;
+    }
+
+    rc = ble_gattc_read(peer->conn_handle, chr->chr.val_handle, blecent_on_read, NULL);
+    if (rc != 0) {
+        MODLOG_DFLT(ERROR, "Error: Failed to read characteristic; rc=%d\n", rc);
+        goto err;
+    }
+    return;
+
+err:
+    //  Don't terminate the connection yet, may be used by MCU Manager
+    //  ble_gap_terminate(peer->conn_handle, BLE_ERR_REM_USER_CONN_TERM);
+}
+
+//  Called when the read of the GATT characteristic has completed
+static int blecent_on_read(uint16_t conn_handle, const struct ble_gatt_error *error, struct ble_gatt_attr *attr, void *arg) {
+    MODLOG_DFLT_INFO("Read complete; status=%d conn_handle=%d", error->status, conn_handle);
     if (error->status == 0) {
         MODLOG_DFLT_INFO(" attr_handle=%d value=", attr->handle);
         print_mbuf(attr->om);
     }
     MODLOG_DFLT_INFO("\n");
-
     return 0;
 }
 
@@ -222,34 +272,17 @@ bleprph_gap_event(struct ble_gap_event *event, void *arg)
             phy_conn_changed(event->connect.conn_handle);
 #endif
 
-            //  TODO: When a connection is established, we connect to the GATT Current Time Service of the BLE Client
+            //  When a BLE connection is established, we connect to the GATT Current Time Service of the BLE Peer
             //  Based on https://github.com/apache/mynewt-nimble/blob/master/apps/blecent/src/main.c
-            //  Remember peer
+
+            //  Remember the BLE Peer
             rc = blepeer_add(event->connect.conn_handle);
             if (rc != 0) { MODLOG_DFLT_ERROR("Failed to add peer; rc=%d\n", rc); MODLOG_DFLT_FLUSH(); }
             else {
-                //  TODO: Discover GATT Attribute for Current Time Service in BLE Client
-                //  Perform service discovery
+                //  Discover all GATT Sevices in BLE Peer (including Current Time Service)
                 rc = blepeer_disc_all(event->connect.conn_handle, blecent_on_disc_complete, NULL);
                 if (rc != 0) { MODLOG_DFLT_ERROR("Failed to discover services; rc=%d\n", rc); MODLOG_DFLT_FLUSH(); }
             }
-
-            //  TODO: Read GATT Attribute for Current Time Service in BLE Client
-            /*
-            rc = ble_gattc_read(
-                event->connect.conn_handle,  //  BLE Connection
-                time_attr,                   //  GATT Attribute for Current Time Service
-                handle_time_read,            //  Callback Function
-                callback_arg                 //  Callback Arg
-            );
-            if (rc != 0) { MODLOG_DFLT_ERROR("error reading time: %d\n", rc); MODLOG_DFLT_FLUSH(); }
-            */
-
-            //  TODO: Read the current time from the Current Time Service of the BLE Client
-
-            //  TODO: Set the Mynewt system time from the current time
-
-            //  TODO: Update the current time periodically            
         }
         MODLOG_DFLT_INFO("\n");
 
