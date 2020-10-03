@@ -24,15 +24,15 @@
 #include "ble_peer.h"
 
 //  Limits for GATT Service Discovery
-#define MAX_PEERS                        5  //  Max number of BLE peers
-#define MAX_GATT_SERVICES               10  //  Max number of GATT Services
-#define MAX_GATT_CHARACTERISTICS        10  //  Max number of GATT Characteristics
-#define MAX_DISCOVERED_CHARACTERISTICS  10  //  Max number of Discovered GATT Characteristics
+#define MAX_PEERS                       10  //  Max number of BLE peers
+#define MAX_GATT_SERVICES               20  //  Max number of GATT Services
+#define MAX_GATT_CHARACTERISTICS        20  //  Max number of GATT Characteristics
+#define MAX_DISCOVERED_CHARACTERISTICS  20  //  Max number of Discovered GATT Characteristics
 
 //  Static Memory for GATT Service Discovery
-static uint8_t blepeer_mem[OS_MEMPOOL_BYTES(MAX_PEERS, sizeof (struct blepeer))];
-static uint8_t blepeer_svc_mem[OS_MEMPOOL_BYTES(MAX_GATT_SERVICES, sizeof (struct blepeer_svc))];
-static uint8_t blepeer_chr_mem[OS_MEMPOOL_BYTES(MAX_GATT_CHARACTERISTICS, sizeof (struct blepeer_chr))];
+static uint8_t blepeer_mem[    OS_MEMPOOL_BYTES(MAX_PEERS,                      sizeof (struct blepeer))];
+static uint8_t blepeer_svc_mem[OS_MEMPOOL_BYTES(MAX_GATT_SERVICES,              sizeof (struct blepeer_svc))];
+static uint8_t blepeer_chr_mem[OS_MEMPOOL_BYTES(MAX_GATT_CHARACTERISTICS,       sizeof (struct blepeer_chr))];
 static uint8_t blepeer_dsc_mem[OS_MEMPOOL_BYTES(MAX_DISCOVERED_CHARACTERISTICS, sizeof (struct blepeer_dsc))];
 
 //  OS Memory Pools for GATT Service Discovery
