@@ -68,8 +68,9 @@ static int bleprph_gap_event(struct ble_gap_event *event, void *arg);
 
 static void blecent_read(const struct blepeer *peer);
 static int blecent_on_read(uint16_t conn_handle, const struct ble_gatt_error *error, struct ble_gatt_attr *attr, void *arg);
+static void print_mbuf(const struct os_mbuf *om);
 
-//  Called when GATT Service Discovery of the BLE Peer has completed
+/// Called when GATT Service Discovery of the BLE Peer has completed
 static void blecent_on_disc_complete(const struct blepeer *peer, int status, void *arg) {
     if (status != 0) {
         //  Service discovery failed
@@ -90,7 +91,7 @@ err:
     return;
 }
 
-//  Read the GATT Characteristic for Current Time Service from the BLE Peer
+/// Read the GATT Characteristic for Current Time Service from the BLE Peer
 static void blecent_read(const struct blepeer *peer) {
     //  Find the GATT Characteristic for Current Time Service from the discovered GATT Characteristics
     const struct blepeer_chr *chr = blepeer_chr_find_uuid(
@@ -122,7 +123,7 @@ err:
     return;
 }
 
-//  Called when Current Time Service GATT Characteristic has been read
+/// Called when Current Time Service GATT Characteristic has been read
 static int blecent_on_read(uint16_t conn_handle, const struct ble_gatt_error *error, struct ble_gatt_attr *attr, void *arg) {
     //  Read the current time from the Current Time Service
     MODLOG_DFLT_INFO("Read complete; status=%d conn_handle=%d", error->status, conn_handle);
@@ -136,6 +137,15 @@ static int blecent_on_read(uint16_t conn_handle, const struct ble_gatt_error *er
 
     //  TODO: Update the current time periodically
     return 0;
+}
+
+/// Print the mbuf
+static void print_mbuf(const struct os_mbuf *om) {
+    while (om != NULL) {
+        console_dump(om->om_data, om->om_len);
+        console_printf("\n");
+        om = SLIST_NEXT(om, om_next);
+    }
 }
 
 //  End of Time Sync
