@@ -197,6 +197,25 @@ bleprph_gap_event(struct ble_gap_event *event, void *arg)
 #if MYNEWT_VAL(BLEPRPH_LE_PHY_SUPPORT)
             phy_conn_changed(event->connect.conn_handle);
 #endif
+
+            //  TODO: When a connection is established, we connect to the GATT Current Time Service of the BLE Client
+
+            //  TODO: Find GATT Attribute for Current Time Service in BLE Client
+
+            //  TODO: Read GATT Attribute for Current Time Service in BLE Client
+            rc = ble_gattc_read(
+                event->connect.conn_handle,  //  BLE Connection
+                time_attr,                   //  GATT Attribute for Current Time Service
+                handle_time_read,            //  Callback Function
+                callback_arg                 //  Callback Arg
+            );
+            if (rc != 0) { MODLOG_DFLT_ERROR("error reading time: %d\n", rc); MODLOG_DFLT_FLUSH(); }
+
+            //  TODO: Read the current time from the Current Time Service of the BLE Client
+
+            //  TODO: Set the Mynewt system time from the current time
+
+            //  TODO: Update the current time periodically            
         }
         MODLOG_DFLT_INFO("\n");
 
