@@ -23,16 +23,22 @@
 #include "host/ble_hs.h"
 #include "ble_peer.h"
 
-static void *blepeer_svc_mem;
+//  Limits for GATT Service Discovery
+#define MAX_PEERS                        5  //  Max number of BLE peers
+#define MAX_GATT_SERVICES               10  //  Max number of GATT Services
+#define MAX_GATT_CHARACTERISTICS        10  //  Max number of GATT Characteristics
+#define MAX_DISCOVERED_CHARACTERISTICS  10  //  Max number of Discovered GATT Characteristics
+
+//  Static Memory for GATT Service Discovery
+static uint8_t blepeer_mem[OS_MEMPOOL_BYTES(MAX_PEERS, sizeof (struct blepeer))];
+static uint8_t blepeer_svc_mem[OS_MEMPOOL_BYTES(MAX_GATT_SERVICES, sizeof (struct blepeer_svc))];
+static uint8_t blepeer_chr_mem[OS_MEMPOOL_BYTES(MAX_GATT_CHARACTERISTICS, sizeof (struct blepeer_chr))];
+static uint8_t blepeer_dsc_mem[OS_MEMPOOL_BYTES(MAX_DISCOVERED_CHARACTERISTICS, sizeof (struct blepeer_dsc))];
+
+//  OS Memory Pools for GATT Service Discovery
 static struct os_mempool blepeer_svc_pool;
-
-static void *blepeer_chr_mem;
 static struct os_mempool blepeer_chr_pool;
-
-static void *blepeer_dsc_mem;
 static struct os_mempool blepeer_dsc_pool;
-
-static void *blepeer_mem;
 static struct os_mempool blepeer_pool;
 static SLIST_HEAD(, blepeer) peers;
 
@@ -719,17 +725,7 @@ blepeer_add(uint16_t conn_handle)
 static void
 blepeer_free_mem(void)
 {
-    free(blepeer_mem);
-    blepeer_mem = NULL;
-
-    free(blepeer_svc_mem);
-    blepeer_svc_mem = NULL;
-
-    free(blepeer_chr_mem);
-    blepeer_chr_mem = NULL;
-
-    free(blepeer_dsc_mem);
-    blepeer_dsc_mem = NULL;
+    //  Nothing to free since we use static memory
 }
 
 int
@@ -739,71 +735,29 @@ blepeer_init(void)
 
     /* Free memory first in case this function gets called more than once. */
     blepeer_free_mem();
-
-    ////TODO: malloc
-    blepeer_mem = malloc(
-        OS_MEMPOOL_BYTES(max_peers, sizeof (struct blepeer)));
-    if (blepeer_mem == NULL) {
-        rc = BLE_HS_ENOMEM;
-        goto err;
-    }
-
-    rc = os_mempool_init(&blepeer_pool, max_peers,
+    if (blepeer_mem == NULL) { rc = BLE_HS_ENOMEM; goto err; }
+    rc = os_mempool_init(&blepeer_pool, MAX_PEERS,
                          sizeof (struct blepeer), blepeer_mem,
                          "blepeer_pool");
-    if (rc != 0) {
-        rc = BLE_HS_EOS;
-        goto err;
-    }
+    if (rc != 0) { rc = BLE_HS_EOS; goto err; }
 
-    ////TODO: malloc
-    blepeer_svc_mem = malloc(
-        OS_MEMPOOL_BYTES(max_svcs, sizeof (struct blepeer_svc)));
-    if (blepeer_svc_mem == NULL) {
-        rc = BLE_HS_ENOMEM;
-        goto err;
-    }
-
-    rc = os_mempool_init(&blepeer_svc_pool, max_svcs,
+    if (blepeer_svc_mem == NULL) { rc = BLE_HS_ENOMEM; goto err; }
+    rc = os_mempool_init(&blepeer_svc_pool, MAX_GATT_SERVICES,
                          sizeof (struct blepeer_svc), blepeer_svc_mem,
                          "blepeer_svc_pool");
-    if (rc != 0) {
-        rc = BLE_HS_EOS;
-        goto err;
-    }
+    if (rc != 0) { rc = BLE_HS_EOS; goto err; }
 
-    ////TODO: malloc
-    blepeer_chr_mem = malloc(
-        OS_MEMPOOL_BYTES(max_chrs, sizeof (struct blepeer_chr)));
-    if (blepeer_chr_mem == NULL) {
-        rc = BLE_HS_ENOMEM;
-        goto err;
-    }
-
-    rc = os_mempool_init(&blepeer_chr_pool, max_chrs,
+    if (blepeer_chr_mem == NULL) { rc = BLE_HS_ENOMEM; goto err; }
+    rc = os_mempool_init(&blepeer_chr_pool, MAX_GATT_CHARACTERISTICS,
                          sizeof (struct blepeer_chr), blepeer_chr_mem,
                          "blepeer_chr_pool");
-    if (rc != 0) {
-        rc = BLE_HS_EOS;
-        goto err;
-    }
+    if (rc != 0) { rc = BLE_HS_EOS; goto err; }
 
-    ////TODO: malloc
-    blepeer_dsc_mem = malloc(
-        OS_MEMPOOL_BYTES(max_dscs, sizeof (struct blepeer_dsc)));
-    if (blepeer_dsc_mem == NULL) {
-        rc = BLE_HS_ENOMEM;
-        goto err;
-    }
-
-    rc = os_mempool_init(&blepeer_dsc_pool, max_dscs,
+    if (blepeer_dsc_mem == NULL) { rc = BLE_HS_ENOMEM; goto err; }
+    rc = os_mempool_init(&blepeer_dsc_pool, MAX_DISCOVERED_CHARACTERISTICS,
                          sizeof (struct blepeer_dsc), blepeer_dsc_mem,
                          "blepeer_dsc_pool");
-    if (rc != 0) {
-        rc = BLE_HS_EOS;
-        goto err;
-    }
-
+    if (rc != 0) { rc = BLE_HS_EOS; goto err; }
     return 0;
 
 err:
