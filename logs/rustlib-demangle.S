@@ -2744,7 +2744,7 @@ _ZN4core3str11unwrap_or_017hc0b590a2e9f91737E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2//library/core/src/str/mod.rs:500
  19e:	9845      	ldr	r0, [sp, #276]	; 0x114
  1a0:	f810 1b01 	ldrb.w	r1, [r0], #1
-_ZN4core3ptr7mut_ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$6offset17hfb4b2f63cd4a654aE():
+_ZN4core5slice4iter13Iter$LT$T$GT$14post_inc_start17h99be59df56cc1965E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2//library/core/src/ptr/mut_ptr.rs:232
  1a4:	4602      	mov	r2, r0
 _ZN4core3str11unwrap_or_017hc0b590a2e9f91737E():
@@ -4101,9 +4101,11 @@ _ZN51_$LT$u32$u20$as$u20$core..ops..arith..AddAssign$GT$10add_assign17h2b540a2eb
   20:	eb01 4114 	add.w	r1, r1, r4, lsr #16
   24:	fb03 5000 	mla	r0, r3, r0, r5
   28:	fa12 f281 	uxtah	r2, r2, r1
-_ZN4core3num21_$LT$impl$u20$u32$GT$12wrapping_add17ha8bbcde3e91a3ee5E():
+_ZN51_$LT$u32$u20$as$u20$compiler_builtins..int..Int$GT$12wrapping_add17he63a99c5e385fb42E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:897
   2c:	eb00 4011 	add.w	r0, r0, r1, lsr #16
+_ZN4core3num21_$LT$impl$u20$u32$GT$12wrapping_add17ha8bbcde3e91a3ee5E():
+/rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:897
   30:	eb00 4112 	add.w	r1, r0, r2, lsr #16
 _ZN51_$LT$u32$u20$as$u20$core..ops..arith..AddAssign$GT$10add_assign17h2b540a2eb2b5b2cdE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/arith.rs:731
@@ -6350,7 +6352,7 @@ _ZN4core3num22_$LT$impl$u20$u128$GT$11checked_rem17ha3da3663f9d27aaaE():
   36:	ea45 0406 	orr.w	r4, r5, r6
   3a:	ea54 0408 	orrs.w	r4, r4, r8
   3e:	d01e      	beq.n	7e <__modti3+0x7e>
-_ZN17compiler_builtins3int4sdiv3Mod4mod_17h438c6bcc94b62f75E():
+_ZN17compiler_builtins3int4sdiv8__modti317h4746257be72974acE():
   40:	17dc      	asrs	r4, r3, #31
 _ZN47_$LT$i128$u20$as$u20$core..ops..bit..BitXor$GT$6bitxor17h36896e9a94a15d19E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/bit.rs:351
@@ -6402,7 +6404,7 @@ __modti3():
   76:	b004      	add	sp, #16
   78:	f85d 8b04 	ldr.w	r8, [sp], #4
   7c:	bdf0      	pop	{r4, r5, r6, r7, pc}
-_ZN17compiler_builtins5abort17h7205a50b89493a10E():
+_ZN17compiler_builtins3int4sdiv8__modti317h4746257be72974acE():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/lib.rs:35
   7e:	defe      	udf	#254	; 0xfe
   80:	defe      	udf	#254	; 0xfe
@@ -7025,14 +7027,14 @@ _ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt1
 _ZN17compiler_builtins3int6addsub16__rust_u128_subo17h1e3d2c3ff22ecb5aE():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/int/addsub.rs:132
   5e:	e9c0 4100 	strd	r4, r1, [r0]
-_ZN17compiler_builtins3int6addsub4Subo4subo17h7b048631b3396470E():
+_ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt17hdf751ff6fbf5edf4E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   62:	eb73 0101 	sbcs.w	r1, r3, r1
   66:	eb78 0105 	sbcs.w	r1, r8, r5
 _ZN17compiler_builtins3int6addsub16__rust_u128_subo17h1e3d2c3ff22ecb5aE():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/int/addsub.rs:132
   6a:	e9c0 5e02 	strd	r5, lr, [r0, #8]
-_ZN17compiler_builtins3int6addsub4Subo4subo17h7b048631b3396470E():
+_ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt17hdf751ff6fbf5edf4E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   6e:	eb7c 010e 	sbcs.w	r1, ip, lr
   72:	bf38      	it	cc
@@ -14952,14 +14954,14 @@ __multi3():
    4:	e92d 0b00 	stmdb	sp!, {r8, r9, fp}
    8:	f8d7 c008 	ldr.w	ip, [r7, #8]
    c:	68fd      	ldr	r5, [r7, #12]
-_ZN51_$LT$i64$u20$as$u20$compiler_builtins..int..Int$GT$12wrapping_mul17he592f9428cd4de1eE():
+_ZN4core3num21_$LT$impl$u20$i64$GT$12wrapping_mul17hd85fd0f11258ae09E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/int_macros.rs:1055
    e:	fbac 4e02 	umull	r4, lr, ip, r2
   12:	fb0c e303 	mla	r3, ip, r3, lr
 _ZN4core3num21_$LT$impl$u20$u64$GT$12wrapping_mul17h3ab99b802c4b1299E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:944
   16:	fba5 8e00 	umull	r8, lr, r5, r0
-_ZN51_$LT$i64$u20$as$u20$compiler_builtins..int..Int$GT$12wrapping_mul17he592f9428cd4de1eE():
+_ZN4core3num21_$LT$impl$u20$i64$GT$12wrapping_mul17hd85fd0f11258ae09E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/int_macros.rs:1055
   1a:	fb05 3202 	mla	r2, r5, r2, r3
 _ZN51_$LT$i64$u20$as$u20$core..ops..arith..AddAssign$GT$10add_assign17h78e8115044a6487dE():
@@ -15612,7 +15614,7 @@ _ZN17compiler_builtins3int4sdiv11__divmoddi417h3b52a11da591e3d9E():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/macros.rs:264
   64:	e8bd 0700 	ldmia.w	sp!, {r8, r9, sl}
   68:	bdf0      	pop	{r4, r5, r6, r7, pc}
-_ZN17compiler_builtins5abort17h7205a50b89493a10E():
+_ZN17compiler_builtins3int4sdiv3Div3div17h9b145e34fb16bf32E():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/lib.rs:35
   6a:	defe      	udf	#254	; 0xfe
   6c:	defe      	udf	#254	; 0xfe
@@ -21231,14 +21233,14 @@ _ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt1
 _ZN17compiler_builtins3int6addsub16__rust_u128_subo17h1e3d2c3ff22ecb5aE():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/int/addsub.rs:132
   5e:	e9c0 4100 	strd	r4, r1, [r0]
-_ZN17compiler_builtins3int6addsub4Subo4subo17h7b048631b3396470E():
+_ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt17hdf751ff6fbf5edf4E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   62:	eb73 0101 	sbcs.w	r1, r3, r1
   66:	eb78 0105 	sbcs.w	r1, r8, r5
 _ZN17compiler_builtins3int6addsub16__rust_u128_subo17h1e3d2c3ff22ecb5aE():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/int/addsub.rs:132
   6a:	e9c0 5e02 	strd	r5, lr, [r0, #8]
-_ZN17compiler_builtins3int6addsub4Subo4subo17h7b048631b3396470E():
+_ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt17hdf751ff6fbf5edf4E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   6e:	eb7c 010e 	sbcs.w	r1, ip, lr
   72:	bf38      	it	cc
@@ -22043,7 +22045,7 @@ _ZN17compiler_builtins5float3cmp3cmp17h9a1c16d6d8852321E():
   18:	d900      	bls.n	1c <compiler_builtins::float::cmp::__aeabi_fcmpge+0x1c>
 _ZN17compiler_builtins5float3cmp14__aeabi_fcmpge17h55827ef1d74ed612E():
   1a:	4770      	bx	lr
-_ZN45_$LT$u32$u20$as$u20$core..ops..bit..BitOr$GT$5bitor17hfeb4b461398fb2f6E():
+_ZN17compiler_builtins5float3cmp3cmp17h9a1c16d6d8852321E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/bit.rs:253
   1c:	ea52 0003 	orrs.w	r0, r2, r3
   20:	bf04      	itt	eq
@@ -22066,7 +22068,7 @@ _ZN4core3cmp5impls55_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$i32$GT$2lt17
 _ZN17compiler_builtins5float3cmp14__aeabi_fcmpge17h55827ef1d74ed612E():
   38:	4770      	bx	lr
   3a:	2000      	movs	r0, #0
-_ZN4core3cmp5impls55_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$i32$GT$2gt17h358ec1ed0a330201E():
+_ZN17compiler_builtins5float3cmp3cmp17h9a1c16d6d8852321E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   3c:	458c      	cmp	ip, r1
   3e:	bfd8      	it	le
