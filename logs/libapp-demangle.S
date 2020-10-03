@@ -1730,7 +1730,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:166
   d8:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
   dc:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:167
-    //  Main event loop
+    //  Main event loop. Don't add anything to the event loop because Bluetooth LE is extremely time sensitive.
   de:	f240 0000 	movw	r0, #0
   e2:	f2c0 0000 	movt	r0, #0
   e6:	2101      	movs	r1, #1

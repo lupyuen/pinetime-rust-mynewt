@@ -1979,7 +1979,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:168
     //  chip8::on_start()
     //      .expect("CHIP8 fail");
 
-    //  Main event loop
+    //  Main event loop. Don't add anything to the event loop because Bluetooth LE is extremely time sensitive.
     loop {                            //  Loop forever...
   6a:	e00b      	b.n	1a <main+0x1a>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:129
@@ -2984,7 +2984,7 @@ _ZN75_$LT$core..str..Chars$u20$as$u20$core..iter..traits..iterator..Iterator$GT$
  374:	2b80      	cmp	r3, #128	; 0x80
  376:	bf08      	it	eq
  378:	4662      	moveq	r2, ip
-_ZN4core3ptr7mut_ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$6offset17hfb4b2f63cd4a654aE():
+_ZN91_$LT$core..slice..iter..Iter$LT$T$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h3471a896981490eaE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2//library/core/src/ptr/mut_ptr.rs:232
  37a:	f101 0104 	add.w	r1, r1, #4
 _ZN4core3str17utf8_is_cont_byte17h07861396e8fc0f5fE():
@@ -21199,14 +21199,14 @@ _ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt1
 _ZN17compiler_builtins3int6addsub16__rust_u128_subo17h1e3d2c3ff22ecb5aE():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/int/addsub.rs:132
   5e:	e9c0 4100 	strd	r4, r1, [r0]
-_ZN17compiler_builtins3int6addsub4Subo4subo17h7b048631b3396470E():
+_ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt17hdf751ff6fbf5edf4E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   62:	eb73 0101 	sbcs.w	r1, r3, r1
   66:	eb78 0105 	sbcs.w	r1, r8, r5
 _ZN17compiler_builtins3int6addsub16__rust_u128_subo17h1e3d2c3ff22ecb5aE():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/int/addsub.rs:132
   6a:	e9c0 5e02 	strd	r5, lr, [r0, #8]
-_ZN17compiler_builtins3int6addsub4Subo4subo17h7b048631b3396470E():
+_ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt17hdf751ff6fbf5edf4E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   6e:	eb7c 010e 	sbcs.w	r1, ip, lr
   72:	bf38      	it	cc
@@ -22011,7 +22011,7 @@ _ZN17compiler_builtins5float3cmp3cmp17h9a1c16d6d8852321E():
   18:	d900      	bls.n	1c <compiler_builtins::float::cmp::__aeabi_fcmpge+0x1c>
 _ZN17compiler_builtins5float3cmp14__aeabi_fcmpge17h55827ef1d74ed612E():
   1a:	4770      	bx	lr
-_ZN17compiler_builtins5float3cmp3cmp17h9a1c16d6d8852321E():
+_ZN45_$LT$u32$u20$as$u20$core..ops..bit..BitOr$GT$5bitor17hfeb4b461398fb2f6E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/bit.rs:253
   1c:	ea52 0003 	orrs.w	r0, r2, r3
   20:	bf04      	itt	eq
@@ -22034,7 +22034,7 @@ _ZN4core3cmp5impls55_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$i32$GT$2lt17
 _ZN17compiler_builtins5float3cmp14__aeabi_fcmpge17h55827ef1d74ed612E():
   38:	4770      	bx	lr
   3a:	2000      	movs	r0, #0
-_ZN17compiler_builtins5float3cmp3cmp17h9a1c16d6d8852321E():
+_ZN4core3cmp5impls55_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$i32$GT$2gt17h358ec1ed0a330201E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   3c:	458c      	cmp	ip, r1
   3e:	bfd8      	it	le

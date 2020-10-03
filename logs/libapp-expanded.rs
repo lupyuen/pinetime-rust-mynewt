@@ -165,7 +165,7 @@ mod app_network {
     //  chip8::on_start()
     //      .expect("CHIP8 fail");
 
-    //  Main event loop
+    //  Main event loop. Don't add anything to the event loop because Bluetooth LE is extremely time sensitive.
     //  Loop forever...
     //  Processing events...
     //  From default event queue.
