@@ -58,6 +58,30 @@ static int bleprph_gap_event(struct ble_gap_event *event, void *arg);
 //  #define MODLOG_DFLT_ERROR(...)
 //  #define MODLOG_DFLT_FLUSH()
 
+
+///////////////////////////////////////////////////////////////////////////////
+//  Time Sync. Based on https://github.com/apache/mynewt-nimble/blob/master/apps/blecent/src/main.c
+
+//  Application callback.  Called when the read of the GATT characteristic has completed.
+static int
+blecent_on_read(uint16_t conn_handle,
+                const struct ble_gatt_error *error,
+                struct ble_gatt_attr *attr,
+                void *arg) {
+    MODLOG_DFLT_INFO("Read complete; status=%d conn_handle=%d", error->status,
+                conn_handle);
+    if (error->status == 0) {
+        MODLOG_DFLT_INFO(" attr_handle=%d value=", attr->handle);
+        print_mbuf(attr->om);
+    }
+    MODLOG_DFLT_INFO("\n");
+
+    return 0;
+}
+
+//  End of Time Sync
+///////////////////////////////////////////////////////////////////////////////
+
 /**
  * Logs information about a connection to the console.
  */
@@ -199,10 +223,19 @@ bleprph_gap_event(struct ble_gap_event *event, void *arg)
 #endif
 
             //  TODO: When a connection is established, we connect to the GATT Current Time Service of the BLE Client
-
-            //  TODO: Find GATT Attribute for Current Time Service in BLE Client
+            //  Based on https://github.com/apache/mynewt-nimble/blob/master/apps/blecent/src/main.c
+            //  Remember peer
+            rc = blepeer_add(event->connect.conn_handle);
+            if (rc != 0) { MODLOG_DFLT_ERROR("Failed to add peer; rc=%d\n", rc); MODLOG_DFLT_FLUSH(); }
+            else {
+                //  TODO: Discover GATT Attribute for Current Time Service in BLE Client
+                //  Perform service discovery
+                rc = blepeer_disc_all(event->connect.conn_handle, blecent_on_disc_complete, NULL);
+                if (rc != 0) { MODLOG_DFLT_ERROR("Failed to discover services; rc=%d\n", rc); MODLOG_DFLT_FLUSH(); }
+            }
 
             //  TODO: Read GATT Attribute for Current Time Service in BLE Client
+            /*
             rc = ble_gattc_read(
                 event->connect.conn_handle,  //  BLE Connection
                 time_attr,                   //  GATT Attribute for Current Time Service
@@ -210,6 +243,7 @@ bleprph_gap_event(struct ble_gap_event *event, void *arg)
                 callback_arg                 //  Callback Arg
             );
             if (rc != 0) { MODLOG_DFLT_ERROR("error reading time: %d\n", rc); MODLOG_DFLT_FLUSH(); }
+            */
 
             //  TODO: Read the current time from the Current Time Service of the BLE Client
 
