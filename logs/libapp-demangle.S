@@ -1407,12 +1407,12 @@ Disassembly of section .text._ZN3app12handle_touch17hea6f2025bf0a039eE:
 00000000 <app::handle_touch>:
 _ZN3app12handle_touch17hea6f2025bf0a039eE():
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:74
-
 #[cfg(feature = "chip8_app")]   //  If CHIP8 Emulator app is enabled...
 use chip8::handle_touch;        //  Use the touch handler from the CHIP8 Emulator app
 
 #[cfg(not(any(feature = "ui_app", feature = "visual_app", feature = "chip8_app")))]  //  If neither druid UI app nor Visual Rust app are enabled...
 pub fn handle_touch(_x: u16, _y: u16) { console::print("touch not handled\n"); console::flush(); }  //  Define a touch handler that does nothing
+
    0:	b580      	push	{r7, lr}
    2:	b084      	sub	sp, #16
    4:	460a      	mov	r2, r1
@@ -1436,25 +1436,25 @@ Disassembly of section .text.main:
 00000000 <main>:
 main():
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:79
-
 ///  Main program that initialises the sensor, network driver and starts reading and sending sensor data in the background.
 ///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
 #[no_mangle]                 //  Don't mangle the name "main"
 extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
+    //  Initialise the Mynewt packages and internal temperature sensor driver. Any startup
    0:	b08a      	sub	sp, #40	; 0x28
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:84
-    //  Initialise the Mynewt packages and internal temperature sensor driver. Any startup
     //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
     mynewt::sysinit();
+
    2:	f7ff fffe 	bl	0 <mynewt::sysinit>
    6:	e7ff      	b.n	2 <test_flash+0x2>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:100
-    assert!(rc == 0, "IMG fail");
     */
     
     //  Test External SPI Flash. Must run before testing the display, to avoid contention for SPI port.
+    /*
     extern { fn test_flash() -> i32; }
     let rc = unsafe { test_flash() };
    8:	f7ff fffe 	bl	0 <test_flash>
@@ -1467,10 +1467,10 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:101
   14:	d104      	bne.n	20 <main+0x20>
   16:	e7ff      	b.n	18 <main+0x18>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:105
+    */
 
-    //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
-    extern { fn start_ble() -> i32; }
-    let rc = unsafe { start_ble() };
+    //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
+    extern { fn hal_watchdog_tickle(); }
   18:	f7ff fffe 	bl	0 <start_ble>
   1c:	9007      	str	r0, [sp, #28]
   1e:	e00b      	b.n	38 <main+0x38>
@@ -1484,20 +1484,20 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:101
   32:	f7ff fffe 	bl	0 <core::panicking::panic>
   36:	defe      	udf	#254	; 0xfe
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:106
-    assert!(rc == 0, "BLE fail");
+    unsafe { hal_watchdog_tickle() };
   38:	9807      	ldr	r0, [sp, #28]
   3a:	2800      	cmp	r0, #0
   3c:	d104      	bne.n	48 <main+0x48>
   3e:	e7ff      	b.n	40 <main+0x40>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:109
 
-    //  Start the display
-    druid::start_display()
+    //  Render LVGL watch face.
+    extern { fn create_watch_face() -> i32; }  //  Defined in apps/my_sensor_app/src/watch_face.c
   40:	f7ff fffe 	bl	0 <piet_embedded_graphics::display::start_display>
   44:	9005      	str	r0, [sp, #20]
   46:	e00b      	b.n	60 <main+0x60>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:106
-    assert!(rc == 0, "BLE fail");
+    unsafe { hal_watchdog_tickle() };
   48:	f240 0000 	movw	r0, #0
   4c:	f2c0 0000 	movt	r0, #0
   50:	f240 0200 	movw	r2, #0
@@ -1506,7 +1506,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:106
   5a:	f7ff fffe 	bl	0 <core::panicking::panic>
   5e:	defe      	udf	#254	; 0xfe
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:109
-    druid::start_display()
+    extern { fn create_watch_face() -> i32; }  //  Defined in apps/my_sensor_app/src/watch_face.c
   60:	f240 0100 	movw	r1, #0
   64:	f2c0 0100 	movt	r1, #0
   68:	f240 0300 	movw	r3, #0
@@ -1516,11 +1516,11 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:109
   74:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
   78:	e7ff      	b.n	2 <app::display::test_display+0x2>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:114
-        .expect("DSP fail");
+    let rc = unsafe { create_watch_face() };
+    assert!(rc == 0, "Watch Face fail");
 
-    //  Test the display
-    #[cfg(feature = "display_app")]  //  If graphics display app is enabled...
-    display::test_display()
+    //  Render LVGL widgets for testing.
+    //  extern { fn pinetime_lvgl_mynewt_test() -> i32; }  //  Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
   7a:	f7ff fffe 	bl	0 <app::display::test_display>
   7e:	9004      	str	r0, [sp, #16]
   80:	e7ff      	b.n	82 <main+0x82>
@@ -1533,10 +1533,10 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:114
   96:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
   9a:	e7ff      	b.n	2 <app::touch_sensor::start_touch_sensor+0x2>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:118
-        .expect("DSP test fail");
+    //  let rc = unsafe { pinetime_lvgl_mynewt_test() };
+    //  assert!(rc == 0, "LVGL test fail");
 
-    //  Start the touch sensor
-    touch_sensor::start_touch_sensor()
+    //  Render LVGL display.
   9c:	f7ff fffe 	bl	0 <app::touch_sensor::start_touch_sensor>
   a0:	9003      	str	r0, [sp, #12]
   a2:	e7ff      	b.n	a4 <main+0xa4>
@@ -1549,17 +1549,17 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:118
   b8:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
   bc:	e7ff      	b.n	be <main+0xbe>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:140
-    #[cfg(feature = "chip8_app")]  //  If CHIP8 Emulator app is enabled...
-    chip8::on_start()
-        .expect("CHIP8 fail");
 
-    //  Main event loop
-    loop {                            //  Loop forever...
+    //  Start the display
+    //  druid::start_display()
+    //      .expect("DSP fail");
+
+    //  Test the display
   be:	e7ff      	b.n	c0 <main+0xc0>
   c0:	a808      	add	r0, sp, #32
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:142
-        os::eventq_run(               //  Processing events...
-            os::eventq_dflt_get()     //  From default event queue.
+    //  #[cfg(feature = "display_app")]  //  If graphics display app is enabled...
+    //  display::test_display()
   c2:	f7ff fffe 	bl	0 <mynewt::kernel::os::eventq_dflt_get>
   c6:	e7ff      	b.n	1a <main+0x1a>
   c8:	f240 0100 	movw	r1, #0
@@ -1572,7 +1572,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:142
   e0:	9002      	str	r0, [sp, #8]
   e2:	e7ff      	b.n	e4 <main+0xe4>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:141
-        os::eventq_run(               //  Processing events...
+    //  #[cfg(feature = "display_app")]  //  If graphics display app is enabled...
   e4:	9802      	ldr	r0, [sp, #8]
   e6:	f7ff fffe 	bl	0 <mynewt::kernel::os::eventq_run>
   ea:	9001      	str	r0, [sp, #4]
@@ -1586,7 +1586,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:141
  102:	f7ff fffe 	bl	0 <core::result::Result<T,E>::expect>
  106:	e7ff      	b.n	108 <main+0x108>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:140
-    loop {                            //  Loop forever...
+    //  Test the display
  108:	e7da      	b.n	c0 <main+0xc0>
 
 Disassembly of section .text.rust_begin_unwind:
@@ -1594,24 +1594,24 @@ Disassembly of section .text.rust_begin_unwind:
 00000000 <rust_begin_unwind>:
 rust_begin_unwind():
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:151
-    //  Never comes here
-}
+    //  touch_sensor::start_touch_sensor()
+    //      .expect("TCH fail");
 
-///  This function is called on panic, like an assertion failure. We display the filename and line number and pause in the debugger. From https://os.phil-opp.com/freestanding-rust-binary/
-#[panic_handler]
-fn panic(info: &PanicInfo) -> ! {
+    //  Test the touch sensor
+    //  touch_sensor::test()
+    //      .expect("TCH test fail");
    0:	b08a      	sub	sp, #40	; 0x28
    2:	9004      	str	r0, [sp, #16]
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:153
-    //  Display the filename and line number to the Semihosting Console.
-    console::print("panic ");
+
+    //  Launch the druid UI app
    4:	f240 0000 	movw	r0, #0
    8:	f2c0 0000 	movt	r0, #0
    c:	2106      	movs	r1, #6
    e:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
   12:	e7ff      	b.n	14 <rust_begin_unwind+0x14>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:154
-    if let Some(location) = info.location() {
+    //  #[cfg(feature = "ui_app")]  //  If druid UI app is enabled...
   14:	9804      	ldr	r0, [sp, #16]
   16:	f7ff fffe 	bl	0 <core::panic::PanicInfo::location>
   1a:	9005      	str	r0, [sp, #20]
@@ -1621,36 +1621,36 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:154
   22:	d108      	bne.n	36 <rust_begin_unwind+0x36>
   24:	e7ff      	b.n	26 <rust_begin_unwind+0x26>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:161
-        let line = location.line();
-        console::print("at ");       console::buffer(&file);
-        console::print(" line ");    console::printint(line as i32);
-        console::print("\n");        console::flush();
-    } else {
-        console::print("no loc\n");  console::flush();
+
+    //  Launch the Visual Rust app
+    //  #[cfg(feature = "visual_app")]  //  If Visual Rust app is enabled...
+    //  visual::on_start()
+    //      .expect("VIS fail");
+
   26:	f240 0000 	movw	r0, #0
   2a:	f2c0 0000 	movt	r0, #0
   2e:	2107      	movs	r1, #7
   30:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
   34:	e031      	b.n	9a <rust_begin_unwind+0x9a>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:154
-    if let Some(location) = info.location() {
+    //  #[cfg(feature = "ui_app")]  //  If druid UI app is enabled...
   36:	9805      	ldr	r0, [sp, #20]
   38:	9006      	str	r0, [sp, #24]
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:155
-        let file = location.file();
+    //  ui::launch();
   3a:	9806      	ldr	r0, [sp, #24]
   3c:	f7ff fffe 	bl	0 <core::panic::Location::file>
   40:	9108      	str	r1, [sp, #32]
   42:	9007      	str	r0, [sp, #28]
   44:	e7ff      	b.n	46 <rust_begin_unwind+0x46>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:156
-        let line = location.line();
+
   46:	9806      	ldr	r0, [sp, #24]
   48:	f7ff fffe 	bl	0 <core::panic::Location::line>
   4c:	9009      	str	r0, [sp, #36]	; 0x24
   4e:	e7ff      	b.n	50 <rust_begin_unwind+0x50>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:157
-        console::print("at ");       console::buffer(&file);
+    //  Launch the Visual Rust app
   50:	f240 0000 	movw	r0, #0
   54:	f2c0 0000 	movt	r0, #0
   58:	2103      	movs	r1, #3
@@ -1661,7 +1661,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:157
   64:	f7ff fffe 	bl	0 <mynewt::sys::console::buffer>
   68:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:158
-        console::print(" line ");    console::printint(line as i32);
+    //  #[cfg(feature = "visual_app")]  //  If Visual Rust app is enabled...
   6a:	f240 0000 	movw	r0, #0
   6e:	f2c0 0000 	movt	r0, #0
   72:	2106      	movs	r1, #6
@@ -1671,7 +1671,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:158
   7c:	f7ff fffe 	bl	0 <mynewt::sys::console::printint>
   80:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:159
-        console::print("\n");        console::flush();
+    //  visual::on_start()
   82:	f240 0000 	movw	r0, #0
   86:	f2c0 0000 	movt	r0, #0
   8a:	2101      	movs	r1, #1
@@ -1680,14 +1680,14 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:159
   92:	f7ff fffe 	bl	0 <mynewt::sys::console::flush>
   96:	e7ff      	b.n	98 <rust_begin_unwind+0x98>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:154
-    if let Some(location) = info.location() {
+    //  #[cfg(feature = "ui_app")]  //  If druid UI app is enabled...
   98:	e003      	b.n	a2 <rust_begin_unwind+0xa2>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:161
-        console::print("no loc\n");  console::flush();
+
   9a:	f7ff fffe 	bl	0 <mynewt::sys::console::flush>
   9e:	e7ff      	b.n	a0 <rust_begin_unwind+0xa0>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:154
-    if let Some(location) = info.location() {
+    //  #[cfg(feature = "ui_app")]  //  If druid UI app is enabled...
   a0:	e7ff      	b.n	a2 <rust_begin_unwind+0xa2>
 _ZN8cortex_m3asm4bkpt17heaf2dfb2ecf6f289E():
 C:\Users\guppy\.cargo\registry\src\github.com-1ecc6299db9ec823\cortex-m-0.6.1\src/asm.rs:11
@@ -1700,13 +1700,13 @@ pub fn bkpt() {
   a2:	be00      	bkpt	0x0000
 rust_begin_unwind():
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:164
-    }
-    //  Pause in the debugger.
-    bkpt();
+    //  Launch the CHIP8 Emulator app
+    //  #[cfg(feature = "chip8_app")]  //  If CHIP8 Emulator app is enabled...
+    //  chip8::on_start()
   a4:	e7ff      	b.n	a6 <rust_begin_unwind+0xa6>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:166
-    //  Display the payload.
-    console::print(info.payload().downcast_ref::<&str>().unwrap());
+    //      .expect("CHIP8 fail");
+
   a6:	9804      	ldr	r0, [sp, #16]
   a8:	f7ff fffe 	bl	0 <core::panic::PanicInfo::payload>
   ac:	9003      	str	r0, [sp, #12]
@@ -1730,7 +1730,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:166
   d8:	f7ff fffe 	bl	0 <mynewt::sys::console::print>
   dc:	e7ff      	b.n	2 <rust_begin_unwind+0x2>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:167
-    console::print("\n");  console::flush();
+    //  Main event loop
   de:	f240 0000 	movw	r0, #0
   e2:	f2c0 0000 	movt	r0, #0
   e6:	2101      	movs	r1, #1
@@ -1739,8 +1739,8 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:167
   ee:	f7ff fffe 	bl	0 <mynewt::sys::console::flush>
   f2:	e7ff      	b.n	f4 <rust_begin_unwind+0xf4>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:169
-    //  Loop forever so that device won't restart.
-    loop {}
+    loop {                            //  Loop forever...
+        os::eventq_run(               //  Processing events...
   f4:	e7ff      	b.n	f6 <rust_begin_unwind+0xf6>
   f6:	e7fe      	b.n	f6 <rust_begin_unwind+0xf6>
 
@@ -1878,7 +1878,7 @@ pub fn test_display() -> MynewtResult<()> {
    0:	b570      	push	{r4, r5, r6, lr}
    2:	f5ad 7d00 	sub.w	sp, sp, #512	; 0x200
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:23
-    console::print("Rust test display\n"); console::flush();
+    console::print("Rust test display 1.0.0\n"); console::flush();
    6:	f240 0000 	movw	r0, #0
    a:	f2c0 0000 	movt	r0, #0
    e:	2112      	movs	r1, #18
@@ -2052,7 +2052,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:41
  176:	e7ff      	b.n	178 <app::display::test_display+0x178>
  178:	2000      	movs	r0, #0
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:43
-        ::render_str("I AM PINETIME")                          //  Text to be rendered
+        ::render_str("PINETIME 1.0.0")                    //  Text to be rendered
         .stroke( Some( Rgb565::from(( 0x00, 0x00, 0x00 )) ) )  //  Black text
  17a:	f88d 0188 	strb.w	r0, [sp, #392]	; 0x188
  17e:	f88d 0189 	strb.w	r0, [sp, #393]	; 0x189
@@ -2121,7 +2121,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:41
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:48
 
     //  Render background, circle, square and text to display
-    druid::draw_to_display(background);
+    //  druid::draw_to_display(background);
  21a:	460a      	mov	r2, r1
  21c:	e8b0 5008 	ldmia.w	r0!, {r3, ip, lr}
  220:	e8a2 5008 	stmia.w	r2!, {r3, ip, lr}
@@ -2133,7 +2133,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:48
  234:	a827      	add	r0, sp, #156	; 0x9c
  236:	a96c      	add	r1, sp, #432	; 0x1b0
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:49
-    druid::draw_to_display(circle);
+    //  druid::draw_to_display(circle);
  238:	460a      	mov	r2, r1
  23a:	e890 5078 	ldmia.w	r0, {r3, r4, r5, r6, ip, lr}
  23e:	e882 5078 	stmia.w	r2, {r3, r4, r5, r6, ip, lr}
@@ -2143,7 +2143,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:49
  24a:	a835      	add	r0, sp, #212	; 0xd4
  24c:	a972      	add	r1, sp, #456	; 0x1c8
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs:50
-    druid::draw_to_display(square);
+    //  druid::draw_to_display(square);
  24e:	460a      	mov	r2, r1
  250:	e8b0 5008 	ldmia.w	r0!, {r3, ip, lr}
  254:	e8a2 5008 	stmia.w	r2!, {r3, ip, lr}
@@ -7778,6 +7778,8 @@ _ZN4core3fmt9Arguments6new_v117h54cc51514445bde4E():
 /rustc/f43c34a134358471726f25fe5973b8c7e177c825/src/libcore/fmt/mod.rs:312
   34:	b006      	add	sp, #24
   36:	4770      	bx	lr
+arm-none-eabi-objdump: Warning: source file C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs is more recent than object file
+arm-none-eabi-objdump: Warning: source file C:\PineTime\pinetime-rust-mynewt/rust\app\src/display.rs is more recent than object file
 arm-none-eabi-objdump: lib.rmeta: File format not recognized
 arm-none-eabi-objdump: app-2c84bd17359ee43e.10zn9ae9k56vomcm.rcgu.bc.z: File format not recognized
 arm-none-eabi-objdump: app-2c84bd17359ee43e.1ky2n1yae87xdixz.rcgu.bc.z: File format not recognized
