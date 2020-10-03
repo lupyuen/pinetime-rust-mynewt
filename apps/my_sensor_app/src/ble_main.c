@@ -149,16 +149,17 @@ static void print_mbuf(const struct os_mbuf *om) {
 }
 
 #ifdef NOTUSED
-Failed to discover services...
+Read OK yay!
 
+Starting BLE...
 BLE started
 connection established; status=0 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=1 peer_ota_addr= peer_id_addr_type=1 peer_id_addr= conn_itvl=36 conn_latency=0 supervision_timeout=500 encrypted=0 authenticated=0 bonded=0
 Remote PineTime Log
 connection updated; status=0 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=1 peer_ota_addr= peer_id_addr_type=1 peer_id_addr= conn_itvl=6 conn_latency=0 supervision_timeout=500 encrypted=0 authenticated=0 bonded=0
-Error: Service discovery failed; status=6 conn_handle=1
+Service discovery complete; status=0 conn_handle=1
+Read complete; status=0 conn_handle=1 attr_handle=67 value=e4 07 0a 03 14 29 3a 06 7c 00 
 connection updated; status=0 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=1 peer_ota_addr= peer_id_addr_type=1 peer_id_addr= conn_itvl=36 conn_latency=0 supervision_timeout=500 encrypted=0 authenticated=0 bonded=0
 disconnect; reason=531 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=1 peer_ota_addr= peer_id_addr_type=1 peer_id_addr= conn_itvl=36 conn_latency=0 supervision_timeout=500 encrypted=0 authenticated=0 bonded=0
-
 #endif  // NOTUSED
 
 //  End of Time Sync
