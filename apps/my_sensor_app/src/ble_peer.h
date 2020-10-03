@@ -68,7 +68,7 @@ struct blepeer;
 typedef void blepeer_disc_fn(const struct blepeer *peer, int status, void *arg);
 
 struct blepeer {
-    SLIST_ENTRY(peer) next;
+    SLIST_ENTRY(blepeer) next;
 
     uint16_t conn_handle;
 

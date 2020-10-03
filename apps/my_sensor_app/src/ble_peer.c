@@ -34,7 +34,7 @@ static struct os_mempool blepeer_dsc_pool;
 
 static void *blepeer_mem;
 static struct os_mempool blepeer_pool;
-static SLIST_HEAD(, peer) peers;
+static SLIST_HEAD(, blepeer) peers;
 
 static struct blepeer_svc *
 blepeer_svc_find_range(struct blepeer *peer, uint16_t attr_handle);
