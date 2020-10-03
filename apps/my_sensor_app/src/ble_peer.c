@@ -740,6 +740,7 @@ blepeer_init(int max_peers, int max_svcs, int max_chrs, int max_dscs)
     /* Free memory first in case this function gets called more than once. */
     blepeer_free_mem();
 
+    ////TODO: malloc
     blepeer_mem = malloc(
         OS_MEMPOOL_BYTES(max_peers, sizeof (struct blepeer)));
     if (blepeer_mem == NULL) {
@@ -755,6 +756,7 @@ blepeer_init(int max_peers, int max_svcs, int max_chrs, int max_dscs)
         goto err;
     }
 
+    ////TODO: malloc
     blepeer_svc_mem = malloc(
         OS_MEMPOOL_BYTES(max_svcs, sizeof (struct blepeer_svc)));
     if (blepeer_svc_mem == NULL) {
@@ -770,6 +772,7 @@ blepeer_init(int max_peers, int max_svcs, int max_chrs, int max_dscs)
         goto err;
     }
 
+    ////TODO: malloc
     blepeer_chr_mem = malloc(
         OS_MEMPOOL_BYTES(max_chrs, sizeof (struct blepeer_chr)));
     if (blepeer_chr_mem == NULL) {
@@ -785,6 +788,7 @@ blepeer_init(int max_peers, int max_svcs, int max_chrs, int max_dscs)
         goto err;
     }
 
+    ////TODO: malloc
     blepeer_dsc_mem = malloc(
         OS_MEMPOOL_BYTES(max_dscs, sizeof (struct blepeer_dsc)));
     if (blepeer_dsc_mem == NULL) {
