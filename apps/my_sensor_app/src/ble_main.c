@@ -327,11 +327,11 @@ bleprph_gap_event(struct ble_gap_event *event, void *arg)
 
             //  Remember the BLE Peer
             rc = blepeer_add(event->connect.conn_handle);
-            if (rc != 0) { MODLOG_DFLT_ERROR("Failed to add peer; rc=%d\n", rc); MODLOG_DFLT_FLUSH(); }
+            if (rc != 0) { MODLOG_DFLT_ERROR("Failed to add peer: %d\n", rc); MODLOG_DFLT_FLUSH(); }
             else {
                 //  Discover all GATT Sevices in BLE Peer (including Current Time Service)
                 rc = blepeer_disc_all(event->connect.conn_handle, blecent_on_disc_complete, NULL);
-                if (rc != 0) { MODLOG_DFLT_ERROR("Failed to discover services; rc=%d\n", rc); MODLOG_DFLT_FLUSH(); }
+                if (rc != 0) { MODLOG_DFLT_ERROR("Failed to discover services: %d\n", rc); MODLOG_DFLT_FLUSH(); }
             }
         }
         MODLOG_DFLT_INFO("\n");
