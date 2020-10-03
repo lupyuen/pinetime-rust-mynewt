@@ -87,12 +87,13 @@ static void blecent_on_disc_complete(const struct blepeer *peer, int status, voi
 err:
     //  Don't terminate the BLE connection yet, may be used by MCU Manager
     //  ble_gap_terminate(peer->conn_handle, BLE_ERR_REM_USER_CONN_TERM);
+    return;
 }
 
 //  Read the GATT Characteristic for Current Time Service from the BLE Peer
 static void blecent_read(const struct blepeer *peer) {
     //  Find the GATT Characteristic for Current Time Service from the discovered GATT Characteristics
-    const struct peer_chr *chr = blepeer_chr_find_uuid(
+    const struct blepeer_chr *chr = blepeer_chr_find_uuid(
         peer,
         BLE_UUID16_DECLARE(BLE_GATT_SVC_CTS),      //  GATT Service for Current Time Service
         BLE_UUID16_DECLARE(BLE_GATT_CHR_CUR_TIME)  //  GATT Characteristic for Current Time Service
@@ -118,6 +119,7 @@ static void blecent_read(const struct blepeer *peer) {
 err:
     //  Don't terminate the BLE connection yet, may be used by MCU Manager
     //  ble_gap_terminate(peer->conn_handle, BLE_ERR_REM_USER_CONN_TERM);
+    return;
 }
 
 //  Called when Current Time Service GATT Characteristic has been read
