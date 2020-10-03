@@ -31,6 +31,7 @@
 #include "hal/hal_system.h"
 #include "config/config.h"
 #include "split/split.h"
+#include "datetime/datetime.h"
 #if MYNEWT_VAL(BLE_SVC_DIS_FIRMWARE_REVISION_READ_PERM) >= 0
 #include "bootutil/image.h"
 #include "imgmgr/imgmgr.h"
@@ -64,11 +65,25 @@ static int bleprph_gap_event(struct ble_gap_event *event, void *arg);
 //  Based on https://github.com/apache/mynewt-nimble/blob/master/apps/blecent/src/main.c
 
 #define BLE_GATT_SVC_CTS        (0x1805)  //  GATT Service for Current Time Service
-#define BLE_GATT_CHR_CUR_TIME   (0x2A2B)  //  GATT Characteristic for Current Time Service
+#define BLE_GATT_CHR_CUR_TIME   (0x2A2B)  //  GATT Characteristic for Current Time
 
 static void blecent_read(const struct blepeer *peer);
 static int blecent_on_read(uint16_t conn_handle, const struct ble_gatt_error *error, struct ble_gatt_attr *attr, void *arg);
+static int set_system_time(const struct os_mbuf *om);
 static void print_mbuf(const struct os_mbuf *om);
+
+/// Data Format for Current Time Service. Based on https://github.com/sdalu/mynewt-nimble/blob/495ff291a15306787859a2fe8f2cc8765b546e02/nimble/host/services/cts/src/ble_svc_cts.c
+struct ble_current_time {
+    uint16_t year;
+    uint8_t month;
+    uint8_t day;
+    uint8_t hours;
+    uint8_t minutes;
+    uint8_t secondes;
+    uint8_t day_of_week;
+    uint8_t fraction256;
+    uint8_t adjust_reason;
+} __attribute__((__packed__));
 
 /// Called when GATT Service Discovery of the BLE Peer has completed
 static void blecent_on_disc_complete(const struct blepeer *peer, int status, void *arg) {
@@ -91,7 +106,7 @@ err:
     return;
 }
 
-/// Read the GATT Characteristic for Current Time Service from the BLE Peer
+/// Read the GATT Characteristic for Current Time from the BLE Peer
 static void blecent_read(const struct blepeer *peer) {
     //  Find the GATT Characteristic for Current Time Service from the discovered GATT Characteristics
     const struct blepeer_chr *chr = blepeer_chr_find_uuid(
@@ -123,9 +138,9 @@ err:
     return;
 }
 
-/// Called when Current Time Service GATT Characteristic has been read
+/// Called when Current Time GATT Characteristic has been read
 static int blecent_on_read(uint16_t conn_handle, const struct ble_gatt_error *error, struct ble_gatt_attr *attr, void *arg) {
-    //  Read the current time from the Current Time Service
+    //  Read the current time from the GATT Characteristic
     MODLOG_DFLT_INFO("Read complete; status=%d conn_handle=%d", error->status, conn_handle);
     if (error->status == 0) {
         MODLOG_DFLT_INFO(" attr_handle=%d value=", attr->handle);
@@ -133,9 +148,73 @@ static int blecent_on_read(uint16_t conn_handle, const struct ble_gatt_error *er
     }
     MODLOG_DFLT_INFO("\n");
 
-    //  TODO: Set the Mynewt system time from the current time
+    //  Set the system time from the current time
+    int rc = set_system_time(attr->om);
+    if (rc != 0) {
+        MODLOG_DFLT(ERROR, "Error: Can't set time: %d\n", rc);
+        goto err;
+    }
 
     //  TODO: Update the current time periodically
+    return 0;
+
+err:
+    return 0;  //  Don't propagate error to system
+}
+
+/// Set system time given the GATT Current Time in Mbuf format. Based on https://github.com/sdalu/mynewt-nimble/blob/495ff291a15306787859a2fe8f2cc8765b546e02/nimble/host/services/cts/src/ble_svc_cts.c
+static int set_system_time(const struct os_mbuf *om) {
+    //  Verify the Mbuf size
+    uint16_t om_len = OS_MBUF_PKTLEN(om);
+    if (om_len != sizeof(struct ble_current_time)) {  //  Should be 10 bytes
+        return BLE_ATT_ERR_INVALID_ATTR_VALUE_LEN;
+    }
+
+    //  Copy the data from the Mbuf
+    struct ble_current_time current_time;
+    int rc = ble_hs_mbuf_to_flat(  //  Flatten and copy the Mbuf...
+        om,                        //  From om...
+		&current_time,             //  To current_time...
+        om_len,                    //  For om_len bytes
+        NULL
+    );
+    if (rc != 0) { return BLE_ATT_ERR_UNLIKELY; }
+
+    //  Get timezone
+    struct os_timezone tz;
+    rc = os_gettimeofday(NULL, &tz);
+    if (rc != 0) { return BLE_ATT_ERR_UNLIKELY; }
+
+    //  Convert to clocktime format
+    struct clocktime ct;
+    ct.year = le16toh(current_time.year);
+    ct.mon  = current_time.month;
+    ct.day  = current_time.day;
+    ct.hour = current_time.hours;
+    ct.min  = current_time.minutes;
+    ct.sec  = current_time.secondes;
+    ct.usec = (current_time.fraction256 * 1000000) / 256;
+
+    //  Convert to timeval format
+    struct os_timeval tv;    
+    rc = clocktime_to_timeval(&ct, &tz, &tv);
+    if (rc != 0) { return BLE_ATT_ERR_UNLIKELY; }
+
+#ifdef NOTUSED
+    //  Set the system date and time, ignoring the day of week
+    if (current_time.day_of_week) {
+        if (timeval_to_clocktime(&tv, &tz, &ct)) {
+            return BLE_ATT_ERR_UNLIKELY;
+        }
+        if (ct.dow != (cts_current_time.day_of_week % 7)) {
+            rc = 0x80;  //  Data field ignored
+        }
+    }
+#endif  //  NOTUSED
+
+    //  Set the system time
+    rc = os_settimeofday(&tv, NULL);
+    if (rc != 0) { return BLE_ATT_ERR_UNLIKELY; }
     return 0;
 }
 
