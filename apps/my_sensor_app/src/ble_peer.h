@@ -64,10 +64,10 @@ struct blepeer_svc {
 };
 SLIST_HEAD(blepeer_svc_list, blepeer_svc);
 
-struct peer;
-typedef void blepeer_disc_fn(const struct peer *peer, int status, void *arg);
+struct blepeer;
+typedef void blepeer_disc_fn(const struct blepeer *peer, int status, void *arg);
 
-struct peer {
+struct blepeer {
     SLIST_ENTRY(peer) next;
 
     uint16_t conn_handle;
@@ -87,13 +87,13 @@ struct peer {
 int blepeer_disc_all(uint16_t conn_handle, blepeer_disc_fn *disc_cb,
                   void *disc_cb_arg);
 const struct blepeer_dsc *
-blepeer_dsc_find_uuid(const struct peer *peer, const ble_uuid_t *svc_uuid,
+blepeer_dsc_find_uuid(const struct blepeer *peer, const ble_uuid_t *svc_uuid,
                    const ble_uuid_t *chr_uuid, const ble_uuid_t *dsc_uuid);
 const struct blepeer_chr *
-blepeer_chr_find_uuid(const struct peer *peer, const ble_uuid_t *svc_uuid,
+blepeer_chr_find_uuid(const struct blepeer *peer, const ble_uuid_t *svc_uuid,
                    const ble_uuid_t *chr_uuid);
 const struct blepeer_svc *
-blepeer_svc_find_uuid(const struct peer *peer, const ble_uuid_t *uuid);
+blepeer_svc_find_uuid(const struct blepeer *peer, const ble_uuid_t *uuid);
 int blepeer_delete(uint16_t conn_handle);
 int blepeer_add(uint16_t conn_handle);
 int blepeer_init(int max_peers, int max_svcs, int max_chrs, int max_dscs);

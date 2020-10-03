@@ -37,9 +37,9 @@ static struct os_mempool blepeer_pool;
 static SLIST_HEAD(, peer) peers;
 
 static struct blepeer_svc *
-blepeer_svc_find_range(struct peer *peer, uint16_t attr_handle);
+blepeer_svc_find_range(struct blepeer *peer, uint16_t attr_handle);
 static struct blepeer_svc *
-blepeer_svc_find(struct peer *peer, uint16_t svc_start_handle,
+blepeer_svc_find(struct blepeer *peer, uint16_t svc_start_handle,
               struct blepeer_svc **out_prev);
 int
 blepeer_svc_is_empty(const struct blepeer_svc *svc);
@@ -52,17 +52,17 @@ static struct blepeer_chr *
 blepeer_chr_find(const struct blepeer_svc *svc, uint16_t chr_def_handle,
               struct blepeer_chr **out_prev);
 static void
-blepeer_disc_chrs(struct peer *peer);
+blepeer_disc_chrs(struct blepeer *peer);
 
 static int
 blepeer_dsc_disced(uint16_t conn_handle, const struct ble_gatt_error *error,
                 uint16_t chr_val_handle, const struct ble_gatt_dsc *dsc,
                 void *arg);
 
-static struct peer *
+static struct blepeer *
 blepeer_find(uint16_t conn_handle)
 {
-    struct peer *peer;
+    struct blepeer *peer;
 
     SLIST_FOREACH(peer, &peers, next) {
         if (peer->conn_handle == conn_handle) {
@@ -74,7 +74,7 @@ blepeer_find(uint16_t conn_handle)
 }
 
 static void
-blepeer_disc_complete(struct peer *peer, int rc)
+blepeer_disc_complete(struct blepeer *peer, int rc)
 {
     peer->disc_prev_chr_val = 0;
 
@@ -127,7 +127,7 @@ blepeer_dsc_find(const struct blepeer_chr *chr, uint16_t dsc_handle,
 }
 
 static int
-blepeer_dsc_add(struct peer *peer, uint16_t chr_val_handle,
+blepeer_dsc_add(struct blepeer *peer, uint16_t chr_val_handle,
              const struct ble_gatt_dsc *gatt_dsc)
 {
     struct blepeer_dsc *prev;
@@ -178,7 +178,7 @@ blepeer_dsc_add(struct peer *peer, uint16_t chr_val_handle,
 }
 
 static void
-blepeer_disc_dscs(struct peer *peer)
+blepeer_disc_dscs(struct blepeer *peer)
 {
     struct blepeer_chr *chr;
     struct blepeer_svc *svc;
@@ -217,7 +217,7 @@ blepeer_dsc_disced(uint16_t conn_handle, const struct ble_gatt_error *error,
                 uint16_t chr_val_handle, const struct ble_gatt_dsc *dsc,
                 void *arg)
 {
-    struct peer *peer;
+    struct blepeer *peer;
     int rc;
 
     peer = arg;
@@ -327,7 +327,7 @@ blepeer_chr_delete(struct blepeer_chr *chr)
 }
 
 static int
-blepeer_chr_add(struct peer *peer,  uint16_t svc_start_handle,
+blepeer_chr_add(struct blepeer *peer,  uint16_t svc_start_handle,
              const struct ble_gatt_chr *gatt_chr)
 {
     struct blepeer_chr *prev;
@@ -371,7 +371,7 @@ static int
 blepeer_chr_disced(uint16_t conn_handle, const struct ble_gatt_error *error,
                 const struct ble_gatt_chr *chr, void *arg)
 {
-    struct peer *peer;
+    struct blepeer *peer;
     int rc;
 
     peer = arg;
@@ -406,7 +406,7 @@ blepeer_chr_disced(uint16_t conn_handle, const struct ble_gatt_error *error,
 }
 
 static void
-blepeer_disc_chrs(struct peer *peer)
+blepeer_disc_chrs(struct blepeer *peer)
 {
     struct blepeer_svc *svc;
     int rc;
@@ -440,7 +440,7 @@ blepeer_svc_is_empty(const struct blepeer_svc *svc)
 }
 
 static struct blepeer_svc *
-blepeer_svc_find_prev(struct peer *peer, uint16_t svc_start_handle)
+blepeer_svc_find_prev(struct blepeer *peer, uint16_t svc_start_handle)
 {
     struct blepeer_svc *prev;
     struct blepeer_svc *svc;
@@ -458,7 +458,7 @@ blepeer_svc_find_prev(struct peer *peer, uint16_t svc_start_handle)
 }
 
 static struct blepeer_svc *
-blepeer_svc_find(struct peer *peer, uint16_t svc_start_handle,
+blepeer_svc_find(struct blepeer *peer, uint16_t svc_start_handle,
               struct blepeer_svc **out_prev)
 {
     struct blepeer_svc *prev;
@@ -482,7 +482,7 @@ blepeer_svc_find(struct peer *peer, uint16_t svc_start_handle,
 }
 
 static struct blepeer_svc *
-blepeer_svc_find_range(struct peer *peer, uint16_t attr_handle)
+blepeer_svc_find_range(struct blepeer *peer, uint16_t attr_handle)
 {
     struct blepeer_svc *svc;
 
@@ -498,7 +498,7 @@ blepeer_svc_find_range(struct peer *peer, uint16_t attr_handle)
 }
 
 const struct blepeer_svc *
-blepeer_svc_find_uuid(const struct peer *peer, const ble_uuid_t *uuid)
+blepeer_svc_find_uuid(const struct blepeer *peer, const ble_uuid_t *uuid)
 {
     const struct blepeer_svc *svc;
 
@@ -512,7 +512,7 @@ blepeer_svc_find_uuid(const struct peer *peer, const ble_uuid_t *uuid)
 }
 
 const struct blepeer_chr *
-blepeer_chr_find_uuid(const struct peer *peer, const ble_uuid_t *svc_uuid,
+blepeer_chr_find_uuid(const struct blepeer *peer, const ble_uuid_t *svc_uuid,
                    const ble_uuid_t *chr_uuid)
 {
     const struct blepeer_svc *svc;
@@ -533,7 +533,7 @@ blepeer_chr_find_uuid(const struct peer *peer, const ble_uuid_t *svc_uuid,
 }
 
 const struct blepeer_dsc *
-blepeer_dsc_find_uuid(const struct peer *peer, const ble_uuid_t *svc_uuid,
+blepeer_dsc_find_uuid(const struct blepeer *peer, const ble_uuid_t *svc_uuid,
                    const ble_uuid_t *chr_uuid, const ble_uuid_t *dsc_uuid)
 {
     const struct blepeer_chr *chr;
@@ -554,7 +554,7 @@ blepeer_dsc_find_uuid(const struct peer *peer, const ble_uuid_t *svc_uuid,
 }
 
 static int
-blepeer_svc_add(struct peer *peer, const struct ble_gatt_svc *gatt_svc)
+blepeer_svc_add(struct blepeer *peer, const struct ble_gatt_svc *gatt_svc)
 {
     struct blepeer_svc *prev;
     struct blepeer_svc *svc;
@@ -601,7 +601,7 @@ static int
 blepeer_svc_disced(uint16_t conn_handle, const struct ble_gatt_error *error,
                 const struct ble_gatt_svc *service, void *arg)
 {
-    struct peer *peer;
+    struct blepeer *peer;
     int rc;
 
     peer = arg;
@@ -638,7 +638,7 @@ int
 blepeer_disc_all(uint16_t conn_handle, blepeer_disc_fn *disc_cb, void *disc_cb_arg)
 {
     struct blepeer_svc *svc;
-    struct peer *peer;
+    struct blepeer *peer;
     int rc;
 
     peer = blepeer_find(conn_handle);
@@ -668,7 +668,7 @@ int
 blepeer_delete(uint16_t conn_handle)
 {
     struct blepeer_svc *svc;
-    struct peer *peer;
+    struct blepeer *peer;
     int rc;
 
     peer = blepeer_find(conn_handle);
@@ -694,7 +694,7 @@ blepeer_delete(uint16_t conn_handle)
 int
 blepeer_add(uint16_t conn_handle)
 {
-    struct peer *peer;
+    struct blepeer *peer;
 
     /* Make sure the connection handle is unique. */
     peer = blepeer_find(conn_handle);
@@ -741,14 +741,14 @@ blepeer_init(int max_peers, int max_svcs, int max_chrs, int max_dscs)
     blepeer_free_mem();
 
     blepeer_mem = malloc(
-        OS_MEMPOOL_BYTES(max_peers, sizeof (struct peer)));
+        OS_MEMPOOL_BYTES(max_peers, sizeof (struct blepeer)));
     if (blepeer_mem == NULL) {
         rc = BLE_HS_ENOMEM;
         goto err;
     }
 
     rc = os_mempool_init(&blepeer_pool, max_peers,
-                         sizeof (struct peer), blepeer_mem,
+                         sizeof (struct blepeer), blepeer_mem,
                          "blepeer_pool");
     if (rc != 0) {
         rc = BLE_HS_EOS;
