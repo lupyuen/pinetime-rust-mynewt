@@ -170,15 +170,6 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
             os::eventq_dflt_get()     //  From default event queue.
                 .expect("GET fail")
         ).expect("RUN fail");
-
-        //  TODO: Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
-        unsafe { hal_watchdog_tickle() };
-
-        let rc = unsafe { pinetime_lvgl_mynewt_render() };
-        assert!(rc == 0, "LVGL render fail");    
-
-        //  TODO: Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
-        unsafe { hal_watchdog_tickle() };
     }
     //  Never comes here
 }
