@@ -45,6 +45,7 @@
 
 /* Application-specified header. */
 #include "ble_prph.h"
+#include "ble_peer.h"
 
 static int bleprph_gap_event(struct ble_gap_event *event, void *arg);
 
