@@ -44,6 +44,7 @@ pkg.deps:
 
 # Bluetooth LE
 pkg.deps.BLUETOOTH_LE:
+    - "@apache-mynewt-core/time/datetime"
     - "@apache-mynewt-core/boot/split"
     - "@mcuboot/boot/bootutil"
     - "@apache-mynewt-core/mgmt/imgmgr"
