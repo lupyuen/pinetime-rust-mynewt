@@ -87,7 +87,7 @@ const struct blepeer_svc *
 blepeer_svc_find_uuid(const struct blepeer *peer, const ble_uuid_t *uuid);
 int blepeer_delete(uint16_t conn_handle);
 int blepeer_add(uint16_t conn_handle);
-int blepeer_init(int max_peers, int max_svcs, int max_chrs, int max_dscs);
+int blepeer_init(void);
 
 #ifdef __cplusplus
 }

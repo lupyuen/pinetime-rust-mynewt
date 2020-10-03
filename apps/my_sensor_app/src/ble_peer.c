@@ -733,7 +733,7 @@ blepeer_free_mem(void)
 }
 
 int
-blepeer_init(int max_peers, int max_svcs, int max_chrs, int max_dscs)
+blepeer_init(void)
 {
     int rc;
 

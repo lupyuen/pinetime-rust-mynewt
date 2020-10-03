@@ -538,6 +538,11 @@ start_ble(void)
         }
     }
 #endif
+
+    //  Init Service Discovery
+    rc = blepeer_init();
+    assert(rc == 0);
+
     MODLOG_DFLT_INFO("BLE started\n");
     MODLOG_DFLT_FLUSH();
     return 0;
