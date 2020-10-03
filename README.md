@@ -23,9 +23,7 @@
 
 ![PineTime Smart Watch with Apache Mynewt and Embedded Rust](https://lupyuen.github.io/images/pinetime-title.jpg)
 
-This `lvgl` branch contains the firmware source code for PineTime Smart Watch with Apache Mynewt and Embedded Rust, with Wireless Firmware Updates and __Experimental Support for LVGL 7__
-
-Embeds [`pinetime_lvgl_mynewt`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt)
+This `timesync` branch contains the firmware source code for PineTime Smart Watch with Apache Mynewt and Embedded Rust, with Wireless Firmware Updates, LVGL 7 (by embedding [`pinetime_lvgl_mynewt`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt)) and __Experimental Support for BLE Time Sync__
 
 Refer to the articles...
 
