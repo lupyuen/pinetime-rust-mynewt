@@ -4,8 +4,6 @@
 
 #![no_std]
 //  Don't link with standard Rust library, which is not compatible with embedded systems
-#![feature(const_transmute)]
-//  Allow `transmute` for initialising Mynewt structs
 #![feature(trace_macros)]
 //  Enable tracing of macros
 #![feature(proc_macro_hygiene)]
@@ -213,7 +211,8 @@ pub mod kernel {
         pub type __uint32_t = ::cty::c_ulong;
         pub type __int64_t = ::cty::c_longlong;
         extern "C" {
-            pub fn os_info_init() -> ::cty::c_int;
+            pub fn os_info_init()
+            -> ::cty::c_int;
         }
         extern "C" {
             pub fn os_init_idle_task();
@@ -223,7 +222,8 @@ pub mod kernel {
             #[doc = ""]
             #[doc =
               " Return: 1 if the OS has been started and 0 if it has not yet been started."]
-            pub fn os_started() -> ::cty::c_int;
+            pub fn os_started()
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -279,31 +279,36 @@ pub mod kernel {
             pub fn os_arch_task_stack_init(arg1: *mut os_task,
                                            arg2: *mut os_stack_t,
                                            arg3: ::cty::c_int)
-             -> *mut os_stack_t;
+            -> *mut os_stack_t;
         }
         extern "C" {
             pub fn os_arch_ctx_sw(arg1: *mut os_task);
         }
         extern "C" {
-            pub fn os_arch_save_sr() -> os_sr_t;
+            pub fn os_arch_save_sr()
+            -> os_sr_t;
         }
         extern "C" {
             pub fn os_arch_restore_sr(arg1: os_sr_t);
         }
         extern "C" {
-            pub fn os_arch_in_critical() -> ::cty::c_int;
+            pub fn os_arch_in_critical()
+            -> ::cty::c_int;
         }
         extern "C" {
             pub fn os_arch_init();
         }
         extern "C" {
-            pub fn os_arch_start() -> u32;
+            pub fn os_arch_start()
+            -> u32;
         }
         extern "C" {
-            pub fn os_arch_os_init() -> os_error_t;
+            pub fn os_arch_os_init()
+            -> os_error_t;
         }
         extern "C" {
-            pub fn os_arch_os_start() -> os_error_t;
+            pub fn os_arch_os_start()
+            -> os_error_t;
         }
         extern "C" {
             pub fn os_set_env(arg1: *mut os_stack_t);
@@ -320,7 +325,8 @@ pub mod kernel {
             #[doc = " Get the current OS time in ticks"]
             #[doc = ""]
             #[doc = " Return: OS time in ticks"]
-            pub fn os_time_get() -> os_time_t;
+            pub fn os_time_get()
+            -> os_time_t;
         }
         extern "C" {
             #[doc = " Move OS time forward ticks."]
@@ -397,12 +403,11 @@ pub mod kernel {
           " - __`info`__:                  Describes the time change that just occurred."]
         #[doc =
           " - __`arg`__:                   Optional argument correponding to listener."]
-        pub type os_time_change_fn
-            =
-            ::core::option::Option<unsafe extern "C" fn(info:
-                                                            *const os_time_change_info,
-                                                        arg:
-                                                            *mut ::cty::c_void)>;
+        pub type os_time_change_fn =
+         ::core::option::Option<unsafe extern "C" fn(info:
+                                                         *const os_time_change_info,
+                                                     arg:
+                                                         *mut ::cty::c_void)>;
         #[doc =
           " Time change listener.  Notified when the time-of-day is set."]
         #[repr(C)]
@@ -438,7 +443,8 @@ pub mod kernel {
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero on failure."]
             pub fn os_settimeofday(utctime: *mut os_timeval,
-                                   tz: *mut os_timezone) -> ::cty::c_int;
+                                   tz: *mut os_timezone)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -454,16 +460,19 @@ pub mod kernel {
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero on failure"]
             pub fn os_gettimeofday(utctime: *mut os_timeval,
-                                   tz: *mut os_timezone) -> ::cty::c_int;
+                                   tz: *mut os_timezone)
+            -> ::cty::c_int;
         }
         extern "C" {
-            pub fn os_time_is_set() -> bool;
+            pub fn os_time_is_set()
+            -> bool;
         }
         extern "C" {
             #[doc = " Get time since boot in microseconds."]
             #[doc = ""]
             #[doc = " Return: time since boot in microseconds"]
-            pub fn os_get_uptime_usec() -> i64;
+            pub fn os_get_uptime_usec()
+            -> i64;
         }
         extern "C" {
             #[doc = " Get time since boot as os_timeval."]
@@ -482,7 +491,7 @@ pub mod kernel {
             #[doc =
               "                                  large to fit in a uint32_t."]
             pub fn os_time_ms_to_ticks(ms: u32, out_ticks: *mut os_time_t)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Converts OS ticks to milliseconds."]
@@ -496,7 +505,7 @@ pub mod kernel {
             #[doc =
               "                                  large to fit in a uint32_t."]
             pub fn os_time_ticks_to_ms(ticks: os_time_t, out_ms: *mut u32)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -533,11 +542,10 @@ pub mod kernel {
               " - __`listener`__:              The listener to unregister."]
             pub fn os_time_change_remove(listener:
                                              *const os_time_change_listener)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
-        pub type os_event_fn
-            =
-            ::core::option::Option<unsafe extern "C" fn(ev: *mut os_event)>;
+        pub type os_event_fn =
+         ::core::option::Option<unsafe extern "C" fn(ev: *mut os_event)>;
         #[doc =
           " Structure representing an OS event.  OS events get placed onto the"]
         #[doc = " event queues and are consumed by tasks."]
@@ -596,7 +604,8 @@ pub mod kernel {
             #[doc = " Check whether the event queue is initialized."]
             #[doc = ""]
             #[doc = " - __`evq`__: The event queue to check"]
-            pub fn os_eventq_inited(evq: *const os_eventq) -> ::cty::c_int;
+            pub fn os_eventq_inited(evq: *const os_eventq)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Put an event on the event queue."]
@@ -614,7 +623,7 @@ pub mod kernel {
             #[doc =
               " Return: Event from the queue, or NULL if none available."]
             pub fn os_eventq_get_no_wait(evq: *mut os_eventq)
-             -> *mut os_event;
+            -> *mut os_event;
         }
         extern "C" {
             #[doc =
@@ -624,7 +633,8 @@ pub mod kernel {
             #[doc = " - __`evq`__: The event queue to pull an event from"]
             #[doc = ""]
             #[doc = " Return: The event from the queue"]
-            pub fn os_eventq_get(arg1: *mut os_eventq) -> *mut os_event;
+            pub fn os_eventq_get(arg1: *mut os_eventq)
+            -> *mut os_event;
         }
         #[doc = " Pull a single item off the event queue and call it's event"]
         #[doc = " callback."]
@@ -665,7 +675,7 @@ pub mod kernel {
             #[doc = " Return: An event, or NULL if no events available"]
             pub fn os_eventq_poll(arg1: *mut *mut os_eventq,
                                   arg2: ::cty::c_int, arg3: os_time_t)
-             -> *mut os_event;
+            -> *mut os_event;
         }
         extern "C" {
             #[doc = " Remove an event from the queue."]
@@ -687,7 +697,8 @@ pub mod kernel {
                 #[doc = ""]
                 #[doc =
                   " Return:                      The default event queue."]
-                pub fn os_eventq_dflt_get() -> *mut os_eventq;
+                pub fn os_eventq_dflt_get()
+                -> *mut os_eventq;
             }
             "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
             unsafe {
@@ -781,7 +792,7 @@ pub mod kernel {
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero on failure"]
             pub fn os_callout_reset(arg1: *mut os_callout, arg2: os_time_t)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Returns the number of ticks which remains to callout."]
@@ -791,19 +802,20 @@ pub mod kernel {
             #[doc = ""]
             #[doc = " Return: Number of ticks to first pending callout"]
             pub fn os_callout_remaining_ticks(arg1: *mut os_callout,
-                                              arg2: os_time_t) -> os_time_t;
+                                              arg2: os_time_t)
+            -> os_time_t;
         }
         extern "C" {
             #[doc = " @cond INTERNAL_HIDDEN"]
             pub fn os_callout_tick();
         }
         extern "C" {
-            pub fn os_callout_wakeup_ticks(now: os_time_t) -> os_time_t;
+            pub fn os_callout_wakeup_ticks(now: os_time_t)
+            -> os_time_t;
         }
-        pub type hal_timer_cb
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg:
-                                                            *mut ::cty::c_void)>;
+        pub type hal_timer_cb =
+         ::core::option::Option<unsafe extern "C" fn(arg:
+                                                         *mut ::cty::c_void)>;
         #[doc =
           " The HAL timer structure. The user can declare as many of these structures"]
         #[doc =
@@ -852,13 +864,15 @@ pub mod kernel {
               " - __`clock_freq`__: The desired cputime frequency, in hertz (Hz)."]
             #[doc = ""]
             #[doc = " Return: int 0 on success; -1 on error."]
-            pub fn os_cputime_init(clock_freq: u32) -> ::cty::c_int;
+            pub fn os_cputime_init(clock_freq: u32)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Returns the low 32 bits of cputime."]
             #[doc = ""]
             #[doc = " Return: uint32_t The lower 32 bits of cputime"]
-            pub fn os_cputime_get32() -> u32;
+            pub fn os_cputime_get32()
+            -> u32;
         }
         extern "C" {
             #[doc =
@@ -870,7 +884,8 @@ pub mod kernel {
             #[doc = ""]
             #[doc =
               " Return: uint32_t The number of ticks corresponding to 'nsecs'"]
-            pub fn os_cputime_nsecs_to_ticks(nsecs: u32) -> u32;
+            pub fn os_cputime_nsecs_to_ticks(nsecs: u32)
+            -> u32;
         }
         extern "C" {
             #[doc = " Convert the given number of ticks into nanoseconds."]
@@ -881,7 +896,8 @@ pub mod kernel {
             #[doc = ""]
             #[doc =
               " Return: uint32_t The number of nanoseconds corresponding to 'ticks'"]
-            pub fn os_cputime_ticks_to_nsecs(ticks: u32) -> u32;
+            pub fn os_cputime_ticks_to_nsecs(ticks: u32)
+            -> u32;
         }
         extern "C" {
             #[doc =
@@ -937,7 +953,7 @@ pub mod kernel {
             #[doc = "         invalid"]
             #[doc = ""]
             pub fn os_cputime_timer_start(timer: *mut hal_timer, cputime: u32)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -954,7 +970,8 @@ pub mod kernel {
               " Return: int 0 on success; EINVAL if timer already started or timer struct"]
             #[doc = "         invalid"]
             pub fn os_cputime_timer_relative(timer: *mut hal_timer,
-                                             usecs: u32) -> ::cty::c_int;
+                                             usecs: u32)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -974,33 +991,26 @@ pub mod kernel {
           " - __`arg`__: User defined argument to pass to the device initalization"]
         #[doc = ""]
         #[doc = " Return: 0 on success, non-zero error code on failure."]
-        pub type os_dev_init_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev,
-                                                        arg2:
-                                                            *mut ::cty::c_void)
-                                       -> ::cty::c_int>;
-        pub type os_dev_open_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev,
-                                                        arg2: u32,
-                                                        arg3:
-                                                            *mut ::cty::c_void)
-                                       -> ::cty::c_int>;
-        pub type os_dev_suspend_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev,
-                                                        arg2: os_time_t,
-                                                        arg3: ::cty::c_int)
-                                       -> ::cty::c_int>;
-        pub type os_dev_resume_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev)
-                                       -> ::cty::c_int>;
-        pub type os_dev_close_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev)
-                                       -> ::cty::c_int>;
+        pub type os_dev_init_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev,
+                                                     arg2: *mut ::cty::c_void)
+                                    -> ::cty::c_int>;
+        pub type os_dev_open_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev,
+                                                     arg2: u32,
+                                                     arg3: *mut ::cty::c_void)
+                                    -> ::cty::c_int>;
+        pub type os_dev_suspend_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev,
+                                                     arg2: os_time_t,
+                                                     arg3: ::cty::c_int)
+                                    -> ::cty::c_int>;
+        pub type os_dev_resume_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev)
+                                    -> ::cty::c_int>;
+        pub type os_dev_close_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev)
+                                    -> ::cty::c_int>;
         #[doc =
           " Device handlers, implementers of device drivers should fill these"]
         #[doc = " out to control device operation."]
@@ -1086,7 +1096,8 @@ pub mod kernel {
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero error code on failure."]
             pub fn os_dev_suspend(dev: *mut os_dev, suspend_t: os_time_t,
-                                  force: u8) -> ::cty::c_int;
+                                  force: u8)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Resume the device operation."]
@@ -1094,7 +1105,8 @@ pub mod kernel {
             #[doc = " - __`dev`__: The device to resume"]
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero error code on failure."]
-            pub fn os_dev_resume(dev: *mut os_dev) -> ::cty::c_int;
+            pub fn os_dev_resume(dev: *mut os_dev)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Create a new device in the kernel."]
@@ -1115,7 +1127,8 @@ pub mod kernel {
             pub fn os_dev_create(dev: *mut os_dev, name: *const ::cty::c_char,
                                  stage: u8, priority: u8,
                                  od_init: os_dev_init_func_t,
-                                 arg: *mut ::cty::c_void) -> ::cty::c_int;
+                                 arg: *mut ::cty::c_void)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Lookup a device by name."]
@@ -1129,7 +1142,8 @@ pub mod kernel {
             #[doc = ""]
             #[doc =
               " Return: A pointer to the device corresponding to name, or NULL if not found."]
-            pub fn os_dev_lookup(name: *const ::cty::c_char) -> *mut os_dev;
+            pub fn os_dev_lookup(name: *const ::cty::c_char)
+            -> *mut os_dev;
         }
         extern "C" {
             #[doc = " Initialize all devices for a given state."]
@@ -1137,7 +1151,8 @@ pub mod kernel {
             #[doc = " - __`stage`__: The stage to initialize."]
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero on failure."]
-            pub fn os_dev_initialize_all(arg1: u8) -> ::cty::c_int;
+            pub fn os_dev_initialize_all(arg1: u8)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Suspend all devices."]
@@ -1151,14 +1166,15 @@ pub mod kernel {
               " Return: 0 on success, or a non-zero error code if one of the devices"]
             #[doc = "                       returned it."]
             pub fn os_dev_suspend_all(arg1: os_time_t, arg2: u8)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Resume all the devices that were suspended."]
             #[doc = ""]
             #[doc =
               " Return: 0 on success, -1 if any of the devices have failed to resume."]
-            pub fn os_dev_resume_all() -> ::cty::c_int;
+            pub fn os_dev_resume_all()
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Open a device."]
@@ -1170,7 +1186,8 @@ pub mod kernel {
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero on failure."]
             pub fn os_dev_open(devname: *const ::cty::c_char, timo: u32,
-                               arg: *mut ::cty::c_void) -> *mut os_dev;
+                               arg: *mut ::cty::c_void)
+            -> *mut os_dev;
         }
         extern "C" {
             #[doc = " Close a device."]
@@ -1178,7 +1195,8 @@ pub mod kernel {
             #[doc = " - __`dev`__: The device to close"]
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero on failure."]
-            pub fn os_dev_close(dev: *mut os_dev) -> ::cty::c_int;
+            pub fn os_dev_close(dev: *mut os_dev)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -1215,7 +1233,8 @@ pub mod kernel {
             #[doc = " - __`size`__: The number of bytes to allocate"]
             #[doc = ""]
             #[doc = " Return: A pointer to the memory region allocated."]
-            pub fn os_malloc(size: usize) -> *mut ::cty::c_void;
+            pub fn os_malloc(size: usize)
+            -> *mut ::cty::c_void;
         }
         extern "C" {
             #[doc =
@@ -1240,7 +1259,7 @@ pub mod kernel {
             #[doc =
               " Return: A pointer to memory of size, or NULL on failure to allocate"]
             pub fn os_realloc(ptr: *mut ::cty::c_void, size: usize)
-             -> *mut ::cty::c_void;
+            -> *mut ::cty::c_void;
         }
         #[doc =
           " A mbuf pool from which to allocate mbufs. This contains a pointer to the os"]
@@ -1366,7 +1385,8 @@ pub mod kernel {
             #[doc =
               " Return:                      0 on success, non-zero on failure."]
             pub fn os_mqueue_init(mq: *mut os_mqueue, ev_cb: os_event_fn,
-                                  arg: *mut ::cty::c_void) -> ::cty::c_int;
+                                  arg: *mut ::cty::c_void)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -1376,7 +1396,8 @@ pub mod kernel {
             #[doc = ""]
             #[doc =
               " Return: The next mbuf in the queue, or NULL if queue has no mbufs."]
-            pub fn os_mqueue_get(arg1: *mut os_mqueue) -> *mut os_mbuf;
+            pub fn os_mqueue_get(arg1: *mut os_mqueue)
+            -> *mut os_mbuf;
         }
         extern "C" {
             #[doc =
@@ -1392,7 +1413,8 @@ pub mod kernel {
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero on failure."]
             pub fn os_mqueue_put(arg1: *mut os_mqueue, arg2: *mut os_eventq,
-                                 arg3: *mut os_mbuf) -> ::cty::c_int;
+                                 arg3: *mut os_mbuf)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -1414,7 +1436,8 @@ pub mod kernel {
             #[doc = " - __`new_pool`__: The pool to register with MSYS"]
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero on failure"]
-            pub fn os_msys_register(arg1: *mut os_mbuf_pool) -> ::cty::c_int;
+            pub fn os_msys_register(arg1: *mut os_mbuf_pool)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -1429,7 +1452,8 @@ pub mod kernel {
             #[doc = ""]
             #[doc =
               " Return: A freshly allocated mbuf on success, NULL on failure."]
-            pub fn os_msys_get(dsize: u16, leadingspace: u16) -> *mut os_mbuf;
+            pub fn os_msys_get(dsize: u16, leadingspace: u16)
+            -> *mut os_mbuf;
         }
         extern "C" {
             #[doc = " De-registers all mbuf pools from msys."]
@@ -1448,20 +1472,22 @@ pub mod kernel {
             #[doc =
               " Return: A freshly allocated mbuf on success, NULL on failure."]
             pub fn os_msys_get_pkthdr(dsize: u16, user_hdr_len: u16)
-             -> *mut os_mbuf;
+            -> *mut os_mbuf;
         }
         extern "C" {
             #[doc =
               " Count the number of blocks in all the mbuf pools that are allocated."]
             #[doc = ""]
             #[doc = " Return: total number of blocks allocated in Msys"]
-            pub fn os_msys_count() -> ::cty::c_int;
+            pub fn os_msys_count()
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Return the number of free blocks in Msys"]
             #[doc = ""]
             #[doc = " Return: Number of free blocks available in Msys"]
-            pub fn os_msys_num_free() -> ::cty::c_int;
+            pub fn os_msys_num_free()
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Initialize a pool of mbufs."]
@@ -1475,7 +1501,8 @@ pub mod kernel {
             #[doc = " Return: 0 on success, error code on failure."]
             pub fn os_mbuf_pool_init(arg1: *mut os_mbuf_pool,
                                      mp: *mut os_mempool, arg2: u16,
-                                     arg3: u16) -> ::cty::c_int;
+                                     arg3: u16)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -1490,7 +1517,7 @@ pub mod kernel {
             #[doc =
               " Return: An initialized mbuf on success, and NULL on failure."]
             pub fn os_mbuf_get(omp: *mut os_mbuf_pool, arg1: u16)
-             -> *mut os_mbuf;
+            -> *mut os_mbuf;
         }
         extern "C" {
             #[doc =
@@ -1503,7 +1530,7 @@ pub mod kernel {
             #[doc =
               " Return: A freshly allocated mbuf on success, NULL on failure."]
             pub fn os_mbuf_get_pkthdr(omp: *mut os_mbuf_pool, pkthdr_len: u8)
-             -> *mut os_mbuf;
+            -> *mut os_mbuf;
         }
         extern "C" {
             #[doc =
@@ -1513,7 +1540,8 @@ pub mod kernel {
             #[doc = " - __`om`__:  The mbuf chain to duplicate"]
             #[doc = ""]
             #[doc = " Return: A pointer to the new chain of mbufs"]
-            pub fn os_mbuf_dup(m: *mut os_mbuf) -> *mut os_mbuf;
+            pub fn os_mbuf_dup(m: *mut os_mbuf)
+            -> *mut os_mbuf;
         }
         extern "C" {
             #[doc =
@@ -1536,12 +1564,14 @@ pub mod kernel {
             #[doc =
               "                              NULL if the specified offset is out of bounds."]
             pub fn os_mbuf_off(om: *const os_mbuf, off: ::cty::c_int,
-                               out_off: *mut u16) -> *mut os_mbuf;
+                               out_off: *mut u16)
+            -> *mut os_mbuf;
         }
         extern "C" {
             pub fn os_mbuf_copydata(m: *const os_mbuf, off: ::cty::c_int,
                                     len: ::cty::c_int,
-                                    dst: *mut ::cty::c_void) -> ::cty::c_int;
+                                    dst: *mut ::cty::c_void)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " @brief Calculates the length of an mbuf chain."]
@@ -1557,7 +1587,8 @@ pub mod kernel {
             #[doc =
               " Return:                      The length, in bytes, of the provided mbuf"]
             #[doc = "                                  chain."]
-            pub fn os_mbuf_len(om: *const os_mbuf) -> u16;
+            pub fn os_mbuf_len(om: *const os_mbuf)
+            -> u16;
         }
         extern "C" {
             #[doc = " Append data onto a mbuf"]
@@ -1568,7 +1599,8 @@ pub mod kernel {
             #[doc = ""]
             #[doc = " Return: 0 on success, and an error code on failure"]
             pub fn os_mbuf_append(m: *mut os_mbuf, arg1: *const ::cty::c_void,
-                                  arg2: u16) -> ::cty::c_int;
+                                  arg2: u16)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -1592,7 +1624,8 @@ pub mod kernel {
             #[doc =
               "                                  the end of the source mbuf chain."]
             pub fn os_mbuf_appendfrom(dst: *mut os_mbuf, src: *const os_mbuf,
-                                      src_off: u16, len: u16) -> ::cty::c_int;
+                                      src_off: u16, len: u16)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Release a mbuf back to the pool"]
@@ -1601,7 +1634,8 @@ pub mod kernel {
             #[doc = " - __`om`__:  The Mbuf to release back to the pool"]
             #[doc = ""]
             #[doc = " Return: 0 on success, -1 on failure"]
-            pub fn os_mbuf_free(mb: *mut os_mbuf) -> ::cty::c_int;
+            pub fn os_mbuf_free(mb: *mut os_mbuf)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Free a chain of mbufs"]
@@ -1612,7 +1646,8 @@ pub mod kernel {
               " - __`om`__:  The starting mbuf of the chain to free back into the pool"]
             #[doc = ""]
             #[doc = " Return: 0 on success, -1 on failure"]
-            pub fn os_mbuf_free_chain(om: *mut os_mbuf) -> ::cty::c_int;
+            pub fn os_mbuf_free_chain(om: *mut os_mbuf)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -1650,7 +1685,7 @@ pub mod kernel {
               "                              INT_MAX if the mbuf is too short."]
             pub fn os_mbuf_cmpf(om: *const os_mbuf, off: ::cty::c_int,
                                 data: *const ::cty::c_void, len: ::cty::c_int)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -1684,7 +1719,7 @@ pub mod kernel {
               "                                  end of its corresponding mbuf chain."]
             pub fn os_mbuf_cmpm(om1: *const os_mbuf, offset1: u16,
                                 om2: *const os_mbuf, offset2: u16, len: u16)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -1709,7 +1744,7 @@ pub mod kernel {
               " Return:                      The new head of the chain on success;"]
             #[doc = "                              NULL on failure."]
             pub fn os_mbuf_prepend(om: *mut os_mbuf, len: ::cty::c_int)
-             -> *mut os_mbuf;
+            -> *mut os_mbuf;
         }
         extern "C" {
             #[doc =
@@ -1728,7 +1763,7 @@ pub mod kernel {
             #[doc =
               "                              NULL on failure (and the mbuf chain is freed)."]
             pub fn os_mbuf_prepend_pullup(om: *mut os_mbuf, len: u16)
-             -> *mut os_mbuf;
+            -> *mut os_mbuf;
         }
         extern "C" {
             #[doc =
@@ -1754,7 +1789,8 @@ pub mod kernel {
               " Return:                      0 on success; nonzero on failure."]
             pub fn os_mbuf_copyinto(om: *mut os_mbuf, off: ::cty::c_int,
                                     src: *const ::cty::c_void,
-                                    len: ::cty::c_int) -> ::cty::c_int;
+                                    len: ::cty::c_int)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -1788,7 +1824,7 @@ pub mod kernel {
               " Return:                      A pointer to the new data on success;"]
             #[doc = "                              NULL on failure."]
             pub fn os_mbuf_extend(om: *mut os_mbuf, len: u16)
-             -> *mut ::cty::c_void;
+            -> *mut ::cty::c_void;
         }
         extern "C" {
             #[doc =
@@ -1813,7 +1849,8 @@ pub mod kernel {
             #[doc = ""]
             #[doc =
               " Return: The contiguous mbuf chain on success, NULL on failure."]
-            pub fn os_mbuf_pullup(om: *mut os_mbuf, len: u16) -> *mut os_mbuf;
+            pub fn os_mbuf_pullup(om: *mut os_mbuf, len: u16)
+            -> *mut os_mbuf;
         }
         extern "C" {
             #[doc =
@@ -1824,7 +1861,8 @@ pub mod kernel {
             #[doc = ""]
             #[doc =
               " Return:                      The head of the trimmed mbuf chain."]
-            pub fn os_mbuf_trim_front(om: *mut os_mbuf) -> *mut os_mbuf;
+            pub fn os_mbuf_trim_front(om: *mut os_mbuf)
+            -> *mut os_mbuf;
         }
         extern "C" {
             #[doc =
@@ -1846,7 +1884,7 @@ pub mod kernel {
             #[doc =
               " Return:                      0 on success; SYS_[...] error code on failure."]
             pub fn os_mbuf_widen(om: *mut os_mbuf, off: u16, len: u16)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         #[doc =
           " A memory block structure. This simply contains a pointer to the free list"]
@@ -1932,15 +1970,11 @@ pub mod kernel {
           "                                  returned if the block was not successfully"]
         #[doc =
           "                                  released back to its pool."]
-        pub type os_mempool_put_fn
-            =
-            ::core::option::Option<unsafe extern "C" fn(ome:
-                                                            *mut os_mempool_ext,
-                                                        data:
-                                                            *mut ::cty::c_void,
-                                                        arg:
-                                                            *mut ::cty::c_void)
-                                       -> os_error_t>;
+        pub type os_mempool_put_fn =
+         ::core::option::Option<unsafe extern "C" fn(ome: *mut os_mempool_ext,
+                                                     data: *mut ::cty::c_void,
+                                                     arg: *mut ::cty::c_void)
+                                    -> os_error_t>;
         #[repr(C)]
         pub struct os_mempool_ext {
             pub mpe_mp: os_mempool,
@@ -1997,7 +2031,7 @@ pub mod kernel {
             #[doc = "         when at the last memory pool."]
             pub fn os_mempool_info_get_next(arg1: *mut os_mempool,
                                             arg2: *mut os_mempool_info)
-             -> *mut os_mempool;
+            -> *mut os_mempool;
         }
         pub type os_membuf_t = u32;
         extern "C" {
@@ -2017,7 +2051,8 @@ pub mod kernel {
             pub fn os_mempool_init(mp: *mut os_mempool, blocks: u16,
                                    block_size: u32,
                                    membuf: *mut ::cty::c_void,
-                                   name: *mut ::cty::c_char) -> os_error_t;
+                                   name: *mut ::cty::c_char)
+            -> os_error_t;
         }
         extern "C" {
             #[doc =
@@ -2041,7 +2076,7 @@ pub mod kernel {
                                        block_size: u32,
                                        membuf: *mut ::cty::c_void,
                                        name: *mut ::cty::c_char)
-             -> os_error_t;
+            -> os_error_t;
         }
         extern "C" {
             #[doc =
@@ -2054,7 +2089,8 @@ pub mod kernel {
             #[doc =
               "                              OS_INVALID_PARM if the mempool is not"]
             #[doc = "                                  registered."]
-            pub fn os_mempool_unregister(mp: *mut os_mempool) -> os_error_t;
+            pub fn os_mempool_unregister(mp: *mut os_mempool)
+            -> os_error_t;
         }
         extern "C" {
             #[doc = " Clears a memory pool."]
@@ -2062,10 +2098,12 @@ pub mod kernel {
             #[doc = " - __`mp`__:            The mempool to clear."]
             #[doc = ""]
             #[doc = " Return: os_error_t"]
-            pub fn os_mempool_clear(mp: *mut os_mempool) -> os_error_t;
+            pub fn os_mempool_clear(mp: *mut os_mempool)
+            -> os_error_t;
         }
         extern "C" {
-            pub fn os_mempool_is_sane(mp: *const os_mempool) -> bool;
+            pub fn os_mempool_is_sane(mp: *const os_mempool)
+            -> bool;
         }
         extern "C" {
             #[doc =
@@ -2082,7 +2120,7 @@ pub mod kernel {
               "                              1 if the block does belong to the mempool."]
             pub fn os_memblock_from(mp: *const os_mempool,
                                     block_addr: *const ::cty::c_void)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Get a memory block from a memory pool"]
@@ -2091,7 +2129,8 @@ pub mod kernel {
             #[doc = ""]
             #[doc =
               " Return: void* Pointer to block if available; NULL otherwise"]
-            pub fn os_memblock_get(mp: *mut os_mempool) -> *mut ::cty::c_void;
+            pub fn os_memblock_get(mp: *mut os_mempool)
+            -> *mut ::cty::c_void;
         }
         extern "C" {
             #[doc =
@@ -2106,7 +2145,7 @@ pub mod kernel {
             #[doc = " Return: os_error_t"]
             pub fn os_memblock_put_from_cb(mp: *mut os_mempool,
                                            block_addr: *mut ::cty::c_void)
-             -> os_error_t;
+            -> os_error_t;
         }
         extern "C" {
             #[doc = " Puts the memory block back into the pool"]
@@ -2117,7 +2156,7 @@ pub mod kernel {
             #[doc = " Return: os_error_t"]
             pub fn os_memblock_put(mp: *mut os_mempool,
                                    block_addr: *mut ::cty::c_void)
-             -> os_error_t;
+            -> os_error_t;
         }
         #[doc = " OS mutex structure"]
         #[repr(C)]
@@ -2149,7 +2188,8 @@ pub mod kernel {
             #[doc = " Return: os_error_t"]
             #[doc = "      OS_INVALID_PARM     Mutex passed in was NULL."]
             #[doc = "      OS_OK               no error."]
-            pub fn os_mutex_init(mu: *mut os_mutex) -> os_error_t;
+            pub fn os_mutex_init(mu: *mut os_mutex)
+            -> os_error_t;
         }
         extern "C" {
             #[doc = " Release a mutex."]
@@ -2161,7 +2201,8 @@ pub mod kernel {
             #[doc =
               "      OS_BAD_MUTEX    Mutex was not granted to current task (not owner)."]
             #[doc = "      OS_OK           No error"]
-            pub fn os_mutex_release(mu: *mut os_mutex) -> os_error_t;
+            pub fn os_mutex_release(mu: *mut os_mutex)
+            -> os_error_t;
         }
         extern "C" {
             #[doc = " Pend (wait) for a mutex."]
@@ -2180,15 +2221,13 @@ pub mod kernel {
               "      OS_TIMEOUT          Mutex was owned by another task and timeout=0"]
             #[doc = "      OS_OK               no error."]
             pub fn os_mutex_pend(mu: *mut os_mutex, timeout: os_time_t)
-             -> os_error_t;
+            -> os_error_t;
         }
-        pub type os_sanity_check_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1:
-                                                            *mut os_sanity_check,
-                                                        arg2:
-                                                            *mut ::cty::c_void)
-                                       -> ::cty::c_int>;
+        pub type os_sanity_check_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1:
+                                                         *mut os_sanity_check,
+                                                     arg2: *mut ::cty::c_void)
+                                    -> ::cty::c_int>;
         #[repr(C)]
         pub struct os_sanity_check {
             #[doc = " Time this check last ran successfully."]
@@ -2213,7 +2252,8 @@ pub mod kernel {
         }
         extern "C" {
             #[doc = " @cond INTERNAL_HIDDEN"]
-            pub fn os_sanity_init() -> ::cty::c_int;
+            pub fn os_sanity_init()
+            -> ::cty::c_int;
         }
         extern "C" {
             pub fn os_sanity_run();
@@ -2224,7 +2264,8 @@ pub mod kernel {
             #[doc = " - __`t`__: The task to check in"]
             #[doc = ""]
             #[doc = " Return: 0 on success, error code on failure"]
-            pub fn os_sanity_task_checkin(arg1: *mut os_task) -> ::cty::c_int;
+            pub fn os_sanity_task_checkin(arg1: *mut os_task)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Initialize a sanity check"]
@@ -2233,7 +2274,7 @@ pub mod kernel {
             #[doc = ""]
             #[doc = " Return: 0 on success, error code on failure."]
             pub fn os_sanity_check_init(arg1: *mut os_sanity_check)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Register a sanity check"]
@@ -2242,7 +2283,7 @@ pub mod kernel {
             #[doc = ""]
             #[doc = " Return: 0 on success, error code on failure"]
             pub fn os_sanity_check_register(arg1: *mut os_sanity_check)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -2253,7 +2294,7 @@ pub mod kernel {
             #[doc = ""]
             #[doc = " Return: 0 on success, error code on failure"]
             pub fn os_sanity_check_reset(arg1: *mut os_sanity_check)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         #[repr(C)]
         pub struct os_task_obj {
@@ -2276,10 +2317,9 @@ pub mod kernel {
         #[doc = " Task states"]
         pub type os_task_state = u32;
         pub use self::os_task_state as os_task_state_t;
-        pub type os_task_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1:
-                                                            *mut ::cty::c_void)>;
+        pub type os_task_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1:
+                                                         *mut ::cty::c_void)>;
         #[doc = " @cond INTERNAL_HIDDEN"]
         #[repr(C)]
         pub struct os_task {
@@ -2419,7 +2459,8 @@ pub mod kernel {
                                     arg3: os_task_func_t,
                                     arg4: *mut ::cty::c_void, arg5: u8,
                                     arg6: os_time_t, arg7: *mut os_stack_t,
-                                    arg8: u16) -> ::cty::c_int;
+                                    arg8: u16)
+                -> ::cty::c_int;
             }
             "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
             arg2.validate();
@@ -2444,13 +2485,15 @@ pub mod kernel {
             #[doc = " XXX"]
             #[doc =
               " NOTE: This interface is currently experimental and not ready for common use"]
-            pub fn os_task_remove(t: *mut os_task) -> ::cty::c_int;
+            pub fn os_task_remove(t: *mut os_task)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Return the number of tasks initialized."]
             #[doc = ""]
             #[doc = " Return: number of tasks initialized"]
-            pub fn os_task_count() -> u8;
+            pub fn os_task_count()
+            -> u8;
         }
         #[doc =
           " Information about an individual task, returned for management APIs."]
@@ -2538,7 +2581,7 @@ pub mod kernel {
             #[doc = "         iterating through all tasks."]
             pub fn os_task_info_get_next(arg1: *const os_task,
                                          arg2: *mut os_task_info)
-             -> *mut os_task;
+            -> *mut os_task;
         }
         #[repr(C)]
         pub struct os_task_list {
@@ -2557,13 +2600,15 @@ pub mod kernel {
             #[doc = " the highest priority task ready to run."]
             #[doc = ""]
             #[doc = " Return: The currently running task."]
-            pub fn os_sched_get_current_task() -> *mut os_task;
+            pub fn os_sched_get_current_task()
+            -> *mut os_task;
         }
         extern "C" {
             pub fn os_sched_set_current_task(arg1: *mut os_task);
         }
         extern "C" {
-            pub fn os_sched_next_task() -> *mut os_task;
+            pub fn os_sched_next_task()
+            -> *mut os_task;
         }
         extern "C" {
             #[doc =
@@ -2609,23 +2654,27 @@ pub mod kernel {
             pub fn os_sched_os_timer_exp();
         }
         extern "C" {
-            pub fn os_sched_insert(arg1: *mut os_task) -> os_error_t;
+            pub fn os_sched_insert(arg1: *mut os_task)
+            -> os_error_t;
         }
         extern "C" {
             pub fn os_sched_sleep(arg1: *mut os_task, nticks: os_time_t)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
-            pub fn os_sched_wakeup(arg1: *mut os_task) -> ::cty::c_int;
+            pub fn os_sched_wakeup(arg1: *mut os_task)
+            -> ::cty::c_int;
         }
         extern "C" {
-            pub fn os_sched_remove(arg1: *mut os_task) -> ::cty::c_int;
+            pub fn os_sched_remove(arg1: *mut os_task)
+            -> ::cty::c_int;
         }
         extern "C" {
             pub fn os_sched_resort(arg1: *mut os_task);
         }
         extern "C" {
-            pub fn os_sched_wakeup_ticks(now: os_time_t) -> os_time_t;
+            pub fn os_sched_wakeup_ticks(now: os_time_t)
+            -> os_time_t;
         }
         #[doc = " Structure representing an OS semaphore."]
         #[repr(C)]
@@ -2655,7 +2704,8 @@ pub mod kernel {
             #[doc = " Return: os_error_t"]
             #[doc = "      OS_INVALID_PARM     Semaphore passed in was NULL."]
             #[doc = "      OS_OK               no error."]
-            pub fn os_sem_init(sem: *mut os_sem, tokens: u16) -> os_error_t;
+            pub fn os_sem_init(sem: *mut os_sem, tokens: u16)
+            -> os_error_t;
         }
         extern "C" {
             #[doc = " Release a semaphore."]
@@ -2665,7 +2715,8 @@ pub mod kernel {
             #[doc = " Return: os_error_t"]
             #[doc = "      OS_INVALID_PARM Semaphore passed in was NULL."]
             #[doc = "      OS_OK No error"]
-            pub fn os_sem_release(sem: *mut os_sem) -> os_error_t;
+            pub fn os_sem_release(sem: *mut os_sem)
+            -> os_error_t;
         }
         extern "C" {
             #[doc = " os sem pend"]
@@ -2686,7 +2737,7 @@ pub mod kernel {
               "      OS_TIMEOUT          Semaphore was owned by another task and timeout=0"]
             #[doc = "      OS_OK               no error."]
             pub fn os_sem_pend(sem: *mut os_sem, timeout: os_time_t)
-             -> os_error_t;
+            -> os_error_t;
         }
         extern "C" {
             pub fn os_mempool_module_init();
@@ -2713,10 +2764,10 @@ pub mod kernel {
             pub fn os_tick_idle(n: os_time_t);
         }
         extern "C" {
-            pub static mut os_main_task: os_task;
+            pub static mut os_main_task: os_task ;
         }
         extern "C" {
-            pub static mut os_main_stack: [os_stack_t; 1024usize];
+            pub static mut os_main_stack: [os_stack_t; 1024usize] ;
         }
         extern "C" {
             #[doc =
@@ -2779,34 +2830,33 @@ pub mod hw {
         pub type hal_gpio_pull = u32;
         pub use self::hal_gpio_pull as hal_gpio_pull_t;
         pub const hal_gpio_irq_trigger_HAL_GPIO_TRIG_NONE:
-                  hal_gpio_irq_trigger =
+         hal_gpio_irq_trigger =
             0;
         #[doc = " IRQ occurs on rising edge"]
         pub const hal_gpio_irq_trigger_HAL_GPIO_TRIG_RISING:
-                  hal_gpio_irq_trigger =
+         hal_gpio_irq_trigger =
             1;
         #[doc = " IRQ occurs on falling edge"]
         pub const hal_gpio_irq_trigger_HAL_GPIO_TRIG_FALLING:
-                  hal_gpio_irq_trigger =
+         hal_gpio_irq_trigger =
             2;
         #[doc = " IRQ occurs on either edge"]
         pub const hal_gpio_irq_trigger_HAL_GPIO_TRIG_BOTH:
-                  hal_gpio_irq_trigger =
+         hal_gpio_irq_trigger =
             3;
         #[doc = " IRQ occurs when line is low"]
         pub const hal_gpio_irq_trigger_HAL_GPIO_TRIG_LOW: hal_gpio_irq_trigger
-                  =
+         =
             4;
         #[doc = " IRQ occurs when line is high"]
         pub const hal_gpio_irq_trigger_HAL_GPIO_TRIG_HIGH:
-                  hal_gpio_irq_trigger =
+         hal_gpio_irq_trigger =
             5;
         pub type hal_gpio_irq_trigger = u32;
         pub use self::hal_gpio_irq_trigger as hal_gpio_irq_trig_t;
-        pub type hal_gpio_irq_handler_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg:
-                                                            *mut ::cty::c_void)>;
+        pub type hal_gpio_irq_handler_t =
+         ::core::option::Option<unsafe extern "C" fn(arg:
+                                                         *mut ::cty::c_void)>;
         extern "C" {
             #[doc = " Initializes the specified pin as an input"]
             #[doc = ""]
@@ -2815,7 +2865,7 @@ pub mod hw {
             #[doc = ""]
             #[doc = " Return: int  0: no error; -1 otherwise."]
             pub fn hal_gpio_init_in(pin: ::cty::c_int, pull: hal_gpio_pull_t)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -2827,7 +2877,7 @@ pub mod hw {
             #[doc = ""]
             #[doc = " Return: int  0: no error; -1 otherwise."]
             pub fn hal_gpio_init_out(pin: ::cty::c_int, val: ::cty::c_int)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -2836,7 +2886,8 @@ pub mod hw {
             #[doc = " - __`pin`__: Pin number to unset"]
             #[doc = ""]
             #[doc = " Return: int  0: no error; -1 otherwise."]
-            pub fn hal_gpio_deinit(pin: ::cty::c_int) -> ::cty::c_int;
+            pub fn hal_gpio_deinit(pin: ::cty::c_int)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -2852,7 +2903,8 @@ pub mod hw {
             #[doc = " - __`pin`__: Pin number to read"]
             #[doc = ""]
             #[doc = " Return: int 0: low, 1: high"]
-            pub fn hal_gpio_read(pin: ::cty::c_int) -> ::cty::c_int;
+            pub fn hal_gpio_read(pin: ::cty::c_int)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Toggles the specified pin"]
@@ -2860,7 +2912,8 @@ pub mod hw {
             #[doc = " - __`pin`__: Pin number to toggle"]
             #[doc = ""]
             #[doc = " Return: current gpio state int 0: low, 1: high"]
-            pub fn hal_gpio_toggle(pin: ::cty::c_int) -> ::cty::c_int;
+            pub fn hal_gpio_toggle(pin: ::cty::c_int)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Initialize a given pin to trigger a GPIO IRQ callback."]
@@ -2879,7 +2932,8 @@ pub mod hw {
                                      handler: hal_gpio_irq_handler_t,
                                      arg: *mut ::cty::c_void,
                                      trig: hal_gpio_irq_trig_t,
-                                     pull: hal_gpio_pull_t) -> ::cty::c_int;
+                                     pull: hal_gpio_pull_t)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -2971,7 +3025,7 @@ pub mod hw {
             #[doc =
               " Return: 0 on success, and non-zero error code on failure"]
             pub fn hal_i2c_init(i2c_num: u8, cfg: *mut ::cty::c_void)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Initialize I2C controller"]
@@ -2986,7 +3040,7 @@ pub mod hw {
             #[doc = " Return: 0 on success, non-zero error code on failure"]
             pub fn hal_i2c_init_hw(i2c_num: u8,
                                    cfg: *const hal_i2c_hw_settings)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Enable I2C controller"]
@@ -2996,7 +3050,8 @@ pub mod hw {
             #[doc = " - __`i2c_num`__:  Number of I2C controller"]
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero error code on failure"]
-            pub fn hal_i2c_enable(i2c_num: u8) -> ::cty::c_int;
+            pub fn hal_i2c_enable(i2c_num: u8)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Disable I2C controller"]
@@ -3008,7 +3063,8 @@ pub mod hw {
             #[doc = " - __`i2c_num`__:  Number of I2C controller"]
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero error code on failure"]
-            pub fn hal_i2c_disable(i2c_num: u8) -> ::cty::c_int;
+            pub fn hal_i2c_disable(i2c_num: u8)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Configure I2C controller"]
@@ -3019,7 +3075,7 @@ pub mod hw {
             #[doc = " - __`i2c_num`__:  Number of I2C controller"]
             #[doc = " - __`cfg`__:      Configuration"]
             pub fn hal_i2c_config(i2c_num: u8, cfg: *const hal_i2c_settings)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -3046,7 +3102,7 @@ pub mod hw {
             pub fn hal_i2c_master_write(i2c_num: u8,
                                         pdata: *mut hal_i2c_master_data,
                                         timeout: u32, last_op: u8)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -3073,7 +3129,7 @@ pub mod hw {
             pub fn hal_i2c_master_read(i2c_num: u8,
                                        pdata: *mut hal_i2c_master_data,
                                        timeout: u32, last_op: u8)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -3089,13 +3145,12 @@ pub mod hw {
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero error code on failure"]
             pub fn hal_i2c_master_probe(i2c_num: u8, address: u8,
-                                        timeout: u32) -> ::cty::c_int;
+                                        timeout: u32)
+            -> ::cty::c_int;
         }
-        pub type hal_spi_txrx_cb
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg:
-                                                            *mut ::cty::c_void,
-                                                        len: ::cty::c_int)>;
+        pub type hal_spi_txrx_cb =
+         ::core::option::Option<unsafe extern "C" fn(arg: *mut ::cty::c_void,
+                                                     len: ::cty::c_int)>;
         #[doc = " SPI controller hardware settings"]
         #[repr(C)]
         pub struct hal_spi_hw_settings {
@@ -3164,7 +3219,7 @@ pub mod hw {
               " Return: int 0 on success, non-zero error code on failure."]
             pub fn hal_spi_init(spi_num: ::cty::c_int,
                                 cfg: *mut ::cty::c_void, spi_type: u8)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = " Initialize SPI controller"]
@@ -3179,7 +3234,7 @@ pub mod hw {
             #[doc = " Return: 0 on success, non-zero error code on failure"]
             pub fn hal_spi_init_hw(spi_num: u8, spi_type: u8,
                                    cfg: *const hal_spi_hw_settings)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -3200,7 +3255,7 @@ pub mod hw {
               " Return: int 0 on success, non-zero error code on failure."]
             pub fn hal_spi_config(spi_num: ::cty::c_int,
                                   psettings: *mut hal_spi_settings)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -3226,7 +3281,7 @@ pub mod hw {
             pub fn hal_spi_set_txrx_cb(spi_num: ::cty::c_int,
                                        txrx_cb: hal_spi_txrx_cb,
                                        arg: *mut ::cty::c_void)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -3239,7 +3294,8 @@ pub mod hw {
             #[doc = ""]
             #[doc =
               " Return: int 0 on success, non-zero error code on failure."]
-            pub fn hal_spi_enable(spi_num: ::cty::c_int) -> ::cty::c_int;
+            pub fn hal_spi_enable(spi_num: ::cty::c_int)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -3250,7 +3306,8 @@ pub mod hw {
             #[doc = ""]
             #[doc =
               " Return: int 0 on success, non-zero error code on failure."]
-            pub fn hal_spi_disable(spi_num: ::cty::c_int) -> ::cty::c_int;
+            pub fn hal_spi_disable(spi_num: ::cty::c_int)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -3267,7 +3324,8 @@ pub mod hw {
             #[doc =
               " Return: uint16_t Value received on SPI interface from slave. Returns 0xFFFF"]
             #[doc = " if called when the SPI is configured to be a slave"]
-            pub fn hal_spi_tx_val(spi_num: ::cty::c_int, val: u16) -> u16;
+            pub fn hal_spi_tx_val(spi_num: ::cty::c_int, val: u16)
+            -> u16;
         }
         extern "C" {
             #[doc =
@@ -3308,7 +3366,7 @@ pub mod hw {
             pub fn hal_spi_txrx(spi_num: ::cty::c_int,
                                 txbuf: *mut ::cty::c_void,
                                 rxbuf: *mut ::cty::c_void, cnt: ::cty::c_int)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -3365,7 +3423,8 @@ pub mod hw {
             pub fn hal_spi_txrx_noblock(spi_num: ::cty::c_int,
                                         txbuf: *mut ::cty::c_void,
                                         rxbuf: *mut ::cty::c_void,
-                                        cnt: ::cty::c_int) -> ::cty::c_int;
+                                        cnt: ::cty::c_int)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -3376,7 +3435,8 @@ pub mod hw {
             #[doc =
               " Return: int 0 on success, non-zero error code on failure."]
             pub fn hal_spi_slave_set_def_tx_val(spi_num: ::cty::c_int,
-                                                val: u16) -> ::cty::c_int;
+                                                val: u16)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -3390,7 +3450,8 @@ pub mod hw {
             #[doc = ""]
             #[doc =
               " NOTE: does not return an error if no transfer was in progress."]
-            pub fn hal_spi_abort(spi_num: ::cty::c_int) -> ::cty::c_int;
+            pub fn hal_spi_abort(spi_num: ::cty::c_int)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -3409,7 +3470,7 @@ pub mod hw {
             pub fn hal_spi_data_mode_breakout(data_mode: u8,
                                               out_cpol: *mut ::cty::c_int,
                                               out_cpha: *mut ::cty::c_int)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
     }
     pub mod sensor {
@@ -3836,10 +3897,8 @@ pub mod hw {
             pub type __int64_t = ::cty::c_longlong;
             pub type os_stack_t = u32;
             pub type os_time_t = u32;
-            pub type os_event_fn
-                =
-                ::core::option::Option<unsafe extern "C" fn(ev:
-                                                                *mut os_event)>;
+            pub type os_event_fn =
+             ::core::option::Option<unsafe extern "C" fn(ev: *mut os_event)>;
             #[repr(C)]
             pub struct os_event__bindgen_ty_1 {
                 pub stqe_next: *mut os_event,
@@ -3870,34 +3929,28 @@ pub mod hw {
               " - __`arg`__: User defined argument to pass to the device initalization"]
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero error code on failure."]
-            pub type os_dev_init_func_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev,
-                                                            arg2:
-                                                                *mut ::cty::c_void)
-                                           -> ::cty::c_int>;
-            pub type os_dev_open_func_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev,
-                                                            arg2: u32,
-                                                            arg3:
-                                                                *mut ::cty::c_void)
-                                           -> ::cty::c_int>;
-            pub type os_dev_suspend_func_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev,
-                                                            arg2: os_time_t,
-                                                            arg3:
-                                                                ::cty::c_int)
-                                           -> ::cty::c_int>;
-            pub type os_dev_resume_func_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev)
-                                           -> ::cty::c_int>;
-            pub type os_dev_close_func_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev)
-                                           -> ::cty::c_int>;
+            pub type os_dev_init_func_t =
+             ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev,
+                                                         arg2:
+                                                             *mut ::cty::c_void)
+                                        -> ::cty::c_int>;
+            pub type os_dev_open_func_t =
+             ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev,
+                                                         arg2: u32,
+                                                         arg3:
+                                                             *mut ::cty::c_void)
+                                        -> ::cty::c_int>;
+            pub type os_dev_suspend_func_t =
+             ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev,
+                                                         arg2: os_time_t,
+                                                         arg3: ::cty::c_int)
+                                        -> ::cty::c_int>;
+            pub type os_dev_resume_func_t =
+             ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev)
+                                        -> ::cty::c_int>;
+            pub type os_dev_close_func_t =
+             ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev)
+                                        -> ::cty::c_int>;
             #[repr(C)]
             pub struct os_dev__bindgen_ty_1 {
                 pub stqe_next: *mut os_dev,
@@ -3934,13 +3987,12 @@ pub mod hw {
             impl Default for os_mutex__bindgen_ty_1 {
                 fn default() -> Self { unsafe { ::core::mem::zeroed() } }
             }
-            pub type os_sanity_check_func_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(arg1:
-                                                                *mut os_sanity_check,
-                                                            arg2:
-                                                                *mut ::cty::c_void)
-                                           -> ::cty::c_int>;
+            pub type os_sanity_check_func_t =
+             ::core::option::Option<unsafe extern "C" fn(arg1:
+                                                             *mut os_sanity_check,
+                                                         arg2:
+                                                             *mut ::cty::c_void)
+                                        -> ::cty::c_int>;
             #[repr(C)]
             pub struct os_sanity_check__bindgen_ty_1 {
                 pub sle_next: *mut os_sanity_check,
@@ -3948,10 +4000,9 @@ pub mod hw {
             impl Default for os_sanity_check__bindgen_ty_1 {
                 fn default() -> Self { unsafe { ::core::mem::zeroed() } }
             }
-            pub type os_task_func_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(arg1:
-                                                                *mut ::cty::c_void)>;
+            pub type os_task_func_t =
+             ::core::option::Option<unsafe extern "C" fn(arg1:
+                                                             *mut ::cty::c_void)>;
             #[repr(C)]
             pub struct os_task__bindgen_ty_1 {
                 pub stqe_next: *mut os_task,
@@ -3983,23 +4034,23 @@ pub mod hw {
             pub const sensor_type_t_SENSOR_TYPE_ACCELEROMETER: sensor_type_t =
                 1;
             pub const sensor_type_t_SENSOR_TYPE_MAGNETIC_FIELD: sensor_type_t
-                      =
+             =
                 2;
             pub const sensor_type_t_SENSOR_TYPE_GYROSCOPE: sensor_type_t = 4;
             pub const sensor_type_t_SENSOR_TYPE_LIGHT: sensor_type_t = 8;
             pub const sensor_type_t_SENSOR_TYPE_TEMPERATURE: sensor_type_t =
                 16;
             pub const sensor_type_t_SENSOR_TYPE_AMBIENT_TEMPERATURE:
-                      sensor_type_t =
+             sensor_type_t =
                 32;
             pub const sensor_type_t_SENSOR_TYPE_PRESSURE: sensor_type_t = 64;
             pub const sensor_type_t_SENSOR_TYPE_PROXIMITY: sensor_type_t =
                 128;
             pub const sensor_type_t_SENSOR_TYPE_RELATIVE_HUMIDITY:
-                      sensor_type_t =
+             sensor_type_t =
                 256;
             pub const sensor_type_t_SENSOR_TYPE_ROTATION_VECTOR: sensor_type_t
-                      =
+             =
                 512;
             pub const sensor_type_t_SENSOR_TYPE_ALTITUDE: sensor_type_t =
                 1024;
@@ -4010,73 +4061,73 @@ pub mod hw {
             pub const sensor_type_t_SENSOR_TYPE_EULER: sensor_type_t = 16384;
             pub const sensor_type_t_SENSOR_TYPE_COLOR: sensor_type_t = 32768;
             pub const sensor_type_t_SENSOR_TYPE_USER_DEFINED_1: sensor_type_t
-                      =
+             =
                 67108864;
             pub const sensor_type_t_SENSOR_TYPE_USER_DEFINED_2: sensor_type_t
-                      =
+             =
                 134217728;
             pub const sensor_type_t_SENSOR_TYPE_USER_DEFINED_3: sensor_type_t
-                      =
+             =
                 268435456;
             pub const sensor_type_t_SENSOR_TYPE_USER_DEFINED_4: sensor_type_t
-                      =
+             =
                 536870912;
             pub const sensor_type_t_SENSOR_TYPE_USER_DEFINED_5: sensor_type_t
-                      =
+             =
                 1073741824;
             pub const sensor_type_t_SENSOR_TYPE_USER_DEFINED_6: sensor_type_t
-                      =
+             =
                 -2147483648;
             pub const sensor_type_t_SENSOR_TYPE_ALL: sensor_type_t =
                 4294967295;
             pub type sensor_type_t = i64;
             pub const sensor_event_type_t_SENSOR_EVENT_TYPE_DOUBLE_TAP:
-                      sensor_event_type_t =
+             sensor_event_type_t =
                 1;
             pub const sensor_event_type_t_SENSOR_EVENT_TYPE_SINGLE_TAP:
-                      sensor_event_type_t =
+             sensor_event_type_t =
                 2;
             pub const sensor_event_type_t_SENSOR_EVENT_TYPE_FREE_FALL:
-                      sensor_event_type_t =
+             sensor_event_type_t =
                 4;
             pub const sensor_event_type_t_SENSOR_EVENT_TYPE_SLEEP_CHANGE:
-                      sensor_event_type_t =
+             sensor_event_type_t =
                 8;
             pub const sensor_event_type_t_SENSOR_EVENT_TYPE_WAKEUP:
-                      sensor_event_type_t =
+             sensor_event_type_t =
                 16;
             pub const sensor_event_type_t_SENSOR_EVENT_TYPE_SLEEP:
-                      sensor_event_type_t =
+             sensor_event_type_t =
                 32;
             pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_CHANGE:
-                      sensor_event_type_t =
+             sensor_event_type_t =
                 64;
             pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_X_CHANGE:
-                      sensor_event_type_t =
+             sensor_event_type_t =
                 128;
             pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_Y_CHANGE:
-                      sensor_event_type_t =
+             sensor_event_type_t =
                 256;
             pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_Z_CHANGE:
-                      sensor_event_type_t =
+             sensor_event_type_t =
                 512;
             pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_X_L_CHANGE:
-                      sensor_event_type_t =
+             sensor_event_type_t =
                 1024;
             pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_Y_L_CHANGE:
-                      sensor_event_type_t =
+             sensor_event_type_t =
                 2048;
             pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_Z_L_CHANGE:
-                      sensor_event_type_t =
+             sensor_event_type_t =
                 4096;
             pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_X_H_CHANGE:
-                      sensor_event_type_t =
+             sensor_event_type_t =
                 8192;
             pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_Y_H_CHANGE:
-                      sensor_event_type_t =
+             sensor_event_type_t =
                 16384;
             pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_Z_H_CHANGE:
-                      sensor_event_type_t =
+             sensor_event_type_t =
                 32768;
             pub type sensor_event_type_t = u32;
             #[doc =
@@ -4130,60 +4181,53 @@ pub mod hw {
             #[doc = " - __`type`__: The sensor type for the data function"]
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero error code on failure."]
-            pub type sensor_data_func_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
-                                                            arg2:
-                                                                *mut ::cty::c_void,
-                                                            arg3:
-                                                                *mut ::cty::c_void,
-                                                            arg4:
-                                                                sensor_type_t)
-                                           -> ::cty::c_int>;
+            pub type sensor_data_func_t =
+             ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
+                                                         arg2:
+                                                             *mut ::cty::c_void,
+                                                         arg3:
+                                                             *mut ::cty::c_void,
+                                                         arg4: sensor_type_t)
+                                        -> ::cty::c_int>;
             #[doc = " Callback for sending trigger notification."]
             #[doc = ""]
             #[doc = " - __`sensor`__: Ptr to the sensor"]
             #[doc = " - __`data`__: Ptr to sensor data"]
             #[doc = " - __`type`__: The sensor type"]
-            pub type sensor_trigger_notify_func_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
-                                                            arg2:
-                                                                *mut ::cty::c_void,
-                                                            arg3:
-                                                                sensor_type_t)
-                                           -> ::cty::c_int>;
+            pub type sensor_trigger_notify_func_t =
+             ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
+                                                         arg2:
+                                                             *mut ::cty::c_void,
+                                                         arg3: sensor_type_t)
+                                        -> ::cty::c_int>;
             #[doc = " Callback for trigger compare functions."]
             #[doc = ""]
             #[doc = " - __`type`__: Type of sensor"]
             #[doc = " - __`low_thresh`__: The sensor low threshold"]
             #[doc = " - __`high_thresh`__: The sensor high threshold"]
             #[doc = " - __`arg`__: Ptr to data"]
-            pub type sensor_trigger_cmp_func_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(arg1:
-                                                                sensor_type_t,
-                                                            arg2:
-                                                                *mut sensor_data_t,
-                                                            arg3:
-                                                                *mut sensor_data_t,
-                                                            arg4:
-                                                                *mut ::cty::c_void)
-                                           -> ::cty::c_int>;
+            pub type sensor_trigger_cmp_func_t =
+             ::core::option::Option<unsafe extern "C" fn(arg1: sensor_type_t,
+                                                         arg2:
+                                                             *mut sensor_data_t,
+                                                         arg3:
+                                                             *mut sensor_data_t,
+                                                         arg4:
+                                                             *mut ::cty::c_void)
+                                        -> ::cty::c_int>;
             #[doc = " Callback for event notifications."]
             #[doc = ""]
             #[doc = " - __`sensor`__: The sensor that observed the event"]
             #[doc =
               " - __`arg`__: The opaque argument provided during registration"]
             #[doc = " - __`event`__: The sensor event type that was observed"]
-            pub type sensor_notifier_func_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
-                                                            arg2:
-                                                                *mut ::cty::c_void,
-                                                            arg3:
-                                                                sensor_event_type_t)
-                                           -> ::cty::c_int>;
+            pub type sensor_notifier_func_t =
+             ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
+                                                         arg2:
+                                                             *mut ::cty::c_void,
+                                                         arg3:
+                                                             sensor_event_type_t)
+                                        -> ::cty::c_int>;
             #[doc = " Callback for reporting a sensor read error."]
             #[doc = ""]
             #[doc = " - __`sensor`__: The sensor for which a read failed."]
@@ -4192,14 +4236,12 @@ pub mod hw {
             #[doc =
               " - __`status`__: Indicates the cause of the read failure.  Determined by the"]
             #[doc = "               underlying sensor driver."]
-            pub type sensor_error_func_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(sensor:
-                                                                *mut sensor,
-                                                            arg:
-                                                                *mut ::cty::c_void,
-                                                            status:
-                                                                ::cty::c_int)>;
+            pub type sensor_error_func_t =
+             ::core::option::Option<unsafe extern "C" fn(sensor: *mut sensor,
+                                                         arg:
+                                                             *mut ::cty::c_void,
+                                                         status:
+                                                             ::cty::c_int)>;
             #[repr(C)]
             pub struct sensor_listener {
                 pub sl_sensor_type: sensor_type_t,
@@ -4302,17 +4344,15 @@ pub mod hw {
             #[doc = "        immediately (no wait.)"]
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero error code on failure."]
-            pub type sensor_read_func_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
-                                                            arg2:
-                                                                sensor_type_t,
-                                                            arg3:
-                                                                sensor_data_func_t,
-                                                            arg4:
-                                                                *mut ::cty::c_void,
-                                                            arg5: u32)
-                                           -> ::cty::c_int>;
+            pub type sensor_read_func_t =
+             ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
+                                                         arg2: sensor_type_t,
+                                                         arg3:
+                                                             sensor_data_func_t,
+                                                         arg4:
+                                                             *mut ::cty::c_void,
+                                                         arg5: u32)
+                                        -> ::cty::c_int>;
             #[doc =
               " Get the configuration of the sensor for the sensor type.  This includes"]
             #[doc = " the value type of the sensor."]
@@ -4324,14 +4364,12 @@ pub mod hw {
               " - __`cfg`__: A pointer to the sensor value to place the returned result into."]
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero error code on failure."]
-            pub type sensor_get_config_func_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
-                                                            arg2:
-                                                                sensor_type_t,
-                                                            arg3:
-                                                                *mut sensor_cfg)
-                                           -> ::cty::c_int>;
+            pub type sensor_get_config_func_t =
+             ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
+                                                         arg2: sensor_type_t,
+                                                         arg3:
+                                                             *mut sensor_cfg)
+                                        -> ::cty::c_int>;
             #[doc = " Send a new configuration register set to the sensor."]
             #[doc = ""]
             #[doc = " - __`sensor`__: Ptr to the sensor-specific stucture"]
@@ -4339,12 +4377,11 @@ pub mod hw {
               " - __`arg`__: Ptr to the sensor-specific configuration structure"]
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero error code on failure."]
-            pub type sensor_set_config_func_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
-                                                            arg2:
-                                                                *mut ::cty::c_void)
-                                           -> ::cty::c_int>;
+            pub type sensor_set_config_func_t =
+             ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
+                                                         arg2:
+                                                             *mut ::cty::c_void)
+                                        -> ::cty::c_int>;
             #[doc =
               " Set the trigger and threshold values for a specific sensor for the sensor"]
             #[doc = " type."]
@@ -4354,14 +4391,12 @@ pub mod hw {
             #[doc = " - __`stt`__: Ptr to teh sensor traits"]
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero error code on failure."]
-            pub type sensor_set_trigger_thresh_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
-                                                            arg2:
-                                                                sensor_type_t,
-                                                            stt:
-                                                                *mut sensor_type_traits)
-                                           -> ::cty::c_int>;
+            pub type sensor_set_trigger_thresh_t =
+             ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
+                                                         arg2: sensor_type_t,
+                                                         stt:
+                                                             *mut sensor_type_traits)
+                                        -> ::cty::c_int>;
             #[doc =
               " Clear the high/low threshold values for a specific sensor for the sensor"]
             #[doc = " type."]
@@ -4370,13 +4405,10 @@ pub mod hw {
             #[doc = " - __`type`__: Type of sensor"]
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero error code on failure."]
-            pub type sensor_clear_trigger_thresh_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(sensor:
-                                                                *mut sensor,
-                                                            type_:
-                                                                sensor_type_t)
-                                           -> ::cty::c_int>;
+            pub type sensor_clear_trigger_thresh_t =
+             ::core::option::Option<unsafe extern "C" fn(sensor: *mut sensor,
+                                                         type_: sensor_type_t)
+                                        -> ::cty::c_int>;
             #[doc =
               " Set the notification expectation for a targeted set of events for the"]
             #[doc =
@@ -4390,12 +4422,11 @@ pub mod hw {
               " - __`event`__: The mask of event types to expect notifications from."]
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero error code on failure."]
-            pub type sensor_set_notification_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
-                                                            arg2:
-                                                                sensor_event_type_t)
-                                           -> ::cty::c_int>;
+            pub type sensor_set_notification_t =
+             ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
+                                                         arg2:
+                                                             sensor_event_type_t)
+                                        -> ::cty::c_int>;
             #[doc =
               " Unset the notification expectation for a targeted set of events for the"]
             #[doc = " specific sensor."]
@@ -4404,31 +4435,27 @@ pub mod hw {
             #[doc = " - __`event`__: The mask of event types."]
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero error code on failure."]
-            pub type sensor_unset_notification_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
-                                                            arg2:
-                                                                sensor_event_type_t)
-                                           -> ::cty::c_int>;
+            pub type sensor_unset_notification_t =
+             ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
+                                                         arg2:
+                                                             sensor_event_type_t)
+                                        -> ::cty::c_int>;
             #[doc = " Let driver handle interrupt in the sensor context"]
             #[doc = ""]
             #[doc = " - __`sensor`__: Ptr to the sensor"]
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero error code on failure."]
-            pub type sensor_handle_interrupt_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(sensor:
-                                                                *mut sensor)
-                                           -> ::cty::c_int>;
+            pub type sensor_handle_interrupt_t =
+             ::core::option::Option<unsafe extern "C" fn(sensor: *mut sensor)
+                                        -> ::cty::c_int>;
             #[doc = " Reset Sensor function Ptr"]
             #[doc = ""]
             #[doc = " - __`Ptr`__: to the sensor"]
             #[doc = ""]
             #[doc = " Return: 0 on success, non-zero on failure"]
-            pub type sensor_reset_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor)
-                                           -> ::cty::c_int>;
+            pub type sensor_reset_t =
+             ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor)
+                                        -> ::cty::c_int>;
             #[repr(C)]
             pub struct sensor_driver {
                 pub sd_read: sensor_read_func_t,
@@ -4578,7 +4605,8 @@ pub mod hw {
                 #[doc = ""]
                 #[doc = " Return: 0 on success, non-zero on failure."]
                 pub fn sensor_itf_lock(si: *mut sensor_itf,
-                                       timeout: os_time_t) -> ::cty::c_int;
+                                       timeout: os_time_t)
+                -> ::cty::c_int;
             }
             extern "C" {
                 #[doc = " Unlock access to the sensor_itf specified by si."]
@@ -4598,7 +4626,7 @@ pub mod hw {
                 #[doc =
                   " Return: 0 on success, non-zero error code on failure."]
                 pub fn sensor_init(sensor: *mut sensor, dev: *mut os_dev)
-                 -> ::cty::c_int;
+                -> ::cty::c_int;
             }
             extern "C" {
                 #[doc =
@@ -4607,7 +4635,8 @@ pub mod hw {
                 #[doc = " - __`sensor`__: The sensor to lock"]
                 #[doc = ""]
                 #[doc = " Return: 0 on success, non-zero on failure."]
-                pub fn sensor_lock(sensor: *mut sensor) -> ::cty::c_int;
+                pub fn sensor_lock(sensor: *mut sensor)
+                -> ::cty::c_int;
             }
             extern "C" {
                 #[doc = " Unlock access to the sensor specified by sensor."]
@@ -4634,7 +4663,7 @@ pub mod hw {
                 pub fn sensor_register_listener(sensor: *mut sensor,
                                                 listener:
                                                     *mut sensor_listener)
-                 -> ::cty::c_int;
+                -> ::cty::c_int;
             }
             extern "C" {
                 #[doc =
@@ -4650,7 +4679,7 @@ pub mod hw {
                 pub fn sensor_unregister_listener(sensor: *mut sensor,
                                                   listener:
                                                       *mut sensor_listener)
-                 -> ::cty::c_int;
+                -> ::cty::c_int;
             }
             extern "C" {
                 #[doc =
@@ -4669,7 +4698,7 @@ pub mod hw {
                 pub fn sensor_register_err_func(sensor: *mut sensor,
                                                 err_fn: sensor_error_func_t,
                                                 arg: *mut ::cty::c_void)
-                 -> ::cty::c_int;
+                -> ::cty::c_int;
             }
             extern "C" {
                 #[doc =
@@ -4685,7 +4714,7 @@ pub mod hw {
                 pub fn sensor_register_notifier(sensor: *mut sensor,
                                                 notifier:
                                                     *mut sensor_notifier)
-                 -> ::cty::c_int;
+                -> ::cty::c_int;
             }
             extern "C" {
                 #[doc =
@@ -4703,7 +4732,7 @@ pub mod hw {
                 pub fn sensor_unregister_notifier(sensor: *mut sensor,
                                                   notifier:
                                                       *mut sensor_notifier)
-                 -> ::cty::c_int;
+                -> ::cty::c_int;
             }
             #[doc =
               " Read the data for sensor type \"type,\" from the given sensor and"]
@@ -4743,7 +4772,7 @@ pub mod hw {
                                        type_: sensor_type_t,
                                        data_func: sensor_data_func_t,
                                        arg: *mut ::cty::c_void, timeout: u32)
-                     -> ::cty::c_int;
+                    -> ::cty::c_int;
                 }
                 "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
                 unsafe {
@@ -4762,7 +4791,8 @@ pub mod hw {
             }
             extern "C" {
                 #[doc = " Lock sensor manager to access the list of sensors"]
-                pub fn sensor_mgr_lock() -> ::cty::c_int;
+                pub fn sensor_mgr_lock()
+                -> ::cty::c_int;
             }
             extern "C" {
                 #[doc =
@@ -4780,7 +4810,7 @@ pub mod hw {
                 #[doc =
                   " Return: 0 on success, non-zero error code on failure."]
                 pub fn sensor_mgr_register(sensor: *mut sensor)
-                 -> ::cty::c_int;
+                -> ::cty::c_int;
             }
             extern "C" {
                 #[doc =
@@ -4789,14 +4819,14 @@ pub mod hw {
                 #[doc = ""]
                 #[doc =
                   " Return: Ptr OS eventq that the sensor mgr is set to"]
-                pub fn sensor_mgr_evq_get() -> *mut os_eventq;
+                pub fn sensor_mgr_evq_get()
+                -> *mut os_eventq;
             }
-            pub type sensor_mgr_compare_func_t
-                =
-                ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
-                                                            arg2:
-                                                                *mut ::cty::c_void)
-                                           -> ::cty::c_int>;
+            pub type sensor_mgr_compare_func_t =
+             ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
+                                                         arg2:
+                                                             *mut ::cty::c_void)
+                                        -> ::cty::c_int>;
             extern "C" {
                 #[doc =
                   " The sensor manager contains a list of sensors, this function returns"]
@@ -4829,7 +4859,8 @@ pub mod hw {
                 #[doc = ""]
                 pub fn sensor_mgr_find_next(arg1: sensor_mgr_compare_func_t,
                                             arg2: *mut ::cty::c_void,
-                                            arg3: *mut sensor) -> *mut sensor;
+                                            arg3: *mut sensor)
+                -> *mut sensor;
             }
             extern "C" {
                 #[doc =
@@ -4849,7 +4880,7 @@ pub mod hw {
                 #[doc = "         none found."]
                 pub fn sensor_mgr_find_next_bytype(type_: sensor_type_t,
                                                    sensor: *mut sensor)
-                 -> *mut sensor;
+                -> *mut sensor;
             }
             #[doc =
               " Search the sensor list and find the next sensor that corresponds"]
@@ -4879,7 +4910,7 @@ pub mod hw {
                                                               *const ::cty::c_char,
                                                           prev_cursor:
                                                               *mut sensor)
-                     -> *mut sensor;
+                    -> *mut sensor;
                 }
                 "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
                 devname.validate();
@@ -4903,7 +4934,7 @@ pub mod hw {
                 #[doc = " Return: 1 if matches, 0 if it doesn't match."]
                 pub fn sensor_mgr_match_bytype(sensor: *mut sensor,
                                                arg1: *mut ::cty::c_void)
-                 -> ::cty::c_int;
+                -> ::cty::c_int;
             }
             #[doc = " Set the sensor poll rate"]
             #[doc = ""]
@@ -4921,7 +4952,7 @@ pub mod hw {
                     pub fn sensor_set_poll_rate_ms(devname:
                                                        *const ::cty::c_char,
                                                    poll_rate: u32)
-                     -> ::cty::c_int;
+                    -> ::cty::c_int;
                 }
                 "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
                 devname.validate();
@@ -4945,7 +4976,7 @@ pub mod hw {
                 #[doc = " - __`stt`__: The sensor type trait"]
                 pub fn sensor_set_n_poll_rate(devname: *const ::cty::c_char,
                                               stt: *mut sensor_type_traits)
-                 -> ::cty::c_int;
+                -> ::cty::c_int;
             }
             extern "C" {
                 #[doc = " Transmit OIC trigger"]
@@ -4958,7 +4989,7 @@ pub mod hw {
                 pub fn sensor_oic_tx_trigger(sensor: *mut sensor,
                                              arg: *mut ::cty::c_void,
                                              type_: sensor_type_t)
-                 -> ::cty::c_int;
+                -> ::cty::c_int;
             }
             extern "C" {
                 #[doc = " Sensor trigger initialization"]
@@ -4984,7 +5015,7 @@ pub mod hw {
                 #[doc = " when found"]
                 pub fn sensor_get_type_traits_bytype(type_: sensor_type_t,
                                                      sensor: *mut sensor)
-                 -> *mut sensor_type_traits;
+                -> *mut sensor_type_traits;
             }
             extern "C" {
                 #[doc = " Get the type traits for a sensor"]
@@ -4999,7 +5030,7 @@ pub mod hw {
                                                      arg2:
                                                          *mut *mut sensor_type_traits,
                                                      arg3: sensor_type_t)
-                 -> *mut sensor;
+                -> *mut sensor;
             }
             extern "C" {
                 #[doc =
@@ -5012,7 +5043,7 @@ pub mod hw {
                 #[doc = " Return: 0 on success, non-zero on failure"]
                 pub fn sensor_set_thresh(devname: *const ::cty::c_char,
                                          stt: *mut sensor_type_traits)
-                 -> ::cty::c_int;
+                -> ::cty::c_int;
             }
             extern "C" {
                 #[doc = " Clears the low threshold for a sensor"]
@@ -5023,7 +5054,7 @@ pub mod hw {
                 #[doc = " Return: 0 on success, non-zero on failure"]
                 pub fn sensor_clear_low_thresh(devname: *const ::cty::c_char,
                                                type_: sensor_type_t)
-                 -> ::cty::c_int;
+                -> ::cty::c_int;
             }
             extern "C" {
                 #[doc = " Clears the high threshold for a sensor"]
@@ -5034,7 +5065,7 @@ pub mod hw {
                 #[doc = " Return: 0 on success, non-zero on failure"]
                 pub fn sensor_clear_high_thresh(devname: *const ::cty::c_char,
                                                 type_: sensor_type_t)
-                 -> ::cty::c_int;
+                -> ::cty::c_int;
             }
             extern "C" {
                 #[doc =
@@ -5063,7 +5094,8 @@ pub mod hw {
                 #[doc = " Resets the sensor"]
                 #[doc = ""]
                 #[doc = " - __`Ptr`__: to sensor"]
-                pub fn sensor_reset(sensor: *mut sensor) -> ::cty::c_int;
+                pub fn sensor_reset(sensor: *mut sensor)
+                -> ::cty::c_int;
             }
             #[repr(C, packed)]
             pub struct sensor_accel_data {
@@ -6229,19 +6261,20 @@ pub mod hw {
                 fn default() -> Self { unsafe { ::core::mem::zeroed() } }
             }
             extern "C" {
-                pub static mut sensor_mgr: _bindgen_ty_1;
+                pub static mut sensor_mgr: _bindgen_ty_1 ;
             }
             extern "C" {
-                pub static mut sensor_base_ts: sensor_timestamp;
+                pub static mut sensor_base_ts: sensor_timestamp ;
             }
             extern "C" {
-                pub static mut sensor_read_event: os_event;
+                pub static mut sensor_read_event: os_event ;
             }
             extern "C" {
-                pub static mut sensor_notify_evt_pool: os_mempool;
+                pub static mut sensor_notify_evt_pool: os_mempool ;
             }
             extern "C" {
-                pub static mut sensor_notify_evt_area: [os_membuf_t; 60usize];
+                pub static mut sensor_notify_evt_area: [os_membuf_t; 60usize]
+                 ;
             }
         }
         /// Export all bindings. TODO: Export only the API bindings.
@@ -6296,8 +6329,7 @@ pub mod hw {
                                                                                                                                                    ::core::fmt::Debug::fmt),
                                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                                    ::core::fmt::Display::fmt)],
-                                                                                                                 }),
-                                                                                 ::core::panic::Location::caller())
+                                                                                                                 }))
                                                 }
                                             }
                                         }
@@ -6330,8 +6362,7 @@ pub mod hw {
                                                                                                                                                    ::core::fmt::Debug::fmt),
                                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                                    ::core::fmt::Display::fmt)],
-                                                                                                                 }),
-                                                                                 ::core::panic::Location::caller())
+                                                                                                                 }))
                                                 }
                                             }
                                         }
@@ -6401,8 +6432,7 @@ pub mod hw {
                                                                                                                                    ::core::fmt::Debug::fmt),
                                                                                                       ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                    ::core::fmt::Display::fmt)],
-                                                                                                 }),
-                                                                 ::core::panic::Location::caller())
+                                                                                                 }))
                                 }
                             }
                         }
@@ -6416,9 +6446,8 @@ pub mod hw {
             Ok(())
         }
         ///  Wrapped version of `sensor_data_func` used by Visual Embedded Rust
-        pub type SensorValueFunc
-            =
-            fn(sensor_value: &SensorValue) -> MynewtResult<()>;
+        pub type SensorValueFunc =
+         fn(sensor_value: &SensorValue) -> MynewtResult<()>;
         ///  Return a new `sensor_listener` with the sensor type and sensor value function. Called by Visual Embedded Rust.
         pub fn new_sensor_listener(sensor_key: &'static Strn,
                                    sensor_type: sensor_type_t,
@@ -6507,7 +6536,7 @@ pub mod hw {
         ///  List of wrapped sensor listeners
         const MAX_SENSOR_LISTENERS: usize = 2;
         static mut SENSOR_LISTENERS:
-               [sensor_listener_info; MAX_SENSOR_LISTENERS] =
+         [sensor_listener_info; MAX_SENSOR_LISTENERS] =
             [sensor_listener_info{sensor_key:
                                       &Strn{rep:
                                                 mynewt::StrnRep::ByteStr(b"\x00"),},
@@ -6552,30 +6581,36 @@ pub mod hw {
             ///  Copy the sensor data into `dest`.  Return 0 if successful.
             ///  C API: `int get_temp_raw_data(void *sensor_data, struct sensor_temp_raw_data *dest)`
             pub fn get_temp_raw_data(sensor_data: sensor_data_ptr,
-                                     dest: *mut sensor_temp_raw_data) -> i32;
+                                     dest: *mut sensor_temp_raw_data)
+            -> i32;
             ///  Interpret `sensor_data` as a `sensor_temp_data` struct that contains computed temp.
             ///  Copy the sensor data into `dest`.  Return 0 if successful.
             ///  C API: `int get_temp_data(void *sensor_data, struct sensor_temp_data *dest)`
             pub fn get_temp_data(sensor_data: sensor_data_ptr,
-                                 dest: *mut sensor_temp_data) -> i32;
+                                 dest: *mut sensor_temp_data)
+            -> i32;
             ///  Interpret `sensor_data` as a `sensor_geolocation_data` struct that contains geolocation.
             ///  Copy the sensor data into `dest`.  Return 0 if successful.
             ///  C API: `int get_geolocation_data(void *sensor_data, struct sensor_geolocation_data *dest)`
             pub fn get_geolocation_data(sensor_data: sensor_data_ptr,
                                         dest: *mut sensor_geolocation_data)
-             -> i32;
+            -> i32;
             ///  Return the Mynewt device for the Mynewt sensor.
             ///  C API: `struct os_dev *sensor_get_device(struct sensor *s)`
-            pub fn sensor_get_device(sensor: sensor_ptr) -> *mut os_dev;
+            pub fn sensor_get_device(sensor: sensor_ptr)
+            -> *mut os_dev;
             ///  Return the NULL sensor.
             ///  C API: `struct sensor *null_sensor(void)`
-            pub fn null_sensor() -> sensor_ptr;
+            pub fn null_sensor()
+            -> sensor_ptr;
             ///  Return non-zero if sensor is NULL.
             ///  C API: `int is_null_sensor(struct sensor *p)`
-            pub fn is_null_sensor(sensor: sensor_ptr) -> bool;
+            pub fn is_null_sensor(sensor: sensor_ptr)
+            -> bool;
             ///  Return non-zero if sensor data is NULL.
             ///  C API: `int is_null_sensor_data(void *p)`
-            pub fn is_null_sensor_data(sensor_data: sensor_data_ptr) -> bool;
+            pub fn is_null_sensor_data(sensor_data: sensor_data_ptr)
+            -> bool;
         }
         ///  Sensor type for raw temperature sensor and geolocation.
         ///  Must sync with libs/custom_sensor/include/custom_sensor/custom_sensor.h
@@ -6673,17 +6708,15 @@ pub mod hw {
         /// Points to sensor data passed by Mynewt to sensor listener
         pub type sensor_data_ptr = *mut c_void;
         /// Sensor data function that returns `MynewtError` instead of `i32`
-        pub type sensor_data_func
-            =
-            unsafe extern "C" fn(sensor: sensor_ptr, arg: sensor_arg,
-                                 data: sensor_data_ptr, stype: sensor_type_t)
-                -> MynewtError;
+        pub type sensor_data_func =
+         unsafe extern "C" fn(sensor: sensor_ptr, arg: sensor_arg,
+                              data: sensor_data_ptr, stype: sensor_type_t)
+             -> MynewtError;
         /// Sensor data function that returns `i32` instead of `MynewtError`
-        pub type sensor_data_func_untyped
-            =
-            unsafe extern "C" fn(sensor: sensor_ptr, arg: sensor_arg,
-                                 data: sensor_data_ptr, stype: sensor_type_t)
-                -> i32;
+        pub type sensor_data_func_untyped =
+         unsafe extern "C" fn(sensor: sensor_ptr, arg: sensor_arg,
+                              data: sensor_data_ptr, stype: sensor_type_t)
+             -> i32;
         /// Cast sensor data function from typed to untyped
         pub fn as_untyped(typed: sensor_data_func)
          -> Option<sensor_data_func_untyped> {
@@ -6718,10 +6751,7 @@ pub mod hw {
         /// Implement the iterator for finding a sensor by device name
         impl Iterator for SensorsByDevname {
             /// Iterator returns a pointer to a sensor
-            type
-            Item
-            =
-            sensor_ptr;
+            type Item = sensor_ptr;
             /// Return the next sensor that matches the device name    
             fn next(&mut self) -> Option<sensor_ptr> {
                 let sensor =
@@ -6847,14 +6877,14 @@ pub mod encoding {
         ///  - __Remaining tokens__ again, for error display
         #[macro_export]
         macro_rules! parse {
-            (@ $ enc : ident @ object $ object : ident () () ()) => { } ;
+            (@ $ enc : ident @ object $ object : ident() () ()) => { } ;
             (@ none @ object $ object : ident [$ ($ key : tt) +]
              ($ value : expr), $ ($ rest : tt) *) =>
             {
                 d !
                 (TODO : add key : $ ($ key) +, value : $ value, to object : $
                  object) ; $ crate :: parse !
-                (@ none @ object $ object () ($ ($ rest) *) ($ ($ rest) *)) ;
+                (@ none @ object $ object() ($ ($ rest) *) ($ ($ rest) *)) ;
             } ;
             (@ $ enc : ident @ object $ object : ident [$ ($ key : tt) +]
              ($ value : expr), $ ($ rest : tt) *) =>
@@ -6864,7 +6894,7 @@ pub mod encoding {
                 ; $ crate :: coap_item_str !
                 (@ $ enc $ object, $ ($ key) +, $ value) ;
                 "--------------------" ; $ crate :: parse !
-                (@ $ enc @ object $ object () ($ ($ rest) *) ($ ($ rest) *)) ;
+                (@ $ enc @ object $ object() ($ ($ rest) *) ($ ($ rest) *)) ;
             } ;
             (@ $ enc : ident @ object $ object : ident [$ ($ key : tt) +]
              ($ value : expr) $ unexpected : tt $ ($ rest : tt) *) =>
@@ -6876,28 +6906,28 @@ pub mod encoding {
                 (TODO : add2 key : $ ($ key) + value : $ value to object : $
                  object) ;
             } ;
-            (@ $ enc : ident @ object $ object : ident ($ ($ key : tt) +)
+            (@ $ enc : ident @ object $ object : ident($ ($ key : tt) +)
              (: null $ ($ rest : tt) *) $ copy : tt) =>
             {
                 $ crate :: parse !
                 (@ $ enc @ object $ object [$ ($ key) +]
                  ($ crate :: parse ! (@ $ enc null)) $ ($ rest) *) ;
             } ;
-            (@ $ enc : ident @ object $ object : ident ($ ($ key : tt) +)
+            (@ $ enc : ident @ object $ object : ident($ ($ key : tt) +)
              (: true $ ($ rest : tt) *) $ copy : tt) =>
             {
                 $ crate :: parse !
                 (@ $ enc @ object $ object [$ ($ key) +]
                  ($ crate :: parse ! (@ $ enc true)) $ ($ rest) *) ;
             } ;
-            (@ $ enc : ident @ object $ object : ident ($ ($ key : tt) +)
+            (@ $ enc : ident @ object $ object : ident($ ($ key : tt) +)
              (: false $ ($ rest : tt) *) $ copy : tt) =>
             {
                 $ crate :: parse !
                 (@ $ enc @ object $ object [$ ($ key) +]
                  ($ crate :: parse ! (@ $ enc false)) $ ($ rest) *) ;
             } ;
-            (@ $ enc : ident @ object $ object : ident ($ ($ key : tt) +)
+            (@ $ enc : ident @ object $ object : ident($ ($ key : tt) +)
              (: [$ ($ array : tt) *] $ ($ rest : tt) *) $ copy : tt) =>
             {
                 $ crate :: parse !
@@ -6905,7 +6935,7 @@ pub mod encoding {
                  ($ crate :: parse ! (@ $ enc [$ ($ array) *])) $ ($ rest) *)
                 ;
             } ;
-            (@ $ enc : ident @ object $ object : ident ($ ($ key : tt) +)
+            (@ $ enc : ident @ object $ object : ident($ ($ key : tt) +)
              (: { $ ($ map : tt) * } $ ($ rest : tt) *) $ copy : tt) =>
             {
                 $ crate :: parse !
@@ -6913,96 +6943,96 @@ pub mod encoding {
                  ($ crate :: parse ! (@ $ enc { $ ($ map) * })) $ ($ rest) *)
                 ;
             } ;
-            (@ $ enc : ident @ object $ object : ident ($ ($ key : tt) +)
+            (@ $ enc : ident @ object $ object : ident($ ($ key : tt) +)
              (: $ value : expr, $ ($ rest : tt) *) $ copy : tt) =>
             {
                 $ crate :: parse !
                 (@ $ enc @ object $ object [$ ($ key) +]
                  ($ crate :: parse ! (@ $ enc $ value)), $ ($ rest) *) ;
             } ;
-            (@ $ enc : ident @ object $ object : ident ($ ($ key : tt) +)
+            (@ $ enc : ident @ object $ object : ident($ ($ key : tt) +)
              (: $ value : expr) $ copy : tt) =>
             {
                 $ crate :: parse !
                 (@ $ enc @ object $ object [$ ($ key) +]
                  ($ crate :: parse ! (@ $ enc $ value))) ;
             } ;
-            (@ $ enc : ident @ object $ object : ident ($ ($ key : tt) +) (:)
-             $ copy : tt) => { $ crate :: parse ! () ; } ;
-            (@ none @ object $ object : ident ($ ($ key : tt) +) () $ copy :
+            (@ $ enc : ident @ object $ object : ident($ ($ key : tt) +) (:) $
+             copy : tt) => { $ crate :: parse ! () ; } ;
+            (@ none @ object $ object : ident($ ($ key : tt) +) () $ copy :
              tt) =>
             {
                 d !
                 (TODO : extract key, value from _sensor_value : $ ($ key) +
                  and add to _object : $ object) ; "--------------------" ;
             } ;
-            (@ json @ object $ object : ident ($ ($ key : tt) +) () $ copy :
+            (@ json @ object $ object : ident($ ($ key : tt) +) () $ copy :
              tt) =>
             {
                 "--------------------" ; $ crate :: coap_item_int_val !
                 (@ json $ object, $ ($ key) +) ; "--------------------" ;
             } ;
-            (@ cbor @ object $ object : ident ($ ($ key : tt) +) () $ copy :
+            (@ cbor @ object $ object : ident($ ($ key : tt) +) () $ copy :
              tt) =>
             {
                 "--------------------" ; $ crate :: coap_item_int_val !
                 (@ cbor $ object, $ ($ key) +) ; "--------------------" ;
             } ;
-            (@ cbormin @ object $ object : ident ($ ($ key : tt) +) () $ copy
-             : tt) =>
+            (@ cbormin @ object $ object : ident($ ($ key : tt) +) () $ copy :
+             tt) =>
             {
                 "--------------------" ; $ crate :: coap_set_int_val !
                 (@ cbor $ object, $ ($ key) +) ; "--------------------" ;
             } ;
-            (@ $ enc : ident @ object $ object : ident ()
-             (: $ ($ rest : tt) *) ($ colon : tt $ ($ copy : tt) *)) =>
+            (@ $ enc : ident @ object $ object : ident() (: $ ($ rest : tt) *)
+             ($ colon : tt $ ($ copy : tt) *)) =>
             { $ crate :: unexpected_token ! ($ colon) ; } ;
-            (@ none @ object $ object : ident ($ ($ key : tt) *)
+            (@ none @ object $ object : ident($ ($ key : tt) *)
              (, $ ($ rest : tt) *) ($ comma : tt $ ($ copy : tt) *)) =>
             {
                 d !
                 (TODO : extract key, value from _sensor_value : $ ($ key) *
                  and add to _object : $ object) ; "--------------------" ; $
                 crate :: parse !
-                (@ none @ object $ object () ($ ($ rest) *) ($ ($ rest) *)) ;
+                (@ none @ object $ object() ($ ($ rest) *) ($ ($ rest) *)) ;
             } ;
-            (@ json @ object $ object : ident ($ ($ key : tt) *)
+            (@ json @ object $ object : ident($ ($ key : tt) *)
              (, $ ($ rest : tt) *) ($ comma : tt $ ($ copy : tt) *)) =>
             {
                 "--------------------" ; $ crate :: coap_item_int_val !
                 (@ json $ object, $ ($ key) *) ; "--------------------" ; $
                 crate :: parse !
-                (@ json @ object $ object () ($ ($ rest) *) ($ ($ rest) *)) ;
+                (@ json @ object $ object() ($ ($ rest) *) ($ ($ rest) *)) ;
             } ;
-            (@ cbor @ object $ object : ident ($ ($ key : tt) *)
+            (@ cbor @ object $ object : ident($ ($ key : tt) *)
              (, $ ($ rest : tt) *) ($ comma : tt $ ($ copy : tt) *)) =>
             {
                 "--------------------" ; $ crate :: coap_item_int_val !
                 (@ cbor $ object, $ ($ key) *) ; "--------------------" ; $
                 crate :: parse !
-                (@ cbor @ object $ object () ($ ($ rest) *) ($ ($ rest) *)) ;
+                (@ cbor @ object $ object() ($ ($ rest) *) ($ ($ rest) *)) ;
             } ;
-            (@ cbormin @ object $ object : ident ($ ($ key : tt) *)
+            (@ cbormin @ object $ object : ident($ ($ key : tt) *)
              (, $ ($ rest : tt) *) ($ comma : tt $ ($ copy : tt) *)) =>
             {
                 "--------------------" ; $ crate :: coap_set_int_val !
                 (@ cbor $ object, $ ($ key) *) ; "--------------------" ; $
                 crate :: parse !
-                (@ cbor @ object $ object () ($ ($ rest) *) ($ ($ rest) *)) ;
+                (@ cbor @ object $ object() ($ ($ rest) *) ($ ($ rest) *)) ;
             } ;
-            (@ $ enc : ident @ object $ object : ident ()
+            (@ $ enc : ident @ object $ object : ident()
              (($ key : expr) : $ ($ rest : tt) *) $ copy : tt) =>
             {
-                d ! (got ()) ; $ crate :: parse !
-                (@ $ enc @ object $ object ($ key) (: $ ($ rest) *)
+                d ! (got()) ; $ crate :: parse !
+                (@ $ enc @ object $ object($ key) (: $ ($ rest) *)
                  (: $ ($ rest) *)) ;
             } ;
-            (@ $ enc : ident @ object $ object : ident ($ ($ key : tt) *)
+            (@ $ enc : ident @ object $ object : ident($ ($ key : tt) *)
              ($ tt : tt $ ($ rest : tt) *) $ copy : tt) =>
             {
                 $ crate :: nx ! (($ ($ key) *), ($ tt), ($ ($ rest) *)) ; $
                 crate :: parse !
-                (@ $ enc @ object $ object ($ ($ key) * $ tt) ($ ($ rest) *)
+                (@ $ enc @ object $ object($ ($ key) * $ tt) ($ ($ rest) *)
                  ($ ($ rest) *)) ;
             } ; (@ $ enc : ident @ array [$ ($ elems : expr,) *]) =>
             { parse_vector ! [$ ($ elems,) *] } ;
@@ -7087,9 +7117,9 @@ pub mod encoding {
             {
                 {
                     d ! (begin none root) ; let root = _ROOT ; $ crate ::
-                    parse !
-                    (@ none @ object root () ($ ($ tt) +) ($ ($ tt) +)) ; d !
-                    (end none root) ; d ! (return none root to caller) ; root
+                    parse ! (@ none @ object root() ($ ($ tt) +) ($ ($ tt) +))
+                    ; d ! (end none root) ; d ! (return none root to caller) ;
+                    root
                 }
             } ; (@ json { $ ($ tt : tt) + }) =>
             {
@@ -7101,7 +7131,7 @@ pub mod encoding {
                          (@ json COAP_CONTEXT, values,
                           {
                               $ crate :: parse !
-                              (@ json @ object COAP_CONTEXT () ($ ($ tt) +)
+                              (@ json @ object COAP_CONTEXT() ($ ($ tt) +)
                                ($ ($ tt) +)) ;
                           }) ;
                      }) ; d ! (end json root) ; ()
@@ -7116,7 +7146,7 @@ pub mod encoding {
                          (@ cbor root, values,
                           {
                               $ crate :: parse !
-                              (@ cbor @ object values () ($ ($ tt) +)
+                              (@ cbor @ object values() ($ ($ tt) +)
                                ($ ($ tt) +)) ;
                           }) ;
                      }) ; d ! (end cbor root) ; ()
@@ -7128,7 +7158,7 @@ pub mod encoding {
                     (@ cbormin COAP_CONTEXT
                      {
                          $ crate :: parse !
-                         (@ cbormin @ object COAP_CONTEXT () ($ ($ tt) +)
+                         (@ cbormin @ object COAP_CONTEXT() ($ ($ tt) +)
                           ($ ($ tt) +)) ;
                      }) ; d ! (end cbor root) ; ()
                 }
@@ -7150,8 +7180,9 @@ pub mod encoding {
                 {
                     d ! (begin cbor coap_root) ; unsafe
                     {
-                        mynewt :: libs :: sensor_network :: prepare_post
-                        (mynewt :: encoding :: APPLICATION_CBOR) ? ;
+                        mynewt :: libs :: sensor_network ::
+                        prepare_post(mynewt :: encoding :: APPLICATION_CBOR) ?
+                        ;
                     } $ crate :: oc_rep_start_root_object ! ($ context) ; $
                     children0 ; $ crate :: oc_rep_end_root_object !
                     ($ context) ; d ! (end cbor coap_root) ;
@@ -7161,16 +7192,17 @@ pub mod encoding {
                 {
                     d ! (begin json coap_root) ; unsafe
                     {
-                        mynewt :: libs :: sensor_network :: prepare_post
-                        (mynewt :: encoding :: APPLICATION_JSON) ? ;
+                        mynewt :: libs :: sensor_network ::
+                        prepare_post(mynewt :: encoding :: APPLICATION_JSON) ?
+                        ;
                     } unsafe
                     {
                         mynewt :: libs :: sensor_coap ::
-                        json_rep_start_root_object () ;
+                        json_rep_start_root_object() ;
                     } $ children0 ; unsafe
                     {
                         mynewt :: libs :: sensor_coap ::
-                        json_rep_end_root_object () ;
+                        json_rep_end_root_object() ;
                     } d ! (end json coap_root) ;
                 }
             } ;
@@ -7232,9 +7264,10 @@ pub mod encoding {
                          json_rep_set_int ! ($ array0, "value", $ value0) ;
                          unsafe
                          {
-                             $ array0 . json_set_geolocation
-                             (strn ! ("geo"), strn ! ("lat"), strn ! ("long"),
-                              $ geo0)
+                             $ array0 .
+                             json_set_geolocation(strn ! ("geo"), strn !
+                                                  ("lat"), strn ! ("long"), $
+                                                  geo0)
                          } ;
                      }) ; d ! (end json coap_item_int) ;
                 }
@@ -7302,15 +7335,14 @@ pub mod encoding {
                 {
                     d !
                     (begin cbor coap_set_int_val, c : $ context, val : $ val0)
-                    ; if let SensorValueType :: Uint (val) = $ val0 . value
+                    ; if let SensorValueType :: Uint(val) = $ val0 . value
                     {
                         $ crate :: oc_rep_set_int !
                         ($ context, $ val0 . key, val) ;
                     } else
                     {
                         unsafe
-                        { COAP_CONTEXT . fail (CoapError :: VALUE_NOT_UINT) }
-                        ;
+                        { COAP_CONTEXT . fail(CoapError :: VALUE_NOT_UINT) } ;
                     } d ! (end cbor coap_set_int_val) ;
                 }
             } ; (@ json $ context : ident, $ val0 : expr) =>
@@ -7318,15 +7350,14 @@ pub mod encoding {
                 {
                     d !
                     (begin json coap_set_int_val, c : $ context, val : $ val0)
-                    ; if let SensorValueType :: Uint (val) = $ val0 . value
+                    ; if let SensorValueType :: Uint(val) = $ val0 . value
                     {
                         $ crate :: json_rep_set_int !
                         ($ context, $ val0 . key, val) ;
                     } else
                     {
                         unsafe
-                        { COAP_CONTEXT . fail (CoapError :: VALUE_NOT_UINT) }
-                        ;
+                        { COAP_CONTEXT . fail(CoapError :: VALUE_NOT_UINT) } ;
                     } d ! (end json coap_set_int_val) ;
                 }
             } ;
@@ -7341,15 +7372,14 @@ pub mod encoding {
                     d !
                     (begin cbor coap_item_int_val, c : $ context, val : $
                      val0) ; let geo = $ val0 . geo ; if let SensorValueType
-                    :: Uint (val) = $ val0 . value
+                    :: Uint(val) = $ val0 . value
                     {
                         $ crate :: coap_item_int !
                         (@ cbor $ context, $ val0 . key, val, geo) ;
                     } else
                     {
                         unsafe
-                        { COAP_CONTEXT . fail (CoapError :: VALUE_NOT_UINT) }
-                        ;
+                        { COAP_CONTEXT . fail(CoapError :: VALUE_NOT_UINT) } ;
                     } d ! (end cbor coap_item_int_val) ;
                 }
             } ; (@ json $ context : ident, $ val0 : expr) =>
@@ -7358,15 +7388,14 @@ pub mod encoding {
                     d !
                     (begin json coap_item_int_val, c : $ context, val : $
                      val0) ; let geo = $ val0 . geo ; if let SensorValueType
-                    :: Uint (val) = $ val0 . value
+                    :: Uint(val) = $ val0 . value
                     {
                         $ crate :: coap_item_int !
                         (@ json $ context, $ val0 . key, val, geo) ;
                     } else
                     {
                         unsafe
-                        { COAP_CONTEXT . fail (CoapError :: VALUE_NOT_UINT) }
-                        ;
+                        { COAP_CONTEXT . fail(CoapError :: VALUE_NOT_UINT) } ;
                     } d ! (end json coap_item_int_val) ;
                 }
             } ;
@@ -7385,9 +7414,11 @@ pub mod encoding {
                      stringify ! ($ key)) ; let key_with_null : & str = $
                     crate :: stringify_null ! ($ key) ; unsafe
                     {
-                        mynewt :: libs :: mynewt_rust :: json_helper_set_array
-                        ($ context . to_void_ptr (), $ context . key_to_cstr
-                         (key_with_null . as_bytes ())) ;
+                        mynewt :: libs :: mynewt_rust ::
+                        json_helper_set_array($ context . to_void_ptr(), $
+                                              context .
+                                              key_to_cstr(key_with_null .
+                                                          as_bytes())) ;
                     } ;
                 }
             } ; ($ context : ident, $ key : expr) =>
@@ -7396,11 +7427,13 @@ pub mod encoding {
                     concat !
                     ("<< jarre ", ", o: ", stringify ! ($ context), ", k: ",
                      stringify ! ($ key)) ; let key_with_opt_null : & [u8] = $
-                    key . to_bytes_optional_nul () ; unsafe
+                    key . to_bytes_optional_nul() ; unsafe
                     {
-                        mynewt :: libs :: mynewt_rust :: json_helper_set_array
-                        ($ context . to_void_ptr (), $ context . key_to_cstr
-                         (key_with_opt_null)) ;
+                        mynewt :: libs :: mynewt_rust ::
+                        json_helper_set_array($ context . to_void_ptr(), $
+                                              context .
+                                              key_to_cstr(key_with_opt_null))
+                        ;
                     } ;
                 }
             } ;
@@ -7418,21 +7451,22 @@ pub mod encoding {
                     stringify_null ! ($ key) ; unsafe
                     {
                         mynewt :: libs :: mynewt_rust ::
-                        json_helper_close_array
-                        ($ context . to_void_ptr (), $ context . key_to_cstr
-                         (key_with_null . as_bytes ()))
+                        json_helper_close_array($ context . to_void_ptr(), $
+                                                context .
+                                                key_to_cstr(key_with_null .
+                                                            as_bytes()))
                     } ;
                 }
             } ; ($ context : ident, $ key : expr) =>
             {
                 {
                     concat ! (">>") ; let key_with_opt_null : & [u8] = $ key .
-                    to_bytes_optional_nul () ; unsafe
+                    to_bytes_optional_nul() ; unsafe
                     {
                         mynewt :: libs :: mynewt_rust ::
-                        json_helper_close_array
-                        ($ context . to_void_ptr (), $ context . key_to_cstr
-                         (key_with_opt_null))
+                        json_helper_close_array($ context . to_void_ptr(), $
+                                                context .
+                                                key_to_cstr(key_with_opt_null))
                     } ;
                 }
             } ;
@@ -7451,9 +7485,10 @@ pub mod encoding {
                     ($ context) ; unsafe
                     {
                         mynewt :: libs :: mynewt_rust ::
-                        json_helper_object_array_start_item
-                        ($ context . key_to_cstr
-                         (key_with_null . as_bytes ()))
+                        json_helper_object_array_start_item($ context .
+                                                            key_to_cstr(key_with_null
+                                                                        .
+                                                                        as_bytes()))
                     } ;
                 }
             } ; ($ context : ident) =>
@@ -7461,11 +7496,11 @@ pub mod encoding {
                 {
                     concat ! ("<< jitme", " c: ", stringify ! ($ context)) ;
                     let key_with_opt_null : & [u8] = $ context .
-                    to_bytes_optional_nul () ; unsafe
+                    to_bytes_optional_nul() ; unsafe
                     {
                         mynewt :: libs :: mynewt_rust ::
-                        json_helper_object_array_start_item
-                        ($ context . key_to_cstr (key_with_opt_null))
+                        json_helper_object_array_start_item($ context .
+                                                            key_to_cstr(key_with_opt_null))
                     } ;
                 }
             } ;
@@ -7483,20 +7518,21 @@ pub mod encoding {
                     stringify_null ! ($ context) ; unsafe
                     {
                         mynewt :: libs :: mynewt_rust ::
-                        json_helper_object_array_end_item
-                        ($ context . key_to_cstr
-                         (key_with_null . as_bytes ()))
+                        json_helper_object_array_end_item($ context .
+                                                          key_to_cstr(key_with_null
+                                                                      .
+                                                                      as_bytes()))
                     } ;
                 }
             } ; ($ context : ident) =>
             {
                 {
                     concat ! (">>") ; let key_with_opt_null : & [u8] = $
-                    context . to_bytes_optional_nul () ; unsafe
+                    context . to_bytes_optional_nul() ; unsafe
                     {
                         mynewt :: libs :: mynewt_rust ::
-                        json_helper_object_array_end_item
-                        ($ context . key_to_cstr (key_with_opt_null))
+                        json_helper_object_array_end_item($ context .
+                                                          key_to_cstr(key_with_opt_null))
                     } ;
                 }
             } ;
@@ -7513,9 +7549,11 @@ pub mod encoding {
                     let key_with_null : & str = $ crate :: stringify_null !
                     ($ key) ; let value = $ value as u64 ; unsafe
                     {
-                        mynewt :: libs :: mynewt_rust :: json_helper_set_int
-                        ($ context . to_void_ptr (), $ context . key_to_cstr
-                         (key_with_null . as_bytes ()), value)
+                        mynewt :: libs :: mynewt_rust ::
+                        json_helper_set_int($ context . to_void_ptr(), $
+                                            context .
+                                            key_to_cstr(key_with_null .
+                                                        as_bytes()), value)
                     } ;
                 }
             } ; ($ context : ident, $ key : expr, $ value : expr) =>
@@ -7525,12 +7563,14 @@ pub mod encoding {
                     ("-- jinte", " o: ", stringify ! ($ context), ", k: ",
                      stringify ! ($ key), ", v: ", stringify ! ($ value)) ;
                     let key_with_opt_null : & [u8] = $ key .
-                    to_bytes_optional_nul () ; let value = $ value as u64 ;
+                    to_bytes_optional_nul() ; let value = $ value as u64 ;
                     unsafe
                     {
-                        mynewt :: libs :: mynewt_rust :: json_helper_set_int
-                        ($ context . to_void_ptr (), $ context . key_to_cstr
-                         (key_with_opt_null), value)
+                        mynewt :: libs :: mynewt_rust ::
+                        json_helper_set_int($ context . to_void_ptr(), $
+                                            context .
+                                            key_to_cstr(key_with_opt_null),
+                                            value)
                     } ;
                 }
             } ;
@@ -7546,10 +7586,8 @@ pub mod encoding {
                      stringify ! ($ key), ", v: ", stringify ! ($ value)) ;
                     let key_strn : & Strn = strn ! (stringify ! ($ key)) ; let
                     value_strn : & Strn = strn ! ($ value) ; unsafe
-                    {
-                        $ context . json_set_text_string
-                        (key_strn, value_strn)
-                    } ;
+                    { $ context . json_set_text_string(key_strn, value_strn) }
+                    ;
                 }
             } ; ($ context : ident, $ key : expr, $ value : expr) =>
             {
@@ -7558,14 +7596,15 @@ pub mod encoding {
                     ("-- jtxte", " o: ", stringify ! ($ context), ", k: ",
                      stringify ! ($ key), ", v: ", stringify ! ($ value)) ;
                     let key_with_opt_null : & [u8] = $ key .
-                    to_bytes_optional_nul () ; let value_with_opt_null : &
-                    [u8] = $ value . to_bytes_optional_nul () ; unsafe
+                    to_bytes_optional_nul() ; let value_with_opt_null : & [u8]
+                    = $ value . to_bytes_optional_nul() ; unsafe
                     {
                         mynewt :: libs :: mynewt_rust ::
-                        json_helper_set_text_string
-                        ($ context . to_void_ptr (), $ context . key_to_cstr
-                         (key_with_opt_null), $ context . value_to_cstr
-                         (value_with_opt_null))
+                        json_helper_set_text_string($ context . to_void_ptr(),
+                                                    $ context .
+                                                    key_to_cstr(key_with_opt_null),
+                                                    $ context .
+                                                    value_to_cstr(value_with_opt_null))
                     } ;
                 }
             } ;
@@ -7578,10 +7617,12 @@ pub mod encoding {
                     d ! (begin oc_rep_start_root_object) ; mynewt_macros ::
                     try_cbor !
                     ({
-                         let encoder = COAP_CONTEXT . encoder (_ROOT, _MAP) ;
-                         cbor_encoder_create_map
-                         (COAP_CONTEXT . global_encoder (), encoder, mynewt ::
-                          encoding :: tinycbor :: CborIndefiniteLength) ;
+                         let encoder = COAP_CONTEXT . encoder(_ROOT, _MAP) ;
+                         cbor_encoder_create_map(COAP_CONTEXT .
+                                                 global_encoder(), encoder,
+                                                 mynewt :: encoding ::
+                                                 tinycbor ::
+                                                 CborIndefiniteLength) ;
                      }) ; d ! (end oc_rep_start_root_object) ;
                 }
             } ;
@@ -7594,9 +7635,10 @@ pub mod encoding {
                     d ! (begin oc_rep_end_root_object) ; mynewt_macros ::
                     try_cbor !
                     ({
-                         let encoder = COAP_CONTEXT . encoder (_ROOT, _MAP) ;
-                         cbor_encoder_close_container
-                         (COAP_CONTEXT . global_encoder (), encoder) ;
+                         let encoder = COAP_CONTEXT . encoder(_ROOT, _MAP) ;
+                         cbor_encoder_close_container(COAP_CONTEXT .
+                                                      global_encoder(),
+                                                      encoder) ;
                      }) ; d ! (end oc_rep_end_root_object) ;
                 }
             } ;
@@ -7612,13 +7654,15 @@ pub mod encoding {
                      stringify ! ($ key), ", child: ", stringify ! ($ key),
                      "_map") ; mynewt_macros :: try_cbor !
                     ({
-                         let parent_encoder = COAP_CONTEXT . encoder
-                         (stringify ! ($ parent), stringify !
-                          ($ parent_suffix)) ; let encoder = COAP_CONTEXT .
-                         new_encoder (stringify ! ($ key), _MAP) ;
-                         cbor_encoder_create_map
-                         (parent_encoder, encoder, mynewt :: encoding ::
-                          tinycbor :: CborIndefiniteLength) ;
+                         let parent_encoder = COAP_CONTEXT .
+                         encoder(stringify ! ($ parent), stringify !
+                                 ($ parent_suffix)) ; let encoder =
+                         COAP_CONTEXT . new_encoder(stringify ! ($ key), _MAP)
+                         ;
+                         cbor_encoder_create_map(parent_encoder, encoder,
+                                                 mynewt :: encoding ::
+                                                 tinycbor ::
+                                                 CborIndefiniteLength) ;
                      }) ; d ! (end oc_rep_start_object) ;
                 }
             } ;
@@ -7634,12 +7678,12 @@ pub mod encoding {
                      stringify ! ($ key), ", child: ", stringify ! ($ key),
                      "_map") ; mynewt_macros :: try_cbor !
                     ({
-                         let parent_encoder = COAP_CONTEXT . encoder
-                         (stringify ! ($ parent), stringify !
-                          ($ parent_suffix)) ; let encoder = COAP_CONTEXT .
-                         encoder (stringify ! ($ key), _MAP) ;
-                         cbor_encoder_close_container
-                         (parent_encoder, encoder) ;
+                         let parent_encoder = COAP_CONTEXT .
+                         encoder(stringify ! ($ parent), stringify !
+                                 ($ parent_suffix)) ; let encoder =
+                         COAP_CONTEXT . encoder(stringify ! ($ key), _MAP) ;
+                         cbor_encoder_close_container(parent_encoder, encoder)
+                         ;
                      }) ; d ! (end oc_rep_end_object) ;
                 }
             } ;
@@ -7655,13 +7699,15 @@ pub mod encoding {
                      stringify ! ($ key), ", child: ", stringify ! ($ key),
                      "_array") ; mynewt_macros :: try_cbor !
                     ({
-                         let parent_encoder = COAP_CONTEXT . encoder
-                         (stringify ! ($ parent), stringify !
-                          ($ parent_suffix)) ; let encoder = COAP_CONTEXT .
-                         new_encoder (stringify ! ($ key), _ARRAY) ;
-                         cbor_encoder_create_array
-                         (parent_encoder, encoder, mynewt :: encoding ::
-                          tinycbor :: CborIndefiniteLength) ;
+                         let parent_encoder = COAP_CONTEXT .
+                         encoder(stringify ! ($ parent), stringify !
+                                 ($ parent_suffix)) ; let encoder =
+                         COAP_CONTEXT .
+                         new_encoder(stringify ! ($ key), _ARRAY) ;
+                         cbor_encoder_create_array(parent_encoder, encoder,
+                                                   mynewt :: encoding ::
+                                                   tinycbor ::
+                                                   CborIndefiniteLength) ;
                      }) ; d ! (end oc_rep_start_array) ;
                 }
             } ;
@@ -7677,12 +7723,12 @@ pub mod encoding {
                      stringify ! ($ key), ", child: ", stringify ! ($ key),
                      "_array") ; mynewt_macros :: try_cbor !
                     ({
-                         let parent_encoder = COAP_CONTEXT . encoder
-                         (stringify ! ($ parent), stringify !
-                          ($ parent_suffix)) ; let encoder = COAP_CONTEXT .
-                         encoder (stringify ! ($ key), _ARRAY) ;
-                         cbor_encoder_close_container
-                         (parent_encoder, encoder) ;
+                         let parent_encoder = COAP_CONTEXT .
+                         encoder(stringify ! ($ parent), stringify !
+                                 ($ parent_suffix)) ; let encoder =
+                         COAP_CONTEXT . encoder(stringify ! ($ key), _ARRAY) ;
+                         cbor_encoder_close_container(parent_encoder, encoder)
+                         ;
                      }) ; d ! (end oc_rep_end_array) ;
                 }
             } ;
@@ -7700,15 +7746,16 @@ pub mod encoding {
                     ("begin oc_rep_set_array ", ", object: ", stringify !
                      ($ object), ", key: ", stringify ! ($ key), ", child: ",
                      stringify ! ($ object), "_map") ; let key_with_opt_null :
-                    & [u8] = stringify ! ($ key) . to_bytes_optional_nul () ;
+                    & [u8] = stringify ! ($ key) . to_bytes_optional_nul() ;
                     mynewt_macros :: try_cbor !
                     ({
-                         let encoder = COAP_CONTEXT . encoder
-                         (stringify ! ($ object), _MAP) ;
-                         cbor_encode_text_string
-                         (encoder, COAP_CONTEXT . key_to_cstr
-                          (key_with_opt_null), COAP_CONTEXT . cstr_len
-                          (key_with_opt_null)) ;
+                         let encoder = COAP_CONTEXT .
+                         encoder(stringify ! ($ object), _MAP) ;
+                         cbor_encode_text_string(encoder, COAP_CONTEXT .
+                                                 key_to_cstr(key_with_opt_null),
+                                                 COAP_CONTEXT .
+                                                 cstr_len(key_with_opt_null))
+                         ;
                      }) ; $ crate :: oc_rep_start_array !
                     ($ object, $ key, _map) ; d ! (end oc_rep_set_array) ;
                 }
@@ -7779,26 +7826,31 @@ pub mod encoding {
                 : & str = $ crate :: stringify_null ! ($ key) ; let value = $
                 value as i64 ; mynewt_macros :: try_cbor !
                 ({
-                     let encoder = COAP_CONTEXT . encoder
-                     (stringify ! ($ obj), _MAP) ; cbor_encode_text_string
-                     (encoder, COAP_CONTEXT . key_to_cstr
-                      (key_with_null . as_bytes ()), COAP_CONTEXT . cstr_len
-                      (key_with_null . as_bytes ())) ; cbor_encode_int
-                     (encoder, value) ;
+                     let encoder = COAP_CONTEXT .
+                     encoder(stringify ! ($ obj), _MAP) ;
+                     cbor_encode_text_string(encoder, COAP_CONTEXT .
+                                             key_to_cstr(key_with_null .
+                                                         as_bytes()),
+                                             COAP_CONTEXT .
+                                             cstr_len(key_with_null .
+                                                      as_bytes())) ;
+                     cbor_encode_int(encoder, value) ;
                  }) ;
             } ; ($ obj : ident, $ key : expr, $ value : expr) =>
             {
                 concat !
                 ("-- cinte", " c: ", stringify ! ($ obj), ", k: ", stringify !
                  ($ key), ", v: ", stringify ! ($ value)) ; let
-                key_with_opt_null : & [u8] = $ key . to_bytes_optional_nul ()
-                ; let value = $ value as i64 ; mynewt_macros :: try_cbor !
+                key_with_opt_null : & [u8] = $ key . to_bytes_optional_nul() ;
+                let value = $ value as i64 ; mynewt_macros :: try_cbor !
                 ({
-                     let encoder = COAP_CONTEXT . encoder
-                     (stringify ! ($ obj), _MAP) ; cbor_encode_text_string
-                     (encoder, COAP_CONTEXT . key_to_cstr (key_with_opt_null),
-                      COAP_CONTEXT . cstr_len (key_with_opt_null)) ;
-                     cbor_encode_int (encoder, value) ;
+                     let encoder = COAP_CONTEXT .
+                     encoder(stringify ! ($ obj), _MAP) ;
+                     cbor_encode_text_string(encoder, COAP_CONTEXT .
+                                             key_to_cstr(key_with_opt_null),
+                                             COAP_CONTEXT .
+                                             cstr_len(key_with_opt_null)) ;
+                     cbor_encode_int(encoder, value) ;
                  }) ;
             } ;
         }
@@ -7812,18 +7864,23 @@ pub mod encoding {
                     ("begin oc_rep_set_text_string ", ", c: ", stringify !
                      ($ obj), ", k: ", stringify ! ($ key), ", v: ", stringify
                      ! ($ value), ", ch: ", stringify ! ($ obj), "_map") ; let
-                    key_with_opt_null : & [u8] = $ key . to_bytes_optional_nul
-                    () ; let value_with_opt_null : & [u8] = $ value .
-                    to_bytes_optional_nul () ; mynewt_macros :: try_cbor !
+                    key_with_opt_null : & [u8] = $ key .
+                    to_bytes_optional_nul() ; let value_with_opt_null : & [u8]
+                    = $ value . to_bytes_optional_nul() ; mynewt_macros ::
+                    try_cbor !
                     ({
-                         let encoder = COAP_CONTEXT . encoder
-                         (stringify ! ($ obj), _MAP) ; cbor_encode_text_string
-                         (encoder, COAP_CONTEXT . key_to_cstr
-                          (key_with_opt_null), COAP_CONTEXT . cstr_len
-                          (key_with_opt_null)) ; cbor_encode_text_string
-                         (encoder, COAP_CONTEXT . value_to_cstr
-                          (value_with_opt_null), COAP_CONTEXT . cstr_len
-                          (value_with_opt_null)) ;
+                         let encoder = COAP_CONTEXT .
+                         encoder(stringify ! ($ obj), _MAP) ;
+                         cbor_encode_text_string(encoder, COAP_CONTEXT .
+                                                 key_to_cstr(key_with_opt_null),
+                                                 COAP_CONTEXT .
+                                                 cstr_len(key_with_opt_null))
+                         ;
+                         cbor_encode_text_string(encoder, COAP_CONTEXT .
+                                                 value_to_cstr(value_with_opt_null),
+                                                 COAP_CONTEXT .
+                                                 cstr_len(value_with_opt_null))
+                         ;
                      }) ; d ! (end oc_rep_set_text_string) ;
                 }
             } ;
@@ -8303,14 +8360,11 @@ pub mod encoding {
         impl Default for json_value {
             fn default() -> Self { unsafe { ::core::mem::zeroed() } }
         }
-        pub type json_write_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(buf:
-                                                            *mut ::cty::c_void,
-                                                        data:
-                                                            *mut ::cty::c_char,
-                                                        len: ::cty::c_int)
-                                       -> ::cty::c_int>;
+        pub type json_write_func_t =
+         ::core::option::Option<unsafe extern "C" fn(buf: *mut ::cty::c_void,
+                                                     data: *mut ::cty::c_char,
+                                                     len: ::cty::c_int)
+                                    -> ::cty::c_int>;
         #[repr(C)]
         pub struct json_encoder {
             pub je_write: json_write_func_t,
@@ -8355,40 +8409,40 @@ pub mod encoding {
         }
         extern "C" {
             pub fn json_encode_object_start(arg1: *mut json_encoder)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             pub fn json_encode_object_key(encoder: *mut json_encoder,
                                           key: *mut ::cty::c_char)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             pub fn json_encode_object_entry(arg1: *mut json_encoder,
                                             arg2: *mut ::cty::c_char,
                                             arg3: *mut json_value)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             pub fn json_encode_object_finish(arg1: *mut json_encoder)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             pub fn json_encode_array_name(encoder: *mut json_encoder,
                                           name: *mut ::cty::c_char)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             pub fn json_encode_array_start(encoder: *mut json_encoder)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             pub fn json_encode_array_value(encoder: *mut json_encoder,
                                            val: *mut json_value)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             pub fn json_encode_array_finish(encoder: *mut json_encoder)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         pub const json_type_t_integer: json_type = 0;
         pub const json_type_t_uinteger: json_type = 1;
@@ -8520,24 +8574,17 @@ pub mod encoding {
         impl Default for json_attr_t {
             fn default() -> Self { unsafe { ::core::mem::zeroed() } }
         }
-        pub type json_buffer_read_next_byte_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1:
-                                                            *mut json_buffer)
-                                       -> ::cty::c_char>;
-        pub type json_buffer_read_prev_byte_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1:
-                                                            *mut json_buffer)
-                                       -> ::cty::c_char>;
-        pub type json_buffer_readn_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1:
-                                                            *mut json_buffer,
-                                                        buf:
-                                                            *mut ::cty::c_char,
-                                                        n: ::cty::c_int)
-                                       -> ::cty::c_int>;
+        pub type json_buffer_read_next_byte_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut json_buffer)
+                                    -> ::cty::c_char>;
+        pub type json_buffer_read_prev_byte_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut json_buffer)
+                                    -> ::cty::c_char>;
+        pub type json_buffer_readn_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut json_buffer,
+                                                     buf: *mut ::cty::c_char,
+                                                     n: ::cty::c_int)
+                                    -> ::cty::c_int>;
         #[repr(C)]
         pub struct json_buffer {
             pub jb_readn: json_buffer_readn_t,
@@ -8557,11 +8604,13 @@ pub mod encoding {
         }
         extern "C" {
             pub fn json_read_object(arg1: *mut json_buffer,
-                                    arg2: *const json_attr_t) -> ::cty::c_int;
+                                    arg2: *const json_attr_t)
+            -> ::cty::c_int;
         }
         extern "C" {
             pub fn json_read_array(arg1: *mut json_buffer,
-                                   arg2: *const json_array_t) -> ::cty::c_int;
+                                   arg2: *const json_array_t)
+            -> ::cty::c_int;
         }
     }
     /// Contains Rust bindings for Mynewt TinyCBOR Encoding API `encoding/tinycbor`
@@ -8670,16 +8719,15 @@ pub mod encoding {
         pub type CborError = u32;
         extern "C" {
             pub fn cbor_error_string(error: CborError)
-             -> *const ::cty::c_char;
+            -> *const ::cty::c_char;
         }
-        pub type cbor_encoder_write
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1:
-                                                            *mut cbor_encoder_writer,
-                                                        data:
-                                                            *const ::cty::c_char,
-                                                        len: ::cty::c_int)
-                                       -> ::cty::c_int>;
+        pub type cbor_encoder_write =
+         ::core::option::Option<unsafe extern "C" fn(arg1:
+                                                         *mut cbor_encoder_writer,
+                                                     data:
+                                                         *const ::cty::c_char,
+                                                     len: ::cty::c_int)
+                                    -> ::cty::c_int>;
         #[repr(C)]
         pub struct cbor_encoder_writer {
             pub write: cbor_encoder_write,
@@ -8731,7 +8779,7 @@ pub mod encoding {
             #[doc = ""]
             #[doc = " \\sa cbor_encode_negative_int, cbor_encode_int"]
             pub fn cbor_encode_uint(encoder: *mut CborEncoder, value: u64)
-             -> CborError;
+            -> CborError;
         }
         extern "C" {
             #[doc =
@@ -8740,7 +8788,7 @@ pub mod encoding {
             #[doc = ""]
             #[doc = " \\sa cbor_encode_negative_int, cbor_encode_uint"]
             pub fn cbor_encode_int(encoder: *mut CborEncoder, value: i64)
-             -> CborError;
+            -> CborError;
         }
         extern "C" {
             #[doc =
@@ -8750,7 +8798,8 @@ pub mod encoding {
             #[doc = ""]
             #[doc = " \\sa cbor_encode_uint, cbor_encode_int"]
             pub fn cbor_encode_negative_int(encoder: *mut CborEncoder,
-                                            absolute_value: u64) -> CborError;
+                                            absolute_value: u64)
+            -> CborError;
         }
         extern "C" {
             #[doc =
@@ -8762,7 +8811,8 @@ pub mod encoding {
             #[doc =
               " variable contains a number that is not a valid simple type."]
             pub fn cbor_encode_simple_value(encoder: *mut CborEncoder,
-                                            value: u8) -> CborError;
+                                            value: u8)
+            -> CborError;
         }
         extern "C" {
             #[doc =
@@ -8770,7 +8820,7 @@ pub mod encoding {
             #[doc = ""]
             #[doc = " \\sa CborTag"]
             pub fn cbor_encode_tag(encoder: *mut CborEncoder, tag: CborTag)
-             -> CborError;
+            -> CborError;
         }
         extern "C" {
             #[doc =
@@ -8781,7 +8831,8 @@ pub mod encoding {
             #[doc = " \\sa cbor_encode_text_stringz, cbor_encode_text_string"]
             pub fn cbor_encode_text_string(encoder: *mut CborEncoder,
                                            string: *const ::cty::c_char,
-                                           length: usize) -> CborError;
+                                           length: usize)
+            -> CborError;
         }
         extern "C" {
             #[doc =
@@ -8794,7 +8845,7 @@ pub mod encoding {
               " \\sa CborError cbor_encode_text_stringz, cbor_encode_byte_string"]
             pub fn cbor_encode_byte_string(encoder: *mut CborEncoder,
                                            string: *const u8, length: usize)
-             -> CborError;
+            -> CborError;
         }
         extern "C" {
             #[doc =
@@ -8806,7 +8857,8 @@ pub mod encoding {
               " \\sa CborError cbor_encode_text_stringz, cbor_encode_byte_string"]
             pub fn cbor_encode_byte_iovec(encoder: *mut CborEncoder,
                                           iov: *const cbor_iovec,
-                                          iov_len: ::cty::c_int) -> CborError;
+                                          iov_len: ::cty::c_int)
+            -> CborError;
         }
         extern "C" {
             #[doc =
@@ -8827,7 +8879,7 @@ pub mod encoding {
             pub fn cbor_encode_floating_point(encoder: *mut CborEncoder,
                                               fpType: CborType,
                                               value: *const ::cty::c_void)
-             -> CborError;
+            -> CborError;
         }
         extern "C" {
             #[doc =
@@ -8852,7 +8904,8 @@ pub mod encoding {
             #[doc = " \\sa cbor_encoder_create_map"]
             pub fn cbor_encoder_create_array(encoder: *mut CborEncoder,
                                              arrayEncoder: *mut CborEncoder,
-                                             length: usize) -> CborError;
+                                             length: usize)
+            -> CborError;
         }
         extern "C" {
             #[doc =
@@ -8884,7 +8937,8 @@ pub mod encoding {
             #[doc = " \\sa cbor_encoder_create_array"]
             pub fn cbor_encoder_create_map(encoder: *mut CborEncoder,
                                            mapEncoder: *mut CborEncoder,
-                                           length: usize) -> CborError;
+                                           length: usize)
+            -> CborError;
         }
         extern "C" {
             #[doc =
@@ -8902,7 +8956,7 @@ pub mod encoding {
                                                              *mut CborEncoder,
                                                          stringEncoder:
                                                              *mut CborEncoder)
-             -> CborError;
+            -> CborError;
         }
         extern "C" {
             #[doc =
@@ -8920,7 +8974,7 @@ pub mod encoding {
                                                              *mut CborEncoder,
                                                          stringEncoder:
                                                              *mut CborEncoder)
-             -> CborError;
+            -> CborError;
         }
         extern "C" {
             #[doc =
@@ -8943,68 +8997,61 @@ pub mod encoding {
             pub fn cbor_encoder_close_container(encoder: *mut CborEncoder,
                                                 containerEncoder:
                                                     *const CborEncoder)
-             -> CborError;
+            -> CborError;
         }
         extern "C" {
             pub fn cbor_encoder_close_container_checked(encoder:
                                                             *mut CborEncoder,
                                                         containerEncoder:
                                                             *const CborEncoder)
-             -> CborError;
+            -> CborError;
         }
-        pub const CborParserIteratorFlags_CborIteratorFlag_IntegerValueTooLarge:
-                  CborParserIteratorFlags =
+        pub const
+         CborParserIteratorFlags_CborIteratorFlag_IntegerValueTooLarge:
+         CborParserIteratorFlags =
             1;
         pub const CborParserIteratorFlags_CborIteratorFlag_NegativeInteger:
-                  CborParserIteratorFlags =
+         CborParserIteratorFlags =
             2;
         pub const CborParserIteratorFlags_CborIteratorFlag_UnknownLength:
-                  CborParserIteratorFlags =
+         CborParserIteratorFlags =
             4;
         pub const CborParserIteratorFlags_CborIteratorFlag_ContainerIsMap:
-                  CborParserIteratorFlags =
+         CborParserIteratorFlags =
             32;
         pub type CborParserIteratorFlags = u32;
-        pub type cbor_reader_get8
-            =
-            ::core::option::Option<unsafe extern "C" fn(d:
-                                                            *mut cbor_decoder_reader,
-                                                        offset: ::cty::c_int)
-                                       -> u8>;
-        pub type cbor_reader_get16
-            =
-            ::core::option::Option<unsafe extern "C" fn(d:
-                                                            *mut cbor_decoder_reader,
-                                                        offset: ::cty::c_int)
-                                       -> u16>;
-        pub type cbor_reader_get32
-            =
-            ::core::option::Option<unsafe extern "C" fn(d:
-                                                            *mut cbor_decoder_reader,
-                                                        offset: ::cty::c_int)
-                                       -> u32>;
-        pub type cbor_reader_get64
-            =
-            ::core::option::Option<unsafe extern "C" fn(d:
-                                                            *mut cbor_decoder_reader,
-                                                        offset: ::cty::c_int)
-                                       -> u64>;
-        pub type cbor_memcmp
-            =
-            ::core::option::Option<unsafe extern "C" fn(d:
-                                                            *mut cbor_decoder_reader,
-                                                        buf:
-                                                            *mut ::cty::c_char,
-                                                        offset: ::cty::c_int,
-                                                        len: usize) -> usize>;
-        pub type cbor_memcpy
-            =
-            ::core::option::Option<unsafe extern "C" fn(d:
-                                                            *mut cbor_decoder_reader,
-                                                        buf:
-                                                            *mut ::cty::c_char,
-                                                        offset: ::cty::c_int,
-                                                        len: usize) -> usize>;
+        pub type cbor_reader_get8 =
+         ::core::option::Option<unsafe extern "C" fn(d:
+                                                         *mut cbor_decoder_reader,
+                                                     offset: ::cty::c_int)
+                                    -> u8>;
+        pub type cbor_reader_get16 =
+         ::core::option::Option<unsafe extern "C" fn(d:
+                                                         *mut cbor_decoder_reader,
+                                                     offset: ::cty::c_int)
+                                    -> u16>;
+        pub type cbor_reader_get32 =
+         ::core::option::Option<unsafe extern "C" fn(d:
+                                                         *mut cbor_decoder_reader,
+                                                     offset: ::cty::c_int)
+                                    -> u32>;
+        pub type cbor_reader_get64 =
+         ::core::option::Option<unsafe extern "C" fn(d:
+                                                         *mut cbor_decoder_reader,
+                                                     offset: ::cty::c_int)
+                                    -> u64>;
+        pub type cbor_memcmp =
+         ::core::option::Option<unsafe extern "C" fn(d:
+                                                         *mut cbor_decoder_reader,
+                                                     buf: *mut ::cty::c_char,
+                                                     offset: ::cty::c_int,
+                                                     len: usize) -> usize>;
+        pub type cbor_memcpy =
+         ::core::option::Option<unsafe extern "C" fn(d:
+                                                         *mut cbor_decoder_reader,
+                                                     buf: *mut ::cty::c_char,
+                                                     offset: ::cty::c_int,
+                                                     len: usize) -> usize>;
         #[repr(C)]
         pub struct cbor_decoder_reader {
             pub get8: cbor_reader_get8,
@@ -9058,63 +9105,67 @@ pub mod encoding {
             pub fn cbor_parser_init(d: *mut cbor_decoder_reader,
                                     flags: ::cty::c_int,
                                     parser: *mut CborParser,
-                                    it: *mut CborValue) -> CborError;
+                                    it: *mut CborValue)
+            -> CborError;
         }
         extern "C" {
-            pub fn cbor_value_advance_fixed(it: *mut CborValue) -> CborError;
+            pub fn cbor_value_advance_fixed(it: *mut CborValue)
+            -> CborError;
         }
         extern "C" {
-            pub fn cbor_value_advance(it: *mut CborValue) -> CborError;
+            pub fn cbor_value_advance(it: *mut CborValue)
+            -> CborError;
         }
         extern "C" {
             pub fn cbor_value_enter_container(it: *const CborValue,
                                               recursed: *mut CborValue)
-             -> CborError;
+            -> CborError;
         }
         extern "C" {
             pub fn cbor_value_leave_container(it: *mut CborValue,
                                               recursed: *const CborValue)
-             -> CborError;
+            -> CborError;
         }
         extern "C" {
             pub fn cbor_value_get_int64_checked(value: *const CborValue,
                                                 result: *mut i64)
-             -> CborError;
+            -> CborError;
         }
         extern "C" {
             pub fn cbor_value_get_int_checked(value: *const CborValue,
                                               result: *mut ::cty::c_int)
-             -> CborError;
+            -> CborError;
         }
         extern "C" {
-            pub fn cbor_value_skip_tag(it: *mut CborValue) -> CborError;
+            pub fn cbor_value_skip_tag(it: *mut CborValue)
+            -> CborError;
         }
         extern "C" {
             pub fn cbor_value_calculate_string_length(value: *const CborValue,
                                                       length: *mut usize)
-             -> CborError;
+            -> CborError;
         }
         extern "C" {
             pub fn cbor_value_text_string_equals(value: *const CborValue,
                                                  string: *const ::cty::c_char,
                                                  result: *mut bool)
-             -> CborError;
+            -> CborError;
         }
         extern "C" {
             pub fn cbor_value_map_find_value(map: *const CborValue,
                                              string: *const ::cty::c_char,
                                              element: *mut CborValue)
-             -> CborError;
+            -> CborError;
         }
         extern "C" {
             pub fn cbor_value_get_half_float(value: *const CborValue,
                                              result: *mut ::cty::c_void)
-             -> CborError;
+            -> CborError;
         }
         extern "C" {
             pub fn cbor_value_to_pretty_advance(out: *mut FILE,
                                                 value: *mut CborValue)
-             -> CborError;
+            -> CborError;
         }
         pub const CborMajorTypes_UnsignedIntegerType: CborMajorTypes = 0;
         pub const CborMajorTypes_NegativeIntegerType: CborMajorTypes = 1;
@@ -9185,7 +9236,7 @@ pub mod encoding {
                                                           ::core::mem::size_of::<CborEncoder>()])
             };
         impl CoapContext {
-            #[cfg(not (feature = "use_float"))]
+            #[cfg(not(feature = "use_float"))]
             pub fn json_set_geolocation(&mut self, _key: &Strn,
                                         _lat_key: &Strn, _long_key: &Strn,
                                         _geo: SensorValueType) {
@@ -9321,8 +9372,7 @@ pub mod encoding {
                                                                                                                                ::core::fmt::Debug::fmt),
                                                                                                   ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                ::core::fmt::Display::fmt)],
-                                                                                             }),
-                                                             ::core::panic::Location::caller())
+                                                                                             }))
                             }
                         }
                     }
@@ -9357,8 +9407,7 @@ pub mod encoding {
                                                                                                                                ::core::fmt::Debug::fmt),
                                                                                                   ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                ::core::fmt::Display::fmt)],
-                                                                                             }),
-                                                             ::core::panic::Location::caller())
+                                                                                             }))
                             }
                         }
                     }
@@ -9389,11 +9438,11 @@ pub mod encoding {
                     let __self_vi =
                         unsafe {
                             ::core::intrinsics::discriminant_value(&*self)
-                        } as isize;
+                        };
                     let __arg_1_vi =
                         unsafe {
                             ::core::intrinsics::discriminant_value(&*other)
-                        } as isize;
+                        };
                     if true && __self_vi == __arg_1_vi {
                         match (&*self, &*other) { _ => true, }
                     } else { false }
@@ -9459,9 +9508,9 @@ pub mod encoding {
     #[link(name = "net_oic")]
     extern {
         /// Global CBOR encoder
-        pub static mut g_encoder: tinycbor::CborEncoder;
+        pub static mut g_encoder: tinycbor::CborEncoder ;
         /// Global CBOR root map
-        pub static mut root_map: tinycbor::CborEncoder;
+        pub static mut root_map: tinycbor::CborEncoder ;
     }
     /// CoAP Payload is in JSON format
     pub const APPLICATION_JSON: i32 = 50;
@@ -10195,10 +10244,10 @@ pub mod libs {
             fn default() -> stats_coap_stats { stats_coap_stats{} }
         }
         extern "C" {
-            pub static mut coap_stats: stats_coap_stats;
+            pub static mut coap_stats: stats_coap_stats ;
         }
         extern "C" {
-            pub static mut coap_error_message: *mut ::cty::c_char;
+            pub static mut coap_error_message: *mut ::cty::c_char ;
         }
         #[repr(C)]
         pub struct oc_server_handle {
@@ -10229,13 +10278,16 @@ pub mod libs {
             pub fn init_sensor_coap();
         }
         extern "C" {
-            pub fn sensor_coap_ready() -> bool;
+            pub fn sensor_coap_ready()
+            -> bool;
         }
         extern "C" {
-            pub fn init_sensor_post(server: *mut oc_server_handle) -> bool;
+            pub fn init_sensor_post(server: *mut oc_server_handle)
+            -> bool;
         }
         extern "C" {
-            pub fn do_sensor_post() -> bool;
+            pub fn do_sensor_post()
+            -> bool;
         }
         #[repr(C)]
         pub struct json_value__bindgen_ty_1 {
@@ -10256,19 +10308,16 @@ pub mod libs {
         impl Default for json_value__bindgen_ty_1 {
             fn default() -> Self { unsafe { ::core::mem::zeroed() } }
         }
-        pub type json_write_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(buf:
-                                                            *mut ::cty::c_void,
-                                                        data:
-                                                            *mut ::cty::c_char,
-                                                        len: ::cty::c_int)
-                                       -> ::cty::c_int>;
+        pub type json_write_func_t =
+         ::core::option::Option<unsafe extern "C" fn(buf: *mut ::cty::c_void,
+                                                     data: *mut ::cty::c_char,
+                                                     len: ::cty::c_int)
+                                    -> ::cty::c_int>;
         extern "C" {
-            pub static mut coap_json_encoder: json_encoder;
+            pub static mut coap_json_encoder: json_encoder ;
         }
         extern "C" {
-            pub static mut coap_json_value: json_value;
+            pub static mut coap_json_value: json_value ;
         }
         extern "C" {
             #[doc =
@@ -10282,7 +10331,8 @@ pub mod libs {
         }
         extern "C" {
             #[doc = "  Finalise the payload and return the payload size."]
-            pub fn json_rep_finalize() -> ::cty::c_int;
+            pub fn json_rep_finalize()
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -10301,7 +10351,7 @@ pub mod libs {
             pub fn json_rep_end_root_object();
         }
         extern "C" {
-            pub static mut coap_json_mbuf: *mut os_mbuf;
+            pub static mut coap_json_mbuf: *mut os_mbuf ;
         }
     }
     /// Contains Rust bindings for Mynewt Custom API `libs/sensor_network`
@@ -10315,10 +10365,12 @@ pub mod libs {
             _unused: [u8; 0],
         }
         extern "C" {
-            pub fn init_sensor_post(server: *mut oc_server_handle) -> bool;
+            pub fn init_sensor_post(server: *mut oc_server_handle)
+            -> bool;
         }
         extern "C" {
-            pub fn do_sensor_post() -> bool;
+            pub fn do_sensor_post()
+            -> bool;
         }
         #[repr(C)]
         pub struct sensor_network_interface {
@@ -10347,7 +10399,8 @@ pub mod libs {
             "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
             extern "C" {
                 #[doc = ""]
-                pub fn start_server_transport() -> ::cty::c_int;
+                pub fn start_server_transport()
+                -> ::cty::c_int;
             }
             "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
             unsafe {
@@ -10360,27 +10413,31 @@ pub mod libs {
             }
         }
         extern "C" {
-            pub fn start_collector_transport() -> ::cty::c_int;
+            pub fn start_collector_transport()
+            -> ::cty::c_int;
         }
         extern "C" {
             pub fn sensor_network_start_transport(iface_type: u8)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = ""]
-            pub fn register_server_transport() -> ::cty::c_int;
+            pub fn register_server_transport()
+            -> ::cty::c_int;
         }
         extern "C" {
-            pub fn register_collector_transport() -> ::cty::c_int;
+            pub fn register_collector_transport()
+            -> ::cty::c_int;
         }
         extern "C" {
             pub fn sensor_network_register_transport(iface_type: u8)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         pub fn init_server_post(uri: &Strn) -> MynewtResult<bool> {
             "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
             extern "C" {
-                pub fn init_server_post(uri: *const ::cty::c_char) -> bool;
+                pub fn init_server_post(uri: *const ::cty::c_char)
+                -> bool;
             }
             "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
             uri.validate();
@@ -10393,18 +10450,19 @@ pub mod libs {
             }
         }
         extern "C" {
-            pub fn init_collector_post() -> bool;
+            pub fn init_collector_post()
+            -> bool;
         }
         extern "C" {
             pub fn sensor_network_init_post(iface_type: u8,
                                             uri: *const ::cty::c_char)
-             -> bool;
+            -> bool;
         }
         pub fn prepare_post(encoding: ::cty::c_int) -> MynewtResult<bool> {
             "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
             extern "C" {
                 pub fn sensor_network_prepare_post(encoding: ::cty::c_int)
-                 -> bool;
+                -> bool;
             }
             "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
             unsafe {
@@ -10418,7 +10476,8 @@ pub mod libs {
         pub fn do_server_post() -> MynewtResult<bool> {
             "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
             extern "C" {
-                pub fn do_server_post() -> bool;
+                pub fn do_server_post()
+                -> bool;
             }
             "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
             unsafe {
@@ -10429,29 +10488,35 @@ pub mod libs {
             }
         }
         extern "C" {
-            pub fn do_collector_post() -> bool;
+            pub fn do_collector_post()
+            -> bool;
         }
         extern "C" {
-            pub fn sensor_network_do_post(iface_type: u8) -> bool;
+            pub fn sensor_network_do_post(iface_type: u8)
+            -> bool;
         }
         extern "C" {
-            pub fn is_collector_node() -> bool;
+            pub fn is_collector_node()
+            -> bool;
         }
         extern "C" {
-            pub fn is_sensor_node() -> bool;
+            pub fn is_sensor_node()
+            -> bool;
         }
         extern "C" {
-            pub fn is_standalone_node() -> bool;
+            pub fn is_standalone_node()
+            -> bool;
         }
         extern "C" {
             pub fn should_send_to_collector(val: *mut sensor_value,
                                             device_name: *const ::cty::c_char)
-             -> bool;
+            -> bool;
         }
         pub fn get_device_id() -> MynewtResult<Strn> {
             "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
             extern "C" {
-                pub fn get_device_id() -> *const ::cty::c_char;
+                pub fn get_device_id()
+                -> *const ::cty::c_char;
             }
             "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
             unsafe {
@@ -10468,7 +10533,7 @@ pub mod libs {
         extern "C" {
             pub fn sensor_network_register_interface(iface:
                                                          *const sensor_network_interface)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         #[doc = ""]
         #[repr(C)]
@@ -10486,18 +10551,18 @@ pub mod libs {
         }
         extern "C" {
             pub static mut sensor_network_interfaces:
-                       [sensor_network_interface; 2usize];
+             [sensor_network_interface; 2usize] ;
         }
         extern "C" {
             pub static mut sensor_network_endpoints:
-                       [sensor_network_endpoint; 2usize];
+             [sensor_network_endpoint; 2usize] ;
         }
         extern "C" {
-            pub static mut sensor_network_encoding: [::cty::c_int; 2usize];
+            pub static mut sensor_network_encoding: [::cty::c_int; 2usize] ;
         }
         extern "C" {
             pub static mut sensor_network_shortname:
-                       [*const ::cty::c_char; 2usize];
+             [*const ::cty::c_char; 2usize] ;
         }
     }
     /// Contains Rust bindings for Mynewt Custom API `libs/mynewt_rust`
@@ -10865,9 +10930,8 @@ pub mod libs {
         }
         pub type os_stack_t = u32;
         pub type os_time_t = u32;
-        pub type os_event_fn
-            =
-            ::core::option::Option<unsafe extern "C" fn(ev: *mut os_event)>;
+        pub type os_event_fn =
+         ::core::option::Option<unsafe extern "C" fn(ev: *mut os_event)>;
         #[repr(C)]
         pub struct os_event__bindgen_ty_1 {
             pub stqe_next: *mut os_event,
@@ -10882,33 +10946,26 @@ pub mod libs {
           " - __`arg`__: User defined argument to pass to the device initalization"]
         #[doc = ""]
         #[doc = " Return: 0 on success, non-zero error code on failure."]
-        pub type os_dev_init_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev,
-                                                        arg2:
-                                                            *mut ::cty::c_void)
-                                       -> ::cty::c_int>;
-        pub type os_dev_open_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev,
-                                                        arg2: u32,
-                                                        arg3:
-                                                            *mut ::cty::c_void)
-                                       -> ::cty::c_int>;
-        pub type os_dev_suspend_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev,
-                                                        arg2: os_time_t,
-                                                        arg3: ::cty::c_int)
-                                       -> ::cty::c_int>;
-        pub type os_dev_resume_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev)
-                                       -> ::cty::c_int>;
-        pub type os_dev_close_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev)
-                                       -> ::cty::c_int>;
+        pub type os_dev_init_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev,
+                                                     arg2: *mut ::cty::c_void)
+                                    -> ::cty::c_int>;
+        pub type os_dev_open_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev,
+                                                     arg2: u32,
+                                                     arg3: *mut ::cty::c_void)
+                                    -> ::cty::c_int>;
+        pub type os_dev_suspend_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev,
+                                                     arg2: os_time_t,
+                                                     arg3: ::cty::c_int)
+                                    -> ::cty::c_int>;
+        pub type os_dev_resume_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev)
+                                    -> ::cty::c_int>;
+        pub type os_dev_close_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut os_dev)
+                                    -> ::cty::c_int>;
         #[repr(C)]
         pub struct os_dev__bindgen_ty_1 {
             pub stqe_next: *mut os_dev,
@@ -10923,13 +10980,11 @@ pub mod libs {
         impl Default for os_mutex__bindgen_ty_1 {
             fn default() -> Self { unsafe { ::core::mem::zeroed() } }
         }
-        pub type os_sanity_check_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1:
-                                                            *mut os_sanity_check,
-                                                        arg2:
-                                                            *mut ::cty::c_void)
-                                       -> ::cty::c_int>;
+        pub type os_sanity_check_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1:
+                                                         *mut os_sanity_check,
+                                                     arg2: *mut ::cty::c_void)
+                                    -> ::cty::c_int>;
         #[repr(C)]
         pub struct os_sanity_check__bindgen_ty_1 {
             pub sle_next: *mut os_sanity_check,
@@ -10937,10 +10992,9 @@ pub mod libs {
         impl Default for os_sanity_check__bindgen_ty_1 {
             fn default() -> Self { unsafe { ::core::mem::zeroed() } }
         }
-        pub type os_task_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1:
-                                                            *mut ::cty::c_void)>;
+        pub type os_task_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1:
+                                                         *mut ::cty::c_void)>;
         #[repr(C)]
         pub struct os_task__bindgen_ty_1 {
             pub stqe_next: *mut os_task,
@@ -10970,7 +11024,7 @@ pub mod libs {
         pub const sensor_type_t_SENSOR_TYPE_LIGHT: sensor_type_t = 8;
         pub const sensor_type_t_SENSOR_TYPE_TEMPERATURE: sensor_type_t = 16;
         pub const sensor_type_t_SENSOR_TYPE_AMBIENT_TEMPERATURE: sensor_type_t
-                  =
+         =
             32;
         pub const sensor_type_t_SENSOR_TYPE_PRESSURE: sensor_type_t = 64;
         pub const sensor_type_t_SENSOR_TYPE_PROXIMITY: sensor_type_t = 128;
@@ -11000,52 +11054,52 @@ pub mod libs {
         pub const sensor_type_t_SENSOR_TYPE_ALL: sensor_type_t = 4294967295;
         pub type sensor_type_t = i64;
         pub const sensor_event_type_t_SENSOR_EVENT_TYPE_DOUBLE_TAP:
-                  sensor_event_type_t =
+         sensor_event_type_t =
             1;
         pub const sensor_event_type_t_SENSOR_EVENT_TYPE_SINGLE_TAP:
-                  sensor_event_type_t =
+         sensor_event_type_t =
             2;
         pub const sensor_event_type_t_SENSOR_EVENT_TYPE_FREE_FALL:
-                  sensor_event_type_t =
+         sensor_event_type_t =
             4;
         pub const sensor_event_type_t_SENSOR_EVENT_TYPE_SLEEP_CHANGE:
-                  sensor_event_type_t =
+         sensor_event_type_t =
             8;
         pub const sensor_event_type_t_SENSOR_EVENT_TYPE_WAKEUP:
-                  sensor_event_type_t =
+         sensor_event_type_t =
             16;
         pub const sensor_event_type_t_SENSOR_EVENT_TYPE_SLEEP:
-                  sensor_event_type_t =
+         sensor_event_type_t =
             32;
         pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_CHANGE:
-                  sensor_event_type_t =
+         sensor_event_type_t =
             64;
         pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_X_CHANGE:
-                  sensor_event_type_t =
+         sensor_event_type_t =
             128;
         pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_Y_CHANGE:
-                  sensor_event_type_t =
+         sensor_event_type_t =
             256;
         pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_Z_CHANGE:
-                  sensor_event_type_t =
+         sensor_event_type_t =
             512;
         pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_X_L_CHANGE:
-                  sensor_event_type_t =
+         sensor_event_type_t =
             1024;
         pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_Y_L_CHANGE:
-                  sensor_event_type_t =
+         sensor_event_type_t =
             2048;
         pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_Z_L_CHANGE:
-                  sensor_event_type_t =
+         sensor_event_type_t =
             4096;
         pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_X_H_CHANGE:
-                  sensor_event_type_t =
+         sensor_event_type_t =
             8192;
         pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_Y_H_CHANGE:
-                  sensor_event_type_t =
+         sensor_event_type_t =
             16384;
         pub const sensor_event_type_t_SENSOR_EVENT_TYPE_ORIENT_Z_H_CHANGE:
-                  sensor_event_type_t =
+         sensor_event_type_t =
             32768;
         pub type sensor_event_type_t = u32;
         #[doc =
@@ -11060,45 +11114,36 @@ pub mod libs {
         #[doc = " - __`type`__: The sensor type for the data function"]
         #[doc = ""]
         #[doc = " Return: 0 on success, non-zero error code on failure."]
-        pub type sensor_data_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
-                                                        arg2:
-                                                            *mut ::cty::c_void,
-                                                        arg3:
-                                                            *mut ::cty::c_void,
-                                                        arg4: sensor_type_t)
-                                       -> ::cty::c_int>;
+        pub type sensor_data_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
+                                                     arg2: *mut ::cty::c_void,
+                                                     arg3: *mut ::cty::c_void,
+                                                     arg4: sensor_type_t)
+                                    -> ::cty::c_int>;
         #[doc = " Callback for trigger compare functions."]
         #[doc = ""]
         #[doc = " - __`type`__: Type of sensor"]
         #[doc = " - __`low_thresh`__: The sensor low threshold"]
         #[doc = " - __`high_thresh`__: The sensor high threshold"]
         #[doc = " - __`arg`__: Ptr to data"]
-        pub type sensor_trigger_cmp_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: sensor_type_t,
-                                                        arg2:
-                                                            *mut sensor_data_t,
-                                                        arg3:
-                                                            *mut sensor_data_t,
-                                                        arg4:
-                                                            *mut ::cty::c_void)
-                                       -> ::cty::c_int>;
+        pub type sensor_trigger_cmp_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: sensor_type_t,
+                                                     arg2: *mut sensor_data_t,
+                                                     arg3: *mut sensor_data_t,
+                                                     arg4: *mut ::cty::c_void)
+                                    -> ::cty::c_int>;
         #[doc = " Callback for event notifications."]
         #[doc = ""]
         #[doc = " - __`sensor`__: The sensor that observed the event"]
         #[doc =
           " - __`arg`__: The opaque argument provided during registration"]
         #[doc = " - __`event`__: The sensor event type that was observed"]
-        pub type sensor_notifier_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
-                                                        arg2:
-                                                            *mut ::cty::c_void,
-                                                        arg3:
-                                                            sensor_event_type_t)
-                                       -> ::cty::c_int>;
+        pub type sensor_notifier_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
+                                                     arg2: *mut ::cty::c_void,
+                                                     arg3:
+                                                         sensor_event_type_t)
+                                    -> ::cty::c_int>;
         #[doc = " Callback for reporting a sensor read error."]
         #[doc = ""]
         #[doc = " - __`sensor`__: The sensor for which a read failed."]
@@ -11107,13 +11152,10 @@ pub mod libs {
         #[doc =
           " - __`status`__: Indicates the cause of the read failure.  Determined by the"]
         #[doc = "               underlying sensor driver."]
-        pub type sensor_error_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(sensor: *mut sensor,
-                                                        arg:
-                                                            *mut ::cty::c_void,
-                                                        status:
-                                                            ::cty::c_int)>;
+        pub type sensor_error_func_t =
+         ::core::option::Option<unsafe extern "C" fn(sensor: *mut sensor,
+                                                     arg: *mut ::cty::c_void,
+                                                     status: ::cty::c_int)>;
         #[repr(C)]
         pub struct sensor_listener__bindgen_ty_1 {
             pub sle_next: *mut sensor_listener,
@@ -11152,16 +11194,13 @@ pub mod libs {
         #[doc = "        immediately (no wait.)"]
         #[doc = ""]
         #[doc = " Return: 0 on success, non-zero error code on failure."]
-        pub type sensor_read_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
-                                                        arg2: sensor_type_t,
-                                                        arg3:
-                                                            sensor_data_func_t,
-                                                        arg4:
-                                                            *mut ::cty::c_void,
-                                                        arg5: u32)
-                                       -> ::cty::c_int>;
+        pub type sensor_read_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
+                                                     arg2: sensor_type_t,
+                                                     arg3: sensor_data_func_t,
+                                                     arg4: *mut ::cty::c_void,
+                                                     arg5: u32)
+                                    -> ::cty::c_int>;
         #[doc =
           " Get the configuration of the sensor for the sensor type.  This includes"]
         #[doc = " the value type of the sensor."]
@@ -11173,12 +11212,11 @@ pub mod libs {
           " - __`cfg`__: A pointer to the sensor value to place the returned result into."]
         #[doc = ""]
         #[doc = " Return: 0 on success, non-zero error code on failure."]
-        pub type sensor_get_config_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
-                                                        arg2: sensor_type_t,
-                                                        arg3: *mut sensor_cfg)
-                                       -> ::cty::c_int>;
+        pub type sensor_get_config_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
+                                                     arg2: sensor_type_t,
+                                                     arg3: *mut sensor_cfg)
+                                    -> ::cty::c_int>;
         #[doc = " Send a new configuration register set to the sensor."]
         #[doc = ""]
         #[doc = " - __`sensor`__: Ptr to the sensor-specific stucture"]
@@ -11186,12 +11224,10 @@ pub mod libs {
           " - __`arg`__: Ptr to the sensor-specific configuration structure"]
         #[doc = ""]
         #[doc = " Return: 0 on success, non-zero error code on failure."]
-        pub type sensor_set_config_func_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
-                                                        arg2:
-                                                            *mut ::cty::c_void)
-                                       -> ::cty::c_int>;
+        pub type sensor_set_config_func_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
+                                                     arg2: *mut ::cty::c_void)
+                                    -> ::cty::c_int>;
         #[doc =
           " Set the trigger and threshold values for a specific sensor for the sensor"]
         #[doc = " type."]
@@ -11201,13 +11237,12 @@ pub mod libs {
         #[doc = " - __`stt`__: Ptr to teh sensor traits"]
         #[doc = ""]
         #[doc = " Return: 0 on success, non-zero error code on failure."]
-        pub type sensor_set_trigger_thresh_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
-                                                        arg2: sensor_type_t,
-                                                        stt:
-                                                            *mut sensor_type_traits)
-                                       -> ::cty::c_int>;
+        pub type sensor_set_trigger_thresh_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
+                                                     arg2: sensor_type_t,
+                                                     stt:
+                                                         *mut sensor_type_traits)
+                                    -> ::cty::c_int>;
         #[doc =
           " Clear the high/low threshold values for a specific sensor for the sensor"]
         #[doc = " type."]
@@ -11216,11 +11251,10 @@ pub mod libs {
         #[doc = " - __`type`__: Type of sensor"]
         #[doc = ""]
         #[doc = " Return: 0 on success, non-zero error code on failure."]
-        pub type sensor_clear_trigger_thresh_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(sensor: *mut sensor,
-                                                        type_: sensor_type_t)
-                                       -> ::cty::c_int>;
+        pub type sensor_clear_trigger_thresh_t =
+         ::core::option::Option<unsafe extern "C" fn(sensor: *mut sensor,
+                                                     type_: sensor_type_t)
+                                    -> ::cty::c_int>;
         #[doc =
           " Set the notification expectation for a targeted set of events for the"]
         #[doc =
@@ -11233,12 +11267,11 @@ pub mod libs {
           " - __`event`__: The mask of event types to expect notifications from."]
         #[doc = ""]
         #[doc = " Return: 0 on success, non-zero error code on failure."]
-        pub type sensor_set_notification_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
-                                                        arg2:
-                                                            sensor_event_type_t)
-                                       -> ::cty::c_int>;
+        pub type sensor_set_notification_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
+                                                     arg2:
+                                                         sensor_event_type_t)
+                                    -> ::cty::c_int>;
         #[doc =
           " Unset the notification expectation for a targeted set of events for the"]
         #[doc = " specific sensor."]
@@ -11247,30 +11280,27 @@ pub mod libs {
         #[doc = " - __`event`__: The mask of event types."]
         #[doc = ""]
         #[doc = " Return: 0 on success, non-zero error code on failure."]
-        pub type sensor_unset_notification_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
-                                                        arg2:
-                                                            sensor_event_type_t)
-                                       -> ::cty::c_int>;
+        pub type sensor_unset_notification_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor,
+                                                     arg2:
+                                                         sensor_event_type_t)
+                                    -> ::cty::c_int>;
         #[doc = " Let driver handle interrupt in the sensor context"]
         #[doc = ""]
         #[doc = " - __`sensor`__: Ptr to the sensor"]
         #[doc = ""]
         #[doc = " Return: 0 on success, non-zero error code on failure."]
-        pub type sensor_handle_interrupt_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(sensor: *mut sensor)
-                                       -> ::cty::c_int>;
+        pub type sensor_handle_interrupt_t =
+         ::core::option::Option<unsafe extern "C" fn(sensor: *mut sensor)
+                                    -> ::cty::c_int>;
         #[doc = " Reset Sensor function Ptr"]
         #[doc = ""]
         #[doc = " - __`Ptr`__: to the sensor"]
         #[doc = ""]
         #[doc = " Return: 0 on success, non-zero on failure"]
-        pub type sensor_reset_t
-            =
-            ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor)
-                                       -> ::cty::c_int>;
+        pub type sensor_reset_t =
+         ::core::option::Option<unsafe extern "C" fn(arg1: *mut sensor)
+                                    -> ::cty::c_int>;
         #[repr(C)]
         pub struct sensor__bindgen_ty_1 {
             pub slh_first: *mut sensor_listener,
@@ -11357,7 +11387,7 @@ pub mod libs {
               "  Copy the sensor data into `dest`.  Return 0 if successful."]
             pub fn get_temp_raw_data(sensor_data: *mut ::cty::c_void,
                                      dest: *mut sensor_temp_raw_data)
-             -> ::cty::c_int;
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -11365,29 +11395,34 @@ pub mod libs {
             #[doc =
               "  Copy the sensor data into `dest`.  Return 0 if successful."]
             pub fn get_temp_data(sensor_data: *mut ::cty::c_void,
-                                 dest: *mut sensor_temp_data) -> ::cty::c_int;
+                                 dest: *mut sensor_temp_data)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = "  Return the Mynewt device for the Mynewt sensor."]
-            pub fn sensor_get_device(s: *mut sensor) -> *mut os_dev;
+            pub fn sensor_get_device(s: *mut sensor)
+            -> *mut os_dev;
         }
         extern "C" {
             #[doc =
               "  Return the name for the Mynewt device.  Assumes name is non-null."]
             pub fn device_get_name(device: *mut os_dev)
-             -> *const ::cty::c_char;
+            -> *const ::cty::c_char;
         }
         extern "C" {
             #[doc = "  Return the NULL sensor."]
-            pub fn null_sensor() -> *mut sensor;
+            pub fn null_sensor()
+            -> *mut sensor;
         }
         extern "C" {
             #[doc = "  Return non-zero if sensor is NULL."]
-            pub fn is_null_sensor(p: *mut sensor) -> ::cty::c_int;
+            pub fn is_null_sensor(p: *mut sensor)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc = "  Return non-zero if sensor data is NULL."]
-            pub fn is_null_sensor_data(p: *mut ::cty::c_void) -> ::cty::c_int;
+            pub fn is_null_sensor_data(p: *mut ::cty::c_void)
+            -> ::cty::c_int;
         }
         extern "C" {
             #[doc =
@@ -11487,10 +11522,7 @@ mod hal {
                 };
             check_i2c_return_code(rc)
         }
-        type
-        Error
-        =
-        crate::result::MynewtError;
+        type Error = crate::result::MynewtError;
     }
     impl embedded_hal::blocking::i2c::Read for I2C {
         fn read(&mut self, addr: u8, data: &mut [u8])
@@ -11506,10 +11538,7 @@ mod hal {
                 };
             check_i2c_return_code(rc)
         }
-        type
-        Error
-        =
-        crate::result::MynewtError;
+        type Error = crate::result::MynewtError;
     }
     impl embedded_hal::blocking::i2c::WriteRead for I2C {
         fn write_read(&mut self, addr: u8, data_write: &[u8],
@@ -11534,10 +11563,7 @@ mod hal {
             check_i2c_return_code(rc_write)?;
             check_i2c_return_code(rc_read)
         }
-        type
-        Error
-        =
-        crate::result::MynewtError;
+        type Error = crate::result::MynewtError;
     }
     fn check_i2c_return_code(rc: i32) -> crate::result::MynewtResult<()> {
         type E = crate::result::MynewtError;
@@ -11587,8 +11613,7 @@ mod hal {
                                                                                                                            ::core::fmt::Debug::fmt),
                                                                                               ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                            ::core::fmt::Display::fmt)],
-                                                                                         }),
-                                                         ::core::panic::Location::caller())
+                                                                                         }))
                         }
                     }
                 }
@@ -11621,8 +11646,7 @@ mod hal {
                                                                                                                            ::core::fmt::Debug::fmt),
                                                                                               ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                            ::core::fmt::Display::fmt)],
-                                                                                         }),
-                                                         ::core::panic::Location::caller())
+                                                                                         }))
                         }
                     }
                 }
@@ -11655,8 +11679,7 @@ mod hal {
                                                                                                                            ::core::fmt::Debug::fmt),
                                                                                               ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                            ::core::fmt::Display::fmt)],
-                                                                                         }),
-                                                         ::core::panic::Location::caller())
+                                                                                         }))
                         }
                     }
                 }
@@ -11689,8 +11712,7 @@ mod hal {
                                                                                                                            ::core::fmt::Debug::fmt),
                                                                                               ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                            ::core::fmt::Display::fmt)],
-                                                                                         }),
-                                                         ::core::panic::Location::caller())
+                                                                                         }))
                         }
                     }
                 }
@@ -11714,10 +11736,7 @@ mod hal {
             Ok(())
         }
         /// Reuse Mynewt error codes
-        type
-        Error
-        =
-        crate::result::MynewtError;
+        type Error = crate::result::MynewtError;
     }
     /// Rust Embedded HAL interface for Mynewt GPIO
     impl GPIO {
@@ -11753,8 +11772,7 @@ mod hal {
                                                                                                                            ::core::fmt::Debug::fmt),
                                                                                               ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                            ::core::fmt::Display::fmt)],
-                                                                                         }),
-                                                         ::core::panic::Location::caller())
+                                                                                         }))
                         }
                     }
                 }
@@ -11776,10 +11794,7 @@ mod hal {
             Ok(())
         }
         /// Reuse Mynewt error codes
-        type
-        Error
-        =
-        crate::result::MynewtError;
+        type Error = crate::result::MynewtError;
     }
     /// Rust Embedded HAL interface for Mynewt Delay
     impl Delay {
@@ -11925,8 +11940,7 @@ pub mod spi {
                                                                                                                        ::core::fmt::Debug::fmt),
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
-                                                                                     }),
-                                                     ::core::panic::Location::caller())
+                                                                                     }))
                     }
                 }
             }
@@ -11964,8 +11978,7 @@ pub mod spi {
                                                                                                                        ::core::fmt::Debug::fmt),
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
-                                                                                     }),
-                                                     ::core::panic::Location::caller())
+                                                                                     }))
                     }
                 }
             }
@@ -11998,8 +12011,7 @@ pub mod spi {
                                                                                                                        ::core::fmt::Debug::fmt),
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
-                                                                                     }),
-                                                     ::core::panic::Location::caller())
+                                                                                     }))
                     }
                 }
             }
@@ -12032,8 +12044,7 @@ pub mod spi {
                                                                                                                        ::core::fmt::Debug::fmt),
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
-                                                                                     }),
-                                                     ::core::panic::Location::caller())
+                                                                                     }))
                     }
                 }
             }
@@ -12066,8 +12077,7 @@ pub mod spi {
                                                                                                                        ::core::fmt::Debug::fmt),
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
-                                                                                     }),
-                                                     ::core::panic::Location::caller())
+                                                                                     }))
                     }
                 }
             }
@@ -12105,8 +12115,7 @@ pub mod spi {
                                                                                                                        ::core::fmt::Debug::fmt),
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
-                                                                                     }),
-                                                     ::core::panic::Location::caller())
+                                                                                     }))
                     }
                 }
             }
@@ -12139,8 +12148,7 @@ pub mod spi {
                                                                                                                        ::core::fmt::Debug::fmt),
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
-                                                                                     }),
-                                                     ::core::panic::Location::caller())
+                                                                                     }))
                     }
                 }
             }
@@ -12173,8 +12181,7 @@ pub mod spi {
                                                                                                                        ::core::fmt::Debug::fmt),
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
-                                                                                     }),
-                                                     ::core::panic::Location::caller())
+                                                                                     }))
                     }
                 }
             }
@@ -12340,8 +12347,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Debug::fmt),
                                                                                               ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                            ::core::fmt::Display::fmt)],
-                                                                                         }),
-                                                         ::core::panic::Location::caller())
+                                                                                         }))
                         }
                     }
                 }
@@ -12390,8 +12396,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Debug::fmt),
                                                                                               ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                            ::core::fmt::Display::fmt)],
-                                                                                         }),
-                                                         ::core::panic::Location::caller())
+                                                                                         }))
                         }
                     }
                 }
@@ -12430,8 +12435,7 @@ pub mod spi {
                                                                                                                            ::core::fmt::Debug::fmt),
                                                                                               ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                            ::core::fmt::Display::fmt)],
-                                                                                         }),
-                                                         ::core::panic::Location::caller())
+                                                                                         }))
                         }
                     }
                 }
@@ -12475,8 +12479,7 @@ pub mod spi {
                                                                                                                        ::core::fmt::Debug::fmt),
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
-                                                                                     }),
-                                                     ::core::panic::Location::caller())
+                                                                                     }))
                     }
                 }
             }
@@ -12539,11 +12542,11 @@ pub mod result {
         fn eq(&self, other: &MynewtError) -> bool {
             {
                 let __self_vi =
-                    unsafe { ::core::intrinsics::discriminant_value(&*self) }
-                        as i32;
+                    unsafe { ::core::intrinsics::discriminant_value(&*self) };
                 let __arg_1_vi =
-                    unsafe { ::core::intrinsics::discriminant_value(&*other) }
-                        as i32;
+                    unsafe {
+                        ::core::intrinsics::discriminant_value(&*other)
+                    };
                 if true && __self_vi == __arg_1_vi {
                     match (&*self, &*other) { _ => true, }
                 } else { false }
@@ -12652,8 +12655,7 @@ impl Strn {
                                                                                                                        ::core::fmt::Debug::fmt),
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
-                                                                                     }),
-                                                     ::core::panic::Location::caller())
+                                                                                     }))
                     }
                 }
             }
@@ -12702,8 +12704,7 @@ impl Strn {
                                                                                                                                ::core::fmt::Debug::fmt),
                                                                                                   ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                ::core::fmt::Display::fmt)],
-                                                                                             }),
-                                                             ::core::panic::Location::caller())
+                                                                                             }))
                             }
                         }
                     }
@@ -12755,8 +12756,7 @@ impl Strn {
                                                                                                                                ::core::fmt::Debug::fmt),
                                                                                                   ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                ::core::fmt::Display::fmt)],
-                                                                                             }),
-                                                             ::core::panic::Location::caller())
+                                                                                             }))
                             }
                         }
                     }
@@ -12798,8 +12798,7 @@ impl Strn {
                                                                                                                                ::core::fmt::Debug::fmt),
                                                                                                   ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                ::core::fmt::Display::fmt)],
-                                                                                             }),
-                                                             ::core::panic::Location::caller())
+                                                                                             }))
                             }
                         }
                     }
@@ -12843,8 +12842,7 @@ impl Strn {
                                                                                                                                ::core::fmt::Debug::fmt),
                                                                                                   ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                                ::core::fmt::Display::fmt)],
-                                                                                             }),
-                                                             ::core::panic::Location::caller())
+                                                                                             }))
                             }
                         }
                     }
@@ -12882,8 +12880,7 @@ impl Strn {
                                                                                                                        ::core::fmt::Debug::fmt),
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
-                                                                                     }),
-                                                     ::core::panic::Location::caller())
+                                                                                     }))
                     }
                 }
             }
