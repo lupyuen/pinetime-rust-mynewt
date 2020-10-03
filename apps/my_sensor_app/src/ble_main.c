@@ -65,24 +65,31 @@ static int bleprph_gap_event(struct ble_gap_event *event, void *arg);
 #define BLE_GATT_SVC_CTS        (0x1805)  //  GATT Service for Current Time Service
 #define BLE_GATT_CHR_CUR_TIME   (0x2A2B)  //  GATT Characteristic for Current Time Service
 
-//  Called when service discovery of the specified peer has completed.
-static void blecent_on_disc_complete(const struct peer *peer, int status, void *arg) {
+static void blecent_read(const struct blepeer *peer);
+static int blecent_on_read(uint16_t conn_handle, const struct ble_gatt_error *error, struct ble_gatt_attr *attr, void *arg);
+
+//  Called when GATT Service Discovery of the BLE Peer has completed
+static void blecent_on_disc_complete(const struct blepeer *peer, int status, void *arg) {
     if (status != 0) {
         //  Service discovery failed
         MODLOG_DFLT_ERROR("Error: Service discovery failed; status=%d conn_handle=%d\n", status, peer->conn_handle);
-        //  ble_gap_terminate(peer->conn_handle, BLE_ERR_REM_USER_CONN_TERM);
-        return;
+        goto err;
     }
 
-    //  Service discovery has completed successfully.  Now we have a complete list of services, characteristics, and descriptors that the peer supports.
+    //  GATT Service Discovery has completed successfully.  Now we have a complete list of services, characteristics, and descriptors that the peer supports.
     MODLOG_DFLT_INFO("Service discovery complete; status=%d conn_handle=%d\n", status, peer->conn_handle);
 
     //  Read the GATT Characteristics from the peer
     blecent_read(peer);
+    return;
+
+err:
+    //  Don't terminate the BLE connection yet, may be used by MCU Manager
+    //  ble_gap_terminate(peer->conn_handle, BLE_ERR_REM_USER_CONN_TERM);
 }
 
 //  Read the GATT Characteristic for Current Time Service from the BLE Peer
-static void blecent_read(const struct peer *peer) {
+static void blecent_read(const struct blepeer *peer) {
     //  Find the GATT Characteristic for Current Time Service from the discovered GATT Characteristics
     const struct peer_chr *chr = blepeer_chr_find_uuid(
         peer,
