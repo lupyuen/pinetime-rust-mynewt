@@ -149,13 +149,13 @@ syscfg.vals:
     ###########################################################################
     # Bluetooth LE Settings
 
-    BLUETOOTH_LE:       1  # Enable Bluetooth LE
+    BLUETOOTH_LE:         1  # Enable Bluetooth LE
 
-    # Disable central and observer roles.
-    BLE_ROLE_BROADCASTER: 1
-    BLE_ROLE_CENTRAL: 0
-    BLE_ROLE_OBSERVER: 0
-    BLE_ROLE_PERIPHERAL: 1
+    # Disable observer role.
+    BLE_ROLE_BROADCASTER: 1  #  Needed for broadcasting device
+    BLE_ROLE_CENTRAL:     1  #  Needed for GATT Service Discovery
+    BLE_ROLE_OBSERVER:    0
+    BLE_ROLE_PERIPHERAL:  1
 
     # Configure DIS
     BLE_SVC_DIS_FIRMWARE_REVISION_READ_PERM: 1
