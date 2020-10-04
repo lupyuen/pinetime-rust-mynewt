@@ -7,8 +7,6 @@ set -x  #  Echo commands
 mynewt_build_app=nrf52_my_sensor
 rust_build_target=thumbv7em-none-eabihf
 launch_config=launch-nrf52-pi.json
-export DEP_LV_CONFIG_PATH=$PWD/libs/pinetime_lvgl_mynewt
-export RUST_BACKTRACE=1
 
 #  TODO: On macOS and x64 Linux: launch_config=launch-nrf52.json
 set +x  #  Stop echo
@@ -36,7 +34,7 @@ rust_libcore_dir=$PWD/bin/targets/$mynewt_build_app/app/libs/rust_libcore
 rust_libcore_dest=$rust_libcore_dir/libs_rust_libcore.a
 
 #  Rust build options
-rust_build_options="--target $rust_build_target -Zfeatures=build_dep"
+rust_build_options="--target $rust_build_target"
 if [ "$rust_build_profile" == 'release' ]; then
     # Build for release
     rust_build_options="--release $rust_build_options"
