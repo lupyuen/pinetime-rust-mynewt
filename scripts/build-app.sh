@@ -7,6 +7,9 @@ set -x  #  Echo commands
 mynewt_build_app=nrf52_my_sensor
 rust_build_target=thumbv7em-none-eabihf
 launch_config=launch-nrf52-pi.json
+DEP_LV_CONFIG_PATH=$PWD/libs/pinetime_lvgl_mynewt
+RUST_BACKTRACE=1
+
 #  TODO: On macOS and x64 Linux: launch_config=launch-nrf52.json
 set +x  #  Stop echo
 echo ; echo "----- Building Rust app and Mynewt OS for $rust_build_target / $mynewt_build_app..." 

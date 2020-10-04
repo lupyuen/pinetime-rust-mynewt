@@ -3,6 +3,8 @@
 set mynewt_build_app=nrf52_my_sensor
 set rust_build_target=thumbv7em-none-eabihf
 set launch_config=launch-nrf52.json
+set DEP_LV_CONFIG_PATH=%cd%\libs\pinetime_lvgl_mynewt
+set RUST_BACKTRACE=1
 
 @echo ----- Building Rust app and Mynewt OS for %rust_build_target% / %mynewt_build_app%...
 
