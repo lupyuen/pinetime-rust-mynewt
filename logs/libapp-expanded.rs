@@ -51,40 +51,13 @@ mod app_network {
     //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
     //  Declare `touch_sensor.rs` as Rust module `touch_sensor` for Touch Sensor functions
 
-    //  Declare the optional modules depending on the options in `../Cargo.toml`
-    //  If graphics display app is enabled...
-    //  Include the graphics display app
-
-    //  If druid UI app is enabled...
-    //  Include the druid UI app
-
-    //  If Visual Rust app is enabled...
-    //  Don't warn about unused variables
-    //  Include the Visual Rust app
-
-    //  If CHIP8 Emulator app is enabled...
-    //  Include the CHIP8 Emulator app
-
-    //  If floating-point is enabled...
-    //  Include the GPS Sensor functions
-
     //  Declare the system modules
     //  Import `PanicInfo` type which is used by `panic()` below
     //  Import cortex_m assembly function to inject breakpoint
     //  Import Mynewt OS API
     //  Import Mynewt Console API
 
-    //  Select the touch handler depending on the options in `../Cargo.toml`
-    //  If druid UI app is enabled...
-    //  Use the touch handler from druid UI app
-
-    //  If Visual Rust app is enabled...
-    //  Use the touch handler from the Visual Rust app
-
-    //  If CHIP8 Emulator app is enabled...
-    //  Use the touch handler from the CHIP8 Emulator app
-
-    //  If neither druid UI app nor Visual Rust app are enabled...
+    //  #[cfg(not(any(feature = "ui_app")))]  //  TODO: If no UI app is enabled...
     //  Define a touch handler that does nothing
 
     //  Don't mangle the name "main"
@@ -93,27 +66,6 @@ mod app_network {
     //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
-
-    //  Write graphic image to SPI Flash. Must run before testing the display, to avoid contention for SPI port.
-    //  extern { fn write_image() -> i32; }
-    //  let rc = unsafe { write_image() };
-    //  assert!(rc == 0, "IMG fail");
-
-    //  Display image from SPI Flash. Must run before testing the display, to avoid contention for SPI port.
-    /*
-    extern { fn display_image() -> i32; }
-    let rc = unsafe { display_image() };
-    assert!(rc == 0, "IMG fail");
-    */
-
-    //  Test External SPI Flash. Must run before testing the display, to avoid contention for SPI port.
-    /*
-    extern { fn test_flash() -> i32; }
-    let rc = unsafe { test_flash() };
-    assert!(rc == 0, "FLASH fail");
-    */
-
-    //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
 
     //  Render LVGL watch face.
     //  Defined in apps/my_sensor_app/src/watch_face.c
@@ -126,44 +78,7 @@ mod app_network {
     //  Render LVGL display.
     //  Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
 
-    //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
-
     //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
-
-    //  Tickle the watchdog so that the Watchdog Timer doesn't expire. Mynewt assumes the process is hung if we don't tickle the watchdog.
-
-    //  Should not start the Rust driver for display controller, since LVGL handles display
-
-    //  Start the display
-    //  druid::start_display()
-    //      .expect("DSP fail");
-
-    //  Test the display
-    //  #[cfg(feature = "display_app")]  //  If graphics display app is enabled...
-    //  display::test_display()
-    //      .expect("DSP test fail");
-
-    //  Start the touch sensor
-    //  touch_sensor::start_touch_sensor()
-    //      .expect("TCH fail");
-
-    //  Test the touch sensor
-    //  touch_sensor::test()
-    //      .expect("TCH test fail");
-
-    //  Launch the druid UI app
-    //  #[cfg(feature = "ui_app")]  //  If druid UI app is enabled...
-    //  ui::launch();
-
-    //  Launch the Visual Rust app
-    //  #[cfg(feature = "visual_app")]  //  If Visual Rust app is enabled...
-    //  visual::on_start()
-    //      .expect("VIS fail");
-
-    //  Launch the CHIP8 Emulator app
-    //  #[cfg(feature = "chip8_app")]  //  If CHIP8 Emulator app is enabled...
-    //  chip8::on_start()
-    //      .expect("CHIP8 fail");
 
     //  Main event loop. Don't add anything to the event loop because Bluetooth LE is extremely time sensitive.
     //  Loop forever...
@@ -733,8 +648,6 @@ mod touch_sensor {
 use core::panic::PanicInfo;
 use cortex_m::asm::bkpt;
 use mynewt::{kernel::os, sys::console};
-#[cfg(not(any(feature = "ui_app", feature = "visual_app", feature =
-              "chip8_app")))]
 pub fn handle_touch(_x: u16, _y: u16) {
     console::print("touch not handled\n");
     console::flush();
@@ -744,10 +657,6 @@ pub fn handle_touch(_x: u16, _y: u16) {
 #[no_mangle]
 extern "C" fn main() -> ! {
     mynewt::sysinit();
-    extern {
-        fn hal_watchdog_tickle();
-    }
-    unsafe { hal_watchdog_tickle() };
     extern {
         fn create_watch_face()
         -> i32;
@@ -760,14 +669,12 @@ extern "C" fn main() -> ! {
     }
     let rc = unsafe { pinetime_lvgl_mynewt_render() };
     if !(rc == 0) { ::core::panicking::panic("LVGL render fail") };
-    unsafe { hal_watchdog_tickle() };
     extern {
         fn start_ble()
         -> i32;
     }
     let rc = unsafe { start_ble() };
     if !(rc == 0) { ::core::panicking::panic("BLE fail") };
-    unsafe { hal_watchdog_tickle() };
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }
