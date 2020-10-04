@@ -8,7 +8,7 @@ version = "0.1.0"
 
 # External Rust libraries used by this module.  See crates.io.
 [dependencies]
-# lvgl         = "0.4.0" # Rust bindings for LVGL: https://crates.io/crates/lvgl
+lvgl         = "0.4.0" # Rust bindings for LVGL: https://crates.io/crates/lvgl
 embedded-hal = "0.2.3" # Rust Embedded HAL Framework
 arrayvec     = { version = "0.5.1", default-features = false }
 heapless     = "0.5.1" # `static` friendly data structures that don't require dynamic memory allocation

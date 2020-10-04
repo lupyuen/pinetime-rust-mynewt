@@ -28,7 +28,7 @@ set launch_config=launch-nrf52.json
 @set rust_libcore_dest=%rust_libcore_dir%\libs_rust_libcore.a
 
 ::  Rust build options
-@set rust_build_options=--target %rust_build_target%
+@set rust_build_options=--target %rust_build_target% -Zfeatures=build_dep
 @if %rust_build_profile%==release (
     ::  Build for release
     set rust_build_options=--release %rust_build_options%
@@ -67,8 +67,8 @@ set launch_config=launch-nrf52.json
 @for %%f in (%rust_build_dir%\libapp.a) do @del %%f
 
 ::  Expand Rust macros for troubleshooting: logs/libmynewt-expanded.rs and libapp-expanded.rs
-@pushd rust\mynewt && cargo rustc %rust_build_options% -- -Z unstable-options --pretty expanded > ..\..\logs\libmynewt-expanded.rs && popd
-@pushd rust\app    && cargo rustc %rust_build_options% -- -Z unstable-options --pretty expanded > ..\..\logs\libapp-expanded.rs    && popd
+::  @pushd rust\mynewt && cargo rustc %rust_build_options% -- -Z unstable-options --pretty expanded > ..\..\logs\libmynewt-expanded.rs && popd
+::  @pushd rust\app    && cargo rustc %rust_build_options% -- -Z unstable-options --pretty expanded > ..\..\logs\libapp-expanded.rs    && popd
 
 ::  Build the Rust app in "src" folder.
 @echo ----- Build Rust app

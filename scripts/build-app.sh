@@ -33,7 +33,7 @@ rust_libcore_dir=$PWD/bin/targets/$mynewt_build_app/app/libs/rust_libcore
 rust_libcore_dest=$rust_libcore_dir/libs_rust_libcore.a
 
 #  Rust build options
-rust_build_options="--target $rust_build_target"
+rust_build_options="--target $rust_build_target -Zfeatures=build_dep"
 if [ "$rust_build_profile" == 'release' ]; then
     # Build for release
     rust_build_options="--release $rust_build_options"
