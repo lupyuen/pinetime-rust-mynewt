@@ -15,6 +15,7 @@ cty       = "0.2.0"  # String utilities from cty library: https://crates.io/crat
 cstr_core = "0.1.2"  # String utilities from cstr_core library: https://crates.io/crates/cstr_core
 memchr    = { version = "2", default-features = false } # String search. Reduce the ROM size by disabling default features. See https://github.com/BurntSushi/rust-memchr
 cortex-m  = { version = "0.6.1", features = [ "inline-asm" ] }  # Arm Cortex-M utilities: https://crates.io/crates/cortex-m
+lvgl   = { path = "../lvgl" }   # Import path `../lvgl` as lvgl library
 macros = { path = "../macros" } # Import path `../macros` as macros library
 mynewt = { path = "../mynewt" } # Import path `../mynewt` as mynewt library
 

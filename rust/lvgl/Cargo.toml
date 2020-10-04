@@ -1,0 +1,23 @@
+# Info about this package.
+[package]
+authors = ["Lee Lup Yuen <luppy@appkaki.com>"]
+edition = "2018"
+readme  = "README.md"
+name    = "lvgl"
+version = "0.1.0"
+
+# External Rust libraries used by this module.  See crates.io.
+[dependencies]
+heapless     = "0.5.3"  # `static` Vectors and Strings that don't require dynamic memory
+cty          = "0.2.1"  # String utilities from cty library: https://crates.io/crates/cty
+cstr_core    = "0.1.2"  # String utilities from cstr_core library: https://crates.io/crates/cstr_core
+memchr       = { version = "2", default-features = false } # String search. Reduce the ROM size by disabling default features. See https://github.com/BurntSushi/rust-memchr
+cortex-m     = { version = "0.6.2", features = [ "inline-asm" ] }  # Arm Cortex-M utilities: https://crates.io/crates/cortex-m
+cortex-m-semihosting = "0.3.5"  # Semihosting for ARM Cortex-M processors: https://crates.io/crates/cortex-m-semihosting
+macros       = { path = "../macros" } # Import path `../macros` as macros library
+
+# Build this module as a Rust library, not a Rust application.  We will link this library with the firmware.
+[lib]
+name       = "lvgl"  # Output will be named `liblvgl.rlib`
+test       = false
+bench      = false

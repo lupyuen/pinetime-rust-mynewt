@@ -4,6 +4,7 @@
 [workspace]
 members = [
     "rust/app",
+    "rust/lvgl",
     "rust/macros",
     "rust/mynewt"
 ]
