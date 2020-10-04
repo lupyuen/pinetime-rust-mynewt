@@ -164,7 +164,7 @@ static int blecent_on_read(uint16_t conn_handle, const struct ble_gatt_error *er
     rc = timeval_to_clocktime(&tv, &tz, &ct);
     if (rc != 0) { MODLOG_DFLT_ERROR("Error: Can't convert time: %d\n", rc); goto err; }
 
-    //  Dump the system time
+    //  Dump the system time as 2020-10-04T13:20:26.839843+00:00
     char buf[50];
     rc = datetime_format(&tv, &tz, buf, sizeof(buf));
     if (rc != 0) { MODLOG_DFLT_ERROR("Error: Can't format time: %d\n", rc); goto err; }
