@@ -151,9 +151,21 @@ static int blecent_on_read(uint16_t conn_handle, const struct ble_gatt_error *er
     //  Set the system time from the current time
     int rc = set_system_time(attr->om);
     if (rc != 0) {
-        MODLOG_DFLT(ERROR, "Error: Can't set time: %d\n", rc);
+        MODLOG_DFLT_ERROR("Error: Can't set time: %d\n", rc);
         goto err;
     }
+
+    //  Get the system time
+    struct os_timeval tv;
+    struct os_timezone tz;
+    rc = os_gettimeofday(&tv, &tz);
+    if (rc != 0) { MODLOG_DFLT_ERROR("Error: Can't get time: %d\n", rc); goto err; }
+
+    //  Dump the system time
+    char buf[30];
+    rc = datetime_format(&tv, &tz, buf, sizeof(buf));
+    if (rc != 0) { MODLOG_DFLT_ERROR("Error: Can't format time: %d\n", rc); goto err; }
+    console_printf("Current Time: %s\n", buf);
 
     //  TODO: Update the current time periodically
     return 0;
@@ -181,8 +193,9 @@ static int set_system_time(const struct os_mbuf *om) {
     if (rc != 0) { return BLE_ATT_ERR_UNLIKELY; }
 
     //  Get timezone
+    struct os_timeval tv0;
     struct os_timezone tz;
-    rc = os_gettimeofday(NULL, &tz);
+    rc = os_gettimeofday(&tv0, &tz);
     if (rc != 0) { return BLE_ATT_ERR_UNLIKELY; }
 
     //  Convert to clocktime format
