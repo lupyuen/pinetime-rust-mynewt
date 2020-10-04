@@ -183,13 +183,14 @@ function generate_bindings() {
 
 #  Define the library name
 libname=lvgl
-headerprefix=apps/pinetime/bin/pkg/pinetime
+headerprefix=libs
+srclib=pinetime_lvgl_mynewt
 
 function generate_bindings_core() {
     #  Add whitelist and blacklist for for lv_core/lv_obj
     local modname=core
     local submodname=obj
-    local headerfile=$headerprefix/$libname/src/lv_$modname/lv_$submodname.h
+    local headerfile=$headerprefix/$headerprefix/src/lv_$modname/lv_$submodname.h
     local whitelistname=lv_
     local whitelist=`cat << EOF
         --raw-line use \
@@ -207,7 +208,7 @@ function generate_bindings_objx() {
     #  Add whitelist and blacklist for for lv_objx/lv_label
     local modname=objx
     local submodname=label
-    local headerfile=$headerprefix/$libname/src/lv_$modname/lv_$submodname.h
+    local headerfile=$headerprefix/$headerprefix/src/lv_$modname/lv_$submodname.h
     local whitelistname=lv_label
     local whitelist=`cat << EOF
         --raw-line use \

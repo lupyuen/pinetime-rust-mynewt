@@ -210,7 +210,7 @@
             "command": "bash",
             "args": [
                 "-c", "-l",
-                " set -e -x ; ./scripts/gen-bindings.sh ; echo ✅ ◾ ️Done! "
+                " set -e -x ; ./scripts/gen-bindings.sh ; ./scripts/gen-bindings-lvgl.sh ; echo ✅ ◾ ️Done! "
             ],
             "problemMatcher": [],
             "presentation": {
