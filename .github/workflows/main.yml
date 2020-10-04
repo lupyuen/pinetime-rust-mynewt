@@ -9,11 +9,11 @@ on:
 
   # Run this Workflow when files are updated (Pushed) in this Branch
   push:
-    branches: [ master, lvgl, timesync, lvgl-rs ]
+    branches: [ master, lvgl, timesync ]
     
   # Also run this Workflow when a Pull Request is created or updated in this Branch
   pull_request:
-    branches: [ master, lvgl, timesync, lvgl-rs ]
+    branches: [ master, lvgl, timesync ]
 
 # Steps to run for the Workflow
 jobs:
