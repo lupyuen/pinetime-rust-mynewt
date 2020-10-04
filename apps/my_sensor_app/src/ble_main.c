@@ -160,9 +160,12 @@ static int blecent_on_read(uint16_t conn_handle, const struct ble_gatt_error *er
     struct os_timezone tz;
     rc = os_gettimeofday(&tv, &tz);
     if (rc != 0) { MODLOG_DFLT_ERROR("Error: Can't get time: %d\n", rc); goto err; }
+    struct clocktime ct;
+    rc = timeval_to_clocktime(&tv, &tz, &ct);
+    if (rc != 0) { MODLOG_DFLT_ERROR("Error: Can't convert time: %d\n", rc); goto err; }
 
     //  Dump the system time
-    char buf[30];
+    char buf[50];
     rc = datetime_format(&tv, &tz, buf, sizeof(buf));
     if (rc != 0) { MODLOG_DFLT_ERROR("Error: Can't format time: %d\n", rc); goto err; }
     console_printf("Current Time: %s\n", buf);
@@ -241,7 +244,7 @@ static void print_mbuf(const struct os_mbuf *om) {
 }
 
 #ifdef NOTUSED
-Read OK yay!
+Time Sync Log:
 
 Starting BLE...
 BLE started
