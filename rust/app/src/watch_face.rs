@@ -138,7 +138,7 @@ pub fn set_bt_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> Mynew
 
 /// Populate the Power Label with the battery status. Called by screen_time_update_screen() above.
 pub fn set_power_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
-    let percentage = unsafe { hal_battery_get_percentage(state.millivolts) };
+    let percentage = convert_battery_voltage(state.millivolts);
     let color =   //  Charging color
         if percentage <= 20  //  battery_low 
             { "#f2495c" }    //  battery_low_color
@@ -194,10 +194,7 @@ pub fn set_time_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> Myn
     }
 
     //  Get the short month name
-    let month_cstr = unsafe { controller_time_month_get_short_name(&state.time) };  //  Returns null-terminated C string
-    assert!(!month_cstr.is_null(), "month null");
-    let month_str = unsafe { cstr_core::CStr::from_ptr(month_cstr).to_str() }       //  Convert C string to Rust string
-        .expect("month fail");
+    let month_str = get_month_name(&state.time);
 
     //  Create a string buffer to format the date
     static mut DATE_BUF: String = new_string();
@@ -226,8 +223,8 @@ pub fn set_time_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> Myn
 pub fn start_watch_face() -> MynewtResult<()> {
     console::print("Init Rust watch face...\n"); console::flush();
 
-    //  TODO: Create the watch face
-    //  create_widgets() ? ;
+    //  Create the watch face
+    create_widgets(unsafe { &mut WATCH_FACE_WIDGETS }) ? ;
 
     //  Render the watch face
     let rc = unsafe { pinetime_lvgl_mynewt_render() };
@@ -259,9 +256,18 @@ extern fn watch_face_callback(_ev: *mut os::os_event) {
     let time = get_system_time()
         .expect("Can't get system time");
 
-    //  TODO: Update the watch face
-    //  update_widgets()
-    //      .expect("Update Watch Face fail");
+    //  Compose the watch face state
+    let state = WatchFaceState {
+        time,
+        millivolts: 0,     //  TODO: Get current voltage
+        charging:   true,  //  TODO: Get charging status
+        powered:    true,  //  TODO: Get powered status
+        ble_state:  BleState::BLEMAN_BLE_STATE_CONNECTED,  //  TODO: Get BLE state
+    };
+
+    //  Update the watch face
+    update_widgets(unsafe { &WATCH_FACE_WIDGETS }, &state)
+        .expect("Update Watch Face fail");
 
     //  Render the watch face
     let rc = unsafe { pinetime_lvgl_mynewt_render() };
@@ -305,8 +311,35 @@ pub fn get_system_time() -> MynewtResult<WatchFaceTime> {
     Ok(result)
 }
 
+/// Get month short name
+pub fn get_month_name(time: &WatchFaceTime) -> String {
+    match time.month {
+        1  => String::from("JAN"),
+        2  => String::from("FEB"),
+        3  => String::from("MAR"),
+        4  => String::from("APR"),
+        5  => String::from("MAY"),
+        6  => String::from("JUN"),
+        7  => String::from("JUL"),
+        8  => String::from("AUG"),
+        9  => String::from("SEP"),
+        10 => String::from("OCT"),
+        11 => String::from("NOV"),
+        12 => String::from("DEC"),
+        _  => String::from("???"),
+    }
+}
+
+/// Convert battery voltage to percentage
+pub fn convert_battery_voltage(_voltage: u32) -> i32 {
+    50  //  TODO
+}
+
 /// Timer that is triggered every minute to update the watch face
 static mut WATCH_FACE_CALLOUT: os::os_callout = fill_zero!(os::os_callout);
+
+/// LVGL Widgets for the watch face
+static mut WATCH_FACE_WIDGETS: WatchFaceWidgets = fill_zero!(WatchFaceWidgets);
 
 ///////////////////////////////////////////////////////////////////////////////
 //  String Definitions
@@ -402,10 +435,6 @@ extern {
     fn pinetime_lvgl_mynewt_render() -> i32;
     /// Convert timeval to clocktime. From https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h
     fn timeval_to_clocktime(tv: *const os::os_timeval, tz: *const os::os_timezone, ct: *mut clocktime) -> i32;
-    /// Get battery percentage
-    fn hal_battery_get_percentage(voltage: u32) -> i32;
-    /// Get month short name
-    fn controller_time_month_get_short_name(time: *const WatchFaceTime) -> *const ::cty::c_char;
     /// Style for the Time Label
     #[allow(dead_code)]
     static style_time: obj::lv_style_t;
