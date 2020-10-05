@@ -4,7 +4,7 @@ authors = ["Lee Lup Yuen <luppy@appkaki.com>"]
 edition = "2018"
 readme  = "README.md"
 name    = "app"
-version = "0.1.0"
+version = "0.2.0"
 
 # External Rust libraries used by this module.  See crates.io.
 [dependencies]
