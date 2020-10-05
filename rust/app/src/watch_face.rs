@@ -46,43 +46,43 @@ pub fn create_widgets(widgets: &mut WatchFaceWidgets) -> MynewtResult<()> {
     //  Create a label for time (00:00)
     let label1 = label::create(scr, ptr::null()) ? ;  //  `?` will terminate the function in case of error
     label::set_long_mode(label1, label::LV_LABEL_LONG_BREAK) ? ;
-    label::set_text(label1, strn!("00:00")) ? ;  //  strn creates a null-terminated string
-    obj::set_width(label1, 240) ? ;
-    obj::set_height(label1, 200) ? ;
-    label::set_align(label1, label::LV_LABEL_ALIGN_CENTER) ? ;
-    obj::align(label1, scr, obj::LV_ALIGN_CENTER, 0, -30) ? ;
+    label::set_text(     label1, strn!("00:00")) ? ;  //  strn creates a null-terminated string
+    obj::set_width(      label1, 240) ? ;
+    obj::set_height(     label1, 200) ? ;
+    label::set_align(    label1, label::LV_LABEL_ALIGN_CENTER) ? ;
+    obj::align(          label1, scr, obj::LV_ALIGN_CENTER, 0, -30) ? ;
     //  #[cfg(not(target_arch = "wasm32"))]  //  TODO: obj::set_style doesn't work for WebAssembly Simulator
     //  TODO: obj::set_style(label1, unsafe { &style_time }) ? ;  //  Previously: label::set_style
     widgets.time_label = label1;
 
     //  Create a label for Bluetooth state
     let l_state = label::create(scr, ptr::null()) ? ;
-    obj::set_width(l_state, 50) ? ;
-    obj::set_height(l_state, 80) ? ;
-    label::set_text(l_state, strn!("")) ? ;  //  strn creates a null-terminated string
-    label::set_recolor(l_state, true) ? ;
-    label::set_align(l_state, label::LV_LABEL_ALIGN_LEFT) ? ;
-    obj::align(l_state, scr, obj::LV_ALIGN_IN_TOP_LEFT, 0, 0) ? ;
+    obj::set_width(     l_state, 50) ? ;
+    obj::set_height(    l_state, 80) ? ;
+    label::set_text(    l_state, strn!("")) ? ;  //  strn creates a null-terminated string
+    label::set_recolor( l_state, true) ? ;
+    label::set_align(   l_state, label::LV_LABEL_ALIGN_LEFT) ? ;
+    obj::align(         l_state, scr, obj::LV_ALIGN_IN_TOP_LEFT, 0, 0) ? ;
     widgets.ble_label = l_state;
 
     //  Create a label for Power indicator
     let l_power = label::create(scr, ptr::null()) ? ;
-    obj::set_width(l_power, 80) ? ;
-    obj::set_height(l_power, 20) ? ;
-    label::set_text(l_power, strn!("")) ? ;  //  strn creates a null-terminated string
+    obj::set_width(    l_power, 80) ? ;
+    obj::set_height(   l_power, 20) ? ;
+    label::set_text(   l_power, strn!("")) ? ;  //  strn creates a null-terminated string
     label::set_recolor(l_power, true) ? ;
-    label::set_align(l_power, label::LV_LABEL_ALIGN_RIGHT) ? ;
-    obj::align(l_power, scr, obj::LV_ALIGN_IN_TOP_RIGHT, 0, 0) ? ;
+    label::set_align(  l_power, label::LV_LABEL_ALIGN_RIGHT) ? ;
+    obj::align(        l_power, scr, obj::LV_ALIGN_IN_TOP_RIGHT, 0, 0) ? ;
     widgets.power_label = l_power;
 
     //  Create a label for Date
     let label_date = label::create(scr, ptr::null()) ? ;
     label::set_long_mode(label_date, label::LV_LABEL_LONG_BREAK) ? ;
-    obj::set_width(label_date, 200) ? ;
-    obj::set_height(label_date, 200) ? ;
-    label::set_text(label_date, strn!("")) ? ;  //  strn creates a null-terminated string
-    label::set_align(label_date, label::LV_LABEL_ALIGN_CENTER) ? ;
-    obj::align(label_date, scr, obj::LV_ALIGN_CENTER, 0, 40) ? ;
+    obj::set_width(      label_date, 200) ? ;
+    obj::set_height(     label_date, 200) ? ;
+    label::set_text(     label_date, strn!("")) ? ;  //  strn creates a null-terminated string
+    label::set_align(    label_date, label::LV_LABEL_ALIGN_CENTER) ? ;
+    obj::align(          label_date, scr, obj::LV_ALIGN_CENTER, 0, 40) ? ;
     widgets.date_label = label_date;
 
     //  Allow touch events
@@ -354,10 +354,10 @@ pub struct WatchFaceWidgets {
 #[allow(non_camel_case_types)]
 #[allow(dead_code)]
 pub enum BleState {  //  bleman_ble_state_t
-    BLEMAN_BLE_STATE_INACTIVE = 0,
-    BLEMAN_BLE_STATE_ADVERTISING = 1,
+    BLEMAN_BLE_STATE_INACTIVE     = 0,
+    BLEMAN_BLE_STATE_ADVERTISING  = 1,
     BLEMAN_BLE_STATE_DISCONNECTED = 2,
-    BLEMAN_BLE_STATE_CONNECTED = 3,
+    BLEMAN_BLE_STATE_CONNECTED    = 3,
 }
 
 //  TODO: Sync with modules/controller/include/controller/time.h
