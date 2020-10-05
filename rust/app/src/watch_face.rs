@@ -298,11 +298,13 @@ extern {
     static style_time: obj::lv_style_t;
 }
 
-/*
-static struct os_callout watch_face_callout;  //  Timer that is triggered every minute
+use mynewt::os;
+
+static mut watch_face_callout: os_callout = os_callout {};  //  Timer that is triggered every minute
 
 /// Render a watch face. Called by main() in rust/app/src/lib.rs
-int create_watch_face(void) {
+pub fn init_watch_face() -> MynewtResult<()> {
+/*
     console_printf("Create watch face...\n"); console_flush();
     btn = lv_btn_create(lv_scr_act(), NULL);     //  Add a button the current screen
     lv_obj_set_pos(btn, 10, 10);                 //  Set its position
@@ -325,39 +327,12 @@ int create_watch_face(void) {
         OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
     );
     return 0;
-}
-
-/// Update the watch face
-int update_watch_face(void) {
-    //  If button or label not created, quit
-    if (btn == NULL || label == NULL) { return 1; }
-
-    //  Get the system time
-    struct os_timeval tv;
-    struct os_timezone tz;
-    int rc = os_gettimeofday(&tv, &tz);
-    if (rc != 0) { console_printf("Can't get time: %d\n", rc); return 2; }
-
-    //  Convert the time
-    struct clocktime ct;
-    rc = timeval_to_clocktime(&tv, &tz, &ct);
-    if (rc != 0) { console_printf("Can't convert time: %d\n", rc); return 3; }
-
-    //  Format the time as 2020-10-04T13:20:26.839843+00:00
-    char buf[50];
-    rc = datetime_format(&tv, &tz, buf, sizeof(buf));
-    if (rc != 0) { console_printf("Can't format time: %d\n", rc); return 4; }
-
-    //  Truncate after minute: 2020-10-04T13:20
-    buf[16] = 0;
-
-    //  Set the label text
-    lv_label_set_text(label, buf);
-    return 0;
+*/
 }
 
 /// Timer callback that is called every minute
-static void watch_face_callback(struct os_event *ev) {
+extern fn watch_face_callback(ev: os_event) {
+/*
     assert(ev != NULL);
 
     //  Update the watch face
@@ -371,5 +346,5 @@ static void watch_face_callback(struct os_event *ev) {
         &watch_face_callout,   //  Timer for the watch face
         OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
     );
-}
 */
+}
