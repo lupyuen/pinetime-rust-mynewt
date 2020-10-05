@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-//! Watch Face in Rust for PineTime with Apache Mynewt OS
+//! Watch Face in Rust for PineTime with Apache Mynewt OS. See https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face
 use core::{
     fmt::Write,
     ptr,
