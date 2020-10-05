@@ -16,7 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-//! Watch Face in Rust for PineTime with Apache Mynewt OS. See https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face
+//! Watch Face in Rust for PineTime with Apache Mynewt OS, based on apps/my_sensor_app/src/watch_face.c
+//! See https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face
 use core::{
     fmt::Write,
     ptr,
@@ -254,6 +255,10 @@ pub fn start_watch_face() -> MynewtResult<()> {
 
 /// Timer callback that is called every minute
 extern fn watch_face_callback(_ev: *mut os::os_event) {
+    //  Get the system time    
+    let time = get_system_time()
+        .expect("Can't get system time");
+
     //  TODO: Update the watch face
     //  update_widgets()
     //      .expect("Update Watch Face fail");
@@ -269,6 +274,35 @@ extern fn watch_face_callback(_ev: *mut os::os_event) {
             os::OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
         );    
     }
+}
+
+/// Get the system time
+pub fn get_system_time() -> MynewtResult<WatchFaceTime> {
+    //  Get the system time
+    static mut TV: os::os_timeval  = fill_zero!(os::os_timeval);
+    static mut TZ: os::os_timezone = fill_zero!(os::os_timezone);
+    let rc = unsafe { os::os_gettimeofday(&mut TV, &mut TZ) };
+    assert!(rc == 0, "Can't get time");    
+
+    //  Convert the time
+    static mut CT: clocktime = fill_zero!(clocktime);
+    let rc = unsafe { timeval_to_clocktime(&TV, &TZ, &mut CT) };
+    assert!(rc == 0, "Can't convert time");
+
+    //  Return the time
+    let result = unsafe {
+        WatchFaceTime {
+            year:       CT.year as u16,  //  Year (4 digit year)
+            month:      CT.mon  as u8,   //  Month (1 - 12)
+            dayofmonth: CT.day  as u8,   //  Day (1 - 31)
+            hour:       CT.hour as u8,   //  Hour (0 - 23)
+            minute:     CT.min  as u8,   //  Minute (0 - 59)
+            second:     CT.sec  as u8,   //  Second (0 - 59)
+            fracs:      0,               //  Unused
+            dayofweek:  CT.dow  as u8,   //  Day of week (0 - 6; 0 = Sunday)
+        }
+    };
+    Ok(result)
 }
 
 /// Timer that is triggered every minute to update the watch face
@@ -297,7 +331,7 @@ type String = heapless::String::<heapless::consts::U64>;
 #[repr(C)]
 pub struct WatchFaceState {
     pub ble_state:  BleState,  //  bleman_ble_state_t
-    pub time:       controller_time_spec_t,
+    pub time:       WatchFaceTime,
     pub millivolts: u32,
     pub charging:   bool,
     pub powered:    bool,
@@ -328,15 +362,15 @@ pub enum BleState {  //  bleman_ble_state_t
 
 //  TODO: Sync with modules/controller/include/controller/time.h
 #[repr(C)]
-#[allow(non_camel_case_types)]
-pub struct controller_time_spec_t {
-    pub year:       u16,
-    pub month:      u8,
-    pub dayofmonth: u8,
-    pub hour:       u8,
-    pub minute:     u8,
-    pub second:     u8,
-    pub fracs:      u8,
+pub struct WatchFaceTime {
+    pub year:       u16,  //  Year (4 digit year)
+    pub month:      u8,   //  Month (1 - 12)
+    pub dayofmonth: u8,   //  Day (1 - 31)
+    pub hour:       u8,   //  Hour (0 - 23)
+    pub minute:     u8,   //  Minute (0 - 59)
+    pub second:     u8,   //  Second (0 - 59)
+    pub fracs:      u8,   //  Unused
+    pub dayofweek:  u8,   //  Day of week (0 - 6; 0 = Sunday)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -366,11 +400,27 @@ extern "C" fn update_watch_face(widgets: *const WatchFaceWidgets, state: *const 
 extern {
     /// Render the LVGL display. Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
     fn pinetime_lvgl_mynewt_render() -> i32;
+    /// Convert timeval to clocktime. From https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h
+    fn timeval_to_clocktime(tv: *const os::os_timeval, tz: *const os::os_timezone, ct: *mut clocktime) -> i32;
     /// Get battery percentage
     fn hal_battery_get_percentage(voltage: u32) -> i32;
     /// Get month short name
-    fn controller_time_month_get_short_name(time: *const controller_time_spec_t) -> *const ::cty::c_char;
+    fn controller_time_month_get_short_name(time: *const WatchFaceTime) -> *const ::cty::c_char;
     /// Style for the Time Label
     #[allow(dead_code)]
     static style_time: obj::lv_style_t;
+}
+
+/// Mynewt Clock Time. From https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h
+#[repr(C)]
+#[allow(non_camel_case_types)]
+pub struct clocktime {
+    pub year: i32,  //  Year (4 digit year)
+    pub mon:  i32,  //  Month (1 - 12)
+    pub day:  i32,  //  Day (1 - 31)
+    pub hour: i32,  //  Hour (0 - 23)
+    pub min:  i32,  //  Minute (0 - 59)
+    pub sec:  i32,  //  Second (0 - 59)
+    pub dow:  i32,  //  Day of week (0 - 6; 0 = Sunday)
+    pub usec: i32,  //  Micro seconds
 }
