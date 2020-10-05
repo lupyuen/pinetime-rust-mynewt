@@ -1,7 +1,7 @@
 # Info about this package.
 [package]
 name    = "macros"
-version = "0.1.0"
+version = "0.3.0"
 authors = ["lupyuen <luppy@appkaki.com>"]
 edition = "2018"
 
@@ -22,3 +22,12 @@ name       = "macros"  # Output will be named `libmacros.rlib`
 test       = true
 bench      = false
 proc-macro = true  # Allow building of Procedural Macros: https://blog.rust-lang.org/2018/12/21/Procedural-Macros-in-Rust-2018.html
+
+# Optional features
+[features]
+default =  [      # Select the conditional compiled features
+    "mynewt_os",  # Uncomment to support Mynewt OS
+    # "riot_os"   # Uncomment to support RIOT OS
+]
+mynewt_os = []    # Define the features
+riot_os   = []

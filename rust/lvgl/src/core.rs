@@ -1,11 +1,18 @@
-//! LittlevGL (LVGL) Core API for Rust
+//! LVGL Core API for Rust
 
-use crate::{
+#[cfg(feature = "mynewt_os")]     //  If building for Mynewt OS...
+use mynewt::{                     //  Use Mynewt types
     result::*,
     Out, Ptr, Strn,
 };
 
-/// Contains Rust bindings for LittlevGL (LVGL) Core API `lv_core`
+#[cfg(feature = "riot_os")]       //  If building for RIOT OS...
+use crate::{                      //  Use RIOT types
+    result::*,
+    Out, Ptr, Strn,
+};
+
+/// Contains Rust bindings for LVGL Core API `lv_core`
 #[allow(non_camel_case_types)]    //  Allow type names to have non-camel case
 #[allow(non_upper_case_globals)]  //  Allow globals to have lowercase letters
 #[allow(unused_imports)]          //  Allow unused imports

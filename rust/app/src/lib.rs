@@ -33,6 +33,7 @@ extern crate macros as mynewt_macros;   //  Declare the Mynewt Procedural Macros
 mod app_network;    //  Declare `app_network.rs` as Rust module `app_network` for Application Network functions
 mod app_sensor;     //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
 mod touch_sensor;   //  Declare `touch_sensor.rs` as Rust module `touch_sensor` for Touch Sensor functions
+mod watch_face;     //  Declare `watch_face.rs` as Rust module `watch_face` for Watch Face functions
 
 //  Declare the system modules
 use core::panic::PanicInfo; //  Import `PanicInfo` type which is used by `panic()` below
