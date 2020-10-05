@@ -22,6 +22,8 @@ use core::{
     ptr,
 };
 use mynewt::{
+    fill_zero,
+    kernel::os,
     result::*,
     //  sys::console,
     Strn,
@@ -298,40 +300,34 @@ extern {
     static style_time: obj::lv_style_t;
 }
 
-use mynewt::os;
-
-static mut watch_face_callout: os_callout = os_callout {};  //  Timer that is triggered every minute
+/// Timer that is triggered every minute to update the watch face
+static mut WATCH_FACE_CALLOUT: os::os_callout = fill_zero!(os::os_callout);
 
 /// Render a watch face. Called by main() in rust/app/src/lib.rs
 pub fn init_watch_face() -> MynewtResult<()> {
 /*
     console_printf("Create watch face...\n"); console_flush();
-    btn = lv_btn_create(lv_scr_act(), NULL);     //  Add a button the current screen
-    lv_obj_set_pos(btn, 10, 10);                 //  Set its position
-    lv_obj_set_size(btn, 220, 50);               //  Set its size
-
-    label = lv_label_create(btn, NULL);          //  Add a label to the button
-    lv_label_set_text(label, "Time Sync");       //  Set the label text
 
     //  Set a timer to update the watch face every minute
     //  TODO: Move this code to the caller
     os_callout_init(
-        &watch_face_callout,   //  Timer for the watch face
+        &WATCH_FACE_CALLOUT,   //  Timer for the watch face
         os_eventq_dflt_get(),  //  Use default event queue
         watch_face_callback,   //  Callback function for the timer
         NULL
     );
     //  Trigger the timer in 60 seconds
     os_callout_reset(
-        &watch_face_callout,   //  Timer for the watch face
+        &WATCH_FACE_CALLOUT,   //  Timer for the watch face
         OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
     );
     return 0;
 */
+    Ok(())
 }
 
 /// Timer callback that is called every minute
-extern fn watch_face_callback(ev: os_event) {
+extern fn watch_face_callback(ev: os::os_event) {
 /*
     assert(ev != NULL);
 
@@ -343,7 +339,7 @@ extern fn watch_face_callback(ev: os_event) {
 
     //  Set the watch face timer
     os_callout_reset(
-        &watch_face_callout,   //  Timer for the watch face
+        &WATCH_FACE_CALLOUT,   //  Timer for the watch face
         OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
     );
 */
