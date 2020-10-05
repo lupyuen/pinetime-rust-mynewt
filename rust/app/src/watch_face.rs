@@ -23,7 +23,7 @@ use core::{
 };
 use mynewt::{
     result::*,
-    sys::console,
+    //  sys::console,
     Strn,
 };
 use mynewt_macros::strn;
@@ -294,5 +294,6 @@ extern {
     //  TODO: Sync with modules/controller/include/controller/time.h
     fn controller_time_month_get_short_name(time: *const controller_time_spec_t) -> *const ::cty::c_char;
     /// Style for the Time Label. TODO: Sync with widgets/home_time/screen_time.c
+    #[allow(dead_code)]
     static style_time: obj::lv_style_t;
 }

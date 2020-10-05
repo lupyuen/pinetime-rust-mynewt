@@ -21,7 +21,6 @@
 #![feature(trace_macros)]               //  Allow macro tracing: `trace_macros!(true)`
 #![feature(concat_idents)]              //  Allow `concat_idents!()` macro used in `coap!()` macro
 #![feature(proc_macro_hygiene)]         //  Allow Procedural Macros like `run!()`
-#![feature(specialization)]             //  Allow Specialised Traits for druid UI library
 #![feature(exclusive_range_pattern)]    //  Allow ranges like `0..128` in `match` statements
 
 //  Declare the libraries that contain macros

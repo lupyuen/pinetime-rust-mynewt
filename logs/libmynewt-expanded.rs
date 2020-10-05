@@ -6580,6 +6580,7 @@ pub mod hw {
             ///  Interpret `sensor_data` as a `sensor_temp_raw_data` struct that contains raw temp.
             ///  Copy the sensor data into `dest`.  Return 0 if successful.
             ///  C API: `int get_temp_raw_data(void *sensor_data, struct sensor_temp_raw_data *dest)`
+            #[allow(clashing_extern_declarations)]
             pub fn get_temp_raw_data(sensor_data: sensor_data_ptr,
                                      dest: *mut sensor_temp_raw_data)
             -> i32;
@@ -6605,10 +6606,12 @@ pub mod hw {
             -> sensor_ptr;
             ///  Return non-zero if sensor is NULL.
             ///  C API: `int is_null_sensor(struct sensor *p)`
+            #[allow(clashing_extern_declarations)]
             pub fn is_null_sensor(sensor: sensor_ptr)
             -> bool;
             ///  Return non-zero if sensor data is NULL.
             ///  C API: `int is_null_sensor_data(void *p)`
+            #[allow(clashing_extern_declarations)]
             pub fn is_null_sensor_data(sensor_data: sensor_data_ptr)
             -> bool;
         }
@@ -11385,6 +11388,7 @@ pub mod libs {
               "  Interpret `sensor_data` as a `sensor_temp_raw_data` struct that contains raw temp."]
             #[doc =
               "  Copy the sensor data into `dest`.  Return 0 if successful."]
+            #[allow(clashing_extern_declarations)]
             pub fn get_temp_raw_data(sensor_data: *mut ::cty::c_void,
                                      dest: *mut sensor_temp_raw_data)
             -> ::cty::c_int;
@@ -11416,11 +11420,13 @@ pub mod libs {
         }
         extern "C" {
             #[doc = "  Return non-zero if sensor is NULL."]
+            #[allow(clashing_extern_declarations)]
             pub fn is_null_sensor(p: *mut sensor)
             -> ::cty::c_int;
         }
         extern "C" {
             #[doc = "  Return non-zero if sensor data is NULL."]
+            #[allow(clashing_extern_declarations)]
             pub fn is_null_sensor_data(p: *mut ::cty::c_void)
             -> ::cty::c_int;
         }

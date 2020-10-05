@@ -4518,7 +4518,7 @@ _ZN4core3str15next_code_point17hc8c806b5bf0bba25E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2//library/core/src/str/mod.rs:511
   f4:	4694      	mov	ip, r2
   f6:	f91c eb01 	ldrsb.w	lr, [ip], #1
-_ZN4core3ptr7mut_ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$6offset17hfb4b2f63cd4a654aE():
+_ZN4core5slice4iter13Iter$LT$T$GT$14post_inc_start17h99be59df56cc1965E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2//library/core/src/ptr/mut_ptr.rs:232
   fa:	4664      	mov	r4, ip
 _ZN4core3str15next_code_point17hc8c806b5bf0bba25E():
@@ -5626,7 +5626,7 @@ _ZN4core3str16slice_error_fail17hd2abf12a42123e79E():
  1c2:	defe      	udf	#254	; 0xfe
  1c4:	9823      	ldr	r0, [sp, #140]	; 0x8c
  1c6:	a953      	add	r1, sp, #332	; 0x14c
-_ZN4core3str6traits66_$LT$impl$u20$core..ops..index..Index$LT$I$GT$$u20$for$u20$str$GT$5index17hb12955134e4ca5a7E():
+_ZN4core3str21_$LT$impl$u20$str$GT$16is_char_boundary17h9aae09ba62d738dbE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2//library/core/src/str/mod.rs:2333
  1c8:	9021      	str	r0, [sp, #132]	; 0x84
  1ca:	9120      	str	r1, [sp, #128]	; 0x80
@@ -5652,7 +5652,7 @@ _ZN4core3str16slice_error_fail17hd2abf12a42123e79E():
  1ec:	e7ff      	b.n	1ee <core::str::slice_error_fail+0x1ee>
  1ee:	981e      	ldr	r0, [sp, #120]	; 0x78
  1f0:	a953      	add	r1, sp, #332	; 0x14c
-_ZN4core3str6traits66_$LT$impl$u20$core..ops..index..Index$LT$I$GT$$u20$for$u20$str$GT$5index17hb12955134e4ca5a7E():
+_ZN4core3str6traits112_$LT$impl$u20$core..slice..index..SliceIndex$LT$str$GT$$u20$for$u20$core..ops..range..RangeFrom$LT$usize$GT$$GT$3get17hbaad3aa06f54c747E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2//library/core/src/str/mod.rs:2035
  1f2:	9021      	str	r0, [sp, #132]	; 0x84
  1f4:	9120      	str	r1, [sp, #128]	; 0x80
@@ -6707,7 +6707,7 @@ _ZN4core3fmt3num12GenericRadix7fmt_int17hb7f202c18d6ae6ccE():
   78:	9826      	ldr	r0, [sp, #152]	; 0x98
   7a:	1ec1      	subs	r1, r0, #3
   7c:	9a22      	ldr	r2, [sp, #136]	; 0x88
-_ZN4core5slice5index74_$LT$impl$u20$core..ops..index..Index$LT$I$GT$$u20$for$u20$$u5b$T$u5d$$GT$5index17hbe0dad260cacbfdbE():
+_ZN110_$LT$core..ops..range..RangeFrom$LT$usize$GT$$u20$as$u20$core..slice..index..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$5index17h6593ee64364cb1bdE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2//library/core/src/slice/index.rs:394
   7e:	9121      	str	r1, [sp, #132]	; 0x84
   80:	9220      	str	r2, [sp, #128]	; 0x80
@@ -6717,7 +6717,7 @@ _ZN4core3fmt3num12GenericRadix7fmt_int17hb7f202c18d6ae6ccE():
   84:	9826      	ldr	r0, [sp, #152]	; 0x98
   86:	1e81      	subs	r1, r0, #2
   88:	1ec2      	subs	r2, r0, #3
-_ZN4core5slice5index74_$LT$impl$u20$core..ops..index..Index$LT$I$GT$$u20$for$u20$$u5b$T$u5d$$GT$5index17hbe0dad260cacbfdbE():
+_ZN110_$LT$core..ops..range..RangeFrom$LT$usize$GT$$u20$as$u20$core..slice..index..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$5index17h6593ee64364cb1bdE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2//library/core/src/slice/index.rs:394
   8a:	9121      	str	r1, [sp, #132]	; 0x84
   8c:	9220      	str	r2, [sp, #128]	; 0x80
@@ -6727,7 +6727,7 @@ _ZN4core3fmt3num12GenericRadix7fmt_int17hb7f202c18d6ae6ccE():
   90:	9826      	ldr	r0, [sp, #152]	; 0x98
   92:	1e41      	subs	r1, r0, #1
   94:	1e82      	subs	r2, r0, #2
-_ZN4core5slice5index74_$LT$impl$u20$core..ops..index..Index$LT$I$GT$$u20$for$u20$$u5b$T$u5d$$GT$5index17hbe0dad260cacbfdbE():
+_ZN110_$LT$core..ops..range..RangeFrom$LT$usize$GT$$u20$as$u20$core..slice..index..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$5index17h6593ee64364cb1bdE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2//library/core/src/slice/index.rs:394
   96:	9121      	str	r1, [sp, #132]	; 0x84
   98:	9220      	str	r2, [sp, #128]	; 0x80
@@ -6736,7 +6736,7 @@ _ZN4core3fmt3num12GenericRadix7fmt_int17hb7f202c18d6ae6ccE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2//library/core/src/fmt/num.rs:65
   9c:	9826      	ldr	r0, [sp, #152]	; 0x98
   9e:	1e41      	subs	r1, r0, #1
-_ZN4core5slice5index74_$LT$impl$u20$core..ops..index..Index$LT$I$GT$$u20$for$u20$$u5b$T$u5d$$GT$5index17hbe0dad260cacbfdbE():
+_ZN110_$LT$core..ops..range..RangeFrom$LT$usize$GT$$u20$as$u20$core..slice..index..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$5index17h6593ee64364cb1bdE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2//library/core/src/slice/index.rs:394
   a0:	9021      	str	r0, [sp, #132]	; 0x84
   a2:	9120      	str	r1, [sp, #128]	; 0x80
@@ -6746,7 +6746,7 @@ _ZN4core3fmt3num12GenericRadix7fmt_int17hb7f202c18d6ae6ccE():
   a6:	9820      	ldr	r0, [sp, #128]	; 0x80
 _ZN4core3fmt3num52_$LT$impl$u20$core..fmt..Debug$u20$for$u20$usize$GT$3fmt17h7947bbe5e7f2f637E():
   a8:	9921      	ldr	r1, [sp, #132]	; 0x84
-_ZN4core5slice5index74_$LT$impl$u20$core..ops..index..Index$LT$I$GT$$u20$for$u20$$u5b$T$u5d$$GT$5index17hbe0dad260cacbfdbE():
+_ZN110_$LT$core..ops..range..RangeFrom$LT$usize$GT$$u20$as$u20$core..slice..index..SliceIndex$LT$$u5b$T$u5d$$GT$$GT$5index17h6593ee64364cb1bdE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2//library/core/src/slice/index.rs:394
   aa:	2881      	cmp	r0, #129	; 0x81
   ac:	901f      	str	r0, [sp, #124]	; 0x7c
@@ -17579,7 +17579,7 @@ Disassembly of section .text.main:
 
 00000000 <main>:
 main():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:52
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:51
 pub fn handle_touch(_x: u16, _y: u16) { console::print("touch not handled\n"); console::flush(); }  //  Define a touch handler that does nothing
 
 ///  Main program that initialises the sensor, network driver and starts reading and sending sensor data in the background.
@@ -17589,26 +17589,26 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
    0:	b580      	push	{r7, lr}
    2:	466f      	mov	r7, sp
    4:	b088      	sub	sp, #32
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:57
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:56
     //  Initialise the Mynewt packages and internal temperature sensor driver. Any startup
     //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
     mynewt::sysinit();
    6:	f7ff fffe 	bl	0 <main>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:61
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:60
 
     //  Render LVGL watch face.
     extern { fn create_watch_face() -> i32; }  //  Defined in apps/my_sensor_app/src/watch_face.c
     let rc = unsafe { create_watch_face() };
    a:	f7ff fffe 	bl	0 <main>
    e:	9005      	str	r0, [sp, #20]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:62
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:61
     assert!(rc == 0, "Watch Face fail");
   10:	2800      	cmp	r0, #0
   12:	d106      	bne.n	22 <main+0x22>
   14:	e7ff      	b.n	16 <main+0x16>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:71
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:70
     //  let rc = unsafe { pinetime_lvgl_mynewt_test() };
     //  assert!(rc == 0, "LVGL test fail");
 
@@ -17617,12 +17617,12 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:71
     let rc = unsafe { pinetime_lvgl_mynewt_render() };
   16:	f7ff fffe 	bl	0 <pinetime_lvgl_mynewt_render>
   1a:	9006      	str	r0, [sp, #24]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:72
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:71
     assert!(rc == 0, "LVGL render fail");    
   1c:	2800      	cmp	r0, #0
   1e:	d112      	bne.n	46 <main+0x46>
   20:	e00b      	b.n	3a <main+0x3a>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:62
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:61
     assert!(rc == 0, "Watch Face fail");
   22:	f240 0000 	movw	r0, #0
   26:	f2c0 0000 	movt	r0, #0
@@ -17631,19 +17631,19 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:62
   32:	210f      	movs	r1, #15
   34:	f7ff fffe 	bl	0 <main>
   38:	defe      	udf	#254	; 0xfe
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:76
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:75
 
     //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
     extern { fn start_ble() -> i32; }
     let rc = unsafe { start_ble() };
   3a:	f7ff fffe 	bl	0 <start_ble>
   3e:	9007      	str	r0, [sp, #28]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:77
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:76
     assert!(rc == 0, "BLE fail");
   40:	2800      	cmp	r0, #0
   42:	d10c      	bne.n	5e <main+0x5e>
   44:	e017      	b.n	76 <main+0x76>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:72
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:71
     assert!(rc == 0, "LVGL render fail");    
   46:	f240 0000 	movw	r0, #0
   4a:	f2c0 0000 	movt	r0, #0
@@ -17652,7 +17652,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:72
   56:	2110      	movs	r1, #16
   58:	f7ff fffe 	bl	0 <main>
   5c:	defe      	udf	#254	; 0xfe
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:77
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:76
     assert!(rc == 0, "BLE fail");
   5e:	f240 0000 	movw	r0, #0
   62:	f2c0 0000 	movt	r0, #0
@@ -17662,7 +17662,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:77
   70:	f7ff fffe 	bl	0 <main>
   74:	defe      	udf	#254	; 0xfe
   76:	a803      	add	r0, sp, #12
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:82
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:81
 
     //  Main event loop. Don't add anything to the event loop because Bluetooth LE is extremely time sensitive.
     loop {                            //  Loop forever...
@@ -17680,7 +17680,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:82
   94:	4610      	mov	r0, r2
   96:	9a01      	ldr	r2, [sp, #4]
   98:	f7ff fffe 	bl	0 <main>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:81
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:80
         os::eventq_run(               //  Processing events...
   9c:	f7ff fffe 	bl	0 <main>
   a0:	f240 0100 	movw	r1, #0
@@ -17689,7 +17689,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:81
   ac:	f2c0 0300 	movt	r3, #0
   b0:	9a01      	ldr	r2, [sp, #4]
   b2:	f7ff fffe 	bl	0 <main>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:80
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:79
     loop {                            //  Loop forever...
   b6:	e7de      	b.n	76 <main+0x76>
 
@@ -17754,7 +17754,7 @@ Disassembly of section .text.rust_begin_unwind:
 
 00000000 <rust_begin_unwind>:
 rust_begin_unwind():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:91
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:90
     //  Never comes here
 }
 
@@ -17765,7 +17765,7 @@ fn panic(info: &PanicInfo) -> ! {
    2:	466f      	mov	r7, sp
    4:	b08a      	sub	sp, #40	; 0x28
    6:	9007      	str	r0, [sp, #28]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:93
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:92
     //  Display the filename and line number to the Semihosting Console.
     console::print("panic ");
    8:	f240 0100 	movw	r1, #0
@@ -17775,7 +17775,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:93
   14:	4608      	mov	r0, r1
   16:	4611      	mov	r1, r2
   18:	f7ff fffe 	bl	0 <rust_begin_unwind>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:94
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:93
     if let Some(location) = info.location() {
   1c:	9803      	ldr	r0, [sp, #12]
   1e:	f7ff fffe 	bl	0 <rust_begin_unwind>
@@ -17784,7 +17784,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:94
   26:	2800      	cmp	r0, #0
   28:	d10a      	bne.n	40 <rust_begin_unwind+0x40>
   2a:	e7ff      	b.n	2c <rust_begin_unwind+0x2c>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:101
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:100
         let line = location.line();
         console::print("at ");       console::buffer(&file);
         console::print(" line ");    console::printint(line as i32);
@@ -17796,23 +17796,23 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:101
   34:	2107      	movs	r1, #7
   36:	f7ff fffe 	bl	0 <rust_begin_unwind>
   3a:	f7ff fffe 	bl	0 <rust_begin_unwind>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:94
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:93
     if let Some(location) = info.location() {
   3e:	e02c      	b.n	9a <rust_begin_unwind+0x9a>
   40:	9804      	ldr	r0, [sp, #16]
   42:	9008      	str	r0, [sp, #32]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:95
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:94
         let file = location.file();
   44:	9002      	str	r0, [sp, #8]
   46:	f7ff fffe 	bl	0 <rust_begin_unwind>
   4a:	9106      	str	r1, [sp, #24]
   4c:	9005      	str	r0, [sp, #20]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:96
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:95
         let line = location.line();
   4e:	9802      	ldr	r0, [sp, #8]
   50:	f7ff fffe 	bl	0 <rust_begin_unwind>
   54:	9009      	str	r0, [sp, #36]	; 0x24
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:97
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:96
         console::print("at ");       console::buffer(&file);
   56:	f240 0100 	movw	r1, #0
   5a:	f2c0 0100 	movt	r1, #0
@@ -17824,7 +17824,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:97
   6a:	9805      	ldr	r0, [sp, #20]
   6c:	9906      	ldr	r1, [sp, #24]
   6e:	f7ff fffe 	bl	0 <rust_begin_unwind>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:98
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:97
         console::print(" line ");    console::printint(line as i32);
   72:	f240 0000 	movw	r0, #0
   76:	f2c0 0000 	movt	r0, #0
@@ -17832,14 +17832,14 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:98
   7c:	f7ff fffe 	bl	0 <rust_begin_unwind>
   80:	9801      	ldr	r0, [sp, #4]
   82:	f7ff fffe 	bl	0 <rust_begin_unwind>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:99
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:98
         console::print("\n");        console::flush();
   86:	f240 0000 	movw	r0, #0
   8a:	f2c0 0000 	movt	r0, #0
   8e:	2101      	movs	r1, #1
   90:	f7ff fffe 	bl	0 <rust_begin_unwind>
   94:	f7ff fffe 	bl	0 <rust_begin_unwind>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:94
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:93
     if let Some(location) = info.location() {
   98:	e7ff      	b.n	9a <rust_begin_unwind+0x9a>
 _ZN8cortex_m3asm4bkpt17hff797d6e11766976E():
@@ -17852,7 +17852,7 @@ pub fn bkpt() {
         () => unsafe { llvm_asm!("bkpt" :::: "volatile") },
   9a:	be00      	bkpt	0x0000
 rust_begin_unwind():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:106
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:105
     }
     //  Pause in the debugger.
     bkpt();
@@ -17870,14 +17870,14 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:106
   b8:	4608      	mov	r0, r1
   ba:	9900      	ldr	r1, [sp, #0]
   bc:	f7ff fffe 	bl	0 <rust_begin_unwind>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:107
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:106
     console::print("\n");  console::flush();
   c0:	f240 0000 	movw	r0, #0
   c4:	f2c0 0000 	movt	r0, #0
   c8:	2101      	movs	r1, #1
   ca:	f7ff fffe 	bl	0 <rust_begin_unwind>
   ce:	f7ff fffe 	bl	0 <rust_begin_unwind>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:109
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/lib.rs:108
     //  Loop forever so that device won't restart.
     loop {}
   d2:	e7ff      	b.n	d4 <rust_begin_unwind+0xd4>
@@ -31409,14 +31409,14 @@ __multi3():
    4:	e92d 0b00 	stmdb	sp!, {r8, r9, fp}
    8:	f8d7 c008 	ldr.w	ip, [r7, #8]
    c:	68fd      	ldr	r5, [r7, #12]
-_ZN4core3num21_$LT$impl$u20$i64$GT$12wrapping_mul17hd85fd0f11258ae09E():
+_ZN51_$LT$i64$u20$as$u20$compiler_builtins..int..Int$GT$12wrapping_mul17he592f9428cd4de1eE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/int_macros.rs:1055
    e:	fbac 4e02 	umull	r4, lr, ip, r2
   12:	fb0c e303 	mla	r3, ip, r3, lr
 _ZN4core3num21_$LT$impl$u20$u64$GT$12wrapping_mul17h3ab99b802c4b1299E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:944
   16:	fba5 8e00 	umull	r8, lr, r5, r0
-_ZN4core3num21_$LT$impl$u20$i64$GT$12wrapping_mul17hd85fd0f11258ae09E():
+_ZN51_$LT$i64$u20$as$u20$compiler_builtins..int..Int$GT$12wrapping_mul17he592f9428cd4de1eE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/int_macros.rs:1055
   1a:	fb05 3202 	mla	r2, r5, r2, r3
 _ZN51_$LT$i64$u20$as$u20$core..ops..arith..AddAssign$GT$10add_assign17h78e8115044a6487dE():
@@ -31730,7 +31730,7 @@ _ZN4core3num21_$LT$impl$u20$i64$GT$12wrapping_sub17hc1ea7ebcd259f0b8E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/int_macros.rs:1032
    e:	ebb2 72ec 	subs.w	r2, r2, ip, asr #31
   12:	eb63 73ec 	sbc.w	r3, r3, ip, asr #31
-_ZN4core3num21_$LT$impl$u20$u64$GT$11checked_div17h2acb6b449001fd49E():
+_ZN51_$LT$u64$u20$as$u20$compiler_builtins..int..Int$GT$12aborting_div17h96d6354f11099909E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:577
   16:	ea52 0e03 	orrs.w	lr, r2, r3
   1a:	d00f      	beq.n	3c <compiler_builtins::int::sdiv::__divdi3+0x3c>
@@ -31749,7 +31749,7 @@ _ZN4core3num21_$LT$impl$u20$i64$GT$12wrapping_sub17hc1ea7ebcd259f0b8E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/int_macros.rs:1032
   2a:	1b00      	subs	r0, r0, r4
   2c:	41a1      	sbcs	r1, r4
-_ZN4core3num21_$LT$impl$u20$u64$GT$11checked_div17h2acb6b449001fd49E():
+_ZN51_$LT$u64$u20$as$u20$compiler_builtins..int..Int$GT$12aborting_div17h96d6354f11099909E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:582
   2e:	f7ff fffe 	bl	0 <__aeabi_uldivmod>
 _ZN46_$LT$i64$u20$as$u20$core..ops..bit..BitXor$GT$6bitxor17h9f5f5cce5bb4775cE():
@@ -31763,7 +31763,7 @@ _ZN45_$LT$i64$u20$as$u20$core..ops..arith..Sub$GT$3sub17h2bb6c4d9fa9b556eE():
 _ZN17compiler_builtins3int4sdiv8__divdi317hf638ee34a5813680E():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/macros.rs:264
   3a:	bdb0      	pop	{r4, r5, r7, pc}
-_ZN17compiler_builtins5abort17h7205a50b89493a10E():
+_ZN51_$LT$u64$u20$as$u20$compiler_builtins..int..Int$GT$12aborting_div17h96d6354f11099909E():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/lib.rs:35
   3c:	defe      	udf	#254	; 0xfe
   3e:	defe      	udf	#254	; 0xfe
@@ -32069,7 +32069,7 @@ _ZN17compiler_builtins3int4sdiv11__divmoddi417h3b52a11da591e3d9E():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/macros.rs:264
   64:	e8bd 0700 	ldmia.w	sp!, {r8, r9, sl}
   68:	bdf0      	pop	{r4, r5, r6, r7, pc}
-_ZN17compiler_builtins3int4sdiv3Div3div17h9b145e34fb16bf32E():
+_ZN17compiler_builtins5abort17h7205a50b89493a10E():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/lib.rs:35
   6a:	defe      	udf	#254	; 0xfe
   6c:	defe      	udf	#254	; 0xfe
@@ -35234,7 +35234,7 @@ Disassembly of section .text._ZN17compiler_builtins5float6extend13__extendsfdf21
 _ZN46_$LT$u32$u20$as$u20$core..ops..bit..BitAnd$GT$6bitand17h0d21bf3c3314d30dE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/bit.rs:158
    0:	f020 4200 	bic.w	r2, r0, #2147483648	; 0x80000000
-_ZN4core3num21_$LT$impl$u20$u32$GT$12wrapping_sub17h57a4102f47cf3239E():
+_ZN51_$LT$u32$u20$as$u20$compiler_builtins..int..Int$GT$12wrapping_sub17h1e049eca522a20b5E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:920
    4:	f5a2 0100 	sub.w	r1, r2, #8388608	; 0x800000
 _ZN17compiler_builtins5float6extend6extend17h8485c584851c0b04E():
@@ -37688,14 +37688,14 @@ _ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt1
 _ZN17compiler_builtins3int6addsub16__rust_u128_subo17h1e3d2c3ff22ecb5aE():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/int/addsub.rs:132
   5e:	e9c0 4100 	strd	r4, r1, [r0]
-_ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt17hdf751ff6fbf5edf4E():
+_ZN17compiler_builtins3int6addsub4Subo4subo17h7b048631b3396470E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   62:	eb73 0101 	sbcs.w	r1, r3, r1
   66:	eb78 0105 	sbcs.w	r1, r8, r5
 _ZN17compiler_builtins3int6addsub16__rust_u128_subo17h1e3d2c3ff22ecb5aE():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/int/addsub.rs:132
   6a:	e9c0 5e02 	strd	r5, lr, [r0, #8]
-_ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt17hdf751ff6fbf5edf4E():
+_ZN17compiler_builtins3int6addsub4Subo4subo17h7b048631b3396470E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   6e:	eb7c 010e 	sbcs.w	r1, ip, lr
   72:	bf38      	it	cc
