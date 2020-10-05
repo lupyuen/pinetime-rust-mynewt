@@ -25,7 +25,7 @@ use mynewt::{
     fill_zero,
     kernel::os,
     result::*,
-    //  sys::console,
+    sys::console,
     Strn,
 };
 use mynewt_macros::strn;
@@ -33,6 +33,9 @@ use lvgl::{
     core::obj,
     objx::label,
 };
+
+///////////////////////////////////////////////////////////////////////////////
+//  Create Watch Face
 
 /// Create the widgets for the Watch Face. Called by create_watch_face() below.
 pub fn create_widgets(widgets: &mut WatchFaceWidgets) -> MynewtResult<()> {
@@ -85,6 +88,9 @@ pub fn create_widgets(widgets: &mut WatchFaceWidgets) -> MynewtResult<()> {
     obj::set_click(scr, true) ? ;
     Ok(())
 }
+
+///////////////////////////////////////////////////////////////////////////////
+//  Update Watch Face
 
 /// Update the widgets in the Watch Face with the current state. Called by update_watch_face() below.
 pub fn update_widgets(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
@@ -212,23 +218,64 @@ pub fn set_time_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> Myn
     Ok(())
 }
 
-/// Create the Watch Face, populated with widgets. Called by _screen_time_create() in screen_time.c.
-#[no_mangle]  //  Don't mangle the function name
-extern "C" fn create_watch_face(widgets: *mut WatchFaceWidgets) -> i32 {  //  Declare extern "C" because it will be called by RIOT OS firmware
-    assert!(!widgets.is_null(), "widgets null");
-    unsafe { create_widgets(&mut *widgets) }
-        .expect("create_screen fail");
-    0  //  Return OK
+///////////////////////////////////////////////////////////////////////////////
+//  Mynewt Timer Functions
+
+/// Start rendering the watch face every minute
+pub fn start_watch_face() -> MynewtResult<()> {
+    console::print("Init Rust watch face...\n"); console::flush();
+
+    //  Create the watch face
+    //  create_widgets() ? ;
+
+    //  Render the watch face
+    let rc = unsafe { pinetime_lvgl_mynewt_render() };
+    assert!(rc == 0, "LVGL render fail");    
+
+    //  Set a timer to update the watch face every minute
+    unsafe {
+        os::os_callout_init(
+            &mut WATCH_FACE_CALLOUT,         //  Timer for the watch face
+            os::eventq_dflt_get().unwrap(),  //  Use default event queue
+            Some(watch_face_callback),       //  Callback function for the timer
+            ptr::null_mut()                  //  No argument
+        );    
+    }
+
+    //  Trigger the timer in 60 seconds
+    unsafe {
+        os::os_callout_reset(
+            &mut WATCH_FACE_CALLOUT,   //  Timer for the watch face
+            os::OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
+        );    
+    }
+    Ok(())
 }
 
-/// Populate the Watch Face with the current status. Called by _screen_time_update_screen() in screen_time.c.
-#[no_mangle]  //  Don't mangle the function name
-extern "C" fn update_watch_face(widgets: *const WatchFaceWidgets, state: *const WatchFaceState) -> i32 {
-    assert!(!widgets.is_null(), "widgets null");
-    unsafe { update_widgets(&*widgets, &*state) }
-        .expect("update_widgets fail");
-    0  //  Return OK
+/// Timer callback that is called every minute
+extern fn watch_face_callback(_ev: *mut os::os_event) {
+    //  Update the watch face
+    //  update_widgets()
+    //      .expect("Update Watch Face fail");
+
+    //  Render the watch face
+    let rc = unsafe { pinetime_lvgl_mynewt_render() };
+    assert!(rc == 0, "LVGL render fail");    
+
+    //  Set the watch face timer
+    unsafe {
+        os::os_callout_reset(
+            &mut WATCH_FACE_CALLOUT,       //  Timer for the watch face
+            os::OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
+        );    
+    }
 }
+
+/// Timer that is triggered every minute to update the watch face
+static mut WATCH_FACE_CALLOUT: os::os_callout = fill_zero!(os::os_callout);
+
+///////////////////////////////////////////////////////////////////////////////
+//  String Definitions
 
 /// Create a new String
 const fn new_string() -> String {
@@ -242,6 +289,9 @@ fn to_strn(str: &'static String) -> Strn {
 
 /// Limit Strings to 64 chars (which may include multiple color codes like "#ffffff")
 type String = heapless::String::<heapless::consts::U64>;
+
+///////////////////////////////////////////////////////////////////////////////
+//  Watch Face Definitions
 
 /// State for the Watch Face, shared between GUI and control. TODO: Sync with widgets/home_time/include/home_time.h
 #[repr(C)]
@@ -289,58 +339,38 @@ pub struct controller_time_spec_t {
     pub fracs:      u8,
 }
 
-/// Import C APIs
+///////////////////////////////////////////////////////////////////////////////
+//  Export C API for Watch Face
+
+/// Create the Watch Face, populated with widgets. Called by _screen_time_create() in screen_time.c.
+#[no_mangle]  //  Don't mangle the function name
+extern "C" fn create_watch_face(widgets: *mut WatchFaceWidgets) -> i32 {  //  Declare extern "C" because it will be called by RIOT OS firmware
+    assert!(!widgets.is_null(), "widgets null");
+    unsafe { create_widgets(&mut *widgets) }
+        .expect("create_screen fail");
+    0  //  Return OK
+}
+
+/// Populate the Watch Face with the current status. Called by _screen_time_update_screen() in screen_time.c.
+#[no_mangle]  //  Don't mangle the function name
+extern "C" fn update_watch_face(widgets: *const WatchFaceWidgets, state: *const WatchFaceState) -> i32 {
+    assert!(!widgets.is_null(), "widgets null");
+    unsafe { update_widgets(&*widgets, &*state) }
+        .expect("update_widgets fail");
+    0  //  Return OK
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  Import C APIs
+
 extern {
-    //  TODO: Sync with modules/hal/include/hal.h
+    /// Render the LVGL display. Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
+    fn pinetime_lvgl_mynewt_render() -> i32;
+    /// Get battery percentage
     fn hal_battery_get_percentage(voltage: u32) -> i32;
-    //  TODO: Sync with modules/controller/include/controller/time.h
+    /// Get month short name
     fn controller_time_month_get_short_name(time: *const controller_time_spec_t) -> *const ::cty::c_char;
-    /// Style for the Time Label. TODO: Sync with widgets/home_time/screen_time.c
+    /// Style for the Time Label
     #[allow(dead_code)]
     static style_time: obj::lv_style_t;
-}
-
-/// Timer that is triggered every minute to update the watch face
-static mut WATCH_FACE_CALLOUT: os::os_callout = fill_zero!(os::os_callout);
-
-/// Render a watch face. Called by main() in rust/app/src/lib.rs
-pub fn init_watch_face() -> MynewtResult<()> {
-/*
-    console_printf("Create watch face...\n"); console_flush();
-
-    //  Set a timer to update the watch face every minute
-    //  TODO: Move this code to the caller
-    os_callout_init(
-        &WATCH_FACE_CALLOUT,   //  Timer for the watch face
-        os_eventq_dflt_get(),  //  Use default event queue
-        watch_face_callback,   //  Callback function for the timer
-        NULL
-    );
-    //  Trigger the timer in 60 seconds
-    os_callout_reset(
-        &WATCH_FACE_CALLOUT,   //  Timer for the watch face
-        OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
-    );
-    return 0;
-*/
-    Ok(())
-}
-
-/// Timer callback that is called every minute
-extern fn watch_face_callback(ev: os::os_event) {
-/*
-    assert(ev != NULL);
-
-    //  Update the watch face
-    update_watch_face();
-
-    //  Render the watch face
-    pinetime_lvgl_mynewt_render();
-
-    //  Set the watch face timer
-    os_callout_reset(
-        &WATCH_FACE_CALLOUT,   //  Timer for the watch face
-        OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
-    );
-*/
 }

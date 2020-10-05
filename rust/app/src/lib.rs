@@ -55,25 +55,29 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
     mynewt::sysinit();
 
-    //  Render LVGL watch face.
-    extern { fn create_watch_face() -> i32; }  //  Defined in apps/my_sensor_app/src/watch_face.c
-    let rc = unsafe { create_watch_face() };
-    assert!(rc == 0, "Watch Face fail");
+    //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
+    extern { fn start_ble() -> i32; }
+    let rc = unsafe { start_ble() };
+    assert!(rc == 0, "BLE fail");
 
-    //  Render LVGL widgets for testing.
+    //  Start rendering the watch face every minute in Rust.
+    watch_face::start_watch_face()
+        .expect("Watch Face fail");
+
+    //  Render LVGL watch face in C.
+    //  extern { fn create_watch_face() -> i32; }  //  Defined in apps/my_sensor_app/src/watch_face.c
+    //  let rc = unsafe { create_watch_face() };
+    //  assert!(rc == 0, "Watch Face fail");
+
+    //  Render LVGL widgets in C for testing.
     //  extern { fn pinetime_lvgl_mynewt_test() -> i32; }  //  Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
     //  let rc = unsafe { pinetime_lvgl_mynewt_test() };
     //  assert!(rc == 0, "LVGL test fail");
 
     //  Render LVGL display.
-    extern { fn pinetime_lvgl_mynewt_render() -> i32; }  //  Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
-    let rc = unsafe { pinetime_lvgl_mynewt_render() };
-    assert!(rc == 0, "LVGL render fail");    
-
-    //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
-    extern { fn start_ble() -> i32; }
-    let rc = unsafe { start_ble() };
-    assert!(rc == 0, "BLE fail");
+    //  extern { fn pinetime_lvgl_mynewt_render() -> i32; }  //  Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
+    //  let rc = unsafe { pinetime_lvgl_mynewt_render() };
+    //  assert!(rc == 0, "LVGL render fail");    
 
     //  Main event loop. Don't add anything to the event loop because Bluetooth LE is extremely time sensitive.
     loop {                            //  Loop forever...
