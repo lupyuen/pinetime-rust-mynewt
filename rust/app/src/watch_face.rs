@@ -225,7 +225,7 @@ pub fn set_time_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> Myn
 pub fn start_watch_face() -> MynewtResult<()> {
     console::print("Init Rust watch face...\n"); console::flush();
 
-    //  Create the watch face
+    //  TODO: Create the watch face
     //  create_widgets() ? ;
 
     //  Render the watch face
@@ -254,7 +254,7 @@ pub fn start_watch_face() -> MynewtResult<()> {
 
 /// Timer callback that is called every minute
 extern fn watch_face_callback(_ev: *mut os::os_event) {
-    //  Update the watch face
+    //  TODO: Update the watch face
     //  update_widgets()
     //      .expect("Update Watch Face fail");
 
@@ -265,7 +265,7 @@ extern fn watch_face_callback(_ev: *mut os::os_event) {
     //  Set the watch face timer
     unsafe {
         os::os_callout_reset(
-            &mut WATCH_FACE_CALLOUT,       //  Timer for the watch face
+            &mut WATCH_FACE_CALLOUT,   //  Timer for the watch face
             os::OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
         );    
     }
