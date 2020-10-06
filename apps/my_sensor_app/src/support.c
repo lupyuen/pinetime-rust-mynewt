@@ -2,6 +2,27 @@
 #include <sysinit/sysinit.h>  //  Contains all app settings consolidated from "apps/my_sensor_app/syscfg.yml" and "targets/bluepill_my_sensor/syscfg.yml"
 #include <console/console.h>
 
+/// Blink 4 times and reboot
+static void blink_and_restart() {
+    //  Blink the screen quickly 4 times
+    //  blink_backlight(4, 4);
+    //  Then reboot, which fixes the SPI Bus
+    NVIC_SystemReset();
+}
+
+/// In case of Non-Maskable Interrupt (e.g. assertion failure), blink 4 times and reboot.
+/// Assertion failure may be due to SPI Bus corruption, which causes SPI Flash access to fail in spiflash_identify() in repos/apache-mynewt-core/hw/drivers/flash/spiflash/src/spiflash.c
+void NMI_Handler() {
+    //  Blink and restart
+    blink_and_restart();
+}
+
+/// In case of Hard Fault, blink 4 times and reboot
+void HardFault_Handler() {
+    //  Blink and restart
+    blink_and_restart();
+}
+
 void mynewt_app_stub() {
 }
 

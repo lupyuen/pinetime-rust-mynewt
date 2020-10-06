@@ -24,12 +24,8 @@
 //  Allow macro tracing: `trace_macros!(true)`
 #![feature(concat_idents)]
 //  Allow `concat_idents!()` macro used in `coap!()` macro
-#![feature(const_transmute)]
-//  Allow `transmute` for initialising Mynewt structs
 #![feature(proc_macro_hygiene)]
 //  Allow Procedural Macros like `run!()`
-#![feature(specialization)]
-//  Allow Specialised Traits for druid UI library
 #![feature(exclusive_range_pattern)]
 #[prelude_import]
 use core::prelude::v1::*;
@@ -52,23 +48,7 @@ mod app_network {
     //  Declare `app_network.rs` as Rust module `app_network` for Application Network functions
     //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
     //  Declare `touch_sensor.rs` as Rust module `touch_sensor` for Touch Sensor functions
-
-    //  Declare the optional modules depending on the options in `../Cargo.toml`
-    //  If graphics display app is enabled...
-    //  Include the graphics display app
-
-    //  If druid UI app is enabled...
-    //  Include the druid UI app
-
-    //  If Visual Rust app is enabled...
-    //  Don't warn about unused variables
-    //  Include the Visual Rust app
-
-    //  If CHIP8 Emulator app is enabled...
-    //  Include the CHIP8 Emulator app
-
-    //  If floating-point is enabled...
-    //  Include the GPS Sensor functions
+    //  Declare `watch_face.rs` as Rust module `watch_face` for Watch Face functions
 
     //  Declare the system modules
     //  Import `PanicInfo` type which is used by `panic()` below
@@ -76,17 +56,7 @@ mod app_network {
     //  Import Mynewt OS API
     //  Import Mynewt Console API
 
-    //  Select the touch handler depending on the options in `../Cargo.toml`
-    //  If druid UI app is enabled...
-    //  Use the touch handler from druid UI app
-
-    //  If Visual Rust app is enabled...
-    //  Use the touch handler from the Visual Rust app
-
-    //  If CHIP8 Emulator app is enabled...
-    //  Use the touch handler from the CHIP8 Emulator app
-
-    //  If neither druid UI app nor Visual Rust app are enabled...
+    //  #[cfg(not(any(feature = "ui_app")))]  //  TODO: If no UI app is enabled...
     //  Define a touch handler that does nothing
 
     //  Don't mangle the name "main"
@@ -96,52 +66,43 @@ mod app_network {
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
 
-    //  Write graphic image to SPI Flash. Must run before testing the display, to avoid contention for SPI port.
-    //  extern { fn write_image() -> i32; }
-    //  let rc = unsafe { write_image() };
-    //  assert!(rc == 0, "IMG fail");
-
-    //  Display image from SPI Flash. Must run before testing the display, to avoid contention for SPI port.
-    /*
-    extern { fn display_image() -> i32; }
-    let rc = unsafe { display_image() };
-    assert!(rc == 0, "IMG fail");
-    */
-
-    //  Test External SPI Flash. Must run before testing the display, to avoid contention for SPI port.
-
     //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
 
-    //  Start the display
+    //  Start rendering the watch face every minute in Rust.
 
-    //  Test the display
-    //  If graphics display app is enabled...
+    //  Render LVGL watch face in C.
+    //  extern { fn create_watch_face() -> i32; }  //  Defined in apps/my_sensor_app/src/watch_face.c
+    //  let rc = unsafe { create_watch_face() };
+    //  assert!(rc == 0, "Watch Face fail");
 
-    //  Start the touch sensor
+    //  Render LVGL widgets in C for testing.
+    //  extern { fn pinetime_lvgl_mynewt_test() -> i32; }  //  Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
+    //  let rc = unsafe { pinetime_lvgl_mynewt_test() };
+    //  assert!(rc == 0, "LVGL test fail");
 
-    //  Test the touch sensor
-    //  touch_sensor::test()
-    //      .expect("TCH test fail");
+    //  Render LVGL display.
+    //  extern { fn pinetime_lvgl_mynewt_render() -> i32; }  //  Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
+    //  let rc = unsafe { pinetime_lvgl_mynewt_render() };
+    //  assert!(rc == 0, "LVGL render fail");    
 
-    //  Launch the druid UI app
-    //  If druid UI app is enabled...
-
-    //  Launch the Visual Rust app
-    //  If Visual Rust app is enabled...
-
-    //  Launch the CHIP8 Emulator app
-    //  If CHIP8 Emulator app is enabled...
-
-    //  Main event loop
+    //  Main event loop. Don't add anything to the event loop because Bluetooth LE is extremely time sensitive.
     //  Loop forever...
     //  Processing events...
     //  From default event queue.
     //  Never comes here
 
     //  Display the filename and line number to the Semihosting Console.
-    //  Pause in the debugger.
+
     //  Display the payload.
-    //  Loop forever so that device won't restart.
+    //  Prevent panic loop while displaying the payload
+
+    //  Pause in the debugger.
+
+    //  Restart the device.
+    //  Defined in apps/my_sensor_app/src/support.c
+
+    //  Will never come here. This is needed to satisfy the return type "!"
+
     //!  Transmit sensor data to a CoAP server like thethings.io.  The CoAP payload will be encoded as JSON.
     //!  The sensor data will be transmitted over NB-IoT.
     //!  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
@@ -151,7 +112,7 @@ mod app_network {
                  sys::console, encoding::coap_context::*,
                  libs::{sensor_network}, coap, d, Strn};
     use mynewt_macros::strn;
-    #[cfg(not (feature = "use_float"))]
+    #[cfg(not(feature = "use_float"))]
     pub fn aggregate_sensor_data(sensor_value: &SensorValue)
      -> MynewtResult<()> {
         send_sensor_data(sensor_value)
@@ -393,23 +354,29 @@ mod touch_sensor {
     use mynewt::{self, result::*, hw::hal, kernel::os::{self, os_event},
                  sys::console, fill_zero};
     /// Reset Pin for touch controller. Note: NFC antenna pins must be reassigned as GPIO pins for this to work.
+    #[allow(dead_code)]
     const TOUCH_RESET_PIN: i32 = 10;
     /// Interrupt Pin for touch controller. We listen for the touch controller interrupt and trigger an event.
+    #[allow(dead_code)]
     const TOUCH_INTERRUPT_PIN: i32 = 28;
     /// Reset GPIO Pin
+    #[allow(dead_code)]
     static mut TOUCH_RESET: MynewtGPIO =
         unsafe {
             ::core::mem::transmute::<[u8; ::core::mem::size_of::<MynewtGPIO>()],
                                      MynewtGPIO>([0;
                                                      ::core::mem::size_of::<MynewtGPIO>()])
         };
+    #[allow(dead_code)]
     static mut TOUCH_DELAY: MynewtDelay =
         unsafe {
             ::core::mem::transmute::<[u8; ::core::mem::size_of::<MynewtDelay>()],
                                      MynewtDelay>([0;
                                                       ::core::mem::size_of::<MynewtDelay>()])
         };
+    #[allow(dead_code)]
     type MynewtGPIO = mynewt::GPIO;
+    #[allow(dead_code)]
     type MynewtDelay = mynewt::Delay;
     /// Initialise the touch controller. NFC antenna pins must already be reassigned as GPIO pins:
     /// Set `NFC_PINS_AS_GPIO: 1` in hw/bsp/nrf52/syscfg.yml.  To check whether whether NFC antenna 
@@ -419,6 +386,7 @@ mod touch_sensor {
     /// let nfcpins = peripherals.UICR.nfcpins.read().bits();
     /// console::print("nfcpins = "); console::printhex(nfcpins as u8); console::print("\n");
     /// ```
+    #[allow(dead_code)]
     pub fn start_touch_sensor() -> MynewtResult<()> {
         console::print("Rust touch sensor\n");
         unsafe { TOUCH_RESET.init(TOUCH_RESET_PIN)? };
@@ -465,8 +433,7 @@ mod touch_sensor {
                                                                                                                        ::core::fmt::Debug::fmt),
                                                                                           ::core::fmt::ArgumentV1::new(arg2,
                                                                                                                        ::core::fmt::Display::fmt)],
-                                                                                     }),
-                                                     ::core::panic::Location::caller())
+                                                                                     }))
                     }
                 }
             }
@@ -493,6 +460,7 @@ mod touch_sensor {
         }
     }
     /// Touch data will be populated here
+    #[allow(dead_code)]
     static mut TOUCH_DATA: TouchEventInfo =
         unsafe {
             ::core::mem::transmute::<[u8; ::core::mem::size_of::<TouchEventInfo>()],
@@ -501,6 +469,7 @@ mod touch_sensor {
         };
     /// Read touch controller data. This only works when the screen has been tapped and the touch controller wakes up.
     /// Ported from https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.c#L407-L466
+    #[allow(dead_code)]
     fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
         read_register_range(TOUCH_CONTROLLER_ADDRESS, 0, POINT_READ_BUF as u8,
                             unsafe {
@@ -547,10 +516,13 @@ mod touch_sensor {
         Ok(())
     }
     /// Buffer for raw touch data
+    #[allow(dead_code)]
     static mut BUF: [u8; POINT_READ_BUF] = [0; POINT_READ_BUF];
     /// Touch Controller I2C Address: https://github.com/lupyuen/hynitron_i2c_cst0xxse
+    #[allow(dead_code)]
     const TOUCH_CONTROLLER_ADDRESS: u8 = 0x15;
     /// Touch Event Info for multiple touches. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.h#L104-L115
+    #[allow(dead_code)]
     struct TouchEventInfo {
         /// Array of touch points
         touches: [TouchInfo; HYN_MAX_POINTS],
@@ -559,6 +531,7 @@ mod touch_sensor {
         point_num: u8,
     }
     /// Touch Info for a single touch. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.h#L104-L115
+    #[allow(dead_code)]
     struct TouchInfo {
         /// X coordinate
         x: u16,
@@ -574,22 +547,37 @@ mod touch_sensor {
         area: u8,
     }
     /// Max touch points for the touch controller
+    #[allow(dead_code)]
     const CFG_MAX_TOUCH_POINTS: usize = 5;
     /// Max touch channels for the touch controller
+    #[allow(dead_code)]
     const HYN_MAX_POINTS: usize = 10;
+    #[allow(dead_code)]
     const HYN_MAX_ID: u8 = 0x0F;
+    #[allow(dead_code)]
     const HYN_TOUCH_STEP: usize = 6;
+    #[allow(dead_code)]
     const HYN_TOUCH_X_H_POS: usize = 3;
+    #[allow(dead_code)]
     const HYN_TOUCH_X_L_POS: usize = 4;
+    #[allow(dead_code)]
     const HYN_TOUCH_Y_H_POS: usize = 5;
+    #[allow(dead_code)]
     const HYN_TOUCH_Y_L_POS: usize = 6;
+    #[allow(dead_code)]
     const HYN_TOUCH_EVENT_POS: usize = 3;
+    #[allow(dead_code)]
     const HYN_TOUCH_ID_POS: usize = 5;
+    #[allow(dead_code)]
     const FT_TOUCH_POINT_NUM: usize = 2;
+    #[allow(dead_code)]
     const HYN_TOUCH_XY_POS: usize = 7;
+    #[allow(dead_code)]
     const HYN_TOUCH_MISC: usize = 8;
+    #[allow(dead_code)]
     const POINT_READ_BUF: usize = 3 + (HYN_TOUCH_STEP * HYN_MAX_POINTS);
     /// Event that will be forwarded to the Event Queue when a touch interrupt is triggered
+    #[allow(dead_code)]
     static mut TOUCH_EVENT: os_event =
         unsafe {
             ::core::mem::transmute::<[u8; ::core::mem::size_of::<os_event>()],
@@ -597,6 +585,7 @@ mod touch_sensor {
                                                    ::core::mem::size_of::<os_event>()])
         };
     /// Read a range of I2C registers from the I2C address `addr` (7-bit address), starting at `start_register` for count `num_registers`. Save into `buffer`.
+    #[allow(dead_code)]
     fn read_register_range(addr: u8, start_register: u8, num_registers: u8,
                            buffer: &mut [u8]) -> MynewtResult<()> {
         if !(buffer.len() >= num_registers as usize) {
@@ -659,11 +648,13 @@ mod touch_sensor {
         Ok(())
     }
     /// I2C packet to be sent
+    #[allow(dead_code)]
     static mut I2C_DATA: hal::hal_i2c_master_data =
         hal::hal_i2c_master_data{address: 0,
                                  len: 0,
                                  buffer: core::ptr::null_mut(),};
     /// Buffer containing I2C read/write data
+    #[allow(dead_code)]
     static mut I2C_BUFFER: [u8; 1] = [0];
     /// Probe the I2C bus to discover I2C devices
     #[allow(dead_code)]
@@ -698,99 +689,448 @@ mod touch_sensor {
         Ok(())
     }
 }
-#[cfg(feature = "display_app")]
-mod display {
-    use embedded_graphics::{prelude::*, fonts, pixelcolor::Rgb565,
-                            primitives::{Circle, Rectangle}};
-    use mynewt::{result::*, sys::console};
-    use embedded_hal::{self, digital::v2::OutputPin,
-                       blocking::delay::DelayMs};
-    /// Render some graphics and text to the PineTime display. `start_display()` must have been called earlier.
-    pub fn test_display() -> MynewtResult<()> {
-        console::print("Rust test display\n");
-        console::flush();
-        let background =
-            Rectangle::<Rgb565>::new(Coord::new(0, 0),
-                                     Coord::new(239,
-                                                239)).fill(Some(Rgb565::from((0x00,
-                                                                              0x00,
-                                                                              0x00))));
-        let circle =
-            Circle::<Rgb565>::new(Coord::new(40, 40),
-                                  40).fill(Some(Rgb565::from((0xff, 0x00,
-                                                              0xff))));
-        let square =
-            Rectangle::<Rgb565>::new(Coord::new(60, 60),
-                                     Coord::new(150,
-                                                150)).fill(Some(Rgb565::from((0x00,
-                                                                              0x00,
-                                                                              0xff))));
-        let text =
-            fonts::Font12x16::<Rgb565>::render_str("I AM PINETIME").stroke(Some(Rgb565::from((0x00,
-                                                                                              0x00,
-                                                                                              0x00)))).fill(Some(Rgb565::from((0xff,
-                                                                                                                               0xff,
-                                                                                                                               0x00)))).translate(Coord::new(20,
-                                                                                                                                                             16));
-        druid::draw_to_display(background);
-        druid::draw_to_display(circle);
-        druid::draw_to_display(square);
-        druid::draw_to_display(text);
-        Ok(())
-    }
-    /// Test backlight
-    fn test_backlight() -> MynewtResult<()> {
-        let mut delay = mynewt::Delay::new();
-        let mut backlights =
-            [mynewt::GPIO::new(), mynewt::GPIO::new(), mynewt::GPIO::new()];
-        backlights[0].init(14)?;
-        backlights[1].init(22)?;
-        backlights[2].init(23)?;
-        let slower_pulse =
-            [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1,
-             1, 1];
-        let slow_pulse = [0, 0, 0, 1, 1, 1, 2, 2, 2, 1, 1, 1];
-        let fast_pulse = [0, 0, 1, 1, 2, 2, 1, 1];
-        let faster_pulse = [0, 1, 2, 1];
-        let fastest_pulse = [0, 2];
-        for _ in 0..1 {
-            for _ in 0..4 {
-                flash_backlight(&mut backlights, &mut delay, &slower_pulse)?;
-            }
-            for _ in 0..4 {
-                flash_backlight(&mut backlights, &mut delay, &slow_pulse)?;
-            }
-            for _ in 0..6 {
-                flash_backlight(&mut backlights, &mut delay, &fast_pulse)?;
-            }
-            for _ in 0..8 {
-                flash_backlight(&mut backlights, &mut delay, &faster_pulse)?;
-            }
-            for _ in 0..20 {
-                flash_backlight(&mut backlights, &mut delay, &fastest_pulse)?;
-            }
-        }
-        backlights[2].set_low()?;
-        Ok(())
-    }
-    /// Flash backlight according to the pattern: 0=Low, 1=Mid, 2=High
-    fn flash_backlight(backlights: &mut [mynewt::GPIO; 3],
-                       delay: &mut mynewt::Delay, pattern: &[i32])
+mod watch_face {
+    //! Watch Face in Rust for PineTime with Apache Mynewt OS, based on apps/my_sensor_app/src/watch_face.c
+    //! See https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face
+    use core::{fmt::Write, ptr};
+    use mynewt::{fill_zero, kernel::os, result::*, sys::console, Strn};
+    use mynewt_macros::strn;
+    use lvgl::{core::obj, objx::label};
+    /// Create the widgets for the Watch Face. Called by create_watch_face() below.
+    pub fn create_widgets(widgets: &mut WatchFaceWidgets)
      -> MynewtResult<()> {
-        for brightness in pattern {
-            backlights[*brightness as usize].set_low()?;
-            delay.delay_ms(10);
-            backlights[*brightness as usize].set_high()?;
+        let scr = widgets.screen;
+        if !!scr.is_null() { ::core::panicking::panic("null screen") };
+        let label1 = label::create(scr, ptr::null())?;
+        label::set_long_mode(label1, label::LV_LABEL_LONG_BREAK)?;
+        label::set_text(label1, &Strn::new(b"00:00\x00"))?;
+        obj::set_width(label1, 240)?;
+        obj::set_height(label1, 200)?;
+        label::set_align(label1, label::LV_LABEL_ALIGN_CENTER)?;
+        obj::align(label1, scr, obj::LV_ALIGN_CENTER, 0, -30)?;
+        widgets.time_label = label1;
+        let l_state = label::create(scr, ptr::null())?;
+        obj::set_width(l_state, 50)?;
+        obj::set_height(l_state, 80)?;
+        label::set_text(l_state, &Strn::new(b"\x00"))?;
+        label::set_recolor(l_state, true)?;
+        label::set_align(l_state, label::LV_LABEL_ALIGN_LEFT)?;
+        obj::align(l_state, scr, obj::LV_ALIGN_IN_TOP_LEFT, 0, 0)?;
+        widgets.ble_label = l_state;
+        let l_power = label::create(scr, ptr::null())?;
+        obj::set_width(l_power, 80)?;
+        obj::set_height(l_power, 20)?;
+        label::set_text(l_power, &Strn::new(b"\x00"))?;
+        label::set_recolor(l_power, true)?;
+        label::set_align(l_power, label::LV_LABEL_ALIGN_RIGHT)?;
+        obj::align(l_power, scr, obj::LV_ALIGN_IN_TOP_RIGHT, 0, 0)?;
+        widgets.power_label = l_power;
+        let label_date = label::create(scr, ptr::null())?;
+        label::set_long_mode(label_date, label::LV_LABEL_LONG_BREAK)?;
+        obj::set_width(label_date, 200)?;
+        obj::set_height(label_date, 200)?;
+        label::set_text(label_date, &Strn::new(b"\x00"))?;
+        label::set_align(label_date, label::LV_LABEL_ALIGN_CENTER)?;
+        obj::align(label_date, scr, obj::LV_ALIGN_CENTER, 0, 40)?;
+        widgets.date_label = label_date;
+        obj::set_click(scr, true)?;
+        Ok(())
+    }
+    /// Update the widgets in the Watch Face with the current state. Called by update_watch_face() below.
+    pub fn update_widgets(widgets: &WatchFaceWidgets, state: &WatchFaceState)
+     -> MynewtResult<()> {
+        set_time_label(widgets, state)?;
+        set_bt_label(widgets, state)?;
+        set_power_label(widgets, state)?;
+        Ok(())
+    }
+    /// Populate the Bluetooth Label with the Bluetooth status. Called by screen_time_update_screen() above.
+    pub fn set_bt_label(widgets: &WatchFaceWidgets, state: &WatchFaceState)
+     -> MynewtResult<()> {
+        if state.ble_state == BleState::BLEMAN_BLE_STATE_DISCONNECTED {
+            label::set_text(widgets.ble_label, &Strn::new(b"\x00"))?;
+        } else {
+            let color =
+                match &state.ble_state {
+                    BleState::BLEMAN_BLE_STATE_INACTIVE => "#000000",
+                    BleState::BLEMAN_BLE_STATE_DISCONNECTED => "#f2495c",
+                    BleState::BLEMAN_BLE_STATE_ADVERTISING => "#5794f2",
+                    BleState::BLEMAN_BLE_STATE_CONNECTED => "#37872d",
+                };
+            static mut BLUETOOTH_STATUS: String = new_string();
+            unsafe {
+                BLUETOOTH_STATUS.clear();
+                (&mut BLUETOOTH_STATUS).write_fmt(::core::fmt::Arguments::new_v1(&["",
+                                                                                   " \u{f293}#\u{0}"],
+                                                                                 &match (&color,)
+                                                                                      {
+                                                                                      (arg0,)
+                                                                                      =>
+                                                                                      [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                    ::core::fmt::Display::fmt)],
+                                                                                  })).expect("bt fail");
+                label::set_text(widgets.ble_label,
+                                &to_strn(&BLUETOOTH_STATUS))?;
+            }
         }
         Ok(())
+    }
+    /// Populate the Power Label with the battery status. Called by screen_time_update_screen() above.
+    pub fn set_power_label(widgets: &WatchFaceWidgets, state: &WatchFaceState)
+     -> MynewtResult<()> {
+        let percentage = convert_battery_voltage(state.millivolts);
+        let color =
+            if percentage <= 20 {
+                "#f2495c"
+            } else if state.powered && !(state.charging) {
+                "#73bf69"
+            } else { "#fade2a" };
+        let symbol = if state.powered { "\u{F0E7}" } else { " " };
+        static mut BATTERY_STATUS: String = new_string();
+        unsafe {
+            BATTERY_STATUS.clear();
+            (&mut BATTERY_STATUS).write_fmt(::core::fmt::Arguments::new_v1(&["",
+                                                                             " ",
+                                                                             "%",
+                                                                             "#\nRUST (",
+                                                                             "mV)\u{0}"],
+                                                                           &match (&color,
+                                                                                   &percentage,
+                                                                                   &symbol,
+                                                                                   &state.millivolts)
+                                                                                {
+                                                                                (arg0,
+                                                                                 arg1,
+                                                                                 arg2,
+                                                                                 arg3)
+                                                                                =>
+                                                                                [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                              ::core::fmt::Display::fmt),
+                                                                                 ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                              ::core::fmt::Display::fmt),
+                                                                                 ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                              ::core::fmt::Display::fmt),
+                                                                                 ::core::fmt::ArgumentV1::new(arg3,
+                                                                                                              ::core::fmt::Display::fmt)],
+                                                                            })).expect("batt fail");
+            label::set_text(widgets.power_label, &to_strn(&BATTERY_STATUS))?;
+        }
+        obj::align(widgets.power_label, widgets.screen,
+                   obj::LV_ALIGN_IN_TOP_RIGHT, 0, 0)?;
+        Ok(())
+    }
+    /// Populate the Time and Date Labels with the time and date. Called by screen_time_update_screen() above.
+    pub fn set_time_label(widgets: &WatchFaceWidgets, state: &WatchFaceState)
+     -> MynewtResult<()> {
+        static mut TIME_BUF: String = new_string();
+        unsafe {
+            TIME_BUF.clear();
+            (&mut TIME_BUF).write_fmt(::core::fmt::Arguments::new_v1_formatted(&["",
+                                                                                 ":",
+                                                                                 "\u{0}"],
+                                                                               &match (&state.time.hour,
+                                                                                       &state.time.minute)
+                                                                                    {
+                                                                                    (arg0,
+                                                                                     arg1)
+                                                                                    =>
+                                                                                    [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                  ::core::fmt::Display::fmt),
+                                                                                     ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                                  ::core::fmt::Display::fmt)],
+                                                                                },
+                                                                               &[::core::fmt::rt::v1::Argument{position:
+                                                                                                                   0usize,
+                                                                                                               format:
+                                                                                                                   ::core::fmt::rt::v1::FormatSpec{fill:
+                                                                                                                                                       ' ',
+                                                                                                                                                   align:
+                                                                                                                                                       ::core::fmt::rt::v1::Alignment::Unknown,
+                                                                                                                                                   flags:
+                                                                                                                                                       8u32,
+                                                                                                                                                   precision:
+                                                                                                                                                       ::core::fmt::rt::v1::Count::Implied,
+                                                                                                                                                   width:
+                                                                                                                                                       ::core::fmt::rt::v1::Count::Is(2usize),},},
+                                                                                 ::core::fmt::rt::v1::Argument{position:
+                                                                                                                   1usize,
+                                                                                                               format:
+                                                                                                                   ::core::fmt::rt::v1::FormatSpec{fill:
+                                                                                                                                                       ' ',
+                                                                                                                                                   align:
+                                                                                                                                                       ::core::fmt::rt::v1::Alignment::Unknown,
+                                                                                                                                                   flags:
+                                                                                                                                                       8u32,
+                                                                                                                                                   precision:
+                                                                                                                                                       ::core::fmt::rt::v1::Count::Implied,
+                                                                                                                                                   width:
+                                                                                                                                                       ::core::fmt::rt::v1::Count::Is(2usize),},}])).expect("time fail");
+            label::set_text(widgets.time_label, &to_strn(&TIME_BUF))?;
+        }
+        let month_str = get_month_name(&state.time);
+        static mut DATE_BUF: String = new_string();
+        unsafe {
+            DATE_BUF.clear();
+            (&mut DATE_BUF).write_fmt(::core::fmt::Arguments::new_v1(&["",
+                                                                       " ",
+                                                                       " ",
+                                                                       "\n\u{0}"],
+                                                                     &match (&state.time.dayofmonth,
+                                                                             &month_str,
+                                                                             &state.time.year)
+                                                                          {
+                                                                          (arg0,
+                                                                           arg1,
+                                                                           arg2)
+                                                                          =>
+                                                                          [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                        ::core::fmt::Display::fmt),
+                                                                           ::core::fmt::ArgumentV1::new(arg1,
+                                                                                                        ::core::fmt::Display::fmt),
+                                                                           ::core::fmt::ArgumentV1::new(arg2,
+                                                                                                        ::core::fmt::Display::fmt)],
+                                                                      })).expect("date fail");
+            label::set_text(widgets.date_label, &to_strn(&DATE_BUF))?;
+        }
+        Ok(())
+    }
+    /// Start rendering the watch face every minute
+    pub fn start_watch_face() -> MynewtResult<()> {
+        console::print("Init Rust watch face...\n");
+        console::flush();
+        unsafe {
+            WATCH_FACE_WIDGETS.screen =
+                lv_disp_get_scr_act(obj::disp_get_default().expect("Failed to get display"));
+        }
+        create_widgets(unsafe { &mut WATCH_FACE_WIDGETS })?;
+        let rc = unsafe { pinetime_lvgl_mynewt_render() };
+        if !(rc == 0) { ::core::panicking::panic("LVGL render fail") };
+        unsafe {
+            os::os_callout_init(&mut WATCH_FACE_CALLOUT,
+                                os::eventq_dflt_get().unwrap(),
+                                Some(watch_face_callback), ptr::null_mut());
+        }
+        let rc =
+            unsafe {
+                os::os_callout_reset(&mut WATCH_FACE_CALLOUT,
+                                     os::OS_TICKS_PER_SEC * 60)
+            };
+        if !(rc == 0) { ::core::panicking::panic("Timer fail") };
+        Ok(())
+    }
+    /// Timer callback that is called every minute
+    extern fn watch_face_callback(_ev: *mut os::os_event) {
+        console::print("Update Rust watch face...\n");
+        console::flush();
+        let time = get_system_time().expect("Can't get system time");
+        let state =
+            WatchFaceState{time,
+                           millivolts: 0,
+                           charging: true,
+                           powered: true,
+                           ble_state: BleState::BLEMAN_BLE_STATE_CONNECTED,};
+        update_widgets(unsafe { &WATCH_FACE_WIDGETS },
+                       &state).expect("Update Watch Face fail");
+        let rc = unsafe { pinetime_lvgl_mynewt_render() };
+        if !(rc == 0) { ::core::panicking::panic("LVGL render fail") };
+        let rc =
+            unsafe {
+                os::os_callout_reset(&mut WATCH_FACE_CALLOUT,
+                                     os::OS_TICKS_PER_SEC * 60)
+            };
+        if !(rc == 0) { ::core::panicking::panic("Timer fail") };
+    }
+    /// Get the system time
+    pub fn get_system_time() -> MynewtResult<WatchFaceTime> {
+        static mut TV: os::os_timeval =
+            unsafe {
+                ::core::mem::transmute::<[u8; ::core::mem::size_of::<os::os_timeval>()],
+                                         os::os_timeval>([0;
+                                                             ::core::mem::size_of::<os::os_timeval>()])
+            };
+        static mut TZ: os::os_timezone =
+            unsafe {
+                ::core::mem::transmute::<[u8; ::core::mem::size_of::<os::os_timezone>()],
+                                         os::os_timezone>([0;
+                                                              ::core::mem::size_of::<os::os_timezone>()])
+            };
+        let rc = unsafe { os::os_gettimeofday(&mut TV, &mut TZ) };
+        if !(rc == 0) { ::core::panicking::panic("Can't get time") };
+        static mut CT: clocktime =
+            unsafe {
+                ::core::mem::transmute::<[u8; ::core::mem::size_of::<clocktime>()],
+                                         clocktime>([0;
+                                                        ::core::mem::size_of::<clocktime>()])
+            };
+        let rc = unsafe { timeval_to_clocktime(&TV, &TZ, &mut CT) };
+        if !(rc == 0) { ::core::panicking::panic("Can't convert time") };
+        let result =
+            unsafe {
+                WatchFaceTime{year: CT.year as u16,
+                              month: CT.mon as u8,
+                              dayofmonth: CT.day as u8,
+                              hour: CT.hour as u8,
+                              minute: CT.min as u8,
+                              second: CT.sec as u8,
+                              fracs: 0,
+                              dayofweek: CT.dow as u8,}
+            };
+        Ok(result)
+    }
+    /// Get month short name
+    pub fn get_month_name(time: &WatchFaceTime) -> String {
+        match time.month {
+            1 => String::from("JAN"),
+            2 => String::from("FEB"),
+            3 => String::from("MAR"),
+            4 => String::from("APR"),
+            5 => String::from("MAY"),
+            6 => String::from("JUN"),
+            7 => String::from("JUL"),
+            8 => String::from("AUG"),
+            9 => String::from("SEP"),
+            10 => String::from("OCT"),
+            11 => String::from("NOV"),
+            12 => String::from("DEC"),
+            _ => String::from("???"),
+        }
+    }
+    /// Convert battery voltage to percentage
+    pub fn convert_battery_voltage(_voltage: u32) -> i32 { 50 }
+    /// Timer that is triggered every minute to update the watch face
+    static mut WATCH_FACE_CALLOUT: os::os_callout =
+        unsafe {
+            ::core::mem::transmute::<[u8; ::core::mem::size_of::<os::os_callout>()],
+                                     os::os_callout>([0;
+                                                         ::core::mem::size_of::<os::os_callout>()])
+        };
+    /// LVGL Widgets for the watch face
+    static mut WATCH_FACE_WIDGETS: WatchFaceWidgets =
+        unsafe {
+            ::core::mem::transmute::<[u8; ::core::mem::size_of::<WatchFaceWidgets>()],
+                                     WatchFaceWidgets>([0;
+                                                           ::core::mem::size_of::<WatchFaceWidgets>()])
+        };
+    /// Create a new String
+    const fn new_string() -> String {
+        heapless::String(heapless::i::String::new())
+    }
+    /// Convert a static String to null-terminated Strn
+    fn to_strn(str: &'static String) -> Strn { Strn::new(str.as_bytes()) }
+    /// Limit Strings to 64 chars (which may include multiple color codes like "#ffffff")
+    type String = heapless::String<heapless::consts::U64>;
+    /// State for the Watch Face, shared between GUI and control. TODO: Sync with widgets/home_time/include/home_time.h
+    #[repr(C)]
+    pub struct WatchFaceState {
+        pub ble_state: BleState,
+        pub time: WatchFaceTime,
+        pub millivolts: u32,
+        pub charging: bool,
+        pub powered: bool,
+    }
+    /// Widgets for the Watch Face, private to Rust. TODO: Sync with widgets/home_time/include/home_time.h
+    #[repr(C)]
+    #[allow(non_camel_case_types)]
+    pub struct WatchFaceWidgets {
+        pub screen: *mut obj::lv_obj_t,
+        pub time_label: *mut obj::lv_obj_t,
+        pub date_label: *mut obj::lv_obj_t,
+        pub ble_label: *mut obj::lv_obj_t,
+        pub power_label: *mut obj::lv_obj_t,
+    }
+    #[repr(u8)]
+    #[allow(non_camel_case_types)]
+    #[allow(dead_code)]
+    pub enum BleState {
+        BLEMAN_BLE_STATE_INACTIVE = 0,
+        BLEMAN_BLE_STATE_ADVERTISING = 1,
+        BLEMAN_BLE_STATE_DISCONNECTED = 2,
+        BLEMAN_BLE_STATE_CONNECTED = 3,
+    }
+    #[allow(non_camel_case_types)]
+    #[allow(dead_code)]
+    impl ::core::marker::StructuralPartialEq for BleState { }
+    #[automatically_derived]
+    #[allow(unused_qualifications)]
+    #[allow(non_camel_case_types)]
+    #[allow(dead_code)]
+    impl ::core::cmp::PartialEq for BleState {
+        #[inline]
+        fn eq(&self, other: &BleState) -> bool {
+            {
+                let __self_vi =
+                    unsafe { ::core::intrinsics::discriminant_value(&*self) };
+                let __arg_1_vi =
+                    unsafe {
+                        ::core::intrinsics::discriminant_value(&*other)
+                    };
+                if true && __self_vi == __arg_1_vi {
+                    match (&*self, &*other) { _ => true, }
+                } else { false }
+            }
+        }
+    }
+    #[repr(C)]
+    pub struct WatchFaceTime {
+        pub year: u16,
+        pub month: u8,
+        pub dayofmonth: u8,
+        pub hour: u8,
+        pub minute: u8,
+        pub second: u8,
+        pub fracs: u8,
+        pub dayofweek: u8,
+    }
+    /// Create the Watch Face, populated with widgets. Called by _screen_time_create() in screen_time.c.
+    #[no_mangle]
+    extern "C" fn create_watch_face(widgets: *mut WatchFaceWidgets) -> i32 {
+        if !!widgets.is_null() { ::core::panicking::panic("widgets null") };
+        unsafe { create_widgets(&mut *widgets) }.expect("create_screen fail");
+        0
+    }
+    /// Populate the Watch Face with the current status. Called by _screen_time_update_screen() in screen_time.c.
+    #[no_mangle]
+    extern "C" fn update_watch_face(widgets: *const WatchFaceWidgets,
+                                    state: *const WatchFaceState) -> i32 {
+        if !!widgets.is_null() { ::core::panicking::panic("widgets null") };
+        unsafe {
+            update_widgets(&*widgets, &*state)
+        }.expect("update_widgets fail");
+        0
+    }
+    extern {
+        /// Render the LVGL display. Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
+        fn pinetime_lvgl_mynewt_render()
+        -> i32;
+        /// Convert timeval to clocktime. From https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h
+        fn timeval_to_clocktime(tv: *const os::os_timeval,
+                                tz: *const os::os_timezone,
+                                ct: *mut clocktime)
+        -> i32;
+        /// Get active screen for LVGL display. From LVGL.
+        fn lv_disp_get_scr_act(disp: *mut obj::lv_disp_t)
+        -> *mut obj::lv_obj_t;
+        /// Style for the Time Label
+        #[allow(dead_code)]
+        static style_time: obj::lv_style_t ;
+    }
+    /// Mynewt Clock Time. From https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h
+    #[repr(C)]
+    #[allow(non_camel_case_types)]
+    pub struct clocktime {
+        pub year: i32,
+        pub mon: i32,
+        pub day: i32,
+        pub hour: i32,
+        pub min: i32,
+        pub sec: i32,
+        pub dow: i32,
+        pub usec: i32,
     }
 }
 use core::panic::PanicInfo;
 use cortex_m::asm::bkpt;
 use mynewt::{kernel::os, sys::console};
-#[cfg(not
-      (any
-       (feature = "ui_app", feature = "visual_app", feature = "chip8_app")))]
 pub fn handle_touch(_x: u16, _y: u16) {
     console::print("touch not handled\n");
     console::flush();
@@ -801,20 +1141,12 @@ pub fn handle_touch(_x: u16, _y: u16) {
 extern "C" fn main() -> ! {
     mynewt::sysinit();
     extern {
-        fn test_flash() -> i32;
-    }
-    let rc = unsafe { test_flash() };
-    if !(rc == 0) { ::core::panicking::panic("FLASH fail") };
-    extern {
-        fn start_ble() -> i32;
+        fn start_ble()
+        -> i32;
     }
     let rc = unsafe { start_ble() };
     if !(rc == 0) { ::core::panicking::panic("BLE fail") };
-    druid::start_display().expect("DSP fail");
-
-    #[cfg(feature = "display_app")]
-    display::test_display().expect("DSP test fail");
-    touch_sensor::start_touch_sensor().expect("TCH fail");
+    watch_face::start_watch_face().expect("Watch Face fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }
@@ -833,9 +1165,19 @@ fn panic(info: &PanicInfo) -> ! {
         console::print("\n");
         console::flush();
     } else { console::print("no loc\n"); console::flush(); }
+    if unsafe { !IN_PANIC } {
+        unsafe { IN_PANIC = true };
+        let payload = info.payload().downcast_ref::<&str>().unwrap();
+        console::print(payload);
+        console::print("\n");
+        console::flush();
+    }
     bkpt();
-    console::print(info.payload().downcast_ref::<&str>().unwrap());
-    console::print("\n");
-    console::flush();
+    extern {
+        fn HardFault_Handler();
+    }
+    unsafe { HardFault_Handler() };
     loop  { }
 }
+/// Set to true if we are already in the panic handler
+static mut IN_PANIC: bool = false;

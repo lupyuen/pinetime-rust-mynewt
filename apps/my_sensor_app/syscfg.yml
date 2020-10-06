@@ -18,7 +18,7 @@
 
 # System Configuration Setting Definitions:
 #   Below are the settings defined by this app and their default values. To change the settings, 
-#   edit the target config file at targets/bluepill_my_sensor/syscfg.yml.  
+#   edit the target config file at targets/nrf52_my_sensor/syscfg.yml.  
 #   Strings must be enclosed by '"..."'
 
 syscfg.defs:
@@ -114,14 +114,25 @@ syscfg.defs:
     
 # System Configuration Setting Values:
 #   Below we override the driver and library settings. Settings defined in
-#   targets/bluepill_my_sensor/syscfg.yml will override the settings below.
+#   targets/nrf52_my_sensor/syscfg.yml will override the settings below.
 
 syscfg.vals:
-    # OS_MAIN_STACK_SIZE: 1024  #  Small stack size: 4 KB
-    # OS_MAIN_STACK_SIZE: 2048  #  Normal stack size: 8 KB
-    OS_MAIN_STACK_SIZE: 4096  #  Large stack size: 16 KB
 
-    MSYS_1_BLOCK_COUNT: 64  # Allocate extra MSYS buffers
+    ###########################################################################
+    # Watchdog Settings
+
+    # The default PineTime bootloader will setup a 7 second watchdog
+    SANITY_INTERVAL:      5000  #  Tickle the watchdog every 5 seconds, that the watchdog won't trigger a reboot
+    # WATCHDOG_INTERVAL:  7000  #  If watchdog is not set, set it to 7 seconds
+    
+    ###########################################################################
+    # Stack and MSYS Buffer Settings
+
+    # OS_MAIN_STACK_SIZE: 1024  #  Small stack size: 4 KB
+    OS_MAIN_STACK_SIZE:   2048  #  Normal stack size: 8 KB
+    # OS_MAIN_STACK_SIZE: 4096  #  Large stack size: 16 KB
+
+    MSYS_1_BLOCK_COUNT:   64    # Allocate extra MSYS buffers
 
     ###########################################################################
     # CoAP Server Settings
@@ -138,13 +149,13 @@ syscfg.vals:
     ###########################################################################
     # Bluetooth LE Settings
 
-    BLUETOOTH_LE:       0  # Disable Bluetooth LE
+    BLUETOOTH_LE:         1  # Enable Bluetooth LE
 
-    # Disable central and observer roles.
-    BLE_ROLE_BROADCASTER: 1
-    BLE_ROLE_CENTRAL: 0
-    BLE_ROLE_OBSERVER: 0
-    BLE_ROLE_PERIPHERAL: 1
+    # Disable observer role.
+    BLE_ROLE_BROADCASTER: 1  #  Needed for broadcasting device
+    BLE_ROLE_CENTRAL:     1  #  Needed for GATT Service Discovery
+    BLE_ROLE_OBSERVER:    0
+    BLE_ROLE_PERIPHERAL:  1
 
     # Configure DIS
     BLE_SVC_DIS_FIRMWARE_REVISION_READ_PERM: 1

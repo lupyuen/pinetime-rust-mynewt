@@ -21,7 +21,6 @@
 #![feature(trace_macros)]               //  Allow macro tracing: `trace_macros!(true)`
 #![feature(concat_idents)]              //  Allow `concat_idents!()` macro used in `coap!()` macro
 #![feature(proc_macro_hygiene)]         //  Allow Procedural Macros like `run!()`
-#![feature(specialization)]             //  Allow Specialised Traits for druid UI library
 #![feature(exclusive_range_pattern)]    //  Allow ranges like `0..128` in `match` statements
 
 //  Declare the libraries that contain macros
@@ -33,23 +32,7 @@ extern crate macros as mynewt_macros;   //  Declare the Mynewt Procedural Macros
 mod app_network;    //  Declare `app_network.rs` as Rust module `app_network` for Application Network functions
 mod app_sensor;     //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
 mod touch_sensor;   //  Declare `touch_sensor.rs` as Rust module `touch_sensor` for Touch Sensor functions
-
-//  Declare the optional modules depending on the options in `../Cargo.toml`
-#[cfg(feature = "display_app")]  //  If graphics display app is enabled...
-mod display;                     //  Include the graphics display app
-
-#[cfg(feature = "ui_app")]       //  If druid UI app is enabled...
-mod ui;                          //  Include the druid UI app
-
-#[cfg(feature = "visual_app")]   //  If Visual Rust app is enabled...
-#[allow(unused_variables)]       //  Don't warn about unused variables
-mod visual;                      //  Include the Visual Rust app
-
-#[cfg(feature = "chip8_app")]    //  If CHIP8 Emulator app is enabled...
-mod chip8;                       //  Include the CHIP8 Emulator app
-
-#[cfg(feature = "use_float")]    //  If floating-point is enabled...
-mod gps_sensor;                  //  Include the GPS Sensor functions
+mod watch_face;     //  Declare `watch_face.rs` as Rust module `watch_face` for Watch Face functions
 
 //  Declare the system modules
 use core::panic::PanicInfo; //  Import `PanicInfo` type which is used by `panic()` below
@@ -59,17 +42,7 @@ use mynewt::{
     sys::console,           //  Import Mynewt Console API
 };
 
-//  Select the touch handler depending on the options in `../Cargo.toml`
-#[cfg(feature = "ui_app")]      //  If druid UI app is enabled...
-use ui::handle_touch;           //  Use the touch handler from druid UI app
-
-#[cfg(feature = "visual_app")]  //  If Visual Rust app is enabled...
-use visual::handle_touch;       //  Use the touch handler from the Visual Rust app
-
-#[cfg(feature = "chip8_app")]   //  If CHIP8 Emulator app is enabled...
-use chip8::handle_touch;        //  Use the touch handler from the CHIP8 Emulator app
-
-#[cfg(not(any(feature = "ui_app", feature = "visual_app", feature = "chip8_app")))]  //  If neither druid UI app nor Visual Rust app are enabled...
+//  #[cfg(not(any(feature = "ui_app")))]  //  TODO: If no UI app is enabled...
 pub fn handle_touch(_x: u16, _y: u16) { console::print("touch not handled\n"); console::flush(); }  //  Define a touch handler that does nothing
 
 ///  Main program that initialises the sensor, network driver and starts reading and sending sensor data in the background.
@@ -82,60 +55,31 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
     mynewt::sysinit();
 
-    //  Write graphic image to SPI Flash. Must run before testing the display, to avoid contention for SPI port.
-    //  extern { fn write_image() -> i32; }
-    //  let rc = unsafe { write_image() };
-    //  assert!(rc == 0, "IMG fail");
-    
-    //  Display image from SPI Flash. Must run before testing the display, to avoid contention for SPI port.
-    /*
-    extern { fn display_image() -> i32; }
-    let rc = unsafe { display_image() };
-    assert!(rc == 0, "IMG fail");
-    */
-    
-    //  Test External SPI Flash. Must run before testing the display, to avoid contention for SPI port.
-    extern { fn test_flash() -> i32; }
-    let rc = unsafe { test_flash() };
-    assert!(rc == 0, "FLASH fail");
-
     //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
     extern { fn start_ble() -> i32; }
     let rc = unsafe { start_ble() };
     assert!(rc == 0, "BLE fail");
 
-    //  Start the display
-    druid::start_display()
-        .expect("DSP fail");
+    //  Start rendering the watch face every minute in Rust.
+    watch_face::start_watch_face()
+        .expect("Watch Face fail");
 
-    //  Test the display
-    #[cfg(feature = "display_app")]  //  If graphics display app is enabled...
-    display::test_display()
-        .expect("DSP test fail");
+    //  Render LVGL watch face in C.
+    //  extern { fn create_watch_face() -> i32; }  //  Defined in apps/my_sensor_app/src/watch_face.c
+    //  let rc = unsafe { create_watch_face() };
+    //  assert!(rc == 0, "Watch Face fail");
 
-    //  Start the touch sensor
-    touch_sensor::start_touch_sensor()
-        .expect("TCH fail");
+    //  Render LVGL widgets in C for testing.
+    //  extern { fn pinetime_lvgl_mynewt_test() -> i32; }  //  Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
+    //  let rc = unsafe { pinetime_lvgl_mynewt_test() };
+    //  assert!(rc == 0, "LVGL test fail");
 
-    //  Test the touch sensor
-    //  touch_sensor::test()
-    //      .expect("TCH test fail");
+    //  Render LVGL display.
+    //  extern { fn pinetime_lvgl_mynewt_render() -> i32; }  //  Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
+    //  let rc = unsafe { pinetime_lvgl_mynewt_render() };
+    //  assert!(rc == 0, "LVGL render fail");    
 
-    //  Launch the druid UI app
-    #[cfg(feature = "ui_app")]  //  If druid UI app is enabled...
-    ui::launch();
-
-    //  Launch the Visual Rust app
-    #[cfg(feature = "visual_app")]  //  If Visual Rust app is enabled...
-    visual::on_start()
-        .expect("VIS fail");
-
-    //  Launch the CHIP8 Emulator app
-    #[cfg(feature = "chip8_app")]  //  If CHIP8 Emulator app is enabled...
-    chip8::on_start()
-        .expect("CHIP8 fail");
-
-    //  Main event loop
+    //  Main event loop. Don't add anything to the event loop because Bluetooth LE is extremely time sensitive.
     loop {                            //  Loop forever...
         os::eventq_run(               //  Processing events...
             os::eventq_dflt_get()     //  From default event queue.
@@ -159,11 +103,24 @@ fn panic(info: &PanicInfo) -> ! {
     } else {
         console::print("no loc\n");  console::flush();
     }
+
+    //  Display the payload.
+    if unsafe { !IN_PANIC } {  //  Prevent panic loop while displaying the payload
+        unsafe { IN_PANIC = true };
+        let payload = info.payload().downcast_ref::<&str>().unwrap();
+        console::print(payload);  console::print("\n");  console::flush();    
+    }
+
     //  Pause in the debugger.
     bkpt();
-    //  Display the payload.
-    console::print(info.payload().downcast_ref::<&str>().unwrap());
-    console::print("\n");  console::flush();
-    //  Loop forever so that device won't restart.
+
+    //  Restart the device.
+    extern { fn HardFault_Handler(); }  //  Defined in apps/my_sensor_app/src/support.c
+    unsafe { HardFault_Handler() };
+
+    //  Will never come here. This is needed to satisfy the return type "!"
     loop {}
 }
+
+/// Set to true if we are already in the panic handler
+static mut IN_PANIC: bool = false;

@@ -223,6 +223,7 @@ extern {
     ///  Interpret `sensor_data` as a `sensor_temp_raw_data` struct that contains raw temp.
     ///  Copy the sensor data into `dest`.  Return 0 if successful.
     ///  C API: `int get_temp_raw_data(void *sensor_data, struct sensor_temp_raw_data *dest)`
+    #[allow(clashing_extern_declarations)]  //  TODO
     pub fn get_temp_raw_data(sensor_data: sensor_data_ptr, dest: *mut sensor_temp_raw_data) -> i32;
 
     ///  Interpret `sensor_data` as a `sensor_temp_data` struct that contains computed temp.
@@ -245,10 +246,12 @@ extern {
 
     ///  Return non-zero if sensor is NULL.
     ///  C API: `int is_null_sensor(struct sensor *p)`
+    #[allow(clashing_extern_declarations)]  //  TODO
     pub fn is_null_sensor(sensor: sensor_ptr) -> bool;
 
     ///  Return non-zero if sensor data is NULL.
     ///  C API: `int is_null_sensor_data(void *p)`
+    #[allow(clashing_extern_declarations)]  //  TODO
     pub fn is_null_sensor_data(sensor_data: sensor_data_ptr) -> bool;
 }
 

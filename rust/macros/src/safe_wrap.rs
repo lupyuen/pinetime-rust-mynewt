@@ -39,6 +39,10 @@ use syn::{
 
 /// Given a function name like `os_task_init`, return true if we should create the wrapper
 fn function_is_whitelisted(fname: &str) -> bool {
+    //  LVGL Functions starting with `lv_` are whitelisted.
+
+    if fname.starts_with("lv_") { return true; }
+
     match fname {  //  If match found, then it's whitelisted.
         //  kernel/os
         "os_eventq_dflt_get"        => { true }
@@ -62,22 +66,45 @@ fn function_is_whitelisted(fname: &str) -> bool {
 }
 
 /// Given a function name like `os_task_init`, return the namespace (`os`)
-fn get_namespace(fname: &str) -> &str {
+fn get_namespace(fname: &str) -> String {
+    //  Handle LVGL functions specially.
+    if fname.starts_with("lv_") { return get_namespace_lvgl(fname); }
     //  Get the first part before `_`.
     let fname_split: Vec<&str> = fname.splitn(2, "_").collect();
     let namespace = fname_split[0];
     //  Match the namespace and ignore if it's not a known namespace.
     match namespace {
-        "do"     => { "" }   //  `do` is not a valid namespace e.g. `do_server_post()`
-        "get"    => { "" }   //  `get` is not a valid namespace e.g. `get_device_id()`
-        "init"   => { "" }   //  `init` is not a valid namespace e.g. `init_server_post()`
-        "start"  => { "" }   //  `start` is not a valid namespace e.g. `start_server_transport()`
+        "do"     => { "".to_string() }   //  `do` is not a valid namespace e.g. `do_server_post()`
+        "get"    => { "".to_string() }   //  `get` is not a valid namespace e.g. `get_device_id()`
+        "init"   => { "".to_string() }   //  `init` is not a valid namespace e.g. `init_server_post()`
+        "start"  => { "".to_string() }   //  `start` is not a valid namespace e.g. `start_server_transport()`
         "sensor" => {
             //  If it matches `sensor_network`, return `sensor_network`.
-            if fname.starts_with("sensor_network_") { "sensor_network" }
-            else { "sensor" }
+            if fname.starts_with("sensor_network_") { "sensor_network".to_string() }
+            else { "sensor".to_string() }
         }
-        _ => { namespace }  //  Else it's a valid namspace
+        _ => { namespace.to_string() }  //  Else it's a valid namspace
+    }
+}
+
+/// Given an LVGL function name like `lv_obj_create`, return the namespace (`lv_obj`). Used to strip namespace from function names, leaving `create` as the stripped name.
+fn get_namespace_lvgl(fname: &str) -> String {
+    //  println!("get_namespace {}", fname);
+    //  Get the first 2 parts between `_`.
+    let fname_split: Vec<&str> = fname.splitn(3, "_").collect();
+    if fname_split.len() < 3 { return "".to_string(); }  //  Not a valid namspace if doesn't follow pattern like `lv_obj_create`
+    let namespace1 = fname_split[0];
+    let namespace2 = fname_split[1];
+    //  Match the namespace and ignore if it's not a known namespace.
+    match namespace1 {
+        "lv" => {  //  If function is `lv_namespace2_...`
+            match namespace2 {
+                "anim" | "area" | "disp" | "font" | "color" | "event" | "indev" | "ll" | "mem" | "signal" | "style" | "task" | "tick" => 
+                    namespace1.to_string(),  //  If `lv_style_...`, return namespace `lv`
+                _ => format!("{}_{}", namespace1, namespace2)  //  Return namespace `lv_namespace2`
+            }
+        }
+        _ => { "".to_string() }  //  Not a valid namspace
     }
 }
 
@@ -371,19 +398,25 @@ fn transform_return_type(output: &ReturnType) -> TransformedReturnType {
         else { "".to_string() };  //  No return type
     //  println!("wrap_type: {:#?}", wrap_type);
 
+    #[cfg(feature = "mynewt_os")]  //  If building for Mynewt...
+    let result_token = quote! { MynewtResult };  //  Result type is MynewtResult
+
+    #[cfg(feature = "riot_os")]    //  If building for RIOT OS...
+    let result_token = quote! { LvglResult };    //  Result type is LvglResult
+
     //  Declare the result type.
     let declare_result_tokens =
         match wrap_type.as_str() {
             //  No return type (void)
-            ""                          => { quote! { MynewtResult< () > } }
+            ""                          => { quote! { #result_token< () > } }
             //  Mynewt error code
-            ":: cty :: c_int"           => { quote! { MynewtResult< () > } }
+            ":: cty :: c_int"           => { quote! { #result_token< () > } }
             //  String becomes `Strn`
-            "* const :: cty :: c_char"  => { quote! { MynewtResult< Strn > } }
+            "* const :: cty :: c_char"  => { quote! { #result_token< Strn > } }
             //  Specified return type e.g. `* mut os_eventq`
             _ => {
                 let return_type_tokens = syn::parse_str::<Type>(&wrap_type).unwrap();
-                quote! { MynewtResult< #return_type_tokens > }  
+                quote! { #result_token< #return_type_tokens > }  
             }
         };        
     //  Assign the result.
@@ -429,7 +462,7 @@ fn transform_function_name(ident: &Ident) -> TransformedFunctionName {
     //  Get namespace e.g. `os`
     let fname = ident.to_string();
     let namespace = get_namespace(&fname);
-    //  !("namespace: {:#?}", namespace);
+    //  println!("fname: {:#?}, namespace: {:#?}", fname, namespace);
     //  Get namespace prefix e.g. `os_`
     let namespace_prefix = 
         if namespace.len() > 0 { 

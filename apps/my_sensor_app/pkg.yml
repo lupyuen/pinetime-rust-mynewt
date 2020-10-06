@@ -32,6 +32,7 @@ pkg.deps:
     - "@apache-mynewt-core/hw/sensor"          #  Sensor Library
     - "@apache-mynewt-core/hw/sensor/creator"  #  Sensor Creator
     - "@apache-mynewt-core/libc/baselibc"      #  Baselibc, the tiny version of standard C library
+    - "libs/pinetime_lvgl_mynewt"              #  LVGL Library for UI widgets and touch input
     #  Inject the Rust build into the Mynewt build
     - "libs/mynewt_rust"   #  Rust interop layer for Mynewt
     - "libs/rust_app"      #  Rust Application Stub. Will be replaced by Rust application and external Rust libraries.
@@ -43,6 +44,7 @@ pkg.deps:
 
 # Bluetooth LE
 pkg.deps.BLUETOOTH_LE:
+    - "@apache-mynewt-core/time/datetime"
     - "@apache-mynewt-core/boot/split"
     - "@mcuboot/boot/bootutil"
     - "@apache-mynewt-core/mgmt/imgmgr"
@@ -126,8 +128,10 @@ pkg.deps.SEMIHOSTING_CONSOLE:
 
 #  C compiler flags
 pkg.cflags:
-    - -DFLOAT_SUPPORT         #  For encoding floats in CoAP messages
-#   - -Os                     #  Optimise for smallest size
+    - -DLV_CONF_INCLUDE_SIMPLE         #  Compile with libs/pinetime_lvgl_mynewt/lv_conf.h
+    - -Ilibs/pinetime_lvgl_mynewt
+    - -DFLOAT_SUPPORT                  #  For encoding floats in CoAP messages
+#   - -Os                              #  Optimise for smallest size, but makes debugging harder
 
 #  To test expansion of macros, enable both options below.  Expanded source code will appear at "bin" folder,
 #  like bin\targets\bluepill_my_sensor\app\libs\remote_sensor\libs\remote_sensor\src\remote_sensor.o

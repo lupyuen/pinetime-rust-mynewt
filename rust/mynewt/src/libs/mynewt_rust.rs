@@ -483,6 +483,7 @@ impl sensor_temp_raw_data {
 #[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Interpret `sensor_data` as a `sensor_temp_raw_data` struct that contains raw temp."]
     #[doc = "  Copy the sensor data into `dest`.  Return 0 if successful."]
+    #[allow(clashing_extern_declarations)]  //  TODO
     pub fn get_temp_raw_data(
         sensor_data: *mut ::cty::c_void,
         dest: *mut sensor_temp_raw_data,
@@ -510,10 +511,12 @@ impl sensor_temp_raw_data {
 }
 #[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Return non-zero if sensor is NULL."]
+    #[allow(clashing_extern_declarations)]  //  TODO
     pub fn is_null_sensor(p: *mut sensor) -> ::cty::c_int;
 }
 #[mynewt_macros::safe_wrap(attr)] extern "C" {
     #[doc = "  Return non-zero if sensor data is NULL."]
+    #[allow(clashing_extern_declarations)]  //  TODO
     pub fn is_null_sensor_data(p: *mut ::cty::c_void) -> ::cty::c_int;
 }
 #[mynewt_macros::safe_wrap(attr)] extern "C" {

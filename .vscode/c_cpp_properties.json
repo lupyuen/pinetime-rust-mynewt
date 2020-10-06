@@ -5,6 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/bin/targets/nrf52_my_sensor/generated/include",
                 "${workspaceFolder}/repos/apache-mynewt-core/boot/split/include",
+                "${workspaceFolder}/repos/apache-mynewt-core/time/datetime/include",
                 "${workspaceFolder}/repos/apache-mynewt-core/encoding/json/include",
                 "${workspaceFolder}/repos/apache-mynewt-core/encoding/tinycbor/include",
                 "${workspaceFolder}/repos/apache-mynewt-core/hw/drivers/flash/spiflash/include",
@@ -46,6 +47,8 @@
                 "${workspaceFolder}/libs/hmac_prng/include",
                 "${workspaceFolder}/libs/nrf24l01/include",
                 "${workspaceFolder}/libs/pinetime_boot/include",
+                "${workspaceFolder}/libs/pinetime_lvgl_mynewt",
+                "${workspaceFolder}/libs/pinetime_lvgl_mynewt/include",
                 "${workspaceFolder}/libs/semihosting_console/include",
                 "${workspaceFolder}/libs/sensor_coap/include",
                 "${workspaceFolder}/libs/sensor_network/include"

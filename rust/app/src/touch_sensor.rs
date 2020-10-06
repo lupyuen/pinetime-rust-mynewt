@@ -16,15 +16,21 @@ use mynewt::{
 };
 
 /// Reset Pin for touch controller. Note: NFC antenna pins must be reassigned as GPIO pins for this to work.
+#[allow(dead_code)]
 const TOUCH_RESET_PIN: i32 = 10;  //  P0.10/NFC2: TP_RESET
 
 /// Interrupt Pin for touch controller. We listen for the touch controller interrupt and trigger an event.
+#[allow(dead_code)]
 const TOUCH_INTERRUPT_PIN: i32 = 28;  //  P0.28/AIN4: TP_INT
 
 /// Reset GPIO Pin
+#[allow(dead_code)]
 static mut TOUCH_RESET: MynewtGPIO =  fill_zero!(MynewtGPIO);
+#[allow(dead_code)]
 static mut TOUCH_DELAY: MynewtDelay = fill_zero!(MynewtDelay);
+#[allow(dead_code)]
 type MynewtGPIO = mynewt::GPIO;
+#[allow(dead_code)]
 type MynewtDelay = mynewt::Delay;
 
 /// Initialise the touch controller. NFC antenna pins must already be reassigned as GPIO pins:
@@ -35,6 +41,7 @@ type MynewtDelay = mynewt::Delay;
 /// let nfcpins = peripherals.UICR.nfcpins.read().bits();
 /// console::print("nfcpins = "); console::printhex(nfcpins as u8); console::print("\n");
 /// ```
+#[allow(dead_code)]
 pub fn start_touch_sensor() -> MynewtResult<()> {
     console::print("Rust touch sensor\n");
 
@@ -129,10 +136,12 @@ extern "C" fn touch_event_callback(_event: *mut os_event) {
 }
 
 /// Touch data will be populated here
+#[allow(dead_code)]
 static mut TOUCH_DATA: TouchEventInfo = fill_zero!(TouchEventInfo);
 
 /// Read touch controller data. This only works when the screen has been tapped and the touch controller wakes up.
 /// Ported from https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.c#L407-L466
+#[allow(dead_code)]
 fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
     read_register_range(           //  Read the range of I2C registers...
         TOUCH_CONTROLLER_ADDRESS,  //  From the touch controller
@@ -181,12 +190,15 @@ fn read_touchdata(data: &mut TouchEventInfo) -> MynewtResult<()> {
 }
 
 /// Buffer for raw touch data
+#[allow(dead_code)]
 static mut BUF: [u8; POINT_READ_BUF] = [0; POINT_READ_BUF];
 
 /// Touch Controller I2C Address: https://github.com/lupyuen/hynitron_i2c_cst0xxse
+#[allow(dead_code)]
 const TOUCH_CONTROLLER_ADDRESS: u8 = 0x15;
 
 /// Touch Event Info for multiple touches. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.h#L104-L115
+#[allow(dead_code)]
 struct TouchEventInfo {
     /// Array of touch points
     touches:   [TouchInfo; HYN_MAX_POINTS],
@@ -196,6 +208,7 @@ struct TouchEventInfo {
 }
 
 /// Touch Info for a single touch. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.h#L104-L115
+#[allow(dead_code)]
 struct TouchInfo {
     /// X coordinate
     x:          u16,
@@ -214,29 +227,45 @@ struct TouchInfo {
 //  Touch Controller Constants. Based on https://github.com/lupyuen/hynitron_i2c_cst0xxse/blob/master/cst0xx_core.h
 
 /// Max touch points for the touch controller
+#[allow(dead_code)]
 const CFG_MAX_TOUCH_POINTS: usize = 5;
 
 /// Max touch channels for the touch controller
+#[allow(dead_code)]
 const HYN_MAX_POINTS: usize = 10;
 
+#[allow(dead_code)]
 const HYN_MAX_ID: u8             = 0x0F;
+#[allow(dead_code)]
 const HYN_TOUCH_STEP: usize      = 6;
 // const HYN_FACE_DETECT_POS: usize = 1;
+#[allow(dead_code)]
 const HYN_TOUCH_X_H_POS: usize   = 3;
+#[allow(dead_code)]
 const HYN_TOUCH_X_L_POS: usize   = 4;
+#[allow(dead_code)]
 const HYN_TOUCH_Y_H_POS: usize   = 5;
+#[allow(dead_code)]
 const HYN_TOUCH_Y_L_POS: usize   = 6;
+#[allow(dead_code)]
 const HYN_TOUCH_EVENT_POS: usize = 3;
+#[allow(dead_code)]
 const HYN_TOUCH_ID_POS: usize    = 5;
+#[allow(dead_code)]
 const FT_TOUCH_POINT_NUM: usize  = 2;
+#[allow(dead_code)]
 const HYN_TOUCH_XY_POS: usize    = 7;
+#[allow(dead_code)]
 const HYN_TOUCH_MISC: usize      = 8;
+#[allow(dead_code)]
 const POINT_READ_BUF: usize      = 3 + ( HYN_TOUCH_STEP * HYN_MAX_POINTS );
 
 /// Event that will be forwarded to the Event Queue when a touch interrupt is triggered
+#[allow(dead_code)]
 static mut TOUCH_EVENT: os_event = fill_zero!(os_event);  //  Init all fields to 0 or NULL
 
 /// Read a range of I2C registers from the I2C address `addr` (7-bit address), starting at `start_register` for count `num_registers`. Save into `buffer`.
+#[allow(dead_code)]
 fn read_register_range(addr: u8, start_register: u8, num_registers: u8, buffer: &mut[u8]) -> MynewtResult<()> {
     assert!(buffer.len() >= num_registers as usize, "i2c buf");  //  Buffer too small
     assert!(start_register + num_registers < 128, "i2c addr");   //  Not 7-bit address
@@ -308,6 +337,7 @@ fn read_register(addr: u8, register: u8) -> MynewtResult<()> {
 }
 
 /// I2C packet to be sent
+#[allow(dead_code)]
 static mut I2C_DATA: hal::hal_i2c_master_data = hal::hal_i2c_master_data {
     address: 0,
     len:     0,
@@ -315,6 +345,7 @@ static mut I2C_DATA: hal::hal_i2c_master_data = hal::hal_i2c_master_data {
 };
 
 /// Buffer containing I2C read/write data
+#[allow(dead_code)]
 static mut I2C_BUFFER: [u8; 1] =  [ 0 ];
 
 /// Probe the I2C bus to discover I2C devices
