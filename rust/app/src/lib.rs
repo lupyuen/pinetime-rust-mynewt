@@ -103,14 +103,27 @@ fn panic(info: &PanicInfo) -> ! {
     } else {
         console::print("no loc\n");  console::flush();
     }
+
     //  Display the payload.
-    console::print(info.payload().downcast_ref::<&str>().unwrap());
-    console::print("\n");  console::flush();
+    if unsafe { !IN_PANIC } {  //  Prevent panic loop while displaying the payload
+        unsafe { IN_PANIC = true };
+        let payload = info.payload().downcast_ref::<&str>();
+        if let Some(payload) = payload {
+            console::print(payload);
+            console::print("\n");    console::flush();    
+        }
+    }
+
     //  Pause in the debugger.
     bkpt();
+
     //  Restart the device.
     extern { fn HardFault_Handler(); }  //  Defined in apps/my_sensor_app/src/support.c
     unsafe { HardFault_Handler() };
+
     //  Will never come here. This is needed to satisfy the return type "!"
     loop {}
 }
+
+/// Set to true if we are already in the panic handler
+static mut IN_PANIC: bool = false;
