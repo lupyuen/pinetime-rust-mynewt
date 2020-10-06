@@ -502,7 +502,7 @@ app-58a6bd2711c8ca06.lvgl-cfaf60a4948b6b33.4zz1bw7wgafc27l0.rcgu.o.rcgu.o:     f
 
 SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 4zz1bw7wgafc27l0
-000110ed l       .debug_str	00000000 
+00010d8b l       .debug_str	00000000 
 0000cd2c l       .debug_str	00000000 
 0000cccd l       .debug_str	00000000 
 0000cfcb l       .debug_str	00000000 
@@ -865,41 +865,41 @@ SYMBOL TABLE:
 00005526 l       .debug_str	00000000 
 00004504 l       .debug_str	00000000 
 00004422 l       .debug_str	00000000 
-00009ef7 l       .debug_str	00000000 
 00004341 l       .debug_str	00000000 
 000041f4 l       .debug_str	00000000 
-00009eb0 l       .debug_str	00000000 
+00009ef7 l       .debug_str	00000000 
 00004102 l       .debug_str	00000000 
 00004026 l       .debug_str	00000000 
-0000927f l       .debug_str	00000000 
+00009eb0 l       .debug_str	00000000 
 00003f37 l       .debug_str	00000000 
-00009236 l       .debug_str	00000000 
 00003e4a l       .debug_str	00000000 
-0000d323 l       .debug_str	00000000 
+0000927f l       .debug_str	00000000 
 00003d61 l       .debug_str	00000000 
+00009236 l       .debug_str	00000000 
 00003c7c l       .debug_str	00000000 
+0000d323 l       .debug_str	00000000 
 0001534f l       .debug_str	00000000 
 000136a1 l       .debug_str	00000000 
 0001363e l       .debug_str	00000000 
 00015219 l       .debug_str	00000000 
 0001523f l       .debug_str	00000000 
 00012e8e l       .debug_str	00000000 
-0000d2a7 l       .debug_str	00000000 
 00012e2e l       .debug_str	00000000 
 0000526a l       .debug_str	00000000 
 00004e1f l       .debug_str	00000000 
 00004d1f l       .debug_str	00000000 
+0000d2a7 l       .debug_str	00000000 
 00004ae7 l       .debug_str	00000000 
 00004a22 l       .debug_str	00000000 
 00004951 l       .debug_str	00000000 
 000046b8 l       .debug_str	00000000 
-0000c093 l       .debug_str	00000000 
 0000485e l       .debug_str	00000000 
-0000c014 l       .debug_str	00000000 
 00003b83 l       .debug_str	00000000 
 00003a93 l       .debug_str	00000000 
 000038b8 l       .debug_str	00000000 
+0000c093 l       .debug_str	00000000 
 0000364f l       .debug_str	00000000 
+0000c014 l       .debug_str	00000000 
 00003594 l       .debug_str	00000000 
 000034fe l       .debug_str	00000000 
 0000344a l       .debug_str	00000000 
@@ -913,433 +913,437 @@ SYMBOL TABLE:
 000032dd l       .debug_str	00000000 
 0000334f l       .debug_str	00000000 
 000032b3 l       .debug_str	00000000 
-0000af9e l       .debug_str	00000000 
 00014404 l       .debug_str	00000000 
 000143dd l       .debug_str	00000000 
-0000ac4b l       .debug_str	00000000 
 00014397 l       .debug_str	00000000 
 00014366 l       .debug_str	00000000 
-0000ac47 l       .debug_str	00000000 
+0000af9e l       .debug_str	00000000 
 0001435d l       .debug_str	00000000 
 00014329 l       .debug_str	00000000 
-0000b156 l       .debug_str	00000000 
+0000ac4b l       .debug_str	00000000 
 000142f7 l       .debug_str	00000000 
 00015385 l       .debug_str	00000000 
+0000ac47 l       .debug_str	00000000 
 000142e2 l       .debug_str	00000000 
-0000b103 l       .debug_str	00000000 
 000142a1 l       .debug_str	00000000 
-0000b074 l       .debug_str	00000000 
+0000b156 l       .debug_str	00000000 
 0001537f l       .debug_str	00000000 
-0000af4c l       .debug_str	00000000 
 0001537a l       .debug_str	00000000 
 00014220 l       .debug_str	00000000 
-0000aebe l       .debug_str	00000000 
+0000b103 l       .debug_str	00000000 
 000141ef l       .debug_str	00000000 
+0000b074 l       .debug_str	00000000 
 0000d71c l       .debug_str	00000000 
-0000ae0f l       .debug_str	00000000 
+0000af4c l       .debug_str	00000000 
 0000d718 l       .debug_str	00000000 
 00007cb4 l       .debug_str	00000000 
+0000aebe l       .debug_str	00000000 
 00007cc0 l       .debug_str	00000000 
-0000adb6 l       .debug_str	00000000 
 00007ca7 l       .debug_str	00000000 
+0000ae0f l       .debug_str	00000000 
 00007c74 l       .debug_str	00000000 
 00007c65 l       .debug_str	00000000 
-0000ad27 l       .debug_str	00000000 
 00007c39 l       .debug_str	00000000 
+0000adb6 l       .debug_str	00000000 
 00007c30 l       .debug_str	00000000 
-0000abef l       .debug_str	00000000 
 00007bfc l       .debug_str	00000000 
 00007bec l       .debug_str	00000000 
-0000ab61 l       .debug_str	00000000 
+0000ad27 l       .debug_str	00000000 
 00007bb9 l       .debug_str	00000000 
 00007ade l       .debug_str	00000000 
-0000ab5d l       .debug_str	00000000 
+0000abef l       .debug_str	00000000 
 00007aa9 l       .debug_str	00000000 
 00007a98 l       .debug_str	00000000 
+0000ab61 l       .debug_str	00000000 
 00007a6d l       .debug_str	00000000 
 00007a35 l       .debug_str	00000000 
+0000ab5d l       .debug_str	00000000 
 00007a04 l       .debug_str	00000000 
 00005667 l       .debug_str	00000000 
-0000ab54 l       .debug_str	00000000 
 00005637 l       .debug_str	00000000 
-0000b022 l       .debug_str	00000000 
 00005461 l       .debug_str	00000000 
 00005430 l       .debug_str	00000000 
 000053ea l       .debug_str	00000000 
-0000afe3 l       .debug_str	00000000 
+0000ab54 l       .debug_str	00000000 
 000053e6 l       .debug_str	00000000 
+0000b022 l       .debug_str	00000000 
 000052d4 l       .debug_str	00000000 
 00005202 l       .debug_str	00000000 
-0000accf l       .debug_str	00000000 
 000052e2 l       .debug_str	00000000 
+0000afe3 l       .debug_str	00000000 
 00005336 l       .debug_str	00000000 
 0000532b l       .debug_str	00000000 
 000051fb l       .debug_str	00000000 
+0000accf l       .debug_str	00000000 
 00005342 l       .debug_str	00000000 
 000051f2 l       .debug_str	00000000 
 00007cf4 l       .debug_str	00000000 
 00007cf1 l       .debug_str	00000000 
 00007d03 l       .debug_str	00000000 
 000053a1 l       .debug_str	00000000 
-0000ac90 l       .debug_str	00000000 
 00005393 l       .debug_str	00000000 
-00009632 l       .debug_str	00000000 
 0000534e l       .debug_str	00000000 
 000051e4 l       .debug_str	00000000 
 00005187 l       .debug_str	00000000 
+0000ac90 l       .debug_str	00000000 
 0000517c l       .debug_str	00000000 
+00009632 l       .debug_str	00000000 
 00005194 l       .debug_str	00000000 
 000051a0 l       .debug_str	00000000 
 0000516f l       .debug_str	00000000 
-000095f3 l       .debug_str	00000000 
 00005162 l       .debug_str	00000000 
 00005159 l       .debug_str	00000000 
 00014472 l       .debug_str	00000000 
-000095ea l       .debug_str	00000000 
 00014438 l       .debug_str	00000000 
+000095f3 l       .debug_str	00000000 
 0001538b l       .debug_str	00000000 
 000143d2 l       .debug_str	00000000 
 0001439d l       .debug_str	00000000 
-000095e1 l       .debug_str	00000000 
+000095ea l       .debug_str	00000000 
 00007b10 l       .debug_str	00000000 
 00007b07 l       .debug_str	00000000 
 00007afd l       .debug_str	00000000 
-000092eb l       .debug_str	00000000 
 00007af5 l       .debug_str	00000000 
+000095e1 l       .debug_str	00000000 
 00007b2d l       .debug_str	00000000 
-0000928d l       .debug_str	00000000 
 00007b91 l       .debug_str	00000000 
 00007ba9 l       .debug_str	00000000 
+000092eb l       .debug_str	00000000 
 00007aed l       .debug_str	00000000 
 00007baf l       .debug_str	00000000 
+0000928d l       .debug_str	00000000 
 00007a46 l       .debug_str	00000000 
 00007a5b l       .debug_str	00000000 
-0000922a l       .debug_str	00000000 
 00007a3d l       .debug_str	00000000 
 00007a66 l       .debug_str	00000000 
 00003747 l       .debug_str	00000000 
 00003774 l       .debug_str	00000000 
+0000922a l       .debug_str	00000000 
 0000376b l       .debug_str	00000000 
 00003763 l       .debug_str	00000000 
 0000375e l       .debug_str	00000000 
 00003735 l       .debug_str	00000000 
 0000377d l       .debug_str	00000000 
 000036f2 l       .debug_str	00000000 
-00009195 l       .debug_str	00000000 
 000035d9 l       .debug_str	00000000 
 0000354d l       .debug_str	00000000 
-0000a517 l       .debug_str	00000000 
 000034ac l       .debug_str	00000000 
 000033e8 l       .debug_str	00000000 
+00009195 l       .debug_str	00000000 
 000035e2 l       .debug_str	00000000 
 000036ea l       .debug_str	00000000 
-0000a50b l       .debug_str	00000000 
+0000a517 l       .debug_str	00000000 
 000036e2 l       .debug_str	00000000 
-000090c6 l       .debug_str	00000000 
 000036d9 l       .debug_str	00000000 
-0000909d l       .debug_str	00000000 
 000036cd l       .debug_str	00000000 
-0000907a l       .debug_str	00000000 
 000036c1 l       .debug_str	00000000 
-00009054 l       .debug_str	00000000 
+0000a50b l       .debug_str	00000000 
 000036b8 l       .debug_str	00000000 
+000090c6 l       .debug_str	00000000 
 000036ac l       .debug_str	00000000 
+0000909d l       .debug_str	00000000 
 000035f2 l       .debug_str	00000000 
+0000907a l       .debug_str	00000000 
 000033dc l       .debug_str	00000000 
+00009054 l       .debug_str	00000000 
 00003707 l       .debug_str	00000000 
 0001534a l       .debug_str	00000000 
-00008f7e l       .debug_str	00000000 
 00013506 l       .debug_str	00000000 
 00005416 l       .debug_str	00000000 
-00008f55 l       .debug_str	00000000 
 0000540c l       .debug_str	00000000 
 00005401 l       .debug_str	00000000 
+00008f7e l       .debug_str	00000000 
 000053f7 l       .debug_str	00000000 
-00008f4a l       .debug_str	00000000 
 0000541f l       .debug_str	00000000 
+00008f55 l       .debug_str	00000000 
 0000511d l       .debug_str	00000000 
-00008f24 l       .debug_str	00000000 
 0000510b l       .debug_str	00000000 
 0000508d l       .debug_str	00000000 
-0000c1bf l       .debug_str	00000000 
+00008f4a l       .debug_str	00000000 
 00004f3f l       .debug_str	00000000 
 00004f23 l       .debug_str	00000000 
-0000c148 l       .debug_str	00000000 
+00008f24 l       .debug_str	00000000 
 00004e9a l       .debug_str	00000000 
 00004e92 l       .debug_str	00000000 
+0000c1bf l       .debug_str	00000000 
 00004e8b l       .debug_str	00000000 
 00004db3 l       .debug_str	00000000 
+0000c148 l       .debug_str	00000000 
 00004d9e l       .debug_str	00000000 
 00004eb8 l       .debug_str	00000000 
 00004efb l       .debug_str	00000000 
-0000c140 l       .debug_str	00000000 
 0000373d l       .debug_str	00000000 
 00004ca4 l       .debug_str	00000000 
 00004c34 l       .debug_str	00000000 
 00004c29 l       .debug_str	00000000 
-00011914 l       .debug_str	00000000 
+0000c140 l       .debug_str	00000000 
 00004c20 l       .debug_str	00000000 
 00004c3b l       .debug_str	00000000 
-000118e1 l       .debug_str	00000000 
 00004c18 l       .debug_str	00000000 
 00004c0c l       .debug_str	00000000 
-000098fb l       .debug_str	00000000 
+00011914 l       .debug_str	00000000 
 00004c01 l       .debug_str	00000000 
 00004bd7 l       .debug_str	00000000 
-000098bf l       .debug_str	00000000 
+000118e1 l       .debug_str	00000000 
 00004bcf l       .debug_str	00000000 
 00004bc5 l       .debug_str	00000000 
-0000cab7 l       .debug_str	00000000 
+000098fb l       .debug_str	00000000 
 00004bbe l       .debug_str	00000000 
-0000ca45 l       .debug_str	00000000 
 00004bb6 l       .debug_str	00000000 
+000098bf l       .debug_str	00000000 
 00004c46 l       .debug_str	00000000 
-0000c9a6 l       .debug_str	00000000 
 00004b94 l       .debug_str	00000000 
-00009b9b l       .debug_str	00000000 
+0000cab7 l       .debug_str	00000000 
 00004b8c l       .debug_str	00000000 
+0000ca45 l       .debug_str	00000000 
 00004b84 l       .debug_str	00000000 
-00009af1 l       .debug_str	00000000 
 00004b9f l       .debug_str	00000000 
+0000c9a6 l       .debug_str	00000000 
 00004771 l       .debug_str	00000000 
-00009ac7 l       .debug_str	00000000 
+00009b9b l       .debug_str	00000000 
 000044b3 l       .debug_str	00000000 
-00009a55 l       .debug_str	00000000 
 000044bd l       .debug_str	00000000 
-000099b4 l       .debug_str	00000000 
+00009af1 l       .debug_str	00000000 
 00004546 l       .debug_str	00000000 
 000043d1 l       .debug_str	00000000 
+00009ac7 l       .debug_str	00000000 
 000043db l       .debug_str	00000000 
-00009915 l       .debug_str	00000000 
+00009a55 l       .debug_str	00000000 
 00004464 l       .debug_str	00000000 
+000099b4 l       .debug_str	00000000 
 000042f3 l       .debug_str	00000000 
-0000980a l       .debug_str	00000000 
 000042e8 l       .debug_str	00000000 
-0000976d l       .debug_str	00000000 
 000042dd l       .debug_str	00000000 
+00009915 l       .debug_str	00000000 
 000042d2 l       .debug_str	00000000 
 000042c1 l       .debug_str	00000000 
+0000980a l       .debug_str	00000000 
 000042b2 l       .debug_str	00000000 
+0000976d l       .debug_str	00000000 
 000042a4 l       .debug_str	00000000 
 0000429c l       .debug_str	00000000 
 00004296 l       .debug_str	00000000 
-000095da l       .debug_str	00000000 
 00004290 l       .debug_str	00000000 
-000096ff l       .debug_str	00000000 
 0000428a l       .debug_str	00000000 
-000096ca l       .debug_str	00000000 
 00004284 l       .debug_str	00000000 
-000096be l       .debug_str	00000000 
 000042fa l       .debug_str	00000000 
-00009690 l       .debug_str	00000000 
+000095da l       .debug_str	00000000 
 00004383 l       .debug_str	00000000 
-00009680 l       .debug_str	00000000 
+000096ff l       .debug_str	00000000 
 000041a5 l       .debug_str	00000000 
-0000964e l       .debug_str	00000000 
+000096ca l       .debug_str	00000000 
 0000419e l       .debug_str	00000000 
-000094ce l       .debug_str	00000000 
+000096be l       .debug_str	00000000 
 00004195 l       .debug_str	00000000 
-0000949c l       .debug_str	00000000 
+00009690 l       .debug_str	00000000 
 000041ad l       .debug_str	00000000 
+00009680 l       .debug_str	00000000 
 00004236 l       .debug_str	00000000 
-00008e60 l       .debug_str	00000000 
+0000964e l       .debug_str	00000000 
 000040b4 l       .debug_str	00000000 
+000094ce l       .debug_str	00000000 
 000040bd l       .debug_str	00000000 
+0000949c l       .debug_str	00000000 
 00004143 l       .debug_str	00000000 
-00008e2c l       .debug_str	00000000 
 00003fdb l       .debug_str	00000000 
+00008e60 l       .debug_str	00000000 
 00003fd5 l       .debug_str	00000000 
 00003fcf l       .debug_str	00000000 
 00003fe1 l       .debug_str	00000000 
-0000d0fb l       .debug_str	00000000 
+00008e2c l       .debug_str	00000000 
 00004067 l       .debug_str	00000000 
-0000d0ba l       .debug_str	00000000 
 00003eec l       .debug_str	00000000 
 00003ee6 l       .debug_str	00000000 
-0000c207 l       .debug_str	00000000 
 00003ee0 l       .debug_str	00000000 
-0000c1ca l       .debug_str	00000000 
+0000d0fb l       .debug_str	00000000 
 00003eda l       .debug_str	00000000 
+0000d0ba l       .debug_str	00000000 
 00003ef2 l       .debug_str	00000000 
-0000984a l       .debug_str	00000000 
 00003f78 l       .debug_str	00000000 
+0000c207 l       .debug_str	00000000 
 00003dfd l       .debug_str	00000000 
-0000980e l       .debug_str	00000000 
+0000c1ca l       .debug_str	00000000 
 00003df7 l       .debug_str	00000000 
-0000975c l       .debug_str	00000000 
 00003df1 l       .debug_str	00000000 
-00009712 l       .debug_str	00000000 
+0000984a l       .debug_str	00000000 
 00003e03 l       .debug_str	00000000 
 00003e8c l       .debug_str	00000000 
-0000956a l       .debug_str	00000000 
+0000980e l       .debug_str	00000000 
 00003d14 l       .debug_str	00000000 
+0000975c l       .debug_str	00000000 
 00003d0e l       .debug_str	00000000 
-00009565 l       .debug_str	00000000 
+00009712 l       .debug_str	00000000 
 00003d08 l       .debug_str	00000000 
-000094fb l       .debug_str	00000000 
 00003d1a l       .debug_str	00000000 
-00009435 l       .debug_str	00000000 
+0000956a l       .debug_str	00000000 
 00003da3 l       .debug_str	00000000 
-000093ef l       .debug_str	00000000 
 00003c33 l       .debug_str	00000000 
+00009565 l       .debug_str	00000000 
 00003c2d l       .debug_str	00000000 
+000094fb l       .debug_str	00000000 
 00003c23 l       .debug_str	00000000 
-00008dc1 l       .debug_str	00000000 
+00009435 l       .debug_str	00000000 
 00003c39 l       .debug_str	00000000 
-00008d38 l       .debug_str	00000000 
+000093ef l       .debug_str	00000000 
 00003cbc l       .debug_str	00000000 
 000044ae l       .debug_str	00000000 
-00008cfa l       .debug_str	00000000 
 000043cd l       .debug_str	00000000 
+00008dc1 l       .debug_str	00000000 
 00004280 l       .debug_str	00000000 
-0000c7c1 l       .debug_str	00000000 
+00008d38 l       .debug_str	00000000 
 00004191 l       .debug_str	00000000 
 0000418c l       .debug_str	00000000 
+00008cfa l       .debug_str	00000000 
 000040b0 l       .debug_str	00000000 
-0000c7b4 l       .debug_str	00000000 
 00003fcb l       .debug_str	00000000 
+0000c7c1 l       .debug_str	00000000 
 00003fc6 l       .debug_str	00000000 
 00003fc1 l       .debug_str	00000000 
 00003ed6 l       .debug_str	00000000 
-0000c74b l       .debug_str	00000000 
+0000c7b4 l       .debug_str	00000000 
 00003ded l       .debug_str	00000000 
 00003d04 l       .debug_str	00000000 
-0000c4d4 l       .debug_str	00000000 
 00003c1f l       .debug_str	00000000 
 00004594 l       .debug_str	00000000 
+0000c74b l       .debug_str	00000000 
 00004768 l       .debug_str	00000000 
-0000c496 l       .debug_str	00000000 
 0000475d l       .debug_str	00000000 
+0000c4d4 l       .debug_str	00000000 
 000045d5 l       .debug_str	00000000 
-0000c10f l       .debug_str	00000000 
 000045c6 l       .debug_str	00000000 
 000045bb l       .debug_str	00000000 
+0000c496 l       .debug_str	00000000 
 000045b2 l       .debug_str	00000000 
-0000c108 l       .debug_str	00000000 
 000045a2 l       .debug_str	00000000 
+0000c10f l       .debug_str	00000000 
 00003c10 l       .debug_str	00000000 
 00003c00 l       .debug_str	00000000 
-00011be9 l       .debug_str	00000000 
 00004792 l       .debug_str	00000000 
-00011ba8 l       .debug_str	00000000 
+0000c108 l       .debug_str	00000000 
 000039d5 l       .debug_str	00000000 
 000039ca l       .debug_str	00000000 
-00011af1 l       .debug_str	00000000 
 000039df l       .debug_str	00000000 
+00011be9 l       .debug_str	00000000 
 00004b36 l       .debug_str	00000000 
-00011aac l       .debug_str	00000000 
+00011ba8 l       .debug_str	00000000 
 00004a8c l       .debug_str	00000000 
 00004a76 l       .debug_str	00000000 
-0000cc21 l       .debug_str	00000000 
+00011af1 l       .debug_str	00000000 
 000049c2 l       .debug_str	00000000 
-0000cb8e l       .debug_str	00000000 
 000049a5 l       .debug_str	00000000 
-0000c61e l       .debug_str	00000000 
+00011aac l       .debug_str	00000000 
 000048e9 l       .debug_str	00000000 
 00003bea l       .debug_str	00000000 
-0000c5f1 l       .debug_str	00000000 
+0000cc21 l       .debug_str	00000000 
 00003b16 l       .debug_str	00000000 
-0000c576 l       .debug_str	00000000 
+0000cb8e l       .debug_str	00000000 
 000039bc l       .debug_str	00000000 
+0000c61e l       .debug_str	00000000 
 000037b4 l       .debug_str	00000000 
-0000c4e7 l       .debug_str	00000000 
 00004b3f l       .debug_str	00000000 
-0000c29b l       .debug_str	00000000 
+0000c5f1 l       .debug_str	00000000 
 00004f38 l       .debug_str	00000000 
-0000c212 l       .debug_str	00000000 
+0000c576 l       .debug_str	00000000 
 00004f10 l       .debug_str	00000000 
 00004d8e l       .debug_str	00000000 
-0000becf l       .debug_str	00000000 
+0000c4e7 l       .debug_str	00000000 
 00004d84 l       .debug_str	00000000 
+0000c29b l       .debug_str	00000000 
 00004cb9 l       .debug_str	00000000 
-0000be3b l       .debug_str	00000000 
+0000c212 l       .debug_str	00000000 
 00004c61 l       .debug_str	00000000 
 00004c51 l       .debug_str	00000000 
-0000be12 l       .debug_str	00000000 
+0000becf l       .debug_str	00000000 
 00004bb0 l       .debug_str	00000000 
-0000bd97 l       .debug_str	00000000 
 00004b7e l       .debug_str	00000000 
+0000be3b l       .debug_str	00000000 
 000037ac l       .debug_str	00000000 
-0000bd8d l       .debug_str	00000000 
 000037a1 l       .debug_str	00000000 
-0000bd02 l       .debug_str	00000000 
+0000be12 l       .debug_str	00000000 
 00003795 l       .debug_str	00000000 
-0000b66a l       .debug_str	00000000 
+0000bd97 l       .debug_str	00000000 
 0000378e l       .debug_str	00000000 
 00003786 l       .debug_str	00000000 
+0000bd8d l       .debug_str	00000000 
 0000372e l       .debug_str	00000000 
+0000bd02 l       .debug_str	00000000 
 000033d6 l       .debug_str	00000000 
-0000b5f6 l       .debug_str	00000000 
+0000b66a l       .debug_str	00000000 
 00005085 l       .debug_str	00000000 
-0000a86c l       .debug_str	00000000 
 0000507e l       .debug_str	00000000 
-0000a834 l       .debug_str	00000000 
 000033ce l       .debug_str	00000000 
 000033bf l       .debug_str	00000000 
-0000a7a0 l       .debug_str	00000000 
+0000b5f6 l       .debug_str	00000000 
 000050ab l       .debug_str	00000000 
+0000a86c l       .debug_str	00000000 
 000033b6 l       .debug_str	00000000 
-0000a6a6 l       .debug_str	00000000 
+0000a834 l       .debug_str	00000000 
 00003309 l       .debug_str	00000000 
 0000330e l       .debug_str	00000000 
-0000a62b l       .debug_str	00000000 
+0000a7a0 l       .debug_str	00000000 
 0000331e l       .debug_str	00000000 
 00003305 l       .debug_str	00000000 
-0000a5fb l       .debug_str	00000000 
+0000a6a6 l       .debug_str	00000000 
 00003322 l       .debug_str	00000000 
 000033ad l       .debug_str	00000000 
-0000a56c l       .debug_str	00000000 
+0000a62b l       .debug_str	00000000 
 000032cd l       .debug_str	00000000 
 000032c1 l       .debug_str	00000000 
+0000a5fb l       .debug_str	00000000 
 000032a8 l       .debug_str	00000000 
-00011895 l       .debug_str	00000000 
 000050bb l       .debug_str	00000000 
-00011852 l       .debug_str	00000000 
+0000a56c l       .debug_str	00000000 
 000050d0 l       .debug_str	00000000 
-0000d1ab l       .debug_str	00000000 
 00003297 l       .debug_str	00000000 
 00003290 l       .debug_str	00000000 
-0000d164 l       .debug_str	00000000 
+00011895 l       .debug_str	00000000 
 00003279 l       .debug_str	00000000 
+00011852 l       .debug_str	00000000 
 00012b64 l       .debug_str	00000000 
+0000d1ab l       .debug_str	00000000 
 00012b1e l       .debug_str	00000000 
 00012ac9 l       .debug_str	00000000 
+0000d164 l       .debug_str	00000000 
 00012a77 l       .debug_str	00000000 
 0000322d l       .debug_str	00000000 
-0000a346 l       .debug_str	00000000 
 000031d6 l       .debug_str	00000000 
-0000a308 l       .debug_str	00000000 
 000031cf l       .debug_str	00000000 
 000031c8 l       .debug_str	00000000 
 000031c0 l       .debug_str	00000000 
+0000a346 l       .debug_str	00000000 
 000031b8 l       .debug_str	00000000 
-0000a300 l       .debug_str	00000000 
+0000a308 l       .debug_str	00000000 
 000031b0 l       .debug_str	00000000 
-0000d273 l       .debug_str	00000000 
 000031a9 l       .debug_str	00000000 
-0000d1e1 l       .debug_str	00000000 
 000031a4 l       .debug_str	00000000 
-0000c734 l       .debug_str	00000000 
 00003156 l       .debug_str	00000000 
-0000c6b6 l       .debug_str	00000000 
+0000a300 l       .debug_str	00000000 
 000030fd l       .debug_str	00000000 
-0000c42a l       .debug_str	00000000 
+0000d273 l       .debug_str	00000000 
 0001294a l       .debug_str	00000000 
-0000c3ac l       .debug_str	00000000 
+0000d1e1 l       .debug_str	00000000 
 000129ca l       .debug_str	00000000 
-0000bee1 l       .debug_str	00000000 
+0000c734 l       .debug_str	00000000 
 00012952 l       .debug_str	00000000 
-0000bc1f l       .debug_str	00000000 
+0000c6b6 l       .debug_str	00000000 
 00012a2e l       .debug_str	00000000 
+0000c42a l       .debug_str	00000000 
 00012a26 l       .debug_str	00000000 
-0000bba5 l       .debug_str	00000000 
+0000c3ac l       .debug_str	00000000 
 000129e0 l       .debug_str	00000000 
+0000bee1 l       .debug_str	00000000 
+000128d7 l       .debug_str	00000000 
+0000bc1f l       .debug_str	00000000 
+0000934a l       .debug_str	00000000 
+0001292e l       .debug_str	00000000 
+0000bba5 l       .debug_str	00000000 
+000128d9 l       .debug_str	00000000 
 0000b343 l       .debug_str	00000000 
 0000b2b4 l       .debug_str	00000000 
 00008d3e l       .debug_str	00000000 
 0000bce9 l       .debug_str	00000000 
-000128d7 l       .debug_str	00000000 
-0000934a l       .debug_str	00000000 
+000128c8 l       .debug_str	00000000 
+00012868 l       .debug_str	00000000 
 0000bca2 l       .debug_str	00000000 
 00008e72 l       .debug_str	00000000 
 00008c67 l       .debug_str	00000000 
@@ -1365,14 +1369,14 @@ SYMBOL TABLE:
 00011cdd l       .debug_str	00000000 
 00011c9e l       .debug_str	00000000 
 00008b70 l       .debug_str	00000000 
-0001292e l       .debug_str	00000000 
+00012817 l       .debug_str	00000000 
 00008b2d l       .debug_str	00000000 
 0000912a l       .debug_str	00000000 
-000128d9 l       .debug_str	00000000 
+00009494 l       .debug_str	00000000 
 000090ec l       .debug_str	00000000 
-000128c8 l       .debug_str	00000000 
-00012868 l       .debug_str	00000000 
-00012817 l       .debug_str	00000000 
+000127c9 l       .debug_str	00000000 
+000030f4 l       .debug_str	00000000 
+000030f1 l       .debug_str	00000000 
 00008fca l       .debug_str	00000000 
 00008f8c l       .debug_str	00000000 
 00008ab4 l       .debug_str	00000000 
@@ -1388,8 +1392,8 @@ SYMBOL TABLE:
 0000b73b l       .debug_str	00000000 
 0000b6e7 l       .debug_str	00000000 
 0000d512 l       .debug_str	00000000 
-00009494 l       .debug_str	00000000 
-000127c9 l       .debug_str	00000000 
+000030ee l       .debug_str	00000000 
+000030eb l       .debug_str	00000000 
 0000d3bc l       .debug_str	00000000 
 0000d3b8 l       .debug_str	00000000 
 0000d36e l       .debug_str	00000000 
@@ -1862,9 +1866,9 @@ SYMBOL TABLE:
 0000e8cc l       .debug_str	00000000 
 0000e8fc l       .debug_str	00000000 
 00010d5b l       .debug_str	00000000 
-00010d8b l       .debug_str	00000000 
+000030f7 l       .debug_str	00000000 
 000110bd l       .debug_str	00000000 
-000030f4 l       .debug_str	00000000 
+000110ed l       .debug_str	00000000 
 0000808c l       .debug_str	00000000 
 000080cd l       .debug_str	00000000 
 0000e6ed l       .debug_str	00000000 
@@ -2320,10 +2324,6 @@ SYMBOL TABLE:
 00003090 l       .debug_str	00000000 
 000030dc l       .debug_str	00000000 
 000030e3 l       .debug_str	00000000 
-000030f7 l       .debug_str	00000000 
-000030eb l       .debug_str	00000000 
-000030ee l       .debug_str	00000000 
-000030f1 l       .debug_str	00000000 
 00008924 l       .debug_str	00000000 
 00000000 l     O .rodata..L__unnamed_1	00000018 .L__unnamed_1
 00000000 l     O .rodata..L__unnamed_10	00000010 .L__unnamed_10
@@ -2397,26 +2397,30 @@ SYMBOL TABLE:
 00000000 l     O .rodata..L__unnamed_72	00000010 .L__unnamed_72
 00000000 l     O .rodata.cst16	00000010 .L__unnamed_73
 00000000 l     O .rodata..L__unnamed_74	00000010 .L__unnamed_74
-00000000 l     O .rodata..L__unnamed_75	00000010 .L__unnamed_75
-00000000 l     O .rodata..L__unnamed_76	00000015 .L__unnamed_76
-00000000 l     O .rodata..L__unnamed_77	00000016 .L__unnamed_77
+00000000 l     O .rodata..L__unnamed_75	0000000a .L__unnamed_75
+00000000 l     O .rodata..L__unnamed_76	00000010 .L__unnamed_76
+00000000 l     O .rodata..L__unnamed_77	0000001a .L__unnamed_77
 00000000 l     O .rodata..L__unnamed_78	00000010 .L__unnamed_78
-00000000 l     O .rodata..L__unnamed_79	00000010 .L__unnamed_79
+00000000 l     O .rodata..L__unnamed_79	00000015 .L__unnamed_79
 00000000 l     O .rodata..L__unnamed_8	00000010 .L__unnamed_8
-00000000 l     O .rodata..L__unnamed_80	0000000e .L__unnamed_80
+00000000 l     O .rodata..L__unnamed_80	00000016 .L__unnamed_80
 00000000 l     O .rodata..L__unnamed_81	00000010 .L__unnamed_81
-00000000 l     O .rodata..L__unnamed_82	00000012 .L__unnamed_82
+00000000 l     O .rodata..L__unnamed_82	00000010 .L__unnamed_82
 00000000 l     O .rodata..L__unnamed_83	00000010 .L__unnamed_83
-00000000 l     O .rodata..L__unnamed_84	00000006 .L__unnamed_84
-00000000 l     O .rodata..L__unnamed_85	00000007 .L__unnamed_85
-00000000 l     O .rodata..L__unnamed_86	00000003 .L__unnamed_86
-00000000 l     O .rodata..L__unnamed_87	00000006 .L__unnamed_87
-00000000 l     O .rodata..L__unnamed_88	00000001 .L__unnamed_88
-00000000 l     O .rodata..L__unnamed_89	00000010 .L__unnamed_89
+00000000 l     O .rodata..L__unnamed_84	0000000e .L__unnamed_84
+00000000 l     O .rodata..L__unnamed_85	00000010 .L__unnamed_85
+00000000 l     O .rodata..L__unnamed_86	00000012 .L__unnamed_86
+00000000 l     O .rodata..L__unnamed_87	00000010 .L__unnamed_87
+00000000 l     O .rodata..L__unnamed_88	00000006 .L__unnamed_88
+00000000 l     O .rodata..L__unnamed_89	00000007 .L__unnamed_89
 00000000 l     O .rodata..L__unnamed_9	0000000b .L__unnamed_9
-00000000 l     O .rodata..L__unnamed_90	0000002b .L__unnamed_90
-00000000 l     O .rodata.cst8	00000008 .L__unnamed_94
-00000000 l     O .rodata.cst4	00000004 .L__unnamed_95
+00000000 l     O .rodata..L__unnamed_90	00000003 .L__unnamed_90
+00000000 l     O .rodata..L__unnamed_91	00000006 .L__unnamed_91
+00000000 l     O .rodata..L__unnamed_92	00000001 .L__unnamed_92
+00000000 l     O .rodata..L__unnamed_93	00000010 .L__unnamed_93
+00000000 l     O .rodata..L__unnamed_94	0000002b .L__unnamed_94
+00000000 l     O .rodata.cst8	00000008 .L__unnamed_98
+00000000 l     O .rodata.cst4	00000004 .L__unnamed_99
 00000000 l     O .rodata..Lanon.c0a3d6efe2a77b5a03cbf96b6d80c7b9.140	00000008 .Lanon.c0a3d6efe2a77b5a03cbf96b6d80c7b9.140
 00000000 l     O .rodata..Lanon.c0a3d6efe2a77b5a03cbf96b6d80c7b9.142	00000010 .Lanon.c0a3d6efe2a77b5a03cbf96b6d80c7b9.142
 00000000 l     O .rodata..Lanon.c0a3d6efe2a77b5a03cbf96b6d80c7b9.152	00000010 .Lanon.c0a3d6efe2a77b5a03cbf96b6d80c7b9.152
@@ -2496,10 +2500,10 @@ SYMBOL TABLE:
 00000000 l     O .bss._ZN3app10watch_face15get_system_time2TZ17h9ee0775f03c5f255E	00000004 _ZN3app10watch_face15get_system_time2TZ17h9ee0775f03c5f255E
 00000000 l     O .bss._ZN3app10watch_face15set_power_label14BATTERY_STATUS17h3bf68cc16bb1886dE	00000044 _ZN3app10watch_face15set_power_label14BATTERY_STATUS17h3bf68cc16bb1886dE
 00000000 l     F .text._ZN3app10watch_face15set_power_label17he22439eab72ff0e7E	0000023a _ZN3app10watch_face15set_power_label17he22439eab72ff0e7E
-00000000 l     F .text._ZN3app10watch_face16start_watch_face17heb804bf97529d013E	000000ee _ZN3app10watch_face16start_watch_face17heb804bf97529d013E
+00000000 l     F .text._ZN3app10watch_face16start_watch_face17heb804bf97529d013E	0000010c _ZN3app10watch_face16start_watch_face17heb804bf97529d013E
 00000000 l     O .bss._ZN3app10watch_face18WATCH_FACE_CALLOUT17h0934e5b2745a22eeE	00000020 _ZN3app10watch_face18WATCH_FACE_CALLOUT17h0934e5b2745a22eeE
 00000000 l     O .bss._ZN3app10watch_face18WATCH_FACE_WIDGETS17hd0d65d11710ab816E	00000014 _ZN3app10watch_face18WATCH_FACE_WIDGETS17hd0d65d11710ab816E
-00000000 l     F .text._ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E	000000ca _ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E
+00000000 l     F .text._ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E	000000fc _ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E
 00000000 l     F .text._ZN3app10watch_face23convert_battery_voltage17h58d4489d891dfb44E	0000000a _ZN3app10watch_face23convert_battery_voltage17h58d4489d891dfb44E
 00000000 l     F .text._ZN3app10watch_face7to_strn17h073a59e7bff6a33dE	00000026 _ZN3app10watch_face7to_strn17h073a59e7bff6a33dE
 00000000 l     O .bss._ZN3app8IN_PANIC17hd7954f0ba804dacfE	00000001 _ZN3app8IN_PANIC17hd7954f0ba804dacfE
@@ -2931,28 +2935,28 @@ SYMBOL TABLE:
 00000000 l    d  .text._ZN6mynewt7sysinit17ha4b03f8c90bb7a9eE	00000000 .text._ZN6mynewt7sysinit17ha4b03f8c90bb7a9eE
 00000000 l    d  .text._ZN6mynewt4Strn3new17h0261ea0f44ae7d85E	00000000 .text._ZN6mynewt4Strn3new17h0261ea0f44ae7d85E
 00000000 l    d  .text._ZN6mynewt6kernel2os15eventq_dflt_get17h20c3f358fb5eb2e4E	00000000 .text._ZN6mynewt6kernel2os15eventq_dflt_get17h20c3f358fb5eb2e4E
-00000000 l    d  .rodata..L__unnamed_91	00000000 .rodata..L__unnamed_91
+00000000 l    d  .rodata..L__unnamed_95	00000000 .rodata..L__unnamed_95
 00000000 l    d  .rodata..L__unnamed_12	00000000 .rodata..L__unnamed_12
 00000000 l    d  .rodata..L__unnamed_33	00000000 .rodata..L__unnamed_33
 00000000 l    d  .bss._ZN3app10watch_face15set_power_label14BATTERY_STATUS17h3bf68cc16bb1886dE	00000000 .bss._ZN3app10watch_face15set_power_label14BATTERY_STATUS17h3bf68cc16bb1886dE
 00000000 l    d  .rodata..L__unnamed_3	00000000 .rodata..L__unnamed_3
 00000000 l    d  .rodata..L__unnamed_1	00000000 .rodata..L__unnamed_1
+00000000 l    d  .rodata..L__unnamed_100	00000000 .rodata..L__unnamed_100
+00000000 l    d  .rodata..L__unnamed_101	00000000 .rodata..L__unnamed_101
+00000000 l    d  .rodata..L__unnamed_102	00000000 .rodata..L__unnamed_102
+00000000 l    d  .rodata..L__unnamed_103	00000000 .rodata..L__unnamed_103
+00000000 l    d  .rodata..L__unnamed_104	00000000 .rodata..L__unnamed_104
 00000000 l    d  .rodata..L__unnamed_96	00000000 .rodata..L__unnamed_96
 00000000 l    d  .rodata..L__unnamed_97	00000000 .rodata..L__unnamed_97
-00000000 l    d  .rodata..L__unnamed_98	00000000 .rodata..L__unnamed_98
-00000000 l    d  .rodata..L__unnamed_99	00000000 .rodata..L__unnamed_99
-00000000 l    d  .rodata..L__unnamed_100	00000000 .rodata..L__unnamed_100
-00000000 l    d  .rodata..L__unnamed_92	00000000 .rodata..L__unnamed_92
-00000000 l    d  .rodata..L__unnamed_93	00000000 .rodata..L__unnamed_93
 00000000 l    d  .bss._ZN3app10watch_face12set_bt_label16BLUETOOTH_STATUS17hc2b597978dd337f7E	00000000 .bss._ZN3app10watch_face12set_bt_label16BLUETOOTH_STATUS17hc2b597978dd337f7E
-00000000 l    d  .rodata..L__unnamed_101	00000000 .rodata..L__unnamed_101
+00000000 l    d  .rodata..L__unnamed_105	00000000 .rodata..L__unnamed_105
 00000000 l    d  .bss._ZN3app10watch_face14set_time_label8TIME_BUF17hc29c2ccacd822d12E	00000000 .bss._ZN3app10watch_face14set_time_label8TIME_BUF17hc29c2ccacd822d12E
 00000000 l    d  .bss._ZN3app10watch_face14set_time_label8DATE_BUF17hac9afe5c78ed4884E	00000000 .bss._ZN3app10watch_face14set_time_label8DATE_BUF17hac9afe5c78ed4884E
-00000000 l    d  .rodata..L__unnamed_103	00000000 .rodata..L__unnamed_103
+00000000 l    d  .rodata..L__unnamed_107	00000000 .rodata..L__unnamed_107
 00000000 l    d  .rodata..L__unnamed_4	00000000 .rodata..L__unnamed_4
-00000000 l    d  .rodata..L__unnamed_104	00000000 .rodata..L__unnamed_104
-00000000 l    d  .rodata..L__unnamed_102	00000000 .rodata..L__unnamed_102
-00000000 l    d  .rodata..L__unnamed_105	00000000 .rodata..L__unnamed_105
+00000000 l    d  .rodata..L__unnamed_108	00000000 .rodata..L__unnamed_108
+00000000 l    d  .rodata..L__unnamed_106	00000000 .rodata..L__unnamed_106
+00000000 l    d  .rodata..L__unnamed_109	00000000 .rodata..L__unnamed_109
 00000000 l    d  .rodata..L__unnamed_2	00000000 .rodata..L__unnamed_2
 00000000 l    d  .bss._ZN3app10watch_face18WATCH_FACE_WIDGETS17hd0d65d11710ab816E	00000000 .bss._ZN3app10watch_face18WATCH_FACE_WIDGETS17hd0d65d11710ab816E
 00000000 l    d  .bss._ZN3app10watch_face18WATCH_FACE_CALLOUT17h0934e5b2745a22eeE	00000000 .bss._ZN3app10watch_face18WATCH_FACE_CALLOUT17h0934e5b2745a22eeE
@@ -3320,7 +3324,7 @@ Disassembly of section .text.create_watch_face:
 
 00000000 <create_watch_face>:
 create_watch_face():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:423
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:426
 ///////////////////////////////////////////////////////////////////////////////
 //  Export C API for Watch Face
 
@@ -3331,14 +3335,14 @@ extern "C" fn create_watch_face(widgets: *mut WatchFaceWidgets) -> i32 {  //  De
    2:	466f      	mov	r7, sp
    4:	b082      	sub	sp, #8
    6:	9001      	str	r0, [sp, #4]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:424
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:427
     assert!(!widgets.is_null(), "widgets null");
    8:	9000      	str	r0, [sp, #0]
    a:	f7ff fffe 	bl	0 <create_watch_face>
    e:	2800      	cmp	r0, #0
   10:	d111      	bne.n	36 <create_watch_face+0x36>
   12:	e7ff      	b.n	14 <create_watch_face+0x14>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:425
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:428
     unsafe { create_widgets(&mut *widgets) }
   14:	9800      	ldr	r0, [sp, #0]
   16:	f7ff fffe 	bl	0 <create_watch_face>
@@ -3349,13 +3353,13 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:425
   2a:	2212      	movs	r2, #18
   2c:	f7ff fffe 	bl	0 <create_watch_face>
   30:	2000      	movs	r0, #0
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:428
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:431
         .expect("create_screen fail");
     0  //  Return OK
 }
   32:	b002      	add	sp, #8
   34:	bd80      	pop	{r7, pc}
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:424
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:427
     assert!(!widgets.is_null(), "widgets null");
   36:	f240 0000 	movw	r0, #0
   3a:	f2c0 0000 	movt	r0, #0
@@ -4247,7 +4251,7 @@ Disassembly of section .text.update_watch_face:
 
 00000000 <update_watch_face>:
 update_watch_face():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:432
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:435
 
 /// Populate the Watch Face with the current status. Called by _screen_time_update_screen() in screen_time.c.
 #[no_mangle]  //  Don't mangle the function name
@@ -4257,7 +4261,7 @@ extern "C" fn update_watch_face(widgets: *const WatchFaceWidgets, state: *const 
    4:	b084      	sub	sp, #16
    6:	9002      	str	r0, [sp, #8]
    8:	9103      	str	r1, [sp, #12]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:433
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:436
     assert!(!widgets.is_null(), "widgets null");
    a:	9001      	str	r0, [sp, #4]
    c:	9100      	str	r1, [sp, #0]
@@ -4265,7 +4269,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:433
   12:	2800      	cmp	r0, #0
   14:	d112      	bne.n	3c <update_watch_face+0x3c>
   16:	e7ff      	b.n	18 <update_watch_face+0x18>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:434
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:437
     unsafe { update_widgets(&*widgets, &*state) }
   18:	9801      	ldr	r0, [sp, #4]
   1a:	9900      	ldr	r1, [sp, #0]
@@ -4277,13 +4281,13 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:434
   30:	2213      	movs	r2, #19
   32:	f7ff fffe 	bl	0 <update_watch_face>
   36:	2000      	movs	r0, #0
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:437
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:440
         .expect("update_widgets fail");
     0  //  Return OK
 }
   38:	b004      	add	sp, #16
   3a:	bd80      	pop	{r7, pc}
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:433
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:436
     assert!(!widgets.is_null(), "widgets null");
   3c:	f240 0000 	movw	r0, #0
   40:	f2c0 0000 	movt	r0, #0
@@ -5162,12 +5166,12 @@ Disassembly of section .text._ZN3app10watch_face23convert_battery_voltage17h58d4
 
 00000000 <_ZN3app10watch_face23convert_battery_voltage17h58d4489d891dfb44E>:
 _ZN3app10watch_face23convert_battery_voltage17h58d4489d891dfb44E():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:343
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:346
 pub fn convert_battery_voltage(_voltage: u32) -> i32 {
    0:	b081      	sub	sp, #4
    2:	9000      	str	r0, [sp, #0]
    4:	2032      	movs	r0, #50	; 0x32
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:345
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:348
 }
    6:	b001      	add	sp, #4
    8:	4770      	bx	lr
@@ -5402,13 +5406,13 @@ Disassembly of section .text._ZN3app10watch_face7to_strn17h073a59e7bff6a33dE:
 
 00000000 <_ZN3app10watch_face7to_strn17h073a59e7bff6a33dE>:
 _ZN3app10watch_face7to_strn17h073a59e7bff6a33dE():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:362
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:365
 fn to_strn(str: &'static String) -> Strn {
    0:	b580      	push	{r7, lr}
    2:	466f      	mov	r7, sp
    4:	b086      	sub	sp, #24
    6:	9101      	str	r1, [sp, #4]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:363
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:366
     Strn::new(str.as_bytes())
    8:	9000      	str	r0, [sp, #0]
    a:	4608      	mov	r0, r1
@@ -5428,10 +5432,10 @@ C:\Users\guppy\.rustup\toolchains\nightly-x86_64-pc-windows-msvc\lib/rustlib/src
   18:	9904      	ldr	r1, [sp, #16]
   1a:	9a05      	ldr	r2, [sp, #20]
 _ZN3app10watch_face7to_strn17h073a59e7bff6a33dE():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:363
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:366
   1c:	9800      	ldr	r0, [sp, #0]
   1e:	f7ff fffe 	bl	0 <_ZN3app10watch_face7to_strn17h073a59e7bff6a33dE>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:364
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:367
 }
   22:	b006      	add	sp, #24
   24:	bd80      	pop	{r7, pc}
@@ -6731,7 +6735,7 @@ Disassembly of section .text._ZN66_$LT$app..watch_face..BleState$u20$as$u20$core
 
 00000000 <_ZN66_$LT$app..watch_face..BleState$u20$as$u20$core..cmp..PartialEq$GT$2eq17h1f02e4599cb5bab8E>:
 _ZN66_$LT$app..watch_face..BleState$u20$as$u20$core..cmp..PartialEq$GT$2eq17h1f02e4599cb5bab8E():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:395
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:398
 #[derive(PartialEq)]
    0:	b084      	sub	sp, #16
    2:	9001      	str	r0, [sp, #4]
@@ -6820,13 +6824,13 @@ Disassembly of section .text._ZN3app10watch_face14get_month_name17hdf7c66bee42a7
 
 00000000 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE>:
 _ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:324
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:327
 pub fn get_month_name(time: &WatchFaceTime) -> String {
    0:	b580      	push	{r7, lr}
    2:	466f      	mov	r7, sp
    4:	b084      	sub	sp, #16
    6:	9103      	str	r1, [sp, #12]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:326
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:329
         1  => String::from("JAN"),
    8:	7889      	ldrb	r1, [r1, #2]
    a:	3901      	subs	r1, #1
@@ -6842,7 +6846,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:326
   20:	3c332a21 	.word	0x3c332a21
   24:	60574e45 	.word	0x60574e45
   28:	7269      	.short	0x7269
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:338
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:341
         _  => String::from("???"),
   2a:	f240 0100 	movw	r1, #0
   2e:	f2c0 0100 	movt	r1, #0
@@ -6850,7 +6854,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:338
   34:	9802      	ldr	r0, [sp, #8]
   36:	f7ff fffe 	bl	0 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE>
   3a:	e06b      	b.n	da <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE+0xda>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:326
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:329
         1  => String::from("JAN"),
   3c:	f240 0100 	movw	r1, #0
   40:	f2c0 0100 	movt	r1, #0
@@ -6858,7 +6862,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:326
   46:	9802      	ldr	r0, [sp, #8]
   48:	f7ff fffe 	bl	0 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE>
   4c:	e062      	b.n	c8 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE+0xc8>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:327
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:330
         2  => String::from("FEB"),
   4e:	f240 0100 	movw	r1, #0
   52:	f2c0 0100 	movt	r1, #0
@@ -6866,7 +6870,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:327
   58:	9802      	ldr	r0, [sp, #8]
   5a:	f7ff fffe 	bl	0 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE>
   5e:	e059      	b.n	b6 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE+0xb6>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:328
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:331
         3  => String::from("MAR"),
   60:	f240 0100 	movw	r1, #0
   64:	f2c0 0100 	movt	r1, #0
@@ -6874,7 +6878,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:328
   6a:	9802      	ldr	r0, [sp, #8]
   6c:	f7ff fffe 	bl	0 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE>
   70:	e050      	b.n	a4 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE+0xa4>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:329
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:332
         4  => String::from("APR"),
   72:	f240 0100 	movw	r1, #0
   76:	f2c0 0100 	movt	r1, #0
@@ -6882,7 +6886,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:329
   7c:	9802      	ldr	r0, [sp, #8]
   7e:	f7ff fffe 	bl	0 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE>
   82:	e047      	b.n	92 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE+0x92>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:330
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:333
         5  => String::from("MAY"),
   84:	f240 0100 	movw	r1, #0
   88:	f2c0 0100 	movt	r1, #0
@@ -6890,7 +6894,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:330
   8e:	9802      	ldr	r0, [sp, #8]
   90:	f7ff fffe 	bl	0 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE>
   94:	e03e      	b.n	80 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE+0x80>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:331
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:334
         6  => String::from("JUN"),
   96:	f240 0100 	movw	r1, #0
   9a:	f2c0 0100 	movt	r1, #0
@@ -6898,7 +6902,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:331
   a0:	9802      	ldr	r0, [sp, #8]
   a2:	f7ff fffe 	bl	0 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE>
   a6:	e035      	b.n	6e <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE+0x6e>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:332
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:335
         7  => String::from("JUL"),
   a8:	f240 0100 	movw	r1, #0
   ac:	f2c0 0100 	movt	r1, #0
@@ -6906,7 +6910,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:332
   b2:	9802      	ldr	r0, [sp, #8]
   b4:	f7ff fffe 	bl	0 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE>
   b8:	e02c      	b.n	5c <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE+0x5c>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:333
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:336
         8  => String::from("AUG"),
   ba:	f240 0100 	movw	r1, #0
   be:	f2c0 0100 	movt	r1, #0
@@ -6914,7 +6918,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:333
   c4:	9802      	ldr	r0, [sp, #8]
   c6:	f7ff fffe 	bl	0 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE>
   ca:	e023      	b.n	4a <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE+0x4a>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:334
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:337
         9  => String::from("SEP"),
   cc:	f240 0100 	movw	r1, #0
   d0:	f2c0 0100 	movt	r1, #0
@@ -6922,7 +6926,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:334
   d6:	9802      	ldr	r0, [sp, #8]
   d8:	f7ff fffe 	bl	0 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE>
   dc:	e01a      	b.n	38 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE+0x38>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:335
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:338
         10 => String::from("OCT"),
   de:	f240 0100 	movw	r1, #0
   e2:	f2c0 0100 	movt	r1, #0
@@ -6930,7 +6934,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:335
   e8:	9802      	ldr	r0, [sp, #8]
   ea:	f7ff fffe 	bl	0 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE>
   ee:	e011      	b.n	26 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE+0x26>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:336
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:339
         11 => String::from("NOV"),
   f0:	f240 0100 	movw	r1, #0
   f4:	f2c0 0100 	movt	r1, #0
@@ -6938,7 +6942,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:336
   fa:	9802      	ldr	r0, [sp, #8]
   fc:	f7ff fffe 	bl	0 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE>
  100:	e008      	b.n	14 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE+0x14>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:337
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:340
         12 => String::from("DEC"),
  102:	f240 0100 	movw	r1, #0
  106:	f2c0 0100 	movt	r1, #0
@@ -6946,7 +6950,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:337
  10c:	9802      	ldr	r0, [sp, #8]
  10e:	f7ff fffe 	bl	0 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE>
  112:	e7ff      	b.n	114 <_ZN3app10watch_face14get_month_name17hdf7c66bee42a75daE+0x114>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:340
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:343
 }
  114:	b004      	add	sp, #16
  116:	bd80      	pop	{r7, pc}
@@ -7314,110 +7318,124 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:224
    e:	2118      	movs	r1, #24
   10:	f7ff fffe 	bl	0 <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E>
   14:	f7ff fffe 	bl	0 <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E>
-  18:	a809      	add	r0, sp, #36	; 0x24
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:230
+  18:	a808      	add	r0, sp, #32
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:229
             obj::disp_get_default()
-  1a:	9007      	str	r0, [sp, #28]
+  1a:	9006      	str	r0, [sp, #24]
   1c:	f7ff fffe 	bl	0 <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E>
   20:	f240 0100 	movw	r1, #0
   24:	f2c0 0100 	movt	r1, #0
   28:	f240 0300 	movw	r3, #0
   2c:	f2c0 0300 	movt	r3, #0
   30:	2215      	movs	r2, #21
-  32:	9807      	ldr	r0, [sp, #28]
+  32:	9806      	ldr	r0, [sp, #24]
   34:	f7ff fffe 	bl	0 <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:229
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:228
         WATCH_FACE_WIDGETS.screen = lv_disp_get_scr_act( 
   38:	f7ff fffe 	bl	0 <lv_disp_get_scr_act>
   3c:	f240 0100 	movw	r1, #0
   40:	f2c0 0100 	movt	r1, #0
   44:	6008      	str	r0, [r1, #0]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:236
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:235
     create_widgets(unsafe { &mut WATCH_FACE_WIDGETS }) ? ;
   46:	4608      	mov	r0, r1
   48:	f7ff fffe 	bl	0 <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E>
-  4c:	9006      	str	r0, [sp, #24]
+  4c:	9005      	str	r0, [sp, #20]
   4e:	f7ff fffe 	bl	0 <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E>
-  52:	9806      	ldr	r0, [sp, #24]
-  54:	900b      	str	r0, [sp, #44]	; 0x2c
-  56:	990b      	ldr	r1, [sp, #44]	; 0x2c
+  52:	9805      	ldr	r0, [sp, #20]
+  54:	900a      	str	r0, [sp, #40]	; 0x28
+  56:	990a      	ldr	r1, [sp, #40]	; 0x28
   58:	2901      	cmp	r1, #1
   5a:	d106      	bne.n	6a <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E+0x6a>
   5c:	e7ff      	b.n	5e <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E+0x5e>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:239
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:238
     let rc = unsafe { pinetime_lvgl_mynewt_render() };
   5e:	f7ff fffe 	bl	0 <pinetime_lvgl_mynewt_render>
-  62:	9011      	str	r0, [sp, #68]	; 0x44
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:240
+  62:	9010      	str	r0, [sp, #64]	; 0x40
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:239
     assert!(rc == 0, "LVGL render fail");    
   64:	2800      	cmp	r0, #0
-  66:	d136      	bne.n	d6 <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E+0xd6>
+  66:	d134      	bne.n	d2 <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E+0xd2>
   68:	e00c      	b.n	84 <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E+0x84>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:236
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:235
     create_widgets(unsafe { &mut WATCH_FACE_WIDGETS }) ? ;
-  6a:	980b      	ldr	r0, [sp, #44]	; 0x2c
-  6c:	9010      	str	r0, [sp, #64]	; 0x40
-  6e:	9005      	str	r0, [sp, #20]
+  6a:	980a      	ldr	r0, [sp, #40]	; 0x28
+  6c:	900f      	str	r0, [sp, #60]	; 0x3c
+  6e:	9004      	str	r0, [sp, #16]
   70:	f7ff fffe 	bl	0 <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E>
-  74:	9805      	ldr	r0, [sp, #20]
+  74:	9804      	ldr	r0, [sp, #16]
   76:	f7ff fffe 	bl	0 <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E>
-  7a:	9008      	str	r0, [sp, #32]
+  7a:	9007      	str	r0, [sp, #28]
   7c:	e7ff      	b.n	7e <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E+0x7e>
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:260
 }
-  7e:	9808      	ldr	r0, [sp, #32]
+  7e:	9807      	ldr	r0, [sp, #28]
   80:	b012      	add	sp, #72	; 0x48
   82:	bd80      	pop	{r7, pc}
-  84:	a80c      	add	r0, sp, #48	; 0x30
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:246
+  84:	a80b      	add	r0, sp, #44	; 0x2c
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:245
             os::eventq_dflt_get().unwrap(),  //  Use default event queue
-  86:	9004      	str	r0, [sp, #16]
+  86:	9003      	str	r0, [sp, #12]
   88:	f7ff fffe 	bl	0 <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E>
   8c:	f240 0100 	movw	r1, #0
   90:	f2c0 0100 	movt	r1, #0
-  94:	9804      	ldr	r0, [sp, #16]
+  94:	9803      	ldr	r0, [sp, #12]
   96:	f7ff fffe 	bl	0 <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:247
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:246
             Some(watch_face_callback),       //  Callback function for the timer
   9a:	f240 0100 	movw	r1, #0
   9e:	f2c0 0100 	movt	r1, #0
-  a2:	910e      	str	r1, [sp, #56]	; 0x38
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:244
+  a2:	910d      	str	r1, [sp, #52]	; 0x34
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:243
         os::os_callout_init(
-  a4:	9a0e      	ldr	r2, [sp, #56]	; 0x38
+  a4:	9a0d      	ldr	r2, [sp, #52]	; 0x34
   a6:	f240 0100 	movw	r1, #0
   aa:	f2c0 0100 	movt	r1, #0
   ae:	2300      	movs	r3, #0
-  b0:	9003      	str	r0, [sp, #12]
+  b0:	9002      	str	r0, [sp, #8]
   b2:	4608      	mov	r0, r1
-  b4:	f8dd c00c 	ldr.w	ip, [sp, #12]
-  b8:	9102      	str	r1, [sp, #8]
+  b4:	f8dd c008 	ldr.w	ip, [sp, #8]
+  b8:	9101      	str	r1, [sp, #4]
   ba:	4661      	mov	r1, ip
-  bc:	9301      	str	r3, [sp, #4]
-  be:	f7ff fffe 	bl	0 <os_callout_init>
-  c2:	f64e 2160 	movw	r1, #60000	; 0xea60
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:254
+  bc:	f7ff fffe 	bl	0 <os_callout_init>
+  c0:	f64e 2160 	movw	r1, #60000	; 0xea60
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:253
         os::os_callout_reset(
-  c6:	9802      	ldr	r0, [sp, #8]
-  c8:	f7ff fffe 	bl	0 <os_callout_reset>
+  c4:	9801      	ldr	r0, [sp, #4]
+  c6:	f7ff fffe 	bl	0 <os_callout_reset>
+  ca:	9011      	str	r0, [sp, #68]	; 0x44
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:258
+    assert!(rc == 0, "Timer fail");
+  cc:	2800      	cmp	r0, #0
+  ce:	d111      	bne.n	f4 <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E+0xf4>
+  d0:	e00b      	b.n	ea <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E+0xea>
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:239
+    assert!(rc == 0, "LVGL render fail");    
+  d2:	f240 0000 	movw	r0, #0
+  d6:	f2c0 0000 	movt	r0, #0
+  da:	f240 0200 	movw	r2, #0
+  de:	f2c0 0200 	movt	r2, #0
+  e2:	2110      	movs	r1, #16
+  e4:	f7ff fffe 	bl	0 <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E>
+  e8:	defe      	udf	#254	; 0xfe
+  ea:	2000      	movs	r0, #0
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:259
     Ok(())
-  cc:	9901      	ldr	r1, [sp, #4]
-  ce:	9108      	str	r1, [sp, #32]
-  d0:	2201      	movs	r2, #1
-  d2:	9208      	str	r2, [sp, #32]
+  ec:	9007      	str	r0, [sp, #28]
+  ee:	2001      	movs	r0, #1
+  f0:	9007      	str	r0, [sp, #28]
 C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:260
 }
-  d4:	e7d3      	b.n	7e <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E+0x7e>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:240
-    assert!(rc == 0, "LVGL render fail");    
-  d6:	f240 0000 	movw	r0, #0
-  da:	f2c0 0000 	movt	r0, #0
-  de:	f240 0200 	movw	r2, #0
-  e2:	f2c0 0200 	movt	r2, #0
-  e6:	2110      	movs	r1, #16
-  e8:	f7ff fffe 	bl	0 <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E>
-  ec:	defe      	udf	#254	; 0xfe
+  f2:	e7c4      	b.n	7e <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E+0x7e>
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:258
+    assert!(rc == 0, "Timer fail");
+  f4:	f240 0000 	movw	r0, #0
+  f8:	f2c0 0000 	movt	r0, #0
+  fc:	f240 0200 	movw	r2, #0
+ 100:	f2c0 0200 	movt	r2, #0
+ 104:	210a      	movs	r1, #10
+ 106:	f7ff fffe 	bl	0 <_ZN3app10watch_face16start_watch_face17heb804bf97529d013E>
+ 10a:	defe      	udf	#254	; 0xfe
 
 Disassembly of section .text._ZN4core6result19Result$LT$T$C$E$GT$6expect17hdee26c53221e8885E:
 
@@ -7575,101 +7593,123 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:263
 extern fn watch_face_callback(_ev: *mut os::os_event) {
    0:	b580      	push	{r7, lr}
    2:	466f      	mov	r7, sp
-   4:	b092      	sub	sp, #72	; 0x48
-   6:	9010      	str	r0, [sp, #64]	; 0x40
-   8:	a805      	add	r0, sp, #20
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:265
+   4:	b094      	sub	sp, #80	; 0x50
+   6:	9011      	str	r0, [sp, #68]	; 0x44
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:264
+    console::print("Update Rust watch face...\n"); console::flush();
+   8:	f240 0000 	movw	r0, #0
+   c:	f2c0 0000 	movt	r0, #0
+  10:	211a      	movs	r1, #26
+  12:	f7ff fffe 	bl	0 <_ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E>
+  16:	f7ff fffe 	bl	0 <_ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E>
+  1a:	a806      	add	r0, sp, #24
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:267
     let time = get_system_time()
-   a:	9001      	str	r0, [sp, #4]
-   c:	f7ff fffe 	bl	0 <_ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E>
-  10:	f240 0000 	movw	r0, #0
-  14:	f2c0 0000 	movt	r0, #0
-  18:	4669      	mov	r1, sp
-  1a:	6008      	str	r0, [r1, #0]
-  1c:	f240 0200 	movw	r2, #0
-  20:	f2c0 0200 	movt	r2, #0
-  24:	a802      	add	r0, sp, #8
-  26:	2315      	movs	r3, #21
-  28:	9901      	ldr	r1, [sp, #4]
-  2a:	f7ff fffe 	bl	0 <_ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:270
+  1c:	9002      	str	r0, [sp, #8]
+  1e:	f7ff fffe 	bl	0 <_ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E>
+  22:	f240 0000 	movw	r0, #0
+  26:	f2c0 0000 	movt	r0, #0
+  2a:	4669      	mov	r1, sp
+  2c:	6008      	str	r0, [r1, #0]
+  2e:	f240 0200 	movw	r2, #0
+  32:	f2c0 0200 	movt	r2, #0
+  36:	a803      	add	r0, sp, #12
+  38:	2315      	movs	r3, #21
+  3a:	9902      	ldr	r1, [sp, #8]
+  3c:	f7ff fffe 	bl	0 <_ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E>
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:272
         time,
-  2e:	f8bd 0010 	ldrh.w	r0, [sp, #16]
-  32:	f8ad 003c 	strh.w	r0, [sp, #60]	; 0x3c
-  36:	9802      	ldr	r0, [sp, #8]
-  38:	9903      	ldr	r1, [sp, #12]
-  3a:	910e      	str	r1, [sp, #56]	; 0x38
-  3c:	900d      	str	r0, [sp, #52]	; 0x34
-  3e:	2003      	movs	r0, #3
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:274
+  40:	f8bd 0014 	ldrh.w	r0, [sp, #20]
+  44:	f8ad 0040 	strh.w	r0, [sp, #64]	; 0x40
+  48:	9803      	ldr	r0, [sp, #12]
+  4a:	9904      	ldr	r1, [sp, #16]
+  4c:	910f      	str	r1, [sp, #60]	; 0x3c
+  4e:	900e      	str	r0, [sp, #56]	; 0x38
+  50:	2003      	movs	r0, #3
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:276
         ble_state:  BleState::BLEMAN_BLE_STATE_CONNECTED,  //  TODO: Get BLE state
-  40:	f807 0c09 	strb.w	r0, [r7, #-9]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:269
+  52:	f807 0c0d 	strb.w	r0, [r7, #-13]
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:271
     let state = WatchFaceState {
-  44:	f817 0c09 	ldrb.w	r0, [r7, #-9]
-  48:	f88d 0020 	strb.w	r0, [sp, #32]
-  4c:	f8bd 003c 	ldrh.w	r0, [sp, #60]	; 0x3c
-  50:	f8ad 002a 	strh.w	r0, [sp, #42]	; 0x2a
-  54:	980d      	ldr	r0, [sp, #52]	; 0x34
-  56:	990e      	ldr	r1, [sp, #56]	; 0x38
-  58:	f8cd 1026 	str.w	r1, [sp, #38]	; 0x26
-  5c:	f8cd 0022 	str.w	r0, [sp, #34]	; 0x22
-  60:	2000      	movs	r0, #0
-  62:	900b      	str	r0, [sp, #44]	; 0x2c
-  64:	2001      	movs	r0, #1
-  66:	f88d 0030 	strb.w	r0, [sp, #48]	; 0x30
-  6a:	f88d 0031 	strb.w	r0, [sp, #49]	; 0x31
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:278
+  56:	f817 0c0d 	ldrb.w	r0, [r7, #-13]
+  5a:	f88d 0024 	strb.w	r0, [sp, #36]	; 0x24
+  5e:	f8bd 0040 	ldrh.w	r0, [sp, #64]	; 0x40
+  62:	f8ad 002e 	strh.w	r0, [sp, #46]	; 0x2e
+  66:	980e      	ldr	r0, [sp, #56]	; 0x38
+  68:	990f      	ldr	r1, [sp, #60]	; 0x3c
+  6a:	f8cd 102a 	str.w	r1, [sp, #42]	; 0x2a
+  6e:	f8cd 0026 	str.w	r0, [sp, #38]	; 0x26
+  72:	2000      	movs	r0, #0
+  74:	900c      	str	r0, [sp, #48]	; 0x30
+  76:	2001      	movs	r0, #1
+  78:	f88d 0034 	strb.w	r0, [sp, #52]	; 0x34
+  7c:	f88d 0035 	strb.w	r0, [sp, #53]	; 0x35
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:280
     update_widgets(unsafe { &WATCH_FACE_WIDGETS }, &state)
-  6e:	f240 0000 	movw	r0, #0
-  72:	f2c0 0000 	movt	r0, #0
-  76:	a908      	add	r1, sp, #32
-  78:	f7ff fffe 	bl	0 <_ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E>
-  7c:	f240 0100 	movw	r1, #0
-  80:	f2c0 0100 	movt	r1, #0
-  84:	f240 0300 	movw	r3, #0
-  88:	f2c0 0300 	movt	r3, #0
-  8c:	2216      	movs	r2, #22
-  8e:	f7ff fffe 	bl	0 <_ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:282
+  80:	f240 0000 	movw	r0, #0
+  84:	f2c0 0000 	movt	r0, #0
+  88:	a909      	add	r1, sp, #36	; 0x24
+  8a:	f7ff fffe 	bl	0 <_ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E>
+  8e:	f240 0100 	movw	r1, #0
+  92:	f2c0 0100 	movt	r1, #0
+  96:	f240 0300 	movw	r3, #0
+  9a:	f2c0 0300 	movt	r3, #0
+  9e:	2216      	movs	r2, #22
+  a0:	f7ff fffe 	bl	0 <_ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E>
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:284
     let rc = unsafe { pinetime_lvgl_mynewt_render() };
-  92:	f7ff fffe 	bl	0 <pinetime_lvgl_mynewt_render>
-  96:	9011      	str	r0, [sp, #68]	; 0x44
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:283
+  a4:	f7ff fffe 	bl	0 <pinetime_lvgl_mynewt_render>
+  a8:	9012      	str	r0, [sp, #72]	; 0x48
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:285
     assert!(rc == 0, "LVGL render fail");    
-  98:	2800      	cmp	r0, #0
-  9a:	d10a      	bne.n	b2 <_ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E+0xb2>
-  9c:	e7ff      	b.n	9e <_ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E+0x9e>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:287
+  aa:	2800      	cmp	r0, #0
+  ac:	d10c      	bne.n	c8 <_ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E+0xc8>
+  ae:	e7ff      	b.n	b0 <_ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E+0xb0>
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:289
         os::os_callout_reset(
-  9e:	f240 0000 	movw	r0, #0
-  a2:	f2c0 0000 	movt	r0, #0
-  a6:	f64e 2160 	movw	r1, #60000	; 0xea60
-  aa:	f7ff fffe 	bl	0 <os_callout_reset>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:292
-}
-  ae:	b012      	add	sp, #72	; 0x48
-  b0:	bd80      	pop	{r7, pc}
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:283
+  b0:	f240 0000 	movw	r0, #0
+  b4:	f2c0 0000 	movt	r0, #0
+  b8:	f64e 2160 	movw	r1, #60000	; 0xea60
+  bc:	f7ff fffe 	bl	0 <os_callout_reset>
+  c0:	9013      	str	r0, [sp, #76]	; 0x4c
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:294
+    assert!(rc == 0, "Timer fail");
+  c2:	2800      	cmp	r0, #0
+  c4:	d10e      	bne.n	e4 <_ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E+0xe4>
+  c6:	e00b      	b.n	e0 <_ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E+0xe0>
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:285
     assert!(rc == 0, "LVGL render fail");    
-  b2:	f240 0000 	movw	r0, #0
-  b6:	f2c0 0000 	movt	r0, #0
-  ba:	f240 0200 	movw	r2, #0
-  be:	f2c0 0200 	movt	r2, #0
-  c2:	2110      	movs	r1, #16
-  c4:	f7ff fffe 	bl	0 <_ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E>
-  c8:	defe      	udf	#254	; 0xfe
+  c8:	f240 0000 	movw	r0, #0
+  cc:	f2c0 0000 	movt	r0, #0
+  d0:	f240 0200 	movw	r2, #0
+  d4:	f2c0 0200 	movt	r2, #0
+  d8:	2110      	movs	r1, #16
+  da:	f7ff fffe 	bl	0 <_ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E>
+  de:	defe      	udf	#254	; 0xfe
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:295
+}
+  e0:	b014      	add	sp, #80	; 0x50
+  e2:	bd80      	pop	{r7, pc}
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:294
+    assert!(rc == 0, "Timer fail");
+  e4:	f240 0000 	movw	r0, #0
+  e8:	f2c0 0000 	movt	r0, #0
+  ec:	f240 0200 	movw	r2, #0
+  f0:	f2c0 0200 	movt	r2, #0
+  f4:	210a      	movs	r1, #10
+  f6:	f7ff fffe 	bl	0 <_ZN3app10watch_face19watch_face_callback17h8c8db559af4e3852E>
+  fa:	defe      	udf	#254	; 0xfe
 
 Disassembly of section .text._ZN3app10watch_face15get_system_time17he1f99177817550ceE:
 
 00000000 <_ZN3app10watch_face15get_system_time17he1f99177817550ceE>:
 _ZN3app10watch_face15get_system_time17he1f99177817550ceE():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:295
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:298
 pub fn get_system_time() -> MynewtResult<WatchFaceTime> {
    0:	b5d0      	push	{r4, r6, r7, lr}
    2:	af02      	add	r7, sp, #8
    4:	b08a      	sub	sp, #40	; 0x28
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:299
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:302
     let rc = unsafe { os::os_gettimeofday(&mut TV, &mut TZ) };
    6:	f240 0100 	movw	r1, #0
    a:	f2c0 0100 	movt	r1, #0
@@ -7680,12 +7720,12 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:299
   1a:	4611      	mov	r1, r2
   1c:	f7ff fffe 	bl	0 <os_gettimeofday>
   20:	9008      	str	r0, [sp, #32]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:300
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:303
     assert!(rc == 0, "Can't get time");    
   22:	2800      	cmp	r0, #0
   24:	d112      	bne.n	4c <_ZN3app10watch_face15get_system_time17he1f99177817550ceE+0x4c>
   26:	e7ff      	b.n	28 <_ZN3app10watch_face15get_system_time17he1f99177817550ceE+0x28>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:304
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:307
     let rc = unsafe { timeval_to_clocktime(&TV, &TZ, &mut CT) };
   28:	f240 0000 	movw	r0, #0
   2c:	f2c0 0000 	movt	r0, #0
@@ -7695,12 +7735,12 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:304
   3c:	f2c0 0200 	movt	r2, #0
   40:	f7ff fffe 	bl	0 <timeval_to_clocktime>
   44:	9009      	str	r0, [sp, #36]	; 0x24
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:305
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:308
     assert!(rc == 0, "Can't convert time");
   46:	2800      	cmp	r0, #0
   48:	d13f      	bne.n	ca <_ZN3app10watch_face15get_system_time17he1f99177817550ceE+0xca>
   4a:	e00b      	b.n	64 <_ZN3app10watch_face15get_system_time17he1f99177817550ceE+0x64>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:300
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:303
     assert!(rc == 0, "Can't get time");    
   4c:	f240 0000 	movw	r0, #0
   50:	f2c0 0000 	movt	r0, #0
@@ -7709,30 +7749,30 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:300
   5c:	210e      	movs	r1, #14
   5e:	f7ff fffe 	bl	0 <_ZN3app10watch_face15get_system_time17he1f99177817550ceE>
   62:	defe      	udf	#254	; 0xfe
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:310
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:313
             year:       CT.year as u16,  //  Year (4 digit year)
   64:	f240 0000 	movw	r0, #0
   68:	f2c0 0000 	movt	r0, #0
   6c:	6801      	ldr	r1, [r0, #0]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:311
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:314
             month:      CT.mon  as u8,   //  Month (1 - 12)
   6e:	6842      	ldr	r2, [r0, #4]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:312
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:315
             dayofmonth: CT.day  as u8,   //  Day (1 - 31)
   70:	6883      	ldr	r3, [r0, #8]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:313
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:316
             hour:       CT.hour as u8,   //  Hour (0 - 23)
   72:	f8d0 c00c 	ldr.w	ip, [r0, #12]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:314
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:317
             minute:     CT.min  as u8,   //  Minute (0 - 59)
   76:	f8d0 e010 	ldr.w	lr, [r0, #16]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:315
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:318
             second:     CT.sec  as u8,   //  Second (0 - 59)
   7a:	6944      	ldr	r4, [r0, #20]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:317
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:320
             dayofweek:  CT.dow  as u8,   //  Day of week (0 - 6; 0 = Sunday)
   7c:	6980      	ldr	r0, [r0, #24]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:309
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:312
         WatchFaceTime {
   7e:	f8ad 1008 	strh.w	r1, [sp, #8]
   82:	f88d 200a 	strb.w	r2, [sp, #10]
@@ -7743,7 +7783,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:309
   96:	2100      	movs	r1, #0
   98:	f88d 100f 	strb.w	r1, [sp, #15]
   9c:	f88d 0010 	strb.w	r0, [sp, #16]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:320
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:323
     Ok(result)
   a0:	f8bd 0010 	ldrh.w	r0, [sp, #16]
   a4:	f8ad 001c 	strh.w	r0, [sp, #28]
@@ -7759,11 +7799,11 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:320
   bc:	f8c2 3006 	str.w	r3, [r2, #6]
   c0:	f8c2 0002 	str.w	r0, [r2, #2]
   c4:	8011      	strh	r1, [r2, #0]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:321
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:324
 }
   c6:	b00a      	add	sp, #40	; 0x28
   c8:	bdd0      	pop	{r4, r6, r7, pc}
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:305
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:308
     assert!(rc == 0, "Can't convert time");
   ca:	f240 0000 	movw	r0, #0
   ce:	f2c0 0000 	movt	r0, #0
@@ -12407,7 +12447,7 @@ _ZN4core3fmt5write17h0216ae6c75b66c1aE():
  166:	e7ff      	b.n	168 <_ZN4core3fmt5write17h0216ae6c75b66c1aE+0x168>
  168:	9819      	ldr	r0, [sp, #100]	; 0x64
  16a:	991a      	ldr	r1, [sp, #104]	; 0x68
-_ZN111_$LT$core..iter..adapters..zip..Zip$LT$A$C$B$GT$$u20$as$u20$core..iter..adapters..zip..ZipImpl$LT$A$C$B$GT$$GT$4next17hfb6c9819ce842feeE():
+_ZN4core3ptr7mut_ptr31_$LT$impl$u20$$BP$mut$u20$T$GT$6offset17h97ff86f28446ad91E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2//library/core/src/ptr/mut_ptr.rs:232
  16c:	9a1e      	ldr	r2, [sp, #120]	; 0x78
  16e:	eb02 03c0 	add.w	r3, r2, r0, lsl #3
@@ -13285,7 +13325,7 @@ _ZN4core7unicode9printable5check17h498dba9861216be7E():
  15e:	9227      	str	r2, [sp, #156]	; 0x9c
  160:	9126      	str	r1, [sp, #152]	; 0x98
  162:	e023      	b.n	1ac <_ZN4core7unicode9printable12is_printable17h38cd367ca9301587E+0x1ac>
-_ZN96_$LT$core..iter..adapters..Cloned$LT$I$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h80b146b1336dc88aE():
+_ZN91_$LT$core..slice..iter..Iter$LT$T$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4next17h3471a896981490eaE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2//library/core/src/slice/iter/macros.rs:146
  164:	f240 0000 	movw	r0, #0
  168:	f2c0 0000 	movt	r0, #0
@@ -15431,7 +15471,7 @@ _ZN4core3mem12maybe_uninit20MaybeUninit$LT$T$GT$5write17h7c699619f02117beE():
   5a:	9b07      	ldr	r3, [sp, #28]
   5c:	701a      	strb	r2, [r3, #0]
   5e:	f10d 0c28 	add.w	ip, sp, #40	; 0x28
-_ZN4core3ptr9const_ptr33_$LT$impl$u20$$BP$const$u20$T$GT$3add17hf2a215114c28d088E():
+_ZN4core3ptr9const_ptr33_$LT$impl$u20$$BP$const$u20$T$GT$6offset17h3f9de23f7f49b464E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2//library/core/src/ptr/const_ptr.rs:225
   62:	4460      	add	r0, ip
 _ZN4core3fmt3num12GenericRadix7fmt_int17h995fd19f123d4273E():
@@ -19279,11 +19319,9 @@ _ZN51_$LT$u32$u20$as$u20$core..ops..arith..AddAssign$GT$10add_assign17h2b540a2eb
   20:	eb01 4114 	add.w	r1, r1, r4, lsr #16
   24:	fb03 5000 	mla	r0, r3, r0, r5
   28:	fa12 f281 	uxtah	r2, r2, r1
-_ZN51_$LT$u32$u20$as$u20$compiler_builtins..int..Int$GT$12wrapping_add17he63a99c5e385fb42E():
-/rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:897
-  2c:	eb00 4011 	add.w	r0, r0, r1, lsr #16
 _ZN4core3num21_$LT$impl$u20$u32$GT$12wrapping_add17ha8bbcde3e91a3ee5E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:897
+  2c:	eb00 4011 	add.w	r0, r0, r1, lsr #16
   30:	eb00 4112 	add.w	r1, r0, r2, lsr #16
 _ZN51_$LT$u32$u20$as$u20$core..ops..arith..AddAssign$GT$10add_assign17h2b540a2eb2b5b2cdE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/arith.rs:731
@@ -19356,7 +19394,7 @@ __rust_i128_subo():
    a:	e9d7 e604 	ldrd	lr, r6, [r7, #16]
    e:	2100      	movs	r1, #0
   10:	e9d7 8c06 	ldrd	r8, ip, [r7, #24]
-_ZN17compiler_builtins3int6addsub7UAddSub8uadd_one17h31c39dd29144a579E():
+_ZN4core3num21_$LT$impl$u20$u64$GT$15overflowing_add17h4d60e949e302cf5bE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:1209
   14:	f1de 0e00 	rsbs	lr, lr, #0
   18:	f8d7 9008 	ldr.w	r9, [r7, #8]
@@ -19364,7 +19402,7 @@ _ZN17compiler_builtins3int6addsub7UAddSub8uadd_one17h31c39dd29144a579E():
 _ZN44_$LT$u128$u20$as$u20$core..ops..bit..Not$GT$3not17he45b7b3fddc19b70E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/bit.rs:60
   20:	ea6f 060c 	mvn.w	r6, ip
-_ZN17compiler_builtins3int6addsub7UAddSub8uadd_one17h31c39dd29144a579E():
+_ZN4core3num21_$LT$impl$u20$u64$GT$15overflowing_add17h4d60e949e302cf5bE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:1209
   24:	f141 0500 	adc.w	r5, r1, #0
 _ZN44_$LT$u128$u20$as$u20$core..ops..bit..Not$GT$3not17he45b7b3fddc19b70E():
@@ -22205,14 +22243,14 @@ _ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt1
 _ZN17compiler_builtins3int6addsub16__rust_u128_subo17h1e3d2c3ff22ecb5aE():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/int/addsub.rs:132
   5e:	e9c0 4100 	strd	r4, r1, [r0]
-_ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt17hdf751ff6fbf5edf4E():
+_ZN17compiler_builtins3int6addsub4Subo4subo17h7b048631b3396470E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   62:	eb73 0101 	sbcs.w	r1, r3, r1
   66:	eb78 0105 	sbcs.w	r1, r8, r5
 _ZN17compiler_builtins3int6addsub16__rust_u128_subo17h1e3d2c3ff22ecb5aE():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/int/addsub.rs:132
   6a:	e9c0 5e02 	strd	r5, lr, [r0, #8]
-_ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt17hdf751ff6fbf5edf4E():
+_ZN17compiler_builtins3int6addsub4Subo4subo17h7b048631b3396470E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   6e:	eb7c 010e 	sbcs.w	r1, ip, lr
   72:	bf38      	it	cc
@@ -26296,21 +26334,21 @@ _ZN51_$LT$u64$u20$as$u20$core..ops..bit..BitOrAssign$GT$12bitor_assign17h18996a4
   58:	f448 1380 	orr.w	r3, r8, #1048576	; 0x100000
   5c:	2100      	movs	r1, #0
   5e:	9c05      	ldr	r4, [sp, #20]
-_ZN55_$LT$u64$u20$as$u20$compiler_builtins..int..WideInt$GT$8wide_mul17h5daa9d66f6654856E():
+_ZN4core3num22_$LT$impl$u20$u128$GT$12wrapping_mul17heeaff456bc9394b7E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:944
   60:	e9cd 0300 	strd	r0, r3, [sp]
 _ZN54_$LT$u64$u20$as$u20$core..ops..bit..Shl$LT$u32$GT$$GT$3shl17h6f6fe6393c633baaE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/bit.rs:450
   64:	ea4f 20cb 	mov.w	r0, fp, lsl #11
   68:	ea40 5052 	orr.w	r0, r0, r2, lsr #21
-_ZN55_$LT$u64$u20$as$u20$compiler_builtins..int..WideInt$GT$8wide_mul17h5daa9d66f6654856E():
+_ZN4core3num22_$LT$impl$u20$u128$GT$12wrapping_mul17heeaff456bc9394b7E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:944
   6c:	e9cd 1102 	strd	r1, r1, [sp, #8]
 _ZN54_$LT$u64$u20$as$u20$core..ops..bit..Shl$LT$u32$GT$$GT$3shl17h6f6fe6393c633baaE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/bit.rs:450
   70:	f040 4100 	orr.w	r1, r0, #2147483648	; 0x80000000
   74:	02d0      	lsls	r0, r2, #11
-_ZN55_$LT$u64$u20$as$u20$compiler_builtins..int..WideInt$GT$8wide_mul17h5daa9d66f6654856E():
+_ZN4core3num22_$LT$impl$u20$u128$GT$12wrapping_mul17heeaff456bc9394b7E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:944
   76:	2200      	movs	r2, #0
   78:	2300      	movs	r3, #0
@@ -30058,7 +30096,7 @@ _ZN17compiler_builtins3int4sdiv3Div3div17h9b145e34fb16bf32E():
 _ZN46_$LT$i64$u20$as$u20$core..ops..bit..BitXor$GT$6bitxor17h9f5f5cce5bb4775cE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/bit.rs:351
   28:	4061      	eors	r1, r4
-_ZN4core3num21_$LT$impl$u20$i64$GT$12wrapping_sub17hc1ea7ebcd259f0b8E():
+_ZN51_$LT$i64$u20$as$u20$compiler_builtins..int..Int$GT$12wrapping_sub17h07923e108ccced18E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/int_macros.rs:1032
   2a:	1b00      	subs	r0, r0, r4
   2c:	41a1      	sbcs	r1, r4
@@ -30453,7 +30491,7 @@ _ZN4core3num21_$LT$impl$u20$i64$GT$12wrapping_sub17hc1ea7ebcd259f0b8E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/int_macros.rs:1032
    e:	ebb2 72ec 	subs.w	r2, r2, ip, asr #31
   12:	eb63 73ec 	sbc.w	r3, r3, ip, asr #31
-_ZN4core3num21_$LT$impl$u20$u64$GT$11checked_div17h2acb6b449001fd49E():
+_ZN51_$LT$u64$u20$as$u20$compiler_builtins..int..Int$GT$12aborting_div17h96d6354f11099909E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:577
   16:	ea52 0e03 	orrs.w	lr, r2, r3
   1a:	d00f      	beq.n	3c <_ZN17compiler_builtins3int4sdiv8__divdi317hf638ee34a5813680E+0x3c>
@@ -30472,7 +30510,7 @@ _ZN4core3num21_$LT$impl$u20$i64$GT$12wrapping_sub17hc1ea7ebcd259f0b8E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/int_macros.rs:1032
   2a:	1b00      	subs	r0, r0, r4
   2c:	41a1      	sbcs	r1, r4
-_ZN4core3num21_$LT$impl$u20$u64$GT$11checked_div17h2acb6b449001fd49E():
+_ZN51_$LT$u64$u20$as$u20$compiler_builtins..int..Int$GT$12aborting_div17h96d6354f11099909E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:582
   2e:	f7ff fffe 	bl	0 <__aeabi_uldivmod>
 _ZN46_$LT$i64$u20$as$u20$core..ops..bit..BitXor$GT$6bitxor17h9f5f5cce5bb4775cE():
@@ -30486,7 +30524,7 @@ _ZN45_$LT$i64$u20$as$u20$core..ops..arith..Sub$GT$3sub17h2bb6c4d9fa9b556eE():
 _ZN17compiler_builtins3int4sdiv8__divdi317hf638ee34a5813680E():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/macros.rs:264
   3a:	bdb0      	pop	{r4, r5, r7, pc}
-_ZN17compiler_builtins5abort17h7205a50b89493a10E():
+_ZN51_$LT$u64$u20$as$u20$compiler_builtins..int..Int$GT$12aborting_div17h96d6354f11099909E():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/lib.rs:35
   3c:	defe      	udf	#254	; 0xfe
   3e:	defe      	udf	#254	; 0xfe
@@ -33139,7 +33177,7 @@ _ZN17compiler_builtins5float3div8__divdf317h0f427d9698a77203E():
  2f4:	b007      	add	sp, #28
  2f6:	e8bd 0f00 	ldmia.w	sp!, {r8, r9, sl, fp}
  2fa:	bdf0      	pop	{r4, r5, r6, r7, pc}
-_ZN17compiler_builtins5float3div5div6417h2df9c43f595e47b3E():
+_ZN45_$LT$u64$u20$as$u20$core..ops..bit..BitOr$GT$5bitor17h640bf6d9ba3e8ef2E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/bit.rs:253
  2fc:	9804      	ldr	r0, [sp, #16]
  2fe:	4310      	orrs	r0, r2
@@ -33957,7 +33995,7 @@ Disassembly of section .text._ZN17compiler_builtins5float6extend13__extendsfdf21
 _ZN46_$LT$u32$u20$as$u20$core..ops..bit..BitAnd$GT$6bitand17h0d21bf3c3314d30dE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/bit.rs:158
    0:	f020 4200 	bic.w	r2, r0, #2147483648	; 0x80000000
-_ZN51_$LT$u32$u20$as$u20$compiler_builtins..int..Int$GT$12wrapping_sub17h1e049eca522a20b5E():
+_ZN4core3num21_$LT$impl$u20$u32$GT$12wrapping_sub17h57a4102f47cf3239E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:920
    4:	f5a2 0100 	sub.w	r1, r2, #8388608	; 0x800000
 _ZN17compiler_builtins5float6extend6extend17h8485c584851c0b04E():
@@ -36411,14 +36449,14 @@ _ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt1
 _ZN17compiler_builtins3int6addsub16__rust_u128_subo17h1e3d2c3ff22ecb5aE():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/int/addsub.rs:132
   5e:	e9c0 4100 	strd	r4, r1, [r0]
-_ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt17hdf751ff6fbf5edf4E():
+_ZN17compiler_builtins3int6addsub4Subo4subo17h7b048631b3396470E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   62:	eb73 0101 	sbcs.w	r1, r3, r1
   66:	eb78 0105 	sbcs.w	r1, r8, r5
 _ZN17compiler_builtins3int6addsub16__rust_u128_subo17h1e3d2c3ff22ecb5aE():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/int/addsub.rs:132
   6a:	e9c0 5e02 	strd	r5, lr, [r0, #8]
-_ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt17hdf751ff6fbf5edf4E():
+_ZN17compiler_builtins3int6addsub4Subo4subo17h7b048631b3396470E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   6e:	eb7c 010e 	sbcs.w	r1, ip, lr
   72:	bf38      	it	cc
@@ -37223,7 +37261,7 @@ _ZN17compiler_builtins5float3cmp3cmp17h9a1c16d6d8852321E():
   18:	d900      	bls.n	1c <_ZN17compiler_builtins5float3cmp14__aeabi_fcmpge17h55827ef1d74ed612E+0x1c>
 _ZN17compiler_builtins5float3cmp14__aeabi_fcmpge17h55827ef1d74ed612E():
   1a:	4770      	bx	lr
-_ZN17compiler_builtins5float3cmp3cmp17h9a1c16d6d8852321E():
+_ZN45_$LT$u32$u20$as$u20$core..ops..bit..BitOr$GT$5bitor17hfeb4b461398fb2f6E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/bit.rs:253
   1c:	ea52 0003 	orrs.w	r0, r2, r3
   20:	bf04      	itt	eq
@@ -37246,7 +37284,7 @@ _ZN4core3cmp5impls55_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$i32$GT$2lt17
 _ZN17compiler_builtins5float3cmp14__aeabi_fcmpge17h55827ef1d74ed612E():
   38:	4770      	bx	lr
   3a:	2000      	movs	r0, #0
-_ZN17compiler_builtins5float3cmp3cmp17h9a1c16d6d8852321E():
+_ZN4core3cmp5impls55_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$i32$GT$2gt17h358ec1ed0a330201E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   3c:	458c      	cmp	ip, r1
   3e:	bfd8      	it	le

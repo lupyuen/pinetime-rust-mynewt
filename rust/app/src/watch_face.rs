@@ -224,7 +224,6 @@ pub fn start_watch_face() -> MynewtResult<()> {
     console::print("Init Rust watch face...\n"); console::flush();
 
     //  Get active screen from LVGL. We can't call lv_scr_act() because it's an inline function.
-    extern { fn lv_disp_get_scr_act(disp: *mut obj::lv_disp_t) -> *mut obj::lv_obj_t; }
     unsafe { 
         WATCH_FACE_WIDGETS.screen = lv_disp_get_scr_act( 
             obj::disp_get_default()
@@ -249,18 +248,21 @@ pub fn start_watch_face() -> MynewtResult<()> {
         );    
     }
 
-    //  Trigger the timer in 60 seconds
-    unsafe {
+    //  Trigger the watch face timer in 60 seconds
+    let rc = unsafe {
         os::os_callout_reset(
             &mut WATCH_FACE_CALLOUT,   //  Timer for the watch face
             os::OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
-        );    
-    }
+        )
+    };
+    assert!(rc == 0, "Timer fail");
     Ok(())
 }
 
 /// Timer callback that is called every minute
 extern fn watch_face_callback(_ev: *mut os::os_event) {
+    console::print("Update Rust watch face...\n"); console::flush();
+
     //  Get the system time    
     let time = get_system_time()
         .expect("Can't get system time");
@@ -282,13 +284,14 @@ extern fn watch_face_callback(_ev: *mut os::os_event) {
     let rc = unsafe { pinetime_lvgl_mynewt_render() };
     assert!(rc == 0, "LVGL render fail");    
 
-    //  Set the watch face timer
-    unsafe {
+    //  Trigger the watch face timer in 60 seconds
+    let rc = unsafe {
         os::os_callout_reset(
             &mut WATCH_FACE_CALLOUT,   //  Timer for the watch face
             os::OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
-        );    
-    }
+        )
+    };
+    assert!(rc == 0, "Timer fail");
 }
 
 /// Get the system time
@@ -444,6 +447,8 @@ extern {
     fn pinetime_lvgl_mynewt_render() -> i32;
     /// Convert timeval to clocktime. From https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h
     fn timeval_to_clocktime(tv: *const os::os_timeval, tz: *const os::os_timezone, ct: *mut clocktime) -> i32;
+    /// Get active screen for LVGL display. From LVGL.
+    fn lv_disp_get_scr_act(disp: *mut obj::lv_disp_t) -> *mut obj::lv_obj_t;
     /// Style for the Time Label
     #[allow(dead_code)]
     static style_time: obj::lv_style_t;
