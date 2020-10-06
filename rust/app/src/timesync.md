@@ -12,11 +12,11 @@ TODO: Bluetooth LE Current Time Service, Discovering Bluetooth LE Services and C
 
 [`apps/my_sensor_app/src/ble_peer.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_peer.c)
 
-# Getting the Time in C
+# Get the Time in C
 
 TODO: os_timeval, clocktime and ISO format, [`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c)
 
-# Getting the Time in Rust
+# Get the Time in Rust
 
 TODO: WatchFaceTime, [`rust/app/src/watch_face.rs`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/watch_face.rs)
 
