@@ -368,6 +368,103 @@ pub fn create_widgets(widgets: &mut WatchFaceWidgets) -> MynewtResult<()> {
 
 TODO: SPI Driver for ST7789 Display Controller, [`pinetime_lvgl_mynewt`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt)
 
+Located at `libs/pinetime_lvgl_mynewt`
+
+[`src/pinetime/lvgl.c`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lvgl.c)
+
+```c
+/// Init the LVGL library. Called by sysinit() during startup, defined in pkg.yml.
+void pinetime_lvgl_mynewt_init(void) {    
+    console_printf("Init LVGL...\n"); console_flush();
+    assert(pinetime_lvgl_mynewt_started == false);
+
+    //  Init the display controller
+    int rc = pinetime_lvgl_mynewt_init_display(); assert(rc == 0);
+
+    //  Init the LVGL display
+    lv_init();
+    lv_port_disp_init();
+    pinetime_lvgl_mynewt_started = true;
+}
+
+/// Render the LVGL display
+int pinetime_lvgl_mynewt_render(void) {
+    console_printf("Render LVGL display...\n"); console_flush();
+    //  Must tick at least 100 milliseconds to force LVGL to update display
+    lv_tick_inc(100);
+    //  LVGL will flush our display driver
+    lv_task_handler();
+    return 0;
+}
+```
+
+Display Driver for ST7789: [`src/pinetime/lv_port_disp.c`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lv_port_disp.c)
+
+```c
+/// Flush the content of the internal buffer the specific area on the display
+static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p) {
+    //  Validate parameters
+    assert(area->x2 >= area->x1);
+    assert(area->y2 >= area->y1);
+
+    //  Set the ST7789 display window
+    pinetime_lvgl_mynewt_set_window(area->x1, area->y1, area->x2, area->y2);
+
+    //  Write Pixels (RAMWR): st7735_lcd::draw() → set_pixel()
+    int len = 
+        ((area->x2 - area->x1) + 1) *  //  Width
+        ((area->y2 - area->y1) + 1) *  //  Height
+        2;                             //  2 bytes per pixel
+    pinetime_lvgl_mynewt_write_command(RAMWR, NULL, 0);
+    pinetime_lvgl_mynewt_write_data((const uint8_t *) color_p, len);
+
+    //  IMPORTANT!!! Inform the graphics library that you are ready with the flushing
+    lv_disp_flush_ready(disp_drv);
+}
+```
+
+[`src/pinetime/display.c`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/display.c)
+
+```c
+/// Set the ST7789 display window to the coordinates (left, top), (right, bottom)
+int pinetime_lvgl_mynewt_set_window(uint8_t left, uint8_t top, uint8_t right, uint8_t bottom) {
+    assert(left < COL_COUNT && right < COL_COUNT && top < ROW_COUNT && bottom < ROW_COUNT);
+    assert(left <= right);
+    assert(top <= bottom);
+    //  Set Address Window Columns (CASET): st7735_lcd::draw() → set_pixel() → set_address_window()
+    int rc = pinetime_lvgl_mynewt_write_command(CASET, NULL, 0); assert(rc == 0);
+    uint8_t col_para[4] = { 0x00, left, 0x00, right };
+    rc = pinetime_lvgl_mynewt_write_data(col_para, 4); assert(rc == 0);
+
+    //  Set Address Window Rows (RASET): st7735_lcd::draw() → set_pixel() → set_address_window()
+    rc = pinetime_lvgl_mynewt_write_command(RASET, NULL, 0); assert(rc == 0);
+    uint8_t row_para[4] = { 0x00, top, 0x00, bottom };
+    rc = pinetime_lvgl_mynewt_write_data(row_para, 4); assert(rc == 0);
+    return 0;
+}
+```
+
+```c
+/// Transmit ST7789 command
+int pinetime_lvgl_mynewt_write_command(uint8_t command, const uint8_t *params, uint16_t len) {
+    hal_gpio_write(DISPLAY_DC, 0);
+    int rc = transmit_spi(&command, 1);
+    assert(rc == 0);
+    if (params != NULL && len > 0) {
+        rc = pinetime_lvgl_mynewt_write_data(params, len);
+        assert(rc == 0);
+    }
+    return 0;
+}
+
+/// Transmit ST7789 data
+int pinetime_lvgl_mynewt_write_data(const uint8_t *data, uint16_t len) {
+    hal_gpio_write(DISPLAY_DC, 1);
+    transmit_spi(data, len);
+    return 0;
+}
+```
+
 # Rust Wrapper for LVGL
 
 TODO: Bindgen, Safe Wrapper Proc Macro, [`rust/lvgl`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/lvgl)
