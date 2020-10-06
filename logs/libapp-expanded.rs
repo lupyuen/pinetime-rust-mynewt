@@ -66,18 +66,24 @@ mod app_network {
     //  sysinit().  Here are the startup functions consolidated by Mynewt:
     //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
 
-    //  Render LVGL watch face.
-    //  Defined in apps/my_sensor_app/src/watch_face.c
+    //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
 
-    //  Render LVGL widgets for testing.
+    //  Start rendering the watch face every minute in Rust.
+
+    //  Render LVGL watch face in C.
+    //  extern { fn create_watch_face() -> i32; }  //  Defined in apps/my_sensor_app/src/watch_face.c
+    //  let rc = unsafe { create_watch_face() };
+    //  assert!(rc == 0, "Watch Face fail");
+
+    //  Render LVGL widgets in C for testing.
     //  extern { fn pinetime_lvgl_mynewt_test() -> i32; }  //  Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
     //  let rc = unsafe { pinetime_lvgl_mynewt_test() };
     //  assert!(rc == 0, "LVGL test fail");
 
     //  Render LVGL display.
-    //  Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
-
-    //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
+    //  extern { fn pinetime_lvgl_mynewt_render() -> i32; }  //  Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
+    //  let rc = unsafe { pinetime_lvgl_mynewt_render() };
+    //  assert!(rc == 0, "LVGL render fail");    
 
     //  Main event loop. Don't add anything to the event loop because Bluetooth LE is extremely time sensitive.
     //  Loop forever...
@@ -86,9 +92,17 @@ mod app_network {
     //  Never comes here
 
     //  Display the filename and line number to the Semihosting Console.
-    //  Pause in the debugger.
+
     //  Display the payload.
-    //  Loop forever so that device won't restart.
+    //  Prevent panic loop while displaying the payload
+
+    //  Pause in the debugger.
+
+    //  Restart the device.
+    //  Defined in apps/my_sensor_app/src/support.c
+
+    //  Will never come here. This is needed to satisfy the return type "!"
+
     //!  Transmit sensor data to a CoAP server like thethings.io.  The CoAP payload will be encoded as JSON.
     //!  The sensor data will be transmitted over NB-IoT.
     //!  Note that we are using a patched version of apps/my_sensor_app/src/vsscanf.c that
@@ -676,9 +690,10 @@ mod touch_sensor {
     }
 }
 mod watch_face {
-    //! Watch Face in Rust for PineTime with Apache Mynewt OS
+    //! Watch Face in Rust for PineTime with Apache Mynewt OS, based on apps/my_sensor_app/src/watch_face.c
+    //! See https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face
     use core::{fmt::Write, ptr};
-    use mynewt::{result::*, Strn};
+    use mynewt::{fill_zero, kernel::os, result::*, sys::console, Strn};
     use mynewt_macros::strn;
     use lvgl::{core::obj, objx::label};
     /// Create the widgets for the Watch Face. Called by create_watch_face() below.
@@ -763,8 +778,7 @@ mod watch_face {
     /// Populate the Power Label with the battery status. Called by screen_time_update_screen() above.
     pub fn set_power_label(widgets: &WatchFaceWidgets, state: &WatchFaceState)
      -> MynewtResult<()> {
-        let percentage =
-            unsafe { hal_battery_get_percentage(state.millivolts) };
+        let percentage = convert_battery_voltage(state.millivolts);
         let color =
             if percentage <= 20 {
                 "#f2495c"
@@ -853,13 +867,7 @@ mod watch_face {
                                                                                                                                                        ::core::fmt::rt::v1::Count::Is(2usize),},}])).expect("time fail");
             label::set_text(widgets.time_label, &to_strn(&TIME_BUF))?;
         }
-        let month_cstr =
-            unsafe { controller_time_month_get_short_name(&state.time) };
-        if !!month_cstr.is_null() { ::core::panicking::panic("month null") };
-        let month_str =
-            unsafe {
-                cstr_core::CStr::from_ptr(month_cstr).to_str()
-            }.expect("month fail");
+        let month_str = get_month_name(&state.time);
         static mut DATE_BUF: String = new_string();
         unsafe {
             DATE_BUF.clear();
@@ -886,23 +894,123 @@ mod watch_face {
         }
         Ok(())
     }
-    /// Create the Watch Face, populated with widgets. Called by _screen_time_create() in screen_time.c.
-    #[no_mangle]
-    extern "C" fn create_watch_face(widgets: *mut WatchFaceWidgets) -> i32 {
-        if !!widgets.is_null() { ::core::panicking::panic("widgets null") };
-        unsafe { create_widgets(&mut *widgets) }.expect("create_screen fail");
-        0
-    }
-    /// Populate the Watch Face with the current status. Called by _screen_time_update_screen() in screen_time.c.
-    #[no_mangle]
-    extern "C" fn update_watch_face(widgets: *const WatchFaceWidgets,
-                                    state: *const WatchFaceState) -> i32 {
-        if !!widgets.is_null() { ::core::panicking::panic("widgets null") };
+    /// Start rendering the watch face every minute
+    pub fn start_watch_face() -> MynewtResult<()> {
+        console::print("Init Rust watch face...\n");
+        console::flush();
         unsafe {
-            update_widgets(&*widgets, &*state)
-        }.expect("update_widgets fail");
-        0
+            WATCH_FACE_WIDGETS.screen =
+                lv_disp_get_scr_act(obj::disp_get_default().expect("Failed to get display"));
+        }
+        create_widgets(unsafe { &mut WATCH_FACE_WIDGETS })?;
+        let rc = unsafe { pinetime_lvgl_mynewt_render() };
+        if !(rc == 0) { ::core::panicking::panic("LVGL render fail") };
+        unsafe {
+            os::os_callout_init(&mut WATCH_FACE_CALLOUT,
+                                os::eventq_dflt_get().unwrap(),
+                                Some(watch_face_callback), ptr::null_mut());
+        }
+        let rc =
+            unsafe {
+                os::os_callout_reset(&mut WATCH_FACE_CALLOUT,
+                                     os::OS_TICKS_PER_SEC * 60)
+            };
+        if !(rc == 0) { ::core::panicking::panic("Timer fail") };
+        Ok(())
     }
+    /// Timer callback that is called every minute
+    extern fn watch_face_callback(_ev: *mut os::os_event) {
+        console::print("Update Rust watch face...\n");
+        console::flush();
+        let time = get_system_time().expect("Can't get system time");
+        let state =
+            WatchFaceState{time,
+                           millivolts: 0,
+                           charging: true,
+                           powered: true,
+                           ble_state: BleState::BLEMAN_BLE_STATE_CONNECTED,};
+        update_widgets(unsafe { &WATCH_FACE_WIDGETS },
+                       &state).expect("Update Watch Face fail");
+        let rc = unsafe { pinetime_lvgl_mynewt_render() };
+        if !(rc == 0) { ::core::panicking::panic("LVGL render fail") };
+        let rc =
+            unsafe {
+                os::os_callout_reset(&mut WATCH_FACE_CALLOUT,
+                                     os::OS_TICKS_PER_SEC * 60)
+            };
+        if !(rc == 0) { ::core::panicking::panic("Timer fail") };
+    }
+    /// Get the system time
+    pub fn get_system_time() -> MynewtResult<WatchFaceTime> {
+        static mut TV: os::os_timeval =
+            unsafe {
+                ::core::mem::transmute::<[u8; ::core::mem::size_of::<os::os_timeval>()],
+                                         os::os_timeval>([0;
+                                                             ::core::mem::size_of::<os::os_timeval>()])
+            };
+        static mut TZ: os::os_timezone =
+            unsafe {
+                ::core::mem::transmute::<[u8; ::core::mem::size_of::<os::os_timezone>()],
+                                         os::os_timezone>([0;
+                                                              ::core::mem::size_of::<os::os_timezone>()])
+            };
+        let rc = unsafe { os::os_gettimeofday(&mut TV, &mut TZ) };
+        if !(rc == 0) { ::core::panicking::panic("Can't get time") };
+        static mut CT: clocktime =
+            unsafe {
+                ::core::mem::transmute::<[u8; ::core::mem::size_of::<clocktime>()],
+                                         clocktime>([0;
+                                                        ::core::mem::size_of::<clocktime>()])
+            };
+        let rc = unsafe { timeval_to_clocktime(&TV, &TZ, &mut CT) };
+        if !(rc == 0) { ::core::panicking::panic("Can't convert time") };
+        let result =
+            unsafe {
+                WatchFaceTime{year: CT.year as u16,
+                              month: CT.mon as u8,
+                              dayofmonth: CT.day as u8,
+                              hour: CT.hour as u8,
+                              minute: CT.min as u8,
+                              second: CT.sec as u8,
+                              fracs: 0,
+                              dayofweek: CT.dow as u8,}
+            };
+        Ok(result)
+    }
+    /// Get month short name
+    pub fn get_month_name(time: &WatchFaceTime) -> String {
+        match time.month {
+            1 => String::from("JAN"),
+            2 => String::from("FEB"),
+            3 => String::from("MAR"),
+            4 => String::from("APR"),
+            5 => String::from("MAY"),
+            6 => String::from("JUN"),
+            7 => String::from("JUL"),
+            8 => String::from("AUG"),
+            9 => String::from("SEP"),
+            10 => String::from("OCT"),
+            11 => String::from("NOV"),
+            12 => String::from("DEC"),
+            _ => String::from("???"),
+        }
+    }
+    /// Convert battery voltage to percentage
+    pub fn convert_battery_voltage(_voltage: u32) -> i32 { 50 }
+    /// Timer that is triggered every minute to update the watch face
+    static mut WATCH_FACE_CALLOUT: os::os_callout =
+        unsafe {
+            ::core::mem::transmute::<[u8; ::core::mem::size_of::<os::os_callout>()],
+                                     os::os_callout>([0;
+                                                         ::core::mem::size_of::<os::os_callout>()])
+        };
+    /// LVGL Widgets for the watch face
+    static mut WATCH_FACE_WIDGETS: WatchFaceWidgets =
+        unsafe {
+            ::core::mem::transmute::<[u8; ::core::mem::size_of::<WatchFaceWidgets>()],
+                                     WatchFaceWidgets>([0;
+                                                           ::core::mem::size_of::<WatchFaceWidgets>()])
+        };
     /// Create a new String
     const fn new_string() -> String {
         heapless::String(heapless::i::String::new())
@@ -915,7 +1023,7 @@ mod watch_face {
     #[repr(C)]
     pub struct WatchFaceState {
         pub ble_state: BleState,
-        pub time: controller_time_spec_t,
+        pub time: WatchFaceTime,
         pub millivolts: u32,
         pub charging: bool,
         pub powered: bool,
@@ -963,8 +1071,7 @@ mod watch_face {
         }
     }
     #[repr(C)]
-    #[allow(non_camel_case_types)]
-    pub struct controller_time_spec_t {
+    pub struct WatchFaceTime {
         pub year: u16,
         pub month: u8,
         pub dayofmonth: u8,
@@ -972,17 +1079,53 @@ mod watch_face {
         pub minute: u8,
         pub second: u8,
         pub fracs: u8,
+        pub dayofweek: u8,
     }
-    /// Import C APIs
+    /// Create the Watch Face, populated with widgets. Called by _screen_time_create() in screen_time.c.
+    #[no_mangle]
+    extern "C" fn create_watch_face(widgets: *mut WatchFaceWidgets) -> i32 {
+        if !!widgets.is_null() { ::core::panicking::panic("widgets null") };
+        unsafe { create_widgets(&mut *widgets) }.expect("create_screen fail");
+        0
+    }
+    /// Populate the Watch Face with the current status. Called by _screen_time_update_screen() in screen_time.c.
+    #[no_mangle]
+    extern "C" fn update_watch_face(widgets: *const WatchFaceWidgets,
+                                    state: *const WatchFaceState) -> i32 {
+        if !!widgets.is_null() { ::core::panicking::panic("widgets null") };
+        unsafe {
+            update_widgets(&*widgets, &*state)
+        }.expect("update_widgets fail");
+        0
+    }
     extern {
-        fn hal_battery_get_percentage(voltage: u32)
+        /// Render the LVGL display. Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
+        fn pinetime_lvgl_mynewt_render()
         -> i32;
-        fn controller_time_month_get_short_name(time:
-                                                    *const controller_time_spec_t)
-        -> *const ::cty::c_char;
-        /// Style for the Time Label. TODO: Sync with widgets/home_time/screen_time.c
+        /// Convert timeval to clocktime. From https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h
+        fn timeval_to_clocktime(tv: *const os::os_timeval,
+                                tz: *const os::os_timezone,
+                                ct: *mut clocktime)
+        -> i32;
+        /// Get active screen for LVGL display. From LVGL.
+        fn lv_disp_get_scr_act(disp: *mut obj::lv_disp_t)
+        -> *mut obj::lv_obj_t;
+        /// Style for the Time Label
         #[allow(dead_code)]
         static style_time: obj::lv_style_t ;
+    }
+    /// Mynewt Clock Time. From https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h
+    #[repr(C)]
+    #[allow(non_camel_case_types)]
+    pub struct clocktime {
+        pub year: i32,
+        pub mon: i32,
+        pub day: i32,
+        pub hour: i32,
+        pub min: i32,
+        pub sec: i32,
+        pub dow: i32,
+        pub usec: i32,
     }
 }
 use core::panic::PanicInfo;
@@ -998,23 +1141,12 @@ pub fn handle_touch(_x: u16, _y: u16) {
 extern "C" fn main() -> ! {
     mynewt::sysinit();
     extern {
-        fn create_watch_face()
-        -> i32;
-    }
-    let rc = unsafe { create_watch_face() };
-    if !(rc == 0) { ::core::panicking::panic("Watch Face fail") };
-    extern {
-        fn pinetime_lvgl_mynewt_render()
-        -> i32;
-    }
-    let rc = unsafe { pinetime_lvgl_mynewt_render() };
-    if !(rc == 0) { ::core::panicking::panic("LVGL render fail") };
-    extern {
         fn start_ble()
         -> i32;
     }
     let rc = unsafe { start_ble() };
     if !(rc == 0) { ::core::panicking::panic("BLE fail") };
+    watch_face::start_watch_face().expect("Watch Face fail");
     loop  {
         os::eventq_run(os::eventq_dflt_get().expect("GET fail")).expect("RUN fail");
     }
@@ -1033,9 +1165,19 @@ fn panic(info: &PanicInfo) -> ! {
         console::print("\n");
         console::flush();
     } else { console::print("no loc\n"); console::flush(); }
+    if unsafe { !IN_PANIC } {
+        unsafe { IN_PANIC = true };
+        let payload = info.payload().downcast_ref::<&str>().unwrap();
+        console::print(payload);
+        console::print("\n");
+        console::flush();
+    }
     bkpt();
-    console::print(info.payload().downcast_ref::<&str>().unwrap());
-    console::print("\n");
-    console::flush();
+    extern {
+        fn HardFault_Handler();
+    }
+    unsafe { HardFault_Handler() };
     loop  { }
 }
+/// Set to true if we are already in the panic handler
+static mut IN_PANIC: bool = false;
