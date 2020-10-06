@@ -223,8 +223,18 @@ pub fn set_time_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> Myn
 pub fn start_watch_face() -> MynewtResult<()> {
     console::print("Init Rust watch face...\n"); console::flush();
 
-    //  Create the watch face
-    ////unsafe { WATCH_FACE_WIDGETS.screen = lv_scr_act() };
+    //  Get active screen from LVGL. We can't call lv_scr_act() because it's an inline function.
+    /*
+    extern { fn lv_disp_get_scr_act(disp: *mut obj::lv_obj_t) -> *mut obj::lv_obj_t; }
+    unsafe { 
+        WATCH_FACE_WIDGETS.screen = lv_disp_get_scr_act( 
+            obj::disp_get_default()
+                .expect("Failed to get display")
+        );
+    }
+    */
+
+    //  Create the watch face    
     create_widgets(unsafe { &mut WATCH_FACE_WIDGETS }) ? ;
 
     //  Render the watch face
