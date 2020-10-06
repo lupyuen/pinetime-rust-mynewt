@@ -39,7 +39,7 @@ use lvgl::{
 //  Create Watch Face
 
 /// Create the widgets for the Watch Face. Called by start_watch_face() below.
-pub fn create_widgets(widgets: &mut WatchFaceWidgets) -> MynewtResult<()> {
+pub fn create_watch_face(widgets: &mut WatchFaceWidgets) -> MynewtResult<()> {
     //  Fetch the screen, which will be the parent of the widgets
     let scr = widgets.screen;
     assert!(!scr.is_null(), "null screen");
@@ -101,7 +101,7 @@ pub fn create_widgets(widgets: &mut WatchFaceWidgets) -> MynewtResult<()> {
 //  Update Watch Face
 
 /// Update the widgets in the Watch Face with the current state. Called by watch_face_callback() below.
-pub fn update_widgets(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
+pub fn update_watch_face(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
     //  Populate the Time and Date Labels
     set_time_date_labels(widgets, state) ? ;
 
@@ -113,7 +113,7 @@ pub fn update_widgets(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> Myn
     Ok(())
 }
 
-/// Populate the Time and Date Labels with the time and date. Called by update_widgets() above.
+/// Populate the Time and Date Labels with the time and date. Called by update_watch_face() above.
 pub fn set_time_date_labels(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
     //  Create a string buffer to format the time
     static mut TIME_BUF: String = new_string();
@@ -159,7 +159,7 @@ pub fn set_time_date_labels(widgets: &WatchFaceWidgets, state: &WatchFaceState) 
     Ok(())
 }
 
-/// Populate the Bluetooth Label with the Bluetooth status. Called by update_widgets() above.
+/// Populate the Bluetooth Label with the Bluetooth status. Called by update_watch_face() above.
 pub fn set_bt_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
     if state.ble_state == BleState::BLEMAN_BLE_STATE_DISCONNECTED {
         label::set_text(
@@ -194,7 +194,7 @@ pub fn set_bt_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> Mynew
     Ok(())
 }
 
-/// Populate the Power Label with the battery status. Called by update_widgets() above.
+/// Populate the Power Label with the battery status. Called by update_watch_face() above.
 pub fn set_power_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
     let percentage = convert_battery_voltage(state.millivolts);
     let color =              //  Charging color
@@ -233,6 +233,50 @@ pub fn set_power_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> My
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+//  Date Time Functions
+
+/// Get month short name
+pub fn get_month_name(time: &WatchFaceTime) -> String {
+    match time.month {
+        1  => String::from("JAN"),
+        2  => String::from("FEB"),
+        3  => String::from("MAR"),
+        4  => String::from("APR"),
+        5  => String::from("MAY"),
+        6  => String::from("JUN"),
+        7  => String::from("JUL"),
+        8  => String::from("AUG"),
+        9  => String::from("SEP"),
+        10 => String::from("OCT"),
+        11 => String::from("NOV"),
+        12 => String::from("DEC"),
+        _  => String::from("???"),
+    }
+}
+
+/// Get day short name
+pub fn get_day_name(time: &WatchFaceTime) -> String {
+    match time.dayofweek {
+        0  => String::from("SUN"),
+        1  => String::from("MON"),
+        2  => String::from("TUE"),
+        3  => String::from("WED"),
+        4  => String::from("THU"),
+        5  => String::from("FRI"),
+        6  => String::from("SAT"),
+        _  => String::from("???"),
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  Battery Functions
+
+/// Convert battery voltage to percentage
+pub fn convert_battery_voltage(_voltage: u32) -> i32 {
+    50  //  TODO
+}
+
+///////////////////////////////////////////////////////////////////////////////
 //  Mynewt Timer Functions
 
 /// Start rendering the watch face every minute
@@ -248,7 +292,7 @@ pub fn start_watch_face() -> MynewtResult<()> {
     }
 
     //  Create the watch face    
-    create_widgets(unsafe { &mut WATCH_FACE_WIDGETS }) ? ;
+    create_watch_face(unsafe { &mut WATCH_FACE_WIDGETS }) ? ;
 
     //  Render the watch face
     let rc = unsafe { pinetime_lvgl_mynewt_render() };
@@ -293,7 +337,7 @@ extern fn watch_face_callback(_ev: *mut os::os_event) {
     };
 
     //  Update the watch face
-    update_widgets(unsafe { &WATCH_FACE_WIDGETS }, &state)
+    update_watch_face(unsafe { &WATCH_FACE_WIDGETS }, &state)
         .expect("Update Watch Face fail");
 
     //  Render the watch face
@@ -346,47 +390,6 @@ pub fn get_system_time() -> MynewtResult<WatchFaceTime> {
         }
     };
     Ok(result)
-}
-
-/// Get month short name
-pub fn get_month_name(time: &WatchFaceTime) -> String {
-    match time.month {
-        1  => String::from("JAN"),
-        2  => String::from("FEB"),
-        3  => String::from("MAR"),
-        4  => String::from("APR"),
-        5  => String::from("MAY"),
-        6  => String::from("JUN"),
-        7  => String::from("JUL"),
-        8  => String::from("AUG"),
-        9  => String::from("SEP"),
-        10 => String::from("OCT"),
-        11 => String::from("NOV"),
-        12 => String::from("DEC"),
-        _  => String::from("???"),
-    }
-}
-
-/// Get day short name
-pub fn get_day_name(time: &WatchFaceTime) -> String {
-    match time.dayofweek {
-        0  => String::from("SUN"),
-        1  => String::from("MON"),
-        2  => String::from("TUE"),
-        3  => String::from("WED"),
-        4  => String::from("THU"),
-        5  => String::from("FRI"),
-        6  => String::from("SAT"),
-        _  => String::from("???"),
-    }
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//  Battery Functions
-
-/// Convert battery voltage to percentage
-pub fn convert_battery_voltage(_voltage: u32) -> i32 {
-    50  //  TODO
 }
 
 ///////////////////////////////////////////////////////////////////////////////
