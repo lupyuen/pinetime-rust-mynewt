@@ -56,7 +56,7 @@ pub fn create_widgets(widgets: &mut WatchFaceWidgets) -> MynewtResult<()> {
         lbl
     };
 
-    //  Create a label for Date: "05 MAY 2020"
+    //  Create a label for Date: "MON 05 MAY 2020"
     widgets.date_label = {
         let lbl = label::create(scr, ptr::null()) ? ;
         label::set_long_mode(lbl, label::LV_LABEL_LONG_BREAK) ? ;
@@ -132,19 +132,21 @@ pub fn set_time_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> Myn
         ) ? ;
     }
 
-    //  Get the short month name
-    let month_str = get_month_name(&state.time);
+    //  Get the short day name and short month name
+    let day = get_day_name(&state.time);
+    let month = get_month_name(&state.time);
 
     //  Create a string buffer to format the date
     static mut DATE_BUF: String = new_string();
-    //  Format the date as "22 MAY 2020" and set the label
+    //  Format the date as "MON 22 MAY 2020" and set the label
     unsafe {  //  Unsafe because DATE_BUF is a mutable static
         DATE_BUF.clear();
         write!(
             &mut DATE_BUF, 
-            "{} {} {}\n\0",  //  Must terminate Rust strings with null
+            "{} {} {} {}\n\0",  //  Must terminate Rust strings with null
+            day,
             state.time.dayofmonth,
-            month_str,
+            month,
             state.time.year
         ).expect("date fail");
         label::set_text(
@@ -306,6 +308,15 @@ extern fn watch_face_callback(_ev: *mut os::os_event) {
     assert!(rc == 0, "Timer fail");
 }
 
+/// Timer that is triggered every minute to update the watch face
+static mut WATCH_FACE_CALLOUT: os::os_callout = fill_zero!(os::os_callout);
+
+/// LVGL Widgets for the watch face
+static mut WATCH_FACE_WIDGETS: WatchFaceWidgets = fill_zero!(WatchFaceWidgets);
+
+///////////////////////////////////////////////////////////////////////////////
+//  Date Time Functions
+
 /// Get the system time
 pub fn get_system_time() -> MynewtResult<WatchFaceTime> {
     //  Get the system time
@@ -354,16 +365,27 @@ pub fn get_month_name(time: &WatchFaceTime) -> String {
     }
 }
 
+/// Get day short name
+pub fn get_day_name(time: &WatchFaceTime) -> String {
+    match time.dayofweek {
+        0  => String::from("SUN"),
+        1  => String::from("MON"),
+        2  => String::from("TUE"),
+        3  => String::from("WED"),
+        4  => String::from("THU"),
+        5  => String::from("FRI"),
+        6  => String::from("SAT"),
+        _  => String::from("???"),
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  Battery Functions
+
 /// Convert battery voltage to percentage
 pub fn convert_battery_voltage(_voltage: u32) -> i32 {
     50  //  TODO
 }
-
-/// Timer that is triggered every minute to update the watch face
-static mut WATCH_FACE_CALLOUT: os::os_callout = fill_zero!(os::os_callout);
-
-/// LVGL Widgets for the watch face
-static mut WATCH_FACE_WIDGETS: WatchFaceWidgets = fill_zero!(WatchFaceWidgets);
 
 ///////////////////////////////////////////////////////////////////////////////
 //  String Definitions
