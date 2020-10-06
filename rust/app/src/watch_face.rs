@@ -224,6 +224,7 @@ pub fn start_watch_face() -> MynewtResult<()> {
     console::print("Init Rust watch face...\n"); console::flush();
 
     //  Create the watch face
+    ////unsafe { WATCH_FACE_WIDGETS.screen = lv_scr_act() };
     create_widgets(unsafe { &mut WATCH_FACE_WIDGETS }) ? ;
 
     //  Render the watch face
