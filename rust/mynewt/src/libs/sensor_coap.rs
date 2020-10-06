@@ -401,6 +401,7 @@ impl Default for sensor_value {
     pub fn sensor_coap_ready() -> bool;
 }
 #[mynewt_macros::safe_wrap(attr)] extern "C" {
+    #[allow(clashing_extern_declarations)] ////TODO
     pub fn init_sensor_post(server: *mut oc_server_handle) -> bool;
 }
 #[mynewt_macros::safe_wrap(attr)] extern "C" {
