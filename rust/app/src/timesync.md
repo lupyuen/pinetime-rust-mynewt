@@ -6,33 +6,35 @@ Let's learn how PineTime syncs the time over Bluetooth LE... And how we build Pi
 
 # Time Sync over Bluetooth LE
 
-TODO
+TODO: Bluetooth LE Current Time Service, Discovering Bluetooth LE Services and Characteristics, Reading Bluetooth LE Characteristics, Decoding Bluetooth LE Current Time
 
 # Getting the Time in C
 
-TODO
+TODO: os_timeval, clocktime and ISO format
 
 # Getting the Time in Rust
 
-TODO
+TODO: WatchFaceTime
 
 # Watch Face in C
 
-TODO
+TODO: Mynewt timer
 
 # Watch Face in Rust
 
-TODO
+TODO: Barebones watch face, LVGL styles
 
 # Porting LVGL to Mynewt
 
-TODO
+TODO: SPI Driver for ST7789 Display Controller
 
 # Rust Wrapper for LVGL
 
-TODO
+TODO: Bindgen, Safe Wrapper Proc Macro
 
 # What's Next
+
+TODO: Bluetooth Time Sync, Rust Watch Faces and LVGL were developed and tested with Remote PineTime
 
 [Check out my PineTime articles](https://lupyuen.github.io)
 
