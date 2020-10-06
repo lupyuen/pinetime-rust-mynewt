@@ -1,6 +1,36 @@
 # Bluetooth Time Sync, Rust Watch Faces and LVGL on PineTime Mynewt
 
-![](https://lupyuen.github.io/images/timesync-title.jpg)
+![PineTime Smart Watch with Bluetooth Time Sync and Rust Watch Face](https://lupyuen.github.io/images/timesync-title.png)
+
+Let's learn we sync the time with PineTime over Bluetooth LE... And build PineTime Watch Faces with Rust and LVGL.
+
+# Time Sync over Bluetooth LE
+
+TODO
+
+# Getting the Time in C
+
+TODO
+
+# Getting the Time in Rust
+
+TODO
+
+# Watch Face in C
+
+TODO
+
+# Watch Face in Rust
+
+TODO
+
+# Porting LVGL to Mynewt
+
+TODO
+
+# Rust Wrapper for LVGL
+
+TODO
 
 # What's Next
 
