@@ -76,7 +76,7 @@
 <p>Let's learn how PineTime syncs the time over Bluetooth LE... And how we build PineTime Watch Faces with Rust and LVGL.</p>
 <h1 id="time-sync-over-bluetooth-le" class="section-header"><a href="#time-sync-over-bluetooth-le">1 Time Sync over Bluetooth LE</a></h1>
 <p>TODO: Bluetooth LE Current Time Service, Discovering Bluetooth LE Services and Characteristics, Reading Bluetooth LE Characteristics, Decoding Bluetooth LE Current Time</p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
+<p>When a peer is connected, discover the services exposed by the peer: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
 <pre><code class="language-c">/**
  * The nimble host executes this callback when a GAP event occurs.  The
  * application associates a GAP event callback with each connection that forms.
@@ -113,32 +113,13 @@ static int bleprph_gap_event(struct ble_gap_event *event, void *arg) {
             }
         }
 </code></pre>
-<pre><code class="language-c">///////////////////////////////////////////////////////////////////////////////
-//  Time Sync. When a BLE connection is established, we read the GATT Characteristic for the Current Time Service of the BLE Peer
-//  Based on https://github.com/apache/mynewt-nimble/blob/master/apps/blecent/src/main.c
-
-#define BLE_GATT_SVC_CTS        (0x1805)  //  GATT Service for Current Time Service
+<p>Time Sync. When a BLE connection is established, we read the GATT Characteristic for the Current Time Service of the BLE Peer</p>
+<p>Based on https://github.com/apache/mynewt-nimble/blob/master/apps/blecent/src/main.c</p>
+<pre><code class="language-c">#define BLE_GATT_SVC_CTS        (0x1805)  //  GATT Service for Current Time Service
 #define BLE_GATT_CHR_CUR_TIME   (0x2A2B)  //  GATT Characteristic for Current Time
-
-static void blecent_read(const struct blepeer *peer);
-static int blecent_on_read(uint16_t conn_handle, const struct ble_gatt_error *error, struct ble_gatt_attr *attr, void *arg);
-static int set_system_time(const struct os_mbuf *om);
-static void print_mbuf(const struct os_mbuf *om);
-
-/// Data Format for Current Time Service. Based on https://github.com/sdalu/mynewt-nimble/blob/495ff291a15306787859a2fe8f2cc8765b546e02/nimble/host/services/cts/src/ble_svc_cts.c
-struct ble_current_time {
-    uint16_t year;
-    uint8_t month;
-    uint8_t day;
-    uint8_t hours;
-    uint8_t minutes;
-    uint8_t secondes;
-    uint8_t day_of_week;
-    uint8_t fraction256;
-    uint8_t adjust_reason;
-} __attribute__((__packed__));
-
-/// Called when GATT Service Discovery of the BLE Peer has completed
+</code></pre>
+<p>When services has been discovered...</p>
+<pre><code class="language-c">/// Called when GATT Service Discovery of the BLE Peer has completed
 static void blecent_on_disc_complete(const struct blepeer *peer, int status, void *arg) {
     if (status != 0) {
         //  Service discovery failed
@@ -159,6 +140,9 @@ err:
     return;
 }
 
+Read the Current Time Characteristic...
+
+```c
 /// Read the GATT Characteristic for Current Time from the BLE Peer
 static void blecent_read(const struct blepeer *peer) {
     //  Find the GATT Characteristic for Current Time Service from the discovered GATT Characteristics
@@ -190,8 +174,9 @@ err:
     //  ble_gap_terminate(peer-&gt;conn_handle, BLE_ERR_REM_USER_CONN_TERM);
     return;
 }
-
-/// Called when Current Time GATT Characteristic has been read
+</code></pre>
+<p>When the Current Time Characteristic has been read...</p>
+<pre><code class="language-c">/// Called when Current Time GATT Characteristic has been read
 static int blecent_on_read(uint16_t conn_handle, const struct ble_gatt_error *error, struct ble_gatt_attr *attr, void *arg) {
     //  Read the current time from the GATT Characteristic
     MODLOG_DFLT_INFO(&quot;Read complete; status=%d conn_handle=%d&quot;, error-&gt;status, conn_handle);
@@ -229,8 +214,23 @@ static int blecent_on_read(uint16_t conn_handle, const struct ble_gatt_error *er
 err:
     return 0;  //  Don't propagate error to system
 }
-
-/// Set system time given the GATT Current Time in Mbuf format. Based on https://github.com/sdalu/mynewt-nimble/blob/495ff291a15306787859a2fe8f2cc8765b546e02/nimble/host/services/cts/src/ble_svc_cts.c
+</code></pre>
+<p>Data Format for Current Time...</p>
+<pre><code class="language-c">/// Data Format for Current Time Service. Based on https://github.com/sdalu/mynewt-nimble/blob/495ff291a15306787859a2fe8f2cc8765b546e02/nimble/host/services/cts/src/ble_svc_cts.c
+struct ble_current_time {
+    uint16_t year;
+    uint8_t month;
+    uint8_t day;
+    uint8_t hours;
+    uint8_t minutes;
+    uint8_t secondes;
+    uint8_t day_of_week;
+    uint8_t fraction256;
+    uint8_t adjust_reason;
+} __attribute__((__packed__));
+</code></pre>
+<p>Set the Mynewt system time...</p>
+<pre><code class="language-c">/// Set system time given the GATT Current Time in Mbuf format. Based on https://github.com/sdalu/mynewt-nimble/blob/495ff291a15306787859a2fe8f2cc8765b546e02/nimble/host/services/cts/src/ble_svc_cts.c
 static int set_system_time(const struct os_mbuf *om) {
     //  Verify the Mbuf size
     uint16_t om_len = OS_MBUF_PKTLEN(om);
@@ -269,18 +269,6 @@ static int set_system_time(const struct os_mbuf *om) {
     rc = clocktime_to_timeval(&amp;ct, &amp;tz, &amp;tv);
     if (rc != 0) { return BLE_ATT_ERR_UNLIKELY; }
 
-#ifdef NOTUSED
-    //  Set the system date and time, ignoring the day of week
-    if (current_time.day_of_week) {
-        if (timeval_to_clocktime(&amp;tv, &amp;tz, &amp;ct)) {
-            return BLE_ATT_ERR_UNLIKELY;
-        }
-        if (ct.dow != (cts_current_time.day_of_week % 7)) {
-            rc = 0x80;  //  Data field ignored
-        }
-    }
-#endif  //  NOTUSED
-
     //  Set the system time
     rc = os_settimeofday(&amp;tv, NULL);
     if (rc != 0) { return BLE_ATT_ERR_UNLIKELY; }
@@ -295,13 +283,12 @@ static int set_system_time(const struct os_mbuf *om) {
 <span class="ident">BLE</span> <span class="ident">started</span>
 <span class="ident">Render</span> <span class="ident">LVGL</span> <span class="ident">display</span>...
 <span class="ident">Flush</span> <span class="ident">display</span>: <span class="ident">left</span><span class="op">=</span><span class="number">63</span>, <span class="ident">top</span><span class="op">=</span><span class="number">27</span>, <span class="ident">right</span><span class="op">=</span><span class="number">196</span>, <span class="ident">bottom</span><span class="op">=</span><span class="number">42</span>...
-<span class="ident">connection</span> <span class="ident">established</span>; <span class="ident">status</span><span class="op">=</span><span class="number">0</span> <span class="ident">handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr</span><span class="op">=</span> <span class="ident">our_id_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_id_addr</span><span class="op">=</span> <span class="ident">peer_ota_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">peer_ota_addr</span><span class="op">=</span> <span class="ident">peer_id_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">peer_id_addr</span><span class="op">=</span> <span class="ident">conn_itvl</span><span class="op">=</span><span class="number">36</span> <span class="ident">conn_latency</span><span class="op">=</span><span class="number">0</span> <span class="ident">supervision_timeout</span><span class="op">=</span><span class="number">500</span> <span class="ident">encrypted</span><span class="op">=</span><span class="number">0</span> <span class="ident">authenticated</span><span class="op">=</span><span class="number">0</span> <span class="ident">bonded</span><span class="op">=</span><span class="number">0</span>
-<span class="ident">connection</span> <span class="ident">updated</span>; <span class="ident">status</span><span class="op">=</span><span class="number">0</span> <span class="ident">handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr</span><span class="op">=</span> <span class="ident">our_id_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_id_addr</span><span class="op">=</span> <span class="ident">peer_ota_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">peer_ota_addr</span><span class="op">=</span> <span class="ident">peer_id_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">peer_id_addr</span><span class="op">=</span> <span class="ident">conn_itvl</span><span class="op">=</span><span class="number">6</span> <span class="ident">conn_latency</span><span class="op">=</span><span class="number">0</span> <span class="ident">supervision_timeout</span><span class="op">=</span><span class="number">500</span> <span class="ident">encrypted</span><span class="op">=</span><span class="number">0</span> <span class="ident">authenticated</span><span class="op">=</span><span class="number">0</span> <span class="ident">bonded</span><span class="op">=</span><span class="number">0</span>
+<span class="ident">connection</span> <span class="ident">established</span>;
+<span class="ident">connection</span> <span class="ident">updated</span>; 
 <span class="ident">Service</span> <span class="ident">discovery</span> <span class="ident">complete</span>; <span class="ident">status</span><span class="op">=</span><span class="number">0</span> <span class="ident">conn_handle</span><span class="op">=</span><span class="number">1</span>
 <span class="ident">Read</span> <span class="ident">complete</span>; <span class="ident">status</span><span class="op">=</span><span class="number">0</span> <span class="ident">conn_handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">attr_handle</span><span class="op">=</span><span class="number">67</span> <span class="ident">value</span><span class="op">=</span><span class="ident">e4</span> <span class="number">07</span> <span class="number">0a</span> <span class="number">04</span> <span class="number">0e</span> <span class="number">05</span> <span class="number">29</span> <span class="number">07</span> <span class="number">87</span> <span class="number">00</span> 
 <span class="ident">Current</span> <span class="ident">Time</span>: <span class="number">2020</span><span class="op">-</span><span class="number">10</span><span class="op">-</span><span class="number">04T14</span>:<span class="number">05</span>:<span class="number">41.527343</span><span class="op">+</span><span class="number">00</span>:<span class="number">00</span>
-<span class="ident">connection</span> <span class="ident">updated</span>; <span class="ident">status</span><span class="op">=</span><span class="number">0</span> <span class="ident">handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr</span><span class="op">=</span> <span class="ident">our_id_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_id_addr</span><span class="op">=</span> <span class="ident">peer_ota_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">peer_ota_addr</span><span class="op">=</span> <span class="ident">peer_id_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">peer_id_addr</span><span class="op">=</span> <span class="ident">conn_itvl</span><span class="op">=</span><span class="number">36</span> <span class="ident">conn_latency</span><span class="op">=</span><span class="number">0</span> <span class="ident">supervision_timeout</span><span class="op">=</span><span class="number">500</span> <span class="ident">encrypted</span><span class="op">=</span><span class="number">0</span> <span class="ident">authenticated</span><span class="op">=</span><span class="number">0</span> <span class="ident">bonded</span><span class="op">=</span><span class="number">0</span>
-<span class="ident">disconnect</span>; <span class="ident">reason</span><span class="op">=</span><span class="number">531</span> <span class="ident">handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr</span><span class="op">=</span> <span class="ident">our_id_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_id_addr</span><span class="op">=</span> <span class="ident">peer_ota_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">peer_ota_addr</span><span class="op">=</span> <span class="ident">peer_id_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">peer_id_addr</span><span class="op">=</span> <span class="ident">conn_itvl</span><span class="op">=</span><span class="number">36</span> <span class="ident">conn_latency</span><span class="op">=</span><span class="number">0</span> <span class="ident">supervision_timeout</span><span class="op">=</span><span class="number">500</span> <span class="ident">encrypted</span><span class="op">=</span><span class="number">0</span> <span class="ident">authenticated</span><span class="op">=</span><span class="number">0</span> <span class="ident">bonded</span><span class="op">=</span><span class="number">0</span>
+...
 <span class="ident">Render</span> <span class="ident">LVGL</span> <span class="ident">display</span>...
 <span class="ident">Flush</span> <span class="ident">display</span>: <span class="ident">left</span><span class="op">=</span><span class="number">60</span>, <span class="ident">top</span><span class="op">=</span><span class="number">27</span>, <span class="ident">right</span><span class="op">=</span><span class="number">183</span>, <span class="ident">bottom</span><span class="op">=</span><span class="number">42</span>...
 ...
@@ -312,10 +299,60 @@ static int set_system_time(const struct os_mbuf *om) {
 <span class="ident">Flush</span> <span class="ident">display</span>: <span class="ident">left</span><span class="op">=</span><span class="number">59</span>, <span class="ident">top</span><span class="op">=</span><span class="number">27</span>, <span class="ident">right</span><span class="op">=</span><span class="number">180</span>, <span class="ident">bottom</span><span class="op">=</span><span class="number">42</span>...</pre></div>
 <h1 id="get-the-time-in-c" class="section-header"><a href="#get-the-time-in-c">2 Get the Time in C</a></h1>
 <p>TODO: os_timeval, clocktime and ISO format, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c"><code>my_sensor_app/src/watch_face.c</code></a></p>
+<pre><code class="language-c">//  Get the system time
+struct os_timeval tv;
+struct os_timezone tz;
+int rc = os_gettimeofday(&amp;tv, &amp;tz);
+if (rc != 0) { console_printf(&quot;Can't get time: %d\n&quot;, rc); return 2; }
+
+//  Convert the time
+struct clocktime ct;
+rc = timeval_to_clocktime(&amp;tv, &amp;tz, &amp;ct);
+if (rc != 0) { console_printf(&quot;Can't convert time: %d\n&quot;, rc); return 3; }
+
+//  Format the time as 2020-10-04T13:20:26.839843+00:00
+char buf[50];
+rc = datetime_format(&amp;tv, &amp;tz, buf, sizeof(buf));
+if (rc != 0) { console_printf(&quot;Can't format time: %d\n&quot;, rc); return 4; }
+
+//  Truncate after minute: 2020-10-04T13:20
+buf[16] = 0;
+</code></pre>
 <h1 id="get-the-time-in-rust" class="section-header"><a href="#get-the-time-in-rust">3 Get the Time in Rust</a></h1>
 <p>TODO: WatchFaceTime, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/watch_face.rs"><code>rust/app/src/watch_face.rs</code></a></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Get the system time</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_system_time</span>() <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span><span class="ident">WatchFaceTime</span><span class="op">&gt;</span> {
+    <span class="comment">//  Get the system time</span>
+    <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">TV</span>: <span class="ident">os</span>::<span class="ident">os_timeval</span>  <span class="op">=</span> <span class="macro">fill_zero</span><span class="macro">!</span>(<span class="ident">os</span>::<span class="ident">os_timeval</span>);
+    <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">TZ</span>: <span class="ident">os</span>::<span class="ident">os_timezone</span> <span class="op">=</span> <span class="macro">fill_zero</span><span class="macro">!</span>(<span class="ident">os</span>::<span class="ident">os_timezone</span>);
+    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">os</span>::<span class="ident">os_gettimeofday</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">TV</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">TZ</span>) };
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Can&#39;t get time&quot;</span>);    
+
+    <span class="comment">//  Convert the time</span>
+    <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">CT</span>: <span class="ident">clocktime</span> <span class="op">=</span> <span class="macro">fill_zero</span><span class="macro">!</span>(<span class="ident">clocktime</span>);
+    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">timeval_to_clocktime</span>(<span class="kw-2">&amp;</span><span class="ident">TV</span>, <span class="kw-2">&amp;</span><span class="ident">TZ</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">CT</span>) };
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Can&#39;t convert time&quot;</span>);
+
+    <span class="comment">//  Return the time</span>
+    <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because CT is a mutable static</span>
+        <span class="ident">WatchFaceTime</span> {
+            <span class="ident">year</span>:       <span class="ident">CT</span>.<span class="ident">year</span> <span class="kw">as</span> <span class="ident">u16</span>,  <span class="comment">//  Year (4 digit year)</span>
+            <span class="ident">month</span>:      <span class="ident">CT</span>.<span class="ident">mon</span>  <span class="kw">as</span> <span class="ident">u8</span>,   <span class="comment">//  Month (1 - 12)</span>
+            <span class="ident">dayofmonth</span>: <span class="ident">CT</span>.<span class="ident">day</span>  <span class="kw">as</span> <span class="ident">u8</span>,   <span class="comment">//  Day (1 - 31)</span>
+            <span class="ident">hour</span>:       <span class="ident">CT</span>.<span class="ident">hour</span> <span class="kw">as</span> <span class="ident">u8</span>,   <span class="comment">//  Hour (0 - 23)</span>
+            <span class="ident">minute</span>:     <span class="ident">CT</span>.<span class="ident">min</span>  <span class="kw">as</span> <span class="ident">u8</span>,   <span class="comment">//  Minute (0 - 59)</span>
+            <span class="ident">second</span>:     <span class="ident">CT</span>.<span class="ident">sec</span>  <span class="kw">as</span> <span class="ident">u8</span>,   <span class="comment">//  Second (0 - 59)</span>
+            <span class="ident">fracs</span>:      <span class="number">0</span>,               <span class="comment">//  Unused</span>
+            <span class="ident">dayofweek</span>:  <span class="ident">CT</span>.<span class="ident">dow</span>  <span class="kw">as</span> <span class="ident">u8</span>,   <span class="comment">//  Day of week (0 - 6; 0 = Sunday)</span>
+        }
+    };
+    <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
+}</pre></div>
 <h1 id="watch-face-in-c" class="section-header"><a href="#watch-face-in-c">4 Watch Face in C</a></h1>
 <p>TODO: Mynewt timer, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c"><code>my_sensor_app/src/watch_face.c</code></a></p>
+<p>Create the watch face...</p>
 <pre><code class="language-c">/// Render a watch face. Called by main() in rust/app/src/lib.rs
 int create_watch_face(void) {
     console_printf(&quot;Create watch face...\n&quot;); console_flush();
@@ -342,6 +379,7 @@ int create_watch_face(void) {
     return 0;
 }
 </code></pre>
+<p>Update the watch face...</p>
 <pre><code class="language-c">/// Update the watch face
 int update_watch_face(void) {
     //  If button or label not created, quit
@@ -371,6 +409,7 @@ int update_watch_face(void) {
     return 0;
 }
 </code></pre>
+<p>Callback every minute...</p>
 <pre><code class="language-c">/// Timer callback that is called every minute
 static void watch_face_callback(struct os_event *ev) {
     assert(ev != NULL);
@@ -390,6 +429,49 @@ static void watch_face_callback(struct os_event *ev) {
 </code></pre>
 <h1 id="watch-face-in-rust" class="section-header"><a href="#watch-face-in-rust">5 Watch Face in Rust</a></h1>
 <p>TODO: Barebones watch face, LVGL styles, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/watch_face.rs"><code>rust/app/src/watch_face.rs</code></a></p>
+<p>Start the watch face...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Start rendering the watch face every minute</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">start_watch_face</span>() <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;Init Rust watch face...\n&quot;</span>); <span class="ident">console</span>::<span class="ident">flush</span>();
+
+    <span class="comment">//  Get active screen from LVGL. We can&#39;t call lv_scr_act() because it&#39;s an inline function.</span>
+    <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because WATCH_FACE_WIDGETS is a mutable static</span>
+        <span class="ident">WATCH_FACE_WIDGETS</span>.<span class="ident">screen</span> <span class="op">=</span> <span class="ident">lv_disp_get_scr_act</span>( 
+            <span class="ident">obj</span>::<span class="ident">disp_get_default</span>()
+                .<span class="ident">expect</span>(<span class="string">&quot;Failed to get display&quot;</span>)
+        );
+    }
+
+    <span class="comment">//  Create the watch face    </span>
+    <span class="ident">create_widgets</span>(<span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">WATCH_FACE_WIDGETS</span> }) <span class="question-mark">?</span> ;
+
+    <span class="comment">//  Render the watch face</span>
+    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">pinetime_lvgl_mynewt_render</span>() };
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;LVGL render fail&quot;</span>);    
+
+    <span class="comment">//  Set a timer to update the watch face every minute</span>
+    <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because os_callout_init is a Mynewt C function</span>
+        <span class="ident">os</span>::<span class="ident">os_callout_init</span>(
+            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">WATCH_FACE_CALLOUT</span>,         <span class="comment">//  Timer for the watch face</span>
+            <span class="ident">os</span>::<span class="ident">eventq_dflt_get</span>().<span class="ident">unwrap</span>(),  <span class="comment">//  Use default event queue</span>
+            <span class="prelude-val">Some</span>(<span class="ident">watch_face_callback</span>),       <span class="comment">//  Callback function for the timer</span>
+            <span class="ident">ptr</span>::<span class="ident">null_mut</span>()                  <span class="comment">//  No argument</span>
+        );    
+    }
+
+    <span class="comment">//  Trigger the watch face timer in 60 seconds</span>
+    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because os_callout_reset is a Mynewt C function</span>
+        <span class="ident">os</span>::<span class="ident">os_callout_reset</span>(
+            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">WATCH_FACE_CALLOUT</span>,   <span class="comment">//  Timer for the watch face</span>
+            <span class="ident">os</span>::<span class="ident">OS_TICKS_PER_SEC</span> <span class="op">*</span> <span class="number">60</span>  <span class="comment">//  Trigger timer in 60 seconds</span>
+        )
+    };
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Timer fail&quot;</span>);
+    <span class="prelude-val">Ok</span>(())
+}</pre></div>
+<p>Create the widgets...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// Create the widgets for the Watch Face. Called by start_watch_face() below.</span>
@@ -409,6 +491,102 @@ static void watch_face_callback(struct os_event *ev) {
         <span class="ident">obj</span>::<span class="ident">align</span>(          <span class="ident">lbl</span>, <span class="ident">scr</span>, <span class="ident">obj</span>::<span class="ident">LV_ALIGN_CENTER</span>, <span class="number">0</span>, <span class="op">-</span><span class="number">30</span>) <span class="question-mark">?</span> ;    
         <span class="ident">lbl</span>
     };</pre></div>
+<p>Callback every minute...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Timer callback that is called every minute</span>
+<span class="kw">extern</span> <span class="kw">fn</span> <span class="ident">watch_face_callback</span>(<span class="ident">_ev</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">os</span>::<span class="ident">os_event</span>) {
+    <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;Update Rust watch face...\n&quot;</span>); <span class="ident">console</span>::<span class="ident">flush</span>();
+
+    <span class="comment">//  Get the system time    </span>
+    <span class="kw">let</span> <span class="ident">time</span> <span class="op">=</span> <span class="ident">get_system_time</span>()
+        .<span class="ident">expect</span>(<span class="string">&quot;Can&#39;t get system time&quot;</span>);
+
+    <span class="comment">//  Compose the watch face state</span>
+    <span class="kw">let</span> <span class="ident">state</span> <span class="op">=</span> <span class="ident">WatchFaceState</span> {
+        <span class="ident">time</span>,
+        <span class="ident">millivolts</span>: <span class="number">0</span>,     <span class="comment">//  TODO: Get current voltage</span>
+        <span class="ident">charging</span>:   <span class="bool-val">true</span>,  <span class="comment">//  TODO: Get charging status</span>
+        <span class="ident">powered</span>:    <span class="bool-val">true</span>,  <span class="comment">//  TODO: Get powered status</span>
+        <span class="ident">ble_state</span>:  <span class="ident">BleState</span>::<span class="ident">BLEMAN_BLE_STATE_CONNECTED</span>,  <span class="comment">//  TODO: Get BLE state</span>
+    };
+
+    <span class="comment">//  Update the watch face</span>
+    <span class="ident">update_widgets</span>(<span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="ident">WATCH_FACE_WIDGETS</span> }, <span class="kw-2">&amp;</span><span class="ident">state</span>)
+        .<span class="ident">expect</span>(<span class="string">&quot;Update Watch Face fail&quot;</span>);
+
+    <span class="comment">//  Render the watch face</span>
+    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">pinetime_lvgl_mynewt_render</span>() };
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;LVGL render fail&quot;</span>);    
+
+    <span class="comment">//  Trigger the watch face timer in 60 seconds</span>
+    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because os_callout_reset is a Mynewt C function</span>
+        <span class="ident">os</span>::<span class="ident">os_callout_reset</span>(
+            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">WATCH_FACE_CALLOUT</span>,   <span class="comment">//  Timer for the watch face</span>
+            <span class="ident">os</span>::<span class="ident">OS_TICKS_PER_SEC</span> <span class="op">*</span> <span class="number">60</span>  <span class="comment">//  Trigger timer in 60 seconds</span>
+        )
+    };
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Timer fail&quot;</span>);
+}</pre></div>
+<p>Update widgets...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Update the widgets in the Watch Face with the current state. Called by watch_face_callback() below.</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">update_widgets</span>(<span class="ident">widgets</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceWidgets</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceState</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="comment">//  Populate the Time Label</span>
+    <span class="ident">set_time_label</span>(<span class="ident">widgets</span>, <span class="ident">state</span>) <span class="question-mark">?</span> ;
+
+    <span class="comment">//  Populate the Bluetooth Label</span>
+    <span class="ident">set_bt_label</span>(<span class="ident">widgets</span>, <span class="ident">state</span>) <span class="question-mark">?</span> ;
+
+    <span class="comment">//  Populate the Power Label</span>
+    <span class="ident">set_power_label</span>(<span class="ident">widgets</span>, <span class="ident">state</span>) <span class="question-mark">?</span> ;
+    <span class="prelude-val">Ok</span>(())
+}</pre></div>
+<p>Populate time and date widgets...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Populate the Time and Date Labels with the time and date. Called by update_widgets() above.</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_time_label</span>(<span class="ident">widgets</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceWidgets</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceState</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="comment">//  Create a string buffer to format the time</span>
+    <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">TIME_BUF</span>: <span class="ident">String</span> <span class="op">=</span> <span class="ident">new_string</span>();
+    <span class="comment">//  Format the time as &quot;12:34&quot; and set the label</span>
+    <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because TIME_BUF is a mutable static</span>
+        <span class="ident">TIME_BUF</span>.<span class="ident">clear</span>();
+        <span class="macro">write</span><span class="macro">!</span>(
+            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">TIME_BUF</span>, 
+            <span class="string">&quot;{:02}:{:02}\0&quot;</span>,  <span class="comment">//  Must terminate Rust strings with null</span>
+            <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">hour</span>,
+            <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">minute</span>
+        ).<span class="ident">expect</span>(<span class="string">&quot;time fail&quot;</span>);
+        <span class="ident">label</span>::<span class="ident">set_text</span>(
+            <span class="ident">widgets</span>.<span class="ident">time_label</span>, 
+            <span class="kw-2">&amp;</span><span class="ident">to_strn</span>(<span class="kw-2">&amp;</span><span class="ident">TIME_BUF</span>)
+        ) <span class="question-mark">?</span> ;
+    }
+
+    <span class="comment">//  Get the short month name</span>
+    <span class="kw">let</span> <span class="ident">month_str</span> <span class="op">=</span> <span class="ident">get_month_name</span>(<span class="kw-2">&amp;</span><span class="ident">state</span>.<span class="ident">time</span>);
+
+    <span class="comment">//  Create a string buffer to format the date</span>
+    <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">DATE_BUF</span>: <span class="ident">String</span> <span class="op">=</span> <span class="ident">new_string</span>();
+    <span class="comment">//  Format the date as &quot;22 MAY 2020&quot; and set the label</span>
+    <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because DATE_BUF is a mutable static</span>
+        <span class="ident">DATE_BUF</span>.<span class="ident">clear</span>();
+        <span class="macro">write</span><span class="macro">!</span>(
+            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">DATE_BUF</span>, 
+            <span class="string">&quot;{} {} {}\n\0&quot;</span>,  <span class="comment">//  Must terminate Rust strings with null</span>
+            <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">dayofmonth</span>,
+            <span class="ident">month_str</span>,
+            <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">year</span>
+        ).<span class="ident">expect</span>(<span class="string">&quot;date fail&quot;</span>);
+        <span class="ident">label</span>::<span class="ident">set_text</span>(
+            <span class="ident">widgets</span>.<span class="ident">date_label</span>, 
+            <span class="kw-2">&amp;</span><span class="ident">to_strn</span>(<span class="kw-2">&amp;</span><span class="ident">DATE_BUF</span>)
+        ) <span class="question-mark">?</span> ;
+    }
+    <span class="prelude-val">Ok</span>(())
+}</pre></div>
 <h1 id="porting-lvgl-to-mynewt" class="section-header"><a href="#porting-lvgl-to-mynewt">6 Porting LVGL to Mynewt</a></h1>
 <p>TODO: SPI Driver for ST7789 Display Controller, <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt"><code>pinetime_lvgl_mynewt</code></a></p>
 <p>Located at <code>libs/pinetime_lvgl_mynewt</code></p>
