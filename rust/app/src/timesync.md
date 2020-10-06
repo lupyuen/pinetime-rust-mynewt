@@ -8,7 +8,7 @@ Let's learn how PineTime syncs the time over Bluetooth LE... And how we build Pi
 
 TODO: Bluetooth LE Current Time Service, Discovering Bluetooth LE Services and Characteristics, Reading Bluetooth LE Characteristics, Decoding Bluetooth LE Current Time
 
-[`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c)
+When a peer is connected, discover the services exposed by the peer: [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c)
 
 ```c
 /**
@@ -48,32 +48,18 @@ static int bleprph_gap_event(struct ble_gap_event *event, void *arg) {
         }
 ```
 
-```c
-///////////////////////////////////////////////////////////////////////////////
-//  Time Sync. When a BLE connection is established, we read the GATT Characteristic for the Current Time Service of the BLE Peer
-//  Based on https://github.com/apache/mynewt-nimble/blob/master/apps/blecent/src/main.c
+Time Sync. When a BLE connection is established, we read the GATT Characteristic for the Current Time Service of the BLE Peer
 
+Based on https://github.com/apache/mynewt-nimble/blob/master/apps/blecent/src/main.c
+
+```c
 #define BLE_GATT_SVC_CTS        (0x1805)  //  GATT Service for Current Time Service
 #define BLE_GATT_CHR_CUR_TIME   (0x2A2B)  //  GATT Characteristic for Current Time
+```
 
-static void blecent_read(const struct blepeer *peer);
-static int blecent_on_read(uint16_t conn_handle, const struct ble_gatt_error *error, struct ble_gatt_attr *attr, void *arg);
-static int set_system_time(const struct os_mbuf *om);
-static void print_mbuf(const struct os_mbuf *om);
+When services has been discovered...
 
-/// Data Format for Current Time Service. Based on https://github.com/sdalu/mynewt-nimble/blob/495ff291a15306787859a2fe8f2cc8765b546e02/nimble/host/services/cts/src/ble_svc_cts.c
-struct ble_current_time {
-    uint16_t year;
-    uint8_t month;
-    uint8_t day;
-    uint8_t hours;
-    uint8_t minutes;
-    uint8_t secondes;
-    uint8_t day_of_week;
-    uint8_t fraction256;
-    uint8_t adjust_reason;
-} __attribute__((__packed__));
-
+```c
 /// Called when GATT Service Discovery of the BLE Peer has completed
 static void blecent_on_disc_complete(const struct blepeer *peer, int status, void *arg) {
     if (status != 0) {
@@ -95,6 +81,9 @@ err:
     return;
 }
 
+Read the Current Time Characteristic...
+
+```c
 /// Read the GATT Characteristic for Current Time from the BLE Peer
 static void blecent_read(const struct blepeer *peer) {
     //  Find the GATT Characteristic for Current Time Service from the discovered GATT Characteristics
@@ -126,7 +115,11 @@ err:
     //  ble_gap_terminate(peer->conn_handle, BLE_ERR_REM_USER_CONN_TERM);
     return;
 }
+```
 
+When the Current Time Characteristic has been read...
+
+```c
 /// Called when Current Time GATT Characteristic has been read
 static int blecent_on_read(uint16_t conn_handle, const struct ble_gatt_error *error, struct ble_gatt_attr *attr, void *arg) {
     //  Read the current time from the GATT Characteristic
@@ -165,7 +158,28 @@ static int blecent_on_read(uint16_t conn_handle, const struct ble_gatt_error *er
 err:
     return 0;  //  Don't propagate error to system
 }
+```
 
+Data Format for Current Time...
+
+```c
+/// Data Format for Current Time Service. Based on https://github.com/sdalu/mynewt-nimble/blob/495ff291a15306787859a2fe8f2cc8765b546e02/nimble/host/services/cts/src/ble_svc_cts.c
+struct ble_current_time {
+    uint16_t year;
+    uint8_t month;
+    uint8_t day;
+    uint8_t hours;
+    uint8_t minutes;
+    uint8_t secondes;
+    uint8_t day_of_week;
+    uint8_t fraction256;
+    uint8_t adjust_reason;
+} __attribute__((__packed__));
+```
+
+Set the Mynewt system time...
+
+```c
 /// Set system time given the GATT Current Time in Mbuf format. Based on https://github.com/sdalu/mynewt-nimble/blob/495ff291a15306787859a2fe8f2cc8765b546e02/nimble/host/services/cts/src/ble_svc_cts.c
 static int set_system_time(const struct os_mbuf *om) {
     //  Verify the Mbuf size
@@ -205,18 +219,6 @@ static int set_system_time(const struct os_mbuf *om) {
     rc = clocktime_to_timeval(&ct, &tz, &tv);
     if (rc != 0) { return BLE_ATT_ERR_UNLIKELY; }
 
-#ifdef NOTUSED
-    //  Set the system date and time, ignoring the day of week
-    if (current_time.day_of_week) {
-        if (timeval_to_clocktime(&tv, &tz, &ct)) {
-            return BLE_ATT_ERR_UNLIKELY;
-        }
-        if (ct.dow != (cts_current_time.day_of_week % 7)) {
-            rc = 0x80;  //  Data field ignored
-        }
-    }
-#endif  //  NOTUSED
-
     //  Set the system time
     rc = os_settimeofday(&tv, NULL);
     if (rc != 0) { return BLE_ATT_ERR_UNLIKELY; }
@@ -233,13 +235,12 @@ Starting BLE...
 BLE started
 Render LVGL display...
 Flush display: left=63, top=27, right=196, bottom=42...
-connection established; status=0 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=1 peer_ota_addr= peer_id_addr_type=1 peer_id_addr= conn_itvl=36 conn_latency=0 supervision_timeout=500 encrypted=0 authenticated=0 bonded=0
-connection updated; status=0 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=1 peer_ota_addr= peer_id_addr_type=1 peer_id_addr= conn_itvl=6 conn_latency=0 supervision_timeout=500 encrypted=0 authenticated=0 bonded=0
+connection established;
+connection updated; 
 Service discovery complete; status=0 conn_handle=1
 Read complete; status=0 conn_handle=1 attr_handle=67 value=e4 07 0a 04 0e 05 29 07 87 00 
 Current Time: 2020-10-04T14:05:41.527343+00:00
-connection updated; status=0 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=1 peer_ota_addr= peer_id_addr_type=1 peer_id_addr= conn_itvl=36 conn_latency=0 supervision_timeout=500 encrypted=0 authenticated=0 bonded=0
-disconnect; reason=531 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=1 peer_ota_addr= peer_id_addr_type=1 peer_id_addr= conn_itvl=36 conn_latency=0 supervision_timeout=500 encrypted=0 authenticated=0 bonded=0
+...
 Render LVGL display...
 Flush display: left=60, top=27, right=183, bottom=42...
 ...
@@ -254,13 +255,67 @@ Flush display: left=59, top=27, right=180, bottom=42...
 
 TODO: os_timeval, clocktime and ISO format, [`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c)
 
+```c
+//  Get the system time
+struct os_timeval tv;
+struct os_timezone tz;
+int rc = os_gettimeofday(&tv, &tz);
+if (rc != 0) { console_printf("Can't get time: %d\n", rc); return 2; }
+
+//  Convert the time
+struct clocktime ct;
+rc = timeval_to_clocktime(&tv, &tz, &ct);
+if (rc != 0) { console_printf("Can't convert time: %d\n", rc); return 3; }
+
+//  Format the time as 2020-10-04T13:20:26.839843+00:00
+char buf[50];
+rc = datetime_format(&tv, &tz, buf, sizeof(buf));
+if (rc != 0) { console_printf("Can't format time: %d\n", rc); return 4; }
+
+//  Truncate after minute: 2020-10-04T13:20
+buf[16] = 0;
+```
+
 # Get the Time in Rust
 
 TODO: WatchFaceTime, [`rust/app/src/watch_face.rs`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/watch_face.rs)
 
+```rust
+/// Get the system time
+pub fn get_system_time() -> MynewtResult<WatchFaceTime> {
+    //  Get the system time
+    static mut TV: os::os_timeval  = fill_zero!(os::os_timeval);
+    static mut TZ: os::os_timezone = fill_zero!(os::os_timezone);
+    let rc = unsafe { os::os_gettimeofday(&mut TV, &mut TZ) };
+    assert!(rc == 0, "Can't get time");    
+
+    //  Convert the time
+    static mut CT: clocktime = fill_zero!(clocktime);
+    let rc = unsafe { timeval_to_clocktime(&TV, &TZ, &mut CT) };
+    assert!(rc == 0, "Can't convert time");
+
+    //  Return the time
+    let result = unsafe {  //  Unsafe because CT is a mutable static
+        WatchFaceTime {
+            year:       CT.year as u16,  //  Year (4 digit year)
+            month:      CT.mon  as u8,   //  Month (1 - 12)
+            dayofmonth: CT.day  as u8,   //  Day (1 - 31)
+            hour:       CT.hour as u8,   //  Hour (0 - 23)
+            minute:     CT.min  as u8,   //  Minute (0 - 59)
+            second:     CT.sec  as u8,   //  Second (0 - 59)
+            fracs:      0,               //  Unused
+            dayofweek:  CT.dow  as u8,   //  Day of week (0 - 6; 0 = Sunday)
+        }
+    };
+    Ok(result)
+}
+```
+
 # Watch Face in C
 
 TODO: Mynewt timer, [`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c)
+
+Create the watch face...
 
 ```c
 /// Render a watch face. Called by main() in rust/app/src/lib.rs
@@ -289,6 +344,8 @@ int create_watch_face(void) {
     return 0;
 }
 ```
+
+Update the watch face...
 
 ```c
 /// Update the watch face
@@ -321,6 +378,8 @@ int update_watch_face(void) {
 }
 ```
 
+Callback every minute...
+
 ```c
 /// Timer callback that is called every minute
 static void watch_face_callback(struct os_event *ev) {
@@ -344,6 +403,52 @@ static void watch_face_callback(struct os_event *ev) {
 
 TODO: Barebones watch face, LVGL styles, [`rust/app/src/watch_face.rs`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/watch_face.rs)
 
+Start the watch face...
+
+```rust
+/// Start rendering the watch face every minute
+pub fn start_watch_face() -> MynewtResult<()> {
+    console::print("Init Rust watch face...\n"); console::flush();
+
+    //  Get active screen from LVGL. We can't call lv_scr_act() because it's an inline function.
+    unsafe {  //  Unsafe because WATCH_FACE_WIDGETS is a mutable static
+        WATCH_FACE_WIDGETS.screen = lv_disp_get_scr_act( 
+            obj::disp_get_default()
+                .expect("Failed to get display")
+        );
+    }
+
+    //  Create the watch face    
+    create_widgets(unsafe { &mut WATCH_FACE_WIDGETS }) ? ;
+
+    //  Render the watch face
+    let rc = unsafe { pinetime_lvgl_mynewt_render() };
+    assert!(rc == 0, "LVGL render fail");    
+
+    //  Set a timer to update the watch face every minute
+    unsafe {  //  Unsafe because os_callout_init is a Mynewt C function
+        os::os_callout_init(
+            &mut WATCH_FACE_CALLOUT,         //  Timer for the watch face
+            os::eventq_dflt_get().unwrap(),  //  Use default event queue
+            Some(watch_face_callback),       //  Callback function for the timer
+            ptr::null_mut()                  //  No argument
+        );    
+    }
+
+    //  Trigger the watch face timer in 60 seconds
+    let rc = unsafe {  //  Unsafe because os_callout_reset is a Mynewt C function
+        os::os_callout_reset(
+            &mut WATCH_FACE_CALLOUT,   //  Timer for the watch face
+            os::OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
+        )
+    };
+    assert!(rc == 0, "Timer fail");
+    Ok(())
+}
+```
+
+Create the widgets...
+
 ```rust
 /// Create the widgets for the Watch Face. Called by start_watch_face() below.
 pub fn create_widgets(widgets: &mut WatchFaceWidgets) -> MynewtResult<()> {
@@ -362,6 +467,108 @@ pub fn create_widgets(widgets: &mut WatchFaceWidgets) -> MynewtResult<()> {
         obj::align(          lbl, scr, obj::LV_ALIGN_CENTER, 0, -30) ? ;    
         lbl
     };
+```
+
+Callback every minute...
+
+```rust
+/// Timer callback that is called every minute
+extern fn watch_face_callback(_ev: *mut os::os_event) {
+    console::print("Update Rust watch face...\n"); console::flush();
+
+    //  Get the system time    
+    let time = get_system_time()
+        .expect("Can't get system time");
+
+    //  Compose the watch face state
+    let state = WatchFaceState {
+        time,
+        millivolts: 0,     //  TODO: Get current voltage
+        charging:   true,  //  TODO: Get charging status
+        powered:    true,  //  TODO: Get powered status
+        ble_state:  BleState::BLEMAN_BLE_STATE_CONNECTED,  //  TODO: Get BLE state
+    };
+
+    //  Update the watch face
+    update_widgets(unsafe { &WATCH_FACE_WIDGETS }, &state)
+        .expect("Update Watch Face fail");
+
+    //  Render the watch face
+    let rc = unsafe { pinetime_lvgl_mynewt_render() };
+    assert!(rc == 0, "LVGL render fail");    
+
+    //  Trigger the watch face timer in 60 seconds
+    let rc = unsafe {  //  Unsafe because os_callout_reset is a Mynewt C function
+        os::os_callout_reset(
+            &mut WATCH_FACE_CALLOUT,   //  Timer for the watch face
+            os::OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
+        )
+    };
+    assert!(rc == 0, "Timer fail");
+}
+```
+
+Update widgets...
+
+```rust
+/// Update the widgets in the Watch Face with the current state. Called by watch_face_callback() below.
+pub fn update_widgets(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
+    //  Populate the Time Label
+    set_time_label(widgets, state) ? ;
+
+    //  Populate the Bluetooth Label
+    set_bt_label(widgets, state) ? ;
+
+    //  Populate the Power Label
+    set_power_label(widgets, state) ? ;
+    Ok(())
+}
+```
+
+Populate time and date widgets...
+
+```rust
+/// Populate the Time and Date Labels with the time and date. Called by update_widgets() above.
+pub fn set_time_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
+    //  Create a string buffer to format the time
+    static mut TIME_BUF: String = new_string();
+    //  Format the time as "12:34" and set the label
+    unsafe {  //  Unsafe because TIME_BUF is a mutable static
+        TIME_BUF.clear();
+        write!(
+            &mut TIME_BUF, 
+            "{:02}:{:02}\0",  //  Must terminate Rust strings with null
+            state.time.hour,
+            state.time.minute
+        ).expect("time fail");
+        label::set_text(
+            widgets.time_label, 
+            &to_strn(&TIME_BUF)
+        ) ? ;
+    }
+
+    //  Get the short month name
+    let month_str = get_month_name(&state.time);
+
+    //  Create a string buffer to format the date
+    static mut DATE_BUF: String = new_string();
+    //  Format the date as "22 MAY 2020" and set the label
+    unsafe {  //  Unsafe because DATE_BUF is a mutable static
+        DATE_BUF.clear();
+        write!(
+            &mut DATE_BUF, 
+            "{} {} {}\n\0",  //  Must terminate Rust strings with null
+            state.time.dayofmonth,
+            month_str,
+            state.time.year
+        ).expect("date fail");
+        label::set_text(
+            widgets.date_label, 
+            &to_strn(&DATE_BUF)
+        ) ? ;
+    }
+    Ok(())
+}
 ```
 
 # Porting LVGL to Mynewt

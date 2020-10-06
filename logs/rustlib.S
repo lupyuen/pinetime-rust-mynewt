@@ -1499,16 +1499,16 @@ SYMBOL TABLE:
 000005f6 l       .debug_str	00000000 
 0000062c l       .debug_str	00000000 
 00000637 l       .debug_str	00000000 
-00000644 l       .debug_str	00000000 
-0000173f l       .debug_str	00000000 
-00001787 l       .debug_str	00000000 
-00001797 l       .debug_str	00000000 
-000017a6 l       .debug_str	00000000 
-000017ef l       .debug_str	00000000 
-000017fe l       .debug_str	00000000 
-00001807 l       .debug_str	00000000 
-00001848 l       .debug_str	00000000 
-00001851 l       .debug_str	00000000 
+00000646 l       .debug_str	00000000 
+00001739 l       .debug_str	00000000 
+0000177a l       .debug_str	00000000 
+00001783 l       .debug_str	00000000 
+000017c4 l       .debug_str	00000000 
+000017d1 l       .debug_str	00000000 
+000017e2 l       .debug_str	00000000 
+0000182a l       .debug_str	00000000 
+0000183a l       .debug_str	00000000 
+00001849 l       .debug_str	00000000 
 00001892 l       .debug_str	00000000 
 000018a2 l       .debug_str	00000000 
 000018c3 l       .debug_str	00000000 
@@ -1721,15 +1721,15 @@ SYMBOL TABLE:
 000112ba l       .debug_str	00000000 
 000112f6 l       .debug_str	00000000 
 00014f82 l       .debug_str	00000000 
-0000066b l       .debug_str	00000000 
-0000066f l       .debug_str	00000000 
-0000121e l       .debug_str	00000000 
-0000067c l       .debug_str	00000000 
+00000665 l       .debug_str	00000000 
+00000669 l       .debug_str	00000000 
+00001218 l       .debug_str	00000000 
+00000676 l       .debug_str	00000000 
+0000067d l       .debug_str	00000000 
 00000683 l       .debug_str	00000000 
-00000689 l       .debug_str	00000000 
-000010c9 l       .debug_str	00000000 
-000006e0 l       .debug_str	00000000 
-000006e7 l       .debug_str	00000000 
+000010c3 l       .debug_str	00000000 
+000006da l       .debug_str	00000000 
+000006e1 l       .debug_str	00000000 
 000021d6 l       .debug_str	00000000 
 00002255 l       .debug_str	00000000 
 00002822 l       .debug_str	00000000 
@@ -1892,10 +1892,10 @@ SYMBOL TABLE:
 00000455 l       .debug_str	00000000 
 000004fd l       .debug_str	00000000 
 0000059c l       .debug_str	00000000 
-00000655 l       .debug_str	00000000 
-0000065e l       .debug_str	00000000 
-00001611 l       .debug_str	00000000 
-0000160f l       .debug_str	00000000 
+0000064f l       .debug_str	00000000 
+00000658 l       .debug_str	00000000 
+0000160b l       .debug_str	00000000 
+00001609 l       .debug_str	00000000 
 0000de97 l       .debug_str	00000000 
 0000ded6 l       .debug_str	00000000 
 0000e4ec l       .debug_str	00000000 
@@ -1924,13 +1924,13 @@ SYMBOL TABLE:
 00010849 l       .debug_str	00000000 
 00010b24 l       .debug_str	00000000 
 00010b9b l       .debug_str	00000000 
-00000665 l       .debug_str	00000000 
-000014c0 l       .debug_str	00000000 
-00000667 l       .debug_str	00000000 
-00001372 l       .debug_str	00000000 
+0000065f l       .debug_str	00000000 
+000014ba l       .debug_str	00000000 
+00000661 l       .debug_str	00000000 
+0000136c l       .debug_str	00000000 
 00010f0a l       .debug_str	00000000 
 00010f66 l       .debug_str	00000000 
-00001374 l       .debug_str	00000000 
+0000136e l       .debug_str	00000000 
 0000e65a l       .debug_str	00000000 
 0000e6dc l       .debug_str	00000000 
 0000f4f0 l       .debug_str	00000000 
@@ -1951,36 +1951,36 @@ SYMBOL TABLE:
 000104fd l       .debug_str	00000000 
 00010584 l       .debug_str	00000000 
 000110b2 l       .debug_str	00000000 
-00000697 l       .debug_str	00000000 
-00000f91 l       .debug_str	00000000 
-000006a5 l       .debug_str	00000000 
-000006ba l       .debug_str	00000000 
-000009ea l       .debug_str	00000000 
-000006aa l       .debug_str	00000000 
-000006b2 l       .debug_str	00000000 
-000006d8 l       .debug_str	00000000 
-00000901 l       .debug_str	00000000 
-00000841 l       .debug_str	00000000 
-000007aa l       .debug_str	00000000 
-0000073c l       .debug_str	00000000 
-000006f7 l       .debug_str	00000000 
-000006bc l       .debug_str	00000000 
-00000afc l       .debug_str	00000000 
-00000b04 l       .debug_str	00000000 
-00000e7a l       .debug_str	00000000 
-00000b09 l       .debug_str	00000000 
-00000b13 l       .debug_str	00000000 
-00000b1e l       .debug_str	00000000 
-00000d8a l       .debug_str	00000000 
-00000cc1 l       .debug_str	00000000 
-00000c1f l       .debug_str	00000000 
-00000ba4 l       .debug_str	00000000 
-00000b50 l       .debug_str	00000000 
-00000b20 l       .debug_str	00000000 
+00000691 l       .debug_str	00000000 
+00000f8b l       .debug_str	00000000 
+0000069f l       .debug_str	00000000 
+000006b4 l       .debug_str	00000000 
+000009e4 l       .debug_str	00000000 
+000006a4 l       .debug_str	00000000 
+000006ac l       .debug_str	00000000 
+000006d2 l       .debug_str	00000000 
+000008fb l       .debug_str	00000000 
+0000083b l       .debug_str	00000000 
+000007a4 l       .debug_str	00000000 
+00000736 l       .debug_str	00000000 
+000006f1 l       .debug_str	00000000 
+000006b6 l       .debug_str	00000000 
+00000af6 l       .debug_str	00000000 
+00000afe l       .debug_str	00000000 
+00000e74 l       .debug_str	00000000 
+00000b03 l       .debug_str	00000000 
 00000b0d l       .debug_str	00000000 
-00000b17 l       .debug_str	00000000 
-00000b1b l       .debug_str	00000000 
-00000b4d l       .debug_str	00000000 
+00000b18 l       .debug_str	00000000 
+00000d84 l       .debug_str	00000000 
+00000cbb l       .debug_str	00000000 
+00000c19 l       .debug_str	00000000 
+00000b9e l       .debug_str	00000000 
+00000b4a l       .debug_str	00000000 
+00000b1a l       .debug_str	00000000 
+00000b07 l       .debug_str	00000000 
+00000b11 l       .debug_str	00000000 
+00000b15 l       .debug_str	00000000 
+00000b47 l       .debug_str	00000000 
 000018ac l       .debug_str	00000000 
 00001911 l       .debug_str	00000000 
 00001d9a l       .debug_str	00000000 
@@ -4941,14 +4941,14 @@ Disassembly of section .text._ZN3app10watch_face14set_time_label17h7f14a418c9912
 
 00000000 <_ZN3app10watch_face14set_time_label17h7f14a418c9912f9bE>:
 _ZN3app10watch_face14set_time_label17h7f14a418c9912f9bE():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:190
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:117
 pub fn set_time_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
    0:	b580      	push	{r7, lr}
    2:	466f      	mov	r7, sp
    4:	b0de      	sub	sp, #376	; 0x178
    6:	9053      	str	r0, [sp, #332]	; 0x14c
    8:	9154      	str	r1, [sp, #336]	; 0x150
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:195
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:122
         TIME_BUF.clear();
    a:	f240 0200 	movw	r2, #0
    e:	f2c0 0200 	movt	r2, #0
@@ -4957,14 +4957,14 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:195
   16:	911c      	str	r1, [sp, #112]	; 0x70
   18:	921b      	str	r2, [sp, #108]	; 0x6c
   1a:	f7ff fffe 	bl	0 <_ZN3app10watch_face14set_time_label17h7f14a418c9912f9bE>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:199
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:126
             state.time.hour,
   1e:	981c      	ldr	r0, [sp, #112]	; 0x70
   20:	1d81      	adds	r1, r0, #6
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:200
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:127
             state.time.minute
   22:	1dc2      	adds	r2, r0, #7
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:196
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:123
         write!(
   24:	9129      	str	r1, [sp, #164]	; 0xa4
   26:	922a      	str	r2, [sp, #168]	; 0xa8
@@ -5015,12 +5015,12 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:196
   9c:	f2c0 0300 	movt	r3, #0
   a0:	2209      	movs	r2, #9
   a2:	f7ff fffe 	bl	0 <_ZN3app10watch_face14set_time_label17h7f14a418c9912f9bE>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:203
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:130
             widgets.time_label, 
   a6:	981d      	ldr	r0, [sp, #116]	; 0x74
   a8:	6840      	ldr	r0, [r0, #4]
   aa:	a92c      	add	r1, sp, #176	; 0xb0
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:204
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:131
             &to_strn(&TIME_BUF)
   ac:	9015      	str	r0, [sp, #84]	; 0x54
   ae:	4608      	mov	r0, r1
@@ -5028,7 +5028,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:204
   b2:	9114      	str	r1, [sp, #80]	; 0x50
   b4:	4611      	mov	r1, r2
   b6:	f7ff fffe 	bl	0 <_ZN3app10watch_face14set_time_label17h7f14a418c9912f9bE>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:202
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:129
         label::set_text(
   ba:	9815      	ldr	r0, [sp, #84]	; 0x54
   bc:	9914      	ldr	r1, [sp, #80]	; 0x50
@@ -5037,13 +5037,13 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:202
   c4:	f7ff fffe 	bl	0 <_ZN3app10watch_face14set_time_label17h7f14a418c9912f9bE>
   c8:	9813      	ldr	r0, [sp, #76]	; 0x4c
   ca:	902b      	str	r0, [sp, #172]	; 0xac
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:205
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:132
         ) ? ;
   cc:	992b      	ldr	r1, [sp, #172]	; 0xac
   ce:	2901      	cmp	r1, #1
   d0:	f040 8083 	bne.w	1da <_ZN3app10watch_face14set_time_label17h7f14a418c9912f9bE+0x1da>
   d4:	e7ff      	b.n	d6 <_ZN3app10watch_face14set_time_label17h7f14a418c9912f9bE+0xd6>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:209
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:136
     let month_str = get_month_name(&state.time);
   d6:	981c      	ldr	r0, [sp, #112]	; 0x70
   d8:	1c81      	adds	r1, r0, #2
@@ -5052,17 +5052,17 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:209
   de:	9112      	str	r1, [sp, #72]	; 0x48
   e0:	9211      	str	r2, [sp, #68]	; 0x44
   e2:	f7ff fffe 	bl	0 <_ZN3app10watch_face14set_time_label17h7f14a418c9912f9bE>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:215
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:142
         DATE_BUF.clear();
   e6:	f240 0000 	movw	r0, #0
   ea:	f2c0 0000 	movt	r0, #0
   ee:	9010      	str	r0, [sp, #64]	; 0x40
   f0:	f7ff fffe 	bl	0 <_ZN3app10watch_face14set_time_label17h7f14a418c9912f9bE>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:219
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:146
             state.time.dayofmonth,
   f4:	981c      	ldr	r0, [sp, #112]	; 0x70
   f6:	1d41      	adds	r1, r0, #5
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:216
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:143
         write!(
   f8:	914c      	str	r1, [sp, #304]	; 0x130
   fa:	9911      	ldr	r1, [sp, #68]	; 0x44
@@ -5126,12 +5126,12 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:216
  1a2:	f2c0 0300 	movt	r3, #0
  1a6:	2209      	movs	r2, #9
  1a8:	f7ff fffe 	bl	0 <_ZN3app10watch_face14set_time_label17h7f14a418c9912f9bE>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:224
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:151
             widgets.date_label, 
  1ac:	981d      	ldr	r0, [sp, #116]	; 0x74
  1ae:	6880      	ldr	r0, [r0, #8]
  1b0:	a950      	add	r1, sp, #320	; 0x140
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:225
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:152
             &to_strn(&DATE_BUF)
  1b2:	9008      	str	r0, [sp, #32]
  1b4:	4608      	mov	r0, r1
@@ -5139,7 +5139,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:225
  1b8:	9107      	str	r1, [sp, #28]
  1ba:	4611      	mov	r1, r2
  1bc:	f7ff fffe 	bl	0 <_ZN3app10watch_face14set_time_label17h7f14a418c9912f9bE>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:223
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:150
         label::set_text(
  1c0:	9808      	ldr	r0, [sp, #32]
  1c2:	9907      	ldr	r1, [sp, #28]
@@ -5148,13 +5148,13 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:223
  1ca:	f7ff fffe 	bl	0 <_ZN3app10watch_face14set_time_label17h7f14a418c9912f9bE>
  1ce:	9806      	ldr	r0, [sp, #24]
  1d0:	904f      	str	r0, [sp, #316]	; 0x13c
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:226
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:153
         ) ? ;
  1d2:	994f      	ldr	r1, [sp, #316]	; 0x13c
  1d4:	2901      	cmp	r1, #1
  1d6:	d00d      	beq.n	1f4 <_ZN3app10watch_face14set_time_label17h7f14a418c9912f9bE+0x1f4>
  1d8:	e011      	b.n	1fe <_ZN3app10watch_face14set_time_label17h7f14a418c9912f9bE+0x1fe>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:205
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:132
         ) ? ;
  1da:	982b      	ldr	r0, [sp, #172]	; 0xac
  1dc:	9059      	str	r0, [sp, #356]	; 0x164
@@ -5164,21 +5164,21 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:205
  1e6:	f7ff fffe 	bl	0 <_ZN3app10watch_face14set_time_label17h7f14a418c9912f9bE>
  1ea:	901e      	str	r0, [sp, #120]	; 0x78
  1ec:	e7ff      	b.n	1ee <_ZN3app10watch_face14set_time_label17h7f14a418c9912f9bE+0x1ee>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:229
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:156
 }
  1ee:	981e      	ldr	r0, [sp, #120]	; 0x78
  1f0:	b05e      	add	sp, #376	; 0x178
  1f2:	bd80      	pop	{r7, pc}
  1f4:	2000      	movs	r0, #0
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:228
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:155
     Ok(())
  1f6:	901e      	str	r0, [sp, #120]	; 0x78
  1f8:	2001      	movs	r0, #1
  1fa:	901e      	str	r0, [sp, #120]	; 0x78
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:229
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:156
 }
  1fc:	e7f7      	b.n	1ee <_ZN3app10watch_face14set_time_label17h7f14a418c9912f9bE+0x1ee>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:226
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:153
         ) ? ;
  1fe:	984f      	ldr	r0, [sp, #316]	; 0x13c
  200:	905d      	str	r0, [sp, #372]	; 0x174
@@ -5193,14 +5193,14 @@ Disassembly of section .text._ZN3app10watch_face12set_bt_label17hfdb9ae5e5ed729f
 
 00000000 <_ZN3app10watch_face12set_bt_label17hfdb9ae5e5ed729f6E>:
 _ZN3app10watch_face12set_bt_label17hfdb9ae5e5ed729f6E():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:117
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:159
 pub fn set_bt_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
    0:	b580      	push	{r7, lr}
    2:	466f      	mov	r7, sp
    4:	b0aa      	sub	sp, #168	; 0xa8
    6:	9023      	str	r0, [sp, #140]	; 0x8c
    8:	9124      	str	r1, [sp, #144]	; 0x90
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:118
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:160
     if state.ble_state == BleState::BLEMAN_BLE_STATE_DISCONNECTED {
    a:	f240 0200 	movw	r2, #0
    e:	f2c0 0200 	movt	r2, #0
@@ -5212,7 +5212,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:118
   1e:	2800      	cmp	r0, #0
   20:	d108      	bne.n	34 <_ZN3app10watch_face12set_bt_label17hfdb9ae5e5ed729f6E+0x34>
   22:	e7ff      	b.n	24 <_ZN3app10watch_face12set_bt_label17hfdb9ae5e5ed729f6E+0x24>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:127
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:169
                 BleState::BLEMAN_BLE_STATE_INACTIVE     => "#000000",  //  Black
   24:	980d      	ldr	r0, [sp, #52]	; 0x34
   26:	7801      	ldrb	r1, [r0, #0]
@@ -5220,11 +5220,11 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:127
   2a:	990c      	ldr	r1, [sp, #48]	; 0x30
   2c:	e8df f001 	tbb	[pc, r1]
   30:	2a3b4333 	.word	0x2a3b4333
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:120
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:162
             widgets.ble_label, 
   34:	980e      	ldr	r0, [sp, #56]	; 0x38
   36:	68c0      	ldr	r0, [r0, #12]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:121
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:163
             strn!("")
   38:	f240 0100 	movw	r1, #0
   3c:	f2c0 0100 	movt	r1, #0
@@ -5235,7 +5235,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:121
   48:	920a      	str	r2, [sp, #40]	; 0x28
   4a:	461a      	mov	r2, r3
   4c:	f7ff fffe 	bl	0 <_ZN3app10watch_face12set_bt_label17hfdb9ae5e5ed729f6E>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:119
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:161
         label::set_text(
   50:	980b      	ldr	r0, [sp, #44]	; 0x2c
   52:	990a      	ldr	r1, [sp, #40]	; 0x28
@@ -5244,7 +5244,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:119
   5a:	f7ff fffe 	bl	0 <_ZN3app10watch_face12set_bt_label17hfdb9ae5e5ed729f6E>
   5e:	9809      	ldr	r0, [sp, #36]	; 0x24
   60:	9010      	str	r0, [sp, #64]	; 0x40
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:122
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:164
         ) ? ;
   62:	9910      	ldr	r1, [sp, #64]	; 0x40
   64:	2901      	cmp	r1, #1
@@ -5258,60 +5258,60 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:122
   76:	f7ff fffe 	bl	0 <_ZN3app10watch_face12set_bt_label17hfdb9ae5e5ed729f6E>
   7a:	900f      	str	r0, [sp, #60]	; 0x3c
   7c:	e7ff      	b.n	7e <_ZN3app10watch_face12set_bt_label17hfdb9ae5e5ed729f6E+0x7e>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:149
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:191
 }
   7e:	980f      	ldr	r0, [sp, #60]	; 0x3c
   80:	b02a      	add	sp, #168	; 0xa8
   82:	bd80      	pop	{r7, pc}
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:130
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:172
                 BleState::BLEMAN_BLE_STATE_CONNECTED    => "#37872d",  //  Dark Green
   84:	f240 0000 	movw	r0, #0
   88:	f2c0 0000 	movt	r0, #0
   8c:	9014      	str	r0, [sp, #80]	; 0x50
   8e:	2007      	movs	r0, #7
   90:	9015      	str	r0, [sp, #84]	; 0x54
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:126
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:168
             match &state.ble_state {
   92:	e018      	b.n	c6 <_ZN3app10watch_face12set_bt_label17hfdb9ae5e5ed729f6E+0xc6>
   94:	defe      	udf	#254	; 0xfe
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:127
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:169
                 BleState::BLEMAN_BLE_STATE_INACTIVE     => "#000000",  //  Black
   96:	f240 0000 	movw	r0, #0
   9a:	f2c0 0000 	movt	r0, #0
   9e:	9014      	str	r0, [sp, #80]	; 0x50
   a0:	2007      	movs	r0, #7
   a2:	9015      	str	r0, [sp, #84]	; 0x54
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:126
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:168
             match &state.ble_state {
   a4:	e00f      	b.n	c6 <_ZN3app10watch_face12set_bt_label17hfdb9ae5e5ed729f6E+0xc6>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:128
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:170
                 BleState::BLEMAN_BLE_STATE_DISCONNECTED => "#f2495c",  //  Red
   a6:	f240 0000 	movw	r0, #0
   aa:	f2c0 0000 	movt	r0, #0
   ae:	9014      	str	r0, [sp, #80]	; 0x50
   b0:	2007      	movs	r0, #7
   b2:	9015      	str	r0, [sp, #84]	; 0x54
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:126
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:168
             match &state.ble_state {
   b4:	e007      	b.n	c6 <_ZN3app10watch_face12set_bt_label17hfdb9ae5e5ed729f6E+0xc6>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:129
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:171
                 BleState::BLEMAN_BLE_STATE_ADVERTISING  => "#5794f2",  //  Blue
   b6:	f240 0000 	movw	r0, #0
   ba:	f2c0 0000 	movt	r0, #0
   be:	9014      	str	r0, [sp, #80]	; 0x50
   c0:	2007      	movs	r0, #7
   c2:	9015      	str	r0, [sp, #84]	; 0x54
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:126
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:168
             match &state.ble_state {
   c4:	e7ff      	b.n	c6 <_ZN3app10watch_face12set_bt_label17hfdb9ae5e5ed729f6E+0xc6>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:136
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:178
             BLUETOOTH_STATUS.clear();
   c6:	f240 0000 	movw	r0, #0
   ca:	f2c0 0000 	movt	r0, #0
   ce:	9007      	str	r0, [sp, #28]
   d0:	f7ff fffe 	bl	0 <_ZN3app10watch_face12set_bt_label17hfdb9ae5e5ed729f6E>
   d4:	a814      	add	r0, sp, #80	; 0x50
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:137
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:179
             write!(
   d6:	901e      	str	r0, [sp, #120]	; 0x78
   d8:	981e      	ldr	r0, [sp, #120]	; 0x78
@@ -5340,12 +5340,12 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:137
  11a:	f2c0 0300 	movt	r3, #0
  11e:	2207      	movs	r2, #7
  120:	f7ff fffe 	bl	0 <_ZN3app10watch_face12set_bt_label17hfdb9ae5e5ed729f6E>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:143
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:185
                 widgets.ble_label, 
  124:	980e      	ldr	r0, [sp, #56]	; 0x38
  126:	68c0      	ldr	r0, [r0, #12]
  128:	a920      	add	r1, sp, #128	; 0x80
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:144
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:186
                 &to_strn(&BLUETOOTH_STATUS)
  12a:	9005      	str	r0, [sp, #20]
  12c:	4608      	mov	r0, r1
@@ -5353,7 +5353,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:144
  130:	9104      	str	r1, [sp, #16]
  132:	4611      	mov	r1, r2
  134:	f7ff fffe 	bl	0 <_ZN3app10watch_face12set_bt_label17hfdb9ae5e5ed729f6E>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:142
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:184
             label::set_text(
  138:	9805      	ldr	r0, [sp, #20]
  13a:	9904      	ldr	r1, [sp, #16]
@@ -5362,7 +5362,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:142
  142:	f7ff fffe 	bl	0 <_ZN3app10watch_face12set_bt_label17hfdb9ae5e5ed729f6E>
  146:	9803      	ldr	r0, [sp, #12]
  148:	901f      	str	r0, [sp, #124]	; 0x7c
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:145
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:187
             ) ? ;
  14a:	991f      	ldr	r1, [sp, #124]	; 0x7c
  14c:	2901      	cmp	r1, #1
@@ -5377,12 +5377,12 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:145
  162:	900f      	str	r0, [sp, #60]	; 0x3c
  164:	e78b      	b.n	7e <_ZN3app10watch_face12set_bt_label17hfdb9ae5e5ed729f6E+0x7e>
  166:	2000      	movs	r0, #0
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:148
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:190
     Ok(())
  168:	900f      	str	r0, [sp, #60]	; 0x3c
  16a:	2001      	movs	r0, #1
  16c:	900f      	str	r0, [sp, #60]	; 0x3c
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:149
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:191
 }
  16e:	e786      	b.n	7e <_ZN3app10watch_face12set_bt_label17hfdb9ae5e5ed729f6E+0x7e>
 
@@ -5390,14 +5390,14 @@ Disassembly of section .text._ZN3app10watch_face15set_power_label17he22439eab72f
 
 00000000 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E>:
 _ZN3app10watch_face15set_power_label17he22439eab72ff0e7E():
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:152
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:194
 pub fn set_power_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
    0:	b5b0      	push	{r4, r5, r7, lr}
    2:	af02      	add	r7, sp, #8
    4:	b0c2      	sub	sp, #264	; 0x108
    6:	9038      	str	r0, [sp, #224]	; 0xe0
    8:	9139      	str	r1, [sp, #228]	; 0xe4
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:153
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:195
     let percentage = convert_battery_voltage(state.millivolts);
    a:	68ca      	ldr	r2, [r1, #12]
    c:	9017      	str	r0, [sp, #92]	; 0x5c
@@ -5405,13 +5405,13 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:153
   10:	9116      	str	r1, [sp, #88]	; 0x58
   12:	f7ff fffe 	bl	0 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E>
   16:	9019      	str	r0, [sp, #100]	; 0x64
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:155
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:197
         if percentage <= 20
   18:	9819      	ldr	r0, [sp, #100]	; 0x64
   1a:	2815      	cmp	r0, #21
   1c:	db06      	blt.n	2c <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0x2c>
   1e:	e7ff      	b.n	20 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0x20>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:157
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:199
         else if state.powered && !(state.charging) 
   20:	9816      	ldr	r0, [sp, #88]	; 0x58
   22:	7c41      	ldrb	r1, [r0, #17]
@@ -5419,18 +5419,18 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:157
   26:	2900      	cmp	r1, #0
   28:	d10c      	bne.n	44 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0x44>
   2a:	e007      	b.n	3c <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0x3c>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:156
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:198
             { "#f2495c" }    //  Low Battery
   2c:	f240 0000 	movw	r0, #0
   30:	f2c0 0000 	movt	r0, #0
   34:	901a      	str	r0, [sp, #104]	; 0x68
   36:	2007      	movs	r0, #7
   38:	901b      	str	r0, [sp, #108]	; 0x6c
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:155
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:197
         if percentage <= 20
   3a:	e02a      	b.n	92 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0x92>
   3c:	2000      	movs	r0, #0
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:157
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:199
         else if state.powered && !(state.charging) 
   3e:	f807 0c95 	strb.w	r0, [r7, #-149]
   42:	e007      	b.n	54 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0x54>
@@ -5447,7 +5447,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:157
   5e:	9115      	str	r1, [sp, #84]	; 0x54
   60:	d109      	bne.n	76 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0x76>
   62:	e7ff      	b.n	64 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0x64>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:160
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:202
             { "#fade2a" };   //  Mid Battery
   64:	f240 0000 	movw	r0, #0
   68:	f2c0 0000 	movt	r0, #0
@@ -5455,10 +5455,10 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:160
   6e:	6008      	str	r0, [r1, #0]
   70:	2007      	movs	r0, #7
   72:	901d      	str	r0, [sp, #116]	; 0x74
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:157
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:199
         else if state.powered && !(state.charging) 
   74:	e008      	b.n	88 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0x88>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:158
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:200
             { "#73bf69" }    //  Full Battery
   76:	f240 0000 	movw	r0, #0
   7a:	f2c0 0000 	movt	r0, #0
@@ -5466,17 +5466,17 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:158
   80:	6008      	str	r0, [r1, #0]
   82:	2007      	movs	r0, #7
   84:	901d      	str	r0, [sp, #116]	; 0x74
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:157
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:199
         else if state.powered && !(state.charging) 
   86:	e7ff      	b.n	88 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0x88>
   88:	981c      	ldr	r0, [sp, #112]	; 0x70
   8a:	991d      	ldr	r1, [sp, #116]	; 0x74
   8c:	901a      	str	r0, [sp, #104]	; 0x68
   8e:	911b      	str	r1, [sp, #108]	; 0x6c
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:155
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:197
         if percentage <= 20
   90:	e7ff      	b.n	92 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0x92>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:162
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:204
         if state.powered { "\u{F0E7}" }  //  LV_SYMBOL_CHARGE
   92:	9816      	ldr	r0, [sp, #88]	; 0x58
   94:	7c41      	ldrb	r1, [r0, #17]
@@ -5486,7 +5486,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:162
   9c:	9214      	str	r2, [sp, #80]	; 0x50
   9e:	d109      	bne.n	b4 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0xb4>
   a0:	e7ff      	b.n	a2 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0xa2>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:163
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:205
         else { " " };
   a2:	f240 0000 	movw	r0, #0
   a6:	f2c0 0000 	movt	r0, #0
@@ -5494,7 +5494,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:163
   ac:	6008      	str	r0, [r1, #0]
   ae:	2001      	movs	r0, #1
   b0:	9020      	str	r0, [sp, #128]	; 0x80
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:162
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:204
         if state.powered { "\u{F0E7}" }  //  LV_SYMBOL_CHARGE
   b2:	e008      	b.n	c6 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0xc6>
   b4:	f240 0000 	movw	r0, #0
@@ -5504,18 +5504,18 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:162
   c0:	2003      	movs	r0, #3
   c2:	9020      	str	r0, [sp, #128]	; 0x80
   c4:	e7ff      	b.n	c6 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0xc6>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:168
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:210
         BATTERY_STATUS.clear();
   c6:	f240 0000 	movw	r0, #0
   ca:	f2c0 0000 	movt	r0, #0
   ce:	9013      	str	r0, [sp, #76]	; 0x4c
   d0:	f7ff fffe 	bl	0 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:175
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:217
             state.millivolts
   d4:	9816      	ldr	r0, [sp, #88]	; 0x58
   d6:	f100 010c 	add.w	r1, r0, #12
   da:	aa1a      	add	r2, sp, #104	; 0x68
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:169
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:211
         write!(
   dc:	922f      	str	r2, [sp, #188]	; 0xbc
   de:	aa19      	add	r2, sp, #100	; 0x64
@@ -5596,12 +5596,12 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:169
  1a6:	f2c0 0300 	movt	r3, #0
  1aa:	2209      	movs	r2, #9
  1ac:	f7ff fffe 	bl	0 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:178
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:220
             widgets.power_label, 
  1b0:	9817      	ldr	r0, [sp, #92]	; 0x5c
  1b2:	6900      	ldr	r0, [r0, #16]
  1b4:	a934      	add	r1, sp, #208	; 0xd0
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:179
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:221
             &to_strn(&BATTERY_STATUS)
  1b6:	9007      	str	r0, [sp, #28]
  1b8:	4608      	mov	r0, r1
@@ -5609,7 +5609,7 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:179
  1bc:	9106      	str	r1, [sp, #24]
  1be:	4611      	mov	r1, r2
  1c0:	f7ff fffe 	bl	0 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:177
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:219
         label::set_text(
  1c4:	9807      	ldr	r0, [sp, #28]
  1c6:	9906      	ldr	r1, [sp, #24]
@@ -5618,18 +5618,18 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:177
  1ce:	f7ff fffe 	bl	0 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E>
  1d2:	9805      	ldr	r0, [sp, #20]
  1d4:	9033      	str	r0, [sp, #204]	; 0xcc
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:180
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:222
         ) ? ; 
  1d6:	9933      	ldr	r1, [sp, #204]	; 0xcc
  1d8:	2901      	cmp	r1, #1
  1da:	d112      	bne.n	202 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0x202>
  1dc:	e7ff      	b.n	1de <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0x1de>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:183
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:225
         widgets.power_label, widgets.screen, 
  1de:	9817      	ldr	r0, [sp, #92]	; 0x5c
  1e0:	6801      	ldr	r1, [r0, #0]
  1e2:	6900      	ldr	r0, [r0, #16]
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:182
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:224
     obj::align(
  1e4:	466a      	mov	r2, sp
  1e6:	2300      	movs	r3, #0
@@ -5640,13 +5640,13 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:182
  1f2:	f7ff fffe 	bl	0 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E>
  1f6:	9804      	ldr	r0, [sp, #16]
  1f8:	9037      	str	r0, [sp, #220]	; 0xdc
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:185
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:227
     ) ? ;
  1fa:	9937      	ldr	r1, [sp, #220]	; 0xdc
  1fc:	2901      	cmp	r1, #1
  1fe:	d00d      	beq.n	21c <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0x21c>
  200:	e011      	b.n	226 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0x226>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:180
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:222
         ) ? ; 
  202:	9833      	ldr	r0, [sp, #204]	; 0xcc
  204:	9040      	str	r0, [sp, #256]	; 0x100
@@ -5656,21 +5656,21 @@ C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:180
  20e:	f7ff fffe 	bl	0 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E>
  212:	9018      	str	r0, [sp, #96]	; 0x60
  214:	e7ff      	b.n	216 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0x216>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:187
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:229
 }
  216:	9818      	ldr	r0, [sp, #96]	; 0x60
  218:	b042      	add	sp, #264	; 0x108
  21a:	bdb0      	pop	{r4, r5, r7, pc}
  21c:	2000      	movs	r0, #0
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:186
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:228
     Ok(())
  21e:	9018      	str	r0, [sp, #96]	; 0x60
  220:	2001      	movs	r0, #1
  222:	9018      	str	r0, [sp, #96]	; 0x60
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:187
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:229
 }
  224:	e7f7      	b.n	216 <_ZN3app10watch_face15set_power_label17he22439eab72ff0e7E+0x216>
-C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:185
+C:\PineTime\pinetime-rust-mynewt/rust\app\src/watch_face.rs:227
     ) ? ;
  226:	9837      	ldr	r0, [sp, #220]	; 0xdc
  228:	9041      	str	r0, [sp, #260]	; 0x104
@@ -10545,7 +10545,7 @@ _ZN4core3str16slice_error_fail17hd2abf12a42123e79E():
  1c2:	defe      	udf	#254	; 0xfe
  1c4:	9823      	ldr	r0, [sp, #140]	; 0x8c
  1c6:	a953      	add	r1, sp, #332	; 0x14c
-_ZN4core3str21_$LT$impl$u20$str$GT$16is_char_boundary17h9aae09ba62d738dbE():
+_ZN4core3str6traits66_$LT$impl$u20$core..ops..index..Index$LT$I$GT$$u20$for$u20$str$GT$5index17hb12955134e4ca5a7E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2//library/core/src/str/mod.rs:2333
  1c8:	9021      	str	r0, [sp, #132]	; 0x84
  1ca:	9120      	str	r1, [sp, #128]	; 0x80
@@ -10571,7 +10571,7 @@ _ZN4core3str16slice_error_fail17hd2abf12a42123e79E():
  1ec:	e7ff      	b.n	1ee <_ZN4core3str16slice_error_fail17hd2abf12a42123e79E+0x1ee>
  1ee:	981e      	ldr	r0, [sp, #120]	; 0x78
  1f0:	a953      	add	r1, sp, #332	; 0x14c
-_ZN4core3str6traits112_$LT$impl$u20$core..slice..index..SliceIndex$LT$str$GT$$u20$for$u20$core..ops..range..RangeFrom$LT$usize$GT$$GT$3get17hbaad3aa06f54c747E():
+_ZN4core3str6traits66_$LT$impl$u20$core..ops..index..Index$LT$I$GT$$u20$for$u20$str$GT$5index17hb12955134e4ca5a7E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2//library/core/src/str/mod.rs:2035
  1f2:	9021      	str	r0, [sp, #132]	; 0x84
  1f4:	9120      	str	r1, [sp, #128]	; 0x80
@@ -19246,11 +19246,9 @@ _ZN51_$LT$u32$u20$as$u20$core..ops..arith..AddAssign$GT$10add_assign17h2b540a2eb
   20:	eb01 4114 	add.w	r1, r1, r4, lsr #16
   24:	fb03 5000 	mla	r0, r3, r0, r5
   28:	fa12 f281 	uxtah	r2, r2, r1
-_ZN51_$LT$u32$u20$as$u20$compiler_builtins..int..Int$GT$12wrapping_add17he63a99c5e385fb42E():
-/rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:897
-  2c:	eb00 4011 	add.w	r0, r0, r1, lsr #16
 _ZN4core3num21_$LT$impl$u20$u32$GT$12wrapping_add17ha8bbcde3e91a3ee5E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:897
+  2c:	eb00 4011 	add.w	r0, r0, r1, lsr #16
   30:	eb00 4112 	add.w	r1, r0, r2, lsr #16
 _ZN51_$LT$u32$u20$as$u20$core..ops..arith..AddAssign$GT$10add_assign17h2b540a2eb2b5b2cdE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/arith.rs:731
@@ -19323,7 +19321,7 @@ __rust_i128_subo():
    a:	e9d7 e604 	ldrd	lr, r6, [r7, #16]
    e:	2100      	movs	r1, #0
   10:	e9d7 8c06 	ldrd	r8, ip, [r7, #24]
-_ZN4core3num21_$LT$impl$u20$u64$GT$15overflowing_add17h4d60e949e302cf5bE():
+_ZN17compiler_builtins3int6addsub7UAddSub8uadd_one17h31c39dd29144a579E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:1209
   14:	f1de 0e00 	rsbs	lr, lr, #0
   18:	f8d7 9008 	ldr.w	r9, [r7, #8]
@@ -19331,7 +19329,7 @@ _ZN4core3num21_$LT$impl$u20$u64$GT$15overflowing_add17h4d60e949e302cf5bE():
 _ZN44_$LT$u128$u20$as$u20$core..ops..bit..Not$GT$3not17he45b7b3fddc19b70E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/bit.rs:60
   20:	ea6f 060c 	mvn.w	r6, ip
-_ZN4core3num21_$LT$impl$u20$u64$GT$15overflowing_add17h4d60e949e302cf5bE():
+_ZN17compiler_builtins3int6addsub7UAddSub8uadd_one17h31c39dd29144a579E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:1209
   24:	f141 0500 	adc.w	r5, r1, #0
 _ZN44_$LT$u128$u20$as$u20$core..ops..bit..Not$GT$3not17he45b7b3fddc19b70E():
@@ -26263,21 +26261,21 @@ _ZN51_$LT$u64$u20$as$u20$core..ops..bit..BitOrAssign$GT$12bitor_assign17h18996a4
   58:	f448 1380 	orr.w	r3, r8, #1048576	; 0x100000
   5c:	2100      	movs	r1, #0
   5e:	9c05      	ldr	r4, [sp, #20]
-_ZN4core3num22_$LT$impl$u20$u128$GT$12wrapping_mul17heeaff456bc9394b7E():
+_ZN55_$LT$u64$u20$as$u20$compiler_builtins..int..WideInt$GT$8wide_mul17h5daa9d66f6654856E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:944
   60:	e9cd 0300 	strd	r0, r3, [sp]
 _ZN54_$LT$u64$u20$as$u20$core..ops..bit..Shl$LT$u32$GT$$GT$3shl17h6f6fe6393c633baaE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/bit.rs:450
   64:	ea4f 20cb 	mov.w	r0, fp, lsl #11
   68:	ea40 5052 	orr.w	r0, r0, r2, lsr #21
-_ZN4core3num22_$LT$impl$u20$u128$GT$12wrapping_mul17heeaff456bc9394b7E():
+_ZN55_$LT$u64$u20$as$u20$compiler_builtins..int..WideInt$GT$8wide_mul17h5daa9d66f6654856E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:944
   6c:	e9cd 1102 	strd	r1, r1, [sp, #8]
 _ZN54_$LT$u64$u20$as$u20$core..ops..bit..Shl$LT$u32$GT$$GT$3shl17h6f6fe6393c633baaE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/bit.rs:450
   70:	f040 4100 	orr.w	r1, r0, #2147483648	; 0x80000000
   74:	02d0      	lsls	r0, r2, #11
-_ZN4core3num22_$LT$impl$u20$u128$GT$12wrapping_mul17heeaff456bc9394b7E():
+_ZN55_$LT$u64$u20$as$u20$compiler_builtins..int..WideInt$GT$8wide_mul17h5daa9d66f6654856E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:944
   76:	2200      	movs	r2, #0
   78:	2300      	movs	r3, #0
@@ -30420,7 +30418,7 @@ _ZN4core3num21_$LT$impl$u20$i64$GT$12wrapping_sub17hc1ea7ebcd259f0b8E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/int_macros.rs:1032
    e:	ebb2 72ec 	subs.w	r2, r2, ip, asr #31
   12:	eb63 73ec 	sbc.w	r3, r3, ip, asr #31
-_ZN4core3num21_$LT$impl$u20$u64$GT$11checked_div17h2acb6b449001fd49E():
+_ZN51_$LT$u64$u20$as$u20$compiler_builtins..int..Int$GT$12aborting_div17h96d6354f11099909E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:577
   16:	ea52 0e03 	orrs.w	lr, r2, r3
   1a:	d00f      	beq.n	3c <_ZN17compiler_builtins3int4sdiv8__divdi317hf638ee34a5813680E+0x3c>
@@ -30439,7 +30437,7 @@ _ZN4core3num21_$LT$impl$u20$i64$GT$12wrapping_sub17hc1ea7ebcd259f0b8E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/int_macros.rs:1032
   2a:	1b00      	subs	r0, r0, r4
   2c:	41a1      	sbcs	r1, r4
-_ZN4core3num21_$LT$impl$u20$u64$GT$11checked_div17h2acb6b449001fd49E():
+_ZN51_$LT$u64$u20$as$u20$compiler_builtins..int..Int$GT$12aborting_div17h96d6354f11099909E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:582
   2e:	f7ff fffe 	bl	0 <__aeabi_uldivmod>
 _ZN46_$LT$i64$u20$as$u20$core..ops..bit..BitXor$GT$6bitxor17h9f5f5cce5bb4775cE():
@@ -30453,7 +30451,7 @@ _ZN45_$LT$i64$u20$as$u20$core..ops..arith..Sub$GT$3sub17h2bb6c4d9fa9b556eE():
 _ZN17compiler_builtins3int4sdiv8__divdi317hf638ee34a5813680E():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/macros.rs:264
   3a:	bdb0      	pop	{r4, r5, r7, pc}
-_ZN17compiler_builtins5abort17h7205a50b89493a10E():
+_ZN51_$LT$u64$u20$as$u20$compiler_builtins..int..Int$GT$12aborting_div17h96d6354f11099909E():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/lib.rs:35
   3c:	defe      	udf	#254	; 0xfe
   3e:	defe      	udf	#254	; 0xfe
@@ -33106,7 +33104,7 @@ _ZN17compiler_builtins5float3div8__divdf317h0f427d9698a77203E():
  2f4:	b007      	add	sp, #28
  2f6:	e8bd 0f00 	ldmia.w	sp!, {r8, r9, sl, fp}
  2fa:	bdf0      	pop	{r4, r5, r6, r7, pc}
-_ZN45_$LT$u64$u20$as$u20$core..ops..bit..BitOr$GT$5bitor17h640bf6d9ba3e8ef2E():
+_ZN17compiler_builtins5float3div5div6417h2df9c43f595e47b3E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/bit.rs:253
  2fc:	9804      	ldr	r0, [sp, #16]
  2fe:	4310      	orrs	r0, r2
@@ -33924,7 +33922,7 @@ Disassembly of section .text._ZN17compiler_builtins5float6extend13__extendsfdf21
 _ZN46_$LT$u32$u20$as$u20$core..ops..bit..BitAnd$GT$6bitand17h0d21bf3c3314d30dE():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/ops/bit.rs:158
    0:	f020 4200 	bic.w	r2, r0, #2147483648	; 0x80000000
-_ZN51_$LT$u32$u20$as$u20$compiler_builtins..int..Int$GT$12wrapping_sub17h1e049eca522a20b5E():
+_ZN4core3num21_$LT$impl$u20$u32$GT$12wrapping_sub17h57a4102f47cf3239E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/num/uint_macros.rs:920
    4:	f5a2 0100 	sub.w	r1, r2, #8388608	; 0x800000
 _ZN17compiler_builtins5float6extend6extend17h8485c584851c0b04E():
@@ -36378,14 +36376,14 @@ _ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt1
 _ZN17compiler_builtins3int6addsub16__rust_u128_subo17h1e3d2c3ff22ecb5aE():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/int/addsub.rs:132
   5e:	e9c0 4100 	strd	r4, r1, [r0]
-_ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt17hdf751ff6fbf5edf4E():
+_ZN17compiler_builtins3int6addsub4Subo4subo17h7b048631b3396470E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   62:	eb73 0101 	sbcs.w	r1, r3, r1
   66:	eb78 0105 	sbcs.w	r1, r8, r5
 _ZN17compiler_builtins3int6addsub16__rust_u128_subo17h1e3d2c3ff22ecb5aE():
 /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.35/src/int/addsub.rs:132
   6a:	e9c0 5e02 	strd	r5, lr, [r0, #8]
-_ZN4core3cmp5impls56_$LT$impl$u20$core..cmp..PartialOrd$u20$for$u20$u128$GT$2gt17hdf751ff6fbf5edf4E():
+_ZN17compiler_builtins3int6addsub4Subo4subo17h7b048631b3396470E():
 /rustc/7f7a1cbfd3b55daee191247770627afab09eece2/library/core/src/cmp.rs:1138
   6e:	eb7c 010e 	sbcs.w	r1, ip, lr
   72:	bf38      	it	cc

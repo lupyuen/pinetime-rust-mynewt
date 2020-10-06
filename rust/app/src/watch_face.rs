@@ -113,6 +113,48 @@ pub fn update_widgets(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> Myn
     Ok(())
 }
 
+/// Populate the Time and Date Labels with the time and date. Called by update_widgets() above.
+pub fn set_time_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
+    //  Create a string buffer to format the time
+    static mut TIME_BUF: String = new_string();
+    //  Format the time as "12:34" and set the label
+    unsafe {  //  Unsafe because TIME_BUF is a mutable static
+        TIME_BUF.clear();
+        write!(
+            &mut TIME_BUF, 
+            "{:02}:{:02}\0",  //  Must terminate Rust strings with null
+            state.time.hour,
+            state.time.minute
+        ).expect("time fail");
+        label::set_text(
+            widgets.time_label, 
+            &to_strn(&TIME_BUF)
+        ) ? ;
+    }
+
+    //  Get the short month name
+    let month_str = get_month_name(&state.time);
+
+    //  Create a string buffer to format the date
+    static mut DATE_BUF: String = new_string();
+    //  Format the date as "22 MAY 2020" and set the label
+    unsafe {  //  Unsafe because DATE_BUF is a mutable static
+        DATE_BUF.clear();
+        write!(
+            &mut DATE_BUF, 
+            "{} {} {}\n\0",  //  Must terminate Rust strings with null
+            state.time.dayofmonth,
+            month_str,
+            state.time.year
+        ).expect("date fail");
+        label::set_text(
+            widgets.date_label, 
+            &to_strn(&DATE_BUF)
+        ) ? ;
+    }
+    Ok(())
+}
+
 /// Populate the Bluetooth Label with the Bluetooth status. Called by update_widgets() above.
 pub fn set_bt_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
     if state.ble_state == BleState::BLEMAN_BLE_STATE_DISCONNECTED {
@@ -183,48 +225,6 @@ pub fn set_power_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> My
         widgets.power_label, widgets.screen, 
         obj::LV_ALIGN_IN_TOP_RIGHT, 0, 0
     ) ? ;
-    Ok(())
-}
-
-/// Populate the Time and Date Labels with the time and date. Called by update_widgets() above.
-pub fn set_time_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
-    //  Create a string buffer to format the time
-    static mut TIME_BUF: String = new_string();
-    //  Format the time as "12:34" and set the label
-    unsafe {  //  Unsafe because TIME_BUF is a mutable static
-        TIME_BUF.clear();
-        write!(
-            &mut TIME_BUF, 
-            "{:02}:{:02}\0",  //  Must terminate Rust strings with null
-            state.time.hour,
-            state.time.minute
-        ).expect("time fail");
-        label::set_text(
-            widgets.time_label, 
-            &to_strn(&TIME_BUF)
-        ) ? ;
-    }
-
-    //  Get the short month name
-    let month_str = get_month_name(&state.time);
-
-    //  Create a string buffer to format the date
-    static mut DATE_BUF: String = new_string();
-    //  Format the date as "22 MAY 2020" and set the label
-    unsafe {  //  Unsafe because DATE_BUF is a mutable static
-        DATE_BUF.clear();
-        write!(
-            &mut DATE_BUF, 
-            "{} {} {}\n\0",  //  Must terminate Rust strings with null
-            state.time.dayofmonth,
-            month_str,
-            state.time.year
-        ).expect("date fail");
-        label::set_text(
-            widgets.date_label, 
-            &to_strn(&DATE_BUF)
-        ) ? ;
-    }
     Ok(())
 }
 
