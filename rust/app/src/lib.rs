@@ -106,7 +106,7 @@ fn panic(info: &PanicInfo) -> ! {
 
     //  Display the payload.
     if unsafe { !IN_PANIC } {  //  Prevent panic loop while displaying the payload
-        ////unsafe { IN_PANIC = true };
+        unsafe { IN_PANIC = true };
         let payload = info.payload().downcast_ref::<&str>().unwrap();
         console::print(payload);  console::print("\n");  console::flush();    
     }
