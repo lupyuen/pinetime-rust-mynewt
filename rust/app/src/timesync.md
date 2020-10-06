@@ -513,8 +513,8 @@ Update widgets...
 ```rust
 /// Update the widgets in the Watch Face with the current state. Called by watch_face_callback() below.
 pub fn update_widgets(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
-    //  Populate the Time Label
-    set_time_label(widgets, state) ? ;
+    //  Populate the Time and Date Labels
+    set_time_date_labels(widgets, state) ? ;
 
     //  Populate the Bluetooth Label
     set_bt_label(widgets, state) ? ;
@@ -529,9 +529,10 @@ Populate time and date widgets...
 
 ```rust
 /// Populate the Time and Date Labels with the time and date. Called by update_widgets() above.
-pub fn set_time_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
+pub fn set_time_date_labels(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
     //  Create a string buffer to format the time
     static mut TIME_BUF: String = new_string();
+
     //  Format the time as "12:34" and set the label
     unsafe {  //  Unsafe because TIME_BUF is a mutable static
         TIME_BUF.clear();
@@ -547,19 +548,22 @@ pub fn set_time_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> Myn
         ) ? ;
     }
 
-    //  Get the short month name
-    let month_str = get_month_name(&state.time);
+    //  Get the short day name and short month name
+    let day = get_day_name(&state.time);
+    let month = get_month_name(&state.time);
 
     //  Create a string buffer to format the date
     static mut DATE_BUF: String = new_string();
-    //  Format the date as "22 MAY 2020" and set the label
+    
+    //  Format the date as "MON 22 MAY 2020" and set the label
     unsafe {  //  Unsafe because DATE_BUF is a mutable static
         DATE_BUF.clear();
         write!(
             &mut DATE_BUF, 
-            "{} {} {}\n\0",  //  Must terminate Rust strings with null
+            "{} {} {} {}\n\0",  //  Must terminate Rust strings with null
+            day,
             state.time.dayofmonth,
-            month_str,
+            month,
             state.time.year
         ).expect("date fail");
         label::set_text(
