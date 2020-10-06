@@ -103,11 +103,14 @@ fn panic(info: &PanicInfo) -> ! {
     } else {
         console::print("no loc\n");  console::flush();
     }
-    //  Pause in the debugger.
-    bkpt();
     //  Display the payload.
     console::print(info.payload().downcast_ref::<&str>().unwrap());
     console::print("\n");  console::flush();
-    //  Loop forever so that device won't restart.
+    //  Pause in the debugger.
+    bkpt();
+    //  Restart the device.
+    extern { fn HardFault_Handler(); }  //  Defined in apps/my_sensor_app/src/support.c
+    unsafe { HardFault_Handler() };
+    //  Will never come here. This is needed to satisfy the return type "!"
     loop {}
 }
