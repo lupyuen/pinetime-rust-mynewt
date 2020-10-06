@@ -41,7 +41,7 @@ impl BarebonesWatchFace {
     //  Create Watch Face
 
     /// Create the widgets for the Watch Face
-    pub fn new(screen: *mut obj::lv_obj_t) -> MynewtResult<Self> {
+    pub fn new(screen: lvgl::Ptr) -> MynewtResult<Self> {
         let watch_face = Self {
             //  Create a label for Time: "00:00"
             time_label: {
@@ -99,7 +99,7 @@ impl BarebonesWatchFace {
     //  Update Watch Face
 
     /// Update the widgets in the Watch Face with the current state
-    pub fn update(&self, screen: *mut obj::lv_obj_t, state: &WatchFaceState) -> MynewtResult<()> {
+    pub fn update(&self, screen: lvgl::Ptr, state: &WatchFaceState) -> MynewtResult<()> {
         //  Populate the Time and Date Labels
         self.update_date_time(screen, state) ? ;
 
@@ -112,7 +112,7 @@ impl BarebonesWatchFace {
     }
 
     /// Populate the Time and Date Labels with the time and date
-    pub fn update_date_time(&self, _screen: *mut obj::lv_obj_t, state: &WatchFaceState) -> MynewtResult<()> {
+    pub fn update_date_time(&self, _screen: lvgl::Ptr, state: &WatchFaceState) -> MynewtResult<()> {
         //  Create a string buffer to format the time
         static mut TIME_BUF: String = new_string();
 
@@ -158,7 +158,7 @@ impl BarebonesWatchFace {
     }
 
     /// Populate the Bluetooth Label with the Bluetooth status
-    pub fn update_bluetooth(&self, _screen: *mut obj::lv_obj_t, state: &WatchFaceState) -> MynewtResult<()> {
+    pub fn update_bluetooth(&self, _screen: lvgl::Ptr, state: &WatchFaceState) -> MynewtResult<()> {
         if state.bluetooth == BluetoothState::BLUETOOTH_STATE_DISCONNECTED {
             label::set_text(
                 self.bluetooth_label, 
@@ -193,7 +193,7 @@ impl BarebonesWatchFace {
     }
 
     /// Populate the Power Label with the battery status
-    pub fn update_power(&self, screen: *mut obj::lv_obj_t, state: &WatchFaceState) -> MynewtResult<()> {
+    pub fn update_power(&self, screen: lvgl::Ptr, state: &WatchFaceState) -> MynewtResult<()> {
         let percentage = convert_battery_voltage(state.millivolts);
         let color =                                                     //  Charging color
             if percentage <= 20                        { "#f2495c" }    //  Low Battery
@@ -278,10 +278,10 @@ pub fn convert_battery_voltage(_voltage: u32) -> i32 {
 
 /// Widgets for the Watch Face
 pub struct BarebonesWatchFace {
-    pub time_label:      *mut obj::lv_obj_t,
-    pub date_label:      *mut obj::lv_obj_t,
-    pub bluetooth_label: *mut obj::lv_obj_t,
-    pub power_label:     *mut obj::lv_obj_t,
+    pub time_label:      lvgl::Ptr,
+    pub date_label:      lvgl::Ptr,
+    pub bluetooth_label: lvgl::Ptr,
+    pub power_label:     lvgl::Ptr,
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -352,6 +352,7 @@ extern fn watch_face_callback(_ev: *mut os::os_event) {
         powered:    true,  //  TODO: Get powered status
         bluetooth:  BluetoothState::BLUETOOTH_STATE_CONNECTED,  //  TODO: Get BLE state
     };
+
     //  Update the watch face
     unsafe {  //  Unsafe because WATCH_FACE is a mutable static
         WATCH_FACE.update(screen, &state)
@@ -373,7 +374,7 @@ extern fn watch_face_callback(_ev: *mut os::os_event) {
 }
 
 /// Get active screen from LVGL
-fn get_active_screen() -> *mut obj::lv_obj_t {
+fn get_active_screen() -> lvgl::Ptr {
     //  Get active screen from LVGL. We can't call lv_scr_act() because it's an inline function.
     let screen = unsafe {  //  Unsafe because lv_disp_get_scr_act() is an LVGL C function
         lv_disp_get_scr_act( 
@@ -485,7 +486,7 @@ extern {
     /// Convert timeval to clocktime. From https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h
     fn timeval_to_clocktime(tv: *const os::os_timeval, tz: *const os::os_timezone, ct: *mut clocktime) -> i32;
     /// Get active screen for LVGL display. From LVGL.
-    fn lv_disp_get_scr_act(disp: *mut obj::lv_disp_t) -> *mut obj::lv_obj_t;
+    fn lv_disp_get_scr_act(disp: *mut obj::lv_disp_t) -> lvgl::Ptr;
 }
 
 /// Mynewt Clock Time. From https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h

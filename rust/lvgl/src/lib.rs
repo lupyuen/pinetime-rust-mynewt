@@ -217,3 +217,5 @@ pub type Ptr = *mut ::cty::c_void;
 ///  Declare a `NULL` pointer that will be passed to C functions
 #[cfg(feature = "riot_os")]    //  If building for RIOT OS...
 pub const NULL: Ptr = ::core::ptr::null_mut();
+
+pub type Ptr = *mut core::obj::lv_obj_t;
