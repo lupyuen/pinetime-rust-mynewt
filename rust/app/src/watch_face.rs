@@ -35,201 +35,198 @@ use lvgl::{
     objx::label,
 };
 
-///////////////////////////////////////////////////////////////////////////////
-//  Create Watch Face
+impl BarebonesWatchFace {
 
-/// Create the widgets for the Watch Face. Called by start_watch_face() below.
-pub fn create_watch_face(widgets: &mut WatchFaceWidgets) -> MynewtResult<()> {
-    //  Fetch the screen, which will be the parent of the widgets
-    let scr = widgets.screen;
-    assert!(!scr.is_null(), "null screen");
+    ///////////////////////////////////////////////////////////////////////////////
+    //  Create Watch Face
 
-    //  Create a label for Time: "00:00"
-    widgets.time_label = {
-        let lbl = label::create(scr, ptr::null()) ? ;  //  `?` will terminate the function in case of error
-        label::set_long_mode(lbl, label::LV_LABEL_LONG_BREAK) ? ;
-        label::set_text(     lbl, strn!("00:00")) ? ;  //  strn creates a null-terminated string
-        obj::set_width(      lbl, 240) ? ;
-        obj::set_height(     lbl, 200) ? ;
-        label::set_align(    lbl, label::LV_LABEL_ALIGN_CENTER) ? ;
-        obj::align(          lbl, scr, obj::LV_ALIGN_CENTER, 0, -30) ? ;    
-        lbl
-    };
+    /// Create the widgets for the Watch Face
+    pub fn new(screen: *mut obj::lv_obj_t) -> MynewtResult<Self> {
+        let watch_face = Self {
+            //  Create a label for Time: "00:00"
+            time_label: {
+                let lbl = label::create(screen, ptr::null()) ? ;  //  `?` will terminate the function in case of error
+                label::set_long_mode(lbl, label::LV_LABEL_LONG_BREAK) ? ;
+                label::set_text(     lbl, strn!("00:00")) ? ;  //  strn creates a null-terminated string
+                obj::set_width(      lbl, 240) ? ;
+                obj::set_height(     lbl, 200) ? ;
+                label::set_align(    lbl, label::LV_LABEL_ALIGN_CENTER) ? ;
+                obj::align(          lbl, screen, obj::LV_ALIGN_CENTER, 0, -30) ? ;    
+                lbl
+            },
 
-    //  Create a label for Date: "MON 05 MAY 2020"
-    widgets.date_label = {
-        let lbl = label::create(scr, ptr::null()) ? ;
-        label::set_long_mode(lbl, label::LV_LABEL_LONG_BREAK) ? ;
-        obj::set_width(      lbl, 200) ? ;
-        obj::set_height(     lbl, 200) ? ;
-        label::set_text(     lbl, strn!("")) ? ;  //  strn creates a null-terminated string
-        label::set_align(    lbl, label::LV_LABEL_ALIGN_CENTER) ? ;
-        obj::align(          lbl, scr, obj::LV_ALIGN_CENTER, 0, 40) ? ;
-        lbl
-    };
+            //  Create a label for Date: "MON 05 MAY 2020"
+            date_label: {
+                let lbl = label::create(screen, ptr::null()) ? ;
+                label::set_long_mode(lbl, label::LV_LABEL_LONG_BREAK) ? ;
+                obj::set_width(      lbl, 200) ? ;
+                obj::set_height(     lbl, 200) ? ;
+                label::set_text(     lbl, strn!("")) ? ;  //  strn creates a null-terminated string
+                label::set_align(    lbl, label::LV_LABEL_ALIGN_CENTER) ? ;
+                obj::align(          lbl, screen, obj::LV_ALIGN_CENTER, 0, 40) ? ;
+                lbl
+            },
 
-    //  Create a label for Bluetooth State
-    widgets.ble_label = {
-        let lbl = label::create(scr, ptr::null()) ? ;
-        obj::set_width(     lbl, 50) ? ;
-        obj::set_height(    lbl, 80) ? ;
-        label::set_text(    lbl, strn!("")) ? ;  //  strn creates a null-terminated string
-        label::set_recolor( lbl, true) ? ;
-        label::set_align(   lbl, label::LV_LABEL_ALIGN_LEFT) ? ;
-        obj::align(         lbl, scr, obj::LV_ALIGN_IN_TOP_LEFT, 0, 0) ? ;
-        lbl    
-    };
+            //  Create a label for Bluetooth State
+            bluetooth_label: {
+                let lbl = label::create(screen, ptr::null()) ? ;
+                obj::set_width(     lbl, 50) ? ;
+                obj::set_height(    lbl, 80) ? ;
+                label::set_text(    lbl, strn!("")) ? ;  //  strn creates a null-terminated string
+                label::set_recolor( lbl, true) ? ;
+                label::set_align(   lbl, label::LV_LABEL_ALIGN_LEFT) ? ;
+                obj::align(         lbl, screen, obj::LV_ALIGN_IN_TOP_LEFT, 0, 0) ? ;
+                lbl    
+            },
 
-    //  Create a label for Power Indicator
-    widgets.power_label = {
-        let lbl = label::create(scr, ptr::null()) ? ;
-        obj::set_width(    lbl, 80) ? ;
-        obj::set_height(   lbl, 20) ? ;
-        label::set_text(   lbl, strn!("")) ? ;  //  strn creates a null-terminated string
-        label::set_recolor(lbl, true) ? ;
-        label::set_align(  lbl, label::LV_LABEL_ALIGN_RIGHT) ? ;
-        obj::align(        lbl, scr, obj::LV_ALIGN_IN_TOP_RIGHT, 0, 0) ? ;
-        lbl
-    };
-
-    //  Allow touch events
-    obj::set_click(scr, true) ? ;
-    Ok(())
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//  Update Watch Face
-
-/// Update the widgets in the Watch Face with the current state. Called by watch_face_callback() below.
-pub fn update_watch_face(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
-    //  Populate the Time and Date Labels
-    set_time_date_labels(widgets, state) ? ;
-
-    //  Populate the Bluetooth Label
-    set_bt_label(widgets, state) ? ;
-
-    //  Populate the Power Label
-    set_power_label(widgets, state) ? ;
-    Ok(())
-}
-
-/// Populate the Time and Date Labels with the time and date. Called by update_watch_face() above.
-pub fn set_time_date_labels(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
-    //  Create a string buffer to format the time
-    static mut TIME_BUF: String = new_string();
-
-    //  Format the time as "12:34" and set the label
-    unsafe {  //  Unsafe because TIME_BUF is a mutable static
-        TIME_BUF.clear();
-        write!(
-            &mut TIME_BUF, 
-            "{:02}:{:02}\0",  //  Must terminate Rust strings with null
-            state.time.hour,
-            state.time.minute
-        ).expect("time fail");
-        label::set_text(
-            widgets.time_label, 
-            &to_strn(&TIME_BUF)
-        ) ? ;
+            //  Create a label for Power Indicator
+            power_label: {
+                let lbl = label::create(screen, ptr::null()) ? ;
+                obj::set_width(    lbl, 80) ? ;
+                obj::set_height(   lbl, 20) ? ;
+                label::set_text(   lbl, strn!("")) ? ;  //  strn creates a null-terminated string
+                label::set_recolor(lbl, true) ? ;
+                label::set_align(  lbl, label::LV_LABEL_ALIGN_RIGHT) ? ;
+                obj::align(        lbl, screen, obj::LV_ALIGN_IN_TOP_RIGHT, 0, 0) ? ;
+                lbl
+            },
+        };
+        //  Return the watch face
+        Ok(watch_face)
     }
 
-    //  Get the short day name and short month name
-    let day = get_day_name(&state.time);
-    let month = get_month_name(&state.time);
+    ///////////////////////////////////////////////////////////////////////////////
+    //  Update Watch Face
 
-    //  Create a string buffer to format the date
-    static mut DATE_BUF: String = new_string();
-    
-    //  Format the date as "MON 22 MAY 2020" and set the label
-    unsafe {  //  Unsafe because DATE_BUF is a mutable static
-        DATE_BUF.clear();
-        write!(
-            &mut DATE_BUF, 
-            "{} {} {} {}\n\0",  //  Must terminate Rust strings with null
-            day,
-            state.time.dayofmonth,
-            month,
-            state.time.year
-        ).expect("date fail");
-        label::set_text(
-            widgets.date_label, 
-            &to_strn(&DATE_BUF)
-        ) ? ;
+    /// Update the widgets in the Watch Face with the current state
+    pub fn update(&self, screen: *mut obj::lv_obj_t, state: &WatchFaceState) -> MynewtResult<()> {
+        //  Populate the Time and Date Labels
+        self.update_date_time(screen, state) ? ;
+
+        //  Populate the Bluetooth Label
+        self.update_bluetooth(screen, state) ? ;
+
+        //  Populate the Power Label
+        self.update_power(screen, state) ? ;
+        Ok(())
     }
-    Ok(())
-}
 
-/// Populate the Bluetooth Label with the Bluetooth status. Called by update_watch_face() above.
-pub fn set_bt_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
-    if state.ble_state == BleState::BLEMAN_BLE_STATE_DISCONNECTED {
-        label::set_text(
-            widgets.ble_label, 
-            strn!("")
-        ) ? ;
-    } else {
-        //  Get the color of the Bluetooth icon
-        let color = 
-            match &state.ble_state {
-                BleState::BLEMAN_BLE_STATE_INACTIVE     => "#000000",  //  Black
-                BleState::BLEMAN_BLE_STATE_DISCONNECTED => "#f2495c",  //  Red
-                BleState::BLEMAN_BLE_STATE_ADVERTISING  => "#5794f2",  //  Blue
-                BleState::BLEMAN_BLE_STATE_CONNECTED    => "#37872d",  //  Dark Green
-            };
-        //  Create a string buffer to format the Bluetooth status
-        static mut BLUETOOTH_STATUS: String = new_string();
-        //  Format the Bluetooth status and set the label
-        unsafe {  //  Unsafe because BLUETOOTH_STATUS is a mutable static
-            BLUETOOTH_STATUS.clear();
+    /// Populate the Time and Date Labels with the time and date
+    pub fn update_date_time(&self, _screen: *mut obj::lv_obj_t, state: &WatchFaceState) -> MynewtResult<()> {
+        //  Create a string buffer to format the time
+        static mut TIME_BUF: String = new_string();
+
+        //  Format the time as "12:34" and set the label
+        unsafe {  //  Unsafe because TIME_BUF is a mutable static
+            TIME_BUF.clear();
             write!(
-                &mut BLUETOOTH_STATUS, 
-                "{} \u{F293}#\0",  //  LV_SYMBOL_BLUETOOTH. Must terminate Rust strings with null.
-                color
-            ).expect("bt fail");
+                &mut TIME_BUF, 
+                "{:02}:{:02}\0",  //  Must terminate Rust strings with null
+                state.time.hour,
+                state.time.minute
+            ).expect("time fail");
             label::set_text(
-                widgets.ble_label, 
-                &to_strn(&BLUETOOTH_STATUS)
+                self.time_label, 
+                &to_strn(&TIME_BUF)
             ) ? ;
         }
-    }
-    Ok(())
-}
 
-/// Populate the Power Label with the battery status. Called by update_watch_face() above.
-pub fn set_power_label(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
-    let percentage = convert_battery_voltage(state.millivolts);
-    let color =              //  Charging color
-        if percentage <= 20
-            { "#f2495c" }    //  Low Battery
-        else if state.powered && !(state.charging) 
-            { "#73bf69" }    //  Full Battery
-        else 
-            { "#fade2a" };   //  Mid Battery
-    let symbol =                         //  Charging symbol
-        if state.powered { "\u{F0E7}" }  //  LV_SYMBOL_CHARGE
-        else { " " };
-    //  Create a string buffer to format the battery status
-    static mut BATTERY_STATUS: String = new_string();
-    //  Format the battery status and set the label
-    unsafe {  //  Unsafe because BATTERY_STATUS is a mutable static
-        BATTERY_STATUS.clear();
-        write!(
-            &mut BATTERY_STATUS, 
-            "{} {}%{}#\nRUST ({}mV)\0",  //  Must terminate Rust strings with null
-            color,
-            percentage,
-            symbol,
-            state.millivolts
-        ).expect("batt fail");
-        label::set_text(
-            widgets.power_label, 
-            &to_strn(&BATTERY_STATUS)
-        ) ? ; 
+        //  Get the short day name and short month name
+        let day = get_day_name(&state.time);
+        let month = get_month_name(&state.time);
+
+        //  Create a string buffer to format the date
+        static mut DATE_BUF: String = new_string();
+        
+        //  Format the date as "MON 22 MAY 2020" and set the label
+        unsafe {  //  Unsafe because DATE_BUF is a mutable static
+            DATE_BUF.clear();
+            write!(
+                &mut DATE_BUF, 
+                "{} {} {} {}\n\0",  //  Must terminate Rust strings with null
+                day,
+                state.time.dayofmonth,
+                month,
+                state.time.year
+            ).expect("date fail");
+            label::set_text(
+                self.date_label, 
+                &to_strn(&DATE_BUF)
+            ) ? ;
+        }
+        Ok(())
     }
-    obj::align(
-        widgets.power_label, widgets.screen, 
-        obj::LV_ALIGN_IN_TOP_RIGHT, 0, 0
-    ) ? ;
-    Ok(())
+
+    /// Populate the Bluetooth Label with the Bluetooth status
+    pub fn update_bluetooth(&self, _screen: *mut obj::lv_obj_t, state: &WatchFaceState) -> MynewtResult<()> {
+        if state.bluetooth == BluetoothState::BLUETOOTH_STATE_DISCONNECTED {
+            label::set_text(
+                self.bluetooth_label, 
+                strn!("")
+            ) ? ;
+        } else {
+            //  Get the color of the Bluetooth icon
+            let color = 
+                match &state.bluetooth {
+                    BluetoothState::BLUETOOTH_STATE_INACTIVE     => "#000000",  //  Black
+                    BluetoothState::BLUETOOTH_STATE_ADVERTISING  => "#5794f2",  //  Blue
+                    BluetoothState::BLUETOOTH_STATE_DISCONNECTED => "#f2495c",  //  Red
+                    BluetoothState::BLUETOOTH_STATE_CONNECTED    => "#37872d",  //  Dark Green
+                };
+            //  Create a string buffer to format the Bluetooth status
+            static mut BLUETOOTH_STATUS: String = new_string();
+            //  Format the Bluetooth status and set the label
+            unsafe {  //  Unsafe because BLUETOOTH_STATUS is a mutable static
+                BLUETOOTH_STATUS.clear();
+                write!(
+                    &mut BLUETOOTH_STATUS, 
+                    "{} \u{F293}#\0",  //  LV_SYMBOL_BLUETOOTH. Must terminate Rust strings with null.
+                    color
+                ).expect("bt fail");
+                label::set_text(
+                    self.bluetooth_label, 
+                    &to_strn(&BLUETOOTH_STATUS)
+                ) ? ;
+            }
+        }
+        Ok(())
+    }
+
+    /// Populate the Power Label with the battery status
+    pub fn update_power(&self, screen: *mut obj::lv_obj_t, state: &WatchFaceState) -> MynewtResult<()> {
+        let percentage = convert_battery_voltage(state.millivolts);
+        let color =                                                     //  Charging color
+            if percentage <= 20                        { "#f2495c" }    //  Low Battery
+            else if state.powered && !(state.charging) { "#73bf69" }    //  Full Battery
+            else                                       { "#fade2a" };   //  Mid Battery
+        let symbol =                         //  Charging symbol
+            if state.powered { "\u{F0E7}" }  //  LV_SYMBOL_CHARGE
+            else             { " " };
+        //  Create a string buffer to format the battery status
+        static mut BATTERY_STATUS: String = new_string();
+        //  Format the battery status and set the label
+        unsafe {  //  Unsafe because BATTERY_STATUS is a mutable static
+            BATTERY_STATUS.clear();
+            write!(
+                &mut BATTERY_STATUS, 
+                "{} {}%{}#\nRUST ({}mV)\0",  //  Must terminate Rust strings with null
+                color,
+                percentage,
+                symbol,
+                state.millivolts
+            ).expect("batt fail");
+            label::set_text(
+                self.power_label, 
+                &to_strn(&BATTERY_STATUS)
+            ) ? ; 
+        }
+        obj::align(
+            self.power_label, screen, 
+            obj::LV_ALIGN_IN_TOP_RIGHT, 0, 0
+        ) ? ;
+        Ok(())
+    }
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -277,22 +274,39 @@ pub fn convert_battery_voltage(_voltage: u32) -> i32 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+//  Watch Face Definition
+
+/// Widgets for the Watch Face
+pub struct BarebonesWatchFace {
+    pub time_label:      *mut obj::lv_obj_t,
+    pub date_label:      *mut obj::lv_obj_t,
+    pub bluetooth_label: *mut obj::lv_obj_t,
+    pub power_label:     *mut obj::lv_obj_t,
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//  Watch Face Trait
+
+pub trait WatchFace {
+}
+
+///////////////////////////////////////////////////////////////////////////////
 //  Mynewt Timer Functions
 
 /// Start rendering the watch face every minute
 pub fn start_watch_face() -> MynewtResult<()> {
     console::print("Init Rust watch face...\n"); console::flush();
 
-    //  Get active screen from LVGL. We can't call lv_scr_act() because it's an inline function.
-    unsafe {  //  Unsafe because WATCH_FACE_WIDGETS is a mutable static
-        WATCH_FACE_WIDGETS.screen = lv_disp_get_scr_act( 
-            obj::disp_get_default()
-                .expect("Failed to get display")
-        );
+    //  Get active screen from LVGL
+    let screen = get_active_screen();
+
+    //  Create the watch face
+    unsafe {  //  Unsafe because WATCH_FACE is a mutable static
+        WATCH_FACE = BarebonesWatchFace::new(screen) ? ;
     }
 
-    //  Create the watch face    
-    create_watch_face(unsafe { &mut WATCH_FACE_WIDGETS }) ? ;
+    //  Allow touch events
+    obj::set_click(screen, true) ? ;
 
     //  Render the watch face
     let rc = unsafe { pinetime_lvgl_mynewt_render() };
@@ -323,6 +337,9 @@ pub fn start_watch_face() -> MynewtResult<()> {
 extern fn watch_face_callback(_ev: *mut os::os_event) {
     console::print("Update Rust watch face...\n"); console::flush();
 
+    //  Get active screen from LVGL
+    let screen = get_active_screen();
+
     //  Get the system time    
     let time = get_system_time()
         .expect("Can't get system time");
@@ -333,12 +350,13 @@ extern fn watch_face_callback(_ev: *mut os::os_event) {
         millivolts: 0,     //  TODO: Get current voltage
         charging:   true,  //  TODO: Get charging status
         powered:    true,  //  TODO: Get powered status
-        ble_state:  BleState::BLEMAN_BLE_STATE_CONNECTED,  //  TODO: Get BLE state
+        bluetooth:  BluetoothState::BLUETOOTH_STATE_CONNECTED,  //  TODO: Get BLE state
     };
-
     //  Update the watch face
-    update_watch_face(unsafe { &WATCH_FACE_WIDGETS }, &state)
-        .expect("Update Watch Face fail");
+    unsafe {  //  Unsafe because WATCH_FACE is a mutable static
+        WATCH_FACE.update(screen, &state)
+            .expect("Update Watch Face fail");
+    }
 
     //  Render the watch face
     let rc = unsafe { pinetime_lvgl_mynewt_render() };
@@ -354,11 +372,24 @@ extern fn watch_face_callback(_ev: *mut os::os_event) {
     assert!(rc == 0, "Timer fail");
 }
 
+/// Get active screen from LVGL
+fn get_active_screen() -> *mut obj::lv_obj_t {
+    //  Get active screen from LVGL. We can't call lv_scr_act() because it's an inline function.
+    let screen = unsafe {  //  Unsafe because lv_disp_get_scr_act() is an LVGL C function
+        lv_disp_get_scr_act( 
+            obj::disp_get_default()
+                .expect("Failed to get display")
+        )
+    };
+    assert!(!screen.is_null(), "null screen");
+    screen
+}
+
+/// Widgets for the watch face
+static mut WATCH_FACE: BarebonesWatchFace = fill_zero!(BarebonesWatchFace);
+
 /// Timer that is triggered every minute to update the watch face
 static mut WATCH_FACE_CALLOUT: os::os_callout = fill_zero!(os::os_callout);
-
-/// LVGL Widgets for the watch face
-static mut WATCH_FACE_WIDGETS: WatchFaceWidgets = fill_zero!(WatchFaceWidgets);
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Date Time Functions
@@ -411,21 +442,10 @@ type String = heapless::String::<heapless::consts::U64>;
 ///////////////////////////////////////////////////////////////////////////////
 //  Watch Face Definitions
 
-/// Widgets for the Watch Face
-#[repr(C)]  //  Allow this struct to be passed to C (for future integration)
-pub struct WatchFaceWidgets {
-    pub screen:      *mut obj::lv_obj_t,
-    pub time_label:  *mut obj::lv_obj_t,
-    pub date_label:  *mut obj::lv_obj_t,
-    pub ble_label:   *mut obj::lv_obj_t,
-    pub power_label: *mut obj::lv_obj_t,
-}
-
 /// State for the Watch Face
-#[repr(C)]  //  Allow this struct to be passed to C (for future integration)
 pub struct WatchFaceState {
-    pub ble_state:  BleState,
     pub time:       WatchFaceTime,
+    pub bluetooth:  BluetoothState,
     pub millivolts: u32,
     pub charging:   bool,
     pub powered:    bool,
@@ -436,11 +456,11 @@ pub struct WatchFaceState {
 #[derive(PartialEq)]  //  Allow comparison of enum
 #[allow(dead_code)]   //  TODO: Use all enum values
 #[allow(non_camel_case_types)]
-pub enum BleState {
-    BLEMAN_BLE_STATE_INACTIVE     = 0,
-    BLEMAN_BLE_STATE_ADVERTISING  = 1,
-    BLEMAN_BLE_STATE_DISCONNECTED = 2,
-    BLEMAN_BLE_STATE_CONNECTED    = 3,
+pub enum BluetoothState {
+    BLUETOOTH_STATE_INACTIVE     = 0,
+    BLUETOOTH_STATE_ADVERTISING  = 1,
+    BLUETOOTH_STATE_DISCONNECTED = 2,
+    BLUETOOTH_STATE_CONNECTED    = 3,
 }
 
 /// Watch Face Time
