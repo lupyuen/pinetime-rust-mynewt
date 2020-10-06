@@ -61,10 +61,8 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     assert!(rc == 0, "BLE fail");
 
     //  Start rendering the watch face every minute in Rust.
-    /*
     watch_face::start_watch_face()
         .expect("Watch Face fail");
-    */
 
     //  Render LVGL watch face in C.
     //  extern { fn create_watch_face() -> i32; }  //  Defined in apps/my_sensor_app/src/watch_face.c
