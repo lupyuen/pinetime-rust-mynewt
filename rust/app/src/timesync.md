@@ -2,7 +2,7 @@
 
 ![PineTime Smart Watch with Bluetooth Time Sync and Rust Watch Face](https://lupyuen.github.io/images/timesync-title.png)
 
-Let's learn how we sync the time with PineTime over Bluetooth LE... And build PineTime Watch Faces with Rust and LVGL.
+Let's learn how PineTime syncs the time over Bluetooth LE... And how we build PineTime Watch Faces with Rust and LVGL.
 
 # Time Sync over Bluetooth LE
 
