@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <title>Bluetooth Time Sync, Rust Watch Faces and LVGL on PineTime Mynewt</title>
+
+    
+    <!-- Begin scripts/articles/*-header.html: Article Header for Custom Markdown files processed by rustdoc, like chip8.md -->
+<meta property="og:title" 
+    content="Bluetooth Time Sync, Rust Watch Faces and LVGL on PineTime Mynewt" 
+    data-rh="true">
+<meta property="og:description" 
+    content="How PineTime syncs the time over Bluetooth LE... And how we build PineTime Watch Faces with Rust and LVGL" 
+    data-rh="true">
+<meta property="og:image" 
+    content="https://lupyuen.github.io/images/timesync-title.png">
+<meta property="og:type" 
+    content="article" data-rh="true">
+<!-- End scripts/articles/*-header.html -->
+<!-- Begin scripts/rustdoc-header.html: Header for Custom Markdown files processed by rustdoc, like chip8.md -->
+<link rel="alternate" type="application/rss+xml" title="RSS Feed for lupyuen" href="/rss.xml" />
+<link rel="stylesheet" type="text/css" href="../normalize.css">
+<link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
+<link rel="stylesheet" type="text/css" href="../dark.css">
+<link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle">
+<link rel="stylesheet" type="text/css" href="../prism.css">
+<script src="../storage.js"></script><noscript>
+<link rel="stylesheet" href="../noscript.css"></noscript>
+<link rel="shortcut icon" href="../favicon.ico">
+<style type="text/css">
+    #crate-search {
+        background-image: url("../down-arrow.svg");
+    }
+    a {
+        color: #77d;
+    }
+</style>
+<!-- End scripts/rustdoc-header.html -->
+
+
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+        <!-- Begin scripts/rustdoc-before.html: Pre-HTML for Custom Markdown files processed by rustdoc, like chip8.md -->
+
+    <!-- Begin Theme Picker -->
+    <div class="theme-picker" style="left: 0"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg"
+        width="18" alt="Pick another theme!"></button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../theme.js"></script>
+    <script src="../prism.js"></script>
+    <!-- Theme Picker -->
+
+    <!-- End scripts/rustdoc-before.html -->
+    
+
+    <h1 class="title">Bluetooth Time Sync, Rust Watch Faces and LVGL on PineTime Mynewt</h1>
+    <nav id="TOC"><ul>
+<li><a href="#time-sync-over-bluetooth-le">1 Time Sync over Bluetooth LE</a><ul></ul></li>
+<li><a href="#get-the-time-in-c">2 Get the Time in C</a><ul></ul></li>
+<li><a href="#get-the-time-in-rust">3 Get the Time in Rust</a><ul></ul></li>
+<li><a href="#watch-face-in-c">4 Watch Face in C</a><ul></ul></li>
+<li><a href="#watch-face-in-rust">5 Watch Face in Rust</a><ul></ul></li>
+<li><a href="#porting-lvgl-to-mynewt">6 Porting LVGL to Mynewt</a><ul></ul></li>
+<li><a href="#rust-wrapper-for-lvgl">7 Rust Wrapper for LVGL</a><ul></ul></li>
+<li><a href="#whats-next">8 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Bluetooth Time Sync and Rust Watch Face" /></p>
+<p>Let's learn how PineTime syncs the time over Bluetooth LE... And how we build PineTime Watch Faces with Rust and LVGL.</p>
+<h1 id="time-sync-over-bluetooth-le" class="section-header"><a href="#time-sync-over-bluetooth-le">1 Time Sync over Bluetooth LE</a></h1>
+<p>TODO: Bluetooth LE Current Time Service, Discovering Bluetooth LE Services and Characteristics, Reading Bluetooth LE Characteristics, Decoding Bluetooth LE Current Time</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_peer.c"><code>apps/my_sensor_app/src/ble_peer.c</code></a></p>
+<h1 id="get-the-time-in-c" class="section-header"><a href="#get-the-time-in-c">2 Get the Time in C</a></h1>
+<p>TODO: os_timeval, clocktime and ISO format, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c"><code>my_sensor_app/src/watch_face.c</code></a></p>
+<h1 id="get-the-time-in-rust" class="section-header"><a href="#get-the-time-in-rust">3 Get the Time in Rust</a></h1>
+<p>TODO: WatchFaceTime, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/watch_face.rs"><code>rust/app/src/watch_face.rs</code></a></p>
+<h1 id="watch-face-in-c" class="section-header"><a href="#watch-face-in-c">4 Watch Face in C</a></h1>
+<p>TODO: Mynewt timer, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c"><code>my_sensor_app/src/watch_face.c</code></a></p>
+<h1 id="watch-face-in-rust" class="section-header"><a href="#watch-face-in-rust">5 Watch Face in Rust</a></h1>
+<p>TODO: Barebones watch face, LVGL styles, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/watch_face.rs"><code>rust/app/src/watch_face.rs</code></a></p>
+<h1 id="porting-lvgl-to-mynewt" class="section-header"><a href="#porting-lvgl-to-mynewt">6 Porting LVGL to Mynewt</a></h1>
+<p>TODO: SPI Driver for ST7789 Display Controller, <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt"><code>pinetime_lvgl_mynewt</code></a></p>
+<h1 id="rust-wrapper-for-lvgl" class="section-header"><a href="#rust-wrapper-for-lvgl">7 Rust Wrapper for LVGL</a></h1>
+<p>TODO: Bindgen, Safe Wrapper Proc Macro, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/lvgl"><code>rust/lvgl</code></a></p>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">8 What's Next</a></h1>
+<p>TODO: Bluetooth Time Sync, Rust Watch Faces and LVGL were developed and tested with Remote PineTime</p>
+<p><a href="https://lupyuen.github.io">Check out my PineTime articles</a></p>
+<p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
+
+    
+</body>
+</html>
