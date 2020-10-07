@@ -133,7 +133,7 @@ impl BarebonesWatchFace {
     //  Update Watch Face
 
     /// Populate the Time and Date Labels with the time and date
-    pub fn update_date_time(&self, _screen: lvgl::Ptr, state: &WatchFaceState) -> MynewtResult<()> {
+    fn update_date_time(&self, _screen: lvgl::Ptr, state: &WatchFaceState) -> MynewtResult<()> {
         //  Create a string buffer to format the time
         static mut TIME_BUF: String = new_string();
 
@@ -183,7 +183,7 @@ impl BarebonesWatchFace {
     }    
     
     /// Populate the Bluetooth Label with the Bluetooth State
-    pub fn update_bluetooth(&self, _screen: lvgl::Ptr, state: &WatchFaceState) -> MynewtResult<()> {
+    fn update_bluetooth(&self, _screen: lvgl::Ptr, state: &WatchFaceState) -> MynewtResult<()> {
         if state.bluetooth == BluetoothState::BLUETOOTH_STATE_DISCONNECTED {
             //  If Bluetooth is disconnected, leave the label empty
             label::set_text(
@@ -223,7 +223,7 @@ impl BarebonesWatchFace {
     }
 
     /// Populate the Power Label with the Power Indicator
-    pub fn update_power(&self, screen: lvgl::Ptr, state: &WatchFaceState) -> MynewtResult<()> {
+    fn update_power(&self, screen: lvgl::Ptr, state: &WatchFaceState) -> MynewtResult<()> {
         //  Compute the percentage power
         let percentage = convert_battery_voltage(state.millivolts);
 
@@ -271,7 +271,7 @@ impl BarebonesWatchFace {
 //  Date Time Functions
 
 /// Get month short name
-pub fn get_month_name(time: &WatchFaceTime) -> String {
+fn get_month_name(time: &WatchFaceTime) -> String {
     match time.month {
         1  => String::from("JAN"),
         2  => String::from("FEB"),
@@ -290,7 +290,7 @@ pub fn get_month_name(time: &WatchFaceTime) -> String {
 }
 
 /// Get day short name
-pub fn get_day_name(time: & WatchFaceTime) -> String {
+fn get_day_name(time: & WatchFaceTime) -> String {
     match time.day_of_week {
         0  => String::from("SUN"),
         1  => String::from("MON"),
@@ -307,7 +307,7 @@ pub fn get_day_name(time: & WatchFaceTime) -> String {
 //  Battery Functions
 
 /// Convert battery voltage to percentage
-pub fn convert_battery_voltage(_voltage: u32) -> i32 {
+fn convert_battery_voltage(_voltage: u32) -> i32 {
     50  //  TODO
 }
 
@@ -429,7 +429,7 @@ static mut WATCH_FACE_CALLOUT: os::os_callout = fill_zero!(os::os_callout);
 //  Date Time Functions
 
 /// Get the system time
-pub fn get_system_time() -> MynewtResult<WatchFaceTime> {
+fn get_system_time() -> MynewtResult<WatchFaceTime> {
     //  Get the system time
     static mut TV: os::os_timeval  = fill_zero!(os::os_timeval);
     static mut TZ: os::os_timezone = fill_zero!(os::os_timezone);
