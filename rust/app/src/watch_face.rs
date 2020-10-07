@@ -62,12 +62,12 @@ impl WatchFace for BarebonesWatchFace {
             time_label: {
                 let lbl = label::create(screen, ptr::null()) ? ;  //  `?` will terminate the function in case of error
                 label::set_long_mode(lbl, label::LV_LABEL_LONG_BREAK) ? ;
-                label::set_text(     lbl, strn!("00:00")) ? ;  //  strn creates a null-terminated string
+                label::set_text(     lbl, strn!("00:00")) ? ;     //  strn creates a null-terminated string
                 obj::set_width(      lbl, 240) ? ;
                 obj::set_height(     lbl, 200) ? ;
                 label::set_align(    lbl, label::LV_LABEL_ALIGN_CENTER) ? ;
                 obj::align(          lbl, screen, obj::LV_ALIGN_CENTER, 0, -30) ? ;    
-                lbl
+                lbl  //  Return the label as time_label
             },
 
             //  Create a Label for Date: "MON 22 MAY 2020"
@@ -79,7 +79,7 @@ impl WatchFace for BarebonesWatchFace {
                 label::set_text(     lbl, strn!("")) ? ;  //  strn creates a null-terminated string
                 label::set_align(    lbl, label::LV_LABEL_ALIGN_CENTER) ? ;
                 obj::align(          lbl, screen, obj::LV_ALIGN_CENTER, 0, 40) ? ;
-                lbl
+                lbl  //  Return the label as date_label
             },
 
             //  Create a Label for Bluetooth State
@@ -91,7 +91,7 @@ impl WatchFace for BarebonesWatchFace {
                 label::set_recolor( lbl, true) ? ;
                 label::set_align(   lbl, label::LV_LABEL_ALIGN_LEFT) ? ;
                 obj::align(         lbl, screen, obj::LV_ALIGN_IN_TOP_LEFT, 0, 0) ? ;
-                lbl    
+                lbl  //  Return the label as bluetooth_label
             },
 
             //  Create a Label for Power Indicator
@@ -103,7 +103,7 @@ impl WatchFace for BarebonesWatchFace {
                 label::set_recolor(lbl, true) ? ;
                 label::set_align(  lbl, label::LV_LABEL_ALIGN_RIGHT) ? ;
                 obj::align(        lbl, screen, obj::LV_ALIGN_IN_TOP_RIGHT, 0, 0) ? ;
-                lbl
+                lbl  //  Return the label as power_label
             },
         };
         //  Return the watch face
@@ -182,7 +182,7 @@ impl BarebonesWatchFace {
         Ok(())
     }    
     
-    /// Populate the Bluetooth Label with the Bluetooth State
+    /// Populate the Bluetooth Label with the Bluetooth State (Bluetooth Icon)
     fn update_bluetooth(&self, _screen: lvgl::Ptr, state: &WatchFaceState) -> MynewtResult<()> {
         if state.bluetooth == BluetoothState::BLUETOOTH_STATE_DISCONNECTED {
             //  If Bluetooth is disconnected, leave the label empty
@@ -222,7 +222,7 @@ impl BarebonesWatchFace {
         Ok(())
     }
 
-    /// Populate the Power Label with the Power Indicator
+    /// Populate the Power Label with the Power Indicator (Charging & Battery)
     fn update_power(&self, screen: lvgl::Ptr, state: &WatchFaceState) -> MynewtResult<()> {
         //  Compute the percentage power
         let percentage = convert_battery_voltage(state.millivolts);
