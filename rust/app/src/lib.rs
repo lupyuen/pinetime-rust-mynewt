@@ -40,9 +40,11 @@ use mynewt::{
     fill_zero,
     kernel::os,             //  Import Mynewt OS API
     sys::console,           //  Import Mynewt Console API
+    result::*,
 };
 use watchface::{            //  Import Watch Face Framework
     WatchFace,
+    WatchFaceState,
 };
 
 /// Declare the Watch Face Type
@@ -106,7 +108,15 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     //  Never comes here
 }
 
-///  This function is called on panic, like an assertion failure. We display the filename and line number and pause in the debugger. From https://os.phil-opp.com/freestanding-rust-binary/
+/// Called every minute to update the Watch Face
+fn update_watch_face(state: &WatchFaceState) -> MynewtResult<()> {
+    //  Update the watch face
+    unsafe {  //  Unsafe because WATCH_FACE is a mutable static
+        WATCH_FACE.update(state)
+    }
+}
+
+/// This function is called on panic, like an assertion failure. We display the filename and line number and pause in the debugger. From https://os.phil-opp.com/freestanding-rust-binary/
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     //  Display the filename and line number to the Semihosting Console.
