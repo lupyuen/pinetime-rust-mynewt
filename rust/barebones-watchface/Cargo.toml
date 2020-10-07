@@ -16,7 +16,7 @@ license       = "Apache-2.0"
 [dependencies]
 pinetime-lvgl      = { path = "../pinetime-lvgl" }   # Import path `../pinetime-lvgl` as lvgl library
 pinetime-macros    = "0.4.0"  # Safe Wrapper Macros for Mynewt on PineTime Smart Watch: https://crates.io/crates/pinetime-macros
-pinetime-mynewt    = { path = "../pinetime-mynewt" } # Import path `../pinetime-mynewt` as mynewt library
+pinetime-mynewt    = "0.2.0"  # Mynewt Bindings for PineTime Smart Watch: https://crates.io/crates/pinetime-mynewt
 pinetime-watchface = { path = "../pinetime-watchface" } # Import path `../pinetime-watchface` as watchface library
 arrayvec           = { version = "0.5.1", default-features = false }
 cortex-m           = { version = "0.6.1", features = [ "inline-asm" ] }  # Arm Cortex-M utilities: https://crates.io/crates/cortex-m
