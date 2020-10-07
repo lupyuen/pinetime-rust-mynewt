@@ -4,7 +4,6 @@
 [workspace]
 members = [
     "rust/app",
-    "rust/barebones-watchface",
 ]
 
 # Options for `cargo build`
