@@ -77,26 +77,26 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
             .expect("Create watch face fail");
     }
 
-    //  Start rendering the watch face every minute in Rust.
+    //  Start rendering the watch face every minute
     watchface::start_watch_face(update_watch_face)
         .expect("Watch Face fail");
 
-    //  Render LVGL watch face in C.
+    //  Render LVGL watch face in C
     //  extern { fn create_watch_face() -> i32; }  //  Defined in apps/my_sensor_app/src/watch_face.c
     //  let rc = unsafe { create_watch_face() };
     //  assert!(rc == 0, "Watch Face fail");
 
-    //  Render LVGL widgets in C for testing.
+    //  Render LVGL widgets in C for testing
     //  extern { fn pinetime_lvgl_mynewt_test() -> i32; }  //  Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
     //  let rc = unsafe { pinetime_lvgl_mynewt_test() };
     //  assert!(rc == 0, "LVGL test fail");
 
-    //  Render LVGL display.
+    //  Render LVGL display
     //  extern { fn pinetime_lvgl_mynewt_render() -> i32; }  //  Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
     //  let rc = unsafe { pinetime_lvgl_mynewt_render() };
     //  assert!(rc == 0, "LVGL render fail");    
 
-    //  Main event loop. Don't add anything to the event loop because Bluetooth LE is extremely time sensitive.
+    //  Main event loop. Never add anything to the event loop because Bluetooth LE is extremely time sensitive.
     loop {                            //  Loop forever...
         os::eventq_run(               //  Processing events...
             os::eventq_dflt_get()     //  From default event queue.
