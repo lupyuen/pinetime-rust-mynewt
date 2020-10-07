@@ -14,9 +14,9 @@ license       = "Apache-2.0"
 
 # External Rust libraries used by this module.  See crates.io.
 [dependencies]
-pinetime-lvgl      = { path = "../pinetime-lvgl" }   # Import path `../pinetime-lvgl` as lvgl library
 pinetime-macros    = "0.4.0"  # Safe Wrapper Macros for Mynewt on PineTime Smart Watch: https://crates.io/crates/pinetime-macros
 pinetime-mynewt    = "0.2.0"  # Mynewt Bindings for PineTime Smart Watch: https://crates.io/crates/pinetime-mynewt
+pinetime-lvgl      = "0.4.0"  # LVGL Bindings for Mynewt on PineTime Smart Watch: https://crates.io/crates/pinetime-lvgl
 pinetime-watchface = { path = "../pinetime-watchface" } # Import path `../pinetime-watchface` as watchface library
 arrayvec           = { version = "0.5.1", default-features = false }
 cortex-m           = { version = "0.6.1", features = [ "inline-asm" ] }  # Arm Cortex-M utilities: https://crates.io/crates/cortex-m
