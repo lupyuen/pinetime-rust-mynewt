@@ -18,6 +18,8 @@ cortex-m  = { version = "0.6.1", features = [ "inline-asm" ] }  # Arm Cortex-M u
 lvgl   = { path = "../lvgl" }   # Import path `../lvgl` as lvgl library
 macros = { path = "../macros" } # Import path `../macros` as macros library
 mynewt = { path = "../mynewt" } # Import path `../mynewt` as mynewt library
+watchface = { path = "../watchface" } # Import path `../watchface` as watchface library
+barebones-watchface = { path = "../barebones-watchface" } # Import path `../barebones-watchface` as barebones-watchface library
 
 # Build this module as a Rust library, not a Rust application.  We will link this library with the Mynewt executable.
 [lib]

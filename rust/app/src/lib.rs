@@ -32,15 +32,24 @@ extern crate macros as mynewt_macros;   //  Declare the Mynewt Procedural Macros
 mod app_network;    //  Declare `app_network.rs` as Rust module `app_network` for Application Network functions
 mod app_sensor;     //  Declare `app_sensor.rs` as Rust module `app_sensor` for Application Sensor functions
 mod touch_sensor;   //  Declare `touch_sensor.rs` as Rust module `touch_sensor` for Touch Sensor functions
-mod watch_face;     //  Declare `watch_face.rs` as Rust module `watch_face` for Watch Face functions
 
 //  Declare the system modules
 use core::panic::PanicInfo; //  Import `PanicInfo` type which is used by `panic()` below
 use cortex_m::asm::bkpt;    //  Import cortex_m assembly function to inject breakpoint
 use mynewt::{
+    fill_zero,
     kernel::os,             //  Import Mynewt OS API
     sys::console,           //  Import Mynewt Console API
 };
+use watchface::{            //  Import Watch Face Framework
+    WatchFace,
+};
+
+/// Declare the Watch Face Type
+type WatchFaceType = barebones_watchface::BarebonesWatchFace;
+
+/// Watch Face for the app
+static mut WATCH_FACE: WatchFaceType = fill_zero!(WatchFaceType);
 
 //  #[cfg(not(any(feature = "ui_app")))]  //  TODO: If no UI app is enabled...
 pub fn handle_touch(_x: u16, _y: u16) { console::print("touch not handled\n"); console::flush(); }  //  Define a touch handler that does nothing
@@ -60,9 +69,17 @@ extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by
     let rc = unsafe { start_ble() };
     assert!(rc == 0, "BLE fail");
 
+    //  Create the watch face
+    unsafe {  //  Unsafe because WATCH_FACE is a mutable static  
+        WATCH_FACE = WatchFaceType::new()
+            .expect("Create watch face fail");
+    }
+
     //  Start rendering the watch face every minute in Rust.
-    watch_face::start_watch_face()
+    /*
+    watchface::start_watch_face()
         .expect("Watch Face fail");
+    */
 
     //  Render LVGL watch face in C.
     //  extern { fn create_watch_face() -> i32; }  //  Defined in apps/my_sensor_app/src/watch_face.c

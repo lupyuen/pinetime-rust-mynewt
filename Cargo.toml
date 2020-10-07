@@ -4,9 +4,11 @@
 [workspace]
 members = [
     "rust/app",
+    "rust/barebones-watchface",
     "rust/lvgl",
     "rust/macros",
-    "rust/mynewt"
+    "rust/mynewt",
+    "rust/watchface",
 ]
 
 # Options for `cargo build`

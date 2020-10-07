@@ -1,0 +1,31 @@
+# Info about this package.
+[package]
+authors = ["Lee Lup Yuen <luppy@appkaki.com>"]
+edition = "2018"
+readme  = "README.md"
+name    = "barebones-watchface"
+version = "0.2.0"
+
+# External Rust libraries used by this module.  See crates.io.
+[dependencies]
+embedded-hal = "0.2.3" # Rust Embedded HAL Framework
+arrayvec     = { version = "0.5.1", default-features = false }
+heapless     = "0.5.1" # `static` friendly data structures that don't require dynamic memory allocation
+cty       = "0.2.0"  # String utilities from cty library: https://crates.io/crates/cty
+cstr_core = "0.1.2"  # String utilities from cstr_core library: https://crates.io/crates/cstr_core
+memchr    = { version = "2", default-features = false } # String search. Reduce the ROM size by disabling default features. See https://github.com/BurntSushi/rust-memchr
+cortex-m  = { version = "0.6.1", features = [ "inline-asm" ] }  # Arm Cortex-M utilities: https://crates.io/crates/cortex-m
+lvgl   = { path = "../lvgl" }   # Import path `../lvgl` as lvgl library
+macros = { path = "../macros" } # Import path `../macros` as macros library
+mynewt = { path = "../mynewt" } # Import path `../mynewt` as mynewt library
+watchface = { path = "../watchface" } # Import path `../watchface` as watchface library
+
+# Build this module as a Rust library, not a Rust application
+[lib]
+test       = false
+bench      = false
+
+# Optional features
+[features]
+default =  [          # Select the conditional compiled features
+]
