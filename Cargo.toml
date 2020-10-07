@@ -5,7 +5,6 @@
 members = [
     "rust/app",
     "rust/barebones-watchface",
-    "rust/pinetime-watchface",
 ]
 
 # Options for `cargo build`
