@@ -37,10 +37,8 @@ use mynewt::{
     sys::console,
     Strn,
 };
-use mynewt_macros::strn;
 use lvgl::{
     core::obj,
-    objx::label,
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -58,10 +56,12 @@ pub trait WatchFace {
 ///////////////////////////////////////////////////////////////////////////////
 //  Mynewt Timer Functions
 
-/*
 /// Start rendering the watch face every minute
-pub fn start_watch_face() -> MynewtResult<()> {
+pub fn start_watch_face(update_watch_face: UpdateWatchFace) -> MynewtResult<()> {
     console::print("Init Rust watch face...\n"); console::flush();
+
+    //  Save the callback for updating the watch face
+    unsafe { UPDATE_WATCH_FACE = Some(update_watch_face); }
 
     //  Get active screen from LVGL
     let screen = get_active_screen();
@@ -97,6 +97,9 @@ pub fn start_watch_face() -> MynewtResult<()> {
 /// Timer callback that is called every minute
 extern fn watch_face_callback(_ev: *mut os::os_event) {
     console::print("Update Rust watch face...\n"); console::flush();
+    
+    //  If there is no callback, fail.
+    assert!(unsafe { UPDATE_WATCH_FACE.is_some() }, "Update watch face missing");
 
     //  Get the system time    
     let time = get_system_time()
@@ -113,7 +116,7 @@ extern fn watch_face_callback(_ev: *mut os::os_event) {
 
     //  Update the watch face
     unsafe {  //  Unsafe because WATCH_FACE is a mutable static
-        WATCH_FACE.update(&state)
+        UPDATE_WATCH_FACE.unwrap()(&state)
             .expect("Update Watch Face fail");
     }
 
@@ -130,7 +133,6 @@ extern fn watch_face_callback(_ev: *mut os::os_event) {
     };
     assert!(rc == 0, "Timer fail");
 }
-*/
 
 /// Get active screen from LVGL
 pub fn get_active_screen() -> lvgl::Ptr {
@@ -147,6 +149,12 @@ pub fn get_active_screen() -> lvgl::Ptr {
 
 /// Timer that is triggered every minute to update the watch face
 static mut WATCH_FACE_CALLOUT: os::os_callout = fill_zero!(os::os_callout);
+
+/// Called every minute to update the Watch Face
+static mut UPDATE_WATCH_FACE: Option<UpdateWatchFace> = None;
+
+/// Type of callback to update the Watch Face
+type UpdateWatchFace = fn (state: &WatchFaceState) -> MynewtResult<()>;
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Date Time Functions
