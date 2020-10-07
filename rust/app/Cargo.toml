@@ -8,18 +8,18 @@ version = "0.2.0"
 
 # External Rust libraries used by this module.  See crates.io.
 [dependencies]
+barebones-watchface = { path = "../barebones-watchface" } # Import path `../barebones-watchface` as barebones-watchface library
+pinetime-lvgl       = { path = "../pinetime-lvgl" }   # Import path `../pinetime-lvgl` as lvgl library
+pinetime-macros     = { path = "../pinetime-macros" } # Import path `../pinetime-macros` as macros library
+pinetime-mynewt     = { path = "../pinetime-mynewt" } # Import path `../pinetime-mynewt` as mynewt library
+pinetime-watchface  = { path = "../pinetime-watchface" } # Import path `../pinetime-watchface` as watchface library
 embedded-hal = "0.2.3" # Rust Embedded HAL Framework
 arrayvec     = { version = "0.5.1", default-features = false }
 heapless     = "0.5.1" # `static` friendly data structures that don't require dynamic memory allocation
-cty       = "0.2.0"  # String utilities from cty library: https://crates.io/crates/cty
-cstr_core = "0.1.2"  # String utilities from cstr_core library: https://crates.io/crates/cstr_core
-memchr    = { version = "2", default-features = false } # String search. Reduce the ROM size by disabling default features. See https://github.com/BurntSushi/rust-memchr
-cortex-m  = { version = "0.6.1", features = [ "inline-asm" ] }  # Arm Cortex-M utilities: https://crates.io/crates/cortex-m
-lvgl   = { path = "../lvgl" }   # Import path `../lvgl` as lvgl library
-macros = { path = "../macros" } # Import path `../macros` as macros library
-mynewt = { path = "../mynewt" } # Import path `../mynewt` as mynewt library
-watchface = { path = "../watchface" } # Import path `../watchface` as watchface library
-barebones-watchface = { path = "../barebones-watchface" } # Import path `../barebones-watchface` as barebones-watchface library
+cty          = "0.2.0"  # String utilities from cty library: https://crates.io/crates/cty
+cstr_core    = "0.1.2"  # String utilities from cstr_core library: https://crates.io/crates/cstr_core
+memchr       = { version = "2", default-features = false } # String search. Reduce the ROM size by disabling default features. See https://github.com/BurntSushi/rust-memchr
+cortex-m     = { version = "0.6.1", features = [ "inline-asm" ] }  # Arm Cortex-M utilities: https://crates.io/crates/cortex-m
 
 # Build this module as a Rust library, not a Rust application.  We will link this library with the Mynewt executable.
 [lib]

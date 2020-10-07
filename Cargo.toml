@@ -5,10 +5,10 @@
 members = [
     "rust/app",
     "rust/barebones-watchface",
-    "rust/lvgl",
-    "rust/macros",
-    "rust/mynewt",
-    "rust/watchface",
+    "rust/pinetime-lvgl",
+    "rust/pinetime-macros",
+    "rust/pinetime-mynewt",
+    "rust/pinetime-watchface",
 ]
 
 # Options for `cargo build`

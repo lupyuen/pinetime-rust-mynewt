@@ -1,0 +1,40 @@
+# Info about this package.
+[package]
+name          = "pinetime-macros"
+version       = "0.4.0"
+authors       = ["Lee Lup Yuen <luppy@appkaki.com>"]
+edition       = "2018"
+description   = "Safe Wrapper Macros for Mynewt on PineTime Smart Watch"
+repository    = "https://github.com/lupyuen/pinetime-macros"
+documentation = "https://github.com/lupyuen/pinetime-macros"
+categories    = ["embedded", "no-std"]
+keywords      = ["pinetime", "mynewt", "macros"]
+readme        = "./README.md"
+license       = "Apache-2.0"
+
+# External Rust libraries used by this module.  See crates.io.
+[dependencies]
+cstr_core       = "0.1.2"  # String utilities from cstr_core library: https://crates.io/crates/cstr_core
+cty             = "0.2.0"  # C types library: https://crates.io/crates/cty
+lazy_static     = "1.4.0"  # Declare lazy statics: https://docs.rs/lazy_static/1.3.0/lazy_static
+memchr          = { version = "2", default-features = false } # String search. Reduce the ROM size by disabling default features. See https://github.com/BurntSushi/rust-memchr
+proc-macro2     = "1.0.3"  # Rust procedural macro library: https://crates.io/crates/proc-macro2
+quote           = "1.0.2"  # Generate Rust source code: https://crates.io/crates/quote
+rustc-serialize = "0.3"    # Serialise HashMaps to JSON: https://docs.rs/rustc-serialize/0.3.24/rustc_serialize
+syn             = { version = "1.0.5", features = [ "full", "extra-traits" ] } # Rust source code parser: https://crates.io/crates/syn
+
+# Build this module as a Rust library, which will be called by the compiler to expand Rust Procedural Macros. Not used in runtime.
+[lib]
+name       = "macros"  # Output will be named `libmacros.rlib`
+test       = true
+bench      = false
+proc-macro = true  # Allow building of Procedural Macros: https://blog.rust-lang.org/2018/12/21/Procedural-Macros-in-Rust-2018.html
+
+# Optional features
+[features]
+default =  [      # Select the conditional compiled features
+    "mynewt_os",  # Uncomment to support Mynewt OS
+    # "riot_os"   # Uncomment to support RIOT OS
+]
+mynewt_os = []    # Define the features
+riot_os   = []

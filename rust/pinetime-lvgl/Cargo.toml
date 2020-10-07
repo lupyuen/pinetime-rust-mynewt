@@ -1,0 +1,39 @@
+# Info about this package.
+[package]
+name          = "pinetime-lvgl"
+version       = "0.4.0"
+authors       = ["Lee Lup Yuen <luppy@appkaki.com>"]
+edition       = "2018"
+description   = "LVGL Bindings for Mynewt on PineTime Smart Watch"
+repository    = "https://github.com/lupyuen/pinetime-lvgl"
+documentation = "https://github.com/lupyuen/pinetime-lvgl"
+categories    = ["embedded", "no-std"]
+keywords      = ["pinetime", "mynewt", "lvgl"]
+readme        = "./README.md"
+license       = "Apache-2.0"
+
+# External Rust libraries used by this module.  See crates.io.
+[dependencies]
+pinetime-macros = { path = "../pinetime-macros" } # Import path `../pinetime-macros` as macros library
+pinetime-mynewt = { path = "../pinetime-mynewt" } # Import path `../pinetime-mynewt` as mynewt library
+cortex-m        = { version = "0.6.2", features = [ "inline-asm" ] }  # Arm Cortex-M utilities: https://crates.io/crates/cortex-m
+cortex-m-semihosting = "0.3.5"  # Semihosting for ARM Cortex-M processors: https://crates.io/crates/cortex-m-semihosting
+cstr_core       = "0.1.2"  # String utilities from cstr_core library: https://crates.io/crates/cstr_core
+cty             = "0.2.1"  # String utilities from cty library: https://crates.io/crates/cty
+heapless        = "0.5.3"  # `static` Vectors and Strings that don't require dynamic memory
+memchr          = { version = "2", default-features = false } # String search. Reduce the ROM size by disabling default features. See https://github.com/BurntSushi/rust-memchr
+
+# Build this module as a Rust library, not a Rust application.  We will link this library with the firmware.
+[lib]
+name       = "lvgl"  # Output will be named `liblvgl.rlib`
+test       = false
+bench      = false
+
+# Optional features
+[features]
+default =  [      # Select the conditional compiled features
+    "mynewt_os",  # Uncomment to support Mynewt OS
+    # "riot_os"   # Uncomment to support RIOT OS
+]
+mynewt_os = []    # Define the features
+riot_os   = []
