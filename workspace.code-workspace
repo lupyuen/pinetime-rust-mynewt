@@ -2,6 +2,21 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../pinetime-macros"
+		},
+		{
+			"path": "../barebones-watchface"
+		},
+		{
+			"path": "../pinetime-watchface"
+		},
+		{
+			"path": "../pinetime-lvgl"
+		},
+		{
+			"path": "../pinetime-mynewt"
 		}
 	],
 	"settings": {

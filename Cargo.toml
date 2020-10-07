@@ -6,7 +6,6 @@ members = [
     "rust/app",
     "rust/barebones-watchface",
     "rust/pinetime-lvgl",
-    "rust/pinetime-macros",
     "rust/pinetime-mynewt",
     "rust/pinetime-watchface",
 ]
