@@ -10285,6 +10285,7 @@ pub mod libs {
             -> bool;
         }
         extern "C" {
+            #[allow(clashing_extern_declarations)]
             pub fn init_sensor_post(server: *mut oc_server_handle)
             -> bool;
         }
@@ -10368,6 +10369,7 @@ pub mod libs {
             _unused: [u8; 0],
         }
         extern "C" {
+            #[allow(clashing_extern_declarations)]
             pub fn init_sensor_post(server: *mut oc_server_handle)
             -> bool;
         }
