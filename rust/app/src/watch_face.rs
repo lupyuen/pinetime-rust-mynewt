@@ -35,15 +35,30 @@ use lvgl::{
     objx::label,
 };
 
-impl BarebonesWatchFace {
+///////////////////////////////////////////////////////////////////////////////
+//  Watch Face Definition
+
+/// Barebones Watch Face with no frills
+pub struct BarebonesWatchFace {
+    /// Label for Time: "12:34"
+    pub time_label:      lvgl::Ptr,
+    /// Label for Date: "MON 22 MAY 2020"
+    pub date_label:      lvgl::Ptr,
+    /// Label for Bluetooth State (Bluetooth Icon)
+    pub bluetooth_label: lvgl::Ptr,
+    /// Label for Power Indicator (Charging & Battery)
+    pub power_label:     lvgl::Ptr,
+}
+
+impl WatchFace for BarebonesWatchFace {
 
     ///////////////////////////////////////////////////////////////////////////////
     //  Create Watch Face
 
     /// Create the widgets for the Watch Face
-    pub fn new(screen: lvgl::Ptr) -> MynewtResult<Self> {
+    fn new(screen: lvgl::Ptr) -> MynewtResult<Self> {
         let watch_face = Self {
-            //  Create a label for Time: "00:00"
+            //  Create a Label for Time: "00:00"
             time_label: {
                 let lbl = label::create(screen, ptr::null()) ? ;  //  `?` will terminate the function in case of error
                 label::set_long_mode(lbl, label::LV_LABEL_LONG_BREAK) ? ;
@@ -55,7 +70,7 @@ impl BarebonesWatchFace {
                 lbl
             },
 
-            //  Create a label for Date: "MON 05 MAY 2020"
+            //  Create a Label for Date: "MON 22 MAY 2020"
             date_label: {
                 let lbl = label::create(screen, ptr::null()) ? ;
                 label::set_long_mode(lbl, label::LV_LABEL_LONG_BREAK) ? ;
@@ -67,7 +82,7 @@ impl BarebonesWatchFace {
                 lbl
             },
 
-            //  Create a label for Bluetooth State
+            //  Create a Label for Bluetooth State
             bluetooth_label: {
                 let lbl = label::create(screen, ptr::null()) ? ;
                 obj::set_width(     lbl, 50) ? ;
@@ -79,7 +94,7 @@ impl BarebonesWatchFace {
                 lbl    
             },
 
-            //  Create a label for Power Indicator
+            //  Create a Label for Power Indicator
             power_label: {
                 let lbl = label::create(screen, ptr::null()) ? ;
                 obj::set_width(    lbl, 80) ? ;
@@ -99,7 +114,7 @@ impl BarebonesWatchFace {
     //  Update Watch Face
 
     /// Update the widgets in the Watch Face with the current state
-    pub fn update(&self, screen: lvgl::Ptr, state: &WatchFaceState) -> MynewtResult<()> {
+    fn update(&self, screen: lvgl::Ptr, state: &WatchFaceState) -> MynewtResult<()> {
         //  Populate the Time and Date Labels
         self.update_date_time(screen, state) ? ;
 
@@ -110,6 +125,12 @@ impl BarebonesWatchFace {
         self.update_power(screen, state) ? ;
         Ok(())
     }
+}
+
+impl BarebonesWatchFace {
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //  Update Watch Face
 
     /// Populate the Time and Date Labels with the time and date
     pub fn update_date_time(&self, _screen: lvgl::Ptr, state: &WatchFaceState) -> MynewtResult<()> {
@@ -117,55 +138,60 @@ impl BarebonesWatchFace {
         static mut TIME_BUF: String = new_string();
 
         //  Format the time as "12:34" and set the label
-        unsafe {  //  Unsafe because TIME_BUF is a mutable static
-            TIME_BUF.clear();
+        unsafe {                  //  Unsafe because TIME_BUF is a mutable static
+            TIME_BUF.clear();     //  Erase the buffer
+
             write!(
-                &mut TIME_BUF, 
+                &mut TIME_BUF,    //  Write the formatted text
                 "{:02}:{:02}\0",  //  Must terminate Rust strings with null
                 state.time.hour,
                 state.time.minute
             ).expect("time fail");
-            label::set_text(
+
+            label::set_text(      //  Set the label
                 self.time_label, 
                 &to_strn(&TIME_BUF)
             ) ? ;
         }
 
         //  Get the short day name and short month name
-        let day = get_day_name(&state.time);
+        let day   = get_day_name(&state.time);
         let month = get_month_name(&state.time);
 
         //  Create a string buffer to format the date
         static mut DATE_BUF: String = new_string();
         
         //  Format the date as "MON 22 MAY 2020" and set the label
-        unsafe {  //  Unsafe because DATE_BUF is a mutable static
-            DATE_BUF.clear();
+        unsafe {                    //  Unsafe because DATE_BUF is a mutable static
+            DATE_BUF.clear();       //  Erase the buffer
+
             write!(
-                &mut DATE_BUF, 
+                &mut DATE_BUF,      //  Write the formatted text
                 "{} {} {} {}\n\0",  //  Must terminate Rust strings with null
                 day,
-                state.time.dayofmonth,
+                state.time.day,
                 month,
                 state.time.year
             ).expect("date fail");
-            label::set_text(
+
+            label::set_text(        //  Set the label
                 self.date_label, 
                 &to_strn(&DATE_BUF)
             ) ? ;
         }
         Ok(())
-    }
-
-    /// Populate the Bluetooth Label with the Bluetooth status
+    }    
+    
+    /// Populate the Bluetooth Label with the Bluetooth State
     pub fn update_bluetooth(&self, _screen: lvgl::Ptr, state: &WatchFaceState) -> MynewtResult<()> {
         if state.bluetooth == BluetoothState::BLUETOOTH_STATE_DISCONNECTED {
+            //  If Bluetooth is disconnected, leave the label empty
             label::set_text(
                 self.bluetooth_label, 
                 strn!("")
             ) ? ;
         } else {
-            //  Get the color of the Bluetooth icon
+            //  Compute the color of the Bluetooth icon
             let color = 
                 match &state.bluetooth {
                     BluetoothState::BLUETOOTH_STATE_INACTIVE     => "#000000",  //  Black
@@ -173,17 +199,21 @@ impl BarebonesWatchFace {
                     BluetoothState::BLUETOOTH_STATE_DISCONNECTED => "#f2495c",  //  Red
                     BluetoothState::BLUETOOTH_STATE_CONNECTED    => "#37872d",  //  Dark Green
                 };
-            //  Create a string buffer to format the Bluetooth status
+
+                //  Create a string buffer to format the Bluetooth status
             static mut BLUETOOTH_STATUS: String = new_string();
+
             //  Format the Bluetooth status and set the label
-            unsafe {  //  Unsafe because BLUETOOTH_STATUS is a mutable static
-                BLUETOOTH_STATUS.clear();
+            unsafe {                       //  Unsafe because BLUETOOTH_STATUS is a mutable static
+                BLUETOOTH_STATUS.clear();  //  Erase the buffer
+
                 write!(
-                    &mut BLUETOOTH_STATUS, 
-                    "{} \u{F293}#\0",  //  LV_SYMBOL_BLUETOOTH. Must terminate Rust strings with null.
+                    &mut BLUETOOTH_STATUS, //  Write the formatted text
+                    "{} \u{F293}#\0",      //  LV_SYMBOL_BLUETOOTH. Must terminate Rust strings with null.
                     color
                 ).expect("bt fail");
-                label::set_text(
+
+                label::set_text(           //  Set the label
                     self.bluetooth_label, 
                     &to_strn(&BLUETOOTH_STATUS)
                 ) ? ;
@@ -192,21 +222,28 @@ impl BarebonesWatchFace {
         Ok(())
     }
 
-    /// Populate the Power Label with the battery status
+    /// Populate the Power Label with the Power Indicator
     pub fn update_power(&self, screen: lvgl::Ptr, state: &WatchFaceState) -> MynewtResult<()> {
+        //  Compute the percentage power
         let percentage = convert_battery_voltage(state.millivolts);
+
+        //  Compute the colour for the charging symbol
         let color =                                                     //  Charging color
             if percentage <= 20                        { "#f2495c" }    //  Low Battery
             else if state.powered && !(state.charging) { "#73bf69" }    //  Full Battery
             else                                       { "#fade2a" };   //  Mid Battery
+
         let symbol =                         //  Charging symbol
             if state.powered { "\u{F0E7}" }  //  LV_SYMBOL_CHARGE
             else             { " " };
-        //  Create a string buffer to format the battery status
+
+        //  Create a string buffer to format the Power Indicator
         static mut BATTERY_STATUS: String = new_string();
-        //  Format the battery status and set the label
-        unsafe {  //  Unsafe because BATTERY_STATUS is a mutable static
-            BATTERY_STATUS.clear();
+
+        //  Format thePower Indicator and set the label
+        unsafe {                             //  Unsafe because BATTERY_STATUS is a mutable static
+            BATTERY_STATUS.clear();          //  Erase the buffer
+
             write!(
                 &mut BATTERY_STATUS, 
                 "{} {}%{}#\nRUST ({}mV)\0",  //  Must terminate Rust strings with null
@@ -215,6 +252,7 @@ impl BarebonesWatchFace {
                 symbol,
                 state.millivolts
             ).expect("batt fail");
+
             label::set_text(
                 self.power_label, 
                 &to_strn(&BATTERY_STATUS)
@@ -252,8 +290,8 @@ pub fn get_month_name(time: &WatchFaceTime) -> String {
 }
 
 /// Get day short name
-pub fn get_day_name(time: &WatchFaceTime) -> String {
-    match time.dayofweek {
+pub fn get_day_name(time: & WatchFaceTime) -> String {
+    match time.day_of_week {
         0  => String::from("SUN"),
         1  => String::from("MON"),
         2  => String::from("TUE"),
@@ -274,20 +312,15 @@ pub fn convert_battery_voltage(_voltage: u32) -> i32 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-//  Watch Face Definition
-
-/// Widgets for the Watch Face
-pub struct BarebonesWatchFace {
-    pub time_label:      lvgl::Ptr,
-    pub date_label:      lvgl::Ptr,
-    pub bluetooth_label: lvgl::Ptr,
-    pub power_label:     lvgl::Ptr,
-}
-
-///////////////////////////////////////////////////////////////////////////////
 //  Watch Face Trait
 
 pub trait WatchFace {
+    /// Create the widgets for the Watch Face
+    fn new(screen: lvgl::Ptr) -> MynewtResult<Self>
+        where Self: core::marker::Sized;  //  Result type must have known size
+
+    /// Update the widgets in the Watch Face with the current state
+    fn update(&self, screen: lvgl::Ptr, state: &WatchFaceState) -> MynewtResult<()>;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -411,14 +444,13 @@ pub fn get_system_time() -> MynewtResult<WatchFaceTime> {
     //  Return the time
     let result = unsafe {  //  Unsafe because CT is a mutable static
         WatchFaceTime {
-            year:       CT.year as u16,  //  Year (4 digit year)
-            month:      CT.mon  as u8,   //  Month (1 - 12)
-            dayofmonth: CT.day  as u8,   //  Day (1 - 31)
-            hour:       CT.hour as u8,   //  Hour (0 - 23)
-            minute:     CT.min  as u8,   //  Minute (0 - 59)
-            second:     CT.sec  as u8,   //  Second (0 - 59)
-            fracs:      0,               //  Unused
-            dayofweek:  CT.dow  as u8,   //  Day of week (0 - 6; 0 = Sunday)
+            year:        CT.year as u16,  //  Year (4 digit year)
+            month:       CT.mon  as  u8,  //  Month (1 - 12)
+            day:         CT.day  as  u8,  //  Day (1 - 31)
+            hour:        CT.hour as  u8,  //  Hour (0 - 23)
+            minute:      CT.min  as  u8,  //  Minute (0 - 59)
+            second:      CT.sec  as  u8,  //  Second (0 - 59)
+            day_of_week: CT.dow  as  u8,  //  Day of week (0 - 6; 0 = Sunday)
         }
     };
     Ok(result)
@@ -444,37 +476,53 @@ type String = heapless::String::<heapless::consts::U64>;
 //  Watch Face Definitions
 
 /// State for the Watch Face
+#[repr(C)]  //  Allow this struct to be passed to C (for WebAssembly integration)
 pub struct WatchFaceState {
+    /// Current date and time
     pub time:       WatchFaceTime,
+    /// Bluetooth state
     pub bluetooth:  BluetoothState,
+    /// Current power
     pub millivolts: u32,
+    /// True if watch is charging
     pub charging:   bool,
+    /// True if watch is powered
     pub powered:    bool,
 }
 
-/// Bluetooth LE State
-#[repr(u8)]           //  Store the enum as 1 byte, so that we can pass this enum to C (for future integration)
+/// Watch Face Time
+#[repr(C)]  //  Allow this struct to be passed to C (for WebAssembly integration)
+pub struct WatchFaceTime {
+    ///  Year (4 digit year)
+    pub year:       u16,  
+    ///  Month (1 - 12)
+    pub month:       u8,  
+    ///  Day (1 - 31)
+    pub day:         u8,  
+    ///  Hour (0 - 23)
+    pub hour:        u8,  
+    ///  Minute (0 - 59)
+    pub minute:      u8,  
+    ///  Second (0 - 59)
+    pub second:      u8,  
+    /// Day of week (0 - 6; 0 = Sunday)
+    pub day_of_week: u8,  
+}
+
+/// Bluetooth State
+#[repr(u8)]           //  Store the enum as 1 byte, so that we can pass this enum to C (for WebAssembly integration)
 #[derive(PartialEq)]  //  Allow comparison of enum
 #[allow(dead_code)]   //  TODO: Use all enum values
 #[allow(non_camel_case_types)]
 pub enum BluetoothState {
+    /// Bluetooth is inactive
     BLUETOOTH_STATE_INACTIVE     = 0,
+    /// Bluetooth is advertising
     BLUETOOTH_STATE_ADVERTISING  = 1,
+    /// Bluetooth is disconnected
     BLUETOOTH_STATE_DISCONNECTED = 2,
+    /// Bluetooth is connected
     BLUETOOTH_STATE_CONNECTED    = 3,
-}
-
-/// Watch Face Time
-#[repr(C)]  //  Allow this struct to be passed to C (for future integration)
-pub struct WatchFaceTime {
-    pub year:       u16,  //  Year (4 digit year)
-    pub month:      u8,   //  Month (1 - 12)
-    pub dayofmonth: u8,   //  Day (1 - 31)
-    pub hour:       u8,   //  Hour (0 - 23)
-    pub minute:     u8,   //  Minute (0 - 59)
-    pub second:     u8,   //  Second (0 - 59)
-    pub fracs:      u8,   //  Unused
-    pub dayofweek:  u8,   //  Day of week (0 - 6; 0 = Sunday)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -483,14 +531,16 @@ pub struct WatchFaceTime {
 extern {
     /// Render the LVGL display. Defined in libs/pinetime_lvgl_mynewt/src/pinetime/lvgl.c
     fn pinetime_lvgl_mynewt_render() -> i32;
+
     /// Convert timeval to clocktime. From https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h
     fn timeval_to_clocktime(tv: *const os::os_timeval, tz: *const os::os_timezone, ct: *mut clocktime) -> i32;
+
     /// Get active screen for LVGL display. From LVGL.
     fn lv_disp_get_scr_act(disp: *mut obj::lv_disp_t) -> lvgl::Ptr;
 }
 
 /// Mynewt Clock Time. From https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h
-#[repr(C)]  //  Allow this struct to be passed to C (for future integration)
+#[repr(C)]  //  Allow this struct to be passed to Mynewt in C
 pub struct clocktime {
     pub year: i32,  //  Year (4 digit year)
     pub mon:  i32,  //  Month (1 - 12)
