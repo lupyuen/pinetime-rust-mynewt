@@ -4,6 +4,8 @@
 
 Let's learn how PineTime syncs the time over Bluetooth LE... And how we build PineTime Watch Faces with Rust and LVGL.
 
+![Bluetooth Time Sync](https://lupyuen.github.io/images/timesync-gatt.jpg)
+
 # Time Sync over Bluetooth LE
 
 TODO: Bluetooth LE Current Time Service, Discovering Bluetooth LE Services and Characteristics, Reading Bluetooth LE Characteristics, Decoding Bluetooth LE Current Time
