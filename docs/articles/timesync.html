@@ -319,11 +319,11 @@ if (rc != 0) { console_printf(&quot;Can't format time: %d\n&quot;, rc); return 4
 buf[16] = 0;
 </code></pre>
 <h1 id="get-the-time-in-rust" class="section-header"><a href="#get-the-time-in-rust">3 Get the Time in Rust</a></h1>
-<p>TODO: WatchFaceTime, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/watch_face.rs"><code>rust/app/src/watch_face.rs</code></a></p>
+<p>TODO: WatchFaceTime, <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs"><code>pinetime-watchface/src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// Get the system time</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_system_time</span>() <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span><span class="ident">WatchFaceTime</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">get_system_time</span>() <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span><span class="ident">WatchFaceTime</span><span class="op">&gt;</span> {
     <span class="comment">//  Get the system time</span>
     <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">TV</span>: <span class="ident">os</span>::<span class="ident">os_timeval</span>  <span class="op">=</span> <span class="macro">fill_zero</span><span class="macro">!</span>(<span class="ident">os</span>::<span class="ident">os_timeval</span>);
     <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">TZ</span>: <span class="ident">os</span>::<span class="ident">os_timezone</span> <span class="op">=</span> <span class="macro">fill_zero</span><span class="macro">!</span>(<span class="ident">os</span>::<span class="ident">os_timezone</span>);
@@ -338,14 +338,13 @@ buf[16] = 0;
     <span class="comment">//  Return the time</span>
     <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because CT is a mutable static</span>
         <span class="ident">WatchFaceTime</span> {
-            <span class="ident">year</span>:       <span class="ident">CT</span>.<span class="ident">year</span> <span class="kw">as</span> <span class="ident">u16</span>,  <span class="comment">//  Year (4 digit year)</span>
-            <span class="ident">month</span>:      <span class="ident">CT</span>.<span class="ident">mon</span>  <span class="kw">as</span> <span class="ident">u8</span>,   <span class="comment">//  Month (1 - 12)</span>
-            <span class="ident">dayofmonth</span>: <span class="ident">CT</span>.<span class="ident">day</span>  <span class="kw">as</span> <span class="ident">u8</span>,   <span class="comment">//  Day (1 - 31)</span>
-            <span class="ident">hour</span>:       <span class="ident">CT</span>.<span class="ident">hour</span> <span class="kw">as</span> <span class="ident">u8</span>,   <span class="comment">//  Hour (0 - 23)</span>
-            <span class="ident">minute</span>:     <span class="ident">CT</span>.<span class="ident">min</span>  <span class="kw">as</span> <span class="ident">u8</span>,   <span class="comment">//  Minute (0 - 59)</span>
-            <span class="ident">second</span>:     <span class="ident">CT</span>.<span class="ident">sec</span>  <span class="kw">as</span> <span class="ident">u8</span>,   <span class="comment">//  Second (0 - 59)</span>
-            <span class="ident">fracs</span>:      <span class="number">0</span>,               <span class="comment">//  Unused</span>
-            <span class="ident">dayofweek</span>:  <span class="ident">CT</span>.<span class="ident">dow</span>  <span class="kw">as</span> <span class="ident">u8</span>,   <span class="comment">//  Day of week (0 - 6; 0 = Sunday)</span>
+            <span class="ident">year</span>:        <span class="ident">CT</span>.<span class="ident">year</span> <span class="kw">as</span> <span class="ident">u16</span>,  <span class="comment">//  Year (4 digit year)</span>
+            <span class="ident">month</span>:       <span class="ident">CT</span>.<span class="ident">mon</span>  <span class="kw">as</span>  <span class="ident">u8</span>,  <span class="comment">//  Month (1 - 12)</span>
+            <span class="ident">day</span>:         <span class="ident">CT</span>.<span class="ident">day</span>  <span class="kw">as</span>  <span class="ident">u8</span>,  <span class="comment">//  Day (1 - 31)</span>
+            <span class="ident">hour</span>:        <span class="ident">CT</span>.<span class="ident">hour</span> <span class="kw">as</span>  <span class="ident">u8</span>,  <span class="comment">//  Hour (0 - 23)</span>
+            <span class="ident">minute</span>:      <span class="ident">CT</span>.<span class="ident">min</span>  <span class="kw">as</span>  <span class="ident">u8</span>,  <span class="comment">//  Minute (0 - 59)</span>
+            <span class="ident">second</span>:      <span class="ident">CT</span>.<span class="ident">sec</span>  <span class="kw">as</span>  <span class="ident">u8</span>,  <span class="comment">//  Second (0 - 59)</span>
+            <span class="ident">day_of_week</span>: <span class="ident">CT</span>.<span class="ident">dow</span>  <span class="kw">as</span>  <span class="ident">u8</span>,  <span class="comment">//  Day of week (0 - 6; 0 = Sunday)</span>
         }
     };
     <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
@@ -428,24 +427,23 @@ static void watch_face_callback(struct os_event *ev) {
 }
 </code></pre>
 <h1 id="watch-face-in-rust" class="section-header"><a href="#watch-face-in-rust">5 Watch Face in Rust</a></h1>
-<p>TODO: Barebones watch face, LVGL styles, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/watch_face.rs"><code>rust/app/src/watch_face.rs</code></a></p>
+<p>TODO: Barebones watch face, LVGL styles</p>
+<p>Watch Face Framework in <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs"><code>pinetime-watchface/blob/master/src/lib.rs</code></a></p>
 <p>Start the watch face...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// Start rendering the watch face every minute</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">start_watch_face</span>() <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">start_watch_face</span>(<span class="ident">update_watch_face</span>: <span class="ident">UpdateWatchFace</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
     <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;Init Rust watch face...\n&quot;</span>); <span class="ident">console</span>::<span class="ident">flush</span>();
 
-    <span class="comment">//  Get active screen from LVGL. We can&#39;t call lv_scr_act() because it&#39;s an inline function.</span>
-    <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because WATCH_FACE_WIDGETS is a mutable static</span>
-        <span class="ident">WATCH_FACE_WIDGETS</span>.<span class="ident">screen</span> <span class="op">=</span> <span class="ident">lv_disp_get_scr_act</span>( 
-            <span class="ident">obj</span>::<span class="ident">disp_get_default</span>()
-                .<span class="ident">expect</span>(<span class="string">&quot;Failed to get display&quot;</span>)
-        );
-    }
+    <span class="comment">//  Save the callback for updating the watch face</span>
+    <span class="kw">unsafe</span> { <span class="ident">UPDATE_WATCH_FACE</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">update_watch_face</span>); }
 
-    <span class="comment">//  Create the watch face    </span>
-    <span class="ident">create_widgets</span>(<span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">WATCH_FACE_WIDGETS</span> }) <span class="question-mark">?</span> ;
+    <span class="comment">//  Get active screen from LVGL</span>
+    <span class="kw">let</span> <span class="ident">screen</span> <span class="op">=</span> <span class="ident">get_active_screen</span>();
+
+    <span class="comment">//  Allow touch events</span>
+    <span class="ident">obj</span>::<span class="ident">set_click</span>(<span class="ident">screen</span>, <span class="bool-val">true</span>) <span class="question-mark">?</span> ;
 
     <span class="comment">//  Render the watch face</span>
     <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">pinetime_lvgl_mynewt_render</span>() };
@@ -471,32 +469,15 @@ static void watch_face_callback(struct os_event *ev) {
     <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Timer fail&quot;</span>);
     <span class="prelude-val">Ok</span>(())
 }</pre></div>
-<p>Create the widgets...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="doccomment">/// Create the widgets for the Watch Face. Called by start_watch_face() below.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_widgets</span>(<span class="ident">widgets</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">WatchFaceWidgets</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-    <span class="comment">//  Fetch the screen, which will be the parent of the widgets</span>
-    <span class="kw">let</span> <span class="ident">scr</span> <span class="op">=</span> <span class="ident">widgets</span>.<span class="ident">screen</span>;
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">scr</span>.<span class="ident">is_null</span>(), <span class="string">&quot;null screen&quot;</span>);
-
-    <span class="comment">//  Create a label for Time: &quot;00:00&quot;</span>
-    <span class="ident">widgets</span>.<span class="ident">time_label</span> <span class="op">=</span> {
-        <span class="kw">let</span> <span class="ident">lbl</span> <span class="op">=</span> <span class="ident">label</span>::<span class="ident">create</span>(<span class="ident">scr</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;  <span class="comment">//  `?` will terminate the function in case of error</span>
-        <span class="ident">label</span>::<span class="ident">set_long_mode</span>(<span class="ident">lbl</span>, <span class="ident">label</span>::<span class="ident">LV_LABEL_LONG_BREAK</span>) <span class="question-mark">?</span> ;
-        <span class="ident">label</span>::<span class="ident">set_text</span>(     <span class="ident">lbl</span>, <span class="macro">strn</span><span class="macro">!</span>(<span class="string">&quot;00:00&quot;</span>)) <span class="question-mark">?</span> ;  <span class="comment">//  strn creates a null-terminated string</span>
-        <span class="ident">obj</span>::<span class="ident">set_width</span>(      <span class="ident">lbl</span>, <span class="number">240</span>) <span class="question-mark">?</span> ;
-        <span class="ident">obj</span>::<span class="ident">set_height</span>(     <span class="ident">lbl</span>, <span class="number">200</span>) <span class="question-mark">?</span> ;
-        <span class="ident">label</span>::<span class="ident">set_align</span>(    <span class="ident">lbl</span>, <span class="ident">label</span>::<span class="ident">LV_LABEL_ALIGN_CENTER</span>) <span class="question-mark">?</span> ;
-        <span class="ident">obj</span>::<span class="ident">align</span>(          <span class="ident">lbl</span>, <span class="ident">scr</span>, <span class="ident">obj</span>::<span class="ident">LV_ALIGN_CENTER</span>, <span class="number">0</span>, <span class="op">-</span><span class="number">30</span>) <span class="question-mark">?</span> ;    
-        <span class="ident">lbl</span>
-    };</pre></div>
-<p>Callback every minute...</p>
+<p>Update the watch face every minute...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// Timer callback that is called every minute</span>
 <span class="kw">extern</span> <span class="kw">fn</span> <span class="ident">watch_face_callback</span>(<span class="ident">_ev</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">os</span>::<span class="ident">os_event</span>) {
     <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;Update Rust watch face...\n&quot;</span>); <span class="ident">console</span>::<span class="ident">flush</span>();
+    
+    <span class="comment">//  If there is no callback, fail.</span>
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="kw">unsafe</span> { <span class="ident">UPDATE_WATCH_FACE</span>.<span class="ident">is_some</span>() }, <span class="string">&quot;Update watch face missing&quot;</span>);
 
     <span class="comment">//  Get the system time    </span>
     <span class="kw">let</span> <span class="ident">time</span> <span class="op">=</span> <span class="ident">get_system_time</span>()
@@ -508,12 +489,14 @@ static void watch_face_callback(struct os_event *ev) {
         <span class="ident">millivolts</span>: <span class="number">0</span>,     <span class="comment">//  TODO: Get current voltage</span>
         <span class="ident">charging</span>:   <span class="bool-val">true</span>,  <span class="comment">//  TODO: Get charging status</span>
         <span class="ident">powered</span>:    <span class="bool-val">true</span>,  <span class="comment">//  TODO: Get powered status</span>
-        <span class="ident">ble_state</span>:  <span class="ident">BleState</span>::<span class="ident">BLEMAN_BLE_STATE_CONNECTED</span>,  <span class="comment">//  TODO: Get BLE state</span>
+        <span class="ident">bluetooth</span>:  <span class="ident">BluetoothState</span>::<span class="ident">BLUETOOTH_STATE_CONNECTED</span>,  <span class="comment">//  TODO: Get BLE state</span>
     };
 
     <span class="comment">//  Update the watch face</span>
-    <span class="ident">update_widgets</span>(<span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="ident">WATCH_FACE_WIDGETS</span> }, <span class="kw-2">&amp;</span><span class="ident">state</span>)
-        .<span class="ident">expect</span>(<span class="string">&quot;Update Watch Face fail&quot;</span>);
+    <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because WATCH_FACE is a mutable static</span>
+        <span class="ident">UPDATE_WATCH_FACE</span>.<span class="ident">unwrap</span>()(<span class="kw-2">&amp;</span><span class="ident">state</span>)
+            .<span class="ident">expect</span>(<span class="string">&quot;Update Watch Face fail&quot;</span>);
+    }
 
     <span class="comment">//  Render the watch face</span>
     <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">pinetime_lvgl_mynewt_render</span>() };
@@ -528,65 +511,198 @@ static void watch_face_callback(struct os_event *ev) {
     };
     <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Timer fail&quot;</span>);
 }</pre></div>
+<p>Create the widgets: <a href="https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs"><code>barebones-watchface/src/lib.rs</code></a></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">impl</span> <span class="ident">WatchFace</span> <span class="kw">for</span> <span class="ident">BarebonesWatchFace</span> {
+
+    <span class="comment">///////////////////////////////////////////////////////////////////////////////</span>
+    <span class="comment">//  Create Watch Face</span>
+
+    <span class="doccomment">/// Create the widgets for the Watch Face</span>
+    <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="comment">//  Get the active screen</span>
+        <span class="kw">let</span> <span class="ident">screen</span> <span class="op">=</span> <span class="ident">watchface</span>::<span class="ident">get_active_screen</span>();
+
+        <span class="comment">//  Create the widgets</span>
+        <span class="kw">let</span> <span class="ident">watch_face</span> <span class="op">=</span> <span class="self">Self</span> {
+            <span class="comment">//  Create a Label for Time: &quot;00:00&quot;</span>
+            <span class="ident">time_label</span>: {
+                <span class="kw">let</span> <span class="ident">lbl</span> <span class="op">=</span> <span class="ident">label</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;  <span class="comment">//  `?` will terminate the function in case of error</span>
+                <span class="ident">label</span>::<span class="ident">set_long_mode</span>(<span class="ident">lbl</span>, <span class="ident">label</span>::<span class="ident">LV_LABEL_LONG_BREAK</span>) <span class="question-mark">?</span> ;
+                <span class="ident">label</span>::<span class="ident">set_text</span>(     <span class="ident">lbl</span>, <span class="macro">strn</span><span class="macro">!</span>(<span class="string">&quot;00:00&quot;</span>)) <span class="question-mark">?</span> ;     <span class="comment">//  strn creates a null-terminated string</span>
+                <span class="ident">obj</span>::<span class="ident">set_width</span>(      <span class="ident">lbl</span>, <span class="number">240</span>) <span class="question-mark">?</span> ;
+                <span class="ident">obj</span>::<span class="ident">set_height</span>(     <span class="ident">lbl</span>, <span class="number">200</span>) <span class="question-mark">?</span> ;
+                <span class="ident">label</span>::<span class="ident">set_align</span>(    <span class="ident">lbl</span>, <span class="ident">label</span>::<span class="ident">LV_LABEL_ALIGN_CENTER</span>) <span class="question-mark">?</span> ;
+                <span class="ident">obj</span>::<span class="ident">align</span>(          <span class="ident">lbl</span>, <span class="ident">screen</span>, <span class="ident">obj</span>::<span class="ident">LV_ALIGN_CENTER</span>, <span class="number">0</span>, <span class="op">-</span><span class="number">30</span>) <span class="question-mark">?</span> ;    
+                <span class="ident">lbl</span>  <span class="comment">//  Return the label as time_label</span>
+            },</pre></div>
 <p>Update widgets...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="doccomment">/// Update the widgets in the Watch Face with the current state. Called by watch_face_callback() below.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">update_widgets</span>(<span class="ident">widgets</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceWidgets</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceState</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-    <span class="comment">//  Populate the Time Label</span>
-    <span class="ident">set_time_label</span>(<span class="ident">widgets</span>, <span class="ident">state</span>) <span class="question-mark">?</span> ;
+<span class="kw">impl</span> <span class="ident">WatchFace</span> <span class="kw">for</span> <span class="ident">BarebonesWatchFace</span> {
 
-    <span class="comment">//  Populate the Bluetooth Label</span>
-    <span class="ident">set_bt_label</span>(<span class="ident">widgets</span>, <span class="ident">state</span>) <span class="question-mark">?</span> ;
+    <span class="comment">///////////////////////////////////////////////////////////////////////////////</span>
+    <span class="comment">//  Update Watch Face</span>
 
-    <span class="comment">//  Populate the Power Label</span>
-    <span class="ident">set_power_label</span>(<span class="ident">widgets</span>, <span class="ident">state</span>) <span class="question-mark">?</span> ;
-    <span class="prelude-val">Ok</span>(())
-}</pre></div>
+    <span class="doccomment">/// Update the widgets in the Watch Face with the current state</span>
+    <span class="kw">fn</span> <span class="ident">update</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceState</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="comment">//  Populate the Time and Date Labels</span>
+        <span class="self">self</span>.<span class="ident">update_date_time</span>(<span class="ident">state</span>) <span class="question-mark">?</span> ;
+
+        <span class="comment">//  Populate the Bluetooth Label</span>
+        <span class="self">self</span>.<span class="ident">update_bluetooth</span>(<span class="ident">state</span>) <span class="question-mark">?</span> ;
+
+        <span class="comment">//  Populate the Power Label</span>
+        <span class="self">self</span>.<span class="ident">update_power</span>(<span class="ident">state</span>) <span class="question-mark">?</span> ;
+        <span class="prelude-val">Ok</span>(())
+    }    </pre></div>
 <p>Populate time and date widgets...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="doccomment">/// Populate the Time and Date Labels with the time and date. Called by update_widgets() above.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_time_label</span>(<span class="ident">widgets</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceWidgets</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceState</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-    <span class="comment">//  Create a string buffer to format the time</span>
-    <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">TIME_BUF</span>: <span class="ident">String</span> <span class="op">=</span> <span class="ident">new_string</span>();
-    <span class="comment">//  Format the time as &quot;12:34&quot; and set the label</span>
-    <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because TIME_BUF is a mutable static</span>
-        <span class="ident">TIME_BUF</span>.<span class="ident">clear</span>();
-        <span class="macro">write</span><span class="macro">!</span>(
-            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">TIME_BUF</span>, 
-            <span class="string">&quot;{:02}:{:02}\0&quot;</span>,  <span class="comment">//  Must terminate Rust strings with null</span>
-            <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">hour</span>,
-            <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">minute</span>
-        ).<span class="ident">expect</span>(<span class="string">&quot;time fail&quot;</span>);
-        <span class="ident">label</span>::<span class="ident">set_text</span>(
-            <span class="ident">widgets</span>.<span class="ident">time_label</span>, 
-            <span class="kw-2">&amp;</span><span class="ident">to_strn</span>(<span class="kw-2">&amp;</span><span class="ident">TIME_BUF</span>)
-        ) <span class="question-mark">?</span> ;
-    }
+<span class="kw">impl</span> <span class="ident">BarebonesWatchFace</span> {
 
-    <span class="comment">//  Get the short month name</span>
-    <span class="kw">let</span> <span class="ident">month_str</span> <span class="op">=</span> <span class="ident">get_month_name</span>(<span class="kw-2">&amp;</span><span class="ident">state</span>.<span class="ident">time</span>);
+    <span class="doccomment">/// Populate the Time and Date Labels with the time and date</span>
+    <span class="kw">fn</span> <span class="ident">update_date_time</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceState</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="comment">//  Create a string buffer to format the time</span>
+        <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">TIME_BUF</span>: <span class="ident">String</span> <span class="op">=</span> <span class="ident">new_string</span>();
 
-    <span class="comment">//  Create a string buffer to format the date</span>
-    <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">DATE_BUF</span>: <span class="ident">String</span> <span class="op">=</span> <span class="ident">new_string</span>();
-    <span class="comment">//  Format the date as &quot;22 MAY 2020&quot; and set the label</span>
-    <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because DATE_BUF is a mutable static</span>
-        <span class="ident">DATE_BUF</span>.<span class="ident">clear</span>();
-        <span class="macro">write</span><span class="macro">!</span>(
-            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">DATE_BUF</span>, 
-            <span class="string">&quot;{} {} {}\n\0&quot;</span>,  <span class="comment">//  Must terminate Rust strings with null</span>
-            <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">dayofmonth</span>,
-            <span class="ident">month_str</span>,
-            <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">year</span>
-        ).<span class="ident">expect</span>(<span class="string">&quot;date fail&quot;</span>);
-        <span class="ident">label</span>::<span class="ident">set_text</span>(
-            <span class="ident">widgets</span>.<span class="ident">date_label</span>, 
-            <span class="kw-2">&amp;</span><span class="ident">to_strn</span>(<span class="kw-2">&amp;</span><span class="ident">DATE_BUF</span>)
+        <span class="comment">//  Format the time as &quot;12:34&quot; and set the label</span>
+        <span class="kw">unsafe</span> {                  <span class="comment">//  Unsafe because TIME_BUF is a mutable static</span>
+            <span class="ident">TIME_BUF</span>.<span class="ident">clear</span>();     <span class="comment">//  Erase the buffer</span>
+
+            <span class="macro">write</span><span class="macro">!</span>(
+                <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">TIME_BUF</span>,    <span class="comment">//  Write the formatted text</span>
+                <span class="string">&quot;{:02}:{:02}\0&quot;</span>,  <span class="comment">//  Must terminate Rust strings with null</span>
+                <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">hour</span>,
+                <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">minute</span>
+            ).<span class="ident">expect</span>(<span class="string">&quot;time fail&quot;</span>);
+
+            <span class="ident">label</span>::<span class="ident">set_text</span>(      <span class="comment">//  Set the label</span>
+                <span class="self">self</span>.<span class="ident">time_label</span>, 
+                <span class="kw-2">&amp;</span><span class="ident">to_strn</span>(<span class="kw-2">&amp;</span><span class="ident">TIME_BUF</span>)
+            ) <span class="question-mark">?</span> ;
+        }
+
+        <span class="comment">//  Get the short day name and short month name</span>
+        <span class="kw">let</span> <span class="ident">day</span>   <span class="op">=</span> <span class="ident">get_day_name</span>(<span class="kw-2">&amp;</span><span class="ident">state</span>.<span class="ident">time</span>);
+        <span class="kw">let</span> <span class="ident">month</span> <span class="op">=</span> <span class="ident">get_month_name</span>(<span class="kw-2">&amp;</span><span class="ident">state</span>.<span class="ident">time</span>);
+
+        <span class="comment">//  Create a string buffer to format the date</span>
+        <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">DATE_BUF</span>: <span class="ident">String</span> <span class="op">=</span> <span class="ident">new_string</span>();
+        
+        <span class="comment">//  Format the date as &quot;MON 22 MAY 2020&quot; and set the label</span>
+        <span class="kw">unsafe</span> {                    <span class="comment">//  Unsafe because DATE_BUF is a mutable static</span>
+            <span class="ident">DATE_BUF</span>.<span class="ident">clear</span>();       <span class="comment">//  Erase the buffer</span>
+
+            <span class="macro">write</span><span class="macro">!</span>(
+                <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">DATE_BUF</span>,      <span class="comment">//  Write the formatted text</span>
+                <span class="string">&quot;{} {} {} {}\n\0&quot;</span>,  <span class="comment">//  Must terminate Rust strings with null</span>
+                <span class="ident">day</span>,
+                <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">day</span>,
+                <span class="ident">month</span>,
+                <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">year</span>
+            ).<span class="ident">expect</span>(<span class="string">&quot;date fail&quot;</span>);
+
+            <span class="ident">label</span>::<span class="ident">set_text</span>(        <span class="comment">//  Set the label</span>
+                <span class="self">self</span>.<span class="ident">date_label</span>, 
+                <span class="kw-2">&amp;</span><span class="ident">to_strn</span>(<span class="kw-2">&amp;</span><span class="ident">DATE_BUF</span>)
+            ) <span class="question-mark">?</span> ;
+        }
+        <span class="prelude-val">Ok</span>(())
+    }    </pre></div>
+<p>Update Bluetooth state...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">impl</span> <span class="ident">BarebonesWatchFace</span> {
+    <span class="doccomment">/// Populate the Bluetooth Label with the Bluetooth State (Bluetooth Icon)</span>
+    <span class="kw">fn</span> <span class="ident">update_bluetooth</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceState</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="kw">if</span> <span class="ident">state</span>.<span class="ident">bluetooth</span> <span class="op">==</span> <span class="ident">BluetoothState</span>::<span class="ident">BLUETOOTH_STATE_DISCONNECTED</span> {
+            <span class="comment">//  If Bluetooth is disconnected, leave the label empty</span>
+            <span class="ident">label</span>::<span class="ident">set_text</span>(
+                <span class="self">self</span>.<span class="ident">bluetooth_label</span>, 
+                <span class="macro">strn</span><span class="macro">!</span>(<span class="string">&quot;&quot;</span>)
+            ) <span class="question-mark">?</span> ;
+        } <span class="kw">else</span> {
+            <span class="comment">//  Compute the color of the Bluetooth icon</span>
+            <span class="kw">let</span> <span class="ident">color</span> <span class="op">=</span> 
+                <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">state</span>.<span class="ident">bluetooth</span> {
+                    <span class="ident">BluetoothState</span>::<span class="ident">BLUETOOTH_STATE_INACTIVE</span>     <span class="op">=&gt;</span> <span class="string">&quot;#000000&quot;</span>,  <span class="comment">//  Black</span>
+                    <span class="ident">BluetoothState</span>::<span class="ident">BLUETOOTH_STATE_ADVERTISING</span>  <span class="op">=&gt;</span> <span class="string">&quot;#5794f2&quot;</span>,  <span class="comment">//  Blue</span>
+                    <span class="ident">BluetoothState</span>::<span class="ident">BLUETOOTH_STATE_DISCONNECTED</span> <span class="op">=&gt;</span> <span class="string">&quot;#f2495c&quot;</span>,  <span class="comment">//  Red</span>
+                    <span class="ident">BluetoothState</span>::<span class="ident">BLUETOOTH_STATE_CONNECTED</span>    <span class="op">=&gt;</span> <span class="string">&quot;#37872d&quot;</span>,  <span class="comment">//  Dark Green</span>
+                };
+
+                <span class="comment">//  Create a string buffer to format the Bluetooth status</span>
+            <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">BLUETOOTH_STATUS</span>: <span class="ident">String</span> <span class="op">=</span> <span class="ident">new_string</span>();
+
+            <span class="comment">//  Format the Bluetooth status and set the label</span>
+            <span class="kw">unsafe</span> {                       <span class="comment">//  Unsafe because BLUETOOTH_STATUS is a mutable static</span>
+                <span class="ident">BLUETOOTH_STATUS</span>.<span class="ident">clear</span>();  <span class="comment">//  Erase the buffer</span>
+
+                <span class="macro">write</span><span class="macro">!</span>(
+                    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">BLUETOOTH_STATUS</span>, <span class="comment">//  Write the formatted text</span>
+                    <span class="string">&quot;{} \u{F293}#\0&quot;</span>,      <span class="comment">//  LV_SYMBOL_BLUETOOTH. Must terminate Rust strings with null.</span>
+                    <span class="ident">color</span>
+                ).<span class="ident">expect</span>(<span class="string">&quot;bt fail&quot;</span>);
+
+                <span class="ident">label</span>::<span class="ident">set_text</span>(           <span class="comment">//  Set the label</span>
+                    <span class="self">self</span>.<span class="ident">bluetooth_label</span>, 
+                    <span class="kw-2">&amp;</span><span class="ident">to_strn</span>(<span class="kw-2">&amp;</span><span class="ident">BLUETOOTH_STATUS</span>)
+                ) <span class="question-mark">?</span> ;
+            }
+        }
+        <span class="prelude-val">Ok</span>(())
+    }</pre></div>
+<p>Update power indicator...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">impl</span> <span class="ident">BarebonesWatchFace</span> {
+    <span class="doccomment">/// Populate the Power Label with the Power Indicator (Charging &amp; Battery)</span>
+    <span class="kw">fn</span> <span class="ident">update_power</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceState</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+        <span class="comment">//  Get the active screen</span>
+        <span class="kw">let</span> <span class="ident">screen</span> <span class="op">=</span> <span class="ident">watchface</span>::<span class="ident">get_active_screen</span>();
+
+        <span class="comment">//  Compute the percentage power</span>
+        <span class="kw">let</span> <span class="ident">percentage</span> <span class="op">=</span> <span class="ident">convert_battery_voltage</span>(<span class="ident">state</span>.<span class="ident">millivolts</span>);
+
+        <span class="comment">//  Compute the colour for the charging symbol</span>
+        <span class="kw">let</span> <span class="ident">color</span> <span class="op">=</span>                                                     <span class="comment">//  Charging color</span>
+            <span class="kw">if</span> <span class="ident">percentage</span> <span class="op">&lt;=</span> <span class="number">20</span>                        { <span class="string">&quot;#f2495c&quot;</span> }    <span class="comment">//  Low Battery</span>
+            <span class="kw">else</span> <span class="kw">if</span> <span class="ident">state</span>.<span class="ident">powered</span> <span class="op">&amp;&amp;</span> <span class="op">!</span>(<span class="ident">state</span>.<span class="ident">charging</span>) { <span class="string">&quot;#73bf69&quot;</span> }    <span class="comment">//  Full Battery</span>
+            <span class="kw">else</span>                                       { <span class="string">&quot;#fade2a&quot;</span> };   <span class="comment">//  Mid Battery</span>
+
+        <span class="kw">let</span> <span class="ident">symbol</span> <span class="op">=</span>                         <span class="comment">//  Charging symbol</span>
+            <span class="kw">if</span> <span class="ident">state</span>.<span class="ident">powered</span> { <span class="string">&quot;\u{F0E7}&quot;</span> }  <span class="comment">//  LV_SYMBOL_CHARGE</span>
+            <span class="kw">else</span>             { <span class="string">&quot; &quot;</span> };
+
+        <span class="comment">//  Create a string buffer to format the Power Indicator</span>
+        <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">BATTERY_STATUS</span>: <span class="ident">String</span> <span class="op">=</span> <span class="ident">new_string</span>();
+
+        <span class="comment">//  Format thePower Indicator and set the label</span>
+        <span class="kw">unsafe</span> {                             <span class="comment">//  Unsafe because BATTERY_STATUS is a mutable static</span>
+            <span class="ident">BATTERY_STATUS</span>.<span class="ident">clear</span>();          <span class="comment">//  Erase the buffer</span>
+
+            <span class="macro">write</span><span class="macro">!</span>(
+                <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">BATTERY_STATUS</span>, 
+                <span class="string">&quot;{} {}%{}#\nRUST ({}mV)\0&quot;</span>,  <span class="comment">//  Must terminate Rust strings with null</span>
+                <span class="ident">color</span>,
+                <span class="ident">percentage</span>,
+                <span class="ident">symbol</span>,
+                <span class="ident">state</span>.<span class="ident">millivolts</span>
+            ).<span class="ident">expect</span>(<span class="string">&quot;batt fail&quot;</span>);
+
+            <span class="ident">label</span>::<span class="ident">set_text</span>(
+                <span class="self">self</span>.<span class="ident">power_label</span>, 
+                <span class="kw-2">&amp;</span><span class="ident">to_strn</span>(<span class="kw-2">&amp;</span><span class="ident">BATTERY_STATUS</span>)
+            ) <span class="question-mark">?</span> ; 
+        }
+        <span class="ident">obj</span>::<span class="ident">align</span>(
+            <span class="self">self</span>.<span class="ident">power_label</span>, <span class="ident">screen</span>, 
+            <span class="ident">obj</span>::<span class="ident">LV_ALIGN_IN_TOP_RIGHT</span>, <span class="number">0</span>, <span class="number">0</span>
         ) <span class="question-mark">?</span> ;
-    }
-    <span class="prelude-val">Ok</span>(())
-}</pre></div>
+        <span class="prelude-val">Ok</span>(())
+    }</pre></div>
 <h1 id="porting-lvgl-to-mynewt" class="section-header"><a href="#porting-lvgl-to-mynewt">6 Porting LVGL to Mynewt</a></h1>
 <p>TODO: SPI Driver for ST7789 Display Controller, <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt"><code>pinetime_lvgl_mynewt</code></a></p>
 <p>Located at <code>libs/pinetime_lvgl_mynewt</code></p>
