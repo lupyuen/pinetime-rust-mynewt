@@ -4,9 +4,25 @@
 
 Let's learn how PineTime syncs the time over Bluetooth LE... And how we build PineTime Watch Faces with Rust and LVGL.
 
+# Time Sync over Bluetooth LE
+
+Try this on your Android phone...
+
+1. Install the __nRF Connect__ mobile app. Launch the app.
+
+1. Tap on `Menu` → `Configure GATT Server` → `Add Service`
+
+1. Set `Server Configuration` to `Current Time Service`. Tap `OK`
+
+1. In the app, browse for Bluetooth devices and connect to `PineTime`
+
+The current date and time appears on PineTime!
+
+_What is this magic that syncs the date the time from your phone to PineTime?_
+
 ![Bluetooth Time Sync](https://lupyuen.github.io/images/timesync-gatt.jpg)
 
-# Time Sync over Bluetooth LE
+The syncing magic is called __Bluetooth LE Current Time Service__.
 
 TODO: Bluetooth LE Current Time Service, Discovering Bluetooth LE Services and Characteristics, Reading Bluetooth LE Characteristics, Decoding Bluetooth LE Current Time
 
