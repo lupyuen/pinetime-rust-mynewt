@@ -74,8 +74,41 @@
 <li><a href="#rust-wrapper-for-lvgl">7 Rust Wrapper for LVGL</a><ul></ul></li>
 <li><a href="#whats-next">8 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Bluetooth Time Sync and Rust Watch Face" /></p>
 <p>Let's learn how PineTime syncs the time over Bluetooth LE... And how we build PineTime Watch Faces with Rust and LVGL.</p>
-<p><img src="https://lupyuen.github.io/images/timesync-gatt.jpg" alt="Bluetooth Time Sync" /></p>
 <h1 id="time-sync-over-bluetooth-le" class="section-header"><a href="#time-sync-over-bluetooth-le">1 Time Sync over Bluetooth LE</a></h1>
+<p>Try this on your Android phone...</p>
+<ol>
+<li>
+<p>Install the <strong>nRF Connect</strong> mobile app. Launch the app.</p>
+</li>
+<li>
+<p>Tap on <code>Menu</code> → <code>Configure GATT Server</code> → <code>Add Service</code></p>
+</li>
+<li>
+<p>Set <code>Server Configuration</code> to <code>Current Time Service</code>. Tap <code>OK</code></p>
+</li>
+<li>
+<p>In the app, browse for Bluetooth devices and connect to <code>PineTime</code></p>
+</li>
+</ol>
+<p>The current date and time appears on PineTime!</p>
+<p><em>What is this magic that syncs the date the time from your phone to PineTime?</em></p>
+<p>The syncing magic is called <strong>Bluetooth LE Current Time Service</strong>...</p>
+<p><img src="https://lupyuen.github.io/images/timesync-gatt.jpg" alt="Bluetooth Time Sync" /></p>
+<ol>
+<li>
+<p>Our phone connected to PineTime over Bluetooth LE</p>
+</li>
+<li>
+<p>PineTime detects the incoming connection. </p>
+<p>PineTime transmits a request to discover all GATT Services and Characteristics on our phone.</p>
+<p>(Like a &quot;reverse snoop&quot;)</p>
+</li>
+<li>
+<p>PineTime discovers that our phone supports the Current Time Service. </p>
+<p>PineTime transmits a request to read the current time. </p>
+<p>The nRF Connect app on our phone responds with the current time.</p>
+</li>
+</ol>
 <p>TODO: Bluetooth LE Current Time Service, Discovering Bluetooth LE Services and Characteristics, Reading Bluetooth LE Characteristics, Decoding Bluetooth LE Current Time</p>
 <p>When a peer is connected, discover the services exposed by the peer: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
 <pre><code class="language-c">/**
