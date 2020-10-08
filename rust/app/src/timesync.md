@@ -20,9 +20,23 @@ The current date and time appears on PineTime!
 
 _What is this magic that syncs the date the time from your phone to PineTime?_
 
+The syncing magic is called __Bluetooth LE Current Time Service__...
+
 ![Bluetooth Time Sync](https://lupyuen.github.io/images/timesync-gatt.jpg)
 
-The syncing magic is called __Bluetooth LE Current Time Service__.
+1.  Our phone connected to PineTime over Bluetooth LE
+
+1.  PineTime detects the incoming connection. 
+
+    PineTime transmits a request to discover all GATT Services and Characteristics on our phone.
+    
+    (Like a "reverse snoop")
+
+1.  PineTime discovers that our phone supports the Current Time Service. 
+
+    PineTime transmits a request to read the current time. 
+    
+    The nRF Connect app on our phone responds with the current time.
 
 TODO: Bluetooth LE Current Time Service, Discovering Bluetooth LE Services and Characteristics, Reading Bluetooth LE Characteristics, Decoding Bluetooth LE Current Time
 
