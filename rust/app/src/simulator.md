@@ -235,6 +235,49 @@ _Custom PineTime Watch Face by [SravanSenthiln1](https://twitter.com/SravanSenth
 
     Any bitmaps and fonts will have to be embedded inside that file.
 
+1.  _Can we add labels and other widgets to `Clock.h`?_
+
+    Sorry, the Simulator runs in a "Sandbox" that only renders the code in `Clock.cpp` and not `Clock.h`
+
+    The workaround is to declare a static variable in `Clock.cpp` like this...
+
+    ```c
+    //  In Clock.cpp...
+    ...
+    //  Extern Declarations
+    extern lv_font_t jetbrains_mono_extrabold_compressed;
+    extern lv_font_t jetbrains_mono_bold_20;
+    extern lv_style_t* LabelBigStyle;
+
+    //  Declare your Static Variable here. Must be in Global Scope so that all methods can access it.
+    static lv_obj_t* my_label;
+
+    //  Constructor for Clock Class
+    Clock::Clock(DisplayApp* app, ...) { ...
+    ```
+
+    Then set the static variable in the `Clock` Constructor...
+    
+    ```c
+    //  Constructor for Clock Class
+    Clock::Clock(DisplayApp* app, ...) {
+        ...
+        //  Create the label
+        my_label = lv_label_create(lv_scr_act(), NULL);
+    ```
+
+    And update it in the `Refresh` Method...
+    
+    ```c
+    //  Refresh Method for Clock Class
+    bool Clock::Refresh() {
+        ...
+        //  Refresh the label         
+        lv_label_set_text(my_label, my_string);
+    ```
+
+    Note that the variable must be declared in Global Scope so that the methods can access the variable.    
+
 1.  _Can we edit our files in GitHub without using the web browser?_
 
     We recommend [__VSCode__](https://code.visualstudio.com/) or [__VSCodium__](https://vscodium.com/) for editing files with [Git Version Control](https://code.visualstudio.com/docs/editor/versioncontrol). (Which works with GitHub files)

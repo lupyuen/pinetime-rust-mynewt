@@ -288,6 +288,39 @@
 <p>Any bitmaps and fonts will have to be embedded inside that file.</p>
 </li>
 <li>
+<p><em>Can we add labels and other widgets to <code>Clock.h</code>?</em></p>
+<p>Sorry, the Simulator runs in a &quot;Sandbox&quot; that only renders the code in <code>Clock.cpp</code> and not <code>Clock.h</code></p>
+<p>The workaround is to declare a static variable in <code>Clock.cpp</code> like this...</p>
+<pre><code class="language-c">//  In Clock.cpp...
+...
+//  Extern Declarations
+extern lv_font_t jetbrains_mono_extrabold_compressed;
+extern lv_font_t jetbrains_mono_bold_20;
+extern lv_style_t* LabelBigStyle;
+
+//  Declare your Static Variable here. Must be in Global Scope so that all methods can access it.
+static lv_obj_t* my_label;
+
+//  Constructor for Clock Class
+Clock::Clock(DisplayApp* app, ...) { ...
+</code></pre>
+<p>Then set the static variable in the <code>Clock</code> Constructor...</p>
+<pre><code class="language-c">//  Constructor for Clock Class
+Clock::Clock(DisplayApp* app, ...) {
+    ...
+    //  Create the label
+    my_label = lv_label_create(lv_scr_act(), NULL);
+</code></pre>
+<p>And update it in the <code>Refresh</code> Method...</p>
+<pre><code class="language-c">//  Refresh Method for Clock Class
+bool Clock::Refresh() {
+    ...
+    //  Refresh the label         
+    lv_label_set_text(my_label, my_string);
+</code></pre>
+<p>Note that the variable must be declared in Global Scope so that the methods can access the variable.</p>
+</li>
+<li>
 <p><em>Can we edit our files in GitHub without using the web browser?</em></p>
 <p>We recommend <a href="https://code.visualstudio.com/"><strong>VSCode</strong></a> or <a href="https://vscodium.com/"><strong>VSCodium</strong></a> for editing files with <a href="https://code.visualstudio.com/docs/editor/versioncontrol">Git Version Control</a>. (Which works with GitHub files)</p>
 <p>Remember to <a href="https://code.visualstudio.com/docs/editor/versioncontrol#_commit">Commit any updated files</a> and <a href="https://code.visualstudio.com/docs/editor/versioncontrol#_remotes">Push the Commits</a> to the <code>master</code> Branch to trigger the simulator build.</p>
