@@ -278,11 +278,11 @@ buf[16] = 0;
 
 # Get the Time in Rust
 
-TODO: WatchFaceTime, [`rust/app/src/watch_face.rs`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/watch_face.rs)
+TODO: WatchFaceTime, [`pinetime-watchface/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs)
 
 ```rust
 /// Get the system time
-pub fn get_system_time() -> MynewtResult<WatchFaceTime> {
+fn get_system_time() -> MynewtResult<WatchFaceTime> {
     //  Get the system time
     static mut TV: os::os_timeval  = fill_zero!(os::os_timeval);
     static mut TZ: os::os_timezone = fill_zero!(os::os_timezone);
@@ -297,14 +297,13 @@ pub fn get_system_time() -> MynewtResult<WatchFaceTime> {
     //  Return the time
     let result = unsafe {  //  Unsafe because CT is a mutable static
         WatchFaceTime {
-            year:       CT.year as u16,  //  Year (4 digit year)
-            month:      CT.mon  as u8,   //  Month (1 - 12)
-            dayofmonth: CT.day  as u8,   //  Day (1 - 31)
-            hour:       CT.hour as u8,   //  Hour (0 - 23)
-            minute:     CT.min  as u8,   //  Minute (0 - 59)
-            second:     CT.sec  as u8,   //  Second (0 - 59)
-            fracs:      0,               //  Unused
-            dayofweek:  CT.dow  as u8,   //  Day of week (0 - 6; 0 = Sunday)
+            year:        CT.year as u16,  //  Year (4 digit year)
+            month:       CT.mon  as  u8,  //  Month (1 - 12)
+            day:         CT.day  as  u8,  //  Day (1 - 31)
+            hour:        CT.hour as  u8,  //  Hour (0 - 23)
+            minute:      CT.min  as  u8,  //  Minute (0 - 59)
+            second:      CT.sec  as  u8,  //  Second (0 - 59)
+            day_of_week: CT.dow  as  u8,  //  Day of week (0 - 6; 0 = Sunday)
         }
     };
     Ok(result)
@@ -401,25 +400,25 @@ static void watch_face_callback(struct os_event *ev) {
 
 # Watch Face in Rust
 
-TODO: Barebones watch face, LVGL styles, [`rust/app/src/watch_face.rs`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/watch_face.rs)
+TODO: Barebones watch face, LVGL styles
+
+Watch Face Framework in [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs)
 
 Start the watch face...
 
 ```rust
 /// Start rendering the watch face every minute
-pub fn start_watch_face() -> MynewtResult<()> {
+pub fn start_watch_face(update_watch_face: UpdateWatchFace) -> MynewtResult<()> {
     console::print("Init Rust watch face...\n"); console::flush();
 
-    //  Get active screen from LVGL. We can't call lv_scr_act() because it's an inline function.
-    unsafe {  //  Unsafe because WATCH_FACE_WIDGETS is a mutable static
-        WATCH_FACE_WIDGETS.screen = lv_disp_get_scr_act( 
-            obj::disp_get_default()
-                .expect("Failed to get display")
-        );
-    }
+    //  Save the callback for updating the watch face
+    unsafe { UPDATE_WATCH_FACE = Some(update_watch_face); }
 
-    //  Create the watch face    
-    create_widgets(unsafe { &mut WATCH_FACE_WIDGETS }) ? ;
+    //  Get active screen from LVGL
+    let screen = get_active_screen();
+
+    //  Allow touch events
+    obj::set_click(screen, true) ? ;
 
     //  Render the watch face
     let rc = unsafe { pinetime_lvgl_mynewt_render() };
@@ -447,34 +446,15 @@ pub fn start_watch_face() -> MynewtResult<()> {
 }
 ```
 
-Create the widgets...
-
-```rust
-/// Create the widgets for the Watch Face. Called by start_watch_face() below.
-pub fn create_widgets(widgets: &mut WatchFaceWidgets) -> MynewtResult<()> {
-    //  Fetch the screen, which will be the parent of the widgets
-    let scr = widgets.screen;
-    assert!(!scr.is_null(), "null screen");
-
-    //  Create a label for Time: "00:00"
-    widgets.time_label = {
-        let lbl = label::create(scr, ptr::null()) ? ;  //  `?` will terminate the function in case of error
-        label::set_long_mode(lbl, label::LV_LABEL_LONG_BREAK) ? ;
-        label::set_text(     lbl, strn!("00:00")) ? ;  //  strn creates a null-terminated string
-        obj::set_width(      lbl, 240) ? ;
-        obj::set_height(     lbl, 200) ? ;
-        label::set_align(    lbl, label::LV_LABEL_ALIGN_CENTER) ? ;
-        obj::align(          lbl, scr, obj::LV_ALIGN_CENTER, 0, -30) ? ;    
-        lbl
-    };
-```
-
-Callback every minute...
+Update the watch face every minute...
 
 ```rust
 /// Timer callback that is called every minute
 extern fn watch_face_callback(_ev: *mut os::os_event) {
     console::print("Update Rust watch face...\n"); console::flush();
+    
+    //  If there is no callback, fail.
+    assert!(unsafe { UPDATE_WATCH_FACE.is_some() }, "Update watch face missing");
 
     //  Get the system time    
     let time = get_system_time()
@@ -486,12 +466,14 @@ extern fn watch_face_callback(_ev: *mut os::os_event) {
         millivolts: 0,     //  TODO: Get current voltage
         charging:   true,  //  TODO: Get charging status
         powered:    true,  //  TODO: Get powered status
-        ble_state:  BleState::BLEMAN_BLE_STATE_CONNECTED,  //  TODO: Get BLE state
+        bluetooth:  BluetoothState::BLUETOOTH_STATE_CONNECTED,  //  TODO: Get BLE state
     };
 
     //  Update the watch face
-    update_widgets(unsafe { &WATCH_FACE_WIDGETS }, &state)
-        .expect("Update Watch Face fail");
+    unsafe {  //  Unsafe because WATCH_FACE is a mutable static
+        UPDATE_WATCH_FACE.unwrap()(&state)
+            .expect("Update Watch Face fail");
+    }
 
     //  Render the watch face
     let rc = unsafe { pinetime_lvgl_mynewt_render() };
@@ -508,71 +490,108 @@ extern fn watch_face_callback(_ev: *mut os::os_event) {
 }
 ```
 
+Create the widgets: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs)
+
+```rust
+impl WatchFace for BarebonesWatchFace {
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //  Create Watch Face
+
+    /// Create the widgets for the Watch Face
+    fn new() -> MynewtResult<Self> {
+        //  Get the active screen
+        let screen = watchface::get_active_screen();
+
+        //  Create the widgets
+        let watch_face = Self {
+            //  Create a Label for Time: "00:00"
+            time_label: {
+                let lbl = label::create(screen, ptr::null()) ? ;  //  `?` will terminate the function in case of error
+                label::set_long_mode(lbl, label::LV_LABEL_LONG_BREAK) ? ;
+                label::set_text(     lbl, strn!("00:00")) ? ;     //  strn creates a null-terminated string
+                obj::set_width(      lbl, 240) ? ;
+                obj::set_height(     lbl, 200) ? ;
+                label::set_align(    lbl, label::LV_LABEL_ALIGN_CENTER) ? ;
+                obj::align(          lbl, screen, obj::LV_ALIGN_CENTER, 0, -30) ? ;    
+                lbl  //  Return the label as time_label
+            },
+```
+
 Update widgets...
 
 ```rust
-/// Update the widgets in the Watch Face with the current state. Called by watch_face_callback() below.
-pub fn update_widgets(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
-    //  Populate the Time and Date Labels
-    set_time_date_labels(widgets, state) ? ;
+impl WatchFace for BarebonesWatchFace {
 
-    //  Populate the Bluetooth Label
-    set_bt_label(widgets, state) ? ;
+    ///////////////////////////////////////////////////////////////////////////////
+    //  Update Watch Face
 
-    //  Populate the Power Label
-    set_power_label(widgets, state) ? ;
-    Ok(())
-}
+    /// Update the widgets in the Watch Face with the current state
+    fn update(&self, state: &WatchFaceState) -> MynewtResult<()> {
+        //  Populate the Time and Date Labels
+        self.update_date_time(state) ? ;
+
+        //  Populate the Bluetooth Label
+        self.update_bluetooth(state) ? ;
+
+        //  Populate the Power Label
+        self.update_power(state) ? ;
+        Ok(())
+    }    
 ```
 
 Populate time and date widgets...
 
 ```rust
-/// Populate the Time and Date Labels with the time and date. Called by update_widgets() above.
-pub fn set_time_date_labels(widgets: &WatchFaceWidgets, state: &WatchFaceState) -> MynewtResult<()> {
-    //  Create a string buffer to format the time
-    static mut TIME_BUF: String = new_string();
+    /// Populate the Time and Date Labels with the time and date
+    fn update_date_time(&self, state: &WatchFaceState) -> MynewtResult<()> {
+        //  Create a string buffer to format the time
+        static mut TIME_BUF: String = new_string();
 
-    //  Format the time as "12:34" and set the label
-    unsafe {  //  Unsafe because TIME_BUF is a mutable static
-        TIME_BUF.clear();
-        write!(
-            &mut TIME_BUF, 
-            "{:02}:{:02}\0",  //  Must terminate Rust strings with null
-            state.time.hour,
-            state.time.minute
-        ).expect("time fail");
-        label::set_text(
-            widgets.time_label, 
-            &to_strn(&TIME_BUF)
-        ) ? ;
-    }
+        //  Format the time as "12:34" and set the label
+        unsafe {                  //  Unsafe because TIME_BUF is a mutable static
+            TIME_BUF.clear();     //  Erase the buffer
 
-    //  Get the short day name and short month name
-    let day = get_day_name(&state.time);
-    let month = get_month_name(&state.time);
+            write!(
+                &mut TIME_BUF,    //  Write the formatted text
+                "{:02}:{:02}\0",  //  Must terminate Rust strings with null
+                state.time.hour,
+                state.time.minute
+            ).expect("time fail");
 
-    //  Create a string buffer to format the date
-    static mut DATE_BUF: String = new_string();
-    
-    //  Format the date as "MON 22 MAY 2020" and set the label
-    unsafe {  //  Unsafe because DATE_BUF is a mutable static
-        DATE_BUF.clear();
-        write!(
-            &mut DATE_BUF, 
-            "{} {} {} {}\n\0",  //  Must terminate Rust strings with null
-            day,
-            state.time.dayofmonth,
-            month,
-            state.time.year
-        ).expect("date fail");
-        label::set_text(
-            widgets.date_label, 
-            &to_strn(&DATE_BUF)
-        ) ? ;
-    }
-    Ok(())
-}
+            label::set_text(      //  Set the label
+                self.time_label, 
+                &to_strn(&TIME_BUF)
+            ) ? ;
+        }
+
+        //  Get the short day name and short month name
+        let day   = get_day_name(&state.time);
+        let month = get_month_name(&state.time);
+
+        //  Create a string buffer to format the date
+        static mut DATE_BUF: String = new_string();
+        
+        //  Format the date as "MON 22 MAY 2020" and set the label
+        unsafe {                    //  Unsafe because DATE_BUF is a mutable static
+            DATE_BUF.clear();       //  Erase the buffer
+
+            write!(
+                &mut DATE_BUF,      //  Write the formatted text
+                "{} {} {} {}\n\0",  //  Must terminate Rust strings with null
+                day,
+                state.time.day,
+                month,
+                state.time.year
+            ).expect("date fail");
+
+            label::set_text(        //  Set the label
+                self.date_label, 
+                &to_strn(&DATE_BUF)
+            ) ? ;
+        }
+        Ok(())
+    }    
 ```
 
 # Porting LVGL to Mynewt
