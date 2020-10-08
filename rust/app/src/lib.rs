@@ -25,7 +25,6 @@
 
 //  Declare the libraries that contain macros
 extern crate cortex_m;                  //  Declare the external library `cortex_m`
-extern crate mynewt;                    //  Declare the Mynewt library
 extern crate macros as mynewt_macros;   //  Declare the Mynewt Procedural Macros library
 
 //  Declare the modules in our application
