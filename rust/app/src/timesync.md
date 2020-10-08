@@ -543,6 +543,8 @@ impl WatchFace for BarebonesWatchFace {
 Populate time and date widgets...
 
 ```rust
+impl BarebonesWatchFace {
+
     /// Populate the Time and Date Labels with the time and date
     fn update_date_time(&self, state: &WatchFaceState) -> MynewtResult<()> {
         //  Create a string buffer to format the time
@@ -592,6 +594,102 @@ Populate time and date widgets...
         }
         Ok(())
     }    
+```
+
+Update Bluetooth state...
+
+```rust
+impl BarebonesWatchFace {
+    /// Populate the Bluetooth Label with the Bluetooth State (Bluetooth Icon)
+    fn update_bluetooth(&self, state: &WatchFaceState) -> MynewtResult<()> {
+        if state.bluetooth == BluetoothState::BLUETOOTH_STATE_DISCONNECTED {
+            //  If Bluetooth is disconnected, leave the label empty
+            label::set_text(
+                self.bluetooth_label, 
+                strn!("")
+            ) ? ;
+        } else {
+            //  Compute the color of the Bluetooth icon
+            let color = 
+                match &state.bluetooth {
+                    BluetoothState::BLUETOOTH_STATE_INACTIVE     => "#000000",  //  Black
+                    BluetoothState::BLUETOOTH_STATE_ADVERTISING  => "#5794f2",  //  Blue
+                    BluetoothState::BLUETOOTH_STATE_DISCONNECTED => "#f2495c",  //  Red
+                    BluetoothState::BLUETOOTH_STATE_CONNECTED    => "#37872d",  //  Dark Green
+                };
+
+                //  Create a string buffer to format the Bluetooth status
+            static mut BLUETOOTH_STATUS: String = new_string();
+
+            //  Format the Bluetooth status and set the label
+            unsafe {                       //  Unsafe because BLUETOOTH_STATUS is a mutable static
+                BLUETOOTH_STATUS.clear();  //  Erase the buffer
+
+                write!(
+                    &mut BLUETOOTH_STATUS, //  Write the formatted text
+                    "{} \u{F293}#\0",      //  LV_SYMBOL_BLUETOOTH. Must terminate Rust strings with null.
+                    color
+                ).expect("bt fail");
+
+                label::set_text(           //  Set the label
+                    self.bluetooth_label, 
+                    &to_strn(&BLUETOOTH_STATUS)
+                ) ? ;
+            }
+        }
+        Ok(())
+    }
+```
+
+Update power indicator...
+
+```rust
+impl BarebonesWatchFace {
+    /// Populate the Power Label with the Power Indicator (Charging & Battery)
+    fn update_power(&self, state: &WatchFaceState) -> MynewtResult<()> {
+        //  Get the active screen
+        let screen = watchface::get_active_screen();
+
+        //  Compute the percentage power
+        let percentage = convert_battery_voltage(state.millivolts);
+
+        //  Compute the colour for the charging symbol
+        let color =                                                     //  Charging color
+            if percentage <= 20                        { "#f2495c" }    //  Low Battery
+            else if state.powered && !(state.charging) { "#73bf69" }    //  Full Battery
+            else                                       { "#fade2a" };   //  Mid Battery
+
+        let symbol =                         //  Charging symbol
+            if state.powered { "\u{F0E7}" }  //  LV_SYMBOL_CHARGE
+            else             { " " };
+
+        //  Create a string buffer to format the Power Indicator
+        static mut BATTERY_STATUS: String = new_string();
+
+        //  Format thePower Indicator and set the label
+        unsafe {                             //  Unsafe because BATTERY_STATUS is a mutable static
+            BATTERY_STATUS.clear();          //  Erase the buffer
+
+            write!(
+                &mut BATTERY_STATUS, 
+                "{} {}%{}#\nRUST ({}mV)\0",  //  Must terminate Rust strings with null
+                color,
+                percentage,
+                symbol,
+                state.millivolts
+            ).expect("batt fail");
+
+            label::set_text(
+                self.power_label, 
+                &to_strn(&BATTERY_STATUS)
+            ) ? ; 
+        }
+        obj::align(
+            self.power_label, screen, 
+            obj::LV_ALIGN_IN_TOP_RIGHT, 0, 0
+        ) ? ;
+        Ok(())
+    }
 ```
 
 # Porting LVGL to Mynewt
