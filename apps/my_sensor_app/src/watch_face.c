@@ -58,6 +58,7 @@ int create_watch_face(void) {
 
 /// Update the watch face
 int update_watch_face(void) {
+    console_printf("Update watch face...\n"); console_flush();
     //  If button or label not created, quit
     if (btn == NULL || label == NULL) { return 1; }
 
