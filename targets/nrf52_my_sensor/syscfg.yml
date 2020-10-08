@@ -40,16 +40,16 @@ syscfg.vals:
     BLUETOOTH_LE:           1  # Enable Bluetooth LE functions e.g. over-the-air firmware upgrade
     DEVICE_TYPE:            '"nrf52"'  # Device type that will be prepended to the Device ID. thethings.io converts the raw temperature depending on the device type.
     NBIOT_BAND:             8  # Connect to this NB-IoT band
-    SENSOR_NETWORK:         1  # Enable Sensor Network library
-    SENSOR_COAP:            1  # Send sensor data to CoAP server
+    SENSOR_NETWORK:         0  # Disable Sensor Network library
+    SENSOR_COAP:            0  # Don't send sensor data to CoAP server
     COAP_CBOR_ENCODING:     0  # Disable CBOR encoding of CoAP payload
-    COAP_JSON_ENCODING:     1  # Use JSON to encode CoAP payload for forwarding to thethings.io
+    COAP_JSON_ENCODING:     0  # Don't use JSON to encode CoAP payload for forwarding to thethings.io
     RAW_TEMP:               1  # Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size
 
     ###########################################################################
     # Hardware Settings
      
-    HARDFLOAT:              1  # Enable hardware floating-point support for STM32L476RC
+    HARDFLOAT:              1  # Enable hardware floating-point support
     LOW_POWER:              0  # Disable low power support
 
     UART_0:                 0  # Disable USART2

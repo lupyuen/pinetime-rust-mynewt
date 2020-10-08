@@ -239,9 +239,9 @@ syscfg.vals:
     ###########################################################################
     # Network Settings
 
-    SENSOR_NETWORK:         1  # Enable Sensor Network library
-    SENSOR_COAP:            1  # Send sensor data to CoAP server
-    COAP_JSON_ENCODING:     1  # Use JSON to encode CoAP payload for forwarding to thethings.io
+    SENSOR_NETWORK:         0  # Disable Sensor Network library
+    SENSOR_COAP:            0  # Don't send sensor data to CoAP server
+    COAP_JSON_ENCODING:     0  # Don't use JSON to encode CoAP payload for forwarding to thethings.io
     RAW_TEMP:               1  # Use raw temperature (integer) instead of floating-point temperature values, to reduce ROM size
 
     ###########################################################################
@@ -259,7 +259,7 @@ syscfg.vals:
 
     ###########################################################################
     # OIC Settings for CoAP Transmission
-    OC_CLIENT:              1  # Enable the OIC (CoAP) client library
+    OC_CLIENT:              0  # Disable the OIC (CoAP) client library
     OC_SERVER:              0  # Disable the OIC (CoAP) server library
     OC_TRANS_SECURITY:      0  # Disable TLS security
     OC_TRANSPORT_IPV6:      0  # Disable IPv6, only use IPv4
