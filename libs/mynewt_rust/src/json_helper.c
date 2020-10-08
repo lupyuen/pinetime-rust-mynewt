@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+#ifdef NOTUSED
 //  Helper Functions for JSON encoding. Because union types are hard to manipulate in Rust.
 #include <os/os.h>
 #include <console/console.h>
@@ -75,3 +76,4 @@ void json_helper_set_text_string(void *object, const char *key, const char *valu
     //  console_printf("json_helper_set_text_string: %s\n", key); ////
     json_rep_set_text_string_k(object, (char *) key, value);
 }
+#endif  //  NOTUSED
