@@ -14,7 +14,7 @@ Try this on your Android phone...
 
 1. Set `Server Configuration` to `Current Time Service`. Tap `OK`
 
-1. In the app, browse for Bluetooth devices and connect to `PineTime`
+1. In the app, browse for Bluetooth devices and connect to PineTime
 
 The current date and time appears on PineTime!
 
@@ -24,7 +24,7 @@ The syncing magic is called __Bluetooth LE Current Time Service__...
 
 ![Bluetooth Time Sync](https://lupyuen.github.io/images/timesync-gatt.jpg)
 
-1.  Our phone connected to PineTime over Bluetooth LE
+1.  Our phone connects to PineTime over Bluetooth LE
 
 1.  PineTime detects the incoming connection. 
 
@@ -37,6 +37,16 @@ The syncing magic is called __Bluetooth LE Current Time Service__...
     PineTime transmits a request to read the current time. 
     
     The nRF Connect app on our phone responds with the current time.
+
+_Is it really necessary to discover ALL GATT Services and Characteristics?_
+
+Not really... It's actually more efficient for PineTime to connect directly to the Current Time Service without discovering all services.
+
+But for now we'll discover all services as an educational exercise... Also to allow for future extension in case we need to support more services.
+
+Let's learn how to discover GATT Services and Characteristics in the `pinetime-rust-mynewt` firmware for PineTime...
+
+# Discover GATT Services and Characteristics
 
 TODO: Bluetooth LE Current Time Service, Discovering Bluetooth LE Services and Characteristics, Reading Bluetooth LE Characteristics, Decoding Bluetooth LE Current Time
 

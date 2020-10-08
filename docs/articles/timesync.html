@@ -66,13 +66,14 @@
     <h1 class="title">Bluetooth Time Sync, Rust Watch Faces and LVGL on PineTime Mynewt</h1>
     <nav id="TOC"><ul>
 <li><a href="#time-sync-over-bluetooth-le">1 Time Sync over Bluetooth LE</a><ul></ul></li>
-<li><a href="#get-the-time-in-c">2 Get the Time in C</a><ul></ul></li>
-<li><a href="#get-the-time-in-rust">3 Get the Time in Rust</a><ul></ul></li>
-<li><a href="#watch-face-in-c">4 Watch Face in C</a><ul></ul></li>
-<li><a href="#watch-face-in-rust">5 Watch Face in Rust</a><ul></ul></li>
-<li><a href="#porting-lvgl-to-mynewt">6 Porting LVGL to Mynewt</a><ul></ul></li>
-<li><a href="#rust-wrapper-for-lvgl">7 Rust Wrapper for LVGL</a><ul></ul></li>
-<li><a href="#whats-next">8 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Bluetooth Time Sync and Rust Watch Face" /></p>
+<li><a href="#discover-gatt-services-and-characteristics">2 Discover GATT Services and Characteristics</a><ul></ul></li>
+<li><a href="#get-the-time-in-c">3 Get the Time in C</a><ul></ul></li>
+<li><a href="#get-the-time-in-rust">4 Get the Time in Rust</a><ul></ul></li>
+<li><a href="#watch-face-in-c">5 Watch Face in C</a><ul></ul></li>
+<li><a href="#watch-face-in-rust">6 Watch Face in Rust</a><ul></ul></li>
+<li><a href="#porting-lvgl-to-mynewt">7 Porting LVGL to Mynewt</a><ul></ul></li>
+<li><a href="#rust-wrapper-for-lvgl">8 Rust Wrapper for LVGL</a><ul></ul></li>
+<li><a href="#whats-next">9 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Bluetooth Time Sync and Rust Watch Face" /></p>
 <p>Let's learn how PineTime syncs the time over Bluetooth LE... And how we build PineTime Watch Faces with Rust and LVGL.</p>
 <h1 id="time-sync-over-bluetooth-le" class="section-header"><a href="#time-sync-over-bluetooth-le">1 Time Sync over Bluetooth LE</a></h1>
 <p>Try this on your Android phone...</p>
@@ -87,7 +88,7 @@
 <p>Set <code>Server Configuration</code> to <code>Current Time Service</code>. Tap <code>OK</code></p>
 </li>
 <li>
-<p>In the app, browse for Bluetooth devices and connect to <code>PineTime</code></p>
+<p>In the app, browse for Bluetooth devices and connect to PineTime</p>
 </li>
 </ol>
 <p>The current date and time appears on PineTime!</p>
@@ -96,7 +97,7 @@
 <p><img src="https://lupyuen.github.io/images/timesync-gatt.jpg" alt="Bluetooth Time Sync" /></p>
 <ol>
 <li>
-<p>Our phone connected to PineTime over Bluetooth LE</p>
+<p>Our phone connects to PineTime over Bluetooth LE</p>
 </li>
 <li>
 <p>PineTime detects the incoming connection. </p>
@@ -109,6 +110,11 @@
 <p>The nRF Connect app on our phone responds with the current time.</p>
 </li>
 </ol>
+<p><em>Is it really necessary to discover ALL GATT Services and Characteristics?</em></p>
+<p>Not really... It's actually more efficient for PineTime to connect directly to the Current Time Service without discovering all services.</p>
+<p>But for now we'll discover all services as an educational exercise... Also to allow for future extension in case we need to support more services.</p>
+<p>Let's learn how to discover GATT Services and Characteristics in the <code>pinetime-rust-mynewt</code> firmware for PineTime...</p>
+<h1 id="discover-gatt-services-and-characteristics" class="section-header"><a href="#discover-gatt-services-and-characteristics">2 Discover GATT Services and Characteristics</a></h1>
 <p>TODO: Bluetooth LE Current Time Service, Discovering Bluetooth LE Services and Characteristics, Reading Bluetooth LE Characteristics, Decoding Bluetooth LE Current Time</p>
 <p>When a peer is connected, discover the services exposed by the peer: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
 <pre><code class="language-c">/**
@@ -331,7 +337,7 @@ static int set_system_time(const struct os_mbuf *om) {
 ...
 <span class="ident">Render</span> <span class="ident">LVGL</span> <span class="ident">display</span>...
 <span class="ident">Flush</span> <span class="ident">display</span>: <span class="ident">left</span><span class="op">=</span><span class="number">59</span>, <span class="ident">top</span><span class="op">=</span><span class="number">27</span>, <span class="ident">right</span><span class="op">=</span><span class="number">180</span>, <span class="ident">bottom</span><span class="op">=</span><span class="number">42</span>...</pre></div>
-<h1 id="get-the-time-in-c" class="section-header"><a href="#get-the-time-in-c">2 Get the Time in C</a></h1>
+<h1 id="get-the-time-in-c" class="section-header"><a href="#get-the-time-in-c">3 Get the Time in C</a></h1>
 <p>TODO: os_timeval, clocktime and ISO format, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c"><code>my_sensor_app/src/watch_face.c</code></a></p>
 <pre><code class="language-c">//  Get the system time
 struct os_timeval tv;
@@ -352,7 +358,7 @@ if (rc != 0) { console_printf(&quot;Can't format time: %d\n&quot;, rc); return 4
 //  Truncate after minute: 2020-10-04T13:20
 buf[16] = 0;
 </code></pre>
-<h1 id="get-the-time-in-rust" class="section-header"><a href="#get-the-time-in-rust">3 Get the Time in Rust</a></h1>
+<h1 id="get-the-time-in-rust" class="section-header"><a href="#get-the-time-in-rust">4 Get the Time in Rust</a></h1>
 <p>TODO: WatchFaceTime, <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs"><code>pinetime-watchface/src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -383,7 +389,7 @@ buf[16] = 0;
     };
     <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
 }</pre></div>
-<h1 id="watch-face-in-c" class="section-header"><a href="#watch-face-in-c">4 Watch Face in C</a></h1>
+<h1 id="watch-face-in-c" class="section-header"><a href="#watch-face-in-c">5 Watch Face in C</a></h1>
 <p>TODO: Mynewt timer, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c"><code>my_sensor_app/src/watch_face.c</code></a></p>
 <p>Create the watch face...</p>
 <pre><code class="language-c">/// Render a watch face. Called by main() in rust/app/src/lib.rs
@@ -460,7 +466,7 @@ static void watch_face_callback(struct os_event *ev) {
     );
 }
 </code></pre>
-<h1 id="watch-face-in-rust" class="section-header"><a href="#watch-face-in-rust">5 Watch Face in Rust</a></h1>
+<h1 id="watch-face-in-rust" class="section-header"><a href="#watch-face-in-rust">6 Watch Face in Rust</a></h1>
 <p>TODO: Barebones watch face, LVGL styles</p>
 <p>Watch Face Framework in <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs"><code>pinetime-watchface/blob/master/src/lib.rs</code></a></p>
 <p>Start the watch face...</p>
@@ -737,7 +743,7 @@ static void watch_face_callback(struct os_event *ev) {
         ) <span class="question-mark">?</span> ;
         <span class="prelude-val">Ok</span>(())
     }</pre></div>
-<h1 id="porting-lvgl-to-mynewt" class="section-header"><a href="#porting-lvgl-to-mynewt">6 Porting LVGL to Mynewt</a></h1>
+<h1 id="porting-lvgl-to-mynewt" class="section-header"><a href="#porting-lvgl-to-mynewt">7 Porting LVGL to Mynewt</a></h1>
 <p>TODO: SPI Driver for ST7789 Display Controller, <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt"><code>pinetime_lvgl_mynewt</code></a></p>
 <p>Located at <code>libs/pinetime_lvgl_mynewt</code></p>
 <p><a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lvgl.c"><code>src/pinetime/lvgl.c</code></a></p>
@@ -824,9 +830,9 @@ int pinetime_lvgl_mynewt_write_data(const uint8_t *data, uint16_t len) {
     return 0;
 }
 </code></pre>
-<h1 id="rust-wrapper-for-lvgl" class="section-header"><a href="#rust-wrapper-for-lvgl">7 Rust Wrapper for LVGL</a></h1>
+<h1 id="rust-wrapper-for-lvgl" class="section-header"><a href="#rust-wrapper-for-lvgl">8 Rust Wrapper for LVGL</a></h1>
 <p>TODO: Bindgen, Safe Wrapper Proc Macro, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/lvgl"><code>rust/lvgl</code></a></p>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">8 What's Next</a></h1>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">9 What's Next</a></h1>
 <p>TODO: Bluetooth Time Sync, Rust Watch Faces and LVGL were developed and tested with Remote PineTime</p>
 <p><a href="https://lupyuen.github.io">Check out my PineTime articles</a></p>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
