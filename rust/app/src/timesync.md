@@ -50,44 +50,28 @@ Let's learn how to discover GATT Services and Characteristics in the `pinetime-r
 
 TODO: Bluetooth LE Current Time Service, Discovering Bluetooth LE Services and Characteristics, Reading Bluetooth LE Characteristics, Decoding Bluetooth LE Current Time
 
-When a peer is connected, discover the services exposed by the peer: [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c)
+When a peer is connected, discover the services exposed by the peer: [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L368-L416)
 
 ```c
-/**
- * The nimble host executes this callback when a GAP event occurs.  The
- * application associates a GAP event callback with each connection that forms.
- * bleprph uses the same callback for all connections. */
+//  The NimBLE stack executes this callback when a GAP Event occurs
 static int bleprph_gap_event(struct ble_gap_event *event, void *arg) {
-    struct ble_gap_conn_desc desc;
-    int rc;
-
+    //  Check the GAP Event
     switch (event->type) {
-    case BLE_GAP_EVENT_CONNECT:
-        /* A new connection was established or a connection attempt failed. */
-        MODLOG_DFLT_INFO("connection %s; status=%d ",
-                    event->connect.status == 0 ? "established" : "failed",
-                    event->connect.status);
-        if (event->connect.status == 0) {
-            rc = ble_gap_conn_find(event->connect.conn_handle, &desc);
-            assert(rc == 0);
-            bleprph_print_conn_desc(&desc);
 
-#if MYNEWT_VAL(BLEPRPH_LE_PHY_SUPPORT)
-            phy_conn_changed(event->connect.conn_handle);
-#endif
+        //  When a BLE connection is established...
+        case BLE_GAP_EVENT_CONNECT:
 
-            //  When a BLE connection is established, we read the GATT Characteristic of the Current Time Service of the BLE Peer
-            //  Based on https://github.com/apache/mynewt-nimble/blob/master/apps/blecent/src/main.c
+            //  Remember the BLE Peer
+            blepeer_add(
+                event->connect.conn_handle
+            );
 
-            //  Remember the BLE Peer. Ignore the error if we have already added the peer.
-            rc = blepeer_add(event->connect.conn_handle);
-            if (rc != 0 && rc != 2) { MODLOG_DFLT_ERROR("Failed to add peer: %d\n", rc); MODLOG_DFLT_FLUSH(); }
-            else {
-                //  Discover all GATT Sevices in BLE Peer (including Current Time Service)
-                rc = blepeer_disc_all(event->connect.conn_handle, blecent_on_disc_complete, NULL);
-                if (rc != 0) { MODLOG_DFLT_ERROR("Failed to discover services: %d\n", rc); MODLOG_DFLT_FLUSH(); }
-            }
-        }
+            //  Discover all GATT Sevices and Characteristics in the BLE Peer
+            blepeer_disc_all(
+                event->connect.conn_handle, 
+                blecent_on_disc_complete, 
+                NULL
+            );
 ```
 
 Time Sync. When a BLE connection is established, we read the GATT Characteristic for the Current Time Service of the BLE Peer
@@ -100,6 +84,8 @@ Based on https://github.com/apache/mynewt-nimble/blob/master/apps/blecent/src/ma
 ```
 
 When services has been discovered...
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L88-L107
 
 ```c
 /// Called when GATT Service Discovery of the BLE Peer has completed
@@ -122,8 +108,11 @@ err:
     //  ble_gap_terminate(peer->conn_handle, BLE_ERR_REM_USER_CONN_TERM);
     return;
 }
+```
 
 Read the Current Time Characteristic...
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L109-L139
 
 ```c
 /// Read the GATT Characteristic for Current Time from the BLE Peer
@@ -160,6 +149,8 @@ err:
 ```
 
 When the Current Time Characteristic has been read...
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L141-L178
 
 ```c
 /// Called when Current Time GATT Characteristic has been read
@@ -204,6 +195,8 @@ err:
 
 Data Format for Current Time...
 
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L75-L86
+
 ```c
 /// Data Format for Current Time Service. Based on https://github.com/sdalu/mynewt-nimble/blob/495ff291a15306787859a2fe8f2cc8765b546e02/nimble/host/services/cts/src/ble_svc_cts.c
 struct ble_current_time {
@@ -220,6 +213,8 @@ struct ble_current_time {
 ```
 
 Set the Mynewt system time...
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L180-L235
 
 ```c
 /// Set system time given the GATT Current Time in Mbuf format. Based on https://github.com/sdalu/mynewt-nimble/blob/495ff291a15306787859a2fe8f2cc8765b546e02/nimble/host/services/cts/src/ble_svc_cts.c
