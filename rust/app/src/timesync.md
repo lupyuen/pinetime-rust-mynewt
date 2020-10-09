@@ -275,28 +275,22 @@ And that's how we sync the time from our mobile phone to PineTime!
 
 # Bluetooth Log for Time Sync
 
-TODO
+When we perform Time Sync over Bluetooth LE, we'll see these debugging messages emitted by PineTime...
 
-```
-Starting BLE...
-BLE started
-Render LVGL display...
-Flush display: left=63, top=27, right=196, bottom=42...
-connection established
-connection updated 
-Service discovery complete; status=0 conn_handle=1
-Read complete; status=0 conn_handle=1 attr_handle=67 value=e4 07 0a 04 0e 05 29 07 87 00 
-Current Time: 2020-10-04T14:05:41.527343+00:00
-...
-Render LVGL display...
-Flush display: left=60, top=27, right=183, bottom=42...
-...
-Render LVGL display...
-Flush display: left=59, top=27, right=181, bottom=42...
-...
-Render LVGL display...
-Flush display: left=59, top=27, right=180, bottom=42...
-```
+| Debug Message | Remark |
+|:---|:---|
+| `Starting BLE...` | Start the NimBLE Bluetooth LE Stack
+| `BLE started` | 
+| `Render LVGL display...`<br>`Flush display: `<br>`left=63, top=27, right=196, bottom=42...` | Render the initial watch face
+| `connection established` | Mobile phone connects to PineTime
+| `connection updated ` | 
+| `Service discovery complete; `<br>`status=0 conn_handle=1` | PineTime discovers the Current Time Service 
+| `Read complete; `<br>`status=0 conn_handle=1 attr_handle=67`<br>`value=e4 07 0a 04 0e 05 29 07 87 00 ` | PineTime reads and receives the <br> 10-byte current time
+| `Current Time: `<br>`2020-10-04T14:05:41.527343+00:00` | PineTime decodes the current time
+| ... | 
+| `Render LVGL display...`<br>`Flush display: `<br>`left=60, top=27, right=183, bottom=42...` | Render the updated watch face
+| ... | 
+| `Render LVGL display...`<br>`Flush display: `<br>`left=59, top=27, right=181, bottom=42...` | Render the updates every minute
 
 # Get the Time in C
 

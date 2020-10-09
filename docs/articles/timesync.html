@@ -296,27 +296,21 @@ static int set_system_time(const struct os_mbuf *om) {
 </code></pre>
 <p>And that's how we sync the time from our mobile phone to PineTime!</p>
 <h1 id="bluetooth-log-for-time-sync" class="section-header"><a href="#bluetooth-log-for-time-sync">5 Bluetooth Log for Time Sync</a></h1>
-<p>TODO</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Starting</span> <span class="ident">BLE</span>...
-<span class="ident">BLE</span> <span class="ident">started</span>
-<span class="ident">Render</span> <span class="ident">LVGL</span> <span class="ident">display</span>...
-<span class="ident">Flush</span> <span class="ident">display</span>: <span class="ident">left</span><span class="op">=</span><span class="number">63</span>, <span class="ident">top</span><span class="op">=</span><span class="number">27</span>, <span class="ident">right</span><span class="op">=</span><span class="number">196</span>, <span class="ident">bottom</span><span class="op">=</span><span class="number">42</span>...
-<span class="ident">connection</span> <span class="ident">established</span>
-<span class="ident">connection</span> <span class="ident">updated</span> 
-<span class="ident">Service</span> <span class="ident">discovery</span> <span class="ident">complete</span>; <span class="ident">status</span><span class="op">=</span><span class="number">0</span> <span class="ident">conn_handle</span><span class="op">=</span><span class="number">1</span>
-<span class="ident">Read</span> <span class="ident">complete</span>; <span class="ident">status</span><span class="op">=</span><span class="number">0</span> <span class="ident">conn_handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">attr_handle</span><span class="op">=</span><span class="number">67</span> <span class="ident">value</span><span class="op">=</span><span class="ident">e4</span> <span class="number">07</span> <span class="number">0a</span> <span class="number">04</span> <span class="number">0e</span> <span class="number">05</span> <span class="number">29</span> <span class="number">07</span> <span class="number">87</span> <span class="number">00</span> 
-<span class="ident">Current</span> <span class="ident">Time</span>: <span class="number">2020</span><span class="op">-</span><span class="number">10</span><span class="op">-</span><span class="number">04T14</span>:<span class="number">05</span>:<span class="number">41.527343</span><span class="op">+</span><span class="number">00</span>:<span class="number">00</span>
-...
-<span class="ident">Render</span> <span class="ident">LVGL</span> <span class="ident">display</span>...
-<span class="ident">Flush</span> <span class="ident">display</span>: <span class="ident">left</span><span class="op">=</span><span class="number">60</span>, <span class="ident">top</span><span class="op">=</span><span class="number">27</span>, <span class="ident">right</span><span class="op">=</span><span class="number">183</span>, <span class="ident">bottom</span><span class="op">=</span><span class="number">42</span>...
-...
-<span class="ident">Render</span> <span class="ident">LVGL</span> <span class="ident">display</span>...
-<span class="ident">Flush</span> <span class="ident">display</span>: <span class="ident">left</span><span class="op">=</span><span class="number">59</span>, <span class="ident">top</span><span class="op">=</span><span class="number">27</span>, <span class="ident">right</span><span class="op">=</span><span class="number">181</span>, <span class="ident">bottom</span><span class="op">=</span><span class="number">42</span>...
-...
-<span class="ident">Render</span> <span class="ident">LVGL</span> <span class="ident">display</span>...
-<span class="ident">Flush</span> <span class="ident">display</span>: <span class="ident">left</span><span class="op">=</span><span class="number">59</span>, <span class="ident">top</span><span class="op">=</span><span class="number">27</span>, <span class="ident">right</span><span class="op">=</span><span class="number">180</span>, <span class="ident">bottom</span><span class="op">=</span><span class="number">42</span>...</pre></div>
+<p>When we perform Time Sync over Bluetooth LE, we'll see these debugging messages emitted by PineTime...</p>
+<table><thead><tr><th align="left">Debug Message</th><th align="left">Remark</th></tr></thead><tbody>
+<tr><td align="left"><code>Starting BLE...</code></td><td align="left">Start the NimBLE Bluetooth LE Stack</td></tr>
+<tr><td align="left"><code>BLE started</code></td><td align="left"></td></tr>
+<tr><td align="left"><code>Render LVGL display...</code><br><code>Flush display: </code><br><code>left=63, top=27, right=196, bottom=42...</code></td><td align="left">Render the initial watch face</td></tr>
+<tr><td align="left"><code>connection established</code></td><td align="left">Mobile phone connects to PineTime</td></tr>
+<tr><td align="left"><code>connection updated </code></td><td align="left"></td></tr>
+<tr><td align="left"><code>Service discovery complete; </code><br><code>status=0 conn_handle=1</code></td><td align="left">PineTime discovers the Current Time Service</td></tr>
+<tr><td align="left"><code>Read complete; </code><br><code>status=0 conn_handle=1 attr_handle=67</code><br><code>value=e4 07 0a 04 0e 05 29 07 87 00 </code></td><td align="left">PineTime reads and receives the <br> 10-byte current time</td></tr>
+<tr><td align="left"><code>Current Time: </code><br><code>2020-10-04T14:05:41.527343+00:00</code></td><td align="left">PineTime decodes the current time</td></tr>
+<tr><td align="left">...</td><td align="left"></td></tr>
+<tr><td align="left"><code>Render LVGL display...</code><br><code>Flush display: </code><br><code>left=60, top=27, right=183, bottom=42...</code></td><td align="left">Render the updated watch face</td></tr>
+<tr><td align="left">...</td><td align="left"></td></tr>
+<tr><td align="left"><code>Render LVGL display...</code><br><code>Flush display: </code><br><code>left=59, top=27, right=181, bottom=42...</code></td><td align="left">Render the updates every minute</td></tr>
+</tbody></table>
 <h1 id="get-the-time-in-c" class="section-header"><a href="#get-the-time-in-c">6 Get the Time in C</a></h1>
 <p>TODO: os_timeval, clocktime and ISO format, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c"><code>my_sensor_app/src/watch_face.c</code></a></p>
 <pre><code class="language-c">//  Get the system time
