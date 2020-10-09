@@ -104,13 +104,15 @@ See [`apps/my_sensor_app/src/ble_peer.h`](https://github.com/lupyuen/pinetime-ru
 
 # Read GATT Characteristic for Current Time
 
-TODO: Reading Bluetooth LE Characteristics, Decoding Bluetooth LE Current Time
+Our Time Sync story so far...
 
-Read the Current Time Characteristic...
+1.  PineTime has detected an incoming Bluetooth LE connection from our mobile phone
 
-Time Sync. When a BLE connection is established, we read the GATT Characteristic for the Current Time Service of the BLE Peer
+1.  PineTime reacts by discovering all GATT Services and Characteristics exposed by our phone (through the nRF Connect mobile app)
 
-[`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L109-L139)
+1.  PineTime is now reading to read the Current Time Characteristic exposed by our phone
+
+Here's how we read the Current Time Characteristic: [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L109-L139)
 
 ```c
 /// Read the GATT Characteristic for Current Time from the BLE Peer
@@ -134,14 +136,14 @@ static void blecent_read(const struct blepeer *peer) {
 }
 ```
 
+The Current Time Service and Current Time Characteristic are defined in the Bluetooth Specifications...
+
 ```c
 #define BLE_GATT_SVC_CTS        (0x1805)  //  GATT Service for Current Time Service
 #define BLE_GATT_CHR_CUR_TIME   (0x2A2B)  //  GATT Characteristic for Current Time
 ```
 
-Data Format for Current Time...
-
-[`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L75-L86)
+The Current Time Characteristic returns the current date and time in this 10-byte format: [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L75-L86)
 
 ```c
 /// Data Format for Current Time Service. Based on https://github.com/sdalu/mynewt-nimble/blob/495ff291a15306787859a2fe8f2cc8765b546e02/nimble/host/services/cts/src/ble_svc_cts.c
@@ -151,14 +153,26 @@ struct ble_current_time {
     uint8_t  day;
     uint8_t  hours;
     uint8_t  minutes;
-    uint8_t  secondes;
-    uint8_t  day_of_week;
+    uint8_t  seconds;
+    uint8_t  day_of_week;  //  From 1 (Monday) to 7 (Sunday)
     uint8_t  fraction256;
     uint8_t  adjust_reason;
 } __attribute__((__packed__));
 ```
 
-When the Current Time Characteristic has been read...
+So when our phone returns these 10 bytes to PineTime as the current date/time...
+
+```
+e4 07 0a 04 0e 05 29 07 87 00 
+```
+
+The 10 bytes shall be decoded as...
+
+```
+2020-10-04 14:05:41.527343 Sunday
+```
+
+We'll see in a while how PineTime decodes the 10 bytes and sets the Mynewt system time.
 
 # Set System Time
 

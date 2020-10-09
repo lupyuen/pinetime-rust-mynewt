@@ -159,10 +159,19 @@ static void blecent_on_disc_complete(const struct blepeer *peer, int status, voi
 <p>They are <strong>Bluetooth LE Peer Functions</strong> provided by NimBLE to maintain peer-to-peer Bluetooth LE connections and to remember the discovered GATT Services and Characteristics.</p>
 <p>See <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_peer.h"><code>apps/my_sensor_app/src/ble_peer.h</code></a> and <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_peer.c"><code>ble_peer.c</code></a> </p>
 <h1 id="read-gatt-characteristic-for-current-time" class="section-header"><a href="#read-gatt-characteristic-for-current-time">3 Read GATT Characteristic for Current Time</a></h1>
-<p>TODO: Reading Bluetooth LE Characteristics, Decoding Bluetooth LE Current Time</p>
-<p>Read the Current Time Characteristic...</p>
-<p>Time Sync. When a BLE connection is established, we read the GATT Characteristic for the Current Time Service of the BLE Peer</p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L109-L139"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
+<p>Our Time Sync story so far...</p>
+<ol>
+<li>
+<p>PineTime has detected an incoming Bluetooth LE connection from our mobile phone</p>
+</li>
+<li>
+<p>PineTime reacts by discovering all GATT Services and Characteristics exposed by our phone (through the nRF Connect mobile app)</p>
+</li>
+<li>
+<p>PineTime is now reading to read the Current Time Characteristic exposed by our phone</p>
+</li>
+</ol>
+<p>Here's how we read the Current Time Characteristic: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L109-L139"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
 <pre><code class="language-c">/// Read the GATT Characteristic for Current Time from the BLE Peer
 static void blecent_read(const struct blepeer *peer) {
     //  Find the GATT Characteristic for Current Time Service from the discovered GATT Characteristics
@@ -183,11 +192,11 @@ static void blecent_read(const struct blepeer *peer) {
     );
 }
 </code></pre>
+<p>The Current Time Service and Current Time Characteristic are defined in the Bluetooth Specifications...</p>
 <pre><code class="language-c">#define BLE_GATT_SVC_CTS        (0x1805)  //  GATT Service for Current Time Service
 #define BLE_GATT_CHR_CUR_TIME   (0x2A2B)  //  GATT Characteristic for Current Time
 </code></pre>
-<p>Data Format for Current Time...</p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L75-L86"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
+<p>The Current Time Characteristic returns the current date and time in this 10-byte format: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L75-L86"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
 <pre><code class="language-c">/// Data Format for Current Time Service. Based on https://github.com/sdalu/mynewt-nimble/blob/495ff291a15306787859a2fe8f2cc8765b546e02/nimble/host/services/cts/src/ble_svc_cts.c
 struct ble_current_time {
     uint16_t year;
@@ -195,13 +204,21 @@ struct ble_current_time {
     uint8_t  day;
     uint8_t  hours;
     uint8_t  minutes;
-    uint8_t  secondes;
-    uint8_t  day_of_week;
+    uint8_t  seconds;
+    uint8_t  day_of_week;  //  From 1 (Monday) to 7 (Sunday)
     uint8_t  fraction256;
     uint8_t  adjust_reason;
 } __attribute__((__packed__));
 </code></pre>
-<p>When the Current Time Characteristic has been read...</p>
+<p>So when our phone returns these 10 bytes to PineTime as the current date/time...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">e4</span> <span class="number">07</span> <span class="number">0a</span> <span class="number">04</span> <span class="number">0e</span> <span class="number">05</span> <span class="number">29</span> <span class="number">07</span> <span class="number">87</span> <span class="number">00</span> </pre></div>
+<p>The 10 bytes shall be decoded as...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="number">2020</span><span class="op">-</span><span class="number">10</span><span class="op">-</span><span class="number">04</span> <span class="number">14</span>:<span class="number">05</span>:<span class="number">41.527343</span> <span class="ident">Sunday</span></pre></div>
+<p>We'll see in a while how PineTime decodes the 10 bytes and sets the Mynewt system time.</p>
 <h1 id="set-system-time" class="section-header"><a href="#set-system-time">4 Set System Time</a></h1>
 <p>TODO</p>
 <p>Set the Mynewt system time...</p>
