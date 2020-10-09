@@ -74,27 +74,39 @@ static int bleprph_gap_event(struct ble_gap_event *event, void *arg) {
             );
 ```
 
-TODO: Bluetooth LE Current Time Service, Discovering Bluetooth LE Services and Characteristics, Reading Bluetooth LE Characteristics, Decoding Bluetooth LE Current Time
-
 When services have been discovered...
 
 Read the Current Time Characteristic...
 
 Time Sync. When a BLE connection is established, we read the GATT Characteristic for the Current Time Service of the BLE Peer
 
-[`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L88-L139)
+[`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L88-L107)
 
 ```c
 /// Called when GATT Service Discovery of the BLE Peer has completed
 static void blecent_on_disc_complete(const struct blepeer *peer, int status, void *arg) {
     //  Omitted: Check that discovery status is successful
 
-    //  GATT Service Discovery has completed successfully.  Now we have a complete list of services, characteristics, and descriptors that the peer supports.
+    //  GATT Service Discovery has completed successfully.
+    //  Now we have a complete list of services, characteristics 
+    //  and descriptors that the peer supports.
 
     //  Read the GATT Characteristics from the peer
     blecent_read(peer);
 }
+```
 
+# Read GATT Characteristic for Current Time
+
+TODO: Reading Bluetooth LE Characteristics, Decoding Bluetooth LE Current Time
+
+Read the Current Time Characteristic...
+
+Time Sync. When a BLE connection is established, we read the GATT Characteristic for the Current Time Service of the BLE Peer
+
+[`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L109-L139)
+
+```c
 /// Read the GATT Characteristic for Current Time from the BLE Peer
 static void blecent_read(const struct blepeer *peer) {
     //  Find the GATT Characteristic for Current Time Service from the discovered GATT Characteristics
