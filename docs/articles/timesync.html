@@ -69,13 +69,14 @@
 <li><a href="#discover-gatt-services-and-characteristics">2 Discover GATT Services and Characteristics</a><ul></ul></li>
 <li><a href="#read-gatt-characteristic-for-current-time">3 Read GATT Characteristic for Current Time</a><ul></ul></li>
 <li><a href="#set-system-time">4 Set System Time</a><ul></ul></li>
-<li><a href="#get-the-time-in-c">5 Get the Time in C</a><ul></ul></li>
-<li><a href="#get-the-time-in-rust">6 Get the Time in Rust</a><ul></ul></li>
-<li><a href="#watch-face-in-c">7 Watch Face in C</a><ul></ul></li>
-<li><a href="#watch-face-in-rust">8 Watch Face in Rust</a><ul></ul></li>
-<li><a href="#porting-lvgl-to-mynewt">9 Porting LVGL to Mynewt</a><ul></ul></li>
-<li><a href="#rust-wrapper-for-lvgl">10 Rust Wrapper for LVGL</a><ul></ul></li>
-<li><a href="#whats-next">11 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Bluetooth Time Sync and Rust Watch Face" /></p>
+<li><a href="#bluetooth-log-for-time-sync">5 Bluetooth Log for Time Sync</a><ul></ul></li>
+<li><a href="#get-the-time-in-c">6 Get the Time in C</a><ul></ul></li>
+<li><a href="#get-the-time-in-rust">7 Get the Time in Rust</a><ul></ul></li>
+<li><a href="#watch-face-in-c">8 Watch Face in C</a><ul></ul></li>
+<li><a href="#watch-face-in-rust">9 Watch Face in Rust</a><ul></ul></li>
+<li><a href="#porting-lvgl-to-mynewt">10 Porting LVGL to Mynewt</a><ul></ul></li>
+<li><a href="#rust-wrapper-for-lvgl">11 Rust Wrapper for LVGL</a><ul></ul></li>
+<li><a href="#whats-next">12 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Bluetooth Time Sync and Rust Watch Face" /></p>
 <p>Let's learn how PineTime syncs the time over Bluetooth LE... And how we build PineTime Watch Faces with Rust and LVGL.</p>
 <h1 id="time-sync-over-bluetooth-le" class="section-header"><a href="#time-sync-over-bluetooth-le">1 Time Sync over Bluetooth LE</a></h1>
 <p>Try this on your Android phone...</p>
@@ -221,12 +222,32 @@ struct ble_current_time {
 <span class="number">2020</span><span class="op">-</span><span class="number">10</span><span class="op">-</span><span class="number">04</span> <span class="number">14</span>:<span class="number">05</span>:<span class="number">41.527343</span> <span class="ident">Sunday</span></pre></div>
 <p>We'll see in a while how PineTime decodes the 10 bytes and sets the Mynewt system time.</p>
 <h1 id="set-system-time" class="section-header"><a href="#set-system-time">4 Set System Time</a></h1>
-<p>TODO</p>
-<p>Set the Mynewt system time...</p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L141-L235"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
+<p>One fine Sunday afternoon in sunny Singapore, the 4th of October 2020, at 2:05 PM (and 41.527343 seconds), PineTime received these 10 encoded bytes...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">e4</span> <span class="number">07</span> <span class="number">0a</span> <span class="number">04</span> <span class="number">0e</span> <span class="number">05</span> <span class="number">29</span> <span class="number">07</span> <span class="number">87</span> <span class="number">00</span> </pre></div>
+<p>That's the Encoded Current Time, in Bluetooth LE format, returned by our phone (with nRF Connect) to PineTime. The NimBLE Bluetooth LE Stack passes these 10 bytes to our firmware in the <strong>Mbuf Format.</strong></p>
+<p><em>What's an Mbuf?</em></p>
+<p>An <a href="https://mynewt.apache.org/latest/os/core_os/mbuf/mbuf.html">Mbuf (Memory Buffer)</a> is a linked list of fixed-size blocks thats uses RAM efficiently for networking tasks, like Bluetooth LE.</p>
+<p>To work with the data inside the Mbuf linked list, we need to &quot;flatten&quot; the Mbuf (like <code>om</code>) into an array or struct (like <code>current_time</code>)...</p>
+<pre><code class="language-c">//  Get the Mbuf size
+uint16_t om_len = OS_MBUF_PKTLEN(om);
+
+//  Allocate storage for the BLE Current Time
+struct ble_current_time current_time;
+
+//  Copy the data from the Mbuf to the BLE Current Time
+ble_hs_mbuf_to_flat(  //  Flatten and copy the Mbuf...
+    om,               //  From om...
+    &amp;current_time,    //  To current_time...
+    om_len,           //  For om_len bytes
+    NULL
+);
+</code></pre>
+<p>Here's how we use the Mbuf data to decode the Current Time: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L141-L235"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
 <pre><code class="language-c">/// Called when Current Time GATT Characteristic has been read
 static int blecent_on_read(uint16_t conn_handle, const struct ble_gatt_error *error, struct ble_gatt_attr *attr, void *arg) {
-    //  Set the system time from the received time
+    //  Set the system time from the received time in Mbuf format
     set_system_time(attr-&gt;om);
     return 0;
 }
@@ -254,32 +275,35 @@ static int set_system_time(const struct os_mbuf *om) {
     ct.day  = current_time.day;
     ct.hour = current_time.hours;
     ct.min  = current_time.minutes;
-    ct.sec  = current_time.secondes;
+    ct.sec  = current_time.seconds;
     ct.usec = (current_time.fraction256 * 1000000) / 256;
-
-    //  Get the timezone, which will used for clocktime conversion
+</code></pre>
+<p>We have just populated a <code>clocktime</code> struct <code>ct</code> with the decoded date and time values.</p>
+<p>Now we fetch the default timezone <code>tz</code> from Mynewt (because it's needed later for setting the time)...</p>
+<pre><code class="language-c">    //  Get the timezone, which will used for clocktime conversion
     struct os_timeval tv0;
     struct os_timezone tz;
     os_gettimeofday(&amp;tv0, &amp;tz);
-
-    //  Convert clocktime format to timeval format, passing the timezone
+</code></pre>
+<p>Mynewt only accepts system time in the <code>timeval</code> format, so we convert it here (passing the timezone)...</p>
+<pre><code class="language-c">    //  Convert clocktime format to timeval format, passing the timezone
     struct os_timeval tv;    
     clocktime_to_timeval(&amp;ct, &amp;tz, &amp;tv);
-
-    //  Set the system time in timeval format
-    os_settimeofday(&amp;tv, NULL);
-    return 0;
-}
 </code></pre>
-<p>Bluetooth Log:</p>
+<p>Finally we call the Mynewt Function <code>os_settimeofday</code> to set the system time.</p>
+<pre><code class="language-c">    //  Set the system time in timeval format
+    os_settimeofday(&amp;tv, NULL);
+</code></pre>
+<h1 id="bluetooth-log-for-time-sync" class="section-header"><a href="#bluetooth-log-for-time-sync">5 Bluetooth Log for Time Sync</a></h1>
+<p>TODO</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">Starting</span> <span class="ident">BLE</span>...
 <span class="ident">BLE</span> <span class="ident">started</span>
 <span class="ident">Render</span> <span class="ident">LVGL</span> <span class="ident">display</span>...
 <span class="ident">Flush</span> <span class="ident">display</span>: <span class="ident">left</span><span class="op">=</span><span class="number">63</span>, <span class="ident">top</span><span class="op">=</span><span class="number">27</span>, <span class="ident">right</span><span class="op">=</span><span class="number">196</span>, <span class="ident">bottom</span><span class="op">=</span><span class="number">42</span>...
-<span class="ident">connection</span> <span class="ident">established</span>;
-<span class="ident">connection</span> <span class="ident">updated</span>; 
+<span class="ident">connection</span> <span class="ident">established</span>
+<span class="ident">connection</span> <span class="ident">updated</span> 
 <span class="ident">Service</span> <span class="ident">discovery</span> <span class="ident">complete</span>; <span class="ident">status</span><span class="op">=</span><span class="number">0</span> <span class="ident">conn_handle</span><span class="op">=</span><span class="number">1</span>
 <span class="ident">Read</span> <span class="ident">complete</span>; <span class="ident">status</span><span class="op">=</span><span class="number">0</span> <span class="ident">conn_handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">attr_handle</span><span class="op">=</span><span class="number">67</span> <span class="ident">value</span><span class="op">=</span><span class="ident">e4</span> <span class="number">07</span> <span class="number">0a</span> <span class="number">04</span> <span class="number">0e</span> <span class="number">05</span> <span class="number">29</span> <span class="number">07</span> <span class="number">87</span> <span class="number">00</span> 
 <span class="ident">Current</span> <span class="ident">Time</span>: <span class="number">2020</span><span class="op">-</span><span class="number">10</span><span class="op">-</span><span class="number">04T14</span>:<span class="number">05</span>:<span class="number">41.527343</span><span class="op">+</span><span class="number">00</span>:<span class="number">00</span>
@@ -292,7 +316,7 @@ static int set_system_time(const struct os_mbuf *om) {
 ...
 <span class="ident">Render</span> <span class="ident">LVGL</span> <span class="ident">display</span>...
 <span class="ident">Flush</span> <span class="ident">display</span>: <span class="ident">left</span><span class="op">=</span><span class="number">59</span>, <span class="ident">top</span><span class="op">=</span><span class="number">27</span>, <span class="ident">right</span><span class="op">=</span><span class="number">180</span>, <span class="ident">bottom</span><span class="op">=</span><span class="number">42</span>...</pre></div>
-<h1 id="get-the-time-in-c" class="section-header"><a href="#get-the-time-in-c">5 Get the Time in C</a></h1>
+<h1 id="get-the-time-in-c" class="section-header"><a href="#get-the-time-in-c">6 Get the Time in C</a></h1>
 <p>TODO: os_timeval, clocktime and ISO format, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c"><code>my_sensor_app/src/watch_face.c</code></a></p>
 <pre><code class="language-c">//  Get the system time
 struct os_timeval tv;
@@ -313,7 +337,7 @@ if (rc != 0) { console_printf(&quot;Can't format time: %d\n&quot;, rc); return 4
 //  Truncate after minute: 2020-10-04T13:20
 buf[16] = 0;
 </code></pre>
-<h1 id="get-the-time-in-rust" class="section-header"><a href="#get-the-time-in-rust">6 Get the Time in Rust</a></h1>
+<h1 id="get-the-time-in-rust" class="section-header"><a href="#get-the-time-in-rust">7 Get the Time in Rust</a></h1>
 <p>TODO: WatchFaceTime, <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs"><code>pinetime-watchface/src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -344,7 +368,7 @@ buf[16] = 0;
     };
     <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
 }</pre></div>
-<h1 id="watch-face-in-c" class="section-header"><a href="#watch-face-in-c">7 Watch Face in C</a></h1>
+<h1 id="watch-face-in-c" class="section-header"><a href="#watch-face-in-c">8 Watch Face in C</a></h1>
 <p>TODO: Mynewt timer, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c"><code>my_sensor_app/src/watch_face.c</code></a></p>
 <p>Create the watch face...</p>
 <pre><code class="language-c">/// Render a watch face. Called by main() in rust/app/src/lib.rs
@@ -421,7 +445,7 @@ static void watch_face_callback(struct os_event *ev) {
     );
 }
 </code></pre>
-<h1 id="watch-face-in-rust" class="section-header"><a href="#watch-face-in-rust">8 Watch Face in Rust</a></h1>
+<h1 id="watch-face-in-rust" class="section-header"><a href="#watch-face-in-rust">9 Watch Face in Rust</a></h1>
 <p>TODO: Barebones watch face, LVGL styles</p>
 <p>Watch Face Framework in <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs"><code>pinetime-watchface/blob/master/src/lib.rs</code></a></p>
 <p>Start the watch face...</p>
@@ -698,7 +722,7 @@ static void watch_face_callback(struct os_event *ev) {
         ) <span class="question-mark">?</span> ;
         <span class="prelude-val">Ok</span>(())
     }</pre></div>
-<h1 id="porting-lvgl-to-mynewt" class="section-header"><a href="#porting-lvgl-to-mynewt">9 Porting LVGL to Mynewt</a></h1>
+<h1 id="porting-lvgl-to-mynewt" class="section-header"><a href="#porting-lvgl-to-mynewt">10 Porting LVGL to Mynewt</a></h1>
 <p>TODO: SPI Driver for ST7789 Display Controller, <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt"><code>pinetime_lvgl_mynewt</code></a></p>
 <p>Located at <code>libs/pinetime_lvgl_mynewt</code></p>
 <p><a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lvgl.c"><code>src/pinetime/lvgl.c</code></a></p>
@@ -785,9 +809,9 @@ int pinetime_lvgl_mynewt_write_data(const uint8_t *data, uint16_t len) {
     return 0;
 }
 </code></pre>
-<h1 id="rust-wrapper-for-lvgl" class="section-header"><a href="#rust-wrapper-for-lvgl">10 Rust Wrapper for LVGL</a></h1>
+<h1 id="rust-wrapper-for-lvgl" class="section-header"><a href="#rust-wrapper-for-lvgl">11 Rust Wrapper for LVGL</a></h1>
 <p>TODO: Bindgen, Safe Wrapper Proc Macro, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/lvgl"><code>rust/lvgl</code></a></p>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">11 What's Next</a></h1>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">12 What's Next</a></h1>
 <p>TODO: Bluetooth Time Sync, Rust Watch Faces and LVGL were developed and tested with Remote PineTime</p>
 <p><a href="https://lupyuen.github.io">Check out my PineTime articles</a></p>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>

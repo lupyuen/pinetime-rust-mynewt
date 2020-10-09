@@ -178,16 +178,42 @@ We'll see in a while how PineTime decodes the 10 bytes and sets the Mynewt syste
 
 # Set System Time
 
-TODO
+One fine Sunday afternoon in sunny Singapore, the 4th of October 2020, at 2:05 PM (and 41.527343 seconds), PineTime received these 10 encoded bytes...
 
-Set the Mynewt system time...
+```
+e4 07 0a 04 0e 05 29 07 87 00 
+```
 
-[`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L141-L235)
+That's the Encoded Current Time, in Bluetooth LE format, returned by our phone (with nRF Connect) to PineTime. The NimBLE Bluetooth LE Stack passes these 10 bytes to our firmware in the __Mbuf Format.__
+
+_What's an Mbuf?_
+
+An [Mbuf (Memory Buffer)](https://mynewt.apache.org/latest/os/core_os/mbuf/mbuf.html) is a linked list of fixed-size blocks thats uses RAM efficiently for networking tasks, like Bluetooth LE.
+
+To work with the data inside the Mbuf linked list, we need to "flatten" the Mbuf (like `om`) into an array or struct (like `current_time`)...
+
+```c
+//  Get the Mbuf size
+uint16_t om_len = OS_MBUF_PKTLEN(om);
+
+//  Allocate storage for the BLE Current Time
+struct ble_current_time current_time;
+
+//  Copy the data from the Mbuf to the BLE Current Time
+ble_hs_mbuf_to_flat(  //  Flatten and copy the Mbuf...
+    om,               //  From om...
+    &current_time,    //  To current_time...
+    om_len,           //  For om_len bytes
+    NULL
+);
+```
+
+Here's how we use the Mbuf data to decode the Current Time: [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L141-L235)
 
 ```c
 /// Called when Current Time GATT Characteristic has been read
 static int blecent_on_read(uint16_t conn_handle, const struct ble_gatt_error *error, struct ble_gatt_attr *attr, void *arg) {
-    //  Set the system time from the received time
+    //  Set the system time from the received time in Mbuf format
     set_system_time(attr->om);
     return 0;
 }
@@ -215,33 +241,47 @@ static int set_system_time(const struct os_mbuf *om) {
     ct.day  = current_time.day;
     ct.hour = current_time.hours;
     ct.min  = current_time.minutes;
-    ct.sec  = current_time.secondes;
+    ct.sec  = current_time.seconds;
     ct.usec = (current_time.fraction256 * 1000000) / 256;
+```
 
+We have just populated a `clocktime` struct `ct` with the decoded date and time values.
+
+Now we fetch the default timezone `tz` from Mynewt (because it's needed later for setting the time)...
+
+```c
     //  Get the timezone, which will used for clocktime conversion
     struct os_timeval tv0;
     struct os_timezone tz;
     os_gettimeofday(&tv0, &tz);
+```
 
+Mynewt only accepts system time in the `timeval` format, so we convert it here (passing the timezone)...
+
+```c
     //  Convert clocktime format to timeval format, passing the timezone
     struct os_timeval tv;    
     clocktime_to_timeval(&ct, &tz, &tv);
-
-    //  Set the system time in timeval format
-    os_settimeofday(&tv, NULL);
-    return 0;
-}
 ```
 
-Bluetooth Log:
+Finally we call the Mynewt Function `os_settimeofday` to set the system time.
+
+```c
+    //  Set the system time in timeval format
+    os_settimeofday(&tv, NULL);
+```
+
+# Bluetooth Log for Time Sync
+
+TODO
 
 ```
 Starting BLE...
 BLE started
 Render LVGL display...
 Flush display: left=63, top=27, right=196, bottom=42...
-connection established;
-connection updated; 
+connection established
+connection updated 
 Service discovery complete; status=0 conn_handle=1
 Read complete; status=0 conn_handle=1 attr_handle=67 value=e4 07 0a 04 0e 05 29 07 87 00 
 Current Time: 2020-10-04T14:05:41.527343+00:00
