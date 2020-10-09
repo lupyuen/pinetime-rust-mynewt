@@ -275,7 +275,7 @@ And that's how we sync the time from our mobile phone to PineTime!
 
 # Bluetooth Log for Time Sync
 
-When we perform Time Sync over Bluetooth LE, we'll see these debugging messages emitted by PineTime...
+When we perform Time Sync over Bluetooth LE, we'll see these debugging messages emitted by PineTime: [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L246-L259)
 
 | Debug Message | Remark |
 |:---|:---|
@@ -292,36 +292,56 @@ When we perform Time Sync over Bluetooth LE, we'll see these debugging messages 
 | ... | 
 | `Render LVGL display...`<br>`Flush display: `<br>`left=59, top=27, right=181, bottom=42...` | Render the updates every minute
 
-We'll learn about Watch Faces in a while. Before that, let's find out how to read the Mynewt system time in C and in Rust.
+We'll learn about Watch Faces in a while.
+
+Before that, let's find out how to read the Mynewt system time in C and in Rust.
 
 # Get the Time in C
 
-TODO: os_timeval, clocktime and ISO format, [`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c)
+TODO: os_timeval, clocktime and ISO format, [`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L65-L82)
 
 ```c
-//  Get the system time
+//  Get the system time in timeval format
 struct os_timeval tv;
 struct os_timezone tz;
 int rc = os_gettimeofday(&tv, &tz);
 if (rc != 0) { console_printf("Can't get time: %d\n", rc); return 2; }
+```
 
-//  Convert the time
+Convert to `clocktime` format...
+
+```c
+//  Convert the time from timeval format to clocktime format
 struct clocktime ct;
 rc = timeval_to_clocktime(&tv, &tz, &ct);
 if (rc != 0) { console_printf("Can't convert time: %d\n", rc); return 3; }
+```
 
-//  Format the time as 2020-10-04T13:20:26.839843+00:00
+Convert to ISO format...
+
+```c
+//  Format the clocktime time as 2020-10-04T13:20:26.839843+00:00
 char buf[50];
 rc = datetime_format(&tv, &tz, buf, sizeof(buf));
 if (rc != 0) { console_printf("Can't format time: %d\n", rc); return 4; }
+```
 
+This produces the currrent date and time in ISO format like...
+
+```
+2020-10-04T13:20:26.839843+00:00
+```
+
+For our simple Watch Face in C, we'll truncate the time up to the minute...
+
+```c
 //  Truncate after minute: 2020-10-04T13:20
 buf[16] = 0;
 ```
 
 # Get the Time in Rust
 
-TODO: WatchFaceTime, [`pinetime-watchface/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs)
+TODO: WatchFaceTime, [`pinetime-watchface/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190)
 
 ```rust
 /// Get the system time
@@ -530,6 +550,20 @@ extern fn watch_face_callback(_ev: *mut os::os_event) {
         )
     };
     assert!(rc == 0, "Timer fail");
+}
+```
+
+`WatchFace` Trait: [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190)
+
+```rust
+/// Watch Faces shall implement this trait
+pub trait WatchFace {
+    /// Create the widgets for the Watch Face
+    fn new() -> MynewtResult<Self>
+        where Self: core::marker::Sized;  //  Result type must have known size
+
+    /// Update the widgets in the Watch Face with the current state
+    fn update(&self, state: &WatchFaceState) -> MynewtResult<()>;
 }
 ```
 

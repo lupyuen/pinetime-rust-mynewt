@@ -296,7 +296,7 @@ static int set_system_time(const struct os_mbuf *om) {
 </code></pre>
 <p>And that's how we sync the time from our mobile phone to PineTime!</p>
 <h1 id="bluetooth-log-for-time-sync" class="section-header"><a href="#bluetooth-log-for-time-sync">5 Bluetooth Log for Time Sync</a></h1>
-<p>When we perform Time Sync over Bluetooth LE, we'll see these debugging messages emitted by PineTime...</p>
+<p>When we perform Time Sync over Bluetooth LE, we'll see these debugging messages emitted by PineTime: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L246-L259"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
 <table><thead><tr><th align="left">Debug Message</th><th align="left">Remark</th></tr></thead><tbody>
 <tr><td align="left"><code>Starting BLE...</code></td><td align="left">Start the NimBLE Bluetooth LE Stack</td></tr>
 <tr><td align="left"><code>BLE started</code></td><td align="left"></td></tr>
@@ -311,30 +311,38 @@ static int set_system_time(const struct os_mbuf *om) {
 <tr><td align="left">...</td><td align="left"></td></tr>
 <tr><td align="left"><code>Render LVGL display...</code><br><code>Flush display: </code><br><code>left=59, top=27, right=181, bottom=42...</code></td><td align="left">Render the updates every minute</td></tr>
 </tbody></table>
-<p>We'll learn about Watch Faces in a while. Before that, let's find out how to read the Mynewt system time in C and in Rust.</p>
+<p>We'll learn about Watch Faces in a while.</p>
+<p>Before that, let's find out how to read the Mynewt system time in C and in Rust.</p>
 <h1 id="get-the-time-in-c" class="section-header"><a href="#get-the-time-in-c">6 Get the Time in C</a></h1>
-<p>TODO: os_timeval, clocktime and ISO format, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c"><code>my_sensor_app/src/watch_face.c</code></a></p>
-<pre><code class="language-c">//  Get the system time
+<p>TODO: os_timeval, clocktime and ISO format, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L65-L82"><code>my_sensor_app/src/watch_face.c</code></a></p>
+<pre><code class="language-c">//  Get the system time in timeval format
 struct os_timeval tv;
 struct os_timezone tz;
 int rc = os_gettimeofday(&amp;tv, &amp;tz);
 if (rc != 0) { console_printf(&quot;Can't get time: %d\n&quot;, rc); return 2; }
-
-//  Convert the time
+</code></pre>
+<p>Convert to <code>clocktime</code> format...</p>
+<pre><code class="language-c">//  Convert the time from timeval format to clocktime format
 struct clocktime ct;
 rc = timeval_to_clocktime(&amp;tv, &amp;tz, &amp;ct);
 if (rc != 0) { console_printf(&quot;Can't convert time: %d\n&quot;, rc); return 3; }
-
-//  Format the time as 2020-10-04T13:20:26.839843+00:00
+</code></pre>
+<p>Convert to ISO format...</p>
+<pre><code class="language-c">//  Format the clocktime time as 2020-10-04T13:20:26.839843+00:00
 char buf[50];
 rc = datetime_format(&amp;tv, &amp;tz, buf, sizeof(buf));
 if (rc != 0) { console_printf(&quot;Can't format time: %d\n&quot;, rc); return 4; }
+</code></pre>
+<p>This produces the currrent date and time in ISO format like...</p>
 
-//  Truncate after minute: 2020-10-04T13:20
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="number">2020</span><span class="op">-</span><span class="number">10</span><span class="op">-</span><span class="number">04T13</span>:<span class="number">20</span>:<span class="number">26.839843</span><span class="op">+</span><span class="number">00</span>:<span class="number">00</span></pre></div>
+<p>For our simple Watch Face in C, we'll truncate the time up to the minute...</p>
+<pre><code class="language-c">//  Truncate after minute: 2020-10-04T13:20
 buf[16] = 0;
 </code></pre>
 <h1 id="get-the-time-in-rust" class="section-header"><a href="#get-the-time-in-rust">7 Get the Time in Rust</a></h1>
-<p>TODO: WatchFaceTime, <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs"><code>pinetime-watchface/src/lib.rs</code></a></p>
+<p>TODO: WatchFaceTime, <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190"><code>pinetime-watchface/src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// Get the system time</span>
@@ -525,6 +533,18 @@ static void watch_face_callback(struct os_event *ev) {
         )
     };
     <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Timer fail&quot;</span>);
+}</pre></div>
+<p><code>WatchFace</code> Trait: <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190"><code>pinetime-watchface/blob/master/src/lib.rs</code></a></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Watch Faces shall implement this trait</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">WatchFace</span> {
+    <span class="doccomment">/// Create the widgets for the Watch Face</span>
+    <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>
+        <span class="kw">where</span> <span class="self">Self</span>: <span class="ident">core</span>::<span class="ident">marker</span>::<span class="ident">Sized</span>;  <span class="comment">//  Result type must have known size</span>
+
+    <span class="doccomment">/// Update the widgets in the Watch Face with the current state</span>
+    <span class="kw">fn</span> <span class="ident">update</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceState</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span>;
 }</pre></div>
 <p>Create the widgets: <a href="https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs"><code>barebones-watchface/src/lib.rs</code></a></p>
 
