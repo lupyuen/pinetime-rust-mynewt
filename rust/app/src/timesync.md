@@ -271,6 +271,8 @@ Finally we call the Mynewt Function `os_settimeofday` to set the system time.
     os_settimeofday(&tv, NULL);
 ```
 
+And that's how we sync the time from our mobile phone to PineTime!
+
 # Bluetooth Log for Time Sync
 
 TODO
