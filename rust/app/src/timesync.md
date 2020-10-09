@@ -48,12 +48,12 @@ Let's learn how to discover GATT Services and Characteristics in the `pinetime-r
 
 # Discover GATT Services and Characteristics
 
-TODO: Bluetooth LE Current Time Service, Discovering Bluetooth LE Services and Characteristics, Reading Bluetooth LE Characteristics, Decoding Bluetooth LE Current Time
+First step in our time sync magic... Detect incoming Bluetooth LE connections.
 
-When a peer is connected, discover the services exposed by the peer: [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L368-L416)
+We're using the open-source NimBLE Bluetooth LE stack, which exposes a hook for us to detect incoming connections: [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L368-L416)
 
 ```c
-//  The NimBLE stack executes this callback when a GAP Event occurs
+//  The NimBLE stack executes this callback function when a GAP Event occurs
 static int bleprph_gap_event(struct ble_gap_event *event, void *arg) {
     //  Check the GAP Event
     switch (event->type) {
@@ -63,29 +63,22 @@ static int bleprph_gap_event(struct ble_gap_event *event, void *arg) {
 
             //  Remember the BLE Peer
             blepeer_add(
-                event->connect.conn_handle
+                event->connect.conn_handle  //  BLE Connection
             );
 
             //  Discover all GATT Sevices and Characteristics in the BLE Peer
             blepeer_disc_all(
-                event->connect.conn_handle, 
-                blecent_on_disc_complete, 
-                NULL
+                event->connect.conn_handle,  //  BLE Connection
+                blecent_on_disc_complete,    //  Callback function that will be called when discovery is complete
+                NULL                         //  No argument for callback
             );
 ```
 
-Time Sync. When a BLE connection is established, we read the GATT Characteristic for the Current Time Service of the BLE Peer
+TODO: Bluetooth LE Current Time Service, Discovering Bluetooth LE Services and Characteristics, Reading Bluetooth LE Characteristics, Decoding Bluetooth LE Current Time
 
-Based on https://github.com/apache/mynewt-nimble/blob/master/apps/blecent/src/main.c
+When services have been discovered...
 
-```c
-#define BLE_GATT_SVC_CTS        (0x1805)  //  GATT Service for Current Time Service
-#define BLE_GATT_CHR_CUR_TIME   (0x2A2B)  //  GATT Characteristic for Current Time
-```
-
-When services has been discovered...
-
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L88-L107
+[`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L88-L107)
 
 ```c
 /// Called when GATT Service Discovery of the BLE Peer has completed
@@ -112,7 +105,16 @@ err:
 
 Read the Current Time Characteristic...
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L109-L139
+Time Sync. When a BLE connection is established, we read the GATT Characteristic for the Current Time Service of the BLE Peer
+
+Based on https://github.com/apache/mynewt-nimble/blob/master/apps/blecent/src/main.c
+
+```c
+#define BLE_GATT_SVC_CTS        (0x1805)  //  GATT Service for Current Time Service
+#define BLE_GATT_CHR_CUR_TIME   (0x2A2B)  //  GATT Characteristic for Current Time
+```
+
+[`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L109-L139)
 
 ```c
 /// Read the GATT Characteristic for Current Time from the BLE Peer
@@ -150,7 +152,7 @@ err:
 
 When the Current Time Characteristic has been read...
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L141-L178
+[`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L141-L178)
 
 ```c
 /// Called when Current Time GATT Characteristic has been read
@@ -195,7 +197,7 @@ err:
 
 Data Format for Current Time...
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L75-L86
+[`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L75-L86)
 
 ```c
 /// Data Format for Current Time Service. Based on https://github.com/sdalu/mynewt-nimble/blob/495ff291a15306787859a2fe8f2cc8765b546e02/nimble/host/services/cts/src/ble_svc_cts.c
@@ -214,7 +216,7 @@ struct ble_current_time {
 
 Set the Mynewt system time...
 
-https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L180-L235
+[`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L180-L235)
 
 ```c
 /// Set system time given the GATT Current Time in Mbuf format. Based on https://github.com/sdalu/mynewt-nimble/blob/495ff291a15306787859a2fe8f2cc8765b546e02/nimble/host/services/cts/src/ble_svc_cts.c

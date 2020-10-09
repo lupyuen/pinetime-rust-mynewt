@@ -69,6 +69,8 @@ Refer to the articles...
 
 1. [_Auto Convert Go to Dart with an Abstract Syntax Tree_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/ast)
 
+1. [_Bluetooth Time Sync, Rust Watch Faces and LVGL on PineTime Mynewt_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync)
+
 1. [_My First Week As Embedded FOSS Advocate_](https://medium.com/@ly.lee/my-first-week-as-embedded-foss-advocate-106d625deae?source=friends_link&sk=4128d2bb8a7098658fafc462a1531d34)
 
 1. [_Rust Documentation_](https://lupyuen.github.io/pinetime-rust-mynewt/?1)
