@@ -110,9 +110,9 @@ Our Time Sync story so far...
 
 1.  PineTime reacts by discovering all GATT Services and Characteristics exposed by our phone (through the nRF Connect mobile app)
 
-1.  PineTime is now reading to read the Current Time Characteristic exposed by our phone
+1.  PineTime is now ready to read the Current Time Characteristic exposed by our phone
 
-Here's how we read the Current Time Characteristic: [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L109-L139)
+Here's how we read the Current Time Characteristic with NimBLE: [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L109-L139)
 
 ```c
 /// Read the GATT Characteristic for Current Time from the BLE Peer
@@ -135,6 +135,8 @@ static void blecent_read(const struct blepeer *peer) {
     );
 }
 ```
+
+`ble_gattc_read` is the function provided by NimBLE to transmit a Bluetooth LE request to read a GATT Characteristic (the Current Time Characteristic).
 
 The Current Time Service and Current Time Characteristic are defined in the Bluetooth Specifications...
 

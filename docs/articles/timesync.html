@@ -168,10 +168,10 @@ static void blecent_on_disc_complete(const struct blepeer *peer, int status, voi
 <p>PineTime reacts by discovering all GATT Services and Characteristics exposed by our phone (through the nRF Connect mobile app)</p>
 </li>
 <li>
-<p>PineTime is now reading to read the Current Time Characteristic exposed by our phone</p>
+<p>PineTime is now ready to read the Current Time Characteristic exposed by our phone</p>
 </li>
 </ol>
-<p>Here's how we read the Current Time Characteristic: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L109-L139"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
+<p>Here's how we read the Current Time Characteristic with NimBLE: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L109-L139"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
 <pre><code class="language-c">/// Read the GATT Characteristic for Current Time from the BLE Peer
 static void blecent_read(const struct blepeer *peer) {
     //  Find the GATT Characteristic for Current Time Service from the discovered GATT Characteristics
@@ -192,6 +192,7 @@ static void blecent_read(const struct blepeer *peer) {
     );
 }
 </code></pre>
+<p><code>ble_gattc_read</code> is the function provided by NimBLE to transmit a Bluetooth LE request to read a GATT Characteristic (the Current Time Characteristic).</p>
 <p>The Current Time Service and Current Time Characteristic are defined in the Bluetooth Specifications...</p>
 <pre><code class="language-c">#define BLE_GATT_SVC_CTS        (0x1805)  //  GATT Service for Current Time Service
 #define BLE_GATT_CHR_CUR_TIME   (0x2A2B)  //  GATT Characteristic for Current Time
