@@ -67,13 +67,15 @@
     <nav id="TOC"><ul>
 <li><a href="#time-sync-over-bluetooth-le">1 Time Sync over Bluetooth LE</a><ul></ul></li>
 <li><a href="#discover-gatt-services-and-characteristics">2 Discover GATT Services and Characteristics</a><ul></ul></li>
-<li><a href="#get-the-time-in-c">3 Get the Time in C</a><ul></ul></li>
-<li><a href="#get-the-time-in-rust">4 Get the Time in Rust</a><ul></ul></li>
-<li><a href="#watch-face-in-c">5 Watch Face in C</a><ul></ul></li>
-<li><a href="#watch-face-in-rust">6 Watch Face in Rust</a><ul></ul></li>
-<li><a href="#porting-lvgl-to-mynewt">7 Porting LVGL to Mynewt</a><ul></ul></li>
-<li><a href="#rust-wrapper-for-lvgl">8 Rust Wrapper for LVGL</a><ul></ul></li>
-<li><a href="#whats-next">9 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Bluetooth Time Sync and Rust Watch Face" /></p>
+<li><a href="#read-gatt-characteristic-for-current-time">3 Read GATT Characteristic for Current Time</a><ul></ul></li>
+<li><a href="#set-system-time">4 Set System Time</a><ul></ul></li>
+<li><a href="#get-the-time-in-c">5 Get the Time in C</a><ul></ul></li>
+<li><a href="#get-the-time-in-rust">6 Get the Time in Rust</a><ul></ul></li>
+<li><a href="#watch-face-in-c">7 Watch Face in C</a><ul></ul></li>
+<li><a href="#watch-face-in-rust">8 Watch Face in Rust</a><ul></ul></li>
+<li><a href="#porting-lvgl-to-mynewt">9 Porting LVGL to Mynewt</a><ul></ul></li>
+<li><a href="#rust-wrapper-for-lvgl">10 Rust Wrapper for LVGL</a><ul></ul></li>
+<li><a href="#whats-next">11 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Bluetooth Time Sync and Rust Watch Face" /></p>
 <p>Let's learn how PineTime syncs the time over Bluetooth LE... And how we build PineTime Watch Faces with Rust and LVGL.</p>
 <h1 id="time-sync-over-bluetooth-le" class="section-header"><a href="#time-sync-over-bluetooth-le">1 Time Sync over Bluetooth LE</a></h1>
 <p>Try this on your Android phone...</p>
@@ -115,7 +117,7 @@
 <p>But for now we'll discover all services as an educational exercise... Also to allow for future extension in case we need to support more services.</p>
 <p>Let's learn how to discover GATT Services and Characteristics in the <code>pinetime-rust-mynewt</code> firmware for PineTime...</p>
 <h1 id="discover-gatt-services-and-characteristics" class="section-header"><a href="#discover-gatt-services-and-characteristics">2 Discover GATT Services and Characteristics</a></h1>
-<p>First step in our time sync magic... Detect incoming Bluetooth LE connections.</p>
+<p>First step in our Time Sync magic... Detect incoming Bluetooth LE connections.</p>
 <p>We're using the open-source NimBLE Bluetooth LE stack, which exposes a hook for us to detect incoming connections: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L368-L416"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
 <pre><code class="language-c">//  The NimBLE stack executes this callback function when a GAP Event occurs
 static int bleprph_gap_event(struct ble_gap_event *event, void *arg) {
@@ -137,22 +139,31 @@ static int bleprph_gap_event(struct ble_gap_event *event, void *arg) {
                 NULL                         //  No argument for callback
             );
 </code></pre>
-<p>TODO: Bluetooth LE Current Time Service, Discovering Bluetooth LE Services and Characteristics, Reading Bluetooth LE Characteristics, Decoding Bluetooth LE Current Time</p>
-<p>When services have been discovered...</p>
-<p>Read the Current Time Characteristic...</p>
-<p>Time Sync. When a BLE connection is established, we read the GATT Characteristic for the Current Time Service of the BLE Peer</p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L88-L139"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
+<p>When we see an incoming Bluetooth LE connection, we react by remembering the peer-to-peer connection with <code>blepeer_add</code>. </p>
+<p>Then we discover all GATT Services and Characteristics of our peer (mobile phone) by calling <code>blepeer_disc_all</code>.</p>
+<p>Here's the callback function that's called when the GATT Services and Characteristics have been discovered: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L88-L107"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
 <pre><code class="language-c">/// Called when GATT Service Discovery of the BLE Peer has completed
 static void blecent_on_disc_complete(const struct blepeer *peer, int status, void *arg) {
     //  Omitted: Check that discovery status is successful
 
-    //  GATT Service Discovery has completed successfully.  Now we have a complete list of services, characteristics, and descriptors that the peer supports.
+    //  GATT Service Discovery has completed successfully.
+    //  Now we have a complete list of services, characteristics 
+    //  and descriptors that the peer supports.
 
     //  Read the GATT Characteristics from the peer
     blecent_read(peer);
 }
-
-/// Read the GATT Characteristic for Current Time from the BLE Peer
+</code></pre>
+<p>Now we can call <code>blecent_read</code> to read the Current Time Characteristic exposed to PineTime by our phone. We'll learn how in the next section.</p>
+<p><em>What are <code>blepeer_add</code> and <code>blepeer_disc_all</code>?</em></p>
+<p>They are <strong>Bluetooth LE Peer Functions</strong> provided by NimBLE to maintain peer-to-peer Bluetooth LE connections and to remember the discovered GATT Services and Characteristics.</p>
+<p>See <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_peer.h"><code>apps/my_sensor_app/src/ble_peer.h</code></a> and <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_peer.c"><code>ble_peer.c</code></a> </p>
+<h1 id="read-gatt-characteristic-for-current-time" class="section-header"><a href="#read-gatt-characteristic-for-current-time">3 Read GATT Characteristic for Current Time</a></h1>
+<p>TODO: Reading Bluetooth LE Characteristics, Decoding Bluetooth LE Current Time</p>
+<p>Read the Current Time Characteristic...</p>
+<p>Time Sync. When a BLE connection is established, we read the GATT Characteristic for the Current Time Service of the BLE Peer</p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L109-L139"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
+<pre><code class="language-c">/// Read the GATT Characteristic for Current Time from the BLE Peer
 static void blecent_read(const struct blepeer *peer) {
     //  Find the GATT Characteristic for Current Time Service from the discovered GATT Characteristics
     const struct blepeer_chr *chr = blepeer_chr_find_uuid(
@@ -191,6 +202,8 @@ struct ble_current_time {
 } __attribute__((__packed__));
 </code></pre>
 <p>When the Current Time Characteristic has been read...</p>
+<h1 id="set-system-time" class="section-header"><a href="#set-system-time">4 Set System Time</a></h1>
+<p>TODO</p>
 <p>Set the Mynewt system time...</p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L141-L235"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
 <pre><code class="language-c">/// Called when Current Time GATT Characteristic has been read
@@ -240,7 +253,6 @@ static int set_system_time(const struct os_mbuf *om) {
     return 0;
 }
 </code></pre>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_peer.c"><code>apps/my_sensor_app/src/ble_peer.c</code></a></p>
 <p>Bluetooth Log:</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -262,7 +274,7 @@ static int set_system_time(const struct os_mbuf *om) {
 ...
 <span class="ident">Render</span> <span class="ident">LVGL</span> <span class="ident">display</span>...
 <span class="ident">Flush</span> <span class="ident">display</span>: <span class="ident">left</span><span class="op">=</span><span class="number">59</span>, <span class="ident">top</span><span class="op">=</span><span class="number">27</span>, <span class="ident">right</span><span class="op">=</span><span class="number">180</span>, <span class="ident">bottom</span><span class="op">=</span><span class="number">42</span>...</pre></div>
-<h1 id="get-the-time-in-c" class="section-header"><a href="#get-the-time-in-c">3 Get the Time in C</a></h1>
+<h1 id="get-the-time-in-c" class="section-header"><a href="#get-the-time-in-c">5 Get the Time in C</a></h1>
 <p>TODO: os_timeval, clocktime and ISO format, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c"><code>my_sensor_app/src/watch_face.c</code></a></p>
 <pre><code class="language-c">//  Get the system time
 struct os_timeval tv;
@@ -283,7 +295,7 @@ if (rc != 0) { console_printf(&quot;Can't format time: %d\n&quot;, rc); return 4
 //  Truncate after minute: 2020-10-04T13:20
 buf[16] = 0;
 </code></pre>
-<h1 id="get-the-time-in-rust" class="section-header"><a href="#get-the-time-in-rust">4 Get the Time in Rust</a></h1>
+<h1 id="get-the-time-in-rust" class="section-header"><a href="#get-the-time-in-rust">6 Get the Time in Rust</a></h1>
 <p>TODO: WatchFaceTime, <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs"><code>pinetime-watchface/src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -314,7 +326,7 @@ buf[16] = 0;
     };
     <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
 }</pre></div>
-<h1 id="watch-face-in-c" class="section-header"><a href="#watch-face-in-c">5 Watch Face in C</a></h1>
+<h1 id="watch-face-in-c" class="section-header"><a href="#watch-face-in-c">7 Watch Face in C</a></h1>
 <p>TODO: Mynewt timer, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c"><code>my_sensor_app/src/watch_face.c</code></a></p>
 <p>Create the watch face...</p>
 <pre><code class="language-c">/// Render a watch face. Called by main() in rust/app/src/lib.rs
@@ -391,7 +403,7 @@ static void watch_face_callback(struct os_event *ev) {
     );
 }
 </code></pre>
-<h1 id="watch-face-in-rust" class="section-header"><a href="#watch-face-in-rust">6 Watch Face in Rust</a></h1>
+<h1 id="watch-face-in-rust" class="section-header"><a href="#watch-face-in-rust">8 Watch Face in Rust</a></h1>
 <p>TODO: Barebones watch face, LVGL styles</p>
 <p>Watch Face Framework in <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs"><code>pinetime-watchface/blob/master/src/lib.rs</code></a></p>
 <p>Start the watch face...</p>
@@ -668,7 +680,7 @@ static void watch_face_callback(struct os_event *ev) {
         ) <span class="question-mark">?</span> ;
         <span class="prelude-val">Ok</span>(())
     }</pre></div>
-<h1 id="porting-lvgl-to-mynewt" class="section-header"><a href="#porting-lvgl-to-mynewt">7 Porting LVGL to Mynewt</a></h1>
+<h1 id="porting-lvgl-to-mynewt" class="section-header"><a href="#porting-lvgl-to-mynewt">9 Porting LVGL to Mynewt</a></h1>
 <p>TODO: SPI Driver for ST7789 Display Controller, <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt"><code>pinetime_lvgl_mynewt</code></a></p>
 <p>Located at <code>libs/pinetime_lvgl_mynewt</code></p>
 <p><a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lvgl.c"><code>src/pinetime/lvgl.c</code></a></p>
@@ -755,9 +767,9 @@ int pinetime_lvgl_mynewt_write_data(const uint8_t *data, uint16_t len) {
     return 0;
 }
 </code></pre>
-<h1 id="rust-wrapper-for-lvgl" class="section-header"><a href="#rust-wrapper-for-lvgl">8 Rust Wrapper for LVGL</a></h1>
+<h1 id="rust-wrapper-for-lvgl" class="section-header"><a href="#rust-wrapper-for-lvgl">10 Rust Wrapper for LVGL</a></h1>
 <p>TODO: Bindgen, Safe Wrapper Proc Macro, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/lvgl"><code>rust/lvgl</code></a></p>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">9 What's Next</a></h1>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">11 What's Next</a></h1>
 <p>TODO: Bluetooth Time Sync, Rust Watch Faces and LVGL were developed and tested with Remote PineTime</p>
 <p><a href="https://lupyuen.github.io">Check out my PineTime articles</a></p>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
