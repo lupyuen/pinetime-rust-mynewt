@@ -298,7 +298,7 @@ Before that, let's find out how to read the Mynewt system time in C and in Rust.
 
 # Get the Time in C
 
-TODO: os_timeval, clocktime and ISO format, [`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L65-L82)
+Here's how we fetch the Mynewt system time in C for building Watch Faces: [`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L65-L82)
 
 ```c
 //  Get the system time in timeval format
@@ -308,7 +308,9 @@ int rc = os_gettimeofday(&tv, &tz);
 if (rc != 0) { console_printf("Can't get time: %d\n", rc); return 2; }
 ```
 
-Convert to `clocktime` format...
+This produces a [`timeval` struct](http://mynewt.apache.org/v1_7_0/os/core_os/time/os_time.html) in `tv` that indicates the number of microseconds elapsed since Jan 1 1970.
+
+Which isn't really meaningful for building Watch Faces. Let's convert `timeval` to a [`clocktime` struct](https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h#L31-L40) format...
 
 ```c
 //  Convert the time from timeval format to clocktime format
@@ -317,7 +319,11 @@ rc = timeval_to_clocktime(&tv, &tz, &ct);
 if (rc != 0) { console_printf("Can't convert time: %d\n", rc); return 3; }
 ```
 
-Convert to ISO format...
+This produces `ct`, a [`clocktime` struct](https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h#L31-L40) that contains the date and time components: day, month, year, hours, minutes, seconds.
+
+Perfect for building a Watch Face!
+
+If we need the current date and time in printable [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format...
 
 ```c
 //  Format the clocktime time as 2020-10-04T13:20:26.839843+00:00
@@ -326,7 +332,7 @@ rc = datetime_format(&tv, &tz, buf, sizeof(buf));
 if (rc != 0) { console_printf("Can't format time: %d\n", rc); return 4; }
 ```
 
-This produces the currrent date and time in ISO format like...
+This produces the currrent date and time in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format like...
 
 ```
 2020-10-04T13:20:26.839843+00:00
@@ -339,9 +345,15 @@ For our simple Watch Face in C, we'll truncate the time up to the minute...
 buf[16] = 0;
 ```
 
+Which looks like this...
+
+```
+2020-10-04T13:20
+```
+
 # Get the Time in Rust
 
-TODO: WatchFaceTime, [`pinetime-watchface/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190)
+Here's how we fetch the Mynewt system time in Rust: [`pinetime-watchface/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190)
 
 ```rust
 /// Get the system time
@@ -372,6 +384,10 @@ fn get_system_time() -> MynewtResult<WatchFaceTime> {
     Ok(result)
 }
 ```
+
+This produces a [`WatchFaceTime` struct](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L226-L243) that's defined in our [`pinetime-watchface` Watch Face Framework](https://crates.io/crates/pinetime-watchface).
+
+Later we'll use `WatchFaceTime` and `pinetime-watchface` to create our Rust Watch Face.
 
 # Watch Face in C
 

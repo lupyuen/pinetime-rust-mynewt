@@ -314,26 +314,29 @@ static int set_system_time(const struct os_mbuf *om) {
 <p>We'll learn about Watch Faces in a while.</p>
 <p>Before that, let's find out how to read the Mynewt system time in C and in Rust.</p>
 <h1 id="get-the-time-in-c" class="section-header"><a href="#get-the-time-in-c">6 Get the Time in C</a></h1>
-<p>TODO: os_timeval, clocktime and ISO format, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L65-L82"><code>my_sensor_app/src/watch_face.c</code></a></p>
+<p>Here's how we fetch the Mynewt system time in C for building Watch Faces: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L65-L82"><code>my_sensor_app/src/watch_face.c</code></a></p>
 <pre><code class="language-c">//  Get the system time in timeval format
 struct os_timeval tv;
 struct os_timezone tz;
 int rc = os_gettimeofday(&amp;tv, &amp;tz);
 if (rc != 0) { console_printf(&quot;Can't get time: %d\n&quot;, rc); return 2; }
 </code></pre>
-<p>Convert to <code>clocktime</code> format...</p>
+<p>This produces a <a href="http://mynewt.apache.org/v1_7_0/os/core_os/time/os_time.html"><code>timeval</code> struct</a> in <code>tv</code> that indicates the number of microseconds elapsed since Jan 1 1970.</p>
+<p>Which isn't really meaningful for building Watch Faces. Let's convert <code>timeval</code> to a <a href="https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h#L31-L40"><code>clocktime</code> struct</a> format...</p>
 <pre><code class="language-c">//  Convert the time from timeval format to clocktime format
 struct clocktime ct;
 rc = timeval_to_clocktime(&amp;tv, &amp;tz, &amp;ct);
 if (rc != 0) { console_printf(&quot;Can't convert time: %d\n&quot;, rc); return 3; }
 </code></pre>
-<p>Convert to ISO format...</p>
+<p>This produces <code>ct</code>, a <a href="https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h#L31-L40"><code>clocktime</code> struct</a> that contains the date and time components: day, month, year, hours, minutes, seconds.</p>
+<p>Perfect for building a Watch Face!</p>
+<p>If we need the current date and time in printable <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format...</p>
 <pre><code class="language-c">//  Format the clocktime time as 2020-10-04T13:20:26.839843+00:00
 char buf[50];
 rc = datetime_format(&amp;tv, &amp;tz, buf, sizeof(buf));
 if (rc != 0) { console_printf(&quot;Can't format time: %d\n&quot;, rc); return 4; }
 </code></pre>
-<p>This produces the currrent date and time in ISO format like...</p>
+<p>This produces the currrent date and time in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format like...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="number">2020</span><span class="op">-</span><span class="number">10</span><span class="op">-</span><span class="number">04T13</span>:<span class="number">20</span>:<span class="number">26.839843</span><span class="op">+</span><span class="number">00</span>:<span class="number">00</span></pre></div>
@@ -341,8 +344,12 @@ if (rc != 0) { console_printf(&quot;Can't format time: %d\n&quot;, rc); return 4
 <pre><code class="language-c">//  Truncate after minute: 2020-10-04T13:20
 buf[16] = 0;
 </code></pre>
+<p>Which looks like this...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="number">2020</span><span class="op">-</span><span class="number">10</span><span class="op">-</span><span class="number">04T13</span>:<span class="number">20</span></pre></div>
 <h1 id="get-the-time-in-rust" class="section-header"><a href="#get-the-time-in-rust">7 Get the Time in Rust</a></h1>
-<p>TODO: WatchFaceTime, <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190"><code>pinetime-watchface/src/lib.rs</code></a></p>
+<p>Here's how we fetch the Mynewt system time in Rust: <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190"><code>pinetime-watchface/src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// Get the system time</span>
@@ -372,6 +379,8 @@ buf[16] = 0;
     };
     <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
 }</pre></div>
+<p>This produces a <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L226-L243"><code>WatchFaceTime</code> struct</a> that's defined in our <a href="https://crates.io/crates/pinetime-watchface"><code>pinetime-watchface</code> Watch Face Framework</a>.</p>
+<p>Later we'll use <code>WatchFaceTime</code> and <code>pinetime-watchface</code> to create our Rust Watch Face.</p>
 <h1 id="watch-face-in-c" class="section-header"><a href="#watch-face-in-c">8 Watch Face in C</a></h1>
 <p>TODO: Mynewt timer, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c"><code>my_sensor_app/src/watch_face.c</code></a></p>
 <p>Create the watch face...</p>
