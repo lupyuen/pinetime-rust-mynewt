@@ -311,6 +311,7 @@ static int set_system_time(const struct os_mbuf *om) {
 <tr><td align="left">...</td><td align="left"></td></tr>
 <tr><td align="left"><code>Render LVGL display...</code><br><code>Flush display: </code><br><code>left=59, top=27, right=181, bottom=42...</code></td><td align="left">Render the updates every minute</td></tr>
 </tbody></table>
+<p>We'll learn about Watch Faces in a while. Before that, let's find out how to read the Mynewt system time in C and in Rust.</p>
 <h1 id="get-the-time-in-c" class="section-header"><a href="#get-the-time-in-c">6 Get the Time in C</a></h1>
 <p>TODO: os_timeval, clocktime and ISO format, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c"><code>my_sensor_app/src/watch_face.c</code></a></p>
 <pre><code class="language-c">//  Get the system time

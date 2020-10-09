@@ -292,6 +292,8 @@ When we perform Time Sync over Bluetooth LE, we'll see these debugging messages 
 | ... | 
 | `Render LVGL display...`<br>`Flush display: `<br>`left=59, top=27, right=181, bottom=42...` | Render the updates every minute
 
+We'll learn about Watch Faces in a while. Before that, let's find out how to read the Mynewt system time in C and in Rust.
+
 # Get the Time in C
 
 TODO: os_timeval, clocktime and ISO format, [`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c)
