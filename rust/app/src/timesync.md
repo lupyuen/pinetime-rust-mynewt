@@ -48,7 +48,7 @@ Let's learn how to discover GATT Services and Characteristics in the `pinetime-r
 
 # Discover GATT Services and Characteristics
 
-First step in our time sync magic... Detect incoming Bluetooth LE connections.
+First step in our Time Sync magic... Detect incoming Bluetooth LE connections.
 
 We're using the open-source NimBLE Bluetooth LE stack, which exposes a hook for us to detect incoming connections: [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L368-L416)
 
@@ -74,13 +74,11 @@ static int bleprph_gap_event(struct ble_gap_event *event, void *arg) {
             );
 ```
 
-When services have been discovered...
+When we see an incoming Bluetooth LE connection, we react by remembering the peer-to-peer connection with `blepeer_add`. 
 
-Read the Current Time Characteristic...
+Then we discover all GATT Services and Characteristics of our peer (mobile phone) by calling `blepeer_disc_all`.
 
-Time Sync. When a BLE connection is established, we read the GATT Characteristic for the Current Time Service of the BLE Peer
-
-[`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L88-L107)
+Here's the callback function that's called when the GATT Services and Characteristics have been discovered: [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L88-L107)
 
 ```c
 /// Called when GATT Service Discovery of the BLE Peer has completed
@@ -95,6 +93,14 @@ static void blecent_on_disc_complete(const struct blepeer *peer, int status, voi
     blecent_read(peer);
 }
 ```
+
+Now we can call `blecent_read` to read the Current Time Characteristic exposed to PineTime by our phone. We'll learn how in the next section.
+
+_What are `blepeer_add` and `blepeer_disc_all`?_
+
+They are __Bluetooth LE Peer Functions__ provided by NimBLE to maintain peer-to-peer Bluetooth LE connections and to remember the discovered GATT Services and Characteristics.
+
+See [`apps/my_sensor_app/src/ble_peer.h`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_peer.h) and [`ble_peer.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_peer.c) 
 
 # Read GATT Characteristic for Current Time
 
@@ -154,6 +160,10 @@ struct ble_current_time {
 
 When the Current Time Characteristic has been read...
 
+# Set System Time
+
+TODO
+
 Set the Mynewt system time...
 
 [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L141-L235)
@@ -206,8 +216,6 @@ static int set_system_time(const struct os_mbuf *om) {
     return 0;
 }
 ```
-
-[`apps/my_sensor_app/src/ble_peer.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_peer.c)
 
 Bluetooth Log:
 
