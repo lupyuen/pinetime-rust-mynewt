@@ -328,7 +328,7 @@ struct clocktime ct;
 rc = timeval_to_clocktime(&amp;tv, &amp;tz, &amp;ct);
 if (rc != 0) { console_printf(&quot;Can't convert time: %d\n&quot;, rc); return 3; }
 </code></pre>
-<p>This produces <code>ct</code>, a <a href="https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h#L31-L40"><code>clocktime</code> struct</a> that contains the date and time components: day, month, year, hours, minutes, seconds.</p>
+<p>This produces <code>ct</code>, a <a href="https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h#L31-L40"><code>clocktime</code> struct</a> that contains the date and time components: day, month, year, hours, minutes, seconds and day of week.</p>
 <p>Perfect for building a Watch Face!</p>
 <p>If we need the current date and time in printable <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format...</p>
 <pre><code class="language-c">//  Format the clocktime time as 2020-10-04T13:20:26.839843+00:00
@@ -382,27 +382,31 @@ buf[16] = 0;
 <p>This produces a <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L226-L243"><code>WatchFaceTime</code> struct</a> that's defined in our <a href="https://crates.io/crates/pinetime-watchface"><code>pinetime-watchface</code> Watch Face Framework</a>.</p>
 <p>Later we'll use <code>WatchFaceTime</code> and <code>pinetime-watchface</code> to create our Rust Watch Face.</p>
 <h1 id="watch-face-in-c" class="section-header"><a href="#watch-face-in-c">8 Watch Face in C</a></h1>
+<p>Now that we can fetch the current date and time in C, let's create a simple watch face!</p>
 <p>TODO: Mynewt timer, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c"><code>my_sensor_app/src/watch_face.c</code></a></p>
 <p>Create the watch face...</p>
+<p>Create a button...</p>
 <pre><code class="language-c">/// Render a watch face. Called by main() in rust/app/src/lib.rs
 int create_watch_face(void) {
-    console_printf(&quot;Create watch face...\n&quot;); console_flush();
     btn = lv_btn_create(lv_scr_act(), NULL);     //  Add a button the current screen
     lv_obj_set_pos(btn, 10, 10);                 //  Set its position
     lv_obj_set_size(btn, 220, 50);               //  Set its size
-
-    label = lv_label_create(btn, NULL);          //  Add a label to the button
+</code></pre>
+<p>Add a label to the button...</p>
+<pre><code class="language-c">    label = lv_label_create(btn, NULL);          //  Add a label to the button
     lv_label_set_text(label, &quot;Time Sync&quot;);       //  Set the label text
-
-    //  Set a timer to update the watch face every minute
-    //  TODO: Move this code to the caller
+</code></pre>
+<p>Create a callout timer...</p>
+<pre><code class="language-c">    //  Set a timer to update the watch face every minute
     os_callout_init(
         &amp;watch_face_callout,   //  Timer for the watch face
         os_eventq_dflt_get(),  //  Use default event queue
         watch_face_callback,   //  Callback function for the timer
         NULL
     );
-    //  Trigger the timer in 60 seconds
+</code></pre>
+<p>Trigger the timer...</p>
+<pre><code class="language-c">    //  Trigger the timer in 60 seconds
     os_callout_reset(
         &amp;watch_face_callout,   //  Timer for the watch face
         OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
@@ -434,8 +438,9 @@ int update_watch_face(void) {
 
     //  Truncate after minute: 2020-10-04T13:20
     buf[16] = 0;
-
-    //  Set the label text
+</code></pre>
+<p>Set the label...</p>
+<pre><code class="language-c">    //  Set the label text
     lv_label_set_text(label, buf);
     return 0;
 }
@@ -447,11 +452,13 @@ static void watch_face_callback(struct os_event *ev) {
 
     //  Update the watch face
     update_watch_face();
-
-    //  Render the watch face
+</code></pre>
+<p>Render LVGL display...</p>
+<pre><code class="language-c">    //  Render the watch face
     pinetime_lvgl_mynewt_render();
-
-    //  Set the watch face timer
+</code></pre>
+<p>Set callout timer...</p>
+<pre><code class="language-c">    //  Set the watch face timer
     os_callout_reset(
         &amp;watch_face_callout,   //  Timer for the watch face
         OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
@@ -460,89 +467,7 @@ static void watch_face_callback(struct os_event *ev) {
 </code></pre>
 <h1 id="watch-face-in-rust" class="section-header"><a href="#watch-face-in-rust">9 Watch Face in Rust</a></h1>
 <p>TODO: Barebones watch face, LVGL styles</p>
-<p>Watch Face Framework in <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs"><code>pinetime-watchface/blob/master/src/lib.rs</code></a></p>
-<p>Start the watch face...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="doccomment">/// Start rendering the watch face every minute</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">start_watch_face</span>(<span class="ident">update_watch_face</span>: <span class="ident">UpdateWatchFace</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-    <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;Init Rust watch face...\n&quot;</span>); <span class="ident">console</span>::<span class="ident">flush</span>();
-
-    <span class="comment">//  Save the callback for updating the watch face</span>
-    <span class="kw">unsafe</span> { <span class="ident">UPDATE_WATCH_FACE</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">update_watch_face</span>); }
-
-    <span class="comment">//  Get active screen from LVGL</span>
-    <span class="kw">let</span> <span class="ident">screen</span> <span class="op">=</span> <span class="ident">get_active_screen</span>();
-
-    <span class="comment">//  Allow touch events</span>
-    <span class="ident">obj</span>::<span class="ident">set_click</span>(<span class="ident">screen</span>, <span class="bool-val">true</span>) <span class="question-mark">?</span> ;
-
-    <span class="comment">//  Render the watch face</span>
-    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">pinetime_lvgl_mynewt_render</span>() };
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;LVGL render fail&quot;</span>);    
-
-    <span class="comment">//  Set a timer to update the watch face every minute</span>
-    <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because os_callout_init is a Mynewt C function</span>
-        <span class="ident">os</span>::<span class="ident">os_callout_init</span>(
-            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">WATCH_FACE_CALLOUT</span>,         <span class="comment">//  Timer for the watch face</span>
-            <span class="ident">os</span>::<span class="ident">eventq_dflt_get</span>().<span class="ident">unwrap</span>(),  <span class="comment">//  Use default event queue</span>
-            <span class="prelude-val">Some</span>(<span class="ident">watch_face_callback</span>),       <span class="comment">//  Callback function for the timer</span>
-            <span class="ident">ptr</span>::<span class="ident">null_mut</span>()                  <span class="comment">//  No argument</span>
-        );    
-    }
-
-    <span class="comment">//  Trigger the watch face timer in 60 seconds</span>
-    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because os_callout_reset is a Mynewt C function</span>
-        <span class="ident">os</span>::<span class="ident">os_callout_reset</span>(
-            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">WATCH_FACE_CALLOUT</span>,   <span class="comment">//  Timer for the watch face</span>
-            <span class="ident">os</span>::<span class="ident">OS_TICKS_PER_SEC</span> <span class="op">*</span> <span class="number">60</span>  <span class="comment">//  Trigger timer in 60 seconds</span>
-        )
-    };
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Timer fail&quot;</span>);
-    <span class="prelude-val">Ok</span>(())
-}</pre></div>
-<p>Update the watch face every minute...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="doccomment">/// Timer callback that is called every minute</span>
-<span class="kw">extern</span> <span class="kw">fn</span> <span class="ident">watch_face_callback</span>(<span class="ident">_ev</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">os</span>::<span class="ident">os_event</span>) {
-    <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;Update Rust watch face...\n&quot;</span>); <span class="ident">console</span>::<span class="ident">flush</span>();
-    
-    <span class="comment">//  If there is no callback, fail.</span>
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="kw">unsafe</span> { <span class="ident">UPDATE_WATCH_FACE</span>.<span class="ident">is_some</span>() }, <span class="string">&quot;Update watch face missing&quot;</span>);
-
-    <span class="comment">//  Get the system time    </span>
-    <span class="kw">let</span> <span class="ident">time</span> <span class="op">=</span> <span class="ident">get_system_time</span>()
-        .<span class="ident">expect</span>(<span class="string">&quot;Can&#39;t get system time&quot;</span>);
-
-    <span class="comment">//  Compose the watch face state</span>
-    <span class="kw">let</span> <span class="ident">state</span> <span class="op">=</span> <span class="ident">WatchFaceState</span> {
-        <span class="ident">time</span>,
-        <span class="ident">millivolts</span>: <span class="number">0</span>,     <span class="comment">//  TODO: Get current voltage</span>
-        <span class="ident">charging</span>:   <span class="bool-val">true</span>,  <span class="comment">//  TODO: Get charging status</span>
-        <span class="ident">powered</span>:    <span class="bool-val">true</span>,  <span class="comment">//  TODO: Get powered status</span>
-        <span class="ident">bluetooth</span>:  <span class="ident">BluetoothState</span>::<span class="ident">BLUETOOTH_STATE_CONNECTED</span>,  <span class="comment">//  TODO: Get BLE state</span>
-    };
-
-    <span class="comment">//  Update the watch face</span>
-    <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because WATCH_FACE is a mutable static</span>
-        <span class="ident">UPDATE_WATCH_FACE</span>.<span class="ident">unwrap</span>()(<span class="kw-2">&amp;</span><span class="ident">state</span>)
-            .<span class="ident">expect</span>(<span class="string">&quot;Update Watch Face fail&quot;</span>);
-    }
-
-    <span class="comment">//  Render the watch face</span>
-    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">pinetime_lvgl_mynewt_render</span>() };
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;LVGL render fail&quot;</span>);    
-
-    <span class="comment">//  Trigger the watch face timer in 60 seconds</span>
-    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because os_callout_reset is a Mynewt C function</span>
-        <span class="ident">os</span>::<span class="ident">os_callout_reset</span>(
-            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">WATCH_FACE_CALLOUT</span>,   <span class="comment">//  Timer for the watch face</span>
-            <span class="ident">os</span>::<span class="ident">OS_TICKS_PER_SEC</span> <span class="op">*</span> <span class="number">60</span>  <span class="comment">//  Trigger timer in 60 seconds</span>
-        )
-    };
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Timer fail&quot;</span>);
-}</pre></div>
+<p>Watch Face Framework</p>
 <p><code>WatchFace</code> Trait: <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190"><code>pinetime-watchface/blob/master/src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -555,7 +480,7 @@ static void watch_face_callback(struct os_event *ev) {
     <span class="doccomment">/// Update the widgets in the Watch Face with the current state</span>
     <span class="kw">fn</span> <span class="ident">update</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceState</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span>;
 }</pre></div>
-<p>Create the widgets: <a href="https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs"><code>barebones-watchface/src/lib.rs</code></a></p>
+<p>Create the widgets: <a href="https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L72-L129"><code>barebones-watchface/src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">impl</span> <span class="ident">WatchFace</span> <span class="kw">for</span> <span class="ident">BarebonesWatchFace</span> {
@@ -581,6 +506,51 @@ static void watch_face_callback(struct os_event *ev) {
                 <span class="ident">obj</span>::<span class="ident">align</span>(          <span class="ident">lbl</span>, <span class="ident">screen</span>, <span class="ident">obj</span>::<span class="ident">LV_ALIGN_CENTER</span>, <span class="number">0</span>, <span class="op">-</span><span class="number">30</span>) <span class="question-mark">?</span> ;    
                 <span class="ident">lbl</span>  <span class="comment">//  Return the label as time_label</span>
             },</pre></div>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+            <span class="comment">//  Create a Label for Date: &quot;MON 22 MAY 2020&quot;</span>
+            <span class="ident">date_label</span>: {
+                <span class="kw">let</span> <span class="ident">lbl</span> <span class="op">=</span> <span class="ident">label</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;
+                <span class="ident">label</span>::<span class="ident">set_long_mode</span>(<span class="ident">lbl</span>, <span class="ident">label</span>::<span class="ident">LV_LABEL_LONG_BREAK</span>) <span class="question-mark">?</span> ;
+                <span class="ident">obj</span>::<span class="ident">set_width</span>(      <span class="ident">lbl</span>, <span class="number">200</span>) <span class="question-mark">?</span> ;
+                <span class="ident">obj</span>::<span class="ident">set_height</span>(     <span class="ident">lbl</span>, <span class="number">200</span>) <span class="question-mark">?</span> ;
+                <span class="ident">label</span>::<span class="ident">set_text</span>(     <span class="ident">lbl</span>, <span class="macro">strn</span><span class="macro">!</span>(<span class="string">&quot;&quot;</span>)) <span class="question-mark">?</span> ;  <span class="comment">//  strn creates a null-terminated string</span>
+                <span class="ident">label</span>::<span class="ident">set_align</span>(    <span class="ident">lbl</span>, <span class="ident">label</span>::<span class="ident">LV_LABEL_ALIGN_CENTER</span>) <span class="question-mark">?</span> ;
+                <span class="ident">obj</span>::<span class="ident">align</span>(          <span class="ident">lbl</span>, <span class="ident">screen</span>, <span class="ident">obj</span>::<span class="ident">LV_ALIGN_CENTER</span>, <span class="number">0</span>, <span class="number">40</span>) <span class="question-mark">?</span> ;
+                <span class="ident">lbl</span>  <span class="comment">//  Return the label as date_label</span>
+            },</pre></div>
+<p>Label for Bluetooth State...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+            <span class="comment">//  Create a Label for Bluetooth State</span>
+            <span class="ident">bluetooth_label</span>: {
+                <span class="kw">let</span> <span class="ident">lbl</span> <span class="op">=</span> <span class="ident">label</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;
+                <span class="ident">obj</span>::<span class="ident">set_width</span>(     <span class="ident">lbl</span>, <span class="number">50</span>) <span class="question-mark">?</span> ;
+                <span class="ident">obj</span>::<span class="ident">set_height</span>(    <span class="ident">lbl</span>, <span class="number">80</span>) <span class="question-mark">?</span> ;
+                <span class="ident">label</span>::<span class="ident">set_text</span>(    <span class="ident">lbl</span>, <span class="macro">strn</span><span class="macro">!</span>(<span class="string">&quot;&quot;</span>)) <span class="question-mark">?</span> ;  <span class="comment">//  strn creates a null-terminated string</span>
+                <span class="ident">label</span>::<span class="ident">set_recolor</span>( <span class="ident">lbl</span>, <span class="bool-val">true</span>) <span class="question-mark">?</span> ;
+                <span class="ident">label</span>::<span class="ident">set_align</span>(   <span class="ident">lbl</span>, <span class="ident">label</span>::<span class="ident">LV_LABEL_ALIGN_LEFT</span>) <span class="question-mark">?</span> ;
+                <span class="ident">obj</span>::<span class="ident">align</span>(         <span class="ident">lbl</span>, <span class="ident">screen</span>, <span class="ident">obj</span>::<span class="ident">LV_ALIGN_IN_TOP_LEFT</span>, <span class="number">0</span>, <span class="number">0</span>) <span class="question-mark">?</span> ;
+                <span class="ident">lbl</span>  <span class="comment">//  Return the label as bluetooth_label</span>
+            },</pre></div>
+<p>Label for Power Indicator...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+            <span class="comment">//  Create a Label for Power Indicator</span>
+            <span class="ident">power_label</span>: {
+                <span class="kw">let</span> <span class="ident">lbl</span> <span class="op">=</span> <span class="ident">label</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;
+                <span class="ident">obj</span>::<span class="ident">set_width</span>(    <span class="ident">lbl</span>, <span class="number">80</span>) <span class="question-mark">?</span> ;
+                <span class="ident">obj</span>::<span class="ident">set_height</span>(   <span class="ident">lbl</span>, <span class="number">20</span>) <span class="question-mark">?</span> ;
+                <span class="ident">label</span>::<span class="ident">set_text</span>(   <span class="ident">lbl</span>, <span class="macro">strn</span><span class="macro">!</span>(<span class="string">&quot;&quot;</span>)) <span class="question-mark">?</span> ;  <span class="comment">//  strn creates a null-terminated string</span>
+                <span class="ident">label</span>::<span class="ident">set_recolor</span>(<span class="ident">lbl</span>, <span class="bool-val">true</span>) <span class="question-mark">?</span> ;
+                <span class="ident">label</span>::<span class="ident">set_align</span>(  <span class="ident">lbl</span>, <span class="ident">label</span>::<span class="ident">LV_LABEL_ALIGN_RIGHT</span>) <span class="question-mark">?</span> ;
+                <span class="ident">obj</span>::<span class="ident">align</span>(        <span class="ident">lbl</span>, <span class="ident">screen</span>, <span class="ident">obj</span>::<span class="ident">LV_ALIGN_IN_TOP_RIGHT</span>, <span class="number">0</span>, <span class="number">0</span>) <span class="question-mark">?</span> ;
+                <span class="ident">lbl</span>  <span class="comment">//  Return the label as power_label</span>
+            },
+        };
+        <span class="comment">//  Return the watch face</span>
+        <span class="prelude-val">Ok</span>(<span class="ident">watch_face</span>)
+    }</pre></div>
 <p>Update widgets...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -747,6 +717,89 @@ static void watch_face_callback(struct os_event *ev) {
         ) <span class="question-mark">?</span> ;
         <span class="prelude-val">Ok</span>(())
     }</pre></div>
+<p>Watch Face Framework in <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs"><code>pinetime-watchface/blob/master/src/lib.rs</code></a></p>
+<p>Start the watch face...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Start rendering the watch face every minute</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">start_watch_face</span>(<span class="ident">update_watch_face</span>: <span class="ident">UpdateWatchFace</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;Init Rust watch face...\n&quot;</span>); <span class="ident">console</span>::<span class="ident">flush</span>();
+
+    <span class="comment">//  Save the callback for updating the watch face</span>
+    <span class="kw">unsafe</span> { <span class="ident">UPDATE_WATCH_FACE</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">update_watch_face</span>); }
+
+    <span class="comment">//  Get active screen from LVGL</span>
+    <span class="kw">let</span> <span class="ident">screen</span> <span class="op">=</span> <span class="ident">get_active_screen</span>();
+
+    <span class="comment">//  Allow touch events</span>
+    <span class="ident">obj</span>::<span class="ident">set_click</span>(<span class="ident">screen</span>, <span class="bool-val">true</span>) <span class="question-mark">?</span> ;
+
+    <span class="comment">//  Render the watch face</span>
+    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">pinetime_lvgl_mynewt_render</span>() };
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;LVGL render fail&quot;</span>);    
+
+    <span class="comment">//  Set a timer to update the watch face every minute</span>
+    <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because os_callout_init is a Mynewt C function</span>
+        <span class="ident">os</span>::<span class="ident">os_callout_init</span>(
+            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">WATCH_FACE_CALLOUT</span>,         <span class="comment">//  Timer for the watch face</span>
+            <span class="ident">os</span>::<span class="ident">eventq_dflt_get</span>().<span class="ident">unwrap</span>(),  <span class="comment">//  Use default event queue</span>
+            <span class="prelude-val">Some</span>(<span class="ident">watch_face_callback</span>),       <span class="comment">//  Callback function for the timer</span>
+            <span class="ident">ptr</span>::<span class="ident">null_mut</span>()                  <span class="comment">//  No argument</span>
+        );    
+    }
+
+    <span class="comment">//  Trigger the watch face timer in 60 seconds</span>
+    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because os_callout_reset is a Mynewt C function</span>
+        <span class="ident">os</span>::<span class="ident">os_callout_reset</span>(
+            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">WATCH_FACE_CALLOUT</span>,   <span class="comment">//  Timer for the watch face</span>
+            <span class="ident">os</span>::<span class="ident">OS_TICKS_PER_SEC</span> <span class="op">*</span> <span class="number">60</span>  <span class="comment">//  Trigger timer in 60 seconds</span>
+        )
+    };
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Timer fail&quot;</span>);
+    <span class="prelude-val">Ok</span>(())
+}</pre></div>
+<p>Update the watch face every minute...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Timer callback that is called every minute</span>
+<span class="kw">extern</span> <span class="kw">fn</span> <span class="ident">watch_face_callback</span>(<span class="ident">_ev</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">os</span>::<span class="ident">os_event</span>) {
+    <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;Update Rust watch face...\n&quot;</span>); <span class="ident">console</span>::<span class="ident">flush</span>();
+    
+    <span class="comment">//  If there is no callback, fail.</span>
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="kw">unsafe</span> { <span class="ident">UPDATE_WATCH_FACE</span>.<span class="ident">is_some</span>() }, <span class="string">&quot;Update watch face missing&quot;</span>);
+
+    <span class="comment">//  Get the system time    </span>
+    <span class="kw">let</span> <span class="ident">time</span> <span class="op">=</span> <span class="ident">get_system_time</span>()
+        .<span class="ident">expect</span>(<span class="string">&quot;Can&#39;t get system time&quot;</span>);
+
+    <span class="comment">//  Compose the watch face state</span>
+    <span class="kw">let</span> <span class="ident">state</span> <span class="op">=</span> <span class="ident">WatchFaceState</span> {
+        <span class="ident">time</span>,
+        <span class="ident">millivolts</span>: <span class="number">0</span>,     <span class="comment">//  TODO: Get current voltage</span>
+        <span class="ident">charging</span>:   <span class="bool-val">true</span>,  <span class="comment">//  TODO: Get charging status</span>
+        <span class="ident">powered</span>:    <span class="bool-val">true</span>,  <span class="comment">//  TODO: Get powered status</span>
+        <span class="ident">bluetooth</span>:  <span class="ident">BluetoothState</span>::<span class="ident">BLUETOOTH_STATE_CONNECTED</span>,  <span class="comment">//  TODO: Get BLE state</span>
+    };
+
+    <span class="comment">//  Update the watch face</span>
+    <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because WATCH_FACE is a mutable static</span>
+        <span class="ident">UPDATE_WATCH_FACE</span>.<span class="ident">unwrap</span>()(<span class="kw-2">&amp;</span><span class="ident">state</span>)
+            .<span class="ident">expect</span>(<span class="string">&quot;Update Watch Face fail&quot;</span>);
+    }
+
+    <span class="comment">//  Render the watch face</span>
+    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">pinetime_lvgl_mynewt_render</span>() };
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;LVGL render fail&quot;</span>);    
+
+    <span class="comment">//  Trigger the watch face timer in 60 seconds</span>
+    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because os_callout_reset is a Mynewt C function</span>
+        <span class="ident">os</span>::<span class="ident">os_callout_reset</span>(
+            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">WATCH_FACE_CALLOUT</span>,   <span class="comment">//  Timer for the watch face</span>
+            <span class="ident">os</span>::<span class="ident">OS_TICKS_PER_SEC</span> <span class="op">*</span> <span class="number">60</span>  <span class="comment">//  Trigger timer in 60 seconds</span>
+        )
+    };
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Timer fail&quot;</span>);
+}</pre></div>
 <h1 id="porting-lvgl-to-mynewt" class="section-header"><a href="#porting-lvgl-to-mynewt">10 Porting LVGL to Mynewt</a></h1>
 <p>TODO: SPI Driver for ST7789 Display Controller, <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt"><code>pinetime_lvgl_mynewt</code></a></p>
 <p>Located at <code>libs/pinetime_lvgl_mynewt</code></p>

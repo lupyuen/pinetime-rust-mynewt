@@ -319,7 +319,7 @@ rc = timeval_to_clocktime(&tv, &tz, &ct);
 if (rc != 0) { console_printf("Can't convert time: %d\n", rc); return 3; }
 ```
 
-This produces `ct`, a [`clocktime` struct](https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h#L31-L40) that contains the date and time components: day, month, year, hours, minutes, seconds.
+This produces `ct`, a [`clocktime` struct](https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h#L31-L40) that contains the date and time components: day, month, year, hours, minutes, seconds and day of week.
 
 Perfect for building a Watch Face!
 
@@ -391,29 +391,44 @@ Later we'll use `WatchFaceTime` and `pinetime-watchface` to create our Rust Watc
 
 # Watch Face in C
 
+Now that we can fetch the current date and time in C, let's create a simple watch face!
+
 TODO: Mynewt timer, [`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c)
 
 Create the watch face...
 
+Create a button...
+
 ```c
 /// Render a watch face. Called by main() in rust/app/src/lib.rs
 int create_watch_face(void) {
-    console_printf("Create watch face...\n"); console_flush();
     btn = lv_btn_create(lv_scr_act(), NULL);     //  Add a button the current screen
     lv_obj_set_pos(btn, 10, 10);                 //  Set its position
     lv_obj_set_size(btn, 220, 50);               //  Set its size
+```
 
+Add a label to the button...
+
+```c
     label = lv_label_create(btn, NULL);          //  Add a label to the button
     lv_label_set_text(label, "Time Sync");       //  Set the label text
+```
 
+Create a callout timer...
+
+```c
     //  Set a timer to update the watch face every minute
-    //  TODO: Move this code to the caller
     os_callout_init(
         &watch_face_callout,   //  Timer for the watch face
         os_eventq_dflt_get(),  //  Use default event queue
         watch_face_callback,   //  Callback function for the timer
         NULL
     );
+```
+
+Trigger the timer...
+
+```c
     //  Trigger the timer in 60 seconds
     os_callout_reset(
         &watch_face_callout,   //  Timer for the watch face
@@ -449,7 +464,11 @@ int update_watch_face(void) {
 
     //  Truncate after minute: 2020-10-04T13:20
     buf[16] = 0;
+``` 
 
+Set the label...
+
+```c
     //  Set the label text
     lv_label_set_text(label, buf);
     return 0;
@@ -465,10 +484,18 @@ static void watch_face_callback(struct os_event *ev) {
 
     //  Update the watch face
     update_watch_face();
+```
 
+Render LVGL display...
+
+```c
     //  Render the watch face
     pinetime_lvgl_mynewt_render();
+```
 
+Set callout timer...
+
+```c
     //  Set the watch face timer
     os_callout_reset(
         &watch_face_callout,   //  Timer for the watch face
@@ -481,93 +508,7 @@ static void watch_face_callback(struct os_event *ev) {
 
 TODO: Barebones watch face, LVGL styles
 
-Watch Face Framework in [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs)
-
-Start the watch face...
-
-```rust
-/// Start rendering the watch face every minute
-pub fn start_watch_face(update_watch_face: UpdateWatchFace) -> MynewtResult<()> {
-    console::print("Init Rust watch face...\n"); console::flush();
-
-    //  Save the callback for updating the watch face
-    unsafe { UPDATE_WATCH_FACE = Some(update_watch_face); }
-
-    //  Get active screen from LVGL
-    let screen = get_active_screen();
-
-    //  Allow touch events
-    obj::set_click(screen, true) ? ;
-
-    //  Render the watch face
-    let rc = unsafe { pinetime_lvgl_mynewt_render() };
-    assert!(rc == 0, "LVGL render fail");    
-
-    //  Set a timer to update the watch face every minute
-    unsafe {  //  Unsafe because os_callout_init is a Mynewt C function
-        os::os_callout_init(
-            &mut WATCH_FACE_CALLOUT,         //  Timer for the watch face
-            os::eventq_dflt_get().unwrap(),  //  Use default event queue
-            Some(watch_face_callback),       //  Callback function for the timer
-            ptr::null_mut()                  //  No argument
-        );    
-    }
-
-    //  Trigger the watch face timer in 60 seconds
-    let rc = unsafe {  //  Unsafe because os_callout_reset is a Mynewt C function
-        os::os_callout_reset(
-            &mut WATCH_FACE_CALLOUT,   //  Timer for the watch face
-            os::OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
-        )
-    };
-    assert!(rc == 0, "Timer fail");
-    Ok(())
-}
-```
-
-Update the watch face every minute...
-
-```rust
-/// Timer callback that is called every minute
-extern fn watch_face_callback(_ev: *mut os::os_event) {
-    console::print("Update Rust watch face...\n"); console::flush();
-    
-    //  If there is no callback, fail.
-    assert!(unsafe { UPDATE_WATCH_FACE.is_some() }, "Update watch face missing");
-
-    //  Get the system time    
-    let time = get_system_time()
-        .expect("Can't get system time");
-
-    //  Compose the watch face state
-    let state = WatchFaceState {
-        time,
-        millivolts: 0,     //  TODO: Get current voltage
-        charging:   true,  //  TODO: Get charging status
-        powered:    true,  //  TODO: Get powered status
-        bluetooth:  BluetoothState::BLUETOOTH_STATE_CONNECTED,  //  TODO: Get BLE state
-    };
-
-    //  Update the watch face
-    unsafe {  //  Unsafe because WATCH_FACE is a mutable static
-        UPDATE_WATCH_FACE.unwrap()(&state)
-            .expect("Update Watch Face fail");
-    }
-
-    //  Render the watch face
-    let rc = unsafe { pinetime_lvgl_mynewt_render() };
-    assert!(rc == 0, "LVGL render fail");    
-
-    //  Trigger the watch face timer in 60 seconds
-    let rc = unsafe {  //  Unsafe because os_callout_reset is a Mynewt C function
-        os::os_callout_reset(
-            &mut WATCH_FACE_CALLOUT,   //  Timer for the watch face
-            os::OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
-        )
-    };
-    assert!(rc == 0, "Timer fail");
-}
-```
+Watch Face Framework
 
 `WatchFace` Trait: [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190)
 
@@ -583,7 +524,7 @@ pub trait WatchFace {
 }
 ```
 
-Create the widgets: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs)
+Create the widgets: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L72-L129)
 
 ```rust
 impl WatchFace for BarebonesWatchFace {
@@ -609,6 +550,56 @@ impl WatchFace for BarebonesWatchFace {
                 obj::align(          lbl, screen, obj::LV_ALIGN_CENTER, 0, -30) ? ;    
                 lbl  //  Return the label as time_label
             },
+```
+
+```rust
+            //  Create a Label for Date: "MON 22 MAY 2020"
+            date_label: {
+                let lbl = label::create(screen, ptr::null()) ? ;
+                label::set_long_mode(lbl, label::LV_LABEL_LONG_BREAK) ? ;
+                obj::set_width(      lbl, 200) ? ;
+                obj::set_height(     lbl, 200) ? ;
+                label::set_text(     lbl, strn!("")) ? ;  //  strn creates a null-terminated string
+                label::set_align(    lbl, label::LV_LABEL_ALIGN_CENTER) ? ;
+                obj::align(          lbl, screen, obj::LV_ALIGN_CENTER, 0, 40) ? ;
+                lbl  //  Return the label as date_label
+            },
+```
+
+Label for Bluetooth State...
+
+```rust
+            //  Create a Label for Bluetooth State
+            bluetooth_label: {
+                let lbl = label::create(screen, ptr::null()) ? ;
+                obj::set_width(     lbl, 50) ? ;
+                obj::set_height(    lbl, 80) ? ;
+                label::set_text(    lbl, strn!("")) ? ;  //  strn creates a null-terminated string
+                label::set_recolor( lbl, true) ? ;
+                label::set_align(   lbl, label::LV_LABEL_ALIGN_LEFT) ? ;
+                obj::align(         lbl, screen, obj::LV_ALIGN_IN_TOP_LEFT, 0, 0) ? ;
+                lbl  //  Return the label as bluetooth_label
+            },
+```
+
+Label for Power Indicator...
+
+```rust
+            //  Create a Label for Power Indicator
+            power_label: {
+                let lbl = label::create(screen, ptr::null()) ? ;
+                obj::set_width(    lbl, 80) ? ;
+                obj::set_height(   lbl, 20) ? ;
+                label::set_text(   lbl, strn!("")) ? ;  //  strn creates a null-terminated string
+                label::set_recolor(lbl, true) ? ;
+                label::set_align(  lbl, label::LV_LABEL_ALIGN_RIGHT) ? ;
+                obj::align(        lbl, screen, obj::LV_ALIGN_IN_TOP_RIGHT, 0, 0) ? ;
+                lbl  //  Return the label as power_label
+            },
+        };
+        //  Return the watch face
+        Ok(watch_face)
+    }
 ```
 
 Update widgets...
@@ -783,6 +774,94 @@ impl BarebonesWatchFace {
         ) ? ;
         Ok(())
     }
+```
+
+Watch Face Framework in [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs)
+
+Start the watch face...
+
+```rust
+/// Start rendering the watch face every minute
+pub fn start_watch_face(update_watch_face: UpdateWatchFace) -> MynewtResult<()> {
+    console::print("Init Rust watch face...\n"); console::flush();
+
+    //  Save the callback for updating the watch face
+    unsafe { UPDATE_WATCH_FACE = Some(update_watch_face); }
+
+    //  Get active screen from LVGL
+    let screen = get_active_screen();
+
+    //  Allow touch events
+    obj::set_click(screen, true) ? ;
+
+    //  Render the watch face
+    let rc = unsafe { pinetime_lvgl_mynewt_render() };
+    assert!(rc == 0, "LVGL render fail");    
+
+    //  Set a timer to update the watch face every minute
+    unsafe {  //  Unsafe because os_callout_init is a Mynewt C function
+        os::os_callout_init(
+            &mut WATCH_FACE_CALLOUT,         //  Timer for the watch face
+            os::eventq_dflt_get().unwrap(),  //  Use default event queue
+            Some(watch_face_callback),       //  Callback function for the timer
+            ptr::null_mut()                  //  No argument
+        );    
+    }
+
+    //  Trigger the watch face timer in 60 seconds
+    let rc = unsafe {  //  Unsafe because os_callout_reset is a Mynewt C function
+        os::os_callout_reset(
+            &mut WATCH_FACE_CALLOUT,   //  Timer for the watch face
+            os::OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
+        )
+    };
+    assert!(rc == 0, "Timer fail");
+    Ok(())
+}
+```
+
+Update the watch face every minute...
+
+```rust
+/// Timer callback that is called every minute
+extern fn watch_face_callback(_ev: *mut os::os_event) {
+    console::print("Update Rust watch face...\n"); console::flush();
+    
+    //  If there is no callback, fail.
+    assert!(unsafe { UPDATE_WATCH_FACE.is_some() }, "Update watch face missing");
+
+    //  Get the system time    
+    let time = get_system_time()
+        .expect("Can't get system time");
+
+    //  Compose the watch face state
+    let state = WatchFaceState {
+        time,
+        millivolts: 0,     //  TODO: Get current voltage
+        charging:   true,  //  TODO: Get charging status
+        powered:    true,  //  TODO: Get powered status
+        bluetooth:  BluetoothState::BLUETOOTH_STATE_CONNECTED,  //  TODO: Get BLE state
+    };
+
+    //  Update the watch face
+    unsafe {  //  Unsafe because WATCH_FACE is a mutable static
+        UPDATE_WATCH_FACE.unwrap()(&state)
+            .expect("Update Watch Face fail");
+    }
+
+    //  Render the watch face
+    let rc = unsafe { pinetime_lvgl_mynewt_render() };
+    assert!(rc == 0, "LVGL render fail");    
+
+    //  Trigger the watch face timer in 60 seconds
+    let rc = unsafe {  //  Unsafe because os_callout_reset is a Mynewt C function
+        os::os_callout_reset(
+            &mut WATCH_FACE_CALLOUT,   //  Timer for the watch face
+            os::OS_TICKS_PER_SEC * 60  //  Trigger timer in 60 seconds
+        )
+    };
+    assert!(rc == 0, "Timer fail");
+}
 ```
 
 # Porting LVGL to Mynewt
