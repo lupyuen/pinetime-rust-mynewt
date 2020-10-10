@@ -389,44 +389,53 @@ This produces a [`WatchFaceTime` struct](https://github.com/lupyuen/pinetime-wat
 
 Later we'll use `WatchFaceTime` and `pinetime-watchface` to create our Rust Watch Face.
 
-# Watch Face in C
+![Watch Face in C](https://lupyuen.github.io/images/timesync-c-watchface.png)
 
-Now that we can fetch the current date and time in C, let's create a simple watch face!
+# Create Watch Face in C
 
-TODO: Mynewt timer, [`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c)
+Now that we can sync the time and fetch the current time, let's create a simple watch face in C!
 
-Create the watch face...
+Our Watch Face shall have only one button, laid out on PineTime's 240 x 240 display like this...
 
-Create a button...
+![Watch Face Coordinates](https://lupyuen.github.io/images/timesync-coords.jpg)
+
+Here's how we create the button: [`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c)
 
 ```c
+static lv_obj_t *btn;    //  Button
+static lv_obj_t *label;  //  Label
+
 /// Render a watch face. Called by main() in rust/app/src/lib.rs
 int create_watch_face(void) {
     btn = lv_btn_create(lv_scr_act(), NULL);     //  Add a button the current screen
-    lv_obj_set_pos(btn, 10, 10);                 //  Set its position
-    lv_obj_set_size(btn, 220, 50);               //  Set its size
+    lv_obj_set_pos(btn, 10, 10);                 //  Set its position: X=10, Y=10
+    lv_obj_set_size(btn, 220, 50);               //  Set its size: Width=220, Height=50
 ```
 
-Add a label to the button...
+To display the current date and time on the button, we'll create a label for the button like so...
 
 ```c
     label = lv_label_create(btn, NULL);          //  Add a label to the button
     lv_label_set_text(label, "Time Sync");       //  Set the label text
 ```
 
-Create a callout timer...
+We're using the [__Button Widget__](https://docs.lvgl.io/latest/en/html/widgets/btn.html) and [__Label Widget__](https://docs.lvgl.io/latest/en/html/widgets/label.html) provided by the [__LVGL Library__](https://docs.lvgl.io/latest/en/html/index.html), which we have ported to Mynewt on PineTime as [__`pinetime_lvgl_mynewt`__](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt)
+
+The Watch Face shall be updated every minute. To do that in Mynewt, we create a [__Callout Timer__](https://mynewt.apache.org/latest/os/core_os/callout/callout.html) by calling [__`os_callout_init`__](https://mynewt.apache.org/latest/os/core_os/callout/callout.html)...
 
 ```c
+    static struct os_callout watch_face_callout;  //  Timer that is triggered every minute
+    ...
     //  Set a timer to update the watch face every minute
     os_callout_init(
         &watch_face_callout,   //  Timer for the watch face
         os_eventq_dflt_get(),  //  Use default event queue
         watch_face_callback,   //  Callback function for the timer
-        NULL
+        NULL                   //  No argument for the callback function
     );
 ```
 
-Trigger the timer...
+To trigger the timer in 60 seconds, we call [__`os_callout_reset`__](https://mynewt.apache.org/latest/os/core_os/callout/callout.html#c.os_callout_reset)...
 
 ```c
     //  Trigger the timer in 60 seconds
@@ -437,6 +446,20 @@ Trigger the timer...
     return 0;
 }
 ```
+
+We have just defined the function __`create_watch_face`__ that create our Watch Face and triggers the Callout Timer...
+
+![Watch Face Functions](https://lupyuen.github.io/images/timesync-c.jpg)
+
+Next we shall define two more functions...
+
+1. __`watch_face_callback`__: Callback Function that is triggered by the Callout Timer every minute
+
+1. __`update_watch_face`__: Function that updates the date and time on the display
+
+# Update Watch Face in C
+
+TODO
 
 Update the watch face...
 
@@ -551,6 +574,8 @@ impl WatchFace for BarebonesWatchFace {
                 lbl  //  Return the label as time_label
             },
 ```
+
+Label for Date: "MON 22 MAY 2020"
 
 ```rust
             //  Create a Label for Date: "MON 22 MAY 2020"
