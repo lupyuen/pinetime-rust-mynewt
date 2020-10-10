@@ -75,9 +75,11 @@
 <li><a href="#create-watch-face-in-c">8 Create Watch Face in C</a><ul></ul></li>
 <li><a href="#update-watch-face-in-c">9 Update Watch Face in C</a><ul></ul></li>
 <li><a href="#watch-face-in-rust">10 Watch Face in Rust</a><ul></ul></li>
-<li><a href="#porting-lvgl-to-mynewt">11 Porting LVGL to Mynewt</a><ul></ul></li>
-<li><a href="#rust-wrapper-for-lvgl">12 Rust Wrapper for LVGL</a><ul></ul></li>
-<li><a href="#whats-next">13 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Bluetooth Time Sync and Rust Watch Face" /></p>
+<li><a href="#how-to-simulate-rust-watch-face">11 How to Simulate Rust Watch Face</a><ul></ul></li>
+<li><a href="#how-to-build-and-flash-rust-watch-face">12 How to Build and Flash Rust Watch Face</a><ul></ul></li>
+<li><a href="#porting-lvgl-to-mynewt">13 Porting LVGL to Mynewt</a><ul></ul></li>
+<li><a href="#rust-wrapper-for-lvgl">14 Rust Wrapper for LVGL</a><ul></ul></li>
+<li><a href="#whats-next">15 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Bluetooth Time Sync and Rust Watch Face" /></p>
 <p>Let's learn how PineTime syncs the time over Bluetooth LE... And how we build PineTime Watch Faces with Rust and LVGL.</p>
 <h1 id="time-sync-over-bluetooth-le" class="section-header"><a href="#time-sync-over-bluetooth-le">1 Time Sync over Bluetooth LE</a></h1>
 <p>Try this on your Android phone...</p>
@@ -195,11 +197,11 @@ static void blecent_read(const struct blepeer *peer) {
 }
 </code></pre>
 <p><code>ble_gattc_read</code> is the function provided by NimBLE to transmit a Bluetooth LE request to read a GATT Characteristic (the Current Time Characteristic).</p>
-<p>The Current Time Service and Current Time Characteristic are defined in the Bluetooth Specifications...</p>
+<p>The Current Time Service and Current Time Characteristic are defined in the <a href="https://www.bluetooth.com/specifications/gatt/services/">Bluetooth Specifications</a>...</p>
 <pre><code class="language-c">#define BLE_GATT_SVC_CTS        (0x1805)  //  GATT Service for Current Time Service
 #define BLE_GATT_CHR_CUR_TIME   (0x2A2B)  //  GATT Characteristic for Current Time
 </code></pre>
-<p>The Current Time Characteristic returns the current date and time in this 10-byte format: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L75-L86"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
+<p>The <a href="https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.current_time.xml">Current Time Characteristic</a> returns the current date and time in this 10-byte format: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L75-L86"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
 <pre><code class="language-c">/// Data Format for Current Time Service. Based on https://github.com/sdalu/mynewt-nimble/blob/495ff291a15306787859a2fe8f2cc8765b546e02/nimble/host/services/cts/src/ble_svc_cts.c
 struct ble_current_time {
     uint16_t year;
@@ -387,7 +389,7 @@ buf[16] = 0;
 <p>Now that we can sync the time and fetch the current time, let's create a simple watch face in C!</p>
 <p>Our Watch Face shall have only one button, laid out on PineTime's 240 x 240 display like this...</p>
 <p><img src="https://lupyuen.github.io/images/timesync-coords.jpg" alt="Watch Face Coordinates" /></p>
-<p>Here's how we create the button: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c"><code>my_sensor_app/src/watch_face.c</code></a></p>
+<p>Here's how we create the button: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L29-L57"><code>my_sensor_app/src/watch_face.c</code></a></p>
 <pre><code class="language-c">static lv_obj_t *btn;    //  Button
 static lv_obj_t *label;  //  Label
 
@@ -401,7 +403,7 @@ int create_watch_face(void) {
 <pre><code class="language-c">    label = lv_label_create(btn, NULL);          //  Add a label to the button
     lv_label_set_text(label, &quot;Time Sync&quot;);       //  Set the label text
 </code></pre>
-<p>We're using the <a href="https://docs.lvgl.io/latest/en/html/widgets/btn.html"><strong>Button Widget</strong></a> and <a href="https://docs.lvgl.io/latest/en/html/widgets/label.html"><strong>Label Widget</strong></a> provided by the <a href="https://docs.lvgl.io/latest/en/html/index.html"><strong>LVGL Library</strong></a>, which we have ported to Mynewt on PineTime as <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt"><strong><code>pinetime_lvgl_mynewt</code></strong></a></p>
+<p>We're using the <a href="https://docs.lvgl.io/latest/en/html/widgets/btn.html"><strong>Button Widget</strong></a> and <a href="https://docs.lvgl.io/latest/en/html/widgets/label.html"><strong>Label Widget</strong></a> provided by the <a href="https://docs.lvgl.io/latest/en/html/index.html"><strong>LVGL Library (Version 7)</strong></a>, which we have ported to Mynewt on PineTime as <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt"><strong><code>pinetime_lvgl_mynewt</code></strong></a></p>
 <p>The Watch Face shall be updated every minute. To do that in Mynewt, we create a <a href="https://mynewt.apache.org/latest/os/core_os/callout/callout.html"><strong>Callout Timer</strong></a> by calling <a href="https://mynewt.apache.org/latest/os/core_os/callout/callout.html"><strong><code>os_callout_init</code></strong></a>...</p>
 <pre><code class="language-c">    static struct os_callout watch_face_callout;  //  Timer that is triggered every minute
     ...
@@ -430,12 +432,12 @@ int create_watch_face(void) {
 <p><strong><code>watch_face_callback</code></strong>: Callback Function that is triggered by the Callout Timer every minute</p>
 </li>
 <li>
-<p><strong><code>update_watch_face</code></strong>: Function that updates the date and time on the display</p>
+<p><strong><code>update_watch_face</code></strong>: Function that updates the date and time on the PineTime display</p>
 </li>
 </ol>
 <h1 id="update-watch-face-in-c" class="section-header"><a href="#update-watch-face-in-c">9 Update Watch Face in C</a></h1>
-<p>TODO</p>
-<p>Update the watch face...</p>
+<p>Let's look at <code>update_watch_face</code>, our function that updates the date and time on the PineTime display: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L59-L87"><code>my_sensor_app/src/watch_face.c</code></a></p>
+<p><img src="https://lupyuen.github.io/images/timesync-c2.jpg" alt="Watch Face Function: update_watch_face" /></p>
 <pre><code class="language-c">/// Update the watch face
 int update_watch_face(void) {
     //  If button or label not created, quit
@@ -460,13 +462,21 @@ int update_watch_face(void) {
     //  Truncate after minute: 2020-10-04T13:20
     buf[16] = 0;
 </code></pre>
-<p>Set the label...</p>
+<p>The code above looks familiar... We have seen this code eariler for fetching the current date and time.</p>
+<p><code>update_watch_face</code> has one new unfamiliar line of code...</p>
 <pre><code class="language-c">    //  Set the label text
     lv_label_set_text(label, buf);
     return 0;
 }
 </code></pre>
-<p>Callback every minute...</p>
+<p><code>buf</code> contains the current date and time in the format...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="number">2020</span><span class="op">-</span><span class="number">10</span><span class="op">-</span><span class="number">04T13</span>:<span class="number">20</span></pre></div>
+<p>When we call the LVGL Function <code>lv_label_set_text</code>, our Button Label will be set to the current date and time.</p>
+<p>Thus to make a functioning Watch Face, we need to call <code>update_watch_face</code> every minute.</p>
+<p>And that's handled by <code>watch_face_callback</code> in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L89-L104"><code>my_sensor_app/src/watch_face.c</code></a></p>
+<p><img src="https://lupyuen.github.io/images/timesync-c3.jpg" alt="Watch Face Function: watch_face_callback" /></p>
 <pre><code class="language-c">/// Timer callback that is called every minute
 static void watch_face_callback(struct os_event *ev) {
     assert(ev != NULL);
@@ -474,11 +484,13 @@ static void watch_face_callback(struct os_event *ev) {
     //  Update the watch face
     update_watch_face();
 </code></pre>
-<p>Render LVGL display...</p>
+<p>Remember that <code>watch_face_callback</code> is first triggered by the Callout Timer in <code>create_watch_face</code>.</p>
+<p>Here we call <code>update_watch_face</code> to set our Button Label to the current date and time (as we have seen above).</p>
+<p>Next we render the LVGL Button and Label to PineTime's display...</p>
 <pre><code class="language-c">    //  Render the watch face
     pinetime_lvgl_mynewt_render();
 </code></pre>
-<p>Set callout timer...</p>
+<p>Finally we set our Callout Timer to trigger <code>watch_face_callback</code> again in 60 seconds...</p>
 <pre><code class="language-c">    //  Set the watch face timer
     os_callout_reset(
         &amp;watch_face_callout,   //  Timer for the watch face
@@ -486,6 +498,12 @@ static void watch_face_callback(struct os_event *ev) {
     );
 }
 </code></pre>
+<p>That's how we create a simple watch face in C!</p>
+<p><em>We can build complicated Watch Faces in C... Right?</em></p>
+<p>As our Watch Face code in C grows in complexity... It becomes harder to test, deploy, maintain and extend.</p>
+<p>In the next section we'll look at a more sustainable way to build Watch Faces... With a <strong>Watch Face Framework in Rust</strong>!</p>
+<p>Rust Watch Faces may also be catalogued at <strong><a href="https://crates.io/crates/barebones-watchface">crates.io</a></strong>... So that PineTime Owners may easily discover, extend and remix the Watch Faces.</p>
+<p>Let's learn how...</p>
 <h1 id="watch-face-in-rust" class="section-header"><a href="#watch-face-in-rust">10 Watch Face in Rust</a></h1>
 <p>TODO: Barebones watch face, LVGL styles</p>
 <p>Watch Face Framework</p>
@@ -822,7 +840,11 @@ static void watch_face_callback(struct os_event *ev) {
     };
     <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Timer fail&quot;</span>);
 }</pre></div>
-<h1 id="porting-lvgl-to-mynewt" class="section-header"><a href="#porting-lvgl-to-mynewt">11 Porting LVGL to Mynewt</a></h1>
+<h1 id="how-to-simulate-rust-watch-face" class="section-header"><a href="#how-to-simulate-rust-watch-face">11 How to Simulate Rust Watch Face</a></h1>
+<p>TODO</p>
+<h1 id="how-to-build-and-flash-rust-watch-face" class="section-header"><a href="#how-to-build-and-flash-rust-watch-face">12 How to Build and Flash Rust Watch Face</a></h1>
+<p>TODO</p>
+<h1 id="porting-lvgl-to-mynewt" class="section-header"><a href="#porting-lvgl-to-mynewt">13 Porting LVGL to Mynewt</a></h1>
 <p>TODO: SPI Driver for ST7789 Display Controller, <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt"><code>pinetime_lvgl_mynewt</code></a></p>
 <p>Located at <code>libs/pinetime_lvgl_mynewt</code></p>
 <p><a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lvgl.c"><code>src/pinetime/lvgl.c</code></a></p>
@@ -909,9 +931,9 @@ int pinetime_lvgl_mynewt_write_data(const uint8_t *data, uint16_t len) {
     return 0;
 }
 </code></pre>
-<h1 id="rust-wrapper-for-lvgl" class="section-header"><a href="#rust-wrapper-for-lvgl">12 Rust Wrapper for LVGL</a></h1>
+<h1 id="rust-wrapper-for-lvgl" class="section-header"><a href="#rust-wrapper-for-lvgl">14 Rust Wrapper for LVGL</a></h1>
 <p>TODO: Bindgen, Safe Wrapper Proc Macro, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/lvgl"><code>rust/lvgl</code></a></p>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">13 What's Next</a></h1>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">15 What's Next</a></h1>
 <p>TODO: Bluetooth Time Sync, Rust Watch Faces and LVGL were developed and tested with Remote PineTime</p>
 <p><a href="https://lupyuen.github.io">Check out my PineTime articles</a></p>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
