@@ -919,11 +919,11 @@ extern fn watch_face_callback(_ev: *mut os::os_event) {
 }
 ```
 
-# How to Simulate Rust Watch Face
+# Preview a Rust Watch Face
 
 TODO
 
-# How to Build and Flash Rust Watch Face
+# Build and Flash a Rust Watch Face
 
 TODO
 
