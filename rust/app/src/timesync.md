@@ -138,14 +138,14 @@ static void blecent_read(const struct blepeer *peer) {
 
 `ble_gattc_read` is the function provided by NimBLE to transmit a Bluetooth LE request to read a GATT Characteristic (the Current Time Characteristic).
 
-The Current Time Service and Current Time Characteristic are defined in the Bluetooth Specifications...
+The Current Time Service and Current Time Characteristic are defined in the [Bluetooth Specifications](https://www.bluetooth.com/specifications/gatt/services/)...
 
 ```c
 #define BLE_GATT_SVC_CTS        (0x1805)  //  GATT Service for Current Time Service
 #define BLE_GATT_CHR_CUR_TIME   (0x2A2B)  //  GATT Characteristic for Current Time
 ```
 
-The Current Time Characteristic returns the current date and time in this 10-byte format: [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L75-L86)
+The [Current Time Characteristic](https://www.bluetooth.com/wp-content/uploads/Sitecore-Media-Library/Gatt/Xml/Services/org.bluetooth.service.current_time.xml) returns the current date and time in this 10-byte format: [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L75-L86)
 
 ```c
 /// Data Format for Current Time Service. Based on https://github.com/sdalu/mynewt-nimble/blob/495ff291a15306787859a2fe8f2cc8765b546e02/nimble/host/services/cts/src/ble_svc_cts.c
@@ -399,7 +399,7 @@ Our Watch Face shall have only one button, laid out on PineTime's 240 x 240 disp
 
 ![Watch Face Coordinates](https://lupyuen.github.io/images/timesync-coords.jpg)
 
-Here's how we create the button: [`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c)
+Here's how we create the button: [`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L29-L57)
 
 ```c
 static lv_obj_t *btn;    //  Button
@@ -459,7 +459,9 @@ Next we shall define two more functions...
 
 # Update Watch Face in C
 
-TODO
+Let's look at 
+
+[`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L59-L87)
 
 Update the watch face...
 
@@ -500,6 +502,8 @@ Set the label...
 
 Callback every minute...
 
+[`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L89-L104)
+
 ```c
 /// Timer callback that is called every minute
 static void watch_face_callback(struct os_event *ev) {
@@ -526,6 +530,14 @@ Set callout timer...
     );
 }
 ```
+
+_We can build complicated Watch Faces in C... Right?_
+
+As our Watch Face code in C grows in complexity... It becomes harder to test, deploy, maintain and extend.
+
+In the next section we'll look at a more sustainable way to build Watch Faces... With a __Watch Face Framework in Rust__!
+
+Rust Watch Faces may also be catalogued at __[crates.io](https://crates.io/crates/barebones-watchface)__... For easy discovery, extending and remixing. Let's learn how...
 
 # Watch Face in Rust
 
@@ -888,6 +900,14 @@ extern fn watch_face_callback(_ev: *mut os::os_event) {
     assert!(rc == 0, "Timer fail");
 }
 ```
+
+# How to Simulate Rust Watch Face
+
+TODO
+
+# How to Build and Flash Rust Watch Face
+
+TODO
 
 # Porting LVGL to Mynewt
 
