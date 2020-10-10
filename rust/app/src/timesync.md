@@ -553,7 +553,9 @@ As our Watch Face code in C grows in complexity... It becomes harder to test, de
 
 In the next section we'll look at a more sustainable way to build Watch Faces... With a __Watch Face Framework in Rust__!
 
-Rust Watch Faces may also be catalogued at __[crates.io](https://crates.io/crates/barebones-watchface)__... For easy discovery, extending and remixing. Let's learn how...
+Rust Watch Faces may also be catalogued at __[crates.io](https://crates.io/crates/barebones-watchface)__... So that PineTime Owners may easily discover, extend and remix the Watch Faces.
+
+Let's learn how...
 
 # Watch Face in Rust
 
