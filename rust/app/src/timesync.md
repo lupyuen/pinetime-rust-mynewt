@@ -557,13 +557,11 @@ Rust Watch Faces may also be catalogued at __[crates.io](https://crates.io/crate
 
 Let's learn how...
 
-# Watch Face in Rust
+# Create Watch Face in Rust
 
-TODO: Barebones watch face, LVGL styles
+Watch Faces are built in Rust with the [Watch Face Framework `pinetime-watchface`](https://crates.io/crates/pinetime-watchface).
 
-Watch Face Framework
-
-`WatchFace` Trait: [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190)
+All Rust Watch Faces are required to implement the `WatchFace` Trait: [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190)
 
 ```rust
 /// Watch Faces shall implement this trait
@@ -577,7 +575,17 @@ pub trait WatchFace {
 }
 ```
 
-Create the widgets: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L72-L129)
+(If you're new to Rust... A Trait in Rust works like an Interface in Java and TypeScript)
+
+The `WatchFace` Trait defines two functions...
+
+1.  `new`: Create the Watch Face. Called by the framework when PineTime starts.
+
+1.  `update`: Update the Watch Face with the current date and time. Called by the framework every minute.
+
+(They work the same way as our Watch Face Functions in C: `create_watch_face` and `update_watch_face`)
+
+Here's how we implement the `new` function for our simple Watch Face `BarebonesWatchFace`: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L72-L129)
 
 ```rust
 impl WatchFace for BarebonesWatchFace {
@@ -657,7 +665,11 @@ Label for Power Indicator...
     }
 ```
 
-Update widgets...
+# Update Watch Face in Rust
+
+TODO: Update widgets...
+
+[`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L131-L146)
 
 ```rust
 impl WatchFace for BarebonesWatchFace {
@@ -680,6 +692,8 @@ impl WatchFace for BarebonesWatchFace {
 ```
 
 Populate time and date widgets...
+
+[`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L148-L201)
 
 ```rust
 impl BarebonesWatchFace {
@@ -737,6 +751,8 @@ impl BarebonesWatchFace {
 
 Update Bluetooth state...
 
+[`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L203-L241)
+
 ```rust
 impl BarebonesWatchFace {
     /// Populate the Bluetooth Label with the Bluetooth State (Bluetooth Icon)
@@ -781,6 +797,8 @@ impl BarebonesWatchFace {
 ```
 
 Update power indicator...
+
+[`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L243-L287)
 
 ```rust
 impl BarebonesWatchFace {
