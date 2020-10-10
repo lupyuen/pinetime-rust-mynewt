@@ -447,7 +447,7 @@ To trigger the timer in 60 seconds, we call [__`os_callout_reset`__](https://myn
 }
 ```
 
-We have just defined the function __`create_watch_face`__ that create our Watch Face and triggers the Callout Timer...
+We have just defined the function __`create_watch_face`__ that creates our Watch Face and triggers the Callout Timer...
 
 ![Watch Face Functions](https://lupyuen.github.io/images/timesync-c.jpg)
 
