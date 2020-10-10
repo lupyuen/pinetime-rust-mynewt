@@ -419,7 +419,7 @@ To display the current date and time on the button, we'll create a label for the
     lv_label_set_text(label, "Time Sync");       //  Set the label text
 ```
 
-We're using the [__Button Widget__](https://docs.lvgl.io/latest/en/html/widgets/btn.html) and [__Label Widget__](https://docs.lvgl.io/latest/en/html/widgets/label.html) provided by the [__LVGL Library__](https://docs.lvgl.io/latest/en/html/index.html), which we have ported to Mynewt on PineTime as [__`pinetime_lvgl_mynewt`__](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt)
+We're using the [__Button Widget__](https://docs.lvgl.io/latest/en/html/widgets/btn.html) and [__Label Widget__](https://docs.lvgl.io/latest/en/html/widgets/label.html) provided by the [__LVGL Library (Version 7)__](https://docs.lvgl.io/latest/en/html/index.html), which we have ported to Mynewt on PineTime as [__`pinetime_lvgl_mynewt`__](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt)
 
 The Watch Face shall be updated every minute. To do that in Mynewt, we create a [__Callout Timer__](https://mynewt.apache.org/latest/os/core_os/callout/callout.html) by calling [__`os_callout_init`__](https://mynewt.apache.org/latest/os/core_os/callout/callout.html)...
 
@@ -455,15 +455,13 @@ Next we shall define two more functions...
 
 1. __`watch_face_callback`__: Callback Function that is triggered by the Callout Timer every minute
 
-1. __`update_watch_face`__: Function that updates the date and time on the display
+1. __`update_watch_face`__: Function that updates the date and time on the PineTime display
 
 # Update Watch Face in C
 
-Let's look at 
+Let's look at `update_watch_face`, our function that updates the date and time on the PineTime display: [`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L59-L87)
 
-[`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L59-L87)
-
-Update the watch face...
+![Watch Face Function: update_watch_face](https://lupyuen.github.io/images/timesync-c2.jpg)
 
 ```c
 /// Update the watch face
@@ -491,7 +489,9 @@ int update_watch_face(void) {
     buf[16] = 0;
 ``` 
 
-Set the label...
+The code above looks familiar... We have seen this code eariler for fetching the current date and time.
+
+`update_watch_face` has one new unfamiliar line of code...
 
 ```c
     //  Set the label text
@@ -500,9 +500,19 @@ Set the label...
 }
 ```
 
-Callback every minute...
+`buf` contains the current date and time in the format...
 
-[`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L89-L104)
+```
+2020-10-04T13:20
+```
+
+When we call the LVGL Function `lv_label_set_text`, our Button Label will be set to the current date and time.
+
+Thus to make a functioning Watch Face, we need to call `update_watch_face` every minute.
+
+And that's handled by `watch_face_callback` in [`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L89-L104)
+
+![Watch Face Function: watch_face_callback](https://lupyuen.github.io/images/timesync-c3.jpg)
 
 ```c
 /// Timer callback that is called every minute
@@ -513,14 +523,18 @@ static void watch_face_callback(struct os_event *ev) {
     update_watch_face();
 ```
 
-Render LVGL display...
+Remember that `watch_face_callback` is first triggered by the Callout Timer in `create_watch_face`.
+
+Here we call `update_watch_face` to set our Button Label to the current date and time (as we have seen above).
+
+Next we render the LVGL Button and Label to PineTime's display...
 
 ```c
     //  Render the watch face
     pinetime_lvgl_mynewt_render();
 ```
 
-Set callout timer...
+Finally we set our Callout Timer to trigger `watch_face_callback` again in 60 seconds...
 
 ```c
     //  Set the watch face timer
@@ -530,6 +544,8 @@ Set callout timer...
     );
 }
 ```
+
+That's how we create a simple watch face in C!
 
 _We can build complicated Watch Faces in C... Right?_
 
