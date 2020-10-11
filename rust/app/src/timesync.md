@@ -589,6 +589,8 @@ Here's how we implement the `new` function for our simple Watch Face `BarebonesW
 
 ![Watch Face Layout](https://lupyuen.github.io/images/timesync-layout.png)
 
+[__Preview this Watch Face in your web browser__](https://lupyuen.github.io/barebones-watchface/lvgl.html)
+
 ```rust
 impl WatchFace for BarebonesWatchFace {
 
