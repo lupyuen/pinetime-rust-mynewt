@@ -705,9 +705,9 @@ pub struct BarebonesWatchFace {
 
 # Update Watch Face in Rust
 
-TODO: Update widgets...
+To roll our Watch Face in Rust we need to provide two functions: `new` (to create the Watch Face) and `update` (to update our Watch Face).
 
-[`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L131-L146)
+In the previous section we have done `new`, now let's do `update`: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L131-L146)
 
 ```rust
 impl WatchFace for BarebonesWatchFace {
@@ -728,6 +728,10 @@ impl WatchFace for BarebonesWatchFace {
         Ok(())
     }    
 ```
+
+![Watch Face Layout](https://lupyuen.github.io/images/timesync-layout.png)
+
+[__Preview this Watch Face in your web browser__](https://lupyuen.github.io/barebones-watchface/lvgl.html)
 
 Populate time and date widgets...
 
