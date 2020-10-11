@@ -561,7 +561,7 @@ Let's learn how...
 
 Watch Faces are built in Rust with the [Watch Face Framework `pinetime-watchface`](https://crates.io/crates/pinetime-watchface).
 
-All Rust Watch Faces are required to implement the `WatchFace` Trait: [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190)
+All Rust Watch Faces are required to implement the `WatchFace` Trait defined in [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190)
 
 ```rust
 /// Watch Faces shall implement this trait
@@ -675,13 +675,13 @@ _Why did we call `set_recolor` for the Bluetooth and Power labels?_
 
 Instead of the default white colour, we'll be showing the Bluetooth and Power Labels in various colour (to indicate the current status).
 
-By calling `set_recolor` on the Bluetooth and Power Labels, we may specify `#RGB` colour codes inside the labels. For example, this label...
+By calling `set_recolor` on the Bluetooth and Power Labels, we may specify `#RGB` Colour Codes inside the labels. For example, this label...
 
 ```
 #00ff00 OK
 ```
 
-Will show the text `OK` in Green.
+Will show the text `OK` in Green. We'll see the `#RGB` Colour Codes in a while.
 
 # Update Watch Face in Rust
 
