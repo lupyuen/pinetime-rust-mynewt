@@ -683,6 +683,24 @@ By calling `set_recolor` on the Bluetooth and Power Labels, we may specify `#RGB
 
 Will show the text `OK` in Green. We'll see the `#RGB` Colour Codes in a while.
 
+_Where are the Labels defined?_
+
+The Labels are now neatly defined in the `BarebonesWatchFace` Struct: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L55-L65)
+
+```rust
+/// Barebones Watch Face with no frills
+pub struct BarebonesWatchFace {
+    /// Label for Time: "12:34"
+    pub time_label:      lvgl::Ptr,
+    /// Label for Date: "MON 22 MAY 2020"
+    pub date_label:      lvgl::Ptr,
+    /// Label for Bluetooth State (Bluetooth Icon)
+    pub bluetooth_label: lvgl::Ptr,
+    /// Label for Power Indicator (Charging & Battery)
+    pub power_label:     lvgl::Ptr,
+}
+```
+
 # Update Watch Face in Rust
 
 TODO: Update widgets...
@@ -867,7 +885,9 @@ impl BarebonesWatchFace {
     }
 ```
 
-Watch Face Framework in [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs)
+# Watch Face Framework in Rust
+
+TODO: Watch Face Framework in [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs)
 
 Start the watch face...
 
