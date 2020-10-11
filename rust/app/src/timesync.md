@@ -587,6 +587,8 @@ The `WatchFace` Trait defines two functions...
 
 Here's how we implement the `new` function for our simple Watch Face `BarebonesWatchFace`: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L72-L129)
 
+![Watch Face Layout](https://lupyuen.github.io/images/timesync-layout.png)
+
 ```rust
 impl WatchFace for BarebonesWatchFace {
 
