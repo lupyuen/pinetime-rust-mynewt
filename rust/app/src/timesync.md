@@ -579,11 +579,11 @@ pub trait WatchFace {
 
 The `WatchFace` Trait defines two functions...
 
-1.  `new`: Create the Watch Face. Called by the framework when PineTime starts.
+1.  `new`: Create the Watch Face. Called by the Watch Face Framework when PineTime starts.
 
-1.  `update`: Update the Watch Face with the current date and time. Called by the framework every minute.
+1.  `update`: Update the Watch Face with the current date and time. Called by the Watch Face Framework every minute.
 
-(They work the same way as our Watch Face Functions in C: `create_watch_face` and `update_watch_face`)
+(`new` and `update` work the same way as our Watch Face Functions in C: `create_watch_face` and `update_watch_face`)
 
 Here's how we implement the `new` function for our simple Watch Face `BarebonesWatchFace`: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L72-L129)
 
@@ -613,7 +613,11 @@ impl WatchFace for BarebonesWatchFace {
             },
 ```
 
-Label for Date: "MON 22 MAY 2020"
+Calling the LVGL API in Rust looks... Different. Check out the article ["Porting PineTime Watch Face from C to Rust On RIOT with LVGL"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face)
+
+The code above creates a __Time Label__ for the time and positions the Label at the centre of PineTime's display.
+
+Below the Time Label, we create a __Date Label__ for the date...
 
 ```rust
             //  Create a Label for Date: "MON 22 MAY 2020"
@@ -629,7 +633,7 @@ Label for Date: "MON 22 MAY 2020"
             },
 ```
 
-Label for Bluetooth State...
+At top left we create a __Bluetooth Label__ to indicate whether PineTime is connected on Bluetooth LE...
 
 ```rust
             //  Create a Label for Bluetooth State
@@ -645,7 +649,7 @@ Label for Bluetooth State...
             },
 ```
 
-Label for Power Indicator...
+At top right we create a __Power Label__ to indicate the battery status and whether PineTime is charging...
 
 ```rust
             //  Create a Label for Power Indicator
@@ -664,6 +668,18 @@ Label for Power Indicator...
         Ok(watch_face)
     }
 ```
+
+_Why did we call `set_recolor` for the Bluetooth and Power labels?_
+
+Instead of the default white colour, we'll be showing the Bluetooth and Power Labels in various colour (to indicate the current status).
+
+By calling `set_recolor` on the Bluetooth and Power Labels, we may specify `#RGB` colour codes inside the labels. For example, this label...
+
+```
+#00ff00 OK
+```
+
+Will show the text `OK` in Green.
 
 # Update Watch Face in Rust
 
