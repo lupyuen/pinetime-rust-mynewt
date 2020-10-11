@@ -729,11 +729,13 @@ impl WatchFace for BarebonesWatchFace {
     }    
 ```
 
+Our `update` function updates the Date, Time, Bluetooth and Power Labels...
+
 ![Watch Face Layout](https://lupyuen.github.io/images/timesync-layout.png)
 
 [__Preview this Watch Face in your web browser__](https://lupyuen.github.io/barebones-watchface/lvgl.html)
 
-Populate time and date widgets...
+Here's how we update the Time Label...
 
 [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L148-L201)
 
@@ -761,7 +763,19 @@ impl BarebonesWatchFace {
                 &to_strn(&TIME_BUF)
             ) ? ;
         }
+```
 
+`write!` is explained here: ["Heapless Strings in Rust"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face#heapless-strings-in-rust)
+
+_Why is the code is flagged as `unsafe`?_
+
+The code is flagged `unsafe` because the Rust Compiler doesn't understand the Lifetime Semantics of the LVGL Function `label::set_text`... So the Rust Compiler insists that we pass an `unsafe` static mutable buffer to the function.
+
+Hopefully someday we'll fix this. More about this Lifetime problem: ["Lifetime of Rust Variables"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face#lifetime-of-rust-variables)
+
+Here's how we update the Date Label...
+
+```rust
         //  Get the short day name and short month name
         let day   = get_day_name(&state.time);
         let month = get_month_name(&state.time);
