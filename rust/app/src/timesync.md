@@ -680,7 +680,7 @@ Instead of the default white colour, we'll be showing the Bluetooth and Power La
 By calling `set_recolor` on the Bluetooth and Power Labels, we may specify `#RGB` Colour Codes inside the labels. For example, this label...
 
 ```
-#00ff00 OK
+#00ff00 OK#
 ```
 
 Will show the text `OK` in Green. We'll see the `#RGB` Colour Codes in a while.
@@ -729,11 +729,13 @@ impl WatchFace for BarebonesWatchFace {
     }    
 ```
 
-Our `update` function updates the Date, Time, Bluetooth and Power Labels...
+Let's study how the `update_date_time`, `update_bluetooth` and `update_power` functions refreshes the Date, Time, Bluetooth and Power Labels...
 
 ![Watch Face Layout](https://lupyuen.github.io/images/timesync-layout.png)
 
 [__Preview this Watch Face in your web browser__](https://lupyuen.github.io/barebones-watchface/lvgl.html)
+
+## Update Time Label
 
 Our function `update_date_time` refreshes the Time Label like so: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L148-L189)
 
@@ -760,9 +762,21 @@ impl BarebonesWatchFace {
 
 `write!` is explained here: ["Heapless Strings in Rust"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face#heapless-strings-in-rust)
 
-Here's how we update the Date Label...
+Our Watch Face Framework exposes a `String` type that limits strings to 64 characters (and prevents buffer overflows). Which is sufficient for most Watch Faces.
+
+## Update Date Label
+
+Our function `update_date_time` also refreshes the Date Label:  [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L148-L189)
+
 
 ```rust
+impl BarebonesWatchFace {
+
+    /// Populate the Time and Date Labels with the time and date
+    fn update_date_time(&self, state: &WatchFaceState) -> MynewtResult<()> {
+        //  Omitted: Format and set the time label
+        ...
+
         //  Get the short day name and short month name
         let day   = get_day_name(&state.time);
         let month = get_month_name(&state.time);
@@ -787,6 +801,8 @@ Here's how we update the Date Label...
     }    
 ```
 
+## Update Bluetooth Label
+
 Our function `update_bluetooth` refreshes the Bluetooth Label like so: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L191-L223)
 
 ```rust
@@ -805,9 +821,9 @@ impl BarebonesWatchFace {
             let color = 
                 match &state.bluetooth {
                     BluetoothState::BLUETOOTH_STATE_INACTIVE     => "#000000",  //  Black
-                    BluetoothState::BLUETOOTH_STATE_ADVERTISING  => "#5794f2",  //  Blue
-                    BluetoothState::BLUETOOTH_STATE_DISCONNECTED => "#f2495c",  //  Red
-                    BluetoothState::BLUETOOTH_STATE_CONNECTED    => "#37872d",  //  Dark Green
+                    BluetoothState::BLUETOOTH_STATE_ADVERTISING  => "#0000ff",  //  Blue
+                    BluetoothState::BLUETOOTH_STATE_DISCONNECTED => "#ff0000",  //  Red
+                    BluetoothState::BLUETOOTH_STATE_CONNECTED    => "#00ff00",  //  Green
                 };
 
             //  Format the Bluetooth status
@@ -827,6 +843,26 @@ impl BarebonesWatchFace {
         Ok(())
     }
 ```
+
+The Bluetooth Label is coloured by `#RGB` Colour Codes. For example, this label...
+
+```
+#00ff00 OK#
+```
+
+Will show the text `OK` in Green.
+
+_What's `\u{F293}`?_
+
+`\u{F293}` is the Unicode Symbol for the Bluetooth Icon. So when we set a label to...
+
+```
+#00ff00 \u{F293}#
+```
+
+This means we're displaying the Bluetooth Icon in Green.
+
+## Update Power Label
 
 Lastly our function `update_power` refreshes the Power Label like so: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L225-L265)
 
@@ -867,6 +903,8 @@ impl BarebonesWatchFace {
             self.power_label, 
             &to_strn(&buf)
         ) ? ; 
+
+        //  Align the label to the top right of the screen
         obj::align(
             self.power_label, screen, 
             obj::LV_ALIGN_IN_TOP_RIGHT, 0, 0
@@ -874,6 +912,8 @@ impl BarebonesWatchFace {
         Ok(())
     }
 ```
+
+`\u{F0E7}` is the Unicode Symbol for the Charging Icon.
 
 # Watch Face Framework in Rust
 
