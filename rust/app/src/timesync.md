@@ -735,43 +735,30 @@ Our `update` function updates the Date, Time, Bluetooth and Power Labels...
 
 [__Preview this Watch Face in your web browser__](https://lupyuen.github.io/barebones-watchface/lvgl.html)
 
-Here's how we update the Time Label...
-
-[`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L148-L201)
+Our function `update_date_time` refreshes the Time Label like so: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L148-L189)
 
 ```rust
 impl BarebonesWatchFace {
 
     /// Populate the Time and Date Labels with the time and date
     fn update_date_time(&self, state: &WatchFaceState) -> MynewtResult<()> {
-        //  Create a string buffer to format the time
-        static mut TIME_BUF: String = new_string();
+        //  Format the time as "12:34"
+        let mut buf = new_string();
+        write!(
+            &mut buf,         //  Write the formatted text here
+            "{:02}:{:02}\0",  //  Must terminate Rust strings with null
+            state.time.hour,
+            state.time.minute
+        ).expect("time fail");
 
-        //  Format the time as "12:34" and set the label
-        unsafe {                  //  Unsafe because TIME_BUF is a mutable static
-            TIME_BUF.clear();     //  Erase the buffer
-
-            write!(
-                &mut TIME_BUF,    //  Write the formatted text
-                "{:02}:{:02}\0",  //  Must terminate Rust strings with null
-                state.time.hour,
-                state.time.minute
-            ).expect("time fail");
-
-            label::set_text(      //  Set the label
-                self.time_label, 
-                &to_strn(&TIME_BUF)
-            ) ? ;
-        }
+        //  Set the label
+        label::set_text(      
+            self.time_label, 
+            &to_strn(&buf)
+        ) ? ;
 ```
 
 `write!` is explained here: ["Heapless Strings in Rust"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face#heapless-strings-in-rust)
-
-_Why is the code is flagged as `unsafe`?_
-
-The code is flagged `unsafe` because the Rust Compiler doesn't understand the Lifetime Semantics of the LVGL Function `label::set_text`... So the Rust Compiler insists that we pass an `unsafe` static mutable buffer to the function.
-
-Hopefully someday we'll fix this. More about this Lifetime problem: ["Lifetime of Rust Variables"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face#lifetime-of-rust-variables)
 
 Here's how we update the Date Label...
 
@@ -780,37 +767,31 @@ Here's how we update the Date Label...
         let day   = get_day_name(&state.time);
         let month = get_month_name(&state.time);
 
-        //  Create a string buffer to format the date
-        static mut DATE_BUF: String = new_string();
-        
-        //  Format the date as "MON 22 MAY 2020" and set the label
-        unsafe {                    //  Unsafe because DATE_BUF is a mutable static
-            DATE_BUF.clear();       //  Erase the buffer
+        //  Format the date as "MON 22 MAY 2020"
+        let mut buf = new_string();
+        write!(
+            &mut buf,           //  Write the formatted text here
+            "{} {} {} {}\n\0",  //  Must terminate Rust strings with null
+            day,
+            state.time.day,
+            month,
+            state.time.year
+        ).expect("date fail");
 
-            write!(
-                &mut DATE_BUF,      //  Write the formatted text
-                "{} {} {} {}\n\0",  //  Must terminate Rust strings with null
-                day,
-                state.time.day,
-                month,
-                state.time.year
-            ).expect("date fail");
-
-            label::set_text(        //  Set the label
-                self.date_label, 
-                &to_strn(&DATE_BUF)
-            ) ? ;
-        }
+        //  Set the label
+        label::set_text(
+            self.date_label, 
+            &to_strn(&buf)
+        ) ? ;
         Ok(())
     }    
 ```
 
-Update Bluetooth state...
-
-[`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L203-L241)
+Our function `update_bluetooth` refreshes the Bluetooth Label like so: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L191-L223)
 
 ```rust
 impl BarebonesWatchFace {
+
     /// Populate the Bluetooth Label with the Bluetooth State (Bluetooth Icon)
     fn update_bluetooth(&self, state: &WatchFaceState) -> MynewtResult<()> {
         if state.bluetooth == BluetoothState::BLUETOOTH_STATE_DISCONNECTED {
@@ -829,35 +810,29 @@ impl BarebonesWatchFace {
                     BluetoothState::BLUETOOTH_STATE_CONNECTED    => "#37872d",  //  Dark Green
                 };
 
-                //  Create a string buffer to format the Bluetooth status
-            static mut BLUETOOTH_STATUS: String = new_string();
+            //  Format the Bluetooth status
+            let mut buf = new_string();
+            write!(
+                &mut buf,              //  Write the formatted text here
+                "{} \u{F293}#\0",      //  LV_SYMBOL_BLUETOOTH. Must terminate Rust strings with null.
+                color
+            ).expect("bt fail");
 
-            //  Format the Bluetooth status and set the label
-            unsafe {                       //  Unsafe because BLUETOOTH_STATUS is a mutable static
-                BLUETOOTH_STATUS.clear();  //  Erase the buffer
-
-                write!(
-                    &mut BLUETOOTH_STATUS, //  Write the formatted text
-                    "{} \u{F293}#\0",      //  LV_SYMBOL_BLUETOOTH. Must terminate Rust strings with null.
-                    color
-                ).expect("bt fail");
-
-                label::set_text(           //  Set the label
-                    self.bluetooth_label, 
-                    &to_strn(&BLUETOOTH_STATUS)
-                ) ? ;
-            }
+            //  Set the label
+            label::set_text(
+                self.bluetooth_label, 
+                &to_strn(&buf)
+            ) ? ;
         }
         Ok(())
     }
 ```
 
-Update power indicator...
-
-[`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L243-L287)
+Lastly our function `update_power` refreshes the Power Label like so: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L225-L265)
 
 ```rust
 impl BarebonesWatchFace {
+
     /// Populate the Power Label with the Power Indicator (Charging & Battery)
     fn update_power(&self, state: &WatchFaceState) -> MynewtResult<()> {
         //  Get the active screen
@@ -876,27 +851,22 @@ impl BarebonesWatchFace {
             if state.powered { "\u{F0E7}" }  //  LV_SYMBOL_CHARGE
             else             { " " };
 
-        //  Create a string buffer to format the Power Indicator
-        static mut BATTERY_STATUS: String = new_string();
+        //  Format the Power Indicator
+        let mut buf = new_string();
+        write!(
+            &mut buf,                    //  Write the formatted text here
+            "{} {}%{}#\nRUST ({}mV)\0",  //  Must terminate Rust strings with null
+            color,
+            percentage,
+            symbol,
+            state.millivolts
+        ).expect("batt fail");
 
-        //  Format thePower Indicator and set the label
-        unsafe {                             //  Unsafe because BATTERY_STATUS is a mutable static
-            BATTERY_STATUS.clear();          //  Erase the buffer
-
-            write!(
-                &mut BATTERY_STATUS, 
-                "{} {}%{}#\nRUST ({}mV)\0",  //  Must terminate Rust strings with null
-                color,
-                percentage,
-                symbol,
-                state.millivolts
-            ).expect("batt fail");
-
-            label::set_text(
-                self.power_label, 
-                &to_strn(&BATTERY_STATUS)
-            ) ? ; 
-        }
+        //  Set the label
+        label::set_text(
+            self.power_label, 
+            &to_strn(&buf)
+        ) ? ; 
         obj::align(
             self.power_label, screen, 
             obj::LV_ALIGN_IN_TOP_RIGHT, 0, 0
