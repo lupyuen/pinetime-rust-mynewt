@@ -80,12 +80,13 @@
 <li><a href="#update-date-label">11.2 Update Date Label</a><ul></ul></li>
 <li><a href="#update-bluetooth-label">11.3 Update Bluetooth Label</a><ul></ul></li>
 <li><a href="#update-power-label">11.4 Update Power Label</a><ul></ul></li></ul></li>
-<li><a href="#watch-face-framework-in-rust">12 Watch Face Framework in Rust</a><ul></ul></li>
+<li><a href="#discover-rust-watch-faces-and-publish-your-own">12 Discover Rust Watch Faces and Publish Your Own</a><ul></ul></li>
 <li><a href="#preview-a-rust-watch-face">13 Preview a Rust Watch Face</a><ul></ul></li>
 <li><a href="#build-and-flash-a-rust-watch-face">14 Build and Flash a Rust Watch Face</a><ul></ul></li>
-<li><a href="#porting-lvgl-to-mynewt">15 Porting LVGL to Mynewt</a><ul></ul></li>
-<li><a href="#rust-wrapper-for-lvgl">16 Rust Wrapper for LVGL</a><ul></ul></li>
-<li><a href="#whats-next">17 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Bluetooth Time Sync and Rust Watch Face" /></p>
+<li><a href="#watch-face-framework-in-rust">15 Watch Face Framework in Rust</a><ul></ul></li>
+<li><a href="#porting-lvgl-to-mynewt">16 Porting LVGL to Mynewt</a><ul></ul></li>
+<li><a href="#rust-wrapper-for-lvgl">17 Rust Wrapper for LVGL</a><ul></ul></li>
+<li><a href="#whats-next">18 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Bluetooth Time Sync and Rust Watch Face" /></p>
 <p>Let's learn how PineTime syncs the time over Bluetooth LE... And how we build PineTime Watch Faces with Rust and LVGL.</p>
 <h1 id="time-sync-over-bluetooth-le" class="section-header"><a href="#time-sync-over-bluetooth-le">1 Time Sync over Bluetooth LE</a></h1>
 <p>Try this on your Android phone...</p>
@@ -814,7 +815,31 @@ static void watch_face_callback(struct os_event *ev) {
         <span class="prelude-val">Ok</span>(())
     }</pre></div>
 <p><code>\u{F0E7}</code> is the Unicode Symbol for the Charging Icon.</p>
-<h1 id="watch-face-framework-in-rust" class="section-header"><a href="#watch-face-framework-in-rust">12 Watch Face Framework in Rust</a></h1>
+<h1 id="discover-rust-watch-faces-and-publish-your-own" class="section-header"><a href="#discover-rust-watch-faces-and-publish-your-own">12 Discover Rust Watch Faces and Publish Your Own</a></h1>
+<p>TODO</p>
+<p><em>How can we discover PineTime Watch Faces that others have created?</em></p>
+<p><em>So that we may load them into our watches... Even modify them?</em></p>
+<p><img src="https://lupyuen.github.io/images/timesync-crate.jpg" alt="Discovering Watch Faces at crates.io" /></p>
+<p>It's easy to discover Rust Watch Faces for PineTime! Just head over to <a href="https://crates.io"><strong>crates.io</strong></a> and search for...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">pinetime</span> <span class="ident">watchface</span></pre></div>
+<p>Each Watch Face comes with its own link to let us preview the Watch Face in our web browser (thanks to WebAssembly)</p>
+<p><a href="https://lupyuen.github.io/barebones-watchface/lvgl.html">Here's the link to preview Barebones Watch Face</a></p>
+<p><img src="https://lupyuen.github.io/images/timesync-simulator.jpg" alt="Watch Face Simulator" /></p>
+<p><em>How do we publish our own Watch Face?</em></p>
+<p>Let's learn to create your own Rust Watch Face</p>
+<p>Fork</p>
+<p>Change RUST to LOVE</p>
+<p>Preview URL</p>
+<p>Update Cargo.toml</p>
+<p>Publish to crates.io</p>
+<p>https://doc.rust-lang.org/cargo/reference/publishing.html</p>
+<h1 id="preview-a-rust-watch-face" class="section-header"><a href="#preview-a-rust-watch-face">13 Preview a Rust Watch Face</a></h1>
+<p>TODO</p>
+<h1 id="build-and-flash-a-rust-watch-face" class="section-header"><a href="#build-and-flash-a-rust-watch-face">14 Build and Flash a Rust Watch Face</a></h1>
+<p>TODO</p>
+<h1 id="watch-face-framework-in-rust" class="section-header"><a href="#watch-face-framework-in-rust">15 Watch Face Framework in Rust</a></h1>
 <p>TODO: Watch Face Framework in <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs"><code>pinetime-watchface/blob/master/src/lib.rs</code></a></p>
 <p>Start the watch face...</p>
 
@@ -898,11 +923,7 @@ static void watch_face_callback(struct os_event *ev) {
     };
     <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Timer fail&quot;</span>);
 }</pre></div>
-<h1 id="preview-a-rust-watch-face" class="section-header"><a href="#preview-a-rust-watch-face">13 Preview a Rust Watch Face</a></h1>
-<p>TODO</p>
-<h1 id="build-and-flash-a-rust-watch-face" class="section-header"><a href="#build-and-flash-a-rust-watch-face">14 Build and Flash a Rust Watch Face</a></h1>
-<p>TODO</p>
-<h1 id="porting-lvgl-to-mynewt" class="section-header"><a href="#porting-lvgl-to-mynewt">15 Porting LVGL to Mynewt</a></h1>
+<h1 id="porting-lvgl-to-mynewt" class="section-header"><a href="#porting-lvgl-to-mynewt">16 Porting LVGL to Mynewt</a></h1>
 <p>TODO: SPI Driver for ST7789 Display Controller, <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt"><code>pinetime_lvgl_mynewt</code></a></p>
 <p>Located at <code>libs/pinetime_lvgl_mynewt</code></p>
 <p><a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lvgl.c"><code>src/pinetime/lvgl.c</code></a></p>
@@ -989,9 +1010,9 @@ int pinetime_lvgl_mynewt_write_data(const uint8_t *data, uint16_t len) {
     return 0;
 }
 </code></pre>
-<h1 id="rust-wrapper-for-lvgl" class="section-header"><a href="#rust-wrapper-for-lvgl">16 Rust Wrapper for LVGL</a></h1>
+<h1 id="rust-wrapper-for-lvgl" class="section-header"><a href="#rust-wrapper-for-lvgl">17 Rust Wrapper for LVGL</a></h1>
 <p>TODO: Bindgen, Safe Wrapper Proc Macro, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/lvgl"><code>rust/lvgl</code></a></p>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">17 What's Next</a></h1>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">18 What's Next</a></h1>
 <p>TODO: Bluetooth Time Sync, Rust Watch Faces and LVGL were developed and tested with Remote PineTime</p>
 <p><a href="https://lupyuen.github.io">Check out my PineTime articles</a></p>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>

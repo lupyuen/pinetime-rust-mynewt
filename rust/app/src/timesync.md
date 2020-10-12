@@ -915,17 +915,29 @@ impl BarebonesWatchFace {
 
 `\u{F0E7}` is the Unicode Symbol for the Charging Icon.
 
-![Discovering Watch Faces at crates.io](https://lupyuen.github.io/images/timesync-crate.jpg)
-
 # Discover Rust Watch Faces and Publish Your Own
 
+_How can we discover PineTime Watch Faces that others have created?_
+
+_So that we may load them into our watches... Even modify them?_
+
+![Discovering Watch Faces at crates.io](https://lupyuen.github.io/images/timesync-crate.jpg)
+
+It's easy to discover Rust Watch Faces for PineTime! Just head over to [__crates.io__](https://crates.io) and search for...
+
+```
+pinetime watchface
+```
+
+Each Watch Face comes with its own link to let us preview the Watch Face in our web browser (thanks to WebAssembly)
+
+[Here's the link to preview Barebones Watch Face](https://lupyuen.github.io/barebones-watchface/lvgl.html)
+
+![Watch Face Simulator](https://lupyuen.github.io/images/timesync-simulator.jpg)
+
+_How do we publish our own Watch Face?_
+
 TODO
-
-Go to crates.io
-
-Search for `pinetime watchface`
-
-Preview in WebAssembly
 
 Let's learn to create your own Rust Watch Face
 
