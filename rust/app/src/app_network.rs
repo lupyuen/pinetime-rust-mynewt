@@ -83,7 +83,7 @@ fn send_sensor_data(val: &SensorValue) -> MynewtResult<()>  {  //  Returns an er
     console::flush(); ////
 
     //  Get a randomly-generated device ID that changes each time we restart the device.
-    let device_id = sensor_network::get_device_id() ? ;
+    let device_id = strn!("NO_DEVICE_ID"); //  TODO: sensor_network::get_device_id() ? ;
 
     //  Start composing the CoAP Server message with the sensor data in the payload.  This will 
     //  block other tasks from composing and posting CoAP messages (through a semaphore).
