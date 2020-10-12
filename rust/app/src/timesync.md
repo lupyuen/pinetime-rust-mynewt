@@ -915,6 +915,28 @@ impl BarebonesWatchFace {
 
 `\u{F0E7}` is the Unicode Symbol for the Charging Icon.
 
+![Discovering Watch Faces at crates.io](https://lupyuen.github.io/images/timesync-crate.jpg)
+
+# Discover Rust Watch Faces
+
+TODO
+
+Go to crates.io
+
+Search for `pinetime watchface`
+
+Preview in WebAssembly
+
+Let's learn to create your own Rust Watch Face
+
+# Preview a Rust Watch Face
+
+TODO
+
+# Build and Flash a Rust Watch Face
+
+TODO
+
 # Watch Face Framework in Rust
 
 TODO: Watch Face Framework in [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs)
@@ -1004,14 +1026,6 @@ extern fn watch_face_callback(_ev: *mut os::os_event) {
     assert!(rc == 0, "Timer fail");
 }
 ```
-
-# Preview a Rust Watch Face
-
-TODO
-
-# Build and Flash a Rust Watch Face
-
-TODO
 
 # Porting LVGL to Mynewt
 
