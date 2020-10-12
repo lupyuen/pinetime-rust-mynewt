@@ -9,7 +9,3 @@ git submodule update --init
 ## Contents
 
 [`app`](app): Rust Application
-
-[`mynewt`](mynewt): Rust Safe Wrappers for Mynewt API
-
-[`macros`](macros): Rust Procedural Macros
