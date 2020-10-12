@@ -8,11 +8,11 @@ version = "1.0.2"
 
 # External Rust libraries used by this module.  See crates.io.
 [dependencies]
-pinetime-macros     = "1.0.2"  # Safe Wrapper Macros for Mynewt on PineTime Smart Watch: https://crates.io/crates/pinetime-macros
-pinetime-mynewt     = "1.0.2"  # Mynewt Bindings for PineTime Smart Watch: https://crates.io/crates/pinetime-mynewt
-pinetime-lvgl       = "1.0.2"  # LVGL Bindings for Mynewt on PineTime Smart Watch: https://crates.io/crates/pinetime-lvgl
-pinetime-watchface  = "1.0.2"  # Watch Face Framework for Rust + Mynewt on PineTime Smart Watch: https://crates.io/crates/pinetime-watchface
-barebones-watchface = "1.0.3"  # Barebones Watch Face for Rust + Mynewt on PineTime Smart Watch: https://crates.io/crates/barebones-watchface
+pinetime-macros     = "1.0.3"  # Safe Wrapper Macros for Mynewt on PineTime Smart Watch: https://crates.io/crates/pinetime-macros
+pinetime-mynewt     = "1.0.3"  # Mynewt Bindings for PineTime Smart Watch: https://crates.io/crates/pinetime-mynewt
+pinetime-lvgl       = "1.0.3"  # LVGL Bindings for Mynewt on PineTime Smart Watch: https://crates.io/crates/pinetime-lvgl
+pinetime-watchface  = "1.0.3"  # Watch Face Framework for Rust + Mynewt on PineTime Smart Watch: https://crates.io/crates/pinetime-watchface
+barebones-watchface = "1.0.4"  # Barebones Watch Face for Rust + Mynewt on PineTime Smart Watch: https://crates.io/crates/barebones-watchface
 arrayvec            = { version = "0.5.1", default-features = false }
 embedded-hal        = "0.2.3" # Rust Embedded HAL Framework
 cortex-m            = { version = "0.6.1", features = [ "inline-asm" ] }  # Arm Cortex-M utilities: https://crates.io/crates/cortex-m
