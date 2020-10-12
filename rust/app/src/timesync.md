@@ -917,7 +917,7 @@ impl BarebonesWatchFace {
 
 ![Discovering Watch Faces at crates.io](https://lupyuen.github.io/images/timesync-crate.jpg)
 
-# Discover Rust Watch Faces
+# Discover Rust Watch Faces and Publish Your Own
 
 TODO
 
@@ -928,6 +928,18 @@ Search for `pinetime watchface`
 Preview in WebAssembly
 
 Let's learn to create your own Rust Watch Face
+
+Fork
+
+Change RUST to LOVE
+
+Preview URL
+
+Update Cargo.toml
+
+Publish to crates.io
+
+https://doc.rust-lang.org/cargo/reference/publishing.html
 
 # Preview a Rust Watch Face
 
