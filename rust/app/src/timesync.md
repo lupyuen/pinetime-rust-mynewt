@@ -729,7 +729,7 @@ impl WatchFace for BarebonesWatchFace {
     }    
 ```
 
-Let's study how the `update_date_time`, `update_bluetooth` and `update_power` functions refreshes the Date, Time, Bluetooth and Power Labels...
+Let's study how the `update_date_time`, `update_bluetooth` and `update_power` functions refresh the Date, Time, Bluetooth and Power Labels...
 
 ![Watch Face Layout](https://lupyuen.github.io/images/timesync-layout.png)
 
