@@ -19,8 +19,9 @@
             //  Arm System View Description, from apache-mynewt-core/hw/mcu/nordic/src/ext/nrfx/mdk
             "svdFile": "scripts/nrf52/nrf52.svd",
             "configFiles": [ 
-                //  Tell OpenOCD to open the SPI connection to SWD Port on PineTime.
-                "scripts/nrf52-pi/swd-pi.ocd",
+                //  Tell OpenOCD to open the ST Link connection to SWD Port on PineTime.
+                "interface/stlink-v2.cfg",
+                "target/nrf52.cfg",
                 //  Tell OpenOCD to run our custom debug commands.
                 "scripts/nrf52/debug.ocd"
             ],
