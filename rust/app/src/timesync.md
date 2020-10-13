@@ -979,19 +979,56 @@ _How do we publish our own Watch Face?_
     https://YOUR_GITHUB_ACCOUNT.github.io/barebones-watchface
     ```
 
-    where `YOUR_GITHUB_ACCOUNT` is your GitHub Account Name.
+    Change `YOUR_GITHUB_ACCOUNT` to your GitHub Account Name.
 
     Click `PineTime Watch Face Simulator` and your Custom Watch Face appears (rendered with WebAssembly)...
 
     ![Publish Watch Face Step 6](https://lupyuen.github.io/images/timesync-publish6.jpg)
 
-TODO
+1.  Your Custom Watch Face can now be built and installed by other PineTime Owners! Just share with them your Watch Face repo URL...
 
-Share by URL
+    ```
+    https://github.com/YOUR_GITHUB_ACCOUNT/barebones-watchface
+    ```
 
-Publish to crates.io
+    Change `YOUR_GITHUB_ACCOUNT` to your GitHub Account Name.
 
-https://doc.rust-lang.org/cargo/reference/publishing.html
+    You should probably rename `barebone-watchface`... Just click `Settings` to rename your repo.
+
+    Remember to edit [`README.md`](https://github.com/lupyuen/barebones-watchface/blob/master/README.md) and change the preview URL...
+
+    ```
+    [__Preview this Watch Face in your web browser__](https://lupyuen.github.io/barebones-watchface/lvgl.html)
+    ```
+
+But most PineTime Owners won't know that your Watch Face exists... That's why we upload our Watch Faces to crates.io as a Central Registry of all Rust Watch Faces for PineTime.
+
+_How do we upload our Custom Watch Face to crates.io?_
+
+Follow the instructions here: ["Publishing on crates.io"](https://doc.rust-lang.org/cargo/reference/publishing.html)
+
+Update the fields in [`Cargo.toml`](https://github.com/lupyuen/barebones-watchface/blob/master/Cargo.toml) to describe your Watch Face...
+
+```yaml
+[package]
+name          = "barebones-watchface"
+version       = "1.0.5"
+authors       = ["Lee Lup Yuen <luppy@appkaki.com>"]
+edition       = "2018"
+description   = "Barebones Watch Face for Mynewt on PineTime Smart Watch"
+repository    = "https://github.com/lupyuen/barebones-watchface"
+documentation = "https://docs.rs/barebones-watchface"
+categories    = ["embedded", "no-std"]
+keywords      = ["pinetime", "mynewt", "watchface", "barebones"]
+readme        = "./README.md"
+license       = "Apache-2.0"
+```
+
+Always keep `pinetime` and `watchface` in the `keywords` so that your Watch Face will appear when PineTime Owners search for `pinetime watchface` on crates.io.
+
+The Documentation URL `docs.rs/YOUR_WATCH_FACE` will be automatically generated when we have published our Watch Face to crates.io.
+
+[Check out the `docs.rs` documentation for Barebones Watchface](https://docs.rs/barebones-watchface)
 
 # Preview a Rust Watch Face
 
@@ -1199,6 +1236,14 @@ TODO: Bindgen, Safe Wrapper Proc Macro, [`rust/lvgl`](https://github.com/lupyuen
 # What's Next
 
 TODO: Bluetooth Time Sync, Rust Watch Faces and LVGL were developed and tested with Remote PineTime
+
+Watch Apps
+
+Not as mature as other firmware, needs more work
+
+LVGL wrappers are not complete
+
+In the meantime, please go ahead and create your own Watch Faces and publish them on crates.io
 
 [Check out my PineTime articles](https://lupyuen.github.io)
 
