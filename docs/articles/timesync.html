@@ -81,7 +81,12 @@
 <li><a href="#update-bluetooth-label">11.3 Update Bluetooth Label</a><ul></ul></li>
 <li><a href="#update-power-label">11.4 Update Power Label</a><ul></ul></li></ul></li>
 <li><a href="#discover-rust-watch-faces-and-publish-your-own">12 Discover Rust Watch Faces and Publish Your Own</a><ul></ul></li>
-<li><a href="#build-and-flash-mynewt-firmware">13 Build and Flash Mynewt Firmware</a><ul></ul></li>
+<li><a href="#build-and-flash-mynewt-firmware">13 Build and Flash Mynewt Firmware</a><ul>
+<li><a href="#github-actions">13.1 GitHub Actions</a><ul></ul></li>
+<li><a href="#gitlab-ci">13.2 GitLab CI</a><ul></ul></li>
+<li><a href="#linux-macos-and-windows">13.3 Linux, macOS and Windows</a><ul></ul></li>
+<li><a href="#flash-firmware-to-pinetime">13.4 Flash Firmware to PineTime</a><ul></ul></li>
+<li><a href="#specify-the-watch-face">13.5 Specify the Watch Face</a><ul></ul></li></ul></li>
 <li><a href="#watch-face-framework-in-rust">14 Watch Face Framework in Rust</a><ul></ul></li>
 <li><a href="#porting-lvgl-to-mynewt">15 Porting LVGL to Mynewt</a><ul></ul></li>
 <li><a href="#rust-wrapper-for-lvgl">16 Rust Wrapper for LVGL</a><ul></ul></li>
@@ -922,26 +927,127 @@ license       = &quot;Apache-2.0&quot;
 <p>The Documentation URL <code>docs.rs/YOUR_WATCH_FACE</code> will be automatically generated when we have published our Watch Face to crates.io.</p>
 <p><a href="https://docs.rs/barebones-watchface">Check out the <code>docs.rs</code> documentation for Barebones Watchface</a></p>
 <h1 id="build-and-flash-mynewt-firmware" class="section-header"><a href="#build-and-flash-mynewt-firmware">13 Build and Flash Mynewt Firmware</a></h1>
+<p><em>How do we install our Custom Watch Face on a real PineTime watch?</em></p>
+<p>We need to build the <a href="https://github.com/lupyuen/pinetime-rust-mynewt"><strong><code>pinetime-rust-mynewt</code></strong></a> firmware... Then flash the firmware to PineTime. </p>
+<p>Choose one of the following ways to build the firmware...</p>
+<ol>
+<li>
+<p><strong>GitHub Actions</strong> (in the GitHub Cloud, no software installation needed)</p>
+</li>
+<li>
+<p><strong>GitLab CI</strong> (in the GitLab Cloud, no software installation needed)</p>
+</li>
+<li>
+<p><strong>Linux</strong> (including PineBook Pro and Raspberry Pi)</p>
+</li>
+<li>
+<p><strong>macOS</strong></p>
+</li>
+<li>
+<p><strong>Windows</strong> (plain old CMD, without MinGW or WSL)</p>
+</li>
+</ol>
+<p>If you don't have a PineTime, try flashing and testing on <a href="https://github.com/lupyuen/remote-pinetime-bot/blob/master/README.md"><strong>Remote PineTime</strong></a> instead. </p>
+<p>It's a real PineTime watch that's connected 24x7 to the internet... For anyone to flash and test firmware from anywhere in the world.</p>
+<p>Here are the instructions for building the firmware...</p>
+<h2 id="github-actions" class="section-header"><a href="#github-actions">13.1 GitHub Actions</a></h2>
+<ol>
+<li>
+<p>Fork the GitHub Repo: <a href="https://github.com/lupyuen/pinetime-rust-mynewt"><code>github.com/lupyuen/pinetime-rust-mynewt</code></a></p>
+</li>
+<li>
+<p>Click <code>Actions</code> → <code>I Understand My Workflows Enable Them</code></p>
+</li>
+<li>
+<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml"><code>rust/app/Cargo.toml</code></a> and <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/lib.rs"><code>rust/app/src/lib.rs</code></a> to select the Watch Face (see below)</p>
+</li>
+<li>
+<p>This will trigger the firmware build. Click <code>Actions</code> to download the built firmware Artifact <code>my_sensor_app.img</code></p>
+</li>
+<li>
+<p>GitHub Actions Workflow is at <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/.github/workflows/main.yml"><code>.github/workflows/main.yml</code></a></p>
+</li>
+</ol>
+<h2 id="gitlab-ci" class="section-header"><a href="#gitlab-ci">13.2 GitLab CI</a></h2>
+<ol>
+<li>
+<p>Fork the GitLab Repo: <a href="https://gitlab.com/lupyuen/pinetime-rust-mynewt"><code>gitlab.com/lupyuen/pinetime-rust-mynewt</code></a></p>
+</li>
+<li>
+<p>Enable GitLab CI for the forked repo</p>
+</li>
+<li>
+<p>Edit <a href="https://gitlab.com/lupyuen/pinetime-rust-mynewt/-/blob/master/rust/app/Cargo.toml"><code>rust/app/Cargo.toml</code></a> and <a href="https://gitlab.com/lupyuen/pinetime-rust-mynewt/-/blob/master/rust/app/src/lib.rs"><code>rust/app/src/lib.rs</code></a> to select the Watch Face (see below)</p>
+</li>
+<li>
+<p>This will trigger the firmware build. Click <code>CI / CD</code> to download the built firmware Artifact <code>my_sensor_app.img</code></p>
+</li>
+<li>
+<p>GitLab CI Workflow is at <a href="https://gitlab.com/lupyuen/pinetime-rust-mynewt/-/blob/master/.gitlab-ci.yml"><code>.gitlab-ci.yml</code></a></p>
+</li>
+</ol>
+<h2 id="linux-macos-and-windows" class="section-header"><a href="#linux-macos-and-windows">13.3 Linux, macOS and Windows</a></h2>
+<p>Follow the steps under <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#build-instructions">&quot;Build Instructions&quot;</a>...</p>
+<ol>
+<li>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#install-build-tools">&quot;Install Build Tools&quot;</a></p>
+</li>
+<li>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#download-source-files">&quot;Download Source Files&quot;</a></p>
+</li>
+<li>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#build-application-firmware">&quot;Build Application Firmware&quot;</a></p>
+</li>
+</ol>
+<p>We'll flash this built firmware file in the next step...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">img</span></pre></div>
+<h2 id="flash-firmware-to-pinetime" class="section-header"><a href="#flash-firmware-to-pinetime">13.4 Flash Firmware to PineTime</a></h2>
+<p>We'll flash the firmware using an ST-Link v2 or Raspberry Pi.  (We don't recommend flashing by Bluetooth... The firmware is not fully tested and may brick our watch)</p>
+<ol>
+<li>
+<p>Download and run <a href="https://github.com/lupyuen/pinetime-updater/blob/master/README.md"><strong>PineTime Updater</strong></a>. Connect ST-Link v2 or Raspberry Pi according to the instructions provided.</p>
+</li>
+<li>
+<p>Select <code>Latest Bootloader</code></p>
+</li>
+<li>
+<p>PineTime Updater exits after flashing the bootloader. Start PineTime Updater again.</p>
+</li>
+<li>
+<p>Select <code>Downloaded File</code></p>
+</li>
+<li>
+<p>Enter the downloaded path of <code>my_sensor_app.img</code></p>
+</li>
+<li>
+<p>Enter <code>0x8000</code> as the address</p>
+</li>
+<li>
+<p>Our firmware starts running</p>
+</li>
+</ol>
+<p>The bootloader only needs to be flashed once.</p>
+<h2 id="specify-the-watch-face" class="section-header"><a href="#specify-the-watch-face">13.5 Specify the Watch Face</a></h2>
 <p>TODO</p>
-<p>Specify Watch Face</p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml"><code>pinetime-rust-mynewt/rust/app/Cargo.toml</code></a></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml"><code>rust/app/Cargo.toml</code></a></p>
 <pre><code class="language-yaml"># External Rust libraries used by this module
 [dependencies]
 ...
 barebones-watchface = &quot;1.0.5&quot;
 </code></pre>
-<p>To select this watch face, set <code>WatchFaceType</code> in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/lib.rs"><code>pinetime-rust-mynewt/rust/app/src/lib.rs</code></a></p>
+<pre><code class="language-yaml">my-watchface = &quot;1.0.5&quot;
+</code></pre>
+<pre><code class="language-yaml">my-watchface = { git = &quot;https://github.com/lupyuen/my-watchface&quot; }
+</code></pre>
+<p>To select this watch face, set <code>WatchFaceType</code> in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/lib.rs"><code>rust/app/src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// Declare the Watch Face Type</span>
 <span class="kw">type</span> <span class="ident">WatchFaceType</span> <span class="op">=</span> <span class="ident">barebones_watchface</span>::<span class="ident">BarebonesWatchFace</span>;</pre></div>
 <p>The WebAssembly Simulator for this watch face was auto-generated by a GitHub Actions Workflow: <a href=".github/workflows/simulator.yml"><code>simulator.yml</code></a></p>
 <p>Source code for the WebAssembly Simulator is at the <a href="https://github.com/AppKaki/lvgl-wasm/tree/mynewt"><code>mynewt</code></a> branch of <a href="https://github.com/AppKaki/lvgl-wasm/tree/mynewt"><code>github.com/AppKaki/lvgl-wasm</code></a></p>
-<p>GitHub Actions</p>
-<p>GitLab CI/CD</p>
-<p>Linux (Raspberry Pi, Pinebook Pro)</p>
-<p>macOS</p>
-<p>Windows</p>
 <h1 id="watch-face-framework-in-rust" class="section-header"><a href="#watch-face-framework-in-rust">14 Watch Face Framework in Rust</a></h1>
 <p>TODO: Watch Face Framework in <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs"><code>pinetime-watchface/blob/master/src/lib.rs</code></a></p>
 <p>Start the watch face...</p>
