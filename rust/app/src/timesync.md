@@ -915,13 +915,15 @@ impl BarebonesWatchFace {
 
 `\u{F0E7}` is the Unicode Symbol for the Charging Icon.
 
-To learn more about the Watch Face Framework and the Rust Wrappers for LVGL and Mynewt...
+To learn more about the Watch Face Framework and the Rust Wrappers for LVGL and Mynewt (and the helper macros)...
 
 - [Documentation for `pinetime-watchface`](https://docs.rs/pinetime-watchface)
 
 - [Documentation for `pinetime-lvgl`](https://docs.rs/pinetime-lvgl)
 
 - [Documentation for `pinetime-mynewt`](https://docs.rs/pinetime-mynewt)
+
+- [Documentation for `pinetime-macros`](https://docs.rs/pinetime-macros)
 
 Now that we understand Rust Watch Faces, let's publish our own Watch Face on crates.io...
 
