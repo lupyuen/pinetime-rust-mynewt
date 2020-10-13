@@ -87,10 +87,10 @@
 <li><a href="#linux-macos-and-windows">13.3 Linux, macOS and Windows</a><ul></ul></li>
 <li><a href="#flash-firmware-to-pinetime">13.4 Flash Firmware to PineTime</a><ul></ul></li>
 <li><a href="#specify-the-watch-face">13.5 Specify the Watch Face</a><ul></ul></li></ul></li>
-<li><a href="#watch-face-framework-in-rust">14 Watch Face Framework in Rust</a><ul></ul></li>
-<li><a href="#porting-lvgl-to-mynewt">15 Porting LVGL to Mynewt</a><ul></ul></li>
-<li><a href="#rust-wrapper-for-lvgl">16 Rust Wrapper for LVGL</a><ul></ul></li>
-<li><a href="#whats-next">17 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Bluetooth Time Sync and Rust Watch Face" /></p>
+<li><a href="#whats-next">14 What's Next</a><ul></ul></li>
+<li><a href="#watch-face-framework-in-rust">15 Watch Face Framework in Rust</a><ul></ul></li>
+<li><a href="#porting-lvgl-to-mynewt">16 Porting LVGL to Mynewt</a><ul></ul></li>
+<li><a href="#rust-wrapper-for-lvgl">17 Rust Wrapper for LVGL</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Bluetooth Time Sync and Rust Watch Face" /></p>
 <p>Let's learn how PineTime syncs the time over Bluetooth LE... And how we build PineTime Watch Faces with Rust and LVGL.</p>
 <h1 id="time-sync-over-bluetooth-le" class="section-header"><a href="#time-sync-over-bluetooth-le">1 Time Sync over Bluetooth LE</a></h1>
 <p>Try this on your Android phone...</p>
@@ -1004,13 +1004,14 @@ license       = &quot;Apache-2.0&quot;
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">img</span></pre></div>
 <h2 id="flash-firmware-to-pinetime" class="section-header"><a href="#flash-firmware-to-pinetime">13.4 Flash Firmware to PineTime</a></h2>
-<p>We'll flash the firmware using an ST-Link v2 or Raspberry Pi.  (We don't recommend flashing by Bluetooth... The firmware is not fully tested and may brick our watch)</p>
+<p>We'll flash the firmware the wired way using an ST-Link v2 or Raspberry Pi.  (We don't recommend flashing by Bluetooth... The firmware is not fully tested and may brick our watch)</p>
+<p><em>For macOS and Linux...</em></p>
 <ol>
 <li>
 <p>Download and run <a href="https://github.com/lupyuen/pinetime-updater/blob/master/README.md"><strong>PineTime Updater</strong></a>. Connect ST-Link v2 or Raspberry Pi according to the instructions provided.</p>
 </li>
 <li>
-<p>Select <code>Latest Bootloader</code></p>
+<p>Select <code>Latest Bootloader</code>. The bootloader only needs to be flashed once.</p>
 </li>
 <li>
 <p>PineTime Updater exits after flashing the bootloader. Start PineTime Updater again.</p>
@@ -1025,30 +1026,77 @@ license       = &quot;Apache-2.0&quot;
 <p>Enter <code>0x8000</code> as the address</p>
 </li>
 <li>
-<p>Our firmware starts running</p>
+<p>After flashing, PineTime starts running our firmware</p>
 </li>
 </ol>
-<p>The bootloader only needs to be flashed once.</p>
+<p><em>For Windows...</em></p>
+<p>Follow the steps under <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#build-instructions">&quot;Build Instructions&quot;</a>...</p>
+<ol>
+<li>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#build-mcuboot-bootloader">&quot;Build MCUBoot Bootloader&quot;</a></p>
+</li>
+<li>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#flash-mcuboot-bootloader">&quot;Flash MCUBoot Bootloader&quot;</a>. The bootloader only needs to be built and flashed once.</p>
+</li>
+<li>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#flash-application-firmware">&quot;Flash Application Firmware&quot;</a></p>
+</li>
+</ol>
 <h2 id="specify-the-watch-face" class="section-header"><a href="#specify-the-watch-face">13.5 Specify the Watch Face</a></h2>
-<p>TODO</p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml"><code>rust/app/Cargo.toml</code></a></p>
+<p>To specify the Watch Face for the firmware...</p>
+<ol>
+<li>
+<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml"><code>rust/app/Cargo.toml</code></a></p>
+</li>
+<li>
+<p>Look for the <code>barebones-watchface</code> dependency..</p>
 <pre><code class="language-yaml"># External Rust libraries used by this module
 [dependencies]
 ...
 barebones-watchface = &quot;1.0.5&quot;
 </code></pre>
+</li>
+<li>
+<p>Replace the entire line with the Watch Face name and version found on crates.io...</p>
 <pre><code class="language-yaml">my-watchface = &quot;1.0.5&quot;
 </code></pre>
+<p>If the Watch Face isn't published on crates.io, specify the Git URL like so...</p>
 <pre><code class="language-yaml">my-watchface = { git = &quot;https://github.com/lupyuen/my-watchface&quot; }
 </code></pre>
-<p>To select this watch face, set <code>WatchFaceType</code> in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/lib.rs"><code>rust/app/src/lib.rs</code></a></p>
+</li>
+<li>
+<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/lib.rs"><code>rust/app/src/lib.rs</code></a></p>
+</li>
+<li>
+<p>Look for <code>WatchFaceType</code>...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// Declare the Watch Face Type</span>
 <span class="kw">type</span> <span class="ident">WatchFaceType</span> <span class="op">=</span> <span class="ident">barebones_watchface</span>::<span class="ident">BarebonesWatchFace</span>;</pre></div>
-<p>The WebAssembly Simulator for this watch face was auto-generated by a GitHub Actions Workflow: <a href=".github/workflows/simulator.yml"><code>simulator.yml</code></a></p>
-<p>Source code for the WebAssembly Simulator is at the <a href="https://github.com/AppKaki/lvgl-wasm/tree/mynewt"><code>mynewt</code></a> branch of <a href="https://github.com/AppKaki/lvgl-wasm/tree/mynewt"><code>github.com/AppKaki/lvgl-wasm</code></a></p>
-<h1 id="watch-face-framework-in-rust" class="section-header"><a href="#watch-face-framework-in-rust">14 Watch Face Framework in Rust</a></h1>
+</li>
+<li>
+<p>Change <code>barebones_watchface</code> to the Watch Face Crate Name (replace all <code>-</code> by <code>_</code>).</p>
+<p>Change <code>BarebonesWatchFace</code> to the Watch Face Type Name (from <code>README.md</code> or <code>docs.rs</code> documentation).</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">type</span> <span class="ident">WatchFaceType</span> <span class="op">=</span> <span class="ident">my_watchface</span>::<span class="ident">MyWatchFace</span>;</pre></div>
+</li>
+<li>
+<p>Rebuild the firmware and flash to PineTime</p>
+</li>
+</ol>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">14 What's Next</a></h1>
+<p>TODO: Bluetooth Time Sync, Rust Watch Faces and LVGL were developed and tested with Remote PineTime</p>
+<p>Watch Apps</p>
+<p>Not as mature as other firmware, needs more work</p>
+<p>Mynewt and LVGL wrappers are not complete</p>
+<p><a href="https://docs.rs/pinetime-watchface">Documentation for <code>pinetime-watchface</code></a></p>
+<p><a href="https://docs.rs/pinetime-lvgl">Documentation for <code>pinetime-lvgl</code></a></p>
+<p><a href="https://docs.rs/pinetime-mynewt">Documentation for <code>pinetime-mynewt</code></a></p>
+<p>In the meantime, please go ahead and create your own Watch Faces and publish them on crates.io</p>
+<p><a href="https://lupyuen.github.io">Check out my PineTime articles</a></p>
+<p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
+<h1 id="watch-face-framework-in-rust" class="section-header"><a href="#watch-face-framework-in-rust">15 Watch Face Framework in Rust</a></h1>
 <p>TODO: Watch Face Framework in <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs"><code>pinetime-watchface/blob/master/src/lib.rs</code></a></p>
 <p>Start the watch face...</p>
 
@@ -1132,7 +1180,9 @@ barebones-watchface = &quot;1.0.5&quot;
     };
     <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Timer fail&quot;</span>);
 }</pre></div>
-<h1 id="porting-lvgl-to-mynewt" class="section-header"><a href="#porting-lvgl-to-mynewt">15 Porting LVGL to Mynewt</a></h1>
+<p>The WebAssembly Simulator for this watch face was auto-generated by a GitHub Actions Workflow: <a href=".github/workflows/simulator.yml"><code>simulator.yml</code></a></p>
+<p>Source code for the WebAssembly Simulator is at the <a href="https://github.com/AppKaki/lvgl-wasm/tree/mynewt"><code>mynewt</code></a> branch of <a href="https://github.com/AppKaki/lvgl-wasm/tree/mynewt"><code>github.com/AppKaki/lvgl-wasm</code></a></p>
+<h1 id="porting-lvgl-to-mynewt" class="section-header"><a href="#porting-lvgl-to-mynewt">16 Porting LVGL to Mynewt</a></h1>
 <p>TODO: SPI Driver for ST7789 Display Controller, <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt"><code>pinetime_lvgl_mynewt</code></a></p>
 <p>Located at <code>libs/pinetime_lvgl_mynewt</code></p>
 <p><a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lvgl.c"><code>src/pinetime/lvgl.c</code></a></p>
@@ -1219,19 +1269,8 @@ int pinetime_lvgl_mynewt_write_data(const uint8_t *data, uint16_t len) {
     return 0;
 }
 </code></pre>
-<h1 id="rust-wrapper-for-lvgl" class="section-header"><a href="#rust-wrapper-for-lvgl">16 Rust Wrapper for LVGL</a></h1>
+<h1 id="rust-wrapper-for-lvgl" class="section-header"><a href="#rust-wrapper-for-lvgl">17 Rust Wrapper for LVGL</a></h1>
 <p>TODO: Bindgen, Safe Wrapper Proc Macro, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/lvgl"><code>rust/lvgl</code></a></p>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">17 What's Next</a></h1>
-<p>TODO: Bluetooth Time Sync, Rust Watch Faces and LVGL were developed and tested with Remote PineTime</p>
-<p>Watch Apps</p>
-<p>Not as mature as other firmware, needs more work</p>
-<p>Mynewt and LVGL wrappers are not complete</p>
-<p><a href="https://docs.rs/pinetime-watchface">Documentation for <code>pinetime-watchface</code></a></p>
-<p><a href="https://docs.rs/pinetime-lvgl">Documentation for <code>pinetime-lvgl</code></a></p>
-<p><a href="https://docs.rs/pinetime-mynewt">Documentation for <code>pinetime-mynewt</code></a></p>
-<p>In the meantime, please go ahead and create your own Watch Faces and publish them on crates.io</p>
-<p><a href="https://lupyuen.github.io">Check out my PineTime articles</a></p>
-<p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
 
     
 </body>
