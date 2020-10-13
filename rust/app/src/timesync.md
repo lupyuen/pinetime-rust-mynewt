@@ -1057,7 +1057,9 @@ The Documentation URL `docs.rs/YOUR_WATCH_FACE` will be automatically generated 
 
 _How do we install our Custom Watch Face on a real PineTime watch?_
 
-We need to build the [__`pinetime-rust-mynewt`__](https://github.com/lupyuen/pinetime-rust-mynewt) firmware... Then flash the firmware to PineTime. The firmware may be built with...
+We need to build the [__`pinetime-rust-mynewt`__](https://github.com/lupyuen/pinetime-rust-mynewt) firmware... Then flash the firmware to PineTime. 
+
+Choose one of the following ways to build the firmware...
 
 1. __GitHub Actions__ (in the GitHub Cloud, no software installation needed)
 
@@ -1101,21 +1103,39 @@ Here are the instructions for building the firmware...
 
 ## Linux, macOS and Windows
 
-Linux (Raspberry Pi, Pinebook Pro)
+Follow the steps under ["Build Instructions"](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#build-instructions)...
 
-macOS
+1.  ["Install Build Tools"](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#install-build-tools)
 
-Windows
+1.  ["Download Source Files"](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#download-source-files)
 
-TODO
+1.  ["Build Application Firmware"](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#build-application-firmware)
+
+We'll flash this built firmware file in the next step...
+
+```
+bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img
+```
 
 ## Flash Firmware to PineTime
 
-TODO
+We'll flash the firmware using an ST-Link v2 or Raspberry Pi.  (We don't recommend flashing by Bluetooth... The firmware is not fully tested and may brick our watch)
 
-MCUBoot
+1.  Download and run [__PineTime Updater__](https://github.com/lupyuen/pinetime-updater/blob/master/README.md). Connect ST-Link v2 or Raspberry Pi according to the instructions provided.
 
-PineTime Updater
+1.  Select `Latest Bootloader`
+
+1.  PineTime Updater exits after flashing the bootloader. Start PineTime Updater again.
+
+1.  Select `Downloaded File`
+
+1.  Enter the downloaded path of `my_sensor_app.img`
+
+1.  Enter `0x8000` as the address
+
+1.  Our firmware starts running
+
+The bootloader only needs to be flashed once.
 
 ## Specify the Watch Face
 
