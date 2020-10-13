@@ -31,6 +31,32 @@ Refer to the articles...
 
 1. [_PineTime doesn't run Linux... But that's OK!_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime)
 
+1. [_Bluetooth Time Sync, Rust Watch Faces and LVGL on PineTime Mynewt_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync)
+
+1. [_Firmware Update over Bluetooth Low Energy on PineTime Smart Watch_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu)
+
+1. [_Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash)
+
+1. [_MCUBoot Bootloader for PineTime Smart Watch (nRF52)_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot)
+
+1. [_Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest)
+
+1. [_Your First Bluetooth Low Energy App with Flutter_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter)
+
+1. [_Convert Go to Flutter and Dart for PineTime Companion App_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion)
+
+1. [_Your First GTK App with Go and VSCodium_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3)
+
+1. [_Flutter State Management with Bloc for PineTime Companion App_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/bloc)
+
+1. [_Auto Convert Go to Dart with an Abstract Syntax Tree_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/ast)
+
+1. [_My First Week As Embedded FOSS Advocate_](https://medium.com/@ly.lee/my-first-week-as-embedded-foss-advocate-106d625deae?source=friends_link&sk=4128d2bb8a7098658fafc462a1531d34)
+
+1. [_Rust Documentation_](https://lupyuen.github.io/pinetime-rust-mynewt/?1)
+
+The following articles were written for the older version of this firmware. Refer to the [`pre-lvgl`](https://github.com/lupyuen/pinetime-rust-mynewt/tree/pre-lvgl) branch for the source code...
+
 1. [_Visual Rust for PineTime Smart Watch_](https://marketplace.visualstudio.com/items?itemName=LeeLupYuen.visual-embedded-rust)
 
 1. [_Build and Flash Rust+Mynewt Firmware for PineTime Smart Watch_](https://medium.com/@ly.lee/build-and-flash-rust-mynewt-firmware-for-pinetime-smart-watch-5e14259c55?source=friends_link&sk=150b2a73b84144e5ef25b985e65aebe9)
@@ -49,37 +75,13 @@ Refer to the articles...
 
 1. [_CHIP-8 Game Emulator in Rust for PineTime Smart Watch_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/chip8)
 
-1. [_Firmware Update over Bluetooth Low Energy on PineTime Smart Watch_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu)
-
-1. [_Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/spiflash)
-
-1. [_MCUBoot Bootloader for PineTime Smart Watch (nRF52)_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot)
-
-1. [_Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest)
-
 1. [_Porting MicroPython and wasp-os to Mynewt on PineTime Smart Watch (nRF52)_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/micropython)
 
-1. [_Your First Bluetooth Low Energy App with Flutter_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/flutter)
+1.  The firmware design is similar to this earlier article on nRF52: [_Coding nRF52 with Rust and Apache Mynewt on Visual Studio Code_](https://medium.com/@ly.lee/coding-nrf52-with-rust-and-apache-mynewt-on-visual-studio-code-9521bcba6004?source=friends_link&sk=bb4e2523b922d0870259ab3fa696c7da)
 
-1. [_Convert Go to Flutter and Dart for PineTime Companion App_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion)
-
-1. [_Your First GTK App with Go and VSCodium_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/gotk3)
-
-1. [_Flutter State Management with Bloc for PineTime Companion App_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/bloc)
-
-1. [_Auto Convert Go to Dart with an Abstract Syntax Tree_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/ast)
-
-1. [_Bluetooth Time Sync, Rust Watch Faces and LVGL on PineTime Mynewt_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync)
-
-1. [_My First Week As Embedded FOSS Advocate_](https://medium.com/@ly.lee/my-first-week-as-embedded-foss-advocate-106d625deae?source=friends_link&sk=4128d2bb8a7098658fafc462a1531d34)
-
-1. [_Rust Documentation_](https://lupyuen.github.io/pinetime-rust-mynewt/?1)
+[More Articles](https://lupyuen.github.io)
 
 [RSS Feed](https://lupyuen.github.io/rss.xml)
-
-The code structure is similar to the earlier article on nRF52...
-
-[_Coding nRF52 with Rust and Apache Mynewt on Visual Studio Code_](https://medium.com/@ly.lee/coding-nrf52-with-rust-and-apache-mynewt-on-visual-studio-code-9521bcba6004?source=friends_link&sk=bb4e2523b922d0870259ab3fa696c7da)
 
 # Automated Build with GitHub Actions
 
