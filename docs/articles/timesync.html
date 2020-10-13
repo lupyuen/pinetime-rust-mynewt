@@ -815,6 +815,19 @@ static void watch_face_callback(struct os_event *ev) {
         <span class="prelude-val">Ok</span>(())
     }</pre></div>
 <p><code>\u{F0E7}</code> is the Unicode Symbol for the Charging Icon.</p>
+<p>To learn more about the Watch Face Framework and the Rust Wrappers for LVGL and Mynewt...</p>
+<ul>
+<li>
+<p><a href="https://docs.rs/pinetime-watchface">Documentation for <code>pinetime-watchface</code></a></p>
+</li>
+<li>
+<p><a href="https://docs.rs/pinetime-lvgl">Documentation for <code>pinetime-lvgl</code></a></p>
+</li>
+<li>
+<p><a href="https://docs.rs/pinetime-mynewt">Documentation for <code>pinetime-mynewt</code></a></p>
+</li>
+</ul>
+<p>Now that we understand Rust Watch Faces, let's publish our own Watch Face on crates.io...</p>
 <p><img src="https://lupyuen.github.io/images/timesync-crate.jpg" alt="Discovering Watch Faces at crates.io" /></p>
 <h1 id="discover-rust-watch-faces-and-publish-your-own" class="section-header"><a href="#discover-rust-watch-faces-and-publish-your-own">12 Discover Rust Watch Faces and Publish Your Own</a></h1>
 <p><em>How can we discover PineTime Watch Faces that others have created?</em></p>
@@ -829,7 +842,7 @@ static void watch_face_callback(struct os_event *ev) {
 <p><em>How do we publish our own Watch Face?</em></p>
 <ol>
 <li>
-<p>Browse to the Barebones Watch Face repo: <a href="https://github.com/lupyuen/barebones-watchface"><code>https://github.com/lupyuen/barebones-watchface</code></a></p>
+<p>Browse to the Barebones Watch Face repo: <a href="https://github.com/lupyuen/barebones-watchface"><code>github.com/lupyuen/barebones-watchface</code></a></p>
 <p>Click <code>Forks</code> → <code>Fork</code> to create your own Fork of Barebones Watch Face.</p>
 <p>Click <code>Settings</code></p>
 <p><img src="https://lupyuen.github.io/images/timesync-publish1.jpg" alt="Publish Watch Face Step 1" /></p>
@@ -891,7 +904,7 @@ description   = &quot;Barebones Watch Face for Mynewt on PineTime Smart Watch&qu
 repository    = &quot;https://github.com/lupyuen/barebones-watchface&quot;
 documentation = &quot;https://docs.rs/barebones-watchface&quot;
 categories    = [&quot;embedded&quot;, &quot;no-std&quot;]
-keywords      = [&quot;pinetime&quot;, &quot;mynewt&quot;, &quot;watchface&quot;, &quot;barebones&quot;]
+keywords      = [&quot;pinetime&quot;, &quot;watchface&quot;, &quot;mynewt&quot;, &quot;lvgl&quot;, &quot;barebones&quot;]
 readme        = &quot;./README.md&quot;
 license       = &quot;Apache-2.0&quot;
 </code></pre>
@@ -1079,7 +1092,10 @@ int pinetime_lvgl_mynewt_write_data(const uint8_t *data, uint16_t len) {
 <p>TODO: Bluetooth Time Sync, Rust Watch Faces and LVGL were developed and tested with Remote PineTime</p>
 <p>Watch Apps</p>
 <p>Not as mature as other firmware, needs more work</p>
-<p>LVGL wrappers are not complete</p>
+<p>Mynewt and LVGL wrappers are not complete</p>
+<p><a href="https://docs.rs/pinetime-watchface">Documentation for <code>pinetime-watchface</code></a></p>
+<p><a href="https://docs.rs/pinetime-lvgl">Documentation for <code>pinetime-lvgl</code></a></p>
+<p><a href="https://docs.rs/pinetime-mynewt">Documentation for <code>pinetime-mynewt</code></a></p>
 <p>In the meantime, please go ahead and create your own Watch Faces and publish them on crates.io</p>
 <p><a href="https://lupyuen.github.io">Check out my PineTime articles</a></p>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
