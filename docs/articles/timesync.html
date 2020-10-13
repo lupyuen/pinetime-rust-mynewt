@@ -861,15 +861,43 @@ static void watch_face_callback(struct os_event *ev) {
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">https</span>:<span class="comment">//YOUR_GITHUB_ACCOUNT.github.io/barebones-watchface</span></pre></div>
-<p>where <code>YOUR_GITHUB_ACCOUNT</code> is your GitHub Account Name.</p>
+<p>Change <code>YOUR_GITHUB_ACCOUNT</code> to your GitHub Account Name.</p>
 <p>Click <code>PineTime Watch Face Simulator</code> and your Custom Watch Face appears (rendered with WebAssembly)...</p>
 <p><img src="https://lupyuen.github.io/images/timesync-publish6.jpg" alt="Publish Watch Face Step 6" /></p>
 </li>
+<li>
+<p>Your Custom Watch Face can now be built and installed by other PineTime Owners! Just share with them your Watch Face repo URL...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">https</span>:<span class="comment">//github.com/YOUR_GITHUB_ACCOUNT/barebones-watchface</span></pre></div>
+<p>Change <code>YOUR_GITHUB_ACCOUNT</code> to your GitHub Account Name.</p>
+<p>You should probably rename <code>barebone-watchface</code>... Just click <code>Settings</code> to rename your repo.</p>
+<p>Remember to edit <a href="https://github.com/lupyuen/barebones-watchface/blob/master/README.md"><code>README.md</code></a> and change the preview URL...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+[<span class="ident">__Preview</span> <span class="ident">this</span> <span class="ident">Watch</span> <span class="ident">Face</span> <span class="kw">in</span> <span class="ident">your</span> <span class="ident">web</span> <span class="ident">browser__</span>](<span class="ident">https</span>:<span class="comment">//lupyuen.github.io/barebones-watchface/lvgl.html)</span></pre></div>
+</li>
 </ol>
-<p>TODO</p>
-<p>Share by URL</p>
-<p>Publish to crates.io</p>
-<p>https://doc.rust-lang.org/cargo/reference/publishing.html</p>
+<p>But most PineTime Owners won't know that your Watch Face exists... That's why we upload our Watch Faces to crates.io as a Central Registry of all Rust Watch Faces for PineTime.</p>
+<p><em>How do we upload our Custom Watch Face to crates.io?</em></p>
+<p>Follow the instructions here: <a href="https://doc.rust-lang.org/cargo/reference/publishing.html">&quot;Publishing on crates.io&quot;</a></p>
+<p>Update the fields in <a href="https://github.com/lupyuen/barebones-watchface/blob/master/Cargo.toml"><code>Cargo.toml</code></a> to describe your Watch Face...</p>
+<pre><code class="language-yaml">[package]
+name          = &quot;barebones-watchface&quot;
+version       = &quot;1.0.5&quot;
+authors       = [&quot;Lee Lup Yuen &lt;luppy@appkaki.com&gt;&quot;]
+edition       = &quot;2018&quot;
+description   = &quot;Barebones Watch Face for Mynewt on PineTime Smart Watch&quot;
+repository    = &quot;https://github.com/lupyuen/barebones-watchface&quot;
+documentation = &quot;https://docs.rs/barebones-watchface&quot;
+categories    = [&quot;embedded&quot;, &quot;no-std&quot;]
+keywords      = [&quot;pinetime&quot;, &quot;mynewt&quot;, &quot;watchface&quot;, &quot;barebones&quot;]
+readme        = &quot;./README.md&quot;
+license       = &quot;Apache-2.0&quot;
+</code></pre>
+<p>Always keep <code>pinetime</code> and <code>watchface</code> in the <code>keywords</code> so that your Watch Face will appear when PineTime Owners search for <code>pinetime watchface</code> on crates.io.</p>
+<p>The Documentation URL <code>docs.rs/YOUR_WATCH_FACE</code> will be automatically generated when we have published our Watch Face to crates.io.</p>
+<p><a href="https://docs.rs/barebones-watchface">Check out the <code>docs.rs</code> documentation for Barebones Watchface</a></p>
 <h1 id="preview-a-rust-watch-face" class="section-header"><a href="#preview-a-rust-watch-face">13 Preview a Rust Watch Face</a></h1>
 <p>TODO</p>
 <h1 id="build-and-flash-a-rust-watch-face" class="section-header"><a href="#build-and-flash-a-rust-watch-face">14 Build and Flash a Rust Watch Face</a></h1>
@@ -1049,6 +1077,10 @@ int pinetime_lvgl_mynewt_write_data(const uint8_t *data, uint16_t len) {
 <p>TODO: Bindgen, Safe Wrapper Proc Macro, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/lvgl"><code>rust/lvgl</code></a></p>
 <h1 id="whats-next" class="section-header"><a href="#whats-next">18 What's Next</a></h1>
 <p>TODO: Bluetooth Time Sync, Rust Watch Faces and LVGL were developed and tested with Remote PineTime</p>
+<p>Watch Apps</p>
+<p>Not as mature as other firmware, needs more work</p>
+<p>LVGL wrappers are not complete</p>
+<p>In the meantime, please go ahead and create your own Watch Faces and publish them on crates.io</p>
 <p><a href="https://lupyuen.github.io">Check out my PineTime articles</a></p>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
 
