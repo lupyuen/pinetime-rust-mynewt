@@ -918,10 +918,10 @@ impl BarebonesWatchFace {
 See the `RUST` text above?
 
 ```rust
-        //  Format the Power Indicator
-        write!(
-            &mut buf,                    //  Write the formatted text here
-            "{} {}%{}#\nRUST ({}mV)\0",  //  Must terminate Rust strings with null
+//  Format the Power Indicator
+write!(
+    &mut buf,                    //  Write the formatted text here
+    "{} {}%{}#\nRUST ({}mV)\0",  //  Must terminate Rust strings with null
 ```
 
 In a while we'll change `RUST` to create our Custom Watch Face.
