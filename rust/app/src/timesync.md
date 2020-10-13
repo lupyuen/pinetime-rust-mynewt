@@ -915,6 +915,16 @@ impl BarebonesWatchFace {
 
 `\u{F0E7}` is the Unicode Symbol for the Charging Icon.
 
+To learn more about the Watch Face Framework and the Rust Wrappers for LVGL and Mynewt...
+
+- [Documentation for `pinetime-watchface`](https://docs.rs/pinetime-watchface)
+
+- [Documentation for `pinetime-lvgl`](https://docs.rs/pinetime-lvgl)
+
+- [Documentation for `pinetime-mynewt`](https://docs.rs/pinetime-mynewt)
+
+Now that we understand Rust Watch Faces, let's publish our own Watch Face on crates.io...
+
 ![Discovering Watch Faces at crates.io](https://lupyuen.github.io/images/timesync-crate.jpg)
 
 # Discover Rust Watch Faces and Publish Your Own
@@ -1241,7 +1251,13 @@ Watch Apps
 
 Not as mature as other firmware, needs more work
 
-LVGL wrappers are not complete
+Mynewt and LVGL wrappers are not complete
+
+[Documentation for `pinetime-watchface`](https://docs.rs/pinetime-watchface)
+
+[Documentation for `pinetime-lvgl`](https://docs.rs/pinetime-lvgl)
+
+[Documentation for `pinetime-mynewt`](https://docs.rs/pinetime-mynewt)
 
 In the meantime, please go ahead and create your own Watch Faces and publish them on crates.io
 
