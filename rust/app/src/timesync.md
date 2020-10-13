@@ -1059,6 +1059,15 @@ TODO
 
 Specify Watch Face
 
+[`pinetime-rust-mynewt/rust/app/Cargo.toml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml)
+
+```yaml
+# External Rust libraries used by this module
+[dependencies]
+...
+barebones-watchface = "1.0.5"
+```
+
 To select this watch face, set `WatchFaceType` in [`pinetime-rust-mynewt/rust/app/src/lib.rs`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/lib.rs)
 
 ```rust
