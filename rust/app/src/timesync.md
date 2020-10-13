@@ -1147,6 +1147,10 @@ Follow the steps under ["Build Instructions"](https://github.com/lupyuen/pinetim
 
 1.  ["Flash Application Firmware"](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#flash-application-firmware)
 
+_For Remote PineTime..._
+
+Follow the steps here: [Remote PineTime](https://github.com/lupyuen/remote-pinetime-bot/blob/master/README.md)
+
 ## Specify the Watch Face
 
 To specify the Watch Face for the firmware...
