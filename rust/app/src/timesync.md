@@ -1042,10 +1042,6 @@ The Documentation URL `docs.rs/YOUR_WATCH_FACE` will be automatically generated 
 
 [Check out the `docs.rs` documentation for Barebones Watchface](https://docs.rs/barebones-watchface)
 
-# Preview a Rust Watch Face
-
-TODO
-
 # Build and Flash a Rust Watch Face
 
 TODO
