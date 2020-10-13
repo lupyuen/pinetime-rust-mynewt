@@ -1019,7 +1019,7 @@ description   = "Barebones Watch Face for Mynewt on PineTime Smart Watch"
 repository    = "https://github.com/lupyuen/barebones-watchface"
 documentation = "https://docs.rs/barebones-watchface"
 categories    = ["embedded", "no-std"]
-keywords      = ["pinetime", "mynewt", "watchface", "barebones"]
+keywords      = ["pinetime", "watchface", "mynewt", "lvgl", "barebones"]
 readme        = "./README.md"
 license       = "Apache-2.0"
 ```
