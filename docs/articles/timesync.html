@@ -827,12 +827,47 @@ static void watch_face_callback(struct os_event *ev) {
 <p><a href="https://lupyuen.github.io/barebones-watchface/lvgl.html">Click here to preview Barebones Watch Face</a></p>
 <p><img src="https://lupyuen.github.io/images/timesync-simulator.jpg" alt="Watch Face Simulator" /></p>
 <p><em>How do we publish our own Watch Face?</em></p>
+<ol>
+<li>
+<p>Browse to the Barebones Watch Face repo: <a href="https://github.com/lupyuen/barebones-watchface"><code>https://github.com/lupyuen/barebones-watchface</code></a></p>
+<p>Click <code>Forks</code> → <code>Fork</code> to create your own Fork of Barebones Watch Face.</p>
+<p>Click <code>Settings</code></p>
+<p><img src="https://lupyuen.github.io/images/timesync-publish1.jpg" alt="Publish Watch Face Step 1" /></p>
+</li>
+<li>
+<p>Scroll down the <code>Settings</code> page and look for <code>GitHub Pages</code></p>
+<p>Select <code>Master</code> and <code>/docs</code>. Click <code>Save</code></p>
+<p>Click <code>Actions</code> → <code>I Understand My Workflows Enable Them</code></p>
+<p><img src="https://lupyuen.github.io/images/timesync-publish2.jpg" alt="Publish Watch Face Step 2" /></p>
+</li>
+<li>
+<p>Click <code>Code</code> → <code>View Code</code> → <code>src</code> → <code>lib.rs</code></p>
+<p><img src="https://lupyuen.github.io/images/timesync-publish3.jpg" alt="Publish Watch Face Step 3" /></p>
+</li>
+<li>
+<p>Click the <code>Edit</code> icon. Look for the function <code>update_power</code></p>
+<p>Change the <code>RUST</code> text to your own message, like <code>LOVE</code></p>
+<p>Click <code>Commit Changes</code></p>
+<p><img src="https://lupyuen.github.io/images/timesync-publish4.jpg" alt="Publish Watch Face Step 4" /></p>
+</li>
+<li>
+<p>Click <code>Actions</code> → <code>Update lib.rs</code> → <code>build</code></p>
+<p>Wait about 6 minutes for GitHub Actions to build your Watch Face.</p>
+<p>Subsequent builds will complete faster, in around 2 minutes (because of the cached dependencies)</p>
+<p><img src="https://lupyuen.github.io/images/timesync-publish5.jpg" alt="Publish Watch Face Step 5" /></p>
+</li>
+<li>
+<p>Browse to your Watch Face at...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">https</span>:<span class="comment">//YOUR_GITHUB_ACCOUNT.github.io/barebones-watchface</span></pre></div>
+<p>where <code>YOUR_GITHUB_ACCOUNT</code> is your GitHub Account Name.</p>
+<p>Click <code>PineTime Watch Face Simulator</code> and your Custom Watch Face appears (rendered with WebAssembly)...</p>
+<p><img src="https://lupyuen.github.io/images/timesync-publish6.jpg" alt="Publish Watch Face Step 6" /></p>
+</li>
+</ol>
 <p>TODO</p>
-<p>Let's learn to create your own Rust Watch Face</p>
-<p>Fork</p>
-<p>Change RUST to LOVE</p>
-<p>Preview URL</p>
-<p>Update Cargo.toml</p>
+<p>Share by URL</p>
 <p>Publish to crates.io</p>
 <p>https://doc.rust-lang.org/cargo/reference/publishing.html</p>
 <h1 id="preview-a-rust-watch-face" class="section-header"><a href="#preview-a-rust-watch-face">13 Preview a Rust Watch Face</a></h1>

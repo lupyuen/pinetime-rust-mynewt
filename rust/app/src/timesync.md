@@ -937,17 +937,57 @@ Each Watch Face comes with its own link to let us preview the Watch Face in our 
 
 _How do we publish our own Watch Face?_
 
+1.  Browse to the Barebones Watch Face repo: [`https://github.com/lupyuen/barebones-watchface`](https://github.com/lupyuen/barebones-watchface)
+
+    Click `Forks` → `Fork` to create your own Fork of Barebones Watch Face.
+
+    Click `Settings`
+
+    ![Publish Watch Face Step 1](https://lupyuen.github.io/images/timesync-publish1.jpg)
+
+1.  Scroll down the `Settings` page and look for `GitHub Pages`
+
+    Select `Master` and `/docs`. Click `Save`
+
+    Click `Actions` → `I Understand My Workflows Enable Them`
+
+    ![Publish Watch Face Step 2](https://lupyuen.github.io/images/timesync-publish2.jpg)
+
+1.  Click `Code` → `View Code` → `src` → `lib.rs`
+
+    ![Publish Watch Face Step 3](https://lupyuen.github.io/images/timesync-publish3.jpg)
+
+1.  Click the `Edit` icon. Look for the function `update_power`
+
+    Change the `RUST` text to your own message, like `LOVE`
+
+    Click `Commit Changes`
+
+    ![Publish Watch Face Step 4](https://lupyuen.github.io/images/timesync-publish4.jpg)
+
+1.  Click `Actions` → `Update lib.rs` → `build`
+
+    Wait about 6 minutes for GitHub Actions to build your Watch Face.
+
+    Subsequent builds will complete faster, in around 2 minutes (because of the cached dependencies)
+
+    ![Publish Watch Face Step 5](https://lupyuen.github.io/images/timesync-publish5.jpg)
+
+1.  Browse to your Watch Face at...
+
+    ```
+    https://YOUR_GITHUB_ACCOUNT.github.io/barebones-watchface
+    ```
+
+    where `YOUR_GITHUB_ACCOUNT` is your GitHub Account Name.
+
+    Click `PineTime Watch Face Simulator` and your Custom Watch Face appears (rendered with WebAssembly)...
+
+    ![Publish Watch Face Step 6](https://lupyuen.github.io/images/timesync-publish6.jpg)
+
 TODO
 
-Let's learn to create your own Rust Watch Face
-
-Fork
-
-Change RUST to LOVE
-
-Preview URL
-
-Update Cargo.toml
+Share by URL
 
 Publish to crates.io
 
