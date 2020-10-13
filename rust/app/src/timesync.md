@@ -1083,7 +1083,7 @@ Here are the instructions for building the firmware...
 
 1.  Click `Actions` → `I Understand My Workflows Enable Them`
 
-1.  Edit [`rust/app/Cargo.toml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml) to select the Watch Face (see below)
+1.  Edit [`rust/app/Cargo.toml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml) and [`rust/app/src/lib.rs`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/lib.rs) to select the Watch Face (see below)
 
 1.  This will trigger the firmware build. Click `Actions` to download the built firmware Artifact `my_sensor_app.img`
 
@@ -1095,7 +1095,7 @@ Here are the instructions for building the firmware...
 
 1.  Enable GitLab CI for the forked repo
 
-1.  Edit [`rust/app/Cargo.toml`](https://gitlab.com/lupyuen/pinetime-rust-mynewt/-/blob/master/rust/app/Cargo.toml) to select the Watch Face (see below)
+1.  Edit [`rust/app/Cargo.toml`](https://gitlab.com/lupyuen/pinetime-rust-mynewt/-/blob/master/rust/app/Cargo.toml) and [`rust/app/src/lib.rs`](https://gitlab.com/lupyuen/pinetime-rust-mynewt/-/blob/master/rust/app/src/lib.rs) to select the Watch Face (see below)
 
 1.  This will trigger the firmware build. Click `CI / CD` to download the built firmware Artifact `my_sensor_app.img`
 
@@ -1139,7 +1139,9 @@ The bootloader only needs to be flashed once.
 
 ## Specify the Watch Face
 
-[`pinetime-rust-mynewt/rust/app/Cargo.toml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml)
+TODO
+
+[`rust/app/Cargo.toml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml)
 
 ```yaml
 # External Rust libraries used by this module
@@ -1156,7 +1158,7 @@ my-watchface = "1.0.5"
 my-watchface = { git = "https://github.com/lupyuen/my-watchface" }
 ```
 
-To select this watch face, set `WatchFaceType` in [`pinetime-rust-mynewt/rust/app/src/lib.rs`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/lib.rs)
+To select this watch face, set `WatchFaceType` in [`rust/app/src/lib.rs`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/lib.rs)
 
 ```rust
 /// Declare the Watch Face Type
