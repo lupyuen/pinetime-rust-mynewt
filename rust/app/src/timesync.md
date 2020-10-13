@@ -1059,6 +1059,8 @@ _How do we install our Custom Watch Face on a real PineTime watch?_
 
 We need to build the [__`pinetime-rust-mynewt`__](https://github.com/lupyuen/pinetime-rust-mynewt) firmware... Then flash the firmware to PineTime. 
 
+If you don't have a PineTime, try flashing and testing on [__Remote PineTime__](https://github.com/lupyuen/remote-pinetime-bot/blob/master/README.md) instead. Remote PineTime is a real PineTime watch that's connected 24x7 to the internet... For anyone to flash and test firmware from anywhere in the world.
+
 Choose one of the following ways to build the firmware...
 
 1. __GitHub Actions__ (in the GitHub Cloud, no software installation needed)
@@ -1070,10 +1072,6 @@ Choose one of the following ways to build the firmware...
 1. __macOS__
 
 1. __Windows__ (plain old CMD, without MinGW or WSL)
-
-If you don't have a PineTime, try flashing and testing on [__Remote PineTime__](https://github.com/lupyuen/remote-pinetime-bot/blob/master/README.md) instead. 
-
-It's a real PineTime watch that's connected 24x7 to the internet... For anyone to flash and test firmware from anywhere in the world.
 
 Here are the instructions for building the firmware...
 
