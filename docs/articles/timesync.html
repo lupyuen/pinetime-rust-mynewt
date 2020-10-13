@@ -817,10 +817,10 @@ static void watch_face_callback(struct os_event *ev) {
 <p>See the <code>RUST</code> text above?</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-        <span class="comment">//  Format the Power Indicator</span>
-        <span class="macro">write</span><span class="macro">!</span>(
-            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>,                    <span class="comment">//  Write the formatted text here</span>
-            <span class="string">&quot;{} {}%{}#\nRUST ({}mV)\0&quot;</span>,  <span class="comment">//  Must terminate Rust strings with null</span></pre></div>
+<span class="comment">//  Format the Power Indicator</span>
+<span class="macro">write</span><span class="macro">!</span>(
+    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>,                    <span class="comment">//  Write the formatted text here</span>
+    <span class="string">&quot;{} {}%{}#\nRUST ({}mV)\0&quot;</span>,  <span class="comment">//  Must terminate Rust strings with null</span></pre></div>
 <p>In a while we'll change <code>RUST</code> to create our Custom Watch Face.</p>
 <p>To learn more about the Watch Face Framework and the Rust Wrappers for LVGL and Mynewt (and the helper macros)...</p>
 <ul>
