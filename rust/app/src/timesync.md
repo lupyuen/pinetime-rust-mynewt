@@ -937,7 +937,7 @@ Each Watch Face comes with its own link to let us preview the Watch Face in our 
 
 _How do we publish our own Watch Face?_
 
-1.  Browse to the Barebones Watch Face repo: [`https://github.com/lupyuen/barebones-watchface`](https://github.com/lupyuen/barebones-watchface)
+1.  Browse to the Barebones Watch Face repo: [`github.com/lupyuen/barebones-watchface`](https://github.com/lupyuen/barebones-watchface)
 
     Click `Forks` → `Fork` to create your own Fork of Barebones Watch Face.
 
