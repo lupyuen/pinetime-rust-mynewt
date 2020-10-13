@@ -915,6 +915,17 @@ impl BarebonesWatchFace {
 
 `\u{F0E7}` is the Unicode Symbol for the Charging Icon.
 
+See the `RUST` text above?
+
+```rust
+        //  Format the Power Indicator
+        write!(
+            &mut buf,                    //  Write the formatted text here
+            "{} {}%{}#\nRUST ({}mV)\0",  //  Must terminate Rust strings with null
+```
+
+In a while we'll change `RUST` to create our Custom Watch Face.
+
 To learn more about the Watch Face Framework and the Rust Wrappers for LVGL and Mynewt (and the helper macros)...
 
 - [Documentation for `pinetime-watchface`](https://docs.rs/pinetime-watchface)
