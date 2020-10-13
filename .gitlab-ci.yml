@@ -86,7 +86,13 @@ build:
 
   artifacts:
     paths:
-      - bin
+      # Bootloader
+      - bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
+      - bin/targets/nrf52_boot/app/boot/mynewt/mynewt.*
+      # Application Firmware
+      - bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
+      - bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img
+      - bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.*
 
   #########################################################################################
   # Cache Outputs
