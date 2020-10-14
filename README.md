@@ -141,7 +141,7 @@ If you are building from this repository from scratch instead of the Released Pa
 
     - Download the ST-Link USB driver from [ST-Link Driver Website](https://www.st.com/en/development-tools/stsw-link009.html) (email registration required)
 
-    - Click Get Software
+    - Click `Get Software`
 
     - Unzip the downloaded file. Double-click the driver installer: `dpinst_amd64.exe`
 
