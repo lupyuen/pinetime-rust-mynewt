@@ -232,6 +232,7 @@ If you are building from this repository from scratch instead of the Released Pa
     ```cmd
     cd \pinetime\pinetime-rust-mynewt
     mkdir repos
+    xcopy /s patch\repos-windows repos
     cd repos
     git clone --recursive --branch mynewt_1_7_0_tag https://github.com/apache/mynewt-core.git apache-mynewt-core
     git clone --recursive --branch nimble_1_2_0_tag https://github.com/apache/mynewt-nimble.git apache-mynewt-nimble
@@ -337,6 +338,118 @@ objsize
    text    data     bss     dec     hex filename
   22792     132   25504   48428    bd2c pinetime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
 ```
+
+## Build Application Firmware
+
+1. Build the Application Firmware...
+
+    __For Linux and macOS:__
+
+    ```bash
+    scripts/build-app.sh
+    ```
+
+    __For Windows:__
+
+    ```cmd
+    scripts\build-app.cmd
+    ```
+
+    If we see the error...
+
+    ```
+    pinetime/pinetime-rust-mynewt/repos/apache-mynewt-core/libc/baselibc/src/start.c:39:
+    undefined reference to `main'
+    ```
+    
+    Run `build-app` again. It should fix the error.
+
+    When the Application Firmware build succeds, we should see...
+
+    ```
+    Linking pinetime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
+    Target successfully built: targets/nrf52_my_sensor
+    + newt size -v size -v nrf52_my_sensor
+    Size of Application Image: app
+    Mem FLASH: 0x8000-0x7bc00
+    Mem RAM: 0x20000000-0x20010000
+      FLASH     RAM
+        631     348 *fill*
+       4837    2414 apps_my_sensor_app.a
+       2268     116 boot_bootutil.a
+         18       0 boot_mynewt_flash_map_backend.a
+        438      26 boot_split.a
+       1180       0 crypto_mbedtls.a
+       2302       0 crypto_tinycrypt.a
+        401       0 encoding_base64.a
+       1622       0 encoding_cborattr.a
+       3002       0 encoding_tinycbor.a
+        452     444 hw_bsp_nrf52.a
+         52       0 hw_cmsis-core.a
+       1560      92 hw_drivers_flash_spiflash.a
+        706       1 hw_hal.a
+       5690      89 hw_mcu_nordic_nrf52xxx.a
+          2       0 hw_sensor_creator.a
+       1264     260 hw_sensor.a
+       8914   27517 kernel_os.a
+       3044      50 libc_baselibc.a
+         16       0 libs_mynewt_rust.a
+     161881    9916 libs_pinetime_lvgl_mynewt.a
+      32924     105 libs_rust_app.a
+        390      40 libs_semihosting_console.a
+        677     212 libs_temp_stub.a
+       3428      72 mgmt_imgmgr.a
+        231      20 mgmt_mgmt.a
+        884     100 mgmt_newtmgr.a
+       1410      44 mgmt_newtmgr_nmgr_os.a
+        454     106 mgmt_newtmgr_transport_ble.a
+      34700    2077 nimble_controller.a
+       4082    1206 nimble_drivers_nrf52.a
+      46075    2795 nimble_host.a
+        822     218 nimble_host_services_ans.a
+        241     112 nimble_host_services_dis.a
+        396     118 nimble_host_services_gap.a
+        204      62 nimble_host_services_gatt.a
+       1814     648 nimble_host_store_config.a
+        114       0 nimble_host_util.a
+        692    1096 nimble_transport_ram.a
+       1578      54 sys_config.a
+        634     128 sys_flash_map.a
+          2       0 sys_log_modlog.a
+        686      29 sys_mfg.a
+        840      51 sys_reboot.a
+        226      37 sys_sysdown.a
+         30       5 sys_sysinit.a
+       1746       0 time_datetime.a
+        120       0 util_mem.a
+        180       0 nrf52_my_sensor-sysinit-app.a
+    Loading compiler pinetime/pinetime-rust-mynewt/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
+
+    objsize
+       text    data     bss     dec     hex filename
+     335568    1112   49096  385776   5e2f0 pinetime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
+    ```
+
+1. Create the application firmware image...
+
+    __For Linux and macOS:__
+
+    ```bash
+    scripts/nrf52/image-app.sh
+    ```
+
+    __For Windows:__
+
+    ```cmd
+    scripts\nrf52\image-app.cmd
+    ```
+
+    We should see...
+
+    ```
+    App image successfully generated: 
+    pinetime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img
+    ```
 
 ## Select the OpenOCD Interface: ST-Link or Raspberry Pi SPI
 
@@ -445,48 +558,6 @@ __For Windows:__ We don't need to edit `config.sh`
 
 1.  If the flashing fails, check whether any `openocd` processes are running in the background, and kill them.
 
-## Build Application Firmware
-
-1. Build the Application Firmware...
-
-    __For Linux and macOS:__
-
-    ```bash
-    scripts/build-app.sh
-    ```
-
-    __For Windows:__
-
-    ```cmd
-    scripts\build-app.cmd
-    ```
-
-    If we see the error `Undefined main`, run `build-app` again. It should fix the error.
-
-    We should see...
-
-    ```
-    ```
-
-1. Create the application firmware image...
-
-    __For Linux and macOS:__
-
-    ```bash
-    scripts/nrf52/image-app.sh
-    ```
-
-    __For Windows:__
-
-    ```cmd
-    scripts\nrf52\image-app.cmd
-    ```
-
-    We should see...
-
-    ```
-    ```
-
 ## Flash Application Firmware
 
 1.  __For Linux and macOS:__ Edit [`pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-app.sh`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/nrf52/flash-app.sh)
@@ -518,7 +589,7 @@ __For Windows:__ We don't need to edit `config.sh`
 
     __Windows:__
     
-    ```bash
+    ```cmd
     scripts\nrf52\flash-app.cmd
     ```
 
@@ -604,7 +675,7 @@ __For Windows:__ We don't need to edit `config.sh`
 
 # PineTime Updater
 
-Alternatively, flash the following two files to PineTime with [__PineTime Updater__](https://github.com/lupyuen/pinetime-updater)...
+Alternatively (for Linux and macOS only), flash the following two files to PineTime with [__PineTime Updater__](https://github.com/lupyuen/pinetime-updater)...
 
 1.  __MCUBoot Bootloader__
 
