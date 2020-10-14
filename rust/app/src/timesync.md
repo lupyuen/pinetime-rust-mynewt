@@ -1201,6 +1201,30 @@ TODO: Bluetooth Time Sync, Rust Watch Faces and LVGL were developed and tested w
 
 Custom Cloud pic
 
+`pinetime-rust-mynewt` was created as a Learning Tool to understand what happens inside the firmware of a smartwatch
+
+Created for learning what's inside a smartwatch
+And make your own tweaks easier
+Not ready for daily use
+
+Integrate touch driver in Rust
+Not power efficient yet
+
+What has changed
+
+Evolved from Raspberry Pi
+To a simpler, more robust dev kit
+With cloud build and st link
+
+Druid piet and kurbo stack wasn't working
+Replaced by LVGL, the UI stack used by most pinetime firmware
+
+Windows support
+No traps
+
+Sharing and validating
+Remote PineTime
+
 Everybody wants a Daily Driver
 But do you know what's inside the Daily Driver?
 Consumer vs Prosumer
