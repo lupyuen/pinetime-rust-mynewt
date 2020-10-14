@@ -1225,7 +1225,7 @@ That might be the better way to sustain Open Source development on PineTime. Bec
 
 ## Driving Education
 
-`pinetime-rust-mynewt` is the school for __"Driver's Ed"__. The firmware has been deconstructed into manageable chunks that are easier to learn.  And we use Rust wherever posssible... Because [C Pointer Problems can disrupt our learning](https://youtu.be/LvfCSnOM1Hs).
+`pinetime-rust-mynewt` is the school for __"Driver's Ed"__. The firmware has been deconstructed into manageable chunks that are simpler to learn.  And we use Rust wherever posssible... Because [C Pointer Problems can disrupt our learning](https://youtu.be/LvfCSnOM1Hs).
 
 Perhaps one day `pinetime-rust-mynewt` will become a Daily Driver. But let's take time to enrich our firmware the __Educational Way,__ so that everyone can learn...
 
@@ -1233,7 +1233,9 @@ Perhaps one day `pinetime-rust-mynewt` will become a Daily Driver. But let's tak
 
 1.  Improve the __Power Efficiency__ of the firmware (like switching off the backlight when idle)
 
-1.  Allow __Watch Apps__ to published on crates.io (see the sketch below)
+1.  Add Rust Drivers for __Step Counting__ and __Heart Rate Sensing__
+
+1.  Allow __Watch Apps__ to published on crates.io, for building Custom PineTime Firmware in the Cloud (see the sketch below)
 
 1.  Fill in the missing Rust Bindings for Watch Faces, LVGL and Mynewt: [`pinetime-watchface`](https://docs.rs/pinetime-watchface), [`pinetime-lvgl`](https://docs.rs/pinetime-lvgl), [`pinetime-mynewt`](https://docs.rs/pinetime-mynewt)
 
