@@ -127,7 +127,25 @@ If you are building from this repository from scratch instead of the Released Pa
 
     - [xPack OpenOCD for Windows x64](https://github.com/xpack-dev-tools/openocd-xpack/releases/download/v0.10.0-15/xpack-openocd-0.10.0-15-win32-x64.zip)
 
-    For Raspberry Pi: Install `openocd-spi` according to the instructions here...
+    __For Linux with ST-Link (not Raspberry Pi):__ Download and extract xPack OpenOCD from above. Then install the ST-Link driver as follows...
+
+    ```bash
+    #  For Linux Only: Install UDEV Rules according to https://xpack.github.io/openocd/install/#udev
+    if [ -d /etc/udev/rules.d ]; then
+        sudo cp xpack-openocd/contrib/60-openocd.rules /etc/udev/rules.d/
+        sudo udevadm control --reload-rules
+    fi
+    ```
+
+    __For Windows:__ Download and extract xPack OpenOCD from above. Then install the ST-Link v2 Driver for Windows...
+
+    - Download the ST-Link USB driver from [ST-Link Driver Website](https://www.st.com/en/development-tools/stsw-link009.html) (email registration required)
+
+    - Click Get Software
+
+    - Unzip the downloaded file. Double-click the driver installer: `dpinst_amd64.exe`
+
+    __For Raspberry Pi:__ Install `openocd-spi` according to the instructions here...
 
     [_"OpenOCD on Raspberry Pi: Better with SWD on SPI"_](https://medium.com/@ly.lee/openocd-on-raspberry-pi-better-with-swd-on-spi-7dea9caeb590?source=friends_link&sk=df399bfd913d3e262447d28aa5af6b63)
 
@@ -145,13 +163,7 @@ If you are building from this repository from scratch instead of the Released Pa
 
     __For Linux and macOS:__ Unzip the toolchain and add it to your PATH
 
-    __For Windows:__ Run the installer and check the option for `Add to PATH`. Also install the ST-Link v2 Driver for Windows...
-
-    - Download the ST-Link USB driver from [ST-Link Driver Website](https://www.st.com/en/development-tools/stsw-link009.html) (email registration required)
-
-    - Click Get Software
-
-    - Unzip the downloaded file. Double-click the driver installer: `dpinst_amd64.exe`
+    __For Windows:__ Run the installer and check the option for `Add to PATH`
 
 1. Install `rustup` with support for nightly target `thumbv7em-none-eabihf`. 
    
