@@ -278,10 +278,10 @@ If you are building from this repository from scratch instead of the Released Pa
 1. Copy the unzipped OpenOCD from [xPack OpenOCD](https://xpack.github.io/openocd/install/) or `openocd-spi` to the folder...
 
     ```
-    pinetime-rust-mynewt/openocd
+    pinetime/pinetime-rust-mynewt/openocd
     ```
 
-    The `openocd` executable should be located at `pinetime-rust-mynewt/openocd/bin/openocd`
+    The `openocd` executable should be located at `pinetime/pinetime-rust-mynewt/openocd/bin/openocd`
 
 ## Build MCUBoot Bootloader
 
@@ -693,108 +693,85 @@ Alternatively (for Linux and macOS only), flash the following two files to PineT
 
 Sample logs for Linux, macOS and Windows may be found in the [logs folder](logs)
 
+Also check the [GitHub Actions build logs](https://github.com/lupyuen/pinetime-rust-mynewt/actions)
+
+# VSCode Workspace
+
+Open the workspace file `workspace.code-workspace` in VSCode.
+
+The VSCode Workspace contains VSCode Tasks for building and flashing the Bootloader and Application Firmware.
+
+The Cortex-Debug Debugger in VSCode has also been configured for debugging PineTime with GDB and OpenOCD.
+
 # Contents
 
 This repository contains...
 
-[`rust`](rust): Rust Application
+[`rust`](rust): Mynewt Application in Rust
 
 [`Cargo.toml`](Cargo.toml): Rust Build Settings
 
 [`.cargo`](.cargo): Rust Target Settings
 
-[`my_sensor_app`](apps/my_sensor_app): Mynewt Application Stub
+[`apps/my_sensor_app`](apps/my_sensor_app): Mynewt Application in C
 
-[`boot_stub`](apps/boot_stub): Mynewt Bootloader Stub
+[`apps/boot_stub`](apps/boot_stub): Mynewt Bootloader Stub. For development use only.
 
-[`adc_stm32f1`](libs/adc_stm32f1): Mynewt Driver for ADC on STM32 F103 (Blue Pill). Used by `temp_stm32` internal temperature sensor.
+[`targets/nrf52_boot`](targets/nrf52_boot): Mynewt Application Firmware Configuration
 
-[`adc_stm32l4`](libs/adc_stm32l4): Mynewt Driver for ADC on STM32 L476. Used by `temp_stm32` internal temperature sensor.
+[`targets/nrf52_my_sensor`](targets/nrf52_my_sensor): MCUBoot Bootloader Configuration
 
-[`bc95g`](libs/bc95g): Mynewt Driver for Quectel BC95 NB-IoT module
+[`scripts`](scripts): Build and flash scripts
 
-[`buffered_serial`](libs/buffered_serial): Buffered Serial Library used by `bc95g` NB-IoT driver and `gps_l70r` GPS driver
+[`workspace.code-workspace`](workspace.code-workspace): VSCode Workspace
 
-[`custom_sensor`](libs/custom_sensor): Custom Sensor Definitions for Raw Temperature and Geolocation
+[`.vscode`](.vscode): VSCode Tasks for build and flash, and debugger configuration
 
-[`esp8266`](libs/esp8266): Mynewt Driver for ESP8266 WiFi module
+Library modules for Mynewt...
 
-[`gps_l70r`](libs/gps_l70r): Mynewt Driver for Quectel L70-R GPS module
+[`libs/mynewt_rust`](libs/mynewt_rust): Helper functions for hosting Rust on Mynewt
 
-[`hmac_prng`](libs/hmac_prng): HMAC pseudorandom number generator with entropy based on internal temperature sensor
+[`libs/pinetime_boot`](libs/pinetime_boot): PineTime Bootloader Library for MCUBoot
 
-[`low_power`](libs/low_power): Low Power functions for STM32 F103 (Blue Pill)
+[`libs/pinetime_lvgl_mynewt`](libs/pinetime_lvgl_mynewt): LVGL UI Library for Mynewt. Links to the [`pinetime_lvgl_mynewt`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt) repo.
 
-[`mynewt_rust`](libs/mynewt_rust): Helper functions for hosting Rust on Mynewt
+[`libs/rust_app`](libs/rust_app): Stub library that will be replaced by the compiled Rust application and Rust crates
 
-[`nrf24l01`](libs/nrf24l01): Mynewt Driver for nRF24L01
+[`libs/rust_libcore`](libs/rust_libcore): (Not Used) Stub library that will be replaced by the Rust Core Library
 
-[`remote_sensor`](libs/remote_sensor): Mynewt Driver for Remote Sensor
+[`libs/semihosting_console`](libs/semihosting_console): Mynewt Console for Arm Semihosting
 
-[`rust_app`](libs/rust_app): Stub library that will be replaced by the compiled Rust application and Rust crates
+Legacy modules for Mynewt that are not used...
 
-[`rust_libcore`](libs/rust_libcore): Stub library that will be replaced by the Rust Core Library
+[`libs/adc_stm32f1`](libs/adc_stm32f1): Mynewt Driver for ADC on STM32 F103 (Blue Pill). Used by `temp_stm32` internal temperature sensor.
 
-[`semihosting_console`](libs/semihosting_console): Mynewt Console for Arm Semihosting
+[`libs/adc_stm32l4`](libs/adc_stm32l4): Mynewt Driver for ADC on STM32 L476. Used by `temp_stm32` internal temperature sensor.
 
-[`sensor_coap`](libs/sensor_coap): Sensor CoAP Library
+[`libs/bc95g`](libs/bc95g): Mynewt Driver for Quectel BC95 NB-IoT module
 
-[`sensor_network`](libs/sensor_network): Sensor Network Library
+[`libs/buffered_serial`](libs/buffered_serial): Buffered Serial Library used by `bc95g` NB-IoT driver and `gps_l70r` GPS driver
 
-[`temp_stm32`](libs/temp_stm32): Mynewt Driver for Internal Temperature Sensor on STM32
+[`libs/custom_sensor`](libs/custom_sensor): Custom Sensor Definitions for Raw Temperature and Geolocation
 
-[`temp_stub`](libs/temp_stub): Mynewt Driver for Stub Temperature Sensor that returns a fixed value
+[`libs/esp8266`](libs/esp8266): Mynewt Driver for ESP8266 WiFi module
 
-[`tiny_gps_plus`](libs/tiny_gps_plus): TinyGPS++ Library ported from Arduino. Used by `gps_l70r` GPS driver.
+[`libs/gps_l70r`](libs/gps_l70r): Mynewt Driver for Quectel L70-R GPS module
 
-[`scripts`](scripts): Install, build and deploy scripts
+[`libs/hmac_prng`](libs/hmac_prng): HMAC pseudorandom number generator with entropy based on internal temperature sensor
 
-[`.vscode`](.vscode): Visual Studio Code macros for install, build and deploy
+[`libs/low_power`](libs/low_power): Low Power functions for STM32 F103 (Blue Pill)
 
-# How This Application Was Created
+[`libs/nrf24l01`](libs/nrf24l01): Mynewt Driver for nRF24L01
 
-The Windows version of the `newt` command-line tool in `newt/newt.exe` was created from 
+[`libs/remote_sensor`](libs/remote_sensor): Mynewt Driver for Remote Sensor
 
-[`github.com/lupyuen/mynewt-newt`](https://github.com/lupyuen/mynewt-newt)
+[`libs/sensor_coap`](libs/sensor_coap): Sensor CoAP Library
 
-The Mynewt application was originally based on: 
+[`libs/sensor_network`](libs/sensor_network): Sensor Network Library
 
-[`mynewt.apache.org/latest/tutorials/sensors/sensor_thingy_lis2dh12_onb.html`](https://mynewt.apache.org/latest/tutorials/sensors/sensor_thingy_lis2dh12_onb.html)
+[`libs/temp_stm32`](libs/temp_stm32): Mynewt Driver for Internal Temperature Sensor on STM32
 
-[`mynewt.apache.org/latest/tutorials/sensors/sensor_nrf52_bno055.html`](https://mynewt.apache.org/latest/tutorials/sensors/sensor_nrf52_bno055.html)
+[`libs/temp_stub`](libs/temp_stub): Mynewt Driver for Stub Temperature Sensor that returns a fixed value
 
-```bash
-cd /mnt/c
-newt new stm32bluepill-mynewt-sensor
-cd stm32bluepill-mynewt-sensor
-cat project.yml
+[`libs/tiny_gps_plus`](libs/tiny_gps_plus): TinyGPS++ Library ported from Arduino. Used by `gps_l70r` GPS driver.
 
-newt install
-newt pkg new -t app apps/my_sensor_app
-newt pkg new -t lib libs/semihosting_console
-
-newt target create bluepill_boot
-newt target set bluepill_boot bsp=@apache-mynewt-core/hw/bsp/bluepill
-newt target set bluepill_boot app=@apache-mynewt-core/apps/boot
-newt target set bluepill_boot build_profile=optimized
-
-newt target create bluepill_my_sensor
-newt target set bluepill_my_sensor bsp=@apache-mynewt-core/hw/bsp/bluepill
-newt target set bluepill_my_sensor app=apps/my_sensor_app
-newt target set bluepill_my_sensor build_profile=debug
-```
-
-`project.yml` should contain
-
-```yaml
-project.name: "my_project"
-
-project.repositories:
-    - apache-mynewt-core
-
-repository.apache-mynewt-core:
-    type: github
-    vers: 1.7.0
-    user: apache
-    repo: mynewt-core
-```
