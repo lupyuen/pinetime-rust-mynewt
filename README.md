@@ -133,6 +133,16 @@ If you are building from this repository from scratch instead of the Released Pa
 
 1.  Download the [Arm Embedded Toolchain 9-2020-q2-update](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads). Other versions of the toolchain are known to have problems building the firmware.
 
+    - [Embedded Toolchain for Linux x64](https://developer.arm.com/-/media/Files/downloads/gnu-rm/9-2020q2/gcc-arm-none-eabi-9-2020-q2-update-x86_64-linux.tar.bz2?revision=05382cca-1721-44e1-ae19-1e7c3dc96118&la=en&hash=D7C9D18FCA2DD9F894FD9F3C3DC9228498FA281A)
+
+    - [Embedded Toolchain for Linux Arm32](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/install-pi.sh#L30-L41) (install via `apt`)
+
+    - [Embedded Toolchain for Linux Arm64](https://developer.arm.com/-/media/Files/downloads/gnu-rm/9-2020q2/gcc-arm-none-eabi-9-2020-q2-update-aarch64-linux.tar.bz2?revision=7166404a-b4f5-4598-ac75-e5f8b90abb09&la=en&hash=01D713C1174E80C856385F5732E9BDC466DB729B)
+
+    - [Embedded Toolchain for macOS](https://developer.arm.com/-/media/Files/downloads/gnu-rm/9-2020q2/gcc-arm-none-eabi-9-2020-q2-update-mac.tar.bz2?revision=d0d318de-b746-489f-98b0-9d89648ce910&la=en&hash=9E035CEF6261AA1387D3DCC8B86FA1A20E92B9AB)
+
+    - [Embedded Toolchain for Windows](https://developer.arm.com/-/media/Files/downloads/gnu-rm/9-2020q2/gcc-arm-none-eabi-9-2020-q2-update-win32.exe?revision=50c95fb2-67ca-4df7-929b-55396266b4a1&la=en&hash=DE1CD6E7A15046FD1ADAF828EA4FA82228E682E2)
+
     __For Linux and macOS:__ Unzip the toolchain and add it to your PATH
 
     __For Windows:__ Run the installer and check the option for `Add to PATH`. Also install the ST-Link v2 Driver for Windows...
