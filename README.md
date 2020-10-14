@@ -104,7 +104,17 @@ If you are building from this repository from scratch instead of the Released Pa
 
 ## Install Build Tools
 
-1. Install OpenOCD from [xPack OpenOCD](https://xpack.github.io/openocd/). Other versions of OpenOCD are known to have problems flashing with ST-Link.
+1. Download and extract [xPack OpenOCD](https://xpack.github.io/openocd/install/). Other versions of OpenOCD are known to have problems flashing with ST-Link.
+
+    - [xPack OpenOCD for Linux x64](https://github.com/xpack-dev-tools/openocd-xpack/releases/download/v0.10.0-15/xpack-openocd-0.10.0-15-linux-x64.tar.gz)
+
+    - [xPack OpenOCD for Linux Arm32](https://github.com/xpack-dev-tools/openocd-xpack/releases/download/v0.10.0-15/xpack-openocd-0.10.0-15-linux-arm.tar.gz)
+
+    - [xPack OpenOCD for Linux Arm64](https://github.com/xpack-dev-tools/openocd-xpack/releases/download/v0.10.0-15/xpack-openocd-0.10.0-15-linux-arm64.tar.gz)
+
+    - [xPack OpenOCD for macOS](https://github.com/xpack-dev-tools/openocd-xpack/releases/download/v0.10.0-15/xpack-openocd-0.10.0-15-darwin-x64.tar.gz)
+
+    - [xPack OpenOCD for Windows x64](https://github.com/xpack-dev-tools/openocd-xpack/releases/download/v0.10.0-15/xpack-openocd-0.10.0-15-win32-x64.zip)
 
     For Raspberry Pi: Install `openocd-spi` according to the instructions here...
 
@@ -223,8 +233,8 @@ If you are building from this repository from scratch instead of the Released Pa
     cd \pinetime\pinetime-rust-mynewt
     mkdir repos
     cd repos
-    git clone --recursive --branch mynewt_1_7_0_tag https://github.com/apache/mynewt-core.git
-    git clone --recursive --branch nimble_1_2_0_tag https://github.com/apache/mynewt-nimble.git
+    git clone --recursive --branch mynewt_1_7_0_tag https://github.com/apache/mynewt-core.git apache-mynewt-core
+    git clone --recursive --branch nimble_1_2_0_tag https://github.com/apache/mynewt-nimble.git apache-mynewt-nimble
     ```
 
 1. Restore the MCUBoot version number to 1.5.0. Edit [`pinetime/pinetime-rust-mynewt/project.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/project.yml)
@@ -264,7 +274,7 @@ If you are building from this repository from scratch instead of the Released Pa
 
     Why are we doing this? Because we are using a more recent version of MCUBoot (1.5.0), but that's not in sync with the older Mynewt version (1.7.0). This will cause `newt install` to fail. Hence we do this workaround to force Mynewt to build with the newer MCUBoot.
 
-1. Copy the unzipped OpenOCD from [xPack OpenOCD](https://xpack.github.io/openocd/) or `openocd-spi` to the folder...
+1. Copy the unzipped OpenOCD from [xPack OpenOCD](https://xpack.github.io/openocd/install/) or `openocd-spi` to the folder...
 
     ```
     pinetime-rust-mynewt/openocd
@@ -453,6 +463,11 @@ __For Windows:__ We don't need to edit `config.sh`
 
     If we see the error `Undefined main`, run `build-app` again. It should fix the error.
 
+    We should see...
+
+    ```
+    ```
+
 1. Create the application firmware image...
 
     __For Linux and macOS:__
@@ -463,8 +478,13 @@ __For Windows:__ We don't need to edit `config.sh`
 
     __For Windows:__
 
-    ```bash
+    ```cmd
     scripts\nrf52\image-app.cmd
+    ```
+
+    We should see...
+
+    ```
     ```
 
 ## Flash Application Firmware
