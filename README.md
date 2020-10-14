@@ -718,71 +718,72 @@ The Cortex-Debug Debugger in VSCode has also been configured for debugging PineT
 
 This repository contains...
 
-[`rust`](rust): Mynewt Application in Rust
+- [`rust`](rust): Mynewt Application in Rust
 
-[`Cargo.toml`](Cargo.toml): Rust Build Settings
+- [`Cargo.toml`](Cargo.toml): Rust Build Settings
 
-[`.cargo`](.cargo): Rust Target Settings
+- [`.cargo`](.cargo): Rust Target Settings
 
-[`apps/my_sensor_app`](apps/my_sensor_app): Mynewt Application in C
+- [`apps/my_sensor_app`](apps/my_sensor_app): Mynewt Application in C
 
-[`apps/boot_stub`](apps/boot_stub): Mynewt Bootloader Stub. For development use only.
+- [`apps/boot_stub`](apps/boot_stub): Mynewt Bootloader Stub. For development use only.
 
-[`targets/nrf52_boot`](targets/nrf52_boot): Mynewt Application Firmware Configuration
+- [`targets/nrf52_boot`](targets/nrf52_boot): Mynewt Application Firmware Configuration
 
-[`targets/nrf52_my_sensor`](targets/nrf52_my_sensor): MCUBoot Bootloader Configuration
+- [`targets/nrf52_my_sensor`](targets/nrf52_my_sensor): MCUBoot Bootloader Configuration
 
-[`scripts`](scripts): Build and flash scripts
+- [`hw/bsp/nrf52`](hw/bsp/nrf52): Mynewt Board Support Package for PineTime
 
-[`workspace.code-workspace`](workspace.code-workspace): VSCode Workspace
+- [`scripts`](scripts): Build and flash scripts
 
-[`.vscode`](.vscode): VSCode Tasks for build and flash, and debugger configuration
+- [`workspace.code-workspace`](workspace.code-workspace): VSCode Workspace
+
+- [`.vscode`](.vscode): VSCode Tasks for build and flash, and debugger configuration
 
 Library modules for Mynewt...
 
-[`libs/mynewt_rust`](libs/mynewt_rust): Helper functions for hosting Rust on Mynewt
+- [`libs/mynewt_rust`](libs/mynewt_rust): Helper functions for hosting Rust on Mynewt
 
-[`libs/pinetime_boot`](libs/pinetime_boot): PineTime Bootloader Library for MCUBoot
+- [`libs/pinetime_boot`](libs/pinetime_boot): PineTime Bootloader Extensions for MCUBoot Bootloader
 
-[`libs/pinetime_lvgl_mynewt`](libs/pinetime_lvgl_mynewt): LVGL UI Library for Mynewt. Links to the [`pinetime_lvgl_mynewt`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt) repo.
+- [`libs/pinetime_lvgl_mynewt`](libs/pinetime_lvgl_mynewt): LVGL UI Library for Mynewt. Links to the [`pinetime_lvgl_mynewt`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt) repo.
 
-[`libs/rust_app`](libs/rust_app): Stub library that will be replaced by the compiled Rust application and Rust crates
+- [`libs/rust_app`](libs/rust_app): Stub library that will be replaced by the compiled Rust application and Rust crates
 
-[`libs/rust_libcore`](libs/rust_libcore): (Not Used) Stub library that will be replaced by the Rust Core Library
+- [`libs/rust_libcore`](libs/rust_libcore): (Not Used) Stub library that will be replaced by the Rust Core Library
 
-[`libs/semihosting_console`](libs/semihosting_console): Mynewt Console for Arm Semihosting
+- [`libs/semihosting_console`](libs/semihosting_console): Mynewt Console for Arm Semihosting
 
 Legacy modules for Mynewt that are not used...
 
-[`libs/adc_stm32f1`](libs/adc_stm32f1): Mynewt Driver for ADC on STM32 F103 (Blue Pill). Used by `temp_stm32` internal temperature sensor.
+- [`libs/adc_stm32f1`](libs/adc_stm32f1): Mynewt Driver for ADC on STM32 F103 (Blue Pill). Used by `temp_stm32` internal temperature sensor.
 
-[`libs/adc_stm32l4`](libs/adc_stm32l4): Mynewt Driver for ADC on STM32 L476. Used by `temp_stm32` internal temperature sensor.
+- [`libs/adc_stm32l4`](libs/adc_stm32l4): Mynewt Driver for ADC on STM32 L476. Used by `temp_stm32` internal temperature sensor.
 
-[`libs/bc95g`](libs/bc95g): Mynewt Driver for Quectel BC95 NB-IoT module
+- [`libs/bc95g`](libs/bc95g): Mynewt Driver for Quectel BC95 NB-IoT module
 
-[`libs/buffered_serial`](libs/buffered_serial): Buffered Serial Library used by `bc95g` NB-IoT driver and `gps_l70r` GPS driver
+- [`libs/buffered_serial`](libs/buffered_serial): Buffered Serial Library used by `bc95g` NB-IoT driver and `gps_l70r` GPS driver
 
-[`libs/custom_sensor`](libs/custom_sensor): Custom Sensor Definitions for Raw Temperature and Geolocation
+- [`libs/custom_sensor`](libs/custom_sensor): Custom Sensor Definitions for Raw Temperature and Geolocation
 
-[`libs/esp8266`](libs/esp8266): Mynewt Driver for ESP8266 WiFi module
+- [`libs/esp8266`](libs/esp8266): Mynewt Driver for ESP8266 WiFi module
 
-[`libs/gps_l70r`](libs/gps_l70r): Mynewt Driver for Quectel L70-R GPS module
+- [`libs/gps_l70r`](libs/gps_l70r): Mynewt Driver for Quectel L70-R GPS module
 
-[`libs/hmac_prng`](libs/hmac_prng): HMAC pseudorandom number generator with entropy based on internal temperature sensor
+- [`libs/hmac_prng`](libs/hmac_prng): HMAC pseudorandom number generator with entropy based on internal temperature sensor
 
-[`libs/low_power`](libs/low_power): Low Power functions for STM32 F103 (Blue Pill)
+- [`libs/low_power`](libs/low_power): Low Power functions for STM32 F103 (Blue Pill)
 
-[`libs/nrf24l01`](libs/nrf24l01): Mynewt Driver for nRF24L01
+- [`libs/nrf24l01`](libs/nrf24l01): Mynewt Driver for nRF24L01
 
-[`libs/remote_sensor`](libs/remote_sensor): Mynewt Driver for Remote Sensor
+- [`libs/remote_sensor`](libs/remote_sensor): Mynewt Driver for Remote Sensor
 
-[`libs/sensor_coap`](libs/sensor_coap): Sensor CoAP Library
+- [`libs/sensor_coap`](libs/sensor_coap): Sensor CoAP Library
 
-[`libs/sensor_network`](libs/sensor_network): Sensor Network Library
+- [`libs/sensor_network`](libs/sensor_network): Sensor Network Library
 
-[`libs/temp_stm32`](libs/temp_stm32): Mynewt Driver for Internal Temperature Sensor on STM32
+- [`libs/temp_stm32`](libs/temp_stm32): Mynewt Driver for Internal Temperature Sensor on STM32
 
-[`libs/temp_stub`](libs/temp_stub): Mynewt Driver for Stub Temperature Sensor that returns a fixed value
+- [`libs/temp_stub`](libs/temp_stub): Mynewt Driver for Stub Temperature Sensor that returns a fixed value
 
-[`libs/tiny_gps_plus`](libs/tiny_gps_plus): TinyGPS++ Library ported from Arduino. Used by `gps_l70r` GPS driver.
-
+- [`libs/tiny_gps_plus`](libs/tiny_gps_plus): TinyGPS++ Library ported from Arduino. Used by `gps_l70r` GPS driver.
