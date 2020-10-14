@@ -744,6 +744,8 @@ For Application Firmware: [`targets/nrf52_my_sensor/pkg.yml`](targets/nrf52_my_s
 
 Rebuild the Bootloader and Application Firmware and flash to PineTime. Debug messages will now appear in the OpenOCD log.
 
+[More about Arm Semihosting](https://github.com/lupyuen/remote-pinetime-bot/blob/master/README.md#what-is-arm-semihosting)
+
 # VSCode Workspace
 
 Open the workspace file `workspace.code-workspace` in VSCode.
