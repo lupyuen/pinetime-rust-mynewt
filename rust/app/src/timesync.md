@@ -1213,7 +1213,7 @@ Today `pinetime-rust-mynewt` has evolved to make smartwatch programming even eas
 
     _(No more toolchain worries!)_
 
-1.  Standardised on LVGL, the UI toolkit adopted by most PineTime firmware. So any skills we learn on `pinetime-rust-mynewt` may be be easily transferred to other PineTime platforms.
+1.  Standardised on LVGL, the UI toolkit adopted by most PineTime firmware. So any skills we learn on `pinetime-rust-mynewt` may be easily transferred to other PineTime platforms.
 
     _(Which means `druid`, `piet` and `kurbo` have been purged from the firmware... But `druid` may be revived someday as [`druid-lvgl`](https://github.com/AppKaki/druid-lvgl))_
 
@@ -1223,20 +1223,16 @@ The PineTime Community has been super enthusiastic about turning PineTime into a
 
 Maybe make some firmware tweaks and practise some "Driving" ourselves? And understand the firmware code before copying it and letting it "Drive" our lives?
 
-That might be the better way to sustain Open Source development on PineTime. Because if we don't have any PineTime Learners... _The "Driving" shall one day come to a halt._
+That might be the better way to sustain Open Source development on PineTime. Because if we don't have any PineTime Learners... _The "Driving" shall one day come to a halt._ :-(
 
 
 
 Integrate touch driver in Rust
 Not power efficient yet
 
-Everybody wants a Daily Driver
-But do you know what's inside the Daily Driver?
 Consumer vs Prosumer
 
 Share lessons learnt
-
-Sustainable
 
 Proper test harness with logs
 simulator and remote testing
@@ -1253,7 +1249,7 @@ Mynewt and LVGL wrappers are not complete
 
 [Documentation for `pinetime-mynewt`](https://docs.rs/pinetime-mynewt)
 
-In the meantime, please go ahead and create your own Watch Faces and publish them on crates.io
+In the meantime, please go right ahead and create your own Watch Faces and publish them on crates.io... To share, learn and enjoy :-)
 
 [Check out my PineTime articles](https://lupyuen.github.io)
 
