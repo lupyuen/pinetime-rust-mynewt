@@ -23,7 +23,7 @@
 
 ![PineTime Smart Watch with Apache Mynewt and Embedded Rust](https://lupyuen.github.io/images/pinetime-title.jpg)
 
-This `master` branch contains the firmware source code for PineTime Smart Watch with Apache Mynewt and Embedded Rust, with Wireless Firmware Updates, LVGL 7 (by embedding [`pinetime_lvgl_mynewt`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt)), Bluetooth LE Time Sync and Rust Watch Face.
+This `master` branch contains the firmware source code for PineTime Smart Watch with Apache Mynewt and Embedded Rust, that supports Wireless Firmware Updates, LVGL 7 ([`pinetime_lvgl_mynewt`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt)), Bluetooth LE Time Sync and Rust Watch Faces.
 
 This branch no longer supports `druid` and `embedded-graphics`. Check out the older version in the [`pre-lvgl`](https://github.com/lupyuen/pinetime-rust-mynewt/tree/pre-lvgl) branch.
 
@@ -77,7 +77,9 @@ The following articles were written for the older version of this firmware. Refe
 
 1. [_Porting MicroPython and wasp-os to Mynewt on PineTime Smart Watch (nRF52)_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/micropython)
 
-1.  The firmware design is similar to this earlier article on nRF52: [_Coding nRF52 with Rust and Apache Mynewt on Visual Studio Code_](https://medium.com/@ly.lee/coding-nrf52-with-rust-and-apache-mynewt-on-visual-studio-code-9521bcba6004?source=friends_link&sk=bb4e2523b922d0870259ab3fa696c7da)
+The firmware design is similar to this earlier article on nRF52...
+
+[_Coding nRF52 with Rust and Apache Mynewt on Visual Studio Code_](https://medium.com/@ly.lee/coding-nrf52-with-rust-and-apache-mynewt-on-visual-studio-code-9521bcba6004?source=friends_link&sk=bb4e2523b922d0870259ab3fa696c7da)
 
 [More Articles](https://lupyuen.github.io)
 
@@ -85,11 +87,11 @@ The following articles were written for the older version of this firmware. Refe
 
 # Automated Build with GitHub Actions
 
-The MCUBoot Bootloader and Rust+Mynewt Firmware are __built automatically__ in the GitHub Cloud. 
+The MCUBoot Bootloader and Rust + Mynewt Firmware are built automatically in the GitHub Cloud. 
 
-Just fork this repo, update the source code and the built firmware will be available for download under __"Actions"__.
+Just fork this repo, update the source code and the built firmware will be available for download under "Actions".
 
-The Automated Build is performed according to the following __GitHub Actions Workflow__...
+The Automated Build is performed according to the following GitHub Actions Workflow...
 
 [`.github/workflows/main.yml`](.github/workflows/main.yml)
 
@@ -97,6 +99,15 @@ The Worklow is similar to the one described in this article...
 
 [_Build PineTime Firmware in the Cloud with GitHub Actions_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/cloud)
 
+# Automated Build with GitLab CI
+
+The MCUBoot Bootloader and Rust + Mynewt Firmware are also built automatically with GitLab CI.
+
+This repo is mirrored to GitLab as...
+
+[`gitlab.com/lupyuen/pinetime-rust-mynewt`](https://gitlab.com/lupyuen/pinetime-rust-mynewt)
+
+The GitLab CI Workflow is at [`.gitlab-ci.yml`](https://gitlab.com/lupyuen/pinetime-rust-mynewt/-/blob/master/.gitlab-ci.yml)
 
 # Build Instructions
 
@@ -683,7 +694,7 @@ Alternatively (for Linux and macOS only), flash the following two files to PineT
 
     Address: `0x0`
 
-1.  __Rust+Mynewt Firmware__
+1.  __Rust + Mynewt Firmware__
 
     File: `bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf`
 
