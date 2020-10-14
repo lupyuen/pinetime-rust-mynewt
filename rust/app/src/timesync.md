@@ -1199,6 +1199,22 @@ To specify the Watch Face for the firmware...
 
 TODO: Bluetooth Time Sync, Rust Watch Faces and LVGL were developed and tested with Remote PineTime
 
+Custom Cloud pic
+
+Everybody wants a Daily Driver
+But do you know what's inside the Daily Driver?
+Consumer vs Prosumer
+
+Share lessons learnt
+Understand before we copy
+
+Sustainable
+
+Build issues getting in the way of education
+
+Proper test harness with logs
+simulator and remote testing
+
 Watch Apps
 
 Not as mature as other firmware, needs more work
