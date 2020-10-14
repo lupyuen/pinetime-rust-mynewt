@@ -195,13 +195,6 @@ If you are building from this repository from scratch instead of the Released Pa
     newt install
     ```
 
-    __For Windows:__
-
-    ```cmd
-    cd \pinetime\pinetime-rust-mynewt
-    newt\newt install
-    ```
-
     We should see...
 
     ```
@@ -223,6 +216,16 @@ If you are building from this repository from scratch instead of the Released Pa
     ```
 
     Ignore the `mcuboot` error above and proceed to the next step.
+
+    __For Windows:__
+
+    ```cmd
+    cd \pinetime\pinetime-rust-mynewt
+    mkdir repos
+    cd repos
+    git clone --recursive --branch mynewt_1_7_0_tag https://github.com/apache/mynewt-core.git
+    git clone --recursive --branch nimble_1_2_0_tag https://github.com/apache/mynewt-nimble.git
+    ```
 
 1. Restore the MCUBoot version number to 1.5.0. Edit [`pinetime/pinetime-rust-mynewt/project.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/project.yml)
 
@@ -256,7 +259,6 @@ If you are building from this repository from scratch instead of the Released Pa
 
     ```cmd
     cd \pinetime\pinetime-rust-mynewt\repos
-    rd /s mcuboot
     git clone --recursive --branch v1.5.0 https://github.com/JuulLabs-OSS/mcuboot
     ```
 
