@@ -1207,6 +1207,10 @@ Created for learning what's inside a smartwatch
 And make your own tweaks easier
 Not ready for daily use
 
+Diving into a huge repository of firmware code is incredibly difficuly
+We need to learn and share in smaller, digestible chunks
+Sustainable
+
 Integrate touch driver in Rust
 Not power efficient yet
 
