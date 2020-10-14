@@ -1199,48 +1199,44 @@ To specify the Watch Face for the firmware...
 
 # What's Next
 
-TODO: Bluetooth Time Sync, Rust Watch Faces and LVGL were developed and tested with Remote PineTime
+`pinetime-rust-mynewt` was created as a Learning Tool to help us understand what happens inside the firmware of a smartwatch like PineTime.
 
-Custom Cloud pic
+Today `pinetime-rust-mynewt` has evolved to make smartwatch programming even easier to learn...
 
-`pinetime-rust-mynewt` was created as a Learning Tool to understand what happens inside the firmware of a smartwatch
+1.  Safe and sensible embedded programming with Rust, [without the traps](https://youtu.be/LvfCSnOM1Hs)
 
-Created for learning what's inside a smartwatch
-And make your own tweaks easier
-Not ready for daily use
+1.  Easier to share, learn and validate small, meaningful chunks of PineTime code... By publishing Watch Faces on crates.io. 
 
-Diving into a huge repository of firmware code is incredibly difficuly
-We need to learn and share in smaller, digestible chunks
-Sustainable
+    _(No more digging into a HUGE repository of firmware code!)_
+
+1.  Lets us code PineTime firmware on any computer: Linux, macOS and Windows. Even code on a mobile phone... And build in the Cloud with GitHub Actions and GitLab CI. 
+
+    _(No more toolchain worries!)_
+
+1.  Standardised on LVGL, the UI toolkit adopted by most PineTime firmware. So any skills we learn on `pinetime-rust-mynewt` may be be easily transferred to other PineTime platforms.
+
+    _(Which means `druid`, `piet` and `kurbo` have been purged from the firmware... But `druid` may be revived someday as [`druid-lvgl`](https://github.com/AppKaki/druid-lvgl))_
+
+## Who's Driving?
+
+The PineTime Community has been super enthusiastic about turning PineTime into a __"Daily Driver"__... But shouldn't we also understand what's inside our "Daily Driver"?
+
+Maybe make some firmware tweaks and practise some "Driving" ourselves? And understand the firmware code before copying it and letting it "Drive" our lives?
+
+That might be the better way to sustain Open Source development on PineTime. Because if we don't have any PineTime Learners... _The "Driving" shall one day come to a halt._
+
+
 
 Integrate touch driver in Rust
 Not power efficient yet
-
-What has changed
-
-Evolved from Raspberry Pi
-To a simpler, more robust dev kit
-With cloud build and st link
-
-Druid piet and kurbo stack wasn't working
-Replaced by LVGL, the UI stack used by most pinetime firmware
-
-Windows support
-No traps
-
-Sharing and validating
-Remote PineTime
 
 Everybody wants a Daily Driver
 But do you know what's inside the Daily Driver?
 Consumer vs Prosumer
 
 Share lessons learnt
-Understand before we copy
 
 Sustainable
-
-Build issues getting in the way of education
 
 Proper test harness with logs
 simulator and remote testing
