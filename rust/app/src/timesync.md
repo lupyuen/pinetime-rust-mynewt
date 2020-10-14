@@ -1195,8 +1195,6 @@ To specify the Watch Face for the firmware...
 
 1.  Rebuild the firmware and flash to PineTime
 
-![Custom PineTime Firmware Built In The Cloud](https://lupyuen.github.io/images/cloud-firmware.jpg)
-
 # What's Next
 
 `pinetime-rust-mynewt` was created as a Learning Tool to help us understand what happens inside the firmware of a smartwatch like PineTime.
@@ -1225,35 +1223,27 @@ Maybe make some firmware tweaks and practise some "Driving" ourselves? And under
 
 That might be the better way to sustain Open Source development on PineTime. Because if we don't have any PineTime Learners... _The "Driving" shall one day come to a halt._ :-(
 
+## Driving Education
 
+`pinetime-rust-mynewt` is the school for __"Driver's Ed"__. The firmware has been deconstructed into manageable chunks that are easier to learn.  And we use Rust wherever posssible... Because [C Pointer Problems can disrupt our learning](https://youtu.be/LvfCSnOM1Hs).
 
-Integrate touch driver in Rust
-Not power efficient yet
+Perhaps one day `pinetime-rust-mynewt` will become a Daily Driver. But let's take time to enrich our firmware the __Educational Way,__ so that everyone can learn...
 
-Consumer vs Prosumer
+1.  Integrate the [__Touch Controller Driver__](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/touch_sensor.rs) in Rust with LVGL (to support touch input)
 
-Share lessons learnt
+1.  Improve the __Power Efficiency__ of the firmware (like switching off the backlight when idle)
 
-Proper test harness with logs
-simulator and remote testing
+1.  Allow __Watch Apps__ to published on crates.io (see the sketch below)
 
-Watch Apps
+1.  Fill in the missing Rust Bindings for Watch Faces, LVGL and Mynewt: [`pinetime-watchface`](https://docs.rs/pinetime-watchface), [`pinetime-lvgl`](https://docs.rs/pinetime-lvgl), [`pinetime-mynewt`](https://docs.rs/pinetime-mynewt)
 
-Not as mature as other firmware, needs more work
-
-Mynewt and LVGL wrappers are not complete
-
-[Documentation for `pinetime-watchface`](https://docs.rs/pinetime-watchface)
-
-[Documentation for `pinetime-lvgl`](https://docs.rs/pinetime-lvgl)
-
-[Documentation for `pinetime-mynewt`](https://docs.rs/pinetime-mynewt)
-
-In the meantime, please go right ahead and create your own Watch Faces and publish them on crates.io... To share, learn and enjoy :-)
+In the meantime, please go right ahead and create your own Watch Faces and publish them on crates.io... So that all PineTime Owners can share, learn and enjoy :-)
 
 [Check out my PineTime articles](https://lupyuen.github.io)
 
 [RSS Feed](https://lupyuen.github.io/rss.xml)
+
+![Custom PineTime Firmware Built In The Cloud](https://lupyuen.github.io/images/cloud-firmware.jpg)
 
 # Watch Face Framework in Rust
 
