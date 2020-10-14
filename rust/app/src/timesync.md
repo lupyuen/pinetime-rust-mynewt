@@ -1195,6 +1195,8 @@ To specify the Watch Face for the firmware...
 
 1.  Rebuild the firmware and flash to PineTime
 
+![Custom PineTime Firmware Built In The Cloud](https://lupyuen.github.io/images/cloud-firmware.jpg)
+
 # What's Next
 
 TODO: Bluetooth Time Sync, Rust Watch Faces and LVGL were developed and tested with Remote PineTime
