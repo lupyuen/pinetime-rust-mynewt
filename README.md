@@ -720,7 +720,7 @@ For Bootloader: [`targets/nrf52_boot/pkg.yml`](targets/nrf52_boot/pkg.yml)
 
 For Application Firmware: [`targets/nrf52_my_sensor/pkg.yml`](targets/nrf52_my_sensor/pkg.yml)
 
-And rebuild the Bootloader and Application Firmware and flash to PineTime. Debug messages will now appear in the OpenOCD log.
+Rebuild the Bootloader and Application Firmware and flash to PineTime. Debug messages will now appear in the OpenOCD log.
 
 # VSCode Workspace
 
