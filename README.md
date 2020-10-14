@@ -684,6 +684,8 @@ __For Windows:__ We don't need to edit `config.sh`
     NET standalone node 
     ```
 
+Logging of debug messages is disabled by default. To enable debug logging, see the section "Semihosting Logging" below.
+
 # PineTime Updater
 
 Alternatively (for Linux and macOS only), flash the following two files to PineTime with [__PineTime Updater__](https://github.com/lupyuen/pinetime-updater)...
@@ -705,6 +707,20 @@ Alternatively (for Linux and macOS only), flash the following two files to PineT
 Sample logs for Linux, macOS and Windows may be found in the [logs folder](logs)
 
 Also check the [GitHub Actions build logs](https://github.com/lupyuen/pinetime-rust-mynewt/actions)
+
+# Semihosting Logging
+
+Logging of debug messages is disabled by default. To enable Semihosting Logging, comment out this line (by inserting `#` at the start of the line)...
+
+```
+- -DDISABLE_SEMIHOSTING  #  Uncomment to disable Arm Semihosting. Must be uncommented for production.
+```
+
+For Bootloader: [`targets/nrf52_boot/pkg.yml`](targets/nrf52_boot/pkg.yml)
+
+For Application Firmware: [`targets/nrf52_my_sensor/pkg.yml`](targets/nrf52_my_sensor/pkg.yml)
+
+And rebuild the Bootloader and Application Firmware and flash to PineTime. Debug messages will now appear in the OpenOCD log.
 
 # VSCode Workspace
 
