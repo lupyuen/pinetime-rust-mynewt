@@ -273,122 +273,6 @@ Finally we call the Mynewt Function `os_settimeofday` to set the system time.
 
 And that's how we sync the time from our mobile phone to PineTime!
 
-# Bluetooth Log for Time Sync
-
-When we perform Time Sync over Bluetooth LE, we'll see these debugging messages emitted by PineTime: [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L246-L259)
-
-| Debug Message | Remark |
-|:---|:---|
-| `Starting BLE...` | Start the NimBLE Bluetooth LE Stack
-| `BLE started` | 
-| `Render LVGL display...`<br>`Flush display: `<br>`left=63, top=27, right=196, bottom=42...` | Render the initial watch face
-| `connection established` | Mobile phone connects to PineTime
-| `connection updated ` | 
-| `Service discovery complete; `<br>`status=0 conn_handle=1` | PineTime discovers the Current Time Service 
-| `Read complete; `<br>`status=0 conn_handle=1 attr_handle=67`<br>`value=e4 07 0a 04 0e 05 29 07 87 00 ` | PineTime reads and receives the <br> 10-byte current time
-| `Current Time: `<br>`2020-10-04T14:05:41.527343+00:00` | PineTime decodes the current time
-| ... | 
-| `Render LVGL display...`<br>`Flush display: `<br>`left=60, top=27, right=183, bottom=42...` | Render the updated watch face
-| ... | 
-| `Render LVGL display...`<br>`Flush display: `<br>`left=59, top=27, right=181, bottom=42...` | Render the updates every minute
-
-We'll learn about Watch Faces in a while.
-
-Before that, let's find out how to read the Mynewt system time in C and in Rust.
-
-# Get the Time in C
-
-Here's how we fetch the Mynewt system time in C for building Watch Faces: [`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L65-L82)
-
-```c
-//  Get the system time in timeval format
-struct os_timeval tv;
-struct os_timezone tz;
-int rc = os_gettimeofday(&tv, &tz);
-if (rc != 0) { console_printf("Can't get time: %d\n", rc); return 2; }
-```
-
-This produces a [`timeval` struct](http://mynewt.apache.org/v1_7_0/os/core_os/time/os_time.html) in `tv` that indicates the number of microseconds elapsed since Jan 1 1970.
-
-Which isn't really meaningful for building Watch Faces. Let's convert `timeval` to a [`clocktime` struct](https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h#L31-L40) format...
-
-```c
-//  Convert the time from timeval format to clocktime format
-struct clocktime ct;
-rc = timeval_to_clocktime(&tv, &tz, &ct);
-if (rc != 0) { console_printf("Can't convert time: %d\n", rc); return 3; }
-```
-
-This produces `ct`, a [`clocktime` struct](https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h#L31-L40) that contains the date and time components: day, month, year, hours, minutes, seconds and day of week.
-
-Perfect for building a Watch Face!
-
-If we need the current date and time in printable [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format...
-
-```c
-//  Format the clocktime time as 2020-10-04T13:20:26.839843+00:00
-char buf[50];
-rc = datetime_format(&tv, &tz, buf, sizeof(buf));
-if (rc != 0) { console_printf("Can't format time: %d\n", rc); return 4; }
-```
-
-This produces the currrent date and time in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format like...
-
-```
-2020-10-04T13:20:26.839843+00:00
-```
-
-For our simple Watch Face in C, we'll truncate the time up to the minute...
-
-```c
-//  Truncate after minute: 2020-10-04T13:20
-buf[16] = 0;
-```
-
-Which looks like this...
-
-```
-2020-10-04T13:20
-```
-
-# Get the Time in Rust
-
-Here's how we fetch the Mynewt system time in Rust: [`pinetime-watchface/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190)
-
-```rust
-/// Get the system time
-fn get_system_time() -> MynewtResult<WatchFaceTime> {
-    //  Get the system time
-    static mut TV: os::os_timeval  = fill_zero!(os::os_timeval);
-    static mut TZ: os::os_timezone = fill_zero!(os::os_timezone);
-    let rc = unsafe { os::os_gettimeofday(&mut TV, &mut TZ) };
-    assert!(rc == 0, "Can't get time");    
-
-    //  Convert the time
-    static mut CT: clocktime = fill_zero!(clocktime);
-    let rc = unsafe { timeval_to_clocktime(&TV, &TZ, &mut CT) };
-    assert!(rc == 0, "Can't convert time");
-
-    //  Return the time
-    let result = unsafe {  //  Unsafe because CT is a mutable static
-        WatchFaceTime {
-            year:        CT.year as u16,  //  Year (4 digit year)
-            month:       CT.mon  as  u8,  //  Month (1 - 12)
-            day:         CT.day  as  u8,  //  Day (1 - 31)
-            hour:        CT.hour as  u8,  //  Hour (0 - 23)
-            minute:      CT.min  as  u8,  //  Minute (0 - 59)
-            second:      CT.sec  as  u8,  //  Second (0 - 59)
-            day_of_week: CT.dow  as  u8,  //  Day of week (0 - 6; 0 = Sunday)
-        }
-    };
-    Ok(result)
-}
-```
-
-This produces a [`WatchFaceTime` struct](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L226-L243) that's defined in our [`pinetime-watchface` Watch Face Framework](https://crates.io/crates/pinetime-watchface).
-
-Later we'll use `WatchFaceTime` and `pinetime-watchface` to create our Rust Watch Face.
-
 ![Watch Face in C](https://lupyuen.github.io/images/timesync-c-watchface.png)
 
 # Create Watch Face in C
@@ -489,9 +373,9 @@ int update_watch_face(void) {
     buf[16] = 0;
 ``` 
 
-The code above looks familiar... We have seen this code eariler for fetching the current date and time.
+Here's the code for fetching the current date and time. For more details check out the section "Advanced Topic: Get the Time in C" below.
 
-`update_watch_face` has one new unfamiliar line of code...
+After fetching the current date and time `update_watch_face` does this...
 
 ```c
     //  Set the label text
@@ -1249,7 +1133,117 @@ In the meantime, please go right ahead to create your own Watch Faces and publis
 
 ![Custom PineTime Firmware Built In The Cloud](https://lupyuen.github.io/images/cloud-firmware.jpg)
 
-# Watch Face Framework in Rust
+# Advanced Topic: Bluetooth Log for Time Sync
+
+When we perform Time Sync over Bluetooth LE, we'll see these debugging messages emitted by PineTime: [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L246-L259)
+
+| Debug Message | Remark |
+|:---|:---|
+| `Starting BLE...` | Start the NimBLE Bluetooth LE Stack
+| `BLE started` | 
+| `Render LVGL display...`<br>`Flush display: `<br>`left=63, top=27, right=196, bottom=42...` | Render the initial watch face
+| `connection established` | Mobile phone connects to PineTime
+| `connection updated ` | 
+| `Service discovery complete; `<br>`status=0 conn_handle=1` | PineTime discovers the Current Time Service 
+| `Read complete; `<br>`status=0 conn_handle=1 attr_handle=67`<br>`value=e4 07 0a 04 0e 05 29 07 87 00 ` | PineTime reads and receives the <br> 10-byte current time
+| `Current Time: `<br>`2020-10-04T14:05:41.527343+00:00` | PineTime decodes the current time
+| ... | 
+| `Render LVGL display...`<br>`Flush display: `<br>`left=60, top=27, right=183, bottom=42...` | Render the updated watch face
+| ... | 
+| `Render LVGL display...`<br>`Flush display: `<br>`left=59, top=27, right=181, bottom=42...` | Render the updates every minute
+
+# Advanced Topic: Get the Time in C
+
+Here's how we fetch the Mynewt system time in C for building Watch Faces: [`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L65-L82)
+
+```c
+//  Get the system time in timeval format
+struct os_timeval tv;
+struct os_timezone tz;
+int rc = os_gettimeofday(&tv, &tz);
+if (rc != 0) { console_printf("Can't get time: %d\n", rc); return 2; }
+```
+
+This produces a [`timeval` struct](http://mynewt.apache.org/v1_7_0/os/core_os/time/os_time.html) in `tv` that indicates the number of microseconds elapsed since Jan 1 1970.
+
+Which isn't really meaningful for building Watch Faces. Let's convert `timeval` to a [`clocktime` struct](https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h#L31-L40) format...
+
+```c
+//  Convert the time from timeval format to clocktime format
+struct clocktime ct;
+rc = timeval_to_clocktime(&tv, &tz, &ct);
+if (rc != 0) { console_printf("Can't convert time: %d\n", rc); return 3; }
+```
+
+This produces `ct`, a [`clocktime` struct](https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h#L31-L40) that contains the date and time components: day, month, year, hours, minutes, seconds and day of week.
+
+Perfect for building a Watch Face!
+
+If we need the current date and time in printable [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format...
+
+```c
+//  Format the clocktime time as 2020-10-04T13:20:26.839843+00:00
+char buf[50];
+rc = datetime_format(&tv, &tz, buf, sizeof(buf));
+if (rc != 0) { console_printf("Can't format time: %d\n", rc); return 4; }
+```
+
+This produces the currrent date and time in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format like...
+
+```
+2020-10-04T13:20:26.839843+00:00
+```
+
+For our simple Watch Face in C, we'll truncate the time up to the minute...
+
+```c
+//  Truncate after minute: 2020-10-04T13:20
+buf[16] = 0;
+```
+
+Which looks like this...
+
+```
+2020-10-04T13:20
+```
+
+# Advanced Topic: Get the Time in Rust
+
+Here's how we fetch the Mynewt system time in Rust: [`pinetime-watchface/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190)
+
+```rust
+/// Get the system time
+fn get_system_time() -> MynewtResult<WatchFaceTime> {
+    //  Get the system time
+    static mut TV: os::os_timeval  = fill_zero!(os::os_timeval);
+    static mut TZ: os::os_timezone = fill_zero!(os::os_timezone);
+    let rc = unsafe { os::os_gettimeofday(&mut TV, &mut TZ) };
+    assert!(rc == 0, "Can't get time");    
+
+    //  Convert the time
+    static mut CT: clocktime = fill_zero!(clocktime);
+    let rc = unsafe { timeval_to_clocktime(&TV, &TZ, &mut CT) };
+    assert!(rc == 0, "Can't convert time");
+
+    //  Return the time
+    let result = unsafe {  //  Unsafe because CT is a mutable static
+        WatchFaceTime {
+            year:        CT.year as u16,  //  Year (4 digit year)
+            month:       CT.mon  as  u8,  //  Month (1 - 12)
+            day:         CT.day  as  u8,  //  Day (1 - 31)
+            hour:        CT.hour as  u8,  //  Hour (0 - 23)
+            minute:      CT.min  as  u8,  //  Minute (0 - 59)
+            second:      CT.sec  as  u8,  //  Second (0 - 59)
+            day_of_week: CT.dow  as  u8,  //  Day of week (0 - 6; 0 = Sunday)
+        }
+    };
+    Ok(result)
+}
+```
+
+This produces a [`WatchFaceTime` struct](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L226-L243) that's defined in our [`pinetime-watchface` Watch Face Framework](https://crates.io/crates/pinetime-watchface).
+
+# Advanced Topic: Watch Face Framework in Rust
 
 TODO: Watch Face Framework in [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs)
 
@@ -1343,7 +1337,11 @@ The WebAssembly Simulator for this watch face was auto-generated by a GitHub Act
 
 Source code for the WebAssembly Simulator is at the [`mynewt`](https://github.com/AppKaki/lvgl-wasm/tree/mynewt) branch of [`github.com/AppKaki/lvgl-wasm`](https://github.com/AppKaki/lvgl-wasm/tree/mynewt)
 
-# Porting LVGL to Mynewt
+# Advanced Topic: Rust Wrapper for LVGL
+
+TODO: Bindgen, Safe Wrapper Proc Macro, [`rust/lvgl`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/lvgl)
+
+# Advanced Topic: Porting LVGL to Mynewt
 
 TODO: SPI Driver for ST7789 Display Controller, [`pinetime_lvgl_mynewt`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt)
 
@@ -1443,8 +1441,4 @@ int pinetime_lvgl_mynewt_write_data(const uint8_t *data, uint16_t len) {
     return 0;
 }
 ```
-
-# Rust Wrapper for LVGL
-
-TODO: Bindgen, Safe Wrapper Proc Macro, [`rust/lvgl`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/lvgl)
 
