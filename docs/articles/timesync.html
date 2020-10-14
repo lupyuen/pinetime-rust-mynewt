@@ -87,7 +87,9 @@
 <li><a href="#linux-macos-and-windows">13.3 Linux, macOS and Windows</a><ul></ul></li>
 <li><a href="#flash-firmware-to-pinetime">13.4 Flash Firmware to PineTime</a><ul></ul></li>
 <li><a href="#specify-the-watch-face">13.5 Specify the Watch Face</a><ul></ul></li></ul></li>
-<li><a href="#whats-next">14 What's Next</a><ul></ul></li>
+<li><a href="#whats-next">14 What's Next</a><ul>
+<li><a href="#whos-driving">14.1 Who's Driving?</a><ul></ul></li>
+<li><a href="#driving-education">14.2 Driving Education</a><ul></ul></li></ul></li>
 <li><a href="#watch-face-framework-in-rust">15 Watch Face Framework in Rust</a><ul></ul></li>
 <li><a href="#porting-lvgl-to-mynewt">16 Porting LVGL to Mynewt</a><ul></ul></li>
 <li><a href="#rust-wrapper-for-lvgl">17 Rust Wrapper for LVGL</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Bluetooth Time Sync and Rust Watch Face" /></p>
@@ -1087,16 +1089,53 @@ barebones-watchface = &quot;1.0.5&quot;
 </li>
 </ol>
 <h1 id="whats-next" class="section-header"><a href="#whats-next">14 What's Next</a></h1>
-<p>TODO: Bluetooth Time Sync, Rust Watch Faces and LVGL were developed and tested with Remote PineTime</p>
-<p>Watch Apps</p>
-<p>Not as mature as other firmware, needs more work</p>
-<p>Mynewt and LVGL wrappers are not complete</p>
-<p><a href="https://docs.rs/pinetime-watchface">Documentation for <code>pinetime-watchface</code></a></p>
-<p><a href="https://docs.rs/pinetime-lvgl">Documentation for <code>pinetime-lvgl</code></a></p>
-<p><a href="https://docs.rs/pinetime-mynewt">Documentation for <code>pinetime-mynewt</code></a></p>
-<p>In the meantime, please go ahead and create your own Watch Faces and publish them on crates.io</p>
+<p><code>pinetime-rust-mynewt</code> was created as a Learning Tool to help us understand what happens inside the firmware of a smartwatch like PineTime.</p>
+<p>Today <code>pinetime-rust-mynewt</code> has evolved to make smartwatch programming even easier to learn...</p>
+<ol>
+<li>
+<p>Safe and sensible embedded programming with Rust, <a href="https://youtu.be/LvfCSnOM1Hs">without the traps</a></p>
+</li>
+<li>
+<p>Easier to share, learn and validate small, meaningful chunks of PineTime code... By publishing Watch Faces on crates.io. </p>
+<p><em>(No more digging into a HUGE repository of firmware code!)</em></p>
+</li>
+<li>
+<p>Lets us code PineTime firmware on any computer: Linux, macOS and Windows. Even code on a mobile phone... And build in the Cloud with GitHub Actions and GitLab CI. </p>
+<p><em>(No more toolchain worries!)</em></p>
+</li>
+<li>
+<p>Standardised on LVGL, the UI toolkit adopted by most PineTime firmware. So any skills we learn on <code>pinetime-rust-mynewt</code> may be easily transferred to other PineTime platforms.</p>
+<p><em>(Which means <code>druid</code>, <code>piet</code> and <code>kurbo</code> have been purged from the firmware... But <code>druid</code> may be revived someday as <a href="https://github.com/AppKaki/druid-lvgl"><code>druid-lvgl</code></a>)</em></p>
+</li>
+</ol>
+<h2 id="whos-driving" class="section-header"><a href="#whos-driving">14.1 Who's Driving?</a></h2>
+<p>The PineTime Community has been super enthusiastic about turning PineTime into a <strong>&quot;Daily Driver&quot;</strong>... But shouldn't we also understand what's inside our &quot;Daily Driver&quot;?</p>
+<p>Maybe make some firmware tweaks and practise some &quot;Driving&quot; ourselves? And understand the firmware code before copying it and letting it &quot;Drive&quot; our lives?</p>
+<p>That might be the better way to sustain Open Source development on PineTime. Because if we don't have any PineTime Learners... <em>The &quot;Driving&quot; shall one day come to a halt.</em> :-(</p>
+<h2 id="driving-education" class="section-header"><a href="#driving-education">14.2 Driving Education</a></h2>
+<p><code>pinetime-rust-mynewt</code> is the school for <strong>&quot;Driver's Ed&quot;</strong>. The firmware has been deconstructed into manageable chunks that are simpler to learn.  And we use Rust wherever posssible... Because <a href="https://youtu.be/LvfCSnOM1Hs">C Pointer Problems can disrupt our learning</a>.</p>
+<p>Perhaps one day <code>pinetime-rust-mynewt</code> will become a Daily Driver. But let's take time to enrich our firmware the <strong>Educational Way,</strong> so that everyone can learn...</p>
+<ol>
+<li>
+<p>Integrate the <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/touch_sensor.rs"><strong>Touch Controller Driver</strong></a> in Rust with LVGL (to support touch input)</p>
+</li>
+<li>
+<p>Improve the <strong>Power Efficiency</strong> of the firmware (like switching off the backlight when idle)</p>
+</li>
+<li>
+<p>Add Rust Drivers for <strong>Step Counting</strong> and <strong>Heart Rate Sensing</strong></p>
+</li>
+<li>
+<p>Allow <strong>Watch Apps</strong> to published on crates.io, for building Custom PineTime Firmware in the Cloud (see the sketch below)</p>
+</li>
+<li>
+<p>Fill in the missing Rust Bindings for Watch Faces, LVGL and Mynewt: <a href="https://docs.rs/pinetime-watchface"><code>pinetime-watchface</code></a>, <a href="https://docs.rs/pinetime-lvgl"><code>pinetime-lvgl</code></a>, <a href="https://docs.rs/pinetime-mynewt"><code>pinetime-mynewt</code></a></p>
+</li>
+</ol>
+<p>In the meantime, please go right ahead and create your own Watch Faces and publish them on crates.io... So that all PineTime Owners can share, learn and enjoy :-)</p>
 <p><a href="https://lupyuen.github.io">Check out my PineTime articles</a></p>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
+<p><img src="https://lupyuen.github.io/images/cloud-firmware.jpg" alt="Custom PineTime Firmware Built In The Cloud" /></p>
 <h1 id="watch-face-framework-in-rust" class="section-header"><a href="#watch-face-framework-in-rust">15 Watch Face Framework in Rust</a></h1>
 <p>TODO: Watch Face Framework in <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs"><code>pinetime-watchface/blob/master/src/lib.rs</code></a></p>
 <p>Start the watch face...</p>
