@@ -4,18 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <title>Bluetooth Time Sync, Rust Watch Faces and LVGL on PineTime Mynewt</title>
+    <title>Bluetooth Time Sync and LVGL on PineTime Mynewt</title>
 
     
     <!-- Begin scripts/articles/*-header.html: Article Header for Custom Markdown files processed by rustdoc, like chip8.md -->
 <meta property="og:title" 
-    content="Bluetooth Time Sync, Rust Watch Faces and LVGL on PineTime Mynewt" 
+    content="Bluetooth Time Sync and LVGL on PineTime Mynewt" 
     data-rh="true">
 <meta property="og:description" 
-    content="How PineTime syncs the time over Bluetooth LE... And how we build PineTime Watch Faces with Rust and LVGL" 
+    content="How PineTime syncs the time over Bluetooth LE with Mynewt and NimBLE... And how we create Watch Faces with LVGL" 
     data-rh="true">
 <meta property="og:image" 
-    content="https://lupyuen.github.io/images/timesync-title.png">
+    content="https://lupyuen.github.io/images/timesync-gatt.jpg">
 <meta property="og:type" 
     content="article" data-rh="true">
 <!-- End scripts/articles/*-header.html -->
@@ -63,42 +63,23 @@
     <!-- End scripts/rustdoc-before.html -->
     
 
-    <h1 class="title">Bluetooth Time Sync, Rust Watch Faces and LVGL on PineTime Mynewt</h1>
+    <h1 class="title">Bluetooth Time Sync and LVGL on PineTime Mynewt</h1>
     <nav id="TOC"><ul>
-<li><a href="#time-sync-over-bluetooth-le">1 Time Sync over Bluetooth LE</a><ul></ul></li>
-<li><a href="#discover-gatt-services-and-characteristics">2 Discover GATT Services and Characteristics</a><ul></ul></li>
-<li><a href="#read-gatt-characteristic-for-current-time">3 Read GATT Characteristic for Current Time</a><ul></ul></li>
-<li><a href="#set-system-time">4 Set System Time</a><ul></ul></li>
-<li><a href="#create-watch-face-in-c">5 Create Watch Face in C</a><ul></ul></li>
-<li><a href="#update-watch-face-in-c">6 Update Watch Face in C</a><ul></ul></li>
-<li><a href="#create-watch-face-in-rust">7 Create Watch Face in Rust</a><ul></ul></li>
-<li><a href="#update-watch-face-in-rust">8 Update Watch Face in Rust</a><ul>
-<li><a href="#update-time-label">8.1 Update Time Label</a><ul></ul></li>
-<li><a href="#update-date-label">8.2 Update Date Label</a><ul></ul></li>
-<li><a href="#update-bluetooth-label">8.3 Update Bluetooth Label</a><ul></ul></li>
-<li><a href="#update-power-label">8.4 Update Power Label</a><ul></ul></li></ul></li>
-<li><a href="#discover-rust-watch-faces-and-publish-your-own">9 Discover Rust Watch Faces and Publish Your Own</a><ul></ul></li>
-<li><a href="#build-and-flash-mynewt-firmware">10 Build and Flash Mynewt Firmware</a><ul>
-<li><a href="#github-actions">10.1 GitHub Actions</a><ul></ul></li>
-<li><a href="#gitlab-ci">10.2 GitLab CI</a><ul></ul></li>
-<li><a href="#linux-macos-and-windows">10.3 Linux, macOS and Windows</a><ul></ul></li>
-<li><a href="#flash-firmware-to-pinetime">10.4 Flash Firmware to PineTime</a><ul></ul></li>
-<li><a href="#specify-the-watch-face">10.5 Specify the Watch Face</a><ul></ul></li></ul></li>
-<li><a href="#whats-next">11 What's Next</a><ul>
-<li><a href="#whos-driving">11.1 Who's Driving?</a><ul></ul></li>
-<li><a href="#driving-education">11.2 Driving Education</a><ul></ul></li></ul></li>
-<li><a href="#advanced-topic-bluetooth-log-for-time-sync">12 Advanced Topic: Bluetooth Log for Time Sync</a><ul></ul></li>
-<li><a href="#advanced-topic-get-the-time-in-c">13 Advanced Topic: Get the Time in C</a><ul></ul></li>
-<li><a href="#advanced-topic-get-the-time-in-rust">14 Advanced Topic: Get the Time in Rust</a><ul></ul></li>
-<li><a href="#advanced-topic-watch-face-framework-in-rust">15 Advanced Topic: Watch Face Framework in Rust</a><ul></ul></li>
-<li><a href="#advanced-topic-rust-wrapper-for-lvgl">16 Advanced Topic: Rust Wrapper for LVGL</a><ul></ul></li>
-<li><a href="#advanced-topic-porting-lvgl-to-mynewt">17 Advanced Topic: Porting LVGL to Mynewt</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Bluetooth Time Sync and Rust Watch Face" /></p>
-<p>Let's learn how PineTime syncs the time over Bluetooth LE... And how we build PineTime Watch Faces with Rust and LVGL.</p>
-<h1 id="time-sync-over-bluetooth-le" class="section-header"><a href="#time-sync-over-bluetooth-le">1 Time Sync over Bluetooth LE</a></h1>
-<p>Try this on your Android phone...</p>
+<li><a href="#discover-gatt-services-and-characteristics">1 Discover GATT Services and Characteristics</a><ul></ul></li>
+<li><a href="#read-gatt-characteristic-for-current-time">2 Read GATT Characteristic for Current Time</a><ul></ul></li>
+<li><a href="#set-system-time">3 Set System Time</a><ul></ul></li>
+<li><a href="#bluetooth-log-for-time-sync">4 Bluetooth Log for Time Sync</a><ul></ul></li>
+<li><a href="#get-the-time">5 Get the Time</a><ul></ul></li>
+<li><a href="#create-watch-face">6 Create Watch Face</a><ul></ul></li>
+<li><a href="#update-watch-face">7 Update Watch Face</a><ul></ul></li>
+<li><a href="#porting-lvgl-to-mynewt">8 Porting LVGL to Mynewt</a><ul>
+<li><a href="#lvgl-library-for-mynewt">8.1 LVGL Library for Mynewt</a><ul></ul></li>
+<li><a href="#lvgl-display-interface-for-pinetime">8.2 LVGL Display Interface for PineTime</a><ul></ul></li>
+<li><a href="#st7789-display-driver">8.3 ST7789 Display Driver</a><ul></ul></li></ul></li>
+<li><a href="#whats-next">9 What's Next</a><ul></ul></li></ul></nav><p>If you have a PineTime Smart Watch and an Android phone, try this...</p>
 <ol>
 <li>
-<p>Install the <strong>nRF Connect</strong> mobile app. Launch the app.</p>
+<p>Install the <strong>nRF Connect</strong> mobile app on your Android phone. Launch the app.</p>
 </li>
 <li>
 <p>Tap on <code>Menu</code> → <code>Configure GATT Server</code> → <code>Add Service</code></p>
@@ -133,7 +114,7 @@
 <p>Not really... It's actually more efficient for PineTime to connect directly to the Current Time Service without discovering all services.</p>
 <p>But for now we'll discover all services as an educational exercise... Also to allow for future extension in case we need to support more services.</p>
 <p>Let's learn how to discover GATT Services and Characteristics in the <code>pinetime-rust-mynewt</code> firmware for PineTime...</p>
-<h1 id="discover-gatt-services-and-characteristics" class="section-header"><a href="#discover-gatt-services-and-characteristics">2 Discover GATT Services and Characteristics</a></h1>
+<h1 id="discover-gatt-services-and-characteristics" class="section-header"><a href="#discover-gatt-services-and-characteristics">1 Discover GATT Services and Characteristics</a></h1>
 <p>First step in our Time Sync magic... Detect incoming Bluetooth LE connections.</p>
 <p>We're using the open-source NimBLE Bluetooth LE stack, which exposes a hook for us to detect incoming connections: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L368-L416"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
 <pre><code class="language-c">//  The NimBLE stack executes this callback function when a GAP Event occurs
@@ -175,7 +156,7 @@ static void blecent_on_disc_complete(const struct blepeer *peer, int status, voi
 <p><em>What are <code>blepeer_add</code> and <code>blepeer_disc_all</code>?</em></p>
 <p>They are <strong>Bluetooth LE Peer Functions</strong> provided by NimBLE to maintain peer-to-peer Bluetooth LE connections and to remember the discovered GATT Services and Characteristics.</p>
 <p>See <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_peer.h"><code>apps/my_sensor_app/src/ble_peer.h</code></a> and <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_peer.c"><code>ble_peer.c</code></a> </p>
-<h1 id="read-gatt-characteristic-for-current-time" class="section-header"><a href="#read-gatt-characteristic-for-current-time">3 Read GATT Characteristic for Current Time</a></h1>
+<h1 id="read-gatt-characteristic-for-current-time" class="section-header"><a href="#read-gatt-characteristic-for-current-time">2 Read GATT Characteristic for Current Time</a></h1>
 <p>Our Time Sync story so far...</p>
 <ol>
 <li>
@@ -237,7 +218,7 @@ struct ble_current_time {
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="number">2020</span><span class="op">-</span><span class="number">10</span><span class="op">-</span><span class="number">04</span> <span class="number">14</span>:<span class="number">05</span>:<span class="number">41.527343</span> <span class="ident">Sunday</span></pre></div>
 <p>We'll see in a while how PineTime decodes the 10 bytes and sets the Mynewt system time.</p>
-<h1 id="set-system-time" class="section-header"><a href="#set-system-time">4 Set System Time</a></h1>
+<h1 id="set-system-time" class="section-header"><a href="#set-system-time">3 Set System Time</a></h1>
 <p>One fine Sunday afternoon in sunny Singapore, the 4th of October 2020, at 2:05 PM (and 41.527343 seconds), PineTime received these 10 encoded bytes...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -311,8 +292,59 @@ static int set_system_time(const struct os_mbuf *om) {
     os_settimeofday(&amp;tv, NULL);
 </code></pre>
 <p>And that's how we sync the time from our mobile phone to PineTime!</p>
+<h1 id="bluetooth-log-for-time-sync" class="section-header"><a href="#bluetooth-log-for-time-sync">4 Bluetooth Log for Time Sync</a></h1>
+<p>When we perform Time Sync over Bluetooth LE, we'll see these debugging messages emitted by PineTime: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L246-L259"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
+<table><thead><tr><th align="left">Debug Message</th><th align="left">Remark</th></tr></thead><tbody>
+<tr><td align="left"><code>Starting BLE...</code></td><td align="left">Start the NimBLE Bluetooth LE Stack</td></tr>
+<tr><td align="left"><code>BLE started</code></td><td align="left"></td></tr>
+<tr><td align="left"><code>Render LVGL display...</code><br><code>Flush display: </code><br><code>left=63, top=27, right=196, bottom=42...</code></td><td align="left">Render the initial watch face</td></tr>
+<tr><td align="left"><code>connection established</code></td><td align="left">Mobile phone connects to PineTime</td></tr>
+<tr><td align="left"><code>connection updated </code></td><td align="left"></td></tr>
+<tr><td align="left"><code>Service discovery complete; </code><br><code>status=0 conn_handle=1</code></td><td align="left">PineTime discovers the Current Time Service</td></tr>
+<tr><td align="left"><code>Read complete; </code><br><code>status=0 conn_handle=1 attr_handle=67</code><br><code>value=e4 07 0a 04 0e 05 29 07 87 00 </code></td><td align="left">PineTime reads and receives the <br> 10-byte current time</td></tr>
+<tr><td align="left"><code>Current Time: </code><br><code>2020-10-04T14:05:41.527343+00:00</code></td><td align="left">PineTime decodes the current time</td></tr>
+<tr><td align="left">...</td><td align="left"></td></tr>
+<tr><td align="left"><code>Render LVGL display...</code><br><code>Flush display: </code><br><code>left=60, top=27, right=183, bottom=42...</code></td><td align="left">Render the updated watch face</td></tr>
+<tr><td align="left">...</td><td align="left"></td></tr>
+<tr><td align="left"><code>Render LVGL display...</code><br><code>Flush display: </code><br><code>left=59, top=27, right=181, bottom=42...</code></td><td align="left">Render the updates every minute</td></tr>
+</tbody></table>
+<h1 id="get-the-time" class="section-header"><a href="#get-the-time">5 Get the Time</a></h1>
+<p>Here's how we fetch the Mynewt system time in C for building Watch Faces: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L65-L82"><code>my_sensor_app/src/watch_face.c</code></a></p>
+<pre><code class="language-c">//  Get the system time in timeval format
+struct os_timeval tv;
+struct os_timezone tz;
+int rc = os_gettimeofday(&amp;tv, &amp;tz);
+if (rc != 0) { console_printf(&quot;Can't get time: %d\n&quot;, rc); return 2; }
+</code></pre>
+<p>This produces a <a href="http://mynewt.apache.org/v1_7_0/os/core_os/time/os_time.html"><code>timeval</code> struct</a> in <code>tv</code> that indicates the number of microseconds elapsed since Jan 1 1970.</p>
+<p>Which isn't really meaningful for building Watch Faces. Let's convert <code>timeval</code> to a <a href="https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h#L31-L40"><code>clocktime</code> struct</a> format...</p>
+<pre><code class="language-c">//  Convert the time from timeval format to clocktime format
+struct clocktime ct;
+rc = timeval_to_clocktime(&amp;tv, &amp;tz, &amp;ct);
+if (rc != 0) { console_printf(&quot;Can't convert time: %d\n&quot;, rc); return 3; }
+</code></pre>
+<p>This produces <code>ct</code>, a <a href="https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h#L31-L40"><code>clocktime</code> struct</a> that contains the date and time components: day, month, year, hours, minutes, seconds and day of week.</p>
+<p>Perfect for building a Watch Face!</p>
+<p>If we need the current date and time in printable <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format...</p>
+<pre><code class="language-c">//  Format the clocktime time as 2020-10-04T13:20:26.839843+00:00
+char buf[50];
+rc = datetime_format(&amp;tv, &amp;tz, buf, sizeof(buf));
+if (rc != 0) { console_printf(&quot;Can't format time: %d\n&quot;, rc); return 4; }
+</code></pre>
+<p>This produces the currrent date and time in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format like...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="number">2020</span><span class="op">-</span><span class="number">10</span><span class="op">-</span><span class="number">04T13</span>:<span class="number">20</span>:<span class="number">26.839843</span><span class="op">+</span><span class="number">00</span>:<span class="number">00</span></pre></div>
+<p>For our simple Watch Face in C, we'll truncate the time up to the minute...</p>
+<pre><code class="language-c">//  Truncate after minute: 2020-10-04T13:20
+buf[16] = 0;
+</code></pre>
+<p>Which looks like this...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="number">2020</span><span class="op">-</span><span class="number">10</span><span class="op">-</span><span class="number">04T13</span>:<span class="number">20</span></pre></div>
 <p><img src="https://lupyuen.github.io/images/timesync-c-watchface.png" alt="Watch Face in C" /></p>
-<h1 id="create-watch-face-in-c" class="section-header"><a href="#create-watch-face-in-c">5 Create Watch Face in C</a></h1>
+<h1 id="create-watch-face" class="section-header"><a href="#create-watch-face">6 Create Watch Face</a></h1>
 <p>Now that we can sync the time and fetch the current time, let's create a simple watch face in C!</p>
 <p>Our Watch Face shall have only one button, laid out on PineTime's 240 x 240 display like this...</p>
 <p><img src="https://lupyuen.github.io/images/timesync-coords.jpg" alt="Watch Face Coordinates" /></p>
@@ -362,7 +394,7 @@ int create_watch_face(void) {
 <p><strong><code>update_watch_face</code></strong>: Function that updates the date and time on the PineTime display</p>
 </li>
 </ol>
-<h1 id="update-watch-face-in-c" class="section-header"><a href="#update-watch-face-in-c">6 Update Watch Face in C</a></h1>
+<h1 id="update-watch-face" class="section-header"><a href="#update-watch-face">7 Update Watch Face</a></h1>
 <p>Let's look at <code>update_watch_face</code>, our function that updates the date and time on the PineTime display: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L59-L87"><code>my_sensor_app/src/watch_face.c</code></a></p>
 <p><img src="https://lupyuen.github.io/images/timesync-c2.jpg" alt="Watch Face Function: update_watch_face" /></p>
 <pre><code class="language-c">/// Update the watch face
@@ -389,8 +421,8 @@ int update_watch_face(void) {
     //  Truncate after minute: 2020-10-04T13:20
     buf[16] = 0;
 </code></pre>
-<p>Here's the code for fetching the current date and time. For more details check out the section &quot;Advanced Topic: Get the Time in C&quot; below.</p>
-<p>After fetching the current date and time <code>update_watch_face</code> does this...</p>
+<p>Here's the code for fetching the current date and time, which we have seen in the previous section.</p>
+<p>After fetching the current date and time, <code>update_watch_face</code> does this...</p>
 <pre><code class="language-c">    //  Set the label text
     lv_label_set_text(label, buf);
     return 0;
@@ -426,806 +458,12 @@ static void watch_face_callback(struct os_event *ev) {
 }
 </code></pre>
 <p>That's how we create a simple watch face in C!</p>
-<p><em>We can build complicated Watch Faces in C... Right?</em></p>
-<p>As our Watch Face code in C grows in complexity... It becomes harder to test, deploy, maintain and extend.</p>
-<p>In the next section we'll look at a more sustainable way to build Watch Faces... With a <strong>Watch Face Framework in Rust</strong>!</p>
-<p>Rust Watch Faces may also be catalogued at <strong><a href="https://crates.io/crates/barebones-watchface">crates.io</a></strong>... So that PineTime Owners may easily discover, extend and remix the Watch Faces.</p>
-<p>Let's learn how...</p>
-<h1 id="create-watch-face-in-rust" class="section-header"><a href="#create-watch-face-in-rust">7 Create Watch Face in Rust</a></h1>
-<p>Watch Faces are built in Rust with the <a href="https://crates.io/crates/pinetime-watchface">Watch Face Framework <code>pinetime-watchface</code></a>.</p>
-<p>All Rust Watch Faces are required to implement the <code>WatchFace</code> Trait defined in <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190"><code>pinetime-watchface/blob/master/src/lib.rs</code></a></p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="doccomment">/// Watch Faces shall implement this trait</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">WatchFace</span> {
-    <span class="doccomment">/// Create the widgets for the Watch Face</span>
-    <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>
-        <span class="kw">where</span> <span class="self">Self</span>: <span class="ident">core</span>::<span class="ident">marker</span>::<span class="ident">Sized</span>;  <span class="comment">//  Result type must have known size</span>
-
-    <span class="doccomment">/// Update the widgets in the Watch Face with the current state</span>
-    <span class="kw">fn</span> <span class="ident">update</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceState</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span>;
-}</pre></div>
-<p>(If you're new to Rust... A Trait in Rust works like an Interface in Java and TypeScript)</p>
-<p>The <code>WatchFace</code> Trait defines two functions...</p>
-<ol>
-<li>
-<p><code>new</code>: Create the Watch Face. Called by the Watch Face Framework when PineTime starts.</p>
-</li>
-<li>
-<p><code>update</code>: Update the Watch Face with the current date and time. Called by the Watch Face Framework every minute.</p>
-</li>
-</ol>
-<p>(<code>new</code> and <code>update</code> work the same way as our Watch Face Functions in C: <code>create_watch_face</code> and <code>update_watch_face</code>)</p>
-<p>Here's how we implement the <code>new</code> function for our simple Watch Face <code>BarebonesWatchFace</code>: <a href="https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L72-L129"><code>barebones-watchface/src/lib.rs</code></a></p>
-<p><img src="https://lupyuen.github.io/images/timesync-layout.png" alt="Watch Face Layout" /></p>
-<p><a href="https://lupyuen.github.io/barebones-watchface/lvgl.html"><strong>Preview this Watch Face in your web browser</strong></a></p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">impl</span> <span class="ident">WatchFace</span> <span class="kw">for</span> <span class="ident">BarebonesWatchFace</span> {
-
-    <span class="comment">///////////////////////////////////////////////////////////////////////////////</span>
-    <span class="comment">//  Create Watch Face</span>
-
-    <span class="doccomment">/// Create the widgets for the Watch Face</span>
-    <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="comment">//  Get the active screen</span>
-        <span class="kw">let</span> <span class="ident">screen</span> <span class="op">=</span> <span class="ident">watchface</span>::<span class="ident">get_active_screen</span>();
-
-        <span class="comment">//  Create the widgets</span>
-        <span class="kw">let</span> <span class="ident">watch_face</span> <span class="op">=</span> <span class="self">Self</span> {
-            <span class="comment">//  Create a Label for Time: &quot;00:00&quot;</span>
-            <span class="ident">time_label</span>: {
-                <span class="kw">let</span> <span class="ident">lbl</span> <span class="op">=</span> <span class="ident">label</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;  <span class="comment">//  `?` will terminate the function in case of error</span>
-                <span class="ident">label</span>::<span class="ident">set_long_mode</span>(<span class="ident">lbl</span>, <span class="ident">label</span>::<span class="ident">LV_LABEL_LONG_BREAK</span>) <span class="question-mark">?</span> ;
-                <span class="ident">label</span>::<span class="ident">set_text</span>(     <span class="ident">lbl</span>, <span class="macro">strn</span><span class="macro">!</span>(<span class="string">&quot;00:00&quot;</span>)) <span class="question-mark">?</span> ;     <span class="comment">//  strn creates a null-terminated string</span>
-                <span class="ident">obj</span>::<span class="ident">set_width</span>(      <span class="ident">lbl</span>, <span class="number">240</span>) <span class="question-mark">?</span> ;
-                <span class="ident">obj</span>::<span class="ident">set_height</span>(     <span class="ident">lbl</span>, <span class="number">200</span>) <span class="question-mark">?</span> ;
-                <span class="ident">label</span>::<span class="ident">set_align</span>(    <span class="ident">lbl</span>, <span class="ident">label</span>::<span class="ident">LV_LABEL_ALIGN_CENTER</span>) <span class="question-mark">?</span> ;
-                <span class="ident">obj</span>::<span class="ident">align</span>(          <span class="ident">lbl</span>, <span class="ident">screen</span>, <span class="ident">obj</span>::<span class="ident">LV_ALIGN_CENTER</span>, <span class="number">0</span>, <span class="op">-</span><span class="number">30</span>) <span class="question-mark">?</span> ;    
-                <span class="ident">lbl</span>  <span class="comment">//  Return the label as time_label</span>
-            },</pre></div>
-<p>Calling the LVGL API in Rust looks... Different. Check out the article <a href="https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face">&quot;Porting PineTime Watch Face from C to Rust On RIOT with LVGL&quot;</a></p>
-<p>The code above creates a <strong>Time Label</strong> for the time and positions the Label at the centre of PineTime's display.</p>
-<p>Below the Time Label, we create a <strong>Date Label</strong> for the date...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-            <span class="comment">//  Create a Label for Date: &quot;MON 22 MAY 2020&quot;</span>
-            <span class="ident">date_label</span>: {
-                <span class="kw">let</span> <span class="ident">lbl</span> <span class="op">=</span> <span class="ident">label</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;
-                <span class="ident">label</span>::<span class="ident">set_long_mode</span>(<span class="ident">lbl</span>, <span class="ident">label</span>::<span class="ident">LV_LABEL_LONG_BREAK</span>) <span class="question-mark">?</span> ;
-                <span class="ident">obj</span>::<span class="ident">set_width</span>(      <span class="ident">lbl</span>, <span class="number">200</span>) <span class="question-mark">?</span> ;
-                <span class="ident">obj</span>::<span class="ident">set_height</span>(     <span class="ident">lbl</span>, <span class="number">200</span>) <span class="question-mark">?</span> ;
-                <span class="ident">label</span>::<span class="ident">set_text</span>(     <span class="ident">lbl</span>, <span class="macro">strn</span><span class="macro">!</span>(<span class="string">&quot;&quot;</span>)) <span class="question-mark">?</span> ;  <span class="comment">//  strn creates a null-terminated string</span>
-                <span class="ident">label</span>::<span class="ident">set_align</span>(    <span class="ident">lbl</span>, <span class="ident">label</span>::<span class="ident">LV_LABEL_ALIGN_CENTER</span>) <span class="question-mark">?</span> ;
-                <span class="ident">obj</span>::<span class="ident">align</span>(          <span class="ident">lbl</span>, <span class="ident">screen</span>, <span class="ident">obj</span>::<span class="ident">LV_ALIGN_CENTER</span>, <span class="number">0</span>, <span class="number">40</span>) <span class="question-mark">?</span> ;
-                <span class="ident">lbl</span>  <span class="comment">//  Return the label as date_label</span>
-            },</pre></div>
-<p>At top left we create a <strong>Bluetooth Label</strong> to indicate whether PineTime is connected on Bluetooth LE...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-            <span class="comment">//  Create a Label for Bluetooth State</span>
-            <span class="ident">bluetooth_label</span>: {
-                <span class="kw">let</span> <span class="ident">lbl</span> <span class="op">=</span> <span class="ident">label</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;
-                <span class="ident">obj</span>::<span class="ident">set_width</span>(     <span class="ident">lbl</span>, <span class="number">50</span>) <span class="question-mark">?</span> ;
-                <span class="ident">obj</span>::<span class="ident">set_height</span>(    <span class="ident">lbl</span>, <span class="number">80</span>) <span class="question-mark">?</span> ;
-                <span class="ident">label</span>::<span class="ident">set_text</span>(    <span class="ident">lbl</span>, <span class="macro">strn</span><span class="macro">!</span>(<span class="string">&quot;&quot;</span>)) <span class="question-mark">?</span> ;  <span class="comment">//  strn creates a null-terminated string</span>
-                <span class="ident">label</span>::<span class="ident">set_recolor</span>( <span class="ident">lbl</span>, <span class="bool-val">true</span>) <span class="question-mark">?</span> ;
-                <span class="ident">label</span>::<span class="ident">set_align</span>(   <span class="ident">lbl</span>, <span class="ident">label</span>::<span class="ident">LV_LABEL_ALIGN_LEFT</span>) <span class="question-mark">?</span> ;
-                <span class="ident">obj</span>::<span class="ident">align</span>(         <span class="ident">lbl</span>, <span class="ident">screen</span>, <span class="ident">obj</span>::<span class="ident">LV_ALIGN_IN_TOP_LEFT</span>, <span class="number">0</span>, <span class="number">0</span>) <span class="question-mark">?</span> ;
-                <span class="ident">lbl</span>  <span class="comment">//  Return the label as bluetooth_label</span>
-            },</pre></div>
-<p>At top right we create a <strong>Power Label</strong> to indicate the battery status and whether PineTime is charging...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-            <span class="comment">//  Create a Label for Power Indicator</span>
-            <span class="ident">power_label</span>: {
-                <span class="kw">let</span> <span class="ident">lbl</span> <span class="op">=</span> <span class="ident">label</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;
-                <span class="ident">obj</span>::<span class="ident">set_width</span>(    <span class="ident">lbl</span>, <span class="number">80</span>) <span class="question-mark">?</span> ;
-                <span class="ident">obj</span>::<span class="ident">set_height</span>(   <span class="ident">lbl</span>, <span class="number">20</span>) <span class="question-mark">?</span> ;
-                <span class="ident">label</span>::<span class="ident">set_text</span>(   <span class="ident">lbl</span>, <span class="macro">strn</span><span class="macro">!</span>(<span class="string">&quot;&quot;</span>)) <span class="question-mark">?</span> ;  <span class="comment">//  strn creates a null-terminated string</span>
-                <span class="ident">label</span>::<span class="ident">set_recolor</span>(<span class="ident">lbl</span>, <span class="bool-val">true</span>) <span class="question-mark">?</span> ;
-                <span class="ident">label</span>::<span class="ident">set_align</span>(  <span class="ident">lbl</span>, <span class="ident">label</span>::<span class="ident">LV_LABEL_ALIGN_RIGHT</span>) <span class="question-mark">?</span> ;
-                <span class="ident">obj</span>::<span class="ident">align</span>(        <span class="ident">lbl</span>, <span class="ident">screen</span>, <span class="ident">obj</span>::<span class="ident">LV_ALIGN_IN_TOP_RIGHT</span>, <span class="number">0</span>, <span class="number">0</span>) <span class="question-mark">?</span> ;
-                <span class="ident">lbl</span>  <span class="comment">//  Return the label as power_label</span>
-            },
-        };
-        <span class="comment">//  Return the watch face</span>
-        <span class="prelude-val">Ok</span>(<span class="ident">watch_face</span>)
-    }</pre></div>
-<p><em>Why did we call <code>set_recolor</code> for the Bluetooth and Power labels?</em></p>
-<p>Instead of the default white colour, we'll be showing the Bluetooth and Power Labels in various colour (to indicate the current status).</p>
-<p>By calling <code>set_recolor</code> on the Bluetooth and Power Labels, we may specify <code>#RGB</code> Colour Codes inside the labels. For example, this label...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-#<span class="number">00ff00</span> <span class="ident">OK</span>#</pre></div>
-<p>Will show the text <code>OK</code> in Green. We'll see the <code>#RGB</code> Colour Codes in a while.</p>
-<p><em>Where are the Labels defined?</em></p>
-<p>The Labels are now neatly defined in the <code>BarebonesWatchFace</code> Struct: <a href="https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L55-L65"><code>barebones-watchface/src/lib.rs</code></a></p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="doccomment">/// Barebones Watch Face with no frills</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BarebonesWatchFace</span> {
-    <span class="doccomment">/// Label for Time: &quot;12:34&quot;</span>
-    <span class="kw">pub</span> <span class="ident">time_label</span>:      <span class="ident">lvgl</span>::<span class="ident">Ptr</span>,
-    <span class="doccomment">/// Label for Date: &quot;MON 22 MAY 2020&quot;</span>
-    <span class="kw">pub</span> <span class="ident">date_label</span>:      <span class="ident">lvgl</span>::<span class="ident">Ptr</span>,
-    <span class="doccomment">/// Label for Bluetooth State (Bluetooth Icon)</span>
-    <span class="kw">pub</span> <span class="ident">bluetooth_label</span>: <span class="ident">lvgl</span>::<span class="ident">Ptr</span>,
-    <span class="doccomment">/// Label for Power Indicator (Charging &amp; Battery)</span>
-    <span class="kw">pub</span> <span class="ident">power_label</span>:     <span class="ident">lvgl</span>::<span class="ident">Ptr</span>,
-}</pre></div>
-<h1 id="update-watch-face-in-rust" class="section-header"><a href="#update-watch-face-in-rust">8 Update Watch Face in Rust</a></h1>
-<p>To roll our Watch Face in Rust we need to provide two functions: <code>new</code> (to create the Watch Face) and <code>update</code> (to update our Watch Face).</p>
-<p>In the previous section we have done <code>new</code>, now let's do <code>update</code>: <a href="https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L131-L146"><code>barebones-watchface/src/lib.rs</code></a></p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">impl</span> <span class="ident">WatchFace</span> <span class="kw">for</span> <span class="ident">BarebonesWatchFace</span> {
-
-    <span class="comment">///////////////////////////////////////////////////////////////////////////////</span>
-    <span class="comment">//  Update Watch Face</span>
-
-    <span class="doccomment">/// Update the widgets in the Watch Face with the current state</span>
-    <span class="kw">fn</span> <span class="ident">update</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceState</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="comment">//  Populate the Time and Date Labels</span>
-        <span class="self">self</span>.<span class="ident">update_date_time</span>(<span class="ident">state</span>) <span class="question-mark">?</span> ;
-
-        <span class="comment">//  Populate the Bluetooth Label</span>
-        <span class="self">self</span>.<span class="ident">update_bluetooth</span>(<span class="ident">state</span>) <span class="question-mark">?</span> ;
-
-        <span class="comment">//  Populate the Power Label</span>
-        <span class="self">self</span>.<span class="ident">update_power</span>(<span class="ident">state</span>) <span class="question-mark">?</span> ;
-        <span class="prelude-val">Ok</span>(())
-    }    </pre></div>
-<p>Let's study how the <code>update_date_time</code>, <code>update_bluetooth</code> and <code>update_power</code> functions refresh the Date, Time, Bluetooth and Power Labels...</p>
-<p><img src="https://lupyuen.github.io/images/timesync-layout.png" alt="Watch Face Layout" /></p>
-<p><a href="https://lupyuen.github.io/barebones-watchface/lvgl.html"><strong>Preview this Watch Face in your web browser</strong></a></p>
-<h2 id="update-time-label" class="section-header"><a href="#update-time-label">8.1 Update Time Label</a></h2>
-<p>Our function <code>update_date_time</code> refreshes the Time Label like so: <a href="https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L148-L189"><code>barebones-watchface/src/lib.rs</code></a></p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">impl</span> <span class="ident">BarebonesWatchFace</span> {
-
-    <span class="doccomment">/// Populate the Time and Date Labels with the time and date</span>
-    <span class="kw">fn</span> <span class="ident">update_date_time</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceState</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="comment">//  Format the time as &quot;12:34&quot;</span>
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="ident">new_string</span>();
-        <span class="macro">write</span><span class="macro">!</span>(
-            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>,         <span class="comment">//  Write the formatted text here</span>
-            <span class="string">&quot;{:02}:{:02}\0&quot;</span>,  <span class="comment">//  Must terminate Rust strings with null</span>
-            <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">hour</span>,
-            <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">minute</span>
-        ).<span class="ident">expect</span>(<span class="string">&quot;time fail&quot;</span>);
-
-        <span class="comment">//  Set the label</span>
-        <span class="ident">label</span>::<span class="ident">set_text</span>(      
-            <span class="self">self</span>.<span class="ident">time_label</span>, 
-            <span class="kw-2">&amp;</span><span class="ident">to_strn</span>(<span class="kw-2">&amp;</span><span class="ident">buf</span>)
-        ) <span class="question-mark">?</span> ;</pre></div>
-<p><code>write!</code> is explained here: <a href="https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face#heapless-strings-in-rust">&quot;Heapless Strings in Rust&quot;</a></p>
-<p>Our Watch Face Framework exposes a <code>String</code> type that limits strings to 64 characters (and prevents buffer overflows). Which is sufficient for most Watch Faces.</p>
-<h2 id="update-date-label" class="section-header"><a href="#update-date-label">8.2 Update Date Label</a></h2>
-<p>Our function <code>update_date_time</code> also refreshes the Date Label:  <a href="https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L148-L189"><code>barebones-watchface/src/lib.rs</code></a></p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">impl</span> <span class="ident">BarebonesWatchFace</span> {
-
-    <span class="doccomment">/// Populate the Time and Date Labels with the time and date</span>
-    <span class="kw">fn</span> <span class="ident">update_date_time</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceState</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="comment">//  Omitted: Format and set the time label</span>
-        ...
-
-        <span class="comment">//  Get the short day name and short month name</span>
-        <span class="kw">let</span> <span class="ident">day</span>   <span class="op">=</span> <span class="ident">get_day_name</span>(<span class="kw-2">&amp;</span><span class="ident">state</span>.<span class="ident">time</span>);
-        <span class="kw">let</span> <span class="ident">month</span> <span class="op">=</span> <span class="ident">get_month_name</span>(<span class="kw-2">&amp;</span><span class="ident">state</span>.<span class="ident">time</span>);
-
-        <span class="comment">//  Format the date as &quot;MON 22 MAY 2020&quot;</span>
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="ident">new_string</span>();
-        <span class="macro">write</span><span class="macro">!</span>(
-            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>,           <span class="comment">//  Write the formatted text here</span>
-            <span class="string">&quot;{} {} {} {}\n\0&quot;</span>,  <span class="comment">//  Must terminate Rust strings with null</span>
-            <span class="ident">day</span>,
-            <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">day</span>,
-            <span class="ident">month</span>,
-            <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">year</span>
-        ).<span class="ident">expect</span>(<span class="string">&quot;date fail&quot;</span>);
-
-        <span class="comment">//  Set the label</span>
-        <span class="ident">label</span>::<span class="ident">set_text</span>(
-            <span class="self">self</span>.<span class="ident">date_label</span>, 
-            <span class="kw-2">&amp;</span><span class="ident">to_strn</span>(<span class="kw-2">&amp;</span><span class="ident">buf</span>)
-        ) <span class="question-mark">?</span> ;
-        <span class="prelude-val">Ok</span>(())
-    }    </pre></div>
-<h2 id="update-bluetooth-label" class="section-header"><a href="#update-bluetooth-label">8.3 Update Bluetooth Label</a></h2>
-<p>Our function <code>update_bluetooth</code> refreshes the Bluetooth Label like so: <a href="https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L191-L223"><code>barebones-watchface/src/lib.rs</code></a></p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">impl</span> <span class="ident">BarebonesWatchFace</span> {
-
-    <span class="doccomment">/// Populate the Bluetooth Label with the Bluetooth State (Bluetooth Icon)</span>
-    <span class="kw">fn</span> <span class="ident">update_bluetooth</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceState</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="ident">state</span>.<span class="ident">bluetooth</span> <span class="op">==</span> <span class="ident">BluetoothState</span>::<span class="ident">BLUETOOTH_STATE_DISCONNECTED</span> {
-            <span class="comment">//  If Bluetooth is disconnected, leave the label empty</span>
-            <span class="ident">label</span>::<span class="ident">set_text</span>(
-                <span class="self">self</span>.<span class="ident">bluetooth_label</span>, 
-                <span class="macro">strn</span><span class="macro">!</span>(<span class="string">&quot;&quot;</span>)
-            ) <span class="question-mark">?</span> ;
-        } <span class="kw">else</span> {
-            <span class="comment">//  Compute the color of the Bluetooth icon</span>
-            <span class="kw">let</span> <span class="ident">color</span> <span class="op">=</span> 
-                <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">state</span>.<span class="ident">bluetooth</span> {
-                    <span class="ident">BluetoothState</span>::<span class="ident">BLUETOOTH_STATE_INACTIVE</span>     <span class="op">=&gt;</span> <span class="string">&quot;#000000&quot;</span>,  <span class="comment">//  Black</span>
-                    <span class="ident">BluetoothState</span>::<span class="ident">BLUETOOTH_STATE_ADVERTISING</span>  <span class="op">=&gt;</span> <span class="string">&quot;#0000ff&quot;</span>,  <span class="comment">//  Blue</span>
-                    <span class="ident">BluetoothState</span>::<span class="ident">BLUETOOTH_STATE_DISCONNECTED</span> <span class="op">=&gt;</span> <span class="string">&quot;#ff0000&quot;</span>,  <span class="comment">//  Red</span>
-                    <span class="ident">BluetoothState</span>::<span class="ident">BLUETOOTH_STATE_CONNECTED</span>    <span class="op">=&gt;</span> <span class="string">&quot;#00ff00&quot;</span>,  <span class="comment">//  Green</span>
-                };
-
-            <span class="comment">//  Format the Bluetooth status</span>
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="ident">new_string</span>();
-            <span class="macro">write</span><span class="macro">!</span>(
-                <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>,              <span class="comment">//  Write the formatted text here</span>
-                <span class="string">&quot;{} \u{F293}#\0&quot;</span>,      <span class="comment">//  LV_SYMBOL_BLUETOOTH. Must terminate Rust strings with null.</span>
-                <span class="ident">color</span>
-            ).<span class="ident">expect</span>(<span class="string">&quot;bt fail&quot;</span>);
-
-            <span class="comment">//  Set the label</span>
-            <span class="ident">label</span>::<span class="ident">set_text</span>(
-                <span class="self">self</span>.<span class="ident">bluetooth_label</span>, 
-                <span class="kw-2">&amp;</span><span class="ident">to_strn</span>(<span class="kw-2">&amp;</span><span class="ident">buf</span>)
-            ) <span class="question-mark">?</span> ;
-        }
-        <span class="prelude-val">Ok</span>(())
-    }</pre></div>
-<p>The Bluetooth Label is coloured by <code>#RGB</code> Colour Codes. For example, this label...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-#<span class="number">00ff00</span> <span class="ident">OK</span>#</pre></div>
-<p>Will show the text <code>OK</code> in Green.</p>
-<p><em>What's <code>\u{F293}</code>?</em></p>
-<p><code>\u{F293}</code> is the Unicode Symbol for the Bluetooth Icon. So when we set a label to...</p>
-
-<pre><code>#00ff00 \u{F293}#</code></pre>
-<p>This means we're displaying the Bluetooth Icon in Green.</p>
-<h2 id="update-power-label" class="section-header"><a href="#update-power-label">8.4 Update Power Label</a></h2>
-<p>Lastly our function <code>update_power</code> refreshes the Power Label like so: <a href="https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L225-L265"><code>barebones-watchface/src/lib.rs</code></a></p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">impl</span> <span class="ident">BarebonesWatchFace</span> {
-
-    <span class="doccomment">/// Populate the Power Label with the Power Indicator (Charging &amp; Battery)</span>
-    <span class="kw">fn</span> <span class="ident">update_power</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceState</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-        <span class="comment">//  Get the active screen</span>
-        <span class="kw">let</span> <span class="ident">screen</span> <span class="op">=</span> <span class="ident">watchface</span>::<span class="ident">get_active_screen</span>();
-
-        <span class="comment">//  Compute the percentage power</span>
-        <span class="kw">let</span> <span class="ident">percentage</span> <span class="op">=</span> <span class="ident">convert_battery_voltage</span>(<span class="ident">state</span>.<span class="ident">millivolts</span>);
-
-        <span class="comment">//  Compute the colour for the charging symbol</span>
-        <span class="kw">let</span> <span class="ident">color</span> <span class="op">=</span>                                                     <span class="comment">//  Charging color</span>
-            <span class="kw">if</span> <span class="ident">percentage</span> <span class="op">&lt;=</span> <span class="number">20</span>                        { <span class="string">&quot;#f2495c&quot;</span> }    <span class="comment">//  Low Battery</span>
-            <span class="kw">else</span> <span class="kw">if</span> <span class="ident">state</span>.<span class="ident">powered</span> <span class="op">&amp;&amp;</span> <span class="op">!</span>(<span class="ident">state</span>.<span class="ident">charging</span>) { <span class="string">&quot;#73bf69&quot;</span> }    <span class="comment">//  Full Battery</span>
-            <span class="kw">else</span>                                       { <span class="string">&quot;#fade2a&quot;</span> };   <span class="comment">//  Mid Battery</span>
-
-        <span class="kw">let</span> <span class="ident">symbol</span> <span class="op">=</span>                         <span class="comment">//  Charging symbol</span>
-            <span class="kw">if</span> <span class="ident">state</span>.<span class="ident">powered</span> { <span class="string">&quot;\u{F0E7}&quot;</span> }  <span class="comment">//  LV_SYMBOL_CHARGE</span>
-            <span class="kw">else</span>             { <span class="string">&quot; &quot;</span> };
-
-        <span class="comment">//  Format the Power Indicator</span>
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="ident">new_string</span>();
-        <span class="macro">write</span><span class="macro">!</span>(
-            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>,                    <span class="comment">//  Write the formatted text here</span>
-            <span class="string">&quot;{} {}%{}#\nRUST ({}mV)\0&quot;</span>,  <span class="comment">//  Must terminate Rust strings with null</span>
-            <span class="ident">color</span>,
-            <span class="ident">percentage</span>,
-            <span class="ident">symbol</span>,
-            <span class="ident">state</span>.<span class="ident">millivolts</span>
-        ).<span class="ident">expect</span>(<span class="string">&quot;batt fail&quot;</span>);
-
-        <span class="comment">//  Set the label</span>
-        <span class="ident">label</span>::<span class="ident">set_text</span>(
-            <span class="self">self</span>.<span class="ident">power_label</span>, 
-            <span class="kw-2">&amp;</span><span class="ident">to_strn</span>(<span class="kw-2">&amp;</span><span class="ident">buf</span>)
-        ) <span class="question-mark">?</span> ; 
-
-        <span class="comment">//  Align the label to the top right of the screen</span>
-        <span class="ident">obj</span>::<span class="ident">align</span>(
-            <span class="self">self</span>.<span class="ident">power_label</span>, <span class="ident">screen</span>, 
-            <span class="ident">obj</span>::<span class="ident">LV_ALIGN_IN_TOP_RIGHT</span>, <span class="number">0</span>, <span class="number">0</span>
-        ) <span class="question-mark">?</span> ;
-        <span class="prelude-val">Ok</span>(())
-    }</pre></div>
-<p><code>\u{F0E7}</code> is the Unicode Symbol for the Charging Icon.</p>
-<p>See the <code>RUST</code> text above?</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="comment">//  Format the Power Indicator</span>
-<span class="macro">write</span><span class="macro">!</span>(
-    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>,                    <span class="comment">//  Write the formatted text here</span>
-    <span class="string">&quot;{} {}%{}#\nRUST ({}mV)\0&quot;</span>,  <span class="comment">//  Must terminate Rust strings with null</span></pre></div>
-<p>In a while we'll change <code>RUST</code> to create our Custom Watch Face.</p>
-<p>To learn more about the Watch Face Framework and the Rust Wrappers for LVGL and Mynewt (and the helper macros)...</p>
-<ul>
-<li>
-<p><a href="https://docs.rs/pinetime-watchface">Documentation for <code>pinetime-watchface</code></a></p>
-</li>
-<li>
-<p><a href="https://docs.rs/pinetime-lvgl">Documentation for <code>pinetime-lvgl</code></a></p>
-</li>
-<li>
-<p><a href="https://docs.rs/pinetime-mynewt">Documentation for <code>pinetime-mynewt</code></a></p>
-</li>
-<li>
-<p><a href="https://docs.rs/pinetime-macros">Documentation for <code>pinetime-macros</code></a></p>
-</li>
-</ul>
-<p>Now that we understand Rust Watch Faces, let's publish our own Watch Face on crates.io...</p>
-<p><img src="https://lupyuen.github.io/images/timesync-crate.jpg" alt="Discovering Watch Faces at crates.io" /></p>
-<h1 id="discover-rust-watch-faces-and-publish-your-own" class="section-header"><a href="#discover-rust-watch-faces-and-publish-your-own">9 Discover Rust Watch Faces and Publish Your Own</a></h1>
-<p><em>How can we discover PineTime Watch Faces that others have created?</em></p>
-<p><em>So that we may load them into our watches... Even modify them?</em></p>
-<p>It's easy to discover Rust Watch Faces for PineTime! Just head over to <a href="https://crates.io"><strong>crates.io</strong></a> and search for...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">pinetime</span> <span class="ident">watchface</span></pre></div>
-<p>Each Watch Face comes with its own link to let us preview the Watch Face in our web browser (thanks to WebAssembly)</p>
-<p><a href="https://lupyuen.github.io/barebones-watchface/lvgl.html">Click here to preview Barebones Watch Face</a></p>
-<p><img src="https://lupyuen.github.io/images/timesync-simulator.jpg" alt="Watch Face Simulator" /></p>
-<p><em>How do we publish our own Watch Face?</em></p>
-<ol>
-<li>
-<p>Browse to the Barebones Watch Face repo: <a href="https://github.com/lupyuen/barebones-watchface"><code>github.com/lupyuen/barebones-watchface</code></a></p>
-<p>Click <code>Forks</code> → <code>Fork</code> to create your own Fork of Barebones Watch Face.</p>
-<p>Click <code>Settings</code></p>
-<p><img src="https://lupyuen.github.io/images/timesync-publish1.jpg" alt="Publish Watch Face Step 1" /></p>
-</li>
-<li>
-<p>Scroll down the <code>Settings</code> page and look for <code>GitHub Pages</code></p>
-<p>Select <code>Master</code> and <code>/docs</code>. Click <code>Save</code></p>
-<p>Click <code>Actions</code> → <code>I Understand My Workflows Enable Them</code></p>
-<p><img src="https://lupyuen.github.io/images/timesync-publish2.jpg" alt="Publish Watch Face Step 2" /></p>
-</li>
-<li>
-<p>Click <code>Code</code> → <code>View Code</code> → <code>src</code> → <code>lib.rs</code></p>
-<p><img src="https://lupyuen.github.io/images/timesync-publish3.jpg" alt="Publish Watch Face Step 3" /></p>
-</li>
-<li>
-<p>Click the <code>Edit</code> icon. Look for the function <code>update_power</code></p>
-<p>Change the <code>RUST</code> text to your own message, like <code>LOVE</code></p>
-<p>Click <code>Commit Changes</code></p>
-<p><img src="https://lupyuen.github.io/images/timesync-publish4.jpg" alt="Publish Watch Face Step 4" /></p>
-</li>
-<li>
-<p>Click <code>Actions</code> → <code>Update lib.rs</code> → <code>build</code></p>
-<p>Wait about 6 minutes for GitHub Actions to build your Watch Face.</p>
-<p>Subsequent builds will complete faster, in around 2 minutes (because of the cached dependencies)</p>
-<p><img src="https://lupyuen.github.io/images/timesync-publish5.jpg" alt="Publish Watch Face Step 5" /></p>
-</li>
-<li>
-<p>Browse to your Watch Face at...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">https</span>:<span class="comment">//YOUR_GITHUB_ACCOUNT.github.io/barebones-watchface</span></pre></div>
-<p>Change <code>YOUR_GITHUB_ACCOUNT</code> to your GitHub Account Name.</p>
-<p>Click <code>PineTime Watch Face Simulator</code> and your Custom Watch Face appears (rendered with WebAssembly)...</p>
-<p><img src="https://lupyuen.github.io/images/timesync-publish6.jpg" alt="Publish Watch Face Step 6" /></p>
-</li>
-<li>
-<p>Your Custom Watch Face can now be built and installed by other PineTime Owners! Just share with them your Watch Face repo URL...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">https</span>:<span class="comment">//github.com/YOUR_GITHUB_ACCOUNT/barebones-watchface</span></pre></div>
-<p>Change <code>YOUR_GITHUB_ACCOUNT</code> to your GitHub Account Name.</p>
-<p>You should probably rename <code>barebone-watchface</code>... Just click <code>Settings</code> to rename your repo.</p>
-<p>Remember to edit <a href="https://github.com/lupyuen/barebones-watchface/blob/master/README.md"><code>README.md</code></a> and change the preview URL...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-[<span class="ident">__Preview</span> <span class="ident">this</span> <span class="ident">Watch</span> <span class="ident">Face</span> <span class="kw">in</span> <span class="ident">your</span> <span class="ident">web</span> <span class="ident">browser__</span>](<span class="ident">https</span>:<span class="comment">//lupyuen.github.io/barebones-watchface/lvgl.html)</span></pre></div>
-</li>
-</ol>
-<p>But most PineTime Owners won't know that your Watch Face exists... That's why we upload our Watch Faces to crates.io as a Central Registry of all Rust Watch Faces for PineTime.</p>
-<p><em>How do we upload our Custom Watch Face to crates.io?</em></p>
-<p>Follow the instructions here: <a href="https://doc.rust-lang.org/cargo/reference/publishing.html">&quot;Publishing on crates.io&quot;</a></p>
-<p>Update the fields in <a href="https://github.com/lupyuen/barebones-watchface/blob/master/Cargo.toml"><code>Cargo.toml</code></a> to describe your Watch Face...</p>
-<pre><code class="language-yaml">[package]
-name          = &quot;barebones-watchface&quot;
-version       = &quot;1.0.5&quot;
-authors       = [&quot;Lee Lup Yuen &lt;luppy@appkaki.com&gt;&quot;]
-edition       = &quot;2018&quot;
-description   = &quot;Barebones Watch Face for Mynewt on PineTime Smart Watch&quot;
-repository    = &quot;https://github.com/lupyuen/barebones-watchface&quot;
-documentation = &quot;https://docs.rs/barebones-watchface&quot;
-categories    = [&quot;embedded&quot;, &quot;no-std&quot;]
-keywords      = [&quot;pinetime&quot;, &quot;watchface&quot;, &quot;mynewt&quot;, &quot;lvgl&quot;, &quot;barebones&quot;]
-readme        = &quot;./README.md&quot;
-license       = &quot;Apache-2.0&quot;
-</code></pre>
-<p>Always keep <code>pinetime</code> and <code>watchface</code> in the <code>keywords</code> so that your Watch Face will appear when PineTime Owners search for <code>pinetime watchface</code> on crates.io.</p>
-<p>The Documentation URL <code>docs.rs/YOUR_WATCH_FACE</code> will be automatically generated when we have published our Watch Face to crates.io.</p>
-<p><a href="https://docs.rs/barebones-watchface">Check out the <code>docs.rs</code> documentation for Barebones Watchface</a></p>
-<h1 id="build-and-flash-mynewt-firmware" class="section-header"><a href="#build-and-flash-mynewt-firmware">10 Build and Flash Mynewt Firmware</a></h1>
-<p><em>How do we install our Custom Watch Face on a real PineTime watch?</em></p>
-<p>We need to build the <a href="https://github.com/lupyuen/pinetime-rust-mynewt"><strong><code>pinetime-rust-mynewt</code></strong></a> firmware... Then flash the firmware to PineTime. </p>
-<p>If you don't have a PineTime, try flashing and testing on <a href="https://github.com/lupyuen/remote-pinetime-bot/blob/master/README.md"><strong>Remote PineTime</strong></a> instead. Remote PineTime is a real PineTime watch that's connected 24x7 to the internet... For anyone to flash and test firmware from anywhere in the world.</p>
-<p>Choose one of the following ways to build the firmware...</p>
-<ol>
-<li>
-<p><strong>GitHub Actions</strong> (in the GitHub Cloud, no software installation needed)</p>
-</li>
-<li>
-<p><strong>GitLab CI</strong> (in the GitLab Cloud, no software installation needed)</p>
-</li>
-<li>
-<p><strong>Linux</strong> (including PineBook Pro and Raspberry Pi)</p>
-</li>
-<li>
-<p><strong>macOS</strong></p>
-</li>
-<li>
-<p><strong>Windows</strong> (plain old CMD, without MinGW or WSL)</p>
-</li>
-</ol>
-<p>Here are the instructions for building the firmware...</p>
-<h2 id="github-actions" class="section-header"><a href="#github-actions">10.1 GitHub Actions</a></h2>
-<ol>
-<li>
-<p>Fork the GitHub Repo: <a href="https://github.com/lupyuen/pinetime-rust-mynewt"><code>github.com/lupyuen/pinetime-rust-mynewt</code></a></p>
-</li>
-<li>
-<p>Click <code>Actions</code> → <code>I Understand My Workflows Enable Them</code></p>
-</li>
-<li>
-<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml"><code>rust/app/Cargo.toml</code></a> and <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/lib.rs"><code>rust/app/src/lib.rs</code></a> to select the Watch Face (see below)</p>
-</li>
-<li>
-<p>This will trigger the firmware build. Click <code>Actions</code> to download the built firmware Artifact <code>my_sensor_app.img</code></p>
-</li>
-<li>
-<p>GitHub Actions Workflow is at <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/.github/workflows/main.yml"><code>.github/workflows/main.yml</code></a></p>
-</li>
-</ol>
-<h2 id="gitlab-ci" class="section-header"><a href="#gitlab-ci">10.2 GitLab CI</a></h2>
-<ol>
-<li>
-<p>Fork the GitLab Repo: <a href="https://gitlab.com/lupyuen/pinetime-rust-mynewt"><code>gitlab.com/lupyuen/pinetime-rust-mynewt</code></a></p>
-</li>
-<li>
-<p>Enable GitLab CI for the forked repo</p>
-</li>
-<li>
-<p>Edit <a href="https://gitlab.com/lupyuen/pinetime-rust-mynewt/-/blob/master/rust/app/Cargo.toml"><code>rust/app/Cargo.toml</code></a> and <a href="https://gitlab.com/lupyuen/pinetime-rust-mynewt/-/blob/master/rust/app/src/lib.rs"><code>rust/app/src/lib.rs</code></a> to select the Watch Face (see below)</p>
-</li>
-<li>
-<p>This will trigger the firmware build. Click <code>CI / CD</code> to download the built firmware Artifact <code>my_sensor_app.img</code></p>
-</li>
-<li>
-<p>GitLab CI Workflow is at <a href="https://gitlab.com/lupyuen/pinetime-rust-mynewt/-/blob/master/.gitlab-ci.yml"><code>.gitlab-ci.yml</code></a></p>
-</li>
-</ol>
-<h2 id="linux-macos-and-windows" class="section-header"><a href="#linux-macos-and-windows">10.3 Linux, macOS and Windows</a></h2>
-<p>Follow the steps under <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#build-instructions">&quot;Build Instructions&quot;</a>...</p>
-<ol>
-<li>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#install-build-tools">&quot;Install Build Tools&quot;</a></p>
-</li>
-<li>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#download-source-files">&quot;Download Source Files&quot;</a></p>
-</li>
-<li>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#build-application-firmware">&quot;Build Application Firmware&quot;</a></p>
-</li>
-</ol>
-<p>We'll flash this built firmware file in the next step...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">img</span></pre></div>
-<h2 id="flash-firmware-to-pinetime" class="section-header"><a href="#flash-firmware-to-pinetime">10.4 Flash Firmware to PineTime</a></h2>
-<p>We'll flash the firmware the wired way using an ST-Link v2 or Raspberry Pi.  (We don't recommend flashing by Bluetooth... The firmware is not fully tested and may brick our watch)</p>
-<p><em>For macOS and Linux...</em></p>
-<ol>
-<li>
-<p>Download and run <a href="https://github.com/lupyuen/pinetime-updater/blob/master/README.md"><strong>PineTime Updater</strong></a>. Connect ST-Link v2 or Raspberry Pi according to the instructions provided.</p>
-</li>
-<li>
-<p>Select <code>Latest Bootloader</code>. The bootloader only needs to be flashed once.</p>
-</li>
-<li>
-<p>PineTime Updater exits after flashing the bootloader. Start PineTime Updater again.</p>
-</li>
-<li>
-<p>Select <code>Downloaded File</code></p>
-</li>
-<li>
-<p>Enter the downloaded path of <code>my_sensor_app.img</code></p>
-</li>
-<li>
-<p>Enter <code>0x8000</code> as the address</p>
-</li>
-<li>
-<p>After flashing, PineTime starts running our firmware</p>
-</li>
-</ol>
-<p><em>For Windows...</em></p>
-<p>Follow the steps under <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#build-instructions">&quot;Build Instructions&quot;</a>...</p>
-<ol>
-<li>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#build-mcuboot-bootloader">&quot;Build MCUBoot Bootloader&quot;</a></p>
-</li>
-<li>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#flash-mcuboot-bootloader">&quot;Flash MCUBoot Bootloader&quot;</a>. The bootloader only needs to be built and flashed once.</p>
-</li>
-<li>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#flash-application-firmware">&quot;Flash Application Firmware&quot;</a></p>
-</li>
-</ol>
-<p><em>For Remote PineTime...</em></p>
-<p>Follow the steps here: <a href="https://github.com/lupyuen/remote-pinetime-bot/blob/master/README.md">Remote PineTime</a></p>
-<h2 id="specify-the-watch-face" class="section-header"><a href="#specify-the-watch-face">10.5 Specify the Watch Face</a></h2>
-<p>To specify the Watch Face for the firmware...</p>
-<ol>
-<li>
-<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/Cargo.toml"><code>rust/app/Cargo.toml</code></a></p>
-</li>
-<li>
-<p>Look for the <code>barebones-watchface</code> dependency..</p>
-<pre><code class="language-yaml"># External Rust libraries used by this module
-[dependencies]
-...
-barebones-watchface = &quot;1.0.5&quot;
-</code></pre>
-</li>
-<li>
-<p>Replace the entire line with the Watch Face name and version found on crates.io...</p>
-<pre><code class="language-yaml">my-watchface = &quot;1.0.5&quot;
-</code></pre>
-<p>If the Watch Face isn't published on crates.io, specify the Git URL like so...</p>
-<pre><code class="language-yaml">my-watchface = { git = &quot;https://github.com/lupyuen/my-watchface&quot; }
-</code></pre>
-</li>
-<li>
-<p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/lib.rs"><code>rust/app/src/lib.rs</code></a></p>
-</li>
-<li>
-<p>Look for <code>WatchFaceType</code>...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="doccomment">/// Declare the Watch Face Type</span>
-<span class="kw">type</span> <span class="ident">WatchFaceType</span> <span class="op">=</span> <span class="ident">barebones_watchface</span>::<span class="ident">BarebonesWatchFace</span>;</pre></div>
-</li>
-<li>
-<p>Change <code>barebones_watchface</code> to the Watch Face Crate Name (replace all <code>-</code> by <code>_</code>).</p>
-<p>Change <code>BarebonesWatchFace</code> to the Watch Face Type Name (from <code>README.md</code> or <code>docs.rs</code> documentation).</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">type</span> <span class="ident">WatchFaceType</span> <span class="op">=</span> <span class="ident">my_watchface</span>::<span class="ident">MyWatchFace</span>;</pre></div>
-</li>
-<li>
-<p>Rebuild the firmware and flash to PineTime</p>
-</li>
-</ol>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">11 What's Next</a></h1>
-<p><code>pinetime-rust-mynewt</code> was created as a Learning Tool to help us understand what happens inside the firmware of a smartwatch like PineTime.</p>
-<p>Today <code>pinetime-rust-mynewt</code> has evolved to make smartwatch programming even easier to learn...</p>
-<ol>
-<li>
-<p>Safe and sensible embedded programming with Rust, <a href="https://youtu.be/LvfCSnOM1Hs">without the traps</a></p>
-</li>
-<li>
-<p>Easier to share, learn and validate small, meaningful chunks of PineTime code... By publishing Watch Faces on crates.io. </p>
-<p><em>(No more digging into a HUGE repository of firmware code!)</em></p>
-</li>
-<li>
-<p>Lets us code PineTime firmware on any computer: Linux, macOS and Windows. Even code on a mobile phone... And build in the Cloud with GitHub Actions and GitLab CI. </p>
-<p><em>(No more toolchain worries!)</em></p>
-</li>
-<li>
-<p>Standardised on LVGL, the UI toolkit adopted by most PineTime firmware. So any skills we learn on <code>pinetime-rust-mynewt</code> may be easily transferred to other PineTime platforms.</p>
-<p><em>(Which means <code>druid</code>, <code>piet</code> and <code>kurbo</code> have been purged from the firmware... But <code>druid</code> may be revived someday as <a href="https://github.com/AppKaki/druid-lvgl"><code>druid-lvgl</code></a>)</em></p>
-</li>
-</ol>
-<h2 id="whos-driving" class="section-header"><a href="#whos-driving">11.1 Who's Driving?</a></h2>
-<p>The PineTime Community has been super enthusiastic about turning PineTime into a <strong>&quot;Daily Driver&quot;</strong>... But shouldn't we also understand what's inside our &quot;Daily Driver&quot;?</p>
-<p>Maybe make some firmware tweaks and practise some &quot;Driving&quot; ourselves? And understand the firmware code before copying it and letting it &quot;Drive&quot; our lives?</p>
-<p>That might be the better way to sustain Open Source development on PineTime. Because if we don't have any PineTime Learners... <em>The &quot;Driving&quot; shall one day come to a halt.</em> :-(</p>
-<h2 id="driving-education" class="section-header"><a href="#driving-education">11.2 Driving Education</a></h2>
-<p><code>pinetime-rust-mynewt</code> is the school for <strong>&quot;Driver's Ed&quot;</strong>. The firmware has been deconstructed into manageable chunks that are simpler to learn.  And we use Rust wherever posssible... Because <a href="https://youtu.be/LvfCSnOM1Hs">C Pointer Problems can disrupt our learning</a>.</p>
-<p>Perhaps one day <code>pinetime-rust-mynewt</code> will become a Daily Driver. But let's take time to enrich our firmware the <strong>Educational Way,</strong> so that everyone can learn...</p>
-<ol>
-<li>
-<p>Integrate the <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/touch_sensor.rs"><strong>Touch Controller Driver</strong></a> in Rust with LVGL (to support touch input)</p>
-</li>
-<li>
-<p>Add Rust Drivers for <strong>Step Counting</strong> and <strong>Heart Rate Sensing</strong></p>
-</li>
-<li>
-<p>Improve the <strong>Power Efficiency</strong> of the firmware (like switching off the backlight when idle)</p>
-</li>
-<li>
-<p>Allow <strong>Watch Apps</strong> to published on crates.io, for building Custom PineTime Firmware in the Cloud (see the sketch below)</p>
-</li>
-<li>
-<p>Fill in the missing Rust Bindings for Watch Faces, LVGL and Mynewt: <a href="https://docs.rs/pinetime-watchface"><code>pinetime-watchface</code></a>, <a href="https://docs.rs/pinetime-lvgl"><code>pinetime-lvgl</code></a>, <a href="https://docs.rs/pinetime-mynewt"><code>pinetime-mynewt</code></a></p>
-</li>
-</ol>
-<p>Lemme know if you're keen to help! :-)</p>
-<p>In the meantime, please go right ahead to create your own Watch Faces and publish them on crates.io... So that all PineTime Owners can share, learn and enjoy :-)</p>
-<p><a href="https://lupyuen.github.io">Check out my PineTime articles</a></p>
-<p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
-<p><img src="https://lupyuen.github.io/images/cloud-firmware.jpg" alt="Custom PineTime Firmware Built In The Cloud" /></p>
-<h1 id="advanced-topic-bluetooth-log-for-time-sync" class="section-header"><a href="#advanced-topic-bluetooth-log-for-time-sync">12 Advanced Topic: Bluetooth Log for Time Sync</a></h1>
-<p>When we perform Time Sync over Bluetooth LE, we'll see these debugging messages emitted by PineTime: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L246-L259"><code>apps/my_sensor_app/src/ble_main.c</code></a></p>
-<table><thead><tr><th align="left">Debug Message</th><th align="left">Remark</th></tr></thead><tbody>
-<tr><td align="left"><code>Starting BLE...</code></td><td align="left">Start the NimBLE Bluetooth LE Stack</td></tr>
-<tr><td align="left"><code>BLE started</code></td><td align="left"></td></tr>
-<tr><td align="left"><code>Render LVGL display...</code><br><code>Flush display: </code><br><code>left=63, top=27, right=196, bottom=42...</code></td><td align="left">Render the initial watch face</td></tr>
-<tr><td align="left"><code>connection established</code></td><td align="left">Mobile phone connects to PineTime</td></tr>
-<tr><td align="left"><code>connection updated </code></td><td align="left"></td></tr>
-<tr><td align="left"><code>Service discovery complete; </code><br><code>status=0 conn_handle=1</code></td><td align="left">PineTime discovers the Current Time Service</td></tr>
-<tr><td align="left"><code>Read complete; </code><br><code>status=0 conn_handle=1 attr_handle=67</code><br><code>value=e4 07 0a 04 0e 05 29 07 87 00 </code></td><td align="left">PineTime reads and receives the <br> 10-byte current time</td></tr>
-<tr><td align="left"><code>Current Time: </code><br><code>2020-10-04T14:05:41.527343+00:00</code></td><td align="left">PineTime decodes the current time</td></tr>
-<tr><td align="left">...</td><td align="left"></td></tr>
-<tr><td align="left"><code>Render LVGL display...</code><br><code>Flush display: </code><br><code>left=60, top=27, right=183, bottom=42...</code></td><td align="left">Render the updated watch face</td></tr>
-<tr><td align="left">...</td><td align="left"></td></tr>
-<tr><td align="left"><code>Render LVGL display...</code><br><code>Flush display: </code><br><code>left=59, top=27, right=181, bottom=42...</code></td><td align="left">Render the updates every minute</td></tr>
-</tbody></table>
-<h1 id="advanced-topic-get-the-time-in-c" class="section-header"><a href="#advanced-topic-get-the-time-in-c">13 Advanced Topic: Get the Time in C</a></h1>
-<p>Here's how we fetch the Mynewt system time in C for building Watch Faces: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L65-L82"><code>my_sensor_app/src/watch_face.c</code></a></p>
-<pre><code class="language-c">//  Get the system time in timeval format
-struct os_timeval tv;
-struct os_timezone tz;
-int rc = os_gettimeofday(&amp;tv, &amp;tz);
-if (rc != 0) { console_printf(&quot;Can't get time: %d\n&quot;, rc); return 2; }
-</code></pre>
-<p>This produces a <a href="http://mynewt.apache.org/v1_7_0/os/core_os/time/os_time.html"><code>timeval</code> struct</a> in <code>tv</code> that indicates the number of microseconds elapsed since Jan 1 1970.</p>
-<p>Which isn't really meaningful for building Watch Faces. Let's convert <code>timeval</code> to a <a href="https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h#L31-L40"><code>clocktime</code> struct</a> format...</p>
-<pre><code class="language-c">//  Convert the time from timeval format to clocktime format
-struct clocktime ct;
-rc = timeval_to_clocktime(&amp;tv, &amp;tz, &amp;ct);
-if (rc != 0) { console_printf(&quot;Can't convert time: %d\n&quot;, rc); return 3; }
-</code></pre>
-<p>This produces <code>ct</code>, a <a href="https://github.com/apache/mynewt-core/blob/master/time/datetime/include/datetime/datetime.h#L31-L40"><code>clocktime</code> struct</a> that contains the date and time components: day, month, year, hours, minutes, seconds and day of week.</p>
-<p>Perfect for building a Watch Face!</p>
-<p>If we need the current date and time in printable <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format...</p>
-<pre><code class="language-c">//  Format the clocktime time as 2020-10-04T13:20:26.839843+00:00
-char buf[50];
-rc = datetime_format(&amp;tv, &amp;tz, buf, sizeof(buf));
-if (rc != 0) { console_printf(&quot;Can't format time: %d\n&quot;, rc); return 4; }
-</code></pre>
-<p>This produces the currrent date and time in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format like...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="number">2020</span><span class="op">-</span><span class="number">10</span><span class="op">-</span><span class="number">04T13</span>:<span class="number">20</span>:<span class="number">26.839843</span><span class="op">+</span><span class="number">00</span>:<span class="number">00</span></pre></div>
-<p>For our simple Watch Face in C, we'll truncate the time up to the minute...</p>
-<pre><code class="language-c">//  Truncate after minute: 2020-10-04T13:20
-buf[16] = 0;
-</code></pre>
-<p>Which looks like this...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="number">2020</span><span class="op">-</span><span class="number">10</span><span class="op">-</span><span class="number">04T13</span>:<span class="number">20</span></pre></div>
-<h1 id="advanced-topic-get-the-time-in-rust" class="section-header"><a href="#advanced-topic-get-the-time-in-rust">14 Advanced Topic: Get the Time in Rust</a></h1>
-<p>Here's how we fetch the Mynewt system time in Rust: <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190"><code>pinetime-watchface/src/lib.rs</code></a></p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="doccomment">/// Get the system time</span>
-<span class="kw">fn</span> <span class="ident">get_system_time</span>() <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span><span class="ident">WatchFaceTime</span><span class="op">&gt;</span> {
-    <span class="comment">//  Get the system time</span>
-    <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">TV</span>: <span class="ident">os</span>::<span class="ident">os_timeval</span>  <span class="op">=</span> <span class="macro">fill_zero</span><span class="macro">!</span>(<span class="ident">os</span>::<span class="ident">os_timeval</span>);
-    <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">TZ</span>: <span class="ident">os</span>::<span class="ident">os_timezone</span> <span class="op">=</span> <span class="macro">fill_zero</span><span class="macro">!</span>(<span class="ident">os</span>::<span class="ident">os_timezone</span>);
-    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">os</span>::<span class="ident">os_gettimeofday</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">TV</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">TZ</span>) };
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Can&#39;t get time&quot;</span>);    
-
-    <span class="comment">//  Convert the time</span>
-    <span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">CT</span>: <span class="ident">clocktime</span> <span class="op">=</span> <span class="macro">fill_zero</span><span class="macro">!</span>(<span class="ident">clocktime</span>);
-    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">timeval_to_clocktime</span>(<span class="kw-2">&amp;</span><span class="ident">TV</span>, <span class="kw-2">&amp;</span><span class="ident">TZ</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">CT</span>) };
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Can&#39;t convert time&quot;</span>);
-
-    <span class="comment">//  Return the time</span>
-    <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because CT is a mutable static</span>
-        <span class="ident">WatchFaceTime</span> {
-            <span class="ident">year</span>:        <span class="ident">CT</span>.<span class="ident">year</span> <span class="kw">as</span> <span class="ident">u16</span>,  <span class="comment">//  Year (4 digit year)</span>
-            <span class="ident">month</span>:       <span class="ident">CT</span>.<span class="ident">mon</span>  <span class="kw">as</span>  <span class="ident">u8</span>,  <span class="comment">//  Month (1 - 12)</span>
-            <span class="ident">day</span>:         <span class="ident">CT</span>.<span class="ident">day</span>  <span class="kw">as</span>  <span class="ident">u8</span>,  <span class="comment">//  Day (1 - 31)</span>
-            <span class="ident">hour</span>:        <span class="ident">CT</span>.<span class="ident">hour</span> <span class="kw">as</span>  <span class="ident">u8</span>,  <span class="comment">//  Hour (0 - 23)</span>
-            <span class="ident">minute</span>:      <span class="ident">CT</span>.<span class="ident">min</span>  <span class="kw">as</span>  <span class="ident">u8</span>,  <span class="comment">//  Minute (0 - 59)</span>
-            <span class="ident">second</span>:      <span class="ident">CT</span>.<span class="ident">sec</span>  <span class="kw">as</span>  <span class="ident">u8</span>,  <span class="comment">//  Second (0 - 59)</span>
-            <span class="ident">day_of_week</span>: <span class="ident">CT</span>.<span class="ident">dow</span>  <span class="kw">as</span>  <span class="ident">u8</span>,  <span class="comment">//  Day of week (0 - 6; 0 = Sunday)</span>
-        }
-    };
-    <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
-}</pre></div>
-<p>This produces a <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L226-L243"><code>WatchFaceTime</code> struct</a> that's defined in our <a href="https://crates.io/crates/pinetime-watchface"><code>pinetime-watchface</code> Watch Face Framework</a>.</p>
-<h1 id="advanced-topic-watch-face-framework-in-rust" class="section-header"><a href="#advanced-topic-watch-face-framework-in-rust">15 Advanced Topic: Watch Face Framework in Rust</a></h1>
-<p>TODO: Watch Face Framework in <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs"><code>pinetime-watchface/blob/master/src/lib.rs</code></a></p>
-<p>Start the watch face...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="doccomment">/// Start rendering the watch face every minute</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">start_watch_face</span>(<span class="ident">update_watch_face</span>: <span class="ident">UpdateWatchFace</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-    <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;Init Rust watch face...\n&quot;</span>); <span class="ident">console</span>::<span class="ident">flush</span>();
-
-    <span class="comment">//  Save the callback for updating the watch face</span>
-    <span class="kw">unsafe</span> { <span class="ident">UPDATE_WATCH_FACE</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">update_watch_face</span>); }
-
-    <span class="comment">//  Get active screen from LVGL</span>
-    <span class="kw">let</span> <span class="ident">screen</span> <span class="op">=</span> <span class="ident">get_active_screen</span>();
-
-    <span class="comment">//  Allow touch events</span>
-    <span class="ident">obj</span>::<span class="ident">set_click</span>(<span class="ident">screen</span>, <span class="bool-val">true</span>) <span class="question-mark">?</span> ;
-
-    <span class="comment">//  Render the watch face</span>
-    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">pinetime_lvgl_mynewt_render</span>() };
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;LVGL render fail&quot;</span>);    
-
-    <span class="comment">//  Set a timer to update the watch face every minute</span>
-    <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because os_callout_init is a Mynewt C function</span>
-        <span class="ident">os</span>::<span class="ident">os_callout_init</span>(
-            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">WATCH_FACE_CALLOUT</span>,         <span class="comment">//  Timer for the watch face</span>
-            <span class="ident">os</span>::<span class="ident">eventq_dflt_get</span>().<span class="ident">unwrap</span>(),  <span class="comment">//  Use default event queue</span>
-            <span class="prelude-val">Some</span>(<span class="ident">watch_face_callback</span>),       <span class="comment">//  Callback function for the timer</span>
-            <span class="ident">ptr</span>::<span class="ident">null_mut</span>()                  <span class="comment">//  No argument</span>
-        );    
-    }
-
-    <span class="comment">//  Trigger the watch face timer in 60 seconds</span>
-    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because os_callout_reset is a Mynewt C function</span>
-        <span class="ident">os</span>::<span class="ident">os_callout_reset</span>(
-            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">WATCH_FACE_CALLOUT</span>,   <span class="comment">//  Timer for the watch face</span>
-            <span class="ident">os</span>::<span class="ident">OS_TICKS_PER_SEC</span> <span class="op">*</span> <span class="number">60</span>  <span class="comment">//  Trigger timer in 60 seconds</span>
-        )
-    };
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Timer fail&quot;</span>);
-    <span class="prelude-val">Ok</span>(())
-}</pre></div>
-<p>Update the watch face every minute...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="doccomment">/// Timer callback that is called every minute</span>
-<span class="kw">extern</span> <span class="kw">fn</span> <span class="ident">watch_face_callback</span>(<span class="ident">_ev</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">os</span>::<span class="ident">os_event</span>) {
-    <span class="ident">console</span>::<span class="ident">print</span>(<span class="string">&quot;Update Rust watch face...\n&quot;</span>); <span class="ident">console</span>::<span class="ident">flush</span>();
-    
-    <span class="comment">//  If there is no callback, fail.</span>
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="kw">unsafe</span> { <span class="ident">UPDATE_WATCH_FACE</span>.<span class="ident">is_some</span>() }, <span class="string">&quot;Update watch face missing&quot;</span>);
-
-    <span class="comment">//  Get the system time    </span>
-    <span class="kw">let</span> <span class="ident">time</span> <span class="op">=</span> <span class="ident">get_system_time</span>()
-        .<span class="ident">expect</span>(<span class="string">&quot;Can&#39;t get system time&quot;</span>);
-
-    <span class="comment">//  Compose the watch face state</span>
-    <span class="kw">let</span> <span class="ident">state</span> <span class="op">=</span> <span class="ident">WatchFaceState</span> {
-        <span class="ident">time</span>,
-        <span class="ident">millivolts</span>: <span class="number">0</span>,     <span class="comment">//  TODO: Get current voltage</span>
-        <span class="ident">charging</span>:   <span class="bool-val">true</span>,  <span class="comment">//  TODO: Get charging status</span>
-        <span class="ident">powered</span>:    <span class="bool-val">true</span>,  <span class="comment">//  TODO: Get powered status</span>
-        <span class="ident">bluetooth</span>:  <span class="ident">BluetoothState</span>::<span class="ident">BLUETOOTH_STATE_CONNECTED</span>,  <span class="comment">//  TODO: Get BLE state</span>
-    };
-
-    <span class="comment">//  Update the watch face</span>
-    <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because WATCH_FACE is a mutable static</span>
-        <span class="ident">UPDATE_WATCH_FACE</span>.<span class="ident">unwrap</span>()(<span class="kw-2">&amp;</span><span class="ident">state</span>)
-            .<span class="ident">expect</span>(<span class="string">&quot;Update Watch Face fail&quot;</span>);
-    }
-
-    <span class="comment">//  Render the watch face</span>
-    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">pinetime_lvgl_mynewt_render</span>() };
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;LVGL render fail&quot;</span>);    
-
-    <span class="comment">//  Trigger the watch face timer in 60 seconds</span>
-    <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> {  <span class="comment">//  Unsafe because os_callout_reset is a Mynewt C function</span>
-        <span class="ident">os</span>::<span class="ident">os_callout_reset</span>(
-            <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">WATCH_FACE_CALLOUT</span>,   <span class="comment">//  Timer for the watch face</span>
-            <span class="ident">os</span>::<span class="ident">OS_TICKS_PER_SEC</span> <span class="op">*</span> <span class="number">60</span>  <span class="comment">//  Trigger timer in 60 seconds</span>
-        )
-    };
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Timer fail&quot;</span>);
-}</pre></div>
-<p>The WebAssembly Simulator for this watch face was auto-generated by a GitHub Actions Workflow: <a href=".github/workflows/simulator.yml"><code>simulator.yml</code></a></p>
-<p>Source code for the WebAssembly Simulator is at the <a href="https://github.com/AppKaki/lvgl-wasm/tree/mynewt"><code>mynewt</code></a> branch of <a href="https://github.com/AppKaki/lvgl-wasm/tree/mynewt"><code>github.com/AppKaki/lvgl-wasm</code></a></p>
-<h1 id="advanced-topic-rust-wrapper-for-lvgl" class="section-header"><a href="#advanced-topic-rust-wrapper-for-lvgl">16 Advanced Topic: Rust Wrapper for LVGL</a></h1>
-<p>TODO: Bindgen, Safe Wrapper Proc Macro, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/lvgl"><code>rust/lvgl</code></a></p>
-<h1 id="advanced-topic-porting-lvgl-to-mynewt" class="section-header"><a href="#advanced-topic-porting-lvgl-to-mynewt">17 Advanced Topic: Porting LVGL to Mynewt</a></h1>
-<p>TODO: SPI Driver for ST7789 Display Controller, <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt"><code>pinetime_lvgl_mynewt</code></a></p>
-<p>Located at <code>libs/pinetime_lvgl_mynewt</code></p>
-<p><a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lvgl.c"><code>src/pinetime/lvgl.c</code></a></p>
+<h1 id="porting-lvgl-to-mynewt" class="section-header"><a href="#porting-lvgl-to-mynewt">8 Porting LVGL to Mynewt</a></h1>
+<p>The above Watch Face was created with <a href="https://docs.lvgl.io/latest/en/html/index.html">LVGL Library (Version 7)</a> that has been ported to PineTime Mynewt as <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt"><code>pinetime_lvgl_mynewt</code></a></p>
+<p>Let's learn what's inside <code>pinetime_lvgl_mynewt</code>...</p>
+<h2 id="lvgl-library-for-mynewt" class="section-header"><a href="#lvgl-library-for-mynewt">8.1 LVGL Library for Mynewt</a></h2>
+<p>During the build of <code>pinetime-rust-mynewt</code> firmware, the <code>pinetime_lvgl_mynewt</code> library is checked out at <code>libs/pinetime_lvgl_mynewt</code>.</p>
+<p>The library exposes an initialisation function <code>pinetime_lvgl_mynewt_init</code> that is automatically called by Mynewt during startup: <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lvgl.c"><code>src/pinetime/lvgl.c</code></a></p>
 <pre><code class="language-c">/// Init the LVGL library. Called by sysinit() during startup, defined in pkg.yml.
 void pinetime_lvgl_mynewt_init(void) {    
     console_printf(&quot;Init LVGL...\n&quot;); console_flush();
@@ -1239,8 +477,9 @@ void pinetime_lvgl_mynewt_init(void) {
     lv_port_disp_init();
     pinetime_lvgl_mynewt_started = true;
 }
-
-/// Render the LVGL display
+</code></pre>
+<p>The library also exposes a rendering function <code>pinetime_lvgl_mynewt_render</code>, which we call every minute to update the Watch Face...</p>
+<pre><code class="language-c">/// Render the LVGL display
 int pinetime_lvgl_mynewt_render(void) {
     console_printf(&quot;Render LVGL display...\n&quot;); console_flush();
     //  Must tick at least 100 milliseconds to force LVGL to update display
@@ -1250,8 +489,13 @@ int pinetime_lvgl_mynewt_render(void) {
     return 0;
 }
 </code></pre>
-<p>Display Driver for ST7789: <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lv_port_disp.c"><code>src/pinetime/lv_port_disp.c</code></a></p>
-<pre><code class="language-c">/// Flush the content of the internal buffer the specific area on the display
+<p><code>lv_init</code>, <code>lv_port_disp_init</code>, <code>lv_tick_inc</code> and <code>lv_task_handler</code> are described in the <a href="https://docs.lvgl.io/latest/en/html/porting/project.html">LVGL porting docs</a>.</p>
+<h2 id="lvgl-display-interface-for-pinetime" class="section-header"><a href="#lvgl-display-interface-for-pinetime">8.2 LVGL Display Interface for PineTime</a></h2>
+<p>To allow LVGL to render to PineTime's display, we expose this display interface function: <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lv_port_disp.c"><code>src/pinetime/lv_port_disp.c</code></a></p>
+<pre><code class="language-c">///  Write Pixels (RAMWR) Command
+#define RAMWR 0x2C
+
+/// Flush the content of the internal buffer the specific area on the display
 static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p) {
     //  Validate parameters
     assert(area-&gt;x2 &gt;= area-&gt;x1);
@@ -1260,7 +504,7 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
     //  Set the ST7789 display window
     pinetime_lvgl_mynewt_set_window(area-&gt;x1, area-&gt;y1, area-&gt;x2, area-&gt;y2);
 
-    //  Write Pixels (RAMWR): st7735_lcd::draw() → set_pixel()
+    //  Write Pixels (RAMWR)
     int len = 
         ((area-&gt;x2 - area-&gt;x1) + 1) *  //  Width
         ((area-&gt;y2 - area-&gt;y1) + 1) *  //  Height
@@ -1272,24 +516,56 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
     lv_disp_flush_ready(disp_drv);
 }
 </code></pre>
-<p><a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/display.c"><code>src/pinetime/display.c</code></a></p>
-<pre><code class="language-c">/// Set the ST7789 display window to the coordinates (left, top), (right, bottom)
+<p><a href="https://docs.lvgl.io/latest/en/html/porting/display.html">According to the LVGL porting docs,</a> LVGL calls <code>disp_flush</code> whenever it needs to flush the contents of LVGL's internal rendering buffer to PineTime's display.</p>
+<p>(The rendering buffer is a partial framebuffer... Because PineTime's 64 KB RAM doesn't have sufficient space for a complete 115 KB framebuffer at 240x240 resolution, 16-bit RGB565 colour)</p>
+<p><code>disp_flush</code> calls three <code>pinetime_lvgl_mynewt</code> functions from our display driver, which is described in the next section...</p>
+<h2 id="st7789-display-driver" class="section-header"><a href="#st7789-display-driver">8.3 ST7789 Display Driver</a></h2>
+<p>The <code>pinetime_lvgl_mynewt</code> library includes a simple display driver for PineTime's <a href="https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf">ST7789 Display Controller</a>.</p>
+<p>We render pixels to the display as a <strong>Rectangular Window</strong> bounded by the coordinares <code>(left, top)</code> and <code>(right, bottom)</code> like so...</p>
+<ol>
+<li>
+<p>Set the <code>left</code> column number and the <code>right</code> column number, by sending the <strong>Column Address Set (CASET)</strong> Command</p>
+</li>
+<li>
+<p>Set the <code>top</code> row number and the <code>bottom</code> row number, by sending the <strong>Row Address Set (RASET)</strong> Command</p>
+<p>This step and the previous one are executed in a single function call...</p>
+<pre><code class="language-c">pinetime_lvgl_mynewt_set_window(area-&gt;x1, area-&gt;y1, area-&gt;x2, area-&gt;y2);
+</code></pre>
+</li>
+<li>
+<p>Send the <strong>Memory Write (RAMWR)</strong> Command...</p>
+<pre><code class="language-c">pinetime_lvgl_mynewt_write_command(RAMWR, NULL, 0);
+</code></pre>
+</li>
+<li>
+<p>Blast a sequence of data bytes containing the colours of the window pixels, <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot#draw-a-line">in 16-bit RGB565 format</a>...</p>
+<pre><code class="language-c">pinetime_lvgl_mynewt_write_data((const uint8_t *) color_p, len);    
+</code></pre>
+</li>
+</ol>
+<p>Here's how our function <code>pinetime_lvgl_mynewt_set_window</code> sends CASET and RASET Commands to set the window coordinates: <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/display.c"><code>src/pinetime/display.c</code></a></p>
+<pre><code class="language-c">/// Column Address Set (CASET) and Row Address Set (RASET) Commands
+#define CASET 0x2A
+#define RASET 0x2B
+
+/// Set the ST7789 display window to the coordinates (left, top), (right, bottom)
 int pinetime_lvgl_mynewt_set_window(uint8_t left, uint8_t top, uint8_t right, uint8_t bottom) {
     assert(left &lt; COL_COUNT &amp;&amp; right &lt; COL_COUNT &amp;&amp; top &lt; ROW_COUNT &amp;&amp; bottom &lt; ROW_COUNT);
     assert(left &lt;= right);
     assert(top &lt;= bottom);
-    //  Set Address Window Columns (CASET): st7735_lcd::draw() → set_pixel() → set_address_window()
+    //  Set Address Window Columns (CASET)
     int rc = pinetime_lvgl_mynewt_write_command(CASET, NULL, 0); assert(rc == 0);
     uint8_t col_para[4] = { 0x00, left, 0x00, right };
     rc = pinetime_lvgl_mynewt_write_data(col_para, 4); assert(rc == 0);
 
-    //  Set Address Window Rows (RASET): st7735_lcd::draw() → set_pixel() → set_address_window()
+    //  Set Address Window Rows (RASET)
     rc = pinetime_lvgl_mynewt_write_command(RASET, NULL, 0); assert(rc == 0);
     uint8_t row_para[4] = { 0x00, top, 0x00, bottom };
     rc = pinetime_lvgl_mynewt_write_data(row_para, 4); assert(rc == 0);
     return 0;
 }
 </code></pre>
+<p>Here's how we transmit command and data bytes to ST7789 over the SPI port...</p>
 <pre><code class="language-c">/// Transmit ST7789 command
 int pinetime_lvgl_mynewt_write_command(uint8_t command, const uint8_t *params, uint16_t len) {
     hal_gpio_write(DISPLAY_DC, 0);
@@ -1309,6 +585,24 @@ int pinetime_lvgl_mynewt_write_data(const uint8_t *data, uint16_t len) {
     return 0;
 }
 </code></pre>
+<p>We call the Mynewt function <code>hal_gpio_write</code> to toggle GPIO Pin 18 (DISPLAY_DC) to tell ST7789 whether we are sending a Command Byte or a sequence of Data Bytes.</p>
+<table><thead><tr><th align="left">Mynewt Call</th><th align="left">Purpose</th></tr></thead><tbody>
+<tr><td align="left"><code>hal_gpio_write(DISPLAY_DC, 0)</code></td><td align="left">To send a Command Byte</td></tr>
+<tr><td align="left"><code>hal_gpio_write(DISPLAY_DC, 1)</code></td><td align="left">To send Data Bytes</td></tr>
+</tbody></table>
+<p>Yes it's unusual, cumbersome and limits SPI performance. It was probably done to force-fit a 4-Line Serial Interface into the 3-Line SPI Interface.</p>
+<p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot#blasting-graphics-to-st7789-display-controller-on-pinetime">More about PineTime's ST7789 Display Controller</a></p>
+<p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Rust Watch Face" /></p>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">9 What's Next</a></h1>
+<p><em>We can build complicated Watch Faces in C... Right?</em></p>
+<p>As our Watch Face code in C grows in complexity... It becomes harder to test, deploy, maintain and extend.</p>
+<p>In the next article we'll look at a more sustainable way to build Watch Faces (like the one above)... With a <strong>Watch Face Framework in Rust</strong>!</p>
+<p>Rust Watch Faces may also be catalogued at <strong><a href="https://crates.io/crates/barebones-watchface">crates.io</a></strong>... So that PineTime Owners may easily discover, extend and remix the Watch Faces.</p>
+<p>Let's learn how in the next article...</p>
+<p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/watchface">&quot;Create Your Own PineTime Watch Face in Rust... And Publish on crates.io&quot;</a></p>
+<p><a href="https://lupyuen.github.io">Check out my PineTime articles</a></p>
+<p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
+<p><img src="https://lupyuen.github.io/images/cloud-firmware.jpg" alt="Custom PineTime Firmware Built In The Cloud" /></p>
 
     
 </body>
