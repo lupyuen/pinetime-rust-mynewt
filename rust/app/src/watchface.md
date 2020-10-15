@@ -153,7 +153,7 @@ Will show the text `OK` in Green. We'll see the `#RGB` Colour Codes in a while.
 
 _Where are the Labels defined?_
 
-The Labels are now neatly defined in the `BarebonesWatchFace` Struct: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L55-L65)
+The Labels are now neatly defined in the `BarebonesWatchFace` Struct: [`lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L55-L65)
 
 ```rust
 /// Barebones Watch Face with no frills
@@ -173,7 +173,7 @@ pub struct BarebonesWatchFace {
 
 To roll our Watch Face we need to provide two functions: `new` (to create the Watch Face) and `update` (to update our Watch Face).
 
-In the previous section we have done `new`, now let's do `update`: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L131-L146)
+In the previous section we have done `new`, now let's do `update`: [`lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L131-L146)
 
 ```rust
 impl WatchFace for BarebonesWatchFace {
@@ -192,7 +192,26 @@ impl WatchFace for BarebonesWatchFace {
     }    
 ```
 
-Let's study how the `update_date_time`, `update_bluetooth` and `update_power` functions refresh the Date, Time, Bluetooth and Power Labels...
+Every minute the Watch Face Framework calls `update`, passing a `WatchFaceState` with the current date, time, Bluetooth status and charging status: [`pinetime-watchface/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L211-L224)
+
+```rust
+/// State for the Watch Face
+#[repr(C)]  //  Allow this struct to be passed to C (for WebAssembly integration)
+pub struct WatchFaceState {
+    /// Current date and time
+    pub time:       WatchFaceTime,
+    /// Bluetooth state
+    pub bluetooth:  BluetoothState,
+    /// Current power
+    pub millivolts: u32,
+    /// True if watch is charging
+    pub charging:   bool,
+    /// True if watch is powered
+    pub powered:    bool,
+}
+```
+
+Let's study how the `update_date_time`, `update_bluetooth` and `update_power` functions refresh the Date, Time, Bluetooth and Power Labels based on the `WatchFaceState`...
 
 ![Watch Face Layout](https://lupyuen.github.io/images/timesync-layout.png)
 
@@ -223,7 +242,7 @@ impl BarebonesWatchFace {
         ) ? ;
 ```
 
-`write!` works like a safer version of `sprintf`. `write!` is explained here: ["Heapless Strings in Rust"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face#heapless-strings-in-rust)
+`write!` works like a safer version of `sprintf` as explained here: ["Heapless Strings in Rust"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face#heapless-strings-in-rust)
 
 Our Watch Face Framework exposes a Heapless `String` Type that limits strings to 64 characters (and prevents buffer overflows). Which is sufficient for most Watch Faces. See [`pinetime-watchface/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L195-L206)
 
@@ -278,6 +297,32 @@ impl BarebonesWatchFace {
     }    
 ```
 
+`get_month_name` converts a numeric month (1 to 12) to text (like `JAN`): [`lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L270-L289)
+
+```rust
+/// Get month short name
+fn get_month_name(time: &WatchFaceTime) -> String {
+    String::from(
+        match time.month {
+            1  => "JAN",
+            2  => "FEB",
+            3  => "MAR",
+            ...
+```
+
+`get_day_name` converts a numeric day-of-week (0 to 6) to text (like `SUN`): [`lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L291-L305)
+
+```rust
+/// Get day short name
+fn get_day_name(time: & WatchFaceTime) -> String {
+    String::from(
+        match time.day_of_week {
+            0  => "SUN",
+            1  => "MON",
+            2  => "TUE",
+            ...
+```
+
 ## Update Bluetooth Label
 
 Our function `update_bluetooth` refreshes the Bluetooth Label like so: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L191-L223)
@@ -321,7 +366,22 @@ impl BarebonesWatchFace {
     }
 ```
 
-The Bluetooth Label is coloured by `#RGB` Colour Codes. For example, this label...
+_What does this do?_
+
+```rust
+//  Compute the color of the Bluetooth icon
+let color = 
+    match &state.bluetooth {
+        BluetoothState::BLUETOOTH_STATE_INACTIVE     => "#000000",  //  Black
+        BluetoothState::BLUETOOTH_STATE_ADVERTISING  => "#0000ff",  //  Blue
+        BluetoothState::BLUETOOTH_STATE_DISCONNECTED => "#ff0000",  //  Red
+        BluetoothState::BLUETOOTH_STATE_CONNECTED    => "#00ff00",  //  Green
+    };
+```
+
+This code converts the current Bluetooth State into an `#RGB` Colour Code `color`.
+
+The Bluetooth Label is coloured by the `#RGB` Colour Code. For example, this label...
 
 ```
 #00ff00 OK#
