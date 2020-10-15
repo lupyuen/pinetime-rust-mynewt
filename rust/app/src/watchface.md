@@ -219,6 +219,31 @@ Let's study how the `update_date_time`, `update_bluetooth` and `update_power` fu
 
 ## Update Time Label
 
+Every minute the `update` function calls `update_date_time`, passing a `WatchFaceState` struct.
+
+Inside the `WatchFaceState` struct is a [`WatchFaceTime` struct](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L226-L243) that contains the current date and time...
+
+```rust
+/// Watch Face Time
+#[repr(C)]  //  Allow this struct to be passed to C (for WebAssembly integration)
+pub struct WatchFaceTime {
+    ///  Year (4 digit year)
+    pub year:       u16,  
+    ///  Month (1 - 12)
+    pub month:       u8,  
+    ///  Day (1 - 31)
+    pub day:         u8,  
+    ///  Hour (0 - 23)
+    pub hour:        u8,  
+    ///  Minute (0 - 59)
+    pub minute:      u8,  
+    ///  Second (0 - 59)
+    pub second:      u8,  
+    /// Day of week (0 - 6; 0 = Sunday)
+    pub day_of_week: u8,  
+}
+```
+
 Our function `update_date_time` refreshes the Time Label like so: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L148-L189)
 
 ```rust
@@ -477,7 +502,7 @@ Now that we understand Rust Watch Faces, let's publish our own Watch Face on cra
 
 ![Discovering Watch Faces at crates.io](https://lupyuen.github.io/images/timesync-crate.jpg)
 
-# Discover Rust Watch Faces and Publish Your Own
+# Discover Watch Faces and Publish Your Own
 
 _How can we discover PineTime Watch Faces that others have created?_
 
@@ -786,11 +811,11 @@ In the meantime, please go right ahead to create your own Watch Faces and publis
 
 ![Custom PineTime Firmware Built In The Cloud](https://lupyuen.github.io/images/cloud-firmware.jpg)
 
-# Advanced Topic: Get the Time in Rust
+# Advanced Topic: Get the Time
 
 Check out the previous article to learn how PineTime synchronises its time over Bluetooth LE...
 
-["Bluetooth Time Sync on PineTime Mynewt"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync)
+["Bluetooth Time Sync and LVGL on PineTime Mynewt"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync)
 
 Here's how we fetch the Mynewt system time in Rust: [`pinetime-watchface/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190)
 
@@ -826,7 +851,7 @@ fn get_system_time() -> MynewtResult<WatchFaceTime> {
 
 This produces a [`WatchFaceTime` struct](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L226-L243) that's defined in our [`pinetime-watchface` Watch Face Framework](https://crates.io/crates/pinetime-watchface).
 
-# Advanced Topic: Watch Face Framework in Rust
+# Advanced Topic: Watch Face Framework
 
 TODO: Watch Face Framework in [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs)
 
