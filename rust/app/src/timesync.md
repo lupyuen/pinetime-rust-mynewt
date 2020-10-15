@@ -1,14 +1,8 @@
 # Bluetooth Time Sync and LVGL on PineTime Mynewt
 
-![PineTime Smart Watch with Bluetooth Time Sync](https://lupyuen.github.io/images/timesync-title.png)
+If you have a PineTime Smart Watch and an Android phone, try this...
 
-Let's learn how PineTime syncs the time over Bluetooth LE.
-
-# Time Sync over Bluetooth LE
-
-Try this on your Android phone...
-
-1. Install the __nRF Connect__ mobile app. Launch the app.
+1. Install the __nRF Connect__ mobile app on your Android phone. Launch the app.
 
 1. Tap on `Menu` → `Configure GATT Server` → `Add Service`
 
@@ -505,17 +499,6 @@ Finally we set our Callout Timer to trigger `watch_face_callback` again in 60 se
 
 That's how we create a simple watch face in C!
 
-_We can build complicated Watch Faces in C... Right?_
-
-As our Watch Face code in C grows in complexity... It becomes harder to test, deploy, maintain and extend.
-
-In the next section we'll look at a more sustainable way to build Watch Faces... With a __Watch Face Framework in Rust__!
-
-Rust Watch Faces may also be catalogued at __[crates.io](https://crates.io/crates/barebones-watchface)__... So that PineTime Owners may easily discover, extend and remix the Watch Faces.
-
-Let's learn how...
-
-
 # Porting LVGL to Mynewt
 
 TODO: SPI Driver for ST7789 Display Controller, [`pinetime_lvgl_mynewt`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt)
@@ -617,53 +600,21 @@ int pinetime_lvgl_mynewt_write_data(const uint8_t *data, uint16_t len) {
 }
 ```
 
+![PineTime Smart Watch with Rust Watch Face](https://lupyuen.github.io/images/timesync-title.png)
+
 # What's Next
 
-`pinetime-rust-mynewt` was created as a Learning Tool to help us understand what happens inside the firmware of a smartwatch like PineTime.
+_We can build complicated Watch Faces in C... Right?_
 
-Today `pinetime-rust-mynewt` has evolved to make smartwatch programming even easier to learn...
+As our Watch Face code in C grows in complexity... It becomes harder to test, deploy, maintain and extend.
 
-1.  Safe and sensible embedded programming with Rust, [without the traps](https://youtu.be/LvfCSnOM1Hs)
+In the next article we'll look at a more sustainable way to build Watch Faces (like the one above)... With a __Watch Face Framework in Rust__!
 
-1.  Easier to share, learn and validate small, meaningful chunks of PineTime code... By publishing Watch Faces on crates.io. 
+Rust Watch Faces may also be catalogued at __[crates.io](https://crates.io/crates/barebones-watchface)__... So that PineTime Owners may easily discover, extend and remix the Watch Faces.
 
-    _(No more digging into a HUGE repository of firmware code!)_
+Let's learn how in the next article...
 
-1.  Lets us code PineTime firmware on any computer: Linux, macOS and Windows. Even code on a mobile phone... And build in the Cloud with GitHub Actions and GitLab CI. 
-
-    _(No more toolchain worries!)_
-
-1.  Standardised on LVGL, the UI toolkit adopted by most PineTime firmware. So any skills we learn on `pinetime-rust-mynewt` may be easily transferred to other PineTime platforms.
-
-    _(Which means `druid`, `piet` and `kurbo` have been purged from the firmware... But `druid` may be revived someday as [`druid-lvgl`](https://github.com/AppKaki/druid-lvgl))_
-
-## Who's Driving?
-
-The PineTime Community has been super enthusiastic about turning PineTime into a __"Daily Driver"__... But shouldn't we also understand what's inside our "Daily Driver"?
-
-Maybe make some firmware tweaks and practise some "Driving" ourselves? And understand the firmware code before copying it and letting it "Drive" our lives?
-
-That might be the better way to sustain Open Source development on PineTime. Because if we don't have any PineTime Learners... _The "Driving" shall one day come to a halt._ :-(
-
-## Driving Education
-
-`pinetime-rust-mynewt` is the school for __"Driver's Ed"__. The firmware has been deconstructed into manageable chunks that are simpler to learn.  And we use Rust wherever posssible... Because [C Pointer Problems can disrupt our learning](https://youtu.be/LvfCSnOM1Hs).
-
-Perhaps one day `pinetime-rust-mynewt` will become a Daily Driver. But let's take time to enrich our firmware the __Educational Way,__ so that everyone can learn...
-
-1.  Integrate the [__Touch Controller Driver__](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/touch_sensor.rs) in Rust with LVGL (to support touch input)
-
-1.  Add Rust Drivers for __Step Counting__ and __Heart Rate Sensing__
-
-1.  Improve the __Power Efficiency__ of the firmware (like switching off the backlight when idle)
-
-1.  Allow __Watch Apps__ to published on crates.io, for building Custom PineTime Firmware in the Cloud (see the sketch below)
-
-1.  Fill in the missing Rust Bindings for Watch Faces, LVGL and Mynewt: [`pinetime-watchface`](https://docs.rs/pinetime-watchface), [`pinetime-lvgl`](https://docs.rs/pinetime-lvgl), [`pinetime-mynewt`](https://docs.rs/pinetime-mynewt)
-
-Lemme know if you're keen to help! :-)
-
-In the meantime, please go right ahead to create your own Watch Faces and publish them on crates.io... So that all PineTime Owners can share, learn and enjoy :-)
+["Create Your Own Rust Watch Face... And Publish On crates.io"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/watchface)
 
 [Check out my PineTime articles](https://lupyuen.github.io)
 

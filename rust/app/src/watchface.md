@@ -1,6 +1,6 @@
 # Create Your Own Rust Watch Face... And Publish On crates.io
 
-![PineTime Smart Watch with Rust Watch Face](https://lupyuen.github.io/images/watchface-title.png)
+![PineTime Smart Watch with Rust Watch Face](https://lupyuen.github.io/images/timesync-title.png)
 
 _We can build Watch Faces for PineTime Smart Watch in C... Right?_
 
@@ -16,7 +16,7 @@ Let's learn to build our own Rust Watch Face for PineTime Smart Watch... And pub
 
 Watch Faces are built in Rust with the [Watch Face Framework `pinetime-watchface`](https://crates.io/crates/pinetime-watchface).
 
-All Rust Watch Faces are required to implement the `WatchFace` Trait defined in [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190)
+Our Rust Watch Face needs to implement the `WatchFace` Trait that's defined in [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190)
 
 ```rust
 /// Watch Faces shall implement this trait
@@ -72,9 +72,22 @@ impl WatchFace for BarebonesWatchFace {
             },
 ```
 
-Calling the LVGL API in Rust looks... Different. Check out the article ["Porting PineTime Watch Face from C to Rust On RIOT with LVGL"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face)
+We're rendering the UI with the [__LVGL Library (Version 7)__](https://docs.lvgl.io/latest/en/html/index.html), which we have ported to Mynewt on PineTime as [`pinetime_lvgl_mynewt`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt).
 
-The code above creates a __Time Label__ for the time and positions the Label at the centre of PineTime's display.
+LVGL is a C Library, so calling the LVGL Library in Rust looks... Different. Check out the article ["Porting PineTime Watch Face from C to Rust On RIOT with LVGL"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face)
+
+The code above creates a __Time Label__ for the time and positions the Label at the centre of PineTime's display...
+
+| LVGL Function | What it does |
+|:---|:--|
+|`label::set_long_mode` | Set the text wrapping for the label
+|`label::set_text` | Set the text in the label
+|`obj::set_width` | Set the label width (in pixels)
+|`obj::set_height` | Set the label height (in pixels)
+|`label::set_align` | Set the label text alignment
+|`obj::align` | Align the label to the screen
+
+Label Widgets in LVGL are documented here: [Label Widget](https://docs.lvgl.io/latest/en/html/widgets/label.html)
 
 Below the Time Label, we create a __Date Label__ for the date...
 
