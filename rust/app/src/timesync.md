@@ -601,7 +601,7 @@ We render pixels to the display as a __Rectangular Window__ bounded by the coord
     pinetime_lvgl_mynewt_write_command(RAMWR, NULL, 0);
     ```
 
-1. Blast the colours of the window pixels, [in 16-bit RGB565 format](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot#draw-a-line)...
+1. Blast a sequence of data bytes containing the colours of the window pixels, [in 16-bit RGB565 format](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot#draw-a-line)...
 
     ```c
     pinetime_lvgl_mynewt_write_data((const uint8_t *) color_p, len);    
@@ -632,7 +632,9 @@ int pinetime_lvgl_mynewt_set_window(uint8_t left, uint8_t top, uint8_t right, ui
 }
 ```
 
+We toggle GPIO Pin 18 (DISPLAY_DC) to tell ST7789 whether we are sending a Command Byte or a sequence of Data Bytes.
 
+Yes it's unusual, cumbersome and limits SPI performance. It was probably done to force-fit a 4-Line Serial Interface into the 3-Line SPI Interface.
 
 ```c
 /// Transmit ST7789 command
