@@ -1,4 +1,4 @@
-# Create Your Own Rust Watch Face... And Publish On crates.io
+# Create Your Own Watch Face in Rust... And Publish on crates.io
 
 ![PineTime Smart Watch with Rust Watch Face](https://lupyuen.github.io/images/timesync-title.png)
 
