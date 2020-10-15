@@ -12,11 +12,11 @@ Rust Watch Faces may also be catalogued at __[crates.io](https://crates.io/crate
 
 Let's learn how...
 
-# Create Watch Face in Rust
+# Create Watch Face
 
-Watch Faces are built in Rust with the [Watch Face Framework `pinetime-watchface`](https://crates.io/crates/pinetime-watchface).
+Watch Faces are built in Rust with the [__Watch Face Framework `pinetime-watchface`__](https://crates.io/crates/pinetime-watchface).
 
-Our Rust Watch Face needs to implement the `WatchFace` Trait that's defined in [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190)
+Our Rust Watch Face needs to implement the __`WatchFace` Trait__ that's defined in [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190)
 
 ```rust
 /// Watch Faces shall implement this trait
@@ -34,11 +34,9 @@ pub trait WatchFace {
 
 The `WatchFace` Trait defines two functions...
 
-1.  `new`: Create the Watch Face. Called by the Watch Face Framework when PineTime starts.
+1.  __`new`:__ Create the Watch Face. Called by the Watch Face Framework when PineTime starts.
 
-1.  `update`: Update the Watch Face with the current date and time. Called by the Watch Face Framework every minute.
-
-(`new` and `update` work the same way as our Watch Face Functions in C: `create_watch_face` and `update_watch_face`)
+1.  __`update`:__ Update the Watch Face with the current date and time. Called by the Watch Face Framework every minute.
 
 Here's how we implement the `new` function for our simple Watch Face `BarebonesWatchFace`: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L72-L129)
 
@@ -171,9 +169,9 @@ pub struct BarebonesWatchFace {
 }
 ```
 
-# Update Watch Face in Rust
+# Update Watch Face
 
-To roll our Watch Face in Rust we need to provide two functions: `new` (to create the Watch Face) and `update` (to update our Watch Face).
+To roll our Watch Face we need to provide two functions: `new` (to create the Watch Face) and `update` (to update our Watch Face).
 
 In the previous section we have done `new`, now let's do `update`: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L131-L146)
 
@@ -225,14 +223,28 @@ impl BarebonesWatchFace {
         ) ? ;
 ```
 
-`write!` is explained here: ["Heapless Strings in Rust"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face#heapless-strings-in-rust)
+`write!` works like a safer version of `sprintf`. `write!` is explained here: ["Heapless Strings in Rust"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face#heapless-strings-in-rust)
 
-Our Watch Face Framework exposes a `String` type that limits strings to 64 characters (and prevents buffer overflows). Which is sufficient for most Watch Faces.
+Our Watch Face Framework exposes a Heapless `String` Type that limits strings to 64 characters (and prevents buffer overflows). Which is sufficient for most Watch Faces. See [`pinetime-watchface/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L195-L206)
+
+```rust
+/// Limit Strings to 64 chars (which may include multiple color codes like "#ffffff")
+pub type String = heapless::String::<heapless::consts::U64>;
+
+/// Create a new String
+pub const fn new_string() -> String {
+    heapless::String(heapless::i::String::new())
+}
+
+/// Convert a static String to null-terminated Strn
+pub fn to_strn(str: &String) -> Strn {
+    Strn::new(str.as_bytes())
+}
+```
 
 ## Update Date Label
 
 Our function `update_date_time` also refreshes the Date Label:  [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L148-L189)
-
 
 ```rust
 impl BarebonesWatchFace {
@@ -242,7 +254,7 @@ impl BarebonesWatchFace {
         //  Omitted: Format and set the time label
         ...
 
-        //  Get the short day name and short month name
+        //  Get the short day name ("MON") and short month name ("MAY")
         let day   = get_day_name(&state.time);
         let month = get_month_name(&state.time);
 
