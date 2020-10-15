@@ -501,11 +501,15 @@ That's how we create a simple watch face in C!
 
 # Porting LVGL to Mynewt
 
-TODO: SPI Driver for ST7789 Display Controller, [`pinetime_lvgl_mynewt`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt)
+The above Watch Face was created with [LVGL Library (Version 7)](https://docs.lvgl.io/latest/en/html/index.html) that has been ported to PineTime Mynewt as [`pinetime_lvgl_mynewt`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt)
 
-Located at `libs/pinetime_lvgl_mynewt`
+Let's learn what's inside `pinetime_lvgl_mynewt`...
 
-[`src/pinetime/lvgl.c`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lvgl.c)
+## LVGL Library for Mynewt
+
+During the build of `pinetime-rust-mynewt` firmware, the `pinetime_lvgl_mynewt` library is checked out at `libs/pinetime_lvgl_mynewt`.
+
+The library exposes an initialisation function `pinetime_lvgl_mynewt_init` that is automatically called by Mynewt during startup: [`src/pinetime/lvgl.c`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lvgl.c)
 
 ```c
 /// Init the LVGL library. Called by sysinit() during startup, defined in pkg.yml.
@@ -521,7 +525,11 @@ void pinetime_lvgl_mynewt_init(void) {
     lv_port_disp_init();
     pinetime_lvgl_mynewt_started = true;
 }
+```
 
+The library also exposes a rendering function `pinetime_lvgl_mynewt_render`, which we call every minute to update the Watch Face...
+
+```c
 /// Render the LVGL display
 int pinetime_lvgl_mynewt_render(void) {
     console_printf("Render LVGL display...\n"); console_flush();
@@ -533,9 +541,16 @@ int pinetime_lvgl_mynewt_render(void) {
 }
 ```
 
-Display Driver for ST7789: [`src/pinetime/lv_port_disp.c`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lv_port_disp.c)
+`lv_init`, `lv_port_disp_init`, `lv_tick_inc` and `lv_task_handler` are described in the [LVGL porting docs](https://docs.lvgl.io/latest/en/html/porting/project.html).
+
+## LVGL Display Interface for PineTime
+
+To allow LVGL to render to PineTime's display, we expose this display interface function: [`src/pinetime/lv_port_disp.c`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lv_port_disp.c)
 
 ```c
+///  Write Pixels (RAMWR) Command
+#define RAMWR 0x2C
+
 /// Flush the content of the internal buffer the specific area on the display
 static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p) {
     //  Validate parameters
@@ -545,7 +560,7 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
     //  Set the ST7789 display window
     pinetime_lvgl_mynewt_set_window(area->x1, area->y1, area->x2, area->y2);
 
-    //  Write Pixels (RAMWR): st7735_lcd::draw() → set_pixel()
+    //  Write Pixels (RAMWR)
     int len = 
         ((area->x2 - area->x1) + 1) *  //  Width
         ((area->y2 - area->y1) + 1) *  //  Height
@@ -558,26 +573,52 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
 }
 ```
 
-[`src/pinetime/display.c`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/display.c)
+[According to the LVGL porting docs,](https://docs.lvgl.io/latest/en/html/porting/display.html) LVGL calls `disp_flush` whenever it needs to flush the contents of LVGL's internal rendering buffer to PineTime's display.
+
+(The rendering buffer is a partial framebuffer... Because PineTime's 64 KB RAM doesn't have sufficient space for a complete 115 KB framebuffer at 240x240 resolution, 16-bit RGB565 colour)
+
+`disp_flush` calls three `pinetime_lvgl_mynewt` functions from our display driver, which is described in the next section...
+
+## ST7789 Display Driver
+
+The `pinetime_lvgl_mynewt` library includes a simple display driver for PineTime's [ST7789 Display Controller](https://wiki.pine64.org/images/5/54/ST7789V_v1.6.pdf).
+
+We render pixels to the display as a __Rectangular Window__ bounded by the coordinares `(left, top)` and `(right, bottom)` like so...
+
+1. Set the `left` column number and the `right` column number, by sending the __Column Address Set (CASET)__ Command
+
+1. Set the `top` row number and the `bottom` row number, by sending the __Row Address Set (RASET)__ Command
+
+1. Send the __Memory Write (RAMWR)__ Command
+
+1. Blast the colours of the window pixels, [in 16-bit RGB565 format](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot#draw-a-line)
+
+Here's how we send CASET and RASET Commands to set the window coordinates: [`src/pinetime/display.c`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/display.c)
 
 ```c
+/// Column Address Set (CASET) and Row Address Set (RASET) Commands
+#define CASET 0x2A
+#define RASET 0x2B
+
 /// Set the ST7789 display window to the coordinates (left, top), (right, bottom)
 int pinetime_lvgl_mynewt_set_window(uint8_t left, uint8_t top, uint8_t right, uint8_t bottom) {
     assert(left < COL_COUNT && right < COL_COUNT && top < ROW_COUNT && bottom < ROW_COUNT);
     assert(left <= right);
     assert(top <= bottom);
-    //  Set Address Window Columns (CASET): st7735_lcd::draw() → set_pixel() → set_address_window()
+    //  Set Address Window Columns (CASET)
     int rc = pinetime_lvgl_mynewt_write_command(CASET, NULL, 0); assert(rc == 0);
     uint8_t col_para[4] = { 0x00, left, 0x00, right };
     rc = pinetime_lvgl_mynewt_write_data(col_para, 4); assert(rc == 0);
 
-    //  Set Address Window Rows (RASET): st7735_lcd::draw() → set_pixel() → set_address_window()
+    //  Set Address Window Rows (RASET)
     rc = pinetime_lvgl_mynewt_write_command(RASET, NULL, 0); assert(rc == 0);
     uint8_t row_para[4] = { 0x00, top, 0x00, bottom };
     rc = pinetime_lvgl_mynewt_write_data(row_para, 4); assert(rc == 0);
     return 0;
 }
 ```
+
+
 
 ```c
 /// Transmit ST7789 command
@@ -599,6 +640,8 @@ int pinetime_lvgl_mynewt_write_data(const uint8_t *data, uint16_t len) {
     return 0;
 }
 ```
+
+[More about PineTime's ST7789 Display Controller](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot#blasting-graphics-to-st7789-display-controller-on-pinetime)
 
 ![PineTime Smart Watch with Rust Watch Face](https://lupyuen.github.io/images/timesync-title.png)
 
