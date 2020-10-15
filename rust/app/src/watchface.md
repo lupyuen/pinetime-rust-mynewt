@@ -10,7 +10,7 @@ Today we'll look at a more sustainable way to build Watch Faces... With a __Watc
 
 Rust Watch Faces may also be catalogued at __[crates.io](https://crates.io/crates/barebones-watchface)__... So that PineTime Owners may easily discover, extend and remix the Watch Faces.
 
-Let's learn to build our own Rust Watch Face for PineTime Smart Watch... And publish it on crates.io.
+Let's learn how...
 
 # Create Watch Face in Rust
 
