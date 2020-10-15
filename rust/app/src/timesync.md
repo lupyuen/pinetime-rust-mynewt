@@ -632,9 +632,7 @@ int pinetime_lvgl_mynewt_set_window(uint8_t left, uint8_t top, uint8_t right, ui
 }
 ```
 
-We toggle GPIO Pin 18 (DISPLAY_DC) to tell ST7789 whether we are sending a Command Byte or a sequence of Data Bytes.
-
-Yes it's unusual, cumbersome and limits SPI performance. It was probably done to force-fit a 4-Line Serial Interface into the 3-Line SPI Interface.
+Here's how we transmit command and data bytes to ST7789 over the SPI port...
 
 ```c
 /// Transmit ST7789 command
@@ -656,6 +654,15 @@ int pinetime_lvgl_mynewt_write_data(const uint8_t *data, uint16_t len) {
     return 0;
 }
 ```
+
+We call the Mynewt function `hal_gpio_write` to toggle GPIO Pin 18 (DISPLAY_DC) to tell ST7789 whether we are sending a Command Byte or a sequence of Data Bytes.
+
+| Mynewt Call | Purpose |
+|:---|:---|
+| `hal_gpio_write(DISPLAY_DC, 0)` | To send a Command Byte
+| `hal_gpio_write(DISPLAY_DC, 1)` | To send Data Bytes
+
+Yes it's unusual, cumbersome and limits SPI performance. It was probably done to force-fit a 4-Line Serial Interface into the 3-Line SPI Interface.
 
 [More about PineTime's ST7789 Display Controller](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot#blasting-graphics-to-st7789-display-controller-on-pinetime)
 
