@@ -38,7 +38,7 @@ Not really... It's actually more efficient for PineTime to connect directly to t
 
 But for now we'll discover all services as an educational exercise... Also to allow for future extension in case we need to support more services.
 
-Let's learn how to discover GATT Services and Characteristics in the [`pinetime-rust-mynewt`](https://github.com/lupyuen/pinetime-rust-mynewt) firmware for PineTime...
+Let's learn to discover GATT Services and Characteristics in the [`pinetime-rust-mynewt`](https://github.com/lupyuen/pinetime-rust-mynewt) firmware for PineTime...
 
 # Discover GATT Services and Characteristics
 
