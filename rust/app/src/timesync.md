@@ -286,7 +286,7 @@ When we perform Time Sync over Bluetooth LE, we'll see these debugging messages 
 | ... | 
 | `Render LVGL display...`<br>`Flush display: `<br>`left=59, top=27, right=181, bottom=42...` | Render the updates every minute
 
-# Get the Time in C
+# Get the Time
 
 Here's how we fetch the Mynewt system time in C for building Watch Faces: [`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L65-L82)
 
@@ -343,7 +343,7 @@ Which looks like this...
 
 ![Watch Face in C](https://lupyuen.github.io/images/timesync-c-watchface.png)
 
-# Create Watch Face in C
+# Create Watch Face
 
 Now that we can sync the time and fetch the current time, let's create a simple watch face in C!
 
@@ -409,7 +409,7 @@ Next we shall define two more functions...
 
 1. __`update_watch_face`__: Function that updates the date and time on the PineTime display
 
-# Update Watch Face in C
+# Update Watch Face
 
 Let's look at `update_watch_face`, our function that updates the date and time on the PineTime display: [`my_sensor_app/src/watch_face.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/watch_face.c#L59-L87)
 
