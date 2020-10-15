@@ -614,7 +614,7 @@ Rust Watch Faces may also be catalogued at __[crates.io](https://crates.io/crate
 
 Let's learn how in the next article...
 
-["Create Your Own Watch Face in Rust... And Publish on crates.io"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/watchface)
+["Create Your Own PineTime Watch Face in Rust... And Publish on crates.io"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/watchface)
 
 [Check out my PineTime articles](https://lupyuen.github.io)
 

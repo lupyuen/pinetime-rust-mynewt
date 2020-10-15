@@ -31,7 +31,7 @@ Refer to the articles...
 
 1. [_PineTime doesn't run Linux... But that's OK!_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime)
 
-1. [_Create Your Own Watch Face in Rust... And Publish on crates.io_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/watchface)
+1. [_Create Your Own PineTime Watch Face in Rust... And Publish on crates.io_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/watchface)
 
 1. [_Bluetooth Time Sync and LVGL on PineTime Mynewt_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync)
 
