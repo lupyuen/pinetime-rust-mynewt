@@ -589,11 +589,25 @@ We render pixels to the display as a __Rectangular Window__ bounded by the coord
 
 1. Set the `top` row number and the `bottom` row number, by sending the __Row Address Set (RASET)__ Command
 
-1. Send the __Memory Write (RAMWR)__ Command
+    This step and the previous one are executed in a single function call...
 
-1. Blast the colours of the window pixels, [in 16-bit RGB565 format](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot#draw-a-line)
+    ```c
+    pinetime_lvgl_mynewt_set_window(area->x1, area->y1, area->x2, area->y2);
+    ```
 
-Here's how we send CASET and RASET Commands to set the window coordinates: [`src/pinetime/display.c`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/display.c)
+1. Send the __Memory Write (RAMWR)__ Command...
+
+    ```c
+    pinetime_lvgl_mynewt_write_command(RAMWR, NULL, 0);
+    ```
+
+1. Blast the colours of the window pixels, [in 16-bit RGB565 format](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot#draw-a-line)...
+
+    ```c
+    pinetime_lvgl_mynewt_write_data((const uint8_t *) color_p, len);    
+    ```
+
+Here's how our function `pinetime_lvgl_mynewt_set_window` sends CASET and RASET Commands to set the window coordinates: [`src/pinetime/display.c`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/display.c)
 
 ```c
 /// Column Address Set (CASET) and Row Address Set (RASET) Commands

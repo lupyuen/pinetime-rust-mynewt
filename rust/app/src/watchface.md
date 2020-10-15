@@ -788,6 +788,10 @@ In the meantime, please go right ahead to create your own Watch Faces and publis
 
 # Advanced Topic: Get the Time in Rust
 
+Check out the previous article to learn how PineTime synchronises its time over Bluetooth LE...
+
+["Bluetooth Time Sync on PineTime Mynewt"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync)
+
 Here's how we fetch the Mynewt system time in Rust: [`pinetime-watchface/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190)
 
 ```rust
