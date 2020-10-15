@@ -180,9 +180,6 @@ In the previous section we have done `new`, now let's do `update`: [`barebones-w
 ```rust
 impl WatchFace for BarebonesWatchFace {
 
-    ///////////////////////////////////////////////////////////////////////////////
-    //  Update Watch Face
-
     /// Update the widgets in the Watch Face with the current state
     fn update(&self, state: &WatchFaceState) -> MynewtResult<()> {
         //  Populate the Time and Date Labels
