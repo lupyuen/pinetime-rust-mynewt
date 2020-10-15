@@ -1,8 +1,8 @@
 # Bluetooth Time Sync and LVGL on PineTime Mynewt
 
-If you have a PineTime Smart Watch and an Android phone, try this...
+If you have a [PineTime Smart Watch](https://wiki.pine64.org/index.php/PineTime) and an Android phone, try this...
 
-1. Install the __nRF Connect__ mobile app on your Android phone. Launch the app.
+1. Install the [__nRF Connect__](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app on your Android phone. Launch the app.
 
 1. Tap on `Menu` → `Configure GATT Server` → `Add Service`
 
@@ -22,7 +22,7 @@ The syncing magic is called __Bluetooth LE Current Time Service__...
 
 1.  PineTime detects the incoming connection. 
 
-    PineTime transmits a request to discover all GATT Services and Characteristics on our phone.
+    PineTime transmits a request to discover all [GATT Services and Characteristics](https://learn.adafruit.com/introduction-to-bluetooth-low-energy/gatt) on our phone.
     
     (Like a "reverse snoop")
 
@@ -38,13 +38,13 @@ Not really... It's actually more efficient for PineTime to connect directly to t
 
 But for now we'll discover all services as an educational exercise... Also to allow for future extension in case we need to support more services.
 
-Let's learn how to discover GATT Services and Characteristics in the `pinetime-rust-mynewt` firmware for PineTime...
+Let's learn how to discover GATT Services and Characteristics in the [`pinetime-rust-mynewt`](https://github.com/lupyuen/pinetime-rust-mynewt) firmware for PineTime...
 
 # Discover GATT Services and Characteristics
 
 First step in our Time Sync magic... Detect incoming Bluetooth LE connections.
 
-We're using the open-source NimBLE Bluetooth LE stack, which exposes a hook for us to detect incoming connections: [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L368-L416)
+We're using the open-source [NimBLE Bluetooth LE Stack](https://github.com/apache/mynewt-nimble), which exposes a hook for us to detect incoming connections: [`apps/my_sensor_app/src/ble_main.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/apps/my_sensor_app/src/ble_main.c#L368-L416)
 
 ```c
 //  The NimBLE stack executes this callback function when a GAP Event occurs
