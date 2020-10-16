@@ -4,7 +4,7 @@
 
 _We can build Watch Faces for [PineTime Smart Watch](https://wiki.pine64.org/index.php/PineTime) in C... Right?_
 
-As our Watch Face code in C grows in complexity... It becomes harder to test, deploy, maintain and extend.
+Sure we can [create Watch Faces in C](https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync#create-watch-face). But as our Watch Face code in C grows in complexity... It becomes harder to test, deploy, maintain and extend.
 
 Today we'll look at a more sustainable way to build Watch Faces... With a __Watch Face Framework in Rust__!
 
