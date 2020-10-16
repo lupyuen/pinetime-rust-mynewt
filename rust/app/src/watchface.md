@@ -2,7 +2,7 @@
 
 ![PineTime Smart Watch with Rust Watch Face](https://lupyuen.github.io/images/timesync-title.png)
 
-_We can build Watch Faces for PineTime Smart Watch in C... Right?_
+_We can build Watch Faces for [PineTime Smart Watch](https://wiki.pine64.org/index.php/PineTime) in C... Right?_
 
 As our Watch Face code in C grows in complexity... It becomes harder to test, deploy, maintain and extend.
 
@@ -32,23 +32,22 @@ pub trait WatchFace {
 
 (If you're new to Rust... A Trait in Rust works like an Interface in Java and TypeScript)
 
-The `WatchFace` Trait defines two functions...
+The `WatchFace` Trait says we need to define two functions...
 
-1.  __`new`:__ Create the Watch Face. Called by the Watch Face Framework when PineTime starts.
+1.  __`new`:__ To create the Watch Face. This is called by the PineTime Firmware when PineTime starts.
 
-1.  __`update`:__ Update the Watch Face with the current date and time. Called by the Watch Face Framework every minute.
+1.  __`update`:__ To update the Watch Face with the current date and time. This is called every minute by the PineTime Firmware to refresh our Watch Face.
 
-Here's how we implement the `new` function for our simple Watch Face `BarebonesWatchFace`: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L72-L129)
+Let's create a very simple Watch Face: [`BarebonesWatchFace`](https://crates.io/crates/barebones-watchface)
 
 ![Watch Face Layout](https://lupyuen.github.io/images/timesync-layout.png)
 
 [__Preview this Watch Face in your web browser__](https://lupyuen.github.io/barebones-watchface/lvgl.html)
 
+Here's how we implement the `new` function to create our Watch Face: [`barebones-watchface/src/lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L72-L129)
+
 ```rust
 impl WatchFace for BarebonesWatchFace {
-
-    ///////////////////////////////////////////////////////////////////////////////
-    //  Create Watch Face
 
     /// Create the widgets for the Watch Face
     fn new() -> MynewtResult<Self> {
@@ -153,7 +152,7 @@ Will show the text `OK` in Green. We'll see the `#RGB` Colour Codes in a while.
 
 _Where are the Labels defined?_
 
-The Labels are now neatly defined in the `BarebonesWatchFace` Struct: [`lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L55-L65)
+The Labels are defined in the `BarebonesWatchFace` Struct in [`lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L55-L65)...
 
 ```rust
 /// Barebones Watch Face with no frills
@@ -171,9 +170,9 @@ pub struct BarebonesWatchFace {
 
 # Update Watch Face
 
-To roll our Watch Face we need to provide two functions: `new` (to create the Watch Face) and `update` (to update our Watch Face).
+Recall that to roll our Watch Face we need to provide two functions: `new` (to create the Watch Face) and `update` (to update our Watch Face).
 
-In the previous section we have done `new`, now let's do `update`: [`lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L131-L146)
+In the previous section we have done `new`, now let's do `update` in [`lib.rs`](https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L131-L146)...
 
 ```rust
 impl WatchFace for BarebonesWatchFace {
@@ -267,9 +266,15 @@ impl BarebonesWatchFace {
         ) ? ;
 ```
 
-`write!` works like a safer version of `sprintf` as explained here: ["Heapless Strings in Rust"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face#heapless-strings-in-rust)
+_What's `write!`?_
 
-Our Watch Face Framework exposes a Heapless `String` Type that limits strings to 64 characters (and prevents buffer overflows). Which is sufficient for most Watch Faces. See [`pinetime-watchface/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L195-L206)
+[`write!`](https://doc.rust-lang.org/rust-by-example/hello/print/fmt.html?highlight=write!#formatting) is a Rust Macro that writes formatted text strings. It works like a safer version of `sprintf` as explained here: ["Heapless Strings in Rust"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face#heapless-strings-in-rust)
+
+_What's `new_string`?_
+
+`new_string` creates a new [Heapless `String`](https://docs.rs/heapless/0.5.6/heapless/index.html) on the stack. Unlike normal the Rust `String`, our Heapless `String` doesn't require any Heap Memory and works well on embedded platforms.
+
+Our Watch Face Framework exposes a Heapless `String` Type that limits strings to 64 characters. Which is sufficient for most Watch Faces (and prevents buffer overflows). This is defined in [`pinetime-watchface/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L195-L206)
 
 ```rust
 /// Limit Strings to 64 chars (which may include multiple color codes like "#ffffff")
