@@ -656,7 +656,7 @@ Choose one of the following ways to build the firmware...
 
 1. __macOS__
 
-1. __Windows__ (plain old CMD, without MinGW or WSL)
+1. __Windows__ (plain old CMD, without MinGW, WSL or Docker)
 
 Here are the instructions for building the firmware...
 
