@@ -605,6 +605,10 @@ _How do we publish our own Watch Face?_
     [__Preview this Watch Face in your web browser__](https://lupyuen.github.io/barebones-watchface/lvgl.html)
     ```
 
+1.  [__Need help?__](https://youtu.be/NC5OmlZIdlA)
+
+    [__Check out the video__](https://youtu.be/NC5OmlZIdlA)
+
 But most PineTime Owners won't know that your Watch Face exists... That's why we upload our Watch Faces to crates.io as a __Central Registry of all Rust Watch Faces__.
 
 _How do we upload our Custom Watch Face to crates.io?_
