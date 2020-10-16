@@ -65,8 +65,8 @@
 
     <h1 class="title">Create Your Own PineTime Watch Face in Rust... And Publish on crates.io</h1>
     <nav id="TOC"><ul>
-<li><a href="#create-watch-face">1 Create Watch Face</a><ul></ul></li>
-<li><a href="#update-watch-face">2 Update Watch Face</a><ul>
+<li><a href="#create-our-watch-face">1 Create Our Watch Face</a><ul></ul></li>
+<li><a href="#update-our-watch-face">2 Update Our Watch Face</a><ul>
 <li><a href="#update-time-label">2.1 Update Time Label</a><ul></ul></li>
 <li><a href="#update-date-label">2.2 Update Date Label</a><ul></ul></li>
 <li><a href="#update-bluetooth-label">2.3 Update Bluetooth Label</a><ul></ul></li>
@@ -84,13 +84,13 @@
 <li><a href="#advanced-topic-webassembly-simulator">6 Advanced Topic: WebAssembly Simulator</a><ul></ul></li>
 <li><a href="#advanced-topic-get-the-time">7 Advanced Topic: Get the Time</a><ul></ul></li>
 <li><a href="#advanced-topic-watch-face-framework">8 Advanced Topic: Watch Face Framework</a><ul></ul></li>
-<li><a href="#advanced-topic-rust-wrapper-for-lvgl">9 Advanced Topic: Rust Wrapper for LVGL</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Rust Watch Face" /></p>
+<li><a href="#advanced-topic-rust-bindings-for-lvgl">9 Advanced Topic: Rust Bindings for LVGL</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Rust Watch Face" /></p>
 <p><em>We can build Watch Faces for <a href="https://wiki.pine64.org/index.php/PineTime">PineTime Smart Watch</a> in C... Right?</em></p>
 <p>Sure we can <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync#create-watch-face">create Watch Faces in C</a>. But as our Watch Face code in C grows in complexity... It becomes harder to test, deploy, maintain and extend.</p>
 <p>Today we'll look at a more sustainable way to build Watch Faces... With a <strong>Watch Face Framework in Rust</strong>!</p>
 <p>Rust Watch Faces may also be catalogued at <strong><a href="https://crates.io/crates/barebones-watchface">crates.io</a></strong>... So that PineTime Owners may easily discover, extend and remix the Watch Faces.</p>
 <p>Let's learn how...</p>
-<h1 id="create-watch-face" class="section-header"><a href="#create-watch-face">1 Create Watch Face</a></h1>
+<h1 id="create-our-watch-face" class="section-header"><a href="#create-our-watch-face">1 Create Our Watch Face</a></h1>
 <p>Watch Faces are built in Rust with the <a href="https://crates.io/crates/pinetime-watchface"><strong>Watch Face Framework <code>pinetime-watchface</code></strong></a>.</p>
 <p>Our Rust Watch Face needs to implement the <strong><code>WatchFace</code> Trait</strong> that's defined in <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190"><code>pinetime-watchface/blob/master/src/lib.rs</code></a></p>
 
@@ -225,7 +225,7 @@
     <span class="doccomment">/// Label for Power Indicator (Charging &amp; Battery)</span>
     <span class="kw">pub</span> <span class="ident">power_label</span>:     <span class="ident">lvgl</span>::<span class="ident">Ptr</span>,
 }</pre></div>
-<h1 id="update-watch-face" class="section-header"><a href="#update-watch-face">2 Update Watch Face</a></h1>
+<h1 id="update-our-watch-face" class="section-header"><a href="#update-our-watch-face">2 Update Our Watch Face</a></h1>
 <p>Recall that to roll our Watch Face we need to provide two functions: <code>new</code> (to create the Watch Face) and <code>update</code> (to update our Watch Face).</p>
 <p>In the previous section we have done <code>new</code>, now let's do <code>update</code> in <a href="https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L131-L146"><code>lib.rs</code></a>...</p>
 
@@ -492,6 +492,7 @@
         ) <span class="question-mark">?</span> ;
         <span class="prelude-val">Ok</span>(())
     }</pre></div>
+<p>Here we compute <code>color</code>, the <code>#RGB</code> Colour Code for the Charging Icon that's stored in <code>symbol</code>.</p>
 <p><code>\u{F0E7}</code> is the Unicode Symbol for the Charging Icon.</p>
 <p>See the <code>RUST</code> text above?</p>
 
@@ -516,7 +517,7 @@
 <p><a href="https://docs.rs/pinetime-macros">Documentation for <code>pinetime-macros</code></a></p>
 </li>
 </ul>
-<p>Now that we understand Rust Watch Faces, let's publish our own Watch Face on crates.io...</p>
+<p>Now that we understand Watch Faces, let's publish our own Watch Face on crates.io...</p>
 <p><img src="https://lupyuen.github.io/images/timesync-crate.jpg" alt="Discovering Watch Faces at crates.io" /></p>
 <h1 id="discover-watch-faces-and-publish-your-own" class="section-header"><a href="#discover-watch-faces-and-publish-your-own">3 Discover Watch Faces and Publish Your Own</a></h1>
 <p><em>How can we discover PineTime Watch Faces that others have created?</em></p>
@@ -526,7 +527,7 @@
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">pinetime</span> <span class="ident">watchface</span></pre></div>
 <p><a href="https://crates.io/search?q=pinetime%20watchface&amp;sort=recent-updates">Search crates.io for <code>pinetime watchface</code></a></p>
-<p>Each Watch Face comes with its own link to let us preview the Watch Face in our web browser (thanks to WebAssembly)</p>
+<p>Each Watch Face comes with its own link to let us <strong>preview the Watch Face in our web browser</strong> (thanks to WebAssembly)...</p>
 <p><a href="https://lupyuen.github.io/barebones-watchface/lvgl.html">Click here to preview Barebones Watch Face</a></p>
 <p><img src="https://lupyuen.github.io/images/timesync-simulator.jpg" alt="Watch Face Simulator" /></p>
 <p><em>How do we publish our own Watch Face?</em></p>
@@ -581,7 +582,7 @@
 [<span class="ident">__Preview</span> <span class="ident">this</span> <span class="ident">Watch</span> <span class="ident">Face</span> <span class="kw">in</span> <span class="ident">your</span> <span class="ident">web</span> <span class="ident">browser__</span>](<span class="ident">https</span>:<span class="comment">//lupyuen.github.io/barebones-watchface/lvgl.html)</span></pre></div>
 </li>
 </ol>
-<p>But most PineTime Owners won't know that your Watch Face exists... That's why we upload our Watch Faces to crates.io as a Central Registry of all Rust Watch Faces for PineTime.</p>
+<p>But most PineTime Owners won't know that your Watch Face exists... That's why we upload our Watch Faces to crates.io as a <strong>Central Registry of all Rust Watch Faces</strong>.</p>
 <p><em>How do we upload our Custom Watch Face to crates.io?</em></p>
 <p>Follow the instructions here: <a href="https://doc.rust-lang.org/cargo/reference/publishing.html">&quot;Publishing on crates.io&quot;</a></p>
 <p>Update the fields in <a href="https://github.com/lupyuen/barebones-watchface/blob/master/Cargo.toml"><code>Cargo.toml</code></a> to describe your Watch Face...</p>
@@ -1024,36 +1025,47 @@ barebones-watchface = &quot;1.0.5&quot;
     }
 }</pre></div>
 <p><code>update_watch_face</code> is called by <code>watch_face_callback</code> every minute to refresh the Watch Face.</p>
-<h1 id="advanced-topic-rust-wrapper-for-lvgl" class="section-header"><a href="#advanced-topic-rust-wrapper-for-lvgl">9 Advanced Topic: Rust Wrapper for LVGL</a></h1>
-<p>TODO: Bindgen, Safe Wrapper Proc Macro, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/lvgl"><code>rust/lvgl</code></a></p>
-<p>https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync#porting-lvgl-to-mynewt</p>
-<p>https://github.com/lupyuen/pinetime-lvgl/blob/master/README.md</p>
-<p>https://github.com/lupyuen/pinetime-lvgl/blob/master/scripts/gen-bindings.sh</p>
-<p>https://github.com/lupyuen/pinetime-lvgl/blob/master/logs/expanded.rs#L13262-L13284</p>
+<h1 id="advanced-topic-rust-bindings-for-lvgl" class="section-header"><a href="#advanced-topic-rust-bindings-for-lvgl">9 Advanced Topic: Rust Bindings for LVGL</a></h1>
+<p>The Rust Bindings (and Safe Wrappers) for LVGL are defined in the <a href="https://crates.io/crates/pinetime-lvgl"><code>pinetime-lvgl</code></a> crate.</p>
+<p>The Rust Bindings were created with the <a href="https://rust-lang.github.io/rust-bindgen/"><code>bindgen</code></a> tool, applied to the LVGL C source files in the <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt"><code>pinetime_lvgl_mynewt</code></a></p>
+<p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync#porting-lvgl-to-mynewt">More about the LVGL C Library <code>pinetime_lvgl_mynewt</code></a></p>
+<p>We run the script <a href="https://github.com/lupyuen/pinetime-lvgl/blob/master/scripts/gen-bindings.sh"><code>gen-bindings.sh</code></a> to create the bindings with <code>bindgen</code>, also to process the output with <code>sed</code>.</p>
+<p>For example, this LVGL function in <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/lv_widgets/lv_label.h#L129"><code>pinetime_lvgl_mynewt/src/lv_widgets/lv_label.h</code></a></p>
+<pre><code class="language-c">//  In C: Declare LVGL function
+void lv_label_set_text(lv_obj_t * label, const char * text);
+</code></pre>
+<p>Will be transformed by <a href="https://github.com/lupyuen/pinetime-lvgl/blob/master/scripts/gen-bindings.sh"><code>gen-bindings.sh</code></a> into this Rust declaration in <a href="https://github.com/lupyuen/pinetime-lvgl/blob/master/src/widgets/label.rs#L880-L885"><code>pinetime-lvgl/src/widgets/label.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_text</span>(<span class="ident">label</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">lv_obj_t</span>, <span class="ident">text</span>: <span class="kw-2">&amp;</span><span class="ident">Strn</span>)
-         <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-            <span class="string">&quot;----------Insert Extern Decl: `extern C { pub fn ... }`----------&quot;</span>;
-            <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> {
-                <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span>
-                  <span class="string">&quot; Set a new text for a label. Memory will be allocated to store the text by the label.&quot;</span>]</span>
-                <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> <span class="string">&quot; - __`label`__: pointer to a label object&quot;</span>]</span>
-                <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span>
-                  <span class="string">&quot; - __`text`__: &#39;\\0&#39; terminated character string. NULL to refresh with the current text.&quot;</span>]</span>
-                <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lv_label_set_text</span>(<span class="ident">label</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">lv_obj_t</span>,
-                                         <span class="ident">text</span>: <span class="kw-2">*</span><span class="kw">const</span> ::<span class="ident">cty</span>::<span class="ident">c_char</span>);
-            }
-            <span class="string">&quot;----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------&quot;</span>;
-            <span class="ident">text</span>.<span class="ident">validate</span>();
-            <span class="kw">unsafe</span> {
-                <span class="string">&quot;----------Insert Call: `let result_value = os_task_init(`----------&quot;</span>;
-                <span class="ident">lv_label_set_text</span>(<span class="ident">label</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">lv_obj_t</span>,
-                                  <span class="ident">text</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> ::<span class="ident">cty</span>::<span class="ident">c_char</span>);
-                <span class="string">&quot;----------Insert Result: `Ok(Strn::from_cstr(result_value))`----------&quot;</span>;
-                <span class="prelude-val">Ok</span>(())
-            }
-        }</pre></div>
+<span class="comment">// In Rust: Rust Binding for LVGL function generated by bindgen</span>
+<span class="attribute">#[<span class="ident">lvgl_macros</span>::<span class="ident">safe_wrap</span>(<span class="ident">attr</span>)]</span> 
+<span class="kw">extern</span> <span class="string">&quot;C&quot;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lv_label_set_text</span>(<span class="ident">label</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">lv_obj_t</span>, <span class="ident">text</span>: <span class="kw-2">*</span><span class="kw">const</span> ::<span class="ident">cty</span>::<span class="ident">c_char</span>);
+}</pre></div>
+<p>The line <code>#[lvgl_macros::safe_wrap(attr)]</code> is inserted by the <code>sed</code> script in <code>gen-bindings.sh</code>.</p>
+<p>This triggers a Rust Procedural Macro <code>safe_wrap</code> that will rewrite the above code like this: <a href="https://github.com/lupyuen/pinetime-lvgl/blob/master/logs/expanded.rs#L13262-L13284"><code>pinetime-lvgl/logs/expanded.rs</code></a></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">// In Rust: Safe Wrapper for LVGL function generated by safe_wrap macro</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_text</span>(<span class="ident">label</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">lv_obj_t</span>, <span class="ident">text</span>: <span class="kw-2">&amp;</span><span class="ident">Strn</span>)
+    <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="comment">//  Import the external C function from LVGL</span>
+    <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> {
+        <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">lv_label_set_text</span>(<span class="ident">label</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">lv_obj_t</span>,
+                                    <span class="ident">text</span>: <span class="kw-2">*</span><span class="kw">const</span> ::<span class="ident">cty</span>::<span class="ident">c_char</span>);
+    }
+    <span class="comment">//  Check to make sure that `text` is null terminated</span>
+    <span class="ident">text</span>.<span class="ident">validate</span>();
+    <span class="comment">//  Call the external C function in LVGL</span>
+    <span class="kw">unsafe</span> {
+        <span class="ident">lv_label_set_text</span>(<span class="ident">label</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">lv_obj_t</span>,
+                            <span class="ident">text</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> ::<span class="ident">cty</span>::<span class="ident">c_char</span>);
+        <span class="prelude-val">Ok</span>(())
+    }
+}</pre></div>
+<p>This creates a Safe Wrapper for the LVGL C Function, so that we may call it without flagging as <code>unsafe</code>.</p>
+<p>Also it checks that the strings are null-terminated (because LVGL expects all strings to be null-terminated).</p>
+<p>The <code>safe_wrap</code> macro is defined in <a href="https://github.com/lupyuen/pinetime-macros/blob/master/src/safe_wrap.rs"><code>pinetime-macros/src/safe_wrap.rs</code></a></p>
 
     
 </body>
