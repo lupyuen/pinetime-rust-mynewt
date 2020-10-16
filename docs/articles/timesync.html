@@ -463,7 +463,7 @@ static void watch_face_callback(struct os_event *ev) {
 <p>Let's learn what's inside <code>pinetime_lvgl_mynewt</code>...</p>
 <h2 id="lvgl-library-for-mynewt" class="section-header"><a href="#lvgl-library-for-mynewt">8.1 LVGL Library for Mynewt</a></h2>
 <p>During the build of <code>pinetime-rust-mynewt</code> firmware, the <code>pinetime_lvgl_mynewt</code> library is checked out at <code>libs/pinetime_lvgl_mynewt</code>.</p>
-<p>The library exposes an initialisation function <code>pinetime_lvgl_mynewt_init</code> that is automatically called by Mynewt during startup: <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lvgl.c"><code>src/pinetime/lvgl.c</code></a></p>
+<p>The library exposes an initialisation function <code>pinetime_lvgl_mynewt_init</code> that's defined in <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lvgl.c"><code>src/pinetime/lvgl.c</code></a>...</p>
 <pre><code class="language-c">/// Init the LVGL library. Called by sysinit() during startup, defined in pkg.yml.
 void pinetime_lvgl_mynewt_init(void) {    
     console_printf(&quot;Init LVGL...\n&quot;); console_flush();
@@ -478,7 +478,18 @@ void pinetime_lvgl_mynewt_init(void) {
     pinetime_lvgl_mynewt_started = true;
 }
 </code></pre>
-<p>The library also exposes a rendering function <code>pinetime_lvgl_mynewt_render</code>, which we call every minute to update the Watch Face...</p>
+<p><code>pinetime_lvgl_mynewt_init</code> is automatically called by Mynewt during startup as specified in <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/pkg.yml"><code>pkg.yml</code></a>...</p>
+<pre><code class="language-yaml"># Initialisation functions to be called by sysinit() during startup.
+# Mynewt consolidates the initialisation functions into sysinit()
+# and calls them according to the Stage number, highest number first.
+# Stage 500 is used by Sensor Creator so we use Stage 600 onwards.
+# Generated sysinit() for Bootloader: bin/targets/nrf52_boot/generated/src/nrf52_boot-sysinit-app.c
+
+pkg.init:
+    # pinetime_lvgl_mynewt should be initialised last, when SPI and Semihosting Console are up
+    pinetime_lvgl_mynewt_init: 900  # Call pinetime_lvgl_mynewt_init() to initialise LVGL
+</code></pre>
+<p>Our <code>pinetime_lvgl_mynewt</code> library also exposes a rendering function <code>pinetime_lvgl_mynewt_render</code>, which we call every minute to update the Watch Face...</p>
 <pre><code class="language-c">/// Render the LVGL display
 int pinetime_lvgl_mynewt_render(void) {
     console_printf(&quot;Render LVGL display...\n&quot;); console_flush();
@@ -516,7 +527,7 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
     lv_disp_flush_ready(disp_drv);
 }
 </code></pre>
-<p><a href="https://docs.lvgl.io/latest/en/html/porting/display.html">According to the LVGL porting docs,</a> LVGL calls <code>disp_flush</code> whenever it needs to flush the contents of LVGL's internal rendering buffer to PineTime's display.</p>
+<p><a href="https://docs.lvgl.io/latest/en/html/porting/display.html">According to the LVGL porting docs,</a> LVGL's <code>lv_task_handler</code> calls <code>disp_flush</code> whenever it needs to flush the contents of LVGL's internal rendering buffer to PineTime's display.</p>
 <p>(The rendering buffer is a partial framebuffer... Because PineTime's 64 KB RAM doesn't have sufficient space for a complete 115 KB framebuffer at 240x240 resolution, 16-bit RGB565 colour)</p>
 <p><code>disp_flush</code> calls three <code>pinetime_lvgl_mynewt</code> functions from our display driver, which is described in the next section...</p>
 <h2 id="st7789-display-driver" class="section-header"><a href="#st7789-display-driver">8.3 ST7789 Display Driver</a></h2>

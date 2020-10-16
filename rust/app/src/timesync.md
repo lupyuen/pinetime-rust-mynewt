@@ -509,7 +509,7 @@ Let's learn what's inside `pinetime_lvgl_mynewt`...
 
 During the build of `pinetime-rust-mynewt` firmware, the `pinetime_lvgl_mynewt` library is checked out at `libs/pinetime_lvgl_mynewt`.
 
-The library exposes an initialisation function `pinetime_lvgl_mynewt_init` that is automatically called by Mynewt during startup: [`src/pinetime/lvgl.c`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lvgl.c)
+The library exposes an initialisation function `pinetime_lvgl_mynewt_init` that's defined in [`src/pinetime/lvgl.c`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/src/pinetime/lvgl.c)...
 
 ```c
 /// Init the LVGL library. Called by sysinit() during startup, defined in pkg.yml.
@@ -527,7 +527,21 @@ void pinetime_lvgl_mynewt_init(void) {
 }
 ```
 
-The library also exposes a rendering function `pinetime_lvgl_mynewt_render`, which we call every minute to update the Watch Face...
+`pinetime_lvgl_mynewt_init` is automatically called by Mynewt during startup as specified in [`pkg.yml`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt/blob/master/pkg.yml)...
+
+```yaml
+# Initialisation functions to be called by sysinit() during startup.
+# Mynewt consolidates the initialisation functions into sysinit()
+# and calls them according to the Stage number, highest number first.
+# Stage 500 is used by Sensor Creator so we use Stage 600 onwards.
+# Generated sysinit() for Bootloader: bin/targets/nrf52_boot/generated/src/nrf52_boot-sysinit-app.c
+
+pkg.init:
+    # pinetime_lvgl_mynewt should be initialised last, when SPI and Semihosting Console are up
+    pinetime_lvgl_mynewt_init: 900  # Call pinetime_lvgl_mynewt_init() to initialise LVGL
+```
+
+Our `pinetime_lvgl_mynewt` library also exposes a rendering function `pinetime_lvgl_mynewt_render`, which we call every minute to update the Watch Face...
 
 ```c
 /// Render the LVGL display
@@ -573,7 +587,7 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
 }
 ```
 
-[According to the LVGL porting docs,](https://docs.lvgl.io/latest/en/html/porting/display.html) LVGL calls `disp_flush` whenever it needs to flush the contents of LVGL's internal rendering buffer to PineTime's display.
+[According to the LVGL porting docs,](https://docs.lvgl.io/latest/en/html/porting/display.html) LVGL's `lv_task_handler` calls `disp_flush` whenever it needs to flush the contents of LVGL's internal rendering buffer to PineTime's display.
 
 (The rendering buffer is a partial framebuffer... Because PineTime's 64 KB RAM doesn't have sufficient space for a complete 115 KB framebuffer at 240x240 resolution, 16-bit RGB565 colour)
 
