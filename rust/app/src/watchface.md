@@ -718,7 +718,7 @@ __For Remote PineTime...__
 
 Upload the built firmware file `my_sensor_app.img` as a GitHub Release and flash to Remote PineTime...
 
-1.  In you GitHub repo, click `Releases`
+1.  In your GitHub repo, click `Releases`
 
 1.  Click `Draft A New Release`
 
@@ -728,9 +728,9 @@ Upload the built firmware file `my_sensor_app.img` as a GitHub Release and flash
 
 1.  Click `Publish Release`
 
-1.  Under `Assets`, copy the URL of the firmware file `my_sensor_app.img`
+1.  Under `Assets` of your new GitHub Release, copy the URL of the firmware file `my_sensor_app.img`
 
-1.  Follow the steps here to flash the MCUBoot Bootloader and our firmware URL to Remote PineTime...
+1.  Follow the steps here to flash the MCUBoot Bootloader and your firmware URL to Remote PineTime...
 
     [Remote PineTime](https://github.com/lupyuen/remote-pinetime-bot/blob/master/README.md)
 
@@ -773,6 +773,8 @@ To specify the Watch Face for the firmware...
 1.  Change `barebones_watchface` to the Watch Face Crate Name (replace all `-` by `_`).
 
     Change `BarebonesWatchFace` to the Watch Face Type Name (from `README.md` or `docs.rs` documentation).
+
+    The line should look like this...
 
     ```rust
     type WatchFaceType = my_watchface::MyWatchFace;

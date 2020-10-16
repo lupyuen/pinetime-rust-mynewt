@@ -715,7 +715,7 @@ license       = &quot;Apache-2.0&quot;
 <p>Upload the built firmware file <code>my_sensor_app.img</code> as a GitHub Release and flash to Remote PineTime...</p>
 <ol>
 <li>
-<p>In you GitHub repo, click <code>Releases</code></p>
+<p>In your GitHub repo, click <code>Releases</code></p>
 </li>
 <li>
 <p>Click <code>Draft A New Release</code></p>
@@ -730,10 +730,10 @@ license       = &quot;Apache-2.0&quot;
 <p>Click <code>Publish Release</code></p>
 </li>
 <li>
-<p>Under <code>Assets</code>, copy the URL of the firmware file <code>my_sensor_app.img</code></p>
+<p>Under <code>Assets</code> of your new GitHub Release, copy the URL of the firmware file <code>my_sensor_app.img</code></p>
 </li>
 <li>
-<p>Follow the steps here to flash the MCUBoot Bootloader and our firmware URL to Remote PineTime...</p>
+<p>Follow the steps here to flash the MCUBoot Bootloader and your firmware URL to Remote PineTime...</p>
 <p><a href="https://github.com/lupyuen/remote-pinetime-bot/blob/master/README.md">Remote PineTime</a></p>
 </li>
 </ol>
@@ -772,6 +772,7 @@ barebones-watchface = &quot;1.0.5&quot;
 <li>
 <p>Change <code>barebones_watchface</code> to the Watch Face Crate Name (replace all <code>-</code> by <code>_</code>).</p>
 <p>Change <code>BarebonesWatchFace</code> to the Watch Face Type Name (from <code>README.md</code> or <code>docs.rs</code> documentation).</p>
+<p>The line should look like this...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">type</span> <span class="ident">WatchFaceType</span> <span class="op">=</span> <span class="ident">my_watchface</span>::<span class="ident">MyWatchFace</span>;</pre></div>
