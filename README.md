@@ -23,9 +23,23 @@
 
 ![PineTime Smart Watch with Apache Mynewt and Embedded Rust](https://lupyuen.github.io/images/pinetime-title.jpg)
 
-This `master` branch contains the firmware source code for PineTime Smart Watch with Apache Mynewt and Embedded Rust, that supports Wireless Firmware Updates, LVGL 7 ([`pinetime_lvgl_mynewt`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt)), Bluetooth LE Time Sync and Rust Watch Faces.
+This `master` branch of `pinetime-rust-mynewt` contains the firmware source code for PineTime Smart Watch with...
 
-This branch no longer supports `druid` and `embedded-graphics`. Check out the older version in the [`pre-lvgl`](https://github.com/lupyuen/pinetime-rust-mynewt/tree/pre-lvgl) branch.
+1. [Apache Mynewt 1.7](https://mynewt.apache.org/), [Apache NimBLE 1.2](https://github.com/apache/mynewt-nimble) and [Embedded Rust (nightly build)](https://www.rust-lang.org/)
+
+1. [MCUBoot Bootloader 1.5](https://juullabs-oss.github.io/mcuboot/)
+
+`pinetime-rust-mynewt` is an Educational Embedded OS that supports...
+
+1. Wireless Firmware Updates over Bluetooth LE, based on MCU Manager's Simple Management Protocol
+
+1. LVGL UI Library Version 7, based on [`pinetime_lvgl_mynewt`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt)
+
+1. Time Sync with Bluetooth LE Current Time Service
+
+1. Rust Watch Faces from crates.io
+
+This branch no longer supports `druid`, `embedded-graphics` and Visual Rust. Check out the older version in the [`pre-lvgl`](https://github.com/lupyuen/pinetime-rust-mynewt/tree/pre-lvgl) branch.
 
 Refer to the articles...
 
@@ -339,15 +353,16 @@ scripts\nrf52\build-boot.cmd
 We should see...
 
 ```
-Linking pinetime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
+Linking pinetime/pinetime-rust-mynewt/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
 Target successfully built: targets/nrf52_boot
 + newt size -v nrf52_boot
 Size of Application Image: app
-Mem FLASH: 0x0-0x6000
+Mem FLASH: 0x0-0x7000
 Mem RAM: 0x20000000-0x20010000
   FLASH     RAM 
-     90     229 *fill*
-   6823    5996 boot_bootutil.a
+     97     230 *fill*
+    756       0 libgcc.a
+   6959    5996 boot_bootutil.a
     124       0 boot_mynewt.a
      18       0 boot_mynewt_flash_map_backend.a
    1182       0 crypto_mbedtls.a
@@ -355,23 +370,28 @@ Mem RAM: 0x20000000-0x20010000
      52       0 hw_cmsis-core.a
    1280      80 hw_drivers_flash_spiflash.a
     654       1 hw_hal.a
-   4192      72 hw_mcu_nordic_nrf52xxx.a
-   2006   18776 kernel_os.a
-   1930      12 libc_baselibc.a
-   1478     256 libs_pinetime_boot.a
-    529      40 libs_semihosting_console.a
-    544     128 sys_flash_map.a
+   4236      72 hw_mcu_nordic_nrf52xxx.a
+   1570   18772 kernel_os.a
+   2138      12 libc_baselibc.a
+   2049     260 libs_pinetime_boot.a
+    297      39 libs_semihosting_console.a
+    796     128 sys_flash_map.a
       2       0 sys_log_modlog.a
     632      29 sys_mfg.a
      30       5 sys_sysinit.a
      48       0 util_mem.a
     100       0 nrf52_boot-sysinit-app.a
-    756       0 libgcc.a
-Loading compiler pinetime/pinetime-rust-mynewt/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
+Loading compiler pinetime/pinetime-rust-mynewt/pinetime-rust-mynewt/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 
 objsize
-   text    data     bss     dec     hex filename
-  22792     132   25504   48428    bd2c pinetime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
+   text	   data	    bss	    dec	    hex	filename
+  23220	    136	  25500	  48856	   bed8	pinetime/pinetime-rust-mynewt/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
+```
+
+This produces the MCUBoot Bootloader that we will flash to PineTime later...
+
+```
+pinetime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.bin
 ```
 
 ## Build Application Firmware
@@ -402,67 +422,72 @@ objsize
     When the Application Firmware build succeds, we should see...
 
     ```
-    Linking pinetime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
+    Linking pinetime/pinetime-rust-mynewt/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
     Target successfully built: targets/nrf52_my_sensor
-    + newt size -v size -v nrf52_my_sensor
+    + newt size -v nrf52_my_sensor
+    Warning: 6 02:26:22.562 [WARNING] Transient package @apache-mynewt-core/mgmt/newtmgr/transport/ble used, update configuration to use linked package instead (@apache-mynewt-core/mgmt/smp/transport/ble)
+    Warning: 6 02:26:22.562 [WARNING] Transient package @apache-mynewt-core/mgmt/newtmgr used, update configuration to use linked package instead (@apache-mynewt-core/mgmt/smp)
     Size of Application Image: app
     Mem FLASH: 0x8000-0x7bc00
     Mem RAM: 0x20000000-0x20010000
-      FLASH     RAM
-        631     348 *fill*
-       4837    2414 apps_my_sensor_app.a
-       2268     116 boot_bootutil.a
-         18       0 boot_mynewt_flash_map_backend.a
-        438      26 boot_split.a
-       1180       0 crypto_mbedtls.a
-       2302       0 crypto_tinycrypt.a
-        401       0 encoding_base64.a
-       1622       0 encoding_cborattr.a
-       3002       0 encoding_tinycbor.a
+      FLASH     RAM 
+        655     368 *fill*
+       4829    2414 apps_my_sensor_app.a
+        962       4 boot_bootutil.a
+        181      38 boot_split.a
+       1814       0 cborattr.a
+       2371      72 cmd_img_mgmt.a
+       1113       0 cmd_img_mgmt_port_mynewt.a
+        723      12 cmd_os_mgmt.a
+        222      32 cmd_os_mgmt_port_mynewt.a
+       2408       0 crypto_tinycrypt.a
+        619       0 encoding_base64.a
+       3162       0 encoding_tinycbor.a
         452     444 hw_bsp_nrf52.a
          52       0 hw_cmsis-core.a
-       1560      92 hw_drivers_flash_spiflash.a
+       1530      92 hw_drivers_flash_spiflash.a
         706       1 hw_hal.a
-       5690      89 hw_mcu_nordic_nrf52xxx.a
+       5992      89 hw_mcu_nordic_nrf52xxx.a
           2       0 hw_sensor_creator.a
-       1264     260 hw_sensor.a
-       8914   27517 kernel_os.a
-       3044      50 libc_baselibc.a
+       1266     256 hw_sensor.a
+       9098   27505 kernel_os.a
+       3302      50 libc_baselibc.a
          16       0 libs_mynewt_rust.a
-     161881    9916 libs_pinetime_lvgl_mynewt.a
-      32924     105 libs_rust_app.a
-        390      40 libs_semihosting_console.a
-        677     212 libs_temp_stub.a
-       3428      72 mgmt_imgmgr.a
-        231      20 mgmt_mgmt.a
-        884     100 mgmt_newtmgr.a
-       1410      44 mgmt_newtmgr_nmgr_os.a
-        454     106 mgmt_newtmgr_transport_ble.a
-      34700    2077 nimble_controller.a
-       4082    1206 nimble_drivers_nrf52.a
-      46075    2795 nimble_host.a
-        822     218 nimble_host_services_ans.a
-        241     112 nimble_host_services_dis.a
-        396     118 nimble_host_services_gap.a
-        204      62 nimble_host_services_gatt.a
-       1814     648 nimble_host_store_config.a
-        114       0 nimble_host_util.a
-        692    1096 nimble_transport_ram.a
-       1578      54 sys_config.a
-        634     128 sys_flash_map.a
+     161547    9868 libs_pinetime_lvgl_mynewt.a
+      33248     105 libs_rust_app.a
+        405      39 libs_semihosting_console.a
+        737     212 libs_temp_stub.a
+        376      12 mgmt_imgmgr.a
+        413      12 mgmt.a
+        490       4 mgmt_smp.a
+        486     126 mgmt_smp_transport_ble.a
+      35492    2152 nimble_controller.a
+       4150    1203 nimble_drivers_nrf52.a
+      44674    2713 nimble_host.a
+        874     218 nimble_host_services_ans.a
+        277     112 nimble_host_services_dis.a
+        468     118 nimble_host_services_gap.a
+        252      62 nimble_host_services_gatt.a
+       1818     652 nimble_host_store_config.a
+        108       0 nimble_host_util.a
+        788    1096 nimble_transport_ram.a
+        776       0 smp.a
+       1357      42 sys_config.a
+        794     128 sys_flash_map.a
           2       0 sys_log_modlog.a
-        686      29 sys_mfg.a
-        840      51 sys_reboot.a
-        226      37 sys_sysdown.a
+        668      29 sys_mfg.a
+       1395      67 sys_reboot.a
          30       5 sys_sysinit.a
-       1746       0 time_datetime.a
+       1200       0 time_datetime.a
         120       0 util_mem.a
+        500       0 util_scfg.a
+        124       0 util.a
         180       0 nrf52_my_sensor-sysinit-app.a
-    Loading compiler pinetime/pinetime-rust-mynewt/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
+    Loading compiler pinetime/pinetime-rust-mynewt/pinetime-rust-mynewt/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 
     objsize
-       text    data     bss     dec     hex filename
-     335568    1112   49096  385776   5e2f0 pinetime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
+       text	   data	    bss	    dec	    hex	filename
+     335072	   1132	  48820	 385024	  5e000	pinetime/pinetime-rust-mynewt/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
     ```
 
 1. Create the application firmware image...
@@ -483,6 +508,12 @@ objsize
 
     ```
     App image successfully generated: 
+    pinetime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img
+    ```
+
+1. This produces the application firmware image that we will flash to PineTime later...
+
+    ```
     pinetime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img
     ```
 
@@ -725,6 +756,28 @@ Alternatively (for Linux and macOS only), flash the following two files to PineT
     File: `bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf`
 
     Address: `0x8000`
+
+# Remote PineTime
+
+If you don't have a PineTime, try flashing and testing on [__Remote PineTime__](https://github.com/lupyuen/remote-pinetime-bot/blob/master/README.md) instead. Remote PineTime is a real PineTime watch that's connected 24x7 to the internet... For anyone to flash and test firmware from anywhere in the world.
+
+Upload the built firmware file `my_sensor_app.img` as a GitHub Release and flash to Remote PineTime...
+
+1.  In you GitHub repo, click `Releases`
+
+1.  Click `Draft A New Release`
+
+1.  Fill in the `Tag Version` and `Release Title`
+
+1.  Attach the firmware file `my_sensor_app.img`
+
+1.  Click `Publish Release`
+
+1.  Under `Assets`, copy the URL of the firmware file `my_sensor_app.img`
+
+1.  Follow the steps here to flash the MCUBoot Bootloader and our firmware URL to Remote PineTime...
+
+    [Remote PineTime](https://github.com/lupyuen/remote-pinetime-bot/blob/master/README.md)
 
 # Installation, Build, Flash and Debug Logs
 

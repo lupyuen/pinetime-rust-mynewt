@@ -723,7 +723,7 @@ Upload the built firmware file `my_sensor_app.img` as a GitHub Release and flash
 
 1.  Under `Assets`, copy the URL of the firmware file `my_sensor_app.img`
 
-1.  Follow the steps here to flash the URL to Remote PineTime...
+1.  Follow the steps here to flash the MCUBoot Bootloader and our firmware URL to Remote PineTime...
 
     [Remote PineTime](https://github.com/lupyuen/remote-pinetime-bot/blob/master/README.md)
 
