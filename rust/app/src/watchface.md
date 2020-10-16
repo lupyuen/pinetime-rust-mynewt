@@ -937,6 +937,12 @@ static mut UPDATE_WATCH_FACE: Option<UpdateWatchFace> = None;
 type UpdateWatchFace = fn (state: &WatchFaceState) -> MynewtResult<()>;
 ```
 
+1. `pinetime_lvgl_mynewt_render` renders the LVGL display
+
+1. `os::os_callout_init` and `os::os_callout_reset` are Mynewt functions for creating Callout Timers
+
+1. 
+
 Update the watch face every minute...
 
 ```rust
