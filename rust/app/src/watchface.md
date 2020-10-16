@@ -519,6 +519,8 @@ It's easy to discover Rust Watch Faces for PineTime! Just head over to [__crates
 pinetime watchface
 ```
 
+[Search crates.io for `pinetime watchface`](https://crates.io/search?q=pinetime%20watchface&sort=recent-updates)
+
 Each Watch Face comes with its own link to let us preview the Watch Face in our web browser (thanks to WebAssembly)
 
 [Click here to preview Barebones Watch Face](https://lupyuen.github.io/barebones-watchface/lvgl.html)
