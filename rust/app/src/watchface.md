@@ -1116,3 +1116,4 @@ This creates a Safe Wrapper for the LVGL C Function, so that we may call it with
 
 Also it checks that the strings are null-terminated (because LVGL expects all strings to be null-terminated).
 
+The `safe_wrap` macro is defined in [`pinetime-macros/src/safe_wrap.rs`](https://github.com/lupyuen/pinetime-macros/blob/master/src/safe_wrap.rs)
