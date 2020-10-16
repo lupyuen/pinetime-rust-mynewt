@@ -1053,3 +1053,35 @@ TODO: Bindgen, Safe Wrapper Proc Macro, [`rust/lvgl`](https://github.com/lupyuen
 
 https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync#porting-lvgl-to-mynewt
 
+
+https://github.com/lupyuen/pinetime-lvgl/blob/master/README.md
+
+
+https://github.com/lupyuen/pinetime-lvgl/blob/master/scripts/gen-bindings.sh
+
+https://github.com/lupyuen/pinetime-lvgl/blob/master/logs/expanded.rs#L13262-L13284
+
+```rust
+        pub fn set_text(label: *mut lv_obj_t, text: &Strn)
+         -> MynewtResult<()> {
+            "----------Insert Extern Decl: `extern C { pub fn ... }`----------";
+            extern "C" {
+                #[doc =
+                  " Set a new text for a label. Memory will be allocated to store the text by the label."]
+                #[doc = " - __`label`__: pointer to a label object"]
+                #[doc =
+                  " - __`text`__: '\\0' terminated character string. NULL to refresh with the current text."]
+                pub fn lv_label_set_text(label: *mut lv_obj_t,
+                                         text: *const ::cty::c_char);
+            }
+            "----------Insert Validation: `Strn::validate_bytestr(name.bytestr)`----------";
+            text.validate();
+            unsafe {
+                "----------Insert Call: `let result_value = os_task_init(`----------";
+                lv_label_set_text(label as *mut lv_obj_t,
+                                  text.as_ptr() as *const ::cty::c_char);
+                "----------Insert Result: `Ok(Strn::from_cstr(result_value))`----------";
+                Ok(())
+            }
+        }
+```
