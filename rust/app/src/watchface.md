@@ -1061,15 +1061,14 @@ fn update_watch_face(state: &WatchFaceState) -> MynewtResult<()> {
 
 `update_watch_face` is called by `watch_face_callback` every minute to refresh the Watch Face.
 
-# Advanced Topic: Rust Wrapper for LVGL
+# Advanced Topic: Rust Bindings for LVGL
 
-TODO: Bindgen, Safe Wrapper Proc Macro
+The Rust Bindings (and Safe Wrappers) for LVGL are defined in the [`pinetime-lvgl`](https://crates.io/crates/pinetime-lvgl) crate.
 
-https://crates.io/crates/pinetime-lvgl
+The Rust Bindings were created with the [`bindgen`](https://rust-lang.github.io/rust-bindgen/) tool, applied to the LVGL C source files in the [`pinetime_lvgl_mynewt`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt)
 
-https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync#porting-lvgl-to-mynewt
+[More about the LVGL C Library `pinetime_lvgl_mynewt`](https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync#porting-lvgl-to-mynewt)
 
-https://github.com/lupyuen/pinetime-lvgl/blob/master/README.md
 
 https://github.com/lupyuen/pinetime-lvgl/blob/master/scripts/gen-bindings.sh
 
