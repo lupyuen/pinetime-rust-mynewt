@@ -71,7 +71,7 @@
 <li><a href="#update-date-label">2.2 Update Date Label</a><ul></ul></li>
 <li><a href="#update-bluetooth-label">2.3 Update Bluetooth Label</a><ul></ul></li>
 <li><a href="#update-power-label">2.4 Update Power Label</a><ul></ul></li></ul></li>
-<li><a href="#discover-rust-watch-faces-and-publish-your-own">3 Discover Rust Watch Faces and Publish Your Own</a><ul></ul></li>
+<li><a href="#discover-watch-faces-and-publish-your-own">3 Discover Watch Faces and Publish Your Own</a><ul></ul></li>
 <li><a href="#build-and-flash-mynewt-firmware">4 Build and Flash Mynewt Firmware</a><ul>
 <li><a href="#github-actions">4.1 GitHub Actions</a><ul></ul></li>
 <li><a href="#gitlab-ci">4.2 GitLab CI</a><ul></ul></li>
@@ -81,9 +81,10 @@
 <li><a href="#whats-next">5 What's Next</a><ul>
 <li><a href="#whos-driving">5.1 Who's Driving?</a><ul></ul></li>
 <li><a href="#driving-education">5.2 Driving Education</a><ul></ul></li></ul></li>
-<li><a href="#advanced-topic-get-the-time-in-rust">6 Advanced Topic: Get the Time in Rust</a><ul></ul></li>
-<li><a href="#advanced-topic-watch-face-framework-in-rust">7 Advanced Topic: Watch Face Framework in Rust</a><ul></ul></li>
-<li><a href="#advanced-topic-rust-wrapper-for-lvgl">8 Advanced Topic: Rust Wrapper for LVGL</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Rust Watch Face" /></p>
+<li><a href="#advanced-topic-get-the-time">6 Advanced Topic: Get the Time</a><ul></ul></li>
+<li><a href="#advanced-topic-watch-face-framework">7 Advanced Topic: Watch Face Framework</a><ul></ul></li>
+<li><a href="#advanced-topic-webassembly-simulator">8 Advanced Topic: WebAssembly Simulator</a><ul></ul></li>
+<li><a href="#advanced-topic-rust-wrapper-for-lvgl">9 Advanced Topic: Rust Wrapper for LVGL</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Rust Watch Face" /></p>
 <p><em>We can build Watch Faces for PineTime Smart Watch in C... Right?</em></p>
 <p>As our Watch Face code in C grows in complexity... It becomes harder to test, deploy, maintain and extend.</p>
 <p>Today we'll look at a more sustainable way to build Watch Faces... With a <strong>Watch Face Framework in Rust</strong>!</p>
@@ -261,6 +262,28 @@
 <p><img src="https://lupyuen.github.io/images/timesync-layout.png" alt="Watch Face Layout" /></p>
 <p><a href="https://lupyuen.github.io/barebones-watchface/lvgl.html"><strong>Preview this Watch Face in your web browser</strong></a></p>
 <h2 id="update-time-label" class="section-header"><a href="#update-time-label">2.1 Update Time Label</a></h2>
+<p>Every minute the <code>update</code> function calls <code>update_date_time</code>, passing a <code>WatchFaceState</code> struct.</p>
+<p>Inside the <code>WatchFaceState</code> struct is a <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L226-L243"><code>WatchFaceTime</code> struct</a> that contains the current date and time...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Watch Face Time</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>  <span class="comment">//  Allow this struct to be passed to C (for WebAssembly integration)</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">WatchFaceTime</span> {
+    <span class="doccomment">///  Year (4 digit year)</span>
+    <span class="kw">pub</span> <span class="ident">year</span>:       <span class="ident">u16</span>,  
+    <span class="doccomment">///  Month (1 - 12)</span>
+    <span class="kw">pub</span> <span class="ident">month</span>:       <span class="ident">u8</span>,  
+    <span class="doccomment">///  Day (1 - 31)</span>
+    <span class="kw">pub</span> <span class="ident">day</span>:         <span class="ident">u8</span>,  
+    <span class="doccomment">///  Hour (0 - 23)</span>
+    <span class="kw">pub</span> <span class="ident">hour</span>:        <span class="ident">u8</span>,  
+    <span class="doccomment">///  Minute (0 - 59)</span>
+    <span class="kw">pub</span> <span class="ident">minute</span>:      <span class="ident">u8</span>,  
+    <span class="doccomment">///  Second (0 - 59)</span>
+    <span class="kw">pub</span> <span class="ident">second</span>:      <span class="ident">u8</span>,  
+    <span class="doccomment">/// Day of week (0 - 6; 0 = Sunday)</span>
+    <span class="kw">pub</span> <span class="ident">day_of_week</span>: <span class="ident">u8</span>,  
+}</pre></div>
 <p>Our function <code>update_date_time</code> refreshes the Time Label like so: <a href="https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L148-L189"><code>barebones-watchface/src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -489,7 +512,7 @@
 </ul>
 <p>Now that we understand Rust Watch Faces, let's publish our own Watch Face on crates.io...</p>
 <p><img src="https://lupyuen.github.io/images/timesync-crate.jpg" alt="Discovering Watch Faces at crates.io" /></p>
-<h1 id="discover-rust-watch-faces-and-publish-your-own" class="section-header"><a href="#discover-rust-watch-faces-and-publish-your-own">3 Discover Rust Watch Faces and Publish Your Own</a></h1>
+<h1 id="discover-watch-faces-and-publish-your-own" class="section-header"><a href="#discover-watch-faces-and-publish-your-own">3 Discover Watch Faces and Publish Your Own</a></h1>
 <p><em>How can we discover PineTime Watch Faces that others have created?</em></p>
 <p><em>So that we may load them into our watches... Even modify them?</em></p>
 <p>It's easy to discover Rust Watch Faces for PineTime! Just head over to <a href="https://crates.io"><strong>crates.io</strong></a> and search for...</p>
@@ -649,7 +672,7 @@ license       = &quot;Apache-2.0&quot;
 <span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">img</span></pre></div>
 <h2 id="flash-firmware-to-pinetime" class="section-header"><a href="#flash-firmware-to-pinetime">4.4 Flash Firmware to PineTime</a></h2>
 <p>We'll flash the firmware the wired way using an ST-Link v2 or Raspberry Pi.  (We don't recommend flashing by Bluetooth... The firmware is not fully tested and may brick our watch)</p>
-<p><em>For macOS and Linux...</em></p>
+<p><strong>For macOS and Linux...</strong></p>
 <ol>
 <li>
 <p>Download and run <a href="https://github.com/lupyuen/pinetime-updater/blob/master/README.md"><strong>PineTime Updater</strong></a>. Connect ST-Link v2 or Raspberry Pi according to the instructions provided.</p>
@@ -673,7 +696,7 @@ license       = &quot;Apache-2.0&quot;
 <p>After flashing, PineTime starts running our firmware</p>
 </li>
 </ol>
-<p><em>For Windows...</em></p>
+<p><strong>For Windows...</strong></p>
 <p>Follow the steps under <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#build-instructions">&quot;Build Instructions&quot;</a>...</p>
 <ol>
 <li>
@@ -686,8 +709,32 @@ license       = &quot;Apache-2.0&quot;
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md#flash-application-firmware">&quot;Flash Application Firmware&quot;</a></p>
 </li>
 </ol>
-<p><em>For Remote PineTime...</em></p>
-<p>Follow the steps here: <a href="https://github.com/lupyuen/remote-pinetime-bot/blob/master/README.md">Remote PineTime</a></p>
+<p><strong>For Remote PineTime...</strong></p>
+<p>Upload the built firmware file <code>my_sensor_app.img</code> as a GitHub Release and flash to Remote PineTime...</p>
+<ol>
+<li>
+<p>In you GitHub repo, click <code>Releases</code></p>
+</li>
+<li>
+<p>Click <code>Draft A New Release</code></p>
+</li>
+<li>
+<p>Fill in the <code>Tag Version</code> and <code>Release Title</code></p>
+</li>
+<li>
+<p>Attach the firmware file <code>my_sensor_app.img</code></p>
+</li>
+<li>
+<p>Click <code>Publish Release</code></p>
+</li>
+<li>
+<p>Under <code>Assets</code>, copy the URL of the firmware file <code>my_sensor_app.img</code></p>
+</li>
+<li>
+<p>Follow the steps here to flash the URL to Remote PineTime...</p>
+<p><a href="https://github.com/lupyuen/remote-pinetime-bot/blob/master/README.md">Remote PineTime</a></p>
+</li>
+</ol>
 <h2 id="specify-the-watch-face" class="section-header"><a href="#specify-the-watch-face">4.5 Specify the Watch Face</a></h2>
 <p>To specify the Watch Face for the firmware...</p>
 <ol>
@@ -779,10 +826,12 @@ barebones-watchface = &quot;1.0.5&quot;
 <p>In the meantime, please go right ahead to create your own Watch Faces and publish them on crates.io... So that all PineTime Owners can share, learn and enjoy :-)</p>
 <p><a href="https://lupyuen.github.io">Check out my PineTime articles</a></p>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
+<p><em>Got a question, comment or suggestion? Create an Issue or submit a Pull Request here...</em></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/watchface.md"><code>github.com/lupyuen/pinetime-rust-mynewt/rust/app/src/watchface.md</code></a></p>
 <p><img src="https://lupyuen.github.io/images/cloud-firmware.jpg" alt="Custom PineTime Firmware Built In The Cloud" /></p>
-<h1 id="advanced-topic-get-the-time-in-rust" class="section-header"><a href="#advanced-topic-get-the-time-in-rust">6 Advanced Topic: Get the Time in Rust</a></h1>
+<h1 id="advanced-topic-get-the-time" class="section-header"><a href="#advanced-topic-get-the-time">6 Advanced Topic: Get the Time</a></h1>
 <p>Check out the previous article to learn how PineTime synchronises its time over Bluetooth LE...</p>
-<p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync">&quot;Bluetooth Time Sync on PineTime Mynewt&quot;</a></p>
+<p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync">&quot;Bluetooth Time Sync and LVGL on PineTime Mynewt&quot;</a></p>
 <p>Here's how we fetch the Mynewt system time in Rust: <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L164-L190"><code>pinetime-watchface/src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -814,7 +863,10 @@ barebones-watchface = &quot;1.0.5&quot;
     <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
 }</pre></div>
 <p>This produces a <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs#L226-L243"><code>WatchFaceTime</code> struct</a> that's defined in our <a href="https://crates.io/crates/pinetime-watchface"><code>pinetime-watchface</code> Watch Face Framework</a>.</p>
-<h1 id="advanced-topic-watch-face-framework-in-rust" class="section-header"><a href="#advanced-topic-watch-face-framework-in-rust">7 Advanced Topic: Watch Face Framework in Rust</a></h1>
+<h1 id="advanced-topic-watch-face-framework" class="section-header"><a href="#advanced-topic-watch-face-framework">7 Advanced Topic: Watch Face Framework</a></h1>
+<p>The Watch Face Framework is derived from the Watch Face in C described in this article...</p>
+<p><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync#create-watch-face">&quot;Create Watch Face&quot;</a></p>
+<p>https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync#update-watch-face</p>
 <p>TODO: Watch Face Framework in <a href="https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs"><code>pinetime-watchface/blob/master/src/lib.rs</code></a></p>
 <p>Start the watch face...</p>
 
@@ -855,7 +907,16 @@ barebones-watchface = &quot;1.0.5&quot;
     };
     <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Timer fail&quot;</span>);
     <span class="prelude-val">Ok</span>(())
-}</pre></div>
+}
+
+<span class="doccomment">/// Timer that is triggered every minute to update the watch face</span>
+<span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">WATCH_FACE_CALLOUT</span>: <span class="ident">os</span>::<span class="ident">os_callout</span> <span class="op">=</span> <span class="macro">fill_zero</span><span class="macro">!</span>(<span class="ident">os</span>::<span class="ident">os_callout</span>);
+
+<span class="doccomment">/// Called every minute to update the Watch Face</span>
+<span class="kw">static</span> <span class="kw-2">mut</span> <span class="ident">UPDATE_WATCH_FACE</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">UpdateWatchFace</span><span class="op">&gt;</span> <span class="op">=</span> <span class="prelude-val">None</span>;
+
+<span class="doccomment">/// Type of callback to update the Watch Face</span>
+<span class="kw">type</span> <span class="ident">UpdateWatchFace</span> <span class="op">=</span> <span class="kw">fn</span> (<span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">WatchFaceState</span>) <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span>()<span class="op">&gt;</span>;</pre></div>
 <p>Update the watch face every minute...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -898,10 +959,12 @@ barebones-watchface = &quot;1.0.5&quot;
     };
     <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;Timer fail&quot;</span>);
 }</pre></div>
-<p>The WebAssembly Simulator for this watch face was auto-generated by a GitHub Actions Workflow: <a href=".github/workflows/simulator.yml"><code>simulator.yml</code></a></p>
+<h1 id="advanced-topic-webassembly-simulator" class="section-header"><a href="#advanced-topic-webassembly-simulator">8 Advanced Topic: WebAssembly Simulator</a></h1>
+<p>The WebAssembly Simulator for Rust Watch Faces is auto-generated by a GitHub Actions Workflow: <a href=".github/workflows/simulator.yml"><code>simulator.yml</code></a></p>
 <p>Source code for the WebAssembly Simulator is at the <a href="https://github.com/AppKaki/lvgl-wasm/tree/mynewt"><code>mynewt</code></a> branch of <a href="https://github.com/AppKaki/lvgl-wasm/tree/mynewt"><code>github.com/AppKaki/lvgl-wasm</code></a></p>
-<h1 id="advanced-topic-rust-wrapper-for-lvgl" class="section-header"><a href="#advanced-topic-rust-wrapper-for-lvgl">8 Advanced Topic: Rust Wrapper for LVGL</a></h1>
+<h1 id="advanced-topic-rust-wrapper-for-lvgl" class="section-header"><a href="#advanced-topic-rust-wrapper-for-lvgl">9 Advanced Topic: Rust Wrapper for LVGL</a></h1>
 <p>TODO: Bindgen, Safe Wrapper Proc Macro, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/lvgl"><code>rust/lvgl</code></a></p>
+<p>https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync#porting-lvgl-to-mynewt</p>
 
     
 </body>
