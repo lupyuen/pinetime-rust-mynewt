@@ -140,7 +140,7 @@
                 <span class="ident">obj</span>::<span class="ident">align</span>(          <span class="ident">lbl</span>, <span class="ident">screen</span>, <span class="ident">obj</span>::<span class="ident">LV_ALIGN_CENTER</span>, <span class="number">0</span>, <span class="op">-</span><span class="number">30</span>) <span class="question-mark">?</span> ;    
                 <span class="ident">lbl</span>  <span class="comment">//  Return the label as time_label</span>
             },</pre></div>
-<p>We're rendering the UI with the <a href="https://docs.lvgl.io/latest/en/html/index.html"><strong>LVGL Library (Version 7)</strong></a>, which we have ported to Mynewt on PineTime as <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt"><code>pinetime_lvgl_mynewt</code></a>.</p>
+<p>We're rendering the UI with <a href="https://docs.lvgl.io/latest/en/html/index.html"><strong>LVGL Library Version 7</strong></a>.</p>
 <p>The code above creates a <strong>Time Label</strong> for the time and positions the Label at the centre of PineTime's display. </p>
 <p>LVGL uses screen coordinates <code>(x, y)</code> in this layout...</p>
 <p><img src="https://lupyuen.github.io/images/watchface-coords.jpg" alt="LVGL Screen Coordinates" /></p>
@@ -556,8 +556,8 @@
 </li>
 <li>
 <p>Click <code>Actions</code> → <code>Update lib.rs</code> → <code>build</code></p>
-<p>Wait about 6 minutes for GitHub Actions to build your Watch Face.</p>
-<p>Subsequent builds will complete faster, in around 2 minutes (because of the cached dependencies)</p>
+<p>Wait about 2 minutes for GitHub Actions to build your Watch Face.</p>
+<p>Subsequent builds will complete faster, because of the cached dependencies.</p>
 <p><img src="https://lupyuen.github.io/images/timesync-publish5.jpg" alt="Publish Watch Face Step 5" /></p>
 </li>
 <li>
