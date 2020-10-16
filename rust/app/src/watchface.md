@@ -571,9 +571,9 @@ _How do we publish our own Watch Face?_
 
 1.  Click `Actions` → `Update lib.rs` → `build`
 
-    Wait about 6 minutes for GitHub Actions to build your Watch Face.
+    Wait about 2 minutes for GitHub Actions to build your Watch Face.
 
-    Subsequent builds will complete faster, in around 2 minutes (because of the cached dependencies)
+    Subsequent builds will complete faster, because of the cached dependencies.
 
     ![Publish Watch Face Step 5](https://lupyuen.github.io/images/timesync-publish5.jpg)
 
