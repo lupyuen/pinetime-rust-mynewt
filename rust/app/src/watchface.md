@@ -877,11 +877,9 @@ The Watch Face Framework is derived from the Watch Face in C described in this a
 
 ["Create Watch Face"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync#create-watch-face)
 
-https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync#update-watch-face
+["Update Watch Face"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync#update-watch-face)
 
-TODO: Watch Face Framework in [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs)
-
-Start the watch face...
+Here's how we start the Watch Face: [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs)
 
 ```rust
 /// Start rendering the watch face every minute
@@ -973,6 +971,50 @@ extern fn watch_face_callback(_ev: *mut os::os_event) {
         )
     };
     assert!(rc == 0, "Timer fail");
+}
+```
+
+https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/lib.rs
+
+```rust
+/// Declare the Watch Face Type
+type WatchFaceType = barebones_watchface::BarebonesWatchFace;
+
+/// Watch Face for the app
+static mut WATCH_FACE: WatchFaceType = fill_zero!(WatchFaceType);
+
+///  main() will be called at Mynewt startup. It replaces the C version of the main() function.
+#[no_mangle]                 //  Don't mangle the name "main"
+extern "C" fn main() -> ! {  //  Declare extern "C" because it will be called by Mynewt
+    //  Initialise the Mynewt packages and internal temperature sensor driver. Any startup
+    //  functions defined in pkg.yml of our custom drivers and libraries will be called by 
+    //  sysinit().  Here are the startup functions consolidated by Mynewt:
+    //  bin/targets/nrf52_my_sensor/generated/src/nrf52_my_sensor-sysinit-app.c
+    mynewt::sysinit();  //  LVGL is also initialised here
+
+    //  Start Bluetooth LE, including over-the-air firmware upgrade.  TODO: Create a safe wrapper for starting Bluetooth LE.
+    extern { fn start_ble() -> i32; }
+    let rc = unsafe { start_ble() };
+    assert!(rc == 0, "BLE fail");
+
+    //  Create the watch face
+    unsafe {  //  Unsafe because WATCH_FACE is a mutable static  
+        WATCH_FACE = WatchFaceType::new()
+            .expect("Create watch face fail");
+    }
+
+    //  Start rendering the watch face every minute
+    watchface::start_watch_face(update_watch_face)
+        .expect("Watch Face fail");
+```
+
+```rust
+/// Called every minute to update the Watch Face
+fn update_watch_face(state: &WatchFaceState) -> MynewtResult<()> {
+    //  Update the watch face
+    unsafe {  //  Unsafe because WATCH_FACE is a mutable static
+        WATCH_FACE.update(state)
+    }
 }
 ```
 
