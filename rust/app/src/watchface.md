@@ -69,7 +69,7 @@ impl WatchFace for BarebonesWatchFace {
             },
 ```
 
-We're rendering the UI with the [__LVGL Library (Version 7)__](https://docs.lvgl.io/latest/en/html/index.html), which we have ported to Mynewt on PineTime as [`pinetime_lvgl_mynewt`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt).
+We're rendering the UI with [__LVGL Library Version 7__](https://docs.lvgl.io/latest/en/html/index.html).
 
 The code above creates a __Time Label__ for the time and positions the Label at the centre of PineTime's display. 
 
