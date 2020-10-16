@@ -141,15 +141,18 @@
                 <span class="ident">lbl</span>  <span class="comment">//  Return the label as time_label</span>
             },</pre></div>
 <p>We're rendering the UI with the <a href="https://docs.lvgl.io/latest/en/html/index.html"><strong>LVGL Library (Version 7)</strong></a>, which we have ported to Mynewt on PineTime as <a href="https://gitlab.com/lupyuen/pinetime_lvgl_mynewt"><code>pinetime_lvgl_mynewt</code></a>.</p>
-<p>LVGL is a C Library, so calling the LVGL Library in Rust looks... Different. Check out the article <a href="https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face">&quot;Porting PineTime Watch Face from C to Rust On RIOT with LVGL&quot;</a></p>
-<p>The code above creates a <strong>Time Label</strong> for the time and positions the Label at the centre of PineTime's display...</p>
-<table><thead><tr><th align="left">LVGL Function</th><th align="left">What it does</th></tr></thead><tbody>
-<tr><td align="left"><code>label::set_long_mode</code></td><td align="left">Set the text wrapping for the label</td></tr>
-<tr><td align="left"><code>label::set_text</code></td><td align="left">Set the text in the label</td></tr>
-<tr><td align="left"><code>obj::set_width</code></td><td align="left">Set the label width (in pixels)</td></tr>
-<tr><td align="left"><code>obj::set_height</code></td><td align="left">Set the label height (in pixels)</td></tr>
-<tr><td align="left"><code>label::set_align</code></td><td align="left">Set the label text alignment</td></tr>
-<tr><td align="left"><code>obj::align</code></td><td align="left">Align the label to the screen</td></tr>
+<p>The code above creates a <strong>Time Label</strong> for the time and positions the Label at the centre of PineTime's display. </p>
+<p>LVGL uses screen coordinates <code>(x, y)</code> in this layout...</p>
+<p><img src="https://lupyuen.github.io/images/watchface-coords.jpg" alt="LVGL Screen Coordinates" /></p>
+<p>LVGL is a C Library, so calling the LVGL Library in Rust looks... Different. </p>
+<p>Here are the LVGL Functions we call above and their original names in C...</p>
+<table><thead><tr><th align="left">LVGL Rust Function</th><th align="left">LVGL C Function</th><th align="left">What it does</th></tr></thead><tbody>
+<tr><td align="left"><code>label::set_long_mode</code></td><td align="left"><code>lv_label_set_long_mode</code></td><td align="left">Set the text wrapping for the label</td></tr>
+<tr><td align="left"><code>label::set_text</code></td><td align="left"><code>lv_label_set_text</code></td><td align="left">Set the text in the label</td></tr>
+<tr><td align="left"><code>obj::set_width</code></td><td align="left"><code>lv_obj_set_width</code></td><td align="left">Set the label width (in pixels)</td></tr>
+<tr><td align="left"><code>obj::set_height</code></td><td align="left"><code>lv_obj_set_height</code></td><td align="left">Set the label height (in pixels)</td></tr>
+<tr><td align="left"><code>label::set_align</code></td><td align="left"><code>lv_label_set_align</code></td><td align="left">Set the label text alignment</td></tr>
+<tr><td align="left"><code>obj::align</code></td><td align="left"><code>lv_obj_align</code></td><td align="left">Align the label to the screen</td></tr>
 </tbody></table>
 <p>Label Widgets in LVGL are documented here: <a href="https://docs.lvgl.io/latest/en/html/widgets/label.html">Label Widget</a></p>
 <p>Below the Time Label, we create a <strong>Date Label</strong> for the date...</p>
@@ -198,6 +201,8 @@
         <span class="comment">//  Return the watch face</span>
         <span class="prelude-val">Ok</span>(<span class="ident">watch_face</span>)
     }</pre></div>
+<p>For more details about calling LVGL from Rust, check out this article...</p>
+<p><a href="https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face">&quot;Porting PineTime Watch Face from C to Rust On RIOT with LVGL&quot;</a></p>
 <p><em>Why did we call <code>set_recolor</code> for the Bluetooth and Power labels?</em></p>
 <p>Instead of the default white colour, we'll be showing the Bluetooth and Power Labels in various colour (to indicate the current status).</p>
 <p>By calling <code>set_recolor</code> on the Bluetooth and Power Labels, we may specify <code>#RGB</code> Colour Codes inside the labels. For example, this label...</p>

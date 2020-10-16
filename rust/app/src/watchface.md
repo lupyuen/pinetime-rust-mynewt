@@ -71,18 +71,24 @@ impl WatchFace for BarebonesWatchFace {
 
 We're rendering the UI with the [__LVGL Library (Version 7)__](https://docs.lvgl.io/latest/en/html/index.html), which we have ported to Mynewt on PineTime as [`pinetime_lvgl_mynewt`](https://gitlab.com/lupyuen/pinetime_lvgl_mynewt).
 
-LVGL is a C Library, so calling the LVGL Library in Rust looks... Different. Check out the article ["Porting PineTime Watch Face from C to Rust On RIOT with LVGL"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face)
+The code above creates a __Time Label__ for the time and positions the Label at the centre of PineTime's display. 
 
-The code above creates a __Time Label__ for the time and positions the Label at the centre of PineTime's display...
+LVGL uses screen coordinates `(x, y)` in this layout...
 
-| LVGL Function | What it does |
-|:---|:--|
-|`label::set_long_mode` | Set the text wrapping for the label
-|`label::set_text` | Set the text in the label
-|`obj::set_width` | Set the label width (in pixels)
-|`obj::set_height` | Set the label height (in pixels)
-|`label::set_align` | Set the label text alignment
-|`obj::align` | Align the label to the screen
+![LVGL Screen Coordinates](https://lupyuen.github.io/images/watchface-coords.jpg)
+
+LVGL is a C Library, so calling the LVGL Library in Rust looks... Different. 
+
+Here are the LVGL Functions we call above and their original names in C...
+
+| LVGL Rust Function | LVGL C Function | What it does |
+|:---|:--|:--|
+|`label::set_long_mode` | `lv_label_set_long_mode` | Set the text wrapping for the label
+|`label::set_text` | `lv_label_set_text` | Set the text in the label
+|`obj::set_width` | `lv_obj_set_width` | Set the label width (in pixels)
+|`obj::set_height` | `lv_obj_set_height` | Set the label height (in pixels)
+|`label::set_align` | `lv_label_set_align` | Set the label text alignment
+|`obj::align` | `lv_obj_align` | Align the label to the screen
 
 Label Widgets in LVGL are documented here: [Label Widget](https://docs.lvgl.io/latest/en/html/widgets/label.html)
 
@@ -137,6 +143,10 @@ At top right we create a __Power Label__ to indicate the battery status and whet
         Ok(watch_face)
     }
 ```
+
+For more details about calling LVGL from Rust, check out this article...
+
+["Porting PineTime Watch Face from C to Rust On RIOT with LVGL"](https://lupyuen.github.io/pinetime-rust-riot/articles/watch_face)
 
 _Why did we call `set_recolor` for the Bluetooth and Power labels?_
 
