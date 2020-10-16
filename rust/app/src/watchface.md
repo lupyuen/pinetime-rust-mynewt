@@ -825,6 +825,10 @@ In the meantime, please go right ahead to create your own Watch Faces and publis
 
 [RSS Feed](https://lupyuen.github.io/rss.xml)
 
+_Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
+
+[`github.com/lupyuen/pinetime-rust-mynewt/rust/app/src/watchface.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/watchface.md)
+
 ![Custom PineTime Firmware Built In The Cloud](https://lupyuen.github.io/images/cloud-firmware.jpg)
 
 # Advanced Topic: Get the Time
@@ -869,6 +873,12 @@ This produces a [`WatchFaceTime` struct](https://github.com/lupyuen/pinetime-wat
 
 # Advanced Topic: Watch Face Framework
 
+The Watch Face Framework is derived from the Watch Face in C described in this article...
+
+["Create Watch Face"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync#create-watch-face)
+
+https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync#update-watch-face
+
 TODO: Watch Face Framework in [`pinetime-watchface/blob/master/src/lib.rs`](https://github.com/lupyuen/pinetime-watchface/blob/master/src/lib.rs)
 
 Start the watch face...
@@ -911,6 +921,15 @@ pub fn start_watch_face(update_watch_face: UpdateWatchFace) -> MynewtResult<()> 
     assert!(rc == 0, "Timer fail");
     Ok(())
 }
+
+/// Timer that is triggered every minute to update the watch face
+static mut WATCH_FACE_CALLOUT: os::os_callout = fill_zero!(os::os_callout);
+
+/// Called every minute to update the Watch Face
+static mut UPDATE_WATCH_FACE: Option<UpdateWatchFace> = None;
+
+/// Type of callback to update the Watch Face
+type UpdateWatchFace = fn (state: &WatchFaceState) -> MynewtResult<()>;
 ```
 
 Update the watch face every minute...
@@ -966,3 +985,6 @@ Source code for the WebAssembly Simulator is at the [`mynewt`](https://github.co
 # Advanced Topic: Rust Wrapper for LVGL
 
 TODO: Bindgen, Safe Wrapper Proc Macro, [`rust/lvgl`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/lvgl)
+
+https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync#porting-lvgl-to-mynewt
+

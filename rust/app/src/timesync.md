@@ -686,5 +686,9 @@ Let's learn how in the next article...
 
 [RSS Feed](https://lupyuen.github.io/rss.xml)
 
+_Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
+
+[`github.com/lupyuen/pinetime-rust-mynewt/rust/app/src/timesync.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/timesync.md)
+
 ![Custom PineTime Firmware Built In The Cloud](https://lupyuen.github.io/images/cloud-firmware.jpg)
 
