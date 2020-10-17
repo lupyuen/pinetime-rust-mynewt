@@ -638,6 +638,8 @@ The Documentation URL `docs.rs/YOUR_WATCH_FACE` will be automatically generated 
 
 [Check out the `docs.rs` documentation for Barebones Watchface](https://docs.rs/barebones-watchface)
 
+[As noted on Reddit](https://www.reddit.com/r/rust/comments/jckeih/create_your_own_pinetime_watch_face_in_rust_and/?utm_source=share&utm_medium=web2x&context=3), Watch Faces published on crates.io should be useful ones (instead of random Watch Faces). Please think carefully when publishing your Watch Face... The Rust Community really appreciates this 🙏
+
 # Build and Flash Mynewt Firmware
 
 _How do we install our Custom Watch Face on a real PineTime watch?_
