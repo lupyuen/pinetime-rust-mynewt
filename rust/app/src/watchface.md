@@ -83,14 +83,18 @@ Here are the LVGL Functions we call above and their original names in C...
 
 | LVGL Rust Function | LVGL C Function | What it does |
 |:---|:--|:--|
-|`label::set_long_mode` | `lv_label_set_long_mode` | Set the text wrapping for the label
-|`label::set_text` | `lv_label_set_text` | Set the text in the label
-|`obj::set_width` | `lv_obj_set_width` | Set the label width (in pixels)
-|`obj::set_height` | `lv_obj_set_height` | Set the label height (in pixels)
-|`label::set_align` | `lv_label_set_align` | Set the label text alignment
-|`obj::align` | `lv_obj_align` | Align the label to the screen
+|`label::set_long_mode` | [`lv_label_set_long_mode`](https://docs.lvgl.io/latest/en/html/widgets/label.html?highlight=lv_label_set_long_mode#_CPPv422lv_label_set_long_modeP8lv_obj_t20lv_label_long_mode_t) | Set the text wrapping for the label
+|`label::set_text` | [`lv_label_set_text`](https://docs.lvgl.io/latest/en/html/widgets/label.html?highlight=lv_label_set_text#_CPPv417lv_label_set_textP8lv_obj_tPKc) | Set the text in the label
+|`obj::set_width` | [`lv_obj_set_width`](https://docs.lvgl.io/latest/en/html/widgets/obj.html?highlight=lv_obj_set_width#_CPPv416lv_obj_set_widthP8lv_obj_t10lv_coord_t) | Set the label width (in pixels)
+|`obj::set_height` | [`lv_obj_set_height`](https://docs.lvgl.io/latest/en/html/widgets/obj.html?highlight=lv_obj_set_height#_CPPv417lv_obj_set_heightP8lv_obj_t10lv_coord_t) | Set the label height (in pixels)
+|`label::set_align` | [`lv_label_set_align`](https://docs.lvgl.io/latest/en/html/widgets/label.html?highlight=lv_label_set_align#_CPPv418lv_label_set_alignP8lv_obj_t16lv_label_align_t) | Set the label text alignment
+|`obj::align` | [`lv_obj_align`](https://docs.lvgl.io/latest/en/html/widgets/obj.html?highlight=lv_obj_align#_CPPv412lv_obj_alignP8lv_obj_tPK8lv_obj_t10lv_align_t10lv_coord_t10lv_coord_t) | Align the label to the screen
 
-Label Widgets in LVGL are documented here: [Label Widget](https://docs.lvgl.io/latest/en/html/widgets/label.html)
+
+
+LVGL Label Widgets are documented here: [Label Widget](https://docs.lvgl.io/latest/en/html/widgets/label.html)
+
+LVGL Base Objects are documented here: [Base Object](https://docs.lvgl.io/latest/en/html/widgets/obj.html)
 
 Below the Time Label, we create a __Date Label__ for the date...
 

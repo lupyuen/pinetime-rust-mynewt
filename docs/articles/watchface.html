@@ -147,14 +147,15 @@
 <p>LVGL is a C Library, so calling the LVGL Library in Rust looks... Different. </p>
 <p>Here are the LVGL Functions we call above and their original names in C...</p>
 <table><thead><tr><th align="left">LVGL Rust Function</th><th align="left">LVGL C Function</th><th align="left">What it does</th></tr></thead><tbody>
-<tr><td align="left"><code>label::set_long_mode</code></td><td align="left"><code>lv_label_set_long_mode</code></td><td align="left">Set the text wrapping for the label</td></tr>
-<tr><td align="left"><code>label::set_text</code></td><td align="left"><code>lv_label_set_text</code></td><td align="left">Set the text in the label</td></tr>
-<tr><td align="left"><code>obj::set_width</code></td><td align="left"><code>lv_obj_set_width</code></td><td align="left">Set the label width (in pixels)</td></tr>
-<tr><td align="left"><code>obj::set_height</code></td><td align="left"><code>lv_obj_set_height</code></td><td align="left">Set the label height (in pixels)</td></tr>
-<tr><td align="left"><code>label::set_align</code></td><td align="left"><code>lv_label_set_align</code></td><td align="left">Set the label text alignment</td></tr>
-<tr><td align="left"><code>obj::align</code></td><td align="left"><code>lv_obj_align</code></td><td align="left">Align the label to the screen</td></tr>
+<tr><td align="left"><code>label::set_long_mode</code></td><td align="left"><a href="https://docs.lvgl.io/latest/en/html/widgets/label.html?highlight=lv_label_set_long_mode#_CPPv422lv_label_set_long_modeP8lv_obj_t20lv_label_long_mode_t"><code>lv_label_set_long_mode</code></a></td><td align="left">Set the text wrapping for the label</td></tr>
+<tr><td align="left"><code>label::set_text</code></td><td align="left"><a href="https://docs.lvgl.io/latest/en/html/widgets/label.html?highlight=lv_label_set_text#_CPPv417lv_label_set_textP8lv_obj_tPKc"><code>lv_label_set_text</code></a></td><td align="left">Set the text in the label</td></tr>
+<tr><td align="left"><code>obj::set_width</code></td><td align="left"><a href="https://docs.lvgl.io/latest/en/html/widgets/obj.html?highlight=lv_obj_set_width#_CPPv416lv_obj_set_widthP8lv_obj_t10lv_coord_t"><code>lv_obj_set_width</code></a></td><td align="left">Set the label width (in pixels)</td></tr>
+<tr><td align="left"><code>obj::set_height</code></td><td align="left"><a href="https://docs.lvgl.io/latest/en/html/widgets/obj.html?highlight=lv_obj_set_height#_CPPv417lv_obj_set_heightP8lv_obj_t10lv_coord_t"><code>lv_obj_set_height</code></a></td><td align="left">Set the label height (in pixels)</td></tr>
+<tr><td align="left"><code>label::set_align</code></td><td align="left"><a href="https://docs.lvgl.io/latest/en/html/widgets/label.html?highlight=lv_label_set_align#_CPPv418lv_label_set_alignP8lv_obj_t16lv_label_align_t"><code>lv_label_set_align</code></a></td><td align="left">Set the label text alignment</td></tr>
+<tr><td align="left"><code>obj::align</code></td><td align="left"><a href="https://docs.lvgl.io/latest/en/html/widgets/obj.html?highlight=lv_obj_align#_CPPv412lv_obj_alignP8lv_obj_tPK8lv_obj_t10lv_align_t10lv_coord_t10lv_coord_t"><code>lv_obj_align</code></a></td><td align="left">Align the label to the screen</td></tr>
 </tbody></table>
-<p>Label Widgets in LVGL are documented here: <a href="https://docs.lvgl.io/latest/en/html/widgets/label.html">Label Widget</a></p>
+<p>LVGL Label Widgets are documented here: <a href="https://docs.lvgl.io/latest/en/html/widgets/label.html">Label Widget</a></p>
+<p>LVGL Base Objects are documented here: <a href="https://docs.lvgl.io/latest/en/html/widgets/obj.html">Base Object</a></p>
 <p>Below the Time Label, we create a <strong>Date Label</strong> for the date...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
