@@ -2,7 +2,45 @@
 
 ![PineTime Smart Watch with Hand-Drawn Watch Face](https://lupyuen.github.io/images/handdrawn-title.png)
 
-_We can build Watch Faces for [PineTime Smart Watch](https://wiki.pine64.org/index.php/PineTime) in C... Right?_
+_Q: We're in the middle of the pandemic... Is there something fun and useful that we can learn on our own?_
+
+A: Try learning __Embedded Programming__!
+
+_Q: I need to buy an Arduino or a Microcontroller Board? And have it shipped sloooowly to me at exorbitant prices?_
+
+A: Nope! Today we can build and test Embedded Programs in a Web Browser... __Without any Embedded Hardware__! Made possible with awesome WebAssembly tools.
+
+_Q: But a Web Browser Simulator doesn't behave like Real Hardware right?_
+
+A: We have a real [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) that's connected to the web for everyone to test our Embedded Programs... Try it for yourself and compare!
+
+_Q: People say that Embedded Programming is hard... Needs strange languages like C_
+
+A: Not any more! Today we'll code with __Rust__, a friendly, modern language. (And probably less frustating for new coders)
+
+_Q: Great! But my computer is kinda old, slow and weak... Do I need a powerful Linux desktop?_
+
+A: Any __Linux, macOS AND Windows__ computer works great for coding in Embedded Rust and WebAssembly... Even a Raspberry Pi!
+
+If you prefer zero setup, we can build our Embedded Rust and WebAssembly programs __in the Cloud__! (Via GitHub Actions and GitHub CI)
+
+It feels strange... But building and testing Embedded Programs will work on a __Mobile Web Browser__!
+
+_Q: Fantastic! Can't wait to build my very first Blinking LED program!_
+
+A: Well it's 2020, and we have progressed waaaay beyond Blinking LEDs ;-)
+
+Today we'll learn to build a __Smart Watch Face__ in Rust. We'll be coding for a Smatch Watch with __Colour Touchscreen, Bluetooth Networking and Real Time Clock__... Just like the expensive watches by A***e and S*****g!
+
+As promised, our Watch Face will run in a Web Browser, so that it's easy to test and troubleshoot.
+
+And when you're done... Please flash your Watch Face to Remote PineTime over the web. Show the world your embedded creation... Running on a real watch!
+
+_Q: But what's the catch?_
+
+None really. Now's the perfect time to __Learn and Experiment with Embedded Programming__... At our own pace, with whatever materials we have.
+
+Read on and join me for the learning adventure! :-)
 
 # Rust Watch Face
 
