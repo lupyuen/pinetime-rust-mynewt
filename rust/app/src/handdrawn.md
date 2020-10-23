@@ -22,7 +22,7 @@ _Q: Great! But my computer is kinda old, slow and weak... Do I need a powerful L
 
 A: Any __Linux, macOS AND Windows__ computer works great for coding in Embedded Rust and WebAssembly... Even a Raspberry Pi!
 
-If you prefer zero setup, we can build our Embedded Rust and WebAssembly programs __in the Cloud__! (Provided free of change by GitHub Actions and GitHub CI)
+If you prefer zero setup, we can build our Embedded Rust and WebAssembly programs __in the Cloud__! (Provided free of change by GitHub Actions and GitLab CI)
 
 It feels strange... But building and testing Embedded Programs will work on a __Mobile Web Browser__!
 
