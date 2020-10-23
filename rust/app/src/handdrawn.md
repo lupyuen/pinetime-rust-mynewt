@@ -66,6 +66,99 @@ img::set_src(                //  Set the source...
 ) ? ;                        //  Quit in case of error
 ```
 
+`self` and `state` come from the method declaration: [`lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L181)
+
+```rust
+/// Update the widgets in the Watch Face with the current time
+fn update(&mut self, state: &WatchFaceState) -> MynewtResult<()> {
+    //  Update the top left image with the first digit of the hour
+    let digit = state.time.hour / 10;             //  Compute the first digit of the hour
+    let bitmap: *mut img::lv_img_dsc_t =          //  Fetch the bitmap for the digit...
+        &mut self.bitmaps[digit as usize];        //  As a mutable reference
+    img::set_src(                                 //  Set the source...
+        self.top_left_image,                      //  Of the the top left image...
+        bitmap as *const c_void                   //  To the bitmap digit
+    ) ? ;
+    ...
+    //  Omitted: Update the top right, bottom left and bottom right images, 
+    ... 
+    //  Return OK
+    Ok(())
+}
+```
+
+Create watch face: [`lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136)
+
+```rust
+/// Create the widgets for the Watch Face
+fn new() -> MynewtResult<Self> {
+    //  Get the active screen
+    let screen = watchface::get_active_screen();
+
+    //  Compose the image header
+    let mut header = img::lv_img_header_t::default();
+    header.set_cf(img::LV_IMG_CF_TRUE_COLOR);  //  Color Format
+    header.set_w(IMAGE_WIDTH);                 //  Width
+    header.set_h(IMAGE_HEIGHT);                //  Height
+
+    //  Compute the image size
+    let data_size = IMAGE_WIDTH * IMAGE_HEIGHT * BYTES_PER_PIXEL;
+```
+
+Create widgets...
+
+```rust
+    //  Create the widgets
+    let watch_face = Self {
+        //  Create the top left image
+        top_left_image: {
+            let image = img::create(screen, ptr::null()) ? ;  //  `?` will terminate the function in case of error
+            obj::set_pos(image, 40, 20) ? ;  //  Set image position to top left
+            image                            //  Return the image as top_left_image
+        },
+
+        //  Create the top right image
+        top_right_image: {
+            let image = img::create(screen, ptr::null()) ? ;
+            obj::set_pos(image, 120, 20) ? ;  //  Set image position to top right
+            image                             //  Return the image as top_right_image
+        },
+
+        //  Create the bottom left image
+        bottom_left_image: {
+            let image = img::create(screen, ptr::null()) ? ;
+            obj::set_pos(image, 40, 120) ? ;  //  Set image position to bottom left
+            image                             //  Return the image as bottom_left_image
+        },
+
+        //  Create the bottom right image
+        bottom_right_image: {
+            let image = img::create(screen, ptr::null()) ? ;
+            obj::set_pos(image, 120, 120) ? ;  //  Set image position to bottom right
+            image                              //  Return the image as bottom_right_image
+        },
+
+        //  Omitted: Load the bitmaps
+        bitmaps: [ ... ],
+    };
+    //  Return the watch face
+    Ok(watch_face)
+}
+```
+
+Load the bitmaps...
+
+```rust
+//  Load the bitmaps
+bitmaps: [
+    img::lv_img_dsc_t { data: include_bytes!("../bitmaps/0.bin") as *const u8, header, data_size },
+    img::lv_img_dsc_t { data: include_bytes!("../bitmaps/1.bin") as *const u8, header, data_size },
+    img::lv_img_dsc_t { data: include_bytes!("../bitmaps/2.bin") as *const u8, header, data_size },
+    //  Omitted: Bitmaps 3 to 8
+    img::lv_img_dsc_t { data: include_bytes!("../bitmaps/9.bin") as *const u8, header, data_size },
+]
+```
+
 # WebAssembly Rust
 
 TODO
