@@ -91,17 +91,23 @@
 <p>Read on and join me for the learning adventure! :-)</p>
 <h1 id="rust-watch-face" class="section-header"><a href="#rust-watch-face">1 Rust Watch Face</a></h1>
 <p>TODO</p>
-<p>https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L142-L150</p>
+<p>Let's start with the 3 most difficult lines of code in our Watch Face: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L142-L150"><code>lib.rs</code></a></p>
+<p><em>(I promise you... The rest of the code will be much simpler)</em></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="comment">//  Update the top left image with the first digit of the hour</span>
-<span class="kw">let</span> <span class="ident">digit</span> <span class="op">=</span> <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">hour</span> <span class="op">/</span> <span class="number">10</span>;             <span class="comment">//  Compute the first digit of the hour</span>
-<span class="kw">let</span> <span class="ident">bitmap</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> <span class="op">=</span>          <span class="comment">//  Fetch the bitmap for the digit...</span>
-    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">bitmaps</span>[<span class="ident">digit</span> <span class="kw">as</span> <span class="ident">usize</span>];        <span class="comment">//  As a mutable reference</span>
-<span class="ident">img</span>::<span class="ident">set_src</span>(                                 <span class="comment">//  Set the source...</span>
-    <span class="self">self</span>.<span class="ident">top_left_image</span>,                      <span class="comment">//  Of the the top left image...</span>
-    <span class="ident">bitmap</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_void</span>                   <span class="comment">//  To the bitmap digit</span>
-) <span class="question-mark">?</span> ;</pre></div>
+
+<span class="comment">//  Compute the first digit of the hour</span>
+<span class="kw">let</span> <span class="ident">digit</span> <span class="op">=</span> <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">hour</span> <span class="op">/</span> <span class="number">10</span>;  
+
+<span class="comment">//  Fetch the bitmap for the digit as a mutable reference</span>
+<span class="kw">let</span> <span class="ident">bitmap</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> <span class="op">=</span>    
+    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">bitmaps</span>[<span class="ident">digit</span> <span class="kw">as</span> <span class="ident">usize</span>];
+
+<span class="ident">img</span>::<span class="ident">set_src</span>(                <span class="comment">//  Set the source...</span>
+    <span class="self">self</span>.<span class="ident">top_left_image</span>,     <span class="comment">//  Of the the top left image...</span>
+    <span class="ident">bitmap</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_void</span>  <span class="comment">//  To the digit bitmap</span>
+) <span class="question-mark">?</span> ;                        <span class="comment">//  Quit in case of error</span></pre></div>
 <h1 id="webassembly-rust" class="section-header"><a href="#webassembly-rust">2 WebAssembly Rust</a></h1>
 <p>TODO</p>
 <h1 id="embedded-rust" class="section-header"><a href="#embedded-rust">3 Embedded Rust</a></h1>
