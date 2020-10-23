@@ -108,6 +108,27 @@
     <span class="self">self</span>.<span class="ident">top_left_image</span>,     <span class="comment">//  Of the the top left image...</span>
     <span class="ident">bitmap</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_void</span>  <span class="comment">//  To the digit bitmap</span>
 ) <span class="question-mark">?</span> ;                        <span class="comment">//  Quit in case of error</span></pre></div>
+<p>Compute the digit...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">//  Compute the first digit of the hour</span>
+<span class="kw">let</span> <span class="ident">digit</span> <span class="op">=</span> <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">hour</span> <span class="op">/</span> <span class="number">10</span>;</pre></div>
+<blockquote>
+<p>Once upon a time, there was an object named <code>state</code>, that contains an object named <code>time</code>, that contains a field named <code>hour</code>... The current hour of the day (from 0 to 23)</p>
+</blockquote>
+<p>Fetch the bitmap...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">//  Fetch the bitmap for the digit as a mutable reference</span>
+<span class="kw">let</span> <span class="ident">bitmap</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> <span class="op">=</span>    
+    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">bitmaps</span>[<span class="ident">digit</span> <span class="kw">as</span> <span class="ident">usize</span>];</pre></div>
+<p>Set the image source...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">img</span>::<span class="ident">set_src</span>(                <span class="comment">//  Set the source...</span>
+    <span class="self">self</span>.<span class="ident">top_left_image</span>,     <span class="comment">//  Of the the top left image...</span>
+    <span class="ident">bitmap</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_void</span>  <span class="comment">//  To the digit bitmap</span>
+) <span class="question-mark">?</span> ;                        <span class="comment">//  Quit in case of error</span></pre></div>
 <p><code>self</code> and <code>state</code> come from the method declaration: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L181"><code>lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">

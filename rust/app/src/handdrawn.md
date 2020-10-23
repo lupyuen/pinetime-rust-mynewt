@@ -66,6 +66,32 @@ img::set_src(                //  Set the source...
 ) ? ;                        //  Quit in case of error
 ```
 
+Compute the digit...
+
+```rust
+//  Compute the first digit of the hour
+let digit = state.time.hour / 10;
+```
+
+> Once upon a time, there was an object named `state`, that contains an object named `time`, that contains a field named `hour`... The current hour of the day (from 0 to 23)
+
+Fetch the bitmap...
+
+```rust
+//  Fetch the bitmap for the digit as a mutable reference
+let bitmap: *mut img::lv_img_dsc_t =    
+    &mut self.bitmaps[digit as usize];
+```
+
+Set the image source...
+
+```rust
+img::set_src(                //  Set the source...
+    self.top_left_image,     //  Of the the top left image...
+    bitmap as *const c_void  //  To the digit bitmap
+) ? ;                        //  Quit in case of error
+```
+
 `self` and `state` come from the method declaration: [`lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L181)
 
 ```rust
