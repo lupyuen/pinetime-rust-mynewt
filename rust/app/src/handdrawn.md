@@ -46,7 +46,9 @@ Read on and join me for the learning adventure! :-)
 
 TODO
 
-https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L142-L150
+Let's start with the 3 most difficult lines of code in our Watch Face: [`lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L142-L150)
+
+_(I promise you... The rest of the code will be much simpler)_
 
 ```rust
 //  Update the top left image with the first digit of the hour
