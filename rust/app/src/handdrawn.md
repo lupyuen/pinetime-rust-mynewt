@@ -56,9 +56,9 @@ _(I promise you... The rest of the code will be much simpler)_
 //  Compute the first digit of the hour
 let digit = state.time.hour / 10;  
 
-//  Fetch the bitmap for the digit as a mutable reference
-let bitmap: *mut img::lv_img_dsc_t =    
-    &mut self.bitmaps[digit as usize];
+//  Fetch the bitmap for the digit as a constant pointer
+let bitmap: *const img::lv_img_dsc_t =    
+    &self.bitmaps[digit as usize];
 
 img::set_src(                //  Set the source...
     self.top_left_image,     //  Of the the top left image...
@@ -82,9 +82,9 @@ We interpret `state.time.hour` like a nested fairy tale...
 Fetch the bitmap...
 
 ```rust
-//  Fetch the bitmap for the digit as a mutable reference
-let bitmap: *mut img::lv_img_dsc_t =    
-    &mut self.bitmaps[digit as usize];
+//  Fetch the bitmap for the digit as a constant pointer
+let bitmap: *const img::lv_img_dsc_t =    
+    &self.bitmaps[digit as usize];
 ```
 
 Set the image source...
@@ -102,12 +102,12 @@ img::set_src(                //  Set the source...
 /// Update the widgets in the Watch Face with the current time
 fn update(&mut self, state: &WatchFaceState) -> MynewtResult<()> {
     //  Update the top left image with the first digit of the hour
-    let digit = state.time.hour / 10;             //  Compute the first digit of the hour
-    let bitmap: *mut img::lv_img_dsc_t =          //  Fetch the bitmap for the digit...
-        &mut self.bitmaps[digit as usize];        //  As a mutable reference
-    img::set_src(                                 //  Set the source...
-        self.top_left_image,                      //  Of the the top left image...
-        bitmap as *const c_void                   //  To the bitmap digit
+    let digit = state.time.hour / 10;      //  Compute the first digit of the hour
+    let bitmap: *const img::lv_img_dsc_t = //  Fetch the bitmap for the digit...
+        &self.bitmaps[digit as usize];     //  As a constant pointer
+    img::set_src(                          //  Set the source...
+        self.top_left_image,               //  Of the the top left image...
+        bitmap as *const c_void            //  To the digit bitmap
     ) ? ;
     ...
     //  Omitted: Update the top right, bottom left and bottom right images, 
