@@ -77,6 +77,8 @@ We interpret `state.time.hour` like a nested fairy tale...
 
 > Once upon a time, there was an object named `state`... That contained an object named `time`... That contained a field named `hour`... The current hour of the day (from 0 to 23)
 
+(We'll learn the backstory of `state` in a while)
+
 Fetch the bitmap...
 
 ```rust
@@ -196,6 +198,8 @@ TODO
 TODO
 
 # What's Next
+
+TODO
 
 Lemme know if you're keen to help! :-)
 
