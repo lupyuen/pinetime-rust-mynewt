@@ -16,13 +16,13 @@ A: We have a real [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/P
 
 _Q: People say that Embedded Programming is hard... Needs strange languages like C_
 
-A: Not any more! Today we'll code with __Rust__, a friendly, modern language. (And probably less frustating for new coders)
+A: Not any more! Today we'll code with __Rust__, a friendly, modern language. (And less frustating for new coders)
 
 _Q: Great! But my computer is kinda old, slow and weak... Do I need a powerful Linux desktop?_
 
 A: Any __Linux, macOS AND Windows__ computer works great for coding in Embedded Rust and WebAssembly... Even a Raspberry Pi!
 
-If you prefer zero setup, we can build our Embedded Rust and WebAssembly programs __in the Cloud__! (Via GitHub Actions and GitHub CI)
+If you prefer zero setup, we can build our Embedded Rust and WebAssembly programs __in the Cloud__! (Provided free of change by GitHub Actions and GitHub CI)
 
 It feels strange... But building and testing Embedded Programs will work on a __Mobile Web Browser__!
 
@@ -30,11 +30,11 @@ _Q: Fantastic! Can't wait to build my very first Blinking LED program!_
 
 A: Well it's 2020, and we have progressed waaaay beyond Blinking LEDs ;-)
 
-Today we'll learn to build a __Smart Watch Face__ in Rust. We'll be coding for a Smatch Watch with __Colour Touchscreen, Bluetooth Networking and Real Time Clock__... Just like the expensive watches by A***e and S*****g!
+Today we'll learn to build a __Smart Watch Face__ in Rust. We'll be coding for a Smart Watch with __Colour Touchscreen, Bluetooth Networking__ and __Real Time Clock__... Just like the expensive watches by A\*\*\*e and S\*\*\*\*\*g!
 
-As promised, our Watch Face will run in a Web Browser, so that it's easy to test and troubleshoot.
+As promised, our Watch Face will run in a Web Browser, so it will be easy to test and troubleshoot.
 
-And when you're done... Please flash your Watch Face to Remote PineTime over the web. Show the world your embedded creation... Running on a real watch!
+And when you're done... Please flash your Watch Face to our __Remote PineTime__ over the web. Show the world your embedded creation... Running on a real watch!
 
 _Q: But what's the catch?_
 
