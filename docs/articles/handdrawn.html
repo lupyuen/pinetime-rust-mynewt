@@ -178,26 +178,14 @@
             <span class="ident">image</span>                            <span class="comment">//  Return the image as top_left_image</span>
         },
 
-        <span class="comment">//  Create the top right image</span>
-        <span class="ident">top_right_image</span>: {
-            <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">img</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;
-            <span class="ident">obj</span>::<span class="ident">set_pos</span>(<span class="ident">image</span>, <span class="number">120</span>, <span class="number">20</span>) <span class="question-mark">?</span> ;  <span class="comment">//  Set image position to top right</span>
-            <span class="ident">image</span>                             <span class="comment">//  Return the image as top_right_image</span>
-        },
+        <span class="comment">//  Omitted: Create the top right image</span>
+        <span class="ident">top_right_image</span>: { ... },
 
-        <span class="comment">//  Create the bottom left image</span>
-        <span class="ident">bottom_left_image</span>: {
-            <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">img</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;
-            <span class="ident">obj</span>::<span class="ident">set_pos</span>(<span class="ident">image</span>, <span class="number">40</span>, <span class="number">120</span>) <span class="question-mark">?</span> ;  <span class="comment">//  Set image position to bottom left</span>
-            <span class="ident">image</span>                             <span class="comment">//  Return the image as bottom_left_image</span>
-        },
+        <span class="comment">//  Omitted: Create the bottom left image</span>
+        <span class="ident">bottom_left_image</span>: { ... },
 
-        <span class="comment">//  Create the bottom right image</span>
-        <span class="ident">bottom_right_image</span>: {
-            <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">img</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;
-            <span class="ident">obj</span>::<span class="ident">set_pos</span>(<span class="ident">image</span>, <span class="number">120</span>, <span class="number">120</span>) <span class="question-mark">?</span> ;  <span class="comment">//  Set image position to bottom right</span>
-            <span class="ident">image</span>                              <span class="comment">//  Return the image as bottom_right_image</span>
-        },
+        <span class="comment">//  Omitted: Create the bottom right image</span>
+        <span class="ident">bottom_right_image</span>: { ... },
 
         <span class="comment">//  Omitted: Load the bitmaps</span>
         <span class="ident">bitmaps</span>: [ ... ],
@@ -205,6 +193,43 @@
     <span class="comment">//  Return the watch face</span>
     <span class="prelude-val">Ok</span>(<span class="ident">watch_face</span>)
 }</pre></div>
+<p>Top left image...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">top_left_image</span>: {
+    <span class="comment">//  Create the top left image</span>
+    <span class="comment">//  `?` will terminate the function in case of error</span>
+    <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">img</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ; 
+
+    <span class="comment">//  Set image position to top left</span>
+    <span class="ident">obj</span>::<span class="ident">set_pos</span>(<span class="ident">image</span>, <span class="number">40</span>, <span class="number">20</span>) <span class="question-mark">?</span> ;  
+
+    <span class="comment">//  Return the image as top_left_image</span>
+    <span class="ident">image</span>                            
+},</pre></div>
+<p>Create top right, bottom left and bottom right images...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">//  Create the top right image</span>
+<span class="ident">top_right_image</span>: {
+    <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">img</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;
+    <span class="ident">obj</span>::<span class="ident">set_pos</span>(<span class="ident">image</span>, <span class="number">120</span>, <span class="number">20</span>) <span class="question-mark">?</span> ;  <span class="comment">//  Set image position to top right</span>
+    <span class="ident">image</span>                             <span class="comment">//  Return the image as top_right_image</span>
+},
+
+<span class="comment">//  Create the bottom left image</span>
+<span class="ident">bottom_left_image</span>: {
+    <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">img</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;
+    <span class="ident">obj</span>::<span class="ident">set_pos</span>(<span class="ident">image</span>, <span class="number">40</span>, <span class="number">120</span>) <span class="question-mark">?</span> ;  <span class="comment">//  Set image position to bottom left</span>
+    <span class="ident">image</span>                             <span class="comment">//  Return the image as bottom_left_image</span>
+},
+
+<span class="comment">//  Create the bottom right image</span>
+<span class="ident">bottom_right_image</span>: {
+    <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">img</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;
+    <span class="ident">obj</span>::<span class="ident">set_pos</span>(<span class="ident">image</span>, <span class="number">120</span>, <span class="number">120</span>) <span class="question-mark">?</span> ;  <span class="comment">//  Set image position to bottom right</span>
+    <span class="ident">image</span>                              <span class="comment">//  Return the image as bottom_right_image</span>
+},</pre></div>
 <p>Load the bitmaps...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">

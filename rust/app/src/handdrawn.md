@@ -147,26 +147,14 @@ Create widgets...
             image                            //  Return the image as top_left_image
         },
 
-        //  Create the top right image
-        top_right_image: {
-            let image = img::create(screen, ptr::null()) ? ;
-            obj::set_pos(image, 120, 20) ? ;  //  Set image position to top right
-            image                             //  Return the image as top_right_image
-        },
+        //  Omitted: Create the top right image
+        top_right_image: { ... },
 
-        //  Create the bottom left image
-        bottom_left_image: {
-            let image = img::create(screen, ptr::null()) ? ;
-            obj::set_pos(image, 40, 120) ? ;  //  Set image position to bottom left
-            image                             //  Return the image as bottom_left_image
-        },
+        //  Omitted: Create the bottom left image
+        bottom_left_image: { ... },
 
-        //  Create the bottom right image
-        bottom_right_image: {
-            let image = img::create(screen, ptr::null()) ? ;
-            obj::set_pos(image, 120, 120) ? ;  //  Set image position to bottom right
-            image                              //  Return the image as bottom_right_image
-        },
+        //  Omitted: Create the bottom right image
+        bottom_right_image: { ... },
 
         //  Omitted: Load the bitmaps
         bitmaps: [ ... ],
@@ -174,6 +162,47 @@ Create widgets...
     //  Return the watch face
     Ok(watch_face)
 }
+```
+
+Top left image...
+
+```rust
+top_left_image: {
+    //  Create the top left image
+    //  `?` will terminate the function in case of error
+    let image = img::create(screen, ptr::null()) ? ; 
+
+    //  Set image position to top left
+    obj::set_pos(image, 40, 20) ? ;  
+
+    //  Return the image as top_left_image
+    image                            
+},
+```
+
+Create top right, bottom left and bottom right images...
+
+```rust
+//  Create the top right image
+top_right_image: {
+    let image = img::create(screen, ptr::null()) ? ;
+    obj::set_pos(image, 120, 20) ? ;  //  Set image position to top right
+    image                             //  Return the image as top_right_image
+},
+
+//  Create the bottom left image
+bottom_left_image: {
+    let image = img::create(screen, ptr::null()) ? ;
+    obj::set_pos(image, 40, 120) ? ;  //  Set image position to bottom left
+    image                             //  Return the image as bottom_left_image
+},
+
+//  Create the bottom right image
+bottom_right_image: {
+    let image = img::create(screen, ptr::null()) ? ;
+    obj::set_pos(image, 120, 120) ? ;  //  Set image position to bottom right
+    image                              //  Return the image as bottom_right_image
+},
 ```
 
 Load the bitmaps...
