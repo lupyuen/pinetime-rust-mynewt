@@ -73,7 +73,9 @@ Compute the digit...
 let digit = state.time.hour / 10;
 ```
 
-> Once upon a time, there was an object named `state`, that contains an object named `time`, that contains a field named `hour`... The current hour of the day (from 0 to 23)
+We interpret `state.time.hour` like a nested fairy tale...
+
+> Once upon a time, there was an object named `state`... That contained an object named `time`... That contained a field named `hour`... The current hour of the day (from 0 to 23)
 
 Fetch the bitmap...
 
