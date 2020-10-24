@@ -50,13 +50,19 @@ Let's make a Hand-Drawn Watch Face like the pic above. The Watch Face consists o
 
 ![Watch Face Images](https://lupyuen.github.io/images/handdrawn-labels.png)
 
-We start by zooming in to the image at top left...
+We start by zooming to the top left image...
 
-_How shall we load the top left image with the first digit of the hour?_
+_How shall we load the top left image... With the first digit of the hour?_
 
-Let's start with the 3 hardest lines of code in our Watch Face: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L142-L150)
+In 3 steps...
 
-_(I promise you... The rest of the code will be much simpler)_
+1. We compute the first digit of the hour. So if the hour is `23`, the first digit is `2`.
+
+1. We fetch the hand-drawn bitmap for the digit, i.e. `2`
+
+1. We load the bitmap to the top left image
+
+Here's how we do it in Rust: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L142-L150)
 
 ```rust
 //  Update the top left image with the first digit of the hour
@@ -73,6 +79,12 @@ img::set_src(                //  Set the source...
     bitmap as *const c_void  //  To the digit bitmap
 ) ? ;                        //  Quit in case of error
 ```
+
+Yep it looks daunting... These are the 3 hardest lines of code in our Watch Face!
+
+But let's step through each line bit by bit and uncover the mystique of Rust.
+
+_(I promise you... The rest of the code will be much simpler!)_
 
 ## Compute the hour digit
 
