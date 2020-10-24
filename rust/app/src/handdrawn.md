@@ -86,7 +86,9 @@ _(I promise you... The rest of the code will be much simpler!)_
 
 # Compute the hour digit
 
-TODO
+_Given a hour like `23`, compute the first digit i.e. `2`. How shall we do this in Rust?_
+
+Here's how...
 
 ```rust
 //  Compute the first digit of the hour
