@@ -46,11 +46,11 @@ Read on and join me for the learning adventure! :-)
 
 TODO
 
-Let's make a Hand-Drawn Watch Face like the pic above. The Watch Face consists of 4 images that will be a-changin' with the times...
+Let's make a Hand-Drawn Watch Face like the pic above. The Watch Face consists of 4 hand-drawn images that will be a-changin' with the times...
 
 ??? left top image - first digit of the hour
 
-Let's zoom in to the top left image...
+We start by zooming in to the image at top left...
 
 _How shall we load the top left image with the first digit of the hour?_
 
@@ -89,19 +89,17 @@ We interpret `state.time.hour` like a nested fairy tale...
 
 Here we divide the `hour` by 10 (and truncate the result) to get the first digit. So if `hour` is `23`, then `digit` gets set to `2`.
 
-_Where are the types? Is Rust a typeless language like JavaScript and Python?_
+_The Type of `digit` is missing. Is Rust a Typeless Language like JavaScript and Python?_
 
+Rust is actually a Statically Typed Language like C... All Variables have Types. The Rust Compiler infers the Types for us.
 
-
-c vs javascript vs python
-
-mouse over
-
-handdrawn-type.png
-
-Sounds spooky, but the Rust Compiler is going all Sherlock Holmes on our code...
+Sounds spooky, but the Rust Compiler goes all Sherlock Holmes on our code to deduce our Variable Types...
 
 > I see what you did there... `digit` doesn't have a known type! Hmmm `hour` is a `u8`... 8-bit unsigned integer... After integer division we get another `u8`... So I deduce that `digit` is also `u8`!
+
+To see this Sherlock smartness in action, mouse over `digit` in VSCode...
+
+handdrawn-type.png
 
 ## Fetch the digit bitmap
 
