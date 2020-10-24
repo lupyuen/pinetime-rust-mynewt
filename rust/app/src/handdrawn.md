@@ -87,13 +87,15 @@ We interpret `state.time.hour` like a nested fairy tale...
 
 (We'll learn the backstory of `state` in a while)
 
-rust compiler is spooky
+c vs javascript vs python
 
 mouse over
 
 handdrawn-type.png
 
-c vs javascript vs python
+Sounds spooky, but the Rust Compiler is going all Sherlock Holmes on our code...
+
+> I see what you did there... `digit` doesn't have a known type! Hmmm `hour` is a `u8`... 8-bit unsigned integer... After integer division we get another `u8`... So I deduce that `digit` is also `u8`!
 
 ## Fetch the digit bitmap
 
@@ -101,6 +103,20 @@ c vs javascript vs python
 //  Fetch the bitmap for the digit as a constant pointer
 let bitmap: *const img::lv_img_dsc_t =    
     &self.bitmaps[digit as usize];
+```
+
+```rust
+let bitmap = self.bitmaps[digit];
+```
+
+`self`
+
+```rust
+let bitmap = &self.bitmaps[digit];
+```
+
+```rust
+let bitmap = &self.bitmaps[digit as usize];
 ```
 
 Hint: It's a pointer. No we're not shopping for French luxury goods.
