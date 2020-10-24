@@ -65,14 +65,14 @@
 
     <h1 class="title">Draw your own PineTime Watch Face... From WebAssembly to Embedded Rust</h1>
     <nav id="TOC"><ul>
-<li><a href="#hand-drawn-watch-face">1 Hand-Drawn Watch Face</a><ul>
-<li><a href="#compute-the-hour-digit">1.1 Compute the hour digit</a><ul></ul></li>
-<li><a href="#fetch-the-digit-bitmap">1.2 Fetch the digit bitmap</a><ul></ul></li>
-<li><a href="#set-the-image-source">1.3 Set the image source</a><ul></ul></li>
-<li><a href="#declare-the-method">1.4 Declare the method</a><ul></ul></li></ul></li>
-<li><a href="#webassembly-rust">2 WebAssembly Rust</a><ul></ul></li>
-<li><a href="#embedded-rust">3 Embedded Rust</a><ul></ul></li>
-<li><a href="#whats-next">4 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/handdrawn-title.png" alt="PineTime Smart Watch with Hand-Drawn Watch Face" /></p>
+<li><a href="#hand-drawn-watch-face">1 Hand-Drawn Watch Face</a><ul></ul></li>
+<li><a href="#compute-the-hour-digit">2 Compute the hour digit</a><ul></ul></li>
+<li><a href="#fetch-the-digit-bitmap">3 Fetch the digit bitmap</a><ul></ul></li>
+<li><a href="#set-the-image-source">4 Set the image source</a><ul>
+<li><a href="#declare-the-method">4.1 Declare the method</a><ul></ul></li></ul></li>
+<li><a href="#webassembly-rust">5 WebAssembly Rust</a><ul></ul></li>
+<li><a href="#embedded-rust">6 Embedded Rust</a><ul></ul></li>
+<li><a href="#whats-next">7 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/handdrawn-title.png" alt="PineTime Smart Watch with Hand-Drawn Watch Face" /></p>
 <p><em>Q: We're in the middle of the pandemic... Is there something fun and useful that we can learn on our own?</em></p>
 <p>A: Try learning <strong>Embedded Programming</strong>!</p>
 <p><em>Q: I need to buy an Arduino or a Microcontroller Board? And have it shipped sloooowly to me at exorbitant prices?</em></p>
@@ -94,13 +94,23 @@
 <p>None really. Now's the perfect time to <strong>Learn and Experiment with Embedded Programming</strong>... At our own pace, with whatever materials we have.</p>
 <p>Read on and join me for the learning adventure! :-)</p>
 <h1 id="hand-drawn-watch-face" class="section-header"><a href="#hand-drawn-watch-face">1 Hand-Drawn Watch Face</a></h1>
-<p>TODO</p>
 <p>Let's make a Hand-Drawn Watch Face like the pic above. The Watch Face consists of 4 hand-drawn images that will be a-changin' with the times...</p>
 <p><img src="https://lupyuen.github.io/images/handdrawn-labels.png" alt="Watch Face Images" /></p>
-<p>We start by zooming in to the image at top left...</p>
-<p><em>How shall we load the top left image with the first digit of the hour?</em></p>
-<p>Let's start with the 3 hardest lines of code in our Watch Face: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L142-L150"><code>src/lib.rs</code></a></p>
-<p><em>(I promise you... The rest of the code will be much simpler)</em></p>
+<p>We start by zooming to the top left...</p>
+<p><em>How shall we load the top left image... With the first digit of the hour?</em></p>
+<p>In 3 steps...</p>
+<ol>
+<li>
+<p>We <strong>compute the first digit of the hour</strong>. So if the hour is <code>23</code>, the first digit is <code>2</code>.</p>
+</li>
+<li>
+<p>We <strong>fetch the hand-drawn bitmap</strong> for the digit, i.e. <code>2</code></p>
+</li>
+<li>
+<p>We <strong>load the bitmap</strong> into the top left image</p>
+</li>
+</ol>
+<p>Here's how we do it in Rust: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L142-L150"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="comment">//  Update the top left image with the first digit of the hour</span>
@@ -116,7 +126,12 @@
     <span class="self">self</span>.<span class="ident">top_left_image</span>,     <span class="comment">//  Of the the top left image...</span>
     <span class="ident">bitmap</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_void</span>  <span class="comment">//  To the digit bitmap</span>
 ) <span class="question-mark">?</span> ;                        <span class="comment">//  Quit in case of error</span></pre></div>
-<h2 id="compute-the-hour-digit" class="section-header"><a href="#compute-the-hour-digit">1.1 Compute the hour digit</a></h2>
+<p>Yep it looks daunting... These are the 3 hardest lines of code in our Watch Face!</p>
+<p>But let's step through each line bit by bit and uncover the mystique of Rust.</p>
+<p><em>(I promise you... The rest of the code will be much simpler!)</em></p>
+<h1 id="compute-the-hour-digit" class="section-header"><a href="#compute-the-hour-digit">2 Compute the hour digit</a></h1>
+<p>TODO</p>
+
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="comment">//  Compute the first digit of the hour</span>
 <span class="kw">let</span> <span class="ident">digit</span> <span class="op">=</span> <span class="ident">state</span>.<span class="ident">time</span>.<span class="ident">hour</span> <span class="op">/</span> <span class="number">10</span>;</pre></div>
@@ -134,23 +149,29 @@
 </blockquote>
 <p>To see this Sherlock smartness in action, mouse over <code>digit</code> in VSCode...</p>
 <p><img src="https://lupyuen.github.io/images/handdrawn-type.png" alt="Type Inference" /></p>
-<h2 id="fetch-the-digit-bitmap" class="section-header"><a href="#fetch-the-digit-bitmap">1.2 Fetch the digit bitmap</a></h2>
+<h1 id="fetch-the-digit-bitmap" class="section-header"><a href="#fetch-the-digit-bitmap">3 Fetch the digit bitmap</a></h1>
+<p>TODO</p>
+
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="comment">//  Fetch the bitmap for the digit as a constant pointer</span>
 <span class="kw">let</span> <span class="ident">bitmap</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> <span class="op">=</span>    
     <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">bitmaps</span>[<span class="ident">digit</span> <span class="kw">as</span> <span class="ident">usize</span>];</pre></div>
+<p>Simple form...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">let</span> <span class="ident">bitmap</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">bitmaps</span>[<span class="ident">digit</span>];</pre></div>
-<p><code>self</code></p>
+<p>Add <code>self</code>...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">let</span> <span class="ident">bitmap</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">bitmaps</span>[<span class="ident">digit</span>];</pre></div>
+<p>Cast <code>digit</code> as <code>usize</code>...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">let</span> <span class="ident">bitmap</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">bitmaps</span>[<span class="ident">digit</span> <span class="kw">as</span> <span class="ident">usize</span>];</pre></div>
 <p>Hint: It's a pointer. No we're not shopping for French luxury goods.</p>
-<h2 id="set-the-image-source" class="section-header"><a href="#set-the-image-source">1.3 Set the image source</a></h2>
+<h1 id="set-the-image-source" class="section-header"><a href="#set-the-image-source">4 Set the image source</a></h1>
+<p>TODO</p>
+
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">img</span>::<span class="ident">set_src</span>(                <span class="comment">//  Set the source...</span>
     <span class="self">self</span>.<span class="ident">top_left_image</span>,     <span class="comment">//  Of the the top left image...</span>
@@ -162,7 +183,7 @@
 <p>raw pointer</p>
 <p>*bitmap = 123;</p>
 <p>we cant do this even by casting the type</p>
-<h2 id="declare-the-method" class="section-header"><a href="#declare-the-method">1.4 Declare the method</a></h2>
+<h2 id="declare-the-method" class="section-header"><a href="#declare-the-method">4.1 Declare the method</a></h2>
 <p><code>self</code> and <code>state</code> come from the method declaration: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L181"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -274,11 +295,11 @@
     <span class="comment">//  Omitted: Bitmaps 3 to 8</span>
     <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> { <span class="ident">data</span>: <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../bitmaps/9.bin&quot;</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>, <span class="ident">header</span>, <span class="ident">data_size</span> },
 ]</pre></div>
-<h1 id="webassembly-rust" class="section-header"><a href="#webassembly-rust">2 WebAssembly Rust</a></h1>
+<h1 id="webassembly-rust" class="section-header"><a href="#webassembly-rust">5 WebAssembly Rust</a></h1>
 <p>TODO</p>
-<h1 id="embedded-rust" class="section-header"><a href="#embedded-rust">3 Embedded Rust</a></h1>
+<h1 id="embedded-rust" class="section-header"><a href="#embedded-rust">6 Embedded Rust</a></h1>
 <p>TODO</p>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">4 What's Next</a></h1>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">7 What's Next</a></h1>
 <p>TODO</p>
 <p>Lemme know if you're keen to help! :-)</p>
 <p>In the meantime, please go right ahead to create your own Watch Faces and publish them on crates.io... So that all PineTime Owners can share, learn and enjoy :-)</p>

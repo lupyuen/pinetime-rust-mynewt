@@ -44,23 +44,21 @@ Read on and join me for the learning adventure! :-)
 
 # Hand-Drawn Watch Face
 
-TODO
-
 Let's make a Hand-Drawn Watch Face like the pic above. The Watch Face consists of 4 hand-drawn images that will be a-changin' with the times...
 
 ![Watch Face Images](https://lupyuen.github.io/images/handdrawn-labels.png)
 
-We start by zooming to the top left image...
+We start by zooming to the top left...
 
 _How shall we load the top left image... With the first digit of the hour?_
 
 In 3 steps...
 
-1. We compute the first digit of the hour. So if the hour is `23`, the first digit is `2`.
+1. We __compute the first digit of the hour__. So if the hour is `23`, the first digit is `2`.
 
-1. We fetch the hand-drawn bitmap for the digit, i.e. `2`
+1. We __fetch the hand-drawn bitmap__ for the digit, i.e. `2`
 
-1. We load the bitmap to the top left image
+1. We __load the bitmap__ into the top left image
 
 Here's how we do it in Rust: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L142-L150)
 
@@ -86,7 +84,9 @@ But let's step through each line bit by bit and uncover the mystique of Rust.
 
 _(I promise you... The rest of the code will be much simpler!)_
 
-## Compute the hour digit
+# Compute the hour digit
+
+TODO
 
 ```rust
 //  Compute the first digit of the hour
@@ -113,7 +113,9 @@ To see this Sherlock smartness in action, mouse over `digit` in VSCode...
 
 ![Type Inference](https://lupyuen.github.io/images/handdrawn-type.png)
 
-## Fetch the digit bitmap
+# Fetch the digit bitmap
+
+TODO
 
 ```rust
 //  Fetch the bitmap for the digit as a constant pointer
@@ -121,15 +123,19 @@ let bitmap: *const img::lv_img_dsc_t =
     &self.bitmaps[digit as usize];
 ```
 
+Simple form...
+
 ```rust
 let bitmap = self.bitmaps[digit];
 ```
 
-`self`
+Add `self`...
 
 ```rust
 let bitmap = &self.bitmaps[digit];
 ```
+
+Cast `digit` as `usize`...
 
 ```rust
 let bitmap = &self.bitmaps[digit as usize];
@@ -137,7 +143,9 @@ let bitmap = &self.bitmaps[digit as usize];
 
 Hint: It's a pointer. No we're not shopping for French luxury goods.
 
-## Set the image source
+# Set the image source
+
+TODO
 
 ```rust
 img::set_src(                //  Set the source...
