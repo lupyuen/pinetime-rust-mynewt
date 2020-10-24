@@ -87,6 +87,12 @@ We interpret `state.time.hour` like a nested fairy tale...
 
 (We'll learn the backstory of `state` in a while)
 
+Here we divide the `hour` by 10 (and truncate the result) to get the first digit. So if `hour` is `23`, then `digit` gets set to `2`.
+
+_Where are the types? Is Rust a typeless language like JavaScript and Python?_
+
+
+
 c vs javascript vs python
 
 mouse over
