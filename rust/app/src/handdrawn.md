@@ -42,9 +42,17 @@ None really. Now's the perfect time to __Learn and Experiment with Embedded Prog
 
 Read on and join me for the learning adventure! :-)
 
-# Rust Watch Face
+# Hand-Drawn Watch Face
 
 TODO
+
+Let's make a Hand-Drawn Watch Face like the pic above. The Watch Face consists of 4 images that will be a-changin' with the times...
+
+??? left top image - first digit of the hour
+
+Let's zoom in to the top left image...
+
+_How shall we load the top left image with the first digit of the hour?_
 
 Let's start with the 3 hardest lines of code in our Watch Face: [`lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L142-L150)
 
@@ -66,7 +74,7 @@ img::set_src(                //  Set the source...
 ) ? ;                        //  Quit in case of error
 ```
 
-Compute the digit...
+## Compute the hour digit
 
 ```rust
 //  Compute the first digit of the hour
@@ -79,7 +87,15 @@ We interpret `state.time.hour` like a nested fairy tale...
 
 (We'll learn the backstory of `state` in a while)
 
-Fetch the bitmap...
+rust compiler is spooky
+
+mouse over
+
+handdrawn-type.png
+
+c vs javascript vs python
+
+## Fetch the digit bitmap
 
 ```rust
 //  Fetch the bitmap for the digit as a constant pointer
@@ -87,7 +103,9 @@ let bitmap: *const img::lv_img_dsc_t =
     &self.bitmaps[digit as usize];
 ```
 
-Set the image source...
+Hint: It's a pointer. No we're not shopping for French luxury goods.
+
+## Set the image source
 
 ```rust
 img::set_src(                //  Set the source...
@@ -95,6 +113,20 @@ img::set_src(                //  Set the source...
     bitmap as *const c_void  //  To the digit bitmap
 ) ? ;                        //  Quit in case of error
 ```
+
+casting
+
+c interface
+
+low level
+
+raw pointer
+
+*bitmap = 123;
+
+we cant do this even by casting the type
+
+## Declare the method
 
 `self` and `state` come from the method declaration: [`lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L181)
 
