@@ -48,13 +48,13 @@ TODO
 
 Let's make a Hand-Drawn Watch Face like the pic above. The Watch Face consists of 4 hand-drawn images that will be a-changin' with the times...
 
-??? left top image - first digit of the hour
+![Watch Face Images](https://lupyuen.github.io/images/handdrawn-labels.png)
 
 We start by zooming in to the image at top left...
 
 _How shall we load the top left image with the first digit of the hour?_
 
-Let's start with the 3 hardest lines of code in our Watch Face: [`lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L142-L150)
+Let's start with the 3 hardest lines of code in our Watch Face: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L142-L150)
 
 _(I promise you... The rest of the code will be much simpler)_
 
@@ -99,7 +99,7 @@ Sounds spooky, but the Rust Compiler goes all Sherlock Holmes on our code to ded
 
 To see this Sherlock smartness in action, mouse over `digit` in VSCode...
 
-handdrawn-type.png
+![Type Inference](https://lupyuen.github.io/images/handdrawn-type.png)
 
 ## Fetch the digit bitmap
 
@@ -148,7 +148,7 @@ we cant do this even by casting the type
 
 ## Declare the method
 
-`self` and `state` come from the method declaration: [`lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L181)
+`self` and `state` come from the method declaration: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L181)
 
 ```rust
 /// Update the widgets in the Watch Face with the current time
@@ -169,7 +169,7 @@ fn update(&mut self, state: &WatchFaceState) -> MynewtResult<()> {
 }
 ```
 
-Create watch face: [`lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136)
+Create watch face: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136)
 
 ```rust
 /// Create the widgets for the Watch Face
