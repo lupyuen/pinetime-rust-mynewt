@@ -139,7 +139,7 @@ _What's `self.bitmaps`?_
 
 `self.bitmaps` is an Array of 10 hand-drawn bitmaps, indexed from 0 to 9...
 
-![Self Bitmaps](https://lupyuen.github.io/images/handdrawn-bitmaps.png)
+![Bitmaps in Self](https://lupyuen.github.io/images/handdrawn-bitmaps.png)
 
 _(We'll reveal our `self` later... Hint: We're inside an object!)_
 
@@ -195,7 +195,7 @@ _(Hint: It's a Pointer (yep like C). And no we're not shopping for French luxury
 
 Our story thus far: We have `bitmap` set to the hand-drawn digit (i.e. the first digit of the hour)...
 
-???
+![Bitmap](https://lupyuen.github.io/images/handdrawn-bitmaps2.png)
 
 Here's how we set the Top Left Image on our Watch Face to `bitmap`: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L147-L150)
 
@@ -208,13 +208,25 @@ img::set_src(                //  Set the source...
 
 _What's `self.top_left_image`?_
 
-Let's peek inside `self` again...
+We have 4 images inside `self`...
 
-???
+![Images in Self](https://lupyuen.github.io/images/handdrawn-images.png)
 
-_Why the studs in `img::`?_
+So `self.top_left_image` refers to the Top Left Image.
 
-Rust is fussy about keeping things neat and tidy... 
+_Why the studs in `img::src`?_
+
+Rust is fussy about keeping things neat, tidy and modular.
+
+`img::` refers to the Module named `img`.  When we write...
+
+```rust
+img::set_src( self.top_left_image, ... );
+```
+
+We're calling the function `set_src` defined in the Module `img`. (Similar to C++ namespaces)
+
+TODO
 
 casting
 

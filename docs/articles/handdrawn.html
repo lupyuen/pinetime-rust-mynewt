@@ -164,7 +164,7 @@
 <p>This looks... Strange. Let's break it down...</p>
 <p><em>What's <code>self.bitmaps</code>?</em></p>
 <p><code>self.bitmaps</code> is an Array of 10 hand-drawn bitmaps, indexed from 0 to 9...</p>
-<p><img src="https://lupyuen.github.io/images/handdrawn-bitmaps.png" alt="Self Bitmaps" /></p>
+<p><img src="https://lupyuen.github.io/images/handdrawn-bitmaps.png" alt="Bitmaps in Self" /></p>
 <p><em>(We'll reveal our <code>self</code> later... Hint: We're inside an object!)</em></p>
 <p>Thus to fetch the bitmap that corresponds to a digit, we do this...</p>
 
@@ -196,14 +196,27 @@
 <p>This is a tough nugget to crack (unlike McNuggets)... But we'll learn its true meaning in a while.</p>
 <p><em>(Hint: It's a Pointer (yep like C). And no we're not shopping for French luxury goods.)</em></p>
 <h1 id="set-the-image-source" class="section-header"><a href="#set-the-image-source">4 Set the image source</a></h1>
-<p>TODO</p>
-<p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L147-L150"><code>src/lib.rs</code></a></p>
+<p>Our story thus far: We have <code>bitmap</code> set to the hand-drawn digit (i.e. the first digit of the hour)...</p>
+<p><img src="https://lupyuen.github.io/images/handdrawn-bitmaps2.png" alt="Bitmap" /></p>
+<p>Here's how we set the Top Left Image on our Watch Face to <code>bitmap</code>: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L147-L150"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">img</span>::<span class="ident">set_src</span>(                <span class="comment">//  Set the source...</span>
     <span class="self">self</span>.<span class="ident">top_left_image</span>,     <span class="comment">//  Of the the top left image...</span>
     <span class="ident">bitmap</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_void</span>  <span class="comment">//  To the digit bitmap</span>
 ) <span class="question-mark">?</span> ;                        <span class="comment">//  Quit in case of error</span></pre></div>
+<p><em>What's <code>self.top_left_image</code>?</em></p>
+<p>We have 4 images inside <code>self</code>...</p>
+<p><img src="https://lupyuen.github.io/images/handdrawn-images.png" alt="Images in Self" /></p>
+<p>So <code>self.top_left_image</code> refers to the Top Left Image.</p>
+<p><em>Why the studs in <code>img::src</code>?</em></p>
+<p>Rust is fussy about keeping things neat, tidy and modular.</p>
+<p><code>img::</code> refers to the Module named <code>img</code>.  When we write...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">img</span>::<span class="ident">set_src</span>( <span class="self">self</span>.<span class="ident">top_left_image</span>, ... );</pre></div>
+<p>We're calling the function <code>set_src</code> defined in the Module <code>img</code>. (Similar to C++ namespaces)</p>
+<p>TODO</p>
 <p>casting</p>
 <p>c interface</p>
 <p>low level</p>
