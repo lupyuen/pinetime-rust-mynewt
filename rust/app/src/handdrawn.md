@@ -119,7 +119,7 @@ To see this Sherlock smartness in action, mouse over `digit` in VSCode...
 
 ![Type Inference](https://lupyuen.github.io/images/handdrawn-type.png)
 
-We see that `u8` pops up for `digit`... The Rust Compiler has inferred that `digit` is an 8-bit integer. (Like `uint8_t` in C)
+We see that `u8` pops up for `digit`... The Rust Compiler has inferred that `digit` is an 8-bit unsigned integer. (Like `uint8_t` in C)
 
 Now that we have the first digit of the hour, let's fetch the hand-drawn bitmap for the digit.
 
