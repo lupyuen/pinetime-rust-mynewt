@@ -193,9 +193,11 @@ _(Hint: It's a Pointer (yep like C). And no we're not shopping for French luxury
 
 # Set the image source
 
-TODO
+Our story thus far: We have `bitmap` set to the hand-drawn digit (i.e. the first digit of the hour)...
 
-[`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L147-L150)
+???
+
+Here's how we set the Top Left Image on our Watch Face to `bitmap`: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L147-L150)
 
 ```rust
 img::set_src(                //  Set the source...
@@ -203,6 +205,16 @@ img::set_src(                //  Set the source...
     bitmap as *const c_void  //  To the digit bitmap
 ) ? ;                        //  Quit in case of error
 ```
+
+_What's `self.top_left_image`?_
+
+Let's peek inside `self` again...
+
+???
+
+_Why the studs in `img::`?_
+
+Rust is fussy about keeping things neat and tidy... 
 
 casting
 
