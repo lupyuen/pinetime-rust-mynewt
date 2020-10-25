@@ -271,9 +271,21 @@ Get ready for the shocking reveal...
 
 # It was C all along
 
-TODO
+Earlier we saw two highly sus chunks of code...
 
 ![C Pointers](https://lupyuen.github.io/images/handdrawn-c.png)
+
+_What's `*const`?_
+
+That's a __Raw Pointer__ in Rust.
+
+It works like a Pointer in C... It's an address that points to an object in memory.
+
+_We already have References in Rust (via the "`&`" operator). Why do we need Raw Pointers?_
+
+Time to fess up...
+
+TODO
 
 casting
 
@@ -286,6 +298,8 @@ raw pointer
 *bitmap = 123;
 
 we cant do this even by casting the type
+
+[More about Raw Pointers in Rust](https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html)
 
 # Declare the method
 
