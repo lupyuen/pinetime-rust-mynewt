@@ -88,7 +88,7 @@ _(I promise you... The rest of the code will be much simpler!)_
 
 _Given a hour like `23`, compute the first digit i.e. `2`. How shall we do this in Rust?_
 
-Here's how...
+Here's how: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L144)
 
 ```rust
 //  Compute the first digit of the hour
@@ -105,7 +105,7 @@ Here we divide the `hour` by 10 (and truncate the result) to get the first digit
 
 _The Type of `digit` is missing. Is Rust a Typeless Language like JavaScript and Python?_
 
-Rust is actually a Statically Typed Language like C... All Variables have Types. The Rust Compiler infers the Types for us.
+Rust is a Statically Typed Language like C... All Variables have known Types during compilation. The Rust Compiler infers the Types for us.
 
 Sounds spooky, but the Rust Compiler goes all Sherlock Holmes on our code to deduce our Variable Types...
 
@@ -115,9 +115,13 @@ To see this Sherlock smartness in action, mouse over `digit` in VSCode...
 
 ![Type Inference](https://lupyuen.github.io/images/handdrawn-type.png)
 
+We see that `u8` pops up for `digit`... The Rust Compiler has inferred that `digit` is an 8-bit integer. (Like `uint8_t` in C)
+
 # Fetch the digit bitmap
 
 TODO
+
+[`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L145-L146)
 
 ```rust
 //  Fetch the bitmap for the digit as a constant pointer
@@ -148,6 +152,8 @@ Hint: It's a pointer. No we're not shopping for French luxury goods.
 # Set the image source
 
 TODO
+
+: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L147-L150)
 
 ```rust
 img::set_src(                //  Set the source...
