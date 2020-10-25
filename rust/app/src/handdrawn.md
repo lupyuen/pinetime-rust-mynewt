@@ -271,13 +271,13 @@ Get ready for the shocking reveal...
 
 # It was C all along
 
-Earlier we saw two highly sus chunks of code...
+Earlier we saw two highly sus chunks of code: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L145-L150)
 
 ![C Pointers](https://lupyuen.github.io/images/handdrawn-c.png)
 
 _What's `*const`?_
 
-That's a __Raw Pointer__ in Rust.
+`*const` is a __Raw Pointer__ in Rust.
 
 It works like a Pointer in C... It's an address that points to an object in memory.
 
