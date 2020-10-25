@@ -165,7 +165,7 @@ _What's with the `&`?_
 
 We're not gonna pass around copies of the bitmap. (Because that would be awfully inefficient in a smart watch)
 
-Instead we're passing a Reference to the bitmap. (Somewhat like a Pointer in C)
+Instead we're passing a __Reference__ to the bitmap. (Somewhat like a Pointer in C)
 
 To get the Reference, we insert "`&`" like so...
 
@@ -197,7 +197,7 @@ Our story thus far: We have `bitmap` set to the hand-drawn digit (i.e. the first
 
 ![Bitmap](https://lupyuen.github.io/images/handdrawn-bitmaps2.png)
 
-Here's how we set the Top Left Image on our Watch Face to `bitmap`: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L147-L150)
+Here's how we set the Top Left Image on our Watch Face to the bitmap: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L147-L150)
 
 ```rust
 img::set_src(                //  Set the source...
@@ -216,7 +216,7 @@ We have 4 images inside `self`...
 
 So `self.top_left_image` refers to the Top Left Image on our Watch Face.
 
-_Why the studs in `img::src`?_
+_Why the studs in `img::set_src`?_
 
 Rust is fussy about keeping things neat, tidy and modular.
 
@@ -227,6 +227,49 @@ img::set_src( self.top_left_image, ... );
 ```
 
 It means we're calling the function `set_src` defined in the Module `img`. (Similar to namespaces in C++)
+
+_Are we done yet?_
+
+Let's recap...
+
+1.  We have a function `set_src` (from Module `img`) that will set the bitmap for an image
+
+1.  We have the Top Left image: `self.top_left_image`
+
+1.  We have a Reference to the digit bitmap: `bitmap`
+
+Thus to set the bitmap for the Top Left Image we may write...
+
+```rust
+img::set_src(             //  Set the source...
+    self.top_left_image,  //  Of the the top left image...
+    bitmap                //  To the digit bitmap
+) ? ;                     //  What's this???
+```
+
+_Why the questionable "`?`" at the end?_
+
+"`?`" is the __Try Operator__ in Rust. It checks for errors.
+
+If `set_src` returns an error, Rust stops executing the current function. And returns the error immediately to the caller.
+
+(This is similar to `try ... catch ... throw` in JavaScript and Python)
+
+_Wait, we haven't covered these two sus chunks yet..._
+
+```rust
+//  Cast the bitmap as a constant pointer
+let bitmap: *const img::lv_img_dsc_t = ... ;
+
+//  Set the bitmap pointer as the image source
+img::set_src( ... , bitmap as *const c_void ) ? ;
+```
+
+Yep they look highly sus... Is this really Embedded Rust?
+
+Get ready for the shocking reveal...
+
+# It was C all along
 
 TODO
 
