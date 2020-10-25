@@ -220,7 +220,7 @@ _Why the studs in `img::set_src`?_
 
 Rust is fussy about keeping things neat, tidy and modular.
 
-`img::` refers to the Module named `img`.  When we write...
+"`img::`" refers to the Module named `img`.  When we write...
 
 ```rust
 img::set_src( ... );
