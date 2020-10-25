@@ -291,6 +291,10 @@ Time to fess up...
 
 😮 _But why??? Can't we do this in Rust instead of C?_
 
+That's the beauty... Rust and C are interoprapereraberble...
+
+Ahem... __Rust and C Functions can call each other!__
+
 TODO
 
 casting
