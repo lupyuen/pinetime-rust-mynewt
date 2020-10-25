@@ -212,7 +212,7 @@ We have 4 images inside `self`...
 
 ![Images in Self](https://lupyuen.github.io/images/handdrawn-images.png)
 
-So `self.top_left_image` refers to the Top Left Image.
+So `self.top_left_image` refers to the Top Left Image on our Watch Face.
 
 _Why the studs in `img::src`?_
 
@@ -224,7 +224,7 @@ Rust is fussy about keeping things neat, tidy and modular.
 img::set_src( self.top_left_image, ... );
 ```
 
-We're calling the function `set_src` defined in the Module `img`. (Similar to C++ namespaces)
+It means we're calling the function `set_src` defined in the Module `img`. (Similar to namespaces in C++)
 
 TODO
 

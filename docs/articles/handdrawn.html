@@ -208,14 +208,14 @@
 <p><em>What's <code>self.top_left_image</code>?</em></p>
 <p>We have 4 images inside <code>self</code>...</p>
 <p><img src="https://lupyuen.github.io/images/handdrawn-images.png" alt="Images in Self" /></p>
-<p>So <code>self.top_left_image</code> refers to the Top Left Image.</p>
+<p>So <code>self.top_left_image</code> refers to the Top Left Image on our Watch Face.</p>
 <p><em>Why the studs in <code>img::src</code>?</em></p>
 <p>Rust is fussy about keeping things neat, tidy and modular.</p>
 <p><code>img::</code> refers to the Module named <code>img</code>.  When we write...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">img</span>::<span class="ident">set_src</span>( <span class="self">self</span>.<span class="ident">top_left_image</span>, ... );</pre></div>
-<p>We're calling the function <code>set_src</code> defined in the Module <code>img</code>. (Similar to C++ namespaces)</p>
+<p>It means we're calling the function <code>set_src</code> defined in the Module <code>img</code>. (Similar to namespaces in C++)</p>
 <p>TODO</p>
 <p>casting</p>
 <p>c interface</p>
