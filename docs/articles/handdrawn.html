@@ -129,8 +129,10 @@
 <p>Yep it looks daunting... These are the 3 hardest lines of code in our Watch Face!</p>
 <p>But let's step through each line bit by bit and uncover the mystique of Rust.</p>
 <p><em>(I promise you... The rest of the code will be much simpler!)</em></p>
+<p><img src="https://lupyuen.github.io/images/handdrawn-labels2.png" alt="First digit of hour" /></p>
 <h1 id="compute-the-hour-digit" class="section-header"><a href="#compute-the-hour-digit">2 Compute the hour digit</a></h1>
-<p>TODO</p>
+<p><em>Given an hour like <code>23</code>, compute the first digit i.e. <code>2</code>. How shall we do this in Rust?</em></p>
+<p>Here's how: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L144"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="comment">//  Compute the first digit of the hour</span>
@@ -139,18 +141,22 @@
 <blockquote>
 <p>Once upon a time, there was an object named <code>state</code>... That contained an object named <code>time</code>... That contained a field named <code>hour</code>... The current hour of the day (from 0 to 23)</p>
 </blockquote>
-<p>(We'll learn the backstory of <code>state</code> in a while)</p>
-<p>Here we divide the <code>hour</code> by 10 (and truncate the result) to get the first digit. So if <code>hour</code> is <code>23</code>, then <code>digit</code> gets set to <code>2</code>.</p>
+<p><em>(We'll learn the backstory of <code>state</code> in a while... And objects in Rust are named Structs)</em></p>
+<p>Here we divide the <code>hour</code> by 10 (and truncate the result) to get the first digit. </p>
+<p>So if <code>hour</code> is <code>23</code>, then <code>digit</code> gets set to <code>2</code>.</p>
 <p><em>The Type of <code>digit</code> is missing. Is Rust a Typeless Language like JavaScript and Python?</em></p>
-<p>Rust is actually a Statically Typed Language like C... All Variables have Types. The Rust Compiler infers the Types for us.</p>
+<p>Rust is a Statically Typed Language like C... All Variables have known Types during compilation. The Rust Compiler infers the Types for us.</p>
 <p>Sounds spooky, but the Rust Compiler goes all Sherlock Holmes on our code to deduce our Variable Types...</p>
 <blockquote>
 <p>I see what you did there... <code>digit</code> doesn't have a known type! Hmmm <code>hour</code> is a <code>u8</code>... 8-bit unsigned integer... After integer division we get another <code>u8</code>... So I deduce that <code>digit</code> is also <code>u8</code>!</p>
 </blockquote>
 <p>To see this Sherlock smartness in action, mouse over <code>digit</code> in VSCode...</p>
 <p><img src="https://lupyuen.github.io/images/handdrawn-type.png" alt="Type Inference" /></p>
+<p>We see that <code>u8</code> pops up for <code>digit</code>... The Rust Compiler has inferred that <code>digit</code> is an 8-bit integer. (Like <code>uint8_t</code> in C)</p>
+<p>Now that we have the first digit of the hour, let's fetch the hand-drawn bitmap for the digit.</p>
 <h1 id="fetch-the-digit-bitmap" class="section-header"><a href="#fetch-the-digit-bitmap">3 Fetch the digit bitmap</a></h1>
 <p>TODO</p>
+<p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L145-L146"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="comment">//  Fetch the bitmap for the digit as a constant pointer</span>
@@ -171,6 +177,7 @@
 <p>Hint: It's a pointer. No we're not shopping for French luxury goods.</p>
 <h1 id="set-the-image-source" class="section-header"><a href="#set-the-image-source">4 Set the image source</a></h1>
 <p>TODO</p>
+<p>: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L147-L150"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">img</span>::<span class="ident">set_src</span>(                <span class="comment">//  Set the source...</span>

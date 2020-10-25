@@ -84,9 +84,11 @@ But let's step through each line bit by bit and uncover the mystique of Rust.
 
 _(I promise you... The rest of the code will be much simpler!)_
 
+![First digit of hour](https://lupyuen.github.io/images/handdrawn-labels2.png)
+
 # Compute the hour digit
 
-_Given a hour like `23`, compute the first digit i.e. `2`. How shall we do this in Rust?_
+_Given an hour like `23`, compute the first digit i.e. `2`. How shall we do this in Rust?_
 
 Here's how: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L144)
 
@@ -99,9 +101,11 @@ We interpret `state.time.hour` like a nested fairy tale...
 
 > Once upon a time, there was an object named `state`... That contained an object named `time`... That contained a field named `hour`... The current hour of the day (from 0 to 23)
 
-(We'll learn the backstory of `state` in a while)
+_(We'll learn the backstory of `state` in a while... And objects in Rust are named Structs)_
 
-Here we divide the `hour` by 10 (and truncate the result) to get the first digit. So if `hour` is `23`, then `digit` gets set to `2`.
+Here we divide the `hour` by 10 (and truncate the result) to get the first digit. 
+
+So if `hour` is `23`, then `digit` gets set to `2`.
 
 _The Type of `digit` is missing. Is Rust a Typeless Language like JavaScript and Python?_
 
@@ -116,6 +120,8 @@ To see this Sherlock smartness in action, mouse over `digit` in VSCode...
 ![Type Inference](https://lupyuen.github.io/images/handdrawn-type.png)
 
 We see that `u8` pops up for `digit`... The Rust Compiler has inferred that `digit` is an 8-bit integer. (Like `uint8_t` in C)
+
+Now that we have the first digit of the hour, let's fetch the hand-drawn bitmap for the digit.
 
 # Fetch the digit bitmap
 
