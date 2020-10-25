@@ -285,6 +285,12 @@ _We already have References in Rust (via the "`&`" operator). Why do we need Raw
 
 Time to fess up...
 
+1.  `bitmap` is a __Raw Pointer to a C object__
+
+1.  `set_src` is a __C function__
+
+😮 _But why? Can't we do this in Rust instead of C?_
+
 TODO
 
 casting
