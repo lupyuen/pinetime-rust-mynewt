@@ -284,7 +284,15 @@ Create widgets...
 
 You know how some Millennials like to finish off respectfully with _"Ok boomer"?_
 
-Well it's the same in Rust.
+It's the same in Rust. We finish off a function and return `watch_face` by writing at the end...
+
+```rust
+    //  Return the watch face. No semicolon!
+    Ok(watch_face)
+}   //  End of function
+```
+
+When returning a value from a function, we omit the semicolon after `Ok`. (Because `Ok(boomer);` sounds odd)
 
 Top left image...
 
