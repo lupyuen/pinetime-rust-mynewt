@@ -167,7 +167,7 @@ We're not gonna pass around copies of the bitmap. (Because that would be awfully
 
 Instead we're passing a Reference to the bitmap. (Somewhat like a Pointer in C)
 
-To get the Reference, we insert `&` like so...
+To get the Reference, we insert "`&`" like so...
 
 ```rust
 let bitmap = &self.bitmaps[digit as usize];
@@ -181,7 +181,11 @@ Remember we set `bitmap` like so...
 let bitmap: *const img::lv_img_dsc_t = ...
 ```
 
-We're casting `bitmap` to a weird Type... `*const img::lv_img_dsc_t`
+This means we're casting the `bitmap` Reference to a weird Type...
+
+```rust
+*const img::lv_img_dsc_t
+```
 
 This is a tough nugget to crack (unlike McNuggets)... But we'll learn its true meaning in a while.
 

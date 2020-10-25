@@ -180,7 +180,7 @@
 <p><em>What's with the <code>&amp;</code>?</em></p>
 <p>We're not gonna pass around copies of the bitmap. (Because that would be awfully inefficient in a smart watch)</p>
 <p>Instead we're passing a Reference to the bitmap. (Somewhat like a Pointer in C)</p>
-<p>To get the Reference, we insert <code>&amp;</code> like so...</p>
+<p>To get the Reference, we insert &quot;<code>&amp;</code>&quot; like so...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">let</span> <span class="ident">bitmap</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">bitmaps</span>[<span class="ident">digit</span> <span class="kw">as</span> <span class="ident">usize</span>];</pre></div>
@@ -189,7 +189,10 @@
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">let</span> <span class="ident">bitmap</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> <span class="op">=</span> ...</pre></div>
-<p>We're casting <code>bitmap</code> to a weird Type... <code>*const img::lv_img_dsc_t</code></p>
+<p>This means we're casting the <code>bitmap</code> Reference to a weird Type...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw-2">*</span><span class="kw">const</span> <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span></pre></div>
 <p>This is a tough nugget to crack (unlike McNuggets)... But we'll learn its true meaning in a while.</p>
 <p><em>(Hint: It's a Pointer (yep like C). And no we're not shopping for French luxury goods.)</em></p>
 <h1 id="set-the-image-source" class="section-header"><a href="#set-the-image-source">4 Set the image source</a></h1>
