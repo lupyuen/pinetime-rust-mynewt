@@ -135,6 +135,8 @@ let bitmap: *const img::lv_img_dsc_t =
     &self.bitmaps[digit as usize];
 ```
 
+![Self Bitmaps](https://lupyuen.github.io/images/handdrawn-bitmaps.png)
+
 Simple form...
 
 ```rust
