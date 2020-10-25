@@ -161,7 +161,7 @@ Hence we need to convert (or cast) `digit` as `usize` like so...
 let bitmap = self.bitmaps[digit as usize];
 ```
 
-_What's with the `&`?_
+_What's with the "`&`"?_
 
 We're not gonna pass around copies of the bitmap. (Because that would be awfully inefficient in a smart watch)
 
