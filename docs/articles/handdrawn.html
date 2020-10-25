@@ -165,13 +165,13 @@
 <p><em>What's <code>self.bitmaps</code>?</em></p>
 <p><code>self.bitmaps</code> is an Array of 10 hand-drawn bitmaps, indexed from 0 to 9...</p>
 <p><img src="https://lupyuen.github.io/images/handdrawn-bitmaps.png" alt="Self Bitmaps" /></p>
-<p><em>(We'll reveal <code>self</code> later... Hint: We're inside an object!)</em></p>
+<p><em>(We'll reveal our <code>self</code> later... Hint: We're inside an object!)</em></p>
 <p>Thus to fetch the bitmap that corresponds to a digit, we do this...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">let</span> <span class="ident">bitmap</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">bitmaps</span>[<span class="ident">digit</span>];</pre></div>
 <p><em>What's <code>usize</code>?</em></p>
-<p>Rust is extremely uptight about Types... Including the index for our Array <code>bitmap</code>.</p>
+<p>Rust is extremely uptight about Types... Including the index for our Array <code>self.bitmaps</code>.</p>
 <p>In Rust, Arrays are indexed by integers of the <code>usize</code> Type. (Somewhat like <code>size_t</code> in C)</p>
 <p>Hence we need to convert (or cast) <code>digit</code> as <code>usize</code> like so...</p>
 

@@ -141,7 +141,7 @@ _What's `self.bitmaps`?_
 
 ![Self Bitmaps](https://lupyuen.github.io/images/handdrawn-bitmaps.png)
 
-_(We'll reveal `self` later... Hint: We're inside an object!)_
+_(We'll reveal our `self` later... Hint: We're inside an object!)_
 
 Thus to fetch the bitmap that corresponds to a digit, we do this...
 
@@ -151,7 +151,7 @@ let bitmap = self.bitmaps[digit];
 
 _What's `usize`?_
 
-Rust is extremely uptight about Types... Including the index for our Array `bitmap`.
+Rust is extremely uptight about Types... Including the index for our Array `self.bitmaps`.
 
 In Rust, Arrays are indexed by integers of the `usize` Type. (Somewhat like `size_t` in C)
 
