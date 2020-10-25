@@ -289,7 +289,7 @@ Time to fess up...
 
 1.  `set_src` is a __C function__
 
-😮 _But why? Can't we do this in Rust instead of C?_
+😮 _But why??? Can't we do this in Rust instead of C?_
 
 TODO
 
