@@ -125,9 +125,7 @@ Now that we have the first digit of the hour, let's fetch the hand-drawn bitmap 
 
 # Fetch the digit bitmap
 
-TODO
-
-[`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L145-L146)
+We have `digit` set to the first digit of the hour (`0`, `1` or `2`). Here's how we fetch the bitmap for `digit`: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L145-L146)
 
 ```rust
 //  Fetch the bitmap for the digit as a constant pointer
@@ -135,33 +133,65 @@ let bitmap: *const img::lv_img_dsc_t =
     &self.bitmaps[digit as usize];
 ```
 
+This looks... Strange. Let's break it down...
+
+_What's `self.bitmaps`?_
+
+`self.bitmaps` is an Array of 10 bitmaps, indexed from 0 to 9...
+
 ![Self Bitmaps](https://lupyuen.github.io/images/handdrawn-bitmaps.png)
 
-Simple form...
+_(We'll reveal `self` later... Hint: We're inside an object!)_
+
+Thus to fetch the bitmap that corresponds to a digit, we do this...
 
 ```rust
 let bitmap = self.bitmaps[digit];
 ```
 
-Add `self`...
+_What's `usize`?_
+
+Rust is extremely uptight about Types... Including the index for our bitmap Array.
+
+In Rust, Arrays are indexed by integers of the `usize` type. (Somewhat like `size_t` in C)
+
+Hence we need to convert (or cast) `digit` as `usize` like so...
 
 ```rust
-let bitmap = &self.bitmaps[digit];
+let bitmap = self.bitmaps[digit as usize];
 ```
 
-Cast `digit` as `usize`...
+_What's with the `&`?_
+
+We're not gonna pass around copies of the bitmap. (Because that would be awfully inefficient in a smart watch)
+
+Instead we're passing a Reference to the bitmap. (Somewhat like a Pointer in C)
+
+To get the Reference, we insert `&` like so...
 
 ```rust
 let bitmap = &self.bitmaps[digit as usize];
 ```
 
-Hint: It's a pointer. No we're not shopping for French luxury goods.
+_What about `*const img::lv_img_dsc_t`?_
+
+Remember we set `bitmap` like so...
+
+```rust
+let bitmap: *const img::lv_img_dsc_t = ...
+```
+
+We're casting `bitmap` to a weird Type... `*const img::lv_img_dsc_t`
+
+This is a tough nugget to crack (unlike McNuggets)... But we'll learn its true meaning in a while.
+
+_(Hint: It's a Pointer (yep like C). And no we're not shopping for French luxury goods.)_
 
 # Set the image source
 
 TODO
 
-: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L147-L150)
+[`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L147-L150)
 
 ```rust
 img::set_src(                //  Set the source...
@@ -182,7 +212,7 @@ raw pointer
 
 we cant do this even by casting the type
 
-## Declare the method
+# Declare the method
 
 `self` and `state` come from the method declaration: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L181)
 
@@ -252,7 +282,9 @@ Create widgets...
 }
 ```
 
-Signing off with _"Ok boomer"_
+You know how some Millennials like to finish off respectfully with _"Ok boomer"?_
+
+Well it's the same in Rust.
 
 Top left image...
 
