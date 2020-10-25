@@ -223,7 +223,7 @@ Rust is fussy about keeping things neat, tidy and modular.
 `img::` refers to the Module named `img`.  When we write...
 
 ```rust
-img::set_src( self.top_left_image, ... );
+img::set_src( ... );
 ```
 
 It means we're calling the function `set_src` defined in the Module `img`. (Similar to namespaces in C++)
@@ -255,7 +255,7 @@ If `set_src` returns an error, Rust stops executing the current function. And re
 
 (This is similar to `try ... catch ... throw` in JavaScript and Python)
 
-_Wait, we haven't covered these two sus chunks yet..._
+_Wait! We haven't covered these two sus chunks with `*const`..._
 
 ```rust
 //  Cast the bitmap as a constant pointer
