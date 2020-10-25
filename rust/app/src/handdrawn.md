@@ -273,6 +273,8 @@ Get ready for the shocking reveal...
 
 TODO
 
+![C Pointers](https://lupyuen.github.io/images/handdrawn-c.png)
+
 casting
 
 c interface
