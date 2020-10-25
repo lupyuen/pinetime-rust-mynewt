@@ -137,7 +137,7 @@ This looks... Strange. Let's break it down...
 
 _What's `self.bitmaps`?_
 
-`self.bitmaps` is an Array of 10 bitmaps, indexed from 0 to 9...
+`self.bitmaps` is an Array of 10 hand-drawn bitmaps, indexed from 0 to 9...
 
 ![Self Bitmaps](https://lupyuen.github.io/images/handdrawn-bitmaps.png)
 
@@ -151,9 +151,9 @@ let bitmap = self.bitmaps[digit];
 
 _What's `usize`?_
 
-Rust is extremely uptight about Types... Including the index for our bitmap Array.
+Rust is extremely uptight about Types... Including the index for our Array `bitmap`.
 
-In Rust, Arrays are indexed by integers of the `usize` type. (Somewhat like `size_t` in C)
+In Rust, Arrays are indexed by integers of the `usize` Type. (Somewhat like `size_t` in C)
 
 Hence we need to convert (or cast) `digit` as `usize` like so...
 
