@@ -336,8 +336,11 @@ TODO
 `self` and `state` come from the method declaration: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L181)
 
 ```rust
-/// Update the widgets in the Watch Face with the current time
-fn update(&mut self, state: &WatchFaceState) -> MynewtResult<()> {
+/// Update the Watch Face with the current time
+fn update(
+    &mut self, 
+    state: &WatchFaceState
+) -> MynewtResult<()> {
     //  Update the top left image with the first digit of the hour
     let digit = state.time.hour / 10;      //  Compute the first digit of the hour
     let bitmap: *const img::lv_img_dsc_t = //  Fetch the bitmap for the digit...
