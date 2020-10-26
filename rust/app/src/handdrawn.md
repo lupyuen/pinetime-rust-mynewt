@@ -367,7 +367,7 @@ TODO
 
 `self` and `state` come from the method declaration
 
-# Update the Watch Face
+# Create the Watch Face
 
 TODO
 
