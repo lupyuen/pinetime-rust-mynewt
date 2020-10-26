@@ -303,7 +303,7 @@ _What C Functions are we calling?_
 
 We're calling C Functions from the open-source [__LVGL Graphics Library__](https://lvgl.io/). It's great for creating Graphical User Interfaces on Embedded Devices with images, text labels, buttons, ...
 
-The LVGL Library is used by many firmware developers to create Watch Faces in PineTime. We're calling the LVGL Library too... But from Rust.
+The LVGL Library is used by many firmware developers to create Watch Faces for PineTime. We're calling the LVGL Library too... But from Rust.
 
 Now our sus code...
 
