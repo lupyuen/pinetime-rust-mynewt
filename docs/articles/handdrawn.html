@@ -111,7 +111,7 @@
 <p>We <strong>load the bitmap</strong> into the top left image</p>
 </li>
 </ol>
-<p>Here's how we do it in Rust: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L142-L150"><code>src/lib.rs</code></a></p>
+<p>Here's how we do it in Rust: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L147-L154"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="comment">//  Update the top left image with the first digit of the hour</span>
@@ -133,7 +133,7 @@
 <p><img src="https://lupyuen.github.io/images/handdrawn-labels2.png" alt="First digit of hour" /></p>
 <h1 id="compute-the-hour-digit" class="section-header"><a href="#compute-the-hour-digit">2 Compute the hour digit</a></h1>
 <p><em>Given an hour like <code>23</code>, compute the first digit i.e. <code>2</code>. How shall we do this in Rust?</em></p>
-<p>Here's how: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L144"><code>src/lib.rs</code></a></p>
+<p>Here's how: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L148"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="comment">//  Compute the first digit of the hour</span>
@@ -156,7 +156,7 @@
 <p>We see that <code>u8</code> pops up for <code>digit</code>... The Rust Compiler has inferred that <code>digit</code> is an 8-bit unsigned integer. (Like <code>uint8_t</code> in C)</p>
 <p>Now that we have the first digit of the hour, let's fetch the hand-drawn bitmap for the digit.</p>
 <h1 id="fetch-the-digit-bitmap" class="section-header"><a href="#fetch-the-digit-bitmap">3 Fetch the digit bitmap</a></h1>
-<p>We have <code>digit</code> set to the first digit of the hour (<code>0</code>, <code>1</code> or <code>2</code>). Here's how we fetch the bitmap for <code>digit</code>: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L145-L146"><code>src/lib.rs</code></a></p>
+<p>We have <code>digit</code> set to the first digit of the hour (<code>0</code>, <code>1</code> or <code>2</code>). Here's how we fetch the bitmap for <code>digit</code>: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L149-L150"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="comment">//  Fetch the bitmap for the digit as a constant pointer</span>
@@ -199,7 +199,7 @@
 <h1 id="set-the-image-source" class="section-header"><a href="#set-the-image-source">4 Set the image source</a></h1>
 <p>Our story thus far: We have <code>bitmap</code> set to the hand-drawn digit (i.e. the first digit of the hour)...</p>
 <p><img src="https://lupyuen.github.io/images/handdrawn-bitmaps2.png" alt="Bitmap" /></p>
-<p>Here's how we set the Top Left Image on our Watch Face to the bitmap: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L147-L150"><code>src/lib.rs</code></a></p>
+<p>Here's how we set the Top Left Image on our Watch Face to the bitmap: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L151-L154"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">img</span>::<span class="ident">set_src</span>(                <span class="comment">//  Set the source...</span>
@@ -253,7 +253,7 @@
 <p>Yep they look highly sus... Is this really Embedded Rust?</p>
 <p>Get ready for the shocking reveal...</p>
 <h1 id="it-was-c-all-along" class="section-header"><a href="#it-was-c-all-along">5 It was C all along</a></h1>
-<p>Earlier we saw two highly sus chunks of code: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L145-L150"><code>src/lib.rs</code></a></p>
+<p>Earlier we saw two highly sus chunks of code: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L149-L154"><code>src/lib.rs</code></a></p>
 <p><img src="https://lupyuen.github.io/images/handdrawn-c.png" alt="C Pointers" /></p>
 <p><em>What's <code>*const</code>?</em></p>
 <p><code>*const</code> is a <strong>Raw Pointer</strong> in Rust.</p>
@@ -298,7 +298,7 @@
 <p>Today we won't talk much about casting C Pointers in Rust and passing them to C Functions. More details may be found in <em>&quot;The Rust Programming Languague&quot;</em> book...</p>
 <p><a href="https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html">Raw Pointers in Rust</a></p>
 <h1 id="declare-the-method" class="section-header"><a href="#declare-the-method">6 Declare the method</a></h1>
-<p>Remember our 3 hardest lines of code? Let's zoom out and watch how we use them: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L181"><code>src/lib.rs</code></a></p>
+<p>Remember our 3 hardest lines of code? Let's zoom out and watch how we use them: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L185"><code>src/lib.rs</code></a></p>
 <p><img src="https://lupyuen.github.io/images/handdrawn-method.png" alt="Update Method" /></p>
 <p><em>What's <code>update</code>?</em></p>
 <p><code>update</code> is the Method that's called to update the Watch Face every minute.</p>

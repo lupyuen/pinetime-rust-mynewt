@@ -60,7 +60,7 @@ In 3 steps...
 
 1. We __load the bitmap__ into the top left image
 
-Here's how we do it in Rust: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L142-L150)
+Here's how we do it in Rust: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L147-L154)
 
 ```rust
 //  Update the top left image with the first digit of the hour
@@ -90,7 +90,7 @@ _(I promise you... The rest of the code will be much simpler!)_
 
 _Given an hour like `23`, compute the first digit i.e. `2`. How shall we do this in Rust?_
 
-Here's how: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L144)
+Here's how: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L148)
 
 ```rust
 //  Compute the first digit of the hour
@@ -125,7 +125,7 @@ Now that we have the first digit of the hour, let's fetch the hand-drawn bitmap 
 
 # Fetch the digit bitmap
 
-We have `digit` set to the first digit of the hour (`0`, `1` or `2`). Here's how we fetch the bitmap for `digit`: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L145-L146)
+We have `digit` set to the first digit of the hour (`0`, `1` or `2`). Here's how we fetch the bitmap for `digit`: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L149-L150)
 
 ```rust
 //  Fetch the bitmap for the digit as a constant pointer
@@ -197,7 +197,7 @@ Our story thus far: We have `bitmap` set to the hand-drawn digit (i.e. the first
 
 ![Bitmap](https://lupyuen.github.io/images/handdrawn-bitmaps2.png)
 
-Here's how we set the Top Left Image on our Watch Face to the bitmap: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L147-L150)
+Here's how we set the Top Left Image on our Watch Face to the bitmap: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L151-L154)
 
 ```rust
 img::set_src(                //  Set the source...
@@ -271,7 +271,7 @@ Get ready for the shocking reveal...
 
 # It was C all along
 
-Earlier we saw two highly sus chunks of code: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L145-L150)
+Earlier we saw two highly sus chunks of code: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L149-L154)
 
 ![C Pointers](https://lupyuen.github.io/images/handdrawn-c.png)
 
@@ -331,7 +331,7 @@ Today we won't talk much about casting C Pointers in Rust and passing them to C 
 
 # Declare the method
 
-Remember our 3 hardest lines of code? Let's zoom out and watch how we use them: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L181)
+Remember our 3 hardest lines of code? Let's zoom out and watch how we use them: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L185)
 
 ![Update Method](https://lupyuen.github.io/images/handdrawn-method.png)
 
