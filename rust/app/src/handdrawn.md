@@ -285,9 +285,9 @@ _We already have References in Rust (via the "`&`" operator). Why do we need Raw
 
 Time to fess up...
 
-1.  `bitmap` is a __Raw Pointer to a C object__
+1.  `bitmap` is a __Raw Pointer to a C Object__
 
-1.  `set_src` is a __C function__
+1.  `set_src` is a __C Function__
 
 😮 _But why??? Can't we do this in Rust instead of C?_
 
@@ -295,13 +295,43 @@ That's the beauty... Rust and C are interoprapereraberble...
 
 Ahem... __Rust and C Functions can call each other!__
 
+Both Rust and C are __low-level languages__. It's perfectly OK to call C Functions from Rust (and the other way around).
+
+That's why some folks are using Rust instead of C for creating Embedded Gadgets.
+
+_What C Functions are we calling?_
+
+We're calling C Functions from the open-source [__LVGL Graphics Library__](https://lvgl.io/). It's great for creating Graphical User Interaces on Embedded Devices with images, text labels, button, ...
+
+The LVGL Library is used by many firmware developers to create Watch Faces in PineTime. We're calling the LVGL Library too... But from Rust.
+
+Now our sus code...
+
+```rust
+//  Cast the bitmap as a constant pointer
+let bitmap: *const img::lv_img_dsc_t = ... ;
+
+//  Set the bitmap pointer as the image source
+img::set_src( ... , bitmap as *const c_void ) ? ;
+```
+
+Makes more sense when we realise...
+
+1. `img::lv_img_dsc_t` is a __C Struct__ from the LVGL Library 
+
+    [More details](https://docs.lvgl.io/latest/en/html/overview/image.html?highlight=lv_img_dsc_t)
+
+1. `img::set_src` is a __C Function__ from the LVGL Library 
+
+    [More details](https://docs.lvgl.io/latest/en/html/widgets/img.html?highlight=lv_img_set_src#_CPPv414lv_img_set_srcP8lv_obj_tPKv)
+
+Let's find out how we cast C Pointers in Rust and pass them to C Functions...
+
+# Pass Pointers from Rust to C
+
 TODO
 
 casting
-
-c interface
-
-low level
 
 raw pointer
 
