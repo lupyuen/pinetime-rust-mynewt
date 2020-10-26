@@ -311,8 +311,9 @@
 <ol>
 <li>
 <p><code>&amp;mut self</code></p>
-<p>This refers to our <code>self</code> object (similar to <code>self</code> in Python or <code>this</code> in JavaScript and C++).</p>
-<p><code>&amp;mut</code> means that the <code>self</code> object is passed as a Reference (instead of a copy), and the <code>self</code> object is <strong>Mutable</strong> (can be modified).</p>
+<p>This refers to our <code>self</code> object and the variables inside: <code>bitmaps</code>, <code>top_left_label</code>, ...</p>
+<p>(Similar to <code>self</code> in Python or <code>this</code> in JavaScript and C++)</p>
+<p><code>&amp;mut</code> means that the <code>self</code> object is passed as a Reference (instead of a copy), and that the <code>self</code> object is <strong>Mutable</strong> (can be modified).</p>
 </li>
 <li>
 <p><code>state: &amp;WatchFaceState</code></p>
