@@ -262,24 +262,43 @@
 <p>Time to fess up...</p>
 <ol>
 <li>
-<p><code>bitmap</code> is a <strong>Raw Pointer to a C object</strong></p>
+<p><code>bitmap</code> is a <strong>Raw Pointer to a C Object</strong></p>
 </li>
 <li>
-<p><code>set_src</code> is a <strong>C function</strong></p>
+<p><code>set_src</code> is a <strong>C Function</strong></p>
 </li>
 </ol>
 <p>😮 <em>But why??? Can't we do this in Rust instead of C?</em></p>
 <p>That's the beauty... Rust and C are interoprapereraberble...</p>
 <p>Ahem... <strong>Rust and C Functions can call each other!</strong></p>
-<p>TODO</p>
-<p>casting</p>
-<p>c interface</p>
-<p>low level</p>
-<p>raw pointer</p>
-<p>*bitmap = 123;</p>
-<p>we cant do this even by casting the type</p>
-<p><a href="https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html">More about Raw Pointers in Rust</a></p>
+<p>Both Rust and C are <strong>low-level languages</strong>. It's perfectly OK to call C Functions from Rust (and the other way around).</p>
+<p>That's why some folks are coding in Rust instead of C for creating Embedded Gadgets.</p>
+<p><em>What C Functions are we calling?</em></p>
+<p>We're calling C Functions from the open-source <a href="https://lvgl.io/"><strong>LVGL Graphics Library</strong></a>. It's great for creating Graphical User Interaces on Embedded Devices with images, text labels, button, ...</p>
+<p>The LVGL Library is used by many firmware developers to create Watch Faces in PineTime. We're calling the LVGL Library too... But from Rust.</p>
+<p>Now our sus code...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">//  Cast the bitmap as a constant pointer</span>
+<span class="kw">let</span> <span class="ident">bitmap</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> <span class="op">=</span> ... ;
+
+<span class="comment">//  Set the bitmap pointer as the image source</span>
+<span class="ident">img</span>::<span class="ident">set_src</span>( ... , <span class="ident">bitmap</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">c_void</span> ) <span class="question-mark">?</span> ;</pre></div>
+<p>Makes more sense when we realise...</p>
+<ol>
+<li>
+<p><code>img::lv_img_dsc_t</code> is a <strong>C Struct</strong> from the LVGL Library </p>
+<p><a href="https://docs.lvgl.io/latest/en/html/overview/image.html?highlight=lv_img_dsc_t">More details</a></p>
+</li>
+<li>
+<p><code>img::set_src</code> is a <strong>C Function</strong> from the LVGL Library </p>
+<p><a href="https://docs.lvgl.io/latest/en/html/widgets/img.html?highlight=lv_img_set_src#_CPPv414lv_img_set_srcP8lv_obj_tPKv">More details</a></p>
+</li>
+</ol>
+<p>Today we won't talk much about casting C Pointers in Rust and passing them to C Functions. More details may be found in <em>&quot;The Rust Programming Languague&quot;</em> book...</p>
+<p><a href="https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html">Raw Pointers in Rust</a></p>
 <h1 id="declare-the-method" class="section-header"><a href="#declare-the-method">6 Declare the method</a></h1>
+<p>TODO</p>
 <p><code>self</code> and <code>state</code> come from the method declaration: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L181"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">

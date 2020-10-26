@@ -297,7 +297,7 @@ Ahem... __Rust and C Functions can call each other!__
 
 Both Rust and C are __low-level languages__. It's perfectly OK to call C Functions from Rust (and the other way around).
 
-That's why some folks are using Rust instead of C for creating Embedded Gadgets.
+That's why some folks are coding in Rust instead of C for creating Embedded Gadgets.
 
 _What C Functions are we calling?_
 
@@ -325,23 +325,13 @@ Makes more sense when we realise...
 
     [More details](https://docs.lvgl.io/latest/en/html/widgets/img.html?highlight=lv_img_set_src#_CPPv414lv_img_set_srcP8lv_obj_tPKv)
 
-Let's find out how we cast C Pointers in Rust and pass them to C Functions...
+Today we won't talk much about casting C Pointers in Rust and passing them to C Functions. More details may be found in _"The Rust Programming Languague"_ book...
 
-# Pass Pointers from Rust to C
-
-TODO
-
-casting
-
-raw pointer
-
-*bitmap = 123;
-
-we cant do this even by casting the type
-
-[More about Raw Pointers in Rust](https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html)
+[Raw Pointers in Rust](https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html)
 
 # Declare the method
+
+TODO
 
 `self` and `state` come from the method declaration: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L181)
 
