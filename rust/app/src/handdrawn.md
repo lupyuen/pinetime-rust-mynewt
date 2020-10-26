@@ -331,9 +331,7 @@ Today we won't talk much about casting C Pointers in Rust and passing them to C 
 
 # Declare the method
 
-TODO
-
-`self` and `state` come from the method declaration: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L181)
+Let's zoom out and watch how we use the code from earlier: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L181)
 
 ```rust
 /// Update the Watch Face with the current time
@@ -358,6 +356,10 @@ fn update(
     Ok(())
 }
 ```
+
+TODO
+
+`self` and `state` come from the method declaration
 
 Create watch face: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136)
 
