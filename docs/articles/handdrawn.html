@@ -70,10 +70,11 @@
 <li><a href="#fetch-the-digit-bitmap">3 Fetch the digit bitmap</a><ul></ul></li>
 <li><a href="#set-the-image-source">4 Set the image source</a><ul></ul></li>
 <li><a href="#it-was-c-all-along">5 It was C all along</a><ul></ul></li>
-<li><a href="#declare-the-method">6 Declare the method</a><ul></ul></li>
-<li><a href="#webassembly-rust">7 WebAssembly Rust</a><ul></ul></li>
-<li><a href="#embedded-rust">8 Embedded Rust</a><ul></ul></li>
-<li><a href="#whats-next">9 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/handdrawn-title.png" alt="PineTime Smart Watch with Hand-Drawn Watch Face" /></p>
+<li><a href="#update-the-watch-face">6 Update the Watch Face</a><ul></ul></li>
+<li><a href="#update-the-watch-face-1">7 Update the Watch Face</a><ul></ul></li>
+<li><a href="#webassembly-rust">8 WebAssembly Rust</a><ul></ul></li>
+<li><a href="#embedded-rust">9 Embedded Rust</a><ul></ul></li>
+<li><a href="#whats-next">10 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/handdrawn-title.png" alt="PineTime Smart Watch with Hand-Drawn Watch Face" /></p>
 <p><em>Q: We're in the middle of the pandemic... Is there something fun and useful that we can learn on our own?</em></p>
 <p>A: Try learning <strong>Embedded Programming</strong>!</p>
 <p><em>Q: I need to buy an Arduino or a Microcontroller Board? And have it shipped sloooowly to me at exorbitant prices?</em></p>
@@ -297,9 +298,13 @@
 </ol>
 <p>Today we won't talk much about casting C Pointers in Rust and passing them to C Functions. More details may be found in <em>&quot;The Rust Programming Languague&quot;</em> book...</p>
 <p><a href="https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html">Raw Pointers in Rust</a></p>
-<h1 id="declare-the-method" class="section-header"><a href="#declare-the-method">6 Declare the method</a></h1>
+<h1 id="update-the-watch-face" class="section-header"><a href="#update-the-watch-face">6 Update the Watch Face</a></h1>
 <p>Remember our 3 hardest lines of code? Let's zoom out and watch how we use them: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L185"><code>src/lib.rs</code></a></p>
 <p><img src="https://lupyuen.github.io/images/handdrawn-method.png" alt="Update Method" /></p>
+<p>Let's zoom in to the top... Where we declare the <code>update</code> Method...</p>
+<p><img src="https://lupyuen.github.io/images/handdrawn-method2.png" alt="Declare the Update Method" /></p>
+<p>In Rust we write <code>fn</code> to declare a Function or a Method. </p>
+<p>(Similar to <code>function</code> in JavaScript and <code>def</code> in Python)</p>
 <p><em>What's <code>update</code>?</em></p>
 <p><code>update</code> is the Method that's called to update the Watch Face every minute.</p>
 <p>It accepts 2 parameters...</p>
@@ -314,8 +319,12 @@
 <p>This says that <code>state</code> is a ???</p>
 </li>
 </ol>
+<p><em>What's <code>MynewtResult</code>?</em></p>
 <p>TODO</p>
+<p><img src="https://lupyuen.github.io/images/handdrawn-method3.png" alt="Return the result" /></p>
 <p><code>self</code> and <code>state</code> come from the method declaration</p>
+<h1 id="update-the-watch-face-1" class="section-header"><a href="#update-the-watch-face-1">7 Update the Watch Face</a></h1>
+<p>TODO</p>
 <p>Create watch face: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -415,12 +424,12 @@
     <span class="comment">//  Omitted: Bitmaps 3 to 8</span>
     <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> { <span class="ident">data</span>: <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../bitmaps/9.bin&quot;</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>, <span class="ident">header</span>, <span class="ident">data_size</span> },
 ]</pre></div>
-<h1 id="webassembly-rust" class="section-header"><a href="#webassembly-rust">7 WebAssembly Rust</a></h1>
+<h1 id="webassembly-rust" class="section-header"><a href="#webassembly-rust">8 WebAssembly Rust</a></h1>
 <p>TODO</p>
-<h1 id="embedded-rust" class="section-header"><a href="#embedded-rust">8 Embedded Rust</a></h1>
+<h1 id="embedded-rust" class="section-header"><a href="#embedded-rust">9 Embedded Rust</a></h1>
 <p>TODO</p>
 <p><img src="https://lupyuen.github.io/images/handdrawn-watchfaces.jpg" alt="Your Own Watch Face" /></p>
-<h1 id="whats-next" class="section-header"><a href="#whats-next">9 What's Next</a></h1>
+<h1 id="whats-next" class="section-header"><a href="#whats-next">10 What's Next</a></h1>
 <p>TODO</p>
 <p>Lemme know if you're keen to help! :-)</p>
 <p>In the meantime, please go right ahead to create your own Watch Faces and publish them on crates.io... So that all PineTime Owners can share, learn and enjoy :-)</p>

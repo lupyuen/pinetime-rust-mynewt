@@ -329,11 +329,19 @@ Today we won't talk much about casting C Pointers in Rust and passing them to C 
 
 [Raw Pointers in Rust](https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html)
 
-# Declare the method
+# Update the Watch Face
 
 Remember our 3 hardest lines of code? Let's zoom out and watch how we use them: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L185)
 
 ![Update Method](https://lupyuen.github.io/images/handdrawn-method.png)
+
+Let's zoom in to the top... Where we declare the `update` Method...
+
+![Declare the Update Method](https://lupyuen.github.io/images/handdrawn-method2.png)
+
+In Rust we write `fn` to declare a Function or a Method. 
+
+(Similar to `function` in JavaScript and `def` in Python)
 
 _What's `update`?_
 
@@ -351,9 +359,17 @@ It accepts 2 parameters...
 
     This says that `state` is a ???
 
+_What's `MynewtResult`?_
+
 TODO
 
+![Return the result](https://lupyuen.github.io/images/handdrawn-method3.png)
+
 `self` and `state` come from the method declaration
+
+# Update the Watch Face
+
+TODO
 
 Create watch face: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136)
 
