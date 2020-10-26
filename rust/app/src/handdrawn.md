@@ -333,29 +333,7 @@ Today we won't talk much about casting C Pointers in Rust and passing them to C 
 
 Remember our 3 hardest lines of code? Let's zoom out and watch how we use them: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L181)
 
-```rust
-/// Update the Watch Face with the current time
-fn update(
-    &mut self,              //  Mutable reference to our struct
-    state: &WatchFaceState  //  Reference to the Watch Face State
-) -> MynewtResult<()> {     //  Returns a Mynewt result
-
-    //  Update the top left image with the first digit of the hour
-    let digit = state.time.hour / 10;      //  Compute the first digit of the hour
-    let bitmap: *const img::lv_img_dsc_t = //  Fetch the bitmap for the digit...
-        &self.bitmaps[digit as usize];     //  As a constant pointer
-    img::set_src(                          //  Set the source...
-        self.top_left_image,               //  Of the the top left image...
-        bitmap as *const c_void            //  To the digit bitmap
-    ) ? ;
-    ...
-    //  Omitted: Update the top right, 
-    //  bottom left and bottom right images 
-    ... 
-    //  Return OK
-    Ok(())
-}
-```
+![Update Method](https://lupyuen.github.io/images/handdrawn-method.png)
 
 _What's `update`?_
 
