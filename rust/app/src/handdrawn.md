@@ -338,9 +338,10 @@ TODO
 ```rust
 /// Update the Watch Face with the current time
 fn update(
-    &mut self, 
-    state: &WatchFaceState
-) -> MynewtResult<()> {
+    &mut self,              //  Mutable reference to our struct
+    state: &WatchFaceState  //  Reference to the Watch Face State
+) -> MynewtResult<()> {     //  Returns a Mynewt result
+
     //  Update the top left image with the first digit of the hour
     let digit = state.time.hour / 10;      //  Compute the first digit of the hour
     let bitmap: *const img::lv_img_dsc_t = //  Fetch the bitmap for the digit...
@@ -350,7 +351,8 @@ fn update(
         bitmap as *const c_void            //  To the digit bitmap
     ) ? ;
     ...
-    //  Omitted: Update the top right, bottom left and bottom right images, 
+    //  Omitted: Update the top right, 
+    //  bottom left and bottom right images 
     ... 
     //  Return OK
     Ok(())
