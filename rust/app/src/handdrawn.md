@@ -331,7 +331,7 @@ Today we won't talk much about casting C Pointers in Rust and passing them to C 
 
 # Declare the method
 
-Let's zoom out and watch how we use the code from earlier: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L181)
+Remember our 3 hardest lines of code? Let's zoom out and watch how we use them: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L181)
 
 ```rust
 /// Update the Watch Face with the current time
