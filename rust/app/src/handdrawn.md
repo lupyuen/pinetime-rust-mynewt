@@ -357,6 +357,22 @@ fn update(
 }
 ```
 
+_What's `update`?_
+
+`update` is the Method that's called to update the Watch Face every minute.
+
+It accepts 2 parameters...
+
+1.  `&mut self`
+
+    This refers to our `self` object (similar to `self` in Python or `this` in JavaScript and C++).
+
+    `&mut` means that the `self` object is passed as a Reference (instead of a copy), and the `self` object is __Mutable__ (can be modified).
+
+1.  `state: &WatchFaceState`
+
+    This says that `state` is a ???
+
 TODO
 
 `self` and `state` come from the method declaration
