@@ -301,7 +301,7 @@ That's why some folks are coding in Rust instead of C for creating Embedded Gadg
 
 _What C Functions are we calling?_
 
-We're calling C Functions from the open-source [__LVGL Graphics Library__](https://lvgl.io/). It's great for creating Graphical User Interaces on Embedded Devices with images, text labels, button, ...
+We're calling C Functions from the open-source [__LVGL Graphics Library__](https://lvgl.io/). It's great for creating Graphical User Interaces on Embedded Devices with images, text labels, buttons, ...
 
 The LVGL Library is used by many firmware developers to create Watch Faces in PineTime. We're calling the LVGL Library too... But from Rust.
 
