@@ -332,18 +332,18 @@ Today we won't talk much about casting C Pointers in Rust and passing them to C 
 # Update the Watch Face
 
 Remember our 3 toughest lines of Rust code... For updating the top left image on our Watch Face?
-0
+
 Let's zoom out and watch how we use them: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L185)
 
 ![Update Method](https://lupyuen.github.io/images/handdrawn-method.png)
 
-Now we zoom in to the top... Where we declare the `update` Method: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L145)
+Now we zoom in to the top... Where we declare the `update` method: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L145)
 
 ## Declare the method
 
 ![Declare the Update Method](https://lupyuen.github.io/images/handdrawn-method2.png)
 
-In Rust we declare a Function (or a Method) by writing...
+In Rust we declare a function (or a method) by writing...
 
 ```rust
 fn ... -> ... {
@@ -353,7 +353,7 @@ fn ... -> ... {
 
 _What's `update`?_
 
-`update` is the Method that's called to update the Watch Face every minute.
+`update` is the method that's called to update the Watch Face every minute.
 
 It accepts 2 parameters...
 
@@ -379,7 +379,7 @@ _What's `MynewtResult` in the declaration above?_
 
 Remember the Try Operator "`?`" for checking errors returned by Rust Functions?
 
-This works only for Functions and Methods that return the `Result` Type. Thus we follow the Rust error-checking convention and return a kind of `Result` named `MynewtResult`.
+This works only for functions and methods that return the `Result` Type. Thus we follow the Rust error-checking convention and return a kind of `Result` named `MynewtResult`.
 
 (Mynewt refers to the [Apache Mynewt](http://mynewt.apache.org/) embedded operating system that we're running on PineTime)
 
@@ -403,7 +403,7 @@ _We've seen `top_left_image`... What about the other images: `top_right_image`, 
 
 ![Images in Self](https://lupyuen.github.io/images/handdrawn-images.png)
 
-The code to update the other 3 images looks similar. Check out the code here: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L156-L181)
+The code to update the other 3 images looks similar. Check out the rest of the `update` method here: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L156-L181)
 
 # Create the Watch Face
 

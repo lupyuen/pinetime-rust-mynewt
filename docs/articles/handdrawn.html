@@ -302,20 +302,19 @@
 <p>Today we won't talk much about casting C Pointers in Rust and passing them to C Functions. More details may be found in <em>&quot;The Rust Programming Languague&quot;</em> book...</p>
 <p><a href="https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html">Raw Pointers in Rust</a></p>
 <h1 id="update-the-watch-face" class="section-header"><a href="#update-the-watch-face">6 Update the Watch Face</a></h1>
-<p>Remember our 3 toughest lines of Rust code... For updating the top left image on our Watch Face?
-0
-Let's zoom out and watch how we use them: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L185"><code>src/lib.rs</code></a></p>
+<p>Remember our 3 toughest lines of Rust code... For updating the top left image on our Watch Face?</p>
+<p>Let's zoom out and watch how we use them: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L185"><code>src/lib.rs</code></a></p>
 <p><img src="https://lupyuen.github.io/images/handdrawn-method.png" alt="Update Method" /></p>
-<p>Now we zoom in to the top... Where we declare the <code>update</code> Method: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L145"><code>src/lib.rs</code></a></p>
+<p>Now we zoom in to the top... Where we declare the <code>update</code> method: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L145"><code>src/lib.rs</code></a></p>
 <h2 id="declare-the-method" class="section-header"><a href="#declare-the-method">6.1 Declare the method</a></h2>
 <p><img src="https://lupyuen.github.io/images/handdrawn-method2.png" alt="Declare the Update Method" /></p>
-<p>In Rust we declare a Function (or a Method) by writing...</p>
+<p>In Rust we declare a function (or a method) by writing...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">fn</span> ... <span class="op">-&gt;</span> ... {</pre></div>
 <p>(Similar to <code>function</code> in JavaScript and <code>def</code> in Python... But looks more mathematical)</p>
 <p><em>What's <code>update</code>?</em></p>
-<p><code>update</code> is the Method that's called to update the Watch Face every minute.</p>
+<p><code>update</code> is the method that's called to update the Watch Face every minute.</p>
 <p>It accepts 2 parameters...</p>
 <ol>
 <li>
@@ -334,7 +333,7 @@ Let's zoom out and watch how we use them: <a href="https://github.com/lupyuen/ha
 <h2 id="return-the-result" class="section-header"><a href="#return-the-result">6.2 Return the result</a></h2>
 <p><em>What's <code>MynewtResult</code> in the declaration above?</em></p>
 <p>Remember the Try Operator &quot;<code>?</code>&quot; for checking errors returned by Rust Functions?</p>
-<p>This works only for Functions and Methods that return the <code>Result</code> Type. Thus we follow the Rust error-checking convention and return a kind of <code>Result</code> named <code>MynewtResult</code>.</p>
+<p>This works only for functions and methods that return the <code>Result</code> Type. Thus we follow the Rust error-checking convention and return a kind of <code>Result</code> named <code>MynewtResult</code>.</p>
 <p>(Mynewt refers to the <a href="http://mynewt.apache.org/">Apache Mynewt</a> embedded operating system that we're running on PineTime)</p>
 <p>Here's how we return the result in our <code>update</code> method: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L183-L185"><code>src/lib.rs</code></a></p>
 <p><img src="https://lupyuen.github.io/images/handdrawn-method3.png" alt="Return the result" /></p>
@@ -346,7 +345,7 @@ Let's zoom out and watch how we use them: <a href="https://github.com/lupyuen/ha
 <h2 id="the-other-images" class="section-header"><a href="#the-other-images">6.3 The other images</a></h2>
 <p><em>We've seen <code>top_left_image</code>... What about the other images: <code>top_right_image</code>, <code>bottom_left_image</code> and <code>bottom_right_image</code>?</em></p>
 <p><img src="https://lupyuen.github.io/images/handdrawn-images.png" alt="Images in Self" /></p>
-<p>The code to update the other 3 images looks similar. Check out the code here: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L156-L181"><code>src/lib.rs</code></a></p>
+<p>The code to update the other 3 images looks similar. Check out the rest of the <code>update</code> method here: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L156-L181"><code>src/lib.rs</code></a></p>
 <h1 id="create-the-watch-face" class="section-header"><a href="#create-the-watch-face">7 Create the Watch Face</a></h1>
 <p>TODO</p>
 <p>Create watch face: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136"><code>src/lib.rs</code></a></p>
