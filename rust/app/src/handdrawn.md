@@ -361,7 +361,11 @@ It accepts 2 parameters...
 
 1.  `state: &WatchFaceState`
 
-    This says that `state` is a ???
+    This says that `state` is a Reference to a `WatchFaceState`, an object that contains the values that will be rendered to our Watch Face.
+
+    Through this `state`, our caller passes the time of the day as `hour` (0 to 23) and `minute` (0 to 59).
+
+    Earlier we have used `state.hour` to render the hour of the day.
 
 _What's `MynewtResult`?_
 

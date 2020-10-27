@@ -321,7 +321,9 @@
 </li>
 <li>
 <p><code>state: &amp;WatchFaceState</code></p>
-<p>This says that <code>state</code> is a ???</p>
+<p>This says that <code>state</code> is a Reference to a <code>WatchFaceState</code>, an object that contains the values that will be rendered to our Watch Face.</p>
+<p>Through this <code>state</code>, our caller passes the time of the day as <code>hour</code> (0 to 23) and <code>minute</code> (0 to 59).</p>
+<p>Earlier we have used <code>state.hour</code> to render the hour of the day.</p>
 </li>
 </ol>
 <p><em>What's <code>MynewtResult</code>?</em></p>
