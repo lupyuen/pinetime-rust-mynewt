@@ -389,7 +389,7 @@ Here's how we return a result in Rust: [`src/lib.rs`](https://github.com/lupyuen
 
 We write `Ok(())` when we have no result value to return.
 
-(Think of `()` in Rust as `void` in C)
+(Think of `()` in Rust like `void` in C)
 
 Note that we omit the trailing semicolon "`;`" when returning the result. FYI: We return errors with `Err( ... )`
 
@@ -397,9 +397,7 @@ Note that we omit the trailing semicolon "`;`" when returning the result. FYI: W
 
 _We've seen `top_left_image`... What about the other images: `top_right_image`, `bottom_left_image` and `bottom_right_image`?_
 
-TODO
-
-[`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L156-L181)
+The code to update the other 3 images looks similar. Check out the code here: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L156-L181)
 
 # Create the Watch Face
 
