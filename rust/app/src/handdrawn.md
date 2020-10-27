@@ -347,7 +347,7 @@ In Rust we declare a Function (or a Method) by writing...
 fn ... -> ... {
 ```
 
-(Similar to `function` in JavaScript and `def` in Python)
+(Similar to `function` in JavaScript and `def` in Python... But looks more mathematical)
 
 _What's `update`?_
 
