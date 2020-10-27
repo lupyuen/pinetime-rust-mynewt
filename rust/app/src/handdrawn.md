@@ -421,7 +421,69 @@ We have used them earlier but...
 
 _How are they created?_
 
+TODO
 
+## Load the bitmaps
+
+TODO
+
+```rust
+//  Load the bitmaps
+bitmaps: [
+    img::lv_img_dsc_t { data: include_bytes!("../bitmaps/0.bin") as *const u8, header, data_size },
+    img::lv_img_dsc_t { data: include_bytes!("../bitmaps/1.bin") as *const u8, header, data_size },
+    img::lv_img_dsc_t { data: include_bytes!("../bitmaps/2.bin") as *const u8, header, data_size },
+    //  Omitted: Bitmaps 3 to 8
+    img::lv_img_dsc_t { data: include_bytes!("../bitmaps/9.bin") as *const u8, header, data_size },
+]
+```
+
+## Create the images
+
+TODO
+
+Top left image...
+
+```rust
+top_left_image: {
+    //  Create the top left image
+    //  `?` will terminate the function in case of error
+    let image = img::create(screen, ptr::null()) ? ; 
+
+    //  Set image position to top left
+    obj::set_pos(image, 40, 20) ? ;  
+
+    //  Return the image as top_left_image
+    image                            
+},
+```
+
+Create top right, bottom left and bottom right images...
+
+```rust
+//  Create the top right image
+top_right_image: {
+    let image = img::create(screen, ptr::null()) ? ;
+    obj::set_pos(image, 120, 20) ? ;  //  Set image position to top right
+    image                             //  Return the image as top_right_image
+},
+
+//  Create the bottom left image
+bottom_left_image: {
+    let image = img::create(screen, ptr::null()) ? ;
+    obj::set_pos(image, 40, 120) ? ;  //  Set image position to bottom left
+    image                             //  Return the image as bottom_left_image
+},
+
+//  Create the bottom right image
+bottom_right_image: {
+    let image = img::create(screen, ptr::null()) ? ;
+    obj::set_pos(image, 120, 120) ? ;  //  Set image position to bottom right
+    image                              //  Return the image as bottom_right_image
+},
+```
+
+## Wrap them all up
 
 TODO
 
@@ -483,60 +545,6 @@ It's the same in Rust. We finish off a function and return `watch_face` by writi
 ```
 
 When returning a value from a function, we omit the semicolon after `Ok`. (Because `Ok(boomer);` sounds odd)
-
-Top left image...
-
-```rust
-top_left_image: {
-    //  Create the top left image
-    //  `?` will terminate the function in case of error
-    let image = img::create(screen, ptr::null()) ? ; 
-
-    //  Set image position to top left
-    obj::set_pos(image, 40, 20) ? ;  
-
-    //  Return the image as top_left_image
-    image                            
-},
-```
-
-Create top right, bottom left and bottom right images...
-
-```rust
-//  Create the top right image
-top_right_image: {
-    let image = img::create(screen, ptr::null()) ? ;
-    obj::set_pos(image, 120, 20) ? ;  //  Set image position to top right
-    image                             //  Return the image as top_right_image
-},
-
-//  Create the bottom left image
-bottom_left_image: {
-    let image = img::create(screen, ptr::null()) ? ;
-    obj::set_pos(image, 40, 120) ? ;  //  Set image position to bottom left
-    image                             //  Return the image as bottom_left_image
-},
-
-//  Create the bottom right image
-bottom_right_image: {
-    let image = img::create(screen, ptr::null()) ? ;
-    obj::set_pos(image, 120, 120) ? ;  //  Set image position to bottom right
-    image                              //  Return the image as bottom_right_image
-},
-```
-
-Load the bitmaps...
-
-```rust
-//  Load the bitmaps
-bitmaps: [
-    img::lv_img_dsc_t { data: include_bytes!("../bitmaps/0.bin") as *const u8, header, data_size },
-    img::lv_img_dsc_t { data: include_bytes!("../bitmaps/1.bin") as *const u8, header, data_size },
-    img::lv_img_dsc_t { data: include_bytes!("../bitmaps/2.bin") as *const u8, header, data_size },
-    //  Omitted: Bitmaps 3 to 8
-    img::lv_img_dsc_t { data: include_bytes!("../bitmaps/9.bin") as *const u8, header, data_size },
-]
-```
 
 # WebAssembly Rust
 
