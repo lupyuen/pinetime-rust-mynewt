@@ -339,9 +339,11 @@
 <p><code>Ok( ... )</code> tells the caller that the result is OK, no errors.</p>
 <p>We write <code>Ok(())</code> when we have no result value to return.</p>
 <p>(Think of <code>()</code> in Rust like <code>void</code> in C)</p>
-<p>Note that we omit the trailing semicolon &quot;<code>;</code>&quot; when returning the result. FYI: We return errors with <code>Err( ... )</code></p>
+<p>Note that we omit the trailing semicolon &quot;<code>;</code>&quot; when returning the result.</p>
+<p>FYI: We return errors with <code>Err( ... )</code></p>
 <h2 id="the-other-images" class="section-header"><a href="#the-other-images">6.3 The other images</a></h2>
 <p><em>We've seen <code>top_left_image</code>... What about the other images: <code>top_right_image</code>, <code>bottom_left_image</code> and <code>bottom_right_image</code>?</em></p>
+<p><img src="https://lupyuen.github.io/images/handdrawn-images.png" alt="Images in Self" /></p>
 <p>The code to update the other 3 images looks similar. Check out the code here: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L156-L181"><code>src/lib.rs</code></a></p>
 <h1 id="create-the-watch-face" class="section-header"><a href="#create-the-watch-face">7 Create the Watch Face</a></h1>
 <p>TODO</p>
