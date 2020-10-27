@@ -335,7 +335,7 @@ Remember our 3 hardest lines of code? Let's zoom out and watch how we use them: 
 
 ![Update Method](https://lupyuen.github.io/images/handdrawn-method.png)
 
-Let's zoom in to the top... Where we declare the `update` Method...
+Let's zoom in to the top... Where we declare the `update` Method: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L145)
 
 ## Declare the method
 
@@ -353,7 +353,7 @@ It accepts 2 parameters...
 
 1.  `&mut self`
 
-    This refers to our `self` object and the variables inside (that we've seen): `bitmaps`, `top_left_label`, ...
+    This refers to our `self` object and the variables inside: `bitmaps`, `top_left_label`, ...
     
     (Similar to `self` in Python or `this` in JavaScript and C++)
 
@@ -365,21 +365,37 @@ It accepts 2 parameters...
 
     Through this `state`, our caller passes the time of the day as `hour` (0 to 23) and `minute` (0 to 59).
 
-    Earlier we have used `state.hour` to render the hour of the day.
-
-_What's `MynewtResult`?_
-
-TODO
+    We have seen `state.hour` earlier... We used it to render the hour of the day.
 
 ## Return the result
 
+_What's `MynewtResult`?_
+
+Remember the Try Operator "`?`" for checking errors returned by Rust Functions?
+
+This works only for Functions and Methods that return the `Result` Type. Thus we follow the Rust error-checking convention and return a kind of `Result` named `MynewtResult`.
+
+(Mynewt refers to the [Apache Mynewt](http://mynewt.apache.org/) embedded operating system that we're running on PineTime)
+
+Here's how we return a result in Rust: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L183-L185)
+
 ![Return the result](https://lupyuen.github.io/images/handdrawn-method3.png)
+
+`Ok(())` tells the caller that the result is OK, no errors. Note that we omit the semicolon "`;`" when returning OK.
+
+FYI: We return errors with `Err( ... )`
+
+_Why `Ok(())` instead of `Ok()`?_
+
+TODO
 
 ## The other images
 
 _We've seen `top_left_image`... What about the other images: `top_right_image`, `bottom_left_image` and `bottom_right_image`?_
 
 TODO
+
+[`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L156-L181)
 
 # Create the Watch Face
 
