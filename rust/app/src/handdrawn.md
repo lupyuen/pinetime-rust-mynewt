@@ -341,7 +341,11 @@ Now we zoom in to the top... Where we declare the `update` Method: [`src/lib.rs`
 
 ![Declare the Update Method](https://lupyuen.github.io/images/handdrawn-method2.png)
 
-In Rust we write `fn` to declare a Function or a Method.
+In Rust we declare a Function (or a Method) by writing...
+
+```rust
+fn ... -> ... {
+```
 
 (Similar to `function` in JavaScript and `def` in Python)
 
