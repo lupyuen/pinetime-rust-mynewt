@@ -70,7 +70,10 @@
 <li><a href="#fetch-the-digit-bitmap">3 Fetch the digit bitmap</a><ul></ul></li>
 <li><a href="#set-the-image-source">4 Set the image source</a><ul></ul></li>
 <li><a href="#it-was-c-all-along">5 It was C all along</a><ul></ul></li>
-<li><a href="#update-the-watch-face">6 Update the Watch Face</a><ul></ul></li>
+<li><a href="#update-the-watch-face">6 Update the Watch Face</a><ul>
+<li><a href="#declare-the-method">6.1 Declare the method</a><ul></ul></li>
+<li><a href="#return-the-result">6.2 Return the result</a><ul></ul></li>
+<li><a href="#the-other-images">6.3 The other images</a><ul></ul></li></ul></li>
 <li><a href="#create-the-watch-face">7 Create the Watch Face</a><ul></ul></li>
 <li><a href="#webassembly-rust">8 WebAssembly Rust</a><ul></ul></li>
 <li><a href="#embedded-rust">9 Embedded Rust</a><ul></ul></li>
@@ -302,6 +305,7 @@
 <p>Remember our 3 hardest lines of code? Let's zoom out and watch how we use them: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L185"><code>src/lib.rs</code></a></p>
 <p><img src="https://lupyuen.github.io/images/handdrawn-method.png" alt="Update Method" /></p>
 <p>Let's zoom in to the top... Where we declare the <code>update</code> Method...</p>
+<h2 id="declare-the-method" class="section-header"><a href="#declare-the-method">6.1 Declare the method</a></h2>
 <p><img src="https://lupyuen.github.io/images/handdrawn-method2.png" alt="Declare the Update Method" /></p>
 <p>In Rust we write <code>fn</code> to declare a Function or a Method. </p>
 <p>(Similar to <code>function</code> in JavaScript and <code>def</code> in Python)</p>
@@ -311,7 +315,7 @@
 <ol>
 <li>
 <p><code>&amp;mut self</code></p>
-<p>This refers to our <code>self</code> object and the variables inside: <code>bitmaps</code>, <code>top_left_label</code>, ...</p>
+<p>This refers to our <code>self</code> object and the variables inside (that we've seen): <code>bitmaps</code>, <code>top_left_label</code>, ...</p>
 <p>(Similar to <code>self</code> in Python or <code>this</code> in JavaScript and C++)</p>
 <p><code>&amp;mut</code> means that the <code>self</code> object is passed as a Reference (instead of a copy), and that the <code>self</code> object is <strong>Mutable</strong> (can be modified).</p>
 </li>
@@ -322,8 +326,11 @@
 </ol>
 <p><em>What's <code>MynewtResult</code>?</em></p>
 <p>TODO</p>
+<h2 id="return-the-result" class="section-header"><a href="#return-the-result">6.2 Return the result</a></h2>
 <p><img src="https://lupyuen.github.io/images/handdrawn-method3.png" alt="Return the result" /></p>
-<p><code>self</code> and <code>state</code> come from the method declaration</p>
+<h2 id="the-other-images" class="section-header"><a href="#the-other-images">6.3 The other images</a></h2>
+<p><em>We've seen <code>top_left_image</code>... What about the other images: <code>top_right_image</code>, <code>bottom_left_image</code> and <code>bottom_right_image</code>?</em></p>
+<p>TODO</p>
 <h1 id="create-the-watch-face" class="section-header"><a href="#create-the-watch-face">7 Create the Watch Face</a></h1>
 <p>TODO</p>
 <p>Create watch face: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136"><code>src/lib.rs</code></a></p>

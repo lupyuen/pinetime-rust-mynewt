@@ -337,6 +337,8 @@ Remember our 3 hardest lines of code? Let's zoom out and watch how we use them: 
 
 Let's zoom in to the top... Where we declare the `update` Method...
 
+## Declare the method
+
 ![Declare the Update Method](https://lupyuen.github.io/images/handdrawn-method2.png)
 
 In Rust we write `fn` to declare a Function or a Method. 
@@ -351,7 +353,7 @@ It accepts 2 parameters...
 
 1.  `&mut self`
 
-    This refers to our `self` object and the variables inside: `bitmaps`, `top_left_label`, ...
+    This refers to our `self` object and the variables inside (that we've seen): `bitmaps`, `top_left_label`, ...
     
     (Similar to `self` in Python or `this` in JavaScript and C++)
 
@@ -365,9 +367,15 @@ _What's `MynewtResult`?_
 
 TODO
 
+## Return the result
+
 ![Return the result](https://lupyuen.github.io/images/handdrawn-method3.png)
 
-`self` and `state` come from the method declaration
+## The other images
+
+_We've seen `top_left_image`... What about the other images: `top_right_image`, `bottom_left_image` and `bottom_right_image`?_
+
+TODO
 
 # Create the Watch Face
 
