@@ -331,7 +331,9 @@ Today we won't talk much about casting C Pointers in Rust and passing them to C 
 
 # Update the Watch Face
 
-Remember our 3 hardest lines of Rust code? Let's zoom out and watch how we use them: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L185)
+Remember our 3 toughest lines of Rust code... For updating the top left image on our Watch Face?
+
+Let's zoom out and watch how we use them: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L185)
 
 ![Update Method](https://lupyuen.github.io/images/handdrawn-method.png)
 
