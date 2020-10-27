@@ -381,13 +381,13 @@ Here's how we return a result in Rust: [`src/lib.rs`](https://github.com/lupyuen
 
 ![Return the result](https://lupyuen.github.io/images/handdrawn-method3.png)
 
-`Ok(())` tells the caller that the result is OK, no errors. Note that we omit the semicolon "`;`" when returning OK.
+`Ok( ... )` tells the caller that the result is OK, no errors.
 
-FYI: We return errors with `Err( ... )`
+We write `Ok(())` when we have no result value to return.
 
-_Why `Ok(())` instead of `Ok()`?_
+(Think of `()` in Rust as `void` in C)
 
-TODO
+Note that we omit the trailing semicolon "`;`" when returning the result. FYI: We return errors with `Err( ... )`
 
 ## The other images
 
