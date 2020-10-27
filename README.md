@@ -401,12 +401,14 @@ pinetime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.bin
     __For Linux and macOS:__
 
     ```bash
+    cd ~/pinetime/pinetime-rust-mynewt
     scripts/build-app.sh
     ```
 
     __For Windows:__
 
     ```cmd
+    cd \pinetime\pinetime-rust-mynewt
     scripts\build-app.cmd
     ```
 
