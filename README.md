@@ -497,12 +497,14 @@ pinetime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.bin
     __For Linux and macOS:__
 
     ```bash
+    cd ~/pinetime/pinetime-rust-mynewt
     scripts/nrf52/image-app.sh
     ```
 
     __For Windows:__
 
     ```cmd
+    cd \pinetime\pinetime-rust-mynewt
     scripts\nrf52\image-app.cmd
     ```
 
@@ -566,12 +568,14 @@ __For Windows:__ We don't need to edit `config.sh`
     __For Linux and macOS:__
 
     ```bash
+    cd ~/pinetime/pinetime-rust-mynewt
     scripts/nrf52/flash-boot.sh
     ```
 
-    __Windows:__
+    __For Windows:__
 
     ```cmd
+    cd \pinetime\pinetime-rust-mynewt
     scripts\nrf52\flash-boot.cmd
     ```
 
@@ -652,12 +656,14 @@ __For Windows:__ We don't need to edit `config.sh`
     __For Linux and macOS:__
 
     ```bash
+    cd ~/pinetime/pinetime-rust-mynewt
     scripts/nrf52/flash-app.sh
     ```
 
-    __Windows:__
+    __For Windows:__
     
     ```cmd
+    cd \pinetime\pinetime-rust-mynewt
     scripts\nrf52\flash-app.cmd
     ```
 
