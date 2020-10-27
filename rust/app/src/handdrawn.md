@@ -332,7 +332,7 @@ Today we won't talk much about casting C Pointers in Rust and passing them to C 
 # Update the Watch Face
 
 Remember our 3 toughest lines of Rust code... For updating the top left image on our Watch Face?
-
+0
 Let's zoom out and watch how we use them: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L141-L185)
 
 ![Update Method](https://lupyuen.github.io/images/handdrawn-method.png)
@@ -383,7 +383,7 @@ This works only for Functions and Methods that return the `Result` Type. Thus we
 
 (Mynewt refers to the [Apache Mynewt](http://mynewt.apache.org/) embedded operating system that we're running on PineTime)
 
-Here's how we return a result in Rust: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L183-L185)
+Here's how we return the result in our `update` method: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L183-L185)
 
 ![Return the result](https://lupyuen.github.io/images/handdrawn-method3.png)
 
