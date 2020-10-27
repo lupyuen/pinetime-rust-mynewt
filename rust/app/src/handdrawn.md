@@ -359,7 +359,7 @@ It accepts 2 parameters...
 
 1.  `&mut self`
 
-    This refers to our `self` object and the variables inside: `bitmaps`, `top_left_label`, ...
+    This refers to our Watch Face object and the variables inside: `bitmaps`, `top_left_label`, ...
     
     (Similar to `self` in Python or `this` in JavaScript and C++)
 
@@ -405,14 +405,30 @@ _We've seen `top_left_image`... What about the other images: `top_right_image`, 
 
 The code to update the other 3 images looks similar. Check out the rest of the `update` method here: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L156-L181)
 
+Congratulations! We're done with the `update` method... That's half of the Watch Face code!
+
+Now we move on to the `new` method... For creating the Watch Face.
+
 # Create the Watch Face
+
+Our Watch Face has plenty of goodies inside (like a Kinder Surprise)...
+
+1.  `bitmaps`: The hand-drawn bitmaps of the digits 0 to 9
+
+1.  `top_left_image`, `top_right_image`, `bottom_left_image` and `bottom_right_image`: The 4 images on our Watch Face
+
+We have used them earlier but...
+
+_How are they created?_
+
+
 
 TODO
 
 Create watch face: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136)
 
 ```rust
-/// Create the widgets for the Watch Face
+/// Create the Watch Face
 fn new() -> MynewtResult<Self> {
     //  Get the active screen
     let screen = watchface::get_active_screen();
