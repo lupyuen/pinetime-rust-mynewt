@@ -369,7 +369,7 @@ It accepts 2 parameters...
 
 ## Return the result
 
-_What's `MynewtResult`?_
+_What's `MynewtResult` in the declaration above?_
 
 Remember the Try Operator "`?`" for checking errors returned by Rust Functions?
 
