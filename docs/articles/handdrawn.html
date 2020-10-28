@@ -388,11 +388,13 @@
     ...
 }</pre></div>
 <p>(How do we define Structs and their Fields? We'll see that in a while)</p>
-<p><em>What's <code>include_bytes</code>?</em></p>
+<p><em>What's <code>0.bin</code>? Why do we use it with <code>include_bytes</code>?</em></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="comment">//  Load the bitmap file &quot;0.bin&quot; as the bitmap data field</span>
-<span class="ident">data</span>: <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../bitmaps/0.bin&quot;</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span></pre></div>
+<span class="ident">data</span>: 
+    <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../bitmaps/0.bin&quot;</span>) 
+        <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span></pre></div>
 <p><img src="https://lupyuen.github.io/images/handdrawn-files.png" alt="Watch Face Files" /></p>
 <p>TODO</p>
 

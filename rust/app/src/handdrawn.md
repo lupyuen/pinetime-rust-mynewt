@@ -458,11 +458,13 @@ struct_type {
 
 (How do we define Structs and their Fields? We'll see that in a while)
 
-_What's `include_bytes`?_
+_What's `0.bin`? Why do we use it with `include_bytes`?_
 
 ```rust
 //  Load the bitmap file "0.bin" as the bitmap data field
-data: include_bytes!("../bitmaps/0.bin") as *const u8
+data: 
+    include_bytes!("../bitmaps/0.bin") 
+        as *const u8
 ```
 
 ![Watch Face Files](https://lupyuen.github.io/images/handdrawn-files.png)
