@@ -421,13 +421,51 @@ Our Watch Face has plenty of goodies inside (like a Kinder Egg)...
 
 We have used them earlier but...
 
-_How are they created?_
+_How are the bitmaps and images created?_
+
+Let's watch and learn...
+
+## Create the bitmaps
+
+We create the bitmap for the digit 0 as a Rust Struct like so: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L122)
+
+```rust
+//  Create the bitmap struct for the digit 0
+img::lv_img_dsc_t {  //  Type of the struct
+    //  Bitmap data, size and header
+    data: include_bytes!("../bitmaps/0.bin") as *const u8,
+    data_size,
+    header
+}
+```
+
+(Rust Structs are structured objects with fields inside... Just like Structs in C and Class Objects in Python)
+
+_What's `img::lv_img_dsc_t`?_
+
+We're reusing the C Struct `lv_img_dsc_t` from Module `img` of the LVGL Library. The `lv_img_dsc_t` Struct represents a bitmap in LVGL.
+
+(Rust Structs and C Structs are generally interchangeable, with the right settings)
+
+![Watch Face Files](https://lupyuen.github.io/images/handdrawn-files.png)
 
 TODO
 
-## Load the bitmaps
+```rust
+/// Width of each image and bitmap
+const IMAGE_WIDTH: u32  = 80;
 
-TODO
+/// Height of each image and bitmap
+const IMAGE_HEIGHT: u32 = 100;
+
+/// 2 bytes per pixel, in RGB565 format
+const BYTES_PER_PIXEL: u32 = 2;
+
+//  Compute the image size
+let data_size = IMAGE_WIDTH * IMAGE_HEIGHT * BYTES_PER_PIXEL;
+```
+
+[`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L120-L132)
 
 ```rust
 //  Load the bitmaps
@@ -446,6 +484,8 @@ TODO
 
 Top left image...
 
+[`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L92-L97)
+
 ```rust
 top_left_image: {
     //  Create the top left image
@@ -461,6 +501,8 @@ top_left_image: {
 ```
 
 Create top right, bottom left and bottom right images...
+
+[`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L99-L118)
 
 ```rust
 //  Create the top right image

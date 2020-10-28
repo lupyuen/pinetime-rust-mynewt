@@ -75,7 +75,7 @@
 <li><a href="#return-the-result">6.2 Return the result</a><ul></ul></li>
 <li><a href="#the-other-images">6.3 The other images</a><ul></ul></li></ul></li>
 <li><a href="#create-the-watch-face">7 Create the Watch Face</a><ul>
-<li><a href="#load-the-bitmaps">7.1 Load the bitmaps</a><ul></ul></li>
+<li><a href="#create-the-bitmaps">7.1 Create the bitmaps</a><ul></ul></li>
 <li><a href="#create-the-images">7.2 Create the images</a><ul></ul></li>
 <li><a href="#wrap-them-all-up">7.3 Wrap them all up</a><ul></ul></li></ul></li>
 <li><a href="#webassembly-rust">8 WebAssembly Rust</a><ul></ul></li>
@@ -363,10 +363,39 @@
 </li>
 </ol>
 <p>We have used them earlier but...</p>
-<p><em>How are they created?</em></p>
+<p><em>How are the bitmaps and images created?</em></p>
+<p>Let's watch and learn...</p>
+<h2 id="create-the-bitmaps" class="section-header"><a href="#create-the-bitmaps">7.1 Create the bitmaps</a></h2>
+<p>We create the bitmap for the digit 0 as a Rust Struct like so: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L122"><code>src/lib.rs</code></a></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">//  Create the bitmap struct for the digit 0</span>
+<span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> {  <span class="comment">//  Type of the struct</span>
+    <span class="comment">//  Bitmap data, size and header</span>
+    <span class="ident">data</span>: <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../bitmaps/0.bin&quot;</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>,
+    <span class="ident">data_size</span>,
+    <span class="ident">header</span>
+}</pre></div>
+<p>(Rust Structs are structured objects with fields inside... Just like Structs in C and Class Objects in Python)</p>
+<p><em>What's <code>img::lv_img_dsc_t</code>?</em></p>
+<p>We're reusing the C Struct <code>lv_img_dsc_t</code> from Module <code>img</code> of the LVGL Library. The <code>lv_img_dsc_t</code> Struct represents a bitmap in LVGL.</p>
+<p>(Rust Structs and C Structs are generally interchangeable, with the right settings)</p>
+<p><img src="https://lupyuen.github.io/images/handdrawn-files.png" alt="Watch Face Files" /></p>
 <p>TODO</p>
-<h2 id="load-the-bitmaps" class="section-header"><a href="#load-the-bitmaps">7.1 Load the bitmaps</a></h2>
-<p>TODO</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Width of each image and bitmap</span>
+<span class="kw">const</span> <span class="ident">IMAGE_WIDTH</span>: <span class="ident">u32</span>  <span class="op">=</span> <span class="number">80</span>;
+
+<span class="doccomment">/// Height of each image and bitmap</span>
+<span class="kw">const</span> <span class="ident">IMAGE_HEIGHT</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">100</span>;
+
+<span class="doccomment">/// 2 bytes per pixel, in RGB565 format</span>
+<span class="kw">const</span> <span class="ident">BYTES_PER_PIXEL</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">2</span>;
+
+<span class="comment">//  Compute the image size</span>
+<span class="kw">let</span> <span class="ident">data_size</span> <span class="op">=</span> <span class="ident">IMAGE_WIDTH</span> <span class="op">*</span> <span class="ident">IMAGE_HEIGHT</span> <span class="op">*</span> <span class="ident">BYTES_PER_PIXEL</span>;</pre></div>
+<p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L120-L132"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="comment">//  Load the bitmaps</span>
@@ -380,6 +409,7 @@
 <h2 id="create-the-images" class="section-header"><a href="#create-the-images">7.2 Create the images</a></h2>
 <p>TODO</p>
 <p>Top left image...</p>
+<p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L92-L97"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">top_left_image</span>: {
@@ -394,6 +424,7 @@
     <span class="ident">image</span>                            
 },</pre></div>
 <p>Create top right, bottom left and bottom right images...</p>
+<p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L99-L118"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="comment">//  Create the top right image</span>
