@@ -431,7 +431,7 @@ We create the bitmap for the digit 0 as a Rust Struct like so: [`src/lib.rs`](ht
 
 ```rust
 //  Create the bitmap struct for the digit 0
-img::lv_img_dsc_t {  //  Type of the struct
+img::lv_img_dsc_t {
     //  Bitmap data, size and header
     data: include_bytes!("../bitmaps/0.bin") as *const u8,
     data_size,
@@ -439,13 +439,31 @@ img::lv_img_dsc_t {  //  Type of the struct
 }
 ```
 
-(Rust Structs are structured objects with fields inside... Just like Structs in C and Class Objects in Python)
+(Rust Structs are structured objects with fields inside... Just like Structs in C and Classes in Python)
 
 _What's `img::lv_img_dsc_t`?_
 
 We're reusing the C Struct `lv_img_dsc_t` from Module `img` of the LVGL Library. The `lv_img_dsc_t` Struct represents a bitmap in LVGL.
 
 (Rust Structs and C Structs are generally interchangeable, with the right settings)
+
+In Rust, we create instances of Structs by writing...
+
+```rust
+struct_type {
+    field_name: field_value,
+    ...
+}
+```
+
+(How do we define Structs and their Fields? We'll see that in a while)
+
+_What's `include_bytes`?_
+
+```rust
+//  Load the bitmap file "0.bin" as the bitmap data field
+data: include_bytes!("../bitmaps/0.bin") as *const u8
+```
 
 ![Watch Face Files](https://lupyuen.github.io/images/handdrawn-files.png)
 

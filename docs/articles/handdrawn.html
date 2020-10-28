@@ -370,16 +370,29 @@
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="comment">//  Create the bitmap struct for the digit 0</span>
-<span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> {  <span class="comment">//  Type of the struct</span>
+<span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> {
     <span class="comment">//  Bitmap data, size and header</span>
     <span class="ident">data</span>: <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../bitmaps/0.bin&quot;</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>,
     <span class="ident">data_size</span>,
     <span class="ident">header</span>
 }</pre></div>
-<p>(Rust Structs are structured objects with fields inside... Just like Structs in C and Class Objects in Python)</p>
+<p>(Rust Structs are structured objects with fields inside... Just like Structs in C and Classes in Python)</p>
 <p><em>What's <code>img::lv_img_dsc_t</code>?</em></p>
 <p>We're reusing the C Struct <code>lv_img_dsc_t</code> from Module <code>img</code> of the LVGL Library. The <code>lv_img_dsc_t</code> Struct represents a bitmap in LVGL.</p>
 <p>(Rust Structs and C Structs are generally interchangeable, with the right settings)</p>
+<p>In Rust, we create instances of Structs by writing...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">struct_type</span> {
+    <span class="ident">field_name</span>: <span class="ident">field_value</span>,
+    ...
+}</pre></div>
+<p>(How do we define Structs and their Fields? We'll see that in a while)</p>
+<p><em>What's <code>include_bytes</code>?</em></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">//  Load the bitmap file &quot;0.bin&quot; as the bitmap data field</span>
+<span class="ident">data</span>: <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../bitmaps/0.bin&quot;</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span></pre></div>
 <p><img src="https://lupyuen.github.io/images/handdrawn-files.png" alt="Watch Face Files" /></p>
 <p>TODO</p>
 
