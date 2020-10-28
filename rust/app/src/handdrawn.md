@@ -409,9 +409,11 @@ Congratulations! We're done with the `update` method... That's half of the Watch
 
 Now we move on to the `new` method... For creating the Watch Face.
 
+![Watch Face Goodies](https://lupyuen.github.io/images/handdrawn-egg.jpg)
+
 # Create the Watch Face
 
-Our Watch Face has plenty of goodies inside (like a Kinder Surprise)...
+Our Watch Face has plenty of goodies inside (like a Kinder Egg)...
 
 1.  `bitmaps`: The hand-drawn bitmaps of the digits 0 to 9
 

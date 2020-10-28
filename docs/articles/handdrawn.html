@@ -74,7 +74,10 @@
 <li><a href="#declare-the-method">6.1 Declare the method</a><ul></ul></li>
 <li><a href="#return-the-result">6.2 Return the result</a><ul></ul></li>
 <li><a href="#the-other-images">6.3 The other images</a><ul></ul></li></ul></li>
-<li><a href="#create-the-watch-face">7 Create the Watch Face</a><ul></ul></li>
+<li><a href="#create-the-watch-face">7 Create the Watch Face</a><ul>
+<li><a href="#load-the-bitmaps">7.1 Load the bitmaps</a><ul></ul></li>
+<li><a href="#create-the-images">7.2 Create the images</a><ul></ul></li>
+<li><a href="#wrap-them-all-up">7.3 Wrap them all up</a><ul></ul></li></ul></li>
 <li><a href="#webassembly-rust">8 WebAssembly Rust</a><ul></ul></li>
 <li><a href="#embedded-rust">9 Embedded Rust</a><ul></ul></li>
 <li><a href="#whats-next">10 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/handdrawn-title.png" alt="PineTime Smart Watch with Hand-Drawn Watch Face" /></p>
@@ -319,7 +322,7 @@
 <ol>
 <li>
 <p><code>&amp;mut self</code></p>
-<p>This refers to our <code>self</code> object and the variables inside: <code>bitmaps</code>, <code>top_left_label</code>, ...</p>
+<p>This refers to our Watch Face object and the variables inside: <code>bitmaps</code>, <code>top_left_label</code>, ...</p>
 <p>(Similar to <code>self</code> in Python or <code>this</code> in JavaScript and C++)</p>
 <p><code>&amp;mut</code> means that the <code>self</code> object is passed as a Reference (instead of a copy), and that the <code>self</code> object is <strong>Mutable</strong> (can be modified).</p>
 </li>
@@ -346,12 +349,79 @@
 <p><em>We've seen <code>top_left_image</code>... What about the other images: <code>top_right_image</code>, <code>bottom_left_image</code> and <code>bottom_right_image</code>?</em></p>
 <p><img src="https://lupyuen.github.io/images/handdrawn-images.png" alt="Images in Self" /></p>
 <p>The code to update the other 3 images looks similar. Check out the rest of the <code>update</code> method here: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L156-L181"><code>src/lib.rs</code></a></p>
+<p>Congratulations! We're done with the <code>update</code> method... That's half of the Watch Face code!</p>
+<p>Now we move on to the <code>new</code> method... For creating the Watch Face.</p>
+<p><img src="https://lupyuen.github.io/images/handdrawn-egg.jpg" alt="Watch Face Goodies" /></p>
 <h1 id="create-the-watch-face" class="section-header"><a href="#create-the-watch-face">7 Create the Watch Face</a></h1>
+<p>Our Watch Face has plenty of goodies inside (like a Kinder Egg)...</p>
+<ol>
+<li>
+<p><code>bitmaps</code>: The hand-drawn bitmaps of the digits 0 to 9</p>
+</li>
+<li>
+<p><code>top_left_image</code>, <code>top_right_image</code>, <code>bottom_left_image</code> and <code>bottom_right_image</code>: The 4 images on our Watch Face</p>
+</li>
+</ol>
+<p>We have used them earlier but...</p>
+<p><em>How are they created?</em></p>
+<p>TODO</p>
+<h2 id="load-the-bitmaps" class="section-header"><a href="#load-the-bitmaps">7.1 Load the bitmaps</a></h2>
+<p>TODO</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">//  Load the bitmaps</span>
+<span class="ident">bitmaps</span>: [
+    <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> { <span class="ident">data</span>: <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../bitmaps/0.bin&quot;</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>, <span class="ident">header</span>, <span class="ident">data_size</span> },
+    <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> { <span class="ident">data</span>: <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../bitmaps/1.bin&quot;</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>, <span class="ident">header</span>, <span class="ident">data_size</span> },
+    <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> { <span class="ident">data</span>: <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../bitmaps/2.bin&quot;</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>, <span class="ident">header</span>, <span class="ident">data_size</span> },
+    <span class="comment">//  Omitted: Bitmaps 3 to 8</span>
+    <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> { <span class="ident">data</span>: <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../bitmaps/9.bin&quot;</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>, <span class="ident">header</span>, <span class="ident">data_size</span> },
+]</pre></div>
+<h2 id="create-the-images" class="section-header"><a href="#create-the-images">7.2 Create the images</a></h2>
+<p>TODO</p>
+<p>Top left image...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">top_left_image</span>: {
+    <span class="comment">//  Create the top left image</span>
+    <span class="comment">//  `?` will terminate the function in case of error</span>
+    <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">img</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ; 
+
+    <span class="comment">//  Set image position to top left</span>
+    <span class="ident">obj</span>::<span class="ident">set_pos</span>(<span class="ident">image</span>, <span class="number">40</span>, <span class="number">20</span>) <span class="question-mark">?</span> ;  
+
+    <span class="comment">//  Return the image as top_left_image</span>
+    <span class="ident">image</span>                            
+},</pre></div>
+<p>Create top right, bottom left and bottom right images...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">//  Create the top right image</span>
+<span class="ident">top_right_image</span>: {
+    <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">img</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;
+    <span class="ident">obj</span>::<span class="ident">set_pos</span>(<span class="ident">image</span>, <span class="number">120</span>, <span class="number">20</span>) <span class="question-mark">?</span> ;  <span class="comment">//  Set image position to top right</span>
+    <span class="ident">image</span>                             <span class="comment">//  Return the image as top_right_image</span>
+},
+
+<span class="comment">//  Create the bottom left image</span>
+<span class="ident">bottom_left_image</span>: {
+    <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">img</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;
+    <span class="ident">obj</span>::<span class="ident">set_pos</span>(<span class="ident">image</span>, <span class="number">40</span>, <span class="number">120</span>) <span class="question-mark">?</span> ;  <span class="comment">//  Set image position to bottom left</span>
+    <span class="ident">image</span>                             <span class="comment">//  Return the image as bottom_left_image</span>
+},
+
+<span class="comment">//  Create the bottom right image</span>
+<span class="ident">bottom_right_image</span>: {
+    <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">img</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;
+    <span class="ident">obj</span>::<span class="ident">set_pos</span>(<span class="ident">image</span>, <span class="number">120</span>, <span class="number">120</span>) <span class="question-mark">?</span> ;  <span class="comment">//  Set image position to bottom right</span>
+    <span class="ident">image</span>                              <span class="comment">//  Return the image as bottom_right_image</span>
+},</pre></div>
+<h2 id="wrap-them-all-up" class="section-header"><a href="#wrap-them-all-up">7.3 Wrap them all up</a></h2>
 <p>TODO</p>
 <p>Create watch face: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="doccomment">/// Create the widgets for the Watch Face</span>
+<span class="doccomment">/// Create the Watch Face</span>
 <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
     <span class="comment">//  Get the active screen</span>
     <span class="kw">let</span> <span class="ident">screen</span> <span class="op">=</span> <span class="ident">watchface</span>::<span class="ident">get_active_screen</span>();
@@ -399,54 +469,6 @@
     <span class="prelude-val">Ok</span>(<span class="ident">watch_face</span>)
 }   <span class="comment">//  End of function</span></pre></div>
 <p>When returning a value from a function, we omit the semicolon after <code>Ok</code>. (Because <code>Ok(boomer);</code> sounds odd)</p>
-<p>Top left image...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">top_left_image</span>: {
-    <span class="comment">//  Create the top left image</span>
-    <span class="comment">//  `?` will terminate the function in case of error</span>
-    <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">img</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ; 
-
-    <span class="comment">//  Set image position to top left</span>
-    <span class="ident">obj</span>::<span class="ident">set_pos</span>(<span class="ident">image</span>, <span class="number">40</span>, <span class="number">20</span>) <span class="question-mark">?</span> ;  
-
-    <span class="comment">//  Return the image as top_left_image</span>
-    <span class="ident">image</span>                            
-},</pre></div>
-<p>Create top right, bottom left and bottom right images...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="comment">//  Create the top right image</span>
-<span class="ident">top_right_image</span>: {
-    <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">img</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;
-    <span class="ident">obj</span>::<span class="ident">set_pos</span>(<span class="ident">image</span>, <span class="number">120</span>, <span class="number">20</span>) <span class="question-mark">?</span> ;  <span class="comment">//  Set image position to top right</span>
-    <span class="ident">image</span>                             <span class="comment">//  Return the image as top_right_image</span>
-},
-
-<span class="comment">//  Create the bottom left image</span>
-<span class="ident">bottom_left_image</span>: {
-    <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">img</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;
-    <span class="ident">obj</span>::<span class="ident">set_pos</span>(<span class="ident">image</span>, <span class="number">40</span>, <span class="number">120</span>) <span class="question-mark">?</span> ;  <span class="comment">//  Set image position to bottom left</span>
-    <span class="ident">image</span>                             <span class="comment">//  Return the image as bottom_left_image</span>
-},
-
-<span class="comment">//  Create the bottom right image</span>
-<span class="ident">bottom_right_image</span>: {
-    <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">img</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;
-    <span class="ident">obj</span>::<span class="ident">set_pos</span>(<span class="ident">image</span>, <span class="number">120</span>, <span class="number">120</span>) <span class="question-mark">?</span> ;  <span class="comment">//  Set image position to bottom right</span>
-    <span class="ident">image</span>                              <span class="comment">//  Return the image as bottom_right_image</span>
-},</pre></div>
-<p>Load the bitmaps...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="comment">//  Load the bitmaps</span>
-<span class="ident">bitmaps</span>: [
-    <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> { <span class="ident">data</span>: <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../bitmaps/0.bin&quot;</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>, <span class="ident">header</span>, <span class="ident">data_size</span> },
-    <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> { <span class="ident">data</span>: <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../bitmaps/1.bin&quot;</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>, <span class="ident">header</span>, <span class="ident">data_size</span> },
-    <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> { <span class="ident">data</span>: <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../bitmaps/2.bin&quot;</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>, <span class="ident">header</span>, <span class="ident">data_size</span> },
-    <span class="comment">//  Omitted: Bitmaps 3 to 8</span>
-    <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> { <span class="ident">data</span>: <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../bitmaps/9.bin&quot;</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>, <span class="ident">header</span>, <span class="ident">data_size</span> },
-]</pre></div>
 <h1 id="webassembly-rust" class="section-header"><a href="#webassembly-rust">8 WebAssembly Rust</a></h1>
 <p>TODO</p>
 <h1 id="embedded-rust" class="section-header"><a href="#embedded-rust">9 Embedded Rust</a></h1>
