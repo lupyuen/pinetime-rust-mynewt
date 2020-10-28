@@ -75,9 +75,11 @@
 <li><a href="#return-the-result">6.2 Return the result</a><ul></ul></li>
 <li><a href="#the-other-images">6.3 The other images</a><ul></ul></li></ul></li>
 <li><a href="#create-the-watch-face">7 Create the Watch Face</a><ul>
-<li><a href="#create-the-bitmaps">7.1 Create the bitmaps</a><ul></ul></li>
-<li><a href="#create-the-images">7.2 Create the images</a><ul></ul></li>
-<li><a href="#wrap-them-all-up">7.3 Wrap them all up</a><ul></ul></li></ul></li>
+<li><a href="#create-a-bitmap">7.1 Create a bitmap</a><ul></ul></li>
+<li><a href="#load-the-bitmap-data">7.2 Load the bitmap data</a><ul></ul></li>
+<li><a href="#set-the-bitmap-size-and-header">7.3 Set the bitmap size and header</a><ul></ul></li>
+<li><a href="#create-the-images">7.4 Create the images</a><ul></ul></li>
+<li><a href="#wrap-them-all-up">7.5 Wrap them all up</a><ul></ul></li></ul></li>
 <li><a href="#webassembly-rust">8 WebAssembly Rust</a><ul></ul></li>
 <li><a href="#embedded-rust">9 Embedded Rust</a><ul></ul></li>
 <li><a href="#whats-next">10 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/handdrawn-title.png" alt="PineTime Smart Watch with Hand-Drawn Watch Face" /></p>
@@ -365,7 +367,7 @@
 <p>We have used them earlier but...</p>
 <p><em>How are the bitmaps and images created?</em></p>
 <p>Let's watch and learn...</p>
-<h2 id="create-the-bitmaps" class="section-header"><a href="#create-the-bitmaps">7.1 Create the bitmaps</a></h2>
+<h2 id="create-a-bitmap" class="section-header"><a href="#create-a-bitmap">7.1 Create a bitmap</a></h2>
 <p>We create the bitmap for the digit 0 as a Rust Struct like so: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L122"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -387,7 +389,20 @@
     <span class="ident">field_name</span>: <span class="ident">field_value</span>,
     ...
 }</pre></div>
-<p>(How do we define Structs and their Fields? We'll see that in a while)</p>
+<p>Let's look at the 3 fields inside our bitmap Struct...</p>
+<ol>
+<li>
+<p><code>data</code>: The bitmap data</p>
+</li>
+<li>
+<p><code>data_size</code>: The size of the bitmap</p>
+</li>
+<li>
+<p><code>header</code>: The bitmap header (like the bitmap dimensions)</p>
+</li>
+</ol>
+<p>(How do we define a Struct and its fields? We'll find out later)</p>
+<h2 id="load-the-bitmap-data" class="section-header"><a href="#load-the-bitmap-data">7.2 Load the bitmap data</a></h2>
 <p><em>What's <code>0.bin</code>? Why do we use it with <code>include_bytes</code>?</em></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -395,8 +410,39 @@
 <span class="ident">data</span>: 
     <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../bitmaps/0.bin&quot;</span>) 
         <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span></pre></div>
+<p><code>0.bin</code> is the binary file that contains the hand-drawn bitmap for the digit 0. (Encoded in a special RGB565 format... Which we'll see later)</p>
+<p>The file is located in the <code>bitmaps</code> source folder...</p>
 <p><img src="https://lupyuen.github.io/images/handdrawn-files.png" alt="Watch Face Files" /></p>
+<p>To embed the contents of <code>0.bin</code> into our source file (at <code>src/lib.rs</code>), we call <code>include_bytes</code>.</p>
+<p>Thus the field <code>data</code> will be compiled literally as...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">//  include_bytes will be expanded like this...</span>
+<span class="ident">data</span>: 
+    <span class="kw-2">&amp;</span>[ <span class="number">0x00</span>, <span class="number">0x01</span>, <span class="number">0x02</span>, ... ]  <span class="comment">//  Reference to a byte array</span>
+        <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>            <span class="comment">//  Cast to a C Pointer</span></pre></div>
+<p>(Yep it looks like <code>#include</code> from C... But works on binary files. Nifty!)</p>
+<p><em>Why <code>*const u8</code>?</em></p>
+<p>Our bitmap Struct will be passed to a C Function... So we need to convert Rust References to C Pointers.</p>
+<p>We write <code>as *const u8</code> to convert the binary contents of <code>0.bin</code> from a Rust Reference to a C Pointer.</p>
+<p><em>Why is there a &quot;<code>!</code>&quot; after <code>include_bytes</code>?</em></p>
+<p>Because <code>include_bytes</code> is a Rust Macro (not a Rust Function). It's interpreted by the Rust Compiler while compiling our Rust code.</p>
+<p>Rust makes it so breezy easy to embed binary files (like bitmaps) into our Watch Face... Thanks to <code>include_bytes!</code></p>
+<p><a href="https://doc.rust-lang.org/std/macro.include_bytes.html">More about <code>include_bytes</code></a></p>
+<h2 id="set-the-bitmap-size-and-header" class="section-header"><a href="#set-the-bitmap-size-and-header">7.3 Set the bitmap size and header</a></h2>
 <p>TODO</p>
+<p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L122"><code>src/lib.rs</code></a></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">//  Create the bitmap struct for the digit 0</span>
+<span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> {
+    <span class="comment">//  We have seen this...</span>
+    <span class="ident">data</span>: <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../bitmaps/0.bin&quot;</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>,
+    <span class="comment">//  Now let&#39;s do data_size and header</span>
+    <span class="ident">data_size</span>,
+    <span class="ident">header</span>
+}</pre></div>
+<p><code>data_size</code> is computed like this...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// Width of each image and bitmap</span>
@@ -421,7 +467,7 @@
     <span class="comment">//  Omitted: Bitmaps 3 to 8</span>
     <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> { <span class="ident">data</span>: <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../bitmaps/9.bin&quot;</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>, <span class="ident">header</span>, <span class="ident">data_size</span> },
 ]</pre></div>
-<h2 id="create-the-images" class="section-header"><a href="#create-the-images">7.2 Create the images</a></h2>
+<h2 id="create-the-images" class="section-header"><a href="#create-the-images">7.4 Create the images</a></h2>
 <p>TODO</p>
 <p>Top left image...</p>
 <p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L92-L97"><code>src/lib.rs</code></a></p>
@@ -462,7 +508,7 @@
     <span class="ident">obj</span>::<span class="ident">set_pos</span>(<span class="ident">image</span>, <span class="number">120</span>, <span class="number">120</span>) <span class="question-mark">?</span> ;  <span class="comment">//  Set image position to bottom right</span>
     <span class="ident">image</span>                              <span class="comment">//  Return the image as bottom_right_image</span>
 },</pre></div>
-<h2 id="wrap-them-all-up" class="section-header"><a href="#wrap-them-all-up">7.3 Wrap them all up</a></h2>
+<h2 id="wrap-them-all-up" class="section-header"><a href="#wrap-them-all-up">7.5 Wrap them all up</a></h2>
 <p>TODO</p>
 <p>Create watch face: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136"><code>src/lib.rs</code></a></p>
 
