@@ -425,7 +425,7 @@ _How are the bitmaps and images created?_
 
 Let's watch and learn...
 
-## Create the bitmaps
+## Create a bitmap
 
 We create the bitmap for the digit 0 as a Rust Struct like so: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L122)
 
@@ -456,7 +456,17 @@ struct_type {
 }
 ```
 
-(How do we define Structs and their Fields? We'll see that in a while)
+Let's look at the 3 fields inside our bitmap Struct...
+
+1.  `data`: The bitmap data
+
+1.  `data_size`: The size of the bitmap
+
+1.  `header`: The bitmap header (like the bitmap dimensions)
+
+(How do we define a Struct and its fields? We'll find out later)
+
+## Load the bitmap data
 
 _What's `0.bin`? Why do we use it with `include_bytes`?_
 
@@ -467,7 +477,23 @@ data:
         as *const u8
 ```
 
+`0.bin` is the binary file that contains the hand-drawn bitmap for the digit 0. (It's encoded in a special RGB565 format... Which we'll see later)
+
+`include_bytes`
+
+TODO
+
 ![Watch Face Files](https://lupyuen.github.io/images/handdrawn-files.png)
+
+_Why `*const u8`?_
+
+TODO
+
+_Why is there a "`!`" after `include_bytes`?_
+
+Because `include_bytes` is a Rust Macro (not a Rust Function). It's interpreted by the Rust Compiler while compiling our Rust code.
+
+## Set the bitmap size and header
 
 TODO
 
