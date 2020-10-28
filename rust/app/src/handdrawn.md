@@ -477,25 +477,57 @@ data:
         as *const u8
 ```
 
-`0.bin` is the binary file that contains the hand-drawn bitmap for the digit 0. (It's encoded in a special RGB565 format... Which we'll see later)
+`0.bin` is the binary file that contains the hand-drawn bitmap for the digit 0. (Encoded in a special RGB565 format... Which we'll see later)
 
-`include_bytes`
-
-TODO
+The file is located in the `bitmaps` source folder...
 
 ![Watch Face Files](https://lupyuen.github.io/images/handdrawn-files.png)
 
+To embed the contents of `0.bin` into our source file (at `src/lib.rs`), we call `include_bytes`.
+
+Thus the field `data` will be compiled literally as...
+
+```rust
+//  include_bytes will be expanded like this...
+data: 
+    &[ 0x00, 0x01, 0x02, ... ]  //  Reference to a byte array
+        as *const u8            //  Cast to a C Pointer
+```
+
+(Yep it looks like `#include` from C... But works on binary files. Nifty!)
+
 _Why `*const u8`?_
 
-TODO
+Our bitmap Struct will be passed to a C Function... So we need to convert Rust References to C Pointers.
+
+We write `as *const u8` to convert the binary contents of `0.bin` from a Rust Reference to a C Pointer.
 
 _Why is there a "`!`" after `include_bytes`?_
 
 Because `include_bytes` is a Rust Macro (not a Rust Function). It's interpreted by the Rust Compiler while compiling our Rust code.
 
+Rust makes it so breezy easy to embed binary files (like bitmaps) into our Watch Face... Thanks to `include_bytes!`
+
+[More about `include_bytes`](https://doc.rust-lang.org/std/macro.include_bytes.html)
+
 ## Set the bitmap size and header
 
 TODO
+
+[`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L122)
+
+```rust
+//  Create the bitmap struct for the digit 0
+img::lv_img_dsc_t {
+    //  We have seen this...
+    data: include_bytes!("../bitmaps/0.bin") as *const u8,
+    //  Now let's do data_size and header
+    data_size,
+    header
+}
+```
+
+`data_size` is computed like this...
 
 ```rust
 /// Width of each image and bitmap
