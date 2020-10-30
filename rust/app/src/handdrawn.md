@@ -566,6 +566,10 @@ bitmaps: [
 ]
 ```
 
+![Map of New Method](https://lupyuen.github.io/images/handdrawn-map-new1.jpg)
+
+[_Here We Are_](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L120-L132)
+
 ## Create the images
 
 TODO
