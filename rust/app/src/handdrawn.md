@@ -619,6 +619,10 @@ bottom_right_image: {
 },
 ```
 
+![Map of New Method](https://lupyuen.github.io/images/handdrawn-map-new2.jpg)
+
+[_Here We Are_](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L92-L118)
+
 ## Wrap them all up
 
 TODO
