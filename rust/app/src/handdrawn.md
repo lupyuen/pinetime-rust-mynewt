@@ -329,6 +329,10 @@ Today we won't talk much about casting C Pointers in Rust and passing them to C 
 
 [Raw Pointers in Rust](https://doc.rust-lang.org/book/ch19-01-unsafe-rust.html)
 
+Below is a handy map to keep us on track... It shows the code that we have explored thus far. The rest of the code awaits!
+
+![Map of Update Method](https://lupyuen.github.io/images/handdrawn-map-update1.jpg)
+
 # Update the Watch Face
 
 Remember our 3 toughest lines of Rust code... For updating the top left image on our Watch Face?
