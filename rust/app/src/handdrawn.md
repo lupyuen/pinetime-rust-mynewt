@@ -333,6 +333,8 @@ Below is a handy map to keep us on track... It shows the code that we have explo
 
 ![Map of Update Method](https://lupyuen.github.io/images/handdrawn-map-update1.jpg)
 
+[_Here We Are_](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L147-L154)
+
 # Update the Watch Face
 
 Remember our 3 toughest lines of Rust code... For updating the top left image on our Watch Face?
