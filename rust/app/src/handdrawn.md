@@ -411,6 +411,10 @@ _We've seen `top_left_image`... What about the other images: `top_right_image`, 
 
 The code to update the other 3 images looks similar. Check out the rest of the `update` method here: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L156-L181)
 
+![Map of Update Method](https://lupyuen.github.io/images/handdrawn-map-update2.jpg)
+
+[_Here We Are_](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L138-L185)
+
 Congratulations! We're done with the `update` method... That's half of the Watch Face code!
 
 Now we move on to the `new` method... For creating the Watch Face.
