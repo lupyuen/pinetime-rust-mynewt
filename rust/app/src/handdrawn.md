@@ -627,6 +627,10 @@ bottom_right_image: {
 
 TODO
 
+![Map of New Method](https://lupyuen.github.io/images/handdrawn-map-new3.jpg)
+
+[_Here We Are_](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L88)
+
 Create watch face: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136)
 
 ```rust
@@ -685,6 +689,10 @@ It's the same in Rust. We finish off a function and return `watch_face` by writi
 ```
 
 When returning a value from a function, we omit the semicolon after `Ok`. (Because `Ok(boomer);` sounds odd)
+
+![Map of New Method](https://lupyuen.github.io/images/handdrawn-map-new4.jpg)
+
+[_Here We Are_](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L73-L136)
 
 # WebAssembly Rust
 
