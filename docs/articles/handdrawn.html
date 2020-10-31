@@ -435,8 +435,7 @@
 <p>Rust makes it so breezy easy to embed binary files (like bitmaps) into our Watch Face... Thanks to <code>include_bytes!</code></p>
 <p><a href="https://doc.rust-lang.org/std/macro.include_bytes.html">More about <code>include_bytes</code></a></p>
 <h2 id="set-the-bitmap-size-and-header" class="section-header"><a href="#set-the-bitmap-size-and-header">7.3 Set the bitmap size and header</a></h2>
-<p>TODO</p>
-<p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L122"><code>src/lib.rs</code></a></p>
+<p>We've seen how the <code>data</code> field is loaded from the bitmap file <code>0.bin</code>: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L122"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="comment">//  Create the bitmap struct for the digit 0</span>
@@ -447,7 +446,8 @@
     <span class="ident">data_size</span>,
     <span class="ident">header</span>
 }</pre></div>
-<p><code>data_size</code> is computed like this...</p>
+<p>We move on to the next field <code>data_size</code>, the number of bytes in the bitmap file.</p>
+<p><code>data_size</code> is computed like so: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L62-L88"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// Width of each image and bitmap</span>
@@ -461,6 +461,36 @@
 
 <span class="comment">//  Compute the image size</span>
 <span class="kw">let</span> <span class="ident">data_size</span> <span class="op">=</span> <span class="ident">IMAGE_WIDTH</span> <span class="op">*</span> <span class="ident">IMAGE_HEIGHT</span> <span class="op">*</span> <span class="ident">BYTES_PER_PIXEL</span>;</pre></div>
+<p>(<code>u32</code> means unsigned 32-bit integer)</p>
+<p>Our bitmap <code>0.bin</code> is 80 pixels wide and 100 pixels wide.</p>
+<p>In RGB565 Encoding, each pixel is represented by 2 bytes of colour data.</p>
+<p>So <code>data_size</code> works out to <code>80 * 100 * 2</code> or <code>16,000</code> bytes.</p>
+<p><em>There's something odd about <code>data_size</code>... Shouldn't it be:</em></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">//  Create the bitmap struct for the digit 0</span>
+<span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> {
+    <span class="comment">//  Set the value of data_size</span>
+    <span class="ident">data_size</span>: <span class="ident">data_size</span>,
+    ...</pre></div>
+<p>That's a handy shorthand in Rust... When creating Structs, we may omit the value if it has the same name as the field.</p>
+<p>So the above code may be simplified as...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">//  Create the bitmap struct for the digit 0</span>
+<span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> {
+    <span class="comment">//  Shorthand for `data_size: data_size`</span>
+    <span class="ident">data_size</span>,
+    ...</pre></div>
+<p>TODO</p>
+<p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L81-L85"><code>src/lib.rs</code></a></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">//  Compose the image header</span>
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">header</span> <span class="op">=</span> <span class="ident">img</span>::<span class="ident">lv_img_header_t</span>::<span class="ident">default</span>();
+<span class="ident">header</span>.<span class="ident">set_cf</span>(<span class="ident">img</span>::<span class="ident">LV_IMG_CF_TRUE_COLOR</span>);  <span class="comment">//  Color Format</span>
+<span class="ident">header</span>.<span class="ident">set_w</span>(<span class="ident">IMAGE_WIDTH</span>);                 <span class="comment">//  Width</span>
+<span class="ident">header</span>.<span class="ident">set_h</span>(<span class="ident">IMAGE_HEIGHT</span>);                <span class="comment">//  Height</span></pre></div>
 <p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L120-L132"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
