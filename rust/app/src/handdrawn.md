@@ -583,6 +583,18 @@ img::lv_img_dsc_t {
     ...
 ```
 
+TODO
+
+[`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L81-L85)
+
+```rust
+//  Compose the image header
+let mut header = img::lv_img_header_t::default();
+header.set_cf(img::LV_IMG_CF_TRUE_COLOR);  //  Color Format
+header.set_w(IMAGE_WIDTH);                 //  Width
+header.set_h(IMAGE_HEIGHT);                //  Height
+```
+
 [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L120-L132)
 
 ```rust
