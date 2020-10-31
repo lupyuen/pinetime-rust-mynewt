@@ -522,9 +522,7 @@ Rust makes it so breezy easy to embed binary files (like bitmaps) into our Watch
 
 ## Set the bitmap size and header
 
-TODO
-
-[`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L122)
+We've seen how the `data` field is loaded from the bitmap file `0.bin`: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L122)
 
 ```rust
 //  Create the bitmap struct for the digit 0
@@ -537,7 +535,9 @@ img::lv_img_dsc_t {
 }
 ```
 
-`data_size` is computed like this...
+We move on to the next field `data_size`, the number of bytes in the bitmap file.
+
+`data_size` is computed like so: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L62-L88)
 
 ```rust
 /// Width of each image and bitmap
@@ -551,6 +551,36 @@ const BYTES_PER_PIXEL: u32 = 2;
 
 //  Compute the image size
 let data_size = IMAGE_WIDTH * IMAGE_HEIGHT * BYTES_PER_PIXEL;
+```
+
+(`u32` means unsigned 32-bit integer)
+
+Our bitmap `0.bin` is 80 pixels wide and 100 pixels wide.
+
+In RGB565 Encoding, each pixel is represented by 2 bytes of colour data.
+
+So `data_size` works out to `80 * 100 * 2` or `16,000` bytes.
+
+_There's something odd about `data_size`... Shouldn't it be:_
+
+```rust
+//  Create the bitmap struct for the digit 0
+img::lv_img_dsc_t {
+    //  Set the value of data_size
+    data_size: data_size,
+    ...
+```
+
+That's a handy shorthand in Rust... When creating Structs, we may omit the value if it has the same name as the field.
+
+So the above code may be simplified as...
+
+```rust
+//  Create the bitmap struct for the digit 0
+img::lv_img_dsc_t {
+    //  Shorthand for `data_size: data_size`
+    data_size,
+    ...
 ```
 
 [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L120-L132)
