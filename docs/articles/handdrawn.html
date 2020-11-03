@@ -77,9 +77,10 @@
 <li><a href="#create-the-watch-face">7 Create the Watch Face</a><ul>
 <li><a href="#create-a-bitmap">7.1 Create a bitmap</a><ul></ul></li>
 <li><a href="#load-the-bitmap-data">7.2 Load the bitmap data</a><ul></ul></li>
-<li><a href="#set-the-bitmap-size-and-header">7.3 Set the bitmap size and header</a><ul></ul></li>
-<li><a href="#create-the-images">7.4 Create the images</a><ul></ul></li>
-<li><a href="#wrap-them-all-up">7.5 Wrap them all up</a><ul></ul></li></ul></li>
+<li><a href="#set-the-bitmap-size">7.3 Set the bitmap size</a><ul></ul></li>
+<li><a href="#set-the-bitmap-header">7.4 Set the bitmap header</a><ul></ul></li>
+<li><a href="#create-the-images">7.5 Create the images</a><ul></ul></li>
+<li><a href="#wrap-them-all-up">7.6 Wrap them all up</a><ul></ul></li></ul></li>
 <li><a href="#webassembly-rust">8 WebAssembly Rust</a><ul></ul></li>
 <li><a href="#embedded-rust">9 Embedded Rust</a><ul></ul></li>
 <li><a href="#whats-next">10 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/handdrawn-title.png" alt="PineTime Smart Watch with Hand-Drawn Watch Face" /></p>
@@ -434,7 +435,7 @@
 <p>Because <code>include_bytes</code> is a Rust Macro (not a Rust Function). It's interpreted by the Rust Compiler while compiling our Rust code.</p>
 <p>Rust makes it so breezy easy to embed binary files (like bitmaps) into our Watch Face... Thanks to <code>include_bytes!</code></p>
 <p><a href="https://doc.rust-lang.org/std/macro.include_bytes.html">More about <code>include_bytes</code></a></p>
-<h2 id="set-the-bitmap-size-and-header" class="section-header"><a href="#set-the-bitmap-size-and-header">7.3 Set the bitmap size and header</a></h2>
+<h2 id="set-the-bitmap-size" class="section-header"><a href="#set-the-bitmap-size">7.3 Set the bitmap size</a></h2>
 <p>We've seen how the <code>data</code> field is loaded from the bitmap file <code>0.bin</code>: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L122"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -481,9 +482,24 @@
 <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> {
     <span class="comment">//  Shorthand for `data_size: data_size`</span>
     <span class="ident">data_size</span>,
+    <span class="comment">//  Shorthand for `header: header`</span>
+    <span class="ident">header</span>,
     ...</pre></div>
-<p>TODO</p>
-<p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L81-L85"><code>src/lib.rs</code></a></p>
+<p>Let's talk about <code>header</code>, the header for our bitmap...</p>
+<h2 id="set-the-bitmap-header" class="section-header"><a href="#set-the-bitmap-header">7.4 Set the bitmap header</a></h2>
+<p>According to the definition of the <code>lv_img_dsc_t</code> Struct in LVGL, we need to provide a <code>header</code> field that describes...</p>
+<ol>
+<li>
+<p>Colour format of our bitmap (i.e. True Color)</p>
+</li>
+<li>
+<p>Width of our bitmap (i.e. 80 pixels)</p>
+</li>
+<li>
+<p>Height of our bitmap (i.e. 100 pixels)</p>
+</li>
+</ol>
+<p>We create the <code>header</code> like so: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L81-L85"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="comment">//  Compose the image header</span>
@@ -491,6 +507,7 @@
 <span class="ident">header</span>.<span class="ident">set_cf</span>(<span class="ident">img</span>::<span class="ident">LV_IMG_CF_TRUE_COLOR</span>);  <span class="comment">//  Color Format</span>
 <span class="ident">header</span>.<span class="ident">set_w</span>(<span class="ident">IMAGE_WIDTH</span>);                 <span class="comment">//  Width</span>
 <span class="ident">header</span>.<span class="ident">set_h</span>(<span class="ident">IMAGE_HEIGHT</span>);                <span class="comment">//  Height</span></pre></div>
+<p>TODO</p>
 <p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L120-L132"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -504,7 +521,7 @@
 ]</pre></div>
 <p><img src="https://lupyuen.github.io/images/handdrawn-map-new1.jpg" alt="Map of New Method" /></p>
 <p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L120-L132"><em>Here We Are</em></a></p>
-<h2 id="create-the-images" class="section-header"><a href="#create-the-images">7.4 Create the images</a></h2>
+<h2 id="create-the-images" class="section-header"><a href="#create-the-images">7.5 Create the images</a></h2>
 <p>TODO</p>
 <p>Top left image...</p>
 <p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L92-L97"><code>src/lib.rs</code></a></p>
@@ -547,7 +564,7 @@
 },</pre></div>
 <p><img src="https://lupyuen.github.io/images/handdrawn-map-new2.jpg" alt="Map of New Method" /></p>
 <p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L92-L118"><em>Here We Are</em></a></p>
-<h2 id="wrap-them-all-up" class="section-header"><a href="#wrap-them-all-up">7.5 Wrap them all up</a></h2>
+<h2 id="wrap-them-all-up" class="section-header"><a href="#wrap-them-all-up">7.6 Wrap them all up</a></h2>
 <p>TODO</p>
 <p><img src="https://lupyuen.github.io/images/handdrawn-map-new3.jpg" alt="Map of New Method" /></p>
 <p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L88"><em>Here We Are</em></a></p>
