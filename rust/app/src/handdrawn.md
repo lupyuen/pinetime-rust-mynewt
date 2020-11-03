@@ -520,7 +520,7 @@ Rust makes it so breezy easy to embed binary files (like bitmaps) into our Watch
 
 [More about `include_bytes`](https://doc.rust-lang.org/std/macro.include_bytes.html)
 
-## Set the bitmap size and header
+## Set the bitmap size
 
 We've seen how the `data` field is loaded from the bitmap file `0.bin`: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L122)
 
@@ -580,12 +580,24 @@ So the above code may be simplified as...
 img::lv_img_dsc_t {
     //  Shorthand for `data_size: data_size`
     data_size,
+    //  Shorthand for `header: header`
+    header,
     ...
 ```
 
-TODO
+Let's talk about `header`, the header for our bitmap...
 
-[`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L81-L85)
+## Set the bitmap header
+
+According to the definition of the `lv_img_dsc_t` Struct in LVGL, we need to provide a `header` field that describes...
+
+1. Colour format of our bitmap (i.e. True Color)
+
+1. Width of our bitmap (i.e. 80 pixels)
+
+1. Height of our bitmap (i.e. 100 pixels)
+
+We create the `header` like so: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L81-L85)
 
 ```rust
 //  Compose the image header
@@ -594,6 +606,8 @@ header.set_cf(img::LV_IMG_CF_TRUE_COLOR);  //  Color Format
 header.set_w(IMAGE_WIDTH);                 //  Width
 header.set_h(IMAGE_HEIGHT);                //  Height
 ```
+
+TODO
 
 [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L120-L132)
 
