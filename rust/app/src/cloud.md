@@ -322,6 +322,8 @@ To set the date and time on PineTime, we use the [nRF Connect](https://www.nordi
 
 1. Tap `OK`
 
+1. Tap the higher set of 3 dots and select `Bond`
+
 PineTime should automatically sync the date and time.
 
 This works only Android, not iPhone. If you can help fix this, please chat with us in the PineTime Chatroom...
@@ -396,7 +398,13 @@ We have a lot to do, please chat with us if you're keen to help...
 
 And remember to enjoy your PineTime :-)
 
-[Check out my RSS Feed](https://lupyuen.github.io/rss.xml)
+[Check out my PineTime articles](https://lupyuen.github.io)
+
+[RSS Feed](https://lupyuen.github.io/rss.xml)
+
+_Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
+
+[`github.com/lupyuen/pinetime-rust-mynewt/rust/app/src/cloud.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/cloud.md)
 
 # How It Works
 
