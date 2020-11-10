@@ -623,9 +623,7 @@ img::lv_img_dsc_t {
 }
 ```
 
-Let's load all 10 bitmaps, from digits 0 to 9...
-
-[`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L120-L132)
+Let's load all 10 bitmaps, for digits 0 to 9: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L120-L132)
 
 ```rust
 //  Load the bitmaps
