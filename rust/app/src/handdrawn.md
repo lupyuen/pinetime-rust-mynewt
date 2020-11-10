@@ -571,16 +571,16 @@ img::lv_img_dsc_t {
     ...
 ```
 
-That's a handy shorthand in Rust... When creating Structs, we may omit the value if it has the same name as the field.
+That's a handy short form in Rust... When creating Structs, we may omit the value if it has the same name as the field.
 
 So the above code may be simplified as...
 
 ```rust
 //  Create the bitmap struct for the digit 0
 img::lv_img_dsc_t {
-    //  Shorthand for `data_size: data_size`
+    //  Short form of `data_size: data_size`
     data_size,
-    //  Shorthand for `header: header`
+    //  Short form of `header: header`
     header,
     ...
 ```
