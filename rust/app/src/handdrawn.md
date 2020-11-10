@@ -636,11 +636,15 @@ bitmaps: [
 ]
 ```
 
-TODO
+`bitmaps` is the array of bitmaps that we have used earlier.
+
+This code may be found at the end of the `new` method for creating our Watch Face...
 
 ![Map of New Method](https://lupyuen.github.io/images/handdrawn-map-new1.jpg)
 
 [_Here We Are_](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L120-L132)
+
+Let's study the rest of the code in the `new` method...
 
 ## Create the images
 
