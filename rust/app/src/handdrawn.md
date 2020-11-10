@@ -638,7 +638,7 @@ bitmaps: [
 
 `bitmaps` is the array of bitmaps that we have used earlier.
 
-This code may be found at the end of the `new` method for creating our Watch Face...
+This code appears at the end of the `new` method for creating our Watch Face...
 
 ![Map of New Method](https://lupyuen.github.io/images/handdrawn-map-new1.jpg)
 
