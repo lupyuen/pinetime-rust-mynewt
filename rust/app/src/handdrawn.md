@@ -607,7 +607,23 @@ header.set_w(IMAGE_WIDTH);                 //  Width
 header.set_h(IMAGE_HEIGHT);                //  Height
 ```
 
-TODO
+## Load all 10 bitmaps
+
+We have seen this code for loading the bitmap for the digit 0...
+
+```rust
+//  Create the bitmap struct for the digit 0
+img::lv_img_dsc_t {
+    //  Load the bitmap bytes
+    data: include_bytes!("../bitmaps/0.bin") as *const u8,
+    //  Set the bitmap size
+    data_size,
+    //  Set the bitmap header
+    header
+}
+```
+
+Let's load all 10 bitmaps, from digits 0 to 9...
 
 [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L120-L132)
 
@@ -621,6 +637,8 @@ bitmaps: [
     img::lv_img_dsc_t { data: include_bytes!("../bitmaps/9.bin") as *const u8, header, data_size },
 ]
 ```
+
+TODO
 
 ![Map of New Method](https://lupyuen.github.io/images/handdrawn-map-new1.jpg)
 
