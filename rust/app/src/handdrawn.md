@@ -648,11 +648,7 @@ Let's study the rest of the code in the `new` method...
 
 ## Create the images
 
-TODO
-
-Top left image...
-
-[`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L92-L97)
+We create the top left image like so: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L92-L97)
 
 ```rust
 top_left_image: {
@@ -664,9 +660,21 @@ top_left_image: {
     obj::set_pos(image, 40, 20) ? ;  
 
     //  Return the image as top_left_image
-    image                            
+    image  //  Omit the semicolon                            
 },
 ```
+
+This form of Rust looks unusual, but think of it like this...
+
+```rust
+top_left_image: { ... ; image },
+```
+
+In Rust the curly brackets `{ ... }` represent a block of code.
+
+Every block of code in Rust evaluates to a value. Here the last line of code in the block, `image`, is returned as the value of the block. (Note that the semicolon `";"` is omitted when we return values)
+
+TODO
 
 Create top right, bottom left and bottom right images...
 
