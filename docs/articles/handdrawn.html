@@ -475,15 +475,15 @@
     <span class="comment">//  Set the value of data_size</span>
     <span class="ident">data_size</span>: <span class="ident">data_size</span>,
     ...</pre></div>
-<p>That's a handy shorthand in Rust... When creating Structs, we may omit the value if it has the same name as the field.</p>
+<p>That's a handy short form in Rust... When creating Structs, we may omit the value if it has the same name as the field.</p>
 <p>So the above code may be simplified as...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="comment">//  Create the bitmap struct for the digit 0</span>
 <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> {
-    <span class="comment">//  Shorthand for `data_size: data_size`</span>
+    <span class="comment">//  Short form of `data_size: data_size`</span>
     <span class="ident">data_size</span>,
-    <span class="comment">//  Shorthand for `header: header`</span>
+    <span class="comment">//  Short form of `header: header`</span>
     <span class="ident">header</span>,
     ...</pre></div>
 <p>Let's talk about <code>header</code>, the header for our bitmap...</p>
@@ -533,14 +533,12 @@
     <span class="ident">img</span>::<span class="ident">lv_img_dsc_t</span> { <span class="ident">data</span>: <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../bitmaps/9.bin&quot;</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>, <span class="ident">header</span>, <span class="ident">data_size</span> },
 ]</pre></div>
 <p><code>bitmaps</code> is the array of bitmaps that we have used earlier.</p>
-<p>This code may be found at the end of the <code>new</code> method for creating our Watch Face...</p>
+<p>This code appears at the end of the <code>new</code> method for creating our Watch Face...</p>
 <p><img src="https://lupyuen.github.io/images/handdrawn-map-new1.jpg" alt="Map of New Method" /></p>
 <p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L120-L132"><em>Here We Are</em></a></p>
 <p>Let's study the rest of the code in the <code>new</code> method...</p>
 <h2 id="create-the-images" class="section-header"><a href="#create-the-images">7.6 Create the images</a></h2>
-<p>TODO</p>
-<p>Top left image...</p>
-<p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L92-L97"><code>src/lib.rs</code></a></p>
+<p>We create the top left image like so: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L92-L97"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="ident">top_left_image</span>: {
@@ -552,8 +550,15 @@
     <span class="ident">obj</span>::<span class="ident">set_pos</span>(<span class="ident">image</span>, <span class="number">40</span>, <span class="number">20</span>) <span class="question-mark">?</span> ;  
 
     <span class="comment">//  Return the image as top_left_image</span>
-    <span class="ident">image</span>                            
+    <span class="ident">image</span>  <span class="comment">//  Omit the semicolon                            </span>
 },</pre></div>
+<p>This form of Rust looks unusual, but think of it like this...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">top_left_image</span>: { ... ; <span class="ident">image</span> },</pre></div>
+<p>In Rust the curly brackets <code>{ ... }</code> represent a block of code.</p>
+<p>Every block of code in Rust evaluates to a value. Here the last line of code in the block, <code>image</code>, is returned as the value of the block. (Note that the semicolon <code>&quot;;&quot;</code> is omitted when we return values)</p>
+<p>TODO</p>
 <p>Create top right, bottom left and bottom right images...</p>
 <p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L99-L118"><code>src/lib.rs</code></a></p>
 
