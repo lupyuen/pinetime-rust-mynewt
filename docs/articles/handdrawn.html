@@ -558,6 +558,13 @@
 <span class="ident">top_left_image</span>: { ... ; <span class="ident">image</span> },</pre></div>
 <p>In Rust the curly brackets <code>{ ... }</code> represent a block of code.</p>
 <p>Every block of code in Rust evaluates to a value. Here the last line of code in the block, <code>image</code>, is returned as the value of the block. (Note that the semicolon <code>&quot;;&quot;</code> is omitted when we return values)</p>
+<p><em>What's <code>screen</code>?</em></p>
+<p><code>screen</code> refers to the current active screen in LVGL.</p>
+<p><code>screen</code> is defined in <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L79"><code>src/lib.rs</code></a> as...</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="comment">//  Get the active screen</span>
+<span class="kw">let</span> <span class="ident">screen</span> <span class="op">=</span> <span class="ident">watchface</span>::<span class="ident">get_active_screen</span>();</pre></div>
 <p>We create the top right, bottom left and bottom right images the same way: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L99-L118"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
