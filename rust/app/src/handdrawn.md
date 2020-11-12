@@ -674,6 +674,17 @@ In Rust the curly brackets `{ ... }` represent a block of code.
 
 Every block of code in Rust evaluates to a value. Here the last line of code in the block, `image`, is returned as the value of the block. (Note that the semicolon `";"` is omitted when we return values)
 
+_What's `screen`?_
+
+`screen` refers to the current active screen in LVGL.
+
+`screen` is defined in [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L79) as...
+
+```rust
+//  Get the active screen
+let screen = watchface::get_active_screen();
+```
+
 We create the top right, bottom left and bottom right images the same way: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L99-L118)
 
 ```rust
