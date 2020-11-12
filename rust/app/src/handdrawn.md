@@ -723,27 +723,17 @@ fn new() -> MynewtResult<Self> {
     //  Get the active screen
     let screen = watchface::get_active_screen();
 
-    //  Compose the image header
-    let mut header = img::lv_img_header_t::default();
-    header.set_cf(img::LV_IMG_CF_TRUE_COLOR);  //  Color Format
-    header.set_w(IMAGE_WIDTH);                 //  Width
-    header.set_h(IMAGE_HEIGHT);                //  Height
+    //  Omitted: Compose the image header
+    let mut header = ... ;
 
-    //  Compute the image size
-    let data_size = IMAGE_WIDTH * IMAGE_HEIGHT * BYTES_PER_PIXEL;
-```
+    //  Omitted: Compute the image size
+    let data_size = ... ;
 
-Create widgets...
-
-```rust
     //  Create the widgets
     let watch_face = Self {
-        //  Create the top left image
-        top_left_image: {
-            let image = img::create(screen, ptr::null()) ? ;  //  `?` will terminate the function in case of error
-            obj::set_pos(image, 40, 20) ? ;  //  Set image position to top left
-            image                            //  Return the image as top_left_image
-        },
+
+        //  Omitted: Create the top left image
+        top_left_image: { ... },
 
         //  Omitted: Create the top right image
         top_right_image: { ... },
