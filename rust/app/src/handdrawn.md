@@ -711,10 +711,6 @@ The code is located in the middle of the `new` Method...
 
 TODO
 
-![Map of New Method](https://lupyuen.github.io/images/handdrawn-map-new3.jpg)
-
-[_Here We Are_](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L88)
-
 Create watch face: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136)
 
 ```rust
