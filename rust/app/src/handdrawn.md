@@ -674,11 +674,7 @@ In Rust the curly brackets `{ ... }` represent a block of code.
 
 Every block of code in Rust evaluates to a value. Here the last line of code in the block, `image`, is returned as the value of the block. (Note that the semicolon `";"` is omitted when we return values)
 
-TODO
-
-Create top right, bottom left and bottom right images...
-
-[`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L99-L118)
+We create the top right, bottom left and bottom right images the same way: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L99-L118)
 
 ```rust
 //  Create the top right image
@@ -702,6 +698,10 @@ bottom_right_image: {
     image                              //  Return the image as bottom_right_image
 },
 ```
+
+And that's how we create images in the `new` Method.
+
+The code is located in the middle of the `new` Method...
 
 ![Map of New Method](https://lupyuen.github.io/images/handdrawn-map-new2.jpg)
 
