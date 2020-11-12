@@ -558,9 +558,7 @@
 <span class="ident">top_left_image</span>: { ... ; <span class="ident">image</span> },</pre></div>
 <p>In Rust the curly brackets <code>{ ... }</code> represent a block of code.</p>
 <p>Every block of code in Rust evaluates to a value. Here the last line of code in the block, <code>image</code>, is returned as the value of the block. (Note that the semicolon <code>&quot;;&quot;</code> is omitted when we return values)</p>
-<p>TODO</p>
-<p>Create top right, bottom left and bottom right images...</p>
-<p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L99-L118"><code>src/lib.rs</code></a></p>
+<p>We create the top right, bottom left and bottom right images the same way: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L99-L118"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="comment">//  Create the top right image</span>
@@ -583,12 +581,12 @@
     <span class="ident">obj</span>::<span class="ident">set_pos</span>(<span class="ident">image</span>, <span class="number">120</span>, <span class="number">120</span>) <span class="question-mark">?</span> ;  <span class="comment">//  Set image position to bottom right</span>
     <span class="ident">image</span>                              <span class="comment">//  Return the image as bottom_right_image</span>
 },</pre></div>
+<p>And that's how we create images in the <code>new</code> Method.</p>
+<p>The code is located in the middle of the <code>new</code> Method...</p>
 <p><img src="https://lupyuen.github.io/images/handdrawn-map-new2.jpg" alt="Map of New Method" /></p>
 <p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L92-L118"><em>Here We Are</em></a></p>
 <h2 id="wrap-them-all-up" class="section-header"><a href="#wrap-them-all-up">7.7 Wrap them all up</a></h2>
 <p>TODO</p>
-<p><img src="https://lupyuen.github.io/images/handdrawn-map-new3.jpg" alt="Map of New Method" /></p>
-<p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L88"><em>Here We Are</em></a></p>
 <p>Create watch face: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
@@ -597,25 +595,17 @@
     <span class="comment">//  Get the active screen</span>
     <span class="kw">let</span> <span class="ident">screen</span> <span class="op">=</span> <span class="ident">watchface</span>::<span class="ident">get_active_screen</span>();
 
-    <span class="comment">//  Compose the image header</span>
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">header</span> <span class="op">=</span> <span class="ident">img</span>::<span class="ident">lv_img_header_t</span>::<span class="ident">default</span>();
-    <span class="ident">header</span>.<span class="ident">set_cf</span>(<span class="ident">img</span>::<span class="ident">LV_IMG_CF_TRUE_COLOR</span>);  <span class="comment">//  Color Format</span>
-    <span class="ident">header</span>.<span class="ident">set_w</span>(<span class="ident">IMAGE_WIDTH</span>);                 <span class="comment">//  Width</span>
-    <span class="ident">header</span>.<span class="ident">set_h</span>(<span class="ident">IMAGE_HEIGHT</span>);                <span class="comment">//  Height</span>
+    <span class="comment">//  Omitted: Compose the image header</span>
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">header</span> <span class="op">=</span> ... ;
 
-    <span class="comment">//  Compute the image size</span>
-    <span class="kw">let</span> <span class="ident">data_size</span> <span class="op">=</span> <span class="ident">IMAGE_WIDTH</span> <span class="op">*</span> <span class="ident">IMAGE_HEIGHT</span> <span class="op">*</span> <span class="ident">BYTES_PER_PIXEL</span>;</pre></div>
-<p>Create widgets...</p>
+    <span class="comment">//  Omitted: Compute the image size</span>
+    <span class="kw">let</span> <span class="ident">data_size</span> <span class="op">=</span> ... ;
 
-<div class="example-wrap"><pre class="rust rust-example-rendered">
     <span class="comment">//  Create the widgets</span>
     <span class="kw">let</span> <span class="ident">watch_face</span> <span class="op">=</span> <span class="self">Self</span> {
-        <span class="comment">//  Create the top left image</span>
-        <span class="ident">top_left_image</span>: {
-            <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">img</span>::<span class="ident">create</span>(<span class="ident">screen</span>, <span class="ident">ptr</span>::<span class="ident">null</span>()) <span class="question-mark">?</span> ;  <span class="comment">//  `?` will terminate the function in case of error</span>
-            <span class="ident">obj</span>::<span class="ident">set_pos</span>(<span class="ident">image</span>, <span class="number">40</span>, <span class="number">20</span>) <span class="question-mark">?</span> ;  <span class="comment">//  Set image position to top left</span>
-            <span class="ident">image</span>                            <span class="comment">//  Return the image as top_left_image</span>
-        },
+
+        <span class="comment">//  Omitted: Create the top left image</span>
+        <span class="ident">top_left_image</span>: { ... },
 
         <span class="comment">//  Omitted: Create the top right image</span>
         <span class="ident">top_right_image</span>: { ... },
