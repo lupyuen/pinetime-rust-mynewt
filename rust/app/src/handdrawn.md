@@ -720,9 +720,7 @@ The code is located in the middle of the `new` Method...
 
 ## Wrap them all up
 
-TODO
-
-Create watch face: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136)
+We have been various parts of the `new` Method... Let's wrap them all up into a proper Method Defintion: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136)
 
 ```rust
 /// Create the Watch Face
@@ -730,28 +728,28 @@ fn new() -> MynewtResult<Self> {
     //  Get the active screen
     let screen = watchface::get_active_screen();
 
-    //  Omitted: Compose the image header
+    //  Seen earlier: Compose the image header
     let mut header = ... ;
 
-    //  Omitted: Compute the image size
+    //  Seen earlier: Compute the image size
     let data_size = ... ;
 
     //  Create the widgets
     let watch_face = Self {
 
-        //  Omitted: Create the top left image
+        //  Seen earlier: Create the top left image
         top_left_image: { ... },
 
-        //  Omitted: Create the top right image
+        //  Seen earlier: Create the top right image
         top_right_image: { ... },
 
-        //  Omitted: Create the bottom left image
+        //  Seen earlier: Create the bottom left image
         bottom_left_image: { ... },
 
-        //  Omitted: Create the bottom right image
+        //  Seen earlier: Create the bottom right image
         bottom_right_image: { ... },
 
-        //  Omitted: Load the bitmaps
+        //  Seen earlier: Load the bitmaps
         bitmaps: [ ... ],
     };
     //  Return the watch face
@@ -759,17 +757,25 @@ fn new() -> MynewtResult<Self> {
 }
 ```
 
-You know how some Millennials like to finish off respectfully with _"Ok boomer"?_
-
-It's the same in Rust. We finish off a function and return `watch_face` by writing at the end...
+TODO
 
 ```rust
-    //  Return the watch face. No semicolon!
-    Ok(watch_face)
-}   //  End of function
+/// Create the Watch Face
+fn new() -> MynewtResult<Self> { ...
 ```
 
-When returning a value from a function, we omit the semicolon after `Ok`. (Because `Ok(boomer);` sounds odd)
+```rust
+/// Create the Watch Face
+fn new() -> MynewtResult<Self> {
+    ...
+    //  Create the widgets
+    let watch_face = Self {
+        ...
+    };
+    //  Return the watch face
+    Ok(watch_face)
+}
+```
 
 ![Map of New Method](https://lupyuen.github.io/images/handdrawn-map-new4.jpg)
 
