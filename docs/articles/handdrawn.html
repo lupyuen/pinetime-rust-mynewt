@@ -593,8 +593,7 @@
 <p><img src="https://lupyuen.github.io/images/handdrawn-map-new2.jpg" alt="Map of New Method" /></p>
 <p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L92-L118"><em>Here We Are</em></a></p>
 <h2 id="wrap-them-all-up" class="section-header"><a href="#wrap-them-all-up">7.7 Wrap them all up</a></h2>
-<p>TODO</p>
-<p>Create watch face: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136"><code>src/lib.rs</code></a></p>
+<p>We have seen various parts of the <code>new</code> Method... Let's wrap them all up into a proper Method Defintion: <a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136"><code>src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// Create the Watch Face</span>
@@ -602,41 +601,50 @@
     <span class="comment">//  Get the active screen</span>
     <span class="kw">let</span> <span class="ident">screen</span> <span class="op">=</span> <span class="ident">watchface</span>::<span class="ident">get_active_screen</span>();
 
-    <span class="comment">//  Omitted: Compose the image header</span>
+    <span class="comment">//  Seen earlier: Compose the image header</span>
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">header</span> <span class="op">=</span> ... ;
 
-    <span class="comment">//  Omitted: Compute the image size</span>
+    <span class="comment">//  Seen earlier: Compute the image size</span>
     <span class="kw">let</span> <span class="ident">data_size</span> <span class="op">=</span> ... ;
 
     <span class="comment">//  Create the widgets</span>
     <span class="kw">let</span> <span class="ident">watch_face</span> <span class="op">=</span> <span class="self">Self</span> {
 
-        <span class="comment">//  Omitted: Create the top left image</span>
+        <span class="comment">//  Seen earlier: Create the top left image</span>
         <span class="ident">top_left_image</span>: { ... },
 
-        <span class="comment">//  Omitted: Create the top right image</span>
+        <span class="comment">//  Seen earlier: Create the top right image</span>
         <span class="ident">top_right_image</span>: { ... },
 
-        <span class="comment">//  Omitted: Create the bottom left image</span>
+        <span class="comment">//  Seen earlier: Create the bottom left image</span>
         <span class="ident">bottom_left_image</span>: { ... },
 
-        <span class="comment">//  Omitted: Create the bottom right image</span>
+        <span class="comment">//  Seen earlier: Create the bottom right image</span>
         <span class="ident">bottom_right_image</span>: { ... },
 
-        <span class="comment">//  Omitted: Load the bitmaps</span>
+        <span class="comment">//  Seen earlier: Load the bitmaps</span>
         <span class="ident">bitmaps</span>: [ ... ],
     };
     <span class="comment">//  Return the watch face</span>
     <span class="prelude-val">Ok</span>(<span class="ident">watch_face</span>)
 }</pre></div>
-<p>You know how some Millennials like to finish off respectfully with <em>&quot;Ok boomer&quot;?</em></p>
-<p>It's the same in Rust. We finish off a function and return <code>watch_face</code> by writing at the end...</p>
+<p>TODO</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-    <span class="comment">//  Return the watch face. No semicolon!</span>
+<span class="doccomment">/// Create the Watch Face</span>
+<span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> { ...</pre></div>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="doccomment">/// Create the Watch Face</span>
+<span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+    ...
+    <span class="comment">//  Create the widgets</span>
+    <span class="kw">let</span> <span class="ident">watch_face</span> <span class="op">=</span> <span class="self">Self</span> {
+        ...
+    };
+    <span class="comment">//  Return the watch face</span>
     <span class="prelude-val">Ok</span>(<span class="ident">watch_face</span>)
-}   <span class="comment">//  End of function</span></pre></div>
-<p>When returning a value from a function, we omit the semicolon after <code>Ok</code>. (Because <code>Ok(boomer);</code> sounds odd)</p>
+}</pre></div>
 <p><img src="https://lupyuen.github.io/images/handdrawn-map-new4.jpg" alt="Map of New Method" /></p>
 <p><a href="https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L73-L136"><em>Here We Are</em></a></p>
 <h1 id="webassembly-rust" class="section-header"><a href="#webassembly-rust">8 WebAssembly Rust</a></h1>
