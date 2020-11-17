@@ -720,7 +720,7 @@ The code is located in the middle of the `new` Method...
 
 ## Wrap them all up
 
-We have been various parts of the `new` Method... Let's wrap them all up into a proper Method Defintion: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136)
+We have seen various parts of the `new` Method... Let's wrap them all up into a proper Method Defintion: [`src/lib.rs`](https://github.com/lupyuen/handdrawn-watchface/blob/master/src/lib.rs#L76-L136)
 
 ```rust
 /// Create the Watch Face
