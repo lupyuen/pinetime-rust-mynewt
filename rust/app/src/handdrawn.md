@@ -757,12 +757,20 @@ fn new() -> MynewtResult<Self> {
 }
 ```
 
-TODO
+The `new` Method returns `MynewtResult<Self>`...
 
 ```rust
 /// Create the Watch Face
 fn new() -> MynewtResult<Self> { ...
 ```
+
+Which means that the method returns either a Watch Face (i.e. `Self`) or an error (i.e. `Err`)
+
+_Why does `Self` refer to the Watch Face?_
+
+We'll find out in a while.
+
+TODO
 
 ```rust
 /// Create the Watch Face
