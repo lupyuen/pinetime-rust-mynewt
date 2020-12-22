@@ -393,7 +393,7 @@ objsize
 This produces the MCUBoot Bootloader that we will flash to PineTime later...
 
 ```
-pinetime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.bin
+pinetime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin
 ```
 
 ## Build Application Firmware
