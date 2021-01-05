@@ -19,7 +19,7 @@
 #
 -->
 
-# PineTime Smart Watch Firmware with Apache Mynewt and Embedded Rust
+# PineTime Smart Watch Firmware with Apache Mynewt and Embedded Rust!
 
 ![PineTime Smart Watch with Apache Mynewt and Embedded Rust](https://lupyuen.github.io/images/pinetime-title.jpg)
 
