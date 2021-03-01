@@ -69,7 +69,7 @@ Refer to the articles...
 
 1. [_Auto Convert Go to Dart with an Abstract Syntax Tree_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/ast)
 
-1. [_My First Week As Embedded FOSS Advocate_](https://medium.com/@ly.lee/my-first-week-as-embedded-foss-advocate-106d625deae?source=friends_link&sk=4128d2bb8a7098658fafc462a1531d34)
+1. [_My First Week As Embedded FOSS Advocate_](https://lupyuen.github.io/articles/my-first-week-as-embedded-foss-advocate)
 
 1. [_Rust Documentation_](https://lupyuen.github.io/pinetime-rust-mynewt/?1)
 
@@ -77,19 +77,19 @@ The following articles were written for the older version of this firmware. Refe
 
 1. [_Visual Rust for PineTime Smart Watch_](https://marketplace.visualstudio.com/items?itemName=LeeLupYuen.visual-embedded-rust)
 
-1. [_Build and Flash Rust+Mynewt Firmware for PineTime Smart Watch_](https://medium.com/@ly.lee/build-and-flash-rust-mynewt-firmware-for-pinetime-smart-watch-5e14259c55?source=friends_link&sk=150b2a73b84144e5ef25b985e65aebe9)
+1. [_Build and Flash Rust+Mynewt Firmware for PineTime Smart Watch_](https://lupyuen.github.io/articles/build-and-flash-rust-mynewt-firmware-for-pinetime-smart-watch)
 
-1. [_Debug Rust+Mynewt Firmware for PineTime on Raspberry Pi_](https://medium.com/@ly.lee/debug-rust-mynewt-firmware-for-pinetime-on-raspberry-pi-4b9ac2d093a9?source=friends_link&sk=edb508c31e43d3ec40ecd8554f3405f6)
+1. [_Debug Rust+Mynewt Firmware for PineTime on Raspberry Pi_](https://lupyuen.github.io/articles/debug-rust-mynewt-firmware-for-pinetime-on-raspberry-pi)
 
-1. [_Sneak Peek of PineTime Smart Watch… And why it's perfect for teaching IoT_](https://medium.com/swlh/sneak-peek-of-pinetime-smart-watch-and-why-its-perfect-for-teaching-iot-81b74161c159?source=friends_link&sk=d9301466f5499bece3e7b638e99ec20d)
+1. [_Sneak Peek of PineTime Smart Watch… And why it's perfect for teaching IoT_](https://lupyuen.github.io/articles/sneak-peek-of-pinetime-smart-watch-and-why-its-perfect-for-teaching-iot)
 
-1. [_Building a Rust Driver for PineTime’s Touch Controller_](https://medium.com/@ly.lee/building-a-rust-driver-for-pinetimes-touch-controller-cbc1a5d5d3e9?source=friends_link&sk=d8cf73fc943d9c0e960627d768f309cb)
+1. [_Building a Rust Driver for PineTime’s Touch Controller_](https://lupyuen.github.io/articles/building-a-rust-driver-for-pinetimes-touch-controller)
 
-1. [_Porting [druid] Rust Widgets to PineTime Smart Watch_](https://medium.com/@ly.lee/porting-druid-rust-widgets-to-pinetime-smart-watch-7e1d5a5d977a?source=friends_link&sk=09b153c68483f7fa9e63350efd167b07)
+1. [_Porting [druid] Rust Widgets to PineTime Smart Watch_](https://lupyuen.github.io/articles/porting-druid-rust-widgets-to-pinetime-smart-watch)
 
-1. [_Optimising PineTime’s Display Driver with Rust and Mynewt_](https://medium.com/@ly.lee/optimising-pinetimes-display-driver-with-rust-and-mynewt-3ba269ea2f5c?source=friends_link&sk=4d2cbd2e6cd2343eed62d214814f7b81)
+1. [_Optimising PineTime’s Display Driver with Rust and Mynewt_](https://lupyuen.github.io/articles/optimising-pinetimes-display-driver-with-rust-and-mynewt)
 
-1. [_OpenOCD on Raspberry Pi: Better with SWD on SPI_](https://medium.com/@ly.lee/openocd-on-raspberry-pi-better-with-swd-on-spi-7dea9caeb590?source=friends_link&sk=df399bfd913d3e262447d28aa5af6b63)
+1. [_OpenOCD on Raspberry Pi: Better with SWD on SPI_](https://lupyuen.github.io/articles/openocd-on-raspberry-pi-better-with-swd-on-spi)
 
 1. [_CHIP-8 Game Emulator in Rust for PineTime Smart Watch_](https://lupyuen.github.io/pinetime-rust-mynewt/articles/chip8)
 
@@ -97,7 +97,7 @@ The following articles were written for the older version of this firmware. Refe
 
 The firmware design is similar to this earlier article on nRF52...
 
-[_Coding nRF52 with Rust and Apache Mynewt on Visual Studio Code_](https://medium.com/@ly.lee/coding-nrf52-with-rust-and-apache-mynewt-on-visual-studio-code-9521bcba6004?source=friends_link&sk=bb4e2523b922d0870259ab3fa696c7da)
+[_Coding nRF52 with Rust and Apache Mynewt on Visual Studio Code_](https://lupyuen.github.io/articles/coding-nrf52-with-rust-and-apache-mynewt-on-visual-studio-code)
 
 [More Articles](https://lupyuen.github.io)
 
@@ -165,7 +165,7 @@ If you are building from this repository from scratch instead of the Released Pa
 
     __For Raspberry Pi:__ Install `openocd-spi` according to the instructions here...
 
-    [_"OpenOCD on Raspberry Pi: Better with SWD on SPI"_](https://medium.com/@ly.lee/openocd-on-raspberry-pi-better-with-swd-on-spi-7dea9caeb590?source=friends_link&sk=df399bfd913d3e262447d28aa5af6b63)
+    [_"OpenOCD on Raspberry Pi: Better with SWD on SPI"_](https://lupyuen.github.io/articles/openocd-on-raspberry-pi-better-with-swd-on-spi)
 
 1.  Download the [Arm Embedded Toolchain 9-2020-q2-update](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads). Other versions of the toolchain are known to have problems building the firmware.
 
@@ -534,7 +534,7 @@ If we're using ST-Link v2 for flashing PineTime, set `swd_device` as follows...
 swd_device=scripts/nrf52/swd-stlink.ocd
 ```
 
-If we're using [Raspberry Pi SPI](https://medium.com/@ly.lee/openocd-on-raspberry-pi-better-with-swd-on-spi-7dea9caeb590?source=friends_link&sk=df399bfd913d3e262447d28aa5af6b63) for flashing PineTime, set `swd_device` as follows...
+If we're using [Raspberry Pi SPI](https://lupyuen.github.io/articles/openocd-on-raspberry-pi-better-with-swd-on-spi) for flashing PineTime, set `swd_device` as follows...
 
 ```bash
 #  Select Raspberry Pi as SWD Programmer
