@@ -466,6 +466,8 @@ _["Firmware Update over Bluetooth Low Energy on PineTime Smart Watch"](https://l
 
 _["Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest)_
 
+[If you found this article useful, please sponsor me a coffee 🙏](https://github.com/sponsors/lupyuen)
+
 [Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
 
 [RSS Feed](https://lupyuen.github.io/rss.xml)
