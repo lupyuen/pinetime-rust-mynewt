@@ -72,6 +72,8 @@
 <li><a href="#spi-flash-file-system">14 SPI Flash File System</a><ul></ul></li>
 <li><a href="#further-reading">15 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/spiflash-config.png" alt="Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)" /></p>
 <p><a href="https://lupyuen.github.io/images/spiflash-config.png"><em>Larger image here</em></a></p>
+    <p>📝 <em>15 May 2020</em></p>
+
 <p>There's one thing truly remarkable about the <a href="https://mynewt.apache.org/"><strong>Apache Mynewt</strong></a> embedded operating system... <strong>Almost any feature may be switched on by editing a configuration file!</strong></p>
 <p>Today we'll learn to configure Mynewt OS to enable access to <strong>SPI Flash Memory</strong> on <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>... Just by editing two configuration files (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml"><code>syscfg.yml</code></a> and <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml"><code>pkg.yml</code></a>), and making some minor code changes (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c"><code>hal_bsp.c</code></a>).</p>
 <p>These steps will work for any Nordic nRF52 device, and probably STM32 devices too (<a href="https://lupyuen.github.io/images/spiflash-config.png">see diagram above</a>)...</p>
