@@ -715,11 +715,11 @@ We need to set the Firmware Status to Pending so that MCUBoot will swap the firm
 
 Here is the function `boot_set_pending` from the MCUBoot Library for setting the Firmware Status to Pending...
 
-[`mcuboot/boot/bootutil/src/bootutil_misc.c`](https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/src/bootutil_misc.c#L645-L717)
+[`mcuboot/boot/bootutil/src/bootutil_misc.c`](https://github.com/mcu-tools/mcuboot/blob/master/boot/bootutil/src/bootutil_public.c#L484-L544)
 
 The function sets the pending flag in the image trailer...
 
-[MCUBoot Image Trailer](https://juullabs-oss.github.io/mcuboot/design.html#image-trailer)
+[MCUBoot Image Trailer](https://github.com/mcu-tools/mcuboot/blob/master/docs/design.md#image-trailer)
 
 Once we set the Swap Type to `BOOT_SWAP_TYPE_TEST`, MCUBoot will swap in the new firmware.
 
