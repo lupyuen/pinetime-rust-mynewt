@@ -254,29 +254,12 @@ If you are building from this repository from scratch instead of the Released Pa
     ```bash
     cd ~/pinetime/pinetime-rust-mynewt
     newt install
+    mkdir repos
+    cp -r patch/repos-windows/.configs repos
+    cd repos
+    git clone --recursive --branch mynewt_1_7_0_tag https://github.com/apache/mynewt-core.git apache-mynewt-core
+    git clone --recursive --branch nimble_1_2_0_tag https://github.com/apache/mynewt-nimble.git apache-mynewt-nimble
     ```
-
-    We should see...
-
-    ```
-    Downloading repository mynewt-core (commit: master) from https://github.com/apache/mynewt-core.git
-    Downloading repository mynewt-mcumgr (commit: master) from https://github.com/apache/mynewt-mcumgr.git
-    Downloading repository mynewt-nimble (commit: master) from https://github.com/apache/mynewt-nimble.git
-    Downloading repository mcuboot (commit: master) from https://github.com/JuulLabs-OSS/mcuboot.git
-    Making the following changes to the project:
-        install apache-mynewt-core (1.7.0)
-        install apache-mynewt-nimble (1.2.0)
-        install mcuboot (1.3.1)
-    apache-mynewt-core successfully installed version 1.7.0
-    apache-mynewt-nimble successfully installed version 1.2.0
-    Error: Error updating "mcuboot": error: The following untracked working tree files would be overwritten by checkout:
-            ext/mbedtls/include/mbedtls/check_config.h
-            ext/mbedtls/include/mbedtls/config.h
-    Please move or remove them before you switch branches.
-    Aborting
-    ```
-
-    Ignore the `mcuboot` error above and proceed to the next step.
 
     __For Windows:__
 
@@ -313,7 +296,6 @@ If you are building from this repository from scratch instead of the Released Pa
 
     ```bash
     cd ~/pinetime/pinetime-rust-mynewt/repos
-    rm -rf mcuboot
     git clone --recursive --branch v1.5.0 https://github.com/JuulLabs-OSS/mcuboot
     ```
 
