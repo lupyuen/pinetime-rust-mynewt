@@ -114,7 +114,7 @@ _Firmware Update with Rollback on PineTime_
 
 1. PineTime should start correctly with the old firmware with SMP service operational. We may perform the firmware update again when the new firmware is fixed.
 
-Thankfully most of this firmware update and rollback logic is built into the [MCU Manager Library](https://github.com/apache/mynewt-mcumgr). For the swapping of firmware we'll use another open-source component: [__MCUBoot Bootloader__](https://juullabs-oss.github.io/mcuboot/).  More about MCUBoot in a while.
+Thankfully most of this firmware update and rollback logic is built into the [MCU Manager Library](https://github.com/apache/mynewt-mcumgr). For the swapping of firmware we'll use another open-source component: [__MCUBoot Bootloader__](https://mcuboot.com).  More about MCUBoot in a while.
 
 # PineTime Flash ROM Layout
 
@@ -146,7 +146,7 @@ _TODO: Standby Firmware Image should be extended by 12 KB. User File System shou
 
 _Proposed Flash ROM Layout for PineTime. Derived from this [Flash ROM layout for nRF52832](https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml)._
 
-1. __Bootloader__: Located at the start of PineTime's Flash ROM, the open-source [MCUBoot Bootloader](https://juullabs-oss.github.io/mcuboot) is the first thing that PineTime runs upon booting. 
+1. __Bootloader__: Located at the start of PineTime's Flash ROM, the open-source [MCUBoot Bootloader](https://mcuboot.com) is the first thing that PineTime runs upon booting. 
 
     For firmware update and rollback, the Bootloader swaps the Active and Standby Firmware Images. Then it jumps to the Active Firmware code.
 
@@ -473,7 +473,7 @@ We have covered two software components necessary for rolling out PineTime firmw
 
 1. __NimBLE Bluetooth Stack:__ Implements the Bluetooth LE network transport for communicating with mobile phones
 
-Now we'll cover the third and final open-source component: [__MCUBoot Bootloader__](https://juullabs-oss.github.io/mcuboot).  When PineTime has been configured for firmware update, the MCUBoot Bootloader is the first thing that PineTime executes when booting.
+Now we'll cover the third and final open-source component: [__MCUBoot Bootloader__](https://mcuboot.com).  When PineTime has been configured for firmware update, the MCUBoot Bootloader is the first thing that PineTime executes when booting.
 
 MCUBoot (coded in C) plays a critical role in the firmware update process... During firmware update, MCUBoot swaps the old and new firmware images (and swaps them back if the new firmware fails to start)
 
@@ -500,7 +500,7 @@ od -A x -t x1 my_sensor_app.img
 
 _What's inside the Image Header?_
 
-The Image Header consists of 32 bytes (`0x20`) in little endian byte order ([as defined here](https://juullabs-oss.github.io/mcuboot/design.html))...
+The Image Header consists of 32 bytes (`0x20`) in little endian byte order ([as defined here](https://mcuboot.com/design.html))...
 
 | ROM Address | Offset in <br> Image File | Size <br> (bytes) | Example | Contents |
 | :-- | :-- | --: | :-- | :-- |
@@ -707,7 +707,7 @@ When running the firmware image with the build of MCUBoot from the previous sect
 
 ![Running the sample firmware image](https://lupyuen.github.io/images/dfu-runimage.png)
 
-[More about `imgtool.py`](https://juullabs-oss.github.io/mcuboot/imgtool.html)
+[More about `imgtool.py`](https://mcuboot.com/mcuboot/imgtool.html)
 
 # Mark PineTime Firmware As Pending
 
@@ -715,11 +715,11 @@ We need to set the Firmware Status to Pending so that MCUBoot will swap the firm
 
 Here is the function `boot_set_pending` from the MCUBoot Library for setting the Firmware Status to Pending...
 
-[`mcuboot/boot/bootutil/src/bootutil_misc.c`](https://github.com/mcu-tools/mcuboot/blob/master/boot/bootutil/src/bootutil_public.c#L484-L544)
+[`mcuboot/boot/bootutil/src/bootutil_public.c`](https://github.com/mcu-tools/mcuboot/blob/master/boot/bootutil/src/bootutil_public.c#L484-L544)
 
 The function sets the pending flag in the image trailer...
 
-[MCUBoot Image Trailer](https://github.com/mcu-tools/mcuboot/blob/master/docs/design.md#image-trailer)
+[MCUBoot Image Trailer](https://mcuboot.com/mcuboot/design.html#image-trailer)
 
 Once we set the Swap Type to `BOOT_SWAP_TYPE_TEST`, MCUBoot will swap in the new firmware.
 
@@ -748,7 +748,7 @@ int boot_set_confirmed(void)
 
 `boot_set_confirmed()` is supported on Mynewt, RIOT and Zephyr.
 
-See [`bootutil.h`](https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/include/bootutil/bootutil.h#L103) and [`bootutil_misc.c`](https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/src/bootutil_misc.c#L718-L774)
+See [`bootutil_public.h`](https://github.com/mcu-tools/mcuboot/blob/master/boot/bootutil/include/bootutil/bootutil_public.h#L170) and [`bootutil_public.c`](https://github.com/mcu-tools/mcuboot/blob/master/boot/bootutil/src/bootutil_public.c#L553-L602)
 
 _Where is the Image OK status stored?_
 
@@ -770,7 +770,7 @@ const uint32_t boot_img_magic[4] = {
   0x8079b62c };
 ```
 
-More about the [Image Trailer](https://juullabs-oss.github.io/mcuboot/design.html#image-trailer)
+More about the [Image Trailer](https://mcuboot.com/design.html#image-trailer)
 
 _How do we inspect the Image OK status?_
 
@@ -805,7 +805,7 @@ Split status: N/A (0)
 
 The complete Raspberry Pi log may be found near the end of the article.
 
-[More about the design of MCUBoot](https://juullabs-oss.github.io/mcuboot/design.html)
+[More about the design of MCUBoot](https://mcuboot.com/design.html)
 
 # Checklist for PineTime Firmware Developers
 
