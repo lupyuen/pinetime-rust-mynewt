@@ -92,7 +92,7 @@ set -e  # Stop on errors
 echo ; echo "----- Build Rust app" 
 set -x
 cargo build $rust_build_options
-set +x
+#set +x
 
 #  Export the metadata for the Rust build.
 cargo metadata --format-version 1 >logs/libapp.json
