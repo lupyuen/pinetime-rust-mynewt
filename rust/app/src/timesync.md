@@ -700,6 +700,8 @@ Let's learn how in the next article...
 
 -   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
 
+-   [Discuss this article on Reddit](https://www.reddit.com/r/PINE64official/comments/jbz1qc/bluetooth_time_sync_and_lvgl_on_pinetime_mynewt/?utm_source=share&utm_medium=web2x&context=3)
+
 -   [Check out my articles](https://lupyuen.github.io)
 
 -   [RSS Feed](https://lupyuen.github.io/rss.xml)
