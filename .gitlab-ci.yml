@@ -31,7 +31,8 @@ build:
     # Install newt
     - source scripts/install-version.sh
     - pushd /tmp
-    - git clone --branch $mynewt_version https://github.com/apache/mynewt-newt/
+    #  "master" was previously "$mynewt_version". See https://github.com/apache/mynewt-core/pull/2430
+    - git clone --branch master https://github.com/apache/mynewt-newt/
     - cd mynewt-newt/
     - ./build.sh
     - newt/newt version
@@ -40,18 +41,15 @@ build:
     - newt version
 
     # Download Mynewt source files
-    # Ignore Error: Error updating "mcuboot": error: The following untracked working tree files would be overwritten by checkout:
-    # ext/mbedtls/include/mbedtls/check_config.h
-    # ext/mbedtls/include/mbedtls/config.h
     - export PATH=$PATH:/tmp/mynewt-newt/newt
-    - newt install -v -f || ls -l repos
-    #  Overwrite MCUBoot with newer version
     - source scripts/install-version.sh
+    - mkdir repos
+    - cp -r patch/repos-windows/.configs repos
     - pushd repos
-    - rm -rf mcuboot
-    - git clone --branch $mcuboot_version https://github.com/JuulLabs-OSS/mcuboot
-    # git clone --branch $mynewt_version https://github.com/apache/mynewt-core
-    # git clone --branch $nimble_version https://github.com/apache/mynewt-nimble
+    - git clone --branch $mcuboot_version https://github.com/JuulLabs-OSS/mcuboot mcuboot
+    - git clone --branch $mynewt_version https://github.com/apache/mynewt-core    apache-mynewt-core
+    - git clone --branch $nimble_version https://github.com/apache/mynewt-nimble  apache-mynewt-nimble
+    - ls -la
     - popd
 
     # Install Rust Target thumbv7em-none-eabihf
@@ -82,7 +80,7 @@ build:
     - ./scripts/nrf52/image-app.sh
 
     # Copy Bootloader and Application Firmware Artifacts to the top level
-    - cp bin/targets/nrf52_boot/app/boot/mynewt/mynewt.* .
+    - cp bin/targets/nrf52_boot/app/@mcuboot/boot/mynewt/mynewt.* .
     - cp bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.* .
 
   #########################################################################################
