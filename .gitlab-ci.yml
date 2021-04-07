@@ -99,10 +99,10 @@ build:
 
   cache:
     paths:
-      - "*.o"
-      - /tmp/go
-      - /tmp/mynewt-newt
-      - /tmp/gcc-arm-none-eabi-9-2020-q2-update
+      # - "*.o"
+      # - /tmp/go
+      # - /tmp/mynewt-newt
+      # - /tmp/gcc-arm-none-eabi-9-2020-q2-update
 
 #########################################################################################
 # Run Tests
