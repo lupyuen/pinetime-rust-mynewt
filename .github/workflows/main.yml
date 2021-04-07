@@ -162,13 +162,13 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: mynewt.elf
-        path: bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
+        path: bin/targets/nrf52_boot/app/@mcuboot/boot/mynewt/mynewt.elf
 
     - name: Upload Bootloader Outputs
       uses: actions/upload-artifact@v2
       with:
         name: mynewt.zip
-        path: bin/targets/nrf52_boot/app/boot/mynewt/mynewt.*
+        path: bin/targets/nrf52_boot/app/@mcuboot/boot/mynewt/mynewt.*
 
     #########################################################################################
     # Build and Upload Rust+Mynewt Application Firmware
