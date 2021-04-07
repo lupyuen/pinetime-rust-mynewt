@@ -4,6 +4,8 @@
 
 _Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch_
 
+📝 _25 Jul 2020_
+
 __We ❤️ &nbsp; Old Underwear...__
 
 They feel comfy, they fit our contours. Nevermind the holes and the old stains 🤢
@@ -1378,7 +1380,15 @@ Wayland feels like New Underwear... And it needs a New App Toolkit like LVGL to 
 
 If you're keen to help make __LVGL the Newer, Simpler App Toolkit__ on Wayland, Ubuntu Touch and PinePhone, [please lemme know](https://github.com/lupyuen)! 😀
 
-[Check out my RSS Feed](https://lupyuen.github.io/rss.xml)
+-   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
+
+-   [Check out my articles](https://lupyuen.github.io)
+
+-   [RSS Feed](https://lupyuen.github.io/rss.xml)
+
+_Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
+
+[`pinetime-rust-mynewt/rust/ app/src/wayland.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/wayland.md)
 
 # Configure SSH on PinePhone
 

@@ -4,6 +4,8 @@
 
 _GTK+3 Go App with VSCodium and Manjaro Xfce on Pinebook Pro_
 
+📝 _18 Jun 2020_
+
 Creating desktop apps on Linux doesn't have to be hard... Let's build __[GTK+3](https://www.gtk.org/) apps in [Go](https://golang.org/)__ with the __[`gotk3`](https://github.com/gotk3/gotk3)__ library!
 
 Read on to find out how we install the GTK+3 Go tools to build desktop apps on __Manjaro, Arch Linux, Ubuntu and Debian__.  
@@ -213,6 +215,12 @@ _["Firmware Update over Bluetooth Low Energy on PineTime Smart Watch"](https://l
 
 _["Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest)_
 
-[Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
+-   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
 
-[RSS Feed](https://lupyuen.github.io/rss.xml)
+-   [Check out my articles](https://lupyuen.github.io)
+
+-   [RSS Feed](https://lupyuen.github.io/rss.xml)
+
+_Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
+
+[`pinetime-rust-mynewt/rust/ app/src/gotk3.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/gotk3.md)

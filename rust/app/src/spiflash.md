@@ -4,6 +4,8 @@
 
 [_Larger image here_](https://lupyuen.github.io/images/spiflash-config.png)
 
+📝 _15 May 2020_
+
 There's one thing truly remarkable about the [__Apache Mynewt__](https://mynewt.apache.org/) embedded operating system... __Almost any feature may be switched on by editing a configuration file!__
 
 Today we'll learn to configure Mynewt OS to enable access to __SPI Flash Memory__ on [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime)... Just by editing two configuration files ([`syscfg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml) and [`pkg.yml`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml)), and making some minor code changes ([`hal_bsp.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c)).
@@ -789,4 +791,12 @@ Note that Mynewt's Flash HAL uses absolute addresses (instead of addresses relat
 
 # Further Reading
 
-[Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
+-   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
+
+-   [Check out my articles](https://lupyuen.github.io)
+
+-   [RSS Feed](https://lupyuen.github.io/rss.xml)
+
+_Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
+
+[`pinetime-rust-mynewt/rust/ app/src/spiflash.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/spiflash.md)

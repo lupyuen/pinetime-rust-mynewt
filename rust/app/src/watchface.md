@@ -2,6 +2,8 @@
 
 ![PineTime Smart Watch with Rust Watch Face](https://lupyuen.github.io/images/timesync-title.png)
 
+📝 _17 Oct 2020_
+
 _We can build Watch Faces for [PineTime Smart Watch](https://wiki.pine64.org/index.php/PineTime) in C... Right?_
 
 Sure we can [create Watch Faces in C](https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync#create-watch-face). But as our Watch Face code in C grows in complexity... It becomes harder to test, deploy, maintain and extend.
@@ -854,13 +856,15 @@ Lemme know if you're keen to help! :-)
 
 In the meantime, please go right ahead to create your own Watch Faces and publish them on crates.io... So that all PineTime Owners can share, learn and enjoy :-)
 
-[Check out my PineTime articles](https://lupyuen.github.io)
+-   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
 
-[RSS Feed](https://lupyuen.github.io/rss.xml)
+-   [Check out my articles](https://lupyuen.github.io)
+
+-   [RSS Feed](https://lupyuen.github.io/rss.xml)
 
 _Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
 
-[`github.com/lupyuen/pinetime-rust-mynewt/rust/app/src/watchface.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/watchface.md)
+[`pinetime-rust-mynewt/rust/ app/src/watchface.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/watchface.md)
 
 ![Custom PineTime Firmware Built In The Cloud](https://lupyuen.github.io/images/cloud-firmware.jpg)
 

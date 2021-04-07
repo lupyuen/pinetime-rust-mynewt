@@ -4,6 +4,8 @@
 
 _Flutter App with Bluetooth Low Energy running on a real Android phone, connected to VSCode Debugger_
 
+📝 _4 Jun 2020_
+
 Ready to create your very first _"Hello World"_ app with [__Flutter__](https://flutter.dev/)?
 
 Why not make a sophisticated app that says...
@@ -466,8 +468,12 @@ _["Firmware Update over Bluetooth Low Energy on PineTime Smart Watch"](https://l
 
 _["Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest)_
 
-[If you found this article useful, please sponsor me a coffee 🙏](https://github.com/sponsors/lupyuen)
+-   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
 
-[Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
+-   [Check out my articles](https://lupyuen.github.io)
 
-[RSS Feed](https://lupyuen.github.io/rss.xml)
+-   [RSS Feed](https://lupyuen.github.io/rss.xml)
+
+_Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
+
+[`pinetime-rust-mynewt/rust/ app/src/flutter.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/flutter.md)

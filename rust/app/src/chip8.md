@@ -4,6 +4,8 @@
 
 _Space Invaders running on CHIP-8 Emulator on PineTime Smart Watch_
 
+📝 _5 Mar 2020_
+
 Running Retro Games with Rust is not that hard on [PineTime Smart Watch](https://wiki.pine64.org/index.php/PineTime). Here's how I ported a CHIP-8 Game Emulator to PineTime...
 
 [More about CHIP-8](http://www.multigesture.net/articles/how-to-write-an-emulator-chip-8-interpreter/)
@@ -1252,4 +1254,12 @@ Take a look at the demo video... Rendering CHIP-8 on a curved surface doesn't se
 
 # Further Reading
 
-[Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
+-   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
+
+-   [Check out my articles](https://lupyuen.github.io)
+
+-   [RSS Feed](https://lupyuen.github.io/rss.xml)
+
+_Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
+
+[`pinetime-rust-mynewt/rust/ app/src/chip8.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/chip8.md)

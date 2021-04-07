@@ -1,5 +1,7 @@
 # Bluetooth Time Sync and LVGL on PineTime Mynewt
 
+📝 _16 Oct 2020_
+
 If you have a [PineTime Smart Watch](https://wiki.pine64.org/index.php/PineTime) and an Android phone, try this...
 
 1. Install the [__nRF Connect__](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app on your Android phone. Launch the app.
@@ -696,13 +698,15 @@ Let's learn how in the next article...
 
 ["Create Your Own PineTime Watch Face in Rust... And Publish on crates.io"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/watchface)
 
-[Check out my PineTime articles](https://lupyuen.github.io)
+-   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
 
-[RSS Feed](https://lupyuen.github.io/rss.xml)
+-   [Check out my articles](https://lupyuen.github.io)
+
+-   [RSS Feed](https://lupyuen.github.io/rss.xml)
 
 _Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
 
-[`github.com/lupyuen/pinetime-rust-mynewt/rust/app/src/timesync.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/timesync.md)
+[`pinetime-rust-mynewt/rust/ app/src/timesync.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/timesync.md)
 
 ![Custom PineTime Firmware Built In The Cloud](https://lupyuen.github.io/images/cloud-firmware.jpg)
 

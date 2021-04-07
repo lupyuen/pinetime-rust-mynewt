@@ -4,6 +4,8 @@
 
 _PineTime Companion App running on an Android phone, fetching the firmware versions from PineTime Smart Watch wirelessly_
 
+📝 _27 Jun 2020_
+
 [__Flutter is awesome__](https://flutter.dev/) for creating mobile apps for Android and iOS... The programming language is modern [__(Dart)__](https://dart.dev/), the debugging tools are excellent [__(VSCode and Dart DevTools)__](https://flutter.dev/docs/development/tools/vs-code).
 
 That's why we have selected Flutter for creating the open source __[Android and iOS Companion App](https://github.com/lupyuen/pinetime-companion/tree/bloc)__ for __[PineTime Smart Watch](https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime)__: For updating firmware, syncing date/time, pushing mobile notifications, controlling our smart home gadgets, ... and so much more!
@@ -1359,9 +1361,15 @@ _["Firmware Update over Bluetooth Low Energy on PineTime Smart Watch"](https://l
 
 _["Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest)_
 
-[Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
+-   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
 
-[RSS Feed](https://lupyuen.github.io/rss.xml)
+-   [Check out my articles](https://lupyuen.github.io)
+
+-   [RSS Feed](https://lupyuen.github.io/rss.xml)
+
+_Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
+
+[`pinetime-rust-mynewt/rust/ app/src/bloc.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/bloc.md)
 
 # Sample Android Debug Log
 

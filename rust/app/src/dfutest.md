@@ -4,6 +4,8 @@
 
 _Wireless Firmware Update In Action on PineTime Smart Watch_
 
+📝 _20 May 2020_
+
 We have implemented a __Wireless Firmware Update__ feature for [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) that's described here...
 
 _["MCUBoot Bootloader for PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot)_
@@ -793,6 +795,12 @@ Hence we have successfully accomplished Two-Way Wireless Firmware Switching: Fro
 
 # Further Reading
 
-[Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
+-   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
 
-[RSS Feed](https://lupyuen.github.io/rss.xml)
+-   [Check out my articles](https://lupyuen.github.io)
+
+-   [RSS Feed](https://lupyuen.github.io/rss.xml)
+
+_Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
+
+[`pinetime-rust-mynewt/rust/ app/src/dfutest.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/dfutest.md)

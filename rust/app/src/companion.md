@@ -2,6 +2,8 @@
 
 ![Convert Go to Flutter and Dart for PineTime Companion App](https://lupyuen.github.io/images/companion-title.png)
 
+📝 _17 Jun 2020_
+
 Can we take a __single code base__... And turn it into a mobile app for __Android, iOS and Linux phones__ (like PinePhone)?
 
 And code it in a __modern programming language__ with __Garbage Collection__... Without the scary C pointers?
@@ -1005,6 +1007,12 @@ _["Firmware Update over Bluetooth Low Energy on PineTime Smart Watch"](https://l
 
 _["Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest)_
 
-[Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
+-   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
 
-[RSS Feed](https://lupyuen.github.io/rss.xml)
+-   [Check out my articles](https://lupyuen.github.io)
+
+-   [RSS Feed](https://lupyuen.github.io/rss.xml)
+
+_Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
+
+[`pinetime-rust-mynewt/rust/ app/src/companion.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/companion.md)

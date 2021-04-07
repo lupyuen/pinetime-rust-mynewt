@@ -1134,8 +1134,6 @@ Split status: N/A (0)
 
 [ UPDATE: [Check out the followup article here](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot) ]
 
-[Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
-
 -   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
 
 -   [Check out my articles](https://lupyuen.github.io)

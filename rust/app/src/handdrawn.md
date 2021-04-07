@@ -1,6 +1,10 @@
-# Draw your own PineTime Watch Face... From WebAssembly to Embedded Rust
+# (UNFINISHED) Draw your own PineTime Watch Face... From WebAssembly to Embedded Rust
 
 ![PineTime Smart Watch with Hand-Drawn Watch Face](https://lupyuen.github.io/images/handdrawn-title.png)
+
+📝 _18 Nov 2020_
+
+__NOTE: THIS ARTICLE IS UNFINISHED__
 
 _Q: We're in the middle of the pandemic... Is there something fun and useful that we can learn on our own?_
 
@@ -807,10 +811,12 @@ Lemme know if you're keen to help! :-)
 
 In the meantime, please go right ahead to create your own Watch Faces and publish them on crates.io... So that all PineTime Owners can share, learn and enjoy :-)
 
-[Check out my PineTime articles](https://lupyuen.github.io)
+-   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
 
-[RSS Feed](https://lupyuen.github.io/rss.xml)
+-   [Check out my articles](https://lupyuen.github.io)
+
+-   [RSS Feed](https://lupyuen.github.io/rss.xml)
 
 _Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
 
-[`github.com/lupyuen/pinetime-rust-mynewt/rust/app/src/handdrawn.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/handdrawn.md)
+[`pinetime-rust-mynewt/rust/ app/src/handdrawn.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/handdrawn.md)

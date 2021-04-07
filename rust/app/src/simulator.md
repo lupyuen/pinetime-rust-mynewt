@@ -4,6 +4,8 @@
 
 _Custom PineTime Watch Face created in C++ by [SravanSenthiln1](https://twitter.com/SravanSenthiln1): PineTime Watch Face Simulator vs Real PineTime_
 
+📝 _19 Aug 2020_
+
 Now we can build and preview Watch Faces for [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) in the Web Browser, thanks to WebAssembly...
 
 - [Online Demo](https://lupyuen.github.io/pinetime-lab/lvgl.html)
@@ -320,7 +322,15 @@ We have a lot to do, please chat with us if you're keen to help...
 
 And remember to enjoy your PineTime :-)
 
-[Check out my RSS Feed](https://lupyuen.github.io/rss.xml)
+-   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
+
+-   [Check out my articles](https://lupyuen.github.io)
+
+-   [RSS Feed](https://lupyuen.github.io/rss.xml)
+
+_Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
+
+[`pinetime-rust-mynewt/rust/ app/src/simulator.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/simulator.md)
 
 # How It Works
 

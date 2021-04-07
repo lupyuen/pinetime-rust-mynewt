@@ -2,6 +2,8 @@
 
 ![PineTime Smart Watch](https://lupyuen.github.io/images/pinetime-title.jpg)
 
+📝 _19 Jun 2020_
+
 > __Update 13 Jul 2020:__ 1️⃣ &nbsp; We are getting ready to factory-preload PineTime with open source InfiniTime FreeRTOS firmware ([ported by JF002](https://github.com/JF002/Pinetime)) and MCUBoot Bootloader ([ported by lupyuen](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot))... 2️⃣ &nbsp; PineTime Owners may use the [nRF Connect](https://www.nordicsemi.com/Software-and-tools/Development-Tools/nRF-Connect-for-mobile) mobile app (Android / iOS) to update PineTime's firmware and sync PineTime's date/time... 3️⃣ &nbsp; PineTime will be shipped without Flash ROM protection... 4️⃣ &nbsp; We no longer need a Raspberry Pi to remove Flash ROM protection, but I recommend getting an ST-Link v2 ([or compatible](https://www.aliexpress.com/wholesale?catId=0&initiative_id=SB_20180924134644&SearchText=st-link+v2&switch_new_app=y)) for flashing via SWD... 5️⃣ &nbsp; [Get your PineTime Dev Kit today!](https://store.pine64.org/product/pinetime-dev-kit/)
 
 [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime) works great with open source embedded software platforms like __Arduino, FreeRTOS, RIOT, Mynewt, wasp-os, Zephyr,__ ... None of which are based on Linux!
@@ -146,6 +148,12 @@ You're welcome to join us and make the open source PineTime software even better
 
 [PineTime Wiki](https://wiki.pine64.org/index.php/PineTime)
 
-[My PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
+-   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
 
-[My RSS Feed](https://lupyuen.github.io/rss.xml)
+-   [Check out my articles](https://lupyuen.github.io)
+
+-   [RSS Feed](https://lupyuen.github.io/rss.xml)
+
+_Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
+
+[`pinetime-rust-mynewt/rust/ app/src/pinetime.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/pinetime.md)

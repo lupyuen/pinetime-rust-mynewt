@@ -2,6 +2,8 @@
 
 ![PineTime Firmware Programming vs Fortnite](https://lupyuen.github.io/images/cloud-title.jpg)
 
+📝 _27 Jul 2020_
+
 Programming the firmware of our gadgets (like [__PineTime Smart Watch__](https://wiki.pine64.org/index.php/PineTime)) has always been cumbersome...
 
 1. Get a proper computer _(Windows tends to be problematic)_
@@ -398,13 +400,15 @@ We have a lot to do, please chat with us if you're keen to help...
 
 And remember to enjoy your PineTime :-)
 
-[Check out my PineTime articles](https://lupyuen.github.io)
+-   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
 
-[RSS Feed](https://lupyuen.github.io/rss.xml)
+-   [Check out my articles](https://lupyuen.github.io)
+
+-   [RSS Feed](https://lupyuen.github.io/rss.xml)
 
 _Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
 
-[`github.com/lupyuen/pinetime-rust-mynewt/rust/app/src/cloud.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/cloud.md)
+[`pinetime-rust-mynewt/rust/ app/src/cloud.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/cloud.md)
 
 # How It Works
 
