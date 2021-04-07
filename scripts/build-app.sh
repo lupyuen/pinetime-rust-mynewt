@@ -92,7 +92,7 @@ set -e  # Stop on errors
 echo ; echo "----- Build Rust app" 
 set -x
 cargo build $rust_build_options
-####set +x
+set +x
 
 #  Export the metadata for the Rust build.
 cargo metadata --format-version 1 >logs/libapp.json
@@ -114,10 +114,9 @@ rust_build=$rust_build_dir/libapp.a
 for f in $rust_build
 do
     if [ -e $f ]; then
-        echo "$ar_cmd x $f"
         set -x
         $ar_cmd x $f
-        ####set +x
+        set +x
     fi
 done
 
