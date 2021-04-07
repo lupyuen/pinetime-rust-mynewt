@@ -93,6 +93,7 @@ echo ; echo "----- Build Rust app"
 set -x
 cargo build $rust_build_options
 ####set +x
+find . -name "*.a"
 
 #  Export the metadata for the Rust build.
 cargo metadata --format-version 1 >logs/libapp.json
@@ -108,7 +109,9 @@ fi
 pushd tmprustlib >/dev/null
 
 #  Extract the object (*.o) files in the compiled Rust output.
-####rust_build=$rust_build_dir/libapp.a
+rust_build=$rust_build_dir/libapp.a
+echo $rust_build
+ls -l $rust_build
 ####for f in $rust_build
 ####do
 ####    if [ -e $f ]; then
