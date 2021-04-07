@@ -47,7 +47,8 @@ jobs:
       run:  |
         source scripts/install-version.sh
         cd ${{ runner.temp }}
-        git clone --branch $mynewt_version https://github.com/apache/mynewt-newt/
+        #  "master" was previously "$mynewt_version". See https://github.com/apache/mynewt-core/pull/2430
+        git clone --branch master https://github.com/apache/mynewt-newt/
         cd mynewt-newt/
         ./build.sh
         newt/newt version
