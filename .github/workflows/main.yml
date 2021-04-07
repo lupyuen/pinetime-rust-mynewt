@@ -72,15 +72,16 @@ jobs:
         # ext/mbedtls/include/mbedtls/check_config.h
         # ext/mbedtls/include/mbedtls/config.h
         export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt
-        newt install -v -f || ls -l repos
+        ####newt install -v -f || ls -l repos
 
         #  Overwrite MCUBoot with newer version
         source scripts/install-version.sh
+        mkdir repos
         cd repos
-        rm -rf mcuboot
+        ####rm -rf mcuboot
         git clone --branch $mcuboot_version https://github.com/JuulLabs-OSS/mcuboot
-        # git clone --branch $mynewt_version https://github.com/apache/mynewt-core
-        # git clone --branch $nimble_version https://github.com/apache/mynewt-nimble
+        git clone --branch $mynewt_version https://github.com/apache/mynewt-core
+        git clone --branch $nimble_version https://github.com/apache/mynewt-nimble
 
     - name: Show files
       run:  set ; pwd ; ls -l
