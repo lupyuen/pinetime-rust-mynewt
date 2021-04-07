@@ -108,14 +108,14 @@ fi
 pushd tmprustlib >/dev/null
 
 #  Extract the object (*.o) files in the compiled Rust output.
-rust_build=$rust_build_dir/libapp.a
-for f in $rust_build
-do
-    if [ -e $f ]; then
-        #  echo "$ar_cmd x $f"
-        $ar_cmd x $f >/dev/null 2>&1
-    fi
-done
+#rust_build=$rust_build_dir/libapp.a
+#for f in $rust_build
+#do
+#    if [ -e $f ]; then
+#        #  echo "$ar_cmd x $f"
+#        $ar_cmd x $f >/dev/null 2>&1
+#    fi
+#done
 
 #  Archive the object (*.o) files into rustlib.a.
 #  echo "$ar_cmd r rustlib.a *.o"
