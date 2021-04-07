@@ -68,18 +68,11 @@ jobs:
     - name: Download Mynewt source files
       if:   steps.cache-mynewt.outputs.cache-hit != 'true'  # Install mynewt if not found in cache
       run:  |
-        # Ignore Error: Error updating "mcuboot": error: The following untracked working tree files would be overwritten by checkout:
-        # ext/mbedtls/include/mbedtls/check_config.h
-        # ext/mbedtls/include/mbedtls/config.h
         export PATH=$PATH:${{ runner.temp }}/mynewt-newt/newt
-        ####newt install -v -f || ls -l repos
-
-        #  Overwrite MCUBoot with newer version
         source scripts/install-version.sh
         mkdir repos
         cp -r patch/repos-windows/.configs repos
         cd repos
-        ####rm -rf mcuboot
         git clone --branch $mcuboot_version https://github.com/JuulLabs-OSS/mcuboot mcuboot
         git clone --branch $mynewt_version https://github.com/apache/mynewt-core    apache-mynewt-core
         git clone --branch $nimble_version https://github.com/apache/mynewt-nimble  apache-mynewt-nimble
@@ -206,7 +199,7 @@ jobs:
 
     - name: Find output
       run:  |
-        find bin/targets/nrf52_boot/app/boot/mynewt -name "mynewt.*" -ls
+        find bin/targets/nrf52_boot/app/@mcuboot/boot/mynewt    -name "mynewt.*"        -ls
         find bin/targets/nrf52_my_sensor/app/apps/my_sensor_app -name "my_sensor_app.*" -ls
       
 # Embedded Arm Toolchain will only be cached if the build succeeds.
