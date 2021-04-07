@@ -88,6 +88,9 @@ cargo build %rust_build_options%
 @if not exist tmprustlib (
     @mkdir tmprustlib
     @if errorlevel 1 goto :EOF
+    ::  Bin folder is needed to extract object files
+    @mkdir tmprustlib\bin
+    @if errorlevel 1 goto :EOF
 )
 @pushd tmprustlib
 @if errorlevel 1 goto :EOF
