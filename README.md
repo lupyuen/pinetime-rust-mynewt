@@ -253,7 +253,6 @@ If you are building from this repository from scratch instead of the Released Pa
 
     ```bash
     cd ~/pinetime/pinetime-rust-mynewt
-    newt install
     mkdir repos
     cp -r patch/repos-windows/.configs repos
     cd repos
