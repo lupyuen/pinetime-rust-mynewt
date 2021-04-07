@@ -14,5 +14,5 @@ newt build nrf52_boot
 newt size -v nrf52_boot
 
 #  Copy the disassembler and linker map to the logs folder. For Stub Bootloader, select "bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf.*"
-cp bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.lst logs
-cp bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.map logs
+# cp bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.lst logs
+# cp bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.map logs
