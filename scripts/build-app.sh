@@ -117,7 +117,9 @@ do
     if [ -e $f ]; then
         echo "$ar_cmd x $f"
         ls -l $f
-        $ar_cmd x $f >/dev/null 2>&1
+        $ar_cmd t $f
+        $ar_cmd x $f
+        ####$ar_cmd x $f >/dev/null 2>&1
     fi
 done
 
