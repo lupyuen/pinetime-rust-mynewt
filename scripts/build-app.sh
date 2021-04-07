@@ -112,13 +112,13 @@ pushd tmprustlib >/dev/null
 rust_build=$rust_build_dir/libapp.a
 echo $rust_build
 ls -l $rust_build
-####for f in $rust_build
-####do
-####    if [ -e $f ]; then
-####        #  echo "$ar_cmd x $f"
-####        $ar_cmd x $f >/dev/null 2>&1
-####    fi
-####done
+for f in $rust_build
+do
+    if [ -e $f ]; then
+        #  echo "$ar_cmd x $f"
+        $ar_cmd x $f >/dev/null 2>&1
+    fi
+done
 
 #  Archive the object (*.o) files into rustlib.a.
 #  echo "$ar_cmd r rustlib.a *.o"
@@ -130,7 +130,7 @@ if [ ! -d $rust_app_dir ]; then
 fi
 set -x
 ####cp $PWD/rustlib.a $rust_app_dest
-set +x
+####set +x
 
 #  Update the timestamp on libs_rust_app.a so that Mynewt build won't overwrite the Rust app we have copied.
 ####$ar_cmd s $rust_app_dest
