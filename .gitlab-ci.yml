@@ -27,6 +27,8 @@ build:
     - popd
     - export PATH=$PATH:/tmp/go/bin
     - go version
+    - ln -s /tmp/go/bin/go /usr/local/bin/go
+    - /usr/local/bin/go version
 
     # Install newt
     - source scripts/install-version.sh
@@ -34,7 +36,6 @@ build:
     #  "master" was previously "$mynewt_version". See https://github.com/apache/mynewt-core/pull/2430
     - git clone --branch master https://github.com/apache/mynewt-newt/
     - cd mynewt-newt/
-    - go version
     - ./build.sh
     - newt/newt version
     - popd
