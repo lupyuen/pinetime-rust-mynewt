@@ -177,7 +177,7 @@
 <p>PineTime should start correctly with the old firmware with SMP service operational. We may perform the firmware update again when the new firmware is fixed.</p>
 </li>
 </ol>
-<p>Thankfully most of this firmware update and rollback logic is built into the <a href="https://github.com/apache/mynewt-mcumgr">MCU Manager Library</a>. For the swapping of firmware we'll use another open-source component: <a href="https://juullabs-oss.github.io/mcuboot/"><strong>MCUBoot Bootloader</strong></a>.  More about MCUBoot in a while.</p>
+<p>Thankfully most of this firmware update and rollback logic is built into the <a href="https://github.com/apache/mynewt-mcumgr">MCU Manager Library</a>. For the swapping of firmware we'll use another open-source component: <a href="https://mcuboot.com"><strong>MCUBoot Bootloader</strong></a>.  More about MCUBoot in a while.</p>
 <h1 id="pinetime-flash-rom-layout" class="section-header"><a href="#pinetime-flash-rom-layout">3 PineTime Flash ROM Layout</a></h1>
 <p>To support firmware update (with rollback) via Bluetooth LE, PineTime Firmware Developers would have to adopt a common layout for storing flash images in Flash ROM.</p>
 <p>Here's the proposed <strong>Flash ROM Layout</strong> that supports Active and Standby Firmware Images for firmware update and rollback...</p>
@@ -200,7 +200,7 @@
 <p><em>Proposed Flash ROM Layout for PineTime. Derived from this <a href="https://github.com/apache/mynewt-core/blob/master/hw/bsp/nordic_pca10040/bsp.yml">Flash ROM layout for nRF52832</a>.</em></p>
 <ol>
 <li>
-<p><strong>Bootloader</strong>: Located at the start of PineTime's Flash ROM, the open-source <a href="https://juullabs-oss.github.io/mcuboot">MCUBoot Bootloader</a> is the first thing that PineTime runs upon booting. </p>
+<p><strong>Bootloader</strong>: Located at the start of PineTime's Flash ROM, the open-source <a href="https://mcuboot.com">MCUBoot Bootloader</a> is the first thing that PineTime runs upon booting. </p>
 <p>For firmware update and rollback, the Bootloader swaps the Active and Standby Firmware Images. Then it jumps to the Active Firmware code.</p>
 </li>
 <li>
@@ -474,7 +474,7 @@
 <p><strong>NimBLE Bluetooth Stack:</strong> Implements the Bluetooth LE network transport for communicating with mobile phones</p>
 </li>
 </ol>
-<p>Now we'll cover the third and final open-source component: <a href="https://juullabs-oss.github.io/mcuboot"><strong>MCUBoot Bootloader</strong></a>.  When PineTime has been configured for firmware update, the MCUBoot Bootloader is the first thing that PineTime executes when booting.</p>
+<p>Now we'll cover the third and final open-source component: <a href="https://mcuboot.com"><strong>MCUBoot Bootloader</strong></a>.  When PineTime has been configured for firmware update, the MCUBoot Bootloader is the first thing that PineTime executes when booting.</p>
 <p>MCUBoot (coded in C) plays a critical role in the firmware update process... During firmware update, MCUBoot swaps the old and new firmware images (and swaps them back if the new firmware fails to start)</p>
 <p><img src="https://lupyuen.github.io/images/dfu-rollback.png" alt="Firmware Update with Rollback on PineTime" /></p>
 <p><em>What's inside the Firmware Image?</em></p>
@@ -490,7 +490,7 @@
 </code></pre>
 <p><img src="https://lupyuen.github.io/images/dfu-image.png" alt="Firmware Update Image for PineTime" /></p>
 <p><em>What's inside the Image Header?</em></p>
-<p>The Image Header consists of 32 bytes (<code>0x20</code>) in little endian byte order (<a href="https://juullabs-oss.github.io/mcuboot/design.html">as defined here</a>)...</p>
+<p>The Image Header consists of 32 bytes (<code>0x20</code>) in little endian byte order (<a href="https://mcuboot.com/design.html">as defined here</a>)...</p>
 <table><thead><tr><th align="left">ROM Address</th><th align="left">Offset in <br> Image File</th><th align="right">Size <br> (bytes)</th><th align="left">Example</th><th align="left">Contents</th></tr></thead><tbody>
 <tr><td align="left"><code>0x8000</code>  </td><td align="left"><code>0x0000</code>  </td><td align="right">4     </td><td align="left"><code>3d  b8  f3  96</code>     </td><td align="left"><code>ih_magic</code>: <br> Magic Number, <br> must be <code>3d  b8  f3  96</code> <br><br></td></tr>
 <tr><td align="left"><code>0x8004</code></td><td align="left"><code>0x0004</code></td><td align="right">4     </td><td align="left"><code>00  00  00  00</code></td><td align="left"><code>ih_load_addr</code>: <br> Must be <code>00 00 00 00</code> <br><br></td></tr>
@@ -647,13 +647,13 @@ mcuboot/scripts/imgtool.py verify my_sensor_app.img
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.0.1"><code>pinetime-rust-mynewt/releases/tag/v4.0.1</code></a></p>
 <p>When running the firmware image with the build of MCUBoot from the previous section, the following log will be shown...</p>
 <p><img src="https://lupyuen.github.io/images/dfu-runimage.png" alt="Running the sample firmware image" /></p>
-<p><a href="https://juullabs-oss.github.io/mcuboot/imgtool.html">More about <code>imgtool.py</code></a></p>
+<p><a href="https://mcuboot.com/mcuboot/imgtool.html">More about <code>imgtool.py</code></a></p>
 <h1 id="mark-pinetime-firmware-as-pending" class="section-header"><a href="#mark-pinetime-firmware-as-pending">9 Mark PineTime Firmware As Pending</a></h1>
 <p>We need to set the Firmware Status to Pending so that MCUBoot will swap the firmware from External SPI Flash to Internal Flash ROM.</p>
 <p>Here is the function <code>boot_set_pending</code> from the MCUBoot Library for setting the Firmware Status to Pending...</p>
-<p><a href="https://github.com/mcu-tools/mcuboot/blob/master/boot/bootutil/src/bootutil_public.c#L484-L544"><code>mcuboot/boot/bootutil/src/bootutil_misc.c</code></a></p>
+<p><a href="https://github.com/mcu-tools/mcuboot/blob/master/boot/bootutil/src/bootutil_public.c#L484-L544"><code>mcuboot/boot/bootutil/src/bootutil_public.c</code></a></p>
 <p>The function sets the pending flag in the image trailer...</p>
-<p><a href="https://github.com/mcu-tools/mcuboot/blob/master/docs/design.md#image-trailer">MCUBoot Image Trailer</a></p>
+<p><a href="https://mcuboot.com/mcuboot/design.html#image-trailer">MCUBoot Image Trailer</a></p>
 <p>Once we set the Swap Type to <code>BOOT_SWAP_TYPE_TEST</code>, MCUBoot will swap in the new firmware.</p>
 <h1 id="mark-pinetime-firmware-as-ok" class="section-header"><a href="#mark-pinetime-firmware-as-ok">10 Mark PineTime Firmware As OK</a></h1>
 <p>MCUBoot Bootloader has a helpful feature that prevents PineTime from getting bricked during firmware update... When MCUBoot senses that the new firmware isn't running properly, MCUBoot rolls back PineTime to the old firmware.</p>
@@ -669,7 +669,7 @@ mcuboot/scripts/imgtool.py verify my_sensor_app.img
 int boot_set_confirmed(void)
 </code></pre>
 <p><code>boot_set_confirmed()</code> is supported on Mynewt, RIOT and Zephyr.</p>
-<p>See <a href="https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/include/bootutil/bootutil.h#L103"><code>bootutil.h</code></a> and <a href="https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/src/bootutil_misc.c#L718-L774"><code>bootutil_misc.c</code></a></p>
+<p>See <a href="https://github.com/mcu-tools/mcuboot/blob/master/boot/bootutil/include/bootutil/bootutil_public.h#L170"><code>bootutil_public.h</code></a> and <a href="https://github.com/mcu-tools/mcuboot/blob/master/boot/bootutil/src/bootutil_public.c#L553-L602"><code>bootutil_public.c</code></a></p>
 <p><em>Where is the Image OK status stored?</em></p>
 <p>In the <strong>Image Trailer</strong> located at the end of the Active Flash Slot.</p>
 <p>The Image OK field in the Image Trailer contains a single byte indicating whether the image in this slot has been confirmed as good by the user (<code>0x01</code> means confirmed; <code>0xff</code> means not confirmed).</p>
@@ -682,7 +682,7 @@ int boot_set_confirmed(void)
   0x0f505235, 
   0x8079b62c };
 </code></pre>
-<p>More about the <a href="https://juullabs-oss.github.io/mcuboot/design.html#image-trailer">Image Trailer</a></p>
+<p>More about the <a href="https://mcuboot.com/design.html#image-trailer">Image Trailer</a></p>
 <p><em>How do we inspect the Image OK status?</em></p>
 <p>Use <a href="https://mynewt.apache.org/latest/os/modules/devmgmt/newtmgr.html">Newt Manager</a> on Raspberry Pi. In the log below, <code>image=0 slot=0 ... active confirmed</code> means that the Active Firmware (Slot 0) is confirmed OK...</p>
 <pre><code class="language-bash"># Build Newt Manager on Raspberry Pi
@@ -711,7 +711,7 @@ Images:
 Split status: N/A (0)
 </code></pre>
 <p>The complete Raspberry Pi log may be found near the end of the article.</p>
-<p><a href="https://juullabs-oss.github.io/mcuboot/design.html">More about the design of MCUBoot</a></p>
+<p><a href="https://mcuboot.com/design.html">More about the design of MCUBoot</a></p>
 <h1 id="checklist-for-pinetime-firmware-developers" class="section-header"><a href="#checklist-for-pinetime-firmware-developers">11 Checklist for PineTime Firmware Developers</a></h1>
 <p>In summary, PineTime Firmware Developers would have to do the following to support firmware updates over Bluetooth LE...</p>
 <ol>
