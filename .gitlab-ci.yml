@@ -34,6 +34,7 @@ build:
     #  "master" was previously "$mynewt_version". See https://github.com/apache/mynewt-core/pull/2430
     - git clone --branch master https://github.com/apache/mynewt-newt/
     - cd mynewt-newt/
+    - go version
     - ./build.sh
     - newt/newt version
     - popd
