@@ -547,6 +547,12 @@ __For Windows:__ We don't need to edit `config.sh`
     program bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin verify 0x00000000
     ```
 
+    TODO: The bootloader has moved to a new location with the latest version of `newt`...
+
+    ```text
+    bin/targets/nrf52_boot/app/@mcuboot/boot/mynewt/mynewt.elf
+    ```
+
 1. Flash the bootloader...
 
     __For Linux and macOS:__
