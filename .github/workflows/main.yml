@@ -77,6 +77,7 @@ jobs:
         #  Overwrite MCUBoot with newer version
         source scripts/install-version.sh
         mkdir repos
+        cp -r patch/repos-windows/.configs repos
         cd repos
         ####rm -rf mcuboot
         git clone --branch $mcuboot_version https://github.com/JuulLabs-OSS/mcuboot mcuboot
