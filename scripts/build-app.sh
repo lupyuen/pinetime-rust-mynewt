@@ -115,25 +115,26 @@ ls -l $rust_build
 for f in $rust_build
 do
     if [ -e $f ]; then
-        #  echo "$ar_cmd x $f"
+        echo "$ar_cmd x $f"
+        ls -l $f
         $ar_cmd x $f >/dev/null 2>&1
     fi
 done
 
 #  Archive the object (*.o) files into rustlib.a.
-#  echo "$ar_cmd r rustlib.a *.o"
-####$ar_cmd r rustlib.a *.o >/dev/null 2>&1
+echo "$ar_cmd r rustlib.a *.o"
+$ar_cmd r rustlib.a *.o >/dev/null 2>&1
 
 #  Overwrite libs_rust_app.a in the Mynewt build by rustlib.a.  libs_rust_app.a was originally created from libs/rust_app.
 if [ ! -d $rust_app_dir ]; then
     mkdir -p $rust_app_dir
 fi
 set -x
-####cp $PWD/rustlib.a $rust_app_dest
-####set +x
+cp $PWD/rustlib.a $rust_app_dest
+set +x
 
 #  Update the timestamp on libs_rust_app.a so that Mynewt build won't overwrite the Rust app we have copied.
-####$ar_cmd s $rust_app_dest
+$ar_cmd s $rust_app_dest
 
 #  Dump the ELF and disassembly for the compiled Rust application and libraries (except libcore)
 #  $objdump_cmd -t -S            --line-numbers --wide rustlib.a >../logs/rustlib.S 2>&1
