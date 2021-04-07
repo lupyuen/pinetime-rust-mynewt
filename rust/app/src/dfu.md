@@ -2,6 +2,8 @@
 
 ![Platforms in development for PineTime Smart Watch](https://lupyuen.github.io/images/dfu-platforms.png)
 
+📝 _11 May 2020_
+
 [ UPDATE: [Check out the followup article here](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot) ]
 
 Thanks to the FOSS Community, [PineTime Smart Watch](https://wiki.pine64.org/index.php/PineTime) has an incredible variety of FOSS operating systems in the works: [FreeRTOS](https://github.com/JF002/Pinetime), [MicroPython](https://github.com/daniel-thompson/wasp-os), [Mynewt](https://github.com/lupyuen/pinetime-rust-mynewt), [RIOT](https://github.com/bosmoment/PineTime-apps), Rust [RTFM](https://github.com/wose/xochron) ([another](https://github.com/dbrgn/pinetime-rtfm)), [TinyGo](https://github.com/aykevl/go-smartwatch), [Tock](https://www.tockos.org/), [Zephyr](https://github.com/najnesnaj/pinetime-zephyr) ([another](https://github.com/Dejvino/pinetime-hermes-firmware.git), [yet another](https://github.com/endian-albin/pinetime-hypnos)), ...
@@ -1133,3 +1135,13 @@ Split status: N/A (0)
 [ UPDATE: [Check out the followup article here](https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot) ]
 
 [Check out the other PineTime articles](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md)
+
+-   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
+
+-   [Check out my articles](https://lupyuen.github.io)
+
+-   [RSS Feed](https://lupyuen.github.io/rss.xml)
+
+_Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
+
+[`pinetime-rust-mynewt/rust/ app/src/dfu.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/dfu.md)

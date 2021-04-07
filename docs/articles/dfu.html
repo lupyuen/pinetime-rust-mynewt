@@ -94,8 +94,7 @@
 <li><a href="#linux-app-for-pinetime">15.4 Linux App for PineTime</a><ul></ul></li></ul></li>
 <li><a href="#other-pinetime-firmware-update-solutions">16 Other PineTime Firmware Update Solutions</a><ul></ul></li>
 <li><a href="#further-reading">17 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/dfu-platforms.png" alt="Platforms in development for PineTime Smart Watch" /></p>
-    <p>📝 <em>11 May 2020</em></p>
-
+<p>📝 <em>11 May 2020</em></p>
 <p>[ UPDATE: <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">Check out the followup article here</a> ]</p>
 <p>Thanks to the FOSS Community, <a href="https://wiki.pine64.org/index.php/PineTime">PineTime Smart Watch</a> has an incredible variety of FOSS operating systems in the works: <a href="https://github.com/JF002/Pinetime">FreeRTOS</a>, <a href="https://github.com/daniel-thompson/wasp-os">MicroPython</a>, <a href="https://github.com/lupyuen/pinetime-rust-mynewt">Mynewt</a>, <a href="https://github.com/bosmoment/PineTime-apps">RIOT</a>, Rust <a href="https://github.com/wose/xochron">RTFM</a> (<a href="https://github.com/dbrgn/pinetime-rtfm">another</a>), <a href="https://github.com/aykevl/go-smartwatch">TinyGo</a>, <a href="https://www.tockos.org/">Tock</a>, <a href="https://github.com/najnesnaj/pinetime-zephyr">Zephyr</a> (<a href="https://github.com/Dejvino/pinetime-hermes-firmware.git">another</a>, <a href="https://github.com/endian-albin/pinetime-hypnos">yet another</a>), ...</p>
 <p>But these embedded platforms are accessible only by brave PineTime Owners who dare to pry open their watches very carefully... And connect a Raspberry Pi (or ST-Link) to the tiny delicate 4-pin SWD port recessed deep inside... Just to flash the PineTime firmware.</p>
@@ -652,9 +651,9 @@ mcuboot/scripts/imgtool.py verify my_sensor_app.img
 <h1 id="mark-pinetime-firmware-as-pending" class="section-header"><a href="#mark-pinetime-firmware-as-pending">9 Mark PineTime Firmware As Pending</a></h1>
 <p>We need to set the Firmware Status to Pending so that MCUBoot will swap the firmware from External SPI Flash to Internal Flash ROM.</p>
 <p>Here is the function <code>boot_set_pending</code> from the MCUBoot Library for setting the Firmware Status to Pending...</p>
-<p><a href="https://github.com/JuulLabs-OSS/mcuboot/blob/master/boot/bootutil/src/bootutil_misc.c#L645-L717"><code>mcuboot/boot/bootutil/src/bootutil_misc.c</code></a></p>
+<p><a href="https://github.com/mcu-tools/mcuboot/blob/master/boot/bootutil/src/bootutil_public.c#L484-L544"><code>mcuboot/boot/bootutil/src/bootutil_misc.c</code></a></p>
 <p>The function sets the pending flag in the image trailer...</p>
-<p><a href="https://juullabs-oss.github.io/mcuboot/design.html#image-trailer">MCUBoot Image Trailer</a></p>
+<p><a href="https://github.com/mcu-tools/mcuboot/blob/master/docs/design.md#image-trailer">MCUBoot Image Trailer</a></p>
 <p>Once we set the Swap Type to <code>BOOT_SWAP_TYPE_TEST</code>, MCUBoot will swap in the new firmware.</p>
 <h1 id="mark-pinetime-firmware-as-ok" class="section-header"><a href="#mark-pinetime-firmware-as-ok">10 Mark PineTime Firmware As OK</a></h1>
 <p>MCUBoot Bootloader has a helpful feature that prevents PineTime from getting bricked during firmware update... When MCUBoot senses that the new firmware isn't running properly, MCUBoot rolls back PineTime to the old firmware.</p>
@@ -999,6 +998,19 @@ Split status: N/A (0)
 <h1 id="further-reading" class="section-header"><a href="#further-reading">17 Further Reading</a></h1>
 <p>[ UPDATE: <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">Check out the followup article here</a> ]</p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
+<ul>
+<li>
+<p><a href="https://github.com/sponsors/lupyuen">Sponsor me a coffee</a></p>
+</li>
+<li>
+<p><a href="https://lupyuen.github.io">Check out my articles</a></p>
+</li>
+<li>
+<p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
+</li>
+</ul>
+<p><em>Got a question, comment or suggestion? Create an Issue or submit a Pull Request here...</em></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/dfu.md"><code>pinetime-rust-mynewt/rust/ app/src/dfu.md</code></a></p>
 
     
 </body>
