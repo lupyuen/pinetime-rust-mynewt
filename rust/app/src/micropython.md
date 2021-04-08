@@ -1262,6 +1262,18 @@ The work continues! We have a showstopper: Unable to handle Bluetooth packets du
 
 I'll continue to experiment on wasp-os with [guidance](https://forum.pine64.org/showthread.php?tid=9017&page=4) from [Daniel](https://github.com/daniel-thompson) and keep this article updated!
 
+-   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
+
+-   [Discuss this article on Pine64 Forum](https://forum.pine64.org/showthread.php?tid=10055)
+
+-   [Check out my articles](https://lupyuen.github.io)
+
+-   [RSS Feed](https://lupyuen.github.io/rss.xml)
+
+_Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
+
+[`pinetime-rust-mynewt/rust/ app/src/micropython.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/micropython.md)
+
 # Further Reading
 
 [wasp-os documentation](https://wasp-os.readthedocs.io/en/latest/)
@@ -1275,13 +1287,3 @@ _["MCUBoot Bootloader for PineTime Smart Watch (nRF52)"](https://lupyuen.github.
 _["Firmware Update over Bluetooth Low Energy on PineTime Smart Watch"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu)_
 
 _["Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest)_
-
--   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
-
--   [Check out my articles](https://lupyuen.github.io)
-
--   [RSS Feed](https://lupyuen.github.io/rss.xml)
-
-_Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
-
-[`pinetime-rust-mynewt/rust/ app/src/micropython.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/micropython.md)

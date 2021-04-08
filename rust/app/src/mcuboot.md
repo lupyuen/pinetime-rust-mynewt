@@ -1489,6 +1489,8 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 -   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
 
+-   [Discuss this article on Pine64 Forum](https://forum.pine64.org/showthread.php?tid=9880)
+
 -   [Check out my articles](https://lupyuen.github.io)
 
 -   [RSS Feed](https://lupyuen.github.io/rss.xml)

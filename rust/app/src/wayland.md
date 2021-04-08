@@ -1382,6 +1382,8 @@ If you're keen to help make __LVGL the Newer, Simpler App Toolkit__ on Wayland, 
 
 -   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
 
+-   [Discuss this article on Pine64 Forum](https://forum.pine64.org/showthread.php?tid=10833)
+
 -   [Check out my articles](https://lupyuen.github.io)
 
 -   [RSS Feed](https://lupyuen.github.io/rss.xml)

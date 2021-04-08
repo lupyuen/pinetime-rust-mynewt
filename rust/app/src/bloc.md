@@ -1347,6 +1347,18 @@ If you're keen to help out with the PineTime Companion App (or anything else in 
 
 [PineTime Chatroom on Matrix / Discord / Telegram / IRC](https://wiki.pine64.org/index.php/PineTime#Community)
 
+-   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
+
+-   [Discuss this article on Pine64 Forum](https://forum.pine64.org/showthread.php?tid=10457)
+
+-   [Check out my articles](https://lupyuen.github.io)
+
+-   [RSS Feed](https://lupyuen.github.io/rss.xml)
+
+_Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
+
+[`pinetime-rust-mynewt/rust/ app/src/bloc.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/bloc.md)
+
 # Further Reading
 
 _["Convert Go to Flutter and Dart for PineTime Companion App"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion)_
@@ -1360,16 +1372,6 @@ _["MCUBoot Bootloader for PineTime Smart Watch (nRF52)"](https://lupyuen.github.
 _["Firmware Update over Bluetooth Low Energy on PineTime Smart Watch"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu)_
 
 _["Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)"](https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest)_
-
--   [Sponsor me a coffee](https://github.com/sponsors/lupyuen)
-
--   [Check out my articles](https://lupyuen.github.io)
-
--   [RSS Feed](https://lupyuen.github.io/rss.xml)
-
-_Got a question, comment or suggestion? Create an Issue or submit a Pull Request here..._
-
-[`pinetime-rust-mynewt/rust/ app/src/bloc.md`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/bloc.md)
 
 # Sample Android Debug Log
 

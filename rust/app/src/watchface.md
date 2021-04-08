@@ -860,6 +860,8 @@ In the meantime, please go right ahead to create your own Watch Faces and publis
 
 -   [Discuss this article on Reddit](https://www.reddit.com/r/rust/comments/jckeih/create_your_own_pinetime_watch_face_in_rust_and/?utm_source=share&utm_medium=web2x&context=3)
 
+-   [Discuss this article on Pine64 Forum](https://forum.pine64.org/showthread.php?tid=11848)
+
 -   [Check out my articles](https://lupyuen.github.io)
 
 -   [RSS Feed](https://lupyuen.github.io/rss.xml)

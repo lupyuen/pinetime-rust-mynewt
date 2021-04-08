@@ -702,6 +702,8 @@ Let's learn how in the next article...
 
 -   [Discuss this article on Reddit](https://www.reddit.com/r/PINE64official/comments/jbz1qc/bluetooth_time_sync_and_lvgl_on_pinetime_mynewt/?utm_source=share&utm_medium=web2x&context=3)
 
+-   [Discuss this article on Pine64 Forum](https://forum.pine64.org/showthread.php?tid=11838)
+
 -   [Check out my articles](https://lupyuen.github.io)
 
 -   [RSS Feed](https://lupyuen.github.io/rss.xml)
